@@ -1,3 +1,3 @@
 export interface I18nService {
-	t(key: string): string;
+  t(key: string): string;
 }
