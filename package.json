@@ -1,0 +1,62 @@
+{
+  "name": "react-application-core",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "clean": "npm cache clean",
+    "tsc-build": "node \"node_modules/typescript/bin/tsc\"",
+    "deploy": "npm install && npm run tsc-build && npm publish ./"
+  },
+  "peerDependencies": {
+    "react": "^15.6.1",
+    "redux": "^3.7.2",
+    "react-router-dom": "^4.1.2",
+    "inversify": "^4.3.0",
+    "inversify-binding-decorators": "^3.0.0",
+    "inversify-inject-decorators": "^3.0.1",
+    "core-js": "^2.4.1"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.42",
+    "@types/history": "^4.6.0",
+    "@types/node": "^8.0.16",
+    "@types/ramda": "^0.24.7",
+    "@types/react": "^15.0.38",
+    "@types/react-dom": "^15.5.1",
+    "@types/jasmine": "2.2.29",
+    "inversify": "^4.3.0",
+    "inversify-binding-decorators": "^3.0.0",
+    "inversify-inject-decorators": "^3.0.1",
+    "react": "^15.6.1",
+    "redux": "^3.7.2",
+    "react-router-dom": "^4.1.2",
+    "core-js": "^2.4.1",
+    "jasmine-core": "2.4.1",
+    "karma": "1.2.0",
+    "karma-chrome-launcher": "2.0.0 ",
+    "karma-coverage": "1.1.1",
+    "karma-jasmine": "1.0.2",
+    "karma-webpack": "1.8.0",
+    "awesome-typescript-loader": "2.2.1",
+    "ts-helpers": "1.1.1",
+    "ts-node": "1.3.0",
+    "tslint": "3.15.1",
+    "tslint-loader": "2.1.3",
+    "typescript": "2.4.2",
+    "webpack": "2.1.0-beta.21"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apoterenko/react-application-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/apoterenko/react-application-core/issues"
+  },
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "main": "index.js",
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
+  }
+}
