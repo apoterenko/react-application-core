@@ -1,5 +1,5 @@
 import { Container, interfaces } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
+import * as getDecorators from 'inversify-inject-decorators/lib';
 import { makeProvideDecorator } from 'inversify-binding-decorators';
 
 export const appContainer = new Container();
