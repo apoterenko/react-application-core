@@ -12,9 +12,11 @@
     "redux": "^3.7.2",
     "react-router-dom": "^4.1.2",
     "inversify": "^4.3.0",
-    "inversify-binding-decorators": "^3.0.0",
-    "inversify-inject-decorators": "^3.0.1",
     "core-js": "^2.4.1"
+  },
+  "dependencies": {
+    "inversify-binding-decorators": "^3.0.0",
+    "inversify-inject-decorators": "^3.0.1"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.42",
@@ -25,8 +27,6 @@
     "@types/react-dom": "^15.5.1",
     "@types/jasmine": "2.2.29",
     "inversify": "^4.3.0",
-    "inversify-binding-decorators": "^3.0.0",
-    "inversify-inject-decorators": "^3.0.1",
     "react": "^15.6.1",
     "redux": "^3.7.2",
     "react-router-dom": "^4.1.2",
