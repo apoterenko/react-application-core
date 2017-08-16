@@ -7,11 +7,14 @@ import { DI_TYPES } from '../../di/di.interface';
 import { BaseComponent } from './base.component';
 import { IBaseContainerProps, IBaseContainer } from './base.interface';
 import { ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/router.interface';
+import { IApplicationState } from '../../store/store.interface';
+import { IApplicationPermissionState } from '../../permission/permission.interface';
 
 export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                           TAppState,
+                           TAppState extends IApplicationState<TPermissionState>,
                            TInternalProps extends IBaseContainerProps,
-                           TInternalState>
+                           TInternalState,
+                           TPermissionState extends IApplicationPermissionState>
     extends BaseComponent<TContainer, TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 
