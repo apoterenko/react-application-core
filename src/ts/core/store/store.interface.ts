@@ -1,7 +1,18 @@
-import { IApplicationPermissionState } from '../permission/permission.interface';
-import { IApplicationRootState } from '../component/root/root.interface';
+import {
+  IApplicationPermissionState,
+  INITIAL_PERMISSION_STATE
+} from '../permission/permission.interface';
+import {
+  IApplicationRootState,
+  INITIAL_APPLICATION_ROOT_STATE
+} from '../component/root/root.interface';
 
 export interface IApplicationState<TPermissionState extends IApplicationPermissionState> {
   root: IApplicationRootState;
   permission: TPermissionState;
 }
+
+export const INITIAL_APPLICATION_STATE: IApplicationState<any> = {
+  root: INITIAL_APPLICATION_ROOT_STATE,
+  permission: INITIAL_PERMISSION_STATE
+};

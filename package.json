@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
@@ -11,6 +11,7 @@
     "react": "^15.6.1",
     "redux": "^3.7.2",
     "react-router-dom": "^4.1.2",
+    "redux-effects-promise": "^0.0.13",
     "inversify": "^4.3.0",
     "core-js": "^2.4.1"
   },
@@ -30,6 +31,9 @@
     "react": "^15.6.1",
     "redux": "^3.7.2",
     "react-router-dom": "^4.1.2",
+    "redux-effects-promise": "^0.0.13",
+    "redux-devtools": "^3.4.0",
+    "redux-devtools-extension": "^2.13.2",
     "core-js": "^2.4.1",
     "jasmine-core": "2.4.1",
     "karma": "1.2.0",
