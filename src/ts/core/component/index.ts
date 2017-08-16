@@ -8,3 +8,4 @@ export * from './application/application.interface';
 export * from './root/root.container';
 export * from './root/root.interface';
 export * from './root/root.reducer';
+export * from './store/container.factory';
