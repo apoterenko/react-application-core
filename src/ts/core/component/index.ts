@@ -5,6 +5,7 @@ export * from './material/material.component';
 export * from './material/material.interface';
 export * from './plugin/component-plugin.interface';
 export * from './application/application.interface';
+export * from './application/application.container';
 export * from './root/root.container';
 export * from './root/root.interface';
 export * from './root/root.reducer';
