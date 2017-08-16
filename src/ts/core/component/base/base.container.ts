@@ -5,15 +5,19 @@ import { Path, LocationState } from 'history';
 import { lazyInject } from '../../di/di.module';
 import { DI_TYPES } from '../../di/di.interface';
 import { BaseComponent } from './base.component';
-import { IBaseContainerProps, IBaseContainer } from './base.interface';
+import {
+  IBaseContainerInternalProps,
+  IBaseContainer,
+  IBaseContainerInternalState
+} from './base.interface';
 import { ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/router.interface';
 import { IApplicationState } from '../../store/store.interface';
 import { IApplicationPermissionState } from '../../permission/permission.interface';
 
 export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
                            TAppState extends IApplicationState<TPermissionState>,
-                           TInternalProps extends IBaseContainerProps,
-                           TInternalState,
+                           TInternalProps extends IBaseContainerInternalProps,
+                           TInternalState extends IBaseContainerInternalState,
                            TPermissionState extends IApplicationPermissionState>
     extends BaseComponent<TContainer, TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
