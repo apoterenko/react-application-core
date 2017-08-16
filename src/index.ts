@@ -5,4 +5,8 @@ export * from './ts/core/router/index';
 export * from './ts/core/store/index';
 export * from './ts/core/permission/index';
 export * from './ts/core/env/index';
+export * from './ts/core/settings/index';
+export * from './ts/core/storage/index';
+export * from './ts/core/event/index';
+export * from './ts/core/util';
 export * from './ts/core/definition.interface';

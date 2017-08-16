@@ -6,5 +6,6 @@ export const DI_TYPES = {
   Storage: Symbol('Storage'),
   EventManager: Symbol('EventManager'),
   I18n: Symbol('I18n'),
-  Permission: Symbol('Permission')
+  Permission: Symbol('Permission'),
+  Settings: Symbol('Settings')
 };
