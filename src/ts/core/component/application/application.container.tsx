@@ -13,6 +13,7 @@ import { IRouter } from '../../router/router.interface';
 import { appContainer, lazyInject } from '../../di/di.module';
 import { IApplicationContainerProps } from './application.interface';
 import { clone } from '../../util/clone';
+import { IApplicationSettings } from '../../settings/settings.interface';
 
 export abstract class ApplicationContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
                                            TAppState extends IApplicationState<TPermissionState>,
@@ -23,10 +24,10 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
 
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
+  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
   constructor(props: TInternalProps, sectionName = 'application') {
     super(props, sectionName);
-
     this.onUnload = this.onUnload.bind(this);
   }
 
@@ -43,26 +44,31 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
   }
 
   componentWillMount(): void {
+    super.componentWillMount();
     this.eventManager.add(window, 'unload', this.onUnload);
   }
 
   componentWillUnmount(): void {
+    super.componentWillUnmount();
     this.eventManager.remove(window, 'unload', this.onUnload);
   }
 
   componentDidMount(): void {
+    super.componentDidMount();
     appContainer.bind<IRouter>(DI_TYPES.Router).toConstantValue(
         // We cannot to get access to history instance other way. This instance is private
         Reflect.get(this.refs.router, 'history')
     );
   }
 
-  protected clearStateBeforeSerialization(state: TAppState): TAppState {
-    return state;
+  protected onUnload(): void {
+    if (this.applicationSettings.usePersistence) {
+      this.saveState();
+    }
   }
 
-  private onUnload(): void {
-    this.saveState();
+  protected clearStateBeforeSerialization(state: TAppState): TAppState {
+    return state;
   }
 
   private saveState(): void {
