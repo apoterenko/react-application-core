@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { PureComponent } from 'react';
 
 import { lazyInject } from '../../di/di.module';
 import { I18nService } from '../../i18n/i18n.interface';
@@ -13,7 +13,7 @@ import { IBaseComponent } from './base.interface';
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                            TInternalProps,
                            TInternalState>
-    extends React.Component<TInternalProps, TInternalState>
+    extends PureComponent<TInternalProps, TInternalState>
     implements IBaseComponent<TInternalProps, TInternalState>,
                IPluginableComponent<TComponent, TInternalProps, TInternalState> {
 
