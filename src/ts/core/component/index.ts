@@ -9,4 +9,6 @@ export * from './application/application.container';
 export * from './root/root.container';
 export * from './root/root.interface';
 export * from './root/root.reducer';
+export * from './form/form.container';
+export * from './form/form.interface';
 export * from './store/container.factory';
