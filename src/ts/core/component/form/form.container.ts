@@ -4,7 +4,7 @@ import {
   IFormContainer,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  IFormContainerProps,
+  IFormContainerInternalProps,
   FORM_CREATED_ENTITY_ID,
   IFormEntity
 } from './form.interface';
@@ -18,7 +18,7 @@ import { IApiRequest } from '../../api/api.interface';
 export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalProps, TInternalState>,
                            TAppState extends IApplicationState<TPermissionState, TPermissions>,
                            TEntity extends IFormEntity,
-                           TInternalProps extends IFormContainerProps<TEntity>,
+                           TInternalProps extends IFormContainerInternalProps<TEntity>,
                            TInternalState extends IBaseContainerInternalState,
                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                            TPermissions>

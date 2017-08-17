@@ -19,7 +19,7 @@ export interface IFormAttributes<TEntity extends IFormEntity> {
   message?: string;
 }
 
-export interface IFormContainerProps<TEntity extends IFormEntity>
+export interface IFormContainerInternalProps<TEntity extends IFormEntity>
     extends IBaseContainerInternalProps, IFormAttributes<TEntity> {
 }
 
@@ -27,7 +27,7 @@ export interface IFormContainerState<TEntity extends IFormEntity> extends IFormA
 }
 
 export interface IFormContainer<TEntity extends IFormEntity,
-                                TInternalProps extends IFormContainerProps<TEntity>,
+                                TInternalProps extends IFormContainerInternalProps<TEntity>,
                                 TInternalState extends IBaseContainerInternalState>
     extends IBaseContainer<TInternalProps, TInternalState> {
   dispatchFormEvent(actionType: string): void;
