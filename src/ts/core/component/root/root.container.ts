@@ -25,6 +25,9 @@ export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TIn
   }
 
   componentWillMount(): void {
+    if (this.props.beforeEnter) {
+      this.props.beforeEnter();
+    }
     this.dispatch(ROOT_PATH_UPDATE_ACTION_TYPE, this.props.path);
 
     // The super method must be executed after change a root path!!
