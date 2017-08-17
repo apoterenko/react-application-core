@@ -9,10 +9,11 @@ import { IApplicationPermissionState } from '../../permission/permission.interfa
 import { IKeyValue } from '../../definition.interface';
 
 export const containerFactory = <TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                                 TAppState extends IApplicationState<TPermissionState>,
+                                 TAppState extends IApplicationState<TPermissionState, TPermissions>,
                                  TInternalProps extends IBaseContainerInternalProps,
                                  TInternalState extends IBaseContainerInternalState,
-                                 TPermissionState extends IApplicationPermissionState>
+                                 TPermissionState extends IApplicationPermissionState<TPermissions>,
+                                 TPermissions>
     (
         containerCtor: { new(...args): TContainer },
         mapper: (state: TAppState) => IKeyValue

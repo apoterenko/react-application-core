@@ -10,12 +10,13 @@ import { DI_TYPES } from '../../di/di.interface';
 import { lazyInject } from '../../di/di.module';
 
 export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-    TAppState extends IApplicationState<TPermissionState>,
+    TAppState extends IApplicationState<TPermissionState, TPermissions>,
     TInternalProps extends IRootContainerInternalProps,
     TInternalState extends IBaseContainerInternalState,
-    TPermissionState extends IApplicationPermissionState,
-    TPermissionObject>
-    extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState> {
+    TPermissionState extends IApplicationPermissionState<TPermissions>,
+    TPermissionObject,
+    TPermissions>
+    extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionService<TPermissionObject>;
 

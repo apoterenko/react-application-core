@@ -8,8 +8,9 @@ import { IApplicationPermissionState } from '../permission/permission.interface'
 
 let middlewares = [effectsMiddleware];
 
-export function storeFactory<TAppState extends IApplicationState<TPermissionState>,
-                             TPermissionState extends IApplicationPermissionState>
+export function storeFactory<TAppState extends IApplicationState<TPermissionState, TPermissions>,
+                             TPermissionState extends IApplicationPermissionState<TPermissions>,
+                             TPermissions>
       (preloadedState: TAppState, appMiddlewares?: Middleware[]): Store<TAppState> {
   middlewares = middlewares.concat(appMiddlewares || []);
   return createStore(

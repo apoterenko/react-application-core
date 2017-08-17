@@ -20,8 +20,8 @@
       "jasmine"
     ]
   },
-  "compileOnSave": false,
-  "buildOnSave": false,
+  "compileOnSave": true,
+  "buildOnSave": true,
   "exclude": [
     "node_modules"
   ]

@@ -15,10 +15,11 @@ import { IApplicationState } from '../../store/store.interface';
 import { IApplicationPermissionState } from '../../permission/permission.interface';
 
 export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                           TAppState extends IApplicationState<TPermissionState>,
+                           TAppState extends IApplicationState<TPermissionState, TPermissions>,
                            TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState,
-                           TPermissionState extends IApplicationPermissionState>
+                           TPermissionState extends IApplicationPermissionState<TPermissions>,
+                           TPermissions>
     extends BaseComponent<TContainer, TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 

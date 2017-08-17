@@ -16,12 +16,12 @@ import { clone } from '../../util/clone';
 import { IApplicationSettings } from '../../settings/settings.interface';
 
 export abstract class ApplicationContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                                           TAppState extends IApplicationState<TPermissionState>,
+                                           TAppState extends IApplicationState<TPermissionState, TPermissions>,
                                            TInternalProps extends IApplicationContainerProps,
                                            TInternalState extends IBaseContainerInternalState,
                                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                                            TPermissions>
-    extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState> {
+    extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
 
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
