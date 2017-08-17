@@ -37,7 +37,9 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
           <BrowserRouter ref='router'
                          basename={this.props.basename}
           >
-            {this.routes}
+            <Switch>
+              {...this.routes}
+            </Switch>
           </BrowserRouter>
         </Provider>
     );
@@ -81,5 +83,5 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
     return this.storage.get(APPLICATION_STATE_KEY);
   }
 
-  protected abstract get routes(): JSX.Element;
+  protected abstract get routes(): JSX.Element[];
 }
