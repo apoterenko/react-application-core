@@ -19,7 +19,8 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
                                            TAppState extends IApplicationState<TPermissionState>,
                                            TInternalProps extends IApplicationContainerProps,
                                            TInternalState extends IBaseContainerInternalState,
-                                           TPermissionState extends IApplicationPermissionState>
+                                           TPermissionState extends IApplicationPermissionState<TPermissions>,
+                                           TPermissions>
     extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState> {
 
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
