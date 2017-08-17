@@ -9,4 +9,5 @@ export * from './ts/core/settings/index';
 export * from './ts/core/storage/index';
 export * from './ts/core/event/index';
 export * from './ts/core/util';
+export * from './ts/core/operation';
 export * from './ts/core/definition.interface';
