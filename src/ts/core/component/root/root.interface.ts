@@ -12,6 +12,7 @@ export interface IRootContainerInternalProps extends IBaseContainerInternalProps
   path?: string;
   computedMatch?: IRouterComputedMatch;
   beforeEnter?: () => void;
+  afterEnter?: () => void;
 }
 
 export interface IApplicationRootState {

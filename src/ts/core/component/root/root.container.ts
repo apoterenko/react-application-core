@@ -34,6 +34,14 @@ export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TIn
     super.componentWillMount();
   }
 
+  componentDidMount(): void {
+    super.componentDidMount();
+
+    if (this.props.afterEnter) {
+      this.props.afterEnter();
+    }
+  }
+
   protected get routeParams(): IKeyValue {
     return this.props.computedMatch.params;
   }
