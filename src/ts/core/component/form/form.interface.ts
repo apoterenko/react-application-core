@@ -5,8 +5,9 @@ import {
   IBaseContainerInternalState
 } from '../base/base.interface';
 
-export interface IFormAttributes<TChanges extends IKeyValue> {
-  changes?: TChanges;
+export interface IFormAttributes<TEntity extends IKeyValue> {
+  changes?: TEntity;
+  entity?: TEntity;
   valid?: boolean;
   dirty?: boolean;
   progress?: boolean;
@@ -14,15 +15,15 @@ export interface IFormAttributes<TChanges extends IKeyValue> {
   message?: string;
 }
 
-export interface IFormContainerProps<TChanges>
-    extends IBaseContainerInternalProps, IFormAttributes<TChanges> {
+export interface IFormContainerProps<TEntity extends IKeyValue>
+    extends IBaseContainerInternalProps, IFormAttributes<TEntity> {
 }
 
-export interface IFormContainerState<TChanges extends IKeyValue> extends IFormAttributes<TChanges> {
+export interface IFormContainerState<TEntity extends IKeyValue> extends IFormAttributes<TEntity> {
 }
 
-export interface IFormContainer<TChanges extends IKeyValue,
-                                TInternalProps extends IFormContainerProps<TChanges>,
+export interface IFormContainer<TEntity extends IKeyValue,
+                                TInternalProps extends IFormContainerProps<TEntity>,
                                 TInternalState extends IBaseContainerInternalState>
     extends IBaseContainer<TInternalProps, TInternalState> {
   dispatchFormEvent(actionType: string): void;

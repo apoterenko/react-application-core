@@ -13,11 +13,12 @@ import { IKeyValue } from '../../definition.interface';
 import { IBaseContainerInternalState } from '../base/base.interface';
 import { IApplicationPermissionState } from '../../permission/permission.interface';
 import { BaseContainer } from '../base/base.container';
+import { IApiRequest } from '../../api/api.interface';
 
-export class FormContainer<TContainer extends IFormContainer<TChanges, TInternalProps, TInternalState>,
+export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalProps, TInternalState>,
                            TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TChanges extends IKeyValue,
-                           TInternalProps extends IFormContainerProps<TChanges>,
+                           TEntity extends IKeyValue,
+                           TInternalProps extends IFormContainerProps<TEntity>,
                            TInternalState extends IBaseContainerInternalState,
                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                            TPermissions>
@@ -27,7 +28,7 @@ export class FormContainer<TContainer extends IFormContainer<TChanges, TInternal
         TInternalState,
         TPermissionState,
         TPermissions>
-    implements IFormContainer<TChanges, TInternalProps, TInternalState> {
+    implements IFormContainer<TEntity, TInternalProps, TInternalState> {
 
   constructor(props: TInternalProps, sectionName: string) {
     super(props, sectionName);
@@ -55,19 +56,19 @@ export class FormContainer<TContainer extends IFormContainer<TChanges, TInternal
     this.dispatchFormEvent(FORM_VALID_ACTION_TYPE, { valid: valid });
   }
 
-  protected onSubmit(_, changes: TChanges): void {
+  protected onSubmit(_, formData: TEntity): void {
     this.dispatchFormEvent(FORM_SUBMIT_ACTION_TYPE, {
       id: this.formEntityId,
-      changes: this.toSubmitData(changes),
+      data: this.toSubmitData(formData),
       operation: Operation.create(FORM_SUBMIT_ACTION_TYPE)
-    });
+    } as IApiRequest<TEntity>);
   }
 
   protected onDestroy(): void {
     this.dispatchFormEvent(FORM_DESTROY_ACTION_TYPE);
   }
 
-  protected toSubmitData(values: TChanges): TChanges | IKeyValue {
+  protected toSubmitData(values: TEntity): TEntity {
     return values;
   }
 
