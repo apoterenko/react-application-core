@@ -4,8 +4,12 @@ import {
   IBaseContainerInternalProps,
   IBaseContainerInternalState
 } from '../base/base.interface';
+import { IApiIdentifiedEntity } from '../../api/api.interface';
 
-export interface IFormAttributes<TEntity extends IKeyValue> {
+export interface IFormEntity extends IApiIdentifiedEntity, IKeyValue {
+}
+
+export interface IFormAttributes<TEntity extends IFormEntity> {
   changes?: TEntity;
   entity?: TEntity;
   valid?: boolean;
@@ -15,14 +19,14 @@ export interface IFormAttributes<TEntity extends IKeyValue> {
   message?: string;
 }
 
-export interface IFormContainerProps<TEntity extends IKeyValue>
+export interface IFormContainerProps<TEntity extends IFormEntity>
     extends IBaseContainerInternalProps, IFormAttributes<TEntity> {
 }
 
-export interface IFormContainerState<TEntity extends IKeyValue> extends IFormAttributes<TEntity> {
+export interface IFormContainerState<TEntity extends IFormEntity> extends IFormAttributes<TEntity> {
 }
 
-export interface IFormContainer<TEntity extends IKeyValue,
+export interface IFormContainer<TEntity extends IFormEntity,
                                 TInternalProps extends IFormContainerProps<TEntity>,
                                 TInternalState extends IBaseContainerInternalState>
     extends IBaseContainer<TInternalProps, TInternalState> {

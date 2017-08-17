@@ -5,11 +5,11 @@ import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   IFormContainerProps,
-  FORM_CREATED_ENTITY_ID
+  FORM_CREATED_ENTITY_ID,
+  IFormEntity
 } from './form.interface';
 import { Operation } from '../../operation/operation';
 import { IApplicationState } from '../../store/store.interface';
-import { IKeyValue } from '../../definition.interface';
 import { IBaseContainerInternalState } from '../base/base.interface';
 import { IApplicationPermissionState } from '../../permission/permission.interface';
 import { BaseContainer } from '../base/base.container';
@@ -17,7 +17,7 @@ import { IApiRequest } from '../../api/api.interface';
 
 export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalProps, TInternalState>,
                            TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TEntity extends IKeyValue,
+                           TEntity extends IFormEntity,
                            TInternalProps extends IFormContainerProps<TEntity>,
                            TInternalState extends IBaseContainerInternalState,
                            TPermissionState extends IApplicationPermissionState<TPermissions>,
@@ -68,11 +68,11 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
     this.dispatchFormEvent(FORM_DESTROY_ACTION_TYPE);
   }
 
-  protected toSubmitData(values: TEntity): TEntity {
-    return values;
+  protected toSubmitData(entity: TEntity): TEntity {
+    return entity;
   }
 
   protected get formEntityId(): number | string {
-    return FORM_CREATED_ENTITY_ID;
+    return this.props.entity && this.props.entity.id || FORM_CREATED_ENTITY_ID;
   }
 }
