@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 
 import {
-  IBaseContainer, IBaseContainerInternalProps,
-  IBaseContainerInternalState
+  IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState
 } from '../base/base.interface';
 import { IApplicationState } from '../../store/store.interface';
 import { IApplicationPermissionState } from '../../permission/permission.interface';
+import { ConnectorMapperT, IConnectorCtor } from './container.interface';
 import { IKeyValue } from '../../definition.interface';
 
 export const containerFactory = <TContainer extends IBaseContainer<TInternalProps, TInternalState>,
@@ -15,8 +15,8 @@ export const containerFactory = <TContainer extends IBaseContainer<TInternalProp
                                  TPermissionState extends IApplicationPermissionState<TPermissions>,
                                  TPermissions>
     (
-        containerCtor: { new(...args): TContainer },
-        mapper: (state: TAppState) => IKeyValue
+        containerCtor: IConnectorCtor<TContainer>,
+        mapper: ConnectorMapperT<TAppState, IKeyValue>
     ) => {
   return connect((state: TAppState) => mapper(state), {})(containerCtor);
 };
