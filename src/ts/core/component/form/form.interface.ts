@@ -1,12 +1,11 @@
-import { IKeyValue } from '../../definition.interface';
+import { IEntity } from '../../definition.interface';
 import {
   IBaseContainer,
   IBaseContainerInternalProps,
   IBaseContainerInternalState
 } from '../base/base.interface';
-import { IApiIdentifiedEntity } from '../../api/api.interface';
 
-export interface IFormEntity extends IApiIdentifiedEntity, IKeyValue {
+export interface IFormEntity extends IEntity {
 }
 
 export interface IFormAttributes<TEntity extends IFormEntity> {

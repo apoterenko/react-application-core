@@ -1,10 +1,7 @@
 import { IOperation } from '../operation/operation.interface';
+import { IIdentifiedEntity } from '../definition.interface';
 
-export interface IApiIdentifiedEntity {
-  id?: number | string;
-}
-
-export interface IApiRequest<TRequestData> extends IApiIdentifiedEntity {
+export interface IApiRequest<TRequestData> extends IIdentifiedEntity {
   data: TRequestData;
   section?: string;
   operation?: IOperation;
