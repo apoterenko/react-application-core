@@ -12,6 +12,9 @@ export interface IBaseComponent<TInternalProps, TInternalState>
     extends Component<TInternalProps, TInternalState> {
 }
 
+export interface IBaseComponentInternalState {
+}
+
 export interface IBaseContainer<TInternalProps extends IBaseContainerInternalProps,
                                 TInternalState extends IBaseContainerInternalState>
     extends IBaseComponent<TInternalProps, TInternalState> {
