@@ -3,9 +3,9 @@ import { IBaseComponent } from '../base/base.interface';
 import { BaseComponent } from '../base/base.component';
 
 export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
-    TInternalProps,
-    TInternalState,
-    TMaterialComponent extends IMaterialComponent>
+                               TInternalProps,
+                               TInternalState,
+                               TMaterialComponent extends IMaterialComponent>
     extends BaseComponent<TComponent, TInternalProps, TInternalState> {
 
   private mdc: TMaterialComponent;
