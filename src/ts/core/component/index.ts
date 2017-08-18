@@ -12,6 +12,7 @@ export * from './root/root.reducer';
 export * from './form/form.container';
 export * from './form/form.interface';
 export * from './form/form.action';
+export * from './form/form-container.factory';
 export * from './form/plugin/form-plugin.interface';
 export * from './store/container.factory';
 export * from './ripple/ripple.component';
