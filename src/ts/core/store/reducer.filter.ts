@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
-type Filter = (action: IEffectsAction) => boolean;
+export type Filter = (action: IEffectsAction) => boolean;
 
 export function filterReducer<S>(reducer: Reducer<S>, filter: Filter): Reducer<S> {
   return (state, action) => (filter(action) ? reducer(state, action) : state);
