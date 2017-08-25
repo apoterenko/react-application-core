@@ -3,7 +3,6 @@ export * from './component';
 export * from './di';
 export * from './env';
 export * from './event';
-export * from './i18n';
 export * from './operation';
 export * from './permission';
 export * from './router';
