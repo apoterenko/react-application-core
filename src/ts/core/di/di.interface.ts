@@ -5,7 +5,7 @@ export const DI_TYPES = {
   Transport: Symbol('Transport'),
   Storage: Symbol('Storage'),
   EventManager: Symbol('EventManager'),
-  I18n: Symbol('I18n'),
+  Translate: Symbol('Translate'),
   Permission: Symbol('Permission'),
-  Settings: Symbol('Settings')
+  Settings: Symbol('Settings'),
 };
