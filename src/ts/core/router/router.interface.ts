@@ -12,3 +12,4 @@ export interface IRouterComputedMatch {
 }
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
+export const ROUTER_BACK_ACTION_TYPE = 'router.back';
