@@ -1,19 +1,15 @@
+import { PureComponent } from 'react';
+import { LocationState, Path } from 'history';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import { Path, LocationState } from 'history';
 
-import { lazyInject } from '../../di/di.module';
-import { DI_TYPES } from '../../di/di.interface';
-import { BaseComponent } from './base.component';
-import {
-  IBaseContainerInternalProps,
-  IBaseContainer,
-  IBaseContainerInternalState
-} from './base.interface';
-import { ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/router.interface';
-import { IApplicationState } from '../../store/store.interface';
-import { IApplicationPermissionState } from '../../permission/permission.interface';
-import { IKeyValue } from '../../definition.interface';
+import { lazyInject, DI_TYPES } from 'core/di';
+import { IKeyValue } from 'core/definition.interface';
+import { IApplicationPermissionState } from 'core/permission';
+import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from 'core/router';
+import { IApplicationState } from 'core/store';
+
+import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
 export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
                            TAppState extends IApplicationState<TPermissionState, TPermissions>,
@@ -21,23 +17,30 @@ export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TIn
                            TInternalState extends IBaseContainerInternalState,
                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                            TPermissions>
-    extends BaseComponent<TContainer, TInternalProps, TInternalState>
+    extends PureComponent<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 
+  @lazyInject(DI_TYPES.Translate) protected t: (k: string) => string;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<TAppState>;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);
+    this.sectionName = props.sectionName || sectionName;
+    this.navigateToBack = this.navigateToBack.bind(this);
   }
 
-  dispatch(type: string, data?: IKeyValue): void {
+  public dispatch(type: string, data?: IKeyValue): void {
     this.appStore.dispatch({
-      type: `${this.sectionName}.${type}`, data: { section: this.sectionName, ...data }
+      type: `${this.sectionName}.${type}`, data: { section: this.sectionName, ...data },
     });
   }
 
-  navigate(path: Path, state?: LocationState): void {
-    this.appStore.dispatch({type: ROUTER_NAVIGATE_ACTION_TYPE, data: { path: path, state: state }});
+  public navigate(path: Path, state?: LocationState): void {
+    this.appStore.dispatch({type: ROUTER_NAVIGATE_ACTION_TYPE, data: { path, state }});
+  }
+
+  public navigateToBack(): void {
+    this.appStore.dispatch({ type: ROUTER_BACK_ACTION_TYPE });
   }
 
   protected get appState(): TAppState {
