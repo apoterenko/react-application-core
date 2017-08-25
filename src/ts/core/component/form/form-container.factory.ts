@@ -1,9 +1,13 @@
-import { IBaseContainerInternalState } from '../base/base.interface';
-import { IApplicationState } from '../../store/store.interface';
-import { IApplicationPermissionState } from '../../permission/permission.interface';
-import { containerFactory } from '../store/container.factory';
+import { IApplicationPermissionState } from 'core/permission';
+import { IApplicationState } from 'core/store';
+import {
+  IBaseContainerInternalState,
+  containerFactory,
+  ConnectorMapperT,
+  IConnectorCtor
+} from 'core/component';
+
 import { IFormContainer, IFormContainerInternalProps, IFormEntity } from './form.interface';
-import { ConnectorMapperT, IConnectorCtor } from '../store/container.interface';
 
 export const editableFormContainerFactory = <TContainer extends IFormContainer<TEntity, TInternalProps, TInternalState>,
                                              TEntity extends IFormEntity,
@@ -15,17 +19,17 @@ export const editableFormContainerFactory = <TContainer extends IFormContainer<T
     (
         containerCtor: IConnectorCtor<TContainer>,
         toEntityFn: ConnectorMapperT<TAppState, TEntity>,
-        toFormStateFn: ConnectorMapperT<TAppState, IFormContainerInternalProps<TEntity>>
+        toFormStateFn: ConnectorMapperT<TAppState, IFormContainerInternalProps<TEntity>>,
     ) => {
-      return containerFactory<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions>(containerCtor, state => {
+      return containerFactory<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions>(containerCtor, (state) => {
         const formState = toFormStateFn(state);
         const entity = toEntityFn(state);
         return {
           ...formState,
           entity: {
             ...entity || {},
-            ...formState && formState.changes || {}
-          }
+            ...formState && formState.changes || {},
+          },
         };
       });
 };

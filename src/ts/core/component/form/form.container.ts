@@ -1,19 +1,23 @@
+import ramda from 'ramda';
+
+import { IApiRequest } from 'core/api';
+import { Operation } from 'core/operation';
+import { IApplicationPermissionState } from 'core/permission';
+import { IApplicationState } from 'core/store';
+import { BaseContainer, IBaseContainerInternalState } from 'core/component';
+
 import {
   FORM_CHANGE_ACTION_TYPE,
+  FORM_CREATED_ENTITY_ID,
   FORM_DESTROY_ACTION_TYPE,
-  IFormContainer,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
+  FORM_VALIDATION_ERRORS_ACTION_TYPE,
+  IFormContainer,
   IFormContainerInternalProps,
-  FORM_CREATED_ENTITY_ID,
-  IFormEntity
+  IFormEntity,
+  IFormPayload,
 } from './form.interface';
-import { Operation } from '../../operation/operation';
-import { IApplicationState } from '../../store/store.interface';
-import { IBaseContainerInternalState } from '../base/base.interface';
-import { IApplicationPermissionState } from '../../permission/permission.interface';
-import { BaseContainer } from '../base/base.container';
-import { IApiRequest } from '../../api/api.interface';
 
 export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalProps, TInternalState>,
                            TAppState extends IApplicationState<TPermissionState, TPermissions>,
@@ -23,11 +27,11 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                            TPermissions>
     extends BaseContainer<TContainer,
-        TAppState,
-        TInternalProps,
-        TInternalState,
-        TPermissionState,
-        TPermissions>
+                          TAppState,
+                          TInternalProps,
+                          TInternalState,
+                          TPermissionState,
+                          TPermissions>
     implements IFormContainer<TEntity, TInternalProps, TInternalState> {
 
   constructor(props: TInternalProps, sectionName: string) {
@@ -38,38 +42,41 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  dispatchFormEvent(type: string, params?: any): void {
-    this.dispatch(type, { section: this.sectionName, ...params });
+  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: any): void {
+    const props = this.props;
+    if (props.validateForm && !ramda.equals(nextProps.changes, props.changes)) {
+      this.dispatch(FORM_VALIDATION_ERRORS_ACTION_TYPE, {
+        validationErrors: props.validateForm(
+            Object.assign({}, props.entity, nextProps.changes)
+        )
+      });
+    }
   }
 
-  componentWillUnmount(): void {
-    super.componentWillUnmount();
-    this.onDestroy();
+  public componentWillUnmount(): void {
+    this.dispatch(FORM_DESTROY_ACTION_TYPE);
   }
 
   protected onChange(event: { target: { name: string, value: any } }): void {
     const target = event.target;
-    this.dispatchFormEvent(FORM_CHANGE_ACTION_TYPE, { field: target.name, value: target.value });
+    target.name && this.dispatchFormChangeEvent(target.name, target.value);
+  }
+
+  protected dispatchFormChangeEvent(fieldName: string, value: any): void {
+    this.dispatch(FORM_CHANGE_ACTION_TYPE, { field: fieldName, value: value });
   }
 
   protected onValid(valid: boolean): void {
-    this.dispatchFormEvent(FORM_VALID_ACTION_TYPE, { valid: valid });
+    this.dispatch(FORM_VALID_ACTION_TYPE, { valid });
   }
 
-  protected onSubmit(_, formData: TEntity): void {
-    this.dispatchFormEvent(FORM_SUBMIT_ACTION_TYPE, {
+  protected onSubmit(): void {
+    const props = this.props;
+    this.dispatch(FORM_SUBMIT_ACTION_TYPE, {
       id: this.formEntityId,
-      data: this.toSubmitData(formData),
-      operation: Operation.create(FORM_SUBMIT_ACTION_TYPE)
-    } as IApiRequest<TEntity>);
-  }
-
-  protected onDestroy(): void {
-    this.dispatchFormEvent(FORM_DESTROY_ACTION_TYPE);
-  }
-
-  protected toSubmitData(entity: TEntity): TEntity {
-    return entity;
+      data: { changes: props.changes, entity: props.entity } as IFormPayload<TEntity>,
+      operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
+    } as IApiRequest<IFormPayload<TEntity>>);
   }
 
   protected get formEntityId(): number | string {
