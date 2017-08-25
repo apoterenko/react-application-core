@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "declaration": true,
+    "baseUrl": "src",
     "rootDir": "src",
     "outDir": "",
     "jsx": "react",
@@ -18,7 +19,11 @@
     "types": [
       "node",
       "jasmine"
-    ]
+    ],
+    "paths": {
+      "core": [ "ts/core" ],
+      "core/*": [ "ts/core/*" ]
+    }
   },
   "compileOnSave": true,
   "buildOnSave": true,
