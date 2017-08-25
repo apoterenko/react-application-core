@@ -8,3 +8,8 @@ export interface IIdentifiedEntity {
 
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
+
+export interface INotificationAttributes {
+  error?: string;
+  info?: string;
+}
