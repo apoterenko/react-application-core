@@ -3,7 +3,7 @@ import {
   IFieldInternalState,
   IFieldInternalProps
 } from 'core/component/field/field';
-import { ChangeEventT } from 'core/component/events';
+import { ChangeEventT } from 'core/definition.interface';
 
 export interface ITextFieldInternalState extends IFieldInternalState {
 }

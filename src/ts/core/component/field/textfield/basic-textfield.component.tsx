@@ -3,8 +3,7 @@ import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
 import { IMaterialComponent } from 'core/component/material';
-import { AnyT, IKeyValue } from 'core/definition.interface';
-import { ChangeEventT } from 'core/component/events';
+import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import {
   Field,
   IField,
