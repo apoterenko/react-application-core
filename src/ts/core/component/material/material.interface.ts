@@ -1,9 +1,12 @@
 import { ReactInstance } from 'react';
 
-export interface IMaterialComponentFactory<TMaterialComponent extends IMaterialComponent> {
-  attachTo(el: ReactInstance): TMaterialComponent;
+import { AnyT } from 'core/definition.interface';
+
+export interface IMaterialComponentFactory<TNativeMaterialComponent extends INativeMaterialComponent> {
+  attachTo(el: ReactInstance): TNativeMaterialComponent;
 }
 
-export interface IMaterialComponent {
+export interface INativeMaterialComponent {
   destroy(): void;
+  getDefaultFoundation(): AnyT;
 }

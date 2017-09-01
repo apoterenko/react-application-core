@@ -1,31 +1,39 @@
-import { IMaterialComponent, IMaterialComponentFactory } from './material.interface';
-import { IBaseComponent } from '../base/base.interface';
-import { BaseComponent } from '../base/base.component';
+import { BaseComponent, IBaseComponent } from 'core/component/base';
+import { AnyT } from 'core/definition.interface';
+
+import {
+  INativeMaterialComponent,
+  IMaterialComponentFactory
+} from './material.interface';
 
 export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                                TInternalProps,
                                TInternalState,
-                               TMaterialComponent extends IMaterialComponent>
+                               TNativeMaterialComponent extends INativeMaterialComponent>
     extends BaseComponent<TComponent, TInternalProps, TInternalState> {
 
-  private mdc: TMaterialComponent;
+  private mdc: TNativeMaterialComponent;
 
   constructor(props: TInternalProps,
-              private mdcFactory: IMaterialComponentFactory<TMaterialComponent>) {
+              private mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
     super(props);
   }
 
-  componentDidMount(): void {
+  public componentDidMount(): void {
     this.mdc = this.mdcFactory.attachTo(this.refs.self);
     super.componentDidMount();
   }
 
-  componentWillUnmount(): void {
+  public componentWillUnmount(): void {
     this.mdc.destroy();
     super.componentWillUnmount();
   }
 
-  protected get instance(): TMaterialComponent {
+  protected get nativeMdcInstance(): TNativeMaterialComponent {
     return this.mdc;
+  }
+
+  protected get defaultFoundation(): AnyT {
+    return this.nativeMdcInstance.getDefaultFoundation();
   }
 }
