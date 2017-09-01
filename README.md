@@ -4,7 +4,14 @@ A react-based application core for the business applications.
 
 # Description
 
-The library is designed to quickly start developing business applications are based on React and Redux.
+The library is designed to quickly start developing business applications are based on React, Redux, Material-UI.
+
+# Dependencies
+
+* [react](https://github.com/facebook/react)
+* [redux](https://github.com/reactjs/redux)
+* [react-redux](https://github.com/reactjs/react-redux)
+* [material-components-web](https://github.com/material-components/material-components-web)
 
 # Contributors
 
