@@ -8,6 +8,7 @@
     "deploy": "npm install && npm run tsc-build && npm publish ./"
   },
   "peerDependencies": {
+    "material-ui": "^0.19.0",
     "material-components-web": "^0.17.0",
     "react": "^15.6.1",
     "redux": "^3.7.2",
@@ -20,8 +21,10 @@
   "dependencies": {
     "inversify-binding-decorators": "^3.0.0",
     "inversify-inject-decorators": "^3.0.1",
+    "prop-types": "^15.5.10",
     "redux-devtools": "^3.4.0",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "url-search-params": "^0.10.0"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.42",
@@ -38,6 +41,7 @@
     "react-router-dom": "^4.1.2",
     "redux-effects-promise": "^0.0.13",
     "core-js": "^2.4.1",
+    "material-ui": "^0.19.0",
     "material-components-web": "^0.17.0",
     "jasmine-core": "2.4.1",
     "karma": "1.2.0",
