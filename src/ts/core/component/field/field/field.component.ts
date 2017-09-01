@@ -3,7 +3,7 @@ import * as ramda from 'ramda';
 
 import { and, isUndef } from 'core/util';
 import {
-  IMaterialComponent,
+  INativeMaterialComponent,
   MaterialComponent,
   IMaterialComponentFactory
 } from 'core/component/material';
@@ -19,16 +19,16 @@ import {
 export abstract class Field<TComponent extends IField<TInternalProps, TInternalState, TValueEvent>,
                             TInternalProps extends IFieldInternalProps,
                             TInternalState extends IFieldInternalState,
-                            TMaterialComponent extends IMaterialComponent,
+                            TNativeMaterialComponent extends INativeMaterialComponent,
                             TValueEvent>
     extends MaterialComponent<TComponent,
                               TInternalProps,
                               TInternalState,
-                              TMaterialComponent>
+                              TNativeMaterialComponent>
     implements IField<TInternalProps, TInternalState, TValueEvent> {
 
   constructor(props: TInternalProps,
-              mdcFactory: IMaterialComponentFactory<TMaterialComponent>) {
+              mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
     super(props, mdcFactory);
     this.onChange = this.onChange.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);

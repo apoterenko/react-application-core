@@ -2,7 +2,7 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
-import { IMaterialComponent } from 'core/component/material';
+import { INativeMaterialComponent } from 'core/component/material';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import {
   Field,
@@ -14,11 +14,11 @@ import {
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
                             TInternalProps extends IFieldInternalProps,
                             TInternalState extends IFieldInternalState,
-                            TMaterialComponent extends IMaterialComponent>
+                            TNativeMaterialComponent extends INativeMaterialComponent>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState,
-                  TMaterialComponent,
+                  TNativeMaterialComponent,
                   ChangeEventT> {
 
   constructor(props: TInternalProps) {
