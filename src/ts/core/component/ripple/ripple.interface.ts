@@ -1,6 +1,6 @@
-import { IMaterialComponent } from '../material/material.interface';
+import { INativeMaterialComponent } from 'core/component/material';
 
-export interface IMaterialRippleComponent extends IMaterialComponent {
+export interface INativeMaterialRippleComponent extends INativeMaterialComponent {
   activate(): void;
 }
 

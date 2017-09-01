@@ -1,24 +1,25 @@
 import { MDCRipple } from '@material/ripple';
 
-import { IMaterialRippleComponent, IRippleComponentInternalProps } from './ripple.interface';
-import { IBaseComponentInternalState } from '../base/base.interface';
-import { MaterialComponent } from '../material/material.component';
+import { IBaseComponentInternalState } from 'core/component/base';
+import { MaterialComponent } from 'core/component/material';
+
+import { INativeMaterialRippleComponent, IRippleComponentInternalProps } from './ripple.interface';
 
 export class RippleComponent<TInternalProps extends IRippleComponentInternalProps>
     extends MaterialComponent<RippleComponent<TInternalProps>,
                               TInternalProps,
                               IBaseComponentInternalState,
-                              IMaterialRippleComponent> {
+                              INativeMaterialRippleComponent> {
 
   constructor(props: TInternalProps) {
     super(props, MDCRipple);
   }
 
-  componentDidMount(): void {
+  public componentDidMount(): void {
     super.componentDidMount();
 
     if (this.props.activated) {
-      this.instance.activate();
+      this.nativeMdcInstance.activate();
     }
   }
 }
