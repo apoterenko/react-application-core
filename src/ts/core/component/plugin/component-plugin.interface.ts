@@ -1,7 +1,6 @@
 import { ComponentLifecycle } from 'react';
 
-import { IBaseComponent } from '../base/base.interface';
-import { IKeyValue } from '../../definition.interface';
+import { IBaseComponent } from 'core/component/base';
 
 export interface IComponentPluginCtor<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                                       TInternalProps,
@@ -13,8 +12,6 @@ export interface IComponentPlugin<TComponent extends IBaseComponent<TInternalPro
                                   TInternalProps,
                                   TInternalState>
     extends ComponentLifecycle<TInternalProps, TInternalState> {
-  template?: JSX.Element;
-  context?: IKeyValue;
 }
 
 export interface IPluginableComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
