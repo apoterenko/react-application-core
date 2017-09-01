@@ -1,7 +1,8 @@
-import { PureComponent } from 'react';
+import { PureComponent, SyntheticEvent } from 'react';
 
+import { AnyT } from 'core/definition.interface';
 import { lazyInject, DI_TYPES } from 'core/di';
-import { IComponentPlugin, IComponentPluginCtor, IPluginableComponent } from 'core/component';
+import { IComponentPlugin, IComponentPluginCtor, IPluginableComponent } from 'core/component/plugin';
 
 import { IBaseComponent } from './base.interface';
 
@@ -47,5 +48,14 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     const plugin = Reflect.construct(componentPlugin, [this]);
     this.plugins.push(plugin);
     return plugin;
+  }
+
+  public stopEvent(event: SyntheticEvent<AnyT>): void {
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
   }
 }
