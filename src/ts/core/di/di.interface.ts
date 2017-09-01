@@ -8,4 +8,5 @@ export const DI_TYPES = {
   Translate: Symbol('Translate'),
   Permission: Symbol('Permission'),
   Settings: Symbol('Settings'),
+  DateConverter: Symbol('DateConverter'),
 };
