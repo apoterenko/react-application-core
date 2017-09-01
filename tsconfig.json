@@ -20,13 +20,16 @@
       "node",
       "jasmine"
     ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "paths": {
       "core": [ "ts/core" ],
       "core/*": [ "ts/core/*" ]
     }
   },
-  "compileOnSave": true,
-  "buildOnSave": true,
+  "compileOnSave": false,
+  "buildOnSave": false,
   "exclude": [
     "node_modules"
   ]
