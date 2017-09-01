@@ -8,7 +8,6 @@ import { replace } from 'core/util';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import { BasicTextField } from 'core/component/field/textfield';
 import { IDateConverter } from 'core/converter';
-import { INativeMaterialComponent } from 'core/component/material';
 
 import {
   IDateFieldInternalProps,
@@ -18,8 +17,7 @@ import {
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
-                                              IDateFieldInternalState,
-                                              INativeMaterialComponent> {
+                                              IDateFieldInternalState> {
   static defaultProps: IDateFieldInternalProps = {
     container: 'dialog',
     autoOk: true,

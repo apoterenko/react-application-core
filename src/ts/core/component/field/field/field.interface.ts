@@ -2,8 +2,7 @@ import {
   CSSProperties,
   PureComponent,
   FocusEvent,
-  KeyboardEvent,
-  SyntheticEvent
+  KeyboardEvent
 } from 'react';
 
 import {
@@ -36,8 +35,8 @@ export interface IFieldInternalProps {
                                  IFieldInternalState>[],
   validate?:(value: AnyT) => string;
   onChange?(value: AnyT): void;
-  onFocus?(event: FocusEvent<any>): void;
-  onKeyPress?(event: KeyboardEvent<any>): void;
+  onFocus?(event: FocusEvent<AnyT>): void;
+  onKeyPress?(event: KeyboardEvent<AnyT>): void;
   $$onChangeForm?(name: string, value: AnyT);
 }
 

@@ -13,12 +13,11 @@ import {
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
                             TInternalProps extends IFieldInternalProps,
-                            TInternalState extends IFieldInternalState,
-                            TNativeMaterialComponent extends INativeMaterialComponent>
+                            TInternalState extends IFieldInternalState>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState,
-                  TNativeMaterialComponent,
+                  INativeMaterialComponent,
                   ChangeEventT> {
 
   constructor(props: TInternalProps) {
