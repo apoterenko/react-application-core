@@ -4,6 +4,7 @@ import * as ramda from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from 'core/di';
+import { isUndef } from 'core/util';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import { BasicTextField } from 'core/component/field/textfield';
 import { IDateConverter } from 'core/converter';
@@ -13,7 +14,6 @@ import {
   IDateFieldInternalState,
   IMaterialDatePickerDialogComponent
 } from './datefield.interface';
-import { isUndef } from "core/util";
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
