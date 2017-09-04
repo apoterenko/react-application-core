@@ -134,7 +134,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     } else {
       error = this.input.validationMessage;
     }
-    return error && this.t(error) || null;
+    return error;
   }
 
   private get definitePropsValue(): AnyT {

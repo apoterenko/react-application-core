@@ -50,12 +50,12 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                className={className.filter(cls => !!cls).join(' ')}>
             {this.getComponent()}
             <label className={labelClassName.filter(cls => !!cls).join(' ')}>
-              {this.t(props.label)}
+              {props.label ? this.t(props.label) : props.children}
             </label>
           </div>
-          <p title={error}
+          <p title={error || ''}
              className='mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg'>
-            {error || '\u00a0'}
+            {error ? this.t(error) : '\u00a0'}
           </p>
         </div>
     );
