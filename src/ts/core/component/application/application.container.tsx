@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { IBaseContainer, IBaseContainerInternalState } from '../base/base.interface';
-import { BaseContainer } from '../base/base.container';
-import { IApplicationPermissionState } from '../../permission/permission.interface';
-import { IApplicationState } from '../../store/store.interface';
-import { DI_TYPES } from '../../di/di.interface';
-import { APPLICATION_STATE_KEY, IStorage } from '../../storage/storage.interface';
-import { IEventManager } from '../../event/event-manager.interface';
-import { IRouter } from '../../router/router.interface';
-import { appContainer, lazyInject } from '../../di/di.module';
+import { DI_TYPES, appContainer, lazyInject } from 'core/di';
+import { IEventManager } from 'core/event';
+import { IApplicationPermissionState } from 'core/permission';
+import { IRouter } from 'core/router';
+import { IApplicationSettings } from 'core/settings';
+import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
+import { IApplicationState } from 'core/store';
+import { clone } from 'core/util';
+import { BaseContainer, IBaseContainer, IBaseContainerInternalState } from 'core/component/base';
+
 import { IApplicationContainerProps } from './application.interface';
-import { clone } from '../../util/clone';
-import { IApplicationSettings } from '../../settings/settings.interface';
 
 export abstract class ApplicationContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
                                            TAppState extends IApplicationState<TPermissionState, TPermissions>,
@@ -32,35 +32,34 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
     this.onUnload = this.onUnload.bind(this);
   }
 
-  render(): JSX.Element {
+  public render(): JSX.Element {
     return (
-        <Provider store={this.appStore}>
-          <BrowserRouter ref='router'
-                         basename={this.props.basename}
-          >
-            <Switch>
-              {...this.routes}
-            </Switch>
-          </BrowserRouter>
-        </Provider>
+        <MuiThemeProvider>
+          <Provider store={this.appStore}>
+            <BrowserRouter ref='router'
+                           basename={this.props.basename}
+            >
+              <Switch>
+                {...this.routes}
+              </Switch>
+            </BrowserRouter>
+          </Provider>
+        </MuiThemeProvider>
     );
   }
 
-  componentWillMount(): void {
-    super.componentWillMount();
+  public componentWillMount(): void {
     this.eventManager.add(window, 'unload', this.onUnload);
   }
 
-  componentWillUnmount(): void {
-    super.componentWillUnmount();
+  public componentWillUnmount(): void {
     this.eventManager.remove(window, 'unload', this.onUnload);
   }
 
-  componentDidMount(): void {
-    super.componentDidMount();
+  public componentDidMount(): void {
     appContainer.bind<IRouter>(DI_TYPES.Router).toConstantValue(
         // We cannot to get access to history instance other way. This instance is private
-        Reflect.get(this.refs.router, 'history')
+        Reflect.get(this.refs.router, 'history'),
     );
   }
 
@@ -76,12 +75,8 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
 
   private saveState(): void {
     this.storage.set(APPLICATION_STATE_KEY,
-        this.clearStateBeforeSerialization(clone<TAppState>(this.appState))
+        this.clearStateBeforeSerialization(clone<TAppState>(this.appState)),
     );
-  }
-
-  private restoreState(): TAppState {
-    return this.storage.get(APPLICATION_STATE_KEY);
   }
 
   protected abstract get routes(): JSX.Element[];
