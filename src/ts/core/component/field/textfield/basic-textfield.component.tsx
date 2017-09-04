@@ -65,8 +65,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const props = this.props;
     return {
       ref: 'input',
-      value: this.value,
       name: props.name,
+      value: this.value,
       className: 'mdc-textfield__input',
       placeholder: props.placeholder,
       type: props.type || 'text',
@@ -90,7 +90,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         : <input {...componentProps}/>;
   }
 
-  protected getEmptyControlledValue(): string {
+  protected getEmptyValue(): string {
     return '';
   }
 

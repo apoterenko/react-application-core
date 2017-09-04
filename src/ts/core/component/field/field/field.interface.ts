@@ -14,9 +14,9 @@ import { AnyT } from 'core/definition.interface';
 import { IComponentPluginCtor } from 'core/component/plugin';
 
 export interface IFieldInternalProps {
+  persistent?: boolean;
   name?: string;
   value?: AnyT;
-  defaultValue?: AnyT;
   label?: string;
   style?: CSSProperties;
   wrapperStyle?: CSSProperties;

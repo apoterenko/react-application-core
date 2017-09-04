@@ -4,7 +4,6 @@ import * as ramda from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from 'core/di';
-import { replace } from 'core/util';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import { BasicTextField } from 'core/component/field/textfield';
 import { IDateConverter } from 'core/converter';
@@ -14,6 +13,7 @@ import {
   IDateFieldInternalState,
   IMaterialDatePickerDialogComponent
 } from './datefield.interface';
+import { isUndef } from "core/util";
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
@@ -33,6 +33,7 @@ export class DateField extends BasicTextField<DateField,
     muiTheme: PropTypes.object.isRequired
   };
 
+  private preventShowDialog: boolean;
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
 
   constructor(props: IDateFieldInternalProps) {
@@ -42,7 +43,11 @@ export class DateField extends BasicTextField<DateField,
 
   public onFocus(event: React.FocusEvent<any>): void {
     super.onFocus(event);
-    this.dialogWindow.show();
+
+    if (isUndef(this.preventShowDialog) || this.preventShowDialog === true) {
+      this.dialogWindow.show();
+      delete this.preventShowDialog;
+    }
   }
 
   public onKeyPress(event: React.KeyboardEvent<AnyT>): void {
@@ -87,6 +92,7 @@ export class DateField extends BasicTextField<DateField,
     const constants = this.dateConverter.localeSpecificConstants;
     return {
       ...super.getComponentProps(),
+
       mask: constants.dateMask,
       pattern: constants.datePattern,
 
@@ -100,11 +106,13 @@ export class DateField extends BasicTextField<DateField,
   private onAccept(date: Date): void {
     this.onChangeValue(date, null);
 
-    if (!this.isControlled) {
+    if (this.isPersistent) {
       // Propagate a string value to the form (a simulation)
       this.propsOnChangeForm(this.formatDateValue(date));
     }
-    replace(this, this.onFocus, this.setFocus);
+
+    this.preventShowDialog = true;
+    this.setFocus();
   };
 
   private formatDateValue(dateValue: AnyT): string {
@@ -112,7 +120,7 @@ export class DateField extends BasicTextField<DateField,
   }
 
   private get dialogDate(): Date {
-    const defaultDate = this.defaultValue || this.dateConverter.getCurrentDate();
+    const defaultDate = this.dateConverter.getCurrentDate();
     if (ramda.isNil(this.value)) {
       return defaultDate;
     }

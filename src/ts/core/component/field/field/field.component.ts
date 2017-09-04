@@ -38,16 +38,27 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       this.props.plugins.forEach(plugin => this.registerPlugin(plugin));
     }
 
-    if (this.isControlled) {
-      this.state = { stateValue: this.getDefaultControlledValue() } as TInternalState;
-    } else {
+    if (this.isPersistent) {
       this.state = {} as TInternalState;
+    } else {
+      this.state = { stateValue: this.definitePropsValue } as TInternalState;
     }
   }
 
   public componentDidMount(): void {
     super.componentDidMount();
     this.input.checkValidity = and(this.input.checkValidity, () => !this.state.error);
+  }
+
+  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: any): void {
+    super.componentWillReceiveProps(nextProps, nextContext);
+
+    if (!this.isPersistent) {
+      const newValue = nextProps.value;
+      if (!ramda.equals(this.stateValue, newValue)) {
+        this.setState({ stateValue: newValue });
+      }
+    }
   }
 
   public setFocus(): void {
@@ -77,7 +88,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected setStateValue(stateValue: AnyT): void {
-    if (this.isControlled) {
+    if (!this.isPersistent) {
       this.setState({ stateValue: stateValue });
     }
   }
@@ -94,16 +105,16 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  protected get isControlled(): boolean {
-    return !this.props.hasOwnProperty('value');
-  }
-
-  protected get defaultValue(): AnyT {
-    return this.props.defaultValue;
+  protected get isPersistent(): boolean {
+    return isUndef(this.props.persistent) || this.props.persistent === true;
   }
 
   protected get value(): AnyT {
-    return this.isControlled ? this.state.stateValue : this.props.value;
+    return this.isPersistent ? this.definitePropsValue : this.stateValue;
+  }
+
+  protected get stateValue(): AnyT {
+    return this.state.stateValue;
   }
 
   protected get error(): string {
@@ -126,13 +137,14 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return error && this.t(error) || null;
   }
 
-  private getDefaultControlledValue(): string {
-    return ramda.isNil(this.defaultValue)
-        ? this.getEmptyControlledValue()
-        : this.defaultValue;
+  private get definitePropsValue(): AnyT {
+    return isUndef(this.props.value)
+        // Prevent warning: "Input is changing a uncontrolled input of type text to be controlled..."
+        ? this.getEmptyValue()
+        : this.props.value;
   }
 
-  protected abstract getEmptyControlledValue(): AnyT;
+  protected abstract getEmptyValue(): AnyT;
 
   protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;
 }
