@@ -1,22 +1,31 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
+import * as URLSearchParams from 'url-search-params';
 
-import { IRootContainerInternalProps, ROOT_PATH_UPDATE_ACTION_TYPE, ROOT_SECTION } from './root.interface';
-import { IKeyValue } from '../../definition.interface';
-import { IApplicationState } from '../../store/store.interface';
-import { IBaseContainer, IBaseContainerInternalState } from '../base/base.interface';
-import { IApplicationPermissionService, IApplicationPermissionState } from '../../permission/permission.interface';
-import { BaseContainer } from '../base/base.container';
-import { DI_TYPES } from '../../di/di.interface';
-import { lazyInject } from '../../di/di.module';
+import { IKeyValue } from 'core/definition.interface';
+import { DI_TYPES, lazyInject } from 'core/di';
+import { IApplicationPermissionService, IApplicationPermissionState } from 'core/permission';
+import { IApplicationState } from 'core/store';
+import { BaseContainer, IBaseContainer, IBaseContainerInternalState } from 'core/component/base';
+
+import {
+  IRootContainerInternalProps,
+  ROOT_PATH_UPDATE_ACTION_TYPE,
+  ROOT_SECTION
+} from './root.interface';
 
 export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-    TAppState extends IApplicationState<TPermissionState, TPermissions>,
-    TInternalProps extends IRootContainerInternalProps,
-    TInternalState extends IBaseContainerInternalState,
-    TPermissionState extends IApplicationPermissionState<TPermissions>,
-    TPermissionObject,
-    TPermissions>
-    extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
+                           TAppState extends IApplicationState<TPermissionState, TPermissions>,
+                           TInternalProps extends IRootContainerInternalProps,
+                           TInternalState extends IBaseContainerInternalState,
+                           TPermissionState extends IApplicationPermissionState<TPermissions>,
+                           TPermissionObject,
+                           TPermissions>
+    extends BaseContainer<TContainer,
+                          TAppState,
+                          TInternalProps,
+                          TInternalState,
+                          TPermissionState,
+                          TPermissions> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionService<TPermissionObject>;
 
@@ -24,19 +33,14 @@ export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TIn
     super(props, ROOT_SECTION);
   }
 
-  componentWillMount(): void {
+  public componentWillMount(): void {
     if (this.props.beforeEnter) {
       this.props.beforeEnter();
     }
     this.dispatch(ROOT_PATH_UPDATE_ACTION_TYPE, { path: this.props.path });
-
-    // The super method must be executed after change a root path!!
-    super.componentWillMount();
   }
 
-  componentDidMount(): void {
-    super.componentDidMount();
-
+  public componentDidMount(): void {
     if (this.props.afterEnter) {
       this.props.afterEnter();
     }
@@ -44,6 +48,10 @@ export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TIn
 
   protected get routeParams(): IKeyValue {
     return this.props.computedMatch.params;
+  }
+
+  protected get queryParams(): URLSearchParams {
+    return new URLSearchParams(this.props.location.search);
   }
 
   protected get isAuthorized(): boolean {

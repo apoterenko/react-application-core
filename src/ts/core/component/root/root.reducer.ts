@@ -1,11 +1,12 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue } from '../../definition.interface';
+import { IKeyValue } from 'core/definition.interface';
+
 import {
-  INITIAL_APPLICATION_ROOT_STATE,
   IApplicationRootState,
+  INITIAL_APPLICATION_ROOT_STATE,
   ROOT_PATH_UPDATE_ACTION_TYPE,
-  ROOT_SECTION
+  ROOT_SECTION,
 } from './root.interface';
 
 export function rootReducer(state: IApplicationRootState = INITIAL_APPLICATION_ROOT_STATE,
