@@ -61,6 +61,18 @@ export class Menu extends MaterialComponent<Menu,
     this.nativeMdcInstance.open = true;
   }
 
+  public hide(): void {
+    this.nativeMdcInstance.open = false;
+  }
+
+  public activate(index: number): void {
+    // TODO
+  }
+
+  public get opened(): boolean {
+    return this.nativeMdcInstance.open;
+  }
+
   private onSelect(event: { detail: { index: number, item: Element }}): void {
     if (this.props.onSelect) {
       const value = event.detail.item.getAttribute('value');
