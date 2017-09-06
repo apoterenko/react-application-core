@@ -1,5 +1,4 @@
 import { BaseComponent, IBaseComponent } from 'core/component/base';
-import { AnyT } from 'core/definition.interface';
 
 import {
   INativeMaterialComponent,
@@ -31,9 +30,5 @@ export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps,
 
   protected get nativeMdcInstance(): TNativeMaterialComponent {
     return this.mdc;
-  }
-
-  protected get defaultFoundation(): AnyT {
-    return this.nativeMdcInstance.getDefaultFoundation();
   }
 }
