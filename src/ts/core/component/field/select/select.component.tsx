@@ -47,6 +47,7 @@ export class Select extends BasicTextField<Select,
     super.onKeyEscape(event);
 
     if (this.menu.opened) {
+      this.stopEvent(event);
       this.hideMenu();
     }
   }

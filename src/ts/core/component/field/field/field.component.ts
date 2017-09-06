@@ -99,24 +99,18 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   public onKeyEscape(event: KeyboardEventT): void {
-    this.stopEvent(event);
-
     if (this.props.onKeyEscape) {
       this.props.onKeyEscape(event);
     }
   }
 
   public onKeyArrowDown(event: KeyboardEventT): void {
-    this.stopEvent(event);
-
     if (this.props.onKeyArrowDown) {
       this.props.onKeyArrowDown(event);
     }
   }
 
   public onKeyArrowUp(event: KeyboardEventT): void {
-    this.stopEvent(event);
-
     if (this.props.onKeyArrowUp) {
       this.props.onKeyArrowUp(event);
     }
