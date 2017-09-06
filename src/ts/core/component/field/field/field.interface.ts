@@ -1,16 +1,7 @@
-import {
-  CSSProperties,
-  PureComponent,
-  FocusEvent,
-  KeyboardEvent
-} from 'react';
+import { CSSProperties, PureComponent, KeyboardEvent } from 'react';
 
-import {
-  IBaseComponent,
-  IBaseComponentInternalProps,
-  IBaseComponentInternalState
-} from 'core/component/base';
-import { AnyT } from 'core/definition.interface';
+import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
+import { IBaseComponent, IBaseComponentInternalState } from 'core/component/base';
 import { IComponentPluginCtor } from 'core/component/plugin';
 
 export interface IFieldInternalProps {
@@ -34,10 +25,11 @@ export interface IFieldInternalProps {
                                  IFieldInternalProps,
                                  IFieldInternalState>[],
   validate?:(value: AnyT) => string;
+  changeForm?(name: string, value: AnyT): void;
   onChange?(value: AnyT): void;
-  onFocus?(event: FocusEvent<AnyT>): void;
-  onKeyPress?(event: KeyboardEvent<AnyT>): void;
-  $$onChangeForm?(name: string, value: AnyT);
+  onFocus?(event: FocusEventT): void;
+  onClick?(event: BasicEventT): void;
+  onKeyPress?(event: KeyboardEventT): void;
 }
 
 export interface IFieldInternalState extends IBaseComponentInternalState {
@@ -45,8 +37,7 @@ export interface IFieldInternalState extends IBaseComponentInternalState {
   stateValue?: AnyT;
 }
 
-export interface IMaskedTextInput extends PureComponent<IBaseComponentInternalState,
-                                                        IBaseComponentInternalProps> {
+export interface IMaskedTextInputPureComponent extends PureComponent<{}, {}> {
   inputElement: HTMLInputElement;
 }
 

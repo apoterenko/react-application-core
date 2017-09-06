@@ -1,19 +1,18 @@
-import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { and, isUndef } from 'core/util';
+import { isUndef } from 'core/util';
 import {
   INativeMaterialComponent,
   MaterialComponent,
   IMaterialComponentFactory
 } from 'core/component/material';
-import { AnyT } from 'core/definition.interface';
+import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
 
 import {
   IField,
   IFieldInternalProps,
   IFieldInternalState,
-  IMaskedTextInput
+  IMaskedTextInputPureComponent
 } from './field.interface';
 
 export abstract class Field<TComponent extends IField<TInternalProps, TInternalState, TValueEvent>,
@@ -33,6 +32,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.onChange = this.onChange.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onClick = this.onClick.bind(this);
 
     if (Array.isArray(this.props.plugins)) {
       this.props.plugins.forEach(plugin => this.registerPlugin(plugin));
@@ -41,13 +41,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     if (this.isPersistent) {
       this.state = {} as TInternalState;
     } else {
-      this.state = { stateValue: this.definitePropsValue } as TInternalState;
+      this.state = {
+        stateValue: this.prepareStateValueBeforeSerialization(this.definitePropsValue)
+      } as TInternalState;
     }
-  }
-
-  public componentDidMount(): void {
-    super.componentDidMount();
-    this.input.checkValidity = and(this.input.checkValidity, () => !this.state.error);
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: any): void {
@@ -56,7 +53,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     if (!this.isPersistent) {
       const newValue = nextProps.value;
       if (!ramda.equals(this.stateValue, newValue)) {
-        this.setState({ stateValue: newValue });
+        this.setState({ stateValue: this.prepareStateValueBeforeSerialization(newValue) });
       }
     }
   }
@@ -69,52 +66,51 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
-  public onKeyPress(event: React.KeyboardEvent<AnyT>): void {
+  public onKeyPress(event: KeyboardEventT): void {
     if (this.props.onKeyPress) {
       this.props.onKeyPress(event);
     }
   }
 
-  protected onFocus(event: React.FocusEvent<AnyT>): void {
+  protected onFocus(event: FocusEventT): void {
     if (this.props.onFocus) {
       this.props.onFocus(event);
     }
   }
 
+  protected onClick(event: BasicEventT): void {
+    this.stopEvent(event);
+
+    if (this.props.onClick) {
+      this.props.onClick(event);
+    }
+  }
+
   protected onChangeValue(rawValue: AnyT, error?: string): void {
-    this.setStateValue(rawValue);
-    this.setState({ error: isUndef(error) ? this.validateValue(rawValue) : error });
-    this.propsOnChange(rawValue);
-  }
+    this.input.setCustomValidity(''); // Support of HTML5 Validation Api
 
-  protected setStateValue(stateValue: AnyT): void {
     if (!this.isPersistent) {
-      this.setState({ stateValue: stateValue });
+      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(rawValue) });
+    }
+    this.setState({ error: isUndef(error) ? this.validateValue(rawValue) : error });
+
+    this.propsOnChange(rawValue);
+    this.propsChangeForm(rawValue);
+  }
+
+  protected propsChangeForm(rawValue: AnyT): void {
+    if (this.props.changeForm) {
+      this.props.changeForm(this.props.name, rawValue);
     }
   }
 
-  protected propsOnChange(value: AnyT): void {
-    if (this.props.onChange) {
-      this.props.onChange(value);
-    }
-  }
-
-  protected propsOnChangeForm(value: AnyT): void {
-    if (this.props.$$onChangeForm) {
-      this.props.$$onChangeForm(this.props.name, value);
-    }
-  }
-
-  protected get isPersistent(): boolean {
-    return isUndef(this.props.persistent) || this.props.persistent === true;
+  protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
+    // The state may be an external storage and the value must be able to be serialized
+    return value;
   }
 
   protected get value(): AnyT {
     return this.isPersistent ? this.definitePropsValue : this.stateValue;
-  }
-
-  protected get stateValue(): AnyT {
-    return this.state.stateValue;
   }
 
   protected get error(): string {
@@ -122,19 +118,28 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected get input(): HTMLInputElement {
-    return (this.refs.input as IMaskedTextInput).inputElement
+    return this.refs.input && (this.refs.input as IMaskedTextInputPureComponent).inputElement
         || this.refs.input as HTMLInputElement;
   }
 
-  protected validateValue(value: AnyT): string {
+  private validateValue(value: AnyT): string {
     const props = this.props;
     let error = null;
     if (this.input.validity.valid) {
       error = props.validate ? props.validate(value) : null;
+      if (error) {
+        this.input.setCustomValidity(error);
+      }
     } else {
       error = this.input.validationMessage;
     }
     return error;
+  }
+
+  private propsOnChange(rawValue: AnyT): void {
+    if (this.props.onChange) {
+      this.props.onChange(rawValue);
+    }
   }
 
   private get definitePropsValue(): AnyT {
@@ -142,6 +147,14 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
         // Prevent warning: "Input is changing a uncontrolled input of type text to be controlled..."
         ? this.getEmptyValue()
         : this.props.value;
+  }
+
+  private get isPersistent(): boolean {
+    return isUndef(this.props.persistent) || this.props.persistent === true;
+  }
+
+  private get stateValue(): AnyT {
+    return this.state.stateValue;
   }
 
   protected abstract getEmptyValue(): AnyT;
