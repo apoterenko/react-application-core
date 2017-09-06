@@ -30,9 +30,11 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
               mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
     super(props, mdcFactory);
     this.onChange = this.onChange.bind(this);
-    this.onKeyPress = this.onKeyPress.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
 
     if (Array.isArray(this.props.plugins)) {
       this.props.plugins.forEach(plugin => this.registerPlugin(plugin));
@@ -58,23 +60,77 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  public setFocus(): void {
-    this.input.focus();
-  }
-
   public onChange(event: TValueEvent): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
-  public onKeyPress(event: KeyboardEventT): void {
-    if (this.props.onKeyPress) {
-      this.props.onKeyPress(event);
+  public onKeyDown(event: KeyboardEventT): void {
+    const key = event.key;
+    switch (key) {
+      case 'Enter':
+        this.onKeyEnter(event);
+        break;
+      case 'Escape':
+        this.onKeyEscape(event);
+        break;
+      case 'ArrowDown':
+        this.onKeyArrowDown(event);
+        break;
+      case 'ArrowUp':
+        this.onKeyArrowUp(event);
+        break;
+    }
+
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(event);
+    }
+  }
+
+  public onKeyUp(event: KeyboardEventT): void {
+    if (this.props.onKeyUp) {
+      this.props.onKeyUp(event);
+    }
+  }
+
+  public onKeyEnter(event: KeyboardEventT): void {
+    if (this.props.onKeyEnter) {
+      this.props.onKeyEnter(event);
+    }
+  }
+
+  public onKeyEscape(event: KeyboardEventT): void {
+    this.stopEvent(event);
+
+    if (this.props.onKeyEscape) {
+      this.props.onKeyEscape(event);
+    }
+  }
+
+  public onKeyArrowDown(event: KeyboardEventT): void {
+    this.stopEvent(event);
+
+    if (this.props.onKeyArrowDown) {
+      this.props.onKeyArrowDown(event);
+    }
+  }
+
+  public onKeyArrowUp(event: KeyboardEventT): void {
+    this.stopEvent(event);
+
+    if (this.props.onKeyArrowUp) {
+      this.props.onKeyArrowUp(event);
     }
   }
 
   protected onFocus(event: FocusEventT): void {
     if (this.props.onFocus) {
       this.props.onFocus(event);
+    }
+  }
+
+  protected onBlur(event: FocusEventT): void {
+    if (this.props.onBlur) {
+      this.props.onBlur(event);
     }
   }
 

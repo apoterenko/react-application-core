@@ -1,20 +1,17 @@
 import {
-  IField,
-  IFieldInternalState,
-  IFieldInternalProps
-} from 'core/component/field/field';
-import { ChangeEventT } from 'core/definition.interface';
+  IBasicTextFieldInternalState,
+  IBasicTextFieldInternalProps, IBasicTextField
+} from './basic-textfield.interface';
 
-export interface ITextFieldInternalState extends IFieldInternalState {
+export interface ITextFieldInternalState extends IBasicTextFieldInternalState {
 }
 
-export interface ITextFieldInternalProps extends IFieldInternalProps {
+export interface ITextFieldInternalProps extends IBasicTextFieldInternalProps {
   onEnter?: () => void;
   onDelay?: (value: string) => void;
   delayTimeout?: number;
 }
 
-export interface ITextField extends IField<ITextFieldInternalProps,
-                                           ITextFieldInternalState,
-                                           ChangeEventT> {
+export interface ITextField extends IBasicTextField<ITextFieldInternalProps,
+                                                    ITextFieldInternalState> {
 }

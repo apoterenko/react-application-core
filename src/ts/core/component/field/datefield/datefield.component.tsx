@@ -52,11 +52,12 @@ export class DateField extends BasicTextField<DateField,
     }
   }
 
-  public onKeyPress(event: React.KeyboardEvent<AnyT>): void {
-    if (event.key === 'Enter' && this.dialogWindow.state.open) {
+  public onKeyEnter(event: React.KeyboardEvent<AnyT>): void {
+    super.onKeyEnter(event);
+
+    if (this.dialogWindow.state.open) {
       this.stopEvent(event);
     }
-    super.onKeyPress(event);
   }
 
   protected getRawValueFromEvent(event: ChangeEventT): Date {
@@ -120,7 +121,7 @@ export class DateField extends BasicTextField<DateField,
     this.onChangeValue(date, null);
 
     this.preventShowDialog = true;
-    this.setFocus();
+    this.input.focus();
   };
 
   private get dialogDate(): Date {

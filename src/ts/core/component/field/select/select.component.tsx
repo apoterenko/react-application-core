@@ -4,7 +4,7 @@ import { MDCSelect, MDCSelectFoundation } from '@material/select';
 
 import { BasicTextField } from 'core/component/field';
 import { Menu, IMenu } from 'core/component/menu';
-import { AnyT, BasicEventT, ChangeEventT, IKeyValue } from 'core/definition.interface';
+import { AnyT, BasicEventT, ChangeEventT, IKeyValue, KeyboardEventT } from 'core/definition.interface';
 
 import {
   INativeMaterialSelectComponent,
@@ -34,9 +34,29 @@ export class Select extends BasicTextField<Select,
     this.onChangeValue(undefined);
   }
 
+  public onKeyEnter(event: KeyboardEventT): void {
+    super.onKeyEnter(event);
+
+    if (!this.menu.opened) {
+      this.stopEvent(event);
+      this.openMenu();
+    }
+  }
+
+  public onKeyEscape(event: KeyboardEventT): void {
+    super.onKeyEscape(event);
+
+    if (this.menu.opened) {
+      this.hideMenu();
+    }
+  }
+
   protected onClick(event: BasicEventT): void {
     super.onClick(event);
-    this.menu.show();
+
+    if (!this.menu.opened) {
+      this.openMenu();
+    }
   }
 
   protected getComponent(): JSX.Element {
@@ -80,5 +100,13 @@ export class Select extends BasicTextField<Select,
 
   private get menu(): IMenu {
     return this.refs.menu as IMenu;
+  }
+
+  private openMenu(): void {
+    this.menu.show();
+  }
+
+  private hideMenu(): void {
+    this.menu.hide();
   }
 }

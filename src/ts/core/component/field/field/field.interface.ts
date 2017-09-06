@@ -1,10 +1,19 @@
-import { CSSProperties, PureComponent, KeyboardEvent } from 'react';
+import { CSSProperties, PureComponent } from 'react';
 
 import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
 import { IBaseComponent, IBaseComponentInternalState } from 'core/component/base';
 import { IComponentPluginCtor } from 'core/component/plugin';
 
-export interface IFieldInternalProps {
+export interface IKeyboardHandlers {
+  onKeyEnter?(event: KeyboardEventT): void;
+  onKeyUp?(event: KeyboardEventT): void;
+  onKeyDown?(event: KeyboardEventT): void;
+  onKeyEscape?(event: KeyboardEventT): void;
+  onKeyArrowDown?(event: KeyboardEventT): void;
+  onKeyArrowUp?(event: KeyboardEventT): void;
+}
+
+export interface IFieldInternalProps extends IKeyboardHandlers {
   persistent?: boolean;
   name?: string;
   value?: AnyT;
@@ -28,8 +37,8 @@ export interface IFieldInternalProps {
   changeForm?(name: string, value: AnyT): void;
   onChange?(value: AnyT): void;
   onFocus?(event: FocusEventT): void;
+  onBlur?(event: FocusEventT): void;
   onClick?(event: BasicEventT): void;
-  onKeyPress?(event: KeyboardEventT): void;
 }
 
 export interface IFieldInternalState extends IBaseComponentInternalState {
@@ -44,8 +53,6 @@ export interface IMaskedTextInputPureComponent extends PureComponent<{}, {}> {
 export interface IField<TInternalProps extends IFieldInternalProps,
                         TInternalState extends IFieldInternalState,
                         TValueEvent>
-    extends IBaseComponent<TInternalProps, TInternalState> {
-  setFocus(): void;
+    extends IKeyboardHandlers, IBaseComponent<TInternalProps, TInternalState> {
   onChange(event: TValueEvent): void;
-  onKeyPress(event: KeyboardEvent<AnyT>): void;
 }

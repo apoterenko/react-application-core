@@ -3,23 +3,25 @@ import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
 import { INativeMaterialComponent } from 'core/component/material';
-import { AnyT, IKeyValue, ChangeEventT, BasicEventT } from 'core/definition.interface';
+import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
+import { Field, IField } from 'core/component/field/field';
+
 import {
-  Field,
-  IField,
-  IFieldInternalProps,
-  IFieldInternalState
-} from 'core/component/field/field';
+  IBasicTextFieldInternalState,
+  IBasicTextFieldInternalProps,
+  IBasicTextField
+} from './basic-textfield.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
-                            TInternalProps extends IFieldInternalProps,
-                            TInternalState extends IFieldInternalState,
+                            TInternalProps extends IBasicTextFieldInternalProps,
+                            TInternalState extends IBasicTextFieldInternalState,
                             TNativeMaterialComponent extends INativeMaterialComponent>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState,
                   TNativeMaterialComponent,
-                  ChangeEventT> {
+                  ChangeEventT>
+    implements IBasicTextField<TInternalProps, TInternalState> {
 
   constructor(props: TInternalProps) {
     super(props, MDCTextfield);
@@ -78,9 +80,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       autoFocus: props.autoFocus,
       autoComplete: 'off',
       onFocus: this.onFocus,
+      onBlur: this.onBlur,
       onClick: this.onClick,
       onChange: this.onChange,
-      onKeyPress: this.onKeyPress
+      onKeyDown: this.onKeyDown,
+      onKeyUp: this.onKeyUp
     };
   }
 
