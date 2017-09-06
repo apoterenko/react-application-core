@@ -8,16 +8,18 @@ import { isUndef } from 'core/util';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import { BasicTextField } from 'core/component/field/textfield';
 import { IDateConverter } from 'core/converter';
+import { INativeMaterialComponent } from 'core/component/material';
 
 import {
   IDateFieldInternalProps,
   IDateFieldInternalState,
-  IMaterialDatePickerDialogComponent
+  IMaterialDateDialogComponent
 } from './datefield.interface';
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
-                                              IDateFieldInternalState> {
+                                              IDateFieldInternalState,
+                                              INativeMaterialComponent> {
   static defaultProps: IDateFieldInternalProps = {
     container: 'dialog',
     autoOk: true,
@@ -61,6 +63,17 @@ export class DateField extends BasicTextField<DateField,
     return this.dateConverter.tryConvertToDate(event.target.value);
   }
 
+  protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
+    // Date object must be able to be serialized as a string
+    return this.dateConverter.formatDate(value);
+  }
+
+  protected propsChangeForm(rawValue: AnyT): void {
+    super.propsChangeForm(
+        this.prepareStateValueBeforeSerialization(rawValue)
+    );
+  }
+
   protected getComponent(): JSX.Element {
     const props = this.props;
     return (
@@ -99,38 +112,30 @@ export class DateField extends BasicTextField<DateField,
       // We should bind a string value to the input field
       // because a state can hold the raw values
       // although at this case the state hold the string value
-      value: this.formatDateValue(this.value)
+      value: this.dateConverter.formatDate(this.value)
     };
   }
 
   private onAccept(date: Date): void {
     this.onChangeValue(date, null);
 
-    if (this.isPersistent) {
-      // Propagate a string value to the form (a simulation)
-      this.propsOnChangeForm(this.formatDateValue(date));
-    }
-
     this.preventShowDialog = true;
     this.setFocus();
   };
 
-  private formatDateValue(dateValue: AnyT): string {
-    return this.dateConverter.formatDate(dateValue);
-  }
-
   private get dialogDate(): Date {
+    const value = this.value;
     const defaultDate = this.dateConverter.getCurrentDate();
-    if (ramda.isNil(this.value)) {
+    if (ramda.isNil(value)) {
       return defaultDate;
     }
-    const dateValue = this.dateConverter.tryConvertToDate(this.value);
+    const dateValue = this.dateConverter.tryConvertToDate(value);
     return this.dateConverter.isDate(dateValue)
         ? dateValue as Date
         : defaultDate;
   }
 
-  private get dialogWindow(): IMaterialDatePickerDialogComponent {
-    return this.refs.dialogWindow as IMaterialDatePickerDialogComponent;
+  private get dialogWindow(): IMaterialDateDialogComponent {
+    return this.refs.dialogWindow as IMaterialDateDialogComponent;
   }
 }

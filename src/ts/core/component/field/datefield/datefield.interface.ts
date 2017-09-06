@@ -24,7 +24,7 @@ export interface IDateFieldInternalProps extends IFieldInternalProps {
 export interface IDateFieldInternalState extends IFieldInternalState {
 }
 
-export interface IMaterialDatePickerDialogComponent
+export interface IMaterialDateDialogComponent
     extends PureComponent<IBaseComponentInternalProps, { open: boolean }> {
   show(): void;
 }
