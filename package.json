@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
@@ -72,5 +72,15 @@
   "engines": {
     "node": ">= 4.2.1",
     "npm": ">= 3"
-  }
+  },
+  "contributors": [
+    {
+      "name" : "Alex Poter"
+    , "url" : "https://github.com/apoterenko"
+    },
+    {
+      "name" : "Ivan Khrulev"
+    , "url" : "https://github.com/chge"
+    }
+  ]
 }
