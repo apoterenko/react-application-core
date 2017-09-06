@@ -1,6 +1,6 @@
-import { PureComponent, SyntheticEvent } from 'react';
+import { PureComponent } from 'react';
 
-import { AnyT } from 'core/definition.interface';
+import { BasicEventT } from 'core/definition.interface';
 import { lazyInject, DI_TYPES } from 'core/di';
 import { IComponentPlugin, IComponentPluginCtor, IPluginableComponent } from 'core/component/plugin';
 
@@ -50,7 +50,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     return plugin;
   }
 
-  public stopEvent(event: SyntheticEvent<AnyT>): void {
+  public stopEvent(event: BasicEventT): void {
     if (event.stopPropagation) {
       event.stopPropagation();
     }
