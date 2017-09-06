@@ -1,0 +1,9 @@
+.app-form {
+  &.app-layout-form, &.app-empty-form {
+    background-color: white;
+
+    .mdc-card__primary {
+      min-height: 280px;
+    }
+  }
+}
