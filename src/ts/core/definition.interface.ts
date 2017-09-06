@@ -18,4 +18,7 @@ export interface INotificationAttributes {
   info?: string;
 }
 
-export type ChangeEventT = React.ChangeEvent<{ value: AnyT }>;
+export type BasicEventT = React.SyntheticEvent<{}>;
+export type FocusEventT = React.FocusEvent<{}>;
+export type KeyboardEventT = React.KeyboardEvent<{}>;
+export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;
