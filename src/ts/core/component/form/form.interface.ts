@@ -1,10 +1,7 @@
-import { IKeyValue, INotificationAttributes } from 'core/definition.interface';
-import {
-  IBaseComponent,
-  IBaseContainer,
-  IBaseContainerInternalProps,
-  IBaseContainerInternalState,
-} from 'core/component';
+import { PureComponent } from 'react';
+
+import { AnyT, IKeyValue, INotificationAttributes } from 'core/definition.interface';
+import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from 'core/component/base';
 
 export interface IFormEntity extends IKeyValue {
   id?: number | string;
@@ -39,7 +36,7 @@ export interface IFormContainerState<TEntity extends IFormEntity>
     extends IFormAttributes<TEntity> {
 }
 
-export const INITIAL_FORM_STATE: IFormContainerState<any> = {
+export const INITIAL_FORM_STATE: IFormContainerState<AnyT> = {
   changes: {}
 };
 
@@ -49,17 +46,16 @@ export interface IFormContainer<TEntity extends IFormEntity,
     extends IBaseContainer<TInternalProps, TInternalState> {
 }
 
-export interface IForm<TInternalProps extends IFormInternalProps, TInternalState>
-    extends IBaseComponent<TInternalProps, TInternalState> {
+export interface IFormPureComponent extends PureComponent<{}, {}> {
   checkValidity(): void;
 }
 
 export interface IFormInternalProps extends IFormStateAttributes, INotificationAttributes {
   className?: string;
   onSubmit?: Function;
-  onChange?: Function;
   onValid?: Function;
   actionText?: string;
+  onChange?(name: string, value: AnyT): void;
 }
 
 export const FORM_RESTORE_ACTION_TYPE = 'form.restore';

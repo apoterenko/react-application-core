@@ -1,10 +1,11 @@
-import ramda from 'ramda';
+import * as ramda from 'ramda';
 
 import { IApiRequest } from 'core/api';
 import { Operation } from 'core/operation';
 import { IApplicationPermissionState } from 'core/permission';
 import { IApplicationState } from 'core/store';
-import { BaseContainer, IBaseContainerInternalState } from 'core/component';
+import { AnyT } from 'core/definition.interface';
+import { BaseContainer, IBaseContainerInternalState } from 'core/component/base';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -45,6 +46,7 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: any): void {
     const props = this.props;
     if (props.validateForm && !ramda.equals(nextProps.changes, props.changes)) {
+      // TODO Complex validation
       this.dispatch(FORM_VALIDATION_ERRORS_ACTION_TYPE, {
         validationErrors: props.validateForm(
             Object.assign({}, props.entity, nextProps.changes)
@@ -57,9 +59,10 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
     this.dispatch(FORM_DESTROY_ACTION_TYPE);
   }
 
-  protected onChange(event: { target: { name: string, value: any } }): void {
-    const target = event.target;
-    target.name && this.dispatchFormChangeEvent(target.name, target.value);
+  protected onChange(name: string, value: AnyT): void {
+    if (name) {
+      this.dispatchFormChangeEvent(name, value);
+    }
   }
 
   protected dispatchFormChangeEvent(fieldName: string, value: any): void {
