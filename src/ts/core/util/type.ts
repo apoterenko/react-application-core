@@ -1,5 +1,5 @@
 import { AnyT } from 'core/definition.interface';
 
-export const isUndef = function (value: AnyT) {
+export function isUndef(value: AnyT): boolean {
   return typeof value === 'undefined';
-};
+}

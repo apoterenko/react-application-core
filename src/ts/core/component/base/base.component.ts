@@ -3,7 +3,7 @@ import * as ramda from 'ramda';
 
 import { BasicEventT } from 'core/definition.interface';
 import { lazyInject, DI_TYPES } from 'core/di';
-import { IComponentPlugin, IComponentPluginCtor, IPluginableComponent } from 'core/component/plugin';
+import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
 
 import {
   IBaseComponent,
@@ -14,8 +14,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
                            TInternalProps extends IBaseComponentInternalProps,
                            TInternalState>
     extends PureComponent<TInternalProps, TInternalState>
-    implements IBaseComponent<TInternalProps, TInternalState>,
-               IPluginableComponent<TComponent, TInternalProps, TInternalState> {
+    implements IBaseComponent<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Translate) protected t: (k: string) => string;
 

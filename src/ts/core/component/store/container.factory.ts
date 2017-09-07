@@ -1,13 +1,10 @@
 import { connect } from 'react-redux';
 
-import { IKeyValue } from 'core/definition.interface';
 import { IApplicationPermissionState } from 'core/permission';
 import { IApplicationState } from 'core/store';
-import {
-  IBaseContainer,
-  IBaseContainerInternalProps,
-  IBaseContainerInternalState,
-} from 'core/component';
+import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from 'core/component/base';
+import { IKeyValue } from 'core/definition.interface';
+
 import { ConnectorMapperT, IConnectorCtor } from './container.interface';
 
 export const containerFactory = <TContainer extends IBaseContainer<TInternalProps, TInternalState>,

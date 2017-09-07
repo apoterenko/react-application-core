@@ -5,7 +5,7 @@ import { provide } from 'core/di';
 import {
   IDateConverter,
   IDateLocaleSpecificConstants,
-  IDateLocaleSpecificConstantsRepo
+  IDateLocaleSpecificConstantsRepo,
 } from './converter.interface';
 
 @provide(DateConverter)
@@ -13,10 +13,10 @@ export class DateConverter implements IDateConverter {
 
   private static LOCALE_SPECIFIC: IDateLocaleSpecificConstantsRepo = {
     en: {
-      datePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
       dateFormat: 'YYYY-MM-DD',
-      dateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
-    }
+      dateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
+      datePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
+    },
   };
 
   public formatDate(date: string | Date, format: string = this.localeSpecificConstants.dateFormat): string {
@@ -28,7 +28,7 @@ export class DateConverter implements IDateConverter {
           ? momentDate.format(format)
           : String(date);
     }
-  };
+  }
 
   public tryConvertToDate(date: string | Date,
                           format: string = this.localeSpecificConstants.dateFormat): string | Date {
@@ -38,10 +38,7 @@ export class DateConverter implements IDateConverter {
 
   public getDateRangeFromDate(date: Date): Date[] {
     const momentDate = this.getCurrentMomentDate(date);
-    return [
-      momentDate.toDate(),
-      momentDate.clone().add(1, 'day').subtract(1, 'second').toDate()
-    ];
+    return [momentDate.toDate(), momentDate.clone().add(1, 'day').subtract(1, 'second').toDate()];
   }
 
   public isDate(date: Date|string): boolean {

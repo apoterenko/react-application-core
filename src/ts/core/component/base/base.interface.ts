@@ -2,7 +2,7 @@ import { Component, CSSProperties, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
 import { AnyT, IKeyValue } from 'core/definition.interface';
-import { IComponentPluginCtor } from 'core/component/plugin';
+import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, IBaseComponentInternalState>,
                                                         IBaseComponentInternalProps,
@@ -21,6 +21,8 @@ export interface IBaseContainerInternalState {
 export interface IBaseComponent<TInternalProps, TInternalState>
     extends Component<TInternalProps, TInternalState> {
   stopEvent(event: SyntheticEvent<AnyT>): void;
+  registerPlugin(componentPlugin: IComponentPluginCtor<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>):
+      IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;
 }
 
 export interface IBaseComponentInternalState {

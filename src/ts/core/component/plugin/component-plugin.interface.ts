@@ -13,10 +13,3 @@ export interface IComponentPlugin<TComponent extends IBaseComponent<TInternalPro
                                   TInternalState>
     extends ComponentLifecycle<TInternalProps, TInternalState> {
 }
-
-export interface IPluginableComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
-                                      TInternalProps,
-                                      TInternalState> {
-  registerPlugin(componentPlugin: IComponentPluginCtor<TComponent, TInternalProps, TInternalState>)
-      : IComponentPlugin<TComponent, TInternalProps, TInternalState>;
-}

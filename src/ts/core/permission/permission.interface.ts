@@ -5,7 +5,7 @@ export interface IApplicationPermissionState<TPermissions> {
 
 export const INITIAL_PERMISSION_STATE: IApplicationPermissionState<any> = {
   authorized: false,
-  permissions: null
+  permissions: null,
 };
 
 export interface IApplicationPermissionService<TPermissionObject> {

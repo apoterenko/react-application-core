@@ -4,6 +4,6 @@ export interface IApplicationUserState {
 }
 
 export const INITIAL_USER_STATE: IApplicationUserState = {
+  id: null,
   name: null,
-  id: null
 };

@@ -10,7 +10,7 @@ import { BaseContainer, IBaseContainer, IBaseContainerInternalState } from 'core
 import {
   IRootContainerInternalProps,
   ROOT_PATH_UPDATE_ACTION_TYPE,
-  ROOT_SECTION
+  ROOT_SECTION,
 } from './root.interface';
 
 export class RootContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,

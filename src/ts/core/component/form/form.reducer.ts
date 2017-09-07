@@ -24,7 +24,7 @@ export function formReducer(state: IFormContainerState<IKeyValue> = INITIAL_FORM
   switch (action.type) {
     case `${section}.${FORM_DESTROY_ACTION_TYPE}`:
       return {
-          ...INITIAL_FORM_STATE
+          ...INITIAL_FORM_STATE,
       };
     case `${section}.${FORM_RESTORE_ACTION_TYPE}`:
       return Object.keys(action.data.changes || {}).length > 0
@@ -32,10 +32,10 @@ export function formReducer(state: IFormContainerState<IKeyValue> = INITIAL_FORM
           dirty: true,
           changes: {
             ...action.data.changes,
-          }
+          },
         }
         : {
-          ...INITIAL_FORM_STATE
+          ...INITIAL_FORM_STATE,
         };
     case `${section}.${FORM_CHANGE_ACTION_TYPE}`:
       return {
@@ -51,19 +51,19 @@ export function formReducer(state: IFormContainerState<IKeyValue> = INITIAL_FORM
     case `${section}.${FORM_VALIDATION_ERRORS_ACTION_TYPE}`:
       return {
         ...state,
-        validationErrors: action.data.validationErrors
+        validationErrors: action.data.validationErrors,
       };
     case `${section}.${FORM_VALID_ACTION_TYPE}`:
       return {
         ...state,
-        valid: action.data.valid
+        valid: action.data.valid,
       };
     case `${section}.${FORM_SUBMIT_ACTION_TYPE}`:
       return {
         ...state,
         progress: true,
         info: null,
-        error: null
+        error: null,
       };
     case `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`:
       return {

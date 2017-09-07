@@ -14,7 +14,7 @@ export function rootReducer(state: IApplicationRootState = INITIAL_APPLICATION_R
   switch (action.type) {
     case `${ROOT_SECTION}.${ROOT_PATH_UPDATE_ACTION_TYPE}`:
       return {
-        path: action.data.path
+        path: action.data.path,
       };
   }
   return state;

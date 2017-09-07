@@ -10,23 +10,23 @@ import {
 
 export function permissionReducer<TPermissions>(
     state: IApplicationPermissionState<TPermissions> = INITIAL_PERMISSION_STATE,
-    action: AnyAction
+    action: AnyAction,
 ): IApplicationPermissionState<TPermissions> {
   switch (action.type) {
     case PERMISSION_DESTROY_ACTION_TYPE:
       return {
-        ...INITIAL_PERMISSION_STATE
+        ...INITIAL_PERMISSION_STATE,
       };
     case PERMISSION_PERMISSIONS_UPDATE_ACTION_TYPE:
       return {
         ...state,
-        permissions: action.data
+        permissions: action.data,
       };
     case PERMISSION_AUTHORIZED_UPDATE_ACTION_TYPE:
       return {
         ...state,
-        authorized: action.data
-      }
+        authorized: action.data,
+      };
   }
   return state;
 }

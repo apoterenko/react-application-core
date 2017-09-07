@@ -5,9 +5,9 @@ import { IApplicationUserState, INITIAL_USER_STATE } from './user.interface';
 export function userReducer(state: IApplicationUserState = INITIAL_USER_STATE,
                             action: AnyAction): IApplicationUserState {
   switch (action.type) {
-    case `user.update`:
+    case 'user.update':
       return {
-          ...action.data
+          ...action.data,
       };
   }
   return state;

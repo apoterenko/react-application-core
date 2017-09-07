@@ -10,7 +10,7 @@ export interface IApplicationState<TPermissionState extends IApplicationPermissi
 }
 
 export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationPermissionState<any>, any> = {
-  root: INITIAL_APPLICATION_ROOT_STATE,
   permission: INITIAL_PERMISSION_STATE,
-  user: INITIAL_USER_STATE
+  root: INITIAL_APPLICATION_ROOT_STATE,
+  user: INITIAL_USER_STATE,
 };

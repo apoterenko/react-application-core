@@ -20,7 +20,7 @@ export interface IApplicationRootState {
 }
 
 export const INITIAL_APPLICATION_ROOT_STATE: IApplicationRootState = {
-  path: null
+  path: null,
 };
 
 export const ROOT_SECTION = 'root';

@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 import { MDCSimpleMenu } from '@material/menu';
 
-import { uuid } from 'core/util';
 import { MaterialComponent } from 'core/component/material';
+import { uuid } from 'core/util';
 
 import {
   IMenuInternalState,

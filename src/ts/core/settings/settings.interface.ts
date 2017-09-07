@@ -3,5 +3,5 @@ export interface IApplicationSettings {
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
-  usePersistence: true
+  usePersistence: true,
 };
