@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { DI_TYPES, appContainer, lazyInject } from 'core/di';
 import { IEventManager } from 'core/event';
-import { IApplicationPermissionState } from 'core/permission';
+import { IApplicationPermissionService, IApplicationPermissionState } from 'core/permission';
 import { IRouter } from 'core/router';
 import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
@@ -20,12 +20,14 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
                                            TInternalProps extends IApplicationContainerProps,
                                            TInternalState extends IBaseContainerInternalState,
                                            TPermissionState extends IApplicationPermissionState<TPermissions>,
-                                           TPermissions>
+                                           TPermissions,
+                                           TPermissionObject>
     extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
 
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionService<TPermissionObject>;
 
   constructor(props: TInternalProps, sectionName = 'application') {
     super(props, sectionName);
@@ -77,6 +79,10 @@ export abstract class ApplicationContainer<TContainer extends IBaseContainer<TIn
     this.storage.set(APPLICATION_STATE_KEY,
         this.clearStateBeforeSerialization(clone<TAppState>(this.appState)),
     );
+  }
+
+  protected get isAuthorized(): boolean {
+    return this.permissionService.isAuthorized();
   }
 
   protected abstract get routes(): JSX.Element[];
