@@ -23,7 +23,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
   constructor(props: TInternalProps) {
     super(props);
     if (!ramda.isNil(this.props.plugins)) {
-      [].concat(this.props.plugins).forEach(plugin => this.registerPlugin(plugin));
+      [].concat(this.props.plugins).forEach((plugin) => this.registerPlugin(plugin));
     }
   }
 

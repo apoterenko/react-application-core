@@ -9,6 +9,6 @@ export interface IApplicationContainerProps extends IBaseContainerInternalProps 
 export interface IContainerWrapperCtor<TWrappedContainer extends PureComponent<TInternalProps, TInternalState>,
                                        TInternalProps extends IBaseContainerInternalProps,
                                        TInternalState extends IBaseContainerInternalState> {
-  new (...args): TWrappedContainer;
   WrappedComponent?: TWrappedContainer;
+  new (...args): TWrappedContainer;
 }
