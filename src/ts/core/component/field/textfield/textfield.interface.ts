@@ -1,3 +1,5 @@
+import { AnyT } from 'core/definition.interface';
+
 import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps, IBasicTextField
@@ -7,8 +9,7 @@ export interface ITextFieldInternalState extends IBasicTextFieldInternalState {
 }
 
 export interface ITextFieldInternalProps extends IBasicTextFieldInternalProps {
-  onEnter?: () => void;
-  onDelay?: (value: string) => void;
+  onDelay?: (value: AnyT) => void;
   delayTimeout?: number;
 }
 

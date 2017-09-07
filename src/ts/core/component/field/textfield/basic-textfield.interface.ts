@@ -10,6 +10,6 @@ export interface IBasicTextFieldInternalProps extends IFieldInternalProps {
 export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalProps,
                                  TInternalState extends IBasicTextFieldInternalState>
     extends IField<TInternalProps,
-                TInternalState,
-                ChangeEventT> {
+                   TInternalState,
+                   ChangeEventT> {
 }
