@@ -1,13 +1,11 @@
 import { FunctionT } from 'core/util';
-import { AnyT } from 'core/definition.interface';
-import { IBaseComponent } from 'core/component/base';
-import { IFieldInternalState, IFieldInternalProps } from 'core/component/field/field';
+import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
 import { INativeMaterialComponent } from 'core/component/material';
 
-export interface IMenuInternalState extends IFieldInternalState {
+export interface IMenuInternalState {
 }
 
-export interface IMenuInternalProps extends IFieldInternalProps {
+export interface IMenuInternalProps extends IBaseComponentInternalProps {
   options: IMenuOption[];
   onSelect?(option: IMenuOption): void;
 }
