@@ -1,13 +1,17 @@
 import { PureComponent } from 'react';
+import * as ramda from 'ramda';
 
 import { BasicEventT } from 'core/definition.interface';
 import { lazyInject, DI_TYPES } from 'core/di';
 import { IComponentPlugin, IComponentPluginCtor, IPluginableComponent } from 'core/component/plugin';
 
-import { IBaseComponent } from './base.interface';
+import {
+  IBaseComponent,
+  IBaseComponentInternalProps
+} from './base.interface';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
-                           TInternalProps,
+                           TInternalProps extends IBaseComponentInternalProps,
                            TInternalState>
     extends PureComponent<TInternalProps, TInternalState>
     implements IBaseComponent<TInternalProps, TInternalState>,
@@ -16,6 +20,13 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
   @lazyInject(DI_TYPES.Translate) protected t: (k: string) => string;
 
   private plugins: Array<IComponentPlugin<TComponent, TInternalProps, TInternalState>> = [];
+
+  constructor(props: TInternalProps) {
+    super(props);
+    if (!ramda.isNil(this.props.plugins)) {
+      [].concat(this.props.plugins).forEach(plugin => this.registerPlugin(plugin));
+    }
+  }
 
   public componentDidMount(): void {
     this.plugins.forEach((plugin) => plugin.componentDidMount && plugin.componentDidMount());
