@@ -10,7 +10,7 @@ import {
   INativeMaterialSelectComponent,
   ISelectInternalProps,
   ISelectInternalState,
-  ISelectOption
+  ISelectOption,
 } from './select.interface';
 
 export class Select extends BasicTextField<Select,
@@ -18,11 +18,11 @@ export class Select extends BasicTextField<Select,
                                            ISelectInternalState,
                                            INativeMaterialSelectComponent> {
 
-  static EMPTY_VALUE = -1;
-
-  static defaultProps: ISelectInternalProps = {
-    options: []
+  public static defaultProps: ISelectInternalProps = {
+    options: [],
   };
+
+  private static EMPTY_VALUE = -1;
 
   constructor(props: ISelectInternalProps) {
     super(props);
@@ -75,7 +75,7 @@ export class Select extends BasicTextField<Select,
   protected getComponentProps(): IKeyValue {
     return {
       ...super.getComponentProps(),
-      value: this.toDisplayValue()
+      value: this.toDisplayValue(),
     };
   }
 
@@ -96,7 +96,7 @@ export class Select extends BasicTextField<Select,
   }
 
   private getSelectedOption(value: AnyT): ISelectOption {
-    return ramda.find(option => option.value === value, this.props.options);
+    return ramda.find((option) => option.value === value, this.props.options);
   }
 
   private get menu(): IMenu {

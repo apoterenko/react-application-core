@@ -8,7 +8,7 @@ import { Button } from 'core/component/button';
 
 import {
   IFormPureComponent,
-  IFormInternalProps
+  IFormInternalProps,
 } from './form.interface';
 
 export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInternalState>,
@@ -26,7 +26,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
     return (
         <form ref='self'
-              className={className.filter(cls => !!cls).join(' ')}
+              className={className.filter((cls) => !!cls).join(' ')}
               onSubmit={this.onSubmit}>
           <fieldset disabled={props.progress}>
             <section className='mdc-card__primary'>
@@ -35,10 +35,10 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
                   (child: React.ReactElement<{}>) => {
                     return Field.isPrototypeOf(child.type)
                         ? React.cloneElement<{}, {}>(child, {
-                          changeForm: (name: string, value: string) => this.onChange(name, value)
+                          changeForm: (name: string, value: string) => this.onChange(name, value),
                         })
                         : child;
-                  }
+                  },
                 )
               }
             </section>

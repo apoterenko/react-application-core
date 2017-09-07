@@ -48,9 +48,7 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
     if (props.validateForm && !ramda.equals(nextProps.changes, props.changes)) {
       // TODO Complex validation
       this.dispatch(FORM_VALIDATION_ERRORS_ACTION_TYPE, {
-        validationErrors: props.validateForm(
-            Object.assign({}, props.entity, nextProps.changes)
-        )
+        validationErrors: props.validateForm(Object.assign({}, props.entity, nextProps.changes)),
       });
     }
   }
@@ -65,8 +63,8 @@ export class FormContainer<TContainer extends IFormContainer<TEntity, TInternalP
     }
   }
 
-  protected dispatchFormChangeEvent(fieldName: string, value: any): void {
-    this.dispatch(FORM_CHANGE_ACTION_TYPE, { field: fieldName, value: value });
+  protected dispatchFormChangeEvent(field: string, value: any): void {
+    this.dispatch(FORM_CHANGE_ACTION_TYPE, { field, value });
   }
 
   protected onValid(valid: boolean): void {

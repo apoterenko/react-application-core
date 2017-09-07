@@ -29,8 +29,10 @@ export interface IBaseComponentInternalState {
 }
 
 export interface IBaseComponentInternalProps {
+  persistent?: boolean;
   className?: string;
   style?: CSSProperties;
+  wrapperStyle?: CSSProperties;
   plugins?: ComponentPluginCtorT|ComponentPluginCtorT[],
 }
 

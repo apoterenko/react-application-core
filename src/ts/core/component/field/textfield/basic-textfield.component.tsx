@@ -9,7 +9,7 @@ import { Field, IField } from 'core/component/field/field';
 import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
-  IBasicTextField
+  IBasicTextField,
 } from './basic-textfield.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
@@ -28,17 +28,17 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   public render(): JSX.Element {
-    const props = this.props,
-        error = this.error;
+    const props = this.props;
+    const error = this.error;
 
     const className = [
       'mdc-textfield mdc-textfield--upgraded app-textfield',
       props.className,
-      props.autoFocus && 'mdc-textfield--focused'
+      props.autoFocus && 'mdc-textfield--focused',
     ];
     const labelClassName = [
       'mdc-textfield__label',
-      props.autoFocus && 'mdc-textfield__label--float-above'
+      props.autoFocus && 'mdc-textfield__label--float-above',
     ];
 
     const prepareStyles = this.context.muiTheme
@@ -47,12 +47,12 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
     return (
         <div className='app-textfield-wrapper'
-             style={prepareStyles({...props.wrapperStyle as Object})}>
+             style={prepareStyles({...props.wrapperStyle as {}})}>
           <div ref='self'
                style={props.style}
-               className={className.filter(cls => !!cls).join(' ')}>
+               className={className.filter((cls) => !!cls).join(' ')}>
             {this.getComponent()}
-            <label className={labelClassName.filter(cls => !!cls).join(' ')}>
+            <label className={labelClassName.filter((cls) => !!cls).join(' ')}>
               {props.label ? this.t(props.label) : props.children}
             </label>
           </div>
@@ -84,7 +84,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       onClick: this.onClick,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
-      onKeyUp: this.onKeyUp
+      onKeyUp: this.onKeyUp,
     };
   }
 

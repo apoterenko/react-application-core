@@ -2,7 +2,7 @@ import { BaseComponent, IBaseComponent } from 'core/component/base';
 
 import {
   INativeMaterialComponent,
-  IMaterialComponentFactory
+  IMaterialComponentFactory,
 } from './material.interface';
 
 export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,

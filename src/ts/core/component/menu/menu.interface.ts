@@ -16,10 +16,10 @@ export interface INativeMaterialMenuComponent extends INativeMaterialComponent {
 }
 
 export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalState> {
+  opened: boolean;
   show(): void;
   hide(): void;
   activate(index: number);
-  opened: boolean;
 }
 
 export interface IMenuOption {

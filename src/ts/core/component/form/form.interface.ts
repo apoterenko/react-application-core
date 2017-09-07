@@ -1,5 +1,6 @@
 import { PureComponent } from 'react';
 
+import { FunctionT } from 'core/util';
 import { AnyT, IKeyValue, INotificationAttributes } from 'core/definition.interface';
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from 'core/component/base';
 
@@ -28,8 +29,8 @@ export interface IFormPayload<TEntity extends IFormEntity> extends IFormEntityAt
 
 export interface IFormContainerInternalProps<TEntity extends IFormEntity>
     extends IBaseContainerInternalProps, IFormAttributes<TEntity> {
-  validateForm?(entity: IKeyValue): string[];
   extraProps?: IKeyValue;
+  validateForm?(entity: IKeyValue): string[];
 }
 
 export interface IFormContainerState<TEntity extends IFormEntity>
@@ -37,7 +38,7 @@ export interface IFormContainerState<TEntity extends IFormEntity>
 }
 
 export const INITIAL_FORM_STATE: IFormContainerState<AnyT> = {
-  changes: {}
+  changes: {},
 };
 
 export interface IFormContainer<TEntity extends IFormEntity,
@@ -52,8 +53,8 @@ export interface IFormPureComponent extends PureComponent<{}, {}> {
 
 export interface IFormInternalProps extends IFormStateAttributes, INotificationAttributes {
   className?: string;
-  onSubmit?: Function;
-  onValid?: Function;
+  onSubmit?: FunctionT;
+  onValid?: FunctionT;
   actionText?: string;
   onChange?(name: string, value: AnyT): void;
 }

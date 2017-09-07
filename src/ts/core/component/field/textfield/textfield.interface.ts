@@ -2,7 +2,8 @@ import { AnyT } from 'core/definition.interface';
 
 import {
   IBasicTextFieldInternalState,
-  IBasicTextFieldInternalProps, IBasicTextField
+  IBasicTextFieldInternalProps,
+  IBasicTextField,
 } from './basic-textfield.interface';
 
 export interface ITextFieldInternalState extends IBasicTextFieldInternalState {

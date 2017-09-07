@@ -1,11 +1,7 @@
 import { IApplicationPermissionState } from 'core/permission';
 import { IApplicationState } from 'core/store';
-import {
-  IBaseContainerInternalState,
-  containerFactory,
-  ConnectorMapperT,
-  IConnectorCtor
-} from 'core/component';
+import { IBaseContainerInternalState, } from 'core/component/base';
+import { IConnectorCtor, ConnectorMapperT, containerFactory } from 'core/component/store'
 
 import { IFormContainer, IFormContainerInternalProps, IFormEntity } from './form.interface';
 

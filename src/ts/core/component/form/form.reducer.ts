@@ -46,7 +46,7 @@ export function formReducer(state: IFormContainerState<IKeyValue> = INITIAL_FORM
         changes: {
           ...state.changes,
           [action.data.field]: action.data.value,
-        }
+        },
       };
     case `${section}.${FORM_VALIDATION_ERRORS_ACTION_TYPE}`:
       return {

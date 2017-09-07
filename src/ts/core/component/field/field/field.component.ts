@@ -4,7 +4,7 @@ import { isUndef } from 'core/util';
 import {
   INativeMaterialComponent,
   MaterialComponent,
-  IMaterialComponentFactory
+  IMaterialComponentFactory,
 } from 'core/component/material';
 import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
 
@@ -12,7 +12,7 @@ import {
   IField,
   IFieldInternalProps,
   IFieldInternalState,
-  IMaskedTextInputPureComponent
+  IMaskedTextInputPureComponent,
 } from './field.interface';
 
 export abstract class Field<TComponent extends IField<TInternalProps, TInternalState, TValueEvent>,
@@ -40,7 +40,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       this.state = {} as TInternalState;
     } else {
       this.state = {
-        stateValue: this.prepareStateValueBeforeSerialization(this.definitePropsValue)
+        stateValue: this.prepareStateValueBeforeSerialization(this.definitePropsValue),
       } as TInternalState;
     }
   }
@@ -168,6 +168,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
         || this.refs.input as HTMLInputElement;
   }
 
+  protected abstract getEmptyValue(): AnyT;
+
+  protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;
+
   private validateValue(value: AnyT): string {
     const props = this.props;
     let error = null;
@@ -202,8 +206,4 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   private get stateValue(): AnyT {
     return this.state.stateValue;
   }
-
-  protected abstract getEmptyValue(): AnyT;
-
-  protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;
 }

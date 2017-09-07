@@ -1,10 +1,10 @@
-import { CSSProperties, PureComponent } from 'react';
+import { PureComponent } from 'react';
 
 import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
 import {
   IBaseComponent,
   IBaseComponentInternalProps,
-  IBaseComponentInternalState
+  IBaseComponentInternalState,
 } from 'core/component/base';
 
 export interface IKeyboardHandlers {
@@ -17,11 +17,9 @@ export interface IKeyboardHandlers {
 }
 
 export interface IFieldInternalProps extends IBaseComponentInternalProps, IKeyboardHandlers {
-  persistent?: boolean;
   name?: string;
   value?: AnyT;
   label?: string;
-  wrapperStyle?: CSSProperties;
   placeholder?: string;
   autoFocus?: boolean;
   mask?: Array<string|RegExp>;
@@ -31,7 +29,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps, IKeybo
   required?: boolean;
   min?: number;
   max?: number;
-  validate?:(value: AnyT) => string;
+  validate?: (value: AnyT) => string;
   changeForm?(name: string, value: AnyT): void;
   onChange?(value: AnyT): void;
   onFocus?(event: FocusEventT): void;

@@ -9,7 +9,7 @@ import {
   IMenuInternalState,
   IMenuInternalProps,
   IMenu,
-  INativeMaterialMenuComponent
+  INativeMaterialMenuComponent,
 } from './menu.interface';
 
 export class Menu extends MaterialComponent<Menu,
@@ -34,7 +34,7 @@ export class Menu extends MaterialComponent<Menu,
   }
 
   public render(): JSX.Element {
-    const menuItemsTpl = this.props.options.map(option => (
+    const menuItemsTpl = this.props.options.map((option) => (
         <li className='mdc-list-item'
             role='option'
             key={uuid()}
@@ -49,7 +49,7 @@ export class Menu extends MaterialComponent<Menu,
           <div ref='self'
                className='mdc-simple-menu app-menu'>
             <ul className='mdc-simple-menu__items mdc-list'
-                role="menu">
+                role='menu'>
               {menuItemsTpl}
             </ul>
           </div>
@@ -73,12 +73,10 @@ export class Menu extends MaterialComponent<Menu,
     return this.nativeMdcInstance.open;
   }
 
-  private onSelect(event: { detail: { index: number, item: Element }}): void {
+  private onSelect(event: { detail: { index: number, item: Element } }): void {
     if (this.props.onSelect) {
       const value = event.detail.item.getAttribute('value');
-      this.props.onSelect(
-          ramda.find(option => option.value == value, this.props.options)
-      );
+      this.props.onSelect(ramda.find((option) => String(option.value) === value, this.props.options));
     }
   }
 }
