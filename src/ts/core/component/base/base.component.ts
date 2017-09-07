@@ -7,7 +7,7 @@ import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
 
 import {
   IBaseComponent,
-  IBaseComponentInternalProps
+  IBaseComponentInternalProps,
 } from './base.interface';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,

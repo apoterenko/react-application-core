@@ -14,12 +14,12 @@ export class StorageService implements IStorage {
     this.storage.enabled = value;
   }
 
-  set disabled(value: boolean) {
-    this.storage.disabled = value;
-  }
-
   get enabled(): boolean {
     return this.storage.enabled;
+  }
+
+  set disabled(value: boolean) {
+    this.storage.disabled = value;
   }
 
   get disabled(): boolean {
