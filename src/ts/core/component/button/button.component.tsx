@@ -4,7 +4,7 @@ import { BaseComponent } from 'core/component/base';
 
 import {
   IButtonInternalProps,
-  IButtonInternalState
+  IButtonInternalState,
 } from './button.interface';
 
 export class Button extends BaseComponent<Button,
@@ -26,7 +26,7 @@ export class Button extends BaseComponent<Button,
 
     return (
         <button type='submit'
-                className={className.filter(cls => !!cls).join(' ')}
+                className={className.filter((cls) => !!cls).join(' ')}
                 disabled={props.disabled || props.progress}>
           {props.children}
           {text}

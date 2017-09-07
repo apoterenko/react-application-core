@@ -7,7 +7,7 @@ import { Field } from 'core/component/field';
 import {
   ICheckboxInternalState,
   ICheckboxInternalProps,
-  INativeMaterialCheckboxComponent
+  INativeMaterialCheckboxComponent,
 } from './checkbox.interface';
 
 export class Checkbox extends Field<Checkbox,
@@ -23,7 +23,7 @@ export class Checkbox extends Field<Checkbox,
     super.componentDidMount();
 
     Reflect.defineProperty(this.input, 'value', {
-      get: () => this.nativeMdcInstance.checked
+      get: () => this.nativeMdcInstance.checked,
     });
   }
 
@@ -33,9 +33,9 @@ export class Checkbox extends Field<Checkbox,
 
     return (
         <div className='mdc-form-field app-checkbox-wrapper'
-             style={{...props.wrapperStyle as Object}}>
+             style={{...props.wrapperStyle as {}}}>
           <div ref='self'
-               className={className.filter(cls => !!cls).join(' ')}>
+               className={className.filter((cls) => !!cls).join(' ')}>
             <input {...this.getComponentProps()}/>
             <div className='mdc-checkbox__background'>
               <svg className='mdc-checkbox__checkmark'
@@ -65,7 +65,7 @@ export class Checkbox extends Field<Checkbox,
       checked: this.value,
       className: 'mdc-checkbox__native-control',
       required: props.required,
-      onChange: this.onChange
+      onChange: this.onChange,
     };
   }
 

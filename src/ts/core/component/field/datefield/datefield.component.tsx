@@ -13,14 +13,14 @@ import { INativeMaterialComponent } from 'core/component/material';
 import {
   IDateFieldInternalProps,
   IDateFieldInternalState,
-  IMaterialDateDialogComponent
+  IMaterialDateDialogComponent,
 } from './datefield.interface';
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
                                               IDateFieldInternalState,
                                               INativeMaterialComponent> {
-  static defaultProps: IDateFieldInternalProps = {
+  public static defaultProps: IDateFieldInternalProps = {
     container: 'dialog',
     autoOk: true,
     disabled: false,
@@ -28,11 +28,11 @@ export class DateField extends BasicTextField<DateField,
     firstDayOfWeek: 1,
     hideCalendarDate: false,
     style: {},
-    openToYearSelection: false
+    openToYearSelection: false,
   };
 
-  static contextTypes = {
-    muiTheme: PropTypes.object.isRequired
+  public static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
   };
 
   private preventShowDialog: boolean;
@@ -71,7 +71,7 @@ export class DateField extends BasicTextField<DateField,
 
   protected propsChangeForm(rawValue: AnyT): void {
     super.propsChangeForm(
-        this.prepareStateValueBeforeSerialization(rawValue)
+        this.prepareStateValueBeforeSerialization(rawValue),
     );
   }
 
@@ -113,7 +113,7 @@ export class DateField extends BasicTextField<DateField,
       // We should bind a string value to the input field
       // because a state can hold the raw values
       // although at this case the state hold the string value
-      value: this.dateConverter.formatDate(this.value)
+      value: this.dateConverter.formatDate(this.value),
     };
   }
 
@@ -122,7 +122,7 @@ export class DateField extends BasicTextField<DateField,
 
     this.preventShowDialog = true;
     this.input.focus();
-  };
+  }
 
   private get dialogDate(): Date {
     const value = this.value;

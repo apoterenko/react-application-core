@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "npm cache clean",
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
-    "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts",
+    "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "deploy": "npm install && npm run tsc-build && npm publish ./"
   },
   "dependencies": {
