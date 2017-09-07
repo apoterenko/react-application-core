@@ -33,7 +33,7 @@ export interface IBaseComponentInternalProps {
   className?: string;
   style?: CSSProperties;
   wrapperStyle?: CSSProperties;
-  plugins?: ComponentPluginCtorT|ComponentPluginCtorT[],
+  plugins?: ComponentPluginCtorT|ComponentPluginCtorT[];
 }
 
 export interface IBaseContainer<TInternalProps extends IBaseContainerInternalProps,
