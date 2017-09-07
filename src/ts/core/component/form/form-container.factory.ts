@@ -1,7 +1,7 @@
 import { IApplicationPermissionState } from 'core/permission';
 import { IApplicationState } from 'core/store';
-import { IBaseContainerInternalState, } from 'core/component/base';
-import { IConnectorCtor, ConnectorMapperT, containerFactory } from 'core/component/store'
+import { IBaseContainerInternalState } from 'core/component/base';
+import { IConnectorCtor, ConnectorMapperT, containerFactory } from 'core/component/store';
 
 import { IFormContainer, IFormContainerInternalProps, IFormEntity } from './form.interface';
 
@@ -24,7 +24,7 @@ export const editableFormContainerFactory = <TContainer extends IFormContainer<T
           ...formState,
           entity: {
             ...entity || {},
-            ...formState && formState.changes || {},
+            ...formState && formState.changes,
           },
         };
       });
