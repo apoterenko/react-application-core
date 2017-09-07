@@ -1,8 +1,11 @@
 import { CSSProperties, PureComponent } from 'react';
 
 import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
-import { IBaseComponent, IBaseComponentInternalState } from 'core/component/base';
-import { IComponentPluginCtor } from 'core/component/plugin';
+import {
+  IBaseComponent,
+  IBaseComponentInternalProps,
+  IBaseComponentInternalState
+} from 'core/component/base';
 
 export interface IKeyboardHandlers {
   onKeyEnter?(event: KeyboardEventT): void;
@@ -13,14 +16,12 @@ export interface IKeyboardHandlers {
   onKeyArrowUp?(event: KeyboardEventT): void;
 }
 
-export interface IFieldInternalProps extends IKeyboardHandlers {
+export interface IFieldInternalProps extends IBaseComponentInternalProps, IKeyboardHandlers {
   persistent?: boolean;
   name?: string;
   value?: AnyT;
   label?: string;
-  style?: CSSProperties;
   wrapperStyle?: CSSProperties;
-  className?: string;
   placeholder?: string;
   autoFocus?: boolean;
   mask?: Array<string|RegExp>;
@@ -30,9 +31,6 @@ export interface IFieldInternalProps extends IKeyboardHandlers {
   required?: boolean;
   min?: number;
   max?: number;
-  plugins?: IComponentPluginCtor<IField<IFieldInternalProps, IFieldInternalState, AnyT>,
-                                 IFieldInternalProps,
-                                 IFieldInternalState>[],
   validate?:(value: AnyT) => string;
   changeForm?(name: string, value: AnyT): void;
   onChange?(value: AnyT): void;

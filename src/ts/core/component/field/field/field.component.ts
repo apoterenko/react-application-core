@@ -36,10 +36,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
 
-    if (Array.isArray(this.props.plugins)) {
-      this.props.plugins.forEach(plugin => this.registerPlugin(plugin));
-    }
-
     if (this.isPersistent) {
       this.state = {} as TInternalState;
     } else {
