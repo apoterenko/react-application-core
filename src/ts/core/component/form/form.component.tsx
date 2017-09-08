@@ -43,11 +43,13 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
               }
             </section>
             <section className='mdc-card__actions app-card-actions'>
-              <Button className='mdc-button--raised'
-                      text={props.actionText || 'Save'}
+              <Button type='submit'
+                      className='mdc-button--raised'
                       disabled={!props.valid || (props.validationErrors || []).length > 0 || !props.dirty}
                       progress={props.progress}
-                      error={!ramda.isNil(props.error)}/>
+                      error={!ramda.isNil(props.error)}>
+                {this.t(props.actionText || 'Save')}
+              </Button>
             </section>
           </fieldset>
         </form>
