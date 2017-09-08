@@ -16,7 +16,7 @@ import {
   FORM_VALIDATION_ERRORS_ACTION_TYPE,
   INITIAL_FORM_STATE,
   IFormContainerState,
-} from 'core/component';
+} from './form.interface';
 
 export function formReducer(state: IFormContainerState<IKeyValue> = INITIAL_FORM_STATE,
                             action: IEffectsAction): IFormContainerState<IKeyValue> {

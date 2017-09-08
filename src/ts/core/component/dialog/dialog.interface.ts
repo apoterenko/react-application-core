@@ -1,9 +1,10 @@
+import { FunctionT } from 'core/util';
 import { INativeMaterialComponent } from 'core/component/material';
-import { IBaseComponent } from 'core/component/base';
+import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
 
 export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
   show(): void;
-  listen(type: string, callback: Function);
+  listen(type: string, callback: FunctionT);
 }
 
 export interface IDialog<TInternalProps extends IDialogInternalProps, TInternalState>
@@ -11,13 +12,13 @@ export interface IDialog<TInternalProps extends IDialogInternalProps, TInternalS
   activate(): void;
 }
 
-export interface IDialogInternalProps {
+export interface IDialogInternalProps extends  IBaseComponentInternalProps {
   title?: string;
   message?: string;
   closeMessage?: string;
   acceptMessage?: string;
-  onAccept?(): void;
-  onClose?(): void;
   canClose?: boolean;
   canAccept?: boolean;
+  onAccept?(): void;
+  onClose?(): void;
 }

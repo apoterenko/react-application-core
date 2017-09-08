@@ -1,4 +1,4 @@
-import { BaseComponent, IBaseComponent } from 'core/component/base';
+import { BaseComponent, IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
 
 import {
   INativeMaterialComponent,
@@ -6,7 +6,7 @@ import {
 } from './material.interface';
 
 export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
-                               TInternalProps,
+                               TInternalProps extends IBaseComponentInternalProps,
                                TInternalState,
                                TNativeMaterialComponent extends INativeMaterialComponent>
     extends BaseComponent<TComponent, TInternalProps, TInternalState> {

@@ -1,14 +1,16 @@
 import { MDCRipple } from '@material/ripple';
 
-import { IBaseComponentInternalState } from 'core/component/base';
 import { MaterialComponent } from 'core/component/material';
 
-import { INativeMaterialRippleComponent, IRippleComponentInternalProps } from './ripple.interface';
+import {
+  INativeMaterialRippleComponent,
+  IRippleInternalProps,
+} from './ripple.interface';
 
-export class RippleComponent<TInternalProps extends IRippleComponentInternalProps>
-    extends MaterialComponent<RippleComponent<TInternalProps>,
+export class Ripple<TInternalProps extends IRippleInternalProps>
+    extends MaterialComponent<Ripple<TInternalProps>,
                               TInternalProps,
-                              IBaseComponentInternalState,
+                              {},
                               INativeMaterialRippleComponent> {
 
   constructor(props: TInternalProps) {

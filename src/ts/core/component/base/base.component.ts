@@ -5,10 +5,7 @@ import { BasicEventT } from 'core/definition.interface';
 import { lazyInject, DI_TYPES } from 'core/di';
 import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
 
-import {
-  IBaseComponent,
-  IBaseComponentInternalProps,
-} from './base.interface';
+import { IBaseComponent, IBaseComponentInternalProps } from './base.interface';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                            TInternalProps extends IBaseComponentInternalProps,

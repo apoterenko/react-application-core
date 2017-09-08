@@ -1,5 +1,4 @@
 export * from './api';
-export * from './component';
 export * from './di';
 export * from './env';
 export * from './event';

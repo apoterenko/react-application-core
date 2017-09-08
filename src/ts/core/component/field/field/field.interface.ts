@@ -1,11 +1,7 @@
 import { PureComponent } from 'react';
 
 import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
-import {
-  IBaseComponent,
-  IBaseComponentInternalProps,
-  IBaseComponentInternalState,
-} from 'core/component/base';
+import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
 
 export interface IKeyboardHandlers {
   onKeyEnter?(event: KeyboardEventT): void;
@@ -37,7 +33,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps, IKeybo
   onClick?(event: BasicEventT): void;
 }
 
-export interface IFieldInternalState extends IBaseComponentInternalState {
+export interface IFieldInternalState {
   error?: string;
   stateValue?: AnyT;
 }

@@ -1,9 +1,10 @@
 import { INativeMaterialComponent } from 'core/component/material';
+import { IBaseComponentInternalProps } from 'core/component/base';
 
 export interface INativeMaterialRippleComponent extends INativeMaterialComponent {
   activate(): void;
 }
 
-export interface IRippleComponentInternalProps {
+export interface IRippleInternalProps extends IBaseComponentInternalProps {
   activated: boolean;
 }
