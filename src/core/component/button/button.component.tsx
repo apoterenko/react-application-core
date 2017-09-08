@@ -11,7 +11,7 @@ export class Button extends BaseComponent<Button,
                                           IButtonInternalProps,
                                           IButtonInternalState> {
   public static defaultProps: IButtonInternalProps = {
-    type: 'button'
+    type: 'button',
   };
 
   constructor(props: IButtonInternalProps) {
