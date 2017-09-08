@@ -14,3 +14,7 @@ export function and(sourceFn: FunctionT, nextFn: FunctionT, nextFnScope?: AnyT):
     return sourceFn.apply(this, arguments) && nextFn.apply(nextFnScope || this, arguments);
   };
 }
+
+/* tslint:disable */
+export function noop(): void {
+}

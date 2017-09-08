@@ -14,6 +14,7 @@ export * from './component/menu';
 export * from './component/plugin';
 export * from './component/ripple';
 export * from './component/root';
+export * from './component/snackbar';
 export * from './component/store';
 export * from './converter';
 export * from './di';
