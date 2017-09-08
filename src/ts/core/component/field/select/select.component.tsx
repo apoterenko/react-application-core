@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
-import { MDCSelect, MDCSelectFoundation } from '@material/select';
 
 import { BasicTextField } from 'core/component/field';
 import { Menu, IMenu } from 'core/component/menu';
