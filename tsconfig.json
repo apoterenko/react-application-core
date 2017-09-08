@@ -9,6 +9,7 @@
     "sourceMap": true,
     "declaration": true,
     "baseUrl": "src",
+    "rootDir": "src",
     "outDir": "",
     "jsx": "react",
     "lib": [
@@ -22,8 +23,8 @@
       "node_modules/@types"
     ],
     "paths": {
-      "core": [ "/" ],
-      "core/*": [ "/*" ]
+      "core": [ "core" ],
+      "core/*": [ "core/*" ]
     }
   },
   "compileOnSave": false,
