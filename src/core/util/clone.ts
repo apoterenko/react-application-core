@@ -9,7 +9,7 @@ export function clone<TObject>(o: TObject): TObject {
 
 export function cloneNodes(component: ReactElementT | React.PureComponent,
                            mergedProps: IKeyValue,
-                           predicate: (child: ReactElementT) => boolean) {
+                           predicate: (child: ReactElementT) => boolean): AnyT[]  {
   return React.Children.map(component.props.children, (child: React.ReactChild) => {
         if (isPrimitive(child)) {
           return child;
@@ -22,6 +22,6 @@ export function cloneNodes(component: ReactElementT | React.PureComponent,
             },
           });
         }
-      }
+      },
   );
 }

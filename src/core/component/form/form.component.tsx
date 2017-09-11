@@ -33,7 +33,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
                 cloneNodes(
                     this,
                     {changeForm: (name: string, value: string) => this.onChange(name, value)},
-                    (child: ReactElementT) => Field.isPrototypeOf(child.type)
+                    (child: ReactElementT) => Field.isPrototypeOf(child.type),
                 )
               }
             </section>
