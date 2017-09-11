@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
+import { cloneNodes } from 'core/util';
 import { AnyT, BasicEventT } from 'core/definition.interface';
 import { BaseComponent, IBaseComponent } from 'core/component/base';
-import { Field } from 'core/component/field';
 import { Button } from 'core/component/button';
 
 import { IFormPureComponent, IFormInternalProps } from './form.interface';
@@ -29,15 +29,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
           <fieldset disabled={attributes.progress}>
             <section className='mdc-card__primary'>
               {
-                React.Children.map(this.props.children,
-                  (child: React.ReactElement<{}>) => {
-                    return Field.isPrototypeOf(child.type)
-                        ? React.cloneElement<{}, {}>(child, {
-                          changeForm: (name: string, value: string) => this.onChange(name, value),
-                        })
-                        : child;
-                  },
-                )
+                cloneNodes(this, {
+                  changeForm: (name: string, value: string) => this.onChange(name, value),
+                })
               }
             </section>
             <section className='mdc-card__actions app-card-actions'>
