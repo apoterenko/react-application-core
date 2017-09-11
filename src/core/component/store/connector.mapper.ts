@@ -21,12 +21,12 @@ export const entityMapper = (entity: IFormEntity, formState?: IApplicationFormSt
 
 export const formAttributesMapper = (formState: IApplicationFormState) => ({
   attributes: {
-    ...formState,
+    ...(formState || {}),
   },
 });
 
 export const listMapper = (listState: IApplicationListState) => ({
   list: {
-    ...listState,
+    ...(listState || {}),
   },
 });
