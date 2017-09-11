@@ -11,8 +11,7 @@ import { IApplicationState } from 'core/store';
 
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
-export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                           TAppState extends IApplicationState<TPermissionState, TPermissions>,
+export class BaseContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
                            TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState,
                            TPermissionState extends IApplicationPermissionState<TPermissions>,
@@ -43,6 +42,7 @@ export class BaseContainer<TContainer extends IBaseContainer<TInternalProps, TIn
     this.appStore.dispatch({ type: ROUTER_BACK_ACTION_TYPE });
   }
 
+  // In a general case we should not use the appState directly, only via "connect"!!
   protected get appState(): TAppState {
     return this.appStore.getState();
   }

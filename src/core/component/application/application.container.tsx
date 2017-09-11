@@ -11,18 +11,17 @@ import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
 import { IApplicationState } from 'core/store';
 import { clone } from 'core/util';
-import { BaseContainer, IBaseContainer, IBaseContainerInternalState } from 'core/component/base';
+import { BaseContainer, IBaseContainerInternalState } from 'core/component/base';
 
 import { IApplicationContainerProps } from './application.interface';
 
-export abstract class ApplicationContainer<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                                           TAppState extends IApplicationState<TPermissionState, TPermissions>,
+export abstract class ApplicationContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
                                            TInternalProps extends IApplicationContainerProps,
                                            TInternalState extends IBaseContainerInternalState,
                                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                                            TPermissions,
                                            TPermissionObject>
-    extends BaseContainer<TContainer, TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
+    extends BaseContainer<TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
 
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
