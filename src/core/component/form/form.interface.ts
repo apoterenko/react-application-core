@@ -2,64 +2,56 @@ import { PureComponent } from 'react';
 
 import { FunctionT } from 'core/util';
 import { AnyT, IKeyValue, INotificationAttributes } from 'core/definition.interface';
-import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from 'core/component/base';
+import { IBaseComponentInternalProps, IBaseContainerInternalProps } from 'core/component/base';
 
 export interface IFormEntity extends IKeyValue {
   id?: number | string;
 }
 
-export interface IFormEntityAttributes<TEntity extends IFormEntity> {
+export interface IFormAttributes extends INotificationAttributes {
   changes: IKeyValue;
-  entity?: TEntity;
-}
-
-export interface IFormStateAttributes {
   valid?: boolean;
   validationErrors?: string[];
   dirty?: boolean;
   progress?: boolean;
 }
 
-export interface IFormAttributes<TEntity extends IFormEntity>
-    extends IFormEntityAttributes<TEntity>, INotificationAttributes, IFormStateAttributes {
+export interface IFormPayload<TEntity extends IFormEntity> {
+  entity?: TEntity;
+  changes: IKeyValue;
 }
 
-export interface IFormPayload<TEntity extends IFormEntity> extends IFormEntityAttributes<TEntity> {
+export interface IFormSettings {
+  className?: string;
+  actionText?: string;
 }
 
-export interface IFormContainerInternalProps<TEntity extends IFormEntity>
-    extends IBaseContainerInternalProps, IFormAttributes<TEntity> {
-  extraProps?: IKeyValue;
+export interface IFormInternalProps extends IBaseComponentInternalProps {
+  attributes?: IFormAttributes;
+  settings?: IFormSettings;
+  onSubmit?: FunctionT;
+  onValid?: FunctionT;
+  onChange?(name: string, value: AnyT): void;
+}
+
+export interface IFormContainerInternalProps<TEntity extends IFormEntity> extends IBaseContainerInternalProps {
+  entity?: TEntity;
+  attributes?: IFormAttributes;
+  settings?: IFormSettings;
   validateForm?(entity: IKeyValue): string[];
-}
-
-export interface IFormContainerState<TEntity extends IFormEntity>
-    extends IFormAttributes<TEntity> {
-}
-
-export const INITIAL_FORM_STATE: IFormContainerState<AnyT> = {
-  changes: {},
-};
-
-export interface IFormContainer<TEntity extends IFormEntity,
-                                TInternalProps extends IFormContainerInternalProps<TEntity>,
-                                TInternalState extends IBaseContainerInternalState>
-    extends IBaseContainer<TInternalProps, TInternalState> {
 }
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
   checkValidity(): void;
 }
 
-export interface IFormInternalProps extends IFormStateAttributes, INotificationAttributes {
-  className?: string;
-  onSubmit?: FunctionT;
-  onValid?: FunctionT;
-  actionText?: string;
-  onChange?(name: string, value: AnyT): void;
+export interface IApplicationFormState extends IFormAttributes {
 }
 
-export const FORM_RESTORE_ACTION_TYPE = 'form.restore';
+export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {
+  changes: {},
+};
+
 export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
 export const FORM_SUBMIT_DONE_ACTION_TYPE = 'form.submit.done';

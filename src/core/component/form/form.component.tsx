@@ -6,10 +6,7 @@ import { BaseComponent, IBaseComponent } from 'core/component/base';
 import { Field } from 'core/component/field';
 import { Button } from 'core/component/button';
 
-import {
-  IFormPureComponent,
-  IFormInternalProps,
-} from './form.interface';
+import { IFormPureComponent, IFormInternalProps } from './form.interface';
 
 export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInternalState>,
                   TInternalState>
@@ -22,13 +19,14 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
   public render(): JSX.Element {
     const props = this.props;
-    const className = ['app-form', props.className];
+    const { attributes, settings }  = props;
+    const className = ['app-form', settings && settings.className];
 
     return (
         <form ref='self'
               className={className.filter((cls) => !!cls).join(' ')}
               onSubmit={this.onSubmit}>
-          <fieldset disabled={props.progress}>
+          <fieldset disabled={attributes.progress}>
             <section className='mdc-card__primary'>
               {
                 React.Children.map(this.props.children,
@@ -45,10 +43,10 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
             <section className='mdc-card__actions app-card-actions'>
               <Button type='submit'
                       className='mdc-button--raised'
-                      disabled={!props.valid || (props.validationErrors || []).length > 0 || !props.dirty}
-                      progress={props.progress}
-                      error={!ramda.isNil(props.error)}>
-                {this.t(props.actionText || 'Save')}
+                      disabled={!attributes.valid || (attributes.validationErrors || []).length > 0 || !attributes.dirty}
+                      progress={attributes.progress}
+                      error={!ramda.isNil(attributes.error)}>
+                {this.t(settings ? settings.actionText : 'Save')}
               </Button>
             </section>
           </fieldset>
