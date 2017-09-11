@@ -1,6 +1,7 @@
 import { IApplicationFormState, IFormEntity } from 'core/component/form';
 import { IApplicationState } from 'core/store';
 import { IApplicationPermissionState } from 'core/permission';
+import { IApplicationListState } from 'core/component/list';
 
 export const layoutMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
                              TPermissionState extends IApplicationPermissionState<TPermissions>,
@@ -18,8 +19,14 @@ export const entityMapper = (entity: IFormEntity, formState?: IApplicationFormSt
   },
 });
 
-export const formMapper = (form: IFormEntity) => ({
+export const formAttributesMapper = (formState: IApplicationFormState) => ({
   attributes: {
-    ...form,
+    ...formState,
+  },
+});
+
+export const listMapper = (listState: IApplicationListState) => ({
+  list: {
+    ...listState,
   },
 });
