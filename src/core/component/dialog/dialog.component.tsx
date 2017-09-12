@@ -10,13 +10,13 @@ import {
   INativeMaterialDialogComponent,
 } from './dialog.interface';
 
-export class Dialog<TComponent extends IDialog<TInternalProps, {}>,
+export class Dialog<TComponent extends IDialog<TInternalProps>,
                     TInternalProps extends IDialogInternalProps>
     extends MaterialComponent<TComponent,
                               TInternalProps,
                               {},
                               INativeMaterialDialogComponent>
-    implements IDialog<TInternalProps, {}> {
+    implements IDialog<TInternalProps> {
 
   constructor(props: TInternalProps) {
     super(props, MDCDialog);

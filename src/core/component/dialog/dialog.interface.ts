@@ -7,12 +7,12 @@ export interface INativeMaterialDialogComponent extends INativeMaterialComponent
   listen(type: string, callback: FunctionT);
 }
 
-export interface IDialog<TInternalProps extends IDialogInternalProps, TInternalState>
-    extends IBaseComponent<TInternalProps, TInternalState> {
+export interface IDialog<TInternalProps extends IDialogInternalProps>
+    extends IBaseComponent<TInternalProps, {}> {
   activate(): void;
 }
 
-export interface IDialogInternalProps extends  IBaseComponentInternalProps {
+export interface IDialogInternalProps extends IBaseComponentInternalProps {
   title?: string;
   message?: string;
   closeMessage?: string;
