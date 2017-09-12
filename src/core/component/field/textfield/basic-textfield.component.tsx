@@ -2,6 +2,7 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
+import { uuid } from 'core/util';
 import { INativeMaterialComponent } from 'core/component/material';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
 import { Field, IField } from 'core/component/field/field';
@@ -34,16 +35,28 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const className = [
       'mdc-textfield mdc-textfield--upgraded app-textfield',
       props.className,
-      props.autoFocus && 'mdc-textfield--focused',
+      props.autoFocus && 'mdc-textfield--focused'
     ];
     const labelClassName = [
       'mdc-textfield__label',
-      props.autoFocus && 'mdc-textfield__label--float-above',
+      props.autoFocus && 'mdc-textfield__label--float-above'
     ];
 
     const prepareStyles = this.context.muiTheme
         ? this.context.muiTheme.prepareStyles
         : (styles) => styles;
+
+    const actionsTpl = props.actions
+        ? (
+            props.actions.map((action) => (
+                <div key={uuid()}
+                     className='material-icons mdc-toolbar__icon app-action'
+                     onClick={action.actionHandler}>
+                  {action.type}
+                </div>
+            ))
+        )
+        : null;
 
     return (
         <div className='app-textfield-wrapper'
@@ -55,6 +68,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             <label className={labelClassName.filter((cls) => !!cls).join(' ')}>
               {props.label ? this.t(props.label) : props.children}
             </label>
+            {actionsTpl}
           </div>
           <p title={error || ''}
              className='mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg'>
@@ -71,7 +85,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       name: props.name,
       value: this.value,
       className: 'mdc-textfield__input',
-      placeholder: props.placeholder,
+      placeholder: props.placeholder ? this.t(props.placeholder) : null,
       type: props.type || 'text',
       pattern: props.pattern,
       minLength: props.min,

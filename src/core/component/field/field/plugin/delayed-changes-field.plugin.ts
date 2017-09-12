@@ -16,9 +16,6 @@ export class DelayedChangesFieldPlugin implements IComponentPlugin<DelayedChange
   private currentValue: AnyT;
 
   constructor(private component: DelayedChangesFieldT) {
-    if (!this.props.onDelay) {
-      throw Error('The property "onDelay" does not exist!');
-    }
   }
 
   public componentWillMount(): void {
@@ -53,7 +50,9 @@ export class DelayedChangesFieldPlugin implements IComponentPlugin<DelayedChange
   }
 
   private propsOnDelay(value: AnyT): void {
-    this.props.onDelay(value);
+    if (this.props.onDelay) {
+      this.props.onDelay(value);
+    }
   }
 
   private get props(): IDelayedChangesFieldPluginInternalProps {

@@ -3,3 +3,11 @@
   .app-textfield {
   width: 100%;
 }
+
+.app-textfield-wrapper {
+  .app-action {
+    &.mdc-toolbar__icon {
+      padding: 0 0 6px 0;
+    }
+  }
+}
