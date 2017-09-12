@@ -29,7 +29,7 @@ export class Button extends BaseComponent<Button,
     const className = [
       'mdc-button',
       this.props.type === 'submit' && 'mdc-button--accent',
-      props.className,
+      props.className
     ];
 
     return (

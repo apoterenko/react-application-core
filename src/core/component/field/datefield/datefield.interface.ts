@@ -4,7 +4,7 @@ import { IBaseComponentInternalProps } from 'core/component/base';
 
 import {
   IBasicTextFieldInternalProps,
-  IBasicTextFieldInternalState
+  IBasicTextFieldInternalState,
 } from '../textfield/basic-textfield.interface';
 
 export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
