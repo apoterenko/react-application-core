@@ -1,8 +1,8 @@
-import { IIdentifiedEntity } from '../definition.interface';
-import { IOperation } from '../operation/operation.interface';
+import { IIdentifiedEntity } from 'core/definition.interface';
+import { IOperation } from 'core/operation';
 
-export interface IApiRequest<TRequestData> extends IIdentifiedEntity {
+export interface IApiPayload<TRequestData> extends IIdentifiedEntity {
   data: TRequestData;
-  section?: string;
   operation?: IOperation;
+  section?: string;
 }

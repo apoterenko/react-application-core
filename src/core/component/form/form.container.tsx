@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { IApiRequest } from 'core/api';
+import { IApiPayload } from 'core/api';
 import { Operation } from 'core/operation';
 import { IApplicationPermissionState } from 'core/permission';
 import { IApplicationState } from 'core/store';
@@ -85,9 +85,9 @@ export class FormContainer<TAppState extends IApplicationState<TPermissionState,
 
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, {
       id: this.formEntityId,
-      data: { changes, entity } as IFormPayload<IFormEntity>,
+      data: { changes, entity } as IFormPayload,
       operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
-    } as IApiRequest<IFormPayload<IFormEntity>>);
+    } as IApiPayload<IFormPayload>);
   }
 
   private get formEntityId(): number | string {

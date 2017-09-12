@@ -4,21 +4,23 @@ import { FunctionT } from 'core/util';
 import { AnyT, IKeyValue, INotificationAttributes } from 'core/definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from 'core/component/base';
 
+export interface IFormChangeable {
+  changes: IKeyValue;
+}
+
 export interface IFormEntity extends IKeyValue {
   id?: number | string;
 }
 
-export interface IFormAttributes extends INotificationAttributes {
-  changes: IKeyValue;
+export interface IFormAttributes extends IFormChangeable, INotificationAttributes {
   valid?: boolean;
   validationErrors?: string[];
   dirty?: boolean;
   progress?: boolean;
 }
 
-export interface IFormPayload<TEntity extends IFormEntity> {
-  entity?: TEntity;
-  changes: IKeyValue;
+export interface IFormPayload extends IFormChangeable {
+  entity?: IFormEntity;
 }
 
 export interface IFormSettings {
