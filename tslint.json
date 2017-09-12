@@ -8,6 +8,15 @@
     "indent": [true, "spaces", 2],
     "max-line-length": [true, 200],
     "no-bitwise": false,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "never"
+        }
+      }
+    ],
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-empty-interface": false,
