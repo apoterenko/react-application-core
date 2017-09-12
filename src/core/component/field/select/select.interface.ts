@@ -3,10 +3,15 @@ import { IFieldInternalState, IFieldInternalProps } from 'core/component/field/f
 import { INativeMaterialComponent } from 'core/component/material';
 import { IMenuOption } from 'core/component/menu';
 
-export interface ISelectInternalState extends IFieldInternalState {
+import {
+  IBasicTextFieldInternalProps,
+  IBasicTextFieldInternalState,
+} from '../textfield/basic-textfield.interface';
+
+export interface ISelectInternalState extends IBasicTextFieldInternalState {
 }
 
-export interface ISelectInternalProps extends IFieldInternalProps {
+export interface ISelectInternalProps extends IBasicTextFieldInternalProps {
   options: ISelectOption[];
 }
 

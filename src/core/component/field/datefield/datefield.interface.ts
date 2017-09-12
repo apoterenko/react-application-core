@@ -1,9 +1,13 @@
 import { CSSProperties, PureComponent } from 'react';
 
 import { IBaseComponentInternalProps } from 'core/component/base';
-import { IFieldInternalProps, IFieldInternalState } from 'core/component/field/field';
 
-export interface IDateFieldInternalProps extends IFieldInternalProps {
+import {
+  IBasicTextFieldInternalProps,
+  IBasicTextFieldInternalState
+} from '../textfield/basic-textfield.interface';
+
+export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
   container?: 'dialog' | 'inline';
   mode?: 'portrait' | 'landscape';
   cancelLabel?: string;
@@ -21,7 +25,7 @@ export interface IDateFieldInternalProps extends IFieldInternalProps {
   hideCalendarDate?: boolean;
 }
 
-export interface IDateFieldInternalState extends IFieldInternalState {
+export interface IDateFieldInternalState extends IBasicTextFieldInternalState {
 }
 
 export interface IMaterialDateDialogComponent
