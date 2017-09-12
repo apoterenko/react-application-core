@@ -1,0 +1,29 @@
+.app-search-toolbar {
+  &.mdc-toolbar {
+    background-color: white;
+
+    .mdc-toolbar__row {
+      justify-content: flex-end;
+      padding-left: 16px;
+      padding-right: 24px;
+      height: 96px;
+    }
+
+    .mdc-toolbar__icon {
+      color: black;
+    }
+
+    .mdc-toolbar__section{
+      &.visible {
+        flex: 1;
+        animation: searchToolbarAnimationRule;
+        animation-duration: 0.3s;
+      }
+    }
+  }
+}
+
+@keyframes searchToolbarAnimationRule {
+  from {flex: 0;}
+  to {flex: 1;}
+}
