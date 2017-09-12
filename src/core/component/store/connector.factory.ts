@@ -17,14 +17,16 @@ export const connectorFactory = <TContainer extends IBaseContainer<TInternalProp
 (containerCtor: IConnectorCtor<TContainer>,
  mappers: Array<ConnectorMapperT<TAppState, IKeyValue>>) => {
   return connect((state: TAppState) =>
-      (mappers as Array<ConnectorMapperT<TAppState, IKeyValue> | IKeyValue>)
-          .reduce((previousValue, currentMapper) => {
-            return {
-              ...isFn(previousValue)
-                  ? (previousValue as ConnectorMapperT<TAppState, IKeyValue>)(state)
-                  : previousValue,
-              ...(currentMapper as ConnectorMapperT<TAppState, IKeyValue>)(state),
-            };
-          }), {})
+      mappers.length
+          ? (mappers as Array<ConnectorMapperT<TAppState, IKeyValue> | IKeyValue>)
+              .reduce((previousValue, currentMapper) => {
+                return {
+                  ...isFn(previousValue)
+                      ? (previousValue as ConnectorMapperT<TAppState, IKeyValue>)(state)
+                      : previousValue,
+                  ...(currentMapper as ConnectorMapperT<TAppState, IKeyValue>)(state),
+                };
+              })
+          : {}, {})
   (containerCtor);
 };
