@@ -7,11 +7,20 @@ import { BaseComponent, IBaseComponent } from 'core/component/base';
 import { Button } from 'core/component/button';
 import { Field } from 'core/component/field';
 
-import { IFormPureComponent, IFormInternalProps } from './form.interface';
+import {
+  IFormPureComponent,
+  IFormInternalProps,
+  INITIAL_APPLICATION_FORM_STATE
+} from './form.interface';
 
 export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInternalState>,
                   TInternalState>
     extends BaseComponent<TComponent, IFormInternalProps, TInternalState> {
+
+  public static defaultProps: IFormInternalProps = {
+    attributes: INITIAL_APPLICATION_FORM_STATE,
+    settings: {},
+  };
 
   constructor(props: IFormInternalProps) {
     super(props);
@@ -21,7 +30,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
   public render(): JSX.Element {
     const props = this.props;
     const { attributes, settings }  = props;
-    const className = ['app-form', settings && settings.className];
+    const className = ['app-form', settings.className];
 
     return (
         <form ref='self'
@@ -43,7 +52,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
                       disabled={!attributes.valid || (attributes.validationErrors || []).length > 0 || !attributes.dirty}
                       progress={attributes.progress}
                       error={!ramda.isNil(attributes.error)}>
-                {this.t(settings ? settings.actionText : 'Save')}
+                {this.t(settings.actionText || 'Save')}
               </Button>
             </section>
           </fieldset>
