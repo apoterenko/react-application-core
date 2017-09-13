@@ -1,11 +1,10 @@
 import { FunctionT } from 'core/util';
-import { IFieldInternalState, IFieldInternalProps } from 'core/component/field/field';
-import { INativeMaterialComponent } from 'core/component/material';
 import { IMenuOption } from 'core/component/menu';
 
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
+  INativeMaterialTextfieldComponent,
 } from '../textfield/basic-textfield.interface';
 
 export interface ISelectInternalState extends IBasicTextFieldInternalState {
@@ -21,7 +20,7 @@ export interface INativeMaterialSelectMenuComponent {
   open: boolean;
 }
 
-export interface INativeMaterialSelectComponent extends INativeMaterialComponent {
+export interface INativeMaterialSelectComponent extends INativeMaterialTextfieldComponent {
   selectedOptions: Element[];
   menu_: INativeMaterialSelectMenuComponent;
 }

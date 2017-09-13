@@ -1,5 +1,6 @@
 import { ChangeEventT } from 'core/definition.interface';
 import { FunctionT } from 'core/util';
+import { INativeMaterialComponent } from 'core/component/material';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
 import { IDelayedChangesFieldPluginInternalProps } from '../field/plugin/delayed-changes-field.interface';
@@ -22,4 +23,8 @@ export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalP
     extends IField<TInternalProps,
                    TInternalState,
                    ChangeEventT> {
+}
+
+export interface INativeMaterialTextfieldComponent extends INativeMaterialComponent {
+  setValid(valid: boolean): void;
 }
