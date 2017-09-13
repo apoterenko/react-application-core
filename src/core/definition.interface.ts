@@ -18,7 +18,7 @@ export interface INotificationAttributes {
   info?: string;
 }
 
-export type ReactElementT = React.ReactElement<{ children: React.ReactChild[], type: AnyT }>;
+export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;
 export type KeyboardEventT = React.KeyboardEvent<{}>;
