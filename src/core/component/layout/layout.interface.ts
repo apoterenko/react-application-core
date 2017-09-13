@@ -1,15 +1,8 @@
 export const LAYOUT_FULL_MODE = 'full';
 export const LAYOUT_MINIMAL_MODE = 'minimal';
 
-export interface IApplicationLayoutAttributes {
-  mode?: string;
-}
-
-export interface IApplicationLayoutState extends IApplicationLayoutAttributes {
+export interface IApplicationLayoutState {
   mode: 'full' | 'minimal';
-}
-
-export interface IApplicationLayoutProps extends IApplicationLayoutAttributes {
 }
 
 export const INITIAL_APPLICATION_LAYOUT_STATE: IApplicationLayoutState = {
