@@ -23,6 +23,10 @@ export class DelayedChangesFieldPlugin implements IComponentPlugin<DelayedChange
     this.component.onKeyEnter = sequence(this.component.onKeyEnter, this.onKeyEnter, this);
   }
 
+  public componentWillUnmount(): void {
+    this.clearTask();
+  }
+
   private onKeyEnter(event: KeyboardEventT): void {
     this.component.stopEvent(event);
     this.clearTask();
