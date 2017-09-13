@@ -45,7 +45,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: any): void {
+  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
 
     if (!this.isPersistent) {
@@ -58,6 +58,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public onChange(event: TValueEvent): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
+  }
+
+  public resetError(): void {
+    this.validateField(null, null);
   }
 
   public onKeyDown(event: KeyboardEventT): void {
@@ -133,12 +137,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected onChangeValue(rawValue: AnyT, error?: string): void {
-    this.input.setCustomValidity(''); // Support of HTML5 Validation Api
-
     if (!this.isPersistent) {
       this.setState({ stateValue: this.prepareStateValueBeforeSerialization(rawValue) });
     }
-    this.setState({ error: isUndef(error) ? this.validateValue(rawValue) : error });
+    this.validateField(rawValue, error);
 
     this.propsOnChange(rawValue);
     this.propsChangeForm(rawValue);
@@ -146,7 +148,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   protected propsChangeForm(rawValue: AnyT): void {
     if (this.props.changeForm) {
-      this.props.changeForm(this.props.name, rawValue);
+      this.props.changeForm(this.props.name, rawValue, this.props.validationGroup);
     }
   }
 
@@ -172,7 +174,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;
 
-  private validateValue(value: AnyT): string {
+  private validateValueAndSetCustomValidity(value: AnyT): string {
     const props = this.props;
     let error = null;
     if (this.input.validity.valid) {
@@ -205,5 +207,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   private get stateValue(): AnyT {
     return this.state.stateValue;
+  }
+
+  private validateField(rawValue: AnyT, error?: string): void {
+    this.input.setCustomValidity(''); // Support of HTML5 Validation Api
+    this.setState({ error: isUndef(error) ? this.validateValueAndSetCustomValidity(rawValue) : error });
   }
 }

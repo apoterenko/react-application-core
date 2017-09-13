@@ -11,7 +11,6 @@ import {
   FORM_SUBMIT_DONE_ACTION_TYPE,
   FORM_SUBMIT_ERROR_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  FORM_VALIDATION_ERRORS_ACTION_TYPE,
   INITIAL_APPLICATION_FORM_STATE,
   IApplicationFormState,
 } from './form.interface';
@@ -34,11 +33,6 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
           ...state.changes,
           [action.data.field]: action.data.value,
         },
-      };
-    case `${section}.${FORM_VALIDATION_ERRORS_ACTION_TYPE}`:
-      return {
-        ...state,
-        validationErrors: action.data.validationErrors,
       };
     case `${section}.${FORM_VALID_ACTION_TYPE}`:
       return {

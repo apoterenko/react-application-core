@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
 
 import { IApiPayload } from 'core/api';
 import { Operation } from 'core/operation';
@@ -15,7 +14,6 @@ import {
   FORM_DESTROY_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  FORM_VALIDATION_ERRORS_ACTION_TYPE,
   IFormEntity,
   IFormPayload,
 } from './form.interface';
@@ -35,16 +33,6 @@ export class FormContainer<TAppState extends IApplicationState<TPermissionState,
     this.onChange = this.onChange.bind(this);
     this.onValid = this.onValid.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  public componentWillReceiveProps(nextProps: Readonly<IFormContainerInternalProps<IFormEntity>>, nextContext: AnyT): void {
-    const props = this.props;
-    if (props.validateForm && !ramda.equals(nextProps.attributes.changes, props.attributes.changes)) {
-      // TODO Complex validation
-      this.dispatch(FORM_VALIDATION_ERRORS_ACTION_TYPE, {
-        validationErrors: props.validateForm({...props.entity, ...nextProps.attributes.changes}),
-      });
-    }
   }
 
   public componentWillUnmount(): void {

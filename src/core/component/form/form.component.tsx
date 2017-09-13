@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
+import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes } from 'core/util';
 import { AnyT, BasicEventT, ReactElementT } from 'core/definition.interface';
 import { BaseComponent, IBaseComponent } from 'core/component/base';
 import { Button } from 'core/component/button';
-import { Field } from 'core/component/field';
+import { Field, IField, IFieldInternalProps, IFieldChangeFormInternalProps } from 'core/component/field';
 
 import {
   IFormPureComponent,
@@ -21,6 +22,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
     attributes: INITIAL_APPLICATION_FORM_STATE,
     settings: {},
   };
+  private static logger: ILogger = LoggerFactory.makeLogger(Form);
+
+  private childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
   constructor(props: IFormInternalProps) {
     super(props);
@@ -29,7 +33,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
   public render(): JSX.Element {
     const props = this.props;
-    const { attributes, settings }  = props;
+    const { attributes, settings } = props;
     const className = ['app-form', settings.className];
 
     return (
@@ -39,17 +43,21 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
           <fieldset disabled={attributes.progress}>
             <section className='mdc-card__primary'>
               {
-                cloneNodes(
+                cloneNodes<IFieldChangeFormInternalProps>(
                     this,
-                    {changeForm: (name: string, value: string) => this.onChange(name, value)},
+                    {
+                      changeForm: (name: string, value: AnyT, validationGroup?: string) =>
+                          this.onChange(name, value, validationGroup),
+                    },
                     (child: ReactElementT) => Field.isPrototypeOf(child.type),
+                    this.childrenMap,
                 )
               }
             </section>
             <section className='mdc-card__actions app-card-actions'>
               <Button type='submit'
                       className='mdc-button--raised'
-                      disabled={!attributes.valid || (attributes.validationErrors || []).length > 0 || !attributes.dirty}
+                      disabled={!attributes.valid || !attributes.dirty}
                       progress={attributes.progress}
                       error={!ramda.isNil(attributes.error)}>
                 {this.t(settings.actionText || 'Save')}
@@ -65,7 +73,19 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
     this.propsOnValid();
   }
 
-  private onChange(name: string, value: AnyT): void {
+  public componentWillUpdate(nextProps: Readonly<IFormInternalProps>, nextState: Readonly<TInternalState>, nextContext: AnyT): void {
+    super.componentWillUpdate(nextProps, nextState, nextContext);
+    this.childrenMap.clear();
+
+  }
+
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.childrenMap.clear();
+  }
+
+  private onChange(name: string, value: AnyT, validationGroup: string): void {
+    this.resetGroupFieldsErrors(name, validationGroup);
     if (this.props.onChange) {
       this.props.onChange(name, value);
     }
@@ -84,5 +104,25 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
     if (this.props.onSubmit) {
       this.props.onSubmit();
     }
+  }
+
+  private resetGroupFieldsErrors(name: string, validationGroup: string): void {
+    if (!validationGroup) {
+      return;
+    }
+    this.childrenMap.forEach((uuidRef, child) => {
+      const childProps = child.props as IFieldInternalProps;
+      const groupName = childProps.validationGroup;
+      const fieldName = childProps.name;
+
+      if (groupName === validationGroup && fieldName !== name) {
+        const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as IField<{}, {}, {}>;
+        if (otherFieldInstanceAtTheSameGroup) {
+          otherFieldInstanceAtTheSameGroup.resetError();
+        } else {
+          Form.logger.warn(`The ref is not defined to the field with ${fieldName} name.`);
+        }
+      }
+    });
   }
 }

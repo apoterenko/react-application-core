@@ -12,7 +12,12 @@ export interface IKeyboardHandlers {
   onKeyArrowUp?(event: KeyboardEventT): void;
 }
 
-export interface IFieldInternalProps extends IBaseComponentInternalProps, IKeyboardHandlers {
+export interface IFieldChangeFormInternalProps {
+  changeForm?(name: string, value: AnyT, validationGroup?: string): void;
+}
+
+export interface IFieldInternalProps
+    extends IBaseComponentInternalProps, IFieldChangeFormInternalProps, IKeyboardHandlers {
   name?: string;
   value?: AnyT;
   label?: string;
@@ -26,7 +31,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps, IKeybo
   min?: number;
   max?: number;
   validate?: (value: AnyT) => string;
-  changeForm?(name: string, value: AnyT): void;
+  validationGroup?: string;
   onChange?(value: AnyT): void;
   onFocus?(event: FocusEventT): void;
   onBlur?(event: FocusEventT): void;
@@ -47,4 +52,5 @@ export interface IField<TInternalProps extends IFieldInternalProps,
                         TValueEvent>
     extends IKeyboardHandlers, IBaseComponent<TInternalProps, TInternalState> {
   onChange(event: TValueEvent): void;
+  resetError(): void;
 }

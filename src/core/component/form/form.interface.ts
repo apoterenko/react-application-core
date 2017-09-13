@@ -14,7 +14,6 @@ export interface IFormEntity extends IKeyValue {
 
 export interface IFormAttributes extends IFormChangeable, INotificationAttributes {
   valid?: boolean;
-  validationErrors?: string[];
   dirty?: boolean;
   progress?: boolean;
 }
@@ -40,7 +39,6 @@ export interface IFormContainerInternalProps<TEntity extends IFormEntity> extend
   entity?: TEntity;
   attributes?: IFormAttributes;
   settings?: IFormSettings;
-  validateForm?(entity: IKeyValue): string[];
 }
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
@@ -58,7 +56,6 @@ export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
 export const FORM_SUBMIT_DONE_ACTION_TYPE = 'form.submit.done';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
-export const FORM_VALIDATION_ERRORS_ACTION_TYPE = 'form.validation.errors';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
 export const FORM_SUBMIT_ERROR_ACTION_TYPE = 'form.submit.error';
 export const FORM_INFO_ACTION_TYPE = 'form.info';

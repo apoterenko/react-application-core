@@ -3,20 +3,20 @@ import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
 import { uuid } from 'core/util';
-import { INativeMaterialComponent } from 'core/component/material';
 import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
-import { Field, IField } from 'core/component/field/field';
 
+import { Field, IField } from '../field';
 import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
   IBasicTextField,
+  INativeMaterialTextfieldComponent,
 } from './basic-textfield.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
                             TInternalProps extends IBasicTextFieldInternalProps,
                             TInternalState extends IBasicTextFieldInternalState,
-                            TNativeMaterialComponent extends INativeMaterialComponent>
+                            TNativeMaterialComponent extends INativeMaterialTextfieldComponent>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState,
@@ -76,6 +76,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
           </p>
         </div>
     );
+  }
+
+  public resetError(): void {
+    super.resetError();
+    this.nativeMdcInstance.getDefaultFoundation().setValid(true);
   }
 
   protected getComponentProps(): IKeyValue {
