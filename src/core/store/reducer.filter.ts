@@ -3,8 +3,8 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 export type Filter = (action: IEffectsAction) => boolean;
 
-export function filterReducer<S>(reducer: Reducer<S>, filter: Filter): Reducer<S> {
-  return (state, action) => (filter(action) ? reducer(state, action) : state);
+export function filter<S>(reducer: Reducer<S>, filterObject: Filter): Reducer<S> {
+  return (state, action) => (filterObject(action) ? reducer(state, action) : state);
 }
 
 export function reducerSectionFilter(customSection: string): Filter {
