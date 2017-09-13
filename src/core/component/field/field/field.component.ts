@@ -201,10 +201,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
         : this.props.value;
   }
 
-  private get isPersistent(): boolean {
-    return isUndef(this.props.persistent) || this.props.persistent === true;
-  }
-
   private get stateValue(): AnyT {
     return this.state.stateValue;
   }

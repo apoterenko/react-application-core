@@ -3,6 +3,7 @@ import * as ramda from 'ramda';
 
 import { BasicEventT } from 'core/definition.interface';
 import { lazyInject, DI_TYPES } from 'core/di';
+import { isUndef } from 'core/util';
 import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
 
 import { IBaseComponent, IBaseComponentInternalProps } from './base.interface';
@@ -62,5 +63,9 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     event.nativeEvent.stopPropagation();
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  protected get isPersistent(): boolean {
+    return isUndef(this.props.persistent) || this.props.persistent === true;
   }
 }
