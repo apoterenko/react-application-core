@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
 
 import { isUndef } from 'core/util';
 import { AnyT } from 'core/definition.interface';
@@ -41,10 +40,12 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     super.componentWillReceiveProps(nextProps, nextContext);
 
     if (!this.isPersistent) {
-      this.setState({
-        activated: nextProps.activated,
-        query: nextProps.query,
-      });
+      if (!isUndef(nextProps.activated)) {
+        this.setState({ activated: nextProps.activated });
+      }
+      if (!isUndef(nextProps.query)) {
+        this.setState({ query: nextProps.query });
+      }
     }
   }
 
