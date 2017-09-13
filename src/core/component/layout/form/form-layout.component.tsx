@@ -14,7 +14,7 @@ export class FormLayout extends BaseComponent<FormLayout, IFormLayoutInternalPro
   public render(): JSX.Element {
     const props = this.props;
     const { attributes } = props;
-    const message = attributes.error || attributes.info;
+    const message = attributes && (attributes.error || attributes.info);
     const snackbarTpl = message ? (
         <Snackbar ref='snackbar'
                   message={message}>
