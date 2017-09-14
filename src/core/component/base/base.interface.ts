@@ -3,16 +3,28 @@ import * as URLSearchParams from 'url-search-params';
 
 import { AnyT, IKeyValue } from 'core/definition.interface';
 import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
+import { IApplicationLayoutState } from 'core/component/layout';
+import { IApplicationRootState } from 'core/component/root';
+import { IApplicationUserState } from 'core/user';
+import { IApplicationNotificationState } from 'core/notification';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
                                                         {}>;
 
-export interface IBaseContainerInternalProps {
+export interface IBaseInternalProps {
+  className?: string;
+}
+
+export interface IBaseContainerInternalProps extends IBaseInternalProps {
   location?: Location;
   routeParams?: IKeyValue;
   queryParams?: URLSearchParams;
   sectionName?: string;
+  layout?: IApplicationLayoutState;
+  root?: IApplicationRootState;
+  user?: IApplicationUserState;
+  notification?: IApplicationNotificationState;
 }
 
 export interface IBaseContainerInternalState {
@@ -25,9 +37,8 @@ export interface IBaseComponent<TInternalProps, TInternalState>
       IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;
 }
 
-export interface IBaseComponentInternalProps {
+export interface IBaseComponentInternalProps extends IBaseInternalProps {
   persistent?: boolean;
-  className?: string;
   style?: CSSProperties;
   wrapperStyle?: CSSProperties;
   plugins?: ComponentPluginCtorT|ComponentPluginCtorT[];
