@@ -3,8 +3,7 @@ import * as React from 'react';
 import { isUndef } from 'core/util';
 import { AnyT } from 'core/definition.interface';
 import { BaseComponent } from 'core/component/base';
-import { TextField } from 'core/component/field';
-import { DelayedChangesFieldPlugin, IBasicTextFieldAction } from 'core/component/field';
+import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from 'core/component/field';
 
 import {
   ISearchToolbarInternalState,
