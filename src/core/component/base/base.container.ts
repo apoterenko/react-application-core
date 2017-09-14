@@ -11,11 +11,8 @@ import { IApplicationState } from 'core/store';
 
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
-export class BaseContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TInternalProps extends IBaseContainerInternalProps,
-                           TInternalState extends IBaseContainerInternalState,
-                           TPermissionState extends IApplicationPermissionState<TPermissions>,
-                           TPermissions>
+export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
+                           TInternalState extends IBaseContainerInternalState>
     extends PureComponent<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 

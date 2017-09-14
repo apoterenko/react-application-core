@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { IApiPayload } from 'core/api';
 import { Operation } from 'core/operation';
-import { IApplicationPermissionState } from 'core/permission';
-import { IApplicationState } from 'core/store';
 import { AnyT } from 'core/definition.interface';
 import { BaseContainer } from 'core/component/base';
 import { Form, IFormContainerInternalProps } from 'core/component/form';
@@ -18,14 +16,7 @@ import {
   IFormPayload,
 } from './form.interface';
 
-export class FormContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TPermissionState extends IApplicationPermissionState<TPermissions>,
-                           TPermissions>
-    extends BaseContainer<TAppState,
-                          IFormContainerInternalProps<IFormEntity>,
-                          {},
-                          TPermissionState,
-                          TPermissions> {
+export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFormEntity>, {}> {
 
   constructor(props: IFormContainerInternalProps<IFormEntity>) {
     super(props);

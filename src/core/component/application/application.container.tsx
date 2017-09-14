@@ -11,17 +11,16 @@ import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
 import { IApplicationState } from 'core/store';
 import { clone } from 'core/util';
-import { BaseContainer, IBaseContainerInternalState } from 'core/component/base';
+import { BaseContainer } from 'core/component/base';
 
 import { IApplicationContainerProps } from './application.interface';
 
 export abstract class ApplicationContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
                                            TInternalProps extends IApplicationContainerProps,
-                                           TInternalState extends IBaseContainerInternalState,
                                            TPermissionState extends IApplicationPermissionState<TPermissions>,
                                            TPermissions,
                                            TPermissionObject>
-    extends BaseContainer<TAppState, TInternalProps, TInternalState, TPermissionState, TPermissions> {
+    extends BaseContainer<TInternalProps, {}> {
 
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
@@ -88,6 +87,6 @@ export abstract class ApplicationContainer<TAppState extends IApplicationState<T
 
   // In a general case we should not use the appState directly, only via "connect" method!
   private get appState(): TAppState {
-    return this.appStore.getState() as any;
+    return this.appStore.getState() as TAppState;
   }
 }

@@ -10,23 +10,12 @@ import {
 } from 'core/component/layout';
 import { INavigationListItem, NavigationList } from 'core/component/list';
 import { lazyInject, DI_TYPES } from 'core/di';
-import { BaseContainer, IBaseContainerInternalState } from 'core/component/base';
-import { IApplicationState } from 'core/store';
-import { IApplicationPermissionState } from 'core/permission';
+import { BaseContainer } from 'core/component/base';
 import { IRouters } from 'core/router';
 
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
 
-export class DefaultLayoutContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                                    TInternalProps extends IDefaultLayoutContainerInternalProps,
-                                    TInternalState extends IBaseContainerInternalState,
-                                    TPermissionState extends IApplicationPermissionState<TPermissions>,
-                                    TPermissions>
-    extends BaseContainer<TAppState,
-                          TInternalProps,
-                          TInternalState,
-                          TPermissionState,
-                          TPermissions> {
+export class DefaultLayoutContainer extends BaseContainer<IDefaultLayoutContainerInternalProps, {}> {
 
   public static defaultProps: IDefaultLayoutContainerInternalProps = {
     navigationControlType: 'menu',
@@ -36,7 +25,7 @@ export class DefaultLayoutContainer<TAppState extends IApplicationState<TPermiss
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
   @lazyInject(DI_TYPES.Routers) private routers: IRouters;
 
-  constructor(props: TInternalProps) {
+  constructor(props: IDefaultLayoutContainerInternalProps) {
     super(props);
     this.onClick = this.onClick.bind(this);
   }

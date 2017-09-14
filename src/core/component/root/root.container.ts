@@ -3,9 +3,8 @@ import * as URLSearchParams from 'url-search-params';
 
 import { IKeyValue } from 'core/definition.interface';
 import { DI_TYPES, lazyInject } from 'core/di';
-import { IApplicationPermissionService, IApplicationPermissionState } from 'core/permission';
-import { IApplicationState } from 'core/store';
-import { BaseContainer, IBaseContainerInternalState } from 'core/component/base';
+import { IApplicationPermissionService } from 'core/permission';
+import { BaseContainer } from 'core/component/base';
 
 import {
   IRootContainerInternalProps,
@@ -13,17 +12,8 @@ import {
   ROOT_SECTION,
 } from './root.interface';
 
-export class RootContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TInternalProps extends IRootContainerInternalProps,
-                           TInternalState extends IBaseContainerInternalState,
-                           TPermissionState extends IApplicationPermissionState<TPermissions>,
-                           TPermissionObject,
-                           TPermissions>
-    extends BaseContainer<TAppState,
-                          TInternalProps,
-                          TInternalState,
-                          TPermissionState,
-                          TPermissions> {
+export class RootContainer<TInternalProps extends IRootContainerInternalProps, TPermissionObject>
+    extends BaseContainer<TInternalProps, {}> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionService<TPermissionObject>;
 
