@@ -1,0 +1,39 @@
+.app-default-layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  .app-content {
+    width: 100%;
+  }
+
+  .mdc-persistent-drawer__toolbar-spacer {
+    height: 72px;
+  }
+}
+
+.app-profile-link {
+  position: relative;
+  width: 100%;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+
+  &:active {
+    color: black;
+  }
+
+  .material-icons {
+    font-size: 36px;
+  }
+
+  .app-profile-name {
+    position: absolute;
+    width: calc(100% - 36px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 36px;
+  }
+}
