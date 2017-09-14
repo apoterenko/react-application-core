@@ -1,0 +1,9 @@
+.app-navigation-list {
+  &.mdc-list {
+    .mdc-list-item {
+      &.app-active {
+        color: red;
+      }
+    }
+  }
+}
