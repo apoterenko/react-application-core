@@ -56,8 +56,18 @@ export const userMapper = <TAppState extends IApplicationState<TPermissionState,
   },
 });
 
+export const notificationMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
+                                   TPermissionState extends IApplicationPermissionState<TPermissions>,
+                                   TPermissions>
+(state: TAppState) => ({
+  notification: {
+    ...state.notification,
+  },
+});
+
 export const defaultMappers = [
   layoutMapper,
   rootMapper,
-  userMapper
+  userMapper,
+  notificationMapper
 ];

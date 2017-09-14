@@ -13,13 +13,8 @@ export class FormLayout extends BaseComponent<FormLayout, IFormLayoutInternalPro
 
   public render(): JSX.Element {
     const props = this.props;
-    const { attributes } = props;
-    const message = attributes && (attributes.error || attributes.info);
-    const snackbarTpl = message ? (
-        <Snackbar ref='snackbar'
-                  message={message}>
-        </Snackbar>
-    ) : null;
+    const { notification } = props;
+    const message = notification && (notification.error || notification.info);
 
     return (
         <main className='mdc-layout-grid app-form-layout'>
@@ -37,7 +32,9 @@ export class FormLayout extends BaseComponent<FormLayout, IFormLayoutInternalPro
               </div>
             </div>
           </div>
-          {snackbarTpl}
+          <Snackbar ref='snackbar'
+                    message={message}>
+          </Snackbar>
         </main>
     );
   }

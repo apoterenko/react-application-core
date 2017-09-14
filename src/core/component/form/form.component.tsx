@@ -33,7 +33,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
   public render(): JSX.Element {
     const props = this.props;
-    const { attributes, settings } = props;
+    const { attributes, settings, notification } = props;
     const className = ['app-form', settings.className];
 
     return (
@@ -59,7 +59,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
                       className='mdc-button--raised'
                       disabled={!attributes.valid || !attributes.dirty}
                       progress={attributes.progress}
-                      error={!ramda.isNil(attributes.error)}>
+                      error={!ramda.isNil(notification ? notification.error : null)}>
                 {this.t(settings.actionText || 'Save')}
               </Button>
             </section>

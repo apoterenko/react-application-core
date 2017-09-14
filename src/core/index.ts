@@ -24,6 +24,7 @@ export * from './di';
 export * from './env';
 export * from './error';
 export * from './event';
+export * from './notification';
 export * from './operation';
 export * from './permission';
 export * from './router';

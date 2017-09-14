@@ -5,6 +5,7 @@ import { Operation } from 'core/operation';
 import { AnyT } from 'core/definition.interface';
 import { BaseContainer } from 'core/component/base';
 import { Form, IFormContainerInternalProps } from 'core/component/form';
+import { NOTIFICATION_CLEAR_ACTION_TYPE } from 'core/notification';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -33,17 +34,18 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <Form settings={props.settings}
-              attributes={props.attributes}
-              onChange={this.onChange}
+        <Form onChange={this.onChange}
               onSubmit={this.onSubmit}
-              onValid={this.onValid}>
+              onValid={this.onValid}
+              {...props}>
           {props.children}
         </Form>
     );
   }
 
   private onChange(name: string, value: AnyT): void {
+    this.clearAllNotifications();
+
     if (name) {
       this.dispatchFormChangeEvent(name, value);
     }
@@ -58,6 +60,8 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
   }
 
   private onSubmit(): void {
+    this.clearAllNotifications();
+
     const { props } = this;
     const { entity } = props;
     const { changes } = props.attributes;
@@ -67,6 +71,10 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
       data: { changes, entity } as IFormPayload,
       operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
     } as IApiPayload<IFormPayload>);
+  }
+
+  private clearAllNotifications(): void {
+    this.appStore.dispatch({ type: NOTIFICATION_CLEAR_ACTION_TYPE });
   }
 
   private get formEntityId(): number | string {

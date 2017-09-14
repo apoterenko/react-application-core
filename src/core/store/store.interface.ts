@@ -3,6 +3,11 @@ import { IApplicationRootState, INITIAL_APPLICATION_ROOT_STATE, rootReducer } fr
 import { IApplicationPermissionState, INITIAL_PERMISSION_STATE, permissionReducer } from 'core/permission';
 import { IApplicationUserState, INITIAL_USER_STATE, userReducer } from 'core/user';
 import { IApplicationLayoutState, INITIAL_APPLICATION_LAYOUT_STATE, layoutReducer } from 'core/component/layout';
+import {
+  IApplicationNotificationState,
+  notificationReducer,
+  INITIAL_APPLICATION_NOTIFICATION_STATE,
+} from 'core/notification';
 
 export interface IApplicationState<TPermissionState extends IApplicationPermissionState<TPermissions>,
                                    TPermissions> {
@@ -10,6 +15,7 @@ export interface IApplicationState<TPermissionState extends IApplicationPermissi
   permission: TPermissionState;
   user: IApplicationUserState;
   layout: IApplicationLayoutState;
+  notification: IApplicationNotificationState;
 }
 
 export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationPermissionState<AnyT>, AnyT> = {
@@ -17,6 +23,7 @@ export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationPermission
   root: INITIAL_APPLICATION_ROOT_STATE,
   user: INITIAL_USER_STATE,
   layout: INITIAL_APPLICATION_LAYOUT_STATE,
+  notification: INITIAL_APPLICATION_NOTIFICATION_STATE,
 };
 
 export const defaultReducers = {
@@ -24,4 +31,5 @@ export const defaultReducers = {
   root: rootReducer,
   user: userReducer,
   layout: layoutReducer,
+  notification: notificationReducer,
 };

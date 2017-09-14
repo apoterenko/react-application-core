@@ -14,6 +14,7 @@ export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComp
 
 export interface IBaseInternalProps {
   className?: string;
+  notification?: IApplicationNotificationState;
 }
 
 export interface IBaseContainerInternalProps extends IBaseInternalProps {
@@ -24,7 +25,6 @@ export interface IBaseContainerInternalProps extends IBaseInternalProps {
   layout?: IApplicationLayoutState;
   root?: IApplicationRootState;
   user?: IApplicationUserState;
-  notification?: IApplicationNotificationState;
 }
 
 export interface IBaseContainerInternalState {

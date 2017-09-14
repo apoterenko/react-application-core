@@ -1,17 +1,15 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { convertError } from 'core/error';
 import { toSection } from 'core/store';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
-  FORM_INFO_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
-  FORM_SUBMIT_ERROR_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   INITIAL_APPLICATION_FORM_STATE,
+  FORM_SUBMIT_ERROR_ACTION_TYPE,
   IApplicationFormState,
 } from './form.interface';
 
@@ -26,8 +24,6 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
     case `${section}.${FORM_CHANGE_ACTION_TYPE}`:
       return {
         ...state,
-        info: null,
-        error: null,
         dirty: true,
         changes: {
           ...state.changes,
@@ -43,19 +39,11 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
       return {
         ...state,
         progress: true,
-        info: null,
-        error: null,
       };
     case `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`:
       return {
         ...state,
-        error: convertError(action.error),
         progress: false,
-      };
-    case `${section}.${FORM_INFO_ACTION_TYPE}`:
-      return {
-        ...state,
-        info: action.data.info,
       };
     case `${section}.${FORM_SUBMIT_DONE_ACTION_TYPE}`:
       return {

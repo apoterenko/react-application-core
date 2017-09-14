@@ -21,12 +21,6 @@ export interface IRenderable {
   renderer?(item: IEntity): JSX.Element;
 }
 
-// deprecated
-export interface INotificationAttributes {
-  error?: string;
-  info?: string;
-}
-
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;

@@ -75,13 +75,12 @@ export class DefaultLayoutContainer extends BaseContainer<IDefaultLayoutContaine
   }
 
   protected get snackbarTpl(): JSX.Element {
-    const props = this.props;
-    const { notification } = props;
+    const { notification } = this.props;
     const message = notification.error || notification.info;
-    return message ? (
+    return (
         <Snackbar message={message}>
         </Snackbar>
-    ) : null;
+    );
   }
 
   protected get profileTpl(): JSX.Element {
