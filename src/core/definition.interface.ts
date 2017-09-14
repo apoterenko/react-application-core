@@ -10,6 +10,10 @@ export interface IIdentifiedEntity {
   id: number | string;
 }
 
+export interface IAttributedEntity extends IIdentifiedEntity {
+  data: IKeyValue;
+}
+
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
 

@@ -1,4 +1,24 @@
-import { IEntity } from 'core/definition.interface';
+import {
+  IBaseComponentInternalProps,
+  IBaseContainerInternalProps,
+  IBaseContainer,
+} from 'core/component/base';
+import { IEntity, IRenderable } from 'core/definition.interface';
+
+export interface IListContainerInternalProps extends IBaseContainerInternalProps, IRenderable {
+  list: IApplicationListAttributes;
+  progressMessage?: string;
+}
+
+export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
+  load(query: string): void;
+}
+
+export interface IListInternalProps extends IBaseComponentInternalProps, IRenderable {
+  items: IEntity[];
+  activeItem?: IEntity;
+  onClick?(props: IEntity): void;
+}
 
 export interface IApplicationListAttributes {
   progress: boolean;

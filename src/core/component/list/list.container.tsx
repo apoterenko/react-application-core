@@ -3,6 +3,7 @@ import * as React from 'react';
 import { BaseContainer } from 'core/component/base';
 import { IEntity } from 'core/definition.interface';
 
+import { List } from './list.component';
 import {
   LIST_DESTROY_ACTION_TYPE,
   LIST_LOAD_ACTION_TYPE,
@@ -10,7 +11,6 @@ import {
   IListContainer,
   IListContainerInternalProps,
 } from './list.interface';
-import { List } from './list.component';
 
 export class ListContainer extends BaseContainer<IListContainerInternalProps, {}>
     implements IListContainer {
@@ -44,7 +44,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
         );
   }
 
-  public onSearch(value: string): void {
+  public load(value: string): void {
     this.dispatch(LIST_LOAD_ACTION_TYPE, { query: value });
   }
 
