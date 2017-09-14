@@ -20,7 +20,7 @@ export class Ripple<TInternalProps extends IRippleInternalProps>
   public componentDidMount(): void {
     super.componentDidMount();
 
-    if (this.props.activated) {
+    if (this.props.active) {
       this.nativeMdcInstance.activate();
     }
   }

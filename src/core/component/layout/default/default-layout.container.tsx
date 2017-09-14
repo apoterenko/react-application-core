@@ -99,7 +99,7 @@ export class DefaultLayoutContainer extends BaseContainer<IDefaultLayoutContaine
       this.props.navigationControlHandler();
     } else {
       this.appStore.dispatch({
-        type: `${LAYOUT_MODE_UPDATE_ACTION_TYPE}`,
+        type: LAYOUT_MODE_UPDATE_ACTION_TYPE,
         data: { mode: this.isLayoutFullMode ? LAYOUT_MINIMAL_MODE : LAYOUT_FULL_MODE },
       });
     }

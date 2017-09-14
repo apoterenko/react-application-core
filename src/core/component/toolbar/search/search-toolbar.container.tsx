@@ -40,14 +40,14 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
   }
 
   private onFilterAction(): void {
-    this.dispatch(`${FILTER_SECTION}`);
+    this.dispatch(FILTER_SECTION);
   }
 
   private onFilter(): void {
-    this.dispatch(`${FILTER_ACTIVATE_ACTION_TYPE}`);
+    this.dispatch(FILTER_ACTIVATE_ACTION_TYPE);
   }
 
   private onChangeFilterQuery(value: string): void {
-    this.dispatch(`${FILTER_QUERY_ACTION_TYPE}`, {query: value});
+    this.dispatch(FILTER_QUERY_ACTION_TYPE, { query: value });
   }
 }

@@ -13,6 +13,10 @@ export interface IIdentifiedEntity {
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
 
+export interface IRenderable {
+  renderer?(item: IEntity): JSX.Element;
+}
+
 // deprecated
 export interface INotificationAttributes {
   error?: string;

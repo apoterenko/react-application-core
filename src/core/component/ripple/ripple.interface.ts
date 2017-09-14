@@ -6,5 +6,5 @@ export interface INativeMaterialRippleComponent extends INativeMaterialComponent
 }
 
 export interface IRippleInternalProps extends IBaseComponentInternalProps {
-  activated: boolean;
+  active: boolean;
 }
