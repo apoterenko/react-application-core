@@ -12,7 +12,7 @@ export class NavigationList extends BaseComponent<NavigationList,
 
   public render(): JSX.Element {
     const list = this.props.items.map((item) => {
-      const itemCls = ['mdc-list-item', item.activated && 'activated'];
+      const itemCls = ['mdc-list-item', item.activated && 'app-active'];
 
       const iconCls = [
         'material-icons',
@@ -38,7 +38,7 @@ export class NavigationList extends BaseComponent<NavigationList,
     });
 
     return (
-        <nav className='mdc-list'>
+        <nav className='mdc-list app-navigation-list'>
           {list}
         </nav>
     );
