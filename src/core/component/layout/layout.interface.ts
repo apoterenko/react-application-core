@@ -10,4 +10,4 @@ export const INITIAL_APPLICATION_LAYOUT_STATE: IApplicationLayoutState = {
 };
 
 export const LAYOUT_SECTION = 'layout';
-export const LAYOUT_MODE_UPDATE_ACTION_TYPE = 'mode.update';
+export const LAYOUT_MODE_UPDATE_ACTION_TYPE = 'layout.mode.update';
