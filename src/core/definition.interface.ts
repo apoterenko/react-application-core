@@ -13,6 +13,7 @@ export interface IIdentifiedEntity {
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
 
+// deprecated
 export interface INotificationAttributes {
   error?: string;
   info?: string;

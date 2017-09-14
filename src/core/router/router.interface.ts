@@ -1,5 +1,9 @@
 import { History } from 'history';
 
+export interface IRouters {
+  profile: string;
+}
+
 export interface IRouter extends History {
   basename?: string;
 }

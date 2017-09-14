@@ -5,6 +5,7 @@ export const DI_TYPES = {
   Menu: Symbol('Menu'),
   Permission: Symbol('Permission'),
   Router: Symbol('Router'),
+  Routers: Symbol('Routers'),
   Settings: Symbol('Settings'),
   Storage: Symbol('Storage'),
   Store: Symbol('Store'),
