@@ -85,4 +85,9 @@ export abstract class ApplicationContainer<TAppState extends IApplicationState<T
   }
 
   protected abstract get routes(): JSX.Element[];
+
+  // In a general case we should not use the appState directly, only via "connect" method!
+  private get appState(): TAppState {
+    return this.appStore.getState() as any;
+  }
 }

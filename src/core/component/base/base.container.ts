@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from 'core/di';
-import { IKeyValue } from 'core/definition.interface';
+import { AnyT, IKeyValue } from 'core/definition.interface';
 import { IApplicationPermissionState } from 'core/permission';
 import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from 'core/router';
 import { IApplicationState } from 'core/store';
@@ -20,7 +20,7 @@ export class BaseContainer<TAppState extends IApplicationState<TPermissionState,
     implements IBaseContainer<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Translate) protected t: (k: string) => string;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<TAppState>;
+  @lazyInject(DI_TYPES.Store) protected appStore: Store<IApplicationState<IApplicationPermissionState<AnyT>, AnyT>>;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);
@@ -40,10 +40,5 @@ export class BaseContainer<TAppState extends IApplicationState<TPermissionState,
 
   public navigateToBack(): void {
     this.appStore.dispatch({ type: ROUTER_BACK_ACTION_TYPE });
-  }
-
-  // In a general case we should not use the appState directly, only via "connect"!!
-  protected get appState(): TAppState {
-    return this.appStore.getState();
   }
 }
