@@ -1,10 +1,13 @@
 import { IEntity } from 'core/definition.interface';
 
-export interface IApplicationListState {
+export interface IApplicationListAttributes {
   progress: boolean;
   locked: boolean;
   data: IEntity[];
   selected: IEntity;
+}
+
+export interface IApplicationListState extends IApplicationListAttributes {
 }
 
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
