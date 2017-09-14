@@ -46,3 +46,18 @@ export const filterMapper = (filterState: IApplicationFilterState) => ({
     ...(filterState || {}),
   },
 });
+
+export const userMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
+                           TPermissionState extends IApplicationPermissionState<TPermissions>,
+                           TPermissions>
+(state: TAppState) => ({
+  user: {
+    ...state.user,
+  },
+});
+
+export const defaultMappers = [
+  layoutMapper,
+  rootMapper,
+  userMapper
+];
