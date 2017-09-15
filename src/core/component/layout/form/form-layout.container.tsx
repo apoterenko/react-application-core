@@ -1,20 +1,12 @@
 import * as React from 'react';
 
-import { BaseComponent } from 'core/component/base';
-import { Snackbar } from 'core/component/snackbar';
-
+import { LayoutContainer } from '../layout.container';
 import { IFormLayoutInternalProps } from './form-layout.interface';
 
-export class FormLayout extends BaseComponent<FormLayout, IFormLayoutInternalProps, {}> {
-
-  constructor(props: IFormLayoutInternalProps) {
-    super(props);
-  }
+export class FormLayoutContainer extends LayoutContainer<IFormLayoutInternalProps> {
 
   public render(): JSX.Element {
     const props = this.props;
-    const { notification } = props;
-    const message = notification && (notification.error || notification.info);
 
     return (
         <main className='mdc-layout-grid app-form-layout'>
@@ -32,9 +24,7 @@ export class FormLayout extends BaseComponent<FormLayout, IFormLayoutInternalPro
               </div>
             </div>
           </div>
-          <Snackbar ref='snackbar'
-                    message={message}>
-          </Snackbar>
+          {this.snackbarTpl}
         </main>
     );
   }
