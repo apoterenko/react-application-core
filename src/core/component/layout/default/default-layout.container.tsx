@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Link } from 'core/component/link';
 import { PersistentDrawer } from 'core/component/drawer';
-import { Snackbar } from 'core/component/snackbar';
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
@@ -10,16 +9,15 @@ import {
 } from 'core/component/layout';
 import { INavigationListItem, NavigationList } from 'core/component/list';
 import { lazyInject, DI_TYPES } from 'core/di';
-import { BaseContainer } from 'core/component/base';
 import { IRouters } from 'core/router';
 
+import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
 
-export class DefaultLayoutContainer extends BaseContainer<IDefaultLayoutContainerInternalProps, {}> {
+export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
   public static defaultProps: IDefaultLayoutContainerInternalProps = {
     navigationControlType: 'menu',
-    notification: {},
   };
 
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
@@ -71,15 +69,6 @@ export class DefaultLayoutContainer extends BaseContainer<IDefaultLayoutContaine
           </div>
           {this.snackbarTpl}
         </div>
-    );
-  }
-
-  protected get snackbarTpl(): JSX.Element {
-    const { notification } = this.props;
-    const message = notification.error || notification.info;
-    return (
-        <Snackbar message={message}>
-        </Snackbar>
     );
   }
 
