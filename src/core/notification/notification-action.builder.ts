@@ -6,7 +6,7 @@ import { NOTIFICATION_ERROR_ACTION_TYPE } from './notification.interface';
 
 export class NotificationActionBuilder {
 
-  public static buildNotificationErrorAction(action: IEffectsAction): EffectsAction {
+  public static buildErrorAction(action: IEffectsAction): EffectsAction {
     return EffectsAction.create(NOTIFICATION_ERROR_ACTION_TYPE, {
       error: convertError(action.error),
     });
