@@ -45,7 +45,9 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
   }
 
   public load(value: string): void {
-    this.dispatch(LIST_LOAD_ACTION_TYPE, { query: value });
+    if (value) {
+      this.dispatch(LIST_LOAD_ACTION_TYPE, { query: value });
+    }
   }
 
   private onSelect(entity: IEntity): void {
