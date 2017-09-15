@@ -44,8 +44,6 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
   }
 
   private onChange(name: string, value: AnyT): void {
-    this.clearAllNotifications();
-
     if (name) {
       this.dispatchFormChangeEvent(name, value);
     }
@@ -60,8 +58,6 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
   }
 
   private onSubmit(): void {
-    this.clearAllNotifications();
-
     const { props } = this;
     const { entity } = props;
     const { changes } = props.attributes;
@@ -71,10 +67,6 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
       data: { changes, entity } as IFormPayload,
       operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
     } as IApiPayload<IFormPayload>);
-  }
-
-  private clearAllNotifications(): void {
-    this.appStore.dispatch({ type: NOTIFICATION_CLEAR_ACTION_TYPE });
   }
 
   private get formEntityId(): number | string {
