@@ -74,6 +74,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
              className='mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg'>
             {error ? this.t(error) : '\u00a0'}
           </p>
+          {this.getAttachment()}
         </div>
     );
   }
@@ -113,6 +114,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? <MaskedTextInput guide={false}
                            {...componentProps}/>
         : <input {...componentProps}/>;
+  }
+
+  protected getAttachment(): JSX.Element {
+    return null;
   }
 
   protected getEmptyValue(): string {
