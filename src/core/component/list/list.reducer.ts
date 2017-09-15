@@ -10,6 +10,7 @@ import {
   LIST_DESTROY_ACTION_TYPE,
   LIST_LOAD_ACTION_TYPE,
   LIST_LOAD_DONE_ACTION_TYPE,
+  LIST_LOAD_ERROR_ACTION_TYPE,
   LIST_LOCK_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   IApplicationListState,
@@ -43,6 +44,11 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
         ...state,
         progress: false,
         data: action.data,
+      };
+    case `${section}.${LIST_LOAD_ERROR_ACTION_TYPE}`:
+      return {
+        ...state,
+        progress: false,
       };
     case `${section}.${LIST_SELECT_ACTION_TYPE}`:
       return {

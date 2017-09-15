@@ -39,6 +39,7 @@ export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';
 export const LIST_LOAD_DONE_ACTION_TYPE = 'list.load.done';
+export const LIST_LOAD_ERROR_ACTION_TYPE = 'list.load.error';
 export const LIST_LOCK_ACTION_TYPE = 'list.lock';
 export const LIST_DESTROY_ACTION_TYPE = 'list.destroy';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
