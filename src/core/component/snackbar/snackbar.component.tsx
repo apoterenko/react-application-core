@@ -32,8 +32,11 @@ export class Snackbar extends MaterialComponent<Snackbar,
 
     const message = nextProps.message;
     if (message) {
-      // We should not compare with previous values!
       this.show({message});
+
+      if (this.props.afterShow) {
+        this.props.afterShow();
+      }
     }
   }
 

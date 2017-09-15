@@ -15,4 +15,5 @@ export interface INativeMaterialSnackbarComponent extends INativeMaterialCompone
 
 export interface ISnackbarInternalProps
     extends IMaterialSnackbarComponentOptions, IBaseComponentInternalProps {
+  afterShow?(): void;
 }
