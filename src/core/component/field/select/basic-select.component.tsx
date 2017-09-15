@@ -32,7 +32,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
     if (this.state.needOpenMenu) {
       this.setState({ needOpenMenu: false });
-      this.showMenu();
+
+      if (!ramda.isNil(nextProps.options)) {
+        this.showMenu();
+      }
     }
   }
 
@@ -82,6 +85,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   protected getComponentProps(): IKeyValue {
     return {
       ...super.getComponentProps(),
+
+      placeholder: this.isWaitingForOptions
+          ? this.t(this.props.progressMessage || 'Loading...')
+          : null,
+
       value: this.toDisplayValue(),
     };
   }
@@ -115,6 +123,9 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   private openMenu(): void {
+    if (this.isWaitingForOptions) {
+      return;
+    }
     if (ramda.isNil(this.props.options)) {
       if (this.props.onEmptyOptions) {
         this.setState({ needOpenMenu: true });
@@ -131,5 +142,9 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   private hideMenu(): void {
     this.menu.hide();
+  }
+
+  private get isWaitingForOptions(): boolean {
+    return ramda.isNil(this.props.options) && this.state.needOpenMenu;
   }
 }
