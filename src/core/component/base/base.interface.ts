@@ -14,6 +14,7 @@ export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComp
 
 export interface IBaseInternalProps {
   className?: string;
+  progressMessage?: string;
   notification?: IApplicationNotificationState;
 }
 
