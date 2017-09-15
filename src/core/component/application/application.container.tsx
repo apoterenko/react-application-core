@@ -12,6 +12,7 @@ import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
 import { IApplicationState } from 'core/store';
 import { clone } from 'core/util';
 import { BaseContainer } from 'core/component/base';
+import { INITIAL_APPLICATION_NOTIFICATION_STATE } from 'core/notification';
 
 import { IApplicationContainerProps } from './application.interface';
 
@@ -70,6 +71,7 @@ export abstract class ApplicationContainer<TAppState extends IApplicationState<T
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
+    state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     return state;
   }
 
