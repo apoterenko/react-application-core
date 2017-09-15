@@ -2,12 +2,14 @@ import * as React from 'react';
 
 export type AnyT = any;
 
+export type EntityIdT = number | string;
+
 export interface IKeyValue {
   [index: string]: AnyT;
 }
 
 export interface IIdentifiedEntity {
-  id: number | string;
+  id: EntityIdT;
 }
 
 export interface IAttributedEntity extends IIdentifiedEntity {

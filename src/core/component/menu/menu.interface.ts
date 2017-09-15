@@ -1,6 +1,7 @@
 import { FunctionT } from 'core/util';
 import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
 import { INativeMaterialComponent } from 'core/component/material';
+import { EntityIdT } from 'core/definition.interface';
 
 export interface IMenuInternalState {
 }
@@ -23,7 +24,7 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
 }
 
 export interface IMenuOption {
-  value: string|number;
+  value: EntityIdT;
   label?: string;
   disabled?: boolean;
 }
