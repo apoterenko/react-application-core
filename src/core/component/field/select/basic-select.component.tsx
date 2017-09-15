@@ -7,25 +7,33 @@ import { AnyT, BasicEventT, ChangeEventT, IKeyValue, KeyboardEventT } from 'core
 
 import {
   INativeMaterialSelectComponent,
-  ISelectInternalProps,
-  ISelectInternalState,
+  IBasicSelectInternalProps,
+  IBasicSelectInternalState,
   ISelectOption,
-} from './select.interface';
+} from './basic-select.interface';
 
-export class Select extends BasicTextField<Select,
-                                           ISelectInternalProps,
-                                           ISelectInternalState,
-                                           INativeMaterialSelectComponent> {
-
-  public static defaultProps: ISelectInternalProps = {
-    options: [],
-  };
+export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalProps, TInternalState>,
+                         TInternalProps extends IBasicSelectInternalProps,
+                         TInternalState extends IBasicSelectInternalState>
+    extends BasicTextField<TComponent,
+                           TInternalProps,
+                           TInternalState,
+                           INativeMaterialSelectComponent> {
 
   private static EMPTY_VALUE = -1;
 
-  constructor(props: ISelectInternalProps) {
+  constructor(props: TInternalProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
+  }
+
+  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
+    super.componentWillReceiveProps(nextProps, nextContext);
+
+    if (this.state.needOpenMenu) {
+      this.setState({ needOpenMenu: false });
+      this.showMenu();
+    }
   }
 
   public onChange(event: ChangeEventT): void {
@@ -64,7 +72,7 @@ export class Select extends BasicTextField<Select,
         <div className='app-textfield-input-wrapper'>
           {super.getComponent()}
           <Menu ref='menu'
-                options={this.props.options}
+                options={this.options}
                 onSelect={this.onSelect}>
           </Menu>
         </div>
@@ -79,23 +87,27 @@ export class Select extends BasicTextField<Select,
   }
 
   protected getEmptyValue(): AnyT {
-    return Select.EMPTY_VALUE;
+    return BasicSelect.EMPTY_VALUE;
   }
 
-  private onSelect(option: ISelectOption): void {
+  protected get options(): ISelectOption[] {
+    return this.props.options || [];
+  }
+
+  protected onSelect(option: ISelectOption): void {
     this.onChangeValue(option.value, null);
   }
 
-  private toDisplayValue(): string {
+  protected toDisplayValue(): string {
     const value = this.value;
     const selectedItem = this.getSelectedOption(value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : (value === Select.EMPTY_VALUE ? '' : value);
+        : (value === BasicSelect.EMPTY_VALUE ? '' : value);
   }
 
   private getSelectedOption(value: AnyT): ISelectOption {
-    return ramda.find((option) => option.value === value, this.props.options);
+    return ramda.find((option) => option.value === value, this.options);
   }
 
   private get menu(): IMenu {
@@ -103,6 +115,17 @@ export class Select extends BasicTextField<Select,
   }
 
   private openMenu(): void {
+    if (ramda.isNil(this.props.options)) {
+      if (this.props.onEmptyOptions) {
+        this.setState({ needOpenMenu: true });
+        this.props.onEmptyOptions();
+      }
+    } else {
+      this.showMenu();
+    }
+  }
+
+  private showMenu(): void {
     this.menu.show();
   }
 
