@@ -5,6 +5,7 @@ import {
   LIST_LOCK_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   LIST_LOAD_ERROR_ACTION_TYPE,
+  LIST_DESELECT_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
@@ -18,6 +19,10 @@ export class ListActionBuilder {
 
   public static buildSelectActionType(section: string): string {
     return `${section}.${LIST_SELECT_ACTION_TYPE}`;
+  }
+
+  public static buildDeselectActionType(section: string): string {
+    return `${section}.${LIST_DESELECT_ACTION_TYPE}`;
   }
 
   public static buildLockActionType(section: string): string {

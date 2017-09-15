@@ -7,7 +7,6 @@ import { IEntity, IRenderable } from 'core/definition.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps, IRenderable {
   list: IApplicationListAttributes;
-  progressMessage?: string;
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {

@@ -3,16 +3,13 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { IAttributedEntity, } from 'core/definition.interface';
 import { toSection } from 'core/store';
 
+import { ListActionBuilder } from './list-action.builder';
 import {
   LIST_UPDATE_ACTION_TYPE,
   INITIAL_APPLICATION_LIST_STATE,
-  LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
-  LIST_LOAD_ACTION_TYPE,
   LIST_LOAD_DONE_ACTION_TYPE,
   LIST_LOAD_ERROR_ACTION_TYPE,
-  LIST_LOCK_ACTION_TYPE,
-  LIST_SELECT_ACTION_TYPE,
   IApplicationListState,
 } from './list.interface';
 
@@ -20,12 +17,12 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
                             action: IEffectsAction): IApplicationListState {
   const section = toSection(action);
   switch (action.type) {
-    case `${section}.${LIST_LOAD_ACTION_TYPE}`:
+    case ListActionBuilder.buildLoadActionType(section):
       return {
         ...state,
         progress: true,
       };
-    case `${section}.${LIST_LOCK_ACTION_TYPE}`:
+    case ListActionBuilder.buildLockActionType(section):
       return {
         ...state,
         locked: true,
@@ -50,12 +47,12 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
         ...state,
         progress: false,
       };
-    case `${section}.${LIST_SELECT_ACTION_TYPE}`:
+    case ListActionBuilder.buildSelectActionType(section):
       return {
         ...state,
         selected: action.data.selected,
       };
-    case `${section}.${LIST_DESELECT_ACTION_TYPE}`:
+    case ListActionBuilder.buildDeselectActionType(section):
       return {
         ...state,
         selected: null,
