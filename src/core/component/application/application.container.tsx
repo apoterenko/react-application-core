@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { DI_TYPES, appContainer, lazyInject } from 'core/di';
 import { IEventManager } from 'core/event';
-import { IApplicationPermissionService, IApplicationPermissionState } from 'core/permission';
+import { IApplicationPermissionsService, IApplicationPermissionsState } from 'core/permission';
 import { IRouter } from 'core/router';
 import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
@@ -13,12 +13,14 @@ import { IApplicationState } from 'core/store';
 import { clone } from 'core/util';
 import { BaseContainer } from 'core/component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from 'core/notification';
+import { IApplicationDictionariesState } from 'core/dictionary';
 
 import { IApplicationContainerProps } from './application.interface';
 
-export abstract class ApplicationContainer<TAppState extends IApplicationState<TPermissionState, TPermissions>,
+export abstract class ApplicationContainer<TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
                                            TInternalProps extends IApplicationContainerProps,
-                                           TPermissionState extends IApplicationPermissionState<TPermissions>,
+                                           TDictionariesState extends IApplicationDictionariesState,
+                                           TPermissionsState extends IApplicationPermissionsState<TPermissions>,
                                            TPermissions,
                                            TPermissionObject>
     extends BaseContainer<TInternalProps, {}> {
@@ -26,7 +28,7 @@ export abstract class ApplicationContainer<TAppState extends IApplicationState<T
   @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
-  @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionService<TPermissionObject>;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionsService<TPermissionObject>;
 
   constructor(props: TInternalProps, sectionName = 'application') {
     super(props, sectionName);
