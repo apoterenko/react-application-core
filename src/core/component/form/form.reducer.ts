@@ -4,6 +4,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { isUndef } from 'core/util';
 import { toSection } from 'core/store';
 import { AnyT } from 'core/definition.interface';
+import { convertError } from 'core/error';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -31,6 +32,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
       });
       return {
         ...state,
+        error: null,
         dirty: Object.keys(changes).length > 0,
         changes,
       };
@@ -42,12 +44,14 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
     case `${section}.${FORM_SUBMIT_ACTION_TYPE}`:
       return {
         ...state,
+        error: null,
         progress: true,
       };
     case `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`:
       return {
         ...state,
         progress: false,
+        error: convertError(action.error),
       };
     case `${section}.${FORM_SUBMIT_DONE_ACTION_TYPE}`:
       return {

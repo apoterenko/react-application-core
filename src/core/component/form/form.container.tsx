@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IApiPayload } from 'core/api';
 import { Operation } from 'core/operation';
-import { AnyT } from 'core/definition.interface';
+import { AnyT, EntityIdT } from 'core/definition.interface';
 import { BaseContainer } from 'core/component/base';
 import { Form, IFormContainerInternalProps } from 'core/component/form';
 
@@ -68,7 +68,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
     } as IApiPayload<IFormPayload>);
   }
 
-  private get formEntityId(): number | string {
+  private get formEntityId(): EntityIdT {
     return this.props.entity && this.props.entity.id || FORM_CREATED_ENTITY_ID;
   }
 }

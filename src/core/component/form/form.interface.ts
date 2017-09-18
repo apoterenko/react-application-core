@@ -16,6 +16,7 @@ export interface IFormAttributes extends IFormChangeable {
   valid?: boolean;
   dirty?: boolean;
   progress?: boolean;
+  error?: string;
 }
 
 export interface IFormPayload extends IFormChangeable {
