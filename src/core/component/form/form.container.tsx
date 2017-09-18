@@ -5,7 +5,6 @@ import { Operation } from 'core/operation';
 import { AnyT } from 'core/definition.interface';
 import { BaseContainer } from 'core/component/base';
 import { Form, IFormContainerInternalProps } from 'core/component/form';
-import { NOTIFICATION_CLEAR_ACTION_TYPE } from 'core/notification';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -60,7 +59,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFo
   private onSubmit(): void {
     const { props } = this;
     const { entity } = props;
-    const { changes } = props.attributes;
+    const { changes } = props.form;
 
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, {
       id: this.formEntityId,

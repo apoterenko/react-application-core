@@ -19,7 +19,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
     extends BaseComponent<TComponent, IFormInternalProps, TInternalState> {
 
   public static defaultProps: IFormInternalProps = {
-    attributes: INITIAL_APPLICATION_FORM_STATE,
+    form: INITIAL_APPLICATION_FORM_STATE,
     settings: {},
   };
   private static logger: ILogger = LoggerFactory.makeLogger(Form);
@@ -33,14 +33,14 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
   public render(): JSX.Element {
     const props = this.props;
-    const { attributes, settings, notification } = props;
+    const { form, settings, notification } = props;
     const className = ['app-form', settings.className];
 
     return (
         <form ref='self'
               className={className.filter((cls) => !!cls).join(' ')}
               onSubmit={this.onSubmit}>
-          <fieldset disabled={attributes.progress}>
+          <fieldset disabled={form.progress}>
             <section className='mdc-card__primary'>
               {
                 cloneNodes<IFieldChangeFormInternalProps>(
@@ -57,8 +57,8 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
             <section className='mdc-card__actions app-card-actions'>
               <Button type='submit'
                       className='mdc-button--raised'
-                      disabled={!attributes.valid || !attributes.dirty}
-                      progress={attributes.progress}
+                      disabled={!form.valid || !form.dirty}
+                      progress={form.progress}
                       error={!ramda.isNil(notification ? notification.error : null)}>
                 {this.t(settings.actionText || 'Save')}
               </Button>

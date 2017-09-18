@@ -27,18 +27,20 @@ export interface IFormSettings {
   actionText?: string;
 }
 
-export interface IFormInternalProps extends IBaseComponentInternalProps {
-  attributes?: IFormAttributes;
+export interface IFormProps {
+  form?: IFormAttributes;
   settings?: IFormSettings;
+}
+
+export interface IFormInternalProps extends IFormProps, IBaseComponentInternalProps {
   onSubmit?: FunctionT;
   onValid?: FunctionT;
   onChange?(name: string, value: AnyT): void;
 }
 
-export interface IFormContainerInternalProps<TEntity extends IFormEntity> extends IBaseContainerInternalProps {
+export interface IFormContainerInternalProps<TEntity extends IFormEntity>
+    extends IFormProps, IBaseContainerInternalProps {
   entity?: TEntity;
-  attributes?: IFormAttributes;
-  settings?: IFormSettings;
 }
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
