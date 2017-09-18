@@ -35,3 +35,4 @@ export * from './store';
 export * from './user';
 export * from './util';
 export * from './definition.interface';
+export * from './bootstrap';
