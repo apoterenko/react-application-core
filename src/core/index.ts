@@ -21,6 +21,7 @@ export * from './component/store';
 export * from './component/toolbar';
 export * from './converter';
 export * from './di';
+export * from './dictionary';
 export * from './env';
 export * from './error';
 export * from './event';
