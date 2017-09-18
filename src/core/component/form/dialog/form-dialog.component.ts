@@ -10,7 +10,7 @@ export class FormDialog extends Dialog<FormDialog, IFormDialogInternalProps> {
     message: 'There are unsaved changes.',
     closeMessage: 'Cancel',
     acceptMessage: 'Ok',
-    attributes: INITIAL_APPLICATION_FORM_STATE,
+    form: INITIAL_APPLICATION_FORM_STATE,
   };
 
   constructor(props: IFormDialogInternalProps) {
@@ -18,7 +18,7 @@ export class FormDialog extends Dialog<FormDialog, IFormDialogInternalProps> {
   }
 
   public activate(): void {
-    if (this.props.attributes.dirty) {
+    if (this.props.form.dirty) {
       super.activate();
     } else {
       this.onAccept();
