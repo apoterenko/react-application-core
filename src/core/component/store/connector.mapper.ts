@@ -1,22 +1,16 @@
 import { IApplicationFormState, IFormEntity } from 'core/component/form';
 import { IApplicationState } from 'core/store';
-import { IApplicationPermissionState } from 'core/permission';
+import { IApplicationPermissionsState } from 'core/permission';
 import { IApplicationListState } from 'core/component/list';
 import { IApplicationFilterState } from 'core/component/filter';
 
-export const rootMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TPermissionState extends IApplicationPermissionState<TPermissions>,
-                           TPermissions>
-(state: TAppState) => ({
+export const rootMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   root: {
     ...state.root,
   },
 });
 
-export const layoutMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                             TPermissionState extends IApplicationPermissionState<TPermissions>,
-                             TPermissions>
-(state: TAppState) => ({
+export const layoutMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   layout: {
     ...state.layout,
   },
@@ -30,7 +24,7 @@ export const entityMapper = (entity: IFormEntity, formState?: IApplicationFormSt
 });
 
 export const formAttributesMapper = (formState: IApplicationFormState) => ({
-  attributes: {
+  form: {
     ...(formState || {}),
   },
 });
@@ -47,21 +41,21 @@ export const filterMapper = (filterState: IApplicationFilterState) => ({
   },
 });
 
-export const userMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                           TPermissionState extends IApplicationPermissionState<TPermissions>,
-                           TPermissions>
-(state: TAppState) => ({
+export const userMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   user: {
     ...state.user,
   },
 });
 
-export const notificationMapper = <TAppState extends IApplicationState<TPermissionState, TPermissions>,
-                                   TPermissionState extends IApplicationPermissionState<TPermissions>,
-                                   TPermissions>
-(state: TAppState) => ({
+export const notificationMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   notification: {
     ...state.notification,
+  },
+});
+
+export const dictionariesMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+  dictionaries: {
+    ...state.dictionaries,
   },
 });
 
@@ -69,5 +63,6 @@ export const defaultMappers = [
   layoutMapper,
   rootMapper,
   userMapper,
-  notificationMapper
+  notificationMapper,
+  dictionariesMapper
 ];
