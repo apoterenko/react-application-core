@@ -12,12 +12,12 @@ import {
   ApplicationStateT,
 } from 'core';
 
-interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<TAppState, IApplicationContainerProps, TDictionariesState, TPermissionsState, TPermissions, TPermissionObject>,
-                                  TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-                                  TDictionariesState extends IApplicationDictionariesState,
-                                  TPermissionsState extends IApplicationPermissionsState<TPermissions>,
-                                  TPermissions,
-                                  TPermissionObject> {
+export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<TAppState, IApplicationContainerProps, TDictionariesState, TPermissionsState, TPermissions, TPermissionObject>,
+                                         TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
+                                         TDictionariesState extends IApplicationDictionariesState,
+                                         TPermissionsState extends IApplicationPermissionsState<TPermissions>,
+                                         TPermissions,
+                                         TPermissionObject> {
   new (...args): TContainer;
 }
 
