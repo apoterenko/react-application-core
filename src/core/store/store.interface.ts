@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { AnyT } from 'core/definition.interface';
+import { AnyT, IKeyValue } from 'core/definition.interface';
 import { IApplicationRootState, INITIAL_APPLICATION_ROOT_STATE, rootReducer } from 'core/component/root';
 import { IApplicationPermissionsState, INITIAL_PERMISSION_STATE, permissionReducer } from 'core/permission';
 import { IApplicationUserState, INITIAL_USER_STATE, userReducer } from 'core/user';
