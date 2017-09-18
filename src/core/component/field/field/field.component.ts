@@ -146,6 +146,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.propsChangeForm(rawValue);
   }
 
+  protected onClearChange(): void {
+    this.onChangeValue(undefined, null);
+  }
+
   protected propsChangeForm(rawValue: AnyT): void {
     if (this.props.changeForm) {
       this.props.changeForm(this.props.name, rawValue, this.props.validationGroup);
