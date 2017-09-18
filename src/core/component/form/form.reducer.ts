@@ -1,6 +1,9 @@
+import * as ramda from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
+import { isUndef } from 'core/util';
 import { toSection } from 'core/store';
+import { AnyT } from 'core/definition.interface';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -22,13 +25,14 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
           ...INITIAL_APPLICATION_FORM_STATE,
       };
     case `${section}.${FORM_CHANGE_ACTION_TYPE}`:
+      const changes = ramda.pickBy((value: AnyT, key: string) => !isUndef(value), {
+        ...state.changes,
+        [action.data.field]: action.data.value,
+      });
       return {
         ...state,
-        dirty: true,
-        changes: {
-          ...state.changes,
-          [action.data.field]: action.data.value,
-        },
+        dirty: Object.keys(changes).length > 0,
+        changes,
       };
     case `${section}.${FORM_VALID_ACTION_TYPE}`:
       return {
