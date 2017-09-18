@@ -1,11 +1,11 @@
 import { AnyAction } from 'redux';
 
-import { toSection } from 'core/store';
+import { toSection } from 'core/store/reducer.filter';
 
 import { IApplicationDictionariesState } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
 
-export function dictionariesReducer(state: IApplicationDictionariesState,
+export function dictionariesReducer(state: IApplicationDictionariesState = {},
                                     action: AnyAction): IApplicationDictionariesState {
   const section = toSection(action);
   switch (action.type) {
