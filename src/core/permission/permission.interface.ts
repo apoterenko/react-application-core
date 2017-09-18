@@ -1,4 +1,13 @@
 import { AnyT } from 'core/definition.interface';
+import { IContainerWrapperCtor } from 'core/component/application';
+import { IBaseContainer } from 'core/component/base';
+
+export interface IProtectedComponentCtor<TPermissionObject>
+    extends IContainerWrapperCtor<IProtectedComponentCtor<TPermissionObject>, {}, {}>,
+                                  IBaseContainer<{}, {}> {
+  $$permissionConfig: TPermissionObject;
+  new(...args);
+}
 
 export interface IApplicationPermissionsState<TPermissions> {
   authorized: boolean;

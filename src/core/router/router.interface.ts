@@ -2,6 +2,8 @@ import { History } from 'history';
 
 export interface IRouters {
   profile: string;
+  login: string;
+  accessDenied: string;
 }
 
 export interface IRouter extends History {

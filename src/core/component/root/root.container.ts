@@ -5,6 +5,7 @@ import { IKeyValue } from 'core/definition.interface';
 import { DI_TYPES, lazyInject } from 'core/di';
 import { IApplicationPermissionsService } from 'core/permission';
 import { BaseContainer } from 'core/component/base';
+import { IRouters } from 'core/router';
 
 import {
   IRootContainerInternalProps,
@@ -15,6 +16,7 @@ import {
 export class RootContainer<TInternalProps extends IRootContainerInternalProps, TPermissionObject>
     extends BaseContainer<TInternalProps, {}> {
 
+  @lazyInject(DI_TYPES.Routers) protected routers: IRouters;
   @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionsService<TPermissionObject>;
 
   constructor(props: TInternalProps) {
