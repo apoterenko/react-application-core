@@ -2,6 +2,7 @@ import { History } from 'history';
 
 export interface IRouters {
   profile: string;
+  home: string;
   login: string;
   accessDenied: string;
 }
