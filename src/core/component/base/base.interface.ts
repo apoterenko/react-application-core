@@ -7,6 +7,7 @@ import { IApplicationLayoutState } from 'core/component/layout';
 import { IApplicationRootState } from 'core/component/root';
 import { IApplicationUserState } from 'core/user';
 import { IApplicationNotificationState } from 'core/notification';
+import { IApplicationDictionariesState } from 'core/dictionary';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
@@ -16,6 +17,7 @@ export interface IBaseInternalProps {
   className?: string;
   progressMessage?: string;
   notification?: IApplicationNotificationState;
+  dictionaries?: IApplicationDictionariesState;
 }
 
 export interface IBaseContainerInternalProps extends IBaseInternalProps {
