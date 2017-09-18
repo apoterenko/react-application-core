@@ -1,8 +1,8 @@
 import { AnyAction } from 'redux';
 
 import { toSection } from 'core/store';
-import { IApplicationDictionariesState } from 'core/dictionary';
 
+import { IApplicationDictionariesState } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
 
 export function dictionariesReducer(state: IApplicationDictionariesState,
