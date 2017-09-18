@@ -23,24 +23,24 @@ export class ChipsField extends BasicSelect<ChipsField,
   constructor(props: IChipsFieldInternalProps) {
     super(props);
     this.onDeleteItem = this.onDeleteItem.bind(this);
+
+    // Private local state, it should not bind to the view
     this.state = { add: [], remove: [] };
   }
 
   protected onSelect(option: ISelectOption): void {
     const removeLen = this.state.remove.length;
-    const remove = this.state.remove.filter(((removeItem) => removeItem !== option.value));
-    let add;
+    const removeArray = this.state.remove.filter(((removeItem) => removeItem !== option.value));
+    let addArray: EntityIdT[];
 
-    if (remove.length === removeLen) {
-      add = [option.value].concat(this.state.add);
-      // Private local state, it should not bind to the view
-      this.setState({ add });
+    if (removeArray.length === removeLen) {
+      addArray = [option.value].concat(this.state.add);
+      this.setState({ add: addArray });
     } else {
-      add = this.state.add;
-      // Private local state, it should not bind to the view
-      this.setState({ remove });
+      addArray = this.state.add;
+      this.setState({ remove: removeArray });
     }
-    this.onChangeValue({ add, remove, source: this.sourceValue }, null);
+    this.dispatchChanges(addArray, removeArray);
   }
 
   protected toDisplayValue(): string {
@@ -67,19 +67,30 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   private onDeleteItem(item: ChipsFieldItemT): void {
-    const remove = [this.toValue(item)].concat(this.state.remove);
+    const deletedValue = this.toValue(item);
+    const addLen = this.state.add.length;
+    const addArray = this.state.add.filter(((addItem) => addItem !== deletedValue));
+    let removeArray: EntityIdT[];
 
-    // Private local state, it should not bind to the view
-    this.setState({ remove });
-
-    this.onChangeValue({
-      add: this.state.add,
-      remove,
-      source: this.sourceValue,
-    }, null);
+    if (addArray.length === addLen) {
+      removeArray = [deletedValue].concat(this.state.remove);
+      this.setState({ remove: removeArray });
+    } else {
+      removeArray = this.state.remove;
+      this.setState({ add: addArray });
+    }
+    this.dispatchChanges(addArray, removeArray);
   }
 
-  private toChipsDisplayValue(item): string | number {
+  private dispatchChanges(addArray: EntityIdT[], removeArray: EntityIdT[]): void {
+    if (addArray.length || removeArray.length) {
+      this.onChangeValue({ add: addArray, remove: removeArray, source: this.sourceValue }, null);
+    } else {
+      this.onClearChange();
+    }
+  }
+
+  private toChipsDisplayValue(item): EntityIdT {
     const props = this.props;
     const value = this.toValue(item);
 
