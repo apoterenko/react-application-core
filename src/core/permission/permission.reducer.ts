@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 
 import {
-  IApplicationPermissionState,
+  IApplicationPermissionsState,
   INITIAL_PERMISSION_STATE,
   PERMISSION_AUTHORIZED_UPDATE_ACTION_TYPE,
   PERMISSION_DESTROY_ACTION_TYPE,
@@ -9,9 +9,9 @@ import {
 } from './permission.interface';
 
 export function permissionReducer<TPermissions>(
-    state: IApplicationPermissionState<TPermissions> = INITIAL_PERMISSION_STATE,
+    state: IApplicationPermissionsState<TPermissions> = INITIAL_PERMISSION_STATE,
     action: AnyAction,
-): IApplicationPermissionState<TPermissions> {
+): IApplicationPermissionsState<TPermissions> {
   switch (action.type) {
     case PERMISSION_DESTROY_ACTION_TYPE:
       return {

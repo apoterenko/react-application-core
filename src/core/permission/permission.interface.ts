@@ -1,16 +1,16 @@
 import { AnyT } from 'core/definition.interface';
 
-export interface IApplicationPermissionState<TPermissions> {
+export interface IApplicationPermissionsState<TPermissions> {
   authorized: boolean;
   permissions: TPermissions;
 }
 
-export const INITIAL_PERMISSION_STATE: IApplicationPermissionState<AnyT> = {
+export const INITIAL_PERMISSION_STATE: IApplicationPermissionsState<AnyT> = {
   authorized: false,
   permissions: null,
 };
 
-export interface IApplicationPermissionService<TPermissionObject> {
+export interface IApplicationPermissionsService<TPermissionObject> {
   isAccessible(checkedObject: TPermissionObject): boolean;
   isAuthorized(): boolean;
 }
