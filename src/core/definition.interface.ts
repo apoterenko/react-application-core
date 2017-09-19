@@ -23,6 +23,10 @@ export interface IRenderable {
   renderer?(item: IEntity): JSX.Element;
 }
 
+export interface ILockable {
+  locked?: boolean;
+}
+
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;

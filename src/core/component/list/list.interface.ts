@@ -3,7 +3,7 @@ import {
   IBaseContainerInternalProps,
   IBaseContainer,
 } from 'core/component/base';
-import { IEntity, IRenderable } from 'core/definition.interface';
+import { IEntity, IRenderable, ILockable } from 'core/definition.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps, IRenderable {
   list: IApplicationListAttributes;
@@ -19,9 +19,8 @@ export interface IListInternalProps extends IBaseComponentInternalProps, IRender
   onClick?(props: IEntity): void;
 }
 
-export interface IApplicationListAttributes {
+export interface IApplicationListAttributes extends ILockable {
   progress: boolean;
-  locked: boolean;
   data: IEntity[];
   selected: IEntity;
 }
@@ -31,7 +30,6 @@ export interface IApplicationListState extends IApplicationListAttributes {
 
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
   progress: false,
-  locked: false,
   data: null,
   selected: null,
 };
