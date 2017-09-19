@@ -1,6 +1,6 @@
 import { History } from 'history';
 
-import { BaseContainerT } from 'core/component/base';
+import { IBaseContainer, BaseContainerT } from 'core/component/base';
 
 export interface IRouters {
   profile: string;
