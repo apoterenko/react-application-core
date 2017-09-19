@@ -2,13 +2,13 @@ import { PureComponent } from 'react';
 
 import { IRouterComputedMatch } from 'core/router';
 import { IContainerWrapperCtor } from 'core/component/application';
-import { IBaseContainerInternalProps, IBaseContainerInternalState } from 'core/component/base';
+import { IBaseContainerInternalProps } from 'core/component/base';
 
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps {
-  container?: IContainerWrapperCtor<PureComponent<IBaseContainerInternalProps, IBaseContainerInternalState>,
+  container?: IContainerWrapperCtor<PureComponent<IBaseContainerInternalProps, {}>,
                                     IBaseContainerInternalProps,
-                                    IBaseContainerInternalState>;
-  exact?: any;
+                                    {}>;
+  exact?: boolean;
   path?: string;
   computedMatch?: IRouterComputedMatch;
   beforeEnter?: () => void;
