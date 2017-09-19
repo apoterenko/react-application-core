@@ -6,6 +6,7 @@ import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_QUERY_ACTION_TYPE,
   FILTER_SECTION,
+  FILTER_DESTROY_ACTION_TYPE,
 } from 'core/component/filter';
 
 import { ISearchToolbarContainerInternalProps } from './search-toolbar.interface';
@@ -19,6 +20,10 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
     this.onFilter = this.onFilter.bind(this);
     this.onFilterAction = this.onFilterAction.bind(this);
     this.onChangeFilterQuery = this.onChangeFilterQuery.bind(this);
+  }
+
+  public componentWillUnmount(): void {
+    this.dispatch(FILTER_DESTROY_ACTION_TYPE);
   }
 
   public render(): JSX.Element {

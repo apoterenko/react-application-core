@@ -1,6 +1,6 @@
-import { AnyT } from 'core/definition.interface';
+import { AnyT, ILockable } from 'core/definition.interface';
 
-export interface IApplicationFilterAttributes {
+export interface IApplicationFilterAttributes extends ILockable {
   activated?: boolean;
   query?: AnyT;
 }
@@ -15,4 +15,6 @@ export const INITIAL_APPLICATION_FILTER_STATE: IApplicationFilterState = {
 
 export const FILTER_ACTIVATE_ACTION_TYPE = 'filter.activate';
 export const FILTER_QUERY_ACTION_TYPE = 'filter.query';
+export const FILTER_DESTROY_ACTION_TYPE = 'filter.destroy';
+export const FILTER_LOCK_ACTION_TYPE = 'filter.lock';
 export const FILTER_SECTION = 'filter';
