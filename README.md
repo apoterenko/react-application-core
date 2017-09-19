@@ -69,12 +69,12 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
         <DefaultLayoutContainer sectionName={this.sectionName}
                                 {...props}>
           <SearchToolbarContainer sectionName={this.sectionName}
-                                  filter={props.filter}
-                                  onSearch={this.onSearch}/>
+                                  onSearch={this.onSearch}
+                                  {...props}/>
           <ListContainer sectionName={this.sectionName}
-                         list={props.list}
                          renderer={this.listRenderer}
-                         ref='list'/>
+                         ref='list'
+                         {...props}/>
         </DefaultLayoutContainer>
     );
   }
