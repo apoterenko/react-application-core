@@ -1,10 +1,10 @@
 import { AnyT } from 'core/definition.interface';
 import { IContainerWrapperCtor } from 'core/component/application';
-import { IBaseContainer } from 'core/component/base';
+import { BaseContainerT } from 'core/component/base';
 
 export interface IProtectedComponentCtor<TPermissionObject>
     extends IContainerWrapperCtor<IProtectedComponentCtor<TPermissionObject>, {}, {}>,
-                                  IBaseContainer<{}, {}> {
+            BaseContainerT {
   $$permissionConfig: TPermissionObject;
   new(...args);
 }
