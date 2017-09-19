@@ -5,7 +5,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { DI_TYPES, appContainer, lazyInject } from 'core/di';
 import { IEventManager } from 'core/event';
-import { IApplicationPermissionsService, IApplicationPermissionsState } from 'core/permission';
+import {
+  IApplicationPermissionsService,
+  IApplicationPermissionsState,
+  PERMISSION_DESTROY_ACTION_TYPE
+} from 'core/permission';
 import { IRouteComponentConfig, IRouter } from 'core/router';
 import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
@@ -32,9 +36,10 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
-  constructor(props: TInternalProps, sectionName = 'application') {
-    super(props, sectionName);
+  constructor(props: TInternalProps) {
+    super(props, 'application');
     this.onUnload = this.onUnload.bind(this);
+    this.onBeforeLogout = this.onBeforeLogout.bind(this);
   }
 
   public render(): JSX.Element {
@@ -72,6 +77,19 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     if (this.applicationSettings.usePersistence) {
       this.saveState();
     }
+  }
+
+  protected onBeforeLogout(): void {
+    const isUserAuthorized = this.isAuthorized;
+    this.appStore.dispatch({ type: PERMISSION_DESTROY_ACTION_TYPE });
+
+    if (isUserAuthorized) {
+      this.afterDestroySession();
+    }
+  }
+
+  protected afterDestroySession(): void {
+    //
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
