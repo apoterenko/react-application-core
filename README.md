@@ -20,7 +20,6 @@ The library is designed to quickly start developing business applications are ba
 
 ```typescript
 import * as React from 'react';
-
 import {
   listMapper,
   filterMapper,
@@ -34,7 +33,7 @@ import {
   lazyInject,
   DI_TYPES,
   PRIVATE_COMPONENT_TYPE,
-} from 'core';
+} from 'react-application-core';
 
 import './roles.effects';
 
