@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ramda from 'ramda';
 
 import { BaseContainer } from 'core/component/base';
 import { IEntity } from 'core/definition.interface';
@@ -22,6 +23,10 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
 
   public componentWillUnmount(): void {
     this.dispatch(LIST_DESTROY_ACTION_TYPE);
+  }
+
+  public shouldComponentUpdate(nextProps: IListContainerInternalProps, nextState: {}): boolean {
+    return !ramda.equals(nextProps.list, this.props.list);
   }
 
   public render(): JSX.Element {
