@@ -6,29 +6,31 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { DI_TYPES, appContainer, lazyInject } from 'core/di';
 import { IEventManager } from 'core/event';
 import { IApplicationPermissionsService, IApplicationPermissionsState } from 'core/permission';
-import { IRouter } from 'core/router';
+import { IRouteComponentConfig, IRouter } from 'core/router';
 import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
 import { IApplicationState } from 'core/store';
-import { clone } from 'core/util';
+import { clone, uuid } from 'core/util';
 import { BaseContainer } from 'core/component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from 'core/notification';
 import { IApplicationDictionariesState } from 'core/dictionary';
+import { PrivateRootContainer, PublicRootContainer } from 'core/component/root';
 
 import { IApplicationContainerProps } from './application.interface';
 
-export abstract class ApplicationContainer<TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-                                           TInternalProps extends IApplicationContainerProps,
-                                           TDictionariesState extends IApplicationDictionariesState,
-                                           TPermissionsState extends IApplicationPermissionsState<TPermissions>,
-                                           TPermissions,
-                                           TPermissionObject>
+export class ApplicationContainer<TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
+                                  TInternalProps extends IApplicationContainerProps,
+                                  TDictionariesState extends IApplicationDictionariesState,
+                                  TPermissionsState extends IApplicationPermissionsState<TPermissions>,
+                                  TPermissions,
+                                  TPermissionObject>
     extends BaseContainer<TInternalProps, {}> {
 
-  @lazyInject(DI_TYPES.Storage) protected storage: IStorage;
-  @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
-  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
-  @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionsService<TPermissionObject>;
+  @lazyInject(DI_TYPES.Permission) private permissionService: IApplicationPermissionsService<TPermissionObject>;
+  @lazyInject(DI_TYPES.Storage) private storage: IStorage;
+  @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<any, IRouteComponentConfig>;
+  @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
+  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   constructor(props: TInternalProps, sectionName = 'application') {
     super(props, sectionName);
@@ -43,7 +45,7 @@ export abstract class ApplicationContainer<TAppState extends IApplicationState<T
                            basename={this.props.basename}
             >
               <Switch>
-                {...this.routes}
+                {...this.getRoutes()}
               </Switch>
             </BrowserRouter>
           </Provider>
@@ -77,17 +79,37 @@ export abstract class ApplicationContainer<TAppState extends IApplicationState<T
     return state;
   }
 
+  protected get isAuthorized(): boolean {
+    return this.permissionService.isAuthorized();
+  }
+
+  protected getRoutes(): JSX.Element[] {
+    const routes = [];
+    this.dynamicRoutes.forEach((config, ctor) => {
+      let Component;
+      switch (config.type) {
+        case 'private':
+          Component = PrivateRootContainer;
+          break;
+        case 'public':
+          Component = PublicRootContainer;
+          break;
+      }
+      routes.push(
+          <Component exact
+                     path={config.path}
+                     container={ctor}
+                     key={uuid()}/>
+      );
+    });
+    return routes;
+  }
+
   private saveState(): void {
     this.storage.set(APPLICATION_STATE_KEY,
         this.clearStateBeforeSerialization(clone<TAppState>(this.appState)),
     );
   }
-
-  protected get isAuthorized(): boolean {
-    return this.permissionService.isAuthorized();
-  }
-
-  protected abstract get routes(): JSX.Element[];
 
   // In a general case we should not use the appState directly, only via "connect" method!
   private get appState(): TAppState {
