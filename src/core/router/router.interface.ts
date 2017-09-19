@@ -1,5 +1,7 @@
 import { History } from 'history';
 
+import { BaseContainerT } from 'core/component/base';
+
 export interface IRouters {
   profile: string;
   home: string;
@@ -17,6 +19,16 @@ export interface IRouterComputedMatch {
   url: string;
   isExact: boolean;
 }
+
+export const PUBLIC_COMPONENT_TYPE = 'public';
+export const PRIVATE_COMPONENT_TYPE = 'private';
+
+export interface IRouteComponentConfig {
+  path: string;
+  type: 'private' | 'public';
+}
+
+export const dynamicRoutesMap = new Map<BaseContainerT, IRouteComponentConfig>();
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
 export const ROUTER_BACK_ACTION_TYPE = 'router.back';

@@ -53,3 +53,5 @@ export interface IBaseContainer<TInternalProps extends IBaseContainerInternalPro
   sectionName: string;
   dispatch(type: string, data?: any): void;
 }
+
+export type BaseContainerT = IBaseContainer<{}, {}>;
