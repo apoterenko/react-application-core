@@ -11,6 +11,7 @@ The library is designed to quickly start developing business applications are ba
 * [react](https://github.com/facebook/react)
 * [redux](https://github.com/reactjs/redux)
 * [react-redux](https://github.com/reactjs/react-redux)
+* [react-router-dom](https://github.com/ReactTraining/react-router)
 * [material-components-web](https://github.com/material-components/material-components-web)
 * [ramda](https://github.com/ramda/ramda)
 * [InversifyJS](https://github.com/inversify/InversifyJS)
