@@ -23,7 +23,11 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
   dictionaries: TDictionariesState;
 }
 
-export const INITIAL_APPLICATION_STATE: IApplicationState<AnyT,
+export type ApplicationStateT = IApplicationState<IApplicationDictionariesState,
+                                                  IApplicationPermissionsState<{}>,
+                                                  {}>;
+
+export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationDictionariesState,
                                                           IApplicationPermissionsState<AnyT>,
                                                           AnyT> = {
   permission: INITIAL_PERMISSION_STATE,

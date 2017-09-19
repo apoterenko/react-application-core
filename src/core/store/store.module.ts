@@ -4,13 +4,10 @@ import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
 import { IApplicationSettings } from 'core/settings';
 import { PROD_MODE } from 'core/env';
-import { IApplicationPermissionsState } from 'core/permission';
 import { appContainer, DI_TYPES } from 'core/di';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
 
-import { IApplicationState, INITIAL_APPLICATION_STATE } from './store.interface';
-
-export type ApplicationStateT = IApplicationState<{}, IApplicationPermissionsState<{}>, {}>;
+import { ApplicationStateT, INITIAL_APPLICATION_STATE } from './store.interface';
 
 export function storeFactory(applicationSettings?: IApplicationSettings, appMiddlewares?: Middleware[]): Store<ApplicationStateT> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
