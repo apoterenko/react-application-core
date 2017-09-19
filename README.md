@@ -35,12 +35,11 @@ import {
   PRIVATE_COMPONENT_TYPE,
 } from 'react-application-core';
 
-import './roles.effects';
-
-import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
 import { IRole } from '../../api/api.interface';
 import { ROUTER_PATHS } from '../../app.routers';
 import { appConnector } from '../../store/connector.decorator';
+import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
+import './roles.effects';
 
 @appConnector<RolesContainer, IRolesContainerInternalProps, {}>({
   routeConfig: {
