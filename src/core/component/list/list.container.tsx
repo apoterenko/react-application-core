@@ -42,9 +42,9 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
         )
         : (
             <List items={this.listData || []}
-                  renderer={props.renderer}
                   activeItem={list.selected}
-                  onClick={this.onSelect}>
+                  onClick={this.onSelect}
+                  {...props}>
             </List>
         );
   }
