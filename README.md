@@ -22,8 +22,8 @@ The library is designed to quickly start developing business applications are ba
 import * as React from 'react';
 
 import {
-  listMapper,
-  filterMapper,
+  listWrapperMapper,
+  filterWrapperMapper,
   defaultMappers,
   BaseContainer,
   DefaultLayoutContainer,
@@ -40,7 +40,6 @@ import { IRole } from '../../api/api.interface';
 import { ROUTER_PATHS } from '../../app.routers';
 import { appConnector } from '../../store/connector.decorator';
 import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
-import './roles.effects';
 
 @appConnector<RolesContainer, IRolesContainerInternalProps, {}>({
   routeConfig: {
@@ -49,8 +48,8 @@ import './roles.effects';
   },
   mappers: [
     ...defaultMappers,
-    (state) => filterMapper(state.roles.filter),
-    (state) => listMapper(state.roles.list)
+    (state) => filterWrapperMapper(state.roles),
+    (state) => listWrapperMapper(state.roles)
   ],
 })
 class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
