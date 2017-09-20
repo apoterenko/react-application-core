@@ -14,17 +14,29 @@ import {
   FORM_VALID_ACTION_TYPE,
   INITIAL_APPLICATION_FORM_STATE,
   FORM_SUBMIT_ERROR_ACTION_TYPE,
+  FORM_SUBMIT_FINISHED_ACTION_TYPE,
   IApplicationFormState,
 } from './form.interface';
+import { FormActionBuilder } from './form-action.builder';
 
 export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_FORM_STATE,
                             action: IEffectsAction): IApplicationFormState {
   const section = toSection(action);
   switch (action.type) {
-    case `${section}.${FORM_DESTROY_ACTION_TYPE}`:
+    case FormActionBuilder.buildLockActionType(section):
       return {
-          ...INITIAL_APPLICATION_FORM_STATE,
+        ...state,
+        locked: true,
       };
+    case `${section}.${FORM_DESTROY_ACTION_TYPE}`:
+      return state.locked
+          ? {
+            ...state,
+            locked: false,
+          }
+          : {
+            ...INITIAL_APPLICATION_FORM_STATE,
+          };
     case `${section}.${FORM_CHANGE_ACTION_TYPE}`:
       const changes = ramda.pickBy((value: AnyT, key: string) => !isUndef(value), {
         ...state.changes,
@@ -52,6 +64,11 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
         ...state,
         progress: false,
         error: convertError(action.error),
+      };
+    case `${section}.${FORM_SUBMIT_FINISHED_ACTION_TYPE}`:
+      return {
+        ...state,
+        progress: false,
       };
     case `${section}.${FORM_SUBMIT_DONE_ACTION_TYPE}`:
       return {

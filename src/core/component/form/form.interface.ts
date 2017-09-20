@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
 
 import { FunctionT } from 'core/util';
-import { AnyT, IKeyValue } from 'core/definition.interface';
+import { AnyT, IKeyValue, EntityIdT, ILockable } from 'core/definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from 'core/component/base';
 
 export interface IFormChangeable {
@@ -9,10 +9,10 @@ export interface IFormChangeable {
 }
 
 export interface IFormEntity extends IKeyValue {
-  id?: number | string;
+  id?: EntityIdT;
 }
 
-export interface IFormAttributes extends IFormChangeable {
+export interface IFormAttributes extends IFormChangeable, ILockable {
   valid?: boolean;
   dirty?: boolean;
   progress?: boolean;
@@ -39,9 +39,9 @@ export interface IFormInternalProps extends IFormProps, IBaseComponentInternalPr
   onChange?(name: string, value: AnyT): void;
 }
 
-export interface IFormContainerInternalProps<TEntity extends IFormEntity>
-    extends IFormProps, IBaseContainerInternalProps {
-  entity?: TEntity;
+export interface IFormContainerInternalProps extends IFormProps,
+                                                     IBaseContainerInternalProps {
+  entity?: IFormEntity; // TODO remove?
 }
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
@@ -51,14 +51,24 @@ export interface IFormPureComponent extends PureComponent<{}, {}> {
 export interface IApplicationFormState extends IFormAttributes {
 }
 
+export interface IApplicationFormWrapperState {
+  form: IApplicationFormState;
+}
+
+export interface IApplicationEntityWrapperState {
+  entity: IFormEntity;
+}
+
 export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {
   changes: {},
 };
 
 export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
+export const FORM_LOCK_ACTION_TYPE = 'form.lock';
 export const FORM_SUBMIT_DONE_ACTION_TYPE = 'form.submit.done';
 export const FORM_SUBMIT_ERROR_ACTION_TYPE = 'form.submit.error';
+export const FORM_SUBMIT_FINISHED_ACTION_TYPE = 'form.submit.finished';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
 export const FORM_CREATED_ENTITY_ID = -1;

@@ -12,13 +12,12 @@ import {
   FORM_DESTROY_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  IFormEntity,
   IFormPayload,
 } from './form.interface';
 
-export class FormContainer extends BaseContainer<IFormContainerInternalProps<IFormEntity>, {}> {
+export class FormContainer extends BaseContainer<IFormContainerInternalProps, {}> {
 
-  constructor(props: IFormContainerInternalProps<IFormEntity>) {
+  constructor(props: IFormContainerInternalProps) {
     super(props);
 
     this.onChange = this.onChange.bind(this);
