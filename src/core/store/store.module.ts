@@ -1,4 +1,4 @@
-import { AnyAction, applyMiddleware, createStore, Middleware, Store } from 'redux';
+import { AnyAction, applyMiddleware, combineReducers, createStore, Middleware, Reducer, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
@@ -6,10 +6,15 @@ import { IApplicationSettings } from 'core/settings';
 import { PROD_MODE } from 'core/env';
 import { appContainer, DI_TYPES } from 'core/di';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
+import { AnyT } from 'core/definition.interface';
 
-import { ApplicationStateT, INITIAL_APPLICATION_STATE } from './store.interface';
+import { ApplicationStateT, INITIAL_APPLICATION_STATE, defaultReducers } from './store.interface';
 
-export function storeFactory(applicationSettings?: IApplicationSettings, appMiddlewares?: Middleware[]): Store<ApplicationStateT> {
+export function makeStore(
+    reducers: { [reducerName: string]: Reducer<AnyT> },
+    applicationSettings?: IApplicationSettings,
+    appMiddlewares?: Middleware[]
+): Store<ApplicationStateT> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
   const preloadedState = applicationSettings && applicationSettings.usePersistence
@@ -28,5 +33,13 @@ export function storeFactory(applicationSettings?: IApplicationSettings, appMidd
   appContainer.bind<Store<ApplicationStateT>>(DI_TYPES.Store).toConstantValue(store);
   EffectsService.configure(appContainer, store);
 
+  // Set the app reducer
+  store.replaceReducer(
+      combineReducers(
+          {
+            ...defaultReducers,
+            ...reducers,
+          }
+      ));
   return store;
 }
