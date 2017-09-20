@@ -1,4 +1,5 @@
 import { AnyT, ILockable } from 'core/definition.interface';
+import { IApplicationFormState } from 'core/component/form';
 
 export interface IApplicationFilterAttributes extends ILockable {
   activated?: boolean;
@@ -10,6 +11,10 @@ export interface IApplicationFilterState extends IApplicationFilterAttributes {
 
 export interface IApplicationFilterWrapperState {
   filter: IApplicationFilterState;
+}
+
+export interface IApplicationFilterFormWrapperState {
+  filterForm: IApplicationFormState;
 }
 
 export const INITIAL_APPLICATION_FILTER_STATE: IApplicationFilterState = {

@@ -1,8 +1,12 @@
 import { IApplicationFormState, IFormEntity } from 'core/component/form';
 import { IApplicationState } from 'core/store';
 import { IApplicationPermissionsState } from 'core/permission';
-import { IApplicationListState } from 'core/component/list';
-import { IApplicationFilterState } from 'core/component/filter';
+import { IApplicationListState, IApplicationListWrapperState } from 'core/component/list';
+import {
+  IApplicationFilterFormWrapperState,
+  IApplicationFilterState,
+  IApplicationFilterWrapperState,
+} from 'core/component/filter';
 
 export const rootMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   root: {
@@ -23,7 +27,7 @@ export const entityMapper = (entity: IFormEntity, formState?: IApplicationFormSt
   },
 });
 
-export const formAttributesMapper = (formState: IApplicationFormState) => ({
+export const formMapper = (formState: IApplicationFormState) => ({
   form: {
     ...(formState || {}),
   },
@@ -38,6 +42,12 @@ export const listMapper = (listState: IApplicationListState) => ({
 export const filterMapper = (filterState: IApplicationFilterState) => ({
   filter: {
     ...(filterState || {}),
+  },
+});
+
+export const filterFormMapper = (formState: IApplicationFormState) => ({
+  filterForm: {
+    ...(formState || {}),
   },
 });
 
@@ -58,6 +68,15 @@ export const dictionariesMapper = (state: IApplicationState<{}, IApplicationPerm
     ...state.dictionaries,
   },
 });
+
+export const listWrapperMapper = (listState: IApplicationListWrapperState) =>
+    listMapper(listState.list);
+
+export const filterWrapperMapper = (filterState: IApplicationFilterWrapperState) =>
+    filterMapper(filterState.filter);
+
+export const filterFormWrapperMapper = (filterState: IApplicationFilterFormWrapperState) =>
+    filterFormMapper(filterState.filterForm);
 
 export const defaultMappers = [
   layoutMapper,
