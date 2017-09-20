@@ -2,7 +2,7 @@ import { EffectsAction, EffectsService } from 'redux-effects-promise';
 
 import { DI_TYPES, lazyInject, provide } from 'core/di';
 
-import { IRouter, ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from './router.interface';
+import { IRouter, ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from './router.interface';
 
 @provide(RouterEffects)
 export class RouterEffects {
@@ -18,7 +18,7 @@ export class RouterEffects {
     }
   }
 
-  @EffectsService.effects(ROUTER_BACK_ACTION_TYPE)
+  @EffectsService.effects(ROUTER_NAVIGATE_BACK_ACTION_TYPE)
   public routerBack(): void {
     this.router.goBack();
   }

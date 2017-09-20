@@ -33,4 +33,5 @@ export interface IRouteComponentConfig {
 export const dynamicRoutesMap = new Map<BaseContainerT, IRouteComponentConfig>();
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
-export const ROUTER_BACK_ACTION_TYPE = 'router.back';
+export const ROUTER_BACK = 'back';
+export const ROUTER_NAVIGATE_BACK_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.${ROUTER_BACK}`;
