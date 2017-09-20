@@ -20,12 +20,14 @@ export interface IRouterComputedMatch {
   isExact: boolean;
 }
 
-export const PUBLIC_COMPONENT_TYPE = 'public';
-export const PRIVATE_COMPONENT_TYPE = 'private';
+export enum ContainerVisibilityTypeEnum {
+  PUBLIC,
+  PRIVATE,
+}
 
 export interface IRouteComponentConfig {
   path: string;
-  type: 'private' | 'public';
+  type: ContainerVisibilityTypeEnum;
 }
 
 export const dynamicRoutesMap = new Map<BaseContainerT, IRouteComponentConfig>();

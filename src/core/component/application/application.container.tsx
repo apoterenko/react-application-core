@@ -10,7 +10,7 @@ import {
   IApplicationPermissionsState,
   PERMISSION_DESTROY_ACTION_TYPE
 } from 'core/permission';
-import { IRouteComponentConfig, IRouter } from 'core/router';
+import { IRouteComponentConfig, IRouter, ContainerVisibilityTypeEnum } from 'core/router';
 import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
 import { IApplicationState } from 'core/store';
@@ -106,10 +106,10 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     this.dynamicRoutes.forEach((config, ctor) => {
       let Component;
       switch (config.type) {
-        case 'private':
+        case ContainerVisibilityTypeEnum.PRIVATE:
           Component = PrivateRootContainer;
           break;
-        case 'public':
+        case ContainerVisibilityTypeEnum.PUBLIC:
           Component = PublicRootContainer;
           break;
       }
