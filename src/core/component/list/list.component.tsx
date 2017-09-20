@@ -20,6 +20,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;
+    const className = ['mdc-list', props.className];
     const listItems = props.items.map(
         (item) => (
             <ListItem key={uuid()}
@@ -30,7 +31,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
             </ListItem>
         ),
     );
-    return <ul className='mdc-list'>{listItems}</ul>;
+    return <ul className={className.filter((cls) => !!cls).join(' ')}>{listItems}</ul>;
   }
 
   private isItemActive(item: IEntity): boolean {
