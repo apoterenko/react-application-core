@@ -28,6 +28,10 @@ export interface IApplicationListAttributes extends ILockable {
 export interface IApplicationListState extends IApplicationListAttributes {
 }
 
+export interface IApplicationListWrapperState {
+  list: IApplicationListState;
+}
+
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
   progress: false,
   data: null,

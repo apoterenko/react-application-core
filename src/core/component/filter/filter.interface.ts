@@ -8,6 +8,10 @@ export interface IApplicationFilterAttributes extends ILockable {
 export interface IApplicationFilterState extends IApplicationFilterAttributes {
 }
 
+export interface IApplicationFilterWrapperState {
+  filter: IApplicationFilterState;
+}
+
 export const INITIAL_APPLICATION_FILTER_STATE: IApplicationFilterState = {
   activated: false,
   query: '',
