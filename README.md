@@ -20,6 +20,7 @@ The library is designed to quickly start developing business applications are ba
 
 ```typescript
 import * as React from 'react';
+
 import {
   listMapper,
   filterMapper,
@@ -32,7 +33,7 @@ import {
   IDateConverter,
   lazyInject,
   DI_TYPES,
-  PRIVATE_COMPONENT_TYPE,
+  ContainerVisibilityTypeEnum,
 } from 'react-application-core';
 
 import { IRole } from '../../api/api.interface';
@@ -43,7 +44,7 @@ import './roles.effects';
 
 @appConnector<RolesContainer, IRolesContainerInternalProps, {}>({
   routeConfig: {
-    type: PRIVATE_COMPONENT_TYPE,
+    type: ContainerVisibilityTypeEnum.PRIVATE,
     path: ROUTER_PATHS.ROLES,
   },
   mappers: [
