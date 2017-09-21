@@ -1,6 +1,8 @@
 import { appContainer, DI_TYPES } from 'core/di';
+import { RouteContainerT } from 'core/router';
 
 import './router.effects';
-import { dynamicRoutesMap, IRouteComponentConfig } from './router.interface';
+import { DYNAMIC_ROUTES, IRouteComponentConfig } from './router.interface';
 
-appContainer.bind<Map<any, IRouteComponentConfig>>(DI_TYPES.DynamicRoutes).toConstantValue(dynamicRoutesMap);
+appContainer.bind<Map<RouteContainerT, IRouteComponentConfig>>(DI_TYPES.DynamicRoutes)
+    .toConstantValue(DYNAMIC_ROUTES);

@@ -1,6 +1,8 @@
 import { History } from 'history';
 
 import { IBaseContainer, BaseContainerT } from 'core/component/base';
+import { ContainerWrapperCtorT } from 'core/component/application';
+import { IRootContainerAttributes } from 'core/component/root';
 
 export interface IRouters {
   profile: string;
@@ -25,12 +27,12 @@ export enum ContainerVisibilityTypeEnum {
   PRIVATE,
 }
 
-export interface IRouteComponentConfig {
-  path: string;
+export interface IRouteComponentConfig extends IRootContainerAttributes {
   type: ContainerVisibilityTypeEnum;
 }
 
-export const dynamicRoutesMap = new Map<BaseContainerT, IRouteComponentConfig>();
+export type RouteContainerT = BaseContainerT|ContainerWrapperCtorT;
+export const DYNAMIC_ROUTES = new Map<RouteContainerT, IRouteComponentConfig>();
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
 export const ROUTER_BACK = 'back';
