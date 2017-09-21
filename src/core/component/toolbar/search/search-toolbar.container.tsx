@@ -30,6 +30,7 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
     const props = this.props;
     return (
         <SearchToolbar {...props.filter}
+                       {...props.filterOptions}
                        onSearch={this.onSearch}
                        onFilter={this.onFilter}
                        onChangeQuery={this.onChangeFilterQuery}

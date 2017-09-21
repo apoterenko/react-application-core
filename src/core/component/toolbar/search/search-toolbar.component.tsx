@@ -4,6 +4,7 @@ import { isUndef } from 'core/util';
 import { AnyT } from 'core/definition.interface';
 import { BaseComponent } from 'core/component/base';
 import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from 'core/component/field';
+import { FilterActionEnum } from 'core/component/filter';
 
 import {
   ISearchToolbarInternalState,
@@ -14,10 +15,16 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                                                  ISearchToolbarInternalProps,
                                                  ISearchToolbarInternalState> {
 
-  private actions: IBasicTextFieldAction[] = [{
-    type: 'filter_list',
-    actionHandler: this.onFilterActionClick.bind(this),
-  }];
+  public static defaultProps: ISearchToolbarInternalProps = {
+    fieldActions: [],
+  };
+
+  private actionsMap = {
+    [FilterActionEnum.OPEN_FILTER]: {
+      type: 'filter_list',
+      actionHandler: this.onFilterActionClick.bind(this),
+    },
+  };
 
   constructor(props: ISearchToolbarInternalProps) {
     super(props);
@@ -128,5 +135,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   private get definitePropsQuery(): string {
     return isUndef(this.props.query) ? '' : this.props.query;
+  }
+
+  private get actions(): IBasicTextFieldAction[] {
+    return this.props.fieldActions.map((action) => (this.actionsMap[action]));
   }
 }

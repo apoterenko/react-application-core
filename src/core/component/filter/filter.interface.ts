@@ -1,6 +1,14 @@
 import { AnyT, ILockable } from 'core/definition.interface';
 import { IApplicationFormState } from 'core/component/form';
 
+export enum FilterActionEnum {
+  OPEN_FILTER,
+}
+
+export interface IApplicationFilterOptions {
+  fieldActions?: FilterActionEnum[];
+}
+
 export interface IApplicationFilterAttributes extends ILockable {
   activated?: boolean;
   query?: AnyT;
