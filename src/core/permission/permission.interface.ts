@@ -1,12 +1,6 @@
 import { AnyT } from 'core/definition.interface';
-import { IContainerWrapperCtor } from 'core/component/application';
-import { BaseContainerT } from 'core/component/base';
 
-export interface IProtectedComponentCtor<TPermissionObject>
-    extends IContainerWrapperCtor<IProtectedComponentCtor<TPermissionObject>, {}, {}>,
-            BaseContainerT {
-  $$permissionConfig: TPermissionObject;
-  new(...args);
+export interface IApplicationAccessConfig {
 }
 
 export interface IApplicationPermissionsState<TPermissions> {
@@ -19,8 +13,8 @@ export const INITIAL_PERMISSION_STATE: IApplicationPermissionsState<AnyT> = {
   permissions: null,
 };
 
-export interface IApplicationPermissionsService<TPermissionObject> {
-  isAccessible(checkedObject: TPermissionObject): boolean;
+export interface IApplicationPermissionsService<TApplicationAccessConfig> {
+  isAccessible(checkedObject: TApplicationAccessConfig): boolean;
   isAuthorized(): boolean;
 }
 

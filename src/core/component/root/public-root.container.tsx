@@ -3,8 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { IRootContainerInternalProps, RootContainer } from 'core/component/root';
 
-export class PublicRootContainer<TPermissionObject>
-    extends RootContainer<IRootContainerInternalProps, TPermissionObject> {
+export class PublicRootContainer extends RootContainer<IRootContainerInternalProps> {
 
   public render(): JSX.Element {
     const Component = this.props.container;

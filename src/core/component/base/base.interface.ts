@@ -20,10 +20,13 @@ export interface IBaseInternalProps {
   dictionaries?: IApplicationDictionariesState;
 }
 
-export interface IBaseContainerInternalProps extends IBaseInternalProps {
-  location?: Location;
+export interface IContainerInternalProps {
   routeParams?: IKeyValue;
   queryParams?: URLSearchParams;
+  location?: Location;
+}
+
+export interface IBaseContainerInternalProps extends IContainerInternalProps, IBaseInternalProps {
   sectionName?: string;
   layout?: IApplicationLayoutState;
   root?: IApplicationRootState;
