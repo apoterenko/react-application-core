@@ -34,18 +34,22 @@ import {
   lazyInject,
   DI_TYPES,
   ContainerVisibilityTypeEnum,
+  IBaseContainerInternalProps,
+  connector,
 } from 'react-application-core';
 
 import { IRole } from '../../api/api.interface';
 import { ROUTER_PATHS } from '../../app.routers';
-import { appConnector } from '../../store/connector.decorator';
 import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
+import { IAppState } from '../../app.interface';
+import { AccessConfigT } from '../permission.interface';
 
-@appConnector<RolesContainer, IRolesContainerInternalProps, {}>({
+@connector<IAppState, AccessConfigT>({
   routeConfig: {
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: ROUTER_PATHS.ROLES,
   },
+  accessConfig: ['roles.view'],
   mappers: [
     ...defaultMappers,
     (state) => filterWrapperMapper(state.roles),
@@ -54,23 +58,24 @@ import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
 })
 class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 
+  public static defaultProps: IBaseContainerInternalProps = {
+    sectionName: ROLES_SECTION,
+  };
+
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
 
   constructor(props: IRolesContainerInternalProps) {
-    super(props, ROLES_SECTION);
+    super(props);
     this.onSearch = this.onSearch.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <DefaultLayoutContainer sectionName={this.sectionName}
-                                {...props}>
-          <SearchToolbarContainer sectionName={this.sectionName}
-                                  onSearch={this.onSearch}
+        <DefaultLayoutContainer {...props}>
+          <SearchToolbarContainer onSearch={this.onSearch}
                                   {...props}/>
-          <ListContainer sectionName={this.sectionName}
-                         renderer={this.listRenderer}
+          <ListContainer renderer={this.listRenderer}
                          ref='list'
                          {...props}/>
         </DefaultLayoutContainer>
