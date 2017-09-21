@@ -1,35 +1,18 @@
 import { FunctionT } from 'core/util';
-import {
-  IBaseContainer,
-  IBaseContainerInternalProps,
-  IBaseContainerInternalState
-} from 'core/component/base';
-import { IApplicationState } from 'core/store';
-import { dynamicRoutesMap } from 'core/router';
-import { IApplicationDictionariesState } from 'core/dictionary';
-import { IApplicationPermissionsState } from 'core/permission';
+import { BaseContainerT } from 'core/component/base';
+import { ApplicationStateT } from 'core/store';
+import { DYNAMIC_ROUTES } from 'core/router';
 
 import { connectorFactory } from './connector.factory';
-import { IConnectorConfig } from './container.interface';
+import { IConnectorConfig, IConnectorCtor } from './container.interface';
 
-export function connector<TContainer extends IBaseContainer<TInternalProps, TInternalState>,
-                          TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-                          TInternalProps extends IBaseContainerInternalProps,
-                          TInternalState extends IBaseContainerInternalState,
-                          TDictionariesState extends IApplicationDictionariesState,
-                          TPermissionsState extends IApplicationPermissionsState<TPermissions>,
-                          TPermissions>(
-  config: IConnectorConfig<TAppState, TDictionariesState, TPermissionsState, TPermissions>
+export function connector<TAppState extends ApplicationStateT>(
+  config: IConnectorConfig<TAppState>
 ): FunctionT {
-  return (target: { new(...args): TContainer }): void => {
-    const proxyContainer = connectorFactory<TContainer,
-                                            TAppState,
-                                            TInternalProps,
-                                            TInternalState,
-                                            TDictionariesState,
-                                            TPermissionsState,
-                                            TPermissions>(target, config.mappers);
-
-    dynamicRoutesMap.set(proxyContainer, config.routeConfig);
+  return (target: IConnectorCtor<BaseContainerT>): void => {
+    DYNAMIC_ROUTES.set(
+        connectorFactory<TAppState>(target, config.mappers),
+        config.routeConfig
+    );
   };
 }

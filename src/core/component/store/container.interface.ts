@@ -1,13 +1,8 @@
 import { IRouteComponentConfig } from 'core/router/router.interface';
 import { IKeyValue } from 'core/definition.interface';
-import { IApplicationState } from 'core/store';
-import { IApplicationDictionariesState } from 'core/dictionary';
-import { IApplicationPermissionsState } from 'core/permission';
+import { ApplicationStateT } from 'core/store';
 
-export interface IConnectorConfig<TAppState extends IApplicationState<TDictionariesState, TPermissionState, TPermissions>,
-                                  TDictionariesState extends IApplicationDictionariesState,
-                                  TPermissionState extends IApplicationPermissionsState<TPermissions>,
-                                  TPermissions> {
+export interface IConnectorConfig<TAppState extends ApplicationStateT> {
   routeConfig: IRouteComponentConfig;
   mappers?: Array<ConnectorMapperT<TAppState, IKeyValue>>;
 }
