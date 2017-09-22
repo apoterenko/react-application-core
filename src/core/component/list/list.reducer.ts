@@ -5,7 +5,6 @@ import { toSection } from 'core/store';
 
 import { ListActionBuilder } from './list-action.builder';
 import {
-  LIST_UPDATE_ACTION_TYPE,
   INITIAL_APPLICATION_LIST_STATE,
   LIST_DESTROY_ACTION_TYPE,
   LIST_LOAD_DONE_ACTION_TYPE,
@@ -15,7 +14,9 @@ import {
 
 export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IApplicationListState {
+  let entity;
   const section = toSection(action);
+
   switch (action.type) {
     case ListActionBuilder.buildLoadActionType(section):
       return {
@@ -57,19 +58,26 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
         ...state,
         selected: null,
       };
-    case `${section}.${LIST_UPDATE_ACTION_TYPE}`:
+    case ListActionBuilder.buildUpdateActionType(section):
       if (state.data && state.data.length) {
-        const record = action.data as IAttributedEntity;
+        entity = action.data as IAttributedEntity;
         return {
           ...state,
           data: state.data.map((item) => (
-              item.id === record.id
-                  ? {...item, ...record.data}
+              item.id === entity.id
+                  ? {...item, ...entity.data}
                   : item
           )),
         };
       }
       break;
+    case ListActionBuilder.buildInsertActionType(section):
+      entity = action.data as IAttributedEntity;
+      return {
+        ...state,
+        data: (state.data || []).concat({ ...entity.data }),
+      };
+    default:
+      return state;
   }
-  return state;
 }
