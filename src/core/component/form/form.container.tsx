@@ -1,18 +1,17 @@
 import * as React from 'react';
+import * as ramda from 'ramda';
 
-import { IApiPayload } from 'core/api';
+import { IApiEntity } from 'core/api';
 import { Operation } from 'core/operation';
-import { AnyT, EntityIdT } from 'core/definition.interface';
+import { AnyT, IEntity } from 'core/definition.interface';
 import { BaseContainer } from 'core/component/base';
 import { Form, IFormContainerInternalProps } from 'core/component/form';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
-  FORM_CREATED_ENTITY_ID,
   FORM_DESTROY_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  IFormPayload,
 } from './form.interface';
 
 export class FormContainer extends BaseContainer<IFormContainerInternalProps, {}> {
@@ -59,15 +58,15 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps, {}
     const { props } = this;
     const { entity } = props;
     const { changes } = props.form;
+    const entityId = this.props.entity ? this.props.entity.id : null;
 
-    this.dispatch(FORM_SUBMIT_ACTION_TYPE, {
-      id: this.formEntityId,
-      data: { changes, entity } as IFormPayload,
+    const apiEntity: IApiEntity<IEntity> = {
       operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
-    } as IApiPayload<IFormPayload>);
-  }
-
-  private get formEntityId(): EntityIdT {
-    return this.props.entity && this.props.entity.id || FORM_CREATED_ENTITY_ID;
+      ...(ramda.isNil(entityId)
+          ? { isIdExist: true, entity: changes }
+          : { isIdExist: false, entity, id: entityId }
+          ),
+    };
+    this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
   }
 }
