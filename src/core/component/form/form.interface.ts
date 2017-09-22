@@ -17,7 +17,7 @@ export interface IFormSettings {
 }
 
 export interface IFormProps {
-  form?: IFormAttributes;
+  form: IFormAttributes;
   settings?: IFormSettings;
 }
 
@@ -28,9 +28,10 @@ export interface IFormInternalProps extends IBaseComponentInternalProps,
   onChange?(name: string, value: AnyT): void;
 }
 
-export interface IFormContainerInternalProps extends IBaseContainerInternalProps,
-                                                     IFormProps {
-  entity?: IEntity;
+export interface IFormContainerInternalProps<TEntity extends IEntity>
+    extends IBaseContainerInternalProps,
+            IFormProps {
+  entity?: TEntity;
 }
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
@@ -38,10 +39,6 @@ export interface IFormPureComponent extends PureComponent<{}, {}> {
 }
 
 export interface IApplicationFormState extends IFormAttributes {
-}
-
-export interface IApplicationFormWrapperState {
-  form: IApplicationFormState;
 }
 
 export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {

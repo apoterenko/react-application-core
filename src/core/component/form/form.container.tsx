@@ -14,9 +14,9 @@ import {
   FORM_VALID_ACTION_TYPE,
 } from './form.interface';
 
-export class FormContainer extends BaseContainer<IFormContainerInternalProps, {}> {
+export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEntity>, {}> {
 
-  constructor(props: IFormContainerInternalProps) {
+  constructor(props: IFormContainerInternalProps<IEntity>) {
     super(props);
 
     this.onChange = this.onChange.bind(this);
@@ -63,8 +63,8 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps, {}
     const apiEntity: IApiEntity<IEntity> = {
       operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
       ...(ramda.isNil(entityId)
-          ? { isIdExist: true, entity: changes }
-          : { isIdExist: false, entity, id: entityId }
+          ? { isIdExist: false, entity: changes }
+          : { isIdExist: true, entity, id: entityId }
           ),
     };
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
