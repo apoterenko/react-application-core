@@ -9,38 +9,65 @@ import { IListInternalProps } from './list.interface';
 
 export class List extends BaseComponent<List, IListInternalProps, {}> {
 
-  public static defaultProps: IListInternalProps = {
-    items: [],
-  };
-
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.onAddItem = this.onAddItem.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
     const className = ['mdc-list', props.className];
-    const listItems = props.items.map(
+    const listItems = (props.data || []).map(
         (item) => (
             <ListItem key={uuid()}
                       rawData={item}
                       renderer={props.renderer}
-                      active={this.isItemActive(item)}
-                      onClick={this.onClick}>
+                      active={this.isSelected(item)}
+                      onClick={this.onSelect}>
             </ListItem>
         ),
     );
-    return <ul className={className.filter((cls) => !!cls).join(' ')}>{listItems}</ul>;
+
+    if (props.progress) {
+      return (
+          <div className='mdc-list-wrapper'>
+            <div className='mdc-layout-grid'>
+              <div className='mdc-layout-grid__inner'>
+                {this.t(props.progressMessage || 'Loading...')}
+              </div>
+            </div>
+          </div>
+      );
+    }
+    return (
+        <div className='mdc-list-wrapper'>
+          <ul className={className.filter((cls) => !!cls).join(' ')}>
+            {listItems}
+          </ul>
+          <button className='mdc-fab material-icons app-add-item-action'
+                  onClick={this.onAddItem}>
+            <span className='mdc-fab__icon'>
+              add
+            </span>
+          </button>
+        </div>
+    );
   }
 
-  private isItemActive(item: IEntity): boolean {
-    return this.props.activeItem && this.props.activeItem.id === item.id;
+  private isSelected(item: IEntity): boolean {
+    return this.props.selected && this.props.selected.id === item.id;
   }
 
-  private onClick(entity: IEntity): void {
-    if (this.props.onClick) {
-      this.props.onClick(entity);
+  private onAddItem(): void {
+    if (this.props.onAddItem) {
+      this.props.onAddItem();
+    }
+  }
+
+  private onSelect(entity: IEntity): void {
+    if (this.props.onSelect) {
+      this.props.onSelect(entity);
     }
   }
 }

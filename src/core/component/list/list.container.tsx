@@ -9,6 +9,7 @@ import {
   LIST_DESTROY_ACTION_TYPE,
   LIST_LOAD_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
+  LIST_ADD_ITEM_ACTION_TYPE,
   IListContainer,
   IListContainerInternalProps,
 } from './list.interface';
@@ -19,6 +20,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
   constructor(props: IListContainerInternalProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
+    this.onAddItem = this.onAddItem.bind(this);
   }
 
   public componentWillUnmount(): void {
@@ -31,22 +33,10 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
 
   public render(): JSX.Element {
     const props = this.props;
-    const { list } = props;
-    return list.progress
-        ? (
-            <div className='mdc-layout-grid'>
-              <div className='mdc-layout-grid__inner'>
-                {this.t(props.progressMessage || 'Loading...')}
-              </div>
-            </div>
-        )
-        : (
-            <List items={this.listData || []}
-                  activeItem={list.selected}
-                  onClick={this.onSelect}
-                  {...props}>
-            </List>
-        );
+    return <List onSelect={this.onSelect}
+                 onAddItem={this.onAddItem}
+                 {...props.listOptions}
+                 {...props.list}/>;
   }
 
   public load(value: string): void {
@@ -59,7 +49,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
     this.dispatch(LIST_SELECT_ACTION_TYPE, { selected: entity });
   }
 
-  private get listData(): IEntity[] {
-    return this.props.list.data;
+  private onAddItem(): void {
+    this.dispatch(LIST_ADD_ITEM_ACTION_TYPE);
   }
 }
