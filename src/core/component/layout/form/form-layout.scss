@@ -16,19 +16,12 @@
     }
 
     .app-header {
+      cursor: default;
       min-height: 100px;
       background: #263238;
 
       .mdc-card__subtitle, .mdc-card__title {
         color: white;
-      }
-    }
-
-    .app-form {
-      background-color: white;
-
-      .mdc-card__primary {
-        min-height: 280px;
       }
     }
   }
