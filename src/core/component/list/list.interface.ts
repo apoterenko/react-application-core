@@ -5,7 +5,8 @@ import {
 } from 'core/component/base';
 import { IEntity, IRenderable, ILockable } from 'core/definition.interface';
 
-export interface IListOptions extends IRenderable {
+export interface IListOptions extends IBaseComponentInternalProps, IRenderable {
+  addAction?: boolean;
 }
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps {

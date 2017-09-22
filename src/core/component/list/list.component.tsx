@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ramda from 'ramda';
 
 import { uuid } from 'core/util';
 import { IEntity } from 'core/definition.interface';
@@ -13,6 +14,13 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     super(props);
     this.onSelect = this.onSelect.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
+  }
+
+  public shouldComponentUpdate(nextProps: IListInternalProps, nextState: {}): boolean {
+    const previousProps = this.props;
+    return !ramda.equals(nextProps.data, previousProps.data)
+        || !ramda.equals(nextProps.selected, previousProps.selected)
+        || !ramda.equals(nextProps.progress, previousProps.progress);
   }
 
   public render(): JSX.Element {
@@ -45,12 +53,16 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
           <ul className={className.filter((cls) => !!cls).join(' ')}>
             {listItems}
           </ul>
-          <button className='mdc-fab material-icons app-add-item-action'
-                  onClick={this.onAddItem}>
-            <span className='mdc-fab__icon'>
-              add
-            </span>
-          </button>
+          {
+            props.addAction
+                ? (<button className='mdc-fab material-icons app-add-item-action'
+                           onClick={this.onAddItem}>
+                      <span className='mdc-fab__icon'>
+                        add
+                      </span>
+                    </button>)
+                : null
+          }
         </div>
     );
   }
