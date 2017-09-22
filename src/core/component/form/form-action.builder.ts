@@ -1,6 +1,6 @@
 import { EffectsAction } from 'redux-effects-promise';
 
-import { AnyT } from 'core/definition.interface';
+import { IKeyValue } from 'core/definition.interface';
 
 import {
   FORM_SUBMIT_ACTION_TYPE,
@@ -31,11 +31,11 @@ export class FormActionBuilder {
     return `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
-  public static buildSubmitDoneAction(section: string, data?: AnyT): EffectsAction {
+  public static buildSubmitDoneAction(section: string, data?: IKeyValue): EffectsAction {
     return EffectsAction.create(this.buildSubmitDoneActionType(section), data);
   }
 
-  public static buildSubmitFinishedAction(section: string, data?: AnyT): EffectsAction {
+  public static buildSubmitFinishedAction(section: string, data?: IKeyValue): EffectsAction {
     return EffectsAction.create(this.buildSubmitFinishedActionType(section), data);
   }
 
