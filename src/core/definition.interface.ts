@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export type AnyT = any;
 export type EntityIdT = number | string;
-export const PHANTOM_ENTITY_ID = -1;
+export const EMPTY_ID = -1;
 
 export interface IKeyValue {
   [index: string]: AnyT;
@@ -10,10 +10,6 @@ export interface IKeyValue {
 
 export interface IIdentifiedEntity {
   id?: EntityIdT;
-}
-
-export interface IAttributedEntity extends IIdentifiedEntity {
-  data: IKeyValue;
 }
 
 export interface IEntity extends IIdentifiedEntity, IKeyValue {

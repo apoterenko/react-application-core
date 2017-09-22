@@ -1,6 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { IAttributedEntity, } from 'core/definition.interface';
+import { IApiEntity } from 'core/api';
+import { IEntity, } from 'core/definition.interface';
 import { toSection } from 'core/store';
 
 import { ListActionBuilder } from './list-action.builder';
@@ -14,7 +15,7 @@ import {
 
 export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IApplicationListState {
-  let entity;
+  let apiEntity: IApiEntity<IEntity>;
   const section = toSection(action);
 
   switch (action.type) {
@@ -60,22 +61,22 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
       };
     case ListActionBuilder.buildUpdateActionType(section):
       if (state.data && state.data.length) {
-        entity = action.data as IAttributedEntity;
+        apiEntity = action.data;
         return {
           ...state,
           data: state.data.map((item) => (
-              item.id === entity.id
-                  ? {...item, ...entity.data}
+              item.id === apiEntity.id
+                  ? {...item, ...apiEntity.entity}
                   : item
           )),
         };
       }
       break;
     case ListActionBuilder.buildInsertActionType(section):
-      entity = action.data as IAttributedEntity;
+      apiEntity = action.data;
       return {
         ...state,
-        data: (state.data || []).concat({ ...entity.data }),
+        data: (state.data || []).concat({ ...apiEntity.entity }),
       };
     default:
       return state;

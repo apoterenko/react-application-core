@@ -53,4 +53,8 @@ export class ListActionBuilder {
   public static buildInsertAction(section: string, data: AnyT): EffectsAction {
     return EffectsAction.create(this.buildInsertActionType(section), data);
   }
+
+  public static buildUpdateAction(section: string, data: AnyT): EffectsAction {
+    return EffectsAction.create(this.buildUpdateActionType(section), data);
+  }
 }

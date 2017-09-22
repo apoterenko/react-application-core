@@ -3,7 +3,14 @@ import * as ramda from 'ramda';
 
 import { BasicTextField } from 'core/component/field';
 import { Menu, IMenu } from 'core/component/menu';
-import { AnyT, BasicEventT, ChangeEventT, IKeyValue, KeyboardEventT } from 'core/definition.interface';
+import {
+  AnyT,
+  BasicEventT,
+  ChangeEventT,
+  EMPTY_ID,
+  IKeyValue,
+  KeyboardEventT,
+} from 'core/definition.interface';
 
 import {
   INativeMaterialSelectComponent,
@@ -19,8 +26,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                            TInternalProps,
                            TInternalState,
                            INativeMaterialSelectComponent> {
-
-  private static EMPTY_VALUE = -1;
 
   constructor(props: TInternalProps) {
     super(props);
@@ -95,7 +100,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected getEmptyValue(): AnyT {
-    return BasicSelect.EMPTY_VALUE;
+    return EMPTY_ID;
   }
 
   protected get options(): ISelectOption[] {
@@ -111,7 +116,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     const selectedItem = this.getSelectedOption(value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : (value === BasicSelect.EMPTY_VALUE ? '' : value);
+        : (value === EMPTY_ID ? '' : value);
   }
 
   private getSelectedOption(value: AnyT): ISelectOption {
