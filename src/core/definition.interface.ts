@@ -1,15 +1,15 @@
 import * as React from 'react';
 
 export type AnyT = any;
-
 export type EntityIdT = number | string;
+export const PHANTOM_ENTITY_ID = -1;
 
 export interface IKeyValue {
   [index: string]: AnyT;
 }
 
 export interface IIdentifiedEntity {
-  id: EntityIdT;
+  id?: EntityIdT;
 }
 
 export interface IAttributedEntity extends IIdentifiedEntity {
@@ -25,6 +25,10 @@ export interface IRenderable {
 
 export interface ILockable {
   locked?: boolean;
+}
+
+export interface IChangeable {
+  changes: IKeyValue;
 }
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;

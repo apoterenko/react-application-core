@@ -1,7 +1,8 @@
-import { IApplicationFormState, IFormEntity } from 'core/component/form';
+import { IApplicationFormState } from 'core/component/form';
 import { IApplicationState } from 'core/store';
 import { IApplicationPermissionsState } from 'core/permission';
 import { IApplicationListState, IApplicationListWrapperState } from 'core/component/list';
+import { IEntity } from 'core/definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
@@ -20,7 +21,7 @@ export const layoutMapper = (state: IApplicationState<{}, IApplicationPermission
   },
 });
 
-export const entityMapper = (entity: IFormEntity, formState?: IApplicationFormState) => ({
+export const entityMapper = (entity: IEntity, formState?: IApplicationFormState) => ({
   entity: {
     ...entity || {},
     ...formState && formState.changes,

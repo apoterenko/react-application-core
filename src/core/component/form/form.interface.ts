@@ -21,14 +21,15 @@ export interface IFormProps {
   settings?: IFormSettings;
 }
 
-export interface IFormInternalProps extends IFormProps, IBaseComponentInternalProps {
+export interface IFormInternalProps extends IBaseComponentInternalProps,
+                                            IFormProps {
   onSubmit?: FunctionT;
   onValid?: FunctionT;
   onChange?(name: string, value: AnyT): void;
 }
 
-export interface IFormContainerInternalProps extends IFormProps,
-                                                     IBaseContainerInternalProps {
+export interface IFormContainerInternalProps extends IBaseContainerInternalProps,
+                                                     IFormProps {
   entity?: IEntity;
 }
 

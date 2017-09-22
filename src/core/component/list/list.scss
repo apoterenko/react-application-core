@@ -1,5 +1,18 @@
 @import './navigation/navigation-list';
 
+.mdc-list-wrapper {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+
+  .app-add-item-action {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background-color: #3ca73c;
+  }
+}
+
 .mdc-list {
   cursor: default;
 }
