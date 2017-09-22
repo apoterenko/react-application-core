@@ -1,8 +1,9 @@
 import { IIdentifiedEntity } from 'core/definition.interface';
 import { IOperation } from 'core/operation';
 
-export interface IApiPayload<TRequestData> extends IIdentifiedEntity {
-  data: TRequestData;
+export interface IApiEntity<TEntity> extends IIdentifiedEntity {
+  entity: TEntity;
+  isIdExist: boolean;
   operation?: IOperation;
   section?: string;
 }
