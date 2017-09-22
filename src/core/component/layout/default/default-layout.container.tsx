@@ -63,9 +63,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                 </section>
               </div>
             </header>
-            <main>
+            <div className='app-content-body'>
               {props.children}
-            </main>
+            </div>
           </div>
           {this.snackbarTpl}
         </div>

@@ -4,7 +4,16 @@
   width: 100%;
 
   .app-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     width: 100%;
+  }
+
+  .app-content-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .mdc-persistent-drawer__toolbar-spacer {
