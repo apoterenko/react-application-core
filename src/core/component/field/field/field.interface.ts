@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
+import { AnyT, BasicEventT, EntityIdT, FocusEventT, IEntity, KeyboardEventT } from 'core/definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
 
 export interface IKeyboardHandlers {
@@ -53,4 +53,10 @@ export interface IField<TInternalProps extends IFieldInternalProps,
     extends IKeyboardHandlers, IBaseComponent<TInternalProps, TInternalState> {
   onChange(event: TValueEvent): void;
   resetError(): void;
+}
+
+export interface IMultiFieldAttributes {
+  add: EntityIdT[];
+  remove: EntityIdT[];
+  source?: IEntity[];
 }
