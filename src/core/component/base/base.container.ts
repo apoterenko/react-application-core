@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from 'core/di';
-import { IKeyValue } from 'core/definition.interface';
+import { IKeyValue, NEW_OPTION } from 'core/definition.interface';
 import { IApplicationPermissionsState } from 'core/permission';
 import { ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from 'core/router';
 import { IApplicationState } from 'core/store';
@@ -45,5 +45,9 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
       type: DictionariesActionBuilder.buildLoadActionType(dictionary),
       data: { section: dictionary },
     });
+  }
+
+  protected get isRouteParamIdEqualNewOption(): boolean {
+    return this.props.routeParams.id === NEW_OPTION;
   }
 }

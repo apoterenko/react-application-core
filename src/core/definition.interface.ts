@@ -3,6 +3,7 @@ import * as React from 'react';
 export type AnyT = any;
 export type EntityIdT = number | string;
 export const EMPTY_ID = -1;
+export const NEW_OPTION = 'new';
 
 export interface IKeyValue {
   [index: string]: AnyT;
