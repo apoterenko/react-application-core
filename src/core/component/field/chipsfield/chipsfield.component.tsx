@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 
 import { uuid } from 'core/util';
-import { EntityIdT, IEntity } from 'core/definition.interface';
+import { EntityIdT, IEntity, KeyboardEventT, ChangeEventT } from 'core/definition.interface';
 import { BasicSelect, ISelectOption } from 'core/component/field';
 
 import {
@@ -14,6 +14,8 @@ import {
 export class ChipsField extends BasicSelect<ChipsField,
                                             IChipsFieldInternalProps,
                                             IChipsFieldInternalState> {
+
+  public static VALUE_SEPARATOR = ',\u00a0';
 
   public static defaultProps: IChipsFieldInternalProps = {
     labelField: 'name',
@@ -28,13 +30,22 @@ export class ChipsField extends BasicSelect<ChipsField,
     this.state = { add: [], remove: [] };
   }
 
+  public onChange(event: ChangeEventT): void {
+    // Nothing to do
+  }
+
+  public onKeyBackspace(event: KeyboardEventT): void {
+    super.onKeyBackspace(event);
+    this.deleteItemAccordingCursorPosition();
+  }
+
   protected onSelect(option: ISelectOption): void {
     const removeLen = this.state.remove.length;
     const removeArray = this.state.remove.filter(((removeItem) => removeItem !== option.value));
     let addArray: EntityIdT[];
 
     if (removeArray.length === removeLen) {
-      addArray = [option.value].concat(this.state.add);
+      addArray = this.state.add.concat(option.value);
       this.setState({ add: addArray });
     } else {
       addArray = this.state.add;
@@ -44,13 +55,13 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   protected toDisplayValue(): string {
-    return '';
+    return this.getActiveValue().map((value) => this.toChipsDisplayValue(value)).join(ChipsField.VALUE_SEPARATOR);
   }
 
   protected getAttachment(): JSX.Element {
     return (
         <div>
-          {this.activeValue.map((item) =>
+          {this.getActiveValue().map((item) =>
             <div key={uuid()}
                  className='app-chipsfield'>
               <span className='app-chipsfield-description'>
@@ -64,6 +75,27 @@ export class ChipsField extends BasicSelect<ChipsField,
         )}
         </div>
     );
+  }
+
+  private deleteItemAccordingCursorPosition(): void {
+    const activeValue = this.getActiveValue();
+    if (!activeValue.length) {
+      return;
+    }
+
+    const cursorPosition = this.inputCursorPosition;
+    let index = 0;
+    let result = null;
+
+    activeValue.forEach((item, curIndex) => {
+      if (index < cursorPosition) {
+        index += String(this.toChipsDisplayValue(item)).length + ChipsField.VALUE_SEPARATOR.length;
+      } else if (ramda.isNil(result)) {
+        result = curIndex;
+      }
+    });
+    result = ramda.isNil(result) ? activeValue.length : result;
+    this.onDeleteItem(activeValue[result - 1]);
   }
 
   private onDeleteItem(item: ChipsFieldItemT): void {
@@ -83,6 +115,10 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   private dispatchChanges(addArray: EntityIdT[], removeArray: EntityIdT[]): void {
+    if (!this.getActiveValue(addArray, removeArray).length) {
+      this.cleanNativeInputForSupportHTML5Validation();
+    }
+
     if (addArray.length || removeArray.length) {
       this.onChangeValue({ add: addArray, remove: removeArray, source: this.sourceValue }, null);
     } else {
@@ -105,16 +141,13 @@ export class ChipsField extends BasicSelect<ChipsField,
         : (item as ISelectOption).value;
   }
 
-  private get activeValue(): ChipsFieldItemT[] {
+  private getActiveValue(add: EntityIdT[] = this.state.add, remove: EntityIdT[] = this.state.remove): ChipsFieldItemT[] {
     return [].concat(this.sourceValue || [])
-        .concat(this.addValue)
+        .concat(
+          add.map((addedValue) => (this.options.find((option) => addedValue === option.value)))
+        )
         .filter((item) =>
-            !this.state.remove.find((removeItem) => removeItem === this.toValue(item)));
-  }
-
-  private get addValue(): ISelectOption[] {
-    return this.options.filter((option) =>
-        !!this.state.add.find((addItem) => addItem === option.value));
+            !remove.find((removeItem) => removeItem === this.toValue(item)));
   }
 
   private get sourceValue(): IEntity[] {
