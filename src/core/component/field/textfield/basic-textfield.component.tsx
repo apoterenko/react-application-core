@@ -127,4 +127,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   protected getRawValueFromEvent(event: ChangeEventT): AnyT {
     return event.target.value;
   }
+
+  protected cleanNativeInputForSupportHTML5Validation(): void {
+    this.input.value = '';  // We should reset the field manually before HTML5 validation will be called
+  }
 }
