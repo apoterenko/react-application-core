@@ -79,10 +79,19 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       case 'ArrowUp':
         this.onKeyArrowUp(event);
         break;
+      case 'Backspace':
+        this.onKeyBackspace(event);
+        break;
     }
 
     if (this.props.onKeyDown) {
       this.props.onKeyDown(event);
+    }
+  }
+
+  public onKeyBackspace(event: KeyboardEventT): void {
+    if (this.props.onKeyBackspace) {
+      this.props.onKeyBackspace(event);
     }
   }
 
@@ -172,6 +181,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   protected get input(): HTMLInputElement {
     return this.refs.input && (this.refs.input as IMaskedTextInputPureComponent).inputElement
         || this.refs.input as HTMLInputElement;
+  }
+
+  protected get inputCursorPosition(): number {
+    return this.input.selectionStart;
   }
 
   protected abstract getEmptyValue(): AnyT;

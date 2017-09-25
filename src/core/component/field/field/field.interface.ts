@@ -10,6 +10,7 @@ export interface IKeyboardHandlers {
   onKeyEscape?(event: KeyboardEventT): void;
   onKeyArrowDown?(event: KeyboardEventT): void;
   onKeyArrowUp?(event: KeyboardEventT): void;
+  onKeyBackspace?(event: KeyboardEventT): void;
 }
 
 export interface IFieldChangeFormInternalProps {
