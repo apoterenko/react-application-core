@@ -59,8 +59,11 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
   }
 
   public stopEvent(event: BasicEventT): void {
-    event.nativeEvent.stopImmediatePropagation();
-    event.nativeEvent.stopPropagation();
+    if (event.nativeEvent) {
+      event.nativeEvent.stopImmediatePropagation();
+      event.nativeEvent.stopPropagation();
+      event.nativeEvent.preventDefault();
+    }
     event.stopPropagation();
     event.preventDefault();
   }
