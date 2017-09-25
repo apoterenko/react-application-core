@@ -1,3 +1,15 @@
 .app-menu {
   width: 100%;
+
+  .mdc-list {
+    max-height: 200px;
+  }
+
+  .app-menu-filter-wrapper {
+    padding: 16px 16px 0 16px;
+
+    input {
+      border-bottom: 1px solid #e4e4e4;
+    }
+  }
 }
