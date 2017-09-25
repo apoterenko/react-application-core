@@ -1,17 +1,19 @@
 import { FunctionT } from 'core/util';
 import { IMenuOption } from 'core/component/menu';
+import { IFilterable } from 'core/definition.interface';
 
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
   INativeMaterialTextfieldComponent,
-} from 'core/component/field';
+} from '../textfield';
 
 export interface IBasicSelectInternalState extends IBasicTextFieldInternalState {
   needOpenMenu?: boolean;
 }
 
-export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps {
+export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
+                                                   IFilterable {
   options?: ISelectOption[];
   onEmptyOptions?(): void;
 }

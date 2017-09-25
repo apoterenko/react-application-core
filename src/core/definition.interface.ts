@@ -20,6 +20,11 @@ export interface IRenderable {
   renderer?(item: IEntity): JSX.Element;
 }
 
+export interface IFilterable {
+  useFilter?: boolean;
+  filterPlaceholder?: string;
+}
+
 export interface ILockable {
   locked?: boolean;
 }
