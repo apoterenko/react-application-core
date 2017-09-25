@@ -45,7 +45,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   public onChange(event: ChangeEventT): void {
-    this.input.value = '';  // We should reset the field manually before HTML5 validation will be called
+    this.cleanNativeInputForSupportHTML5Validation();
     this.onChangeValue(undefined);
   }
 
@@ -80,11 +80,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         <div className='app-textfield-input-wrapper'>
           {super.getComponent()}
           <Menu ref='menu'
-                options={this.options}
+                useFilter={this.props.useFilter}
+                options={this.getFilteredOptions()}
                 onSelect={this.onSelect}>
           </Menu>
         </div>
     );
+  }
+
+  protected getFilteredOptions(): ISelectOption[] {
+    return this.options;
   }
 
   protected getComponentProps(): IKeyValue {
