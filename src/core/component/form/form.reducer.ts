@@ -7,14 +7,7 @@ import { AnyT } from 'core/definition.interface';
 import { convertError } from 'core/error';
 
 import {
-  FORM_CHANGE_ACTION_TYPE,
-  FORM_DESTROY_ACTION_TYPE,
-  FORM_SUBMIT_ACTION_TYPE,
-  FORM_SUBMIT_DONE_ACTION_TYPE,
-  FORM_VALID_ACTION_TYPE,
   INITIAL_APPLICATION_FORM_STATE,
-  FORM_SUBMIT_ERROR_ACTION_TYPE,
-  FORM_SUBMIT_FINISHED_ACTION_TYPE,
   IApplicationFormState,
 } from './form.interface';
 import { FormActionBuilder } from './form-action.builder';
@@ -28,7 +21,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
         ...state,
         locked: true,
       };
-    case `${section}.${FORM_DESTROY_ACTION_TYPE}`:
+    case FormActionBuilder.buildDestroyActionType(section):
       return state.locked
           ? {
             ...state,
@@ -37,7 +30,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
           : {
             ...INITIAL_APPLICATION_FORM_STATE,
           };
-    case `${section}.${FORM_CHANGE_ACTION_TYPE}`:
+    case FormActionBuilder.buildChangeActionType(section):
       const changes = ramda.pickBy((value: AnyT, key: string) => !isUndef(value), {
         ...state.changes,
         [action.data.field]: action.data.value,
@@ -48,29 +41,29 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
         dirty: Object.keys(changes).length > 0,
         changes,
       };
-    case `${section}.${FORM_VALID_ACTION_TYPE}`:
+    case FormActionBuilder.buildValidActionType(section):
       return {
         ...state,
         valid: action.data.valid,
       };
-    case `${section}.${FORM_SUBMIT_ACTION_TYPE}`:
+    case FormActionBuilder.buildSubmitActionType(section):
       return {
         ...state,
         error: null,
         progress: true,
       };
-    case `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`:
+    case FormActionBuilder.buildSubmitErrorActionType(section):
       return {
         ...state,
         progress: false,
         error: convertError(action.error),
       };
-    case `${section}.${FORM_SUBMIT_FINISHED_ACTION_TYPE}`:
+    case FormActionBuilder.buildSubmitFinishedActionType(section):
       return {
         ...state,
         progress: false,
       };
-    case `${section}.${FORM_SUBMIT_DONE_ACTION_TYPE}`:
+    case FormActionBuilder.buildSubmitDoneActionType(section):
       return {
         ...state,
         progress: false,
