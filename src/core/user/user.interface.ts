@@ -7,3 +7,5 @@ export const INITIAL_USER_STATE: IApplicationUserState = {
   id: null,
   name: null,
 };
+
+export const USER_UPDATE_ACTION_TYPE = 'user.update';
