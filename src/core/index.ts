@@ -1,5 +1,4 @@
 export * from './api';
-export * from './application';
 export * from './component/application';
 export * from './component/base';
 export * from './component/button';
