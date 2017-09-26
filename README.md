@@ -94,6 +94,49 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 }
 ```
 
+```typescript
+import { EffectsAction, EffectsService } from 'redux-effects-promise';
+
+import {
+  provide,
+  BaseEffects,
+  FormActionBuilder,
+} from 'react-application-core';
+
+import { ROUTER_PATHS } from '../../app.routers';
+import { IApi, IUser } from '../../api/api.interface';
+import { TOTP_SECTION } from './totp.interface';
+import { PermissionsT } from '../../permission/permission.interface';
+
+@provide(TotpEffects)
+export class TotpEffects extends BaseEffects<IApi> {
+
+  private static ACCOUNT_GET_ACTION_TYPE = `${TOTP_SECTION}.auth.nonce.done`;
+
+  @EffectsService.effects(FormActionBuilder.buildSubmitActionType(TOTP_SECTION))
+  public onAuthNonce(action: EffectsAction): Promise<EffectsAction[]> {
+    return this.api.authNonce(action.data)
+        .then((result) => ([
+          this.buildPermissionAuthorizedUpdateAction(),
+          EffectsAction.create(TotpEffects.ACCOUNT_GET_ACTION_TYPE)
+        ]));
+  }
+
+  @EffectsService.effects(TotpEffects.ACCOUNT_GET_ACTION_TYPE)
+  public onAccountGet(action: EffectsAction): Promise<EffectsAction[]> {
+    return Promise.all<IUser | PermissionsT>([
+      this.api.accountGet(),
+      this.api.accountRights()
+    ]).then((data: Array<IUser | PermissionsT>) => ([
+      this.buildFormSubmitDoneAction(TOTP_SECTION),
+      this.buildUserUpdateAction(data[0] as IUser),
+      this.buildPermissionPermissionsUpdateAction(data[1] as PermissionsT),
+      this.buildRouterNavigateAction(ROUTER_PATHS.ROLES)
+    ]));
+  }
+}
+```
+
 # Contributors
 
 [<img alt="apoterenko" src="https://avatars0.githubusercontent.com/u/12325691?v=4&s=460" width="117">](https://github.com/apoterenko)[<img alt="chge" src="https://avatars3.githubusercontent.com/u/400840?v=4&s=460" width="117">](https://github.com/chge)
