@@ -1,4 +1,4 @@
-import { EffectsAction } from 'redux-effects-promise';
+import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import {
   FILTER_SECTION,
@@ -14,7 +14,7 @@ export class FilterActionBuilder {
     return `${section}.${FILTER_LOCK_ACTION_TYPE}`;
   }
 
-  public static buildLockAction(section: string): EffectsAction {
+  public static buildLockAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildLockActionType(section));
   }
 }

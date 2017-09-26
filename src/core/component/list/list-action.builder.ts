@@ -1,4 +1,4 @@
-import { EffectsAction } from 'redux-effects-promise';
+import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { AnyT } from 'core/definition.interface';
 
@@ -46,15 +46,15 @@ export class ListActionBuilder {
     return `${section}.${LIST_LOCK_ACTION_TYPE}`;
   }
 
-  public static buildLockAction(section: string): EffectsAction {
+  public static buildLockAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildLockActionType(section));
   }
 
-  public static buildInsertAction(section: string, data: AnyT): EffectsAction {
+  public static buildInsertAction(section: string, data: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildInsertActionType(section), data);
   }
 
-  public static buildUpdateAction(section: string, data: AnyT): EffectsAction {
+  public static buildUpdateAction(section: string, data: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildUpdateActionType(section), data);
   }
 }
