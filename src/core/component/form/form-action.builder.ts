@@ -1,4 +1,4 @@
-import { EffectsAction } from 'redux-effects-promise';
+import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { IKeyValue } from 'core/definition.interface';
 
@@ -47,15 +47,19 @@ export class FormActionBuilder {
     return `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
-  public static buildSubmitDoneAction(section: string, data?: IKeyValue): EffectsAction {
+  public static buildSubmitDoneAction(section: string, data?: IKeyValue): IEffectsAction {
     return EffectsAction.create(this.buildSubmitDoneActionType(section), data);
   }
 
-  public static buildSubmitFinishedAction(section: string, data?: IKeyValue): EffectsAction {
+  public static buildSubmitFinishedAction(section: string, data?: IKeyValue): IEffectsAction {
     return EffectsAction.create(this.buildSubmitFinishedActionType(section), data);
   }
 
-  public static buildLockAction(section: string): EffectsAction {
+  public static buildLockAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildLockActionType(section));
+  }
+
+  public static buildChangeAction(section: string, data?: IKeyValue): IEffectsAction {
+    return EffectsAction.create(this.buildChangeActionType(section), data);
   }
 }

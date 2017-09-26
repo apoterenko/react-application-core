@@ -1,4 +1,4 @@
-import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import { provide, lazyInject, DI_TYPES } from 'core/di';
 import { AnyT } from 'core/definition.interface';
@@ -15,43 +15,43 @@ export class BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Api) protected api: TApi;
 
-  protected buildErrorNotificationAction(action: IEffectsAction): EffectsAction {
+  protected buildErrorNotificationAction(action: IEffectsAction): IEffectsAction {
     return NotificationActionBuilder.buildErrorAction(action);
   }
 
-  protected buildListLockAction(section: string): EffectsAction {
+  protected buildListLockAction(section: string): IEffectsAction {
     return ListActionBuilder.buildLockAction(section);
   }
 
-  protected buildFormLockAction(section: string): EffectsAction {
+  protected buildFormLockAction(section: string): IEffectsAction {
     return FormActionBuilder.buildLockAction(section);
   }
 
-  protected buildFormSubmitDoneAction(section: string): EffectsAction {
+  protected buildFormSubmitDoneAction(section: string): IEffectsAction {
     return FormActionBuilder.buildSubmitDoneAction(section);
   }
 
-  protected buildFilterLockAction(section: string): EffectsAction {
+  protected buildFilterLockAction(section: string): IEffectsAction {
     return FilterActionBuilder.buildLockAction(section);
   }
 
-  protected buildRouterNavigateAction(path: string): EffectsAction {
+  protected buildRouterNavigateAction(path: string): IEffectsAction {
     return RouterActionBuilder.buildNavigateAction(path);
   }
 
-  protected buildRouterNavigateBackAction(): EffectsAction {
+  protected buildRouterNavigateBackAction(): IEffectsAction {
     return RouterActionBuilder.buildNavigateBackAction();
   }
 
-  protected buildPermissionAuthorizedUpdateAction(): EffectsAction {
+  protected buildPermissionAuthorizedUpdateAction(): IEffectsAction {
     return PermissionActionBuilder.buildAuthorizedUpdateAction();
   }
 
-  protected buildPermissionPermissionsUpdateAction(data: AnyT): EffectsAction {
+  protected buildPermissionPermissionsUpdateAction(data: AnyT): IEffectsAction {
     return PermissionActionBuilder.buildPermissionsUpdateAction(data);
   }
 
-  protected buildUserUpdateAction(data: AnyT): EffectsAction {
+  protected buildUserUpdateAction(data: AnyT): IEffectsAction {
     return UserActionBuilder.buildUpdateAction(data);
   }
 }
