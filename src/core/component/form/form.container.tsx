@@ -57,15 +57,16 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
   private onSubmit(): void {
     const { props } = this;
     const { entity } = props;
+    const { changes } = props.form;
     const entityId = props.entity ? props.entity.id : null;
 
     const apiEntity0: IApiEntity<IEntity> = (ramda.isNil(entityId)
             // You should use formMapper at least (simple form)
-            ? { isIdExist: false, entity: props.form.changes }
+            ? { isIdExist: false, changes }
 
             // You should use formMapper and entityMapper at least (editable entity)
             // => const entity = this.isRouteParamIdEqualNewOption ? props.form.changes : props.entity;
-            : { isIdExist: true, entity, id: entityId }
+            : { isIdExist: true, changes, entity, id: entityId }
     );
 
     const apiEntity: IApiEntity<IEntity> = {
