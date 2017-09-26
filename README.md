@@ -18,6 +18,8 @@ The library is designed to quickly start developing business applications are ba
 
 # Usage
 
+#### Container
+
 ```typescript
 import * as React from 'react';
 
@@ -94,6 +96,8 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 }
 ```
 
+#### Effects
+
 ```typescript
 import { EffectsAction, EffectsService } from 'redux-effects-promise';
 
@@ -111,18 +115,18 @@ import { PermissionsT } from '../../permission/permission.interface';
 @provide(TotpEffects)
 export class TotpEffects extends BaseEffects<IApi> {
 
-  private static ACCOUNT_GET_ACTION_TYPE = `${TOTP_SECTION}.auth.nonce.done`;
+  private static TOTP_AUTH_NONCE_DONE_ACTION_TYPE = `${TOTP_SECTION}.auth.nonce.done`;
 
   @EffectsService.effects(FormActionBuilder.buildSubmitActionType(TOTP_SECTION))
   public onAuthNonce(action: EffectsAction): Promise<EffectsAction[]> {
     return this.api.authNonce(action.data)
         .then((result) => ([
           this.buildPermissionAuthorizedUpdateAction(),
-          EffectsAction.create(TotpEffects.ACCOUNT_GET_ACTION_TYPE)
+          EffectsAction.create(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
         ]));
   }
 
-  @EffectsService.effects(TotpEffects.ACCOUNT_GET_ACTION_TYPE)
+  @EffectsService.effects(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
   public onAccountGet(action: EffectsAction): Promise<EffectsAction[]> {
     return Promise.all<IUser | PermissionsT>([
       this.api.accountGet(),
