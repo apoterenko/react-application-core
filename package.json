@@ -110,5 +110,20 @@
       "name": "Ivan Khrulev",
       "url": "https://github.com/chge"
     }
+  ],
+  "keywords": [
+    "react",
+    "react-business",
+    "react-business-core",
+    "react-business-layer",
+    "react-application-layer",
+    "business",
+    "application",
+    "core",
+    "redux",
+    "material",
+    "core",
+    "logic",
+    "layer"
   ]
 }
