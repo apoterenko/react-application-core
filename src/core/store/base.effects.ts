@@ -1,14 +1,14 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { provide, lazyInject, DI_TYPES } from 'core/di';
+import { AnyT } from 'core/definition.interface';
 import { NotificationActionBuilder } from 'core/notification';
 import { ListActionBuilder } from 'core/component/list';
 import { FormActionBuilder } from 'core/component/form';
 import { FilterActionBuilder } from 'core/component/filter';
 import { RouterActionBuilder } from 'core/router';
 import { PermissionActionBuilder } from 'core/permission';
-import { AnyT } from 'core/definition.interface';
-import { USER_UPDATE_ACTION_TYPE } from 'core/user';
+import { UserActionBuilder } from 'core/user';
 
 @provide(BaseEffects)
 export class BaseEffects<TApi> {
@@ -52,6 +52,6 @@ export class BaseEffects<TApi> {
   }
 
   protected buildUserUpdateAction(data: AnyT): EffectsAction {
-    return EffectsAction.create(USER_UPDATE_ACTION_TYPE, data);
+    return UserActionBuilder.buildUpdateAction(data);
   }
 }
