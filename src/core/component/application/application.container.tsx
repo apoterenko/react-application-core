@@ -20,6 +20,7 @@ import { INITIAL_APPLICATION_NOTIFICATION_STATE } from 'core/notification';
 import { IApplicationDictionariesState } from 'core/dictionary';
 import { PrivateRootContainer, PublicRootContainer } from 'core/component/root';
 import { ConnectorConfigT } from 'core/component/store';
+import { USER_DESTROY_ACTION_TYPE } from 'core/user';
 
 import { IApplicationContainerProps } from './application.interface';
 
@@ -93,7 +94,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   protected afterDestroySession(): void {
-    //
+    this.appStore.dispatch({ type: USER_DESTROY_ACTION_TYPE });
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
