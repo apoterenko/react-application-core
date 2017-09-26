@@ -99,12 +99,13 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 #### Effects
 
 ```typescript
-import { EffectsAction, EffectsService } from 'redux-effects-promise';
+import { IEffectsAction, EffectsAction, EffectsService } from 'redux-effects-promise';
 
 import {
   provide,
   BaseEffects,
   FormActionBuilder,
+  NotificationActionBuilder,
 } from 'react-application-core';
 
 import { ROUTER_PATHS } from '../../app.routers';
@@ -118,7 +119,7 @@ export class TotpEffects extends BaseEffects<IApi> {
   private static TOTP_AUTH_NONCE_DONE_ACTION_TYPE = `${TOTP_SECTION}.auth.nonce.done`;
 
   @EffectsService.effects(FormActionBuilder.buildSubmitActionType(TOTP_SECTION))
-  public onAuthNonce(action: EffectsAction): Promise<EffectsAction[]> {
+  public onAuthNonce(action: IEffectsAction): Promise<IEffectsAction[]> {
     return this.api.authNonce(action.data)
         .then((result) => ([
           this.buildPermissionAuthorizedUpdateAction(),
@@ -126,8 +127,13 @@ export class TotpEffects extends BaseEffects<IApi> {
         ]));
   }
 
+  @EffectsService.effects(FormActionBuilder.buildSubmitErrorActionType(TOTP_SECTION))
+  public onAuthNonceError(action: IEffectsAction): IEffectsAction {
+    return NotificationActionBuilder.buildErrorAction(action);
+  }
+
   @EffectsService.effects(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
-  public onAccountGet(action: EffectsAction): Promise<EffectsAction[]> {
+  public onAccountGet(): Promise<IEffectsAction[]> {
     return Promise.all<IUser | PermissionsT>([
       this.api.accountGet(),
       this.api.accountRights()
