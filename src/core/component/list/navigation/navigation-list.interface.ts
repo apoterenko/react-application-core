@@ -1,4 +1,5 @@
 import { IBaseComponentInternalProps } from 'core/component/base';
+import { IApplicationAccessConfig } from 'core/permission';
 
 export interface INavigationListItem {
   text: string;
@@ -6,6 +7,7 @@ export interface INavigationListItem {
   className?: string;
   icon?: string;
   activated?: boolean;
+  accessConfig?: IApplicationAccessConfig;
   children?: INavigationListItem[];
 }
 

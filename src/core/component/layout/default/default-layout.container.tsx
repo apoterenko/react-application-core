@@ -10,6 +10,7 @@ import {
 import { INavigationListItem, NavigationList } from 'core/component/list';
 import { lazyInject, DI_TYPES } from 'core/di';
 import { IRouters } from 'core/router';
+import { IApplicationAccessConfig, IApplicationPermissionsService } from 'core/permission';
 
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
@@ -21,6 +22,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   };
 
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
+  @lazyInject(DI_TYPES.Permission) private permissionService: IApplicationPermissionsService<IApplicationAccessConfig>;
   @lazyInject(DI_TYPES.Routers) private routers: IRouters;
 
   constructor(props: IDefaultLayoutContainerInternalProps) {
@@ -31,10 +33,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   public render(): JSX.Element {
     let runtimeTitle;
     const props = this.props;
-    const menu = this.menu.map((item) => ({
-      ...item,
-      activated: props.root.path === item.link,
-    }));
+    const menu = this.menu
+        .filter((item) => !item.accessConfig || this.permissionService.isAccessible(item.accessConfig))
+        .map((item) => ({
+          ...item,
+          text: this.t(item.text),
+          activated: props.root.path === item.link,
+        }));
     const title = props.title
         || ((runtimeTitle = menu.find((item) => item.activated)) ? runtimeTitle.text : props.title);
 

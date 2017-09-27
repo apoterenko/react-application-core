@@ -32,7 +32,7 @@ export class NavigationList extends BaseComponent<NavigationList,
                 key={uuid()}
                 className={itemCls.filter((cls) => !!cls).join(' ')}>
             {iconTpl}
-            {this.t(item.text)}
+            {item.text}
           </Link>
       );
     });
