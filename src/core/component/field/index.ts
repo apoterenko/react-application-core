@@ -4,3 +4,4 @@ export * from './textfield';
 export * from './select';
 export * from './checkbox';
 export * from './chipsfield';
+export * from './daterange';
