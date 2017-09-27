@@ -5,11 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { DI_TYPES, appContainer, lazyInject } from 'core/di';
 import { IEventManager } from 'core/event';
-import {
-  IApplicationPermissionsService,
-  IApplicationPermissionsState,
-  PERMISSION_DESTROY_ACTION_TYPE
-} from 'core/permission';
+import { IApplicationPermissionsState, PERMISSION_DESTROY_ACTION_TYPE } from 'core/permission';
 import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT } from 'core/router';
 import { IApplicationSettings } from 'core/settings';
 import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
@@ -32,7 +28,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
                                   TPermissionObject>
     extends BaseContainer<TInternalProps, {}> {
 
-  @lazyInject(DI_TYPES.Permission) private permissionService: IApplicationPermissionsService<TPermissionObject>;
   @lazyInject(DI_TYPES.Storage) private storage: IStorage;
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;

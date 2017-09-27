@@ -9,6 +9,7 @@ import { IApplicationPermissionsState } from 'core/permission';
 import { ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from 'core/router';
 import { IApplicationState } from 'core/store';
 import { DictionariesActionBuilder } from 'core/dictionary';
+import { IApplicationAccessConfig, IApplicationPermissionsService } from 'core/permission';
 
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
@@ -19,6 +20,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
 
   @lazyInject(DI_TYPES.Translate) protected t: (k: string) => string;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<IApplicationState<{}, IApplicationPermissionsState<{}>, {}>>;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: IApplicationPermissionsService<IApplicationAccessConfig>;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);

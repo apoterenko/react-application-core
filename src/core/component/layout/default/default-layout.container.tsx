@@ -10,7 +10,6 @@ import {
 import { INavigationListItem, NavigationList } from 'core/component/list';
 import { lazyInject, DI_TYPES } from 'core/di';
 import { IRouters } from 'core/router';
-import { IApplicationAccessConfig, IApplicationPermissionsService } from 'core/permission';
 
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
@@ -22,7 +21,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   };
 
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
-  @lazyInject(DI_TYPES.Permission) private permissionService: IApplicationPermissionsService<IApplicationAccessConfig>;
   @lazyInject(DI_TYPES.Routers) private routers: IRouters;
 
   constructor(props: IDefaultLayoutContainerInternalProps) {
