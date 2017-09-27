@@ -35,7 +35,8 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
   }
 
   public load(value: string): void {
-    if (value) {
+    const props = this.props;
+    if ((props.listOptions && props.listOptions.noQuery) || value) {
       this.dispatch(LIST_LOAD_ACTION_TYPE, { query: value });
     }
   }

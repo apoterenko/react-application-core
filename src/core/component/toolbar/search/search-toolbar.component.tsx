@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isUndef } from 'core/util';
+import { isUndef, uuid } from 'core/util';
 import { AnyT } from 'core/definition.interface';
 import { BaseComponent } from 'core/component/base';
 import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from 'core/component/field';
@@ -17,6 +17,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   public static defaultProps: ISearchToolbarInternalProps = {
     fieldActions: [],
+    searchIcon: 'search',
   };
 
   private actionsMap = {
@@ -56,8 +57,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   public render(): JSX.Element {
-    const className = ['mdc-toolbar', 'app-search-toolbar', this.props.className];
-    let searchFieldTpl;
+    const props = this.props;
+    const className = ['mdc-toolbar', 'app-search-toolbar', props.className];
+    let searchFieldTpl = null;
 
     if (this.isActivated) {
       searchFieldTpl = (
@@ -74,13 +76,30 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
           </section>
       );
     }
+    if (props.noQuery && props.fieldActions.length) {
+      const actionsTpl = (
+          this.actions.map((action) => (
+              <div key={uuid()}
+                   className='material-icons mdc-toolbar__icon app-action'
+                   onClick={action.actionHandler}>
+                {action.type}
+              </div>
+          ))
+      );
+      searchFieldTpl = (
+          <section>
+            {actionsTpl}
+          </section>
+      );
+    }
+
     return (
         <div className={className.filter((cls) => !!cls).join(' ')}>
           <div className='mdc-toolbar__row'>
             <section>
               <div className='material-icons mdc-toolbar__icon'
                    onClick={this.onFilter}>
-                search
+                {props.searchIcon}
               </div>
             </section>
             {searchFieldTpl}
@@ -98,12 +117,17 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private onFilter(): void {
-    if (this.isPersistent) {
-      if (this.props.onFilter) {
-        this.props.onFilter();
-      }
+    const props = this.props;
+    if (props.noQuery) {
+      this.doSearch();
     } else {
-      this.setState({ activated: true });
+      if (this.isPersistent) {
+        if (props.onFilter) {
+          props.onFilter();
+        }
+      } else {
+        this.setState({ activated: true });
+      }
     }
   }
 
@@ -123,7 +147,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     }
   }
 
-  private doSearch(value: string): void {
+  private doSearch(value?: string): void {
     if (this.props.onSearch) {
       this.props.onSearch(value);
     }
@@ -138,6 +162,6 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private get actions(): IBasicTextFieldAction[] {
-    return this.props.fieldActions.map((action) => (this.actionsMap[action]));
+    return this.props.fieldActions.map((action) => this.actionsMap[action]);
   }
 }

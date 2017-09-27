@@ -7,6 +7,8 @@ export enum FilterActionEnum {
 
 export interface IApplicationFilterOptions {
   fieldActions?: FilterActionEnum[];
+  searchIcon?: string;
+  noQuery?: boolean;
 }
 
 export interface IApplicationFilterAttributes extends ILockable {
