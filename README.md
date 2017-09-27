@@ -131,7 +131,7 @@ export class TotpEffects extends BaseEffects<IApi> {
   }
 
   @EffectsService.effects(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
-  public onAccountGet(): Promise<IEffectsAction[]> {
+  public onAuthNonceDone(): Promise<IEffectsAction[]> {
     return Promise.all<IUser | PermissionsT>([this.api.accountGet(), this.api.accountRights()])
         .then((data: Array<IUser | PermissionsT>) => ([
           this.buildFormSubmitDoneAction(TOTP_SECTION),
