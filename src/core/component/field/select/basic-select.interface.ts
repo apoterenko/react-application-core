@@ -16,6 +16,7 @@ export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
                                                    IFilterable {
   options?: ISelectOption[];
   onEmptyOptions?(): void;
+  onSelect?(option: ISelectOption): void;
 }
 
 export interface INativeMaterialSelectMenuComponent {

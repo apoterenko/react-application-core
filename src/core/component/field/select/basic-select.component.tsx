@@ -98,7 +98,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
       placeholder: this.isWaitingForOptions
           ? this.t(this.props.progressMessage || 'Loading...')
-          : null,
+          : this.props.placeholder,
 
       value: this.toDisplayValue(),
     };
@@ -114,6 +114,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   protected onSelect(option: ISelectOption): void {
     this.onChangeValue(option.value, null);
+
+    if (this.props.onSelect) {
+      this.props.onSelect(option);
+    }
   }
 
   protected toDisplayValue(): string {
