@@ -31,15 +31,16 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   public render(): JSX.Element {
     const props = this.props;
     const error = this.error;
+    const isFocused = props.autoFocus || this.isValuePresent;
 
     const className = [
       'mdc-textfield mdc-textfield--upgraded app-textfield',
       props.className,
-      props.autoFocus && 'mdc-textfield--focused'
+      isFocused && 'mdc-textfield--focused'
     ];
     const labelClassName = [
       'mdc-textfield__label',
-      props.autoFocus && 'mdc-textfield__label--float-above'
+      isFocused && 'mdc-textfield__label--float-above'
     ];
 
     const prepareStyles = this.context.muiTheme

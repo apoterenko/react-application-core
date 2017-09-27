@@ -174,6 +174,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.isPersistent ? this.definitePropsValue : this.stateValue;
   }
 
+  protected get isValuePresent(): boolean {
+    return !isUndef(this.value) && this.value !== this.getEmptyValue();
+  }
+
   protected get error(): string {
     return this.state.error;
   }
