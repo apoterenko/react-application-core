@@ -104,13 +104,12 @@ import {
   provide,
   BaseEffects,
   FormActionBuilder,
-  NotificationActionBuilder,
 } from 'react-application-core';
 
+import { IApi, IUser } from '../../api';
 import { ROUTER_PATHS } from '../../app.routers';
-import { IApi, IUser } from '../../api/api.interface';
 import { TOTP_SECTION } from './totp.interface';
-import { PermissionsT } from '../../permission/permission.interface';
+import { PermissionsT } from '../../permission';
 
 @provide(TotpEffects)
 export class TotpEffects extends BaseEffects<IApi> {
@@ -128,20 +127,18 @@ export class TotpEffects extends BaseEffects<IApi> {
 
   @EffectsService.effects(FormActionBuilder.buildSubmitErrorActionType(TOTP_SECTION))
   public onAuthNonceError(action: IEffectsAction): IEffectsAction {
-    return NotificationActionBuilder.buildErrorAction(action);
+    return this.buildErrorNotificationAction(action);
   }
 
   @EffectsService.effects(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
   public onAccountGet(): Promise<IEffectsAction[]> {
-    return Promise.all<IUser | PermissionsT>([
-      this.api.accountGet(),
-      this.api.accountRights()
-    ]).then((data: Array<IUser | PermissionsT>) => ([
-      this.buildFormSubmitDoneAction(TOTP_SECTION),
-      this.buildUserUpdateAction(data[0] as IUser),
-      this.buildPermissionPermissionsUpdateAction(data[1] as PermissionsT),
-      this.buildRouterNavigateAction(ROUTER_PATHS.ROLES)
-    ]));
+    return Promise.all<IUser | PermissionsT>([this.api.accountGet(), this.api.accountRights()])
+        .then((data: Array<IUser | PermissionsT>) => ([
+          this.buildFormSubmitDoneAction(TOTP_SECTION),
+          this.buildUserUpdateAction(data[0] as IUser),
+          this.buildPermissionPermissionsUpdateAction(data[1] as PermissionsT),
+          this.buildRouterNavigateAction(ROUTER_PATHS.ROLES)
+        ]));
   }
 }
 ```
