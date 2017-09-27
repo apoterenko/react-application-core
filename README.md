@@ -32,26 +32,24 @@ import {
   SearchToolbarContainer,
   ListContainer,
   IListContainer,
-  IDateConverter,
-  lazyInject,
-  DI_TYPES,
   ContainerVisibilityTypeEnum,
   IBaseContainerInternalProps,
   connector,
 } from 'react-application-core';
 
-import { IRole } from '../../api/api.interface';
+import { IRole } from '../../api';
 import { ROUTER_PATHS } from '../../app.routers';
 import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
 import { IAppState } from '../../app.interface';
 import { AccessConfigT } from '../permission.interface';
+import { AppPermissions } from '../../app.permissions';
 
 @connector<IAppState, AccessConfigT>({
   routeConfig: {
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: ROUTER_PATHS.ROLES,
   },
-  accessConfig: ['roles.view'],
+  accessConfig: [AppPermissions.ROLES_VIEW],
   mappers: [
     ...defaultMappers,
     (state) => filterWrapperMapper(state.roles),
@@ -64,8 +62,6 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
     sectionName: ROLES_SECTION,
   };
 
-  @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
-
   constructor(props: IRolesContainerInternalProps) {
     super(props);
     this.onSearch = this.onSearch.bind(this);
@@ -77,7 +73,10 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
         <DefaultLayoutContainer {...props}>
           <SearchToolbarContainer onSearch={this.onSearch}
                                   {...props}/>
-          <ListContainer listOptions={{ renderer: this.listRenderer, addAction: true }}
+          <ListContainer listOptions={{
+                            renderer: this.listRenderer,
+                            addAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
+                         }}
                          ref='list'
                          {...props}/>
         </DefaultLayoutContainer>
@@ -90,7 +89,7 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 
   private listRenderer = (item: IRole) => (
      <span>
-        {item.name || item.id} &nbsp; {this.dateConverter.formatDate(item.modified)}
+        {item.name || item.id}
      </span>
   )
 }
