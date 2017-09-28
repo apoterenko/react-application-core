@@ -76,13 +76,15 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   protected get profileTpl(): JSX.Element {
-    return (
-        <Link to={this.routers.profile}
+    const profileRoutePath = this.routers.profile;
+    return profileRoutePath
+      ? (
+        <Link to={profileRoutePath}
               className='app-profile-link'>
           <i className='material-icons'>person</i>
           <span className='app-profile-name'>{this.props.user.name}</span>
         </Link>
-    );
+      ) : null;
   }
 
   protected onClick(): void {
