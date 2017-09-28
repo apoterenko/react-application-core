@@ -8,7 +8,8 @@ The library is designed to quickly start developing business applications are ba
 
 # Demo
 
-See [react-redux-typescript-webpack-seed](https://github.com/apoterenko/react-redux-typescript-webpack-seed)
+* [react-redux-typescript-webpack-seed](https://github.com/apoterenko/react-redux-typescript-webpack-seed)
+* [Live demo](https://apoterenko.github.io/react-redux-typescript-webpack-seed)
 
 # Dependencies
 
