@@ -4,9 +4,11 @@
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
+    "build": "npm run scss & npm run tsc-build",
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
-    "deploy": "npm install && npm run tsc-build && npm publish ./"
+    "deploy": "npm install && npm run build && npm publish ./",
+    "scss": "node_modules/.bin/node-sass --output-style compressed src/core/component/component.scss > react-application-core.css"
   },
   "dependencies": {
     "@types/core-js": "^0.9.42",
