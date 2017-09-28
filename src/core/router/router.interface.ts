@@ -1,12 +1,12 @@
 import { History } from 'history';
 
-import { BaseContainerT } from 'core/component/base';
-import { IContainerWrapperCtor } from 'core/component/application';
-import { IRootContainerAttributes } from 'core/component/root';
-import { IConnectorConfig, ConnectorConfigT } from 'core/component/store';
-import { IApplicationState } from 'core/store';
-import { IApplicationAccessConfig, IApplicationPermissionsState } from 'core/permission';
-import { IApplicationDictionariesState } from 'core/dictionary';
+import { BaseContainerT } from '../component/base';
+import { IContainerWrapperCtor } from '../component/application';
+import { IRootContainerAttributes } from '../component/root';
+import { IConnectorConfig, ConnectorConfigT } from '../component/store';
+import { IApplicationState } from '../store';
+import { IApplicationAccessConfig, IApplicationPermissionsState } from '../permission';
+import { IApplicationDictionariesState } from '../dictionary';
 
 export interface IRouters {
   profile: string;

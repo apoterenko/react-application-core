@@ -1,5 +1,5 @@
-import { IIdentifiedEntity, IChangeable } from 'core/definition.interface';
-import { IOperation } from 'core/operation';
+import { IIdentifiedEntity, IChangeable } from '../definition.interface';
+import { IOperation } from '../operation';
 
 export interface IApiEntity<TEntity> extends IIdentifiedEntity, IChangeable {
   isIdExist: boolean;

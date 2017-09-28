@@ -1,6 +1,6 @@
-import { INITIAL_APPLICATION_FORM_STATE } from 'core/component/form';
-import { Dialog } from 'core/component/dialog';
+import { Dialog } from '../../../component/dialog';
 
+import { INITIAL_APPLICATION_FORM_STATE } from '../form.interface';
 import { IFormDialogInternalProps } from './form-dialog.interface';
 
 export class FormDialog extends Dialog<FormDialog, IFormDialogInternalProps> {

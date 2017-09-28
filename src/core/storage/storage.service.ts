@@ -1,9 +1,9 @@
 import * as store from 'store/dist/store.modern';
 import { injectable } from 'inversify';
 
-import { BASE_PATH, APP_VERSION } from 'core/env';
-import { IStorage } from 'core/storage';
-import { AnyT } from 'core/definition.interface';
+import { BASE_PATH, APP_VERSION } from '../env';
+import { IStorage } from '../storage';
+import { AnyT } from '../definition.interface';
 
 @injectable()
 export class StorageService implements IStorage {

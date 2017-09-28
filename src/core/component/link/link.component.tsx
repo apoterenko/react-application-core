@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { BaseComponent } from 'core/component/base';
+import { BaseComponent } from '../../component/base';
 
 import { ILinkInternalProps } from './link.interface';
 

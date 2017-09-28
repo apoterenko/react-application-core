@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue } from 'core/definition.interface';
+import { IKeyValue } from '../../definition.interface';
 
 import {
   LAYOUT_MODE_UPDATE_ACTION_TYPE,

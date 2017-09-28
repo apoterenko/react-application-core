@@ -1,4 +1,4 @@
-import { uuid } from 'core/util';
+import { uuid } from '../util';
 
 import { IOperation } from './operation.interface';
 

@@ -1,13 +1,13 @@
-import { IApplicationFormState } from 'core/component/form';
-import { IApplicationState } from 'core/store';
-import { IApplicationPermissionsState } from 'core/permission';
-import { IApplicationListState, IApplicationListWrapperState } from 'core/component/list';
-import { IEntity } from 'core/definition.interface';
+import { IApplicationFormState } from '../../component/form';
+import { IApplicationState } from '../../store';
+import { IApplicationPermissionsState } from '../../permission';
+import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
+import { IEntity } from '../../definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
   IApplicationFilterWrapperState,
-} from 'core/component/filter';
+} from '../../component/filter';
 
 export const rootMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   root: {

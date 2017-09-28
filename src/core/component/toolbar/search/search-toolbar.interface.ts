@@ -1,5 +1,5 @@
-import { IBaseComponentInternalProps, IBaseContainerInternalProps } from 'core/component/base';
-import { IApplicationFilterOptions, IApplicationFilterAttributes } from 'core/component/filter';
+import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../../component/base';
+import { IApplicationFilterOptions, IApplicationFilterAttributes } from '../../../component/filter';
 
 export interface ISearchToolbarInternalState extends IApplicationFilterAttributes {
 }

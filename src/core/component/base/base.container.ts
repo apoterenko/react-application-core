@@ -3,13 +3,13 @@ import { LocationState, Path } from 'history';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
-import { lazyInject, DI_TYPES } from 'core/di';
-import { IKeyValue, NEW_OPTION } from 'core/definition.interface';
-import { IApplicationPermissionsState } from 'core/permission';
-import { ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from 'core/router';
-import { IApplicationState } from 'core/store';
-import { DictionariesActionBuilder } from 'core/dictionary';
-import { IApplicationAccessConfig, IApplicationPermissionsService } from 'core/permission';
+import { lazyInject, DI_TYPES } from '../../di';
+import { IKeyValue, NEW_OPTION } from '../../definition.interface';
+import { IApplicationPermissionsState } from '../../permission';
+import { ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router';
+import { IApplicationState } from '../../store';
+import { DictionariesActionBuilder } from '../../dictionary';
+import { IApplicationAccessConfig, IApplicationPermissionsService } from '../../permission';
 
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 

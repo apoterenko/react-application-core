@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { lazyInject, DI_TYPES } from 'core/di';
+import { lazyInject, DI_TYPES } from '../../../di';
 
 import { LayoutContainer } from '../layout.container';
 import { IFormLayoutInternalProps } from './form-layout.interface';

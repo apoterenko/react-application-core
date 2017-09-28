@@ -1,4 +1,4 @@
-import 'core/converter/converter.module';
-import 'core/router/router.module';
-import 'core/storage/storage.module';
-import 'core/event/event.module';
+import '../converter/converter.module';
+import '../router/router.module';
+import '../storage/storage.module';
+import '../event/event.module';

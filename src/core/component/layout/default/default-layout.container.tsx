@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import { Link } from 'core/component/link';
-import { PersistentDrawer } from 'core/component/drawer';
+import { Link } from '../../../component/link';
+import { PersistentDrawer } from '../../../component/drawer';
+import { INavigationListItem, NavigationList } from '../../../component/list';
+import { lazyInject, DI_TYPES } from '../../../di';
+import { IRouters } from '../../../router';
+
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
-} from 'core/component/layout';
-import { INavigationListItem, NavigationList } from 'core/component/list';
-import { lazyInject, DI_TYPES } from 'core/di';
-import { IRouters } from 'core/router';
-
+} from '../layout.interface';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
 

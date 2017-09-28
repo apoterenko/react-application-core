@@ -2,8 +2,8 @@ import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
   IBaseContainer,
-} from 'core/component/base';
-import { IEntity, IRenderable, ILockable } from 'core/definition.interface';
+} from '../../component/base';
+import { IEntity, IRenderable, ILockable } from '../../definition.interface';
 
 export interface IListOptions extends IBaseComponentInternalProps, IRenderable {
   addAction?: boolean;

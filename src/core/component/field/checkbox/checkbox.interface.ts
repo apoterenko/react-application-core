@@ -1,5 +1,6 @@
-import { IFieldInternalState, IFieldInternalProps } from 'core/component/field/field';
-import { INativeMaterialComponent } from 'core/component/material';
+import { INativeMaterialComponent } from '../../../component/material';
+
+import { IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
 
 export interface ICheckboxInternalState extends IFieldInternalState {
 }

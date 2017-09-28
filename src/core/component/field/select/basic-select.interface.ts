@@ -1,6 +1,6 @@
-import { FunctionT } from 'core/util';
-import { IMenuOption } from 'core/component/menu';
-import { IFilterable } from 'core/definition.interface';
+import { FunctionT } from '../../../util';
+import { IMenuOption } from '../../../component/menu';
+import { IFilterable } from '../../../definition.interface';
 
 import {
   IBasicTextFieldInternalProps,

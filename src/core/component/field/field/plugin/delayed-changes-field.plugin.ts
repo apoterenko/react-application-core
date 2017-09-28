@@ -1,7 +1,8 @@
-import { sequence } from 'core/util';
-import { IField } from 'core/component/field';
-import { IComponentPlugin } from 'core/component/plugin';
-import { AnyT, ChangeEventT, KeyboardEventT } from 'core/definition.interface';
+import { sequence } from '../../../../util';
+import { IComponentPlugin } from '../../../../component/plugin';
+import { AnyT, ChangeEventT, KeyboardEventT } from '../../../../definition.interface';
+
+import { IField } from '../field.interface';
 
 import { IDelayedChangesFieldPluginInternalProps } from './delayed-changes-field.interface';
 

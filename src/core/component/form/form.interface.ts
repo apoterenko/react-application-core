@@ -1,8 +1,8 @@
 import { PureComponent } from 'react';
 
-import { FunctionT } from 'core/util';
-import { AnyT, ILockable, IChangeable, IEntity } from 'core/definition.interface';
-import { IBaseComponentInternalProps, IBaseContainerInternalProps } from 'core/component/base';
+import { FunctionT } from '../../util';
+import { AnyT, ILockable, IChangeable, IEntity } from '../../definition.interface';
+import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
 
 export interface IFormAttributes extends IChangeable, ILockable {
   valid?: boolean;

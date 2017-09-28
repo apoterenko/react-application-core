@@ -1,16 +1,16 @@
 import { AnyAction } from 'redux';
 
-import { AnyT, IKeyValue } from 'core/definition.interface';
-import { IApplicationRootState, INITIAL_APPLICATION_ROOT_STATE, rootReducer } from 'core/component/root';
-import { IApplicationPermissionsState, INITIAL_PERMISSION_STATE, permissionReducer } from 'core/permission';
-import { IApplicationUserState, INITIAL_USER_STATE, userReducer } from 'core/user';
-import { IApplicationLayoutState, INITIAL_APPLICATION_LAYOUT_STATE, layoutReducer } from 'core/component/layout';
+import { AnyT, IKeyValue } from '../definition.interface';
+import { IApplicationRootState, INITIAL_APPLICATION_ROOT_STATE, rootReducer } from '../component/root';
+import { IApplicationPermissionsState, INITIAL_PERMISSION_STATE, permissionReducer } from '../permission';
+import { IApplicationUserState, INITIAL_USER_STATE, userReducer } from '../user';
+import { IApplicationLayoutState, INITIAL_APPLICATION_LAYOUT_STATE, layoutReducer } from '../component/layout';
 import {
   IApplicationNotificationState,
   notificationReducer,
   INITIAL_APPLICATION_NOTIFICATION_STATE,
-} from 'core/notification';
-import { dictionariesReducer, IApplicationDictionariesState } from 'core/dictionary';
+} from '../notification';
+import { dictionariesReducer, IApplicationDictionariesState } from '../dictionary';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState,
                                    TPermissionState extends IApplicationPermissionsState<TPermissions>,

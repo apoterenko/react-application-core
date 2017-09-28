@@ -1,6 +1,6 @@
 import { ComponentLifecycle } from 'react';
 
-import { IBaseComponent } from 'core/component/base';
+import { IBaseComponent } from '../../component/base';
 
 export interface IComponentPluginCtor<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                                       TInternalProps,

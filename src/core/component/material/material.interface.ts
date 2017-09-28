@@ -1,7 +1,7 @@
 import { ReactInstance } from 'react';
 
-import { FunctionT } from 'core/util';
-import { AnyT } from 'core/definition.interface';
+import { FunctionT } from '../../util';
+import { AnyT } from '../../definition.interface';
 
 export interface IMaterialComponentFactory<TNativeMaterialComponent extends INativeMaterialComponent> {
   attachTo(el: ReactInstance): TNativeMaterialComponent;

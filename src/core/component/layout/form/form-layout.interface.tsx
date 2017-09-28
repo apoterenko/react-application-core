@@ -1,4 +1,4 @@
-import { IBaseComponentInternalProps } from 'core/component/base';
+import { IBaseComponentInternalProps } from '../../../component/base';
 
 export interface IFormLayoutInternalProps extends IBaseComponentInternalProps {
   title: string;

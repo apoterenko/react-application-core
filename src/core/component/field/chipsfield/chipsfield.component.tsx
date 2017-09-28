@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { uuid } from 'core/util';
-import { EntityIdT, IEntity, KeyboardEventT, ChangeEventT } from 'core/definition.interface';
-import { BasicSelect, ISelectOption } from 'core/component/field';
+import { uuid } from '../../../util';
+import { EntityIdT, IEntity, KeyboardEventT, ChangeEventT } from '../../../definition.interface';
+import { BasicSelect, ISelectOption } from '../../../component/field';
 
 import {
   IChipsFieldInternalProps,

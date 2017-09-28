@@ -2,8 +2,8 @@ import {
   IBasicSelectInternalState,
   IBasicSelectInternalProps,
   ISelectOption, IMultiFieldAttributes
-} from 'core/component/field';
-import { IEntity } from 'core/definition.interface';
+} from '../../../component/field';
+import { IEntity } from '../../../definition.interface';
 
 export type ChipsFieldItemT = IEntity|ISelectOption;
 

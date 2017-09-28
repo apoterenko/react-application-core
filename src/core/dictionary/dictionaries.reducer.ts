@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { toSection } from 'core/store/reducer.filter';
+import { toSection } from '../store/reducer.filter';
 
 import { IApplicationDictionariesState } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';

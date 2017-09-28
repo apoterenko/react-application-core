@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { BasicTextField } from 'core/component/field';
-import { Menu, IMenu } from 'core/component/menu';
+import { BasicTextField } from '../../../component/field';
+import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
   BasicEventT,
@@ -10,7 +10,7 @@ import {
   EMPTY_ID,
   IKeyValue,
   KeyboardEventT,
-} from 'core/definition.interface';
+} from '../../../definition.interface';
 
 import {
   INativeMaterialSelectComponent,

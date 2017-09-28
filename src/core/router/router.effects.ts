@@ -1,6 +1,6 @@
 import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 
-import { DI_TYPES, lazyInject, provide } from 'core/di';
+import { DI_TYPES, lazyInject, provide } from '../di';
 
 import { IRouter, ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from './router.interface';
 

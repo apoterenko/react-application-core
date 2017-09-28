@@ -1,6 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { toSection } from 'core/store';
+import { toSection } from '../../store';
 
 import { ListActionBuilder } from './list-action.builder';
 import {

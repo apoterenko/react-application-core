@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue } from 'core/definition.interface';
+import { IKeyValue } from '../../definition.interface';
 
 import {
   IApplicationRootState,

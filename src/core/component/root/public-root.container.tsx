@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { IRootContainerInternalProps, RootContainer } from 'core/component/root';
+import { IRootContainerInternalProps, RootContainer } from '../../component/root';
 
 export class PublicRootContainer extends RootContainer<IRootContainerInternalProps> {
 

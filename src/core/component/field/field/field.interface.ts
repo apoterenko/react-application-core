@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
 
-import { AnyT, BasicEventT, EntityIdT, FocusEventT, IEntity, KeyboardEventT } from 'core/definition.interface';
-import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
+import { AnyT, BasicEventT, EntityIdT, FocusEventT, IEntity, KeyboardEventT } from '../../../definition.interface';
+import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
 export interface IKeyboardHandlers {
   onKeyEnter?(event: KeyboardEventT): void;

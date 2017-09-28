@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { isUndef, uuid } from 'core/util';
-import { AnyT } from 'core/definition.interface';
-import { BaseComponent } from 'core/component/base';
-import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from 'core/component/field';
-import { FilterActionEnum } from 'core/component/filter';
+import { isUndef, uuid } from '../../../util';
+import { AnyT } from '../../../definition.interface';
+import { BaseComponent } from '../../../component/base';
+import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from '../../../component/field';
+import { FilterActionEnum } from '../../../component/filter';
 
 import {
   ISearchToolbarInternalState,

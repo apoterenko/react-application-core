@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { BasicEventT } from 'core/definition.interface';
-import { Ripple } from 'core/component/ripple';
+import { BasicEventT } from '../../../definition.interface';
+import { Ripple } from '../../../component/ripple';
 
 import { IListItemInternalProps } from './list-item.interface';
 

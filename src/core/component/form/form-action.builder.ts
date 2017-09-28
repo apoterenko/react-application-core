@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { IKeyValue } from 'core/definition.interface';
+import { IKeyValue } from '../../definition.interface';
 
 import {
   FORM_SUBMIT_ACTION_TYPE,

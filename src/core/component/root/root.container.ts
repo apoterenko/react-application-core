@@ -1,11 +1,11 @@
 import { Redirect, Route } from 'react-router-dom';
 import * as URLSearchParams from 'url-search-params';
 
-import { IKeyValue } from 'core/definition.interface';
-import { DI_TYPES, lazyInject } from 'core/di';
-import { IApplicationAccessConfig, IApplicationPermissionsService } from 'core/permission';
-import { BaseContainer } from 'core/component/base';
-import { IRouters } from 'core/router';
+import { IKeyValue } from '../../definition.interface';
+import { DI_TYPES, lazyInject } from '../../di';
+import { IApplicationAccessConfig, IApplicationPermissionsService } from '../../permission';
+import { BaseContainer } from '../../component/base';
+import { IRouters } from '../../router';
 
 import {
   IRootContainerInternalProps,

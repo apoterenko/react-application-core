@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { uuid } from 'core/util';
-import { IEntity } from 'core/definition.interface';
-import { BaseComponent } from 'core/component/base';
+import { uuid } from '../../util';
+import { IEntity } from '../../definition.interface';
+import { BaseComponent } from '../../component/base';
 
 import { ListItem } from './item';
 import { IListInternalProps } from './list.interface';

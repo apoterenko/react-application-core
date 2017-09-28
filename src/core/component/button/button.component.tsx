@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BaseComponent } from 'core/component/base';
+import { BaseComponent } from '../../component/base';
 
 import {
   IButtonInternalProps,

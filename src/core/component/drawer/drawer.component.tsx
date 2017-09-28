@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { IMaterialComponentFactory, MaterialComponent } from 'core/component/material';
-import { AnyT } from 'core/definition.interface';
+import { IMaterialComponentFactory, MaterialComponent } from '../../component/material';
+import { AnyT } from '../../definition.interface';
 
 import { IDrawerInternalProps, INativeMaterialDrawerComponent } from './drawer.interface';
 

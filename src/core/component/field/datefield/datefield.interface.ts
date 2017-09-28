@@ -1,6 +1,6 @@
 import { CSSProperties, PureComponent } from 'react';
 
-import { IBaseComponentInternalProps } from 'core/component/base';
+import { IBaseComponentInternalProps } from '../../../component/base';
 
 import {
   IBasicTextFieldInternalProps,

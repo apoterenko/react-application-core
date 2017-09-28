@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { IApiEntity } from 'core/api';
-import { Operation } from 'core/operation';
-import { AnyT, IEntity } from 'core/definition.interface';
-import { BaseContainer } from 'core/component/base';
-import { Form, IFormContainerInternalProps } from 'core/component/form';
+import { IApiEntity } from '../../api';
+import { Operation } from '../../operation';
+import { AnyT, IEntity } from '../../definition.interface';
+import { BaseContainer } from '../../component/base';
+import { Form, IFormContainerInternalProps } from '../../component/form';
 
 import {
   FORM_CHANGE_ACTION_TYPE,

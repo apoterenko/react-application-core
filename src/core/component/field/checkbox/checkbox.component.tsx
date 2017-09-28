@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MDCCheckbox } from '@material/checkbox';
 
-import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
-import { Field } from 'core/component/field';
+import { AnyT, IKeyValue, ChangeEventT } from '../../../definition.interface';
+import { Field } from '../../../component/field';
 
 import {
   ICheckboxInternalState,

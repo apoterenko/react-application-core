@@ -1,10 +1,10 @@
 import * as ramda from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { isUndef } from 'core/util';
-import { toSection } from 'core/store';
-import { AnyT } from 'core/definition.interface';
-import { convertError } from 'core/error';
+import { isUndef } from '../../util';
+import { toSection } from '../../store';
+import { AnyT } from '../../definition.interface';
+import { convertError } from '../../error';
 
 import {
   INITIAL_APPLICATION_FORM_STATE,

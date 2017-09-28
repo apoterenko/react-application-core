@@ -1,5 +1,5 @@
-import { AnyT, ILockable } from 'core/definition.interface';
-import { IApplicationFormState } from 'core/component/form';
+import { AnyT, ILockable } from '../../definition.interface';
+import { IApplicationFormState } from '../../component/form';
 
 export enum FilterActionEnum {
   OPEN_FILTER,

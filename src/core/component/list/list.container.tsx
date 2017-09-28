@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { BaseContainer } from 'core/component/base';
-import { IEntity } from 'core/definition.interface';
+import { BaseContainer } from '../../component/base';
+import { IEntity } from '../../definition.interface';
 
 import { List } from './list.component';
 import {

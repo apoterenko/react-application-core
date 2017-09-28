@@ -1,4 +1,4 @@
-import { BaseComponent, IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
+import { BaseComponent, IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
 
 import {
   INativeMaterialComponent,

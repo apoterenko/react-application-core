@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { BaseContainer } from 'core/component/base';
-import { SearchToolbar } from 'core/component/toolbar';
+import { BaseContainer } from '../../../component/base';
+import { SearchToolbar } from '../../../component/toolbar';
 import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_QUERY_ACTION_TYPE,
   FILTER_SECTION,
   FILTER_DESTROY_ACTION_TYPE,
-} from 'core/component/filter';
+} from '../../../component/filter';
 
 import { ISearchToolbarContainerInternalProps } from './search-toolbar.interface';
 

@@ -1,4 +1,4 @@
-import { AnyT } from 'core/definition.interface';
+import { AnyT } from '../definition.interface';
 
 export interface IApplicationAccessConfig {
 }

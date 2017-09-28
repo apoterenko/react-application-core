@@ -1,7 +1,7 @@
-import { IRouteComponentConfig } from 'core/router/router.interface';
-import { IKeyValue } from 'core/definition.interface';
-import { IApplicationState, ApplicationStateT } from 'core/store';
-import { IApplicationAccessConfig } from 'core/permission';
+import { IRouteComponentConfig } from '../../router/router.interface';
+import { IKeyValue } from '../../definition.interface';
+import { IApplicationState, ApplicationStateT } from '../../store';
+import { IApplicationAccessConfig } from '../../permission';
 
 export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig> {
   routeConfig: IRouteComponentConfig;

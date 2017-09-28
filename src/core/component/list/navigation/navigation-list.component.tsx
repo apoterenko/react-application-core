@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { uuid } from 'core/util';
-import { BaseComponent } from 'core/component/base';
-import { Link } from 'core/component/link';
+import { uuid } from '../../../util';
+import { BaseComponent } from '../../../component/base';
+import { Link } from '../../../component/link';
 
 import { INavigationListInternalProps } from './navigation-list.interface';
 

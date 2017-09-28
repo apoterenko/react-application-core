@@ -2,11 +2,11 @@ import { AnyAction, applyMiddleware, combineReducers, createStore, Middleware, R
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
-import { IApplicationSettings } from 'core/settings';
-import { PROD_MODE } from 'core/env';
-import { appContainer, DI_TYPES } from 'core/di';
-import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
-import { AnyT } from 'core/definition.interface';
+import { IApplicationSettings } from '../settings';
+import { PROD_MODE } from '../env';
+import { appContainer, DI_TYPES } from '../di';
+import { APPLICATION_STATE_KEY, IStorage } from '../storage';
+import { AnyT } from '../definition.interface';
 
 import { ApplicationStateT, INITIAL_APPLICATION_STATE, defaultReducers } from './store.interface';
 

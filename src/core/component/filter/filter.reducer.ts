@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { toSection } from 'core/store';
+import { toSection } from '../../store';
 
 import {
   INITIAL_APPLICATION_FILTER_STATE,

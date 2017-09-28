@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import {
-  BASE_PATH,
-  ApplicationContainer,
-  IApplicationState,
-  IApplicationContainerProps,
-  IApplicationDictionariesState,
-  IApplicationPermissionsState,
-  AnyT,
-  ApplicationStateT,
-} from 'core';
+import { ApplicationContainer } from './component/application/application.container';
+import { IApplicationContainerProps } from './component/application/application.interface';
+import { ApplicationStateT, IApplicationState } from './store/store.interface';
+import { IApplicationDictionariesState } from './dictionary/dictionaries.interface';
+import { IApplicationPermissionsState } from './permission/permission.interface';
+import { AnyT } from './definition.interface';
+import { BASE_PATH } from './env/env.interface';
 
 export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<TAppState, IApplicationContainerProps, TDictionariesState, TPermissionsState, TPermissions, TPermissionObject>,
                                          TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,

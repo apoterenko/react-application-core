@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { provide } from 'core/di';
+import { provide } from '../di';
 
 import {
   IDateConverter,

@@ -1,6 +1,6 @@
 import { MDCRipple } from '@material/ripple';
 
-import { MaterialComponent } from 'core/component/material';
+import { MaterialComponent } from '../../component/material';
 
 import {
   INativeMaterialRippleComponent,

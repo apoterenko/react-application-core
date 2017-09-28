@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { convertError } from 'core/error';
+import { convertError } from '../error';
 
 import { NOTIFICATION_ERROR_ACTION_TYPE } from './notification.interface';
 

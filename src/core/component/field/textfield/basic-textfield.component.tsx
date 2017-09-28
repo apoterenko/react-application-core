@@ -2,8 +2,8 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
-import { uuid } from 'core/util';
-import { AnyT, IKeyValue, ChangeEventT } from 'core/definition.interface';
+import { uuid } from '../../../util';
+import { AnyT, IKeyValue, ChangeEventT } from '../../../definition.interface';
 
 import { Field, IField } from '../field';
 import {

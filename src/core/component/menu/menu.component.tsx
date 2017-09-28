@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 import { MDCSimpleMenu } from '@material/menu';
 
-import { BasicEventT, ChangeEventT } from 'core/definition.interface';
-import { MaterialComponent } from 'core/component/material';
-import { uuid } from 'core/util';
-import { lazyInject, DI_TYPES } from 'core/di';
-import { IEventManager } from 'core/event';
+import { BasicEventT, ChangeEventT } from '../../definition.interface';
+import { MaterialComponent } from '../../component/material';
+import { uuid } from '../../util';
+import { lazyInject, DI_TYPES } from '../../di';
+import { IEventManager } from '../../event';
 
 import {
   IMenuInternalState,

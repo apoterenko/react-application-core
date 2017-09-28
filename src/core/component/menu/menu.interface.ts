@@ -1,7 +1,7 @@
-import { FunctionT } from 'core/util';
-import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
-import { INativeMaterialComponent } from 'core/component/material';
-import { EntityIdT, IFilterable } from 'core/definition.interface';
+import { FunctionT } from '../../util';
+import { IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
+import { INativeMaterialComponent } from '../../component/material';
+import { EntityIdT, IFilterable } from '../../definition.interface';
 
 export interface IMenuInternalState {
   filter: string;

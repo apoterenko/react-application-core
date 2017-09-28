@@ -1,10 +1,10 @@
 import { MDCSnackbar } from '@material/snackbar';
 import * as React from 'react';
 
-import { AnyT } from 'core/definition.interface';
-import { noop } from 'core/util';
-import { MaterialComponent } from 'core/component/material';
-import { Button } from 'core/component/button';
+import { AnyT } from '../../definition.interface';
+import { noop } from '../../util';
+import { MaterialComponent } from '../../component/material';
+import { Button } from '../../component/button';
 
 import {
   INativeMaterialSnackbarComponent,

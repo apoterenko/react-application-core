@@ -1,4 +1,4 @@
-import { AnyT, IEntity, IKeyValue } from 'core/definition.interface';
+import { AnyT, IEntity, IKeyValue } from '../definition.interface';
 
 export interface IDictionariesDataState<TEntity extends IKeyValue> {
   loading: boolean;

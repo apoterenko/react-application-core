@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { IBaseContainerInternalProps, IContainerInternalProps } from 'core/component/base';
+import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
 
 export interface IApplicationContainerProps extends IBaseContainerInternalProps {
   basename: string;

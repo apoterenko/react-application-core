@@ -1,4 +1,4 @@
-import { FunctionT } from 'core/util';
+import { FunctionT } from '../util';
 
 export interface IEventManager {
   add(el: any, type: string, fn: FunctionT, capturing?: boolean): void;

@@ -1,14 +1,14 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { provide, lazyInject, DI_TYPES } from 'core/di';
-import { AnyT } from 'core/definition.interface';
-import { NotificationActionBuilder } from 'core/notification';
-import { ListActionBuilder } from 'core/component/list';
-import { FormActionBuilder } from 'core/component/form';
-import { FilterActionBuilder } from 'core/component/filter';
-import { RouterActionBuilder } from 'core/router';
-import { PermissionActionBuilder } from 'core/permission';
-import { UserActionBuilder } from 'core/user';
+import { provide, lazyInject, DI_TYPES } from '../di';
+import { AnyT } from '../definition.interface';
+import { NotificationActionBuilder } from '../notification';
+import { ListActionBuilder } from '../component/list';
+import { FormActionBuilder } from '../component/form';
+import { FilterActionBuilder } from '../component/filter';
+import { RouterActionBuilder } from '../router';
+import { PermissionActionBuilder } from '../permission';
+import { UserActionBuilder } from '../user';
 
 @provide(BaseEffects)
 export class BaseEffects<TApi> {

@@ -1,4 +1,4 @@
-import { appContainer, DI_TYPES } from 'core/di';
+import { appContainer, DI_TYPES } from '../di';
 
 import { DateConverter } from './date.converter';
 

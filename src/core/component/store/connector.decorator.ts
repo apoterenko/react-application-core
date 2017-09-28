@@ -1,7 +1,7 @@
-import { FunctionT } from 'core/util';
-import { BaseContainerT } from 'core/component/base';
-import { ApplicationStateT } from 'core/store';
-import { DYNAMIC_ROUTES } from 'core/router';
+import { FunctionT } from '../../util';
+import { BaseContainerT } from '../../component/base';
+import { ApplicationStateT } from '../../store';
+import { DYNAMIC_ROUTES } from '../../router';
 
 import { connectorFactory } from './connector.factory';
 import { IConnectorConfig, IConnectorCtor } from './container.interface';

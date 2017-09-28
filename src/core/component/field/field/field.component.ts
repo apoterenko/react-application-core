@@ -1,12 +1,12 @@
 import * as ramda from 'ramda';
 
-import { isUndef } from 'core/util';
+import { isUndef } from '../../../util';
 import {
   INativeMaterialComponent,
   MaterialComponent,
   IMaterialComponentFactory,
-} from 'core/component/material';
-import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from 'core/definition.interface';
+} from '../../../component/material';
+import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from '../../../definition.interface';
 
 import {
   IField,

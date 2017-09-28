@@ -1,6 +1,6 @@
-import { appContainer, DI_TYPES } from 'core/di';
-import { RouteContainerT } from 'core/router';
-import { ConnectorConfigT } from 'core/component/store';
+import { appContainer, DI_TYPES } from '../di';
+import { RouteContainerT } from '../router';
+import { ConnectorConfigT } from '../component/store';
 
 import './router.effects';
 import { DYNAMIC_ROUTES } from './router.interface';

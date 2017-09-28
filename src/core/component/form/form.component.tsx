@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes } from 'core/util';
-import { AnyT, BasicEventT, ReactElementT } from 'core/definition.interface';
-import { BaseComponent, IBaseComponent } from 'core/component/base';
-import { Button } from 'core/component/button';
-import { Field, IField, IFieldInternalProps, IFieldChangeFormInternalProps } from 'core/component/field';
+import { cloneNodes } from '../../util';
+import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
+import { BaseComponent, IBaseComponent } from '../../component/base';
+import { Button } from '../../component/button';
+import { Field, IField, IFieldInternalProps, IFieldChangeFormInternalProps } from '../../component/field';
 
 import {
   IFormPureComponent,

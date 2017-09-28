@@ -1,6 +1,6 @@
-import { FunctionT } from 'core/util';
-import { INativeMaterialComponent } from 'core/component/material';
-import { IBaseComponent, IBaseComponentInternalProps } from 'core/component/base';
+import { FunctionT } from '../../util';
+import { INativeMaterialComponent } from '../../component/material';
+import { IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
 
 export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
   show(): void;

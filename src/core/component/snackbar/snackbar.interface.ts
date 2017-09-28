@@ -1,6 +1,6 @@
-import { FunctionT } from 'core/util';
-import { IBaseComponentInternalProps } from 'core/component/base';
-import { INativeMaterialComponent } from 'core/component/material';
+import { FunctionT } from '../../util';
+import { IBaseComponentInternalProps } from '../../component/base';
+import { INativeMaterialComponent } from '../../component/material';
 
 export interface IMaterialSnackbarComponentOptions {
   message?: string;

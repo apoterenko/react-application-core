@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
-import { isFn } from 'core/util';
-import { ApplicationStateT, IApplicationState } from 'core/store';
-import { BaseContainerT, IBaseContainer } from 'core/component/base';
-import { IKeyValue } from 'core/definition.interface';
-import { IContainerWrapperCtor } from 'core/component/application';
-import { IApplicationDictionariesState } from 'core/dictionary';
-import { IApplicationPermissionsState } from 'core/permission';
+import { isFn } from '../../util';
+import { ApplicationStateT, IApplicationState } from '../../store';
+import { BaseContainerT, IBaseContainer } from '../../component/base';
+import { IKeyValue } from '../../definition.interface';
+import { IContainerWrapperCtor } from '../../component/application';
+import { IApplicationDictionariesState } from '../../dictionary';
+import { IApplicationPermissionsState } from '../../permission';
 import { ConnectorMapperT, IConnectorCtor } from './container.interface';
 
 export const connectorFactory = <TAppState extends ApplicationStateT>(

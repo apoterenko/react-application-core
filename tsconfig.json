@@ -21,11 +21,18 @@
     ],
     "typeRoots": [
       "node_modules/@types"
-    ],
+    ]
+    /* The aliases for node_modules packages does not works
+    resolve: {
+      alias: {
+        core: helpers.root('node_modules/react-application-core/core')
+      }
+    },
     "paths": {
       "core": [ "core" ],
       "core/*": [ "core/*" ]
     }
+    */
   },
   "compileOnSave": false,
   "buildOnSave": false,

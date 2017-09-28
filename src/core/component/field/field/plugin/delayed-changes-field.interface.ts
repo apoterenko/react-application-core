@@ -1,5 +1,5 @@
-import { AnyT } from 'core/definition.interface';
-import { IBaseComponentInternalProps } from 'core/component/base';
+import { AnyT } from '../../../../definition.interface';
+import { IBaseComponentInternalProps } from '../../../../component/base';
 
 export interface IDelayedChangesFieldPluginInternalProps extends IBaseComponentInternalProps {
   onDelay?: (value: AnyT) => void;

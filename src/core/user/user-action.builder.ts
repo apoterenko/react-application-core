@@ -1,6 +1,6 @@
 import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
 
-import { AnyT } from 'core/definition.interface';
+import { AnyT } from '../definition.interface';
 
 import { USER_UPDATE_ACTION_TYPE } from './user.interface';
 

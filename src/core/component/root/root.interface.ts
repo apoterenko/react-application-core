@@ -1,7 +1,7 @@
-import { IRouterComputedMatch } from 'core/router';
-import { IContainerWrapperCtor } from 'core/component/application';
-import { IBaseContainerInternalProps } from 'core/component/base';
-import { IApplicationAccessConfig } from 'core/permission';
+import { IRouterComputedMatch } from '../../router';
+import { IContainerWrapperCtor } from '../../component/application';
+import { IBaseContainerInternalProps } from '../../component/base';
+import { IApplicationAccessConfig } from '../../permission';
 
 export interface IRootContainerAttributes {
   path?: string;

@@ -1,5 +1,5 @@
-import { FunctionT } from 'core/util';
-import { IBaseContainerInternalProps } from 'core/component/base';
+import { FunctionT } from '../../../util';
+import { IBaseContainerInternalProps } from '../../../component/base';
 
 export interface IDefaultLayoutContainerInternalProps extends IBaseContainerInternalProps {
   title?: string;

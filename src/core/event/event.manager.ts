@@ -1,7 +1,7 @@
 import * as crossvent from 'crossvent';
 import { injectable } from 'inversify';
 
-import { FunctionT } from 'core/util';
+import { FunctionT } from '../util';
 
 import { IEventManager } from './event-manager.interface';
 

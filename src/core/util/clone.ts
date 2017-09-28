@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { isPrimitive, uuid } from 'core/util';
-import { AnyT, ReactElementT } from 'core/definition.interface';
+import { isPrimitive, uuid } from '../util';
+import { AnyT, ReactElementT } from '../definition.interface';
 
 export function clone<TObject>(o: TObject): TObject {
   return JSON.parse(JSON.stringify(o));

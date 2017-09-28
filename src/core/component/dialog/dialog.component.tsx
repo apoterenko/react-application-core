@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MDCDialog } from '@material/dialog';
 
-import { MaterialComponent } from 'core/component/material';
-import { Button } from 'core/component/button';
+import { MaterialComponent } from '../../component/material';
+import { Button } from '../../component/button';
 
 import {
   IDialog,

@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 import * as ramda from 'ramda';
 
-import { BasicEventT } from 'core/definition.interface';
-import { lazyInject, DI_TYPES } from 'core/di';
-import { isUndef } from 'core/util';
-import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
+import { BasicEventT } from '../../definition.interface';
+import { lazyInject, DI_TYPES } from '../../di';
+import { isUndef } from '../../util';
+import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 
 import { IBaseComponent, IBaseComponentInternalProps } from './base.interface';
 

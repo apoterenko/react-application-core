@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Snackbar } from 'core/component/snackbar';
-import { BaseContainer, IBaseContainerInternalProps } from 'core/component/base';
-import { NOTIFICATION_CLEAR_ACTION_TYPE } from 'core/notification';
+import { Snackbar } from '../../component/snackbar';
+import { BaseContainer, IBaseContainerInternalProps } from '../../component/base';
+import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
 
 export class LayoutContainer<TInternalProps extends IBaseContainerInternalProps>
     extends BaseContainer<TInternalProps, {}> {

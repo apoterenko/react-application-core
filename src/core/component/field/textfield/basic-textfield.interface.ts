@@ -1,6 +1,6 @@
-import { ChangeEventT } from 'core/definition.interface';
-import { FunctionT } from 'core/util';
-import { INativeMaterialComponent } from 'core/component/material';
+import { ChangeEventT } from '../../../definition.interface';
+import { FunctionT } from '../../../util';
+import { INativeMaterialComponent } from '../../../component/material';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
 import { IDelayedChangesFieldPluginInternalProps } from '../field/plugin/delayed-changes-field.interface';

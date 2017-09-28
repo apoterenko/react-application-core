@@ -3,20 +3,20 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { DI_TYPES, appContainer, lazyInject } from 'core/di';
-import { IEventManager } from 'core/event';
-import { IApplicationPermissionsState, PERMISSION_DESTROY_ACTION_TYPE } from 'core/permission';
-import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT } from 'core/router';
-import { IApplicationSettings } from 'core/settings';
-import { APPLICATION_STATE_KEY, IStorage } from 'core/storage';
-import { IApplicationState } from 'core/store';
-import { clone, uuid } from 'core/util';
-import { BaseContainer } from 'core/component/base';
-import { INITIAL_APPLICATION_NOTIFICATION_STATE } from 'core/notification';
-import { IApplicationDictionariesState } from 'core/dictionary';
-import { PrivateRootContainer, PublicRootContainer } from 'core/component/root';
-import { ConnectorConfigT } from 'core/component/store';
-import { USER_DESTROY_ACTION_TYPE } from 'core/user';
+import { DI_TYPES, appContainer, lazyInject } from '../../di';
+import { IEventManager } from '../../event';
+import { IApplicationPermissionsState, PERMISSION_DESTROY_ACTION_TYPE } from '../../permission';
+import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT } from '../../router';
+import { IApplicationSettings } from '../../settings';
+import { APPLICATION_STATE_KEY, IStorage } from '../../storage';
+import { IApplicationState } from '../../store';
+import { clone, uuid } from '../../util';
+import { BaseContainer } from '../../component/base';
+import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
+import { IApplicationDictionariesState } from '../../dictionary';
+import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
+import { ConnectorConfigT } from '../../component/store';
+import { USER_DESTROY_ACTION_TYPE } from '../../user';
 
 import { IApplicationContainerProps } from './application.interface';
 

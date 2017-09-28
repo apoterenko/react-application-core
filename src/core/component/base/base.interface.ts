@@ -1,13 +1,13 @@
 import { Component, CSSProperties, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
-import { AnyT, IKeyValue } from 'core/definition.interface';
-import { IComponentPlugin, IComponentPluginCtor } from 'core/component/plugin';
-import { IApplicationLayoutState } from 'core/component/layout';
-import { IApplicationRootState } from 'core/component/root';
-import { IApplicationUserState } from 'core/user';
-import { IApplicationNotificationState } from 'core/notification';
-import { IApplicationDictionariesState } from 'core/dictionary';
+import { AnyT, IKeyValue } from '../../definition.interface';
+import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
+import { IApplicationLayoutState } from '../../component/layout';
+import { IApplicationRootState } from '../../component/root';
+import { IApplicationUserState } from '../../user';
+import { IApplicationNotificationState } from '../../notification';
+import { IApplicationDictionariesState } from '../../dictionary';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,

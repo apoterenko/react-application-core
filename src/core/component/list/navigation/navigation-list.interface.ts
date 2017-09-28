@@ -1,5 +1,5 @@
-import { IBaseComponentInternalProps } from 'core/component/base';
-import { IApplicationAccessConfig } from 'core/permission';
+import { IBaseComponentInternalProps } from '../../../component/base';
+import { IApplicationAccessConfig } from '../../../permission';
 
 export interface INavigationListItem {
   text: string;
