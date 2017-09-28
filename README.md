@@ -6,6 +6,10 @@ A react-based application core for the business applications.
 
 The library is designed to quickly start developing business applications are based on React, Redux, Material-UI.
 
+# Demo
+
+See [react-redux-typescript-webpack-seed](https://github.com/apoterenko/react-redux-typescript-webpack-seed)
+
 # Dependencies
 
 * [react](https://github.com/facebook/react)
