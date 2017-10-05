@@ -1,6 +1,5 @@
 export const DI_TYPES = {
   Api: Symbol('Api'),
-  Company: Symbol('Company'),
   DateConverter: Symbol('DateConverter'),
   DynamicRoutes: Symbol('DynamicRoutes'),
   EventManager: Symbol('EventManager'),
@@ -13,4 +12,5 @@ export const DI_TYPES = {
   Store: Symbol('Store'),
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),
+  TransportFactory: Symbol('TransportFactory'),
 };

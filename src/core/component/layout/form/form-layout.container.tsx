@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { lazyInject, DI_TYPES } from '../../../di';
-
+import { IApplicationSettings } from '../../../settings';
 import { LayoutContainer } from '../layout.container';
 import { IFormLayoutInternalProps } from './form-layout.interface';
 
 export class FormLayoutContainer extends LayoutContainer<IFormLayoutInternalProps> {
 
-  @lazyInject(DI_TYPES.Company) private company: string;
+  @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
 
   public render(): JSX.Element {
     const props = this.props;
@@ -21,7 +21,7 @@ export class FormLayoutContainer extends LayoutContainer<IFormLayoutInternalProp
                   <h1 className='mdc-card__title mdc-card__title--large'>
                     {this.t(props.title)}
                   </h1>
-                  <h2 className='mdc-card__subtitle'>{this.company}</h2>
+                  <h2 className='mdc-card__subtitle'>{this.settings.companyName}</h2>
                 </section>
                 {props.children}
                 {props.footer}
