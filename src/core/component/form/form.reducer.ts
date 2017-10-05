@@ -31,7 +31,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
             ...INITIAL_APPLICATION_FORM_STATE,
           };
     case FormActionBuilder.buildChangeActionType(section):
-      const changes = ramda.pickBy((value: AnyT, key: string) => !isUndef(value), {
+      const changes = ramda.pickBy((value, key) => !isUndef(value), {
         ...state.changes,
         [action.data.field]: action.data.value,
       });
