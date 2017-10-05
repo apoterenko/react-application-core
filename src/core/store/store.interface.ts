@@ -6,6 +6,11 @@ import { IApplicationPermissionsState, INITIAL_PERMISSION_STATE, permissionReduc
 import { IApplicationUserState, INITIAL_USER_STATE, userReducer } from '../user';
 import { IApplicationLayoutState, INITIAL_APPLICATION_LAYOUT_STATE, layoutReducer } from '../component/layout';
 import {
+  IApplicationTransportState,
+  INITIAL_APPLICATION_TRANSPORT_STATE,
+  transportReducer,
+} from '../transport';
+import {
   IApplicationNotificationState,
   notificationReducer,
   INITIAL_APPLICATION_NOTIFICATION_STATE,
@@ -21,6 +26,7 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
   layout: IApplicationLayoutState;
   notification: IApplicationNotificationState;
   dictionaries: TDictionariesState;
+  transport: IApplicationTransportState;
 }
 
 export type ApplicationStateT = IApplicationState<IApplicationDictionariesState,
@@ -36,6 +42,7 @@ export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationDictionari
   layout: INITIAL_APPLICATION_LAYOUT_STATE,
   notification: INITIAL_APPLICATION_NOTIFICATION_STATE,
   dictionaries: {},
+  transport: INITIAL_APPLICATION_TRANSPORT_STATE,
 };
 
 export const defaultReducers = {
@@ -45,4 +52,5 @@ export const defaultReducers = {
   layout: layoutReducer,
   notification: notificationReducer,
   dictionaries: dictionariesReducer,
+  transport: transportReducer,
 };
