@@ -35,9 +35,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
 
-    if (this.state.needOpenMenu && !ramda.isNil(nextProps.options)) {
+    if (this.state.needOpenMenu
+        && !ramda.isNil(nextProps.options)) {
       this.setState({ needOpenMenu: false });
-      this.showMenu();
+
+      if (this.isInputFocused) {
+        this.showMenu();
+      }
     }
   }
 

@@ -191,6 +191,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.input.selectionStart;
   }
 
+  protected get isInputFocused(): boolean {
+    return document.activeElement === this.input;
+  }
+
   protected abstract getEmptyValue(): AnyT;
 
   protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;
