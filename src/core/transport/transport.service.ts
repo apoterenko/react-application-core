@@ -11,7 +11,7 @@ import {
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
-  ITransportResponse,
+  ITransportRawResponseData,
   TransportResponseErrorT,
   IApplicationTransportFactory,
   ITransportResponsePayload,
@@ -56,7 +56,7 @@ export class TransportService implements IApplicationTransport {
     });
   }
 
-  private onRequestDone(req: ITransportRequest, response: ITransportResponse): void {
+  private onRequestDone(req: ITransportRequest, response: ITransportRawResponseData): void {
     const data: ITransportResponsePayload = {
       ...this.toRequestMetaData(req),
       result: response.result,

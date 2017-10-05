@@ -20,6 +20,7 @@ export class TransportFactory implements IApplicationTransportFactory {
   private static logger: ILogger = LoggerFactory.makeLogger(TransportFactory);
 
   private operationsMap = new Map<string, Axios.CancelTokenSource>();
+  private id = 0;
   @lazyInject(DI_TYPES.Store) private store: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
 
@@ -61,11 +62,13 @@ export class TransportFactory implements IApplicationTransportFactory {
   }
 
   protected toRequestParams(req: ITransportRequest): ITransportRawRequest {
-    return ramda.pickBy((value, key) => !ramda.isNil(value), {
+    const request: ITransportRawRequest = {
+      id: this.id++,
       name: req.name,
       params: req.params,
       auth: this.store.getState().transport.token,
-    });
+    };
+    return ramda.pickBy((value, key) => !ramda.isNil(value), request);
   }
 
   private clearOperation(operationId?: string): void {
