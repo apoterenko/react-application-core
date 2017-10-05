@@ -17,6 +17,7 @@ import { IApplicationDictionariesState } from '../../dictionary';
 import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
 import { ConnectorConfigT } from '../../component/store';
 import { USER_DESTROY_ACTION_TYPE } from '../../user';
+import { INITIAL_APPLICATION_TRANSPORT_STATE, TRANSPORT_DESTROY_ACTION_TYPE } from '../../transport';
 
 import { IApplicationContainerProps } from './application.interface';
 
@@ -90,10 +91,14 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
 
   protected afterDestroySession(): void {
     this.appStore.dispatch({ type: USER_DESTROY_ACTION_TYPE });
+    this.appStore.dispatch({ type: TRANSPORT_DESTROY_ACTION_TYPE });
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
+    state.transport.queue = INITIAL_APPLICATION_TRANSPORT_STATE.queue;
+
+    // You may clear the app state here before the serializing
     return state;
   }
 
