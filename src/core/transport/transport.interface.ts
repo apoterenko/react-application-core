@@ -26,6 +26,10 @@ export interface ITransportNamedPayload {
   name: string;
 }
 
+export interface ITransportNoAuthPayload {
+  noAuth?: boolean;
+}
+
 export interface ITransportIdPayload {
   id: number;
 }
@@ -71,12 +75,14 @@ export type TransportResponseErrorT = Error | string | ITransportRawResponseErro
 
 export interface ITransportRawRequest extends ITransportNamedPayload,
                                               ITransportParamsPayload,
-                                              ITransportIdPayload {
+                                              ITransportIdPayload,
+                                              ITransportNoAuthPayload {
   auth?: string;
 }
 
 export interface ITransportRequest extends ITransportNamedPayload,
-                                           ITransportParamsPayload {
+                                           ITransportParamsPayload,
+                                           ITransportNoAuthPayload {
   operation?: IOperation;
 }
 

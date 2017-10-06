@@ -66,7 +66,7 @@ export class TransportFactory implements IApplicationTransportFactory {
       id: this.id++,
       name: req.name,
       params: req.params,
-      auth: this.store.getState().transport.token,
+      auth: !req.noAuth ? this.store.getState().transport.token : null,
     };
     return ramda.pickBy((value, key) => !ramda.isNil(value), request);
   }
