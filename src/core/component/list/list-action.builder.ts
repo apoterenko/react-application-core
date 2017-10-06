@@ -1,5 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
+import { applySection } from '../../util';
 import { AnyT } from '../../definition.interface';
 
 import {
@@ -47,14 +48,18 @@ export class ListActionBuilder {
   }
 
   public static buildLockAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildLockActionType(section));
+    return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
 
-  public static buildInsertAction(section: string, data: AnyT): IEffectsAction {
-    return EffectsAction.create(this.buildInsertActionType(section), data);
+  public static buildInsertAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildInsertActionType(section), applySection(section, data));
   }
 
-  public static buildUpdateAction(section: string, data: AnyT): IEffectsAction {
-    return EffectsAction.create(this.buildUpdateActionType(section), data);
+  public static buildUpdateAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildUpdateActionType(section), applySection(section, data));
+  }
+
+  public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
   }
 }
