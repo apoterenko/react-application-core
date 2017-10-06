@@ -9,6 +9,10 @@ export interface IDateConverter {
   isDate(date: AnyT): boolean;
 }
 
+export interface INumberConverter {
+  format(value: number | string): string;
+}
+
 export interface IDateLocaleSpecificConstants {
   datePattern: string;
   dateFormat: string;

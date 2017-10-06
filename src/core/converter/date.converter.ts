@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { provide } from '../di';
+import { provideInSingleton } from '../di';
 
 import {
   IDateConverter,
@@ -8,7 +8,7 @@ import {
   IDateLocaleSpecificConstantsRepo,
 } from './converter.interface';
 
-@provide(DateConverter)
+@provideInSingleton(DateConverter)
 export class DateConverter implements IDateConverter {
 
   private static LOCALE_SPECIFIC: IDateLocaleSpecificConstantsRepo = {

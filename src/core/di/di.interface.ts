@@ -1,6 +1,7 @@
 export const DI_TYPES = {
   Api: Symbol('Api'),
   DateConverter: Symbol('DateConverter'),
+  NumberConverter: Symbol('NumberConverter'),
   DynamicRoutes: Symbol('DynamicRoutes'),
   EventManager: Symbol('EventManager'),
   Menu: Symbol('Menu'),
