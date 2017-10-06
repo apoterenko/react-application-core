@@ -1,10 +1,11 @@
 import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 
-import { DI_TYPES, lazyInject, provide } from '../di';
+import { DI_TYPES, lazyInject, provideInSingleton } from '../di';
 
-import { IRouter, ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from './router.interface';
+import { IRouter, ROUTER_NAVIGATE_ACTION_TYPE } from './router.interface';
+import { RouterActionBuilder } from './router-action.builder';
 
-@provide(RouterEffects)
+@provideInSingleton(RouterEffects)
 export class RouterEffects {
 
   @lazyInject(DI_TYPES.Router) private router: IRouter;
@@ -18,7 +19,7 @@ export class RouterEffects {
     }
   }
 
-  @EffectsService.effects(ROUTER_NAVIGATE_BACK_ACTION_TYPE)
+  @EffectsService.effects(RouterActionBuilder.buildNavigateBackActionType())
   public routerBack(): void {
     this.router.goBack();
   }

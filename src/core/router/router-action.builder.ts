@@ -2,7 +2,7 @@ import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
-  ROUTER_NAVIGATE_BACK_ACTION_TYPE,
+  ROUTER_BACK,
 } from './router.interface';
 
 export class RouterActionBuilder {
@@ -10,7 +10,11 @@ export class RouterActionBuilder {
     return EffectsAction.create(ROUTER_NAVIGATE_ACTION_TYPE, path);
   }
 
-  public static buildNavigateBackAction(): IEffectsAction {
-    return EffectsAction.create(ROUTER_NAVIGATE_BACK_ACTION_TYPE);
+  public static buildNavigateBackActionType(section?: string): string {
+    return `${section || ROUTER_NAVIGATE_ACTION_TYPE}.${ROUTER_BACK}`;
+  }
+
+  public static buildNavigateBackAction(section?: string): IEffectsAction {
+    return EffectsAction.create(this.buildNavigateBackActionType(section));
   }
 }

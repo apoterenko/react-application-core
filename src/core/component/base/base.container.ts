@@ -6,7 +6,7 @@ import { Store } from 'redux';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IKeyValue, NEW_OPTION } from '../../definition.interface';
 import { IApplicationPermissionsState } from '../../permission';
-import { ROUTER_NAVIGATE_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router';
+import { ROUTER_NAVIGATE_ACTION_TYPE, RouterActionBuilder } from '../../router';
 import { IApplicationState } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { IApplicationAccessConfig, IApplicationPermissionsService } from '../../permission';
@@ -39,7 +39,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   }
 
   public navigateToBack(): void {
-    this.appStore.dispatch({ type: ROUTER_NAVIGATE_BACK_ACTION_TYPE });
+    this.appStore.dispatch({ type: RouterActionBuilder.buildNavigateBackActionType() });
   }
 
   protected dispatchLoadDictionary(dictionary: string): void {
