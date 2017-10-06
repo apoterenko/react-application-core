@@ -10,8 +10,8 @@ export interface IListOptions extends IBaseComponentInternalProps, IRenderable {
   noQuery?: boolean;
 }
 
-export interface IListContainerInternalProps extends IBaseContainerInternalProps {
-  list: IApplicationListAttributes;
+export interface IListContainerInternalProps extends IBaseContainerInternalProps,
+                                                     IApplicationListAttributesWrapper {
   listOptions?: IListOptions;
 }
 
@@ -23,6 +23,10 @@ export interface IApplicationListAttributes extends ILockable {
   progress: boolean;
   data: IEntity[];
   selected: IEntity;
+}
+
+export interface IApplicationListAttributesWrapper {
+  list: IApplicationListAttributes;
 }
 
 export interface IListInternalProps extends IBaseComponentInternalProps,
