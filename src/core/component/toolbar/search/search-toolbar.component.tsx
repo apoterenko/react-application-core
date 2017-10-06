@@ -58,12 +58,12 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   public render(): JSX.Element {
     const props = this.props;
-    const className = ['mdc-toolbar', 'app-search-toolbar', props.className];
+    const className = ['mdc-toolbar', 'app-toolbar', props.className];
     let searchFieldTpl = null;
 
     if (this.isActivated) {
       searchFieldTpl = (
-          <section className={'mdc-toolbar__section visible'}>
+          <section className='mdc-toolbar__section visible'>
             <TextField persistent={false}
                        autoFocus={true}
                        value={this.query}
