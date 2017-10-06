@@ -1,3 +1,3 @@
 export * from './search';
-export * from './pager';
+export * from './page';
 export * from './toolbar-action.builder';

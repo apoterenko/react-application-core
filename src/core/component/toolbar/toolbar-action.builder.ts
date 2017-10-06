@@ -1,4 +1,4 @@
-import { PAGER_FORWARD_ACTION_TYPE, PAGER_BACKWARD_ACTION_TYPE } from './pager';
+import { PAGER_FORWARD_ACTION_TYPE, PAGER_BACKWARD_ACTION_TYPE } from './page';
 
 export class ToolbarActionBuilder {
   public static buildPagerBackwardActionType(section: string): string {
