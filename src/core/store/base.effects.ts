@@ -1,6 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { provide, lazyInject, DI_TYPES } from '../di';
+import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { AnyT } from '../definition.interface';
 import { NotificationActionBuilder } from '../notification';
 import { ListActionBuilder } from '../component/list';
@@ -10,7 +10,7 @@ import { RouterActionBuilder } from '../router';
 import { PermissionActionBuilder } from '../permission';
 import { UserActionBuilder } from '../user';
 
-@provide(BaseEffects)
+@provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Api) protected api: TApi;
