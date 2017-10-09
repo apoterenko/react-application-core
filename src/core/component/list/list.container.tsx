@@ -34,6 +34,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
                  {...props.list}/>;
   }
 
+  // @deprecated
   public load(value: string): void {
     const props = this.props;
     if ((props.listOptions && props.listOptions.noQuery) || value) {

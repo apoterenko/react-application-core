@@ -8,15 +8,32 @@ import {
   LIST_LOCK_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   LIST_LOAD_ERROR_ACTION_TYPE,
+  LIST_NEXT_PAGE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
   LIST_ADD_ITEM_ACTION_TYPE,
+  LIST_PREVIOUS_PAGE_ACTION_TYPE,
+  LIST_DESTROY_ACTION_TYPE,
+  LIST_LOAD_DONE_ACTION_TYPE,
   LIST_INSERT_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
+
+  public static buildPreviousPageActionType(section: string): string {
+    return `${section}.${LIST_PREVIOUS_PAGE_ACTION_TYPE}`;
+  }
+
+  public static buildNextPageActionType(section: string): string {
+    return `${section}.${LIST_NEXT_PAGE_ACTION_TYPE}`;
+  }
+
   public static buildLoadActionType(section: string): string {
     return `${section}.${LIST_LOAD_ACTION_TYPE}`;
+  }
+
+  public static buildLoadDoneActionType(section: string): string {
+    return `${section}.${LIST_LOAD_DONE_ACTION_TYPE}`;
   }
 
   public static buildLoadErrorActionType(section: string): string {
@@ -47,6 +64,10 @@ export class ListActionBuilder {
     return `${section}.${LIST_LOCK_ACTION_TYPE}`;
   }
 
+  public static buildDestroyActionType(section: string): string {
+    return `${section}.${LIST_DESTROY_ACTION_TYPE}`;
+  }
+
   public static buildLockAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
@@ -61,5 +82,13 @@ export class ListActionBuilder {
 
   public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
+  }
+
+  public static buildNextPageAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildNextPageActionType(section), applySection(section, data));
+  }
+
+  public static buildPreviousPageAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildPreviousPageActionType(section), applySection(section, data));
   }
 }

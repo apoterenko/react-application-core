@@ -10,19 +10,34 @@ export interface IListOptions extends IBaseComponentInternalProps, IRenderable {
   noQuery?: boolean;
 }
 
+export interface IPageOptions {
+  page: number;
+  pageSize?: number;
+  totalCount: number;
+}
+
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IApplicationListAttributesWrapper {
   listOptions?: IListOptions;
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
+  // @deprecated
   load(query: string): void;
 }
 
-export interface IApplicationListAttributes extends ILockable {
+export interface IListEntity<TEntity extends IEntity> {
+  totalCount: number;
+  page: number;
+  data: TEntity[];
+}
+
+export interface IApplicationListAttributes extends ILockable, IPageOptions {
   progress: boolean;
   data: IEntity[];
   selected: IEntity;
+  error?: string;
+  dirty: boolean;
 }
 
 export interface IApplicationListAttributesWrapper {
@@ -45,8 +60,11 @@ export interface IApplicationListWrapperState {
 
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
   progress: false,
+  dirty: false,
   data: null,
   selected: null,
+  page: 1,
+  totalCount: 0,
 };
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';
@@ -59,3 +77,5 @@ export const LIST_ADD_ITEM_ACTION_TYPE = 'list.add.item';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
+export const LIST_NEXT_PAGE_ACTION_TYPE = 'list.next.page';
+export const LIST_PREVIOUS_PAGE_ACTION_TYPE = 'list.previous.page';
