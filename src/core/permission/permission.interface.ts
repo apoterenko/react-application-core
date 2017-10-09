@@ -18,6 +18,8 @@ export interface IApplicationPermissionsService<TApplicationAccessConfig> {
   isAuthorized(): boolean;
 }
 
+export type ApplicationPermissionsServiceT = IApplicationPermissionsService<IApplicationAccessConfig>;
+
 export const PERMISSION_DESTROY_ACTION_TYPE = 'permission.destroy';
 export const PERMISSION_AUTHORIZED_UPDATE_ACTION_TYPE = 'permission.authorized.update';
 export const PERMISSION_PERMISSIONS_UPDATE_ACTION_TYPE = 'permission.permissions.update';
