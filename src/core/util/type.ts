@@ -12,8 +12,16 @@ export function isNumber(value: AnyT): boolean {
   return typeof value === 'number';
 }
 
+export function isBoolean(value: AnyT): boolean {
+  return typeof value === 'boolean';
+}
+
+export function isString(value: AnyT): boolean {
+  return typeof value === 'string';
+}
+
 export const isPrimitive = (v: AnyT): boolean => {
-  return typeof v === 'number'
-      || typeof v === 'string'
-      || typeof v === 'boolean';
+  return isNumber(v)
+      || isString(v)
+      || isBoolean(v);
 };
