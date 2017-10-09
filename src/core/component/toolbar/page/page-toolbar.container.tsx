@@ -19,7 +19,8 @@ export class PageToolbarContainer extends BaseContainer<IPageToolbarContainerInt
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <PageToolbar onForward={this.onForward}
+        <PageToolbar {...props.list}
+                     onForward={this.onForward}
                      onBackward={this.onBackward}
                      contentDisplay={this.isContentVisible}>
           {props.children}

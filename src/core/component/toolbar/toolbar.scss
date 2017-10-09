@@ -4,18 +4,33 @@
     background-color: white;
 
     .mdc-toolbar__row {
+      white-space: nowrap;
       justify-content: flex-end;
       padding-left: 16px;
       padding-right: 24px;
       min-height: 96px;
 
-      .app-toolbar-west-column {
-        flex: 1;
+      * {
+        color: black;
+      }
+
+      button:active, button:focus {
+        outline: none;
+        border: none;
+      }
+
+      .mdc-toolbar__icon[disabled] {
+        opacity: .4;
+        cursor: default;
       }
     }
 
-    .mdc-toolbar__icon, .app-toolbar-info {
-      color: black;
+    .app-toolbar-west-column {
+      flex: 1;
+    }
+
+    .app-toolbar-info, .app-toolbar-page-info {
+      cursor: default;
     }
 
     .app-toolbar-info {

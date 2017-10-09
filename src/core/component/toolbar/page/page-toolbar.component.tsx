@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { FIRST_PAGE } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
-
 import { IPageToolbarInternalProps } from './page-toolbar.interface';
 
 export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternalProps, {}> {
@@ -24,15 +24,22 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
               <section className='app-toolbar-west-column'>
                 {props.children}
               </section>
-              <section className='app-toolbar-east-column'>
-                <div className='material-icons mdc-toolbar__icon'
-                     onClick={this.onLeft}>
+              <section>
+                <div className='app-toolbar-page-info'>
+                  {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
+                </div>
+              </section>
+              <section>
+                <button className='material-icons mdc-toolbar__icon'
+                        onClick={this.onLeft}
+                        disabled={this.isLeftBtnDisabled}>
                   keyboard_arrow_left
-                </div>
-                <div className='material-icons mdc-toolbar__icon'
-                     onClick={this.onRight}>
+                </button>
+                <button className='material-icons mdc-toolbar__icon'
+                        onClick={this.onRight}
+                        disabled={this.isRightBtnDisabled}>
                   keyboard_arrow_right
-                </div>
+                </button>
               </section>
             </div>
         );
@@ -42,6 +49,22 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
           {contentTpl}
         </div>
     );
+  }
+
+  private get fromNumber(): number {
+    return 1 + (this.props.page - FIRST_PAGE) * this.props.pageSize;
+  }
+
+  private get toNumber(): number {
+    return Math.min(this.props.page * this.props.pageSize, this.props.totalCount);
+  }
+
+  private get isLeftBtnDisabled(): boolean {
+    return this.props.page === FIRST_PAGE;
+  }
+
+  private get isRightBtnDisabled(): boolean {
+    return this.toNumber === this.props.totalCount;
   }
 
   private onLeft(): void {

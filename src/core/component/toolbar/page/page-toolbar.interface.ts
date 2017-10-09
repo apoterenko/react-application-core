@@ -2,9 +2,10 @@ import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
 } from '../../../component/base';
-import { IApplicationListAttributesWrapper } from '../../../component/list';
+import { IApplicationListAttributesWrapper, IPageOptions } from '../../../component/list';
 
-export interface IPageToolbarInternalProps extends IBaseComponentInternalProps {
+export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
+                                                   IPageOptions {
   contentDisplay?: boolean;
   onBackward?(): void;
   onForward?(): void;
