@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { uuid } from '../../util';
+import { uuid, scrollIntoView } from '../../util';
 import { IEntity } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
 
@@ -14,6 +14,18 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     super(props);
     this.onSelect = this.onSelect.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
+  }
+
+  public componentDidMount(): void {
+    super.componentDidMount();
+
+    const selected = this.props.selected;
+    if (selected) {
+      const listItem = this.refs[this.toItemId(selected)] as ListItem;
+      if (listItem) {
+        scrollIntoView(listItem.self, this.refs.container as HTMLElement);
+      }
+    }
   }
 
   public shouldComponentUpdate(nextProps: IListInternalProps, nextState: {}): boolean {
@@ -32,8 +44,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                       rawData={item}
                       renderer={props.renderer}
                       active={this.isSelected(item)}
-                      onClick={this.onSelect}>
-            </ListItem>
+                      onClick={this.onSelect}
+                      ref={this.toItemId(item)}/>
         ),
     );
 
@@ -56,7 +68,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
       );
     }
     return (
-        <div className='mdc-list-wrapper'>
+        <div ref='container'
+             className='mdc-list-wrapper'>
           <ul className={className.filter((cls) => !!cls).join(' ')}>
             {listItems.length ? listItems : this.t(props.emptyMessage || 'No data')}
           </ul>
@@ -88,5 +101,9 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     if (this.props.onSelect) {
       this.props.onSelect(entity);
     }
+  }
+
+  private toItemId(entity: IEntity): string {
+    return 'item-' + entity.id;
   }
 }

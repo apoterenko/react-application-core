@@ -19,7 +19,7 @@ export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps,
   }
 
   public componentDidMount(): void {
-    this.mdc = this.mdcFactory.attachTo(this.refs.self);
+    this.mdc = this.mdcFactory.attachTo(this.self);
     super.componentDidMount();
   }
 
@@ -30,5 +30,9 @@ export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps,
 
   protected get nativeMdcInstance(): TNativeMaterialComponent {
     return this.mdc;
+  }
+
+  public get self(): HTMLElement {
+    return this.refs.self as HTMLElement;
   }
 }
