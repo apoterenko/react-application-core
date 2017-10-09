@@ -83,6 +83,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   protected onBeforeLogout(): void {
     const isUserAuthorized = this.isAuthorized;
     this.appStore.dispatch({ type: PERMISSION_DESTROY_ACTION_TYPE });
+    this.appStore.dispatch({ type: TRANSPORT_DESTROY_ACTION_TYPE });
 
     if (isUserAuthorized) {
       this.afterDestroySession();
@@ -91,7 +92,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
 
   protected afterDestroySession(): void {
     this.appStore.dispatch({ type: USER_DESTROY_ACTION_TYPE });
-    this.appStore.dispatch({ type: TRANSPORT_DESTROY_ACTION_TYPE });
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
