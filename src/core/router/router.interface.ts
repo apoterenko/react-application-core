@@ -40,4 +40,3 @@ export const DYNAMIC_ROUTES = new Map<RouteContainerT, ConnectorConfigT>();
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
 export const ROUTER_BACK = 'back';
-
