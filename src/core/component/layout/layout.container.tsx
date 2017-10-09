@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { ApplicationError } from '../../error';
 import { Snackbar } from '../../component/snackbar';
 import { BaseContainer, IBaseContainerInternalProps } from '../../component/base';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
@@ -16,7 +17,11 @@ export class LayoutContainer<TInternalProps extends IBaseContainerInternalProps>
     const {notification} = this.props;
     const message = notification && (notification.error || notification.info);
     return (
-        <Snackbar message={message}
+        <Snackbar message={
+                    message instanceof ApplicationError
+                      ? (message as ApplicationError).message
+                      : message as string
+                  }
                   afterShow={this.clearAllNotifications}>
         </Snackbar>
     );
