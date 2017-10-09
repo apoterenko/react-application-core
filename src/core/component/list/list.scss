@@ -3,7 +3,10 @@
 .mdc-list-wrapper {
   height: 100%;
   overflow: auto;
-  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 
   .app-add-item-action {
     position: absolute;

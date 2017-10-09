@@ -37,21 +37,28 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         ),
     );
 
-    if (props.progress) {
+    if (props.progress || (
+            // If some transport error does cause a redirect to the login page,
+            // we have the state when error property does set at once after destroy
+            // of a list state. This is the best covert workaround to optimize
+            // unnecessary business logic code of app effects
+            props.dirty
+            && props.error
+        )) {
       return (
           <div className='mdc-list-wrapper'>
-            <div className='mdc-layout-grid'>
-              <div className='mdc-layout-grid__inner'>
-                {this.t(props.progressMessage || 'Loading...')}
-              </div>
-            </div>
+            {
+              props.progress
+                  ? this.t(props.progressMessage || 'Loading...')
+                  : this.t(props.errorMessage || 'Something went wrong. There was a problem loading your data')
+            }
           </div>
       );
     }
     return (
         <div className='mdc-list-wrapper'>
           <ul className={className.filter((cls) => !!cls).join(' ')}>
-            {listItems}
+            {listItems.length ? listItems : this.t(props.emptyMessage || 'No data')}
           </ul>
           {
             props.addAction
