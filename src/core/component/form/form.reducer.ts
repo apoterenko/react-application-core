@@ -56,7 +56,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
       return {
         ...state,
         progress: false,
-        error: convertError(action.error),
+        error: convertError(action.error).message,
       };
     case FormActionBuilder.buildSubmitFinishedActionType(section):
       return {
