@@ -3,6 +3,7 @@ import { IApplicationState } from '../../store';
 import { IApplicationPermissionsState } from '../../permission';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
 import { IEntity } from '../../definition.interface';
+import { IError } from '../../error/error.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
