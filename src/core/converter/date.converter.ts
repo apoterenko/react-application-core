@@ -11,6 +11,9 @@ import {
 @provideInSingleton(DateConverter)
 export class DateConverter implements IDateConverter {
 
+  private static DATE_TIME_PARSE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
+  private static DATE_TIME_ISO_FORMAT = 'YYYY-MM-DD[T]HH:mm:ss.SSSZ';
+
   private static LOCALE_SPECIFIC: IDateLocaleSpecificConstantsRepo = {
     en: {
       dateFormat: 'YYYY-MM-DD',
@@ -18,6 +21,19 @@ export class DateConverter implements IDateConverter {
       datePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
     },
   };
+
+  public formatDateTime(date: string | Date,
+                        format: string = DateConverter.DATE_TIME_ISO_FORMAT,
+                        parseFormat: string = DateConverter.DATE_TIME_PARSE_FORMAT): string {
+    if (!date) {
+      return '';
+    } else {
+      const momentDate = this.toMomentDate(date, parseFormat);
+      return momentDate.isValid()
+          ? momentDate.format(format)
+          : String(date);
+    }
+  }
 
   public formatDate(date: string | Date, format: string = this.localeSpecificConstants.dateFormat): string {
     if (!date) {
