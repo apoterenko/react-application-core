@@ -15,8 +15,12 @@ export class BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Api) protected api: TApi;
 
-  protected buildErrorNotificationAction(action: IEffectsAction): IEffectsAction {
-    return NotificationActionBuilder.buildErrorAction(action);
+  protected buildNotificationErrorAction(error: string): IEffectsAction {
+    return NotificationActionBuilder.buildErrorAction(error);
+  }
+
+  protected buildNotificationInfoAction(info: string): IEffectsAction {
+    return NotificationActionBuilder.buildInfoAction(info);
   }
 
   protected buildListLockAction(section: string): IEffectsAction {
@@ -29,6 +33,10 @@ export class BaseEffects<TApi> {
 
   protected buildFormSubmitDoneAction(section: string): IEffectsAction {
     return FormActionBuilder.buildSubmitDoneAction(section);
+  }
+
+  protected buildFormSubmitFinishedAction(section: string): IEffectsAction {
+    return FormActionBuilder.buildSubmitFinishedAction(section);
   }
 
   protected buildFilterLockAction(section: string): IEffectsAction {
