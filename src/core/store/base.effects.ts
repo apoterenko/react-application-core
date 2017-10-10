@@ -54,4 +54,18 @@ export class BaseEffects<TApi> {
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {
     return UserActionBuilder.buildUpdateAction(data);
   }
+
+  protected buildPaginatedListForwardActions(section: string): IEffectsAction[] {
+    return [
+      ListActionBuilder.buildNextPageAction(section),
+      ListActionBuilder.buildLoadAction(section)
+    ];
+  }
+
+  protected buildPaginatedListBackwardActions(section: string): IEffectsAction[] {
+    return [
+      ListActionBuilder.buildPreviousPageAction(section),
+      ListActionBuilder.buildLoadAction(section)
+    ];
+  }
 }
