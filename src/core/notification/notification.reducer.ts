@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 
 import { IKeyValue } from '../definition.interface';
-
+import { convertError } from '../error';
 import {
   NOTIFICATION_INFO_ACTION_TYPE,
   NOTIFICATION_ERROR_ACTION_TYPE,
@@ -19,7 +19,7 @@ export function notificationReducer(state: IApplicationNotificationState = INITI
       };
     case NOTIFICATION_ERROR_ACTION_TYPE:
       return {
-        error: action.data.error,
+        error: convertError(action.data.error).message,
       };
     case NOTIFICATION_CLEAR_ACTION_TYPE:
       return {

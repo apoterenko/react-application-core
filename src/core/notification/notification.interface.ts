@@ -1,7 +1,5 @@
-import { IError } from '../error';
-
 export interface IApplicationNotificationState {
-  error?: string|IError;
+  error?: string;
   info?: string;
 }
 
