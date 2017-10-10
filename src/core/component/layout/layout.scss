@@ -1,2 +1,15 @@
 @import './form/form-layout';
 @import './default/default-layout';
+
+.app-column-layout {
+  display: flex;
+  flex-direction: row;
+
+  * {
+    flex: 1;
+
+    &.separator {
+      flex: .1;
+    }
+  }
+}
