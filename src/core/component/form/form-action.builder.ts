@@ -1,6 +1,7 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { IKeyValue } from '../../definition.interface';
+import { applySection } from '../../util';
 
 import {
   FORM_SUBMIT_ACTION_TYPE,
@@ -51,8 +52,8 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildSubmitDoneActionType(section), data);
   }
 
-  public static buildSubmitFinishedAction(section: string, data?: IKeyValue): IEffectsAction {
-    return EffectsAction.create(this.buildSubmitFinishedActionType(section), data);
+  public static buildSubmitFinishedAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildSubmitFinishedActionType(section), applySection(section));
   }
 
   public static buildLockAction(section: string): IEffectsAction {
