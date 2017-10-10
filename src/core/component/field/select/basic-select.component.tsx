@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { BasicTextField } from '../../../component/field';
+import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
@@ -11,7 +11,6 @@ import {
   IKeyValue,
   KeyboardEventT,
 } from '../../../definition.interface';
-
 import {
   INativeMaterialSelectComponent,
   IBasicSelectInternalProps,
@@ -52,11 +51,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   public onKeyEnter(event: KeyboardEventT): void {
     super.onKeyEnter(event);
-
-    if (!this.menu.opened) {
-      this.stopEvent(event);
-      this.openMenu();
-    }
+    this.openMenu(event);
   }
 
   public onKeyEscape(event: KeyboardEventT): void {
@@ -70,10 +65,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   protected onClick(event: BasicEventT): void {
     super.onClick(event);
-
-    if (!this.menu.opened) {
-      this.openMenu();
-    }
+    this.openMenu(event);
   }
 
   protected getComponent(): JSX.Element {
@@ -129,6 +121,18 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         : (value === EMPTY_ID ? '' : value);
   }
 
+  protected getActions(): IBasicTextFieldAction[] {
+    return (this.props.actions || []).concat(
+        {
+          type: 'arrow_drop_down',
+          actionHandler: (event: BasicEventT) => {
+            this.input.focus();
+            this.openMenu(event);
+          },
+        }
+    );
+  }
+
   private getSelectedOption(value: AnyT): ISelectOption {
     return ramda.find((option) => option.value === value, this.options);
   }
@@ -137,14 +141,17 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.refs.menu as IMenu;
   }
 
-  private openMenu(): void {
-    if (this.isWaitingForOptions) {
+  private openMenu(event: BasicEventT): void {
+    if (this.isWaitingForOptions || this.menu.opened) {
       return;
     }
-    if (ramda.isNil(this.props.options)) {
-      if (this.props.onEmptyOptions) {
+    this.stopEvent(event);
+
+    const props = this.props;
+    if (ramda.isNil(props.options)) {
+      if (props.onEmptyOptions) {
         this.setState({ needOpenMenu: true });
-        this.props.onEmptyOptions();
+        props.onEmptyOptions();
       }
     } else {
       this.showMenu();
