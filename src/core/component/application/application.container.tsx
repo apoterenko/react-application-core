@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
-import { IApplicationPermissionsState, PERMISSION_DESTROY_ACTION_TYPE } from '../../permission';
+import { IApplicationPermissionsState } from '../../permission';
 import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT } from '../../router';
 import { IApplicationSettings } from '../../settings';
 import { APPLICATION_STATE_KEY, IStorage } from '../../storage';
@@ -16,8 +16,8 @@ import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IApplicationDictionariesState } from '../../dictionary';
 import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
 import { ConnectorConfigT } from '../../component/store';
-import { USER_DESTROY_ACTION_TYPE } from '../../user';
-import { INITIAL_APPLICATION_TRANSPORT_STATE, TRANSPORT_DESTROY_ACTION_TYPE } from '../../transport';
+import { LOGOUT_ACTION_TYPE } from '../../logout';
+import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 
 import { IApplicationContainerProps } from './application.interface';
 
@@ -81,17 +81,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   protected onBeforeLogout(): void {
-    const isUserAuthorized = this.isAuthorized;
-    this.appStore.dispatch({ type: PERMISSION_DESTROY_ACTION_TYPE });
-    this.appStore.dispatch({ type: TRANSPORT_DESTROY_ACTION_TYPE });
-
-    if (isUserAuthorized) {
-      this.afterDestroySession();
-    }
-  }
-
-  protected afterDestroySession(): void {
-    this.appStore.dispatch({ type: USER_DESTROY_ACTION_TYPE });
+    this.appStore.dispatch({ type: LOGOUT_ACTION_TYPE });
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
@@ -100,10 +90,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
 
     // You may clear the app state here before the serializing
     return state;
-  }
-
-  protected get isAuthorized(): boolean {
-    return this.permissionService.isAuthorized();
   }
 
   protected getRoutes(): JSX.Element[] {
