@@ -5,7 +5,7 @@ import { IFilterable } from '../../../definition.interface';
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
-  INativeMaterialTextfieldComponent,
+  INativeMaterialBasicTextFieldComponent,
 } from '../textfield';
 
 export interface IBasicSelectInternalState extends IBasicTextFieldInternalState {
@@ -25,7 +25,7 @@ export interface INativeMaterialSelectMenuComponent {
   open: boolean;
 }
 
-export interface INativeMaterialSelectComponent extends INativeMaterialTextfieldComponent {
+export interface INativeMaterialSelectComponent extends INativeMaterialBasicTextFieldComponent {
   selectedOptions: Element[];
   menu_: INativeMaterialSelectMenuComponent;
 }

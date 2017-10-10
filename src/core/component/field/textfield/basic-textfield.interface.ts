@@ -3,7 +3,7 @@ import { FunctionT } from '../../../util';
 import { INativeMaterialComponent } from '../../../component/material';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
-import { IDelayedChangesFieldPluginInternalProps } from '../field/plugin/delayed-changes-field.interface';
+import { IDelayedChangesFieldPluginInternalProps } from '../field/plugin';
 
 export interface IBasicTextFieldAction {
   type: string;
@@ -25,6 +25,6 @@ export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalP
                    ChangeEventT> {
 }
 
-export interface INativeMaterialTextfieldComponent extends INativeMaterialComponent {
+export interface INativeMaterialBasicTextFieldComponent extends INativeMaterialComponent {
   setValid(valid: boolean): void;
 }
