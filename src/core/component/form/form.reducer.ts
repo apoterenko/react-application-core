@@ -65,10 +65,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
       };
     case FormActionBuilder.buildSubmitDoneActionType(section):
       return {
-        ...state,
-        progress: false,
-        changes: {},
-        dirty: false,
+        ...INITIAL_APPLICATION_FORM_STATE,
       };
   }
   return state;
