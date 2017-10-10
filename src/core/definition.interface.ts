@@ -4,6 +4,9 @@ export type AnyT = any;
 export type EntityIdT = number | string;
 export const EMPTY_ID = -1;
 export const FIRST_PAGE = 1;
+export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_TIME_FROM = '00:00:00';
+export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 
 export interface IKeyValue {
