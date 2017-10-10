@@ -10,13 +10,14 @@ import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
   IBasicTextField,
-  INativeMaterialTextfieldComponent,
+  INativeMaterialBasicTextFieldComponent,
+  IBasicTextFieldAction,
 } from './basic-textfield.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
                             TInternalProps extends IBasicTextFieldInternalProps,
                             TInternalState extends IBasicTextFieldInternalState,
-                            TNativeMaterialComponent extends INativeMaterialTextfieldComponent>
+                            TNativeMaterialComponent extends INativeMaterialBasicTextFieldComponent>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState,
@@ -47,9 +48,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? this.context.muiTheme.prepareStyles
         : (styles) => styles;
 
-    const actionsTpl = props.actions
+    const actions = this.getActions();
+    const actionsTpl = actions
         ? (
-            props.actions.map((action) => (
+            actions.map((action) => (
                 <div key={uuid()}
                      className='material-icons mdc-toolbar__icon app-action'
                      onClick={action.actionHandler}>
@@ -99,6 +101,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       maxLength: props.max,
       required: props.required,
       autoFocus: props.autoFocus,
+      mask: props.mask,
       autoComplete: 'off',
       onFocus: this.onFocus,
       onBlur: this.onBlur,
@@ -127,6 +130,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getRawValueFromEvent(event: ChangeEventT): AnyT {
     return event.target.value;
+  }
+
+  protected getActions(): IBasicTextFieldAction[] {
+    return this.props.actions;
   }
 
   protected cleanNativeInputForSupportHTML5Validation(): void {
