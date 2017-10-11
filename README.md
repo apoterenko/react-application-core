@@ -95,47 +95,53 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 #### Effects
 
 ```typescript
-import { IEffectsAction, EffectsAction, EffectsService } from 'redux-effects-promise';
+import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import {
-  provide,
+  provideInSingleton,
+  ListActionBuilder,
+  FilterActionBuilder,
   BaseEffects,
-  FormActionBuilder,
+  NEW_OPTION,
 } from 'react-application-core';
 
-import { IApi, IUser } from '../../api';
+import { IApi, IRole } from '../../api/api.interface';
 import { ROUTER_PATHS } from '../../app.routers';
-import { TOTP_SECTION } from './totp.interface';
-import { PermissionsT } from '../../permission';
+import { ROLES_SECTION } from './roles.interface';
 
-@provide(TotpEffects)
-export class TotpEffects extends BaseEffects<IApi> {
+@provideInSingleton(RolesEffects)
+export class RolesEffects extends BaseEffects<IApi> {
 
-  private static TOTP_AUTH_NONCE_DONE_ACTION_TYPE = `${TOTP_SECTION}.auth.nonce.done`;
-
-  @EffectsService.effects(FormActionBuilder.buildSubmitActionType(TOTP_SECTION))
-  public onAuthNonce(action: IEffectsAction): Promise<IEffectsAction[]> {
-    return this.api.authNonce(action.data)
-        .then((result) => ([
-          this.buildPermissionAuthorizedUpdateAction(),
-          EffectsAction.create(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
-        ]));
+  @EffectsService.effects(ListActionBuilder.buildLoadActionType(ROLES_SECTION))
+  public onRolesSearch(action: IEffectsAction): Promise<IRole[]> {
+    return this.api.searchRoles(action.data);
   }
 
-  @EffectsService.effects(FormActionBuilder.buildSubmitErrorActionType(TOTP_SECTION))
-  public onAuthNonceError(action: IEffectsAction): IEffectsAction {
-    return this.buildErrorNotificationAction(action);
+  @EffectsService.effects(ListActionBuilder.buildLoadErrorActionType(ROLES_SECTION))
+  public onRolesSearchError(action: IEffectsAction): IEffectsAction {
+    return this.buildNotificationErrorAction(action.error);
   }
 
-  @EffectsService.effects(TotpEffects.TOTP_AUTH_NONCE_DONE_ACTION_TYPE)
-  public onAuthNonceDone(): Promise<IEffectsAction[]> {
-    return Promise.all<IUser | PermissionsT>([this.api.accountGet(), this.api.accountRights()])
-        .then((data: Array<IUser | PermissionsT>) => ([
-          this.buildFormSubmitDoneAction(TOTP_SECTION),
-          this.buildUserUpdateAction(data[0] as IUser),
-          this.buildPermissionPermissionsUpdateAction(data[1] as PermissionsT),
-          this.buildRouterNavigateAction(ROUTER_PATHS.ROLES)
-        ]));
+  @EffectsService.effects(FilterActionBuilder.buildApplyActionType(ROLES_SECTION))
+  public onRolesFilterApply(): IEffectsAction {
+    return this.buildListLoadAction(ROLES_SECTION);
+  }
+
+  @EffectsService.effects(ListActionBuilder.buildSelectActionType(ROLES_SECTION))
+  public onRolesEntitySelect(action: IEffectsAction): IEffectsAction[] {
+    return this.buildOpenListFilterActions(
+        ROLES_SECTION,
+        this.buildRoleRoutePath(action.data.selected.id)
+    );
+  }
+
+  @EffectsService.effects(ListActionBuilder.buildAddItemActionType(ROLES_SECTION))
+  public onRolesEntityCreate(): IEffectsAction[] {
+    return this.buildOpenListFilterActions(ROLES_SECTION, this.buildRoleRoutePath(NEW_OPTION));
+  }
+
+  private buildRoleRoutePath(id: string|number): string {
+    return ROUTER_PATHS.ROLE.replace(':id', String(id));
   }
 }
 ```
