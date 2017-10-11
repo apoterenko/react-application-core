@@ -37,6 +37,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;
+    const containerClassName = 'app-list-wrapper app-center-layout app-full-layout';
     const className = ['mdc-list', props.className];
     const listItems = (props.data || []).map(
         (item) => (
@@ -49,29 +50,36 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         ),
     );
 
-    if (props.progress || (
-            // If some transport error does cause a redirect to the login page,
-            // we have the state when error property does set at once after destroy
-            // of a list state. This is the best covert workaround to optimize
-            // unnecessary business logic code of app effects
-            props.dirty
-            && props.error
-        )) {
+    const isEmptyData = !props.data || (Array.isArray(props.data) && !props.data.length);
+
+    // If some transport error does cause a redirect to the login page,
+    // we have the state when error property does set at once after destroy
+    // of a list state. This is the best covert workaround to optimize
+    // unnecessary business logic code of app effects
+    const error = props.dirty ? props.error : null;
+
+    if (props.progress
+        || error
+        || isEmptyData) {
       return (
-          <div className='mdc-list-wrapper'>
+          <div className={containerClassName}>
             {
               props.progress
                   ? this.t(props.progressMessage || 'Loading...')
-                  : this.t(props.errorMessage || 'Something went wrong. There was a problem loading your data')
+                  : (
+                      error
+                          ? this.t(props.errorMessage || 'Something went wrong. There was a problem loading your data')
+                          : this.t(props.emptyMessage || 'No data')
+                  )
             }
           </div>
       );
     }
     return (
         <div ref='container'
-             className='mdc-list-wrapper'>
+             className={containerClassName}>
           <ul className={className.filter((cls) => !!cls).join(' ')}>
-            {listItems.length ? listItems : this.t(props.emptyMessage || 'No data')}
+            {listItems}
           </ul>
           {
             props.addAction
