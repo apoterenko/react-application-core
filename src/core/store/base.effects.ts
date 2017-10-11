@@ -27,6 +27,10 @@ export class BaseEffects<TApi> {
     return ListActionBuilder.buildLockAction(section);
   }
 
+  protected buildListLoadAction(section: string): IEffectsAction {
+    return ListActionBuilder.buildLoadAction(section);
+  }
+
   protected buildFormLockAction(section: string): IEffectsAction {
     return FormActionBuilder.buildLockAction(section);
   }
