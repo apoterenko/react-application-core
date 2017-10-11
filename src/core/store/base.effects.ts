@@ -80,4 +80,12 @@ export class BaseEffects<TApi> {
       this.buildListLoadAction(section)
     ];
   }
+
+  protected buildOpenListFilterActions(section: string, filterPath: string): IEffectsAction[] {
+    return [
+      this.buildListLockAction(section),    // Prevent the list auto destroying
+      this.buildFilterLockAction(section),  // Prevent the list filter auto destroying
+      this.buildRouterNavigateAction(filterPath)
+    ];
+  }
 }
