@@ -1,12 +1,7 @@
 @import './navigation/navigation-list';
 
-.mdc-list-wrapper {
-  height: 100%;
+.app-list-wrapper {
   overflow: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
 
   .app-add-item-action {
     position: absolute;

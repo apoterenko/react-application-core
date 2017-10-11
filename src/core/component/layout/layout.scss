@@ -13,3 +13,14 @@
     }
   }
 }
+
+.app-center-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.app-full-layout {
+  flex: 1;
+}
