@@ -41,11 +41,10 @@ import {
   connector,
 } from 'react-application-core';
 
-import { IRole } from '../../api';
 import { ROUTER_PATHS } from '../../app.routers';
 import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
 import { IAppState } from '../../app.interface';
-import { AccessConfigT } from '../permission.interface';
+import { AccessConfigT, IRole } from '../permission.interface';
 import { AppPermissions } from '../../app.permissions';
 
 @connector<IAppState, AccessConfigT>({
@@ -105,16 +104,19 @@ import {
   NEW_OPTION,
 } from 'react-application-core';
 
-import { IApi, IRole } from '../../api/api.interface';
+import { IApi } from '../../api/api.interface';
 import { ROUTER_PATHS } from '../../app.routers';
 import { ROLES_SECTION } from './roles.interface';
+import { IRole } from '../permission.interface';
+import { IAppState } from '../../app.interface';
 
 @provideInSingleton(RolesEffects)
 export class RolesEffects extends BaseEffects<IApi> {
 
   @EffectsService.effects(ListActionBuilder.buildLoadActionType(ROLES_SECTION))
-  public onRolesSearch(action: IEffectsAction): Promise<IRole[]> {
-    return this.api.searchRoles(action.data);
+  public onRolesSearch(action: IEffectsAction, state: IAppState): Promise<IRole[]> {
+    const query = state.roles.filter.query;
+    return this.api.searchRoles(query);
   }
 
   @EffectsService.effects(ListActionBuilder.buildLoadErrorActionType(ROLES_SECTION))
