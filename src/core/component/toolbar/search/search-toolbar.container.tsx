@@ -5,7 +5,8 @@ import { SearchToolbar } from '../../../component/toolbar';
 import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_QUERY_ACTION_TYPE,
-  FILTER_SECTION,
+  FILTER_APPLY_ACTION_TYPE,
+  FILTER_OPEN_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
 } from '../../../component/filter';
 
@@ -40,13 +41,15 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
   }
 
   private onSearch(value: string): void {
+    this.dispatch(FILTER_APPLY_ACTION_TYPE, { value });
+
     if (this.props.onSearch) {
       this.props.onSearch(value);
     }
   }
 
   private onFilterAction(): void {
-    this.dispatch(FILTER_SECTION);
+    this.dispatch(FILTER_OPEN_ACTION_TYPE);
   }
 
   private onFilter(): void {

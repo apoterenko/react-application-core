@@ -1,13 +1,18 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import {
-  FILTER_SECTION,
+  FILTER_OPEN_ACTION_TYPE,
   FILTER_LOCK_ACTION_TYPE,
+  FILTER_APPLY_ACTION_TYPE,
 } from './filter.interface';
 
 export class FilterActionBuilder {
-  public static buildSectionActionType(section: string): string {
-    return `${section}.${FILTER_SECTION}`;
+  public static buildApplyActionType(section: string): string {
+    return `${section}.${FILTER_APPLY_ACTION_TYPE}`;
+  }
+
+  public static buildOpenActionType(section: string): string {
+    return `${section}.${FILTER_OPEN_ACTION_TYPE}`;
   }
 
   public static buildLockActionType(section: string): string {
