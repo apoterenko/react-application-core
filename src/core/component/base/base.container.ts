@@ -48,8 +48,4 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
       data: { section: dictionary },
     });
   }
-
-  protected get isRouteParamIdEqualNewOption(): boolean {
-    return this.props.routeParams.id === NEW_OPTION;
-  }
 }
