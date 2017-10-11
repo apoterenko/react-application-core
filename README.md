@@ -36,7 +36,6 @@ import {
   DefaultLayoutContainer,
   SearchToolbarContainer,
   ListContainer,
-  IListContainer,
   ContainerVisibilityTypeEnum,
   IBaseContainerInternalProps,
   connector,
@@ -69,27 +68,20 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
 
   constructor(props: IRolesContainerInternalProps) {
     super(props);
-    this.onSearch = this.onSearch.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
     return (
         <DefaultLayoutContainer {...props}>
-          <SearchToolbarContainer onSearch={this.onSearch}
-                                  {...props}/>
+          <SearchToolbarContainer {...props}/>
           <ListContainer listOptions={{
                             renderer: this.listRenderer,
                             addAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
                          }}
-                         ref='list'
                          {...props}/>
         </DefaultLayoutContainer>
     );
-  }
-
-  private onSearch(value: string): void {
-    (this.refs.list as IListContainer).load(value);
   }
 
   private listRenderer = (item: IRole) => (
