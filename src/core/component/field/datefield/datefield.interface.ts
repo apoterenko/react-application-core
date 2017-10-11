@@ -10,6 +10,7 @@ import {
 export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
   container?: 'dialog' | 'inline';
   mode?: 'portrait' | 'landscape';
+  format?: string;
   cancelLabel?: string;
   autoOk?: boolean;
   dialogContainerStyle?: CSSProperties;

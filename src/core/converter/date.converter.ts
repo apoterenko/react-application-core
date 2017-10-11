@@ -1,54 +1,33 @@
 import * as moment from 'moment';
 
-import { provideInSingleton } from '../di';
-
-import {
-  IDateConverter,
-  IDateLocaleSpecificConstants,
-  IDateLocaleSpecificConstantsRepo,
-} from './converter.interface';
+import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
+import { IApplicationDateTimeSettings, IApplicationSettings } from '../settings';
+import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
 
 @provideInSingleton(DateConverter)
 export class DateConverter implements IDateConverter {
 
-  private static DATE_TIME_PARSE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
-  private static DATE_TIME_ISO_FORMAT = 'YYYY-MM-DD[T]HH:mm:ss.SSSZ';
+  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
-  private static LOCALE_SPECIFIC: IDateLocaleSpecificConstantsRepo = {
-    en: {
-      dateFormat: 'YYYY-MM-DD',
-      dateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
-      datePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
-    },
-  };
+  public join(dateAsString: string, timeAsString: string): string {
+    return [dateAsString, timeAsString].join(' ');
+  }
 
-  public formatDateTime(date: string | Date,
-                        format: string = DateConverter.DATE_TIME_ISO_FORMAT,
-                        parseFormat: string = DateConverter.DATE_TIME_PARSE_FORMAT): string {
+  public formatDateTime(date: DateTimeLikeTypeT,
+                        outputFormat: string = this.outputFormat,
+                        inputFormat: string = this.inputFormat): string {
     if (!date) {
       return '';
     } else {
-      const momentDate = this.toMomentDate(date, parseFormat);
+      const momentDate = this.toMomentDate(date, inputFormat);
       return momentDate.isValid()
-          ? momentDate.format(format)
+          ? momentDate.format(outputFormat)
           : String(date);
     }
   }
 
-  public formatDate(date: string | Date, format: string = this.localeSpecificConstants.dateFormat): string {
-    if (!date) {
-      return '';
-    } else {
-      const momentDate = this.toMomentDate(date, format);
-      return momentDate.isValid()
-          ? momentDate.format(format)
-          : String(date);
-    }
-  }
-
-  public tryConvertToDate(date: string | Date,
-                          format: string = this.localeSpecificConstants.dateFormat): string | Date {
-    const momentDate = this.toMomentDate(date, format);
+  public convertToDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT {
+    const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
   }
 
@@ -65,18 +44,25 @@ export class DateConverter implements IDateConverter {
     return this.getCurrentMomentDate(date).toDate();
   }
 
-  private toMomentDate(date: string | Date, format: string): moment.Moment {
+  private toMomentDate(date: string | Date, inputFormat: string): moment.Moment {
     return moment.isDate(date)
         ? moment(date)
-        : moment(date, format, true);
+        : moment(date, inputFormat, true);
   }
 
   private getCurrentMomentDate(date?: Date): moment.Moment {
     return moment(date).set('h', 0).set('m', 0).set('s', 0);
   }
 
-  public get localeSpecificConstants(): IDateLocaleSpecificConstants {
-    // TODO current env locale
-    return DateConverter.LOCALE_SPECIFIC.en;
+  private get outputFormat(): string {
+    return this.dateTimeSettings.dateTimeFormat;
+  }
+
+  private get inputFormat(): string {
+    return this.join(this.dateTimeSettings.uiDateFormat, this.dateTimeSettings.uiTimeFormat);
+  }
+
+  private get dateTimeSettings(): IApplicationDateTimeSettings {
+    return this.applicationSettings.dateTimeSettings || {};
   }
 }

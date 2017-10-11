@@ -2,7 +2,8 @@ import {
   BasicTextField,
   INativeMaterialBasicTextFieldComponent,
 } from '../textfield';
-
+import { IKeyValue } from '../../../definition.interface';
+import { IApplicationDateTimeSettings } from '../../../settings';
 import {
   ITimeField,
   ITimeFieldInternalState,
@@ -15,7 +16,24 @@ export class TimeField extends BasicTextField<TimeField,
                                               INativeMaterialBasicTextFieldComponent>
     implements ITimeField {
 
-  public static defaultProps: ITimeFieldInternalProps = {
-    mask: [/\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/],
-  };
+  protected getComponentProps(): IKeyValue {
+    return {
+      ...super.getComponentProps(),
+
+      mask: this.fieldMask,
+      pattern: this.fieldPattern,
+    };
+  }
+
+  private get fieldMask(): Array<string|RegExp> {
+    return this.props.mask || this.dateTimeSettings.uiTimeMask;
+  }
+
+  private get fieldPattern(): string {
+    return this.props.pattern || this.dateTimeSettings.uiTimePattern;
+  }
+
+  private get dateTimeSettings(): IApplicationDateTimeSettings {
+    return this.applicationSettings.dateTimeSettings || {};
+  }
 }

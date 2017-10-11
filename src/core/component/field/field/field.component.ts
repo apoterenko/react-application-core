@@ -1,6 +1,8 @@
 import * as ramda from 'ramda';
 
+import { lazyInject, DI_TYPES } from '../../../di';
 import { isUndef } from '../../../util';
+import { IApplicationSettings } from '../../../settings';
 import {
   INativeMaterialComponent,
   MaterialComponent,
@@ -25,6 +27,8 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
                               TInternalState,
                               TNativeMaterialComponent>
     implements IField<TInternalProps, TInternalState, TValueEvent> {
+
+  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
   constructor(props: TInternalProps,
               mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {

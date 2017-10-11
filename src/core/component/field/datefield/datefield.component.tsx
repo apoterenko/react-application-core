@@ -5,16 +5,15 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef } from '../../../util';
-import { AnyT, IKeyValue, ChangeEventT } from '../../../definition.interface';
-import { BasicTextField } from '../../../component/field/textfield';
-import { IDateConverter } from '../../../converter';
-
+import { AnyT, IKeyValue, ChangeEventT, KeyboardEventT, FocusEventT } from '../../../definition.interface';
+import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
+import { IApplicationDateTimeSettings } from '../../../settings';
 import {
   IDateFieldInternalProps,
   IDateFieldInternalState,
   IMaterialDateDialogComponent,
 } from './datefield.interface';
-import { INativeMaterialBasicTextFieldComponent } from '../textfield/basic-textfield.interface';
+import { INativeMaterialBasicTextFieldComponent, BasicTextField } from '../textfield';
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
@@ -35,15 +34,15 @@ export class DateField extends BasicTextField<DateField,
     muiTheme: PropTypes.object.isRequired,
   };
 
-  private preventShowDialog: boolean;
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
+  private preventShowDialog: boolean;
 
   constructor(props: IDateFieldInternalProps) {
     super(props);
     this.onAccept = this.onAccept.bind(this);
   }
 
-  public onFocus(event: React.FocusEvent<any>): void {
+  public onFocus(event: FocusEventT): void {
     super.onFocus(event);
 
     if (isUndef(this.preventShowDialog) || this.preventShowDialog === true) {
@@ -52,7 +51,7 @@ export class DateField extends BasicTextField<DateField,
     }
   }
 
-  public onKeyEnter(event: React.KeyboardEvent<AnyT>): void {
+  public onKeyEnter(event: KeyboardEventT): void {
     super.onKeyEnter(event);
 
     if (this.dialogWindow.state.open) {
@@ -60,16 +59,16 @@ export class DateField extends BasicTextField<DateField,
     }
   }
 
-  protected getRawValueFromEvent(event: ChangeEventT): Date {
-    return this.dateConverter.tryConvertToDate(event.target.value);
+  protected getRawValueFromEvent(event: ChangeEventT): DateTimeLikeTypeT {
+    return this.convertToDate(event.target.value);
   }
 
-  protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
-    // Date object must be able to be serialized as a string
-    return this.dateConverter.formatDate(value);
+  protected prepareStateValueBeforeSerialization(value: DateTimeLikeTypeT): string {
+    // Date value must be able to be serialized as a string
+    return this.formatDate(value);
   }
 
-  protected propsChangeForm(rawValue: AnyT): void {
+  protected propsChangeForm(rawValue: DateTimeLikeTypeT): void {
     super.propsChangeForm(
         this.prepareStateValueBeforeSerialization(rawValue),
     );
@@ -103,17 +102,16 @@ export class DateField extends BasicTextField<DateField,
   }
 
   protected getComponentProps(): IKeyValue {
-    const constants = this.dateConverter.localeSpecificConstants;
     return {
       ...super.getComponentProps(),
 
-      mask: constants.dateMask,
-      pattern: constants.datePattern,
+      mask: this.fieldMask,
+      pattern: this.fieldPattern,
 
-      // We should bind a string value to the input field
-      // because a state can hold the raw values
+      // We must bind a string value to the input field
+      // because a state must hold the raw values
       // although at this case the state hold the string value
-      value: this.dateConverter.formatDate(this.value),
+      value: this.formatDate(this.value),
     };
   }
 
@@ -130,7 +128,7 @@ export class DateField extends BasicTextField<DateField,
     if (ramda.isNil(value)) {
       return defaultDate;
     }
-    const dateValue = this.dateConverter.tryConvertToDate(value);
+    const dateValue = this.convertToDate(value);
     return this.dateConverter.isDate(dateValue)
         ? dateValue as Date
         : defaultDate;
@@ -138,5 +136,29 @@ export class DateField extends BasicTextField<DateField,
 
   private get dialogWindow(): IMaterialDateDialogComponent {
     return this.refs.dialogWindow as IMaterialDateDialogComponent;
+  }
+
+  private get fieldMask(): Array<string|RegExp> {
+    return this.props.mask || this.dateTimeSettings.uiDateMask;
+  }
+
+  private get fieldFormat(): string {
+    return this.props.format || this.dateTimeSettings.uiDateFormat;
+  }
+
+  private get fieldPattern(): string {
+    return this.props.pattern || this.dateTimeSettings.uiDatePattern;
+  }
+
+  private get dateTimeSettings(): IApplicationDateTimeSettings {
+    return this.applicationSettings.dateTimeSettings || {};
+  }
+
+  private formatDate(value: DateTimeLikeTypeT): string {
+    return this.dateConverter.formatDateTime(value, this.fieldFormat, this.fieldFormat);
+  }
+
+  private convertToDate(value: string): DateTimeLikeTypeT {
+    return this.dateConverter.convertToDate(value, this.fieldFormat);
   }
 }

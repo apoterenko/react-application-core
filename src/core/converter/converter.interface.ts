@@ -1,25 +1,14 @@
-import { AnyT } from '../definition.interface';
+export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
-  localeSpecificConstants: IDateLocaleSpecificConstants;
-  formatDateTime(date: string | Date, format?: string, parseFormat?: string): string;
-  formatDate(date: AnyT, format?: string): string;
-  tryConvertToDate(date: AnyT, format?: string): AnyT;
+  formatDateTime(date: DateTimeLikeTypeT, outputFormat?: string, inputFormat?: string): string;
+  convertToDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT;
   getDateRangeFromDate(date: Date): Date[];
   getCurrentDate(date?: Date): Date;
-  isDate(date: AnyT): boolean;
+  isDate(date: DateTimeLikeTypeT): boolean;
+  join(dateAsString: string, timeAsString: string): string;
 }
 
 export interface INumberConverter {
   format(value: number | string): string;
-}
-
-export interface IDateLocaleSpecificConstants {
-  datePattern: string;
-  dateFormat: string;
-  dateMask: Array<string | RegExp>;
-}
-
-export interface IDateLocaleSpecificConstantsRepo {
-  [locale: string]: IDateLocaleSpecificConstants;
 }
