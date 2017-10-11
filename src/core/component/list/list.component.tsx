@@ -37,7 +37,6 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;
-    const containerClassName = 'app-list-wrapper app-center-layout app-full-layout';
     const className = ['mdc-list', props.className];
     const listItems = (props.data || []).map(
         (item) => (
@@ -62,7 +61,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         || error
         || isEmptyData) {
       return (
-          <div className={containerClassName}>
+          <div className='app-list-wrapper app-center-layout app-full-layout'>
             {
               props.progress
                   ? this.t(props.progressMessage || 'Loading...')
@@ -77,7 +76,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     }
     return (
         <div ref='container'
-             className={containerClassName}>
+             className='app-list-wrapper'>
           <ul className={className.filter((cls) => !!cls).join(' ')}>
             {listItems}
           </ul>
