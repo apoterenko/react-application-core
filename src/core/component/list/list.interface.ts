@@ -7,7 +7,6 @@ import { IEntity, IRenderable, ILockable } from '../../definition.interface';
 
 export interface IListOptions extends IBaseComponentInternalProps, IRenderable {
   addAction?: boolean;
-  noQuery?: boolean;
 }
 
 export interface IPageOptions {
@@ -22,8 +21,6 @@ export interface IListContainerInternalProps extends IBaseContainerInternalProps
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
-  // @deprecated
-  load(query: string): void;
 }
 
 export interface IListEntity<TEntity extends IEntity> {

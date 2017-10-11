@@ -6,7 +6,6 @@ import { IEntity } from '../../definition.interface';
 import { List } from './list.component';
 import {
   LIST_DESTROY_ACTION_TYPE,
-  LIST_LOAD_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   LIST_ADD_ITEM_ACTION_TYPE,
   IListContainer,
@@ -32,14 +31,6 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
                  onAddItem={this.onAddItem}
                  {...props.listOptions}
                  {...props.list}/>;
-  }
-
-  // @deprecated
-  public load(value: string): void {
-    const props = this.props;
-    if ((props.listOptions && props.listOptions.noQuery) || value) {
-      this.dispatch(LIST_LOAD_ACTION_TYPE, { query: value });
-    }
   }
 
   private onSelect(entity: IEntity): void {
