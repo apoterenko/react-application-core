@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.82",
+  "version": "0.0.83",
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
@@ -63,7 +63,7 @@
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-effects-promise": "^0.0.14",
+    "redux-effects-promise": "^0.0.15",
     "reflect-metadata": "^0.1.10",
     "rimraf": "~2.6.1",
     "sass-loader": "^6.0.3",
