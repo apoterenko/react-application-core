@@ -63,7 +63,7 @@
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-effects-promise": "^0.0.13",
+    "redux-effects-promise": "^0.0.14",
     "reflect-metadata": "^0.1.10",
     "rimraf": "~2.6.1",
     "sass-loader": "^6.0.3",
