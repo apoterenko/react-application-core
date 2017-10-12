@@ -1,3 +1,5 @@
+import { BASE_PATH } from '../env';
+
 export interface IApplicationDateTimeSettings {
   dateTimeFormat?: string;   // Client-server communication format
   uiDateFormat?: string;     // UI format
@@ -17,7 +19,7 @@ export interface IApplicationSettings {
 
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
-  apiUrl: '/api',
+  apiUrl: (BASE_PATH + '/api/').replace(/(\/\/)+/, '/'),
   companyName: 'Test company',
   dateTimeSettings: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ss.SSSZ',
