@@ -30,7 +30,7 @@ export function bootstrap(
   const Component = applicationContainer as AnyT;
   const ready = () => {
     render(
-        <Component basename={basePath || BASE_PATH}>
+        <Component basename={basePath}>
         </Component>,
         document.getElementById(rootId),
     );

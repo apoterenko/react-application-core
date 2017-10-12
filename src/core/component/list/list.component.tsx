@@ -38,16 +38,6 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
   public render(): JSX.Element {
     const props = this.props;
     const className = ['mdc-list', props.className];
-    const listItems = (props.data || []).map(
-        (item) => (
-            <ListItem key={uuid()}
-                      rawData={item}
-                      renderer={props.renderer}
-                      active={this.isSelected(item)}
-                      onClick={this.onSelect}
-                      ref={this.toItemId(item)}/>
-        ),
-    );
 
     const isEmptyData = !props.data || (Array.isArray(props.data) && !props.data.length);
 
@@ -74,6 +64,17 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
           </div>
       );
     }
+    const listItems = props.data.map(
+        (item) => (
+            <ListItem key={uuid()}
+                      rawData={item}
+                      renderer={props.renderer}
+                      active={this.isSelected(item)}
+                      onClick={this.onSelect}
+                      ref={this.toItemId(item)}/>
+        ),
+    );
+
     return (
         <div ref='container'
              className='app-list-wrapper'>
