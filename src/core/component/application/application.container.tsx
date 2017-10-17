@@ -1,34 +1,43 @@
 import * as React from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import { clone, uuid } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { IApplicationPermissionsState } from '../../permission';
-import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT } from '../../router';
+import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT, IRoutes } from '../../router';
 import { IApplicationSettings } from '../../settings';
 import { APPLICATION_STATE_KEY, IStorage } from '../../storage';
 import { IApplicationState } from '../../store';
-import { clone, uuid } from '../../util';
 import { BaseContainer } from '../../component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IApplicationDictionariesState } from '../../dictionary';
 import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
 import { ConnectorConfigT } from '../../component/store';
-import { LOGOUT_ACTION_TYPE } from '../../logout';
+import { Info } from '../../component/info';
+import {
+  APPLICATION_INIT_ACTION_TYPE,
+  APPLICATION_LOGOUT_ACTION_TYPE,
+  INITIAL_APPLICATION_READY_STATE,
+  APPLICATION_SECTION
+} from '../../application';
+import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
-
 import { IApplicationContainerProps } from './application.interface';
 
 export class ApplicationContainer<TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-                                  TInternalProps extends IApplicationContainerProps,
                                   TDictionariesState extends IApplicationDictionariesState,
                                   TPermissionsState extends IApplicationPermissionsState<TPermissions>,
                                   TPermissions,
                                   TPermissionObject>
-    extends BaseContainer<TInternalProps, {}> {
+    extends BaseContainer<IApplicationContainerProps, {}> {
 
+  public static defaultProps: IApplicationContainerProps = {
+    basename: BASE_PATH,
+  };
+
+  @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
   @lazyInject(DI_TYPES.Storage) private storage: IStorage;
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
@@ -37,26 +46,29 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   private extraRoutes: Map<RouteContainerT, ConnectorConfigT>
       = new Map<RouteContainerT, ConnectorConfigT>();
 
-  constructor(props: TInternalProps) {
-    super(props, 'application');
+  constructor(props: IApplicationContainerProps) {
+    super(props, APPLICATION_SECTION);
     this.onUnload = this.onUnload.bind(this);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
+
+    this.dispatch(APPLICATION_INIT_ACTION_TYPE);
   }
 
   public render(): JSX.Element {
     return (
         <MuiThemeProvider>
-          <Provider store={this.appStore}>
-            <BrowserRouter ref='router'
-                           basename={this.props.basename}
-            >
-              <Switch>
-                {...this.getRoutes()}
-              </Switch>
-            </BrowserRouter>
-          </Provider>
+          <BrowserRouter ref='router'
+                         basename={this.props.basename}>
+            <Switch>
+              {...this.getRoutes()}
+            </Switch>
+          </BrowserRouter>
         </MuiThemeProvider>
     );
+  }
+
+  public componentDidMount(): void {
+    appContainer.bind<IRouter>(DI_TYPES.Router).toConstantValue(this.dynamicRouter);
   }
 
   public componentWillMount(): void {
@@ -67,13 +79,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     this.eventManager.remove(window, 'unload', this.onUnload);
   }
 
-  public componentDidMount(): void {
-    appContainer.bind<IRouter>(DI_TYPES.Router).toConstantValue(
-        // We cannot to get access to history instance other way. This instance is private
-        Reflect.get(this.refs.router, 'history'),
-    );
-  }
-
   protected onUnload(): void {
     if (this.applicationSettings.usePersistence) {
       this.saveState();
@@ -81,20 +86,26 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   protected onBeforeLogout(): void {
-    this.appStore.dispatch({ type: LOGOUT_ACTION_TYPE });
+    this.dispatch(APPLICATION_LOGOUT_ACTION_TYPE);
   }
 
   protected clearStateBeforeSerialization(state: TAppState): TAppState {
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
-    state.transport.queue = INITIAL_APPLICATION_TRANSPORT_STATE.queue;
+    state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
+    state.applicationReady = INITIAL_APPLICATION_READY_STATE;
 
     // You may clear the app state here before the serializing
     return state;
   }
 
   protected getRoutes(): JSX.Element[] {
-    return this.buildRoutes(this.dynamicRoutes)
-        .concat(this.buildRoutes(this.extraRoutes));
+    const props = this.props;
+    return props.ready
+        ? this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes))
+        : [
+          <Info key={uuid()}
+                emptyMessage={props.emptyMessage || 'Please wait...'}/>
+        ];
   }
 
   protected lookupConnectComponentByRoutePath(path: string): RouteContainerT {
@@ -136,13 +147,14 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   private saveState(): void {
-    this.storage.set(APPLICATION_STATE_KEY,
-        this.clearStateBeforeSerialization(clone<TAppState>(this.appState)),
+    this.storage.set(
+        APPLICATION_STATE_KEY,
+        this.clearStateBeforeSerialization(clone<TAppState>(this.appStore.getState() as TAppState))
     );
   }
 
-  // In a general case we should not use the appState directly, only via "connect" method!
-  private get appState(): TAppState {
-    return this.appStore.getState() as TAppState;
+  private get dynamicRouter(): IRouter {
+    // We cannot to get access to history instance other way. This instance is private
+    return Reflect.get(this.refs.router, 'history');
   }
 }
