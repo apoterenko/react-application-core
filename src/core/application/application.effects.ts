@@ -22,6 +22,11 @@ export class ApplicationEffects extends BaseEffects<{}> {
     return actions.concat(ApplicationActionBuilder.buildAfterInitAction());
   }
 
+  @EffectsService.effects(ApplicationActionBuilder.buildAfterInitErrorActionType())
+  public onAfterInitError(): IEffectsAction {
+    return this.buildApplicationReadyAction();
+  }
+
   @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())
   public onLogout(): IEffectsAction[] {
     const actions: IEffectsAction[] = this.permissionService.isAuthorized()

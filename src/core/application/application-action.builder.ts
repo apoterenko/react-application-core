@@ -10,6 +10,7 @@ import {
   APPLICATION_LOGOUT_ACTION_TYPE,
   APPLICATION_AFTER_LOGOUT_ACTION_TYPE,
   APPLICATION_DESTROY_TOKEN_ACTION_TYPE,
+  APPLICATION_AFTER_INIT_ERROR_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
@@ -60,6 +61,10 @@ export class ApplicationActionBuilder {
 
   public static buildAfterInitActionType(): string {
     return `${APPLICATION_SECTION}.${APPLICATION_AFTER_INIT_ACTION_TYPE}`;
+  }
+
+  public static buildAfterInitErrorActionType(): string {
+    return `${APPLICATION_SECTION}.${APPLICATION_AFTER_INIT_ERROR_ACTION_TYPE}`;
   }
 
   public static buildLogoutActionType(): string {
