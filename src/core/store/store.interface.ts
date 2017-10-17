@@ -15,11 +15,17 @@ import {
   notificationReducer,
   INITIAL_APPLICATION_NOTIFICATION_STATE,
 } from '../notification';
+import {
+  IApplicationReadyState,
+  INITIAL_APPLICATION_READY_STATE,
+  applicationReadyReducer,
+} from '../application';
 import { dictionariesReducer, IApplicationDictionariesState } from '../dictionary';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState,
                                    TPermissionState extends IApplicationPermissionsState<TPermissions>,
                                    TPermissions> {
+  applicationReady: IApplicationReadyState;
   root: IApplicationRootState;
   permission: TPermissionState;
   user: IApplicationUserState;
@@ -36,6 +42,7 @@ export type ApplicationStateT = IApplicationState<IApplicationDictionariesState,
 export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationDictionariesState,
                                                           IApplicationPermissionsState<AnyT>,
                                                           AnyT> = {
+  applicationReady: INITIAL_APPLICATION_READY_STATE,
   permission: INITIAL_PERMISSION_STATE,
   root: INITIAL_APPLICATION_ROOT_STATE,
   user: INITIAL_USER_STATE,
@@ -46,6 +53,7 @@ export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationDictionari
 };
 
 export const defaultReducers = {
+  applicationReady: applicationReadyReducer,
   permission: permissionReducer,
   root: rootReducer,
   user: userReducer,

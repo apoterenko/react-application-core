@@ -5,7 +5,7 @@ import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 import { IApplicationSettings } from '../settings';
 import { PROD_MODE } from '../env';
 import { appContainer, DI_TYPES } from '../di';
-import { APPLICATION_STATE_KEY, IStorage } from '../storage';
+import { APPLICATION_STATE_KEY, IApplicationStorageService } from '../storage';
 import { AnyT } from '../definition.interface';
 
 import { ApplicationStateT, INITIAL_APPLICATION_STATE, defaultReducers } from './store.interface';
@@ -18,7 +18,7 @@ export function makeStore(
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
   const preloadedState = applicationSettings && applicationSettings.usePersistence
-      ? (appContainer.get(DI_TYPES.Storage) as IStorage).get(APPLICATION_STATE_KEY)
+      ? (appContainer.get(DI_TYPES.Storage) as IApplicationStorageService).get(APPLICATION_STATE_KEY)
       : null;
 
   const store = createStore(
