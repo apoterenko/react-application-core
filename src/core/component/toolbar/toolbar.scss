@@ -37,6 +37,22 @@
       font-weight: bold;
     }
 
+    .app-action {
+      &.app-active-action {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          font-size: 8px;
+          content: 'lens';
+          color: red;
+          font-weight: bold;
+          left: 28px;
+          top: 18px;
+        }
+      }
+    }
+
     .mdc-toolbar__section{
       &.visible {
         flex: 1;
