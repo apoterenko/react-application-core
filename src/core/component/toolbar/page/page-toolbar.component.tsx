@@ -15,6 +15,23 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
   public render(): JSX.Element {
     const props = this.props;
     const className = ['mdc-toolbar', 'app-toolbar', props.className];
+    const isLeftBtnDisabled = this.isLeftBtnDisabled;
+    const isRightBtnDisabled = this.isRightBtnDisabled;
+    const buttonsTpl = isLeftBtnDisabled && isRightBtnDisabled ? null : (
+        <section>
+          <button className='material-icons mdc-toolbar__icon'
+                  onClick={this.onLeft}
+                  disabled={isLeftBtnDisabled}>
+            keyboard_arrow_left
+          </button>
+          <button className='material-icons mdc-toolbar__icon'
+                  onClick={this.onRight}
+                  disabled={isRightBtnDisabled}>
+            keyboard_arrow_right
+          </button>
+        </section>
+    );
+
     const contentTpl = props.contentDisplay === false
         ? (
             <div className='mdc-toolbar__row'/>
@@ -29,18 +46,7 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
                   {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
                 </div>
               </section>
-              <section>
-                <button className='material-icons mdc-toolbar__icon'
-                        onClick={this.onLeft}
-                        disabled={this.isLeftBtnDisabled}>
-                  keyboard_arrow_left
-                </button>
-                <button className='material-icons mdc-toolbar__icon'
-                        onClick={this.onRight}
-                        disabled={this.isRightBtnDisabled}>
-                  keyboard_arrow_right
-                </button>
-              </section>
+              {buttonsTpl}
             </div>
         );
 
