@@ -4,7 +4,7 @@ import * as URLSearchParams from 'url-search-params';
 import { IKeyValue } from '../../definition.interface';
 import { DI_TYPES, lazyInject } from '../../di';
 import { BaseContainer } from '../../component/base';
-import { IRouters } from '../../router';
+import { IRoutes } from '../../router';
 
 import {
   IRootContainerInternalProps,
@@ -15,7 +15,7 @@ import {
 export class RootContainer<TInternalProps extends IRootContainerInternalProps>
     extends BaseContainer<TInternalProps, {}> {
 
-  @lazyInject(DI_TYPES.Routers) protected routers: IRouters;
+  @lazyInject(DI_TYPES.Routes) protected routes: IRoutes;
 
   constructor(props: TInternalProps) {
     super(props, ROOT_SECTION);

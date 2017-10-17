@@ -1,7 +1,5 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue } from '../../definition.interface';
-
 import {
   IApplicationRootState,
   INITIAL_APPLICATION_ROOT_STATE,
@@ -10,10 +8,11 @@ import {
 } from './root.interface';
 
 export function rootReducer(state: IApplicationRootState = INITIAL_APPLICATION_ROOT_STATE,
-                            action: AnyAction): IKeyValue {
+                            action: AnyAction): IApplicationRootState {
   switch (action.type) {
     case `${ROOT_SECTION}.${ROOT_PATH_UPDATE_ACTION_TYPE}`:
       return {
+        ...state,
         path: action.data.path,
       };
   }

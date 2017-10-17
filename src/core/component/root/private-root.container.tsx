@@ -13,11 +13,11 @@ export class PrivateRootContainer extends RootContainer<IRootContainerInternalPr
     const render = (_) => {
       if (this.isAuthorized) {
         return accessConfig && !this.permissionService.isAccessible(accessConfig)
-            ? <Redirect to={this.routers.accessDenied}/>
+            ? <Redirect to={this.routes.accessDenied}/>
             : <Component routeParams={this.routeParams}
                          queryParams={this.queryParams}/>;
       } else {
-        return <Redirect to={this.routers.login}/>;
+        return <Redirect to={this.routes.login}/>;
       }
     };
     return <Route render={render}/>;
