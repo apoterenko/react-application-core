@@ -1,9 +1,9 @@
 import * as store from 'store/dist/store.modern';
 
-import { IStorage } from '../storage';
+import { IApplicationStorageService } from '../storage';
 import { AnyT } from '../definition.interface';
 
-export class StorageService implements IStorage {
+export class StorageService implements IApplicationStorageService {
 
   constructor(private prefix: string) {
   }
@@ -60,7 +60,7 @@ export class StorageService implements IStorage {
     this.storage.forEach((key: string, value: AnyT) => (command(this.prefix + key, value)));
   }
 
-  private get storage(): IStorage {
+  private get storage(): IApplicationStorageService {
     return store;
   }
 }

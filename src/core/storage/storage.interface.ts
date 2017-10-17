@@ -1,4 +1,4 @@
-export interface IStorage {
+export interface IApplicationStorageService {
   enabled: boolean;
   disabled: boolean;
   set(key: string, value: any): any;
