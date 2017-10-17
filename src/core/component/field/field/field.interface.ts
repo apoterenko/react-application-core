@@ -21,6 +21,7 @@ export interface IFieldInternalProps
     extends IBaseComponentInternalProps, IFieldChangeFormInternalProps, IKeyboardHandlers {
   name?: string;
   value?: AnyT;
+  notAllowEmptyValue?: boolean;
   label?: string;
   placeholder?: string;
   autoFocus?: boolean;

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef } from '../../../util';
-import { AnyT, IKeyValue, ChangeEventT, KeyboardEventT, FocusEventT } from '../../../definition.interface';
+import { IKeyValue, ChangeEventT, KeyboardEventT, FocusEventT } from '../../../definition.interface';
 import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
@@ -65,7 +65,8 @@ export class DateField extends BasicTextField<DateField,
 
   protected prepareStateValueBeforeSerialization(value: DateTimeLikeTypeT): string {
     // Date value must be able to be serialized as a string
-    return this.formatDate(value);
+    const v = super.prepareStateValueBeforeSerialization(value);
+    return isUndef(v) ? v : this.formatDate(v);
   }
 
   protected propsChangeForm(rawValue: DateTimeLikeTypeT): void {
@@ -125,7 +126,7 @@ export class DateField extends BasicTextField<DateField,
   private get dialogDate(): Date {
     const value = this.value;
     const defaultDate = this.dateConverter.getCurrentDate();
-    if (ramda.isNil(value)) {
+    if (R.isNil(value)) {
       return defaultDate;
     }
     const dateValue = this.convertToDate(value);

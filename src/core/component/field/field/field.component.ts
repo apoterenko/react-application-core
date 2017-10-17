@@ -171,7 +171,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
     // The state may be an external storage and the value must be able to be serialized
-    return value;
+    return this.props.notAllowEmptyValue && ramda.isEmpty(value) ? undefined : value;
   }
 
   protected get value(): AnyT {
