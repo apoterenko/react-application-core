@@ -9,6 +9,8 @@ import { FilterActionBuilder } from '../component/filter';
 import { RouterActionBuilder } from '../router';
 import { PermissionActionBuilder } from '../permission';
 import { UserActionBuilder } from '../user';
+import { ApplicationActionBuilder } from '../application';
+import { TransportActionBuilder } from '../transport';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
@@ -55,12 +57,36 @@ export class BaseEffects<TApi> {
     return RouterActionBuilder.buildNavigateBackAction();
   }
 
-  protected buildPermissionAuthorizedUpdateAction(): IEffectsAction {
-    return PermissionActionBuilder.buildAuthorizedUpdateAction();
+  protected buildApplicationAfterInitAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildAfterInitAction();
   }
 
-  protected buildPermissionPermissionsUpdateAction(data: AnyT): IEffectsAction {
-    return PermissionActionBuilder.buildPermissionsUpdateAction(data);
+  protected buildApplicationReadyAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildReadyAction();
+  }
+
+  protected buildApplicationNotReadyAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildNotReadyAction();
+  }
+
+  protected buildApplicationUpdateTokenAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildUpdateTokenAction();
+  }
+
+  protected buildApplicationDestroyTokenAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildDestroyTokenAction();
+  }
+
+  protected buildTransportUpdateTokenAction(data: AnyT): IEffectsAction {
+    return TransportActionBuilder.buildUpdateTokenAction(data);
+  }
+
+  protected buildTransportDestroyTokenAction(): IEffectsAction {
+    return TransportActionBuilder.buildDestroyTokenAction();
+  }
+
+  protected buildPermissionUpdateAction(data: AnyT): IEffectsAction {
+    return PermissionActionBuilder.buildUpdateAction(data);
   }
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {
