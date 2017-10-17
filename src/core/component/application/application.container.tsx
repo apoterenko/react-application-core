@@ -8,7 +8,7 @@ import { IEventManager } from '../../event';
 import { IApplicationPermissionsState } from '../../permission';
 import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT, IRoutes } from '../../router';
 import { IApplicationSettings } from '../../settings';
-import { APPLICATION_STATE_KEY, IStorage } from '../../storage';
+import { APPLICATION_STATE_KEY, IApplicationStorageService } from '../../storage';
 import { IApplicationState } from '../../store';
 import { BaseContainer } from '../../component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
@@ -38,7 +38,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   };
 
   @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
-  @lazyInject(DI_TYPES.Storage) private storage: IStorage;
+  @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorageService;
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;

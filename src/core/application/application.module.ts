@@ -4,4 +4,4 @@ import '../storage/storage.module';
 import '../event/event.module';
 import '../transport/transport.module';
 import '../settings/settings.module';
-import '../logout/logout.module';
+import './application.effects';

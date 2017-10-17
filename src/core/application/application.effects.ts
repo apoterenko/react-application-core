@@ -1,21 +1,21 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { APPLICATION_TOKEN_KEY, IStorage } from '../storage';
+import { APPLICATION_TOKEN_KEY, IApplicationStorageService } from '../storage';
 import { ApplicationStateT, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
-import { ApplicationPermissionsServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
+import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
 import { ApplicationActionBuilder } from './application-action.builder';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects extends BaseEffects<{}> {
 
-  @lazyInject(DI_TYPES.TokenStorage) private tokenStorage: IStorage;
-  @lazyInject(DI_TYPES.Permission) private permissionService: ApplicationPermissionsServiceT;
+  @lazyInject(DI_TYPES.TokenStorage) private tokenStorageService: IApplicationStorageService;
+  @lazyInject(DI_TYPES.Permission) private permissionService: ApplicationPermissionServiceT;
 
   @EffectsService.effects(ApplicationActionBuilder.buildInitActionType())
   public onInit(): IEffectsAction[] {
-    const token = this.tokenStorage.get(APPLICATION_TOKEN_KEY);
+    const token = this.tokenStorageService.get(APPLICATION_TOKEN_KEY);
     const actions: IEffectsAction[] = token
         ? [this.buildTransportUpdateTokenAction({token})]
         : [];
@@ -36,11 +36,11 @@ export class ApplicationEffects extends BaseEffects<{}> {
 
   @EffectsService.effects(ApplicationActionBuilder.buildUpdateTokenActionType())
   public onUpdateToken(_: IEffectsAction, state: ApplicationStateT): void {
-    this.tokenStorage.set(APPLICATION_TOKEN_KEY, state.transport.token);
+    this.tokenStorageService.set(APPLICATION_TOKEN_KEY, state.transport.token);
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildDestroyTokenActionType())
   public onDestroyToken(): void {
-    this.tokenStorage.remove(APPLICATION_TOKEN_KEY);
+    this.tokenStorageService.remove(APPLICATION_TOKEN_KEY);
   }
 }
