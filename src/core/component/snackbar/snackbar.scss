@@ -1,0 +1,8 @@
+.app-snackbar {
+  &.mdc-snackbar {
+    .mdc-snackbar__text {
+      height: auto;
+      min-height: 48px;
+    }
+  }
+}

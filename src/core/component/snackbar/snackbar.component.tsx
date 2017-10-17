@@ -43,7 +43,7 @@ export class Snackbar extends MaterialComponent<Snackbar,
   public render(): JSX.Element {
     return (
         <div ref='self'
-             className='mdc-snackbar'
+             className='mdc-snackbar app-snackbar'
              aria-live='assertive'>
           <div className='mdc-snackbar__text'/>
           <div className='mdc-snackbar__action-wrapper'>
