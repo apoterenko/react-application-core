@@ -88,6 +88,7 @@ export interface ITransportRequest extends ITransportNamedPayload,
 
 export const TRANSPORT_REQUEST_ACTION_TYPE = 'transport.request';
 export const TRANSPORT_DESTROY_ACTION_TYPE = 'transport.destroy';
-export const TRANSPORT_TOKEN_UPDATE_ACTION_TYPE = 'transport.token.update';
+export const TRANSPORT_DESTROY_TOKEN_ACTION_TYPE = 'transport.destroy.token';
+export const TRANSPORT_UPDATE_TOKEN_ACTION_TYPE = 'transport.update.token';
 export const TRANSPORT_REQUEST_DONE_ACTION_TYPE = 'transport.request.done';
 export const TRANSPORT_REQUEST_ERROR_ACTION_TYPE = 'transport.request.error';

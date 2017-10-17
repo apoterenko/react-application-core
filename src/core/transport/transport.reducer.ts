@@ -7,7 +7,8 @@ import {
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_DESTROY_ACTION_TYPE,
-  TRANSPORT_TOKEN_UPDATE_ACTION_TYPE,
+  TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
+  TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
 } from './transport.interface';
 
 export function transportReducer(state: IApplicationTransportState = INITIAL_APPLICATION_TRANSPORT_STATE,
@@ -34,10 +35,15 @@ export function transportReducer(state: IApplicationTransportState = INITIAL_APP
           ...INITIAL_APPLICATION_TRANSPORT_STATE,
       };
     }
-    case TRANSPORT_TOKEN_UPDATE_ACTION_TYPE:
+    case TRANSPORT_UPDATE_TOKEN_ACTION_TYPE:
       return {
         ...state,
         token: action.data.token,
+      };
+    case TRANSPORT_DESTROY_TOKEN_ACTION_TYPE:
+      return {
+        ...state,
+        token: null,
       };
   }
   return state;
