@@ -4,7 +4,7 @@ import { Link } from '../../../component/link';
 import { PersistentDrawer } from '../../../component/drawer';
 import { INavigationListItem, NavigationList } from '../../../component/list';
 import { lazyInject, DI_TYPES } from '../../../di';
-import { IRouters } from '../../../router';
+import { IRoutes } from '../../../router';
 
 import {
   LAYOUT_FULL_MODE,
@@ -21,7 +21,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   };
 
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
-  @lazyInject(DI_TYPES.Routers) private routers: IRouters;
+  @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
 
   constructor(props: IDefaultLayoutContainerInternalProps) {
     super(props);
@@ -76,7 +76,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   protected get profileTpl(): JSX.Element {
-    const profileRoutePath = this.routers.profile;
+    const profileRoutePath = this.routes.profile;
     return profileRoutePath
       ? (
         <Link to={profileRoutePath}
