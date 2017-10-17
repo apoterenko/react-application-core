@@ -22,7 +22,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   apiUrl: (BASE_PATH + '/api/').replace(/(\/\/)+/, '/'),
   companyName: 'Test company',
   dateTimeSettings: {
-    dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ss.SSSZ',
+    dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     uiDateFormat: 'YYYY-MM-DD',
     uiTimeFormat: 'HH:mm:ss',
     uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
