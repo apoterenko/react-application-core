@@ -8,7 +8,7 @@ import { IApplicationState } from '../store';
 import { IApplicationAccessConfig, IApplicationPermissionsState } from '../permission';
 import { IApplicationDictionariesState } from '../dictionary';
 
-export interface IRouters {
+export interface IRoutes {
   profile: string;
   home: string;
   login: string;
