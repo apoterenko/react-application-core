@@ -13,3 +13,4 @@ export interface IStorage {
 }
 
 export const APPLICATION_STATE_KEY = '$$state';
+export const APPLICATION_TOKEN_KEY = `${APPLICATION_STATE_KEY}.token`;

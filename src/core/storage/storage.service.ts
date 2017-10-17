@@ -1,14 +1,12 @@
 import * as store from 'store/dist/store.modern';
-import { injectable } from 'inversify';
 
-import { BASE_PATH, APP_VERSION } from '../env';
 import { IStorage } from '../storage';
 import { AnyT } from '../definition.interface';
 
-@injectable()
 export class StorageService implements IStorage {
 
-  private prefix = [APP_VERSION, location.port || '80', BASE_PATH.replace(/\//g, '')].join('#');
+  constructor(private prefix: string) {
+  }
 
   set enabled(value: boolean) {
     this.storage.enabled = value;
