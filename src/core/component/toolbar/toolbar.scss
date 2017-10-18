@@ -38,7 +38,7 @@
     }
 
     .app-action {
-      &.app-active-action {
+      &.app-action-filter-applied {
         position: relative;
 
         &::after {
