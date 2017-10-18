@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { orNull, toClassName } from '../../../util';
 import { BasicEventT } from '../../../definition.interface';
 import { Ripple } from '../../../component/ripple';
 import { IListItemInternalProps } from './list-item.interface';
@@ -19,21 +20,18 @@ export class ListItem extends Ripple<IListItemInternalProps> {
       props.className,
       props.toClassName && props.toClassName(props.rawData)
     ];
-    const actionTypeEl = props.actionType
-        ? (
-            <i className='mdc-list-item__end-detail material-icons'>
-              {props.actionType}
-            </i>
-        )
-        : null;
+    const actionTypeEl = orNull(
+        props.actionType,
+        <i className='mdc-list-item__end-detail material-icons'>{props.actionType}</i>
+    );
     return (
         <li ref='self'
-            className={className.filter((clsName) => !!clsName).join(' ')}
+            className={toClassName(...className)}
             onClick={this.onActionClick}>
           {
             props.renderer
                 ? props.renderer(props.rawData)
-                : (this.props.rawData.id || JSON.stringify(this.props.rawData))
+                : (props.rawData.id || JSON.stringify(props.rawData))
           }
           {actionTypeEl}
         </li>

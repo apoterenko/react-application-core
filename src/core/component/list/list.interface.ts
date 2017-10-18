@@ -3,9 +3,11 @@ import {
   IBaseContainerInternalProps,
   IBaseContainer,
 } from '../../component/base';
-import { IEntity, IRenderable, ILockable } from '../../definition.interface';
+import { IEntity, ILockable } from '../../definition.interface';
+import { IListItemOptions } from './item/list-item.interface';
 
-export interface IListOptions extends IBaseComponentInternalProps, IRenderable {
+export interface IListOptions extends IBaseComponentInternalProps {
+  itemOptions?: IListItemOptions;
   addAction?: boolean;
 }
 
@@ -13,6 +15,7 @@ export interface IPageOptions {
   page: number;
   pageSize?: number;
   totalCount: number;
+  totalAmount?: number;
 }
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,

@@ -68,10 +68,10 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         (item) => (
             <ListItem key={uuid()}
                       rawData={item}
-                      renderer={props.renderer}
                       active={this.isSelected(item)}
                       onClick={this.onSelect}
-                      ref={this.toItemId(item)}/>
+                      ref={this.toItemId(item)}
+                      {...props.itemOptions}/>
         ),
     );
 
