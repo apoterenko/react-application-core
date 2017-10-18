@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isUndef, uuid } from '../../../util';
+import { isUndef, uuid, toClassName } from '../../../util';
 import { AnyT } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from '../../../component/field';
@@ -20,7 +20,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     searchIcon: 'search',
   };
 
-  private actionsMap = {
+  private defaultActions = {
     [FilterActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
       actionHandler: this.onFilterActionClick.bind(this),
@@ -58,7 +58,6 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   public render(): JSX.Element {
     const props = this.props;
-    const className = ['mdc-toolbar', 'app-toolbar', props.className];
     let searchFieldTpl = null;
 
     if (this.isActivated) {
@@ -80,7 +79,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
       const actionsTpl = (
           this.actions.map((action) => (
               <div key={uuid()}
-                   className='material-icons mdc-toolbar__icon app-action'
+                   className={toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)}
                    onClick={action.actionHandler}>
                 {action.type}
               </div>
@@ -94,7 +93,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     }
 
     return (
-        <div className={className.filter((cls) => !!cls).join(' ')}>
+        <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
           <div className='mdc-toolbar__row'>
             <section>
               <div className='material-icons mdc-toolbar__icon'
@@ -162,6 +161,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private get actions(): IBasicTextFieldAction[] {
-    return this.props.fieldActions.map((action) => this.actionsMap[action]);
+    return this.props.fieldActions.map((action) => ({
+      ...this.defaultActions[action.type],
+      className: action.className,
+    }));
   }
 }
