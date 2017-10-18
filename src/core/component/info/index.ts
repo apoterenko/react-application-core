@@ -1,2 +1,1 @@
 export * from './info.component';
-

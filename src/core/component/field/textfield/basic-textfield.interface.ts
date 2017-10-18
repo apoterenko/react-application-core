@@ -1,12 +1,11 @@
-import { ChangeEventT } from '../../../definition.interface';
+import { ChangeEventT, IStylizable, ITypeable } from '../../../definition.interface';
 import { FunctionT } from '../../../util';
 import { INativeMaterialComponent } from '../../../component/material';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
 import { IDelayedChangesFieldPluginInternalProps } from '../field/plugin';
 
-export interface IBasicTextFieldAction {
-  type: string;
+export interface IBasicTextFieldAction extends IStylizable, ITypeable<string> {
   actionHandler: FunctionT;
 }
 

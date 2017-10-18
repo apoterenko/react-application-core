@@ -29,6 +29,14 @@ export interface IFilterable {
   filterPlaceholder?: string;
 }
 
+export interface IStylizable {
+  className?: string;
+}
+
+export interface ITypeable<Type> {
+  type?: Type;
+}
+
 export interface ILockable {
   locked?: boolean;
 }

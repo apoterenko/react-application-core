@@ -1,7 +1,7 @@
 import { Component, CSSProperties, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
-import { AnyT, IKeyValue } from '../../definition.interface';
+import { AnyT, IKeyValue, IStylizable } from '../../definition.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
@@ -13,8 +13,7 @@ export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComp
                                                         IBaseComponentInternalProps,
                                                         {}>;
 
-export interface IBaseInternalProps {
-  className?: string;
+export interface IBaseInternalProps extends IStylizable {
   progressMessage?: string;
   emptyMessage?: string;
   errorMessage?: string;
