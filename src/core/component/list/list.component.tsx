@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 
-import { uuid, scrollIntoView } from '../../util';
+import { uuid, scrollIntoView, toClassName } from '../../util';
 import { IEntity } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
 
@@ -30,14 +30,13 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   public shouldComponentUpdate(nextProps: IListInternalProps, nextState: {}): boolean {
     const previousProps = this.props;
-    return !ramda.equals(nextProps.data, previousProps.data)
-        || !ramda.equals(nextProps.selected, previousProps.selected)
-        || !ramda.equals(nextProps.progress, previousProps.progress);
+    return !R.equals(nextProps.data, previousProps.data)
+        || !R.equals(nextProps.selected, previousProps.selected)
+        || !R.equals(nextProps.progress, previousProps.progress);
   }
 
   public render(): JSX.Element {
     const props = this.props;
-    const className = ['mdc-list', props.className];
 
     const isEmptyData = !props.data || (Array.isArray(props.data) && !props.data.length);
 
@@ -53,33 +52,34 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
       return (
           <div className='app-list-wrapper app-center-layout app-full-layout'>
             {
-              props.progress
-                  ? this.t(props.progressMessage || 'Loading...')
-                  : (
-                      error
-                          ? this.t(props.errorMessage || 'Something went wrong. There was a problem loading your data')
-                          : this.t(props.emptyMessage || 'No data')
-                  )
+              this.t(
+                  props.progress
+                      ? props.progressMessage || 'Loading...'
+                      : (
+                          error
+                              ? props.errorMessage || 'Something went wrong. There was a problem loading your data'
+                              : props.emptyMessage || 'No data'
+                      )
+              )
             }
           </div>
       );
     }
-    const listItems = props.data.map(
-        (item) => (
-            <ListItem key={uuid()}
-                      rawData={item}
-                      active={this.isSelected(item)}
-                      onClick={this.onSelect}
-                      ref={this.toItemId(item)}
-                      {...props.itemOptions}/>
-        ),
-    );
 
     return (
         <div ref='container'
              className='app-list-wrapper'>
-          <ul className={className.filter((cls) => !!cls).join(' ')}>
-            {listItems}
+          <ul className={toClassName('mdc-list', props.className)}>
+            {props.data.map(
+                (item) => (
+                    <ListItem key={uuid()}
+                              rawData={item}
+                              active={this.isSelected(item)}
+                              onClick={this.onSelect}
+                              ref={this.toItemId(item)}
+                              {...props.itemOptions}/>
+                ),
+            )}
           </ul>
           {
             props.addAction
