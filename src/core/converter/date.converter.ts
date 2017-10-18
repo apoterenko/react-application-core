@@ -7,15 +7,9 @@ import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
 @provideInSingleton(DateConverter)
 export class DateConverter implements IDateConverter {
 
-  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
+  @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
 
-  public join(dateAsString: string, timeAsString: string): string {
-    return [dateAsString, timeAsString].join(' ');
-  }
-
-  public formatDateTime(date: DateTimeLikeTypeT,
-                        outputFormat: string = this.outputFormat,
-                        inputFormat: string = this.inputFormat): string {
+  public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
     if (!date) {
       return '';
     } else {
@@ -26,7 +20,15 @@ export class DateConverter implements IDateConverter {
     }
   }
 
-  public convertToDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT {
+  public formatUiDate(date: DateTimeLikeTypeT = new Date()): string {
+    return this.format(date, this.dateFormat, this.uiDateFormat);
+  }
+
+  public formatUiDateTime(date: DateTimeLikeTypeT = new Date()): string {
+    return this.format(date, this.dateTimeFormat, this.uiDateTimeFormat);
+  }
+
+  public toDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
   }
@@ -36,16 +38,20 @@ export class DateConverter implements IDateConverter {
     return [momentDate.toDate(), momentDate.clone().add(1, 'day').subtract(1, 'second').toDate()];
   }
 
-  public isDate(date: Date|string): boolean {
-    return moment.isDate(date);
-  }
-
   public getCurrentDate(date?: Date): Date {
     return this.getCurrentMomentDate(date).toDate();
   }
 
-  private toMomentDate(date: string | Date, inputFormat: string): moment.Moment {
-    return moment.isDate(date)
+  public getFirstDayOfMonth(): Date {
+    return moment(new Date()).startOf('month').toDate();
+  }
+
+  public combine(dateAsString: string, timeAsString: string): string {
+    return [dateAsString, timeAsString].join(' ');
+  }
+
+  private toMomentDate(date: DateTimeLikeTypeT, inputFormat: string): moment.Moment {
+    return date instanceof Date
         ? moment(date)
         : moment(date, inputFormat, true);
   }
@@ -54,12 +60,20 @@ export class DateConverter implements IDateConverter {
     return moment(date).set('h', 0).set('m', 0).set('s', 0);
   }
 
-  private get outputFormat(): string {
+  private get dateTimeFormat(): string {
     return this.dateTimeSettings.dateTimeFormat;
   }
 
-  private get inputFormat(): string {
-    return this.join(this.dateTimeSettings.uiDateFormat, this.dateTimeSettings.uiTimeFormat);
+  private get dateFormat(): string {
+    return this.dateTimeSettings.dateFormat;
+  }
+
+  private get uiDateTimeFormat(): string {
+    return this.combine(this.uiDateFormat, this.dateTimeSettings.uiTimeFormat);
+  }
+
+  private get uiDateFormat(): string {
+    return this.dateTimeSettings.uiDateFormat;
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {

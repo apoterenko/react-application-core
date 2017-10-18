@@ -2,6 +2,7 @@ import { BASE_PATH } from '../env';
 
 export interface IApplicationDateTimeSettings {
   dateTimeFormat?: string;   // Client-server communication format
+  dateFormat?: string;       // Client-server communication format
   uiDateFormat?: string;     // UI format
   uiTimeFormat?: string;     // UI format
   uiDateMask?: Array<string|RegExp>;     // UI mask
@@ -23,6 +24,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   companyName: 'Test company',
   dateTimeSettings: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
+    dateFormat: 'YYYY-MM-DD',
     uiDateFormat: 'YYYY-MM-DD',
     uiTimeFormat: 'HH:mm:ss',
     uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],

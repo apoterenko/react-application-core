@@ -1,12 +1,14 @@
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
-  formatDateTime(date: DateTimeLikeTypeT, outputFormat?: string, inputFormat?: string): string;
-  convertToDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT;
+  format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
+  formatUiDate(date?: DateTimeLikeTypeT): string;
+  formatUiDateTime(date?: DateTimeLikeTypeT): string;
+  toDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT;
   getDateRangeFromDate(date: Date): Date[];
   getCurrentDate(date?: Date): Date;
-  isDate(date: DateTimeLikeTypeT): boolean;
-  join(dateAsString: string, timeAsString: string): string;
+  getFirstDayOfMonth(): Date;
+  combine(dateAsString: string, timeAsString: string): string;
 }
 
 export interface INumberConverter {

@@ -130,7 +130,7 @@ export class DateField extends BasicTextField<DateField,
       return defaultDate;
     }
     const dateValue = this.convertToDate(value);
-    return this.dateConverter.isDate(dateValue)
+    return dateValue instanceof Date
         ? dateValue as Date
         : defaultDate;
   }
@@ -156,10 +156,10 @@ export class DateField extends BasicTextField<DateField,
   }
 
   private formatDate(value: DateTimeLikeTypeT): string {
-    return this.dateConverter.formatDateTime(value, this.fieldFormat, this.fieldFormat);
+    return this.dateConverter.format(value, this.fieldFormat, this.fieldFormat);
   }
 
   private convertToDate(value: string): DateTimeLikeTypeT {
-    return this.dateConverter.convertToDate(value, this.fieldFormat);
+    return this.dateConverter.toDate(value, this.fieldFormat);
   }
 }
