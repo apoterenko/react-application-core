@@ -16,15 +16,15 @@ import { IApplicationDictionariesState } from '../../dictionary';
 import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
 import { ConnectorConfigT } from '../../component/store';
 import { Info } from '../../component/info';
+import { BASE_PATH } from '../../env';
+import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import {
+  IApplicationContainerProps,
   APPLICATION_INIT_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
   INITIAL_APPLICATION_READY_STATE,
-  APPLICATION_SECTION
-} from '../../application';
-import { BASE_PATH } from '../../env';
-import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
-import { IApplicationContainerProps } from './application.interface';
+  APPLICATION_SECTION,
+} from './application.interface';
 
 export class ApplicationContainer<TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
                                   TDictionariesState extends IApplicationDictionariesState,
@@ -100,12 +100,23 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
 
   protected getRoutes(): JSX.Element[] {
     const props = this.props;
-    return props.ready
-        ? this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes))
-        : [
+    return props.progress || props.error || !props.ready
+        ? [
           <Info key={uuid()}
-                emptyMessage={props.emptyMessage || 'Please wait...'}/>
-        ];
+                emptyMessage={
+                  props.progress
+                      ? (props.progressMessage || 'Please wait...')
+                      : (
+                          props.error
+                              ? [
+                                this.t(props.errorMessage || 'The following error has occurred'),
+                                props.error
+                              ].join(' ')
+                              : props.emptyMessage || 'The application is not ready.'
+                      )
+                }/>
+        ]
+        : this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
   }
 
   protected lookupConnectComponentByRoutePath(path: string): RouteContainerT {

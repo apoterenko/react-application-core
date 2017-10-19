@@ -9,8 +9,8 @@ import { FilterActionBuilder } from '../component/filter';
 import { RouterActionBuilder } from '../router';
 import { PermissionActionBuilder } from '../permission';
 import { UserActionBuilder } from '../user';
-import { ApplicationActionBuilder } from '../application';
 import { TransportActionBuilder } from '../transport';
+import { ApplicationActionBuilder } from '../component/application';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
@@ -57,16 +57,12 @@ export class BaseEffects<TApi> {
     return RouterActionBuilder.buildNavigateBackAction();
   }
 
-  protected buildApplicationAfterInitAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildAfterInitAction();
-  }
-
   protected buildApplicationReadyAction(): IEffectsAction {
     return ApplicationActionBuilder.buildReadyAction();
   }
 
-  protected buildApplicationNotReadyAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildNotReadyAction();
+  protected buildApplicationPrepareAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildPrepareAction();
   }
 
   protected buildApplicationUpdateTokenAction(): IEffectsAction {

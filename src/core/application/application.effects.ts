@@ -5,7 +5,7 @@ import { APPLICATION_TOKEN_KEY, IApplicationStorageService } from '../storage';
 import { ApplicationStateT, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
-import { ApplicationActionBuilder } from './application-action.builder';
+import { ApplicationActionBuilder } from '../component/application';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects extends BaseEffects<{}> {
@@ -20,11 +20,6 @@ export class ApplicationEffects extends BaseEffects<{}> {
         ? [this.buildTransportUpdateTokenAction({token})]
         : [];
     return actions.concat(ApplicationActionBuilder.buildAfterInitAction());
-  }
-
-  @EffectsService.effects(ApplicationActionBuilder.buildAfterInitErrorActionType())
-  public onAfterInitError(): IEffectsAction {
-    return this.buildApplicationReadyAction();
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())

@@ -15,12 +15,12 @@ import {
   notificationReducer,
   INITIAL_APPLICATION_NOTIFICATION_STATE,
 } from '../notification';
+import { dictionariesReducer, IApplicationDictionariesState } from '../dictionary';
 import {
+  applicationReadyReducer,
   IApplicationReadyState,
   INITIAL_APPLICATION_READY_STATE,
-  applicationReadyReducer,
-} from '../application';
-import { dictionariesReducer, IApplicationDictionariesState } from '../dictionary';
+} from '../component/application';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState,
                                    TPermissionState extends IApplicationPermissionsState<TPermissions>,
