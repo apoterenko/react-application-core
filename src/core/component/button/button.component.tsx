@@ -21,7 +21,7 @@ export class Button extends BaseComponent<Button,
   public render(): JSX.Element {
     const props = this.props;
     const statusText = props.progress
-        ? (this.t(props.progressText || 'Waiting...'))
+        ? (this.t(props.progressMessage || 'Waiting...'))
         : (props.error
             ? (props.errorText || this.t('Error'))
             : null);

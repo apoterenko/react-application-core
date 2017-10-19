@@ -3,7 +3,7 @@ import {
   IBaseContainerInternalProps,
   IBaseContainer,
 } from '../../component/base';
-import { IEntity, ILockable } from '../../definition.interface';
+import { IEntity, ILockable, IProgressable } from '../../definition.interface';
 import { IListItemOptions } from './item/list-item.interface';
 
 export interface IListOptions extends IBaseComponentInternalProps {
@@ -32,8 +32,9 @@ export interface IListEntity<TEntity extends IEntity> {
   data: TEntity[];
 }
 
-export interface IApplicationListAttributes extends ILockable, IPageOptions {
-  progress: boolean;
+export interface IApplicationListAttributes extends ILockable,
+                                                    IPageOptions,
+                                                    IProgressable {
   data: IEntity[];
   selected: IEntity;
   error?: string;

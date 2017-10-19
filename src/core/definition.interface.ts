@@ -33,6 +33,14 @@ export interface IStylizable {
   className?: string;
 }
 
+export interface IProgressable {
+  progress?: boolean;
+}
+
+export interface IErrorable {
+  error?: string;
+}
+
 export interface ITypeable<Type> {
   type?: Type;
 }

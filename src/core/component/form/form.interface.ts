@@ -1,18 +1,25 @@
 import { PureComponent } from 'react';
 
 import { FunctionT } from '../../util';
-import { AnyT, ILockable, IChangeable, IEntity } from '../../definition.interface';
+import {
+  AnyT,
+  ILockable,
+  IChangeable,
+  IEntity,
+  IProgressable,
+  IStylizable,
+} from '../../definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
 
-export interface IFormAttributes extends IChangeable, ILockable {
+export interface IFormAttributes extends IChangeable,
+                                         ILockable,
+                                         IProgressable {
   valid?: boolean;
   dirty?: boolean;
-  progress?: boolean;
   error?: string;
 }
 
-export interface IFormSettings {
-  className?: string;
+export interface IFormSettings extends IStylizable {
   actionText?: string;
 }
 
