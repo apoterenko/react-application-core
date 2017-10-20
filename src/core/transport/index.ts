@@ -3,3 +3,4 @@ export * from './transport.factory';
 export * from './transport.reducer';
 export * from './transport.service';
 export * from './transport-action.builder';
+export * from './base.transport';
