@@ -26,6 +26,7 @@ export function applicationReadyReducer(state: IApplicationReadyState = INITIAL_
     case ApplicationActionBuilder.buildReadyActionType():
       return {
         ...state,
+        error: null,
         progress: false,
         ready: true,
       };
