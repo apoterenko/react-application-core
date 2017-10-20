@@ -1,4 +1,4 @@
-import { IIdentifiedEntity, IChangeable } from '../definition.interface';
+import { IIdentifiedEntity, IChangeable, IEntity } from '../definition.interface';
 import { IOperation } from '../operation';
 
 export interface IApiEntity<TEntity> extends IIdentifiedEntity, IChangeable {
@@ -7,3 +7,5 @@ export interface IApiEntity<TEntity> extends IIdentifiedEntity, IChangeable {
   operation?: IOperation;
   section?: string;
 }
+
+export type ApiEntityT = IApiEntity<IEntity>;
