@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
+import { ActionPositionEnum, BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
@@ -25,6 +25,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                            TInternalProps,
                            TInternalState,
                            INativeMaterialSelectComponent> {
+
+  private defaultAction: IBasicTextFieldAction = {
+    type: 'arrow_drop_down',
+    actionHandler: (event: BasicEventT) => {
+      this.input.focus();
+      this.openMenu(event);
+    },
+  };
 
   constructor(props: TInternalProps) {
     super(props);
@@ -121,16 +129,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         : (value === EMPTY_ID ? '' : value);
   }
 
-  protected getActions(): IBasicTextFieldAction[] {
-    return (this.props.actions || []).concat(
-        {
-          type: 'arrow_drop_down',
-          actionHandler: (event: BasicEventT) => {
-            this.input.focus();
-            this.openMenu(event);
-          },
-        }
-    );
+  protected get actions(): IBasicTextFieldAction[] {
+    const props = this.props;
+    if (props.actionsPosition === ActionPositionEnum.LEFT) {
+      return [this.defaultAction].concat(props.actions || []);
+    } else {
+      return (this.props.actions || []).concat(this.defaultAction);
+    }
   }
 
   private getSelectedOption(value: AnyT): ISelectOption {

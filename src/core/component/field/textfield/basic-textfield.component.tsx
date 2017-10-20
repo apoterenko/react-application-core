@@ -2,8 +2,8 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
-import { uuid } from '../../../util';
-import { AnyT, IKeyValue, ChangeEventT } from '../../../definition.interface';
+import { toClassName, uuid } from '../../../util';
+import { AnyT, IKeyValue, ChangeEventT, BasicEventT } from '../../../definition.interface';
 
 import { Field, IField } from '../field';
 import {
@@ -48,15 +48,23 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? this.context.muiTheme.prepareStyles
         : (styles) => styles;
 
-    const actions = this.getActions();
-    const actionsTpl = actions
+    const actionsTpl = this.actions
         ? (
-            actions.map((action) => (
-                <div key={uuid()}
-                     className='material-icons mdc-toolbar__icon app-action'
-                     onClick={action.actionHandler}>
+            this.actions.map((action) => (
+                <button key={uuid()}
+                        disabled={action.disabled}
+                        title={action.title && this.t(action.title)}
+                        className={
+                          toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)
+                        }
+                        onClick={(event: BasicEventT) => {
+                          if (action.actionHandler) {
+                            this.stopEvent(event);
+                            action.actionHandler(event);
+                          }
+                        }}>
                   {action.type}
-                </div>
+                </button>
             ))
         )
         : null;
@@ -132,7 +140,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return event.target.value;
   }
 
-  protected getActions(): IBasicTextFieldAction[] {
+  protected get actions(): IBasicTextFieldAction[] {
     return this.props.actions;
   }
 
