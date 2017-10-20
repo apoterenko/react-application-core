@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes } from '../../util';
+import { cloneNodes, isUndef } from '../../util';
 import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
 import { BaseComponent, IBaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
@@ -38,6 +38,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
     return (
         <form ref='self'
+              autoComplete='off'
               className={className.filter((cls) => !!cls).join(' ')}
               onSubmit={this.onSubmit}>
           <fieldset disabled={form.progress}>
@@ -57,7 +58,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
             <section className='mdc-card__actions app-card-actions'>
               <Button type='submit'
                       className='mdc-button--raised'
-                      disabled={!form.valid || !form.dirty}
+                      disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
                       progress={form.progress}
                       error={!ramda.isNil(form.error)}>
                 {this.t(settings.actionText || 'Save')}
