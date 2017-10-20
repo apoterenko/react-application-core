@@ -16,7 +16,11 @@ const originalFn = MDCPersistentDrawer.prototype.getDefaultFoundation;
 MDCPersistentDrawer.prototype.getDefaultFoundation = function() {
   const foundation = originalFn.apply(this, arguments);
   foundation.drawerClickHandler_ = (e) => {
-    if (e.target.tagName !== 'A') {
+    let target = e.target;
+    while (target && target.tagName !== 'A') {
+      target = target.parentNode;
+    }
+    if (!target) {
       e.stopPropagation();
     }
   };
