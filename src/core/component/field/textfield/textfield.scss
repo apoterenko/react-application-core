@@ -9,8 +9,18 @@
     &.mdc-toolbar__icon {
       padding: 0 0 6px 0;
     }
-
     color: rgba(black, .6);
+
+    &[disabled] {
+      opacity: .4;
+    }
+  }
+
+  .mdc-textfield__input {
+    border-bottom: none;
+  }
+
+  .mdc-textfield {
     border-bottom: 1px solid rgba(black, .6);
   }
 }
