@@ -17,6 +17,7 @@ export interface IFormAttributes extends IChangeable,
   valid?: boolean;
   dirty?: boolean;
   error?: string;
+  saveable?: boolean;
 }
 
 export interface IFormSettings extends IStylizable {
@@ -40,6 +41,8 @@ export interface IFormContainerInternalProps<TEntity extends IEntity>
             IFormProps {
   entity?: TEntity;
 }
+
+export type FormContainerInternalPropsT = IFormContainerInternalProps<IEntity>;
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
   checkValidity(): void;
