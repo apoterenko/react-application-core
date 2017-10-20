@@ -1,6 +1,10 @@
-export interface IApplicationUserState {
+import { IIdentifiedEntity } from 'core';
+
+export interface IUser extends IIdentifiedEntity {
   name: string;
-  id: number | string;
+}
+
+export interface IApplicationUserState extends IUser {
 }
 
 export const INITIAL_USER_STATE: IApplicationUserState = {
