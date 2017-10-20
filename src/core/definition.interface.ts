@@ -45,6 +45,14 @@ export interface ITypeable<Type> {
   type?: Type;
 }
 
+export interface ITitleable {
+  title?: string;
+}
+
+export interface IDisableable {
+  disabled?: boolean;
+}
+
 export interface ILockable {
   locked?: boolean;
 }
