@@ -6,7 +6,7 @@ import { clone, uuid } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { IApplicationPermissionsState } from '../../permission';
-import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT, IRoutes } from '../../router';
+import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT } from '../../router';
 import { IApplicationSettings } from '../../settings';
 import { APPLICATION_STATE_KEY, IApplicationStorageService } from '../../storage';
 import { IApplicationState } from '../../store';
@@ -37,7 +37,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     basename: BASE_PATH,
   };
 
-  @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorageService;
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
