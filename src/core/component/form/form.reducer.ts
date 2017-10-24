@@ -3,7 +3,6 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { isUndef } from '../../util';
 import { toSection } from '../../store';
-import { AnyT } from '../../definition.interface';
 import { convertError } from '../../error';
 
 import {
