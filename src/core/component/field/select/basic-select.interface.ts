@@ -1,6 +1,6 @@
 import { FunctionT } from '../../../util';
 import { IMenuOption } from '../../../component/menu';
-import { IFilterable } from '../../../definition.interface';
+import { IFilterable, INamedEntity } from '../../../definition.interface';
 
 import {
   IBasicTextFieldInternalProps,
@@ -31,4 +31,10 @@ export interface INativeMaterialSelectComponent extends INativeMaterialBasicText
 }
 
 export interface ISelectOption extends IMenuOption {
+}
+
+export function toSelectOptions(data: INamedEntity[]): ISelectOption[] {
+  return data
+      ? data.map((rawItem) => ({value: rawItem.id, label: rawItem.name}))
+      : null;
 }
