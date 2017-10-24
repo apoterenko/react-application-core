@@ -1,7 +1,9 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
+import { applySection } from '../util';
+import { IApiEntity } from '../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { AnyT, IKeyValue } from '../definition.interface';
+import { AnyT, IKeyValue, IEntity } from '../definition.interface';
 import { NotificationActionBuilder } from '../notification';
 import { ListActionBuilder } from '../component/list';
 import { FormActionBuilder } from '../component/form';
@@ -11,7 +13,6 @@ import { PermissionActionBuilder } from '../permission';
 import { UserActionBuilder } from '../user';
 import { TransportActionBuilder } from '../transport';
 import { ApplicationActionBuilder } from '../component/application';
-import { applySection } from 'core/util';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
@@ -32,6 +33,13 @@ export class BaseEffects<TApi> {
 
   protected buildListLoadAction(section: string): IEffectsAction {
     return ListActionBuilder.buildLoadAction(section);
+  }
+
+  protected buildListEntityUpdateAction(section: string, apiEntity: IApiEntity<IEntity>, changes: IKeyValue): IEffectsAction {
+    const id = apiEntity.id;
+    return apiEntity.isNew
+        ? ListActionBuilder.buildInsertAction(section, {payload: {id, changes}})
+        : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes}});
   }
 
   protected buildFormLockAction(section: string): IEffectsAction {
@@ -94,16 +102,30 @@ export class BaseEffects<TApi> {
     return UserActionBuilder.buildUpdateAction(data);
   }
 
-  protected buildPaginatedListForwardActions(section: string): IEffectsAction[] {
+  protected buildPaginatedListNextActions(section: string): IEffectsAction[] {
     return [
       ListActionBuilder.buildNextPageAction(section),
       this.buildListLoadAction(section)
     ];
   }
 
-  protected buildPaginatedListBackwardActions(section: string): IEffectsAction[] {
+  protected buildPaginatedListPreviousActions(section: string): IEffectsAction[] {
     return [
       ListActionBuilder.buildPreviousPageAction(section),
+      this.buildListLoadAction(section)
+    ];
+  }
+
+  protected buildPaginatedListLastActions(section: string): IEffectsAction[] {
+    return [
+      ListActionBuilder.buildLastPageAction(section),
+      this.buildListLoadAction(section)
+    ];
+  }
+
+  protected buildPaginatedListFirstActions(section: string): IEffectsAction[] {
+    return [
+      ListActionBuilder.buildFirstPageAction(section),
       this.buildListLoadAction(section)
     ];
   }
