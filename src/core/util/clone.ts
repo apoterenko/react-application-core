@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { isPrimitive, uuid } from '../util';
 import { AnyT, ReactElementT } from '../definition.interface';
@@ -12,7 +13,9 @@ export function cloneNodes<TProps>(component: ReactElementT | React.PureComponen
                                    predicate: (child: ReactElementT) => boolean,
                                    childrenMap?: Map<ReactElementT, string>): AnyT[]  {
   return React.Children.map(component.props.children, (child: React.ReactChild) => {
-        if (isPrimitive(child)) {
+        if (R.isNil(child)) {
+          return null;
+        } else if (isPrimitive(child)) {
           return child;
         } else {
           const reactChild = child as ReactElementT;
@@ -22,7 +25,7 @@ export function cloneNodes<TProps>(component: ReactElementT | React.PureComponen
           const clonedChild = React.cloneElement<{ children: React.ReactChild[] }, {}>(
               reactChild,
               {
-                ...(isApplicable ? { ref: uuidRef, ...(mergedProps || {}) } : {}),
+                ...(isApplicable ? {ref: uuidRef, ...(mergedProps || {})} : {}),
                 children: cloneNodes<TProps>(reactChild, mergedProps, predicate, childrenMap),
               }
           );
