@@ -4,12 +4,13 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { IKeyValue, NEW_OPTION } from '../../definition.interface';
+import { IKeyValue } from '../../definition.interface';
 import { IApplicationPermissionsState } from '../../permission';
 import { ROUTER_NAVIGATE_ACTION_TYPE, RouterActionBuilder } from '../../router';
 import { IApplicationState } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionServiceT } from '../../permission';
+import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
@@ -46,6 +47,13 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
     this.appStore.dispatch({
       type: DictionariesActionBuilder.buildLoadActionType(dictionary),
       data: { section: dictionary },
+    });
+  }
+
+  protected dispatchNotification(info: string): void {
+    this.appStore.dispatch({
+      type: NOTIFICATION_INFO_ACTION_TYPE,
+      data: { info },
     });
   }
 }
