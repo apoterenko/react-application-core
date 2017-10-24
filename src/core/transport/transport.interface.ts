@@ -63,6 +63,7 @@ export interface ITransportRawResponse {
 export interface ITransportRawResponseData extends ITransportResultPayload,
                                                    ITransportIdPayload {
   error?: ITransportRawResponseError;
+  Message?: string;
 }
 
 export interface ITransportRawResponseError {

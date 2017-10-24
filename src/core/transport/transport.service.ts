@@ -30,7 +30,7 @@ export class TransportService implements IApplicationTransport {
       this.transportFactory
           .request(req)
           .then((response: ITransportRawResponse) => {
-            const error = response.data.error;
+            const error = response.data.error || response.data.Message;
             if (error) {
               this.onRequestError(req, error);
               reject(error);
