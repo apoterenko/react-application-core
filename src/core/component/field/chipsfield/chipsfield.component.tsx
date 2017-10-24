@@ -67,7 +67,7 @@ export class ChipsField extends BasicSelect<ChipsField,
               <span className='app-chipsfield-description'>
                 {this.toChipsDisplayValue(item)}
               </span>
-              <span className='mdc-toolbar__icon--menu material-icons'
+              <span className='material-icons'
                     onClick={() => this.onDeleteItem(item)}>
                 cancel
               </span>
