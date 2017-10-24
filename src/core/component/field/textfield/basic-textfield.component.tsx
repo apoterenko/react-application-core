@@ -42,7 +42,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? (
             this.actions.map((action) => (
                 <button key={uuid()}
-                        disabled={action.disabled || this.isDeactivated}
+                        disabled={action.disabled === false
+                            ? false : (action.disabled || this.isDeactivated)}
                         title={action.title && this.t(action.title)}
                         className={
                           toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)
