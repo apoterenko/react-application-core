@@ -6,3 +6,4 @@ export * from './action';
 export * from './scroll';
 export * from './style';
 export * from './cond';
+export * from './nvl';
