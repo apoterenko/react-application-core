@@ -29,7 +29,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   public render(): JSX.Element {
-    let runtimeTitle;
     const props = this.props;
     const menu = this.menu
         .filter((item) => !item.accessConfig || this.permissionService.isAccessible(item.accessConfig))
@@ -38,8 +37,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
           text: this.t(item.text),
           activated: props.root.path === item.link,
         }));
-    const title = props.title
-        || ((runtimeTitle = menu.find((item) => item.activated)) ? runtimeTitle.text : props.title);
+    const runtimeTitle = menu.find((item) => item.activated);
+    const title = props.title || (runtimeTitle ? runtimeTitle.text : props.title);
 
     const className = ['app-default-layout', this.props.className];
 
