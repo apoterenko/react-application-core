@@ -65,7 +65,7 @@ export interface ILockable {
   locked?: boolean;
 }
 
-export interface IChangeable<TChanges> {
+export interface IChangeable<TChanges extends IKeyValue> {
   changes: TChanges;
 }
 
