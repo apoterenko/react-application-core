@@ -18,6 +18,9 @@
 
   .mdc-textfield__input {
     border-bottom: none;
+    &[readonly] {
+      opacity: .4;
+    }
   }
 
   .mdc-textfield {
