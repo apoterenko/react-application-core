@@ -33,6 +33,14 @@ export interface IFilterable {
   filterPlaceholder?: string;
 }
 
+export interface IValueable<TValue> {
+  value?: TValue;
+}
+
+export interface IPasswordable {
+  password?: string;
+}
+
 export interface IStylizable {
   className?: string;
 }
