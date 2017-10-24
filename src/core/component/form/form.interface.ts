@@ -5,17 +5,18 @@ import {
   AnyT,
   ILockable,
   IChangeable,
-  IEntity,
   IProgressable,
   IStylizable,
   ISaveable,
+  IKeyValue,
+  IEntity,
 } from '../../definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
 
-export interface IFormAttributes extends IChangeable<IEntity>,
-                                         ILockable,
-                                         IProgressable,
-                                         ISaveable {
+export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable<TChanges>,
+                                                                     ILockable,
+                                                                     IProgressable,
+                                                                     ISaveable {
   valid?: boolean;
   dirty?: boolean;
   error?: string;
@@ -25,31 +26,28 @@ export interface IFormSettings extends IStylizable {
   actionText?: string;
 }
 
-export interface IFormProps {
-  form: IFormAttributes;
+export interface IFormProps<TEntity extends IEntity> {
+  form: IFormAttributes<TEntity>;
+  entity?: TEntity;
   settings?: IFormSettings;
 }
 
-export interface IFormInternalProps extends IBaseComponentInternalProps,
-                                            IFormProps {
+export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,
+                                                                     IFormProps<TEntity> {
   onSubmit?: FunctionT;
   onValid?: FunctionT;
   onChange?(name: string, value: AnyT): void;
 }
 
-export interface IFormContainerInternalProps<TEntity extends IEntity>
-    extends IBaseContainerInternalProps,
-            IFormProps {
-  entity?: TEntity;
+export interface IFormContainerInternalProps<TEntity extends IEntity> extends IBaseContainerInternalProps,
+                                                                              IFormProps<TEntity> {
 }
-
-export type FormContainerInternalPropsT = IFormContainerInternalProps<IEntity>;
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
   checkValidity(): void;
 }
 
-export interface IApplicationFormState extends IFormAttributes {
+export interface IApplicationFormState extends IFormAttributes<IEntity> {
 }
 
 export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {

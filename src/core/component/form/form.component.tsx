@@ -1,9 +1,9 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isUndef } from '../../util';
-import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
+import { cloneNodes, isUndef, toClassName } from '../../util';
+import { AnyT, IEntity, BasicEventT, ReactElementT } from '../../definition.interface';
 import { BaseComponent, IBaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
 import { Field, IField, IFieldInternalProps, IFieldChangeFormInternalProps } from '../../component/field';
@@ -14,11 +14,11 @@ import {
   INITIAL_APPLICATION_FORM_STATE
 } from './form.interface';
 
-export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInternalState>,
+export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>, TInternalState>,
                   TInternalState>
-    extends BaseComponent<TComponent, IFormInternalProps, TInternalState> {
+    extends BaseComponent<TComponent, IFormInternalProps<IEntity>, TInternalState> {
 
-  public static defaultProps: IFormInternalProps = {
+  public static defaultProps: IFormInternalProps<IEntity> = {
     form: INITIAL_APPLICATION_FORM_STATE,
     settings: {},
   };
@@ -26,7 +26,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
 
   private childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
-  constructor(props: IFormInternalProps) {
+  constructor(props: IFormInternalProps<IEntity>) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -34,12 +34,11 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
   public render(): JSX.Element {
     const props = this.props;
     const { form, settings } = props;
-    const className = ['app-form', settings.className];
 
     return (
         <form ref='self'
               autoComplete='off'
-              className={className.filter((cls) => !!cls).join(' ')}
+              className={toClassName('app-form', settings.className)}
               onSubmit={this.onSubmit}>
           <fieldset disabled={form.progress}>
             <section className='mdc-card__primary'>
@@ -60,7 +59,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
                       className='mdc-button--raised'
                       disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
                       progress={form.progress}
-                      error={!ramda.isNil(form.error)}>
+                      error={!R.isNil(form.error)}>
                 {this.t(settings.actionText || 'Save')}
               </Button>
             </section>
@@ -74,7 +73,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps, TInterna
     this.propsOnValid();
   }
 
-  public componentWillUpdate(nextProps: Readonly<IFormInternalProps>, nextState: Readonly<TInternalState>, nextContext: AnyT): void {
+  public componentWillUpdate(nextProps: Readonly<IFormInternalProps<IEntity>>, nextState: Readonly<TInternalState>, nextContext: AnyT): void {
     super.componentWillUpdate(nextProps, nextState, nextContext);
     this.childrenMap.clear();
 
