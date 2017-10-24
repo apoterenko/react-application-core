@@ -1,5 +1,6 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
+import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
 import { ActionPositionEnum, BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
@@ -26,6 +27,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                            TInternalState,
                            INativeMaterialSelectComponent> {
 
+  private static logger: ILogger = LoggerFactory.makeLogger(BasicSelect);
+
   private defaultAction: IBasicTextFieldAction = {
     type: 'arrow_drop_down',
     actionHandler: (event: BasicEventT) => {
@@ -43,11 +46,15 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     super.componentWillReceiveProps(nextProps, nextContext);
 
     if (this.state.needOpenMenu
-        && !ramda.isNil(nextProps.options)) {
+        && !R.isNil(nextProps.options)) {
       this.setState({ needOpenMenu: false });
 
       if (this.isInputFocused) {
-        this.showMenu();
+        this.showMenu(nextProps.options);
+
+        if (this.props.onOptionsLoad) {
+          this.props.onOptionsLoad(nextProps.options);
+        }
       }
     }
   }
@@ -139,7 +146,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   private getSelectedOption(value: AnyT): ISelectOption {
-    return ramda.find((option) => option.value === value, this.options);
+    return R.find((option) => option.value === value, this.options);
   }
 
   private get menu(): IMenu {
@@ -153,7 +160,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.stopEvent(event);
 
     const props = this.props;
-    if (ramda.isNil(props.options)) {
+    if (R.isNil(props.options)) {
       if (props.onEmptyOptions) {
         this.setState({ needOpenMenu: true });
         props.onEmptyOptions();
@@ -163,8 +170,12 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  private showMenu(): void {
-    this.menu.show();
+  private showMenu(options: ISelectOption[] = this.props.options): void {
+    if (options.length) {
+      this.menu.show();
+    } else {
+      BasicSelect.logger.debug(`The options are empty. The menu does not show.`);
+    }
   }
 
   private hideMenu(): void {
@@ -172,6 +183,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   private get isWaitingForOptions(): boolean {
-    return ramda.isNil(this.props.options) && this.state.needOpenMenu;
+    return R.isNil(this.props.options) && this.state.needOpenMenu;
   }
 }
