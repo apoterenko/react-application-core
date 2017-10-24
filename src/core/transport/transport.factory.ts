@@ -1,7 +1,7 @@
 import { Store } from 'redux';
 import Axios from 'axios/dist/axios';
 import { injectable } from 'inversify';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
 import { IApplicationSettings } from '../settings';
@@ -65,14 +65,14 @@ export class TransportFactory implements IApplicationTransportFactory {
     const request: ITransportRawRequest = {
       id: this.id++,
       name: req.name,
-      params: req.params,
+      params: req.params ? R.pickBy((value, key) => !R.isNil(value), req.params) : null,
       auth: !req.noAuth ? this.store.getState().transport.token : null,
     };
-    return ramda.pickBy((value, key) => !ramda.isNil(value), request);
+    return R.pickBy((value, key) => !R.isNil(value), request);
   }
 
   private clearOperation(operationId?: string): void {
-    if (!ramda.isNil(operationId)) {
+    if (!R.isNil(operationId)) {
       this.operationsMap.delete(operationId);
     }
   }
