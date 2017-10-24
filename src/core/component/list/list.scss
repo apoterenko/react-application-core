@@ -2,9 +2,10 @@
 
 .app-list-wrapper {
   overflow: auto;
+  position: relative;
 
   .app-add-item-action {
-    position: absolute;
+    position: fixed;
     bottom: 24px;
     right: 24px;
     background-color: black;
