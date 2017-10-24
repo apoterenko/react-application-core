@@ -8,16 +8,17 @@ import {
   IEntity,
   IProgressable,
   IStylizable,
+  ISaveable,
 } from '../../definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
 
-export interface IFormAttributes extends IChangeable,
+export interface IFormAttributes extends IChangeable<IEntity>,
                                          ILockable,
-                                         IProgressable {
+                                         IProgressable,
+                                         ISaveable {
   valid?: boolean;
   dirty?: boolean;
   error?: string;
-  saveable?: boolean;
 }
 
 export interface IFormSettings extends IStylizable {
