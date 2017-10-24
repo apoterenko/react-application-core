@@ -17,6 +17,10 @@ export interface IIdentifiedEntity {
   id?: EntityIdT;
 }
 
+export interface INamedEntity extends IIdentifiedEntity {
+  name?: string;
+}
+
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
 
@@ -35,6 +39,10 @@ export interface IStylizable {
 
 export interface IProgressable {
   progress?: boolean;
+}
+
+export interface ISaveable {
+  saveable?: boolean;
 }
 
 export interface IErrorable {
@@ -57,8 +65,8 @@ export interface ILockable {
   locked?: boolean;
 }
 
-export interface IChangeable {
-  changes: IKeyValue;
+export interface IChangeable<TChanges> {
+  changes: TChanges;
 }
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
