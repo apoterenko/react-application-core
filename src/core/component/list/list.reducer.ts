@@ -1,6 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { IEntity } from '../../definition.interface';
+import { FIRST_PAGE, IEntity } from '../../definition.interface';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -12,6 +12,16 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
   const payload = action.data && action.data.payload;
 
   switch (action.type) {
+    case ListActionBuilder.buildFirstPageActionType(section):
+      return {
+        ...state,
+        page: FIRST_PAGE,
+      };
+    case ListActionBuilder.buildLastPageActionType(section):
+      return {
+        ...state,
+        page: Math.ceil(state.totalCount / state.pageSize),
+      };
     case ListActionBuilder.buildPreviousPageActionType(section):
       return {
         ...state,

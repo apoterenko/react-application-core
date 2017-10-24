@@ -3,7 +3,13 @@ import {
   IBaseContainerInternalProps,
   IBaseContainer,
 } from '../../component/base';
-import { IEntity, ILockable, IProgressable } from '../../definition.interface';
+import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
+  IEntity,
+  ILockable,
+  IProgressable,
+} from '../../definition.interface';
 import { IListItemOptions } from './item/list-item.interface';
 
 export interface IListOptions extends IBaseComponentInternalProps {
@@ -13,7 +19,7 @@ export interface IListOptions extends IBaseComponentInternalProps {
 
 export interface IPageOptions {
   page: number;
-  pageSize?: number;
+  pageSize: number;
   totalCount: number;
   totalAmount?: number;
 }
@@ -64,7 +70,8 @@ export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
   dirty: false,
   data: null,
   selected: null,
-  page: 1,
+  page: FIRST_PAGE,
+  pageSize: DEFAULT_PAGE_SIZE,
   totalCount: 0,
 };
 
@@ -80,3 +87,5 @@ export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
 export const LIST_NEXT_PAGE_ACTION_TYPE = 'list.next.page';
 export const LIST_PREVIOUS_PAGE_ACTION_TYPE = 'list.previous.page';
+export const LIST_FIRST_PAGE_ACTION_TYPE = 'list.first.page';
+export const LIST_LAST_PAGE_ACTION_TYPE = 'list.last.page';

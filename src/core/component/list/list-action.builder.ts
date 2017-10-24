@@ -16,9 +16,19 @@ import {
   LIST_LOAD_DONE_ACTION_TYPE,
   LIST_INSERT_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
+  LIST_LAST_PAGE_ACTION_TYPE,
+  LIST_FIRST_PAGE_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
+
+  public static buildFirstPageActionType(section: string): string {
+    return `${section}.${LIST_FIRST_PAGE_ACTION_TYPE}`;
+  }
+
+  public static buildLastPageActionType(section: string): string {
+    return `${section}.${LIST_LAST_PAGE_ACTION_TYPE}`;
+  }
 
   public static buildPreviousPageActionType(section: string): string {
     return `${section}.${LIST_PREVIOUS_PAGE_ACTION_TYPE}`;
@@ -90,5 +100,13 @@ export class ListActionBuilder {
 
   public static buildPreviousPageAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildPreviousPageActionType(section), applySection(section, data));
+  }
+
+  public static buildFirstPageAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildFirstPageActionType(section), applySection(section, data));
+  }
+
+  public static buildLastPageAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildLastPageActionType(section), applySection(section, data));
   }
 }
