@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { toClassName } from '../../../util';
 import { FIRST_PAGE } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import { IPageToolbarInternalProps } from './page-toolbar.interface';
@@ -8,26 +9,38 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
 
   constructor(props: IPageToolbarInternalProps) {
     super(props);
-    this.onLeft = this.onLeft.bind(this);
-    this.onRight = this.onRight.bind(this);
+    this.onPrevious = this.onPrevious.bind(this);
+    this.onNext = this.onNext.bind(this);
+    this.onFirst = this.onFirst.bind(this);
+    this.onLast = this.onLast.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
-    const className = ['mdc-toolbar', 'app-toolbar', props.className];
-    const isLeftBtnDisabled = this.isLeftBtnDisabled;
-    const isRightBtnDisabled = this.isRightBtnDisabled;
-    const buttonsTpl = isLeftBtnDisabled && isRightBtnDisabled ? null : (
+    const isPreviousBtnDisabled = this.isPreviousBtnDisabled;
+    const isNextBtnDisabled = this.isNextBtnDisabled;
+
+    const buttonsTpl = isPreviousBtnDisabled && isNextBtnDisabled ? null : (
         <section>
           <button className='material-icons mdc-toolbar__icon'
-                  onClick={this.onLeft}
-                  disabled={isLeftBtnDisabled}>
+                  onClick={this.onFirst}
+                  disabled={isPreviousBtnDisabled}>
+            first_page
+          </button>
+          <button className='material-icons mdc-toolbar__icon'
+                  onClick={this.onPrevious}
+                  disabled={isPreviousBtnDisabled}>
             keyboard_arrow_left
           </button>
           <button className='material-icons mdc-toolbar__icon'
-                  onClick={this.onRight}
-                  disabled={isRightBtnDisabled}>
+                  onClick={this.onNext}
+                  disabled={isNextBtnDisabled}>
             keyboard_arrow_right
+          </button>
+          <button className='material-icons mdc-toolbar__icon'
+                  onClick={this.onLast}
+                  disabled={isNextBtnDisabled}>
+            last_page
           </button>
         </section>
     );
@@ -51,7 +64,7 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
         );
 
     return (
-        <div className={className.filter((cls) => !!cls).join(' ')}>
+        <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
           {contentTpl}
         </div>
     );
@@ -65,23 +78,35 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
     return Math.min(this.props.page * this.props.pageSize, this.props.totalCount);
   }
 
-  private get isLeftBtnDisabled(): boolean {
+  private get isPreviousBtnDisabled(): boolean {
     return this.props.page === FIRST_PAGE;
   }
 
-  private get isRightBtnDisabled(): boolean {
+  private get isNextBtnDisabled(): boolean {
     return this.toNumber === this.props.totalCount;
   }
 
-  private onLeft(): void {
-    if (this.props.onBackward) {
-      this.props.onBackward();
+  private onPrevious(): void {
+    if (this.props.onPrevious) {
+      this.props.onPrevious();
     }
   }
 
-  private onRight(): void {
-    if (this.props.onForward) {
-      this.props.onForward();
+  private onNext(): void {
+    if (this.props.onNext) {
+      this.props.onNext();
+    }
+  }
+
+  private onFirst(): void {
+    if (this.props.onFirst) {
+      this.props.onFirst();
+    }
+  }
+
+  private onLast(): void {
+    if (this.props.onLast) {
+      this.props.onLast();
     }
   }
 }

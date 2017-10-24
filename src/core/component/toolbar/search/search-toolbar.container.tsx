@@ -57,6 +57,6 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
   }
 
   private onChangeFilterQuery(value: string): void {
-    this.dispatch(FILTER_QUERY_ACTION_TYPE, { query: value });
+    this.dispatch(FILTER_QUERY_ACTION_TYPE, { query: value.trim() });
   }
 }

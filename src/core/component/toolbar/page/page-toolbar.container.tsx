@@ -4,24 +4,30 @@ import { BaseContainer } from '../../../component/base';
 import { PageToolbar } from './page-toolbar.component';
 import {
   IPageToolbarContainerInternalProps,
-  PAGER_FORWARD_ACTION_TYPE,
-  PAGER_BACKWARD_ACTION_TYPE,
+  PAGER_NEXT_ACTION_TYPE,
+  PAGER_PREVIOUS_ACTION_TYPE,
+  PAGER_LAST_ACTION_TYPE,
+  PAGER_FIRST_ACTION_TYPE,
 } from './page-toolbar.interface';
 
 export class PageToolbarContainer extends BaseContainer<IPageToolbarContainerInternalProps, {}> {
 
   constructor(props: IPageToolbarContainerInternalProps) {
     super(props);
-    this.onBackward = this.onBackward.bind(this);
-    this.onForward = this.onForward.bind(this);
+    this.onPrevious = this.onPrevious.bind(this);
+    this.onNext = this.onNext.bind(this);
+    this.onFirst = this.onFirst.bind(this);
+    this.onLast = this.onLast.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
     return (
         <PageToolbar {...props.list}
-                     onForward={this.onForward}
-                     onBackward={this.onBackward}
+                     onNext={this.onNext}
+                     onPrevious={this.onPrevious}
+                     onLast={this.onLast}
+                     onFirst={this.onFirst}
                      contentDisplay={this.isContentVisible}>
           {props.children}
         </PageToolbar>
@@ -40,11 +46,19 @@ export class PageToolbarContainer extends BaseContainer<IPageToolbarContainerInt
     );
   }
 
-  private onForward(): void {
-    this.dispatch(PAGER_FORWARD_ACTION_TYPE);
+  private onNext(): void {
+    this.dispatch(PAGER_NEXT_ACTION_TYPE);
   }
 
-  private onBackward(): void {
-    this.dispatch(PAGER_BACKWARD_ACTION_TYPE);
+  private onPrevious(): void {
+    this.dispatch(PAGER_PREVIOUS_ACTION_TYPE);
+  }
+
+  private onLast(): void {
+    this.dispatch(PAGER_LAST_ACTION_TYPE);
+  }
+
+  private onFirst(): void {
+    this.dispatch(PAGER_FIRST_ACTION_TYPE);
   }
 }

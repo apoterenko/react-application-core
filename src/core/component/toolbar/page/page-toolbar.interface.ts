@@ -7,13 +7,17 @@ import { IApplicationListAttributesWrapper, IPageOptions } from '../../../compon
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
                                                    IPageOptions {
   contentDisplay?: boolean;
-  onBackward?(): void;
-  onForward?(): void;
+  onPrevious?(): void;
+  onNext?(): void;
+  onFirst?(): void;
+  onLast?(): void;
 }
 
 export interface IPageToolbarContainerInternalProps extends IBaseContainerInternalProps,
                                                             IApplicationListAttributesWrapper {
 }
 
-export const PAGER_FORWARD_ACTION_TYPE = 'pager.forward';
-export const PAGER_BACKWARD_ACTION_TYPE = 'pager.backward';
+export const PAGER_NEXT_ACTION_TYPE = 'pager.next';
+export const PAGER_PREVIOUS_ACTION_TYPE = 'pager.previous';
+export const PAGER_LAST_ACTION_TYPE = 'pager.last';
+export const PAGER_FIRST_ACTION_TYPE = 'pager.first';
