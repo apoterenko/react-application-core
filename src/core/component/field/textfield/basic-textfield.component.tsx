@@ -34,16 +34,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const error = this.error;
     const isFocused = props.autoFocus || this.isValuePresent;
 
-    const className = [
-      'mdc-textfield mdc-textfield--upgraded app-textfield',
-      props.className,
-      isFocused && 'mdc-textfield--focused'
-    ];
-    const labelClassName = [
-      'mdc-textfield__label',
-      isFocused && 'mdc-textfield__label--float-above'
-    ];
-
     const prepareStyles = this.context.muiTheme
         ? this.context.muiTheme.prepareStyles
         : (styles) => styles;
@@ -74,9 +64,16 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
              style={prepareStyles({...props.wrapperStyle as {}})}>
           <div ref='self'
                style={props.style}
-               className={className.filter((cls) => !!cls).join(' ')}>
+               className={toClassName(
+                   'mdc-textfield',
+                   'mdc-textfield--upgraded',
+                   'app-textfield',
+                   props.className,
+                   isFocused && 'mdc-textfield--focused')}>
             {this.getComponent()}
-            <label className={labelClassName.filter((cls) => !!cls).join(' ')}>
+            <label className={
+              toClassName('mdc-textfield__label', isFocused && 'mdc-textfield__label--float-above')
+            }>
               {props.label ? this.t(props.label) : props.children}
             </label>
             {actionsTpl}
@@ -97,26 +94,29 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getComponentProps(): IKeyValue {
     const props = this.props;
+    const autoFocus = props.autoFocus;
+    const name = props.name;
+    const type = props.type || 'text';
+    const readOnly = props.readOnly;
+    const mask = props.mask;
+    const pattern = props.pattern;
+    const required = props.required;
+    const minLength = props.minLength;
+    const maxLength = props.maxLength;
+    const onFocus = this.onFocus;
+    const onBlur = this.onBlur;
+    const onClick = this.onClick;
+    const onChange = this.onChange;
+    const onKeyDown = this.onKeyDown;
+    const onKeyUp = this.onKeyUp;
     return {
+      name, type, autoFocus, readOnly, mask, pattern, required, minLength, maxLength,
+      onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp,
       ref: 'input',
-      name: props.name,
       value: this.value,
       className: 'mdc-textfield__input',
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
-      type: props.type || 'text',
-      pattern: props.pattern,
-      minLength: props.min,
-      maxLength: props.max,
-      required: props.required,
-      autoFocus: props.autoFocus,
-      mask: props.mask,
       autoComplete: 'off',
-      onFocus: this.onFocus,
-      onBlur: this.onBlur,
-      onClick: this.onClick,
-      onChange: this.onChange,
-      onKeyDown: this.onKeyDown,
-      onKeyUp: this.onKeyUp,
     };
   }
 

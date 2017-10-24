@@ -30,8 +30,9 @@ export interface IFieldInternalProps
   pattern?: string;
   type?: string;
   required?: boolean;
-  min?: number;
-  max?: number;
+  readOnly?: boolean;
+  minLength?: number;
+  maxLength?: number;
   validate?: (value: AnyT) => string;
   validationGroup?: string;
   onChange?(value: AnyT): void;
