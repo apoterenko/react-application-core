@@ -67,10 +67,11 @@ export class ChipsField extends BasicSelect<ChipsField,
               <span className='app-chipsfield-description'>
                 {this.toChipsDisplayValue(item)}
               </span>
-              <span className='material-icons'
-                    onClick={() => this.onDeleteItem(item)}>
+              <button className='material-icons'
+                      disabled={this.isDeactivated}
+                      onClick={() => this.onDeleteItem(item)}>
                 cancel
-              </span>
+              </button>
             </div>
         )}
         </div>

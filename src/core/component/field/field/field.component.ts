@@ -199,6 +199,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return document.activeElement === this.input;
   }
 
+  protected get isDeactivated(): boolean {
+    return this.props.disabled || this.props.readOnly;
+  }
+
   protected abstract getEmptyValue(): AnyT;
 
   protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;

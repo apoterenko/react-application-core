@@ -13,13 +13,15 @@
 
     &[disabled] {
       opacity: .4;
+      cursor: default;
     }
   }
 
   .mdc-textfield__input {
     border-bottom: none;
-    &[readonly] {
-      opacity: .4;
+
+    &[disabled] {
+      opacity: .6;
     }
   }
 

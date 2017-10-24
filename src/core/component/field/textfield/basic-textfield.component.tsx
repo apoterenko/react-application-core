@@ -2,7 +2,7 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextfield } from '@material/textfield';
 
-import { toClassName, uuid } from '../../../util';
+import { noop, toClassName, uuid } from '../../../util';
 import { AnyT, IKeyValue, ChangeEventT, BasicEventT } from '../../../definition.interface';
 
 import { Field, IField } from '../field';
@@ -42,7 +42,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? (
             this.actions.map((action) => (
                 <button key={uuid()}
-                        disabled={action.disabled}
+                        disabled={action.disabled || this.isDeactivated}
                         title={action.title && this.t(action.title)}
                         className={
                           toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)
@@ -105,7 +105,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const maxLength = props.maxLength;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
-    const onClick = this.onClick;
+    const onClick = this.isDeactivated ? noop : this.onClick;
     const onChange = this.onChange;
     const onKeyDown = this.onKeyDown;
     const onKeyUp = this.onKeyUp;

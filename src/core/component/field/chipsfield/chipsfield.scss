@@ -19,8 +19,14 @@
     max-width: 100px;
   }
 
-  .material-icons {
+  button {
     padding: 0;
     color: #9f9e9f;
+    border-style: none;
+
+    &[disabled] {
+      opacity: .4;
+      cursor: default;
+    }
   }
 }
