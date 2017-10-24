@@ -45,16 +45,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
 
-    if (this.state.needOpenMenu
-        && !R.isNil(nextProps.options)) {
-      this.setState({ needOpenMenu: false });
+    if (!R.equals(this.props.options, nextProps.options)
+        && !R.isNil(nextProps.options)
+        && this.isInputFocused) {
+      this.showMenu(nextProps.options);
 
-      if (this.isInputFocused) {
-        this.showMenu(nextProps.options);
-
-        if (this.props.onOptionsLoad) {
-          this.props.onOptionsLoad(nextProps.options);
-        }
+      if (this.props.onOptionsLoad) {
+        this.props.onOptionsLoad(nextProps.options);
       }
     }
   }
@@ -103,11 +100,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   protected getComponentProps(): IKeyValue {
     return {
       ...super.getComponentProps(),
-
-      placeholder: this.isWaitingForOptions
-          ? this.t(this.props.progressMessage || 'Loading...')
-          : this.props.placeholder,
-
       value: this.toDisplayValue(),
     };
   }
@@ -154,7 +146,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   private openMenu(event: BasicEventT): void {
-    if (this.isWaitingForOptions || this.menu.opened) {
+    if (this.menu.opened) {
       return;
     }
     this.stopEvent(event);
@@ -162,7 +154,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     const props = this.props;
     if (R.isNil(props.options)) {
       if (props.onEmptyOptions) {
-        this.setState({ needOpenMenu: true });
         props.onEmptyOptions();
       }
     } else {
@@ -180,9 +171,5 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   private hideMenu(): void {
     this.menu.hide();
-  }
-
-  private get isWaitingForOptions(): boolean {
-    return R.isNil(this.props.options) && this.state.needOpenMenu;
   }
 }

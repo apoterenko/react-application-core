@@ -9,7 +9,6 @@ import {
 } from '../textfield';
 
 export interface IBasicSelectInternalState extends IBasicTextFieldInternalState {
-  needOpenMenu?: boolean;
 }
 
 export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
