@@ -1,11 +1,15 @@
 import { IIdentifiedEntity, IChangeable, IEntity } from '../definition.interface';
 import { IOperation } from '../operation';
 
-export interface IApiEntity<TEntity> extends IIdentifiedEntity, IChangeable {
-  isIdExist: boolean;
-  entity?: TEntity;
+export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity, IChangeable<TEntity> {
+  isNew: boolean;
   operation?: IOperation;
   section?: string;
 }
 
-export type ApiEntityT = IApiEntity<IEntity>;
+export interface IApiEntityRequest<TEntity extends IEntity> {
+  editApi?: string;
+  addApi?: string;
+  apiEntity: IApiEntity<TEntity>;
+  extraParams?: IEntity;
+}
