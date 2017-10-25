@@ -12,7 +12,8 @@ export function userReducer(state: IApplicationUserState = INITIAL_USER_STATE,
   switch (action.type) {
     case USER_UPDATE_ACTION_TYPE:
       return {
-          ...action.data,
+        ...state,
+        ...action.data,
       };
     case USER_DESTROY_ACTION_TYPE:
       return {
