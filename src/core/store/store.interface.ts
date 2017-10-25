@@ -3,7 +3,7 @@ import { AnyAction } from 'redux';
 import { AnyT, IKeyValue } from '../definition.interface';
 import { IApplicationRootState, INITIAL_APPLICATION_ROOT_STATE, rootReducer } from '../component/root';
 import { IApplicationPermissionsState, INITIAL_PERMISSION_STATE, permissionReducer } from '../permission';
-import { IApplicationUserState, INITIAL_USER_STATE, userReducer } from '../user';
+import { IApplicationUserState, userReducer } from '../user';
 import { IApplicationLayoutState, INITIAL_APPLICATION_LAYOUT_STATE, layoutReducer } from '../component/layout';
 import {
   IApplicationTransportState,
@@ -45,11 +45,11 @@ export const INITIAL_APPLICATION_STATE: IApplicationState<IApplicationDictionari
   applicationReady: INITIAL_APPLICATION_READY_STATE,
   permission: INITIAL_PERMISSION_STATE,
   root: INITIAL_APPLICATION_ROOT_STATE,
-  user: INITIAL_USER_STATE,
   layout: INITIAL_APPLICATION_LAYOUT_STATE,
   notification: INITIAL_APPLICATION_NOTIFICATION_STATE,
-  dictionaries: {},
   transport: INITIAL_APPLICATION_TRANSPORT_STATE,
+  dictionaries: {},
+  user: {},
 };
 
 export const defaultReducers = {
