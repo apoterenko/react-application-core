@@ -86,15 +86,15 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
           {super.getComponent()}
           <Menu ref='menu'
                 useFilter={this.props.useFilter}
-                options={this.getFilteredOptions()}
+                options={this.toFilteredOptions()}
                 onSelect={this.onSelect}>
           </Menu>
         </div>
     );
   }
 
-  protected getFilteredOptions(): ISelectOption[] {
-    return this.options;
+  protected toFilteredOptions(options: ISelectOption[] = this.options): ISelectOption[] {
+    return options;
   }
 
   protected getComponentProps(): IKeyValue {
@@ -161,8 +161,9 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  private showMenu(options: ISelectOption[] = this.props.options): void {
-    if (options.length) {
+  private showMenu(options?: ISelectOption[]): void {
+    const filteredOptions = this.toFilteredOptions(options);
+    if (filteredOptions.length) {
       this.menu.show();
     } else {
       BasicSelect.logger.debug(`The options are empty. The menu does not show.`);

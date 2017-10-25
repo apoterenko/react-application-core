@@ -78,6 +78,11 @@ export class ChipsField extends BasicSelect<ChipsField,
     );
   }
 
+  protected toFilteredOptions(options: ISelectOption[]): ISelectOption[] {
+    return super.toFilteredOptions(options).filter((option) =>
+        !this.getActiveValue().find((item) => this.toValue(item) === option.value));
+  }
+
   private deleteItemAccordingCursorPosition(): void {
     const activeValue = this.getActiveValue();
     if (!activeValue.length) {
