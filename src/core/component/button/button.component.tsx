@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../../component/base';
-
+import { toClassName } from '../../util';
 import {
   IButtonInternalProps,
   IButtonInternalState,
@@ -26,15 +26,12 @@ export class Button extends BaseComponent<Button,
             ? (props.errorText || this.t('Error'))
             : null);
 
-    const className = [
-      'mdc-button',
-      this.props.type === 'submit' && 'mdc-button--accent',
-      props.className
-    ];
-
     return (
         <button type={this.props.type}
-                className={className.filter((cls) => !!cls).join(' ')}
+                className={toClassName(
+                    'mdc-button',
+                    this.props.type === 'submit' && 'mdc-button--accent',
+                    props.className)}
                 disabled={props.disabled || props.progress}>
           {statusText || props.children}
         </button>
