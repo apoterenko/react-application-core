@@ -11,11 +11,17 @@ export interface IApplicationDateTimeSettings {
   uiTimePattern?: string;                // UI pattern
 }
 
+export interface IApplicationPhoneSettings {
+  uiPattern?: string;
+  uiMask?: Array<string|RegExp>;
+}
+
 export interface IApplicationSettings {
   apiUrl?: string;
   companyName?: string;
   usePersistence?: boolean;
   dateTimeSettings?: IApplicationDateTimeSettings;
+  phoneSettings?: IApplicationPhoneSettings;
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
@@ -31,5 +37,9 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     uiTimeMask: [/\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/],
     uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
     uiTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])',
+  },
+  phoneSettings: {
+    uiPattern: '1[0-9]{10}',
+    uiMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   },
 };
