@@ -1,15 +1,12 @@
+import { AnyT } from '../definition.interface';
+
 export interface IApplicationStorageService {
   enabled: boolean;
   disabled: boolean;
   set(key: string, value: any): any;
   get(key: string): any;
-  remove(key: string): void;
-  clear(): void;
-  transact(key: string, defaultValue: any, transactionFn?: (val: any) => void): void;
-  getAll(): any;
-  serialize(value: any): string;
-  deserialize(value: string): any;
-  forEach(command: (key: string, value: any) => void): void;
+  remove(key: string, noPrefix?: boolean): void;
+  each(command: (o: AnyT, key: string) => void): void;
 }
 
 export const APPLICATION_STATE_KEY = '$$state';
