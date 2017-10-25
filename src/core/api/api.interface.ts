@@ -1,10 +1,14 @@
-import { IIdentifiedEntity, IChangeable, IEntity } from '../definition.interface';
+import { IIdentifiedEntity, IChangeable, IEntity, EntityIdT } from '../definition.interface';
 import { IOperation } from '../operation';
 
 export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity, IChangeable<TEntity> {
   isNew: boolean;
   operation?: IOperation;
   section?: string;
+}
+
+export function makeUpdatedApiStubEntity<TEntity extends IEntity>(id: EntityIdT): IApiEntity<TEntity> {
+  return {id, isNew: false, changes: {} as TEntity};
 }
 
 export interface IApiEntityRequest<TEntity extends IEntity> {
