@@ -17,6 +17,7 @@ export interface IBaseInternalProps extends IStylizable,
                                             IProgressable {
   progressMessage?: string;
   emptyMessage?: string;
+  message?: string;
   errorMessage?: string;
   notification?: IApplicationNotificationState;
   dictionaries?: IApplicationDictionariesState;

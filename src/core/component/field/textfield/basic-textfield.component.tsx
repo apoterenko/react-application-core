@@ -25,6 +25,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                   ChangeEventT>
     implements IBasicTextField<TInternalProps, TInternalState> {
 
+  private static CHAR_WIDTH_AT_PX = 10;
+
   constructor(props: TInternalProps) {
     super(props, MDCTextfield);
   }
@@ -82,7 +84,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                   : null
             }
             {this.getComponent()}
-            <label style={{paddingLeft: props.prefixLabel ? (props.prefixLabel.length * 9) + 'px' : undefined}}
+            <label style={{paddingLeft: props.prefixLabel
+                  ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
+                  : undefined}}
                    className={
                      toClassName('mdc-textfield__label', isFocused && 'mdc-textfield__label--float-above')
                    }>
@@ -90,10 +94,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             </label>
             {actionsTpl}
           </div>
-          <p title={error || ''}
-             className='mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg'>
-            {error ? this.t(error) : '\u00a0'}
-          </p>
+          {this.getMessage(props.message, false)}
+          {this.getMessage(error, true)}
           {this.getAttachment()}
         </div>
     );
@@ -158,5 +160,18 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected cleanNativeInputForSupportHTML5Validation(): void {
     this.input.value = '';  // We should reset the field manually before HTML5 validation will be called
+  }
+
+  private getMessage(m: string, required: boolean): JSX.Element {
+    return m || required ? (
+        <p title={m}
+           className={toClassName(
+               'mdc-textfield-helptext',
+               'mdc-textfield-helptext--persistent',
+               required && 'mdc-textfield-helptext--validation-msg'
+           )}>
+          {m ? this.t(m) : '\u00a0'}
+        </p>
+    ) : null;
   }
 }
