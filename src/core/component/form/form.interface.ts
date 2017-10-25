@@ -62,3 +62,4 @@ export const FORM_SUBMIT_ERROR_ACTION_TYPE = 'form.submit.error';
 export const FORM_SUBMIT_FINISHED_ACTION_TYPE = 'form.submit.finished';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
+export const FORM_CHANGES_ACTION_TYPE = 'form.changes';

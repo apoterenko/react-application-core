@@ -1,9 +1,10 @@
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { isUndef } from '../../util';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
+import { AnyT } from '../../definition.interface';
 
 import {
   INITIAL_APPLICATION_FORM_STATE,
@@ -30,9 +31,18 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
             ...INITIAL_APPLICATION_FORM_STATE,
           };
     case FormActionBuilder.buildChangeActionType(section):
-      const changes = ramda.pickBy((value, key) => !isUndef(value), {
+    case FormActionBuilder.buildChangesActionType(section):
+      const changes = R.pickBy((value, key) => !isUndef(value), {
         ...state.changes,
-        [action.data.field]: action.data.value,
+        ...(
+            Array.isArray(action.data.fields)
+                ? R.mergeAll(
+                  action.data.fields.map((elem: { field: string, value: AnyT }) => ({[elem.field]: elem.value}))
+                )
+                : {
+                  [action.data.field]: action.data.value,
+                }
+        ),
       });
       return {
         ...state,

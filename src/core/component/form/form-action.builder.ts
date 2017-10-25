@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { IKeyValue } from '../../definition.interface';
+import { AnyT, IKeyValue } from '../../definition.interface';
 import { applySection } from '../../util';
 
 import {
@@ -12,6 +12,7 @@ import {
   FORM_SUBMIT_FINISHED_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
+  FORM_CHANGES_ACTION_TYPE,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -22,6 +23,10 @@ export class FormActionBuilder {
 
   public static buildChangeActionType(section: string): string {
     return `${section}.${FORM_CHANGE_ACTION_TYPE}`;
+  }
+
+  public static buildChangesActionType(section: string): string {
+    return `${section}.${FORM_CHANGES_ACTION_TYPE}`;
   }
 
   public static buildValidActionType(section: string): string {
@@ -48,7 +53,7 @@ export class FormActionBuilder {
     return `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
-  public static buildSubmitDoneAction(section: string, data?: IKeyValue): IEffectsAction {
+  public static buildSubmitDoneAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildSubmitDoneActionType(section), data);
   }
 
@@ -60,7 +65,11 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildLockActionType(section));
   }
 
-  public static buildChangeAction(section: string, data?: IKeyValue): IEffectsAction {
+  public static buildChangeAction(section: string, data: IKeyValue): IEffectsAction {
     return EffectsAction.create(this.buildChangeActionType(section), data);
+  }
+
+  public static buildChangesAction(section: string, data: IKeyValue): IEffectsAction {
+    return EffectsAction.create(this.buildChangesActionType(section), data);
   }
 }
