@@ -4,6 +4,16 @@
   width: 100%;
 }
 
+.app-textfield-deactivated {
+  .app-textfield-prefix {
+    opacity: .6;
+  }
+}
+
+.app-textfield-prefix {
+  padding: 0 0 8px;
+}
+
 .app-textfield-wrapper {
   .app-action {
     &.mdc-toolbar__icon {
@@ -12,7 +22,7 @@
     color: rgba(black, .6);
 
     &[disabled] {
-      opacity: .4;
+      opacity: .6;
       cursor: default;
     }
   }
@@ -20,7 +30,7 @@
   .mdc-textfield__input {
     border-bottom: none;
 
-    &[disabled] {
+    &[readonly], &[disabled] {
       opacity: .6;
     }
   }

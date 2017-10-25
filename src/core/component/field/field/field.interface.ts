@@ -23,6 +23,7 @@ export interface IFieldInternalProps
   value?: AnyT;
   notAllowEmptyValue?: boolean;
   label?: string;
+  prefixLabel?: string;
   placeholder?: string;
   autoFocus?: boolean;
   mask?: Array<string|RegExp>;

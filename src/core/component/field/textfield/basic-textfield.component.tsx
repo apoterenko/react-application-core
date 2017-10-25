@@ -70,11 +70,22 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                    'mdc-textfield--upgraded',
                    'app-textfield',
                    props.className,
-                   isFocused && 'mdc-textfield--focused')}>
+                   this.isDeactivated && 'app-textfield-deactivated',
+                   isFocused && 'mdc-textfield--focused',
+                   props.prefixLabel && 'app-textfield-prefixed'
+                   )}>
+            {
+              props.prefixLabel
+                  ? (
+                      <span className='app-textfield-prefix'>{props.prefixLabel}</span>
+                  )
+                  : null
+            }
             {this.getComponent()}
-            <label className={
-              toClassName('mdc-textfield__label', isFocused && 'mdc-textfield__label--float-above')
-            }>
+            <label style={{paddingLeft: props.prefixLabel ? (props.prefixLabel.length * 9) + 'px' : undefined}}
+                   className={
+                     toClassName('mdc-textfield__label', isFocused && 'mdc-textfield__label--float-above')
+                   }>
               {props.label ? this.t(props.label) : props.children}
             </label>
             {actionsTpl}
