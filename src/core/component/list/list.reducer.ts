@@ -87,13 +87,17 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
       };
     case ListActionBuilder.buildUpdateActionType(section):
       if (state.data && state.data.length) {
+        const updatedData = state.data.map((item) => (
+            item.id === payload.id
+                ? {...item, ...payload.changes}
+                : item
+        ));
         return {
           ...state,
-          data: state.data.map((item) => (
-              item.id === payload.id
-                  ? {...item, ...payload.changes}
-                  : item
-          )),
+          selected: state.selected
+              ? updatedData.find((item) => item.id === state.selected.id) || state.selected
+              : state.selected,
+          data: updatedData,
         };
       }
       break;
