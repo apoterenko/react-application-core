@@ -132,6 +132,14 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     this.extraRoutes.set(container, config);
   }
 
+  protected clearPreviousStates(): void {
+    this.storage.each((o, key) => {
+      if (key.endsWith(APPLICATION_STATE_KEY)) {
+        this.storage.remove(key, true);
+      }
+    });
+  }
+
   private buildRoutes(map: Map<RouteContainerT, ConnectorConfigT>): JSX.Element[] {
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
@@ -157,6 +165,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   private saveState(): void {
+    this.clearPreviousStates();
     this.storage.set(
         APPLICATION_STATE_KEY,
         this.clearStateBeforeSerialization(clone<TAppState>(this.appStore.getState() as TAppState))
