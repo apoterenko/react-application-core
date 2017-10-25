@@ -1,13 +1,9 @@
 import * as React from 'react';
 
-import { lazyInject, DI_TYPES } from '../../../di';
-import { IApplicationSettings } from '../../../settings';
 import { LayoutContainer } from '../layout.container';
 import { IFormLayoutInternalProps } from './form-layout.interface';
 
 export class FormLayoutContainer extends LayoutContainer<IFormLayoutInternalProps> {
-
-  @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
 
   public render(): JSX.Element {
     const props = this.props;
