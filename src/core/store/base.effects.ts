@@ -58,6 +58,10 @@ export class BaseEffects<TApi> {
     return FormActionBuilder.buildChangeAction(section, applySection(section, data));
   }
 
+  protected buildFormChangesAction(section: string, data: IKeyValue): IEffectsAction {
+    return FormActionBuilder.buildChangesAction(section, applySection(section, data));
+  }
+
   protected buildFilterLockAction(section: string): IEffectsAction {
     return FilterActionBuilder.buildLockAction(section);
   }
