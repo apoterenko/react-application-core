@@ -5,14 +5,13 @@ import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { IKeyValue } from '../../definition.interface';
-import { IApplicationPermissionsState } from '../../permission';
 import { ROUTER_NAVIGATE_ACTION_TYPE, RouterActionBuilder } from '../../router';
-import { IApplicationState } from '../../store';
+import { ApplicationStateT } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionServiceT } from '../../permission';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IApplicationSettings } from '../../settings';
-
+import { IDateConverter, INumberConverter } from '../../converter';
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
@@ -20,8 +19,10 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
     extends PureComponent<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 
+  @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
+  @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @lazyInject(DI_TYPES.Translate) protected t: (k: string) => string;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<IApplicationState<{}, IApplicationPermissionsState<{}>, {}>>;
+  @lazyInject(DI_TYPES.Store) protected appStore: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
 
