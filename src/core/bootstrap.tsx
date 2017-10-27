@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+import { Store } from 'redux';
 import { connect, Provider } from 'react-redux';
 
 import { appContainer, DI_TYPES } from './di';
-import { ApplicationContainer, IApplicationContainerProps } from './component/application';
+import {
+  ApplicationActionBuilder,
+  ApplicationContainer,
+  IApplicationContainerProps
+} from './component/application';
 import { ApplicationStateT, IApplicationState } from './store';
 import { IApplicationDictionariesState } from './dictionary';
 import { IApplicationPermissionsState } from './permission';
@@ -30,8 +35,14 @@ export function bootstrap(
   const ready = () => {
     const Component = connect((state: ApplicationStateT) => ({ ...state.applicationReady }), {})
                                   (applicationContainer);
+
+    const store = appContainer.get(DI_TYPES.Store) as Store<ApplicationStateT>;
+    // We must dispatch the init action necessarily before the application instantiating
+    // because of async IApplicationReadyState & Flux architecture
+    store.dispatch({type: ApplicationActionBuilder.buildInitActionType()});
+
     render(
-        <Provider store={appContainer.get(DI_TYPES.Store)}>
+        <Provider store={store}>
           <Component {...props}/>
         </Provider>,
         document.getElementById(rootId),

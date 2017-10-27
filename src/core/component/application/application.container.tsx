@@ -20,7 +20,6 @@ import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import {
   IApplicationContainerProps,
-  APPLICATION_INIT_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
   INITIAL_APPLICATION_READY_STATE,
   APPLICATION_SECTION,
@@ -49,8 +48,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     super(props, APPLICATION_SECTION);
     this.onUnload = this.onUnload.bind(this);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
-
-    this.dispatch(APPLICATION_INIT_ACTION_TYPE);
   }
 
   public render(): JSX.Element {
@@ -109,7 +106,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
                           props.error
                               ? [
                                 this.t(props.errorMessage || 'The following error has occurred'),
-                                props.error
+                                '"' + props.error + '"'
                               ].join(' ')
                               : props.emptyMessage || 'The application is not ready.'
                       )
