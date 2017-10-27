@@ -14,7 +14,7 @@ export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps
 }
 
 export interface ISearchToolbarContainerInternalProps extends IBaseContainerInternalProps {
-  filter: IApplicationFilterAttributes;
+  filter?: IApplicationFilterAttributes;
   filterOptions?: IApplicationFilterOptions;
   onSearch?(value: string): void;
 }
