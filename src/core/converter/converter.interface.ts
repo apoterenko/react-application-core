@@ -13,4 +13,6 @@ export interface IDateConverter {
 
 export interface INumberConverter {
   format(value: number | string): string;
+  currency(value: number | string): string;
+  id(value: number | string): string;
 }

@@ -1,5 +1,10 @@
 import { BASE_PATH } from '../env';
 
+export interface IApplicationCurrencySettings {
+  uiLocale?: string;
+  uiCurrency?: string;
+}
+
 export interface IApplicationDateTimeSettings {
   dateTimeFormat?: string;   // Client-server communication format
   dateFormat?: string;       // Client-server communication format
@@ -22,6 +27,7 @@ export interface IApplicationSettings {
   usePersistence?: boolean;
   dateTimeSettings?: IApplicationDateTimeSettings;
   phoneSettings?: IApplicationPhoneSettings;
+  currency?: IApplicationCurrencySettings;
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
@@ -41,5 +47,9 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   phoneSettings: {
     uiPattern: '1[0-9]{10}',
     uiMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+  },
+  currency: {
+    uiLocale: 'en-US',
+    uiCurrency: 'USD',
   },
 };
