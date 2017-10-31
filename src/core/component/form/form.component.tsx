@@ -61,13 +61,12 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
                 settings.resetButton
                     ? (
                         <Button type='reset'
-                                className='mdc-button--raised'
+                                className='mdc-button--raised app-card-reset-action'
                                 disabled={!form.dirty}>
                           {this.t(settings.resetText || 'Reset')}
                         </Button>
                     ) : null
               }
-              &nbsp;
               <Button type='submit'
                       className='mdc-button--raised'
                       disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
