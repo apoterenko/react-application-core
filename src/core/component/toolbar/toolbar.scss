@@ -1,6 +1,5 @@
 .app-toolbar {
   &.mdc-toolbar {
-    min-height: 96px;
     background-color: white;
 
     .mdc-toolbar__row {
@@ -8,7 +7,6 @@
       justify-content: flex-end;
       padding-left: 16px;
       padding-right: 24px;
-      min-height: 96px;
 
       * {
         color: black;
@@ -59,6 +57,22 @@
         animation: searchToolbarAnimationRule;
         animation-duration: 0.3s;
       }
+    }
+  }
+}
+
+header .app-toolbar {
+  &.mdc-toolbar {
+    background-color: inherit;
+
+    .mdc-toolbar__row {
+      * {
+        color: white;
+      }
+    }
+
+    .mdc-textfield {
+      border-bottom-color: #989898;
     }
   }
 }
