@@ -9,9 +9,7 @@ export interface IApplicationDictionariesState {
   [index: string]: IDictionariesDataState<IEntity>;
 }
 
-export const INITIAL_DICTIONARY_STATE: IDictionariesDataState<AnyT> = {
-  data: null,
-  loading: false,
-};
+export const INITIAL_DICTIONARIES_STATE: IApplicationDictionariesState = {};
 
 export const DICTIONARY_LOAD_ACTION_TYPE = 'dictionary.load';
+export const DICTIONARIES_DESTROY_ACTION_TYPE = 'dictionaries.destroy';
