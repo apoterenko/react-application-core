@@ -111,6 +111,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const autoFocus = props.autoFocus;
     const name = props.name;
     const type = props.type || 'text';
+    const autoComplete = props.autoComplete || 'new-password';
     const readOnly = props.readOnly;
     const mask = props.mask;
     const pattern = props.pattern;
@@ -125,12 +126,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const onKeyUp = this.onKeyUp;
     return {
       name, type, autoFocus, readOnly, mask, pattern, required, minLength, maxLength,
-      onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp,
+      onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       value: this.value,
       className: 'mdc-textfield__input',
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
-      autoComplete: 'new-password',
     };
   }
 

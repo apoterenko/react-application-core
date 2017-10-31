@@ -33,6 +33,7 @@ export interface IFieldInternalProps
   type?: string;
   required?: boolean;
   readOnly?: boolean;
+  autoComplete?: string;
   minLength?: number;
   maxLength?: number;
   validate?: (value: AnyT) => string;
