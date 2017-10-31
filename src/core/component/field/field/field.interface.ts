@@ -22,6 +22,7 @@ export interface IFieldInternalProps
   name?: string;
   value?: AnyT;
   notAllowEmptyValue?: boolean;
+  notErrorMessageRequired?: boolean;
   label?: string;
   prefixLabel?: string;
   placeholder?: string;

@@ -95,7 +95,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             {actionsTpl}
           </div>
           {this.getMessage(props.message, false)}
-          {this.getMessage(error, true)}
+          {this.getMessage(error, !props.notErrorMessageRequired)}
           {this.getAttachment()}
         </div>
     );
@@ -130,7 +130,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       value: this.value,
       className: 'mdc-textfield__input',
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
-      autoComplete: 'off',
+      autoComplete: 'new-password',
     };
   }
 
