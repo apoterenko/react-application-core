@@ -69,7 +69,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
         <div ref='container'
              className='app-list-wrapper'>
-          <ul className={toClassName('mdc-list', props.className)}>
+          <ul className={toClassName('mdc-list mdc-list--two-line mdc-list--avatar-list', props.className)}>
             {props.data.map(
                 (item) => (
                     <ListItem key={uuid()}
