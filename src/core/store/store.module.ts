@@ -8,7 +8,7 @@ import { appContainer, DI_TYPES } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorageService } from '../storage';
 import { AnyT } from '../definition.interface';
 
-import { ApplicationStateT, INITIAL_APPLICATION_STATE, defaultReducers } from './store.interface';
+import { ApplicationStateT, defaultReducers } from './store.interface';
 
 export function makeStore(
     reducers: { [reducerName: string]: Reducer<AnyT> },
@@ -23,7 +23,7 @@ export function makeStore(
 
   const store = createStore(
       (state) => state,
-      (preloadedState || INITIAL_APPLICATION_STATE) as ApplicationStateT,
+      preloadedState as ApplicationStateT,
       PROD_MODE
           ? applyMiddleware(...middlewares)
           : composeWithDevTools(applyMiddleware(...middlewares)),
