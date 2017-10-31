@@ -78,6 +78,10 @@ export class ListActionBuilder {
     return `${section}.${LIST_DESTROY_ACTION_TYPE}`;
   }
 
+  public static buildDestroyAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
+  }
+
   public static buildLockAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
