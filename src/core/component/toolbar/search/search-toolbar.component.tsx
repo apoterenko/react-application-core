@@ -65,7 +65,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
           <section className='mdc-toolbar__section visible'>
             <TextField persistent={false}
                        autoFocus={true}
+                       notErrorMessageRequired={true}
                        value={this.query}
+                       className='mdc-textfield--box'
                        placeholder={'Search'}
                        actions={this.actions}
                        onDelay={this.doSearch}
