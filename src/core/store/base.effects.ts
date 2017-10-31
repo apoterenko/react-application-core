@@ -1,6 +1,5 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { applySection } from '../util';
 import { IApiEntity } from '../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { AnyT, IKeyValue, IEntity } from '../definition.interface';
@@ -13,11 +12,16 @@ import { PermissionActionBuilder } from '../permission';
 import { UserActionBuilder } from '../user';
 import { TransportActionBuilder } from '../transport';
 import { ApplicationActionBuilder } from '../component/application';
+import { DictionariesActionBuilder } from '../dictionary';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Api) protected api: TApi;
+
+  protected buildDictionariesDestroyAction(): IEffectsAction {
+    return DictionariesActionBuilder.buildDestroyAction();
+  }
 
   protected buildNotificationErrorAction(error: string): IEffectsAction {
     return NotificationActionBuilder.buildErrorAction(error);
@@ -35,6 +39,10 @@ export class BaseEffects<TApi> {
     return ListActionBuilder.buildLoadAction(section);
   }
 
+  protected buildListDestroyAction(section: string): IEffectsAction {
+    return ListActionBuilder.buildDestroyAction(section);
+  }
+
   protected buildListEntityUpdateAction(section: string, apiEntity: IApiEntity<IEntity>, changes: IKeyValue): IEffectsAction {
     const id = apiEntity.id;
     return apiEntity.isNew
@@ -46,8 +54,12 @@ export class BaseEffects<TApi> {
     return FormActionBuilder.buildLockAction(section);
   }
 
+  protected buildFormDestroyAction(section: string): IEffectsAction {
+    return FormActionBuilder.buildDestroyAction(section);
+  }
+
   protected buildFormSubmitDoneAction(section: string): IEffectsAction {
-    return FormActionBuilder.buildSubmitDoneAction(section, applySection(section));
+    return FormActionBuilder.buildSubmitDoneAction(section);
   }
 
   protected buildFormSubmitFinishedAction(section: string): IEffectsAction {
@@ -55,11 +67,11 @@ export class BaseEffects<TApi> {
   }
 
   protected buildFormChangeAction(section: string, data: IKeyValue): IEffectsAction {
-    return FormActionBuilder.buildChangeAction(section, applySection(section, data));
+    return FormActionBuilder.buildChangeAction(section, data);
   }
 
   protected buildFormChangesAction(section: string, data: IKeyValue): IEffectsAction {
-    return FormActionBuilder.buildChangesAction(section, applySection(section, data));
+    return FormActionBuilder.buildChangesAction(section, data);
   }
 
   protected buildFilterLockAction(section: string): IEffectsAction {
@@ -76,6 +88,10 @@ export class BaseEffects<TApi> {
 
   protected buildApplicationReadyAction(): IEffectsAction {
     return ApplicationActionBuilder.buildReadyAction();
+  }
+
+  protected buildApplicationAfterLogoutAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildAfterLogoutAction();
   }
 
   protected buildApplicationPrepareAction(): IEffectsAction {
@@ -134,7 +150,7 @@ export class BaseEffects<TApi> {
     ];
   }
 
-  protected buildOpenListFilterActions(section: string, filterPath: string): IEffectsAction[] {
+  protected buildOpenListEntityActions(section: string, filterPath: string): IEffectsAction[] {
     return [
       this.buildListLockAction(section),    // Prevent the list auto destroying
       this.buildFilterLockAction(section),  // Prevent the list filter auto destroying
