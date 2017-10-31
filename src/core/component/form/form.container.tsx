@@ -12,6 +12,7 @@ import {
   FORM_DESTROY_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
+  FORM_RESET_ACTION_TYPE,
 } from './form.interface';
 
 export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEntity>, {}> {
@@ -22,6 +23,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
     this.onChange = this.onChange.bind(this);
     this.onValid = this.onValid.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onReset = this.onReset.bind(this);
   }
 
   public componentWillUnmount(): void {
@@ -33,6 +35,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
     return (
         <Form onChange={this.onChange}
               onSubmit={this.onSubmit}
+              onReset={this.onReset}
               onValid={this.onValid}
               {...props}>
           {props.children}
@@ -52,6 +55,10 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
 
   private onValid(valid: boolean): void {
     this.dispatch(FORM_VALID_ACTION_TYPE, { valid });
+  }
+
+  private onReset(): void {
+    this.dispatch(FORM_RESET_ACTION_TYPE);
   }
 
   private onSubmit(): void {

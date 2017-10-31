@@ -13,6 +13,7 @@ import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
   FORM_CHANGES_ACTION_TYPE,
+  FORM_RESET_ACTION_TYPE,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -23,6 +24,10 @@ export class FormActionBuilder {
 
   public static buildChangeActionType(section: string): string {
     return `${section}.${FORM_CHANGE_ACTION_TYPE}`;
+  }
+
+  public static buildResetActionType(section: string): string {
+    return `${section}.${FORM_RESET_ACTION_TYPE}`;
   }
 
   public static buildChangesActionType(section: string): string {

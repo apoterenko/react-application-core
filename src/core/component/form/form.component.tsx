@@ -29,6 +29,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
   constructor(props: IFormInternalProps<IEntity>) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onReset = this.onReset.bind(this);
   }
 
   public render(): JSX.Element {
@@ -39,6 +40,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
         <form ref='self'
               autoComplete='off'
               className={toClassName('app-form', settings.className)}
+              onReset={this.onReset}
               onSubmit={this.onSubmit}>
           <fieldset disabled={form.progress}>
             <section className='mdc-card__primary'>
@@ -55,6 +57,17 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
               }
             </section>
             <section className='mdc-card__actions app-card-actions'>
+              {
+                settings.resetButton
+                    ? (
+                        <Button type='reset'
+                                className='mdc-button--raised'
+                                disabled={!form.dirty}>
+                          {this.t(settings.resetText || 'Reset')}
+                        </Button>
+                    ) : null
+              }
+              &nbsp;
               <Button type='submit'
                       className='mdc-button--raised'
                       disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
@@ -103,6 +116,14 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
 
     if (this.props.onSubmit) {
       this.props.onSubmit();
+    }
+  }
+
+  private onReset(event: BasicEventT): void {
+    this.stopEvent(event);
+
+    if (this.props.onReset) {
+      this.props.onReset();
     }
   }
 

@@ -24,6 +24,8 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable
 
 export interface IFormSettings extends IStylizable {
   actionText?: string;
+  resetText?: string;
+  resetButton?: boolean;
 }
 
 export interface IFormProps<TEntity extends IEntity> {
@@ -35,6 +37,7 @@ export interface IFormProps<TEntity extends IEntity> {
 export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,
                                                                      IFormProps<TEntity> {
   onSubmit?: FunctionT;
+  onReset?: FunctionT;
   onValid?: FunctionT;
   onChange?(name: string, value: AnyT): void;
 }
@@ -61,5 +64,6 @@ export const FORM_SUBMIT_DONE_ACTION_TYPE = 'form.submit.done';
 export const FORM_SUBMIT_ERROR_ACTION_TYPE = 'form.submit.error';
 export const FORM_SUBMIT_FINISHED_ACTION_TYPE = 'form.submit.finished';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
+export const FORM_RESET_ACTION_TYPE = 'form.reset';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
 export const FORM_CHANGES_ACTION_TYPE = 'form.changes';
