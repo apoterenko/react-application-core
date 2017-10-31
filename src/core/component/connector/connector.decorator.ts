@@ -6,11 +6,12 @@ import { ILogger, LoggerFactory } from 'ts-smart-logger';
 import { FunctionT, noop, sequence } from '../../util';
 import { BaseContainerT } from '../../component/base';
 import { ApplicationStateT } from '../../store';
-import { APPLICATION_SECTIONS, DYNAMIC_ROUTES } from '../../router';
+import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';
 import { IConnectorConfig, IConnectorCtor } from './connector.interface';
 import { appContainer, DI_TYPES } from '../../di';
 import { ConnectorActionBuilder } from './connector-builder.action';
+import { APPLICATION_SECTIONS } from '../application';
 
 const logger: ILogger = LoggerFactory.makeLogger('connector.decorator');
 

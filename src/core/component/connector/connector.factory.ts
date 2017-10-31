@@ -7,7 +7,7 @@ import { IKeyValue } from '../../definition.interface';
 import { IContainerWrapperCtor } from '../../component/application';
 import { IApplicationDictionariesState } from '../../dictionary';
 import { IApplicationPermissionsState } from '../../permission';
-import { ConnectorMapperT, IConnectorCtor } from './container.interface';
+import { ConnectorMapperT, IConnectorCtor } from './connector.interface';
 
 export const connectorFactory = <TAppState extends ApplicationStateT>(
     containerCtor: IConnectorCtor<BaseContainerT>,
