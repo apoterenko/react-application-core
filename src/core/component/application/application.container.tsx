@@ -14,7 +14,7 @@ import { BaseContainer } from '../../component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IApplicationDictionariesState } from '../../dictionary';
 import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
-import { ConnectorConfigT } from '../../component/store';
+import { ConnectorConfigT } from '../../component/connector';
 import { Info } from '../../component/info';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';

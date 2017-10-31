@@ -25,6 +25,7 @@ export const INITIAL_APPLICATION_READY_STATE: IApplicationReadyState = {
   progress: false,
 };
 
+export const APPLICATION_SECTIONS: string[] = [];
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
 export const APPLICATION_AFTER_INIT_ACTION_TYPE = 'after.init';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';
