@@ -77,6 +77,11 @@ export interface IChangeable<TChanges extends IKeyValue> {
   changes: TChanges;
 }
 
+export interface IDateTimeRangeable {
+  from?: string;
+  to?: string;
+}
+
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;

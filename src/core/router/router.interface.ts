@@ -3,7 +3,7 @@ import { History } from 'history';
 import { BaseContainerT } from '../component/base';
 import { IContainerWrapperCtor } from '../component/application';
 import { IRootContainerAttributes } from '../component/root';
-import { IConnectorConfig, ConnectorConfigT } from '../component/store';
+import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
 import { IApplicationState } from '../store';
 import { IApplicationAccessConfig, IApplicationPermissionsState } from '../permission';
 import { IApplicationDictionariesState } from '../dictionary';
