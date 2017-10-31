@@ -8,4 +8,5 @@ export interface IButtonInternalProps extends IBaseComponentInternalProps {
   disabled?: boolean;
   error?: boolean;
   errorText?: string;
+  onClick?(): void;
 }

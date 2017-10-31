@@ -27,10 +27,11 @@ export class Button extends BaseComponent<Button,
             : null);
 
     return (
-        <button type={this.props.type}
+        <button type={props.type}
+                onClick={props.onClick}
                 className={toClassName(
                     'mdc-button',
-                    this.props.type === 'submit' && 'mdc-button--accent',
+                    props.type === 'submit' && 'mdc-button--accent',
                     props.className)}
                 disabled={props.disabled || props.progress}>
           {statusText || props.children}
