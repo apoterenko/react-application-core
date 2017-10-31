@@ -1,6 +1,7 @@
 @import './navigation/navigation-list';
 
 .app-list-wrapper {
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
@@ -41,6 +42,10 @@
   .mdc-list-item {
     height: auto;
     min-height: 48px;
+  }
+
+  .mdc-list-divider {
+    margin: 0;
   }
 }
 
