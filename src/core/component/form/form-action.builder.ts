@@ -53,8 +53,8 @@ export class FormActionBuilder {
     return `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
-  public static buildSubmitDoneAction(section: string, data?: AnyT): IEffectsAction {
-    return EffectsAction.create(this.buildSubmitDoneActionType(section), data);
+  public static buildSubmitDoneAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildSubmitDoneActionType(section), applySection(section));
   }
 
   public static buildSubmitFinishedAction(section: string): IEffectsAction {
@@ -62,14 +62,18 @@ export class FormActionBuilder {
   }
 
   public static buildLockAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildLockActionType(section));
+    return EffectsAction.create(this.buildLockActionType(section), applySection(section));
+  }
+
+  public static buildDestroyAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
   }
 
   public static buildChangeAction(section: string, data: IKeyValue): IEffectsAction {
-    return EffectsAction.create(this.buildChangeActionType(section), data);
+    return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
   }
 
   public static buildChangesAction(section: string, data: IKeyValue): IEffectsAction {
-    return EffectsAction.create(this.buildChangesActionType(section), data);
+    return EffectsAction.create(this.buildChangesActionType(section), applySection(section, data));
   }
 }
