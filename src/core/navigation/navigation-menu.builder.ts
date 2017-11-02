@@ -23,7 +23,7 @@ export class NavigationMenuBuilder {
             menuItems.push({type: NavigationListItemTypeEnum.DIVIDER});
           }
           menuItems = menuItems
-              .concat({type: NavigationListItemTypeEnum.SUB_HEADER, text: item.text})
+              .concat(item.text ? {type: NavigationListItemTypeEnum.SUB_HEADER, text: item.text} : [])
               .concat(children);
         }
       } else {
