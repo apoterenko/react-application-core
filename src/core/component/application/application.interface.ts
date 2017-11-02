@@ -29,6 +29,7 @@ export const APPLICATION_SECTIONS: string[] = [];
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
 export const APPLICATION_AFTER_INIT_ACTION_TYPE = 'after.init';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';
+export const APPLICATION_PREPARE_DONE_ACTION_TYPE = 'prepare.done';
 export const APPLICATION_PREPARE_ERROR_ACTION_TYPE = 'prepare.error';
 export const APPLICATION_LOGOUT_ACTION_TYPE = 'logout';
 export const APPLICATION_AFTER_LOGOUT_ACTION_TYPE = 'after.logout';
