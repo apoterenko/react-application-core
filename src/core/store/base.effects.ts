@@ -4,7 +4,7 @@ import { IApiEntity } from '../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { AnyT, IKeyValue, IEntity } from '../definition.interface';
 import { NotificationActionBuilder } from '../notification';
-import { ListActionBuilder } from '../component/list';
+import { IApplicationListWrapperState, ListActionBuilder } from '../component/list';
 import { FormActionBuilder } from '../component/form';
 import { FilterActionBuilder } from '../component/filter';
 import { RouterActionBuilder } from '../router';
@@ -48,6 +48,11 @@ export class BaseEffects<TApi> {
     return apiEntity.isNew
         ? ListActionBuilder.buildInsertAction(section, {payload: {id, changes}})
         : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes}});
+  }
+
+  protected buildUntouchedListLoadAction(section: string,
+                                         listWrapperState: IApplicationListWrapperState): IEffectsAction {
+    return listWrapperState.list.touched ? null : this.buildListLoadAction(section);
   }
 
   protected buildFormLockAction(section: string): IEffectsAction {
