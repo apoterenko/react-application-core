@@ -1,6 +1,24 @@
 @import './form/form-layout';
 @import './default/default-layout';
 
+.app-row-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.app-column-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-full-flex {
+  flex: 1;
+}
+
+.app-full-layout {
+  flex: 1;
+}
+
 .app-column-layout {
   display: flex;
   flex-direction: row;
@@ -14,13 +32,18 @@
   }
 }
 
+.app-row-layout {
+  display: flex;
+  flex-direction: column;
+
+  * {
+    flex: 1;
+  }
+}
+
 .app-center-layout {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-}
-
-.app-full-layout {
-  flex: 1;
 }

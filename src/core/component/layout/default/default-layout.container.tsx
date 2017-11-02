@@ -5,7 +5,7 @@ import { PersistentDrawer } from '../../../component/drawer';
 import { INavigationListItem, NavigationList } from '../../../component/list';
 import { lazyInject, DI_TYPES } from '../../../di';
 import { IRoutes } from '../../../router';
-
+import { toClassName, orNull } from '../../../util';
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
@@ -18,6 +18,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   public static defaultProps: IDefaultLayoutContainerInternalProps = {
     navigationControlType: 'menu',
+    user: {
+      email: '(no email)',
+    },
   };
 
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
@@ -40,18 +43,20 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const runtimeTitle = menu.find((item) => item.activated);
     const title = props.title || (runtimeTitle ? runtimeTitle.text : props.title);
 
-    const className = ['app-default-layout', this.props.className];
-
     return (
-        <div className={className.filter((cls) => !!cls).join(' ')}>
+        <div className={toClassName(
+            'app-default-layout',
+            'app-row-flex',
+            'app-full-flex',
+            this.props.className
+        )}>
           <PersistentDrawer opened={this.isLayoutFullMode}>
             <div className='mdc-persistent-drawer__toolbar-spacer'>
               {this.profileTpl}
             </div>
-            <NavigationList items={menu}>
-            </NavigationList>
+            <NavigationList items={menu}/>
           </PersistentDrawer>
-          <div className='app-content'>
+          <div className='app-content app-column-flex app-full-flex'>
             <header className='mdc-toolbar'>
               <div className='mdc-toolbar__row'>
                 <section className='mdc-toolbar__section mdc-toolbar__section--align-start'>
@@ -63,9 +68,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     {title}
                   </span>
                 </section>
+                {
+                  orNull(props.navigationControls, (
+                      <section className='mdc-toolbar__section'>
+                        {props.navigationControls}
+                      </section>
+                  ))
+                }
               </div>
             </header>
-            <div className='app-content-body'>
+            <div className='app-content-body app-column-flex app-full-flex'>
               {props.children}
             </div>
           </div>
@@ -76,14 +88,25 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   protected get profileTpl(): JSX.Element {
     const profileRoutePath = this.routes.profile;
-    return profileRoutePath
-      ? (
-        <Link to={profileRoutePath}
-              className='app-profile-link'>
-          <i className='material-icons'>person</i>
-          <span className='app-profile-name'>{this.props.user.name}</span>
-        </Link>
-      ) : null;
+    const user = this.props.user;
+    const email = user.email;
+
+    return orNull(
+        profileRoutePath,
+        (
+            <Link to={profileRoutePath}
+                  className='app-profile'>
+              <div className='app-profile-icon app-profile-logo'>
+                <i className='material-icons'>business</i>
+              </div>
+              <div className='app-profile-icon app-profile-avatar'>
+                <i className='material-icons'>person</i>
+              </div>
+              <div className='app-profile-info app-profile-name' title={user.name}>{user.name}</div>
+              <div className='app-profile-info app-profile-email' title={email}>{email}</div>
+            </Link>
+        )
+    );
   }
 
   protected onClick(): void {
