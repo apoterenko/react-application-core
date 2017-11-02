@@ -49,6 +49,10 @@ export interface IProgressable {
   progress?: boolean;
 }
 
+export interface ITouchable {
+  touched?: boolean;
+}
+
 export interface ISaveable {
   saveable?: boolean;
 }
@@ -78,8 +82,8 @@ export interface IChangeable<TChanges extends IKeyValue> {
 }
 
 export interface IDateTimeRangeable {
-  from?: string;
-  to?: string;
+  fromDate?: string;
+  toDate?: string;
 }
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
