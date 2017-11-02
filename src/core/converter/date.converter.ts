@@ -28,6 +28,19 @@ export class DateConverter implements IDateConverter {
     return this.format(date, this.dateTimeFormat, this.uiDateTimeFormat);
   }
 
+  public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
+    return this.format(date, this.dateFormat, outputFormat);
+  }
+
+  public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {
+    return this.format(date, this.dateTimeFormat, outputFormat);
+  }
+
+  public formatPSTDateTime(date: DateTimeLikeTypeT = new Date()): string {
+    return this.formatDateTime(date,
+        this.combine(this.dateTimeSettings.pstDateFormat, this.dateTimeSettings.pstTimeFormat));
+  }
+
   public toDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
@@ -42,8 +55,12 @@ export class DateConverter implements IDateConverter {
     return this.getCurrentMomentDate(date).toDate();
   }
 
+  public get30DaysAgo(): Date {
+    return moment().subtract(30, 'days').toDate();
+  }
+
   public getFirstDayOfMonth(): Date {
-    return moment(new Date()).startOf('month').toDate();
+    return moment().startOf('month').toDate();
   }
 
   public combine(dateAsString: string, timeAsString: string): string {

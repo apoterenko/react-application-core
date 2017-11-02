@@ -10,6 +10,8 @@ export interface IApplicationDateTimeSettings {
   dateFormat?: string;       // Client-server communication format
   uiDateFormat?: string;     // UI format
   uiTimeFormat?: string;     // UI format
+  pstDateFormat?: string;                // UI PST date format
+  pstTimeFormat?: string;                // UI PST time format
   uiDateMask?: Array<string|RegExp>;     // UI mask
   uiTimeMask?: Array<string|RegExp>;     // UI mask
   uiDatePattern?: string;                // UI pattern
@@ -39,6 +41,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     dateFormat: 'YYYY-MM-DD',
     uiDateFormat: 'YYYY-MM-DD',
     uiTimeFormat: 'HH:mm:ss',
+    pstTimeFormat: 'hh:mm A',
+    pstDateFormat: 'MMM DD',
     uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
     uiTimeMask: [/\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/],
     uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
