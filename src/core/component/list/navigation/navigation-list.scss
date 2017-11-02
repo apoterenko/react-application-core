@@ -1,5 +1,7 @@
 .app-navigation-list {
   &.mdc-list {
+    overflow: auto;
+
     .mdc-list-item {
       &.app-active {
         color: red;
