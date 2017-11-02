@@ -1,4 +1,5 @@
 import { BASE_PATH } from '../env';
+import { ApplicationStorageTypeEnum } from '../storage';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;
@@ -27,6 +28,7 @@ export interface IApplicationSettings {
   apiUrl?: string;
   companyName?: string;
   usePersistence?: boolean;
+  persistenceStorage?: ApplicationStorageTypeEnum;
   dateTimeSettings?: IApplicationDateTimeSettings;
   phoneSettings?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;

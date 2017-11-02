@@ -9,5 +9,10 @@ export interface IApplicationStorageService {
   each(command: (o: AnyT, key: string) => void): void;
 }
 
+export enum ApplicationStorageTypeEnum {
+  SESSION,
+  LOCAL,
+}
+
 export const APPLICATION_STATE_KEY = '$$state';
 export const APPLICATION_TOKEN_KEY = `${APPLICATION_STATE_KEY}.token`;

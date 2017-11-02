@@ -1,11 +1,19 @@
-import * as store from 'store/dist/store.modern';
+import * as engine from 'store/src/store-engine';
+import * as sessionStorage from 'store/storages/sessionStorage';
+import * as localStorage from 'store/storages/localStorage';
 
-import { IApplicationStorageService } from '../storage';
+const sessionStore = engine.createStore([sessionStorage]);
+const localStore = engine.createStore([localStorage]);
+
+import { ApplicationStorageTypeEnum, IApplicationStorageService } from '../storage';
 import { AnyT } from '../definition.interface';
+import { appContainer, DI_TYPES } from '../di';
+import { IApplicationSettings } from '../settings';
 
 export class StorageService implements IApplicationStorageService {
 
-  constructor(private prefix: string) {
+  constructor(private prefix: string,
+              private storageType?: ApplicationStorageTypeEnum) {
   }
 
   set enabled(value: boolean) {
@@ -45,6 +53,16 @@ export class StorageService implements IApplicationStorageService {
   }
 
   private get storage(): IApplicationStorageService {
-    return store;
+    const settings: IApplicationSettings = appContainer.get(DI_TYPES.Settings);
+    const storageType: ApplicationStorageTypeEnum = this.storageType
+        ? this.storageType
+        : (settings && settings.persistenceStorage);
+
+    switch (storageType) {
+      case ApplicationStorageTypeEnum.SESSION:
+        return sessionStore;
+      default:
+        return localStore;
+    }
   }
 }
