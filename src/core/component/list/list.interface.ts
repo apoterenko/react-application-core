@@ -8,9 +8,11 @@ import {
   FIRST_PAGE,
   IEntity,
   ILockable,
+  ITouchable,
   IProgressable,
+  IErrorable,
 } from '../../definition.interface';
-import { IListItemOptions } from './item/list-item.interface';
+import { IListItemOptions } from './item';
 
 export interface IListOptions extends IBaseComponentInternalProps {
   itemOptions?: IListItemOptions;
@@ -40,11 +42,11 @@ export interface IListEntity<TEntity extends IEntity> {
 
 export interface IApplicationListAttributes extends ILockable,
                                                     IPageOptions,
-                                                    IProgressable {
+                                                    IProgressable,
+                                                    ITouchable,
+                                                    IErrorable {
   data: IEntity[];
   selected: IEntity;
-  error?: string;
-  dirty: boolean;
 }
 
 export interface IApplicationListAttributesWrapper {
@@ -67,7 +69,7 @@ export interface IApplicationListWrapperState {
 
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
   progress: false,
-  dirty: false,
+  touched: false,
   data: null,
   selected: null,
   page: FIRST_PAGE,

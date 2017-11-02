@@ -36,7 +36,7 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
       return {
         ...state,
         progress: true,
-        dirty: true,
+        touched: true,
         selected: null,
         error: null,
       };

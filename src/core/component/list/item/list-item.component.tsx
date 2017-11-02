@@ -14,28 +14,38 @@ export class ListItem extends Ripple<IListItemInternalProps> {
 
   public render(): JSX.Element {
     const props = this.props;
-    const className = [
-      'mdc-list-item',
-      'app-list-item',
-      props.className,
-      props.toClassName && props.toClassName(props.rawData)
-    ];
-    const actionTypeEl = orNull(
-        props.actionType,
-        <i className='mdc-list-item__end-detail material-icons'>{props.actionType}</i>
-    );
-    return (
-        <li ref='self'
-            className={toClassName(...className)}
-            onClick={this.onActionClick}>
-          {
-            props.renderer
-                ? props.renderer(props.rawData)
-                : (props.rawData.id || JSON.stringify(props.rawData))
-          }
-          {actionTypeEl}
-        </li>
-    );
+    const itemProps = {
+      ref: 'self',
+      onClick: this.onActionClick,
+    };
+
+    return props.renderer
+        ? React.cloneElement(props.renderer(props.rawData), itemProps)
+        : (
+            <li className={toClassName(
+                    'mdc-list-item',
+                    'mdc-ripple-surface',
+                    props.className,
+                    props.toClassName && props.toClassName(props.rawData)
+                )}
+                {...itemProps}>
+              {
+                orNull(
+                    props.itemIcon,
+                    <span className='mdc-list-item__start-detail'>
+                      <i className='material-icons'>{props.itemIcon}</i>
+                    </span>
+                )
+              }
+              <span className='mdc-list-item__text'>
+                {
+                  props.itemValue
+                      ? props.itemValue(props.rawData)
+                      : props.rawData.id || JSON.stringify(props.rawData)
+                }
+              </span>
+            </li>
+        );
   }
 
   private onActionClick(event: BasicEventT): void {

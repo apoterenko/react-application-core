@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, scrollIntoView, toClassName } from '../../util';
+import { uuid, scrollIntoView, toClassName, orNull } from '../../util';
 import { IEntity } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
 
@@ -44,7 +44,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     // we have the state when error property does set at once after destroy
     // of a list state. This is the best covert workaround to optimize
     // unnecessary business logic code of app effects
-    const error = props.dirty ? props.error : null;
+    const error = props.touched ? props.error : null;
 
     if (props.progress
         || error
@@ -67,31 +67,31 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     }
 
     return (
-        <div ref='container'
-             className='app-list-wrapper'>
-          <ul className={toClassName('mdc-list mdc-list--two-line mdc-list--avatar-list', props.className)}>
-            {props.data.map(
-                (item) => (
-                    <ListItem key={uuid()}
-                              rawData={item}
-                              active={this.isSelected(item)}
-                              onClick={this.onSelect}
-                              ref={this.toItemId(item)}
-                              {...props.itemOptions}/>
-                ),
-            )}
-          </ul>
+        <ul ref='container'
+            className={toClassName(
+                'mdc-list mdc-list--two-line mdc-list--avatar-list app-list app-full-flex',
+                props.className
+            )}>
+          {props.data.map(
+              (item) => (
+                  <ListItem key={uuid()}
+                            rawData={item}
+                            active={this.isSelected(item)}
+                            onClick={this.onSelect}
+                            ref={this.toItemId(item)}
+                            {...props.itemOptions}/>
+              ),
+          )}
           {
-            props.addAction
-                ? (<button className='mdc-fab material-icons app-add-item-action'
-                           onClick={this.onAddItem}>
-                      <span className='mdc-fab__icon'>
-                        add
-                      </span>
-                    </button>)
-                : null
+            orNull(
+                props.addAction,
+                <button className='mdc-fab material-icons app-list-add-item-action'
+                        onClick={this.onAddItem}>
+                  <span className='mdc-fab__icon'>add</span>
+                </button>
+            )
           }
-        </div>
+        </ul>
     );
   }
 
