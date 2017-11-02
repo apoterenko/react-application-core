@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Link } from '../../../component/link';
 import { PersistentDrawer } from '../../../component/drawer';
-import { INavigationListItem, NavigationList } from '../../../component/list';
+import { NavigationList } from '../../../component/list';
 import { lazyInject, DI_TYPES } from '../../../di';
 import { IRoutes } from '../../../router';
 import { toClassName, orNull } from '../../../util';
@@ -13,6 +13,7 @@ import {
 } from '../layout.interface';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
+import { NavigationMenuBuilder } from '../../../navigation';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
@@ -23,8 +24,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     },
   };
 
-  @lazyInject(DI_TYPES.Menu) private menu: INavigationListItem[];
   @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
+  @lazyInject(NavigationMenuBuilder) private navigationMenuBuilder: NavigationMenuBuilder;
 
   constructor(props: IDefaultLayoutContainerInternalProps) {
     super(props);
@@ -33,13 +34,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   public render(): JSX.Element {
     const props = this.props;
-    const menu = this.menu
-        .filter((item) => !item.accessConfig || this.permissionService.isAccessible(item.accessConfig))
-        .map((item) => ({
-          ...item,
-          text: this.t(item.text),
-          activated: props.root.path === item.link,
-        }));
+    const menu = this.navigationMenuBuilder.provide().map((item) => ({
+      ...item,
+      text: this.t(item.text),
+      activated: props.root.path === item.link,
+    }));
     const runtimeTitle = menu.find((item) => item.activated);
     const title = props.title || (runtimeTitle ? runtimeTitle.text : props.title);
 
