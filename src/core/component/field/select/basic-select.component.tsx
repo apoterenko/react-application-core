@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
+import { isUndef } from '../../../util';
 import { ActionPositionEnum, BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {
@@ -121,6 +122,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected toDisplayValue(): string {
+    const props = this.props;
+    if (!isUndef(props.displayValue)) {
+      return props.displayValue;
+    }
     const value = this.value;
     const selectedItem = this.getSelectedOption(value);
     return selectedItem

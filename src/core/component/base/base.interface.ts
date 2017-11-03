@@ -1,7 +1,7 @@
 import { Component, CSSProperties, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
-import { AnyT, IKeyValue, IProgressable, IStylizable } from '../../definition.interface';
+import { AnyT, IKeyValue, IProgressable, IStylizable, ITitleable } from '../../definition.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
@@ -14,6 +14,7 @@ export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComp
                                                         {}>;
 
 export interface IBaseInternalProps extends IStylizable,
+                                            ITitleable,
                                             IProgressable {
   progressMessage?: string;
   emptyMessage?: string;
