@@ -7,6 +7,15 @@ import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
 @provideInSingleton(DateConverter)
 export class DateConverter implements IDateConverter {
 
+  private static MONTHS = moment.months();
+  private static MONTHS_SHORT = moment.monthsShort();
+  private static WEEKDAYS_SHORT = moment.weekdaysShort()
+      .slice(1, 7)
+      .concat(moment.weekdaysShort()[0]);
+  private static WEEKDAYS = moment.weekdays()
+      .slice(1, 7)
+      .concat(moment.weekdays()[0]);
+
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
 
   public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
@@ -57,6 +66,22 @@ export class DateConverter implements IDateConverter {
 
   public get30DaysAgo(): Date {
     return moment().subtract(30, 'days').toDate();
+  }
+
+  public getLocalizedMonth(index: number): string {
+    return DateConverter.MONTHS[index];
+  }
+
+  public getLocalizedMonthShort(index: number): string {
+    return DateConverter.MONTHS_SHORT[index];
+  }
+
+  public getLocalizedWeekday(index: number): string {
+    return DateConverter.WEEKDAYS[index];
+  }
+
+  public getLocalizedWeekdayShort(index: number): string {
+    return DateConverter.WEEKDAYS_SHORT[index];
   }
 
   public getFirstDayOfMonth(): Date {

@@ -12,6 +12,10 @@ export interface IDateConverter {
   getCurrentDate(date?: Date): Date;
   getFirstDayOfMonth(): Date;
   get30DaysAgo(): Date;
+  getLocalizedMonth(index: number): string;
+  getLocalizedMonthShort(index: number): string;
+  getLocalizedWeekday(index: number): string;
+  getLocalizedWeekdayShort(index: number): string;
   combine(dateAsString: string, timeAsString: string): string;
 }
 
