@@ -13,6 +13,12 @@ export class NumberConverter implements INumberConverter {
       {style: 'currency', currency: this.settings.currency.uiCurrency}
   );
 
+  constructor() {
+    this.format = this.format.bind(this);
+    this.currency = this.currency.bind(this);
+    this.id = this.id.bind(this);
+  }
+
   public format(value: string | number, formatter: { format(...args): string} = this.defaultFormatter): string {
     value = value || 0;
     return formatter.format(
