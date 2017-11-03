@@ -10,8 +10,9 @@ export function clone<TObject>(o: TObject): TObject {
 
 export function cloneNodes<TProps>(component: ReactElementT | React.PureComponent,
                                    mergedProps: TProps,
-                                   predicate: (child: ReactElementT) => boolean,
-                                   childrenMap?: Map<ReactElementT, string>): AnyT[]  {
+                                   canMergePropsPredicate: (child: ReactElementT) => boolean,
+                                   childrenMap?: Map<ReactElementT, string>,
+                                   renderConditionPredicate?: (child: ReactElementT) => boolean): AnyT[]  {
   return React.Children.map(component.props.children, (child: React.ReactChild) => {
         if (R.isNil(child)) {
           return null;
@@ -20,16 +21,25 @@ export function cloneNodes<TProps>(component: ReactElementT | React.PureComponen
         } else {
           const reactChild = child as ReactElementT;
           const uuidRef = uuid();
-          const isApplicable = predicate(reactChild);
+          const canMergeProps = canMergePropsPredicate(reactChild);
+          const canRender = renderConditionPredicate ? renderConditionPredicate(reactChild) : true;
+          if (!R.isNil(canRender) && !canRender) {
+            return null;
+          }
 
           const clonedChild = React.cloneElement<{ children: React.ReactChild[] }, {}>(
               reactChild,
               {
-                ...(isApplicable ? {ref: uuidRef, ...(mergedProps || {})} : {}),
-                children: cloneNodes<TProps>(reactChild, mergedProps, predicate, childrenMap),
+                ...(canMergeProps ? {ref: uuidRef, ...(mergedProps || {})} : {}),
+                children: cloneNodes<TProps>(
+                    reactChild,
+                    mergedProps,
+                    canMergePropsPredicate,
+                    childrenMap,
+                    renderConditionPredicate),
               }
           );
-          if (childrenMap && isApplicable) {
+          if (childrenMap && canMergeProps) {
             childrenMap.set(clonedChild, uuidRef);
           }
           return clonedChild;
