@@ -2,6 +2,7 @@ import { INamedEntity } from 'core';
 
 export interface IUser extends INamedEntity {
   email?: string;
+  login?: string;
 }
 
 export interface IApplicationUserState extends IUser {
