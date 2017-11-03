@@ -53,6 +53,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
                     },
                     (child: ReactElementT) => Field.isPrototypeOf(child.type),
                     this.childrenMap,
+                    (child: ReactElementT) => (child.props as IFieldInternalProps).renderCondition,
                 )
               }
             </section>
