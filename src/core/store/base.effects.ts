@@ -11,7 +11,7 @@ import { RouterActionBuilder } from '../router';
 import { PermissionActionBuilder } from '../permission';
 import { UserActionBuilder } from '../user';
 import { TransportActionBuilder } from '../transport';
-import { ApplicationActionBuilder } from '../component/application';
+import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../component/application';
 import { DictionariesActionBuilder } from '../dictionary';
 
 @provideInSingleton(BaseEffects)
@@ -161,5 +161,11 @@ export class BaseEffects<TApi> {
       this.buildFilterLockAction(section),  // Prevent the list filter auto destroying
       this.buildRouterNavigateAction(filterPath)
     ];
+  }
+
+  protected buildContainersDestroyActions(): IEffectsAction[] {
+    return APPLICATION_SECTIONS
+        .map((section0) => this.buildListDestroyAction(section0))
+        .concat(APPLICATION_SECTIONS.map((section0) => this.buildFormDestroyAction(section0)));
   }
 }
