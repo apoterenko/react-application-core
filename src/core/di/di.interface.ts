@@ -15,4 +15,5 @@ export const DI_TYPES = {
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),
   TransportFactory: Symbol('TransportFactory'),
+  TransportPayloadAnalyzer: Symbol('TransportPayloadAnalyzer'),
 };

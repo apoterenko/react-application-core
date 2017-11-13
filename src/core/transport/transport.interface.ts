@@ -87,6 +87,10 @@ export interface ITransportRequest extends ITransportNamedPayload,
   operation?: IOperation;
 }
 
+export interface IApplicationTransportPayloadAnalyzer {
+  isAuthErrorPayload(payload: ITransportErrorPayload): boolean;
+}
+
 export const TRANSPORT_REQUEST_ACTION_TYPE = 'transport.request';
 export const TRANSPORT_DESTROY_ACTION_TYPE = 'transport.destroy';
 export const TRANSPORT_DESTROY_TOKEN_ACTION_TYPE = 'transport.destroy.token';
