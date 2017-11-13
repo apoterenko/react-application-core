@@ -5,7 +5,7 @@ import { APPLICATION_TOKEN_KEY, IApplicationStorageService } from '../storage';
 import { ApplicationStateT, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
-import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../component/application';
+import { ApplicationActionBuilder } from '../component/application';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects extends BaseEffects<{}> {
@@ -29,17 +29,13 @@ export class ApplicationEffects extends BaseEffects<{}> {
           EffectsAction.create(USER_DESTROY_ACTION_TYPE),
           EffectsAction.create(PERMISSION_DESTROY_ACTION_TYPE),
           this.buildApplicationDestroyTokenAction()
-        ].concat(
-            APPLICATION_SECTIONS
-                .map((section) => this.buildListDestroyAction(section))
-                .concat(APPLICATION_SECTIONS.map((section) => this.buildFormDestroyAction(section)))
-        )
+        ]
         : [];
 
-    return actions.concat([
-      this.buildDictionariesDestroyAction(),
-      this.buildApplicationAfterLogoutAction()
-    ]);
+    return actions
+        .concat(this.buildContainersDestroyActions())
+        .concat(this.buildDictionariesDestroyAction())
+        .concat(this.buildApplicationAfterLogoutAction());
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildUpdateTokenActionType())
