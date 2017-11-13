@@ -2,8 +2,10 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { Store } from 'redux';
 import { connect, Provider } from 'react-redux';
+import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { appContainer, DI_TYPES } from './di';
+import { PROD_MODE } from './env';
 import {
   ApplicationActionBuilder,
   ApplicationContainer,
@@ -54,4 +56,8 @@ export function bootstrap(
       document.body ?
           ready() :
           window.addEventListener('load', ready);
+
+  LoggerFactory.configure({
+    logLevel: PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL,
+  });
 }
