@@ -12,6 +12,7 @@ export interface IRoutes {
   profile: string;
   home: string;
   login: string;
+  logout: string;
   accessDenied: string;
 }
 
