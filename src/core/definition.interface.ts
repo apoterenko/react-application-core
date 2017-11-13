@@ -41,6 +41,10 @@ export interface IPasswordable {
   password?: string;
 }
 
+export interface ILoginable {
+  login?: string;
+}
+
 export interface IStylizable {
   className?: string;
 }
