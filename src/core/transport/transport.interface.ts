@@ -89,6 +89,7 @@ export interface ITransportRequest extends ITransportNamedPayload,
 
 export interface IApplicationTransportPayloadAnalyzer {
   isAuthErrorPayload(payload: ITransportErrorPayload): boolean;
+  toToken(payload: ITransportErrorPayload): string;
 }
 
 export const TRANSPORT_REQUEST_ACTION_TYPE = 'transport.request';
