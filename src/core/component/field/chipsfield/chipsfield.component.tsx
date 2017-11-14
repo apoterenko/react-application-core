@@ -1,8 +1,9 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
+import * as Printf from 'sprintf-js';
 
 import { uuid } from '../../../util';
-import { EntityIdT, IEntity, KeyboardEventT, ChangeEventT } from '../../../definition.interface';
+import { EntityIdT, IEntity, ChangeEventT, IKeyValue } from '../../../definition.interface';
 import { BasicSelect, ISelectOption } from '../../../component/field';
 
 import {
@@ -14,8 +15,6 @@ import {
 export class ChipsField extends BasicSelect<ChipsField,
                                             IChipsFieldInternalProps,
                                             IChipsFieldInternalState> {
-
-  public static VALUE_SEPARATOR = ',\u00a0';
 
   public static defaultProps: IChipsFieldInternalProps = {
     labelField: 'name',
@@ -34,11 +33,6 @@ export class ChipsField extends BasicSelect<ChipsField,
     // Nothing to do
   }
 
-  public onKeyBackspace(event: KeyboardEventT): void {
-    super.onKeyBackspace(event);
-    this.deleteItemAccordingCursorPosition();
-  }
-
   protected onSelect(option: ISelectOption): void {
     const removeLen = this.state.remove.length;
     const removeArray = this.state.remove.filter(((removeItem) => removeItem !== option.value));
@@ -55,7 +49,7 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   protected toDisplayValue(): string {
-    return this.getActiveValue().map((value) => this.toChipsDisplayValue(value)).join(ChipsField.VALUE_SEPARATOR);
+    return Printf.sprintf('%d value(s)', this.getActiveValue().length);
   }
 
   protected getAttachment(): JSX.Element {
@@ -83,25 +77,11 @@ export class ChipsField extends BasicSelect<ChipsField,
         !this.getActiveValue().find((item) => this.toValue(item) === option.value));
   }
 
-  private deleteItemAccordingCursorPosition(): void {
-    const activeValue = this.getActiveValue();
-    if (!activeValue.length) {
-      return;
-    }
-
-    const cursorPosition = this.inputCursorPosition;
-    let index = 0;
-    let result = null;
-
-    activeValue.forEach((item, curIndex) => {
-      if (index < cursorPosition) {
-        index += String(this.toChipsDisplayValue(item)).length + ChipsField.VALUE_SEPARATOR.length;
-      } else if (ramda.isNil(result)) {
-        result = curIndex;
-      }
-    });
-    result = ramda.isNil(result) ? activeValue.length : result;
-    this.onDeleteItem(activeValue[result - 1]);
+  protected getComponentProps(): IKeyValue {
+    return {
+      ...super.getComponentProps(),
+      readOnly: true,
+    };
   }
 
   private onDeleteItem(item: ChipsFieldItemT): void {
@@ -136,7 +116,7 @@ export class ChipsField extends BasicSelect<ChipsField,
     const props = this.props;
     const value = this.toValue(item);
 
-    if (!ramda.isNil(value)) {
+    if (!R.isNil(value)) {
       const displayValue = this.options.find((option) => option.value === value);
       return displayValue
           ? this.t(displayValue.label)
