@@ -39,7 +39,7 @@ export class DateField extends BasicTextField<DateField,
   };
 
   protected defaultAction: IBasicTextFieldAction = {
-    type: 'arrow_drop_down',
+    type: 'date_range',
     actionHandler: () => this.input.focus(),
   };
 
