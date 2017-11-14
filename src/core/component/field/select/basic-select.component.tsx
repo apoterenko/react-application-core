@@ -65,6 +65,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.onChangeValue(undefined);
   }
 
+  public onKeyDown(event: KeyboardEventT): void {
+    super.onKeyDown(event);
+    this.stopEvent(event);
+  }
+
   public onKeyEnter(event: KeyboardEventT): void {
     super.onKeyEnter(event);
     this.openMenu(event);
@@ -130,7 +135,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     const selectedItem = this.getSelectedOption(value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : (value === EMPTY_ID ? '' : (isUndef(props.displayValue) ? value : props.displayValue));
+        : (
+            isUndef(props.displayValue)
+                ? (this.isValuePresent ? value : '')
+                : props.displayValue
+        );
   }
 
   protected get isLoaderShowed(): boolean {
