@@ -9,6 +9,7 @@ import {
 } from '../textfield';
 
 export interface IBasicSelectInternalState extends IBasicTextFieldInternalState {
+  emptyOptions?: boolean;
 }
 
 export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,

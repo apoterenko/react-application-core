@@ -12,6 +12,7 @@ import {
   IBasicTextField,
   INativeMaterialBasicTextFieldComponent,
   IBasicTextFieldAction,
+  ActionPositionEnum,
 } from './basic-textfield.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
@@ -26,6 +27,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     implements IBasicTextField<TInternalProps, TInternalState> {
 
   private static CHAR_WIDTH_AT_PX = 10;
+
+  protected defaultAction: IBasicTextFieldAction;
 
   constructor(props: TInternalProps) {
     super(props, MDCTextfield);
@@ -93,6 +96,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
               {props.label ? this.t(props.label) : props.children}
             </label>
             {actionsTpl}
+            {this.isLoaderShowed ? <div className='material-icons app-textfield-loader'>timelapse</div> : null}
           </div>
           {this.getMessage(props.message, false)}
           {this.getMessage(error, !props.notErrorMessageRequired)}
@@ -155,11 +159,20 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected get actions(): IBasicTextFieldAction[] {
-    return this.props.actions;
+    const props = this.props;
+    if (props.actionsPosition === ActionPositionEnum.LEFT) {
+      return (this.defaultAction ? [this.defaultAction] : []).concat(props.actions || []);
+    } else {
+      return (this.props.actions || []).concat(this.defaultAction || []);
+    }
   }
 
   protected cleanNativeInputForSupportHTML5Validation(): void {
     this.input.value = '';  // We should reset the field manually before HTML5 validation will be called
+  }
+
+  protected get isLoaderShowed(): boolean {
+    return false;
   }
 
   private getMessage(m: string, required: boolean): JSX.Element {

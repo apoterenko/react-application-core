@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { ILogger, LoggerFactory } from 'ts-smart-logger';
 
 import { isUndef } from '../../../util';
-import { ActionPositionEnum, BasicTextField, IBasicTextFieldAction } from '../../../component/field';
+import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
@@ -30,7 +30,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   private static logger: ILogger = LoggerFactory.makeLogger(BasicSelect);
 
-  private defaultAction: IBasicTextFieldAction = {
+  protected defaultAction: IBasicTextFieldAction = {
     type: 'arrow_drop_down',
     actionHandler: (event: BasicEventT) => {
       this.input.focus();
@@ -46,13 +46,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
 
-    if (!R.equals(this.props.options, nextProps.options)
-        && !R.isNil(nextProps.options)
-        && this.isInputFocused) {
-      this.showMenu(nextProps.options);
+    if (!R.isNil(nextProps.options)
+        && !R.equals(this.props.options, nextProps.options)) {
+      this.setState({ emptyOptions: false });
 
-      if (this.props.onOptionsLoad) {
-        this.props.onOptionsLoad(nextProps.options);
+      if (this.isInputFocused) {
+        this.showMenu(nextProps.options);
+
+        if (this.props.onOptionsLoad) {
+          this.props.onOptionsLoad(nextProps.options);
+        }
       }
     }
   }
@@ -133,13 +136,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         : (value === EMPTY_ID ? '' : value);
   }
 
-  protected get actions(): IBasicTextFieldAction[] {
-    const props = this.props;
-    if (props.actionsPosition === ActionPositionEnum.LEFT) {
-      return [this.defaultAction].concat(props.actions || []);
-    } else {
-      return (this.props.actions || []).concat(this.defaultAction);
-    }
+  protected get isLoaderShowed(): boolean {
+    return this.state.emptyOptions;
   }
 
   private getSelectedOption(value: AnyT): ISelectOption {
@@ -158,6 +156,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
     const props = this.props;
     if (R.isNil(props.options)) {
+      this.setState({ emptyOptions: true });
+
       if (props.onEmptyOptions) {
         props.onEmptyOptions();
       }
