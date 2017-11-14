@@ -67,7 +67,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                        autoFocus={true}
                        notErrorMessageRequired={true}
                        value={this.query}
-                       className='mdc-textfield--box'
+                       className='mdc-text-field--box'
                        placeholder={'Search'}
                        actions={this.actions}
                        onDelay={this.doSearch}

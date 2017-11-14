@@ -1,27 +1,27 @@
-.app-textfield-wrapper,
-  .app-textfield-input-wrapper,
-  .app-textfield {
+.app-text-field-wrapper,
+  .app-text-field-input-wrapper,
+  .app-text-field {
   width: 100%;
 }
 
-.app-textfield-deactivated {
-  .app-textfield-prefix {
+.app-text-field-deactivated {
+  .app-text-field-prefix {
     opacity: .6;
   }
 }
 
-.app-textfield-prefix {
+.app-text-field-prefix {
   padding: 0 0 8px;
 }
 
-.app-textfield-loader {
+.app-text-field-loader {
   position: absolute;
   bottom: 8px;
   left: 50%;
   color: rgba(black, .6);
 }
 
-.app-textfield-wrapper {
+.app-text-field-wrapper {
   .app-action {
     &.mdc-toolbar__icon {
       padding: 0 0 6px 0;
@@ -34,7 +34,7 @@
     }
   }
 
-  .mdc-textfield__input {
+  .mdc-text-field__input {
     border-bottom: none;
 
     &[readonly], &[disabled] {
@@ -42,7 +42,7 @@
     }
   }
 
-  .mdc-textfield {
+  .mdc-text-field {
     border-bottom: 1px solid rgba(black, .6);
   }
 }

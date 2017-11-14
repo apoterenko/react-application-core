@@ -72,7 +72,7 @@ export class Menu extends MaterialComponent<Menu,
       ? (
         <div className='app-menu-filter-wrapper'>
           <input ref='input'
-                 className='mdc-textfield__input'
+                 className='mdc-text-field__input'
                  placeholder={this.t(props.filterPlaceholder || 'Filter')}
                  value={this.state.filter}
                  onChange={this.onInputChange}/>

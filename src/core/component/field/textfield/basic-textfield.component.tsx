@@ -66,23 +66,23 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         : null;
 
     return (
-        <div className='app-textfield-wrapper'
+        <div className='app-text-field-wrapper'
              style={prepareStyles({...props.wrapperStyle as {}})}>
           <div ref='self'
                style={props.style}
                className={toClassName(
-                   'mdc-textfield',
-                   'mdc-textfield--upgraded',
-                   'app-textfield',
+                   'mdc-text-field',
+                   'mdc-text-field--upgraded',
+                   'app-text-field',
                    props.className,
-                   this.isDeactivated && 'app-textfield-deactivated',
-                   isFocused && 'mdc-textfield--focused',
-                   props.prefixLabel && 'app-textfield-prefixed'
+                   this.isDeactivated && 'app-text-field-deactivated',
+                   isFocused && 'mdc-text-field--focused',
+                   props.prefixLabel && 'app-text-field-prefixed'
                    )}>
             {
               props.prefixLabel
                   ? (
-                      <span className='app-textfield-prefix'>{props.prefixLabel}</span>
+                      <span className='app-text-field-prefix'>{props.prefixLabel}</span>
                   )
                   : null
             }
@@ -91,12 +91,12 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                   ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
                   : undefined}}
                    className={
-                     toClassName('mdc-textfield__label', isFocused && 'mdc-textfield__label--float-above')
+                     toClassName('mdc-text-field__label', isFocused && 'mdc-text-field__label--float-above')
                    }>
               {props.label ? this.t(props.label) : props.children}
             </label>
             {actionsTpl}
-            {this.isLoaderShowed ? <div className='material-icons app-textfield-loader'>timelapse</div> : null}
+            {this.isLoaderShowed ? <div className='material-icons app-text-field-loader'>timelapse</div> : null}
           </div>
           {this.getMessage(props.message, false)}
           {this.getMessage(error, !props.notErrorMessageRequired)}
@@ -133,7 +133,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       value: this.value,
-      className: 'mdc-textfield__input',
+      className: 'mdc-text-field__input',
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
     };
   }
@@ -179,9 +179,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return m || required ? (
         <p title={m}
            className={toClassName(
-               'mdc-textfield-helptext',
-               'mdc-textfield-helptext--persistent',
-               required && 'mdc-textfield-helptext--validation-msg'
+               'mdc-text-field-helptext',
+               'mdc-text-field-helptext--persistent',
+               required && 'mdc-text-field-helptext--validation-msg'
            )}>
           {m ? this.t(m) : '\u00a0'}
         </p>
