@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
-import { uuid } from '../../../util';
-import { EntityIdT, IEntity, ChangeEventT, KeyboardEventT } from '../../../definition.interface';
+import { uuid, isUndef } from '../../../util';
+import { EntityIdT, IEntity, ChangeEventT } from '../../../definition.interface';
 import { BasicSelect, ISelectOption } from '../../../component/field';
 
 import {
@@ -19,6 +19,7 @@ export class ChipsField extends BasicSelect<ChipsField,
   public static defaultProps: IChipsFieldInternalProps = {
     labelField: 'name',
     idField: 'id',
+    valuesMessage: '%d value(s)',
   };
 
   constructor(props: IChipsFieldInternalProps) {
@@ -31,6 +32,14 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   public onChange(event: ChangeEventT): void {
     // Nothing to do
+  }
+
+  protected getEmptyValue(): EntityIdT[] {
+    return [];
+  }
+
+  protected get isValuePresent(): boolean {
+    return !isUndef(this.value) && !R.equals(this.value, this.getEmptyValue());
   }
 
   protected onSelect(option: ISelectOption): void {
@@ -50,7 +59,7 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   protected toDisplayValue(): string {
     const len = this.getActiveValue().length;
-    return len ? Printf.sprintf('%d value(s)', len) : '';
+    return len ? Printf.sprintf(this.t(this.props.valuesMessage), len) : '';
   }
 
   protected getAttachment(): JSX.Element {

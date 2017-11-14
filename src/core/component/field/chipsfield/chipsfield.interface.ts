@@ -12,6 +12,7 @@ export interface IChipsFieldInternalState extends IBasicSelectInternalState,
 }
 
 export interface IChipsFieldInternalProps extends IBasicSelectInternalProps {
+  valuesMessage?: string;
   labelField?: string;
   idField?: string;
 }
