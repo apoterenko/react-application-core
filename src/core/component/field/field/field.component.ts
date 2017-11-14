@@ -149,7 +149,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  protected onChangeValue(rawValue: AnyT, error?: string): void {
+  protected onChangeValue(rawValue?: AnyT, error?: string): void {
     if (!this.isPersistent) {
       this.setState({ stateValue: this.prepareStateValueBeforeSerialization(rawValue) });
     }
@@ -157,10 +157,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
     this.propsOnChange(rawValue);
     this.propsChangeForm(rawValue);
-  }
-
-  protected onClearChange(): void {
-    this.onChangeValue(undefined, null);
   }
 
   protected propsChangeForm(rawValue: AnyT): void {
@@ -189,6 +185,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   protected get input(): HTMLInputElement {
     return this.refs.input && (this.refs.input as IMaskedTextInputPureComponent).inputElement
         || this.refs.input as HTMLInputElement;
+  }
+
+  protected setFocus(): void {
+    this.input.focus();
   }
 
   protected get inputCursorPosition(): number {

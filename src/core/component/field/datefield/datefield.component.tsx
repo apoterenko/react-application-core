@@ -40,7 +40,7 @@ export class DateField extends BasicTextField<DateField,
 
   protected defaultAction: IBasicTextFieldAction = {
     type: 'date_range',
-    actionHandler: () => this.input.focus(),
+    actionHandler: () => this.setFocus(),
   };
 
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
@@ -129,7 +129,7 @@ export class DateField extends BasicTextField<DateField,
     this.onChangeValue(date, null);
 
     this.preventShowDialog = true;
-    this.input.focus();
+    this.setFocus();
   }
 
   private get dialogDate(): Date {
