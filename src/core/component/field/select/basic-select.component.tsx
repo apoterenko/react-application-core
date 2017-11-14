@@ -33,7 +33,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   protected defaultAction: IBasicTextFieldAction = {
     type: 'arrow_drop_down',
     actionHandler: (event: BasicEventT) => {
-      this.input.focus();
+      this.setFocus();
       this.openMenu(event);
     },
   };
@@ -126,14 +126,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   protected toDisplayValue(): string {
     const props = this.props;
-    if (!isUndef(props.displayValue)) {
-      return props.displayValue;
-    }
     const value = this.value;
     const selectedItem = this.getSelectedOption(value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : (value === EMPTY_ID ? '' : value);
+        : (value === EMPTY_ID ? '' : (isUndef(props.displayValue) ? value : props.displayValue));
   }
 
   protected get isLoaderShowed(): boolean {
