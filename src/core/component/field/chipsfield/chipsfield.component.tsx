@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
-import { uuid, isUndef } from '../../../util';
+import { uuid, isUndef, clone } from '../../../util';
 import { EntityIdT, IEntity, ChangeEventT } from '../../../definition.interface';
 import { BasicSelect, ISelectOption } from '../../../component/field';
 
@@ -27,7 +27,10 @@ export class ChipsField extends BasicSelect<ChipsField,
     this.onDeleteItem = this.onDeleteItem.bind(this);
 
     // Private local state, it should not bind to the view
-    this.state = { add: [], remove: [] };
+    const v = this.value;
+    this.state = Array.isArray(v)
+        ? { add: [], remove: [] }
+        : { add: clone(v.add), remove: clone(v.remove) };
   }
 
   public onChange(event: ChangeEventT): void {
