@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
-import { MDCTextfield } from '@material/textfield';
+import { MDCTextField } from '@material/textfield';
 
 import { noop, toClassName, uuid } from '../../../util';
 import { AnyT, IKeyValue, ChangeEventT, BasicEventT } from '../../../definition.interface';
@@ -31,7 +31,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   protected defaultAction: IBasicTextFieldAction;
 
   constructor(props: TInternalProps) {
-    super(props, MDCTextfield);
+    super(props, MDCTextField);
   }
 
   public render(): JSX.Element {
