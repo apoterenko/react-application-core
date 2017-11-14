@@ -1,18 +1,18 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { IApiEntity } from '../api';
-import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { AnyT, IKeyValue, IEntity } from '../definition.interface';
-import { NotificationActionBuilder } from '../notification';
-import { IApplicationListWrapperState, ListActionBuilder } from '../component/list';
-import { FormActionBuilder } from '../component/form';
-import { FilterActionBuilder } from '../component/filter';
-import { RouterActionBuilder } from '../router';
-import { PermissionActionBuilder } from '../permission';
-import { UserActionBuilder } from '../user';
-import { TransportActionBuilder } from '../transport';
-import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../component/application';
-import { DictionariesActionBuilder } from '../dictionary';
+import { IApiEntity } from '../../api';
+import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
+import { AnyT, IKeyValue, IEntity } from '../../definition.interface';
+import { NotificationActionBuilder } from '../../notification';
+import { IApplicationListWrapperState, ListActionBuilder } from '../../component/list';
+import { FormActionBuilder } from '../../component/form';
+import { FilterActionBuilder } from '../../component/filter';
+import { RouterActionBuilder } from '../../router';
+import { PermissionActionBuilder } from '../../permission';
+import { UserActionBuilder } from '../../user';
+import { TransportActionBuilder } from '../../transport';
+import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../../component/application';
+import { DictionariesActionBuilder } from '../../dictionary';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
@@ -125,34 +125,6 @@ export class BaseEffects<TApi> {
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {
     return UserActionBuilder.buildUpdateAction(data);
-  }
-
-  protected buildPaginatedListNextActions(section: string): IEffectsAction[] {
-    return [
-      ListActionBuilder.buildNextPageAction(section),
-      this.buildListLoadAction(section)
-    ];
-  }
-
-  protected buildPaginatedListPreviousActions(section: string): IEffectsAction[] {
-    return [
-      ListActionBuilder.buildPreviousPageAction(section),
-      this.buildListLoadAction(section)
-    ];
-  }
-
-  protected buildPaginatedListLastActions(section: string): IEffectsAction[] {
-    return [
-      ListActionBuilder.buildLastPageAction(section),
-      this.buildListLoadAction(section)
-    ];
-  }
-
-  protected buildPaginatedListFirstActions(section: string): IEffectsAction[] {
-    return [
-      ListActionBuilder.buildFirstPageAction(section),
-      this.buildListLoadAction(section)
-    ];
   }
 
   protected buildOpenListEntityActions(section: string, filterPath: string): IEffectsAction[] {
