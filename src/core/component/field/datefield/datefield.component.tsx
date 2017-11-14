@@ -13,7 +13,11 @@ import {
   IDateFieldInternalState,
   IMaterialDateDialogComponent,
 } from './datefield.interface';
-import { INativeMaterialBasicTextFieldComponent, BasicTextField } from '../textfield';
+import {
+  INativeMaterialBasicTextFieldComponent,
+  BasicTextField,
+  IBasicTextFieldAction,
+} from '../textfield';
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
@@ -32,6 +36,11 @@ export class DateField extends BasicTextField<DateField,
 
   public static contextTypes = {
     muiTheme: PropTypes.object.isRequired,
+  };
+
+  protected defaultAction: IBasicTextFieldAction = {
+    type: 'arrow_drop_down',
+    actionHandler: () => this.input.focus(),
   };
 
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
