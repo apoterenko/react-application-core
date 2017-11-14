@@ -35,6 +35,7 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
     case ListActionBuilder.buildLoadActionType(section):
       return {
         ...state,
+        page: FIRST_PAGE,
         progress: true,
         touched: true,
         selected: null,
