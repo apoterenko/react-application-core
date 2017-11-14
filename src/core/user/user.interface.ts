@@ -1,4 +1,4 @@
-import { INamedEntity } from 'core';
+import { INamedEntity } from '../definition.interface';
 
 export interface IUser extends INamedEntity {
   email?: string;
