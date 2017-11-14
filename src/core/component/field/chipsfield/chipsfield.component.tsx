@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
 import { uuid } from '../../../util';
-import { EntityIdT, IEntity, ChangeEventT, IKeyValue } from '../../../definition.interface';
+import { EntityIdT, IEntity, ChangeEventT, KeyboardEventT } from '../../../definition.interface';
 import { BasicSelect, ISelectOption } from '../../../component/field';
 
 import {
@@ -49,7 +49,8 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   protected toDisplayValue(): string {
-    return Printf.sprintf('%d value(s)', this.getActiveValue().length);
+    const len = this.getActiveValue().length;
+    return len ? Printf.sprintf('%d value(s)', len) : '';
   }
 
   protected getAttachment(): JSX.Element {
@@ -77,13 +78,6 @@ export class ChipsField extends BasicSelect<ChipsField,
         !this.getActiveValue().find((item) => this.toValue(item) === option.value));
   }
 
-  protected getComponentProps(): IKeyValue {
-    return {
-      ...super.getComponentProps(),
-      readOnly: true,
-    };
-  }
-
   private onDeleteItem(item: ChipsFieldItemT): void {
     const deletedValue = this.toValue(item);
     const addLen = this.state.add.length;
@@ -101,15 +95,15 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   private dispatchChanges(addArray: EntityIdT[], removeArray: EntityIdT[]): void {
-    if (!this.getActiveValue(addArray, removeArray).length) {
+    if (this.getActiveValue(addArray, removeArray).length === 0) {
       this.cleanNativeInputForSupportHTML5Validation();
     }
-
     if (addArray.length || removeArray.length) {
-      this.onChangeValue({ add: addArray, remove: removeArray, source: this.sourceValue }, null);
+      this.onChangeValue({ add: addArray, remove: removeArray, source: this.sourceValue });
     } else {
-      this.onClearChange();
+      this.onChangeValue();
     }
+    this.setFocus();
   }
 
   private toChipsDisplayValue(item): EntityIdT {
