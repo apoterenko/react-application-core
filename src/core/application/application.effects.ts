@@ -1,7 +1,7 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { APPLICATION_TOKEN_KEY, IApplicationStorageService } from '../storage';
+import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage';
 import { ApplicationStateT, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
@@ -12,12 +12,12 @@ import { IApplicationSettings } from '../settings';
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
-  @lazyInject(DI_TYPES.TokenStorage) protected tokenStorageService: IApplicationStorageService;
+  @lazyInject(DI_TYPES.NotVersionedStorage) protected notVersionedStorage: IApplicationStorage;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
 
   @EffectsService.effects(ApplicationActionBuilder.buildInitActionType())
   public onInit(): IEffectsAction[] {
-    const token = this.tokenStorageService.get(APPLICATION_TOKEN_KEY);
+    const token = this.notVersionedStorage.get(APPLICATION_TOKEN_KEY);
     return token
         ? [this.buildTransportUpdateTokenAction({token})]
         : [];
@@ -49,11 +49,11 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @EffectsService.effects(ApplicationActionBuilder.buildUpdateTokenActionType())
   public onUpdateToken(_: IEffectsAction, state: ApplicationStateT): void {
-    this.tokenStorageService.set(APPLICATION_TOKEN_KEY, state.transport.token);
+    this.notVersionedStorage.set(APPLICATION_TOKEN_KEY, state.transport.token);
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildDestroyTokenActionType())
   public onDestroyToken(): void {
-    this.tokenStorageService.remove(APPLICATION_TOKEN_KEY);
+    this.notVersionedStorage.remove(APPLICATION_TOKEN_KEY);
   }
 }

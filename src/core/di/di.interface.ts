@@ -10,7 +10,7 @@ export const DI_TYPES = {
   Routes: Symbol('Routes'),
   Settings: Symbol('Settings'),
   Storage: Symbol('Storage'),
-  TokenStorage: Symbol('TokenStorage'),
+  NotVersionedStorage: Symbol('NotVersionedStorage'),
   Store: Symbol('Store'),
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),

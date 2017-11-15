@@ -1,6 +1,6 @@
 import { AnyT } from '../definition.interface';
 
-export interface IApplicationStorageService {
+export interface IApplicationStorage {
   enabled: boolean;
   disabled: boolean;
   set(key: string, value: any): any;

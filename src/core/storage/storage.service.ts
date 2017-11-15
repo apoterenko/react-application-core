@@ -5,12 +5,12 @@ import * as localStorage from 'store/storages/localStorage';
 const sessionStore = engine.createStore([sessionStorage]);
 const localStore = engine.createStore([localStorage]);
 
-import { ApplicationStorageTypeEnum, IApplicationStorageService } from '../storage';
+import { ApplicationStorageTypeEnum, IApplicationStorage } from '../storage';
 import { AnyT } from '../definition.interface';
 import { appContainer, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
 
-export class StorageService implements IApplicationStorageService {
+export class StorageService implements IApplicationStorage {
 
   constructor(private prefix: string,
               private storageType?: ApplicationStorageTypeEnum) {
@@ -52,7 +52,7 @@ export class StorageService implements IApplicationStorageService {
     this.storage.each((key: string, value: AnyT) => (command(this.prefix + key, value)));
   }
 
-  private get storage(): IApplicationStorageService {
+  private get storage(): IApplicationStorage {
     const settings: IApplicationSettings = appContainer.get(DI_TYPES.Settings);
     const storageType: ApplicationStorageTypeEnum = this.storageType
         ? this.storageType

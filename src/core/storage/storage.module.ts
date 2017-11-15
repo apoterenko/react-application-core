@@ -9,5 +9,5 @@ const B_PATH = BASE_PATH.replace(/\//g, '');
 const join = (...args: string[]) => (args.join('#'));
 
 appContainer.bind(DI_TYPES.Storage).toConstantValue(new StorageService(join(APP_VERSION, PORT, B_PATH)));
-appContainer.bind(DI_TYPES.TokenStorage).toConstantValue(
+appContainer.bind(DI_TYPES.NotVersionedStorage).toConstantValue(
     new StorageService(join(PORT, B_PATH), ApplicationStorageTypeEnum.LOCAL));
