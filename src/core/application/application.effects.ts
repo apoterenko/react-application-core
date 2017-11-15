@@ -6,10 +6,12 @@ import { ApplicationStateT, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
 import { ApplicationActionBuilder } from '../component/application';
+import { IApplicationSettings } from '../settings';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
+  @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.TokenStorage) protected tokenStorageService: IApplicationStorageService;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
 
@@ -40,7 +42,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
   public onAfterLogout(): IEffectsAction[]|Promise<IEffectsAction[]> {
     return [
-      this.buildNotificationInfoAction('You were logged out.'),
+      this.buildNotificationInfoAction(this.settings.logoutNotificationMessage),
       this.buildTransportDestroyTokenAction()
     ];
   }

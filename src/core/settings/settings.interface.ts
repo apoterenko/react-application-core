@@ -26,6 +26,7 @@ export interface IApplicationPhoneSettings {
 
 export interface IApplicationSettings {
   apiUrl?: string;
+  logoutNotificationMessage?: string;
   companyName?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
@@ -38,6 +39,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
   apiUrl: (BASE_PATH + '/api/').replace(/(\/\/)+/, '/'),
   companyName: 'Test company',
+  logoutNotificationMessage: 'You were logged out.',
   dateTimeSettings: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
