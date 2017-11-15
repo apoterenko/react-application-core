@@ -12,7 +12,8 @@ import {
   APPLICATION_DESTROY_TOKEN_ACTION_TYPE,
   APPLICATION_PREPARE_ACTION_TYPE,
   APPLICATION_PREPARE_ERROR_ACTION_TYPE,
-  APPLICATION_PREPARE_DONE_ACTION_TYPE,
+  APPLICATION_PREPARE_AFTER_ACTION_TYPE,
+  APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
@@ -21,8 +22,16 @@ export class ApplicationActionBuilder {
     return EffectsAction.create(this.buildPrepareActionType());
   }
 
+  public static buildPrepareAfterAction(): IEffectsAction {
+    return EffectsAction.create(this.buildPrepareAfterActionType());
+  }
+
   public static buildReadyAction(): IEffectsAction {
     return EffectsAction.create(this.buildReadyActionType());
+  }
+
+  public static buildNotReadyAction(): IEffectsAction {
+    return EffectsAction.create(this.buildNotReadyActionType());
   }
 
   public static buildUpdateTokenAction(): IEffectsAction {
@@ -61,8 +70,12 @@ export class ApplicationActionBuilder {
     return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
   }
 
-  public static buildPrepareDoneActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_DONE_ACTION_TYPE}`;
+  public static buildPrepareAfterActionType(): string {
+    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ACTION_TYPE}`;
+  }
+
+  public static buildPrepareAfterErrorActionType(): string {
+    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE}`;
   }
 
   public static buildPrepareErrorActionType(): string {

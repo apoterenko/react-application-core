@@ -1,3 +1,3 @@
-export function effectsBy(fn: (...args) => void): (...args) => void {
-  return (): void => fn();
+export function effectsBy(...fns: Array<((...args) => void)>): (...args) => void {
+  return (): void => fns.forEach((fn) => fn());
 }

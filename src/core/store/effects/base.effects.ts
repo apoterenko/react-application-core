@@ -103,6 +103,10 @@ export class BaseEffects<TApi> {
     return ApplicationActionBuilder.buildPrepareAction();
   }
 
+  protected buildApplicationPrepareAfterAction(): IEffectsAction {
+    return ApplicationActionBuilder.buildPrepareAfterAction();
+  }
+
   protected buildApplicationUpdateTokenAction(): IEffectsAction {
     return ApplicationActionBuilder.buildUpdateTokenAction();
   }
