@@ -4,7 +4,7 @@ import { ListActionBuilder } from '../../component/list';
 import { NotificationActionBuilder } from '../../notification';
 import { provideInSingleton } from '../../di';
 
-export function makeListLoadErrorEffectsProxy(section: string): () => void {
+export function makeFailedListEffectsProxy(section: string): () => void {
   return (): void => {
 
     @provideInSingleton(Effects)
