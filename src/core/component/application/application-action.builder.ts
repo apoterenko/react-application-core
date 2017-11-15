@@ -4,7 +4,6 @@ import {
   APPLICATION_READY_ACTION_TYPE,
   APPLICATION_NOT_READY_ACTION_TYPE,
   APPLICATION_SECTION,
-  APPLICATION_AFTER_INIT_ACTION_TYPE,
   APPLICATION_INIT_ACTION_TYPE,
   APPLICATION_UPDATE_TOKEN_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
@@ -40,10 +39,6 @@ export class ApplicationActionBuilder {
 
   public static buildDestroyTokenAction(): IEffectsAction {
     return EffectsAction.create(this.buildDestroyTokenActionType());
-  }
-
-  public static buildAfterInitAction(): IEffectsAction {
-    return EffectsAction.create(this.buildAfterInitActionType());
   }
 
   public static buildAfterLogoutAction(): IEffectsAction {
@@ -84,10 +79,6 @@ export class ApplicationActionBuilder {
 
   public static buildInitActionType(): string {
     return `${APPLICATION_SECTION}.${APPLICATION_INIT_ACTION_TYPE}`;
-  }
-
-  public static buildAfterInitActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_AFTER_INIT_ACTION_TYPE}`;
   }
 
   public static buildLogoutActionType(): string {

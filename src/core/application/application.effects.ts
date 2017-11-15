@@ -8,18 +8,17 @@ import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '.
 import { ApplicationActionBuilder } from '../component/application';
 
 @provideInSingleton(ApplicationEffects)
-export class ApplicationEffects extends BaseEffects<{}> {
+export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
-  @lazyInject(DI_TYPES.TokenStorage) private tokenStorageService: IApplicationStorageService;
-  @lazyInject(DI_TYPES.Permission) private permissionService: ApplicationPermissionServiceT;
+  @lazyInject(DI_TYPES.TokenStorage) protected tokenStorageService: IApplicationStorageService;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
 
   @EffectsService.effects(ApplicationActionBuilder.buildInitActionType())
   public onInit(): IEffectsAction[] {
     const token = this.tokenStorageService.get(APPLICATION_TOKEN_KEY);
-    const actions: IEffectsAction[] = token
+    return token
         ? [this.buildTransportUpdateTokenAction({token})]
         : [];
-    return actions.concat(ApplicationActionBuilder.buildAfterInitAction());
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())
@@ -36,6 +35,14 @@ export class ApplicationEffects extends BaseEffects<{}> {
         .concat(this.buildContainersDestroyActions())
         .concat(this.buildDictionariesDestroyAction())
         .concat(this.buildApplicationAfterLogoutAction());
+  }
+
+  @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
+  public onAfterLogout(): IEffectsAction[]|Promise<IEffectsAction[]> {
+    return [
+      this.buildNotificationInfoAction('You were logged out.'),
+      this.buildTransportDestroyTokenAction()
+    ];
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildUpdateTokenActionType())
