@@ -34,11 +34,9 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
       };
     case ListActionBuilder.buildLoadActionType(section):
       return {
-        ...state,
+        ...INITIAL_APPLICATION_LIST_STATE,
         progress: true,
         touched: true,
-        selected: null,
-        error: null,
       };
     case ListActionBuilder.buildLockActionType(section):
       return {
