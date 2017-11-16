@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { ILogger, LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { isUndef } from '../../../util';
 import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
@@ -28,7 +28,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                            TInternalState,
                            INativeMaterialSelectComponent> {
 
-  private static logger: ILogger = LoggerFactory.makeLogger(BasicSelect);
+  private static logger = LoggerFactory.makeLogger(BasicSelect);
 
   protected defaultAction: IBasicTextFieldAction = {
     type: 'arrow_drop_down',
