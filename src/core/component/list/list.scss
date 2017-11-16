@@ -13,15 +13,17 @@
       }
     }
 
-    .app-list-add-item-action {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background-color: black;
-    }
-
     .mdc-list-divider {
       margin: 0;
     }
+  }
+}
+
+.app-empty-list, .app-list {
+  .app-list-add-action {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: black;
   }
 }

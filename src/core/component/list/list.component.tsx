@@ -37,8 +37,17 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;
-
     const isEmptyData = !props.data || (Array.isArray(props.data) && !props.data.length);
+    const addActionTpl = (
+        orNull(
+            props.addAction,
+            <button className='mdc-fab material-icons app-list-add-action'
+                    onClick={this.onAddItem}>
+              <span className='mdc-fab__icon'>add</span>
+            </button>
+        )
+    );
+    let canShowAddAction = false;
 
     // If some transport error does cause a redirect to the login page,
     // we have the state when error property does set at once after destroy
@@ -50,7 +59,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         || error
         || isEmptyData) {
       return (
-          <div className='app-list-wrapper app-center-layout app-full-layout'>
+          <div className='app-empty-list app-center-layout app-full-layout'>
             {
               this.t(
                   props.progress
@@ -58,10 +67,11 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                       : (
                           error
                               ? props.errorMessage || 'Something went wrong. There was a problem loading your data'
-                              : props.emptyMessage || 'No data'
+                              : ((canShowAddAction = true) && (props.emptyMessage || 'No data'))
                       )
               )
             }
+            {canShowAddAction ? addActionTpl : null}
           </div>
       );
     }
@@ -82,15 +92,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                             {...props.itemOptions}/>
               ),
           )}
-          {
-            orNull(
-                props.addAction,
-                <button className='mdc-fab material-icons app-list-add-item-action'
-                        onClick={this.onAddItem}>
-                  <span className='mdc-fab__icon'>add</span>
-                </button>
-            )
-          }
+          {addActionTpl}
         </ul>
     );
   }
