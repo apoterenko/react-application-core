@@ -2,7 +2,7 @@ import { Store } from 'redux';
 import Axios from 'axios/dist/axios';
 import { injectable } from 'inversify';
 import * as R from 'ramda';
-import { ILogger, LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { IApplicationSettings } from '../settings';
 import { lazyInject, DI_TYPES } from '../di';
@@ -17,7 +17,7 @@ import {
 @injectable()
 export class TransportFactory implements IApplicationTransportFactory {
 
-  private static logger: ILogger = LoggerFactory.makeLogger(TransportFactory);
+  private static logger = LoggerFactory.makeLogger(TransportFactory);
 
   private operationsMap = new Map<string, Axios.CancelTokenSource>();
   private id = 0;
