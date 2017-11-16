@@ -22,7 +22,7 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable
   error?: string;
 }
 
-export interface IFormSettings extends IStylizable {
+export interface IFormOptions extends IStylizable {
   actionText?: string;
   resetText?: string;
   resetButton?: boolean;
@@ -31,7 +31,7 @@ export interface IFormSettings extends IStylizable {
 export interface IFormProps<TEntity extends IEntity> {
   form: IFormAttributes<TEntity>;
   entity?: TEntity;
-  settings?: IFormSettings;
+  formOptions?: IFormOptions;
 }
 
 export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,

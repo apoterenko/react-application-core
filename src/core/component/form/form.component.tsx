@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { ILogger, LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isUndef, toClassName } from '../../util';
 import { AnyT, IEntity, BasicEventT, ReactElementT } from '../../definition.interface';
@@ -20,9 +20,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
 
   public static defaultProps: IFormInternalProps<IEntity> = {
     form: INITIAL_APPLICATION_FORM_STATE,
-    settings: {},
+    formOptions: {},
   };
-  private static logger: ILogger = LoggerFactory.makeLogger(Form);
+  private static logger = LoggerFactory.makeLogger(Form);
 
   private childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
@@ -34,12 +34,12 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
 
   public render(): JSX.Element {
     const props = this.props;
-    const { form, settings } = props;
+    const { form, formOptions } = props;
 
     return (
         <form ref='self'
               autoComplete='off'
-              className={toClassName('app-form', settings.className)}
+              className={toClassName('app-form', formOptions.className)}
               onReset={this.onReset}
               onSubmit={this.onSubmit}>
           <fieldset disabled={form.progress}>
@@ -59,12 +59,12 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
             </section>
             <section className='mdc-card__actions app-card-actions'>
               {
-                settings.resetButton
+                formOptions.resetButton
                     ? (
                         <Button type='reset'
                                 className='mdc-button--raised app-card-reset-action'
                                 disabled={!form.dirty}>
-                          {this.t(settings.resetText || 'Reset')}
+                          {this.t(formOptions.resetText || 'Reset')}
                         </Button>
                     ) : null
               }
@@ -73,7 +73,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
                       disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
                       progress={form.progress}
                       error={!R.isNil(form.error)}>
-                {this.t(settings.actionText || 'Save')}
+                {this.t(formOptions.actionText || 'Save')}
               </Button>
             </section>
           </fieldset>
