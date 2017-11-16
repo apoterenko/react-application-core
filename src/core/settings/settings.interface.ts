@@ -22,6 +22,7 @@ export interface IApplicationDateTimeSettings {
 export interface IApplicationPhoneSettings {
   uiPattern?: string;
   uiMask?: Array<string|RegExp>;
+  uiCountryAbbreviation?: string;
 }
 
 export interface IApplicationSettings {
@@ -55,6 +56,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   phoneSettings: {
     uiPattern: '1[0-9]{10}',
     uiMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+    uiCountryAbbreviation: 'US',
   },
   currency: {
     uiLocale: 'en-US',

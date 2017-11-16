@@ -1,3 +1,5 @@
+import { PhoneNumberFormat as PNF } from 'google-libphonenumber';
+
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
@@ -21,6 +23,7 @@ export interface IDateConverter {
 
 export interface INumberConverter {
   format(value: number | string): string;
-  currency(value: number | string): string;
+  currency(value: number | string, options?: Intl.NumberFormatOptions): string;
+  phone(value: number | string, phoneNumberFormat?: PNF): string;
   id(value: number | string): string;
 }
