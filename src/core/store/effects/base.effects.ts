@@ -140,8 +140,9 @@ export class BaseEffects<TApi> {
   }
 
   protected buildContainersDestroyActions(): IEffectsAction[] {
-    return APPLICATION_SECTIONS
+    const sections = Array.from(APPLICATION_SECTIONS.keys());
+    return sections
         .map((section0) => this.buildListDestroyAction(section0))
-        .concat(APPLICATION_SECTIONS.map((section0) => this.buildFormDestroyAction(section0)));
+        .concat(sections.map((section0) => this.buildFormDestroyAction(section0)));
   }
 }

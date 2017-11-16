@@ -1,7 +1,7 @@
 import { ComponentLifecycle } from 'react';
 import { Store } from 'redux';
 import * as R from 'ramda';
-import { ILogger, LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { FunctionT, noop, sequence } from '../../util';
 import { BaseContainerT } from '../../component/base';
@@ -13,7 +13,7 @@ import { appContainer, DI_TYPES } from '../../di';
 import { ConnectorActionBuilder } from './connector-builder.action';
 import { APPLICATION_SECTIONS } from '../application';
 
-const logger: ILogger = LoggerFactory.makeLogger('connector.decorator');
+const logger = LoggerFactory.makeLogger('connector.decorator');
 
 export function connector<TAppState extends ApplicationStateT, TApplicationAccessConfig>(
     config: IConnectorConfig<TAppState, TApplicationAccessConfig>): FunctionT {
@@ -23,7 +23,7 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
     if (!R.isNil(sectionName)) {
       if (sectionName) {
         const sectionName0 = sectionName as string;
-        APPLICATION_SECTIONS.push(sectionName0);
+        APPLICATION_SECTIONS.set(sectionName0, config);
 
         const proto: ComponentLifecycle<{}, {}> = target.prototype;
         proto.componentWillUnmount = sequence(

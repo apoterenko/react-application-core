@@ -2,6 +2,7 @@ import { PureComponent } from 'react';
 
 import { IProgressable, IErrorable } from '../../definition.interface';
 import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
+import { ConnectorConfigT } from '../../component/connector';
 
 export interface IApplicationContainerProps extends IBaseContainerInternalProps,
                                                     IApplicationAttributes {
@@ -25,7 +26,7 @@ export const INITIAL_APPLICATION_READY_STATE: IApplicationReadyState = {
   progress: false,
 };
 
-export const APPLICATION_SECTIONS: string[] = [];
+export const APPLICATION_SECTIONS: Map<string, ConnectorConfigT> = new Map<string, ConnectorConfigT>();
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';
 export const APPLICATION_PREPARE_ERROR_ACTION_TYPE = `${APPLICATION_PREPARE_ACTION_TYPE}.error`;
