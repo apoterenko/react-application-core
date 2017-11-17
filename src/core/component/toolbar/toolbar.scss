@@ -61,18 +61,21 @@
   }
 }
 
-header .app-toolbar {
-  &.mdc-toolbar {
-    background-color: inherit;
+.app-header .app-toolbar.mdc-toolbar {
+  background-color: transparent;
 
-    .mdc-toolbar__row {
-      *, input::placeholder {
-        color: white;
-      }
+  *, input::placeholder {
+    color: white;
+  }
+
+  .app-text-field-wrapper {
+    .app-text-field {
+      border-bottom-color: #989898;
     }
 
-    .mdc-text-field {
-      border-bottom-color: #989898;
+    .app-action.mdc-toolbar__icon {
+      padding-bottom: 0;
+      padding-top: 10px;
     }
   }
 }

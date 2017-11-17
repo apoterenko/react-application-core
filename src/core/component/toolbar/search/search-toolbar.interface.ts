@@ -10,6 +10,7 @@ export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps
   onSearch?(value: string): void;
   onChangeQuery?(value: string): void;
   onFilterAction?(): void;
+  onClearAction?(): void;
   onFilter?(): void;
 }
 

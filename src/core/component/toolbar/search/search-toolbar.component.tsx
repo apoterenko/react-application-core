@@ -4,7 +4,7 @@ import { isUndef, uuid, toClassName } from '../../../util';
 import { AnyT } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from '../../../component/field';
-import { FilterActionEnum } from '../../../component/filter';
+import { FilterActionEnum, IApplicationFilterAction } from '../../../component/filter';
 
 import {
   ISearchToolbarInternalState,
@@ -24,6 +24,10 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     [FilterActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
       actionHandler: this.onFilterActionClick.bind(this),
+    },
+    [FilterActionEnum.CLEAR_FILTER]: {
+      type: 'clear',
+      actionHandler: this.onClearActionClick.bind(this),
     },
   };
 
@@ -148,6 +152,16 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     }
   }
 
+  private onClearActionClick(): void {
+    if (this.isPersistent) {
+      if (this.props.onClearAction) {
+        this.props.onClearAction();
+      }
+    } else {
+      this.setState({query: ''});
+    }
+  }
+
   private doSearch(value?: string): void {
     if (this.props.onSearch) {
       this.props.onSearch(value);
@@ -163,9 +177,14 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private get actions(): IBasicTextFieldAction[] {
-    return this.props.fieldActions.map((action) => ({
-      ...this.defaultActions[action.type],
-      className: action.className,
-    }));
+    const defaultFieldActions: IApplicationFilterAction[] = this.props.noQuery
+        ? []
+        : [{type: FilterActionEnum.CLEAR_FILTER}];
+    return defaultFieldActions
+        .concat(this.props.fieldActions)
+        .map((action) => ({
+          ...this.defaultActions[action.type],
+          className: action.className,
+        }));
   }
 }
