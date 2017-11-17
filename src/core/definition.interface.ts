@@ -61,8 +61,12 @@ export interface ISaveable {
   saveable?: boolean;
 }
 
-export interface IErrorable {
-  error?: string;
+export interface IErrorable<Type> {
+  error?: Type;
+}
+
+export interface IDirtyable {
+  dirty?: boolean;
 }
 
 export interface ITypeable<Type> {
@@ -77,12 +81,20 @@ export interface IDisableable {
   disabled?: boolean;
 }
 
+export interface IActiveable {
+  active?: boolean;
+}
+
 export interface ILockable {
   locked?: boolean;
 }
 
 export interface IChangeable<TChanges extends IKeyValue> {
   changes: TChanges;
+}
+
+export interface IEntityable<TEntity extends IEntity> {
+  entity?: TEntity;
 }
 
 export interface IDateTimeRangeable {
@@ -95,3 +107,7 @@ export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;
 export type KeyboardEventT = React.KeyboardEvent<{}>;
 export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;
+
+export const INITIAL_DIRTY_STATE: IDirtyable = {
+  dirty: true,
+};
