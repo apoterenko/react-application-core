@@ -3,7 +3,7 @@ import { MDCDialog } from '@material/dialog';
 
 import { MaterialComponent } from '../../component/material';
 import { Button } from '../../component/button';
-
+import { isUndef } from '../../util';
 import {
   IDialog,
   IDialogInternalProps,
@@ -47,7 +47,7 @@ export class Dialog<TComponent extends IDialog<TInternalProps>,
   }
 
   public render(): JSX.Element {
-    const bodyMessageTpl = this.props.message
+    const bodyMessageTpl = !isUndef(this.props.message)
         ? (
             <section className='mdc-dialog__body'>
               {this.t(this.props.message)}
