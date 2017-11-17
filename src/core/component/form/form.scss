@@ -1,4 +1,12 @@
 .app-form {
   cursor: default;
-  background-color: white;
+
+  .app-form-actions {
+    padding: 16px;
+    justify-content: flex-end;
+
+    .app-form-reset-action {
+      margin-right: 8px;
+    }
+  }
 }

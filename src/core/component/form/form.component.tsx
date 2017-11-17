@@ -39,9 +39,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
     return (
         <form ref='self'
               autoComplete='off'
-              className={toClassName('app-form', formOptions.className)}
               onReset={this.onReset}
-              onSubmit={this.onSubmit}>
+              onSubmit={this.onSubmit}
+              className={toClassName('app-form', formOptions.className)}>
           <fieldset disabled={form.progress}>
             <section className='mdc-card__primary'>
               {
@@ -57,19 +57,21 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
                 )
               }
             </section>
-            <section className='mdc-card__actions app-card-actions'>
+            <section className='app-form-actions mdc-card__actions'>
               {
                 formOptions.resetButton
                     ? (
                         <Button type='reset'
-                                className='mdc-button--raised app-card-reset-action'
-                                disabled={!form.dirty}>
+                                isRaised={true}
+                                disabled={!form.dirty}
+                                className='app-form-reset-action'>
                           {this.t(formOptions.resetText || 'Reset')}
                         </Button>
                     ) : null
               }
               <Button type='submit'
-                      className='mdc-button--raised'
+                      isAccent={true}
+                      isRaised={true}
                       disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
                       progress={form.progress}
                       error={!R.isNil(form.error)}>

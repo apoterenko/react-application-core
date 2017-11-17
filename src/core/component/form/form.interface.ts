@@ -10,16 +10,19 @@ import {
   ISaveable,
   IKeyValue,
   IEntity,
+  IEntityable,
+  IErrorable,
+  IDirtyable,
 } from '../../definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
 
 export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable<TChanges>,
                                                                      ILockable,
                                                                      IProgressable,
-                                                                     ISaveable {
+                                                                     ISaveable,
+                                                                     IErrorable<string>,
+                                                                     IDirtyable {
   valid?: boolean;
-  dirty?: boolean;
-  error?: string;
 }
 
 export interface IFormOptions extends IStylizable {
@@ -28,9 +31,8 @@ export interface IFormOptions extends IStylizable {
   resetButton?: boolean;
 }
 
-export interface IFormProps<TEntity extends IEntity> {
+export interface IFormProps<TEntity extends IEntity> extends IEntityable<TEntity> {
   form: IFormAttributes<TEntity>;
-  entity?: TEntity;
   formOptions?: IFormOptions;
 }
 
