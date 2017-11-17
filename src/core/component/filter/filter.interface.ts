@@ -3,6 +3,7 @@ import { IApplicationFormState } from '../../component/form';
 
 export enum FilterActionEnum {
   OPEN_FILTER,
+  CLEAR_FILTER,
 }
 
 export interface IApplicationFilterAction extends IStylizable,
