@@ -56,7 +56,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <NavigationList items={menu}/>
           </PersistentDrawer>
           <div className='app-content app-column-flex app-full-flex'>
-            <header className='mdc-toolbar'>
+            <header className='app-header mdc-toolbar'>
               <div className='mdc-toolbar__row'>
                 <section className='mdc-toolbar__section mdc-toolbar__section--align-start'>
                   <button className='material-icons mdc-toolbar__menu-icon'
