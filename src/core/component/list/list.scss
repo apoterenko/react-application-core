@@ -19,6 +19,10 @@
   }
 }
 
+.app-empty-list {
+  cursor: default;
+}
+
 .app-empty-list, .app-list {
   .app-list-add-action {
     position: fixed;

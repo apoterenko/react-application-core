@@ -37,7 +37,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;
-    const isEmptyData = !props.data || (Array.isArray(props.data) && !props.data.length);
+    const noDataFound = Array.isArray(props.data) && !props.data.length;
+
     const addActionTpl = (
         orNull(
             props.addAction,
@@ -55,9 +56,10 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     // unnecessary business logic code of app effects
     const error = props.touched ? props.error : null;
 
-    if (props.progress
+    if (!props.data
+        || props.progress
         || error
-        || isEmptyData) {
+        || noDataFound) {
       return (
           <div className='app-empty-list app-center-layout app-full-layout'>
             {
@@ -67,7 +69,11 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                       : (
                           error
                               ? props.errorMessage || 'Something went wrong. There was a problem loading your data'
-                              : ((canShowAddAction = true) && (props.emptyMessage || 'No data'))
+                              : ((canShowAddAction = true) && (
+                                  noDataFound
+                                      ? props.emptyDataMessage || 'No data found'
+                                      : props.emptyMessage || 'No data'
+                              ))
                       )
               )
             }

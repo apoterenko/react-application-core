@@ -44,7 +44,7 @@ export interface IApplicationListAttributes extends ILockable,
                                                     IPageOptions,
                                                     IProgressable,
                                                     ITouchable,
-                                                    IErrorable {
+                                                    IErrorable<string> {
   data: IEntity[];
   selected: IEntity;
 }
