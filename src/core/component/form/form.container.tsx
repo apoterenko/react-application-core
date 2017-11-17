@@ -72,7 +72,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
             ? { isNew: true, changes }
 
             // You should use formMapper and entityMapper at least (editable entity)
-            : { isNew: false, changes, id: entityId }
+            : { isNew: false, changes, entity, id: entityId }
     );
 
     const apiEntity: IApiEntity<IEntity> = {
