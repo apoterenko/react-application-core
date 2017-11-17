@@ -23,7 +23,7 @@ export class Button extends BaseComponent<Button,
     const statusText = props.progress
         ? (this.t(props.progressMessage || 'Waiting...'))
         : (props.error
-            ? (props.errorText || this.t('Error'))
+            ? (props.errorMessage || this.t('Error'))
             : null);
 
     return (
@@ -31,7 +31,8 @@ export class Button extends BaseComponent<Button,
                 onClick={props.onClick}
                 className={toClassName(
                     'mdc-button',
-                    props.type === 'submit' && 'mdc-button--accent',
+                    props.isAccent && 'mdc-button--accent',
+                    props.isRaised && 'mdc-button--raised',
                     props.className)}
                 disabled={props.disabled || props.progress}>
           {statusText || props.children}

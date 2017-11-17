@@ -14,7 +14,7 @@ export interface IContainerWrapperCtor {
 }
 
 export interface IApplicationAttributes extends IProgressable,
-                                                IErrorable {
+                                                IErrorable<string> {
   ready?: boolean;
 }
 
