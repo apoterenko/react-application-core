@@ -30,6 +30,10 @@ export interface ITransportNoAuthPayload {
   noAuth?: boolean;
 }
 
+export interface ITransportNoCachePayload {
+  noCache?: boolean;
+}
+
 export interface ITransportIdPayload {
   id: number;
 }
@@ -83,7 +87,8 @@ export interface ITransportRawRequest extends ITransportNamedPayload,
 
 export interface ITransportRequest extends ITransportNamedPayload,
                                            ITransportParamsPayload,
-                                           ITransportNoAuthPayload {
+                                           ITransportNoAuthPayload,
+                                           ITransportNoCachePayload {
   operation?: IOperation;
 }
 

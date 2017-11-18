@@ -28,7 +28,7 @@ export class TransportService implements IApplicationTransport {
 
     return new Promise((resolve, reject) => {
       this.transportFactory
-          .request(req)
+          .request<ITransportRawResponse>(req)
           .then((response: ITransportRawResponse) => {
             const error = response.data.error || response.data.Message;
             if (error) {
