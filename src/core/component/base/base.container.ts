@@ -60,4 +60,8 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
       data: { info },
     });
   }
+
+  protected isTransportContainsExecutingOperation(operationId: string): boolean {
+    return this.props.transport.queue.includes(operationId);
+  }
 }
