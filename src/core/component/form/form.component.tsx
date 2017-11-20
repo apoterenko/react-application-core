@@ -41,8 +41,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
               autoComplete='off'
               onReset={this.onReset}
               onSubmit={this.onSubmit}
-              className={toClassName('app-form', formOptions.className)}>
-          <fieldset disabled={form.progress}>
+              className={toClassName('app-form app-column-flex app-full-layout', formOptions.className)}>
+          <fieldset disabled={form.progress}
+                    className='app-form-body app-row-layout app-full-layout'>
             <section className='mdc-card__primary'>
               {
                 cloneNodes<IFieldChangeFormInternalProps>(
@@ -57,28 +58,28 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
                 )
               }
             </section>
-            <section className='app-form-actions mdc-card__actions'>
-              {
-                formOptions.resetButton
-                    ? (
-                        <Button type='reset'
-                                isRaised={true}
-                                disabled={!form.dirty}
-                                className='app-form-reset-action'>
-                          {this.t(formOptions.resetText || 'Reset')}
-                        </Button>
-                    ) : null
-              }
-              <Button type='submit'
-                      isAccent={true}
-                      isRaised={true}
-                      disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
-                      progress={form.progress}
-                      error={!R.isNil(form.error)}>
-                {this.t(formOptions.actionText || 'Save')}
-              </Button>
-            </section>
           </fieldset>
+          <section className='app-form-actions mdc-card__actions'>
+            {
+              formOptions.resetButton
+                  ? (
+                      <Button type='reset'
+                              isRaised={true}
+                              disabled={!form.dirty}
+                              className='app-form-reset-action'>
+                        {this.t(formOptions.resetText || 'Reset')}
+                      </Button>
+                  ) : null
+            }
+            <Button type='submit'
+                    isAccent={true}
+                    isRaised={true}
+                    disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
+                    progress={form.progress}
+                    error={!R.isNil(form.error)}>
+              {this.t(formOptions.actionText || 'Save')}
+            </Button>
+          </section>
         </form>
     );
   }

@@ -1,9 +1,12 @@
 .app-form {
-  cursor: default;
+  
+  .app-form-body {
+    overflow: auto;
+  }
 
   .app-form-actions {
-    padding: 16px;
     justify-content: flex-end;
+    padding: 16px;
 
     .app-form-reset-action {
       margin-right: 8px;

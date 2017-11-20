@@ -46,7 +46,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <div className={toClassName(
             'app-default-layout',
             'app-row-flex',
-            'app-full-flex',
+            'app-full-layout',
             this.props.className
         )}>
           <PersistentDrawer opened={this.isLayoutFullMode}>
@@ -55,7 +55,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             </div>
             <NavigationList items={menu}/>
           </PersistentDrawer>
-          <div className='app-content app-column-flex app-full-flex'>
+          <div className='app-content app-column-flex app-full-layout'>
             <header className='app-header mdc-toolbar'>
               <div className='mdc-toolbar__row'>
                 <section className='mdc-toolbar__section mdc-toolbar__section--align-start'>
@@ -76,7 +76,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                 }
               </div>
             </header>
-            <div className='app-content-body app-column-flex app-full-flex'>
+            <div className='app-content-body app-column-flex app-full-layout'>
               {props.children}
             </div>
           </div>
