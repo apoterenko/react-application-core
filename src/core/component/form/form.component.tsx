@@ -2,11 +2,16 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isUndef, toClassName } from '../../util';
+import { cloneNodes, isUndef, orNull, toClassName } from '../../util';
 import { AnyT, IEntity, BasicEventT, ReactElementT } from '../../definition.interface';
 import { BaseComponent, IBaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
-import { Field, IField, IFieldInternalProps, IFieldChangeFormInternalProps } from '../../component/field';
+import {
+  Field,
+  IField,
+  IFieldInternalProps,
+  IFieldChangeFormInternalProps,
+} from '../../component/field';
 
 import {
   IFormPureComponent,
@@ -14,9 +19,8 @@ import {
   INITIAL_APPLICATION_FORM_STATE
 } from './form.interface';
 
-export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>, TInternalState>,
-                  TInternalState>
-    extends BaseComponent<TComponent, IFormInternalProps<IEntity>, TInternalState> {
+export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>, {}>>
+    extends BaseComponent<TComponent, IFormInternalProps<IEntity>, {}> {
 
   public static defaultProps: IFormInternalProps<IEntity> = {
     form: INITIAL_APPLICATION_FORM_STATE,
@@ -60,17 +64,15 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
             </section>
           </fieldset>
           <section className='app-form-actions mdc-card__actions'>
-            {
-              formOptions.resetButton
-                  ? (
-                      <Button type='reset'
-                              isRaised={true}
-                              disabled={!form.dirty}
-                              className='app-form-reset-action'>
-                        {this.t(formOptions.resetText || 'Reset')}
-                      </Button>
-                  ) : null
-            }
+            {orNull(
+                formOptions.resetButton,
+                <Button type='reset'
+                        isRaised={true}
+                        disabled={!form.dirty}
+                        className='app-form-reset-action'>
+                  {this.t(formOptions.resetText || 'Reset')}
+                </Button>
+            )}
             <Button type='submit'
                     isAccent={true}
                     isRaised={true}
@@ -89,10 +91,12 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
     this.propsOnValid();
   }
 
-  public componentWillUpdate(nextProps: Readonly<IFormInternalProps<IEntity>>, nextState: Readonly<TInternalState>, nextContext: AnyT): void {
+  public componentWillUpdate(
+      nextProps: Readonly<IFormInternalProps<IEntity>>,
+      nextState: Readonly<{}>,
+      nextContext: AnyT): void {
     super.componentWillUpdate(nextProps, nextState, nextContext);
     this.childrenMap.clear();
-
   }
 
   public componentWillUnmount(): void {
@@ -144,7 +148,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
         if (otherFieldInstanceAtTheSameGroup) {
           otherFieldInstanceAtTheSameGroup.resetError();
         } else {
-          Form.logger.warn(`The ref is not defined to the field with ${fieldName} name.`);
+          Form.logger.warn(
+              `[$Form] The ref is not defined to the field with ${fieldName} name.`
+          );
         }
       }
     });
