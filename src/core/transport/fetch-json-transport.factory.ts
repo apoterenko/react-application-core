@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+import * as URI from 'urijs';
 
 import {
   IApplicationTransportFactory,
