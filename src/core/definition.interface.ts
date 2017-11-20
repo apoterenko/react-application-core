@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { IOperation } from './operation';
+
 export type AnyT = any;
 export type EntityIdT = number | string;
 export const EMPTY_ID = -1;
@@ -63,6 +65,10 @@ export interface ISaveable {
 
 export interface IErrorable<Type> {
   error?: Type;
+}
+
+export interface IOperationable {
+  operation?: IOperation;
 }
 
 export interface IDirtyable {

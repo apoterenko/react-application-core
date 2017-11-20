@@ -76,7 +76,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
     );
 
     const apiEntity: IApiEntity<IEntity> = {
-      operation: Operation.create(FORM_SUBMIT_ACTION_TYPE),
+      operation: Operation.create(),
       ...apiEntity0,
     };
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);

@@ -1,5 +1,4 @@
-import { AnyT, IKeyValue } from '../definition.interface';
-import { IOperation } from '../operation';
+import { AnyT, IKeyValue, IOperationable, IErrorable } from '../definition.interface';
 
 export interface IApplicationTransportState {
   token: string;
@@ -47,8 +46,7 @@ export interface ITransportResultPayload {
   result?: AnyT;
 }
 
-export interface ITransportErrorPayload {
-  error?: TransportResponseErrorT;
+export interface ITransportErrorPayload extends IErrorable<TransportResponseErrorT> {
 }
 
 export interface ITransportResponsePayload extends ITransportNamedPayload,
@@ -66,8 +64,8 @@ export interface ITransportRawResponse {
 }
 
 export interface ITransportRawResponseData extends ITransportResultPayload,
-                                                   ITransportIdPayload {
-  error?: ITransportRawResponseError;
+                                                   ITransportIdPayload,
+                                                   IErrorable<ITransportRawResponseError> {
   Message?: string;
 }
 
@@ -89,8 +87,8 @@ export interface ITransportRawRequest extends ITransportNamedPayload,
 export interface ITransportRequest extends ITransportNamedPayload,
                                            ITransportParamsPayload,
                                            ITransportNoAuthPayload,
-                                           ITransportNoCachePayload {
-  operation?: IOperation;
+                                           ITransportNoCachePayload,
+                                           IOperationable {
 }
 
 export interface IApplicationTransportPayloadAnalyzer {

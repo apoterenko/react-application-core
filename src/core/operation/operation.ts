@@ -4,13 +4,10 @@ import { IOperation } from './operation.interface';
 
 export class Operation implements IOperation {
 
-  public static create(type: string): IOperation {
-    return new Operation(type);
+  public static create(id?: string): IOperation {
+    return new Operation(id);
   }
 
-  public id: string;
-
-  constructor(public type: string) {
-    this.id = uuid();
+  constructor(public id: string = uuid()) {
   }
 }
