@@ -1,19 +1,6 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
-
 import { ListActionBuilder } from '../../component/list';
-import { NotificationActionBuilder } from '../../notification';
-import { provideInSingleton } from '../../di';
+import { makeFailedEffectsProxy } from './failed-effects.proxy';
 
 export function makeFailedListEffectsProxy(section: string): () => void {
-  return (): void => {
-
-    @provideInSingleton(Effects)
-    class Effects {
-
-      @EffectsService.effects(ListActionBuilder.buildLoadErrorActionType(section))
-      public $onListLoadError(action: IEffectsAction): IEffectsAction {
-        return NotificationActionBuilder.buildErrorAction(action.error);
-      }
-    }
-  };
+  return makeFailedEffectsProxy(ListActionBuilder.buildLoadErrorActionType(section));
 }
