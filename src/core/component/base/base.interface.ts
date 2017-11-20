@@ -8,6 +8,7 @@ import { IApplicationRootState } from '../../component/root';
 import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
 import { IApplicationDictionariesState } from '../../dictionary';
+import { IApplicationTransportState } from '../../transport';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
@@ -37,6 +38,7 @@ export interface IBaseContainerInternalProps extends IContainerInternalProps, IB
   layout?: IApplicationLayoutState;
   root?: IApplicationRootState;
   user?: IApplicationUserState;
+  transport?: IApplicationTransportState;
 }
 
 export interface IBaseContainerInternalState {

@@ -65,6 +65,12 @@ export const notificationMapper = (state: IApplicationState<{}, IApplicationPerm
   },
 });
 
+export const transportMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+  transport: {
+    ...state.transport,
+  },
+});
+
 export const dictionariesMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
   dictionaries: {
     ...state.dictionaries,
@@ -85,5 +91,6 @@ export const defaultMappers = [
   rootMapper,
   userMapper,
   notificationMapper,
+  transportMapper,
   dictionariesMapper
 ];
