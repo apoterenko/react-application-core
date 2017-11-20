@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 import { MDCSimpleMenu } from '@material/menu';
 
-import { BasicEventT, ChangeEventT } from '../../definition.interface';
+import { BasicEventT } from '../../definition.interface';
 import { MaterialComponent } from '../../component/material';
-import { uuid } from '../../util';
+import { orNull, uuid } from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IEventManager } from '../../event';
-
+import { FieldT, TextField } from '../../component/field';
 import {
   IMenuInternalState,
   IMenuInternalProps,
@@ -37,7 +37,7 @@ export class Menu extends MaterialComponent<Menu,
     this.nativeMdcInstance.listen('MDCSimpleMenu:selected', this.onSelect);
     if (this.props.useFilter) {
       // We must handle events through native DOM Api because Material Foundation implementation
-      this.eventManager.add(this.refs.input, 'click', this.onInputClick);
+      this.eventManager.add(this.field.input, 'click', this.onInputClick);
     }
   }
 
@@ -45,7 +45,7 @@ export class Menu extends MaterialComponent<Menu,
     this.nativeMdcInstance.unlisten('MDCSimpleMenu:selected', this.onSelect);
     if (this.props.useFilter) {
       // We must handle events through native DOM Api because Material Foundation implementation
-      this.eventManager.remove(this.refs.input, 'click', this.onInputClick);
+      this.eventManager.remove(this.field.input, 'click', this.onInputClick);
     }
     super.componentWillUnmount();
   }
@@ -68,23 +68,18 @@ export class Menu extends MaterialComponent<Menu,
         </li>
     ));
 
-    const filterTpl = props.useFilter
-      ? (
-        <div className='app-menu-filter-wrapper'>
-          <input ref='input'
-                 className='mdc-text-field__input'
-                 placeholder={this.t(props.filterPlaceholder || 'Filter')}
-                 value={this.state.filter}
-                 onChange={this.onInputChange}/>
-        </div>
-      )
-      : null;
-
     return (
         <div className='mdc-menu-anchor'>
           <div ref='self'
                className='mdc-simple-menu app-menu'>
-            {filterTpl}
+            {orNull(
+                props.useFilter,
+                <TextField ref='field'
+                           value={this.state.filter}
+                           notErrorMessageRequired={true}
+                           placeholder={this.t(props.filterPlaceholder || 'Filter')}
+                           onChange={this.onInputChange}/>
+            )}
             <ul className='mdc-simple-menu__items mdc-list'
                 role='menu'>
               {menuItemsTpl}
@@ -99,7 +94,7 @@ export class Menu extends MaterialComponent<Menu,
     this.nativeMdcInstance.open = true;
 
     if (this.props.useFilter) {
-      setTimeout(() => (this.refs.input as HTMLInputElement).focus());
+      this.field.setFocus();
     }
   }
 
@@ -111,8 +106,8 @@ export class Menu extends MaterialComponent<Menu,
     // TODO
   }
 
-  private onInputChange(event: ChangeEventT): void {
-    this.setState({ filter: event.target.value });
+  private onInputChange(filter: string): void {
+    this.setState({ filter });
   }
 
   private onInputClick(event: BasicEventT): void {
@@ -122,6 +117,10 @@ export class Menu extends MaterialComponent<Menu,
 
   public get opened(): boolean {
     return this.nativeMdcInstance.open;
+  }
+
+  private get field(): FieldT {
+    return this.refs.field as FieldT;
   }
 
   private onSelect(event: { detail: { index: number, item: Element } }): void {
