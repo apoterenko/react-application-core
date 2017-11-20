@@ -2,6 +2,7 @@ import { Store } from 'redux';
 import Axios from 'axios/dist/axios';
 import { injectable } from 'inversify';
 import * as R from 'ramda';
+import * as URI from 'urijs';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { IApplicationSettings } from '../settings';
@@ -9,6 +10,7 @@ import { lazyInject, DI_TYPES } from '../di';
 import { ApplicationStateT } from '../store';
 
 import {
+  ITransportRawResponse,
   IApplicationTransportFactory,
   ITransportRequest,
   ITransportRawRequest,
@@ -19,12 +21,13 @@ export class TransportFactory implements IApplicationTransportFactory {
 
   private static logger = LoggerFactory.makeLogger(TransportFactory);
 
-  private operationsMap = new Map<string, Axios.CancelTokenSource>();
   private id = 0;
+  private operationsMap = new Map<string, Axios.CancelTokenSource>();
+
   @lazyInject(DI_TYPES.Store) private store: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
 
-  public request<TResponse>(req: ITransportRequest): Promise<TResponse> {
+  public request(req: ITransportRequest): Promise<ITransportRawResponse> {
     let source: Axios.CancelTokenSource;
     const operationId = req.operation && req.operation.id;
 
@@ -33,9 +36,12 @@ export class TransportFactory implements IApplicationTransportFactory {
       source = cancelToken.source();
       this.operationsMap.set(operationId, source);
     }
-
+    const uri0 = new URI(this.settings.apiUrl);
+    if (req.noCache !== true) {
+      uri0.addSearch('_dc', Date.now());
+    }
     return Axios.request({
-      url: this.settings.apiUrl + '?_dc=' + Date.now(),
+      url: uri0.valueOf(),
       method: 'POST',
       data: this.toRequestParams(req),
       ...(source ? { cancelToken: source.token } : {} ),
@@ -57,7 +63,9 @@ export class TransportFactory implements IApplicationTransportFactory {
       source.cancel('The operation has been canceled by the user.');
       this.clearOperation(operationId);
     } else {
-      TransportFactory.logger.warn(`The source has not been found by the operationId ${operationId}`);
+      TransportFactory.logger.warn(
+          `[$TransportFactory] The source has not been found by the operationId ${operationId}`
+      );
     }
   }
 

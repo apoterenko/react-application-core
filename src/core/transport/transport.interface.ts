@@ -11,15 +11,16 @@ export const INITIAL_APPLICATION_TRANSPORT_STATE: IApplicationTransportState = {
   token: null,
 };
 
-export interface ITransport {
-  request<TResponse>(req: ITransportRequest): Promise<TResponse>;
+export interface ICancelableTransport {
   cancelRequest(operationId: string): void;
 }
 
-export interface IApplicationTransport extends ITransport {
+export interface IApplicationTransport extends ICancelableTransport {
+  request<TResponse>(req: ITransportRequest): Promise<TResponse>;
 }
 
-export interface IApplicationTransportFactory extends ITransport {
+export interface IApplicationTransportFactory extends ICancelableTransport {
+  request(req: ITransportRequest): Promise<ITransportRawResponse>;
 }
 
 export interface ITransportNamedPayload {

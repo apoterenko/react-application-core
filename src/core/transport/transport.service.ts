@@ -5,7 +5,6 @@ import { DI_TYPES, lazyInject } from '../di';
 import { ApplicationStateT } from '../store';
 
 import {
-  ITransportRawResponse,
   IApplicationTransport,
   ITransportRequest,
   TRANSPORT_REQUEST_ACTION_TYPE,
@@ -26,23 +25,24 @@ export class TransportService implements IApplicationTransport {
   public request<TResponse>(req: ITransportRequest): Promise<TResponse> {
     this.onRequest(req);
 
-    return new Promise((resolve, reject) => {
-      this.transportFactory
-          .request<ITransportRawResponse>(req)
-          .then((response: ITransportRawResponse) => {
-            const error = response.data.error || response.data.Message;
-            if (error) {
-              this.onRequestError(req, error);
-              reject(error);
-            } else {
-              this.onRequestDone(req, response.data);
-              resolve(response.data.result as TResponse);
-            }
-          }, (e: Error | string) => {
-            this.onRequestError(req, e);
-            reject(e);
-          });
-    });
+    return new Promise<TResponse>((resolve, reject) => (
+            this.transportFactory
+                .request(req)
+                .then((response) => {
+                  const error = response.data.error || response.data.Message;
+                  if (error) {
+                    this.onRequestError(req, error);
+                    reject(error);
+                  } else {
+                    this.onRequestDone(req, response.data);
+                    resolve(response.data.result);
+                  }
+                }, (e: Error | string) => {
+                  this.onRequestError(req, e);
+                  reject(e);
+                })
+        )
+    );
   }
 
   public cancelRequest(operationId: string): void {
