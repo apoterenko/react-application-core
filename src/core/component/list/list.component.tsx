@@ -85,7 +85,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
         <ul ref='container'
             className={toClassName(
-                'mdc-list mdc-list--two-line mdc-list--avatar-list app-list app-full-flex',
+                'mdc-list mdc-list--two-line mdc-list--avatar-list app-list app-full-layout',
                 props.className
             )}>
           {props.data.map(

@@ -129,6 +129,15 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
+  public setFocus(): void {
+    this.input.focus();
+  }
+
+  public get input(): HTMLInputElement {
+    return this.refs.input && (this.refs.input as IMaskedTextInputPureComponent).inputElement
+        || this.refs.input as HTMLInputElement;
+  }
+
   protected onFocus(event: FocusEventT): void {
     if (this.props.onFocus) {
       this.props.onFocus(event);
@@ -180,15 +189,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   protected get error(): string {
     return this.state.error;
-  }
-
-  protected get input(): HTMLInputElement {
-    return this.refs.input && (this.refs.input as IMaskedTextInputPureComponent).inputElement
-        || this.refs.input as HTMLInputElement;
-  }
-
-  protected setFocus(): void {
-    this.input.focus();
   }
 
   protected get inputCursorPosition(): number {

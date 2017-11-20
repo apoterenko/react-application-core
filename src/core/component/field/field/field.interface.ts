@@ -59,9 +59,13 @@ export interface IField<TInternalProps extends IFieldInternalProps,
                         TInternalState extends IFieldInternalState,
                         TValueEvent>
     extends IKeyboardHandlers, IBaseComponent<TInternalProps, TInternalState> {
+  input: HTMLInputElement;
   onChange(event: TValueEvent): void;
   resetError(): void;
+  setFocus(): void;
 }
+
+export type FieldT = IField<IFieldInternalProps, IFieldInternalState, {}>;
 
 export interface IMultiFieldAttributes {
   add: EntityIdT[];
