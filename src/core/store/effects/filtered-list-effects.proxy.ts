@@ -27,6 +27,11 @@ export function makeFilteredListEffectsProxy(
           RouterActionBuilder.buildNavigateAction(filterPath)
         ];
       }
+
+      @EffectsService.effects(ListActionBuilder.buildSearchActionType(section))
+      public $onFilterActivateByListSearchAction(): IEffectsAction {
+        return FilterActionBuilder.buildActivateAction(section);
+      }
     }
   };
 }
