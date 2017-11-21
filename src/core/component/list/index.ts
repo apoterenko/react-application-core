@@ -1,3 +1,4 @@
+export * from './item';
 export * from './list.interface';
 export * from './list.container';
 export * from './list.component';

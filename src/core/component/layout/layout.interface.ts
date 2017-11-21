@@ -5,6 +5,10 @@ export interface IApplicationLayoutState {
   mode: 'full' | 'minimal';
 }
 
+export interface IApplicationLayoutWrapperState {
+  layout: IApplicationLayoutState;
+}
+
 export const INITIAL_APPLICATION_LAYOUT_STATE: IApplicationLayoutState = {
   mode: LAYOUT_FULL_MODE,
 };
