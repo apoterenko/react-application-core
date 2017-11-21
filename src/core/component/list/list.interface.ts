@@ -11,13 +11,15 @@ import {
   ITouchable,
   IProgressable,
   IErrorable,
+  ISelectable,
+  IDataSource,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
 
 export interface IListOptions extends IBaseComponentInternalProps {
   itemOptions?: IListItemOptions;
   addAction?: boolean;
-  searchControl?: boolean;
+  searchAction?: boolean;
 }
 
 export interface IPageOptions {
@@ -28,7 +30,7 @@ export interface IPageOptions {
 }
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
-                                                     IApplicationListAttributesWrapper {
+                                                     IApplicationListWrapperState {
   listOptions?: IListOptions;
 }
 
@@ -41,32 +43,25 @@ export interface IListEntity<TEntity extends IEntity> {
   data: TEntity[];
 }
 
-export interface IApplicationListAttributes extends ILockable,
-                                                    IPageOptions,
-                                                    IProgressable,
-                                                    ITouchable,
-                                                    IErrorable<string> {
-  data: IEntity[];
-  selected: IEntity;
-}
-
-export interface IApplicationListAttributesWrapper {
-  list: IApplicationListAttributes;
-}
-
-export interface IListInternalProps extends IBaseComponentInternalProps,
-                                            IApplicationListAttributes,
-                                            IListOptions {
-  onSelect?(props: IEntity): void;
-  onSearch?(): void;
-  onAddItem?(): void;
-}
-
-export interface IApplicationListState extends IApplicationListAttributes {
+export interface IApplicationListState extends ILockable,
+                                               IPageOptions,
+                                               IProgressable,
+                                               ITouchable,
+                                               ISelectable<IEntity>,
+                                               IErrorable<string>,
+                                               IDataSource<IEntity[]> {
 }
 
 export interface IApplicationListWrapperState {
   list: IApplicationListState;
+}
+
+export interface IListInternalProps extends IBaseComponentInternalProps,
+                                            IApplicationListState,
+                                            IListOptions {
+  onSelect?(props: IEntity): void;
+  onSearch?(): void;
+  onAddItem?(): void;
 }
 
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {

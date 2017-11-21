@@ -21,6 +21,14 @@
 
 .app-empty-list {
   cursor: default;
+
+  .app-list-search-action-wrapper {
+    cursor: pointer;
+
+    .mdc-list-item {
+      justify-content: center;
+    }
+  }
 }
 
 .app-empty-list, .app-list {

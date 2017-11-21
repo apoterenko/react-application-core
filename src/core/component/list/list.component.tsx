@@ -14,6 +14,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     super(props);
     this.onSelect = this.onSelect.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
+    this.onSearchAction = this.onSearchAction.bind(this);
   }
 
   public componentDidMount(): void {
@@ -38,16 +39,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
   public render(): JSX.Element {
     const props = this.props;
     const noDataFound = Array.isArray(props.data) && !props.data.length;
+    const emptyMessage = this.emptyMessage;
 
-    const addActionTpl = (
-        orNull(
-            props.addAction,
-            <button className='mdc-fab material-icons app-list-add-action'
-                    onClick={this.onAddItem}>
-              <span className='mdc-fab__icon'>add</span>
-            </button>
-        )
-    );
     let canShowAddAction = false;
 
     // If some transport error does cause a redirect to the login page,
@@ -63,44 +56,71 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
       return (
           <div className='app-empty-list app-center-layout app-full-layout'>
             {
-              this.t(
-                  props.progress
-                      ? props.progressMessage || 'Loading...'
-                      : (
-                          error
-                              ? props.errorMessage || 'Something went wrong. There was a problem loading your data'
-                              : ((canShowAddAction = true) && (
-                                  noDataFound
-                                      ? props.emptyDataMessage || 'No data found'
-                                      : props.emptyMessage || 'No data'
-                              ))
-                      )
-              )
+              props.progress
+                  ? this.progressMessage
+                  : (
+                      error
+                          ? this.errorMessage
+                          : ((canShowAddAction = true) && (
+                              noDataFound
+                                  ? this.emptyDataMessage
+                                  : (props.searchAction ? this.searchActionTpl : emptyMessage)
+                          ))
+                  )
             }
-            {canShowAddAction ? addActionTpl : null}
+            {orNull(canShowAddAction, this.addActionTpl)}
           </div>
       );
     }
 
     return (
         <ul ref='container'
-            className={toClassName(
-                'mdc-list mdc-list--two-line mdc-list--avatar-list app-list app-full-layout',
-                props.className
-            )}>
-          {props.data.map(
-              (item) => (
-                  <ListItem key={uuid()}
-                            rawData={item}
-                            active={this.isSelected(item)}
-                            onClick={this.onSelect}
-                            ref={this.toItemId(item)}
-                            {...props.itemOptions}/>
-              ),
-          )}
-          {addActionTpl}
+            className={toClassName('mdc-list', 'mdc-list--two-line', 'mdc-list--avatar-list',
+                                   'app-list', 'app-full-layout',
+                                   props.className)}>
+          {props.data.map((item) => this.itemTpl(item))}
+          {this.addActionTpl}
         </ul>
     );
+  }
+
+  protected itemTpl(entity: IEntity): JSX.Element {
+    return (
+        <ListItem ref={this.toItemId(entity)}
+                  key={uuid()}
+                  rawData={entity}
+                  active={this.isSelected(entity)}
+                  onClick={this.onSelect}
+                  {...this.props.itemOptions}/>
+    );
+  }
+
+  protected get searchActionTpl(): JSX.Element {
+    return (
+        <ul className='mdc-list app-list-search-action-wrapper'>
+          <ListItem key={uuid()}
+                    icon='search'
+                    onClick={this.onSearchAction}>
+            {this.emptyMessage}
+          </ListItem>
+        </ul>
+    );
+  }
+
+  protected get addActionTpl(): JSX.Element {
+    return orNull(
+        this.props.addAction,
+        <button className='mdc-fab material-icons app-list-add-action'
+                onClick={this.onAddItem}>
+          <span className='mdc-fab__icon'>add</span>
+        </button>
+    );
+  }
+
+  private onSearchAction(): void {
+    if (this.props.onSearch) {
+      this.props.onSearch();
+    }
   }
 
   private isSelected(item: IEntity): boolean {
@@ -120,6 +140,24 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
   }
 
   private toItemId(entity: IEntity): string {
-    return 'item-' + entity.id;
+    return `$item-${entity.id}`;
+  }
+
+  private get errorMessage(): string {
+    return this.t(
+        this.props.errorMessage || 'Something went wrong. There was a problem loading your data'
+    );
+  }
+
+  private get emptyDataMessage(): string {
+    return this.t(this.props.emptyDataMessage || 'No data found');
+  }
+
+  private get emptyMessage(): string {
+    return this.t(this.props.emptyMessage || 'No data');
+  }
+
+  private get progressMessage(): string {
+    return this.t(this.props.progressMessage || 'Loading...');
   }
 }
