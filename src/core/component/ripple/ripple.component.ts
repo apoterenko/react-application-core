@@ -14,7 +14,7 @@ export class Ripple<TInternalProps extends IRippleInternalProps>
                               INativeMaterialRippleComponent> {
 
   constructor(props: TInternalProps) {
-    super(props, MDCRipple);
+    super(props, props.rippled ? MDCRipple : null);
   }
 
   public componentDidMount(): void {

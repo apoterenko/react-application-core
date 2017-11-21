@@ -120,6 +120,10 @@ export interface IDateTimeRangeable {
   toDate?: string;
 }
 
+export interface IRippleable {
+  rippled?: boolean;
+}
+
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;

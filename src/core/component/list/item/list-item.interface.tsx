@@ -1,13 +1,16 @@
-import { IRippleInternalProps } from '../../../component/ripple';
-import { AnyT, IEntity, IRenderable } from '../../../definition.interface';
+import { ReactNode } from 'react';
 
-export interface IListItemOptions extends IRenderable {
-  itemIcon?: string;
-  itemValue?(entity: IEntity): AnyT;
+import { IRippleInternalProps } from '../../../component/ripple';
+import { IEntity, IRenderable, IIconable } from '../../../definition.interface';
+
+export interface IListItemOptions extends IRenderable,
+                                          IIconable {
+  tpl?(entity: IEntity): ReactNode;
+  toClassName?(data: IEntity): string;
 }
 
 export interface IListItemInternalProps extends IRippleInternalProps,
                                                 IListItemOptions {
-  rawData: IEntity;
+  rawData?: IEntity;
   onClick?(entity: IEntity): void;
 }
