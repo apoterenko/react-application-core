@@ -18,6 +18,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   public static defaultProps: ISearchToolbarInternalProps = {
     fieldActions: [],
     searchIcon: 'search',
+    searchFieldOptions: {
+      placeholder: 'Search',
+    },
   };
 
   private defaultActions = {
@@ -67,35 +70,29 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     if (this.isActivated) {
       searchFieldTpl = (
           <section className='mdc-toolbar__section visible'>
-            <TextField persistent={false}
+            <TextField className='mdc-text-field--box'
+                       persistent={false}
                        autoFocus={true}
-                       notErrorMessageRequired={true}
+                       noErrorMessage={true}
                        value={this.query}
-                       className='mdc-text-field--box'
-                       placeholder={'Search'}
                        actions={this.actions}
+                       plugins={DelayedChangesFieldPlugin}
                        onDelay={this.doSearch}
                        onChange={this.onChangeQuery}
-                       plugins={DelayedChangesFieldPlugin}>
+                       {...props.searchFieldOptions}>
             </TextField>
           </section>
       );
     }
-    if (props.noQuery && props.fieldActions.length) {
-      const actionsTpl = (
-          this.actions.map((action) => (
-              <div key={uuid()}
-                   className={toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)}
-                   onClick={action.actionHandler}>
-                {action.type}
-              </div>
-          ))
-      );
-      searchFieldTpl = (
-          <section>
-            {actionsTpl}
-          </section>
-      );
+    if (props.noSearchField && props.fieldActions.length) {
+      const actionsTpl = this.actions.map((action) => (
+          <div key={uuid()}
+               className={toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)}
+               onClick={action.actionHandler}>
+            {action.type}
+          </div>
+      ));
+      searchFieldTpl = <section>{actionsTpl}</section>;
     }
 
     return (
@@ -123,7 +120,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   private onFilter(): void {
     const props = this.props;
-    if (props.noQuery) {
+    if (props.noSearchField) {
       this.doSearch();
     } else {
       if (this.isPersistent) {
@@ -177,7 +174,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private get actions(): IBasicTextFieldAction[] {
-    const defaultFieldActions: IApplicationFilterAction[] = this.props.noQuery
+    const defaultFieldActions: IApplicationFilterAction[] = this.props.noSearchField
         ? []
         : [{type: FilterActionEnum.CLEAR_FILTER}];
     return defaultFieldActions

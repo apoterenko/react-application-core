@@ -2,7 +2,7 @@ import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
 } from '../../../component/base';
-import { IApplicationListAttributesWrapper, IPageOptions } from '../../../component/list';
+import { IApplicationListWrapperState, IPageOptions } from '../../../component/list';
 
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
                                                    IPageOptions {
@@ -14,7 +14,7 @@ export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
 }
 
 export interface IPageToolbarContainerInternalProps extends IBaseContainerInternalProps,
-                                                            IApplicationListAttributesWrapper {
+                                                            IApplicationListWrapperState {
 }
 
 export const PAGER_NEXT_ACTION_TYPE = 'pager.next';
