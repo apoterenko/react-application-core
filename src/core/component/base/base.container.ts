@@ -13,6 +13,7 @@ import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslationT } from '../../translation';
+import { IFormDialog } from '../../component/form';
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
@@ -30,7 +31,9 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);
     this.sectionName = props.sectionName || sectionName;
+
     this.navigateToBack = this.navigateToBack.bind(this);
+    this.activateFormDialog = this.activateFormDialog.bind(this);
   }
 
   public dispatch(type: string, data?: IKeyValue): void {
@@ -61,7 +64,18 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
     });
   }
 
+  // Service method (DRY)
   protected isTransportContainsExecutingOperation(operationId: string): boolean {
     return this.props.transport.queue.includes(operationId);
+  }
+
+  // Service method (DRY)
+  protected isPermissionAccessible<TApplicationAccessConfig>(checkedObject: TApplicationAccessConfig): boolean {
+    return this.permissionService.isAccessible(checkedObject);
+  }
+
+  // Service method (DRY)
+  protected activateFormDialog(): void {
+    (this.refs.formDialog as IFormDialog).activate();
   }
 }
