@@ -29,7 +29,7 @@ export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrappe
 
 export const entityMapper = (entity: IEntity, formState?: IApplicationFormState): IEntity => ({
   entity: {
-    ...entity || {},
+    ...entity,
     ...formState && formState.changes,
   },
 });
@@ -40,25 +40,25 @@ export const listWrapperEntityMapper = (listWrapperState: IApplicationListWrappe
 
 export const formMapper = (formState: IApplicationFormState) => ({
   form: {
-    ...formState || {},
+    ...formState,
   },
 });
 
 export const listMapper = (listState: IApplicationListState) => ({
   list: {
-    ...listState || {},
+    ...listState,
   },
 });
 
 export const filterMapper = (filterState: IApplicationFilterState) => ({
   filter: {
-    ...filterState || {},
+    ...filterState,
   },
 });
 
 export const filterFormMapper = (formState: IApplicationFormState) => ({
   filterForm: {
-    ...formState || {},
+    ...formState,
   },
 });
 
