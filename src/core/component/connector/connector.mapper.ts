@@ -1,33 +1,41 @@
 import { IApplicationFormState } from '../../component/form';
-import { IApplicationState } from '../../store';
-import { IApplicationPermissionsState } from '../../permission';
+import { ApplicationStateT } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
 import { IEntity } from '../../definition.interface';
-import { IError } from '../../error/error.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
   IApplicationFilterWrapperState,
 } from '../../component/filter';
+import { IApplicationDictionariesWrapperState } from '../../dictionary';
+import { IApplicationTransportWrapperState } from '../../transport';
+import { IApplicationNotificationWrapperState } from '../../notification';
+import { IApplicationUserWrapperState } from '../../user';
+import { IApplicationLayoutWrapperState } from '../../component/layout';
+import { IApplicationRootWrapperState } from '../../component/root';
 
-export const rootMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
     ...state.root,
   },
 });
 
-export const layoutMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrapperState => ({
   layout: {
     ...state.layout,
   },
 });
 
-export const entityMapper = (entity: IEntity, formState?: IApplicationFormState) => ({
+export const entityMapper = (entity: IEntity, formState?: IApplicationFormState): IEntity => ({
   entity: {
     ...entity || {},
     ...formState && formState.changes,
   },
 });
+
+export const listWrapperEntityMapper = (listWrapperState: IApplicationListWrapperState,
+                                        formState?: IApplicationFormState): IEntity =>
+    entityMapper(listWrapperState.list ? listWrapperState.list.selected : null, formState);
 
 export const formMapper = (formState: IApplicationFormState) => ({
   form: {
@@ -53,25 +61,25 @@ export const filterFormMapper = (formState: IApplicationFormState) => ({
   },
 });
 
-export const userMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+export const userMapper = (state: ApplicationStateT): IApplicationUserWrapperState => ({
   user: {
     ...state.user,
   },
 });
 
-export const notificationMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+export const notificationMapper = (state: ApplicationStateT): IApplicationNotificationWrapperState => ({
   notification: {
     ...state.notification,
   },
 });
 
-export const transportMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+export const transportMapper = (state: ApplicationStateT): IApplicationTransportWrapperState => ({
   transport: {
     ...state.transport,
   },
 });
 
-export const dictionariesMapper = (state: IApplicationState<{}, IApplicationPermissionsState<{}>, {}>) => ({
+export const dictionariesMapper = (state: ApplicationStateT): IApplicationDictionariesWrapperState => ({
   dictionaries: {
     ...state.dictionaries,
   },
