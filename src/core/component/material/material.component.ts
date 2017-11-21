@@ -19,12 +19,14 @@ export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps,
   }
 
   public componentDidMount(): void {
-    this.mdc = this.mdcFactory.attachTo(this.self);
+    this.mdc = this.mdcFactory ? this.mdcFactory.attachTo(this.self) : null;
     super.componentDidMount();
   }
 
   public componentWillUnmount(): void {
-    this.mdc.destroy();
+    if (this.mdc) {
+      this.mdc.destroy();
+    }
     super.componentWillUnmount();
   }
 
