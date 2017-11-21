@@ -27,4 +27,8 @@ export class FilterActionBuilder {
   public static buildLockAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildLockActionType(section));
   }
+
+  public static buildActivateAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildActivateActionType(section));
+  }
 }

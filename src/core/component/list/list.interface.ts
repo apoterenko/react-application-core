@@ -17,6 +17,7 @@ import { IListItemOptions } from './item';
 export interface IListOptions extends IBaseComponentInternalProps {
   itemOptions?: IListItemOptions;
   addAction?: boolean;
+  searchControl?: boolean;
 }
 
 export interface IPageOptions {
@@ -57,6 +58,7 @@ export interface IListInternalProps extends IBaseComponentInternalProps,
                                             IApplicationListAttributes,
                                             IListOptions {
   onSelect?(props: IEntity): void;
+  onSearch?(): void;
   onAddItem?(): void;
 }
 
@@ -83,6 +85,7 @@ export const LIST_LOAD_ERROR_ACTION_TYPE = 'list.load.error';
 export const LIST_LOCK_ACTION_TYPE = 'list.lock';
 export const LIST_DESTROY_ACTION_TYPE = 'list.destroy';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
+export const LIST_SEARCH_ACTION_TYPE = 'list.search';
 export const LIST_ADD_ITEM_ACTION_TYPE = 'list.add.item';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
