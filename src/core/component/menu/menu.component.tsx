@@ -94,7 +94,7 @@ export class Menu extends MaterialComponent<Menu,
     this.nativeMdcInstance.open = true;
 
     if (this.props.useFilter) {
-      this.field.setFocus();
+      setTimeout(() => this.field.setFocus());
     }
   }
 
