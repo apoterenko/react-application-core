@@ -30,6 +30,10 @@ export interface IRenderable {
   renderer?(item: IEntity): JSX.Element;
 }
 
+export interface IIconable {
+  icon?: string;
+}
+
 export interface IFilterable {
   useFilter?: boolean;
   filterPlaceholder?: string;
@@ -59,8 +63,16 @@ export interface ITouchable {
   touched?: boolean;
 }
 
+export interface IDataSource<Type> {
+  data?: Type;
+}
+
 export interface ISaveable {
   saveable?: boolean;
+}
+
+export interface ISelectable<Type> {
+  selected?: Type;
 }
 
 export interface IErrorable<Type> {

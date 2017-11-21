@@ -3,6 +3,10 @@ export interface IApplicationNotificationState {
   info?: string;
 }
 
+export interface IApplicationNotificationWrapperState {
+  notification: IApplicationNotificationState;
+}
+
 export const INITIAL_APPLICATION_NOTIFICATION_STATE: IApplicationNotificationState = {
   error: null,
   info: null,

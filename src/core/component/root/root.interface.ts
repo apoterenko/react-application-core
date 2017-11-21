@@ -21,6 +21,10 @@ export interface IApplicationRootState {
   path: string;
 }
 
+export interface IApplicationRootWrapperState {
+  root: IApplicationRootState;
+}
+
 export const INITIAL_APPLICATION_ROOT_STATE: IApplicationRootState = {
   path: null,
 };

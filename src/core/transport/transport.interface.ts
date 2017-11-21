@@ -5,6 +5,10 @@ export interface IApplicationTransportState {
   queue: string[];
 }
 
+export interface IApplicationTransportWrapperState {
+  transport: IApplicationTransportState;
+}
+
 export const INITIAL_APPLICATION_TRANSPORT_STATE: IApplicationTransportState = {
   queue: [],
   token: null,

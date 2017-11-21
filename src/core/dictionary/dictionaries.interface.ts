@@ -9,6 +9,10 @@ export interface IApplicationDictionariesState {
   [index: string]: IDictionariesDataState<IEntity>;
 }
 
+export interface IApplicationDictionariesWrapperState {
+  dictionaries: IApplicationDictionariesState;
+}
+
 export const INITIAL_DICTIONARIES_STATE: IApplicationDictionariesState = {};
 
 export const DICTIONARY_LOAD_ACTION_TYPE = 'dictionary.load';

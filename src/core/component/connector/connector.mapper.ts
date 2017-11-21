@@ -1,5 +1,5 @@
 import { IApplicationFormState } from '../../component/form';
-import { ApplicationStateT } from '../../store';
+import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
 import { IEntity } from '../../definition.interface';
 import {
@@ -7,12 +7,13 @@ import {
   IApplicationFilterState,
   IApplicationFilterWrapperState,
 } from '../../component/filter';
-import { IApplicationDictionariesWrapperState } from '../../dictionary';
+import { IApplicationDictionariesState, IApplicationDictionariesWrapperState } from '../../dictionary';
 import { IApplicationTransportWrapperState } from '../../transport';
 import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserWrapperState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
+import { IApplicationPermissionsState } from '../../permission';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
