@@ -7,20 +7,16 @@ import { IListItemInternalProps } from './list-item.interface';
 
 export class ListItem extends Ripple<IListItemInternalProps> {
 
-  constructor(props: IListItemInternalProps) {
-    super(props);
-    this.onActionClick = this.onActionClick.bind(this);
-  }
+  private itemProps = Object.freeze({
+    ref: 'self',
+    onClick: this.onActionClick.bind(this),
+  });
 
   public render(): JSX.Element {
     const props = this.props;
-    const itemProps = {
-      ref: 'self',
-      onClick: this.onActionClick,
-    };
 
     return props.renderer
-        ? React.cloneElement(props.renderer(props.rawData), itemProps)
+        ? React.cloneElement(props.renderer(props.rawData), this.itemProps)
         : (
             <li className={toClassName(
                     'mdc-list-item',
@@ -28,7 +24,7 @@ export class ListItem extends Ripple<IListItemInternalProps> {
                     props.className,
                     props.toClassName && props.toClassName(props.rawData)
                 )}
-                {...itemProps}>
+                {...this.itemProps}>
               {
                 orNull(
                     props.itemIcon,
