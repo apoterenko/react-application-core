@@ -3,26 +3,26 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isUndef, orNull, toClassName } from '../../util';
-import { AnyT, IEntity, BasicEventT, ReactElementT } from '../../definition.interface';
+import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
 import { BaseComponent, IBaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
 import {
   Field,
-  IField,
   IFieldInternalProps,
   IFieldChangeFormInternalProps,
+  FieldT,
 } from '../../component/field';
 
 import {
   IFormPureComponent,
-  IFormInternalProps,
+  FormInternalPropsT,
   INITIAL_APPLICATION_FORM_STATE
 } from './form.interface';
 
-export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>, {}>>
-    extends BaseComponent<TComponent, IFormInternalProps<IEntity>, {}> {
+export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
+    extends BaseComponent<TComponent, FormInternalPropsT, {}> {
 
-  public static defaultProps: IFormInternalProps<IEntity> = {
+  public static defaultProps: FormInternalPropsT = {
     form: INITIAL_APPLICATION_FORM_STATE,
     formOptions: {},
   };
@@ -30,7 +30,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
 
   private childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
-  constructor(props: IFormInternalProps<IEntity>) {
+  constructor(props: FormInternalPropsT) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -56,9 +56,9 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
                       changeForm: (name: string, value: AnyT, validationGroup?: string) =>
                           this.onChange(name, value, validationGroup),
                     },
-                    (child: ReactElementT) => Field.isPrototypeOf(child.type),
+                    (child) => Field.isPrototypeOf(child.type),
                     this.childrenMap,
-                    (child: ReactElementT) => (child.props as IFieldInternalProps).renderCondition,
+                    (child) => (child.props as IFieldInternalProps).renderCondition,
                 )
               }
             </section>
@@ -91,10 +91,7 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
     this.propsOnValid();
   }
 
-  public componentWillUpdate(
-      nextProps: Readonly<IFormInternalProps<IEntity>>,
-      nextState: Readonly<{}>,
-      nextContext: AnyT): void {
+  public componentWillUpdate(nextProps: Readonly<FormInternalPropsT>, nextState: Readonly<{}>, nextContext: {}): void {
     super.componentWillUpdate(nextProps, nextState, nextContext);
     this.childrenMap.clear();
   }
@@ -144,13 +141,11 @@ export class Form<TComponent extends IBaseComponent<IFormInternalProps<IEntity>,
       const fieldName = childProps.name;
 
       if (groupName === validationGroup && fieldName !== name) {
-        const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as IField<{}, {}, {}>;
+        const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as FieldT;
         if (otherFieldInstanceAtTheSameGroup) {
           otherFieldInstanceAtTheSameGroup.resetError();
         } else {
-          Form.logger.warn(
-              `[$Form] The ref is not defined to the field with ${fieldName} name.`
-          );
+          Form.logger.warn(`[$Form] The ref is not defined to the field with ${fieldName} name.`);
         }
       }
     });

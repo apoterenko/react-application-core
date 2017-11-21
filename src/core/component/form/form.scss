@@ -2,11 +2,15 @@
   
   .app-form-body {
     overflow: auto;
+
+    .mdc-list {
+      padding: 0;     // List within form
+    }
   }
 
   .app-form-actions {
-    justify-content: flex-end;
     padding: 16px;
+    justify-content: flex-end;
 
     .app-form-reset-action {
       margin-right: 8px;

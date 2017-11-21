@@ -44,6 +44,8 @@ export interface IFormInternalProps<TEntity extends IEntity> extends IBaseCompon
   onChange?(name: string, value: AnyT): void;
 }
 
+export type FormInternalPropsT = IFormInternalProps<IEntity>;
+
 export interface IFormContainerInternalProps<TEntity extends IEntity> extends IBaseContainerInternalProps,
                                                                               IFormProps<TEntity> {
 }
