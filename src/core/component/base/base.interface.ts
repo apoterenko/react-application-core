@@ -24,7 +24,6 @@ export interface IBaseInternalProps extends IStylizable,
   errorMessage?: string;
   notification?: IApplicationNotificationState;
   dictionaries?: IApplicationDictionariesState;
-  toClassName?(data: AnyT): string;
 }
 
 export interface IContainerInternalProps {

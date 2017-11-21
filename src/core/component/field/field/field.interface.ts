@@ -1,6 +1,17 @@
 import { PureComponent } from 'react';
 
-import { AnyT, BasicEventT, EntityIdT, FocusEventT, IEntity, KeyboardEventT } from '../../../definition.interface';
+import {
+  AnyT,
+  BasicEventT,
+  EntityIdT,
+  FocusEventT,
+  IEntity,
+  INameable,
+  KeyboardEventT,
+  IDisableable,
+  ITypeable,
+  IValueable,
+} from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
 export interface IKeyboardHandlers {
@@ -17,22 +28,29 @@ export interface IFieldChangeFormInternalProps {
   changeForm?(name: string, value: AnyT, validationGroup?: string): void;
 }
 
-export interface IFieldInternalProps
-    extends IBaseComponentInternalProps, IFieldChangeFormInternalProps, IKeyboardHandlers {
-  name?: string;
-  value?: AnyT;
+export interface IFieldOptions {
+  placeholder?: string;
+  pattern?: string;
+  mask?: Array<string|RegExp>;
+  prefixLabel?: string;
+  postfixLabel?: string;
+}
+
+export interface IFieldInternalProps extends IBaseComponentInternalProps,
+                                             IFieldChangeFormInternalProps,
+                                             IKeyboardHandlers,
+                                             IFieldOptions,
+                                             INameable,
+                                             IDisableable,
+                                             IValueable<AnyT>,
+                                             ITypeable<string> {
   displayValue?: string;
   notAllowEmptyValue?: boolean;
   notErrorMessageRequired?: boolean;
+  noErrorMessage?: boolean;
   renderCondition?: boolean;
   label?: string;
-  prefixLabel?: string;
-  placeholder?: string;
   autoFocus?: boolean;
-  mask?: Array<string|RegExp>;
-  disabled?: boolean;
-  pattern?: string;
-  type?: string;
   required?: boolean;
   readOnly?: boolean;
   autoComplete?: string;

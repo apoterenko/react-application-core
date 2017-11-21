@@ -19,11 +19,15 @@ export interface IIdentifiedEntity {
   id?: EntityIdT;
 }
 
-export interface INamedEntity extends IIdentifiedEntity {
-  name?: string;
+export interface INamedEntity extends IIdentifiedEntity,
+                                      INameable {
 }
 
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
+}
+
+export interface INameable {
+  name?: string;
 }
 
 export interface IRenderable {

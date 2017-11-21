@@ -1,5 +1,6 @@
 import { AnyT, ILockable, IStylizable, ITypeable } from '../../definition.interface';
 import { IApplicationFormState } from '../../component/form';
+import { IFieldOptions } from '../../component/field';
 
 export enum FilterActionEnum {
   OPEN_FILTER,
@@ -13,7 +14,8 @@ export interface IApplicationFilterAction extends IStylizable,
 export interface IApplicationFilterOptions {
   fieldActions?: IApplicationFilterAction[];
   searchIcon?: string;
-  noQuery?: boolean;
+  noSearchField?: boolean;
+  searchFieldOptions?: IFieldOptions;
 }
 
 export interface IApplicationFilterAttributes extends ILockable {
