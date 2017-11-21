@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseContainer } from '../../component/base';
-import { IEntity } from '../../definition.interface';
+import { IEntity, ISelectable } from '../../definition.interface';
 
 import { List } from './list.component';
 import {
@@ -37,7 +37,8 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
   }
 
   private onSelect(entity: IEntity): void {
-    this.dispatch(LIST_SELECT_ACTION_TYPE, { selected: entity });
+    const actionParams: ISelectable<IEntity> = { selected: entity };
+    this.dispatch(LIST_SELECT_ACTION_TYPE, actionParams);
   }
 
   private onSearch(): void {
