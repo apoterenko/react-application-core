@@ -80,6 +80,12 @@
   }
 }
 
+.app-initial-layout {
+  &.mdc-toolbar__section {
+    flex: initial;
+  }
+}
+
 @keyframes searchToolbarAnimationRule {
   from {flex: 0;}
   to {flex: 1;}

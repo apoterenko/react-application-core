@@ -15,6 +15,10 @@
   flex: 1;
 }
 
+.app-initial-layout {
+  flex: initial;
+}
+
 .app-column-layout {
   display: flex;
   flex-direction: row;

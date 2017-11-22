@@ -58,7 +58,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
           <div className='app-content app-column-flex app-full-layout'>
             <header className='app-header mdc-toolbar'>
               <div className='mdc-toolbar__row'>
-                <section className='mdc-toolbar__section mdc-toolbar__section--align-start'>
+                <section className={toClassName(
+                                        'mdc-toolbar__section',
+                                        'mdc-toolbar__section--align-start',
+                                        props.headerItems && 'app-initial-layout'
+                                    )}>
                   <button className='material-icons mdc-toolbar__menu-icon'
                           onClick={this.onClick}>
                     {props.navigationControlType}
