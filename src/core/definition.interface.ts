@@ -83,6 +83,10 @@ export interface IErrorable<Type> {
   error?: Type;
 }
 
+export interface IInfoable<Type> {
+  info?: Type;
+}
+
 export interface IOperationable {
   operation?: IOperation;
 }

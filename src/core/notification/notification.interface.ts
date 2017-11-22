@@ -1,6 +1,7 @@
-export interface IApplicationNotificationState {
-  error?: string;
-  info?: string;
+import { IErrorable, IInfoable } from '../definition.interface';
+
+export interface IApplicationNotificationState extends IErrorable<string>,
+                                                       IInfoable<string> {
 }
 
 export interface IApplicationNotificationWrapperState {

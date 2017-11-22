@@ -6,7 +6,7 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { isUndef } from '../../util';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IBaseComponent, IBaseComponentInternalProps } from './base.interface';
-import { ApplicationTranslationT } from '../../translation';
+import { ApplicationTranslateT } from '../../translation';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                            TInternalProps extends IBaseComponentInternalProps,
@@ -14,7 +14,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     extends PureComponent<TInternalProps, TInternalState>
     implements IBaseComponent<TInternalProps, TInternalState> {
 
-  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslationT;
+  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslateT;
 
   private plugins: Array<IComponentPlugin<TComponent, TInternalProps, TInternalState>> = [];
 

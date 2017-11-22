@@ -1,3 +1,3 @@
 import { IKeyValue } from '../definition.interface';
 
-export type ApplicationTranslationT = (key: string, params?: IKeyValue) => string;
+export type ApplicationTranslateT = (key: string, params?: IKeyValue) => string;

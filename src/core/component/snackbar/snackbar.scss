@@ -2,6 +2,12 @@
   &.mdc-snackbar {
     z-index: 9999;
 
+    &.app-snackbar-info {
+      button {
+        color: white;
+      }
+    }
+
     .mdc-snackbar__text {
       height: auto;
       min-height: 48px;

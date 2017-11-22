@@ -17,6 +17,7 @@ export class LayoutContainer<TInternalProps extends IBaseContainerInternalProps>
     const message = notification && (notification.error || notification.info);
     return (
         <Snackbar message={message}
+                  info={!!notification.info}
                   afterShow={this.clearAllNotifications}>
         </Snackbar>
     );

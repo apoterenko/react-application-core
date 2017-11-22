@@ -19,7 +19,7 @@ export class Snackbar extends MaterialComponent<Snackbar,
 
   public static defaultProps: ISnackbarInternalProps = {
     timeout: 3000,
-    actionHandler: () => noop,
+    actionHandler: noop,
     actionText: 'Close',
   };
 
@@ -32,7 +32,7 @@ export class Snackbar extends MaterialComponent<Snackbar,
 
     const message = nextProps.message;
     if (message) {
-      this.show({message});
+      this.show({message}, nextProps.info);
 
       if (this.props.afterShow) {
         this.props.afterShow();
@@ -53,7 +53,11 @@ export class Snackbar extends MaterialComponent<Snackbar,
     );
   }
 
-  public show(options: IMaterialSnackbarComponentOptions): void {
+  private show(options: IMaterialSnackbarComponentOptions, info = false): void {
+    this.nativeMdcFoundationAdapter.removeClass('app-snackbar-info');
+    if (info) {
+      this.nativeMdcFoundationAdapter.addClass('app-snackbar-info');
+    }
     this.nativeMdcInstance.show({
       timeout: this.props.timeout,
       actionText: this.t(this.props.actionText),
