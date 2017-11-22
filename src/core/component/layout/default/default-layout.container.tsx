@@ -68,9 +68,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                   </span>
                 </section>
                 {
-                  orNull(props.navigationControls, (
+                  orNull(props.headerItems, (
                       <section className='mdc-toolbar__section'>
-                        {props.navigationControls}
+                        {props.headerItems}
                       </section>
                   ))
                 }
