@@ -2,7 +2,7 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextField } from '@material/textfield';
 
-import { noop, toClassName, uuid } from '../../../util';
+import { noop, orNull, toClassName, uuid } from '../../../util';
 import { AnyT, IKeyValue, ChangeEventT, BasicEventT } from '../../../definition.interface';
 
 import { Field, IField } from '../field';
@@ -43,27 +43,25 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? this.context.muiTheme.prepareStyles
         : (styles) => styles;
 
-    const actionsTpl = this.actions
-        ? (
-            this.actions.map((action) => (
-                <button key={uuid()}
-                        disabled={action.disabled === false
-                            ? false : (action.disabled || this.isDeactivated)}
-                        title={action.title && this.t(action.title)}
-                        className={
-                          toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)
-                        }
-                        onClick={(event: BasicEventT) => {
-                          if (action.actionHandler) {
-                            this.stopEvent(event);
-                            action.actionHandler(event);
-                          }
-                        }}>
-                  {action.type}
-                </button>
-            ))
-        )
-        : null;
+    const actionsTpl = orNull(
+        this.actions,
+        this.actions.map((action) => (
+            <button key={uuid()}
+                    disabled={action.disabled === false ? false : (action.disabled || this.isDeactivated)}
+                    title={action.title && this.t(action.title)}
+                    className={
+                      toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)
+                    }
+                    onClick={(event: BasicEventT) => {
+                      if (action.actionHandler) {
+                        this.stopEvent(event);
+                        action.actionHandler(event);
+                      }
+                    }}>
+              {action.type}
+            </button>
+        ))
+    );
 
     return (
         <div className='app-text-field-wrapper'
@@ -79,13 +77,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                    isFocused && 'mdc-text-field--focused',
                    props.prefixLabel && 'app-text-field-prefixed'
                    )}>
-            {
-              props.prefixLabel
-                  ? (
-                      <span className='app-text-field-prefix'>{props.prefixLabel}</span>
-                  )
-                  : null
-            }
+            {orNull(
+                props.prefixLabel,
+                <span className='app-text-field-prefix'>{props.prefixLabel}</span>
+            )}
             {this.getComponent()}
             <label style={{paddingLeft: props.prefixLabel
                   ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
@@ -96,10 +91,16 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
               {props.label ? this.t(props.label) : props.children}
             </label>
             {actionsTpl}
-            {this.isLoaderShowed ? <div className='material-icons app-text-field-loader'>timelapse</div> : null}
+            {orNull(
+                this.isLoaderShowed,
+                <div className='material-icons app-text-field-loader'>timelapse</div>
+            )}
           </div>
           {this.getMessage(props.message, false)}
-          {this.getMessage(error, !props.notErrorMessageRequired)}
+          {orNull(
+              !props.noErrorMessage,
+              this.getMessage(error, !props.notErrorMessageRequired)
+          )}
           {this.getAttachment()}
         </div>
     );
