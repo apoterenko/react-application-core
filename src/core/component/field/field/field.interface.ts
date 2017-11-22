@@ -33,7 +33,6 @@ export interface IFieldOptions {
   pattern?: string;
   mask?: Array<string|RegExp>;
   prefixLabel?: string;
-  postfixLabel?: string;
 }
 
 export interface IFieldInternalProps extends IBaseComponentInternalProps,

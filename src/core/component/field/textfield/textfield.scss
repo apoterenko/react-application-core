@@ -4,10 +4,8 @@
   width: 100%;
 }
 
-.app-text-field-deactivated {
-  .app-text-field-prefix {
-    opacity: .6;
-  }
+.app-text-field-deactivated .app-text-field-prefix {
+  opacity: .6;
 }
 
 .app-text-field-prefix {
