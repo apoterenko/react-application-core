@@ -4,12 +4,11 @@ import { BaseContainer } from '../../../component/base';
 import { SearchToolbar } from '../../../component/toolbar';
 import {
   FILTER_ACTIVATE_ACTION_TYPE,
-  FILTER_QUERY_ACTION_TYPE,
+  FILTER_CHANGE_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
   FILTER_OPEN_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
 } from '../../../component/filter';
-
 import { ISearchToolbarContainerInternalProps } from './search-toolbar.interface';
 
 export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContainerInternalProps, {}> {
@@ -17,10 +16,10 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
   constructor(props: ISearchToolbarContainerInternalProps) {
     super(props);
 
-    this.onSearch = this.onSearch.bind(this);
-    this.onFilter = this.onFilter.bind(this);
-    this.onFilterAction = this.onFilterAction.bind(this);
-    this.onChangeFilterQuery = this.onChangeFilterQuery.bind(this);
+    this.onApply = this.onApply.bind(this);
+    this.onActivate = this.onActivate.bind(this);
+    this.onOpen = this.onOpen.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   public componentWillUnmount(): void {
@@ -30,33 +29,32 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <SearchToolbar {...props.filter}
-                       {...props.filterOptions}
-                       onSearch={this.onSearch}
-                       onFilter={this.onFilter}
-                       onChangeQuery={this.onChangeFilterQuery}
-                       onFilterAction={this.onFilterAction}>
-        </SearchToolbar>
+        <SearchToolbar onApply={this.onApply}
+                       onActivate={this.onActivate}
+                       onChange={this.onChange}
+                       onOpen={this.onOpen}
+                       {...props.filter}
+                       {...props.filterOptions}/>
     );
   }
 
-  private onSearch(value: string): void {
+  private onApply(value?: string): void {
     this.dispatch(FILTER_APPLY_ACTION_TYPE, { value });
 
-    if (this.props.onSearch) {
-      this.props.onSearch(value);
+    if (this.props.onApply) {
+      this.props.onApply(value);
     }
   }
 
-  private onFilterAction(): void {
+  private onOpen(): void {
     this.dispatch(FILTER_OPEN_ACTION_TYPE);
   }
 
-  private onFilter(): void {
+  private onActivate(): void {
     this.dispatch(FILTER_ACTIVATE_ACTION_TYPE);
   }
 
-  private onChangeFilterQuery(value: string): void {
-    this.dispatch(FILTER_QUERY_ACTION_TYPE, { query: value.trim() });
+  private onChange(query: string): void {
+    this.dispatch(FILTER_CHANGE_ACTION_TYPE, { query });
   }
 }

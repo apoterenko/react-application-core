@@ -1,9 +1,14 @@
 import * as React from 'react';
 
-import { isUndef, uuid, toClassName } from '../../../util';
+import { isUndef, uuid, toClassName, orNull, orDefault } from '../../../util';
 import { AnyT } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
-import { DelayedChangesFieldPlugin, IBasicTextFieldAction, TextField } from '../../../component/field';
+import {
+  DelayedChangesFieldPlugin,
+  IBasicTextFieldAction,
+  FieldT,
+  TextField,
+} from '../../../component/field';
 import { FilterActionEnum, IApplicationFilterAction } from '../../../component/filter';
 
 import {
@@ -26,19 +31,20 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   private defaultActions = {
     [FilterActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
-      actionHandler: this.onFilterActionClick.bind(this),
+      actionHandler: this.onOpen.bind(this),
     },
     [FilterActionEnum.CLEAR_FILTER]: {
       type: 'clear',
-      actionHandler: this.onClearActionClick.bind(this),
+      actionHandler: this.onClear.bind(this),
     },
   };
 
   constructor(props: ISearchToolbarInternalProps) {
     super(props);
-    this.onFilter = this.onFilter.bind(this);
-    this.doSearch = this.doSearch.bind(this);
-    this.onChangeQuery = this.onChangeQuery.bind(this);
+
+    this.onActivate = this.onActivate.bind(this);
+    this.onApply = this.onApply.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     if (this.isPersistent) {
       this.state = {} as ISearchToolbarInternalProps;
@@ -65,46 +71,54 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   public render(): JSX.Element {
     const props = this.props;
-    let searchFieldTpl = null;
-
-    if (this.isActivated) {
-      searchFieldTpl = (
-          <section className='mdc-toolbar__section visible'>
-            <TextField className='mdc-text-field--box'
-                       persistent={false}
-                       autoFocus={true}
-                       noErrorMessage={true}
-                       value={this.query}
-                       actions={this.actions}
-                       plugins={DelayedChangesFieldPlugin}
-                       onDelay={this.doSearch}
-                       onChange={this.onChangeQuery}
-                       {...props.searchFieldOptions}>
-            </TextField>
-          </section>
-      );
-    }
-    if (props.noSearchField && props.fieldActions.length) {
-      const actionsTpl = this.actions.map((action) => (
-          <div key={uuid()}
-               className={toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)}
-               onClick={action.actionHandler}>
-            {action.type}
-          </div>
-      ));
-      searchFieldTpl = <section>{actionsTpl}</section>;
-    }
 
     return (
         <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
           <div className='mdc-toolbar__row'>
             <section>
               <div className='material-icons mdc-toolbar__icon'
-                   onClick={this.onFilter}>
+                   onClick={this.onActivate}>
                 {props.searchIcon}
               </div>
             </section>
-            {searchFieldTpl}
+            {
+              orDefault(
+                  props.noSearchField && props.fieldActions.length > 0,
+                  <section>
+                    {
+                      this.actions.map((action) => (
+                          <div key={uuid()}
+                               className={toClassName(
+                                   'material-icons',
+                                   'mdc-toolbar__icon',
+                                   'app-action',
+                                   action.className
+                               )}
+                               onClick={action.actionHandler}>
+                            {action.type}
+                          </div>
+                      ))
+                    }
+                  </section>,
+                  orNull(
+                      this.isActivated,
+                      <section className='mdc-toolbar__section visible'>
+                        <TextField ref='queryField'
+                                   className='mdc-text-field--box'
+                                   persistent={false}
+                                   autoFocus={true}
+                                   noErrorMessage={true}
+                                   value={this.query}
+                                   actions={this.actions}
+                                   plugins={DelayedChangesFieldPlugin}
+                                   onDelay={this.onApply}
+                                   onChange={this.onChange}
+                                   {...props.searchFieldOptions}>
+                        </TextField>
+                      </section>
+                  )
+              )
+            }
           </div>
         </div>
     );
@@ -118,14 +132,14 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     return this.isPersistent ? this.props.query : this.state.query;
   }
 
-  private onFilter(): void {
+  private onActivate(): void {
     const props = this.props;
     if (props.noSearchField) {
-      this.doSearch();
+      this.onApply();
     } else {
       if (this.isPersistent) {
-        if (props.onFilter) {
-          props.onFilter();
+        if (props.onActivate) {
+          props.onActivate();
         }
       } else {
         this.setState({ activated: true });
@@ -133,35 +147,41 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     }
   }
 
-  private onChangeQuery(value: string): void {
+  private onChange(query: string): void {
+    const props = this.props;
+
     if (this.isPersistent) {
-      if (this.props.onChangeQuery) {
-        this.props.onChangeQuery(value);
+      if (props.onChange) {
+        props.onChange(query);
       }
     } else {
-      this.setState({query: value});
+      this.setState({query});
     }
   }
 
-  private onFilterActionClick(): void {
-    if (this.props.onFilterAction) {
-      this.props.onFilterAction();
+  private onOpen(): void {
+    if (this.props.onOpen) {
+      this.props.onOpen();
     }
   }
 
-  private onClearActionClick(): void {
+  private onClear(): void {
+    const qField = this.refs.queryField as FieldT;
+    if (qField) {
+      qField.setFocus();
+    }
+
     if (this.isPersistent) {
-      if (this.props.onClearAction) {
-        this.props.onClearAction();
-      }
+      this.onChange('');
+      this.onApply();
     } else {
-      this.setState({query: ''});
+      this.setState({ query: '' });
     }
   }
 
-  private doSearch(value?: string): void {
-    if (this.props.onSearch) {
-      this.props.onSearch(value);
+  private onApply(value?: string): void {
+    if (this.props.onApply) {
+      this.props.onApply(value);
     }
   }
 

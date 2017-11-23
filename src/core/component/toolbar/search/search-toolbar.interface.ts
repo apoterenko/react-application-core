@@ -4,18 +4,21 @@ import { IApplicationFilterOptions, IApplicationFilterAttributes } from '../../.
 export interface ISearchToolbarInternalState extends IApplicationFilterAttributes {
 }
 
-export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps,
-                                                     IApplicationFilterAttributes,
-                                                     IApplicationFilterOptions {
-  onSearch?(value: string): void;
-  onChangeQuery?(value: string): void;
-  onFilterAction?(): void;
-  onClearAction?(): void;
-  onFilter?(): void;
+export interface ISearchToolbarProps {
+  onApply?(value?: string): void;
 }
 
-export interface ISearchToolbarContainerInternalProps extends IBaseContainerInternalProps {
+export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps,
+                                                     IApplicationFilterAttributes,
+                                                     IApplicationFilterOptions,
+                                                     ISearchToolbarProps {
+  onActivate?(): void;
+  onChange?(value: string): void;
+  onOpen?(): void;
+}
+
+export interface ISearchToolbarContainerInternalProps extends IBaseContainerInternalProps,
+                                                              ISearchToolbarProps {
   filter?: IApplicationFilterAttributes;
   filterOptions?: IApplicationFilterOptions;
-  onSearch?(value: string): void;
 }
