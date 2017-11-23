@@ -170,6 +170,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     if (qField) {
       qField.setFocus();
     }
+    if (!this.query) {
+      return;
+    }
 
     if (this.isPersistent) {
       this.onChange('');

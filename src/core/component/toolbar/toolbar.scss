@@ -1,5 +1,6 @@
 .app-toolbar {
   &.mdc-toolbar {
+    cursor: default;
     background-color: white;
 
     .mdc-toolbar__row {
@@ -21,14 +22,6 @@
         opacity: .4;
         cursor: default;
       }
-    }
-
-    .app-toolbar-west-column {
-      flex: 1;
-    }
-
-    .app-toolbar-info, .app-toolbar-page-info {
-      cursor: default;
     }
 
     .app-toolbar-info {
@@ -61,21 +54,25 @@
   }
 }
 
-.app-header .app-toolbar.mdc-toolbar {
-  background-color: transparent;
+.app-header {
+  .app-toolbar {
+    &.mdc-toolbar {
+      background: none;
 
-  *, input::placeholder {
-    color: white;
-  }
+      *, input::placeholder {
+        color: white;
+      }
 
-  .app-text-field-wrapper {
-    .app-text-field {
-      border-bottom-color: #989898;
-    }
+      .app-text-field-wrapper {
+        .app-text-field {
+          border-bottom-color: #989898;
+        }
 
-    .app-action.mdc-toolbar__icon {
-      padding-bottom: 0;
-      padding-top: 10px;
+        .app-action.mdc-toolbar__icon {
+          padding-bottom: 0;
+          padding-top: 10px;
+        }
+      }
     }
   }
 }

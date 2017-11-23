@@ -51,7 +51,7 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
         )
         : (
             <div className='mdc-toolbar__row'>
-              <section className='app-toolbar-west-column'>
+              <section className='app-full-layout'>
                 {props.children}
               </section>
               <section>
