@@ -8,8 +8,8 @@ import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
   BasicEventT,
-  ChangeEventT,
   EMPTY_ID,
+  EntityIdT,
   IKeyValue,
   KeyboardEventT,
 } from '../../../definition.interface';
@@ -60,14 +60,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  public onChange(event: ChangeEventT): void {
-    this.cleanNativeInputForSupportHTML5Validation();
-    this.onChangeValue(undefined);
-  }
-
   public onKeyDown(event: KeyboardEventT): void {
     super.onKeyDown(event);
     this.stopEvent(event);
+  }
+
+  public onKeyBackspace(event: KeyboardEventT): void {
+    super.onKeyBackspace(event);
+
+    this.cleanNativeInputForSupportHTML5Validation();
+    this.onChangeValue(this.getEmptyValue());
   }
 
   public onKeyEnter(event: KeyboardEventT): void {
@@ -79,7 +81,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     super.onKeyEscape(event);
 
     if (this.menu.opened) {
-      this.stopEvent(event);
       this.hideMenu();
     }
   }
@@ -129,16 +130,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  protected toDisplayValue(): string {
+  protected toDisplayValue(): EntityIdT {
     const props = this.props;
     const value = this.value;
     const selectedItem = this.getSelectedOption(value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
         : (
-            isUndef(props.displayValue)
-                ? (this.isValuePresent ? value : '')
-                : props.displayValue
+            this.isValuePresent
+                ? (isUndef(props.displayValue) ? value : props.displayValue)
+                : ''
         );
   }
 
