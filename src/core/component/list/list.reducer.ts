@@ -77,7 +77,7 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
         ...state,
         selected: action.data.selected,
       };
-    case ListActionBuilder.buildAddItemActionType(section):
+    case ListActionBuilder.buildCreateActionType(section):
     case ListActionBuilder.buildDeselectActionType(section):
       return {
         ...state,

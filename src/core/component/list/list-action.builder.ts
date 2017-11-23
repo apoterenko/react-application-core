@@ -10,7 +10,7 @@ import {
   LIST_LOAD_ERROR_ACTION_TYPE,
   LIST_NEXT_PAGE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
-  LIST_ADD_ITEM_ACTION_TYPE,
+  LIST_CREATE_ACTION_TYPE,
   LIST_PREVIOUS_PAGE_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
   LIST_LOAD_DONE_ACTION_TYPE,
@@ -67,8 +67,8 @@ export class ListActionBuilder {
     return `${section}.${LIST_UPDATE_ACTION_TYPE}`;
   }
 
-  public static buildAddItemActionType(section: string): string {
-    return `${section}.${LIST_ADD_ITEM_ACTION_TYPE}`;
+  public static buildCreateActionType(section: string): string {
+    return `${section}.${LIST_CREATE_ACTION_TYPE}`;
   }
 
   public static buildDeselectActionType(section: string): string {

@@ -131,11 +131,11 @@ export class BaseEffects<TApi> {
     return UserActionBuilder.buildUpdateAction(data);
   }
 
-  protected buildOpenListEntityActions(section: string, filterPath: string): IEffectsAction[] {
+  protected buildOpenListEntityActions(section: string, route: string): IEffectsAction[] {
     return [
       this.buildListLockAction(section),    // Prevent the list auto destroying
       this.buildFilterLockAction(section),  // Prevent the list filter auto destroying
-      this.buildRouterNavigateAction(filterPath)
+      this.buildRouterNavigateAction(route)
     ];
   }
 

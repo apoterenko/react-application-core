@@ -19,7 +19,7 @@ export function makeUntouchedListEffectsProxy<TApplicationState extends Applicat
     class Effects {
 
       @EffectsService.effects(ConnectorActionBuilder.buildInitActionType(section))
-      public $onConnectorInit(_: IEffectsAction, state): IEffectsAction {
+      public $onConnectorInit(_: IEffectsAction, state: TApplicationState): IEffectsAction {
         return listWrapperStateResolver(state).list.touched
             ? null
             : ListActionBuilder.buildLoadAction(section);

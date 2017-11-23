@@ -6,5 +6,6 @@ export * from './failed-list-effects.proxy';
 export * from './failed-form-effects.proxy';
 export * from './failed-effects.proxy';
 export * from './succeed-form-effects.proxy';
+export * from './edited-list-effects.proxy';
 export * from './effects-by.decorator';
 export * from './base.effects';

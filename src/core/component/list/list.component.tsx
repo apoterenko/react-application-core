@@ -13,7 +13,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
   constructor(props) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
-    this.onAddItem = this.onAddItem.bind(this);
+    this.onCreate = this.onCreate.bind(this);
     this.onSearchAction = this.onSearchAction.bind(this);
   }
 
@@ -111,7 +111,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return orNull(
         this.props.addAction,
         <button className='mdc-fab material-icons app-list-add-action'
-                onClick={this.onAddItem}>
+                onClick={this.onCreate}>
           <span className='mdc-fab__icon'>add</span>
         </button>
     );
@@ -127,9 +127,9 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return this.props.selected && this.props.selected.id === item.id;
   }
 
-  private onAddItem(): void {
-    if (this.props.onAddItem) {
-      this.props.onAddItem();
+  private onCreate(): void {
+    if (this.props.onCreate) {
+      this.props.onCreate();
     }
   }
 

@@ -6,7 +6,7 @@ import {
   INITIAL_APPLICATION_FILTER_STATE,
   FILTER_ACTIVATE_ACTION_TYPE,
   IApplicationFilterState,
-  FILTER_QUERY_ACTION_TYPE,
+  FILTER_CHANGE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
 } from './filter.interface';
 import { FilterActionBuilder } from './filter-action.builder';
@@ -25,7 +25,7 @@ export function filterReducer(state: IApplicationFilterState = INITIAL_APPLICATI
         ...state,
         activated: true,
       };
-    case `${section}.${FILTER_QUERY_ACTION_TYPE}`:
+    case `${section}.${FILTER_CHANGE_ACTION_TYPE}`:
       return {
         ...state,
         query: action.data.query,

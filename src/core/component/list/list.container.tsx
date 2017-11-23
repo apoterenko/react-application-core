@@ -7,7 +7,7 @@ import { List } from './list.component';
 import {
   LIST_DESTROY_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
-  LIST_ADD_ITEM_ACTION_TYPE,
+  LIST_CREATE_ACTION_TYPE,
   LIST_SEARCH_ACTION_TYPE,
   IListContainer,
   IListContainerInternalProps,
@@ -20,7 +20,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
     super(props);
     this.onSelect = this.onSelect.bind(this);
     this.onSearch = this.onSearch.bind(this);
-    this.onAddItem = this.onAddItem.bind(this);
+    this.onCreate = this.onCreate.bind(this);
   }
 
   public componentWillUnmount(): void {
@@ -31,7 +31,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
     const props = this.props;
     return <List onSelect={this.onSelect}
                  onSearch={this.onSearch}
-                 onAddItem={this.onAddItem}
+                 onCreate={this.onCreate}
                  {...props.listOptions}
                  {...props.list}/>;
   }
@@ -45,7 +45,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
     this.dispatch(LIST_SEARCH_ACTION_TYPE);
   }
 
-  private onAddItem(): void {
-    this.dispatch(LIST_ADD_ITEM_ACTION_TYPE);
+  private onCreate(): void {
+    this.dispatch(LIST_CREATE_ACTION_TYPE);
   }
 }

@@ -61,7 +61,7 @@ export interface IListInternalProps extends IBaseComponentInternalProps,
                                             IListOptions {
   onSelect?(props: IEntity): void;
   onSearch?(): void;
-  onAddItem?(): void;
+  onCreate?(): void;
 }
 
 export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
@@ -81,7 +81,7 @@ export const LIST_LOCK_ACTION_TYPE = 'list.lock';
 export const LIST_DESTROY_ACTION_TYPE = 'list.destroy';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
 export const LIST_SEARCH_ACTION_TYPE = 'list.search';
-export const LIST_ADD_ITEM_ACTION_TYPE = 'list.add.item';
+export const LIST_CREATE_ACTION_TYPE = 'list.create';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
