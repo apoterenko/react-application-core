@@ -52,7 +52,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                 cloneNodes<IFieldInternalProps>(
                     this,
                     {
-                      phantom: !props.entity || R.isNil(props.entity.id),
+                      phantom: this.isPhantom,
                       changeForm: (name: string, value: AnyT, validationGroup?: string) =>
                           this.onChange(name, value, validationGroup),
                     },
@@ -67,6 +67,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
             {orNull(
                 formOptions.resetButton,
                 <Button type='reset'
+                        icon='clear_all'
                         isRaised={true}
                         disabled={!form.dirty}
                         className='app-form-reset-action'>
@@ -74,7 +75,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                 </Button>
             )}
             <Button type='submit'
-                    icon={form.valid ? 'save' : 'error_outline'}
+                    icon={form.valid || this.isPhantom ? (formOptions.actionIcon || 'save') : 'error_outline'}
                     isAccent={true}
                     isRaised={true}
                     disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
@@ -150,5 +151,10 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
         }
       }
     });
+  }
+
+  private get isPhantom(): boolean {
+    const props = this.props;
+    return !props.entity || R.isNil(props.entity.id);
   }
 }

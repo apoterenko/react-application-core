@@ -40,7 +40,11 @@ export class Button extends BaseComponent<Button,
           {
             orNull(
                 props.icon,
-                <i className='material-icons app-button-icon'>{props.icon}</i>
+                <i className='material-icons app-button-icon'>{
+                  props.progress
+                      ? 'timelapse'
+                      : (props.error ? 'error' : props.icon)
+                }</i>
             )
           }
           {statusText || props.children}

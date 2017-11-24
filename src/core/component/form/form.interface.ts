@@ -27,6 +27,7 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable
 
 export interface IFormOptions extends IStylizable {
   actionText?: string;
+  actionIcon?: string;
   resetText?: string;
   resetButton?: boolean;
 }
