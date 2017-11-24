@@ -74,6 +74,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                 </Button>
             )}
             <Button type='submit'
+                    icon={form.valid ? 'save' : 'error_outline'}
                     isAccent={true}
                     isRaised={true}
                     disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}

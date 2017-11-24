@@ -1,4 +1,4 @@
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 
 import { lazyInject, DI_TYPES } from '../../../di';
 import { isUndef } from '../../../util';
@@ -51,12 +51,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
+    const newValue = nextProps.value;
 
-    if (!this.isPersistent) {
-      const newValue = nextProps.value;
-      if (!ramda.equals(this.stateValue, newValue)) {
-        this.setState({ stateValue: this.prepareStateValueBeforeSerialization(newValue) });
-      }
+    if (!this.isPersistent && !R.equals(this.stateValue, newValue)) {
+      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(newValue) });
     }
   }
 
@@ -177,7 +175,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
     // The state may be an external storage and the value must be able to be serialized
-    return this.props.notAllowEmptyValue && ramda.isEmpty(value) ? undefined : value;
+    return this.props.notAllowEmptyValue && R.isEmpty(value) ? undefined : value;
   }
 
   protected cleanNativeInputForSupportHTML5Validation(): void {
@@ -252,8 +250,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.state.stateValue;
   }
 
-  private validateField(rawValue: AnyT, error?: string): void {
+  private validateField(rawValue: AnyT, error?: string): boolean {
     this.input.setCustomValidity(''); // Support of HTML5 Validation Api
-    this.setState({ error: isUndef(error) ? this.validateValueAndSetCustomValidity(rawValue) : error });
+    const error0 = isUndef(error) ? this.validateValueAndSetCustomValidity(rawValue) : error;
+    this.setState({ error: error0  });
+    return R.isNil(error0);
   }
 }
