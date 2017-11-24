@@ -78,6 +78,10 @@ export class BaseEffects<TApi> {
     return FilterActionBuilder.buildLockAction(section);
   }
 
+  protected buildFilterDestroyAction(section: string): IEffectsAction {
+    return FilterActionBuilder.buildDestroyAction(section);
+  }
+
   protected buildRouterNavigateAction(path: string): IEffectsAction {
     return RouterActionBuilder.buildNavigateAction(path);
   }
@@ -130,6 +134,7 @@ export class BaseEffects<TApi> {
     const sections = Array.from(APPLICATION_SECTIONS.keys());
     return sections
         .map((section0) => this.buildListDestroyAction(section0))
-        .concat(sections.map((section0) => this.buildFormDestroyAction(section0)));
+        .concat(sections.map((section0) => this.buildFormDestroyAction(section0)))
+        .concat(sections.map((section0) => this.buildFilterDestroyAction(section0)));
   }
 }
