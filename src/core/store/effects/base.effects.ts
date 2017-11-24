@@ -4,7 +4,7 @@ import { IApiEntity } from '../../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { AnyT, IKeyValue, IEntity } from '../../definition.interface';
 import { NotificationActionBuilder } from '../../notification';
-import { IApplicationListWrapperState, ListActionBuilder } from '../../component/list';
+import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder } from '../../component/form';
 import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
@@ -48,11 +48,6 @@ export class BaseEffects<TApi> {
     return apiEntity.isNew
         ? ListActionBuilder.buildInsertAction(section, {payload: {id, changes}})
         : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes}});
-  }
-
-  protected buildUntouchedListLoadAction(section: string,
-                                         listWrapperState: IApplicationListWrapperState): IEffectsAction {
-    return listWrapperState.list.touched ? null : this.buildListLoadAction(section);
   }
 
   protected buildFormLockAction(section: string): IEffectsAction {
@@ -129,14 +124,6 @@ export class BaseEffects<TApi> {
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {
     return UserActionBuilder.buildUpdateAction(data);
-  }
-
-  protected buildOpenListEntityActions(section: string, route: string): IEffectsAction[] {
-    return [
-      this.buildListLockAction(section),    // Prevent the list auto destroying
-      this.buildFilterLockAction(section),  // Prevent the list filter auto destroying
-      this.buildRouterNavigateAction(route)
-    ];
   }
 
   protected buildContainersDestroyActions(): IEffectsAction[] {
