@@ -106,11 +106,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     );
   }
 
-  public resetError(): void {
-    super.resetError();
-    this.nativeMdcInstance.getDefaultFoundation().setValid(true);
-  }
-
   protected getComponentProps(): IKeyValue {
     const props = this.props;
     const autoFocus = props.autoFocus;
@@ -159,21 +154,17 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return event.target.value;
   }
 
-  protected get actions(): IBasicTextFieldAction[] {
+  protected get isLoaderShowed(): boolean {
+    return false;
+  }
+
+  private get actions(): IBasicTextFieldAction[] {
     const props = this.props;
     if (props.actionsPosition === ActionPositionEnum.LEFT) {
       return (this.defaultAction ? [this.defaultAction] : []).concat(props.actions || []);
     } else {
       return (this.props.actions || []).concat(this.defaultAction || []);
     }
-  }
-
-  protected cleanNativeInputForSupportHTML5Validation(): void {
-    this.input.value = '';  // We should reset the field manually before HTML5 validation will be called
-  }
-
-  protected get isLoaderShowed(): boolean {
-    return false;
   }
 
   private getMessage(m: string, required: boolean): JSX.Element {

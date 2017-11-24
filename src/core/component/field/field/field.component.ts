@@ -66,6 +66,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public resetError(): void {
     this.validateField(null, null);
+    this.nativeMdcInstance.getDefaultFoundation().setValid(true);
   }
 
   public onKeyDown(event: KeyboardEventT): void {
@@ -177,6 +178,19 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
     // The state may be an external storage and the value must be able to be serialized
     return this.props.notAllowEmptyValue && ramda.isEmpty(value) ? undefined : value;
+  }
+
+  protected cleanNativeInputForSupportHTML5Validation(): void {
+    this.input.value = this.getEmptyValue();  // We should reset the field manually before HTML5 validation will be called
+  }
+
+  protected clearValue(): void {
+    if (!this.isValuePresent) {
+      return;
+    }
+
+    this.cleanNativeInputForSupportHTML5Validation();
+    this.onChangeValue(this.getEmptyValue(), null);
   }
 
   protected get value(): AnyT {
