@@ -67,9 +67,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   public onKeyBackspace(event: KeyboardEventT): void {
     super.onKeyBackspace(event);
-
-    this.cleanNativeInputForSupportHTML5Validation();
-    this.onChangeValue(this.getEmptyValue());
+    this.clearValue();
   }
 
   public onKeyEnter(event: KeyboardEventT): void {

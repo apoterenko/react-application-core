@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
 import { uuid, isUndef, clone } from '../../../util';
-import { EntityIdT, IEntity, ChangeEventT } from '../../../definition.interface';
+import { EntityIdT, IEntity, KeyboardEventT } from '../../../definition.interface';
 import { BasicSelect, ISelectOption } from '../../../component/field';
 
 import {
@@ -33,8 +33,12 @@ export class ChipsField extends BasicSelect<ChipsField,
         : { add: clone(v.add), remove: clone(v.remove) };
   }
 
-  public onChange(event: ChangeEventT): void {
-    // Nothing to do
+  public onKeyBackspace(event: KeyboardEventT): void {
+    // Nothing to do, only invoke the props
+
+    if (this.props.onKeyBackspace) {
+      this.props.onKeyBackspace(event);
+    }
   }
 
   protected getEmptyValue(): EntityIdT[] {
