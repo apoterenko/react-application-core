@@ -75,10 +75,12 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                 </Button>
             )}
             <Button type='submit'
-                    icon={form.valid || this.isPhantom ? (formOptions.actionIcon || 'save') : 'error_outline'}
+                    icon={this.isFormValid || this.isPhantom
+                        ? (formOptions.actionIcon || 'save')
+                        : 'error_outline'}
                     isAccent={true}
                     isRaised={true}
-                    disabled={!form.valid || !form.dirty || (!isUndef(form.saveable) && !form.saveable)}
+                    disabled={!this.canSubmit}
                     progress={form.progress}
                     error={!R.isNil(form.error)}>
               {this.t(formOptions.actionText || 'Save')}
@@ -156,5 +158,20 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
   private get isPhantom(): boolean {
     const props = this.props;
     return !props.entity || R.isNil(props.entity.id);
+  }
+
+  private get isFormValid(): boolean {
+    const form = this.props.form;
+    return R.isNil(form.valid) || form.valid;
+  }
+
+  private get isFormDirty(): boolean {
+    const form = this.props.form;
+    return !R.isNil(form.dirty) && form.dirty;
+  }
+
+  private get canSubmit(): boolean {
+    const form = this.props.form;
+    return this.isFormValid && this.isFormDirty && (isUndef(form.saveable) || form.saveable);
   }
 }
