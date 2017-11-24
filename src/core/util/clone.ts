@@ -1,18 +1,20 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { isPrimitive, uuid } from '../util';
+import { FunctionT, isFn, isPrimitive, uuid } from '../util';
 import { AnyT, ReactElementT } from '../definition.interface';
 
 export function clone<TObject>(o: TObject): TObject {
   return JSON.parse(JSON.stringify(o));
 }
 
+export type RenderPredicateT = (child: ReactElementT) => boolean;
+
 export function cloneNodes<TProps>(component: ReactElementT | React.PureComponent,
-                                   mergedProps: TProps,
-                                   canMergePropsPredicate: (child: ReactElementT) => boolean,
+                                   mergedProps: TProps|((component: ReactElementT) => TProps),
+                                   mergePropsPredicate: RenderPredicateT,
                                    childrenMap?: Map<ReactElementT, string>,
-                                   renderConditionPredicate?: (child: ReactElementT) => boolean): AnyT[]  {
+                                   renderPredicate?: RenderPredicateT): AnyT[]  {
   return React.Children.map(component.props.children, (child: React.ReactChild) => {
         if (R.isNil(child)) {
           return null;
@@ -21,8 +23,9 @@ export function cloneNodes<TProps>(component: ReactElementT | React.PureComponen
         } else {
           const reactChild = child as ReactElementT;
           const uuidRef = uuid();
-          const canMergeProps = canMergePropsPredicate(reactChild);
-          const canRender = renderConditionPredicate ? renderConditionPredicate(reactChild) : true;
+          const canMergeProps = mergePropsPredicate(reactChild);
+
+          const canRender = renderPredicate ? renderPredicate(reactChild) : true;
           if (!R.isNil(canRender) && !canRender) {
             return null;
           }
@@ -30,13 +33,23 @@ export function cloneNodes<TProps>(component: ReactElementT | React.PureComponen
           const clonedChild = React.cloneElement<{ children: React.ReactChild[] }, {}>(
               reactChild,
               {
-                ...(canMergeProps ? {ref: uuidRef, ...(mergedProps || {})} : {}),
+                ...(canMergeProps
+                      ? {
+                          ref: uuidRef,
+                          ...(
+                              isFn(mergedProps)
+                                  ? (mergedProps as FunctionT)(reactChild)
+                                  : mergedProps
+                          ),
+                        }
+                      : {}
+                ),
                 children: cloneNodes<TProps>(
                     reactChild,
                     mergedProps,
-                    canMergePropsPredicate,
+                    mergePropsPredicate,
                     childrenMap,
-                    renderConditionPredicate),
+                    renderPredicate),
               }
           );
           if (childrenMap && canMergeProps) {
