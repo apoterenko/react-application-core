@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../../component/base';
-import { toClassName } from '../../util';
+import { orNull, toClassName } from '../../util';
 import {
   IButtonInternalProps,
   IButtonInternalState,
@@ -28,13 +28,21 @@ export class Button extends BaseComponent<Button,
 
     return (
         <button type={props.type}
+                title={props.title}
                 onClick={props.onClick}
                 className={toClassName(
                     'mdc-button',
+                    'app-button',
                     props.isAccent && 'mdc-button--accent',
                     props.isRaised && 'mdc-button--raised',
                     props.className)}
                 disabled={props.disabled || props.progress}>
+          {
+            orNull(
+                props.icon,
+                <i className='material-icons app-button-icon'>{props.icon}</i>
+            )
+          }
           {statusText || props.children}
         </button>
     );
