@@ -11,6 +11,7 @@ import {
   IDisableable,
   ITypeable,
   IValueable,
+  IPhantomable,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
@@ -24,10 +25,6 @@ export interface IKeyboardHandlers {
   onKeyBackspace?(event: KeyboardEventT): void;
 }
 
-export interface IFieldChangeFormInternalProps {
-  changeForm?(name: string, value: AnyT, validationGroup?: string): void;
-}
-
 export interface IFieldOptions {
   placeholder?: string;
   pattern?: string;
@@ -36,11 +33,11 @@ export interface IFieldOptions {
 }
 
 export interface IFieldInternalProps extends IBaseComponentInternalProps,
-                                             IFieldChangeFormInternalProps,
                                              IKeyboardHandlers,
                                              IFieldOptions,
                                              INameable,
                                              IDisableable,
+                                             IPhantomable,
                                              IValueable<AnyT>,
                                              ITypeable<string> {
   displayValue?: string;
@@ -57,6 +54,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
   maxLength?: number;
   validate?: (value: AnyT) => string;
   validationGroup?: string;
+  changeForm?(name: string, value: AnyT, validationGroup?: string): void;
   onChange?(value: AnyT): void;
   onFocus?(event: FocusEventT): void;
   onBlur?(event: FocusEventT): void;

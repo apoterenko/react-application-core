@@ -51,6 +51,10 @@ export interface IPasswordable {
   password?: string;
 }
 
+export interface IPhantomable {
+  phantom?: boolean;
+}
+
 export interface ILoginable {
   login?: string;
 }

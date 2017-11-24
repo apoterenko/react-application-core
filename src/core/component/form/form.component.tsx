@@ -9,7 +9,6 @@ import { Button } from '../../component/button';
 import {
   Field,
   IFieldInternalProps,
-  IFieldChangeFormInternalProps,
   FieldT,
 } from '../../component/field';
 
@@ -50,9 +49,10 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                     className='app-form-body app-row-layout app-full-layout'>
             <section className='mdc-card__primary'>
               {
-                cloneNodes<IFieldChangeFormInternalProps>(
+                cloneNodes<IFieldInternalProps>(
                     this,
                     {
+                      phantom: !props.entity || R.isNil(props.entity.id),
                       changeForm: (name: string, value: AnyT, validationGroup?: string) =>
                           this.onChange(name, value, validationGroup),
                     },
