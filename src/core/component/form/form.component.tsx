@@ -51,10 +51,14 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
               {
                 cloneNodes<IFieldInternalProps>(
                     this,
-                    {
-                      phantom: this.isPhantom,
-                      changeForm: (name: string, value: AnyT, validationGroup?: string) =>
-                          this.onChange(name, value, validationGroup),
+                    (field: FieldT) => {
+                      const props0 = field.props;
+                      return {
+                        phantom: this.isPhantom,
+                        readOnly: R.isNil(props0.readOnly) ? this.isFormReadOnly : props0.readOnly,
+                        changeForm: (name: string, value: AnyT, validationGroup?: string) =>
+                            this.onChange(name, value, validationGroup),
+                      };
                     },
                     (child) => Field.isPrototypeOf(child.type),
                     this.childrenMap,
@@ -153,6 +157,11 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
         }
       }
     });
+  }
+
+  private get isFormReadOnly(): boolean {
+    const formOptions = this.props.formOptions;
+    return formOptions && formOptions.readOnly;
   }
 
   private get isPhantom(): boolean {

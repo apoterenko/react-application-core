@@ -12,6 +12,7 @@ import {
   ITypeable,
   IValueable,
   IPhantomable,
+  IReadonlyable,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
@@ -38,6 +39,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              INameable,
                                              IDisableable,
                                              IPhantomable,
+                                             IReadonlyable,
                                              IValueable<AnyT>,
                                              ITypeable<string> {
   displayValue?: string;
@@ -48,7 +50,6 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
   label?: string;
   autoFocus?: boolean;
   required?: boolean;
-  readOnly?: boolean;
   autoComplete?: string;
   minLength?: number;
   maxLength?: number;

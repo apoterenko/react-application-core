@@ -55,6 +55,10 @@ export interface IPhantomable {
   phantom?: boolean;
 }
 
+export interface IReadonlyable {
+  readOnly?: boolean;
+}
+
 export interface ILoginable {
   login?: string;
 }

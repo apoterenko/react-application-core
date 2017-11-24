@@ -13,6 +13,7 @@ import {
   IEntityable,
   IErrorable,
   IDirtyable,
+  IReadonlyable,
 } from '../../definition.interface';
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
 
@@ -25,7 +26,8 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable
   valid?: boolean;
 }
 
-export interface IFormOptions extends IStylizable {
+export interface IFormOptions extends IStylizable,
+                                      IReadonlyable {
   actionText?: string;
   actionIcon?: string;
   resetText?: string;
