@@ -7,6 +7,6 @@ export class ConnectorActionBuilder {
   }
 
   public static buildDestroyActionType(section: string): string {
-    return `${section}${CONNECTOR_DESTROY_ACTION_TYPE}`;
+    return `${section}.${CONNECTOR_DESTROY_ACTION_TYPE}`;
   }
 }
