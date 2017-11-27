@@ -57,6 +57,7 @@ export class Checkbox extends Field<Checkbox,
   }
 
   protected getComponentProps(): IKeyValue {
+    // TODO
     const props = this.props;
     return {
       ref: 'input',

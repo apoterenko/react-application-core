@@ -13,6 +13,10 @@ import {
   IValueable,
   IPhantomable,
   IReadonlyable,
+  IDisplayable,
+  ILabelable,
+  IPlaceholderable,
+  IDisplayValueable,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
@@ -26,12 +30,16 @@ export interface IKeyboardHandlers {
   onKeyBackspace?(event: KeyboardEventT): void;
 }
 
-export interface IFieldOptions {
-  placeholder?: string;
+export interface IFieldOptions extends ILabelable,
+                                       IDisplayable,
+                                       ITypeable<string>,
+                                       IPlaceholderable {
   pattern?: string;
   mask?: Array<string|RegExp>;
   prefixLabel?: string;
 }
+
+export interface IFieldsOptions { [index: string]: string|IFieldOptions; }
 
 export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IKeyboardHandlers,
@@ -41,13 +49,11 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IPhantomable,
                                              IReadonlyable,
                                              IValueable<AnyT>,
-                                             ITypeable<string> {
-  displayValue?: string;
+                                             IDisplayValueable<AnyT> {
   notAllowEmptyValue?: boolean;
   notErrorMessageRequired?: boolean;
   noErrorMessage?: boolean;
   renderCondition?: boolean;
-  label?: string;
   autoFocus?: boolean;
   required?: boolean;
   autoComplete?: string;

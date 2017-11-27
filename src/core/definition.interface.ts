@@ -43,12 +43,30 @@ export interface IFilterable {
   filterPlaceholder?: string;
 }
 
+export interface IPlaceholderable {
+  placeholder?: string;
+}
+
 export interface IValueable<TValue> {
   value?: TValue;
 }
 
+export interface IDisplayValueable<TValue> {
+  displayValue?: string|IDisplayableConverter<TValue>;
+}
+
+export type IDisplayableConverter<TValue> = (value: TValue, valueable?: IValueable<TValue>) => string;
+
+export interface IDisplayable {
+  displayName?: string;
+}
+
 export interface IPasswordable {
   password?: string;
+}
+
+export interface ILabelable {
+  label?: string;
 }
 
 export interface IPhantomable {
