@@ -2,14 +2,17 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isUndef, orNull, toClassName } from '../../util';
+import { cloneNodes, isString, isUndef, orNull, toClassName } from '../../util';
 import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
 import { BaseComponent, IBaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
+import { lazyInject, DI_TYPES } from '../../di';
 import {
   Field,
   IFieldInternalProps,
   FieldT,
+  IFieldOptions,
+  IFieldsOptions,
 } from '../../component/field';
 
 import {
@@ -27,17 +30,20 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
   };
   private static logger = LoggerFactory.makeLogger(Form);
 
+  @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsOptions;
   private childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
   constructor(props: FormInternalPropsT) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   public render(): JSX.Element {
-    const props = this.props;
-    const { form, formOptions } = props;
+    const formProps = this.props;
+    const { form, formOptions, entity } = formProps;
+    const { changes } = form;
 
     return (
         <form ref='self'
@@ -52,13 +58,54 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                 cloneNodes<IFieldInternalProps>(
                     this,
                     (field: FieldT) => {
-                      const props0 = field.props;
-                      return {
-                        phantom: this.isPhantom,
-                        readOnly: R.isNil(props0.readOnly) ? this.isFormReadOnly : props0.readOnly,
-                        changeForm: (name: string, value: AnyT, validationGroup?: string) =>
-                            this.onChange(name, value, validationGroup),
-                      };
+                      const fieldProps = field.props;
+
+                      // predefined options
+                      const fieldOptionsOrLabel = this.fieldsOptions[fieldProps.name];
+                      let fieldOptionsOrLabel0: IFieldOptions;
+                      if (isString(fieldOptionsOrLabel)) {
+                        // typings !
+                        fieldOptionsOrLabel0 = { label: fieldOptionsOrLabel as string };
+                      } else {
+                        fieldOptionsOrLabel0 = fieldOptionsOrLabel as IFieldOptions;
+                      }
+
+                      // value + displayValue
+                      const fieldValue = isUndef(fieldProps.value) && fieldProps.name
+                          ? Reflect.get(entity || changes, fieldProps.name)
+                          : fieldProps.value;
+                      const fieldDisplayName = fieldProps.displayName
+                          || (fieldOptionsOrLabel0 ? fieldOptionsOrLabel0.displayName : null);
+                      const displayValue = isUndef(fieldProps.displayValue) && fieldDisplayName
+                          ? Reflect.get(entity || changes, fieldDisplayName)
+                          : fieldProps.displayValue;
+
+                      // readOnly
+                      const readOnly = R.isNil(fieldProps.readOnly)
+                          ? this.isFormReadOnly
+                          : fieldProps.readOnly;
+
+                      return R.pickBy<IFieldInternalProps, IFieldInternalProps>(
+                          (value, key) => !isUndef(value),
+                          {
+                            value: fieldValue,
+                            displayValue,
+                            readOnly,
+                            phantom: this.isPhantom,
+                            changeForm: this.onChange,
+                            ...fieldOptionsOrLabel0,
+
+                            // The fields props have higher priority
+                            ...R.pickBy<IFieldOptions, IFieldOptions>(
+                                (value, key) => !isUndef(value), {
+                                  label: fieldProps.label,
+                                  type: fieldProps.type,
+                                  placeholder: fieldProps.placeholder,
+                                  prefixLabel: fieldProps.prefixLabel,
+                                }
+                            ),
+                          }
+                      );
                     },
                     (child) => Field.isPrototypeOf(child.type),
                     this.childrenMap,
@@ -161,7 +208,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
 
   private get isFormReadOnly(): boolean {
     const formOptions = this.props.formOptions;
-    return formOptions && formOptions.readOnly;
+    return formOptions && formOptions.readOnly === true;
   }
 
   private get isPhantom(): boolean {

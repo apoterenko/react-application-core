@@ -5,6 +5,7 @@ export const DI_TYPES = {
   DynamicRoutes: Symbol('DynamicRoutes'),
   EventManager: Symbol('EventManager'),
   Menu: Symbol('Menu'),
+  FieldsOptions: Symbol('FieldsOptions'),
   Permission: Symbol('Permission'),
   Router: Symbol('Router'),
   Routes: Symbol('Routes'),
