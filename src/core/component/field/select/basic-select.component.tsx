@@ -10,7 +10,6 @@ import {
   BasicEventT,
   EMPTY_ID,
   EntityIdT,
-  IKeyValue,
   KeyboardEventT,
 } from '../../../definition.interface';
 import {
@@ -105,13 +104,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return options;
   }
 
-  protected getComponentProps(): IKeyValue {
-    return {
-      ...super.getComponentProps(),
-      value: this.toDisplayValue(),
-    };
-  }
-
   protected getEmptyValue(): AnyT {
     return EMPTY_ID;
   }
@@ -129,16 +121,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected toDisplayValue(): EntityIdT {
-    const props = this.props;
-    const value = this.value;
-    const selectedItem = this.getSelectedOption(value);
+    const selectedItem = this.getSelectedOption(this.value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : (
-            this.isValuePresent
-                ? (isUndef(props.displayValue) ? value : props.displayValue)
-                : ''
-        );
+        : super.toDisplayValue();
   }
 
   protected get isLoaderShowed(): boolean {

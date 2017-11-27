@@ -2,8 +2,10 @@ import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
 import { MDCTextField } from '@material/textfield';
 
-import { noop, orNull, toClassName, uuid } from '../../../util';
-import { AnyT, IKeyValue, ChangeEventT, BasicEventT } from '../../../definition.interface';
+import { isFn, isUndef, noop, orNull, toClassName, uuid } from '../../../util';
+import {
+  AnyT, IKeyValue, ChangeEventT, BasicEventT, IDisplayableConverter
+} from '../../../definition.interface';
 
 import { Field, IField } from '../field';
 import {
@@ -27,6 +29,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     implements IBasicTextField<TInternalProps, TInternalState> {
 
   private static CHAR_WIDTH_AT_PX = 10;
+  private static EMPTY_DISPLAY_VALUE = '';
 
   protected defaultAction: IBasicTextFieldAction;
 
@@ -128,7 +131,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       name, type, autoFocus, readOnly, mask, pattern, required, minLength, maxLength,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
-      value: this.value,
+      value: this.toDisplayValue(),
       className: 'mdc-text-field__input',
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
     };
@@ -144,6 +147,19 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getAttachment(): JSX.Element {
     return null;
+  }
+
+  protected toDisplayValue(): AnyT {
+    const props = this.props;
+    const value = this.value;
+
+    return this.isValuePresent
+        ? (isUndef(props.displayValue)
+            ? value
+            : (isFn(props.displayValue)
+                ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
+                : props.displayValue))
+        : BasicTextField.EMPTY_DISPLAY_VALUE;
   }
 
   protected getEmptyValue(): string {
