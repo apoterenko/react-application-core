@@ -162,14 +162,12 @@ class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
                                 {...props}>
           <FormContainer {...props}>
             <TextField name='name'
-                       value={entity.name}
                        label='Name'
                        autoFocus={true}
                        required={true}/>
             <ChipsField name='rights'
                         label='Rights'
                         options={toSelectOptions(rights)}
-                        value={entity.rights}
                         onEmptyOptions={this.loadRights}
                         useFilter={true}/>
           </FormContainer>
