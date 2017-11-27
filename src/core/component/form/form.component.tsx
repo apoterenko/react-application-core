@@ -59,41 +59,19 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                     this,
                     (field: FieldT) => {
                       const fieldProps = field.props;
-
-                      // predefined options
-                      const fieldOptionsOrLabel = this.fieldsOptions[fieldProps.name];
-                      let fieldOptionsOrLabel0: IFieldOptions;
-                      if (isString(fieldOptionsOrLabel)) {
-                        // typings !
-                        fieldOptionsOrLabel0 = { label: fieldOptionsOrLabel as string };
-                      } else {
-                        fieldOptionsOrLabel0 = fieldOptionsOrLabel as IFieldOptions;
-                      }
-
-                      // value + displayValue
-                      const fieldValue = isUndef(fieldProps.value) && fieldProps.name
-                          ? Reflect.get(entity || changes, fieldProps.name)
-                          : fieldProps.value;
-                      const fieldDisplayName = fieldProps.displayName
-                          || (fieldOptionsOrLabel0 ? fieldOptionsOrLabel0.displayName : null);
-                      const displayValue = isUndef(fieldProps.displayValue) && fieldDisplayName
-                          ? Reflect.get(entity || changes, fieldDisplayName)
-                          : fieldProps.displayValue;
-
-                      // readOnly
-                      const readOnly = R.isNil(fieldProps.readOnly)
-                          ? this.isFormReadOnly
-                          : fieldProps.readOnly;
+                      const predefinedOptions = this.getFieldPredefinedOptions(field);
 
                       return R.pickBy<IFieldInternalProps, IFieldInternalProps>(
                           (value, key) => !isUndef(value),
                           {
-                            value: fieldValue,
-                            displayValue,
-                            readOnly,
+                            value: this.getFieldValue(field),
+                            displayValue: this.getFieldDisplayValue(field, predefinedOptions),
+                            readOnly: this.isFieldReadOnly(field),
                             phantom: this.isPhantom,
                             changeForm: this.onChange,
-                            ...fieldOptionsOrLabel0,
+
+                            // Predefined options
+                            ...predefinedOptions,
 
                             // The fields props have higher priority
                             ...R.pickBy<IFieldOptions, IFieldOptions>(
@@ -229,5 +207,50 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
   private get canSubmit(): boolean {
     const form = this.props.form;
     return this.isFormValid && this.isFormDirty && (isUndef(form.saveable) || form.saveable);
+  }
+
+  private isFieldReadOnly(field: FieldT): boolean {
+    const fieldProps = field.props;
+
+    return R.isNil(fieldProps.readOnly)
+        ? this.isFormReadOnly
+        : fieldProps.readOnly;
+  }
+
+  private getFieldValue(field: FieldT): AnyT {
+    const {form, entity} = this.props;
+    const {changes} = form;
+    const fieldProps = field.props;
+
+    return isUndef(fieldProps.value) && fieldProps.name
+        ? Reflect.get(entity || changes, fieldProps.name)
+        : fieldProps.value;
+  }
+
+  private getFieldDisplayValue(field: FieldT, fieldOptions: IFieldOptions): string {
+    const {form, entity} = this.props;
+    const {changes} = form;
+    const fieldProps = field.props;
+
+    const fieldDisplayName = fieldProps.displayName
+        || (fieldOptions ? fieldOptions.displayName : null);
+
+    return isUndef(fieldProps.displayValue) && fieldDisplayName
+        ? Reflect.get(entity || changes, fieldDisplayName)
+        : fieldProps.displayValue;
+  }
+
+  private getFieldPredefinedOptions(field: FieldT): IFieldOptions {
+    const fieldProps = field.props;
+    const fieldOptionsOrLabel = this.fieldsOptions[fieldProps.name];
+
+    let fieldOptionsOrLabel0: IFieldOptions;
+    if (isString(fieldOptionsOrLabel)) {
+      // typings !
+      fieldOptionsOrLabel0 = {label: fieldOptionsOrLabel as string};
+    } else {
+      fieldOptionsOrLabel0 = fieldOptionsOrLabel as IFieldOptions;
+    }
+    return fieldOptionsOrLabel0;
   }
 }
