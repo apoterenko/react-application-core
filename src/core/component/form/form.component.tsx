@@ -42,8 +42,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
 
   public render(): JSX.Element {
     const formProps = this.props;
-    const { form, formOptions, entity } = formProps;
-    const { changes } = form;
+    const { form, formOptions } = formProps;
 
     return (
         <form ref='self'
@@ -65,6 +64,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                           (value, key) => !isUndef(value),
                           {
                             value: this.getFieldValue(field),
+                            originalValue: this.getFieldOriginalValue(field),
                             displayValue: this.getFieldDisplayValue(field, predefinedOptions),
                             readOnly: this.isFieldReadOnly(field),
                             phantom: this.isPhantom,
@@ -225,6 +225,12 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
     return isUndef(fieldProps.value) && fieldProps.name
         ? Reflect.get(entity || changes, fieldProps.name)
         : fieldProps.value;
+  }
+
+  private getFieldOriginalValue(field: FieldT): AnyT {
+    const {originalEntity} = this.props;
+    const fieldProps = field.props;
+    return fieldProps.name && originalEntity ? Reflect.get(originalEntity, fieldProps.name) : undefined;
   }
 
   private getFieldDisplayValue(field: FieldT, fieldOptions: IFieldOptions): string {

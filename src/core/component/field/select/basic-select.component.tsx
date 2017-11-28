@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { isUndef } from '../../../util';
 import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {

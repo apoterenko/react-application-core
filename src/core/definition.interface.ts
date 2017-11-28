@@ -51,6 +51,10 @@ export interface IValueable<TValue> {
   value?: TValue;
 }
 
+export interface IOriginalValueable<TValue> {
+  originalValue?: TValue;
+}
+
 export interface IDisplayValueable<TValue> {
   displayValue?: string|IDisplayableConverter<TValue>;
 }
@@ -147,6 +151,7 @@ export interface IChangeable<TChanges extends IKeyValue> {
 
 export interface IEntityable<TEntity extends IEntity> {
   entity?: TEntity;
+  originalEntity?: TEntity;
 }
 
 export interface IDateTimeRangeable {

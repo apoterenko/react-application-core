@@ -11,6 +11,7 @@ import {
   IDisableable,
   ITypeable,
   IValueable,
+  IOriginalValueable,
   IPhantomable,
   IReadonlyable,
   IDisplayable,
@@ -49,6 +50,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IPhantomable,
                                              IReadonlyable,
                                              IValueable<AnyT>,
+                                             IOriginalValueable<AnyT>,
                                              IDisplayValueable<AnyT> {
   notAllowEmptyValue?: boolean;
   notErrorMessageRequired?: boolean;

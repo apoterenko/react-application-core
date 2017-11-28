@@ -157,14 +157,24 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  protected onChangeValue(rawValue?: AnyT, error?: string): void {
-    if (!this.isPersistent) {
-      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(rawValue) });
-    }
-    this.validateField(rawValue, error);
+  protected onChangeValue(currentRawValue?: AnyT, error?: string): void {
+    const originalValue = this.props.originalValue;
+    const originalValueExists = !isUndef(originalValue);
+    const isFieldDirty = !isUndef(currentRawValue) && originalValueExists
+        && !R.equals(currentRawValue, originalValue);
 
-    this.propsOnChange(rawValue);
-    this.propsChangeForm(rawValue);
+    if (originalValueExists && !isFieldDirty) {
+      currentRawValue = undefined;  // Clear dirty changes
+      error = null;
+    }
+
+    if (!this.isPersistent) {
+      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(currentRawValue) });
+    }
+    this.validateField(currentRawValue, error);
+
+    this.propsOnChange(currentRawValue);
+    this.propsChangeForm(currentRawValue);
   }
 
   protected propsChangeForm(rawValue: AnyT): void {
