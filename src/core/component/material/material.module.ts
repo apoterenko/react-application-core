@@ -1,7 +1,14 @@
 import { MDCTextField } from '@material/textfield';
 
 import { appContainer, DI_TYPES } from '../../di';
-import { Checkbox, DateField, Select, TextField, TimeField } from '../../component/field';
+import {
+  Checkbox,
+  ChipsField,
+  DateField,
+  Select,
+  TextField,
+  TimeField,
+} from '../../component/field';
 import { ComponentPluginFactoryT } from '../../component/plugin';
 import { IBaseComponentCtor } from '../../component/base';
 import {
@@ -30,6 +37,11 @@ uiPlugins.set(
     DateField,
     (component: DateField) =>
         new FieldMaterialPlugin<DateField, INativeMaterialComponent>(component, MDCTextField)
+);
+uiPlugins.set(
+    ChipsField,
+    (component: ChipsField) =>
+        new FieldMaterialPlugin<ChipsField, INativeMaterialComponent>(component, MDCTextField)
 );
 uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
 
