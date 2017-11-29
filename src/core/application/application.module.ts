@@ -1,9 +1,1 @@
-import '../converter/converter.module';
-import '../router/router.module';
-import '../storage/storage.module';
-import '../event/event.module';
-import '../transport/transport.module';
-import '../settings/settings.module';
-import '../translation/translation.module';
-import '../component/field/field.module';
-import './application.effects';
+import './application-material.module';
