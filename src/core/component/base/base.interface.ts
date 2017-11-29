@@ -45,6 +45,7 @@ export interface IBaseContainerInternalState {
 
 export interface IBaseComponent<TInternalProps, TInternalState>
     extends Component<TInternalProps, TInternalState> {
+  self: HTMLElement;
   stopEvent(event: SyntheticEvent<AnyT>): void;
   registerPlugin(componentPlugin: IComponentPluginCtor<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>):
       IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;
@@ -64,4 +65,7 @@ export interface IBaseContainer<TInternalProps extends IBaseContainerInternalPro
   dispatch(type: string, data?: any): void;
 }
 
+export interface IBaseComponentCtor { new (...args): BaseComponentT; }
+
 export type BaseContainerT = IBaseContainer<{}, {}>;
+export type BaseComponentT = IBaseComponent<{}, {}>;
