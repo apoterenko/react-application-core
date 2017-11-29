@@ -1,30 +1,25 @@
 import * as React from 'react';
 import MaskedTextInput from 'react-text-mask';
-import { MDCTextField } from '@material/textfield';
 
 import { isFn, isUndef, noop, orNull, toClassName, uuid } from '../../../util';
 import {
   AnyT, IKeyValue, ChangeEventT, BasicEventT, IDisplayableConverter
 } from '../../../definition.interface';
-
 import { Field, IField } from '../field';
 import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
   IBasicTextField,
-  INativeMaterialBasicTextFieldComponent,
   IBasicTextFieldAction,
   ActionPositionEnum,
 } from './basic-textfield.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
                             TInternalProps extends IBasicTextFieldInternalProps,
-                            TInternalState extends IBasicTextFieldInternalState,
-                            TNativeMaterialComponent extends INativeMaterialBasicTextFieldComponent>
+                            TInternalState extends IBasicTextFieldInternalState>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState,
-                  TNativeMaterialComponent,
                   ChangeEventT>
     implements IBasicTextField<TInternalProps, TInternalState> {
 
@@ -32,10 +27,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   private static EMPTY_DISPLAY_VALUE = '';
 
   protected defaultAction: IBasicTextFieldAction;
-
-  constructor(props: TInternalProps) {
-    super(props, MDCTextField);
-  }
 
   public render(): JSX.Element {
     const props = this.props;

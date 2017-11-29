@@ -12,7 +12,6 @@ import {
   KeyboardEventT,
 } from '../../../definition.interface';
 import {
-  INativeMaterialSelectComponent,
   IBasicSelectInternalProps,
   IBasicSelectInternalState,
   ISelectOption,
@@ -23,8 +22,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                          TInternalState extends IBasicSelectInternalState>
     extends BasicTextField<TComponent,
                            TInternalProps,
-                           TInternalState,
-                           INativeMaterialSelectComponent> {
+                           TInternalState> {
 
   private static logger = LoggerFactory.makeLogger(BasicSelect);
 

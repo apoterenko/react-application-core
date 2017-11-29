@@ -14,15 +14,13 @@ import {
   IMaterialDateDialogComponent,
 } from './datefield.interface';
 import {
-  INativeMaterialBasicTextFieldComponent,
   BasicTextField,
   IBasicTextFieldAction,
 } from '../textfield';
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
-                                              IDateFieldInternalState,
-                                              INativeMaterialBasicTextFieldComponent> {
+                                              IDateFieldInternalState> {
   public static defaultProps: IDateFieldInternalProps = {
     container: 'dialog',
     autoOk: true,

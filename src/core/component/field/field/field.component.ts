@@ -3,13 +3,8 @@ import * as R from 'ramda';
 import { lazyInject, DI_TYPES } from '../../../di';
 import { isUndef } from '../../../util';
 import { IApplicationSettings } from '../../../settings';
-import {
-  INativeMaterialComponent,
-  MaterialComponent,
-  IMaterialComponentFactory,
-} from '../../../component/material';
 import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from '../../../definition.interface';
-
+import { BaseComponent } from '../../../component/base';
 import {
   IField,
   IFieldInternalProps,
@@ -20,19 +15,15 @@ import {
 export abstract class Field<TComponent extends IField<TInternalProps, TInternalState, TValueEvent>,
                             TInternalProps extends IFieldInternalProps,
                             TInternalState extends IFieldInternalState,
-                            TNativeMaterialComponent extends INativeMaterialComponent,
                             TValueEvent>
-    extends MaterialComponent<TComponent,
-                              TInternalProps,
-                              TInternalState,
-                              TNativeMaterialComponent>
+    extends BaseComponent<TComponent, TInternalProps, TInternalState>
     implements IField<TInternalProps, TInternalState, TValueEvent> {
 
   @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
-  constructor(props: TInternalProps,
-              mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
-    super(props, mdcFactory);
+  constructor(props: TInternalProps) {
+    super(props);
+
     this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -64,7 +55,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public resetError(): void {
     this.validateField(null, null);
-    this.nativeMdcInstance.getDefaultFoundation().setValid(true);
   }
 
   public onKeyDown(event: KeyboardEventT): void {

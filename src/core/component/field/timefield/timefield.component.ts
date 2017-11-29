@@ -1,7 +1,4 @@
-import {
-  BasicTextField,
-  INativeMaterialBasicTextFieldComponent,
-} from '../textfield';
+import { BasicTextField } from '../textfield';
 import { IKeyValue } from '../../../definition.interface';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
@@ -12,8 +9,7 @@ import {
 
 export class TimeField extends BasicTextField<TimeField,
                                               ITimeFieldInternalProps,
-                                              ITimeFieldInternalState,
-                                              INativeMaterialBasicTextFieldComponent>
+                                              ITimeFieldInternalState>
     implements ITimeField {
 
   protected getComponentProps(): IKeyValue {
