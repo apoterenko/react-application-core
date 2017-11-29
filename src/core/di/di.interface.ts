@@ -17,4 +17,5 @@ export const DI_TYPES = {
   Transport: Symbol('Transport'),
   TransportFactory: Symbol('TransportFactory'),
   TransportPayloadAnalyzer: Symbol('TransportPayloadAnalyzer'),
+  UIPlugins: Symbol('UIPlugins'),
 };

@@ -1,11 +1,18 @@
 import { PureComponent } from 'react';
-import * as ramda from 'ramda';
 
 import { BasicEventT } from '../../definition.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import { isUndef } from '../../util';
-import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
-import { IBaseComponent, IBaseComponentInternalProps } from './base.interface';
+import {
+  ComponentPluginFactoryT,
+  IComponentPlugin,
+  IComponentPluginCtor,
+} from '../../component/plugin';
+import {
+  IBaseComponent,
+  IBaseComponentInternalProps,
+  IBaseComponentCtor,
+} from './base.interface';
 import { ApplicationTranslateT } from '../../translation';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
@@ -15,14 +22,19 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     implements IBaseComponent<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslateT;
+  @lazyInject(DI_TYPES.UIPlugins) private uiPlugins: Map<IBaseComponentCtor, ComponentPluginFactoryT>;
 
   private plugins: Array<IComponentPlugin<TComponent, TInternalProps, TInternalState>> = [];
 
   constructor(props: TInternalProps) {
     super(props);
-    if (!ramda.isNil(this.props.plugins)) {
-      [].concat(this.props.plugins).forEach((plugin) => this.registerPlugin(plugin));
+
+    const dynamicPluginFactory = this.uiPlugins.get(this.constructor as IBaseComponentCtor);
+    if (dynamicPluginFactory) {
+      this.plugins.push(dynamicPluginFactory(this));
     }
+
+    [].concat(this.props.plugins || []).forEach((plugin) => this.registerPlugin(plugin));
   }
 
   public componentDidMount(): void {
@@ -66,6 +78,10 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     }
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  public get self(): HTMLElement {
+    return this.refs.self as HTMLElement;
   }
 
   protected get isPersistent(): boolean {

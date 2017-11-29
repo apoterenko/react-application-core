@@ -37,8 +37,4 @@ export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps,
   protected get nativeMdcFoundationAdapter(): IKeyValue {
     return this.nativeMdcInstance.getDefaultFoundation().adapter_;
   }
-
-  public get self(): HTMLElement {
-    return this.refs.self as HTMLElement;
-  }
 }
