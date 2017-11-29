@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { lazyInject, DI_TYPES } from '../../../di';
 import { isUndef } from '../../../util';
 import { IApplicationSettings } from '../../../settings';
-import { AnyT, BasicEventT, FocusEventT, KeyboardEventT } from '../../../definition.interface';
+import { AnyT, BasicEventT, ChangeEventT, FocusEventT, KeyboardEventT } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import {
   IField,
@@ -12,12 +12,11 @@ import {
   IMaskedTextInputPureComponent,
 } from './field.interface';
 
-export abstract class Field<TComponent extends IField<TInternalProps, TInternalState, TValueEvent>,
+export abstract class Field<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IFieldInternalProps,
-                            TInternalState extends IFieldInternalState,
-                            TValueEvent>
+                            TInternalState extends IFieldInternalState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
-    implements IField<TInternalProps, TInternalState, TValueEvent> {
+    implements IField<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
@@ -49,8 +48,12 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  public onChange(event: TValueEvent): void {
+  public onChange(event: ChangeEventT): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
+  }
+
+  public getRawValueFromEvent(event: ChangeEventT): AnyT {
+    return event.target.value;
   }
 
   public resetError(): void {
@@ -216,8 +219,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected abstract getEmptyValue(): AnyT;
-
-  protected abstract getRawValueFromEvent(event: TValueEvent): AnyT;
 
   private validateValueAndSetCustomValidity(value: AnyT): string {
     const props = this.props;

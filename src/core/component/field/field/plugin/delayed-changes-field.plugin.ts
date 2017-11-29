@@ -6,7 +6,7 @@ import { IField } from '../field.interface';
 
 import { IDelayedChangesFieldPluginInternalProps } from './delayed-changes-field.interface';
 
-export type DelayedChangesFieldT = IField<IDelayedChangesFieldPluginInternalProps, {}, {}>;
+export type DelayedChangesFieldT = IField<IDelayedChangesFieldPluginInternalProps, {}>;
 
 export class DelayedChangesFieldPlugin implements IComponentPlugin<DelayedChangesFieldT,
                                                                    IDelayedChangesFieldPluginInternalProps,

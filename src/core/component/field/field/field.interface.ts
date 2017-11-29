@@ -17,7 +17,7 @@ import {
   IDisplayable,
   ILabelable,
   IPlaceholderable,
-  IDisplayValueable,
+  IDisplayValueable, ChangeEventT,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
@@ -80,16 +80,15 @@ export interface IMaskedTextInputPureComponent extends PureComponent<{}, {}> {
 }
 
 export interface IField<TInternalProps extends IFieldInternalProps,
-                        TInternalState extends IFieldInternalState,
-                        TValueEvent>
+                        TInternalState extends IFieldInternalState>
     extends IKeyboardHandlers, IBaseComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
-  onChange(event: TValueEvent): void;
+  onChange(event: ChangeEventT): void;
   resetError(): void;
   setFocus(): void;
 }
 
-export type FieldT = IField<IFieldInternalProps, IFieldInternalState, {}>;
+export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
 
 export interface IMultiFieldAttributes {
   add: EntityIdT[];

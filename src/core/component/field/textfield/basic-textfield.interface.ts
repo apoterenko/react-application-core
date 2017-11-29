@@ -1,15 +1,13 @@
 import {
-  ChangeEventT,
   IStylizable,
   ITitleable,
   ITypeable,
   IDisableable,
 } from '../../../definition.interface';
 import { FunctionT } from '../../../util';
-import { INativeMaterialComponent } from '../../../component/material';
 
-import { IField, IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
-import { IDelayedChangesFieldPluginInternalProps } from '../field/plugin';
+import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
+import { IDelayedChangesFieldPluginInternalProps } from '../field';
 
 export interface IBasicTextFieldAction extends IStylizable,
                                                ITitleable,
@@ -30,8 +28,7 @@ export interface IBasicTextFieldInternalProps
 export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalProps,
                                  TInternalState extends IBasicTextFieldInternalState>
     extends IField<TInternalProps,
-                   TInternalState,
-                   ChangeEventT> {
+                   TInternalState> {
 }
 
 export enum ActionPositionEnum {

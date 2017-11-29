@@ -3,11 +3,12 @@ import { IMaterialComponentFactory, INativeMaterialComponent } from '../../../co
 import { FieldT } from '../../../component/field';
 import { MaterialPlugin } from './material.plugin';
 
-export class FieldMaterialPlugin
-    extends MaterialPlugin<FieldT, INativeMaterialComponent> {
+export class FieldMaterialPlugin<TField extends FieldT,
+                                 TNativeMaterialComponent extends INativeMaterialComponent>
+    extends MaterialPlugin<TField, TNativeMaterialComponent> {
 
-  constructor(field: FieldT,
-              mdcFactory: IMaterialComponentFactory<INativeMaterialComponent>) {
+  constructor(field: TField,
+              mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
     super(field, mdcFactory);
     field.resetError = sequence(field.resetError, this.onResetError, this);
   }

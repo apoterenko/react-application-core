@@ -66,8 +66,8 @@ export class DateField extends BasicTextField<DateField,
     }
   }
 
-  protected getRawValueFromEvent(event: ChangeEventT): DateTimeLikeTypeT {
-    return this.convertToDate(event.target.value);
+  public getRawValueFromEvent(event: ChangeEventT): DateTimeLikeTypeT {
+    return this.convertToDate(super.getRawValueFromEvent(event));
   }
 
   protected prepareStateValueBeforeSerialization(value: DateTimeLikeTypeT): string {

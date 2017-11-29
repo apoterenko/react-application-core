@@ -3,7 +3,7 @@ import MaskedTextInput from 'react-text-mask';
 
 import { isFn, isUndef, noop, orNull, toClassName, uuid } from '../../../util';
 import {
-  AnyT, IKeyValue, ChangeEventT, BasicEventT, IDisplayableConverter
+  AnyT, IKeyValue, BasicEventT, IDisplayableConverter
 } from '../../../definition.interface';
 import { Field, IField } from '../field';
 import {
@@ -14,13 +14,12 @@ import {
   ActionPositionEnum,
 } from './basic-textfield.interface';
 
-export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState, ChangeEventT>,
+export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IBasicTextFieldInternalProps,
                             TInternalState extends IBasicTextFieldInternalState>
     extends Field<TComponent,
                   TInternalProps,
-                  TInternalState,
-                  ChangeEventT>
+                  TInternalState>
     implements IBasicTextField<TInternalProps, TInternalState> {
 
   private static CHAR_WIDTH_AT_PX = 10;
@@ -155,10 +154,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getEmptyValue(): string {
     return '';
-  }
-
-  protected getRawValueFromEvent(event: ChangeEventT): AnyT {
-    return event.target.value;
   }
 
   protected get isLoaderShowed(): boolean {

@@ -8,7 +8,7 @@ export class MaterialPlugin<TComponent extends BaseComponentT,
 
   protected mdc: TNativeMaterialComponent;
 
-  constructor(private component: TComponent,
+  constructor(protected component: TComponent,
               private mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
   }
 

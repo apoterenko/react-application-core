@@ -17,3 +17,7 @@ export interface INativeMaterialComponent {
 export interface INativeMaterialDefaultFoundation extends IKeyValue {
   adapter_: IKeyValue;
 }
+
+export interface INativeMaterialCheckboxComponent extends INativeMaterialComponent {
+  checked: boolean;
+}

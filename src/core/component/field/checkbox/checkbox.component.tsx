@@ -1,31 +1,16 @@
 import * as React from 'react';
-import { MDCCheckbox } from '@material/checkbox';
 
-import { AnyT, IKeyValue, ChangeEventT } from '../../../definition.interface';
+import { IKeyValue } from '../../../definition.interface';
 import { Field } from '../../../component/field';
 
 import {
   ICheckboxInternalState,
   ICheckboxInternalProps,
-  INativeMaterialCheckboxComponent,
 } from './checkbox.interface';
 
 export class Checkbox extends Field<Checkbox,
                                     ICheckboxInternalProps,
-                                    ICheckboxInternalState,
-                                    INativeMaterialCheckboxComponent,
-                                    ChangeEventT> {
-  constructor(props: ICheckboxInternalProps) {
-    super(props, MDCCheckbox);
-  }
-
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    Reflect.defineProperty(this.input, 'value', {
-      get: () => this.nativeMdcInstance.checked,
-    });
-  }
+                                    ICheckboxInternalState> {
 
   public render() {
     const props = this.props;
@@ -72,9 +57,5 @@ export class Checkbox extends Field<Checkbox,
 
   protected getEmptyValue(): boolean {
     return false;
-  }
-
-  protected getRawValueFromEvent(event: ChangeEventT): AnyT {
-    return this.nativeMdcInstance.checked;
   }
 }
