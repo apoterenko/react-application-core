@@ -34,10 +34,6 @@ export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalP
                    ChangeEventT> {
 }
 
-export interface INativeMaterialBasicTextFieldComponent extends INativeMaterialComponent {
-  setValid(valid: boolean): void;
-}
-
 export enum ActionPositionEnum {
   LEFT,
   RIGHT,
