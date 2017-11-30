@@ -1,0 +1,33 @@
+@import '../../constant';
+
+.rac-material-icon {
+  &.material-icons {
+    border-style: none;
+    background: none;
+    cursor: pointer;
+
+    &[disabled] {
+      opacity: $action-opacity;
+      cursor: default;
+    }
+  }
+}
+
+.rac-action {
+  &.material-icons {
+    padding: 0 0 6px;
+  }
+}
+
+.rac-chipsfield {
+  .material-icons {
+    padding: 0 0 0 2px;
+  }
+}
+
+.rac-button {
+  .material-icons {
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+}

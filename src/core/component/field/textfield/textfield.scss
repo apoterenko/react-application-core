@@ -22,9 +22,6 @@
 .app-text-field-wrapper {
 
   .app-action {
-    &.mdc-toolbar__icon {
-      padding: 0 0 6px 0;
-    }
     color: rgba(black, .6);
 
     &[disabled] {

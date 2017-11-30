@@ -32,7 +32,7 @@ export class Button extends BaseComponent<Button,
                 onClick={props.onClick}
                 className={toClassName(
                     'mdc-button',
-                    'app-button',
+                    'rac-button',
                     props.isAccent && 'mdc-button--accent',
                     props.isRaised && 'mdc-button--raised',
                     props.className)}
@@ -40,11 +40,11 @@ export class Button extends BaseComponent<Button,
           {
             orNull(
                 props.icon,
-                <i className='material-icons app-button-icon'>{
-                  props.progress
+                this.uiFactory.makeIcon({
+                  type: props.progress
                       ? 'timelapse'
-                      : (props.error ? 'error' : props.icon)
-                }</i>
+                      : (props.error ? 'error' : props.icon),
+                })
             )
           }
           {statusText || props.children}
