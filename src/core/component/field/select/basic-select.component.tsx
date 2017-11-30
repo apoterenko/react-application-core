@@ -33,10 +33,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         this.setFocus();
         this.openMenu(event);
       },
-    },
-    {
-      type: 'clear',
-      actionHandler: () => this.clearValue(),
     }
   ];
 

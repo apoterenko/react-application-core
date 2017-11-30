@@ -40,10 +40,6 @@ export class DateField extends BasicTextField<DateField,
     {
       type: 'date_range',
       actionHandler: () => this.setFocus(),
-    },
-    {
-      type: 'clear',
-      actionHandler: () => this.clearValue(),
     }
   ];
 
@@ -52,7 +48,9 @@ export class DateField extends BasicTextField<DateField,
 
   constructor(props: IDateFieldInternalProps) {
     super(props);
+
     this.onAccept = this.onAccept.bind(this);
+    this.addClearAction();
   }
 
   public onFocus(event: FocusEventT): void {

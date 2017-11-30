@@ -156,6 +156,20 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return false;
   }
 
+  protected addClearAction(): void {
+    const this0 = this;
+    const clearAction: IBasicTextFieldAction = {
+      type: 'clear',
+      actionHandler() {
+        this0.clearValue();
+      },
+      get disabled(): boolean {
+        return this0.isDeactivated || !this0.isValuePresent;
+      },
+    };
+    this.defaultActions.push(clearAction);
+  }
+
   private get actions(): IBasicTextFieldAction[] {
     const props = this.props;
     if (props.actionsPosition === ActionPositionEnum.LEFT) {
