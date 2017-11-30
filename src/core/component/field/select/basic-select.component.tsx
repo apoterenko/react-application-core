@@ -130,6 +130,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.state.emptyOptions;
   }
 
+  protected isDeactivated(): boolean {
+    return super.isDeactivated() || this.state.emptyOptions;
+  }
+
   private getSelectedOption(value: AnyT): ISelectOption {
     return R.find((option) => option.value === value, this.options);
   }
