@@ -1,11 +1,12 @@
+import { injectable } from 'inversify';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphonenumber';
 
-import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
+import { lazyInject, DI_TYPES } from '../di';
 import { isNumber } from '../util';
 import { IApplicationSettings } from '../settings';
 import { INumberConverter } from './converter.interface';
 
-@provideInSingleton(NumberConverter)
+@injectable()
 export class NumberConverter implements INumberConverter {
 
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;

@@ -1,10 +1,11 @@
+import { injectable } from 'inversify';
 import * as moment from 'moment';
 
-import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
+import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationDateTimeSettings, IApplicationSettings } from '../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
 
-@provideInSingleton(DateConverter)
+@injectable()
 export class DateConverter implements IDateConverter {
 
   private static MONTHS = moment.months();
