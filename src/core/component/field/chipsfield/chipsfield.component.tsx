@@ -20,6 +20,7 @@ export class ChipsField extends BasicSelect<ChipsField,
     labelField: 'name',
     idField: 'id',
     valuesMessage: '%d value(s)',
+    clearAction: false,
   };
 
   constructor(props: IChipsFieldInternalProps) {

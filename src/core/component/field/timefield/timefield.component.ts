@@ -12,6 +12,10 @@ export class TimeField extends BasicTextField<TimeField,
                                               ITimeFieldInternalState>
     implements ITimeField {
 
+  public static defaultProps: ITimeFieldInternalProps = {
+    clearAction: false,
+  };
+
   protected getComponentProps(): IKeyValue {
     return {
       ...super.getComponentProps(),

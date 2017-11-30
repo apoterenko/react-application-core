@@ -13,10 +13,7 @@ import {
   IDateFieldInternalState,
   IMaterialDateDialogComponent,
 } from './datefield.interface';
-import {
-  BasicTextField,
-  IBasicTextFieldAction,
-} from '../textfield';
+import { BasicTextField } from '../textfield';
 
 export class DateField extends BasicTextField<DateField,
                                               IDateFieldInternalProps,
@@ -36,21 +33,20 @@ export class DateField extends BasicTextField<DateField,
     muiTheme: PropTypes.object.isRequired,
   };
 
-  protected defaultActions: IBasicTextFieldAction[] = [
-    {
-      type: 'date_range',
-      actionHandler: () => this.setFocus(),
-    }
-  ];
-
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
   private preventShowDialog: boolean;
 
   constructor(props: IDateFieldInternalProps) {
     super(props);
-
     this.onAccept = this.onAccept.bind(this);
-    this.addClearAction();
+
+    this.defaultActions = R.insert(0,
+        {
+          type: 'date_range',
+          actionHandler: () => this.setFocus(),
+        },
+        this.defaultActions
+    );
   }
 
   public onFocus(event: FocusEventT): void {

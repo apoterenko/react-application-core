@@ -23,6 +23,7 @@ export interface IBasicTextFieldInternalProps
     extends IFieldInternalProps, IDelayedChangesFieldPluginInternalProps {
   actions?: IBasicTextFieldAction[];
   actionsPosition?: ActionPositionEnum;
+  clearAction?: boolean;
 }
 
 export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalProps,

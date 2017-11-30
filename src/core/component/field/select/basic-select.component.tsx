@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
+import { BasicTextField } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
@@ -26,19 +26,20 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   private static logger = LoggerFactory.makeLogger(BasicSelect);
 
-  protected defaultActions: IBasicTextFieldAction[] = [
-    {
-      type: 'arrow_drop_down',
-      actionHandler: (event: BasicEventT) => {
-        this.setFocus();
-        this.openMenu(event);
-      },
-    }
-  ];
-
   constructor(props: TInternalProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
+
+    this.defaultActions = R.insert(0,
+        {
+          type: 'arrow_drop_down',
+          actionHandler: (event: BasicEventT) => {
+            this.setFocus();
+            this.openMenu(event);
+          },
+        },
+        this.defaultActions
+    );
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
