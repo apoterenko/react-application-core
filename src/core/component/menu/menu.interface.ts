@@ -4,7 +4,7 @@ import { INativeMaterialComponent } from '../../component/material';
 import { EntityIdT, IFilterable } from '../../definition.interface';
 
 export interface IMenuInternalState {
-  filter: string;
+  filter?: string;
 }
 
 export interface IMenuInternalProps extends IBaseComponentInternalProps,

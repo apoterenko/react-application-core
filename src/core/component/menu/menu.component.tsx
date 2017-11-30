@@ -25,11 +25,12 @@ export class Menu extends MaterialComponent<Menu,
 
   constructor(props: IMenuInternalProps) {
     super(props, MDCSimpleMenu);
+
     this.onSelect = this.onSelect.bind(this);
     this.onInputClick = this.onInputClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
 
-    this.state = { filter: '' };
+    this.state = {};
   }
 
   public componentDidMount(): void {
@@ -52,7 +53,7 @@ export class Menu extends MaterialComponent<Menu,
 
   public render(): JSX.Element {
     const props = this.props;
-    const filter = this.state.filter.toUpperCase();
+    const filter = this.state.filter && this.state.filter.toUpperCase();
 
     const menuItemsTpl = props.options
       .filter(
@@ -77,7 +78,7 @@ export class Menu extends MaterialComponent<Menu,
                 <TextField ref='field'
                            value={this.state.filter}
                            notErrorMessageRequired={true}
-                           placeholder={this.t(props.filterPlaceholder || 'Filter')}
+                           placeholder={props.filterPlaceholder || 'Filter'}
                            onChange={this.onInputChange}/>
             )}
             <ul className='mdc-simple-menu__items mdc-list'
@@ -90,7 +91,7 @@ export class Menu extends MaterialComponent<Menu,
   }
 
   public show(): void {
-    this.setState({ filter: '' });
+    this.setState({ filter: undefined });
     this.nativeMdcInstance.open = true;
 
     if (this.props.useFilter) {
