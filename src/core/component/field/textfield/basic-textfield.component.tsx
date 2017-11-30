@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
-import { isFn, isUndef, noop, orNull, toClassName, uuid } from '../../../util';
+import { isFn, isUndef, noop, orNull, toClassName } from '../../../util';
 import {
   AnyT, IKeyValue, BasicEventT, IDisplayableConverter
 } from '../../../definition.interface';
@@ -36,26 +37,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? this.context.muiTheme.prepareStyles
         : (styles) => styles;
 
-    const actionsTpl = orNull(
-        this.actions,
-        this.actions.map((action) => (
-            <button key={uuid()}
-                    disabled={action.disabled === false ? false : (action.disabled || this.isDeactivated)}
-                    title={action.title && this.t(action.title)}
-                    className={
-                      toClassName('material-icons', 'mdc-toolbar__icon', 'app-action', action.className)
-                    }
-                    onClick={(event: BasicEventT) => {
-                      if (action.actionHandler) {
-                        this.stopEvent(event);
-                        action.actionHandler(event);
-                      }
-                    }}>
-              {action.type}
-            </button>
-        ))
-    );
-
     return (
         <div className='app-text-field-wrapper'
              style={prepareStyles({...props.wrapperStyle as {}})}>
@@ -83,10 +64,29 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                    }>
               {props.label ? this.t(props.label) : props.children}
             </label>
-            {actionsTpl}
+            {orNull(
+                this.actions,
+                this.actions.map((action) => this.uiFactory.makeIcon({
+                  type: action.type,
+                  title: action.title && this.t(action.title),
+                  classes: ['app-action', 'rac-action', action.className],
+                  disabled: R.isNil(action.disabled)
+                      ? this.isDeactivated()
+                      : action.disabled,
+                  onClick: (event: BasicEventT) => {
+                    if (action.actionHandler) {
+                      this.stopEvent(event);
+                      action.actionHandler(event);
+                    }
+                  },
+                }))
+            )}
             {orNull(
                 this.isLoaderShowed,
-                <div className='material-icons app-text-field-loader'>timelapse</div>
+                this.uiFactory.makeIcon({
+                  type: 'timelapse',
+                  classes: ['app-text-field-loader'],
+                })
             )}
           </div>
           {this.getMessage(props.message, false)}
@@ -113,7 +113,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const maxLength = props.maxLength;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
-    const onClick = this.isDeactivated ? noop : this.onClick;
+    const onClick = this.isDeactivated() ? noop : this.onClick;
     const onChange = this.onChange;
     const onKeyDown = this.onKeyDown;
     const onKeyUp = this.onKeyUp;
@@ -164,7 +164,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         this0.clearValue();
       },
       get disabled(): boolean {
-        return this0.isDeactivated || !this0.isValuePresent;
+        return this0.isDeactivated() || !this0.isValuePresent;
       },
     };
     this.defaultActions.push(clearAction);

@@ -224,7 +224,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return document.activeElement === this.input;
   }
 
-  protected get isDeactivated(): boolean {
+  protected isDeactivated(): boolean {
     return this.props.disabled || this.props.readOnly;
   }
 

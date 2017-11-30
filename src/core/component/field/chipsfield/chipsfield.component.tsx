@@ -74,15 +74,17 @@ export class ChipsField extends BasicSelect<ChipsField,
         <div>
           {this.getActiveValue().map((item) =>
             <div key={uuid()}
-                 className='app-chipsfield'>
+                 className='app-chipsfield rac-chipsfield'>
               <span className='app-chipsfield-description'>
                 {this.toChipsDisplayValue(item)}
               </span>
-              <button className='material-icons'
-                      disabled={this.isDeactivated}
-                      onClick={() => this.onDeleteItem(item)}>
-                cancel
-              </button>
+              {
+                this.uiFactory.makeIcon({
+                  type: 'cancel',
+                  disabled: this.isDeactivated(),
+                  onClick: () => this.onDeleteItem(item),
+                })
+              }
             </div>
         )}
         </div>
