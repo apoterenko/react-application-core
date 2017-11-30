@@ -3,6 +3,7 @@ import { PureComponent } from 'react';
 import { BasicEventT } from '../../definition.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import { isUndef } from '../../util';
+import { IUIFactory } from '../../component/factory';
 import {
   ComponentPluginFactoryT,
   IComponentPlugin,
@@ -22,6 +23,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     implements IBaseComponent<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslateT;
+  @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
   @lazyInject(DI_TYPES.UIPlugins) private uiPlugins: Map<IBaseComponentCtor, ComponentPluginFactoryT>;
 
   private plugins: Array<IComponentPlugin<TComponent, TInternalProps, TInternalState>> = [];

@@ -11,11 +11,13 @@ import {
 } from '../../component/field';
 import { ComponentPluginFactoryT } from '../../component/plugin';
 import { IBaseComponentCtor } from '../../component/base';
+import { IUIFactory } from '../../component/factory';
 import {
   FieldMaterialPlugin,
   CheckboxMaterialPlugin,
 } from './plugin';
-import { INativeMaterialComponent } from 'core/component/material';
+import { INativeMaterialComponent } from '../material';
+import { UIMaterialFactory } from './factory';
 
 const uiPlugins = new Map<IBaseComponentCtor, ComponentPluginFactoryT>();
 uiPlugins.set(
@@ -47,3 +49,5 @@ uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(comp
 
 appContainer.bind<Map<IBaseComponentCtor, ComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
+
+appContainer.bind<IUIFactory>(DI_TYPES.UIFactory).to(UIMaterialFactory).inSingletonScope();
