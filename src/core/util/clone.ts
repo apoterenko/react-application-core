@@ -15,8 +15,8 @@ export function cloneNodes<TProps>(component: ClonedComponentT,
                                    mergedProps: TProps|((component: ClonedComponentT) => TProps),
                                    mergePropsPredicate: RenderPredicateT,
                                    childrenMap?: Map<ReactElementT, string>,
-                                   renderPredicate?: RenderPredicateT): AnyT[]  {
-  return React.Children.map(component.props.children, (child: React.ReactChild) => {
+                                   renderPredicate?: RenderPredicateT): React.ReactChild[]  {
+  return React.Children.map<React.ReactChild>(component.props.children, (child: React.ReactChild) => {
         if (R.isNil(child)) {
           return null;
         } else if (isPrimitive(child)) {
