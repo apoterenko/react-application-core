@@ -25,7 +25,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   private static CHAR_WIDTH_AT_PX = 10;
   private static EMPTY_DISPLAY_VALUE = '';
 
-  protected defaultAction: IBasicTextFieldAction;
+  protected defaultActions: IBasicTextFieldAction[];
 
   public render(): JSX.Element {
     const props = this.props;
@@ -152,10 +152,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         : BasicTextField.EMPTY_DISPLAY_VALUE;
   }
 
-  protected getEmptyValue(): string {
-    return '';
-  }
-
   protected get isLoaderShowed(): boolean {
     return false;
   }
@@ -163,9 +159,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   private get actions(): IBasicTextFieldAction[] {
     const props = this.props;
     if (props.actionsPosition === ActionPositionEnum.LEFT) {
-      return (this.defaultAction ? [this.defaultAction] : []).concat(props.actions || []);
+      return (this.defaultActions || []).concat(props.actions || []);
     } else {
-      return (this.props.actions || []).concat(this.defaultAction || []);
+      return (this.props.actions || []).concat(this.defaultActions || []);
     }
   }
 

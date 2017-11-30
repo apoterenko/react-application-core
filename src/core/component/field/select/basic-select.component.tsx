@@ -26,13 +26,19 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   private static logger = LoggerFactory.makeLogger(BasicSelect);
 
-  protected defaultAction: IBasicTextFieldAction = {
-    type: 'arrow_drop_down',
-    actionHandler: (event: BasicEventT) => {
-      this.setFocus();
-      this.openMenu(event);
+  protected defaultActions: IBasicTextFieldAction[] = [
+    {
+      type: 'arrow_drop_down',
+      actionHandler: (event: BasicEventT) => {
+        this.setFocus();
+        this.openMenu(event);
+      },
     },
-  };
+    {
+      type: 'clear',
+      actionHandler: () => this.clearValue(),
+    }
+  ];
 
   constructor(props: TInternalProps) {
     super(props);

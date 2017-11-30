@@ -12,11 +12,13 @@ import {
   IMaskedTextInputPureComponent,
 } from './field.interface';
 
-export abstract class Field<TComponent extends IField<TInternalProps, TInternalState>,
+export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IFieldInternalProps,
                             TInternalState extends IFieldInternalState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
     implements IField<TInternalProps, TInternalState> {
+
+  private static EMPTY_VALUE = '';
 
   @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
@@ -152,11 +154,11 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   protected onChangeValue(currentRawValue?: AnyT, error?: string): void {
     const originalValue = this.props.originalValue;
-    const originalValueExists = !isUndef(originalValue);
-    const isFieldDirty = !isUndef(currentRawValue) && originalValueExists
+    const isFieldDirty = !isUndef(currentRawValue) && this.hasOriginalValue
         && !R.equals(currentRawValue, originalValue);
 
-    if (originalValueExists && !isFieldDirty) {
+    if ((this.hasOriginalValue && !isFieldDirty)
+        || (!this.hasOriginalValue && this.getEmptyValue() === currentRawValue)) {
       currentRawValue = undefined;  // Clear dirty changes
       error = null;
     }
@@ -170,15 +172,23 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.propsChangeForm(currentRawValue);
   }
 
+  protected get hasOriginalValue(): boolean {
+    return !isUndef(this.props.originalValue);
+  }
+
   protected propsChangeForm(rawValue: AnyT): void {
     if (this.props.changeForm) {
-      this.props.changeForm(this.props.name, rawValue, this.props.validationGroup);
+      this.props.changeForm(
+          this.props.name,
+          this.prepareStateValueBeforeSerialization(rawValue),
+          this.props.validationGroup
+      );
     }
   }
 
-  protected prepareStateValueBeforeSerialization(value: AnyT): AnyT {
+  protected prepareStateValueBeforeSerialization(rawValue: AnyT): AnyT {
     // The state may be an external storage and the value must be able to be serialized
-    return this.props.notAllowEmptyValue && R.isEmpty(value) ? undefined : value;
+    return rawValue;
   }
 
   protected cleanNativeInputForSupportHTML5Validation(): void {
@@ -218,7 +228,9 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.props.disabled || this.props.readOnly;
   }
 
-  protected abstract getEmptyValue(): AnyT;
+  protected getEmptyValue(): AnyT {
+    return Field.EMPTY_VALUE;
+  }
 
   private validateValueAndSetCustomValidity(value: AnyT): string {
     const props = this.props;

@@ -36,10 +36,16 @@ export class DateField extends BasicTextField<DateField,
     muiTheme: PropTypes.object.isRequired,
   };
 
-  protected defaultAction: IBasicTextFieldAction = {
-    type: 'date_range',
-    actionHandler: () => this.setFocus(),
-  };
+  protected defaultActions: IBasicTextFieldAction[] = [
+    {
+      type: 'date_range',
+      actionHandler: () => this.setFocus(),
+    },
+    {
+      type: 'clear',
+      actionHandler: () => this.clearValue(),
+    }
+  ];
 
   @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
   private preventShowDialog: boolean;
@@ -70,16 +76,9 @@ export class DateField extends BasicTextField<DateField,
     return this.convertToDate(super.getRawValueFromEvent(event));
   }
 
-  protected prepareStateValueBeforeSerialization(value: DateTimeLikeTypeT): string {
+  protected prepareStateValueBeforeSerialization(rawValue: DateTimeLikeTypeT): string {
     // Date value must be able to be serialized as a string
-    const v = super.prepareStateValueBeforeSerialization(value);
-    return isUndef(v) ? v : this.formatDate(v);
-  }
-
-  protected propsChangeForm(rawValue: DateTimeLikeTypeT): void {
-    super.propsChangeForm(
-        this.prepareStateValueBeforeSerialization(rawValue),
-    );
+    return isUndef(rawValue) ? undefined : this.formatDate(rawValue);
   }
 
   protected getComponent(): JSX.Element {
@@ -115,12 +114,11 @@ export class DateField extends BasicTextField<DateField,
 
       mask: this.fieldMask,
       pattern: this.fieldPattern,
-
-      // We must bind a string value to the input field
-      // because a state must hold the raw values
-      // although at this case the state hold the string value
-      value: this.formatDate(this.value),
     };
+  }
+
+  protected toDisplayValue(): string {
+    return this.formatDate(super.toDisplayValue());
   }
 
   private onAccept(date: Date): void {

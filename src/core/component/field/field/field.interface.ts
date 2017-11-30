@@ -52,7 +52,6 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IValueable<AnyT>,
                                              IOriginalValueable<AnyT>,
                                              IDisplayValueable<AnyT> {
-  notAllowEmptyValue?: boolean;
   notErrorMessageRequired?: boolean;
   noErrorMessage?: boolean;
   renderCondition?: boolean;
