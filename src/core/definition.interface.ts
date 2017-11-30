@@ -152,6 +152,8 @@ export interface IChangeable<TChanges extends IKeyValue> {
 export interface IEntityable<TEntity extends IEntity> {
   entity?: TEntity;
   originalEntity?: TEntity;
+  isNewEntity?: boolean;
+  entityId?: EntityIdT;
 }
 
 export interface IDateTimeRangeable {

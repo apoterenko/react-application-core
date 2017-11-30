@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
@@ -35,6 +37,8 @@ export const entityMapper = (entity: IEntity, formState?: IApplicationFormState)
     ...entity,
     ...formState && formState.changes,
   },
+  entityId: entity ? entity.id : null,
+  isNewEntity: !entity || R.isNil(entity.id),
 });
 
 export const listWrapperEntityMapper = (listWrapperState: IApplicationListWrapperState,
