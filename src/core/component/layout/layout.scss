@@ -47,3 +47,26 @@
   justify-content: center;
   text-align: center;
 }
+
+@import '~sass-flex-mixin/_flex';
+
+.rac-flex {
+  @include flexbox;
+}
+
+.rac-flex-full {
+  @include flex;
+}
+
+.rac-flex-row {
+  @include flex-direction(row);
+}
+
+.rac-flex-column {
+  @include flex-direction(column);
+}
+
+.rac-flex-center {
+  @include justify-content(center);
+  text-align: center;
+}

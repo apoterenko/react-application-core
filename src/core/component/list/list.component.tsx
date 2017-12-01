@@ -4,14 +4,14 @@ import * as R from 'ramda';
 import { uuid, scrollIntoView, toClassName, orNull } from '../../util';
 import { IEntity } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
-
 import { ListItem } from './item';
 import { IListInternalProps } from './list.interface';
 
 export class List extends BaseComponent<List, IListInternalProps, {}> {
 
-  constructor(props) {
+  constructor(props: IListInternalProps) {
     super(props);
+
     this.onSelect = this.onSelect.bind(this);
     this.onCreate = this.onCreate.bind(this);
     this.onSearchAction = this.onSearchAction.bind(this);
@@ -40,6 +40,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     const props = this.props;
     const noDataFound = Array.isArray(props.data) && !props.data.length;
     const emptyMessage = this.emptyMessage;
+    const progress = props.progress;
 
     let canShowAddAction = false;
 
@@ -47,16 +48,16 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     // we have the state when error property does set at once after destroy
     // of a list state. This is the best covert workaround to optimize
     // unnecessary business logic code of app effects
-    const error = props.touched ? props.error : null;
+    const error = orNull(props.touched, props.error);
 
     if (!props.data
-        || props.progress
+        || progress
         || error
         || noDataFound) {
       return (
-          <div className='app-empty-list app-center-layout app-full-layout'>
+          <div className='rac-list-empty rac-flex rac-flex-column rac-flex-center rac-flex-full'>
             {
-              props.progress
+              progress
                   ? this.progressMessage
                   : (
                       error
@@ -76,7 +77,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
         <ul ref='container'
             className={toClassName('mdc-list', 'mdc-list--two-line', 'mdc-list--avatar-list',
-                                   'app-list', 'app-full-layout',
+                                   'app-list', 'rac-flex-full',
                                    props.className)}>
           {props.data.map((item) => this.itemTpl(item))}
           {this.addActionTpl}
@@ -110,10 +111,11 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
   protected get addActionTpl(): JSX.Element {
     return orNull(
         this.props.addAction,
-        <button className='mdc-fab material-icons app-list-add-action'
-                onClick={this.onCreate}>
-          <span className='mdc-fab__icon'>add</span>
-        </button>
+        this.uiFactory.makeIcon({
+          type: 'add',
+          classes: ['rac-list-add-action', 'mdc-fab'],
+          onClick: this.onCreate,
+        })
     );
   }
 
@@ -157,7 +159,21 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return this.t(this.props.emptyMessage || 'No data');
   }
 
-  private get progressMessage(): string {
-    return this.t(this.props.progressMessage || 'Loading...');
+  private get progressMessage(): JSX.Element {
+    return (
+      <span>
+        {
+          this.uiFactory.makeIcon({
+            type: 'timelapse',
+            classes: ['rac-loading-icon'],
+          })
+        }
+        {
+          <span className='rac-loading-message'>
+            {this.t(this.props.progressMessage || 'Loading...')}
+          </span>
+        }
+      </span>
+    );
   }
 }

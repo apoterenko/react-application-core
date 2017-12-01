@@ -19,7 +19,7 @@
   }
 }
 
-.app-empty-list {
+.rac-list-empty {
   cursor: default;
 
   .app-list-search-action-wrapper {
@@ -31,8 +31,8 @@
   }
 }
 
-.app-empty-list, .app-list {
-  .app-list-add-action {
+.rac-list-empty, .app-list {
+  .rac-list-add-action {
     position: fixed;
     bottom: 24px;
     right: 24px;
