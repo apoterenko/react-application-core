@@ -8,7 +8,7 @@
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "deploy": "npm install && npm run build && npm publish ./",
-    "scss": "node_modules/.bin/node-sass --output-style compressed src/core/component/component.scss > react-application-core.css"
+    "scss": "node scripts/scss.js"
   },
   "dependencies": {
     "@types/core-js": "^0.9.42",
