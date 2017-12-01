@@ -15,6 +15,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslateT } from '../../translation';
 import { IFormDialog } from '../../component/form';
 import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
+import { IUIFactory } from '../../component/factory';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState>
@@ -27,6 +28,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   @lazyInject(DI_TYPES.Store) protected appStore: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
+  @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);

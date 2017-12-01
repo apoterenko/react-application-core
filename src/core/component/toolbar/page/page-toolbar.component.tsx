@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import { orNull, toClassName } from '../../../util';
 import { FIRST_PAGE } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import { IPageToolbarInternalProps } from './page-toolbar.interface';
@@ -20,52 +20,59 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
     const isPreviousBtnDisabled = this.isPreviousBtnDisabled;
     const isNextBtnDisabled = this.isNextBtnDisabled;
 
-    const buttonsTpl = isPreviousBtnDisabled && isNextBtnDisabled ? null : (
-        <section>
-          <button className='material-icons mdc-toolbar__icon'
-                  onClick={this.onFirst}
-                  disabled={isPreviousBtnDisabled}>
-            first_page
-          </button>
-          <button className='material-icons mdc-toolbar__icon'
-                  onClick={this.onPrevious}
-                  disabled={isPreviousBtnDisabled}>
-            keyboard_arrow_left
-          </button>
-          <button className='material-icons mdc-toolbar__icon'
-                  onClick={this.onNext}
-                  disabled={isNextBtnDisabled}>
-            keyboard_arrow_right
-          </button>
-          <button className='material-icons mdc-toolbar__icon'
-                  onClick={this.onLast}
-                  disabled={isNextBtnDisabled}>
-            last_page
-          </button>
-        </section>
-    );
-
-    const contentTpl = props.contentDisplay === false
-        ? (
-            <div className='mdc-toolbar__row'/>
-        )
-        : (
-            <div className='mdc-toolbar__row'>
-              <section className='app-full-layout'>
-                {props.children}
-              </section>
-              <section>
-                <div className='app-toolbar-page-info'>
-                  {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
-                </div>
-              </section>
-              {buttonsTpl}
-            </div>
-        );
-
     return (
         <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
-          {contentTpl}
+          {
+            props.contentDisplay === false
+                ? <div className='mdc-toolbar__row'/>
+                : (
+                    <div className='mdc-toolbar__row'>
+                      <section className='app-full-layout'>
+                        {props.children}
+                      </section>
+                      <section>
+                        <div className='app-toolbar-page-info'>
+                          {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
+                        </div>
+                      </section>
+                      {
+                        orNull(
+                            !(isPreviousBtnDisabled && isNextBtnDisabled),
+                            <section>
+                              {
+                                this.uiFactory.makeIcon({
+                                  type: 'first_page',
+                                  disabled: isPreviousBtnDisabled,
+                                  onClick: this.onFirst,
+                                })
+                              }
+                              {
+                                this.uiFactory.makeIcon({
+                                  type: 'keyboard_arrow_left',
+                                  disabled: isPreviousBtnDisabled,
+                                  onClick: this.onPrevious,
+                                })
+                              }
+                              {
+                                this.uiFactory.makeIcon({
+                                  type: 'keyboard_arrow_right',
+                                  disabled: isNextBtnDisabled,
+                                  onClick: this.onNext,
+                                })
+                              }
+                              {
+                                this.uiFactory.makeIcon({
+                                  type: 'last_page',
+                                  disabled: isNextBtnDisabled,
+                                  onClick: this.onLast,
+                                })
+                              }
+                            </section>
+                        )
+                      }
+                    </div>
+                )
+          }
         </div>
     );
   }

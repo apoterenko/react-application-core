@@ -63,10 +63,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                                         'mdc-toolbar__section--align-start',
                                         props.headerItems && 'app-initial-layout'
                                     )}>
-                  <button className='material-icons mdc-toolbar__menu-icon'
-                          onClick={this.onClick}>
-                    {props.navigationControlType}
-                  </button>
+                  {
+                    this.uiFactory.makeIcon({
+                      type: props.navigationControlType,
+                      classes: ['mdc-toolbar__menu-icon'],
+                      onClick: this.onClick,
+                    })
+                  }
                   <span className='mdc-toolbar__title'>
                     {title}
                   </span>
