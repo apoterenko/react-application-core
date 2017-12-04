@@ -9,5 +9,5 @@ export interface IIconConfig {
 }
 
 export interface IUIFactory {
-  makeIcon(config: IIconConfig): JSX.Element;
+  makeIcon(config: IIconConfig|string): JSX.Element;
 }

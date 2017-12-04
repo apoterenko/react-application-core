@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Link } from '../../../component/link';
 import { PersistentDrawer } from '../../../component/drawer';
-import { NavigationList } from '../../../component/list';
+import { INavigationListItemOptions, NavigationList } from '../../../component/list';
 import { lazyInject, DI_TYPES } from '../../../di';
 import { IRoutes } from '../../../router';
 import { toClassName, orNull } from '../../../util';
@@ -34,13 +34,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   public render(): JSX.Element {
     const props = this.props;
-    const menu = this.navigationMenuBuilder.provide().map((item) => ({
-      ...item,
-      text: this.t(item.text),
-      activated: props.root.path === item.link,
-    }));
-    const runtimeTitle = menu.find((item) => item.activated);
-    const title = props.title || (runtimeTitle ? runtimeTitle.text : props.title);
+    const menu = this.navigationMenuBuilder.provide()
+        .map((item): INavigationListItemOptions => ({ ...item, active: props.root.path === item.link }));
+    const runtimeTitle = menu.find((item) => item.active);
+    const title = props.title || (runtimeTitle ? runtimeTitle.label : props.title);
 
     return (
         <div className={toClassName(
@@ -103,10 +100,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <Link to={profileRoutePath}
                   className='app-profile'>
               <div className='app-profile-icon app-profile-logo'>
-                <i className='material-icons'>business</i>
+                {this.uiFactory.makeIcon('business')}
               </div>
               <div className='app-profile-icon app-profile-avatar'>
-                <i className='material-icons'>person</i>
+                {this.uiFactory.makeIcon('person')}
               </div>
               <div className='app-profile-info app-profile-name' title={user.name}>{user.name}</div>
               <div className='app-profile-info app-profile-email' title={email}>{email}</div>

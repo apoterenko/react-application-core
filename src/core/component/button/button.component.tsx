@@ -40,11 +40,9 @@ export class Button extends BaseComponent<Button,
           {
             orNull(
                 props.icon,
-                this.uiFactory.makeIcon({
-                  type: props.progress
-                      ? 'timelapse'
-                      : (props.error ? 'error' : props.icon),
-                })
+                this.uiFactory.makeIcon(props.progress
+                    ? 'timelapse'
+                    : (props.error ? 'error' : props.icon))
             )
           }
           {statusText || props.children}

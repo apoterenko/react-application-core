@@ -1,3 +1,10 @@
+import {
+  IActiveable,
+  IIconable,
+  ILabelable,
+  IStylizable,
+  ITypeable,
+} from '../../../definition.interface';
 import { IBaseComponentInternalProps } from '../../../component/base';
 import { IApplicationAccessConfig } from '../../../permission';
 
@@ -8,17 +15,16 @@ export enum NavigationListItemTypeEnum {
   LINK,
 }
 
-export interface INavigationListItem {
-  type?: NavigationListItemTypeEnum;
-  text?: string;
+export interface INavigationListItemOptions extends IActiveable,
+                                                    IStylizable,
+                                                    IIconable,
+                                                    ILabelable,
+                                                    ITypeable<NavigationListItemTypeEnum> {
   link?: string;
-  className?: string;
-  icon?: string;
-  activated?: boolean;
   accessConfig?: IApplicationAccessConfig;
-  children?: INavigationListItem[];
+  children?: INavigationListItemOptions[];
 }
 
 export interface INavigationListInternalProps extends IBaseComponentInternalProps {
-  items: INavigationListItem[];
+  items: INavigationListItemOptions[];
 }

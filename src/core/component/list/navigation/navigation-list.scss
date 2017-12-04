@@ -1,11 +1,11 @@
-.app-navigation-list {
-  &.mdc-list {
-    overflow: auto;
+@import '../../constant';
 
-    .mdc-list-item {
-      &.app-active {
-        color: red;
-      }
+.rac-navigation-list {
+  overflow: auto;
+
+  .mdc-list-item {
+    &.rac-list-item-active {
+      color: red;
     }
   }
 }

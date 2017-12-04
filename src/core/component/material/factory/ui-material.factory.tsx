@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { injectable } from 'inversify';
 
-import { toClassName, uuid } from '../../../util';
+import { isString, toClassName, uuid } from '../../../util';
 import { IUIFactory, IIconConfig } from '../../factory';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
 
-  public makeIcon(config: IIconConfig): JSX.Element {
+  public makeIcon(cfg: IIconConfig|string): JSX.Element {
+    if (!cfg) {
+      return null;
+    }
+    const config = isString(cfg) ? { type: cfg } as IIconConfig : cfg as IIconConfig;
     return config.onClick
         ? (
             <button key={uuid()}

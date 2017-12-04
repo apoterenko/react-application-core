@@ -33,7 +33,7 @@ export class ListItem extends Ripple<IListItemInternalProps> {
                 orNull(
                     props.icon,
                     <span className='mdc-list-item__start-detail'>
-                      <i className='material-icons'>{props.icon}</i>
+                      {this.uiFactory.makeIcon(props.icon)}
                     </span>
                 )
               }
