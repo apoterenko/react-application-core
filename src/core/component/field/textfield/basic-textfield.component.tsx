@@ -77,7 +77,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 this.actions.map((action) => this.uiFactory.makeIcon({
                   type: action.type,
                   title: action.title && this.t(action.title),
-                  classes: ['app-action', 'rac-action', action.className],
+                  classes: ['rac-action', action.className],
                   disabled: R.isNil(action.disabled)
                       ? this.isDeactivated()
                       : action.disabled,

@@ -23,7 +23,7 @@ export function filterReducer(state: IApplicationFilterState = INITIAL_APPLICATI
     case `${section}.${FILTER_ACTIVATE_ACTION_TYPE}`:
       return {
         ...state,
-        activated: true,
+        active: true,
       };
     case `${section}.${FILTER_CHANGE_ACTION_TYPE}`:
       return {

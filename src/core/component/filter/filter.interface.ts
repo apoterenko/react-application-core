@@ -1,4 +1,4 @@
-import { AnyT, ILockable, IStylizable, ITypeable } from '../../definition.interface';
+import { AnyT, IActiveable, ILockable, IStylizable, ITypeable } from '../../definition.interface';
 import { IApplicationFormState } from '../../component/form';
 import { IFieldOptions } from '../../component/field';
 
@@ -18,12 +18,9 @@ export interface IApplicationFilterOptions {
   searchFieldOptions?: IFieldOptions;
 }
 
-export interface IApplicationFilterAttributes extends ILockable {
-  activated?: boolean;
+export interface IApplicationFilterState extends ILockable,
+                                                 IActiveable {
   query?: AnyT;
-}
-
-export interface IApplicationFilterState extends IApplicationFilterAttributes {
 }
 
 export interface IApplicationFilterWrapperState {
@@ -35,7 +32,6 @@ export interface IApplicationFilterFormWrapperState {
 }
 
 export const INITIAL_APPLICATION_FILTER_STATE: IApplicationFilterState = {
-  activated: false,
   query: '',
 };
 

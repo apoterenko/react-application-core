@@ -1,7 +1,7 @@
 import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../../component/base';
-import { IApplicationFilterOptions, IApplicationFilterAttributes } from '../../../component/filter';
+import { IApplicationFilterOptions, IApplicationFilterState } from '../../../component/filter';
 
-export interface ISearchToolbarInternalState extends IApplicationFilterAttributes {
+export interface ISearchToolbarInternalState extends IApplicationFilterState {
 }
 
 export interface ISearchToolbarProps {
@@ -9,7 +9,7 @@ export interface ISearchToolbarProps {
 }
 
 export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps,
-                                                     IApplicationFilterAttributes,
+                                                     IApplicationFilterState,
                                                      IApplicationFilterOptions,
                                                      ISearchToolbarProps {
   onActivate?(): void;
@@ -19,6 +19,6 @@ export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps
 
 export interface ISearchToolbarContainerInternalProps extends IBaseContainerInternalProps,
                                                               ISearchToolbarProps {
-  filter?: IApplicationFilterAttributes;
+  filter?: IApplicationFilterState;
   filterOptions?: IApplicationFilterOptions;
 }

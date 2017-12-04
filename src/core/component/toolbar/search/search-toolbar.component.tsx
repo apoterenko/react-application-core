@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isUndef, uuid, toClassName, orNull, orDefault } from '../../../util';
+import { isUndef, toClassName, orNull, orDefault } from '../../../util';
 import { AnyT } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import {
@@ -50,8 +50,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
       this.state = {} as ISearchToolbarInternalProps;
     } else {
       this.state = {
-        activated: this.definitePropsActivated,
-        query: this.definitePropsQuery,
+        active: this.definiteActiveProps,
+        query: this.definiteQueryProps,
       };
     }
   }
@@ -60,8 +60,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     super.componentWillReceiveProps(nextProps, nextContext);
 
     if (!this.isPersistent) {
-      if (!isUndef(nextProps.activated)) {
-        this.setState({ activated: nextProps.activated });
+      if (!isUndef(nextProps.active)) {
+        this.setState({ active: nextProps.active });
       }
       if (!isUndef(nextProps.query)) {
         this.setState({ query: nextProps.query });
@@ -76,10 +76,13 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
         <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
           <div className='mdc-toolbar__row'>
             <section>
-              <div className='material-icons mdc-toolbar__icon'
-                   onClick={this.onActivate}>
-                {props.searchIcon}
-              </div>
+              {
+                this.uiFactory.makeIcon({
+                  type: props.searchIcon,
+                  classes: ['mdc-toolbar__icon'],
+                  onClick: this.onActivate,
+                })
+              }
             </section>
             {
               orDefault(
@@ -96,7 +99,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                     }
                   </section>,
                   orNull(
-                      this.isActivated,
+                      this.isActive,
                       <section className='mdc-toolbar__section visible'>
                         <TextField ref='queryField'
                                    className='mdc-text-field--box'
@@ -119,8 +122,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     );
   }
 
-  private get isActivated(): boolean {
-    return this.isPersistent ? this.props.activated : this.state.activated;
+  private get isActive(): boolean {
+    return this.isPersistent ? this.props.active : this.state.active;
   }
 
   private get query(): boolean {
@@ -137,7 +140,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
           props.onActivate();
         }
       } else {
-        this.setState({ activated: true });
+        this.setState({ active: true });
       }
     }
   }
@@ -183,11 +186,11 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     }
   }
 
-  private get definitePropsActivated(): boolean {
-    return isUndef(this.props.activated) ? false : this.props.activated;
+  private get definiteActiveProps(): boolean {
+    return isUndef(this.props.active) ? false : this.props.active;
   }
 
-  private get definitePropsQuery(): string {
+  private get definiteQueryProps(): string {
     return isUndef(this.props.query) ? '' : this.props.query;
   }
 
