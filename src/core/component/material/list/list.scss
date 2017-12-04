@@ -1,0 +1,10 @@
+.mdc-list .mdc-list-group__subheader {
+  cursor: default;
+  padding-left: 16px;
+}
+
+.rac-list, .rac-navigation-list {
+  &.mdc-list {
+    padding-top: 0;
+  }
+}

@@ -1,0 +1,9 @@
+.mdc-button {
+  border-radius: 2px;
+  position: unset;
+  will-change: unset !important;
+
+  &:after, &:before {
+    display: none !important;
+  }
+}

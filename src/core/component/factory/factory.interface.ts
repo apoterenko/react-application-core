@@ -9,5 +9,9 @@ export interface IIconConfig {
 }
 
 export interface IUIFactory {
+  listGroupSubHeader: string;
+  listDivider: string;
+  listItem: string;
+  list: string;
   makeIcon(config: IIconConfig|string): JSX.Element;
 }

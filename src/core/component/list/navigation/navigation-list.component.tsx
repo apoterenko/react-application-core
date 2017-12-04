@@ -12,22 +12,29 @@ import {
 export class NavigationList extends BaseComponent<NavigationList, INavigationListInternalProps, {}> {
 
   public render(): JSX.Element {
-    return <nav className='mdc-list rac-navigation-list'>{
-      this.props.items.map((item) => this.toElement(item))
-    }</nav>;
+    return (
+        <nav className={toClassName(this.uiFactory.list, 'rac-navigation-list')}>{
+          this.props.items.map((item) => this.toElement(item))
+        }</nav>
+    );
   }
 
   private toElement(options: INavigationListItemOptions): JSX.Element {
     switch (options.type) {
       case NavigationListItemTypeEnum.SUB_HEADER:
-        return <h3 className='mdc-list-group__subheader' key={uuid()}>{options.label}</h3>;
+        return <h3 className={this.uiFactory.listGroupSubHeader} key={uuid()}>
+                {options.label}
+               </h3>;
       case NavigationListItemTypeEnum.DIVIDER:
-        return <hr className='mdc-list-divider' key={uuid()}/>;
+        return <hr className={this.uiFactory.listDivider} key={uuid()}/>;
       default:
         return (
             <Link to={options.link}
                   key={uuid()}
-                  className={toClassName('mdc-list-item', options.active && 'rac-list-item-active')}>
+                  className={toClassName(
+                      this.uiFactory.listItem,
+                      options.active && 'rac-list-item-active'
+                  )}>
               {this.uiFactory.makeIcon(options.icon)}
               {options.label}
             </Link>

@@ -7,6 +7,11 @@ import { IUIFactory, IIconConfig } from '../../factory';
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
 
+  public list = 'mdc-list';
+  public listItem = 'mdc-list-item';
+  public listDivider = 'mdc-list-divider';
+  public listGroupSubHeader = 'mdc-list-group__subheader';
+
   public makeIcon(cfg: IIconConfig|string): JSX.Element {
     if (!cfg) {
       return null;

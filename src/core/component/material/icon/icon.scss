@@ -19,28 +19,25 @@
   }
 }
 
-.mdc-toolbar {
-  .rac-action {
-    &.material-icons {
-      padding-top: 8px;
-      padding-bottom: 0;
-    }
+.mdc-toolbar .rac-action {
+  &.material-icons {
+    padding-top: 8px;
+    padding-bottom: 0;
   }
 }
 
-.rac-chipsfield {
-  .material-icons {
-    padding: 0 0 0 2px;
-  }
+.rac-chipsfield .material-icons {
+  padding: 0 0 0 2px;
 }
 
-.rac-button {
-  .material-icons {
-    vertical-align: middle;
-    margin-right: 4px;
-  }
+.rac-button .material-icons {
+  margin-right: 4px;
 }
 
-.rac-loading-icon {
+.rac-button .material-icons, .rac-loading-icon {
   vertical-align: middle;
+}
+
+.rac-list .mdc-list-item .material-icons {
+  vertical-align: bottom;
 }

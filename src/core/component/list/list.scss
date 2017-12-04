@@ -1,22 +1,10 @@
+@import '../constant';
 @import './navigation/navigation-list';
 
-.app-list {
-  &.mdc-list {
-    overflow: auto;
-    position: relative;
-    cursor: default;
-    padding-top: 0;
-
-    .mdc-list-item {
-      .material-icons {
-        vertical-align: bottom;
-      }
-    }
-
-    .mdc-list-divider {
-      margin: 0;
-    }
-  }
+.rac-list {
+  overflow: auto;
+  position: relative;
+  cursor: default;
 }
 
 .rac-list-empty {
@@ -31,11 +19,11 @@
   }
 }
 
-.rac-list-empty, .app-list {
+.rac-list-empty, .rac-list {
   .rac-list-add-action {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background-color: black;
+    background-color: $color-3;
   }
 }
