@@ -12,3 +12,17 @@
 .rac-loading-message {
   vertical-align: middle;
 }
+
+.rac-filter-active {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    font-size: 12px;
+    content: 'lens';
+    color: red;
+    font-weight: bold;
+    left: 28px;
+    top: 16px;
+  }
+}

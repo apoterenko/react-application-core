@@ -28,22 +28,6 @@
       font-weight: bold;
     }
 
-    .app-action {
-      &.app-action-filter-applied {
-        position: relative;
-
-        &::after {
-          position: absolute;
-          font-size: 12px;
-          content: 'lens';
-          color: red;
-          font-weight: bold;
-          left: 28px;
-          top: 16px;
-        }
-      }
-    }
-
     .mdc-toolbar__section{
       &.visible {
         flex: 1;
@@ -66,11 +50,6 @@
       .app-text-field-wrapper {
         .app-text-field {
           border-bottom-color: #989898;
-        }
-
-        .app-action.mdc-toolbar__icon {
-          padding-bottom: 0;
-          padding-top: 10px;
         }
       }
     }

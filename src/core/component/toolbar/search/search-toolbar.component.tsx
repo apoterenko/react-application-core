@@ -87,16 +87,11 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                   <section>
                     {
                       this.actions.map((action) => (
-                          <div key={uuid()}
-                               className={toClassName(
-                                   'material-icons',
-                                   'mdc-toolbar__icon',
-                                   'app-action',
-                                   action.className
-                               )}
-                               onClick={action.actionHandler}>
-                            {action.type}
-                          </div>
+                          this.uiFactory.makeIcon({
+                            type: action.type,
+                            classes: ['mdc-toolbar__icon', action.className],
+                            onClick: action.actionHandler,
+                          })
                       ))
                     }
                   </section>,
