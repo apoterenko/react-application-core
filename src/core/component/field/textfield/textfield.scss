@@ -21,15 +21,6 @@
 
 .app-text-field-wrapper {
 
-  .rac-action {
-    color: rgba(black, .6);
-
-    &[disabled] {
-      opacity: .6;
-      cursor: default;
-    }
-  }
-
   .app-text-field {
     border-bottom: 1px solid rgba(black, .6);
 
