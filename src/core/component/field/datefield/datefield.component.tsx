@@ -5,7 +5,7 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef } from '../../../util';
-import { IKeyValue, ChangeEventT, KeyboardEventT, FocusEventT } from '../../../definition.interface';
+import { ChangeEventT, KeyboardEventT, FocusEventT } from '../../../definition.interface';
 import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
@@ -78,7 +78,7 @@ export class DateField extends BasicTextField<DateField,
   protected getComponent(): JSX.Element {
     const props = this.props;
     return (
-        <div className='app-text-field-input-wrapper'>
+        <div className='rac-text-field-input-wrapper'>
           {super.getComponent()}
           <DatePickerDialog ref='dialogWindow'
                             autoOk={props.autoOk}
@@ -102,13 +102,12 @@ export class DateField extends BasicTextField<DateField,
     );
   }
 
-  protected getComponentProps(): IKeyValue {
-    return {
-      ...super.getComponentProps(),
+  protected getFieldMask(): Array<string|RegExp> {
+    return super.getFieldMask() || this.dateTimeSettings.uiDateMask;
+  }
 
-      mask: this.fieldMask,
-      pattern: this.fieldPattern,
-    };
+  protected getFieldPattern(): string {
+    return super.getFieldPattern() || this.dateTimeSettings.uiDatePattern;
   }
 
   protected toDisplayValue(): string {
@@ -138,16 +137,8 @@ export class DateField extends BasicTextField<DateField,
     return this.refs.dialogWindow as IMaterialDateDialogComponent;
   }
 
-  private get fieldMask(): Array<string|RegExp> {
-    return this.props.mask || this.dateTimeSettings.uiDateMask;
-  }
-
   private get fieldFormat(): string {
     return this.props.format || this.dateTimeSettings.uiDateFormat;
-  }
-
-  private get fieldPattern(): string {
-    return this.props.pattern || this.dateTimeSettings.uiDatePattern;
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {

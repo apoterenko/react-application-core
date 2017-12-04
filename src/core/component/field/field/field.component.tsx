@@ -1,12 +1,21 @@
+import * as React from 'react';
 import * as R from 'ramda';
 
 import { lazyInject, DI_TYPES } from '../../../di';
-import { isUndef } from '../../../util';
+import { isFn, isUndef, noop } from '../../../util';
 import { IApplicationSettings } from '../../../settings';
-import { AnyT, BasicEventT, ChangeEventT, FocusEventT, KeyboardEventT } from '../../../definition.interface';
+import {
+  AnyT,
+  BasicEventT,
+  ChangeEventT,
+  FocusEventT,
+  IDisplayableConverter,
+  KeyboardEventT,
+} from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import {
   IField,
+  IFieldInputProps,
   IFieldInternalProps,
   IFieldInternalState,
   IMaskedTextInputPureComponent,
@@ -132,6 +141,50 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
         || this.refs.input as HTMLInputElement;
   }
 
+  protected getComponent(): JSX.Element {
+    return <input {...this.getComponentProps()}/>;
+  }
+
+  protected getComponentProps(): IFieldInputProps {
+    const props = this.props;
+    const autoFocus = props.autoFocus;
+    const name = props.name;
+    const type = props.type || 'text';
+    const autoComplete = props.autoComplete || 'new-password';
+    const readOnly = props.readOnly;
+    const pattern = this.getFieldPattern();
+    const required = props.required;
+    const minLength = props.minLength;
+    const maxLength = props.maxLength;
+    const onFocus = this.onFocus;
+    const onBlur = this.onBlur;
+    const onClick = this.isDeactivated() ? noop : this.onClick;
+    const onChange = this.onChange;
+    const onKeyDown = this.onKeyDown;
+    const onKeyUp = this.onKeyUp;
+    return {
+      name, type, autoFocus, readOnly, pattern, required, minLength, maxLength,
+      onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
+      ref: 'input',
+      value: this.toDisplayValue(),
+      className: this.uiFactory.textFieldInput,
+      placeholder: props.placeholder ? this.t(props.placeholder) : null,
+    };
+  }
+
+  protected toDisplayValue(): AnyT {
+    const props = this.props;
+    const value = this.value;
+
+    return this.isValuePresent
+        ? (isUndef(props.displayValue)
+            ? value
+            : (isFn(props.displayValue)
+                ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
+                : props.displayValue))
+        : this.getEmptyDisplayValue();
+  }
+
   protected onFocus(event: FocusEventT): void {
     if (this.props.onFocus) {
       this.props.onFocus(event);
@@ -228,7 +281,19 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return this.props.disabled || this.props.readOnly;
   }
 
+  protected getFieldMask(): Array<string|RegExp> {
+    return this.props.mask;
+  }
+
+  protected getFieldPattern(): string {
+    return this.props.pattern;
+  }
+
   protected getEmptyValue(): AnyT {
+    return Field.EMPTY_VALUE;
+  }
+
+  protected getEmptyDisplayValue(): AnyT {
     return Field.EMPTY_VALUE;
   }
 

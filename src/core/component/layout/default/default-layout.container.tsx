@@ -53,7 +53,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <NavigationList items={menu}/>
           </PersistentDrawer>
           <div className='app-content app-column-flex app-full-layout'>
-            <header className='app-header mdc-toolbar'>
+            <header className='rac-header app-header mdc-toolbar'>
               <div className='mdc-toolbar__row'>
                 <section className={toClassName(
                                         'mdc-toolbar__section',

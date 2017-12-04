@@ -11,6 +11,10 @@ export class UIMaterialFactory implements IUIFactory {
   public listItem = 'mdc-list-item';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
+  public formField = 'mdc-form-field';
+  public checkbox = 'mdc-checkbox';
+  public textFieldInput = 'mdc-text-field__input';
+  public checkboxInput = 'mdc-checkbox__native-control';
 
   public makeIcon(cfg: IIconConfig|string): JSX.Element {
     if (!cfg) {
@@ -36,5 +40,20 @@ export class UIMaterialFactory implements IUIFactory {
               {config.type}
             </i>
         );
+  }
+
+  public makeCheckboxAttachment(): JSX.Element {
+    return (
+        <div className='mdc-checkbox__background'>
+          <svg className='mdc-checkbox__checkmark'
+               viewBox='0 0 24 24'>
+            <path className='mdc-checkbox__checkmark__path'
+                  fill='none'
+                  stroke='white'
+                  d='M1.73,12.91 8.1,19.28 22.79,4.59'/>
+          </svg>
+          <div className='mdc-checkbox__mixedmark'/>
+        </div>
+    );
   }
 }

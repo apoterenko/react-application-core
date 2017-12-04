@@ -13,5 +13,10 @@ export interface IUIFactory {
   listDivider: string;
   listItem: string;
   list: string;
+  formField: string;
+  checkbox: string;
+  textFieldInput: string;
+  checkboxInput: string;
   makeIcon(config: IIconConfig|string): JSX.Element;
+  makeCheckboxAttachment(): JSX.Element;
 }

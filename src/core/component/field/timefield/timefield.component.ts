@@ -1,5 +1,4 @@
 import { BasicTextField } from '../textfield';
-import { IKeyValue } from '../../../definition.interface';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
   ITimeField,
@@ -16,21 +15,12 @@ export class TimeField extends BasicTextField<TimeField,
     clearAction: false,
   };
 
-  protected getComponentProps(): IKeyValue {
-    return {
-      ...super.getComponentProps(),
-
-      mask: this.fieldMask,
-      pattern: this.fieldPattern,
-    };
+  protected getFieldMask(): Array<string|RegExp> {
+    return super.getFieldMask() || this.dateTimeSettings.uiTimeMask;
   }
 
-  private get fieldMask(): Array<string|RegExp> {
-    return this.props.mask || this.dateTimeSettings.uiTimeMask;
-  }
-
-  private get fieldPattern(): string {
-    return this.props.pattern || this.dateTimeSettings.uiTimePattern;
+  protected getFieldPattern(): string {
+    return super.getFieldPattern() || this.dateTimeSettings.uiTimePattern;
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {

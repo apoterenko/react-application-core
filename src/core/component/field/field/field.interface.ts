@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PureComponent, InputHTMLAttributes, ClassAttributes } from 'react';
 
 import {
   AnyT,
@@ -17,7 +17,10 @@ import {
   IDisplayable,
   ILabelable,
   IPlaceholderable,
-  IDisplayValueable, ChangeEventT,
+  IDisplayValueable,
+  ChangeEventT,
+  IMaskable,
+  IErrorable,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
@@ -33,10 +36,10 @@ export interface IKeyboardHandlers {
 
 export interface IFieldOptions extends ILabelable,
                                        IDisplayable,
+                                       IMaskable,
                                        ITypeable<string>,
                                        IPlaceholderable {
   pattern?: string;
-  mask?: Array<string|RegExp>;
   prefixLabel?: string;
 }
 
@@ -69,8 +72,11 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
   onClick?(event: BasicEventT): void;
 }
 
-export interface IFieldInternalState {
-  error?: string;
+export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
+                                          ClassAttributes<{}> {
+}
+
+export interface IFieldInternalState extends IErrorable<string> {
   stateValue?: AnyT;
 }
 

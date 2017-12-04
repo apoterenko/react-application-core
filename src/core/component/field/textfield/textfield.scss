@@ -1,9 +1,3 @@
-.app-text-field-wrapper,
-  .app-text-field-input-wrapper,
-  .app-text-field {
-  width: 100%;
-}
-
 .app-text-field-deactivated .app-text-field-prefix {
   opacity: .6;
 }
@@ -17,20 +11,4 @@
   bottom: 8px;
   left: 50%;
   color: rgba(black, .6);
-}
-
-.app-text-field-wrapper {
-
-  .app-text-field {
-    border-bottom: 1px solid rgba(black, .6);
-
-    .mdc-text-field__input {
-      padding-top: 10px;
-      border-bottom: none;          // Replace with app-text-field:border-bottom
-
-      &[readonly], &[disabled] {
-        opacity: .6;
-      }
-    }
-  }
 }

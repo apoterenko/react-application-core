@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { IKeyValue } from '../../../definition.interface';
-import { Field } from '../../../component/field';
-
+import { BasicEventT } from '../../../definition.interface';
+import { Field, IFieldInputProps } from '../../../component/field';
+import { toClassName, uuid } from '../../../util';
 import {
   ICheckboxInternalState,
   ICheckboxInternalProps,
@@ -12,50 +12,45 @@ export class Checkbox extends Field<Checkbox,
                                     ICheckboxInternalProps,
                                     ICheckboxInternalState> {
 
-  public render() {
+  public render(): JSX.Element {
     const props = this.props;
-    const className = ['mdc-checkbox', props.className];
+    const id = uuid();
 
     return (
-        <div className='mdc-form-field app-checkbox-wrapper'
-             style={{...props.wrapperStyle as {}}}>
+        <div className={toClassName(this.uiFactory.formField, 'rac-checkbox-field')}>
           <div ref='self'
-               className={className.filter((cls) => !!cls).join(' ')}>
-            <input {...this.getComponentProps()}/>
-            <div className='mdc-checkbox__background'>
-              <svg className='mdc-checkbox__checkmark'
-                   viewBox='0 0 24 24'>
-                <path className='mdc-checkbox__checkmark__path'
-                      fill='none'
-                      stroke='white'
-                      d='M1.73,12.91 8.1,19.28 22.79,4.59'/>
-              </svg>
-              <div className='mdc-checkbox__mixedmark'>
-              </div>
-            </div>
+               className={toClassName(this.uiFactory.checkbox, props.className)}>
+            <input id={id} {...this.getComponentProps()}/>
+            {this.uiFactory.makeCheckboxAttachment()}
           </div>
-          <label>
+          <label htmlFor={id}>
             {props.label ? this.t(props.label) : props.children}
           </label>
         </div>
     );
   }
 
-  protected getComponentProps(): IKeyValue {
-    // TODO
-    const props = this.props;
+  protected getComponentProps(): IFieldInputProps {
     return {
-      ref: 'input',
+      ...super.getComponentProps(),
+
       type: 'checkbox',
-      name: props.name,
-      checked: this.value,
-      className: 'mdc-checkbox__native-control',
-      required: props.required,
-      onChange: this.onChange,
+      checked: this.toDisplayValue(),
+      className: this.uiFactory.checkboxInput,
     };
+  }
+
+  protected onClick(event: BasicEventT): void {
+    if (this.props.onClick) {
+      this.props.onClick(event);
+    }
   }
 
   protected getEmptyValue(): boolean {
     return false;
+  }
+
+  protected getEmptyDisplayValue(): boolean {
+    return this.getEmptyValue();
   }
 }

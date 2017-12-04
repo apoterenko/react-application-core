@@ -2,10 +2,8 @@ import * as React from 'react';
 import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
-import { isFn, isUndef, noop, orNull, toClassName } from '../../../util';
-import {
-  AnyT, IKeyValue, BasicEventT, IDisplayableConverter
-} from '../../../definition.interface';
+import { orNull, toClassName } from '../../../util';
+import { BasicEventT } from '../../../definition.interface';
 import { Field, IField } from '../field';
 import {
   IBasicTextFieldInternalState,
@@ -24,7 +22,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     implements IBasicTextField<TInternalProps, TInternalState> {
 
   private static CHAR_WIDTH_AT_PX = 10;
-  private static EMPTY_DISPLAY_VALUE = '';
 
   protected defaultActions: IBasicTextFieldAction[] = [];
 
@@ -46,13 +43,14 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         : (styles) => styles;
 
     return (
-        <div className='app-text-field-wrapper'
-             style={prepareStyles({...props.wrapperStyle as {}})}>
+        <div className={this.uiFactory.formField}
+             style={prepareStyles({})}>
           <div ref='self'
                style={props.style}
                className={toClassName(
                    'mdc-text-field',
                    'mdc-text-field--upgraded',
+                   'rac-text-field',
                    'app-text-field',
                    props.className,
                    this.isDeactivated && 'app-text-field-deactivated',
@@ -107,57 +105,17 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     );
   }
 
-  protected getComponentProps(): IKeyValue {
-    const props = this.props;
-    const autoFocus = props.autoFocus;
-    const name = props.name;
-    const type = props.type || 'text';
-    const autoComplete = props.autoComplete || 'new-password';
-    const readOnly = props.readOnly;
-    const mask = props.mask;
-    const pattern = props.pattern;
-    const required = props.required;
-    const minLength = props.minLength;
-    const maxLength = props.maxLength;
-    const onFocus = this.onFocus;
-    const onBlur = this.onBlur;
-    const onClick = this.isDeactivated() ? noop : this.onClick;
-    const onChange = this.onChange;
-    const onKeyDown = this.onKeyDown;
-    const onKeyUp = this.onKeyUp;
-    return {
-      name, type, autoFocus, readOnly, mask, pattern, required, minLength, maxLength,
-      onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
-      ref: 'input',
-      value: this.toDisplayValue(),
-      className: 'mdc-text-field__input',
-      placeholder: props.placeholder ? this.t(props.placeholder) : null,
-    };
-  }
-
   protected getComponent(): JSX.Element {
-    const componentProps = this.getComponentProps();
-    return componentProps.mask
+    const mask = this.getFieldMask();
+    return !R.isNil(mask)
         ? <MaskedTextInput guide={false}
-                           {...componentProps}/>
-        : <input {...componentProps}/>;
+                           mask={mask}
+                           {...this.getComponentProps()}/>
+        : super.getComponent();
   }
 
   protected getAttachment(): JSX.Element {
     return null;
-  }
-
-  protected toDisplayValue(): AnyT {
-    const props = this.props;
-    const value = this.value;
-
-    return this.isValuePresent
-        ? (isUndef(props.displayValue)
-            ? value
-            : (isFn(props.displayValue)
-                ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
-                : props.displayValue))
-        : BasicTextField.EMPTY_DISPLAY_VALUE;
   }
 
   protected get isLoaderShowed(): boolean {

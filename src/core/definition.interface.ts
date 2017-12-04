@@ -129,6 +129,10 @@ export interface ITypeable<Type> {
   type?: Type;
 }
 
+export interface IMaskable {
+  mask?: Array<string|RegExp>;
+}
+
 export interface ITitleable {
   title?: string;
 }

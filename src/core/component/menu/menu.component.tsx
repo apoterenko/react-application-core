@@ -72,7 +72,7 @@ export class Menu extends MaterialComponent<Menu,
     return (
         <div className='mdc-menu-anchor'>
           <div ref='self'
-               className='mdc-simple-menu app-menu'>
+               className='mdc-simple-menu app-menu rac-menu'>
             {orNull(
                 props.useFilter,
                 <TextField ref='field'
