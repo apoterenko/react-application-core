@@ -28,20 +28,21 @@ export class UIMaterialFactory implements IUIFactory {
       return null;
     }
     const config = (isString(cfg) ? { type: cfg } : cfg) as IButtonInternalProps;
+    const className = toClassName('material-icons', config.className);
     return config.onClick
         ? (
             <Button key={uuid()}
                     noClassName={true}
                     disabled={config.disabled}
                     onClick={config.onClick}
-                    className={toClassName('material-icons', config.className)}>
+                    className={className}>
               {config.type}
             </Button>
         )
         : (
             <i key={uuid()}
                title={config.title}
-               className={toClassName('material-icons', config.className)}>
+               className={className}>
               {config.type}
             </i>
         );

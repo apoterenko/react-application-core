@@ -4,6 +4,7 @@ import { Store } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
+import './component/component.scss';
 import { appContainer, DI_TYPES } from './di';
 import { PROD_MODE } from './env';
 import {
@@ -15,8 +16,6 @@ import { ApplicationStateT } from './store';
 import { IApplicationDictionariesState } from './dictionary';
 import { IApplicationPermissionsState } from './permission';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
-
-require('./component/component.scss');
 
 export function bootstrap(
     applicationContainer: IContainerBootstrapCtor<ApplicationContainer<ApplicationStateT, IApplicationDictionariesState, IApplicationPermissionsState<{}>, {}, {}>,

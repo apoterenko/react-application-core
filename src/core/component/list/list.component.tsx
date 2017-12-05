@@ -163,10 +163,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
       <span>
         {
-          this.uiFactory.makeIcon({
-            type: 'timelapse',
-            className: 'rac-loading-icon',
-          })
+          this.uiFactory.makeIcon({ type: 'timelapse', className: 'rac-loading-icon' })
         }
         {
           <span className='rac-loading-message'>
