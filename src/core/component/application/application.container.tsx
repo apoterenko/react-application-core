@@ -102,10 +102,14 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
                       ? (props.progressMessage || 'Please wait...')
                       : (
                           props.error
-                              ? [
-                                this.t(props.errorMessage || 'The following error has occurred'),
-                                '"' + props.error + '"'
-                              ].join(' ')
+                              ? (
+                                  props.customError
+                                      ? props.error
+                                      : [
+                                        this.t(props.errorMessage || 'The following error has occurred'),
+                                        '"' + props.error.toLowerCase() + '"'
+                                      ].join(' ')
+                              )
                               : props.emptyMessage || 'The application is not ready.'
                       )
                 }/>

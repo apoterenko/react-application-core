@@ -17,10 +17,12 @@ export function applicationReadyReducer(state: IApplicationReadyState = INITIAL_
         progress: true,
         error: null,
       };
+    case ApplicationActionBuilder.buildCustomErrorActionType():
     case ApplicationActionBuilder.buildPrepareErrorActionType():
     case ApplicationActionBuilder.buildPrepareAfterErrorActionType():
       return {
         ...state,
+        customError: action.type === ApplicationActionBuilder.buildCustomErrorActionType(),
         progress: false,
         error: convertError(action.error).message,
       };

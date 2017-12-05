@@ -11,11 +11,6 @@ $mdc-theme-background: $color-5;
 @import './field/field';
 
 
-// TODO
-.mdc-snackbar--error {
-  color: #d50000;
-}
-
 .mdc-button.mdc-button--accent {
   @include mdc-button-container-fill-color($mdc-theme-accent);
 }

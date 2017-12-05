@@ -28,6 +28,7 @@ export const INITIAL_APPLICATION_READY_STATE: IApplicationReadyState = {
 
 export const APPLICATION_SECTIONS: Map<string, ConnectorConfigT> = new Map<string, ConnectorConfigT>();
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
+export const APPLICATION_CUSTOM_ERROR_ACTION_TYPE = 'custom.error';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';
 export const APPLICATION_PREPARE_ERROR_ACTION_TYPE = `${APPLICATION_PREPARE_ACTION_TYPE}.error`;
 export const APPLICATION_PREPARE_AFTER_ACTION_TYPE = `${APPLICATION_PREPARE_ACTION_TYPE}.after`;

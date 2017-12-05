@@ -13,9 +13,14 @@ import {
   APPLICATION_PREPARE_ERROR_ACTION_TYPE,
   APPLICATION_PREPARE_AFTER_ACTION_TYPE,
   APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE,
+  APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
+
+  public static buildCustomErrorAction(error: string): IEffectsAction {
+    return EffectsAction.create(this.buildCustomErrorActionType()).setError(error);
+  }
 
   public static buildPrepareAction(): IEffectsAction {
     return EffectsAction.create(this.buildPrepareActionType());
@@ -79,6 +84,10 @@ export class ApplicationActionBuilder {
 
   public static buildInitActionType(): string {
     return `${APPLICATION_SECTION}.${APPLICATION_INIT_ACTION_TYPE}`;
+  }
+
+  public static buildCustomErrorActionType(): string {
+    return `${APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
   }
 
   public static buildLogoutActionType(): string {

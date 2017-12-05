@@ -112,6 +112,7 @@ export interface ISelectable<Type> {
 
 export interface IErrorable<Type> {
   error?: Type;
+  customError?: boolean;
 }
 
 export interface IInfoable<Type> {

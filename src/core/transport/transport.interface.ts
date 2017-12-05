@@ -1,3 +1,5 @@
+import { IEffectsAction } from 'redux-effects-promise';
+
 import { AnyT, IKeyValue, IOperationable, IErrorable } from '../definition.interface';
 
 export interface IApplicationTransportState {
@@ -73,9 +75,15 @@ export interface ITransportRawResponseData extends ITransportResultPayload,
   Message?: string;
 }
 
+export interface ITransportRawErrorResponse {
+  statusText?: string;
+  status?: number;
+}
+
 export interface ITransportRawResponseError {
   code: number;
   message: string;
+  response?: ITransportRawErrorResponse;
   data?: IKeyValue;
 }
 
@@ -98,6 +106,10 @@ export interface ITransportRequest extends ITransportNamedPayload,
 export interface IApplicationTransportPayloadAnalyzer {
   isAuthErrorPayload(payload: ITransportErrorPayload): boolean;
   toToken(payload: ITransportErrorPayload): string;
+}
+
+export interface IApplicationTransportErrorInterceptor {
+  intercept(payload: ITransportErrorPayload): IEffectsAction[]|IEffectsAction;
 }
 
 export const TRANSPORT_REQUEST_ACTION_TYPE = 'transport.request';

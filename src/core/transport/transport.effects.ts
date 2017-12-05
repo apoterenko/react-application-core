@@ -5,6 +5,7 @@ import { BaseEffects } from '../store';
 import { IRoutes } from '../router';
 import {
   IApplicationTransportPayloadAnalyzer,
+  IApplicationTransportErrorInterceptor,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
@@ -16,6 +17,8 @@ export class TransportEffects extends BaseEffects<{}> {
 
   @lazyInject(DI_TYPES.TransportPayloadAnalyzer)
   private transportPayloadAnalyzer: IApplicationTransportPayloadAnalyzer;
+  @lazyInject(DI_TYPES.TransportErrorInterceptor)
+  private transportErrorInterceptor: IApplicationTransportErrorInterceptor;
   @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
 
   @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
@@ -29,7 +32,7 @@ export class TransportEffects extends BaseEffects<{}> {
   }
 
   @EffectsService.effects(TRANSPORT_REQUEST_ERROR_ACTION_TYPE)
-  public onTransportRequestError(action: IEffectsAction): IEffectsAction[] {
+  public onTransportRequestError(action: IEffectsAction): IEffectsAction[]|IEffectsAction {
     const data: ITransportResponsePayload = action.data;
     if (this.transportPayloadAnalyzer.isAuthErrorPayload(data)) {
       return [
@@ -37,6 +40,6 @@ export class TransportEffects extends BaseEffects<{}> {
         this.buildRouterNavigateAction(this.routes.logout)
       ];
     }
-    return null;
+    return this.transportErrorInterceptor.intercept(data);
   }
 }

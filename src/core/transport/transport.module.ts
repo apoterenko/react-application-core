@@ -4,7 +4,9 @@ import './transport.effects';
 import { TransportFactory } from './transport.factory';
 import { TransportService } from './transport.service';
 import { TransportPayloadAnalyzer } from './transport-payload.analyzer';
+import { TransportErrorInterceptor } from './transport-error.interceptor';
 
 appContainer.bind(DI_TYPES.TransportFactory).to(TransportFactory).inSingletonScope();
 appContainer.bind(DI_TYPES.Transport).to(TransportService).inSingletonScope();
 appContainer.bind(DI_TYPES.TransportPayloadAnalyzer).to(TransportPayloadAnalyzer).inSingletonScope();
+appContainer.bind(DI_TYPES.TransportErrorInterceptor).to(TransportErrorInterceptor).inSingletonScope();
