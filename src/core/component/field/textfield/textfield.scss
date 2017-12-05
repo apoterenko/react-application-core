@@ -1,14 +1,16 @@
+@import '../../constant';
+
 .app-text-field-deactivated .app-text-field-prefix {
   opacity: .6;
 }
 
 .app-text-field-prefix {
-  padding: 0 0 8px;
+  padding: 0 0 6px;
 }
 
-.app-text-field-loader {
+.rac-text-field-loader {
   position: absolute;
-  bottom: 8px;
+  bottom: 6px;
   left: 50%;
-  color: rgba(black, .6);
+  color: $color-2;
 }

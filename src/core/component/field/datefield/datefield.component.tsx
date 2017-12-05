@@ -78,7 +78,7 @@ export class DateField extends BasicTextField<DateField,
   protected getComponent(): JSX.Element {
     const props = this.props;
     return (
-        <div className='rac-text-field-input-wrapper'>
+        <div className='rac-field-input-wrapper'>
           {super.getComponent()}
           <DatePickerDialog ref='dialogWindow'
                             autoOk={props.autoOk}

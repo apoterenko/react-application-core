@@ -1,0 +1,19 @@
+@import './constant';
+
+.rac-loading-message {
+  vertical-align: middle;
+}
+
+.rac-filter-active {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    font-size: 12px;
+    content: 'lens';
+    font-weight: bold;
+    left: 28px;
+    top: 16px;
+    color: $color-1;
+  }
+}

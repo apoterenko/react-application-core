@@ -1,5 +1,6 @@
 import { MDCTextField } from '@material/textfield';
 
+import './material.scss';
 import { appContainer, DI_TYPES } from '../../di';
 import {
   Checkbox,

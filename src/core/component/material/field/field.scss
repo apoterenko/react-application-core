@@ -1,52 +1,60 @@
 @import '~sass-flex-mixin/_flex';
 @import '../../constant';
 
-.mdc-form-field,
-  .mdc-form-field .mdc-text-field,
-  .rac-text-field-input-wrapper {
+// Field [MDC+]
+.rac-form-field {
   width: 100%;
-}
-
-.rac-text-field {
-  &.mdc-text-field {
-    border-bottom: 1px solid $color-2;
-
-    .mdc-text-field__input {
-      padding-top: 10px;
-      border-bottom: none;        // Replaced with rac-text-field:border-bottom
-
-      &[readonly], &[disabled] {
-        opacity: $opacity;
-      }
-    }
-  }
-}
-
-.rac-header .rac-text-field {
-  &.mdc-text-field {
-    border-color: $color-4;
-  }
-}
-
-.rac-form {
-  .mdc-form-field {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-
-    &.rac-checkbox-field {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-}
-
-.rac-menu .mdc-form-field {
-  @include flex-direction(row);
 
   .rac-text-field {
-    @include flex;
-    margin: 0 16px 8px;
+    width: 100%;
+    border-bottom: 1px solid $color-2;
+
+    .rac-field-input {
+      border-bottom: none;
+    }
+
+    + .rac-text-field-help-text {
+      margin-bottom: 0;
+    }
+  }
+
+  .rac-field-input-wrapper {
+    width: 100%;
+  }
+}
+
+// Header field  [MDC+]
+.rac-header {
+  .rac-form-field {
+    .rac-text-field {
+      border-color: $color-4;
+    }
+  }
+}
+
+// Form field  [MDC+]
+.rac-form {
+  .rac-form-field {
+    @include flexbox;
+    @include flex-direction(column);
+    @include justify-content(start);
+    @include align-items(flex-start);
+
+    &.rac-checkbox-field {
+      @include flex-direction(row);
+      @include align-items(center);
+    }
+  }
+}
+
+// Menu field  [MDC+]
+.rac-menu {
+  .rac-form-field {
+    @include flex-direction(row);
+
+    .rac-text-field {
+      @include flex;
+      margin: 0 16px 16px;
+    }
   }
 }

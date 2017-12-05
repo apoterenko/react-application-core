@@ -11,18 +11,12 @@ import {
   ApplicationContainer,
   IApplicationContainerProps
 } from './component/application';
-import { ApplicationStateT, IApplicationState } from './store';
+import { ApplicationStateT } from './store';
 import { IApplicationDictionariesState } from './dictionary';
 import { IApplicationPermissionsState } from './permission';
+import { IContainerBootstrapCtor } from './bootstrap.interface';
 
-export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<TAppState, TDictionariesState, TPermissionsState, TPermissions, TPermissionObject>,
-                                         TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-                                         TDictionariesState extends IApplicationDictionariesState,
-                                         TPermissionsState extends IApplicationPermissionsState<TPermissions>,
-                                         TPermissions,
-                                         TPermissionObject> {
-  new (...args): TContainer;
-}
+require('./component/component.scss');
 
 export function bootstrap(
     applicationContainer: IContainerBootstrapCtor<ApplicationContainer<ApplicationStateT, IApplicationDictionariesState, IApplicationPermissionsState<{}>, {}, {}>,

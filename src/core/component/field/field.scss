@@ -1,3 +1,14 @@
 @import './textfield/textfield';
 @import './select/select';
 @import './chipsfield/chipsfield';
+
+// Field
+.rac-form-field {
+  .rac-text-field {
+    .rac-field-input {
+      &[readonly], &[disabled] {
+        opacity: $opacity;
+      }
+    }
+  }
+}

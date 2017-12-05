@@ -14,6 +14,11 @@ export class UIMaterialFactory implements IUIFactory {
   public formField = 'mdc-form-field';
   public checkbox = 'mdc-checkbox';
   public textFieldInput = 'mdc-text-field__input';
+  public textFieldFocused = 'mdc-text-field--focused';
+  public textFieldHelpText = 'mdc-text-field-helptext';
+  public textFieldValidationText = 'mdc-text-field-helptext--validation-msg';
+  public textFieldLabel = 'mdc-text-field__label';
+  public textFieldFocusedLabel = 'mdc-text-field__label--float-above';
   public checkboxInput = 'mdc-checkbox__native-control';
 
   public makeIcon(cfg: IIconConfig|string): JSX.Element {

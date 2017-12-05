@@ -17,7 +17,7 @@ export class Checkbox extends Field<Checkbox,
     const id = uuid();
 
     return (
-        <div className={toClassName(this.uiFactory.formField, 'rac-checkbox-field')}>
+        <div className={toClassName(this.uiFactory.formField, 'rac-form-field', 'rac-checkbox-field')}>
           <div ref='self'
                className={toClassName(this.uiFactory.checkbox, props.className)}>
             <input id={id} {...this.getComponentProps()}/>

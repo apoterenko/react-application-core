@@ -16,6 +16,11 @@ export interface IUIFactory {
   formField: string;
   checkbox: string;
   textFieldInput: string;
+  textFieldFocused: string;
+  textFieldHelpText: string;
+  textFieldValidationText: string;
+  textFieldLabel: string;
+  textFieldFocusedLabel: string;
   checkboxInput: string;
   makeIcon(config: IIconConfig|string): JSX.Element;
   makeCheckboxAttachment(): JSX.Element;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { lazyInject, DI_TYPES } from '../../../di';
-import { isFn, isUndef, noop } from '../../../util';
+import { isFn, isUndef, noop, toClassName } from '../../../util';
 import { IApplicationSettings } from '../../../settings';
 import {
   AnyT,
@@ -167,7 +167,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       value: this.toDisplayValue(),
-      className: this.uiFactory.textFieldInput,
+      className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
     };
   }

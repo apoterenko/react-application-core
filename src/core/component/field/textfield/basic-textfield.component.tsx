@@ -43,7 +43,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         : (styles) => styles;
 
     return (
-        <div className={this.uiFactory.formField}
+        <div className={toClassName(this.uiFactory.formField, 'rac-form-field')}
              style={prepareStyles({})}>
           <div ref='self'
                style={props.style}
@@ -53,8 +53,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                    'rac-text-field',
                    'app-text-field',
                    props.className,
-                   this.isDeactivated && 'app-text-field-deactivated',
-                   isFocused && 'mdc-text-field--focused',
+                   this.isDeactivated() && 'app-text-field-deactivated',
+                   isFocused && this.uiFactory.textFieldFocused,
                    props.prefixLabel && 'app-text-field-prefixed'
                    )}>
             {orNull(
@@ -65,9 +65,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             <label style={{paddingLeft: props.prefixLabel
                   ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
                   : undefined}}
-                   className={
-                     toClassName('mdc-text-field__label', isFocused && 'mdc-text-field__label--float-above')
-                   }>
+                   className={toClassName(
+                       this.uiFactory.textFieldLabel,
+                       isFocused && this.uiFactory.textFieldFocusedLabel
+                   )}>
               {props.label ? this.t(props.label) : props.children}
             </label>
             {orNull(
@@ -91,7 +92,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 this.isLoaderShowed,
                 this.uiFactory.makeIcon({
                   type: 'timelapse',
-                  classes: ['app-text-field-loader'],
+                  classes: ['rac-text-field-loader'],
                 })
             )}
           </div>
@@ -149,9 +150,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return m || required ? (
         <p title={m}
            className={toClassName(
-               'mdc-text-field-helptext',
-               'mdc-text-field-helptext--persistent',
-               required && 'mdc-text-field-helptext--validation-msg'
+               'rac-text-field-help-text',
+               this.uiFactory.textFieldHelpText,
+               required && this.uiFactory.textFieldValidationText,
            )}>
           {m ? this.t(m) : '\u00a0'}
         </p>

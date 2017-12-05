@@ -89,7 +89,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   protected getComponent(): JSX.Element {
     return (
-        <div className='rac-text-field-input-wrapper'>
+        <div className='rac-field-input-wrapper'>
           {super.getComponent()}
           <Menu ref='menu'
                 useFilter={this.props.useFilter}

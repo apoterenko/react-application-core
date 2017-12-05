@@ -21,9 +21,11 @@
 
 .rac-list-empty, .rac-list {
   .rac-list-add-action {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background-color: $color-3;
+    &.rac-material-icon {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: $color-3;
+    }
   }
 }
