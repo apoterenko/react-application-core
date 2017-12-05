@@ -76,7 +76,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 this.actions.map((action) => this.uiFactory.makeIcon({
                   type: action.type,
                   title: action.title && this.t(action.title),
-                  classes: ['rac-action', action.className],
+                  className: action.className,
                   disabled: R.isNil(action.disabled)
                       ? this.isDeactivated()
                       : action.disabled,
@@ -92,7 +92,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 this.isLoaderShowed,
                 this.uiFactory.makeIcon({
                   type: 'timelapse',
-                  classes: ['rac-text-field-loader'],
+                  className: 'rac-text-field-loader',
                 })
             )}
           </div>

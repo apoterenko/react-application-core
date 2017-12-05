@@ -75,8 +75,8 @@ export class ChipsField extends BasicSelect<ChipsField,
         <div>
           {this.getActiveValue().map((item) =>
             <div key={uuid()}
-                 className='app-chipsfield rac-chipsfield'>
-              <span className='app-chipsfield-description'>
+                 className='rac-chips-field'>
+              <span className='rac-chips-field-description'>
                 {this.toChipsDisplayValue(item)}
               </span>
               {

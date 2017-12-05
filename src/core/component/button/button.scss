@@ -1,0 +1,20 @@
+@import '../constant';
+
+// Button [FRAMEWORK-]
+.rac-button {
+  border-radius: 2px;
+}
+
+// Field button [FRAMEWORK-]
+.rac-text-field, .rac-chips-field {
+  .rac-button {
+    border-style: none;
+    background: none;
+    cursor: pointer;
+
+    &[disabled] {
+      opacity: $opacity;
+      cursor: default;
+    }
+  }
+}

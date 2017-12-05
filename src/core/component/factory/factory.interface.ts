@@ -1,18 +1,11 @@
-import { BasicEventT } from '../../definition.interface';
-
-export interface IIconConfig {
-  type: string;
-  disabled?: boolean;
-  title?: string;
-  classes?: string[];
-  onClick?(event: BasicEventT): void;
-}
+import { IButtonInternalProps } from '../../component/button';
 
 export interface IUIFactory {
   listGroupSubHeader: string;
   listDivider: string;
   listItem: string;
   list: string;
+  button: string;
   formField: string;
   checkbox: string;
   textFieldInput: string;
@@ -22,6 +15,6 @@ export interface IUIFactory {
   textFieldLabel: string;
   textFieldFocusedLabel: string;
   checkboxInput: string;
-  makeIcon(config: IIconConfig|string): JSX.Element;
+  makeIcon(config: IButtonInternalProps|string): JSX.Element;
   makeCheckboxAttachment(): JSX.Element;
 }

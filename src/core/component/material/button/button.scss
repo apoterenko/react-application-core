@@ -1,3 +1,43 @@
-.mdc-button {
-  border-radius: 2px;
+@import '../../constant';
+
+// Field button [MDC+]
+.rac-text-field {
+  .rac-button {
+    padding-bottom: 4px;
+    padding-right: 0;
+  }
+}
+
+// Chips field button [MDC+]
+.rac-chips-field {
+  .rac-button {
+    padding: 0 0 0 2px;
+  }
+}
+
+// Header field button [MDC+]
+.rac-header {
+  .rac-text-field {
+    .rac-button {
+      padding-top: 12px;
+    }
+  }
+}
+
+// Button icon [MDC+]
+.rac-button {
+  .material-icons {
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+}
+
+// List add button [MDC+]
+.rac-list, .rac-list-empty {
+  .rac-list-add-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: $color-3;
+  }
 }

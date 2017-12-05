@@ -2,12 +2,14 @@ import * as React from 'react';
 import { injectable } from 'inversify';
 
 import { isString, toClassName, uuid } from '../../../util';
-import { IUIFactory, IIconConfig } from '../../factory';
+import { IUIFactory } from '../../factory';
+import { Button, IButtonInternalProps } from '../../../component/button';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
 
   public list = 'mdc-list';
+  public button = 'mdc-button';
   public listItem = 'mdc-list-item';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
@@ -21,27 +23,25 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldFocusedLabel = 'mdc-text-field__label--float-above';
   public checkboxInput = 'mdc-checkbox__native-control';
 
-  public makeIcon(cfg: IIconConfig|string): JSX.Element {
+  public makeIcon(cfg: IButtonInternalProps|string): JSX.Element {
     if (!cfg) {
       return null;
     }
-    const config = isString(cfg) ? { type: cfg } as IIconConfig : cfg as IIconConfig;
+    const config = (isString(cfg) ? { type: cfg } : cfg) as IButtonInternalProps;
     return config.onClick
         ? (
-            <button key={uuid()}
+            <Button key={uuid()}
+                    noClassName={true}
                     disabled={config.disabled}
-                    title={config.title}
-                    className={
-                      toClassName('material-icons', 'rac-material-icon', ...config.classes)
-                    }
-                    onClick={config.onClick}>
+                    onClick={config.onClick}
+                    className={toClassName('material-icons', config.className)}>
               {config.type}
-            </button>
+            </Button>
         )
         : (
             <i key={uuid()}
                title={config.title}
-               className={toClassName('material-icons', ...config.classes)}>
+               className={toClassName('material-icons', config.className)}>
               {config.type}
             </i>
         );

@@ -1,5 +1,6 @@
 @import '../../constant';
 
+// Icons [MDC+]
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -22,41 +23,7 @@
   font-feature-settings: 'liga';
 }
 
-.rac-material-icon {
-  &.material-icons {
-    border-style: none;
-    background: none;
-    cursor: pointer;
-
-    &[disabled] {
-      opacity: $opacity;
-      cursor: default;
-    }
-  }
-}
-
-.rac-action {
-  &.material-icons {
-    padding: 0 0 6px;
-  }
-}
-
-.mdc-toolbar .rac-action {
-  &.material-icons {
-    padding-top: 8px;
-    padding-bottom: 0;
-  }
-}
-
-.rac-chipsfield .material-icons {
-  padding: 0 0 0 2px;
-}
-
-.rac-button .material-icons {
-  margin-right: 4px;
-}
-
-.rac-button .material-icons, .rac-loading-icon {
+.rac-loading-icon {
   vertical-align: middle;
 }
 

@@ -79,7 +79,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
               {
                 this.uiFactory.makeIcon({
                   type: props.searchIcon,
-                  classes: ['mdc-toolbar__icon'],
+                  className: 'mdc-toolbar__icon',
                   onClick: this.onActivate,
                 })
               }
@@ -92,7 +92,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                       this.actions.map((action) => (
                           this.uiFactory.makeIcon({
                             type: action.type,
-                            classes: ['mdc-toolbar__icon', action.className],
+                            className: toClassName('mdc-toolbar__icon', action.className),
                             onClick: action.actionHandler,
                           })
                       ))

@@ -113,7 +113,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         this.props.addAction,
         this.uiFactory.makeIcon({
           type: 'add',
-          classes: ['rac-list-add-action', 'mdc-fab'],
+          className: toClassName('rac-list-add-button', 'mdc-fab'),
           onClick: this.onCreate,
         })
     );
@@ -165,7 +165,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         {
           this.uiFactory.makeIcon({
             type: 'timelapse',
-            classes: ['rac-loading-icon'],
+            className: 'rac-loading-icon',
           })
         }
         {

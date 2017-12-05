@@ -87,6 +87,7 @@ export interface ILoginable {
 
 export interface IStylizable {
   className?: string;
+  noClassName?: boolean;
 }
 
 export interface IProgressable {
@@ -167,6 +168,10 @@ export interface IDateTimeRangeable {
 
 export interface IRippleable {
   rippled?: boolean;
+}
+
+export interface IClickable {
+  onClick?(event: BasicEventT): void;
 }
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;

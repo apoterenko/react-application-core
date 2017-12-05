@@ -63,7 +63,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                   {
                     this.uiFactory.makeIcon({
                       type: props.navigationControlType,
-                      classes: ['mdc-toolbar__menu-icon'],
+                      className: 'mdc-toolbar__menu-icon',
                       onClick: this.onClick,
                     })
                   }
