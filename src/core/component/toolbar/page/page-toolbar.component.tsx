@@ -21,7 +21,7 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
     const isNextBtnDisabled = this.isNextBtnDisabled;
 
     return (
-        <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
+        <div className={toClassName('mdc-toolbar', 'app-toolbar', 'rac-toolbar', props.className)}>
           {
             props.contentDisplay === false
                 ? <div className='mdc-toolbar__row'/>
