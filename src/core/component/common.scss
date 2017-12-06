@@ -1,19 +1,33 @@
 @import './constant';
 
+// Focus [FRAMEWORK-]
+:focus {
+  outline: none;
+}
+
+// Fieldsetn [FRAMEWORK-]
 .rac-loading-message {
   vertical-align: middle;
 }
 
+// Fieldsetn [FRAMEWORK-]
 .rac-filter-active {
   position: relative;
 
   &::after {
     position: absolute;
-    font-size: 12px;
+    left: 27px;
+    font-size: 11px;
     content: 'lens';
     font-weight: bold;
-    left: 28px;
-    top: 16px;
     color: $color-1;
   }
+}
+
+// Fieldsetn [FRAMEWORK-]
+.rac-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 100%;
 }

@@ -9,7 +9,7 @@ $mdc-theme-background: $color-5;
 @import './list/list';
 @import './button/button';
 @import './field/field';
-
+@import './fonts';
 
 .mdc-button.mdc-button--accent {
   @include mdc-button-container-fill-color($mdc-theme-accent);

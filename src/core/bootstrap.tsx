@@ -44,11 +44,16 @@ export function bootstrap(
     );
   };
 
-  document.readyState === 'loading' ?
-      document.addEventListener('DOMContentLoaded', ready) :
-      document.body ?
-          ready() :
-          window.addEventListener('load', ready);
+  switch (document.readyState) {
+    case 'loading':
+    case 'interactive':
+      // We cannot use DOMContentLoaded because fonts loading and UI blinking
+      window.addEventListener('load', ready);
+      break;
+    case 'complete':
+      ready();
+      break;
+  }
 
   LoggerFactory.configure({
     logLevel: PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL,

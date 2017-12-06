@@ -51,7 +51,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
               onSubmit={this.onSubmit}
               className={toClassName('rac-form app-form app-column-flex app-full-layout', formOptions.className)}>
           <fieldset disabled={form.progress}
-                    className='app-form-body app-row-layout app-full-layout'>
+                    className='rac-fieldset app-form-body app-row-layout app-full-layout'>
             <section className='mdc-card__primary'>
               {
                 cloneNodes<IFieldInternalProps>(
