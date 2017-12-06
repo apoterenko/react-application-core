@@ -13,6 +13,7 @@ export interface IApplicationFilterAction extends IStylizable,
 
 export interface IApplicationFilterOptions {
   fieldActions?: IApplicationFilterAction[];
+  disabledActions?: boolean;
   searchIcon?: string;
   noSearchField?: boolean;
   searchFieldOptions?: IFieldOptions;

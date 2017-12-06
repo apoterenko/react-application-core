@@ -71,15 +71,15 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   public render(): JSX.Element {
     const props = this.props;
-
     return (
-        <div className={toClassName('mdc-toolbar', 'app-toolbar', props.className)}>
+        <div className={toClassName(this.uiFactory.toolbar, 'app-toolbar', props.className)}>
           <div className='mdc-toolbar__row'>
             <section>
               {
                 this.uiFactory.makeIcon({
                   type: props.searchIcon,
-                  className: 'mdc-toolbar__icon',
+                  className: this.uiFactory.toolbarIcon,
+                  disabled: props.disabledActions,
                   onClick: this.onActivate,
                 })
               }
@@ -89,13 +89,12 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                   props.noSearchField && props.fieldActions.length > 0,
                   <section>
                     {
-                      this.actions.map((action) => (
-                          this.uiFactory.makeIcon({
-                            type: action.type,
-                            className: toClassName('mdc-toolbar__icon', action.className),
-                            onClick: action.actionHandler,
-                          })
-                      ))
+                      this.actions.map((action) => this.uiFactory.makeIcon({
+                        type: action.type,
+                        disabled: props.disabledActions,
+                        className: toClassName(this.uiFactory.toolbarIcon, action.className),
+                        onClick: action.actionHandler,
+                      }))
                     }
                   </section>,
                   orNull(

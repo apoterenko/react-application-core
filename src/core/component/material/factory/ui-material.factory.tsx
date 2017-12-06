@@ -8,6 +8,8 @@ import { Button, IButtonInternalProps } from '../../../component/button';
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
 
+  public toolbarIcon = 'mdc-toolbar__icon';
+  public toolbar = 'mdc-toolbar';
   public list = 'mdc-list';
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';
