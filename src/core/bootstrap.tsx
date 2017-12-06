@@ -6,7 +6,7 @@ import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import './component/component.scss';
 import { appContainer, DI_TYPES } from './di';
-import { PROD_MODE } from './env';
+import { GOOGLE_KEY, PROD_MODE } from './env';
 import {
   ApplicationActionBuilder,
   ApplicationContainer,
@@ -16,6 +16,13 @@ import { ApplicationStateT } from './store';
 import { IApplicationDictionariesState } from './dictionary';
 import { IApplicationPermissionsState } from './permission';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
+
+// Google analytics
+function gtag(...args) {
+  const dL = Reflect.get(window, 'dataLayer') || [];
+  Reflect.set(window, 'dataLayer', dL);
+  dL.push(arguments);
+}
 
 export function bootstrap(
     applicationContainer: IContainerBootstrapCtor<ApplicationContainer<ApplicationStateT, IApplicationDictionariesState, IApplicationPermissionsState<{}>, {}, {}>,
@@ -44,6 +51,15 @@ export function bootstrap(
     );
   };
 
+  LoggerFactory.configure({
+    logLevel: PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL,
+  });
+
+  if (PROD_MODE) {
+    gtag('js', new Date());
+    gtag('config', GOOGLE_KEY);
+  }
+
   switch (document.readyState) {
     case 'loading':
     case 'interactive':
@@ -54,8 +70,4 @@ export function bootstrap(
       ready();
       break;
   }
-
-  LoggerFactory.configure({
-    logLevel: PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL,
-  });
 }
