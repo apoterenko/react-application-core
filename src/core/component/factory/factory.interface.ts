@@ -4,6 +4,9 @@ export interface IUIFactory {
   persistentDrawerToolbarSpacer: string;
   toolbarIcon: string;
   toolbar: string;
+  toolbarRow: string;
+  toolbarTitle: string;
+  toolbarMenuIcon: string;
   listGroupSubHeader: string;
   listDivider: string;
   listItem: string;

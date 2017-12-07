@@ -55,7 +55,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         || error
         || noDataFound) {
       return (
-          <div className='rac-list-empty rac-flex rac-flex-column rac-flex-center'>
+          <div className='rac-list-empty rac-flex rac-flex-center'>
             {
               progress
                   ? this.progressMessage

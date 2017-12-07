@@ -11,6 +11,9 @@ export class UIMaterialFactory implements IUIFactory {
   public persistentDrawerToolbarSpacer = 'mdc-persistent-drawer__toolbar-spacer';
   public toolbarIcon = 'mdc-toolbar__icon';
   public toolbar = 'mdc-toolbar';
+  public toolbarRow = 'mdc-toolbar__row';
+  public toolbarTitle = 'mdc-toolbar__title';
+  public toolbarMenuIcon = 'mdc-toolbar__menu-icon';
   public list = 'mdc-list';
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';

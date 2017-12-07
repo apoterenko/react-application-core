@@ -54,13 +54,6 @@
   }
 }
 
-.app-center-layout {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
 @import '~sass-flex-mixin/_flex';
 
 .rac-flex {
@@ -81,5 +74,5 @@
 
 .rac-flex-center {
   @include justify-content(center);
-  text-align: center;
+  @include align-items(center);
 }

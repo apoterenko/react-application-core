@@ -41,12 +41,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
     return (
         <div className={toClassName(
-            'rac-default-layout',
-            props.footer && 'rac-default-with-footer-layout',
-            'app-row-flex',
-            'app-full-layout',
-            this.props.className
-        )}>
+                            'rac-default-layout',
+                            'rac-flex',
+                            'rac-flex-row',
+                            'rac-flex-full',
+                            props.footer && 'rac-default-with-footer-layout',
+                            this.props.className
+                        )}>
           <PersistentDrawer opened={this.isLayoutFullMode}>
             <div className={toClassName(
                                 'rac-persistent-drawer-toolbar-spacer',
@@ -57,8 +58,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <NavigationList items={menu}/>
           </PersistentDrawer>
           <div className='rac-flex rac-flex-column rac-flex-full'>
-            <header className='rac-header mdc-toolbar'>
-              <div className='mdc-toolbar__row'>
+            <header className={toClassName('rac-header', this.uiFactory.toolbar)}>
+              <div className={this.uiFactory.toolbarRow}>
                 <section className={toClassName(
                                         'mdc-toolbar__section',
                                         'mdc-toolbar__section--align-start',
@@ -67,13 +68,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                   {
                     this.uiFactory.makeIcon({
                       type: props.navigationControlType,
-                      className: 'mdc-toolbar__menu-icon',
+                      className: this.uiFactory.toolbarMenuIcon,
                       onClick: this.onClick,
                     })
                   }
-                  <span className='mdc-toolbar__title'>
-                    {title}
-                  </span>
+                  <span className={this.uiFactory.toolbarTitle}>{title}</span>
                 </section>
                 {
                   orNull(props.headerItems, (
