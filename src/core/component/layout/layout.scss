@@ -1,5 +1,18 @@
+@import '../constant';
 @import './form/form-layout';
 @import './default/default-layout';
+
+// Button [FRAMEWORK-]
+.rac-form-layout {
+  .rac-header {
+    background-color: $color-8;
+
+    * {
+      color: white;
+    }
+  }
+}
+
 
 .app-row-flex {
   display: flex;
