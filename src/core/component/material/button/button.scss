@@ -32,13 +32,3 @@
     vertical-align: middle;
   }
 }
-
-// List add button [MDC+]
-.rac-list, .rac-list-empty {
-  .rac-list-add-button {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background-color: $color-3;
-  }
-}

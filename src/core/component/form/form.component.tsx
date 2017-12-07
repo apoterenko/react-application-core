@@ -49,9 +49,15 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
               autoComplete='off'
               onReset={this.onReset}
               onSubmit={this.onSubmit}
-              className={toClassName('rac-form app-form app-column-flex app-full-layout', formOptions.className)}>
+              className={toClassName(
+                            'rac-form',
+                            'rac-flex',
+                            'rac-flex-column',
+                            'rac-flex-full',
+                            formOptions.className
+                        )}>
           <fieldset disabled={form.progress}
-                    className='rac-fieldset app-form-body app-row-layout app-full-layout'>
+                    className='rac-fieldset app-form-body app-row-layout rac-flex-full'>
             <section className='mdc-card__primary'>
               {
                 cloneNodes<IFieldInternalProps>(

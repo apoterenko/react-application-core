@@ -55,7 +55,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         || error
         || noDataFound) {
       return (
-          <div className='rac-list-empty rac-flex rac-flex-column rac-flex-center rac-flex-full'>
+          <div className='rac-list-empty rac-flex rac-flex-column rac-flex-center'>
             {
               progress
                   ? this.progressMessage
@@ -77,7 +77,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
         <ul ref='container'
             className={toClassName('mdc-list', 'mdc-list--two-line', 'mdc-list--avatar-list',
-                                   'rac-list', 'rac-flex-full',
+                                   'rac-list',
                                    props.className)}>
           {props.data.map((item) => this.itemTpl(item))}
           {this.addActionTpl}

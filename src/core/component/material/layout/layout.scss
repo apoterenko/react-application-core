@@ -1,0 +1,21 @@
+@import '../../constant';
+
+// Default layout [MDC+]
+.rac-default-layout {
+  .rac-header {
+    min-height: 64px;
+  }
+
+  .rac-persistent-drawer-toolbar-spacer {
+    height: auto;
+  }
+}
+
+// Default layout [MDC+]
+@media (max-width: 599px) {
+  .rac-default-layout {
+    .rac-header {
+      min-height: 56px;
+    }
+  }
+}

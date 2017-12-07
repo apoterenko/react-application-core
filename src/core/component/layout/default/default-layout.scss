@@ -1,17 +1,21 @@
-.app-default-layout {
-  .app-content {
-    .app-content-body {
-      overflow: auto;
+@import '../../constant';
 
-      .mdc-list-item {
-        padding: 0 16px;
-      }
+// Default layout [FRAMEWORK-]
+.rac-default-layout {
+  .rac-main {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+
+    .rac-main-body {
+      position: absolute;
+      height: 100%;
+      width: 100%;
     }
   }
 
-  .mdc-persistent-drawer__toolbar-spacer {
-    height: auto;
-    background: #e3ecf5;
+  .rac-persistent-drawer-toolbar-spacer {
+    background: $color-7;
   }
 }
 

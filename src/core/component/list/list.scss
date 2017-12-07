@@ -2,12 +2,12 @@
 @import './navigation/navigation-list';
 
 .rac-list {
-  overflow: auto;
-  position: relative;
   cursor: default;
 }
 
 .rac-list-empty {
+  height: 100%;
+  width: 100%;
   cursor: default;
 
   .app-list-search-action-wrapper {

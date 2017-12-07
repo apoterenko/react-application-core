@@ -41,19 +41,23 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
     return (
         <div className={toClassName(
-            'app-default-layout',
+            'rac-default-layout',
+            props.footer && 'rac-default-with-footer-layout',
             'app-row-flex',
             'app-full-layout',
             this.props.className
         )}>
           <PersistentDrawer opened={this.isLayoutFullMode}>
-            <div className='mdc-persistent-drawer__toolbar-spacer'>
+            <div className={toClassName(
+                                'rac-persistent-drawer-toolbar-spacer',
+                                this.uiFactory.persistentDrawerToolbarSpacer
+                            )}>
               {this.profileTpl}
             </div>
             <NavigationList items={menu}/>
           </PersistentDrawer>
-          <div className='app-content app-column-flex app-full-layout'>
-            <header className='rac-header app-header mdc-toolbar'>
+          <div className='rac-flex rac-flex-column rac-flex-full'>
+            <header className='rac-header mdc-toolbar'>
               <div className='mdc-toolbar__row'>
                 <section className={toClassName(
                                         'mdc-toolbar__section',
@@ -80,9 +84,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                 }
               </div>
             </header>
-            <div className='app-content-body app-column-flex app-full-layout'>
-              {props.children}
-            </div>
+            <main className='rac-main'>
+              <div className='rac-main-body rac-flex rac-flex-column'>
+                {props.children}
+              </div>
+            </main>
+            {orNull(props.footer, <footer className='rac-footer'>{props.footer}</footer>)}
           </div>
           {this.snackbarTpl}
         </div>

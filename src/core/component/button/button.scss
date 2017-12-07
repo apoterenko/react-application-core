@@ -18,3 +18,22 @@
     }
   }
 }
+
+// List add button [FRAMEWORK-]
+.rac-list, .rac-list-empty {
+  .rac-list-add-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background-color: $color-3;
+  }
+}
+
+// Default layout [FRAMEWORK-]
+.rac-default-with-footer-layout {
+  .rac-list, .rac-list-empty {
+    .rac-list-add-button {
+      bottom: 80px;
+    }
+  }
+}

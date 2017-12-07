@@ -1,4 +1,4 @@
-.app-form-layout {
+.rac-form-layout {
   &.mdc-layout-grid {
     flex: 1;
     background-color: #070803;
@@ -12,16 +12,6 @@
         margin: 0 auto;
         width: 100%;
         max-width: 360px;
-      }
-    }
-
-    .app-header {
-      cursor: default;
-      min-height: 100px;
-      background: #263238;
-
-      .mdc-card__subtitle, .mdc-card__title {
-        color: white;
       }
     }
   }

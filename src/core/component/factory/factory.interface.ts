@@ -1,6 +1,7 @@
 import { IButtonInternalProps } from '../../component/button';
 
 export interface IUIFactory {
+  persistentDrawerToolbarSpacer: string;
   toolbarIcon: string;
   toolbar: string;
   listGroupSubHeader: string;
