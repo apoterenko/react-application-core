@@ -4,7 +4,6 @@ import { Link } from '../../../component/link';
 import { PersistentDrawer } from '../../../component/drawer';
 import { INavigationListItemOptions, NavigationList } from '../../../component/list';
 import { lazyInject, DI_TYPES } from '../../../di';
-import { IRoutes } from '../../../router';
 import { toClassName, orNull } from '../../../util';
 import {
   LAYOUT_FULL_MODE,
@@ -24,7 +23,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     },
   };
 
-  @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
   @lazyInject(NavigationMenuBuilder) private navigationMenuBuilder: NavigationMenuBuilder;
 
   constructor(props: IDefaultLayoutContainerInternalProps) {

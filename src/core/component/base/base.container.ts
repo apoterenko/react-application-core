@@ -5,7 +5,11 @@ import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { IKeyValue } from '../../definition.interface';
-import { ROUTER_NAVIGATE_ACTION_TYPE, RouterActionBuilder } from '../../router';
+import {
+  IRoutes,
+  ROUTER_NAVIGATE_ACTION_TYPE,
+  RouterActionBuilder
+} from '../../router';
 import { ApplicationStateT } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionServiceT } from '../../permission';
@@ -29,6 +33,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
+  @lazyInject(DI_TYPES.Routes) protected routes: IRoutes;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);
