@@ -30,3 +30,11 @@
 .rac-list .mdc-list-item .material-icons {
   vertical-align: bottom;
 }
+
+// Access denied component [MDC+]
+.rac-access-denied {
+  .material-icons {
+    font-size: 3em;
+    color: $color-3;
+  }
+}

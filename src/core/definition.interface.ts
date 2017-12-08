@@ -90,6 +90,8 @@ export interface IStylizable {
   noClassName?: boolean;
 }
 
+export const PROGRESSABLE_FIELD_NAME = 'progress';
+
 export interface IProgressable {
   progress?: boolean;
 }
