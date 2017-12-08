@@ -1,5 +1,6 @@
 import { History } from 'history';
 
+import { isFn } from '../util';
 import { BaseContainerT } from '../component/base';
 import { IContainerWrapperCtor } from '../component/application';
 import { IRootContainerAttributes } from '../component/root';
@@ -35,6 +36,14 @@ export enum ContainerVisibilityTypeEnum {
 export interface IRouteComponentConfig extends IRootContainerAttributes {
   type: ContainerVisibilityTypeEnum;
 }
+export type RouteComponentConfigT = IRouteComponentConfig|((routes: IRoutes) => IRouteComponentConfig);
+
+export const toRouteConfig = (routeComponentConfig: RouteComponentConfigT,
+                              routes: IRoutes): IRouteComponentConfig => {
+  return isFn(routeComponentConfig)
+      ? (routeComponentConfig as (routes: IRoutes) => IRouteComponentConfig)(routes)
+      : routeComponentConfig as IRouteComponentConfig;
+};
 
 export type RouteContainerT = BaseContainerT|IContainerWrapperCtor;
 export const DYNAMIC_ROUTES = new Map<RouteContainerT, ConnectorConfigT>();

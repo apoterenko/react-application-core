@@ -1,12 +1,12 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { provideInSingleton } from '../../di';
+import { DI_TYPES, provideInSingleton, lazyInject } from '../../di';
 import { FormActionBuilder } from '../../component/form';
 import { ListActionBuilder } from '../../component/list';
 import { IApiEntity } from '../../api';
 import { IEntity } from '../../definition.interface';
-import { RouterActionBuilder } from '../../router';
+import { IRoutes, RouterActionBuilder, toRouteConfig } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
 
 const logger = LoggerFactory.makeLogger('makeSucceedFormEffectsProxy');
@@ -23,6 +23,8 @@ export function makeSucceedFormEffectsProxy(config: {
     @provideInSingleton(Effects)
     class Effects {
 
+      @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
+
       @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(formSection))
       public $onFormSubmitDone(action: IEffectsAction): IEffectsAction[] {
         const apiEntity = action.initialData as IApiEntity<IEntity>;
@@ -31,7 +33,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
         const connectorConfig = APPLICATION_SECTIONS.get(listSection);
         const listRoute0 = listRoute
-            || (connectorConfig ? connectorConfig.routeConfig.path : null);
+            || (connectorConfig ? toRouteConfig(connectorConfig.routeConfig, this.routes).path : null);
 
         if (!listRoute0) {
           logger.warn(`[$Effects][$onFormSubmitDone] The list route is empty for the section ${listSection}`);

@@ -1,13 +1,13 @@
 import { ComponentLifecycle } from 'react';
 
-import { IRouteComponentConfig } from '../../router/router.interface';
+import { RouteComponentConfigT } from '../../router';
 import { IKeyValue } from '../../definition.interface';
 import { IApplicationState, ApplicationStateT } from '../../store';
 import { IApplicationAccessConfig } from '../../permission';
 import { IBaseContainerInternalProps } from '../../component/base';
 
 export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig> {
-  routeConfig: IRouteComponentConfig;
+  routeConfig: RouteComponentConfigT;
   accessConfig?: TApplicationAccessConfig;
   mappers?: Array<ConnectorMapperT<TAppState, IKeyValue>>;
   sectionName?: string|boolean;

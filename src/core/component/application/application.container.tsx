@@ -6,7 +6,12 @@ import { clone, uuid } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { IApplicationPermissionsState } from '../../permission';
-import { IRouter, ContainerVisibilityTypeEnum, RouteContainerT, IRoutes } from '../../router';
+import {
+  IRouter,
+  ContainerVisibilityTypeEnum,
+  RouteContainerT,
+  toRouteConfig,
+} from '../../router';
 import { IApplicationSettings } from '../../settings';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
 import { IApplicationState } from '../../store';
@@ -40,7 +45,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
-  @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
 
   private extraRoutes: Map<RouteContainerT, ConnectorConfigT>
       = new Map<RouteContainerT, ConnectorConfigT>();
@@ -120,7 +124,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   protected lookupConnectComponentByRoutePath(path: string): RouteContainerT {
     let result: RouteContainerT;
     this.dynamicRoutes.forEach((config, ctor) => {
-      if (config.routeConfig.path === path) {
+      if (toRouteConfig(config.routeConfig, this.routes).path === path) {
         result = ctor;
       }
     });
@@ -160,7 +164,9 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
       let Component;
-      switch (config.routeConfig.type) {
+      const routeConfig = toRouteConfig(config.routeConfig, this.routes);
+
+      switch (routeConfig.type) {
         case ContainerVisibilityTypeEnum.PRIVATE:
           Component = PrivateRootContainer;
           break;
@@ -169,13 +175,12 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
           break;
       }
       const props = {
-        ...{ key: uuid(), exact: true, accessConfig: config.accessConfig },
-        ...config.routeConfig,
+        key: uuid(),
+        exact: true,
+        accessConfig: config.accessConfig,
+        ...routeConfig,
       };
-      routes.push(
-          <Component container={ctor}
-                     {...props}/>
-      );
+      routes.push(<Component container={ctor} {...props}/>);
     });
     return routes;
   }
