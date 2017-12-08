@@ -42,7 +42,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
   public onAfterLogout(): IEffectsAction[]|Promise<IEffectsAction[]> {
     return [
-      this.buildNotificationInfoAction(this.settings.logoutNotificationMessage),
+      this.buildNotificationInfoAction(this.settings.messages.logoutNotificationMessage),
       this.buildTransportDestroyTokenAction()
     ];
   }

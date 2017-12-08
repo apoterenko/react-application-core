@@ -25,22 +25,32 @@ export interface IApplicationPhoneSettings {
   uiCountryAbbreviation?: string;
 }
 
+export interface IApplicationMessages {
+  logoutNotificationMessage?: string;
+  accessDeniedMessage?: string;
+  sorryMessage?: string;
+}
+
 export interface IApplicationSettings {
   apiUrl?: string;
-  logoutNotificationMessage?: string;
   companyName?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
   dateTimeSettings?: IApplicationDateTimeSettings;
   phoneSettings?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
+  messages?: IApplicationMessages;
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
   apiUrl: (BASE_PATH + '/api/').replace(/(\/\/)+/, '/'),
   companyName: 'Test company',
-  logoutNotificationMessage: 'You were logged out.',
+  messages: {
+    logoutNotificationMessage: 'You were logged out.',
+    accessDeniedMessage: 'The access is restricted for you.',
+    sorryMessage: 'Sorry about that.',
+  },
   dateTimeSettings: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
