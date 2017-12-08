@@ -3,8 +3,8 @@ import {
   ITitleable,
   ITypeable,
   IDisableable,
+  BasicEventT,
 } from '../../../definition.interface';
-import { FunctionT } from '../../../util';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginInternalProps } from '../field';
@@ -13,7 +13,7 @@ export interface IBasicTextFieldAction extends IStylizable,
                                                ITitleable,
                                                IDisableable,
                                                ITypeable<string> {
-  actionHandler: FunctionT;
+  actionHandler?(event: BasicEventT): void;
 }
 
 export interface IBasicTextFieldInternalState extends IFieldInternalState {
