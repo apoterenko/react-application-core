@@ -152,6 +152,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const type = props.type || 'text';
     const autoComplete = props.autoComplete || 'new-password';
     const readOnly = props.readOnly;
+    const disabled = props.disabled;
     const pattern = this.getFieldPattern();
     const required = props.required;
     const minLength = props.minLength;
@@ -163,7 +164,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const onKeyDown = this.onKeyDown;
     const onKeyUp = this.onKeyUp;
     return {
-      name, type, autoFocus, readOnly, pattern, required, minLength, maxLength,
+      name, type, autoFocus, readOnly, disabled, pattern, required, minLength, maxLength,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       value: this.toDisplayValue(),
