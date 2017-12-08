@@ -28,7 +28,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     },
   };
 
-  private defaultActions = {
+  private defaultActions: {[filter: number]: IBasicTextFieldAction} = {
     [FilterActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
       actionHandler: this.onOpen.bind(this),
@@ -194,13 +194,15 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private get actions(): IBasicTextFieldAction[] {
+    const props = this.props;
     const defaultFieldActions: IApplicationFilterAction[] = this.props.noSearchField
         ? []
         : [{type: FilterActionEnum.CLEAR_FILTER}];
     return defaultFieldActions
-        .concat(this.props.fieldActions)
+        .concat(props.fieldActions)
         .map((action) => ({
           ...this.defaultActions[action.type],
+          disabled: props.disabledActions,
           className: action.className,
         }));
   }
