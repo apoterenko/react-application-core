@@ -32,6 +32,7 @@ import {
   applicationReadyReducer,
   IApplicationReadyState,
 } from '../component/application';
+import { IApplicationLockWrapperState, lockReducer } from '../lock';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState,
                                    TPermissionState extends IApplicationPermissionsState<TPermissions>,
@@ -41,7 +42,8 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
             IApplicationNotificationWrapperState,
             IApplicationUserWrapperState,
             IApplicationLayoutWrapperState,
-            IApplicationRootWrapperState {
+            IApplicationRootWrapperState,
+            IApplicationLockWrapperState {
   applicationReady: IApplicationReadyState;
   permission: TPermissionState;
 }
@@ -52,11 +54,12 @@ export type ApplicationStateT = IApplicationState<IApplicationDictionariesState,
 
 export const defaultReducers = {
   applicationReady: applicationReadyReducer,
+  dictionaries: dictionariesReducer,
   permission: permissionReducer,
   root: rootReducer,
   user: userReducer,
   layout: layoutReducer,
+  lock: lockReducer,
   notification: notificationReducer,
-  dictionaries: dictionariesReducer,
   transport: transportReducer,
 };

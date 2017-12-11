@@ -47,6 +47,10 @@ export interface IPlaceholderable {
   placeholder?: string;
 }
 
+export interface ISectionable {
+  section?: string;
+}
+
 export interface IValueable<TValue> {
   value?: TValue;
 }

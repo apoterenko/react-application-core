@@ -7,6 +7,7 @@ import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
 import { ApplicationActionBuilder } from '../component/application';
 import { IApplicationSettings } from '../settings';
+import { LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, LockActionBuilder, LockContainerT } from '../lock';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -55,5 +56,18 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildDestroyTokenActionType())
   public onDestroyToken(): void {
     this.notVersionedStorage.remove(APPLICATION_TOKEN_KEY);
+  }
+
+  @EffectsService.effects(LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE)
+  public onLockDestroyableSections(_: IEffectsAction, state: ApplicationStateT): IEffectsAction[] {
+    return state.lock.destroyableSections
+        .map((destroyableSection) => {
+          switch (destroyableSection.component) {
+            case LockContainerT.LIST:
+              return this.buildListDestroyAction(destroyableSection.section);
+            case LockContainerT.FORM:
+              return this.buildFormDestroyAction(destroyableSection.section);
+          }
+        });
   }
 }

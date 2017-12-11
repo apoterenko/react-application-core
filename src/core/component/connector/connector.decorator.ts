@@ -12,6 +12,11 @@ import { IConnectorConfig, IConnectorCtor } from './connector.interface';
 import { appContainer, DI_TYPES } from '../../di';
 import { ConnectorActionBuilder } from './connector-builder.action';
 import { APPLICATION_SECTIONS } from '../application';
+import {
+  LOCK_CONTAINER_INIT_ACTION_TYPE,
+  LOCK_CONTAINER_DESTROY_ACTION_TYPE,
+  LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE,
+} from '../../lock';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
@@ -31,6 +36,9 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
             () => {
               const store: Store<ApplicationStateT> = appContainer.get(DI_TYPES.Store);
               store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName0)});
+              store.dispatch({type: LOCK_CONTAINER_DESTROY_ACTION_TYPE, data: sectionName0});
+
+              logger.debug(`[$connector][componentWillUnmount] Section: ${sectionName0}`);
             }
         );
         proto.componentWillMount = sequence(
@@ -38,6 +46,10 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
             () => {
               const store: Store<ApplicationStateT> = appContainer.get(DI_TYPES.Store);
               store.dispatch({type: ConnectorActionBuilder.buildInitActionType(sectionName0)});
+              store.dispatch({type: LOCK_CONTAINER_INIT_ACTION_TYPE, data: sectionName0});
+              store.dispatch({type: LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, data: sectionName0});
+
+              logger.debug(`[$connector][componentWillMount] Section: ${sectionName0}`);
             }
         );
       }

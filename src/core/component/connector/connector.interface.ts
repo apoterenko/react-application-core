@@ -21,5 +21,5 @@ export interface IConnectorCtor<TContainer> extends ComponentLifecycle<{}, {}> {
 export type ConnectorConfigT = IConnectorConfig<ApplicationStateT, IApplicationAccessConfig>;
 export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult;
 
-export const CONNECTOR_INIT_ACTION_TYPE = 'init';
-export const CONNECTOR_DESTROY_ACTION_TYPE = 'destroy';
+export const CONNECTOR_INIT_ACTION_TYPE = 'container.init';
+export const CONNECTOR_DESTROY_ACTION_TYPE = 'container.destroy';
