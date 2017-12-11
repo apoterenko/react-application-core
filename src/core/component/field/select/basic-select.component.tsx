@@ -33,7 +33,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.defaultActions = R.insert<IBasicTextFieldAction>(0,
         {
           type: 'arrow_drop_down',
-          actionHandler(event: BasicEventT) {
+          actionHandler: (event: BasicEventT) => {
             this.setFocus();
             this.openMenu(event);
           },
