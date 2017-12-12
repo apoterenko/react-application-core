@@ -7,3 +7,4 @@ export * from './chipsfield';
 export * from './daterange';
 export * from './datetime';
 export * from './timefield';
+export * from './numberfield';
