@@ -3,7 +3,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { DI_TYPES, provideInSingleton, lazyInject } from '../../di';
 import { FormActionBuilder } from '../../component/form';
-import { ListActionBuilder } from '../../component/list';
+import { IListModifyWrapperPayload, ListActionBuilder } from '../../component/list';
 import { IApiEntity } from '../../api';
 import { IEntity } from '../../definition.interface';
 import { IRoutes, RouterActionBuilder, toRouteConfig } from '../../router';
@@ -38,10 +38,11 @@ export function makeSucceedFormEffectsProxy(config: {
         if (!listRoute0) {
           logger.warn(`[$Effects][$onFormSubmitDone] The list route is empty for the section ${listSection}`);
         }
+        const modifyWrapperPayload: IListModifyWrapperPayload = {payload: {id, changes}};
         return [
           apiEntity.isNew
-              ? ListActionBuilder.buildInsertAction(listSection, {payload: {id, changes}})
-              : ListActionBuilder.buildUpdateAction(listSection, {payload: {id, changes}}),
+              ? ListActionBuilder.buildInsertAction(listSection, modifyWrapperPayload)
+              : ListActionBuilder.buildUpdateAction(listSection, modifyWrapperPayload),
           RouterActionBuilder.buildNavigateAction(listRoute0)
         ];
       }
