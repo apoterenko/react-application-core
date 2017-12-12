@@ -24,6 +24,6 @@ export class TimeField extends BasicTextField<TimeField,
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {
-    return this.applicationSettings.dateTimeSettings || {};
+    return this.applicationSettings.dateTime || {};
   }
 }

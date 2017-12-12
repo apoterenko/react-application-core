@@ -33,7 +33,7 @@ export class DateField extends BasicTextField<DateField,
     muiTheme: PropTypes.object.isRequired,
   };
 
-  @lazyInject(DI_TYPES.DateConverter) private dateConverter: IDateConverter;
+  @lazyInject(DI_TYPES.DateConverter) private dc: IDateConverter;
   private preventShowDialog: boolean;
 
   constructor(props: IDateFieldInternalProps) {
@@ -123,7 +123,7 @@ export class DateField extends BasicTextField<DateField,
 
   private get dialogDate(): Date {
     const value = this.value;
-    const defaultDate = this.dateConverter.getCurrentDate();
+    const defaultDate = this.dc.getCurrentDate();
     if (R.isNil(value)) {
       return defaultDate;
     }
@@ -142,14 +142,14 @@ export class DateField extends BasicTextField<DateField,
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {
-    return this.applicationSettings.dateTimeSettings || {};
+    return this.applicationSettings.dateTime || {};
   }
 
   private formatDate(value: DateTimeLikeTypeT): string {
-    return this.dateConverter.format(value, this.fieldFormat, this.fieldFormat);
+    return this.dc.format(value, this.fieldFormat, this.fieldFormat);
   }
 
   private convertToDate(value: string): DateTimeLikeTypeT {
-    return this.dateConverter.toDate(value, this.fieldFormat);
+    return this.dc.toDate(value, this.fieldFormat);
   }
 }

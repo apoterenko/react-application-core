@@ -120,6 +120,6 @@ export class DateConverter implements IDateConverter {
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {
-    return this.applicationSettings.dateTimeSettings || {};
+    return this.applicationSettings.dateTime || {};
   }
 }
