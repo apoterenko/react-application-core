@@ -22,6 +22,7 @@ export interface IDateConverter {
 }
 
 export interface INumberConverter {
+  number(value: string | number): string | number;
   format(value: number | string): string;
   currency(value: number | string, options?: Intl.NumberFormatOptions): string;
   phone(value: number | string, phoneNumberFormat?: PNF): string;

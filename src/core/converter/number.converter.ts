@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphonenumber';
 
@@ -26,11 +27,16 @@ export class NumberConverter implements INumberConverter {
     this.id = this.id.bind(this);
   }
 
-  public format(value: string | number, formatter: { format(...args): string} = this.defaultFormatter): string {
-    value = value || 0;
-    return formatter.format(
-        isNumber(value) ? value as number : parseFloat(value as string)
-    );
+  public number(value: string | number): string | number {
+    if (isNumber(value)) {
+      return value;
+    }
+    const result = parseFloat(String(value));
+    return isNaN(result) || !R.equals(String(result), String(value)) ? value : result;
+  }
+
+  public format(value: string | number, formatter: {format(...args): string} = this.defaultFormatter): string {
+    return formatter.format(this.number(value));
   }
 
   public currency(value: number | string, options?: Intl.NumberFormatOptions): string {
@@ -51,7 +57,7 @@ export class NumberConverter implements INumberConverter {
   public phone(value: number | string, phoneNumberFormat: PNF = PNF.INTERNATIONAL): string {
     const v = String(value);
     const phoneNumber = this.phoneUtilInstance.parse(
-        v, this.settings.phoneSettings.uiCountryAbbreviation
+        v, this.settings.phone.uiCountryAbbreviation
     );
     return this.phoneUtilInstance.isValidNumber(phoneNumber)
         ? this.phoneUtilInstance.format(phoneNumber, phoneNumberFormat)
