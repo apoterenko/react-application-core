@@ -1,4 +1,5 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage';
@@ -11,6 +12,8 @@ import { LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, LockActionBuilder, LockContainer
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
+
+  private static logger = LoggerFactory.makeLogger(ApplicationEffects);
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.NotVersionedStorage) protected notVersionedStorage: IApplicationStorage;
@@ -60,7 +63,15 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @EffectsService.effects(LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE)
   public onLockDestroyableSections(_: IEffectsAction, state: ApplicationStateT): IEffectsAction[] {
-    return state.lock.destroyableSections
+    const destroyableSections = state.lock.destroyableSections;
+    if (destroyableSections.length) {
+      ApplicationEffects.logger.debug(() =>
+          `[$ApplicationEffects][onLockDestroyableSections] Destroyable sections: ${
+              destroyableSections.map((ds) => ds.section).join(', ')
+      }`);
+    }
+
+    return destroyableSections
         .map((destroyableSection) => {
           switch (destroyableSection.component) {
             case LockContainerT.LIST:
