@@ -73,7 +73,6 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                             originalValue: this.getFieldOriginalValue(field),
                             displayValue: this.getFieldDisplayValue(field, predefinedOptions),
                             readOnly: this.isFieldReadOnly(field),
-                            phantom: this.isPhantom,
                             changeForm: this.onChange,
 
                             // Predefined options
@@ -110,7 +109,7 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
                 </Button>
             )}
             <Button type='submit'
-                    icon={this.isFormValid || this.isPhantom
+                    icon={this.isFormValid
                         ? (formOptions.actionIcon || 'save')
                         : 'error_outline'}
                     isAccent={true}
@@ -193,11 +192,6 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
   private get isFormReadOnly(): boolean {
     const formOptions = this.props.formOptions;
     return formOptions && formOptions.readOnly === true;
-  }
-
-  private get isPhantom(): boolean {
-    const props = this.props;
-    return !props.entity || R.isNil(props.entity.id);
   }
 
   private get isFormValid(): boolean {

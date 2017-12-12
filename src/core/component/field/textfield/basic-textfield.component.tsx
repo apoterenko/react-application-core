@@ -56,15 +56,15 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                    this.isDeactivated() && 'app-text-field-deactivated',
                    isFocused && this.uiFactory.textFieldFocused,
                    props.prefixLabel && 'app-text-field-prefixed'
-                   )}>
+               )}>
             {orNull(
                 props.prefixLabel,
                 <span className='app-text-field-prefix'>{props.prefixLabel}</span>
             )}
             {this.getComponent()}
             <label style={{paddingLeft: props.prefixLabel
-                  ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
-                  : undefined}}
+                ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
+                : undefined}}
                    className={toClassName(
                        this.uiFactory.textFieldLabel,
                        isFocused && this.uiFactory.textFieldFocusedLabel
