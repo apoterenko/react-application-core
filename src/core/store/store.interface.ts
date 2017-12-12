@@ -32,7 +32,7 @@ import {
   applicationReadyReducer,
   IApplicationReadyState,
 } from '../component/application';
-import { IApplicationLockWrapperState, lockReducer } from '../lock';
+import { IApplicationLockWrapperState, IApplicationLockState, lockReducer } from '../lock';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState,
                                    TPermissionState extends IApplicationPermissionsState<TPermissions>,
