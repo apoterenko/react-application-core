@@ -2,7 +2,7 @@ import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { applySection } from '../../util';
 import { AnyT } from '../../definition.interface';
-
+import { IListModifyWrapperPayload } from '../../component/list';
 import {
   LIST_LOAD_ACTION_TYPE,
   LIST_LOCK_ACTION_TYPE,
@@ -95,11 +95,11 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
 
-  public static buildInsertAction(section: string, data?: AnyT): IEffectsAction {
+  public static buildInsertAction(section: string, data?: IListModifyWrapperPayload): IEffectsAction {
     return EffectsAction.create(this.buildInsertActionType(section), applySection(section, data));
   }
 
-  public static buildUpdateAction(section: string, data?: AnyT): IEffectsAction {
+  public static buildUpdateAction(section: string, data?: IListModifyWrapperPayload): IEffectsAction {
     return EffectsAction.create(this.buildUpdateActionType(section), applySection(section, data));
   }
 

@@ -13,10 +13,22 @@ import {
   IErrorable,
   ISelectable,
   IDataSource,
+  IIdentifiedEntity,
+  IChangeable,
+  ISorter,
+  IKeyValue, IPayloadable,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
 
-export interface IListOptions extends IBaseComponentInternalProps {
+export interface IListModifyPayload extends IIdentifiedEntity,
+                                            IChangeable<IKeyValue> {
+}
+
+export interface IListModifyWrapperPayload extends IPayloadable<IListModifyPayload> {
+}
+
+export interface IListOptions extends IBaseComponentInternalProps,
+                                      ISorter {
   itemOptions?: IListItemOptions;
   addAction?: boolean;
   searchAction?: boolean;

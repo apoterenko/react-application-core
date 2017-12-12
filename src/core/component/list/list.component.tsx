@@ -79,7 +79,9 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
             className={toClassName('mdc-list', 'mdc-list--two-line', 'mdc-list--avatar-list',
                                    'rac-list',
                                    props.className)}>
-          {props.data.map((item) => this.itemTpl(item))}
+          {(props.sorter
+              ? R.sort<IEntity>(props.sorter, props.data)
+              : props.data).map((item) => this.itemTpl(item))}
           {this.addActionTpl}
         </ul>
     );

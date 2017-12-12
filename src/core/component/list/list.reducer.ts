@@ -5,11 +5,13 @@ import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE, IApplicationListState, IListEntity } from './list.interface';
+import { IListModifyWrapperPayload } from '../../component/list';
 
 export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IApplicationListState {
   const section = toSection(action);
-  const payload = action.data && action.data.payload;
+  const modifyData: IListModifyWrapperPayload = action.data;
+  const payload = modifyData && modifyData.payload;
 
   switch (action.type) {
     case ListActionBuilder.buildFirstPageActionType(section):
