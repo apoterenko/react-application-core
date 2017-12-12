@@ -34,6 +34,10 @@ export interface IRenderable {
   renderer?(item: IEntity): JSX.Element;
 }
 
+export interface ISorter {
+  sorter?(item1: IEntity, item2: IEntity): number;
+}
+
 export interface IIconable {
   icon?: string;
 }
@@ -77,10 +81,6 @@ export interface ILabelable {
   label?: string;
 }
 
-export interface IPhantomable {
-  phantom?: boolean;
-}
-
 export interface IReadonlyable {
   readOnly?: boolean;
 }
@@ -92,6 +92,10 @@ export interface ILoginable {
 export interface IStylizable {
   className?: string;
   noClassName?: boolean;
+}
+
+export interface IPayloadable<TPayload> {
+  payload?: TPayload;
 }
 
 export const PROGRESSABLE_FIELD_NAME = 'progress';
@@ -135,6 +139,10 @@ export interface IDirtyable {
 
 export interface ITypeable<Type> {
   type?: Type;
+}
+
+export interface IStepable {
+  step?: number;
 }
 
 export interface IMaskable {

@@ -25,6 +25,10 @@ export interface IApplicationPhoneSettings {
   uiCountryAbbreviation?: string;
 }
 
+export interface IApplicationNumberSettings {
+  uiPattern?: string;
+}
+
 export interface IApplicationMessages {
   logoutNotificationMessage?: string;
   accessDeniedMessage?: string;
@@ -36,11 +40,17 @@ export interface IApplicationSettings {
   companyName?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
-  dateTimeSettings?: IApplicationDateTimeSettings;
-  phoneSettings?: IApplicationPhoneSettings;
+  dateTime?: IApplicationDateTimeSettings;
+  phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
+  number?: IApplicationNumberSettings;
   messages?: IApplicationMessages;
 }
+
+export const REGEXP_REPO = {
+  price: '\\d+(\\.\\d{1,2})?',
+  number: '[-+]?[0-9]*[.,]?[0-9]+',
+};
 
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
@@ -51,7 +61,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     accessDeniedMessage: 'The access is restricted for you.',
     sorryMessage: 'Sorry about that.',
   },
-  dateTimeSettings: {
+  dateTime: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
     uiDateFormat: 'YYYY-MM-DD',
@@ -63,7 +73,10 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
     uiTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])',
   },
-  phoneSettings: {
+  number: {
+    uiPattern: REGEXP_REPO.number,
+  },
+  phone: {
     uiPattern: '1[0-9]{10}',
     uiMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
     uiCountryAbbreviation: 'US',
