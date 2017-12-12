@@ -169,11 +169,15 @@ export interface IChangeable<TChanges extends IKeyValue> {
   changes: TChanges;
 }
 
-export interface IEntityable<TEntity extends IEntity> {
+export interface IEntityable<TEntity extends IEntity> extends ITouchable {
   entity?: TEntity;
   originalEntity?: TEntity;
   isNewEntity?: boolean;
   entityId?: EntityIdT;
+}
+
+export interface IFormable<TForm> {
+  form: TForm;
 }
 
 export interface IDateTimeRangeable {

@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
-import { IEntity, IEntityable } from '../../definition.interface';
+import { IChangeable, IEntity, IEntityable, IFormable } from '../../definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
@@ -39,17 +39,29 @@ export const entityMapper = (entity: IEntity, formState?: IApplicationFormState)
   },
   entityId: entity ? entity.id : null,
   isNewEntity: !entity || R.isNil(entity.id),
+  touched: formState && formState.touched,
 });
 
 export const listWrapperEntityMapper = (listWrapperState: IApplicationListWrapperState,
-                                        formState?: IApplicationFormState): IEntity =>
+                                        formState?: IApplicationFormState): IEntityable<IEntity> =>
     entityMapper(listWrapperState.list ? listWrapperState.list.selected : null, formState);
 
-export const formMapper = (formState: IApplicationFormState) => ({
+export const formMapper = (formState: IApplicationFormState): IFormable<IApplicationFormState> => ({
   form: {
     ...formState,
   },
 });
+
+export const formMapperWithPresettedChanges =
+    <TEntity extends IEntity>(formState: IApplicationFormState, changes: TEntity): IFormable<IApplicationFormState> => ({
+      form: {
+        ...formState,
+        changes: {
+          ...formState.changes,
+          ...changes || {},
+        },
+      },
+    });
 
 export const listMapper = (listState: IApplicationListState) => ({
   list: {

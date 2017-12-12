@@ -12,6 +12,7 @@ import {
   IEntity,
   IEntityable,
   IErrorable,
+  ITouchable,
   IDirtyable,
   IReadonlyable,
 } from '../../definition.interface';
@@ -21,6 +22,7 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable
                                                                      ILockable,
                                                                      IProgressable,
                                                                      ISaveable,
+                                                                     ITouchable,
                                                                      IErrorable<string>,
                                                                      IDirtyable {
   valid?: boolean;

@@ -48,6 +48,7 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
         ...state,
         error: null,
         dirty: Object.keys(changes).length > 0,
+        touched: true,
         changes,
       };
     case FormActionBuilder.buildValidActionType(section):
