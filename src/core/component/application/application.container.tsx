@@ -10,7 +10,7 @@ import {
   IRouter,
   ContainerVisibilityTypeEnum,
   RouteContainerT,
-  toRouteConfig,
+  toRouteOptions,
 } from '../../router';
 import { IApplicationSettings } from '../../settings';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
@@ -18,8 +18,8 @@ import { IApplicationState } from '../../store';
 import { BaseContainer } from '../../component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IApplicationDictionariesState } from '../../dictionary';
-import { PrivateRootContainer, PublicRootContainer } from '../../component/root';
-import { ConnectorConfigT } from '../../component/connector';
+import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../../component/root';
+import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../../component/connector';
 import { Info } from '../../component/info';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
@@ -124,7 +124,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   protected lookupConnectComponentByRoutePath(path: string): RouteContainerT {
     let result: RouteContainerT;
     this.dynamicRoutes.forEach((config, ctor) => {
-      if (toRouteConfig(config.routeConfig, this.routes).path === path) {
+      if (toRouteOptions(config.routeConfig, this.routes).path === path) {
         result = ctor;
       }
     });
@@ -164,7 +164,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
       let Component;
-      const routeConfig = toRouteConfig(config.routeConfig, this.routes);
+      const routeConfig = toRouteOptions(config.routeConfig, this.routes);
 
       switch (routeConfig.type) {
         case ContainerVisibilityTypeEnum.PRIVATE:
@@ -174,13 +174,16 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
           Component = PublicRootContainer;
           break;
       }
-      const props = {
-        key: uuid(),
+      const props: IRootContainerInternalProps = {
         exact: true,
         accessConfig: config.accessConfig,
+        initialChanges: config.initialChanges,
+        section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
         ...routeConfig,
       };
-      routes.push(<Component container={ctor} {...props}/>);
+      routes.push(<Component key={uuid()}
+                             container={ctor}
+                             {...props}/>);
     });
     return routes;
   }

@@ -8,7 +8,9 @@ import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
 import { ApplicationActionBuilder } from '../component/application';
 import { IApplicationSettings } from '../settings';
-import { LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, LockActionBuilder, LockContainerT } from '../lock';
+import { LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, LockContainerT } from '../lock';
+import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
+import { FormActionBuilder } from '../component/form';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -80,5 +82,32 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
               return this.buildFormDestroyAction(destroyableSection.section);
           }
         });
+  }
+
+  @EffectsService.effects(RootActionBuilder.buildPathUpdateActionType())
+  public onUpdateRootPath(action: IEffectsAction): IEffectsAction {
+    const payload: IRootUpdatePathPayload = action.data;
+    const section = payload.section;
+    const changes = payload.changes;
+
+    if (!changes || Object.keys(changes).length === 0) {
+      return null;
+    }
+    if (!section) {
+      ApplicationEffects.logger.warn(
+          '[$ApplicationEffects][onUpdateRootPath] Section parameter is empty but changes are exists:',
+          changes
+      );
+      return null;
+    }
+    return FormActionBuilder.buildChangeAction(
+        section,
+        {
+          fields: Object.keys(changes).map((fieldName) => ({
+            field: fieldName,
+            value: Reflect.get(changes, fieldName),
+          })),
+        },
+    );
   }
 }
