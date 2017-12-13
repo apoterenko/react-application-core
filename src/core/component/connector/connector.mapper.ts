@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
-import { IChangeable, IEntity, IEntityable, IFormable } from '../../definition.interface';
+import { IEntity, IEntityable, IFormable } from '../../definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
@@ -51,17 +51,6 @@ export const formMapper = (formState: IApplicationFormState): IFormable<IApplica
     ...formState,
   },
 });
-
-export const formMapperWithPresettedChanges =
-    <TEntity extends IEntity>(formState: IApplicationFormState, changes: TEntity): IFormable<IApplicationFormState> => ({
-      form: {
-        ...formState,
-        changes: {
-          ...formState.changes,
-          ...changes || {},
-        },
-      },
-    });
 
 export const listMapper = (listState: IApplicationListState) => ({
   list: {

@@ -31,7 +31,6 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
             ...INITIAL_APPLICATION_FORM_STATE,
           };
     case FormActionBuilder.buildChangeActionType(section):
-    case FormActionBuilder.buildChangesActionType(section):
       const changes = R.pickBy((value, key) => !isUndef(value), {
         ...state.changes,
         ...(

@@ -1,6 +1,5 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT, IKeyValue } from '../../definition.interface';
 import { applySection } from '../../util';
 
 import {
@@ -12,8 +11,8 @@ import {
   FORM_SUBMIT_FINISHED_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
-  FORM_CHANGES_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
+  FormModifyPayloadT,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -28,10 +27,6 @@ export class FormActionBuilder {
 
   public static buildResetActionType(section: string): string {
     return `${section}.${FORM_RESET_ACTION_TYPE}`;
-  }
-
-  public static buildChangesActionType(section: string): string {
-    return `${section}.${FORM_CHANGES_ACTION_TYPE}`;
   }
 
   public static buildValidActionType(section: string): string {
@@ -74,11 +69,7 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
   }
 
-  public static buildChangeAction(section: string, data: IKeyValue): IEffectsAction {
+  public static buildChangeAction(section: string, data: FormModifyPayloadT): IEffectsAction {
     return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
-  }
-
-  public static buildChangesAction(section: string, data: IKeyValue): IEffectsAction {
-    return EffectsAction.create(this.buildChangesActionType(section), applySection(section, data));
   }
 }

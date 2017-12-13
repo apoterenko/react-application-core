@@ -5,7 +5,7 @@ import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { AnyT, IKeyValue, IEntity } from '../../definition.interface';
 import { NotificationActionBuilder } from '../../notification';
 import { ListActionBuilder } from '../../component/list';
-import { FormActionBuilder } from '../../component/form';
+import { FormActionBuilder, FormModifyPayloadT } from '../../component/form';
 import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
 import { PermissionActionBuilder } from '../../permission';
@@ -66,12 +66,8 @@ export class BaseEffects<TApi> {
     return FormActionBuilder.buildSubmitFinishedAction(section);
   }
 
-  protected buildFormChangeAction(section: string, data: IKeyValue): IEffectsAction {
+  protected buildFormChangeAction(section: string, data: FormModifyPayloadT): IEffectsAction {
     return FormActionBuilder.buildChangeAction(section, data);
-  }
-
-  protected buildFormChangesAction(section: string, data: IKeyValue): IEffectsAction {
-    return FormActionBuilder.buildChangesAction(section, data);
   }
 
   protected buildFilterLockAction(section: string): IEffectsAction {
