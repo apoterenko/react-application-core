@@ -10,3 +10,4 @@ export * from './nvl';
 export * from './join';
 export * from './route';
 export * from './filter';
+export * from './merge';
