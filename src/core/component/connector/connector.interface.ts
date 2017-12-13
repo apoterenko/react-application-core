@@ -1,13 +1,14 @@
 import { ComponentLifecycle } from 'react';
 
-import { RouteComponentConfigT } from '../../router';
-import { IKeyValue } from '../../definition.interface';
+import { RouteOptionsT } from '../../router';
+import { IInitialChangesable, IKeyValue } from '../../definition.interface';
 import { IApplicationState, ApplicationStateT } from '../../store';
 import { IApplicationAccessConfig } from '../../permission';
 import { IBaseContainerInternalProps } from '../../component/base';
 
-export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig> {
-  routeConfig: RouteComponentConfigT;
+export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig>
+    extends IInitialChangesable {
+  routeConfig: RouteOptionsT;
   accessConfig?: TApplicationAccessConfig;
   mappers?: Array<ConnectorMapperT<TAppState, IKeyValue>>;
   sectionName?: string|boolean;
@@ -23,3 +24,4 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 
 export const CONNECTOR_INIT_ACTION_TYPE = 'container.init';
 export const CONNECTOR_DESTROY_ACTION_TYPE = 'container.destroy';
+export const CONNECTOR_SECTION_FIELD = '$$section';

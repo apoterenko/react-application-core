@@ -6,7 +6,7 @@ import { FormActionBuilder } from '../../component/form';
 import { IListModifyWrapperPayload, ListActionBuilder } from '../../component/list';
 import { IApiEntity } from '../../api';
 import { IEntity } from '../../definition.interface';
-import { IRoutes, RouterActionBuilder, toRouteConfig } from '../../router';
+import { IRoutes, RouterActionBuilder, toRouteOptions } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
 
 const logger = LoggerFactory.makeLogger('makeSucceedFormEffectsProxy');
@@ -33,7 +33,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
         const connectorConfig = APPLICATION_SECTIONS.get(listSection);
         const listRoute0 = listRoute
-            || (connectorConfig ? toRouteConfig(connectorConfig.routeConfig, this.routes).path : null);
+            || (connectorConfig ? toRouteOptions(connectorConfig.routeConfig, this.routes).path : null);
 
         if (!listRoute0) {
           logger.warn(`[$Effects][$onFormSubmitDone] The list route is empty for the section ${listSection}`);

@@ -1,24 +1,29 @@
-import { IRouterComputedMatch } from '../../router';
+import { IRouteOptions } from '../../router';
 import { IContainerWrapperCtor } from '../../component/application';
 import { IBaseContainerInternalProps } from '../../component/base';
 import { IApplicationAccessConfig } from '../../permission';
+import {
+  IChangeable,
+  IInitialChangesable,
+  IKeyValue,
+  IPathable,
+  ISectionable,
+} from '../../definition.interface';
 
-export interface IRootContainerAttributes {
-  path?: string;
-  exact?: boolean;
-  computedMatch?: IRouterComputedMatch;
-  beforeEnter?: () => void;
-  afterEnter?: () => void;
+export interface IRootUpdatePathPayload extends IChangeable<IKeyValue>,
+                                                ISectionable,
+                                                IPathable {
 }
 
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
-                                                     IRootContainerAttributes {
+                                                     IRouteOptions,
+                                                     ISectionable,
+                                                     IInitialChangesable {
   container?: IContainerWrapperCtor;
   accessConfig?: IApplicationAccessConfig;
 }
 
-export interface IApplicationRootState {
-  path: string;
+export interface IApplicationRootState extends IPathable {
 }
 
 export interface IApplicationRootWrapperState {

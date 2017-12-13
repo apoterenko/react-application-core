@@ -3,14 +3,13 @@ import { AnyAction } from 'redux';
 import {
   IApplicationRootState,
   INITIAL_APPLICATION_ROOT_STATE,
-  ROOT_PATH_UPDATE_ACTION_TYPE,
-  ROOT_SECTION,
 } from './root.interface';
+import { RootActionBuilder } from './root-action.builder';
 
 export function rootReducer(state: IApplicationRootState = INITIAL_APPLICATION_ROOT_STATE,
                             action: AnyAction): IApplicationRootState {
   switch (action.type) {
-    case `${ROOT_SECTION}.${ROOT_PATH_UPDATE_ACTION_TYPE}`:
+    case RootActionBuilder.buildPathUpdateActionType():
       return {
         ...state,
         path: action.data.path,

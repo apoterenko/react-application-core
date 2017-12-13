@@ -3,11 +3,11 @@ import { History } from 'history';
 import { isFn } from '../util';
 import { BaseContainerT } from '../component/base';
 import { IContainerWrapperCtor } from '../component/application';
-import { IRootContainerAttributes } from '../component/root';
 import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
 import { IApplicationState } from '../store';
 import { IApplicationAccessConfig, IApplicationPermissionsState } from '../permission';
 import { IApplicationDictionariesState } from '../dictionary';
+import { IPathable, ITypeable } from '../definition.interface';
 
 export interface IRoutes {
   profile: string;
@@ -33,16 +33,20 @@ export enum ContainerVisibilityTypeEnum {
   PRIVATE,
 }
 
-export interface IRouteComponentConfig extends IRootContainerAttributes {
-  type: ContainerVisibilityTypeEnum;
+export interface IRouteOptions extends IPathable,
+                                       ITypeable<ContainerVisibilityTypeEnum> {
+  exact?: boolean;
+  computedMatch?: IRouterComputedMatch;
+  beforeEnter?: () => void;
+  afterEnter?: () => void;
 }
-export type RouteComponentConfigT = IRouteComponentConfig|((routes: IRoutes) => IRouteComponentConfig);
+export type RouteOptionsT = IRouteOptions|((routes: IRoutes) => IRouteOptions);
 
-export const toRouteConfig = (routeComponentConfig: RouteComponentConfigT,
-                              routes: IRoutes): IRouteComponentConfig => {
+export const toRouteOptions = (routeComponentConfig: RouteOptionsT,
+                               routes: IRoutes): IRouteOptions => {
   return isFn(routeComponentConfig)
-      ? (routeComponentConfig as (routes: IRoutes) => IRouteComponentConfig)(routes)
-      : routeComponentConfig as IRouteComponentConfig;
+      ? (routeComponentConfig as (routes: IRoutes) => IRouteOptions)(routes)
+      : routeComponentConfig as IRouteOptions;
 };
 
 export type RouteContainerT = BaseContainerT|IContainerWrapperCtor;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { IOperation } from './operation';
+import { ApplicationStateT } from './store';
 
 export type AnyT = any;
 export type EntityIdT = number | string;
@@ -165,6 +166,10 @@ export interface ILockable {
   locked?: boolean;
 }
 
+export interface IPathable {
+  path?: string;
+}
+
 export interface IChangeable<TChanges extends IKeyValue> {
   changes: TChanges;
 }
@@ -191,6 +196,10 @@ export interface IRippleable {
 
 export interface IClickable {
   onClick?(event: BasicEventT): void;
+}
+
+export interface IInitialChangesable {
+  initialChanges?(state: ApplicationStateT): IKeyValue;
 }
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;

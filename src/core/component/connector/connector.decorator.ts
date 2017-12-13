@@ -8,7 +8,7 @@ import { BaseContainerT } from '../../component/base';
 import { ApplicationStateT } from '../../store';
 import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';
-import { IConnectorConfig, IConnectorCtor } from './connector.interface';
+import { IConnectorConfig, IConnectorCtor, CONNECTOR_SECTION_FIELD } from './connector.interface';
 import { appContainer, DI_TYPES } from '../../di';
 import { ConnectorActionBuilder } from './connector-builder.action';
 import { APPLICATION_SECTIONS } from '../application';
@@ -27,6 +27,8 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
 
     if (!R.isNil(sectionName)) {
       if (sectionName) {
+        Reflect.set(target, CONNECTOR_SECTION_FIELD, sectionName);
+
         const sectionName0 = sectionName as string;
         APPLICATION_SECTIONS.set(sectionName0, config);
 

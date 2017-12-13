@@ -8,20 +8,26 @@ import {
   IRootContainerInternalProps,
   ROOT_PATH_UPDATE_ACTION_TYPE,
   ROOT_SECTION,
+  IRootUpdatePathPayload,
 } from './root.interface';
 
-export class RootContainer<TInternalProps extends IRootContainerInternalProps>
-    extends BaseContainer<TInternalProps, {}> {
+export class RootContainer extends BaseContainer<IRootContainerInternalProps, {}> {
 
-  constructor(props: TInternalProps) {
+  constructor(props: IRootContainerInternalProps) {
     super(props, ROOT_SECTION);
   }
 
   public componentWillMount(): void {
-    if (this.props.beforeEnter) {
-      this.props.beforeEnter();
+    const props = this.props;
+    if (props.beforeEnter) {
+      props.beforeEnter();
     }
-    this.dispatch(ROOT_PATH_UPDATE_ACTION_TYPE, { path: this.props.path });
+    const actionParams: IRootUpdatePathPayload = {
+      path: props.path,
+      section: props.section,
+      changes: props.initialChanges && props.initialChanges(this.appStore.getState()),
+    };
+    this.dispatch(ROOT_PATH_UPDATE_ACTION_TYPE, actionParams);
   }
 
   public componentDidMount(): void {

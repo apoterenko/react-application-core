@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { IRootContainerInternalProps, RootContainer } from '../../component/root';
+import { RootContainer } from '../../component/root';
 
-export class PublicRootContainer extends RootContainer<IRootContainerInternalProps> {
+export class PublicRootContainer extends RootContainer {
 
   public render(): JSX.Element {
     const Component = this.props.container;
