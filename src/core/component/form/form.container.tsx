@@ -1,11 +1,9 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { IApiEntity } from '../../api';
-import { Operation } from '../../operation';
-import { AnyT, IEntity } from '../../definition.interface';
+import { IApiEntity, ApiEntityT } from '../../api';
+import { AnyT } from '../../definition.interface';
 import { BaseContainer } from '../../component/base';
-import { Form, IFormContainerInternalProps } from '../../component/form';
+import { Form } from '../../component/form';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -13,11 +11,15 @@ import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
+  IForm,
+  IFormContainer,
+  FormContainerInternalPropsT,
 } from './form.interface';
 
-export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEntity>, {}> {
+export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}>
+    implements IFormContainer {
 
-  constructor(props: IFormContainerInternalProps<IEntity>) {
+  constructor(props: FormContainerInternalPropsT) {
     super(props);
 
     this.onChange = this.onChange.bind(this);
@@ -33,7 +35,8 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <Form onChange={this.onChange}
+        <Form ref='form'
+              onChange={this.onChange}
               onSubmit={this.onSubmit}
               onReset={this.onReset}
               onValid={this.onValid}
@@ -41,6 +44,10 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
           {props.children}
         </Form>
     );
+  }
+
+  public submit(): void {
+    (this.refs.form as IForm).submit();
   }
 
   private onChange(name: string, value: AnyT): void {
@@ -61,24 +68,7 @@ export class FormContainer extends BaseContainer<IFormContainerInternalProps<IEn
     this.dispatch(FORM_RESET_ACTION_TYPE);
   }
 
-  private onSubmit(): void {
-    const { props } = this;
-    const { entity } = props;
-    const { changes } = props.form;
-    const entityId = entity ? entity.id : null;
-
-    const apiEntity0: IApiEntity<IEntity> = (R.isNil(entityId)
-            // You should use formMapper at least (simple form)
-            ? { isNew: true, changes }
-
-            // You should use formMapper and entityMapper at least (editable entity)
-            : { isNew: false, changes, entity, id: entityId }
-    );
-
-    const apiEntity: IApiEntity<IEntity> = {
-      operation: Operation.create(),
-      ...apiEntity0,
-    };
+  private onSubmit(apiEntity: ApiEntityT): void {
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
   }
 }

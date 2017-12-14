@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { FunctionT } from '../../util';
+import { IApiEntity, ApiEntityT } from '../../api';
 import {
   AnyT,
   ILockable,
@@ -14,9 +14,15 @@ import {
   IErrorable,
   ITouchable,
   IDirtyable,
+  ISubmittable,
   IReadonlyable,
 } from '../../definition.interface';
-import { IBaseComponentInternalProps, IBaseContainerInternalProps } from '../../component/base';
+import {
+  IBaseComponent,
+  IBaseComponentInternalProps,
+  IBaseContainer,
+  IBaseContainerInternalProps,
+} from '../../component/base';
 
 export interface IFormFieldModifyPayload {
   field: string;
@@ -50,24 +56,34 @@ export interface IFormOptions extends IStylizable,
 export interface IFormProps<TEntity extends IEntity> extends IEntityable<TEntity> {
   form: IFormAttributes<TEntity>;
   formOptions?: IFormOptions;
+  onBeforeSubmit?(apiEntity: IApiEntity<TEntity>): void;
 }
 
 export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,
                                                                      IFormProps<TEntity> {
-  onSubmit?: FunctionT;
-  onReset?: FunctionT;
-  onValid?: FunctionT;
+  onSubmit?: (apiEntity: IApiEntity<TEntity>) => void;
+  onReset?: () => void;
+  onValid?: (valid: boolean) => void;
   onChange?(name: string, value: AnyT): void;
 }
 
 export type FormInternalPropsT = IFormInternalProps<IEntity>;
+export type FormContainerInternalPropsT = IFormContainerInternalProps<IEntity>;
 
 export interface IFormContainerInternalProps<TEntity extends IEntity> extends IBaseContainerInternalProps,
                                                                               IFormProps<TEntity> {
 }
 
+export interface IForm extends IBaseComponent<FormInternalPropsT, {}>,
+                               ISubmittable {
+}
+
+export interface IFormContainer extends IBaseContainer<FormContainerInternalPropsT, {}>,
+                                        ISubmittable {
+}
+
 export interface IFormPureComponent extends PureComponent<{}, {}> {
-  checkValidity(): void;
+  checkValidity(): boolean;
 }
 
 export interface IApplicationFormState extends IFormAttributes<IEntity> {

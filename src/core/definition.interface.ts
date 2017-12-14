@@ -198,6 +198,10 @@ export interface IClickable {
   onClick?(event: BasicEventT): void;
 }
 
+export interface ISubmittable {
+  submit?(): void;
+}
+
 export interface IInitialChangesable {
   initialChanges?(state: ApplicationStateT): IKeyValue;
 }

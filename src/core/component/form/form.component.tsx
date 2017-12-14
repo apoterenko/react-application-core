@@ -3,10 +3,12 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isString, isUndef, orNull, toClassName } from '../../util';
-import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
-import { BaseComponent, IBaseComponent } from '../../component/base';
+import { AnyT, BasicEventT, IEntity, ReactElementT } from '../../definition.interface';
+import { BaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
 import { lazyInject, DI_TYPES } from '../../di';
+import { IApiEntity, ApiEntityT } from '../../api';
+import { Operation } from '../../operation';
 import {
   Field,
   IFieldInternalProps,
@@ -18,11 +20,11 @@ import {
 import {
   IFormPureComponent,
   FormInternalPropsT,
-  INITIAL_APPLICATION_FORM_STATE
+  INITIAL_APPLICATION_FORM_STATE,
+  IForm,
 } from './form.interface';
 
-export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
-    extends BaseComponent<TComponent, FormInternalPropsT, {}> {
+export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implements IForm {
 
   public static defaultProps: FormInternalPropsT = {
     form: INITIAL_APPLICATION_FORM_STATE,
@@ -139,6 +141,14 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
     this.childrenMap.clear();
   }
 
+  public submit(): void {
+    const props = this.props;
+
+    if (props.onSubmit) {
+      props.onSubmit(this.apiEntity);
+    }
+  }
+
   private onChange(name: string, value: AnyT, validationGroup: string): void {
     this.resetGroupFieldsErrors(name, validationGroup);
     if (this.props.onChange) {
@@ -154,10 +164,14 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
   }
 
   private onSubmit(event: BasicEventT): void {
+    const props = this.props;
+
     this.stopEvent(event);
 
-    if (this.props.onSubmit) {
-      this.props.onSubmit();
+    if (props.onBeforeSubmit) {
+      props.onBeforeSubmit(this.apiEntity);
+    } else {
+      this.submit();
     }
   }
 
@@ -187,6 +201,25 @@ export class Form<TComponent extends IBaseComponent<FormInternalPropsT, {}>>
         }
       }
     });
+  }
+
+  private get apiEntity(): ApiEntityT {
+    const { props } = this;
+    const { entity } = props;
+    const { changes } = props.form;
+    const entityId = entity ? entity.id : null;
+
+    const apiEntity0: ApiEntityT = (R.isNil(entityId)
+            // You should use formMapper at least (simple form)
+            ? { isNew: true, changes }
+
+            // You should use formMapper and entityMapper at least (editable entity)
+            : { isNew: false, changes, entity, id: entityId }
+    );
+    return {
+      operation: Operation.create(),
+      ...apiEntity0,
+    };
   }
 
   private get isFormReadOnly(): boolean {

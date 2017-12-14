@@ -1,7 +1,8 @@
+import { AnyAction } from 'redux';
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { applySection } from '../../util';
-
+import { AnyT, IKeyValue } from '../../definition.interface';
 import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
@@ -13,6 +14,7 @@ import {
   FORM_DESTROY_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
   FormModifyPayloadT,
+  IFormFieldModifyPayload,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -71,5 +73,35 @@ export class FormActionBuilder {
 
   public static buildChangeAction(section: string, data: FormModifyPayloadT): IEffectsAction {
     return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
+  }
+
+  public static buildChangesSimpleAction(section: string, changes: IKeyValue): AnyAction {
+    return {
+      type: this.buildChangeActionType(section),
+      data: applySection(section, this.buildFieldsChangesPayload(changes)),
+    };
+  }
+
+  public static buildChangeSimpleAction(section: string, field: string, value?: AnyT): AnyAction {
+    return {
+      type: this.buildChangeActionType(section),
+      data: applySection(section, this.buildChangePayload(field, value)),
+    };
+  }
+
+  public static buildFieldsChangesPayload(changes: IKeyValue): FormModifyPayloadT {
+    return {
+      fields: Object.keys(changes).map((fieldName) => this.buildChangePayload(
+          fieldName,
+          Reflect.get(changes, fieldName)
+      )),
+    };
+  }
+
+  private static buildChangePayload(fieldName: string, fieldValue?: AnyT): IFormFieldModifyPayload {
+    return {
+      field: fieldName,
+      value: fieldValue,
+    };
   }
 }
