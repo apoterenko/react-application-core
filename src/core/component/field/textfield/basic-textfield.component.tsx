@@ -38,28 +38,21 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const error = this.error;
     const isFocused = props.autoFocus || this.isValuePresent;
 
-    const prepareStyles = this.context.muiTheme
-        ? this.context.muiTheme.prepareStyles
-        : (styles) => styles;
-
     return (
-        <div className={toClassName(this.uiFactory.formField, 'rac-form-field')}
-             style={prepareStyles({})}>
+        <div className={this.getFieldClassName()}
+             style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
           <div ref='self'
                style={props.style}
                className={toClassName(
-                   'mdc-text-field',
+                   this.uiFactory.textField,
                    'mdc-text-field--upgraded',
                    'rac-text-field',
-                   'app-text-field',
                    props.className,
-                   this.isDeactivated() && 'app-text-field-deactivated',
-                   isFocused && this.uiFactory.textFieldFocused,
-                   props.prefixLabel && 'app-text-field-prefixed'
+                   isFocused && this.uiFactory.textFieldFocused
                )}>
             {orNull(
                 props.prefixLabel,
-                <span className='app-text-field-prefix'>{props.prefixLabel}</span>
+                <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
             )}
             {this.getComponent()}
             <label style={{paddingLeft: props.prefixLabel

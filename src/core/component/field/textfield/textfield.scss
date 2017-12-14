@@ -1,16 +1,32 @@
 @import '../../constant';
 
-.app-text-field-deactivated .app-text-field-prefix {
-  opacity: .6;
-}
-
-.app-text-field-prefix {
-  padding: 0 0 6px;
-}
-
 .rac-text-field-loader {
   position: absolute;
   bottom: 6px;
   left: 50%;
   color: $color-2;
+}
+
+// Text field [FRAMEWORK-]
+.rac-form-field {
+  .rac-text-field {
+    .rac-text-field-prefix-label {
+      padding-bottom: 6px;
+      cursor: default;
+    }
+
+    .rac-field-input {
+      &[readonly], &[disabled] {
+        opacity: $opacity;
+      }
+    }
+  }
+
+  &.rac-form-field-disabled {
+    .rac-text-field {
+      .rac-text-field-prefix-label {
+        opacity: $opacity;
+      }
+    }
+  }
 }

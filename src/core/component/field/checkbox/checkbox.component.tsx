@@ -12,18 +12,23 @@ export class Checkbox extends Field<Checkbox,
                                     ICheckboxInternalProps,
                                     ICheckboxInternalState> {
 
+  private inputId = uuid();
+
   public render(): JSX.Element {
     const props = this.props;
-    const id = uuid();
 
     return (
-        <div className={toClassName(this.uiFactory.formField, 'rac-form-field', 'rac-checkbox-field')}>
+        <div className={this.getFieldClassName()}>
           <div ref='self'
-               className={toClassName(this.uiFactory.checkbox, props.className)}>
-            <input id={id} {...this.getComponentProps()}/>
+               className={toClassName(
+                 this.uiFactory.checkbox,
+                 'rac-checkbox-field',
+                 props.className,
+               )}>
+            {this.getComponent()}
             {this.uiFactory.makeCheckboxAttachment()}
           </div>
-          <label htmlFor={id}>
+          <label htmlFor={this.inputId}>
             {props.label ? this.t(props.label) : props.children}
           </label>
         </div>
@@ -34,9 +39,10 @@ export class Checkbox extends Field<Checkbox,
     return {
       ...super.getComponentProps(),
 
+      id: this.inputId,
       type: 'checkbox',
       checked: this.toDisplayValue(),
-      className: this.uiFactory.checkboxInput,
+      className: toClassName(this.uiFactory.checkboxInput, 'rac-field-input'),
     };
   }
 
@@ -44,6 +50,10 @@ export class Checkbox extends Field<Checkbox,
     if (this.props.onClick) {
       this.props.onClick(event);
     }
+  }
+
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-form-checkbox');
   }
 
   protected getEmptyValue(): boolean {

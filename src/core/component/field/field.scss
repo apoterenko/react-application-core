@@ -2,13 +2,9 @@
 @import './select/select';
 @import './chipsfield/chipsfield';
 
-// Field
-.rac-form-field {
-  .rac-text-field {
-    .rac-field-input {
-      &[readonly], &[disabled] {
-        opacity: $opacity;
-      }
-    }
+// Field label [FRAMEWORK-]
+.rac-form-field-disabled {
+  label {
+    opacity: $opacity;
   }
 }

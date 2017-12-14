@@ -259,6 +259,14 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     this.onChangeValue(this.getEmptyValue(), null);
   }
 
+  protected getFieldClassName(): string {
+    return toClassName(
+        this.uiFactory.formField,
+        'rac-form-field',
+        this.isDeactivated() && 'rac-form-field-disabled'
+    );
+  }
+
   protected get value(): AnyT {
     return this.isPersistent ? this.definitePropsValue : this.stateValue;
   }
