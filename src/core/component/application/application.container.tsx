@@ -103,7 +103,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
           <Info key={uuid()}
                 emptyMessage={
                   props.progress
-                      ? (props.progressMessage || 'Please wait...')
+                      ? (props.progressMessage || this.settings.messages.waitMessage)
                       : (
                           props.error
                               ? (

@@ -33,6 +33,7 @@ export interface IApplicationMessages {
   logoutNotificationMessage?: string;
   accessDeniedMessage?: string;
   sorryMessage?: string;
+  waitMessage?: string;
 }
 
 export interface IApplicationSettings {
@@ -60,6 +61,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     logoutNotificationMessage: 'You were logged out.',
     accessDeniedMessage: 'The access is restricted for you.',
     sorryMessage: 'Sorry about that.',
+    waitMessage: 'Please wait...',
   },
   dateTime: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
