@@ -1,24 +1,25 @@
-import { FunctionT } from '../../util';
 import { INativeMaterialComponent } from '../../component/material';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
 
 export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
   show(): void;
-  listen(type: string, callback: FunctionT);
 }
 
-export interface IDialog<TInternalProps extends IDialogInternalProps>
-    extends IBaseComponent<TInternalProps, {}> {
+export interface IDialog<TInternalProps extends IDialogInternalProps> extends IBaseComponent<TInternalProps, {}> {
   activate(): void;
 }
 
+export type DialogT = IDialog<IDialogInternalProps>;
+
 export interface IDialogInternalProps extends IBaseComponentInternalProps {
-  title?: string;
-  message?: string;
   closeMessage?: string;
   acceptMessage?: string;
+  acceptDisabled?: boolean;
+  closeDisabled?: boolean;
   canClose?: boolean;
   canAccept?: boolean;
   onAccept?(): void;
   onClose?(): void;
 }
+
+export const FORM_DIALOG_REF = 'formDialog';

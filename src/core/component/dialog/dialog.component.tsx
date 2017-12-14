@@ -3,7 +3,7 @@ import { MDCDialog } from '@material/dialog';
 
 import { MaterialComponent } from '../../component/material';
 import { Button } from '../../component/button';
-import { isUndef } from '../../util';
+import { isUndef, orNull } from '../../util';
 import {
   IDialog,
   IDialogInternalProps,
@@ -47,41 +47,44 @@ export class Dialog<TComponent extends IDialog<TInternalProps>,
   }
 
   public render(): JSX.Element {
-    const bodyMessageTpl = !isUndef(this.props.message)
-        ? (
-            <section className='mdc-dialog__body'>
-              {this.t(this.props.message)}
-            </section>
-        )
-        : null;
-
-    const closeTpl = this.canClose
-        ? <Button className='mdc-dialog__footer__button mdc-dialog__footer__button--cancel'>
-            {this.t(this.props.closeMessage || 'Decline')}
-          </Button>
-        : null;
-
-    const acceptTpl = this.canAccept
-        ? <Button className='mdc-dialog__footer__button mdc-dialog__footer__button--accept'>
-            {this.t(this.props.acceptMessage || 'Accept')}
-          </Button>
-        : null;
+    const props = this.props;
 
     return (
         <aside ref='self'
                className='mdc-dialog'
-               role='alertdialog'
-        >
+               role='alertdialog'>
           <div className='mdc-dialog__surface'>
             <header className='mdc-dialog__header'>
               <h2 className='mdc-dialog__header__title'>
-                {this.t(this.props.title || 'Notice')}
+                {this.t(props.title || 'Notice')}
               </h2>
             </header>
-            {bodyMessageTpl}
+            {
+              orNull(
+                props.children || !isUndef(props.message),
+                <section className='mdc-dialog__body'>
+                  {props.children || this.t(props.message)}
+                </section>
+              )
+            }
             <footer className='mdc-dialog__footer'>
-              {closeTpl}
-              {acceptTpl}
+              {
+                orNull(
+                  this.canClose,
+                  <Button disabled={props.closeDisabled}
+                          className='mdc-dialog__footer__button mdc-dialog__footer__button--cancel'>
+                    {this.t(props.closeMessage || 'Decline')}
+                  </Button>
+                )
+              }
+              {
+                orNull(this.canAccept,
+                    <Button disabled={props.acceptDisabled}
+                            className='mdc-dialog__footer__button mdc-dialog__footer__button--accept'>
+                      {this.t(props.acceptMessage || 'Accept')}
+                    </Button>
+                )
+              }
             </footer>
           </div>
           <div className='mdc-dialog__backdrop'/>
