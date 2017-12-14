@@ -78,7 +78,7 @@ export class FormActionBuilder {
   public static buildChangesSimpleAction(section: string, changes: IKeyValue): AnyAction {
     return {
       type: this.buildChangeActionType(section),
-      data: applySection(section, this.buildFieldsChangesPayload(changes)),
+      data: applySection(section, this.buildChangesPayload(changes)),
     };
   }
 
@@ -89,7 +89,7 @@ export class FormActionBuilder {
     };
   }
 
-  public static buildFieldsChangesPayload(changes: IKeyValue): FormModifyPayloadT {
+  private static buildChangesPayload(changes: IKeyValue): FormModifyPayloadT {
     return {
       fields: Object.keys(changes).map((fieldName) => this.buildChangePayload(
           fieldName,
