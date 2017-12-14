@@ -8,6 +8,7 @@
   .rac-text-field {
     width: 100%;
     border-bottom: 1px solid $color-2;
+    will-change: unset; // workaround
 
     .rac-field-input {
       border-bottom: none;
@@ -15,6 +16,18 @@
 
     + .rac-text-field-help-text {
       margin-bottom: 0;
+    }
+  }
+
+  &.rac-form-field-disabled {
+    .rac-checkbox-field {
+      .rac-field-input {
+        pointer-events: unset;  // workaround
+      }
+
+      .mdc-checkbox__background {
+        opacity: $opacity;
+      }
     }
   }
 
@@ -44,7 +57,7 @@
     @include justify-content(start);
     @include align-items(flex-start);
 
-    &.rac-checkbox-field {
+    &.rac-form-checkbox {
       @include flex-direction(row);
       @include align-items(center);
     }
