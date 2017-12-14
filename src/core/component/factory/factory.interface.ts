@@ -13,6 +13,7 @@ export interface IUIFactory {
   list: string;
   button: string;
   formField: string;
+  textField: string;
   checkbox: string;
   textFieldInput: string;
   textFieldFocused: string;

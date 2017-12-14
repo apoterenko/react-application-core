@@ -20,6 +20,7 @@ export class UIMaterialFactory implements IUIFactory {
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
   public formField = 'mdc-form-field';
+  public textField = 'mdc-text-field';
   public checkbox = 'mdc-checkbox';
   public textFieldInput = 'mdc-text-field__input';
   public textFieldFocused = 'mdc-text-field--focused';
