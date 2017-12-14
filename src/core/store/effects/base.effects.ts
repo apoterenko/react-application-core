@@ -1,6 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { IApiEntity } from '../../api';
+import { IApiEntity, ApiEntityT } from '../../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { AnyT, IKeyValue, IEntity } from '../../definition.interface';
 import { NotificationActionBuilder } from '../../notification';
@@ -43,7 +43,7 @@ export class BaseEffects<TApi> {
     return ListActionBuilder.buildDestroyAction(section);
   }
 
-  protected buildListEntityUpdateAction(section: string, apiEntity: IApiEntity<IEntity>, changes: IKeyValue): IEffectsAction {
+  protected buildListEntityUpdateAction(section: string, apiEntity: ApiEntityT, changes: IKeyValue): IEffectsAction {
     const id = apiEntity.id;
     return apiEntity.isNew
         ? ListActionBuilder.buildInsertAction(section, {payload: {id, changes}})

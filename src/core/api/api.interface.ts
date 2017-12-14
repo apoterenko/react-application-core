@@ -1,7 +1,6 @@
 import {
   IIdentifiedEntity, IChangeable, IEntity, EntityIdT, IEntityable, IOperationable
 } from '../definition.interface';
-import { IOperation } from '../operation';
 
 export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity,
                                                              IChangeable<TEntity>,
@@ -21,3 +20,5 @@ export interface IApiEntityRequest<TEntity extends IEntity> {
   apiEntity: IApiEntity<TEntity>;
   extraParams?: IEntity;
 }
+
+export type ApiEntityT = IApiEntity<IEntity>;

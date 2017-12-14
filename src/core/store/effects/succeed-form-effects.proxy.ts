@@ -4,7 +4,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { DI_TYPES, provideInSingleton, lazyInject } from '../../di';
 import { FormActionBuilder } from '../../component/form';
 import { IListModifyWrapperPayload, ListActionBuilder } from '../../component/list';
-import { IApiEntity } from '../../api';
+import { IApiEntity, ApiEntityT } from '../../api';
 import { IEntity } from '../../definition.interface';
 import { IRoutes, RouterActionBuilder, toRouteOptions } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
@@ -27,7 +27,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
       @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(formSection))
       public $onFormSubmitDone(action: IEffectsAction): IEffectsAction[] {
-        const apiEntity = action.initialData as IApiEntity<IEntity>;
+        const apiEntity = action.initialData as ApiEntityT;
         const changes = action.data as IEntity;
         const id = apiEntity.id;
 
