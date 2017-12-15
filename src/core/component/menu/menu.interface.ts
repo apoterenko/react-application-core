@@ -1,13 +1,14 @@
 import { FunctionT } from '../../util';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
 import { INativeMaterialComponent } from '../../component/material';
-import { EntityIdT, IFilterable } from '../../definition.interface';
+import { EntityIdT, IFilterable, IRenderable } from '../../definition.interface';
 
 export interface IMenuInternalState {
   filter?: string;
 }
 
 export interface IMenuInternalProps extends IBaseComponentInternalProps,
+                                            IRenderable,
                                             IFilterable {
   options: IMenuOption[];
   onSelect?(option: IMenuOption): void;

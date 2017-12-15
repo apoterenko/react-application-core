@@ -23,12 +23,6 @@ $mdc-theme-background: $color-5;
 .mdc-persistent-drawer {
   z-index: 1;
   font-size: 1rem;
-
-  .mdc-list-item {
-    .material-icons {
-      padding-right: 32px;
-    }
-  }
 }
 
 .mdc-list--avatar-list .mdc-list-item__start-detail {

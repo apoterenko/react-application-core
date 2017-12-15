@@ -1,10 +1,31 @@
-.mdc-list .mdc-list-group__subheader {
-  cursor: default;
-  padding-left: 16px;
+$list-item-left-offset: 16px;
+
+// List [MDC+]
+.mdc-list {
+  .mdc-list-group__subheader {
+    cursor: default;
+    padding-left: $list-item-left-offset;
+  }
+
+  &.rac-list, &.rac-navigation-list {
+    padding-top: 0;
+  }
 }
 
-.rac-list, .rac-navigation-list {
-  &.mdc-list {
-    padding-top: 0;
+// Main list [MDC+]
+.rac-main {
+  .mdc-list {
+    .mdc-list-item {
+      padding-left: $list-item-left-offset;
+    }
+  }
+}
+
+// Drawer list icons [MDC+]
+.mdc-persistent-drawer {
+  .mdc-list-item {
+    .material-icons {
+      padding-right: 32px;
+    }
   }
 }
