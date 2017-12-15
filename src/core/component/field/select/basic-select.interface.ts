@@ -1,5 +1,5 @@
 import { IMenuOption } from '../../../component/menu';
-import { IFilterable, INamedEntity } from '../../../definition.interface';
+import { IFilterable, INamedEntity, IRenderable } from '../../../definition.interface';
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
@@ -10,6 +10,7 @@ export interface IBasicSelectInternalState extends IBasicTextFieldInternalState 
 }
 
 export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
+                                                   IRenderable,
                                                    IFilterable {
   options?: ISelectOption[];
   onEmptyOptions?(): void;

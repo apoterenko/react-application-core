@@ -1,5 +1,6 @@
 import { BASE_PATH } from '../env';
 import { ApplicationStorageTypeEnum } from '../storage';
+import { AnyT } from '../definition.interface';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;
@@ -41,6 +42,7 @@ export interface IApplicationSettings {
   companyName?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
+  entityEmptyId?: AnyT;
   dateTime?: IApplicationDateTimeSettings;
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
@@ -57,6 +59,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
   apiUrl: (BASE_PATH + '/api/').replace(/(\/\/)+/, '/'),
   companyName: 'Test company',
+  entityEmptyId: null,
   messages: {
     logoutNotificationMessage: 'You were logged out.',
     accessDeniedMessage: 'The access is restricted for you.',

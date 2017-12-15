@@ -7,7 +7,6 @@ import { Menu, IMenu } from '../../../component/menu';
 import {
   AnyT,
   BasicEventT,
-  EMPTY_ID,
   EntityIdT,
   KeyboardEventT,
 } from '../../../definition.interface';
@@ -105,7 +104,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected getEmptyValue(): AnyT {
-    return EMPTY_ID;
+    return this.applicationSettings.entityEmptyId;
   }
 
   protected get options(): ISelectOption[] {
@@ -166,7 +165,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     if (filteredOptions.length) {
       this.menu.show();
     } else {
-      BasicSelect.logger.debug(`The options are empty. The menu does not show.`);
+      BasicSelect.logger.debug('[$BasicSelect][showMenu] The options are empty. The menu does not show.');
     }
   }
 
