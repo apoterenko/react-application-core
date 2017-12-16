@@ -14,7 +14,7 @@ export class BaseTransport {
       params: {
         ...apiEntity.changes || {},
         ...entityRequest.extraParams,
-        id: apiEntity.isNew ? null : apiEntity.id,
+        ...!apiEntity.isNew ? { id: apiEntity.id } : {},
       },
       name: apiEntity.isNew ? entityRequest.addApi : entityRequest.editApi,
       operation: apiEntity.operation,
