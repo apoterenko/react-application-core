@@ -1,5 +1,10 @@
 import { IMenuOption } from '../../../component/menu';
-import { IFilterable, INamedEntity, IRenderable } from '../../../definition.interface';
+import {
+  IFilterable,
+  INamedEntity,
+  IRenderable,
+  ITemplateable,
+} from '../../../definition.interface';
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
@@ -10,19 +15,26 @@ export interface IBasicSelectInternalState extends IBasicTextFieldInternalState 
 }
 
 export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
-                                                   IRenderable,
+                                                   IRenderable<SelectOptionT>,
+                                                   ITemplateable<SelectOptionT>,
                                                    IFilterable {
-  options?: ISelectOption[];
+  options?: SelectOptionT[];
   onEmptyOptions?(): void;
-  onOptionsLoad?(loadedOptions: ISelectOption[]): void;
-  onSelect?(option: ISelectOption): void;
+  onOptionsLoad?(loadedOptions: SelectOptionT[]): void;
+  onSelect?(option: SelectOptionT): void;
 }
 
-export interface ISelectOption extends IMenuOption {
+export interface ISelectOption<TRawData extends INamedEntity> extends IMenuOption<TRawData> {
 }
 
-export function toSelectOptions(data: INamedEntity[]): ISelectOption[] {
+export function toSelectOptions<TRawData extends INamedEntity>(data: INamedEntity[]): SelectOptionT[] {
   return data
-      ? data.map((rawItem) => ({value: rawItem.id, label: rawItem.name}))
+      ? data.map((rawItem: TRawData): SelectOptionT => ({
+          value: rawItem.id,
+          label: rawItem.name,
+          rawData: rawItem,
+      }))
       : null;
 }
+
+export type SelectOptionT = ISelectOption<INamedEntity>;

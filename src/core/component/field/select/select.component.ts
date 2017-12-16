@@ -1,10 +1,10 @@
 import { BasicSelect } from './basic-select.component';
 import { ISelectInternalProps, ISelectInternalState } from './select.interface';
-import { ISelectOption } from '../../field';
+import { SelectOptionT } from '../../field';
 
 export class Select extends BasicSelect<Select, ISelectInternalProps, ISelectInternalState> {
 
-  protected toFilteredOptions(options: ISelectOption[]): ISelectOption[] {
+  protected toFilteredOptions(options: SelectOptionT[]): SelectOptionT[] {
     return super.toFilteredOptions(options).filter((option) =>
         option.value !== this.value);
   }

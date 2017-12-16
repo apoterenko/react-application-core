@@ -14,6 +14,7 @@ import {
   IBasicSelectInternalProps,
   IBasicSelectInternalState,
   ISelectOption,
+  SelectOptionT,
 } from './basic-select.interface';
 
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalProps, TInternalState>,
@@ -87,11 +88,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected getComponent(): JSX.Element {
+    const props = this.props;
     return (
         <div className='rac-field-input-wrapper'>
           {super.getComponent()}
           <Menu ref='menu'
-                useFilter={this.props.useFilter}
+                tpl={props.tpl}
+                renderer={props.renderer}
+                useFilter={props.useFilter}
                 options={this.toFilteredOptions()}
                 onSelect={this.onSelect}>
           </Menu>
@@ -99,7 +103,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     );
   }
 
-  protected toFilteredOptions(options: ISelectOption[] = this.options): ISelectOption[] {
+  protected toFilteredOptions(options: SelectOptionT[] = this.options): SelectOptionT[] {
     return options;
   }
 
@@ -107,11 +111,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.applicationSettings.entityEmptyId;
   }
 
-  protected get options(): ISelectOption[] {
+  protected get options(): SelectOptionT[] {
     return this.props.options || [];
   }
 
-  protected onSelect(option: ISelectOption): void {
+  protected onSelect(option: SelectOptionT): void {
     this.onChangeValue(option.value, null);
 
     if (this.props.onSelect) {
@@ -134,8 +138,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return super.isDeactivated() || this.state.emptyOptions;
   }
 
-  private getSelectedOption(value: AnyT): ISelectOption {
-    return R.find((option) => option.value === value, this.options);
+  private getSelectedOption(value: AnyT): SelectOptionT {
+    return R.find<SelectOptionT>((option) => option.value === value, this.options);
   }
 
   private get menu(): IMenu {
@@ -160,7 +164,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  private showMenu(options?: ISelectOption[]): void {
+  private showMenu(options?: SelectOptionT[]): void {
     const filteredOptions = this.toFilteredOptions(options);
     if (filteredOptions.length) {
       this.menu.show();

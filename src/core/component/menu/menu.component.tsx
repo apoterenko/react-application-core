@@ -56,18 +56,31 @@ export class Menu extends MaterialComponent<Menu,
     const filter = this.state.filter && this.state.filter.toUpperCase();
 
     const menuItemsTpl = props.options
-      .filter(
-        (option) => !filter ||  String(option.label || option.value).toUpperCase().includes(filter)
-      )
-      .map((option) => (
-        <li className='mdc-list-item'
-            role='option'
-            key={uuid()}
-            value={option.value}
-            aria-disabled={option.disabled === true}>
-          {option.label ? this.t(option.label) : option.value}
-        </li>
-    ));
+        .filter(
+            (option) => !filter || String(option.label || option.value).toUpperCase().includes(filter)
+        )
+        .map((option): JSX.Element => {
+          const props0 = {
+            role: 'option',
+            key: uuid(),
+            value: option.value,
+            className: this.uiFactory.listItem,
+            ['aria-disabled']: option.disabled === true,
+          };
+          return (
+              props.renderer
+                  ? React.cloneElement(props.renderer(option), props0)
+                  : (
+                      <li {...props0}>
+                        {
+                          props.tpl
+                              ? props.tpl(option)
+                              : (option.label ? this.t(option.label) : option.value)
+                        }
+                      </li>
+                  )
+          );
+        });
 
     return (
         <div className='mdc-menu-anchor'>

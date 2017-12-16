@@ -4,7 +4,7 @@ import * as Printf from 'sprintf-js';
 
 import { uuid, isUndef, clone } from '../../../util';
 import { EntityIdT, IEntity, KeyboardEventT } from '../../../definition.interface';
-import { BasicSelect, ISelectOption } from '../../../component/field';
+import { BasicSelect, SelectOptionT } from '../../../component/field';
 
 import {
   IChipsFieldInternalProps,
@@ -50,7 +50,7 @@ export class ChipsField extends BasicSelect<ChipsField,
     return !isUndef(this.value) && !R.equals(this.value, this.getEmptyValue());
   }
 
-  protected onSelect(option: ISelectOption): void {
+  protected onSelect(option: SelectOptionT): void {
     const removeLen = this.state.remove.length;
     const removeArray = this.state.remove.filter(((removeItem) => removeItem !== option.value));
     let addArray: EntityIdT[];
@@ -92,7 +92,7 @@ export class ChipsField extends BasicSelect<ChipsField,
     );
   }
 
-  protected toFilteredOptions(options: ISelectOption[]): ISelectOption[] {
+  protected toFilteredOptions(options: SelectOptionT[]): SelectOptionT[] {
     return super.toFilteredOptions(options).filter((option) =>
         !this.getActiveValue().find((item) => this.toValue(item) === option.value));
   }
@@ -135,9 +135,9 @@ export class ChipsField extends BasicSelect<ChipsField,
           ? this.t(displayValue.label)
           : (Reflect.get(item, props.labelField) || value);
     }
-    return (item as ISelectOption).label
-        ? this.t((item as ISelectOption).label)
-        : (item as ISelectOption).value;
+    return (item as SelectOptionT).label
+        ? this.t((item as SelectOptionT).label)
+        : (item as SelectOptionT).value;
   }
 
   private getActiveValue(add: EntityIdT[] = this.state.add, remove: EntityIdT[] = this.state.remove): ChipsFieldItemT[] {
@@ -156,6 +156,6 @@ export class ChipsField extends BasicSelect<ChipsField,
   private toValue(item: ChipsFieldItemT): EntityIdT {
     const props = this.props;
     const idValue = Reflect.get(item, props.idField);
-    return idValue || (item as ISelectOption).value;
+    return idValue || (item as SelectOptionT).value;
   }
 }

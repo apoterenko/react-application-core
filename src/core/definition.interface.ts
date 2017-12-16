@@ -31,8 +31,12 @@ export interface INameable {
   name?: string;
 }
 
-export interface IRenderable {
-  renderer?(item: IEntity): JSX.Element;
+export interface IRenderable<Type> {
+  renderer?(item: Type): JSX.Element;
+}
+
+export interface ITemplateable<Type> {
+  tpl?(node: Type): React.ReactNode;
 }
 
 export interface ISorter {
@@ -119,6 +123,10 @@ export interface ISaveable {
 
 export interface ISelectable<Type> {
   selected?: Type;
+}
+
+export interface IRawDatable<Type> {
+  rawData?: Type;
 }
 
 export interface IErrorable<Type> {
