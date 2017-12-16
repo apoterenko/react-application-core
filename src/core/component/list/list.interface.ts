@@ -3,6 +3,7 @@ import {
   IBaseContainerInternalProps,
   IBaseContainer,
 } from '../../component/base';
+import { EntityOnSaveMergeStrategyEnum } from '../../api';
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
@@ -16,16 +17,10 @@ import {
   IIdentifiedEntity,
   IChangeable,
   ISorter,
-  IKeyValue, IPayloadable,
+  IKeyValue,
+  IPayloadable,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
-
-export interface IListModifyPayload extends IIdentifiedEntity,
-                                            IChangeable<IKeyValue> {
-}
-
-export interface IListModifyWrapperPayload extends IPayloadable<IListModifyPayload> {
-}
 
 export interface IListOptions extends IBaseComponentInternalProps,
                                       ISorter {
