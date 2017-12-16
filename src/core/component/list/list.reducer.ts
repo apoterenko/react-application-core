@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { FIRST_PAGE, IEntity } from '../../definition.interface';
@@ -5,12 +6,15 @@ import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE, IApplicationListState, IListEntity } from './list.interface';
-import { IListModifyWrapperPayload } from '../../component/list';
+import {
+  EntityOnSaveMergeStrategyEnum,
+  IModifyEntityPayloadWrapper,
+} from '../../api';
 
 export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IApplicationListState {
   const section = toSection(action);
-  const modifyData: IListModifyWrapperPayload = action.data;
+  const modifyData: IModifyEntityPayloadWrapper = action.data;
   const payload = modifyData && modifyData.payload;
 
   switch (action.type) {
@@ -87,9 +91,18 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
       };
     case ListActionBuilder.buildUpdateActionType(section):
       if (state.data && state.data.length) {
+        const mergeStrategy = (R.isNil(payload.mergeStrategy)
+              || payload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
+            ? EntityOnSaveMergeStrategyEnum.MERGE
+            : EntityOnSaveMergeStrategyEnum.OVERRIDE;
+
         const updatedData = state.data.map((item) => (
             item.id === payload.id
-                ? {...item, ...payload.changes}
+                ? (
+                    mergeStrategy === EntityOnSaveMergeStrategyEnum.OVERRIDE
+                      ? { ...payload.changes }
+                      : {...item, ...payload.changes}
+                    )
                 : item
         ));
         return {
