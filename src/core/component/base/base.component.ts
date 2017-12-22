@@ -15,6 +15,7 @@ import {
   IBaseComponentCtor,
 } from './base.interface';
 import { ApplicationTranslateT } from '../../translation';
+import { IApplicationSettings } from '../../settings';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                            TInternalProps extends IBaseComponentInternalProps,
@@ -24,6 +25,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
 
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslateT;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
+  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
   @lazyInject(DI_TYPES.UIPlugins) private uiPlugins: Map<IBaseComponentCtor, ComponentPluginFactoryT>;
 
   private plugins: Array<IComponentPlugin<TComponent, TInternalProps, TInternalState>> = [];

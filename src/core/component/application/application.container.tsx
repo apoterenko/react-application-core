@@ -12,7 +12,6 @@ import {
   RouteContainerT,
   toRouteOptions,
 } from '../../router';
-import { IApplicationSettings } from '../../settings';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
 import { IApplicationState } from '../../store';
 import { BaseContainer } from '../../component/base';
@@ -43,7 +42,6 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
 
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
-  @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   private extraRoutes: Map<RouteContainerT, ConnectorConfigT>
@@ -82,7 +80,7 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   protected onUnload(): void {
-    if (this.applicationSettings.usePersistence) {
+    if (this.settings.usePersistence) {
       this.saveState();
     }
   }
