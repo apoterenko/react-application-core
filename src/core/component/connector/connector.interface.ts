@@ -7,7 +7,7 @@ import { IApplicationAccessConfig } from '../../permission';
 import { IBaseContainerInternalProps } from '../../component/base';
 
 export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig>
-    extends IInitialChangesable {
+    extends IInitialChangesable<TAppState> {
   routeConfig: RouteOptionsT;
   accessConfig?: TApplicationAccessConfig;
   mappers?: Array<ConnectorMapperT<TAppState, IKeyValue>>;

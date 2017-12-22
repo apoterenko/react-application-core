@@ -9,6 +9,7 @@ import {
   IPathable,
   ISectionable,
 } from '../../definition.interface';
+import { ApplicationStateT } from '../../store';
 
 export interface IRootUpdatePathPayload extends IChangeable<IKeyValue>,
                                                 ISectionable,
@@ -18,7 +19,7 @@ export interface IRootUpdatePathPayload extends IChangeable<IKeyValue>,
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
                                                      IRouteOptions,
                                                      ISectionable,
-                                                     IInitialChangesable {
+                                                     IInitialChangesable<ApplicationStateT> {
   container?: IContainerWrapperCtor;
   accessConfig?: IApplicationAccessConfig;
 }

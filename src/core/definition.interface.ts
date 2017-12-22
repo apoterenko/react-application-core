@@ -210,8 +210,8 @@ export interface ISubmittable {
   submit?(): void;
 }
 
-export interface IInitialChangesable {
-  initialChanges?(state: ApplicationStateT): IKeyValue;
+export interface IInitialChangesable<TAppState extends ApplicationStateT> {
+  initialChanges?(state: TAppState): IKeyValue;
 }
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
