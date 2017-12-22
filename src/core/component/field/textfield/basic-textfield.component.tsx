@@ -37,7 +37,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   public render(): JSX.Element {
     const props = this.props;
     const error = this.error;
-    const isFocused = props.autoFocus || this.isValuePresent;
+    const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent;
 
     return (
         <div className={this.getFieldClassName()}
@@ -45,11 +45,12 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
           <div ref='self'
                style={props.style}
                className={toClassName(
-                   this.uiFactory.textField,
-                   'mdc-text-field--upgraded',
-                   'rac-text-field',
-                   props.className,
-                   isFocused && this.uiFactory.textFieldFocused
+                 this.uiFactory.textField,
+                 'mdc-text-field--upgraded',
+                 'rac-text-field',
+                 props.className,
+                 this.hasInputFocus && this.uiFactory.textFieldFocused,
+                 error && this.uiFactory.textFieldInvalid
                )}>
             {orNull(
                 props.prefixLabel,
@@ -60,8 +61,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
                 : undefined}}
                    className={toClassName(
-                       this.uiFactory.textFieldLabel,
-                       isFocused && this.uiFactory.textFieldFocusedLabel
+                     this.uiFactory.textFieldLabel,
+                     autoFocusOrValuePresent && this.uiFactory.textFieldFocusedLabel
                    )}>
               {props.label ? this.t(props.label) : props.children}
             </label>
@@ -89,8 +90,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
           </div>
           {this.getMessage(props.message, false, 'rac-text-field-help-text-info')}
           {orNull(
-              !props.noErrorMessage,
-              this.getMessage(error, true, this.uiFactory.textFieldValidationText)
+            !props.noErrorMessage,
+            this.getMessage(error, true, this.uiFactory.textFieldValidationText)
           )}
           {this.getAttachment()}
         </div>

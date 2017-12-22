@@ -49,7 +49,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         && !R.equals(this.props.options, nextProps.options)) {
       this.setState({ emptyOptions: false });
 
-      if (this.isInputFocused) {
+      if (this.hasInputFocus) {
         this.showMenu(nextProps.options);
 
         if (this.props.onOptionsLoad) {

@@ -288,7 +288,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return this.input.selectionStart;
   }
 
-  protected get isInputFocused(): boolean {
+  protected get hasInputFocus(): boolean {
     return document.activeElement === this.input;
   }
 

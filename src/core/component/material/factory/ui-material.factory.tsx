@@ -24,6 +24,7 @@ export class UIMaterialFactory implements IUIFactory {
   public checkbox = 'mdc-checkbox';
   public textFieldInput = 'mdc-text-field__input';
   public textFieldFocused = 'mdc-text-field--focused';
+  public textFieldInvalid = 'mdc-text-field--invalid';
   public textFieldHelpText = 'mdc-text-field-helptext';
   public textFieldValidationText = 'mdc-text-field-helptext--validation-msg';
   public textFieldLabel = 'mdc-text-field__label';

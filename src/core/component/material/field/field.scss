@@ -43,6 +43,11 @@
     }
   }
 
+  .mdc-text-field-helptext--validation-msg {
+    opacity: 1;               // workaround (help message + error)
+    color: $color-1;          // workaround (help message + error)
+  }
+
   .rac-field-input-wrapper {
     width: 100%;
   }
