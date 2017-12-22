@@ -18,6 +18,7 @@ export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
                                                    IRenderable<SelectOptionT>,
                                                    ITemplateable<SelectOptionT>,
                                                    IFilterable {
+  forceAll?: boolean;
   options?: SelectOptionT[];
   onEmptyOptions?(): void;
   onOptionsLoad?(loadedOptions: SelectOptionT[]): void;

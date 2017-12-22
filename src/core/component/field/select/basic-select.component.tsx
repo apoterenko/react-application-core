@@ -82,6 +82,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
+  public get progress(): boolean {
+    return this.state.emptyOptions;
+  }
+
   protected onClick(event: BasicEventT): void {
     super.onClick(event);
     this.openMenu(event);
@@ -130,14 +134,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         : super.toDisplayValue();
   }
 
-  protected get isLoaderShowed(): boolean {
-    return this.state.emptyOptions;
-  }
-
-  protected isDeactivated(): boolean {
-    return super.isDeactivated() || this.state.emptyOptions;
-  }
-
   private getSelectedOption(value: AnyT): SelectOptionT {
     return R.find<SelectOptionT>((option) => option.value === value, this.options);
   }
@@ -153,7 +149,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.stopEvent(event);
 
     const props = this.props;
-    if (R.isNil(props.options)) {
+    if (props.forceAll || R.isNil(props.options)) {
       this.setState({ emptyOptions: true });
 
       if (props.onEmptyOptions) {
