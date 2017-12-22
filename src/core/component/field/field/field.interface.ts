@@ -20,6 +20,7 @@ import {
   IStepable,
   ChangeEventT,
   IMaskable,
+  INamedEntity,
   IErrorable,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
@@ -55,7 +56,6 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IValueable<AnyT>,
                                              IOriginalValueable<AnyT>,
                                              IDisplayValueable<AnyT> {
-  notErrorMessageRequired?: boolean;
   noErrorMessage?: boolean;
   renderCondition?: boolean;
   autoFocus?: boolean;
@@ -96,7 +96,7 @@ export interface IField<TInternalProps extends IFieldInternalProps,
 export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
 
 export interface IMultiFieldAttributes {
-  add: EntityIdT[];
-  remove: EntityIdT[];
+  add: IEntity[];
+  remove: IEntity[];
   source?: IEntity[];
 }

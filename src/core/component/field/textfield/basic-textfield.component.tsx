@@ -5,6 +5,7 @@ import MaskedTextInput from 'react-text-mask';
 import { orNull, toClassName } from '../../../util';
 import { BasicEventT } from '../../../definition.interface';
 import { Field, IField } from '../field';
+import { ProgressLabel } from '../../progress';
 import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
@@ -82,17 +83,14 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 }))
             )}
             {orNull(
-                this.isLoaderShowed,
-                this.uiFactory.makeIcon({
-                  type: 'timelapse',
-                  className: 'rac-text-field-loader',
-                })
+              this.progress,
+              () => <ProgressLabel className='rac-text-field-loader'/>
             )}
           </div>
-          {this.getMessage(props.message, false)}
+          {this.getMessage(props.message, false, 'rac-text-field-help-text-info')}
           {orNull(
               !props.noErrorMessage,
-              this.getMessage(error, !props.notErrorMessageRequired)
+              this.getMessage(error, true, this.uiFactory.textFieldValidationText)
           )}
           {this.getAttachment()}
         </div>
@@ -110,10 +108,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getAttachment(): JSX.Element {
     return null;
-  }
-
-  protected get isLoaderShowed(): boolean {
-    return false;
   }
 
   protected addClearAction(): void {
@@ -139,16 +133,17 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  private getMessage(m: string, required: boolean): JSX.Element {
-    return m || required ? (
-        <p title={m}
-           className={toClassName(
-               'rac-text-field-help-text',
-               this.uiFactory.textFieldHelpText,
-               required && this.uiFactory.textFieldValidationText,
-           )}>
-          {m ? this.t(m) : '\u00a0'}
-        </p>
-    ) : null;
+  private getMessage(message: string, required: boolean, addClassName?: string): JSX.Element {
+    return orNull(
+      message || required,
+      <p title={message}
+         className={toClassName(
+           'rac-text-field-help-text',
+           this.uiFactory.textFieldHelpText,
+           addClassName,
+         )}>
+        {message ? this.t(message) : '\u00a0'}
+      </p>
+    );
   }
 }

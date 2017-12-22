@@ -1,9 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { lazyInject, DI_TYPES } from '../../../di';
 import { isFn, isUndef, noop, toClassName } from '../../../util';
-import { IApplicationSettings } from '../../../settings';
 import {
   AnyT,
   BasicEventT,
@@ -11,6 +9,7 @@ import {
   FocusEventT,
   IDisplayableConverter,
   KeyboardEventT,
+  IProgressable,
 } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import {
@@ -25,11 +24,9 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IFieldInternalProps,
                             TInternalState extends IFieldInternalState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
-    implements IField<TInternalProps, TInternalState> {
+    implements IField<TInternalProps, TInternalState>, IProgressable {
 
   private static EMPTY_VALUE = '';
-
-  @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
 
   constructor(props: TInternalProps) {
     super(props);
@@ -141,6 +138,10 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
         || this.refs.input as HTMLInputElement;
   }
 
+  public get progress(): boolean {
+    return false;
+  }
+
   protected getComponent(): JSX.Element {
     return <input {...this.getComponentProps()}/>;
   }
@@ -152,7 +153,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const step = props.step;
     const type = props.type || 'text';
     const autoComplete = props.autoComplete || 'new-password';
-    const readOnly = props.readOnly;
+    const readOnly = props.readOnly  || this.progress;
     const disabled = props.disabled;
     const pattern = this.getFieldPattern();
     const required = props.required;
@@ -161,9 +162,9 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
     const onClick = this.isDeactivated() ? noop : this.onClick;
+    const onKeyDown = this.isDeactivated() ? noop : this.onKeyDown;
+    const onKeyUp = this.isDeactivated() ? noop : this.onKeyUp;
     const onChange = this.onChange;
-    const onKeyDown = this.onKeyDown;
-    const onKeyUp = this.onKeyUp;
     return {
       name, type, step, autoFocus, readOnly, disabled, pattern, required, minLength, maxLength,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
@@ -178,13 +179,17 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const props = this.props;
     const value = this.value;
 
-    return this.isValuePresent
-        ? (isUndef(props.displayValue)
-            ? value
-            : (isFn(props.displayValue)
-                ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
-                : props.displayValue))
-        : this.getEmptyDisplayValue();
+    return this.progress
+      ? this.getEmptyDisplayValue()
+      : (
+        this.isValuePresent
+          ? (isUndef(props.displayValue)
+              ? value
+              : (isFn(props.displayValue)
+                  ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
+                  : props.displayValue))
+          : this.getEmptyDisplayValue()
+      );
   }
 
   protected onFocus(event: FocusEventT): void {
@@ -288,7 +293,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   }
 
   protected isDeactivated(): boolean {
-    return this.props.disabled || this.props.readOnly;
+    return this.props.disabled || this.props.readOnly || this.progress;
   }
 
   protected getFieldMask(): Array<string|RegExp> {

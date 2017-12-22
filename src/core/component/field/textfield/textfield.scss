@@ -4,6 +4,7 @@
   position: absolute;
   bottom: 6px;
   left: 50%;
+  transform: translate(-50%, 0);
   color: $color-2;
 }
 
@@ -13,12 +14,7 @@
     .rac-text-field-prefix-label {
       padding-bottom: 6px;
       cursor: default;
-    }
-
-    .rac-field-input {
-      &[readonly], &[disabled] {
-        opacity: $opacity;
-      }
+      color: $color-9;
     }
   }
 
@@ -26,6 +22,11 @@
     .rac-text-field {
       .rac-text-field-prefix-label {
         opacity: $opacity-label;
+      }
+
+      .rac-field-input {
+        opacity: $opacity-text;
+        cursor: default;
       }
     }
   }

@@ -19,6 +19,12 @@
     }
   }
 
+  .rac-text-field-help-text {
+    &.rac-text-field-help-text-info {
+      opacity: 1;
+    }
+  }
+
   &.rac-form-field-disabled {
     .rac-checkbox-field {
       .rac-field-input {
@@ -27,6 +33,12 @@
 
       .mdc-checkbox__background {
         opacity: $opacity;
+      }
+    }
+
+    .rac-text-field-help-text {
+      &.rac-text-field-help-text-info {
+        opacity: $opacity-label;
       }
     }
   }
