@@ -16,6 +16,7 @@ export * from './component/list';
 export * from './component/material';
 export * from './component/menu';
 export * from './component/plugin';
+export * from './component/progress';
 export * from './component/ripple';
 export * from './component/root';
 export * from './component/snackbar';
