@@ -18,9 +18,9 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   public static defaultProps: IChipsFieldInternalProps = {
     labelField: 'name',
-    idField: 'id',
     valuesMessage: '%d value(s)',
     clearAction: false,
+    forceAll: true,
   };
 
   constructor(props: IChipsFieldInternalProps) {
@@ -52,11 +52,11 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   protected onSelect(option: SelectOptionT): void {
     const removeLen = this.state.remove.length;
-    const removeArray = this.state.remove.filter(((removeItem) => removeItem !== option.value));
-    let addArray: EntityIdT[];
+    const removeArray = this.state.remove.filter(((removeItem) => removeItem.id !== option.value));
+    let addArray: IEntity[];
 
     if (removeArray.length === removeLen) {
-      addArray = this.state.add.concat(option.value);
+      addArray = this.state.add.concat({id: option.value, name: option.label});
       this.setState({ add: addArray });
     } else {
       addArray = this.state.add;
@@ -100,11 +100,12 @@ export class ChipsField extends BasicSelect<ChipsField,
   private onDeleteItem(item: ChipsFieldItemT): void {
     const deletedValue = this.toValue(item);
     const addLen = this.state.add.length;
-    const addArray = this.state.add.filter(((addItem) => addItem !== deletedValue));
-    let removeArray: EntityIdT[];
+    const addArray = this.state.add.filter(((addItem) => addItem.id !== deletedValue));
+    let removeArray;
 
     if (addArray.length === addLen) {
-      removeArray = [deletedValue].concat(this.state.remove);
+      const deletedEntity: IEntity = {id: deletedValue};
+      removeArray = [deletedEntity].concat(this.state.remove);
       this.setState({ remove: removeArray });
     } else {
       removeArray = this.state.remove;
@@ -113,7 +114,7 @@ export class ChipsField extends BasicSelect<ChipsField,
     this.dispatchChanges(addArray, removeArray);
   }
 
-  private dispatchChanges(addArray: EntityIdT[], removeArray: EntityIdT[]): void {
+  private dispatchChanges(addArray: IEntity[], removeArray: IEntity[]): void {
     if (this.getActiveValue(addArray, removeArray).length === 0) {
       this.cleanNativeInputForSupportHTML5Validation();
     }
@@ -140,13 +141,10 @@ export class ChipsField extends BasicSelect<ChipsField,
         : (item as SelectOptionT).value;
   }
 
-  private getActiveValue(add: EntityIdT[] = this.state.add, remove: EntityIdT[] = this.state.remove): ChipsFieldItemT[] {
+  private getActiveValue(add: IEntity[] = this.state.add, remove: IEntity[] = this.state.remove): ChipsFieldItemT[] {
     return [].concat(this.sourceValue || [])
-        .concat(
-          add.map((addedValue) => (this.options.find((option) => addedValue === option.value)))
-        )
-        .filter((item) =>
-            !remove.find((removeItem) => removeItem === this.toValue(item)));
+      .concat(add)
+      .filter((item) => !remove.find((removeItem) => removeItem.id === this.toValue(item)));
   }
 
   private get sourceValue(): IEntity[] {
@@ -154,8 +152,6 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   private toValue(item: ChipsFieldItemT): EntityIdT {
-    const props = this.props;
-    const idValue = Reflect.get(item, props.idField);
-    return idValue || (item as SelectOptionT).value;
+    return (item as IEntity).id || (item as SelectOptionT).value;
   }
 }
