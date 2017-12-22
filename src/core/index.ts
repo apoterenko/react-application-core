@@ -6,6 +6,7 @@ export * from './component/button';
 export * from './component/connector';
 export * from './component/dialog';
 export * from './component/drawer';
+export * from './component/factory';
 export * from './component/field';
 export * from './component/filter';
 export * from './component/form';

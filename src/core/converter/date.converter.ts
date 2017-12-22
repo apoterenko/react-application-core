@@ -51,6 +51,10 @@ export class DateConverter implements IDateConverter {
         this.combine(this.dateTimeSettings.pstDateFormat, this.dateTimeSettings.pstTimeFormat));
   }
 
+  public formatPSTDate(date: DateTimeLikeTypeT = new Date()): string {
+    return this.formatDate(date, this.dateTimeSettings.pstDateFormat);
+  }
+
   public toDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
@@ -63,6 +67,14 @@ export class DateConverter implements IDateConverter {
 
   public getCurrentDate(date?: Date): Date {
     return this.getCurrentMomentDate(date).toDate();
+  }
+
+  public appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat: string = this.dateFormat): Date {
+    let momentDate = this.toMomentDate(date, inputFormat);
+    data.forEach((item) => {
+      momentDate = momentDate.add(item[0] as moment.DurationInputArg1, item[1] as moment.DurationInputArg2);
+    });
+    return momentDate.toDate();
   }
 
   public get30DaysAgo(): Date {

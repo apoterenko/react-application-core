@@ -214,6 +214,10 @@ export interface IInitialChangesable<TAppState extends ApplicationStateT> {
   initialChanges?(state: TAppState): IKeyValue;
 }
 
+export const UNI_CODES = {
+  dash: '\u2014',
+};
+
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;
