@@ -73,20 +73,25 @@ export class ChipsField extends BasicSelect<ChipsField,
   protected getAttachment(): JSX.Element {
     return (
         <div>
-          {this.getActiveValue().map((item) =>
-            <div key={uuid()}
-                 className='rac-chips-field'>
-              <span className='rac-chips-field-description'>
-                {this.toChipsDisplayValue(item)}
-              </span>
-              {
-                this.uiFactory.makeIcon({
-                  type: 'cancel',
-                  disabled: this.isDeactivated(),
-                  onClick: () => this.onDeleteItem(item),
-                })
-              }
-            </div>
+          {this.getActiveValue().map((item) => {
+            const displayValue = this.toChipsDisplayValue(item);
+            return (
+              <div key={uuid()}
+                   className='rac-chips-field'>
+                <span className='rac-chips-field-description'
+                      title={String(displayValue)}>
+                  {displayValue}
+                </span>
+                {
+                  this.uiFactory.makeIcon({
+                    type: 'cancel',
+                    disabled: this.isDeactivated(),
+                    onClick: () => this.onDeleteItem(item),
+                  })
+                }
+              </div>
+            );
+          }
         )}
         </div>
     );

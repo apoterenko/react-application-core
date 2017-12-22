@@ -3,7 +3,6 @@ import { PureComponent, InputHTMLAttributes, ClassAttributes } from 'react';
 import {
   AnyT,
   BasicEventT,
-  EntityIdT,
   FocusEventT,
   IEntity,
   INameable,
@@ -20,7 +19,6 @@ import {
   IStepable,
   ChangeEventT,
   IMaskable,
-  INamedEntity,
   IErrorable,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
