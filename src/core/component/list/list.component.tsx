@@ -5,6 +5,7 @@ import { uuid, scrollIntoView, toClassName, orNull } from '../../util';
 import { IEntity } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
 import { ListItem } from './item';
+import { ProgressLabel } from '../progress';
 import { IListInternalProps } from './list.interface';
 
 export class List extends BaseComponent<List, IListInternalProps, {}> {
@@ -58,7 +59,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
           <div className='rac-list-empty rac-flex rac-flex-center'>
             {
               progress
-                  ? this.progressMessage
+                  ? <ProgressLabel/>
                   : (
                       error
                           ? this.errorMessage
@@ -159,20 +160,5 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   private get emptyMessage(): string {
     return this.t(this.props.emptyMessage || 'No data');
-  }
-
-  private get progressMessage(): JSX.Element {
-    return (
-      <span>
-        {
-          this.uiFactory.makeIcon({ type: 'timelapse', className: 'rac-loading-icon' })
-        }
-        {
-          <span className='rac-loading-message'>
-            {this.t(this.props.progressMessage || 'Loading...')}
-          </span>
-        }
-      </span>
-    );
   }
 }

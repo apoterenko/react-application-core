@@ -90,7 +90,6 @@ export class Menu extends MaterialComponent<Menu,
                 props.useFilter,
                 <TextField ref='field'
                            value={this.state.filter}
-                           notErrorMessageRequired={true}
                            placeholder={props.filterPlaceholder || 'Filter'}
                            onChange={this.onInputChange}/>
             )}
