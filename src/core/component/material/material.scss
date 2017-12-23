@@ -1,55 +1,6 @@
 @import '../constant';
-
-$mdc-theme-primary: $color-3;
-$mdc-theme-accent: $color-1;
-$mdc-theme-background: $color-5;
-@import '~material-components-web/material-components-web';
-
 @import './icon/icon';
 @import './list/list';
 @import './button/button';
 @import './field/field';
 @import './layout/layout';
-@import './fonts';
-
-.mdc-button.mdc-button--accent {
-  @include mdc-button-container-fill-color($mdc-theme-accent);
-}
-
-.mdc-button.mdc-snackbar__action-button {
-  @include mdc-button-ink-color($mdc-theme-accent);
-}
-
-.mdc-persistent-drawer {
-  z-index: 1;
-  font-size: 1rem;
-}
-
-.mdc-list--avatar-list .mdc-list-item__start-detail {
-  padding: 0;
-  min-width: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background: #bdbdbd;
-}
-
-.mdc-list--avatar-list .mdc-list-item__text {
-  max-width: 85%;
-}
-
-.mdc-list--avatar-list .mdc-list-item__text__secondary {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.mdc-list-item__end-detail.material-icons {
-  color: $mdc-theme-accent;
-  text-decoration: none;
-}
-
-.mdc-text-field.mdc-text-field--box {
-  margin-bottom: 7px;
-}
