@@ -4,7 +4,6 @@ import { Store } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
-import './component/component.scss';
 import { appContainer, DI_TYPES } from './di';
 import { GOOGLE_KEY, PROD_MODE } from './env';
 import {
