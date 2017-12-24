@@ -185,6 +185,8 @@ class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
 
 #### Effects
 
+###### Roles effects
+
 ```typescript
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
@@ -229,6 +231,8 @@ export class RolesEffects extends BaseEffects<IApi> {
   }
 }
 ```
+
+###### Role effects
 
 ```typescript
 import { IEffectsAction, EffectsService } from 'redux-effects-promise';
