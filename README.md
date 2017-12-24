@@ -40,6 +40,7 @@ import {
   ListContainer,
   ContainerVisibilityTypeEnum,
   IBaseContainerInternalProps,
+  disabledActionsListWrapperMapper,
   connector,
 } from 'react-application-core';
 
@@ -67,28 +68,27 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
     sectionName: ROLES_SECTION,
   };
 
-  constructor(props: IRolesContainerInternalProps) {
-    super(props);
-  }
-
   public render(): JSX.Element {
     const props = this.props;
+    const header = <SearchToolbarContainer filterOptions={disabledActionsListWrapperMapper(props)}
+                                           {...props}/>;
     return (
-        <DefaultLayoutContainer {...props}
-                                headerItems={<SearchToolbarContainer {...props}/>}>
-          <ListContainer listOptions={{
-                           itemOptions: { tpl: this.tpl },
-                           addAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
-                         }}
-                         {...props}/>
-        </DefaultLayoutContainer>
+      <DefaultLayoutContainer headerItems={header}
+                              {...props}>
+        <ListContainer listOptions={{
+                        emptyMessage: 'Start a search',
+                        itemOptions: { tpl: this.tpl },
+                        addAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
+                       }}
+                       {...props}/>
+      </DefaultLayoutContainer>
     );
   }
 
   private tpl = (item: IRoleEntity): JSX.Element => (
-     <span>
+    <span>
        {item.name} {this.nc.id(item.id)}
-     </span>
+    </span>
   )
 }
 ```
@@ -104,6 +104,7 @@ import {
   FormDialog,
   TextField,
   toSelectOptions,
+  FORM_DIALOG_REF,
   listWrapperEntityMapper,
   formMapper,
   DefaultLayoutContainer,
@@ -146,36 +147,33 @@ class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;
-    const entity = props.entity;
-    const entityId = entity ? entity.id : null;
-    const isNewEntity = !entityId;
     const dictionaries = props.dictionaries;
     const rights = dictionaries.rights && dictionaries.rights.data;
-    const title = isNewEntity
-        ? 'New role'
-        : `Role ${this.nc.id(entityId)}`;
+    const title = props.isNewEntity
+      ? 'New role'
+      : `Role ${this.nc.id(props.entityId)}`;
 
     return (
-        <DefaultLayoutContainer navigationControlType='arrow_back'
-                                navigationControlHandler={this.activateFormDialog}
-                                title={title}
-                                {...props}>
-          <FormContainer {...props}>
-            <TextField name='name'
-                       label='Name'
-                       autoFocus={true}
-                       required={true}/>
-            <ChipsField name='rights'
-                        label='Rights'
-                        options={toSelectOptions(rights)}
-                        onEmptyOptions={this.loadRights}
-                        useFilter={true}/>
-          </FormContainer>
-          <FormDialog ref='formDialog'
-                      onAccept={this.navigateToBack}
-                      {...props}>
-          </FormDialog>
-        </DefaultLayoutContainer>
+      <DefaultLayoutContainer navigationControlType='arrow_back'
+                              navigationControlHandler={this.activateFormDialog}
+                              title={title}
+                              {...props}>
+        <FormContainer {...props}>
+          <TextField name='name'
+                     label='Name'
+                     autoFocus={true}
+                     required={true}/>
+          <ChipsField name='rights'
+                      label='Rights'
+                      options={toSelectOptions(rights)}
+                      onEmptyOptions={this.loadRights}
+                      useFilter={true}
+                      valuesMessage='%d right(s)'/>
+        </FormContainer>
+        <FormDialog ref={FORM_DIALOG_REF}
+                    onAccept={this.navigateToBack}
+                    {...props}/>
+      </DefaultLayoutContainer>
     );
   }
 
@@ -200,6 +198,7 @@ import {
   makeUntouchedListEffectsProxy,
   makeFailedListEffectsProxy,
   makeEditedListEffectsProxy,
+  makeLockEffectsProxy,
 } from 'react-application-core';
 
 import { IApi } from '../../api/api.interface';
@@ -210,16 +209,17 @@ import { IAppState } from '../../app.interface';
 
 @provideInSingleton(RolesEffects)
 @effectsBy(
-    makeUntouchedListEffectsProxy<IAppState>({
-      section: ROLES_SECTION,
-      listWrapperStateResolver: (state) => state.roles,
-    }),
-    makeEditedListEffectsProxy<IRoleEntity, IAppState>({
-      section: ROLES_SECTION,
-      pathResolver: (role) => buildEntityRoute<IRoleEntity>(ROUTER_PATHS.ROLE, role),
-    }),
-    makeFilteredListEffectsProxy({ section: ROLES_SECTION }),
-    makeFailedListEffectsProxy(ROLES_SECTION)
+  makeUntouchedListEffectsProxy<IAppState>({
+    section: ROLES_SECTION,
+    listWrapperStateResolver: (state) => state.roles,
+  }),
+  makeEditedListEffectsProxy<IRoleEntity, IAppState>({
+    section: ROLES_SECTION,
+    pathResolver: (role) => buildEntityRoute<IRoleEntity>(ROUTER_PATHS.ROLE, role),
+  }),
+  makeFilteredListEffectsProxy({ section: ROLES_SECTION }),
+  makeFailedListEffectsProxy(ROLES_SECTION),
+  makeLockEffectsProxy(ROLES_SECTION)
 )
 export class RolesEffects extends BaseEffects<IApi> {
 
