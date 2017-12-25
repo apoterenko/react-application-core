@@ -11,6 +11,7 @@ export class UIMaterialFactory implements IUIFactory {
   public persistentDrawerToolbarSpacer = 'mdc-persistent-drawer__toolbar-spacer';
   public toolbarIcon = 'mdc-toolbar__icon';
   public toolbar = 'mdc-toolbar';
+  public toolbarSection = 'mdc-toolbar__section';
   public toolbarRow = 'mdc-toolbar__row';
   public toolbarTitle = 'mdc-toolbar__title';
   public toolbarMenuIcon = 'mdc-toolbar__menu-icon';
@@ -30,6 +31,8 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldLabel = 'mdc-text-field__label';
   public textFieldFocusedLabel = 'mdc-text-field__label--float-above';
   public checkboxInput = 'mdc-checkbox__native-control';
+  public cardActions = 'mdc-card__actions';
+  public cardPrimary = 'mdc-card__primary';
 
   public makeIcon(cfg: IButtonInternalProps|string): JSX.Element {
     if (!cfg) {

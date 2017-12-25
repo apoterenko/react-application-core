@@ -16,6 +16,8 @@ export interface IKeyValue {
   [index: string]: AnyT;
 }
 
+export const ID_FIELD_NAME = 'id';
+
 export interface IIdentifiedEntity {
   id?: EntityIdT;
 }

@@ -101,8 +101,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                 renderer={props.renderer}
                 useFilter={props.useFilter}
                 options={this.toFilteredOptions()}
-                onSelect={this.onSelect}>
-          </Menu>
+                onSelect={this.onSelect}/>
         </div>
     );
   }
