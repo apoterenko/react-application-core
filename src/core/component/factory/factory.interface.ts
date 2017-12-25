@@ -17,6 +17,7 @@ export interface IUIFactory {
   textField?: string;
   checkbox?: string;
   textFieldInput?: string;
+  textFieldTextArea?: string;
   textFieldFocused?: string;
   textFieldInvalid?: string;
   textFieldHelpText?: string;

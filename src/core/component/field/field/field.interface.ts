@@ -1,4 +1,4 @@
-import { PureComponent, InputHTMLAttributes, ClassAttributes } from 'react';
+import { PureComponent, InputHTMLAttributes, TextareaHTMLAttributes, ClassAttributes } from 'react';
 
 import {
   AnyT,
@@ -61,6 +61,8 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
   autoComplete?: string;
   minLength?: number;
   maxLength?: number;
+  rows?: number;
+  cols?: number;
   validate?: (value: AnyT) => string;
   validationGroup?: string;
   changeForm?(name: string, value: AnyT, validationGroup?: string): void;
@@ -72,6 +74,10 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
 
 export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
                                           ClassAttributes<{}> {
+}
+
+export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>,
+                                             ClassAttributes<{}> {
 }
 
 export interface IFieldInternalState extends IErrorable<string> {

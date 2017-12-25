@@ -4,7 +4,7 @@ import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName } from '../../../util';
 import { BasicEventT } from '../../../definition.interface';
-import { Field, IField } from '../field';
+import { Field, IField, IFieldInputProps } from '../field';
 import { ProgressLabel } from '../../progress';
 import {
   IBasicTextFieldInternalState,
@@ -44,14 +44,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
              style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
           <div ref='self'
                style={props.style}
-               className={toClassName(
-                 this.uiFactory.textField,
-                 'mdc-text-field--upgraded',
-                 'rac-text-field',
-                 props.className,
-                 this.hasInputFocus && this.uiFactory.textFieldFocused,
-                 error && this.uiFactory.textFieldInvalid
-               )}>
+               className={this.getInputWrapperClassName()}>
             {orNull(
                 props.prefixLabel,
                 <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
@@ -104,11 +97,25 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         ? <MaskedTextInput guide={false}
                            mask={mask}
                            {...this.getComponentProps()}/>
-        : super.getComponent();
+        : <input {...this.getComponentProps() as IFieldInputProps}/>;
   }
 
   protected getAttachment(): JSX.Element {
     return null;
+  }
+
+  protected getInputWrapperClassName(): string {
+    const props = this.props;
+    const error = this.error;
+
+    return toClassName(
+        this.uiFactory.textField,
+        'mdc-text-field--upgraded',
+        'rac-text-field',
+        props.className,
+        this.hasInputFocus && this.uiFactory.textFieldFocused,
+        error && this.uiFactory.textFieldInvalid
+    );
   }
 
   protected addClearAction(): void {

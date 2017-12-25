@@ -17,10 +17,11 @@ import {
   IFieldInputProps,
   IFieldInternalProps,
   IFieldInternalState,
+  IFieldTextAreaProps,
   IMaskedTextInputPureComponent,
 } from './field.interface';
 
-export class Field<TComponent extends IField<TInternalProps, TInternalState>,
+export abstract class Field<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IFieldInternalProps,
                             TInternalState extends IFieldInternalState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
@@ -142,11 +143,9 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return false;
   }
 
-  protected getComponent(): JSX.Element {
-    return <input {...this.getComponentProps()}/>;
-  }
+  protected abstract getComponent(): JSX.Element;
 
-  protected getComponentProps(): IFieldInputProps {
+  protected getComponentProps(): IFieldInputProps|IFieldTextAreaProps {
     const props = this.props;
     const autoFocus = props.autoFocus;
     const name = props.name;
@@ -159,6 +158,8 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const required = props.required;
     const minLength = props.minLength;
     const maxLength = props.maxLength;
+    const rows = props.rows;
+    const cols = props.cols;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
     const onClick = this.isDeactivated() ? noop : this.onClick;
@@ -166,7 +167,8 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const onKeyUp = this.isDeactivated() ? noop : this.onKeyUp;
     const onChange = this.onChange;
     return {
-      name, type, step, autoFocus, readOnly, disabled, pattern, required, minLength, maxLength,
+      name, type, step, autoFocus, readOnly, disabled, pattern, required, minLength,
+      maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       value: this.toDisplayValue(),
