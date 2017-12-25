@@ -4,8 +4,14 @@ import { Store } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
-import { appContainer, DI_TYPES } from './di';
 import { GOOGLE_KEY, PROD_MODE } from './env';
+
+LoggerFactory.configureLogLevel(
+    PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
+);
+
+import './component/component.scss';
+import { appContainer, DI_TYPES } from './di';
 import {
   ApplicationActionBuilder,
   ApplicationContainer,
@@ -49,10 +55,6 @@ export function bootstrap(
         document.getElementById(rootId),
     );
   };
-
-  LoggerFactory.configure({
-    logLevel: PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL,
-  });
 
   if (PROD_MODE) {
     gtag('js', new Date());
