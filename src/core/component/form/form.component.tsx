@@ -59,8 +59,8 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             formOptions.className
                         )}>
           <fieldset disabled={form.progress}
-                    className='rac-fieldset app-form-body app-row-layout rac-flex-full'>
-            <section className='mdc-card__primary'>
+                    className='rac-fieldset app-row-layout rac-flex-full'>
+            <section className={this.uiFactory.cardPrimary}>
               {
                 cloneNodes<IFieldInternalProps>(
                     this,
@@ -99,14 +99,13 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
               }
             </section>
           </fieldset>
-          <section className='app-form-actions mdc-card__actions'>
+          <section className={toClassName('rac-form-actions', this.uiFactory.cardActions)}>
             {orNull(
                 formOptions.resetButton,
                 <Button type='reset'
                         icon='clear_all'
                         isRaised={true}
-                        disabled={!form.dirty}
-                        className='app-form-reset-action'>
+                        disabled={!form.dirty}>
                   {this.t(formOptions.resetText || 'Reset')}
                 </Button>
             )}

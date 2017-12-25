@@ -1,19 +1,16 @@
 .rac-form {
-  
-  .app-form-body {
+  .rac-fieldset {
     overflow: auto;
-
-    .mdc-list {
-      padding: 0;     // List within form
-    }
   }
 
-  .app-form-actions {
+  .rac-form-actions {
     padding: 16px;
     justify-content: flex-end;
 
-    .app-form-reset-action {
-      margin-right: 8px;
+    .rac-button {
+      &[type=reset] {
+        margin-right: 8px;
+      }
     }
   }
 }

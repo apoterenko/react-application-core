@@ -29,3 +29,10 @@ $list-item-left-offset: 16px;
     }
   }
 }
+
+// Form list [MDC+]
+.rac-form {
+  .mdc-list {
+    padding: 0;
+  }
+}
