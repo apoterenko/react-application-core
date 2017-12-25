@@ -83,6 +83,10 @@ export class ListActionBuilder {
     return `${section}.${LIST_DESTROY_ACTION_TYPE}`;
   }
 
+  public static buildDeselectAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildDeselectActionType(section), applySection(section));
+  }
+
   public static buildSearchAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildSearchActionType(section), applySection(section));
   }

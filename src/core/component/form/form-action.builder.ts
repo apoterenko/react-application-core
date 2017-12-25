@@ -75,6 +75,11 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
   }
 
+  public static buildChangesAction(section: string, changes: IKeyValue): IEffectsAction {
+    return EffectsAction.create(this.buildChangeActionType(section),
+        applySection(section, this.buildChangesPayload(changes)));
+  }
+
   public static buildChangesSimpleAction(section: string, changes: IKeyValue): AnyAction {
     return {
       type: this.buildChangeActionType(section),
