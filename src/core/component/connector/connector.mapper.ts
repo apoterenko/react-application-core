@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 
+import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
@@ -42,9 +43,13 @@ export const entityMapper = (entity: IEntity, formState?: IApplicationFormState)
   touched: formState && formState.touched,
 });
 
+export const listEntityMapper =
+    <TEntity extends IEntity>(listWrapperState: IApplicationListWrapperState): TEntity =>
+        orNull(listWrapperState.list, () => listWrapperState.list.selected as TEntity);
+
 export const listWrapperEntityMapper = (listWrapperState: IApplicationListWrapperState,
                                         formState?: IApplicationFormState): IEntityable<IEntity> =>
-    entityMapper(listWrapperState.list ? listWrapperState.list.selected : null, formState);
+    entityMapper(listEntityMapper(listWrapperState), formState);
 
 export const formMapper = (formState: IApplicationFormState): IFormable<IApplicationFormState> => ({
   form: {
