@@ -10,7 +10,6 @@ LoggerFactory.configureLogLevel(
     PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
 );
 
-import './component/component.scss';
 import { appContainer, DI_TYPES } from './di';
 import {
   ApplicationActionBuilder,
