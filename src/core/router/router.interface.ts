@@ -53,4 +53,5 @@ export type RouteContainerT = BaseContainerT|IContainerWrapperCtor;
 export const DYNAMIC_ROUTES = new Map<RouteContainerT, ConnectorConfigT>();
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
+export const ROUTER_REPLACE_ACTION_TYPE = 'router.replace';
 export const ROUTER_BACK = 'back';
