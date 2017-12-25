@@ -37,8 +37,11 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
   activate(index: number);
 }
 
-export interface IMenuOption<TRawData> extends ILabelable,
-                                               IRawDatable<TRawData>,
-                                               IValueable<EntityIdT>,
-                                               IDisableable {
+export interface IMenuAction<TValue> extends ILabelable,
+                                             IValueable<TValue>,
+                                             IDisableable {
+}
+
+export interface IMenuOption<TRawData> extends IMenuAction<EntityIdT>,
+                                               IRawDatable<TRawData> {
 }
