@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BasicEventT } from '../../../definition.interface';
-import { Field, IFieldInputProps, IFieldTextAreaProps } from '../../../component/field';
+import { Field, IFieldInputProps } from '../../../component/field';
 import { toClassName, uuid } from '../../../util';
 import {
   ICheckboxInternalState,
@@ -36,12 +36,12 @@ export class Checkbox extends Field<Checkbox,
   }
 
   protected getComponent(): JSX.Element {
-    return <input {...this.getComponentProps() as IFieldInputProps}/>;
+    return <input {...this.getComponentProps()}/>;
   }
 
-  protected getComponentProps(): IFieldInputProps|IFieldTextAreaProps {
+  protected getComponentProps(): IFieldInputProps {
     return {
-      ...super.getComponentProps(),
+      ...super.getComponentProps() as IFieldInputProps,
 
       id: this.inputId,
       type: 'checkbox',
