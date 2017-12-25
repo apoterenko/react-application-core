@@ -3,13 +3,14 @@ import * as React from 'react';
 import { Link } from '../../../component/link';
 import { PersistentDrawer } from '../../../component/drawer';
 import { INavigationListItemOptions, NavigationList } from '../../../component/list';
-import { lazyInject, DI_TYPES } from '../../../di';
+import { lazyInject } from '../../../di';
 import { toClassName, orNull } from '../../../util';
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
+import { IMenuAction, Menu, IMenu } from '../../../component/menu';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
 import { NavigationMenuBuilder } from '../../../navigation';
@@ -28,6 +29,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   constructor(props: IDefaultLayoutContainerInternalProps) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.onActionClick = this.onActionClick.bind(this);
+    this.onActionsClick = this.onActionsClick.bind(this);
   }
 
   public render(): JSX.Element {
@@ -59,7 +62,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <header className={toClassName('rac-header', this.uiFactory.toolbar)}>
               <div className={this.uiFactory.toolbarRow}>
                 <section className={toClassName(
-                                        'mdc-toolbar__section',
+                                        this.uiFactory.toolbarSection,
                                         'mdc-toolbar__section--align-start',
                                         props.headerItems && 'app-initial-layout'
                                     )}>
@@ -74,8 +77,27 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                 </section>
                 {
                   orNull(props.headerItems, (
-                      <section className='mdc-toolbar__section'>
+                      <section className={this.uiFactory.toolbarSection}>
                         {props.headerItems}
+                      </section>
+                  ))
+                }
+                {
+                  orNull(props.headerActions, (
+                      <section className={toClassName(
+                                              this.uiFactory.toolbarSection,
+                                              'mdc-toolbar__section--align-end'
+                                          )}>
+                        {
+                          this.uiFactory.makeIcon({
+                            type: 'more_vert',
+                            className: this.uiFactory.toolbarMenuIcon,
+                            onClick: this.onActionsClick,
+                          })
+                        }
+                        <Menu ref='menu'
+                              options={props.headerActions}
+                              onSelect={this.onActionClick}/>
                       </section>
                   ))
                 }
@@ -129,5 +151,17 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   protected get isLayoutFullMode(): boolean {
     return this.props.layout.mode === LAYOUT_FULL_MODE;
+  }
+
+  protected onActionsClick(): void {
+    this.menu.show();
+  }
+
+  protected onActionClick(option: IMenuAction<string>): void {
+    this.dispatch(option.value);
+  }
+
+  private get menu(): IMenu {
+    return this.refs.menu as IMenu;
   }
 }
