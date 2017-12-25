@@ -11,7 +11,7 @@ export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicat
   routeConfig: RouteOptionsT;
   accessConfig?: TApplicationAccessConfig;
   mappers?: Array<ConnectorMapperT<TAppState, IKeyValue>>;
-  sectionName?: string|boolean;
+  sectionName?: string;
 }
 
 export interface IConnectorCtor<TContainer> extends ComponentLifecycle<{}, {}> {

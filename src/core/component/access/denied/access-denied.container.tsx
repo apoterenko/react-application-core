@@ -7,13 +7,14 @@ import { ContainerVisibilityTypeEnum } from '../../../router';
 import { BaseContainer } from '../../../component/base';
 import { DefaultLayoutContainer } from '../../../component/layout';
 import { IApplicationAccessConfig } from '../../../permission';
+import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 
 @connector<ApplicationStateT, IApplicationAccessConfig>({
   routeConfig: (routes) => ({
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: routes.accessDenied,
   }),
-  sectionName: false,
+  sectionName: ACCESS_DENIED_SECTION,
   mappers: [
     ...defaultMappers
   ],

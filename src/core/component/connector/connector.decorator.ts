@@ -1,6 +1,5 @@
 import { ComponentLifecycle } from 'react';
 import { Store } from 'redux';
-import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { FunctionT, noop, sequence } from '../../util';
@@ -25,8 +24,7 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
   return (target: IConnectorCtor<BaseContainerT>): void => {
     const sectionName = target.defaultProps && target.defaultProps.sectionName || config.sectionName;
 
-    if (!R.isNil(sectionName)) {
-      if (sectionName) {
+    if (sectionName) {
         Reflect.set(target, CONNECTOR_SECTION_FIELD, sectionName);
 
         const sectionName0 = sectionName as string;
@@ -54,10 +52,9 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
               logger.debug(`[$connector][componentWillMount] Section: ${sectionName0}`);
             }
         );
-      }
     } else {
-      logger.debug(
-          `The sectionName props is not defined for container ${target.name || target} connector. The init/destroy actions are disabled.`
+      logger.warn(
+          `The sectionName props is not defined for the container ${target.name || target} connector. The init/destroy actions are disabled.`
       );
     }
 
