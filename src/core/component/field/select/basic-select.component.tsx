@@ -26,6 +26,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
 
   private static logger = LoggerFactory.makeLogger(BasicSelect);
 
+  private optionsReady: boolean;
+
   constructor(props: TInternalProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
@@ -40,6 +42,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         },
         this.defaultActions
     );
+
+    this.optionsReady = !R.isNil(this.props.options);
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
@@ -148,7 +152,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.stopEvent(event);
 
     const props = this.props;
-    if (props.forceAll || R.isNil(props.options)) {
+    if (!this.optionsReady && (props.forceAll || R.isNil(props.options))) {
       this.setState({ emptyOptions: true });
 
       if (props.onEmptyOptions) {
