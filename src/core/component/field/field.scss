@@ -8,3 +8,10 @@
     opacity: $opacity-label;
   }
 }
+
+// Form field [FRAMEWORK-]
+.rac-form-field {
+  .rac-field-input {
+    resize: none;
+  }
+}
