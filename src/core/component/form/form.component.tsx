@@ -124,7 +124,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                               disabled={!this.canSubmit}
                               progress={form.progress}
                               error={!R.isNil(form.error)}>
-                        {this.t(formOptions.actionText || 'Save')}
+                        {this.t(formOptions.actionText || (this.apiEntity.isNew ? 'Create' : 'Save'))}
                       </Button>
                     </section>
                 )
