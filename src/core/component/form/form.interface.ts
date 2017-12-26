@@ -51,6 +51,7 @@ export interface IFormOptions extends IStylizable,
   actionIcon?: string;
   resetText?: string;
   resetButton?: boolean;
+  noActions?: boolean;
 }
 
 export interface IFormProps<TEntity extends IEntity> extends IEntityable<TEntity> {
