@@ -11,24 +11,27 @@ export class ListItem extends Ripple<IListItemInternalProps> {
     rippled: true,
   };
 
-  private props0 = Object.freeze({
+  private readonly initialProps = {
     ref: 'self',
     onClick: this.onActionClick.bind(this),
-  });
+  };
 
   public render(): JSX.Element {
     const props = this.props;
+    const defaultProps = {
+      ...this.initialProps,
+      className: toClassName(
+          'mdc-list-item',
+          props.rippled && 'mdc-ripple-surface',
+          props.className,
+          props.toClassName && props.toClassName(props.rawData)
+      ),
+    };
 
     return props.renderer
-        ? React.cloneElement(props.renderer(props.rawData), this.props0)
+        ? React.cloneElement(props.renderer(props.rawData), defaultProps)
         : (
-            <li className={toClassName(
-                    'mdc-list-item',
-                    props.rippled && 'mdc-ripple-surface',
-                    props.className,
-                    props.toClassName && props.toClassName(props.rawData)
-                )}
-                {...this.props0}>
+            <li {...defaultProps}>
               {
                 orNull(
                     props.icon,
