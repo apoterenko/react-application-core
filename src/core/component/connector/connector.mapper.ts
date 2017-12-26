@@ -30,26 +30,31 @@ export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrappe
   },
 });
 
-export const entityMapper = (entity: IEntity, formState?: IApplicationFormState): IEntityable<IEntity> => ({
-  originalEntity: {
-    ...entity,
-  },
-  entity: {
-    ...entity,
-    ...formState && formState.changes,
-  },
-  entityId: entity ? entity.id : null,
-  isNewEntity: !entity || R.isNil(entity.id),
-  touched: formState && formState.touched,
-});
+export const entityMapper =
+    <TEntity extends IEntity>(entity: TEntity,
+                              formState?: IApplicationFormState): IEntityable<TEntity> =>
+        ({
+          entity: {
+            ...entity || {},
+            ...formState && formState.changes,
+          } as TEntity,
+          entityId: orNull(entity, () => entity.id),
+          originalEntity: {...entity || {}} as TEntity,
+          isNewEntity: !entity || R.isNil(entity.id),
+          touched: formState && formState.touched,
+        });
 
-export const listEntityMapper =
+export const listSelectedEntityMapper =
     <TEntity extends IEntity>(listWrapperState: IApplicationListWrapperState): TEntity =>
         orNull(listWrapperState.list, () => listWrapperState.list.selected as TEntity);
 
-export const listWrapperEntityMapper = (listWrapperState: IApplicationListWrapperState,
-                                        formState?: IApplicationFormState): IEntityable<IEntity> =>
-    entityMapper(listEntityMapper(listWrapperState), formState);
+export const listWrapperSelectedEntityMapper =
+    <TEntity extends IEntity>(listWrapperState: IApplicationListWrapperState,
+                              formState?: IApplicationFormState): IEntityable<TEntity> =>
+    entityMapper<TEntity>(
+        listSelectedEntityMapper<TEntity>(listWrapperState),
+        formState
+    );
 
 export const formMapper = (formState: IApplicationFormState): IFormable<IApplicationFormState> => ({
   form: {
