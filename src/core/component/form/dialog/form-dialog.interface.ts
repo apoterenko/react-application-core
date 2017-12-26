@@ -8,3 +8,5 @@ export interface IFormDialog extends IDialog<IFormDialogInternalProps> {
 export interface IFormDialogInternalProps extends IDialogInternalProps,
                                                   IFormProps<IEntity> {
 }
+
+export const FORM_DIALOG_REF = 'formDialog';

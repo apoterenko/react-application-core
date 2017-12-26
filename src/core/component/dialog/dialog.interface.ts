@@ -22,4 +22,3 @@ export interface IDialogInternalProps extends IBaseComponentInternalProps {
   onClose?(): void;
 }
 
-export const FORM_DIALOG_REF = 'formDialog';
