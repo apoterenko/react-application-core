@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import * as moment from 'moment';
 
 import { lazyInject, DI_TYPES } from '../di';
+import { isString, orNull } from '../util';
 import { IApplicationDateTimeSettings, IApplicationSettings } from '../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
 
@@ -55,7 +56,17 @@ export class DateConverter implements IDateConverter {
     return this.formatDate(date, this.dateTimeSettings.pstDateFormat);
   }
 
-  public toDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT {
+  public toDate(date: DateTimeLikeTypeT, inputFormat = this.dateFormat): Date {
+    const result = this.convertToDate(date, inputFormat);
+    return orNull<Date>(!isString(result), result as Date);
+  }
+
+  public toDateTime(date: DateTimeLikeTypeT, inputFormat = this.dateTimeFormat): Date {
+    const result = this.convertToDate(date, inputFormat);
+    return orNull<Date>(!isString(result), result as Date);
+  }
+
+  public convertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
   }

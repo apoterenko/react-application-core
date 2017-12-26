@@ -150,6 +150,6 @@ export class DateField extends BasicTextField<DateField,
   }
 
   private convertToDate(value: string): DateTimeLikeTypeT {
-    return this.dc.toDate(value, this.fieldFormat);
+    return this.dc.convertToDate(value, this.fieldFormat);
   }
 }

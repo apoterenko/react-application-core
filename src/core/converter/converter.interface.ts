@@ -15,7 +15,9 @@ export interface IDateConverter {
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
   formatPSTDateTime(date?: DateTimeLikeTypeT): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
-  toDate(date: DateTimeLikeTypeT, inputFormat: string): DateTimeLikeTypeT;
+  toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
+  toDateTime(date: DateTimeLikeTypeT, inputFormat?: string): Date;
+  convertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT;
   getDateRangeFromDate(date: Date): Date[];
   getCurrentDate(date?: Date): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;
