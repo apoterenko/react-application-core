@@ -46,3 +46,10 @@ html, body {
   border: 0;
   min-width: 100%;
 }
+
+// Text overflow [FRAMEWORK-]
+.rac-overflow-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
