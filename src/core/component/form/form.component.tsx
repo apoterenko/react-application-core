@@ -219,10 +219,10 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
 
     const apiEntity0: ApiEntityT = (R.isNil(entityId)
             // You should use formMapper at least (simple form)
-            ? { isNew: true, changes }
+            ? { isNew: true, changes: {...changes} }
 
             // You should use formMapper and entityMapper at least (editable entity)
-            : { isNew: false, changes, entity, id: entityId }
+            : { isNew: false, changes: {...changes}, entity: {...entity}, id: entityId }
     );
     return {
       operation: Operation.create(),
