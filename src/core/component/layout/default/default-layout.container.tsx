@@ -103,7 +103,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                 }
               </div>
             </header>
-            <main className='rac-main'>
+            <main className='rac-main rac-flex-full'>
               <div className='rac-main-body rac-flex rac-flex-column'>
                 {props.children}
               </div>
