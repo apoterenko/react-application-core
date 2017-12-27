@@ -27,12 +27,13 @@ export class NumberConverter implements INumberConverter {
     this.id = this.id.bind(this);
   }
 
-  public number(value: string | number): string | number {
+  public number(value: string | number, stringResult = true): string | number {
     if (isNumber(value)) {
       return value;
     }
-    const result = parseFloat(String(value));
-    return isNaN(result) || !R.equals(String(result), String(value)) ? value : result;
+    const valueAsString = value as string;
+    const result = parseFloat(valueAsString);
+    return isNaN(result) || (!R.equals(String(result), value) && stringResult) ? value : result;
   }
 
   public format(value: string | number, formatter: {format(...args): string} = this.defaultFormatter): string {
