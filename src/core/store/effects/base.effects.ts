@@ -1,8 +1,8 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { IApiEntity, ApiEntityT } from '../../api';
+import { IApiEntity } from '../../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
-import { AnyT, IKeyValue, IEntity } from '../../definition.interface';
+import { AnyT, IEntity } from '../../definition.interface';
 import { NotificationActionBuilder } from '../../notification';
 import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder, FormModifyPayloadT } from '../../component/form';
@@ -43,11 +43,13 @@ export class BaseEffects<TApi> {
     return ListActionBuilder.buildDestroyAction(section);
   }
 
-  protected buildListEntityUpdateAction(section: string, apiEntity: ApiEntityT, changes: IKeyValue): IEffectsAction {
+  protected buildListEntityUpdateAction<TEntity extends IEntity>(section: string,
+                                                                 apiEntity: IApiEntity<TEntity>,
+                                                                 entityChanges: TEntity): IEffectsAction {
     const id = apiEntity.id;
     return apiEntity.isNew
-        ? ListActionBuilder.buildInsertAction(section, {payload: {id, changes}})
-        : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes}});
+        ? ListActionBuilder.buildInsertAction(section, {payload: {id, changes: entityChanges}})
+        : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes: entityChanges}});
   }
 
   protected buildFormLockAction(section: string): IEffectsAction {
