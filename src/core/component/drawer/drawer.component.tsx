@@ -33,8 +33,8 @@ export class Drawer<TComponent extends Drawer<TComponent>>
   public render() {
     return (
       <aside ref='self'
-           className='mdc-persistent-drawer'>
-        <nav className='mdc-persistent-drawer__drawer'>
+           className='mdc-drawer--persistent'>
+        <nav className='mdc-drawer__drawer'>
           {this.props.children}
         </nav>
       </aside>

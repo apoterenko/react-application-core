@@ -8,7 +8,7 @@ import { Button, IButtonInternalProps } from '../../../component/button';
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
 
-  public persistentDrawerToolbarSpacer = 'mdc-persistent-drawer__toolbar-spacer';
+  public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
   public toolbarIcon = 'mdc-toolbar__icon';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
