@@ -12,6 +12,7 @@ export interface IUIFactory {
   listDivider?: string;
   listItem?: string;
   listItemGraphic?: string;
+  listItemMeta?: string;
   listItemText?: string;
   listItemSecondaryText?: string;
   list?: string;
@@ -36,5 +37,6 @@ export interface IUIFactory {
   cardPrimary?: string;
   rippleSurface?: string;
   makeIcon?(config: IButtonInternalProps|string): JSX.Element;
+  makeListItemMetaIcon?(config: IButtonInternalProps|string): JSX.Element;
   makeCheckboxAttachment?(): JSX.Element;
 }

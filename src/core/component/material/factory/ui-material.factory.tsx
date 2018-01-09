@@ -22,6 +22,7 @@ export class UIMaterialFactory implements IUIFactory {
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';
   public listItemGraphic = 'mdc-list-item__graphic';
+  public listItemMeta = 'mdc-list-item__meta';
   public listItemText = 'mdc-list-item__text';
   public listItemSecondaryText = 'mdc-list-item__secondary-text';
   public listDivider = 'mdc-list-divider';
@@ -43,7 +44,7 @@ export class UIMaterialFactory implements IUIFactory {
   public cardPrimary = 'mdc-card__primary';
   public rippleSurface = 'mdc-ripple-surface';
 
-  public makeIcon(cfg: IButtonInternalProps|string): JSX.Element {
+  public makeIcon(cfg: IButtonInternalProps | string): JSX.Element {
     if (!cfg) {
       return null;
     }
@@ -66,6 +67,14 @@ export class UIMaterialFactory implements IUIFactory {
               {config.type}
             </i>
         );
+  }
+
+  public makeListItemMetaIcon(cfg: IButtonInternalProps | string): JSX.Element {
+    const config = (cfg ? (isString(cfg) ? { type: cfg } : cfg) : cfg) as IButtonInternalProps;
+    return this.makeIcon(!cfg ? cfg : {
+      ...config,
+      className: toClassName(config.className, this.listItemMeta),
+    });
   }
 
   public makeCheckboxAttachment(): JSX.Element {
