@@ -1,6 +1,7 @@
 export * from './item';
 export * from './simple';
 export * from './divider';
+export * from './subheader';
 export * from './list.interface';
 export * from './list.container';
 export * from './list.component';
