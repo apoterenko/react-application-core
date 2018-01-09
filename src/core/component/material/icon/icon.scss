@@ -13,22 +13,10 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-
-.rac-loading-icon {
-  vertical-align: middle;
-}
-
-.rac-list .mdc-list-item .material-icons {
-  vertical-align: bottom;
+  -webkit-font-smoothing: antialiased;  /* Support for all WebKit browsers. */
+  text-rendering: optimizeLegibility;   /* Support for Safari and Chrome. */
+  -moz-osx-font-smoothing: grayscale;   /* Support for Firefox. */
+  font-feature-settings: 'liga';        /* Support for IE. */
 }
 
 // Access denied component [MDC+]

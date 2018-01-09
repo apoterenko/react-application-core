@@ -17,6 +17,7 @@ export class UIMaterialFactory implements IUIFactory {
   public toolbarMenuIcon = 'mdc-toolbar__menu-icon';
   public list = 'mdc-list';
   public listTwoLine = 'mdc-list--two-line';
+  public listAvatar = 'mdc-list--avatar-list';
   public listNonInteractive = 'mdc-list--non-interactive';
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';

@@ -15,6 +15,7 @@ export interface IUIFactory {
   listItemText?: string;
   list?: string;
   listTwoLine?: string;
+  listAvatar?: string;
   listNonInteractive?: string;
   button?: string;
   formField?: string;

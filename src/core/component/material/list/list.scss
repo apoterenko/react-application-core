@@ -1,3 +1,5 @@
+@import '../../constant';
+
 // List [MDC+]
 .mdc-list {
   .mdc-list-group__subheader {
@@ -6,6 +8,33 @@
 
   &.rac-list, &.rac-navigation-list {
     padding-top: 0;
+  }
+
+  &.rac-list {
+    .mdc-list-item__text {
+      max-width: 80%;
+      min-width: 80%;
+    }
+
+    .mdc-list-item__graphic {
+      min-width: 40px;
+      color: $color-5;
+      background: $color-10;
+    }
+
+    .mdc-list-item__secondary-text {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .material-icons {
+      vertical-align: bottom;
+
+      &.mdc-list-item__meta {
+        color: $color-1;
+      }
+    }
   }
 }
 
