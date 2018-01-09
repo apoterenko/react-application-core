@@ -7,6 +7,7 @@ import { BaseComponent } from '../../component/base';
 import { ListItem } from './item';
 import { ProgressLabel } from '../progress';
 import { IListInternalProps } from './list.interface';
+import { SimpleList } from '../list/simple';
 
 export class List extends BaseComponent<List, IListInternalProps, {}> {
 
@@ -25,7 +26,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     if (selected) {
       const listItem = this.refs[this.toItemId(selected)] as ListItem;
       if (listItem) {
-        scrollIntoView(listItem.self, this.refs.container as HTMLElement);
+        scrollIntoView(listItem.self, (this.refs.container as SimpleList).self as HTMLElement);
       }
     }
   }
@@ -66,7 +67,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                           : ((canShowAddAction = true) && (
                               noDataFound
                                   ? this.emptyDataMessage
-                                  : (props.searchAction ? this.searchActionTpl : emptyMessage)
+                                  : emptyMessage
                           ))
                   )
             }
@@ -76,15 +77,16 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     }
 
     return (
-        <ul ref='container'
-            className={toClassName('mdc-list', 'mdc-list--two-line', 'mdc-list--avatar-list',
-                                   'rac-list',
-                                   props.className)}>
-          {(props.sorter
-              ? R.sort<IEntity>(props.sorter, props.data)
-              : props.data).map((item) => this.itemTpl(item))}
+        <SimpleList ref='container'
+                    nonInteractive={false}
+                    className={toClassName(
+                        'rac-list',
+                        this.uiFactory.listAvatar,
+                        props.className
+                    )}>
+          {this.listData}
           {this.addActionTpl}
-        </ul>
+        </SimpleList>
     );
   }
 
@@ -96,18 +98,6 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                   active={this.isSelected(entity)}
                   onClick={this.onSelect}
                   {...this.props.itemOptions}/>
-    );
-  }
-
-  protected get searchActionTpl(): JSX.Element {
-    return (
-        <ul className='mdc-list app-list-search-action-wrapper'>
-          <ListItem key={uuid()}
-                    icon='search'
-                    onClick={this.onSearchAction}>
-            {this.emptyMessage}
-          </ListItem>
-        </ul>
     );
   }
 
@@ -146,6 +136,15 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
   private toItemId(entity: IEntity): string {
     return `$item-${entity.id}`;
+  }
+
+  private get listData(): IEntity[] {
+    const props = this.props;
+    return (
+        props.sorter
+            ? R.sort<IEntity>(props.sorter, props.data)
+            : props.data
+    ).map((item) => this.itemTpl(item));
   }
 
   private get errorMessage(): string {

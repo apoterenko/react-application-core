@@ -3,7 +3,6 @@ import {
   IBaseContainerInternalProps,
   IBaseContainer,
 } from '../../component/base';
-import { EntityOnSaveMergeStrategyEnum } from '../../api';
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
@@ -14,11 +13,7 @@ import {
   IErrorable,
   ISelectable,
   IDataSource,
-  IIdentifiedEntity,
-  IChangeable,
   ISorter,
-  IKeyValue,
-  IPayloadable,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
 
@@ -26,7 +21,6 @@ export interface IListOptions extends IBaseComponentInternalProps,
                                       ISorter {
   itemOptions?: IListItemOptions;
   addAction?: boolean;
-  searchAction?: boolean;
 }
 
 export interface IPageOptions {
