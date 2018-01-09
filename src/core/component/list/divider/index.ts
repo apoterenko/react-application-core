@@ -1,1 +1,1 @@
-export * from './list-divider';
+export * from './list-divider.component';

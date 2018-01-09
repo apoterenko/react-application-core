@@ -13,6 +13,7 @@ export interface IUIFactory {
   listItem?: string;
   listItemGraphic?: string;
   listItemText?: string;
+  listItemSecondaryText?: string;
   list?: string;
   listTwoLine?: string;
   listAvatar?: string;
