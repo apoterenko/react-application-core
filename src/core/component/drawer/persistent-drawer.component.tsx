@@ -10,19 +10,3 @@ export class PersistentDrawer extends Drawer<PersistentDrawer> {
     super(props, MDCPersistentDrawer);
   }
 }
-
-// TODO https://github.com/material-components/material-components-web/issues/1004
-const originalFn = MDCPersistentDrawer.prototype.getDefaultFoundation;
-MDCPersistentDrawer.prototype.getDefaultFoundation = function() {
-  const foundation = originalFn.apply(this, arguments);
-  foundation.drawerClickHandler_ = (e) => {
-    let target = e.target;
-    while (target && target.tagName !== 'A') {
-      target = target.parentNode;
-    }
-    if (!target) {
-      e.stopPropagation();
-    }
-  };
-  return foundation;
-};
