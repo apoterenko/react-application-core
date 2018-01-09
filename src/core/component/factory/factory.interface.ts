@@ -11,7 +11,11 @@ export interface IUIFactory {
   listGroupSubHeader?: string;
   listDivider?: string;
   listItem?: string;
+  listItemGraphic?: string;
+  listItemText?: string;
   list?: string;
+  listTwoLine?: string;
+  listNonInteractive?: string;
   button?: string;
   formField?: string;
   textField?: string;
@@ -27,6 +31,7 @@ export interface IUIFactory {
   checkboxInput?: string;
   cardActions?: string;
   cardPrimary?: string;
+  rippleSurface?: string;
   makeIcon?(config: IButtonInternalProps|string): JSX.Element;
   makeCheckboxAttachment?(): JSX.Element;
 }

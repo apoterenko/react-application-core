@@ -1,4 +1,6 @@
 export * from './item';
+export * from './simple';
+export * from './divider';
 export * from './list.interface';
 export * from './list.container';
 export * from './list.component';

@@ -21,8 +21,8 @@ export class ListItem extends Ripple<IListItemInternalProps> {
     const defaultProps = {
       ...this.initialProps,
       className: toClassName(
-          'mdc-list-item',
-          props.rippled && 'mdc-ripple-surface',
+          this.uiFactory.listItem,
+          props.rippled && this.uiFactory.rippleSurface,
           props.className,
           props.toClassName && props.toClassName(props.rawData)
       ),
@@ -35,12 +35,12 @@ export class ListItem extends Ripple<IListItemInternalProps> {
               {
                 orNull(
                     props.icon,
-                    <span className='mdc-list-item__graphic'>
+                    <span className={this.uiFactory.listItemGraphic}>
                       {this.uiFactory.makeIcon(props.icon)}
                     </span>
                 )
               }
-              <span className='mdc-list-item__text'>
+              <span className={this.uiFactory.listItemText}>
                 {
                   props.tpl
                       ? props.tpl(props.rawData)

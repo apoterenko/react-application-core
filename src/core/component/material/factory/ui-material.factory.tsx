@@ -16,8 +16,12 @@ export class UIMaterialFactory implements IUIFactory {
   public toolbarTitle = 'mdc-toolbar__title';
   public toolbarMenuIcon = 'mdc-toolbar__menu-icon';
   public list = 'mdc-list';
+  public listTwoLine = 'mdc-list--two-line';
+  public listNonInteractive = 'mdc-list--non-interactive';
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';
+  public listItemGraphic = 'mdc-list-item__graphic';
+  public listItemText = 'mdc-list-item__text';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
   public formField = 'mdc-form-field';
@@ -34,6 +38,7 @@ export class UIMaterialFactory implements IUIFactory {
   public checkboxInput = 'mdc-checkbox__native-control';
   public cardActions = 'mdc-card__actions';
   public cardPrimary = 'mdc-card__primary';
+  public rippleSurface = 'mdc-ripple-surface';
 
   public makeIcon(cfg: IButtonInternalProps|string): JSX.Element {
     if (!cfg) {
