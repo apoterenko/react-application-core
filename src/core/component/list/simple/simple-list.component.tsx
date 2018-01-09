@@ -8,6 +8,7 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
 
   public static defaultProps: ISimpleListInternalProps = {
     twoLine: true,
+    avatar: false,
     nonInteractive: true,
   };
 
@@ -18,6 +19,7 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
         <ul ref='self'
             className={toClassName(
                 this.uiFactory.list,
+                props.avatar && this.uiFactory.listAvatar,
                 props.nonInteractive && this.uiFactory.listNonInteractive,
                 props.twoLine && this.uiFactory.listTwoLine,
                 props.className

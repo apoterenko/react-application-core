@@ -79,11 +79,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
         <SimpleList ref='container'
                     nonInteractive={false}
-                    className={toClassName(
-                        'rac-list',
-                        this.uiFactory.listAvatar,
-                        props.className
-                    )}>
+                    avatar={true}
+                    className={toClassName('rac-list', props.className)}>
           {this.listData}
           {this.addActionTpl}
         </SimpleList>

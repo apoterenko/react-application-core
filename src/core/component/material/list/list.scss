@@ -6,6 +6,18 @@
     cursor: default;
   }
 
+  .mdc-list-item__graphic {
+    color: $color-11;
+  }
+
+  &.mdc-list--avatar-list {
+    .mdc-list-item__graphic {
+      min-width: 40px;
+      color: $color-5;
+      background: $color-10;
+    }
+  }
+
   &.rac-list, &.rac-navigation-list {
     padding-top: 0;
   }
@@ -14,12 +26,6 @@
     .mdc-list-item__text {
       max-width: 80%;
       min-width: 80%;
-    }
-
-    .mdc-list-item__graphic {
-      min-width: 40px;
-      color: $color-5;
-      background: $color-10;
     }
 
     .mdc-list-item__secondary-text {
@@ -44,12 +50,5 @@
     .material-icons {
       padding-right: 32px;
     }
-  }
-}
-
-// Form list [MDC+]
-.rac-form {
-  .mdc-list {
-    padding: 0;
   }
 }
