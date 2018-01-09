@@ -39,8 +39,16 @@ export class DateConverter implements IDateConverter {
     return this.format(date, this.dateTimeFormat, this.uiDateTimeFormat);
   }
 
+  public formatFromUiDateTime(date: string): string {
+    return this.format(date, this.uiDateTimeFormat, this.dateTimeFormat);
+  }
+
   public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateFormat, outputFormat);
+  }
+
+  public formatTime(date: DateTimeLikeTypeT): string {
+    return this.format(date, this.dateTimeFormat, this.timeFormat);
   }
 
   public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {
@@ -132,6 +140,10 @@ export class DateConverter implements IDateConverter {
 
   private get dateFormat(): string {
     return this.dateTimeSettings.dateFormat;
+  }
+
+  private get timeFormat(): string {
+    return this.dateTimeSettings.uiTimeFormat;
   }
 
   private get uiDateTimeFormat(): string {
