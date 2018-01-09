@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.140",
+  "version": "0.0.141",
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
