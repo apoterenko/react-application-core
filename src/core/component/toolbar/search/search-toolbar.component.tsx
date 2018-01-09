@@ -73,7 +73,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     const props = this.props;
     return (
         <div className={toClassName(this.uiFactory.toolbar, 'app-toolbar', props.className)}>
-          <div className='mdc-toolbar__row'>
+          <div className={this.uiFactory.toolbarRow}>
             <section>
               {
                 this.uiFactory.makeIcon({
@@ -99,9 +99,12 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                   </section>,
                   orNull(
                       this.isActive,
-                      <section className='mdc-toolbar__section visible'>
+                      <section className={toClassName(
+                          this.uiFactory.toolbarSection,
+                          'visible'
+                      )}>
                         <TextField ref='queryField'
-                                   className='mdc-text-field--box'
+                                   className={this.uiFactory.textFieldBox}
                                    persistent={false}
                                    autoFocus={true}
                                    noErrorMessage={true}

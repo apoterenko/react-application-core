@@ -19,6 +19,7 @@ export interface IUIFactory {
   button?: string;
   formField?: string;
   textField?: string;
+  textFieldBox?: string;
   checkbox?: string;
   textFieldInput?: string;
   textFieldTextArea?: string;

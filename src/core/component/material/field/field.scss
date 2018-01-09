@@ -18,6 +18,11 @@
     + .rac-text-field-help-text {
       margin-bottom: 0;
     }
+
+    &.mdc-text-field--box {
+      margin-top: 0;
+      margin-bottom: 7px;
+    }
   }
 
   .rac-text-field-help-text {
@@ -36,15 +41,9 @@
         opacity: $opacity;
       }
     }
-
-    .rac-text-field-help-text {
-      &.rac-text-field-help-text-info {
-        opacity: $opacity-label;
-      }
-    }
   }
 
-  .mdc-text-field-helptext--validation-msg {
+  .mdc-text-field-helper-text--validation-msg {
     opacity: 1;               // workaround (help message + error)
     color: $color-1;          // workaround (help message + error)
   }
