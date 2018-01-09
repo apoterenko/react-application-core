@@ -21,4 +21,3 @@ export interface IDialogInternalProps extends IBaseComponentInternalProps {
   onAccept?(): void;
   onClose?(): void;
 }
-
