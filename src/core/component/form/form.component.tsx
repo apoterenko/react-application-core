@@ -109,7 +109,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                           () => (
                               <Button type='reset'
                                       icon='clear_all'
-                                      isRaised={true}
+                                      raised={true}
                                       disabled={!form.dirty}>
                                 {this.t(formOptions.resetText || 'Reset')}
                               </Button>
@@ -119,8 +119,8 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                               icon={this.isFormValid
                                   ? (formOptions.actionIcon || 'save')
                                   : 'error_outline'}
-                              isAccent={true}
-                              isRaised={true}
+                              accent={true}
+                              raised={true}
                               disabled={!this.canSubmit}
                               progress={form.progress}
                               error={!R.isNil(form.error)}>

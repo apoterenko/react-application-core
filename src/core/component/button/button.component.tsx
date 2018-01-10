@@ -6,6 +6,7 @@ import {
   IButtonInternalProps,
   IButtonInternalState,
 } from './button.interface';
+import { Link } from '../../component/link';
 
 export class Button extends BaseComponent<Button,
                                           IButtonInternalProps,
@@ -21,17 +22,26 @@ export class Button extends BaseComponent<Button,
         : (props.error
             ? (props.errorMessage || this.t('Error'))
             : null);
+    const className = toClassName(
+        !props.noClassName && this.uiFactory.button,
+        'rac-button',
+        props.accent && 'mdc-button--accent',
+        props.raised && 'mdc-button--raised',
+        props.className);
 
+    if (props.to) {
+      return (
+          <Link to={props.to}
+                className={className}>
+            {props.children}
+          </Link>
+      );
+    }
     return (
         <button type={props.type}
                 title={props.title}
                 onClick={props.onClick}
-                className={toClassName(
-                    !props.noClassName && this.uiFactory.button,
-                    'rac-button',
-                    props.isAccent && 'mdc-button--accent',
-                    props.isRaised && 'mdc-button--raised',
-                    props.className)}
+                className={className}
                 disabled={props.disabled || props.progress}>
           {
             this.uiFactory.makeIcon(props.progress

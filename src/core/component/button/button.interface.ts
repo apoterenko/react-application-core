@@ -6,6 +6,7 @@ import {
   IErrorable,
   IIconable,
   IClickable,
+  ILinkable,
 } from '../../definition.interface';
 
 export interface IButtonInternalState {
@@ -16,8 +17,9 @@ export interface IButtonInternalProps extends IBaseComponentInternalProps,
                                               IDisableable,
                                               IIconable,
                                               IClickable,
+                                              ILinkable,
                                               IErrorable<boolean>,
                                               ITypeable<string> {
-  isAccent?: boolean;
-  isRaised?: boolean;
+  accent?: boolean;
+  raised?: boolean;
 }

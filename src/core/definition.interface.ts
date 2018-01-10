@@ -120,6 +120,10 @@ export interface IDataSource<Type> {
   data?: Type;
 }
 
+export interface ILinkable {
+  to?: string;
+}
+
 export interface ISaveable {
   saveable?: boolean;
 }

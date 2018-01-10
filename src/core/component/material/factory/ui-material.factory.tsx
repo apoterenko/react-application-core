@@ -2,7 +2,7 @@ import * as React from 'react';
 import { injectable } from 'inversify';
 
 import { isString, toClassName, uuid } from '../../../util';
-import { IUIFactory } from '../../factory';
+import { IUIFactory, UIIconConfigT } from '../../factory';
 import { Button, IButtonInternalProps } from '../../../component/button';
 
 @injectable()
@@ -43,8 +43,11 @@ export class UIMaterialFactory implements IUIFactory {
   public cardActions = 'mdc-card__actions';
   public cardPrimary = 'mdc-card__primary';
   public rippleSurface = 'mdc-ripple-surface';
+  public menuAnchor = 'mdc-menu-anchor';
+  public simpleMenu = 'mdc-simple-menu';
+  public simpleMenuItems = 'mdc-simple-menu__items';
 
-  public makeIcon(cfg: IButtonInternalProps | string): JSX.Element {
+  public makeIcon(cfg: UIIconConfigT): JSX.Element {
     if (!cfg) {
       return null;
     }
@@ -69,7 +72,7 @@ export class UIMaterialFactory implements IUIFactory {
         );
   }
 
-  public makeListItemMetaIcon(cfg: IButtonInternalProps | string): JSX.Element {
+  public makeListItemMetaIcon(cfg: UIIconConfigT): JSX.Element {
     const config = (cfg ? (isString(cfg) ? { type: cfg } : cfg) : cfg) as IButtonInternalProps;
     return this.makeIcon(!cfg ? cfg : {
       ...config,

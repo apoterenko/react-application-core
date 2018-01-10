@@ -4,6 +4,7 @@ import { orNull, toClassName } from '../../../util';
 import { BasicEventT, IRippleable } from '../../../definition.interface';
 import { Ripple } from '../../../component/ripple';
 import { IListItemInternalProps } from './list-item.interface';
+import { ListItemGraphic, ListItemText } from '../../../component/list';
 
 export class ListItem extends Ripple<IListItemInternalProps> {
 
@@ -35,18 +36,16 @@ export class ListItem extends Ripple<IListItemInternalProps> {
               {
                 orNull(
                     props.icon,
-                    <span className={this.uiFactory.listItemGraphic}>
-                      {this.uiFactory.makeIcon(props.icon)}
-                    </span>
+                    () => <ListItemGraphic>{this.uiFactory.makeIcon(props.icon)}</ListItemGraphic>
                 )
               }
-              <span className={this.uiFactory.listItemText}>
+              <ListItemText>
                 {
                   props.tpl
                       ? props.tpl(props.rawData)
                       : props.children
                 }
-              </span>
+              </ListItemText>
             </li>
         );
   }

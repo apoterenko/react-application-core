@@ -1,5 +1,7 @@
 import { IButtonInternalProps } from '../../component/button';
 
+export type UIIconConfigT = IButtonInternalProps | string;
+
 export interface IUIFactory {
   persistentDrawerToolbarSpacer?: string;
   toolbarIcon?: string;
@@ -36,7 +38,11 @@ export interface IUIFactory {
   cardActions?: string;
   cardPrimary?: string;
   rippleSurface?: string;
-  makeIcon?(config: IButtonInternalProps|string): JSX.Element;
-  makeListItemMetaIcon?(config: IButtonInternalProps|string): JSX.Element;
+  menuAnchor?: string;
+  simpleMenu?: string;
+  simpleMenuItems?: string;
+
+  makeIcon?(config: UIIconConfigT): JSX.Element;
+  makeListItemMetaIcon?(config: UIIconConfigT): JSX.Element;
   makeCheckboxAttachment?(): JSX.Element;
 }

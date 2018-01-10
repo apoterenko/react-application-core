@@ -2,12 +2,13 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 import { MDCSimpleMenu } from '@material/menu';
 
-import { BasicEventT } from '../../definition.interface';
+import { BasicEventT, UNDEF } from '../../definition.interface';
 import { MaterialComponent } from '../../component/material';
-import { orNull, uuid } from '../../util';
+import { orNull, toClassName, uuid } from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IEventManager } from '../../event';
 import { FieldT, TextField } from '../../component/field';
+import { SimpleList } from '../../component/list';
 import {
   IMenuInternalState,
   IMenuInternalProps,
@@ -83,27 +84,30 @@ export class Menu extends MaterialComponent<Menu,
         });
 
     return (
-        <div className='mdc-menu-anchor'>
+        <div className={this.uiFactory.menuAnchor}>
           <div ref='self'
-               className='mdc-simple-menu app-menu rac-menu'>
+               className={toClassName('rac-menu', this.uiFactory.simpleMenu)}>
             {orNull(
                 props.useFilter,
-                <TextField ref='field'
-                           value={this.state.filter}
-                           placeholder={props.filterPlaceholder || 'Filter'}
-                           onChange={this.onInputChange}/>
+                () => (
+                    <TextField ref='field'
+                               value={this.state.filter}
+                               placeholder={props.filterPlaceholder || 'Filter'}
+                               onChange={this.onInputChange}/>
+                )
             )}
-            <ul className='mdc-simple-menu__items mdc-list'
-                role='menu'>
+            <SimpleList twoLine={false}
+                        nonInteractive={false}
+                        className={this.uiFactory.simpleMenuItems}>
               {menuItemsTpl}
-            </ul>
+            </SimpleList>
           </div>
         </div>
     );
   }
 
   public show(): void {
-    this.setState({ filter: undefined });
+    this.setState({ filter: UNDEF });
     this.nativeMdcInstance.open = true;
 
     if (this.props.useFilter) {
