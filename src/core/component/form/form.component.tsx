@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isString, isUndef, orNull, toClassName } from '../../util';
+import { cloneNodes, isString, isUndef, noUndefValuesFilter, orNull, toClassName } from '../../util';
 import { AnyT, BasicEventT, IEntity, ReactElementT } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
@@ -68,8 +68,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                       const fieldProps = field.props;
                       const predefinedOptions = this.getFieldPredefinedOptions(field);
 
-                      return R.pickBy<IFieldInternalProps, IFieldInternalProps>(
-                          (value, key) => !isUndef(value),
+                      return noUndefValuesFilter<IFieldInternalProps, IFieldInternalProps>(
                           {
                             value: this.getFieldValue(field),
                             originalValue: this.getFieldOriginalValue(field),
@@ -81,14 +80,12 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             ...predefinedOptions,
 
                             // The fields props have higher priority
-                            ...R.pickBy<IFieldOptions, IFieldOptions>(
-                                (value, key) => !isUndef(value), {
-                                  label: fieldProps.label,
-                                  type: fieldProps.type,
-                                  placeholder: fieldProps.placeholder,
-                                  prefixLabel: fieldProps.prefixLabel,
-                                }
-                            ),
+                            ...noUndefValuesFilter<IFieldOptions, IFieldOptions>({
+                              label: fieldProps.label,
+                              type: fieldProps.type,
+                              placeholder: fieldProps.placeholder,
+                              prefixLabel: fieldProps.prefixLabel,
+                            }),
                           }
                       );
                     },
