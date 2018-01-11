@@ -49,7 +49,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 props.prefixLabel,
                 <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
             )}
-            <div className='rac-text-field-input-wrapper'>
+            <div className='rac-field-input-wrapper rac-flex-full'>
               {this.getComponent()}
               <label style={{paddingLeft: props.prefixLabel
                   ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'

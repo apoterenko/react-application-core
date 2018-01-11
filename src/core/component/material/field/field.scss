@@ -3,7 +3,18 @@
 
 // Field [MDC+]
 .rac-form-field {
-  width: 100%;
+
+  // Textarea [MDC+]
+  .rac-textarea-field {
+    .rac-field-input-wrapper {
+      @include flexbox;   // [MDC bugfix]
+    }
+
+    .rac-field-input {
+      padding-top: 0;     // [MDC override]
+      margin-top: 36px;   // [MDC bugfix]
+    }
+  }
 
   .rac-text-field {
     width: 100%;
@@ -22,10 +33,6 @@
     &.mdc-text-field--box {
       margin-top: 0;
       margin-bottom: 7px;
-    }
-
-    .rac-text-field-input-wrapper {
-      width: 100%;
     }
   }
 
