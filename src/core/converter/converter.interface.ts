@@ -9,17 +9,20 @@ export const DATE_TIME_TYPES = {
 
 export interface IDateConverter {
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
-  formatUiDate(date?: DateTimeLikeTypeT): string;
-  formatUiDateTime(date?: DateTimeLikeTypeT): string;
-  formatFromUiDateTime(date: string): string;
+  fromDateToUiDate(date: DateTimeLikeTypeT): string;
+  fromDateTimeToUiDateTime(date: string, time: string): string;
+  fromUiDateTimeToDateTime(date: string, time: string): string;
+  fromStartPeriodDateTimeToDateTime(startPeriodUiDate?: string, startPeriodUiTime?: string): string;
+  fromEndPeriodDateTimeToDateTime(endPeriodUiDate?: string, endPeriodUiTime?: string): string;
   formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
-  formatTime(date: DateTimeLikeTypeT): string;
+  formatDateFromDateTime(date: DateTimeLikeTypeT): string;
+  formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
-  formatPSTDateTime(date?: DateTimeLikeTypeT): string;
+  fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
-  toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
-  toDateTime(date: DateTimeLikeTypeT, inputFormat?: string): Date;
-  convertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT;
+  parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date;
+  parseDateFromDateTime(date: DateTimeLikeTypeT): Date;
+  tryConvertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT;
   getDateRangeFromDate(date: Date): Date[];
   getCurrentDate(date?: Date): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;

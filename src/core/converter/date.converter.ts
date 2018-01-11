@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import * as moment from 'moment';
 
 import { lazyInject, DI_TYPES } from '../di';
+import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../definition.interface';
 import { isString, orNull } from '../util';
 import { IApplicationDateTimeSettings, IApplicationSettings } from '../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
@@ -31,50 +32,102 @@ export class DateConverter implements IDateConverter {
     }
   }
 
-  public formatUiDate(date: DateTimeLikeTypeT = new Date()): string {
+  /**
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromDateToUiDate(date: DateTimeLikeTypeT): string {
     return this.format(date, this.dateFormat, this.uiDateFormat);
   }
 
-  public formatUiDateTime(date: DateTimeLikeTypeT = new Date()): string {
-    return this.format(date, this.dateTimeFormat, this.uiDateTimeFormat);
+  /**
+   * @param {string} date
+   * @param {string} time
+   * @returns {string}
+   */
+  public fromDateTimeToUiDateTime(date: string, time: string): string {
+    return this.format(
+        this.combine(date, time),
+        this.dateTimeFormat,
+        this.uiDateTimeFormat
+    );
   }
 
-  public formatFromUiDateTime(date: string): string {
-    return this.format(date, this.uiDateTimeFormat, this.dateTimeFormat);
+  /**
+   * @param {string} date
+   * @param {string} time
+   * @returns {string}
+   */
+  public fromUiDateTimeToDateTime(date: string, time: string): string {
+    return this.format(
+        this.combine(date, time),
+        this.uiDateTimeFormat,
+        this.dateTimeFormat
+    );
+  }
+
+  /**
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromDateTimeToPstDateTime(date: DateTimeLikeTypeT = new Date()): string {
+    return this.format(date, this.dateTimeFormat, this.pstDateTimeFormat);
+  }
+
+  /**
+   * @param {string} startPeriodUiDate
+   * @param {string} startPeriodUiTime
+   * @returns {string}
+   */
+  public fromStartPeriodDateTimeToDateTime(startPeriodUiDate?: string, startPeriodUiTime?: string): string {
+    return this.fromUiDateTimeToDateTime(
+        startPeriodUiDate || this.fromDateToUiDate(this.get30DaysAgo()),
+        startPeriodUiTime || DEFAULT_TIME_FROM
+    );
+  }
+
+  /**
+   * @param {string} endPeriodUiDate
+   * @param {string} endPeriodUiTime
+   * @returns {string}
+   */
+  public fromEndPeriodDateTimeToDateTime(endPeriodUiDate?: string, endPeriodUiTime?: string): string {
+    return this.fromUiDateTimeToDateTime(
+        endPeriodUiDate || this.fromDateToUiDate(new Date()),
+        endPeriodUiTime || DEFAULT_TIME_TO
+    );
   }
 
   public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateFormat, outputFormat);
   }
 
-  public formatTime(date: DateTimeLikeTypeT): string {
-    return this.format(date, this.dateTimeFormat, this.timeFormat);
+  public formatDateFromDateTime(date: DateTimeLikeTypeT): string {
+    return this.formatDateTime(date, this.dateFormat);
+  }
+
+  public formatTimeFromDateTime(date: DateTimeLikeTypeT): string {
+    return this.formatDateTime(date, this.timeFormat);
   }
 
   public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateTimeFormat, outputFormat);
   }
 
-  public formatPSTDateTime(date: DateTimeLikeTypeT = new Date()): string {
-    return this.formatDateTime(date,
-        this.combine(this.dateTimeSettings.pstDateFormat, this.dateTimeSettings.pstTimeFormat));
-  }
-
   public formatPSTDate(date: DateTimeLikeTypeT = new Date()): string {
     return this.formatDate(date, this.dateTimeSettings.pstDateFormat);
   }
 
-  public toDate(date: DateTimeLikeTypeT, inputFormat = this.dateFormat): Date {
-    const result = this.convertToDate(date, inputFormat);
+  public parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date {
+    const result = this.tryConvertToDate(date, inputFormat);
     return orNull<Date>(!isString(result), result as Date);
   }
 
-  public toDateTime(date: DateTimeLikeTypeT, inputFormat = this.dateTimeFormat): Date {
-    const result = this.convertToDate(date, inputFormat);
-    return orNull<Date>(!isString(result), result as Date);
+  public parseDateFromDateTime(date: DateTimeLikeTypeT): Date {
+    return this.parseDate(date, this.dateTimeFormat);
   }
 
-  public convertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT {
+  public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
   }
@@ -143,15 +196,23 @@ export class DateConverter implements IDateConverter {
   }
 
   private get timeFormat(): string {
-    return this.dateTimeSettings.uiTimeFormat;
-  }
-
-  private get uiDateTimeFormat(): string {
-    return this.combine(this.uiDateFormat, this.dateTimeSettings.uiTimeFormat);
+    return this.dateTimeSettings.timeFormat;
   }
 
   private get uiDateFormat(): string {
     return this.dateTimeSettings.uiDateFormat;
+  }
+
+  private get uiTimeFormat(): string {
+    return this.dateTimeSettings.uiTimeFormat;
+  }
+
+  private get uiDateTimeFormat(): string {
+    return this.combine(this.uiDateFormat, this.uiTimeFormat);
+  }
+
+  private get pstDateTimeFormat(): string {
+    return this.combine(this.dateTimeSettings.pstDateFormat, this.dateTimeSettings.pstTimeFormat);
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {

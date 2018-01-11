@@ -8,12 +8,13 @@ export interface IApplicationCurrencySettings {
 }
 
 export interface IApplicationDateTimeSettings {
-  dateTimeFormat?: string;   // Client-server communication format
   dateFormat?: string;       // Client-server communication format
+  timeFormat?: string;       // Client-server communication format
+  dateTimeFormat?: string;   // Client-server communication format
   uiDateFormat?: string;     // UI format
   uiTimeFormat?: string;     // UI format
-  pstDateFormat?: string;                // UI PST date format
-  pstTimeFormat?: string;                // UI PST time format
+  pstDateFormat?: string;                // UI PST format
+  pstTimeFormat?: string;                // UI PST format
   uiDateMask?: Array<string|RegExp>;     // UI mask
   uiTimeMask?: Array<string|RegExp>;     // UI mask
   uiDatePattern?: string;                // UI pattern
@@ -69,6 +70,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   dateTime: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
+    timeFormat: 'HH:mm:ss',
     uiDateFormat: 'YYYY-MM-DD',
     uiTimeFormat: 'HH:mm:ss',
     pstTimeFormat: 'hh:mm A',
