@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { AnyT, ID_FIELD_NAME, IKeyValue } from '../definition.interface';
 import { isUndef } from './type';
 
-type PredicateT = (key: string, value: AnyT) => boolean;
+export type PredicateT = (key: string, value: AnyT) => boolean;
 
 export function filterBy<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource, predicate: PredicateT
