@@ -49,16 +49,19 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                 props.prefixLabel,
                 <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
             )}
-            {this.getComponent()}
-            <label style={{paddingLeft: props.prefixLabel
-                ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
-                : undefined}}
-                   className={toClassName(
-                     this.uiFactory.textFieldLabel,
-                     autoFocusOrValuePresent && this.uiFactory.textFieldFocusedLabel
-                   )}>
-              {props.label ? this.t(props.label) : props.children}
-            </label>
+            <div className='rac-text-field-input-wrapper'>
+              {this.getComponent()}
+              <label style={{paddingLeft: props.prefixLabel
+                  ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
+                  : undefined}}
+                     className={toClassName(
+                         this.uiFactory.textFieldLabel,
+                         autoFocusOrValuePresent && this.uiFactory.textFieldFocusedLabel
+                     )}>
+                {props.label ? this.t(props.label) : props.children}
+              </label>
+              {this.getComponentAttachment()}
+            </div>
             {orNull(
                 this.actions,
                 this.actions.map((action) => this.uiFactory.makeIcon({
@@ -101,6 +104,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected getAttachment(): JSX.Element {
+    return null;
+  }
+
+  protected getComponentAttachment(): JSX.Element {
     return null;
   }
 

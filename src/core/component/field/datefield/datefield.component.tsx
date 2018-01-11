@@ -67,7 +67,7 @@ export class DateField extends BasicTextField<DateField,
   }
 
   public getRawValueFromEvent(event: ChangeEventT): DateTimeLikeTypeT {
-    return this.convertToDate(super.getRawValueFromEvent(event));
+    return this.tryConvertToDate(super.getRawValueFromEvent(event));
   }
 
   protected prepareStateValueBeforeSerialization(rawValue: DateTimeLikeTypeT): string {
@@ -75,30 +75,27 @@ export class DateField extends BasicTextField<DateField,
     return isUndef(rawValue) ? undefined : this.formatDate(rawValue);
   }
 
-  protected getComponent(): JSX.Element {
+  protected getComponentAttachment(): JSX.Element {
     const props = this.props;
     return (
-        <div className='rac-field-input-wrapper'>
-          {super.getComponent()}
-          <DatePickerDialog ref='dialogWindow'
-                            autoOk={props.autoOk}
-                            cancelLabel={props.cancelLabel}
-                            container={props.container}
-                            containerStyle={props.dialogContainerStyle}
-                            disableYearSelection={props.disableYearSelection}
-                            firstDayOfWeek={props.firstDayOfWeek}
-                            initialDate={this.dialogDate}
-                            locale={props.locale}
-                            maxDate={props.maxDate}
-                            minDate={props.minDate}
-                            mode={props.mode}
-                            okLabel={props.okLabel}
-                            onAccept={this.onAccept}
-                            shouldDisableDate={props.shouldDisableDate}
-                            hideCalendarDate={props.hideCalendarDate}
-                            openToYearSelection={props.openToYearSelection}
-                            utils={props.utils}/>
-        </div>
+        <DatePickerDialog ref='dialogWindow'
+                          autoOk={props.autoOk}
+                          cancelLabel={props.cancelLabel}
+                          container={props.container}
+                          containerStyle={props.dialogContainerStyle}
+                          disableYearSelection={props.disableYearSelection}
+                          firstDayOfWeek={props.firstDayOfWeek}
+                          initialDate={this.dialogDate}
+                          locale={props.locale}
+                          maxDate={props.maxDate}
+                          minDate={props.minDate}
+                          mode={props.mode}
+                          okLabel={props.okLabel}
+                          onAccept={this.onAccept}
+                          shouldDisableDate={props.shouldDisableDate}
+                          hideCalendarDate={props.hideCalendarDate}
+                          openToYearSelection={props.openToYearSelection}
+                          utils={props.utils}/>
     );
   }
 
@@ -127,7 +124,7 @@ export class DateField extends BasicTextField<DateField,
     if (R.isNil(value)) {
       return defaultDate;
     }
-    const dateValue = this.convertToDate(value);
+    const dateValue = this.tryConvertToDate(value);
     return dateValue instanceof Date
         ? dateValue as Date
         : defaultDate;
@@ -149,7 +146,7 @@ export class DateField extends BasicTextField<DateField,
     return this.dc.format(value, this.fieldFormat, this.fieldFormat);
   }
 
-  private convertToDate(value: string): DateTimeLikeTypeT {
-    return this.dc.convertToDate(value, this.fieldFormat);
+  private tryConvertToDate(value: string): DateTimeLikeTypeT {
+    return this.dc.tryConvertToDate(value, this.fieldFormat);
   }
 }

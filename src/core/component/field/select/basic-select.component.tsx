@@ -91,18 +91,15 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.openMenu(event);
   }
 
-  protected getComponent(): JSX.Element {
+  protected getComponentAttachment(): JSX.Element {
     const props = this.props;
     return (
-        <div className='rac-field-input-wrapper'>
-          {super.getComponent()}
-          <Menu ref='menu'
-                tpl={props.tpl}
-                renderer={props.renderer}
-                useFilter={props.useFilter}
-                options={this.toFilteredOptions()}
-                onSelect={this.onSelect}/>
-        </div>
+        <Menu ref='menu'
+              tpl={props.tpl}
+              renderer={props.renderer}
+              useFilter={props.useFilter}
+              options={this.toFilteredOptions()}
+              onSelect={this.onSelect}/>
     );
   }
 

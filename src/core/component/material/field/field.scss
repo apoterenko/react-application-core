@@ -23,6 +23,10 @@
       margin-top: 0;
       margin-bottom: 7px;
     }
+
+    .rac-text-field-input-wrapper {
+      width: 100%;
+    }
   }
 
   .rac-text-field-help-text {
@@ -46,10 +50,6 @@
   .mdc-text-field-helper-text--validation-msg {
     opacity: 1;               // workaround (help message + error)
     color: $color-1;          // workaround (help message + error)
-  }
-
-  .rac-field-input-wrapper {
-    width: 100%;
   }
 }
 
