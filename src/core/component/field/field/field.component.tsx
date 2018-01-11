@@ -270,6 +270,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return toClassName(
         this.uiFactory.formField,
         'rac-form-field',
+        'rac-flex-full',
         this.isDeactivated() && 'rac-form-field-disabled'
     );
   }
