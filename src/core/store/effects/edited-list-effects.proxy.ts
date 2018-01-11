@@ -1,13 +1,13 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
-import * as R from 'ramda';
 
+import { excludeIdFieldFilter } from '../../util';
 import { provideInSingleton } from '../../di';
 import { FilterActionBuilder } from '../../component/filter';
 import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { CustomActionBuilder } from '../../action';
-import { ID_FIELD_NAME, IEntity, ISelectable } from '../../definition.interface';
+import { IEntity, ISelectable } from '../../definition.interface';
 import { FormActionBuilder } from '../../component/form';
 
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
@@ -45,8 +45,10 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
       @EffectsService.effects(CustomActionBuilder.buildCustomCloneActionType(formSection))
       public $onCloneEntity(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
         return [
-          FormActionBuilder.buildChangesAction(formSection,
-              R.pickBy((value, key) => key !== ID_FIELD_NAME, entityResolver(state))),
+          FormActionBuilder.buildChangesAction(
+              formSection,
+              excludeIdFieldFilter<TEntity, TEntity>(entityResolver(state))
+          ),
           ListActionBuilder.buildDeselectAction(listSection),
           RouterActionBuilder.buildReplaceAction(pathResolver(null, state))
         ];

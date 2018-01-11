@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { AnyT, IKeyValue } from '../definition.interface';
+import { AnyT, ID_FIELD_NAME, IKeyValue } from '../definition.interface';
 import { isUndef } from './type';
 
 type PredicateT = (key: string, value: AnyT) => boolean;
@@ -25,4 +25,9 @@ export function filterByPredicate<TSource extends IKeyValue, TResult extends IKe
 export function noUndefValuesFilter<TSource extends IKeyValue,
                                     TResult extends IKeyValue>(source: TSource): TResult {
   return filterByPredicate(source, (key, value) => !isUndef(value));
+}
+
+export function excludeIdFieldFilter<TSource extends IKeyValue,
+    TResult extends IKeyValue>(source: TSource): TResult {
+  return filterByPredicate(source, (key, value) => key !== ID_FIELD_NAME);
 }
