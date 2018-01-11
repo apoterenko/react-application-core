@@ -15,9 +15,9 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
   listSection: string;
   formSection?: string;
   pathResolver(entity?: TEntity, state?: TApplicationState): string;
-  entityResolver?(state: TApplicationState): TEntity;
+  changesResolver?(state: TApplicationState): TEntity;
 }): () => void {
-  const {pathResolver, entityResolver, listSection, formSection} = config;
+  const {pathResolver, changesResolver, listSection, formSection} = config;
   return (): void => {
 
     @provideInSingleton(Effects)
@@ -47,7 +47,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
         return [
           FormActionBuilder.buildChangesAction(
               formSection,
-              excludeIdFieldFilter<TEntity, TEntity>(entityResolver(state))
+              excludeIdFieldFilter<TEntity, TEntity>(changesResolver(state))
           ),
           ListActionBuilder.buildDeselectAction(listSection),
           RouterActionBuilder.buildReplaceAction(pathResolver(null, state))
