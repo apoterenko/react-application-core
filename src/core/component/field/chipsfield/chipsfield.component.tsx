@@ -2,14 +2,19 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
-import { uuid, isUndef, clone } from '../../../util';
-import { EntityIdT, IEntity, KeyboardEventT } from '../../../definition.interface';
-import { BasicSelect, SelectOptionT } from '../../../component/field';
+import { uuid, isUndef } from '../../../util';
+import {
+  EntityIdT,
+  ID_FIELD_NAME,
+  INamedEntity,
+  KeyboardEventT,
+  NAME_FIELD_NAME,
+} from '../../../definition.interface';
+import { BasicSelect, IMultiFieldAttributes, SelectOptionT } from '../../../component/field';
 
 import {
   IChipsFieldInternalProps,
   IChipsFieldInternalState,
-  ChipsFieldItemT,
 } from './chipsfield.interface';
 
 export class ChipsField extends BasicSelect<ChipsField,
@@ -17,7 +22,8 @@ export class ChipsField extends BasicSelect<ChipsField,
                                             IChipsFieldInternalState> {
 
   public static defaultProps: IChipsFieldInternalProps = {
-    labelField: 'name',
+    valueField: ID_FIELD_NAME,
+    labelField: NAME_FIELD_NAME,
     valuesMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,
@@ -26,12 +32,6 @@ export class ChipsField extends BasicSelect<ChipsField,
   constructor(props: IChipsFieldInternalProps) {
     super(props);
     this.onDeleteItem = this.onDeleteItem.bind(this);
-
-    // Private local state, it should not bind to the view
-    const v = this.value;
-    this.state = Array.isArray(v)
-        ? { add: [], remove: [] }
-        : { add: clone(v.add), remove: clone(v.remove) };
   }
 
   public onKeyBackspace(event: KeyboardEventT): void {
@@ -51,30 +51,29 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   protected onSelect(option: SelectOptionT): void {
-    const removeLen = this.state.remove.length;
-    const removeArray = this.state.remove.filter(((removeItem) => removeItem.id !== option.value));
-    let addArray: IEntity[];
+    const removeValues = this.removeValues;
+    const addValues = this.addValues;
+    const removeLen = removeValues.length;
+    const removeArray = removeValues.filter(((removeItem) => removeItem.id !== option.value));
+    let addArray = addValues;
 
     if (removeArray.length === removeLen) {
-      addArray = this.state.add.concat({id: option.value, name: option.label});
-      this.setState({ add: addArray });
-    } else {
-      addArray = this.state.add;
-      this.setState({ remove: removeArray });
+      const addEntity: INamedEntity = {id: option.value, name: option.label};
+      addArray = addValues.concat(addEntity);
     }
     this.dispatchChanges(addArray, removeArray);
   }
 
   protected toDisplayValue(): string {
-    const len = this.getActiveValue().length;
+    const len = this.activeValues.length;
     return len ? Printf.sprintf(this.t(this.props.valuesMessage), len) : '';
   }
 
   protected getAttachment(): JSX.Element {
     return (
         <div>
-          {this.getActiveValue().map((item) => {
-            const displayValue = this.toChipsDisplayValue(item);
+          {this.activeValues.map((item) => {
+            const displayValue = this.toDisplayLabel(item);
             return (
               <div key={uuid()}
                    className='rac-chips-field'>
@@ -99,64 +98,72 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   protected toFilteredOptions(options: SelectOptionT[]): SelectOptionT[] {
     return super.toFilteredOptions(options).filter((option) =>
-        !this.getActiveValue().find((item) => this.toValue(item) === option.value));
+        !this.activeValues.find((item) => item.id === option.value));
   }
 
-  private onDeleteItem(item: ChipsFieldItemT): void {
-    const deletedValue = this.toValue(item);
-    const addLen = this.state.add.length;
-    const addArray = this.state.add.filter(((addItem) => addItem.id !== deletedValue));
-    let removeArray;
+  private onDeleteItem(item: INamedEntity): void {
+    const removeValues = this.removeValues;
+    const addValues = this.addValues;
+    const deletedValue = item.id;
+    const addLen = addValues.length;
+    const addArray = addValues.filter(((addItem) => addItem.id !== deletedValue));
+    let removeArray = removeValues;
 
     if (addArray.length === addLen) {
-      const deletedEntity: IEntity = {id: deletedValue};
-      removeArray = [deletedEntity].concat(this.state.remove);
-      this.setState({ remove: removeArray });
-    } else {
-      removeArray = this.state.remove;
-      this.setState({ add: addArray });
+      const deletedEntity: INamedEntity = {id: deletedValue};
+      removeArray = [deletedEntity].concat(removeValues);
     }
     this.dispatchChanges(addArray, removeArray);
   }
 
-  private dispatchChanges(addArray: IEntity[], removeArray: IEntity[]): void {
-    if (this.getActiveValue(addArray, removeArray).length === 0) {
+  private dispatchChanges(addArray: INamedEntity[], removeArray: INamedEntity[]): void {
+    if (this.activeValues.length === 0) {
       this.cleanNativeInputForSupportHTML5Validation();
     }
     if (addArray.length || removeArray.length) {
-      this.onChangeValue({ add: addArray, remove: removeArray, source: this.sourceValue });
+      this.onChangeValue({ add: addArray, remove: removeArray, source: this.originalValue });
     } else {
-      this.onChangeValue();
+      this.onChangeValue(this.originalValue);
     }
     this.setFocus();
   }
 
-  private toChipsDisplayValue(item): EntityIdT {
+  private toDisplayLabel(item: INamedEntity): EntityIdT {
     const props = this.props;
-    const value = this.toValue(item);
+    const value = item.id;
 
-    if (!R.isNil(value)) {
-      const displayValue = this.options.find((option) => option.value === value);
-      return displayValue
-          ? this.t(displayValue.label)
-          : (Reflect.get(item, props.labelField) || value);
-    }
-    return (item as SelectOptionT).label
-        ? this.t((item as SelectOptionT).label)
-        : (item as SelectOptionT).value;
+    const selectedOption = this.options.find((option0) => option0.value === value);
+    return selectedOption
+        ? this.t(selectedOption.label)
+        : item.name || value;
   }
 
-  private getActiveValue(add: IEntity[] = this.state.add, remove: IEntity[] = this.state.remove): ChipsFieldItemT[] {
-    return [].concat(this.sourceValue || [])
-      .concat(add)
-      .filter((item) => !remove.find((removeItem) => removeItem.id === this.toValue(item)));
+  private get activeValues(): INamedEntity[] {
+    const props = this.props;
+    const originalValue = this.originalValue || [];
+    return originalValue
+        .map((entity): INamedEntity => ({
+          id: Reflect.get(entity, props.valueField),
+          name: Reflect.get(entity, props.labelField),
+        }))
+        .concat(this.addValues)
+        .filter((item) => !this.removeValues.find((removeItem) => removeItem.id === item.id));
   }
 
-  private get sourceValue(): IEntity[] {
-    return Array.isArray(this.value) ? this.value : this.value.source;
+  private get removeValues(): INamedEntity[] {
+    const currentValue = this.value;
+    return Array.isArray(currentValue) ? [] : (currentValue as IMultiFieldAttributes).remove;
   }
 
-  private toValue(item: ChipsFieldItemT): EntityIdT {
-    return (item as IEntity).id || (item as SelectOptionT).value;
+  private get addValues(): INamedEntity[] {
+    const currentValue = this.value;
+    return Array.isArray(currentValue) ? [] : (currentValue as IMultiFieldAttributes).add;
+  }
+
+  private get originalValue(): INamedEntity[] {
+    const currentValue = this.value;
+    return Array.isArray(currentValue)
+        ? currentValue
+        : (currentValue as IMultiFieldAttributes).source;
   }
 }

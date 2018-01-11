@@ -30,6 +30,8 @@ export interface INamedEntity extends IIdentifiedEntity,
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
 
+export const NAME_FIELD_NAME = 'name';
+
 export interface INameable {
   name?: string;
 }
