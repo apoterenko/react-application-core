@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { AnyT, ID_FIELD_NAME, IKeyValue } from '../definition.interface';
-import { isUndef } from './type';
+import { isUndef, isFn } from './type';
 
 export type PredicateT = (key: string, value: AnyT) => boolean;
 
@@ -17,17 +17,46 @@ export function filterBy<TSource extends IKeyValue, TResult extends IKeyValue>(
 }
 
 export function filterByPredicate<TSource extends IKeyValue, TResult extends IKeyValue>(
-    source: TSource, predicate: PredicateT
+    source: TSource,
+    ...predicates: PredicateT[]
 ): TResult {
-  return R.pickBy<TSource, TResult>((value, key) => predicate(key, value), source);
+  return R.pickBy<TSource, TResult>(
+      (value, key): boolean => predicates.length > 1
+          ? (predicates as Array<PredicateT | boolean>)
+              .reduce(
+                  (previousValue, currentValue): boolean =>
+                      (currentValue as PredicateT)(key, value)
+                      && (isFn(previousValue)
+                            ? (previousValue as PredicateT)(key, value)
+                            : previousValue as boolean)
+              ) as boolean
+          : predicates[0](key, value),
+      source
+  );
+}
+
+export function excludeFieldsPredicateFactory(...fields: string[]) {
+  return (key: string, value: AnyT) => !fields.includes(key);
+}
+
+export function noUndefValuesPredicateFactory() {
+  return (key: string, value: AnyT) => !isUndef(value);
+}
+
+export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
+    source: TSource,
+    ...fields: string[]
+): TResult {
+  return filterByPredicate(source, excludeFieldsPredicateFactory(...fields));
 }
 
 export function noUndefValuesFilter<TSource extends IKeyValue,
                                     TResult extends IKeyValue>(source: TSource): TResult {
-  return filterByPredicate(source, (key, value) => !isUndef(value));
+  return filterByPredicate(source, noUndefValuesPredicateFactory());
 }
 
-export function excludeIdFieldFilter<TSource extends IKeyValue,
-    TResult extends IKeyValue>(source: TSource): TResult {
-  return filterByPredicate(source, (key, value) => key !== ID_FIELD_NAME);
+export function excludeIdFieldFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
+    source: TSource
+): TResult {
+  return excludeFieldsFilter(source, ID_FIELD_NAME);
 }
