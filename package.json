@@ -8,7 +8,8 @@
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "deploy": "npm install && npm run build && npm publish ./",
-    "scss": "node scripts/scss.js"
+    "scss": "node scripts/scss.js",
+    "ci-test": "node_modules/.bin/karma start --browsers PhantomJS"
   },
   "dependencies": {
     "@types/core-js": "^0.9.42",
@@ -102,9 +103,11 @@
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.3",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-remap-coverage": "^0.1.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.4",
+    "phantomjs-prebuilt": "^2.1.16",
     "tslint": "^5.6.0",
     "tslint-loader": "^3.5.2"
   },

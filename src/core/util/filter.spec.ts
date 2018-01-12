@@ -6,23 +6,23 @@ import {
 } from './filter';
 import { ID_FIELD_NAME } from '../definition.interface';
 
-describe('filterByPredicate', () => {
-  it('test1', () => {
-    const filteredObject = filterByPredicate({
+describe('filterByPredicate', function () {
+  it('test1', function () {
+    var filteredObject = filterByPredicate({
       key1: 'value1',
       key2: 'value2',
-    }, (key, value) => key !== 'key1');
+    }, function (key, value) { return key !== 'key1'; });
 
     expect(filteredObject).toEqual({
       key2: 'value2',
     });
   });
 
-  it('test2', () => {
-    const filteredObject = filterByPredicate({
+  it('test2', function () {
+    var filteredObject = filterByPredicate({
       key1: 'value1',
       key2: 'value2',
-    }, (key, value) => key !== 'key3');
+    }, function (key, value) { return key !== 'key3'; });
 
     expect(filteredObject).toEqual({
       key1: 'value1',
@@ -30,20 +30,22 @@ describe('filterByPredicate', () => {
     });
   });
 
-  it('test3', () => {
-    const filteredObject = filterByPredicate({
+  it('test3', function () {
+    var filteredObject = filterByPredicate({
       key1: 'value1',
       key2: 'value2',
-    }, (key, value) => key !== 'key2', (key, value) => key !== 'key1');
+    }, function (key, value) { return key !== 'key2'; },
+        function (key, value) { return key !== 'key1'; });
 
     expect(filteredObject).toEqual({});
   });
 
-  it('test4', () => {
-    const filteredObject = filterByPredicate({
+  it('test4', function () {
+    var filteredObject = filterByPredicate({
       key1: 'value1',
       key2: 'value2',
-    }, (key, value) => key !== 'key1', (key, value) => key !== 'key3');
+    }, function (key, value) { return key !== 'key1'; },
+        function (key, value) { return key !== 'key3'; });
 
     expect(filteredObject).toEqual({
       key2: 'value2',
@@ -51,9 +53,10 @@ describe('filterByPredicate', () => {
   });
 });
 
-describe('excludeFieldsFilter', () => {
-  it('test1', () => {
-    const filteredObject = excludeFieldsFilter({
+
+describe('excludeFieldsFilter', function () {
+  it('test1', function () {
+    var filteredObject = excludeFieldsFilter({
       key1: 'value1',
       key2: 'value2',
     }, 'key1');
@@ -63,8 +66,8 @@ describe('excludeFieldsFilter', () => {
     });
   });
 
-  it('test2', () => {
-    const filteredObject = excludeFieldsFilter({
+  it('test2', function () {
+    var filteredObject = excludeFieldsFilter({
       key1: 'value1',
       key2: 'value2',
     }, 'key1', 'key2');
@@ -72,8 +75,8 @@ describe('excludeFieldsFilter', () => {
     expect(filteredObject).toEqual({});
   });
 
-  it('test3', () => {
-    const filteredObject = excludeFieldsFilter({
+  it('test3', function () {
+    var filteredObject = excludeFieldsFilter({
       key1: 'value1',
       key2: 'value2',
     }, 'key3');
@@ -85,11 +88,11 @@ describe('excludeFieldsFilter', () => {
   });
 });
 
-describe('noUndefValuesFilter', () => {
-  it('test1', () => {
-    const filteredObject = noUndefValuesFilter({
+describe('noUndefValuesFilter', function () {
+  it('test1', function () {
+    var filteredObject = noUndefValuesFilter({
       key1: 'value1',
-      key2: undefined,
+      key2: void 0,
     });
 
     expect(filteredObject).toEqual({
@@ -97,8 +100,8 @@ describe('noUndefValuesFilter', () => {
     });
   });
 
-  it('test2', () => {
-    const filteredObject = noUndefValuesFilter({
+  it('test2', function () {
+    var filteredObject = noUndefValuesFilter({
       key1: 'value1',
       key2: 100,
     });
@@ -110,12 +113,11 @@ describe('noUndefValuesFilter', () => {
   });
 });
 
-describe('excludeIdFieldFilter', () => {
-  it('test1', () => {
-    const filteredObject = excludeIdFieldFilter({
-      key1: 'value1',
-      [ID_FIELD_NAME]: 100,
-    });
+describe('excludeIdFieldFilter', function () {
+  it('test1', function () {
+    var o = { key1: 'value1' };
+    o[ID_FIELD_NAME] = 100;
+    var filteredObject = excludeIdFieldFilter(o);
 
     expect(filteredObject).toEqual({
       key1: 'value1',

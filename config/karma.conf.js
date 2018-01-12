@@ -1,7 +1,7 @@
 module.exports = function (config) {
-  const testWebpackConfig = require('./webpack.test.js')({ env: 'test' });
+  var testWebpackConfig = require('./webpack.test.js')({ env: 'test' });
 
-  const configuration = {
+  var configuration = {
     basePath: '',
     frameworks: ['jasmine'],
     exclude: [],
@@ -30,7 +30,7 @@ module.exports = function (config) {
     reporters: ['mocha', 'coverage', 'remap-coverage'],
     port: 9876,
     colors: true,
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_DEBUG,
     autoWatch: false,
     browsers: [
       'Chrome'
