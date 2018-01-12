@@ -123,4 +123,13 @@ describe('excludeIdFieldFilter', function () {
       key1: 'value1',
     });
   });
+
+  it('test2', function () {
+    var o = { id1: 'value1' };
+    var filteredObject = excludeIdFieldFilter(o);
+
+    expect(filteredObject).toEqual({
+      id1: 'value1',
+    });
+  });
 });
