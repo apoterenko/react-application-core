@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const helpers = require('./helpers');
 const fs = require('fs');
-const envArgs = require('yargs').argv.env || {};
 
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
@@ -111,20 +110,6 @@ module.exports.define = function (options) {
       module: false,
       clearImmediate: false,
       setImmediate: false
-    },
-    devServer: {
-      port: METADATA.port,
-      host: METADATA.host,
-      watchOptions: {
-        ignored: /node_modules/
-      },
-      historyApiFallback: true,
-      proxy: {
-        '/api': {
-          target: 'https://localhost:8443/api',
-          secure: false
-        }
-      }
     }
   };
 };
