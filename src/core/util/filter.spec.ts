@@ -111,6 +111,20 @@ describe('noUndefValuesFilter', function () {
       key2: 100,
     });
   });
+
+  it('test3', function () {
+    var filteredObject = noUndefValuesFilter({
+      key1: 'value1',
+      key2: null,
+      key3: 0,
+    });
+
+    expect(filteredObject).toEqual({
+      key1: 'value1',
+      key2: null,
+      key3: 0,
+    });
+  });
 });
 
 describe('excludeIdFieldFilter', function () {
