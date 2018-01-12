@@ -9,7 +9,7 @@
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "deploy": "npm install && npm run build && npm publish ./",
     "scss": "node scripts/scss.js",
-    "ci-test": "node_modules/.bin/karma start --browsers PhantomJS"
+    "test": "node_modules/.bin/karma start --browsers PhantomJS"
   },
   "dependencies": {
     "@types/core-js": "^0.9.42",
