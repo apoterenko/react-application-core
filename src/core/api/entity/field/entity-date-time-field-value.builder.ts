@@ -27,7 +27,7 @@ export class EntityDateTimeFieldValueBuilder {
         )
         : this.dc.fromUiDateTimeToDateTime(
             dateResolver(entityChanges) || dateResolver(entity),
-            timeResolver(entityChanges) || timeResolver(entity)
+            timeResolver(entityChanges) || timeResolver(entity) || defaultTime
         );
   }
 }
