@@ -47,7 +47,11 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
   }
 
   public submit(): void {
-    (this.refs.form as IForm).submit();
+    this.form.submit();
+  }
+
+  public get apiEntity(): ApiEntityT {
+    return this.form.apiEntity;
   }
 
   private onChange(name: string, value: AnyT): void {
@@ -70,5 +74,9 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
 
   private onSubmit(apiEntity: ApiEntityT): void {
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
+  }
+
+  private get form(): IForm {
+    return this.refs.form as IForm;
   }
 }
