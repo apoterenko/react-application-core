@@ -59,7 +59,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             formOptions.className
                         )}>
           <fieldset disabled={form.progress}
-                    className='rac-fieldset app-row-layout rac-flex-full'>
+                    className='rac-fieldset rac-flex-full'>
             <section className={this.uiFactory.cardPrimary}>
               {
                 cloneNodes<IFieldInternalProps>(

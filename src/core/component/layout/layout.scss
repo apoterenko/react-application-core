@@ -45,15 +45,6 @@
   }
 }
 
-.app-row-layout {
-  display: flex;
-  flex-direction: column;
-
-  > * {
-    flex: 1;
-  }
-}
-
 @import '~sass-flex-mixin/_flex';
 
 .rac-flex {
