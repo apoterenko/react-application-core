@@ -6,7 +6,7 @@
     "clean": "npm cache clean",
     "build": "npm run scss & npm run tsc-build",
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
-    "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
+    "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts* --exclude src/**/*.spec.ts",
     "deploy": "npm install && npm run build && npm publish ./",
     "scss": "node scripts/scss.js",
     "test": "node_modules/.bin/karma start --browsers PhantomJS"
