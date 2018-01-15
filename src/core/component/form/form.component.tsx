@@ -154,6 +154,29 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     }
   }
 
+  public get apiEntity(): ApiEntityT {
+    const { props } = this;
+    const { entity } = props;
+    const { changes } = props.form;
+    const entityId = entity ? entity.id : null;
+    const merger = {
+      ...entity,
+      ...changes,
+    };
+
+    const apiEntity0: ApiEntityT = (R.isNil(entityId)
+            // You should use formMapper at least (simple form)
+            ? { isNew: true, changes: {...changes}, merger, }
+
+            // You should use formMapper and entityMapper at least (editable entity)
+            : { isNew: false, changes: {...changes}, entity: {...entity}, merger, id: entityId }
+    );
+    return {
+      operation: Operation.create(),
+      ...apiEntity0,
+    };
+  }
+
   private onChange(name: string, value: AnyT, validationGroup: string): void {
     this.resetGroupFieldsErrors(name, validationGroup);
     if (this.props.onChange) {
@@ -206,25 +229,6 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
         }
       }
     });
-  }
-
-  private get apiEntity(): ApiEntityT {
-    const { props } = this;
-    const { entity } = props;
-    const { changes } = props.form;
-    const entityId = entity ? entity.id : null;
-
-    const apiEntity0: ApiEntityT = (R.isNil(entityId)
-            // You should use formMapper at least (simple form)
-            ? { isNew: true, changes: {...changes} }
-
-            // You should use formMapper and entityMapper at least (editable entity)
-            : { isNew: false, changes: {...changes}, entity: {...entity}, id: entityId }
-    );
-    return {
-      operation: Operation.create(),
-      ...apiEntity0,
-    };
   }
 
   private get isFormReadOnly(): boolean {

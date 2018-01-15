@@ -191,6 +191,10 @@ export interface IChangeable<TChanges extends IKeyValue> {
   changes: TChanges;
 }
 
+export interface IMergeable<TMerger extends IKeyValue> {
+  merger: TMerger;
+}
+
 export interface IEntityable<TEntity extends IEntity> extends ITouchable {
   entity?: TEntity;
   originalEntity?: TEntity;
