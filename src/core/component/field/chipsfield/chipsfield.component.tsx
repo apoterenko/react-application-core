@@ -77,7 +77,7 @@ export class ChipsField extends BasicSelect<ChipsField,
             return (
               <div key={uuid()}
                    className='rac-chips-field'>
-                <span className='rac-chips-field-description'
+                <span className='rac-chips-field-description rac-overflow-ellipsis'
                       title={String(displayValue)}>
                   {displayValue}
                 </span>

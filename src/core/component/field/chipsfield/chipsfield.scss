@@ -1,25 +1,25 @@
-.rac-chips-field {
-  display: inline-block;
-  white-space: nowrap;
+@import '../../constant';
 
-  border-radius: 12px;
-  background-color: #e0e0e0;
-  cursor: default;
-  padding: 6px 8px 2px 10px;
+.rac-chips-field {
+  padding: 6px 8px 6px 10px;
   margin-right: 8px;
   margin-bottom: 4px;
+  display: inline-block;
+  white-space: nowrap;
+  border-radius: 12px;
+  cursor: default;
+  background-color: $color-12;
 
   .rac-chips-field-description {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
     padding-right: 4px;
-    line-height: 24px;
     max-width: 120px;
   }
 
-  button {
-    color: #9f9e9f;
+  .rac-button {
+    color: $color-4;
+  }
+
+  .rac-button, .rac-chips-field-description {
+    vertical-align: middle;
   }
 }
