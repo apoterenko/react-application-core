@@ -1,3 +1,4 @@
+@import '../constant';
 @import './textfield/textfield';
 @import './select/select';
 @import './chipsfield/chipsfield';
@@ -18,4 +19,13 @@
   .rac-menu {
     width: 100%;
   }
+}
+
+// Form field [FRAMEWORK-]
+.rac-textarea-length-label {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  font-size: 11px;
+  color: $color-4;
 }
