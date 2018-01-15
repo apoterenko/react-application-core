@@ -39,6 +39,10 @@ export function excludeFieldsPredicateFactory(...fields: string[]) {
   return (key: string, value: AnyT) => !fields.includes(key);
 }
 
+export function excludeIdFieldPredicateFactory() {
+  return excludeFieldsPredicateFactory(ID_FIELD_NAME);
+}
+
 export function noUndefValuesPredicateFactory() {
   return (key: string, value: AnyT) => !isUndef(value);
 }
@@ -58,5 +62,5 @@ export function noUndefValuesFilter<TSource extends IKeyValue,
 export function excludeIdFieldFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource
 ): TResult {
-  return excludeFieldsFilter(source, ID_FIELD_NAME);
+  return filterByPredicate(source, excludeIdFieldPredicateFactory());
 }
