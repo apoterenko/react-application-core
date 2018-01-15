@@ -104,7 +104,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
               </div>
             </header>
             <main className='rac-main rac-flex-full'>
-              <div className='rac-main-body rac-flex rac-flex-column'>
+              <div className={toClassName(
+                  'rac-main-body',
+                  'rac-flex',
+                  'rac-flex-column',
+                  this.props.bodyClassName
+              )}>
                 {props.children}
               </div>
             </main>
