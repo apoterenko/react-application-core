@@ -19,11 +19,10 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
         <ul ref='self'
             className={toClassName(
                 this.uiFactory.list,
-                'rac-simple-list',
+                props.className || 'rac-simple-list',
                 props.avatar && this.uiFactory.listAvatar,
                 props.nonInteractive && this.uiFactory.listNonInteractive,
                 props.twoLine && this.uiFactory.listTwoLine,
-                props.className
             )}>
           {props.children}
         </ul>

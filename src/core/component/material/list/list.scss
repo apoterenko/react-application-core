@@ -2,10 +2,8 @@
 
 // List [MDC+]
 .mdc-list {
-  padding: 0;
-
-  .mdc-list-group__subheader {
-    cursor: default;
+  &.rac-list, &.rac-simple-list, &.rac-navigation-list {
+    padding: 0;
   }
 
   .mdc-list-item__graphic {
