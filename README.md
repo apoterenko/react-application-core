@@ -76,7 +76,6 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
       <DefaultLayoutContainer headerItems={header}
                               {...props}>
         <ListContainer listOptions={{
-                        emptyMessage: 'Start a search',
                         itemOptions: { tpl: this.tpl },
                         addAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
                        }}
@@ -105,7 +104,7 @@ import {
   TextField,
   toSelectOptions,
   FORM_DIALOG_REF,
-  listWrapperEntityMapper,
+  listWrapperSelectedEntityMapper,
   formMapper,
   DefaultLayoutContainer,
   defaultMappers,
@@ -131,7 +130,7 @@ import { AppPermissions } from '../../../app.permissions';
   mappers: [
     ...defaultMappers,
     (state) => formMapper(state.roles.role),
-    (state: IAppState) => listWrapperEntityMapper(state.roles, state.roles.role)
+    (state) => listWrapperSelectedEntityMapper(state.roles, state.roles.role)
   ],
 })
 class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
@@ -216,7 +215,7 @@ import { IAppState } from '../../app.interface';
     listWrapperStateResolver: (state) => state.roles,
   }),
   makeEditedListEffectsProxy<IRoleEntity, IAppState>({
-    section: ROLES_SECTION,
+    listSection: ROLES_SECTION,
     pathResolver: (role) => buildEntityRoute<IRoleEntity>(ROUTER_PATHS.ROLE, role),
   }),
   makeFilteredListEffectsProxy({ section: ROLES_SECTION }),
