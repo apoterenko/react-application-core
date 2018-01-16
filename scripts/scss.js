@@ -7,7 +7,7 @@ var compile = function (inFile, outFile) {
     file: inFile,
     outputStyle: 'compressed',
     sourceMap: true,
-    importer: function importer(url, prev, done) {
+    importer: function importer(url) {
       if (url[0] === '~') {
         url = path.resolve('node_modules/', url.substr(1));
       }
@@ -20,5 +20,5 @@ var compile = function (inFile, outFile) {
   fs.writeFileSync(outFile, result.css);
 };
 
-compile('src/core/component/component.scss', 'rac.min.css');
-compile('src/core/component/material/material.scss', 'rac-material.min.css');
+compile('src/core/bootstrap.scss', 'rac.min.css');
+compile('src/core/material.bootstrap.scss', 'rac-material.min.css');
