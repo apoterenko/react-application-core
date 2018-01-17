@@ -1,6 +1,11 @@
 @import '../../constant';
 
-.rac-chips-field {
+// Chips wrapper [FRAMEWORK-]
+.rac-chips-wrapper {
+  width: 100%;
+}
+
+.rac-chips {
   padding: 6px 8px 6px 10px;
   margin-right: 8px;
   margin-bottom: 4px;
@@ -10,7 +15,7 @@
   cursor: default;
   background-color: $color-3;
 
-  .rac-chips-field-description {
+  .rac-chips-description {
     padding-right: 4px;
     max-width: 120px;
   }
@@ -19,7 +24,7 @@
     color: $color-4;
   }
 
-  .rac-button, .rac-chips-field-description {
+  .rac-button, .rac-chips-description {
     vertical-align: middle;
   }
 }

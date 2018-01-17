@@ -71,13 +71,13 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   protected getAttachment(): JSX.Element {
     return (
-        <div>
+        <div className='rac-chips-wrapper'>
           {this.activeValues.map((item) => {
             const displayValue = this.toDisplayLabel(item);
             return (
               <div key={uuid()}
-                   className='rac-chips-field'>
-                <span className='rac-chips-field-description rac-overflow-ellipsis'
+                   className='rac-chips'>
+                <span className='rac-chips-description rac-overflow-ellipsis'
                       title={String(displayValue)}>
                   {displayValue}
                 </span>

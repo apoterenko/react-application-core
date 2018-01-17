@@ -103,7 +103,11 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         this.props.addAction,
         this.uiFactory.makeIcon({
           type: 'add',
-          className: toClassName('rac-list-add-button', 'mdc-fab'),
+          className: toClassName(
+              'rac-list-add-button',
+              'rac-flex-center',
+              'mdc-fab'
+          ),
           onClick: this.onCreate,
         })
     );
