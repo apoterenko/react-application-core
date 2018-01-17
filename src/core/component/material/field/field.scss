@@ -17,10 +17,12 @@
   }
 
   .rac-text-field {
-    width: 100%;
+    width: 100%;                        // [RAC]
     border-bottom: 1px solid $color-2;
     border-radius: 0;
-    will-change: unset; // workaround
+
+    will-change: unset;  // [MDC workaround (menu)]
+                         // https://github.com/material-components/material-components-web/issues/1978
 
     .rac-field-input {
       border: none;
