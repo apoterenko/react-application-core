@@ -3,18 +3,20 @@
 // List [MDC+]
 .mdc-list {
   &.rac-list, &.rac-simple-list, &.rac-navigation-list {
-    padding: 0;
+    padding: 0;                 // [MDC override]
   }
 
-  .mdc-list-item__graphic {
-    color: $color-11;
+  &.rac-simple-list {
+    .mdc-list-item__graphic {
+      color: $color-2;          // [MDC override]
+    }
   }
 
   &.mdc-list--avatar-list {
     .mdc-list-item__graphic {
       min-width: 40px;
       color: $color-5;
-      background: $color-10;
+      background: $color-6;
     }
   }
 
