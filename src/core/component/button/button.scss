@@ -1,5 +1,3 @@
-@import '../constant';
-
 // Button [FRAMEWORK-]
 .rac-button {
   border-radius: 2px;
@@ -22,18 +20,9 @@
 // List add button [FRAMEWORK-]
 .rac-list, .rac-list-empty {
   .rac-list-add-button {
-    position: fixed;
+    position: absolute;
     right: 24px;
     bottom: 24px;
     background-color: $color-2;
-  }
-}
-
-// Default layout [FRAMEWORK-]
-.rac-default-with-footer-layout {
-  .rac-list, .rac-list-empty {
-    .rac-list-add-button {
-      bottom: 80px;
-    }
   }
 }

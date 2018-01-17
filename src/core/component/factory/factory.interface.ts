@@ -30,6 +30,7 @@ export interface IUIFactory {
   textFieldTextArea?: string;
   textFieldFocused?: string;
   textFieldInvalid?: string;
+  textFieldUpgraded?: string;
   textFieldHelpText?: string;
   textFieldValidationText?: string;
   textFieldLabel?: string;

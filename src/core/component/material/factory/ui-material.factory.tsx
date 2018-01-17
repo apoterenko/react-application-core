@@ -35,6 +35,7 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldTextArea = 'mdc-text-field--textarea';
   public textFieldFocused = 'mdc-text-field--focused';
   public textFieldInvalid = 'mdc-text-field--invalid';
+  public textFieldUpgraded = 'mdc-text-field--upgraded';
   public textFieldHelpText = 'mdc-text-field-helper-text';
   public textFieldValidationText = 'mdc-text-field-helper-text--validation-msg';
   public textFieldLabel = 'mdc-text-field__label';

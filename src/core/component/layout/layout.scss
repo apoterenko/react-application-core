@@ -1,4 +1,3 @@
-@import '../constant';
 @import './form/form-layout';
 @import './default/default-layout';
 
@@ -13,57 +12,42 @@
   }
 }
 
-
-.app-row-flex {
-  display: flex;
-  flex-direction: row;
-}
-
-.app-column-flex {
-  display: flex;
-  flex-direction: column;
-}
-
 .app-full-layout {
   flex: 1;
 }
 
-.app-initial-layout {
-  flex: initial;
-}
-
-.app-column-layout {
-  display: flex;
-  flex-direction: row;
-
-  > * {
-    flex: 1;
-
-    &.separator {
-      flex: .1;
-    }
-  }
-}
-
-@import '~sass-flex-mixin/_flex';
-
+// Flex layout [FRAMEWORK-]
 .rac-flex {
   @include flexbox;
 }
 
+// Flex full layout [FRAMEWORK-]
 .rac-flex-full {
   @include flex;
 }
 
+// Flex layout separator [FRAMEWORK-]
+.rac-flex-separator {
+  @include flex(.1);
+}
+
+// Flex row layout [FRAMEWORK-]
 .rac-flex-row {
   @include flex-direction(row);
 }
 
+// Flex column layout [FRAMEWORK-]
 .rac-flex-column {
   @include flex-direction(column);
 }
 
+// Flex center layout [FRAMEWORK-]
 .rac-flex-center {
   @include justify-content(center);
   @include align-items(center);
+}
+
+// Block center layout [FRAMEWORK-]
+.rac-block-center {
+  margin: auto;
 }

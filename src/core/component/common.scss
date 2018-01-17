@@ -1,5 +1,3 @@
-@import './constant';
-
 // Html + body [FRAMEWORK-]
 html, body {
   margin: 0;
@@ -13,7 +11,7 @@ html, body {
   outline: none;
 }
 
-// Focus [FRAMEWORK-]
+// Root [FRAMEWORK-]
 .rac-root {
   height: 100%;
   width: 100%;

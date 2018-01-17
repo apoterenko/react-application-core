@@ -116,10 +116,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const error = this.error;
 
     return toClassName(
-        this.uiFactory.textField,
-        'mdc-text-field--upgraded',
         'rac-text-field',
         props.className,
+        this.uiFactory.textField,
+        this.uiFactory.textFieldUpgraded,
         this.hasInputFocus && this.uiFactory.textFieldFocused,
         error && this.uiFactory.textFieldInvalid
     );

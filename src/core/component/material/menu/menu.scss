@@ -1,6 +1,8 @@
 // Simple menu list [MDC+]
-.mdc-simple-menu {
-  .mdc-list {
-    padding: 0;
+.rac-menu {
+  &.mdc-simple-menu {
+    .rac-simple-list {
+      padding: 0;         // [MDC override]
+    }
   }
 }

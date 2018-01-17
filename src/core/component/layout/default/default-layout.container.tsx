@@ -46,7 +46,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                             'rac-flex',
                             'rac-flex-row',
                             'rac-flex-full',
-                            props.footer && 'rac-default-with-footer-layout',
                             this.props.className
                         )}>
           <PersistentDrawer opened={this.isLayoutFullMode}>
@@ -63,8 +62,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
               <div className={this.uiFactory.toolbarRow}>
                 <section className={toClassName(
                                         this.uiFactory.toolbarSection,
-                                        'mdc-toolbar__section--align-start',
-                                        props.headerItems && 'app-initial-layout'
+                                        'mdc-toolbar__section--align-start'
                                     )}>
                   {
                     this.uiFactory.makeIcon({
