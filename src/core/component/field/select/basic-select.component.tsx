@@ -162,6 +162,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   private showMenu(options?: SelectOptionT[]): void {
     const filteredOptions = this.toFilteredOptions(options);
     if (filteredOptions.length) {
+      this.input.blur();  // https://github.com/material-components/material-components-web/issues/1977
       this.menu.show();
     } else {
       BasicSelect.logger.debug('[$BasicSelect][showMenu] The options are empty. The menu does not show.');
