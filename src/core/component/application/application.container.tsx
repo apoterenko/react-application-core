@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { clone, uuid } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
@@ -39,6 +40,8 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   public static defaultProps: IApplicationContainerProps = {
     basename: BASE_PATH,
   };
+
+  private static logger = LoggerFactory.makeLogger(ApplicationContainer);
 
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
   @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
@@ -134,16 +137,21 @@ export class ApplicationContainer<TAppState extends IApplicationState<TDictionar
   }
 
   protected registerLogoutRoute(): void {
-    this.registerRoute(
-        this.lookupConnectComponentByRoutePath(this.routes.login),
-        {
-          routeConfig: {
-            type: ContainerVisibilityTypeEnum.PUBLIC,
-            path: this.routes.logout,
-            beforeEnter: this.onBeforeLogout,
-          },
-        }
-    );
+    const loginContainer = this.lookupConnectComponentByRoutePath(this.routes.login);
+    if (!loginContainer) {
+      ApplicationContainer.logger.warn('[$ApplicationContainer] The login route is not registered.');
+    } else {
+      this.registerRoute(
+          loginContainer,
+          {
+            routeConfig: {
+              type: ContainerVisibilityTypeEnum.PUBLIC,
+              path: this.routes.logout,
+              beforeEnter: this.onBeforeLogout,
+            },
+          }
+      );
+    }
   }
 
   protected onBeforeLogout(): void {
