@@ -3,7 +3,10 @@ import { History } from 'history';
 import { isFn } from '../util';
 import { BaseContainerT } from '../component/base';
 import { IContainerWrapperCtor } from '../component/application';
+import { IApplicationState } from '../store';
 import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
+import { IApplicationAccessConfig } from '../permission';
+import { IApplicationDictionariesState } from '../dictionary';
 import { IPathable, ITypeable } from '../definition.interface';
 
 export interface IRoutes {

@@ -5,6 +5,7 @@ import { ApplicationStateT, IApplicationState } from '../../store';
 import { BaseContainerT, IBaseContainer } from '../../component/base';
 import { IKeyValue } from '../../definition.interface';
 import { IContainerWrapperCtor } from '../../component/application';
+import { IApplicationDictionariesState } from '../../dictionary';
 import { ConnectorMapperT, IConnectorCtor } from './connector.interface';
 
 export const connectorFactory = <TAppState extends ApplicationStateT>(
