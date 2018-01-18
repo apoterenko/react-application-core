@@ -7,6 +7,10 @@ export interface IApplicationPermissionsState<TPermissions> {
   permissions: TPermissions;
 }
 
+export interface IApplicationPermissionsWrapperState<TPermissions> {
+  permissions: IApplicationPermissionsState<TPermissions>;
+}
+
 export const INITIAL_PERMISSION_STATE: IApplicationPermissionsState<AnyT> = {
   permissions: null,
 };
