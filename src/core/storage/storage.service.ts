@@ -33,23 +33,23 @@ export class StorageService implements IApplicationStorage {
   }
 
   public set(key: string, value: AnyT): AnyT {
-    return this.storage.set(this.prefix + key, value);
+    return this.storage.set(this.toKey(key), value);
   }
 
   public get(key: string): AnyT {
-    return this.storage.get(this.prefix + key);
+    return this.storage.get(this.toKey(key));
   }
 
   public remove(key: string, noPrefix?: boolean): void {
     if (noPrefix) {
       this.storage.remove(key);
     } else {
-      this.storage.remove(this.prefix + key);
+      this.storage.remove(this.toKey(key));
     }
   }
 
   public each(command: (key: string, value: AnyT) => void): void {
-    this.storage.each((key: string, value: AnyT) => (command(this.prefix + key, value)));
+    this.storage.each((key, value) => command(this.toKey(key), value));
   }
 
   private get storage(): IApplicationStorage {
@@ -64,5 +64,9 @@ export class StorageService implements IApplicationStorage {
       default:
         return localStore;
     }
+  }
+
+  private toKey(key: string): string {
+    return this.prefix + key;
   }
 }
