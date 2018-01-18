@@ -5,14 +5,14 @@ import * as localStorage from 'store/storages/localStorage';
 const sessionStore = engine.createStore([sessionStorage]);
 const localStore = engine.createStore([localStorage]);
 
-import { ApplicationStorageTypeEnum, IApplicationStorage } from '../storage';
+import { ApplicationStorageTypeEnum, IApplicationStorage, STORAGE_KEY_SEPARATOR } from '../storage';
 import { AnyT } from '../definition.interface';
-import { appContainer, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
 
 export class StorageService implements IApplicationStorage {
 
   constructor(private prefix: string,
+              private settingsResolver: () => IApplicationSettings,
               private storageType?: ApplicationStorageTypeEnum) {
   }
 
@@ -53,10 +53,8 @@ export class StorageService implements IApplicationStorage {
   }
 
   private get storage(): IApplicationStorage {
-    const settings: IApplicationSettings = appContainer.get(DI_TYPES.Settings);
-    const storageType: ApplicationStorageTypeEnum = this.storageType
-        ? this.storageType
-        : (settings && settings.persistenceStorage);
+    const settings = this.settingsResolver();
+    const storageType = this.storageType || (settings && settings.persistenceStorage);
 
     switch (storageType) {
       case ApplicationStorageTypeEnum.SESSION:
@@ -67,6 +65,6 @@ export class StorageService implements IApplicationStorage {
   }
 
   private toKey(key: string): string {
-    return this.prefix + key;
+    return [this.prefix, key].join(STORAGE_KEY_SEPARATOR);
   }
 }
