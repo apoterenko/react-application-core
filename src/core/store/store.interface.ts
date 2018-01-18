@@ -6,7 +6,7 @@ import {
   IApplicationRootWrapperState,
   rootReducer,
 } from '../component/root';
-import { permissionsReducer } from '../permission';
+
 import { IApplicationUserWrapperState, IApplicationUserState, userReducer } from '../user';
 import {
   IApplicationLayoutState,
@@ -33,6 +33,7 @@ import {
   IApplicationReadyState,
 } from '../component/application';
 import { IApplicationLockWrapperState, IApplicationLockState, lockReducer } from '../lock';
+import { permissionsReducer, IApplicationPermissionsState } from '../permission';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState>
     extends IApplicationDictionariesWrapperState,
