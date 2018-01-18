@@ -4,9 +4,6 @@ import { isFn } from '../util';
 import { BaseContainerT } from '../component/base';
 import { IContainerWrapperCtor } from '../component/application';
 import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
-import { IApplicationState } from '../store';
-import { IApplicationAccessConfig, IApplicationPermissionsState } from '../permission';
-import { IApplicationDictionariesState } from '../dictionary';
 import { IPathable, ITypeable } from '../definition.interface';
 
 export interface IRoutes {
