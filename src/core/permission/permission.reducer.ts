@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 
+import { clone } from '../util';
 import {
   IApplicationPermissionsState,
   INITIAL_PERMISSION_STATE,
@@ -7,7 +8,7 @@ import {
   PERMISSION_UPDATE_ACTION_TYPE,
 } from './permission.interface';
 
-export function permissionReducer<TPermissions>(
+export function permissionsReducer<TPermissions>(
     state: IApplicationPermissionsState<TPermissions> = INITIAL_PERMISSION_STATE,
     action: AnyAction,
 ): IApplicationPermissionsState<TPermissions> {
@@ -19,7 +20,7 @@ export function permissionReducer<TPermissions>(
     case PERMISSION_UPDATE_ACTION_TYPE:
       return {
         ...state,
-        permissions: action.data,
+        permissions: clone(action.data),
       };
   }
   return state;
