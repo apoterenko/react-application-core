@@ -5,7 +5,7 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef } from '../../../util';
-import { ChangeEventT, KeyboardEventT, FocusEventT } from '../../../definition.interface';
+import { ChangeEventT, KeyboardEventT, BasicEventT } from '../../../definition.interface';
 import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
@@ -34,7 +34,6 @@ export class DateField extends BasicTextField<DateField,
   };
 
   @lazyInject(DI_TYPES.DateConverter) private dc: IDateConverter;
-  private preventShowDialog: boolean;
 
   constructor(props: IDateFieldInternalProps) {
     super(props);
@@ -43,19 +42,13 @@ export class DateField extends BasicTextField<DateField,
     this.defaultActions = R.insert(0,
         {
           type: 'date_range',
-          actionHandler: () => this.setFocus(),
+          actionHandler: () => {
+            this.setFocus();
+            this.dialogWindow.show();
+          },
         },
         this.defaultActions
     );
-  }
-
-  public onFocus(event: FocusEventT): void {
-    super.onFocus(event);
-
-    if (isUndef(this.preventShowDialog) || this.preventShowDialog === true) {
-      this.dialogWindow.show();
-      delete this.preventShowDialog;
-    }
   }
 
   public onKeyEnter(event: KeyboardEventT): void {
@@ -111,10 +104,13 @@ export class DateField extends BasicTextField<DateField,
     return this.formatDate(super.toDisplayValue());
   }
 
+  protected onClick(event: BasicEventT): void {
+    super.onClick(event);
+    this.dialogWindow.show();
+  }
+
   private onAccept(date: Date): void {
     this.onChangeValue(date, null);
-
-    this.preventShowDialog = true;
     this.setFocus();
   }
 
