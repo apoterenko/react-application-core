@@ -7,7 +7,12 @@ import { BaseContainerT } from '../../component/base';
 import { ApplicationStateT } from '../../store';
 import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';
-import { IConnectorConfig, IConnectorCtor, CONNECTOR_SECTION_FIELD } from './connector.interface';
+import {
+  IConnectorConfig,
+  IConnectorCtor,
+  CONNECTOR_SECTION_FIELD,
+  IBasicConnectorConfig,
+} from './connector.interface';
 import { appContainer, DI_TYPES } from '../../di';
 import { ConnectorActionBuilder } from './connector-builder.action';
 import { APPLICATION_SECTIONS } from '../application';
@@ -19,8 +24,8 @@ import {
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
-export function connector<TAppState extends ApplicationStateT, TApplicationAccessConfig>(
-    config: IConnectorConfig<TAppState, TApplicationAccessConfig>): FunctionT {
+export function basicConnector<TAppState extends ApplicationStateT>(
+    config: IBasicConnectorConfig<TAppState>): FunctionT {
   return (target: IConnectorCtor<BaseContainerT>): void => {
     const sectionName = target.defaultProps && target.defaultProps.sectionName || config.sectionName;
 
@@ -63,4 +68,9 @@ export function connector<TAppState extends ApplicationStateT, TApplicationAcces
         config
     );
   };
+}
+
+export function connector<TAppState extends ApplicationStateT, TApplicationAccessConfig>(
+    config: IConnectorConfig<TAppState, TApplicationAccessConfig>): FunctionT {
+  return basicConnector(config);
 }

@@ -6,12 +6,16 @@ import { IApplicationState, ApplicationStateT } from '../../store';
 import { IApplicationAccessConfig } from '../../permission';
 import { IBaseContainerInternalProps } from '../../component/base';
 
-export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig>
+export interface IBasicConnectorConfig<TAppState extends ApplicationStateT>
     extends IInitialChangesable<TAppState> {
   routeConfig: RouteOptionsT;
-  accessConfig?: TApplicationAccessConfig;
   mappers?: Array<ConnectorMapperT<TAppState, IKeyValue>>;
   sectionName?: string;
+}
+
+export interface IConnectorConfig<TAppState extends ApplicationStateT, TApplicationAccessConfig>
+    extends IBasicConnectorConfig<TAppState> {
+  accessConfig?: TApplicationAccessConfig;
 }
 
 export interface IConnectorCtor<TContainer> extends ComponentLifecycle<{}, {}> {
