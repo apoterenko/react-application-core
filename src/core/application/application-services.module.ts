@@ -8,4 +8,5 @@ import '../translation/translation.module';
 import '../api/entity/modify-entity-payload-factory.module';
 import '../component/field/field.module';
 import '../component/access/access.module';
+import '../permission/permission.module';
 import './application.effects';
