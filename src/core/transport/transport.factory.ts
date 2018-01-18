@@ -8,7 +8,8 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { IApplicationSettings } from '../settings';
 import { lazyInject, DI_TYPES } from '../di';
 import { ApplicationStateT } from '../store';
-import { isUndef } from '../util';
+import { noUndefValuesFilter, orUndef } from '../util';
+
 import {
   ITransportRawResponse,
   IApplicationTransportFactory,
@@ -73,10 +74,10 @@ export class TransportFactory implements IApplicationTransportFactory {
     const request: ITransportRawRequest = {
       id: this.id++,
       name: req.name,
-      params: req.params ? R.pickBy((value, key) => !isUndef(value), req.params) : null,
-      auth: !req.noAuth ? this.store.getState().transport.token : null,
+      params: orUndef(req.params, () => noUndefValuesFilter(req.params)),
+      auth: orUndef(!req.noAuth, () => this.store.getState().transport.token),
     };
-    return R.pickBy((value, key) => !R.isNil(value), request);
+    return noUndefValuesFilter(request);
   }
 
   private clearOperation(operationId?: string): void {
