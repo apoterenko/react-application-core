@@ -4,10 +4,10 @@ import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
 import { IApplicationSettings } from '../settings';
 import { PROD_MODE } from '../env';
-import { appContainer, DI_TYPES } from '../di';
+import { appContainer, DI_TYPES, staticInjector } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
 import { AnyT } from '../definition.interface';
-
+import { orNull } from '../util';
 import { ApplicationStateT, defaultReducers } from './store.interface';
 
 export function makeStore(
@@ -17,9 +17,10 @@ export function makeStore(
 ): Store<ApplicationStateT> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
-  const preloadedState = applicationSettings && applicationSettings.usePersistence
-      ? (appContainer.get(DI_TYPES.Storage) as IApplicationStorage).get(APPLICATION_STATE_KEY)
-      : null;
+  const preloadedState = orNull(
+      applicationSettings && applicationSettings.usePersistence,
+      () => staticInjector<IApplicationStorage>(DI_TYPES.Storage).get(APPLICATION_STATE_KEY)
+  );
 
   const store = createStore(
       (state) => state,

@@ -13,7 +13,7 @@ import {
   CONNECTOR_SECTION_FIELD,
   IBasicConnectorConfig,
 } from './connector.interface';
-import { appContainer, DI_TYPES } from '../../di';
+import { DI_TYPES, staticInjector } from '../../di';
 import { ConnectorActionBuilder } from './connector-builder.action';
 import { APPLICATION_SECTIONS } from '../application';
 import {
@@ -39,7 +39,7 @@ export function basicConnector<TAppState extends ApplicationStateT>(
         proto.componentWillUnmount = sequence(
             proto.componentWillUnmount || noop,
             () => {
-              const store: Store<ApplicationStateT> = appContainer.get(DI_TYPES.Store);
+              const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
               store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName0)});
               store.dispatch({type: LOCK_CONTAINER_DESTROY_ACTION_TYPE, data: sectionName0});
 
@@ -49,7 +49,7 @@ export function basicConnector<TAppState extends ApplicationStateT>(
         proto.componentWillMount = sequence(
             proto.componentWillMount || noop,
             () => {
-              const store: Store<ApplicationStateT> = appContainer.get(DI_TYPES.Store);
+              const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
               store.dispatch({type: ConnectorActionBuilder.buildInitActionType(sectionName0)});
               store.dispatch({type: LOCK_CONTAINER_INIT_ACTION_TYPE, data: sectionName0});
               store.dispatch({type: LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, data: sectionName0});

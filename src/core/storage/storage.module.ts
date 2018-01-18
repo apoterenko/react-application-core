@@ -1,12 +1,12 @@
-import { appContainer, DI_TYPES } from '../di';
+import { appContainer, staticInjector, DI_TYPES } from '../di';
 
 import { StorageService } from './storage.service';
+import { IApplicationSettings,  } from '../settings';
 import { APP_VERSION, APP_PROFILE, NORMALIZED_BASE_PATH, PORT } from '../env';
 import { ApplicationStorageTypeEnum, STORAGE_KEY_SEPARATOR } from '../storage';
-import { staticInjector } from 'core';
 
-const join = (...args: string[]) => args.filter((v) => !!v).join(STORAGE_KEY_SEPARATOR);
-const settingsResolver = () => staticInjector(DI_TYPES.Settings);
+const join = (...parts: string[]) => parts.filter((v) => !!v).join(STORAGE_KEY_SEPARATOR);
+const settingsResolver = () => staticInjector<IApplicationSettings>(DI_TYPES.Settings);
 
 appContainer.bind(DI_TYPES.Storage).toConstantValue(
     new StorageService(

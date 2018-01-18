@@ -10,7 +10,7 @@ LoggerFactory.configureLogLevel(
     PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
 );
 
-import { appContainer, DI_TYPES } from './di';
+import { DI_TYPES, staticInjector } from './di';
 import {
   ApplicationActionBuilder,
   ApplicationContainer,
@@ -35,7 +35,7 @@ export function bootstrap(
     const Component = connect((state: ApplicationStateT) => ({ ...state.applicationReady }), {})
                                   (applicationContainer);
 
-    const store = appContainer.get(DI_TYPES.Store) as Store<ApplicationStateT>;
+    const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
     // We must dispatch the init action necessarily before the application instantiating
     // because of async IApplicationReadyState & Flux architecture
     store.dispatch({type: ApplicationActionBuilder.buildInitActionType()});
