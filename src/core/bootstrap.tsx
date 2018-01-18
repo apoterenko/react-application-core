@@ -17,8 +17,6 @@ import {
   IApplicationContainerProps
 } from './component/application';
 import { ApplicationStateT } from './store';
-import { IApplicationDictionariesState } from './dictionary';
-import { IApplicationPermissionsState } from './permission';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
 
 // Google analytics
@@ -29,12 +27,7 @@ function gtag(...args) {
 }
 
 export function bootstrap(
-    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<ApplicationStateT, IApplicationDictionariesState, IApplicationPermissionsState<{}>, {}, {}>,
-                                                  ApplicationStateT,
-                                                  IApplicationDictionariesState,
-                                                  IApplicationPermissionsState<{}>,
-                                                  {},
-                                                  {}>,
+    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<ApplicationStateT>>,
     props?: IApplicationContainerProps,
     rootId = 'root',
     ) {

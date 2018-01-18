@@ -16,7 +16,6 @@ import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserWrapperState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
-import { IApplicationPermissionsState } from '../../permission';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {

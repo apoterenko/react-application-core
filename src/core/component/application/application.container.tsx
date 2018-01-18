@@ -6,7 +6,6 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { clone, uuid } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
-import { IApplicationPermissionsState } from '../../permission';
 import {
   IRouter,
   ContainerVisibilityTypeEnum,
@@ -14,15 +13,14 @@ import {
   toRouteOptions,
 } from '../../router';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
-import { IApplicationState } from '../../store';
 import { BaseContainer } from '../../component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
-import { IApplicationDictionariesState } from '../../dictionary';
 import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../../component/root';
 import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../../component/connector';
 import { Info } from '../../component/info';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
+import { ApplicationStateT } from '../../store';
 import {
   IApplicationContainerProps,
   APPLICATION_LOGOUT_ACTION_TYPE,
@@ -30,11 +28,7 @@ import {
   APPLICATION_SECTION,
 } from './application.interface';
 
-export class ApplicationContainer<TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-                                  TDictionariesState extends IApplicationDictionariesState,
-                                  TPermissionsState extends IApplicationPermissionsState<TPermissions>,
-                                  TPermissions,
-                                  TPermissionObject>
+export class ApplicationContainer<TAppState extends ApplicationStateT>
     extends BaseContainer<IApplicationContainerProps, {}> {
 
   public static defaultProps: IApplicationContainerProps = {

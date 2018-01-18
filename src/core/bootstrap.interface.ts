@@ -1,15 +1,8 @@
 import { connect, Provider } from 'react-redux';
 
 import { ApplicationContainer } from './component/application';
-import { IApplicationState } from './store';
-import { IApplicationDictionariesState } from './dictionary';
-import { IApplicationPermissionsState } from './permission';
+import { ApplicationStateT, IApplicationState } from './store';
 
-export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<TAppState, TDictionariesState, TPermissionsState, TPermissions, TPermissionObject>,
-    TAppState extends IApplicationState<TDictionariesState, TPermissionsState, TPermissions>,
-    TDictionariesState extends IApplicationDictionariesState,
-    TPermissionsState extends IApplicationPermissionsState<TPermissions>,
-    TPermissions,
-    TPermissionObject> {
+export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<ApplicationStateT>> {
   new (...args): TContainer;
 }
