@@ -6,7 +6,7 @@ import {
   IApplicationRootWrapperState,
   rootReducer,
 } from '../component/root';
-import { IApplicationPermissionsState, permissionReducer } from '../permission';
+import { permissionsReducer } from '../permission';
 import { IApplicationUserWrapperState, IApplicationUserState, userReducer } from '../user';
 import {
   IApplicationLayoutState,
@@ -34,9 +34,7 @@ import {
 } from '../component/application';
 import { IApplicationLockWrapperState, IApplicationLockState, lockReducer } from '../lock';
 
-export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState,
-                                   TPermissionState extends IApplicationPermissionsState<TPermissions>,
-                                   TPermissions>
+export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState>
     extends IApplicationDictionariesWrapperState,
             IApplicationTransportWrapperState,
             IApplicationNotificationWrapperState,
@@ -45,17 +43,14 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
             IApplicationRootWrapperState,
             IApplicationLockWrapperState {
   applicationReady: IApplicationReadyState;
-  permission: TPermissionState;
 }
 
-export type ApplicationStateT = IApplicationState<IApplicationDictionariesState,
-                                                  IApplicationPermissionsState<{}>,
-                                                  {}>;
+export type ApplicationStateT = IApplicationState<IApplicationDictionariesState>;
 
 export const defaultReducers = {
   applicationReady: applicationReadyReducer,
   dictionaries: dictionariesReducer,
-  permission: permissionReducer,
+  permissions: permissionsReducer,
   root: rootReducer,
   user: userReducer,
   layout: layoutReducer,
