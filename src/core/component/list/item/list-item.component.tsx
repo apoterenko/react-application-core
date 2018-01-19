@@ -22,6 +22,7 @@ export class ListItem extends Ripple<IListItemInternalProps> {
     const defaultProps = {
       ...this.initialProps,
       className: toClassName(
+          'rac-list-item',
           this.uiFactory.listItem,
           props.rippled && this.uiFactory.rippleSurface,
           props.className,
