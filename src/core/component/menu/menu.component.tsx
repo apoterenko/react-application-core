@@ -98,10 +98,7 @@ export class Menu extends MaterialComponent<Menu,
             )}
             <SimpleList twoLine={false}
                         nonInteractive={false}
-                        className={toClassName(
-                            this.uiFactory.simpleMenuItems,
-                            'rac-simple-list',
-                        )}>
+                        className={this.uiFactory.simpleMenuItems}>
               {menuItemsTpl}
             </SimpleList>
           </div>

@@ -80,6 +80,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         <SimpleList ref='container'
                     nonInteractive={false}
                     avatar={true}
+                    simple={false}
+                    {...props}
                     className={toClassName('rac-list', props.className)}>
           {this.listData}
           {this.addActionTpl}

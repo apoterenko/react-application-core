@@ -16,8 +16,10 @@ import {
   ISorter,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
+import { ISimpleListInternalProps } from './simple';
 
 export interface IListOptions extends IBaseComponentInternalProps,
+                                      ISimpleListInternalProps,
                                       ISorter {
   itemOptions?: IListItemOptions;
   addAction?: boolean;
