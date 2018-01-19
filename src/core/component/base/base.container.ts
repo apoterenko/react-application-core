@@ -18,7 +18,11 @@ import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslateT } from '../../translation';
 import { IFormDialog } from '../../component/form';
-import { IBaseContainer, IBaseContainerInternalProps, IBaseContainerInternalState } from './base.interface';
+import {
+  IBaseContainer,
+  IBaseContainerInternalProps,
+  IBaseContainerInternalState,
+} from './base.interface';
 import { IUIFactory } from '../../component/factory';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
@@ -57,6 +61,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
     this.appStore.dispatch({ type: RouterActionBuilder.buildNavigateBackActionType() });
   }
 
+  // Dictionary service method (DRY)
   protected dispatchLoadDictionary(dictionary: string): void {
     this.appStore.dispatch({
       type: DictionariesActionBuilder.buildLoadActionType(dictionary),
@@ -64,6 +69,15 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
     });
   }
 
+  // Dictionary service method (DRY)
+  protected dispatchClearDictionary(dictionary: string): void {
+    this.appStore.dispatch({
+      type: DictionariesActionBuilder.buildClearActionType(dictionary),
+      data: { section: dictionary },
+    });
+  }
+
+  // Notification service method (DRY)
   protected dispatchNotification(info: string): void {
     this.appStore.dispatch({
       type: NOTIFICATION_INFO_ACTION_TYPE,
