@@ -38,28 +38,36 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const props = this.props;
     const error = this.error;
     const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent;
+    const fieldLabel = props.label ? this.t(props.label) : props.children;
 
     return (
         <div className={this.getFieldClassName()}
              style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
           <div ref='self'
                style={props.style}
-               className={this.getInputWrapperClassName()}>
+               className={this.getFieldBodyClassName()}>
             {orNull(
                 props.prefixLabel,
                 <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
             )}
-            <div className='rac-field-input-wrapper rac-flex-full'>
+            <div className={this.getFieldComponentWrapperClassName()}>
               {this.getComponent()}
-              <label style={{paddingLeft: props.prefixLabel
-                  ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
-                  : undefined}}
-                     className={toClassName(
-                         this.uiFactory.textFieldLabel,
-                         autoFocusOrValuePresent && this.uiFactory.textFieldFocusedLabel
-                     )}>
-                {props.label ? this.t(props.label) : props.children}
-              </label>
+              {
+                orNull(
+                    fieldLabel,
+                    () => (
+                        <label style={{paddingLeft: props.prefixLabel
+                              ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
+                              : undefined}}
+                               className={toClassName(
+                                   this.uiFactory.textFieldLabel,
+                                   autoFocusOrValuePresent && this.uiFactory.textFieldFocusedLabel
+                               )}>
+                          {props.label ? this.t(props.label) : props.children}
+                        </label>
+                    )
+                )
+              }
               {this.getComponentAttachment()}
             </div>
             {orNull(
@@ -111,7 +119,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return null;
   }
 
-  protected getInputWrapperClassName(): string {
+  protected getFieldBodyClassName(): string {
     const props = this.props;
     const error = this.error;
 
@@ -123,6 +131,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         this.hasInputFocus && this.uiFactory.textFieldFocused,
         error && this.uiFactory.textFieldInvalid
     );
+  }
+
+  protected getFieldComponentWrapperClassName(): string {
+    return toClassName('rac-flex', 'rac-flex-full');
   }
 
   protected addClearAction(): void {

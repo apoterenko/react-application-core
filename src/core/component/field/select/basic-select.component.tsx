@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { toClassName } from '../../../util';
 import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
 import { Menu, IMenu } from '../../../component/menu';
 import {
@@ -100,6 +101,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
               useFilter={props.useFilter}
               options={this.toFilteredOptions()}
               onSelect={this.onSelect}/>
+    );
+  }
+
+  protected getFieldComponentWrapperClassName(): string {
+    return toClassName(
+        super.getFieldComponentWrapperClassName(),
+        'rac-flex-column'  // inner popup menu - width 100%
     );
   }
 

@@ -29,9 +29,9 @@ export class TextArea extends BasicTextField<TextArea,
         );
   }
 
-  protected getInputWrapperClassName(): string {
+  protected getFieldBodyClassName(): string {
     return toClassName(
-        super.getInputWrapperClassName(),
+        super.getFieldBodyClassName(),
         'rac-textarea-field',
         this.uiFactory.textFieldTextArea,
     );

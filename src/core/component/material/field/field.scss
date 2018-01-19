@@ -6,10 +6,6 @@
 
   // Textarea [MDC+]
   .rac-textarea-field {
-    .rac-field-input-wrapper {
-      @include flexbox;   // [MDC bugfix]
-    }
-
     .rac-field-input {
       padding-top: 0;     // [MDC override]
       margin-top: 36px;   // [MDC bugfix]
