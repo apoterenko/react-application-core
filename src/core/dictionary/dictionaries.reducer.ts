@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 
-import { toSection } from '../store/reducer.filter';
+import { toSection } from '../store';
+import { excludeFieldsFilter } from '../util';
 import {
   IApplicationDictionariesState,
   DICTIONARIES_DESTROY_ACTION_TYPE,
@@ -16,6 +17,8 @@ export function dictionariesReducer(state: IApplicationDictionariesState = INITI
       return {
         ...INITIAL_DICTIONARIES_STATE,
       };
+    case DictionariesActionBuilder.buildClearActionType(section):
+      return excludeFieldsFilter(state, section);
     case DictionariesActionBuilder.buildLoadActionType(section):
       return {
         ...state,

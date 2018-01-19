@@ -1,10 +1,18 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { DICTIONARY_LOAD_ACTION_TYPE, DICTIONARIES_DESTROY_ACTION_TYPE } from './dictionaries.interface';
+import {
+  DICTIONARY_LOAD_ACTION_TYPE,
+  DICTIONARIES_DESTROY_ACTION_TYPE,
+  DICTIONARY_CLEAR_ACTION_TYPE,
+} from './dictionaries.interface';
 
 export class DictionariesActionBuilder {
   public static buildLoadActionType(section: string): string {
     return `${section}.${DICTIONARY_LOAD_ACTION_TYPE}`;
+  }
+
+  public static buildClearActionType(section: string): string {
+    return `${section}.${DICTIONARY_CLEAR_ACTION_TYPE}`;
   }
 
   public static buildLoadDoneActionType(section: string): string {
