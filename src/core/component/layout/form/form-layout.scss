@@ -1,9 +1,7 @@
 .rac-form-layout {
   &.mdc-layout-grid {
     flex: 1;
-    background-color: #070803;
-    background-repeat: no-repeat;
-    background-position: center / cover;
+    background: #070803 no-repeat center / cover;
 
     .mdc-layout-grid__inner {
       height: 100%;
