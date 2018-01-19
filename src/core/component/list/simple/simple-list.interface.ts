@@ -4,4 +4,5 @@ export interface ISimpleListInternalProps extends IBaseComponentInternalProps {
   twoLine?: boolean;
   nonInteractive?: boolean;
   avatar?: boolean;
+  simple?: boolean;
 }

@@ -10,6 +10,7 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
     twoLine: true,
     avatar: false,
     nonInteractive: true,
+    simple: true,
   };
 
   public render(): JSX.Element {
@@ -19,7 +20,8 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
         <ul ref='self'
             className={toClassName(
                 this.uiFactory.list,
-                props.className || 'rac-simple-list',
+                props.className,
+                props.simple && 'rac-simple-list',
                 props.avatar && this.uiFactory.listAvatar,
                 props.nonInteractive && this.uiFactory.listNonInteractive,
                 props.twoLine && this.uiFactory.listTwoLine,
