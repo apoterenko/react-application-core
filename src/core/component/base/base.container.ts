@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { IKeyValue } from '../../definition.interface';
+import { IKeyValue, AnyT } from '../../definition.interface';
 import {
   IRoutes,
   ROUTER_NAVIGATE_ACTION_TYPE,
@@ -62,10 +62,10 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   }
 
   // Dictionary service method (DRY)
-  protected dispatchLoadDictionary(dictionary: string): void {
+  protected dispatchLoadDictionary(dictionary: string, payload?: AnyT): void {
     this.appStore.dispatch({
       type: DictionariesActionBuilder.buildLoadActionType(dictionary),
-      data: { section: dictionary },
+      data: { section: dictionary, payload },
     });
   }
 
