@@ -104,8 +104,14 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getComponent(): JSX.Element {
     const mask = this.getFieldMask();
+
+    // TODO guide=false + empty placeholderChar
+    // https://github.com/text-mask/text-mask/issues/695
+    // https://github.com/text-mask/text-mask/issues/483
+
     return !R.isNil(mask)
-        ? <MaskedTextInput guide={false}
+        ? <MaskedTextInput guide={true}
+                           placeholderChar={'\u2000'}
                            mask={mask}
                            {...this.getComponentProps()}/>
         : <input {...this.getComponentProps() as IFieldInputProps}/>;
