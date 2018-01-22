@@ -16,6 +16,7 @@ import {
   IDirtyable,
   ISubmittable,
   IReadonlyable,
+  IDisableable,
 } from '../../definition.interface';
 import {
   IBaseComponent,
@@ -46,6 +47,7 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable
 }
 
 export interface IFormOptions extends IStylizable,
+                                      IDisableable,
                                       IReadonlyable {
   actionText?: string;
   actionIcon?: string;

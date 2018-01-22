@@ -58,7 +58,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             'rac-flex-full',
                             formOptions.className
                         )}>
-          <fieldset disabled={form.progress}
+          <fieldset disabled={this.isFormDisabled || form.progress}
                     className='rac-fieldset rac-flex-full'>
             <section className={toClassName('rac-section', this.uiFactory.cardPrimary)}>
               {
@@ -74,6 +74,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             originalValue: this.getFieldOriginalValue(field),
                             displayValue: this.getFieldDisplayValue(field, predefinedOptions),
                             readOnly: this.isFieldReadOnly(field),
+                            disabled: this.isFieldDisabled(field),
                             changeForm: this.onChange,
 
                             // Predefined options
@@ -236,6 +237,11 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     return formOptions && formOptions.readOnly === true;
   }
 
+  private get isFormDisabled(): boolean {
+    const formOptions = this.props.formOptions;
+    return formOptions && formOptions.disabled === true;
+  }
+
   private get isFormValid(): boolean {
     const form = this.props.form;
     return R.isNil(form.valid) || form.valid;
@@ -248,7 +254,10 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
 
   private get canSubmit(): boolean {
     const form = this.props.form;
-    return this.isFormValid && this.isFormDirty && (isUndef(form.saveable) || form.saveable);
+    return this.isFormValid
+        && this.isFormDirty
+        && !this.isFormDisabled
+        && (isUndef(form.saveable) || form.saveable);
   }
 
   private isFieldReadOnly(field: FieldT): boolean {
@@ -257,6 +266,14 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     return R.isNil(fieldProps.readOnly)
         ? this.isFormReadOnly
         : fieldProps.readOnly;
+  }
+
+  private isFieldDisabled(field: FieldT): boolean {
+    const fieldProps = field.props;
+
+    return R.isNil(fieldProps.disabled)
+        ? this.isFormDisabled
+        : fieldProps.disabled;
   }
 
   private getFieldValue(field: FieldT): AnyT {
