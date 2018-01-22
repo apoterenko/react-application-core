@@ -1,3 +1,4 @@
+@import '~@material/button/mdc-button';
 @import '../../constant';
 
 // Field button [MDC+]
@@ -27,5 +28,12 @@
 
   &.mdc-fab {
     border-radius: 50%;
+  }
+}
+
+// Button theme [MDC+]
+.rac-button {
+  &.mdc-button--accent {
+    @include mdc-button-container-fill-color($rac-button-background-color);
   }
 }
