@@ -32,6 +32,12 @@ export class InfoListItem extends BaseComponent<InfoListItem, IInfoListItemInter
                 ))
             }
           </ListItemText>
+          {
+            orNull(
+                props.metaIconConfig,
+                () => this.uiFactory.makeListItemMetaIcon(props.metaIconConfig)
+            )
+          }
         </SimpleListItem>
     );
   }
