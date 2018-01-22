@@ -164,6 +164,8 @@ export interface IStepable {
 
 export interface IMaskable {
   mask?: Array<string|RegExp>;
+  maskGuide?: boolean;
+  maskPlaceholderChar?: string;
 }
 
 export interface ITitleable {
