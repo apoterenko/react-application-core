@@ -48,6 +48,11 @@
   @include align-items(center);
 }
 
+// Flex end position [FRAMEWORK-]
+.rac-flex-end {
+  @include justify-content(flex-end);
+}
+
 // Block center layout [FRAMEWORK-]
 .rac-block-center {
   margin: auto;
