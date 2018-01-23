@@ -24,6 +24,7 @@ export interface IApplicationReadyState extends IApplicationAttributes {
 export const INITIAL_APPLICATION_READY_STATE: IApplicationReadyState = {
   ready: true,      // By default the application is ready (there are no the async dependencies)
   progress: false,
+  error: null,
 };
 
 export const APPLICATION_SECTIONS: Map<string, ConnectorConfigT> = new Map<string, ConnectorConfigT>();
