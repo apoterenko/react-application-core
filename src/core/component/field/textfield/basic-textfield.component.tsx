@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
-import { orNull, toClassName } from '../../../util';
+import { orNull, toClassName, nvl } from '../../../util';
 import { BasicEventT } from '../../../definition.interface';
 import { Field, IField, IFieldInputProps } from '../field';
 import { ProgressLabel } from '../../progress';
@@ -113,12 +113,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     // https://github.com/text-mask/text-mask/issues/483
 
     return !R.isNil(mask)
-        ? <MaskedTextInput guide={
-                              props.maskGuide || BasicTextField.DEFAULT_MASK_GUIDE}
-                           placeholderChar={
-                              props.maskPlaceholderChar || BasicTextField.DEFAULT_MASK_PLACEHOLDER_CHAR}
-                           mask={mask}
-                           {...this.getComponentProps()}/>
+        ? <MaskedTextInput
+            guide={nvl(props.maskGuide, BasicTextField.DEFAULT_MASK_GUIDE)}
+            placeholderChar={nvl(props.maskPlaceholderChar, BasicTextField.DEFAULT_MASK_PLACEHOLDER_CHAR)}
+            mask={mask}
+            {...this.getComponentProps()}/>
         : <input {...this.getComponentProps() as IFieldInputProps}/>;
   }
 

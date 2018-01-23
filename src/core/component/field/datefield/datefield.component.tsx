@@ -27,6 +27,7 @@ export class DateField extends BasicTextField<DateField,
     hideCalendarDate: false,
     style: {},
     openToYearSelection: false,
+    maskGuide: false,
   };
 
   public static contextTypes = {
