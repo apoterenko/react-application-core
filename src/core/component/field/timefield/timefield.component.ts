@@ -13,7 +13,6 @@ export class TimeField extends BasicTextField<TimeField,
 
   public static defaultProps: ITimeFieldInternalProps = {
     clearAction: false,
-    maskGuide: false,
   };
 
   protected getFieldMask(): Array<string|RegExp> {

@@ -23,7 +23,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     implements IBasicTextField<TInternalProps, TInternalState> {
 
   private static CHAR_WIDTH_AT_PX = 10;
-  private static DEFAULT_MASK_GUIDE = true;
+  private static DEFAULT_MASK_GUIDE = false;
   private static DEFAULT_MASK_PLACEHOLDER_CHAR = '\u2000';
 
   protected defaultActions: IBasicTextFieldAction[] = [];
@@ -107,10 +107,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   protected getComponent(): JSX.Element {
     const mask = this.getFieldMask();
     const props = this.props;
-
-    // TODO guide=false + empty placeholderChar
-    // https://github.com/text-mask/text-mask/issues/695
-    // https://github.com/text-mask/text-mask/issues/483
 
     return !R.isNil(mask)
         ? <MaskedTextInput
