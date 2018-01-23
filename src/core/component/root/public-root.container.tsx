@@ -7,7 +7,7 @@ export class PublicRootContainer extends RootContainer {
 
   public render(): JSX.Element {
     const Component = this.props.container;
-    const render = (props) => this.isAuthorized
+    const render = () => this.isAuthorized
         ? <Redirect to={this.routes.home}/>
         : <Component routeParams={this.routeParams}
                      queryParams={this.queryParams}/>;

@@ -84,9 +84,12 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
         });
   }
 
+  /**
+   * Initial form state supporting
+   */
   @EffectsService.effects(RootActionBuilder.buildPathUpdateActionType())
   public onUpdateRootPath(action: IEffectsAction): IEffectsAction {
-    const payload: IRootUpdatePathPayload = action.data;
+    const payload = action.data as IRootUpdatePathPayload;
     const section = payload.section;
     const changes = payload.changes;
 
