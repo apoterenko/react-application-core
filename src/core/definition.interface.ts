@@ -18,8 +18,11 @@ export interface IKeyValue {
 
 export const ID_FIELD_NAME = 'id';
 
-export interface IIdentifiedEntity {
-  id?: EntityIdT;
+export interface IIdentifiable<TId> {
+  id?: TId;
+}
+
+export interface IIdentifiedEntity extends IIdentifiable<EntityIdT> {
 }
 
 export interface INamedEntity extends IIdentifiedEntity,

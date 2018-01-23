@@ -1,3 +1,4 @@
-export interface IOperation {
-  id: string;
+import { IIdentifiable} from '../definition.interface';
+
+export interface IOperation extends IIdentifiable<string> {
 }
