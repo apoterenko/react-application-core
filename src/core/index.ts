@@ -1,6 +1,7 @@
 export * from './action';
 export * from './api';
 export * from './application';
+export * from './component/access';
 export * from './component/application';
 export * from './component/base';
 export * from './component/button';
@@ -28,7 +29,6 @@ export * from './dictionary';
 export * from './env';
 export * from './error';
 export * from './event';
-export * from './log';
 export * from './logic';
 export * from './navigation';
 export * from './notification';
