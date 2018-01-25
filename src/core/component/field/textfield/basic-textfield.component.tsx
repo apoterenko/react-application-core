@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { BasicEventT } from '../../../definition.interface';
+import { BasicEventT, UNI_CODES } from '../../../definition.interface';
 import { Field, IField, IFieldInputProps } from '../field';
 import { ProgressLabel } from '../../progress';
 import {
@@ -39,6 +39,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   public render(): JSX.Element {
     const props = this.props;
     const error = this.error;
+    const message = props.message;
     const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent;
     const fieldLabel = props.label ? this.t(props.label) : props.children;
 
@@ -94,10 +95,13 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
               () => <ProgressLabel className='rac-text-field-loader'/>
             )}
           </div>
-          {this.getMessage(props.message, false, 'rac-text-field-help-text-info')}
           {orNull(
-            !props.noErrorMessage,
-            this.getMessage(error, true, this.uiFactory.textFieldValidationText)
+              !props.noInfoMessage && message,
+              this.getMessage(message, 'rac-text-field-help-text-info')
+          )}
+          {orNull(
+              !props.noErrorMessage,
+              this.getMessage(error, this.uiFactory.textFieldValidationText)
           )}
           {this.getAttachment()}
         </div>
@@ -166,16 +170,15 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  private getMessage(message: string, required: boolean, addClassName?: string): JSX.Element {
-    return orNull(
-      message || required,
+  private getMessage(message: string, addClassName?: string): JSX.Element {
+    return (
       <p title={message}
          className={toClassName(
            'rac-text-field-help-text',
            this.uiFactory.textFieldHelpText,
            addClassName,
          )}>
-        {message ? this.t(message) : '\u00a0'}
+        {message ? this.t(message) : UNI_CODES.noBreakSpace}
       </p>
     );
   }

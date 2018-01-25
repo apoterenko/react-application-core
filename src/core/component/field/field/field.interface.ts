@@ -55,6 +55,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IOriginalValueable<AnyT>,
                                              IDisplayValueable<AnyT> {
   noErrorMessage?: boolean;
+  noInfoMessage?: boolean;
   renderCondition?: boolean;
   autoFocus?: boolean;
   required?: boolean;

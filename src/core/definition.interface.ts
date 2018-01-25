@@ -235,6 +235,7 @@ export interface IInitialChangesable<TAppState extends ApplicationStateT> {
 export const UNI_CODES = {
   dash: '\u2014',
   space: '\u0020',
+  noBreakSpace: '\u00a0',
 };
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
