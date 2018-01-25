@@ -95,13 +95,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
               () => <ProgressLabel className='rac-text-field-loader'/>
             )}
           </div>
-          {orNull(
-              !props.noInfoMessage && message,
-              this.getMessage(message, 'rac-text-field-help-text-info')
-          )}
+          {orNull(!props.noInfoMessage && message, () => this.getMessage(message))}
           {orNull(
               !props.noErrorMessage,
-              this.getMessage(error, this.uiFactory.textFieldValidationText)
+              () => this.getMessage(error, this.uiFactory.textFieldValidationText)
           )}
           {this.getAttachment()}
         </div>
@@ -170,13 +167,13 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  private getMessage(message: string, addClassName?: string): JSX.Element {
+  private getMessage(message: string, className = 'rac-text-field-help-text-info'): JSX.Element {
     return (
       <p title={message}
          className={toClassName(
            'rac-text-field-help-text',
            this.uiFactory.textFieldHelpText,
-           addClassName,
+           className,
          )}>
         {message ? this.t(message) : UNI_CODES.noBreakSpace}
       </p>
