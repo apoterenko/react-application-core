@@ -11,6 +11,7 @@ export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
+export const ACTION_PREFIX = '$$-RAC-';
 
 export interface IKeyValue {
   [index: string]: AnyT;

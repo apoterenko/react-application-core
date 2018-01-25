@@ -96,18 +96,6 @@ export class BaseEffects<TApi> {
     return ApplicationActionBuilder.buildAfterLogoutAction();
   }
 
-  protected buildApplicationPrepareAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildPrepareAction();
-  }
-
-  protected buildApplicationPrepareAfterAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildPrepareAfterAction();
-  }
-
-  protected buildApplicationUpdateTokenAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildUpdateTokenAction();
-  }
-
   protected buildApplicationDestroyTokenAction(): IEffectsAction {
     return ApplicationActionBuilder.buildDestroyTokenAction();
   }
