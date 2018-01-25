@@ -1,11 +1,12 @@
 @import '../../constant';
 
+// Navigation list [FRAMEWORK-]
 .rac-navigation-list {
-  overflow: auto;
+  overflow: auto; // [RAC+]
 
-  .rac-list-item {
+  .rac-navigation-list-item {
     &.rac-list-item-active {
-      color: red;
+      color: $rac-list-item-active-color; // [RAC+]
     }
   }
 }

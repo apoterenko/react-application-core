@@ -33,6 +33,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                   key={uuid()}
                   className={toClassName(
                       this.uiFactory.listItem,
+                      'rac-navigation-list-item',
                       options.active && 'rac-list-item-active'
                   )}>
               {this.uiFactory.makeIcon(options.icon)}
