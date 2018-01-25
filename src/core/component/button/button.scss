@@ -1,6 +1,13 @@
+@import '../constant';
+
 // Button [FRAMEWORK-]
 .rac-button {
-  border-radius: 2px;
+  border-radius: $rac-button-border-radius;   // [RAC+]
+
+  &[disabled] {
+    opacity: $rac-button-disabled-opacity;    // [RAC+]
+    cursor: default;                          // [RAC+]
+  }
 }
 
 // Field button [FRAMEWORK-]
@@ -9,11 +16,6 @@
     border-style: none;
     background: none;
     cursor: pointer;
-
-    &[disabled] {
-      opacity: $opacity;
-      cursor: default;
-    }
   }
 }
 
