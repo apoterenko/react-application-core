@@ -17,10 +17,10 @@ import { BaseContainer } from '../../component/base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../../component/root';
 import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../../component/connector';
-import { Info } from '../../component/info';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { ApplicationStateT } from '../../store';
+import { CenterLayout } from '../../component/layout';
 import {
   IApplicationContainerProps,
   APPLICATION_LOGOUT_ACTION_TYPE,
@@ -95,23 +95,24 @@ export class ApplicationContainer<TAppState extends ApplicationStateT>
     const props = this.props;
     return props.progress || props.error || !props.ready
         ? [
-          <Info key={uuid()}
-                emptyMessage={
-                  props.progress
-                      ? (props.progressMessage || this.settings.messages.waitMessage)
-                      : (
-                          props.error
-                              ? (
-                                  props.customError
-                                      ? props.error
-                                      : [
-                                        this.t(props.errorMessage || 'The following error has occurred'),
-                                        '"' + props.error.toLowerCase() + '"'
-                                      ].join(' ')
-                              )
-                              : props.emptyMessage || 'The application is not ready.'
-                      )
-                }/>
+          <CenterLayout key={uuid()}>
+            {
+              props.progress
+                  ? (this.t(props.progressMessage || this.settings.messages.waitMessage))
+                  : (
+                      props.error
+                          ? (
+                              props.customError
+                                  ? props.error
+                                  : [
+                                    this.t(props.errorMessage || 'The following error has occurred'),
+                                    '"' + props.error.toLowerCase() + '"'
+                                  ].join(' ')
+                          )
+                          : this.t(props.emptyMessage || 'The application is not ready.')
+                  )
+            }
+          </CenterLayout>
         ]
         : this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
   }

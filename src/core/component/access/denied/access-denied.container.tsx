@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ApplicationStateT } from '../../../store';
-import { Info } from '../../../component/info';
+import { CenterLayout } from '../../../component/layout';
 import { connector, defaultMappers } from '../../../component/connector';
 import { ContainerVisibilityTypeEnum } from '../../../router';
 import { BaseContainer } from '../../../component/base';
@@ -27,13 +27,13 @@ export class AccessDeniedContainer extends BaseContainer<{}, {}> {
 
     return (
         <DefaultLayoutContainer {...props}>
-          <Info>
+          <CenterLayout>
             <div className='rac-access-denied'>
               {this.uiFactory.makeIcon('report')}
               <p>{this.t(messages.accessDeniedMessage)}</p>
               <p>{this.t(messages.sorryMessage)}</p>
             </div>
-          </Info>
+          </CenterLayout>
         </DefaultLayoutContainer>
     );
   }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { BaseComponent, IBaseComponentInternalProps } from '../../component/base';
+import { BaseComponent, IBaseComponentInternalProps } from '../../../component/base';
 
-export class Info extends BaseComponent<Info, IBaseComponentInternalProps, {}> {
+export class CenterLayout extends BaseComponent<CenterLayout, IBaseComponentInternalProps, {}> {
 
   public render(): JSX.Element {
     return (
