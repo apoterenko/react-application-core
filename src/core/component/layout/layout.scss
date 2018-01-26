@@ -44,6 +44,7 @@
 
 // Flex center layout [FRAMEWORK-]
 .rac-flex-center {
+  text-align: center;
   @include justify-content(center);
   @include align-items(center);
 }
