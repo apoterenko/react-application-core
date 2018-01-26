@@ -72,6 +72,10 @@ export interface IValueable<TValue> {
   value?: TValue;
 }
 
+export interface ITokenable<TToken> {
+  token?: TToken;
+}
+
 export interface IOriginalValueable<TValue> {
   originalValue?: TValue;
 }

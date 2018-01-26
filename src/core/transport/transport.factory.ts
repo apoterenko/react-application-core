@@ -1,4 +1,3 @@
-import { Store } from 'redux';
 import { injectable } from 'inversify';
 import * as R from 'ramda';
 import * as URI from 'urijs';
@@ -6,7 +5,6 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { IApplicationSettings } from '../settings';
 import { lazyInject, DI_TYPES } from '../di';
-import { ApplicationStateT } from '../store';
 import { noUndefValuesFilter, orUndef } from '../util';
 
 import {
@@ -17,6 +15,7 @@ import {
   IApplicationTransportRequestFactory,
   IApplicationTransportRequest,
   IApplicationTransportCancelToken,
+  IApplicationTransportTokenAccessor,
 } from './transport.interface';
 
 @injectable()
@@ -27,16 +26,16 @@ export class TransportFactory implements IApplicationTransportFactory {
   private id = 0;
   private operationsMap = new Map<string, IApplicationTransportCancelToken>();
 
-  @lazyInject(DI_TYPES.Store) private store: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
-  @lazyInject(DI_TYPES.TransportRequestFactory) private trFactory: IApplicationTransportRequestFactory;
+  @lazyInject(DI_TYPES.TransportRequestFactory) private requestFactory: IApplicationTransportRequestFactory;
+  @lazyInject(DI_TYPES.TransportTokenAccessor) private tokenAccessor: IApplicationTransportTokenAccessor;
 
   public request(req: ITransportRequest): Promise<ITransportRawResponse> {
     let cancelToken: IApplicationTransportCancelToken;
     const operationId = req.operation && req.operation.id;
 
     if (operationId) {
-      cancelToken = this.trFactory.cancelToken;
+      cancelToken = this.requestFactory.cancelToken;
       if (cancelToken) {
         this.operationsMap.set(operationId, cancelToken);
       }
@@ -45,7 +44,7 @@ export class TransportFactory implements IApplicationTransportFactory {
     if (req.noCache !== true) {
       uri0.addSearch('_dc', Date.now());
     }
-    return this.trFactory.request<IApplicationTransportRequest, ITransportRawResponse>(
+    return this.requestFactory.request<IApplicationTransportRequest, ITransportRawResponse>(
         noUndefValuesFilter<IApplicationTransportRequest, IApplicationTransportRequest>({
               url: uri0.valueOf(),
               method: 'POST',
@@ -78,13 +77,12 @@ export class TransportFactory implements IApplicationTransportFactory {
   }
 
   protected toRequestParams(req: ITransportRequest): ITransportRawRequest {
-    const request: ITransportRawRequest = {
+    return noUndefValuesFilter<ITransportRawRequest, ITransportRawRequest>({
       id: this.id++,
       name: req.name,
       params: orUndef(req.params, () => noUndefValuesFilter(req.params)),
-      auth: orUndef(!req.noAuth, () => this.store.getState().transport.token),
-    };
-    return noUndefValuesFilter(request);
+      auth: orUndef(!req.noAuth, () => this.tokenAccessor.token),
+    });
   }
 
   private clearOperation(operationId?: string): void {
