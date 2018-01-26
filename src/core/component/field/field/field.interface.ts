@@ -99,9 +99,3 @@ export interface IField<TInternalProps extends IFieldInternalProps,
 }
 
 export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
-
-export interface IMultiFieldAttributes {
-  add: IEntity[];
-  remove: IEntity[];
-  source?: IEntity[];
-}

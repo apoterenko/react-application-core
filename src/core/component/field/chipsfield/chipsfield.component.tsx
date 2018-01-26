@@ -10,7 +10,7 @@ import {
   KeyboardEventT,
   NAME_FIELD_NAME,
 } from '../../../definition.interface';
-import { BasicSelect, IMultiFieldAttributes, SelectOptionT } from '../../../component/field';
+import { BasicSelect, IMultiEntity, SelectOptionT } from '../../../component/field';
 
 import {
   IChipsFieldInternalProps,
@@ -152,18 +152,18 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   private get removeValues(): INamedEntity[] {
     const currentValue = this.value;
-    return Array.isArray(currentValue) ? [] : (currentValue as IMultiFieldAttributes).remove;
+    return Array.isArray(currentValue) ? [] : (currentValue as IMultiEntity).remove;
   }
 
   private get addValues(): INamedEntity[] {
     const currentValue = this.value;
-    return Array.isArray(currentValue) ? [] : (currentValue as IMultiFieldAttributes).add;
+    return Array.isArray(currentValue) ? [] : (currentValue as IMultiEntity).add;
   }
 
   private get originalValue(): INamedEntity[] {
     const currentValue = this.value;
     return Array.isArray(currentValue)
         ? currentValue
-        : (currentValue as IMultiFieldAttributes).source;
+        : (currentValue as IMultiEntity).source;
   }
 }
