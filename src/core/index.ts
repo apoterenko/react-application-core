@@ -29,7 +29,6 @@ export * from './dictionary';
 export * from './env';
 export * from './error';
 export * from './event';
-export * from './log';
 export * from './logic';
 export * from './navigation';
 export * from './notification';
