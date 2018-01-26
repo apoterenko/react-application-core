@@ -20,12 +20,29 @@ export interface ICancelableTransport {
   cancelRequest(operationId: string): void;
 }
 
+export interface IApplicationTransportRequestFactory {
+  cancelToken?: IApplicationTransportCancelToken;
+  request<TRequest, TResponse>(req: TRequest): Promise<TResponse>;
+}
+
 export interface IApplicationTransport extends ICancelableTransport {
   request<TResponse>(req: ITransportRequest): Promise<TResponse>;
 }
 
 export interface IApplicationTransportFactory extends ICancelableTransport {
   request(req: ITransportRequest): Promise<ITransportRawResponse>;
+}
+
+export interface IApplicationTransportRequest {
+  url: string;
+  method: string;
+  data: AnyT;
+  cancelToken?: string;
+}
+
+export interface IApplicationTransportCancelToken {
+  token: string;
+  cancel(message?: string): void;
 }
 
 export interface ITransportNamedPayload {

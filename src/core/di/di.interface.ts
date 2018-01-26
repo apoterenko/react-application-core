@@ -17,6 +17,7 @@ export const DI_TYPES = {
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),
   TransportFactory: Symbol('TransportFactory'),
+  TransportRequestFactory: Symbol('TransportRequestFactory'),
   TransportPayloadAnalyzer: Symbol('TransportPayloadAnalyzer'),
   TransportErrorInterceptor: Symbol('TransportErrorInterceptor'),
   UIPlugins: Symbol('UIPlugins'),
