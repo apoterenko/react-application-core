@@ -8,6 +8,7 @@ import { ListItem } from './item';
 import { ProgressLabel } from '../progress';
 import { IListInternalProps } from './list.interface';
 import { SimpleList } from '../list/simple';
+import { CenterLayout } from '../../component/layout';
 
 export class List extends BaseComponent<List, IListInternalProps, {}> {
 
@@ -57,7 +58,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
         || error
         || noDataFound) {
       return (
-          <div className='rac-list-empty rac-flex rac-flex-center'>
+          <CenterLayout className='rac-list-empty'>
             {
               progress
                   ? <ProgressLabel/>
@@ -71,8 +72,8 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                           ))
                   )
             }
-            {orNull(canShowAddAction, this.addActionTpl)}
-          </div>
+            {orNull(canShowAddAction, () => this.addActionTpl)}
+          </CenterLayout>
       );
     }
 
@@ -103,7 +104,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
   protected get addActionTpl(): JSX.Element {
     return orNull(
         this.props.addAction,
-        this.uiFactory.makeIcon({
+        () => this.uiFactory.makeIcon({
           type: 'add',
           className: toClassName(
               'rac-list-add-button',
