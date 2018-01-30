@@ -9,6 +9,5 @@ export interface IHeaderProps {
 
 export interface IHeaderInternalProps extends IBaseComponentInternalProps,
                                               IHeaderProps {
-  activeFilter?: boolean;
   menuActionHandler?(option: MenuActionT): void;
 }

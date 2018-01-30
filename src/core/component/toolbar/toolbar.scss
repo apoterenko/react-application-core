@@ -1,4 +1,3 @@
-@import '~sass-flex-mixin/_flex';
 @import '../constant';
 
 // Toolbar [FRAMEWORK-]
@@ -11,48 +10,4 @@
   .rac-toolbar-page-info {
     color: $rac-toolbar-info-color;               // [RAC+]
   }
-}
-
-// Search toolbar [FRAMEWORK-]
-.rac-header {
-
-  &.rac-header-filter-active {
-    .rac-search-toolbar {
-      animation: toolbarAnimationRule;  // [RAC+]
-      animation-duration: 0.3s;         // [RAC+]
-    }
-  }
-
-  .rac-navigation-section {
-    @include flex(unset); // [RAC+]
-  }
-
-  .rac-search-toolbar {
-    &.rac-toolbar {
-      background: none;   // [RAC+]
-    }
-
-    .rac-form-field {
-      margin-left: 16px;    // [RAC+]
-      margin-right: 16px;   // [RAC+]
-
-      .rac-field-input {
-        color: $rac-header-search-field-color;      // [RAC+]
-
-        &::placeholder {
-          color: $rac-header-search-field-color;    // [RAC+]
-        }
-      }
-
-      .rac-button {
-        color: $rac-header-search-field-color;      // [RAC+]
-      }
-    }
-  }
-}
-
-// Toolbar animation rule [FRAMEWORK-]
-@keyframes toolbarAnimationRule {
-  from { @include flex(0); }
-  to { @include flex; }
 }

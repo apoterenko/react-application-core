@@ -60,7 +60,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
           <div className='rac-flex rac-flex-column rac-flex-full'>
             <Header {...props.headerOptions}
                     title={runtimeTitle && runtimeTitle.label || props.title}
-                    activeFilter={props.filter && props.filter.active}
+                    className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
                     navigationActionHandler={this.onHeaderNavigationActionClick}
                     menuActionHandler={this.onHeaderMenuActionClick}>
               {headerOptions.items}

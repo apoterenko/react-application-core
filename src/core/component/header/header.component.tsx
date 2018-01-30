@@ -25,9 +25,9 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
 
     return (
         <header className={toClassName(
+                              this.uiFactory.toolbar,
                               'rac-header',
-                              props.activeFilter && 'rac-header-filter-active',
-                              this.uiFactory.toolbar
+                              props.className,
                           )}>
           <div className={this.uiFactory.toolbarRow}>
             <ToolbarSection className={toClassName(
