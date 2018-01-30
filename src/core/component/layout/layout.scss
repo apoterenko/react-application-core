@@ -13,10 +13,6 @@
   }
 }
 
-.app-full-layout {
-  flex: 1;
-}
-
 // Flex layout [FRAMEWORK-]
 .rac-flex {
   @include flexbox;
@@ -30,6 +26,11 @@
 // Flex layout separator [FRAMEWORK-]
 .rac-flex-separator {
   @include flex(.1);
+}
+
+// Flex unset layout [FRAMEWORK-]
+.rac-flex-unset {
+  @include flex(unset);
 }
 
 // Flex row layout [FRAMEWORK-]

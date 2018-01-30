@@ -1,5 +1,6 @@
 import { IMenuAction } from '../../../component/menu';
 import { IBaseContainerInternalProps } from '../../../component/base';
+import { IApplicationFilterState } from '../../../component/filter';
 
 export interface IDefaultLayoutContainerInternalProps extends IBaseContainerInternalProps {
   bodyClassName?: string;
@@ -7,5 +8,6 @@ export interface IDefaultLayoutContainerInternalProps extends IBaseContainerInte
   headerActions?: Array<IMenuAction<string>>;
   footer?: JSX.Element;
   navigationControlType?: string;
+  filter?: IApplicationFilterState;
   navigationControlHandler?(): void;
 }

@@ -1,56 +1,58 @@
-.app-toolbar {
-  &.mdc-toolbar {
-    cursor: default;
-    background-color: white;
+@import '~sass-flex-mixin/_flex';
+@import '../constant';
 
-    .mdc-toolbar__row {
-      white-space: nowrap;
-      justify-content: flex-end;
-      padding-left: 16px;
-      padding-right: 24px;
+// Toolbar [FRAMEWORK-]
+.rac-toolbar {
+  .rac-toolbar-info {
+    color: $rac-toolbar-info-color;               // [RAC+]
+    font-weight: $rac-toolbar-info-font-weight;   // [RAC+]
+  }
 
-      * {
-        color: black;
-      }
-
-      button:active, button:focus {
-        outline: none;
-        border: none;
-      }
-
-      .mdc-toolbar__icon[disabled] {
-        opacity: .4;
-        cursor: default;
-      }
-    }
-
-    .app-toolbar-info {
-      font-weight: bold;
-    }
-
-    .mdc-toolbar__section{
-      &.visible {
-        flex: 1;
-        animation: searchToolbarAnimationRule;
-        animation-duration: 0.3s;
-      }
-    }
+  .rac-toolbar-page-info {
+    color: $rac-toolbar-info-color;               // [RAC+]
   }
 }
 
+// Search toolbar [FRAMEWORK-]
 .rac-header {
-  .app-toolbar {
-    &.mdc-toolbar {
-      background: none;
 
-      *, input::placeholder {
-        color: white;
+  &.rac-header-filter-active {
+    .rac-search-toolbar {
+      animation: toolbarAnimationRule;  // [RAC+]
+      animation-duration: 0.3s;         // [RAC+]
+    }
+  }
+
+  .rac-navigation-section {
+    @include flex(unset); // [RAC+]
+  }
+
+  .rac-search-toolbar {
+    &.rac-toolbar {
+      background: none;   // [RAC+]
+    }
+
+    .rac-form-field {
+      margin-left: 16px;    // [RAC+]
+      margin-right: 16px;   // [RAC+]
+
+      .rac-field-input {
+        color: $rac-header-search-field-color;      // [RAC+]
+
+        &::placeholder {
+          color: $rac-header-search-field-color;    // [RAC+]
+        }
+      }
+
+      .rac-button {
+        color: $rac-header-search-field-color;      // [RAC+]
       }
     }
   }
 }
 
-@keyframes searchToolbarAnimationRule {
-  from {flex: 0;}
-  to {flex: 1;}
+// Toolbar animation rule [FRAMEWORK-]
+@keyframes toolbarAnimationRule {
+  from { @include flex(0); }
+  to { @include flex; }
 }

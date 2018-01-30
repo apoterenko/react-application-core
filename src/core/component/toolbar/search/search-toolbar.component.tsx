@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isUndef, toClassName, orNull, orDefault } from '../../../util';
+import { isUndef, toClassName, orNull } from '../../../util';
 import { AnyT } from '../../../definition.interface';
 import { BaseComponent } from '../../../component/base';
 import {
@@ -10,7 +10,7 @@ import {
   TextField,
 } from '../../../component/field';
 import { FilterActionEnum, IApplicationFilterAction } from '../../../component/filter';
-
+import { ToolbarSection } from '../../../component/toolbar';
 import {
   ISearchToolbarInternalState,
   ISearchToolbarInternalProps,
@@ -71,38 +71,31 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   public render(): JSX.Element {
     const props = this.props;
+    const actionsElements = this.actionsElements;
+
     return (
-        <div className={toClassName(this.uiFactory.toolbar, 'app-toolbar', props.className)}>
+        <div className={toClassName(
+                          this.uiFactory.toolbar,
+                          'rac-toolbar',
+                          'rac-search-toolbar',
+                          props.className
+                        )}>
           <div className={this.uiFactory.toolbarRow}>
-            <section>
-              {
-                this.uiFactory.makeIcon({
-                  type: props.searchIcon,
-                  className: this.uiFactory.toolbarIcon,
-                  disabled: props.disabledActions,
-                  onClick: this.onActivate,
-                })
-              }
-            </section>
             {
-              orDefault(
-                  props.noSearchField && props.fieldActions.length > 0,
-                  <section>
-                    {
-                      this.actions.map((action) => this.uiFactory.makeIcon({
-                        type: action.type,
-                        disabled: props.disabledActions,
-                        className: toClassName(this.uiFactory.toolbarIcon, action.className),
-                        onClick: action.actionHandler,
-                      }))
-                    }
-                  </section>,
-                  orNull(
-                      this.isActive,
-                      <section className={toClassName(
-                          this.uiFactory.toolbarSection,
-                          'visible'
-                      )}>
+              orNull(
+                  actionsElements.length > 0,
+                  () => (
+                      <ToolbarSection className={this.uiFactory.toolbarSectionAlignEnd}>
+                        {actionsElements}
+                      </ToolbarSection>
+                  )
+              )
+            }
+            {
+              orNull(
+                  this.isActive,
+                  () => (
+                      <ToolbarSection>
                         <TextField ref='queryField'
                                    className={this.uiFactory.textFieldBox}
                                    persistent={false}
@@ -115,7 +108,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                                    onChange={this.onChange}
                                    {...props.searchFieldOptions}>
                         </TextField>
-                      </section>
+                      </ToolbarSection>
                   )
               )
             }
@@ -198,7 +191,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   private get actions(): IBasicTextFieldAction[] {
     const props = this.props;
-    const defaultFieldActions: IApplicationFilterAction[] = this.props.noSearchField
+    const defaultFieldActions: IApplicationFilterAction[] = props.noSearchField
         ? []
         : [{type: FilterActionEnum.CLEAR_FILTER}];
     return defaultFieldActions
@@ -208,5 +201,35 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
           disabled: props.disabledActions,
           className: action.className,
         }));
+  }
+
+  private get actionsElements(): JSX.Element[] {
+    const props = this.props;
+    const serviceActions = [];
+
+    if (!this.isActive) {
+      serviceActions.push(
+          this.uiFactory.makeIcon({
+            type: props.searchIcon,
+            className: this.uiFactory.toolbarIcon,
+            disabled: props.disabledActions,
+            onClick: this.onActivate,
+          })
+      );
+    }
+    if (props.noSearchField) {
+      const actions = this.actions;
+      if (actions.length > 0) {
+        return serviceActions.concat(
+            this.actions.map((action) => this.uiFactory.makeIcon({
+              type: action.type,
+              disabled: props.disabledActions,
+              className: toClassName(this.uiFactory.toolbarIcon, action.className),
+              onClick: action.actionHandler,
+            }))
+        );
+      }
+    }
+    return serviceActions;
   }
 }

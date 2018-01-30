@@ -21,19 +21,22 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
     const isNextBtnDisabled = this.isNextBtnDisabled;
 
     return (
-        <div className={toClassName('mdc-toolbar', 'app-toolbar', 'rac-toolbar', props.className)}>
+        <div className={toClassName(
+                          this.uiFactory.toolbar,
+                          'rac-toolbar',
+                          'rac-page-toolbar',
+                          props.className
+                       )}>
           {
             props.contentDisplay === false
-                ? <div className='mdc-toolbar__row'/>
+                ? <div className={this.uiFactory.toolbarRow}/>
                 : (
-                    <div className='mdc-toolbar__row'>
-                      <section className='app-full-layout'>
+                    <div className={this.uiFactory.toolbarRow}>
+                      <section className='rac-flex-full'>
                         {props.children}
                       </section>
-                      <section>
-                        <div className='app-toolbar-page-info'>
-                          {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
-                        </div>
+                      <section className='rac-toolbar-page-info'>
+                        {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
                       </section>
                       {
                         orNull(

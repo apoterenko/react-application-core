@@ -7,6 +7,8 @@ export interface IUIFactory {
   toolbarIcon?: string;
   toolbar?: string;
   toolbarSection?: string;
+  toolbarSectionAlignEnd?: string;
+  toolbarSectionAlignStart?: string;
   toolbarRow?: string;
   toolbarTitle?: string;
   toolbarMenuIcon?: string;

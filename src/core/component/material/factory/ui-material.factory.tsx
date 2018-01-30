@@ -12,6 +12,8 @@ export class UIMaterialFactory implements IUIFactory {
   public toolbarIcon = 'mdc-toolbar__icon';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
+  public toolbarSectionAlignEnd = 'mdc-toolbar__section--align-end';
+  public toolbarSectionAlignStart = 'mdc-toolbar__section--align-start';
   public toolbarRow = 'mdc-toolbar__row';
   public toolbarTitle = 'mdc-toolbar__title';
   public toolbarMenuIcon = 'mdc-toolbar__menu-icon';

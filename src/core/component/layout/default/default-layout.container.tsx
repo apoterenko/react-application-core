@@ -5,6 +5,7 @@ import { PersistentDrawer } from '../../../component/drawer';
 import { INavigationListItemOptions, NavigationList } from '../../../component/list';
 import { lazyInject } from '../../../di';
 import { toClassName, orNull } from '../../../util';
+import { ToolbarSection } from '../../../component/toolbar';
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
@@ -39,6 +40,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         .map((item): INavigationListItemOptions => ({ ...item, active: props.root.path === item.link }));
     const runtimeTitle = menu.find((item) => item.active);
     const title = props.title || (runtimeTitle ? runtimeTitle.label : props.title);
+    const filterActive = props.filter && props.filter.active;
 
     return (
         <div className={toClassName(
@@ -58,12 +60,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <NavigationList items={menu}/>
           </PersistentDrawer>
           <div className='rac-flex rac-flex-column rac-flex-full'>
-            <header className={toClassName('rac-header', this.uiFactory.toolbar)}>
+            <header className={toClassName(
+                                  'rac-header',
+                                  filterActive && 'rac-header-filter-active',
+                                  this.uiFactory.toolbar
+                              )}>
               <div className={this.uiFactory.toolbarRow}>
-                <section className={toClassName(
-                                        this.uiFactory.toolbarSection,
-                                        'mdc-toolbar__section--align-start'
-                                    )}>
+                <ToolbarSection className={toClassName(
+                                              'rac-navigation-section',
+                                              this.uiFactory.toolbarSectionAlignStart
+                                          )}>
                   {
                     this.uiFactory.makeIcon({
                       type: props.navigationControlType,
@@ -72,42 +78,48 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     })
                   }
                   <span className={this.uiFactory.toolbarTitle}>{title}</span>
-                </section>
+                </ToolbarSection>
                 {
-                  orNull(props.headerItems, (
-                      <section className={this.uiFactory.toolbarSection}>
-                        {props.headerItems}
-                      </section>
-                  ))
-                }
-                {
-                  orNull(props.headerActions, (
-                      <section className={toClassName(
-                                              this.uiFactory.toolbarSection,
-                                              'mdc-toolbar__section--align-end'
-                                          )}>
-                        {
-                          this.uiFactory.makeIcon({
-                            type: 'more_vert',
-                            className: this.uiFactory.toolbarMenuIcon,
-                            onClick: this.onActionsClick,
-                          })
-                        }
-                        <Menu ref='menu'
-                              options={props.headerActions}
-                              onSelect={this.onActionClick}/>
-                      </section>
-                  ))
+                  orNull(
+                      props.headerItems || props.headerActions,
+                      () => (
+                          <ToolbarSection className={this.uiFactory.toolbarSectionAlignEnd}>
+                            {props.headerItems}
+                            {
+                              orNull(
+                                  props.headerActions,
+                                  () => (
+                                      this.uiFactory.makeIcon({
+                                        type: 'more_vert',
+                                        className: this.uiFactory.toolbarMenuIcon,
+                                        onClick: this.onActionsClick,
+                                      })
+                                  )
+                              )
+                            }
+                            {
+                              orNull(
+                                  props.headerActions,
+                                  () => (
+                                      <Menu ref='menu'
+                                            options={props.headerActions}
+                                            onSelect={this.onActionClick}/>
+                                  )
+                              )
+                            }
+                          </ToolbarSection>
+                      )
+                  )
                 }
               </div>
             </header>
             <main className='rac-main rac-flex-full'>
               <div className={toClassName(
-                  'rac-main-body',
-                  'rac-flex',
-                  'rac-flex-column',
-                  this.props.bodyClassName
-              )}>
+                                  'rac-main-body',
+                                  'rac-flex',
+                                  'rac-flex-column',
+                                  this.props.bodyClassName
+                              )}>
                 {props.children}
               </div>
             </main>
