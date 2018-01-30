@@ -5,21 +5,21 @@ import { PersistentDrawer } from '../../../component/drawer';
 import { INavigationListItemOptions, NavigationList } from '../../../component/list';
 import { lazyInject } from '../../../di';
 import { toClassName, orNull } from '../../../util';
-import { ToolbarSection } from '../../../component/toolbar';
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
-import { IMenuAction, Menu, IMenu } from '../../../component/menu';
+import { IMenuAction, MenuActionT } from '../../../component/menu';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
+import { Header } from '../../../component/header';
 import { NavigationMenuBuilder } from '../../../navigation';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
   public static defaultProps: IDefaultLayoutContainerInternalProps = {
-    navigationControlType: 'menu',
+    headerOptions: {},
     user: {
       email: '(no email)',
     },
@@ -29,18 +29,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   constructor(props: IDefaultLayoutContainerInternalProps) {
     super(props);
-    this.onClick = this.onClick.bind(this);
-    this.onActionClick = this.onActionClick.bind(this);
-    this.onActionsClick = this.onActionsClick.bind(this);
+    this.onHeaderMenuActionClick = this.onHeaderMenuActionClick.bind(this);
+    this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
+    const headerOptions = props.headerOptions;
     const menu = this.navigationMenuBuilder.provide()
         .map((item): INavigationListItemOptions => ({ ...item, active: props.root.path === item.link }));
     const runtimeTitle = menu.find((item) => item.active);
-    const title = props.title || (runtimeTitle ? runtimeTitle.label : props.title);
-    const filterActive = props.filter && props.filter.active;
 
     return (
         <div className={toClassName(
@@ -60,59 +58,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <NavigationList items={menu}/>
           </PersistentDrawer>
           <div className='rac-flex rac-flex-column rac-flex-full'>
-            <header className={toClassName(
-                                  'rac-header',
-                                  filterActive && 'rac-header-filter-active',
-                                  this.uiFactory.toolbar
-                              )}>
-              <div className={this.uiFactory.toolbarRow}>
-                <ToolbarSection className={toClassName(
-                                              'rac-navigation-section',
-                                              this.uiFactory.toolbarSectionAlignStart
-                                          )}>
-                  {
-                    this.uiFactory.makeIcon({
-                      type: props.navigationControlType,
-                      className: this.uiFactory.toolbarMenuIcon,
-                      onClick: this.onClick,
-                    })
-                  }
-                  <span className={this.uiFactory.toolbarTitle}>{title}</span>
-                </ToolbarSection>
-                {
-                  orNull(
-                      props.headerItems || props.headerActions,
-                      () => (
-                          <ToolbarSection className={this.uiFactory.toolbarSectionAlignEnd}>
-                            {props.headerItems}
-                            {
-                              orNull(
-                                  props.headerActions,
-                                  () => (
-                                      this.uiFactory.makeIcon({
-                                        type: 'more_vert',
-                                        className: this.uiFactory.toolbarMenuIcon,
-                                        onClick: this.onActionsClick,
-                                      })
-                                  )
-                              )
-                            }
-                            {
-                              orNull(
-                                  props.headerActions,
-                                  () => (
-                                      <Menu ref='menu'
-                                            options={props.headerActions}
-                                            onSelect={this.onActionClick}/>
-                                  )
-                              )
-                            }
-                          </ToolbarSection>
-                      )
-                  )
-                }
-              </div>
-            </header>
+            <Header {...props.headerOptions}
+                    title={runtimeTitle && runtimeTitle.label || props.title}
+                    activeFilter={props.filter && props.filter.active}
+                    navigationActionHandler={this.onHeaderNavigationActionClick}
+                    menuActionHandler={this.onHeaderMenuActionClick}>
+              {headerOptions.items}
+            </Header>
             <main className='rac-main rac-flex-full'>
               <div className={toClassName(
                                   'rac-main-body',
@@ -137,7 +89,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
     return orNull(
         profileRoutePath,
-        (
+        () => (
             <Link to={profileRoutePath}
                   className='app-profile'>
               <div className='app-profile-icon app-profile-logo'>
@@ -153,9 +105,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     );
   }
 
-  protected onClick(): void {
-    if (this.props.navigationControlHandler) {
-      this.props.navigationControlHandler();
+  protected get isLayoutFullMode(): boolean {
+    return this.props.layout.mode === LAYOUT_FULL_MODE;
+  }
+
+  protected onHeaderNavigationActionClick(): void {
+    if (this.props.headerOptions.navigationActionHandler) {
+      this.props.headerOptions.navigationActionHandler();
     } else {
       this.appStore.dispatch({
         type: LAYOUT_MODE_UPDATE_ACTION_TYPE,
@@ -164,19 +120,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     }
   }
 
-  protected get isLayoutFullMode(): boolean {
-    return this.props.layout.mode === LAYOUT_FULL_MODE;
-  }
-
-  protected onActionsClick(): void {
-    this.menu.show();
-  }
-
-  protected onActionClick(option: IMenuAction<string>): void {
+  protected onHeaderMenuActionClick(option: MenuActionT): void {
     this.dispatch(option.value);
-  }
-
-  private get menu(): IMenu {
-    return this.refs.menu as IMenu;
   }
 }

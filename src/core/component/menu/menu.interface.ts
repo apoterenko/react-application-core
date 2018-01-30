@@ -42,6 +42,8 @@ export interface IMenuAction<TValue> extends ILabelable,
                                              IDisableable {
 }
 
+export type MenuActionT = IMenuAction<AnyT>;
+
 export interface IMenuOption<TRawData> extends IMenuAction<EntityIdT>,
                                                IRawDatable<TRawData> {
 }

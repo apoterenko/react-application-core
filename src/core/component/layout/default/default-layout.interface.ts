@@ -1,13 +1,14 @@
-import { IMenuAction } from '../../../component/menu';
 import { IBaseContainerInternalProps } from '../../../component/base';
 import { IApplicationFilterState } from '../../../component/filter';
+import { IHeaderProps } from '../../../component/header';
+
+export interface IHeaderOptions extends IHeaderProps {
+  items?: JSX.Element;
+}
 
 export interface IDefaultLayoutContainerInternalProps extends IBaseContainerInternalProps {
   bodyClassName?: string;
-  headerItems?: JSX.Element;
-  headerActions?: Array<IMenuAction<string>>;
   footer?: JSX.Element;
-  navigationControlType?: string;
   filter?: IApplicationFilterState;
-  navigationControlHandler?(): void;
+  headerOptions?: IHeaderOptions;
 }
