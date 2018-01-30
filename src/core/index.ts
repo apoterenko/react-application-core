@@ -16,6 +16,7 @@ export * from './component/header';
 export * from './component/layout';
 export * from './component/link';
 export * from './component/list';
+export * from './component/main';
 export * from './component/material';
 export * from './component/menu';
 export * from './component/plugin';

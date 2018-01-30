@@ -1,0 +1,15 @@
+@import '../constant';
+
+// Main [FRAMEWORK-]
+.rac-default-layout {
+  .rac-main {
+    position: relative;         // [RAC+]
+    overflow: auto;             // [RAC+]
+
+    .rac-main-body {
+      position: absolute;       // [RAC+]
+      height: 100%;             // [RAC+]
+      width: 100%;              // [RAC+]
+    }
+  }
+}

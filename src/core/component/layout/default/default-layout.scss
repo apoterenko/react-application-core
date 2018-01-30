@@ -2,18 +2,7 @@
 
 // Default layout [FRAMEWORK-]
 .rac-default-layout {
-  .rac-main {
-    position: relative;
-    overflow: auto;
 
-    .rac-main-body {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-    }
-  }
-
-  // Default layout footer [FRAMEWORK-]
   .rac-footer {
     border-top: 1px solid $color-3;
   }

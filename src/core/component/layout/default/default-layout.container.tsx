@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Link } from '../../../component/link';
-import { PersistentDrawer } from '../../../component/drawer';
-import { INavigationListItemOptions, NavigationList } from '../../../component/list';
+import { Link } from '../../link';
+import { PersistentDrawer } from '../../drawer';
+import { INavigationListItemOptions, NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import { toClassName, orNull } from '../../../util';
 import {
@@ -10,11 +10,12 @@ import {
   LAYOUT_MINIMAL_MODE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
-import { IMenuAction, MenuActionT } from '../../../component/menu';
+import { IMenuAction, MenuActionT } from '../../menu';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
-import { Header } from '../../../component/header';
+import { Header } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
+import { Main } from '../../main';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
@@ -65,16 +66,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     menuActionHandler={this.onHeaderMenuActionClick}>
               {headerOptions.items}
             </Header>
-            <main className='rac-main rac-flex-full'>
-              <div className={toClassName(
-                                  'rac-main-body',
-                                  'rac-flex',
-                                  'rac-flex-column',
-                                  this.props.bodyClassName
-                              )}>
-                {props.children}
-              </div>
-            </main>
+            <Main className={props.bodyClassName}>
+              {props.children}
+            </Main>
             {orNull(props.footer, <footer className='rac-footer'>{props.footer}</footer>)}
           </div>
           {this.snackbarTpl}
