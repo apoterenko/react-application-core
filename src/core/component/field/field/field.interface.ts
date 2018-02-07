@@ -89,13 +89,13 @@ export interface IMaskedTextInputPureComponent extends PureComponent<{}, {}> {
   inputElement: HTMLInputElement;
 }
 
-export interface IFieldValueAccessor extends IValueable<AnyT> {
+export interface IFieldValueAccessor<TValue> extends IValueable<TValue> {
 }
 
 export interface IField<TInternalProps extends IFieldInternalProps,
                         TInternalState extends IFieldInternalState>
     extends IKeyboardHandlers,
-            IFieldValueAccessor,
+            IFieldValueAccessor<AnyT>,
             IBaseComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
   onChange(event: ChangeEventT): void;

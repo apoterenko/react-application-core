@@ -8,7 +8,7 @@ import {
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
-  constructor(private valueAccessor: IFieldValueAccessor,
+  constructor(private valueAccessor: IFieldValueAccessor<MultiFieldEntityT<INamedEntity>>,
               private entityAccessor?: (entity) => INamedEntity) {
   }
 
@@ -35,7 +35,11 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
     if (addArray.length === addLen) {
       const deletedEntity: INamedEntity = {id: deletedValue};
-      removeArray = [deletedEntity].concat(removeValue);
+      if (this.originalValue.find((entity) => entity.id === deletedValue)) {
+        removeArray = [deletedEntity].concat(removeValue);
+      } else {
+        removeArray = [].concat(removeValue);
+      }
     }
     return {addArray, removeArray};
   }
