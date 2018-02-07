@@ -1,4 +1,16 @@
-import { IEntity } from '../../../definition.interface';
+import { IEntity, INamedEntity } from '../../../definition.interface';
+
+export interface IMultiFieldPlugin {
+  activeValue: INamedEntity[];
+  originalValue: INamedEntity[];
+  onAdd(item: INamedEntity): IMultiFieldChangesResult;
+  onDelete(item: INamedEntity): IMultiFieldChangesResult;
+}
+
+export interface IMultiFieldChangesResult {
+  addArray: INamedEntity[];
+  removeArray: INamedEntity[];
+}
 
 export interface IMultiEntity {
   add: IEntity[];

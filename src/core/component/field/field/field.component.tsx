@@ -143,6 +143,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return false;
   }
 
+  public get value(): AnyT {
+    return this.isPersistent ? this.definitePropsValue : this.stateValue;
+  }
+
   protected abstract getComponent(): JSX.Element;
 
   protected getComponentProps(): IFieldInputProps|IFieldTextAreaProps {
@@ -275,12 +279,8 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     );
   }
 
-  protected get value(): AnyT {
-    return this.isPersistent ? this.definitePropsValue : this.stateValue;
-  }
-
   protected get isValuePresent(): boolean {
-    return !isUndef(this.value) && this.value !== this.getEmptyValue();
+    return !isUndef(this.value) && !R.equals(this.value, this.getEmptyValue());
   }
 
   protected get error(): string {
