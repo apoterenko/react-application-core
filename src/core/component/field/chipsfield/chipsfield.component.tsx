@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as Printf from 'sprintf-js';
 
-import { uuid } from '../../../util';
 import {
   EntityIdT,
   ID_FIELD_NAME,
@@ -9,7 +8,9 @@ import {
   KeyboardEventT,
   NAME_FIELD_NAME,
 } from '../../../definition.interface';
+import { uuid } from '../../../util';
 import { BasicSelect, SelectOptionT, MultiFieldPlugin } from '../../field';
+import { Chip } from '../../chip';
 import {
   IChipsFieldInternalProps,
   IChipsFieldInternalState,
@@ -28,11 +29,6 @@ export class ChipsField extends BasicSelect<ChipsField,
   };
 
   private multiFieldPlugin = new MultiFieldPlugin(this);
-
-  constructor(props: IChipsFieldInternalProps) {
-    super(props);
-    this.onDeleteItem = this.onDeleteItem.bind(this);
-  }
 
   public onKeyBackspace(event: KeyboardEventT): void {
     // Nothing to do, only invoke the props
@@ -59,26 +55,14 @@ export class ChipsField extends BasicSelect<ChipsField,
   protected getAttachment(): JSX.Element {
     return (
         <div className='rac-chips-wrapper'>
-          {this.multiFieldPlugin.activeValue.map((item) => {
-            const displayValue = this.toDisplayLabel(item);
-            return (
-              <div key={uuid()}
-                   className='rac-chips'>
-                <span className='rac-chips-description rac-overflow-ellipsis'
-                      title={String(displayValue)}>
-                  {displayValue}
-                </span>
-                {
-                  this.uiFactory.makeIcon({
-                    type: 'cancel',
-                    disabled: this.isDeactivated(),
-                    onClick: () => this.onDeleteItem(item),
-                  })
-                }
-              </div>
-            );
-          }
-        )}
+          {this.multiFieldPlugin.activeValue.map((item) => (
+                  <Chip key={uuid()}
+                        disabled={this.isDeactivated()}
+                        onClick={() => this.onDeleteItem(item)}>
+                    {this.toDisplayLabel(item)}
+                  </Chip>
+              )
+          )}
         </div>
     );
   }

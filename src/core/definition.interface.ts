@@ -4,7 +4,8 @@ import { IOperation } from './operation';
 import { ApplicationStateT } from './store';
 
 export type AnyT = any;
-export type EntityIdT = number | string;
+export type DisplayValueT = number | string;
+export type EntityIdT = DisplayValueT;
 export const FIRST_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 20;
 export const DEFAULT_TIME_FROM = '00:00:00';

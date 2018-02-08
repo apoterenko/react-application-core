@@ -1,0 +1,26 @@
+@import '../constant';
+
+// Chips wrapper [FRAMEWORK-]
+.rac-chip {
+  padding: 6px 8px 6px 10px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  border-radius: 12px;
+  display: inline-block;
+  white-space: nowrap;
+  cursor: default;
+  background-color: $color-3;
+
+  .rac-chip-description {
+    padding-right: 4px;
+    max-width: 120px;
+  }
+
+  .rac-button {
+    color: $color-4;
+  }
+
+  .rac-button, .rac-chip-description {
+    vertical-align: middle;
+  }
+}

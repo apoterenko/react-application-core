@@ -4,27 +4,3 @@
 .rac-chips-wrapper {
   width: 100%;
 }
-
-.rac-chips {
-  padding: 6px 8px 6px 10px;
-  margin-right: 8px;
-  margin-bottom: 4px;
-  display: inline-block;
-  white-space: nowrap;
-  border-radius: 12px;
-  cursor: default;
-  background-color: $color-3;
-
-  .rac-chips-description {
-    padding-right: 4px;
-    max-width: 120px;
-  }
-
-  .rac-button {
-    color: $color-4;
-  }
-
-  .rac-button, .rac-chips-description {
-    vertical-align: middle;
-  }
-}
