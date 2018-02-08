@@ -1,5 +1,5 @@
-import { INativeMaterialComponent } from '../../component/material';
-import { IBaseComponentInternalProps } from '../../component/base';
+import { INativeMaterialComponent } from '../material';
+import { IBaseComponentInternalProps } from '../base';
 
 export interface INativeMaterialDrawerComponent extends INativeMaterialComponent {
   open: boolean;
