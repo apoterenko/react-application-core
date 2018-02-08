@@ -1,5 +1,5 @@
 import { INamedEntity } from '../../../definition.interface';
-import { IFieldValueAccessor } from '../field/field.interface';
+import { IFieldValueAccessor } from '../field';
 import {
   IMultiFieldChangesResult,
   IMultiFieldPlugin,
@@ -10,6 +10,14 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   constructor(private valueAccessor: IFieldValueAccessor<MultiFieldEntityT<INamedEntity>>,
               private entityAccessor?: (entity) => INamedEntity) {
+  }
+
+  public onAddItem(item: INamedEntity): MultiFieldEntityT<INamedEntity> {
+    return this.toChangesPayload(this.onAdd(item));
+  }
+
+  public onDeleteItem(item: INamedEntity): MultiFieldEntityT<INamedEntity> {
+    return this.toChangesPayload(this.onDelete(item));
   }
 
   public onAdd(item: INamedEntity): IMultiFieldChangesResult {
@@ -56,6 +64,17 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
         .map((entity) => this.entityAccessor ? this.entityAccessor(entity) : entity)
         .concat(this.addValue)
         .filter((item) => !removeValue.find((removeItem) => removeItem.id === item.id));
+  }
+
+  private toChangesPayload(result: IMultiFieldChangesResult): MultiFieldEntityT<INamedEntity> {
+    const add = result.addArray;
+    const remove = result.removeArray;
+
+    if (add.length || remove.length) {
+      return {add, remove, source: this.originalValue};
+    } else {
+      return this.originalValue;
+    }
   }
 
   private get addValue(): INamedEntity[] {

@@ -9,8 +9,8 @@ import {
   NAME_FIELD_NAME,
 } from '../../../definition.interface';
 import { uuid } from '../../../util';
-import { BasicSelect, SelectOptionT, MultiFieldPlugin } from '../../field';
-import { Chip } from '../../chip';
+import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldEntityT } from '../../field';
+import { Chip, ChipsWrapper } from '../../chip';
 import {
   IChipsFieldInternalProps,
   IChipsFieldInternalState,
@@ -43,8 +43,7 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   protected onSelect(option: SelectOptionT): void {
-    const changesResult = this.multiFieldPlugin.onAdd({id: option.value, name: option.label});
-    this.dispatchChanges(changesResult.addArray, changesResult.removeArray);
+    this.dispatchChanges(this.multiFieldPlugin.onAddItem({id: option.value, name: option.label}));
   }
 
   protected toDisplayValue(): string {
@@ -54,7 +53,7 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   protected getAttachment(): JSX.Element {
     return (
-        <div className='rac-chips-wrapper'>
+        <ChipsWrapper>
           {this.multiFieldPlugin.activeValue.map((item) => (
                   <Chip key={uuid()}
                         disabled={this.isDeactivated()}
@@ -63,7 +62,7 @@ export class ChipsField extends BasicSelect<ChipsField,
                   </Chip>
               )
           )}
-        </div>
+        </ChipsWrapper>
     );
   }
 
@@ -74,19 +73,14 @@ export class ChipsField extends BasicSelect<ChipsField,
   }
 
   private onDeleteItem(item: INamedEntity): void {
-    const changesResult = this.multiFieldPlugin.onDelete(item);
-    this.dispatchChanges(changesResult.addArray, changesResult.removeArray);
+    this.dispatchChanges(this.multiFieldPlugin.onDeleteItem(item));
   }
 
-  private dispatchChanges(addArray: INamedEntity[], removeArray: INamedEntity[]): void {
+  private dispatchChanges(payload: MultiFieldEntityT<INamedEntity>): void {
     if (this.multiFieldPlugin.activeValue.length === 0) {
       this.cleanNativeInputForSupportHTML5Validation();
     }
-    if (addArray.length || removeArray.length) {
-      this.onChangeValue({ add: addArray, remove: removeArray, source: this.multiFieldPlugin.originalValue });
-    } else {
-      this.onChangeValue(this.multiFieldPlugin.originalValue);
-    }
+    this.onChangeValue(payload);
     this.setFocus();
   }
 
