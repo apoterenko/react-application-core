@@ -1,93 +1,33 @@
 import { INamedEntity } from '../../../definition.interface';
-import { IFieldValueAccessor } from '../field';
-import {
-  IMultiFieldChangesResult,
-  IMultiFieldPlugin,
-  MultiFieldEntityT,
-} from './multifield.interface';
+import { FieldT } from '../field';
+import { IMultiFieldPlugin, MultiFieldEntityT } from './multifield.interface';
+import { BasicMultiFieldPlugin } from './basic-multifield.plugin';
+import { IBasicMultiFieldChangesResult } from './basic-multifield.interface';
 
-export class MultiFieldPlugin implements IMultiFieldPlugin {
+export class MultiFieldPlugin extends BasicMultiFieldPlugin<FieldT> implements IMultiFieldPlugin {
 
-  constructor(private valueAccessor: IFieldValueAccessor<MultiFieldEntityT<INamedEntity>>,
-              private entityAccessor?: (entity) => INamedEntity) {
+  public onAdd(item: INamedEntity): IBasicMultiFieldChangesResult|void {
+    this.onChange(this.toChangesPayload(super.onAdd(item) as IBasicMultiFieldChangesResult));
   }
 
-  public onAddItem(item: INamedEntity): MultiFieldEntityT<INamedEntity> {
-    return this.toChangesPayload(this.onAdd(item));
+  public onDelete(item: INamedEntity): IBasicMultiFieldChangesResult|void {
+    this.onChange(this.toChangesPayload(super.onDelete(item) as IBasicMultiFieldChangesResult));
   }
 
-  public onDeleteItem(item: INamedEntity): MultiFieldEntityT<INamedEntity> {
-    return this.toChangesPayload(this.onDelete(item));
+  private getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number {
+    return Array.isArray(entity)
+        ? entity.length
+        : this.toActiveValue(entity).length;
   }
 
-  public onAdd(item: INamedEntity): IMultiFieldChangesResult {
-    const removeValue = this.removeValue;
-    const addValue = this.addValue;
-    const removeLen = removeValue.length;
-    const removeArray = removeValue.filter(((removeItem) => removeItem.id !== item.id));
-    let addArray = addValue;
-
-    if (removeArray.length === removeLen) {
-      addArray = addValue.concat({...item});
-    }
-    return {addArray, removeArray};
-  }
-
-  public onDelete(item: INamedEntity): IMultiFieldChangesResult {
-    const removeValue = this.removeValue;
-    const addValue = this.addValue;
-    const deletedValue = item.id;
-    const addLen = addValue.length;
-    const addArray = addValue.filter(((addItem) => addItem.id !== deletedValue));
-    let removeArray = removeValue;
-
-    if (addArray.length === addLen) {
-      const deletedEntity: INamedEntity = {id: deletedValue};
-      if (this.originalValue.find((entity) => entity.id === deletedValue)) {
-        removeArray = [deletedEntity].concat(removeValue);
-      } else {
-        removeArray = [].concat(removeValue);
-      }
-    }
-    return {addArray, removeArray};
-  }
-
-  public get originalValue(): INamedEntity[] {
-    const currentValue = this.value;
-    return Array.isArray(currentValue) ? currentValue : currentValue.source;
-  }
-
-  public get activeValue(): INamedEntity[] {
-    const originalValue = this.originalValue || [];
-    const removeValue = this.removeValue;
-    return originalValue
-        .map((entity) => this.entityAccessor ? this.entityAccessor(entity) : entity)
-        .concat(this.addValue)
-        .filter((item) => !removeValue.find((removeItem) => removeItem.id === item.id));
-  }
-
-  private toChangesPayload(result: IMultiFieldChangesResult): MultiFieldEntityT<INamedEntity> {
-    const add = result.addArray;
-    const remove = result.removeArray;
-
-    if (add.length || remove.length) {
-      return {add, remove, source: this.originalValue};
+  private onChange(payload: MultiFieldEntityT<INamedEntity>): void {
+    const activeValueLength = this.getActiveValueLength(payload);
+    if (activeValueLength === 0) {
+      this.field.cleanNativeInputBeforeHTML5Validation();
     } else {
-      return this.originalValue;
+      this.field.updateNativeInputBeforeHTML5Validation(this.field.toDisplayValue(activeValueLength));
     }
-  }
-
-  private get addValue(): INamedEntity[] {
-    const currentValue = this.value;
-    return Array.isArray(currentValue) ? [] : currentValue.add;
-  }
-
-  private get removeValue(): INamedEntity[] {
-    const currentValue = this.value;
-    return Array.isArray(currentValue) ? [] : currentValue.remove;
-  }
-
-  private get value(): MultiFieldEntityT<INamedEntity> {
-    return this.valueAccessor.value;
+    this.field.onChangeValue(payload);
+    this.field.setFocus();
   }
 }

@@ -1,8 +1,9 @@
-import { MultiFieldPlugin } from './multifield.plugin';
+import { BasicMultiFieldPlugin } from './basic-multifield.plugin';
+import { BasicMultiFieldT } from './basic-multifield.interface';
 
-describe('MultiFieldPlugin', function () {
+describe('BasicMultiFieldPlugin', function () {
   it('test1', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+    var multiFieldPlugin = new BasicMultiFieldPlugin<BasicMultiFieldT>({
       value: [{id: 1}, {id: 2}],
     });
 
@@ -12,7 +13,7 @@ describe('MultiFieldPlugin', function () {
   });
 
   it('test2', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+    var multiFieldPlugin = new BasicMultiFieldPlugin<BasicMultiFieldT>({
       value: [{id: 1}, {id: 2}],
     });
 
@@ -22,7 +23,7 @@ describe('MultiFieldPlugin', function () {
   });
 
   it('test3', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+    var multiFieldPlugin = new BasicMultiFieldPlugin<BasicMultiFieldT>({
       value: {add: [], remove: [{id: 1}], source: [{id: 1}, {id: 2}]},
     });
 
@@ -32,7 +33,7 @@ describe('MultiFieldPlugin', function () {
   });
 
   it('test4', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+    var multiFieldPlugin = new BasicMultiFieldPlugin<BasicMultiFieldT>({
       value: {add: [{id: 3}], remove: [], source: [{id: 1}, {id: 2}]},
     });
 
@@ -42,7 +43,7 @@ describe('MultiFieldPlugin', function () {
   });
 
   it('test4', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+    var multiFieldPlugin = new BasicMultiFieldPlugin<BasicMultiFieldT>({
       value: {add: [{id: 3}], remove: [{id: 4}], source: [{id: 1}, {id: 2}]},
     });
 
@@ -60,7 +61,7 @@ describe('MultiFieldPlugin', function () {
   });
 
   it('test5', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+    var multiFieldPlugin = new BasicMultiFieldPlugin<BasicMultiFieldT>({
       value: {add: [{id: 3}], remove: [{id: 4}], source: [{id: 1}, {id: 2}]},
     });
 

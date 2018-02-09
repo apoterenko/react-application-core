@@ -1,17 +1,7 @@
 import { IEntity, INamedEntity } from '../../../definition.interface';
+import { IBasicMultiFieldPlugin } from './basic-multifield.interface';
 
-export interface IMultiFieldPlugin {
-  activeValue: INamedEntity[];
-  originalValue: INamedEntity[];
-  onAdd(item: INamedEntity): IMultiFieldChangesResult;
-  onDelete(item: INamedEntity): IMultiFieldChangesResult;
-  onAddItem(item: INamedEntity): MultiFieldEntityT<INamedEntity>;
-  onDeleteItem(item: INamedEntity): MultiFieldEntityT<INamedEntity>;
-}
-
-export interface IMultiFieldChangesResult {
-  addArray: INamedEntity[];
-  removeArray: INamedEntity[];
+export interface IMultiFieldPlugin extends IBasicMultiFieldPlugin {
 }
 
 export interface IMultiEntity {

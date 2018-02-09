@@ -48,6 +48,11 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     this.clearValue();
   }
 
+  public toDisplayValue(): EntityIdT {
+    const file = this.filesMap.get(this.value);
+    return file ? file.name : super.toDisplayValue();
+  }
+
   protected onClick(event: BasicEventT): void {
     super.onClick(event);
     this.openFileDialog(event);
@@ -60,17 +65,14 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     );
   }
 
-  protected toDisplayValue(): EntityIdT {
-    const file = this.filesMap.get(this.value);
-    return file ? file.name : super.toDisplayValue();
-  }
-
   protected onSelect(file: File[]): void {
     const selectedFile = file[0];
     const fileUrl = URL.createObjectURL(selectedFile);
 
     this.filesMap.set(fileUrl , selectedFile);
-    this.onChangeValue(fileUrl , null);
+
+    this.cleanNativeInputBeforeHTML5Validation();
+    this.onChangeValue(fileUrl);
     this.setFocus();
   }
 

@@ -98,9 +98,13 @@ export interface IField<TInternalProps extends IFieldInternalProps,
             IFieldValueAccessor<AnyT>,
             IBaseComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
+  cleanNativeInputBeforeHTML5Validation(): void;
+  updateNativeInputBeforeHTML5Validation(value: AnyT): void;
   onChange(event: ChangeEventT): void;
+  onChangeValue(currentRawValue?: AnyT, error?: string): void;
   resetError(): void;
   setFocus(): void;
+  toDisplayValue(context?: AnyT): AnyT;
 }
 
 export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
