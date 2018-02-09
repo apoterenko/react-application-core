@@ -3,7 +3,7 @@
 // Menu [FRAMEWORK-]
 .rac-dnd {
   display: inline-block;
-  padding: 8px;
   cursor: pointer;
+  text-align: center;
   border: $rac-drop-zone-border-width dashed $rac-drop-zone-border-color;
 }

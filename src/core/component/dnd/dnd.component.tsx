@@ -2,37 +2,40 @@ import * as React from 'react';
 import Dropzone from 'react-dropzone';
 
 import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import {
+  IDndInternalProps,
+  IDnd,
+  INativeDropZoneComponent,
+} from './dnd.interface';
 
-export class DnD extends BaseComponent<DnD, IBaseComponentInternalProps, { files: string[] }> {
+export class DnD extends BaseComponent<DnD, IDndInternalProps, {}>
+    implements IDnd {
 
   constructor(props: IBaseComponentInternalProps) {
     super(props);
     this.onDrop = this.onDrop.bind(this);
-    this.state = { files: [] };
   }
 
   public render(): JSX.Element {
     return (
-        <Dropzone className='rac-dnd'
+        <Dropzone ref='dropZone'
+                  className='rac-dnd'
                   style={{}}
                   onDrop={this.onDrop}>
-          {this.t('Try dropping some files here, or click to select files to upload.')}
-          {
-            this.state.files.map((fileName) => (<div>{fileName}</div>))
-          }
+          {this.t(this.applicationSettings.messages.dndMessage)}
         </Dropzone>
     );
   }
 
-  private onDrop(files): void {
-    // TODO Singleton
-    const reader = new FileReader();
-    reader.onloadend = (event: ProgressEvent) => {
-      const buffer = reader.result as ArrayBuffer;
-    };
+  public open(): void {
+    (this.refs.dropZone as INativeDropZoneComponent).open();
+  }
 
-    const file = files[0] as File;
-    this.setState({files: this.state.files.concat(file.name)});
-    // reader.readAsArrayBuffer(file);
+  private onDrop(files: File[]): void {
+    const props = this.props;
+
+    if (props.onSelect) {
+      props.onSelect(files);
+    }
   }
 }
