@@ -3,8 +3,8 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { toClassName } from '../../../util';
-import { BasicTextField, IBasicTextFieldAction } from '../../../component/field';
-import { Menu, IMenu } from '../../../component/menu';
+import { BasicTextField, IBasicTextFieldAction } from '../../field/textfield';
+import { Menu, IMenu } from '../../menu';
 import {
   AnyT,
   BasicEventT,
