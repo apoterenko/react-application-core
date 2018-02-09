@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
-import { isUndef } from '../../../util';
+import { isUndef, orUndef } from '../../../util';
 import { ChangeEventT, KeyboardEventT, BasicEventT } from '../../../definition.interface';
 import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
@@ -65,7 +65,7 @@ export class DateField extends BasicTextField<DateField,
 
   protected prepareStateValueBeforeSerialization(rawValue: DateTimeLikeTypeT): string {
     // Date value must be able to be serialized as a string
-    return isUndef(rawValue) ? undefined : this.formatDate(rawValue);
+    return orUndef(!isUndef(rawValue), () => this.formatDate(rawValue));
   }
 
   protected getComponentAttachment(): JSX.Element {

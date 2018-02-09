@@ -262,10 +262,11 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected clearValue(): void {
+    this.setFocus();
+
     if (!this.isValuePresent) {
       return;
     }
-
     this.cleanNativeInputForSupportHTML5Validation();
     this.onChangeValue(this.getEmptyValue(), null);
   }
