@@ -85,7 +85,7 @@ export interface IFieldInternalState extends IErrorable<string> {
   stateValue?: AnyT;
 }
 
-export interface IMaskedTextInputPureComponent extends PureComponent<{}, {}> {
+export interface INativeMaskedInputComponent extends PureComponent<{}, {}> {
   inputElement: HTMLInputElement;
 }
 

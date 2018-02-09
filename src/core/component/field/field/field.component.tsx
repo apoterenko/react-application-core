@@ -18,7 +18,7 @@ import {
   IFieldInternalProps,
   IFieldInternalState,
   IFieldTextAreaProps,
-  IMaskedTextInputPureComponent,
+  INativeMaskedInputComponent,
 } from './field.interface';
 
 export abstract class Field<TComponent extends IField<TInternalProps, TInternalState>,
@@ -135,7 +135,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   public get input(): HTMLInputElement {
-    return this.refs.input && (this.refs.input as IMaskedTextInputPureComponent).inputElement
+    return this.refs.input && (this.refs.input as INativeMaskedInputComponent).inputElement
         || this.refs.input as HTMLInputElement;
   }
 
