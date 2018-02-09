@@ -36,6 +36,7 @@ export interface IApplicationMessages {
   accessDeniedMessage?: string;
   sorryMessage?: string;
   waitMessage?: string;
+  dndMessage?: string;
 }
 
 export interface IApplicationSettings {
@@ -66,6 +67,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     accessDeniedMessage: 'The access is restricted for you.',
     sorryMessage: 'Sorry about that.',
     waitMessage: 'Please wait...',
+    dndMessage: 'Try dropping some files here, or click to select files to upload.',
   },
   dateTime: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',

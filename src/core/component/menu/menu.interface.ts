@@ -1,6 +1,6 @@
 import { FunctionT } from '../../util';
-import { IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
-import { INativeMaterialComponent } from '../../component/material';
+import { IBaseComponent, IBaseComponentInternalProps } from '../base';
+import { INativeMaterialComponent } from '../material';
 import {
   EntityIdT,
   IFilterable,
