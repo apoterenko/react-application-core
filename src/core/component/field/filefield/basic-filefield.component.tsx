@@ -7,6 +7,7 @@ import {
   BasicEventT,
   EntityIdT,
   KeyboardEventT,
+  AnyT,
 } from '../../../definition.interface';
 import {
   IBasicFileFieldInternalState,
@@ -60,9 +61,9 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     );
   }
 
-  protected toDisplayValue(): EntityIdT {
-    const file = this.filesMap.get(this.value);
-    return file ? file.name : super.toDisplayValue();
+  protected toDisplayValue(value: AnyT): EntityIdT {
+    const file = this.filesMap.get(value);
+    return file ? file.name : super.toDisplayValue(value);
   }
 
   protected onSelect(file: File[]): void {
@@ -71,7 +72,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
 
     this.filesMap.set(fileUrl , selectedFile);
 
-    this.onChangeManually(fileUrl, false);
+    this.onChangeManually(fileUrl);
     this.setFocus();
   }
 

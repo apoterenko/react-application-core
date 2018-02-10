@@ -63,7 +63,7 @@ export class DateField extends BasicTextField<DateField,
     return this.tryConvertToDate(super.getRawValueFromEvent(event));
   }
 
-  protected prepareStateValueBeforeSerialization(rawValue: DateTimeLikeTypeT): string {
+  protected toOutputValue(rawValue: DateTimeLikeTypeT): string {
     // Date value must be able to be serialized as a string
     return orUndef(!isUndef(rawValue), () => this.formatDate(rawValue));
   }
@@ -101,7 +101,7 @@ export class DateField extends BasicTextField<DateField,
   }
 
   protected toDisplayValue(): string {
-    return this.formatDate(super.toDisplayValue());
+    return this.formatDate(super.toDisplayValue(this.value));
   }
 
   protected onClick(event: BasicEventT): void {

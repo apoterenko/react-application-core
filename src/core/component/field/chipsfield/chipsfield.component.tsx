@@ -7,6 +7,7 @@ import {
   INamedEntity,
   KeyboardEventT,
   NAME_FIELD_NAME,
+  AnyT,
 } from '../../../definition.interface';
 import { uuid } from '../../../util';
 import { BasicSelect, SelectOptionT, MultiFieldPlugin } from '../../field';
@@ -46,8 +47,8 @@ export class ChipsField extends BasicSelect<ChipsField,
     this.multiFieldPlugin.onAddItem({id: option.value, name: option.label});
   }
 
-  protected toDisplayValue(): string {
-    const len = this.multiFieldPlugin.activeValue.length;
+  protected toDisplayValue(value: AnyT): string {
+    const len = this.multiFieldPlugin.getActiveValueLength(value);
     return len ? Printf.sprintf(this.t(this.props.valuesMessage), len) : '';
   }
 

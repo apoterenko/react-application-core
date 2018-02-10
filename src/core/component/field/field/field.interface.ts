@@ -91,7 +91,7 @@ export interface INativeMaskedInputComponent extends PureComponent<{}, {}> {
 
 export interface IChangesObserver {
   onChange?(event: ChangeEventT): void;
-  onChangeManually?(currentRawValue: AnyT, cleanNeeded: boolean, context?: AnyT): void;
+  onChangeManually?(currentRawValue: AnyT, context?: AnyT): void;
 }
 
 export interface IBasicField<TValue> extends IValueable<TValue>,

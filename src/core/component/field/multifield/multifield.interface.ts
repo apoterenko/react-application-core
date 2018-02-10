@@ -3,6 +3,7 @@ import { IEntity, INamedEntity } from '../../../definition.interface';
 export interface IMultiFieldPlugin {
   activeValue: INamedEntity[];
   originalValue: INamedEntity[];
+  getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number;
   onAdd(item: INamedEntity): IMultiFieldChangesResult;
   onDelete(item: INamedEntity): IMultiFieldChangesResult;
   onAddItem(item: INamedEntity): void;

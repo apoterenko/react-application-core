@@ -34,11 +34,11 @@ export const entityMapper =
                               formState?: IApplicationFormState): IEntityable<TEntity> =>
         ({
           entity: {
-            ...entity || {},
+            ...entity as {},
             ...formState && formState.changes,
           } as TEntity,
           entityId: orNull(entity, () => entity.id),
-          originalEntity: {...entity || {}} as TEntity,
+          originalEntity: { ...entity as {} } as TEntity,
           isNewEntity: !entity || R.isNil(entity.id),
           touched: formState && formState.touched,
         });

@@ -131,11 +131,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  protected toDisplayValue(): EntityIdT {
+  protected toDisplayValue(value: AnyT): EntityIdT {
     const selectedItem = this.getSelectedOption(this.value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : super.toDisplayValue();
+        : super.toDisplayValue(value);
   }
 
   private getSelectedOption(value: AnyT): SelectOptionT {

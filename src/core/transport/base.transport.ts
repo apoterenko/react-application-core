@@ -13,9 +13,9 @@ export class BaseTransport {
     const apiEntity = entityRequest.apiEntity;
     return this.transport.request<TEntity>({
       params: {
-        ...apiEntity.changes || {},
+        ...apiEntity.changes as {},
         ...noUndefValuesFilter(entityRequest.extraParams),
-        ...!apiEntity.isNew ? { id: apiEntity.id } : {},
+        ...apiEntity.isNew ? {} : { id: apiEntity.id },
       },
       name: apiEntity.isNew ? entityRequest.addApi : entityRequest.editApi,
       operation: apiEntity.operation,

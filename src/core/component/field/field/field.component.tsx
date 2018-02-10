@@ -43,7 +43,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       this.state = {} as TInternalState;
     } else {
       this.state = {
-        stateValue: this.prepareStateValueBeforeSerialization(this.definitePropsValue),
+        stateValue: this.toOutputValue(this.definitePropsValue),
       } as TInternalState;
     }
   }
@@ -53,7 +53,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     const newValue = nextProps.value;
 
     if (!this.isPersistent && !R.equals(this.stateValue, newValue)) {
-      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(newValue) });
+      this.setState({ stateValue: this.toOutputValue(newValue) });
     }
   }
 
@@ -61,12 +61,8 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
-  public onChangeManually(currentRawValue: AnyT, cleanNeeded: boolean, context?: AnyT): void {
-    if (cleanNeeded) {
-      this.cleanNativeInputBeforeHTML5Validation();
-    } else {
-      this.updateNativeInputBeforeHTML5Validation(this.toDisplayValue(context));
-    }
+  public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
+    this.updateNativeInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
     this.onChangeValue(currentRawValue);
   }
 
@@ -184,15 +180,14 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
-      value: this.toDisplayValue(),
+      value: this.toDisplayValue(this.value),
       className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
     };
   }
 
-  protected toDisplayValue(context?: AnyT): AnyT {
+  protected toDisplayValue(value: AnyT, context?: AnyT): AnyT {
     const props = this.props;
-    const value = this.value;
 
     return this.progress
       ? this.getEmptyDisplayValue()
@@ -239,8 +234,9 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
 
     if (!this.isPersistent) {
-      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(currentRawValue) });
+      this.setState({ stateValue: this.toOutputValue(currentRawValue) });
     }
+
     this.validateField(currentRawValue, error);
 
     this.propsOnChange(currentRawValue);
@@ -255,13 +251,13 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     if (this.props.changeForm) {
       this.props.changeForm(
           this.props.name,
-          this.prepareStateValueBeforeSerialization(rawValue),
+          this.toOutputValue(rawValue),
           this.props.validationGroup
       );
     }
   }
 
-  protected prepareStateValueBeforeSerialization(rawValue: AnyT): AnyT {
+  protected toOutputValue(rawValue: AnyT): AnyT {
     // The state may be an external storage and the value must be able to be serialized
     return rawValue;
   }
@@ -361,10 +357,9 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.state.stateValue;
   }
 
-  private validateField(rawValue: AnyT, error?: string): boolean {
+  private validateField(rawValue: AnyT, error?: string): void {
     this.input.setCustomValidity(''); // Support of HTML5 Validation Api
-    const error0 = isUndef(error) ? this.validateValueAndSetCustomValidity(rawValue) : error;
+    const error0 = R.isNil(error) ? this.validateValueAndSetCustomValidity(rawValue) : error;
     this.setState({ error: error0  });
-    return R.isNil(error0);
   }
 }

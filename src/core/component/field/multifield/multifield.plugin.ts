@@ -66,6 +66,12 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     });
   }
 
+  public getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number {
+    return Array.isArray(entity)
+      ? entity.length
+      : this.toActiveValue(entity).length;
+  }
+
   protected toActiveValue(multiEntity: IMultiEntity): INamedEntity[] {
     const originalValue = multiEntity.source || [];
     const removeValue = multiEntity.remove;
@@ -75,15 +81,9 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
       .filter((item) => !removeValue.find((removeItem) => removeItem.id === item.id));
   }
 
-  private getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number {
-    return Array.isArray(entity)
-      ? entity.length
-      : this.toActiveValue(entity).length;
-  }
-
   private onChangeManually(payload: MultiFieldEntityT<INamedEntity>): void {
     const activeValueLength = this.getActiveValueLength(payload);
-    this.field.onChangeManually(payload, activeValueLength === 0, activeValueLength);
+    this.field.onChangeManually(payload, activeValueLength);
     this.field.setFocus();
   }
 
