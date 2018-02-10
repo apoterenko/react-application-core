@@ -82,7 +82,6 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   private onChangeManually(payload: MultiFieldEntityT<INamedEntity>): void {
     this.field.onChangeManually(payload, this.getActiveValueLength(payload));
-    this.field.setFocus();
   }
 
   private toChangesPayload(result: IMultiFieldChangesResult): MultiFieldEntityT<INamedEntity> {
