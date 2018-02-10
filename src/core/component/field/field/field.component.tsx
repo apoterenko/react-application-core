@@ -61,7 +61,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
-  public onChangeManually(currentRawValue?: AnyT, cleanNeeded: boolean, context?: AnyT): void {
+  public onChangeManually(currentRawValue: AnyT, cleanNeeded: boolean, context?: AnyT): void {
     if (cleanNeeded) {
       this.cleanNativeInputBeforeHTML5Validation();
     } else {
@@ -227,7 +227,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
-  protected onChangeValue(currentRawValue?: AnyT, error?: string): void {
+  protected onChangeValue(currentRawValue: AnyT, error?: string): void {
     const originalValue = this.props.originalValue;
     const isFieldDirty = !isUndef(currentRawValue) && this.hasOriginalValue
         && !R.equals(currentRawValue, originalValue);
