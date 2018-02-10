@@ -1,6 +1,7 @@
 import { INamedEntity } from '../../../definition.interface';
-import { IFieldValueAccessor } from '../field';
+import { IBasicField } from '../field';
 import {
+  IMultiEntity,
   IMultiFieldChangesResult,
   IMultiFieldPlugin,
   MultiFieldEntityT,
@@ -8,16 +9,16 @@ import {
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
-  constructor(private valueAccessor: IFieldValueAccessor<MultiFieldEntityT<INamedEntity>>,
+  constructor(private field: IBasicField<MultiFieldEntityT<INamedEntity>>,
               private entityAccessor?: (entity) => INamedEntity) {
   }
 
-  public onAddItem(item: INamedEntity): MultiFieldEntityT<INamedEntity> {
-    return this.toChangesPayload(this.onAdd(item));
+  public onAddItem(item: INamedEntity): void {
+    this.onChangeManually(this.toChangesPayload(this.onAdd(item)));
   }
 
-  public onDeleteItem(item: INamedEntity): MultiFieldEntityT<INamedEntity> {
-    return this.toChangesPayload(this.onDelete(item));
+  public onDeleteItem(item: INamedEntity): void {
+    this.onChangeManually(this.toChangesPayload(this.onDelete(item)));
   }
 
   public onAdd(item: INamedEntity): IMultiFieldChangesResult {
@@ -58,12 +59,32 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   public get activeValue(): INamedEntity[] {
-    const originalValue = this.originalValue || [];
-    const removeValue = this.removeValue;
+    return this.toActiveValue({
+      source: this.originalValue || [],
+      remove: this.removeValue,
+      add: this.addValue,
+    });
+  }
+
+  protected toActiveValue(multiEntity: IMultiEntity): INamedEntity[] {
+    const originalValue = multiEntity.source || [];
+    const removeValue = multiEntity.remove;
     return originalValue
-        .map((entity) => this.entityAccessor ? this.entityAccessor(entity) : entity)
-        .concat(this.addValue)
-        .filter((item) => !removeValue.find((removeItem) => removeItem.id === item.id));
+      .map((entity) => this.entityAccessor ? this.entityAccessor(entity) : entity)
+      .concat(multiEntity.add)
+      .filter((item) => !removeValue.find((removeItem) => removeItem.id === item.id));
+  }
+
+  private getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number {
+    return Array.isArray(entity)
+      ? entity.length
+      : this.toActiveValue(entity).length;
+  }
+
+  private onChangeManually(payload: MultiFieldEntityT<INamedEntity>): void {
+    const activeValueLength = this.getActiveValueLength(payload);
+    this.field.onChangeManually(payload, activeValueLength === 0, activeValueLength);
+    this.field.setFocus();
   }
 
   private toChangesPayload(result: IMultiFieldChangesResult): MultiFieldEntityT<INamedEntity> {
@@ -88,6 +109,6 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   private get value(): MultiFieldEntityT<INamedEntity> {
-    return this.valueAccessor.value;
+    return this.field.value;
   }
 }

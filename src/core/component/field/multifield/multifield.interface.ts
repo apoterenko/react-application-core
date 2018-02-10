@@ -5,8 +5,8 @@ export interface IMultiFieldPlugin {
   originalValue: INamedEntity[];
   onAdd(item: INamedEntity): IMultiFieldChangesResult;
   onDelete(item: INamedEntity): IMultiFieldChangesResult;
-  onAddItem(item: INamedEntity): MultiFieldEntityT<INamedEntity>;
-  onDeleteItem(item: INamedEntity): MultiFieldEntityT<INamedEntity>;
+  onAddItem(item: INamedEntity): void;
+  onDeleteItem(item: INamedEntity): void;
 }
 
 export interface IMultiFieldChangesResult {

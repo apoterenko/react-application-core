@@ -89,19 +89,23 @@ export interface INativeMaskedInputComponent extends PureComponent<{}, {}> {
   inputElement: HTMLInputElement;
 }
 
-export interface IFieldValueAccessor<TValue> extends IValueable<TValue> {
+export interface IChangesObserver {
+  onChange?(event: ChangeEventT): void;
+  onChangeManually?(currentRawValue: AnyT, cleanNeeded: boolean, context?: AnyT): void;
+}
+
+export interface IBasicField<TValue> extends IValueable<TValue>,
+                                             IChangesObserver {
+  setFocus?(): void;
 }
 
 export interface IField<TInternalProps extends IFieldInternalProps,
                         TInternalState extends IFieldInternalState>
     extends IKeyboardHandlers,
-            IFieldValueAccessor<AnyT>,
+            IBasicField<AnyT>,
             IBaseComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
-  onChange(event: ChangeEventT): void;
-  onChangeManually(currentRawValue: AnyT, cleanNeeded: boolean, context?: AnyT): void;
   resetError(): void;
-  setFocus(): void;
 }
 
 export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
