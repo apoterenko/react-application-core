@@ -87,13 +87,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.state.emptyOptions;
   }
 
-  public toDisplayValue(): EntityIdT {
-    const selectedItem = this.getSelectedOption(this.value);
-    return selectedItem
-        ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : super.toDisplayValue();
-  }
-
   protected onClick(event: BasicEventT): void {
     super.onClick(event);
     this.openMenu(event);
@@ -136,6 +129,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     if (this.props.onSelect) {
       this.props.onSelect(option);
     }
+  }
+
+  protected toDisplayValue(): EntityIdT {
+    const selectedItem = this.getSelectedOption(this.value);
+    return selectedItem
+        ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
+        : super.toDisplayValue();
   }
 
   private getSelectedOption(value: AnyT): SelectOptionT {

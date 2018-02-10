@@ -9,7 +9,7 @@ import {
   NAME_FIELD_NAME,
 } from '../../../definition.interface';
 import { uuid } from '../../../util';
-import { BasicSelect, SelectOptionT, MultiFieldPlugin, Field } from '../../field';
+import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldEntityT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';
 import {
   IChipsFieldInternalProps,
@@ -38,16 +38,17 @@ export class ChipsField extends BasicSelect<ChipsField,
     }
   }
 
-  public toDisplayValue(len = this.multiFieldPlugin.activeValue.length): string {
-    return len ? Printf.sprintf(this.t(this.props.valuesMessage), len) : Field.EMPTY_VALUE;
-  }
-
   protected getEmptyValue(): EntityIdT[] {
     return [];
   }
 
   protected onSelect(option: SelectOptionT): void {
-    this.multiFieldPlugin.onAdd({id: option.value, name: option.label});
+    this.dispatchChanges(this.multiFieldPlugin.onAddItem({id: option.value, name: option.label}));
+  }
+
+  protected toDisplayValue(): string {
+    const len = this.multiFieldPlugin.activeValue.length;
+    return len ? Printf.sprintf(this.t(this.props.valuesMessage), len) : '';
   }
 
   protected getAttachment(): JSX.Element {
@@ -56,7 +57,7 @@ export class ChipsField extends BasicSelect<ChipsField,
           {this.multiFieldPlugin.activeValue.map((item) => (
                   <Chip key={uuid()}
                         disabled={this.isDeactivated()}
-                        onClick={() => this.multiFieldPlugin.onDelete(item)}>
+                        onClick={() => this.onDeleteItem(item)}>
                     {this.toDisplayLabel(item)}
                   </Chip>
               )
@@ -69,6 +70,18 @@ export class ChipsField extends BasicSelect<ChipsField,
     const activeValue = this.multiFieldPlugin.activeValue;
     return super.toFilteredOptions(options).filter((option) =>
         !activeValue.find((item) => item.id === option.value));
+  }
+
+  private onDeleteItem(item: INamedEntity): void {
+    this.dispatchChanges(this.multiFieldPlugin.onDeleteItem(item));
+  }
+
+  private dispatchChanges(payload: MultiFieldEntityT<INamedEntity>): void {
+    if (this.multiFieldPlugin.activeValue.length === 0) {
+      this.cleanNativeInputForSupportHTML5Validation();
+    }
+    this.onChangeValue(payload);
+    this.setFocus();
   }
 
   private toDisplayLabel(item: INamedEntity): EntityIdT {

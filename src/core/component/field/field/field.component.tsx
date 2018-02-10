@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { isFn, isUndef, noop, toClassName, orNull } from '../../../util';
+import { isFn, isUndef, noop, toClassName } from '../../../util';
 import {
   AnyT,
   BasicEventT,
@@ -11,7 +11,7 @@ import {
   KeyboardEventT,
   IProgressable,
 } from '../../../definition.interface';
-import { BaseComponent } from '../../base';
+import { BaseComponent } from '../../../component/base';
 import {
   IField,
   IFieldInputProps,
@@ -27,7 +27,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
     implements IField<TInternalProps, TInternalState>, IProgressable {
 
-  public static EMPTY_VALUE = '';
+  private static EMPTY_VALUE = '';
 
   constructor(props: TInternalProps) {
     super(props);
@@ -59,26 +59,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public onChange(event: ChangeEventT): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
-  }
-
-  public onChangeValue(currentRawValue?: AnyT, error?: string): void {
-    const originalValue = this.props.originalValue;
-    const isFieldDirty = !isUndef(currentRawValue) && this.hasOriginalValue
-        && !R.equals(currentRawValue, originalValue);
-
-    if ((this.hasOriginalValue && !isFieldDirty)
-        || (!this.hasOriginalValue && this.getEmptyValue() === currentRawValue)) {
-      currentRawValue = undefined;  // Clear dirty changes
-      error = null;
-    }
-
-    if (!this.isPersistent) {
-      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(currentRawValue) });
-    }
-    this.validateField(currentRawValue, error);
-
-    this.propsOnChange(currentRawValue);
-    this.propsChangeForm(currentRawValue);
   }
 
   public getRawValueFromEvent(event: ChangeEventT): AnyT {
@@ -167,32 +147,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.isPersistent ? this.definitePropsValue : this.stateValue;
   }
 
-  public cleanNativeInputBeforeHTML5Validation(): void {
-    this.updateNativeInputBeforeHTML5Validation(this.getEmptyValue());
-  }
-
-  public updateNativeInputBeforeHTML5Validation(value: AnyT): void {
-    // We must update the field manually before calls HTML5 validation
-    this.input.value = value;
-  }
-
-  public toDisplayValue(context?: AnyT): AnyT {
-    const props = this.props;
-    const value = this.value;
-
-    return this.progress
-        ? this.getEmptyDisplayValue()
-        : (
-            this.isValuePresent
-                ? (isUndef(props.displayValue)
-                ? value
-                : (isFn(props.displayValue)
-                    ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
-                    : props.displayValue))
-                : this.getEmptyDisplayValue()
-        );
-  }
-
   protected abstract getComponent(): JSX.Element;
 
   protected getComponentProps(): IFieldInputProps|IFieldTextAreaProps {
@@ -223,8 +177,25 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       ref: 'input',
       value: this.toDisplayValue(),
       className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
-      placeholder: orNull(props.placeholder, () => this.t(props.placeholder)),
+      placeholder: props.placeholder ? this.t(props.placeholder) : null,
     };
+  }
+
+  protected toDisplayValue(): AnyT {
+    const props = this.props;
+    const value = this.value;
+
+    return this.progress
+      ? this.getEmptyDisplayValue()
+      : (
+        this.isValuePresent
+          ? (isUndef(props.displayValue)
+              ? value
+              : (isFn(props.displayValue)
+                  ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
+                  : props.displayValue))
+          : this.getEmptyDisplayValue()
+      );
   }
 
   protected onFocus(event: FocusEventT): void {
@@ -247,6 +218,26 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
+  protected onChangeValue(currentRawValue?: AnyT, error?: string): void {
+    const originalValue = this.props.originalValue;
+    const isFieldDirty = !isUndef(currentRawValue) && this.hasOriginalValue
+        && !R.equals(currentRawValue, originalValue);
+
+    if ((this.hasOriginalValue && !isFieldDirty)
+        || (!this.hasOriginalValue && this.getEmptyValue() === currentRawValue)) {
+      currentRawValue = undefined;  // Clear dirty changes
+      error = null;
+    }
+
+    if (!this.isPersistent) {
+      this.setState({ stateValue: this.prepareStateValueBeforeSerialization(currentRawValue) });
+    }
+    this.validateField(currentRawValue, error);
+
+    this.propsOnChange(currentRawValue);
+    this.propsChangeForm(currentRawValue);
+  }
+
   protected get hasOriginalValue(): boolean {
     return !isUndef(this.props.originalValue);
   }
@@ -266,13 +257,17 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return rawValue;
   }
 
+  protected cleanNativeInputForSupportHTML5Validation(): void {
+    this.input.value = this.getEmptyValue();  // We should reset the field manually before HTML5 validation will be called
+  }
+
   protected clearValue(): void {
     this.setFocus();
 
     if (!this.isValuePresent) {
       return;
     }
-    this.cleanNativeInputBeforeHTML5Validation();
+    this.cleanNativeInputForSupportHTML5Validation();
     this.onChangeValue(this.getEmptyValue(), null);
   }
 
@@ -325,7 +320,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     const props = this.props;
     let error = null;
     if (this.input.validity.valid) {
-      error = orNull(props.validate, () => props.validate(value));
+      error = props.validate ? props.validate(value) : null;
       if (error) {
         this.input.setCustomValidity(error);
       }
