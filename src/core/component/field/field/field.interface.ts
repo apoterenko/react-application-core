@@ -82,7 +82,6 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
 }
 
 export interface IFieldInternalState extends IErrorable<string> {
-  stateValue?: AnyT;
 }
 
 export interface INativeMaskedInputComponent extends PureComponent<{}, {}> {

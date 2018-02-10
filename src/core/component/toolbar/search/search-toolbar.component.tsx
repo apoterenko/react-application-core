@@ -1,24 +1,20 @@
 import * as React from 'react';
 
 import { isUndef, toClassName, orNull } from '../../../util';
-import { AnyT } from '../../../definition.interface';
-import { BaseComponent } from '../../../component/base';
+import { BaseComponent } from '../../base';
 import {
   DelayedChangesFieldPlugin,
   IBasicTextFieldAction,
   FieldT,
   TextField,
-} from '../../../component/field';
-import { FilterActionEnum, IApplicationFilterAction } from '../../../component/filter';
-import { ToolbarSection } from '../../../component/toolbar';
-import {
-  ISearchToolbarInternalState,
-  ISearchToolbarInternalProps,
-} from './search-toolbar.interface';
+} from '../../field';
+import { FilterActionEnum, IApplicationFilterAction } from '../../filter';
+import { ToolbarSection } from '../../toolbar';
+import { ISearchToolbarInternalProps } from './search-toolbar.interface';
 
 export class SearchToolbar extends BaseComponent<SearchToolbar,
                                                  ISearchToolbarInternalProps,
-                                                 ISearchToolbarInternalState> {
+                                                 {}> {
 
   public static defaultProps: ISearchToolbarInternalProps = {
     fieldActions: [],
@@ -46,27 +42,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     this.onApply = this.onApply.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    if (this.isPersistent) {
-      this.state = {} as ISearchToolbarInternalProps;
-    } else {
-      this.state = {
-        active: this.definiteActiveProps,
-        query: this.definiteQueryProps,
-      };
-    }
-  }
-
-  public componentWillReceiveProps(nextProps: Readonly<ISearchToolbarInternalProps>, nextContext: AnyT): void {
-    super.componentWillReceiveProps(nextProps, nextContext);
-
-    if (!this.isPersistent) {
-      if (!isUndef(nextProps.active)) {
-        this.setState({ active: nextProps.active });
-      }
-      if (!isUndef(nextProps.query)) {
-        this.setState({ query: nextProps.query });
-      }
-    }
+    this.state = {} as ISearchToolbarInternalProps;
   }
 
   public render(): JSX.Element {
@@ -98,7 +74,6 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                       <ToolbarSection>
                         <TextField ref='queryField'
                                    className={this.uiFactory.textFieldBox}
-                                   persistent={false}
                                    autoFocus={true}
                                    noErrorMessage={true}
                                    value={this.query}
@@ -118,11 +93,11 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private get isActive(): boolean {
-    return this.isPersistent ? this.props.active : this.state.active;
+    return this.props.active;
   }
 
   private get query(): boolean {
-    return this.isPersistent ? this.props.query : this.state.query;
+    return this.props.query;
   }
 
   private onActivate(): void {
@@ -130,12 +105,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     if (props.noSearchField) {
       this.onApply();
     } else {
-      if (this.isPersistent) {
-        if (props.onActivate) {
-          props.onActivate();
-        }
-      } else {
-        this.setState({ active: true });
+      if (props.onActivate) {
+        props.onActivate();
       }
     }
   }
@@ -143,12 +114,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   private onChange(query: string): void {
     const props = this.props;
 
-    if (this.isPersistent) {
-      if (props.onChange) {
-        props.onChange(query);
-      }
-    } else {
-      this.setState({query});
+    if (props.onChange) {
+      props.onChange(query);
     }
   }
 
@@ -167,12 +134,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
       return;
     }
 
-    if (this.isPersistent) {
-      this.onChange('');
-      this.onApply();
-    } else {
-      this.setState({ query: '' });
-    }
+    this.onChange('');
+    this.onApply();
   }
 
   private onApply(value?: string): void {

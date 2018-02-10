@@ -2,7 +2,6 @@ import { PureComponent } from 'react';
 
 import { BasicEventT } from '../../definition.interface';
 import { lazyInject, DI_TYPES } from '../../di';
-import { isUndef } from '../../util';
 import { IUIFactory } from '../../component/factory';
 import {
   ComponentPluginFactoryT,
@@ -86,9 +85,5 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
 
   public get self(): HTMLElement {
     return this.refs.self as HTMLElement;
-  }
-
-  protected get isPersistent(): boolean {
-    return isUndef(this.props.persistent) || this.props.persistent === true;
   }
 }

@@ -52,7 +52,6 @@ export interface IBaseComponent<TInternalProps, TInternalState>
 }
 
 export interface IBaseComponentInternalProps extends IBaseInternalProps {
-  persistent?: boolean;
   style?: CSSProperties;
   plugins?: ComponentPluginCtorT|ComponentPluginCtorT[];
 }

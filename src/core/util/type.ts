@@ -1,5 +1,9 @@
 import { AnyT } from '../definition.interface';
 
+export function isDef(value: AnyT): boolean {
+  return !isUndef(value);
+}
+
 export function isUndef(value: AnyT): boolean {
   return typeof value === 'undefined';
 }

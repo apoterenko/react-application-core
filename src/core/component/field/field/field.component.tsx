@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { isFn, isUndef, noop, toClassName } from '../../../util';
+import { isFn, isUndef, isDef, noop, toClassName } from '../../../util';
 import {
   AnyT,
   BasicEventT,
@@ -39,22 +39,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
 
-    if (this.isPersistent) {
-      this.state = {} as TInternalState;
-    } else {
-      this.state = {
-        stateValue: this.toOutputValue(this.definitePropsValue),
-      } as TInternalState;
-    }
-  }
-
-  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
-    super.componentWillReceiveProps(nextProps, nextContext);
-    const newValue = nextProps.value;
-
-    if (!this.isPersistent && !R.equals(this.stateValue, newValue)) {
-      this.setState({ stateValue: this.toOutputValue(newValue) });
-    }
+    this.state = {} as TInternalState;
   }
 
   public onChange(event: ChangeEventT): void {
@@ -149,7 +134,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   public get value(): AnyT {
-    return this.isPersistent ? this.definitePropsValue : this.stateValue;
+    return this.props.value;
   }
 
   protected abstract getComponent(): JSX.Element;
@@ -180,10 +165,14 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
-      value: this.toDisplayValue(this.value),
+      value: this.displayValue,
       className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
       placeholder: props.placeholder ? this.t(props.placeholder) : null,
     };
+  }
+
+  protected get displayValue(): AnyT {
+    return this.toDisplayValue(this.value);
   }
 
   protected toDisplayValue(value: AnyT, context?: AnyT): AnyT {
@@ -233,10 +222,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
       error = null;
     }
 
-    if (!this.isPersistent) {
-      this.setState({ stateValue: this.toOutputValue(currentRawValue) });
-    }
-
     this.validateField(currentRawValue, error);
 
     this.propsOnChange(currentRawValue);
@@ -244,7 +229,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected get hasOriginalValue(): boolean {
-    return !isUndef(this.props.originalValue);
+    return isDef(this.props.originalValue);
   }
 
   protected propsChangeForm(rawValue: AnyT): void {
@@ -291,7 +276,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected isValuePresent(value = this.value): boolean {
-    return !isUndef(value) && !R.equals(value, this.getEmptyValue());
+    return isDef(value) && !R.equals(value, this.getEmptyValue());
   }
 
   protected get error(): string {
@@ -344,17 +329,6 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     if (this.props.onChange) {
       this.props.onChange(rawValue);
     }
-  }
-
-  private get definitePropsValue(): AnyT {
-    return isUndef(this.props.value)
-        // Prevent warning: "Input is changing a uncontrolled input of type text to be controlled..."
-        ? this.getEmptyValue()
-        : this.props.value;
-  }
-
-  private get stateValue(): AnyT {
-    return this.state.stateValue;
   }
 
   private validateField(rawValue: AnyT, error?: string): void {

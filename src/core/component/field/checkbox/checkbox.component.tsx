@@ -45,7 +45,7 @@ export class Checkbox extends Field<Checkbox,
 
       id: this.inputId,
       type: 'checkbox',
-      checked: this.toDisplayValue(this.value),
+      checked: this.displayValue,
       className: toClassName(this.uiFactory.checkboxInput, 'rac-field-input'),
     };
   }
