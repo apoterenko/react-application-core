@@ -11,7 +11,7 @@ import {
   KeyboardEventT,
   IProgressable,
 } from '../../../definition.interface';
-import { BaseComponent } from '../../../component/base';
+import { BaseComponent } from '../../base';
 import {
   IField,
   IFieldInputProps,
@@ -59,6 +59,15 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public onChange(event: ChangeEventT): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
+  }
+
+  public onChangeManually(currentRawValue?: AnyT, cleanNeeded: boolean, context?: AnyT): void {
+    if (cleanNeeded) {
+      this.cleanNativeInputBeforeHTML5Validation();
+    } else {
+      this.updateNativeInputBeforeHTML5Validation(this.toDisplayValue(context));
+    }
+    this.onChangeValue(currentRawValue);
   }
 
   public getRawValueFromEvent(event: ChangeEventT): AnyT {
@@ -181,7 +190,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     };
   }
 
-  protected toDisplayValue(): AnyT {
+  protected toDisplayValue(context?: AnyT): AnyT {
     const props = this.props;
     const value = this.value;
 
@@ -257,8 +266,13 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return rawValue;
   }
 
-  protected cleanNativeInputForSupportHTML5Validation(): void {
-    this.input.value = this.getEmptyValue();  // We should reset the field manually before HTML5 validation will be called
+  protected cleanNativeInputBeforeHTML5Validation(): void {
+    this.updateNativeInputBeforeHTML5Validation(this.getEmptyValue());
+  }
+
+  protected updateNativeInputBeforeHTML5Validation(value: AnyT): void {
+    // We must update the field manually before calls HTML5 validation
+    this.input.value = value;
   }
 
   protected clearValue(): void {
@@ -267,7 +281,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     if (!this.isValuePresent) {
       return;
     }
-    this.cleanNativeInputForSupportHTML5Validation();
+    this.cleanNativeInputBeforeHTML5Validation();
     this.onChangeValue(this.getEmptyValue(), null);
   }
 

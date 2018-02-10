@@ -78,7 +78,7 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   private dispatchChanges(payload: MultiFieldEntityT<INamedEntity>): void {
     if (this.multiFieldPlugin.activeValue.length === 0) {
-      this.cleanNativeInputForSupportHTML5Validation();
+      this.cleanNativeInputBeforeHTML5Validation();
     }
     this.onChangeValue(payload);
     this.setFocus();

@@ -99,6 +99,7 @@ export interface IField<TInternalProps extends IFieldInternalProps,
             IBaseComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
   onChange(event: ChangeEventT): void;
+  onChangeManually(currentRawValue?: AnyT, cleanNeeded: boolean, context?: AnyT): void;
   resetError(): void;
   setFocus(): void;
 }
