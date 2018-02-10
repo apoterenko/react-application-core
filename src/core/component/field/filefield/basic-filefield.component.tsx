@@ -70,7 +70,8 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     const fileUrl = URL.createObjectURL(selectedFile);
 
     this.filesMap.set(fileUrl , selectedFile);
-    this.onChangeValue(fileUrl , null);
+
+    this.onChangeManually(fileUrl, false);
     this.setFocus();
   }
 
