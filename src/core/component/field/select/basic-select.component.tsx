@@ -124,7 +124,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected onSelect(option: SelectOptionT): void {
-    this.onChangeValue(option.value, null);
+    this.onChangeManually(option.value);
 
     if (this.props.onSelect) {
       this.props.onSelect(option);
@@ -132,7 +132,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected toDisplayValue(value: AnyT): EntityIdT {
-    const selectedItem = this.getSelectedOption(this.value);
+    const selectedItem = this.getSelectedOption(value);
     return selectedItem
         ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
         : super.toDisplayValue(value);
