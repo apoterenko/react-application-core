@@ -1,4 +1,4 @@
-import { INamedEntity } from '../../../definition.interface';
+import { INamedEntity, isDef } from '../../../definition.interface';
 import { IBasicField } from '../field';
 import {
   IMultiEntity,
@@ -96,19 +96,22 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   private get addValue(): INamedEntity[] {
-    return this.extract((currentValue) => currentValue.add);
+    return this.extract((currentValue) => currentValue.add, []);
   }
 
   private get removeValue(): INamedEntity[] {
-    return this.extract((currentValue) => currentValue.remove);
+    return this.extract((currentValue) => currentValue.remove, []);
   }
 
   private get value(): MultiFieldEntityT<INamedEntity> {
     return this.field.value;
   }
 
-  private extract(converter: (value: IMultiEntity) => INamedEntity[]): INamedEntity[] {
+  private extract(converter: (value: IMultiEntity) => INamedEntity[],
+                  defaultValue?: MultiFieldEntityT<INamedEntity>): INamedEntity[] {
     const currentValue = this.value;
-    return Array.isArray(currentValue) ? currentValue : (currentValue ? converter(currentValue) : []);
+    return Array.isArray(currentValue)
+      ? (isDef(defaultValue) ? defaultValue : currentValue)
+      : (currentValue ? converter(currentValue) : []);
   }
 }
