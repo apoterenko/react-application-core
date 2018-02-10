@@ -125,8 +125,8 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   public get input(): HTMLInputElement {
-    return this.refs.input && (this.refs.input as INativeMaskedInputComponent).inputElement
-        || this.refs.input as HTMLInputElement;
+    const input = this.refs.input;
+    return input && (input as INativeMaskedInputComponent).inputElement || input as HTMLInputElement;
   }
 
   public get progress(): boolean {
@@ -135,6 +135,10 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
 
   public get value(): AnyT {
     return this.props.value;
+  }
+
+  protected get definiteValue(): AnyT {
+    return isUndef(this.value) ? this.getEmptyValue() : this.value;
   }
 
   protected abstract getComponent(): JSX.Element;
@@ -259,11 +263,9 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   protected clearValue(): void {
     this.setFocus();
 
-    if (!this.isValuePresent()) {
-      return;
+    if (this.isValuePresent()) {
+      this.onChangeManually(this.getEmptyValue());
     }
-    this.cleanNativeInputBeforeHTML5Validation();
-    this.onChangeValue(this.getEmptyValue(), null);
   }
 
   protected getFieldClassName(): string {

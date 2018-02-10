@@ -54,8 +54,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   public get originalValue(): INamedEntity[] {
-    const currentValue = this.value;
-    return Array.isArray(currentValue) ? currentValue : currentValue.source;
+    return this.extract((currentValue) => currentValue.source);
   }
 
   public get activeValue(): INamedEntity[] {
@@ -69,10 +68,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   public getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number {
     return Array.isArray(entity)
       ? entity.length
-      : this.toActiveValue(entity).length;
+      : (entity ? this.toActiveValue(entity).length : 0);
   }
 
-  protected toActiveValue(multiEntity: IMultiEntity): INamedEntity[] {
+  private toActiveValue(multiEntity: IMultiEntity): INamedEntity[] {
     const originalValue = multiEntity.source || [];
     const removeValue = multiEntity.remove;
     return originalValue
@@ -82,8 +81,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   private onChangeManually(payload: MultiFieldEntityT<INamedEntity>): void {
-    const activeValueLength = this.getActiveValueLength(payload);
-    this.field.onChangeManually(payload, activeValueLength);
+    this.field.onChangeManually(payload, this.getActiveValueLength(payload));
     this.field.setFocus();
   }
 
@@ -99,16 +97,19 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   private get addValue(): INamedEntity[] {
-    const currentValue = this.value;
-    return Array.isArray(currentValue) ? [] : currentValue.add;
+    return this.extract((currentValue) => currentValue.add);
   }
 
   private get removeValue(): INamedEntity[] {
-    const currentValue = this.value;
-    return Array.isArray(currentValue) ? [] : currentValue.remove;
+    return this.extract((currentValue) => currentValue.remove);
   }
 
   private get value(): MultiFieldEntityT<INamedEntity> {
     return this.field.value;
+  }
+
+  private extract(converter: (value: IMultiEntity) => INamedEntity[]): INamedEntity[] {
+    const currentValue = this.value;
+    return Array.isArray(currentValue) ? currentValue : (currentValue ? converter(currentValue) : []);
   }
 }

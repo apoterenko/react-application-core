@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { isUndef } from '../../../util';
-import { toClassName } from '../../../util';
+import { isDef, toClassName, orNull } from '../../../util';
 import { ITextArea, ITextAreaInternalProps, ITextAreaInternalState } from './textarea.interface';
 import { BasicTextField } from '../textfield';
 import { IFieldTextAreaProps } from '../field';
@@ -20,13 +19,14 @@ export class TextArea extends BasicTextField<TextArea,
   }
 
   protected getComponentAttachment(): JSX.Element {
-    return isUndef(this.props.maxLength)
-        ? null
-        : (
-            <label className='rac-textarea-length-label'>
-              {this.value.length} {this.t('of')} {this.props.maxLength}
-            </label>
-        );
+    return orNull(
+      isDef(this.props.maxLength),
+      () => (
+        <label className='rac-textarea-length-label'>
+          {this.definiteValue.length} {this.t('of')} {this.props.maxLength}
+        </label>
+      )
+    );
   }
 
   protected getFieldBodyClassName(): string {

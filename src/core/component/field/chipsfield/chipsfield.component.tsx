@@ -45,6 +45,7 @@ export class ChipsField extends BasicSelect<ChipsField,
 
   protected onSelect(option: SelectOptionT): void {
     this.multiFieldPlugin.onAddItem({id: option.value, name: option.label});
+    this.setFocus();
   }
 
   protected toDisplayValue(value: AnyT): string {
@@ -58,7 +59,7 @@ export class ChipsField extends BasicSelect<ChipsField,
           {this.multiFieldPlugin.activeValue.map((item) => (
                   <Chip key={uuid()}
                         disabled={this.isDeactivated()}
-                        onClick={() => this.multiFieldPlugin.onDeleteItem(item)}>
+                        onClick={() => this.onDelete(item)}>
                     {this.toDisplayLabel(item)}
                   </Chip>
               )
@@ -71,6 +72,11 @@ export class ChipsField extends BasicSelect<ChipsField,
     const activeValue = this.multiFieldPlugin.activeValue;
     return super.toFilteredOptions(options).filter((option) =>
         !activeValue.find((item) => item.id === option.value));
+  }
+
+  private onDelete(item: INamedEntity): void {
+    this.multiFieldPlugin.onDeleteItem(item);
+    this.setFocus();
   }
 
   private toDisplayLabel(item: INamedEntity): EntityIdT {
