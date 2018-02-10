@@ -1,4 +1,5 @@
-import { INamedEntity, isDef } from '../../../definition.interface';
+import { isDef } from '../../../util';
+import { INamedEntity } from '../../../definition.interface';
 import { IBasicField } from '../field';
 import {
   IMultiEntity,
