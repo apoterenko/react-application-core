@@ -109,7 +109,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   private extract(converter: (value: IMultiEntity) => INamedEntity[],
-                  defaultValue?: MultiFieldEntityT<INamedEntity>): INamedEntity[] {
+                  defaultValue?: INamedEntity[]): INamedEntity[] {
     const currentValue = this.value;
     return Array.isArray(currentValue)
       ? (isDef(defaultValue) ? defaultValue : currentValue)
