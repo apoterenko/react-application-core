@@ -5,7 +5,7 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef, orUndef } from '../../../util';
-import { ChangeEventT, KeyboardEventT, BasicEventT } from '../../../definition.interface';
+import { ChangeEventT, KeyboardEventT, BasicEventT, AnyT } from '../../../definition.interface';
 import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
@@ -100,8 +100,8 @@ export class DateField extends BasicTextField<DateField,
     return super.getFieldPattern() || this.dateTimeSettings.uiDatePattern;
   }
 
-  protected toDisplayValue(): string {
-    return this.formatDate(super.toDisplayValue(this.value));
+  protected toDisplayValue(value: AnyT): string {
+    return this.formatDate(super.toDisplayValue(value));
   }
 
   protected onClick(event: BasicEventT): void {
@@ -110,7 +110,7 @@ export class DateField extends BasicTextField<DateField,
   }
 
   private onAccept(date: Date): void {
-    this.onChangeValue(date, null);
+    this.onChangeManually(date);
     this.setFocus();
   }
 

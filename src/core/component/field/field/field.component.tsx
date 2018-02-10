@@ -192,7 +192,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return this.progress
       ? this.getEmptyDisplayValue()
       : (
-        this.isValuePresent
+        this.isValuePresent(value)
           ? (isUndef(props.displayValue)
               ? value
               : (isFn(props.displayValue)
@@ -274,7 +274,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   protected clearValue(): void {
     this.setFocus();
 
-    if (!this.isValuePresent) {
+    if (!this.isValuePresent()) {
       return;
     }
     this.cleanNativeInputBeforeHTML5Validation();
@@ -290,8 +290,8 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     );
   }
 
-  protected get isValuePresent(): boolean {
-    return !isUndef(this.value) && !R.equals(this.value, this.getEmptyValue());
+  protected isValuePresent(value = this.value): boolean {
+    return !isUndef(value) && !R.equals(value, this.getEmptyValue());
   }
 
   protected get error(): string {

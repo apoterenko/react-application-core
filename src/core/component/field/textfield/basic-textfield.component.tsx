@@ -40,7 +40,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const props = this.props;
     const error = this.error;
     const message = props.message;
-    const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent;
+    const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent();
     const fieldLabel = props.label ? this.t(props.label) : props.children;
 
     return (
@@ -152,7 +152,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         this0.clearValue();
       },
       get disabled(): boolean {
-        return this0.isDeactivated() || !this0.isValuePresent;
+        return this0.isDeactivated() || !this0.isValuePresent();
       },
     };
     this.defaultActions.push(clearAction);
