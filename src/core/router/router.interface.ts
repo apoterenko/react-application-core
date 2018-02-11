@@ -12,7 +12,8 @@ import { IPathable, ITypeable } from '../definition.interface';
 export interface IRoutes {
   profile: string;
   home: string;
-  login: string;
+  signIn: string;
+  signUp: string;
   logout: string;
   accessDenied: string;
 }

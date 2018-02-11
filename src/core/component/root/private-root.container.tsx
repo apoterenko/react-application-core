@@ -16,7 +16,7 @@ export class PrivateRootContainer extends RootContainer {
             : <Component routeParams={this.routeParams}
                          queryParams={this.queryParams}/>;
       } else {
-        return <Redirect to={this.routes.login}/>;
+        return <Redirect to={this.routes.signIn}/>;
       }
     };
     return <Route render={render}/>;

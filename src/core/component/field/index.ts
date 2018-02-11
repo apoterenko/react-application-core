@@ -7,7 +7,6 @@ export * from './select';
 export * from './textarea';
 export * from './checkbox';
 export * from './chipsfield';
-export * from './daterange';
-export * from './datetime';
+export * from './date-range';
 export * from './timefield';
 export * from './numberfield';

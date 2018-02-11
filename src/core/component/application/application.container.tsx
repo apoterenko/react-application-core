@@ -132,7 +132,7 @@ export class ApplicationContainer<TAppState extends ApplicationStateT>
   }
 
   protected registerLogoutRoute(): void {
-    const loginContainer = this.lookupConnectComponentByRoutePath(this.routes.login);
+    const loginContainer = this.lookupConnectComponentByRoutePath(this.routes.signIn);
     if (!loginContainer) {
       ApplicationContainer.logger.warn('[$ApplicationContainer] The login route is not registered.');
     } else {

@@ -11,10 +11,6 @@ export class TimeField extends BasicTextField<TimeField,
                                               ITimeFieldInternalState>
     implements ITimeField {
 
-  public static defaultProps: ITimeFieldInternalProps = {
-    clearAction: false,
-  };
-
   protected getFieldMask(): Array<string|RegExp> {
     return super.getFieldMask() || this.dateTimeSettings.uiTimeMask;
   }

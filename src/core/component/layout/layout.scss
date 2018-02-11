@@ -23,6 +23,21 @@
   @include flex;
 }
 
+// Flex full layout (x2) [FRAMEWORK-]
+.rac-flex-full-x2 {
+  @include flex(2);
+}
+
+// Flex full layout (x4) [FRAMEWORK-]
+.rac-flex-full-x4 {
+  @include flex(4);
+}
+
+// Flex full layout (x8) [FRAMEWORK-]
+.rac-flex-full-x8 {
+  @include flex(8);
+}
+
 // Flex layout separator [FRAMEWORK-]
 .rac-flex-separator {
   @include flex(.1);
