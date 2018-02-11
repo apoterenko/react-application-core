@@ -49,7 +49,7 @@
     "inversify-binding-decorators": "^3.0.0",
     "inversify-inject-decorators": "^3.0.1",
     "matchmedia-polyfill": "^0.3.0",
-    "material-components-web": "^0.28.0",
+    "material-components-web": "^0.30.0",
     "material-ui": "^0.19.1",
     "moment": "^2.18.1",
     "node-sass": "^4.5.3",
