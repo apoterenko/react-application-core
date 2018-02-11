@@ -55,6 +55,16 @@ a {
   min-width: 100%;
 }
 
+// Section [FRAMEWORK-]
+.rac-section, .rac-section-content {
+  padding: 16px;
+}
+
+// Section [FRAMEWORK-]
+.rac-section-content {
+  padding-top: 0;
+}
+
 // Text overflow [FRAMEWORK-]
 .rac-overflow-ellipsis {
   display: inline-block;

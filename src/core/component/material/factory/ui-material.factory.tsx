@@ -44,7 +44,6 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldFocusedLabel = 'mdc-text-field__label--float-above';
   public checkboxInput = 'mdc-checkbox__native-control';
   public cardActions = 'mdc-card__actions';
-  public cardPrimary = 'mdc-card__primary';
   public rippleSurface = 'mdc-ripple-surface';
   public menuAnchor = 'mdc-menu-anchor';
   public menu = 'mdc-menu';
