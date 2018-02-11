@@ -42,8 +42,8 @@ export interface IUIFactory {
   cardPrimary?: string;
   rippleSurface?: string;
   menuAnchor?: string;
-  simpleMenu?: string;
-  simpleMenuItems?: string;
+  menu?: string;
+  menuItems?: string;
 
   makeIcon?(config: UIIconConfigT): JSX.Element;
   makeListItemMetaIcon?(config: UIIconConfigT): JSX.Element;

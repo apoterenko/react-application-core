@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
-import { MDCSimpleMenu } from '@material/menu';
+import { MDCMenu } from '@material/menu';
 
 import { BasicEventT, UNDEF } from '../../definition.interface';
 import { MaterialComponent } from '../../component/material';
@@ -25,7 +25,7 @@ export class Menu extends MaterialComponent<Menu,
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   constructor(props: IMenuInternalProps) {
-    super(props, MDCSimpleMenu);
+    super(props, MDCMenu);
 
     this.onSelect = this.onSelect.bind(this);
     this.onInputClick = this.onInputClick.bind(this);
@@ -36,7 +36,7 @@ export class Menu extends MaterialComponent<Menu,
 
   public componentDidMount(): void {
     super.componentDidMount();
-    this.nativeMdcInstance.listen('MDCSimpleMenu:selected', this.onSelect);
+    this.nativeMdcInstance.listen('MDCMenu:selected', this.onSelect);
     if (this.props.useFilter) {
       // We must handle events through native DOM Api because Material Foundation implementation
       this.eventManager.add(this.field.input, 'click', this.onInputClick);
@@ -44,7 +44,7 @@ export class Menu extends MaterialComponent<Menu,
   }
 
   public componentWillUnmount(): void {
-    this.nativeMdcInstance.unlisten('MDCSimpleMenu:selected', this.onSelect);
+    this.nativeMdcInstance.unlisten('MDCMenu:selected', this.onSelect);
     if (this.props.useFilter) {
       // We must handle events through native DOM Api because Material Foundation implementation
       this.eventManager.remove(this.field.input, 'click', this.onInputClick);
@@ -86,7 +86,7 @@ export class Menu extends MaterialComponent<Menu,
     return (
         <div className={this.uiFactory.menuAnchor}>
           <div ref='self'
-               className={toClassName('rac-menu', this.uiFactory.simpleMenu)}>
+               className={toClassName('rac-menu', this.uiFactory.menu)}>
             {orNull(
                 props.useFilter,
                 () => (
@@ -98,7 +98,7 @@ export class Menu extends MaterialComponent<Menu,
             )}
             <SimpleList twoLine={false}
                         nonInteractive={false}
-                        className={this.uiFactory.simpleMenuItems}>
+                        className={this.uiFactory.menuItems}>
               {menuItemsTpl}
             </SimpleList>
           </div>

@@ -47,8 +47,8 @@ export class UIMaterialFactory implements IUIFactory {
   public cardPrimary = 'mdc-card__primary';
   public rippleSurface = 'mdc-ripple-surface';
   public menuAnchor = 'mdc-menu-anchor';
-  public simpleMenu = 'mdc-simple-menu';
-  public simpleMenuItems = 'mdc-simple-menu__items';
+  public menu = 'mdc-menu';
+  public menuItems = 'mdc-menu__items';
 
   public makeIcon(cfg: UIIconConfigT): JSX.Element {
     if (!cfg) {
@@ -88,7 +88,7 @@ export class UIMaterialFactory implements IUIFactory {
         <div className='mdc-checkbox__background'>
           <svg className='mdc-checkbox__checkmark'
                viewBox='0 0 24 24'>
-            <path className='mdc-checkbox__checkmark__path'
+            <path className='mdc-checkbox__checkmark-path'
                   fill='none'
                   stroke='white'
                   d='M1.73,12.91 8.1,19.28 22.79,4.59'/>
