@@ -8,7 +8,7 @@ import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder, FormModifyPayloadT } from '../../component/form';
 import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
-import { PermissionActionBuilder } from '../../permission';
+import { PermissionsActionBuilder } from '../../permissions';
 import { UserActionBuilder } from '../../user';
 import { TransportActionBuilder } from '../../transport';
 import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../../component/application';
@@ -109,7 +109,7 @@ export class BaseEffects<TApi> {
   }
 
   protected buildPermissionUpdateAction(data: AnyT): IEffectsAction {
-    return PermissionActionBuilder.buildUpdateAction(data);
+    return PermissionsActionBuilder.buildUpdateAction(data);
   }
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {

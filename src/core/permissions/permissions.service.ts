@@ -1,10 +1,10 @@
 import { lazyInject, DI_TYPES, provideInSingleton } from '../di';
 import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage';
-import { IApplicationPermissionService } from './permission.interface';
+import { IApplicationPermissionsService } from './permissions.interface';
 
-@provideInSingleton(PermissionService)
-export class PermissionService<TApplicationAccessConfig>
-    implements IApplicationPermissionService<TApplicationAccessConfig> {
+@provideInSingleton(PermissionsService)
+export class PermissionsService<TApplicationAccessConfig>
+    implements IApplicationPermissionsService<TApplicationAccessConfig> {
 
   @lazyInject(DI_TYPES.NotVersionedStorage) private notVersionedStorage: IApplicationStorage;
 

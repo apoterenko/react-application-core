@@ -1,11 +1,11 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { AnyT } from '../definition.interface';
-import { PERMISSION_UPDATE_ACTION_TYPE } from './permission.interface';
+import { PERMISSIONS_UPDATE_ACTION_TYPE } from './permissions.interface';
 
-export class PermissionActionBuilder {
+export class PermissionsActionBuilder {
 
   public static buildUpdateAction(data: AnyT): IEffectsAction {
-    return EffectsAction.create(PERMISSION_UPDATE_ACTION_TYPE, data);
+    return EffectsAction.create(PERMISSIONS_UPDATE_ACTION_TYPE, data);
   }
 }

@@ -1,7 +1,7 @@
 import { IRouteOptions } from '../../router';
-import { IContainerWrapperCtor } from '../../component/application';
-import { IBaseContainerInternalProps } from '../../component/base';
-import { IApplicationAccessConfig } from '../../permission';
+import { IContainerWrapperCtor } from '../application';
+import { IBaseContainerInternalProps } from '../base';
+import { IApplicationAccessConfig } from '../../permissions';
 import {
   IChangeable,
   IInitialChangesable,

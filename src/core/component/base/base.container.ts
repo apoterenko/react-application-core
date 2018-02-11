@@ -12,18 +12,18 @@ import {
 } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
-import { ApplicationPermissionServiceT } from '../../permission';
+import { ApplicationPermissionsServiceT } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslateT } from '../../translation';
-import { IFormDialog } from '../../component/form';
+import { IFormDialog } from '../form';
 import {
   IBaseContainer,
   IBaseContainerInternalProps,
   IBaseContainerInternalState,
 } from './base.interface';
-import { IUIFactory } from '../../component/factory';
+import { IUIFactory } from '../factory';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState>
@@ -34,7 +34,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslateT;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<ApplicationStateT>;
-  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
   @lazyInject(DI_TYPES.Routes) protected routes: IRoutes;

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { ApplicationStateT } from '../../../store';
-import { CenterLayout } from '../../../component/layout';
-import { connector, defaultMappers } from '../../../component/connector';
+import { CenterLayout } from '../../layout';
+import { connector, defaultMappers } from '../../connector';
 import { ContainerVisibilityTypeEnum } from '../../../router';
-import { BaseContainer } from '../../../component/base';
-import { DefaultLayoutContainer } from '../../../component/layout';
-import { IApplicationAccessConfig } from '../../../permission';
+import { BaseContainer } from '../../base';
+import { DefaultLayoutContainer } from '../../layout';
+import { IApplicationAccessConfig } from '../../../permissions';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 
 @connector<ApplicationStateT, IApplicationAccessConfig>({

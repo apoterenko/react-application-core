@@ -3,8 +3,8 @@ import { ComponentLifecycle } from 'react';
 import { RouteOptionsT } from '../../router';
 import { IInitialChangesable, IKeyValue } from '../../definition.interface';
 import { IApplicationState, ApplicationStateT } from '../../store';
-import { IApplicationAccessConfig } from '../../permission';
-import { IBaseContainerInternalProps } from '../../component/base';
+import { IApplicationAccessConfig } from '../../permissions';
+import { IBaseContainerInternalProps } from '../base';
 
 export interface IBasicConnectorConfig<TAppState extends ApplicationStateT>
     extends IInitialChangesable<TAppState> {

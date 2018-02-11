@@ -8,5 +8,5 @@ import '../settings/settings.module';
 import '../translation/translation.module';
 import '../api/entity/modify-entity-payload-factory.module';
 import '../component/field/field.module';
-import '../permission/permission.module';
+import '../permissions/permissions.module';
 import './application.effects';

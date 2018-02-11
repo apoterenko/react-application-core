@@ -5,7 +5,7 @@ import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage';
 import { ApplicationStateT, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
-import { ApplicationPermissionServiceT, PERMISSION_DESTROY_ACTION_TYPE } from '../permission';
+import { ApplicationPermissionsServiceT, PERMISSIONS_DESTROY_ACTION_TYPE } from '../permissions';
 import { ApplicationActionBuilder } from '../component/application';
 import { IApplicationSettings } from '../settings';
 import { LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, LockContainerT } from '../lock';
@@ -19,7 +19,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.NotVersionedStorage) protected notVersionedStorage: IApplicationStorage;
-  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionServiceT;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
 
   @EffectsService.effects(ApplicationActionBuilder.buildInitActionType())
   public onInit(): IEffectsAction[] {
@@ -34,7 +34,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
     const actions: IEffectsAction[] = this.permissionService.isAuthorized()
         ? [
           EffectsAction.create(USER_DESTROY_ACTION_TYPE),
-          EffectsAction.create(PERMISSION_DESTROY_ACTION_TYPE),
+          EffectsAction.create(PERMISSIONS_DESTROY_ACTION_TYPE),
           this.buildApplicationDestroyTokenAction()
         ]
         : [];

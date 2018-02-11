@@ -37,7 +37,7 @@ export * from './logic';
 export * from './navigation';
 export * from './notification';
 export * from './operation';
-export * from './permission';
+export * from './permissions';
 export * from './router';
 export * from './settings';
 export * from './storage';

@@ -5,8 +5,8 @@ import {
   IStylizable,
   ITypeable,
 } from '../../../definition.interface';
-import { IBaseComponentInternalProps } from '../../../component/base';
-import { IApplicationAccessConfig } from '../../../permission';
+import { IBaseComponentInternalProps } from '../../base';
+import { IApplicationAccessConfig } from '../../../permissions';
 
 export enum NavigationListItemTypeEnum {
   GROUP,

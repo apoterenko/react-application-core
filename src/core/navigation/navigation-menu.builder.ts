@@ -3,14 +3,14 @@ import {
   lazyInject,
   DI_TYPES,
 } from '../di';
-import { ApplicationPermissionServiceT } from '../permission';
+import { ApplicationPermissionsServiceT } from '../permissions';
 import { INavigationListItemOptions, NavigationListItemTypeEnum } from '../component/list';
 import { ApplicationTranslateT } from '../translation';
 
 @provideInSingleton(NavigationMenuBuilder)
 export class NavigationMenuBuilder {
 
-  @lazyInject(DI_TYPES.Permission) private permissionService: ApplicationPermissionServiceT;
+  @lazyInject(DI_TYPES.Permission) private permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.Menu) private menu: INavigationListItemOptions[];
   @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslateT;
 
