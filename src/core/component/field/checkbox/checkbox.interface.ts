@@ -1,4 +1,4 @@
-import { IFieldInternalState, IFieldInternalProps } from '../field/field.interface';
+import { IFieldInternalState, IFieldInternalProps } from '../field';
 
 export interface ICheckboxInternalState extends IFieldInternalState {
 }

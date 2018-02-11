@@ -1,6 +1,7 @@
 export * from './datefield';
 export * from './field';
 export * from './filefield';
+export * from './imagefield';
 export * from './multifield';
 export * from './textfield';
 export * from './select';

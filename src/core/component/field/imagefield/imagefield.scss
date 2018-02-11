@@ -1,0 +1,16 @@
+// Image field [FRAMEWORK-]
+.rac-form-field {
+  .rac-image-field {
+    width: 100%;
+
+    .rac-image-empty {
+      width: 100px;
+      height: 100px;
+    }
+
+    .rac-image {
+      max-width: 100px;
+      max-height: 100px;
+    }
+  }
+}

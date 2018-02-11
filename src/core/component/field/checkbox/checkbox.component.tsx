@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BasicEventT } from '../../../definition.interface';
-import { Field, IFieldInputProps } from '../../../component/field';
+import { Field, IFieldInputProps } from '../../field';
 import { toClassName, uuid } from '../../../util';
 import {
   ICheckboxInternalState,
@@ -20,11 +20,7 @@ export class Checkbox extends Field<Checkbox,
     return (
         <div className={this.getFieldClassName()}>
           <div ref='self'
-               className={toClassName(
-                 this.uiFactory.checkbox,
-                 'rac-checkbox-field',
-                 props.className,
-               )}>
+               className={toClassName(this.uiFactory.checkbox, 'rac-checkbox-field')}>
             {this.getComponent()}
             {this.uiFactory.makeCheckboxAttachment()}
           </div>
@@ -33,10 +29,6 @@ export class Checkbox extends Field<Checkbox,
           </label>
         </div>
     );
-  }
-
-  protected getComponent(): JSX.Element {
-    return <input {...this.getComponentProps()}/>;
   }
 
   protected getComponentProps(): IFieldInputProps {
@@ -62,9 +54,5 @@ export class Checkbox extends Field<Checkbox,
 
   protected getEmptyValue(): boolean {
     return false;
-  }
-
-  protected getEmptyDisplayValue(): boolean {
-    return this.getEmptyValue();
   }
 }

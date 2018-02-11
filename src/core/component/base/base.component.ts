@@ -2,12 +2,12 @@ import { PureComponent } from 'react';
 
 import { BasicEventT } from '../../definition.interface';
 import { lazyInject, DI_TYPES } from '../../di';
-import { IUIFactory } from '../../component/factory';
+import { IUIFactory } from '../factory';
 import {
   ComponentPluginFactoryT,
   IComponentPlugin,
   IComponentPluginCtor,
-} from '../../component/plugin';
+} from '../plugin';
 import {
   IBaseComponent,
   IBaseComponentInternalProps,
@@ -52,17 +52,17 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     this.plugins.forEach((plugin) => plugin.componentWillUnmount && plugin.componentWillUnmount());
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: any): void {
+  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: {}): void {
     this.plugins.forEach((plugin) =>
         plugin.componentWillReceiveProps && plugin.componentWillReceiveProps(nextProps, nextContext));
   }
 
-  public componentDidUpdate(prevProps: Readonly<TInternalProps>, prevState: Readonly<TInternalState>, prevContext: any): void {
+  public componentDidUpdate(prevProps: Readonly<TInternalProps>, prevState: Readonly<TInternalState>, prevContext: {}): void {
     this.plugins.forEach((plugin) =>
         plugin.componentDidUpdate && plugin.componentDidUpdate(prevProps, prevState, prevContext));
   }
 
-  public componentWillUpdate(nextProps: Readonly<TInternalProps>, nextState: Readonly<TInternalState>, nextContext: any): void {
+  public componentWillUpdate(nextProps: Readonly<TInternalProps>, nextState: Readonly<TInternalState>, nextContext: {}): void {
     this.plugins.forEach((plugin) =>
         plugin.componentWillUpdate && plugin.componentWillUpdate(nextProps, nextState, nextContext));
   }

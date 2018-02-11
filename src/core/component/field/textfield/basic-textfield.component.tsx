@@ -115,7 +115,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             placeholderChar={nvl(props.maskPlaceholderChar, BasicTextField.DEFAULT_MASK_PLACEHOLDER_CHAR)}
             mask={mask}
             {...this.getComponentProps()}/>
-        : <input {...this.getComponentProps() as IFieldInputProps}/>;
+        : super.getComponent();
   }
 
   protected getAttachment(): JSX.Element {

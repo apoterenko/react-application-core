@@ -21,9 +21,9 @@ import {
   INativeMaskedInputComponent,
 } from './field.interface';
 
-export abstract class Field<TComponent extends IField<TInternalProps, TInternalState>,
-                            TInternalProps extends IFieldInternalProps,
-                            TInternalState extends IFieldInternalState>
+export class Field<TComponent extends IField<TInternalProps, TInternalState>,
+                   TInternalProps extends IFieldInternalProps,
+                   TInternalState extends IFieldInternalState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
     implements IField<TInternalProps, TInternalState>, IProgressable {
 
@@ -141,7 +141,9 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
     return isUndef(this.value) ? this.getEmptyValue() : this.value;
   }
 
-  protected abstract getComponent(): JSX.Element;
+  protected getComponent(): JSX.Element {
+    return <input {...this.getComponentProps() as IFieldInputProps}/>;
+  }
 
   protected getComponentProps(): IFieldInputProps|IFieldTextAreaProps {
     const props = this.props;
@@ -269,11 +271,13 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected getFieldClassName(): string {
+    const props = this.props;
     return toClassName(
-        this.uiFactory.formField,
-        'rac-form-field',
-        'rac-flex-full',
-        this.isDeactivated() && 'rac-form-field-disabled'
+      this.uiFactory.formField,
+      props.className,
+      'rac-form-field',
+      !(props.className || '').includes('rac-flex-full') && 'rac-flex-full',
+      this.isDeactivated() && 'rac-form-field-disabled'
     );
   }
 
@@ -310,7 +314,7 @@ export abstract class Field<TComponent extends IField<TInternalProps, TInternalS
   }
 
   protected getEmptyDisplayValue(): AnyT {
-    return Field.EMPTY_VALUE;
+    return this.getEmptyValue();
   }
 
   private validateValueAndSetCustomValidity(value: AnyT): string {

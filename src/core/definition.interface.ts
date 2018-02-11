@@ -95,6 +95,12 @@ export interface IPasswordable {
   password?: string;
 }
 
+export const IMAGE_FIELD_NAME = 'image';
+
+export interface IImageable {
+  image?: string;
+}
+
 export interface ILabelable {
   label?: string;
 }
