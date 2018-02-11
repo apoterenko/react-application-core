@@ -13,11 +13,9 @@ export class FormLayoutContainer extends LayoutContainer<IFormLayoutInternalProp
           <div className='mdc-layout-grid__inner'>
             <div className='mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid__cell--align-middle'>
               <div className='mdc-card'>
-                <section className='mdc-card__media rac-header'>
-                  <h1 className='mdc-card__title mdc-card__title--large'>
-                    {this.t(props.title)}
-                  </h1>
-                  <h2 className='mdc-card__subtitle'>{this.settings.companyName}</h2>
+                <section className='rac-header rac-section'>
+                  <h3 className='rac-header-title'>{this.t(props.title)}</h3>
+                  <h5 className='rac-header-subtitle'>{this.settings.companyName}</h5>
                 </section>
                 {props.children}
                 {props.footer}

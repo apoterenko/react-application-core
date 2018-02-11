@@ -4,6 +4,10 @@
 // Header [FRAMEWORK-]
 .rac-header {
 
+  .rac-header-title, .rac-header-subtitle {
+    margin: 4px 0;
+  }
+
   &.rac-header-search-toolbar-active {
     .rac-search-toolbar {
       animation: headerSearchToolbarAnimationRule;                       // [RAC+]
