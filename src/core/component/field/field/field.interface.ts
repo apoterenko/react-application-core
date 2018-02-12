@@ -5,6 +5,7 @@ import {
   BasicEventT,
   FocusEventT,
   IEntity,
+  IDisplayValueWrapper,
   INameable,
   KeyboardEventT,
   IDisableable,
@@ -12,16 +13,22 @@ import {
   IValueable,
   IOriginalValueable,
   IReadonlyable,
-  IDisplayable,
+  IDisplayNameWrapper,
   ILabelable,
   IPlaceholderable,
-  IDisplayValueable,
   IStepable,
   ChangeEventT,
   IMaskable,
   IErrorable,
 } from '../../../definition.interface';
-import { IBaseComponent, IBaseComponentInternalProps } from '../../../component/base';
+import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
+
+export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: FieldT) => string;
+
+export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
+
+export interface IFieldDisplayValueWrapper<TValue> extends IDisplayValueWrapper<string|IFieldDisplayValueConverter<TValue>> {
+}
 
 export interface IKeyboardHandlers {
   onKeyEnter?(event: KeyboardEventT): void;
@@ -34,7 +41,7 @@ export interface IKeyboardHandlers {
 }
 
 export interface IFieldOptions extends ILabelable,
-                                       IDisplayable,
+                                       IDisplayNameWrapper,
                                        IMaskable,
                                        ITypeable<string>,
                                        IPlaceholderable {
@@ -53,7 +60,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IReadonlyable,
                                              IValueable<AnyT>,
                                              IOriginalValueable<AnyT>,
-                                             IDisplayValueable<AnyT> {
+                                             IFieldDisplayValueWrapper<AnyT> {
   noErrorMessage?: boolean;
   noInfoMessage?: boolean;
   renderCondition?: boolean;
@@ -108,3 +115,4 @@ export interface IField<TInternalProps extends IFieldInternalProps,
 }
 
 export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
+

@@ -81,14 +81,12 @@ export interface IOriginalValueable<TValue> {
   originalValue?: TValue;
 }
 
-export interface IDisplayValueable<TValue> {
-  displayValue?: string|IDisplayableConverter<TValue>;
+export interface IDisplayNameWrapper {
+  displayName?: string;
 }
 
-export type IDisplayableConverter<TValue> = (value: TValue, valueable?: IValueable<TValue>) => string;
-
-export interface IDisplayable {
-  displayName?: string;
+export interface IDisplayValueWrapper<TDisplay> {
+  displayValue?: TDisplay;
 }
 
 export interface IPasswordable {

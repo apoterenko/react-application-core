@@ -7,7 +7,6 @@ import {
   BasicEventT,
   ChangeEventT,
   FocusEventT,
-  IDisplayableConverter,
   KeyboardEventT,
   IProgressable,
 } from '../../../definition.interface';
@@ -19,6 +18,8 @@ import {
   IFieldInternalState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
+  IFieldDisplayValueConverter,
+  FieldDisplayValueConverterT,
 } from './field.interface';
 
 export class Field<TComponent extends IField<TInternalProps, TInternalState>,
@@ -191,7 +192,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
           ? (isUndef(props.displayValue)
               ? value
               : (isFn(props.displayValue)
-                  ? (props.displayValue as IDisplayableConverter<AnyT>)(value, this.props)
+                  ? (props.displayValue as FieldDisplayValueConverterT)(value, this)
                   : props.displayValue))
           : this.getEmptyDisplayValue()
       );

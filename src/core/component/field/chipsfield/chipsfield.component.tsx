@@ -7,10 +7,9 @@ import {
   INamedEntity,
   KeyboardEventT,
   NAME_FIELD_NAME,
-  AnyT,
 } from '../../../definition.interface';
-import { uuid } from '../../../util';
-import { BasicSelect, SelectOptionT, MultiFieldPlugin } from '../../field';
+import { uuid, orDefault } from '../../../util';
+import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldEntityT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';
 import {
   IChipsFieldInternalProps,
@@ -27,6 +26,14 @@ export class ChipsField extends BasicSelect<ChipsField,
     valuesMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,
+    displayValue: (value: MultiFieldEntityT<INamedEntity>, field: ChipsField) => {
+      const len = field.multiFieldPlugin.getActiveValueLength(value);
+      return orDefault(
+        len > 0,
+        () => Printf.sprintf(field.t(field.props.valuesMessage), len),
+        field.getEmptyDisplayValue()
+      );
+    },
   };
 
   private multiFieldPlugin = new MultiFieldPlugin(this);
@@ -46,11 +53,6 @@ export class ChipsField extends BasicSelect<ChipsField,
   protected onSelect(option: SelectOptionT): void {
     this.multiFieldPlugin.onAddItem({id: option.value, name: option.label});
     this.setFocus();
-  }
-
-  protected toDisplayValue(value: AnyT): string {
-    const len = this.multiFieldPlugin.getActiveValueLength(value);
-    return len ? Printf.sprintf(this.t(this.props.valuesMessage), len) : '';
   }
 
   protected getAttachment(): JSX.Element {
