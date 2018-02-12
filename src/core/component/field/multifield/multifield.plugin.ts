@@ -1,5 +1,5 @@
-import { isDef } from '../../../util';
-import { INamedEntity } from '../../../definition.interface';
+import { isDef, isPrimitive } from '../../../util';
+import { INamedEntity, EntityIdT } from '../../../definition.interface';
 import { IBasicField } from '../field';
 import {
   IMultiEntity,
@@ -66,10 +66,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     });
   }
 
-  public getActiveValueLength(entity: MultiFieldEntityT<INamedEntity>): number {
-    return Array.isArray(entity)
-      ? entity.length
-      : (entity ? this.toActiveValue(entity).length : 0);
+  public getActiveValueLength(value: MultiFieldEntityT<INamedEntity>|EntityIdT): number {
+    return this.isNotMultiEntity(value)
+      ? [].concat(value).length
+      : (value ? this.toActiveValue(value as IMultiEntity).length : 0);
   }
 
   private toActiveValue(multiEntity: IMultiEntity): INamedEntity[] {
@@ -104,15 +104,22 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     return this.extract((currentValue) => currentValue.remove, []);
   }
 
-  private get value(): MultiFieldEntityT<INamedEntity> {
+  private get value(): MultiFieldEntityT<INamedEntity>|EntityIdT {
     return this.field.value;
   }
 
   private extract(converter: (value: IMultiEntity) => INamedEntity[],
                   defaultValue?: INamedEntity[]): INamedEntity[] {
     const currentValue = this.value;
-    return Array.isArray(currentValue)
-      ? (isDef(defaultValue) ? defaultValue : currentValue)
-      : (currentValue ? converter(currentValue) : []);
+    const isCurrentValuePrimitive = isPrimitive(currentValue);
+    return this.isNotMultiEntity(currentValue)
+      ? (isDef(defaultValue)
+          ? defaultValue
+          : (isCurrentValuePrimitive ? [{id: currentValue as EntityIdT}] : currentValue as INamedEntity[]))
+      : (currentValue ? converter(currentValue as IMultiEntity) : []);
+  }
+
+  private isNotMultiEntity(value: MultiFieldEntityT<INamedEntity>|EntityIdT): boolean {
+    return Array.isArray(value) || isPrimitive(value);
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BasicTextField, IBasicTextFieldAction } from '../../field/textfield';
+import { BasicTextField, IBasicTextFieldAction } from '../textfield';
 import { DnD, IDnd } from '../../dnd';
 import {
   BasicEventT,
@@ -9,6 +9,7 @@ import {
   KeyboardEventT,
   AnyT,
 } from '../../../definition.interface';
+import { MultiFieldPlugin } from '../multifield';
 import {
   IBasicFileFieldInternalState,
   IBasicFileFieldInternalProps,
@@ -19,6 +20,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
                             TInternalState extends IBasicFileFieldInternalState>
     extends BasicTextField<TComponent, TInternalProps, TInternalState> {
 
+  protected multiFieldPlugin = new MultiFieldPlugin(this);
   private filesMap = new Map<string, File>();
 
   constructor(props: TInternalProps) {
@@ -72,13 +74,18 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
 
     this.filesMap.set(fileUrl , selectedFile);
 
-    this.onChangeManually(fileUrl);
+    this.multiFieldPlugin.onAddItem({id: fileUrl});
     this.setFocus();
   }
 
   protected clearValue(): void {
-    this.filesMap.delete(this.value);
-    super.clearValue();
+    const currentValue = this.value;
+    this.filesMap.delete(currentValue);
+    this.setFocus();
+
+    if (this.isValuePresent()) {
+      this.multiFieldPlugin.onDeleteItem({id: currentValue});
+    }
   }
 
   private get dnd(): IDnd {

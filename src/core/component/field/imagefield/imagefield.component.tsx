@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { BasicEventT } from '../../../definition.interface';
-import { Field, IFieldInputProps } from '../../field';
+import { Field, IFieldInputProps, IMultiEntity } from '../../field';
 import { CenterLayout } from '../../layout';
-import { toClassName } from '../../../util';
+import { Picture } from '../../picture';
+import { isPrimitive, orNull } from '../../../util';
 import {
   IImageFieldInternalState,
   IImageFieldInternalProps,
@@ -14,19 +14,12 @@ export class ImageField extends Field<ImageField,
                                       IImageFieldInternalState> {
 
   public render(): JSX.Element {
-    const props = this.props;
-
     return (
       <div className={this.getFieldClassName()}>
         <CenterLayout ref='self'
                       className='rac-image-field'>
           {this.getComponent()}
-          <img className={toClassName(
-                  !props.value && 'rac-image-empty',
-                  props.value && 'rac-image'
-                )}
-               style={props.style}
-               src={props.value}/>
+          <Picture src={this.src}/>
         </CenterLayout>
       </div>
     );
@@ -37,5 +30,15 @@ export class ImageField extends Field<ImageField,
       ...super.getComponentProps() as IFieldInputProps,
       type: 'hidden',
     };
+  }
+
+  private get src(): string {
+    const value = this.props.value;
+    if (isPrimitive(value)) {
+      return value;
+    }
+    const valueAsMultiEntity = value as IMultiEntity;
+    const add = valueAsMultiEntity.add;
+    return orNull(add.length, () => add[0].id as string);
   }
 }
