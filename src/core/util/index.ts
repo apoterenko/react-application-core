@@ -1,3 +1,4 @@
+export * from './blob';
 export * from './clone';
 export * from './uuid';
 export * from './fn';

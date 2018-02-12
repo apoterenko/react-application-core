@@ -2,10 +2,8 @@ import * as React from 'react';
 
 import {
   EntityIdT,
-  ID_FIELD_NAME,
   INamedEntity,
   KeyboardEventT,
-  NAME_FIELD_NAME,
 } from '../../../definition.interface';
 import { uuid } from '../../../util';
 import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldEntityT } from '../../field';
@@ -20,8 +18,6 @@ export class ChipsField extends BasicSelect<ChipsField,
                                             IChipsFieldInternalState> {
 
   public static defaultProps: IChipsFieldInternalProps = {
-    valueField: ID_FIELD_NAME,
-    labelField: NAME_FIELD_NAME,
     displayMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,

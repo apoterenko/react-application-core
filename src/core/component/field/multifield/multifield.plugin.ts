@@ -7,11 +7,11 @@ import {
   IMultiFieldPlugin,
   MultiFieldEntityT,
 } from './multifield.interface';
+import { toActualEntities } from './multifield.converter';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
-  constructor(private field: IBasicField<MultiFieldEntityT<INamedEntity>>,
-              private entityAccessor?: (entity) => INamedEntity) {
+  constructor(private field: IBasicField<MultiFieldEntityT<INamedEntity>>) {
   }
 
   public onAddItem(item: INamedEntity): void {
@@ -59,7 +59,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   public get activeValue(): INamedEntity[] {
-    return this.toActiveValue({
+    return toActualEntities({
       source: this.originalValue || [],
       remove: this.removeValue,
       add: this.addValue,
@@ -69,16 +69,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   public getActiveValueLength(value: MultiFieldEntityT<INamedEntity>|EntityIdT): number {
     return this.isNotMultiEntity(value)
       ? [].concat(value).length
-      : (value ? this.toActiveValue(value as IMultiEntity).length : 0);
-  }
-
-  private toActiveValue(multiEntity: IMultiEntity): INamedEntity[] {
-    const originalValue = multiEntity.source || [];
-    const removeValue = multiEntity.remove;
-    return originalValue
-      .map((entity) => this.entityAccessor ? this.entityAccessor(entity) : entity)
-      .concat(multiEntity.add)
-      .filter((item) => !removeValue.find((removeItem) => removeItem.id === item.id));
+      : (value ? toActualEntities(value as IMultiEntity).length : 0);
   }
 
   private onChangeManually(payload: MultiFieldEntityT<INamedEntity>): void {

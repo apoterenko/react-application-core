@@ -1,19 +1,22 @@
 import { IEntity, EntityIdT, UNDEF } from '../../../definition.interface';
-import { IMultiEntity } from './multifield.interface';
+import { orUndef } from '../../../util';
+import { IMultiEntity, MultiFieldEntityT } from './multifield.interface';
 
-export function toEntityIds(multiFieldValue: IMultiEntity | IEntity[]): EntityIdT[] {
+export function toActualEntities(multiFieldValue: MultiFieldEntityT<IEntity>): IEntity[] {
   if (!multiFieldValue) {
     return UNDEF;
   }
-  const multiFieldAttributes = multiFieldValue as IMultiEntity;
-  return (
-      Array.isArray(multiFieldValue)
-          ? multiFieldValue as IEntity[]
-          : multiFieldAttributes && multiFieldAttributes.add
-              .concat(
-                  (multiFieldAttributes.source || [])
-                      .filter((entity) => !multiFieldAttributes.remove
-                          .find((removeId) => removeId.id === entity.id))
-              )
-  ).map((entity) => entity.id);
+  const multiEntity = multiFieldValue as IMultiEntity;
+  if (Array.isArray(multiFieldValue)) {
+    return multiFieldValue as IEntity[];
+  }
+  return multiEntity.add.concat(
+    (multiEntity.source || [])
+      .filter((entity) => !multiEntity.remove.find((removeId) => removeId.id === entity.id))
+  );
+}
+
+export function toEntityIds(multiFieldValue: MultiFieldEntityT<IEntity>): EntityIdT[] {
+  const result = toActualEntities(multiFieldValue);
+  return orUndef(result, () => result.map((entity) => entity.id));
 }

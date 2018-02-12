@@ -31,6 +31,10 @@ export interface INamedEntity extends IIdentifiedEntity,
                                       INameable {
 }
 
+export interface IBlobEntity extends IIdentifiable<string> {
+  blob: Blob;
+}
+
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
 }
 
