@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Printf from 'sprintf-js';
 
 import {
   EntityIdT,
@@ -8,7 +7,7 @@ import {
   KeyboardEventT,
   NAME_FIELD_NAME,
 } from '../../../definition.interface';
-import { uuid, orDefault } from '../../../util';
+import { uuid } from '../../../util';
 import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldEntityT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';
 import {
@@ -23,16 +22,12 @@ export class ChipsField extends BasicSelect<ChipsField,
   public static defaultProps: IChipsFieldInternalProps = {
     valueField: ID_FIELD_NAME,
     labelField: NAME_FIELD_NAME,
-    valuesMessage: '%d value(s)',
+    displayMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,
     displayValue: (value: MultiFieldEntityT<INamedEntity>, field: ChipsField) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
-      return orDefault(
-        len > 0,
-        () => Printf.sprintf(field.t(field.props.valuesMessage), len),
-        field.getEmptyDisplayValue()
-      );
+      return field.printfDisplayMessage(len > 0, len);
     },
   };
 

@@ -89,6 +89,10 @@ export interface IDisplayValueWrapper<TDisplay> {
   displayValue?: TDisplay;
 }
 
+export interface IDisplayMessageWrapper {
+  displayMessage?: string;
+}
+
 export interface IPasswordable {
   password?: string;
 }

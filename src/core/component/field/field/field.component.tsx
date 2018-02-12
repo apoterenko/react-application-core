@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import * as Printf from 'sprintf-js';
 
-import { isFn, isUndef, isDef, noop, toClassName } from '../../../util';
+import { isFn, isUndef, isDef, noop, toClassName, orDefault } from '../../../util';
 import {
   AnyT,
   BasicEventT,
@@ -196,6 +197,15 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                   : props.displayValue))
           : this.getEmptyDisplayValue()
       );
+  }
+
+  protected printfDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
+    const props = this.props;
+    return orDefault(
+      usePrintf,
+      () => Printf.sprintf(this.t(props.displayMessage), ...args),
+      this.getEmptyDisplayValue()
+    );
   }
 
   protected onFocus(event: FocusEventT): void {

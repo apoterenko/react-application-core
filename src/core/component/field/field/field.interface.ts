@@ -20,6 +20,7 @@ import {
   ChangeEventT,
   IMaskable,
   IErrorable,
+  IDisplayMessageWrapper,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
 
@@ -41,6 +42,7 @@ export interface IKeyboardHandlers {
 }
 
 export interface IFieldOptions extends ILabelable,
+                                       IDisplayMessageWrapper,
                                        IDisplayNameWrapper,
                                        IMaskable,
                                        ITypeable<string>,
