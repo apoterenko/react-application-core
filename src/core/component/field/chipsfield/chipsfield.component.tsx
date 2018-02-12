@@ -4,9 +4,10 @@ import {
   EntityIdT,
   INamedEntity,
   KeyboardEventT,
+  IEntity,
 } from '../../../definition.interface';
 import { uuid } from '../../../util';
-import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldEntityT } from '../../field';
+import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldValueT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';
 import {
   IChipsFieldInternalProps,
@@ -21,7 +22,7 @@ export class ChipsField extends BasicSelect<ChipsField,
     displayMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,
-    displayValue: (value: MultiFieldEntityT<INamedEntity>, field: ChipsField) => {
+    displayValue: (value: MultiFieldValueT<IEntity>, field: ChipsField) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
       return field.printfDisplayMessage(len > 0, len);
     },

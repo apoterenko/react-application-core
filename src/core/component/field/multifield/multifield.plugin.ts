@@ -1,28 +1,30 @@
-import { isDef, isPrimitive } from '../../../util';
-import { INamedEntity, EntityIdT } from '../../../definition.interface';
+import { IEntity } from '../../../definition.interface';
 import { IBasicField } from '../field';
+import { isDef, orDefault } from '../../../util';
 import {
   IMultiEntity,
   IMultiFieldChangesResult,
   IMultiFieldPlugin,
   MultiFieldEntityT,
+  MultiFieldValueT,
+  NotMultiFieldEntityT,
 } from './multifield.interface';
-import { toActualEntities } from './multifield.converter';
+import { toActualEntities, normalizeEntities, isNotMultiEntity, toActualEntitiesLength } from './multifield.converter';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
-  constructor(private field: IBasicField<MultiFieldEntityT<INamedEntity>>) {
+  constructor(private field: IBasicField<MultiFieldEntityT<IEntity>>) {
   }
 
-  public onAddItem(item: INamedEntity): void {
+  public onAddItem(item: IEntity): void {
     this.onChangeManually(this.toChangesPayload(this.onAdd(item)));
   }
 
-  public onDeleteItem(item: INamedEntity): void {
+  public onDeleteItem(item: IEntity): void {
     this.onChangeManually(this.toChangesPayload(this.onDelete(item)));
   }
 
-  public onAdd(item: INamedEntity): IMultiFieldChangesResult {
+  public onAdd(item: IEntity): IMultiFieldChangesResult {
     const removeValue = this.removeValue;
     const addValue = this.addValue;
     const removeLen = removeValue.length;
@@ -30,12 +32,12 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     let addArray = addValue;
 
     if (removeArray.length === removeLen) {
-      addArray = addValue.concat({...item});
+      addArray = addValue.concat({ ...item });
     }
-    return {addArray, removeArray};
+    return { addArray, removeArray };
   }
 
-  public onDelete(item: INamedEntity): IMultiFieldChangesResult {
+  public onDelete(item: IEntity): IMultiFieldChangesResult {
     const removeValue = this.removeValue;
     const addValue = this.addValue;
     const deletedValue = item.id;
@@ -44,73 +46,64 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     let removeArray = removeValue;
 
     if (addArray.length === addLen) {
-      const deletedEntity: INamedEntity = {id: deletedValue};
+      const deletedEntity: IEntity = { id: deletedValue };
       if (this.originalValue.find((entity) => entity.id === deletedValue)) {
         removeArray = [deletedEntity].concat(removeValue);
       } else {
         removeArray = [].concat(removeValue);
       }
     }
-    return {addArray, removeArray};
+    return { addArray, removeArray };
   }
 
-  public get originalValue(): INamedEntity[] {
+  public get originalValue(): IEntity[] {
     return this.extract((currentValue) => currentValue.source);
   }
 
-  public get activeValue(): INamedEntity[] {
-    return toActualEntities({
-      source: this.originalValue || [],
-      remove: this.removeValue,
-      add: this.addValue,
-    });
+  public get activeValue(): IEntity[] {
+    return toActualEntities({ source: this.originalValue, remove: this.removeValue, add: this.addValue });
   }
 
-  public getActiveValueLength(value: MultiFieldEntityT<INamedEntity>|EntityIdT): number {
-    return this.isNotMultiEntity(value)
-      ? [].concat(value).length
-      : (value ? toActualEntities(value as IMultiEntity).length : 0);
+  public getActiveValueLength(value: MultiFieldValueT<IEntity>): number {
+    return toActualEntitiesLength(value);
   }
 
-  private onChangeManually(payload: MultiFieldEntityT<INamedEntity>): void {
+  private onChangeManually(payload: MultiFieldEntityT<IEntity>): void {
     this.field.onChangeManually(payload, this.getActiveValueLength(payload));
   }
 
-  private toChangesPayload(result: IMultiFieldChangesResult): MultiFieldEntityT<INamedEntity> {
+  private toChangesPayload(result: IMultiFieldChangesResult): MultiFieldEntityT<IEntity> {
     const add = result.addArray;
     const remove = result.removeArray;
 
     if (add.length || remove.length) {
-      return {add, remove, source: this.originalValue};
+      return { add, remove, source: this.originalValue };
     } else {
       return this.originalValue;
     }
   }
 
-  private get addValue(): INamedEntity[] {
+  private get addValue(): IEntity[] {
     return this.extract((currentValue) => currentValue.add, []);
   }
 
-  private get removeValue(): INamedEntity[] {
+  private get removeValue(): IEntity[] {
     return this.extract((currentValue) => currentValue.remove, []);
   }
 
-  private get value(): MultiFieldEntityT<INamedEntity>|EntityIdT {
+  private get value(): MultiFieldValueT<IEntity> {
     return this.field.value;
   }
 
-  private extract(converter: (value: IMultiEntity) => INamedEntity[],
-                  defaultValue?: INamedEntity[]): INamedEntity[] {
+  private extract(converter: (value: IMultiEntity) => IEntity[],
+                  defaultValue?: IEntity[]): IEntity[] {
     const currentValue = this.value;
-    const isCurrentValuePrimitive = isPrimitive(currentValue);
-    return this.isNotMultiEntity(currentValue)
-      ? (isDef(defaultValue)
-          ? defaultValue
-          : (isCurrentValuePrimitive ? [{id: currentValue as EntityIdT}] : currentValue as INamedEntity[]))
+    return isNotMultiEntity(currentValue)
+      ? orDefault<IEntity[], IEntity[]>(
+          isDef(defaultValue),
+          defaultValue,
+          () => normalizeEntities(currentValue as NotMultiFieldEntityT<IEntity>)
+      )
       : (currentValue ? converter(currentValue as IMultiEntity) : []);
-  }
-
-  private isNotMultiEntity(value: MultiFieldEntityT<INamedEntity>|EntityIdT): boolean {
-    return Array.isArray(value) || isPrimitive(value);
   }
 }
