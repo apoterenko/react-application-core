@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
-import { isFn, isUndef, isDef, noop, toClassName, orDefault } from '../../../util';
+import { isFn, isUndef, isDef, noop, toClassName, orDefault, orNull } from '../../../util';
 import {
   AnyT,
   BasicEventT,
@@ -175,7 +175,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
       ref: 'input',
       value: this.displayValue,
       className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
-      placeholder: props.placeholder ? this.t(props.placeholder) : null,
+      placeholder: orNull(props.placeholder, () => this.t(props.placeholder)),
     };
   }
 
@@ -187,7 +187,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const props = this.props;
 
     return this.progress
-      ? this.getEmptyDisplayValue()
+      ? Field.EMPTY_VALUE
       : (
         this.isValuePresent(value)
           ? (isUndef(props.displayValue)
@@ -195,7 +195,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
               : (isFn(props.displayValue)
                   ? (props.displayValue as FieldDisplayValueConverterT)(value, this)
                   : props.displayValue))
-          : this.getEmptyDisplayValue()
+          : Field.EMPTY_VALUE
       );
   }
 
@@ -204,7 +204,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return orDefault(
       usePrintf,
       () => Printf.sprintf(this.t(props.displayMessage), ...args),
-      this.getEmptyDisplayValue()
+      Field.EMPTY_VALUE
     );
   }
 
@@ -322,10 +322,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
 
   protected getEmptyValue(): AnyT {
     return Field.EMPTY_VALUE;
-  }
-
-  protected getEmptyDisplayValue(): AnyT {
-    return this.getEmptyValue();
   }
 
   private validateValueAndSetCustomValidity(value: AnyT): string {
