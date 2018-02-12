@@ -99,8 +99,8 @@ export interface IPasswordable {
 
 export const IMAGE_FIELD_NAME = 'image';
 
-export interface IImageable {
-  image?: string;
+export interface IImageWrapper<TImage> {
+  image?: TImage;
 }
 
 export interface ILabelable {

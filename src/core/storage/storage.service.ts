@@ -9,7 +9,7 @@ import { ApplicationStorageTypeEnum, IApplicationStorage, STORAGE_KEY_SEPARATOR 
 import { AnyT } from '../definition.interface';
 import { IApplicationSettings } from '../settings';
 
-export class StorageService implements IApplicationStorage {
+export class Storage implements IApplicationStorage {
 
   constructor(private prefix: string,
               private settingsResolver: () => IApplicationSettings,
@@ -32,20 +32,22 @@ export class StorageService implements IApplicationStorage {
     return this.storage.disabled;
   }
 
-  public set(key: string, value: AnyT): AnyT {
-    return this.storage.set(this.toKey(key), value);
+  public set(key: string, value: AnyT): Promise<boolean> {
+    this.storage.set(this.toKey(key), value);
+    return Promise.resolve(true);
   }
 
   public get(key: string): AnyT {
     return this.storage.get(this.toKey(key));
   }
 
-  public remove(key: string, noPrefix?: boolean): void {
+  public remove(key: string, noPrefix?: boolean): Promise<boolean> {
     if (noPrefix) {
       this.storage.remove(key);
     } else {
       this.storage.remove(this.toKey(key));
     }
+    return Promise.resolve(true);
   }
 
   public each(command: (key: string, value: AnyT) => void): void {

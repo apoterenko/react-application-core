@@ -34,6 +34,9 @@ export class ImageField extends Field<ImageField,
 
   private get src(): string {
     const value = this.props.value;
+    if (!value) {
+      return null;
+    }
     if (isPrimitive(value)) {
       return value;
     }

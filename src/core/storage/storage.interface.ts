@@ -3,9 +3,9 @@ import { AnyT } from '../definition.interface';
 export interface IApplicationStorage {
   enabled: boolean;
   disabled: boolean;
-  set(key: string, value: any): any;
-  get(key: string): any;
-  remove(key: string, noPrefix?: boolean): void;
+  set(key: string, value: AnyT): Promise<AnyT>;
+  get(key: string): AnyT;
+  remove(key: string, noPrefix?: boolean): Promise<AnyT>;
   each(command: (o: AnyT, key: string) => void): void;
 }
 

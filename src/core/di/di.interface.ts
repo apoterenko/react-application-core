@@ -13,6 +13,7 @@ export const DI_TYPES = {
   Settings: Symbol('Settings'),
   Storage: Symbol('Storage'),
   NotVersionedStorage: Symbol('NotVersionedStorage'),
+  CloudStorage: Symbol('CloudStorage'),
   Store: Symbol('Store'),
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),
