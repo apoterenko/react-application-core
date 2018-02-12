@@ -15,6 +15,7 @@ export * from './component/field';
 export * from './component/filter';
 export * from './component/form';
 export * from './component/header';
+export * from './component/picture';
 export * from './component/layout';
 export * from './component/link';
 export * from './component/list';
