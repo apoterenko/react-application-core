@@ -4,5 +4,11 @@
 .rac-toolbar {
   &.mdc-toolbar {
     background-color: $rac-toolbar-fill-color;  // [MDC override]
+
+    .rac-form-field {
+      &.mdc-text-field--box {
+        margin-top: 0;            // [MDC override]
+      }
+    }
   }
 }
