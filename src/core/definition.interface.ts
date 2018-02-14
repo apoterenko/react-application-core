@@ -84,6 +84,9 @@ export interface ITokenWrapper<TToken> {
   token?: TToken;
 }
 
+export interface IStringTokenWrapper extends ITokenWrapper<string> {
+}
+
 export interface IOriginalValueable<TValue> {
   originalValue?: TValue;
 }
