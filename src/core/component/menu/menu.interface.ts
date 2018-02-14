@@ -7,7 +7,7 @@ import {
   ILabelable,
   IRenderable,
   IDisableable,
-  IValueable,
+  IValueWrapper,
   IRawDatable,
   AnyT,
   ITemplateable,
@@ -38,7 +38,7 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
 }
 
 export interface IMenuAction<TValue> extends ILabelable,
-                                             IValueable<TValue>,
+                                             IValueWrapper<TValue>,
                                              IDisableable {
 }
 

@@ -1,12 +1,12 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT, IKeyValue, IOperationable, IErrorable, ITokenable } from '../definition.interface';
+import { AnyT, IKeyValue, IOperationable, IErrorable, ITokenWrapper } from '../definition.interface';
 
-export interface IApplicationTransportState extends ITokenable<string> {
+export interface IApplicationTransportState extends ITokenWrapper<string> {
   queue: string[];
 }
 
-export interface IApplicationTransportTokenAccessor extends ITokenable<string> {
+export interface IApplicationTransportTokenAccessor extends ITokenWrapper<string> {
 }
 
 export interface IApplicationTransportWrapperState {

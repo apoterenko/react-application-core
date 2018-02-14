@@ -1,4 +1,4 @@
-import { AnyT, IActiveable, ILockable, IStylizable, ITypeable } from '../../definition.interface';
+import { AnyT, IActiveable, ILockable, IStylizable, ITypeWrapper } from '../../definition.interface';
 import { IApplicationFormState } from '../../component/form';
 import { IFieldOptions } from '../../component/field';
 
@@ -8,7 +8,7 @@ export enum FilterActionEnum {
 }
 
 export interface IApplicationFilterAction extends IStylizable,
-                                                  ITypeable<FilterActionEnum> {
+                                                  ITypeWrapper<FilterActionEnum> {
 }
 
 export interface IApplicationFilterOptions {

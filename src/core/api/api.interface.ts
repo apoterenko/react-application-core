@@ -14,18 +14,18 @@ export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity,
                                                              IMergeable<TEntity>,
                                                              IOperationable {
   isNew: boolean;
-  section?: string;
+  section?: string;   // TODO
 }
 
 export function makeUpdatedApiStubEntity<TEntity extends IEntity>(id: EntityIdT): IApiEntity<TEntity> {
   return {id, isNew: false, changes: {} as TEntity, merger: {} as TEntity};
 }
 
-export interface IApiEntityable<TEntity extends IEntity> {
+export interface IApiEntityWrapper<TEntity extends IEntity> {
   apiEntity: IApiEntity<TEntity>;
 }
 
-export interface IApiEntityRequest<TEntity extends IEntity> extends IApiEntityable<TEntity> {
+export interface IApiEntityRequest<TEntity extends IEntity> extends IApiEntityWrapper<TEntity> {
   editApi?: string;
   addApi?: string;
   extraParams?: IEntity;

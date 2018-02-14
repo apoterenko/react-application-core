@@ -1,8 +1,8 @@
-import { IBaseComponentInternalProps } from '../../component/base';
+import { IBaseComponentInternalProps } from '../base';
 import {
   IActiveable,
   IDisableable,
-  ITypeable,
+  IStringTypeWrapper,
   IErrorable,
   IIconable,
   IClickable,
@@ -19,7 +19,7 @@ export interface IButtonInternalProps extends IBaseComponentInternalProps,
                                               IClickable,
                                               ILinkable,
                                               IErrorable<boolean>,
-                                              ITypeable<string> {
+                                              IStringTypeWrapper {
   accent?: boolean;
   raised?: boolean;
 }

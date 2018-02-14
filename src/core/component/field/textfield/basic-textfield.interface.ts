@@ -1,7 +1,7 @@
 import {
   IStylizable,
   ITitleable,
-  ITypeable,
+  IStringTypeWrapper,
   IDisableable,
   BasicEventT,
 } from '../../../definition.interface';
@@ -12,7 +12,7 @@ import { IDelayedChangesFieldPluginInternalProps } from '../field';
 export interface IBasicTextFieldAction extends IStylizable,
                                                ITitleable,
                                                IDisableable,
-                                               ITypeable<string> {
+                                               IStringTypeWrapper {
   actionHandler?(event: BasicEventT): void;
 }
 

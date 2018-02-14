@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { IApiEntity, IApiEntityable } from '../../api';
+import { IApiEntity, IApiEntityWrapper } from '../../api';
 import {
   AnyT,
   ILockable,
@@ -77,7 +77,7 @@ export interface IFormContainerInternalProps<TEntity extends IEntity> extends IB
                                                                               IFormProps<TEntity> {
 }
 
-export interface IBaseForm extends IApiEntityable<IEntity>,
+export interface IBaseForm extends IApiEntityWrapper<IEntity>,
                                    ISubmittable {
 }
 

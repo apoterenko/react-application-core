@@ -3,7 +3,7 @@ import {
   IIconable,
   ILabelable,
   IStylizable,
-  ITypeable,
+  ITypeWrapper,
 } from '../../../definition.interface';
 import { IBaseComponentInternalProps } from '../../base';
 import { IApplicationAccessConfig } from '../../../permissions';
@@ -19,7 +19,7 @@ export interface INavigationListItemOptions extends IActiveable,
                                                     IStylizable,
                                                     IIconable,
                                                     ILabelable,
-                                                    ITypeable<NavigationListItemTypeEnum> {
+                                                    ITypeWrapper<NavigationListItemTypeEnum> {
   link?: string;
   accessConfig?: IApplicationAccessConfig;
   children?: INavigationListItemOptions[];

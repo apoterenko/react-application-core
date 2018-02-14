@@ -9,8 +9,8 @@ import {
   INameable,
   KeyboardEventT,
   IDisableable,
-  ITypeable,
-  IValueable,
+  IStringTypeWrapper,
+  IValueWrapper,
   IOriginalValueable,
   IReadonlyable,
   IDisplayNameWrapper,
@@ -45,7 +45,7 @@ export interface IFieldOptions extends ILabelable,
                                        IDisplayMessageWrapper,
                                        IDisplayNameWrapper,
                                        IMaskable,
-                                       ITypeable<string>,
+                                       IStringTypeWrapper,
                                        IPlaceholderable {
   pattern?: string;
   prefixLabel?: string;
@@ -60,7 +60,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IDisableable,
                                              IStepable,
                                              IReadonlyable,
-                                             IValueable<AnyT>,
+                                             IValueWrapper<AnyT>,
                                              IOriginalValueable<AnyT>,
                                              IFieldDisplayValueWrapper<AnyT> {
   noErrorMessage?: boolean;
@@ -102,7 +102,7 @@ export interface IChangesObserver {
   onChangeManually?(currentRawValue: AnyT, context?: AnyT): void;
 }
 
-export interface IBasicField<TValue> extends IValueable<TValue>,
+export interface IBasicField<TValue> extends IValueWrapper<TValue>,
                                              IChangesObserver {
   setFocus?(): void;
 }

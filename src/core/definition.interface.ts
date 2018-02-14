@@ -73,11 +73,14 @@ export interface ISectionable {
   section?: string;
 }
 
-export interface IValueable<TValue> {
+export interface IValueWrapper<TValue> {
   value?: TValue;
 }
 
-export interface ITokenable<TToken> {
+export interface IStringValueWrapper extends IValueWrapper<string> {
+}
+
+export interface ITokenWrapper<TToken> {
   token?: TToken;
 }
 
@@ -97,7 +100,7 @@ export interface IDisplayMessageWrapper {
   displayMessage?: string;
 }
 
-export interface IPasswordable {
+export interface IPasswordWrapper {
   password?: string;
 }
 
@@ -115,7 +118,7 @@ export interface IReadonlyable {
   readOnly?: boolean;
 }
 
-export interface ILoginable {
+export interface ILoginWrapper {
   login?: string;
 }
 
@@ -175,8 +178,11 @@ export interface IDirtyable {
   dirty?: boolean;
 }
 
-export interface ITypeable<Type> {
-  type?: Type;
+export interface ITypeWrapper<TType> {
+  type?: TType;
+}
+
+export interface IStringTypeWrapper extends ITypeWrapper<string> {
 }
 
 export interface IStepable {
