@@ -14,6 +14,7 @@ export interface IRoutes {
   home: string;
   signIn: string;
   signUp: string;
+  restoreAuth: string;
   logout: string;
   accessDenied: string;
 }

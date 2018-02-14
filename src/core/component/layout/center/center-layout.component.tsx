@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../../../component/base';
+import { BaseComponent, IBaseComponentInternalProps } from '../../base';
 
 export class CenterLayout extends BaseComponent<CenterLayout, IBaseComponentInternalProps, {}> {
 

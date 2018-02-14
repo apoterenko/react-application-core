@@ -103,6 +103,8 @@ export interface IDisplayMessageWrapper {
   displayMessage?: string;
 }
 
+export const PASSWORD_FIELD_NAME = 'password';
+
 export interface IPasswordWrapper {
   password?: string;
 }
@@ -120,6 +122,8 @@ export interface ILabelable {
 export interface IReadonlyable {
   readOnly?: boolean;
 }
+
+export const LOGIN_FIELD_NAME = 'login';
 
 export interface ILoginWrapper {
   login?: string;
