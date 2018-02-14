@@ -30,9 +30,9 @@ export interface ISelectOption<TRawData extends INamedEntity> extends IMenuOptio
 }
 
 export function toSelectOptions<TRawData extends INamedEntity>(data: INamedEntity[]|INamedEntity): SelectOptionT[] {
-  return orNull(
+  return orNull<SelectOptionT[]>(
       data,
-      () => [].concat(data).map((rawItem: TRawData): SelectOptionT => ({
+      () => [].concat(data).map<SelectOptionT>((rawItem: TRawData) => ({
         value: rawItem.id,
         label: rawItem.name,
         rawData: rawItem,

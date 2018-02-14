@@ -73,6 +73,8 @@ export interface ISectionable {
   section?: string;
 }
 
+export const VALUE_FIELD_NAME = 'value';
+
 export interface IValueWrapper<TValue> {
   value?: TValue;
 }
