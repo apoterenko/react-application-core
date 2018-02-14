@@ -3,7 +3,7 @@ import { IContainerWrapperCtor } from '../application';
 import { IBaseContainerInternalProps } from '../base';
 import { IApplicationAccessConfig } from '../../permissions';
 import {
-  IChangeable,
+  IChangesWrapper,
   IInitialChangesable,
   IKeyValue,
   IPathable,
@@ -11,7 +11,7 @@ import {
 } from '../../definition.interface';
 import { ApplicationStateT } from '../../store';
 
-export interface IRootUpdatePathPayload extends IChangeable<IKeyValue>,
+export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 ISectionable,
                                                 IPathable {
 }

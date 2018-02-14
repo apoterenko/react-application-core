@@ -137,7 +137,7 @@ export interface IProgressable {
   progress?: boolean;
 }
 
-export interface ITouchable {
+export interface ITouchedWrapper {
   touched?: boolean;
 }
 
@@ -215,15 +215,15 @@ export interface IPathable {
   path?: string;
 }
 
-export interface IChangeable<TChanges extends IKeyValue> {
+export interface IChangesWrapper<TChanges extends IKeyValue> {
   changes: TChanges;
 }
 
-export interface IMergeable<TMerger extends IKeyValue> {
+export interface IMergerWrapper<TMerger extends IKeyValue> {
   merger: TMerger;
 }
 
-export interface IEntityable<TEntity extends IEntity> extends ITouchable {
+export interface IEntityWrapper<TEntity extends IEntity> extends ITouchedWrapper {
   entity?: TEntity;
   originalEntity?: TEntity;
   isNewEntity?: boolean;

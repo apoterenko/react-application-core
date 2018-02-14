@@ -1,20 +1,19 @@
 import {
   IIdentifiedEntity,
-  IChangeable,
+  IChangesWrapper,
   IEntity,
   EntityIdT,
-  IEntityable,
+  IEntityWrapper,
   IOperationable,
-  IMergeable,
+  IMergerWrapper,
 } from '../definition.interface';
 
 export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity,
-                                                             IChangeable<TEntity>,
-                                                             IEntityable<TEntity>,
-                                                             IMergeable<TEntity>,
+                                                             IChangesWrapper<TEntity>,
+                                                             IEntityWrapper<TEntity>,
+                                                             IMergerWrapper<TEntity>,
                                                              IOperationable {
   isNew: boolean;
-  section?: string;   // TODO
 }
 
 export function makeUpdatedApiStubEntity<TEntity extends IEntity>(id: EntityIdT): IApiEntity<TEntity> {

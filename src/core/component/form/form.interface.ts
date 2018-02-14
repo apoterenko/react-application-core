@@ -4,15 +4,15 @@ import { IApiEntity, IApiEntityWrapper } from '../../api';
 import {
   AnyT,
   ILockable,
-  IChangeable,
+  IChangesWrapper,
   IProgressable,
   IStylizable,
   ISaveable,
   IKeyValue,
   IEntity,
-  IEntityable,
+  IEntityWrapper,
   IErrorable,
-  ITouchable,
+  ITouchedWrapper,
   IDirtyable,
   ISubmittable,
   IReadonlyable,
@@ -36,11 +36,11 @@ export interface IFormFieldsModifyPayload {
 
 export type FormModifyPayloadT = IFormFieldModifyPayload|IFormFieldsModifyPayload;
 
-export interface IFormAttributes<TChanges extends IKeyValue> extends IChangeable<TChanges>,
+export interface IFormAttributes<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
                                                                      ILockable,
                                                                      IProgressable,
                                                                      ISaveable,
-                                                                     ITouchable,
+                                                                     ITouchedWrapper,
                                                                      IErrorable<string>,
                                                                      IDirtyable {
   valid?: boolean;
@@ -56,7 +56,7 @@ export interface IFormOptions extends IStylizable,
   noActions?: boolean;
 }
 
-export interface IFormProps<TEntity extends IEntity> extends IEntityable<TEntity> {
+export interface IFormProps<TEntity extends IEntity> extends IEntityWrapper<TEntity> {
   form: IFormAttributes<TEntity>;
   formOptions?: IFormOptions;
   onBeforeSubmit?(apiEntity: IApiEntity<TEntity>): void;

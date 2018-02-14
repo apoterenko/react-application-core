@@ -8,7 +8,7 @@ import {
   FIRST_PAGE,
   IEntity,
   ILockable,
-  ITouchable,
+  ITouchedWrapper,
   IProgressable,
   IErrorable,
   ISelectable,
@@ -49,7 +49,7 @@ export interface IListEntity<TEntity extends IEntity> {
 export interface IApplicationListState extends ILockable,
                                                IPageOptions,
                                                IProgressable,
-                                               ITouchable,
+                                               ITouchedWrapper,
                                                ISelectable<IEntity>,
                                                IErrorable<string>,
                                                IDataSource<IEntity[]> {

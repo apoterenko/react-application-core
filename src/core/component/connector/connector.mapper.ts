@@ -4,7 +4,7 @@ import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
-import { IEntity, IEntityable, IFormable } from '../../definition.interface';
+import { IEntity, IEntityWrapper, IFormable } from '../../definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
@@ -31,7 +31,7 @@ export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrappe
 
 export const entityMapper =
     <TEntity extends IEntity>(entity: TEntity,
-                              formState?: IApplicationFormState): IEntityable<TEntity> =>
+                              formState?: IApplicationFormState): IEntityWrapper<TEntity> =>
         ({
           entity: {
             ...entity as {},
@@ -49,7 +49,7 @@ export const listSelectedEntityMapper =
 
 export const listWrapperSelectedEntityMapper =
     <TEntity extends IEntity>(listWrapperState: IApplicationListWrapperState,
-                              formState?: IApplicationFormState): IEntityable<TEntity> =>
+                              formState?: IApplicationFormState): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
         listSelectedEntityMapper<TEntity>(listWrapperState),
         formState
