@@ -37,6 +37,7 @@ export interface IApplicationMessages {
   sorryMessage?: string;
   waitMessage?: string;
   dndMessage?: string;
+  serviceTemporarilyUnavailable?: string;
 }
 
 export interface IApplicationSettings {
@@ -68,6 +69,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     sorryMessage: 'Sorry about that.',
     waitMessage: 'Please wait...',
     dndMessage: 'Try dropping some files here, or click to select files to upload.',
+    serviceTemporarilyUnavailable: 'Service temporarily unavailable. Please try later.',
   },
   dateTime: {
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',

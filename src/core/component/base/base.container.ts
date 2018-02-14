@@ -16,7 +16,7 @@ import { ApplicationPermissionsServiceT } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
-import { ApplicationTranslateT } from '../../translation';
+import { ApplicationTranslatorT } from '../../translation';
 import { IFormDialog } from '../form';
 import {
   IBaseContainer,
@@ -32,7 +32,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
 
   @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
-  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslateT;
+  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
