@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { clone, uuid } from '../../util';
+import { clone, uuid, PredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import {
@@ -13,14 +13,14 @@ import {
   toRouteOptions,
 } from '../../router';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
-import { BaseContainer } from '../../component/base';
+import { BaseContainer } from '../base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
-import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../../component/root';
-import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../../component/connector';
+import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../root';
+import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { ApplicationStateT } from '../../store';
-import { CenterLayout } from '../../component/layout';
+import { CenterLayout } from '../layout';
 import {
   IApplicationContainerProps,
   APPLICATION_LOGOUT_ACTION_TYPE,
@@ -82,12 +82,15 @@ export class ApplicationContainer<TAppState extends ApplicationStateT>
     }
   }
 
-  protected clearStateBeforeSerialization(state: TAppState): TAppState {
+  protected clearStateBeforeSerialization(state: TAppState, ...predicates: PredicateT[]): TAppState {
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
     state.applicationReady = INITIAL_APPLICATION_READY_STATE;
 
     // You may clear the app state here before the serializing
+    if (predicates.length) {
+      return cloneUsingFilters(state, ...predicates);
+    }
     return state;
   }
 

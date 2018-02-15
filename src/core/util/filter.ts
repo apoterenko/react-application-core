@@ -1,6 +1,12 @@
 import * as R from 'ramda';
 
-import { AnyT, ID_FIELD_NAME, IKeyValue } from '../definition.interface';
+import {
+  AnyT,
+  ID_FIELD_NAME,
+  IKeyValue,
+  PROGRESS_FIELD_NAME,
+  PASSWORD_FIELD_NAME,
+} from '../definition.interface';
 import { isDef, isObject, isFn } from './type';
 
 export type PredicateT = (key: string, value: AnyT) => boolean;
@@ -43,6 +49,8 @@ export const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD
 
 export const OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => isObject(value);
 export const NOT_OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => !isObject(value);
+export const NOT_PROGRESS_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PROGRESS_FIELD_NAME;
+export const NOT_PASSWORD_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PASSWORD_FIELD_NAME;
 
 export const DEF_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
 
