@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Link } from '../../link';
 import { PersistentDrawer } from '../../drawer';
 import { INavigationListItemOptions, NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
@@ -16,6 +15,7 @@ import { IDefaultLayoutContainerInternalProps } from './default-layout.interface
 import { Header } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
+import { Profile } from '../../profile';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
@@ -31,6 +31,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   constructor(props: IDefaultLayoutContainerInternalProps) {
     super(props);
     this.onHeaderMenuActionClick = this.onHeaderMenuActionClick.bind(this);
+    this.onProfileMenuActionClick = this.onProfileMenuActionClick.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
   }
 
@@ -69,7 +70,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <Main className={props.bodyClassName}>
               {props.children}
             </Main>
-            {orNull(props.footer, <footer className='rac-footer'>{props.footer}</footer>)}
+            {orNull(props.footer, () => <footer className='rac-footer'>{props.footer}</footer>)}
           </div>
           {this.snackbarTpl}
         </div>
@@ -77,25 +78,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   protected get profileTpl(): JSX.Element {
-    const profileRoutePath = this.routes.profile;
     const user = this.props.user;
-    const email = user.email;
 
     return orNull(
-        profileRoutePath,
-        () => (
-            <Link to={profileRoutePath}
-                  className='app-profile'>
-              <div className='app-profile-icon app-profile-logo'>
-                {this.uiFactory.makeIcon('business')}
-              </div>
-              <div className='app-profile-icon app-profile-avatar'>
-                {this.uiFactory.makeIcon('person')}
-              </div>
-              <div className='app-profile-info app-profile-name' title={user.name}>{user.name}</div>
-              <div className='app-profile-info app-profile-email' title={email}>{email}</div>
-            </Link>
-        )
+      this.routes.profile,
+      () => (
+        <Profile path={this.routes.profile}
+                 name={user && user.name}
+                 email={user && user.email}
+                 onClick={this.onProfileMenuActionClick}/>
+      )
     );
   }
 
@@ -116,5 +108,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   protected onHeaderMenuActionClick(option: MenuActionT): void {
     this.dispatch(option.value);
+  }
+
+  protected onProfileMenuActionClick(): void {
+    //this.dispatch(option.value);
   }
 }

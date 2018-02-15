@@ -1,0 +1,65 @@
+@import '../constant';
+
+// Profile [FRAMEWORK-][ROOT+]
+.rac-root {
+
+  .rac-profile {
+    width: 100%;      // [RAC+]
+    cursor: pointer;  // [RAC+]
+    color: inherit;   // [RAC+]
+
+    &:active {
+      color: inherit; // [RAC+]
+    }
+
+    // Common
+    .rac-profile-logo-wrapper {
+      position: relative;                               // [RAC+]
+      border-radius: 50%;                               // [RAC+]
+      background: $rac-profile-icon-background-color;   // [RAC+]
+
+      .rac-profile-icon {
+        position: absolute;                             // [RAC+]
+        color: $rac-profile-icon-color;                 // [RAC+]
+
+        &.rac-button {
+          padding: 0;
+          cursor: pointer;
+          border-style: none;
+          background: none;
+        }
+      }
+    }
+
+    // Name
+    .rac-profile-name {
+      margin-bottom: 2px;     // [RAC+]
+      font-weight: bold;      // [RAC+]
+    }
+
+    // Avatar
+    .rac-profile-avatar {
+      margin-bottom: 16px;  // [RAC+]
+      width: 64px;          // [RAC+]
+      height: 64px;         // [RAC+]
+
+      .rac-profile-icon {
+        left: 8px;          // [RAC+]
+        top: 8px;           // [RAC+]
+        font-size: 48px;    // [RAC+]
+      }
+    }
+
+    // Menu
+    .rac-profile-menu {
+      float: right;         // [RAC+]
+      width: 36px;          // [RAC+]
+      height: 36px;         // [RAC+]
+
+      .rac-profile-icon {
+        left: 6px;          // [RAC+]
+        top: 6px;           // [RAC+]
+      }
+    }
+  }
+}

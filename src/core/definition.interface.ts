@@ -28,7 +28,7 @@ export interface IIdentifiedEntity extends IIdentifiable<EntityIdT> {
 }
 
 export interface INamedEntity extends IIdentifiedEntity,
-                                      INameable {
+                                      INameWrapper {
 }
 
 export interface IBlobEntity extends IIdentifiable<string> {
@@ -40,7 +40,7 @@ export interface IEntity extends IIdentifiedEntity, IKeyValue {
 
 export const NAME_FIELD_NAME = 'name';
 
-export interface INameable {
+export interface INameWrapper {
   name?: string;
 }
 
@@ -109,6 +109,10 @@ export const PASSWORD_FIELD_NAME = 'password';
 
 export interface IPasswordWrapper {
   password?: string;
+}
+
+export interface IEmailWrapper {
+  email?: string;
 }
 
 export const IMAGE_FIELD_NAME = 'image';
@@ -220,7 +224,7 @@ export interface ILockable {
   locked?: boolean;
 }
 
-export interface IPathable {
+export interface IPathWrapper {
   path?: string;
 }
 
@@ -252,7 +256,7 @@ export interface IRippleable {
   rippled?: boolean;
 }
 
-export interface IClickable {
+export interface IOnClickWrapper {
   onClick?(event: BasicEventT): void;
 }
 

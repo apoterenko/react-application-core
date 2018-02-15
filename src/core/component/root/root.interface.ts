@@ -6,14 +6,14 @@ import {
   IChangesWrapper,
   IInitialChangesable,
   IKeyValue,
-  IPathable,
+  IPathWrapper,
   ISectionable,
 } from '../../definition.interface';
 import { ApplicationStateT } from '../../store';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 ISectionable,
-                                                IPathable {
+                                                IPathWrapper {
 }
 
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
@@ -24,7 +24,7 @@ export interface IRootContainerInternalProps extends IBaseContainerInternalProps
   accessConfig?: IApplicationAccessConfig;
 }
 
-export interface IApplicationRootState extends IPathable {
+export interface IApplicationRootState extends IPathWrapper {
 }
 
 export interface IApplicationRootWrapperState {

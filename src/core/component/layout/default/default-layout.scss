@@ -1,72 +1,16 @@
 @import '../../constant';
 
-// Default layout [FRAMEWORK-]
-.rac-default-layout {
+// Default layout [FRAMEWORK-][ROOT+]
+.rac-root {
 
-  .rac-footer {
-    border-top: 1px solid $color-3;
-  }
+  .rac-default-layout {
 
-  .rac-persistent-drawer-toolbar-spacer {
-    background: $color-7;
-  }
-}
-
-.app-profile {
-  width: 100%;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-
-  &:active {
-    color: black;
-  }
-
-  .app-profile-icon {
-    position: relative;
-    border-radius: 50%;
-    background: #757575;
-
-    .material-icons {
-      position: absolute;
-      color: white;
+    .rac-footer {
+      border-top: 1px solid $color-3;             // [RAC+]
     }
-  }
 
-  .app-profile-info {
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .app-profile-avatar {
-    margin-bottom: 16px;
-    width: 64px;
-    height: 64px;
-
-    .material-icons {
-      left: 8px;
-      top: 8px;
-      font-size: 48px;
+    .rac-persistent-drawer-toolbar-spacer {
+      background: $color-7;                       // [RAC+]
     }
-  }
-
-  .app-profile-logo {
-    float: right;
-    margin-bottom: 16px;
-    width: 36px;
-    height: 36px;
-
-    .material-icons {
-      left: 6px;
-      top: 6px;
-      font-size: 24px;
-    }
-  }
-
-  .app-profile-name {
-    margin: 0 0 2px 0;
-    font-weight: bold;
   }
 }

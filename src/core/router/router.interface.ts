@@ -7,7 +7,7 @@ import { IApplicationState } from '../store';
 import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
 import { IApplicationAccessConfig } from '../permissions';
 import { IApplicationDictionariesState } from '../dictionary';
-import { IPathable, ITypeWrapper } from '../definition.interface';
+import { IPathWrapper, ITypeWrapper } from '../definition.interface';
 
 export interface IRoutes {
   profile: string;
@@ -35,7 +35,7 @@ export enum ContainerVisibilityTypeEnum {
   PRIVATE,
 }
 
-export interface IRouteOptions extends IPathable,
+export interface IRouteOptions extends IPathWrapper,
                                        ITypeWrapper<ContainerVisibilityTypeEnum> {
   exact?: boolean;
   computedMatch?: IRouterComputedMatch;

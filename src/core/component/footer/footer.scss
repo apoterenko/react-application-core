@@ -1,6 +1,9 @@
-// Spacer [FRAMEWORK-][ROOT+]
+@import '../constant';
+
+// Footer [FRAMEWORK-][ROOT+]
 .rac-root {
+
   .rac-footer {
-    padding: 16px;
+    padding: 0 $rac-default-offset;
   }
 }

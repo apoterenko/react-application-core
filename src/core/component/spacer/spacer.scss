@@ -1,6 +1,9 @@
+@import '../constant';
+
 // Spacer [FRAMEWORK-][ROOT+]
 .rac-root {
+
   .rac-spacer {
-    padding: 0 16px;
+    padding: 0 $rac-default-offset;
   }
 }
