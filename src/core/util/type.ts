@@ -29,3 +29,7 @@ export const isPrimitive = (v: AnyT): boolean => {
       || isString(v)
       || isBoolean(v);
 };
+
+export const isObject = (v: AnyT): boolean => {
+  return Object.prototype.toString.call(v) === '[object Object]';
+};

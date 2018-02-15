@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { IApplicationSettings } from '../settings';
 import { lazyInject, DI_TYPES } from '../di';
-import { noUndefValuesFilter, orUndef } from '../util';
+import { defValuesFilter, orUndef } from '../util';
 
 import {
   ITransportRawResponse,
@@ -45,7 +45,7 @@ export class TransportFactory implements IApplicationTransportFactory {
       uri0.addSearch('_dc', Date.now());
     }
     return this.requestFactory.request<IApplicationTransportRequest, ITransportRawResponse>(
-        noUndefValuesFilter<IApplicationTransportRequest, IApplicationTransportRequest>({
+        defValuesFilter<IApplicationTransportRequest, IApplicationTransportRequest>({
               url: uri0.valueOf(),
               method: 'POST',
               data: this.toRequestParams(req),
@@ -77,10 +77,10 @@ export class TransportFactory implements IApplicationTransportFactory {
   }
 
   protected toRequestParams(req: ITransportRequest): ITransportRawRequest {
-    return noUndefValuesFilter<ITransportRawRequest, ITransportRawRequest>({
+    return defValuesFilter<ITransportRawRequest, ITransportRawRequest>({
       id: this.id++,
       name: req.name,
-      params: orUndef(req.params, () => noUndefValuesFilter(req.params)),
+      params: orUndef(req.params, () => defValuesFilter(req.params)),
       auth: orUndef(!req.noAuth, () => this.tokenAccessor.token),
     });
   }

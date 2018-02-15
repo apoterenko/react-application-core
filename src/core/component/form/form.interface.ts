@@ -5,7 +5,7 @@ import {
   AnyT,
   ILockable,
   IChangesWrapper,
-  IProgressable,
+  IProgressWrapper,
   IStylizable,
   ISaveable,
   IKeyValue,
@@ -38,7 +38,7 @@ export type FormModifyPayloadT = IFormFieldModifyPayload|IFormFieldsModifyPayloa
 
 export interface IFormAttributes<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
                                                                      ILockable,
-                                                                     IProgressable,
+                                                                     IProgressWrapper,
                                                                      ISaveable,
                                                                      ITouchedWrapper,
                                                                      IErrorable<string>,

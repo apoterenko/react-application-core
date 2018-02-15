@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isString, isUndef, noUndefValuesFilter, orNull, toClassName } from '../../util';
+import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName } from '../../util';
 import { AnyT, BasicEventT, IEntity, ReactElementT } from '../../definition.interface';
 import { BaseComponent } from '../../component/base';
 import { Button } from '../../component/button';
@@ -68,7 +68,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                       const fieldProps = field.props;
                       const predefinedOptions = this.getFieldPredefinedOptions(field);
 
-                      return noUndefValuesFilter<IFieldInternalProps, IFieldInternalProps>(
+                      return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
                           {
                             value: this.getFieldValue(field),
                             originalValue: this.getFieldOriginalValue(field),
@@ -81,7 +81,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             ...predefinedOptions,
 
                             // The fields props have higher priority
-                            ...noUndefValuesFilter<IFieldOptions, IFieldOptions>({
+                            ...defValuesFilter<IFieldOptions, IFieldOptions>({
                               label: fieldProps.label,
                               type: fieldProps.type,
                               placeholder: fieldProps.placeholder,

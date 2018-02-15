@@ -9,7 +9,7 @@ import {
   ChangeEventT,
   FocusEventT,
   KeyboardEventT,
-  IProgressable,
+  IProgressWrapper,
 } from '../../../definition.interface';
 import { BaseComponent } from '../../base';
 import {
@@ -27,7 +27,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                    TInternalProps extends IFieldInternalProps,
                    TInternalState extends IFieldInternalState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
-    implements IField<TInternalProps, TInternalState>, IProgressable {
+    implements IField<TInternalProps, TInternalState>, IProgressWrapper {
 
   private static EMPTY_VALUE = '';
 

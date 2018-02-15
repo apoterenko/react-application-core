@@ -1,4 +1,4 @@
-import { noUndefValuesFilter } from '../util';
+import { defValuesFilter } from '../util';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { IApplicationTransport } from './transport.interface';
 import { IEntity } from '../definition.interface';
@@ -14,7 +14,7 @@ export class BaseTransport {
     return this.transport.request<TEntity>({
       params: {
         ...apiEntity.changes as {},
-        ...noUndefValuesFilter(entityRequest.extraParams),
+        ...defValuesFilter(entityRequest.extraParams),
         ...apiEntity.isNew ? {} : { id: apiEntity.id },
       },
       name: apiEntity.isNew ? entityRequest.addApi : entityRequest.editApi,

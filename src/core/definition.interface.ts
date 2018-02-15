@@ -140,9 +140,9 @@ export interface IPayloadable<TPayload> {
   payload?: TPayload;
 }
 
-export const PROGRESSABLE_FIELD_NAME = 'progress';
+export const PROGRESS_FIELD_NAME = 'progress';
 
-export interface IProgressable {
+export interface IProgressWrapper {
   progress?: boolean;
 }
 

@@ -9,7 +9,7 @@ import {
   IEntity,
   ILockable,
   ITouchedWrapper,
-  IProgressable,
+  IProgressWrapper,
   IErrorable,
   ISelectable,
   IDataSource,
@@ -48,7 +48,7 @@ export interface IListEntity<TEntity extends IEntity> {
 
 export interface IApplicationListState extends ILockable,
                                                IPageOptions,
-                                               IProgressable,
+                                               IProgressWrapper,
                                                ITouchedWrapper,
                                                ISelectable<IEntity>,
                                                IErrorable<string>,

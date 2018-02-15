@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { IProgressable, IErrorable } from '../../definition.interface';
+import { IProgressWrapper, IErrorable } from '../../definition.interface';
 import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
 import { ConnectorConfigT } from '../../component/connector';
 
@@ -13,7 +13,7 @@ export interface IContainerWrapperCtor {
   new(...args): PureComponent<IContainerInternalProps, {}>;
 }
 
-export interface IApplicationAttributes extends IProgressable,
+export interface IApplicationAttributes extends IProgressWrapper,
                                                 IErrorable<string> {
   ready?: boolean;
 }
