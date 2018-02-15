@@ -23,10 +23,10 @@
         color: $rac-profile-icon-color;                 // [RAC+]
 
         &.rac-button {
-          padding: 0;
-          cursor: pointer;
-          border-style: none;
-          background: none;
+          padding: 0;           // [RAC+]
+          cursor: pointer;      // [RAC+]
+          border-style: none;   // [RAC+]
+          background: none;     // [RAC+]
         }
       }
     }
@@ -39,9 +39,9 @@
 
     // Avatar
     .rac-profile-avatar {
-      margin-bottom: 16px;  // [RAC+]
-      width: 64px;          // [RAC+]
-      height: 64px;         // [RAC+]
+      margin-bottom: $rac-default-offset;   // [RAC+]
+      width: 64px;                          // [RAC+]
+      height: 64px;                         // [RAC+]
 
       .rac-profile-icon {
         left: 8px;          // [RAC+]
