@@ -256,8 +256,11 @@ export interface IRippleable {
   rippled?: boolean;
 }
 
-export interface IOnClickWrapper {
-  onClick?(event: BasicEventT): void;
+export interface IOnClickWrapper<TEvent> {
+  onClick?(event: TEvent): void;
+}
+
+export interface IOnBaseClickWrapper extends IOnClickWrapper<BasicEventT> {
 }
 
 export interface ISubmittable {

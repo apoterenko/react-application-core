@@ -1,8 +1,7 @@
-import { IBaseComponentInternalProps } from '../../component/base';
-import { IMenuAction, MenuActionT } from '../../component/menu';
+import { IBaseComponentInternalProps } from '../base';
+import { IMenuAction, MenuActionT, MenuActionsWrapperT, IMenuActionsWrapper } from '../menu';
 
-export interface IHeaderProps {
-  menuActions?: MenuActionT[];
+export interface IHeaderProps extends MenuActionsWrapperT {
   navigationActionType?: string;
   navigationActionHandler?(): void;
 }

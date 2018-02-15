@@ -5,7 +5,7 @@ import {
   IStringTypeWrapper,
   IErrorable,
   IIconable,
-  IOnClickWrapper,
+  IOnBaseClickWrapper,
   ILinkable,
 } from '../../definition.interface';
 
@@ -16,7 +16,7 @@ export interface IButtonInternalProps extends IBaseComponentInternalProps,
                                               IActiveable,
                                               IDisableable,
                                               IIconable,
-                                              IOnClickWrapper,
+                                              IOnBaseClickWrapper,
                                               ILinkable,
                                               IErrorable<boolean>,
                                               IStringTypeWrapper {

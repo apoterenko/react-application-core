@@ -3,12 +3,12 @@ import * as ramda from 'ramda';
 import { MDCMenu } from '@material/menu';
 
 import { BasicEventT, UNDEF } from '../../definition.interface';
-import { MaterialComponent } from '../../component/material';
-import { orNull, toClassName, uuid } from '../../util';
+import { MaterialComponent } from '../material';
+import { orNull, toClassName, uuid, setAbsoluteOffset } from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IEventManager } from '../../event';
-import { FieldT, TextField } from '../../component/field';
-import { SimpleList } from '../../component/list';
+import { FieldT, TextField } from '../field';
+import { SimpleList } from '../list';
 import {
   IMenuInternalState,
   IMenuInternalProps,
@@ -22,6 +22,7 @@ export class Menu extends MaterialComponent<Menu,
                                             INativeMaterialMenuComponent>
     implements IMenu {
 
+  private menuParent: HTMLElement;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   constructor(props: IMenuInternalProps) {
@@ -41,9 +42,19 @@ export class Menu extends MaterialComponent<Menu,
       // We must handle events through native DOM Api because Material Foundation implementation
       this.eventManager.add(this.field.input, 'click', this.onInputClick);
     }
+
+    if (this.props.renderToBody) {
+      this.menuParent = this.self.parentElement;
+      document.body.appendChild(this.self);
+    }
   }
 
   public componentWillUnmount(): void {
+    if (this.props.renderToBody) {
+      delete this.menuParent;
+      document.body.removeChild(this.self);
+    }
+
     this.nativeMdcInstance.unlisten('MDCMenu:selected', this.onSelect);
     if (this.props.useFilter) {
       // We must handle events through native DOM Api because Material Foundation implementation
@@ -107,11 +118,16 @@ export class Menu extends MaterialComponent<Menu,
   }
 
   public show(): void {
+    const props = this.props;
     this.setState({ filter: UNDEF });
     this.nativeMdcInstance.open = true;
 
-    if (this.props.useFilter) {
+    if (props.useFilter) {
       setTimeout(() => this.field.setFocus());
+    }
+
+    if (props.renderToBody) {
+      setAbsoluteOffset(this.self, props.getAnchor ? props.getAnchor() : this.menuParent);
     }
   }
 

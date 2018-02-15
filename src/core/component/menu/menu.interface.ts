@@ -18,11 +18,13 @@ export interface IMenuInternalState {
 }
 
 export interface IMenuInternalProps extends IBaseComponentInternalProps,
-                                            IRenderable<IMenuOption<AnyT>>,
-                                            ITemplateable<IMenuOption<AnyT>>,
+                                            IRenderable<MenuOptionT>,
+                                            ITemplateable<MenuOptionT>,
                                             IFilterable {
-  options: Array<IMenuOption<AnyT>>;
-  onSelect?(option: IMenuOption<AnyT>): void;
+  renderToBody?: boolean;
+  options: MenuOptionT[];
+  onSelect?(option: MenuOptionT): void;
+  getAnchor?(): HTMLElement;
 }
 
 export interface INativeMaterialMenuComponent extends INativeMaterialComponent {
@@ -42,8 +44,16 @@ export interface IMenuAction<TValue> extends ILabelable,
                                              IDisableable {
 }
 
+export interface IMenuActionsWrapper<TValue> {
+  menuActions?: Array<IMenuAction<TValue>>;
+}
+
+export type MenuActionsWrapperT = IMenuActionsWrapper<AnyT>;
+
 export type MenuActionT = IMenuAction<AnyT>;
 
 export interface IMenuOption<TRawData> extends IMenuAction<EntityIdT>,
                                                IRawDatable<TRawData> {
 }
+
+export type MenuOptionT = IMenuOption<AnyT>;

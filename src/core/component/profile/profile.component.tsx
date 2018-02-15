@@ -5,12 +5,14 @@ import { BaseComponent } from '../base';
 import { Link } from '../link';
 import { IProfileInternalProps } from './profile.interface';
 import { BasicEventT } from '../../definition.interface';
+import { Menu, MenuActionT, IMenuAction, IMenu } from '../menu';
 
 export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
 
   constructor(props: IProfileInternalProps) {
     super(props);
     this.onMenuClick = this.onMenuClick.bind(this);
+    this.onMenuActionClick = this.onMenuActionClick.bind(this);
   }
 
   public render(): JSX.Element {
@@ -18,12 +20,18 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     return (
       <Link to={props.path}
             className='rac-profile'>
-        <div className='rac-profile-logo-wrapper rac-profile-menu'>
+        <div ref='menuAnchor'
+             className='rac-profile-logo-wrapper rac-profile-menu'
+             onClick={this.onMenuClick}>
           {this.uiFactory.makeIcon({
-            type: 'menu',
+            type: 'more_vert',
             className: 'rac-profile-icon',
-            onClick: this.onMenuClick,
           })}
+          <Menu ref='menu'
+                renderToBody={true}
+                options={props.menuActions}
+                getAnchor={() => this.refs.menuAnchor as HTMLElement}
+                onSelect={this.onMenuActionClick}/>
         </div>
         <div className='rac-profile-logo-wrapper rac-profile-avatar'>
           {this.uiFactory.makeIcon({
@@ -50,12 +58,20 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     );
   }
 
+  private onMenuActionClick(option: MenuActionT): void {
+    const props = this.props;
+
+    if (props.onClick) {
+      props.onClick(option);
+    }
+  }
+
   private onMenuClick(event: BasicEventT): void {
     this.stopEvent(event);
+    this.menu.show();
+  }
 
-    const props = this.props;
-    if (props.onClick) {
-      props.onClick(event);
-    }
+  private get menu(): IMenu {
+    return this.refs.menu as IMenu;
   }
 }

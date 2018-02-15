@@ -86,6 +86,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <Profile path={this.routes.profile}
                  name={user && user.name}
                  email={user && user.email}
+                 menuActions={[{ label: 'Exit' , value: 'exit' }]}
                  onClick={this.onProfileMenuActionClick}/>
       )
     );
@@ -110,7 +111,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.dispatch(option.value);
   }
 
-  protected onProfileMenuActionClick(): void {
-    //this.dispatch(option.value);
+  protected onProfileMenuActionClick(option: MenuActionT): void {
+    console.log(option);
   }
 }
