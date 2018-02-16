@@ -44,7 +44,7 @@
   &.rac-navigation-list {
     .mdc-list-item {
       .material-icons {
-        padding-right: 32px;
+        padding-right: $rac-menu-icon-right-offset;
       }
     }
   }

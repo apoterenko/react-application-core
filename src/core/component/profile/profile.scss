@@ -63,3 +63,19 @@
     }
   }
 }
+
+// Profile actions menu [FRAMEWORK-][ROOT-]
+.rac-profile-actions-menu {
+
+  .rac-simple-list {
+
+    .rac-simple-list-item {
+      cursor: pointer;    // [RAC+]
+    }
+
+    .rac-menu-item-icon {
+      padding-right: $rac-menu-icon-right-offset;   // [RAC+]
+      vertical-align: middle;                       // [RAC+]
+    }
+  }
+}

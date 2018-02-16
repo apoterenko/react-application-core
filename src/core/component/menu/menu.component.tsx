@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
+import * as R from 'ramda';
 import { MDCMenu } from '@material/menu';
 
 import { BasicEventT, UNDEF } from '../../definition.interface';
@@ -29,7 +29,7 @@ export class Menu extends MaterialComponent<Menu,
     super(props, MDCMenu);
 
     this.onSelect = this.onSelect.bind(this);
-    this.onInputClick = this.onInputClick.bind(this);
+    this.onFilterClick = this.onFilterClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {};
@@ -37,12 +37,11 @@ export class Menu extends MaterialComponent<Menu,
 
   public componentDidMount(): void {
     super.componentDidMount();
-    this.nativeMdcInstance.listen('MDCMenu:selected', this.onSelect);
-    if (this.props.useFilter) {
-      // We must handle events through native DOM Api because Material Foundation implementation
-      this.eventManager.add(this.field.input, 'click', this.onInputClick);
-    }
 
+    if (this.props.useFilter) {
+      // We must handle the events through native DOM Api because MDC
+      this.eventManager.add(this.field.input, 'click', this.onFilterClick);
+    }
     if (this.props.renderToBody) {
       this.menuParent = this.self.parentElement;
       document.body.appendChild(this.self);
@@ -50,16 +49,16 @@ export class Menu extends MaterialComponent<Menu,
   }
 
   public componentWillUnmount(): void {
-    if (this.props.renderToBody) {
+    const props = this.props;
+    if (props.renderToBody) {
       delete this.menuParent;
       document.body.removeChild(this.self);
     }
-
-    this.nativeMdcInstance.unlisten('MDCMenu:selected', this.onSelect);
-    if (this.props.useFilter) {
-      // We must handle events through native DOM Api because Material Foundation implementation
-      this.eventManager.remove(this.field.input, 'click', this.onInputClick);
+    if (props.useFilter) {
+      // We must handle the events through native DOM Api because MDC
+      this.eventManager.remove(this.field.input, 'click', this.onFilterClick);
     }
+
     super.componentWillUnmount();
   }
 
@@ -77,25 +76,26 @@ export class Menu extends MaterialComponent<Menu,
             role: 'option',
             key: uuid(),
             value: option.value,
-            className: this.uiFactory.listItem,
+            className: toClassName(this.uiFactory.listItem, 'rac-simple-list-item'),
             ['aria-disabled']: option.disabled === true,
+            onClick: this.onSelect,
           };
           return (
             orDefault(
               !!props.renderer,
               () => React.cloneElement(props.renderer(option), props0),
               () => (
-                <li {...(!!option.icon ? {key: uuid()} : props0)}>
+                <li {...props0}>
                   {
                     orDefault(
                       !!props.tpl,
                       () => props.tpl(option),
                       () => (
-                        orDefault<JSX.Element, JSX.Element>(
+                        orDefault(
                           !!option.icon,
                           () => (
-                            <div {...props0}>
-                              {this.uiFactory.makeIcon(option.icon)}
+                            <div>
+                              {this.uiFactory.makeIcon({ type: option.icon, className: 'rac-menu-item-icon' })}
                               {optionValueFn(option)}
                             </div>
                           ),
@@ -159,8 +159,7 @@ export class Menu extends MaterialComponent<Menu,
     this.setState({ filter });
   }
 
-  private onInputClick(event: BasicEventT): void {
-    // We must handle events through native DOM Api because Material Foundation implementation
+  private onFilterClick(event: BasicEventT): void {
     this.stopEvent(event);
   }
 
@@ -172,10 +171,15 @@ export class Menu extends MaterialComponent<Menu,
     return this.refs.field as FieldT;
   }
 
-  private onSelect(event: { detail: { index: number, item: Element } }): void {
-    if (this.props.onSelect) {
-      const value = event.detail.item.getAttribute('value');
-      this.props.onSelect(ramda.find((option) => String(option.value) === value, this.props.options));
+  private onSelect(event: React.SyntheticEvent<HTMLElement>): void {
+    this.stopEvent(event);
+
+    const props = this.props;
+    if (props.onSelect) {
+      const optionAsText = event.currentTarget.getAttribute('value');
+      props.onSelect(R.find((option) => String(option.value) === optionAsText, props.options));
     }
+
+    this.hide();  // MDC the internal elements event handling issue
   }
 }

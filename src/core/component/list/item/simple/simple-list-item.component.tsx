@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../../../../component/base';
+import { BaseComponent, IBaseComponentInternalProps } from '../../../base';
 
 export class SimpleListItem extends BaseComponent<SimpleListItem, IBaseComponentInternalProps, {}> {
 
@@ -11,6 +11,7 @@ export class SimpleListItem extends BaseComponent<SimpleListItem, IBaseComponent
     return (
         <span className={toClassName(
             this.uiFactory.listItem,
+            'rac-simple-list-item',
             props.className
         )}>
           {props.children}
