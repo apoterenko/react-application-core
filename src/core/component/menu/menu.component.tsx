@@ -68,68 +68,68 @@ export class Menu extends MaterialComponent<Menu,
     const optionValueFn = (option) => (option.label ? this.t(option.label) : option.value);
 
     const menuItemsTpl = props.options
-        .filter(
-            (option) => !filter || String(option.label || option.value).toUpperCase().includes(filter)
-        )
-        .map((option): JSX.Element => {
-          const props0 = {
-            role: 'option',
-            key: uuid(),
-            value: option.value,
-            className: toClassName(this.uiFactory.listItem, 'rac-simple-list-item'),
-            ['aria-disabled']: option.disabled === true,
-            onClick: this.onSelect,
-          };
-          return (
-            orDefault(
-              !!props.renderer,
-              () => React.cloneElement(props.renderer(option), props0),
-              () => (
-                <li {...props0}>
-                  {
-                    orDefault(
-                      !!props.tpl,
-                      () => props.tpl(option),
-                      () => (
-                        orDefault(
-                          !!option.icon,
-                          () => (
-                            <div>
-                              {this.uiFactory.makeIcon({ type: option.icon, className: 'rac-menu-item-icon' })}
-                              {optionValueFn(option)}
-                            </div>
-                          ),
-                          () => optionValueFn(option)
-                        )
+      .filter(
+        (option) => !filter || String(option.label || option.value).toUpperCase().includes(filter)
+      )
+      .map((option): JSX.Element => {
+        const props0 = {
+          role: 'option',
+          key: uuid(),
+          value: option.value,
+          className: toClassName(this.uiFactory.listItem, 'rac-simple-list-item'),
+          ['aria-disabled']: option.disabled === true,
+          onClick: this.onSelect,
+        };
+        return (
+          orDefault(
+            !!props.renderer,
+            () => React.cloneElement(props.renderer(option), props0),
+            () => (
+              <li {...props0}>
+                {
+                  orDefault(
+                    !!props.tpl,
+                    () => props.tpl(option),
+                    () => (
+                      orDefault(
+                        !!option.icon,
+                        () => (
+                          <div>
+                            {this.uiFactory.makeIcon({ type: option.icon, className: 'rac-menu-item-icon' })}
+                            {optionValueFn(option)}
+                          </div>
+                        ),
+                        () => optionValueFn(option)
                       )
                     )
-                  }
-                </li>
-              ),
-            )
-          );
-        });
+                  )
+                }
+              </li>
+            ),
+          )
+        );
+      });
 
     return (
-        <div className={this.uiFactory.menuAnchor}>
-          <div ref='self'
-               className={toClassName('rac-menu', props.className, this.uiFactory.menu)}>
-            {orNull(
-                props.useFilter,
-                () => (
-                    <TextField ref='field'
-                               value={this.state.filter}
-                               placeholder={props.filterPlaceholder || 'Filter'}
-                               onChange={this.onInputChange}/>
-                )
-            )}
-            <SimpleList twoLine={false}
-                        nonInteractive={false}
-                        className={this.uiFactory.menuItems}>
-              {menuItemsTpl}
-            </SimpleList>
-          </div>
+      <div className={this.uiFactory.menuAnchor}>
+        <div ref='self'
+             className={toClassName('rac-menu', props.className, this.uiFactory.menu)}>
+          {orNull(
+            props.useFilter,
+            () => (
+              <TextField ref='field'
+                         value={this.state.filter}
+                         placeholder={props.filterPlaceholder || 'Filter'}
+                         onChange={this.onInputChange}/>
+            )
+          )}
+          <SimpleList twoLine={false}
+                      nonInteractive={false}
+                      className={this.uiFactory.menuItems}>
+            {menuItemsTpl}
+          </SimpleList>
         </div>
+      </div>
     );
   }
 
