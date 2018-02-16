@@ -5,12 +5,13 @@ import {
   EntityIdT,
   IFilterable,
   ILabelable,
-  IRenderable,
+  IRendererWrapper,
   IDisableable,
   IValueWrapper,
   IRawDatable,
   AnyT,
-  ITemplateable,
+  ITplWrapper,
+  IIconWrapper,
 } from '../../definition.interface';
 
 export interface IMenuInternalState {
@@ -18,8 +19,8 @@ export interface IMenuInternalState {
 }
 
 export interface IMenuInternalProps extends IBaseComponentInternalProps,
-                                            IRenderable<MenuOptionT>,
-                                            ITemplateable<MenuOptionT>,
+                                            IRendererWrapper<MenuOptionT>,
+                                            ITplWrapper<MenuOptionT>,
                                             IFilterable {
   renderToBody?: boolean;
   options: MenuOptionT[];
@@ -40,6 +41,7 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
 }
 
 export interface IMenuAction<TValue> extends ILabelable,
+                                             IIconWrapper,
                                              IValueWrapper<TValue>,
                                              IDisableable {
 }

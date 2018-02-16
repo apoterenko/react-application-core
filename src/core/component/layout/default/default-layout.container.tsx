@@ -25,6 +25,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
       email: '(no email)',
     },
   };
+  private static PROFILE_EXIT_ACTION = 'exit';
 
   @lazyInject(NavigationMenuBuilder) private navigationMenuBuilder: NavigationMenuBuilder;
 
@@ -86,7 +87,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <Profile path={this.routes.profile}
                  name={user && user.name}
                  email={user && user.email}
-                 menuActions={[{ label: 'Exit' , value: 'exit' }]}
+                 menuActions={[{ label: 'Exit', icon: 'exit_to_app', value: DefaultLayoutContainer.PROFILE_EXIT_ACTION }]}
                  onClick={this.onProfileMenuActionClick}/>
       )
     );
@@ -112,6 +113,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   protected onProfileMenuActionClick(option: MenuActionT): void {
-    console.log(option);
+    switch (option.value) {
+      case DefaultLayoutContainer.PROFILE_EXIT_ACTION:
+        this.navigate(this.routes.logout);
+        break;
+    }
   }
 }

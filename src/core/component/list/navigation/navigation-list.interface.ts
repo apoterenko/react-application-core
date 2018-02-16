@@ -1,6 +1,6 @@
 import {
   IActiveable,
-  IIconable,
+  IIconWrapper,
   ILabelable,
   IStylizable,
   ITypeWrapper,
@@ -17,7 +17,7 @@ export enum NavigationListItemTypeEnum {
 
 export interface INavigationListItemOptions extends IActiveable,
                                                     IStylizable,
-                                                    IIconable,
+                                                    IIconWrapper,
                                                     ILabelable,
                                                     ITypeWrapper<NavigationListItemTypeEnum> {
   link?: string;

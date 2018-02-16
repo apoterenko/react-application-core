@@ -44,19 +44,19 @@ export interface INameWrapper {
   name?: string;
 }
 
-export interface IRenderable<Type> {
-  renderer?(item: Type): JSX.Element;
+export interface IRendererWrapper<TItem> {
+  renderer?(item: TItem): JSX.Element;
 }
 
-export interface ITemplateable<Type> {
-  tpl?(node: Type): React.ReactNode;
+export interface ITplWrapper<TValue> {
+  tpl?(value: TValue): string;
 }
 
 export interface ISorter {
   sorter?(item1: IEntity, item2: IEntity): number;
 }
 
-export interface IIconable {
+export interface IIconWrapper {
   icon?: string;
 }
 
@@ -110,6 +110,8 @@ export const PASSWORD_FIELD_NAME = 'password';
 export interface IPasswordWrapper {
   password?: string;
 }
+
+export const EMAIL_FIELD_NAME = 'email';
 
 export interface IEmailWrapper {
   email?: string;

@@ -2,8 +2,8 @@ import { IMenuOption } from '../../../component/menu';
 import {
   IFilterable,
   INamedEntity,
-  IRenderable,
-  ITemplateable,
+  IRendererWrapper,
+  ITplWrapper,
 } from '../../../definition.interface';
 import {
   IBasicTextFieldInternalProps,
@@ -16,8 +16,8 @@ export interface IBasicSelectInternalState extends IBasicTextFieldInternalState 
 }
 
 export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
-                                                   IRenderable<SelectOptionT>,
-                                                   ITemplateable<SelectOptionT>,
+                                                   IRendererWrapper<SelectOptionT>,
+                                                   ITplWrapper<SelectOptionT>,
                                                    IFilterable {
   forceAll?: boolean;
   options?: SelectOptionT[];

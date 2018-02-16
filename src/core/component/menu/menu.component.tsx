@@ -4,7 +4,7 @@ import { MDCMenu } from '@material/menu';
 
 import { BasicEventT, UNDEF } from '../../definition.interface';
 import { MaterialComponent } from '../material';
-import { orNull, toClassName, uuid, setAbsoluteOffset } from '../../util';
+import { orNull, toClassName, uuid, setAbsoluteOffset, orDefault } from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IEventManager } from '../../event';
 import { FieldT, TextField } from '../field';
@@ -66,6 +66,7 @@ export class Menu extends MaterialComponent<Menu,
   public render(): JSX.Element {
     const props = this.props;
     const filter = this.state.filter && this.state.filter.toUpperCase();
+    const optionValueFn = (option) => (option.label ? this.t(option.label) : option.value);
 
     const menuItemsTpl = props.options
         .filter(
@@ -80,24 +81,39 @@ export class Menu extends MaterialComponent<Menu,
             ['aria-disabled']: option.disabled === true,
           };
           return (
-              props.renderer
-                  ? React.cloneElement(props.renderer(option), props0)
-                  : (
-                      <li {...props0}>
-                        {
-                          props.tpl
-                              ? props.tpl(option)
-                              : (option.label ? this.t(option.label) : option.value)
-                        }
-                      </li>
-                  )
+            orDefault(
+              !!props.renderer,
+              () => React.cloneElement(props.renderer(option), props0),
+              () => (
+                <li {...(!!option.icon ? {key: uuid()} : props0)}>
+                  {
+                    orDefault(
+                      !!props.tpl,
+                      () => props.tpl(option),
+                      () => (
+                        orDefault<JSX.Element, JSX.Element>(
+                          !!option.icon,
+                          () => (
+                            <div {...props0}>
+                              {this.uiFactory.makeIcon(option.icon)}
+                              {optionValueFn(option)}
+                            </div>
+                          ),
+                          () => optionValueFn(option)
+                        )
+                      )
+                    )
+                  }
+                </li>
+              ),
+            )
           );
         });
 
     return (
         <div className={this.uiFactory.menuAnchor}>
           <div ref='self'
-               className={toClassName('rac-menu', this.uiFactory.menu)}>
+               className={toClassName('rac-menu', props.className, this.uiFactory.menu)}>
             {orNull(
                 props.useFilter,
                 () => (

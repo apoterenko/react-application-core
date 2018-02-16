@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
 import { IRippleInternalProps } from '../../../component/ripple';
-import { IEntity, IRenderable, IIconable } from '../../../definition.interface';
+import { IEntity, IRendererWrapper, IIconWrapper } from '../../../definition.interface';
 
-export interface IListItemOptions extends IRenderable<IEntity>,
-                                          IIconable {
+export interface IListItemOptions extends IRendererWrapper<IEntity>,
+                                          IIconWrapper {
   tpl?(entity: IEntity): ReactNode;
   toClassName?(data: IEntity): string;
 }

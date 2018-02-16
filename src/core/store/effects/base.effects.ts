@@ -8,7 +8,6 @@ import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder, FormModifyPayloadT } from '../../component/form';
 import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
-import { PermissionsActionBuilder } from '../../permissions';
 import { UserActionBuilder } from '../../user';
 import { TransportActionBuilder } from '../../transport';
 import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../../component/application';
@@ -88,10 +87,6 @@ export class BaseEffects<TApi> {
     return RouterActionBuilder.buildNavigateBackAction();
   }
 
-  protected buildApplicationReadyAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildReadyAction();
-  }
-
   protected buildApplicationAfterLogoutAction(): IEffectsAction {
     return ApplicationActionBuilder.buildAfterLogoutAction();
   }
@@ -106,10 +101,6 @@ export class BaseEffects<TApi> {
 
   protected buildTransportDestroyTokenAction(): IEffectsAction {
     return TransportActionBuilder.buildDestroyTokenAction();
-  }
-
-  protected buildPermissionUpdateAction(data: AnyT): IEffectsAction {
-    return PermissionsActionBuilder.buildUpdateAction(data);
   }
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {
