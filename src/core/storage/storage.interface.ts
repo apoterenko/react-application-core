@@ -1,12 +1,24 @@
-import { AnyT } from '../definition.interface';
+import { AnyT, IStringIdWrapper } from '../definition.interface';
+
+export interface IUploadFileResponse extends IStringIdWrapper {
+  filePath: string;
+}
+
+export interface IClearFileResponse {
+}
+
+export interface IProcessFilesResponse {
+  uploadResponses: IUploadFileResponse[];
+  clearResponses: IClearFileResponse[];
+}
 
 export interface IApplicationStorage {
-  enabled: boolean;
-  disabled: boolean;
+  enabled?: boolean;
+  disabled?: boolean;
   set(key: string, value: AnyT): Promise<AnyT>;
-  get(key: string): AnyT;
-  remove(key: string, noPrefix?: boolean): Promise<AnyT>;
-  each(command: (o: AnyT, key: string) => void): void;
+  get?(key: string): AnyT;
+  remove?(key: string, noPrefix?: boolean): Promise<AnyT>;
+  each?(command: (o: AnyT, key: string) => void): void;
 }
 
 export enum ApplicationStorageTypeEnum {

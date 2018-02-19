@@ -1,9 +1,10 @@
 import { appContainer, staticInjector, DI_TYPES } from '../di';
 
-import { Storage } from './storage.service';
 import { IApplicationSettings,  } from '../settings';
 import { APP_VERSION, APP_PROFILE, NORMALIZED_BASE_PATH, PORT } from '../env';
-import { ApplicationStorageTypeEnum, STORAGE_KEY_SEPARATOR } from '../storage';
+import { Storage } from './storage.service';
+import { ApplicationStorageTypeEnum, STORAGE_KEY_SEPARATOR } from './storage.interface';
+import { CloudFileStorage } from './cloud-file-storage.service';
 
 const join = (...parts: string[]) => parts.filter((v) => !!v).join(STORAGE_KEY_SEPARATOR);
 const settingsResolver = () => staticInjector<IApplicationSettings>(DI_TYPES.Settings);
@@ -21,3 +22,4 @@ appContainer.bind(DI_TYPES.NotVersionedStorage).toConstantValue(
         ApplicationStorageTypeEnum.LOCAL
     )
 );
+appContainer.bind(DI_TYPES.CloudFileStorage).to(CloudFileStorage).inSingletonScope();

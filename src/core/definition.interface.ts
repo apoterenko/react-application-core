@@ -20,18 +20,21 @@ export interface IKeyValue {
 
 export const ID_FIELD_NAME = 'id';
 
-export interface IIdentifiable<TId> {
+export interface IIdWrapper<TId> {
   id?: TId;
 }
 
-export interface IIdentifiedEntity extends IIdentifiable<EntityIdT> {
+export interface IStringIdWrapper extends IIdWrapper<string> {
+}
+
+export interface IIdentifiedEntity extends IIdWrapper<EntityIdT> {
 }
 
 export interface INamedEntity extends IIdentifiedEntity,
                                       INameWrapper {
 }
 
-export interface IBlobEntity extends IIdentifiable<string> {
+export interface IBlobEntity extends IStringIdWrapper {
   blob: Blob;
 }
 

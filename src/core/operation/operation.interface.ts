@@ -1,4 +1,4 @@
-import { IIdentifiable} from '../definition.interface';
+import { IIdWrapper} from '../definition.interface';
 
-export interface IOperation extends IIdentifiable<string> {
+export interface IOperation extends IIdWrapper<string> {
 }

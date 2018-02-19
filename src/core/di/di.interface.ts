@@ -14,6 +14,7 @@ export const DI_TYPES = {
   Storage: Symbol('Storage'),
   NotVersionedStorage: Symbol('NotVersionedStorage'),
   CloudStorage: Symbol('CloudStorage'),
+  CloudFileStorage: Symbol('CloudFileStorage'),
   Store: Symbol('Store'),
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),
