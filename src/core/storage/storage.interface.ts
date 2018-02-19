@@ -1,15 +1,15 @@
 import { AnyT, IStringIdWrapper } from '../definition.interface';
 
-export interface IUploadFileResponse extends IStringIdWrapper {
+export interface ISetFileResult extends IStringIdWrapper {
   filePath: string;
 }
 
-export interface IClearFileResponse {
+export interface IRemoveFileResult {
 }
 
-export interface IProcessFilesResponse {
-  uploadResponses: IUploadFileResponse[];
-  clearResponses: IClearFileResponse[];
+export interface ISetFilesResult {
+  setFilesResults: ISetFileResult[];
+  removeFilesResults: IRemoveFileResult[];
 }
 
 export interface IApplicationStorage {

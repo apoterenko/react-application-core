@@ -5,9 +5,9 @@ import { IBlobEntity } from '../definition.interface';
 import { IMultiEntity } from '../component/field';
 import { toBlobEntities } from '../util';
 import {
-  IUploadFileResponse,
-  IClearFileResponse,
-  IProcessFilesResponse,
+  ISetFileResult,
+  IRemoveFileResult,
+  ISetFilesResult,
   IApplicationStorage,
 } from './storage.interface';
 
@@ -15,14 +15,14 @@ import {
 export class CloudFileStorage implements IApplicationStorage {
   @lazyInject(DI_TYPES.CloudStorage) private cloudStorage: IApplicationStorage;
 
-  public set(key: string, value: IMultiEntity): Promise<IProcessFilesResponse> {
+  public set(key: string, value: IMultiEntity): Promise<ISetFilesResult> {
     return this.process(value);
   }
 
-  private process(entity: IMultiEntity): Promise<IProcessFilesResponse> {
+  private process(entity: IMultiEntity): Promise<ISetFilesResult> {
     return toBlobEntities(entity.add.map((entity0) => entity0.id as string))
       .then((entities) =>
-        Promise.all<IUploadFileResponse[], IClearFileResponse[]>([
+        Promise.all<ISetFileResult[], IRemoveFileResult[]>([
           this.upload(entities),
           this.clear(entity)
         ]).then((result) => ({
@@ -32,17 +32,17 @@ export class CloudFileStorage implements IApplicationStorage {
       );
   }
 
-  private upload(entities: IBlobEntity[]): Promise<IUploadFileResponse[]> {
-    const uploadTasks = entities.map<Promise<IUploadFileResponse>>(
+  private upload(entities: IBlobEntity[]): Promise<ISetFileResult[]> {
+    const uploadTasks = entities.map<Promise<ISetFileResult>>(
       (entity) => this.cloudStorage.set(entity.id, entity.blob)
     );
-    return Promise.all<IUploadFileResponse>(uploadTasks);
+    return Promise.all<ISetFileResult>(uploadTasks);
   }
 
-  private clear(entity: IMultiEntity): Promise<IClearFileResponse[]> {
-    const clearTasks = entity.remove.map<Promise<IClearFileResponse>>(
+  private clear(entity: IMultiEntity): Promise<IRemoveFileResult[]> {
+    const clearTasks = entity.remove.map<Promise<IRemoveFileResult>>(
       (entity0) => this.cloudStorage.remove(entity0.id as string)
     );
-    return Promise.all<IClearFileResponse>(clearTasks);
+    return Promise.all<IRemoveFileResult>(clearTasks);
   }
 }
