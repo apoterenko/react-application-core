@@ -26,8 +26,8 @@ export class CloudFileStorage implements IApplicationStorage {
           this.upload(entities),
           this.clear(entity)
         ]).then((result) => ({
-          uploadResponses: result[0],
-          clearResponses: result[1],
+          setFilesResults: result[0],
+          removeFilesResults: result[1],
         }))
       );
   }
