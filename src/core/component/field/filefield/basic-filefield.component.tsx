@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { BasicTextField, IBasicTextFieldAction } from '../textfield';
+import { orNull } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   BasicEventT,
@@ -57,9 +58,12 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   }
 
   protected getAttachment(): JSX.Element {
-    return (
+    return orNull(
+      !this.isDeactivated(),
+      () => (
         <DnD ref='dnd'
              onSelect={this.onSelect}/>
+      )
     );
   }
 

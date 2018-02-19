@@ -155,12 +155,27 @@ export interface IProgressWrapper {
   progress?: boolean;
 }
 
+export const PRIORITY_FIELD_NAME = 'priority';
+
+export interface IPriorityWrapper {
+  priority?: number;
+}
+
 export interface ITouchedWrapper {
   touched?: boolean;
 }
 
 export interface IDataSource<Type> {
   data?: Type;
+}
+
+export const URL_FIELD_NAME = 'url';
+
+export interface IUrlWrapper<TUrl> {
+  url?: TUrl;
+}
+
+export interface IStringUrlWrapper extends IUrlWrapper<string> {
 }
 
 export interface ILinkable {
@@ -217,7 +232,7 @@ export interface ITitleable {
   title?: string;
 }
 
-export interface IDisableable {
+export interface IDisabledWrapper {
   disabled?: boolean;
 }
 
@@ -252,9 +267,16 @@ export interface IFormable<TForm> {
   form: TForm;
 }
 
-export interface IDateTimeRangeable {
+export interface IFromDateWrapper {
   fromDate?: string;
+}
+
+export interface IToDateWrapper {
   toDate?: string;
+}
+
+export interface IDateTimeRangeable extends IFromDateWrapper,
+                                            IToDateWrapper {
 }
 
 export interface IRippleable {
@@ -270,6 +292,22 @@ export interface IOnBaseClickWrapper extends IOnClickWrapper<BasicEventT> {
 
 export interface ISubmittable {
   submit?(): void;
+}
+
+export interface IPageWrapper {
+  page?: number;
+}
+
+export interface IPageSizeWrapper {
+  pageSize?: number;
+}
+
+export interface ITotalCountWrapper {
+  totalCount?: number;
+}
+
+export interface ITotalAmountWrapper {
+  totalAmount?: number;
 }
 
 export interface IInitialChangesable<TAppState extends ApplicationStateT> {

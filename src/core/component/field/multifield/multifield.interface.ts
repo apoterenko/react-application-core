@@ -24,3 +24,4 @@ export interface IMultiEntity {
 export type NotMultiFieldEntityT<TEntity extends IEntity> = TEntity[] | EntityIdT;
 export type MultiFieldEntityT<TEntity extends IEntity> = TEntity[] | IMultiEntity;
 export type MultiFieldValueT<TEntity extends IEntity> = MultiFieldEntityT<TEntity> | EntityIdT;
+export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;

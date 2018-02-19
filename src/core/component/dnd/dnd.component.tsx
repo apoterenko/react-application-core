@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 
-import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import { BaseComponent } from '../base';
 import {
   IDndInternalProps,
   IDnd,
@@ -11,7 +11,7 @@ import {
 export class DnD extends BaseComponent<DnD, IDndInternalProps, {}>
     implements IDnd {
 
-  constructor(props: IBaseComponentInternalProps) {
+  constructor(props: IDndInternalProps) {
     super(props);
     this.onDrop = this.onDrop.bind(this);
   }

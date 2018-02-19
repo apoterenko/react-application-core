@@ -1,8 +1,8 @@
 import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
-} from '../../../component/base';
-import { IApplicationListWrapperState, IPageOptions } from '../../../component/list';
+} from '../../base';
+import { IApplicationListWrapperState, IPageOptions } from '../../list';
 
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
                                                    IPageOptions {

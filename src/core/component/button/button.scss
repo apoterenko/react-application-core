@@ -16,6 +16,10 @@
     border-style: none;
     background: none;
     cursor: pointer;
+
+    &[disabled] {
+      cursor: default;                          // [RAC+]
+    }
   }
 }
 

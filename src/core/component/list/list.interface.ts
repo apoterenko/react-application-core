@@ -2,7 +2,7 @@ import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
   IBaseContainer,
-} from '../../component/base';
+} from '../base';
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
@@ -14,6 +14,10 @@ import {
   ISelectable,
   IDataSource,
   ISorter,
+  IPageWrapper,
+  IPageSizeWrapper,
+  ITotalCountWrapper,
+  ITotalAmountWrapper,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
 import { ISimpleListInternalProps } from './simple';
@@ -25,11 +29,10 @@ export interface IListOptions extends IBaseComponentInternalProps,
   addAction?: boolean;
 }
 
-export interface IPageOptions {
-  page: number;
-  pageSize: number;
-  totalCount: number;
-  totalAmount?: number;
+export interface IPageOptions extends IPageWrapper,
+                                      IPageSizeWrapper,
+                                      ITotalCountWrapper,
+                                      ITotalAmountWrapper {
 }
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,

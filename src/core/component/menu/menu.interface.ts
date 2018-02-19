@@ -6,7 +6,7 @@ import {
   IFilterable,
   ILabelable,
   IRendererWrapper,
-  IDisableable,
+  IDisabledWrapper,
   IValueWrapper,
   IRawDatable,
   AnyT,
@@ -43,7 +43,7 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
 export interface IMenuAction<TValue> extends ILabelable,
                                              IIconWrapper,
                                              IValueWrapper<TValue>,
-                                             IDisableable {
+                                             IDisabledWrapper {
 }
 
 export interface IMenuActionsWrapper<TValue> {
