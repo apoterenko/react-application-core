@@ -214,6 +214,10 @@ export interface IOperationable {
   operation?: IOperation;
 }
 
+export interface IIsNewWrapper {
+  isNew?: boolean;
+}
+
 export interface IDirtyable {
   dirty?: boolean;
 }

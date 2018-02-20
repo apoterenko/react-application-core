@@ -6,14 +6,15 @@ import {
   IEntityWrapper,
   IOperationable,
   IMergerWrapper,
+  IIsNewWrapper,
 } from '../definition.interface';
 
 export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity,
                                                              IChangesWrapper<TEntity>,
                                                              IEntityWrapper<TEntity>,
                                                              IMergerWrapper<TEntity>,
-                                                             IOperationable {
-  isNew: boolean;
+                                                             IOperationable,
+                                                             IIsNewWrapper {
 }
 
 export function makeUpdatedApiStubEntity<TEntity extends IEntity>(id: EntityIdT): IApiEntity<TEntity> {
