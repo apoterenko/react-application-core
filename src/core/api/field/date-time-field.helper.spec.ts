@@ -16,13 +16,13 @@ describe('filterByPredicate', function () {
   it('test1', function () {
     var changes = {};
     changes[FROM_DATE_FIELD_NAME] = '2017-01-01';
-    changes[FROM_TIME_FIELD_NAME] = '18:00:30';
+    changes[FROM_TIME_FIELD_NAME] = '20:00:00';
 
     var value = dateTimeFieldHelper.composeDateTimeSinceField({
       changes: changes,
     });
     var expectedValue = {};
-    expectedValue[FROM_DATE_FIELD_NAME] = '2017-01-01T07:00:30-08:00';
+    expectedValue[FROM_DATE_FIELD_NAME] = '2017-01-01T09:00:00-08:00';
 
     expect(value).toEqual(expectedValue);
   });
