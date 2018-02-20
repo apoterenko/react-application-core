@@ -7,6 +7,14 @@ import {
   IToDateTimeEntity,
   DEFAULT_TIME_FROM,
   DEFAULT_TIME_TO,
+  IKeyValue,
+  TO_DATE_FIELD_NAME,
+  FROM_DATE_FIELD_NAME,
+  TO_TIME_FIELD_NAME,
+  FROM_TIME_FIELD_NAME,
+  IDateTimeEntity,
+  DATE_FIELD_NAME,
+  TIME_FIELD_NAME,
 } from '../../definition.interface';
 
 import { IApiEntity } from '../api.interface';
@@ -16,20 +24,57 @@ import { orUndef, isUndef, isNull } from '../../util';
 
 @provideInSingleton(DateTimeFieldHelper)
 export class DateTimeFieldHelper {
-
   @lazyInject(DI_TYPES.DateConverter) private dc: IDateConverter;
+
+  public buildDateTimeFromField<TEntity extends IDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
+                                                                 returnOriginalValueIfNoChanges = false): string {
+    return this.toDateTime<TEntity>(
+      apiEntity,
+      (source) => source.date,
+      (source) => source.time,
+      returnOriginalValueIfNoChanges,
+      DEFAULT_TIME_FROM
+    );
+  }
+
+  public buildDateTimeToField<TEntity extends IDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
+                                                               returnOriginalValueIfNoChanges = false): string {
+    return this.toDateTime<TEntity>(
+      apiEntity,
+      (source) => source.date,
+      (source) => source.time,
+      returnOriginalValueIfNoChanges,
+      DEFAULT_TIME_TO
+    );
+  }
+
+  public buildDateTimeSinceField<TEntity extends IFromDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
+                                                                      returnOriginalValueIfNoChanges = false): string {
+    return this.toDateTime<TEntity>(
+      apiEntity,
+      (source) => source.fromDate,
+      (source) => source.fromTime,
+      returnOriginalValueIfNoChanges,
+      DEFAULT_TIME_FROM
+    );
+  }
+
+  public buildDateTimeTillField<TEntity extends IToDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
+                                                                     returnOriginalValueIfNoChanges = false): string {
+    return this.toDateTime<TEntity>(
+      apiEntity,
+      (source) => source.toDate,
+      (source) => source.toTime,
+      returnOriginalValueIfNoChanges,
+      DEFAULT_TIME_TO
+    );
+  }
 
   public composeDateTimeSinceField<TEntity extends IFromDateTimeEntity>(
     apiEntity: IApiEntity<TEntity>,
     returnOriginalValueIfNoChanges = false): IFromDateTimeEntity {
     return {
-      fromDate: this.toDateTime<TEntity>(
-        apiEntity,
-        (source) => source.fromDate,
-        (source) => source.fromTime,
-        returnOriginalValueIfNoChanges,
-        DEFAULT_TIME_FROM
-      ),
+      fromDate: this.buildDateTimeSinceField(apiEntity, returnOriginalValueIfNoChanges),
     };
   }
 
@@ -37,27 +82,46 @@ export class DateTimeFieldHelper {
     apiEntity: IApiEntity<TEntity>,
     returnOriginalValueIfNoChanges = false): IToDateTimeEntity {
     return {
-      toDate: this.toDateTime<TEntity>(
-        apiEntity,
-        (source) => source.toDate,
-        (source) => source.toTime,
-        returnOriginalValueIfNoChanges,
-        DEFAULT_TIME_TO
-      ),
+      toDate: this.buildDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
     };
   }
 
   public splitToDateTimeSinceFields(entity: IFromDateTimeEntity): IFromDateTimeEntity {
-    return {
-      fromTime: orUndef(entity.fromDate, () => this.dc.formatTimeFromDateTime(entity.fromDate)),
-      fromDate: orUndef(entity.fromDate, () => this.dc.formatDateFromDateTime(entity.fromDate)),
-    };
+    return this.splitToDateTimeFields<IFromDateTimeEntity>(
+      entity,
+      FROM_DATE_FIELD_NAME,
+      FROM_TIME_FIELD_NAME,
+      (source) => source.fromDate
+    );
   }
 
   public splitToDateTimeTillFields(entity: IToDateTimeEntity): IToDateTimeEntity {
+    return this.splitToDateTimeFields<IToDateTimeEntity>(
+      entity,
+      TO_DATE_FIELD_NAME,
+      TO_TIME_FIELD_NAME,
+      (source) => source.toDate
+    );
+  }
+
+  public splitToDateTimeBasicFields(entity: IDateTimeEntity): IDateTimeEntity {
+    return this.splitToDateTimeFields<IDateTimeEntity>(
+      entity,
+      DATE_FIELD_NAME,
+      TIME_FIELD_NAME,
+      (source) => source.date
+    );
+  }
+
+  public splitToDateTimeFields<TEntity>(entity: TEntity,
+                                        dateFieldName: string,
+                                        timeFieldName: string,
+                                        dateResolver: (entity: TEntity) => string): IKeyValue {
+    const date = dateResolver(entity);
+
     return {
-      toTime: orUndef(entity.toDate, () => this.dc.formatTimeFromDateTime(entity.toDate)),
-      toDate: orUndef(entity.toDate, () => this.dc.formatDateFromDateTime(entity.toDate)),
+      [timeFieldName]: orUndef(date, () => this.dc.formatTimeFromDateTime(date)),
+      [dateFieldName]: orUndef(date, () => this.dc.formatDateFromDateTime(date)),
     };
   }
 

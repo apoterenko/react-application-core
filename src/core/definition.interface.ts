@@ -28,6 +28,8 @@ export const FROM_DATE_FIELD_NAME = 'fromDate';
 export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
 export const TO_TIME_FIELD_NAME = 'toTime';
+export const TIME_FIELD_NAME = 'time';
+export const DATE_FIELD_NAME = 'date';
 
 export interface IIdWrapper<TId> {
   id?: TId;
@@ -278,6 +280,14 @@ export interface IFormable<TForm> {
   form: TForm;
 }
 
+export interface IDateWrapper {
+  date?: string;
+}
+
+export interface ITimeWrapper {
+  time?: string;
+}
+
 export interface IFromDateWrapper {
   fromDate?: string;
 }
@@ -292,6 +302,10 @@ export interface IFromTimeWrapper {
 
 export interface IToTimeWrapper {
   toTime?: string;
+}
+
+export interface IDateTimeEntity extends IDateWrapper,
+                                         ITimeWrapper {
 }
 
 export interface IFromDateTimeEntity extends IFromDateWrapper,
