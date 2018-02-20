@@ -1,4 +1,4 @@
-require('core-js');
+require('../src/polyfills');
 
 var testContext = require.context('../src', true, /\.spec\.ts/);
 
