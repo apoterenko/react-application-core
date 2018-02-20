@@ -183,7 +183,7 @@ export class DateConverter implements IDateConverter {
       ? moment(date)
       : moment(date, inputFormat, true);
     const zone = this.timeZone;
-    return zone ? momentDate.tz(zone) : momentDate;
+    return zone ? moment.tz(date, zone) : momentDate;
   }
 
   private getCurrentMomentDate(date?: Date): moment.Moment {
