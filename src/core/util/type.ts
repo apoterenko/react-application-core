@@ -9,7 +9,7 @@ export function isUndef(value: AnyT): boolean {
 }
 
 export function isNull(value: AnyT): boolean {
-  return typeof value === null;
+  return value === null;
 }
 
 export function isFn(value: AnyT): boolean {
