@@ -53,6 +53,7 @@
     "material-components-web": "^0.30.0",
     "material-ui": "^0.19.1",
     "moment": "^2.18.1",
+    "moment-timezone": "^0.5.14",
     "node-sass": "^4.5.3",
     "offset": "0.0.1",
     "optimize-js-plugin": "0.0.4",
