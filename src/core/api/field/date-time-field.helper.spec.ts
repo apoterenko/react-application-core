@@ -15,8 +15,8 @@ var dateTimeFieldHelper = staticInjector(DateTimeFieldHelper);
 describe('filterByPredicate', function () {
   it('test1', function () {
     var changes = {};
-    chnages[FROM_DATE_FIELD_NAME] = '2017-01-01';
-    chnages[FROM_TIME_FIELD_NAME] = '10:20:30';
+    changes[FROM_DATE_FIELD_NAME] = '2017-01-01';
+    changes[FROM_TIME_FIELD_NAME] = '10:20:30';
 
     var value = dateTimeFieldHelper.composeDateTimeSinceField({
       changes: changes,
