@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
 import * as moment from 'moment';
+import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../di';
 import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../definition.interface';
@@ -182,7 +183,7 @@ export class DateConverter implements IDateConverter {
       ? moment(date)
       : moment(date, inputFormat, true);
     const zone = this.timeZone;
-    return zone ? momentDate.zone(zone) : momentDate;
+    return zone ? momentDate.tz(zone) : momentDate;
   }
 
   private getCurrentMomentDate(date?: Date): moment.Moment {

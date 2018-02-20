@@ -7,7 +7,7 @@ import { FROM_DATE_FIELD_NAME, FROM_TIME_FIELD_NAME } from '../../definition.int
 import { DEFAULT_APPLICATION_SETTINGS } from '../../settings';
 
 var testSettings = clone(DEFAULT_APPLICATION_SETTINGS);
-testSettings.dateTime.timeZone = '+07:00';
+testSettings.dateTime.timeZone = 'America/Los_Angeles';
 appContainer.bind(DI_TYPES.Settings).toConstantValue(testSettings);
 
 var dateTimeFieldHelper = staticInjector(DateTimeFieldHelper);
@@ -16,13 +16,13 @@ describe('filterByPredicate', function () {
   it('test1', function () {
     var changes = {};
     changes[FROM_DATE_FIELD_NAME] = '2017-01-01';
-    changes[FROM_TIME_FIELD_NAME] = '10:20:30';
+    changes[FROM_TIME_FIELD_NAME] = '18:00:30';
 
     var value = dateTimeFieldHelper.composeDateTimeSinceField({
       changes: changes,
     });
     var expectedValue = {};
-    expectedValue[FROM_DATE_FIELD_NAME] = '2017-01-01T14:20:30+07:00';
+    expectedValue[FROM_DATE_FIELD_NAME] = '2017-01-01T07:00:30-08:00';
 
     expect(value).toEqual(expectedValue);
   });
