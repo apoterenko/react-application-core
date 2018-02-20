@@ -18,7 +18,16 @@ export interface IKeyValue {
   [index: string]: AnyT;
 }
 
+/**
+ * Core fields
+ */
 export const ID_FIELD_NAME = 'id';
+export const TYPE_FIELD_NAME = 'type';
+export const PRIORITY_FIELD_NAME = 'priority';
+export const FROM_DATE_FIELD_NAME = 'fromDate';
+export const TO_DATE_FIELD_NAME = 'toDate';
+export const FROM_TIME_FIELD_NAME = 'fromTime';
+export const TO_TIME_FIELD_NAME = 'toTime';
 
 export interface IIdWrapper<TId> {
   id?: TId;
@@ -155,8 +164,6 @@ export interface IProgressWrapper {
   progress?: boolean;
 }
 
-export const PRIORITY_FIELD_NAME = 'priority';
-
 export interface IPriorityWrapper {
   priority?: number;
 }
@@ -273,6 +280,22 @@ export interface IFromDateWrapper {
 
 export interface IToDateWrapper {
   toDate?: string;
+}
+
+export interface IFromTimeWrapper {
+  fromTime?: string;
+}
+
+export interface IToTimeWrapper {
+  toTime?: string;
+}
+
+export interface IFromDateTimeEntity extends IFromDateWrapper,
+                                             IFromTimeWrapper {
+}
+
+export interface IToDateTimeEntity extends IToDateWrapper,
+                                           IToTimeWrapper {
 }
 
 export interface IDateTimeRangeable extends IFromDateWrapper,

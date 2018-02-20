@@ -8,6 +8,6 @@ export const provide = makeProvideDecorator(appContainer);
 const provideInSingletonDecorator = makeFluentProvideDecorator(appContainer);
 export const provideInSingleton = (target) => provideInSingletonDecorator(target)
     .inSingletonScope()
-    .done();
+    .done(true);
 export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T =>
     appContainer.get(serviceIdentifier);

@@ -8,6 +8,7 @@ export interface IApplicationCurrencySettings {
 }
 
 export interface IApplicationDateTimeSettings {
+  timeZone?: string;         // Time zone (+08:00, etc..)
   dateFormat?: string;       // Client-server communication format
   timeFormat?: string;       // Client-server communication format
   dateTimeFormat?: string;   // Client-server communication format

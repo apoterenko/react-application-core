@@ -178,13 +178,19 @@ export class DateConverter implements IDateConverter {
   }
 
   private toMomentDate(date: DateTimeLikeTypeT, inputFormat: string): moment.Moment {
-    return date instanceof Date
-        ? moment(date)
-        : moment(date, inputFormat, true);
+    const momentDate = date instanceof Date
+      ? moment(date)
+      : moment(date, inputFormat, true);
+    const zone = this.timeZone;
+    return zone ? momentDate.zone(zone) : momentDate;
   }
 
   private getCurrentMomentDate(date?: Date): moment.Moment {
     return moment(date).set('h', 0).set('m', 0).set('s', 0);
+  }
+
+  private get timeZone(): string {
+    return this.dateTimeSettings.timeZone;
   }
 
   private get dateTimeFormat(): string {

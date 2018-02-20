@@ -8,6 +8,10 @@ export function isUndef(value: AnyT): boolean {
   return typeof value === 'undefined';
 }
 
+export function isNull(value: AnyT): boolean {
+  return typeof value === null;
+}
+
 export function isFn(value: AnyT): boolean {
   return typeof value === 'function';
 }
