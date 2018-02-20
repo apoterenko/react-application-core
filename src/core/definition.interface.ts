@@ -264,7 +264,7 @@ export interface IChangesWrapper<TChanges extends IKeyValue> {
 }
 
 export interface IMergerWrapper<TMerger extends IKeyValue> {
-  merger: TMerger;
+  merger?: TMerger;
 }
 
 export interface IEntityWrapper<TEntity extends IEntity> extends ITouchedWrapper {
