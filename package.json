@@ -15,6 +15,7 @@
     "@types/core-js": "^0.9.42",
     "@types/google-libphonenumber": "^7.4.12",
     "@types/history": "^4.6.0",
+    "@types/moment-timezone": "^0.5.4",
     "@types/node": "^8.0.16",
     "@types/prop-types": "^15.5.1",
     "@types/ramda": "^0.24.7",
