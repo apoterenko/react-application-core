@@ -88,8 +88,8 @@ export class DateConverter implements IDateConverter {
   /**
    * @test
    * @param {string} endUiDate [2018-01-31]
-   * @param {string} endUiTime [21:58:59]
-   * @returns {string} The formatted value [2018-01-31T21:58:59-08:00]
+   * @param {string} endUiTime [23:59:59]
+   * @returns {string} The formatted value [2018-01-31T23:59:59-08:00]
    */
   public fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime = DEFAULT_TIME_TO): string {
     return this.fromUiDateTimeToDateTime(endUiDate, endUiTime);
@@ -110,7 +110,14 @@ export class DateConverter implements IDateConverter {
    * @returns {Date}
    */
   public get30DaysAgo(): Date {
-    return this.toMomentDate(this.currentDate).subtract(30, 'days').toDate();
+    return this.getCurrentMomentDate().subtract(30, 'days').toDate();
+  }
+
+  /**
+   * @returns {Date}
+   */
+  public getStartOfCurrentDay(): Date {
+    return this.getCurrentMomentDate().toDate();
   }
 
   public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
@@ -145,15 +152,6 @@ export class DateConverter implements IDateConverter {
   public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
-  }
-
-  public getDateRangeFromDate(date: Date): Date[] {
-    const momentDate = this.getCurrentMomentDate(date);
-    return [momentDate.toDate(), momentDate.clone().add(1, 'day').subtract(1, 'second').toDate()];
-  }
-
-  public getCurrentDate(date?: Date): Date {
-    return this.getCurrentMomentDate(date).toDate();
   }
 
   public appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat: string = this.dateFormat): Date {
@@ -196,8 +194,8 @@ export class DateConverter implements IDateConverter {
     return zone ? moment.tz(date, zone) : momentDate;
   }
 
-  private getCurrentMomentDate(date?: Date): moment.Moment {
-    return moment(date).set('h', 0).set('m', 0).set('s', 0);
+  private getCurrentMomentDate(): moment.Moment {
+    return this.toMomentDate(this.currentDate);
   }
 
   private get timeZone(): string {

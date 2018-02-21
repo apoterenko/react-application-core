@@ -317,8 +317,12 @@ export interface IToDateTimeEntity extends IToDateWrapper,
                                            IToTimeWrapper {
 }
 
-export interface IFromToDateTimeEntity extends IFromDateWrapper,
-                                               IToDateWrapper {
+export interface IFromToDateEntity extends IFromDateWrapper,
+                                           IToDateWrapper {
+}
+
+export interface IFromToDateTimeEntity extends IFromDateTimeEntity,
+                                               IToDateTimeEntity {
 }
 
 export interface IRippleable {

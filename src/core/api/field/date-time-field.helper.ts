@@ -15,6 +15,8 @@ import {
   IDateTimeEntity,
   DATE_FIELD_NAME,
   TIME_FIELD_NAME,
+  IFromToDateEntity,
+  IFromToDateTimeEntity,
 } from '../../definition.interface';
 
 import { IApiEntity } from '../api.interface';
@@ -60,7 +62,7 @@ export class DateTimeFieldHelper {
   }
 
   public buildDateTimeTillField<TEntity extends IToDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
-                                                                     returnOriginalValueIfNoChanges = false): string {
+                                                                   returnOriginalValueIfNoChanges = false): string {
     return this.toDateTime<TEntity>(
       apiEntity,
       (source) => source.toDate,
@@ -83,6 +85,19 @@ export class DateTimeFieldHelper {
     returnOriginalValueIfNoChanges = false): IToDateTimeEntity {
     return {
       toDate: this.buildDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
+    };
+  }
+
+  public composeDateTimeRangeFields<TEntity extends IFromToDateTimeEntity>(entity: TEntity): IFromToDateEntity {
+    return {
+      fromDate: this.dc.fromStartUiDateTimeToDateTime(
+        entity.fromDate || this.dc.fromDateToUiDate(this.dc.get30DaysAgo()),
+        entity.fromTime
+      ),
+      toDate: this.dc.fromEndUiDateTimeToDateTime(
+        entity.toDate || this.dc.fromDateToUiDate(this.dc.getStartOfCurrentDay()),
+        entity.toTime
+      ),
     };
   }
 

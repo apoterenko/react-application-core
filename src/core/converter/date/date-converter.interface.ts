@@ -17,8 +17,7 @@ export interface IDateConverter {
   parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date;
   parseDateFromDateTime(date: DateTimeLikeTypeT): Date;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT;
-  getDateRangeFromDate(date: Date): Date[];
-  getCurrentDate(date?: Date): Date;
+  getStartOfCurrentDay(): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;
   getFirstDayOfMonth(): Date;
   get30DaysAgo(): Date;

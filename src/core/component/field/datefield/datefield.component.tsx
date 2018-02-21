@@ -116,7 +116,7 @@ export class DateField extends BasicTextField<DateField,
 
   private get dialogDate(): Date {
     const value = this.value;
-    const defaultDate = this.dc.getCurrentDate();
+    const defaultDate = this.dc.getStartOfCurrentDay();
     if (R.isNil(value)) {
       return defaultDate;
     }
