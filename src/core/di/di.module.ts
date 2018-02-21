@@ -9,5 +9,5 @@ const provideInSingletonDecorator = makeFluentProvideDecorator(appContainer);
 export const provideInSingleton = (target) => provideInSingletonDecorator(target)
     .inSingletonScope()
     .done(true);
-export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T =>
-    appContainer.get(serviceIdentifier);
+export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>) =>
+    appContainer.get<T>(serviceIdentifier);

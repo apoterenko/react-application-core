@@ -1,14 +1,8 @@
 import '../../converter/converter.module';
 
-import { clone } from '../../util';
-import { staticInjector, appContainer, DI_TYPES } from '../../di';
+import { staticInjector } from '../../di';
 import { DateTimeFieldHelper } from './date-time-field.helper';
-import { DEFAULT_APPLICATION_SETTINGS } from '../../settings';
 import { UNDEF } from '../../definition.interface';
-
-const testSettings = clone(DEFAULT_APPLICATION_SETTINGS);
-testSettings.dateTime.timeZone = 'America/Los_Angeles';
-appContainer.bind(DI_TYPES.Settings).toConstantValue(testSettings);
 
 const dateTimeFieldHelper = staticInjector(DateTimeFieldHelper);
 

@@ -8,6 +8,7 @@ export interface IApplicationCurrencySettings {
 }
 
 export interface IApplicationDateTimeSettings {
+  currentDate?: Date;        // Current date
   timeZone?: string;         // Time zone (+08:00, etc..)
   dateFormat?: string;       // Client-server communication format
   timeFormat?: string;       // Client-server communication format
@@ -73,6 +74,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     serviceTemporarilyUnavailable: 'Service temporarily unavailable. Please try later.',
   },
   dateTime: {
+    currentDate: new Date(),
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',

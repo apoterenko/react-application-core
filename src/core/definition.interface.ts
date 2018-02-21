@@ -30,6 +30,7 @@ export const FROM_TIME_FIELD_NAME = 'fromTime';
 export const TO_TIME_FIELD_NAME = 'toTime';
 export const TIME_FIELD_NAME = 'time';
 export const DATE_FIELD_NAME = 'date';
+export const FILTER_FIELD_NAME =  'filter';
 
 export interface IIdWrapper<TId> {
   id?: TId;
@@ -316,8 +317,8 @@ export interface IToDateTimeEntity extends IToDateWrapper,
                                            IToTimeWrapper {
 }
 
-export interface IDateTimeRangeable extends IFromDateWrapper,
-                                            IToDateWrapper {
+export interface IFromToDateTimeEntity extends IFromDateWrapper,
+                                               IToDateWrapper {
 }
 
 export interface IRippleable {

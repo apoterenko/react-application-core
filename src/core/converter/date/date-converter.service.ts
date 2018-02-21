@@ -2,11 +2,11 @@ import { injectable } from 'inversify';
 import * as moment from 'moment';
 import 'moment-timezone';
 
-import { lazyInject, DI_TYPES } from '../di';
-import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../definition.interface';
-import { isString, orNull } from '../util';
-import { IApplicationDateTimeSettings, IApplicationSettings } from '../settings';
-import { IDateConverter, DateTimeLikeTypeT } from './converter.interface';
+import { lazyInject, DI_TYPES } from '../../di';
+import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../../definition.interface';
+import { isString, orNull } from '../../util';
+import { IApplicationDateTimeSettings, IApplicationSettings } from '../../settings';
+import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
 @injectable()
 export class DateConverter implements IDateConverter {
@@ -80,10 +80,20 @@ export class DateConverter implements IDateConverter {
    * @param {string} startPeriodUiTime
    * @returns {string}
    */
-  public fromStartPeriodDateTimeToDateTime(startPeriodUiDate?: string, startPeriodUiTime?: string): string {
+  public fromStartUiDateTimeToDateTime(startPeriodUiDate: string, startPeriodUiTime?: string): string {
     return this.fromUiDateTimeToDateTime(
-        startPeriodUiDate || this.fromDateToUiDate(this.get30DaysAgo()),
-        startPeriodUiTime || DEFAULT_TIME_FROM
+      startPeriodUiDate,
+      startPeriodUiTime || DEFAULT_TIME_FROM
+    );
+  }
+
+  /**
+   * @returns {string}
+   */
+  public from30DaysAgoUiDateTimeToDateTime(): string {
+    return this.fromUiDateTimeToDateTime(
+      this.fromDateToUiDate(this.get30DaysAgo()),
+      DEFAULT_TIME_FROM
     );
   }
 
@@ -151,7 +161,7 @@ export class DateConverter implements IDateConverter {
   }
 
   public get30DaysAgo(): Date {
-    return moment().subtract(30, 'days').toDate();
+    return this.toMomentDate(this.currentDate).subtract(30, 'days').toDate();
   }
 
   public getLocalizedMonth(index: number): string {
@@ -178,7 +188,7 @@ export class DateConverter implements IDateConverter {
     return [dateAsString, timeAsString].join(' ');
   }
 
-  private toMomentDate(date: DateTimeLikeTypeT, inputFormat: string): moment.Moment {
+  private toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string): moment.Moment {
     const momentDate = date instanceof Date
       ? moment(date)
       : moment(date, inputFormat, true);
@@ -192,6 +202,10 @@ export class DateConverter implements IDateConverter {
 
   private get timeZone(): string {
     return this.dateTimeSettings.timeZone;
+  }
+
+  private get currentDate(): Date {
+    return this.dateTimeSettings.currentDate;
   }
 
   private get dateTimeFormat(): string {
