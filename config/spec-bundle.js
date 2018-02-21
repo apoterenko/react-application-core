@@ -1,4 +1,5 @@
 require('../src/polyfills');
+require('../src/core/application/application-test.module');
 
 var testContext = require.context('../src', true, /\.spec\.ts/);
 
