@@ -10,4 +10,26 @@ describe('DateConverter', () => {
       expect(value).toEqual('2036-07-30T00:00:00-07:00');
     });
   });
+
+  describe('fromStartUiDateTimeToDateTime', () => {
+    it('test1', () => {
+      const value = dateConverter.fromStartUiDateTimeToDateTime('2018-01-31');
+      expect(value).toEqual('2018-01-31T00:00:00-08:00');
+    });
+    it('test2', () => {
+      const value = dateConverter.fromStartUiDateTimeToDateTime('2018-01-31', '21:58:59');
+      expect(value).toEqual('2018-01-31T21:58:59-08:00');
+    });
+  });
+
+  describe('fromEndUiDateTimeToDateTime', () => {
+    it('test1', () => {
+      const value = dateConverter.fromEndUiDateTimeToDateTime('2018-01-31');
+      expect(value).toEqual('2018-01-31T23:59:59-08:00');
+    });
+    it('test2', () => {
+      const value = dateConverter.fromEndUiDateTimeToDateTime('2018-01-31', '21:58:59');
+      expect(value).toEqual('2018-01-31T21:58:59-08:00');
+    });
+  });
 });

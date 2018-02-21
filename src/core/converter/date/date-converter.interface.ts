@@ -5,8 +5,8 @@ export interface IDateConverter {
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: string, time: string): string;
   fromUiDateTimeToDateTime(date: string, time: string): string;
-  fromStartUiDateTimeToDateTime(startPeriodUiDate: string, startPeriodUiTime?: string): string;
-  fromEndPeriodDateTimeToDateTime(endPeriodUiDate?: string, endPeriodUiTime?: string): string;
+  fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime?: string): string;
+  fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime?: string): string;
   from30DaysAgoUiDateTimeToDateTime(): string;
   formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
   formatDateFromDateTime(date: DateTimeLikeTypeT): string;

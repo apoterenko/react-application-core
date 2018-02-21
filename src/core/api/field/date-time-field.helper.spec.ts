@@ -6,7 +6,7 @@ import { UNDEF } from '../../definition.interface';
 
 const dateTimeFieldHelper = staticInjector(DateTimeFieldHelper);
 
-describe('dateTimeFieldHelper', () => {
+describe('DateTimeFieldHelper', () => {
 
   describe('composeDateTimeSinceField', () => {
     it('test1', () => {

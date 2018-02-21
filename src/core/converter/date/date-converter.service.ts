@@ -76,18 +76,27 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @param {string} startPeriodUiDate
-   * @param {string} startPeriodUiTime
-   * @returns {string}
+   * @test
+   * @param {string} startUiDate [2018-01-31]
+   * @param {string} startUiTime [21:58:59]
+   * @returns {string} The formatted value [2018-01-31T21:58:59-08:00]
    */
-  public fromStartUiDateTimeToDateTime(startPeriodUiDate: string, startPeriodUiTime?: string): string {
-    return this.fromUiDateTimeToDateTime(
-      startPeriodUiDate,
-      startPeriodUiTime || DEFAULT_TIME_FROM
-    );
+  public fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime = DEFAULT_TIME_FROM): string {
+    return this.fromUiDateTimeToDateTime(startUiDate, startUiTime);
   }
 
   /**
+   * @test
+   * @param {string} endUiDate [2018-01-31]
+   * @param {string} endUiTime [21:58:59]
+   * @returns {string} The formatted value [2018-01-31T21:58:59-08:00]
+   */
+  public fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime = DEFAULT_TIME_TO): string {
+    return this.fromUiDateTimeToDateTime(endUiDate, endUiTime);
+  }
+
+  /**
+   * @test
    * @returns {string}
    */
   public from30DaysAgoUiDateTimeToDateTime(): string {
@@ -98,15 +107,10 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @param {string} endPeriodUiDate
-   * @param {string} endPeriodUiTime
-   * @returns {string}
+   * @returns {Date}
    */
-  public fromEndPeriodDateTimeToDateTime(endPeriodUiDate?: string, endPeriodUiTime?: string): string {
-    return this.fromUiDateTimeToDateTime(
-        endPeriodUiDate || this.fromDateToUiDate(new Date()),
-        endPeriodUiTime || DEFAULT_TIME_TO
-    );
+  public get30DaysAgo(): Date {
+    return this.toMomentDate(this.currentDate).subtract(30, 'days').toDate();
   }
 
   public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
@@ -158,10 +162,6 @@ export class DateConverter implements IDateConverter {
       momentDate = momentDate.add(item[0] as moment.DurationInputArg1, item[1] as moment.DurationInputArg2);
     });
     return momentDate.toDate();
-  }
-
-  public get30DaysAgo(): Date {
-    return this.toMomentDate(this.currentDate).subtract(30, 'days').toDate();
   }
 
   public getLocalizedMonth(index: number): string {
