@@ -95,7 +95,7 @@ export class DateTimeFieldHelper {
         entity.fromTime
       ),
       toDate: this.dc.fromEndUiDateTimeToDateTime(
-        entity.toDate || this.dc.fromDateToUiDate(this.dc.getStartOfCurrentDay()),
+        entity.toDate || this.dc.fromDateToUiDate(this.dc.getCurrentDate()),
         entity.toTime
       ),
     };

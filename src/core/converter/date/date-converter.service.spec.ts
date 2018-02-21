@@ -33,9 +33,9 @@ describe('DateConverter', () => {
     });
   });
 
-  describe('getStartOfCurrentDay', () => {
+  describe('getCurrentDate', () => {
     it('test1', () => {
-      const value = dateConverter.getStartOfCurrentDay();
+      const value = dateConverter.getCurrentDate();
       expect(value).toEqual(new Date('Aug 30 2036 00:00:00 GMT-0800'));
     });
   });

@@ -116,7 +116,7 @@ export class DateConverter implements IDateConverter {
   /**
    * @returns {Date}
    */
-  public getStartOfCurrentDay(): Date {
+  public getCurrentDate(): Date {
     return this.getCurrentMomentDate().toDate();
   }
 
