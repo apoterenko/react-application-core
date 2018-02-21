@@ -88,17 +88,40 @@ export class DateTimeFieldHelper {
     };
   }
 
+  /**
+   * @test
+   * @param {TEntity} entity
+   * @returns {IFromToDateEntity}
+   */
   public composeDateTimeRangeFields<TEntity extends IFromToDateTimeEntity>(entity: TEntity): IFromToDateEntity {
+    return this.buildDateTimeRangeFields<TEntity>(
+      entity,
+      (source) => source.fromDate,
+      (source) => source.toDate,
+      (source) => source.fromTime,
+      (source) => source.toTime,
+      FROM_DATE_FIELD_NAME,
+      TO_DATE_FIELD_NAME,
+    );
+  }
+
+  public buildDateTimeRangeFields<TEntity extends IEntity>(entity: TEntity,
+                                                           fromDateResolver: (entity: TEntity) => string,
+                                                           toDateResolver: (entity: TEntity) => string,
+                                                           fromTimeResolver: (entity: TEntity) => string,
+                                                           toTimeResolver: (entity: TEntity) => string,
+                                                           fromDateFieldName: string,
+                                                           toDateFieldName: string): TEntity {
     return {
-      fromDate: this.dc.fromStartUiDateTimeToDateTime(
-        entity.fromDate || this.dc.fromDateToUiDate(this.dc.get30DaysAgo()),
-        entity.fromTime
+      [fromDateFieldName]: this.dc.fromStartUiDateTimeToDateTime(
+        fromDateResolver(entity) || this.dc.fromDateToUiDate(this.dc.get30DaysAgo()),
+        fromTimeResolver(entity)
       ),
-      toDate: this.dc.fromEndUiDateTimeToDateTime(
-        entity.toDate || this.dc.fromDateToUiDate(this.dc.getCurrentDate()),
-        entity.toTime
+      [toDateFieldName]: this.dc.fromEndUiDateTimeToDateTime(
+        toDateResolver(entity) || this.dc.fromDateToUiDate(this.dc.getCurrentDate()),
+        toTimeResolver(entity)
       ),
-    };
+    } as TEntity;
   }
 
   public splitToDateTimeSinceFields(entity: IFromDateTimeEntity): IFromDateTimeEntity {
