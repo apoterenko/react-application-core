@@ -1,4 +1,4 @@
-import '../converter/converter.module';
+import '../converter/converter-test.module';
 import '../settings/settings.module';
 
 import { clone } from '../util';

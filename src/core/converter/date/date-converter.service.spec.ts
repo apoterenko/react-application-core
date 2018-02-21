@@ -1,6 +1,7 @@
-import { staticInjector, DI_TYPES } from '../../di';
+import { staticInjector } from '../../di';
+import { DateConverter } from './date-converter.service';
 
-const dateConverter = staticInjector(DI_TYPES.DateConverter);
+const dateConverter = staticInjector(DateConverter);
 
 describe('DateConverter', () => {
   describe('from30DaysAgoUiDateTimeToDateTime', () => {
