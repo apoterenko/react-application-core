@@ -7,225 +7,227 @@ import {
 } from './filter';
 import { ID_FIELD_NAME, UNDEF } from '../definition.interface';
 
-describe('filterByPredicate', () => {
-  it('test1', () => {
-    const filteredObject = filterByPredicate({
-      key1: 'value1',
-      key2: 'value2',
-    }, (key, value) => key !== 'key1');
-
-    expect(filteredObject).toEqual({
-      key2: 'value2',
-    });
-  });
-
-  it('test2', () => {
-    const filteredObject = filterByPredicate({
-      key1: 'value1',
-      key2: 'value2',
-    }, (key, value) => key !== 'key3');
-
-    expect(filteredObject).toEqual({
-      key1: 'value1',
-      key2: 'value2',
-    });
-  });
-
-  it('test3', () => {
-    const filteredObject = filterByPredicate({
+describe('util/filter', () => {
+  describe('filterByPredicate', () => {
+    it('test1', () => {
+      const filteredObject = filterByPredicate({
         key1: 'value1',
         key2: 'value2',
-      }, (key, value) => key !== 'key2',
-      (key, value) => key !== 'key1');
+      }, (key, value) => key !== 'key1');
 
-    expect(filteredObject).toEqual({});
-  });
+      expect(filteredObject).toEqual({
+        key2: 'value2',
+      });
+    });
 
-  it('test4', () => {
-    const filteredObject = filterByPredicate({
+    it('test2', () => {
+      const filteredObject = filterByPredicate({
         key1: 'value1',
         key2: 'value2',
-      }, (key, value) => key !== 'key1',
-      (key, value) => key !== 'key3');
+      }, (key, value) => key !== 'key3');
 
-    expect(filteredObject).toEqual({
-      key2: 'value2',
-    });
-  });
-});
-
-describe('excludeFieldsFilter', () => {
-  it('test1', () => {
-    const filteredObject = excludeFieldsFilter({
-      key1: 'value1',
-      key2: 'value2',
-    }, 'key1');
-
-    expect(filteredObject).toEqual({
-      key2: 'value2',
-    });
-  });
-
-  it('test2', () => {
-    const filteredObject = excludeFieldsFilter({
-      key1: 'value1',
-      key2: 'value2',
-    }, 'key1', 'key2');
-
-    expect(filteredObject).toEqual({});
-  });
-
-  it('test3', () => {
-    const filteredObject = excludeFieldsFilter({
-      key1: 'value1',
-      key2: 'value2',
-    }, 'key3');
-
-    expect(filteredObject).toEqual({
-      key1: 'value1',
-      key2: 'value2',
-    });
-  });
-});
-
-describe('defValuesFilter', () => {
-  it('test1', () => {
-    const filteredObject = defValuesFilter({
-      key1: 'value1',
-      key2: void 0,
+      expect(filteredObject).toEqual({
+        key1: 'value1',
+        key2: 'value2',
+      });
     });
 
-    expect(filteredObject).toEqual({
-      key1: 'value1',
+    it('test3', () => {
+      const filteredObject = filterByPredicate({
+          key1: 'value1',
+          key2: 'value2',
+        }, (key, value) => key !== 'key2',
+        (key, value) => key !== 'key1');
+
+      expect(filteredObject).toEqual({});
+    });
+
+    it('test4', () => {
+      const filteredObject = filterByPredicate({
+          key1: 'value1',
+          key2: 'value2',
+        }, (key, value) => key !== 'key1',
+        (key, value) => key !== 'key3');
+
+      expect(filteredObject).toEqual({
+        key2: 'value2',
+      });
     });
   });
 
-  it('test2', () => {
-    const filteredObject = defValuesFilter({
-      key1: 'value1',
-      key2: 100,
+  describe('excludeFieldsFilter', () => {
+    it('test1', () => {
+      const filteredObject = excludeFieldsFilter({
+        key1: 'value1',
+        key2: 'value2',
+      }, 'key1');
+
+      expect(filteredObject).toEqual({
+        key2: 'value2',
+      });
     });
 
-    expect(filteredObject).toEqual({
-      key1: 'value1',
-      key2: 100,
-    });
-  });
+    it('test2', () => {
+      const filteredObject = excludeFieldsFilter({
+        key1: 'value1',
+        key2: 'value2',
+      }, 'key1', 'key2');
 
-  it('test3', () => {
-    const filteredObject = defValuesFilter({
-      key1: 'value1',
-      key2: null,
-      key3: 0,
+      expect(filteredObject).toEqual({});
     });
 
-    expect(filteredObject).toEqual({
-      key1: 'value1',
-      key2: null,
-      key3: 0,
-    });
-  });
-});
+    it('test3', () => {
+      const filteredObject = excludeFieldsFilter({
+        key1: 'value1',
+        key2: 'value2',
+      }, 'key3');
 
-describe('excludeIdFieldFilter', () => {
-  it('test1', () => {
-    const filteredObject = excludeIdFieldFilter({
-      key1: 'value1',
-      [ID_FIELD_NAME]: 100,
-    });
-
-    expect(filteredObject).toEqual({
-      key1: 'value1',
+      expect(filteredObject).toEqual({
+        key1: 'value1',
+        key2: 'value2',
+      });
     });
   });
 
-  it('test2', () => {
-    const filteredObject = excludeIdFieldFilter({ id1: 'value1' });
+  describe('defValuesFilter', () => {
+    it('test1', () => {
+      const filteredObject = defValuesFilter({
+        key1: 'value1',
+        key2: void 0,
+      });
 
-    expect(filteredObject).toEqual({
-      id1: 'value1',
+      expect(filteredObject).toEqual({
+        key1: 'value1',
+      });
+    });
+
+    it('test2', () => {
+      const filteredObject = defValuesFilter({
+        key1: 'value1',
+        key2: 100,
+      });
+
+      expect(filteredObject).toEqual({
+        key1: 'value1',
+        key2: 100,
+      });
+    });
+
+    it('test3', () => {
+      const filteredObject = defValuesFilter({
+        key1: 'value1',
+        key2: null,
+        key3: 0,
+      });
+
+      expect(filteredObject).toEqual({
+        key1: 'value1',
+        key2: null,
+        key3: 0,
+      });
     });
   });
-});
 
-describe('cloneUsingFilters', () => {
-  it('test1', () => {
-    const o = { key1: 'value1', key2: { key3: 'value3' } };
-    const clonedObject = cloneUsingFilters(o);
+  describe('excludeIdFieldFilter', () => {
+    it('test1', () => {
+      const filteredObject = excludeIdFieldFilter({
+        key1: 'value1',
+        [ID_FIELD_NAME]: 100,
+      });
 
-    expect(clonedObject).toEqual({ key1: 'value1', key2: { key3: 'value3' } });
+      expect(filteredObject).toEqual({
+        key1: 'value1',
+      });
+    });
+
+    it('test2', () => {
+      const filteredObject = excludeIdFieldFilter({ id1: 'value1' });
+
+      expect(filteredObject).toEqual({
+        id1: 'value1',
+      });
+    });
   });
 
-  it('test2', () => {
-    const o = { key1: 'value1', key2: { key3: 'value3' } };
-    const clonedObject = cloneUsingFilters(o);
-    clonedObject.key4 = 'value4';
+  describe('cloneUsingFilters', () => {
+    it('test1', () => {
+      const o = { key1: 'value1', key2: { key3: 'value3' } };
+      const clonedObject = cloneUsingFilters(o);
 
-    expect(o).toEqual({ key1: 'value1', key2: { key3: 'value3' } });
-  });
+      expect(clonedObject).toEqual({ key1: 'value1', key2: { key3: 'value3' } });
+    });
 
-  it('test3', () => {
-    const o = { key1: 'value1', key2: { key3: 'value3' } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+    it('test2', () => {
+      const o = { key1: 'value1', key2: { key3: 'value3' } };
+      const clonedObject = cloneUsingFilters(o);
+      Reflect.set(clonedObject, 'key4', 'value4');
 
-    expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
-  });
+      expect(o).toEqual({ key1: 'value1', key2: { key3: 'value3' } });
+    });
 
-  it('test4', () => {
-    const o = { key1: 'value1', key2: { key3: 'value3' } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key2');
+    it('test3', () => {
+      const o = { key1: 'value1', key2: { key3: 'value3' } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
 
-    expect(clonedObject).toEqual({ key1: 'value1' });
-  });
+      expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
+    });
 
-  it('test5', () => {
-    const o = { key1: 'value1', key2: [1, 2, 3] };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key2');
+    it('test4', () => {
+      const o = { key1: 'value1', key2: { key3: 'value3' } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key2');
 
-    expect(clonedObject).toEqual({ key1: 'value1' });
-  });
+      expect(clonedObject).toEqual({ key1: 'value1' });
+    });
 
-  it('test6', () => {
-    const o = { key1: 'value1', key2: { key3: null } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+    it('test5', () => {
+      const o = { key1: 'value1', key2: [1, 2, 3] };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key2');
 
-    expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
-  });
+      expect(clonedObject).toEqual({ key1: 'value1' });
+    });
 
-  it('test7', () => {
-    const o = { key1: 'value1', key2: { key3: UNDEF } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+    it('test6', () => {
+      const o = { key1: 'value1', key2: { key3: null } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
 
-    expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
-  });
+      expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
+    });
 
-  it('test8', () => {
-    const o = { key1: 'value1', key2: { key3: 0 } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+    it('test7', () => {
+      const o = { key1: 'value1', key2: { key3: UNDEF } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
 
-    expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
-  });
+      expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
+    });
 
-  it('test9', () => {
-    const o = {};
-    const clonedObject = cloneUsingFilters(o);
+    it('test8', () => {
+      const o = { key1: 'value1', key2: { key3: 0 } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
 
-    expect(clonedObject).toEqual({});
-  });
+      expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
+    });
 
-  it('test10', () => {
-    const o = { key1: 'value1', key2: { key3: new Date() } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+    it('test9', () => {
+      const o = {};
+      const clonedObject = cloneUsingFilters(o);
 
-    expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
-  });
+      expect(clonedObject).toEqual({});
+    });
 
-  it('test11', () => {
-    const o = { key1: 'value1', key2: { key3: { key4: { key3: 'value3' } }, key7: { key8: null, key9: null } } };
-    const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3' && key !== 'key9');
+    it('test10', () => {
+      const o = { key1: 'value1', key2: { key3: new Date() } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
 
-    expect(clonedObject).toEqual(
-      { key1: 'value1', key2: { key7: { key8: null } } }
-    );
+      expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
+    });
+
+    it('test11', () => {
+      const o = { key1: 'value1', key2: { key3: { key4: { key3: 'value3' } }, key7: { key8: null, key9: null } } };
+      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3' && key !== 'key9');
+
+      expect(clonedObject).toEqual(
+        { key1: 'value1', key2: { key7: { key8: null } } }
+      );
+    });
   });
 });
