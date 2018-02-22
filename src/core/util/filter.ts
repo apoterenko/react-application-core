@@ -6,6 +6,9 @@ import {
   IKeyValue,
   PROGRESS_FIELD_NAME,
   PASSWORD_FIELD_NAME,
+  FROM_TIME_FIELD_NAME,
+  TO_TIME_FIELD_NAME,
+  TIME_FIELD_NAME,
 } from '../definition.interface';
 import { isDef, isObject, isFn } from './type';
 
@@ -46,6 +49,21 @@ export function excludeFieldsPredicateFactory(...fields: string[]) {
 }
 
 export const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
+export const EXCLUDE_TIME_FIELDS_PREDICATE = excludeFieldsPredicateFactory(
+  TIME_FIELD_NAME,
+  FROM_TIME_FIELD_NAME,
+  TO_TIME_FIELD_NAME,
+);
+
+/**
+ * @test
+ * @param {TSource} source
+ * @returns {TResult}
+ */
+export function cloneUsingTimeFieldsFilters<TSource extends IKeyValue, TResult extends IKeyValue>(
+  source: TSource): TResult {
+  return cloneUsingFilters<TSource, TResult>(source, EXCLUDE_TIME_FIELDS_PREDICATE);
+}
 
 export const OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => isObject(value);
 export const NOT_OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => !isObject(value);
