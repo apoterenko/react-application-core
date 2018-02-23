@@ -72,6 +72,15 @@ export class DateTimeFieldHelper {
     );
   }
 
+  public joinDateTimeFields<TEntity extends IFromToDateTimeEntity>(
+    apiEntity: IApiEntity<TEntity>,
+    returnOriginalValueIfNoChanges = false): IFromToDateTimeEntity {
+    return {
+      ...this.composeDateTimeSinceField(apiEntity, returnOriginalValueIfNoChanges),
+      ...this.composeDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
+    };
+  }
+
   public composeDateTimeSinceField<TEntity extends IFromDateTimeEntity>(
     apiEntity: IApiEntity<TEntity>,
     returnOriginalValueIfNoChanges = false): IFromDateTimeEntity {
@@ -122,6 +131,13 @@ export class DateTimeFieldHelper {
         toTimeResolver(entity)
       ),
     } as TEntity;
+  }
+
+  public splitToDateTimeRangeFields(entity: IFromToDateTimeEntity): IFromToDateTimeEntity {
+    return {
+      ...this.splitToDateTimeSinceFields(entity),
+      ...this.splitToDateTimeTillFields(entity),
+    };
   }
 
   public splitToDateTimeSinceFields(entity: IFromDateTimeEntity): IFromDateTimeEntity {

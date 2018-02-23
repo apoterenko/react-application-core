@@ -1,6 +1,24 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT, IKeyValue, IOperationable, IErrorable, IStringTokenWrapper } from '../definition.interface';
+import {
+  AnyT,
+  IKeyValue,
+  IErrorable,
+  IStringTokenWrapper,
+  INameWrapper,
+  IBlobWrapper,
+  IMethodWrapper,
+  IPathWrapper,
+  INumberIdWrapper,
+  IParamsWrapper,
+  INoCacheWrapper,
+  IStringUrlWrapper,
+  IHeadersWrapper,
+  IDataWrapper,
+  INoAuthWrapper,
+  IAuthWrapper,
+  IDefaultOperationWrapper,
+} from '../definition.interface';
 
 export interface IApplicationTransportState extends IStringTokenWrapper {
   queue: string[];
@@ -35,36 +53,43 @@ export interface IApplicationTransportFactory extends ICancelableTransport {
   request(req: ITransportRequest): Promise<ITransportRawResponse>;
 }
 
-export interface IApplicationTransportRequest {
-  url: string;
-  method: string;
-  data: AnyT;
+/**
+ * Transport raw request
+ */
+export interface ITransportRawRequest extends IMethodWrapper,
+                                              IHeadersWrapper,
+                                              IStringUrlWrapper,
+                                              IDataWrapper<Blob|ITransportRequestData> {
   cancelToken?: string;
+}
+
+/**
+ * Transport request
+ */
+export interface ITransportRequest extends INameWrapper,
+                                           INoAuthWrapper,
+                                           IParamsWrapper,
+                                           IBlobWrapper,
+                                           IMethodWrapper,
+                                           IPathWrapper,
+                                           INoCacheWrapper,
+                                           IStringUrlWrapper,
+                                           IDefaultOperationWrapper {
+}
+
+/**
+ * Transport request data
+ */
+export interface ITransportRequestData extends INameWrapper,
+                                               INoAuthWrapper,
+                                               IParamsWrapper,
+                                               IAuthWrapper,
+                                               INumberIdWrapper {
 }
 
 export interface IApplicationTransportCancelToken {
   token: string;
   cancel(message?: string): void;
-}
-
-export interface ITransportNamedPayload {
-  name: string;
-}
-
-export interface ITransportNoAuthPayload {
-  noAuth?: boolean;
-}
-
-export interface ITransportNoCachePayload {
-  noCache?: boolean;
-}
-
-export interface ITransportIdPayload {
-  id: number;
-}
-
-export interface ITransportParamsPayload {
-  params?: IKeyValue;
 }
 
 export interface ITransportResultPayload {
@@ -74,7 +99,7 @@ export interface ITransportResultPayload {
 export interface ITransportErrorPayload extends IErrorable<TransportResponseErrorT> {
 }
 
-export interface ITransportResponsePayload extends ITransportNamedPayload,
+export interface ITransportResponsePayload extends INameWrapper,
                                                    ITransportResultPayload,
                                                    ITransportErrorPayload {
   operationId?: string;
@@ -88,8 +113,8 @@ export interface ITransportRawResponse {
   request?: XMLHttpRequest;
 }
 
-export interface ITransportRawResponseData extends ITransportResultPayload,
-                                                   ITransportIdPayload,
+export interface ITransportRawResponseData extends INumberIdWrapper,
+                                                   ITransportResultPayload,
                                                    IErrorable<ITransportRawResponseError> {
   Message?: string;
 }
@@ -107,20 +132,6 @@ export interface ITransportRawResponseError {
 }
 
 export type TransportResponseErrorT = Error | string | ITransportRawResponseError;
-
-export interface ITransportRawRequest extends ITransportNamedPayload,
-                                              ITransportParamsPayload,
-                                              ITransportIdPayload,
-                                              ITransportNoAuthPayload {
-  auth?: string;
-}
-
-export interface ITransportRequest extends ITransportNamedPayload,
-                                           ITransportParamsPayload,
-                                           ITransportNoAuthPayload,
-                                           ITransportNoCachePayload,
-                                           IOperationable {
-}
 
 export interface IApplicationTransportPayloadAnalyzer {
   isAuthErrorPayload(payload: ITransportErrorPayload): boolean;

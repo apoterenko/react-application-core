@@ -14,7 +14,7 @@ export class FetchJsonTransportFactory implements IApplicationTransportFactory {
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
 
   public request(req: ITransportRequest): Promise<ITransportRawResponse> {
-    const uri0 = new URI(this.settings.apiUrl);
+    const uri0 = new URI(req.url || this.settings.apiUrl);
     if (req.noCache !== true) {
       uri0.addSearch('_dc', Date.now());
     }

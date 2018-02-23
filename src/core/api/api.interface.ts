@@ -4,7 +4,7 @@ import {
   IEntity,
   EntityIdT,
   IEntityWrapper,
-  IOperationable,
+  IDefaultOperationWrapper,
   IMergerWrapper,
   IIsNewWrapper,
 } from '../definition.interface';
@@ -13,7 +13,7 @@ export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity,
                                                              IChangesWrapper<TEntity>,
                                                              IEntityWrapper<TEntity>,
                                                              IMergerWrapper<TEntity>,
-                                                             IOperationable,
+                                                             IDefaultOperationWrapper,
                                                              IIsNewWrapper {
 }
 

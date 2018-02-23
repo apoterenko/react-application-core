@@ -12,7 +12,7 @@ import {
   IProgressWrapper,
   IErrorable,
   ISelectable,
-  IDataSource,
+  IDataWrapper,
   ISorter,
   IPageWrapper,
   IPageSizeWrapper,
@@ -55,7 +55,7 @@ export interface IApplicationListState extends ILockable,
                                                ITouchedWrapper,
                                                ISelectable<IEntity>,
                                                IErrorable<string>,
-                                               IDataSource<IEntity[]> {
+                                               IDataWrapper<IEntity[]> {
 }
 
 export interface IApplicationListWrapperState {

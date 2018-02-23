@@ -44,6 +44,7 @@ export interface IApplicationMessages {
 
 export interface IApplicationSettings {
   apiUrl?: string;
+  binaryUrl?: string;
   companyName?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
@@ -60,9 +61,12 @@ export const REGEXP_REPO = {
   number: '[-+]?[0-9]*[.,]?[0-9]+',
 };
 
+export const prepareUrl = (url) => url.replace(/(\/\/)+/, '/');
+
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
-  apiUrl: (BASE_PATH + '/api/').replace(/(\/\/)+/, '/'),
+  apiUrl: prepareUrl(BASE_PATH + '/api/'),
+  binaryUrl: prepareUrl(BASE_PATH + '/api/blobs/upload/'),
   companyName: 'Test company',
   entityEmptyId: null,
   messages: {

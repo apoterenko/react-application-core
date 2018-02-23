@@ -31,7 +31,13 @@ export const TO_TIME_FIELD_NAME = 'toTime';
 export const TIME_FIELD_NAME = 'time';
 export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
+export const URL_FIELD_NAME = 'url';
+export const FILE_FIELD_NAME = 'file';
+export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
+/**********************
+ * Id's wrappers
+ **********************/
 export interface IIdWrapper<TId> {
   id?: TId;
 }
@@ -39,6 +45,81 @@ export interface IIdWrapper<TId> {
 export interface IStringIdWrapper extends IIdWrapper<string> {
 }
 
+export interface INumberIdWrapper extends IIdWrapper<number> {
+}
+
+/**********************
+ * Params's wrapper
+ **********************/
+export interface IParamsWrapper {
+  params?: IKeyValue;
+}
+
+/**********************
+ * Headers's wrapper
+ **********************/
+export interface IHeadersWrapper {
+  headers?: IKeyValue;
+}
+
+/**********************
+ * Method's wrapper
+ **********************/
+export interface IMethodWrapper {
+  method?: string;
+}
+
+/**********************
+ * NoCache's wrapper
+ **********************/
+export interface INoCacheWrapper {
+  noCache?: boolean;
+}
+
+/**********************
+ * NoAuth's wrapper
+ **********************/
+export interface INoAuthWrapper {
+  noAuth?: boolean;
+}
+
+/**********************
+ * Auth's wrapper
+ **********************/
+export interface IAuthWrapper {
+  auth?: string;
+}
+
+/**********************
+ * Url's wrappers
+ **********************/
+export interface IUrlWrapper<TUrl> {
+  url?: TUrl;
+}
+
+export interface IStringUrlWrapper extends IUrlWrapper<string> {
+}
+
+/**********************
+ * Operations's wrappers
+ **********************/
+export interface IOperationWrapper<TOperation> {
+  operation?: TOperation;
+}
+
+export interface IDefaultOperationWrapper extends IOperationWrapper<IOperation> {
+}
+
+/**********************
+ * Data's wrapper
+ **********************/
+export interface IDataWrapper<TData> {
+  data?: TData;
+}
+
+/**
+ *
+ */
 export interface IIdentifiedEntity extends IIdWrapper<EntityIdT> {
 }
 
@@ -46,8 +127,12 @@ export interface INamedEntity extends IIdentifiedEntity,
                                       INameWrapper {
 }
 
-export interface IBlobEntity extends IStringIdWrapper {
-  blob: Blob;
+export interface IBlobWrapper {
+  blob?: Blob;
+}
+
+export interface IBlobEntity extends IStringIdWrapper,
+                                     IBlobWrapper {
 }
 
 export interface IEntity extends IIdentifiedEntity, IKeyValue {
@@ -175,19 +260,6 @@ export interface ITouchedWrapper {
   touched?: boolean;
 }
 
-export interface IDataSource<Type> {
-  data?: Type;
-}
-
-export const URL_FIELD_NAME = 'url';
-
-export interface IUrlWrapper<TUrl> {
-  url?: TUrl;
-}
-
-export interface IStringUrlWrapper extends IUrlWrapper<string> {
-}
-
 export interface ILinkable {
   to?: string;
 }
@@ -211,10 +283,6 @@ export interface IErrorable<Type> {
 
 export interface IInfoable<Type> {
   info?: Type;
-}
-
-export interface IOperationable {
-  operation?: IOperation;
 }
 
 export interface IIsNewWrapper {

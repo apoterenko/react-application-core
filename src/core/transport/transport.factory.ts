@@ -5,15 +5,15 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { IApplicationSettings } from '../settings';
 import { lazyInject, DI_TYPES } from '../di';
-import { defValuesFilter, orUndef } from '../util';
+import { defValuesFilter, orUndef, isDef } from '../util';
 
 import {
   ITransportRawResponse,
   IApplicationTransportFactory,
   ITransportRequest,
-  ITransportRawRequest,
+  ITransportRequestData,
   IApplicationTransportRequestFactory,
-  IApplicationTransportRequest,
+  ITransportRawRequest,
   IApplicationTransportCancelToken,
   IApplicationTransportTokenAccessor,
 } from './transport.interface';
@@ -40,28 +40,43 @@ export class TransportFactory implements IApplicationTransportFactory {
         this.operationsMap.set(operationId, cancelToken);
       }
     }
-    const uri0 = new URI(this.settings.apiUrl);
+    let headers = {};
+    const isBinaryData = isDef(req.blob);
+    if (isBinaryData) {
+      headers = {
+        'Content-Type': 'application/octet-stream',
+      };
+    }
+
+    const uri0 = new URI(
+      req.url || [
+        isBinaryData ? this.settings.binaryUrl : this.settings.apiUrl,
+        req.path || ''
+      ].join('')  // URI's segment works incorrectly with a UUID (uri0.segment(req.path))
+    );
     if (req.noCache !== true) {
       uri0.addSearch('_dc', Date.now());
     }
-    return this.requestFactory.request<IApplicationTransportRequest, ITransportRawResponse>(
-        defValuesFilter<IApplicationTransportRequest, IApplicationTransportRequest>({
-              url: uri0.valueOf(),
-              method: 'POST',
-              data: this.toRequestParams(req),
-              cancelToken: cancelToken && cancelToken.token,
-            }
-        ))
-        .then(
-            (res) => {
-              this.clearOperation(operationId);
-              return res;
-            },
-            (err) => {
-              this.clearOperation(operationId);
-              throw err; // This is because of the strange axios behavior
-            }
-        );
+
+    return this.requestFactory.request<ITransportRawRequest, ITransportRawResponse>(
+      defValuesFilter<ITransportRawRequest, ITransportRawRequest>({
+          headers,
+          url: uri0.valueOf(),
+          method: req.method || 'POST',
+          data: req.blob || this.toRequestParams(req),
+          cancelToken: cancelToken && cancelToken.token,
+        }
+      ))
+      .then(
+        (res) => {
+          this.clearOperation(operationId);
+          return res;
+        },
+        (err) => {
+          this.clearOperation(operationId);
+          throw err; // This is because of the strange axios behavior
+        }
+      );
   }
 
   public cancelRequest(operationId: string): void {
@@ -71,13 +86,13 @@ export class TransportFactory implements IApplicationTransportFactory {
       this.clearOperation(operationId);
     } else {
       TransportFactory.logger.warn(
-          `[$TransportFactory] The cancel token has not been found according to ${operationId}`
+        `[$TransportFactory] The cancel token has not been found according to ${operationId}`
       );
     }
   }
 
-  protected toRequestParams(req: ITransportRequest): ITransportRawRequest {
-    return defValuesFilter<ITransportRawRequest, ITransportRawRequest>({
+  protected toRequestParams(req: ITransportRequest): ITransportRequestData {
+    return defValuesFilter<ITransportRequestData, ITransportRequestData>({
       id: this.id++,
       name: req.name,
       params: orUndef(req.params, () => defValuesFilter(req.params)),
