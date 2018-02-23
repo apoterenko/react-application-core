@@ -17,13 +17,14 @@ import {
   ISubmittable,
   IReadonlyable,
   IDisabledWrapper,
+  IOnEmptyDictionaryWrapper,
 } from '../../definition.interface';
 import {
   IBaseComponent,
   IBaseComponentInternalProps,
   IBaseContainer,
   IBaseContainerInternalProps,
-} from '../../component/base';
+} from '../base';
 
 export interface IFormFieldModifyPayload {
   field: string;
@@ -63,6 +64,7 @@ export interface IFormProps<TEntity extends IEntity> extends IEntityWrapper<TEnt
 }
 
 export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,
+                                                                     IOnEmptyDictionaryWrapper,
                                                                      IFormProps<TEntity> {
   onSubmit?: (apiEntity: IApiEntity<TEntity>) => void;
   onReset?: () => void;

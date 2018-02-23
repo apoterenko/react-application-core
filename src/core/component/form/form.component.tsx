@@ -4,8 +4,8 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName } from '../../util';
 import { AnyT, BasicEventT, IEntity, ReactElementT } from '../../definition.interface';
-import { BaseComponent } from '../../component/base';
-import { Button } from '../../component/button';
+import { BaseComponent } from '../base';
+import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IApiEntity, ApiEntityT } from '../../api';
 import { Operation } from '../../operation';
@@ -15,7 +15,7 @@ import {
   FieldT,
   IFieldOptions,
   IFieldsOptions,
-} from '../../component/field';
+} from '../field';
 
 import {
   IFormPureComponent,
@@ -76,11 +76,12 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             readOnly: this.isFieldReadOnly(field),
                             disabled: this.isFieldDisabled(field),
                             changeForm: this.onChange,
+                            onEmptyDictionary: () => this.onEmptyDictionary(field),
 
                             // Predefined options
                             ...predefinedOptions,
 
-                            // The fields props have higher priority
+                            // The fields props have a higher priority
                             ...defValuesFilter<IFieldOptions, IFieldOptions>({
                               label: fieldProps.label,
                               type: fieldProps.type,
@@ -184,6 +185,16 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
       this.props.onChange(name, value);
     }
     this.propsOnValid();
+  }
+
+  private onEmptyDictionary(field: FieldT): void {
+    const props = this.props;
+    const fieldProps = field.props;
+
+    const bindToDictionary = fieldProps.bindToDictionary;
+    if (bindToDictionary && props.onEmptyDictionary) {
+      props.onEmptyDictionary(bindToDictionary);
+    }
   }
 
   private propsOnValid(): void {
@@ -309,13 +320,13 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     const fieldProps = field.props;
     const fieldOptionsOrLabel = this.fieldsOptions[fieldProps.name];
 
-    let fieldOptionsOrLabel0: IFieldOptions;
+    let fieldOptions: IFieldOptions;
     if (isString(fieldOptionsOrLabel)) {
       // typings !
-      fieldOptionsOrLabel0 = {label: fieldOptionsOrLabel as string};
+      fieldOptions = {label: fieldOptionsOrLabel as string};
     } else {
-      fieldOptionsOrLabel0 = fieldOptionsOrLabel as IFieldOptions;
+      fieldOptions = fieldOptionsOrLabel as IFieldOptions;
     }
-    return fieldOptionsOrLabel0;
+    return fieldOptions;
   }
 }

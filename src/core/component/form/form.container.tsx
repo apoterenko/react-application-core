@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { IApiEntity, ApiEntityT } from '../../api';
 import { AnyT } from '../../definition.interface';
-import { BaseContainer } from '../../component/base';
-import { Form } from '../../component/form';
+import { BaseContainer } from '../base';
+import { Form } from '../form';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
@@ -26,6 +26,7 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     this.onValid = this.onValid.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
+    this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
   }
 
   public componentWillUnmount(): void {
@@ -36,6 +37,7 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     const props = this.props;
     return (
         <Form ref='form'
+              onEmptyDictionary={this.onEmptyDictionary}
               onChange={this.onChange}
               onSubmit={this.onSubmit}
               onReset={this.onReset}
@@ -74,6 +76,10 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
 
   private onSubmit(apiEntity: ApiEntityT): void {
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
+  }
+
+  private onEmptyDictionary(dictionary: string): void {
+    this.dispatchLoadDictionary(dictionary);
   }
 
   private get form(): IForm {
