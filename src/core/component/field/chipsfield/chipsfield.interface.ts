@@ -1,11 +1,10 @@
 import {
   IBasicSelectInternalState,
   IBasicSelectInternalProps,
-} from '../../../component/field';
+} from '../../field';
 
 export interface IChipsFieldInternalState extends IBasicSelectInternalState {
 }
 
 export interface IChipsFieldInternalProps extends IBasicSelectInternalProps {
-  valuesMessage?: string;
 }
