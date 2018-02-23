@@ -76,6 +76,8 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             readOnly: this.isFieldReadOnly(field),
                             disabled: this.isFieldDisabled(field),
                             changeForm: this.onChange,
+
+                            // Callbacks
                             onEmptyDictionary: () => this.onEmptyDictionary(field),
 
                             // Predefined options
