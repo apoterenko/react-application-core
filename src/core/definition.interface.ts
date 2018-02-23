@@ -117,6 +117,17 @@ export interface IDataWrapper<TData> {
   data?: TData;
 }
 
+/**********************
+ * Dictionary's wrappers
+ **********************/
+export interface IBindToDictionaryWrapper {
+  bindToDictionary?: string;
+}
+
+export interface IOnEmptyDictionaryWrapper {
+  onEmptyDictionary?(dictionary?: string): void;
+}
+
 /**
  *
  */
