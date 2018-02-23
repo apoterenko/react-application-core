@@ -18,6 +18,7 @@ import {
 } from './component/application';
 import { ApplicationStateT } from './store';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
+import { addClassNameToBody } from './util';
 
 // Google analytics
 function gtag(...args) {
@@ -46,6 +47,8 @@ export function bootstrap(
         </Provider>,
         document.getElementById(rootId),
     );
+
+    addClassNameToBody('rac');
   };
 
   if (PROD_MODE) {
