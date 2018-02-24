@@ -37,11 +37,11 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     const props = this.props;
     return (
         <Form ref='form'
-              onEmptyDictionary={this.onEmptyDictionary}
               onChange={this.onChange}
               onSubmit={this.onSubmit}
               onReset={this.onReset}
               onValid={this.onValid}
+              onEmptyDictionary={this.onEmptyDictionary}
               {...props}>
           {props.children}
         </Form>

@@ -33,6 +33,7 @@ export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
 export const URL_FIELD_NAME = 'url';
 export const FILE_FIELD_NAME = 'file';
+export const USER_FIELD_NAME = 'user';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**********************
@@ -128,6 +129,60 @@ export interface IOnEmptyDictionaryWrapper {
   onEmptyDictionary?(dictionary?: string): void;
 }
 
+/**********************
+ * Label's wrapper
+ **********************/
+export interface ILabelWrapper {
+  label?: string;
+}
+
+/**********************
+ * DisplayName's wrapper
+ **********************/
+export interface IDisplayNameWrapper {
+  displayName?: string;
+}
+
+/**********************
+ * Pattern's wrapper
+ **********************/
+export interface IPatternWrapper {
+  pattern?: string;
+}
+
+/**********************
+ * Placeholder's wrappers
+ **********************/
+export interface IPlaceholderWrapper {
+  placeholder?: string;
+}
+
+export interface IFilterPlaceholderWrapper {
+  filterPlaceholder?: string;
+}
+
+/**********************
+ * RenderToBody's wrappers
+ **********************/
+export interface IRenderToBodyWrapper {
+  renderToBody?: boolean;
+}
+
+export interface IRenderToCenterOfBodyWrapper {
+  renderToCenterOfBody?: boolean;
+}
+
+export interface IRenderToBodyEntity extends IRenderToBodyWrapper,
+                                             IRenderToCenterOfBodyWrapper {
+}
+
+/**********************
+ * UseFilter's wrapper
+ **********************/
+export interface IUseFilterWrapper {
+  useFilter?: boolean;
+}
+
 /**
  *
  */
@@ -171,15 +226,6 @@ export interface IIconWrapper {
   icon?: string;
 }
 
-export interface IFilterable {
-  useFilter?: boolean;
-  filterPlaceholder?: string;
-}
-
-export interface IPlaceholderable {
-  placeholder?: string;
-}
-
 export interface ISectionable {
   section?: string;
 }
@@ -202,10 +248,6 @@ export interface IStringTokenWrapper extends ITokenWrapper<string> {
 
 export interface IOriginalValueable<TValue> {
   originalValue?: TValue;
-}
-
-export interface IDisplayNameWrapper {
-  displayName?: string;
 }
 
 export interface IDisplayValueWrapper<TDisplay> {
@@ -232,10 +274,6 @@ export const IMAGE_FIELD_NAME = 'image';
 
 export interface IImageWrapper<TImage> {
   image?: TImage;
-}
-
-export interface ILabelable {
-  label?: string;
 }
 
 export interface IReadonlyable {
@@ -315,7 +353,7 @@ export interface IStepable {
   step?: number;
 }
 
-export interface IMaskable {
+export interface IMaskEntity {
   mask?: Array<string|RegExp>;
   maskGuide?: boolean;
   maskPlaceholderChar?: string;

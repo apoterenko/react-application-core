@@ -78,7 +78,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             changeForm: this.onChange,
 
                             // Callbacks
-                            onEmptyDictionary: () => this.onEmptyDictionary(field),
+                            onEmptyDictionary: fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field)),
 
                             // Predefined options
                             ...predefinedOptions,

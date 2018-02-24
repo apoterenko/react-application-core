@@ -14,13 +14,16 @@ import {
   IOriginalValueable,
   IReadonlyable,
   IDisplayNameWrapper,
-  ILabelable,
-  IPlaceholderable,
+  ILabelWrapper,
+  IPlaceholderWrapper,
   IStepable,
   ChangeEventT,
-  IMaskable,
+  IMaskEntity,
+  IOnEmptyDictionaryWrapper,
+  IBindToDictionaryWrapper,
   IErrorable,
   IDisplayMessageWrapper,
+  IPatternWrapper,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
 
@@ -41,13 +44,17 @@ export interface IKeyboardHandlers {
   onKeyBackspace?(event: KeyboardEventT): void;
 }
 
-export interface IFieldOptions extends ILabelable,
+/**
+ * The field options - the read-only props (cannot be changed)
+ */
+export interface IFieldOptions extends ILabelWrapper,
                                        IDisplayMessageWrapper,
                                        IDisplayNameWrapper,
-                                       IMaskable,
                                        IStringTypeWrapper,
-                                       IPlaceholderable {
-  pattern?: string;
+                                       IPatternWrapper,
+                                       IPlaceholderWrapper,
+                                       IMaskEntity,
+                                       IOnEmptyDictionaryWrapper {
   prefixLabel?: string;
 }
 
@@ -58,6 +65,7 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IFieldOptions,
                                              INameWrapper,
                                              IDisabledWrapper,
+                                             IBindToDictionaryWrapper,
                                              IStepable,
                                              IReadonlyable,
                                              IValueWrapper<AnyT>,
