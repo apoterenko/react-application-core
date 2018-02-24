@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName } from '../../util';
+import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
 import { AnyT, BasicEventT, IEntity, ReactElementT } from '../../definition.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
@@ -78,7 +78,10 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             changeForm: this.onChange,
 
                             // Callbacks
-                            onEmptyDictionary: fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field)),
+                            onEmptyDictionary: orUndef<() => {}>(
+                              fieldProps.bindToDictionary || fieldProps.onEmptyDictionary,
+                              () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
+                            ),
 
                             // Predefined options
                             ...predefinedOptions,
@@ -193,9 +196,8 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     const props = this.props;
     const fieldProps = field.props;
 
-    const bindToDictionary = fieldProps.bindToDictionary;
-    if (bindToDictionary && props.onEmptyDictionary) {
-      props.onEmptyDictionary(bindToDictionary);
+    if (props.onEmptyDictionary) {
+      props.onEmptyDictionary(fieldProps.bindToDictionary);
     }
   }
 

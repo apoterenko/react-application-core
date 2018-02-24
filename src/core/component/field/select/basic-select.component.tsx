@@ -97,7 +97,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return (
         <Menu ref='menu'
               renderer={props.renderer}
-              options={this.toFilteredOptions(this.options)}
+              options={this.toFilteredOptions()}
               onSelect={this.onSelect}
               {...props.menuOptions}/>
     );
@@ -110,7 +110,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     );
   }
 
-  protected toFilteredOptions(options: SelectOptionT[]): SelectOptionT[] {
+  protected toFilteredOptions(options: SelectOptionT[] = this.options): SelectOptionT[] {
     return options;
   }
 
@@ -152,16 +152,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.stopEvent(event);
 
     const props = this.props;
-    const noOptionsAvailable = R.isNil(props.options);
+    const noAvailableOptions = R.isNil(props.options);
 
-    if (props.forceAll || noOptionsAvailable) {
+    if (props.forceAll || noAvailableOptions) {
       if (props.onEmptyDictionary) {
         this.setState({ emptyOptions: true });
-
-        if (props.onEmptyDictionary) {
-          props.onEmptyDictionary();
-        }
-      } else if (!noOptionsAvailable) {
+        props.onEmptyDictionary();
+      } else if (!noAvailableOptions) {
         this.showMenu();
       }
     } else {
