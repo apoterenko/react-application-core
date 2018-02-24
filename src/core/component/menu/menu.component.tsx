@@ -2,9 +2,19 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { MDCMenu } from '@material/menu';
 
-import { BasicEventT, UNDEF } from '../../definition.interface';
+import { BasicEventT, KeyboardEventT, UNDEF } from '../../definition.interface';
 import { MaterialComponent } from '../material';
-import { orNull, toClassName, uuid, setAbsoluteOffset, orDefault } from '../../util';
+import {
+  orNull,
+  toClassName,
+  uuid,
+  setAbsoluteOffset,
+  orDefault,
+  addClassNameToBody,
+  addClassNameToElement,
+  removeClassNameFromBody,
+  addChildToBody,
+} from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IEventManager } from '../../event';
 import { FieldT, TextField } from '../field';
@@ -31,26 +41,34 @@ export class Menu extends MaterialComponent<Menu,
     this.onSelect = this.onSelect.bind(this);
     this.onFilterClick = this.onFilterClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onInputKeyEscape = this.onInputKeyEscape.bind(this);
 
     this.state = {};
   }
 
   public componentDidMount(): void {
+    const props = this.props;
     super.componentDidMount();
 
-    if (this.props.useFilter) {
+    this.nativeMdcInstance.listen('MDCMenu:cancel', this.onMenuCancel);
+
+    if (props.useFilter) {
       // We must handle the events through native DOM Api because MDC
       this.eventManager.add(this.field.input, 'click', this.onFilterClick);
     }
-    if (this.props.renderToBody) {
+    if (this.isRenderToBody) {
       this.menuParent = this.self.parentElement;
-      document.body.appendChild(this.self);
+      addChildToBody(this.self);
+    }
+    if (props.renderToCenterOfBody) {
+      addClassNameToElement(this.self as HTMLElement, 'rac-absolute-center-position');
     }
   }
 
   public componentWillUnmount(): void {
     const props = this.props;
-    if (props.renderToBody) {
+
+    if (this.isRenderToBody) {
       delete this.menuParent;
       document.body.removeChild(this.self);
     }
@@ -59,12 +77,14 @@ export class Menu extends MaterialComponent<Menu,
       this.eventManager.remove(this.field.input, 'click', this.onFilterClick);
     }
 
+    this.nativeMdcInstance.unlisten('MDCMenu:cancel', this.onMenuCancel);
     super.componentWillUnmount();
   }
 
   public render(): JSX.Element {
     const props = this.props;
-    const filter = this.state.filter && this.state.filter.toUpperCase();
+    const state = this.state;
+    const filter = state.filter && state.filter.toUpperCase();
     const optionValueFn = (option) => (option.label ? this.t(option.label) : option.value);
 
     const menuItemsTpl = props.options
@@ -118,9 +138,10 @@ export class Menu extends MaterialComponent<Menu,
             props.useFilter,
             () => (
               <TextField ref='field'
-                         value={this.state.filter}
+                         value={state.filter}
                          placeholder={props.filterPlaceholder || 'Filter'}
-                         onChange={this.onInputChange}/>
+                         onChange={this.onInputChange}
+                         onKeyEscape={this.onInputKeyEscape}/>
             )
           )}
           <SimpleList twoLine={false}
@@ -142,21 +163,25 @@ export class Menu extends MaterialComponent<Menu,
       setTimeout(() => this.field.setFocus());
     }
 
-    if (props.renderToBody) {
+    if (props.renderToCenterOfBody) {
+      addClassNameToBody('rac-disabled');
+    } else if (props.renderToBody) {
       setAbsoluteOffset(this.self, props.getAnchor ? props.getAnchor() : this.menuParent);
     }
   }
 
   public hide(): void {
     this.nativeMdcInstance.open = false;
-  }
-
-  public activate(index: number): void {
-    // TODO
+    this.onMenuCancel();
   }
 
   private onInputChange(filter: string): void {
     this.setState({ filter });
+  }
+
+  private onInputKeyEscape(event: KeyboardEventT): void {
+    this.stopEvent(event);
+    this.hide();
   }
 
   private onFilterClick(event: BasicEventT): void {
@@ -171,6 +196,11 @@ export class Menu extends MaterialComponent<Menu,
     return this.refs.field as FieldT;
   }
 
+  private get isRenderToBody(): boolean {
+    const props = this.props;
+    return props.renderToBody || props.renderToCenterOfBody;
+  }
+
   private onSelect(event: React.SyntheticEvent<HTMLElement>): void {
     this.stopEvent(event);
 
@@ -180,6 +210,10 @@ export class Menu extends MaterialComponent<Menu,
       props.onSelect(R.find((option) => String(option.value) === optionAsText, props.options));
     }
 
-    this.hide();  // MDC the internal elements event handling issue
+    this.hide();
+  }
+
+  private onMenuCancel(): void {
+    removeClassNameFromBody('rac-disabled');
   }
 }

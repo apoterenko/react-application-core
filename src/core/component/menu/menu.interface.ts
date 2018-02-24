@@ -3,27 +3,33 @@ import { IBaseComponent, IBaseComponentInternalProps } from '../base';
 import { INativeMaterialComponent } from '../material';
 import {
   EntityIdT,
-  IFilterable,
-  ILabelable,
+  ILabelWrapper,
   IRendererWrapper,
   IDisabledWrapper,
   IValueWrapper,
+  IUseFilterWrapper,
   IRawDatable,
   AnyT,
   ITplWrapper,
   IIconWrapper,
+  IRenderToBodyEntity,
+  IFilterPlaceholderWrapper,
 } from '../../definition.interface';
 
 export interface IMenuInternalState {
   filter?: string;
 }
 
-export interface IMenuInternalProps extends IBaseComponentInternalProps,
-                                            IRendererWrapper<MenuOptionT>,
-                                            ITplWrapper<MenuOptionT>,
-                                            IFilterable {
-  renderToBody?: boolean;
-  options: MenuOptionT[];
+export interface IMenuOptions extends IBaseComponentInternalProps,
+                                      IUseFilterWrapper,
+                                      IFilterPlaceholderWrapper,
+                                      IRendererWrapper<MenuOptionT>,
+                                      ITplWrapper<MenuOptionT>,
+                                      IRenderToBodyEntity {
+  options?: MenuOptionT[];
+}
+
+export interface IMenuInternalProps extends IMenuOptions {
   onSelect?(option: MenuOptionT): void;
   getAnchor?(): HTMLElement;
 }
@@ -37,10 +43,9 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
   opened: boolean;
   show(): void;
   hide(): void;
-  activate(index: number);
 }
 
-export interface IMenuAction<TValue> extends ILabelable,
+export interface IMenuAction<TValue> extends ILabelWrapper,
                                              IIconWrapper,
                                              IValueWrapper<TValue>,
                                              IDisabledWrapper {

@@ -75,3 +75,22 @@ a {
   white-space: nowrap;
   max-width: 100%;
 }
+
+.rac {
+
+  .rac-absolute-center-position {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.rac {
+  &.rac-disabled {
+    .rac-root {
+      opacity: $rac-disabled-opacity;
+    }
+  }
+}

@@ -1,27 +1,24 @@
 import { IMenuOption } from '../../../component/menu';
 import {
-  IFilterable,
   INamedEntity,
   IRendererWrapper,
-  ITplWrapper,
 } from '../../../definition.interface';
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
 } from '../textfield';
 import { orNull } from '../../../util';
+import { IMenuOptions } from '../../menu';
 
 export interface IBasicSelectInternalState extends IBasicTextFieldInternalState {
   emptyOptions?: boolean;
 }
 
 export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
-                                                   IRendererWrapper<SelectOptionT>,
-                                                   ITplWrapper<SelectOptionT>,
-                                                   IFilterable {
+                                                   IRendererWrapper<SelectOptionT> {
+  menuOptions?: IMenuOptions;
   forceAll?: boolean;
   options?: SelectOptionT[];
-  onEmptyOptions?(): void;
   onOptionsLoad?(loadedOptions: SelectOptionT[]): void;
   onSelect?(option: SelectOptionT): void;
 }
