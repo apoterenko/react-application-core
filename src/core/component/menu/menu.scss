@@ -1,6 +1,17 @@
-// Menu [FRAMEWORK-]
-.rac-menu {
-  .rac-simple-list {
-    max-height: 200px;
+// Menu [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-menu {
+    .rac-simple-list {
+      max-height: 200px;        // [RAC+]
+    }
+
+    .rac-form-field {
+      width: 100%;              // [RAC+]
+
+      .rac-text-field {
+        margin: 0 16px 16px;    // [RAC+]
+      }
+    }
   }
 }

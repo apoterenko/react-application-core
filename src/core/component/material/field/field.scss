@@ -84,15 +84,3 @@
     }
   }
 }
-
-// Menu field  [MDC+]
-.rac-menu {
-  .rac-form-field {
-    @include flex-direction(row);
-
-    .rac-text-field {
-      @include flex;
-      margin: 0 16px 16px;
-    }
-  }
-}

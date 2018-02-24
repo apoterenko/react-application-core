@@ -1,8 +1,13 @@
-// Simple menu list [MDC+]
-.rac-menu {
-  &.mdc-menu {
+// Menu [FRAMEWORK+][RAC+]
+.rac {
+
+  .rac-menu {
     .rac-simple-list {
-      padding: 0;         // [MDC override]
+      padding: 0;                       // [MDC OVERRIDE+]
+    }
+
+    .rac-form-field {
+      @include flex-direction(row);     // [MDC OVERRIDE+]
     }
   }
 }
