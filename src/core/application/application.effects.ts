@@ -8,13 +8,11 @@ import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionsServiceT, PERMISSIONS_DESTROY_ACTION_TYPE } from '../permissions';
 import { ApplicationActionBuilder } from '../component/application';
 import { IApplicationSettings } from '../settings';
-import { LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, LockContainerT } from '../lock';
 import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
 import { FormActionBuilder } from '../component/form';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
-
   private static logger = LoggerFactory.makeLogger(ApplicationEffects);
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
@@ -40,7 +38,6 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
         : [];
 
     return actions
-        .concat(this.buildContainersDestroyActions())
         .concat(this.buildDictionariesDestroyAction())
         .concat(this.buildApplicationAfterLogoutAction());
   }
@@ -61,27 +58,6 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildDestroyTokenActionType())
   public onDestroyToken(): void {
     this.notVersionedStorage.remove(APPLICATION_TOKEN_KEY);
-  }
-
-  @EffectsService.effects(LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE)
-  public onLockDestroyableSections(_: IEffectsAction, state: ApplicationStateT): IEffectsAction[] {
-    const destroyableSections = state.lock.destroyableSections;
-    if (destroyableSections.length) {
-      ApplicationEffects.logger.debug(() =>
-          `[$ApplicationEffects][onLockDestroyableSections] Destroyable sections: ${
-              destroyableSections.map((ds) => ds.section).join(', ')
-      }`);
-    }
-
-    return destroyableSections
-        .map((destroyableSection) => {
-          switch (destroyableSection.component) {
-            case LockContainerT.LIST:
-              return this.buildListDestroyAction(destroyableSection.section);
-            case LockContainerT.FORM:
-              return this.buildFormDestroyAction(destroyableSection.section);
-          }
-        });
   }
 
   /**

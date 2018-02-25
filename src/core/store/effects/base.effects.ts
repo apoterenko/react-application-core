@@ -10,7 +10,7 @@ import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
 import { UserActionBuilder } from '../../user';
 import { TransportActionBuilder } from '../../transport';
-import { APPLICATION_SECTIONS, ApplicationActionBuilder } from '../../component/application';
+import { ApplicationActionBuilder } from '../../component/application';
 import { DictionariesActionBuilder } from '../../dictionary';
 
 @provideInSingleton(BaseEffects)
@@ -30,10 +30,6 @@ export class BaseEffects<TApi> {
     return NotificationActionBuilder.buildInfoAction(info);
   }
 
-  protected buildListLockAction(section: string): IEffectsAction {
-    return ListActionBuilder.buildLockAction(section);
-  }
-
   protected buildListLoadAction(section: string): IEffectsAction {
     return ListActionBuilder.buildLoadAction(section);
   }
@@ -51,10 +47,6 @@ export class BaseEffects<TApi> {
         : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes: entityChanges}});
   }
 
-  protected buildFormLockAction(section: string): IEffectsAction {
-    return FormActionBuilder.buildLockAction(section);
-  }
-
   protected buildFormDestroyAction(section: string): IEffectsAction {
     return FormActionBuilder.buildDestroyAction(section);
   }
@@ -69,10 +61,6 @@ export class BaseEffects<TApi> {
 
   protected buildFormChangeAction(section: string, data: FormModifyPayloadT): IEffectsAction {
     return FormActionBuilder.buildChangeAction(section, data);
-  }
-
-  protected buildFilterLockAction(section: string): IEffectsAction {
-    return FilterActionBuilder.buildLockAction(section);
   }
 
   protected buildFilterDestroyAction(section: string): IEffectsAction {
@@ -105,13 +93,5 @@ export class BaseEffects<TApi> {
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {
     return UserActionBuilder.buildUpdateAction(data);
-  }
-
-  protected buildContainersDestroyActions(): IEffectsAction[] {
-    const sections = Array.from(APPLICATION_SECTIONS.keys());
-    return sections
-        .map((section0) => this.buildListDestroyAction(section0))
-        .concat(sections.map((section0) => this.buildFormDestroyAction(section0)))
-        .concat(sections.map((section0) => this.buildFilterDestroyAction(section0)));
   }
 }

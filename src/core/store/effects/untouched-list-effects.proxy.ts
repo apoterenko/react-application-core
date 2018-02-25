@@ -1,8 +1,8 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { IApplicationListWrapperState, ListActionBuilder } from '../../component/list';
-import { provideInSingleton } from '../../di';
 import { ConnectorActionBuilder } from '../../component/connector';
+import { provideInSingleton } from '../../di';
 import { ApplicationStateT } from '../../store';
 
 export function makeUntouchedListEffectsProxy<TApplicationState extends ApplicationStateT>(config: {
