@@ -2,6 +2,7 @@ import { AnyAction, applyMiddleware, combineReducers, createStore, Middleware, R
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
+import './stack/stack.module';
 import { IApplicationSettings } from '../settings';
 import { PROD_MODE } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';

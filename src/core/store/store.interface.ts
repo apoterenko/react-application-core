@@ -32,8 +32,8 @@ import {
   applicationReadyReducer,
   IApplicationReadyState,
 } from '../component/application';
-import { IApplicationLockWrapperState, IApplicationLockState, lockReducer } from '../lock';
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
+import { stackReducer, IApplicationStackWrapperState } from './stack';
 
 export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState>
     extends IApplicationDictionariesWrapperState,
@@ -42,7 +42,7 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
             IApplicationUserWrapperState,
             IApplicationLayoutWrapperState,
             IApplicationRootWrapperState,
-            IApplicationLockWrapperState {
+            IApplicationStackWrapperState {
   applicationReady: IApplicationReadyState;
 }
 
@@ -55,7 +55,7 @@ export const defaultReducers = {
   root: rootReducer,
   user: userReducer,
   layout: layoutReducer,
-  lock: lockReducer,
+  stack: stackReducer,
   notification: notificationReducer,
   transport: transportReducer,
 };
