@@ -1,14 +1,13 @@
 import * as React from 'react';
 
-import { BaseContainer } from '../../../component/base';
-import { SearchToolbar } from '../../../component/toolbar';
+import { BaseContainer } from '../../base';
+import { SearchToolbar } from '../../toolbar';
 import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
   FILTER_OPEN_ACTION_TYPE,
-  FILTER_DESTROY_ACTION_TYPE,
-} from '../../../component/filter';
+} from '../../filter';
 import { ISearchToolbarContainerInternalProps } from './search-toolbar.interface';
 
 export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContainerInternalProps, {}> {
@@ -20,10 +19,6 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
     this.onActivate = this.onActivate.bind(this);
     this.onOpen = this.onOpen.bind(this);
     this.onChange = this.onChange.bind(this);
-  }
-
-  public componentWillUnmount(): void {
-    this.dispatch(FILTER_DESTROY_ACTION_TYPE);
   }
 
   public render(): JSX.Element {

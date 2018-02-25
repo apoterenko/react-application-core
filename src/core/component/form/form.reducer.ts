@@ -16,20 +16,10 @@ export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_F
                             action: IEffectsAction): IApplicationFormState {
   const section = toSection(action);
   switch (action.type) {
-    case FormActionBuilder.buildLockActionType(section):
-      return {
-        ...state,
-        locked: true,
-      };
     case FormActionBuilder.buildDestroyActionType(section):
-      return state.locked
-          ? {
-            ...state,
-            locked: false,
-          }
-          : {
-            ...INITIAL_APPLICATION_FORM_STATE,
-          };
+      return {
+        ...INITIAL_APPLICATION_FORM_STATE,
+      };
     case FormActionBuilder.buildChangeActionType(section):
       const changes = R.pickBy((value, key) => !isUndef(value), {
         ...state.changes,

@@ -7,7 +7,6 @@ import { Form } from '../form';
 
 import {
   FORM_CHANGE_ACTION_TYPE,
-  FORM_DESTROY_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
@@ -27,10 +26,6 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
-  }
-
-  public componentWillUnmount(): void {
-    this.dispatch(FORM_DESTROY_ACTION_TYPE);
   }
 
   public render(): JSX.Element {

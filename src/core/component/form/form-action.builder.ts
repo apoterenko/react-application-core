@@ -7,7 +7,6 @@ import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
   FORM_SUBMIT_ERROR_ACTION_TYPE,
-  FORM_LOCK_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_SUBMIT_FINISHED_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
@@ -35,10 +34,6 @@ export class FormActionBuilder {
     return `${section}.${FORM_VALID_ACTION_TYPE}`;
   }
 
-  public static buildLockActionType(section: string): string {
-    return `${section}.${FORM_LOCK_ACTION_TYPE}`;
-  }
-
   public static buildSubmitActionType(section: string): string {
     return `${section}.${FORM_SUBMIT_ACTION_TYPE}`;
   }
@@ -61,10 +56,6 @@ export class FormActionBuilder {
 
   public static buildSubmitFinishedAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildSubmitFinishedActionType(section), applySection(section));
-  }
-
-  public static buildLockAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
 
   public static buildDestroyAction(section: string): IEffectsAction {

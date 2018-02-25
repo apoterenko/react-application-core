@@ -44,20 +44,10 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
         progress: true,
         touched: true,
       };
-    case ListActionBuilder.buildLockActionType(section):
-      return {
-        ...state,
-        locked: true,
-      };
     case ListActionBuilder.buildDestroyActionType(section):
-      return state.locked
-          ? {
-            ...state,
-            locked: false,
-          }
-          : {
-            ...INITIAL_APPLICATION_LIST_STATE,
-          };
+      return {
+        ...INITIAL_APPLICATION_LIST_STATE,
+      };
     case ListActionBuilder.buildLoadDoneActionType(section):
       const result = action.data;
       return Array.isArray(result)

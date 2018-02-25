@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { BaseContainer } from '../../component/base';
+import { BaseContainer } from '../base';
 import { IEntity, ISelectable } from '../../definition.interface';
 
 import { List } from './list.component';
 import {
-  LIST_DESTROY_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
   LIST_SEARCH_ACTION_TYPE,
@@ -21,10 +20,6 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
     this.onSelect = this.onSelect.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onCreate = this.onCreate.bind(this);
-  }
-
-  public componentWillUnmount(): void {
-    this.dispatch(LIST_DESTROY_ACTION_TYPE);
   }
 
   public render(): JSX.Element {

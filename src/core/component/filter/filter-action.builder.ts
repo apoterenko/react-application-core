@@ -3,7 +3,6 @@ import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 import { applySection } from '../../util';
 import {
   FILTER_OPEN_ACTION_TYPE,
-  FILTER_LOCK_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
@@ -18,20 +17,12 @@ export class FilterActionBuilder {
     return `${section}.${FILTER_OPEN_ACTION_TYPE}`;
   }
 
-  public static buildLockActionType(section: string): string {
-    return `${section}.${FILTER_LOCK_ACTION_TYPE}`;
-  }
-
   public static buildActivateActionType(section: string): string {
     return `${section}.${FILTER_ACTIVATE_ACTION_TYPE}`;
   }
 
   public static buildDestroyActionType(section: string): string {
     return `${section}.${FILTER_DESTROY_ACTION_TYPE}`;
-  }
-
-  public static buildLockAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
 
   public static buildDestroyAction(section: string): IEffectsAction {

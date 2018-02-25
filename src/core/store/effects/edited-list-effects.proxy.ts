@@ -2,18 +2,18 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { excludeIdFieldFilter } from '../../util';
 import { provideInSingleton } from '../../di';
-import { FilterActionBuilder } from '../../component/filter';
 import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { CustomActionBuilder } from '../../action';
 import { IEntity, ISelectable } from '../../definition.interface';
 import { FormActionBuilder } from '../../component/form';
+import { StackActionBuilder } from '../../store';
 
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
                                            TApplicationState extends ApplicationStateT>(config: {
   listSection: string;
-  formSection?: string;
+  formSection: string;
   pathResolver(entity?: TEntity, state?: TApplicationState): string;
   changesResolver?(state: TApplicationState): TEntity;
 }): () => void {
@@ -26,8 +26,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
       @EffectsService.effects(ListActionBuilder.buildCreateActionType(listSection))
       public $onCreateEntity(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
         return [
-          ListActionBuilder.buildLockAction(listSection),    // Prevent the list auto destroying
-          FilterActionBuilder.buildLockAction(listSection),  // Prevent the list filter auto destroying
+          StackActionBuilder.buildLockAction(formSection),
           RouterActionBuilder.buildNavigateAction(pathResolver(null, state))
         ];
       }
@@ -36,8 +35,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
       public $onSelectEntity(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
         const actionParams: ISelectable<TEntity> = action.data;
         return [
-          ListActionBuilder.buildLockAction(listSection),    // Prevent the list auto destroying
-          FilterActionBuilder.buildLockAction(listSection),  // Prevent the list filter auto destroying
+          StackActionBuilder.buildLockAction(formSection),
           RouterActionBuilder.buildNavigateAction(pathResolver(actionParams.selected, state))
         ];
       }

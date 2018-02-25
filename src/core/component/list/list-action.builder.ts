@@ -5,7 +5,6 @@ import { AnyT } from '../../definition.interface';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
   LIST_LOAD_ACTION_TYPE,
-  LIST_LOCK_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   LIST_LOAD_ERROR_ACTION_TYPE,
   LIST_NEXT_PAGE_ACTION_TYPE,
@@ -75,10 +74,6 @@ export class ListActionBuilder {
     return `${section}.${LIST_DESELECT_ACTION_TYPE}`;
   }
 
-  public static buildLockActionType(section: string): string {
-    return `${section}.${LIST_LOCK_ACTION_TYPE}`;
-  }
-
   public static buildDestroyActionType(section: string): string {
     return `${section}.${LIST_DESTROY_ACTION_TYPE}`;
   }
@@ -93,10 +88,6 @@ export class ListActionBuilder {
 
   public static buildDestroyAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
-  }
-
-  public static buildLockAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildLockActionType(section), applySection(section));
   }
 
   public static buildInsertAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
