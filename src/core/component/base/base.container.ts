@@ -18,6 +18,7 @@ import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslatorT } from '../../translation';
 import { IFormDialog } from '../form';
+import { FormActionBuilder } from '../form/form-action.builder';
 import {
   IBaseContainer,
   IBaseContainerInternalProps,
@@ -45,44 +46,40 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
 
     this.navigateToBack = this.navigateToBack.bind(this);
     this.activateFormDialog = this.activateFormDialog.bind(this);
+    this.dispatchResetFormAndNavigateToBack = this.dispatchResetFormAndNavigateToBack.bind(this);
   }
 
   public dispatch(type: string, data?: IKeyValue): void {
-    this.appStore.dispatch({
-      type: `${this.sectionName}.${type}`, data: { section: this.sectionName, ...data },
-    });
+    this.dispatchCustomType(`${this.sectionName}.${type}`, { section: this.sectionName, ...data });
   }
 
   public navigate(path: Path, state?: LocationState): void {
-    this.appStore.dispatch({type: ROUTER_NAVIGATE_ACTION_TYPE, data: { path, state }});
+    this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, { path, state });
   }
 
-  public navigateToBack(): void {
-    this.appStore.dispatch({ type: RouterActionBuilder.buildNavigateBackActionType() });
+  protected navigateToBack(): void {
+    this.dispatchCustomType(RouterActionBuilder.buildNavigateBackActionType());
+  }
+
+  // Form service method (DRY)
+  protected dispatchResetFormAndNavigateToBack(): void {
+    this.dispatchCustomType(FormActionBuilder.buildResetActionType(this.sectionName), { section: this.sectionName });
+    this.navigateToBack();
   }
 
   // Dictionary service method (DRY)
-  protected dispatchLoadDictionary(dictionary: string, payload?: AnyT): void {
-    this.appStore.dispatch({
-      type: DictionariesActionBuilder.buildLoadActionType(dictionary),
-      data: { section: dictionary, payload },
-    });
+  protected dispatchLoadDictionary(section: string, payload?: AnyT): void {
+    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), { section, payload });
   }
 
   // Dictionary service method (DRY)
-  protected dispatchClearDictionary(dictionary: string): void {
-    this.appStore.dispatch({
-      type: DictionariesActionBuilder.buildClearActionType(dictionary),
-      data: { section: dictionary },
-    });
+  protected dispatchClearDictionary(section: string): void {
+    this.dispatchCustomType(DictionariesActionBuilder.buildClearActionType(dictionary), { section });
   }
 
   // Notification service method (DRY)
   protected dispatchNotification(info: string): void {
-    this.appStore.dispatch({
-      type: NOTIFICATION_INFO_ACTION_TYPE,
-      data: { info },
-    });
+    this.dispatchCustomType(NOTIFICATION_INFO_ACTION_TYPE, { info });
   }
 
   // Service method (DRY)
@@ -98,5 +95,9 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   // Service method (DRY)
   protected activateFormDialog(): void {
     (this.refs.formDialog as IFormDialog).activate();
+  }
+
+  private dispatchCustomType(type: string, data?: AnyT): void {
+    this.appStore.dispatch({ type, data });
   }
 }
