@@ -14,13 +14,9 @@ import {
   IBasicConnectorConfig,
 } from './connector.interface';
 import { DI_TYPES, staticInjector } from '../../di';
-import { ConnectorActionBuilder } from './connector-builder.action';
 import { APPLICATION_SECTIONS } from '../application';
-import {
-  LOCK_CONTAINER_INIT_ACTION_TYPE,
-  LOCK_CONTAINER_DESTROY_ACTION_TYPE,
-  LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE,
-} from '../../lock';
+import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store';
+import { ConnectorActionBuilder } from './connector-action.builder';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
@@ -40,26 +36,26 @@ export function basicConnector<TAppState extends ApplicationStateT>(
             proto.componentWillUnmount || noop,
             () => {
               const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
-              store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName0)});
-              store.dispatch({type: LOCK_CONTAINER_DESTROY_ACTION_TYPE, data: sectionName0});
+              store.dispatch({ type: STACK_POP_ACTION_TYPE, data: sectionName0 });
+              store.dispatch({ type: ConnectorActionBuilder.buildDestroyActionType(sectionName0) });
 
-              logger.debug(`[$connector][componentWillUnmount] Section: ${sectionName0}`);
+              logger.debug(`[$basicConnector][componentWillUnmount] Section: ${sectionName0}`);
             }
         );
         proto.componentWillMount = sequence(
             proto.componentWillMount || noop,
             () => {
               const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
-              store.dispatch({type: ConnectorActionBuilder.buildInitActionType(sectionName0)});
-              store.dispatch({type: LOCK_CONTAINER_INIT_ACTION_TYPE, data: sectionName0});
-              store.dispatch({type: LOCK_DESTROYABLE_SECTIONS_ACTION_TYPE, data: sectionName0});
+              store.dispatch({ type: STACK_PUSH_ACTION_TYPE, data: sectionName0 });
+              store.dispatch({ type: ConnectorActionBuilder.buildInitActionType(sectionName0) });
 
-              logger.debug(`[$connector][componentWillMount] Section: ${sectionName0}`);
+              logger.debug(`[$basicConnector][componentWillMount] Section: ${sectionName0}`);
             }
         );
     } else {
       logger.warn(
-          `The sectionName props is not defined for the container ${target.name || target} connector. The init/destroy actions are disabled.`
+          `[$basicConnector] The sectionName props is not defined for the container ${target.name ||
+          target} connector. The init/destroy actions are disabled.`
       );
     }
 

@@ -1,7 +1,7 @@
 import { ComponentLifecycle } from 'react';
 
 import { RouteOptionsT } from '../../router';
-import { IInitialChangesable, IKeyValue } from '../../definition.interface';
+import { IInitialChangesable, IKeyValue, ACTION_PREFIX } from '../../definition.interface';
 import { IApplicationState, ApplicationStateT } from '../../store';
 import { IApplicationAccessConfig } from '../../permissions';
 import { IBaseContainerInternalProps } from '../base';
@@ -26,6 +26,7 @@ export interface IConnectorCtor<TContainer> extends ComponentLifecycle<{}, {}> {
 export type ConnectorConfigT = IConnectorConfig<ApplicationStateT, IApplicationAccessConfig>;
 export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult;
 
-export const CONNECTOR_INIT_ACTION_TYPE = 'container.init';
-export const CONNECTOR_DESTROY_ACTION_TYPE = 'container.destroy';
 export const CONNECTOR_SECTION_FIELD = '$$section';
+
+export const CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}.connected.container.init`;
+export const CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}.connected.container.destroy`;
