@@ -69,12 +69,12 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
 
   // Dictionary service method (DRY)
   protected dispatchLoadDictionary(section: string, payload?: AnyT): void {
-    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), { section, payload });
+    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(section), { section, payload });
   }
 
   // Dictionary service method (DRY)
   protected dispatchClearDictionary(section: string): void {
-    this.dispatchCustomType(DictionariesActionBuilder.buildClearActionType(dictionary), { section });
+    this.dispatchCustomType(DictionariesActionBuilder.buildClearActionType(section), { section });
   }
 
   // Notification service method (DRY)
