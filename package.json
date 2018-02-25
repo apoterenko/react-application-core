@@ -12,6 +12,7 @@
     "test": "node_modules/.bin/karma start --browsers ChromeHeadlessNoSandbox"
   },
   "dependencies": {
+    "@dagrejs/graphlib": "^2.1.4",
     "@types/core-js": "^0.9.42",
     "@types/google-libphonenumber": "^7.4.12",
     "@types/history": "^4.6.0",
