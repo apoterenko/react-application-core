@@ -1,7 +1,7 @@
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 LoggerFactory.configure({
-  debugLevelPath: '[^EffectsService|^connector.decorator]',
+  debugLevelPath: '[^EffectsService|^RouterEffects|^connector.decorator]',
   warnLevelPath: '[^EffectsService]',
   logLevel: LoggerLevelEnum.DEBUG_LEVEL,
 });

@@ -7,18 +7,18 @@ import {
   IInitialChangesable,
   IKeyValue,
   IPathWrapper,
-  ISectionable,
+  ISectionWrapper,
 } from '../../definition.interface';
 import { ApplicationStateT } from '../../store';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
-                                                ISectionable,
+                                                ISectionWrapper,
                                                 IPathWrapper {
 }
 
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
                                                      IRouteOptions,
-                                                     ISectionable,
+                                                     ISectionWrapper,
                                                      IInitialChangesable<ApplicationStateT> {
   container?: IContainerWrapperCtor;
   accessConfig?: IApplicationAccessConfig;

@@ -183,6 +183,31 @@ export interface IUseFilterWrapper {
   useFilter?: boolean;
 }
 
+/**********************
+ * Section's wrappers
+ **********************/
+export interface ISectionWrapper {
+  section?: string;
+}
+
+export interface ILinkedToSectionsWrapper {
+  linkedToSections?: string[];
+}
+
+/**********************
+ * Lock's wrappers
+ **********************/
+export interface ILockWrapper {
+  lock?: boolean;
+}
+
+/**********************
+ * Stack's wrapper
+ **********************/
+export interface IStackWrapper<TStack> {
+  stack?: TStack;
+}
+
 /**
  *
  */
@@ -224,10 +249,6 @@ export interface ISorter {
 
 export interface IIconWrapper {
   icon?: string;
-}
-
-export interface ISectionable {
-  section?: string;
 }
 
 export const VALUE_FIELD_NAME = 'value';
@@ -369,10 +390,6 @@ export interface IDisabledWrapper {
 
 export interface IActiveable {
   active?: boolean;
-}
-
-export interface ILockable {
-  locked?: boolean;
 }
 
 export interface IPathWrapper {

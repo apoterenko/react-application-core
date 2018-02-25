@@ -1,3 +1,4 @@
+export * from './stack';
 export * from './effects';
 export * from './store.interface';
 export * from './store.module';

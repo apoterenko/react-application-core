@@ -4,11 +4,12 @@ import { provideInSingleton } from '../../di';
 import { FilterActionBuilder } from '../../component/filter';
 import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
+import { StackActionBuilder } from '../stack';
 
 export function makeFilteredListEffectsProxy(
-    config: { filterPath?: string; section: string }
+    config: { filterPath?: string; section: string, filterSection?: string }
     ): () => void {
-  const { filterPath, section } = config;
+  const { filterPath, section, filterSection } = config;
   return (): void => {
 
     @provideInSingleton(Effects)
@@ -22,8 +23,7 @@ export function makeFilteredListEffectsProxy(
       @EffectsService.effects(FilterActionBuilder.buildOpenActionType(section))
       public $onFilterOpen(): IEffectsAction[] {
         return [
-          ListActionBuilder.buildLockAction(section),    // Prevent the list auto destroying
-          FilterActionBuilder.buildLockAction(section),  // Prevent the list filter auto destroying
+          StackActionBuilder.buildLockAction(filterSection),
           RouterActionBuilder.buildNavigateAction(filterPath)
         ];
       }
