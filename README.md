@@ -20,6 +20,7 @@ The library is designed to quickly start developing business applications are ba
 * [material-components-web](https://github.com/material-components/material-components-web)
 * [ramda](https://github.com/ramda/ramda)
 * [InversifyJS](https://github.com/inversify/InversifyJS)
+* [@dagrejs/graphlib](https://github.com/dagrejs/graphlib)
 
 # Usage
 
@@ -44,7 +45,7 @@ import {
   connector,
 } from 'react-application-core';
 
-import { ROUTER_PATHS } from '../../app.routers';
+import { ROUTER_PATHS } from '../../app.routes';
 import { IRolesContainerInternalProps, ROLES_SECTION } from './roles.interface';
 import { IAppState } from '../../app.interface';
 import { AccessConfigT, IRoleEntity } from '../permission.interface';
@@ -73,7 +74,7 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
     const header = <SearchToolbarContainer filterOptions={disabledActionsListWrapperMapper(props)}
                                            {...props}/>;
     return (
-      <DefaultLayoutContainer headerItems={header}
+      <DefaultLayoutContainer headerOptions={{ items: header }}
                               {...props}>
         <ListContainer listOptions={{
                         itemOptions: { tpl: this.tpl },
@@ -112,12 +113,15 @@ import {
   ContainerVisibilityTypeEnum,
   IBaseContainerInternalProps,
   connector,
+  LayoutBuilder,
+  LayoutEnum,
+  uuid,
 } from 'react-application-core';
 
 import { IRoleContainerInternalProps, ROLE_SECTION } from './role.interface';
 import { IAppState } from '../../../app.interface';
 import { RIGHTS_DICTIONARY } from '../../../dictionary';
-import { ROUTER_PATHS } from '../../../app.routers';
+import { ROUTER_PATHS } from '../../../app.routes';
 import { AccessConfigT } from '../../permission.interface';
 import { AppPermissions } from '../../../app.permissions';
 
@@ -139,10 +143,7 @@ class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
     sectionName: ROLE_SECTION,
   };
 
-  constructor(props: IRoleContainerInternalProps) {
-    super(props);
-    this.loadRights = this.loadRights.bind(this);
-  }
+  private layoutBuilder = new LayoutBuilder(uuid());
 
   public render(): JSX.Element {
     const props = this.props;
@@ -153,31 +154,36 @@ class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
       : `Role ${this.nc.id(props.entityId)}`;
 
     return (
-      <DefaultLayoutContainer navigationControlType='arrow_back'
-                              navigationControlHandler={this.activateFormDialog}
+      <DefaultLayoutContainer headerOptions={{
+                                navigationActionType: 'arrow_back',
+                                navigationActionHandler: this.activateFormDialog,
+                              }}
                               title={title}
                               {...props}>
         <FormContainer {...props}>
-          <TextField name='name'
-                     label='Name'
-                     autoFocus={true}
-                     required={true}/>
-          <ChipsField name='rights'
-                      label='Rights'
-                      options={toSelectOptions(rights)}
-                      onEmptyOptions={this.loadRights}
-                      useFilter={true}
-                      valuesMessage='%d right(s)'/>
+          {
+            this.layoutBuilder.build({
+              layout: LayoutEnum.VERTICAL,
+              children: [
+                <TextField name='name'
+                           label='Name'
+                           autoFocus={true}
+                           required={true}/>,
+                <ChipsField name='rights'
+                            label='Rights'
+                            options={toSelectOptions(rights)}
+                            bindToDictionary={RIGHTS_DICTIONARY}
+                            menuOptions={{ useFilter: true, renderToCenterOfBody: true }}
+                            displayMessage='%d right(s)'/>
+              ],
+            })
+          }
         </FormContainer>
         <FormDialog ref={FORM_DIALOG_REF}
-                    onAccept={this.navigateToBack}
+                    onAccept={this.dispatchResetFormAndNavigateToBack}
                     {...props}/>
       </DefaultLayoutContainer>
     );
-  }
-
-  private loadRights(): void {
-    this.dispatchLoadDictionary(RIGHTS_DICTIONARY);
   }
 }
 ```
@@ -199,14 +205,14 @@ import {
   makeUntouchedListEffectsProxy,
   makeFailedListEffectsProxy,
   makeEditedListEffectsProxy,
-  makeLockEffectsProxy,
 } from 'react-application-core';
 
 import { IApi } from '../../api/api.interface';
-import { ROUTER_PATHS } from '../../app.routers';
+import { ROUTER_PATHS } from '../../app.routes';
 import { ROLES_SECTION } from './roles.interface';
 import { IRoleEntity } from '../permission.interface';
 import { IAppState } from '../../app.interface';
+import { ROLE_SECTION } from './role';
 
 @provideInSingleton(RolesEffects)
 @effectsBy(
@@ -216,16 +222,16 @@ import { IAppState } from '../../app.interface';
   }),
   makeEditedListEffectsProxy<IRoleEntity, IAppState>({
     listSection: ROLES_SECTION,
+    formSection: ROLE_SECTION,
     pathResolver: (role) => buildEntityRoute<IRoleEntity>(ROUTER_PATHS.ROLE, role),
   }),
   makeFilteredListEffectsProxy({ section: ROLES_SECTION }),
-  makeFailedListEffectsProxy(ROLES_SECTION),
-  makeLockEffectsProxy(ROLES_SECTION)
+  makeFailedListEffectsProxy(ROLES_SECTION)
 )
 export class RolesEffects extends BaseEffects<IApi> {
 
   @EffectsService.effects(ListActionBuilder.buildLoadActionType(ROLES_SECTION))
-  public onRolesSearch(_: IEffectsAction, state: IAppState): Promise<IRoleEntity[]> {
+  public $onRolesSearch(_: IEffectsAction, state: IAppState): Promise<IRoleEntity[]> {
     return this.api.searchRoles(state.roles.filter.query);
   }
 }
