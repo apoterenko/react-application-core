@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { orNull } from '../../../util';
-import { SelectOptionT } from './basic-select.interface';
+import { ISelectOption, SelectOptionT } from './basic-select.interface';
 import { INamedEntity } from '../../../definition.interface';
 
 export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter = false): SelectOptionT[] =>
