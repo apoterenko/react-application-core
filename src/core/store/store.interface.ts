@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue, IUserWrapper } from '../definition.interface';
+import { IKeyValue, IUserWrapper, IDictionariesWrapper } from '../definition.interface';
 import {
   IApplicationRootState,
   IApplicationRootWrapperState,
@@ -23,11 +23,7 @@ import {
   IApplicationNotificationWrapperState,
   notificationReducer,
 } from '../notification';
-import {
-  dictionariesReducer,
-  IApplicationDictionariesState,
-  IApplicationDictionariesWrapperState
-} from '../dictionary';
+import { dictionariesReducer } from '../dictionary';
 import {
   applicationReadyReducer,
   IApplicationReadyState,
@@ -35,8 +31,8 @@ import {
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
 import { stackReducer, IApplicationStackWrapperState } from './stack';
 
-export interface IApplicationState<TDictionariesState extends IApplicationDictionariesState>
-    extends IApplicationDictionariesWrapperState,
+export interface IApplicationState<TDictionaries>
+    extends IDictionariesWrapper<TDictionaries>,
             IApplicationTransportWrapperState,
             IApplicationNotificationWrapperState,
             IUserWrapper<IApplicationUserState>,
@@ -46,7 +42,7 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
   applicationReady: IApplicationReadyState;
 }
 
-export type ApplicationStateT = IApplicationState<IApplicationDictionariesState>;
+export type ApplicationStateT = IApplicationState<{}>;
 
 export const defaultReducers = {
   applicationReady: applicationReadyReducer,

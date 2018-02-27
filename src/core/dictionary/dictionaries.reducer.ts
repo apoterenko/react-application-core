@@ -3,14 +3,14 @@ import { AnyAction } from 'redux';
 import { toSection } from '../store';
 import { excludeFieldsFilter } from '../util';
 import {
-  IApplicationDictionariesState,
   DICTIONARIES_DESTROY_ACTION_TYPE,
   INITIAL_DICTIONARIES_STATE,
 } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
+import { IDictionaries } from '../definition.interface';
 
-export function dictionariesReducer(state: IApplicationDictionariesState = INITIAL_DICTIONARIES_STATE,
-                                    action: AnyAction): IApplicationDictionariesState {
+export function dictionariesReducer(state: IDictionaries = INITIAL_DICTIONARIES_STATE,
+                                    action: AnyAction): IDictionaries {
   const section = toSection(action);
   switch (action.type) {
     case DICTIONARIES_DESTROY_ACTION_TYPE:

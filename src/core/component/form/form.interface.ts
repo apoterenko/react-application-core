@@ -4,20 +4,18 @@ import { IApiEntity, IApiEntityWrapper } from '../../api';
 import {
   AnyT,
   IOnLoadDictionaryWrapper,
-  IChangesWrapper,
-  IProgressWrapper,
+  IFormEntity,
   IStylizable,
   ISaveable,
   IKeyValue,
   IEntity,
   IEntityWrapper,
   IErrorable,
-  ITouchedWrapper,
-  IDirtyable,
   ISubmittable,
   IReadonlyable,
   IDisabledWrapper,
   IOnEmptyDictionaryWrapper,
+  IFormWrapper,
 } from '../../definition.interface';
 import {
   IBaseComponent,
@@ -37,12 +35,9 @@ export interface IFormFieldsModifyPayload {
 
 export type FormModifyPayloadT = IFormFieldModifyPayload|IFormFieldsModifyPayload;
 
-export interface IFormAttributes<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
-                                                                     IProgressWrapper,
+export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity<TChanges>,
                                                                      ISaveable,
-                                                                     ITouchedWrapper,
-                                                                     IErrorable<string>,
-                                                                     IDirtyable {
+                                                                     IErrorable<string> {
   valid?: boolean;
 }
 
@@ -56,8 +51,8 @@ export interface IFormOptions extends IStylizable,
   noActions?: boolean;
 }
 
-export interface IFormProps<TEntity extends IEntity> extends IEntityWrapper<TEntity> {
-  form: IFormAttributes<TEntity>;
+export interface IFormProps<TEntity extends IEntity> extends IEntityWrapper<TEntity>,
+                                                             IFormWrapper<IFormAttributes<TEntity>> {
   formOptions?: IFormOptions;
   onBeforeSubmit?(apiEntity: IApiEntity<TEntity>): void;
 }

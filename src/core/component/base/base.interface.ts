@@ -7,7 +7,6 @@ import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
 import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
-import { IApplicationDictionariesState } from '../../dictionary';
 import { IApplicationTransportState } from '../../transport';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
@@ -23,7 +22,6 @@ export interface IBaseInternalProps extends IStylizable,
   message?: string;
   errorMessage?: string;
   notification?: IApplicationNotificationState;
-  dictionaries?: IApplicationDictionariesState;
 }
 
 export interface IContainerInternalProps {

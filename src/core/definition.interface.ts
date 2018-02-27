@@ -163,6 +163,13 @@ export interface IDataWrapper<TData> {
 }
 
 /**********************
+ * Loading's wrapper
+ **********************/
+export interface ILoadingWrapper {
+  loading?: boolean;
+}
+
+/**********************
  * Dictionary's wrappers
  **********************/
 export interface IBindToDictionaryWrapper {
@@ -180,6 +187,18 @@ export interface IOnLoadDictionaryWrapper {
 export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
                                                  IOnEmptyDictionaryWrapper,
                                                  IOnLoadDictionaryWrapper {
+}
+
+export interface IDictionaryEntity<TData> extends IDataWrapper<TData[]|TData>,
+                                                  ILoadingWrapper {
+}
+
+export interface IDictionaries {
+  [dictionary: string]: IDictionaryEntity<{}>;
+}
+
+export interface IDictionariesWrapper<TDictionaries> {
+  dictionaries?: TDictionaries;
 }
 
 /**********************
@@ -324,6 +343,54 @@ export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
 }
 
+/**********************
+ * Progress's wrapper
+ **********************/
+export interface IProgressWrapper {
+  progress?: boolean;
+}
+
+/**********************
+ * Touched's wrapper
+ **********************/
+export interface ITouchedWrapper {
+  touched?: boolean;
+}
+
+/**********************
+ * Dirty's wrapper
+ **********************/
+export interface IDirtyWrapper {
+  dirty?: boolean;
+}
+
+/**********************
+ * Entity's wrapper
+ **********************/
+export interface IEntityWrapper<TEntity extends IEntity> {
+  entity?: TEntity;
+  entityId?: EntityIdT;
+  originalEntity?: TEntity;
+  isNewEntity?: boolean;
+}
+
+/**********************
+ * Forms's wrappers
+ **********************/
+export interface IFormWrapper<TForm> {
+  form?: TForm;
+}
+
+export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
+                                                                 ITouchedWrapper,
+                                                                 IDirtyWrapper,
+                                                                 IProgressWrapper {
+}
+
+export interface IFormEntityWrapper<TEntity extends IEntity> extends IFormWrapper<IFormEntity<TEntity>>,
+                                                                     IEntityWrapper<TEntity> {
+}
+
 export interface IEntity extends IEntityIdWrapper, IKeyValue {
 }
 
@@ -394,16 +461,8 @@ export interface IStylizable {
 
 export const PROGRESS_FIELD_NAME = 'progress';
 
-export interface IProgressWrapper {
-  progress?: boolean;
-}
-
 export interface IPriorityWrapper {
   priority?: number;
-}
-
-export interface ITouchedWrapper {
-  touched?: boolean;
 }
 
 export interface ILinkable {
@@ -429,10 +488,6 @@ export interface IInfoable<Type> {
 
 export interface IIsNewWrapper {
   isNew?: boolean;
-}
-
-export interface IDirtyable {
-  dirty?: boolean;
 }
 
 export interface ITypeWrapper<TType> {
@@ -470,17 +525,6 @@ export interface IPathWrapper {
 
 export interface IMergerWrapper<TMerger extends IKeyValue> {
   merger?: TMerger;
-}
-
-export interface IEntityWrapper<TEntity extends IEntity> extends ITouchedWrapper {
-  entity?: TEntity;
-  originalEntity?: TEntity;
-  isNewEntity?: boolean;
-  entityId?: EntityIdT;
-}
-
-export interface IFormable<TForm> {
-  form: TForm;
 }
 
 export interface IDateWrapper {
@@ -574,6 +618,6 @@ export type FocusEventT = React.FocusEvent<{}>;
 export type KeyboardEventT = React.KeyboardEvent<{}>;
 export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;
 
-export const INITIAL_DIRTY_STATE: IDirtyable = {
+export const INITIAL_DIRTY_STATE: IDirtyWrapper = {
   dirty: true,
 };

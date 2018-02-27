@@ -6,7 +6,6 @@ import { IContainerWrapperCtor } from '../component/application';
 import { IApplicationState } from '../store';
 import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
 import { IApplicationAccessConfig } from '../permissions';
-import { IApplicationDictionariesState } from '../dictionary';
 import { IPathWrapper, ITypeWrapper } from '../definition.interface';
 
 export interface IRoutes {

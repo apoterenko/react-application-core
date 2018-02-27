@@ -4,13 +4,19 @@ import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
-import { IEntity, IEntityWrapper, IFormable, IUserWrapper } from '../../definition.interface';
+import {
+  IEntity,
+  IEntityWrapper,
+  IFormWrapper,
+  IUserWrapper,
+  IDictionariesWrapper,
+  IDictionaries,
+} from '../../definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
   IApplicationFilterWrapperState,
 } from '../../component/filter';
-import { IApplicationDictionariesState, IApplicationDictionariesWrapperState } from '../../dictionary';
 import { IApplicationTransportWrapperState } from '../../transport';
 import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserState } from '../../user';
@@ -40,7 +46,6 @@ export const entityMapper =
           entityId: orNull(entity, () => entity.id),
           originalEntity: { ...entity as {} } as TEntity,
           isNewEntity: !entity || R.isNil(entity.id),
-          touched: formState && formState.touched,
         });
 
 export const listSelectedEntityMapper =
@@ -55,7 +60,7 @@ export const listWrapperSelectedEntityMapper =
         formState
     );
 
-export const formMapper = (formState: IApplicationFormState): IFormable<IApplicationFormState> => ({
+export const formMapper = (formState: IApplicationFormState): IFormWrapper<IApplicationFormState> => ({
   form: {
     ...formState,
   },
@@ -97,7 +102,7 @@ export const transportMapper = (state: ApplicationStateT): IApplicationTransport
   },
 });
 
-export const dictionariesMapper = (state: ApplicationStateT): IApplicationDictionariesWrapperState => ({
+export const dictionariesMapper = (state: ApplicationStateT): IDictionariesWrapper<IDictionaries> => ({
   dictionaries: {
     ...state.dictionaries,
   },
