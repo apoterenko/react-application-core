@@ -7,8 +7,7 @@ export class LayoutBuilder {
 
   private index: number;
 
-  constructor(private formId: string  // This way React can handle the minimal DOM change.
-  ) {
+  constructor(private formId = uuid()) {  // This way React can handle the minimal DOM change.
   }
 
   public build(layoutConfig: ILayoutConfig): JSX.Element {
