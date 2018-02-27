@@ -1,5 +1,5 @@
 import {
-  IIdentifiedEntity,
+  IEntityIdWrapper,
   IChangesWrapper,
   IEntity,
   EntityIdT,
@@ -9,7 +9,7 @@ import {
   IIsNewWrapper,
 } from '../definition.interface';
 
-export interface IApiEntity<TEntity extends IEntity> extends IIdentifiedEntity,
+export interface IApiEntity<TEntity extends IEntity> extends IEntityIdWrapper,
                                                              IChangesWrapper<TEntity>,
                                                              IEntityWrapper<TEntity>,
                                                              IMergerWrapper<TEntity>,

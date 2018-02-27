@@ -1,18 +1,17 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  IChangesWrapper,
-  IIdentifiedEntity,
-  IKeyValue,
-  IPayloadable,
+  IEntityIdWrapper,
+  IKeyValueChangesWrapper,
+  IPayloadWrapper,
 } from '../../definition.interface';
 
-export interface IModifyEntityPayload extends IIdentifiedEntity,
-                                              IChangesWrapper<IKeyValue> {
+export interface IModifyEntityPayload extends IEntityIdWrapper,
+                                              IKeyValueChangesWrapper {
   mergeStrategy?: EntityOnSaveMergeStrategyEnum;
 }
 
-export interface IModifyEntityPayloadWrapper extends IPayloadable<IModifyEntityPayload> {
+export interface IModifyEntityPayloadWrapper extends IPayloadWrapper<IModifyEntityPayload> {
 }
 
 export enum EntityOnSaveMergeStrategyEnum {

@@ -1,6 +1,12 @@
-import { AnyT, IActiveable, IStylizable, ITypeWrapper } from '../../definition.interface';
-import { IApplicationFormState } from '../../component/form';
-import { IFieldOptions } from '../../component/field';
+import {
+  AnyT,
+  IActiveable,
+  IStylizable,
+  ITypeWrapper,
+  IFilterWrapper,
+} from '../../definition.interface';
+import { IApplicationFormState } from '../form';
+import { IFieldOptions } from '../field';
 
 export enum FilterActionEnum {
   OPEN_FILTER,
@@ -23,8 +29,8 @@ export interface IApplicationFilterState extends IActiveable {
   query?: AnyT;
 }
 
-export interface IApplicationFilterWrapperState {
-  filter: IApplicationFilterState;
+// @deprecated
+export interface IApplicationFilterWrapperState extends IFilterWrapper<IApplicationFilterState> {
 }
 
 export interface IApplicationFilterFormWrapperState {

@@ -34,6 +34,8 @@ export const FILTER_FIELD_NAME =  'filter';
 export const URL_FIELD_NAME = 'url';
 export const FILE_FIELD_NAME = 'file';
 export const USER_FIELD_NAME = 'user';
+export const PASSWORD_FIELD_NAME = 'password';
+export const EMAIL_FIELD_NAME = 'email';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**********************
@@ -47,6 +49,47 @@ export interface IStringIdWrapper extends IIdWrapper<string> {
 }
 
 export interface INumberIdWrapper extends IIdWrapper<number> {
+}
+
+export interface IEntityIdWrapper extends IIdWrapper<EntityIdT> {
+}
+
+/**********************
+ * Named entity
+ **********************/
+export interface INamedEntity extends IEntityIdWrapper,
+                                      INameWrapper {
+}
+
+/**********************
+ * User's wrappers
+ **********************/
+export interface IUserWrapper<TUser> {
+  user?: TUser;
+}
+
+export interface IStringUserWrapper extends IUserWrapper<string> {
+}
+
+/**********************
+ * Filter's wrapper
+ **********************/
+export interface IFilterWrapper<TFilter> {
+  filter?: TFilter;
+}
+
+/**********************
+ * List's wrapper
+ **********************/
+export interface IListWrapper<TList> {
+  list?: TList;
+}
+
+/**********************
+ * Filtered list entity
+ **********************/
+export interface IFilteredListEntity<TFilter, TList> extends IFilterWrapper<TFilter>,
+                                                             IListWrapper<TList> {
 }
 
 /**********************
@@ -208,15 +251,41 @@ export interface IStackWrapper<TStack> {
   stack?: TStack;
 }
 
+/**********************
+ * Payload's wrapper
+ **********************/
+export interface IPayloadWrapper<TPayload> {
+  payload?: TPayload;
+}
+
+/**********************
+ * Changes's wrappers
+ **********************/
+export interface IChangesWrapper<TChanges extends IKeyValue> {
+  changes: TChanges;
+}
+
+export interface IKeyValueChangesWrapper extends IChangesWrapper<IKeyValue> {
+}
+
+/**********************
+ * Email's wrapper
+ **********************/
+export interface IEmailWrapper {
+  email?: string;
+}
+
+/**********************
+ * Login's wrapper
+ **********************/
+export interface ILoginWrapper {
+  login?: string;
+}
+
 /**
  *
  */
-export interface IIdentifiedEntity extends IIdWrapper<EntityIdT> {
-}
 
-export interface INamedEntity extends IIdentifiedEntity,
-                                      INameWrapper {
-}
 
 export interface IBlobWrapper {
   blob?: Blob;
@@ -226,7 +295,7 @@ export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
 }
 
-export interface IEntity extends IIdentifiedEntity, IKeyValue {
+export interface IEntity extends IEntityIdWrapper, IKeyValue {
 }
 
 export const NAME_FIELD_NAME = 'name';
@@ -279,16 +348,8 @@ export interface IDisplayMessageWrapper {
   displayMessage?: string;
 }
 
-export const PASSWORD_FIELD_NAME = 'password';
-
 export interface IPasswordWrapper {
   password?: string;
-}
-
-export const EMAIL_FIELD_NAME = 'email';
-
-export interface IEmailWrapper {
-  email?: string;
 }
 
 export const IMAGE_FIELD_NAME = 'image';
@@ -303,17 +364,9 @@ export interface IReadonlyable {
 
 export const LOGIN_FIELD_NAME = 'login';
 
-export interface ILoginWrapper {
-  login?: string;
-}
-
 export interface IStylizable {
   className?: string;
   noClassName?: boolean;
-}
-
-export interface IPayloadable<TPayload> {
-  payload?: TPayload;
 }
 
 export const PROGRESS_FIELD_NAME = 'progress';
@@ -394,10 +447,6 @@ export interface IActiveable {
 
 export interface IPathWrapper {
   path?: string;
-}
-
-export interface IChangesWrapper<TChanges extends IKeyValue> {
-  changes: TChanges;
 }
 
 export interface IMergerWrapper<TMerger extends IKeyValue> {

@@ -1,13 +1,13 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue } from '../definition.interface';
+import { IKeyValue, IUserWrapper } from '../definition.interface';
 import {
   IApplicationRootState,
   IApplicationRootWrapperState,
   rootReducer,
 } from '../component/root';
 
-import { IApplicationUserWrapperState, IApplicationUserState, userReducer } from '../user';
+import { IApplicationUserState, userReducer } from '../user';
 import {
   IApplicationLayoutState,
   IApplicationLayoutWrapperState,
@@ -39,7 +39,7 @@ export interface IApplicationState<TDictionariesState extends IApplicationDictio
     extends IApplicationDictionariesWrapperState,
             IApplicationTransportWrapperState,
             IApplicationNotificationWrapperState,
-            IApplicationUserWrapperState,
+            IUserWrapper<IApplicationUserState>,
             IApplicationLayoutWrapperState,
             IApplicationRootWrapperState,
             IApplicationStackWrapperState {

@@ -7,7 +7,6 @@ import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IEntity,
-  ILockWrapper,
   ITouchedWrapper,
   IProgressWrapper,
   IErrorable,
@@ -18,6 +17,7 @@ import {
   IPageSizeWrapper,
   ITotalCountWrapper,
   ITotalAmountWrapper,
+  IListWrapper,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
 import { ISimpleListInternalProps } from './simple';
@@ -36,7 +36,7 @@ export interface IPageOptions extends IPageWrapper,
 }
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
-                                                     IApplicationListWrapperState {
+                                                     IListWrapper<IApplicationListState> {
   listOptions?: IListOptions;
 }
 
@@ -57,8 +57,8 @@ export interface IApplicationListState extends IPageOptions,
                                                IDataWrapper<IEntity[]> {
 }
 
-export interface IApplicationListWrapperState {
-  list: IApplicationListState;
+// @deprecated
+export interface IApplicationListWrapperState extends IListWrapper<IApplicationListState> {
 }
 
 export interface IListInternalProps extends IBaseComponentInternalProps,

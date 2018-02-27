@@ -4,7 +4,7 @@ import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
-import { IEntity, IEntityWrapper, IFormable } from '../../definition.interface';
+import { IEntity, IEntityWrapper, IFormable, IUserWrapper } from '../../definition.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,
@@ -13,7 +13,7 @@ import {
 import { IApplicationDictionariesState, IApplicationDictionariesWrapperState } from '../../dictionary';
 import { IApplicationTransportWrapperState } from '../../transport';
 import { IApplicationNotificationWrapperState } from '../../notification';
-import { IApplicationUserWrapperState } from '../../user';
+import { IApplicationUserState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
 
@@ -79,7 +79,7 @@ export const filterFormMapper = (formState: IApplicationFormState) => ({
   },
 });
 
-export const userMapper = (state: ApplicationStateT): IApplicationUserWrapperState => ({
+export const userMapper = (state: ApplicationStateT): IUserWrapper<IApplicationUserState> => ({
   user: {
     ...state.user,
   },
