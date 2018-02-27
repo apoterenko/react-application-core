@@ -2,7 +2,7 @@ import * as R from 'ramda';
 
 import { orNull } from '../../../util';
 import { ISelectOption, SelectOptionT } from './basic-select.interface';
-import { INamedEntity } from '../../../definition.interface';
+import { INamedEntity, IDictionaryEntity } from '../../../definition.interface';
 
 export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter = false): SelectOptionT[] =>
   orNull<SelectOptionT[]>(
@@ -19,3 +19,7 @@ export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter
         rawData: entity,
       }))
   );
+
+export const toSelectOptionsFromDictionary = <TDictionaryEntityData>(dictionaryEntity: IDictionaryEntity<TDictionaryEntityData>,
+                                                                     useIdFilter = false): SelectOptionT[] =>
+    toSelectOptions(dictionaryEntity && dictionaryEntity.data, useIdFilter);
