@@ -2,10 +2,11 @@ import {
   INamedEntity,
   ILoginWrapper,
   IEmailWrapper,
-  IUserWrapper,
+  IPasswordWrapper,
 } from '../definition.interface';
 
 export interface IUser extends INamedEntity,
+                               IPasswordWrapper,
                                ILoginWrapper,
                                IEmailWrapper {
 }

@@ -32,6 +32,10 @@ export class Menu extends MaterialComponent<Menu,
                                             INativeMaterialMenuComponent>
     implements IMenu {
 
+  public static defaultProps: IMenuInternalProps = {
+    filterFn: (valueToFilter, option) => String(option.label || option.value).toUpperCase().includes(valueToFilter),
+  };
+
   private menuParent: HTMLElement;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
@@ -84,13 +88,11 @@ export class Menu extends MaterialComponent<Menu,
   public render(): JSX.Element {
     const props = this.props;
     const state = this.state;
-    const filter = state.filter && state.filter.toUpperCase();
+    const valueToFilter = state.filter && state.filter.toUpperCase();
     const optionValueFn = (option) => (option.label ? this.t(option.label) : option.value);
 
     const menuItemsTpl = props.options
-      .filter(
-        (option) => !filter || String(option.label || option.value).toUpperCase().includes(filter)
-      )
+      .filter((option) => !valueToFilter || props.filterFn(valueToFilter, option))
       .map((option): JSX.Element => {
         const props0 = {
           role: 'option',

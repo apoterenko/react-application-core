@@ -8,12 +8,13 @@ import {
   IDisabledWrapper,
   IValueWrapper,
   IUseFilterWrapper,
-  IRawDatable,
+  IRawDataWrapper,
   AnyT,
   ITplWrapper,
   IIconWrapper,
   IRenderToBodyEntity,
   IFilterPlaceholderWrapper,
+  IFilterFnWrapper,
 } from '../../definition.interface';
 
 export interface IMenuInternalState {
@@ -22,6 +23,7 @@ export interface IMenuInternalState {
 
 export interface IMenuOptions extends IBaseComponentInternalProps,
                                       IUseFilterWrapper,
+                                      IFilterFnWrapper<MenuOptionT>,
                                       IFilterPlaceholderWrapper,
                                       IRendererWrapper<MenuOptionT>,
                                       ITplWrapper<MenuOptionT>,
@@ -60,7 +62,7 @@ export type MenuActionsWrapperT = IMenuActionsWrapper<AnyT>;
 export type MenuActionT = IMenuAction<AnyT>;
 
 export interface IMenuOption<TRawData> extends IMenuAction<EntityIdT>,
-                                               IRawDatable<TRawData> {
+                                               IRawDataWrapper<TRawData> {
 }
 
 export type MenuOptionT = IMenuOption<AnyT>;

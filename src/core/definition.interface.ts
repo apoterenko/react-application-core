@@ -36,6 +36,7 @@ export const FILE_FIELD_NAME = 'file';
 export const USER_FIELD_NAME = 'user';
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
+export const NAME_FIELD_NAME = 'name';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**********************
@@ -227,6 +228,13 @@ export interface IUseFilterWrapper {
 }
 
 /**********************
+ * FilterFn's wrapper
+ **********************/
+export interface IFilterFnWrapper<TFilteredItem> {
+  filterFn?: (valueToFilter: string, item: TFilteredItem) => boolean;
+}
+
+/**********************
  * Section's wrappers
  **********************/
 export interface ISectionWrapper {
@@ -282,11 +290,23 @@ export interface ILoginWrapper {
   login?: string;
 }
 
-/**
- *
- */
+/**********************
+ * Image's wrapper
+ **********************/
+export interface IImageWrapper<TImage> {
+  image?: TImage;
+}
 
+/**********************
+ * RawData's wrapper
+ **********************/
+export interface IRawDataWrapper<TRawData> {
+  rawData?: TRawData;
+}
 
+/**********************
+ * Blob's wrappers
+ **********************/
 export interface IBlobWrapper {
   blob?: Blob;
 }
@@ -297,8 +317,6 @@ export interface IBlobEntity extends IStringIdWrapper,
 
 export interface IEntity extends IEntityIdWrapper, IKeyValue {
 }
-
-export const NAME_FIELD_NAME = 'name';
 
 export interface INameWrapper {
   name?: string;
@@ -354,10 +372,6 @@ export interface IPasswordWrapper {
 
 export const IMAGE_FIELD_NAME = 'image';
 
-export interface IImageWrapper<TImage> {
-  image?: TImage;
-}
-
 export interface IReadonlyable {
   readOnly?: boolean;
 }
@@ -393,10 +407,6 @@ export interface ISaveable {
 
 export interface ISelectable<Type> {
   selected?: Type;
-}
-
-export interface IRawDatable<Type> {
-  rawData?: Type;
 }
 
 export interface IErrorable<Type> {
