@@ -18,7 +18,6 @@ export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
   menuOptions?: IMenuOptions;
   forceAll?: boolean;
   options?: SelectOptionT[];
-  onOptionsLoad?(loadedOptions: SelectOptionT[]): void;
   onSelect?(option: SelectOptionT): void;
 }
 

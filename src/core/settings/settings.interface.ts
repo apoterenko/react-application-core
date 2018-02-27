@@ -40,6 +40,7 @@ export interface IApplicationMessages {
   waitMessage?: string;
   dndMessage?: string;
   serviceTemporarilyUnavailable?: string;
+  noAvailableItemsToSelect?: string;
 }
 
 export interface IApplicationSettings {
@@ -76,6 +77,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     waitMessage: 'Please wait...',
     dndMessage: 'Try dropping some files here, or click to select files to upload.',
     serviceTemporarilyUnavailable: 'Service temporarily unavailable. Please try later.',
+    noAvailableItemsToSelect: 'No available items to select',
   },
   dateTime: {
     currentDate: new Date(),

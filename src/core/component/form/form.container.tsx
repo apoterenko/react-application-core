@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { IApiEntity, ApiEntityT } from '../../api';
 import { AnyT } from '../../definition.interface';
@@ -26,6 +27,7 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
+    this.onLoadDictionary = this.onLoadDictionary.bind(this);
   }
 
   public render(): JSX.Element {
@@ -37,6 +39,7 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
               onReset={this.onReset}
               onValid={this.onValid}
               onEmptyDictionary={this.onEmptyDictionary}
+              onLoadDictionary={this.onLoadDictionary}
               {...props}>
           {props.children}
         </Form>
@@ -75,6 +78,13 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
 
   private onEmptyDictionary(dictionary: string): void {
     this.dispatchLoadDictionary(dictionary);
+  }
+
+  private onLoadDictionary(items: AnyT): void {
+    const noAvailableItemsToSelect = this.settings.messages.noAvailableItemsToSelect;
+    if (noAvailableItemsToSelect && R.isEmpty(items)) {
+      this.dispatchNotification(noAvailableItemsToSelect);
+    }
   }
 
   private get form(): IForm {

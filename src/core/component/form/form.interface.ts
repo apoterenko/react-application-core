@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import { IApiEntity, IApiEntityWrapper } from '../../api';
 import {
   AnyT,
-  ILockWrapper,
+  IOnLoadDictionaryWrapper,
   IChangesWrapper,
   IProgressWrapper,
   IStylizable,
@@ -64,6 +64,7 @@ export interface IFormProps<TEntity extends IEntity> extends IEntityWrapper<TEnt
 
 export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,
                                                                      IOnEmptyDictionaryWrapper,
+                                                                     IOnLoadDictionaryWrapper,
                                                                      IFormProps<TEntity> {
   onSubmit?: (apiEntity: IApiEntity<TEntity>) => void;
   onReset?: () => void;

@@ -19,8 +19,7 @@ import {
   IStepable,
   ChangeEventT,
   IMaskEntity,
-  IOnEmptyDictionaryWrapper,
-  IBindToDictionaryWrapper,
+  IBindToDictionaryEntity,
   IErrorable,
   IDisplayMessageWrapper,
   IPatternWrapper,
@@ -54,7 +53,7 @@ export interface IFieldOptions extends ILabelWrapper,
                                        IPatternWrapper,
                                        IPlaceholderWrapper,
                                        IMaskEntity,
-                                       IOnEmptyDictionaryWrapper {
+                                       IBindToDictionaryEntity {
   prefixLabel?: string;
 }
 
@@ -65,7 +64,6 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IFieldOptions,
                                              INameWrapper,
                                              IDisabledWrapper,
-                                             IBindToDictionaryWrapper,
                                              IStepable,
                                              IReadonlyable,
                                              IValueWrapper<AnyT>,

@@ -46,15 +46,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
 
+    const props = this.props;
     if (!R.isNil(nextProps.options)
-        && !R.equals(this.props.options, nextProps.options)) {
+        && !R.equals(props.options, nextProps.options)) {
       this.setState({ emptyOptions: false });
 
       if (this.hasInputFocus) {
         this.showMenu(nextProps.options);
 
-        if (this.props.onOptionsLoad) {
-          this.props.onOptionsLoad(nextProps.options);
+        if (props.onLoadDictionary) {
+          props.onLoadDictionary(this.toFilteredOptions(nextProps.options));
         }
       }
     }

@@ -173,6 +173,15 @@ export interface IOnEmptyDictionaryWrapper {
   onEmptyDictionary?(dictionary?: string): void;
 }
 
+export interface IOnLoadDictionaryWrapper {
+  onLoadDictionary?(items: AnyT, dictionary?: string): void;
+}
+
+export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
+                                                 IOnEmptyDictionaryWrapper,
+                                                 IOnLoadDictionaryWrapper {
+}
+
 /**********************
  * Label's wrapper
  **********************/
