@@ -8,6 +8,7 @@ import { ApplicationStateT } from '../store.interface';
 import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
 import { StackActionBuilder } from './stack-action.builder';
 import { getDestroyableSections } from './stack.helper';
+import { FilterActionBuilder } from '../../component/filter';
 
 @provideInSingleton(ConnectorEffects)
 export class ConnectorEffects {
@@ -28,8 +29,8 @@ export class ConnectorEffects {
   }
 
   private buildActionsToDestroy(sectionsToDestroy: string[]): IEffectsAction[] {
-    return sectionsToDestroy.map((section) => ListActionBuilder.buildDestroyAction(section)).concat(
-      sectionsToDestroy.map((section) => FormActionBuilder.buildDestroyAction(section))
-    );
+    return sectionsToDestroy.map((section) => ListActionBuilder.buildDestroyAction(section))
+      .concat(sectionsToDestroy.map((section) => FormActionBuilder.buildDestroyAction(section)))
+      .concat(sectionsToDestroy.map((section) => FilterActionBuilder.buildDestroyAction(section)));
   }
 }
