@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { uuid, toClassName } from '../../../util';
 import { ILayoutConfig, LayoutEnum, LayoutElementT, LayoutFactorEnum } from './layout-builder.interface';
@@ -25,9 +26,11 @@ export class LayoutBuilder {
   private buildHorizontalLayout(items: LayoutElementT[], factor: LayoutFactorEnum): JSX.Element {
     const children = [];
     items.forEach((item, index) => {
-      children.push(this.clone(item));
-      if (index < items.length - 1) {
-        children.push(<div key={uuid()} className='rac-flex-separator'/>);
+      if (!R.isNil(item)) {
+        children.push(this.clone(item));
+        if (index < items.length - 1) {
+          children.push(<div key={uuid()} className='rac-flex-separator'/>);
+        }
       }
     });
     return (
@@ -50,7 +53,9 @@ export class LayoutBuilder {
              'rac-flex-column',
              this.toFactoryClassName(factor)
            )}>
-        {items.map((item) => this.clone(item))}
+        {items
+          .map((item) => R.isNil(item) ? null : this.clone(item))
+          .filter((item) => !R.isNil(item))}
       </div>
     );
   }
