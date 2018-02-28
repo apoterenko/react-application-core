@@ -16,7 +16,7 @@ import {
   IHeadersWrapper,
   IDataWrapper,
   INoAuthWrapper,
-  IAuthWrapper,
+  IStringAuthWrapper,
   IDefaultOperationWrapper,
 } from '../definition.interface';
 
@@ -83,7 +83,7 @@ export interface ITransportRequest extends INameWrapper,
 export interface ITransportRequestData extends INameWrapper,
                                                INoAuthWrapper,
                                                IParamsWrapper,
-                                               IAuthWrapper,
+                                               IStringAuthWrapper,
                                                INumberIdWrapper {
 }
 

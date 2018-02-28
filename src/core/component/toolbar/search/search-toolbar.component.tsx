@@ -96,7 +96,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     return this.props.active;
   }
 
-  private get query(): boolean {
+  private get query(): string {
     return this.props.query;
   }
 

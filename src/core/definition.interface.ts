@@ -131,8 +131,22 @@ export interface INoAuthWrapper {
 /**********************
  * Auth's wrapper
  **********************/
-export interface IAuthWrapper {
-  auth?: string;
+export interface IAuthWrapper<TAuth> {
+  auth?: TAuth;
+}
+
+export interface IStringAuthWrapper extends IAuthWrapper<string> {
+}
+
+/**********************
+ * Sign's wrappers
+ **********************/
+export interface ISignInWrapper<TSignIn> {
+  signIn?: TSignIn;
+}
+
+export interface ISignUpWrapper<TSignUp> {
+  signUp?: TSignUp;
 }
 
 /**********************
@@ -319,6 +333,16 @@ export interface ILoginWrapper {
 }
 
 /**********************
+ * Query's wrappers
+ **********************/
+export interface IQueryWrapper<TQuery> {
+  query?: string;
+}
+
+export interface IStringQueryWrapper extends IQueryWrapper<string> {
+}
+
+/**********************
  * Image's wrapper
  **********************/
 export interface IImageWrapper<TImage> {
@@ -330,6 +354,53 @@ export interface IImageWrapper<TImage> {
  **********************/
 export interface IRawDataWrapper<TRawData> {
   rawData?: TRawData;
+}
+
+/**********************
+ * Date and time wrappers
+ **********************/
+export interface IDateWrapper {
+  date?: string;
+}
+
+export interface ITimeWrapper {
+  time?: string;
+}
+
+export interface IFromDateWrapper {
+  fromDate?: string;
+}
+
+export interface IToDateWrapper {
+  toDate?: string;
+}
+
+export interface IFromTimeWrapper {
+  fromTime?: string;
+}
+
+export interface IToTimeWrapper {
+  toTime?: string;
+}
+
+export interface IDateTimeEntity extends IDateWrapper,
+                                         ITimeWrapper {
+}
+
+export interface IFromDateFromTimeEntity extends IFromDateWrapper,
+                                                 IFromTimeWrapper {
+}
+
+export interface IToDateToTimeEntity extends IToDateWrapper,
+                                             IToTimeWrapper {
+}
+
+export interface IFromDateToDateEntity extends IFromDateWrapper,
+                                               IToDateWrapper {
+}
+
+export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,
+                                                             IToDateToTimeEntity {
 }
 
 /**********************
@@ -358,10 +429,31 @@ export interface ITouchedWrapper {
 }
 
 /**********************
+ * Page's wrapper
+ **********************/
+export interface IPageWrapper {
+  page?: number;
+}
+
+/**********************
+ * PageSize's wrapper
+ **********************/
+export interface IPageSizeWrapper {
+  pageSize?: number;
+}
+
+/**********************
  * Dirty's wrapper
  **********************/
 export interface IDirtyWrapper {
   dirty?: boolean;
+}
+
+/**********************
+ * Priority's wrapper
+ **********************/
+export interface IPriorityWrapper {
+  priority?: number;
 }
 
 /**********************
@@ -461,10 +553,6 @@ export interface IStylizable {
 
 export const PROGRESS_FIELD_NAME = 'progress';
 
-export interface IPriorityWrapper {
-  priority?: number;
-}
-
 export interface ILinkable {
   to?: string;
 }
@@ -527,50 +615,6 @@ export interface IMergerWrapper<TMerger extends IKeyValue> {
   merger?: TMerger;
 }
 
-export interface IDateWrapper {
-  date?: string;
-}
-
-export interface ITimeWrapper {
-  time?: string;
-}
-
-export interface IFromDateWrapper {
-  fromDate?: string;
-}
-
-export interface IToDateWrapper {
-  toDate?: string;
-}
-
-export interface IFromTimeWrapper {
-  fromTime?: string;
-}
-
-export interface IToTimeWrapper {
-  toTime?: string;
-}
-
-export interface IDateTimeEntity extends IDateWrapper,
-                                         ITimeWrapper {
-}
-
-export interface IFromDateTimeEntity extends IFromDateWrapper,
-                                             IFromTimeWrapper {
-}
-
-export interface IToDateTimeEntity extends IToDateWrapper,
-                                           IToTimeWrapper {
-}
-
-export interface IFromToDateEntity extends IFromDateWrapper,
-                                           IToDateWrapper {
-}
-
-export interface IFromToDateTimeEntity extends IFromDateTimeEntity,
-                                               IToDateTimeEntity {
-}
-
 export interface IRippleable {
   rippled?: boolean;
 }
@@ -584,14 +628,6 @@ export interface IOnBaseClickWrapper extends IOnClickWrapper<BasicEventT> {
 
 export interface ISubmittable {
   submit?(): void;
-}
-
-export interface IPageWrapper {
-  page?: number;
-}
-
-export interface IPageSizeWrapper {
-  pageSize?: number;
 }
 
 export interface ITotalCountWrapper {

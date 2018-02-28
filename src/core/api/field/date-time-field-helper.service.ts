@@ -3,8 +3,8 @@ import * as R from 'ramda';
 import {
   IEntity,
   UNDEF,
-  IFromDateTimeEntity,
-  IToDateTimeEntity,
+  IFromDateFromTimeEntity,
+  IToDateToTimeEntity,
   DEFAULT_TIME_FROM,
   DEFAULT_TIME_TO,
   IKeyValue,
@@ -15,8 +15,8 @@ import {
   IDateTimeEntity,
   DATE_FIELD_NAME,
   TIME_FIELD_NAME,
-  IFromToDateEntity,
-  IFromToDateTimeEntity,
+  IFromDateToDateEntity,
+  IFromDateFromTimeToDateToTimeEntity,
 } from '../../definition.interface';
 
 import { IApiEntity } from '../api.interface';
@@ -50,8 +50,8 @@ export class DateTimeFieldHelper {
     );
   }
 
-  public buildDateTimeSinceField<TEntity extends IFromDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
-                                                                      returnOriginalValueIfNoChanges = false): string {
+  public buildDateTimeSinceField<TEntity extends IFromDateFromTimeEntity>(apiEntity: IApiEntity<TEntity>,
+                                                                          returnOriginalValueIfNoChanges = false): string {
     return this.toDateTime<TEntity>(
       apiEntity,
       (source) => source.fromDate,
@@ -61,8 +61,8 @@ export class DateTimeFieldHelper {
     );
   }
 
-  public buildDateTimeTillField<TEntity extends IToDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
-                                                                   returnOriginalValueIfNoChanges = false): string {
+  public buildDateTimeTillField<TEntity extends IToDateToTimeEntity>(apiEntity: IApiEntity<TEntity>,
+                                                                     returnOriginalValueIfNoChanges = false): string {
     return this.toDateTime<TEntity>(
       apiEntity,
       (source) => source.toDate,
@@ -72,26 +72,26 @@ export class DateTimeFieldHelper {
     );
   }
 
-  public joinDateTimeFields<TEntity extends IFromToDateTimeEntity>(
+  public joinDateTimeFields<TEntity extends IFromDateFromTimeToDateToTimeEntity>(
     apiEntity: IApiEntity<TEntity>,
-    returnOriginalValueIfNoChanges = false): IFromToDateTimeEntity {
+    returnOriginalValueIfNoChanges = false): IFromDateFromTimeToDateToTimeEntity {
     return {
       ...this.composeDateTimeSinceField(apiEntity, returnOriginalValueIfNoChanges),
       ...this.composeDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
     };
   }
 
-  public composeDateTimeSinceField<TEntity extends IFromDateTimeEntity>(
+  public composeDateTimeSinceField<TEntity extends IFromDateFromTimeEntity>(
     apiEntity: IApiEntity<TEntity>,
-    returnOriginalValueIfNoChanges = false): IFromDateTimeEntity {
+    returnOriginalValueIfNoChanges = false): IFromDateFromTimeEntity {
     return {
       fromDate: this.buildDateTimeSinceField(apiEntity, returnOriginalValueIfNoChanges),
     };
   }
 
-  public composeDateTimeTillField<TEntity extends IToDateTimeEntity>(
+  public composeDateTimeTillField<TEntity extends IToDateToTimeEntity>(
     apiEntity: IApiEntity<TEntity>,
-    returnOriginalValueIfNoChanges = false): IToDateTimeEntity {
+    returnOriginalValueIfNoChanges = false): IToDateToTimeEntity {
     return {
       toDate: this.buildDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
     };
@@ -100,9 +100,9 @@ export class DateTimeFieldHelper {
   /**
    * @test
    * @param {TEntity} entity
-   * @returns {IFromToDateEntity}
+   * @returns {IFromDateToDateEntity}
    */
-  public composeDateTimeRangeFields<TEntity extends IFromToDateTimeEntity>(entity: TEntity): IFromToDateEntity {
+  public composeDateTimeRangeFields<TEntity extends IFromDateFromTimeToDateToTimeEntity>(entity: TEntity): IFromDateToDateEntity {
     return this.buildDateTimeRangeFields<TEntity>(
       entity,
       (source) => source.fromDate,
@@ -133,15 +133,15 @@ export class DateTimeFieldHelper {
     } as TEntity;
   }
 
-  public splitToDateTimeRangeFields(entity: IFromToDateTimeEntity): IFromToDateTimeEntity {
+  public splitToDateTimeRangeFields(entity: IFromDateFromTimeToDateToTimeEntity): IFromDateFromTimeToDateToTimeEntity {
     return {
       ...this.splitToDateTimeSinceFields(entity),
       ...this.splitToDateTimeTillFields(entity),
     };
   }
 
-  public splitToDateTimeSinceFields(entity: IFromDateTimeEntity): IFromDateTimeEntity {
-    return this.splitToDateTimeFields<IFromDateTimeEntity>(
+  public splitToDateTimeSinceFields(entity: IFromDateFromTimeEntity): IFromDateFromTimeEntity {
+    return this.splitToDateTimeFields<IFromDateFromTimeEntity>(
       entity,
       FROM_DATE_FIELD_NAME,
       FROM_TIME_FIELD_NAME,
@@ -149,8 +149,8 @@ export class DateTimeFieldHelper {
     );
   }
 
-  public splitToDateTimeTillFields(entity: IToDateTimeEntity): IToDateTimeEntity {
-    return this.splitToDateTimeFields<IToDateTimeEntity>(
+  public splitToDateTimeTillFields(entity: IToDateToTimeEntity): IToDateToTimeEntity {
+    return this.splitToDateTimeFields<IToDateToTimeEntity>(
       entity,
       TO_DATE_FIELD_NAME,
       TO_TIME_FIELD_NAME,

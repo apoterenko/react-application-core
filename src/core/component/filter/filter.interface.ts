@@ -1,9 +1,9 @@
 import {
-  AnyT,
   IActiveable,
   IStylizable,
   ITypeWrapper,
   IFilterWrapper,
+  IStringQueryWrapper,
 } from '../../definition.interface';
 import { IApplicationFormState } from '../form';
 import { IFieldOptions } from '../field';
@@ -25,8 +25,8 @@ export interface IApplicationFilterOptions {
   searchFieldOptions?: IFieldOptions;
 }
 
-export interface IApplicationFilterState extends IActiveable {
-  query?: AnyT;
+export interface IApplicationFilterState extends IActiveable,
+                                                 IStringQueryWrapper {
 }
 
 // @deprecated
