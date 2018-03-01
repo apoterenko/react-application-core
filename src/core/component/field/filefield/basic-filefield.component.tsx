@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { BasicTextField, IBasicTextFieldAction } from '../textfield';
 import { orNull } from '../../../util';
@@ -20,6 +21,8 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
                             TInternalState extends IBasicFileFieldInternalState>
     extends BasicTextField<TComponent, TInternalProps, TInternalState> {
 
+  private static logger = LoggerFactory.makeLogger(BasicFileField);
+
   protected multiFieldPlugin = new MultiFieldPlugin(this);
   private filesMap = new Map<EntityIdT, File>();
 
@@ -36,11 +39,19 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     );
   }
 
+  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: {}): void {
+    super.componentWillReceiveProps(nextProps, nextContext);
+
+    const activeValue = this.multiFieldPlugin.activeValue;
+    if (R.isNil(nextProps.value) && activeValue.length > 0) {
+      activeValue.forEach((item) => this.destroyBlob(item.id));
+    }
+  }
+
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
     this.filesMap.forEach((value, key) => this.destroyBlob(key));
-    this.filesMap.clear();
   }
 
   public onKeyEnter(event: KeyboardEventT): void {
@@ -92,12 +103,10 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     const currentValue = activeValue.id;
 
     this.destroyBlob(currentValue);
-    this.filesMap.delete(currentValue);
 
     if (this.isValuePresent()) {
       this.multiFieldPlugin.onDeleteItem({id: currentValue});
     }
-
     this.setFocus();
   }
 
@@ -112,5 +121,8 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
 
   private destroyBlob(key: EntityIdT): void {
     URL.revokeObjectURL(key as string);
+    this.filesMap.delete(key);
+
+    BasicFileField.logger.debug(`The blob has been destroyed on the key ${key}`);
   }
 }
