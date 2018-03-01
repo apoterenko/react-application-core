@@ -19,9 +19,9 @@ import {
   IFieldInternalState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
-  IFieldDisplayValueConverter,
   FieldDisplayValueConverterT,
 } from './field.interface';
+import { toActualChangedValue } from './field.helper';
 
 export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                    TInternalProps extends IFieldInternalProps,
@@ -229,24 +229,18 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   }
 
   protected onChangeValue(currentRawValue: AnyT, error?: string): void {
-    const originalValue = this.props.originalValue;
-    const isFieldDirty = !isUndef(currentRawValue) && this.hasOriginalValue
-        && !R.equals(currentRawValue, originalValue);
+    const actualChangedValue = toActualChangedValue({
+      value: currentRawValue,
+      emptyValue: this.getEmptyValue(),
+      originalValue: this.props.originalValue,
+      error,
+    });
+    currentRawValue = actualChangedValue.value;
 
-    if ((this.hasOriginalValue && !isFieldDirty)
-        || (!this.hasOriginalValue && this.getEmptyValue() === currentRawValue)) {
-      currentRawValue = undefined;  // Clear dirty changes
-      error = null;
-    }
-
-    this.validateField(currentRawValue, error);
+    this.validateField(currentRawValue, actualChangedValue.error);
 
     this.propsOnChange(currentRawValue);
     this.propsChangeForm(currentRawValue);
-  }
-
-  protected get hasOriginalValue(): boolean {
-    return isDef(this.props.originalValue);
   }
 
   protected propsChangeForm(rawValue: AnyT): void {
