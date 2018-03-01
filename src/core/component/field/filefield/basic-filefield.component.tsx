@@ -8,7 +8,6 @@ import {
   BasicEventT,
   EntityIdT,
   KeyboardEventT,
-  AnyT,
 } from '../../../definition.interface';
 import { MultiFieldPlugin } from '../multifield';
 import {
@@ -22,7 +21,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     extends BasicTextField<TComponent, TInternalProps, TInternalState> {
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
-  private filesMap = new Map<string, File>();
+  private filesMap = new Map<EntityIdT, File>();
 
   constructor(props: TInternalProps) {
     super(props);
@@ -39,6 +38,8 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
 
   public componentWillUnmount(): void {
     super.componentWillUnmount();
+
+    this.filesMap.forEach((value, key) => this.destroyBlob(key));
     this.filesMap.clear();
   }
 
@@ -67,9 +68,13 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     );
   }
 
-  protected toDisplayValue(value: AnyT): EntityIdT {
+  protected toDisplayValue(value: EntityIdT): EntityIdT {
     const file = this.filesMap.get(value);
     return file ? file.name : super.toDisplayValue(value);
+  }
+
+  protected getEmptyValue(): EntityIdT[] {
+    return [];
   }
 
   protected onSelect(file: File[]): void {
@@ -83,13 +88,17 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   }
 
   protected clearValue(): void {
-    const currentValue = this.value;
+    const activeValue = this.multiFieldPlugin.activeValue[0];
+    const currentValue = activeValue.id;
+
+    this.destroyBlob(currentValue);
     this.filesMap.delete(currentValue);
-    this.setFocus();
 
     if (this.isValuePresent()) {
       this.multiFieldPlugin.onDeleteItem({id: currentValue});
     }
+
+    this.setFocus();
   }
 
   private get dnd(): IDnd {
@@ -99,5 +108,9 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   private openFileDialog(event: BasicEventT): void {
     this.stopEvent(event);
     this.dnd.open();
+  }
+
+  private destroyBlob(key: EntityIdT): void {
+    URL.revokeObjectURL(key as string);
   }
 }
