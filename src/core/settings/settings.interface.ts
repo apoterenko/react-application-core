@@ -75,9 +75,9 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     accessDeniedMessage: 'The access is restricted for you.',
     sorryMessage: 'Sorry about that.',
     waitMessage: 'Please wait...',
-    dndMessage: 'Try dropping some files here, or click to select files to upload.',
+    dndMessage: 'Try dropping some file(s) here, or click to select file(s) to upload.',
     serviceTemporarilyUnavailable: 'Service temporarily unavailable. Please try later.',
-    noAvailableItemsToSelect: 'No available items to select',
+    noAvailableItemsToSelect: 'No available items to select.',
   },
   dateTime: {
     currentDate: new Date(),

@@ -25,12 +25,12 @@ export class LayoutBuilder {
 
   private buildHorizontalLayout(items: LayoutElementT[], factor: LayoutFactorEnum): JSX.Element {
     const children = [];
-    items.forEach((item, index) => {
-      if (!R.isNil(item)) {
-        children.push(this.clone(item));
-        if (index < items.length - 1) {
-          children.push(<div key={uuid()} className='rac-flex-separator'/>);
-        }
+    const filteredItems = items.filter((item) => !R.isNil(item));
+
+    filteredItems.forEach((item, index) => {
+      children.push(this.clone(item));
+      if (index < filteredItems.length - 1) {
+        children.push(<div key={uuid()} className='rac-flex-separator'/>);
       }
     });
     return (
@@ -54,8 +54,8 @@ export class LayoutBuilder {
              this.toFactoryClassName(factor)
            )}>
         {items
-          .map((item) => R.isNil(item) ? null : this.clone(item))
-          .filter((item) => !R.isNil(item))}
+          .filter((item) => !R.isNil(item))
+          .map((item) => this.clone(item))}
       </div>
     );
   }
