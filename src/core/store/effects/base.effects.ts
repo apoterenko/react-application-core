@@ -5,22 +5,17 @@ import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { AnyT, IEntity } from '../../definition.interface';
 import { NotificationActionBuilder } from '../../notification';
 import { ListActionBuilder } from '../../component/list';
-import { FormActionBuilder, FormModifyPayloadT } from '../../component/form';
+import { FormActionBuilder } from '../../component/form';
 import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
 import { UserActionBuilder } from '../../user';
 import { TransportActionBuilder } from '../../transport';
 import { ApplicationActionBuilder } from '../../component/application';
-import { DictionariesActionBuilder } from '../../dictionary';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Api) protected api: TApi;
-
-  protected buildDictionariesDestroyAction(): IEffectsAction {
-    return DictionariesActionBuilder.buildDestroyAction();
-  }
 
   protected buildNotificationErrorAction(error: string): IEffectsAction {
     return NotificationActionBuilder.buildErrorAction(error);
@@ -47,10 +42,6 @@ export class BaseEffects<TApi> {
         : ListActionBuilder.buildUpdateAction(section, {payload: {id, changes: entityChanges}});
   }
 
-  protected buildFormDestroyAction(section: string): IEffectsAction {
-    return FormActionBuilder.buildDestroyAction(section);
-  }
-
   protected buildFormSubmitDoneAction(section: string): IEffectsAction {
     return FormActionBuilder.buildSubmitDoneAction(section);
   }
@@ -59,20 +50,12 @@ export class BaseEffects<TApi> {
     return FormActionBuilder.buildSubmitFinishedAction(section);
   }
 
-  protected buildFormChangeAction(section: string, data: FormModifyPayloadT): IEffectsAction {
-    return FormActionBuilder.buildChangeAction(section, data);
-  }
-
   protected buildFilterDestroyAction(section: string): IEffectsAction {
     return FilterActionBuilder.buildDestroyAction(section);
   }
 
   protected buildRouterNavigateAction(path: string): IEffectsAction {
     return RouterActionBuilder.buildNavigateAction(path);
-  }
-
-  protected buildRouterNavigateBackAction(): IEffectsAction {
-    return RouterActionBuilder.buildNavigateBackAction();
   }
 
   protected buildApplicationAfterLogoutAction(): IEffectsAction {
