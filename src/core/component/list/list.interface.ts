@@ -9,7 +9,7 @@ import {
   IEntity,
   ITouchedWrapper,
   IProgressWrapper,
-  IErrorable,
+  IErrorEntity,
   ISelectable,
   IDataWrapper,
   ISorter,
@@ -53,7 +53,7 @@ export interface IApplicationListState extends IPageOptions,
                                                IProgressWrapper,
                                                ITouchedWrapper,
                                                ISelectable<IEntity>,
-                                               IErrorable<string>,
+                                               IErrorEntity<string>,
                                                IDataWrapper<IEntity[]> {
 }
 

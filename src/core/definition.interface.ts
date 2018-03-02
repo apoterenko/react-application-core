@@ -34,9 +34,11 @@ export const FILTER_FIELD_NAME =  'filter';
 export const URL_FIELD_NAME = 'url';
 export const FILE_FIELD_NAME = 'file';
 export const USER_FIELD_NAME = 'user';
+export const EFFECTOR_FIELD_NAME = 'effector';
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
+export const VALUE_FIELD_NAME = 'value';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**********************
@@ -429,6 +431,48 @@ export interface ITouchedWrapper {
 }
 
 /**********************
+ * Effector's wrapper
+ **********************/
+export interface IEffectorWrapper {
+  effector?: string;
+}
+
+/**********************
+ * Values's wrappers
+ **********************/
+export interface IValueWrapper<TValue> {
+  value?: TValue;
+}
+
+export interface IStringValueWrapper extends IValueWrapper<string> {
+}
+
+export interface IAnyValueWrapper extends IValueWrapper<AnyT> {
+}
+
+/**********************
+ * Fields's wrappers
+ **********************/
+export interface IFieldWrapper<TField> {
+  field?: TField;
+}
+
+export interface IFieldsWrapper<TFields> {
+  fields?: TFields;
+}
+
+export interface IStringFieldWrapper extends IFieldWrapper<string> {
+}
+
+export interface IFieldValueEntity extends IAnyValueWrapper, IStringFieldWrapper {
+}
+
+export interface IFieldsValuesEntities extends IFieldsWrapper<IFieldValueEntity[]> {
+}
+
+export type FieldValueEntityT = IFieldValueEntity|IFieldsValuesEntities;
+
+/**********************
  * Page's wrapper
  **********************/
 export interface IPageWrapper {
@@ -450,10 +494,35 @@ export interface IDirtyWrapper {
 }
 
 /**********************
+ * Valid's wrapper
+ **********************/
+export interface IValidWrapper {
+  valid?: boolean;
+}
+
+/**********************
  * Priority's wrapper
  **********************/
 export interface IPriorityWrapper {
   priority?: number;
+}
+
+/**********************
+ * Errors's wrappers
+ **********************/
+export interface IErrorWrapper<TError> {
+  error?: TError;
+}
+
+export interface ICustomErrorWrapper {
+  customError?: boolean;
+}
+
+export interface IErrorEntity<TError> extends IErrorWrapper<TError>,
+                                              ICustomErrorWrapper {
+}
+
+export interface IStringErrorEntity extends IErrorEntity<string> {
 }
 
 /**********************
@@ -476,7 +545,9 @@ export interface IFormWrapper<TForm> {
 export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
                                                                  ITouchedWrapper,
                                                                  IDirtyWrapper,
-                                                                 IProgressWrapper {
+                                                                 IProgressWrapper,
+                                                                 IValidWrapper,
+                                                                 IStringErrorEntity {
 }
 
 export interface IFormEntityWrapper<TEntity extends IEntity> extends IFormWrapper<IFormEntity<TEntity>>,
@@ -504,15 +575,6 @@ export interface ISorter {
 
 export interface IIconWrapper {
   icon?: string;
-}
-
-export const VALUE_FIELD_NAME = 'value';
-
-export interface IValueWrapper<TValue> {
-  value?: TValue;
-}
-
-export interface IStringValueWrapper extends IValueWrapper<string> {
 }
 
 export interface ITokenWrapper<TToken> {
@@ -563,11 +625,6 @@ export interface ISaveable {
 
 export interface ISelectable<Type> {
   selected?: Type;
-}
-
-export interface IErrorable<Type> {
-  error?: Type;
-  customError?: boolean;
 }
 
 export interface IInfoable<Type> {

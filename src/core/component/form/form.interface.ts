@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import { IApiEntity, IApiEntityWrapper } from '../../api';
 import {
@@ -10,7 +11,6 @@ import {
   IKeyValue,
   IEntity,
   IEntityWrapper,
-  IErrorable,
   ISubmittable,
   IReadonlyable,
   IDisabledWrapper,
@@ -24,21 +24,8 @@ import {
   IBaseContainerInternalProps,
 } from '../base';
 
-export interface IFormFieldModifyPayload {
-  field: string;
-  value: AnyT;
-}
-
-export interface IFormFieldsModifyPayload {
-  fields: IFormFieldModifyPayload[];
-}
-
-export type FormModifyPayloadT = IFormFieldModifyPayload|IFormFieldsModifyPayload;
-
 export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity<TChanges>,
-                                                                     ISaveable,
-                                                                     IErrorable<string> {
-  valid?: boolean;
+                                                                     ISaveable {
 }
 
 export interface IFormOptions extends IStylizable,
@@ -99,8 +86,8 @@ export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {
 
 export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
-export const FORM_SUBMIT_DONE_ACTION_TYPE = 'form.submit.done';
-export const FORM_SUBMIT_ERROR_ACTION_TYPE = 'form.submit.error';
+export const FORM_SUBMIT_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType('form.submit');
+export const FORM_SUBMIT_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType('form.submit');
 export const FORM_SUBMIT_FINISHED_ACTION_TYPE = 'form.submit.finished';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
 export const FORM_RESET_ACTION_TYPE = 'form.reset';

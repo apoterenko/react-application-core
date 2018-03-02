@@ -2,7 +2,13 @@ import { AnyAction } from 'redux';
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { applySection } from '../../util';
-import { AnyT, IKeyValue } from '../../definition.interface';
+import {
+  AnyT,
+  IKeyValue,
+  IFieldValueEntity,
+  IFieldsValuesEntities,
+  FieldValueEntityT,
+} from '../../definition.interface';
 import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
@@ -12,8 +18,6 @@ import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
-  FormModifyPayloadT,
-  IFormFieldModifyPayload,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -62,7 +66,7 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
   }
 
-  public static buildChangeAction(section: string, data: FormModifyPayloadT): IEffectsAction {
+  public static buildChangeAction(section: string, data: FieldValueEntityT): IEffectsAction {
     return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
   }
 
@@ -85,7 +89,7 @@ export class FormActionBuilder {
     };
   }
 
-  private static buildChangesPayload(changes: IKeyValue): FormModifyPayloadT {
+  private static buildChangesPayload(changes: IKeyValue): FieldValueEntityT {
     return {
       fields: Object.keys(changes).map((fieldName) => this.buildChangePayload(
           fieldName,
@@ -94,7 +98,7 @@ export class FormActionBuilder {
     };
   }
 
-  private static buildChangePayload(fieldName: string, fieldValue?: AnyT): IFormFieldModifyPayload {
+  private static buildChangePayload(fieldName: string, fieldValue?: AnyT): IFieldValueEntity {
     return {
       field: fieldName,
       value: fieldValue,

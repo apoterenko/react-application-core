@@ -3,7 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   AnyT,
   IKeyValue,
-  IErrorable,
+  IErrorEntity,
   IStringTokenWrapper,
   INameWrapper,
   IBlobWrapper,
@@ -96,7 +96,7 @@ export interface ITransportResultPayload {
   result?: AnyT;
 }
 
-export interface ITransportErrorPayload extends IErrorable<TransportResponseErrorT> {
+export interface ITransportErrorPayload extends IErrorEntity<TransportResponseErrorT> {
 }
 
 export interface ITransportResponsePayload extends INameWrapper,
@@ -115,7 +115,7 @@ export interface ITransportRawResponse {
 
 export interface ITransportRawResponseData extends INumberIdWrapper,
                                                    ITransportResultPayload,
-                                                   IErrorable<ITransportRawResponseError> {
+                                                   IErrorEntity<ITransportRawResponseError> {
   Message?: string;
 }
 
