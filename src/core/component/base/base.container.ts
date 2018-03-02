@@ -5,11 +5,7 @@ import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { IKeyValue, AnyT } from '../../definition.interface';
-import {
-  IRoutes,
-  ROUTER_NAVIGATE_ACTION_TYPE,
-  RouterActionBuilder
-} from '../../router';
+import { IRoutes, ROUTER_NAVIGATE_ACTION_TYPE, ROUTER_BACK_ACTION_TYPE } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
@@ -18,7 +14,6 @@ import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslatorT } from '../../translation';
 import { IFormDialog } from '../form';
-import { FormActionBuilder } from '../form/form-action.builder';
 import {
   IBaseContainer,
   IBaseContainerInternalProps,
@@ -46,7 +41,6 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
 
     this.navigateToBack = this.navigateToBack.bind(this);
     this.activateFormDialog = this.activateFormDialog.bind(this);
-    this.dispatchResetFormAndNavigateToBack = this.dispatchResetFormAndNavigateToBack.bind(this);
   }
 
   public dispatch(type: string, data?: IKeyValue): void {
@@ -58,13 +52,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   }
 
   protected navigateToBack(): void {
-    this.dispatchCustomType(RouterActionBuilder.buildNavigateBackActionType());
-  }
-
-  // Form service method (DRY)
-  protected dispatchResetFormAndNavigateToBack(): void {
-    this.dispatchCustomType(FormActionBuilder.buildResetActionType(this.sectionName), { section: this.sectionName });
-    this.navigateToBack();
+    this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
   }
 
   // Dictionary service method (DRY)
