@@ -7,8 +7,8 @@ import {
   IRouter,
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
+  ROUTER_BACK_ACTION_TYPE,
 } from './router.interface';
-import { RouterActionBuilder } from './router-action.builder';
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {
@@ -36,7 +36,7 @@ export class RouterEffects {
     this.router.replace(pathAndState.path, pathAndState.state);
   }
 
-  @EffectsService.effects(RouterActionBuilder.buildNavigateBackActionType())
+  @EffectsService.effects(ROUTER_BACK_ACTION_TYPE)
   public $onBack(): void {
     RouterEffects.logger.debug('[$RouterEffects][$onBack]');
 
