@@ -36,7 +36,12 @@ export const lockNextSection = (nextSection: string, state: IApplicationStackSta
   // If there is a lock - we must put the next section to linked stack
   return stack.map<IApplicationStackItemState>((entry, index): IApplicationStackItemState => (
     index === stackLength - 1
-      ? { ...entry, linkedToSections: Array.from(new Set<string>(entry.linkedToSections.concat(nextSection))) }
+      ? { ...entry,
+          linkedToSections: Array.from(
+            new Set<string>(entry.linkedToSections.concat(nextSection)
+              .filter((section) => section !== entry.section)) // Prevent the recursive links
+          ),
+        }
       : entry
   ));
 };

@@ -40,11 +40,8 @@ export function stackReducer(state: IApplicationStackState = INITIAL_APPLICATION
               stack: R.remove<IApplicationStackItemState>(stack.length - 1, 1, stack),
             }
         ),
-        // If
-        //    1. the section has no lock
-        //    2. the section is located on the top of the stack
-        // - we must destroy it and its dependencies
-        needToDestroy: stack.length === 1 && !lock
+        // If the section has no lock - we must destroy it and its dependencies
+        needToDestroy: !lock
           ? [currentSection].concat(R.last<IApplicationStackItemState>(stack).linkedToSections)
           : null,
       };
