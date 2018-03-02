@@ -3,7 +3,7 @@ import {
   IActiveable,
   IDisabledWrapper,
   IStringTypeWrapper,
-  IErrorable,
+  IErrorEntity,
   IIconWrapper,
   IOnBaseClickWrapper,
   ILinkable,
@@ -18,7 +18,7 @@ export interface IButtonInternalProps extends IBaseComponentInternalProps,
                                               IIconWrapper,
                                               IOnBaseClickWrapper,
                                               ILinkable,
-                                              IErrorable<boolean>,
+                                              IErrorEntity<boolean>,
                                               IStringTypeWrapper {
   accent?: boolean;
   raised?: boolean;

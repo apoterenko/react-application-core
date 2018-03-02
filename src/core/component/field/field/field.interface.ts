@@ -20,7 +20,7 @@ import {
   ChangeEventT,
   IMaskEntity,
   IBindToDictionaryEntity,
-  IErrorable,
+  IErrorEntity,
   IDisplayMessageWrapper,
   IPatternWrapper,
 } from '../../../definition.interface';
@@ -96,7 +96,7 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
                                              ClassAttributes<{}> {
 }
 
-export interface IFieldInternalState extends IErrorable<string> {
+export interface IFieldInternalState extends IErrorEntity<string> {
 }
 
 export interface INativeMaskedInputComponent extends PureComponent<{}, {}> {

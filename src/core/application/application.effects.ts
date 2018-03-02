@@ -10,6 +10,7 @@ import { ApplicationActionBuilder } from '../component/application';
 import { IApplicationSettings } from '../settings';
 import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
 import { FormActionBuilder } from '../component/form';
+import { DictionariesActionBuilder } from '../dictionary';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -38,7 +39,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
         : [];
 
     return actions
-        .concat(this.buildDictionariesDestroyAction())
+        .concat(DictionariesActionBuilder.buildDestroyAction())
         .concat(this.buildApplicationAfterLogoutAction());
   }
 

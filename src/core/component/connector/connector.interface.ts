@@ -28,5 +28,5 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 
 export const CONNECTOR_SECTION_FIELD = '$$section';
 
-export const CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}.connected.container.init`;
-export const CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}.connected.container.destroy`;
+export const CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}connected.container.init`;
+export const CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}connected.container.destroy`;
