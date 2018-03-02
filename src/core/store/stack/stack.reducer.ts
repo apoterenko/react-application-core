@@ -29,6 +29,7 @@ export function stackReducer(state: IApplicationStackState = INITIAL_APPLICATION
       };
     case STACK_POP_ACTION_TYPE:
       const lock = state.lock;
+      const lastEl = !lock ? R.last<IApplicationStackItemState>(stack) : null;
       const currentSection = action.data;
       return {
         ...state,
@@ -42,7 +43,7 @@ export function stackReducer(state: IApplicationStackState = INITIAL_APPLICATION
         ),
         // If the section has no lock - we must destroy it and its dependencies
         needToDestroy: !lock
-          ? [currentSection].concat(R.last<IApplicationStackItemState>(stack).linkedToSections)
+          ? [currentSection].concat(lastEl ? lastEl.linkedToSections : [])
           : null,
       };
     case STACK_LOCK_ACTION_TYPE:
