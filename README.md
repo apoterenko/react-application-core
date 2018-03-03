@@ -21,6 +21,10 @@ The library is designed to quickly start developing business applications are ba
 * [ramda](https://github.com/ramda/ramda)
 * [InversifyJS](https://github.com/inversify/InversifyJS)
 * [@dagrejs/graphlib](https://github.com/dagrejs/graphlib)
+* [moment](https://github.com/moment/moment)
+* [axios](https://github.com/axios/axios)
+* [store](https://github.com/marcuswestin/store.js)
+* [react-text-mask](https://github.com/text-mask/text-mask)
 
 # Usage
 
