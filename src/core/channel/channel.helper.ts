@@ -1,4 +1,4 @@
-import { IApplicationChannelWrapperState } from './channel.interface';
+import { IApplicationChannelWrapperState, IApplicationChannelMessage } from './channel.interface';
 import { CommandResult, ICommandResult } from './command';
 import { orNull } from '../util';
 
