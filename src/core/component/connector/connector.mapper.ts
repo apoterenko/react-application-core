@@ -22,6 +22,7 @@ import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
+import { IApplicationChannelWrapperState } from '../../channel';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
@@ -96,6 +97,12 @@ export const notificationMapper = (state: ApplicationStateT): IApplicationNotifi
   },
 });
 
+export const channelMapper = (state: ApplicationStateT): IApplicationChannelWrapperState => ({
+  channel: {
+    ...state.channel,
+  },
+});
+
 export const transportMapper = (state: ApplicationStateT): IApplicationTransportWrapperState => ({
   transport: {
     ...state.transport,
@@ -123,5 +130,6 @@ export const defaultMappers = [
   userMapper,
   notificationMapper,
   transportMapper,
-  dictionariesMapper
+  dictionariesMapper,
+  channelMapper
 ];

@@ -20,7 +20,7 @@ export class ConnectorEffects {
     const destroyableSections = getDestroyableSections(currentSection, state.stack);
 
     if (destroyableSections.length) {
-      ConnectorEffects.logger.debug(`[ConnectorEffects][$onContainerInit] The sections to destroy: [${destroyableSections}]`);
+      ConnectorEffects.logger.debug(`[$ConnectorEffects][onContainerInit] The sections to destroy: [${destroyableSections}]`);
 
       return [StackActionBuilder.buildRemoveAction(destroyableSections)]
         .concat(this.buildActionsToDestroy(destroyableSections));

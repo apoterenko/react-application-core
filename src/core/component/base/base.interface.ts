@@ -8,6 +8,7 @@ import { IApplicationRootState } from '../../component/root';
 import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
 import { IApplicationTransportState } from '../../transport';
+import { IApplicationChannelWrapperState } from '../../channel';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
@@ -21,7 +22,6 @@ export interface IBaseInternalProps extends IStylizable,
   emptyDataMessage?: string;
   message?: string;
   errorMessage?: string;
-  notification?: IApplicationNotificationState;
 }
 
 export interface IContainerInternalProps {
@@ -30,8 +30,11 @@ export interface IContainerInternalProps {
   location?: Location;
 }
 
-export interface IBaseContainerInternalProps extends IContainerInternalProps, IBaseInternalProps {
+export interface IBaseContainerInternalProps extends IContainerInternalProps,
+                                                     IBaseInternalProps,
+                                                     IApplicationChannelWrapperState {
   sectionName?: string;
+  notification?: IApplicationNotificationState;
   layout?: IApplicationLayoutState;
   root?: IApplicationRootState;
   user?: IApplicationUserState;
