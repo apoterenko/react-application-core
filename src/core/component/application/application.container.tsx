@@ -21,6 +21,7 @@ import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { ApplicationStateT } from '../../store';
 import { CenterLayout } from '../layout';
+import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 import {
   IApplicationContainerProps,
   APPLICATION_LOGOUT_ACTION_TYPE,
@@ -83,15 +84,20 @@ export class ApplicationContainer<TAppState extends ApplicationStateT>
   }
 
   protected clearStateBeforeSerialization(state: TAppState, ...predicates: PredicateT[]): TAppState {
-    state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
-    state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
-    state.applicationReady = INITIAL_APPLICATION_READY_STATE;
+    this.clearSystemState(state);
 
     // You may clear the app state here before the serializing
     if (predicates.length) {
       return cloneUsingFilters(state, ...predicates);
     }
     return state;
+  }
+
+  protected clearSystemState(state: TAppState): void {
+    state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
+    state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
+    state.applicationReady = INITIAL_APPLICATION_READY_STATE;
+    state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
   }
 
   protected getRoutes(): JSX.Element[] {
