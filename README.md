@@ -24,6 +24,7 @@ The library is designed to quickly start developing business applications are ba
 * [moment](https://github.com/moment/moment)
 * [axios](https://github.com/axios/axios)
 * [store](https://github.com/marcuswestin/store.js)
+* [socket.io-client](https://github.com/socketio/socket.io-client)
 * [react-text-mask](https://github.com/text-mask/text-mask)
 
 # Usage
