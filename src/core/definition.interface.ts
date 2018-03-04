@@ -82,6 +82,13 @@ export interface IFilterWrapper<TFilter> {
 }
 
 /**********************
+ * Ip's wrapper
+ **********************/
+export interface IIpWrapper {
+  ip?: string;
+}
+
+/**********************
  * List's wrapper
  **********************/
 export interface IListWrapper<TList> {
@@ -114,6 +121,33 @@ export interface IHeadersWrapper {
  **********************/
 export interface IMethodWrapper {
   method?: string;
+}
+
+/**********************
+ * Uuid's wrapper
+ **********************/
+export interface IUuidWrapper {
+  uuid?: string;
+}
+
+/**********************
+ * Command's wrappers
+ **********************/
+export interface ICommandWrapper<TCommand> {
+  command?: TCommand;
+}
+
+export interface IStringCommandWrapper extends ICommandWrapper<string> {
+}
+
+/**********************
+ * Channel's wrapper
+ **********************/
+export interface IChannelWrapper<TChannel> {
+  channel?: TChannel;
+}
+
+export interface IStringChannelWrapper extends IChannelWrapper<string> {
 }
 
 /**********************
@@ -178,6 +212,9 @@ export interface IDataWrapper<TData> {
   data?: TData;
 }
 
+export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
+}
+
 /**********************
  * Loading's wrapper
  **********************/
@@ -229,6 +266,20 @@ export interface ILabelWrapper {
  **********************/
 export interface IDisplayNameWrapper {
   displayName?: string;
+}
+
+/**********************
+ * Messages's wrappers
+ **********************/
+export interface IMessageWrapper<TMessage> {
+  messages?: TMessage;
+}
+
+export interface IStringMessageWrapper extends IMessageWrapper<string> {
+}
+
+export interface IMessagesWrapper<TMessages> {
+  messages?: TMessages;
 }
 
 /**********************
