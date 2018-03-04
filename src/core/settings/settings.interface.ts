@@ -33,7 +33,7 @@ export interface IApplicationNumberSettings {
   uiPattern?: string;
 }
 
-export interface IApplicationMessages {
+export interface IApplicationMessagesSettings {
   logoutNotificationMessage?: string;
   accessDeniedMessage?: string;
   sorryMessage?: string;
@@ -41,6 +41,10 @@ export interface IApplicationMessages {
   dndMessage?: string;
   serviceTemporarilyUnavailable?: string;
   noAvailableItemsToSelect?: string;
+}
+
+export interface IApplicationChannelSettings {
+  channelEvent?: string;
 }
 
 export interface IApplicationSettings {
@@ -54,7 +58,8 @@ export interface IApplicationSettings {
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
   number?: IApplicationNumberSettings;
-  messages?: IApplicationMessages;
+  messages?: IApplicationMessagesSettings;
+  channel?: IApplicationChannelSettings;
 }
 
 export const REGEXP_REPO = {
@@ -104,5 +109,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   currency: {
     uiLocale: 'en-US',
     uiCurrency: 'USD',
+  },
+  channel: {
+    channelEvent: 'web-command-event',
   },
 };

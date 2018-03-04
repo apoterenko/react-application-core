@@ -30,6 +30,8 @@ import {
 } from '../component/application';
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
 import { stackReducer, IApplicationStackWrapperState } from './stack';
+import { channelReducer, IApplicationChannelWrapperState, channelsReducers } from '../channel';
+import { filter } from './reducer.filter';
 
 export interface IApplicationState<TDictionaries>
     extends IDictionariesWrapper<TDictionaries>,
@@ -38,7 +40,8 @@ export interface IApplicationState<TDictionaries>
             IUserWrapper<IApplicationUserState>,
             IApplicationLayoutWrapperState,
             IApplicationRootWrapperState,
-            IApplicationStackWrapperState {
+            IApplicationStackWrapperState,
+            IApplicationChannelWrapperState {
   applicationReady: IApplicationReadyState;
 }
 
@@ -54,4 +57,5 @@ export const defaultReducers = {
   stack: stackReducer,
   notification: notificationReducer,
   transport: transportReducer,
+  ...channelsReducers,
 };
