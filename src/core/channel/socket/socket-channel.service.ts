@@ -1,4 +1,4 @@
-import * as io from 'socket.io-client';
+import * as io from 'socket.io-client/dist/socket.io';
 import { injectable } from 'inversify';
 
 import { BaseChannel } from '../base-channel.service';

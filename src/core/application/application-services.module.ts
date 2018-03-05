@@ -1,6 +1,7 @@
 import '../converter/converter.module';
 import '../router/router.module';
 import '../storage/storage.module';
+import '../channel/socket/socket-channel.module.ts';
 import '../event/event.module';
 import '../logic/logic.module';
 import '../transport/transport.module';
