@@ -7,7 +7,6 @@ import { BaseChannel } from '../base-channel.service';
 export class SocketChannel extends BaseChannel {
 
   public connect(ip: string, channel: string): void {
-    const client: SocketIOClient.Socket = io(ip);
-    this.registerClient(ip, channel, client);
+    this.registerClient(ip, channel, io(ip));
   }
 }
