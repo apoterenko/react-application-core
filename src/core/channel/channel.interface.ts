@@ -1,4 +1,4 @@
-import { CommandsPayload } from './command';
+import { Command } from './command';
 import {
   ACTION_PREFIX,
   AnyT,
@@ -27,8 +27,8 @@ export interface IApplicationChannel {
   onMessage(ip: string, channel: string, client: IApplicationChannelClient, name: string, message?: string): void;
   emitEvent(channel: string, event: string, ...messages: AnyT[]): void;
   emitChannelEvent(channel: string, ...messages: AnyT[]): void;
-  emitCommands(channel: string, event: string, payload: CommandsPayload): void;
-  emitChannelCommands(channel: string, payload: CommandsPayload): void;
+  emitCommand(channel: string, event: string, command: Command): void;
+  emitChannelCommand(channel: string, command: Command): void;
 }
 
 export interface IApplicationChannelState extends IMessagesWrapper<IApplicationChannelMessage[]> {

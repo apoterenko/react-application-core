@@ -6,7 +6,7 @@ import * as R from 'ramda';
 import { AnyT } from '../definition.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
-import { CommandsPayload } from './command';
+import { Command } from './command';
 import { ApplicationStateT } from '../store';
 import {
   CHANNEL_CONNECT_MESSAGE,
@@ -60,12 +60,12 @@ export abstract class BaseChannel implements IApplicationChannel {
     this.emitEvent(channel, this.channelEvent, messages);
   }
 
-  public emitCommands(channel: string, event: string, commands: CommandsPayload): void {
-    this.emitEvent(channel, event, JSON.stringify(commands));
+  public emitCommand(channel: string, event: string, command: Command): void {
+    this.emitEvent(channel, event, JSON.stringify(command));
   }
 
-  public emitChannelCommands(channel: string, commands: CommandsPayload): void {
-    this.emitCommands(channel, this.channelEvent, commands);
+  public emitChannelCommand(channel: string, command: Command): void {
+    this.emitCommand(channel, this.channelEvent, command);
   }
 
   protected registerClient(ip: string, channel: string, client: IApplicationChannelClient): void {
