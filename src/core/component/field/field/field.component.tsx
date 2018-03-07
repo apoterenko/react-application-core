@@ -258,10 +258,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return rawValue;
   }
 
-  protected cleanNativeInputBeforeHTML5Validation(): void {
-    this.updateNativeInputBeforeHTML5Validation(this.getEmptyValue());
-  }
-
   protected updateNativeInputBeforeHTML5Validation(value: AnyT): void {
     // We must update the field manually before calls HTML5 validation
     this.input.value = value;

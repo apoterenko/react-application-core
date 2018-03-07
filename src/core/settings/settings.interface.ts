@@ -43,6 +43,10 @@ export interface IApplicationMessagesSettings {
   noAvailableItemsToSelect?: string;
 }
 
+export interface IApplicationAuthorizationSettings {
+  isAuthorizationNeeded?: boolean;
+}
+
 export interface IApplicationChannelSettings {
   channelEvent?: string;
 }
@@ -60,6 +64,7 @@ export interface IApplicationSettings {
   number?: IApplicationNumberSettings;
   messages?: IApplicationMessagesSettings;
   channel?: IApplicationChannelSettings;
+  authorization?: IApplicationAuthorizationSettings;
 }
 
 export const REGEXP_REPO = {
@@ -112,5 +117,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   },
   channel: {
     channelEvent: 'web-command-event',
+  },
+  authorization: {
+    isAuthorizationNeeded: true,
   },
 };
