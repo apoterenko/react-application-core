@@ -40,8 +40,8 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldUpgraded = 'mdc-text-field--upgraded';
   public textFieldHelpText = 'mdc-text-field-helper-text';
   public textFieldValidationText = 'mdc-text-field-helper-text--validation-msg';
-  public textFieldLabel = 'mdc-text-field__label';
-  public textFieldFocusedLabel = 'mdc-text-field__label--float-above';
+  public textFieldLabel = 'mdc-floating-label';
+  public textFieldFocusedLabel = 'mdc-floating-label--float-above';
   public checkboxInput = 'mdc-checkbox__native-control';
   public cardActions = 'mdc-card__actions';
   public rippleSurface = 'mdc-ripple-surface';
