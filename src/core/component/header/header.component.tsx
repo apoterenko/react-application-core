@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { toClassName, orNull } from '../../util';
 import { IHeaderInternalProps } from './header.interface';
-import { BaseComponent } from '../../component/base';
-import { ToolbarSection } from '../../component/toolbar';
-import { Menu } from '../../component/menu';
-import { IMenu, IMenuAction, MenuActionT } from '../../component/menu';
+import { BaseComponent } from '../base';
+import { ToolbarSection } from '../toolbar';
+import { Menu } from '../menu';
+import { IMenu, IMenuAction, MenuActionT } from '../menu';
 
 export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
 
@@ -36,6 +36,7 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
                                       )}>
               {
                 this.uiFactory.makeIcon({
+                  simple: true,
                   type: props.navigationActionType,
                   className: this.uiFactory.toolbarMenuIcon,
                   onClick: this.onNavigationActionClick,
@@ -47,13 +48,16 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
               orNull(
                   props.children || props.menuActions,
                   () => (
-                      <ToolbarSection className={this.uiFactory.toolbarSectionAlignEnd}>
+                      <ToolbarSection className={
+                        toClassName(this.uiFactory.toolbarSectionAlignEnd, 'rac-toolbar-section-wrapper')
+                      }>
                         {props.children}
                         {
                           orNull(
                               props.menuActions,
                               () => (
                                   this.uiFactory.makeIcon({
+                                    simple: true,
                                     type: 'more_vert',
                                     className: this.uiFactory.toolbarMenuIcon,
                                     onClick: this.onMenuClick,

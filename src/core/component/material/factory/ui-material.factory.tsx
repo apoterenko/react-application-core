@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 
 import { isString, toClassName, uuid } from '../../../util';
 import { IUIFactory, UIIconConfigT } from '../../factory';
-import { Button, IButtonInternalProps } from '../../../component/button';
+import { Button, IButtonInternalProps } from '../../button';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -55,7 +55,7 @@ export class UIMaterialFactory implements IUIFactory {
     }
     const config = (isString(cfg) ? { type: cfg } : cfg) as IButtonInternalProps;
     const className = toClassName('material-icons', config.className);
-    return config.onClick
+    return config.onClick && !config.simple
         ? (
             <Button key={uuid()}
                     noClassName={true}
@@ -68,6 +68,7 @@ export class UIMaterialFactory implements IUIFactory {
         : (
             <i key={uuid()}
                title={config.title}
+               onClick={config.onClick}
                className={className}>
               {config.type}
             </i>

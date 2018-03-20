@@ -1,5 +1,5 @@
 import {
-  IActiveable,
+  IActiveWrapper,
   IIconWrapper,
   ILabelWrapper,
   IStylizable,
@@ -15,7 +15,7 @@ export enum NavigationListItemTypeEnum {
   LINK,
 }
 
-export interface INavigationListItemOptions extends IActiveable,
+export interface INavigationListItemOptions extends IActiveWrapper,
                                                     IStylizable,
                                                     IIconWrapper,
                                                     ILabelWrapper,

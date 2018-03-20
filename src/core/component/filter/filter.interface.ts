@@ -1,5 +1,5 @@
 import {
-  IActiveable,
+  IActiveWrapper,
   IStylizable,
   ITypeWrapper,
   IFilterWrapper,
@@ -25,7 +25,7 @@ export interface IApplicationFilterOptions {
   searchFieldOptions?: IFieldOptions;
 }
 
-export interface IApplicationFilterState extends IActiveable,
+export interface IApplicationFilterState extends IActiveWrapper,
                                                  IStringQueryWrapper {
 }
 

@@ -1,23 +1,25 @@
 import { IBaseComponentInternalProps } from '../base';
 import {
-  IActiveable,
+  IActiveWrapper,
   IDisabledWrapper,
   IStringTypeWrapper,
   IErrorEntity,
   IIconWrapper,
   IOnBaseClickWrapper,
-  ILinkable,
+  IToWrapper,
+  ISimpleWrapper,
 } from '../../definition.interface';
 
 export interface IButtonInternalState {
 }
 
 export interface IButtonInternalProps extends IBaseComponentInternalProps,
-                                              IActiveable,
+                                              IActiveWrapper,
                                               IDisabledWrapper,
                                               IIconWrapper,
                                               IOnBaseClickWrapper,
-                                              ILinkable,
+                                              IToWrapper,
+                                              ISimpleWrapper,
                                               IErrorEntity<boolean>,
                                               IStringTypeWrapper {
   accent?: boolean;

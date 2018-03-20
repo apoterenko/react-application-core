@@ -174,7 +174,6 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
       serviceActions.push(
           this.uiFactory.makeIcon({
             type: props.searchIcon,
-            className: this.uiFactory.toolbarIcon,
             disabled: props.disabledActions,
             onClick: this.onActivate,
           })
@@ -187,7 +186,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
             this.actions.map((action) => this.uiFactory.makeIcon({
               type: action.type,
               disabled: props.disabledActions,
-              className: toClassName(this.uiFactory.toolbarIcon, action.className),
+              className: action.className,
               onClick: action.actionHandler,
             }))
         );

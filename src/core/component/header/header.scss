@@ -1,6 +1,18 @@
 @import '~sass-flex-mixin/_flex';
 @import '../constant';
 
+// Header [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-header {
+
+    .rac-button {
+      color: $rac-header-action-color;            // [RAC+]
+    }
+  }
+}
+
+
 // Header [FRAMEWORK-]
 .rac-header {
 

@@ -666,8 +666,12 @@ export interface IStylizable {
 
 export const PROGRESS_FIELD_NAME = 'progress';
 
-export interface ILinkable {
+export interface IToWrapper {
   to?: string;
+}
+
+export interface ISimpleWrapper {
+  simple?: boolean;
 }
 
 export interface ISaveable {
@@ -711,7 +715,7 @@ export interface IDisabledWrapper {
   disabled?: boolean;
 }
 
-export interface IActiveable {
+export interface IActiveWrapper {
   active?: boolean;
 }
 
