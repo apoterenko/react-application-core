@@ -53,7 +53,7 @@
     "inversify-binding-decorators": "^3.0.0",
     "inversify-inject-decorators": "^3.0.1",
     "matchmedia-polyfill": "^0.3.0",
-    "material-components-web": "^0.32.0",
+    "material-components-web": "0.33.0",
     "material-ui": "^0.19.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.14",
