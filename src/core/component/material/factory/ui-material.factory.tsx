@@ -9,7 +9,6 @@ import { Button, IButtonInternalProps } from '../../button';
 export class UIMaterialFactory implements IUIFactory {
 
   public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
-  public toolbarIcon = 'mdc-toolbar__icon';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
   public toolbarSectionAlignEnd = 'mdc-toolbar__section--align-end';

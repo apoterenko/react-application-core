@@ -1,10 +1,9 @@
-import { IButtonInternalProps } from '../../component/button';
+import { IButtonInternalProps } from '../button';
 
 export type UIIconConfigT = IButtonInternalProps | string;
 
 export interface IUIFactory {
   persistentDrawerToolbarSpacer?: string;
-  toolbarIcon?: string;
   toolbar?: string;
   toolbarSection?: string;
   toolbarSectionAlignEnd?: string;
