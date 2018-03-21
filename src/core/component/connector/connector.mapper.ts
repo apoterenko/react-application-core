@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
-import { IApplicationListState, IApplicationListWrapperState } from '../../component/list';
+import { IApplicationListState, IApplicationListStateWrapper } from '../../component/list';
 import {
   IEntity,
   IEntityWrapper,
@@ -50,11 +50,11 @@ export const entityMapper =
         });
 
 export const listSelectedEntityMapper =
-    <TEntity extends IEntity>(listWrapperState: IApplicationListWrapperState): TEntity =>
+    <TEntity extends IEntity>(listWrapperState: IApplicationListStateWrapper): TEntity =>
         orNull(listWrapperState.list, () => listWrapperState.list.selected as TEntity);
 
 export const listWrapperSelectedEntityMapper =
-    <TEntity extends IEntity>(listWrapperState: IApplicationListWrapperState,
+    <TEntity extends IEntity>(listWrapperState: IApplicationListStateWrapper,
                               formState?: IApplicationFormState): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
         listSelectedEntityMapper<TEntity>(listWrapperState),
@@ -115,7 +115,7 @@ export const dictionariesMapper = (state: ApplicationStateT): IDictionariesWrapp
   },
 });
 
-export const listWrapperMapper = (listState: IApplicationListWrapperState) =>
+export const listWrapperMapper = (listState: IApplicationListStateWrapper) =>
     listMapper(listState.list);
 
 export const filterWrapperMapper = (filterState: IApplicationFilterWrapperState) =>

@@ -89,6 +89,16 @@ export interface IIpWrapper {
 }
 
 /**********************
+ * Results's wrappers
+ **********************/
+export interface IResultWrapper<TResult> {
+  result?: TResult;
+}
+
+export interface IAnyResultWrapper extends IResultWrapper<AnyT> {
+}
+
+/**********************
  * List's wrapper
  **********************/
 export interface IListWrapper<TList> {
@@ -121,6 +131,16 @@ export interface IHeadersWrapper {
  **********************/
 export interface IMethodWrapper {
   method?: string;
+}
+
+/**********************
+ * Reader's wrapper
+ **********************/
+export interface IReaderWrapper<TReader> {
+  reader?: TReader;
+}
+
+export interface IFnReaderWrapper<TRequest, TResult> extends IReaderWrapper<(request: TRequest) => TResult> {
 }
 
 /**********************
@@ -206,13 +226,16 @@ export interface IDefaultOperationWrapper extends IOperationWrapper<IOperation> 
 }
 
 /**********************
- * Data's wrapper
+ * Data's wrappers
  **********************/
 export interface IDataWrapper<TData> {
   data?: TData;
 }
 
 export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
+}
+
+export interface IEntitiesDataWrapper extends IDataWrapper<IEntity[]> {
 }
 
 /**********************
@@ -475,6 +498,13 @@ export interface IProgressWrapper {
 }
 
 /**********************
+ * TotalCount's wrapper
+ **********************/
+export interface ITotalCountWrapper {
+  totalCount?: number;
+}
+
+/**********************
  * Touched's wrapper
  **********************/
 export interface ITouchedWrapper {
@@ -499,6 +529,23 @@ export interface IStringValueWrapper extends IValueWrapper<string> {
 }
 
 export interface IAnyValueWrapper extends IValueWrapper<AnyT> {
+}
+
+/**********************
+ * Name's wrapper
+ **********************/
+export interface INameWrapper {
+  name?: string;
+}
+
+/**********************
+ * Selected's wrappers
+ **********************/
+export interface ISelectedWrapper<TSelected> {
+  selected?: TSelected;
+}
+
+export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
 }
 
 /**********************
@@ -535,6 +582,13 @@ export interface IPageWrapper {
  **********************/
 export interface IPageSizeWrapper {
   pageSize?: number;
+}
+
+/**********************
+ * TotalAmount's wrapper
+ **********************/
+export interface ITotalAmountWrapper {
+  totalAmount?: number;
 }
 
 /**********************
@@ -587,6 +641,14 @@ export interface IEntityWrapper<TEntity extends IEntity> {
 }
 
 /**********************
+ * Lists's wrapper
+ **********************/
+export interface IListEntity<TEntity extends IEntity> extends IPageWrapper,
+                                                              ITotalCountWrapper,
+                                                              IDataWrapper<TEntity[]> {
+}
+
+/**********************
  * Forms's wrappers
  **********************/
 export interface IFormWrapper<TForm> {
@@ -605,11 +667,20 @@ export interface IFormEntityWrapper<TEntity extends IEntity> extends IFormWrappe
                                                                      IEntityWrapper<TEntity> {
 }
 
-export interface IEntity extends IEntityIdWrapper, IKeyValue {
+/**********************
+ * Entity
+ **********************/
+export interface IEntity extends IEntityIdWrapper,
+                                 IKeyValue {
 }
 
-export interface INameWrapper {
-  name?: string;
+/**********************
+ * Page entity
+ **********************/
+export interface IPageEntity extends IPageWrapper,
+                                     IPageSizeWrapper,
+                                     ITotalCountWrapper,
+                                     ITotalAmountWrapper {
 }
 
 export interface IRendererWrapper<TItem> {
@@ -678,10 +749,6 @@ export interface ISaveable {
   saveable?: boolean;
 }
 
-export interface ISelectable<Type> {
-  selected?: Type;
-}
-
 export interface IInfoable<Type> {
   info?: Type;
 }
@@ -740,14 +807,6 @@ export interface IOnBaseClickWrapper extends IOnClickWrapper<BasicEventT> {
 
 export interface ISubmittable {
   submit?(): void;
-}
-
-export interface ITotalCountWrapper {
-  totalCount?: number;
-}
-
-export interface ITotalAmountWrapper {
-  totalAmount?: number;
 }
 
 export interface IInitialChangesable<TAppState extends ApplicationStateT> {

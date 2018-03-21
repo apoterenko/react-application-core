@@ -10,13 +10,10 @@ import {
   ITouchedWrapper,
   IProgressWrapper,
   IErrorEntity,
-  ISelectable,
-  IDataWrapper,
+  ISelectedEntityWrapper,
+  IEntitiesDataWrapper,
   ISorter,
-  IPageWrapper,
-  IPageSizeWrapper,
-  ITotalCountWrapper,
-  ITotalAmountWrapper,
+  IPageEntity,
   IListWrapper,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
@@ -29,12 +26,6 @@ export interface IListOptions extends IBaseComponentInternalProps,
   addAction?: boolean;
 }
 
-export interface IPageOptions extends IPageWrapper,
-                                      IPageSizeWrapper,
-                                      ITotalCountWrapper,
-                                      ITotalAmountWrapper {
-}
-
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IListWrapper<IApplicationListState> {
   listOptions?: IListOptions;
@@ -43,22 +34,15 @@ export interface IListContainerInternalProps extends IBaseContainerInternalProps
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
 }
 
-export interface IListEntity<TEntity extends IEntity> {
-  totalCount: number;
-  page: number;
-  data: TEntity[];
-}
-
-export interface IApplicationListState extends IPageOptions,
+export interface IApplicationListState extends IPageEntity,
                                                IProgressWrapper,
                                                ITouchedWrapper,
-                                               ISelectable<IEntity>,
+                                               ISelectedEntityWrapper,
                                                IErrorEntity<string>,
-                                               IDataWrapper<IEntity[]> {
+                                               IEntitiesDataWrapper {
 }
 
-// @deprecated
-export interface IApplicationListWrapperState extends IListWrapper<IApplicationListState> {
+export interface IApplicationListStateWrapper extends IListWrapper<IApplicationListState> {
 }
 
 export interface IListInternalProps extends IBaseComponentInternalProps,

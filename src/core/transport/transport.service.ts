@@ -1,6 +1,7 @@
 import { Store } from 'redux';
 import { injectable } from 'inversify';
 
+import { AnyT } from '../definition.interface';
 import { DI_TYPES, lazyInject } from '../di';
 import { ApplicationStateT } from '../store';
 
@@ -10,7 +11,6 @@ import {
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
-  ITransportRawResponseData,
   TransportResponseErrorT,
   IApplicationTransportFactory,
   ITransportResponsePayload,
@@ -34,8 +34,9 @@ export class TransportService implements IApplicationTransport {
                     this.onRequestError(req, error);
                     reject(error);
                   } else {
-                    this.onRequestDone(req, response.data);
-                    resolve(response.data.result);
+                    const result = (req.reader ? req.reader(response.data) : response.data).result;
+                    this.onRequestDone(req, result);
+                    resolve(result);
                   }
                 }, (e: Error | string) => {
                   this.onRequestError(req, e);
@@ -56,10 +57,10 @@ export class TransportService implements IApplicationTransport {
     });
   }
 
-  private onRequestDone(req: ITransportRequest, response: ITransportRawResponseData): void {
+  private onRequestDone(req: ITransportRequest, result: AnyT): void {
     const data: ITransportResponsePayload = {
       ...this.toRequestMetaData(req),
-      result: response.result,
+      result,
     };
     this.store.dispatch({ type: TRANSPORT_REQUEST_DONE_ACTION_TYPE, data });
   }

@@ -2,10 +2,11 @@ import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
 } from '../../base';
-import { IApplicationListWrapperState, IPageOptions } from '../../list';
+import { IApplicationListStateWrapper } from '../../list';
+import { IPageEntity } from '../../../definition.interface';
 
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
-                                                   IPageOptions {
+                                                   IPageEntity {
   contentDisplay?: boolean;
   onPrevious?(): void;
   onNext?(): void;
@@ -14,7 +15,7 @@ export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
 }
 
 export interface IPageToolbarContainerInternalProps extends IBaseContainerInternalProps,
-                                                            IApplicationListWrapperState {
+                                                            IApplicationListStateWrapper {
 }
 
 export const PAGER_NEXT_ACTION_TYPE = 'pager.next';

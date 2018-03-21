@@ -6,7 +6,7 @@ import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { CustomActionBuilder } from '../../action';
-import { IEntity, ISelectable } from '../../definition.interface';
+import { IEntity, ISelectedWrapper } from '../../definition.interface';
 import { FormActionBuilder } from '../../component/form';
 import { StackActionBuilder } from '../../store';
 
@@ -33,7 +33,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
 
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(listSection))
       public $onSelectEntity(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        const actionParams: ISelectable<TEntity> = action.data;
+        const actionParams: ISelectedWrapper<TEntity> = action.data;
         return [
           StackActionBuilder.buildLockAction(formSection),
           RouterActionBuilder.buildNavigateAction(pathResolver(actionParams.selected, state))

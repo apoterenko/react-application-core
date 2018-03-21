@@ -1,7 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  AnyT,
   IKeyValue,
   IErrorEntity,
   IStringTokenWrapper,
@@ -18,6 +17,8 @@ import {
   INoAuthWrapper,
   IStringAuthWrapper,
   IDefaultOperationWrapper,
+  IFnReaderWrapper,
+  IAnyResultWrapper,
 } from '../definition.interface';
 
 export interface IApplicationTransportState extends IStringTokenWrapper {
@@ -72,6 +73,7 @@ export interface ITransportRequest extends INameWrapper,
                                            IBlobWrapper,
                                            IMethodWrapper,
                                            IPathWrapper,
+                                           IFnReaderWrapper<any, IAnyResultWrapper>,
                                            INoCacheWrapper,
                                            IStringUrlWrapper,
                                            IDefaultOperationWrapper {
@@ -92,15 +94,11 @@ export interface IApplicationTransportCancelToken {
   cancel(message?: string): void;
 }
 
-export interface ITransportResultPayload {
-  result?: AnyT;
-}
-
 export interface ITransportErrorPayload extends IErrorEntity<TransportResponseErrorT> {
 }
 
 export interface ITransportResponsePayload extends INameWrapper,
-                                                   ITransportResultPayload,
+                                                   IAnyResultWrapper,
                                                    ITransportErrorPayload {
   operationId?: string;
 }
@@ -114,7 +112,7 @@ export interface ITransportRawResponse {
 }
 
 export interface ITransportRawResponseData extends INumberIdWrapper,
-                                                   ITransportResultPayload,
+                                                   IAnyResultWrapper,
                                                    IErrorEntity<ITransportRawResponseError> {
   Message?: string;
 }

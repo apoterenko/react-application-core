@@ -1,12 +1,12 @@
 import { IStylizable } from '../../definition.interface';
-import { IApplicationListWrapperState } from '../../component/list';
+import { IApplicationListStateWrapper } from '../../component/list';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterOptions,
 } from '../../component/filter';
 
 export const disabledActionsListWrapperMapper =
-    (state: IApplicationListWrapperState): IApplicationFilterOptions => ({
+    (state: IApplicationListStateWrapper): IApplicationFilterOptions => ({
       disabledActions: state.list.progress,
     });
 

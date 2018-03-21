@@ -1,13 +1,13 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
-import { IApplicationListWrapperState, ListActionBuilder } from '../../component/list';
+import { IApplicationListStateWrapper, ListActionBuilder } from '../../component/list';
 import { ConnectorActionBuilder } from '../../component/connector';
 import { provideInSingleton } from '../../di';
 import { ApplicationStateT } from '../../store';
 
 export function makeUntouchedListEffectsProxy<TApplicationState extends ApplicationStateT>(config: {
   section: string,
-  listWrapperStateResolver: (state: TApplicationState) => IApplicationListWrapperState;
+  listWrapperStateResolver: (state: TApplicationState) => IApplicationListStateWrapper;
 }): () => void {
   const {
     listWrapperStateResolver,
