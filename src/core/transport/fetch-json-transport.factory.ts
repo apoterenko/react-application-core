@@ -4,7 +4,7 @@ import * as URI from 'urijs';
 import {
   IApplicationTransportFactory,
   ITransportRawResponse,
-  ITransportRequest,
+  ITransportRequestEntity,
 } from './transport.interface';
 import { DI_TYPES, lazyInject } from '../di';
 import { IApplicationSettings } from '../settings';
@@ -13,7 +13,7 @@ import { IApplicationSettings } from '../settings';
 export class FetchJsonTransportFactory implements IApplicationTransportFactory {
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
 
-  public request(req: ITransportRequest): Promise<ITransportRawResponse> {
+  public request(req: ITransportRequestEntity): Promise<ITransportRawResponse> {
     const uri0 = new URI(req.url || this.settings.apiUrl);
     if (req.noCache !== true) {
       uri0.addSearch('_dc', Date.now());

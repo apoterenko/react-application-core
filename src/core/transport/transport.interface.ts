@@ -9,7 +9,7 @@ import {
   IMethodWrapper,
   IPathWrapper,
   INumberIdWrapper,
-  IParamsWrapper,
+  IKeyValueParamsWrapper,
   INoCacheWrapper,
   IStringUrlWrapper,
   IHeadersWrapper,
@@ -19,6 +19,7 @@ import {
   IDefaultOperationWrapper,
   IFnReaderWrapper,
   IAnyResultWrapper,
+  AnyT,
 } from '../definition.interface';
 
 export interface IApplicationTransportState extends IStringTokenWrapper {
@@ -47,11 +48,11 @@ export interface IApplicationTransportRequestFactory {
 }
 
 export interface IApplicationTransport extends ICancelableTransport {
-  request<TResponse>(req: ITransportRequest): Promise<TResponse>;
+  request<TResponse>(req: ITransportRequestEntity): Promise<TResponse>;
 }
 
 export interface IApplicationTransportFactory extends ICancelableTransport {
-  request(req: ITransportRequest): Promise<ITransportRawResponse>;
+  request(req: ITransportRequestEntity): Promise<ITransportRawResponse>;
 }
 
 /**
@@ -64,27 +65,21 @@ export interface ITransportRawRequest extends IMethodWrapper,
   cancelToken?: string;
 }
 
-/**
- * Transport request
- */
-export interface ITransportRequest extends INameWrapper,
-                                           INoAuthWrapper,
-                                           IParamsWrapper,
-                                           IBlobWrapper,
-                                           IMethodWrapper,
-                                           IPathWrapper,
-                                           IFnReaderWrapper<any, IAnyResultWrapper>,
-                                           INoCacheWrapper,
-                                           IStringUrlWrapper,
-                                           IDefaultOperationWrapper {
+export interface ITransportRequestEntity extends INameWrapper,
+                                                 INoAuthWrapper,
+                                                 IKeyValueParamsWrapper,
+                                                 IBlobWrapper,
+                                                 IMethodWrapper,
+                                                 IPathWrapper,
+                                                 IFnReaderWrapper<AnyT, IAnyResultWrapper>,
+                                                 INoCacheWrapper,
+                                                 IStringUrlWrapper,
+                                                 IDefaultOperationWrapper {
 }
 
-/**
- * Transport request data
- */
 export interface ITransportRequestData extends INameWrapper,
                                                INoAuthWrapper,
-                                               IParamsWrapper,
+                                               IKeyValueParamsWrapper,
                                                IStringAuthWrapper,
                                                INumberIdWrapper {
 }

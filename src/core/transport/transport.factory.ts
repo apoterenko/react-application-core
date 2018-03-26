@@ -10,7 +10,7 @@ import { defValuesFilter, orUndef, isDef } from '../util';
 import {
   ITransportRawResponse,
   IApplicationTransportFactory,
-  ITransportRequest,
+  ITransportRequestEntity,
   ITransportRequestData,
   IApplicationTransportRequestFactory,
   ITransportRawRequest,
@@ -30,7 +30,7 @@ export class TransportFactory implements IApplicationTransportFactory {
   @lazyInject(DI_TYPES.TransportRequestFactory) private requestFactory: IApplicationTransportRequestFactory;
   @lazyInject(DI_TYPES.TransportTokenAccessor) private tokenAccessor: IApplicationTransportTokenAccessor;
 
-  public request(req: ITransportRequest): Promise<ITransportRawResponse> {
+  public request(req: ITransportRequestEntity): Promise<ITransportRawResponse> {
     let cancelToken: IApplicationTransportCancelToken;
     const operationId = req.operation && req.operation.id;
 
@@ -91,7 +91,7 @@ export class TransportFactory implements IApplicationTransportFactory {
     }
   }
 
-  protected toRequestParams(req: ITransportRequest): ITransportRequestData {
+  protected toRequestParams(req: ITransportRequestEntity): ITransportRequestData {
     return defValuesFilter<ITransportRequestData, ITransportRequestData>({
       id: this.id++,
       name: req.name,

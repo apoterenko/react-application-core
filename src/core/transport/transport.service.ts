@@ -7,7 +7,7 @@ import { ApplicationStateT } from '../store';
 
 import {
   IApplicationTransport,
-  ITransportRequest,
+  ITransportRequestEntity,
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
@@ -22,7 +22,7 @@ export class TransportService implements IApplicationTransport {
   @lazyInject(DI_TYPES.Store) private store: Store<ApplicationStateT>;
   @lazyInject(DI_TYPES.TransportFactory) private transportFactory: IApplicationTransportFactory;
 
-  public request<TResponse>(req: ITransportRequest): Promise<TResponse> {
+  public request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
     this.onRequest(req);
 
     return new Promise<TResponse>((resolve, reject) => (
@@ -50,14 +50,14 @@ export class TransportService implements IApplicationTransport {
     this.transportFactory.cancelRequest(operationId);
   }
 
-  private onRequest(req: ITransportRequest): void {
+  private onRequest(req: ITransportRequestEntity): void {
     this.store.dispatch({
       type: TRANSPORT_REQUEST_ACTION_TYPE,
       data: this.toRequestMetaData(req),
     });
   }
 
-  private onRequestDone(req: ITransportRequest, result: AnyT): void {
+  private onRequestDone(req: ITransportRequestEntity, result: AnyT): void {
     const data: ITransportResponsePayload = {
       ...this.toRequestMetaData(req),
       result,
@@ -65,7 +65,7 @@ export class TransportService implements IApplicationTransport {
     this.store.dispatch({ type: TRANSPORT_REQUEST_DONE_ACTION_TYPE, data });
   }
 
-  private onRequestError(req: ITransportRequest, error: TransportResponseErrorT): void {
+  private onRequestError(req: ITransportRequestEntity, error: TransportResponseErrorT): void {
     const data: ITransportResponsePayload = {
       ...this.toRequestMetaData(req),
       error,
@@ -73,7 +73,7 @@ export class TransportService implements IApplicationTransport {
     this.store.dispatch({ type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE, data });
   }
 
-  private toRequestMetaData(req: ITransportRequest): ITransportResponsePayload {
+  private toRequestMetaData(req: ITransportRequestEntity): ITransportResponsePayload {
     return {
       name: req.name,
       ...req.operation ? { operationId: req.operation.id } : {},
