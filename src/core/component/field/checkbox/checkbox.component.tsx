@@ -18,22 +18,43 @@ export class Checkbox extends Field<Checkbox,
     const props = this.props;
 
     return (
-        <div className={this.getFieldClassName()}>
+      <div className={this.getFieldClassName()}>
+        <div className='rac-flex-full rac-flex rac-flex-row rac-flex-center'>
           <div ref='self'
-               className={toClassName(this.uiFactory.checkbox, 'rac-checkbox-field')}>
-            {this.getComponent()}
-            {this.uiFactory.makeCheckboxAttachment()}
+               style={props.style}
+               className={this.getSelfElementClassName()}>
+            <div className={this.getInputElementWrapperClassName()}>
+              {this.getInputElement()}
+              {this.getInputElementAttachment()}
+            </div>
           </div>
           <label htmlFor={this.inputId}>
             {props.label ? this.t(props.label) : props.children}
           </label>
         </div>
+        {this.getFieldMessage()}
+        {this.getFieldErrorMessage()}
+      </div>
     );
   }
 
-  protected getComponentProps(): IFieldInputProps {
+  /**
+   * @inheritDoc
+   */
+  protected getSelfElementClassName(): string {
+    return toClassName(this.uiFactory.checkbox, 'rac-checkbox-field');
+  }
+
+  /**
+   * @inheritDoc
+   */
+  protected getInputElementAttachment(): JSX.Element {
+    return this.uiFactory.makeCheckboxAttachment();
+  }
+
+  protected getInputElementProps(): IFieldInputProps {
     return {
-      ...super.getComponentProps() as IFieldInputProps,
+      ...super.getInputElementProps() as IFieldInputProps,
 
       id: this.inputId,
       type: 'checkbox',

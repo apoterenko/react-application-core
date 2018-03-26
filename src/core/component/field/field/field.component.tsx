@@ -10,6 +10,7 @@ import {
   FocusEventT,
   KeyboardEventT,
   IProgressWrapper,
+  UNI_CODES,
 } from '../../../definition.interface';
 import { BaseComponent } from '../../base';
 import {
@@ -143,11 +144,26 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return isUndef(this.value) ? this.getEmptyValue() : this.value;
   }
 
-  protected getComponent(): JSX.Element {
-    return <input {...this.getComponentProps() as IFieldInputProps}/>;
+  protected getFieldMessage(): JSX.Element {
+    const props = this.props;
+    const message = props.message;
+    return orNull(!props.noInfoMessage && message, () => this.getMessage(message));
   }
 
-  protected getComponentProps(): IFieldInputProps|IFieldTextAreaProps {
+  protected getFieldErrorMessage(): JSX.Element {
+    const props = this.props;
+    const error = this.error;
+    return orNull(
+      !props.noErrorMessage,
+      () => this.getMessage(error, this.uiFactory.textFieldValidationText)
+    );
+  }
+
+  protected getInputElement(): JSX.Element {
+    return <input {...this.getInputElementProps() as IFieldInputProps}/>;
+  }
+
+  protected getInputElementProps(): IFieldInputProps|IFieldTextAreaProps {
     const props = this.props;
     const autoFocus = props.autoFocus;
     const name = props.name;
@@ -169,11 +185,11 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const onKeyUp = this.isDeactivated() ? noop : this.onKeyUp;
     const onChange = this.onChange;
     return {
+      ...props.preventValueBinding ? {} : { value: this.displayValue },
       name, type, step, autoFocus, readOnly, disabled, pattern, required, minLength,
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
-      value: this.displayValue,
       className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
       placeholder: orNull(props.placeholder, () => this.t(props.placeholder)),
     };
@@ -290,10 +306,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return this.state.error;
   }
 
-  protected get inputCursorPosition(): number {
-    return this.input.selectionStart;
-  }
-
   protected get hasInputFocus(): boolean {
     return document.activeElement === this.input;
   }
@@ -312,6 +324,31 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
 
   protected getEmptyValue(): AnyT {
     return Field.EMPTY_VALUE;
+  }
+
+  protected getInputElementWrapperClassName(): string {
+    return toClassName('rac-field-input-wrapper', 'rac-flex', 'rac-flex-full');
+  }
+
+  /**
+   * @stable
+   * @returns Element
+   */
+  protected getInputElementAttachment(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @example [
+   *            rac-checkbox-field,
+   *            rac-textarea-field,
+   *            rac-text-field
+   *          ]
+   * @stable
+   * @returns Class name
+   */
+  protected getSelfElementClassName(): string {
+    return 'rac-self-field';
   }
 
   private validateValueAndSetCustomValidity(value: AnyT): string {
@@ -338,5 +375,18 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     this.input.setCustomValidity(''); // Support of HTML5 Validation Api
     const error0 = R.isNil(error) ? this.validateValueAndSetCustomValidity(rawValue) : error;
     this.setState({ error: error0  });
+  }
+
+  private getMessage(message: string, className = 'rac-text-field-help-text-info'): JSX.Element {
+    return (
+      <p title={message}
+         className={toClassName(
+           'rac-text-field-help-text',
+           this.uiFactory.textFieldHelpText,
+           className,
+         )}>
+        {message ? this.t(message) : UNI_CODES.noBreakSpace}
+      </p>
+    );
   }
 }

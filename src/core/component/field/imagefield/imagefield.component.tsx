@@ -18,16 +18,16 @@ export class ImageField extends Field<ImageField,
       <div className={this.getFieldClassName()}>
         <CenterLayout ref='self'
                       className='rac-image-field'>
-          {this.getComponent()}
+          {this.getInputElement()}
           <Picture src={this.src}/>
         </CenterLayout>
       </div>
     );
   }
 
-  protected getComponentProps(): IFieldInputProps {
+  protected getInputElementProps(): IFieldInputProps {
     return {
-      ...super.getComponentProps() as IFieldInputProps,
+      ...super.getInputElementProps() as IFieldInputProps,
       type: 'hidden',
     };
   }

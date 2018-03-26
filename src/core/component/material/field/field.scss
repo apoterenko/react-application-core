@@ -77,10 +77,5 @@
     @include flex-direction(column);
     @include justify-content(start);
     @include align-items(flex-start);
-
-    &.rac-form-checkbox {
-      @include flex-direction(row);
-      @include align-items(center);
-    }
   }
 }

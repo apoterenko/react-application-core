@@ -93,7 +93,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.openMenu(event);
   }
 
-  protected getComponentAttachment(): JSX.Element {
+  protected getInputElementAttachment(): JSX.Element {
     const props = this.props;
     return (
         <Menu ref='menu'
@@ -104,9 +104,9 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     );
   }
 
-  protected getFieldComponentWrapperClassName(): string {
+  protected getInputElementWrapperClassName(): string {
     return toClassName(
-        super.getFieldComponentWrapperClassName(),
+        super.getInputElementWrapperClassName(),
         'rac-flex-column'  // inner popup menu - width 100%
     );
   }

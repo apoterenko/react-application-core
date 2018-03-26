@@ -38,8 +38,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   public render(): JSX.Element {
     const props = this.props;
-    const error = this.error;
-    const message = props.message;
     const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent();
     const fieldLabel = props.label ? this.t(props.label) : props.children;
 
@@ -48,13 +46,13 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
              style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
           <div ref='self'
                style={props.style}
-               className={this.getFieldBodyClassName()}>
+               className={this.getSelfElementClassName()}>
             {orNull(
                 props.prefixLabel,
                 <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
             )}
-            <div className={this.getFieldComponentWrapperClassName()}>
-              {this.getComponent()}
+            <div className={this.getInputElementWrapperClassName()}>
+              {this.getInputElement()}
               {
                 orNull(
                     fieldLabel,
@@ -71,7 +69,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                     )
                 )
               }
-              {this.getComponentAttachment()}
+              {this.getInputElementAttachment()}
             </div>
             {orNull(
                 this.actions,
@@ -95,17 +93,14 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
               () => <ProgressLabel className='rac-text-field-loader'/>
             )}
           </div>
-          {orNull(!props.noInfoMessage && message, () => this.getMessage(message))}
-          {orNull(
-              !props.noErrorMessage,
-              () => this.getMessage(error, this.uiFactory.textFieldValidationText)
-          )}
+          {this.getFieldMessage()}
+          {this.getFieldErrorMessage()}
           {this.getAttachment()}
         </div>
     );
   }
 
-  protected getComponent(): JSX.Element {
+  protected getInputElement(): JSX.Element {
     const mask = this.getFieldMask();
     const props = this.props;
 
@@ -114,19 +109,19 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             guide={nvl(props.maskGuide, BasicTextField.DEFAULT_MASK_GUIDE)}
             placeholderChar={nvl(props.maskPlaceholderChar, BasicTextField.DEFAULT_MASK_PLACEHOLDER_CHAR)}
             mask={mask}
-            {...this.getComponentProps()}/>
-        : super.getComponent();
+            {...this.getInputElementProps()}/>
+        : super.getInputElement();
   }
 
   protected getAttachment(): JSX.Element {
     return null;
   }
 
-  protected getComponentAttachment(): JSX.Element {
+  protected getInputElementAttachment(): JSX.Element {
     return null;
   }
 
-  protected getFieldBodyClassName(): string {
+  protected getSelfElementClassName(): string {
     const props = this.props;
     const error = this.error;
 
@@ -138,10 +133,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         this.hasInputFocus && this.uiFactory.textFieldFocused,
         error && this.uiFactory.textFieldInvalid
     );
-  }
-
-  protected getFieldComponentWrapperClassName(): string {
-    return toClassName('rac-flex', 'rac-flex-full');
   }
 
   protected addClearAction(): void {
@@ -165,18 +156,5 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     } else {
       return (this.props.actions || []).concat(this.defaultActions || []);
     }
-  }
-
-  private getMessage(message: string, className = 'rac-text-field-help-text-info'): JSX.Element {
-    return (
-      <p title={message}
-         className={toClassName(
-           'rac-text-field-help-text',
-           this.uiFactory.textFieldHelpText,
-           className,
-         )}>
-        {message ? this.t(message) : UNI_CODES.noBreakSpace}
-      </p>
-    );
   }
 }

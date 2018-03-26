@@ -4,7 +4,6 @@ import {
   AnyT,
   BasicEventT,
   FocusEventT,
-  IEntity,
   IDisplayValueWrapper,
   INameWrapper,
   KeyboardEventT,
@@ -23,6 +22,7 @@ import {
   IErrorEntity,
   IDisplayMessageWrapper,
   IPatternWrapper,
+  IPreventValueBindingWrapper,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
 
@@ -47,6 +47,7 @@ export interface IKeyboardHandlers {
  * The field options - the read-only props (cannot be changed)
  */
 export interface IFieldOptions extends ILabelWrapper,
+                                       IPreventValueBindingWrapper,
                                        IDisplayMessageWrapper,
                                        IDisplayNameWrapper,
                                        IStringTypeWrapper,

@@ -14,11 +14,14 @@ export class TextArea extends BasicTextField<TextArea,
     clearAction: false,
   };
 
-  protected getComponent(): JSX.Element {
-    return <textarea {...this.getComponentProps() as IFieldTextAreaProps}/>;
+  protected getInputElement(): JSX.Element {
+    return <textarea {...this.getInputElementProps() as IFieldTextAreaProps}/>;
   }
 
-  protected getComponentAttachment(): JSX.Element {
+  /**
+   * @inheritDoc
+   */
+  protected getInputElementAttachment(): JSX.Element {
     return orNull(
       isDef(this.props.maxLength),
       () => (
@@ -29,9 +32,9 @@ export class TextArea extends BasicTextField<TextArea,
     );
   }
 
-  protected getFieldBodyClassName(): string {
+  protected getSelfElementClassName(): string {
     return toClassName(
-        super.getFieldBodyClassName(),
+        super.getSelfElementClassName(),
         'rac-textarea-field',
         this.uiFactory.textFieldTextArea,
     );

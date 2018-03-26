@@ -1,0 +1,14 @@
+// Textarea [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-form-field {
+
+    .rac-textarea-field {
+      height: 100%;         /* @stable */
+
+      .rac-field-input-wrapper {
+        height: 100%;               /* @stable */
+      }
+    }
+  }
+}
