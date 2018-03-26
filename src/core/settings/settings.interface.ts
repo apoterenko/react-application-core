@@ -116,7 +116,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     uiCurrency: 'USD',
   },
   channel: {
-    channelEvent: 'web-command-event',
+    channelEvent: 'command-from-client-to-hardware-event',
   },
   authorization: {
     isAuthorizationNeeded: true,

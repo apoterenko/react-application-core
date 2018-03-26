@@ -1,10 +1,10 @@
-import { AnyT } from '../../definition.interface';
+import { AnyT, IKeyValue } from '../../definition.interface';
 import { uuid } from '../../util';
 import { CommandParam } from './command.param';
 
 export class Command {
   private command: string;
-  private params: CommandParam[] = [];
+  private params: IKeyValue = {};
   private uuid = uuid();
 
   public setUuid(uuid0: string): Command {
@@ -18,7 +18,7 @@ export class Command {
   }
 
   public addParam(paramName: string, paramValue: AnyT): Command {
-    this.params.push(new CommandParam(paramName, paramValue));
+    this.params[paramName] = new CommandParam(paramName, paramValue);
     return this;
   }
 
@@ -31,6 +31,6 @@ export class Command {
   }
 
   public getParams(): CommandParam[] {
-    return this.params;
+    return Object.keys(this.params).map((key) => this.params[key]);
   }
 }
