@@ -23,6 +23,9 @@ export interface IKeyValue {
  */
 export const ID_FIELD_NAME = 'id';
 export const TYPE_FIELD_NAME = 'type';
+export const BODY_FIELD_NAME = 'body';
+export const AUTH_FIELD_NAME = 'auth';
+export const PARAMETERS_FIELD_NAME = 'parameters';
 export const PRIORITY_FIELD_NAME = 'priority';
 export const FROM_DATE_FIELD_NAME = 'fromDate';
 export const TO_DATE_FIELD_NAME = 'toDate';
@@ -115,8 +118,11 @@ export interface IFilteredListEntity<TFilter, TList> extends IFilterWrapper<TFil
 /**********************
  * Params's wrapper
  **********************/
-export interface IParamsWrapper {
-  params?: IKeyValue;
+export interface IParamsWrapper<TParams> {
+  params?: TParams;
+}
+
+export interface IKeyValueParamsWrapper extends IParamsWrapper<IKeyValue> {
 }
 
 /**********************
@@ -539,6 +545,23 @@ export interface INameWrapper {
 }
 
 /**********************
+ * PreventValueBinding's wrapper
+ **********************/
+export interface IPreventValueBindingWrapper {
+  preventValueBinding?: boolean;
+}
+
+/**********************
+ * Required's wrappers
+ **********************/
+export interface IRequiredWrapper<TRequired> {
+  required?: TRequired;
+}
+
+export interface IStringRequiredWrapper extends IRequiredWrapper<string> {
+}
+
+/**********************
  * Selected's wrappers
  **********************/
 export interface ISelectedWrapper<TSelected> {
@@ -681,6 +704,13 @@ export interface IPageEntity extends IPageWrapper,
                                      IPageSizeWrapper,
                                      ITotalCountWrapper,
                                      ITotalAmountWrapper {
+}
+
+/**********************
+ * Page entity
+ **********************/
+export interface IPaginatedListEntity extends IPageEntity,
+                                              IEntitiesDataWrapper {
 }
 
 export interface IRendererWrapper<TItem> {

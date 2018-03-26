@@ -11,9 +11,8 @@ import {
   IProgressWrapper,
   IErrorEntity,
   ISelectedEntityWrapper,
-  IEntitiesDataWrapper,
+  IPaginatedListEntity,
   ISorter,
-  IPageEntity,
   IListWrapper,
 } from '../../definition.interface';
 import { IListItemOptions } from './item';
@@ -34,12 +33,11 @@ export interface IListContainerInternalProps extends IBaseContainerInternalProps
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
 }
 
-export interface IApplicationListState extends IPageEntity,
+export interface IApplicationListState extends IPaginatedListEntity,
                                                IProgressWrapper,
                                                ITouchedWrapper,
                                                ISelectedEntityWrapper,
-                                               IErrorEntity<string>,
-                                               IEntitiesDataWrapper {
+                                               IErrorEntity<string> {
 }
 
 export interface IApplicationListStateWrapper extends IListWrapper<IApplicationListState> {
