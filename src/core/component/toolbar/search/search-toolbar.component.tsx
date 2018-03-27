@@ -73,7 +73,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
                   () => (
                       <ToolbarSection>
                         <TextField ref='queryField'
-                                   className={this.uiFactory.textFieldBox}
+                                   inputWrapperClassName={this.uiFactory.textFieldBox}
                                    autoFocus={true}
                                    noErrorMessage={true}
                                    value={this.query}

@@ -42,6 +42,8 @@ export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
 export const VALUE_FIELD_NAME = 'value';
+export const REQUEST_FIELD_NAME = 'request';
+export const RESPONSE_FIELD_NAME = 'response';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**********************
@@ -99,6 +101,16 @@ export interface IResultWrapper<TResult> {
 }
 
 export interface IAnyResultWrapper extends IResultWrapper<AnyT> {
+}
+
+/**********************
+ * Responses's wrappers
+ **********************/
+export interface IResponseWrapper<TResponse> {
+  response?: TResponse;
+}
+
+export interface IAnyResponseWrapper extends IResponseWrapper<AnyT> {
 }
 
 /**********************
@@ -319,6 +331,16 @@ export interface IPatternWrapper {
 }
 
 /**********************
+ * Bodies's wrappers
+ **********************/
+export interface IBodyWrapper<TBody> {
+  body?: TBody;
+}
+
+export interface IStringBodyWrapper extends IBodyWrapper<string> {
+}
+
+/**********************
  * Placeholder's wrappers
  **********************/
 export interface IPlaceholderWrapper {
@@ -436,6 +458,20 @@ export interface IImageWrapper<TImage> {
  **********************/
 export interface IRawDataWrapper<TRawData> {
   rawData?: TRawData;
+}
+
+/**********************
+ * Disabled's wrapper
+ **********************/
+export interface IDisabledWrapper {
+  disabled?: boolean;
+}
+
+/**********************
+ * AlwaysDirty's wrapper
+ **********************/
+export interface IAlwaysDirtyWrapper {
+  alwaysDirty?: boolean;
 }
 
 /**********************
@@ -636,6 +672,13 @@ export interface IPriorityWrapper {
 }
 
 /**********************
+ * ReadOnly's wrapper
+ **********************/
+export interface IReadOnlyWrapper {
+  readOnly?: boolean;
+}
+
+/**********************
  * Errors's wrappers
  **********************/
 export interface IErrorWrapper<TError> {
@@ -754,10 +797,6 @@ export interface IPasswordWrapper {
 
 export const IMAGE_FIELD_NAME = 'image';
 
-export interface IReadonlyable {
-  readOnly?: boolean;
-}
-
 export const LOGIN_FIELD_NAME = 'login';
 
 export interface IStylizable {
@@ -806,10 +845,6 @@ export interface IMaskEntity {
 
 export interface ITitleable {
   title?: string;
-}
-
-export interface IDisabledWrapper {
-  disabled?: boolean;
 }
 
 export interface IActiveWrapper {

@@ -7,11 +7,20 @@
   .rac-header {
 
     .rac-button {
-      color: $rac-header-action-color;            // [RAC+]
+      height: 100%;                       /* @stable - 27.03.2018 */
+      color: $rac-header-action-color;    /* @stable - 27.03.2018 */
+    }
+
+    .rac-search-toolbar {
+      background: none;   /* @stable - 27.03.2018 */
+
+      .rac-toolbar-section {
+        padding-top: 0;       /* @stable - 27.03.2018 */
+        padding-bottom: 0;    /* @stable - 27.03.2018 */
+      }
     }
   }
 }
-
 
 // Header [FRAMEWORK-]
 .rac-header {
@@ -32,13 +41,7 @@
   }
 
   .rac-search-toolbar {
-    &.rac-toolbar {
-      background: none;   // [RAC+]
-    }
-
     .rac-form-field {
-      margin-left: 16px;    // [RAC+]
-      margin-right: 16px;   // [RAC+]
 
       .rac-field-input {
         &::placeholder {
