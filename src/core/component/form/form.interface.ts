@@ -12,10 +12,11 @@ import {
   IEntity,
   IEntityWrapper,
   ISubmittable,
-  IReadonlyable,
+  IReadOnlyWrapper,
   IDisabledWrapper,
   IOnEmptyDictionaryWrapper,
   IFormWrapper,
+  IAlwaysDirtyWrapper,
 } from '../../definition.interface';
 import {
   IBaseComponent,
@@ -29,8 +30,9 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity
 }
 
 export interface IFormOptions extends IStylizable,
+                                      IAlwaysDirtyWrapper,
                                       IDisabledWrapper,
-                                      IReadonlyable {
+                                      IReadOnlyWrapper {
   actionText?: string;
   actionIcon?: string;
   resetText?: string;

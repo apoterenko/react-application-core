@@ -22,6 +22,7 @@ import {
   FormInternalPropsT,
   INITIAL_APPLICATION_FORM_STATE,
   IForm,
+  IFormOptions,
 } from './form.interface';
 
 export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implements IForm {
@@ -169,7 +170,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     const { props } = this;
     const { entity } = props;
     const { changes } = props.form;
-    const entityId = entity ? entity.id : null;
+    const entityId = orNull(entity, () => entity.id);
     const merger = {
       ...entity,
       ...changes,
@@ -275,9 +276,14 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     return R.isNil(form.valid) || form.valid;
   }
 
+  /**
+   * @stable
+   * @returns {boolean}
+   */
   private get isFormDirty(): boolean {
-    const form = this.props.form;
-    return !R.isNil(form.dirty) && form.dirty;
+    const props = this.props;
+    const form = props.form;
+    return this.formOptions.alwaysDirty || form.dirty === true;
   }
 
   private get canSubmit(): boolean {
@@ -345,5 +351,13 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
       fieldOptions = fieldOptionsOrLabel as IFieldOptions;
     }
     return fieldOptions;
+  }
+
+  /**
+   * @stable
+   * @returns {IFormOptions}
+   */
+  private get formOptions(): IFormOptions {
+    return this.props.formOptions;
   }
 }
