@@ -293,7 +293,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
       this.uiFactory.formField,
       props.className,
       'rac-form-field',
-      !(props.className || '').includes('rac-flex-full') && 'rac-flex-full',
+      'rac-flex-full',
       this.isDeactivated() && 'rac-form-field-disabled'
     );
   }
@@ -310,8 +310,13 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return document.activeElement === this.input;
   }
 
+  /**
+   * @stable
+   * @returns {boolean}
+   */
   protected isDeactivated(): boolean {
-    return this.props.disabled || this.props.readOnly || this.progress;
+    const props = this.props;
+    return props.disabled || props.readOnly || this.progress;
   }
 
   protected getFieldMask(): Array<string|RegExp> {
@@ -327,7 +332,12 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   }
 
   protected getInputElementWrapperClassName(): string {
-    return toClassName('rac-field-input-wrapper', 'rac-flex', 'rac-flex-full');
+    return toClassName(
+      'rac-field-input-wrapper',
+      'rac-flex',
+      'rac-flex-full',
+      this.props.inputWrapperClassName
+    );
   }
 
   /**

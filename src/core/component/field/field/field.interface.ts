@@ -11,7 +11,7 @@ import {
   IStringTypeWrapper,
   IValueWrapper,
   IOriginalValueable,
-  IReadonlyable,
+  IReadOnlyWrapper,
   IDisplayNameWrapper,
   ILabelWrapper,
   IPlaceholderWrapper,
@@ -66,10 +66,11 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              INameWrapper,
                                              IDisabledWrapper,
                                              IStepable,
-                                             IReadonlyable,
+                                             IReadOnlyWrapper,
                                              IValueWrapper<AnyT>,
                                              IOriginalValueable<AnyT>,
                                              IFieldDisplayValueWrapper<AnyT> {
+  inputWrapperClassName?: string; // @stable
   noErrorMessage?: boolean;
   noInfoMessage?: boolean;
   renderCondition?: boolean;

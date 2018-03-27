@@ -127,7 +127,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
     return toClassName(
         'rac-text-field',
-        props.className,
         this.uiFactory.textField,
         this.uiFactory.textFieldUpgraded,
         this.hasInputFocus && this.uiFactory.textFieldFocused,
