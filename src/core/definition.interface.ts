@@ -35,9 +35,7 @@ export const TIME_FIELD_NAME = 'time';
 export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
 export const URL_FIELD_NAME = 'url';
-export const FILE_FIELD_NAME = 'file';
-export const USER_FIELD_NAME = 'user';
-export const EFFECTOR_FIELD_NAME = 'effector';
+export const EFFECTOR_FIELD_NAME = 'effector';    /* @stable - 28.03.2018 */
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
@@ -74,9 +72,6 @@ export interface INamedEntity extends IEntityIdWrapper,
  **********************/
 export interface IUserWrapper<TUser> {
   user?: TUser;
-}
-
-export interface IStringUserWrapper extends IUserWrapper<string> {
 }
 
 /**********************
@@ -312,13 +307,6 @@ export interface IDisplayNameWrapper {
 /**********************
  * Messages's wrappers
  **********************/
-export interface IMessageWrapper<TMessage> {
-  messages?: TMessage;
-}
-
-export interface IStringMessageWrapper extends IMessageWrapper<string> {
-}
-
 export interface IMessagesWrapper<TMessages> {
   messages?: TMessages;
 }
@@ -328,16 +316,6 @@ export interface IMessagesWrapper<TMessages> {
  **********************/
 export interface IPatternWrapper {
   pattern?: string;
-}
-
-/**********************
- * Bodies's wrappers
- **********************/
-export interface IBodyWrapper<TBody> {
-  body?: TBody;
-}
-
-export interface IStringBodyWrapper extends IBodyWrapper<string> {
 }
 
 /**********************
@@ -444,13 +422,6 @@ export interface IQueryWrapper<TQuery> {
 }
 
 export interface IStringQueryWrapper extends IQueryWrapper<string> {
-}
-
-/**********************
- * Image's wrapper
- **********************/
-export interface IImageWrapper<TImage> {
-  image?: TImage;
 }
 
 /**********************
