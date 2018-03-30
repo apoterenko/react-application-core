@@ -1,5 +1,5 @@
 import {
-  IFnSorterWrapper,
+  IEntitySorterWrapper,
   INonInteractiveWrapper,
   ISimpleWrapper,
   IStringEmptyMessageWrapper,
@@ -25,7 +25,7 @@ export interface IListConfiguration extends ISimpleWrapper,
                                             IUseAddActionWrapper,
                                             IUseTwoLineWrapper,
                                             IUseAvatarWrapper,
-                                            IFnSorterWrapper,
+                                            IEntitySorterWrapper,
                                             INonInteractiveWrapper,
                                             IStringEmptyMessageWrapper,
                                             IItemConfigurationWrapper<IListItemConfiguration> {

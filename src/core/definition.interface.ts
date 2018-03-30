@@ -751,6 +751,15 @@ export interface IToClassNameWrapper<TItem> {
 export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> {
 }
 
+/* @stable - 31.03.2018 */
+export interface ISorterWrapper<TSorter> {
+  sorter?: TSorter;
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntitySorterWrapper extends ISorterWrapper<(item1: IEntity, item2: IEntity) => number> {
+}
+
 /**********************
  * Menu's wrappers
  **********************/
@@ -847,13 +856,6 @@ export interface IPaginatedListEntity extends IPageEntity,
 /**********************
  * Sorter's wrappers
  **********************/
-export interface ISorterWrapper<TSorter> {
-  sorter?: TSorter;
-}
-
-export interface IFnSorterWrapper extends ISorterWrapper<(item1: IEntity, item2: IEntity) => number> {
-}
-
 export interface ITokenWrapper<TToken> {
   token?: TToken;
 }
