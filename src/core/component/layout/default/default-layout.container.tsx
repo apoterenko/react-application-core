@@ -9,13 +9,13 @@ import {
   LAYOUT_MINIMAL_MODE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
-import { IMenuAction, MenuActionT } from '../../menu';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
 import { Header } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
+import { IAnyMenuActionEntity } from '../../../definition.interface';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
@@ -108,11 +108,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     }
   }
 
-  protected onHeaderMenuActionClick(option: MenuActionT): void {
+  protected onHeaderMenuActionClick(option: IAnyMenuActionEntity): void {
     this.dispatch(option.value);
   }
 
-  protected onProfileMenuActionClick(option: MenuActionT): void {
+  protected onProfileMenuActionClick(option: IAnyMenuActionEntity): void {
     switch (option.value) {
       case DefaultLayoutContainer.PROFILE_EXIT_ACTION:
         this.navigate(this.routes.logout);

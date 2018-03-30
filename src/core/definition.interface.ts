@@ -660,6 +660,28 @@ export interface IReadOnlyWrapper {
 }
 
 /**********************
+ * Icon's wrapper
+ **********************/
+export interface IIconWrapper {
+  icon?: string;
+}
+
+/**********************
+ * Menu's wrappers
+ **********************/
+export interface IMenuActionEntity<TValue> extends ILabelWrapper,
+                                                   IIconWrapper,
+                                                   IValueWrapper<TValue>,
+                                                   IDisabledWrapper {
+}
+
+export interface IStringMenuActionEntity extends IMenuActionEntity<string> {
+}
+
+export interface IAnyMenuActionEntity extends IMenuActionEntity<AnyT> {
+}
+
+/**********************
  * Errors's wrappers
  **********************/
 export interface IErrorWrapper<TError> {
@@ -747,10 +769,6 @@ export interface ITplWrapper<TValue> {
 
 export interface ISorter {
   sorter?(item1: IEntity, item2: IEntity): number;
-}
-
-export interface IIconWrapper {
-  icon?: string;
 }
 
 export interface ITokenWrapper<TToken> {

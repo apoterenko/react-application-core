@@ -38,6 +38,11 @@ export function listReducer(state: IApplicationListState = INITIAL_APPLICATION_L
         ...state,
         page: ++state.page,
       };
+    case ListActionBuilder.buildUnTouchActionType(section):
+      return {
+        ...state,
+        touched: false,
+      };
     case ListActionBuilder.buildLoadActionType(section):
       return {
         ...INITIAL_APPLICATION_LIST_STATE,

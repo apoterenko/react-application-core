@@ -4,8 +4,8 @@ import { orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { Link } from '../link';
 import { IProfileInternalProps } from './profile.interface';
-import { BasicEventT } from '../../definition.interface';
-import { Menu, MenuActionT, IMenuAction, IMenu } from '../menu';
+import { BasicEventT, IAnyMenuActionEntity } from '../../definition.interface';
+import { Menu, IMenu } from '../menu';
 
 export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
 
@@ -59,7 +59,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     );
   }
 
-  private onMenuActionClick(option: MenuActionT): void {
+  private onMenuActionClick(option: IAnyMenuActionEntity): void {
     const props = this.props;
 
     if (props.onClick) {

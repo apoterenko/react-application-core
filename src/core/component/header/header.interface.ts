@@ -1,5 +1,6 @@
 import { IBaseComponentInternalProps } from '../base';
-import { IMenuAction, MenuActionT, MenuActionsWrapperT, IMenuActionsWrapper } from '../menu';
+import { MenuActionsWrapperT, IMenuActionsWrapper } from '../menu';
+import { IAnyMenuActionEntity } from '../../definition.interface';
 
 export interface IHeaderProps extends MenuActionsWrapperT {
   navigationActionType?: string;
@@ -8,5 +9,5 @@ export interface IHeaderProps extends MenuActionsWrapperT {
 
 export interface IHeaderInternalProps extends IBaseComponentInternalProps,
                                               IHeaderProps {
-  menuActionHandler?(option: MenuActionT): void;
+  menuActionHandler?(option: IAnyMenuActionEntity): void;
 }

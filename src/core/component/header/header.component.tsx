@@ -5,7 +5,8 @@ import { IHeaderInternalProps } from './header.interface';
 import { BaseComponent } from '../base';
 import { ToolbarSection } from '../toolbar';
 import { Menu } from '../menu';
-import { IMenu, IMenuAction, MenuActionT } from '../menu';
+import { IMenu } from '../menu';
+import { IAnyMenuActionEntity } from '../../definition.interface';
 
 export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
 
@@ -84,7 +85,7 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
     );
   }
 
-  private onMenuActionClick(option: MenuActionT): void {
+  private onMenuActionClick(option: IAnyMenuActionEntity): void {
     if (this.props.menuActionHandler) {
       this.props.menuActionHandler(option);
     }

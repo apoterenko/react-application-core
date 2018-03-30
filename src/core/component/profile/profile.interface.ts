@@ -1,11 +1,17 @@
 import { IBaseComponentInternalProps } from '../base';
-import { IEmailWrapper, INameWrapper, IPathWrapper, IOnClickWrapper } from '../../definition.interface';
-import { IMenuActionsWrapper, MenuActionsWrapperT, MenuActionT, IMenuAction } from '../menu';
+import {
+  IEmailWrapper,
+  INameWrapper,
+  IPathWrapper,
+  IOnClickWrapper,
+  IAnyMenuActionEntity,
+} from '../../definition.interface';
+import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
 
 export interface IProfileInternalProps extends IBaseComponentInternalProps,
                                                IEmailWrapper,
                                                INameWrapper,
                                                IPathWrapper,
-                                               IOnClickWrapper<MenuActionT>,
+                                               IOnClickWrapper<IAnyMenuActionEntity>,
                                                MenuActionsWrapperT {
 }

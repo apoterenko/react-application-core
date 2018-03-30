@@ -16,6 +16,7 @@ import {
   LIST_INSERT_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
   LIST_SEARCH_ACTION_TYPE,
+  LIST_UN_TOUCH_ACTION_TYPE,
   LIST_LAST_PAGE_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
 } from './list.interface';
@@ -40,6 +41,10 @@ export class ListActionBuilder {
 
   public static buildLoadActionType(section: string): string {
     return `${section}.${LIST_LOAD_ACTION_TYPE}`;
+  }
+
+  public static buildUnTouchActionType(section: string): string {
+    return `${section}.${LIST_UN_TOUCH_ACTION_TYPE}`;
   }
 
   public static buildLoadDoneActionType(section: string): string {
@@ -78,12 +83,12 @@ export class ListActionBuilder {
     return `${section}.${LIST_DESTROY_ACTION_TYPE}`;
   }
 
-  public static buildDeselectAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildDeselectActionType(section), applySection(section));
+  public static buildUnTouchAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildUnTouchActionType(section), applySection(section));
   }
 
-  public static buildSearchAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildSearchActionType(section), applySection(section));
+  public static buildDeselectAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildDeselectActionType(section), applySection(section));
   }
 
   public static buildDestroyAction(section: string): IEffectsAction {

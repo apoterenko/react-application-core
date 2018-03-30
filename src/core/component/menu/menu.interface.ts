@@ -2,19 +2,16 @@ import { IBaseComponent, IBaseComponentInternalProps } from '../base';
 import { INativeMaterialComponent } from '../material';
 import {
   EntityIdT,
-  ILabelWrapper,
   IRendererWrapper,
-  IDisabledWrapper,
-  IValueWrapper,
   IUseFilterWrapper,
   IRawDataWrapper,
   AnyT,
   ITplWrapper,
-  IIconWrapper,
   IRenderToBodyEntity,
   IFilterPlaceholderWrapper,
   IFilterFnWrapper,
   IBooleanOpenWrapper,
+  IMenuActionEntity,
 } from '../../definition.interface';
 
 export interface IMenuInternalState {
@@ -50,21 +47,13 @@ export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalS
   onInputBlur(): void;
 }
 
-export interface IMenuAction<TValue> extends ILabelWrapper,
-                                             IIconWrapper,
-                                             IValueWrapper<TValue>,
-                                             IDisabledWrapper {
-}
-
 export interface IMenuActionsWrapper<TValue> {
-  menuActions?: Array<IMenuAction<TValue>>;
+  menuActions?: Array<IMenuActionEntity<TValue>>;
 }
 
 export type MenuActionsWrapperT = IMenuActionsWrapper<AnyT>;
 
-export type MenuActionT = IMenuAction<AnyT>;
-
-export interface IMenuOption<TRawData> extends IMenuAction<EntityIdT>,
+export interface IMenuOption<TRawData> extends IMenuActionEntity<EntityIdT>,
                                                IRawDataWrapper<TRawData> {
 }
 
