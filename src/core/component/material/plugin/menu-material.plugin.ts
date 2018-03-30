@@ -37,9 +37,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu,
     const originalHandleKeyboardDownFn = this.mdc.foundation_.handleKeyboardDown_;
     this.mdc.foundation_.handleKeyboardDown_ = function() {
       if (self.preventKeyboardDownHandling) {
-        /**
-         * https://github.com/material-components/material-components-web/issues/2422
-         */
+        // https://github.com/material-components/material-components-web/issues/2422
         return false;
       }
       return originalHandleKeyboardDownFn.apply(this, arguments);
