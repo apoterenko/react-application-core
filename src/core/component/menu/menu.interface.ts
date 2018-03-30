@@ -1,4 +1,3 @@
-import { FunctionT } from '../../util';
 import { IBaseComponent, IBaseComponentInternalProps } from '../base';
 import { INativeMaterialComponent } from '../material';
 import {
@@ -15,6 +14,7 @@ import {
   IRenderToBodyEntity,
   IFilterPlaceholderWrapper,
   IFilterFnWrapper,
+  IBooleanOpenWrapper,
 } from '../../definition.interface';
 
 export interface IMenuInternalState {
@@ -36,15 +36,18 @@ export interface IMenuInternalProps extends IMenuOptions {
   getAnchor?(): HTMLElement;
 }
 
-export interface INativeMaterialMenuComponent extends INativeMaterialComponent {
-  open: boolean;
-  show(): FunctionT;
+export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
+                                                      IBooleanOpenWrapper {
+  show(): void;
 }
 
 export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalState> {
-  opened: boolean;
   show(): void;
   hide(): void;
+  isOpen(): boolean;
+  onCancel(): void;
+  onInputFocus(): void;
+  onInputBlur(): void;
 }
 
 export interface IMenuAction<TValue> extends ILabelWrapper,

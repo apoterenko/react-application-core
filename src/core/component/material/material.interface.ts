@@ -8,6 +8,7 @@ export interface IMaterialComponentFactory<TNativeMaterialComponent extends INat
 }
 
 export interface INativeMaterialComponent {
+  foundation_: INativeMaterialDefaultFoundation;
   listen(type: string, callback: FunctionT);
   unlisten(type: string, callback: FunctionT);
   destroy(): void;

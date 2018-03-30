@@ -79,7 +79,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   public onKeyEscape(event: KeyboardEventT): void {
     super.onKeyEscape(event);
 
-    if (this.menu.opened) {
+    if (this.menu.isOpen()) {
       this.hideMenu();
     }
   }
@@ -147,7 +147,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   private openMenu(event: BasicEventT): void {
-    if (this.menu.opened) {
+    if (this.menu.isOpen()) {
       return;
     }
     this.stopEvent(event);

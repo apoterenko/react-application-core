@@ -1,9 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { MDCMenu } from '@material/menu';
 
 import { BasicEventT, KeyboardEventT, UNDEF } from '../../definition.interface';
-import { MaterialComponent } from '../material';
 import {
   orNull,
   toClassName,
@@ -23,13 +21,12 @@ import {
   IMenuInternalState,
   IMenuInternalProps,
   IMenu,
-  INativeMaterialMenuComponent,
 } from './menu.interface';
+import { BaseComponent } from '../base';
 
-export class Menu extends MaterialComponent<Menu,
-                                            IMenuInternalProps,
-                                            IMenuInternalState,
-                                            INativeMaterialMenuComponent>
+export class Menu extends BaseComponent<Menu,
+                                        IMenuInternalProps,
+                                        IMenuInternalState>
     implements IMenu {
 
   public static defaultProps: IMenuInternalProps = {
@@ -40,11 +37,13 @@ export class Menu extends MaterialComponent<Menu,
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   constructor(props: IMenuInternalProps) {
-    super(props, MDCMenu);
+    super(props);
 
     this.onSelect = this.onSelect.bind(this);
     this.onFilterClick = this.onFilterClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onInputFocus = this.onInputFocus.bind(this);
+    this.onInputBlur = this.onInputBlur.bind(this);
     this.onInputKeyEscape = this.onInputKeyEscape.bind(this);
 
     this.state = {};
@@ -53,8 +52,6 @@ export class Menu extends MaterialComponent<Menu,
   public componentDidMount(): void {
     const props = this.props;
     super.componentDidMount();
-
-    this.nativeMdcInstance.listen('MDCMenu:cancel', this.onMenuCancel);
 
     if (props.useFilter) {
       // We must handle the events through native DOM Api because MDC
@@ -80,8 +77,6 @@ export class Menu extends MaterialComponent<Menu,
       // We must handle the events through native DOM Api because MDC
       this.eventManager.remove(this.field.input, 'click', this.onFilterClick);
     }
-
-    this.nativeMdcInstance.unlisten('MDCMenu:cancel', this.onMenuCancel);
     super.componentWillUnmount();
   }
 
@@ -143,6 +138,8 @@ export class Menu extends MaterialComponent<Menu,
                          value={state.filter}
                          placeholder={props.filterPlaceholder || 'Filter'}
                          onChange={this.onInputChange}
+                         onFocus={this.onInputFocus}
+                         onBlur={this.onInputBlur}
                          onKeyEscape={this.onInputKeyEscape}/>
             )
           )}
@@ -158,8 +155,8 @@ export class Menu extends MaterialComponent<Menu,
 
   public show(): void {
     const props = this.props;
+
     this.setState({ filter: UNDEF });
-    this.nativeMdcInstance.open = true;
 
     if (props.useFilter) {
       setTimeout(() => this.field.setFocus());
@@ -172,9 +169,43 @@ export class Menu extends MaterialComponent<Menu,
     }
   }
 
+  /**
+   * @stable - 29.03.2018
+   */
   public hide(): void {
-    this.nativeMdcInstance.open = false;
-    this.onMenuCancel();
+    this.onCancel();
+  }
+
+  /**
+   * @stable - 29.03.2018
+   */
+  public onCancel(): void {
+    if (this.props.renderToCenterOfBody) {
+      removeClassNameFromBody('rac-disabled');
+    }
+  }
+
+  /**
+   * @stable - 29.03.2018
+   */
+  public onInputFocus(): void {
+    // Do nothing
+  }
+
+  /**
+   * @stable - 29.03.2018
+   */
+  public onInputBlur(): void {
+    // Do nothing
+  }
+
+  /**
+   * @stable - 29.03.2018
+   * @returns {boolean}
+   */
+  public isOpen(): boolean {
+    // Each plugin must implement this method
+    return false;
   }
 
   private onInputChange(filter: string): void {
@@ -188,10 +219,6 @@ export class Menu extends MaterialComponent<Menu,
 
   private onFilterClick(event: BasicEventT): void {
     this.stopEvent(event);
-  }
-
-  public get opened(): boolean {
-    return this.nativeMdcInstance.open;
   }
 
   private get field(): FieldT {
@@ -213,9 +240,5 @@ export class Menu extends MaterialComponent<Menu,
     }
 
     this.hide();
-  }
-
-  private onMenuCancel(): void {
-    removeClassNameFromBody('rac-disabled');
   }
 }

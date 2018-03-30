@@ -87,10 +87,13 @@ a {
   }
 }
 
+// Common [FRAMEWORK-][RAC+]
 .rac {
+
   &.rac-disabled {
+
     .rac-root {
-      opacity: $rac-disabled-opacity;
+      opacity: $rac-disabled-opacity;   /* @stable - 29.03.2018 */
     }
   }
 }

@@ -643,6 +643,16 @@ export interface IPriorityWrapper {
 }
 
 /**********************
+ * Open's wrappers
+ **********************/
+export interface IOpenWrapper<TOpen> {
+  open?: TOpen;
+}
+
+export interface IBooleanOpenWrapper extends IOpenWrapper<boolean> {
+}
+
+/**********************
  * ReadOnly's wrapper
  **********************/
 export interface IReadOnlyWrapper {
