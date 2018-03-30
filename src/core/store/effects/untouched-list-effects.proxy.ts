@@ -1,28 +1,23 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
-import { IApplicationListStateWrapper, ListActionBuilder } from '../../component/list';
 import { ConnectorActionBuilder } from '../../component/connector';
 import { provideInSingleton } from '../../di';
-import { ApplicationStateT } from '../../store';
+import { ApplicationStateT } from '../store.interface';
+import { makeUntouchedListMiddleware, IUntouchedListMiddlewareConfig } from '../middleware';
 
-export function makeUntouchedListEffectsProxy<TApplicationState extends ApplicationStateT>(config: {
-  section: string,
-  listWrapperStateResolver: (state: TApplicationState) => IApplicationListStateWrapper;
-}): () => void {
-  const {
-    listWrapperStateResolver,
-    section,
-  } = config;
+/* @stable - 31.03.2018 */
+export function makeUntouchedListEffectsProxy<TApplicationState extends ApplicationStateT>(
+  config: IUntouchedListMiddlewareConfig<TApplicationState>): () => void {
+  const untouchedListMiddleware = makeUntouchedListMiddleware<TApplicationState>(config);
+
   return (): void => {
 
     @provideInSingleton(Effects)
     class Effects {
 
-      @EffectsService.effects(ConnectorActionBuilder.buildInitActionType(section))
-      public $onConnectorInit(_: IEffectsAction, state: TApplicationState): IEffectsAction {
-        return listWrapperStateResolver(state).list.touched
-            ? null
-            : ListActionBuilder.buildLoadAction(section);
+      @EffectsService.effects(ConnectorActionBuilder.buildInitActionType(config.section))
+      public $onConnectorInit(action: IEffectsAction, state: TApplicationState): IEffectsAction {
+        return untouchedListMiddleware(action, state);
       }
     }
   };
