@@ -1,5 +1,21 @@
 @import '~sass-flex-mixin/_flex';
 
+// Field [FRAMEWORK+][RAC+]
+.rac {
+
+  .rac-form-field {
+
+    .mdc-floating-label {
+      /**
+        * @stable - 30.03.2018
+        * https://github.com/material-components/material-components-web/issues/2488
+        */
+      pointer-events: none;
+    }
+  }
+}
+
+
 // Field [MDC+]
 .rac-form-field {
 
