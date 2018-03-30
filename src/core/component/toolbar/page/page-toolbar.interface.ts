@@ -3,10 +3,10 @@ import {
   IBaseContainerInternalProps,
 } from '../../base';
 import { IApplicationListStateWrapper } from '../../list';
-import { IPageEntity } from '../../../definition.interface';
+import { IPaginatedEntity } from '../../../entities-definitions.interface';
 
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
-                                                   IPageEntity {
+                                                   IPaginatedEntity {
   contentDisplay?: boolean;
   onPrevious?(): void;
   onNext?(): void;

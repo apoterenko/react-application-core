@@ -108,9 +108,7 @@ export interface IResponseWrapper<TResponse> {
 export interface IAnyResponseWrapper extends IResponseWrapper<AnyT> {
 }
 
-/**********************
- * List's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IListWrapper<TList> {
   list?: TList;
 }
@@ -238,16 +236,16 @@ export interface IOperationWrapper<TOperation> {
 export interface IDefaultOperationWrapper extends IOperationWrapper<IOperation> {
 }
 
-/**********************
- * Data's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface IDataWrapper<TData> {
   data?: TData;
 }
 
+/* @stable - 31.03.2018 */
 export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
 }
 
+/* @stable - 31.03.2018 */
 export interface IEntitiesDataWrapper extends IDataWrapper<IEntity[]> {
 }
 
@@ -503,23 +501,17 @@ export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
 }
 
-/**********************
- * Progress's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IProgressWrapper {
   progress?: boolean;
 }
 
-/**********************
- * TotalCount's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface ITotalCountWrapper {
   totalCount?: number;
 }
 
-/**********************
- * Touched's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface ITouchedWrapper {
   touched?: boolean;
 }
@@ -568,13 +560,12 @@ export interface IRequiredWrapper<TRequired> {
 export interface IStringRequiredWrapper extends IRequiredWrapper<string> {
 }
 
-/**********************
- * Selected's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface ISelectedWrapper<TSelected> {
   selected?: TSelected;
 }
 
+/* @stable - 31.03.2018 */
 export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
 }
 
@@ -600,23 +591,17 @@ export interface IFieldsValuesEntities extends IFieldsWrapper<IFieldValueEntity[
 
 export type FieldValueEntityT = IFieldValueEntity|IFieldsValuesEntities;
 
-/**********************
- * Page's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IPageWrapper {
   page?: number;
 }
 
-/**********************
- * PageSize's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IPageSizeWrapper {
   pageSize?: number;
 }
 
-/**********************
- * TotalAmount's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface ITotalAmountWrapper {
   totalAmount?: number;
 }
@@ -835,22 +820,6 @@ export interface IFormEntityWrapper<TEntity extends IEntity> extends IFormWrappe
  **********************/
 export interface IEntity extends IEntityIdWrapper,
                                  IKeyValue {
-}
-
-/**********************
- * Page entity
- **********************/
-export interface IPageEntity extends IPageWrapper,
-                                     IPageSizeWrapper,
-                                     ITotalCountWrapper,
-                                     ITotalAmountWrapper {
-}
-
-/**********************
- * Paginated entity
- **********************/
-export interface IPaginatedListEntity extends IPageEntity,
-                                              IEntitiesDataWrapper {
 }
 
 /**********************

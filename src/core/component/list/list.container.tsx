@@ -27,7 +27,7 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
     return <List onSelect={this.onSelect}
                  onSearch={this.onSearch}
                  onCreate={this.onCreate}
-                 {...props.listOptions}
+                 {...props.listConfiguration}
                  {...props.list}/>;
   }
 

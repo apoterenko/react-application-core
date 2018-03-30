@@ -30,3 +30,8 @@ export interface IListConfiguration extends ISimpleWrapper,
                                             IStringEmptyMessageWrapper,
                                             IItemConfigurationWrapper<IListItemConfiguration> {
 }
+
+/* @stable - 31.03.2018 */
+export interface IListConfigurationWrapper {
+  listConfiguration: IListConfiguration;
+}

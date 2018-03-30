@@ -11,23 +11,23 @@ import {
   IProgressWrapper,
   IStringErrorEntity,
   ISelectedEntityWrapper,
-  IPaginatedListEntity,
   IListWrapper,
 } from '../../definition.interface';
-import { IListConfiguration } from '../../configurations-definitions.interface';
+import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
+import { IPaginatedEntitiesEntity } from '../../entities-definitions.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
+                                                     IListConfigurationWrapper,
                                                      IListWrapper<IApplicationListState> {
-  listOptions?: IListConfiguration;
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
 }
 
-export interface IApplicationListState extends IPaginatedListEntity,
+export interface IApplicationListState extends IPaginatedEntitiesEntity,
+                                               ISelectedEntityWrapper,
                                                IProgressWrapper,
                                                ITouchedWrapper,
-                                               ISelectedEntityWrapper,
                                                IStringErrorEntity {
 }
 
