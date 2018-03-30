@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { ListActionBuilder } from '../../component/list';
-import { ApplicationStateT } from '../../store';
+import { ApplicationStateT, IApplicationState } from '../../store';
 import { IUntouchedListMiddlewareConfig } from './middleware.interface';
 import { orNull } from '../../util';
 
