@@ -7,8 +7,8 @@ import { ISimpleListInternalProps } from './simple-list.interface';
 export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalProps, {}> {
 
   public static defaultProps: ISimpleListInternalProps = {
-    twoLine: true,
-    avatar: false,
+    useTwoLine: true,
+    useAvatar: false,
     nonInteractive: true,
     simple: true,
   };
@@ -22,9 +22,9 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
                 this.uiFactory.list,
                 props.className,
                 props.simple && 'rac-simple-list',
-                props.avatar && this.uiFactory.listAvatar,
+                props.useAvatar && this.uiFactory.listAvatar,
                 props.nonInteractive && this.uiFactory.listNonInteractive,
-                props.twoLine && this.uiFactory.listTwoLine,
+                props.useTwoLine && this.uiFactory.listTwoLine,
             )}>
           {props.children}
         </ul>

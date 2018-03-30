@@ -1,9 +1,9 @@
 import {
   IActiveWrapper,
-  IIconWrapper,
   ILabelWrapper,
   IStylizable,
   ITypeWrapper,
+  IStringIconWrapper,
 } from '../../../definition.interface';
 import { IBaseComponentInternalProps } from '../../base';
 import { IApplicationAccessConfig } from '../../../permissions';
@@ -17,7 +17,7 @@ export enum NavigationListItemTypeEnum {
 
 export interface INavigationListItemOptions extends IActiveWrapper,
                                                     IStylizable,
-                                                    IIconWrapper,
+                                                    IStringIconWrapper,
                                                     ILabelWrapper,
                                                     ITypeWrapper<NavigationListItemTypeEnum> {
   link?: string;

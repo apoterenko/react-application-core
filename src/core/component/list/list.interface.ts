@@ -9,25 +9,16 @@ import {
   IEntity,
   ITouchedWrapper,
   IProgressWrapper,
-  IErrorEntity,
+  IStringErrorEntity,
   ISelectedEntityWrapper,
   IPaginatedListEntity,
-  ISorter,
   IListWrapper,
 } from '../../definition.interface';
-import { IListItemOptions } from './item';
-import { ISimpleListInternalProps } from './simple';
-
-export interface IListOptions extends IBaseComponentInternalProps,
-                                      ISimpleListInternalProps,
-                                      ISorter {
-  itemOptions?: IListItemOptions;
-  addAction?: boolean;
-}
+import { IListConfiguration } from '../../configurations-definitions.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IListWrapper<IApplicationListState> {
-  listOptions?: IListOptions;
+  listOptions?: IListConfiguration;
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
@@ -37,15 +28,20 @@ export interface IApplicationListState extends IPaginatedListEntity,
                                                IProgressWrapper,
                                                ITouchedWrapper,
                                                ISelectedEntityWrapper,
-                                               IErrorEntity<string> {
+                                               IStringErrorEntity {
 }
 
+/* @stable - 31.03.2018 */
 export interface IApplicationListStateWrapper extends IListWrapper<IApplicationListState> {
 }
 
+/* @stable - 31.03.2018 */
+export type ApplicationListStateWrapperResolverT <TApplicationState> =
+  (state: TApplicationState) => IApplicationListStateWrapper;
+
 export interface IListInternalProps extends IBaseComponentInternalProps,
                                             IApplicationListState,
-                                            IListOptions {
+                                            IListConfiguration {
   onSelect?(props: IEntity): void;
   onSearch?(): void;
   onCreate?(): void;

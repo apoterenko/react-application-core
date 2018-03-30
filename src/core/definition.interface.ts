@@ -359,7 +359,7 @@ export interface IFilterFnWrapper<TFilteredItem> {
 }
 
 /**********************
- * Section's wrappers
+ * Sections's wrappers
  **********************/
 export interface ISectionWrapper {
   section?: string;
@@ -659,18 +659,103 @@ export interface IReadOnlyWrapper {
   readOnly?: boolean;
 }
 
+/* @stable - 31.03.2018 */
+export interface IIconWrapper<TIcon> {
+  icon?: TIcon;
+}
+
+/* @stable - 31.03.2018 */
+export interface IStringIconWrapper extends IIconWrapper<string> {
+}
+
 /**********************
- * Icon's wrapper
+ * Resolver's wrapper
  **********************/
-export interface IIconWrapper {
-  icon?: string;
+export interface IResolverWrapper<TResolver> {
+  resolver?: TResolver;
+}
+
+/**********************
+ * Simple's wrapper
+ **********************/
+export interface ISimpleWrapper {
+  simple?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IItemConfigurationWrapper<TItemConfiguration> {
+  itemConfiguration?: TItemConfiguration;
+}
+
+/* @stable - 31.03.2018 */
+export interface INonInteractiveWrapper {
+  nonInteractive?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IUseTwoLineWrapper {
+  useTwoLine?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IUseAvatarWrapper {
+  useAvatar?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IUseAddActionWrapper {
+  useAddAction?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IEmptyMessageWrapper<TEmptyMessage> {
+  emptyMessage?: TEmptyMessage;
+}
+
+/* @stable - 31.03.2018 */
+export interface IStringEmptyMessageWrapper extends IEmptyMessageWrapper<string> {
+}
+
+/* @stable - 31.03.2018 */
+export interface ITplWrapper<TTpl> {
+  tpl?: TTpl;
+}
+
+/* @stable - 31.03.2018 */
+export interface IItemTplWrapper<TItem> extends ITplWrapper<(item: TItem) => React.ReactNode> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityTplWrapper extends IItemTplWrapper<IEntity> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IRendererWrapper<TRenderer> {
+  renderer?: TRenderer;
+}
+
+/* @stable - 31.03.2018 */
+export interface IItemRendererWrapper<TItem> extends IRendererWrapper<(item: TItem) => JSX.Element> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityRendererWrapper extends IItemRendererWrapper<IEntity> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IToClassNameWrapper<TItem> {
+  toClassName?(entity: TItem): string;
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> {
 }
 
 /**********************
  * Menu's wrappers
  **********************/
 export interface IMenuActionEntity<TValue> extends ILabelWrapper,
-                                                   IIconWrapper,
+                                                   IStringIconWrapper,
                                                    IValueWrapper<TValue>,
                                                    IDisabledWrapper {
 }
@@ -753,22 +838,20 @@ export interface IPageEntity extends IPageWrapper,
 }
 
 /**********************
- * Page entity
+ * Paginated entity
  **********************/
 export interface IPaginatedListEntity extends IPageEntity,
                                               IEntitiesDataWrapper {
 }
 
-export interface IRendererWrapper<TItem> {
-  renderer?(item: TItem): JSX.Element;
+/**********************
+ * Sorter's wrappers
+ **********************/
+export interface ISorterWrapper<TSorter> {
+  sorter?: TSorter;
 }
 
-export interface ITplWrapper<TValue> {
-  tpl?(value: TValue): string;
-}
-
-export interface ISorter {
-  sorter?(item1: IEntity, item2: IEntity): number;
+export interface IFnSorterWrapper extends ISorterWrapper<(item1: IEntity, item2: IEntity) => number> {
 }
 
 export interface ITokenWrapper<TToken> {
@@ -807,10 +890,6 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export interface IToWrapper {
   to?: string;
-}
-
-export interface ISimpleWrapper {
-  simple?: boolean;
 }
 
 export interface ISaveable {

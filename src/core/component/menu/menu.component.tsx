@@ -143,7 +143,7 @@ export class Menu extends BaseComponent<Menu,
                          onKeyEscape={this.onInputKeyEscape}/>
             )
           )}
-          <SimpleList twoLine={false}
+          <SimpleList useTwoLine={false}
                       nonInteractive={false}
                       className={this.uiFactory.menuItems}>
             {menuItemsTpl}

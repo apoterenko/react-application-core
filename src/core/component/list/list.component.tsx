@@ -80,7 +80,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     return (
         <SimpleList ref='container'
                     nonInteractive={false}
-                    avatar={true}
+                    useAvatar={true}
                     simple={false}
                     {...props}
                     className={toClassName('rac-list', props.className)}>
@@ -97,13 +97,13 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                   rawData={entity}
                   active={this.isSelected(entity)}
                   onClick={this.onSelect}
-                  {...this.props.itemOptions}/>
+                  {...this.props.itemConfiguration}/>
     );
   }
 
   protected get addActionTpl(): JSX.Element {
     return orNull(
-        this.props.addAction,
+        this.props.useAddAction,
         () => this.uiFactory.makeIcon({
           type: 'add',
           className: toClassName(

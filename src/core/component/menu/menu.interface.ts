@@ -2,7 +2,6 @@ import { IBaseComponent, IBaseComponentInternalProps } from '../base';
 import { INativeMaterialComponent } from '../material';
 import {
   EntityIdT,
-  IRendererWrapper,
   IUseFilterWrapper,
   IRawDataWrapper,
   AnyT,
@@ -12,6 +11,8 @@ import {
   IFilterFnWrapper,
   IBooleanOpenWrapper,
   IMenuActionEntity,
+  IItemRendererWrapper,
+  IItemTplWrapper,
 } from '../../definition.interface';
 
 export interface IMenuInternalState {
@@ -22,8 +23,8 @@ export interface IMenuOptions extends IBaseComponentInternalProps,
                                       IUseFilterWrapper,
                                       IFilterFnWrapper<MenuOptionT>,
                                       IFilterPlaceholderWrapper,
-                                      IRendererWrapper<MenuOptionT>,
-                                      ITplWrapper<MenuOptionT>,
+                                      IItemRendererWrapper<MenuOptionT>,
+                                      IItemTplWrapper<MenuOptionT>,
                                       IRenderToBodyEntity {
   options?: MenuOptionT[];
 }

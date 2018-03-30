@@ -1,8 +1,6 @@
-import { IBaseComponentInternalProps } from '../../../component/base';
+import { IBaseComponentInternalProps } from '../../base';
+import { IListConfiguration } from '../../../configurations-definitions.interface';
 
-export interface ISimpleListInternalProps extends IBaseComponentInternalProps {
-  twoLine?: boolean;
-  nonInteractive?: boolean;
-  avatar?: boolean;
-  simple?: boolean;
+export interface ISimpleListInternalProps extends IBaseComponentInternalProps,
+                                                  IListConfiguration {
 }

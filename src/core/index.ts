@@ -52,4 +52,5 @@ export * from './transport';
 export * from './user';
 export * from './util';
 export * from './definition.interface';
+export * from './configurations-definitions.interface';
 export * from './bootstrap';
