@@ -1,15 +1,19 @@
 import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
-  IBaseContainer,
 } from '../base';
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IEntity,
 } from '../../definition.interface';
 import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IListEntity, IListWrapperEntity } from '../../entities-definitions.interface';
+
+/* @stable - 31.03.2018 */
+export interface IListInternalProps extends IBaseComponentInternalProps,
+                                            IListConfiguration,
+                                            IListEntity {
+}
 
 /* @stable - 31.03.2018 */
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
@@ -17,20 +21,10 @@ export interface IListContainerInternalProps extends IBaseContainerInternalProps
                                                      IListWrapperEntity {
 }
 
-export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
-}
-
 /* @stable - 31.03.2018 */
 export type ListWrapperEntityResolverT <TApplicationState> = (state: TApplicationState) => IListWrapperEntity;
 
-export interface IListInternalProps extends IBaseComponentInternalProps,
-                                            IListConfiguration,
-                                            IListEntity {
-  onSelect?(props: IEntity): void;
-  onSearch?(): void;
-  onCreate?(): void;
-}
-
+/* @stable - 31.03.2018 */
 export const INITIAL_APPLICATION_LIST_STATE: IListEntity = {
   progress: false,
   touched: false,

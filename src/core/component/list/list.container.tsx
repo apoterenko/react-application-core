@@ -8,12 +8,10 @@ import {
   LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
   LIST_SEARCH_ACTION_TYPE,
-  IListContainer,
   IListContainerInternalProps,
 } from './list.interface';
 
-export class ListContainer extends BaseContainer<IListContainerInternalProps, {}>
-    implements IListContainer {
+export class ListContainer extends BaseContainer<IListContainerInternalProps, {}> {
 
   constructor(props: IListContainerInternalProps) {
     super(props);

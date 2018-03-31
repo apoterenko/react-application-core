@@ -30,6 +30,9 @@ import {
   IEntityRawDataWrapper,
   ISelectedEntityWrapper,
   IListWrapper,
+  IDefaultOnSearchWrapper,
+  IDefaultOnCreateWrapper,
+  IEntityOnSelectWrapper,
 } from './definition.interface';
 
 /* @stable - 31.03.2018 */
@@ -106,7 +109,10 @@ export interface IListItemEntity extends IEntityRawDataWrapper,
 /* @stable - 31.03.2018 */
 export interface IListEntity extends IPaginatedEntitiesEntity,
                                      ISelectedEntityWrapper,
-                                     IStateEntity {
+                                     IStateEntity,
+                                     IEntityOnSelectWrapper,
+                                     IDefaultOnCreateWrapper,
+                                     IDefaultOnSearchWrapper {
 }
 
 /* @stable - 31.03.2018 */

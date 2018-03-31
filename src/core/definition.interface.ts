@@ -869,6 +869,37 @@ export interface IEntityOnClickWrapper extends IPayloadOnClickWrapper<IEntity> {
 }
 
 /* @stable - 31.03.2018 */
+export interface IOnSelectWrapper<TOnSelect> {
+  onSelect?: TOnSelect;
+}
+
+/* @stable - 31.03.2018 */
+export interface IPayloadOnSelectWrapper<TSelectPayload> extends IOnSelectWrapper<(payload: TSelectPayload) => void> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityOnSelectWrapper extends IPayloadOnSelectWrapper<IEntity> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IOnSearchWrapper<TOnSearch> {
+  onSearch?: TOnSearch;
+}
+
+/* @stable - 31.03.2018 */
+export interface IDefaultOnSearchWrapper extends IOnSearchWrapper<() => void> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IOnCreateWrapper<TOnCreate> {
+  onCreate?: TOnCreate;
+}
+
+/* @stable - 31.03.2018 */
+export interface IDefaultOnCreateWrapper extends IOnCreateWrapper<() => void> {
+}
+
+/* @stable - 31.03.2018 */
 export interface IActivateWrapper<TActivate> {
   activate?: TActivate;
 }
