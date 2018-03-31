@@ -841,14 +841,6 @@ export interface IRippableWrapper {
   rippable?: boolean;
 }
 
-/**********************
- * Lists's wrapper
- **********************/
-export interface IListEntity<TEntity extends IEntity> extends IPageWrapper,
-                                                              ITotalCountWrapper,
-                                                              IDataWrapper<TEntity[]> {
-}
-
 /* @stable - 31.03.2018 */
 export interface IFormWrapper<TForm> {
   form?: TForm;

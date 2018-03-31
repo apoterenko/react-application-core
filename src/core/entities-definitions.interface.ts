@@ -28,7 +28,14 @@ import {
   IActiveWrapper,
   IEntityOnClickWrapper,
   IEntityRawDataWrapper,
+  ISelectedEntityWrapper,
 } from './definition.interface';
+
+/* @stable - 31.03.2018 */
+export interface IStateEntity extends ITouchedWrapper,
+                                      IProgressWrapper,
+                                      IStringErrorEntity {
+}
 
 /* @stable - 31.03.2018 */
 export interface IPaginatedEntity extends IPageWrapper,
@@ -79,11 +86,9 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
 
 /* @stable - 31.03.2018 */
 export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
-                                                                 ITouchedWrapper,
                                                                  IDirtyWrapper,
-                                                                 IProgressWrapper,
                                                                  IValidWrapper,
-                                                                 IStringErrorEntity {
+                                                                 IStateEntity {
 }
 
 /* @stable - 31.03.2018 */
@@ -95,4 +100,10 @@ export interface IFormWrapperEntity<TEntity extends IEntity> extends IFormWrappe
 export interface IListItemEntity extends IEntityRawDataWrapper,
                                          IActiveWrapper,
                                          IEntityOnClickWrapper {
+}
+
+/* @stable - 31.03.2018 */
+export interface IListEntity extends IPaginatedEntitiesEntity,
+                                     ISelectedEntityWrapper,
+                                     IStateEntity {
 }

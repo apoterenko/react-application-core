@@ -7,13 +7,10 @@ import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IEntity,
-  ITouchedWrapper,
-  IProgressWrapper,
-  ISelectedEntityWrapper,
   IListWrapper,
 } from '../../definition.interface';
 import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IPaginatedEntitiesEntity, IStringErrorEntity } from '../../entities-definitions.interface';
+import { IListEntity } from '../../entities-definitions.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IListConfigurationWrapper,
@@ -23,15 +20,8 @@ export interface IListContainerInternalProps extends IBaseContainerInternalProps
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
 }
 
-export interface IApplicationListState extends IPaginatedEntitiesEntity,
-                                               ISelectedEntityWrapper,
-                                               IProgressWrapper,
-                                               ITouchedWrapper,
-                                               IStringErrorEntity {
-}
-
 /* @stable - 31.03.2018 */
-export interface IApplicationListStateWrapper extends IListWrapper<IApplicationListState> {
+export interface IApplicationListStateWrapper extends IListWrapper<IListEntity> {
 }
 
 /* @stable - 31.03.2018 */
@@ -39,14 +29,14 @@ export type ApplicationListStateWrapperResolverT <TApplicationState> =
   (state: TApplicationState) => IApplicationListStateWrapper;
 
 export interface IListInternalProps extends IBaseComponentInternalProps,
-                                            IApplicationListState,
+                                            IListEntity,
                                             IListConfiguration {
   onSelect?(props: IEntity): void;
   onSearch?(): void;
   onCreate?(): void;
 }
 
-export const INITIAL_APPLICATION_LIST_STATE: IApplicationListState = {
+export const INITIAL_APPLICATION_LIST_STATE: IListEntity = {
   progress: false,
   touched: false,
   data: null,

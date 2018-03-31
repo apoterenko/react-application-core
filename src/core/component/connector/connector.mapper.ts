@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
-import { IApplicationListState, IApplicationListStateWrapper } from '../../component/list';
+import { IApplicationListStateWrapper } from '../../component/list';
 import {
   IEntity,
   IEntityWrapper,
@@ -22,7 +22,7 @@ import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
-import { IChannelWrapperEntity, IEntityWrapperEntity } from '../../entities-definitions.interface';
+import { IChannelWrapperEntity, IEntityWrapperEntity, IListEntity } from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
@@ -67,9 +67,9 @@ export const formMapper = (formState: IApplicationFormState): IFormWrapper<IAppl
   },
 });
 
-export const listMapper = (listState: IApplicationListState) => ({
+export const listMapper = (listEntity: IListEntity) => ({
   list: {
-    ...listState,
+    ...listEntity,
   },
 });
 
