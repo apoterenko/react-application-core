@@ -81,9 +81,9 @@ class RolesContainer extends BaseContainer<IRolesContainerInternalProps, {}> {
     return (
       <DefaultLayoutContainer headerOptions={{ items: header }}
                               {...props}>
-        <ListContainer listOptions={{
-                        itemOptions: { tpl: this.tpl },
-                        addAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
+        <ListContainer listConfiguration={{
+                        itemConfiguration: { tpl: this.tpl },
+                        useAddAction: this.permissionService.isAccessible(AppPermissions.ROLE_ADD),
                        }}
                        {...props}/>
       </DefaultLayoutContainer>
@@ -148,13 +148,13 @@ class RoleContainer extends BaseContainer<IRoleContainerInternalProps, {}> {
     sectionName: ROLE_SECTION,
   };
 
-  private layoutBuilder = new LayoutBuilder(uuid());
+  private readonly layoutBuilder = new LayoutBuilder(uuid());
 
   public render(): JSX.Element {
     const props = this.props;
     const dictionaries = props.dictionaries;
     const rights = dictionaries.rights && dictionaries.rights.data;
-    const title = props.isNewEntity
+    const title = props.newEntity
       ? 'New role'
       : `Role ${this.nc.id(props.entityId)}`;
 
@@ -223,7 +223,7 @@ import { ROLE_SECTION } from './role';
 @effectsBy(
   makeUntouchedListEffectsProxy<IAppState>({
     section: ROLES_SECTION,
-    listWrapperStateResolver: (state) => state.roles,
+    resolver: (state) => state.roles,
   }),
   makeEditedListEffectsProxy<IRoleEntity, IAppState>({
     listSection: ROLES_SECTION,
@@ -233,7 +233,7 @@ import { ROLE_SECTION } from './role';
   makeFilteredListEffectsProxy({ section: ROLES_SECTION }),
   makeFailedListEffectsProxy(ROLES_SECTION)
 )
-export class RolesEffects extends BaseEffects<IApi> {
+class RolesEffects extends BaseEffects<IApi> {
 
   @EffectsService.effects(ListActionBuilder.buildLoadActionType(ROLES_SECTION))
   public $onRolesSearch(_: IEffectsAction, state: IAppState): Promise<IRoleEntity[]> {
@@ -270,7 +270,7 @@ import { IRoleEntity } from '../../permission.interface';
       formSection: ROLE_SECTION,
     })
 )
-export class RoleEffects extends BaseEffects<IApi> {
+class RoleEffects extends BaseEffects<IApi> {
 
   @EffectsService.effects(FormActionBuilder.buildSubmitActionType(ROLE_SECTION))
   public onSaveRole(action: IEffectsAction): Promise<IRoleEntity> {
