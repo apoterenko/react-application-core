@@ -416,11 +416,13 @@ export interface IQueryWrapper<TQuery> {
 export interface IStringQueryWrapper extends IQueryWrapper<string> {
 }
 
-/**********************
- * RawData's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IRawDataWrapper<TRawData> {
   rawData?: TRawData;
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityRawDataWrapper extends IRawDataWrapper<IEntity> {
 }
 
 /* @stable - 31.03.2018 */
@@ -834,6 +836,11 @@ export interface IApiEntityWrapper<TApiEntity> {
   apiEntity?: TApiEntity;
 }
 
+/* @stable - 31.03.2018 */
+export interface IRippableWrapper {
+  rippable?: boolean;
+}
+
 /**********************
  * Lists's wrapper
  **********************/
@@ -854,6 +861,28 @@ export interface ISubmitWrapper<TSubmit> {
 
 /* @stable - 31.03.2018 */
 export interface IDefaultSubmitWrapper extends ISubmitWrapper<() => void> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IOnClickWrapper<TOnClick> {
+  onClick?: TOnClick;
+}
+
+/* @stable - 31.03.2018 */
+export interface IPayloadOnClickWrapper<TClickPayload> extends IOnClickWrapper<(payload: TClickPayload) => void> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityOnClickWrapper extends IPayloadOnClickWrapper<IEntity> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IActivateWrapper<TActivate> {
+  activate?: TActivate;
+}
+
+/* @stable - 31.03.2018 */
+export interface IDefaultActivateWrapper extends IActivateWrapper<() => void> {
 }
 
 /**********************
@@ -935,15 +964,7 @@ export interface IMergerWrapper<TMerger extends IKeyValue> {
   merger?: TMerger;
 }
 
-export interface IRippleable {
-  rippled?: boolean;
-}
-
-export interface IOnClickWrapper<TEvent> {
-  onClick?(event: TEvent): void;
-}
-
-export interface IOnBaseClickWrapper extends IOnClickWrapper<BasicEventT> {
+export interface IOnBaseClickWrapper extends IPayloadOnClickWrapper<BasicEventT> {
 }
 
 export interface IInitialChangesable<TAppState extends ApplicationStateT> {

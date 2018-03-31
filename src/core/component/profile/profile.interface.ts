@@ -3,7 +3,7 @@ import {
   IEmailWrapper,
   INameWrapper,
   IPathWrapper,
-  IOnClickWrapper,
+  IPayloadOnClickWrapper,
   IAnyMenuActionEntity,
 } from '../../definition.interface';
 import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
@@ -12,6 +12,6 @@ export interface IProfileInternalProps extends IBaseComponentInternalProps,
                                                IEmailWrapper,
                                                INameWrapper,
                                                IPathWrapper,
-                                               IOnClickWrapper<IAnyMenuActionEntity>,
+                                               IPayloadOnClickWrapper<IAnyMenuActionEntity>,
                                                MenuActionsWrapperT {
 }

@@ -22,12 +22,14 @@ import {
   IResetTextWrapper,
   IUseResetButtonWrapper,
   ISubmittableWrapper,
+  IRippableWrapper,
 } from './definition.interface';
 
 /* @stable - 31.03.2018 */
 export interface IListItemConfiguration extends IEntityRendererWrapper,
                                                 IEntityTplWrapper,
                                                 IEntityToClassNameWrapper,
+                                                IRippableWrapper,
                                                 IStringIconWrapper {
 }
 

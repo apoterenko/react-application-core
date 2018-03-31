@@ -25,6 +25,9 @@ import {
   IBooleanNewEntityWrapper,
   IEntityIdWrapper,
   IOriginalEntityWrapper,
+  IActiveWrapper,
+  IEntityOnClickWrapper,
+  IEntityRawDataWrapper,
 } from './definition.interface';
 
 /* @stable - 31.03.2018 */
@@ -64,6 +67,10 @@ export interface IStringErrorEntity extends IErrorEntity<string> {
 }
 
 /* @stable - 31.03.2018 */
+export interface IBooleanErrorEntity extends IErrorEntity<boolean> {
+}
+
+/* @stable - 31.03.2018 */
 export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWrapper<TEntity>,
                                                                        IBooleanNewEntityWrapper,
                                                                        IOriginalEntityWrapper<TEntity>,
@@ -82,4 +89,10 @@ export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper
 /* @stable - 31.03.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity> extends IFormWrapper<IFormEntity<TEntity>>,
                                                                      IEntityWrapperEntity<TEntity> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IListItemEntity extends IEntityRawDataWrapper,
+                                         IActiveWrapper,
+                                         IEntityOnClickWrapper {
 }

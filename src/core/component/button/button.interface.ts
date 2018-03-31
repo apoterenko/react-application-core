@@ -7,20 +7,22 @@ import {
   IOnBaseClickWrapper,
   IToWrapper,
   ISimpleWrapper,
+  INotUseClassNameWrapper,
 } from '../../definition.interface';
-import { IErrorEntity } from '../../entities-definitions.interface';
+import { IBooleanErrorEntity } from '../../entities-definitions.interface';
 
 export interface IButtonInternalState {
 }
 
 export interface IButtonInternalProps extends IBaseComponentInternalProps,
+                                              INotUseClassNameWrapper,
                                               IActiveWrapper,
                                               IDisabledWrapper,
                                               IStringIconWrapper,
                                               IOnBaseClickWrapper,
                                               IToWrapper,
                                               ISimpleWrapper,
-                                              IErrorEntity<boolean>,
+                                              IBooleanErrorEntity,
                                               IStringTypeWrapper {
   accent?: boolean;
   raised?: boolean;
