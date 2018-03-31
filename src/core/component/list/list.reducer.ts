@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE } from '../../definition.interface';
+import { FIRST_PAGE } from '../../definitions.interface';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';

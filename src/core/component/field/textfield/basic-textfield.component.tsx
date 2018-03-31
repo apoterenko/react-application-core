@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { BasicEventT } from '../../../definition.interface';
+import { BasicEventT } from '../../../definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import {

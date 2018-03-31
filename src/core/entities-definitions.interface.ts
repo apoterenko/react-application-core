@@ -33,7 +33,12 @@ import {
   IDefaultOnSearchWrapper,
   IDefaultOnCreateWrapper,
   IEntityOnSelectWrapper,
-} from './definition.interface';
+  IDefaultOperationWrapper,
+  IEntityIdTWrapper,
+  IIsNewWrapper,
+  IMergerWrapper,
+  IOnBeforeSubmitWrapper,
+} from './definitions.interface';
 
 /* @stable - 31.03.2018 */
 export interface IStateEntity extends ITouchedWrapper,
@@ -96,8 +101,10 @@ export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper
 }
 
 /* @stable - 31.03.2018 */
-export interface IFormWrapperEntity<TEntity extends IEntity> extends IFormWrapper<IFormEntity<TEntity>>,
-                                                                     IEntityWrapperEntity<TEntity> {
+export interface IFormWrapperEntity<TEntity extends IEntity>
+  extends IFormWrapper<IFormEntity<TEntity>>,
+          IEntityWrapperEntity<TEntity>,
+          IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void> {
 }
 
 /* @stable - 31.03.2018 */
@@ -117,4 +124,17 @@ export interface IListEntity extends IPaginatedEntitiesEntity,
 
 /* @stable - 31.03.2018 */
 export interface IListWrapperEntity extends IListWrapper<IListEntity> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IApiEntity<TEntity extends IEntity> extends IEntityWrapperEntity<TEntity>,
+                                                             IEntityIdTWrapper,
+                                                             IChangesWrapper<TEntity>,
+                                                             IMergerWrapper<TEntity>,
+                                                             IDefaultOperationWrapper,
+                                                             IIsNewWrapper {
+}
+
+/* @stable - 01.04.2018 */
+export interface IDefaultApiEntity extends IApiEntity<IEntity> {
 }

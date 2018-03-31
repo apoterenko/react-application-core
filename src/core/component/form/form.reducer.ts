@@ -4,7 +4,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { isUndef } from '../../util';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
-import { AnyT } from '../../definition.interface';
+import { AnyT } from '../../definitions.interface';
 
 import {
   INITIAL_APPLICATION_FORM_STATE,

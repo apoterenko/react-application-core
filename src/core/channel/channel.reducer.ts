@@ -2,7 +2,7 @@ import { AnyAction, Reducer } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { filter } from '../store/reducer.filter';
-import { IChannelWrapper } from '../definition.interface';
+import { IChannelWrapper } from '../definitions.interface';
 import {
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_MESSAGE_ACTION_TYPE,

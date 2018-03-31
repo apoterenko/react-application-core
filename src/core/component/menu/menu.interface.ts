@@ -13,7 +13,7 @@ import {
   IMenuActionEntity,
   IItemRendererWrapper,
   IItemTplWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 
 export interface IMenuInternalState {
   filter?: string;

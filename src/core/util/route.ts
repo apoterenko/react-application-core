@@ -1,4 +1,4 @@
-import { IEntity, IKeyValue, NEW_OPTION } from '../definition.interface';
+import { IEntity, IKeyValue, NEW_OPTION } from '../definitions.interface';
 
 export function buildRoute(path: string, params: IKeyValue): string {
   (path.match(/\:[a-zA-Z0-9]+/g) || []).forEach((placeholder) => {

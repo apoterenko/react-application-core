@@ -4,7 +4,7 @@ import {
   ILinkedToSectionsWrapper,
   ILockWrapper,
   IStackWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 
 export interface IApplicationStackItemState extends ISectionWrapper,
                                                     ILinkedToSectionsWrapper {

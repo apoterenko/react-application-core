@@ -1,69 +1,54 @@
 import { PureComponent } from 'react';
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IApiEntity } from '../../api';
 import {
-  AnyT,
   IOnLoadDictionaryWrapper,
-  IKeyValue,
   IEntity,
   IOnEmptyDictionaryWrapper,
-  IFormWrapper,
-  IApiEntityWrapper,
   IDefaultSubmitWrapper,
-} from '../../definition.interface';
+  IFieldValueOnChangeWrapper,
+} from '../../definitions.interface';
 import {
   IBaseComponent,
   IBaseComponentInternalProps,
   IBaseContainer,
   IBaseContainerInternalProps,
 } from '../base';
-import { IFormEntity, IEntityWrapperEntity } from '../../entities-definitions.interface';
-import { IFormConfigurationWrapper } from '../../configurations-definitions.interface';
+import { IFormEntity, IFormWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
+import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
 
-export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity<TChanges> {
-}
-
-export interface IFormProps<TEntity extends IEntity> extends IEntityWrapperEntity<TEntity>,
-                                                             IFormConfigurationWrapper,
-                                                             IFormWrapper<IFormAttributes<TEntity>> {
-  onBeforeSubmit?(apiEntity: IApiEntity<TEntity>): void;
-}
-
-export interface IFormInternalProps<TEntity extends IEntity> extends IBaseComponentInternalProps,
-                                                                     IOnEmptyDictionaryWrapper,
-                                                                     IOnLoadDictionaryWrapper,
-                                                                     IFormProps<TEntity> {
-  onSubmit?: (apiEntity: IApiEntity<TEntity>) => void;
+export interface IFormInternalProps extends IBaseComponentInternalProps,
+                                            IFormConfiguration,
+                                            IFormWrapperEntity<IEntity>,
+                                            IFieldValueOnChangeWrapper,
+                                            IOnEmptyDictionaryWrapper,
+                                            IOnLoadDictionaryWrapper {
+  onSubmit?: (apiEntity: IApiEntity<IEntity>) => void;
   onReset?: () => void;
   onValid?: (valid: boolean) => void;
-  onChange?(name: string, value: AnyT): void;
 }
-
-export type FormInternalPropsT = IFormInternalProps<IEntity>;
-export type FormContainerInternalPropsT = IFormContainerInternalProps<IEntity>;
 
 export interface IFormContainerInternalProps<TEntity extends IEntity> extends IBaseContainerInternalProps,
-                                                                              IFormProps<TEntity> {
+                                                                              IFormConfigurationWrapper,
+                                                                              IFormWrapperEntity<TEntity> {
 }
 
-export interface IBaseForm extends IApiEntityWrapper<IApiEntity<IEntity>>,
-                                   IDefaultSubmitWrapper {
+export interface IDefaultFormContainerInternalProps extends IFormContainerInternalProps<IEntity> {
 }
 
-export interface IForm extends IBaseComponent<FormInternalPropsT, {}>,
-                               IBaseForm {
+export interface IForm extends IBaseComponent<IFormInternalProps, {}>,
+                               IDefaultSubmitWrapper {
 }
 
-export interface IFormContainer extends IBaseContainer<FormContainerInternalPropsT, {}>,
-                                        IBaseForm {
+export interface IFormContainer extends IBaseContainer<IDefaultFormContainerInternalProps, {}>,
+                                        IDefaultSubmitWrapper {
 }
 
 export interface IFormPureComponent extends PureComponent<{}, {}> {
   checkValidity(): boolean;
 }
 
-export interface IApplicationFormState extends IFormAttributes<IEntity> {
+export interface IApplicationFormState extends IFormEntity<IEntity> {
 }
 
 export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {

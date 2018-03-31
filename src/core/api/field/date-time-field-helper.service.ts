@@ -17,9 +17,8 @@ import {
   TIME_FIELD_NAME,
   IFromDateToDateEntity,
   IFromDateFromTimeToDateToTimeEntity,
-} from '../../definition.interface';
-
-import { IApiEntity } from '../api.interface';
+} from '../../definitions.interface';
+import { IApiEntity } from '../../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { IDateConverter } from '../../converter';
 import { orUndef, isUndef, isNull } from '../../util';

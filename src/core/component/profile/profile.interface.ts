@@ -5,7 +5,7 @@ import {
   IPathWrapper,
   IPayloadOnClickWrapper,
   IAnyMenuActionEntity,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
 
 export interface IProfileInternalProps extends IBaseComponentInternalProps,

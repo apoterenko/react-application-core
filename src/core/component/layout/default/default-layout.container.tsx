@@ -15,7 +15,7 @@ import { Header } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
-import { IAnyMenuActionEntity } from '../../../definition.interface';
+import { IAnyMenuActionEntity } from '../../../definitions.interface';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 

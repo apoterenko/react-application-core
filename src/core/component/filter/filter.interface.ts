@@ -5,7 +5,7 @@ import {
   IFilterWrapper,
   IStringQueryWrapper,
   IClassNameWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import { IApplicationFormState } from '../form';
 import { IFieldOptions } from '../field';
 

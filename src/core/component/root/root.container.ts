@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import * as URLSearchParams from 'url-search-params';
 
-import { IKeyValue } from '../../definition.interface';
+import { IKeyValue } from '../../definitions.interface';
 import { BaseContainer } from '../../component/base';
 
 import {

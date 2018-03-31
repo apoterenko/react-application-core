@@ -1,7 +1,7 @@
 import { FunctionT } from '../../util';
 import { IBaseComponentInternalProps } from '../../component/base';
 import { INativeMaterialComponent } from '../../component/material';
-import { IInfoable } from '../../definition.interface';
+import { IInfoable } from '../../definitions.interface';
 
 export interface IMaterialSnackbarComponentOptions {
   message?: string;

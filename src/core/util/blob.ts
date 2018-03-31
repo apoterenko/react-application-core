@@ -1,4 +1,4 @@
-import { IBlobEntity } from '../definition.interface';
+import { IBlobEntity } from '../definitions.interface';
 import { isDef, orDefault } from '../util';
 
 export function toBlobEntities(ids: string[]): Promise<IBlobEntity[]> {

@@ -11,7 +11,7 @@ import {
   KeyboardEventT,
   IProgressWrapper,
   UNI_CODES,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import { BaseComponent } from '../../base';
 import {
   IField,

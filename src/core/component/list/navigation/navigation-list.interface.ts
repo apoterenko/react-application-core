@@ -4,7 +4,7 @@ import {
   INotUseClassNameWrapper,
   ITypeWrapper,
   IStringIconWrapper,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import { IBaseComponentInternalProps } from '../../base';
 import { IApplicationAccessConfig } from '../../../permissions';
 

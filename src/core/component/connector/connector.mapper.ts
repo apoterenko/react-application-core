@@ -10,7 +10,7 @@ import {
   IUserWrapper,
   IDictionariesWrapper,
   IDictionaries,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterState,

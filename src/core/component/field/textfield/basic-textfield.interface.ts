@@ -5,7 +5,7 @@ import {
   BasicEventT,
   IStringTitleWrapper,
   IClassNameWrapper,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginInternalProps } from '../field';

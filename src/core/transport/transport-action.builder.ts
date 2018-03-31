@@ -1,6 +1,6 @@
 import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
 
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import {
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
   TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,

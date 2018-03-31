@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BasicEventT, KeyboardEventT, UNDEF } from '../../definition.interface';
+import { BasicEventT, KeyboardEventT, UNDEF } from '../../definitions.interface';
 import {
   orNull,
   toClassName,

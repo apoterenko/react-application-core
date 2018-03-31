@@ -4,7 +4,7 @@ import {
   IEntityIdTWrapper,
   IKeyValueChangesWrapper,
   IPayloadWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 
 export interface IModifyEntityPayload extends IEntityIdTWrapper,
                                               IKeyValueChangesWrapper {

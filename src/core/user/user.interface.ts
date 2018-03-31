@@ -3,7 +3,7 @@ import {
   ILoginWrapper,
   IEmailWrapper,
   IPasswordWrapper,
-} from '../definition.interface';
+} from '../definitions.interface';
 
 export interface IUser extends INamedEntity,
                                IPasswordWrapper,

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../../definition.interface';
+import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../../definitions.interface';
 import { isString, orNull } from '../../util';
 import { IApplicationDateTimeSettings, IApplicationSettings } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';

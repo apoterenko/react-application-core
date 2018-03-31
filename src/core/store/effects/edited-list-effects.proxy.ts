@@ -6,7 +6,7 @@ import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { CustomActionBuilder } from '../../action';
-import { IEntity, ISelectedWrapper } from '../../definition.interface';
+import { IEntity, ISelectedWrapper } from '../../definitions.interface';
 import { FormActionBuilder } from '../../component/form';
 import { StackActionBuilder } from '../../store';
 

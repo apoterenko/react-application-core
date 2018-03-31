@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { isDef } from '../../../util';
-import { AnyT, UNDEF } from '../../../definition.interface';
+import { AnyT, UNDEF } from '../../../definitions.interface';
 
 export const toActualChangedValue = (config: { value: AnyT, emptyValue: AnyT, originalValue: AnyT, error?: string }) => {
   const hasOriginalValue = isDef(config.originalValue);

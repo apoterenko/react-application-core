@@ -1,5 +1,5 @@
 import { toActualChangedValue } from './field.helper';
-import { UNDEF } from '../../../definition.interface';
+import { UNDEF } from '../../../definitions.interface';
 
 describe('field.helper', () => {
   describe('toActualChangedValue', () => {

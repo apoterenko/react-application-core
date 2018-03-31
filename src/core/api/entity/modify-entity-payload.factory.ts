@@ -3,14 +3,14 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { IEntity } from '../../definition.interface';
-import { ApiEntityT } from '../api.interface';
+import { IEntity } from '../../definitions.interface';
 import { isPrimitive } from '../../util';
 import {
   IApplicationModifyEntityPayloadFactory,
   IModifyEntityPayloadWrapper,
   EntityOnSaveMergeStrategyEnum,
 } from './modify-entity-payload-factory.interface';
+import { IDefaultApiEntity } from '../../entities-definitions.interface';
 
 @injectable()
 export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPayloadFactory {
@@ -18,7 +18,7 @@ export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPaylo
   private static logger = LoggerFactory.makeLogger(ModifyEntityPayloadFactory);
 
   public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapper {
-    const apiEntity = action.initialData as ApiEntityT;
+    const apiEntity = action.initialData as IDefaultApiEntity;
     const requestChanges = apiEntity.changes;
     const responseData = action.data;
     const responseEntity = responseData as IEntity;

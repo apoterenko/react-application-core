@@ -50,7 +50,7 @@ export * from './translation';
 export * from './transport';
 export * from './user';
 export * from './util';
-export * from './definition.interface';
+export * from './definitions.interface';
 export * from './configurations-definitions.interface';
 export * from './entities-definitions.interface';
 export * from './bootstrap';

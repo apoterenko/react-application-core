@@ -1,4 +1,4 @@
-import { IStringIdWrapper } from '../definition.interface';
+import { IStringIdWrapper } from '../definitions.interface';
 
 export interface IOperation extends IStringIdWrapper {
 }

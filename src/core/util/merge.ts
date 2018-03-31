@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { IEntity, IKeyValue } from '../definition.interface';
+import { IEntity, IKeyValue } from '../definitions.interface';
 
 export const mergeDeepLeftAndGetChanges =
     <TChanges extends IKeyValue>(target: TChanges,

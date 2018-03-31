@@ -3,7 +3,7 @@ import {
   AnyT,
   IFieldValueEntity,
   FieldValueEntityT,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import { isDef } from '../../util';
 import { IFormWrapperEntity } from '../../entities-definitions.interface';
 

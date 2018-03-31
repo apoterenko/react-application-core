@@ -9,7 +9,7 @@ import {
   BasicEventT,
   EntityIdT,
   KeyboardEventT,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield';
 import {
   IBasicFileFieldInternalState,

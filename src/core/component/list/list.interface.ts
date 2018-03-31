@@ -5,7 +5,7 @@ import {
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IListEntity, IListWrapperEntity } from '../../entities-definitions.interface';
 

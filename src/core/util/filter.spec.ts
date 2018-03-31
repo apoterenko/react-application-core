@@ -12,7 +12,7 @@ import {
   TIME_FIELD_NAME,
   TO_TIME_FIELD_NAME,
   FROM_TIME_FIELD_NAME,
-} from '../definition.interface';
+} from '../definitions.interface';
 
 describe('util/filter', () => {
   describe('filterByPredicate', () => {

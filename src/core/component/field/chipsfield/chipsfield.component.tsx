@@ -5,7 +5,7 @@ import {
   INamedEntity,
   KeyboardEventT,
   IEntity,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import { uuid } from '../../../util';
 import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldValueT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';

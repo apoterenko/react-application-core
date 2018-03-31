@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { IOperation } from './operation';
 import { ApplicationStateT } from './store';
 
 export type AnyT = any;
@@ -13,10 +12,6 @@ export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const ACTION_PREFIX = '$$-RAC-';
-
-export interface IKeyValue {
-  [index: string]: AnyT;
-}
 
 /**
  * Core fields
@@ -40,9 +35,12 @@ export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
 export const VALUE_FIELD_NAME = 'value';
-export const REQUEST_FIELD_NAME = 'request';
-export const RESPONSE_FIELD_NAME = 'response';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
+
+/* @stable - 01.04.2018 */
+export interface IKeyValue {
+  [index: string]: AnyT;
+}
 
 /* @stable - 31.03.2018 */
 export interface IIdWrapper<TId> {
@@ -61,23 +59,22 @@ export interface INumberIdWrapper extends IIdWrapper<number> {
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {
 }
 
-/**********************
- * Named entity
- **********************/
+/* @stable - 01.04.2018 */
+export interface IEntity extends IEntityIdTWrapper,
+                                 IKeyValue {
+}
+
+/* @stable - 01.04.2018 */
 export interface INamedEntity extends IEntityIdTWrapper,
                                       INameWrapper {
 }
 
-/**********************
- * User's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface IUserWrapper<TUser> {
   user?: TUser;
 }
 
-/**********************
- * Filter's wrapper
- **********************/
+/* @stable - 01.04.2018 */
 export interface IFilterWrapper<TFilter> {
   filter?: TFilter;
 }
@@ -87,23 +84,21 @@ export interface IIpWrapper {
   ip?: string;
 }
 
-/**********************
- * Results's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface IResultWrapper<TResult> {
   result?: TResult;
 }
 
+/* @stable - 01.04.2018 */
 export interface IAnyResultWrapper extends IResultWrapper<AnyT> {
 }
 
-/**********************
- * Responses's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface IResponseWrapper<TResponse> {
   response?: TResponse;
 }
 
+/* @stable - 01.04.2018 */
 export interface IAnyResponseWrapper extends IResponseWrapper<AnyT> {
 }
 
@@ -193,45 +188,50 @@ export interface INoAuthWrapper {
   noAuth?: boolean;
 }
 
-/**********************
- * Auth's wrapper
- **********************/
+/* @stable - 01.04.2018 */
 export interface IAuthWrapper<TAuth> {
   auth?: TAuth;
 }
 
+/* @stable - 01.04.2018 */
 export interface IStringAuthWrapper extends IAuthWrapper<string> {
 }
 
-/**********************
- * Sign's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface ISignInWrapper<TSignIn> {
   signIn?: TSignIn;
 }
 
+/* @stable - 01.04.2018 */
 export interface ISignUpWrapper<TSignUp> {
   signUp?: TSignUp;
 }
 
-/**********************
- * Url's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface IUrlWrapper<TUrl> {
   url?: TUrl;
 }
 
+/* @stable - 01.04.2018 */
+export interface IOnChangeWrapper<TOnChange> {
+  onChange?: TOnChange;
+}
+
+/* @stable - 01.04.2018 */
+export interface IFieldValueOnChangeWrapper extends IOnChangeWrapper<(name: string, value: AnyT) => void> {
+}
+
+/* @stable - 01.04.2018 */
 export interface IStringUrlWrapper extends IUrlWrapper<string> {
 }
 
-/**********************
- * Operations's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface IOperationWrapper<TOperation> {
   operation?: TOperation;
 }
 
-export interface IDefaultOperationWrapper extends IOperationWrapper<IOperation> {
+/* @stable - 01.04.2018 */
+export interface IDefaultOperationWrapper extends IOperationWrapper<IStringIdWrapper> {
 }
 
 /* @stable - 31.03.2018 */
@@ -245,6 +245,11 @@ export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
 
 /* @stable - 31.03.2018 */
 export interface IEntitiesDataWrapper extends IDataWrapper<IEntity[]> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IOnLoadDictionaryWrapper {
+  onLoadDictionary?(items: AnyT, dictionary?: string): void;
 }
 
 /**********************
@@ -263,10 +268,6 @@ export interface IBindToDictionaryWrapper {
 
 export interface IOnEmptyDictionaryWrapper {
   onEmptyDictionary?(dictionary?: string): void;
-}
-
-export interface IOnLoadDictionaryWrapper {
-  onLoadDictionary?(items: AnyT, dictionary?: string): void;
 }
 
 export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
@@ -386,7 +387,7 @@ export interface IPayloadWrapper<TPayload> {
 
 /* @stable - 31.03.2018 */
 export interface IChangesWrapper<TChanges extends IKeyValue> {
-  changes: TChanges;
+  changes?: TChanges;
 }
 
 export interface IKeyValueChangesWrapper extends IChangesWrapper<IKeyValue> {
@@ -846,6 +847,11 @@ export interface IFormWrapper<TForm> {
   form?: TForm;
 }
 
+/* @stable - 01.04.2018 */
+export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> {
+  onBeforeSubmit?: TOnBeforeSubmit;
+}
+
 /* @stable - 31.03.2018 */
 export interface ISubmitWrapper<TSubmit> {
   submit?: TSubmit;
@@ -908,11 +914,14 @@ export interface IActivateWrapper<TActivate> {
 export interface IDefaultActivateWrapper extends IActivateWrapper<() => void> {
 }
 
-/**********************
- * Entity
- **********************/
-export interface IEntity extends IEntityIdTWrapper,
-                                 IKeyValue {
+/* @stable - 01.04.2018 */
+export interface IIsNewWrapper {
+  isNew?: boolean;
+}
+
+/* @stable - 01.04.2018 */
+export interface IMergerWrapper<TMerger> {
+  merger?: TMerger;
 }
 
 /* @stable - 31.03.2018 */
@@ -954,10 +963,6 @@ export interface IInfoable<Type> {
   info?: Type;
 }
 
-export interface IIsNewWrapper {
-  isNew?: boolean;
-}
-
 export interface ITypeWrapper<TType> {
   type?: TType;
 }
@@ -981,10 +986,6 @@ export interface IActiveWrapper {
 
 export interface IPathWrapper {
   path?: string;
-}
-
-export interface IMergerWrapper<TMerger extends IKeyValue> {
-  merger?: TMerger;
 }
 
 export interface IOnBaseClickWrapper extends IPayloadOnClickWrapper<BasicEventT> {

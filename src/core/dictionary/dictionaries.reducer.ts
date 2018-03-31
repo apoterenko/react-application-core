@@ -7,7 +7,7 @@ import {
   INITIAL_DICTIONARIES_STATE,
 } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
-import { IDictionaries } from '../definition.interface';
+import { IDictionaries } from '../definitions.interface';
 
 export function dictionariesReducer(state: IDictionaries = INITIAL_DICTIONARIES_STATE,
                                     action: AnyAction): IDictionaries {

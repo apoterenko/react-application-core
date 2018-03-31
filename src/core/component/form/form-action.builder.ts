@@ -8,7 +8,7 @@ import {
   IFieldValueEntity,
   IFieldsValuesEntities,
   FieldValueEntityT,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,

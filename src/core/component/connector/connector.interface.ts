@@ -1,7 +1,7 @@
 import { ComponentLifecycle } from 'react';
 
 import { RouteOptionsT } from '../../router';
-import { IInitialChangesable, IKeyValue, ACTION_PREFIX } from '../../definition.interface';
+import { IInitialChangesable, IKeyValue, ACTION_PREFIX } from '../../definitions.interface';
 import { IApplicationState, ApplicationStateT } from '../../store';
 import { IApplicationAccessConfig } from '../../permissions';
 import { IBaseContainerInternalProps } from '../base';

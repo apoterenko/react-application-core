@@ -8,7 +8,7 @@ import {
   IKeyValue,
   IPathWrapper,
   ISectionWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import { ApplicationStateT } from '../../store';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,

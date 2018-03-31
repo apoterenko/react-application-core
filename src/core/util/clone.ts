@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { FunctionT, isFn, isPrimitive, uuid } from '../util';
-import { AnyT, ReactElementT } from '../definition.interface';
+import { AnyT, ReactElementT } from '../definitions.interface';
 
 export function clone<TObject>(o: TObject): TObject {
   return JSON.parse(JSON.stringify(o));

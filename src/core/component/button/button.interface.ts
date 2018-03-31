@@ -8,7 +8,7 @@ import {
   IToWrapper,
   ISimpleWrapper,
   INotUseClassNameWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 import { IBooleanErrorEntity } from '../../entities-definitions.interface';
 
 export interface IButtonInternalState {

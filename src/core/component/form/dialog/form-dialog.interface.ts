@@ -1,12 +1,12 @@
-import { IDialog, IDialogInternalProps } from '../../../component/dialog';
-import { IFormProps } from '../form.interface';
-import { IEntity } from '../../../definition.interface';
+import { IDialog, IDialogInternalProps } from '../../dialog';
+import { IFormWrapperEntity } from '../../../entities-definitions.interface';
+import { IEntity } from '../../../definitions.interface';
 
 export interface IFormDialog extends IDialog<IFormDialogInternalProps> {
 }
 
 export interface IFormDialogInternalProps extends IDialogInternalProps,
-                                                  IFormProps<IEntity> {
+                                                  IFormWrapperEntity<IEntity> {
 }
 
 export const FORM_DIALOG_REF = 'formDialog';

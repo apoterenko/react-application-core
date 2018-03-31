@@ -1,4 +1,4 @@
-import { AnyT } from '../../../../definition.interface';
+import { AnyT } from '../../../../definitions.interface';
 import { IBaseComponentInternalProps } from '../../../../component/base';
 
 export interface IDelayedChangesFieldPluginInternalProps extends IBaseComponentInternalProps {

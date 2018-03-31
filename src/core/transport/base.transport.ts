@@ -1,7 +1,7 @@
 import { defValuesFilter } from '../util';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { IApplicationTransport } from './transport.interface';
-import { IEntity } from '../definition.interface';
+import { IEntity } from '../definitions.interface';
 import { IApiEntityRequest } from '../api';
 
 @provideInSingleton(BaseTransport)

@@ -6,7 +6,7 @@ const sessionStore = engine.createStore([sessionStorage]);
 const localStore = engine.createStore([localStorage]);
 
 import { ApplicationStorageTypeEnum, IApplicationStorage, STORAGE_KEY_SEPARATOR } from '../storage';
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import { IApplicationSettings } from '../settings';
 
 export class Storage implements IApplicationStorage {

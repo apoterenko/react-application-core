@@ -1,4 +1,4 @@
-import { IEntity } from '../../../definition.interface';
+import { IEntity } from '../../../definitions.interface';
 import { IBaseContainerInternalState } from '../../base';
 import { IFormContainerInternalProps } from '../../form';
 

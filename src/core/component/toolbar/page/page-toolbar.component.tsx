@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { orNull, toClassName } from '../../../util';
-import { FIRST_PAGE } from '../../../definition.interface';
+import { FIRST_PAGE } from '../../../definitions.interface';
 import { BaseComponent } from '../../../component/base';
 import { IPageToolbarInternalProps } from './page-toolbar.interface';
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { uuid, scrollIntoView, toClassName, orNull } from '../../util';
-import { IEntity } from '../../definition.interface';
+import { IEntity } from '../../definitions.interface';
 import { BaseComponent } from '../base';
 import { ListItem, IListItem } from './item';
 import { ProgressLabel } from '../progress';

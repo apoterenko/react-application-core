@@ -23,7 +23,7 @@ import {
   IUseResetButtonWrapper,
   ISubmittableWrapper,
   IRippableWrapper,
-} from './definition.interface';
+} from './definitions.interface';
 
 /* @stable - 31.03.2018 */
 export interface IListItemConfiguration extends IEntityRendererWrapper,

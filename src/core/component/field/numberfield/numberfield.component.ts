@@ -7,7 +7,7 @@ import {
   INumberFieldInternalProps,
 } from './numberfield.interface';
 import { INumberConverter } from '../../../converter';
-import { ChangeEventT } from '../../../definition.interface';
+import { ChangeEventT } from '../../../definitions.interface';
 
 export class NumberField extends BasicTextField<NumberField,
                                                 INumberFieldInternalProps,

@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { BasicEventT } from '../../definition.interface';
+import { BasicEventT } from '../../definitions.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IUIFactory } from '../factory';
 import {

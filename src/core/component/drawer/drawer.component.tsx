@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ramda from 'ramda';
 
 import { IMaterialComponentFactory, MaterialComponent } from '../../component/material';
-import { AnyT } from '../../definition.interface';
+import { AnyT } from '../../definitions.interface';
 
 import { IDrawerInternalProps, INativeMaterialDrawerComponent } from './drawer.interface';
 

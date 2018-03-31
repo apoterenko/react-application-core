@@ -1,7 +1,7 @@
 import { ReactInstance } from 'react';
 
 import { FunctionT } from '../../util';
-import { IKeyValue, IDefaultActivateWrapper } from '../../definition.interface';
+import { IKeyValue, IDefaultActivateWrapper } from '../../definitions.interface';
 
 export interface IMaterialComponentFactory<TNativeMaterialComponent extends INativeMaterialComponent> {
   attachTo(el: ReactInstance): TNativeMaterialComponent;

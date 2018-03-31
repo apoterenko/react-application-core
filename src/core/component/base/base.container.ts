@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { IKeyValue, AnyT } from '../../definition.interface';
+import { IKeyValue, AnyT } from '../../definitions.interface';
 import { IRoutes, ROUTER_NAVIGATE_ACTION_TYPE, ROUTER_BACK_ACTION_TYPE } from '../../router';
 import { ApplicationStateT } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';

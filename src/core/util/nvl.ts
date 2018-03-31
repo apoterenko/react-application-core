@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { AnyT, UNDEF } from '../definition.interface';
+import { AnyT, UNDEF } from '../definitions.interface';
 
 export function nvlEmpty(v: AnyT): AnyT {
   return R.isNil(v) || R.isEmpty(v) ? null : v;

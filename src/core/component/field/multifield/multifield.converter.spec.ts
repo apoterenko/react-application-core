@@ -1,5 +1,5 @@
 import { toEntityIds, normalizeEntities, toActualEntitiesLength } from './multifield.converter';
-import { UNDEF } from '../../../definition.interface';
+import { UNDEF } from '../../../definitions.interface';
 
 describe('multifield.converter', function () {
   describe('normalizeEntities', function () {

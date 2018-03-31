@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import { IProgressWrapper } from '../../definition.interface';
+import { IProgressWrapper } from '../../definitions.interface';
 import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
 import { ConnectorConfigT } from '../../component/connector';
 import { IErrorEntity } from '../../entities-definitions.interface';

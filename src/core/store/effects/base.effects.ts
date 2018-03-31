@@ -1,8 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { IApiEntity } from '../../api';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
-import { AnyT, IEntity } from '../../definition.interface';
+import { AnyT, IEntity } from '../../definitions.interface';
 import { NotificationActionBuilder } from '../../notification';
 import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder } from '../../component/form';
@@ -11,6 +10,7 @@ import { RouterActionBuilder } from '../../router';
 import { UserActionBuilder } from '../../user';
 import { TransportActionBuilder } from '../../transport';
 import { ApplicationActionBuilder } from '../../component/application';
+import { IApiEntity } from '../../entities-definitions.interface';
 
 @provideInSingleton(BaseEffects)
 export class BaseEffects<TApi> {

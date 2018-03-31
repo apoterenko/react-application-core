@@ -1,4 +1,4 @@
-import { IEntity } from '../../../definition.interface';
+import { IEntity } from '../../../definitions.interface';
 import { IBasicField } from '../field';
 import { isDef, orDefault } from '../../../util';
 import {

@@ -1,4 +1,4 @@
-import { IEntity, EntityIdT } from '../../../definition.interface';
+import { IEntity, EntityIdT } from '../../../definitions.interface';
 
 export interface IMultiFieldPlugin {
   activeValue: IEntity[];

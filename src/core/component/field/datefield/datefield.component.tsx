@@ -5,7 +5,7 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef, orUndef } from '../../../util';
-import { ChangeEventT, KeyboardEventT, BasicEventT, AnyT } from '../../../definition.interface';
+import { ChangeEventT, KeyboardEventT, BasicEventT, AnyT } from '../../../definitions.interface';
 import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {

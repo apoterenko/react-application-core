@@ -1,4 +1,4 @@
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import { isFn } from '../util';
 
 export function orNull<TResult>(condition: AnyT, result: TResult|(() => TResult)): TResult {

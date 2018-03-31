@@ -3,7 +3,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { Store } from 'redux';
 import * as R from 'ramda';
 
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
 import { Command } from './command';

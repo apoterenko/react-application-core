@@ -1,6 +1,6 @@
 import { BASE_PATH } from '../env';
 import { ApplicationStorageTypeEnum } from '../storage';
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;

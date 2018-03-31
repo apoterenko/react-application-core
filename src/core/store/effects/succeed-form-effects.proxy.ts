@@ -4,9 +4,10 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { DI_TYPES, provideInSingleton, lazyInject } from '../../di';
 import { FormActionBuilder } from '../../component/form';
 import { ListActionBuilder } from '../../component/list';
-import { IApiEntity, ApiEntityT, IApplicationModifyEntityPayloadFactory } from '../../api';
+import { IApplicationModifyEntityPayloadFactory } from '../../api';
 import { IRoutes, RouterActionBuilder, toRouteOptions } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
+import { IDefaultApiEntity } from '../../entities-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('succeed-form-effects.proxy');
 
@@ -27,7 +28,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
       @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(formSection))
       public $onFormSubmitDone(action: IEffectsAction): IEffectsAction[] {
-        const apiEntity = action.initialData as ApiEntityT;
+        const apiEntity = action.initialData as IDefaultApiEntity;
 
         const connectorConfig = APPLICATION_SECTIONS.get(listSection);
         const listRoute0 = listRoute

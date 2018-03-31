@@ -1,4 +1,4 @@
-import { AnyT } from '../../definition.interface';
+import { AnyT } from '../../definitions.interface';
 
 export class CommandResult {
   private command: string;

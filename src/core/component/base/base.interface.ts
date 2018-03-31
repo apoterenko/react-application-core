@@ -1,7 +1,7 @@
 import { Component, CSSProperties, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
-import { AnyT, IKeyValue, IProgressWrapper, IStringTitleWrapper } from '../../definition.interface';
+import { AnyT, IKeyValue, IProgressWrapper, IStringTitleWrapper, IClassNameWrapper } from '../../definitions.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
@@ -9,7 +9,6 @@ import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
 import { IApplicationTransportState } from '../../transport';
 import { IChannelWrapperEntity } from '../../entities-definitions.interface';
-import { IClassNameWrapper } from '../../definition.interface';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,

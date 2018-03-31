@@ -1,7 +1,7 @@
 import { IFileFieldInternalProps, IFileFieldInternalState } from './filefield.interface';
 import { BasicFileField } from './basic-filefield.component';
 import { MultiFieldValueT } from '../multifield';
-import { IEntity } from '../../../definition.interface';
+import { IEntity } from '../../../definitions.interface';
 
 export class FileField
     extends BasicFileField<FileField, IFileFieldInternalProps, IFileFieldInternalState> {

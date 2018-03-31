@@ -1,7 +1,7 @@
 import { Store } from 'redux';
 import { injectable } from 'inversify';
 
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import { DI_TYPES, lazyInject } from '../di';
 import { ApplicationStateT } from '../store';
 

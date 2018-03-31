@@ -2,7 +2,7 @@ import {
   IUuidWrapper,
   IAnyDataWrapper,
   IStringCommandWrapper,
-} from '../../definition.interface';
+} from '../../definitions.interface';
 
 export interface ICommandResult extends IUuidWrapper,
                                         IAnyDataWrapper,

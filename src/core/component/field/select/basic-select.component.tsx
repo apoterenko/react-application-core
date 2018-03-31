@@ -10,7 +10,7 @@ import {
   BasicEventT,
   EntityIdT,
   KeyboardEventT,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import {
   IBasicSelectInternalProps,
   IBasicSelectInternalState,

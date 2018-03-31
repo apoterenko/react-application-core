@@ -1,6 +1,6 @@
 import { sequence } from '../../../../util';
 import { IComponentPlugin } from '../../../../component/plugin';
-import { AnyT, ChangeEventT, KeyboardEventT } from '../../../../definition.interface';
+import { AnyT, ChangeEventT, KeyboardEventT } from '../../../../definitions.interface';
 
 import { IField } from '../field.interface';
 

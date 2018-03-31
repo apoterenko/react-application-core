@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BasicEventT } from '../../../definition.interface';
+import { BasicEventT } from '../../../definitions.interface';
 import { Field, IFieldInputProps } from '../../field';
 import { toClassName, uuid } from '../../../util';
 import {

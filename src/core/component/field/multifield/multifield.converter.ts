@@ -1,4 +1,4 @@
-import { IEntity, EntityIdT, UNDEF } from '../../../definition.interface';
+import { IEntity, EntityIdT, UNDEF } from '../../../definitions.interface';
 import { orUndef, isPrimitive, orDefault, isDef } from '../../../util';
 import { IMultiEntity, MultiFieldEntityT, MultiFieldValueT, NotMultiFieldEntityT } from './multifield.interface';
 

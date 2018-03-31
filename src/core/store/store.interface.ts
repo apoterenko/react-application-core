@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue, IUserWrapper, IDictionariesWrapper } from '../definition.interface';
+import { IKeyValue, IUserWrapper, IDictionariesWrapper } from '../definitions.interface';
 import {
   IApplicationRootState,
   IApplicationRootWrapperState,

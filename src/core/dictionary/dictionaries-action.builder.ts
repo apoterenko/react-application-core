@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { IKeyValue } from '../definition.interface';
+import { IKeyValue } from '../definitions.interface';
 import { applySection } from '../util';
 import {
   DICTIONARY_LOAD_ACTION_TYPE,

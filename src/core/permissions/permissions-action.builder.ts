@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import { PERMISSIONS_UPDATE_ACTION_TYPE } from './permissions.interface';
 
 export class PermissionsActionBuilder {

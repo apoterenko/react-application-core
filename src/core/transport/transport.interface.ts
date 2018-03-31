@@ -19,7 +19,7 @@ import {
   IFnReaderWrapper,
   IAnyResultWrapper,
   AnyT,
-} from '../definition.interface';
+} from '../definitions.interface';
 import { IErrorEntity } from '../entities-definitions.interface';
 
 export interface IApplicationTransportState extends IStringTokenWrapper {

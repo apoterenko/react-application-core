@@ -22,7 +22,7 @@ import {
   IDisplayMessageWrapper,
   IPatternWrapper,
   IPreventValueBindingWrapper,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
 import { IErrorEntity } from '../../../entities-definitions.interface';
 

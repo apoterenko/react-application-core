@@ -1,4 +1,4 @@
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 
 export function isDef(value: AnyT): boolean {
   return !isUndef(value);

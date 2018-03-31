@@ -1,6 +1,6 @@
 import { IBaseComponentInternalProps } from '../base';
 import { MenuActionsWrapperT, IMenuActionsWrapper } from '../menu';
-import { IAnyMenuActionEntity } from '../../definition.interface';
+import { IAnyMenuActionEntity } from '../../definitions.interface';
 
 export interface IHeaderProps extends MenuActionsWrapperT {
   navigationActionType?: string;

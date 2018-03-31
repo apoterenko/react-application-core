@@ -1,7 +1,7 @@
 import { MDCSnackbar } from '@material/snackbar';
 import * as React from 'react';
 
-import { AnyT } from '../../definition.interface';
+import { AnyT } from '../../definitions.interface';
 import { noop } from '../../util';
 import { MaterialComponent } from '../../component/material';
 import { Button } from '../../component/button';

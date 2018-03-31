@@ -2,7 +2,7 @@ import { Command } from './command';
 import {
   ACTION_PREFIX,
   AnyT,
-} from '../definition.interface';
+} from '../definitions.interface';
 import { IChannelMessagesWrapperEntity } from '../entities-definitions.interface';
 
 export interface IApplicationChannelClient {

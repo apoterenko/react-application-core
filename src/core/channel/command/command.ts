@@ -1,4 +1,4 @@
-import { AnyT, IKeyValue } from '../../definition.interface';
+import { AnyT, IKeyValue } from '../../definitions.interface';
 import { uuid } from '../../util';
 import { CommandParam } from './command.param';
 

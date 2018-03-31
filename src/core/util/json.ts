@@ -1,4 +1,4 @@
-import { IKeyValue } from '../definition.interface';
+import { IKeyValue } from '../definitions.interface';
 
 export const formatJson = (o: IKeyValue) => JSON.stringify(o, null, 4);
 

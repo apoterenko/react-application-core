@@ -6,7 +6,7 @@ import { BaseComponent } from '../base';
 import { ToolbarSection } from '../toolbar';
 import { Menu } from '../menu';
 import { IMenu } from '../menu';
-import { IAnyMenuActionEntity } from '../../definition.interface';
+import { IAnyMenuActionEntity } from '../../definitions.interface';
 
 export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
 

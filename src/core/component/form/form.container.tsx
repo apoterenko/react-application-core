@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IApiEntity, ApiEntityT } from '../../api';
-import { AnyT } from '../../definition.interface';
+import { AnyT } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
-
+import { IDefaultApiEntity } from '../../entities-definitions.interface';
 import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
@@ -13,13 +12,13 @@ import {
   FORM_RESET_ACTION_TYPE,
   IForm,
   IFormContainer,
-  FormContainerInternalPropsT,
+  IDefaultFormContainerInternalProps,
 } from './form.interface';
 
-export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}>
+export class FormContainer extends BaseContainer<IDefaultFormContainerInternalProps, {}>
     implements IFormContainer {
 
-  constructor(props: FormContainerInternalPropsT) {
+  constructor(props: IDefaultFormContainerInternalProps) {
     super(props);
 
     this.onChange = this.onChange.bind(this);
@@ -34,13 +33,16 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     const props = this.props;
     return (
         <Form ref='form'
+              form={props.form}
+              entity={props.entity}
+              originalEntity={props.originalEntity}
               onChange={this.onChange}
               onSubmit={this.onSubmit}
               onReset={this.onReset}
               onValid={this.onValid}
               onEmptyDictionary={this.onEmptyDictionary}
               onLoadDictionary={this.onLoadDictionary}
-              {...props}>
+              {...props.formConfiguration}>
           {props.children}
         </Form>
     );
@@ -48,10 +50,6 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
 
   public submit(): void {
     this.form.submit();
-  }
-
-  public get apiEntity(): ApiEntityT {
-    return this.form.apiEntity;
   }
 
   private onChange(name: string, value: AnyT): void {
@@ -72,7 +70,7 @@ export class FormContainer extends BaseContainer<FormContainerInternalPropsT, {}
     this.dispatch(FORM_RESET_ACTION_TYPE);
   }
 
-  private onSubmit(apiEntity: ApiEntityT): void {
+  private onSubmit(apiEntity: IDefaultApiEntity): void {
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
   }
 

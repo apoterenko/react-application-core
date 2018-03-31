@@ -7,7 +7,7 @@ import { IApplicationSettings } from '../settings';
 import { PROD_MODE } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
-import { AnyT } from '../definition.interface';
+import { AnyT } from '../definitions.interface';
 import { orNull } from '../util';
 import { ApplicationStateT, defaultReducers } from './store.interface';
 

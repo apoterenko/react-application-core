@@ -2,7 +2,7 @@ import '../../converter/converter.module';
 
 import { staticInjector } from '../../di';
 import { DateTimeFieldHelper } from './date-time-field-helper.service';
-import { UNDEF } from '../../definition.interface';
+import { UNDEF } from '../../definitions.interface';
 
 const dateTimeFieldHelper = staticInjector(DateTimeFieldHelper);
 

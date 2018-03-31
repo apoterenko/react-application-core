@@ -1,4 +1,4 @@
-import { INotUseClassNameWrapper, IClassNameWrapper } from '../../definition.interface';
+import { INotUseClassNameWrapper, IClassNameWrapper } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterOptions,

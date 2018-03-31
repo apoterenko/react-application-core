@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { orNull, toClassName } from '../../../util';
-import { BasicEventT } from '../../../definition.interface';
+import { BasicEventT } from '../../../definitions.interface';
 import { IListItemInternalProps } from './list-item.interface';
 import { ListItemGraphic, ListItemText } from '../../list';
 import { BaseComponent } from '../../base';

@@ -4,7 +4,7 @@ import { orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { Link } from '../link';
 import { IProfileInternalProps } from './profile.interface';
-import { BasicEventT, IAnyMenuActionEntity } from '../../definition.interface';
+import { BasicEventT, IAnyMenuActionEntity } from '../../definitions.interface';
 import { Menu, IMenu } from '../menu';
 
 export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {

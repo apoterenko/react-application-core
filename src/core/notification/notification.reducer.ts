@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue } from '../definition.interface';
+import { IKeyValue } from '../definitions.interface';
 import { convertError } from '../error';
 import {
   NOTIFICATION_INFO_ACTION_TYPE,

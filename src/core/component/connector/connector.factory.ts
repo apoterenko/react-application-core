@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { isFn } from '../../util';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import { BaseContainerT, IBaseContainer } from '../../component/base';
-import { IKeyValue } from '../../definition.interface';
+import { IKeyValue } from '../../definitions.interface';
 import { IContainerWrapperCtor } from '../../component/application';
 import { ConnectorMapperT, IConnectorCtor } from './connector.interface';
 

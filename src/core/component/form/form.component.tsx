@@ -3,11 +3,11 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
-import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
+import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
+import { IFormEntity, IDefaultApiEntity } from '../../entities-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
-import { IApiEntity, ApiEntityT } from '../../api';
 import { Operation } from '../../operation';
 import {
   Field,
@@ -19,24 +19,22 @@ import {
 
 import {
   IFormPureComponent,
-  FormInternalPropsT,
   INITIAL_APPLICATION_FORM_STATE,
   IForm,
+  IFormInternalProps,
 } from './form.interface';
-import { IFormConfiguration } from '../../configurations-definitions.interface';
 
-export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implements IForm {
+export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implements IForm {
 
-  public static defaultProps: FormInternalPropsT = {
+  public static defaultProps: IFormInternalProps = {
     form: INITIAL_APPLICATION_FORM_STATE,
-    formConfiguration: {},
   };
   private static logger = LoggerFactory.makeLogger(Form);
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsOptions;
-  private childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
+  private readonly childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
-  constructor(props: FormInternalPropsT) {
+  constructor(props: IFormInternalProps) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -44,8 +42,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   public render(): JSX.Element {
-    const formProps = this.props;
-    const { form, formConfiguration } = formProps;
+    const props = this.props;
 
     return (
         <form ref='self'
@@ -57,7 +54,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             'rac-flex',
                             'rac-flex-column',
                             'rac-flex-full',
-                            formConfiguration.className
+                            props.className
                         )}>
           <fieldset disabled={this.isFormDisabled}
                     className='rac-fieldset rac-flex-full'>
@@ -110,30 +107,30 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
           </fieldset>
           {
             orNull(
-                !formConfiguration.notUseActions,
+                !props.notUseActions,
                 () => (
                     <section className={toClassName('rac-form-actions', this.uiFactory.cardActions)}>
                       {orNull(
-                          formConfiguration.useResetButton,
+                          props.useResetButton,
                           () => (
                               <Button type='reset'
                                       icon='clear_all'
                                       raised={true}
-                                      disabled={!form.dirty}>
-                                {this.t(formConfiguration.resetText || 'Reset')}
+                                      disabled={!this.isFormDirty}>
+                                {this.t(props.resetText || 'Reset')}
                               </Button>
                           )
                       )}
                       <Button type='submit'
                               icon={this.isFormValid
-                                  ? (formConfiguration.actionIcon || 'save')
+                                  ? (props.actionIcon || 'save')
                                   : 'error_outline'}
                               accent={true}
                               raised={true}
                               disabled={!this.canSubmit}
-                              progress={form.progress}
-                              error={!R.isNil(form.error)}>
-                        {this.t(formConfiguration.actionText || (this.apiEntity.isNew ? 'Create' : 'Save'))}
+                              progress={this.form.progress}
+                              error={!R.isNil(this.form.error)}>
+                        {this.t(props.actionText || (this.apiEntity.isNew ? 'Create' : 'Save'))}
                       </Button>
                     </section>
                 )
@@ -148,7 +145,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     this.propsOnValid();
   }
 
-  public componentWillUpdate(nextProps: Readonly<FormInternalPropsT>, nextState: Readonly<{}>, nextContext: {}): void {
+  public componentWillUpdate(nextProps: Readonly<IFormInternalProps>, nextState: Readonly<{}>, nextContext: {}): void {
     super.componentWillUpdate(nextProps, nextState, nextContext);
     this.childrenMap.clear();
   }
@@ -166,22 +163,20 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
     }
   }
 
-  public get apiEntity(): ApiEntityT {
-    const { props } = this;
-    const { entity } = props;
-    const { changes } = props.form;
+  public get apiEntity(): IDefaultApiEntity {
+    const entity = this.entity;
     const entityId = orNull(entity, () => entity.id);
     const merger = {
       ...entity,
-      ...changes,
+      ...this.changes,
     };
 
-    const apiEntity0: ApiEntityT = (R.isNil(entityId)
+    const apiEntity0: IDefaultApiEntity = (R.isNil(entityId)
             // You should use formMapper at least (simple form)
-            ? { isNew: true, changes: {...changes}, merger, }
+            ? { isNew: true, changes: {...this.changes}, merger, }
 
             // You should use formMapper and entityMapper at least (editable entity)
-            : { isNew: false, changes: {...changes}, entity: {...entity}, merger, id: entityId }
+            : { isNew: false, changes: {...this.changes}, entity: {...entity}, merger, id: entityId }
     );
     return {
       operation: Operation.create(),
@@ -199,19 +194,17 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
 
   private onEmptyDictionary(field: FieldT): void {
     const props = this.props;
-    const fieldProps = field.props;
 
     if (props.onEmptyDictionary) {
-      props.onEmptyDictionary(fieldProps.bindToDictionary);
+      props.onEmptyDictionary(field.props.bindToDictionary);
     }
   }
 
   private onLoadDictionary(field: FieldT, items: AnyT): void {
     const props = this.props;
-    const fieldProps = field.props;
 
     if (props.onLoadDictionary) {
-      props.onLoadDictionary(items, fieldProps.bindToDictionary);
+      props.onLoadDictionary(items, field.props.bindToDictionary);
     }
   }
 
@@ -223,7 +216,6 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
 
   private onSubmit(event: BasicEventT): void {
     const props = this.props;
-
     this.stopEvent(event);
 
     if (props.onBeforeSubmit) {
@@ -262,8 +254,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   private get isFormReadOnly(): boolean {
-    const formOptions = this.props.formConfiguration;
-    return formOptions && formOptions.readOnly === true;
+    return this.props.readOnly === true;
   }
 
   /**
@@ -271,7 +262,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
    * @returns {boolean}
    */
   private get isFormDisabled(): boolean {
-    return this.formConfiguration.disabled === true || this.props.form.progress;
+    return this.props.disabled === true || this.props.form.progress;
   }
 
   private get isFormValid(): boolean {
@@ -284,7 +275,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
    * @returns {boolean}
    */
   private get isFormDirty(): boolean {
-    return this.formConfiguration.alwaysDirty || this.props.form.dirty === true;
+    return this.props.alwaysDirty || this.props.form.dirty === true;
   }
 
   /**
@@ -292,7 +283,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
    * @returns {boolean}
    */
   private get isFormSubmittable(): boolean {
-    return R.isNil(this.formConfiguration.submittable) || this.formConfiguration.submittable === true;
+    return R.isNil(this.props.submittable) || this.props.submittable === true;
   }
 
   /**
@@ -323,37 +314,30 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   private getFieldValue(field: FieldT): AnyT {
-    const {form, entity} = this.props;
-    const {changes} = form;
     const fieldProps = field.props;
 
     return isUndef(fieldProps.value) && fieldProps.name
-        ? Reflect.get(entity || changes, fieldProps.name)
+        ? Reflect.get(this.entity || this.changes, fieldProps.name)
         : fieldProps.value;
   }
 
   private getFieldOriginalValue(field: FieldT): AnyT {
-    const {originalEntity} = this.props;
+    const originalEntity = this.props.originalEntity;
     const fieldProps = field.props;
-    return fieldProps.name && originalEntity ? Reflect.get(originalEntity, fieldProps.name) : undefined;
+    return orUndef(fieldProps.name && originalEntity, () => Reflect.get(originalEntity, fieldProps.name));
   }
 
   private getFieldDisplayValue(field: FieldT, fieldOptions: IFieldOptions): string {
-    const {form, entity} = this.props;
-    const {changes} = form;
     const fieldProps = field.props;
-
-    const fieldDisplayName = fieldProps.displayName
-        || (fieldOptions ? fieldOptions.displayName : null);
+    const fieldDisplayName = fieldProps.displayName || (fieldOptions ? fieldOptions.displayName : null);
 
     return isUndef(fieldProps.displayValue) && fieldDisplayName
-        ? Reflect.get(entity || changes, fieldDisplayName)
+        ? Reflect.get(this.entity || this.changes, fieldDisplayName)
         : fieldProps.displayValue;
   }
 
   private getFieldPredefinedOptions(field: FieldT): IFieldOptions {
-    const fieldProps = field.props;
-    const fieldOptionsOrLabel = this.fieldsOptions[fieldProps.name];
+    const fieldOptionsOrLabel = this.fieldsOptions[field.props.name];
 
     let fieldOptions: IFieldOptions;
     if (isString(fieldOptionsOrLabel)) {
@@ -366,10 +350,26 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   /**
-   * @stable - 31.03.2018
-   * @returns {IFormConfiguration}
+   * @stable - 01.04.2018
+   * @returns {IEntity}
    */
-  private get formConfiguration(): IFormConfiguration {
-    return this.props.formConfiguration || {};
+  private get entity(): IEntity {
+    return this.props.entity;
+  }
+
+  /**
+   * @stable - 01.04.2018
+   * @returns {IEntity}
+   */
+  private get changes(): IEntity {
+    return this.form.changes;
+  }
+
+  /**
+   * @stable - 01.04.2018
+   * @returns {IEntity}
+   */
+  private get form(): IFormEntity<IEntity> {
+    return this.props.form;
   }
 }

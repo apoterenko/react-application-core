@@ -2,7 +2,7 @@ import { IMenuOption } from '../../../component/menu';
 import {
   INamedEntity,
   IRendererWrapper,
-} from '../../../definition.interface';
+} from '../../../definitions.interface';
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,

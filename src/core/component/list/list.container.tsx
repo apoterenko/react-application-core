@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseContainer } from '../base';
-import { IEntity, ISelectedWrapper } from '../../definition.interface';
+import { IEntity, ISelectedWrapper } from '../../definitions.interface';
 
 import { List } from './list.component';
 import {

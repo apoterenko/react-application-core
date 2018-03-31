@@ -10,7 +10,7 @@ import {
   TO_TIME_FIELD_NAME,
   TIME_FIELD_NAME,
   EFFECTOR_FIELD_NAME,
-} from '../definition.interface';
+} from '../definitions.interface';
 import { isDef, isObject, isFn } from './type';
 
 export type PredicateT = (key: string, value: AnyT) => boolean;

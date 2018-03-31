@@ -1,7 +1,7 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
 import { applySection } from '../../util';
-import { AnyT } from '../../definition.interface';
+import { AnyT } from '../../definitions.interface';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
   LIST_LOAD_ACTION_TYPE,
