@@ -3,9 +3,8 @@ import { IMaterialComponentFactory } from '../../material';
 import { MaterialPlugin } from './material.plugin';
 import { IMenu, INativeMaterialMenuComponent } from '../../menu';
 
-export class MenuMaterialPlugin<TMenu extends IMenu,
-                                TNativeMaterialComponent extends INativeMaterialMenuComponent>
-  extends MaterialPlugin<TMenu, TNativeMaterialComponent> {
+export class MenuMaterialPlugin<TMenu extends IMenu>
+  extends MaterialPlugin<TMenu, INativeMaterialMenuComponent> {
 
   private preventKeyboardDownHandling = false;
 
@@ -13,7 +12,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu,
    * @stable - 29.03.2018
    */
   constructor(menu: TMenu,
-              mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
+              mdcFactory: IMaterialComponentFactory<INativeMaterialMenuComponent>) {
     super(menu, mdcFactory);
 
     menu.show = sequence(menu.show, this.onMenuShow, this);

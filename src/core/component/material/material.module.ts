@@ -1,5 +1,6 @@
 import { MDCTextField } from '@material/textfield';
 import { MDCMenu, MDCMenuFoundation } from '@material/menu';
+import { MDCRipple } from '@material/ripple';
 
 import { appContainer, DI_TYPES } from '../../di';
 import {
@@ -17,10 +18,12 @@ import {
   FieldMaterialPlugin,
   CheckboxMaterialPlugin,
   MenuMaterialPlugin,
+  ListItemMaterialPlugin,
 } from './plugin';
 import { INativeMaterialComponent } from '../material';
 import { UIMaterialFactory } from './factory';
 import { Menu, INativeMaterialMenuComponent } from '../menu';
+import { ListItem } from '../list';
 
 const uiPlugins = new Map<IBaseComponentCtor, ComponentPluginFactoryT>();
 uiPlugins.set(
@@ -49,11 +52,12 @@ uiPlugins.set(
     new FieldMaterialPlugin<ChipsField, INativeMaterialComponent>(component, MDCTextField)
 );
 uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
-uiPlugins.set(
-  Menu,
-  (component: Menu) =>
-    new MenuMaterialPlugin<Menu, INativeMaterialMenuComponent>(component, MDCMenu)
-);
+
+/* @stable - 31.03.2018 */
+uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component, MDCMenu));
+
+/* @stable - 31.03.2018 */
+uiPlugins.set(ListItem, (component: ListItem) => new ListItemMaterialPlugin<ListItem>(component, MDCRipple));
 
 appContainer.bind<Map<IBaseComponentCtor, ComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);

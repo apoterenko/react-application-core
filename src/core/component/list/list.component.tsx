@@ -3,12 +3,12 @@ import * as R from 'ramda';
 
 import { uuid, scrollIntoView, toClassName, orNull } from '../../util';
 import { IEntity } from '../../definition.interface';
-import { BaseComponent } from '../../component/base';
-import { ListItem } from './item';
+import { BaseComponent } from '../base';
+import { ListItem, IListItem } from './item';
 import { ProgressLabel } from '../progress';
 import { IListInternalProps } from './list.interface';
 import { SimpleList } from '../list/simple';
-import { CenterLayout } from '../../component/layout';
+import { CenterLayout } from '../layout';
 
 export class List extends BaseComponent<List, IListInternalProps, {}> {
 
@@ -25,7 +25,7 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
 
     const selected = this.props.selected;
     if (selected) {
-      const listItem = this.refs[this.toItemId(selected)] as ListItem;
+      const listItem = this.refs[this.toItemId(selected)] as IListItem;
       if (listItem) {
         scrollIntoView(listItem.self, (this.refs.container as SimpleList).self as HTMLElement);
       }

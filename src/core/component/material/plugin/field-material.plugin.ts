@@ -14,6 +14,6 @@ export class FieldMaterialPlugin<TField extends FieldT,
   }
 
   private onResetError() {
-    this.mdc.getDefaultFoundation().setValid(true);
+    this.mdc.foundation_.setValid(true);
   }
 }

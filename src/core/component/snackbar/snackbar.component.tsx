@@ -54,9 +54,9 @@ export class Snackbar extends MaterialComponent<Snackbar,
   }
 
   private show(options: IMaterialSnackbarComponentOptions, info = false): void {
-    this.nativeMdcFoundationAdapter.removeClass('app-snackbar-info');
+    this.nativeMdcInstance.foundation_.adapter_.removeClass('app-snackbar-info');
     if (info) {
-      this.nativeMdcFoundationAdapter.addClass('app-snackbar-info');
+      this.nativeMdcInstance.foundation_.adapter_.addClass('app-snackbar-info');
     }
     this.nativeMdcInstance.show({
       timeout: this.props.timeout,

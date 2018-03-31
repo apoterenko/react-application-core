@@ -1,11 +1,13 @@
-import { IRippleInternalProps } from '../../../component/ripple';
-import {
-  IEntity,
-} from '../../../definition.interface';
+import { IBaseComponentInternalProps, IBaseComponent } from '../../base';
 import { IListItemConfiguration } from '../../../configurations-definitions.interface';
+import { IListItemEntity } from '../../../entities-definitions.interface';
 
-export interface IListItemInternalProps extends IRippleInternalProps,
-                                                IListItemConfiguration {
-  rawData?: IEntity;
-  onClick?(entity: IEntity): void;
+/* @stable - 31.03.2018 */
+export interface IListItemInternalProps extends IBaseComponentInternalProps,
+                                                IListItemConfiguration,
+                                                IListItemEntity {
+}
+
+/* @stable - 31.03.2018 */
+export interface IListItem extends IBaseComponent<IListItemInternalProps, {}> {
 }

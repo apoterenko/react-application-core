@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../util';
-import { BaseComponent } from '../../../component/base';
+import { BaseComponent } from '../../base';
 import { ISimpleListInternalProps } from './simple-list.interface';
 
 export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalProps, {}> {

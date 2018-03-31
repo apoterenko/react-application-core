@@ -3,7 +3,6 @@ import {
   INativeMaterialComponent,
   IMaterialComponentFactory,
 } from './material.interface';
-import { IKeyValue } from '../../definition.interface';
 
 export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                                TInternalProps extends IBaseComponentInternalProps,
@@ -32,9 +31,5 @@ export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps,
 
   protected get nativeMdcInstance(): TNativeMaterialComponent {
     return this.mdc;
-  }
-
-  protected get nativeMdcFoundationAdapter(): IKeyValue {
-    return this.nativeMdcInstance.getDefaultFoundation().adapter_;
   }
 }
