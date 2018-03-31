@@ -1,24 +1,28 @@
 import {
   IActiveWrapper,
-  IStylizable,
+  INotUseClassNameWrapper,
   ITypeWrapper,
   IFilterWrapper,
   IStringQueryWrapper,
+  IClassNameWrapper,
 } from '../../definition.interface';
 import { IApplicationFormState } from '../form';
 import { IFieldOptions } from '../field';
 
+/* @stable - 31.03.2018 */
 export enum FilterActionEnum {
   OPEN_FILTER,
   CLEAR_FILTER,
 }
 
-export interface IApplicationFilterAction extends IStylizable,
-                                                  ITypeWrapper<FilterActionEnum> {
+/* @stable - 31.03.2018 */
+export interface IFilterActionEntity extends INotUseClassNameWrapper,
+                                             IClassNameWrapper,
+                                             ITypeWrapper<FilterActionEnum> {
 }
 
 export interface IApplicationFilterOptions {
-  fieldActions?: IApplicationFilterAction[];
+  fieldActions?: IFilterActionEntity[];
   disabledActions?: boolean;
   searchIcon?: string;
   noSearchField?: boolean;

@@ -3,8 +3,8 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { BasicEventT, UNI_CODES } from '../../../definition.interface';
-import { Field, IField, IFieldInputProps } from '../field';
+import { BasicEventT } from '../../../definition.interface';
+import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import {
   IBasicTextFieldInternalState,

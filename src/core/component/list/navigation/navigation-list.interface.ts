@@ -1,7 +1,7 @@
 import {
   IActiveWrapper,
   ILabelWrapper,
-  IStylizable,
+  INotUseClassNameWrapper,
   ITypeWrapper,
   IStringIconWrapper,
 } from '../../../definition.interface';
@@ -16,7 +16,7 @@ export enum NavigationListItemTypeEnum {
 }
 
 export interface INavigationListItemOptions extends IActiveWrapper,
-                                                    IStylizable,
+                                                    INotUseClassNameWrapper,
                                                     IStringIconWrapper,
                                                     ILabelWrapper,
                                                     ITypeWrapper<NavigationListItemTypeEnum> {

@@ -1,4 +1,4 @@
-import { IStylizable } from '../../definition.interface';
+import { INotUseClassNameWrapper, IClassNameWrapper } from '../../definition.interface';
 import { IApplicationListStateWrapper } from '../../component/list';
 import {
   IApplicationFilterFormWrapperState,
@@ -11,6 +11,6 @@ export const disabledActionsListWrapperMapper =
     });
 
 export const activeClassNameFilterFormWrapperMapper =
-    (state: IApplicationFilterFormWrapperState): IStylizable => ({
+    (state: IApplicationFilterFormWrapperState): INotUseClassNameWrapper & IClassNameWrapper => ({
       className: state.filterForm.dirty && 'rac-filter-active',
     });

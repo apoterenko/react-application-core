@@ -30,8 +30,9 @@ import {
 } from '../component/application';
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
 import { stackReducer, IApplicationStackWrapperState } from './stack';
-import { channelReducer, IApplicationChannelWrapperState, channelsReducers } from '../channel';
+import { channelReducer, channelsReducers } from '../channel';
 import { filter } from './reducer.filter';
+import { IChannelWrapperEntity } from '../entities-definitions.interface';
 
 export interface IApplicationState<TDictionaries>
     extends IDictionariesWrapper<TDictionaries>,
@@ -41,7 +42,7 @@ export interface IApplicationState<TDictionaries>
             IApplicationLayoutWrapperState,
             IApplicationRootWrapperState,
             IApplicationStackWrapperState,
-            IApplicationChannelWrapperState {
+            IChannelWrapperEntity {
   applicationReady: IApplicationReadyState;
 }
 

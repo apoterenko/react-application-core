@@ -8,7 +8,7 @@ import {
   FieldT,
   TextField,
 } from '../../field';
-import { FilterActionEnum, IApplicationFilterAction } from '../../filter';
+import { FilterActionEnum, IFilterActionEntity } from '../../filter';
 import { ToolbarSection } from '../../toolbar';
 import { ISearchToolbarInternalProps } from './search-toolbar.interface';
 
@@ -154,7 +154,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
 
   private get actions(): IBasicTextFieldAction[] {
     const props = this.props;
-    const defaultFieldActions: IApplicationFilterAction[] = props.noSearchField
+    const defaultFieldActions: IFilterActionEntity[] = props.noSearchField
         ? []
         : [{type: FilterActionEnum.CLEAR_FILTER}];
     return defaultFieldActions

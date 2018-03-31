@@ -18,7 +18,7 @@ import { IPaginatedEntitiesEntity } from '../../entities-definitions.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IListConfigurationWrapper,
-                                                     IListWrapper<IApplicationListState> {
+                                                     IApplicationListStateWrapper {
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {

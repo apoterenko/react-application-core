@@ -6,7 +6,7 @@ import {
   AnyT,
   IOnLoadDictionaryWrapper,
   IFormEntity,
-  IStylizable,
+  INotUseClassNameWrapper,
   ISaveable,
   IKeyValue,
   IEntity,
@@ -17,6 +17,7 @@ import {
   IOnEmptyDictionaryWrapper,
   IFormWrapper,
   IAlwaysDirtyWrapper,
+  IClassNameWrapper,
 } from '../../definition.interface';
 import {
   IBaseComponent,
@@ -29,7 +30,8 @@ export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity
                                                                      ISaveable {
 }
 
-export interface IFormOptions extends IStylizable,
+export interface IFormOptions extends INotUseClassNameWrapper,
+                                      IClassNameWrapper,
                                       IAlwaysDirtyWrapper,
                                       IDisabledWrapper,
                                       IReadOnlyWrapper {

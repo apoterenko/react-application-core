@@ -57,7 +57,7 @@ export class UIMaterialFactory implements IUIFactory {
     return config.onClick && !config.simple
         ? (
             <Button key={uuid()}
-                    noClassName={true}
+                    notUseClassName={true}
                     disabled={config.disabled}
                     onClick={config.onClick}
                     className={className}>

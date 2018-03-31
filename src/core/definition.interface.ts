@@ -81,9 +81,7 @@ export interface IFilterWrapper<TFilter> {
   filter?: TFilter;
 }
 
-/**********************
- * Ip's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IIpWrapper {
   ip?: string;
 }
@@ -171,13 +169,12 @@ export interface ICommandWrapper<TCommand> {
 export interface IStringCommandWrapper extends ICommandWrapper<string> {
 }
 
-/**********************
- * Channel's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IChannelWrapper<TChannel> {
   channel?: TChannel;
 }
 
+/* @stable - 31.03.2018 */
 export interface IStringChannelWrapper extends IChannelWrapper<string> {
 }
 
@@ -302,9 +299,7 @@ export interface IDisplayNameWrapper {
   displayName?: string;
 }
 
-/**********************
- * Messages's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface IMessagesWrapper<TMessages> {
   messages?: TMessages;
 }
@@ -536,9 +531,7 @@ export interface IStringValueWrapper extends IValueWrapper<string> {
 export interface IAnyValueWrapper extends IValueWrapper<AnyT> {
 }
 
-/**********************
- * Name's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface INameWrapper {
   name?: string;
 }
@@ -745,6 +738,25 @@ export interface ISorterWrapper<TSorter> {
 export interface IEntitySorterWrapper extends ISorterWrapper<(item1: IEntity, item2: IEntity) => number> {
 }
 
+/* @stable - 31.03.2018 */
+export interface ITitleWrapper<TTitle> {
+  title?: TTitle;
+}
+
+/* @stable - 31.03.2018 */
+export interface IStringTitleWrapper extends ITitleWrapper<string> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IClassNameWrapper {
+  className?: string;
+}
+
+/* @stable - 31.03.2018 */
+export interface INotUseClassNameWrapper {
+  notUseClassName?: boolean;
+}
+
 /**********************
  * Menu's wrappers
  **********************/
@@ -852,11 +864,6 @@ export const IMAGE_FIELD_NAME = 'image';
 
 export const LOGIN_FIELD_NAME = 'login';
 
-export interface IStylizable {
-  className?: string;
-  noClassName?: boolean;
-}
-
 export const PROGRESS_FIELD_NAME = 'progress';
 
 export interface IToWrapper {
@@ -890,10 +897,6 @@ export interface IMaskEntity {
   mask?: Array<string|RegExp>;
   maskGuide?: boolean;
   maskPlaceholderChar?: string;
-}
-
-export interface ITitleable {
-  title?: string;
 }
 
 export interface IActiveWrapper {

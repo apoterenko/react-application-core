@@ -22,7 +22,7 @@ import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
-import { IApplicationChannelWrapperState } from '../../channel';
+import { IChannelWrapperEntity } from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
@@ -97,7 +97,7 @@ export const notificationMapper = (state: ApplicationStateT): IApplicationNotifi
   },
 });
 
-export const channelMapper = (state: ApplicationStateT): IApplicationChannelWrapperState => ({
+export const channelMapper = (state: ApplicationStateT): IChannelWrapperEntity => ({
   channel: {
     ...state.channel,
   },

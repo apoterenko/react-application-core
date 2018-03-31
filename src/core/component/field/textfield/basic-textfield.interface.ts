@@ -1,16 +1,18 @@
 import {
-  IStylizable,
-  ITitleable,
+  INotUseClassNameWrapper,
   IStringTypeWrapper,
   IDisabledWrapper,
   BasicEventT,
+  IStringTitleWrapper,
+  IClassNameWrapper,
 } from '../../../definition.interface';
 
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginInternalProps } from '../field';
 
-export interface IBasicTextFieldAction extends IStylizable,
-                                               ITitleable,
+export interface IBasicTextFieldAction extends INotUseClassNameWrapper,
+                                               IClassNameWrapper,
+                                               IStringTitleWrapper,
                                                IDisabledWrapper,
                                                IStringTypeWrapper {
   actionHandler?(event: BasicEventT): void;

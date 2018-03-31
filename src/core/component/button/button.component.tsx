@@ -23,7 +23,7 @@ export class Button extends BaseComponent<Button,
             ? (props.errorMessage || this.t('Error'))
             : null);
     const className = toClassName(
-        !props.noClassName && this.uiFactory.button,
+        !props.notUseClassName && this.uiFactory.button,
         'rac-button',
         props.accent && 'mdc-button--accent',
         props.raised && 'mdc-button--raised',

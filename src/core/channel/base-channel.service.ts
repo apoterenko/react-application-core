@@ -13,8 +13,8 @@ import {
   CHANNEL_MESSAGE_ACTION_TYPE,
   IApplicationChannel,
   IApplicationChannelClient,
-  IApplicationChannelMessage,
 } from './channel.interface';
+import { IChannelMessageEntity } from '../entities-definitions.interface';
 
 @injectable()
 export abstract class BaseChannel implements IApplicationChannel {
@@ -39,7 +39,7 @@ export abstract class BaseChannel implements IApplicationChannel {
       () => `[$BaseChannel][onMessage] Client has been received the message ${message || '[-]'}. IP: ${
         ip}, channel: ${channel}, name: ${name}`
     );
-    const payload: IApplicationChannelMessage = {
+    const payload: IChannelMessageEntity = {
       channel,
       ip,
       name,

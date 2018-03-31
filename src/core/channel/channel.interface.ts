@@ -2,19 +2,8 @@ import { Command } from './command';
 import {
   ACTION_PREFIX,
   AnyT,
-  IIpWrapper,
-  IAnyDataWrapper,
-  IChannelWrapper,
-  IStringChannelWrapper,
-  INameWrapper,
-  IMessagesWrapper,
 } from '../definition.interface';
-
-export interface IApplicationChannelMessage extends IIpWrapper,
-                                                    INameWrapper,
-                                                    IStringChannelWrapper,
-                                                    IAnyDataWrapper {
-}
+import { IChannelMessagesWrapperEntity } from '../entities-definitions.interface';
 
 export interface IApplicationChannelClient {
   on(event: string, callback: (...args: AnyT[]) => void): void;
@@ -31,13 +20,8 @@ export interface IApplicationChannel {
   emitChannelCommand(channel: string, command: Command): void;
 }
 
-export interface IApplicationChannelState extends IMessagesWrapper<IApplicationChannelMessage[]> {
-}
-
-export interface IApplicationChannelWrapperState extends IChannelWrapper<IApplicationChannelState> {
-}
-
-export const INITIAL_APPLICATION_CHANNEL_STATE: IApplicationChannelState = {
+/* @stable - 31.03.2018 */
+export const INITIAL_APPLICATION_CHANNEL_STATE: IChannelMessagesWrapperEntity = {
   messages: [],
 };
 

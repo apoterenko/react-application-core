@@ -1,21 +1,23 @@
 import { Component, CSSProperties, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
-import { AnyT, IKeyValue, IProgressWrapper, IStylizable, ITitleable } from '../../definition.interface';
+import { AnyT, IKeyValue, IProgressWrapper, INotUseClassNameWrapper, IStringTitleWrapper } from '../../definition.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
 import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
 import { IApplicationTransportState } from '../../transport';
-import { IApplicationChannelWrapperState } from '../../channel';
+import { IChannelWrapperEntity } from '../../entities-definitions.interface';
+import { IClassNameWrapper } from '../../definition.interface';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
                                                         {}>;
 
-export interface IBaseInternalProps extends IStylizable,
-                                            ITitleable,
+export interface IBaseInternalProps extends INotUseClassNameWrapper,
+                                            IClassNameWrapper,
+                                            IStringTitleWrapper,
                                             IProgressWrapper {
   progressMessage?: string;
   emptyMessage?: string;
@@ -32,7 +34,7 @@ export interface IContainerInternalProps {
 
 export interface IBaseContainerInternalProps extends IContainerInternalProps,
                                                      IBaseInternalProps,
-                                                     IApplicationChannelWrapperState {
+                                                     IChannelWrapperEntity {
   sectionName?: string;
   notification?: IApplicationNotificationState;
   layout?: IApplicationLayoutState;

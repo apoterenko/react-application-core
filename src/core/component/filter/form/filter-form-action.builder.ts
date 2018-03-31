@@ -3,13 +3,13 @@ import { BuildListAndFilterFormWrapperStateT } from './filter-form-action.interf
 import {
   activeClassNameFilterFormWrapperMapper,
   disabledActionsListWrapperMapper,
-  IApplicationFilterAction,
+  IFilterActionEntity,
   IApplicationFilterFormWrapperState,
   IApplicationFilterOptions,
 } from '../../../component/filter';
 
 export const buildActiveFilterAction =
-    (state: IApplicationFilterFormWrapperState): IApplicationFilterAction => ({
+    (state: IApplicationFilterFormWrapperState): IFilterActionEntity => ({
       type: FilterActionEnum.OPEN_FILTER,
       ...activeClassNameFilterFormWrapperMapper(state),
     });
