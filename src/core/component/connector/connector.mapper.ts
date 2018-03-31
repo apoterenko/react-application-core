@@ -22,7 +22,7 @@ import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
-import { IChannelWrapperEntity } from '../../entities-definitions.interface';
+import { IChannelWrapperEntity, IEntityWrapperEntity } from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
@@ -38,7 +38,7 @@ export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrappe
 
 export const entityMapper =
     <TEntity extends IEntity>(entity: TEntity,
-                              formState?: IApplicationFormState): IEntityWrapper<TEntity> =>
+                              formState?: IApplicationFormState): IEntityWrapperEntity<TEntity> =>
         ({
           entity: {
             ...entity as {},
@@ -46,7 +46,7 @@ export const entityMapper =
           } as TEntity,
           entityId: orNull(entity, () => entity.id),
           originalEntity: { ...entity as {} } as TEntity,
-          isNewEntity: !entity || R.isNil(entity.id),
+          newEntity: !entity || R.isNil(entity.id),
         });
 
 export const listSelectedEntityMapper =

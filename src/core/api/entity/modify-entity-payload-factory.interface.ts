@@ -1,12 +1,12 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  IEntityIdWrapper,
+  IEntityIdTWrapper,
   IKeyValueChangesWrapper,
   IPayloadWrapper,
 } from '../../definition.interface';
 
-export interface IModifyEntityPayload extends IEntityIdWrapper,
+export interface IModifyEntityPayload extends IEntityIdTWrapper,
                                               IKeyValueChangesWrapper {
   mergeStrategy?: EntityOnSaveMergeStrategyEnum;
 }

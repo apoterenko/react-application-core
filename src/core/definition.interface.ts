@@ -4,8 +4,8 @@ import { IOperation } from './operation';
 import { ApplicationStateT } from './store';
 
 export type AnyT = any;
-export type DisplayValueT = number | string;
-export type EntityIdT = DisplayValueT;
+export type StringNumberT = number | string;
+export type EntityIdT = StringNumberT;
 export const FIRST_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 20;
 export const DEFAULT_TIME_FROM = '00:00:00';
@@ -44,26 +44,27 @@ export const REQUEST_FIELD_NAME = 'request';
 export const RESPONSE_FIELD_NAME = 'response';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
-/**********************
- * Id's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface IIdWrapper<TId> {
   id?: TId;
 }
 
+/* @stable - 31.03.2018 */
 export interface IStringIdWrapper extends IIdWrapper<string> {
 }
 
+/* @stable - 31.03.2018 */
 export interface INumberIdWrapper extends IIdWrapper<number> {
 }
 
-export interface IEntityIdWrapper extends IIdWrapper<EntityIdT> {
+/* @stable - 31.03.2018 */
+export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {
 }
 
 /**********************
  * Named entity
  **********************/
-export interface INamedEntity extends IEntityIdWrapper,
+export interface INamedEntity extends IEntityIdTWrapper,
                                       INameWrapper {
 }
 
@@ -383,9 +384,7 @@ export interface IPayloadWrapper<TPayload> {
   payload?: TPayload;
 }
 
-/**********************
- * Changes's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface IChangesWrapper<TChanges extends IKeyValue> {
   changes: TChanges;
 }
@@ -424,18 +423,19 @@ export interface IRawDataWrapper<TRawData> {
   rawData?: TRawData;
 }
 
-/**********************
- * Disabled's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IDisabledWrapper {
   disabled?: boolean;
 }
 
-/**********************
- * AlwaysDirty's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IAlwaysDirtyWrapper {
   alwaysDirty?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface ISubmittableWrapper {
+  submittable?: boolean;
 }
 
 /**********************
@@ -599,16 +599,12 @@ export interface ITotalAmountWrapper {
   totalAmount?: number;
 }
 
-/**********************
- * Dirty's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IDirtyWrapper {
   dirty?: boolean;
 }
 
-/**********************
- * Valid's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IValidWrapper {
   valid?: boolean;
 }
@@ -630,11 +626,34 @@ export interface IOpenWrapper<TOpen> {
 export interface IBooleanOpenWrapper extends IOpenWrapper<boolean> {
 }
 
-/**********************
- * ReadOnly's wrapper
- **********************/
+/* @stable - 31.03.2018 */
 export interface IReadOnlyWrapper {
   readOnly?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IUseResetButtonWrapper {
+  useResetButton?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface INotUseActionsWrapper {
+  notUseActions?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IActionTextWrapper {
+  actionText?: string;
+}
+
+/* @stable - 31.03.2018 */
+export interface IResetTextWrapper {
+  resetText?: string;
+}
+
+/* @stable - 31.03.2018 */
+export interface IActionIconWrapper {
+  actionIcon?: string;
 }
 
 /* @stable - 31.03.2018 */
@@ -772,32 +791,47 @@ export interface IStringMenuActionEntity extends IMenuActionEntity<string> {
 export interface IAnyMenuActionEntity extends IMenuActionEntity<AnyT> {
 }
 
-/**********************
- * Errors's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface IErrorWrapper<TError> {
   error?: TError;
 }
 
-export interface ICustomErrorWrapper {
-  customError?: boolean;
+/* @stable - 31.03.2018 */
+export interface ICustomErrorWrapper<TCustomError> {
+  customError?: TCustomError;
 }
 
-export interface IErrorEntity<TError> extends IErrorWrapper<TError>,
-                                              ICustomErrorWrapper {
+/* @stable - 31.03.2018 */
+export interface IBooleanCustomErrorWrapper extends ICustomErrorWrapper<boolean> {
 }
 
-export interface IStringErrorEntity extends IErrorEntity<string> {
+/* @stable - 31.03.2018 */
+export interface INewEntityWrapper<TNewEntity> {
+  newEntity?: TNewEntity;
 }
 
-/**********************
- * Entity's wrapper
- **********************/
+/* @stable - 31.03.2018 */
+export interface IBooleanNewEntityWrapper extends INewEntityWrapper<boolean> {
+}
+
+/* @stable - 31.03.2018 */
+export interface IOriginalEntityWrapper<TOriginalEntity> {
+  originalEntity?: TOriginalEntity;
+}
+
+/* @stable - 31.03.2018 */
+export interface IEntityIdWrapper<TEntityId> {
+  entityId?: TEntityId;
+}
+
+/* @stable - 31.03.2018 */
 export interface IEntityWrapper<TEntity extends IEntity> {
   entity?: TEntity;
-  entityId?: EntityIdT;
-  originalEntity?: TEntity;
-  isNewEntity?: boolean;
+}
+
+/* @stable - 31.03.2018 */
+export interface IApiEntityWrapper<TApiEntity> {
+  apiEntity?: TApiEntity;
 }
 
 /**********************
@@ -808,39 +842,33 @@ export interface IListEntity<TEntity extends IEntity> extends IPageWrapper,
                                                               IDataWrapper<TEntity[]> {
 }
 
-/**********************
- * Forms's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface IFormWrapper<TForm> {
   form?: TForm;
 }
 
-export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
-                                                                 ITouchedWrapper,
-                                                                 IDirtyWrapper,
-                                                                 IProgressWrapper,
-                                                                 IValidWrapper,
-                                                                 IStringErrorEntity {
+/* @stable - 31.03.2018 */
+export interface ISubmitWrapper<TSubmit> {
+  submit?: TSubmit;
 }
 
-export interface IFormEntityWrapper<TEntity extends IEntity> extends IFormWrapper<IFormEntity<TEntity>>,
-                                                                     IEntityWrapper<TEntity> {
+/* @stable - 31.03.2018 */
+export interface IDefaultSubmitWrapper extends ISubmitWrapper<() => void> {
 }
 
 /**********************
  * Entity
  **********************/
-export interface IEntity extends IEntityIdWrapper,
+export interface IEntity extends IEntityIdTWrapper,
                                  IKeyValue {
 }
 
-/**********************
- * Sorter's wrappers
- **********************/
+/* @stable - 31.03.2018 */
 export interface ITokenWrapper<TToken> {
   token?: TToken;
 }
 
+/* @stable - 31.03.2018 */
 export interface IStringTokenWrapper extends ITokenWrapper<string> {
 }
 
@@ -868,10 +896,6 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export interface IToWrapper {
   to?: string;
-}
-
-export interface ISaveable {
-  saveable?: boolean;
 }
 
 export interface IInfoable<Type> {
@@ -920,10 +944,6 @@ export interface IOnClickWrapper<TEvent> {
 }
 
 export interface IOnBaseClickWrapper extends IOnClickWrapper<BasicEventT> {
-}
-
-export interface ISubmittable {
-  submit?(): void;
 }
 
 export interface IInitialChangesable<TAppState extends ApplicationStateT> {

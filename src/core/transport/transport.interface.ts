@@ -2,7 +2,6 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IKeyValue,
-  IErrorEntity,
   IStringTokenWrapper,
   INameWrapper,
   IBlobWrapper,
@@ -21,6 +20,7 @@ import {
   IAnyResultWrapper,
   AnyT,
 } from '../definition.interface';
+import { IErrorEntity } from '../entities-definitions.interface';
 
 export interface IApplicationTransportState extends IStringTokenWrapper {
   queue: string[];

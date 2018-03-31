@@ -1,23 +1,16 @@
 import { PureComponent } from 'react';
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IApiEntity, IApiEntityWrapper } from '../../api';
+import { IApiEntity } from '../../api';
 import {
   AnyT,
   IOnLoadDictionaryWrapper,
-  IFormEntity,
-  INotUseClassNameWrapper,
-  ISaveable,
   IKeyValue,
   IEntity,
-  IEntityWrapper,
-  ISubmittable,
-  IReadOnlyWrapper,
-  IDisabledWrapper,
   IOnEmptyDictionaryWrapper,
   IFormWrapper,
-  IAlwaysDirtyWrapper,
-  IClassNameWrapper,
+  IApiEntityWrapper,
+  IDefaultSubmitWrapper,
 } from '../../definition.interface';
 import {
   IBaseComponent,
@@ -25,26 +18,15 @@ import {
   IBaseContainer,
   IBaseContainerInternalProps,
 } from '../base';
+import { IFormEntity, IEntityWrapperEntity } from '../../entities-definitions.interface';
+import { IFormConfigurationWrapper } from '../../configurations-definitions.interface';
 
-export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity<TChanges>,
-                                                                     ISaveable {
+export interface IFormAttributes<TChanges extends IKeyValue> extends IFormEntity<TChanges> {
 }
 
-export interface IFormOptions extends INotUseClassNameWrapper,
-                                      IClassNameWrapper,
-                                      IAlwaysDirtyWrapper,
-                                      IDisabledWrapper,
-                                      IReadOnlyWrapper {
-  actionText?: string;
-  actionIcon?: string;
-  resetText?: string;
-  resetButton?: boolean;
-  noActions?: boolean;
-}
-
-export interface IFormProps<TEntity extends IEntity> extends IEntityWrapper<TEntity>,
+export interface IFormProps<TEntity extends IEntity> extends IEntityWrapperEntity<TEntity>,
+                                                             IFormConfigurationWrapper,
                                                              IFormWrapper<IFormAttributes<TEntity>> {
-  formOptions?: IFormOptions;
   onBeforeSubmit?(apiEntity: IApiEntity<TEntity>): void;
 }
 
@@ -65,8 +47,8 @@ export interface IFormContainerInternalProps<TEntity extends IEntity> extends IB
                                                                               IFormProps<TEntity> {
 }
 
-export interface IBaseForm extends IApiEntityWrapper<IEntity>,
-                                   ISubmittable {
+export interface IBaseForm extends IApiEntityWrapper<IApiEntity<IEntity>>,
+                                   IDefaultSubmitWrapper {
 }
 
 export interface IForm extends IBaseComponent<FormInternalPropsT, {}>,

@@ -19,7 +19,7 @@ export class DefaultFilterContainer<TInternalProps extends IDefaultFilterContain
                               }}
                               title={this.t('Filter')}
                               {...props}>
-        <FormContainer formOptions={{actionText: this.t('Apply'), actionIcon: 'done', resetButton: true}}
+        <FormContainer formConfiguration={{actionText: this.t('Apply'), actionIcon: 'done', useResetButton: true}}
                        {...props}>
           {props.children}
         </FormContainer>

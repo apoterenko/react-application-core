@@ -1,8 +1,9 @@
 import { PureComponent } from 'react';
 
-import { IProgressWrapper, IErrorEntity } from '../../definition.interface';
+import { IProgressWrapper } from '../../definition.interface';
 import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
 import { ConnectorConfigT } from '../../component/connector';
+import { IErrorEntity } from '../../entities-definitions.interface';
 
 export interface IApplicationContainerProps extends IBaseContainerInternalProps,
                                                     IApplicationAttributes {

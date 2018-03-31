@@ -19,12 +19,12 @@ import {
   ChangeEventT,
   IMaskEntity,
   IBindToDictionaryEntity,
-  IErrorEntity,
   IDisplayMessageWrapper,
   IPatternWrapper,
   IPreventValueBindingWrapper,
 } from '../../../definition.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
+import { IErrorEntity } from '../../../entities-definitions.interface';
 
 export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: FieldT) => string;
 
@@ -125,4 +125,3 @@ export interface IField<TInternalProps extends IFieldInternalProps,
 }
 
 export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
-

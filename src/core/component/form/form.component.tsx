@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
-import { AnyT, BasicEventT, IEntity, ReactElementT } from '../../definition.interface';
+import { AnyT, BasicEventT, ReactElementT } from '../../definition.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
@@ -22,14 +22,14 @@ import {
   FormInternalPropsT,
   INITIAL_APPLICATION_FORM_STATE,
   IForm,
-  IFormOptions,
 } from './form.interface';
+import { IFormConfiguration } from '../../configurations-definitions.interface';
 
 export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implements IForm {
 
   public static defaultProps: FormInternalPropsT = {
     form: INITIAL_APPLICATION_FORM_STATE,
-    formOptions: {},
+    formConfiguration: {},
   };
   private static logger = LoggerFactory.makeLogger(Form);
 
@@ -45,7 +45,7 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
 
   public render(): JSX.Element {
     const formProps = this.props;
-    const { form, formOptions } = formProps;
+    const { form, formConfiguration } = formProps;
 
     return (
         <form ref='self'
@@ -57,9 +57,9 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
                             'rac-flex',
                             'rac-flex-column',
                             'rac-flex-full',
-                            formOptions.className
+                            formConfiguration.className
                         )}>
-          <fieldset disabled={this.isFormDisabled || form.progress}
+          <fieldset disabled={this.isFormDisabled}
                     className='rac-fieldset rac-flex-full'>
             <section className='rac-section'>
               {
@@ -110,30 +110,30 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
           </fieldset>
           {
             orNull(
-                !formOptions.noActions,
+                !formConfiguration.notUseActions,
                 () => (
                     <section className={toClassName('rac-form-actions', this.uiFactory.cardActions)}>
                       {orNull(
-                          formOptions.resetButton,
+                          formConfiguration.useResetButton,
                           () => (
                               <Button type='reset'
                                       icon='clear_all'
                                       raised={true}
                                       disabled={!form.dirty}>
-                                {this.t(formOptions.resetText || 'Reset')}
+                                {this.t(formConfiguration.resetText || 'Reset')}
                               </Button>
                           )
                       )}
                       <Button type='submit'
                               icon={this.isFormValid
-                                  ? (formOptions.actionIcon || 'save')
+                                  ? (formConfiguration.actionIcon || 'save')
                                   : 'error_outline'}
                               accent={true}
                               raised={true}
                               disabled={!this.canSubmit}
                               progress={form.progress}
                               error={!R.isNil(form.error)}>
-                        {this.t(formOptions.actionText || (this.apiEntity.isNew ? 'Create' : 'Save'))}
+                        {this.t(formConfiguration.actionText || (this.apiEntity.isNew ? 'Create' : 'Save'))}
                       </Button>
                     </section>
                 )
@@ -262,13 +262,16 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   private get isFormReadOnly(): boolean {
-    const formOptions = this.props.formOptions;
+    const formOptions = this.props.formConfiguration;
     return formOptions && formOptions.readOnly === true;
   }
 
+  /**
+   * @stable - 31.03.2018
+   * @returns {boolean}
+   */
   private get isFormDisabled(): boolean {
-    const formOptions = this.props.formOptions;
-    return formOptions && formOptions.disabled === true;
+    return this.formConfiguration.disabled === true || this.props.form.progress;
   }
 
   private get isFormValid(): boolean {
@@ -277,21 +280,30 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   /**
-   * @stable
+   * @stable - 31.03.2018
    * @returns {boolean}
    */
   private get isFormDirty(): boolean {
-    const props = this.props;
-    const form = props.form;
-    return this.formOptions.alwaysDirty || form.dirty === true;
+    return this.formConfiguration.alwaysDirty || this.props.form.dirty === true;
   }
 
+  /**
+   * @stable - 31.03.2018
+   * @returns {boolean}
+   */
+  private get isFormSubmittable(): boolean {
+    return R.isNil(this.formConfiguration.submittable) || this.formConfiguration.submittable === true;
+  }
+
+  /**
+   * @stable - 31.03.2018
+   * @returns {boolean}
+   */
   private get canSubmit(): boolean {
-    const form = this.props.form;
     return this.isFormValid
+        && this.isFormSubmittable
         && this.isFormDirty
-        && !this.isFormDisabled
-        && (isUndef(form.saveable) || form.saveable);
+        && !this.isFormDisabled;
   }
 
   private isFieldReadOnly(field: FieldT): boolean {
@@ -354,10 +366,10 @@ export class Form extends BaseComponent<IForm, FormInternalPropsT, {}> implement
   }
 
   /**
-   * @stable
-   * @returns {IFormOptions}
+   * @stable - 31.03.2018
+   * @returns {IFormConfiguration}
    */
-  private get formOptions(): IFormOptions {
-    return this.props.formOptions;
+  private get formConfiguration(): IFormConfiguration {
+    return this.props.formConfiguration || {};
   }
 }

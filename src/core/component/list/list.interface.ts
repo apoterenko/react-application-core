@@ -9,12 +9,11 @@ import {
   IEntity,
   ITouchedWrapper,
   IProgressWrapper,
-  IStringErrorEntity,
   ISelectedEntityWrapper,
   IListWrapper,
 } from '../../definition.interface';
 import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IPaginatedEntitiesEntity } from '../../entities-definitions.interface';
+import { IPaginatedEntitiesEntity, IStringErrorEntity } from '../../entities-definitions.interface';
 
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IListConfigurationWrapper,

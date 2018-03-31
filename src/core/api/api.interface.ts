@@ -1,17 +1,18 @@
 import {
-  IEntityIdWrapper,
+  IEntityIdTWrapper,
   IChangesWrapper,
   IEntity,
   EntityIdT,
-  IEntityWrapper,
   IDefaultOperationWrapper,
   IMergerWrapper,
   IIsNewWrapper,
+  IApiEntityWrapper,
 } from '../definition.interface';
+import { IEntityWrapperEntity } from '../entities-definitions.interface';
 
-export interface IApiEntity<TEntity extends IEntity> extends IEntityIdWrapper,
+export interface IApiEntity<TEntity extends IEntity> extends IEntityIdTWrapper,
                                                              IChangesWrapper<TEntity>,
-                                                             IEntityWrapper<TEntity>,
+                                                             IEntityWrapperEntity<TEntity>,
                                                              IMergerWrapper<TEntity>,
                                                              IDefaultOperationWrapper,
                                                              IIsNewWrapper {
@@ -21,11 +22,7 @@ export function makeUpdatedApiStubEntity<TEntity extends IEntity>(id: EntityIdT)
   return {id, isNew: false, changes: {} as TEntity, merger: {} as TEntity};
 }
 
-export interface IApiEntityWrapper<TEntity extends IEntity> {
-  apiEntity: IApiEntity<TEntity>;
-}
-
-export interface IApiEntityRequest<TEntity extends IEntity> extends IApiEntityWrapper<TEntity> {
+export interface IApiEntityRequest<TEntity extends IEntity> extends IApiEntityWrapper<IApiEntity<TEntity>> {
   editApi?: string;
   addApi?: string;
   extraParams?: IEntity;

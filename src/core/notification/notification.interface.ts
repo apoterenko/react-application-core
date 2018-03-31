@@ -1,4 +1,5 @@
-import { IErrorEntity, IInfoable } from '../definition.interface';
+import { IInfoable } from '../definition.interface';
+import { IErrorEntity } from '../entities-definitions.interface';
 
 export interface IApplicationNotificationState extends IErrorEntity<string>,
                                                        IInfoable<string> {

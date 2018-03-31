@@ -3,12 +3,12 @@ import {
   IActiveWrapper,
   IDisabledWrapper,
   IStringTypeWrapper,
-  IErrorEntity,
   IStringIconWrapper,
   IOnBaseClickWrapper,
   IToWrapper,
   ISimpleWrapper,
 } from '../../definition.interface';
+import { IErrorEntity } from '../../entities-definitions.interface';
 
 export interface IButtonInternalState {
 }
