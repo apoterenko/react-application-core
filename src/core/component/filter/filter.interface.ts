@@ -6,8 +6,8 @@ import {
   IStringQueryWrapper,
   IClassNameWrapper,
 } from '../../definitions.interface';
-import { IApplicationFormState } from '../form';
 import { IFieldOptions } from '../field';
+import { IDefaultFormEntity } from '../../entities-definitions.interface';
 
 /* @stable - 31.03.2018 */
 export enum FilterActionEnum {
@@ -38,7 +38,7 @@ export interface IApplicationFilterWrapperState extends IFilterWrapper<IApplicat
 }
 
 export interface IApplicationFilterFormWrapperState {
-  filterForm: IApplicationFormState;
+  filterForm: IDefaultFormEntity;
 }
 
 export const INITIAL_APPLICATION_FILTER_STATE: IApplicationFilterState = {

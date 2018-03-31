@@ -5,15 +5,14 @@ import { isUndef } from '../../util';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { AnyT } from '../../definitions.interface';
-
 import {
   INITIAL_APPLICATION_FORM_STATE,
-  IApplicationFormState,
 } from './form.interface';
 import { FormActionBuilder } from './form-action.builder';
+import { IDefaultFormEntity } from '../../entities-definitions.interface';
 
-export function formReducer(state: IApplicationFormState = INITIAL_APPLICATION_FORM_STATE,
-                            action: IEffectsAction): IApplicationFormState {
+export function formReducer(state: IDefaultFormEntity = INITIAL_APPLICATION_FORM_STATE,
+                            action: IEffectsAction): IDefaultFormEntity {
   const section = toSection(action);
   switch (action.type) {
     case FormActionBuilder.buildDestroyActionType(section):

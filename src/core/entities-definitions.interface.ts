@@ -101,6 +101,10 @@ export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper
 }
 
 /* @stable - 31.03.2018 */
+export interface IDefaultFormEntity extends IFormEntity<IEntity> {
+}
+
+/* @stable - 31.03.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity>
   extends IFormWrapper<IFormEntity<TEntity>>,
           IEntityWrapperEntity<TEntity>,

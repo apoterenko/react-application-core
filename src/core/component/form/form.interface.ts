@@ -14,7 +14,7 @@ import {
   IBaseContainer,
   IBaseContainerInternalProps,
 } from '../base';
-import { IFormEntity, IFormWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
+import { IFormWrapperEntity, IApiEntity, IDefaultFormEntity } from '../../entities-definitions.interface';
 import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
 
 export interface IFormInternalProps extends IBaseComponentInternalProps,
@@ -48,10 +48,7 @@ export interface IFormPureComponent extends PureComponent<{}, {}> {
   checkValidity(): boolean;
 }
 
-export interface IApplicationFormState extends IFormEntity<IEntity> {
-}
-
-export const INITIAL_APPLICATION_FORM_STATE: IApplicationFormState = {
+export const INITIAL_APPLICATION_FORM_STATE: IDefaultFormEntity = {
   changes: {},
 };
 

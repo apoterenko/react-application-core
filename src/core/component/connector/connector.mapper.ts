@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 
 import { orNull } from '../../util';
-import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
 import {
   IEntity,
@@ -26,6 +25,7 @@ import {
   IEntityWrapperEntity,
   IListEntity,
   IListWrapperEntity,
+  IDefaultFormEntity,
 } from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
@@ -42,7 +42,7 @@ export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrappe
 
 export const entityMapper =
     <TEntity extends IEntity>(entity: TEntity,
-                              formState?: IApplicationFormState): IEntityWrapperEntity<TEntity> =>
+                              formState?: IDefaultFormEntity): IEntityWrapperEntity<TEntity> =>
         ({
           entity: {
             ...entity as {},
@@ -59,13 +59,13 @@ export const listSelectedEntityMapper =
 
 export const listWrapperSelectedEntityMapper =
     <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
-                              formState?: IApplicationFormState): IEntityWrapper<TEntity> =>
+                              formState?: IDefaultFormEntity): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
         listSelectedEntityMapper<TEntity>(listWrapperState),
         formState
     );
 
-export const formMapper = (formState: IApplicationFormState): IFormWrapper<IApplicationFormState> => ({
+export const formMapper = (formState: IDefaultFormEntity): IFormWrapper<IDefaultFormEntity> => ({
   form: {
     ...formState,
   },
@@ -83,7 +83,7 @@ export const filterMapper = (filterState: IApplicationFilterState) => ({
   },
 });
 
-export const filterFormMapper = (formState: IApplicationFormState) => ({
+export const filterFormMapper = (formState: IDefaultFormEntity) => ({
   filterForm: {
     ...formState,
   },
