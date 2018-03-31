@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { orNull } from '../../util';
 import { IApplicationFormState } from '../../component/form';
 import { ApplicationStateT, IApplicationState } from '../../store';
-import { IApplicationListStateWrapper } from '../../component/list';
 import {
   IEntity,
   IEntityWrapper,
@@ -22,7 +21,12 @@ import { IApplicationNotificationWrapperState } from '../../notification';
 import { IApplicationUserState } from '../../user';
 import { IApplicationLayoutWrapperState } from '../../component/layout';
 import { IApplicationRootWrapperState } from '../../component/root';
-import { IChannelWrapperEntity, IEntityWrapperEntity, IListEntity } from '../../entities-definitions.interface';
+import {
+  IChannelWrapperEntity,
+  IEntityWrapperEntity,
+  IListEntity,
+  IListWrapperEntity,
+} from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
   root: {
@@ -50,11 +54,11 @@ export const entityMapper =
         });
 
 export const listSelectedEntityMapper =
-    <TEntity extends IEntity>(listWrapperState: IApplicationListStateWrapper): TEntity =>
+    <TEntity extends IEntity>(listWrapperState: IListWrapperEntity): TEntity =>
         orNull(listWrapperState.list, () => listWrapperState.list.selected as TEntity);
 
 export const listWrapperSelectedEntityMapper =
-    <TEntity extends IEntity>(listWrapperState: IApplicationListStateWrapper,
+    <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
                               formState?: IApplicationFormState): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
         listSelectedEntityMapper<TEntity>(listWrapperState),
@@ -115,7 +119,7 @@ export const dictionariesMapper = (state: ApplicationStateT): IDictionariesWrapp
   },
 });
 
-export const listWrapperMapper = (listState: IApplicationListStateWrapper) =>
+export const listWrapperMapper = (listState: IListWrapperEntity) =>
     listMapper(listState.list);
 
 export const filterWrapperMapper = (filterState: IApplicationFilterWrapperState) =>

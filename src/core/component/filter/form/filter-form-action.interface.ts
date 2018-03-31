@@ -1,9 +1,9 @@
-import { IApplicationListStateWrapper } from '../../../component/list';
 import { IApplicationFilterFormWrapperState } from '../filter.interface';
+import { IListWrapperEntity } from '../../../entities-definitions.interface';
 
-export interface IBuildListAndFilterFormWrapperState extends IApplicationListStateWrapper,
+export interface IBuildListAndFilterFormWrapperState extends IListWrapperEntity,
                                                              IApplicationFilterFormWrapperState {
 }
 
 export type BuildListAndFilterFormWrapperStateT
-    = IBuildListAndFilterFormWrapperState|IApplicationListStateWrapper;
+    = IBuildListAndFilterFormWrapperState|IListWrapperEntity;

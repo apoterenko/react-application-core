@@ -1,12 +1,12 @@
 import { INotUseClassNameWrapper, IClassNameWrapper } from '../../definition.interface';
-import { IApplicationListStateWrapper } from '../../component/list';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterOptions,
 } from '../../component/filter';
+import { IListWrapperEntity } from '../../entities-definitions.interface';
 
 export const disabledActionsListWrapperMapper =
-    (state: IApplicationListStateWrapper): IApplicationFilterOptions => ({
+    (state: IListWrapperEntity): IApplicationFilterOptions => ({
       disabledActions: state.list.progress,
     });
 

@@ -2,8 +2,7 @@ import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
 } from '../../base';
-import { IApplicationListStateWrapper } from '../../list';
-import { IPaginatedEntity } from '../../../entities-definitions.interface';
+import { IPaginatedEntity, IListWrapperEntity } from '../../../entities-definitions.interface';
 
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
                                                    IPaginatedEntity {
@@ -15,7 +14,7 @@ export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
 }
 
 export interface IPageToolbarContainerInternalProps extends IBaseContainerInternalProps,
-                                                            IApplicationListStateWrapper {
+                                                            IListWrapperEntity {
 }
 
 export const PAGER_NEXT_ACTION_TYPE = 'pager.next';

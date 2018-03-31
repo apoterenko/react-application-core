@@ -7,30 +7,25 @@ import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IEntity,
-  IListWrapper,
 } from '../../definition.interface';
 import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IListEntity } from '../../entities-definitions.interface';
+import { IListEntity, IListWrapperEntity } from '../../entities-definitions.interface';
 
+/* @stable - 31.03.2018 */
 export interface IListContainerInternalProps extends IBaseContainerInternalProps,
                                                      IListConfigurationWrapper,
-                                                     IApplicationListStateWrapper {
+                                                     IListWrapperEntity {
 }
 
 export interface IListContainer extends IBaseContainer<IListContainerInternalProps, {}> {
 }
 
 /* @stable - 31.03.2018 */
-export interface IApplicationListStateWrapper extends IListWrapper<IListEntity> {
-}
-
-/* @stable - 31.03.2018 */
-export type ApplicationListStateWrapperResolverT <TApplicationState> =
-  (state: TApplicationState) => IApplicationListStateWrapper;
+export type ListWrapperEntityResolverT <TApplicationState> = (state: TApplicationState) => IListWrapperEntity;
 
 export interface IListInternalProps extends IBaseComponentInternalProps,
-                                            IListEntity,
-                                            IListConfiguration {
+                                            IListConfiguration,
+                                            IListEntity {
   onSelect?(props: IEntity): void;
   onSearch?(): void;
   onCreate?(): void;

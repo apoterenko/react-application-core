@@ -29,6 +29,7 @@ import {
   IEntityOnClickWrapper,
   IEntityRawDataWrapper,
   ISelectedEntityWrapper,
+  IListWrapper,
 } from './definition.interface';
 
 /* @stable - 31.03.2018 */
@@ -106,4 +107,8 @@ export interface IListItemEntity extends IEntityRawDataWrapper,
 export interface IListEntity extends IPaginatedEntitiesEntity,
                                      ISelectedEntityWrapper,
                                      IStateEntity {
+}
+
+/* @stable - 31.03.2018 */
+export interface IListWrapperEntity extends IListWrapper<IListEntity> {
 }
