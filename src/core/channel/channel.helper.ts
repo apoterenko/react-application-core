@@ -1,6 +1,6 @@
 import { CommandResult, ICommandResult } from './command';
 import { orNull } from '../util';
-import { IChannelWrapperEntity } from '../entities-definitions.interface';
+import { IChannelWrapperEntity, IChannelMessageEntity } from '../entities-definitions.interface';
 
 export const findChannelMessage = (uuid: string,
                                    state: IChannelWrapperEntity) =>
