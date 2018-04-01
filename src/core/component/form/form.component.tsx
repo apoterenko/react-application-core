@@ -18,7 +18,6 @@ import {
 } from '../field';
 
 import {
-  IFormPureComponent,
   INITIAL_APPLICATION_FORM_STATE,
   IForm,
   IFormInternalProps,
@@ -210,7 +209,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
 
   private propsOnValid(): void {
     if (this.props.onValid) {
-      this.props.onValid((this.refs.self as IFormPureComponent).checkValidity());
+      this.props.onValid((this.refs.self as HTMLFormElement).checkValidity());
     }
   }
 

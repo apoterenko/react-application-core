@@ -111,6 +111,10 @@ export interface IFormWrapperEntity<TEntity extends IEntity>
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void> {
 }
 
+/* @stable - 01.04.2018 */
+export interface IDefaultFormWrapperEntity extends IFormWrapperEntity<IEntity> {
+}
+
 /* @stable - 31.03.2018 */
 export interface IListItemEntity extends IEntityRawDataWrapper,
                                          IActiveWrapper,

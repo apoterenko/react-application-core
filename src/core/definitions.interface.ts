@@ -213,6 +213,29 @@ export interface IUrlWrapper<TUrl> {
 }
 
 /* @stable - 01.04.2018 */
+export interface IOnSubmitWrapper<TOnSubmit> {
+  onSubmit?: TOnSubmit;
+}
+
+/* @stable - 01.04.2018 */
+export interface IOnResetWrapper<TOnReset> {
+  onReset?: TOnReset;
+}
+
+/* @stable - 01.04.2018 */
+export interface IDefaultOnResetWrapper extends IOnResetWrapper<() => void> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IOnValidWrapper<TOnValid> {
+  onValid?: TOnValid;
+}
+
+/* @stable - 01.04.2018 */
+export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean) => void> {
+}
+
+/* @stable - 01.04.2018 */
 export interface IOnChangeWrapper<TOnChange> {
   onChange?: TOnChange;
 }

@@ -1,4 +1,3 @@
-import { PureComponent } from 'react';
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
@@ -7,6 +6,9 @@ import {
   IOnEmptyDictionaryWrapper,
   IDefaultSubmitWrapper,
   IFieldValueOnChangeWrapper,
+  IOnSubmitWrapper,
+  IDefaultOnResetWrapper,
+  IDefaultOnValidWrapper,
 } from '../../definitions.interface';
 import {
   IBaseComponent,
@@ -14,49 +16,59 @@ import {
   IBaseContainer,
   IBaseContainerInternalProps,
 } from '../base';
-import { IFormWrapperEntity, IApiEntity, IDefaultFormEntity } from '../../entities-definitions.interface';
-import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
+import {
+  IFormWrapperEntity,
+  IDefaultFormEntity,
+  IDefaultApiEntity,
+  IDefaultFormWrapperEntity,
+} from '../../entities-definitions.interface';
+import {
+  IFormConfigurationWrapper,
+  IFormConfiguration,
+} from '../../configurations-definitions.interface';
 
+/* @stable - 01.04.2018 */
 export interface IFormInternalProps extends IBaseComponentInternalProps,
                                             IFormConfiguration,
-                                            IFormWrapperEntity<IEntity>,
+                                            IDefaultFormWrapperEntity,
                                             IFieldValueOnChangeWrapper,
                                             IOnEmptyDictionaryWrapper,
-                                            IOnLoadDictionaryWrapper {
-  onSubmit?: (apiEntity: IApiEntity<IEntity>) => void;
-  onReset?: () => void;
-  onValid?: (valid: boolean) => void;
+                                            IOnLoadDictionaryWrapper,
+                                            IDefaultOnResetWrapper,
+                                            IDefaultOnValidWrapper,
+                                            IOnSubmitWrapper<(apiEntity: IDefaultApiEntity) => void> {
 }
 
+/* @stable - 01.04.2018 */
 export interface IFormContainerInternalProps<TEntity extends IEntity> extends IBaseContainerInternalProps,
                                                                               IFormConfigurationWrapper,
                                                                               IFormWrapperEntity<TEntity> {
 }
 
+/* @stable - 01.04.2018 */
 export interface IDefaultFormContainerInternalProps extends IFormContainerInternalProps<IEntity> {
 }
 
+/* @stable - 01.04.2018 */
 export interface IForm extends IBaseComponent<IFormInternalProps, {}>,
                                IDefaultSubmitWrapper {
 }
 
+/* @stable - 01.04.2018 */
 export interface IFormContainer extends IBaseContainer<IDefaultFormContainerInternalProps, {}>,
                                         IDefaultSubmitWrapper {
 }
 
-export interface IFormPureComponent extends PureComponent<{}, {}> {
-  checkValidity(): boolean;
-}
-
+/* @stable - 01.04.2018 */
 export const INITIAL_APPLICATION_FORM_STATE: IDefaultFormEntity = {
   changes: {},
 };
 
-export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
-export const FORM_SUBMIT_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType('form.submit');
-export const FORM_SUBMIT_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType('form.submit');
-export const FORM_SUBMIT_FINISHED_ACTION_TYPE = 'form.submit.finished';
+export const FORM_SUBMIT_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(FORM_SUBMIT_ACTION_TYPE);
+export const FORM_SUBMIT_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(FORM_SUBMIT_ACTION_TYPE);
+export const FORM_SUBMIT_FINISHED_ACTION_TYPE = `${FORM_SUBMIT_ACTION_TYPE}.finished`;
+export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
 export const FORM_RESET_ACTION_TYPE = 'form.reset';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
