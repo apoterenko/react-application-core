@@ -19,7 +19,7 @@ import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer 
 import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
-import { ApplicationStateT } from '../../store';
+import { IDefaultApplicationState } from '../../store';
 import { CenterLayout } from '../layout';
 import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 import {
@@ -29,7 +29,7 @@ import {
   APPLICATION_SECTION,
 } from './application.interface';
 
-export class ApplicationContainer<TAppState extends ApplicationStateT>
+export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     extends BaseContainer<IApplicationContainerProps, {}> {
 
   public static defaultProps: IApplicationContainerProps = {

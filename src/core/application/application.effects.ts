@@ -3,7 +3,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage';
-import { ApplicationStateT, BaseEffects } from '../store';
+import { IDefaultApplicationState, BaseEffects } from '../store';
 import { USER_DESTROY_ACTION_TYPE } from '../user';
 import { ApplicationPermissionsServiceT, PERMISSIONS_DESTROY_ACTION_TYPE } from '../permissions';
 import { ApplicationActionBuilder } from '../component/application';
@@ -52,7 +52,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildUpdateTokenActionType())
-  public onUpdateToken(_: IEffectsAction, state: ApplicationStateT): void {
+  public onUpdateToken(_: IEffectsAction, state: IDefaultApplicationState): void {
     this.notVersionedStorage.set(APPLICATION_TOKEN_KEY, state.transport.token);
   }
 

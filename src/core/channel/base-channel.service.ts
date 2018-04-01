@@ -7,7 +7,7 @@ import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
 import { Command } from './command';
-import { ApplicationStateT } from '../store';
+import { IDefaultApplicationState } from '../store';
 import {
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_MESSAGE_ACTION_TYPE,
@@ -21,7 +21,7 @@ export abstract class BaseChannel implements IApplicationChannel {
   private static logger = LoggerFactory.makeLogger(BaseChannel);
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<ApplicationStateT>;
+  @lazyInject(DI_TYPES.Store) protected appStore: Store<IDefaultApplicationState>;
 
   private clients = new Map<string, IApplicationChannelClient>();
 

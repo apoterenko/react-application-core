@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ApplicationStateT } from '../../../store';
+import { IDefaultApplicationState } from '../../../store';
 import { CenterLayout } from '../../layout';
 import { connector, defaultMappers } from '../../connector';
 import { ContainerVisibilityTypeEnum } from '../../../router';
@@ -9,7 +9,7 @@ import { DefaultLayoutContainer } from '../../layout';
 import { IApplicationAccessConfig } from '../../../permissions';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 
-@connector<ApplicationStateT, IApplicationAccessConfig>({
+@connector<IDefaultApplicationState, IApplicationAccessConfig>({
   routeConfig: (routes) => ({
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: routes.accessDenied,

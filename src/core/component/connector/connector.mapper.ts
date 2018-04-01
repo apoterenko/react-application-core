@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { orNull } from '../../util';
-import { ApplicationStateT, IApplicationState } from '../../store';
+import { IDefaultApplicationState } from '../../store';
 import {
   IEntity,
   IEntityWrapper,
@@ -28,13 +28,13 @@ import {
   IQueryFilterWrapperEntity,
 } from '../../entities-definitions.interface';
 
-export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
+export const rootMapper = (state: IDefaultApplicationState): IApplicationRootWrapperState => ({
   root: {
     ...state.root,
   },
 });
 
-export const layoutMapper = (state: ApplicationStateT): IApplicationLayoutWrapperState => ({
+export const layoutMapper = (state: IDefaultApplicationState): IApplicationLayoutWrapperState => ({
   layout: {
     ...state.layout,
   },
@@ -89,31 +89,31 @@ export const filterFormMapper = (formState: IDefaultFormEntity) => ({
   },
 });
 
-export const userMapper = (state: ApplicationStateT): IUserWrapper<IApplicationUserState> => ({
+export const userMapper = (state: IDefaultApplicationState): IUserWrapper<IApplicationUserState> => ({
   user: {
     ...state.user,
   },
 });
 
-export const notificationMapper = (state: ApplicationStateT): IApplicationNotificationWrapperState => ({
+export const notificationMapper = (state: IDefaultApplicationState): IApplicationNotificationWrapperState => ({
   notification: {
     ...state.notification,
   },
 });
 
-export const channelMapper = (state: ApplicationStateT): IChannelWrapperEntity => ({
+export const channelMapper = (state: IDefaultApplicationState): IChannelWrapperEntity => ({
   channel: {
     ...state.channel,
   },
 });
 
-export const transportMapper = (state: ApplicationStateT): IApplicationTransportWrapperState => ({
+export const transportMapper = (state: IDefaultApplicationState): IApplicationTransportWrapperState => ({
   transport: {
     ...state.transport,
   },
 });
 
-export const dictionariesMapper = (state: ApplicationStateT): IDictionariesWrapper<IDictionaries> => ({
+export const dictionariesMapper = (state: IDefaultApplicationState): IDictionariesWrapper<IDictionaries> => ({
   dictionaries: {
     ...state.dictionaries,
   },

@@ -4,14 +4,14 @@ import { excludeIdFieldFilter } from '../../util';
 import { provideInSingleton } from '../../di';
 import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
-import { ApplicationStateT } from '../../store';
+import { IDefaultApplicationState } from '../../store';
 import { CustomActionBuilder } from '../../action';
 import { IEntity, ISelectedWrapper } from '../../definitions.interface';
 import { FormActionBuilder } from '../../component/form';
 import { StackActionBuilder } from '../../store';
 
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
-                                           TApplicationState extends ApplicationStateT>(config: {
+                                           TApplicationState extends IDefaultApplicationState>(config: {
   listSection: string;
   formSection: string;
   pathResolver(entity?: TEntity, state?: TApplicationState): string;

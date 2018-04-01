@@ -9,7 +9,7 @@ import {
   IPathWrapper,
   ISectionWrapper,
 } from '../../definitions.interface';
-import { ApplicationStateT } from '../../store';
+import { IDefaultApplicationState } from '../../store';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 ISectionWrapper,
@@ -19,7 +19,7 @@ export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
                                                      IRouteOptions,
                                                      ISectionWrapper,
-                                                     IInitialChangesable<ApplicationStateT> {
+                                                     IInitialChangesable<IDefaultApplicationState> {
   container?: IContainerWrapperCtor;
   accessConfig?: IApplicationAccessConfig;
 }

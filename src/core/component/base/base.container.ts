@@ -6,7 +6,7 @@ import { Store } from 'redux';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import { IRoutes, ROUTER_NAVIGATE_ACTION_TYPE, ROUTER_BACK_ACTION_TYPE } from '../../router';
-import { ApplicationStateT } from '../../store';
+import { IDefaultApplicationState } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
@@ -29,7 +29,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<ApplicationStateT>;
+  @lazyInject(DI_TYPES.Store) protected appStore: Store<IDefaultApplicationState>;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;

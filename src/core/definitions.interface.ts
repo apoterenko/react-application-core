@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ApplicationStateT } from './store';
+import { IDefaultApplicationState } from './store';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -1047,7 +1047,7 @@ export interface IPathWrapper {
 export interface IOnBaseClickWrapper extends IPayloadOnClickWrapper<BasicEventT> {
 }
 
-export interface IInitialChangesable<TAppState extends ApplicationStateT> {
+export interface IInitialChangesable<TAppState extends IDefaultApplicationState> {
   initialChanges?(state: TAppState): IKeyValue;
 }
 

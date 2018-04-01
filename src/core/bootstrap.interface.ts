@@ -1,8 +1,8 @@
 import { connect, Provider } from 'react-redux';
 
 import { ApplicationContainer } from './component/application';
-import { ApplicationStateT, IApplicationState } from './store';
+import { IDefaultApplicationState } from './store';
 
-export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<ApplicationStateT>> {
+export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<IDefaultApplicationState>> {
   new (...args): TContainer;
 }

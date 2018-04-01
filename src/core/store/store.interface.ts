@@ -46,8 +46,6 @@ export interface IApplicationState<TDictionaries>
   applicationReady: IApplicationReadyState;
 }
 
-export type ApplicationStateT = IApplicationState<{}>;
-
 /* @stable - 01.04.2018 */
 export interface IDefaultApplicationState extends IApplicationState<{}> {
 }

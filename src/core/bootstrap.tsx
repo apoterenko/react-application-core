@@ -16,7 +16,7 @@ import {
   ApplicationContainer,
   IApplicationContainerProps
 } from './component/application';
-import { ApplicationStateT } from './store';
+import { IDefaultApplicationState } from './store';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
 import { addClassNameToBody } from './util';
 
@@ -28,15 +28,15 @@ function gtag(...args) {
 }
 
 export function bootstrap(
-    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<ApplicationStateT>>,
+    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<IDefaultApplicationState>>,
     props?: IApplicationContainerProps,
     rootId = 'root',
     ) {
   const ready = () => {
-    const Component = connect((state: ApplicationStateT) => ({ ...state.applicationReady }), {})
+    const Component = connect((state: IDefaultApplicationState) => ({ ...state.applicationReady }), {})
                                   (applicationContainer);
 
-    const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
+    const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);
     // We must dispatch the init action necessarily before the application instantiating
     // because of async IApplicationReadyState & Flux architecture
     store.dispatch({type: ApplicationActionBuilder.buildInitActionType()});

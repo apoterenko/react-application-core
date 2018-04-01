@@ -4,7 +4,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { FunctionT, noop, sequence } from '../../util';
 import { BaseContainerT } from '../../component/base';
-import { ApplicationStateT } from '../../store';
+import { IDefaultApplicationState } from '../../store';
 import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';
 import {
@@ -20,7 +20,7 @@ import { ConnectorActionBuilder } from './connector-action.builder';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
-export function basicConnector<TAppState extends ApplicationStateT>(
+export function basicConnector<TAppState extends IDefaultApplicationState>(
     config: IBasicConnectorConfig<TAppState>): FunctionT {
   return (target: IConnectorCtor<BaseContainerT>): void => {
     const sectionName = target.defaultProps && target.defaultProps.sectionName || config.sectionName;
@@ -35,7 +35,7 @@ export function basicConnector<TAppState extends ApplicationStateT>(
         proto.componentWillUnmount = sequence(
             proto.componentWillUnmount || noop,
             () => {
-              const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
+              const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);
               store.dispatch({ type: STACK_POP_ACTION_TYPE, data: sectionName0 });
               store.dispatch({ type: ConnectorActionBuilder.buildDestroyActionType(sectionName0) });
 
@@ -45,7 +45,7 @@ export function basicConnector<TAppState extends ApplicationStateT>(
         proto.componentWillMount = sequence(
             proto.componentWillMount || noop,
             () => {
-              const store = staticInjector<Store<ApplicationStateT>>(DI_TYPES.Store);
+              const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);
               store.dispatch({ type: STACK_PUSH_ACTION_TYPE, data: sectionName0 });
               store.dispatch({ type: ConnectorActionBuilder.buildInitActionType(sectionName0) });
 
@@ -66,7 +66,7 @@ export function basicConnector<TAppState extends ApplicationStateT>(
   };
 }
 
-export function connector<TAppState extends ApplicationStateT, TApplicationAccessConfig>(
+export function connector<TAppState extends IDefaultApplicationState, TApplicationAccessConfig>(
     config: IConnectorConfig<TAppState, TApplicationAccessConfig>): FunctionT {
   return basicConnector(config);
 }

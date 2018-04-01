@@ -9,13 +9,13 @@ import { appContainer, DI_TYPES, staticInjector } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
 import { AnyT } from '../definitions.interface';
 import { orNull } from '../util';
-import { ApplicationStateT, defaultReducers } from './store.interface';
+import { IDefaultApplicationState, defaultReducers } from './store.interface';
 
 export function makeStore(
     reducers: { [reducerName: string]: Reducer<AnyT> },
     applicationSettings?: IApplicationSettings,
     appMiddlewares?: Middleware[]
-): Store<ApplicationStateT> {
+): Store<IDefaultApplicationState> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
   const preloadedState = orNull(
@@ -25,14 +25,14 @@ export function makeStore(
 
   const store = createStore(
       (state) => state,
-      preloadedState as ApplicationStateT,
+      preloadedState as IDefaultApplicationState,
       PROD_MODE
           ? applyMiddleware(...middlewares)
           : composeWithDevTools(applyMiddleware(...middlewares)),
   );
 
   // Configuring of store at runtime
-  appContainer.bind<Store<ApplicationStateT>>(DI_TYPES.Store).toConstantValue(store);
+  appContainer.bind<Store<IDefaultApplicationState>>(DI_TYPES.Store).toConstantValue(store);
   EffectsService.configure(appContainer, store);
 
   // Set the app reducer
