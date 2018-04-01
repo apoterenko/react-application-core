@@ -5,10 +5,8 @@ import { AnyT, IEntity } from '../../definitions.interface';
 import { NotificationActionBuilder } from '../../notification';
 import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder } from '../../component/form';
-import { FilterActionBuilder } from '../../component/filter';
 import { RouterActionBuilder } from '../../router';
 import { UserActionBuilder } from '../../user';
-import { TransportActionBuilder } from '../../transport';
 import { ApplicationActionBuilder } from '../../component/application';
 import { IApiEntity } from '../../entities-definitions.interface';
 
@@ -23,14 +21,6 @@ export class BaseEffects<TApi> {
 
   protected buildNotificationInfoAction(info: string): IEffectsAction {
     return NotificationActionBuilder.buildInfoAction(info);
-  }
-
-  protected buildListLoadAction(section: string): IEffectsAction {
-    return ListActionBuilder.buildLoadAction(section);
-  }
-
-  protected buildListDestroyAction(section: string): IEffectsAction {
-    return ListActionBuilder.buildDestroyAction(section);
   }
 
   protected buildListEntityUpdateAction<TEntity extends IEntity>(section: string,
@@ -50,28 +40,12 @@ export class BaseEffects<TApi> {
     return FormActionBuilder.buildSubmitFinishedAction(section);
   }
 
-  protected buildFilterDestroyAction(section: string): IEffectsAction {
-    return FilterActionBuilder.buildDestroyAction(section);
-  }
-
   protected buildRouterNavigateAction(path: string): IEffectsAction {
     return RouterActionBuilder.buildNavigateAction(path);
   }
 
-  protected buildApplicationAfterLogoutAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildAfterLogoutAction();
-  }
-
   protected buildApplicationDestroyTokenAction(): IEffectsAction {
     return ApplicationActionBuilder.buildDestroyTokenAction();
-  }
-
-  protected buildTransportUpdateTokenAction(data: AnyT): IEffectsAction {
-    return TransportActionBuilder.buildUpdateTokenAction(data);
-  }
-
-  protected buildTransportDestroyTokenAction(): IEffectsAction {
-    return TransportActionBuilder.buildDestroyTokenAction();
   }
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {

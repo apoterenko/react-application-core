@@ -11,6 +11,7 @@ import { IApplicationSettings } from '../settings';
 import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
 import { FormActionBuilder } from '../component/form';
 import { DictionariesActionBuilder } from '../dictionary';
+import { TransportActionBuilder } from '../transport';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -24,7 +25,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   public onInit(): IEffectsAction[] {
     const token = this.notVersionedStorage.get(APPLICATION_TOKEN_KEY);
     return token
-        ? [this.buildTransportUpdateTokenAction({token})]
+        ? [TransportActionBuilder.buildUpdateTokenAction({token})]
         : [];
   }
 
@@ -40,14 +41,14 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
     return actions
         .concat(DictionariesActionBuilder.buildDestroyAction())
-        .concat(this.buildApplicationAfterLogoutAction());
+        .concat(ApplicationActionBuilder.buildAfterLogoutAction());
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
   public onAfterLogout(): IEffectsAction[]|Promise<IEffectsAction[]> {
     return [
       this.buildNotificationInfoAction(this.settings.messages.logoutNotificationMessage),
-      this.buildTransportDestroyTokenAction()
+      TransportActionBuilder.buildDestroyTokenAction()
     ];
   }
 
