@@ -12,7 +12,6 @@ import {
 } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
-  IApplicationFilterWrapperState,
 } from '../../component/filter';
 import { IApplicationTransportWrapperState } from '../../transport';
 import { IApplicationNotificationWrapperState } from '../../notification';
@@ -26,6 +25,7 @@ import {
   IListWrapperEntity,
   IDefaultFormEntity,
   IQueryFilterEntity,
+  IQueryFilterWrapperEntity,
 } from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
@@ -122,7 +122,7 @@ export const dictionariesMapper = (state: ApplicationStateT): IDictionariesWrapp
 export const listWrapperMapper = (listState: IListWrapperEntity) =>
     listMapper(listState.list);
 
-export const filterWrapperMapper = (filterState: IApplicationFilterWrapperState) =>
+export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
     filterMapper(filterState.filter);
 
 export const filterFormWrapperMapper = (filterState: IApplicationFilterFormWrapperState) =>

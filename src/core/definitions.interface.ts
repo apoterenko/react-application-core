@@ -112,13 +112,6 @@ export interface IListWrapper<TList> {
 }
 
 /**********************
- * Filtered list entity
- **********************/
-export interface IFilteredListEntity<TFilter, TList> extends IFilterWrapper<TFilter>,
-                                                             IListWrapper<TList> {
-}
-
-/**********************
  * Params's wrapper
  **********************/
 export interface IParamsWrapper<TParams> {

@@ -1,7 +1,6 @@
 import {
   INotUseClassNameWrapper,
   ITypeWrapper,
-  IFilterWrapper,
   IClassNameWrapper,
 } from '../../definitions.interface';
 import { IFieldOptions } from '../field';
@@ -25,10 +24,6 @@ export interface IApplicationFilterOptions {
   searchIcon?: string;
   noSearchField?: boolean;
   searchFieldOptions?: IFieldOptions;
-}
-
-// @deprecated
-export interface IApplicationFilterWrapperState extends IFilterWrapper<IQueryFilterEntity> {
 }
 
 export interface IApplicationFilterFormWrapperState {

@@ -39,6 +39,7 @@ import {
   IMergerWrapper,
   IOnBeforeSubmitWrapper,
   IStringQueryWrapper,
+  IFilterWrapper,
 } from './definitions.interface';
 
 /* @stable - 31.03.2018 */
@@ -155,4 +156,17 @@ export interface IDefaultApiEntity extends IApiEntity<IEntity> {
 /* @stable - 01.04.2018 */
 export interface IQueryFilterEntity extends IBooleanActiveWrapper,
                                             IStringQueryWrapper {
+}
+
+/* @stable - 01.04.2018 */
+export interface IQueryFilterWrapperEntity extends IFilterWrapper<IQueryFilterEntity> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IFilteredListEntity<TFilter, TList> extends IFilterWrapper<TFilter>,
+                                                             IListWrapper<TList> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IQueryFilteredListEntity extends IFilteredListEntity<IQueryFilterEntity, IListEntity> {
 }
