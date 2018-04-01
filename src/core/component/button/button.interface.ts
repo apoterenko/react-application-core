@@ -1,6 +1,6 @@
 import { IBaseComponentInternalProps } from '../base';
 import {
-  IActiveWrapper,
+  IBooleanActiveWrapper,
   IDisabledWrapper,
   IStringTypeWrapper,
   IStringIconWrapper,
@@ -16,7 +16,7 @@ export interface IButtonInternalState {
 
 export interface IButtonInternalProps extends IBaseComponentInternalProps,
                                               INotUseClassNameWrapper,
-                                              IActiveWrapper,
+                                              IBooleanActiveWrapper,
                                               IDisabledWrapper,
                                               IStringIconWrapper,
                                               IOnBaseClickWrapper,

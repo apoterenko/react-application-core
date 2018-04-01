@@ -1,13 +1,11 @@
 import {
-  IActiveWrapper,
   INotUseClassNameWrapper,
   ITypeWrapper,
   IFilterWrapper,
-  IStringQueryWrapper,
   IClassNameWrapper,
 } from '../../definitions.interface';
 import { IFieldOptions } from '../field';
-import { IDefaultFormEntity } from '../../entities-definitions.interface';
+import { IDefaultFormEntity, IQueryFilterEntity } from '../../entities-definitions.interface';
 
 /* @stable - 31.03.2018 */
 export enum FilterActionEnum {
@@ -29,19 +27,15 @@ export interface IApplicationFilterOptions {
   searchFieldOptions?: IFieldOptions;
 }
 
-export interface IApplicationFilterState extends IActiveWrapper,
-                                                 IStringQueryWrapper {
-}
-
 // @deprecated
-export interface IApplicationFilterWrapperState extends IFilterWrapper<IApplicationFilterState> {
+export interface IApplicationFilterWrapperState extends IFilterWrapper<IQueryFilterEntity> {
 }
 
 export interface IApplicationFilterFormWrapperState {
   filterForm: IDefaultFormEntity;
 }
 
-export const INITIAL_APPLICATION_FILTER_STATE: IApplicationFilterState = {
+export const INITIAL_APPLICATION_FILTER_STATE: IQueryFilterEntity = {
   query: '',
 };
 

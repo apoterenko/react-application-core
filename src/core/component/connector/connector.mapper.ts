@@ -12,7 +12,6 @@ import {
 } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
-  IApplicationFilterState,
   IApplicationFilterWrapperState,
 } from '../../component/filter';
 import { IApplicationTransportWrapperState } from '../../transport';
@@ -26,6 +25,7 @@ import {
   IListEntity,
   IListWrapperEntity,
   IDefaultFormEntity,
+  IQueryFilterEntity,
 } from '../../entities-definitions.interface';
 
 export const rootMapper = (state: ApplicationStateT): IApplicationRootWrapperState => ({
@@ -77,7 +77,7 @@ export const listMapper = (listEntity: IListEntity) => ({
   },
 });
 
-export const filterMapper = (filterState: IApplicationFilterState) => ({
+export const filterMapper = (filterState: IQueryFilterEntity) => ({
   filter: {
     ...filterState,
   },

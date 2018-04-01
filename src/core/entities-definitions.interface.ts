@@ -25,7 +25,7 @@ import {
   IBooleanNewEntityWrapper,
   IEntityIdWrapper,
   IOriginalEntityWrapper,
-  IActiveWrapper,
+  IBooleanActiveWrapper,
   IEntityOnClickWrapper,
   IEntityRawDataWrapper,
   ISelectedEntityWrapper,
@@ -38,6 +38,7 @@ import {
   IIsNewWrapper,
   IMergerWrapper,
   IOnBeforeSubmitWrapper,
+  IStringQueryWrapper,
 } from './definitions.interface';
 
 /* @stable - 31.03.2018 */
@@ -121,7 +122,7 @@ export interface IDefaultFormWrapperEntity extends IFormWrapperEntity<IEntity> {
 
 /* @stable - 31.03.2018 */
 export interface IListItemEntity extends IEntityRawDataWrapper,
-                                         IActiveWrapper,
+                                         IBooleanActiveWrapper,
                                          IEntityOnClickWrapper {
 }
 
@@ -149,4 +150,9 @@ export interface IApiEntity<TEntity extends IEntity> extends IEntityWrapperEntit
 
 /* @stable - 01.04.2018 */
 export interface IDefaultApiEntity extends IApiEntity<IEntity> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IQueryFilterEntity extends IBooleanActiveWrapper,
+                                            IStringQueryWrapper {
 }

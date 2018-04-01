@@ -991,6 +991,15 @@ export interface ITokenWrapper<TToken> {
 export interface IStringTokenWrapper extends ITokenWrapper<string> {
 }
 
+/* @stable - 01.04.2018 */
+export interface IActiveWrapper<TActive> {
+  active?: TActive;
+}
+
+/* @stable - 01.04.2018 */
+export interface IBooleanActiveWrapper extends IActiveWrapper<boolean> {
+}
+
 export interface IOriginalValueable<TValue> {
   originalValue?: TValue;
 }
@@ -1036,10 +1045,6 @@ export interface IMaskEntity {
   mask?: Array<string|RegExp>;
   maskGuide?: boolean;
   maskPlaceholderChar?: string;
-}
-
-export interface IActiveWrapper {
-  active?: boolean;
 }
 
 export interface IPathWrapper {

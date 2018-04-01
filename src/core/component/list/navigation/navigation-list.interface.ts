@@ -1,5 +1,5 @@
 import {
-  IActiveWrapper,
+  IBooleanActiveWrapper,
   ILabelWrapper,
   INotUseClassNameWrapper,
   ITypeWrapper,
@@ -15,7 +15,7 @@ export enum NavigationListItemTypeEnum {
   LINK,
 }
 
-export interface INavigationListItemOptions extends IActiveWrapper,
+export interface INavigationListItemOptions extends IBooleanActiveWrapper,
                                                     INotUseClassNameWrapper,
                                                     IStringIconWrapper,
                                                     ILabelWrapper,
