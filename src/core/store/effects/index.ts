@@ -7,4 +7,5 @@ export * from './succeed-form-effects.proxy';
 export * from './edited-list-effects.proxy';
 export * from './effects-by.decorator';
 export * from './router-effects.proxy';
+export * from './form-filter-effects.proxy';
 export * from './base.effects';

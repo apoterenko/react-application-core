@@ -48,6 +48,10 @@ export interface IApplicationState<TDictionaries>
 
 export type ApplicationStateT = IApplicationState<{}>;
 
+/* @stable - 01.04.2018 */
+export interface IDefaultApplicationState extends IApplicationState<{}> {
+}
+
 export const defaultReducers = {
   applicationReady: applicationReadyReducer,
   dictionaries: dictionariesReducer,

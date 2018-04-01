@@ -1,3 +1,5 @@
+import { EffectsActionBuilder } from 'redux-effects-promise';
+
 import {
   IBaseComponentInternalProps,
   IBaseContainerInternalProps,
@@ -36,9 +38,9 @@ export const INITIAL_APPLICATION_LIST_STATE: IListEntity = {
 };
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';
+export const LIST_LOAD_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(LIST_LOAD_ACTION_TYPE);
+export const LIST_LOAD_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(LIST_LOAD_ACTION_TYPE);
 export const LIST_UN_TOUCH_ACTION_TYPE = 'list.untouch';
-export const LIST_LOAD_DONE_ACTION_TYPE = 'list.load.done';
-export const LIST_LOAD_ERROR_ACTION_TYPE = 'list.load.error';
 export const LIST_DESTROY_ACTION_TYPE = 'list.destroy';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
 export const LIST_SEARCH_ACTION_TYPE = 'list.search';

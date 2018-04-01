@@ -430,14 +430,28 @@ export interface ILoginWrapper {
   login?: string;
 }
 
-/**********************
- * Query's wrappers
- **********************/
+/* @stable - 01.04.2018 */
 export interface IQueryWrapper<TQuery> {
-  query?: string;
+  query?: TQuery;
 }
 
+/* @stable - 01.04.2018 */
 export interface IStringQueryWrapper extends IQueryWrapper<string> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IListRoutePathWrapper {
+  listRoutePath?: string;
+}
+
+/* @stable - 01.04.2018 */
+export interface IListSectionWrapper {
+  listSection?: string;
+}
+
+/* @stable - 01.04.2018 */
+export interface IFormFilterSectionWrapper {
+  formFilterSection?: string;
 }
 
 /* @stable - 31.03.2018 */
