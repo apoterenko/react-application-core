@@ -75,6 +75,10 @@ export interface IUserWrapper<TUser> {
 }
 
 /* @stable - 01.04.2018 */
+export interface INumberUserWrapper extends IUserWrapper<number> {
+}
+
+/* @stable - 01.04.2018 */
 export interface IFilterWrapper<TFilter> {
   filter?: TFilter;
 }
@@ -478,47 +482,64 @@ export interface ISubmittableWrapper {
   submittable?: boolean;
 }
 
-/**********************
- * Date and time wrappers
- **********************/
-export interface IDateWrapper {
-  date?: string;
+/* @stable - 01.04.2018 */
+export interface IDateWrapper<TDate> {
+  date?: TDate;
 }
 
-export interface ITimeWrapper {
-  time?: string;
+/* @stable - 01.04.2018 */
+export interface IStringDateWrapper extends IDateWrapper<string> {
 }
 
-export interface IFromDateWrapper {
-  fromDate?: string;
+/* @stable - 01.04.2018 */
+export interface ITimeWrapper<TTime> {
+  time?: TTime;
 }
 
-export interface IToDateWrapper {
-  toDate?: string;
+/* @stable - 01.04.2018 */
+export interface IStringTimeWrapper extends ITimeWrapper<string> {
 }
 
-export interface IFromTimeWrapper {
+/* @stable - 01.04.2018 */
+export interface IFromDateWrapper<TFromDate> {
+  fromDate?: TFromDate;
+}
+
+/* @stable - 01.04.2018 */
+export interface IStringFromDateWrapper extends IFromDateWrapper<string> {
+}
+
+/* @stable - 01.04.2018 */
+export interface IToDateWrapper<TToDate> {
+  toDate?: TToDate;
+}
+
+/* @stable - 01.04.2018 */
+export interface IStringToDateWrapper extends IToDateWrapper<string> {
+}
+
+export interface IStringFromTimeWrapper {
   fromTime?: string;
 }
 
-export interface IToTimeWrapper {
+export interface IStringToTimeWrapper {
   toTime?: string;
 }
 
-export interface IDateTimeEntity extends IDateWrapper,
-                                         ITimeWrapper {
+export interface IDateTimeEntity extends IStringDateWrapper,
+                                         IStringTimeWrapper {
 }
 
-export interface IFromDateFromTimeEntity extends IFromDateWrapper,
-                                                 IFromTimeWrapper {
+export interface IFromDateFromTimeEntity extends IStringFromDateWrapper,
+                                                 IStringFromTimeWrapper {
 }
 
-export interface IToDateToTimeEntity extends IToDateWrapper,
-                                             IToTimeWrapper {
+export interface IToDateToTimeEntity extends IStringToDateWrapper,
+                                             IStringToTimeWrapper {
 }
 
-export interface IFromDateToDateEntity extends IFromDateWrapper,
-                                               IToDateWrapper {
+export interface IFromDateToDateEntity extends IStringFromDateWrapper,
+                                               IStringToDateWrapper {
 }
 
 export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,

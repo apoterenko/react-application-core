@@ -46,9 +46,13 @@ export interface IStateEntity extends ITouchedWrapper,
                                       IStringErrorEntity {
 }
 
+/* @stable - 01.04.2018 */
+export interface IPagedEntity extends IPageWrapper,
+                                      IPageSizeWrapper {
+}
+
 /* @stable - 31.03.2018 */
-export interface IPaginatedEntity extends IPageWrapper,
-                                          IPageSizeWrapper,
+export interface IPaginatedEntity extends IPagedEntity,
                                           ITotalCountWrapper,
                                           ITotalAmountWrapper {
 }
