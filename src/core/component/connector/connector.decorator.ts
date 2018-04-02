@@ -60,7 +60,7 @@ export function basicConnector<TAppState extends IDefaultApplicationState>(
     }
 
     DYNAMIC_ROUTES.set(
-        connectorFactory<TAppState>(target, config.mappers),
+        connectorFactory<TAppState>(target, ...config.mappers),
         config
     );
   };

@@ -9,7 +9,7 @@ import { ConnectorMapperT, IConnectorCtor } from './connector.interface';
 
 export const connectorFactory = <TAppState extends IDefaultApplicationState>(
     containerCtor: IConnectorCtor<BaseContainerT>,
-    mappers: Array<ConnectorMapperT<TAppState, IKeyValue>> = []
+    ...mappers: Array<ConnectorMapperT<TAppState, IKeyValue>>
 ): IContainerWrapperCtor => {
   const mapping = (state: TAppState) => mappers.length
       ? (mappers as Array<ConnectorMapperT<TAppState, IKeyValue> | IKeyValue>)
