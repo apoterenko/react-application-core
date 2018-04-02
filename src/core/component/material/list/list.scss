@@ -1,51 +1,56 @@
 @import '../../constant';
 
-// List [MDC+]
-.mdc-list {
-  &.rac-list, &.rac-simple-list, &.rac-navigation-list {
-    padding: 0;                 // [MDC override]
-  }
+// List [FRAMEWORK+][RAC+]
+.rac {
 
-  &.rac-simple-list {
-    .mdc-list-item__graphic {
-      color: $color-2;          // [MDC override]
+  .rac-list, &.rac-simple-list, &.rac-navigation-list {
+    padding: 0;   /* @stable - 02.04.2018 */
+
+    &.mdc-list--avatar-list {
+
+      .mdc-list-item__graphic {
+        color: $color-5;        /* @stable - 02.04.2018 */
+        background: $color-6;   /* @stable - 02.04.2018 */
+      }
     }
   }
 
-  &.mdc-list--avatar-list {
-    .mdc-list-item__graphic {
-      min-width: 40px;
-      color: $color-5;
-      background: $color-6;
-    }
-  }
-
-  &.rac-list {
-    .mdc-list-item__text {
-      max-width: 80%;
-      min-width: 80%;
-    }
-
-    .mdc-list-item__secondary-text {
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .rac-list {
 
     .material-icons {
-      vertical-align: bottom;
+      vertical-align: bottom;   /* @stable - 02.04.2018 */
 
       &.mdc-list-item__meta {
-        color: $color-1;
+        color: $color-1;    /* @stable - 02.04.2018 */
       }
     }
   }
 
-  &.rac-navigation-list {
-    .mdc-list-item {
-      .material-icons {
-        padding-right: $rac-menu-icon-right-offset;
+  .rac-navigation-list {
+
+    .material-icons {
+      padding-right: $rac-menu-icon-right-offset;   /* @stable - 02.04.2018 */
+    }
+  }
+
+  .rac-list-item {
+
+    /* MDC issue workaround */
+    &.mdc-ripple-upgraded--foreground-activation {
+      background: $color-10;                                /* @workaround @stable - 02.04.2018 */
+
+      animation-name: rippleUpgradedForegroundActivation;   /* @workaround @stable - 02.04.2018 */
+      animation-duration: 300ms;                            /* @workaround @stable - 02.04.2018 */
+
+      &.mdc-list-item::after, &.mdc-list-item::before {
+        background: none;   /* @workaround @stable - 02.04.2018 */
       }
     }
   }
+}
+
+/* MDC issue workaround */
+@keyframes rippleUpgradedForegroundActivation {
+  from { background: none; }      /* @workaround @stable - 02.04.2018 */
+  to { background: $color-10; }   /* @workaround @stable - 02.04.2018 */
 }
