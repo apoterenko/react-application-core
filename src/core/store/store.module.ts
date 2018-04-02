@@ -8,7 +8,7 @@ import { IDefaultApplicationState, defaultReducers } from './store.interface';
 export function makeStore(reducers: ReducersMapObject,
                           applicationSettings?: IApplicationSettings,
                           appMiddlewares?: Middleware[]): Store<IDefaultApplicationState> {
-  return buildStore(
+  return buildStore<IDefaultApplicationState>(
     {
       ...defaultReducers,
       ...reducers,
