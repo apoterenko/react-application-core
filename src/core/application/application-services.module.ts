@@ -1,5 +1,6 @@
 import '../converter/converter.module';
 import '../router/router.module';
+import '../store/stack/stack.module';
 import '../storage/storage.module';
 import '../channel/socket/socket-channel.module';
 import '../event/event.module';
