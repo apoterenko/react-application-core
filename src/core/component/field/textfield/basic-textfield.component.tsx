@@ -23,7 +23,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     implements IBasicTextField<TInternalProps, TInternalState> {
 
   private static CHAR_WIDTH_AT_PX = 10;
-  private static DEFAULT_MASK_GUIDE = false;
+  private static DEFAULT_MASK_GUIDE = true;
   private static DEFAULT_MASK_PLACEHOLDER_CHAR = '\u2000';
 
   protected defaultActions: IBasicTextFieldAction[] = [];

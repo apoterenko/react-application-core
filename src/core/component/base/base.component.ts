@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
 
 import { BasicEventT } from '../../definitions.interface';
 import { lazyInject, DI_TYPES } from '../../di';
@@ -19,7 +19,7 @@ import { IApplicationSettings } from '../../settings';
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                            TInternalProps extends IBaseComponentInternalProps,
                            TInternalState>
-    extends PureComponent<TInternalProps, TInternalState>
+    extends Component<TInternalProps, TInternalState>
     implements IBaseComponent<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
