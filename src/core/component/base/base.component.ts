@@ -57,7 +57,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
         plugin.componentWillReceiveProps && plugin.componentWillReceiveProps(nextProps, nextContext));
   }
 
-  public componentDidUpdate(prevProps: Readonly<TInternalProps>, prevState: Readonly<TInternalState>, prevContext: {}): void {
+  public componentDidUpdate(prevProps: Readonly<TInternalProps>, prevState: Readonly<TInternalState>, prevContext: never): void {
     this.plugins.forEach((plugin) =>
         plugin.componentDidUpdate && plugin.componentDidUpdate(prevProps, prevState, prevContext));
   }
