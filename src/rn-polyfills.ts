@@ -1,0 +1,1 @@
+import './core/rn-polyfills';
