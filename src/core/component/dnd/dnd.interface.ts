@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
 
 import { IBaseComponent, IBaseComponentInternalProps } from '../base';
 
@@ -10,7 +10,7 @@ export interface INativeDropZone {
   open(): void;
 }
 
-export interface INativeDropZoneComponent extends PureComponent<{}, {}>,
+export interface INativeDropZoneComponent extends Component<{}, {}>,
                                                   INativeDropZone {
 }
 

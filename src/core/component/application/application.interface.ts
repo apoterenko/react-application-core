@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
 
 import { IProgressWrapper } from '../../definitions.interface';
 import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
@@ -11,7 +11,7 @@ export interface IApplicationContainerProps extends IBaseContainerInternalProps,
 }
 
 export interface IContainerWrapperCtor {
-  new(...args): PureComponent<IContainerInternalProps, {}>;
+  new(...args): Component<IContainerInternalProps, {}>;
 }
 
 export interface IApplicationAttributes extends IProgressWrapper,

@@ -1,4 +1,4 @@
-import { CSSProperties, PureComponent } from 'react';
+import { CSSProperties, Component } from 'react';
 
 import { IBaseComponentInternalProps } from '../../../component/base';
 
@@ -29,7 +29,6 @@ export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
 export interface IDateFieldInternalState extends IBasicTextFieldInternalState {
 }
 
-export interface IMaterialDateDialogComponent
-    extends PureComponent<IBaseComponentInternalProps, { open: boolean }> {
+export interface IMaterialDateDialogComponent extends Component<IBaseComponentInternalProps, { open: boolean }> {
   show(): void;
 }

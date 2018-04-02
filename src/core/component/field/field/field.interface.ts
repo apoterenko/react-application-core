@@ -1,4 +1,4 @@
-import { PureComponent, InputHTMLAttributes, TextareaHTMLAttributes, ClassAttributes } from 'react';
+import { Component, InputHTMLAttributes, TextareaHTMLAttributes, ClassAttributes } from 'react';
 
 import {
   AnyT,
@@ -101,7 +101,7 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
 export interface IFieldInternalState extends IErrorEntity<string> {
 }
 
-export interface INativeMaskedInputComponent extends PureComponent<{}, {}> {
+export interface INativeMaskedInputComponent extends Component<{}, {}> {
   inputElement: HTMLInputElement;
 }
 

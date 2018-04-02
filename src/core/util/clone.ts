@@ -9,7 +9,7 @@ export function clone<TObject>(o: TObject): TObject {
 }
 
 export type RenderPredicateT = (child: ReactElementT) => boolean;
-export type ClonedComponentT = ReactElementT | React.PureComponent;
+export type ClonedComponentT = ReactElementT | React.Component;
 
 export function cloneNodes<TProps>(component: ClonedComponentT,
                                    mergedProps: TProps|((component: ClonedComponentT) => TProps),

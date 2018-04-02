@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { LocationState, Path } from 'history';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
@@ -23,7 +23,7 @@ import { IUIFactory } from '../factory';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState>
-    extends PureComponent<TInternalProps, TInternalState>
+    extends Component<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
