@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE } from '../../definitions.interface';
+import { FIRST_PAGE, IFieldValueEntity } from '../../definitions.interface';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -10,7 +10,11 @@ import {
   EntityOnSaveMergeStrategyEnum,
   IModifyEntityPayloadWrapper,
 } from '../../api';
-import { IListEntity } from '../../entities-definitions.interface';
+import {
+  IListEntity,
+  ISortDirectionEntity,
+  IFieldChangeEntity,
+} from '../../entities-definitions.interface';
 
 export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IListEntity {
@@ -19,6 +23,24 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
   const payload = modifyData && modifyData.payload;
 
   switch (action.type) {
+    case ListActionBuilder.buildChangeSortDirectionActionType(section):
+      const sortDirectionEntity: ISortDirectionEntity = action.data;
+      return {
+        ...state,
+        directions: {
+          ...state.directions,
+          [sortDirectionEntity.name]: sortDirectionEntity.direction,
+        },
+      };
+    case ListActionBuilder.buildChangeActionType(section):
+      const fieldChangeEntity: IFieldChangeEntity = action.data;
+      return {
+        ...state,
+        changes: {
+          ...state.changes,
+          [fieldChangeEntity.name]: fieldChangeEntity.value,
+        },
+      };
     case ListActionBuilder.buildFirstPageActionType(section):
       return {
         ...state,

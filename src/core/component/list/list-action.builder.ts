@@ -1,7 +1,7 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { applySection } from '../../util';
 import { AnyT } from '../../definitions.interface';
+import { applySection } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
   LIST_LOAD_ACTION_TYPE,
@@ -19,9 +19,19 @@ import {
   LIST_UN_TOUCH_ACTION_TYPE,
   LIST_LAST_PAGE_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
+  LIST_CHANGE_ACTION_TYPE,
+  LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
+
+  public static buildChangeSortDirectionActionType(section: string): string {
+    return `${section}.${LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE}`;
+  }
+
+  public static buildChangeActionType(section: string): string {
+    return `${section}.${LIST_CHANGE_ACTION_TYPE}`;
+  }
 
   public static buildFirstPageActionType(section: string): string {
     return `${section}.${LIST_FIRST_PAGE_ACTION_TYPE}`;

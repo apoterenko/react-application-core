@@ -28,6 +28,8 @@ export type ListWrapperEntityResolverT <TApplicationState> = (state: TApplicatio
 
 /* @stable - 31.03.2018 */
 export const INITIAL_APPLICATION_LIST_STATE: IListEntity = {
+  changes: {},
+  directions: {},
   progress: false,
   touched: false,
   data: null,
@@ -48,6 +50,8 @@ export const LIST_CREATE_ACTION_TYPE = 'list.create';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
+export const LIST_CHANGE_ACTION_TYPE = 'list.change';
+export const LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE = 'list.change.sort.direction';
 export const LIST_NEXT_PAGE_ACTION_TYPE = 'list.next.page';
 export const LIST_PREVIOUS_PAGE_ACTION_TYPE = 'list.previous.page';
 export const LIST_FIRST_PAGE_ACTION_TYPE = 'list.first.page';
