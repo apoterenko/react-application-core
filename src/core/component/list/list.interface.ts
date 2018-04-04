@@ -1,9 +1,6 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import {
-  IBaseComponentInternalProps,
-  IBaseContainerInternalProps,
-} from '../base';
+import { IBaseContainerInternalProps, IBaseComponentInternalProps } from '../base';
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
