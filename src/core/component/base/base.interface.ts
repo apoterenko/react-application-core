@@ -1,7 +1,14 @@
-import { Component, CSSProperties, SyntheticEvent } from 'react';
+import { Component, SyntheticEvent } from 'react';
 import * as URLSearchParams from 'url-search-params';
 
-import { AnyT, IKeyValue, IProgressWrapper, IStringTitleWrapper, IClassNameWrapper } from '../../definitions.interface';
+import {
+  AnyT,
+  IKeyValue,
+  IProgressWrapper,
+  IStringTitleWrapper,
+  IClassNameWrapper,
+  ICssStyleWrapper,
+} from '../../definitions.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
@@ -52,8 +59,12 @@ export interface IBaseComponent<TInternalProps, TInternalState>
       IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;
 }
 
-export interface IBaseComponentInternalProps extends IBaseInternalProps {
-  style?: CSSProperties;
+/* @stable - 04.04.2018 */
+export interface IDefaultBaseComponent extends IBaseComponent<{}, {}> {
+}
+
+export interface IBaseComponentInternalProps extends IBaseInternalProps,
+                                                     ICssStyleWrapper {
   plugins?: ComponentPluginCtorT|ComponentPluginCtorT[];
 }
 
