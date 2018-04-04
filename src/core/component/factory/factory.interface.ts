@@ -42,6 +42,7 @@ export interface IUIFactory {
   menuAnchor?: string;
   menu?: string;
   menuItems?: string;
+  fab?: string;
 
   makeIcon?(config: UIIconConfigT): JSX.Element;
   makeListItemMetaIcon?(config: UIIconConfigT): JSX.Element;

@@ -47,6 +47,7 @@ export class UIMaterialFactory implements IUIFactory {
   public menuAnchor = 'mdc-menu-anchor';
   public menu = 'mdc-menu';
   public menuItems = 'mdc-menu__items';
+  public fab = 'mdc-fab';
 
   public makeIcon(cfg: UIIconConfigT): JSX.Element {
     if (!cfg) {
