@@ -12,6 +12,10 @@ export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const ACTION_PREFIX = '$$-RAC-';
+export enum SortDirectionEnum {
+  ASC,
+  DESC,
+}
 
 /**
  * Core fields
@@ -111,21 +115,22 @@ export interface IListWrapper<TList> {
   list?: TList;
 }
 
-/**********************
- * Params's wrapper
- **********************/
+/* @stable - 04.04.2018 */
 export interface IParamsWrapper<TParams> {
   params?: TParams;
 }
 
+/* @stable - 04.04.2018 */
 export interface IKeyValueParamsWrapper extends IParamsWrapper<IKeyValue> {
 }
 
-/**********************
- * Headers's wrapper
- **********************/
-export interface IHeadersWrapper {
+/* @stable - 04.04.2018 */
+export interface IHeadersWrapper<THeaders> {
   headers?: IKeyValue;
+}
+
+/* @stable - 04.04.2018 */
+export interface IKeyValueHeadersWrapper extends IHeadersWrapper<IKeyValue> {
 }
 
 /**********************
@@ -162,6 +167,11 @@ export interface ICommandWrapper<TCommand> {
 export interface IStringCommandWrapper extends ICommandWrapper<string> {
 }
 
+/* @stable - 04.04.2018 */
+export interface IAlignWrapper {
+  align?: string;
+}
+
 /* @stable - 31.03.2018 */
 export interface IChannelWrapper<TChannel> {
   channel?: TChannel;
@@ -178,11 +188,9 @@ export interface INoCacheWrapper {
   noCache?: boolean;
 }
 
-/**********************
- * NoAuth's wrapper
- **********************/
-export interface INoAuthWrapper {
-  noAuth?: boolean;
+/* @stable - 05.04.2018 */
+export interface INotApplyAuthWrapper {
+  notApplyAuth?: boolean;
 }
 
 /* @stable - 01.04.2018 */
@@ -230,6 +238,11 @@ export interface IOnValidWrapper<TOnValid> {
 
 /* @stable - 01.04.2018 */
 export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean) => void> {
+}
+
+/* @stable - 04.04.2018 */
+export interface IOnChangeSortDirectionWrapper<TOnChangeSortDirection> {
+  onChangeSortDirection?: TOnChangeSortDirection;
 }
 
 /* @stable - 01.04.2018 */
@@ -590,6 +603,24 @@ export interface INameWrapper {
   name?: string;
 }
 
+/* @stable - 04.04.2018 */
+export interface IDirectionWrapper<TDirection> {
+  direction?: TDirection;
+}
+
+/* @stable - 04.04.2018 */
+export interface IDirectionsWrapper<TDirection> {
+  directions?: { [name: string]: TDirection };
+}
+
+/* @stable - 04.04.2018 */
+export interface ISortDirectionWrapper extends IDirectionWrapper<SortDirectionEnum> {
+}
+
+/* @stable - 04.04.2018 */
+export interface ISortDirectionsWrapper extends IDirectionsWrapper<SortDirectionEnum> {
+}
+
 /**********************
  * PreventValueBinding's wrapper
  **********************/
@@ -630,7 +661,8 @@ export interface IFieldsWrapper<TFields> {
 export interface IStringFieldWrapper extends IFieldWrapper<string> {
 }
 
-export interface IFieldValueEntity extends IAnyValueWrapper, IStringFieldWrapper {
+export interface IFieldValueEntity extends IAnyValueWrapper,
+                                           IStringFieldWrapper {
 }
 
 export interface IFieldsValuesEntities extends IFieldsWrapper<IFieldValueEntity[]> {
@@ -802,6 +834,31 @@ export interface IToClassNameWrapper<TItem> {
 export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> {
 }
 
+/* @stable - 04.04.2018 */
+export interface IColumnsWrapper<TColumns> {
+  columns?: TColumns;
+}
+
+/* @stable - 04.04.2018 */
+export interface IComponentWrapper<TComponent> {
+  component?: TComponent;
+}
+
+/* @stable - 04.04.2018 */
+export interface IUseGroupingWrapper {
+  useGrouping?: boolean;
+}
+
+/* @stable - 04.04.2018 */
+export interface IUseLocalFilteringWrapper {
+  useLocalFiltering?: boolean;
+}
+
+/* @stable - 04.04.2018 */
+export interface IUseSortingWrapper {
+  useSorting?: boolean;
+}
+
 /* @stable - 31.03.2018 */
 export interface ISorterWrapper<TSorter> {
   sorter?: TSorter;
@@ -893,6 +950,15 @@ export interface IRippableWrapper {
   rippable?: boolean;
 }
 
+/* @stable - 04.04.2018 */
+export interface IStyleWrapper<TStyle> {
+  style?: TStyle;
+}
+
+/* @stable - 04.04.2018 */
+export interface ICssStyleWrapper extends IStyleWrapper<React.CSSProperties> {
+}
+
 /* @stable - 31.03.2018 */
 export interface IFormWrapper<TForm> {
   form?: TForm;
@@ -915,6 +981,10 @@ export interface IDefaultSubmitWrapper extends ISubmitWrapper<() => void> {
 /* @stable - 31.03.2018 */
 export interface IOnClickWrapper<TOnClick> {
   onClick?: TOnClick;
+}
+
+/* @stable - 04.04.2018 */
+export interface IEventOnClickWrapper extends IOnClickWrapper<(event: IDefaultBasicEvent) => void> {
 }
 
 /* @stable - 31.03.2018 */
@@ -968,6 +1038,11 @@ export interface IDefaultActivateWrapper extends IActivateWrapper<() => void> {
 /* @stable - 01.04.2018 */
 export interface IIsNewWrapper {
   isNew?: boolean;
+}
+
+/* @stable - 03.04.2018 */
+export interface IWidthWrapper {
+  width?: number;
 }
 
 /* @stable - 01.04.2018 */
@@ -1057,6 +1132,8 @@ export const UNI_CODES = {
   noBreakSpace: '\u00a0',
 };
 
+export interface IDefaultBasicEvent extends React.SyntheticEvent<{}> {
+}
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;
