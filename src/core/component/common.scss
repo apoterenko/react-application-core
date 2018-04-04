@@ -67,13 +67,18 @@ a {
   padding-top: 0;
 }
 
-// Text overflow [FRAMEWORK-]
+/* @stable - 04.04.2018 */
 .rac-overflow-ellipsis {
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
+}
+
+/* @stable - 05.04.2018 */
+.rac-visibility-hidden {
+  visibility: hidden;
 }
 
 .rac {
