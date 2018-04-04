@@ -1,21 +1,17 @@
 import * as React from 'react';
 
-import { BaseContainer } from '../base';
-import { IEntity, ISelectedWrapper } from '../../definitions.interface';
-
 import { List } from './list.component';
 import {
-  LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
   LIST_SEARCH_ACTION_TYPE,
   IListContainerInternalProps,
 } from './list.interface';
+import { BaseListContainer } from './base-list.container';
 
-export class ListContainer extends BaseContainer<IListContainerInternalProps, {}> {
+export class ListContainer extends BaseListContainer<IListContainerInternalProps> {
 
   constructor(props: IListContainerInternalProps) {
     super(props);
-    this.onSelect = this.onSelect.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onCreate = this.onCreate.bind(this);
   }
@@ -27,11 +23,6 @@ export class ListContainer extends BaseContainer<IListContainerInternalProps, {}
                  onCreate={this.onCreate}
                  {...props.listConfiguration}
                  {...props.list}/>;
-  }
-
-  private onSelect(entity: IEntity): void {
-    const actionParams: ISelectedWrapper<IEntity> = { selected: entity };
-    this.dispatch(LIST_SELECT_ACTION_TYPE, actionParams);
   }
 
   private onSearch(): void {
