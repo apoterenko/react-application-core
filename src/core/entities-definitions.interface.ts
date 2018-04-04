@@ -40,7 +40,24 @@ import {
   IOnBeforeSubmitWrapper,
   IStringQueryWrapper,
   IFilterWrapper,
+  IKeyValueChangesWrapper,
+  IOnClickWrapper,
+  IOnChangeSortDirectionWrapper,
+  ISortDirectionWrapper,
+  ISortDirectionsWrapper,
+  IAnyValueWrapper,
+  IOnChangeWrapper,
 } from './definitions.interface';
+
+/* @stable - 05.04.2018 */
+export interface IFieldChangeEntity extends INameWrapper,
+                                            IAnyValueWrapper {
+}
+
+/* @stable - 04.04.2018 */
+export interface ISortDirectionEntity extends INameWrapper,
+                                              ISortDirectionWrapper {
+}
 
 /* @stable - 31.03.2018 */
 export interface IStateEntity extends ITouchedWrapper,
@@ -127,12 +144,18 @@ export interface IListItemEntity extends IEntityRawDataWrapper,
                                          IEntityOnClickWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IListEntity extends IPaginatedEntitiesEntity,
+/* @stable - 04.04.2018 */
+export interface IBaseListEntity extends IDefaultOnCreateWrapper,
+                                         IEntityOnSelectWrapper {
+}
+
+/* @stable - 04.04.2018 */
+export interface IListEntity extends IBaseListEntity,
+                                     ISortDirectionsWrapper,
+                                     IPaginatedEntitiesEntity,
+                                     IKeyValueChangesWrapper,
                                      ISelectedEntityWrapper,
                                      IStateEntity,
-                                     IEntityOnSelectWrapper,
-                                     IDefaultOnCreateWrapper,
                                      IDefaultOnSearchWrapper {
 }
 
@@ -169,4 +192,20 @@ export interface IFilteredListEntity<TFilter, TList> extends IFilterWrapper<TFil
 
 /* @stable - 01.04.2018 */
 export interface IQueryFilteredListEntity extends IFilteredListEntity<IQueryFilterEntity, IListEntity> {
+}
+
+/* @stable - 05.04.2018 */
+export interface IGridEntity extends IListEntity,
+                                     IFieldChangeEntity,
+                                     IOnChangeWrapper<(payload: IFieldChangeEntity) => void>,
+                                     IOnChangeSortDirectionWrapper<(payload: ISortDirectionEntity) => void> {
+}
+
+/* @stable - 04.04.2018 */
+export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
+}
+
+/* @stable - 04.04.2018 */
+export interface IGridHeaderColumnEntity extends ISortDirectionEntity,
+                                                 IOnClickWrapper<(payload: ISortDirectionEntity) => void> {
 }

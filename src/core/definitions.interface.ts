@@ -250,7 +250,7 @@ export interface IOnChangeWrapper<TOnChange> {
   onChange?: TOnChange;
 }
 
-/* @stable - 01.04.2018 */
+// TODO
 export interface IFieldValueOnChangeWrapper extends IOnChangeWrapper<(name: string, value: AnyT) => void> {
 }
 
