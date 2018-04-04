@@ -10,7 +10,6 @@ import {
   IEntityToClassNameWrapper,
   IEntityTplWrapper,
   IStringIconWrapper,
-  IItemConfigurationWrapper,
   IActionIconWrapper,
   IActionTextWrapper,
   IAlwaysDirtyWrapper,
@@ -23,7 +22,38 @@ import {
   IUseResetButtonWrapper,
   ISubmittableWrapper,
   IRippableWrapper,
+  IWidthWrapper,
+  IStringTitleWrapper,
+  IUseGroupingWrapper,
+  IUseSortingWrapper,
+  IAlignWrapper,
+  IUseLocalFilteringWrapper,
 } from './definitions.interface';
+
+/* @stable - 05.04.2018 */
+export interface IItemConfigurationWrapper<TItemConfiguration> {
+  itemConfiguration?: TItemConfiguration;
+}
+
+/* @stable - 05.04.2018 */
+export interface IColumnsConfigurationWrapper<TColumns> {
+  columnsConfiguration?: TColumns;
+}
+
+/* @stable - 31.03.2018 */
+export interface IListConfigurationWrapper {
+  listConfiguration?: IListConfiguration;
+}
+
+/* @stable - 03.04.2018 */
+export interface IGridConfigurationWrapper {
+  gridConfiguration?: IGridConfiguration;
+}
+
+/* @stable - 31.03.2018 */
+export interface IFormConfigurationWrapper {
+  formConfiguration?: IFormConfiguration;
+}
 
 /* @stable - 31.03.2018 */
 export interface IListItemConfiguration extends IEntityRendererWrapper,
@@ -33,20 +63,19 @@ export interface IListItemConfiguration extends IEntityRendererWrapper,
                                                 IStringIconWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IListConfiguration extends ISimpleWrapper,
-                                            IUseAddActionWrapper,
-                                            IUseTwoLineWrapper,
-                                            IUseAvatarWrapper,
-                                            IEntitySorterWrapper,
-                                            INonInteractiveWrapper,
-                                            IStringEmptyMessageWrapper,
-                                            IItemConfigurationWrapper<IListItemConfiguration> {
+/* @stable - 04.04.2018 */
+export interface IBaseListConfiguration extends IUseAddActionWrapper,
+                                                IEntitySorterWrapper,
+                                                IStringEmptyMessageWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IListConfigurationWrapper {
-  listConfiguration: IListConfiguration;
+/* @stable - 04.04.2018 */
+export interface IListConfiguration extends IBaseListConfiguration,
+                                            ISimpleWrapper,
+                                            IUseTwoLineWrapper,
+                                            IUseAvatarWrapper,
+                                            INonInteractiveWrapper,
+                                            IItemConfigurationWrapper<IListItemConfiguration> {
 }
 
 /* @stable - 31.03.2018 */
@@ -63,7 +92,22 @@ export interface IFormConfiguration extends INotUseClassNameWrapper,
                                             IActionIconWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IFormConfigurationWrapper {
-  formConfiguration?: IFormConfiguration;
+/* @stable - 04.04.2018 */
+export interface IGridColumnConfiguration extends IStringTitleWrapper,
+                                                  IUseGroupingWrapper,
+                                                  IUseLocalFilteringWrapper,
+                                                  IUseSortingWrapper,
+                                                  IAlignWrapper,
+                                                  IEntityTplWrapper,
+                                                  IEntityRendererWrapper,
+                                                  IWidthWrapper {
+}
+
+/* @stable - 04.04.2018 */
+export interface IGridConfiguration extends IBaseListConfiguration,
+                                            IColumnsConfigurationWrapper<IGridColumnConfiguration[]> {
+}
+
+/* @stable - 03.04.2018 */
+export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration {
 }

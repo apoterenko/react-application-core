@@ -766,11 +766,6 @@ export interface ISimpleWrapper {
 }
 
 /* @stable - 31.03.2018 */
-export interface IItemConfigurationWrapper<TItemConfiguration> {
-  itemConfiguration?: TItemConfiguration;
-}
-
-/* @stable - 31.03.2018 */
 export interface INonInteractiveWrapper {
   nonInteractive?: boolean;
 }
@@ -832,16 +827,6 @@ export interface IToClassNameWrapper<TItem> {
 
 /* @stable - 31.03.2018 */
 export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> {
-}
-
-/* @stable - 04.04.2018 */
-export interface IColumnsWrapper<TColumns> {
-  columns?: TColumns;
-}
-
-/* @stable - 04.04.2018 */
-export interface IComponentWrapper<TComponent> {
-  component?: TComponent;
 }
 
 /* @stable - 04.04.2018 */
