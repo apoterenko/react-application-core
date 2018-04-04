@@ -1,5 +1,18 @@
 @import '../constant';
 
+// List [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-button {
+
+    &.rac-icon-button {
+      cursor: pointer;    /* @stable - 05.04.2018 */
+      background: none;   /* @stable - 05.04.2018 */
+      border: none;       /* @stable - 05.04.2018 */
+    }
+  }
+}
+
 // Button [FRAMEWORK-]
 .rac-button {
   border-radius: $rac-button-border-radius;   // [RAC+]
@@ -24,7 +37,7 @@
 }
 
 // List add button [FRAMEWORK-]
-.rac-list, .rac-list-empty {
+.rac-list, .rac-list-empty, .rac-grid-wrapper {
   .rac-list-add-button {
     position: absolute;
     right: 24px;
