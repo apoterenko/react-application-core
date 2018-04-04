@@ -11,9 +11,9 @@ import {
   ITransportRawResponse,
   IApplicationTransportFactory,
   ITransportRequestEntity,
-  ITransportRequestData,
+  ITransportRequestParamsEntity,
   IApplicationTransportRequestFactory,
-  ITransportRawRequest,
+  ITransportHttpRequestEntity,
   IApplicationTransportCancelToken,
   IApplicationTransportTokenAccessor,
 } from './transport.interface';
@@ -58,8 +58,8 @@ export class TransportFactory implements IApplicationTransportFactory {
       uri0.addSearch('_dc', Date.now());
     }
 
-    return this.requestFactory.request<ITransportRawRequest, ITransportRawResponse>(
-      defValuesFilter<ITransportRawRequest, ITransportRawRequest>({
+    return this.requestFactory.request<ITransportHttpRequestEntity, ITransportRawResponse>(
+      defValuesFilter<ITransportHttpRequestEntity, ITransportHttpRequestEntity>({
           headers,
           url: uri0.valueOf(),
           method: req.method || 'POST',
@@ -91,12 +91,12 @@ export class TransportFactory implements IApplicationTransportFactory {
     }
   }
 
-  protected toRequestParams(req: ITransportRequestEntity): ITransportRequestData {
-    return defValuesFilter<ITransportRequestData, ITransportRequestData>({
+  protected toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity {
+    return defValuesFilter<ITransportRequestParamsEntity, ITransportRequestParamsEntity>({
       id: this.id++,
       name: req.name,
       params: orUndef(req.params, () => defValuesFilter(req.params)),
-      auth: orUndef(!req.noAuth, () => this.tokenAccessor.token),
+      auth: orUndef(!req.notApplyAuth, () => this.tokenAccessor.token),
     });
   }
 

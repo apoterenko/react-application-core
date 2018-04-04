@@ -11,9 +11,9 @@ import {
   IKeyValueParamsWrapper,
   INoCacheWrapper,
   IStringUrlWrapper,
-  IHeadersWrapper,
+  IKeyValueHeadersWrapper,
   IDataWrapper,
-  INoAuthWrapper,
+  INotApplyAuthWrapper,
   IStringAuthWrapper,
   IDefaultOperationWrapper,
   IFnReaderWrapper,
@@ -58,15 +58,15 @@ export interface IApplicationTransportFactory extends ICancelableTransport {
 /**
  * Transport raw request
  */
-export interface ITransportRawRequest extends IMethodWrapper,
-                                              IHeadersWrapper,
-                                              IStringUrlWrapper,
-                                              IDataWrapper<Blob|ITransportRequestData> {
+export interface ITransportHttpRequestEntity extends IMethodWrapper,
+                                                     IKeyValueHeadersWrapper,
+                                                     IStringUrlWrapper,
+                                                     IDataWrapper<Blob|ITransportRequestParamsEntity> {
   cancelToken?: string;
 }
 
 export interface ITransportRequestEntity extends INameWrapper,
-                                                 INoAuthWrapper,
+                                                 INotApplyAuthWrapper,
                                                  IKeyValueParamsWrapper,
                                                  IBlobWrapper,
                                                  IMethodWrapper,
@@ -77,11 +77,11 @@ export interface ITransportRequestEntity extends INameWrapper,
                                                  IDefaultOperationWrapper {
 }
 
-export interface ITransportRequestData extends INameWrapper,
-                                               INoAuthWrapper,
-                                               IKeyValueParamsWrapper,
-                                               IStringAuthWrapper,
-                                               INumberIdWrapper {
+export interface ITransportRequestParamsEntity extends INameWrapper,
+                                                       INotApplyAuthWrapper,
+                                                       IKeyValueParamsWrapper,
+                                                       IStringAuthWrapper,
+                                                       INumberIdWrapper {
 }
 
 export interface IApplicationTransportCancelToken {
