@@ -1,11 +1,8 @@
 import * as React from 'react';
 
 import { List } from './list.component';
-import {
-  LIST_CREATE_ACTION_TYPE,
-  LIST_SEARCH_ACTION_TYPE,
-  IListContainerInternalProps,
-} from './list.interface';
+import { IListContainerInternalProps } from './list.interface';
+import { LIST_CREATE_ACTION_TYPE, LIST_SEARCH_ACTION_TYPE } from './list-reducer.interface';
 import { BaseListContainer } from './base-list.container';
 
 export class ListContainer extends BaseListContainer<IListContainerInternalProps> {

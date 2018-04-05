@@ -1,11 +1,11 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE, IFieldValueEntity } from '../../definitions.interface';
+import { FIRST_PAGE } from '../../definitions.interface';
 import { toSection } from '../../store';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
-import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
+import { INITIAL_APPLICATION_LIST_STATE } from './list-reducer.interface';
 import {
   EntityOnSaveMergeStrategyEnum,
   IModifyEntityPayloadWrapper,
