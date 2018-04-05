@@ -563,6 +563,10 @@ export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
 }
 
+/* @stable - 05.04.2018 */
+export interface IDefaultBasicEvent extends React.SyntheticEvent<{}> {
+}
+
 /* @stable - 31.03.2018 */
 export interface IProgressWrapper {
   progress?: boolean;
@@ -1117,8 +1121,6 @@ export const UNI_CODES = {
   noBreakSpace: '\u00a0',
 };
 
-export interface IDefaultBasicEvent extends React.SyntheticEvent<{}> {
-}
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type FocusEventT = React.FocusEvent<{}>;

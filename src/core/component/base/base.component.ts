@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import { BasicEventT } from '../../definitions.interface';
+import { IDefaultBasicEvent } from '../../definitions.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IUIFactory } from '../factory';
 import {
@@ -73,7 +73,7 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
     return plugin;
   }
 
-  public stopEvent(event: BasicEventT): void {
+  public stopEvent(event: IDefaultBasicEvent): void {
     if (event.nativeEvent) {
       event.nativeEvent.stopImmediatePropagation();
       event.nativeEvent.stopPropagation();
