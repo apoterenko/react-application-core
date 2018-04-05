@@ -9,6 +9,8 @@ import {
   IUserWrapper,
   IDictionariesWrapper,
   IDictionaries,
+  SortDirectionEnum,
+  IKeyValue,
 } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
