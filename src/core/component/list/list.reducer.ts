@@ -77,18 +77,18 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         ...INITIAL_APPLICATION_LIST_STATE,
       };
     case ListActionBuilder.buildLoadDoneActionType(section):
-      const result = action.data;
-      return Array.isArray(result)
+      const listEntity: IListEntity = action.data;
+      return Array.isArray(listEntity)
           ? {
             ...state,
             progress: false,
-            data: result,
+            data: listEntity,
           }
           : {
             ...state,
             progress: false,
-            pageSize: (result as IListEntity).data.length,
-            ...result,
+            pageSize: listEntity.data.length,
+            ...listEntity,
           };
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {

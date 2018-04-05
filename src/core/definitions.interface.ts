@@ -651,6 +651,10 @@ export interface ISelectedWrapper<TSelected> {
 export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
 }
 
+/* @stable - 05.04.2018 */
+export interface IBooleanSelectedWrapper extends ISelectedWrapper<boolean> {
+}
+
 /**********************
  * Fields's wrappers
  **********************/
@@ -953,6 +957,15 @@ export interface IFormWrapper<TForm> {
   form?: TForm;
 }
 
+/* @stable - 05.04.2018 */
+export interface IExcludeTargetsClassesWrapper<TExcludeTargetsClasses> {
+  excludeTargetsClasses?: TExcludeTargetsClasses;
+}
+
+/* @stable - 05.04.2018 */
+export interface IStringArrayExcludeTargetsClassesWrapper extends IExcludeTargetsClassesWrapper<string[]> {
+}
+
 /* @stable - 01.04.2018 */
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> {
   onBeforeSubmit?: TOnBeforeSubmit;
@@ -970,6 +983,10 @@ export interface IDefaultSubmitWrapper extends ISubmitWrapper<() => void> {
 /* @stable - 31.03.2018 */
 export interface IOnClickWrapper<TOnClick> {
   onClick?: TOnClick;
+}
+
+/* @stable - 04.04.2018 */
+export interface IDefaultOnClickWrapper extends IOnClickWrapper<() => void> {
 }
 
 /* @stable - 04.04.2018 */

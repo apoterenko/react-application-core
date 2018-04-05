@@ -47,6 +47,9 @@ import {
   ISortDirectionsWrapper,
   IAnyValueWrapper,
   IOnChangeWrapper,
+  IBooleanSelectedWrapper,
+  IDefaultOnClickWrapper,
+  IStringArrayExcludeTargetsClassesWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -208,4 +211,10 @@ export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
 /* @stable - 04.04.2018 */
 export interface IGridHeaderColumnEntity extends ISortDirectionEntity,
                                                  IOnClickWrapper<(payload: ISortDirectionEntity) => void> {
+}
+
+/* @stable - 05.04.2018 */
+export interface IGridRowEntity extends IBooleanSelectedWrapper,
+                                        IDefaultOnClickWrapper,
+                                        IStringArrayExcludeTargetsClassesWrapper {
 }
