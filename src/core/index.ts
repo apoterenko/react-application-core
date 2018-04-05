@@ -21,6 +21,7 @@ export * from './component/picture';
 export * from './component/layout';
 export * from './component/link';
 export * from './component/list';
+export * from './component/grid';
 export * from './component/main';
 export * from './component/material';
 export * from './component/menu';
