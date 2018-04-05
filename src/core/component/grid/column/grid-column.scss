@@ -1,0 +1,17 @@
+// Grid [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-grid-container-wrapper {
+
+    .rac-grid {
+
+      .rac-grid-column {
+        padding: 8px 16px;            /* @stable - 05.04.2018 */
+
+        &.rac-grid-sorted-column {
+          cursor: pointer;            /* @stable - 05.04.2018 */
+        }
+      }
+    }
+  }
+}

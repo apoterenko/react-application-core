@@ -1,0 +1,48 @@
+@import '../constant';
+@import './column/grid-column';
+@import './header/grid-header-column';
+
+// Grid [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-grid-container-wrapper {
+
+    .rac-grid {
+      border-collapse: collapse;              /* @stable - 05.04.2018 */
+
+      .rac-grid-body {
+        overflow: auto;                       /* @stable - 05.04.2018 */
+      }
+
+      .grid-row {
+        display: table;                       /* @stable - 05.04.2018 */
+        table-layout: fixed;                  /* @stable - 05.04.2018 */
+        width: 100%;                          /* @stable - 05.04.2018 */
+
+        cursor: default;                      /* @stable - 05.04.2018 */
+        border-bottom: 1px solid $color-3;    /* @stable - 05.04.2018 */
+        padding: 8px 16px;                    /* @stable - 05.04.2018 */
+
+        &.grid-data-row {
+
+          &:last-child {
+            border-bottom: none;              /* @stable - 05.04.2018 */
+          }
+
+          &.grid-row-selected {
+            background: $color-10;            /* @stable - 05.04.2018 */
+          }
+        }
+      }
+    }
+  }
+
+  .rac-grid-service-wrapper {
+
+    border-left: 1px solid $color-3;          /* @stable - 05.04.2018 */
+
+    .rac-grid-service {
+      padding-top: 8px;                       /* @stable - 05.04.2018 */
+    }
+  }
+}
