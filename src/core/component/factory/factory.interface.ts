@@ -22,10 +22,16 @@ export interface IUIFactory {
   listTwoLine?: string;
   listAvatar?: string;
   listNonInteractive?: string;
+  tabBarScrollerFrameTabs?: string;
+  tabBarScrollerFrame?: string;
+  tabBar?: string;
+  tab?: string;
+  tabActive?: string;
   tabBarScroller?: string;
   tabBarScrollerIndicator?: string;
   tabBarScrollerIndicatorBack?: string;
   tabBarScrollerIndicatorForward?: string;
+  tabBarScrollerIndicatorInner?: string;
   button?: string;
   formField?: string;
   textField?: string;
@@ -49,6 +55,8 @@ export interface IUIFactory {
   fab?: string;
 
   makeIcon?(config: UIIconConfigT): JSX.Element;
+  makeTabBarScrollerIndicatorIcon?(config: UIIconConfigT): JSX.Element;
+  makeTabBarIndicator?(): JSX.Element;
   makeListItemMetaIcon?(config: UIIconConfigT): JSX.Element;
   makeCheckboxAttachment?(): JSX.Element;
 }

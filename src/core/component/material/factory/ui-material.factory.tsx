@@ -4,6 +4,7 @@ import { injectable } from 'inversify';
 import { isString, toClassName, uuid } from '../../../util';
 import { IUIFactory, UIIconConfigT } from '../../factory';
 import { Button, IButtonInternalProps } from '../../button';
+import { IStringTypeWrapper, IClassNameWrapper } from '../../../definitions.interface';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -20,10 +21,16 @@ export class UIMaterialFactory implements IUIFactory {
   public listTwoLine = 'mdc-list--two-line';
   public listAvatar = 'mdc-list--avatar-list';
   public listNonInteractive = 'mdc-list--non-interactive';
+  public tabBarScrollerFrameTabs = 'mdc-tab-bar-scroller__scroll-frame__tabs';
+  public tabBarScrollerFrame = 'mdc-tab-bar-scroller__scroll-frame';
+  public tabBar = 'mdc-tab-bar';
+  public tab = 'mdc-tab';
+  public tabActive = 'mdc-tab--active';
   public tabBarScroller = 'mdc-tab-bar-scroller';
   public tabBarScrollerIndicator = 'mdc-tab-bar-scroller__indicator';
   public tabBarScrollerIndicatorBack = 'mdc-tab-bar-scroller__indicator--back';
   public tabBarScrollerIndicatorForward = 'mdc-tab-bar-scroller__indicator--forward';
+  public tabBarScrollerIndicatorInner = 'mdc-tab-bar-scroller__indicator__inner';
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';
   public listItemGraphic = 'mdc-list-item__graphic';
@@ -57,7 +64,7 @@ export class UIMaterialFactory implements IUIFactory {
     if (!cfg) {
       return null;
     }
-    const config = (isString(cfg) ? { type: cfg } : cfg) as IButtonInternalProps;
+    const config = this.toIconConfig(cfg) as IButtonInternalProps;  // TODO replace with entity
     const className = toClassName('material-icons', config.className);
     return config.onClick && !config.simple
         ? (
@@ -79,12 +86,36 @@ export class UIMaterialFactory implements IUIFactory {
         );
   }
 
+  /**
+   * @stable - 06.04.2018
+   * @returns {JSX.Element}
+   */
+  public makeTabBarIndicator?(): JSX.Element {
+    return <span className='mdc-tab-bar__indicator'/>;
+  }
+
+  public makeTabBarScrollerIndicatorIcon(cfg: UIIconConfigT): JSX.Element {
+    const config = this.toIconConfig(cfg);
+    return this.makeIcon(
+      cfg
+        ? {
+          ...config,
+          className: toClassName(config.className, this.tabBarScrollerIndicatorInner),
+        }
+        : cfg
+    );
+  }
+
   public makeListItemMetaIcon(cfg: UIIconConfigT): JSX.Element {
-    const config = (cfg ? (isString(cfg) ? { type: cfg } : cfg) : cfg) as IButtonInternalProps;
-    return this.makeIcon(!cfg ? cfg : {
-      ...config,
-      className: toClassName(config.className, this.listItemMeta),
-    });
+    const config = this.toIconConfig(cfg);
+    return this.makeIcon(
+      cfg
+        ? {
+          ...config,
+          className: toClassName(config.className, this.listItemMeta),
+        }
+        : cfg
+    );
   }
 
   public makeCheckboxAttachment(): JSX.Element {
@@ -100,5 +131,9 @@ export class UIMaterialFactory implements IUIFactory {
           <div className='mdc-checkbox__mixedmark'/>
         </div>
     );
+  }
+
+  private toIconConfig(cfg: UIIconConfigT): IStringTypeWrapper & IClassNameWrapper {
+    return (cfg ? (isString(cfg) ? {type: cfg} : cfg) : cfg) as IStringTypeWrapper & IClassNameWrapper;
   }
 }
