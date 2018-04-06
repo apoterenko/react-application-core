@@ -29,6 +29,7 @@ export * from './component/plugin';
 export * from './component/profile';
 export * from './component/progress';
 export * from './component/root';
+export * from './component/tabpanel';
 export * from './component/snackbar';
 export * from './component/spacer';
 export * from './component/toolbar';

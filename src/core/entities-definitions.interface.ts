@@ -51,6 +51,9 @@ import {
   IDefaultOnClickWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
 } from './definitions.interface';
+import {
+  ITabConfiguration,
+} from './configurations-definitions.interface';
 
 /* @stable - 05.04.2018 */
 export interface IFieldChangeEntity extends INameWrapper,
@@ -217,4 +220,8 @@ export interface IGridHeaderColumnEntity extends ISortDirectionEntity,
 export interface IGridRowEntity extends IBooleanSelectedWrapper,
                                         IDefaultOnClickWrapper,
                                         IStringArrayExcludeTargetsClassesWrapper {
+}
+
+/* @stable - 06.04.2018 */
+export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfiguration) => void> {
 }

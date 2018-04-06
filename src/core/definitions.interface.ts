@@ -267,6 +267,11 @@ export interface IOperationWrapper<TOperation> {
 export interface IDefaultOperationWrapper extends IOperationWrapper<IStringIdWrapper> {
 }
 
+/* @stable - 06.04.2018 */
+export interface IItemsWrapper<TItems> {
+  items?: TItems;
+}
+
 /* @stable - 31.03.2018 */
 export interface IDataWrapper<TData> {
   data?: TData;
@@ -582,23 +587,29 @@ export interface ITouchedWrapper {
   touched?: boolean;
 }
 
-/**********************
- * Effector's wrapper
- **********************/
-export interface IEffectorWrapper {
-  effector?: string;
+/* @stable - 07.04.2018 */
+export interface IEffectorWrapper<TEffector> {
+  effector?: TEffector;
 }
 
-/**********************
- * Values's wrappers
- **********************/
+/* @stable - 07.04.2018 */
+export interface IStringEffectorWrapper extends IEffectorWrapper<string> {
+}
+
+/* @stable - 07.04.2018 */
 export interface IValueWrapper<TValue> {
   value?: TValue;
 }
 
+/* @stable - 07.04.2018 */
+export interface INumberValueWrapper extends IValueWrapper<number> {
+}
+
+/* @stable - 07.04.2018 */
 export interface IStringValueWrapper extends IValueWrapper<string> {
 }
 
+/* @stable - 07.04.2018 */
 export interface IAnyValueWrapper extends IValueWrapper<AnyT> {
 }
 

@@ -28,6 +28,10 @@ import {
   IUseSortingWrapper,
   IAlignWrapper,
   IUseLocalFilteringWrapper,
+  INameWrapper,
+  INumberValueWrapper,
+  IItemsWrapper,
+  IBooleanActiveWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -110,4 +114,15 @@ export interface IGridConfiguration extends IBaseListConfiguration,
 
 /* @stable - 03.04.2018 */
 export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration {
+}
+
+/* @stable - 06.04.2018 */
+export interface ITabConfiguration extends INumberValueWrapper,
+                                           IBooleanActiveWrapper,
+                                           INameWrapper,
+                                           IStringIconWrapper {
+}
+
+/* @stable - 06.04.2018 */
+export interface ITabPanelConfiguration extends IItemsWrapper<ITabConfiguration[]> {
 }
