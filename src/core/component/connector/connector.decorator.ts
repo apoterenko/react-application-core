@@ -42,14 +42,14 @@ export function basicConnector<TAppState extends IDefaultApplicationState>(
               logger.debug(`[$basicConnector][componentWillUnmount] Section: ${sectionName0}`);
             }
         );
-        proto.componentWillMount = sequence(
-            proto.componentWillMount || noop,
+        proto.componentDidMount = sequence(
+            proto.componentDidMount || noop,
             () => {
               const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);
               store.dispatch({ type: STACK_PUSH_ACTION_TYPE, data: sectionName0 });
               store.dispatch({ type: ConnectorActionBuilder.buildInitActionType(sectionName0) });
 
-              logger.debug(`[$basicConnector][componentWillMount] Section: ${sectionName0}`);
+              logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName0}`);
             }
         );
     } else {
