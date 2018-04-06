@@ -19,11 +19,13 @@ import {
   CheckboxMaterialPlugin,
   MenuMaterialPlugin,
   ListItemMaterialPlugin,
+  TabPanelMaterialPlugin,
 } from './plugin';
 import { INativeMaterialComponent } from '../material';
 import { UIMaterialFactory } from './factory';
-import { Menu, INativeMaterialMenuComponent } from '../menu';
+import { Menu } from '../menu';
 import { ListItem } from '../list';
+import { TabPanel } from '../tabpanel';
 
 const uiPlugins = new Map<IBaseComponentCtor, ComponentPluginFactoryT>();
 uiPlugins.set(
@@ -52,6 +54,9 @@ uiPlugins.set(
     new FieldMaterialPlugin<ChipsField, INativeMaterialComponent>(component, MDCTextField)
 );
 uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
+
+/* @stable - 06.04.2018 */
+uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(component));
 
 /* @stable - 31.03.2018 */
 uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component, MDCMenu));

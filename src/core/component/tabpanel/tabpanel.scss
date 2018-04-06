@@ -1,0 +1,16 @@
+// Tab panel [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-tab-panel {
+
+    .rac-tab {
+
+      .rac-tab-icon {
+        position: absolute;               /* @stable - 06.04.2018 */
+        top: 50%;                         /* @stable - 06.04.2018 */
+        right: 2px;                       /* @stable - 06.04.2018 */
+        transform: translate(0, -50%);    /* @stable - 06.04.2018 */
+      }
+    }
+  }
+}
