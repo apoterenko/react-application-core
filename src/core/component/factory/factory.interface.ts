@@ -22,6 +22,10 @@ export interface IUIFactory {
   listTwoLine?: string;
   listAvatar?: string;
   listNonInteractive?: string;
+  tabBarScroller?: string;
+  tabBarScrollerIndicator?: string;
+  tabBarScrollerIndicatorBack?: string;
+  tabBarScrollerIndicatorForward?: string;
   button?: string;
   formField?: string;
   textField?: string;

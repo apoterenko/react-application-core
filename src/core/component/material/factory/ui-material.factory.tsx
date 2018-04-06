@@ -20,6 +20,10 @@ export class UIMaterialFactory implements IUIFactory {
   public listTwoLine = 'mdc-list--two-line';
   public listAvatar = 'mdc-list--avatar-list';
   public listNonInteractive = 'mdc-list--non-interactive';
+  public tabBarScroller = 'mdc-tab-bar-scroller';
+  public tabBarScrollerIndicator = 'mdc-tab-bar-scroller__indicator';
+  public tabBarScrollerIndicatorBack = 'mdc-tab-bar-scroller__indicator--back';
+  public tabBarScrollerIndicatorForward = 'mdc-tab-bar-scroller__indicator--forward';
   public button = 'mdc-button';
   public listItem = 'mdc-list-item';
   public listItemGraphic = 'mdc-list-item__graphic';
