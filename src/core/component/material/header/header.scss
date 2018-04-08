@@ -1,21 +1,24 @@
-// Header [MDC+][RAC+]
+// Header [FRAMEWORK+][RAC+]
 .rac {
 
   .rac-header {
 
     .rac-toolbar-section-wrapper {
-      padding: 0;                   // [MDC OVERRIDE+]
+      padding: 0;                     /* @override @stable - 08.04.2018 */
     }
 
     .rac-form-field {
-      &::after, &::before {
-        background: none;           // [MDC OVERRIDE+]
-      }
 
       .rac-text-field {
-        &::after, &::before {
-          background: none;         // [MDC OVERRIDE+]
-        }
+        margin-top: 8px;              /* @override @stable - 08.04.2018 */
+      }
+    }
+
+    .rac-field-input-wrapper {
+      background: none;               /* @override @stable - 08.04.2018 */
+
+      &::after, &::before {
+        background: none;             /* @override @stable - 08.04.2018 */
       }
     }
   }

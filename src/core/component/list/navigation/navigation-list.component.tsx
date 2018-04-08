@@ -36,7 +36,10 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                       'rac-navigation-list-item',
                       options.active && 'rac-list-item-active'
                   )}>
-              {this.uiFactory.makeIcon(options.icon)}
+              {this.uiFactory.makeIcon({
+                type: options.icon,
+                className: 'rac-navigation-icon',
+              })}
               {options.label}
             </Link>
         );

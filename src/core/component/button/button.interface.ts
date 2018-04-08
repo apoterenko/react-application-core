@@ -1,29 +1,23 @@
 import { IBaseComponentInternalProps } from '../base';
 import {
   IBooleanActiveWrapper,
-  IDisabledWrapper,
-  IStringTypeWrapper,
   IStringIconWrapper,
   IOnBaseClickWrapper,
   IToWrapper,
-  ISimpleWrapper,
   INotUseClassNameWrapper,
 } from '../../definitions.interface';
-import { IBooleanErrorEntity } from '../../entities-definitions.interface';
-
-export interface IButtonInternalState {
-}
+import { IBooleanErrorEntity, IButtonEntity } from '../../entities-definitions.interface';
+import { IButtonConfiguration } from '../../configurations-definitions.interface';
 
 export interface IButtonInternalProps extends IBaseComponentInternalProps,
+                                              IButtonConfiguration,
+                                              IButtonEntity,
                                               INotUseClassNameWrapper,
                                               IBooleanActiveWrapper,
-                                              IDisabledWrapper,
                                               IStringIconWrapper,
                                               IOnBaseClickWrapper,
                                               IToWrapper,
-                                              ISimpleWrapper,
-                                              IBooleanErrorEntity,
-                                              IStringTypeWrapper {
+                                              IBooleanErrorEntity {
   accent?: boolean;
   raised?: boolean;
 }

@@ -1,16 +1,16 @@
-.rac-form-layout {
-  &.mdc-layout-grid {
-    flex: 1;
-    background: #070803 no-repeat center / cover;
+@import '../../constant';
 
-    .mdc-layout-grid__inner {
-      height: 100%;
+// Form layout [FRAMEWORK-][RAC+]
+.rac {
 
-      .mdc-card {
-        margin: 0 auto;
-        width: 100%;
-        max-width: 360px;
-      }
+  .rac-form-layout {
+    background-color: $rac-form-layout-background-color;              /* @stable - 08.04.2018 */
+
+    .rac-form-layout-content {
+      width: $rac-form-layout-content-width;                          /* @stable - 08.04.2018 */
+      min-width: $rac-form-layout-content-min-width;                  /* @stable - 08.04.2018 */
+      border: 1px solid $rac-form-layout-content-border-color;        /* @stable - 08.04.2018 */
+      background-color: $rac-form-layout-content-background-color;    /* @stable - 08.04.2018 */
     }
   }
 }

@@ -1,12 +1,21 @@
 @import '../../constant';
 
-// Navigation list [FRAMEWORK-]
-.rac-navigation-list {
-  overflow: auto; // [RAC+]
+// Navigation list [FRAMEWORK-][RAC+]
+.rac {
 
-  .rac-navigation-list-item {
-    &.rac-list-item-active {
-      color: $rac-list-item-active-color; // [RAC+]
+  .rac-navigation-list {
+    overflow: auto;                                                 /* @stable - 08.04.2018 */
+
+    .rac-navigation-list-item {
+
+      &.rac-list-item-active {
+        color: $rac-list-item-active-color;                         /* @stable - 08.04.2018 */
+        background-color: $rac-list-item-active-background-color;   /* @stable - 08.04.2018 */
+      }
+
+      .rac-navigation-icon {
+        padding-right: $rac-navigation-icon-padding-right;          /* @stable - 08.04.2018 */
+      }
     }
   }
 }

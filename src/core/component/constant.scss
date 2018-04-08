@@ -6,17 +6,31 @@ $color-2: #212121 !default;
 $color-3: #e0e0e0 !default;
 $color-4: #989898 !default;
 $color-5: #ffffff !default;
-$color-6: #bdbdbd !default;
-$color-7: #e3ecf5 !default;
-$color-8: #263238 !default;
+$color-6: #f96f00 !default;
+$color-7: #d4e4fe !default;
 $color-9: #787878 !default;
 $color-10: #e1e1e1 !default;
-$color-11: #000000 !default;
 
 $rac-snackbar-action-button-ink-color: $color-1 !default;
 
-$rac-list-item-active-color: $color-1 !default;
+/* @stable - 08.04.2018 */
+$rac-navigation-icon-padding-right: 32px !default;
 
+/* @stable - 08.04.2018 */
+$rac-form-layout-background-color: $color-7 !default;
+$rac-form-layout-content-width: 25% !default;
+$rac-form-layout-content-min-width: 280px !default;
+$rac-form-layout-content-border-color: $color-2 !default;
+$rac-form-layout-content-background-color: $color-5 !default;
+
+/* @stable - 08.04.2018 */
+$rac-filter-active-color: $color-6 !default;
+
+/* @stable - 08.04.2018 */
+$rac-list-item-active-color: $color-5 !default;
+$rac-list-item-active-background-color: $color-1 !default;
+
+/**/
 $rac-button-accent-fill-color: $color-1 !default;
 $rac-button-disabled-opacity: $opacity !default;
 $rac-button-border-radius: 2px !default;

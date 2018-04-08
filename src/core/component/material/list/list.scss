@@ -1,16 +1,18 @@
 @import '../../constant';
+@import './simple/simple-list';
+@import './navigation/navigation-list';
 
 // List [FRAMEWORK+][RAC+]
 .rac {
 
-  .rac-list, &.rac-simple-list, &.rac-navigation-list {
+  .rac-list {
     padding: 0;   /* @stable - 02.04.2018 */
 
     &.mdc-list--avatar-list {
 
       .mdc-list-item__graphic {
         color: $color-5;        /* @stable - 02.04.2018 */
-        background: $color-6;   /* @stable - 02.04.2018 */
+        background: $color-4;   /* @stable - 02.04.2018 */
       }
     }
   }
@@ -23,13 +25,6 @@
       &.mdc-list-item__meta {
         color: $color-1;    /* @stable - 02.04.2018 */
       }
-    }
-  }
-
-  .rac-navigation-list {
-
-    .material-icons {
-      padding-right: $rac-menu-icon-right-offset;   /* @stable - 02.04.2018 */
     }
   }
 }

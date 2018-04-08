@@ -4,13 +4,10 @@ import { BaseComponent } from '../../component/base';
 import { toClassName } from '../../util';
 import {
   IButtonInternalProps,
-  IButtonInternalState,
 } from './button.interface';
 import { Link } from '../../component/link';
 
-export class Button extends BaseComponent<Button,
-                                          IButtonInternalProps,
-                                          IButtonInternalState> {
+export class Button extends BaseComponent<Button, IButtonInternalProps, {}> {
   public static defaultProps: IButtonInternalProps = {
     type: 'button',
   };

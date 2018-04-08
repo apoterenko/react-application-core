@@ -1,3 +1,4 @@
+@import '~sass-mixins/partials/_user-select';
 @import './constant';
 
 // Html + body [FRAMEWORK-]
@@ -6,16 +7,6 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-}
-
-// Focus [FRAMEWORK-]
-:focus {
-  outline: none;
-}
-
-// Anchor [FRAMEWORK-]
-a {
-  text-decoration: none;
 }
 
 // Root [FRAMEWORK-]
@@ -33,20 +24,6 @@ a {
 // Loading icon [FRAMEWORK-]
 .rac-loading-icon {
   vertical-align: middle;
-}
-
-// Filter [FRAMEWORK-]
-.rac-filter-active {
-  position: relative;
-
-  &::after {
-    position: absolute;
-    left: 22px;
-    font-size: 11px;
-    content: 'lens';
-    font-weight: bold;
-    color: $color-1;
-  }
 }
 
 // Fieldset [FRAMEWORK-]
@@ -77,21 +54,19 @@ a {
 }
 
 /* @stable - 05.04.2018 */
-.rac-no-user-select {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* @stable - 05.04.2018 */
 .rac-visibility-hidden {
   visibility: hidden;
 }
 
 .rac {
+
+  :focus {
+    outline: none;          /* @stable - 08.04.2018 */
+  }
+
+  a {
+    text-decoration: none;  /* @stable - 08.04.2018 */
+  }
 
   .rac-absolute-center-position {
     position: absolute;
@@ -99,6 +74,22 @@ a {
     top: 50%;
     width: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .rac-no-user-select {
+    @include x-user-select;   /* @stable - 08.04.2018 */
+  }
+
+  .rac-filter-active {
+    position: relative;                   /* @stable - 08.04.2018 */
+
+    &::after {
+      position: absolute;                 /* @stable - 08.04.2018 */
+      left: 20px;                         /* @stable - 08.04.2018 */
+      font-size: 11px;                    /* @stable - 08.04.2018 */
+      content: 'lens';                    /* @stable - 08.04.2018 */
+      color: $rac-filter-active-color;    /* @stable - 08.04.2018 */
+    }
   }
 }
 

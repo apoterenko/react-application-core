@@ -32,6 +32,7 @@ import {
   INumberValueWrapper,
   IItemsWrapper,
   IBooleanActiveWrapper,
+  IStringTypeWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -125,4 +126,10 @@ export interface ITabConfiguration extends INumberValueWrapper,
 
 /* @stable - 06.04.2018 */
 export interface ITabPanelConfiguration extends IItemsWrapper<ITabConfiguration[]> {
+}
+
+/* @stable - 07.04.2018 */
+export interface IButtonConfiguration extends ISimpleWrapper,
+                                              IStringTypeWrapper,
+                                              IDisabledWrapper {
 }

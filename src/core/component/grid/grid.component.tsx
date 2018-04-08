@@ -52,7 +52,7 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
           <div className='rac-grid-service'>
             {this.uiFactory.makeIcon({
               type: 'more_vert',
-              className: 'rac-icon-button',
+              className: 'rac-button-icon',
               onClick: this.onSettingsClick,
             })}
           </div>

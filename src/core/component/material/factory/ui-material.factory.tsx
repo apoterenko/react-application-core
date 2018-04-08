@@ -3,8 +3,10 @@ import { injectable } from 'inversify';
 
 import { isString, toClassName, uuid } from '../../../util';
 import { IUIFactory, UIIconConfigT } from '../../factory';
-import { Button, IButtonInternalProps } from '../../button';
+import { Button } from '../../button';
 import { IStringTypeWrapper, IClassNameWrapper } from '../../../definitions.interface';
+import { IButtonConfiguration } from '../../../configurations-definitions.interface';
+import { IButtonEntity } from '../../../entities-definitions.interface';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -64,7 +66,7 @@ export class UIMaterialFactory implements IUIFactory {
     if (!cfg) {
       return null;
     }
-    const config = this.toIconConfig(cfg) as IButtonInternalProps;  // TODO replace with entity
+    const config = this.toIconConfig(cfg) as any; // TODO IButtonEntity & IButtonConfiguration;
     const className = toClassName('material-icons', config.className);
     return config.onClick && !config.simple
         ? (
@@ -134,6 +136,10 @@ export class UIMaterialFactory implements IUIFactory {
   }
 
   private toIconConfig(cfg: UIIconConfigT): IStringTypeWrapper & IClassNameWrapper {
-    return (cfg ? (isString(cfg) ? {type: cfg} : cfg) : cfg) as IStringTypeWrapper & IClassNameWrapper;
+    return (
+      isString(cfg)
+        ? { type: cfg }
+        : cfg
+    ) as IStringTypeWrapper & IClassNameWrapper;
   }
 }
