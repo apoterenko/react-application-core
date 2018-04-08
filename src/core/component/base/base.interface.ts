@@ -8,6 +8,7 @@ import {
   IStringTitleWrapper,
   IClassNameWrapper,
   ICssStyleWrapper,
+  IHtmlElementSelfWrapper,
 } from '../../definitions.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
 import { IApplicationLayoutState } from '../../component/layout';
@@ -52,8 +53,8 @@ export interface IBaseContainerInternalState {
 }
 
 export interface IBaseComponent<TInternalProps, TInternalState>
-    extends Component<TInternalProps, TInternalState> {
-  self: HTMLElement;
+    extends Component<TInternalProps, TInternalState>,
+            IHtmlElementSelfWrapper {
   stopEvent(event: SyntheticEvent<AnyT>): void;
   registerPlugin(componentPlugin: IComponentPluginCtor<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>):
       IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;

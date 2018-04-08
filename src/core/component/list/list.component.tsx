@@ -1,47 +1,20 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { uuid, scrollIntoView, toClassName, orNull } from '../../util';
+import { toClassName, orNull } from '../../util';
 import { IEntity } from '../../definitions.interface';
-import { BaseComponent } from '../base';
-import { ListItem, IListItem } from './item';
+import { ListItem } from './item';
 import { ProgressLabel } from '../progress';
 import { IListInternalProps } from './list.interface';
 import { SimpleList } from '../list/simple';
 import { CenterLayout } from '../layout';
+import { BaseList } from './base-list.component';
 
-export class List extends BaseComponent<List, IListInternalProps, {}> {
-
-  constructor(props: IListInternalProps) {
-    super(props);
-
-    this.onSelect = this.onSelect.bind(this);
-    this.onCreate = this.onCreate.bind(this);
-    this.onSearchAction = this.onSearchAction.bind(this);
-  }
-
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    const selected = this.props.selected;
-    if (selected) {
-      const listItem = this.refs[this.toItemId(selected)] as IListItem;
-      if (listItem) {
-        scrollIntoView(listItem.self, (this.refs.container as SimpleList).self as HTMLElement);
-      }
-    }
-  }
-
-  public shouldComponentUpdate(nextProps: IListInternalProps, nextState: {}): boolean {
-    const previousProps = this.props;
-    return !R.equals(nextProps.data, previousProps.data)
-        || !R.equals(nextProps.selected, previousProps.selected)
-        || !R.equals(nextProps.progress, previousProps.progress);
-  }
+export class List extends BaseList<List, IListInternalProps> {
 
   public render(): JSX.Element {
     const props = this.props;
-    const noDataFound = Array.isArray(props.data) && !props.data.length;
+    const originalDataSource = this.getOriginalDataSource();
+    const originalDataSourceEmpty = this.isOriginalDataSourceEmpty();
     const emptyMessage = this.emptyMessage;
     const progress = props.progress;
 
@@ -53,10 +26,10 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
     // unnecessary business logic code of app effects
     const error = orNull(props.touched, props.error);
 
-    if (!props.data
+    if (!originalDataSource
         || progress
         || error
-        || noDataFound) {
+        || originalDataSourceEmpty) {
       return (
           <CenterLayout className='rac-list-empty'>
             {
@@ -66,13 +39,13 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                       error
                           ? this.errorMessage
                           : ((canShowAddAction = true) && (
-                              noDataFound
+                                originalDataSourceEmpty
                                   ? this.emptyDataMessage
                                   : emptyMessage
                           ))
                   )
             }
-            {orNull(canShowAddAction, () => this.addActionTpl)}
+            {orNull(canShowAddAction, () => this.getAddAction())}
           </CenterLayout>
       );
     }
@@ -84,84 +57,27 @@ export class List extends BaseComponent<List, IListInternalProps, {}> {
                     simple={false}
                     {...props}
                     className={toClassName('rac-list', props.className)}>
-          {this.listData}
-          {this.addActionTpl}
+          {this.getDataSource().map((item) => this.getItem(item))}
+          {this.getAddAction()}
         </SimpleList>
     );
   }
 
-  protected itemTpl(entity: IEntity): JSX.Element {
-    return (
-        <ListItem ref={this.toItemId(entity)}
-                  key={uuid()}
-                  rawData={entity}
-                  active={this.isSelected(entity)}
-                  onClick={this.onSelect}
-                  {...this.props.itemConfiguration}/>
-    );
-  }
-
-  protected get addActionTpl(): JSX.Element {
-    return orNull(
-        this.props.useAddAction,
-        () => this.uiFactory.makeIcon({
-          type: 'add',
-          className: toClassName(
-              'rac-list-add-button',
-              'rac-flex-center',
-              'mdc-fab'
-          ),
-          onClick: this.onCreate,
-        })
-    );
-  }
-
-  private onSearchAction(): void {
-    if (this.props.onSearch) {
-      this.props.onSearch();
-    }
-  }
-
-  private isSelected(item: IEntity): boolean {
-    return this.props.selected && this.props.selected.id === item.id;
-  }
-
-  private onCreate(): void {
-    if (this.props.onCreate) {
-      this.props.onCreate();
-    }
-  }
-
-  private onSelect(entity: IEntity): void {
-    if (this.props.onSelect) {
-      this.props.onSelect(entity);
-    }
-  }
-
-  private toItemId(entity: IEntity): string {
-    return `$item-${entity.id}`;
-  }
-
-  private get listData(): IEntity[] {
+  /**
+   * @stable - 08.04.2018
+   * @param {IEntity} entity
+   * @returns {JSX.Element}
+   */
+  protected getItem(entity: IEntity): JSX.Element {
     const props = this.props;
+    const rowKey = this.toRowKey(entity);
     return (
-        props.sorter
-            ? R.sort<IEntity>(props.sorter, props.data)
-            : props.data
-    ).map((item) => this.itemTpl(item));
-  }
-
-  private get errorMessage(): string {
-    return this.t(
-        this.props.errorMessage || 'Something went wrong. There was a problem loading your data'
+      <ListItem ref={rowKey}
+                key={rowKey}
+                rawData={entity}
+                active={this.isEntitySelected(entity)}
+                onClick={this.onSelect}
+                {...props.itemConfiguration}/>
     );
-  }
-
-  private get emptyDataMessage(): string {
-    return this.t(this.props.emptyDataMessage || 'No data found');
-  }
-
-  private get emptyMessage(): string {
-    return this.t(this.props.emptyMessage || 'No data');
   }
 }

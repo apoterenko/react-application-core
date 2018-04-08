@@ -152,15 +152,15 @@ export interface IListItemEntity extends IEntityRawDataWrapper,
 
 /* @stable - 04.04.2018 */
 export interface IBaseListEntity extends IDefaultOnCreateWrapper,
-                                         IEntityOnSelectWrapper {
+                                         IEntityOnSelectWrapper,
+                                         ISelectedEntityWrapper,
+                                         IPaginatedEntitiesEntity {
 }
 
 /* @stable - 04.04.2018 */
 export interface IListEntity extends IBaseListEntity,
                                      ISortDirectionsWrapper,
-                                     IPaginatedEntitiesEntity,
                                      IKeyValueChangesWrapper,
-                                     ISelectedEntityWrapper,
                                      IStateEntity,
                                      IDefaultOnSearchWrapper {
 }
@@ -224,4 +224,8 @@ export interface IGridRowEntity extends IBooleanSelectedWrapper,
 
 /* @stable - 06.04.2018 */
 export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfiguration) => void> {
+}
+
+/* @stable - 07.04.2018 */
+export interface IButtonEntity {
 }

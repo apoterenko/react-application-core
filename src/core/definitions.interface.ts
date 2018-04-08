@@ -777,11 +777,22 @@ export interface IResolverWrapper<TResolver> {
   resolver?: TResolver;
 }
 
-/**********************
- * Simple's wrapper
- **********************/
+/* @stable - 07.04.2018 */
 export interface ISimpleWrapper {
   simple?: boolean;
+}
+
+/* @stable - 08.04.2018 */
+export interface ISelfWrapper<TSelf> {
+  self?: TSelf;
+}
+
+/* @stable - 08.04.2018 */
+export interface IAnySelfWrapper extends ISelfWrapper<AnyT> {
+}
+
+/* @stable - 08.04.2018 */
+export interface IHtmlElementSelfWrapper extends ISelfWrapper<HTMLElement> {
 }
 
 /* @stable - 31.03.2018 */

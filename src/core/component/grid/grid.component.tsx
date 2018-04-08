@@ -35,8 +35,9 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
                     {this.getHeader()}
                     {this.getFilter()}
                   </thead>
-                  <tbody className='rac-grid-body'>
-                    {props.data.map((entity) => this.getRow(entity))}
+                  <tbody ref='container'
+                         className='rac-grid-body'>
+                    {this.getDataSource().map((entity) => this.getRow(entity))}
                   </tbody>
                 </table>
                 {this.getAddAction()}
@@ -172,7 +173,8 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
   private getRow(entity: IEntity): JSX.Element {
     const rowKey = this.toRowKey(entity);
     return (
-      <GridRow key={rowKey}
+      <GridRow ref={rowKey}
+               key={rowKey}
                className='grid-data-row'
                selected={this.isEntitySelected(entity)}
                onClick={() => this.onSelect(entity)}>
@@ -219,16 +221,6 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
   /**
    * @stable - 05.04.2018
    * @param {IEntity} entity
-   * @returns {boolean}
-   */
-  private isEntitySelected(entity: IEntity): boolean {
-    const props = this.props;
-    return props.selected === entity || (props.selected && props.selected.id === entity.id);
-  }
-
-  /**
-   * @stable - 05.04.2018
-   * @param {IEntity} entity
    * @param {number} columnNum
    * @returns {string}
    */
@@ -243,15 +235,6 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
    */
   private toHeaderFieldName(columnNum: number): string {
     return `$$dynamic-header-field-${columnNum}`;
-  }
-
-  /**
-   * @stable - 05.04.2018
-   * @param {IEntity} entity
-   * @returns {string}
-   */
-  private toRowKey(entity: IEntity): string {
-    return `grid-row-${entity.id}`;   // Infinity scroll supporting
   }
 
   /**

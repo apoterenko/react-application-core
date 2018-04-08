@@ -28,7 +28,8 @@ export class GridRow extends BaseComponent<GridRow, IGridRowInternalProps, {}> {
     const props = this.props;
 
     return (
-      <tr className={toClassName(
+      <tr ref='self'
+          className={toClassName(
             'grid-row',
             props.selected && 'grid-row-selected',
             props.className
