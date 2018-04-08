@@ -11,7 +11,7 @@ export class CenterLayout extends BaseComponent<CenterLayout, IBaseComponentInte
             'rac-flex rac-flex-center rac-flex-full',
             this.props.className,
         )}>
-          {this.props.children || this.t(this.props.emptyMessage)}
+          {this.props.children}
         </div>
     );
   }
