@@ -1,12 +1,18 @@
 import { Component } from 'react';
 
-import { IProgressWrapper } from '../../definitions.interface';
+import {
+  IProgressWrapper,
+  IStringProgressMessageWrapper,
+  IStringEmptyMessageWrapper,
+} from '../../definitions.interface';
 import { IBaseContainerInternalProps, IContainerInternalProps } from '../../component/base';
 import { ConnectorConfigT } from '../../component/connector';
 import { IErrorEntity } from '../../entities-definitions.interface';
 
 export interface IApplicationContainerProps extends IBaseContainerInternalProps,
-                                                    IApplicationAttributes {
+                                                    IApplicationAttributes,
+                                                    IStringEmptyMessageWrapper,
+                                                    IStringProgressMessageWrapper {
   basename?: string;
 }
 

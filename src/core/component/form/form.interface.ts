@@ -9,6 +9,7 @@ import {
   IOnSubmitWrapper,
   IDefaultOnResetWrapper,
   IDefaultOnValidWrapper,
+  IProgressWrapper,
 } from '../../definitions.interface';
 import {
   IBaseComponent,
@@ -27,7 +28,7 @@ import {
   IFormConfiguration,
 } from '../../configurations-definitions.interface';
 
-/* @stable - 01.04.2018 */
+// TODO
 export interface IFormInternalProps extends IBaseComponentInternalProps,
                                             IFormConfiguration,
                                             IDefaultFormWrapperEntity,
@@ -36,6 +37,7 @@ export interface IFormInternalProps extends IBaseComponentInternalProps,
                                             IOnLoadDictionaryWrapper,
                                             IDefaultOnResetWrapper,
                                             IDefaultOnValidWrapper,
+                                            IProgressWrapper,
                                             IOnSubmitWrapper<(apiEntity: IDefaultApiEntity) => void> {
 }
 

@@ -50,6 +50,9 @@ import {
   IBooleanSelectedWrapper,
   IDefaultOnClickWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
+  IStringProgressMessageWrapper,
+  IEmptyDataWrapper,
+  IStringEmptyMessageWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -151,7 +154,8 @@ export interface IListItemEntity extends IEntityRawDataWrapper,
 }
 
 /* @stable - 04.04.2018 */
-export interface IBaseListEntity extends IDefaultOnCreateWrapper,
+export interface IBaseListEntity extends IStateEntity,
+                                         IDefaultOnCreateWrapper,
                                          IEntityOnSelectWrapper,
                                          ISelectedEntityWrapper,
                                          IPaginatedEntitiesEntity {
@@ -161,7 +165,6 @@ export interface IBaseListEntity extends IDefaultOnCreateWrapper,
 export interface IListEntity extends IBaseListEntity,
                                      ISortDirectionsWrapper,
                                      IKeyValueChangesWrapper,
-                                     IStateEntity,
                                      IDefaultOnSearchWrapper {
 }
 
@@ -226,6 +229,18 @@ export interface IGridRowEntity extends IBooleanSelectedWrapper,
 export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfiguration) => void> {
 }
 
-/* @stable - 07.04.2018 */
-export interface IButtonEntity {
+/* @stable - 08.04.2018 */
+export interface IButtonEntity extends IStringProgressMessageWrapper,
+                                       IProgressWrapper {
+}
+
+/* @stable - 08.04.2018 */
+export interface IMessageEntity extends IStringErrorEntity,
+                                        IProgressWrapper,
+                                        IStringEmptyMessageWrapper,
+                                        IEmptyDataWrapper {
+}
+
+/* @stable - 08.04.2018 */
+export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 }

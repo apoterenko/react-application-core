@@ -4,7 +4,6 @@ import * as URLSearchParams from 'url-search-params';
 import {
   AnyT,
   IKeyValue,
-  IProgressWrapper,
   IStringTitleWrapper,
   IClassNameWrapper,
   ICssStyleWrapper,
@@ -23,10 +22,7 @@ export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComp
                                                         {}>;
 
 export interface IBaseInternalProps extends IClassNameWrapper,
-                                            IStringTitleWrapper,
-                                            IProgressWrapper {
-  progressMessage?: string;
-  emptyMessage?: string;
+                                            IStringTitleWrapper {
   emptyDataMessage?: string;
   message?: string;
   errorMessage?: string;

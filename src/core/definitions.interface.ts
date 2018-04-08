@@ -92,6 +92,20 @@ export interface IIpWrapper {
   ip?: string;
 }
 
+/* @stable - 08.04.2018 */
+export interface IEmptyDataWrapper {
+  emptyData?: boolean;
+}
+
+/* @stable - 08.04.2018 */
+export interface IProgressMessageWrapper<TProgressMessage> {
+  progressMessage?: TProgressMessage;
+}
+
+/* @stable - 08.04.2018 */
+export interface IStringProgressMessageWrapper extends IProgressMessageWrapper<string> {
+}
+
 /* @stable - 01.04.2018 */
 export interface IResultWrapper<TResult> {
   result?: TResult;
