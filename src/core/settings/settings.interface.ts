@@ -39,11 +39,11 @@ export interface IApplicationMessagesSettings {
   sorryMessage?: string;
   waitMessage?: string;
   dndMessage?: string;
-  somethingWentWrongMessage?: string;
+  errorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   emptyMessage?: string;
-  noDataFoundMessage?: string;
+  emptyDataMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -91,9 +91,9 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     dndMessage: 'Try dropping some file(s) here, or click to select file(s) to upload.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
-    somethingWentWrongMessage: 'Something went wrong. There was a problem loading your data',
+    errorMessage: 'Something went wrong. There was a problem loading your data',
     emptyMessage: 'Start a search',
-    noDataFoundMessage: 'No data found',
+    emptyDataMessage: 'No data found',
   },
   dateTime: {
     currentDate: new Date(),
