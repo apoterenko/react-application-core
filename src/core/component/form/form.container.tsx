@@ -79,7 +79,7 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
   }
 
   private onLoadDictionary(items: AnyT): void {
-    const noAvailableItemsToSelect = this.settings.messages.noAvailableItemsToSelect;
+    const noAvailableItemsToSelect = this.settings.messages.noAvailableItemsToSelectMessage;
     if (noAvailableItemsToSelect && R.isEmpty(items)) {
       this.dispatchNotification(noAvailableItemsToSelect);
     }

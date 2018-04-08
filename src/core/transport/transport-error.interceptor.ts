@@ -21,7 +21,7 @@ export class TransportErrorInterceptor implements IApplicationTransportErrorInte
       switch (error.response.status) {
         case 500:
           return ApplicationActionBuilder.buildCustomErrorAction(
-            this.settings.messages.serviceTemporarilyUnavailable
+            this.settings.messages.serviceTemporarilyUnavailableMessage
           );
       }
     }
