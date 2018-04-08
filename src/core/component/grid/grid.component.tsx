@@ -20,44 +20,43 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
     this.onSettingsClick = this.onSettingsClick.bind(this);
   }
 
+  /**
+   * @stable - 08.04.2018
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
+    const renderEl = super.render();
 
-    return (
-      <div className={toClassName('rac-grid-container-wrapper', 'rac-flex', 'rac-flex-row')}>
-        {
-          orDefault(
-            !R.isNil(props.data),
-            () => (
-              <div className={toClassName('rac-flex', 'rac-flex-full')}>
-                <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
-                  <thead className='rac-grid-head'>
-                    {this.getHeader()}
-                    {this.getFilter()}
-                  </thead>
-                  <tbody ref='container'
-                         className='rac-grid-body'>
-                    {this.getDataSource().map((entity) => this.getRow(entity))}
-                  </tbody>
-                </table>
-                {this.getAddAction()}
-              </div>
-            ),
-            () => (
-              <div>No data</div>
-            )
-          )
-        }
-        <div className='rac-grid-service-wrapper'>
-          <div className='rac-grid-service'>
-            {this.uiFactory.makeIcon({
-              type: 'more_vert',
-              className: 'rac-button-icon',
-              onClick: this.onSettingsClick,
-            })}
+    return orDefault<JSX.Element, JSX.Element>(
+      !R.isNil(renderEl),
+      () => renderEl,
+      () => (
+        <div className={toClassName('rac-grid-container-wrapper', 'rac-flex', 'rac-flex-row')}>
+          <div className={toClassName('rac-flex', 'rac-flex-full')}>
+            <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
+              <thead className='rac-grid-head'>
+              {this.getHeader()}
+              {this.getFilter()}
+              </thead>
+              <tbody ref='container'
+                     className='rac-grid-body'>
+              {this.getDataSource().map((entity) => this.getRow(entity))}
+              </tbody>
+            </table>
+            {this.getAddAction()}
+          </div>
+          <div className='rac-grid-service-wrapper'>
+            <div className='rac-grid-service'>
+              {this.uiFactory.makeIcon({
+                type: 'more_vert',
+                className: 'rac-button-icon',
+                onClick: this.onSettingsClick,
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )
     );
   }
 

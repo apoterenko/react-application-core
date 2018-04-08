@@ -6,6 +6,7 @@ import { BaseComponent, IBaseComponentInternalProps } from '../base';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { IBaseListEntity } from '../../entities-definitions.interface';
 import { IBaseListConfiguration } from '../../configurations-definitions.interface';
+import { Message } from '../message';
 
 export class BaseList<TList extends BaseList<TList, TInternalProps>,
                       TInternalProps extends IBaseComponentInternalProps
@@ -23,6 +24,25 @@ export class BaseList<TList extends BaseList<TList, TInternalProps>,
     this.onSelect = this.onSelect.bind(this);
   }
 
+  public render(): JSX.Element {
+    const props = this.props;
+    const originalDataSourceEmpty = this.isOriginalDataSourceEmpty();
+
+    if (!this.getOriginalDataSource()
+      || props.progress
+      || props.error
+      || originalDataSourceEmpty) {
+      return (
+        <Message emptyData={originalDataSourceEmpty}
+                 error={props.error}
+                 progress={props.progress}>
+          {this.getAddAction()}
+        </Message>
+      );
+    }
+    return null;
+  }
+
   /**
    * @stable - 08.04.2018
    */
@@ -33,18 +53,19 @@ export class BaseList<TList extends BaseList<TList, TInternalProps>,
     if (selected) {
       const rowItem = this.refs[this.toRowKey(selected)] as IAnySelfWrapper;
       if (rowItem) {
+        const container = this.refs.container;
         scrollIntoView(
           rowItem.self,
-          this.refs.container instanceof HTMLElement
-            ? this.refs.container as HTMLElement
-            : (this.refs.container as IAnySelfWrapper).self
+          container instanceof HTMLElement
+            ? container as HTMLElement
+            : (container as IAnySelfWrapper).self
         );
       }
     }
   }
 
   /**
-   * @stable - 04.04.2018
+   * @stable - 08.04.2018
    * @returns {JSX.Element}
    */
   protected getAddAction(): JSX.Element {
@@ -52,11 +73,7 @@ export class BaseList<TList extends BaseList<TList, TInternalProps>,
       this.props.useAddAction,
       () => this.uiFactory.makeIcon({
         type: 'add',
-        className: toClassName(
-          'rac-list-add-button',
-          'rac-flex-center',
-          this.uiFactory.fab
-        ),
+        className: toClassName('rac-add-button', this.uiFactory.fab),
         onClick: this.onCreate,
       })
     );
@@ -129,31 +146,5 @@ export class BaseList<TList extends BaseList<TList, TInternalProps>,
   protected isOriginalDataSourceEmpty(): boolean {
     const originalDataSource = this.getOriginalDataSource();
     return Array.isArray(originalDataSource) && !originalDataSource.length;
-  }
-
-  /**
-   * @stable - 08.04.2018
-   * @returns {string}
-   */
-  protected get errorMessage(): string {
-    return this.t(
-      this.props.errorMessage || 'Something went wrong. There was a problem loading your data'
-    );
-  }
-
-  /**
-   * @stable - 08.04.2018
-   * @returns {string}
-   */
-  protected get emptyDataMessage(): string {
-    return this.t(this.props.emptyDataMessage || 'No data found');
-  }
-
-  /**
-   * @stable - 08.04.2018
-   * @returns {string}
-   */
-  protected get emptyMessage(): string {
-    return this.t(this.props.emptyMessage || 'No data');
   }
 }
