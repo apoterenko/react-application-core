@@ -15,17 +15,6 @@ html, body {
   width: 100%;
 }
 
-// Loading message [FRAMEWORK-]
-.rac-loading-message {
-  vertical-align: middle;
-  margin-left: 4px;
-}
-
-// Loading icon [FRAMEWORK-]
-.rac-loading-icon {
-  vertical-align: middle;
-}
-
 // Fieldset [FRAMEWORK-]
 .rac-fieldset {
   margin: 0;
@@ -66,6 +55,24 @@ html, body {
 
   a {
     text-decoration: none;  /* @stable - 08.04.2018 */
+  }
+
+  .rac-add-button {
+    position: absolute;                                   /* @stable - 08.04.2018 */
+    right: 24px;                                          /* @stable - 08.04.2018 */
+    bottom: 24px;                                         /* @stable - 08.04.2018 */
+    background-color: $rac-add-button-background-color;   /* @stable - 08.04.2018 */
+  }
+
+  .rac-loading-icon {
+    vertical-align: middle;           /* @stable - 08.04.2018 */
+    color: $rac-loading-icon-color;   /* @stable - 08.04.2018 */
+  }
+
+  .rac-loading-message {
+    vertical-align: middle;               /* @stable - 08.04.2018 */
+    margin-left: 4px;                     /* @stable - 08.04.2018 */
+    color: $rac-loading-message-color;    /* @stable - 08.04.2018 */
   }
 
   .rac-absolute-center-position {
