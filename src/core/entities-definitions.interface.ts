@@ -58,6 +58,7 @@ import {
   IDefaultOnValidWrapper,
   IOnEmptyDictionaryWrapper,
   IOnLoadDictionaryWrapper,
+  IDefaultOnResetWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -157,7 +158,8 @@ export interface IFormWrapperEntity<TEntity extends IEntity>
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void>,
           IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
-          IDefaultOnValidWrapper {
+          IDefaultOnValidWrapper,
+          IDefaultOnResetWrapper {
 }
 
 /* @stable - 01.04.2018 */

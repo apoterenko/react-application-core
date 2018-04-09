@@ -1,28 +1,17 @@
-import {
-  IEntity,
-  IDefaultSubmitWrapper,
-  IDefaultOnResetWrapper,
-} from '../../definitions.interface';
+import { IEntity, IDefaultSubmitWrapper } from '../../definitions.interface';
 import {
   IBaseComponent,
   IBaseComponentInternalProps,
   IBaseContainer,
   IBaseContainerInternalProps,
 } from '../base';
-import {
-  IFormWrapperEntity,
-  IDefaultFormWrapperEntity,
-} from '../../entities-definitions.interface';
-import {
-  IFormConfigurationWrapper,
-  IFormConfiguration,
-} from '../../configurations-definitions.interface';
+import { IFormWrapperEntity, IDefaultFormWrapperEntity } from '../../entities-definitions.interface';
+import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
 
-// TODO
+/* @stable - 10.04.2018 */
 export interface IFormInternalProps extends IBaseComponentInternalProps,
                                             IFormConfiguration,
-                                            IDefaultFormWrapperEntity,
-                                            IDefaultOnResetWrapper {
+                                            IDefaultFormWrapperEntity {
 }
 
 /* @stable - 01.04.2018 */
