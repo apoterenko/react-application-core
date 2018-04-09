@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { toSection } from '../../store';
+import { toSection } from '../../util';
 import {
   INITIAL_APPLICATION_FILTER_STATE,
   FILTER_ACTIVATE_ACTION_TYPE,

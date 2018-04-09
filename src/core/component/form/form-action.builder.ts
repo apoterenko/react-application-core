@@ -5,10 +5,11 @@ import { applySection } from '../../util';
 import {
   AnyT,
   IKeyValue,
-  IFieldValueEntity,
-  IFieldsValuesEntities,
-  FieldValueEntityT,
 } from '../../definitions.interface';
+import {
+  FieldChangeEntityT,
+  IFieldChangeEntity,
+} from '../../entities-definitions.interface';
 import {
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
@@ -18,7 +19,7 @@ import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
-} from './form.interface';
+} from './form-reducer.interface';
 
 export class FormActionBuilder {
 
@@ -66,13 +67,21 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
   }
 
-  public static buildChangeAction(section: string, data: FieldValueEntityT): IEffectsAction {
+  public static buildChangeAction(section: string, data: FieldChangeEntityT): IEffectsAction {
     return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
   }
 
+  /**
+   * @stable - 10.04.2018
+   * @param {string} section
+   * @param {IKeyValue} changes
+   * @returns {IEffectsAction}
+   */
   public static buildChangesAction(section: string, changes: IKeyValue): IEffectsAction {
-    return EffectsAction.create(this.buildChangeActionType(section),
-        applySection(section, this.buildChangesPayload(changes)));
+    return EffectsAction.create(
+      this.buildChangeActionType(section),
+      applySection(section, this.buildChangesPayload(changes))
+    );
   }
 
   public static buildChangesSimpleAction(section: string, changes: IKeyValue): AnyAction {
@@ -82,26 +91,23 @@ export class FormActionBuilder {
     };
   }
 
-  public static buildChangeSimpleAction(section: string, field: string, value?: AnyT): AnyAction {
+  public static buildChangeSimpleAction(section: string, name: string, value?: AnyT): AnyAction {
     return {
       type: this.buildChangeActionType(section),
-      data: applySection(section, this.buildChangePayload(field, value)),
+      data: applySection(section, { name, value }),
     };
   }
 
-  private static buildChangesPayload(changes: IKeyValue): FieldValueEntityT {
+  /**
+   * @stable - 10.04.2018
+   * @param {IKeyValue} changes
+   * @returns {FieldChangeEntityT}
+   */
+  private static buildChangesPayload(changes: IKeyValue): FieldChangeEntityT {
     return {
-      fields: Object.keys(changes).map((fieldName) => this.buildChangePayload(
-          fieldName,
-          Reflect.get(changes, fieldName)
-      )),
-    };
-  }
-
-  private static buildChangePayload(fieldName: string, fieldValue?: AnyT): IFieldValueEntity {
-    return {
-      field: fieldName,
-      value: fieldValue,
+      fields: Object
+        .keys(changes)
+        .map((name): IFieldChangeEntity => ({name, value: Reflect.get(changes, name)})),
     };
   }
 }

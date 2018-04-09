@@ -1,6 +1,5 @@
 import { Dialog } from '../../dialog';
 
-import { INITIAL_APPLICATION_FORM_STATE } from '../form.interface';
 import { IFormDialogInternalProps } from './form-dialog.interface';
 
 export class FormDialog extends Dialog<FormDialog, IFormDialogInternalProps> {
@@ -10,7 +9,6 @@ export class FormDialog extends Dialog<FormDialog, IFormDialogInternalProps> {
     message: 'Changes you made will not be saved.',
     closeMessage: 'Cancel',
     acceptMessage: 'Discard',
-    form: INITIAL_APPLICATION_FORM_STATE,
   };
 
   public activate(): void {

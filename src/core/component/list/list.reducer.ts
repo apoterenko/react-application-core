@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { FIRST_PAGE } from '../../definitions.interface';
-import { toSection } from '../../store';
+import { toSection } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list-reducer.interface';

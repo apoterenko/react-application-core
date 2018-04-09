@@ -81,14 +81,6 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
       );
       return null;
     }
-    return FormActionBuilder.buildChangeAction(
-        section,
-        {
-          fields: Object.keys(changes).map((fieldName) => ({
-            field: fieldName,
-            value: Reflect.get(changes, fieldName),
-          })),
-        },
-    );
+    return FormActionBuilder.buildChangesAction(section, changes);
   }
 }

@@ -4,16 +4,18 @@ import * as R from 'ramda';
 import { AnyT } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
-import { IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IDefaultApiEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
+import {
+  IForm,
+  IFormContainer,
+  IDefaultFormContainerInternalProps,
+} from './form.interface';
 import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
-  IForm,
-  IFormContainer,
-  IDefaultFormContainerInternalProps,
-} from './form.interface';
+} from './form-reducer.interface';
 
 export class FormContainer extends BaseContainer<IDefaultFormContainerInternalProps, {}>
     implements IFormContainer {
@@ -52,14 +54,14 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
     this.form.submit();
   }
 
-  private onChange(name: string, value: AnyT): void {
-    if (name) {
-      this.dispatchFormChangeEvent(name, value);
+  /**
+   * @stable - 09.04.2018
+   * @param {IFieldChangeEntity} payload
+   */
+  private onChange(payload: IFieldChangeEntity): void {
+    if (payload.name) {
+      this.dispatch(FORM_CHANGE_ACTION_TYPE, payload);
     }
-  }
-
-  private dispatchFormChangeEvent(field: string, value: AnyT): void {
-    this.dispatch(FORM_CHANGE_ACTION_TYPE, { field, value });
   }
 
   private onValid(valid: boolean): void {

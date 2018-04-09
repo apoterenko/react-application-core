@@ -264,10 +264,6 @@ export interface IOnChangeWrapper<TOnChange> {
   onChange?: TOnChange;
 }
 
-// TODO
-export interface IFieldValueOnChangeWrapper extends IOnChangeWrapper<(name: string, value: AnyT) => void> {
-}
-
 /* @stable - 01.04.2018 */
 export interface IStringUrlWrapper extends IUrlWrapper<string> {
 }
@@ -304,6 +300,11 @@ export interface IOnLoadDictionaryWrapper {
   onLoadDictionary?(items: AnyT, dictionary?: string): void;
 }
 
+/* @stable - 09.04.2018 */
+export interface IOnEmptyDictionaryWrapper {
+  onEmptyDictionary?(dictionary?: string): void;
+}
+
 /**********************
  * Loading's wrapper
  **********************/
@@ -316,10 +317,6 @@ export interface ILoadingWrapper {
  **********************/
 export interface IBindToDictionaryWrapper {
   bindToDictionary?: string;
-}
-
-export interface IOnEmptyDictionaryWrapper {
-  onEmptyDictionary?(dictionary?: string): void;
 }
 
 export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
@@ -680,28 +677,19 @@ export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
 export interface IBooleanSelectedWrapper extends ISelectedWrapper<boolean> {
 }
 
-/**********************
- * Fields's wrappers
- **********************/
+/* @stable - 09.04.2018 */
 export interface IFieldWrapper<TField> {
   field?: TField;
 }
 
+/* @stable - 09.04.2018 */
 export interface IFieldsWrapper<TFields> {
   fields?: TFields;
 }
 
+/* @stable - 09.04.2018 */
 export interface IStringFieldWrapper extends IFieldWrapper<string> {
 }
-
-export interface IFieldValueEntity extends IAnyValueWrapper,
-                                           IStringFieldWrapper {
-}
-
-export interface IFieldsValuesEntities extends IFieldsWrapper<IFieldValueEntity[]> {
-}
-
-export type FieldValueEntityT = IFieldValueEntity|IFieldsValuesEntities;
 
 /* @stable - 31.03.2018 */
 export interface IPageWrapper {

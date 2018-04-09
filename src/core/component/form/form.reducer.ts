@@ -1,15 +1,11 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { isUndef } from '../../util';
-import { toSection } from '../../store';
+import { isDef, toSection } from '../../util';
 import { convertError } from '../../error';
-import { AnyT } from '../../definitions.interface';
-import {
-  INITIAL_APPLICATION_FORM_STATE,
-} from './form.interface';
+import { IDefaultFormEntity, IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
+import { INITIAL_APPLICATION_FORM_STATE } from './form-reducer.interface';
 import { FormActionBuilder } from './form-action.builder';
-import { IDefaultFormEntity } from '../../entities-definitions.interface';
 
 export function formReducer(state: IDefaultFormEntity = INITIAL_APPLICATION_FORM_STATE,
                             action: IEffectsAction): IDefaultFormEntity {
@@ -20,15 +16,18 @@ export function formReducer(state: IDefaultFormEntity = INITIAL_APPLICATION_FORM
         ...INITIAL_APPLICATION_FORM_STATE,
       };
     case FormActionBuilder.buildChangeActionType(section):
-      const changes = R.pickBy((value, key) => !isUndef(value), {
+      const payloadAsFieldChangeEntity: IFieldChangeEntity = action.data;
+      const payloadAsFieldsChangesEntity: IFieldsChangesEntity = action.data;
+      const changes = R.pickBy((value) => isDef(value), {
         ...state.changes,
         ...(
-            Array.isArray(action.data.fields)
+            Array.isArray(payloadAsFieldsChangesEntity.fields)
                 ? R.mergeAll(
-                  action.data.fields.map((elem: { field: string, value: AnyT }) => ({[elem.field]: elem.value}))
+                    payloadAsFieldsChangesEntity.fields
+                      .map((elem) => ({[elem.name]: elem.value}))
                 )
                 : {
-                  [action.data.field]: action.data.value,
+                  [payloadAsFieldChangeEntity.name]: payloadAsFieldChangeEntity.value,
                 }
         ),
       });

@@ -1,6 +1,8 @@
 import { Reducer } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
+import { toSection } from '../util';
+
 export type Filter = (action: IEffectsAction) => boolean;
 
 export function filter<S>(reducer: Reducer<S>, filterObject: Filter): Reducer<S> {
@@ -10,8 +12,4 @@ export function filter<S>(reducer: Reducer<S>, filterObject: Filter): Reducer<S>
 export function reducerSectionFilter(customSection: string): Filter {
   let section;
   return (action) => (!(section = toSection(action)) || customSection === section);
-}
-
-export function toSection(action: IEffectsAction): string {
-  return (action.data && action.data.section) || (action.initialData && action.initialData.section);
 }

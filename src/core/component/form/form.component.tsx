@@ -16,12 +16,11 @@ import {
   IFieldOptions,
   IFieldsOptions,
 } from '../field';
-
 import {
-  INITIAL_APPLICATION_FORM_STATE,
   IForm,
   IFormInternalProps,
 } from './form.interface';
+import { INITIAL_APPLICATION_FORM_STATE } from './form-reducer.interface';
 
 export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implements IForm {
 
@@ -186,7 +185,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
   private onChange(name: string, value: AnyT, validationGroup: string): void {
     this.resetGroupFieldsErrors(name, validationGroup);
     if (this.props.onChange) {
-      this.props.onChange(name, value);
+      this.props.onChange({name, value});
     }
     this.propsOnValid();
   }

@@ -1,15 +1,7 @@
-import { EffectsActionBuilder } from 'redux-effects-promise';
-
 import {
-  IOnLoadDictionaryWrapper,
   IEntity,
-  IOnEmptyDictionaryWrapper,
   IDefaultSubmitWrapper,
-  IFieldValueOnChangeWrapper,
-  IOnSubmitWrapper,
   IDefaultOnResetWrapper,
-  IDefaultOnValidWrapper,
-  IProgressWrapper,
 } from '../../definitions.interface';
 import {
   IBaseComponent,
@@ -19,8 +11,6 @@ import {
 } from '../base';
 import {
   IFormWrapperEntity,
-  IDefaultFormEntity,
-  IDefaultApiEntity,
   IDefaultFormWrapperEntity,
 } from '../../entities-definitions.interface';
 import {
@@ -32,13 +22,7 @@ import {
 export interface IFormInternalProps extends IBaseComponentInternalProps,
                                             IFormConfiguration,
                                             IDefaultFormWrapperEntity,
-                                            IFieldValueOnChangeWrapper,
-                                            IOnEmptyDictionaryWrapper,
-                                            IOnLoadDictionaryWrapper,
-                                            IDefaultOnResetWrapper,
-                                            IDefaultOnValidWrapper,
-                                            IProgressWrapper,
-                                            IOnSubmitWrapper<(apiEntity: IDefaultApiEntity) => void> {
+                                            IDefaultOnResetWrapper {
 }
 
 /* @stable - 01.04.2018 */
@@ -60,17 +44,3 @@ export interface IForm extends IBaseComponent<IFormInternalProps, {}>,
 export interface IFormContainer extends IBaseContainer<IDefaultFormContainerInternalProps, {}>,
                                         IDefaultSubmitWrapper {
 }
-
-/* @stable - 01.04.2018 */
-export const INITIAL_APPLICATION_FORM_STATE: IDefaultFormEntity = {
-  changes: {},
-};
-
-export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
-export const FORM_SUBMIT_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(FORM_SUBMIT_ACTION_TYPE);
-export const FORM_SUBMIT_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(FORM_SUBMIT_ACTION_TYPE);
-export const FORM_SUBMIT_FINISHED_ACTION_TYPE = `${FORM_SUBMIT_ACTION_TYPE}.finished`;
-export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
-export const FORM_VALID_ACTION_TYPE = 'form.valid';
-export const FORM_RESET_ACTION_TYPE = 'form.reset';
-export const FORM_CHANGE_ACTION_TYPE = 'form.change';

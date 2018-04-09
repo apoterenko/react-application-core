@@ -53,6 +53,11 @@ import {
   IStringProgressMessageWrapper,
   IEmptyDataWrapper,
   IStringEmptyMessageWrapper,
+  IOnSubmitWrapper,
+  IFieldsWrapper,
+  IDefaultOnValidWrapper,
+  IOnEmptyDictionaryWrapper,
+  IOnLoadDictionaryWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -62,6 +67,13 @@ import {
 export interface IFieldChangeEntity extends INameWrapper,
                                             IAnyValueWrapper {
 }
+
+/* @stable - 09.04.2018 */
+export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[]> {
+}
+
+/* @stable - 09.04.2018 */
+export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 
 /* @stable - 04.04.2018 */
 export interface ISortDirectionEntity extends INameWrapper,
@@ -136,11 +148,16 @@ export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper
 export interface IDefaultFormEntity extends IFormEntity<IEntity> {
 }
 
-/* @stable - 31.03.2018 */
+/* @stable - 09.04.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity>
   extends IFormWrapper<IFormEntity<TEntity>>,
           IEntityWrapperEntity<TEntity>,
-          IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void> {
+          IOnChangeWrapper<(payload: IFieldChangeEntity) => void>,
+          IOnSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void>,
+          IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void>,
+          IOnEmptyDictionaryWrapper,
+          IOnLoadDictionaryWrapper,
+          IDefaultOnValidWrapper {
 }
 
 /* @stable - 01.04.2018 */

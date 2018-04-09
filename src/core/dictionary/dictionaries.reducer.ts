@@ -1,7 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { toSection } from '../store';
-import { excludeFieldsFilter } from '../util';
+import { excludeFieldsFilter, toSection } from '../util';
 import {
   DICTIONARIES_DESTROY_ACTION_TYPE,
   INITIAL_DICTIONARIES_STATE,
