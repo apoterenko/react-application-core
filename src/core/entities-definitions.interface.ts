@@ -59,6 +59,8 @@ import {
   IOnEmptyDictionaryWrapper,
   IOnLoadDictionaryWrapper,
   IDefaultOnResetWrapper,
+  IReadyWrapper,
+  IApplicationWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -254,12 +256,20 @@ export interface IButtonEntity extends IStringProgressMessageWrapper,
 }
 
 /* @stable - 08.04.2018 */
-export interface IMessageEntity extends IStringErrorEntity,
-                                        IProgressWrapper,
+export interface IMessageEntity extends IStateEntity,
                                         IStringEmptyMessageWrapper,
                                         IEmptyDataWrapper {
 }
 
 /* @stable - 08.04.2018 */
 export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
+}
+
+/* @stable - 11.04.2018 */
+export interface IApplicationEntity extends IStateEntity,
+                                            IReadyWrapper {
+}
+
+/* @stable - 11.04.2018 */
+export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicationEntity> {
 }

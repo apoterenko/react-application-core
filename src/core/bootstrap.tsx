@@ -33,7 +33,7 @@ export function bootstrap(
     rootId = 'root',
     ) {
   const ready = () => {
-    const Component = connect((state: IDefaultApplicationState) => ({ ...state.applicationReady }), {})
+    const Component = connect((state: IDefaultApplicationState) => ({ ...state.application }), {})
                                   (applicationContainer);
 
     const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);

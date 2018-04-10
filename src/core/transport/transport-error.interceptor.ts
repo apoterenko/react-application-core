@@ -2,7 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { injectable } from 'inversify';
 
-import { ApplicationActionBuilder } from '../component/application';
+import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
 import {

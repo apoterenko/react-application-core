@@ -22,12 +22,12 @@ import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { IDefaultApplicationState } from '../../store';
 import { CenterLayout } from '../layout';
 import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
+import { IApplicationContainerProps } from './application.interface';
 import {
-  IApplicationContainerProps,
   APPLICATION_LOGOUT_ACTION_TYPE,
-  INITIAL_APPLICATION_READY_STATE,
+  INITIAL_APPLICATION_STATE,
   APPLICATION_SECTION,
-} from './application.interface';
+} from './application-reducer.interface';
 
 export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     extends BaseContainer<IApplicationContainerProps, {}> {
@@ -96,7 +96,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   protected clearSystemState(state: TAppState): void {
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
-    state.applicationReady = INITIAL_APPLICATION_READY_STATE;
+    state.application = INITIAL_APPLICATION_STATE;
     state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
   }
 

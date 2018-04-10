@@ -134,6 +134,11 @@ export interface IListWrapper<TList> {
   list?: TList;
 }
 
+/* @stable - 11.04.2018 */
+export interface IApplicationWrapper<TApplication> {
+  application?: TApplication;
+}
+
 /* @stable - 04.04.2018 */
 export interface IParamsWrapper<TParams> {
   params?: TParams;
@@ -591,6 +596,11 @@ export interface IDefaultBasicEvent extends React.SyntheticEvent<{}> {
 /* @stable - 31.03.2018 */
 export interface IProgressWrapper {
   progress?: boolean;
+}
+
+/* @stable - 11.04.2018 */
+export interface IReadyWrapper {
+  ready?: boolean;
 }
 
 /* @stable - 31.03.2018 */

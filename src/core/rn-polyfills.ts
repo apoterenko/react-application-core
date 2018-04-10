@@ -1,1 +1,1 @@
-import './polyfills/common-polyfills';
+import './polyfills/universal-polyfills';

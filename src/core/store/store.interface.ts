@@ -25,14 +25,13 @@ import {
 } from '../notification';
 import { dictionariesReducer } from '../dictionary';
 import {
-  applicationReadyReducer,
-  IApplicationReadyState,
+  applicationReducer,
 } from '../component/application';
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
 import { stackReducer, IApplicationStackWrapperState } from './stack';
 import { channelReducer, channelsReducers } from '../channel';
 import { filter } from './reducer.filter';
-import { IChannelWrapperEntity } from '../entities-definitions.interface';
+import { IChannelWrapperEntity, IApplicationWrapperEntity } from '../entities-definitions.interface';
 import { universalDefaultReducers } from './universal-default-reducers.interface';
 
 export interface IApplicationState<TDictionaries>
@@ -40,11 +39,11 @@ export interface IApplicationState<TDictionaries>
             IApplicationTransportWrapperState,
             IApplicationNotificationWrapperState,
             IUserWrapper<IApplicationUserState>,
+            IApplicationWrapperEntity,
             IApplicationLayoutWrapperState,
             IApplicationRootWrapperState,
             IApplicationStackWrapperState,
             IChannelWrapperEntity {
-  applicationReady: IApplicationReadyState;
 }
 
 /* @stable - 01.04.2018 */
@@ -52,7 +51,7 @@ export interface IDefaultApplicationState extends IApplicationState<{}> {
 }
 
 export const defaultReducers = {
-  applicationReady: applicationReadyReducer,
+  application: applicationReducer,
   dictionaries: dictionariesReducer,
   permissions: permissionsReducer,
   root: rootReducer,
