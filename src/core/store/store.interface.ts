@@ -33,6 +33,7 @@ import { stackReducer, IApplicationStackWrapperState } from './stack';
 import { channelReducer, channelsReducers } from '../channel';
 import { filter } from './reducer.filter';
 import { IChannelWrapperEntity } from '../entities-definitions.interface';
+import { universalDefaultReducers } from './universal-default-reducers.interface';
 
 export interface IApplicationState<TDictionaries>
     extends IDictionariesWrapper<TDictionaries>,
@@ -59,6 +60,6 @@ export const defaultReducers = {
   layout: layoutReducer,
   stack: stackReducer,
   notification: notificationReducer,
-  transport: transportReducer,
+  ...universalDefaultReducers,
   ...channelsReducers,
 };

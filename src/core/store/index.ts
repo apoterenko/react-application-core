@@ -6,3 +6,4 @@ export * from './store.module';
 export * from './reducer.filter';
 export * from './store.helper';
 export * from './store.factory';
+export * from './universal-default-reducers.interface';

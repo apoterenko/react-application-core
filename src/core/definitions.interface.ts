@@ -87,6 +87,11 @@ export interface IFilterWrapper<TFilter> {
   filter?: TFilter;
 }
 
+/* @stable - 10.04.2018 */
+export interface ITransportWrapper<TTransport> {
+  transport?: TTransport;
+}
+
 /* @stable - 31.03.2018 */
 export interface IIpWrapper {
   ip?: string;
