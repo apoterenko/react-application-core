@@ -33,6 +33,7 @@ import {
   IItemsWrapper,
   IBooleanActiveWrapper,
   IStringTypeWrapper,
+  IBasenameWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -132,4 +133,8 @@ export interface ITabPanelConfiguration extends IItemsWrapper<ITabConfiguration[
 export interface IButtonConfiguration extends ISimpleWrapper,
                                               IStringTypeWrapper,
                                               IDisabledWrapper {
+}
+
+/* @stable - 11.04.2018 */
+export interface IApplicationConfiguration extends IBasenameWrapper {
 }

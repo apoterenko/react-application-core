@@ -139,6 +139,11 @@ export interface IApplicationWrapper<TApplication> {
   application?: TApplication;
 }
 
+/* @stable - 11.04.2018 */
+export interface IBasenameWrapper {
+  basename?: string;
+}
+
 /* @stable - 04.04.2018 */
 export interface IParamsWrapper<TParams> {
   params?: TParams;

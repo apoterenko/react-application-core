@@ -267,6 +267,8 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 
 /* @stable - 11.04.2018 */
 export interface IApplicationEntity extends IStateEntity,
+                                            IStringProgressMessageWrapper,
+                                            IStringEmptyMessageWrapper,
                                             IReadyWrapper {
 }
 
