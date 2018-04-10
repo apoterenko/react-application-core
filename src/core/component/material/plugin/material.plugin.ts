@@ -1,8 +1,8 @@
-import { IComponentPlugin } from '../../../component/plugin';
-import { BaseComponentT } from '../../../component/base';
-import { IMaterialComponentFactory, INativeMaterialComponent } from '../../../component/material';
+import { IComponentPlugin } from '../../plugin';
+import { IDefaultBaseComponent } from '../../base';
+import { IMaterialComponentFactory, INativeMaterialComponent } from '../../material';
 
-export class MaterialPlugin<TComponent extends BaseComponentT,
+export class MaterialPlugin<TComponent extends IDefaultBaseComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent>
     implements IComponentPlugin<TComponent, {}, {}> {
 

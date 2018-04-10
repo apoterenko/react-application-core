@@ -3,7 +3,7 @@ import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { FunctionT, noop, sequence } from '../../util';
-import { BaseContainerT } from '../../component/base';
+import { IDefaultBaseContainer } from '../../component/base';
 import { IDefaultApplicationState } from '../../store';
 import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';
@@ -22,7 +22,7 @@ const logger = LoggerFactory.makeLogger('connector.decorator');
 
 export function basicConnector<TAppState extends IDefaultApplicationState>(
     config: IBasicConnectorConfig<TAppState>): FunctionT {
-  return (target: IConnectorCtor<BaseContainerT>): void => {
+  return (target: IConnectorCtor<IDefaultBaseContainer>): void => {
     const sectionName = target.defaultProps && target.defaultProps.sectionName || config.sectionName;
 
     if (sectionName) {

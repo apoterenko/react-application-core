@@ -1,7 +1,6 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { BaseEffects } from '../store';
 import { IRoutes } from '../router';
 import {
   IApplicationTransportPayloadAnalyzer,
@@ -11,9 +10,11 @@ import {
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
   ITransportResponsePayload,
 } from './transport.interface';
+import { ApplicationActionBuilder } from '../component/application/application-action.builder';
+import { RouterActionBuilder } from '../router';
 
 @provideInSingleton(TransportEffects)
-export class TransportEffects extends BaseEffects<{}> {
+export class TransportEffects {
 
   @lazyInject(DI_TYPES.TransportPayloadAnalyzer)
   private transportPayloadAnalyzer: IApplicationTransportPayloadAnalyzer;
@@ -36,8 +37,8 @@ export class TransportEffects extends BaseEffects<{}> {
     const data: ITransportResponsePayload = action.data;
     if (this.transportPayloadAnalyzer.isAuthErrorPayload(data)) {
       return [
-        this.buildApplicationDestroyTokenAction(),
-        this.buildRouterNavigateAction(this.routes.logout)
+        ApplicationActionBuilder.buildDestroyTokenAction(),
+        RouterActionBuilder.buildNavigateAction(this.routes.logout)
       ];
     }
     return this.transportErrorInterceptor.intercept(data);

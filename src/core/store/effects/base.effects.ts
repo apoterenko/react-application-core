@@ -7,7 +7,6 @@ import { ListActionBuilder } from '../../component/list';
 import { FormActionBuilder } from '../../component/form';
 import { RouterActionBuilder } from '../../router';
 import { UserActionBuilder } from '../../user';
-import { ApplicationActionBuilder } from '../../component/application';
 import { IApiEntity } from '../../entities-definitions.interface';
 
 @provideInSingleton(BaseEffects)
@@ -42,10 +41,6 @@ export class BaseEffects<TApi> {
 
   protected buildRouterNavigateAction(path: string): IEffectsAction {
     return RouterActionBuilder.buildNavigateAction(path);
-  }
-
-  protected buildApplicationDestroyTokenAction(): IEffectsAction {
-    return ApplicationActionBuilder.buildDestroyTokenAction();
   }
 
   protected buildUserUpdateAction(data: AnyT): IEffectsAction {

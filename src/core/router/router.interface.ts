@@ -1,9 +1,9 @@
 import { History } from 'history';
 
 import { isFn } from '../util';
-import { BaseContainerT } from '../component/base';
+import { IDefaultBaseContainer } from '../component/base';
 import { IContainerWrapperCtor } from '../component/application';
-import { IApplicationState, IDefaultApplicationState } from '../store';
+import { IDefaultApplicationState } from '../store';
 import { IConnectorConfig, ConnectorConfigT } from '../component/connector';
 import { IApplicationAccessConfig } from '../permissions';
 import { IPathWrapper, ITypeWrapper } from '../definitions.interface';
@@ -50,7 +50,7 @@ export const toRouteOptions = (routeComponentConfig: RouteOptionsT,
       : routeComponentConfig as IRouteOptions;
 };
 
-export type RouteContainerT = BaseContainerT|IContainerWrapperCtor;
+export type RouteContainerT = IDefaultBaseContainer | IContainerWrapperCtor;
 export const DYNAMIC_ROUTES = new Map<RouteContainerT, ConnectorConfigT>();
 
 export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';

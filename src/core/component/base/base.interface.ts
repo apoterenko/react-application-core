@@ -56,10 +56,6 @@ export interface IBaseComponent<TInternalProps, TInternalState>
       IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;
 }
 
-/* @stable - 04.04.2018 */
-export interface IDefaultBaseComponent extends IBaseComponent<{}, {}> {
-}
-
 export interface IBaseComponentInternalProps extends IBaseInternalProps,
                                                      ICssStyleWrapper {
   plugins?: ComponentPluginCtorT|ComponentPluginCtorT[];
@@ -72,7 +68,12 @@ export interface IBaseContainer<TInternalProps extends IBaseContainerInternalPro
   dispatch(type: string, data?: any): void;
 }
 
-export interface IBaseComponentCtor { new (...args): BaseComponentT; }
+/* @stable - 04.04.2018 */
+export interface IDefaultBaseComponent extends IBaseComponent<{}, {}> {
+}
 
-export type BaseContainerT = IBaseContainer<{}, {}>;
-export type BaseComponentT = IBaseComponent<{}, {}>;
+/* @stable - 10.04.2018 */
+export interface IDefaultBaseContainer extends IBaseContainer<{}, {}> {
+}
+
+export interface IBaseComponentCtor { new (...args): IDefaultBaseComponent; }

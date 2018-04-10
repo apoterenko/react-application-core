@@ -35,7 +35,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
         ? [
           EffectsAction.create(USER_DESTROY_ACTION_TYPE),
           EffectsAction.create(PERMISSIONS_DESTROY_ACTION_TYPE),
-          this.buildApplicationDestroyTokenAction()
+          ApplicationActionBuilder.buildDestroyTokenAction()
         ]
         : [];
 
