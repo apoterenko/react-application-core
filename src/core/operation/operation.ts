@@ -1,10 +1,10 @@
 import { uuid } from '../util';
+import { IOperationEntity } from '../entities-definitions.interface';
 
-import { IOperation } from './operation.interface';
+/* @stable - 11.04.2018 */
+export class Operation implements IOperationEntity {
 
-export class Operation implements IOperation {
-
-  public static create(id?: string): IOperation {
+  public static create(id?: string): IOperationEntity {
     return new Operation(id);
   }
 

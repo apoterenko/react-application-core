@@ -61,6 +61,7 @@ import {
   IDefaultOnResetWrapper,
   IReadyWrapper,
   IApplicationWrapper,
+  IStringIdWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -162,7 +163,7 @@ export interface IBaseFormWrapperEntity<TEntity extends IEntity>
 export interface IFormWrapperEntity<TEntity extends IEntity>
   extends IBaseFormWrapperEntity<TEntity>,
           IOnChangeWrapper<(payload: IFieldChangeEntity) => void>,
-          IOnSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void>,
+          IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
           IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
           IDefaultOnValidWrapper,
@@ -279,4 +280,8 @@ export interface IApplicationEntity extends IStateEntity,
 
 /* @stable - 11.04.2018 */
 export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicationEntity> {
+}
+
+/* @stable - 11.04.2018 */
+export interface IOperationEntity extends IStringIdWrapper {
 }

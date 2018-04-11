@@ -52,8 +52,11 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
     );
   }
 
+  /**
+   * @stable - 11.04.2018
+   */
   public submit(): void {
-    this.form.submit();
+    this.form.submit(this.form.apiEntity);
   }
 
   /**

@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
+import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef, isNumber } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IFormEntity, IDefaultApiEntity } from '../../entities-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
-import { Operation } from '../../operation';
 import {
   Field,
   IFieldInternalProps,
@@ -16,11 +15,9 @@ import {
   IFieldOptions,
   IFieldsOptions,
 } from '../field';
-import {
-  IForm,
-  IFormInternalProps,
-} from './form.interface';
+import { IForm, IFormInternalProps } from './form.interface';
 import { INITIAL_APPLICATION_FORM_STATE } from './form-reducer.interface';
+import { buildApiEntity } from './form.support';
 
 export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implements IForm {
 
@@ -128,7 +125,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
                               disabled={!this.canSubmit}
                               progress={this.form.progress}
                               error={!R.isNil(this.form.error)}>
-                        {this.t(props.actionText || (this.apiEntity.isNew ? 'Create' : 'Save'))}
+                        {this.t(props.actionText || (this.newEntity ? 'Create' : 'Save'))}
                       </Button>
                     </section>
                 )
@@ -153,33 +150,23 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     this.childrenMap.clear();
   }
 
-  public submit(): void {
+  /**
+   * @stable - 11.04.2018
+   * @param {IDefaultApiEntity} apiEntity
+   */
+  public submit(apiEntity: IDefaultApiEntity): void {
     const props = this.props;
-
     if (props.onSubmit) {
-      props.onSubmit(this.apiEntity);
+      props.onSubmit(apiEntity);
     }
   }
 
+  /**
+   * @stable - 11.04.2018
+   * @returns {IDefaultApiEntity}
+   */
   public get apiEntity(): IDefaultApiEntity {
-    const entity = this.entity;
-    const entityId = orNull(entity, () => entity.id);
-    const merger = {
-      ...entity,
-      ...this.changes,
-    };
-
-    const apiEntity0: IDefaultApiEntity = (R.isNil(entityId)
-            // You should use formMapper at least (simple form)
-            ? { isNew: true, changes: {...this.changes}, merger, }
-
-            // You should use formMapper and entityMapper at least (editable entity)
-            : { isNew: false, changes: {...this.changes}, entity: {...entity}, merger, id: entityId }
-    );
-    return {
-      operation: Operation.create(),
-      ...apiEntity0,
-    };
+    return buildApiEntity(this.changes, this.entity);
   }
 
   private onChange(name: string, value: AnyT, validationGroup: string): void {
@@ -220,12 +207,13 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     this.stopEvent(event);
 
     const props = this.props;
+    const apiEntity = this.apiEntity;
     if (props.onBeforeSubmit) {
-      if (props.onBeforeSubmit(this.apiEntity) !== false) {
-        this.submit();
+      if (props.onBeforeSubmit(apiEntity) !== false) {
+        this.submit(apiEntity);
       }
     } else {
-      this.submit();
+      this.submit(apiEntity);
     }
   }
 
@@ -359,6 +347,14 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
    */
   private get entity(): IEntity {
     return this.props.entity;
+  }
+
+  /**
+   * @stable - 11.04.2018
+   * @returns {IEntity}
+   */
+  private get newEntity(): boolean {
+    return this.entity && isNumber(this.entity.id);
   }
 
   /**
