@@ -6,23 +6,16 @@ import {
   FocusEventT,
   IDisplayValueWrapper,
   INameWrapper,
-  KeyboardEventT,
-  IStringTypeWrapper,
   IValueWrapper,
-  IOriginalValueable,
-  IDisplayNameWrapper,
+  IOriginalValueWrapper,
   ILabelWrapper,
-  IPlaceholderWrapper,
   IStepable,
   ChangeEventT,
   IMaskEntity,
   IBindToDictionaryEntity,
-  IDisplayMessageWrapper,
-  IPatternWrapper,
-  IPreventValueBindingWrapper,
 } from '../../../definitions.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
-import { IErrorEntity } from '../../../entities-definitions.interface';
+import { IErrorEntity, IFieldEntity, IKeyboardHandlersEntity } from '../../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
 export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IDefaultField) => string;
@@ -32,47 +25,29 @@ export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
 export interface IFieldDisplayValueWrapper<TValue> extends IDisplayValueWrapper<string|IFieldDisplayValueConverter<TValue>> {
 }
 
-export interface IKeyboardHandlers {
-  onKeyEnter?(event: KeyboardEventT): void;
-  onKeyUp?(event: KeyboardEventT): void;
-  onKeyDown?(event: KeyboardEventT): void;
-  onKeyEscape?(event: KeyboardEventT): void;
-  onKeyArrowDown?(event: KeyboardEventT): void;
-  onKeyArrowUp?(event: KeyboardEventT): void;
-  onKeyBackspace?(event: KeyboardEventT): void;
-}
-
 /**
  * The field options - the read-only props (cannot be changed)
  */
 export interface IFieldOptions extends ILabelWrapper,
-                                       IPreventValueBindingWrapper,
-                                       IDisplayMessageWrapper,
-                                       IDisplayNameWrapper,
-                                       IStringTypeWrapper,
-                                       IPatternWrapper,
-                                       IPlaceholderWrapper,
                                        IMaskEntity,
                                        IBindToDictionaryEntity {
-  prefixLabel?: string;
 }
 
-export interface IFieldsOptions { [index: string]: string|IFieldOptions; }
+export interface IFieldsOptions { [index: string]: string|IFieldConfiguration; }
 
 export interface IFieldInternalProps extends IBaseComponentInternalProps,
                                              IFieldConfiguration,
-                                             IKeyboardHandlers,
+                                             IFieldEntity,
                                              IFieldOptions,
                                              INameWrapper,
                                              IStepable,
                                              IValueWrapper<AnyT>,
-                                             IOriginalValueable<AnyT>,
+                                             IOriginalValueWrapper<AnyT>,
                                              IFieldDisplayValueWrapper<AnyT> {
   inputWrapperClassName?: string; // @stable
   noErrorMessage?: boolean;
   noInfoMessage?: boolean;
   renderCondition?: boolean;
-  autoFocus?: boolean;
   required?: boolean;
   autoComplete?: string;
   minLength?: number;
@@ -115,7 +90,7 @@ export interface IBasicField<TValue> extends IValueWrapper<TValue>,
 
 export interface IField<TInternalProps extends IFieldInternalProps,
                         TInternalState extends IFieldInternalState>
-    extends IKeyboardHandlers,
+    extends IKeyboardHandlersEntity,
             IBasicField<AnyT>,
             IBaseComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;

@@ -3,8 +3,8 @@ import {
   ITypeWrapper,
   IClassNameWrapper,
 } from '../../definitions.interface';
-import { IFieldOptions } from '../field';
 import { IDefaultFormEntity, IQueryFilterEntity } from '../../entities-definitions.interface';
+import { IFieldConfiguration } from '../../configurations-definitions.interface';
 
 /* @stable - 31.03.2018 */
 export enum FilterActionEnum {
@@ -23,7 +23,7 @@ export interface IApplicationFilterOptions {
   disabledActions?: boolean;
   searchIcon?: string;
   noSearchField?: boolean;
-  searchFieldOptions?: IFieldOptions;
+  searchFieldOptions?: IFieldConfiguration;
 }
 
 export interface IApplicationFilterFormWrapperState {

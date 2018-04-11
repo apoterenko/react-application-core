@@ -5,6 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef, isNumber } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IFormEntity, IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IFieldConfiguration } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
@@ -12,7 +13,6 @@ import {
   Field,
   IFieldInternalProps,
   IDefaultField,
-  IFieldOptions,
   IFieldsOptions,
 } from '../field';
 import { IForm, IFormInternalProps } from './form.interface';
@@ -89,7 +89,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
                             ...predefinedOptions,
 
                             // The fields props have a higher priority
-                            ...defValuesFilter<IFieldOptions, IFieldOptions>({
+                            ...defValuesFilter<IFieldConfiguration, IFieldConfiguration>({
                               label: fieldProps.label,
                               type: fieldProps.type,
                               placeholder: fieldProps.placeholder,
@@ -326,24 +326,24 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     return orUndef(fieldProps.name && originalEntity, () => Reflect.get(originalEntity, fieldProps.name));
   }
 
-  private getFieldDisplayValue(field: IDefaultField, fieldOptions: IFieldOptions): string {
+  private getFieldDisplayValue(field: IDefaultField, fieldConfiguration: IFieldConfiguration): string {
     const fieldProps = field.props;
-    const fieldDisplayName = fieldProps.displayName || (fieldOptions ? fieldOptions.displayName : null);
+    const fieldDisplayName = fieldProps.displayName || (fieldConfiguration ? fieldConfiguration.displayName : null);
 
     return isUndef(fieldProps.displayValue) && fieldDisplayName
         ? Reflect.get(this.entity || this.changes, fieldDisplayName)
         : fieldProps.displayValue;
   }
 
-  private getFieldPredefinedOptions(field: IDefaultField): IFieldOptions {
+  private getFieldPredefinedOptions(field: IDefaultField): IFieldConfiguration {
     const fieldOptionsOrLabel = this.fieldsOptions[field.props.name];
 
-    let fieldOptions: IFieldOptions;
+    let fieldOptions: IFieldConfiguration;
     if (isString(fieldOptionsOrLabel)) {
       // typings !
       fieldOptions = {label: fieldOptionsOrLabel as string};
     } else {
-      fieldOptions = fieldOptionsOrLabel as IFieldOptions;
+      fieldOptions = fieldOptionsOrLabel as IFieldConfiguration;
     }
     return fieldOptions;
   }

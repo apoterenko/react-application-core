@@ -351,16 +351,17 @@ export interface IDictionariesWrapper<TDictionaries> {
   dictionaries?: TDictionaries;
 }
 
-/**********************
- * Label's wrapper
- **********************/
+/* @stable - 11.04.2018 */
 export interface ILabelWrapper {
   label?: string;
 }
 
-/**********************
- * DisplayName's wrapper
- **********************/
+/* @stable - 11.04.2018 */
+export interface IPrefixLabelWrapper {
+  prefixLabel?: string;
+}
+
+/* @stable - 11.04.2018 */
 export interface IDisplayNameWrapper {
   displayName?: string;
 }
@@ -370,16 +371,16 @@ export interface IMessagesWrapper<TMessages> {
   messages?: TMessages;
 }
 
-/**********************
- * Pattern's wrapper
- **********************/
-export interface IPatternWrapper {
-  pattern?: string;
+/* @stable - 11.04.2018 */
+export interface IPatternWrapper<TPattern> {
+  pattern?: TPattern;
 }
 
-/**********************
- * Placeholder's wrappers
- **********************/
+/* @stable - 11.04.2018 */
+export interface IStringPatternWrapper extends IPatternWrapper<string> {
+}
+
+/* @stable - 11.04.2018 */
 export interface IPlaceholderWrapper {
   placeholder?: string;
 }
@@ -598,6 +599,10 @@ export interface IBlobEntity extends IStringIdWrapper,
 export interface IDefaultBasicEvent extends React.SyntheticEvent<{}> {
 }
 
+/* @stable - 11.04.2018 */
+export interface IDefaultKeyboardEvent extends React.KeyboardEvent<{}> {
+}
+
 /* @stable - 31.03.2018 */
 export interface IProgressWrapper {
   progress?: boolean;
@@ -667,9 +672,7 @@ export interface ISortDirectionWrapper extends IDirectionWrapper<SortDirectionEn
 export interface ISortDirectionsWrapper extends IDirectionsWrapper<SortDirectionEnum> {
 }
 
-/**********************
- * PreventValueBinding's wrapper
- **********************/
+/* @stable - 11.04.2018 */
 export interface IPreventValueBindingWrapper {
   preventValueBinding?: boolean;
 }
@@ -924,6 +927,11 @@ export interface INotUseClassNameWrapper {
   notUseClassName?: boolean;
 }
 
+/* @stable - 11.04.2018 */
+export interface IAutoFocusWrapper {
+  autoFocus?: boolean;
+}
+
 /**********************
  * Menu's wrappers
  **********************/
@@ -1118,16 +1126,27 @@ export interface IActiveWrapper<TActive> {
 export interface IBooleanActiveWrapper extends IActiveWrapper<boolean> {
 }
 
-export interface IOriginalValueable<TValue> {
-  originalValue?: TValue;
+/* @stable - 11.04.2018 */
+export interface IOriginalValueWrapper<TOriginalValue> {
+  originalValue?: TOriginalValue;
+}
+
+/* @stable - 11.04.2018 */
+export interface ITypeWrapper<TType> {
+  type?: TType;
+}
+
+/* @stable - 11.04.2018 */
+export interface IStringTypeWrapper extends ITypeWrapper<string> {
+}
+
+/* @stable - 11.04.2018 */
+export interface IDisplayMessageWrapper {
+  displayMessage?: string;
 }
 
 export interface IDisplayValueWrapper<TDisplay> {
   displayValue?: TDisplay;
-}
-
-export interface IDisplayMessageWrapper {
-  displayMessage?: string;
 }
 
 export interface IPasswordWrapper {
@@ -1146,13 +1165,6 @@ export interface IToWrapper {
 
 export interface IInfoable<Type> {
   info?: Type;
-}
-
-export interface ITypeWrapper<TType> {
-  type?: TType;
-}
-
-export interface IStringTypeWrapper extends ITypeWrapper<string> {
 }
 
 export interface IStepable {

@@ -49,6 +49,22 @@ describe('form.support', () => {
     it('test5', () => {
       expect(isFormFieldDisabled({ form: {} }, {})).toEqual(false);
     });
+
+    it('test6', () => {
+      expect(isFormFieldDisabled({ disabled: false, form: { progress: true } }, {})).toEqual(true);
+    });
+
+    it('test7', () => {
+      expect(isFormFieldDisabled({ disabled: false, form: { progress: true } }, { disabled: false })).toEqual(false);
+    });
+
+    it('test8', () => {
+      expect(isFormFieldDisabled({ disabled: true, form: { progress: true } }, { disabled: false })).toEqual(false);
+    });
+
+    it('test9', () => {
+      expect(isFormFieldDisabled({ disabled: false, form: { progress: true } }, { disabled: true })).toEqual(true);
+    });
   });
 
   describe('buildApiEntity', () => {

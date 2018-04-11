@@ -34,6 +34,14 @@ import {
   IBooleanActiveWrapper,
   IStringTypeWrapper,
   IBasenameWrapper,
+  IAutoFocusWrapper,
+  IPreventValueBindingWrapper,
+  IPlaceholderWrapper,
+  IStringPatternWrapper,
+  IDisplayNameWrapper,
+  IDisplayMessageWrapper,
+  ILabelWrapper,
+  IPrefixLabelWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -141,5 +149,14 @@ export interface IApplicationConfiguration extends IBasenameWrapper {
 
 /* @stable - 11.04.2018 */
 export interface IFieldConfiguration extends IReadOnlyWrapper,
+                                             ILabelWrapper,
+                                             IPrefixLabelWrapper,
+                                             IDisplayNameWrapper,
+                                             IDisplayMessageWrapper,
+                                             IStringTypeWrapper,
+                                             IPlaceholderWrapper,
+                                             IPreventValueBindingWrapper,
+                                             IAutoFocusWrapper,
+                                             IStringPatternWrapper,
                                              IDisabledWrapper {
 }

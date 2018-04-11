@@ -62,6 +62,7 @@ import {
   IReadyWrapper,
   IApplicationWrapper,
   IStringIdWrapper,
+  IDefaultKeyboardEvent,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -288,4 +289,19 @@ export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicat
 
 /* @stable - 11.04.2018 */
 export interface IOperationEntity extends IStringIdWrapper {
+}
+
+/* @stable - 11.04.2018 */
+export interface IKeyboardHandlersEntity {
+  onKeyEnter?(event: IDefaultKeyboardEvent): void;
+  onKeyUp?(event: IDefaultKeyboardEvent): void;
+  onKeyDown?(event: IDefaultKeyboardEvent): void;
+  onKeyEscape?(event: IDefaultKeyboardEvent): void;
+  onKeyArrowDown?(event: IDefaultKeyboardEvent): void;
+  onKeyArrowUp?(event: IDefaultKeyboardEvent): void;
+  onKeyBackspace?(event: IDefaultKeyboardEvent): void;
+}
+
+/* @stable - 11.04.2018 */
+export interface IFieldEntity extends IKeyboardHandlersEntity {
 }
