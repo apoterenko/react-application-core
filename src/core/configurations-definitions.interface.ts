@@ -138,3 +138,8 @@ export interface IButtonConfiguration extends ISimpleWrapper,
 /* @stable - 11.04.2018 */
 export interface IApplicationConfiguration extends IBasenameWrapper {
 }
+
+/* @stable - 11.04.2018 */
+export interface IFieldConfiguration extends IReadOnlyWrapper,
+                                             IDisabledWrapper {
+}

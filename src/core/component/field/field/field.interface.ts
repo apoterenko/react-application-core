@@ -7,11 +7,9 @@ import {
   IDisplayValueWrapper,
   INameWrapper,
   KeyboardEventT,
-  IDisabledWrapper,
   IStringTypeWrapper,
   IValueWrapper,
   IOriginalValueable,
-  IReadOnlyWrapper,
   IDisplayNameWrapper,
   ILabelWrapper,
   IPlaceholderWrapper,
@@ -25,8 +23,9 @@ import {
 } from '../../../definitions.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
 import { IErrorEntity } from '../../../entities-definitions.interface';
+import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
-export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: FieldT) => string;
+export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IDefaultField) => string;
 
 export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
 
@@ -61,12 +60,11 @@ export interface IFieldOptions extends ILabelWrapper,
 export interface IFieldsOptions { [index: string]: string|IFieldOptions; }
 
 export interface IFieldInternalProps extends IBaseComponentInternalProps,
+                                             IFieldConfiguration,
                                              IKeyboardHandlers,
                                              IFieldOptions,
                                              INameWrapper,
-                                             IDisabledWrapper,
                                              IStepable,
-                                             IReadOnlyWrapper,
                                              IValueWrapper<AnyT>,
                                              IOriginalValueable<AnyT>,
                                              IFieldDisplayValueWrapper<AnyT> {
@@ -124,4 +122,6 @@ export interface IField<TInternalProps extends IFieldInternalProps,
   resetError(): void;
 }
 
-export type FieldT = IField<IFieldInternalProps, IFieldInternalState>;
+/* @stable - 11.04.2018 */
+export interface IDefaultField extends IField<IFieldInternalProps, IFieldInternalState> {
+}

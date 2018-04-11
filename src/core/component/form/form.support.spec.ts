@@ -1,8 +1,56 @@
-import { buildApiEntity } from './form.support';
+import {
+  buildApiEntity,
+  isFormFieldReadOnly,
+  isFormFieldDisabled,
+} from './form.support';
 import { Operation } from '../../operation';
 import { UNDEF } from '../../definitions.interface';
 
 describe('form.support', () => {
+  describe('isFormFieldReadOnly', () => {
+    it('test1', () => {
+      expect(isFormFieldReadOnly({ readOnly: true }, { readOnly: false })).toEqual(false);
+    });
+
+    it('test2', () => {
+      expect(isFormFieldReadOnly({ readOnly: false }, { readOnly: true })).toEqual(true);
+    });
+
+    it('test3', () => {
+      expect(isFormFieldReadOnly({ readOnly: false }, {})).toEqual(false);
+    });
+
+    it('test4', () => {
+      expect(isFormFieldReadOnly({ readOnly: true }, {})).toEqual(true);
+    });
+
+    it('test5', () => {
+      expect(isFormFieldReadOnly({}, {})).toEqual(false);
+    });
+  });
+
+  describe('isFormFieldDisabled', () => {
+    it('test1', () => {
+      expect(isFormFieldDisabled({ disabled: true, form: {} }, { disabled: false })).toEqual(false);
+    });
+
+    it('test2', () => {
+      expect(isFormFieldDisabled({ disabled: false, form: {} }, { disabled: true })).toEqual(true);
+    });
+
+    it('test3', () => {
+      expect(isFormFieldDisabled({ disabled: false, form: {} }, {})).toEqual(false);
+    });
+
+    it('test4', () => {
+      expect(isFormFieldDisabled({ disabled: true, form: {} }, {})).toEqual(true);
+    });
+
+    it('test5', () => {
+      expect(isFormFieldDisabled({ form: {} }, {})).toEqual(false);
+    });
+  });
+
   describe('buildApiEntity', () => {
     it('test1', () => {
       const apiEntity = buildApiEntity(

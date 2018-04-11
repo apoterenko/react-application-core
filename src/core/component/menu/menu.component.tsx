@@ -15,7 +15,7 @@ import {
 } from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IEventManager } from '../../event';
-import { FieldT, TextField } from '../field';
+import { IDefaultField, TextField } from '../field';
 import { SimpleList } from '../list';
 import {
   IMenuInternalState,
@@ -221,8 +221,8 @@ export class Menu extends BaseComponent<Menu,
     this.stopEvent(event);
   }
 
-  private get field(): FieldT {
-    return this.refs.field as FieldT;
+  private get field(): IDefaultField {
+    return this.refs.field as IDefaultField;
   }
 
   private get isRenderToBody(): boolean {

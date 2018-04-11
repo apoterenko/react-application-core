@@ -159,6 +159,10 @@ export interface IBaseFormWrapperEntity<TEntity extends IEntity>
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
 }
 
+/* @stable - 11.04.2018 */
+export interface IDefaultBaseFormWrapperEntity extends IBaseFormWrapperEntity<IEntity> {
+}
+
 /* @stable - 09.04.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity>
   extends IBaseFormWrapperEntity<TEntity>,

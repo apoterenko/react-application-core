@@ -1,9 +1,9 @@
 import { sequence } from '../../../util';
 import { IMaterialComponentFactory, INativeMaterialComponent } from '../../../component/material';
-import { FieldT } from '../../../component/field';
+import { IDefaultField } from '../../../component/field';
 import { MaterialPlugin } from './material.plugin';
 
-export class FieldMaterialPlugin<TField extends FieldT,
+export class FieldMaterialPlugin<TField extends IDefaultField,
                                  TNativeMaterialComponent extends INativeMaterialComponent>
     extends MaterialPlugin<TField, TNativeMaterialComponent> {
 

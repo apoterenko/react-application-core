@@ -2,7 +2,17 @@ import * as R from 'ramda';
 
 import { Operation } from '../../operation';
 import { IEntity } from '../../definitions.interface';
-import { IDefaultApiEntity } from '../../entities-definitions.interface';
+import {
+  IDefaultApiEntity,
+  IDefaultFormWrapperEntity,
+} from '../../entities-definitions.interface';
+import {
+  IFormConfiguration,
+  IFieldConfiguration,
+} from '../../configurations-definitions.interface';
+
+export type SupportFormT = IFormConfiguration & IDefaultFormWrapperEntity;
+export type SupportFieldT = IFieldConfiguration;
 
 /**
  * @stable - 11.04.2018
@@ -31,3 +41,33 @@ export const buildApiEntity = (changes: IEntity, entity?: IEntity, operationId?:
     ...apiEntity,
   };
 };
+
+/**
+ * @stable - 11.04.2018
+ * @param {SupportFormT} formProps
+ * @param {SupportFieldT} fieldProps
+ * @returns {boolean}
+ */
+export const isFormFieldReadOnly = (formProps: SupportFormT,
+                                    fieldProps: SupportFieldT): boolean =>
+  (R.isNil(fieldProps.readOnly) ? formProps.readOnly : fieldProps.readOnly) === true;
+
+/**
+ * @stable - 11.04.2018
+ * @param {SupportFormT} formProps
+ * @param {SupportFieldT} fieldProps
+ * @returns {boolean}
+ */
+export const isFormFieldDisabled = (formProps: SupportFormT,
+                                    fieldProps: SupportFieldT): boolean =>
+  R.isNil(fieldProps.disabled)
+    ? isFormDisabled(formProps)
+    : fieldProps.disabled === true;
+
+/**
+ * @stable - 11.04.2018
+ * @param {SupportFormT} formProps
+ * @returns {boolean}
+ */
+export const isFormDisabled = (formProps: SupportFormT): boolean =>
+  formProps.disabled === true || formProps.form.progress === true;
