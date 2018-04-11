@@ -12,6 +12,7 @@ import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
 import { FormActionBuilder } from '../component/form';
 import { DictionariesActionBuilder } from '../dictionary';
 import { TransportActionBuilder } from '../transport';
+import { NotificationActionBuilder } from '../notification';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -47,7 +48,7 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
   public onAfterLogout(): IEffectsAction[]|Promise<IEffectsAction[]> {
     return [
-      this.buildNotificationInfoAction(this.settings.messages.logoutNotificationMessage),
+      NotificationActionBuilder.buildInfoAction(this.settings.messages.logoutNotificationMessage),
       TransportActionBuilder.buildDestroyTokenAction()
     ];
   }
