@@ -455,6 +455,7 @@ export interface IChangesWrapper<TChanges extends IKeyValue> {
   changes?: TChanges;
 }
 
+/* @stable - 11.04.2018 */
 export interface IKeyValueChangesWrapper extends IChangesWrapper<IKeyValue> {
 }
 

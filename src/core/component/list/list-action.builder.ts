@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT } from '../../definitions.interface';
+import { AnyT, IEntity, EntityIdT } from '../../definitions.interface';
 import { applySection } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
@@ -111,6 +111,10 @@ export class ListActionBuilder {
 
   public static buildUpdateAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
     return EffectsAction.create(this.buildUpdateActionType(section), applySection(section, data));
+  }
+
+  public static buildUpdateItemAction(section: string, id: EntityIdT, changes: IEntity): IEffectsAction {
+    return this.buildUpdateAction(section, {payload: {id, changes}});
   }
 
   public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
