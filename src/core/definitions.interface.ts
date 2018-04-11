@@ -991,6 +991,21 @@ export interface IApiEntityWrapper<TApiEntity> {
   apiEntity?: TApiEntity;
 }
 
+/* @stable - 12.04.2018 */
+export interface IExtraParamsWrapper<TExtraParams> {
+  extraParams?: TExtraParams;
+}
+
+/* @stable - 12.04.2018 */
+export interface IEditApiWrapper {
+  editApi?: string;
+}
+
+/* @stable - 12.04.2018 */
+export interface IAddApiWrapper {
+  addApi?: string;
+}
+
 /* @stable - 31.03.2018 */
 export interface IRippableWrapper {
   rippable?: boolean;

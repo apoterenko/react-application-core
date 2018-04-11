@@ -63,6 +63,10 @@ import {
   IApplicationWrapper,
   IStringIdWrapper,
   IDefaultKeyboardEvent,
+  IApiEntityWrapper,
+  IEditApiWrapper,
+  IAddApiWrapper,
+  IExtraParamsWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -215,6 +219,13 @@ export interface IApiEntity<TEntity extends IEntity> extends IEntityWrapperEntit
 
 /* @stable - 01.04.2018 */
 export interface IDefaultApiEntity extends IApiEntity<IEntity> {
+}
+
+/* @stable - 12.04.2018 */
+export interface IEditableApiEntity<TEntity extends IEntity> extends IApiEntityWrapper<IApiEntity<TEntity>>,
+                                                                     IExtraParamsWrapper<IKeyValue>,
+                                                                     IEditApiWrapper,
+                                                                     IAddApiWrapper {
 }
 
 /* @stable - 01.04.2018 */
