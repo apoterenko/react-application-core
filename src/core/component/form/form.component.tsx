@@ -212,12 +212,18 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     }
   }
 
+  /**
+   * @stable - 11.04.2018
+   * @param {BasicEventT} event
+   */
   private onSubmit(event: BasicEventT): void {
-    const props = this.props;
     this.stopEvent(event);
 
+    const props = this.props;
     if (props.onBeforeSubmit) {
-      props.onBeforeSubmit(this.apiEntity);
+      if (props.onBeforeSubmit(this.apiEntity) !== false) {
+        this.submit();
+      }
     } else {
       this.submit();
     }

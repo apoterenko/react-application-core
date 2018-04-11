@@ -84,6 +84,12 @@ export class FormActionBuilder {
     );
   }
 
+  /**
+   * @stable - 11.04.2018
+   * @param {string} section
+   * @param {IKeyValue} changes
+   * @returns {AnyAction}
+   */
   public static buildChangesSimpleAction(section: string, changes: IKeyValue): AnyAction {
     return {
       type: this.buildChangeActionType(section),

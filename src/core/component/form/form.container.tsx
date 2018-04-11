@@ -27,6 +27,7 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
     this.onValid = this.onValid.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
+    this.onBeforeSubmit = this.onBeforeSubmit.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
     this.onLoadDictionary = this.onLoadDictionary.bind(this);
   }
@@ -40,6 +41,7 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
               originalEntity={props.originalEntity}
               onChange={this.onChange}
               onSubmit={this.onSubmit}
+              onBeforeSubmit={this.onBeforeSubmit}
               onReset={this.onReset}
               onValid={this.onValid}
               onEmptyDictionary={this.onEmptyDictionary}
@@ -74,6 +76,16 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
 
   private onSubmit(apiEntity: IDefaultApiEntity): void {
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
+  }
+
+  /**
+   * @stable - 11.04.2018
+   * @param {IDefaultApiEntity} apiEntity
+   * @returns {boolean}
+   */
+  private onBeforeSubmit(apiEntity: IDefaultApiEntity): boolean {
+    const props = this.props;
+    return props.onBeforeSubmit && props.onBeforeSubmit(apiEntity);
   }
 
   private onEmptyDictionary(dictionary: string): void {

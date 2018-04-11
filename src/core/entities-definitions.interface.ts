@@ -151,13 +151,18 @@ export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper
 export interface IDefaultFormEntity extends IFormEntity<IEntity> {
 }
 
-/* @stable - 09.04.2018 */
-export interface IFormWrapperEntity<TEntity extends IEntity>
+/* @stable - 11.04.2018 */
+export interface IBaseFormWrapperEntity<TEntity extends IEntity>
   extends IFormWrapper<IFormEntity<TEntity>>,
           IEntityWrapperEntity<TEntity>,
+          IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
+}
+
+/* @stable - 09.04.2018 */
+export interface IFormWrapperEntity<TEntity extends IEntity>
+  extends IBaseFormWrapperEntity<TEntity>,
           IOnChangeWrapper<(payload: IFieldChangeEntity) => void>,
           IOnSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void>,
-          IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => void>,
           IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
           IDefaultOnValidWrapper,

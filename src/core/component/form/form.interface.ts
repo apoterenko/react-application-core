@@ -5,7 +5,7 @@ import {
   IBaseContainer,
   IBaseContainerInternalProps,
 } from '../base';
-import { IFormWrapperEntity, IDefaultFormWrapperEntity } from '../../entities-definitions.interface';
+import { IBaseFormWrapperEntity, IDefaultFormWrapperEntity } from '../../entities-definitions.interface';
 import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
 
 /* @stable - 10.04.2018 */
@@ -17,7 +17,7 @@ export interface IFormInternalProps extends IBaseComponentInternalProps,
 /* @stable - 01.04.2018 */
 export interface IFormContainerInternalProps<TEntity extends IEntity> extends IBaseContainerInternalProps,
                                                                               IFormConfigurationWrapper,
-                                                                              IFormWrapperEntity<TEntity> {
+                                                                              IBaseFormWrapperEntity<TEntity> {
 }
 
 /* @stable - 01.04.2018 */
