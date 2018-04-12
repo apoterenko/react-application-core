@@ -20,23 +20,14 @@ import {
   IAnyResultWrapper,
   AnyT,
 } from '../definitions.interface';
-import { IErrorEntity } from '../entities-definitions.interface';
-
-export interface IApplicationTransportState extends IStringTokenWrapper {
-  queue: string[];
-}
+import { IErrorEntity, ITransportEntity } from '../entities-definitions.interface';
 
 export interface IApplicationTransportTokenAccessor extends IStringTokenWrapper {
 }
 
 export interface IApplicationTransportWrapperState {
-  transport: IApplicationTransportState;
+  transport: ITransportEntity;
 }
-
-export const INITIAL_APPLICATION_TRANSPORT_STATE: IApplicationTransportState = {
-  queue: [],
-  token: null,
-};
 
 export interface ICancelableTransport {
   cancelRequest(operationId: string): void;
@@ -135,9 +126,3 @@ export interface IApplicationTransportErrorInterceptor {
   intercept(payload: ITransportErrorPayload): IEffectsAction[]|IEffectsAction;
 }
 
-export const TRANSPORT_REQUEST_ACTION_TYPE = 'transport.request';
-export const TRANSPORT_DESTROY_ACTION_TYPE = 'transport.destroy';
-export const TRANSPORT_DESTROY_TOKEN_ACTION_TYPE = 'transport.destroy.token';
-export const TRANSPORT_UPDATE_TOKEN_ACTION_TYPE = 'transport.update.token';
-export const TRANSPORT_REQUEST_DONE_ACTION_TYPE = 'transport.request.done';
-export const TRANSPORT_REQUEST_ERROR_ACTION_TYPE = 'transport.request.error';

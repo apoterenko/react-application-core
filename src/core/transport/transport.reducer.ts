@@ -1,18 +1,18 @@
 import { AnyAction } from 'redux';
 
+import { ITransportEntity } from '../entities-definitions.interface';
 import {
   INITIAL_APPLICATION_TRANSPORT_STATE,
-  IApplicationTransportState,
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_DESTROY_ACTION_TYPE,
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
   TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
-} from './transport.interface';
+} from './transport-reducer.interface';
 
-export function transportReducer(state: IApplicationTransportState = INITIAL_APPLICATION_TRANSPORT_STATE,
-                                 action: AnyAction): IApplicationTransportState {
+export function transportReducer(state: ITransportEntity = INITIAL_APPLICATION_TRANSPORT_STATE,
+                                 action: AnyAction): ITransportEntity {
   const operationId = action.data && action.data.operationId;
   switch (action.type) {
     case TRANSPORT_REQUEST_ACTION_TYPE:

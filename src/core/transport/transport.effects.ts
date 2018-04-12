@@ -5,11 +5,13 @@ import { IRoutes } from '../router';
 import {
   IApplicationTransportPayloadAnalyzer,
   IApplicationTransportErrorInterceptor,
+  ITransportResponsePayload,
+} from './transport.interface';
+import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
-  ITransportResponsePayload,
-} from './transport.interface';
+} from './transport-reducer.interface';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { RouterActionBuilder } from '../router';
 

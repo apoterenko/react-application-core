@@ -8,13 +8,15 @@ import { IDefaultApplicationState } from '../store';
 import {
   IApplicationTransport,
   ITransportRequestEntity,
-  TRANSPORT_REQUEST_ACTION_TYPE,
-  TRANSPORT_REQUEST_DONE_ACTION_TYPE,
-  TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TransportResponseErrorT,
   IApplicationTransportFactory,
   ITransportResponsePayload,
 } from './transport.interface';
+import {
+  TRANSPORT_REQUEST_ACTION_TYPE,
+  TRANSPORT_REQUEST_DONE_ACTION_TYPE,
+  TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
+} from './transport-reducer.interface';
 
 @injectable()
 export class TransportService implements IApplicationTransport {

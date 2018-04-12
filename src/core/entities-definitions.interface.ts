@@ -67,6 +67,11 @@ import {
   IEditApiWrapper,
   IAddApiWrapper,
   IExtraParamsWrapper,
+  ISectionNameWrapper,
+  IDispatchWrapper,
+  AnyT,
+  IQueueWrapper,
+  IStringTokenWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -315,4 +320,14 @@ export interface IKeyboardHandlersEntity {
 
 /* @stable - 11.04.2018 */
 export interface IFieldEntity extends IKeyboardHandlersEntity {
+}
+
+/* @stable - 12.04.2018 */
+export interface IBaseContainerEntity extends ISectionNameWrapper,
+                                              IDispatchWrapper<(type: string, data?: AnyT) => void> {
+}
+
+/* @stable - 12.04.2018 */
+export interface ITransportEntity extends IStringTokenWrapper,
+                                          IQueueWrapper<string[]> {
 }

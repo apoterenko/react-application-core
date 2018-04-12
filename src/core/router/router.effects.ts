@@ -5,10 +5,12 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { DI_TYPES, lazyInject, provideInSingleton } from '../di';
 import {
   IRouter,
+} from './router.interface';
+import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
-} from './router.interface';
+} from './router-reducer.interface';
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {

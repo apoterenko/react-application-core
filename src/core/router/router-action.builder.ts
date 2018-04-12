@@ -4,7 +4,7 @@ import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
-} from './router.interface';
+} from './router-reducer.interface';
 
 export class RouterActionBuilder {
   public static buildNavigateAction(path: string): IEffectsAction {

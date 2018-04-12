@@ -997,6 +997,21 @@ export interface IExtraParamsWrapper<TExtraParams> {
 }
 
 /* @stable - 12.04.2018 */
+export interface IDispatchWrapper<TDispatch> {
+  dispatch?: TDispatch;
+}
+
+/* @stable - 12.04.2018 */
+export interface IQueueWrapper<TQueue> {
+  queue?: TQueue;
+}
+
+/* @stable - 12.04.2018 */
+export interface ISectionNameWrapper {
+  sectionName?: string;
+}
+
+/* @stable - 12.04.2018 */
 export interface IEditApiWrapper {
   editApi?: string;
 }

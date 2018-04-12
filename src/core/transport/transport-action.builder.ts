@@ -4,7 +4,7 @@ import { AnyT } from '../definitions.interface';
 import {
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
   TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
-} from './transport.interface';
+} from './transport-reducer.interface';
 
 export class TransportActionBuilder {
 

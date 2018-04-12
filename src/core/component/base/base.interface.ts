@@ -14,8 +14,9 @@ import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
 import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
-import { IApplicationTransportState } from '../../transport';
 import { IChannelWrapperEntity } from '../../entities-definitions.interface';
+import { IUniversalBaseContainer } from './universal-base.interface';
+import { IUniversalBaseContainerInternalProps } from './universal-base.interface';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
@@ -36,13 +37,12 @@ export interface IContainerInternalProps {
 
 export interface IBaseContainerInternalProps extends IContainerInternalProps,
                                                      IBaseInternalProps,
+                                                     IUniversalBaseContainerInternalProps,
                                                      IChannelWrapperEntity {
-  sectionName?: string;
   notification?: IApplicationNotificationState;
   layout?: IApplicationLayoutState;
   root?: IApplicationRootState;
   user?: IApplicationUserState;
-  transport?: IApplicationTransportState;
 }
 
 export interface IBaseContainerInternalState {
@@ -63,9 +63,7 @@ export interface IBaseComponentInternalProps extends IBaseInternalProps,
 
 export interface IBaseContainer<TInternalProps extends IBaseContainerInternalProps,
                                 TInternalState extends IBaseContainerInternalState>
-    extends Component<TInternalProps, TInternalState> {
-  sectionName: string;
-  dispatch(type: string, data?: any): void;
+  extends IUniversalBaseContainer<TInternalProps, TInternalState> {
 }
 
 /* @stable - 04.04.2018 */

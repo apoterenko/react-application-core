@@ -14,9 +14,7 @@ import {
   layoutReducer,
 } from '../component/layout';
 import {
-  IApplicationTransportState,
   IApplicationTransportWrapperState,
-  transportReducer,
 } from '../transport';
 import {
   IApplicationNotificationState,

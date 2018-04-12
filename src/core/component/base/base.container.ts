@@ -1,11 +1,9 @@
-import { Component } from 'react';
-import { LocationState, Path } from 'history';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { IKeyValue, AnyT } from '../../definitions.interface';
-import { IRoutes, ROUTER_NAVIGATE_ACTION_TYPE, ROUTER_BACK_ACTION_TYPE } from '../../router';
+import { AnyT } from '../../definitions.interface';
+import { IRoutes } from '../../router';
 import { IDefaultApplicationState } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
@@ -20,10 +18,11 @@ import {
   IBaseContainerInternalState,
 } from './base.interface';
 import { IUIFactory } from '../factory';
+import { UniversalBaseContainer } from './universal-base.container';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState>
-    extends Component<TInternalProps, TInternalState>
+    extends UniversalBaseContainer<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
@@ -43,18 +42,6 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
     this.activateFormDialog = this.activateFormDialog.bind(this);
   }
 
-  public dispatch(type: string, data?: IKeyValue): void {
-    this.dispatchCustomType(`${this.sectionName}.${type}`, { section: this.sectionName, ...data });
-  }
-
-  public navigate(path: Path, state?: LocationState): void {
-    this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, { path, state });
-  }
-
-  protected navigateToBack(): void {
-    this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
-  }
-
   // Dictionary service method (DRY)
   protected dispatchLoadDictionary(section: string, payload?: AnyT): void {
     this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(section), { section, payload });
@@ -71,11 +58,6 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   }
 
   // Service method (DRY)
-  protected isTransportContainsExecutingOperation(operationId: string): boolean {
-    return this.props.transport.queue.includes(operationId);
-  }
-
-  // Service method (DRY)
   protected isPermissionAccessible<TApplicationAccessConfig>(checkedObject: TApplicationAccessConfig): boolean {
     return this.permissionService.isAccessible(checkedObject);
   }
@@ -83,9 +65,5 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   // Service method (DRY)
   protected activateFormDialog(): void {
     (this.refs.formDialog as IFormDialog).activate();
-  }
-
-  private dispatchCustomType(type: string, data?: AnyT): void {
-    this.appStore.dispatch({ type, data });
   }
 }
