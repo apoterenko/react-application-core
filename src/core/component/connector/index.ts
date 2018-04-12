@@ -3,3 +3,4 @@ export * from './connector.factory';
 export * from './connector.mapper';
 export * from './connector.decorator';
 export * from './connector-action.builder';
+export * from './universal-connector.mapper';
