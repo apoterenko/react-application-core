@@ -68,8 +68,7 @@ import {
   IAddApiWrapper,
   IExtraParamsWrapper,
   ISectionNameWrapper,
-  IDispatchWrapper,
-  AnyT,
+  ITransportWrapper,
   IQueueWrapper,
   IStringTokenWrapper,
 } from './definitions.interface';
@@ -324,7 +323,7 @@ export interface IFieldEntity extends IKeyboardHandlersEntity {
 
 /* @stable - 12.04.2018 */
 export interface IBaseContainerEntity extends ISectionNameWrapper,
-                                              IDispatchWrapper<(type: string, data?: AnyT) => void> {
+                                              ITransportWrapper<ITransportEntity> {
 }
 
 /* @stable - 12.04.2018 */

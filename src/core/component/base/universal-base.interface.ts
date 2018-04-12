@@ -4,13 +4,11 @@ import {
   AnyT,
   IDispatchWrapper,
   ISectionNameWrapper,
-  ITransportWrapper,
 } from '../../definitions.interface';
-import { ITransportEntity } from '../../entities-definitions.interface';
+import { IBaseContainerEntity } from '../../entities-definitions.interface';
 
 /* @stable - 12.04.2018 */
-export interface IUniversalBaseContainerInternalProps extends ISectionNameWrapper,
-                                                              ITransportWrapper<ITransportEntity> {
+export interface IUniversalBaseContainerInternalProps extends IBaseContainerEntity {
 }
 
 /* @stable - 12.04.2018 */
