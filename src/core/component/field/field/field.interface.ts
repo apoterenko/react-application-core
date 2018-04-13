@@ -70,7 +70,7 @@ export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
 
 /* @stable - 13.04.2018 */
 export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-                                             ClassAttributes<HTMLInputElement> {
+                                             ClassAttributes<HTMLTextAreaElement> {
 }
 
 export interface IFieldInternalState extends IErrorEntity<string> {
