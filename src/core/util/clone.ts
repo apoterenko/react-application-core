@@ -2,11 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { FunctionT, isFn, isPrimitive, uuid } from '../util';
-import { AnyT, ReactElementT } from '../definitions.interface';
+import { ReactElementT } from '../definitions.interface';
 
-export function clone<TObject>(o: TObject): TObject {
-  return JSON.parse(JSON.stringify(o));
-}
+export const clone = <TObject>(o: TObject): TObject => JSON.parse(JSON.stringify(o));
 
 export type RenderPredicateT = (child: ReactElementT) => boolean;
 export type ClonedComponentT = ReactElementT | React.Component;
@@ -31,7 +29,7 @@ export function cloneNodes<TProps>(component: ClonedComponentT,
             return null;
           }
 
-          const clonedChild = React.cloneElement<{ children: React.ReactChild[] }, {}>(
+          const clonedChild = React.cloneElement<{ children: React.ReactChild[] }>(
               reactChild,
               {
                 ...(canMergeProps
