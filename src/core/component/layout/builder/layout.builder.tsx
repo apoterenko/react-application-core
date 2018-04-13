@@ -65,7 +65,7 @@ export class LayoutBuilder {
     const type = itemAsElement.type;
 
     return React.Component.isPrototypeOf(type)
-      ? React.cloneElement<{}, {}>(itemAsElement, { key: itemAsElement.props.name || uuid() })
+      ? React.cloneElement<{}>(itemAsElement, { key: itemAsElement.props.name || uuid() })
       : this.buildLayout(item as ILayoutConfig);
   }
 

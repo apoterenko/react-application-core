@@ -1,4 +1,4 @@
-import { Component, InputHTMLAttributes, TextareaHTMLAttributes, ClassAttributes } from 'react';
+import { Component, InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 
 import {
   AnyT,
@@ -63,12 +63,12 @@ export interface IFieldInternalProps extends IBaseComponentInternalProps,
   onClick?(event: BasicEventT): void;
 }
 
-export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
-                                          ClassAttributes<{}> {
+/* @stable - 13.04.2018 */
+export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
-export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-                                             ClassAttributes<{}> {
+/* @stable - 13.04.2018 */
+export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export interface IFieldInternalState extends IErrorEntity<string> {
