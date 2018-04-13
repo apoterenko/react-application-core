@@ -11,7 +11,7 @@ export interface IUniversalDefaultReducersDefinition<TTransport> extends ITransp
 export interface IUniversalDefaultReducersMap extends IUniversalDefaultReducersDefinition<Reducer<{}>> {
 }
 
-/* @stable - 10.04.2018 */
+/* @stable - 11.04.2018 */
 export const universalDefaultReducers: IUniversalDefaultReducersMap = {
   transport: transportReducer,
 };
