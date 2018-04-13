@@ -1,0 +1,1 @@
+import './rn-router.effects';
