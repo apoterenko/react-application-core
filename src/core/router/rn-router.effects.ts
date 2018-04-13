@@ -1,5 +1,6 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 import { Actions } from 'react-native-router-flux';
+import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import {
@@ -15,9 +16,14 @@ export class RnRouterEffects {
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {
     const path = action.data;
+    const routerCallback = Actions[path];
 
-    RnRouterEffects.logger.debug(`[$RnRouterEffects][$onNavigate] Path: ${path}`);
-    Actions[path]();
+    if (R.isNil(routerCallback)) {
+      RnRouterEffects.logger.warn(`[$RnRouterEffects][$onNavigate] Router callback is not defined. Path: ${path}`);
+    } else {
+      RnRouterEffects.logger.debug(`[$RnRouterEffects][$onNavigate] Path: ${path}`);
+      routerCallback.call(Actions);
+    }
   }
 
   @EffectsService.effects(ROUTER_BACK_ACTION_TYPE)
