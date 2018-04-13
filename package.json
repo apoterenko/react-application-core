@@ -3,13 +3,15 @@
   "version": "0.0.209",
   "license": "MIT",
   "scripts": {
+    "postinstall": "npm run rn-node-compatibility-replace",
     "clean": "npm cache clean",
     "build": "npm run scss & npm run tsc-build",
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts* --exclude src/**/*.spec.ts",
     "deploy": "npm install && npm run build && npm publish ./",
     "scss": "node scripts/scss.js",
-    "test": "node_modules/.bin/karma start --browsers ChromeHeadlessNoSandbox"
+    "test": "node_modules/.bin/karma start --browsers ChromeHeadlessNoSandbox",
+    "rn-node-compatibility-replace": "node scripts/rn-node-compatibility-replace.js"
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.1.4",
@@ -81,6 +83,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-effects-promise": "0.0.20",
     "reflect-metadata": "^0.1.10",
+    "replace": "^0.3.0",
     "rimraf": "~2.6.1",
     "roboto-fontface": "^0.8.0",
     "sass-flex-mixin": "^1.0.3",
