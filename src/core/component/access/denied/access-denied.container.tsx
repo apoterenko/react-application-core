@@ -2,24 +2,26 @@ import * as React from 'react';
 
 import { IDefaultApplicationState } from '../../../store';
 import { CenterLayout } from '../../layout';
-import { connector, defaultMappers } from '../../connector';
-import { ContainerVisibilityTypeEnum } from '../../../router';
-import { BaseContainer } from '../../base';
+import { basicConnector, defaultMappers } from '../../connector';
+import { BaseContainer, IBaseContainerInternalProps } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
-import { IApplicationAccessConfig } from '../../../permissions';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
+import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
 
-@connector<IDefaultApplicationState, IApplicationAccessConfig>({
+@basicConnector<IDefaultApplicationState>({
   routeConfig: (routes) => ({
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: routes.accessDenied,
   }),
-  sectionName: ACCESS_DENIED_SECTION,
   mappers: [
     ...defaultMappers
   ],
 })
 export class AccessDeniedContainer extends BaseContainer<{}, {}> {
+
+  public static defaultProps: IBaseContainerInternalProps = {
+    sectionName: ACCESS_DENIED_SECTION,
+  };
 
   public render(): JSX.Element {
     const props = this.props;

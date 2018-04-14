@@ -2,7 +2,7 @@ import { ComponentLifecycle, ComponentClass } from 'react';
 import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { FunctionT, noop, sequence } from '../../util';
+import { noop, sequence } from '../../util';
 import { IDefaultApplicationState } from '../../store';
 import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';

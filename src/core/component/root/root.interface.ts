@@ -1,30 +1,30 @@
-import { IRouteOptions } from '../../router';
-import { IContainerWrapperCtor } from '../application';
 import { IBaseContainerInternalProps } from '../base';
 import { IApplicationAccessConfig } from '../../permissions';
 import {
   IChangesWrapper,
-  IInitialChangesable,
+  IStateInitialChangesWrapper,
   IKeyValue,
-  IPathWrapper,
+  IStringPathWrapper,
   ISectionWrapper,
 } from '../../definitions.interface';
+import { IComponentClassEntity } from '../../entities-definitions.interface';
 import { IDefaultApplicationState } from '../../store';
+import { IRouteConfiguration } from '../../configurations-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 ISectionWrapper,
-                                                IPathWrapper {
+                                                IStringPathWrapper {
 }
 
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
-                                                     IRouteOptions,
+                                                     IRouteConfiguration,
                                                      ISectionWrapper,
-                                                     IInitialChangesable<IDefaultApplicationState> {
-  container?: IContainerWrapperCtor;
+                                                     IStateInitialChangesWrapper<IDefaultApplicationState> {
+  container?: IComponentClassEntity;
   accessConfig?: IApplicationAccessConfig;
 }
 
-export interface IApplicationRootState extends IPathWrapper {
+export interface IApplicationRootState extends IStringPathWrapper {
 }
 
 export interface IApplicationRootWrapperState {
