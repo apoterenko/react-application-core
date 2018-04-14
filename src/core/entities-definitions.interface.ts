@@ -345,7 +345,7 @@ export interface IContainerEntity extends IBrowserLocationWrapper,
 }
 
 /* @stable - 14.04.2018 */
-export interface IComponentClassEntity extends ComponentClass<IContainerEntity & { propTypes?: any }> {
+export interface IComponentClassEntity extends ComponentClass<IContainerEntity> {
 }
 
 /* @stable - 12.04.2018 */

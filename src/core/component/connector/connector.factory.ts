@@ -20,5 +20,5 @@ export const connectorFactory = <TAppState>(
         };
       })
     : {};
-  return connect(mapping, {})(containerCtor);
+  return connect(mapping)(containerCtor);
 };

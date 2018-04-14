@@ -1,5 +1,3 @@
-import { ComponentClass } from 'react';
-
 import {
   IEntitySorterWrapper,
   INonInteractiveWrapper,
@@ -63,8 +61,8 @@ import {
   IAfterEnterWrapper,
   IStringUrlWrapper,
   ITCallbackWrapper,
-  ISectionNameWrapper,
 } from './definitions.interface';
+import { IComponentClassEntity } from './entities-definitions.interface';
 
 /* @stable - 05.04.2018 */
 export interface IItemConfigurationWrapper<TItemConfiguration> {
@@ -233,7 +231,7 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TAppState>
   extends IStateInitialChangesWrapper<TAppState>,
-          ITCallbackWrapper<(ctor: ComponentClass<ISectionNameWrapper>) => void>,
+          ITCallbackWrapper<(ctor: IComponentClassEntity, connectedCtor: IComponentClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
 }

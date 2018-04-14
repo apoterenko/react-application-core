@@ -60,7 +60,7 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
 
     const connector0 = connectorFactory<TAppState>(target, ...config.mappers);
     if (config.callback) {
-      config.callback(connector0);
+      config.callback(target, connector0);
     }
     DYNAMIC_ROUTES.set(connector0, config);
   };
