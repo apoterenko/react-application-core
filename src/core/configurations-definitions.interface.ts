@@ -45,7 +45,6 @@ import {
   IKeyValue,
   IMappersWrapper,
   IStringPathWrapper,
-  IRouteConfigWrapper,
   IStateInitialChangesWrapper,
   ITypeWrapper,
   ISignInWrapper,
@@ -55,7 +54,6 @@ import {
   IProfileWrapper,
   IHomeWrapper,
   IRestoreAuthWrapper,
-  IAccessConfigWrapper,
   IComputedMatchWrapper,
   IKeyValueParamsWrapper,
   IExactWrapper,
@@ -87,6 +85,16 @@ export interface IGridConfigurationWrapper {
 /* @stable - 31.03.2018 */
 export interface IFormConfigurationWrapper {
   formConfiguration?: IFormConfiguration;
+}
+
+/* @stable - 14.04.2018 */
+export interface IRouteConfigurationWrapper<TRouteConfiguration> {
+  routeConfiguration?: TRouteConfiguration;
+}
+
+/* @stable - 14.04.2018 */
+export interface IAccessConfigurationWrapper<TAccessConfiguration> {
+  accessConfiguration?: TAccessConfiguration;
 }
 
 /* @stable - 31.03.2018 */
@@ -220,14 +228,14 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TAppState> extends IStateInitialChangesWrapper<TAppState>,
-                                                                 IRouteConfigWrapper<RouteConfigurationT>,
+                                                                 IRouteConfigurationWrapper<RouteConfigurationT>,
                                                                  IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
 }
 
 /* @stable - 14.04.2018 */
 export interface IConnectorConfiguration<TAppState, TApplicationAccessConfig>
   extends IBasicConnectorConfiguration<TAppState>,
-          IAccessConfigWrapper<TApplicationAccessConfig> {
+          IAccessConfigurationWrapper<TApplicationAccessConfig> {
 }
 
 /* @stable - 14.04.2018 */

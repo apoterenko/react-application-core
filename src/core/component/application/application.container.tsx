@@ -131,7 +131,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   protected lookupConnectComponentByRoutePath(path: string): IComponentClassEntity {
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
-      if (toRouteOptions(config.routeConfig, this.routes).path === path) {
+      if (toRouteOptions(config.routeConfiguration, this.routes).path === path) {
         result = ctor;
       }
     });
@@ -150,7 +150,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
       this.registerRoute(
           loginContainer,
           {
-            routeConfig: {
+            routeConfiguration: {
               type: ContainerVisibilityTypeEnum.PUBLIC,
               path: this.routes.logout,
               beforeEnter: this.onBeforeLogout,
@@ -176,7 +176,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
       let Component;
-      const routeConfig = toRouteOptions(config.routeConfig, this.routes);
+      const routeConfig = toRouteOptions(config.routeConfiguration, this.routes);
 
       switch (routeConfig.type) {
         case ContainerVisibilityTypeEnum.PRIVATE:
@@ -188,7 +188,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
       }
       const props: IRootContainerInternalProps = {
         exact: true,
-        accessConfig: config.accessConfig,
+        accessConfig: config.accessConfiguration,
         initialChanges: config.initialChanges,
         section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
         ...routeConfig,

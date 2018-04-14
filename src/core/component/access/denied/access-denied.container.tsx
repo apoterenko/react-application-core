@@ -9,7 +9,7 @@ import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
 
 @basicConnector<IDefaultApplicationState>({
-  routeConfig: (routes) => ({
+  routeConfiguration: (routes) => ({
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: routes.accessDenied,
   }),

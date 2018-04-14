@@ -102,16 +102,6 @@ export interface IEmptyDataWrapper {
 }
 
 /* @stable - 14.04.2018 */
-export interface IAccessConfigWrapper<TAccessConfig> {
-  accessConfig?: TAccessConfig;
-}
-
-/* @stable - 14.04.2018 */
-export interface IRouteConfigWrapper<TRouteConfig> {
-  routeConfig?: TRouteConfig;
-}
-
-/* @stable - 14.04.2018 */
 export interface IMappersWrapper<TMappers> {
   mappers?: TMappers;
 }

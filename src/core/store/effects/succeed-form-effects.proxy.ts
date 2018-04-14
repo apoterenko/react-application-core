@@ -33,7 +33,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
         const connectorConfig = APPLICATION_SECTIONS.get(listSection);
         const listRoute0 = listRoute
-            || (connectorConfig ? toRouteOptions(connectorConfig.routeConfig, this.routes).path : null);
+            || (connectorConfig ? toRouteOptions(connectorConfig.routeConfiguration, this.routes).path : null);
 
         if (!listRoute0) {
           logger.warn(
