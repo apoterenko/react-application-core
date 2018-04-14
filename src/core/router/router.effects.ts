@@ -4,19 +4,17 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject, provideInSingleton } from '../di';
 import {
-  IRouter,
-} from './router.interface';
-import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
 } from './router-reducer.interface';
+import { IRouterComponentEntity } from '../entities-definitions.interface';
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {
   private static logger = LoggerFactory.makeLogger(RouterEffects);
 
-  @lazyInject(DI_TYPES.Router) private router: IRouter;
+  @lazyInject(DI_TYPES.Router) private router: IRouterComponentEntity;
 
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {

@@ -3,12 +3,12 @@ import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { noop, sequence } from '../../util';
+import { APPLICATION_SECTIONS } from '../application/application-sections.interface';
+import { DYNAMIC_ROUTES } from '../../router/dynamic-routes.interface';
 import { IDefaultApplicationState } from '../../store';
-import { DYNAMIC_ROUTES } from '../../router';
 import { connectorFactory } from './connector.factory';
 import { CONNECTOR_SECTION_FIELD } from './connector.interface';
 import { DI_TYPES, staticInjector } from '../../di';
-import { APPLICATION_SECTIONS } from '../application';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store';
 import { ConnectorActionBuilder } from './connector-action.builder';
 import { ISectionNameWrapper } from '../../definitions.interface';

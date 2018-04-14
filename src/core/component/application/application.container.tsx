@@ -7,7 +7,6 @@ import { clone, uuid, PredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import {
-  IRouter,
   toRouteOptions,
 } from '../../router';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
@@ -30,7 +29,7 @@ import {
   IDefaultConnectorConfiguration,
   ContainerVisibilityTypeEnum,
 } from '../../configurations-definitions.interface';
-import { IComponentClassEntity } from '../../entities-definitions.interface';
+import { IComponentClassEntity, IRouterComponentEntity } from '../../entities-definitions.interface';
 
 export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     extends BaseContainer<IApplicationContainerProps, {}> {
@@ -68,7 +67,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   }
 
   public componentDidMount(): void {
-    appContainer.bind<IRouter>(DI_TYPES.Router).toConstantValue(this.dynamicRouter);
+    appContainer.bind<IRouterComponentEntity>(DI_TYPES.Router).toConstantValue(this.dynamicRouter);
   }
 
   public componentWillMount(): void {
@@ -208,7 +207,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     );
   }
 
-  private get dynamicRouter(): IRouter {
+  private get dynamicRouter(): IRouterComponentEntity {
     // We cannot to get access to history instance other way. This instance is private
     return Reflect.get(this.refs.router, 'history');
   }

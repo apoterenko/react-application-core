@@ -1,4 +1,5 @@
 import { ComponentClass } from 'react';
+import { History } from 'history';
 
 import {
   IPageSizeWrapper,
@@ -344,4 +345,8 @@ export interface IComponentClassEntity extends ComponentClass<IContainerEntity> 
 /* @stable - 12.04.2018 */
 export interface ITransportEntity extends IStringTokenWrapper,
                                           IQueueWrapper<string[]> {
+}
+
+/* @stable - 15.04.2018 */
+export interface IRouterComponentEntity extends History {
 }
