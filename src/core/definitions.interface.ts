@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import { IDefaultApplicationState } from './store';
+import * as URLSearchParams from 'url-search-params';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -100,6 +99,48 @@ export interface IIpWrapper {
 /* @stable - 08.04.2018 */
 export interface IEmptyDataWrapper {
   emptyData?: boolean;
+}
+
+/* @stable - 14.04.2018 */
+export interface IAccessConfigWrapper<TAccessConfig> {
+  accessConfig?: TAccessConfig;
+}
+
+/* @stable - 14.04.2018 */
+export interface IRouteConfigWrapper<TRouteConfig> {
+  routeConfig?: TRouteConfig;
+}
+
+/* @stable - 14.04.2018 */
+export interface IMappersWrapper<TMappers> {
+  mappers?: TMappers;
+}
+
+/* @stable - 14.04.2018 */
+export interface IRouteParamsWrapper<TRouteParams> {
+  routeParams?: TRouteParams;
+}
+
+/* @stable - 14.04.2018 */
+export interface IKeyValueRouteParamsWrapper extends IRouteParamsWrapper<IKeyValue> {
+}
+
+/* @stable - 14.04.2018 */
+export interface IQueryParamsWrapper<TQueryParams> {
+  queryParams?: TQueryParams;
+}
+
+/* @stable - 14.04.2018 */
+export interface IURLSearchParamsQueryParamsWrapper extends IQueryParamsWrapper<URLSearchParams> {
+}
+
+/* @stable - 14.04.2018 */
+export interface ILocationWrapper<TLocation> {
+  location?: TLocation;
+}
+
+/* @stable - 14.04.2018 */
+export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
 }
 
 /* @stable - 08.04.2018 */
@@ -239,6 +280,31 @@ export interface ISignInWrapper<TSignIn> {
 /* @stable - 01.04.2018 */
 export interface ISignUpWrapper<TSignUp> {
   signUp?: TSignUp;
+}
+
+/* @stable - 14.04.2018 */
+export interface IAccessDeniedWrapper<TAccessDenied> {
+  accessDenied?: TAccessDenied;
+}
+
+/* @stable - 14.04.2018 */
+export interface ILogoutWrapper<TLogout> {
+  logout?: TLogout;
+}
+
+/* @stable - 14.04.2018 */
+export interface IProfileWrapper<TProfile> {
+  profile?: TProfile;
+}
+
+/* @stable - 14.04.2018 */
+export interface IHomeWrapper<THome> {
+  home?: THome;
+}
+
+/* @stable - 14.04.2018 */
+export interface IRestoreAuthWrapper<TRestoreAuth> {
+  restoreAuth?: TRestoreAuth;
 }
 
 /* @stable - 01.04.2018 */
@@ -1171,9 +1237,47 @@ export interface ITypeWrapper<TType> {
 export interface IStringTypeWrapper extends ITypeWrapper<string> {
 }
 
+/* @stable - 14.04.2018 */
+export interface IExactWrapper {
+  exact?: boolean;
+}
+
+/* @stable - 14.04.2018 */
+export interface IBeforeEnterWrapper<TBeforeEnter> {
+  beforeEnter?: TBeforeEnter;
+}
+
+/* @stable - 14.04.2018 */
+export interface IAfterEnterWrapper<TAfterEnter> {
+  afterEnter?: TAfterEnter;
+}
+
+/* @stable - 14.04.2018 */
+export interface IComputedMatchWrapper<TComputedMatch> {
+  computedMatch?: TComputedMatch;
+}
+
+/* @stable - 14.04.2018 */
+export interface IInitialChangesWrapper<TInitialChanges> {
+  initialChanges?: TInitialChanges;
+}
+
+/* @stable - 14.04.2018 */
+export interface IStateInitialChangesWrapper<TAppState> extends IInitialChangesWrapper<(state: TAppState) => IKeyValue> {
+}
+
 /* @stable - 11.04.2018 */
 export interface IDisplayMessageWrapper {
   displayMessage?: string;
+}
+
+/* @stable - 14.04.2018 */
+export interface IPathWrapper<TPath> {
+  path?: TPath;
+}
+
+/* @stable - 14.04.2018 */
+export interface IStringPathWrapper extends IPathWrapper<string> {
 }
 
 export interface IDisplayValueWrapper<TDisplay> {
@@ -1208,15 +1312,7 @@ export interface IMaskEntity {
   maskPlaceholderChar?: string;
 }
 
-export interface IPathWrapper {
-  path?: string;
-}
-
 export interface IOnBaseClickWrapper extends IPayloadOnClickWrapper<BasicEventT> {
-}
-
-export interface IInitialChangesable<TAppState extends IDefaultApplicationState> {
-  initialChanges?(state: TAppState): IKeyValue;
 }
 
 export const UNI_CODES = {

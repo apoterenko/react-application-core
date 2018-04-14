@@ -1,9 +1,9 @@
 import { appContainer, DI_TYPES } from '../di';
-import { RouteContainerT } from '../router';
-import { ConnectorConfigT } from '../component/connector';
 
 import './router.effects';
 import { DYNAMIC_ROUTES } from './router.interface';
+import { IDefaultConnectorConfiguration } from '../configurations-definitions.interface';
+import { IComponentClassEntity } from '../entities-definitions.interface';
 
-appContainer.bind<Map<RouteContainerT, ConnectorConfigT>>(DI_TYPES.DynamicRoutes)
+appContainer.bind<Map<IComponentClassEntity, IDefaultConnectorConfiguration>>(DI_TYPES.DynamicRoutes)
     .toConstantValue(DYNAMIC_ROUTES);

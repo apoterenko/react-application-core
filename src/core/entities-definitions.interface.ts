@@ -1,3 +1,5 @@
+import { ComponentClass } from 'react';
+
 import {
   IPageSizeWrapper,
   IPageWrapper,
@@ -71,6 +73,9 @@ import {
   ITransportWrapper,
   IQueueWrapper,
   IStringTokenWrapper,
+  IBrowserLocationWrapper,
+  IKeyValueRouteParamsWrapper,
+  IURLSearchParamsQueryParamsWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -324,6 +329,16 @@ export interface IFieldEntity extends IKeyboardHandlersEntity {
 /* @stable - 12.04.2018 */
 export interface IBaseContainerEntity extends ISectionNameWrapper,
                                               ITransportWrapper<ITransportEntity> {
+}
+
+/* @stable - 14.04.2018 */
+export interface IContainerEntity extends IBrowserLocationWrapper,
+                                          IURLSearchParamsQueryParamsWrapper,
+                                          IKeyValueRouteParamsWrapper {
+}
+
+/* @stable - 14.04.2018 */
+export interface IComponentClassEntity extends ComponentClass<IContainerEntity> {
 }
 
 /* @stable - 12.04.2018 */

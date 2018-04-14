@@ -5,9 +5,10 @@ import { DI_TYPES, provideInSingleton, lazyInject } from '../../di';
 import { FormActionBuilder } from '../../component/form';
 import { ListActionBuilder } from '../../component/list';
 import { IApplicationModifyEntityPayloadFactory } from '../../api';
-import { IRoutes, RouterActionBuilder, toRouteOptions } from '../../router';
+import { RouterActionBuilder, toRouteOptions } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
 import { IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IRoutesConfiguration } from '../../configurations-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('succeed-form-effects.proxy');
 
@@ -23,7 +24,7 @@ export function makeSucceedFormEffectsProxy(config: {
     @provideInSingleton(Effects)
     class Effects {
 
-      @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
+      @lazyInject(DI_TYPES.Routes) private routes: IRoutesConfiguration;
       @lazyInject(DI_TYPES.ModifyEntityPayloadFactory) private payloadFactory: IApplicationModifyEntityPayloadFactory;
 
       @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(formSection))

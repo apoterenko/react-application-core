@@ -1,7 +1,6 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { IRoutes } from '../router';
 import {
   IApplicationTransportPayloadAnalyzer,
   IApplicationTransportErrorInterceptor,
@@ -14,6 +13,7 @@ import {
 } from './transport-reducer.interface';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { RouterActionBuilder } from '../router';
+import { IRoutesConfiguration } from '../configurations-definitions.interface';
 
 @provideInSingleton(TransportEffects)
 export class TransportEffects {
@@ -22,7 +22,7 @@ export class TransportEffects {
   private transportPayloadAnalyzer: IApplicationTransportPayloadAnalyzer;
   @lazyInject(DI_TYPES.TransportErrorInterceptor)
   private transportErrorInterceptor: IApplicationTransportErrorInterceptor;
-  @lazyInject(DI_TYPES.Routes) private routes: IRoutes;
+  @lazyInject(DI_TYPES.Routes) private routes: IRoutesConfiguration;
 
   @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
   public onTransportRequestDone(action: IEffectsAction): IEffectsAction {
