@@ -1,12 +1,16 @@
 import { AnyAction } from 'redux';
 
-import { IKeyValue, IUserWrapper, IDictionariesWrapper } from '../definitions.interface';
+import {
+  IKeyValue,
+  IUserWrapper,
+  IDictionariesWrapper,
+  IStackWrapper,
+} from '../definitions.interface';
 import {
   IApplicationRootState,
   IApplicationRootWrapperState,
   rootReducer,
 } from '../component/root';
-
 import { IApplicationUserState, userReducer } from '../user';
 import {
   IApplicationLayoutState,
@@ -26,9 +30,13 @@ import {
   applicationReducer,
 } from '../component/application';
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
-import { stackReducer, IApplicationStackWrapperState } from './stack';
+import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
-import { IChannelWrapperEntity, IApplicationWrapperEntity } from '../entities-definitions.interface';
+import {
+  IChannelWrapperEntity,
+  IApplicationWrapperEntity,
+  IStackWrapperEntity,
+} from '../entities-definitions.interface';
 import { universalDefaultReducers } from './universal-default-reducers.interface';
 
 export interface IApplicationState<TDictionaries>
@@ -39,7 +47,7 @@ export interface IApplicationState<TDictionaries>
             IApplicationWrapperEntity,
             IApplicationLayoutWrapperState,
             IApplicationRootWrapperState,
-            IApplicationStackWrapperState,
+            IStackWrapperEntity,
             IChannelWrapperEntity {
 }
 

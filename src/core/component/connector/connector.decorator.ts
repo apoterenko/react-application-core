@@ -11,7 +11,7 @@ import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './connector.interface';
 import { connectorFactory } from './connector.factory';
 import { ConnectorActionBuilder } from './connector-action.builder';
-import { IDefaultApplicationState, STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store';
+import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
@@ -63,6 +63,6 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
     );
   };
 
-export const connector = <TAppState extends IDefaultApplicationState, TApplicationAccessConfig>(
+export const connector = <TAppState, TApplicationAccessConfig>(
     config: IConnectorConfiguration<TAppState, TApplicationAccessConfig>
 ) => basicConnector(config);

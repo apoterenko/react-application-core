@@ -1,3 +1,4 @@
+import { ACTION_PREFIX } from '../definitions.interface';
 import { IDefaultConnectorConfiguration } from '../configurations-definitions.interface';
 import { IComponentClassEntity } from '../entities-definitions.interface';
 
@@ -5,6 +6,6 @@ import { IComponentClassEntity } from '../entities-definitions.interface';
 export const DYNAMIC_ROUTES = new Map<IComponentClassEntity, IDefaultConnectorConfiguration>();
 
 /* @stable - 15.04.2018 */
-export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
-export const ROUTER_REPLACE_ACTION_TYPE = 'router.replace';
+export const ROUTER_NAVIGATE_ACTION_TYPE = `${ACTION_PREFIX}router.navigate`;
+export const ROUTER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}router.replace`;
 export const ROUTER_BACK_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.back`;

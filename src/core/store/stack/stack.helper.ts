@@ -1,9 +1,9 @@
 import * as graphlib from '@dagrejs/graphlib';
 import * as R from 'ramda';
 
-import { IApplicationStackState, IApplicationStackItemState } from './stack.interface';
+import { IStackItemEntity, IStackEntity } from '../../entities-definitions.interface';
 
-export const getDestroyableSections = (currentSection: string, state: IApplicationStackState): string[] => {
+export const getDestroyableSections = (currentSection: string, state: IStackEntity): string[] => {
   const sectionsToDestroy = new Set<string>();
   const gr = new graphlib.Graph();
 
@@ -22,19 +22,19 @@ export const getDestroyableSections = (currentSection: string, state: IApplicati
     }
   });
 
-  const needToDestroy = state.needToDestroy;
-  if (needToDestroy) {
-    needToDestroy.forEach((sectionNeedToDestroy) => sectionsToDestroy.add(sectionNeedToDestroy));
+  const needToDestroySections = state.needToDestroySections;
+  if (needToDestroySections) {
+    needToDestroySections.forEach((sectionNeedToDestroy) => sectionsToDestroy.add(sectionNeedToDestroy));
   }
   return Array.from(sectionsToDestroy);
 };
 
-export const lockNextSection = (nextSection: string, state: IApplicationStackState): IApplicationStackItemState[] => {
+export const lockNextSection = (nextSection: string, state: IStackEntity): IStackItemEntity[] => {
   const stack = state.stack;
   const stackLength = stack.length;
 
   // If there is a lock - we must put the next section to linked stack
-  return stack.map<IApplicationStackItemState>((entry, index): IApplicationStackItemState => (
+  return stack.map<IStackItemEntity>((entry, index): IStackItemEntity => (
     index === stackLength - 1
       ? { ...entry,
           linkedToSections: Array.from(
@@ -46,19 +46,19 @@ export const lockNextSection = (nextSection: string, state: IApplicationStackSta
   ));
 };
 
-export const destroySections = (sectionsToDestroy: string[], state: IApplicationStackState): IApplicationStackItemState[] => {
+export const destroySections = (sectionsToDestroy: string[], state: IStackEntity): IStackItemEntity[] => {
   const stack = state.stack;
 
-  return R.filter<IApplicationStackItemState>((entry) =>
+  return R.filter<IStackItemEntity>((entry) =>
     !R.contains<string>(entry.section, sectionsToDestroy), stack);
 };
 
-export const pushNextSection = (nextSection: string, state: IApplicationStackState): IApplicationStackItemState[] => {
+export const pushNextSection = (nextSection: string, state: IStackEntity): IStackItemEntity[] => {
   const stack = state.stack;
   const currentSectionIndex =
-    R.findIndex<IApplicationStackItemState>((entry) => entry.section === nextSection, stack);
+    R.findIndex<IStackItemEntity>((entry) => entry.section === nextSection, stack);
 
   return currentSectionIndex > -1
     ? [].concat(stack)
-    : R.insert<IApplicationStackItemState>(stack.length, { section: nextSection, linkedToSections: [] }, stack);
+    : R.insert<IStackItemEntity>(stack.length, { section: nextSection, linkedToSections: [] }, stack);
 };

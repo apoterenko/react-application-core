@@ -77,6 +77,11 @@ import {
   IBrowserLocationWrapper,
   IKeyValueRouteParamsWrapper,
   IURLSearchQueryParamsWrapper,
+  ILinkedToSectionsWrapper,
+  ISectionWrapper,
+  ILockWrapper,
+  INeedToDestroySectionsWrapper,
+  IStackWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -349,4 +354,19 @@ export interface ITransportEntity extends IStringTokenWrapper,
 
 /* @stable - 15.04.2018 */
 export interface IRouterComponentEntity extends History {
+}
+
+/* @stable - 15.04.2018 */
+export interface IStackItemEntity extends ISectionWrapper,
+                                          ILinkedToSectionsWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface IStackEntity extends IStackWrapper<IStackItemEntity[]>,
+                                      ILockWrapper,
+                                      INeedToDestroySectionsWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface IStackWrapperEntity extends IStackWrapper<IStackEntity> {
 }

@@ -481,27 +481,27 @@ export interface ISectionWrapper {
   section?: string;
 }
 
+/* @stable - 15.04.2018 */
 export interface ILinkedToSectionsWrapper {
   linkedToSections?: string[];
 }
 
-/**********************
- * Lock's wrappers
- **********************/
+/* @stable - 15.04.2018 */
+export interface INeedToDestroySectionsWrapper {
+  needToDestroySections?: string[];
+}
+
+/* @stable - 15.04.2018 */
 export interface ILockWrapper {
   lock?: boolean;
 }
 
-/**********************
- * Stack's wrapper
- **********************/
+/* @stable - 15.04.2018 */
 export interface IStackWrapper<TStack> {
   stack?: TStack;
 }
 
-/**********************
- * Payload's wrapper
- **********************/
+/* @stable - 15.04.2018 */
 export interface IPayloadWrapper<TPayload> {
   payload?: TPayload;
 }

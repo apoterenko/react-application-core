@@ -4,6 +4,7 @@ export { UniversalBaseContainer } from './component/base/universal-base.containe
 export { RnBaseContainer } from './component/base/rn-base.container';
 export { formReducer } from './component/form/form.reducer';
 export { listSelectedEntityMapper } from './component/connector/universal-connector.mapper';
+export { basicConnector, connector } from './component/connector/connector.decorator';
 export { convertError } from './error/error.converter';
 export { RouterActionBuilder } from './router/router-action.builder';
 export { BaseEffects } from './store/effects/base.effects';
