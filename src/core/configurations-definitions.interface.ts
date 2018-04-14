@@ -42,6 +42,26 @@ import {
   IDisplayMessageWrapper,
   ILabelWrapper,
   IPrefixLabelWrapper,
+  IKeyValue,
+  IMappersWrapper,
+  IStringPathWrapper,
+  IRouteConfigWrapper,
+  IStateInitialChangesWrapper,
+  ITypeWrapper,
+  ISignInWrapper,
+  ISignUpWrapper,
+  IAccessDeniedWrapper,
+  ILogoutWrapper,
+  IProfileWrapper,
+  IHomeWrapper,
+  IRestoreAuthWrapper,
+  IAccessConfigWrapper,
+  IComputedMatchWrapper,
+  IKeyValueParamsWrapper,
+  IExactWrapper,
+  IBeforeEnterWrapper,
+  IAfterEnterWrapper,
+  IStringUrlWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -159,4 +179,57 @@ export interface IFieldConfiguration extends IReadOnlyWrapper,
                                              IAutoFocusWrapper,
                                              IStringPatternWrapper,
                                              IDisabledWrapper {
+}
+
+/* @stable - 14.04.2018 */
+export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
+                                              IHomeWrapper<string>,
+                                              IProfileWrapper<string>,
+                                              ILogoutWrapper<string>,
+                                              IAccessDeniedWrapper<string>,
+                                              ISignInWrapper<string>,
+                                              ISignUpWrapper<string> {
+}
+
+/* @stable - 14.04.2018 */
+export interface IRouteComputedMatchConfiguration extends IKeyValueParamsWrapper,
+                                                          IStringUrlWrapper,
+                                                          IStringPathWrapper {
+}
+
+/* @stable - 14.04.2018 */
+export enum ContainerVisibilityTypeEnum {
+  PUBLIC,
+  PRIVATE,
+}
+
+/* @stable - 14.04.2018 */
+export interface IRouteConfiguration extends IStringPathWrapper,
+                                             IExactWrapper,
+                                             IAfterEnterWrapper<() => void>,
+                                             IBeforeEnterWrapper<() => void>,
+                                             IComputedMatchWrapper<IRouteComputedMatchConfiguration>,
+                                             ITypeWrapper<ContainerVisibilityTypeEnum> {
+}
+
+/* @stable - 14.04.2018 */
+export type RouteConfigurationT = IRouteConfiguration | ((routes: IRoutesConfiguration) => IRouteConfiguration);
+
+/* @stable - 14.04.2018 */
+export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult;
+
+/* @stable - 14.04.2018 */
+export interface IBasicConnectorConfiguration<TAppState> extends IStateInitialChangesWrapper<TAppState>,
+                                                                 IRouteConfigWrapper<RouteConfigurationT>,
+                                                                 IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
+}
+
+/* @stable - 14.04.2018 */
+export interface IConnectorConfiguration<TAppState, TApplicationAccessConfig>
+  extends IBasicConnectorConfiguration<TAppState>,
+          IAccessConfigWrapper<TApplicationAccessConfig> {
+}
+
+/* @stable - 14.04.2018 */
+export interface IDefaultConnectorConfiguration extends IConnectorConfiguration<{}, {}> {
 }
