@@ -7,7 +7,7 @@ import { clone, uuid, PredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import {
-  toRouteOptions,
+  toRouteConfigurations,
 } from '../../router';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
 import { BaseContainer } from '../base';
@@ -130,7 +130,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   protected lookupConnectComponentByRoutePath(path: string): IComponentClassEntity {
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
-      if (toRouteOptions(config.routeConfiguration, this.routes).path === path) {
+      if (toRouteConfigurations(config.routeConfiguration, this.routes).path === path) {
         result = ctor;
       }
     });
@@ -175,7 +175,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
       let Component;
-      const routeConfig = toRouteOptions(config.routeConfiguration, this.routes);
+      const routeConfig = toRouteConfigurations(config.routeConfiguration, this.routes);
 
       switch (routeConfig.type) {
         case ContainerVisibilityTypeEnum.PRIVATE:

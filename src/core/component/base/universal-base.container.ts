@@ -8,7 +8,7 @@ import {
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
-} from '../../router/router-reducer.interface';
+} from '../../router/router.interface';
 import {
   IUniversalBaseContainer,
   IUniversalBaseContainerInternalProps,

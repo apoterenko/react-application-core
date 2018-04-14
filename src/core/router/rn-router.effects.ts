@@ -3,16 +3,17 @@ import { Actions } from 'react-native-router-flux';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { provideInSingleton } from '../di';
 import {
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_NAVIGATE_ACTION_TYPE,
-} from './router-reducer.interface';
-import { provideInSingleton } from '../di';
+} from './router.interface';
 
 @provideInSingleton(RnRouterEffects)
 export class RnRouterEffects {
   private static logger = LoggerFactory.makeLogger(RnRouterEffects);
 
+  /* @stable - 15.04.2018 */
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {
     const path = action.data;
@@ -26,6 +27,7 @@ export class RnRouterEffects {
     }
   }
 
+  /* @stable - 15.04.2018 */
   @EffectsService.effects(ROUTER_BACK_ACTION_TYPE)
   public $onBack(): void {
     RnRouterEffects.logger.debug('[$RnRouterEffects][$onBack]');

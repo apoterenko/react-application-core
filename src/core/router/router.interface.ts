@@ -1,15 +1,10 @@
-import { isFn } from '../util';
+import { IDefaultConnectorConfiguration } from '../configurations-definitions.interface';
 import { IComponentClassEntity } from '../entities-definitions.interface';
-import {
-  RouteConfigurationT,
-  IRoutesConfiguration,
-  IRouteConfiguration,
-  IDefaultConnectorConfiguration,
-} from '../configurations-definitions.interface';
 
-export const toRouteOptions = (routeComponentConfig: RouteConfigurationT,
-                               routes: IRoutesConfiguration): IRouteConfiguration => {
-  return isFn(routeComponentConfig)
-      ? (routeComponentConfig as (routes: IRoutesConfiguration) => IRouteConfiguration)(routes)
-      : routeComponentConfig as IRouteConfiguration;
-};
+/* @stable - 15.04.2018 */
+export const DYNAMIC_ROUTES = new Map<IComponentClassEntity, IDefaultConnectorConfiguration>();
+
+/* @stable - 15.04.2018 */
+export const ROUTER_NAVIGATE_ACTION_TYPE = 'router.navigate';
+export const ROUTER_REPLACE_ACTION_TYPE = 'router.replace';
+export const ROUTER_BACK_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.back`;

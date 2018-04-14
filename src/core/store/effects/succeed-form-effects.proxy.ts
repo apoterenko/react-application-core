@@ -5,7 +5,7 @@ import { DI_TYPES, provideInSingleton, lazyInject } from '../../di';
 import { FormActionBuilder } from '../../component/form';
 import { ListActionBuilder } from '../../component/list';
 import { IApplicationModifyEntityPayloadFactory } from '../../api';
-import { RouterActionBuilder, toRouteOptions } from '../../router';
+import { RouterActionBuilder, toRouteConfigurations } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
 import { IDefaultApiEntity } from '../../entities-definitions.interface';
 import { IRoutesConfiguration } from '../../configurations-definitions.interface';
@@ -33,7 +33,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
         const connectorConfig = APPLICATION_SECTIONS.get(listSection);
         const listRoute0 = listRoute
-            || (connectorConfig ? toRouteOptions(connectorConfig.routeConfiguration, this.routes).path : null);
+            || (connectorConfig ? toRouteConfigurations(connectorConfig.routeConfiguration, this.routes).path : null);
 
         if (!listRoute0) {
           logger.warn(

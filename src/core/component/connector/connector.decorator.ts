@@ -4,7 +4,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { noop, sequence } from '../../util';
 import { APPLICATION_SECTIONS } from '../application/application-sections.interface';
-import { DYNAMIC_ROUTES } from '../../router/dynamic-routes.interface';
+import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { IDefaultApplicationState } from '../../store';
 import { connectorFactory } from './connector.factory';
 import { CONNECTOR_SECTION_FIELD } from './connector.interface';

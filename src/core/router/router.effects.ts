@@ -7,7 +7,7 @@ import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
-} from './router-reducer.interface';
+} from './router.interface';
 import { IRouterComponentEntity } from '../entities-definitions.interface';
 
 @provideInSingleton(RouterEffects)
