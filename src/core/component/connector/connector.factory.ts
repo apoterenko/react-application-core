@@ -1,16 +1,15 @@
+import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 
 import { isFn } from '../../util';
-import { IDefaultApplicationState } from '../../store';
-import { IDefaultBaseContainer } from '../../component/base';
-import { IKeyValue } from '../../definitions.interface';
-import { IContainerWrapperCtor } from '../../component/application';
-import { ConnectorMapperT, IConnectorCtor } from './connector.interface';
+import { IKeyValue, ISectionNameWrapper } from '../../definitions.interface';
+import { IComponentClassEntity } from '../../entities-definitions.interface';
+import { ConnectorMapperT } from '../../configurations-definitions.interface';
 
-export const connectorFactory = <TAppState extends IDefaultApplicationState>(
-    containerCtor: IConnectorCtor<IDefaultBaseContainer>,
+export const connectorFactory = <TAppState>(
+    containerCtor: ComponentClass<ISectionNameWrapper>,
     ...mappers: Array<ConnectorMapperT<TAppState, IKeyValue>>
-): IContainerWrapperCtor => {
+): IComponentClassEntity => {
   const mapping = (state: TAppState) => mappers.length
       ? (mappers as Array<ConnectorMapperT<TAppState, IKeyValue> | IKeyValue>)
           .reduce((previousValue, currentMapper) => {

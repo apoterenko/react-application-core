@@ -131,7 +131,7 @@ export interface IQueryParamsWrapper<TQueryParams> {
 }
 
 /* @stable - 14.04.2018 */
-export interface IURLSearchParamsQueryParamsWrapper extends IQueryParamsWrapper<URLSearchParams> {
+export interface IURLSearchQueryParamsWrapper extends IQueryParamsWrapper<URLSearchParams> {
 }
 
 /* @stable - 14.04.2018 */

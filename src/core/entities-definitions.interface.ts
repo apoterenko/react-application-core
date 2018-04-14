@@ -75,7 +75,7 @@ import {
   IStringTokenWrapper,
   IBrowserLocationWrapper,
   IKeyValueRouteParamsWrapper,
-  IURLSearchParamsQueryParamsWrapper,
+  IURLSearchQueryParamsWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -333,7 +333,7 @@ export interface IBaseContainerEntity extends ISectionNameWrapper,
 
 /* @stable - 14.04.2018 */
 export interface IContainerEntity extends IBrowserLocationWrapper,
-                                          IURLSearchParamsQueryParamsWrapper,
+                                          IURLSearchQueryParamsWrapper,
                                           IKeyValueRouteParamsWrapper {
 }
 

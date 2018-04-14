@@ -1,9 +1,7 @@
 import { Component, SyntheticEvent } from 'react';
-import * as URLSearchParams from 'url-search-params';
 
 import {
   AnyT,
-  IKeyValue,
   IStringTitleWrapper,
   IClassNameWrapper,
   ICssStyleWrapper,
@@ -14,7 +12,7 @@ import { IApplicationLayoutState } from '../../component/layout';
 import { IApplicationRootState } from '../../component/root';
 import { IApplicationUserState } from '../../user';
 import { IApplicationNotificationState } from '../../notification';
-import { IChannelWrapperEntity } from '../../entities-definitions.interface';
+import { IChannelWrapperEntity, IContainerEntity } from '../../entities-definitions.interface';
 import { IUniversalBaseContainer } from './universal-base.interface';
 import { IUniversalBaseContainerInternalProps } from './universal-base.interface';
 
@@ -29,15 +27,9 @@ export interface IBaseInternalProps extends IClassNameWrapper,
   errorMessage?: string;
 }
 
-export interface IContainerInternalProps {
-  routeParams?: IKeyValue;
-  queryParams?: URLSearchParams;
-  location?: Location;
-}
-
-export interface IBaseContainerInternalProps extends IContainerInternalProps,
+export interface IBaseContainerInternalProps extends IUniversalBaseContainerInternalProps,
+                                                     IContainerEntity,
                                                      IBaseInternalProps,
-                                                     IUniversalBaseContainerInternalProps,
                                                      IChannelWrapperEntity {
   notification?: IApplicationNotificationState;
   layout?: IApplicationLayoutState;
@@ -68,10 +60,6 @@ export interface IBaseContainer<TInternalProps extends IBaseContainerInternalPro
 
 /* @stable - 04.04.2018 */
 export interface IDefaultBaseComponent extends IBaseComponent<{}, {}> {
-}
-
-/* @stable - 10.04.2018 */
-export interface IDefaultBaseContainer extends IBaseContainer<{}, {}> {
 }
 
 export interface IBaseComponentCtor { new (...args): IDefaultBaseComponent; }

@@ -3,7 +3,6 @@ import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { AnyT } from '../../definitions.interface';
-import { IRoutes } from '../../router';
 import { IDefaultApplicationState } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
@@ -19,6 +18,7 @@ import {
 } from './base.interface';
 import { IUIFactory } from '../factory';
 import { UniversalBaseContainer } from './universal-base.container';
+import { IRoutesConfiguration } from '../../configurations-definitions.interface';
 
 export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
                            TInternalState extends IBaseContainerInternalState>
@@ -32,7 +32,7 @@ export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
-  @lazyInject(DI_TYPES.Routes) protected routes: IRoutes;
+  @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);
