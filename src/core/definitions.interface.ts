@@ -460,9 +460,7 @@ export interface IRenderToBodyEntity extends IRenderToBodyWrapper,
                                              IRenderToCenterOfBodyWrapper {
 }
 
-/**********************
- * UseFilter's wrapper
- **********************/
+/* @stable - 15.04.2018 */
 export interface IUseFilterWrapper {
   useFilter?: boolean;
 }
@@ -474,11 +472,13 @@ export interface IFilterFnWrapper<TFilteredItem> {
   filterFn?: (valueToFilter: string, item: TFilteredItem) => boolean;
 }
 
-/**********************
- * Sections's wrappers
- **********************/
-export interface ISectionWrapper {
-  section?: string;
+/* @stable - 15.04.2018 */
+export interface ISectionWrapper<TSection> {
+  section?: TSection;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringSectionWrapper extends ISectionWrapper<string> {
 }
 
 /* @stable - 15.04.2018 */

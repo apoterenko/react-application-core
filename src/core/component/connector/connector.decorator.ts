@@ -1,22 +1,27 @@
-import { ComponentLifecycle, ComponentClass } from 'react';
+import { ComponentLifecycle } from 'react';
 import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { noop, sequence } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
-import { ISectionNameWrapper } from '../../definitions.interface';
 import { IBasicConnectorConfiguration, IConnectorConfiguration } from '../../configurations-definitions.interface';
+import { IComponentClassEntity } from '../../entities-definitions.interface';
 import { APPLICATION_SECTIONS } from '../application/application-sections.interface';
+import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './connector.interface';
 import { connectorFactory } from './connector.factory';
 import { ConnectorActionBuilder } from './connector-action.builder';
-import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
+/**
+ * @stable - 15.04.2018
+ * @param {IBasicConnectorConfiguration<TAppState>} config
+ * @returns {(target: IComponentClassEntity) => void}
+ */
 export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<TAppState>) =>
-  (target: ComponentClass<ISectionNameWrapper>): void => {
+  (target: IComponentClassEntity): void => {
     const sectionName = target.defaultProps && target.defaultProps.sectionName;
 
     if (sectionName) {
@@ -46,10 +51,6 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
           logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName0}`);
         }
       );
-
-      if (config.callback) {
-        config.callback(target);
-      }
     } else {
       logger.warn(
         `[$basicConnector] The sectionName props is not defined for ${target.name ||
@@ -57,10 +58,11 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
       );
     }
 
-    DYNAMIC_ROUTES.set(
-      connectorFactory<TAppState>(target, ...config.mappers),
-      config
-    );
+    const connector0 = connectorFactory<TAppState>(target, ...config.mappers);
+    if (config.callback) {
+      config.callback(connector0);
+    }
+    DYNAMIC_ROUTES.set(connector0, config);
   };
 
 export const connector = <TAppState, TApplicationAccessConfig>(

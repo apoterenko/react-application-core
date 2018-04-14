@@ -78,7 +78,7 @@ import {
   IKeyValueRouteParamsWrapper,
   IURLSearchQueryParamsWrapper,
   ILinkedToSectionsWrapper,
-  ISectionWrapper,
+  IStringSectionWrapper,
   ILockWrapper,
   INeedToDestroySectionsWrapper,
   IStackWrapper,
@@ -339,12 +339,13 @@ export interface IBaseContainerEntity extends ISectionNameWrapper,
 
 /* @stable - 14.04.2018 */
 export interface IContainerEntity extends IBrowserLocationWrapper,
+                                          ISectionNameWrapper,
                                           IURLSearchQueryParamsWrapper,
                                           IKeyValueRouteParamsWrapper {
 }
 
 /* @stable - 14.04.2018 */
-export interface IComponentClassEntity extends ComponentClass<IContainerEntity> {
+export interface IComponentClassEntity extends ComponentClass<IContainerEntity & { propTypes?: any }> {
 }
 
 /* @stable - 12.04.2018 */
@@ -357,7 +358,7 @@ export interface IRouterComponentEntity extends History {
 }
 
 /* @stable - 15.04.2018 */
-export interface IStackItemEntity extends ISectionWrapper,
+export interface IStackItemEntity extends IStringSectionWrapper,
                                           ILinkedToSectionsWrapper {
 }
 

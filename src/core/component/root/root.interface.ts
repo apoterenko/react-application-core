@@ -5,20 +5,20 @@ import {
   IStateInitialChangesWrapper,
   IKeyValue,
   IStringPathWrapper,
-  ISectionWrapper,
+  IStringSectionWrapper,
 } from '../../definitions.interface';
 import { IComponentClassEntity } from '../../entities-definitions.interface';
 import { IDefaultApplicationState } from '../../store';
 import { IRouteConfiguration } from '../../configurations-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
-                                                ISectionWrapper,
+                                                IStringSectionWrapper,
                                                 IStringPathWrapper {
 }
 
 export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
                                                      IRouteConfiguration,
-                                                     ISectionWrapper,
+                                                     IStringSectionWrapper,
                                                      IStateInitialChangesWrapper<IDefaultApplicationState> {
   container?: IComponentClassEntity;
   accessConfig?: IApplicationAccessConfig;

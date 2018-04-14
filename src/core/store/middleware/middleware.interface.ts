@@ -1,6 +1,6 @@
 import {
   IResolverWrapper,
-  ISectionWrapper,
+  IStringSectionWrapper,
   IListSectionWrapper,
   IFormFilterSectionWrapper,
   IListRoutePathWrapper,
@@ -11,7 +11,7 @@ import { ListWrapperEntityResolverT } from '../../component/list';
 /* @stable - 01.04.2018 */
 export interface IUntouchedListMiddlewareConfig<TApplicationState extends IDefaultApplicationState>
   extends IResolverWrapper<ListWrapperEntityResolverT<TApplicationState>>,
-          ISectionWrapper {
+          IStringSectionWrapper {
 }
 
 /* @stable - 01.04.2018 */
