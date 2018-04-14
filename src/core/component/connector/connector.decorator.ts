@@ -3,16 +3,15 @@ import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { noop, sequence } from '../../util';
-import { APPLICATION_SECTIONS } from '../application/application-sections.interface';
-import { DYNAMIC_ROUTES } from '../../router/router.interface';
-import { IDefaultApplicationState } from '../../store';
-import { connectorFactory } from './connector.factory';
-import { CONNECTOR_SECTION_FIELD } from './connector.interface';
 import { DI_TYPES, staticInjector } from '../../di';
-import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store';
-import { ConnectorActionBuilder } from './connector-action.builder';
 import { ISectionNameWrapper } from '../../definitions.interface';
 import { IBasicConnectorConfiguration, IConnectorConfiguration } from '../../configurations-definitions.interface';
+import { APPLICATION_SECTIONS } from '../application/application-sections.interface';
+import { DYNAMIC_ROUTES } from '../../router/router.interface';
+import { CONNECTOR_SECTION_FIELD } from './connector.interface';
+import { connectorFactory } from './connector.factory';
+import { ConnectorActionBuilder } from './connector-action.builder';
+import { IDefaultApplicationState, STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
@@ -47,6 +46,10 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
           logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName0}`);
         }
       );
+
+      if (config.callback) {
+        config.callback(target);
+      }
     } else {
       logger.warn(
         `[$basicConnector] The sectionName props is not defined for ${target.name ||

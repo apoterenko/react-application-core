@@ -1261,6 +1261,11 @@ export interface IDisplayMessageWrapper {
   displayMessage?: string;
 }
 
+/* @stable - 15.04.2018 */
+export interface ITCallbackWrapper<TCallback> {
+  callback?: TCallback;
+}
+
 /* @stable - 14.04.2018 */
 export interface IPathWrapper<TPath> {
   path?: TPath;

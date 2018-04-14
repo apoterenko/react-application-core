@@ -1,3 +1,5 @@
+import { ComponentClass } from 'react';
+
 import {
   IEntitySorterWrapper,
   INonInteractiveWrapper,
@@ -60,6 +62,8 @@ import {
   IBeforeEnterWrapper,
   IAfterEnterWrapper,
   IStringUrlWrapper,
+  ITCallbackWrapper,
+  ISectionNameWrapper,
 } from './definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -227,9 +231,11 @@ export type RouteConfigurationT = IRouteConfiguration | ((routes: IRoutesConfigu
 export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult;
 
 /* @stable - 14.04.2018 */
-export interface IBasicConnectorConfiguration<TAppState> extends IStateInitialChangesWrapper<TAppState>,
-                                                                 IRouteConfigurationWrapper<RouteConfigurationT>,
-                                                                 IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
+export interface IBasicConnectorConfiguration<TAppState>
+  extends IStateInitialChangesWrapper<TAppState>,
+          ITCallbackWrapper<(ctor: ComponentClass<ISectionNameWrapper>) => void>,
+          IRouteConfigurationWrapper<RouteConfigurationT>,
+          IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
 }
 
 /* @stable - 14.04.2018 */
