@@ -27,8 +27,7 @@ import {
 } from '../component/application';
 import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
 import { stackReducer, IApplicationStackWrapperState } from './stack';
-import { channelReducer, channelsReducers } from '../channel';
-import { filter } from './reducer.filter';
+import { channelsReducers } from '../channel';
 import { IChannelWrapperEntity, IApplicationWrapperEntity } from '../entities-definitions.interface';
 import { universalDefaultReducers } from './universal-default-reducers.interface';
 

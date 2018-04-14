@@ -1,16 +1,16 @@
-import { Reducer } from 'redux';
+import { Reducer, ReducersMapObject, combineReducers } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { toSection } from '../util';
 
-export type Filter = (action: IEffectsAction) => boolean;
+export type FilterT = (action: IEffectsAction) => boolean;
 
 /**
  * @stable - 10.04.2018
  * @param {string} customSection
- * @returns {Filter}
+ * @returns {FilterT}
  */
-export function reducerSectionFilter(customSection: string): Filter {
+export function reducerSectionFilter(customSection: string): FilterT {
   let section;
   return (action) => (!(section = toSection(action)) || customSection === section);
 }
@@ -18,10 +18,10 @@ export function reducerSectionFilter(customSection: string): Filter {
 /**
  * @stable - 10.04.2018
  * @param {Reducer<S>} reducer
- * @param {Filter} filterObject
+ * @param {FilterT} filterObject
  * @returns {Reducer<S>}
  */
-export const filter = <S>(reducer: Reducer<S>, filterObject: Filter): Reducer<S> =>
+export const filter = <S>(reducer: Reducer<S>, filterObject: FilterT): Reducer<S> =>
   (state, action) => (filterObject(action) ? reducer(state, action) : state);
 
 /**
@@ -32,3 +32,11 @@ export const filter = <S>(reducer: Reducer<S>, filterObject: Filter): Reducer<S>
  */
 export const filterBySection = <S>(reducer: Reducer<S>, customSection: string): Reducer<S> =>
   filter<S>(reducer, reducerSectionFilter(customSection));
+
+/**
+ * @stable - 15.04.2018
+ * @param {TReducersMap} reducersMap
+ * @returns {Reducer<ReducersMapObject>}
+ */
+export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersMap): Reducer<ReducersMapObject> =>
+  combineReducers<ReducersMapObject>(reducersMap as ReducersMapObject);

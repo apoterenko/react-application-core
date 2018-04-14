@@ -1,7 +1,7 @@
 import { AnyAction, Reducer } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { filter } from '../store/reducer.filter';
+import { filter } from '../store/store.support';
 import { IChannelWrapper } from '../definitions.interface';
 import {
   CHANNEL_CONNECT_MESSAGE,
