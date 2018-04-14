@@ -8,15 +8,13 @@ import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import {
   IRouter,
-  ContainerVisibilityTypeEnum,
-  RouteContainerT,
   toRouteOptions,
 } from '../../router';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
 import { BaseContainer } from '../base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../root';
-import { CONNECTOR_SECTION_FIELD, ConnectorConfigT } from '../connector';
+import { CONNECTOR_SECTION_FIELD } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { IDefaultApplicationState } from '../../store';
@@ -28,6 +26,11 @@ import {
   INITIAL_APPLICATION_STATE,
   APPLICATION_SECTION,
 } from './application-reducer.interface';
+import {
+  IDefaultConnectorConfiguration,
+  ContainerVisibilityTypeEnum,
+} from '../../configurations-definitions.interface';
+import { IComponentClassEntity } from '../../entities-definitions.interface';
 
 export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     extends BaseContainer<IApplicationContainerProps, {}> {
@@ -39,11 +42,10 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   private static logger = LoggerFactory.makeLogger(ApplicationContainer);
 
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
-  @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<RouteContainerT, ConnectorConfigT>;
+  @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<IComponentClassEntity, IDefaultConnectorConfiguration>;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
-  private extraRoutes: Map<RouteContainerT, ConnectorConfigT>
-      = new Map<RouteContainerT, ConnectorConfigT>();
+  private extraRoutes = new Map<IComponentClassEntity, IDefaultConnectorConfiguration>();
 
   constructor(props: IApplicationContainerProps) {
     super(props, APPLICATION_SECTION);
@@ -126,8 +128,8 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
         : this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
   }
 
-  protected lookupConnectComponentByRoutePath(path: string): RouteContainerT {
-    let result: RouteContainerT;
+  protected lookupConnectComponentByRoutePath(path: string): IComponentClassEntity {
+    let result;
     this.dynamicRoutes.forEach((config, ctor) => {
       if (toRouteOptions(config.routeConfig, this.routes).path === path) {
         result = ctor;
@@ -136,7 +138,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     return result;
   }
 
-  protected registerRoute(container: RouteContainerT, config: ConnectorConfigT): void {
+  protected registerRoute(container: IComponentClassEntity, config: IDefaultConnectorConfiguration): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -170,7 +172,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     });
   }
 
-  private buildRoutes(map: Map<RouteContainerT, ConnectorConfigT>): JSX.Element[] {
+  private buildRoutes(map: Map<IComponentClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
       let Component;
