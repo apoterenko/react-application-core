@@ -13,6 +13,3 @@ export interface IListContainerProps extends IContainerEntity,
                                              IListConfigurationWrapper,
                                              IListWrapperEntity {
 }
-
-/* @stable - 31.03.2018 */
-export type ListWrapperEntityResolverT <TApplicationState> = (state: TApplicationState) => IListWrapperEntity;

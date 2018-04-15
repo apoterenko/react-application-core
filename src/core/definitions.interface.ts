@@ -866,9 +866,7 @@ export interface IIconWrapper<TIcon> {
 export interface IStringIconWrapper extends IIconWrapper<string> {
 }
 
-/**********************
- * Resolver's wrapper
- **********************/
+/* @stable - 15.04.2018 */
 export interface IResolverWrapper<TResolver> {
   resolver?: TResolver;
 }

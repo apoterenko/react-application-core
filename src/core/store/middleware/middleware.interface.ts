@@ -5,12 +5,11 @@ import {
   IFormFilterSectionWrapper,
   IListRoutePathWrapper,
 } from '../../definitions.interface';
-import { IDefaultApplicationState } from '../store.interface';
-import { ListWrapperEntityResolverT } from '../../component/list';
+import { IListWrapperEntity } from '../../entities-definitions.interface';
 
 /* @stable - 01.04.2018 */
-export interface IUntouchedListMiddlewareConfig<TApplicationState extends IDefaultApplicationState>
-  extends IResolverWrapper<ListWrapperEntityResolverT<TApplicationState>>,
+export interface IUntouchedListMiddlewareConfig<TApplicationState>
+  extends IResolverWrapper<(state: TApplicationState) => IListWrapperEntity>,
           IStringSectionWrapper {
 }
 

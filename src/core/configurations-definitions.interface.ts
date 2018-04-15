@@ -233,7 +233,7 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TAppState>
   extends IStateInitialChangesWrapper<TAppState>,
-          ICallbackWrapper<(ctor: IContainerClassEntity, connectedCtor: IContainerClassEntity) => void>,
+          ICallbackWrapper<(ctor: IContainerClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
 }

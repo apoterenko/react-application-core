@@ -22,8 +22,11 @@ const logger = LoggerFactory.makeLogger('connector.decorator');
  */
 export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<TAppState>) =>
   (target: IContainerClassEntity): void => {
-    const sectionName = target.defaultProps && target.defaultProps.sectionName;
+    if (config.callback) {
+      config.callback(target);
+    }
 
+    const sectionName = target.defaultProps && target.defaultProps.sectionName;
     if (sectionName) {
       Reflect.set(target, CONNECTOR_SECTION_FIELD, sectionName);
 
@@ -57,12 +60,7 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
         target}. The init and destroy actions are disabled.`
       );
     }
-
-    const connector0 = connectorFactory<TAppState>(target, ...config.mappers);
-    if (config.callback) {
-      config.callback(target, connector0);
-    }
-    DYNAMIC_ROUTES.set(connector0, config);
+    DYNAMIC_ROUTES.set(connectorFactory<TAppState>(target, ...config.mappers), config);
   };
 
 export const connector = <TAppState, TApplicationAccessConfig>(
