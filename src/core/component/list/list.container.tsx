@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { List } from './list.component';
-import { IListContainerInternalProps } from './list.interface';
+import { IListContainerProps } from './list.interface';
 import { LIST_CREATE_ACTION_TYPE, LIST_SEARCH_ACTION_TYPE } from './list-reducer.interface';
 import { BaseListContainer } from './base-list.container';
 
-export class ListContainer extends BaseListContainer<IListContainerInternalProps> {
+export class ListContainer extends BaseListContainer<IListContainerProps> {
 
-  constructor(props: IListContainerInternalProps) {
+  constructor(props: IListContainerProps) {
     super(props);
     this.onSearch = this.onSearch.bind(this);
     this.onCreate = this.onCreate.bind(this);

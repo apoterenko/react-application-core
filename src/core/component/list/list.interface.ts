@@ -9,9 +9,9 @@ export interface IListInternalProps extends IBaseComponentInternalProps,
 }
 
 /* @stable - 31.03.2018 */
-export interface IListContainerInternalProps extends IContainerEntity,
-                                                     IListConfigurationWrapper,
-                                                     IListWrapperEntity {
+export interface IListContainerProps extends IContainerEntity,
+                                             IListConfigurationWrapper,
+                                             IListWrapperEntity {
 }
 
 /* @stable - 31.03.2018 */
