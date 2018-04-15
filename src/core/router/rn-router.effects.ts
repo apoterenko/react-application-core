@@ -3,11 +3,13 @@ import { Actions } from 'react-native-router-flux';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { isString } from '../util';
 import { provideInSingleton } from '../di';
 import {
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_NAVIGATE_ACTION_TYPE,
 } from './router.interface';
+import { INavigateEntity } from '../entities-definitions.interface';
 
 @provideInSingleton(RnRouterEffects)
 export class RnRouterEffects {
@@ -16,7 +18,7 @@ export class RnRouterEffects {
   /* @stable - 15.04.2018 */
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {
-    const path = action.data;
+    const path = this.toPath(action.data).path;
     const routerCallback = Actions[path];
 
     if (R.isNil(routerCallback)) {
@@ -33,5 +35,13 @@ export class RnRouterEffects {
     RnRouterEffects.logger.debug('[$RnRouterEffects][$onBack]');
 
     Actions.pop();
+  }
+
+  private toPath(action: IEffectsAction): INavigateEntity<string> {
+    const payloadAsString: string = action.data;
+    if (isString(payloadAsString)) {
+      return {path: payloadAsString};
+    }
+    return action.data;
   }
 }

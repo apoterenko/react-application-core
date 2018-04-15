@@ -2,13 +2,17 @@ import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 import { History } from 'history';
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { isString } from '../util';
 import { DI_TYPES, lazyInject, provideInSingleton } from '../di';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
 } from './router.interface';
-import { IRouterComponentEntity } from '../entities-definitions.interface';
+import {
+  IRouterComponentEntity,
+  INavigateEntity,
+} from '../entities-definitions.interface';
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {
@@ -43,10 +47,11 @@ export class RouterEffects {
     this.router.goBack();
   }
 
-  private toPathAndState(action: IEffectsAction): { path: History.Path, state?: History.LocationState } {
-    if (typeof action.data === 'string') {
-      return {path: action.data};
+  private toPathAndState(action: IEffectsAction): INavigateEntity<History.Path, History.LocationState> {
+    const payloadAsString: string = action.data;
+    if (isString(payloadAsString)) {
+      return {path: payloadAsString};
     }
-    return {path: action.data.path, state: action.data.state};
+    return action.data;
   }
 }

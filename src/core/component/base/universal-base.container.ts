@@ -5,7 +5,10 @@ import {
   IKeyValue,
   AnyT,
 } from '../../definitions.interface';
-import { IUniversalContainerEntity } from '../../entities-definitions.interface';
+import {
+  IUniversalContainerEntity,
+  INavigateEntity,
+} from '../../entities-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
@@ -47,7 +50,8 @@ export class UniversalBaseContainer<TInternalProps extends IUniversalContainerEn
    * @param {TState} state
    */
   public navigate<TPath, TState>(path: TPath, state?: TState): void {
-    this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, { path, state });
+    const payload: INavigateEntity<TPath, TState> = { path, state };
+    this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, payload);
   }
 
   /**

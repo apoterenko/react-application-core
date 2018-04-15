@@ -100,6 +100,8 @@ import {
   IStringMessageWrapper,
   IStringEmptyDataMessageWrapper,
   IHtmlElementSelfWrapper,
+  IStateWrapper,
+  IPathWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -461,4 +463,9 @@ export interface INotificationEntity extends IStringErrorEntity,
 
 /* @stable - 15.04.2018 */
 export interface INotificationWrapperEntity extends INotificationWrapper<INotificationEntity> {
+}
+
+/* @stable - 15.04.2018 */
+export interface INavigateEntity<TPath, TState = {}> extends IPathWrapper<TPath>,
+                                                             IStateWrapper<TState> {
 }
