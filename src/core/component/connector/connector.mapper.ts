@@ -1,8 +1,11 @@
 import { IDefaultApplicationState } from '../../store';
 import {
+  IEntity,
   IFormWrapper,
   IDictionariesWrapper,
   IDictionaries,
+  SortDirectionEnum,
+  IKeyValue,
 } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,

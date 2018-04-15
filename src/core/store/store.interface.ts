@@ -1,20 +1,12 @@
-import {
-  IDictionariesWrapper,
-} from '../definitions.interface';
-import {
-  rootReducer,
-} from '../component/root';
+import { AnyAction } from 'redux';
+
+import { IDictionariesWrapper } from '../definitions.interface';
+import { rootReducer } from '../component/root';
 import { userReducer } from '../user';
-import {
-  layoutReducer,
-} from '../component/layout';
-import {
-  notificationReducer,
-} from '../notification';
+import { layoutReducer } from '../component/layout';
+import { notificationReducer } from '../notification';
 import { dictionariesReducer } from '../dictionary';
-import {
-  applicationReducer,
-} from '../component/application';
+import { applicationReducer } from '../component/application';
 import { permissionsReducer } from '../permissions';
 import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
