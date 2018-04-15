@@ -41,7 +41,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
       const routeConfiguration = toRouteConfiguration(config.routeConfiguration, this.routes);
-      if (routeConfiguration.path === path || routeConfiguration.key === path) {
+      if (routeConfiguration && (routeConfiguration.path === path || routeConfiguration.key === path)) {
         result = ctor;
       }
     });
@@ -81,12 +81,12 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
                                 routeConfiguration: IRouteConfiguration): JSX.Element;
 
   private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
-    const routes: JSX.Element[] = [];
     const routes0: string[] = [];
+    const routes: JSX.Element[] = [];
     map.forEach((connectorConfiguration, ctor) => {
       const rConfiguration = toRouteConfiguration(connectorConfiguration.routeConfiguration, this.routes);
       routes0.push(rConfiguration.path || rConfiguration.key);
-      return routes.push(
+      routes.push(
         this.buildRoute(
           ctor,
           connectorConfiguration,

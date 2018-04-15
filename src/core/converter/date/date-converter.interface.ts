@@ -1,3 +1,8 @@
+export const DATE_TIME_TYPES = {
+  months: 'months',
+  seconds: 'seconds',
+};
+
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {

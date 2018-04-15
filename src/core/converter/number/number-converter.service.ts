@@ -2,10 +2,10 @@ import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphonenumber';
 
-import { lazyInject, DI_TYPES } from '../di';
-import { isNumber } from '../util';
-import { IApplicationSettings } from '../settings';
-import { INumberConverter } from './converter.interface';
+import { lazyInject, DI_TYPES } from '../../di';
+import { isNumber } from '../../util';
+import { IApplicationSettings } from '../../settings';
+import { INumberConverter } from './number-converter.interface';
 
 @injectable()
 export class NumberConverter implements INumberConverter {
