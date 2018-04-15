@@ -17,6 +17,8 @@ import {
   IQueryFilterWrapperEntity,
   ILayoutWrapperEntity,
   IRootWrapperEntity,
+  ITransportWrapperEntity,
+  IUserWrapperEntity,
   INotificationWrapperEntity,
 } from '../../entities-definitions.interface';
 import { universalDefaultMappers } from './universal-connector.mapper';
