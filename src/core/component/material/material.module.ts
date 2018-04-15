@@ -12,7 +12,6 @@ import {
   TimeField,
 } from '../field';
 import { ComponentPluginFactoryT } from '../plugin';
-import { IBaseComponentCtor } from '../base';
 import { IUIFactory } from '../factory';
 import {
   FieldMaterialPlugin,
@@ -26,8 +25,9 @@ import { UIMaterialFactory } from './factory';
 import { Menu } from '../menu';
 import { ListItem } from '../list';
 import { TabPanel } from '../tabpanel';
+import { IDefaultComponentClassEntity } from '../../entities-definitions.interface';
 
-const uiPlugins = new Map<IBaseComponentCtor, ComponentPluginFactoryT>();
+const uiPlugins = new Map<IDefaultComponentClassEntity, ComponentPluginFactoryT>();
 uiPlugins.set(
   TextField,
   (component: TextField) =>
@@ -64,7 +64,7 @@ uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component,
 /* @stable - 31.03.2018 */
 uiPlugins.set(ListItem, (component: ListItem) => new ListItemMaterialPlugin<ListItem>(component, MDCRipple));
 
-appContainer.bind<Map<IBaseComponentCtor, ComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
+appContainer.bind<Map<IDefaultComponentClassEntity, ComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
 
 appContainer.bind<IUIFactory>(DI_TYPES.UIFactory).to(UIMaterialFactory).inSingletonScope();

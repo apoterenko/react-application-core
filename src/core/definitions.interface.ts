@@ -920,6 +920,15 @@ export interface IEmptyMessageWrapper<TEmptyMessage> {
 export interface IStringEmptyMessageWrapper extends IEmptyMessageWrapper<string> {
 }
 
+/* @stable - 15.04.2018 */
+export interface IEmptyDataMessageWrapper<TEmptyDataMessage> {
+  emptyDataMessage?: TEmptyDataMessage;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringEmptyDataMessageWrapper extends IEmptyDataMessageWrapper<string> {
+}
+
 /* @stable - 31.03.2018 */
 export interface ITplWrapper<TTpl> {
   tpl?: TTpl;
@@ -993,6 +1002,15 @@ export interface IClassNameWrapper {
   className?: string;
 }
 
+/* @stable - 15.04.2018 */
+export interface IMessageWrapper<TMessage> {
+  message?: TMessage;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringMessageWrapper extends IMessageWrapper<string> {
+}
+
 /* @stable - 31.03.2018 */
 export interface INotUseClassNameWrapper {
   notUseClassName?: boolean;
@@ -1004,8 +1022,12 @@ export interface IAutoFocusWrapper {
 }
 
 /* @stable - 15.04.2018 */
-export interface IErrorMessageWrapper {
-  errorMessage?: string;
+export interface IErrorMessageWrapper<TErrorMessage> {
+  errorMessage?: TErrorMessage;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string> {
 }
 
 /**********************

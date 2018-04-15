@@ -95,7 +95,11 @@ import {
   IStringPathWrapper,
   INotificationWrapper,
   IStringInfoWrapper,
-  IErrorMessageWrapper,
+  IStringErrorMessageWrapper,
+  ICssStyleWrapper,
+  IStringMessageWrapper,
+  IStringEmptyDataMessageWrapper,
+  IHtmlElementSelfWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -303,11 +307,14 @@ export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfigura
 
 /* @stable - 08.04.2018 */
 export interface IButtonEntity extends IStringProgressMessageWrapper,
+                                       IStringErrorMessageWrapper,
                                        IProgressWrapper {
 }
 
 /* @stable - 08.04.2018 */
 export interface IMessageEntity extends IStateEntity,
+                                        IStringEmptyDataMessageWrapper,
+                                        IStringErrorMessageWrapper,
                                         IStringEmptyMessageWrapper,
                                         IEmptyDataWrapper {
 }
@@ -344,7 +351,8 @@ export interface IKeyboardHandlersEntity {
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldEntity extends IKeyboardHandlersEntity {
+export interface IFieldEntity extends IKeyboardHandlersEntity,
+                                      IStringMessageWrapper {
 }
 
 /* @stable - 12.04.2018 */
@@ -361,7 +369,7 @@ export interface IUniversalContainerEntity extends IClassNameWrapper,
 /* @stable - 14.04.2018 */
 export interface IContainerEntity extends IUniversalContainerEntity,
                                           IRootWrapperEntity,
-                                          IErrorMessageWrapper,
+                                          IStringErrorMessageWrapper,
                                           IBrowserLocationWrapper,
                                           IURLSearchQueryParamsWrapper,
                                           IKeyValueRouteParamsWrapper {
@@ -369,6 +377,23 @@ export interface IContainerEntity extends IUniversalContainerEntity,
 
 /* @stable - 14.04.2018 */
 export interface IContainerClassEntity extends ComponentClass<IContainerEntity> {
+}
+
+/* @stable - 15.04.2018 */
+export interface IComponentEntity extends IClassNameWrapper,
+                                          ICssStyleWrapper,
+                                          IStringTitleWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface IComponentClassEntity<TProps extends IComponentEntity,
+                                       TState>
+  extends ComponentClass<IComponentEntity>,
+          IHtmlElementSelfWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface IDefaultComponentClassEntity extends IComponentClassEntity<IComponentEntity, {}> {
 }
 
 /* @stable - 12.04.2018 */

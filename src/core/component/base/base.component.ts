@@ -11,10 +11,10 @@ import {
 import {
   IBaseComponent,
   IBaseComponentInternalProps,
-  IBaseComponentCtor,
 } from './base.interface';
 import { ApplicationTranslatorT } from '../../translation';
 import { IApplicationSettings } from '../../settings';
+import { IDefaultComponentClassEntity } from '../../entities-definitions.interface';
 
 export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
                            TInternalProps extends IBaseComponentInternalProps,
@@ -25,14 +25,14 @@ export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TIn
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
   @lazyInject(DI_TYPES.Settings) protected applicationSettings: IApplicationSettings;
-  @lazyInject(DI_TYPES.UIPlugins) private uiPlugins: Map<IBaseComponentCtor, ComponentPluginFactoryT>;
+  @lazyInject(DI_TYPES.UIPlugins) private uiPlugins: Map<IDefaultComponentClassEntity, ComponentPluginFactoryT>;
 
   private plugins: Array<IComponentPlugin<TComponent, TInternalProps, TInternalState>> = [];
 
   constructor(props: TInternalProps) {
     super(props);
 
-    const dynamicPluginFactory = this.uiPlugins.get(this.constructor as IBaseComponentCtor);
+    const dynamicPluginFactory = this.uiPlugins.get(this.constructor as IDefaultComponentClassEntity);
     if (dynamicPluginFactory) {
       this.plugins.push(dynamicPluginFactory(this));
     }
