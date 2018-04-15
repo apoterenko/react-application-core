@@ -1,5 +1,6 @@
 import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
 
+import { ACTION_PREFIX } from '../../definitions.interface';
 import {
   APPLICATION_SECTION,
   APPLICATION_READY_ACTION_TYPE,
@@ -47,50 +48,50 @@ export class ApplicationActionBuilder {
   }
 
   public static buildUpdateTokenActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_UPDATE_TOKEN_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_UPDATE_TOKEN_ACTION_TYPE}`;
   }
 
   public static buildDestroyTokenActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_DESTROY_TOKEN_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_DESTROY_TOKEN_ACTION_TYPE}`;
   }
 
   public static buildReadyActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_READY_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_READY_ACTION_TYPE}`;
   }
 
   public static buildNotReadyActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
   }
 
   public static buildPrepareActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
   }
 
   public static buildPrepareAfterActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ACTION_TYPE}`;
   }
 
   public static buildPrepareAfterErrorActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE}`;
   }
 
   public static buildPrepareErrorActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
   }
 
   public static buildInitActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_INIT_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_INIT_ACTION_TYPE}`;
   }
 
   public static buildCustomErrorActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
   }
 
   public static buildLogoutActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_LOGOUT_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_LOGOUT_ACTION_TYPE}`;
   }
 
   public static buildAfterLogoutActionType(): string {
-    return `${APPLICATION_SECTION}.${APPLICATION_AFTER_LOGOUT_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_AFTER_LOGOUT_ACTION_TYPE}`;
   }
 }
