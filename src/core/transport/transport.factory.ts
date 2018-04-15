@@ -20,7 +20,6 @@ import {
 
 @injectable()
 export class TransportFactory implements IApplicationTransportFactory {
-
   private static logger = LoggerFactory.makeLogger(TransportFactory);
 
   private id = 0;
@@ -69,10 +68,14 @@ export class TransportFactory implements IApplicationTransportFactory {
       ))
       .then(
         (res) => {
+          TransportFactory.logger.debug(`[$TransportFactory][request] Data have been loaded. Result: `, res);
+
           this.clearOperation(operationId);
           return res;
         },
         (err) => {
+          TransportFactory.logger.debug(`[$TransportFactory][request] An error occurred during a request. Error: ${err}`);
+
           this.clearOperation(operationId);
           throw err; // This is because of the strange axios behavior
         }
@@ -86,7 +89,7 @@ export class TransportFactory implements IApplicationTransportFactory {
       this.clearOperation(operationId);
     } else {
       TransportFactory.logger.warn(
-        `[$TransportFactory] The cancel token has not been found according to ${operationId}`
+        `[$TransportFactory][cancelRequest] The cancel token has not been found according to ${operationId}`
       );
     }
   }
