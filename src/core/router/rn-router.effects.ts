@@ -18,7 +18,7 @@ export class RnRouterEffects {
   /* @stable - 15.04.2018 */
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {
-    const path = this.toPath(action.data).path;
+    const path = this.toPath(action).path;
     const routerCallback = Actions[path];
 
     if (R.isNil(routerCallback)) {
