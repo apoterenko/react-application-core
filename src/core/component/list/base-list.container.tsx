@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { BaseContainer, IBaseContainerInternalProps } from '../base';
+import { BaseContainer } from '../base';
 import { IEntity, ISelectedEntityWrapper } from '../../definitions.interface';
 import {
   LIST_SELECT_ACTION_TYPE,
 } from './list-reducer.interface';
+import { IContainerEntity } from '../../entities-definitions.interface';
 
-export class BaseListContainer<TInternalProps extends IBaseContainerInternalProps>
+export class BaseListContainer<TInternalProps extends IContainerEntity>
   extends BaseContainer<TInternalProps, {}> {
 
   /**

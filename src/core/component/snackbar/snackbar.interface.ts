@@ -1,7 +1,7 @@
 import { FunctionT } from '../../util';
 import { IBaseComponentInternalProps } from '../../component/base';
 import { INativeMaterialComponent } from '../../component/material';
-import { IInfoable } from '../../definitions.interface';
+import { IInfoWrapper } from '../../definitions.interface';
 
 export interface IMaterialSnackbarComponentOptions {
   message?: string;
@@ -16,6 +16,6 @@ export interface INativeMaterialSnackbarComponent extends INativeMaterialCompone
 
 export interface ISnackbarInternalProps extends IMaterialSnackbarComponentOptions,
                                                 IBaseComponentInternalProps,
-                                                IInfoable<boolean> {
+                                                IInfoWrapper<boolean> {
   afterShow?(): void;
 }

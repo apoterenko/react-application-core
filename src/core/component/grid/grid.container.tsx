@@ -2,20 +2,20 @@ import * as React from 'react';
 
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { Grid } from './grid.component';
-import { IGridContainerInternalProps } from './grid.interface';
+import { IGridContainerProps } from './grid.interface';
 import {
   BaseListContainer,
   LIST_CHANGE_ACTION_TYPE,
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
 } from '../list';
 
-export class GridContainer extends BaseListContainer<IGridContainerInternalProps> {
+export class GridContainer extends BaseListContainer<IGridContainerProps> {
 
   /**
    * @stable - 05.04.2018
-   * @param {IGridContainerInternalProps} props
+   * @param {IGridContainerProps} props
    */
-  constructor(props: IGridContainerInternalProps) {
+  constructor(props: IGridContainerProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onChangeSortDirection = this.onChangeSortDirection.bind(this);

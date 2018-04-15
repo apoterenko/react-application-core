@@ -5,14 +5,10 @@ import {
   IDispatchWrapper,
   ISectionNameWrapper,
 } from '../../definitions.interface';
-import { IBaseContainerEntity } from '../../entities-definitions.interface';
+import { IUniversalContainerEntity } from '../../entities-definitions.interface';
 
 /* @stable - 12.04.2018 */
-export interface IUniversalBaseContainerInternalProps extends IBaseContainerEntity {
-}
-
-/* @stable - 12.04.2018 */
-export interface IUniversalBaseContainer<TInternalProps extends IUniversalBaseContainerInternalProps,
+export interface IUniversalBaseContainer<TInternalProps extends IUniversalContainerEntity,
                                          TInternalState>
   extends Component<TInternalProps, TInternalState>,
           ISectionNameWrapper,

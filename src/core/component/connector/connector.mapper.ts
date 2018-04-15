@@ -1,40 +1,33 @@
-import { orNull } from '../../util';
 import { IDefaultApplicationState } from '../../store';
 import {
-  IEntity,
-  IEntityWrapper,
   IFormWrapper,
-  IUserWrapper,
   IDictionariesWrapper,
   IDictionaries,
-  SortDirectionEnum,
-  IKeyValue,
 } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
 } from '../../component/filter';
-import { IApplicationTransportWrapperState } from '../../transport';
-import { IApplicationNotificationWrapperState } from '../../notification';
-import { IApplicationUserState } from '../../user';
-import { IApplicationLayoutWrapperState } from '../../component/layout';
-import { IApplicationRootWrapperState } from '../../component/root';
 import {
   IChannelWrapperEntity,
-  IEntityWrapperEntity,
   IListEntity,
   IListWrapperEntity,
   IDefaultFormEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
+  ITransportWrapperEntity,
+  ILayoutWrapperEntity,
+  IUserWrapperEntity,
+  IRootWrapperEntity,
+  INotificationWrapperEntity,
 } from '../../entities-definitions.interface';
 
-export const rootMapper = (state: IDefaultApplicationState): IApplicationRootWrapperState => ({
+export const rootMapper = (state: IDefaultApplicationState): IRootWrapperEntity => ({
   root: {
     ...state.root,
   },
 });
 
-export const layoutMapper = (state: IDefaultApplicationState): IApplicationLayoutWrapperState => ({
+export const layoutMapper = (state: IDefaultApplicationState): ILayoutWrapperEntity => ({
   layout: {
     ...state.layout,
   },
@@ -64,13 +57,13 @@ export const filterFormMapper = (formState: IDefaultFormEntity) => ({
   },
 });
 
-export const userMapper = (state: IDefaultApplicationState): IUserWrapper<IApplicationUserState> => ({
+export const userMapper = (state: IDefaultApplicationState): IUserWrapperEntity => ({
   user: {
     ...state.user,
   },
 });
 
-export const notificationMapper = (state: IDefaultApplicationState): IApplicationNotificationWrapperState => ({
+export const notificationMapper = (state: IDefaultApplicationState): INotificationWrapperEntity => ({
   notification: {
     ...state.notification,
   },
@@ -82,7 +75,7 @@ export const channelMapper = (state: IDefaultApplicationState): IChannelWrapperE
   },
 });
 
-export const transportMapper = (state: IDefaultApplicationState): IApplicationTransportWrapperState => ({
+export const transportMapper = (state: IDefaultApplicationState): ITransportWrapperEntity => ({
   transport: {
     ...state.transport,
   },

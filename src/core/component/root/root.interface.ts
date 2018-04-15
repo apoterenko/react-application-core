@@ -1,4 +1,3 @@
-import { IBaseContainerInternalProps } from '../base';
 import { IApplicationAccessConfig } from '../../permissions';
 import {
   IChangesWrapper,
@@ -7,7 +6,7 @@ import {
   IStringPathWrapper,
   IStringSectionWrapper,
 } from '../../definitions.interface';
-import { IComponentClassEntity } from '../../entities-definitions.interface';
+import { IComponentClassEntity, IContainerEntity, IRootEntity } from '../../entities-definitions.interface';
 import { IDefaultApplicationState } from '../../store';
 import { IRouteConfiguration } from '../../configurations-definitions.interface';
 
@@ -16,7 +15,7 @@ export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 IStringPathWrapper {
 }
 
-export interface IRootContainerInternalProps extends IBaseContainerInternalProps,
+export interface IRootContainerInternalProps extends IContainerEntity,
                                                      IRouteConfiguration,
                                                      IStringSectionWrapper,
                                                      IStateInitialChangesWrapper<IDefaultApplicationState> {
@@ -24,14 +23,7 @@ export interface IRootContainerInternalProps extends IBaseContainerInternalProps
   accessConfig?: IApplicationAccessConfig;
 }
 
-export interface IApplicationRootState extends IStringPathWrapper {
-}
-
-export interface IApplicationRootWrapperState {
-  root: IApplicationRootState;
-}
-
-export const INITIAL_APPLICATION_ROOT_STATE: IApplicationRootState = {
+export const INITIAL_APPLICATION_ROOT_STATE: IRootEntity = {
   path: null,
 };
 

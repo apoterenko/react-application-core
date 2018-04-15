@@ -1,15 +1,9 @@
+import { ILayoutEntity } from '../../entities-definitions.interface';
+
 export const LAYOUT_FULL_MODE = 'full';
 export const LAYOUT_MINIMAL_MODE = 'minimal';
 
-export interface IApplicationLayoutState {
-  mode: 'full' | 'minimal';
-}
-
-export interface IApplicationLayoutWrapperState {
-  layout: IApplicationLayoutState;
-}
-
-export const INITIAL_APPLICATION_LAYOUT_STATE: IApplicationLayoutState = {
+export const INITIAL_APPLICATION_LAYOUT_STATE: ILayoutEntity = {
   mode: LAYOUT_FULL_MODE,
 };
 

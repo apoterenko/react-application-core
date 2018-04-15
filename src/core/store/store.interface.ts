@@ -1,53 +1,44 @@
-import { AnyAction } from 'redux';
-
 import {
-  IKeyValue,
-  IUserWrapper,
   IDictionariesWrapper,
-  IStackWrapper,
 } from '../definitions.interface';
 import {
-  IApplicationRootState,
-  IApplicationRootWrapperState,
   rootReducer,
 } from '../component/root';
-import { IApplicationUserState, userReducer } from '../user';
+import { userReducer } from '../user';
 import {
-  IApplicationLayoutState,
-  IApplicationLayoutWrapperState,
   layoutReducer,
 } from '../component/layout';
 import {
-  IApplicationTransportWrapperState,
-} from '../transport';
-import {
-  IApplicationNotificationState,
-  IApplicationNotificationWrapperState,
   notificationReducer,
 } from '../notification';
 import { dictionariesReducer } from '../dictionary';
 import {
   applicationReducer,
 } from '../component/application';
-import { permissionsReducer, IApplicationPermissionsState } from '../permissions';
+import { permissionsReducer } from '../permissions';
 import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
 import {
+  IUserWrapperEntity,
   IChannelWrapperEntity,
   IApplicationWrapperEntity,
   IStackWrapperEntity,
+  ILayoutWrapperEntity,
+  ITransportWrapperEntity,
+  IRootWrapperEntity,
+  INotificationWrapperEntity,
 } from '../entities-definitions.interface';
 import { universalDefaultReducers } from './universal-default-reducers.interface';
 
 export interface IApplicationState<TDictionaries>
     extends IDictionariesWrapper<TDictionaries>,
-            IApplicationTransportWrapperState,
-            IApplicationNotificationWrapperState,
-            IUserWrapper<IApplicationUserState>,
             IApplicationWrapperEntity,
-            IApplicationLayoutWrapperState,
-            IApplicationRootWrapperState,
+            IRootWrapperEntity,
+            IUserWrapperEntity,
+            ILayoutWrapperEntity,
+            ITransportWrapperEntity,
             IStackWrapperEntity,
+            INotificationWrapperEntity,
             IChannelWrapperEntity {
 }
 

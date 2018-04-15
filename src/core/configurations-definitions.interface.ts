@@ -60,7 +60,8 @@ import {
   IBeforeEnterWrapper,
   IAfterEnterWrapper,
   IStringUrlWrapper,
-  ITCallbackWrapper,
+  IStringKeyWrapper,
+  ICallbackWrapper,
 } from './definitions.interface';
 import { IComponentClassEntity } from './entities-definitions.interface';
 
@@ -216,6 +217,7 @@ export enum ContainerVisibilityTypeEnum {
 /* @stable - 14.04.2018 */
 export interface IRouteConfiguration extends IStringPathWrapper,
                                              IExactWrapper,
+                                             IStringKeyWrapper,
                                              IAfterEnterWrapper<() => void>,
                                              IBeforeEnterWrapper<() => void>,
                                              IComputedMatchWrapper<IRouteComputedMatchConfiguration>,
@@ -231,7 +233,7 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TAppState>
   extends IStateInitialChangesWrapper<TAppState>,
-          ITCallbackWrapper<(ctor: IComponentClassEntity, connectedCtor: IComponentClassEntity) => void>,
+          ICallbackWrapper<(ctor: IComponentClassEntity, connectedCtor: IComponentClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
 }

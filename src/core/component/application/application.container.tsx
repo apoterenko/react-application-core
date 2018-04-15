@@ -124,10 +124,14 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
             }
           </CenterLayout>
         ]
-        : this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
+        : this.buildAllRoutes();
   }
 
-  protected lookupConnectComponentByRoutePath(path: string): IComponentClassEntity {
+  protected buildAllRoutes(): JSX.Element[] {
+    return this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
+  }
+
+  protected lookupConnectedComponentByRoutePath(path: string): IComponentClassEntity {
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
       if (toRouteConfigurations(config.routeConfiguration, this.routes).path === path) {
@@ -142,7 +146,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   }
 
   protected registerLogoutRoute(): void {
-    const loginContainer = this.lookupConnectComponentByRoutePath(this.routes.signIn);
+    const loginContainer = this.lookupConnectedComponentByRoutePath(this.routes.signIn);
     if (!loginContainer) {
       ApplicationContainer.logger.warn('[$ApplicationContainer] The login route is not registered.');
     } else {

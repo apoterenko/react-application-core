@@ -1,13 +1,10 @@
 import { AnyAction } from 'redux';
 
-import {
-  IApplicationUserState,
-  USER_UPDATE_ACTION_TYPE,
-  USER_DESTROY_ACTION_TYPE,
-} from './user.interface';
+import { IUserEntity } from '../entities-definitions.interface';
+import { USER_UPDATE_ACTION_TYPE, USER_DESTROY_ACTION_TYPE } from './user.interface';
 
-export function userReducer(state: IApplicationUserState = {},
-                            action: AnyAction): IApplicationUserState {
+export function userReducer(state: IUserEntity = {},
+                            action: AnyAction): IUserEntity {
   switch (action.type) {
     case USER_UPDATE_ACTION_TYPE:
       return {

@@ -1,6 +1,6 @@
-import { IBaseContainerInternalProps, IBaseComponentInternalProps } from '../base';
+import { IBaseComponentInternalProps } from '../base';
 import { IListConfiguration, IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IListEntity, IListWrapperEntity } from '../../entities-definitions.interface';
+import { IListEntity, IListWrapperEntity, IContainerEntity } from '../../entities-definitions.interface';
 
 /* @stable - 31.03.2018 */
 export interface IListInternalProps extends IBaseComponentInternalProps,
@@ -9,7 +9,7 @@ export interface IListInternalProps extends IBaseComponentInternalProps,
 }
 
 /* @stable - 31.03.2018 */
-export interface IListContainerInternalProps extends IBaseContainerInternalProps,
+export interface IListContainerInternalProps extends IContainerEntity,
                                                      IListConfigurationWrapper,
                                                      IListWrapperEntity {
 }

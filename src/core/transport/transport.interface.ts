@@ -20,13 +20,9 @@ import {
   IAnyResultWrapper,
   AnyT,
 } from '../definitions.interface';
-import { IErrorEntity, ITransportEntity } from '../entities-definitions.interface';
+import { IErrorEntity } from '../entities-definitions.interface';
 
 export interface IApplicationTransportTokenAccessor extends IStringTokenWrapper {
-}
-
-export interface IApplicationTransportWrapperState {
-  transport: ITransportEntity;
 }
 
 export interface ICancelableTransport {

@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { Snackbar } from '../../component/snackbar';
-import { BaseContainer, IBaseContainerInternalProps } from '../../component/base';
+import { BaseContainer } from '../../component/base';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
+import { IContainerEntity } from '../../entities-definitions.interface';
 
-export class LayoutContainer<TInternalProps extends IBaseContainerInternalProps>
+export class LayoutContainer<TInternalProps extends IContainerEntity>
     extends BaseContainer<TInternalProps, {}> {
 
   constructor(props: TInternalProps) {

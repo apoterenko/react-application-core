@@ -1,6 +1,6 @@
 import { IBaseComponentInternalProps } from '../base';
 import {
-  IEmailWrapper,
+  IStringEmailWrapper,
   INameWrapper,
   IStringPathWrapper,
   IPayloadOnClickWrapper,
@@ -9,7 +9,7 @@ import {
 import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
 
 export interface IProfileInternalProps extends IBaseComponentInternalProps,
-                                               IEmailWrapper,
+                                               IStringEmailWrapper,
                                                INameWrapper,
                                                IStringPathWrapper,
                                                IPayloadOnClickWrapper<IAnyMenuActionEntity>,

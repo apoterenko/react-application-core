@@ -1,8 +1,7 @@
 import {
   IBaseComponentInternalProps,
-  IBaseContainerInternalProps,
 } from '../../base';
-import { IPaginatedEntity, IListWrapperEntity } from '../../../entities-definitions.interface';
+import { IPaginatedEntity, IListWrapperEntity, IContainerEntity } from '../../../entities-definitions.interface';
 
 export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
                                                    IPaginatedEntity {
@@ -13,7 +12,7 @@ export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
   onLast?(): void;
 }
 
-export interface IPageToolbarContainerInternalProps extends IBaseContainerInternalProps,
+export interface IPageToolbarContainerInternalProps extends IContainerEntity,
                                                             IListWrapperEntity {
 }
 

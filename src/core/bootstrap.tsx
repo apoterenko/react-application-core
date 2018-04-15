@@ -14,7 +14,7 @@ import { DI_TYPES, staticInjector } from './di';
 import {
   ApplicationActionBuilder,
   ApplicationContainer,
-  IApplicationContainerProps
+  IApplicationContainerProps,
 } from './component/application';
 import { IDefaultApplicationState } from './store';
 import { IContainerBootstrapCtor } from './bootstrap.interface';

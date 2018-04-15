@@ -8,33 +8,18 @@ import {
   IHtmlElementSelfWrapper,
 } from '../../definitions.interface';
 import { IComponentPlugin, IComponentPluginCtor } from '../../component/plugin';
-import { IApplicationLayoutState } from '../../component/layout';
-import { IApplicationRootState } from '../../component/root';
-import { IApplicationUserState } from '../../user';
-import { IApplicationNotificationState } from '../../notification';
-import { IChannelWrapperEntity, IContainerEntity } from '../../entities-definitions.interface';
+import { IUniversalContainerEntity } from '../../entities-definitions.interface';
 import { IUniversalBaseContainer } from './universal-base.interface';
-import { IUniversalBaseContainerInternalProps } from './universal-base.interface';
 
 export type ComponentPluginCtorT = IComponentPluginCtor<IBaseComponent<IBaseComponentInternalProps, {}>,
                                                         IBaseComponentInternalProps,
                                                         {}>;
 
-export interface IBaseInternalProps extends IClassNameWrapper,
-                                            IStringTitleWrapper {
+export interface IComponentEntity extends IClassNameWrapper,
+                                          IStringTitleWrapper {
   emptyDataMessage?: string;
   message?: string;
   errorMessage?: string;
-}
-
-export interface IBaseContainerInternalProps extends IUniversalBaseContainerInternalProps,
-                                                     IContainerEntity,
-                                                     IBaseInternalProps,
-                                                     IChannelWrapperEntity {
-  notification?: IApplicationNotificationState;
-  layout?: IApplicationLayoutState;
-  root?: IApplicationRootState;
-  user?: IApplicationUserState;
 }
 
 export interface IBaseContainerInternalState {
@@ -48,13 +33,13 @@ export interface IBaseComponent<TInternalProps, TInternalState>
       IComponentPlugin<IBaseComponent<TInternalProps, TInternalState>, TInternalProps, TInternalState>;
 }
 
-export interface IBaseComponentInternalProps extends IBaseInternalProps,
+export interface IBaseComponentInternalProps extends IComponentEntity,
                                                      ICssStyleWrapper {
   plugins?: ComponentPluginCtorT|ComponentPluginCtorT[];
 }
 
-export interface IBaseContainer<TInternalProps extends IBaseContainerInternalProps,
-                                TInternalState extends IBaseContainerInternalState>
+export interface IBaseContainer<TInternalProps extends IUniversalContainerEntity,
+                                TInternalState>
   extends IUniversalBaseContainer<TInternalProps, TInternalState> {
 }
 

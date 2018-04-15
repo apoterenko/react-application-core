@@ -11,17 +11,14 @@ import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { ApplicationTranslatorT } from '../../translation';
 import { IFormDialog } from '../form';
-import {
-  IBaseContainer,
-  IBaseContainerInternalProps,
-  IBaseContainerInternalState,
-} from './base.interface';
+import { IBaseContainer } from './base.interface';
 import { IUIFactory } from '../factory';
 import { UniversalBaseContainer } from './universal-base.container';
 import { IRoutesConfiguration } from '../../configurations-definitions.interface';
+import { IContainerEntity } from '../../entities-definitions.interface';
 
-export class BaseContainer<TInternalProps extends IBaseContainerInternalProps,
-                           TInternalState extends IBaseContainerInternalState>
+export class BaseContainer<TInternalProps extends IContainerEntity,
+                           TInternalState>
     extends UniversalBaseContainer<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 

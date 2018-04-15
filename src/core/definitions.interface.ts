@@ -175,6 +175,16 @@ export interface IBasenameWrapper {
   basename?: string;
 }
 
+/* @stable - 15.04.2018 */
+export interface ILayoutWrapper<TLayout> {
+  layout?: TLayout;
+}
+
+/* @stable - 15.04.2018 */
+export interface IModeWrapper<TMode> {
+  mode?: TMode;
+}
+
 /* @stable - 04.04.2018 */
 export interface IParamsWrapper<TParams> {
   params?: TParams;
@@ -515,18 +525,22 @@ export interface IChangesWrapper<TChanges extends IKeyValue> {
 export interface IKeyValueChangesWrapper extends IChangesWrapper<IKeyValue> {
 }
 
-/**********************
- * Email's wrapper
- **********************/
-export interface IEmailWrapper {
-  email?: string;
+/* @stable - 15.04.2018 */
+export interface IEmailWrapper<TEmail> {
+  email?: TEmail;
 }
 
-/**********************
- * Login's wrapper
- **********************/
-export interface ILoginWrapper {
-  login?: string;
+/* @stable - 15.04.2018 */
+export interface IStringEmailWrapper extends IEmailWrapper<string> {
+}
+
+/* @stable - 15.04.2018 */
+export interface ILoginWrapper<TLogin> {
+  login?: TLogin;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringLoginWrapper extends ILoginWrapper<string> {
 }
 
 /* @stable - 01.04.2018 */
@@ -989,6 +1003,11 @@ export interface IAutoFocusWrapper {
   autoFocus?: boolean;
 }
 
+/* @stable - 15.04.2018 */
+export interface IErrorMessageWrapper {
+  errorMessage?: string;
+}
+
 /**********************
  * Menu's wrappers
  **********************/
@@ -1262,7 +1281,7 @@ export interface IDisplayMessageWrapper {
 }
 
 /* @stable - 15.04.2018 */
-export interface ITCallbackWrapper<TCallback> {
+export interface ICallbackWrapper<TCallback> {
   callback?: TCallback;
 }
 
@@ -1275,12 +1294,45 @@ export interface IPathWrapper<TPath> {
 export interface IStringPathWrapper extends IPathWrapper<string> {
 }
 
-export interface IDisplayValueWrapper<TDisplay> {
-  displayValue?: TDisplay;
+/* @stable - 15.04.2018 */
+export interface IRootWrapper<TRoot> {
+  root?: TRoot;
 }
 
-export interface IPasswordWrapper {
-  password?: string;
+/* @stable - 15.04.2018 */
+export interface IKeyWrapper<TKey> {
+  key?: TKey;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringKeyWrapper extends IKeyWrapper<string> {
+}
+
+/* @stable - 15.04.2018 */
+export interface IPasswordWrapper<TPassword> {
+  password?: TPassword;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringPasswordWrapper extends IPasswordWrapper<string> {
+}
+
+/* @stable - 15.04.2018 */
+export interface IInfoWrapper<TInfo> {
+  info?: TInfo;
+}
+
+/* @stable - 15.04.2018 */
+export interface IStringInfoWrapper extends IInfoWrapper<string> {
+}
+
+/* @stable - 15.04.2018 */
+export interface INotificationWrapper<TNotification> {
+  notification?: TNotification;
+}
+
+export interface IDisplayValueWrapper<TDisplay> {
+  displayValue?: TDisplay;
 }
 
 export const IMAGE_FIELD_NAME = 'image';
@@ -1291,10 +1343,6 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export interface IToWrapper {
   to?: string;
-}
-
-export interface IInfoable<Type> {
-  info?: Type;
 }
 
 export interface IStepable {

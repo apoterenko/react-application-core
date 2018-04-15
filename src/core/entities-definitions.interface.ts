@@ -82,6 +82,20 @@ import {
   ILockWrapper,
   INeedToDestroySectionsWrapper,
   IStackWrapper,
+  IStringTitleWrapper,
+  IClassNameWrapper,
+  ILayoutWrapper,
+  IModeWrapper,
+  IUserWrapper,
+  IStringEmailWrapper,
+  IStringLoginWrapper,
+  INamedEntity,
+  IStringPasswordWrapper,
+  IRootWrapper,
+  IStringPathWrapper,
+  INotificationWrapper,
+  IStringInfoWrapper,
+  IErrorMessageWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -303,7 +317,8 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 }
 
 /* @stable - 11.04.2018 */
-export interface IApplicationEntity extends IStateEntity,
+export interface IApplicationEntity extends IContainerEntity,
+                                            IStateEntity,
                                             IStringProgressMessageWrapper,
                                             IStringEmptyMessageWrapper,
                                             IReadyWrapper {
@@ -333,13 +348,21 @@ export interface IFieldEntity extends IKeyboardHandlersEntity {
 }
 
 /* @stable - 12.04.2018 */
-export interface IBaseContainerEntity extends ISectionNameWrapper,
-                                              ITransportWrapper<ITransportEntity> {
+export interface IUniversalContainerEntity extends IClassNameWrapper,
+                                                   IStringTitleWrapper,
+                                                   ISectionNameWrapper,
+                                                   IChannelWrapperEntity,
+                                                   ILayoutWrapperEntity,
+                                                   IUserWrapperEntity,
+                                                   INotificationWrapperEntity,
+                                                   ITransportWrapperEntity {
 }
 
 /* @stable - 14.04.2018 */
-export interface IContainerEntity extends IBrowserLocationWrapper,
-                                          ISectionNameWrapper,
+export interface IContainerEntity extends IUniversalContainerEntity,
+                                          IRootWrapperEntity,
+                                          IErrorMessageWrapper,
+                                          IBrowserLocationWrapper,
                                           IURLSearchQueryParamsWrapper,
                                           IKeyValueRouteParamsWrapper {
 }
@@ -351,6 +374,10 @@ export interface IComponentClassEntity extends ComponentClass<IContainerEntity> 
 /* @stable - 12.04.2018 */
 export interface ITransportEntity extends IStringTokenWrapper,
                                           IQueueWrapper<string[]> {
+}
+
+/* @stable - 15.04.2018 */
+export interface ITransportWrapperEntity extends ITransportWrapper<ITransportEntity> {
 }
 
 /* @stable - 15.04.2018 */
@@ -370,4 +397,43 @@ export interface IStackEntity extends IStackWrapper<IStackItemEntity[]>,
 
 /* @stable - 15.04.2018 */
 export interface IStackWrapperEntity extends IStackWrapper<IStackEntity> {
+}
+
+/* @stable - 15.04.2018 */
+export type LayoutT = 'full' | 'minimal';
+
+/* @stable - 15.04.2018 */
+export interface ILayoutEntity extends IModeWrapper<LayoutT> {
+}
+
+/* @stable - 15.04.2018 */
+export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
+}
+
+/* @stable - 15.04.2018 */
+export interface IUserEntity extends INamedEntity,
+                                     IStringPasswordWrapper,
+                                     IStringLoginWrapper,
+                                     IStringEmailWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface IUserWrapperEntity extends IUserWrapper<IUserEntity> {
+}
+
+/* @stable - 15.04.2018 */
+export interface IRootEntity extends IStringPathWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface IRootWrapperEntity extends IRootWrapper<IRootEntity> {
+}
+
+/* @stable - 15.04.2018 */
+export interface INotificationEntity extends IStringErrorEntity,
+                                             IStringInfoWrapper {
+}
+
+/* @stable - 15.04.2018 */
+export interface INotificationWrapperEntity extends INotificationWrapper<INotificationEntity> {
 }

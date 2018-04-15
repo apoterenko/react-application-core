@@ -3,10 +3,11 @@ import * as React from 'react';
 import { IDefaultApplicationState } from '../../../store';
 import { CenterLayout } from '../../layout';
 import { basicConnector, defaultMappers } from '../../connector';
-import { BaseContainer, IBaseContainerInternalProps } from '../../base';
+import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
+import { IContainerEntity } from '../../../entities-definitions.interface';
 
 @basicConnector<IDefaultApplicationState>({
   routeConfiguration: (routes) => ({
@@ -19,7 +20,7 @@ import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions
 })
 export class AccessDeniedContainer extends BaseContainer<{}, {}> {
 
-  public static defaultProps: IBaseContainerInternalProps = {
+  public static defaultProps: IContainerEntity = {
     sectionName: ACCESS_DENIED_SECTION,
   };
 

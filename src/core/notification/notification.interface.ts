@@ -1,15 +1,6 @@
-import { IInfoable } from '../definitions.interface';
-import { IErrorEntity } from '../entities-definitions.interface';
+import { INotificationEntity } from '../entities-definitions.interface';
 
-export interface IApplicationNotificationState extends IErrorEntity<string>,
-                                                       IInfoable<string> {
-}
-
-export interface IApplicationNotificationWrapperState {
-  notification: IApplicationNotificationState;
-}
-
-export const INITIAL_APPLICATION_NOTIFICATION_STATE: IApplicationNotificationState = {
+export const INITIAL_APPLICATION_NOTIFICATION_STATE: INotificationEntity = {
   error: null,
   info: null,
 };

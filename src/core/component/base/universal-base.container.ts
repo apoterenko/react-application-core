@@ -5,16 +5,16 @@ import {
   IKeyValue,
   AnyT,
 } from '../../definitions.interface';
+import { IUniversalContainerEntity } from '../../entities-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
 } from '../../router/router.interface';
 import {
   IUniversalBaseContainer,
-  IUniversalBaseContainerInternalProps,
 } from './universal-base.interface';
 
-export class UniversalBaseContainer<TInternalProps extends IUniversalBaseContainerInternalProps,
+export class UniversalBaseContainer<TInternalProps extends IUniversalContainerEntity,
                                     TInternalState>
   extends Component<TInternalProps, TInternalState>
   implements IUniversalBaseContainer<TInternalProps, TInternalState> {

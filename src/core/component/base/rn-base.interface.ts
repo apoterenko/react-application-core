@@ -1,5 +1,5 @@
-import { IUniversalBaseContainerInternalProps } from './universal-base.interface';
+import { IUniversalContainerEntity } from '../../entities-definitions.interface';
 
-/* @stable - 13.04.2018 */
-export interface IRnBaseContainerInternalProps extends IUniversalBaseContainerInternalProps {
+/* @stable - 15.04.2018 */
+export interface IRnBaseContainerProps extends IUniversalContainerEntity {
 }
