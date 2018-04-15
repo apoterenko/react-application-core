@@ -14,7 +14,7 @@ import {
   APPLICATION_PREPARE_AFTER_ACTION_TYPE,
   APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE,
   APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
-} from './application-reducer.interface';
+} from './application.interface';
 
 export class ApplicationActionBuilder {
 

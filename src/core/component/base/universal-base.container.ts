@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Store } from 'redux';
 
+import { DI_TYPES, staticInjector } from '../../di';
 import {
   IKeyValue,
   AnyT,
@@ -8,7 +9,12 @@ import {
 import {
   IUniversalContainerEntity,
   INavigateEntity,
+  IContainerClassEntity,
 } from '../../entities-definitions.interface';
+import {
+  IDefaultConnectorConfiguration,
+  IRoutesConfiguration,
+} from '../../configurations-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
@@ -16,20 +22,19 @@ import {
 import {
   IUniversalBaseContainer,
 } from './universal-base.interface';
+import { IApplicationSettings } from '../../settings';
+import { ApplicationTranslatorT } from '../../translation';
 
-export class UniversalBaseContainer<TInternalProps extends IUniversalContainerEntity,
-                                    TInternalState>
-  extends Component<TInternalProps, TInternalState>
-  implements IUniversalBaseContainer<TInternalProps, TInternalState> {
-
-  protected appStore: Store<{}>;
+export class UniversalBaseContainer<TProps extends IUniversalContainerEntity, TState = {}>
+  extends Component<TProps, TState>
+  implements IUniversalBaseContainer<TProps, TState> {
 
   /**
    * @stable - 12.04.2018
    * @param {TInternalProps} props
    * @param {string} sectionName
    */
-  constructor(props: TInternalProps, public sectionName = 'section') {
+  constructor(props: TProps, public sectionName = 'section') {
     super(props);
     this.sectionName = props.sectionName || sectionName;
     this.navigateToBack = this.navigateToBack.bind(this);
@@ -46,11 +51,11 @@ export class UniversalBaseContainer<TInternalProps extends IUniversalContainerEn
 
   /**
    * @stable - 12.04.2018
-   * @param {TPath} path
-   * @param {TState} state
+   * @param {TPath0} path
+   * @param {TState0} state
    */
-  public navigate<TPath, TState>(path: TPath, state?: TState): void {
-    const payload: INavigateEntity<TPath, TState> = { path, state };
+  public navigate<TPath0, TState0>(path: TPath0, state?: TState0): void {
+    const payload: INavigateEntity<TPath0, TState0> = { path, state };
     this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, payload);
   }
 
@@ -78,5 +83,45 @@ export class UniversalBaseContainer<TInternalProps extends IUniversalContainerEn
    */
   protected dispatchCustomType(type: string, data?: AnyT): void {
     this.appStore.dispatch({ type, data });
+  }
+
+  /**
+   * @stable - 15.04.2018
+   * @returns {Store<{}>}
+   */
+  protected get appStore(): Store<{}> {
+    return staticInjector(DI_TYPES.Store);
+  }
+
+  /**
+   * @stable - 15.04.2018
+   * @returns {Map<IContainerClassEntity, IDefaultConnectorConfiguration>}
+   */
+  protected get dynamicRoutes(): Map<IContainerClassEntity, IDefaultConnectorConfiguration> {
+    return staticInjector(DI_TYPES.DynamicRoutes);
+  }
+
+  /**
+   * @stable - 15.04.2018
+   * @returns {IRoutesConfiguration}
+   */
+  protected get routes(): IRoutesConfiguration {
+    return staticInjector(DI_TYPES.Routes);
+  }
+
+  /**
+   * @stable - 15.04.2018
+   * @returns {IApplicationSettings}
+   */
+  protected get settings(): IApplicationSettings {
+    return staticInjector(DI_TYPES.Settings);
+  }
+
+  /**
+   * @stable - 15.04.2018
+   * @returns {ApplicationTranslatorT}
+   */
+  protected get t(): ApplicationTranslatorT {
+    return staticInjector(DI_TYPES.Translate);
   }
 }

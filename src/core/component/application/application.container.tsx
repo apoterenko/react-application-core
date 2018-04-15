@@ -1,56 +1,41 @@
 import * as React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { LoggerFactory } from 'ts-smart-logger';
 
-import { clone, uuid, PredicateT, cloneUsingFilters } from '../../util';
+import { clone, uuid, PredicateT, cloneUsingFilters, orNull } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
-import {
-  toRouteConfigurations,
-} from '../../router';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
-import { BaseContainer } from '../base';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { IDefaultApplicationState } from '../../store';
-import { CenterLayout } from '../layout';
 import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
-import { IApplicationContainerProps } from './application.interface';
-import {
-  APPLICATION_LOGOUT_ACTION_TYPE,
-  INITIAL_APPLICATION_STATE,
-  APPLICATION_SECTION,
-} from './application-reducer.interface';
+import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
+import { Message } from '../message';
 import {
   IDefaultConnectorConfiguration,
   ContainerVisibilityTypeEnum,
+  IRouteConfiguration,
 } from '../../configurations-definitions.interface';
 import { IContainerClassEntity, IRouterComponentEntity } from '../../entities-definitions.interface';
+import { UniversalApplicationContainer } from './universal-application.container';
 
 export class ApplicationContainer<TAppState extends IDefaultApplicationState>
-    extends BaseContainer<IApplicationContainerProps, {}> {
+    extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   public static defaultProps: IApplicationContainerProps = {
     basename: BASE_PATH,
   };
 
-  private static logger = LoggerFactory.makeLogger(ApplicationContainer);
-
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
-  @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<IContainerClassEntity, IDefaultConnectorConfiguration>;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
-  private extraRoutes = new Map<IContainerClassEntity, IDefaultConnectorConfiguration>();
-
   constructor(props: IApplicationContainerProps) {
-    super(props, APPLICATION_SECTION);
+    super(props);
     this.onUnload = this.onUnload.bind(this);
-    this.onBeforeLogout = this.onBeforeLogout.bind(this);
-    this.registerLogoutRoute();
   }
 
   public render(): JSX.Element {
@@ -104,67 +89,27 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   protected getRoutes(): JSX.Element[] {
     const props = this.props;
     return props.progress || props.error || !props.ready
-        ? [
-          <CenterLayout key={uuid()}>
-            {
-              props.progress
-                  ? (this.t(props.progressMessage || this.settings.messages.waitMessage))
-                  : (
-                      props.error
-                          ? (
-                              props.customError
-                                  ? props.error
-                                  : [
-                                    this.t(props.errorMessage || 'The following error has occurred'),
-                                    '"' + props.error.toLowerCase() + '"'
-                                  ].join(' ')
-                          )
-                          : this.t(props.emptyMessage || 'The application is not ready.')
-                  )
-            }
-          </CenterLayout>
-        ]
-        : this.buildAllRoutes();
-  }
-
-  protected buildAllRoutes(): JSX.Element[] {
-    return this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
-  }
-
-  protected lookupConnectedComponentByRoutePath(path: string): IContainerClassEntity {
-    let result;
-    this.dynamicRoutes.forEach((config, ctor) => {
-      if (toRouteConfigurations(config.routeConfiguration, this.routes).path === path) {
-        result = ctor;
-      }
-    });
-    return result;
-  }
-
-  protected registerRoute(container: IContainerClassEntity, config: IDefaultConnectorConfiguration): void {
-    this.extraRoutes.set(container, config);
-  }
-
-  protected registerLogoutRoute(): void {
-    const loginContainer = this.lookupConnectedComponentByRoutePath(this.routes.signIn);
-    if (!loginContainer) {
-      ApplicationContainer.logger.warn('[$ApplicationContainer] The login route is not registered.');
-    } else {
-      this.registerRoute(
-          loginContainer,
-          {
-            routeConfiguration: {
-              type: ContainerVisibilityTypeEnum.PUBLIC,
-              path: this.routes.logout,
-              beforeEnter: this.onBeforeLogout,
-            },
-          }
-      );
-    }
-  }
-
-  protected onBeforeLogout(): void {
-    this.dispatch(APPLICATION_LOGOUT_ACTION_TYPE);
+      ? [
+        <Message key={uuid()}
+                 error={props.error}
+                 progress={props.progress}
+                 errorMessage={
+                   orNull(
+                     props.error || props.customError,
+                     () => (
+                       props.customError
+                         ? props.error
+                         : [
+                           this.t(this.settings.messages.followingErrorHasOccurredMessage),
+                           `"${props.error.toLowerCase()}"`
+                         ].join(' ')
+                     )
+                   )
+                 }
+                 emptyMessage={this.settings.messages.appNotReadyMessage}
+        />
+      ]
+      : this.buildAllRoutes();
   }
 
   protected clearPreviousStates(): void {
@@ -175,32 +120,30 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     });
   }
 
-  private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
-    const routes: JSX.Element[] = [];
-    map.forEach((config, ctor) => {
-      let Component;
-      const routeConfig = toRouteConfigurations(config.routeConfiguration, this.routes);
-
-      switch (routeConfig.type) {
-        case ContainerVisibilityTypeEnum.PRIVATE:
-          Component = PrivateRootContainer;
-          break;
-        case ContainerVisibilityTypeEnum.PUBLIC:
-          Component = PublicRootContainer;
-          break;
-      }
-      const props: IRootContainerInternalProps = {
-        exact: true,
-        accessConfig: config.accessConfiguration,
-        initialChanges: config.initialChanges,
-        section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
-        ...routeConfig,
-      };
-      routes.push(<Component key={uuid()}
-                             container={ctor}
-                             {...props}/>);
-    });
-    return routes;
+  protected buildRoute(ctor: IContainerClassEntity,
+                       connectorConfiguration: IDefaultConnectorConfiguration,
+                       routeConfiguration: IRouteConfiguration): JSX.Element {
+    let Component;
+    switch (routeConfiguration.type) {
+      case ContainerVisibilityTypeEnum.PRIVATE:
+        Component = PrivateRootContainer;
+        break;
+      case ContainerVisibilityTypeEnum.PUBLIC:
+        Component = PublicRootContainer;
+        break;
+    }
+    const props: IRootContainerInternalProps = {
+      exact: true,
+      accessConfig: connectorConfiguration.accessConfiguration,
+      initialChanges: connectorConfiguration.initialChanges,
+      section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
+      ...routeConfiguration,
+    };
+    return (
+      <Component key={uuid()}
+                 container={ctor}
+                 {...props}/>
+    );
   }
 
   private saveState(): void {

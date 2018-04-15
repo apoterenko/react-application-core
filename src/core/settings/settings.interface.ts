@@ -44,6 +44,8 @@ export interface IApplicationMessagesSettings {
   noAvailableItemsToSelectMessage?: string;
   emptyMessage?: string;
   emptyDataMessage?: string;
+  appNotReadyMessage?: string;
+  followingErrorHasOccurredMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -94,6 +96,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     errorMessage: 'Something went wrong. There was a problem loading your data',
     emptyMessage: 'Start a search',
     emptyDataMessage: 'No data found',
+    appNotReadyMessage: 'The application is not ready.',
+    followingErrorHasOccurredMessage: 'The following error has occurred:',
   },
   dateTime: {
     currentDate: new Date(),

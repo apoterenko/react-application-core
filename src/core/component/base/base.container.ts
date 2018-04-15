@@ -1,20 +1,15 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { AnyT } from '../../definitions.interface';
-import { IDefaultApplicationState } from '../../store';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
-import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
-import { ApplicationTranslatorT } from '../../translation';
 import { IFormDialog } from '../form';
 import { IBaseContainer } from './base.interface';
 import { IUIFactory } from '../factory';
 import { UniversalBaseContainer } from './universal-base.container';
-import { IRoutesConfiguration } from '../../configurations-definitions.interface';
 import { IContainerEntity } from '../../entities-definitions.interface';
 
 export class BaseContainer<TInternalProps extends IContainerEntity,
@@ -24,12 +19,8 @@ export class BaseContainer<TInternalProps extends IContainerEntity,
 
   @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
-  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<IDefaultApplicationState>;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
-  @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
-  @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
 
   constructor(props: TInternalProps, public sectionName = 'section') {
     super(props);

@@ -328,8 +328,6 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 /* @stable - 11.04.2018 */
 export interface IApplicationEntity extends IContainerEntity,
                                             IStateEntity,
-                                            IStringProgressMessageWrapper,
-                                            IStringEmptyMessageWrapper,
                                             IReadyWrapper {
 }
 
@@ -371,7 +369,6 @@ export interface IUniversalContainerEntity extends IClassNameWrapper,
 /* @stable - 14.04.2018 */
 export interface IContainerEntity extends IUniversalContainerEntity,
                                           IRootWrapperEntity,
-                                          IStringErrorMessageWrapper,
                                           IBrowserLocationWrapper,
                                           IURLSearchQueryParamsWrapper,
                                           IKeyValueRouteParamsWrapper {

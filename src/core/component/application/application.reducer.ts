@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 
 import { convertError } from '../../error';
-import { INITIAL_APPLICATION_STATE } from './application-reducer.interface';
+import { INITIAL_APPLICATION_STATE } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IApplicationEntity } from '../../entities-definitions.interface';
 
