@@ -63,7 +63,7 @@ import {
   IStringKeyWrapper,
   ICallbackWrapper,
 } from './definitions.interface';
-import { IComponentClassEntity } from './entities-definitions.interface';
+import { IContainerClassEntity } from './entities-definitions.interface';
 
 /* @stable - 05.04.2018 */
 export interface IItemConfigurationWrapper<TItemConfiguration> {
@@ -233,7 +233,7 @@ export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TAppState>
   extends IStateInitialChangesWrapper<TAppState>,
-          ICallbackWrapper<(ctor: IComponentClassEntity, connectedCtor: IComponentClassEntity) => void>,
+          ICallbackWrapper<(ctor: IContainerClassEntity, connectedCtor: IContainerClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
 }

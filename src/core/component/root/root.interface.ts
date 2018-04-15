@@ -6,7 +6,7 @@ import {
   IStringPathWrapper,
   IStringSectionWrapper,
 } from '../../definitions.interface';
-import { IComponentClassEntity, IContainerEntity, IRootEntity } from '../../entities-definitions.interface';
+import { IContainerClassEntity, IContainerEntity, IRootEntity } from '../../entities-definitions.interface';
 import { IDefaultApplicationState } from '../../store';
 import { IRouteConfiguration } from '../../configurations-definitions.interface';
 
@@ -19,7 +19,7 @@ export interface IRootContainerInternalProps extends IContainerEntity,
                                                      IRouteConfiguration,
                                                      IStringSectionWrapper,
                                                      IStateInitialChangesWrapper<IDefaultApplicationState> {
-  container?: IComponentClassEntity;
+  container?: IContainerClassEntity;
   accessConfig?: IApplicationAccessConfig;
 }
 

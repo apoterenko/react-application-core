@@ -29,7 +29,7 @@ import {
   IDefaultConnectorConfiguration,
   ContainerVisibilityTypeEnum,
 } from '../../configurations-definitions.interface';
-import { IComponentClassEntity, IRouterComponentEntity } from '../../entities-definitions.interface';
+import { IContainerClassEntity, IRouterComponentEntity } from '../../entities-definitions.interface';
 
 export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     extends BaseContainer<IApplicationContainerProps, {}> {
@@ -41,10 +41,10 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
   private static logger = LoggerFactory.makeLogger(ApplicationContainer);
 
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
-  @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<IComponentClassEntity, IDefaultConnectorConfiguration>;
+  @lazyInject(DI_TYPES.DynamicRoutes) private dynamicRoutes: Map<IContainerClassEntity, IDefaultConnectorConfiguration>;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
-  private extraRoutes = new Map<IComponentClassEntity, IDefaultConnectorConfiguration>();
+  private extraRoutes = new Map<IContainerClassEntity, IDefaultConnectorConfiguration>();
 
   constructor(props: IApplicationContainerProps) {
     super(props, APPLICATION_SECTION);
@@ -131,7 +131,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     return this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
   }
 
-  protected lookupConnectedComponentByRoutePath(path: string): IComponentClassEntity {
+  protected lookupConnectedComponentByRoutePath(path: string): IContainerClassEntity {
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
       if (toRouteConfigurations(config.routeConfiguration, this.routes).path === path) {
@@ -141,7 +141,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     return result;
   }
 
-  protected registerRoute(container: IComponentClassEntity, config: IDefaultConnectorConfiguration): void {
+  protected registerRoute(container: IContainerClassEntity, config: IDefaultConnectorConfiguration): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -175,7 +175,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
     });
   }
 
-  private buildRoutes(map: Map<IComponentClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
+  private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
     const routes: JSX.Element[] = [];
     map.forEach((config, ctor) => {
       let Component;

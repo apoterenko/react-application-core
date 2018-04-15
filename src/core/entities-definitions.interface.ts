@@ -368,7 +368,7 @@ export interface IContainerEntity extends IUniversalContainerEntity,
 }
 
 /* @stable - 14.04.2018 */
-export interface IComponentClassEntity extends ComponentClass<IContainerEntity> {
+export interface IContainerClassEntity extends ComponentClass<IContainerEntity> {
 }
 
 /* @stable - 12.04.2018 */

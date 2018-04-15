@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
-import { IComponentClassEntity } from '../../entities-definitions.interface';
+import { IContainerClassEntity } from '../../entities-definitions.interface';
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 
 export const connectorFactory = <TAppState>(
-  containerCtor: IComponentClassEntity,
-  ...mappers: Array<ConnectorMapperT<TAppState, IKeyValue>>): IComponentClassEntity => {
+  containerCtor: IContainerClassEntity,
+  ...mappers: Array<ConnectorMapperT<TAppState, IKeyValue>>): IContainerClassEntity => {
 
   const mapping = (state: TAppState) => mappers.length
     ? (mappers as Array<ConnectorMapperT<TAppState, IKeyValue> | IKeyValue>)
