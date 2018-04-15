@@ -29,6 +29,10 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     this.registerLogoutRoute();
   }
 
+  protected getRoutes(): JSX.Element[] {
+    return this.buildAllRoutes();
+  }
+
   protected buildAllRoutes(): JSX.Element[] {
     return this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
   }

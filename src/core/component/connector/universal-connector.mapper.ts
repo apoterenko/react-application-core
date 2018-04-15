@@ -9,7 +9,34 @@ import {
   IDefaultFormEntity,
   IEntityWrapperEntity,
   IListWrapperEntity,
+  IListEntity,
+  ITransportWrapperEntity,
+  IUserWrapperEntity,
 } from '../../entities-definitions.interface';
+
+/* @stable - 16.04.2018 */
+export const userMapper = (state: IUserWrapperEntity): IUserWrapperEntity => ({
+  user: {
+    ...state.user,
+  },
+});
+
+/* @stable - 16.04.2018 */
+export const transportMapper = (state: ITransportWrapperEntity): ITransportWrapperEntity => ({
+  transport: {
+    ...state.transport,
+  },
+});
+
+/* @stable - 16.04.2018 */
+export const listMapper = (listEntity: IListEntity): IListWrapperEntity => ({
+  list: {
+    ...listEntity,
+  },
+});
+
+/* @stable - 16.04.2018 */
+export const listWrapperMapper = (listState: IListWrapperEntity): IListWrapperEntity => listMapper(listState.list);
 
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
@@ -36,3 +63,9 @@ export const listWrapperSelectedEntityMapper =
       listSelectedEntityMapper<TEntity>(listWrapperState),
       formEntity
     );
+
+/* @stable - 16.04.2018 */
+export const universalDefaultMappers = [
+  transportMapper,
+  userMapper
+];

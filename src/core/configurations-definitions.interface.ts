@@ -62,6 +62,8 @@ import {
   IStringUrlWrapper,
   IStringKeyWrapper,
   ICallbackWrapper,
+  IBooleanInitialWrapper,
+  IHideNavBarWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -175,7 +177,8 @@ export interface IButtonConfiguration extends ISimpleWrapper,
 }
 
 /* @stable - 11.04.2018 */
-export interface IApplicationConfiguration extends IBasenameWrapper {
+export interface IApplicationConfiguration extends IBasenameWrapper,
+                                                   IHideNavBarWrapper {
 }
 
 /* @stable - 11.04.2018 */
@@ -216,6 +219,8 @@ export enum ContainerVisibilityTypeEnum {
 
 /* @stable - 14.04.2018 */
 export interface IRouteConfiguration extends IStringPathWrapper,
+                                             IStringTitleWrapper,
+                                             IBooleanInitialWrapper,
                                              IExactWrapper,
                                              IStringKeyWrapper,
                                              IAfterEnterWrapper<() => void>,

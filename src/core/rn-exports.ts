@@ -1,13 +1,17 @@
 export * from './di';
 export { orNull, orDefault, orUndef } from './util/cond';
-export { UniversalBaseContainer } from './component/base/universal-base.container';
-export { RnBaseContainer } from './component/base/rn-base.container';
-export { listSelectedEntityMapper } from './component/connector/universal-connector.mapper';
 export { basicConnector, connector } from './component/connector/connector.decorator';
 export { convertError } from './error/error.converter';
 export { BaseEffects } from './store/effects/base.effects';
 export { composeReducers, filterBySection } from './store/store.support';
 export { BaseTransport } from './transport/base.transport';
+
+/* @stable - 16.04.2018 */
+export * from './component/connector/universal-connector.mapper';
+
+/* @stable - 16.04.2018 */
+export { RnBaseContainer } from './component/base/rn-base.container';
+export { RnApplicationContainer } from './component/application/rn-application.container';
 
 /* @stable - 15.04.2018 */
 export { formReducer } from './component/form/form.reducer';

@@ -109,7 +109,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
                  emptyMessage={this.settings.messages.appNotReadyMessage}
         />
       ]
-      : this.buildAllRoutes();
+      : super.getRoutes();
   }
 
   protected clearPreviousStates(): void {

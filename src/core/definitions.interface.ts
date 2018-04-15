@@ -1272,6 +1272,20 @@ export interface IExactWrapper {
 }
 
 /* @stable - 14.04.2018 */
+export interface IHideNavBarWrapper {
+  hideNavBar?: boolean;
+}
+
+/* @stable - 15.04.2018 */
+export interface IInitialWrapper<TInitial> {
+  initial?: boolean;
+}
+
+/* @stable - 15.04.2018 */
+export interface IBooleanInitialWrapper extends IInitialWrapper<boolean> {
+}
+
+/* @stable - 14.04.2018 */
 export interface IBeforeEnterWrapper<TBeforeEnter> {
   beforeEnter?: TBeforeEnter;
 }

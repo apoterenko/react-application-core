@@ -12,17 +12,14 @@ import {
 } from '../../component/filter';
 import {
   IChannelWrapperEntity,
-  IListEntity,
-  IListWrapperEntity,
   IDefaultFormEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
-  ITransportWrapperEntity,
   ILayoutWrapperEntity,
-  IUserWrapperEntity,
   IRootWrapperEntity,
   INotificationWrapperEntity,
 } from '../../entities-definitions.interface';
+import { universalDefaultMappers } from './universal-connector.mapper';
 
 export const rootMapper = (state: IDefaultApplicationState): IRootWrapperEntity => ({
   root: {
@@ -42,12 +39,6 @@ export const formMapper = (formState: IDefaultFormEntity): IFormWrapper<IDefault
   },
 });
 
-export const listMapper = (listEntity: IListEntity) => ({
-  list: {
-    ...listEntity,
-  },
-});
-
 export const filterMapper = (filterState: IQueryFilterEntity) => ({
   filter: {
     ...filterState,
@@ -57,12 +48,6 @@ export const filterMapper = (filterState: IQueryFilterEntity) => ({
 export const filterFormMapper = (formState: IDefaultFormEntity) => ({
   filterForm: {
     ...formState,
-  },
-});
-
-export const userMapper = (state: IDefaultApplicationState): IUserWrapperEntity => ({
-  user: {
-    ...state.user,
   },
 });
 
@@ -78,20 +63,11 @@ export const channelMapper = (state: IDefaultApplicationState): IChannelWrapperE
   },
 });
 
-export const transportMapper = (state: IDefaultApplicationState): ITransportWrapperEntity => ({
-  transport: {
-    ...state.transport,
-  },
-});
-
 export const dictionariesMapper = (state: IDefaultApplicationState): IDictionariesWrapper<IDictionaries> => ({
   dictionaries: {
     ...state.dictionaries,
   },
 });
-
-export const listWrapperMapper = (listState: IListWrapperEntity) =>
-    listMapper(listState.list);
 
 export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
     filterMapper(filterState.filter);
@@ -100,11 +76,10 @@ export const filterFormWrapperMapper = (filterState: IApplicationFilterFormWrapp
     filterFormMapper(filterState.filterForm);
 
 export const defaultMappers = [
+  ...universalDefaultMappers,
   layoutMapper,
   rootMapper,
-  userMapper,
   notificationMapper,
-  transportMapper,
   dictionariesMapper,
   channelMapper
 ];

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Store } from 'redux';
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE } from './env';
@@ -19,6 +19,7 @@ import {
 import { IDefaultApplicationState } from './store';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
 import { addClassNameToBody } from './util';
+import { connectorFactory } from './component/connector';
 
 // Google analytics
 function gtag(...args) {
@@ -33,8 +34,10 @@ export function bootstrap(
     rootId = 'root',
     ) {
   const ready = () => {
-    const Component = connect((state: IDefaultApplicationState) => ({ ...state.application }), {})
-                                  (applicationContainer);
+    const Component = connectorFactory(
+      applicationContainer,
+      (state: IDefaultApplicationState) => ({ ...state.application })
+    );
 
     const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);
     // We must dispatch the init action necessarily before the application instantiating
