@@ -277,6 +277,14 @@ export enum LayoutBuilderFactorEnum {
 }
 
 /* @stable - 16.04.2018 */
+export const LAYOUT_BUILDER_FACTOR_TYPES = {
+  FACTOR_1: LayoutBuilderFactorEnum.FACTOR_1,
+  FACTOR_2: LayoutBuilderFactorEnum.FACTOR_2,
+  FACTOR_4: LayoutBuilderFactorEnum.FACTOR_4,
+  FACTOR_8: LayoutBuilderFactorEnum.FACTOR_8,
+};
+
+/* @stable - 16.04.2018 */
 export type LayoutBuilderElementT = JSX.Element | ILayoutBuilderConfiguration;
 
 /* @stable - 16.04.2018 */

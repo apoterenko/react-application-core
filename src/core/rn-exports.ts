@@ -7,6 +7,12 @@ export { composeReducers, filterBySection } from './store/store.support';
 export { BaseTransport } from './transport/base.transport';
 
 /* @stable - 16.04.2018 */
+export {
+  LAYOUT_BUILDER_FACTOR_TYPES,
+  LAYOUT_BUILDER_TYPES,
+} from './configurations-definitions.interface';
+
+/* @stable - 16.04.2018 */
 export { RnLayoutViewBuilder } from './component/layout/builder/rn-layout-view.builder';
 
 /* @stable - 16.04.2018 */
