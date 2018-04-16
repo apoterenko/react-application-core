@@ -14,6 +14,7 @@ export {
 
 /* @stable - 16.04.2018 */
 export { RnLayoutViewBuilder } from './component/layout/builder/rn-layout-view.builder';
+export { RnLayoutBuilder } from './component/layout/builder/rn-layout.builder';
 
 /* @stable - 16.04.2018 */
 export * from './component/connector/universal-connector.mapper';
