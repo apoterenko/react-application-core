@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Store } from 'redux';
+import * as R from 'ramda';
 
 import { DI_TYPES, staticInjector } from '../../di';
 import {
@@ -39,6 +40,17 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity, TS
     super(props);
     this.sectionName = props.sectionName || sectionName;
     this.navigateToBack = this.navigateToBack.bind(this);
+  }
+
+  /**
+   * @stable - 16.04.2018
+   * @param {TProps} props
+   * @param {Readonly<TState>} nextState
+   * @param {AnyT} nextContext
+   * @returns {boolean}
+   */
+  public shouldComponentUpdate(props: TProps, nextState: Readonly<TState>, nextContext: AnyT) {
+    return !R.equals(props, this.props);
   }
 
   /**
