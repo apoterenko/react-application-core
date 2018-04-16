@@ -44,7 +44,8 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IAppli
     return (
       <Scene
         component={ctor}
-        key={routeConfiguration.key}
+        key={routeConfiguration.key || routeConfiguration.path}
+        path={routeConfiguration.path}
         title={routeConfiguration.title}
         initial={!!routeConfiguration.initial}
       />
