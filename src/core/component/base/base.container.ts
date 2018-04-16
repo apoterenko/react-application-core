@@ -5,7 +5,6 @@ import { AnyT } from '../../definitions.interface';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
-import { IDateConverter, INumberConverter } from '../../converter';
 import { IFormDialog } from '../form';
 import { IBaseContainer } from './base.interface';
 import { IUIFactory } from '../factory';
@@ -17,8 +16,6 @@ export class BaseContainer<TInternalProps extends IContainerEntity,
     extends UniversalBaseContainer<TInternalProps, TInternalState>
     implements IBaseContainer<TInternalProps, TInternalState> {
 
-  @lazyInject(DI_TYPES.DateConverter) protected dc: IDateConverter;
-  @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 

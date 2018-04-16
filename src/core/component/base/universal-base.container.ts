@@ -24,6 +24,7 @@ import {
 } from './universal-base.interface';
 import { IApplicationSettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
+import { IDateConverter, INumberConverter } from '../../converter';
 
 export class UniversalBaseContainer<TProps extends IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>
@@ -123,5 +124,21 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity, TS
    */
   protected get t(): ApplicationTranslatorT {
     return staticInjector(DI_TYPES.Translate);
+  }
+
+  /**
+   * @stable - 16.04.2018
+   * @returns {IDateConverter}
+   */
+  protected get dc(): IDateConverter {
+    return staticInjector(DI_TYPES.DateConverter);
+  }
+
+  /**
+   * @stable - 16.04.2018
+   * @returns {INumberConverter}
+   */
+  protected get nc(): INumberConverter {
+    return staticInjector(DI_TYPES.NumberConverter);
   }
 }
