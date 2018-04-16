@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, isFn } from '../../../util';
+import { uuid } from '../../../util';
 import {
   ILayoutBuilderConfiguration,
   LayoutBuilderElementT,
@@ -92,7 +92,8 @@ export class LayoutBuilder {
     const type = itemEl.type;
     return React.PureComponent.isPrototypeOf(type)
             || React.Component.isPrototypeOf(type)
-            || isFn(item.constructor) // ReactNative
+            || item.hasOwnProperty('propTypes')       // ReactNative
+            || item.hasOwnProperty('contextTypes')    // ReactNative
       ? React.cloneElement<{}>(itemEl, { key: itemEl.props.key || this.newKey })
       : this.buildLayout(item as ILayoutBuilderConfiguration);
   }
