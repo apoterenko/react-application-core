@@ -1,9 +1,13 @@
-export * from './di';
-export { orNull, orDefault, orUndef } from './util/cond';
 export { basicConnector, connector } from './component/connector/connector.decorator';
 export { convertError } from './error/error.converter';
 export { BaseEffects } from './store/effects/base.effects';
 export { BaseTransport } from './transport/base.transport';
+
+/* @stable - 17.04.2018 */
+export * from './di';
+
+/* @stable - 17.04.2018 */
+export * from './util';
 
 /* @stable - 17.04.2018 */
 export { composeReducers, filterBySection } from './store/store.support';
