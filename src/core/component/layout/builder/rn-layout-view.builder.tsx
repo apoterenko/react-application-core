@@ -16,8 +16,7 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public buildRowView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
     return (
-      <View style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(factor)}}
-           {...props}>
+      <View style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(factor)}}>
         {children}
       </View>
     );
@@ -32,8 +31,7 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public buildColumnView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
     return (
-      <View style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(factor)}}
-           {...props}>
+      <View style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(factor)}}>
         {children}
       </View>
     );
@@ -46,7 +44,7 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public buildSeparatorView(props: IKeyValue): JSX.Element {
     return (
-      <View {...props} style={{ flex: .1 }}/>
+      <View style={{ flex: .1 }}/>
     );
   }
 
