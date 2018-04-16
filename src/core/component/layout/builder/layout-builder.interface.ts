@@ -1,19 +1,9 @@
-export enum LayoutEnum {
-  VERTICAL,
-  HORIZONTAL,
-}
+import { IKeyValue } from '../../../definitions.interface';
+import { LayoutBuilderFactorEnum } from '../../../configurations-definitions.interface';
 
-export enum LayoutFactorEnum {
-  FACTOR_1,
-  FACTOR_2,
-  FACTOR_4,
-  FACTOR_8,
-}
-
-export type LayoutElementT = JSX.Element|ILayoutConfig;
-
-export interface ILayoutConfig {
-  layout: LayoutEnum;
-  factor?: LayoutFactorEnum;
-  children: LayoutElementT[];
+/* @stable - 16.04.2018 */
+export interface ILayoutViewBuilder {
+  buildRowView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element;
+  buildColumnView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element;
+  buildSeparatorView(props: IKeyValue): JSX.Element;
 }

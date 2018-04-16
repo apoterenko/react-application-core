@@ -1,88 +1,114 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, toClassName } from '../../../util';
-import { ILayoutConfig, LayoutEnum, LayoutElementT, LayoutFactorEnum } from './layout-builder.interface';
+import { uuid } from '../../../util';
+import {
+  ILayoutBuilderConfiguration,
+  LayoutBuilderElementT,
+  LayoutBuilderFactorEnum,
+  LayoutBuilderTypeEnum,
+} from '../../../configurations-definitions.interface';
+import { LayoutViewBuilder } from './layout-view.builder';
+import { ILayoutViewBuilder } from './layout-builder.interface';
 
 export class LayoutBuilder {
 
   private index: number;
+  private layoutId = uuid();
 
-  constructor(private formId = uuid()) {  // This way React can handle the minimal DOM change.
+  /**
+   * @stable - 16.04.2018
+   * @param {ILayoutViewBuilder} layoutViewBuilder
+   */
+  constructor(private layoutViewBuilder: ILayoutViewBuilder = new LayoutViewBuilder()) {
   }
 
-  public build(layoutConfig: ILayoutConfig): JSX.Element {
+  /**
+   * @stable - 16.04.2018
+   * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @returns {JSX.Element}
+   */
+  public build(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     this.index = 0;   // React keys magic
     return this.buildLayout(layoutConfig);
   }
 
-  private buildLayout(layoutConfig: ILayoutConfig): JSX.Element {
-    if (layoutConfig.layout === LayoutEnum.HORIZONTAL) {
+  /**
+   * @stable - 16.04.2018
+   * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @returns {JSX.Element}
+   */
+  private buildLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+    if (layoutConfig.layout === LayoutBuilderTypeEnum.HORIZONTAL) {
       return this.buildHorizontalLayout(layoutConfig.children, layoutConfig.factor);
     }
     return this.buildVerticalLayout(layoutConfig.children, layoutConfig.factor);
   }
 
-  private buildHorizontalLayout(items: LayoutElementT[], factor: LayoutFactorEnum): JSX.Element {
+  /**
+   * @stable - 16.04.2018
+   * @param {LayoutBuilderElementT[]} items
+   * @param {LayoutBuilderFactorEnum} factor
+   * @returns {JSX.Element}
+   */
+  private buildHorizontalLayout(items: LayoutBuilderElementT[], factor: LayoutBuilderFactorEnum): JSX.Element {
     const children = [];
     const filteredItems = items.filter((item) => !R.isNil(item));
 
     filteredItems.forEach((item, index) => {
       children.push(this.clone(item));
       if (index < filteredItems.length - 1) {
-        children.push(<div key={uuid()} className='rac-flex-separator'/>);
+        children.push(
+          this.layoutViewBuilder.buildSeparatorView({ key: uuid() })
+        );
       }
     });
-    return (
-      <div key={this.key}
-           className={toClassName(
-             'rac-flex',
-             'rac-flex-row',
-             this.toFactoryClassName(factor)
-           )}>
-        {children}
-      </div>
+    return this.layoutViewBuilder.buildRowView(this.key, children, factor);
+  }
+
+  /**
+   * @stable - 16.04.2018
+   * @param {LayoutBuilderElementT[]} items
+   * @param {LayoutBuilderFactorEnum} factor
+   * @returns {JSX.Element}
+   */
+  private buildVerticalLayout(items: LayoutBuilderElementT[], factor: LayoutBuilderFactorEnum): JSX.Element {
+    return this.layoutViewBuilder.buildColumnView(
+      this.key,
+      items
+        .filter((item) => !R.isNil(item))
+        .map((item): JSX.Element => this.clone(item)),
+      factor
     );
   }
 
-  private buildVerticalLayout(items: LayoutElementT[], factor: LayoutFactorEnum): JSX.Element {
-    return (
-      <div key={this.key}
-           className={toClassName(
-             'rac-flex',
-             'rac-flex-column',
-             this.toFactoryClassName(factor)
-           )}>
-        {items
-          .filter((item) => !R.isNil(item))
-          .map((item) => this.clone(item))}
-      </div>
-    );
+  /**
+   * @stable - 16.04.2018
+   * @param {LayoutBuilderElementT} item
+   * @returns {JSX.Element}
+   */
+  private clone(item: LayoutBuilderElementT): JSX.Element {
+    const itemEl = item as JSX.Element;
+    const type = itemEl.type;
+
+    return React.PureComponent.isPrototypeOf(type) || React.Component.isPrototypeOf(type)
+      ? React.cloneElement<{}>(itemEl, { key: itemEl.props.key || this.newKey })
+      : this.buildLayout(item as ILayoutBuilderConfiguration);
   }
 
-  private clone(item: LayoutElementT): LayoutElementT {
-    const itemAsElement = item as JSX.Element;
-    const type = itemAsElement.type;
-
-    return React.Component.isPrototypeOf(type)
-      ? React.cloneElement<{}>(itemAsElement, { key: itemAsElement.props.name || uuid() })
-      : this.buildLayout(item as ILayoutConfig);
+  /**
+   * @stable - 16.04.2018
+   * @returns {{key: string}}
+   */
+  private get key(): { key: string } {
+    return { key: this.newKey };
   }
 
-  private get key(): string {
-    return `${this.formId}-${this.index++}`;
-  }
-
-  private toFactoryClassName(factor: LayoutFactorEnum): string {
-    switch (factor) {
-      case LayoutFactorEnum.FACTOR_2:
-        return 'rac-flex-full-x2';
-      case LayoutFactorEnum.FACTOR_4:
-        return 'rac-flex-full-x4';
-      case LayoutFactorEnum.FACTOR_8:
-        return 'rac-flex-full-x8';
-      default:
-        return 'rac-flex-full';
-    }
+  /**
+   * @stable - 16.04.2018
+   * @returns {string}
+   */
+  private get newKey(): string {
+    return `${this.layoutId}-${this.index++}`;
   }
 }

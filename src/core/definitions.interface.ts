@@ -1356,6 +1356,16 @@ export interface IPasswordWrapper<TPassword> {
 export interface IStringPasswordWrapper extends IPasswordWrapper<string> {
 }
 
+/* @stable - 16.04.2018 */
+export interface IFactorWrapper<TFactor> {
+  factor?: TFactor;
+}
+
+/* @stable - 16.04.2018 */
+export interface IChildrenWrapper<TChildren> {
+  children?: TChildren;
+}
+
 /* @stable - 15.04.2018 */
 export interface IInfoWrapper<TInfo> {
   info?: TInfo;

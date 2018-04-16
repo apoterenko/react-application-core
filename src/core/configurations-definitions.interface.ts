@@ -64,6 +64,9 @@ import {
   ICallbackWrapper,
   IBooleanInitialWrapper,
   IHideNavBarWrapper,
+  IChildrenWrapper,
+  ILayoutWrapper,
+  IFactorWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -251,4 +254,33 @@ export interface IConnectorConfiguration<TAppState, TApplicationAccessConfig>
 
 /* @stable - 14.04.2018 */
 export interface IDefaultConnectorConfiguration extends IConnectorConfiguration<{}, {}> {
+}
+
+/* @stable - 16.04.2018 */
+export enum LayoutBuilderTypeEnum {
+  VERTICAL,
+  HORIZONTAL,
+}
+
+/* @stable - 16.04.2018 */
+export const LAYOUT_BUILDER_TYPES = {
+  VERTICAL: LayoutBuilderTypeEnum.VERTICAL,
+  HORIZONTAL: LayoutBuilderTypeEnum.HORIZONTAL,
+};
+
+/* @stable - 16.04.2018 */
+export enum LayoutBuilderFactorEnum {
+  FACTOR_1,
+  FACTOR_2,
+  FACTOR_4,
+  FACTOR_8,
+}
+
+/* @stable - 16.04.2018 */
+export type LayoutBuilderElementT = JSX.Element | ILayoutBuilderConfiguration;
+
+/* @stable - 16.04.2018 */
+export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilderTypeEnum>,
+                                                     IChildrenWrapper<LayoutBuilderElementT[]>,
+                                                     IFactorWrapper<LayoutBuilderFactorEnum> {
 }
