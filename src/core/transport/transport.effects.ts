@@ -12,7 +12,7 @@ import {
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
 } from './transport-reducer.interface';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
-import { RouterActionBuilder } from '../router';
+import { RouterActionBuilder } from '../router/router-action.builder';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
 
 @provideInSingleton(TransportEffects)

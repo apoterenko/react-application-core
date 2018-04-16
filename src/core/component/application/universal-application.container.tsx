@@ -38,6 +38,12 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
   }
 
   protected lookupConnectedContainerByRoutePath(path: string): IContainerClassEntity {
+    if (!path) {
+      UniversalApplicationContainer.logger.debug(
+        '[$UniversalApplicationContainer][lookupConnectedContainerByRoutePath] The path is empty.'
+      );
+      return null;
+    }
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
       const routeConfiguration = toRouteConfiguration(config.routeConfiguration, this.routes);
