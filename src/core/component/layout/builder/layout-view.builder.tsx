@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import { toClassName, isFn } from '../../../util';
 import { IKeyValue } from '../../../definitions.interface';
-import { LayoutBuilderFactorEnum } from '../../../configurations-definitions.interface';
+import { LayoutBuilderFactorEnum, LayoutBuilderElementT } from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
 
 export class LayoutViewBuilder implements ILayoutViewBuilder {
@@ -56,6 +56,26 @@ export class LayoutViewBuilder implements ILayoutViewBuilder {
     return (
       <div {...props} className='rac-flex-separator'/>
     );
+  }
+
+  /**
+   * @stable - 19.04.2018
+   * @param {LayoutBuilderElementT} item
+   * @returns {boolean}
+   */
+  public isReactElement(item: LayoutBuilderElementT): boolean {
+    const itemEl = item as JSX.Element;
+    return isFn(itemEl.type);
+  }
+
+  /**
+   * @stable - 19.04.2018
+   * @param {LayoutBuilderElementT} item
+   * @param {TProps} props
+   * @returns {TProps}
+   */
+  public toClonedElementProps<TProps>(item: LayoutBuilderElementT, props: TProps): TProps {
+    return props;
   }
 
   /**

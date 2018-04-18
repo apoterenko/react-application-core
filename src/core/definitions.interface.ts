@@ -20,6 +20,7 @@ export enum SortDirectionEnum {
  * Core fields
  */
 export const ID_FIELD_NAME = 'id';
+export const KEY_FIELD_NAME = 'key';
 export const TYPE_FIELD_NAME = 'type';
 export const BODY_FIELD_NAME = 'body';
 export const AUTH_FIELD_NAME = 'auth';

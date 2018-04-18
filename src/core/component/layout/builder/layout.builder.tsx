@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, isDef } from '../../../util';
+import { uuid } from '../../../util';
 import {
   ILayoutBuilderConfiguration,
   LayoutBuilderElementT,
@@ -91,8 +91,11 @@ export class LayoutBuilder {
     const itemEl = item as JSX.Element;
     const itemCfg = item as ILayoutBuilderConfiguration;
 
-    return !isDef(itemCfg.children)
-      ? React.cloneElement<{}>(itemEl, { key: itemEl.props.key || this.newKey })
+    return this.layoutViewBuilder.isReactElement(item)
+      ? React.cloneElement<React.ClassAttributes<{}>>(
+          itemEl,
+          this.layoutViewBuilder.toClonedElementProps<React.ClassAttributes<{}>>(item, { key: itemEl.props.key || this.newKey })
+        )
       : this.buildLayout(itemCfg);
   }
 
