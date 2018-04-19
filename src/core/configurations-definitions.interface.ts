@@ -79,7 +79,12 @@ import {
   IIconStyleWrapper,
   IRoundedWrapper,
   IStringTextWrapper,
-  ITextStyleWrapper
+  ITextStyleWrapper,
+  IAccentWrapper,
+  IEventOnClickWrapper,
+  IRaisedWrapper,
+  IStringToWrapper,
+  IOnEnterWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -193,6 +198,13 @@ export interface IUniversalButtonConfiguration extends IStringTextWrapper,
 
 /* @stable - 07.04.2018 */
 export interface IButtonConfiguration extends IUniversalButtonConfiguration,
+                                              IAccentWrapper,
+                                              IStringToWrapper,
+                                              IRaisedWrapper,
+                                              IClassNameWrapper,
+                                              IEventOnClickWrapper,
+                                              INotUseClassNameWrapper,
+                                              IStringTitleWrapper,
                                               ISimpleWrapper,
                                               IStringTypeWrapper {
 }
@@ -260,6 +272,7 @@ export interface IRouteConfiguration extends IStringPathWrapper,
                                              IBooleanInitialWrapper,
                                              IExactWrapper,
                                              IStringKeyWrapper,
+                                             IOnEnterWrapper<() => void>,
                                              IAfterEnterWrapper<() => void>,
                                              IBeforeEnterWrapper<() => void>,
                                              IComputedMatchWrapper<IRouteComputedMatchConfiguration>,

@@ -61,7 +61,6 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
 
   private onMenuActionClick(option: IAnyMenuActionEntity): void {
     const props = this.props;
-
     if (props.onClick) {
       props.onClick(option);
     }

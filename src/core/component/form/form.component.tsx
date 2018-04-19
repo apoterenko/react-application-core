@@ -116,9 +116,8 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
                               <Button type='reset'
                                       icon='clear_all'
                                       raised={true}
-                                      disabled={!this.isFormDirty}>
-                                {this.t(props.resetText || 'Reset')}
-                              </Button>
+                                      disabled={!this.isFormDirty}
+                                      text={props.resetText || 'Reset'}/>
                           )
                       )}
                       <Button type='submit'
@@ -129,9 +128,8 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
                               raised={true}
                               disabled={!this.canSubmit}
                               progress={this.form.progress}
-                              error={!R.isNil(this.form.error)}>
-                        {this.t(props.actionText || (this.newEntity ? 'Create' : 'Save'))}
-                      </Button>
+                              error={!R.isNil(this.form.error)}
+                              text={props.actionText || (this.newEntity ? 'Create' : 'Save')}/>
                     </section>
                 )
             )

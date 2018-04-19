@@ -695,6 +695,16 @@ export interface IReadyWrapper {
   ready?: boolean;
 }
 
+/* @stable - 20.04.2018 */
+export interface IAccentWrapper {
+  accent?: boolean;
+}
+
+/* @stable - 20.04.2018 */
+export interface IRaisedWrapper {
+  raised?: boolean;
+}
+
 /* @stable - 31.03.2018 */
 export interface ITotalCountWrapper {
   totalCount?: number;
@@ -1383,6 +1393,11 @@ export interface IBeforeEnterWrapper<TBeforeEnter> {
   beforeEnter?: TBeforeEnter;
 }
 
+/* @stable - 20.04.2018 */
+export interface IOnEnterWrapper<TOnEnter> {
+  onEnter?: TOnEnter;
+}
+
 /* @stable - 14.04.2018 */
 export interface IAfterEnterWrapper<TAfterEnter> {
   afterEnter?: TAfterEnter;
@@ -1473,6 +1488,15 @@ export interface INotificationWrapper<TNotification> {
   notification?: TNotification;
 }
 
+/* @stable - 20.04.2018 */
+export interface IToWrapper<TTo> {
+  to?: TTo;
+}
+
+/* @stable - 20.04.2018 */
+export interface IStringToWrapper extends IToWrapper<string> {
+}
+
 export interface IDisplayValueWrapper<TDisplay> {
   displayValue?: TDisplay;
 }
@@ -1482,10 +1506,6 @@ export const IMAGE_FIELD_NAME = 'image';
 export const LOGIN_FIELD_NAME = 'login';
 
 export const PROGRESS_FIELD_NAME = 'progress';
-
-export interface IToWrapper {
-  to?: string;
-}
 
 export interface IStepable {
   step?: number;
