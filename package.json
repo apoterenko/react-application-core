@@ -61,6 +61,7 @@
     "material-ui": "^0.19.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.14",
+    "native-base": "^2.4.2",
     "node-sass": "^4.8.3",
     "normalize.css": "^8.0.0",
     "offset": "0.0.1",
