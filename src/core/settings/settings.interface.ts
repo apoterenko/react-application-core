@@ -38,6 +38,8 @@ export interface IApplicationMessagesSettings {
   accessDeniedMessage?: string;
   sorryMessage?: string;
   waitMessage?: string;
+  waitingMessage?: string;
+  defaultErrorMessage?: string;
   dndMessage?: string;
   errorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
@@ -90,6 +92,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     accessDeniedMessage: 'The access is restricted for you.',
     sorryMessage: 'Sorry about that.',
     waitMessage: 'Please wait...',
+    waitingMessage: 'Waiting...',
+    defaultErrorMessage: 'Error',
     dndMessage: 'Try dropping some file(s) here, or click to select file(s) to upload.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     noAvailableItemsToSelectMessage: 'No available items to select.',

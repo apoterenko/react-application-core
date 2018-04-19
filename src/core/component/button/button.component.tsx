@@ -1,30 +1,30 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../../component/base';
-import { toClassName } from '../../util';
+import { toClassName, orNull } from '../../util';
 import {
   IButtonInternalProps,
 } from './button.interface';
 import { Link } from '../../component/link';
+import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
 
 export class Button extends BaseComponent<Button, IButtonInternalProps, {}> {
+
   public static defaultProps: IButtonInternalProps = {
     type: 'button',
   };
 
   public render(): JSX.Element {
     const props = this.props;
-    const statusText = props.progress
-        ? this.t(props.progressMessage || 'Waiting...')
-        : (props.error
-            ? (props.errorMessage || this.t('Error'))
-            : null);
+    const buttonText = getButtonText(props, this.applicationSettings.messages);
+
     const className = toClassName(
         !props.notUseClassName && this.uiFactory.button,
         'rac-button',
         props.accent && 'mdc-button--accent',
         props.raised && 'mdc-button--raised',
-        props.className);
+        props.className
+    );
 
     if (props.to) {
       return (
@@ -39,13 +39,10 @@ export class Button extends BaseComponent<Button, IButtonInternalProps, {}> {
                 title={props.title}
                 onClick={props.onClick}
                 className={className}
-                disabled={props.disabled || props.progress}>
-          {
-            this.uiFactory.makeIcon(props.progress
-                ? 'timelapse'
-                : (props.error ? 'error' : props.icon))
-          }
-          {statusText || props.children}
+                disabled={isButtonDisabled(props)}>
+          {this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))}
+          {orNull(buttonText, () => this.t(buttonText))}
+          {props.children}
         </button>
     );
   }

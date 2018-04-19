@@ -6,7 +6,7 @@ import { IUIFactory, UIIconConfigT } from '../../factory';
 import { Button } from '../../button';
 import { IStringTypeWrapper, IClassNameWrapper } from '../../../definitions.interface';
 import { IButtonConfiguration } from '../../../configurations-definitions.interface';
-import { IButtonEntity } from '../../../entities-definitions.interface';
+import { IUniversalButtonEntity } from '../../../entities-definitions.interface';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {

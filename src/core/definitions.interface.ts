@@ -582,6 +582,16 @@ export interface IDisabledWrapper {
   disabled?: boolean;
 }
 
+/* @stable - 19.04.2018 */
+export interface IBorderedWrapper {
+  bordered?: boolean;
+}
+
+/* @stable - 19.04.2018 */
+export interface IRoundedWrapper {
+  rounded?: boolean;
+}
+
 /* @stable - 31.03.2018 */
 export interface IAlwaysDirtyWrapper {
   alwaysDirty?: boolean;
@@ -1122,9 +1132,82 @@ export interface IRippableWrapper {
   rippable?: boolean;
 }
 
+/* @stable - 19.04.2018 */
+export interface ITextWrapper<TText> {
+  text?: TText;
+}
+
+/* @stable - 19.04.2018 */
+export interface IStringTextWrapper extends ITextWrapper<string> {
+}
+
+/* @stable - 19.04.2018 */
+export interface ITransparentWrapper<TTransparent> {
+  transparent?: TTransparent;
+}
+
+/* @stable - 19.04.2018 */
+export interface IBooleanTransparentWrapper extends ITransparentWrapper<boolean> {
+}
+
+/* @stable - 19.04.2018 */
+export interface IIconLeftWrapper<TIconLeft> {
+  iconLeft?: TIconLeft;
+}
+
+/* @stable - 19.04.2018 */
+export interface IBooleanIconLeftWrapper extends IIconLeftWrapper<boolean> {
+}
+
+/* @stable - 19.04.2018 */
+export interface ISuccessWrapper<TSuccess> {
+  success?: TSuccess;
+}
+
+/* @stable - 19.04.2018 */
+export interface IBooleanSuccessWrapper extends ISuccessWrapper<boolean> {
+}
+
+/* @stable - 19.04.2018 */
+export interface IBlockWrapper<TBlock> {
+  block?: TBlock;
+}
+
+/* @stable - 19.04.2018 */
+export interface IBooleanBlockWrapper extends IBlockWrapper<boolean> {
+}
+
+/* @stable - 19.04.2018 */
+export interface ISmallWrapper<TSmall> {
+  small?: TSmall;
+}
+
+/* @stable - 19.04.2018 */
+export interface IBooleanSmallWrapper extends ISmallWrapper<boolean> {
+}
+
+/* @stable - 19.04.2018 */
+export interface ILargeWrapper<TLarge> {
+  large?: TLarge;
+}
+
+/* @stable - 19.04.2018 */
+export interface IBooleanLargeWrapper extends ILargeWrapper<boolean> {
+}
+
 /* @stable - 04.04.2018 */
 export interface IStyleWrapper<TStyle> {
   style?: TStyle;
+}
+
+/* @stable - 19.04.2018 */
+export interface ITextStyleWrapper<TTextStyle> {
+  textStyle?: TTextStyle;
+}
+
+/* @stable - 19.04.2018 */
+export interface IIconStyleWrapper<TIconStyle> {
+  iconStyle?: TIconStyle;
 }
 
 /* @stable - 04.04.2018 */
@@ -1157,6 +1240,15 @@ export interface ISubmitWrapper<TSubmit> {
 
 /* @stable - 31.03.2018 */
 export interface IDefaultSubmitWrapper extends ISubmitWrapper<() => void> {
+}
+
+/* @stable - 19.04.2018 */
+export interface IOnPressWrapper<TOnPress> {
+  onPress?: TOnPress;
+}
+
+/* @stable - 19.04.2018 */
+export interface IDefaultOnPressWrapper extends IOnPressWrapper<() => void> {
 }
 
 /* @stable - 31.03.2018 */
