@@ -22,7 +22,12 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
   public buildRowView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return (
       <View {...props}
-            style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(layoutConfig.factor)}}>
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              flex: this.toFactorStyle(layoutConfig.factor),
+              ...layoutConfig.style,
+            }}>
         {children}
       </View>
     );
@@ -38,7 +43,12 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
   public buildColumnView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return (
       <View {...props}
-            style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(layoutConfig.factor)}}>
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              flex: this.toFactorStyle(layoutConfig.factor),
+              ...layoutConfig.style,
+            }}>
         {children}
       </View>
     );
