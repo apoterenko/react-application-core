@@ -20,7 +20,7 @@ export class RnButton extends UniversalBaseComponent<RnButton, IRnButtonProps> {
   public render(): JSX.Element {
     const props = this.props;
     const buttonText = getButtonText(props, this.settings.messages);
-    const icon = getButtonIcon(props, 'timelapse', 'error');
+    const icon = getButtonIcon(props, 'time', 'information-circle');
 
     return (
       <Button rounded={props.rounded}
