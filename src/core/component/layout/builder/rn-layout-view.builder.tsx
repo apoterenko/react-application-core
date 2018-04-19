@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { isDef } from '../../../util';
+import { isDef, isFn } from '../../../util';
 import { IKeyValue, AnyT } from '../../../definitions.interface';
 import { LayoutBuilderFactorEnum, LayoutBuilderElementT } from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
@@ -58,7 +58,7 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public isReactElement(item: LayoutBuilderElementT): boolean {
     const itemEl = this.toReactElementType(item);
-    return itemEl.type && isDef(itemEl.type.displayName);
+    return (itemEl.type && isDef(itemEl.type.displayName)) || isFn(itemEl.type);
   }
 
   /**
