@@ -67,6 +67,19 @@ import {
   IChildrenWrapper,
   ILayoutWrapper,
   IFactorWrapper,
+  IStyleWrapper,
+  IDefaultOnPressWrapper,
+  IBooleanBlockWrapper,
+  IBooleanIconLeftWrapper,
+  IBooleanLargeWrapper,
+  IBooleanSmallWrapper,
+  IBooleanSuccessWrapper,
+  IBooleanTransparentWrapper,
+  IBorderedWrapper,
+  IIconStyleWrapper,
+  IRoundedWrapper,
+  IStringTextWrapper,
+  ITextStyleWrapper
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -173,10 +186,31 @@ export interface ITabConfiguration extends INumberValueWrapper,
 export interface ITabPanelConfiguration extends IItemsWrapper<ITabConfiguration[]> {
 }
 
+/* @stable - 19.04.2018 */
+export interface IUniversalButtonConfiguration extends IStringTextWrapper,
+                                                       IStringIconWrapper {
+}
+
 /* @stable - 07.04.2018 */
-export interface IButtonConfiguration extends ISimpleWrapper,
-                                              IStringTypeWrapper,
-                                              IDisabledWrapper {
+export interface IButtonConfiguration extends IUniversalButtonConfiguration,
+                                              ISimpleWrapper,
+                                              IStringTypeWrapper {
+}
+
+/* @stable - 19.04.2018 */
+export interface IRnButtonConfiguration extends IUniversalButtonConfiguration,
+                                                IBorderedWrapper,
+                                                IRoundedWrapper,
+                                                IBooleanSuccessWrapper,
+                                                IBooleanBlockWrapper,
+                                                IBooleanSmallWrapper,
+                                                IBooleanLargeWrapper,
+                                                IBooleanIconLeftWrapper,
+                                                IBooleanTransparentWrapper,
+                                                IIconStyleWrapper<IKeyValue>,
+                                                ITextStyleWrapper<IKeyValue>,
+                                                IStyleWrapper<IKeyValue>,
+                                                IDefaultOnPressWrapper {
 }
 
 /* @stable - 11.04.2018 */
@@ -289,6 +323,7 @@ export type LayoutBuilderElementT = JSX.Element | ILayoutBuilderConfiguration;
 
 /* @stable - 16.04.2018 */
 export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilderTypeEnum>,
+                                                     IStyleWrapper<IKeyValue>,
                                                      IChildrenWrapper<LayoutBuilderElementT[]>,
                                                      IFactorWrapper<LayoutBuilderFactorEnum> {
 }

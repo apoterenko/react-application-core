@@ -102,6 +102,7 @@ import {
   IHtmlElementSelfWrapper,
   IStateWrapper,
   IPathWrapper,
+  IDisabledWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -307,10 +308,12 @@ export interface IGridRowEntity extends IBooleanSelectedWrapper,
 export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfiguration) => void> {
 }
 
-/* @stable - 08.04.2018 */
-export interface IButtonEntity extends IStringProgressMessageWrapper,
-                                       IStringErrorMessageWrapper,
-                                       IProgressWrapper {
+/* @stable - 19.04.2018 */
+export interface IUniversalButtonEntity extends IProgressWrapper,
+                                                IDisabledWrapper,
+                                                IStringProgressMessageWrapper,
+                                                IStringErrorMessageWrapper,
+                                                IBooleanErrorEntity {
 }
 
 /* @stable - 08.04.2018 */
@@ -353,6 +356,10 @@ export interface IKeyboardHandlersEntity {
 /* @stable - 11.04.2018 */
 export interface IFieldEntity extends IKeyboardHandlersEntity,
                                       IStringMessageWrapper {
+}
+
+/* @stable - 19.04.2018 */
+export interface IUniversalComponentEntity {
 }
 
 /* @stable - 12.04.2018 */
