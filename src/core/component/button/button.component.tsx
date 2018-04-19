@@ -2,18 +2,20 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../component/base';
 import { toClassName, orNull } from '../../util';
-import {
-  IButtonInternalProps,
-} from './button.interface';
+import { IButtonProps } from './button.interface';
 import { Link } from '../../component/link';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
 
-export class Button extends BaseComponent<Button, IButtonInternalProps, {}> {
+export class Button extends BaseComponent<Button, IButtonProps, {}> {
 
-  public static defaultProps: IButtonInternalProps = {
+  public static defaultProps: IButtonProps = {
     type: 'button',
   };
 
+  /**
+   * @stable - 20.04.2018
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
     const buttonText = getButtonText(props, this.applicationSettings.messages);
@@ -40,7 +42,9 @@ export class Button extends BaseComponent<Button, IButtonInternalProps, {}> {
                 onClick={props.onClick}
                 className={className}
                 disabled={isButtonDisabled(props)}>
-          {this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))}
+          {
+            this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))
+          }
           {orNull(buttonText, () => this.t(buttonText))}
           {props.children}
         </button>
