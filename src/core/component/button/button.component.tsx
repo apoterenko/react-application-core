@@ -32,7 +32,7 @@ export class Button extends BaseComponent<Button, IButtonProps, {}> {
       return (
           <Link to={props.to}
                 className={className}>
-            {props.children}
+            {buttonText}
           </Link>
       );
     }
