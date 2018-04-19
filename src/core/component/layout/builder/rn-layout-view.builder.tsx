@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { isDef, excludeKeyFieldFilter } from '../../../util';
+import { isDef } from '../../../util';
 import { IKeyValue, AnyT } from '../../../definitions.interface';
 import { LayoutBuilderFactorEnum, LayoutBuilderElementT } from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
@@ -17,7 +17,8 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public buildRowView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
     return (
-      <View style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(factor)}}>
+      <View {...props}
+            style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(factor)}}>
         {children}
       </View>
     );
@@ -32,7 +33,8 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public buildColumnView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
     return (
-      <View style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(factor)}}>
+      <View {...props}
+            style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(factor)}}>
         {children}
       </View>
     );
@@ -45,7 +47,7 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public buildSeparatorView(props: IKeyValue): JSX.Element {
     return (
-      <View style={{ flex: .1 }}/>
+      <View {...props} style={{ flex: .1 }}/>
     );
   }
 
@@ -67,10 +69,7 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public toClonedElementProps(item: LayoutBuilderElementT, props: { style?: IKeyValue }): AnyT {
     const itemEl = this.toReactElementType(item);
-    const props0  = {...props, style: { flex: 1, ...props.style }};
-    return itemEl.type && itemEl.type.displayName === 'View'
-      ? excludeKeyFieldFilter<{ style?: IKeyValue }, { style?: IKeyValue }>(props0)
-      : props0;
+    return {...props, style: { flex: 1, ...itemEl.props.style }};
   }
 
   /**
@@ -78,8 +77,8 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    * @param {LayoutBuilderElementT} item
    * @returns {{type: {displayName?: string}}}
    */
-  private toReactElementType(item: LayoutBuilderElementT): { type: { displayName?: string } } {
-    return item as { type: { displayName?: string } };
+  private toReactElementType(item: LayoutBuilderElementT): { type: { displayName?: string }, props?: IKeyValue } {
+    return item as { type: { displayName?: string }, props?: IKeyValue };
   }
 
   /**
