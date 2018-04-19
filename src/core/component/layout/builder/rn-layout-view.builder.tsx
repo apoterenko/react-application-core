@@ -3,7 +3,11 @@ import { View } from 'react-native';
 
 import { isDef, isFn } from '../../../util';
 import { IKeyValue, AnyT } from '../../../definitions.interface';
-import { LayoutBuilderFactorEnum, LayoutBuilderElementT } from '../../../configurations-definitions.interface';
+import {
+  LayoutBuilderFactorEnum,
+  LayoutBuilderElementT,
+  ILayoutBuilderConfiguration,
+} from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
 
 export class RnLayoutViewBuilder implements ILayoutViewBuilder {
@@ -12,29 +16,29 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    * @stable - 16.04.2018
    * @param {IKeyValue} props
    * @param {JSX.Element[]} children
-   * @param {LayoutBuilderFactorEnum} factor
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  public buildRowView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
+  public buildRowView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return (
       <View {...props}
-            style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(factor)}}>
+            style={{display: 'flex', flexDirection: 'row', flex: this.toFactorStyle(layoutConfig.factor)}}>
         {children}
       </View>
     );
   }
 
   /**
-   * @stable - 16.04.2018
+   * @stable - 19.04.2018
    * @param {IKeyValue} props
    * @param {JSX.Element[]} children
-   * @param {LayoutBuilderFactorEnum} factor
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  public buildColumnView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
+  public buildColumnView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return (
       <View {...props}
-            style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(factor)}}>
+            style={{display: 'flex', flexDirection: 'column', flex: this.toFactorStyle(layoutConfig.factor)}}>
         {children}
       </View>
     );

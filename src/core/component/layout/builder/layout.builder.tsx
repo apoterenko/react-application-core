@@ -5,7 +5,6 @@ import { uuid } from '../../../util';
 import {
   ILayoutBuilderConfiguration,
   LayoutBuilderElementT,
-  LayoutBuilderFactorEnum,
   LayoutBuilderTypeEnum,
 } from '../../../configurations-definitions.interface';
 import { LayoutViewBuilder } from './layout-view.builder';
@@ -40,20 +39,19 @@ export class LayoutBuilder {
    */
   private buildLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     if (layoutConfig.layout === LayoutBuilderTypeEnum.HORIZONTAL) {
-      return this.buildHorizontalLayout(layoutConfig.children, layoutConfig.factor);
+      return this.buildHorizontalLayout(layoutConfig);
     }
-    return this.buildVerticalLayout(layoutConfig.children, layoutConfig.factor);
+    return this.buildVerticalLayout(layoutConfig);
   }
 
   /**
-   * @stable - 16.04.2018
-   * @param {LayoutBuilderElementT[]} items
-   * @param {LayoutBuilderFactorEnum} factor
+   * @stable - 19.04.2018
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  private buildHorizontalLayout(items: LayoutBuilderElementT[], factor: LayoutBuilderFactorEnum): JSX.Element {
+  private buildHorizontalLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     const children = [];
-    const filteredItems = items.filter((item) => !R.isNil(item));
+    const filteredItems = layoutConfig.children.filter((item) => !R.isNil(item));
 
     filteredItems.forEach((item, index) => {
       children.push(this.clone(item));
@@ -63,22 +61,21 @@ export class LayoutBuilder {
         );
       }
     });
-    return this.layoutViewBuilder.buildRowView(this.key, children, factor);
+    return this.layoutViewBuilder.buildRowView(this.key, children, layoutConfig);
   }
 
   /**
-   * @stable - 16.04.2018
-   * @param {LayoutBuilderElementT[]} items
-   * @param {LayoutBuilderFactorEnum} factor
+   * @stable - 19.04.2018
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  private buildVerticalLayout(items: LayoutBuilderElementT[], factor: LayoutBuilderFactorEnum): JSX.Element {
+  private buildVerticalLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return this.layoutViewBuilder.buildColumnView(
       this.key,
-      items
+      layoutConfig.children
         .filter((item) => !R.isNil(item))
         .map((item): JSX.Element => this.clone(item)),
-      factor
+      layoutConfig
     );
   }
 
@@ -94,7 +91,9 @@ export class LayoutBuilder {
     return this.layoutViewBuilder.isReactElement(item)
       ? React.cloneElement<React.ClassAttributes<{}>>(
           itemEl,
-          this.layoutViewBuilder.toClonedElementProps<React.ClassAttributes<{}>>(item, { key: itemEl.props.key || this.newKey })
+          this.layoutViewBuilder.toClonedElementProps<React.ClassAttributes<{}>>(item, {
+            key: itemEl.props.key || this.newKey,
+          })
         )
       : this.buildLayout(itemCfg);
   }

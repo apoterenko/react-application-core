@@ -2,24 +2,30 @@ import * as React from 'react';
 
 import { toClassName, isFn } from '../../../util';
 import { IKeyValue } from '../../../definitions.interface';
-import { LayoutBuilderFactorEnum, LayoutBuilderElementT } from '../../../configurations-definitions.interface';
+import {
+  LayoutBuilderFactorEnum,
+  LayoutBuilderElementT,
+  ILayoutBuilderConfiguration,
+} from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
 
 export class LayoutViewBuilder implements ILayoutViewBuilder {
 
   /**
-   * @stable - 16.04.2018
+   * @stable - 19.04.2018
    * @param {IKeyValue} props
    * @param {JSX.Element[]} children
-   * @param {LayoutBuilderFactorEnum} factor
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  public buildRowView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
+  public buildRowView(props: IKeyValue,
+                      children: JSX.Element[],
+                      layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return (
       <div className={toClassName(
              'rac-flex',
              'rac-flex-row',
-             this.toFactorClassName(factor)
+             this.toFactorClassName(layoutConfig.factor)
            )}
            {...props}>
         {children}
@@ -28,18 +34,20 @@ export class LayoutViewBuilder implements ILayoutViewBuilder {
   }
 
   /**
-   * @stable - 16.04.2018
+   * @stable - 19.04.2018
    * @param {IKeyValue} props
    * @param {JSX.Element[]} children
-   * @param {LayoutBuilderFactorEnum} factor
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  public buildColumnView(props: IKeyValue, children: JSX.Element[], factor: LayoutBuilderFactorEnum): JSX.Element {
+  public buildColumnView(props: IKeyValue,
+                         children: JSX.Element[],
+                         layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     return (
       <div className={toClassName(
               'rac-flex',
               'rac-flex-column',
-              this.toFactorClassName(factor)
+              this.toFactorClassName(layoutConfig.factor)
            )}
            {...props}>
         {children}
