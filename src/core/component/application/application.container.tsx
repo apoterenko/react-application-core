@@ -140,7 +140,7 @@ export class ApplicationContainer<TAppState extends IDefaultApplicationState>
       ...routeConfiguration,
     };
     return (
-      <Component key={uuid()}
+      <Component key={routeConfiguration.path || routeConfiguration.key}
                  container={ctor}
                  {...props}/>
     );

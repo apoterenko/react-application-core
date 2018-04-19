@@ -12,10 +12,8 @@ import {
 } from '../../entities-definitions.interface';
 import { toRouteConfiguration } from '../../router/router.support';
 import { UniversalBaseContainer } from '../../component/base/universal-base.container';
-import {
-  APPLICATION_LOGOUT_ACTION_TYPE,
-  APPLICATION_SECTION,
-} from './application.interface';
+import { APPLICATION_SECTION } from './application.interface';
+import { ApplicationActionBuilder } from './application-action.builder';
 
 export abstract class UniversalApplicationContainer<TProps extends IUniversalContainerEntity>
   extends UniversalBaseContainer<TProps> {
@@ -30,16 +28,12 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
   }
 
   protected getRoutes(): JSX.Element[] {
-    return this.buildAllRoutes();
-  }
-
-  protected buildAllRoutes(): JSX.Element[] {
     return this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
   }
 
   protected lookupConnectedContainerByRoutePath(path: string): IContainerClassEntity {
     if (!path) {
-      UniversalApplicationContainer.logger.debug(
+      UniversalApplicationContainer.logger.warn(
         '[$UniversalApplicationContainer][lookupConnectedContainerByRoutePath] The path is empty.'
       );
       return null;
@@ -47,10 +41,15 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
       const routeConfiguration = toRouteConfiguration(config.routeConfiguration, this.routes);
-      if (routeConfiguration && (routeConfiguration.path === path || routeConfiguration.key === path)) {
+      if (routeConfiguration && [routeConfiguration.path, routeConfiguration.key].includes(path)) {
         result = ctor;
       }
     });
+    if (!result) {
+      UniversalApplicationContainer.logger.warn(
+        `[$UniversalApplicationContainer][lookupConnectedContainerByRoutePath] A component is not found by the path: ${path}.`
+      );
+    }
     return result;
   }
 
@@ -71,15 +70,24 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
           routeConfiguration: {
             type: ContainerVisibilityTypeEnum.PUBLIC,
             path: this.routes.logout,
-            beforeEnter: this.onBeforeLogout,
+            beforeEnter: this.onBeforeLogout,   // Web
+            onEnter: this.onBeforeLogout,       // ReactNative
           },
         }
+      );
+
+      UniversalApplicationContainer.logger.debug(
+        '[$UniversalApplicationContainer][registerLogoutRoute] Logout router has been registered.'
       );
     }
   }
 
   protected onBeforeLogout(): void {
-    this.dispatch(APPLICATION_LOGOUT_ACTION_TYPE);
+    UniversalApplicationContainer.logger.debug(
+      '[$UniversalApplicationContainer][onBeforeLogout] A user has clicked on a logout button.'
+    );
+
+    this.dispatchCustomType(ApplicationActionBuilder.buildLogoutActionType());
   }
 
   protected abstract buildRoute(ctor: IContainerClassEntity,
@@ -89,6 +97,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
   private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
     const routes0: string[] = [];
     const routes: JSX.Element[] = [];
+
     map.forEach((connectorConfiguration, ctor) => {
       const rConfiguration = toRouteConfiguration(connectorConfiguration.routeConfiguration, this.routes);
       routes0.push(rConfiguration.path || rConfiguration.key);
@@ -102,7 +111,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     });
 
     UniversalApplicationContainer.logger.debug(
-      () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Size: ${routes0.join('\n')}`
+      () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Routes: ${routes0.join('\n')}`
     );
     return routes;
   }
