@@ -1215,6 +1215,15 @@ export interface ITextStyleWrapper<TTextStyle> {
   textStyle?: TTextStyle;
 }
 
+/* @stable - 20.04.2018 */
+export interface IFullWrapper<TFull> {
+  full?: TFull;
+}
+
+/* @stable - 20.04.2018 */
+export interface IBooleanFullWrapper extends IFullWrapper<boolean> {
+}
+
 /* @stable - 19.04.2018 */
 export interface IIconStyleWrapper<TIconStyle> {
   iconStyle?: TIconStyle;

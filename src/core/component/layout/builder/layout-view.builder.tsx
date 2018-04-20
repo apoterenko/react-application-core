@@ -79,10 +79,13 @@ export class LayoutViewBuilder implements ILayoutViewBuilder {
   /**
    * @stable - 19.04.2018
    * @param {LayoutBuilderElementT} item
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @param {TProps} props
    * @returns {TProps}
    */
-  public toClonedElementProps<TProps>(item: LayoutBuilderElementT, props: TProps): TProps {
+  public toClonedElementProps<TProps>(item: LayoutBuilderElementT,
+                                      layoutConfig: ILayoutBuilderConfiguration,
+                                      props: TProps): TProps {
     return props;
   }
 

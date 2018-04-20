@@ -54,7 +54,7 @@ export class LayoutBuilder {
     const filteredItems = layoutConfig.children.filter((item) => !R.isNil(item));
 
     filteredItems.forEach((item, index) => {
-      children.push(this.clone(item));
+      children.push(this.clone(item, layoutConfig));
       if (index < filteredItems.length - 1) {
         children.push(
           this.layoutViewBuilder.buildSeparatorView({ key: uuid() })
@@ -74,24 +74,25 @@ export class LayoutBuilder {
       this.key,
       layoutConfig.children
         .filter((item) => !R.isNil(item))
-        .map((item): JSX.Element => this.clone(item)),
+        .map((item): JSX.Element => this.clone(item, layoutConfig)),
       layoutConfig
     );
   }
 
   /**
-   * @stable - 16.04.2018
+   * @stable - 20.04.2018
    * @param {LayoutBuilderElementT} item
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {JSX.Element}
    */
-  private clone(item: LayoutBuilderElementT): JSX.Element {
+  private clone(item: LayoutBuilderElementT, layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
     const itemEl = item as JSX.Element;
     const itemCfg = item as ILayoutBuilderConfiguration;
 
     return this.layoutViewBuilder.isReactElement(item)
       ? React.cloneElement<React.ClassAttributes<{}>>(
           itemEl,
-          this.layoutViewBuilder.toClonedElementProps<React.ClassAttributes<{}>>(item, {
+          this.layoutViewBuilder.toClonedElementProps<React.ClassAttributes<{}>>(item, layoutConfig, {
             key: itemEl.props.key || this.newKey,
           })
         )

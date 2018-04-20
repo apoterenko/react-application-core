@@ -10,5 +10,5 @@ export interface ILayoutViewBuilder {
   buildColumnView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element;
   buildSeparatorView(props: IKeyValue): JSX.Element;
   isReactElement(item: LayoutBuilderElementT): boolean;
-  toClonedElementProps<TProps>(item: LayoutBuilderElementT, props: TProps): TProps;
+  toClonedElementProps<TProps>(item: LayoutBuilderElementT, layoutConfig: ILayoutBuilderConfiguration, props: TProps): TProps;
 }

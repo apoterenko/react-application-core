@@ -1,9 +1,11 @@
 export { basicConnector, connector } from './component/connector/connector.decorator';
 export { convertError } from './error/error.converter';
+
+/* @stable - 20.04.2018 */
 export { BaseEffects } from './store/effects/base.effects';
 export { BaseTransport } from './transport/base.transport';
 
-/* @stable - 17.04.2018 */
+/* @stable - 20.04.2018 */
 export { IRnButtonProps } from './component/button/button.interface';
 export { RnButton } from './component/button/rn-button.component';
 

@@ -76,14 +76,22 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
   }
 
   /**
-   * @stable - 19.04.2018
+   * @stable - 20.04.2018
    * @param {LayoutBuilderElementT} item
-   * @param {TProps} props
-   * @returns {TProps}
+   * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @param {{style?: IKeyValue}} props
+   * @returns {AnyT}
    */
-  public toClonedElementProps(item: LayoutBuilderElementT, props: { style?: IKeyValue }): AnyT {
+  public toClonedElementProps(item: LayoutBuilderElementT,
+                              layoutConfig: ILayoutBuilderConfiguration,
+                              props: { style?: IKeyValue }): AnyT {
     const itemEl = this.toReactElementType(item);
-    return {...props, style: { flex: 1, ...itemEl.props.style }};
+    return {
+      ...props,
+      style: layoutConfig.full === false
+        ? itemEl.props.style
+        : {flex: 1, ...itemEl.props.style},
+    };
   }
 
   /**

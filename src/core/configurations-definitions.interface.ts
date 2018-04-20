@@ -85,6 +85,7 @@ import {
   IRaisedWrapper,
   IStringToWrapper,
   IOnEnterWrapper,
+  IBooleanFullWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -337,6 +338,7 @@ export type LayoutBuilderElementT = JSX.Element | ILayoutBuilderConfiguration;
 /* @stable - 16.04.2018 */
 export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilderTypeEnum>,
                                                      IStyleWrapper<IKeyValue>,
+                                                     IBooleanFullWrapper,
                                                      IChildrenWrapper<LayoutBuilderElementT[]>,
                                                      IFactorWrapper<LayoutBuilderFactorEnum> {
 }
