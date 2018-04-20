@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View } from 'native-base';
 
 import { isDef } from '../../../util';
 import { IKeyValue, AnyT } from '../../../definitions.interface';
@@ -23,7 +23,6 @@ export class RnLayoutViewBuilder extends BaseLayoutViewBuilder {
     return (
       <View {...props}
             style={{
-              display: 'flex',
               flexDirection: 'row',
               flex: this.toFactorStyle(layoutConfig.factor),
               ...layoutConfig.style,
@@ -44,7 +43,6 @@ export class RnLayoutViewBuilder extends BaseLayoutViewBuilder {
     return (
       <View {...props}
             style={{
-              display: 'flex',
               flexDirection: 'column',
               flex: this.toFactorStyle(layoutConfig.factor),
               ...layoutConfig.style,

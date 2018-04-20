@@ -103,7 +103,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     const routes: JSX.Element[] = [];
 
     map.forEach((connectorConfiguration, ctor) => {
-      if (routePredicate.call(connectorConfiguration.routeConfiguration)) {
+      if (routePredicate.call(null, connectorConfiguration.routeConfiguration)) {
         const rConfiguration = toRouteConfiguration(connectorConfiguration.routeConfiguration, this.routes);
         routes0.push(rConfiguration.path || rConfiguration.key);
         routes.push(
