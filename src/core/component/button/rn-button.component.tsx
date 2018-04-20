@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text } from 'native-base';
 import { Button, Icon } from 'native-base';
 
 import { orNull } from '../../util';

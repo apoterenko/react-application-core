@@ -1221,6 +1221,16 @@ export interface IShadowStyleWrapper<TShadowStyle> {
 }
 
 /* @stable - 20.04.2018 */
+export interface ICenterAlignmentWrapper {
+  centerAlignment?: boolean;
+}
+
+/* @stable - 20.04.2018 */
+export interface IHasContentWrapperWrapper {
+  hasContentWrapper?: boolean;
+}
+
+/* @stable - 20.04.2018 */
 export interface IModalWrapper<TModal> {
   modal?: TModal;
 }

@@ -90,6 +90,8 @@ import {
   IBooleanFullWrapper,
   IShadowStyleWrapper,
   IBooleanModalWrapper,
+  ICenterAlignmentWrapper,
+  IHasContentWrapperWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -349,5 +351,7 @@ export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilde
 }
 
 /* @stable - 20.04.2018 */
-export interface IRnModalConfiguration extends IShadowStyleWrapper<IKeyValue> {
+export interface IRnModalConfiguration extends IShadowStyleWrapper<IKeyValue>,
+                                               IHasContentWrapperWrapper,
+                                               ICenterAlignmentWrapper {
 }

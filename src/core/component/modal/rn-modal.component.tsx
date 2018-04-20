@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import { View, Content } from 'native-base';
 
 import { UniversalBaseComponent } from '../base/universal-base.component';
 import { IRnModalProps } from './rn-modal.interface';
-
-const { height, width } = Dimensions.get('window');
 
 export class RnModal extends UniversalBaseComponent<RnModal, IRnModalProps> {
 
@@ -13,6 +12,8 @@ export class RnModal extends UniversalBaseComponent<RnModal, IRnModalProps> {
       backgroundColor: '#808080',
       opacity: .5,
     },
+    hasContentWrapper: true,
+    centerAlignment: true,
   };
 
   /**
@@ -22,9 +23,18 @@ export class RnModal extends UniversalBaseComponent<RnModal, IRnModalProps> {
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <View style={[styles.container, { height, width }]}>
-        <View style={[styles.container, { ...props.shadowStyle, height, width }]}/>
-        {props.children}
+      <View style={[styles.container, {height, width}]}>
+        <View style={[styles.container, {...props.shadowStyle, height, width}]}/>
+        <View style={{
+                flex: 1,
+                ...props.centerAlignment ? {flexDirection: 'row', alignItems: 'center'} : {},
+              }}>
+          {
+            props.hasContentWrapper
+              ? <Content>{props.children}</Content>
+              : props.children
+          }
+        </View>
       </View>
     );
   }
@@ -39,3 +49,5 @@ const styles = StyleSheet.create({
     right: 0,
   },
 });
+
+const { height, width } = Dimensions.get('window');
