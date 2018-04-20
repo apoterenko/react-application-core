@@ -1,26 +1,25 @@
 import * as React from 'react';
 
-import { toClassName, isFn } from '../../../util';
+import { toClassName } from '../../../util';
 import { IKeyValue } from '../../../definitions.interface';
 import {
   LayoutBuilderFactorEnum,
-  LayoutBuilderElementT,
   ILayoutBuilderConfiguration,
 } from '../../../configurations-definitions.interface';
-import { ILayoutViewBuilder } from './layout-builder.interface';
+import { BaseLayoutViewBuilder } from './base-layout-view.builder';
 
-export class LayoutViewBuilder implements ILayoutViewBuilder {
+export class LayoutViewBuilder extends BaseLayoutViewBuilder {
 
   /**
    * @stable - 19.04.2018
    * @param {IKeyValue} props
-   * @param {JSX.Element[]} children
+   * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
   public buildRowView(props: IKeyValue,
-                      children: JSX.Element[],
-                      layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+                      children: React.ReactNode[],
+                      layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <div className={toClassName(
              'rac-flex',
@@ -36,13 +35,13 @@ export class LayoutViewBuilder implements ILayoutViewBuilder {
   /**
    * @stable - 19.04.2018
    * @param {IKeyValue} props
-   * @param {JSX.Element[]} children
+   * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
   public buildColumnView(props: IKeyValue,
-                         children: JSX.Element[],
-                         layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+                         children: React.ReactNode[],
+                         layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <div className={toClassName(
               'rac-flex',
@@ -58,35 +57,12 @@ export class LayoutViewBuilder implements ILayoutViewBuilder {
   /**
    * @stable - 16.04.2018
    * @param {IKeyValue} props
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  public buildSeparatorView(props: IKeyValue): JSX.Element {
+  public buildSeparatorView(props: IKeyValue): React.ReactNode {
     return (
       <div {...props} className='rac-flex-separator'/>
     );
-  }
-
-  /**
-   * @stable - 19.04.2018
-   * @param {LayoutBuilderElementT} item
-   * @returns {boolean}
-   */
-  public isReactElement(item: LayoutBuilderElementT): boolean {
-    const itemEl = item as JSX.Element;
-    return isFn(itemEl.type);
-  }
-
-  /**
-   * @stable - 19.04.2018
-   * @param {LayoutBuilderElementT} item
-   * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @param {TProps} props
-   * @returns {TProps}
-   */
-  public toClonedElementProps<TProps>(item: LayoutBuilderElementT,
-                                      layoutConfig: ILayoutBuilderConfiguration,
-                                      props: TProps): TProps {
-    return props;
   }
 
   /**

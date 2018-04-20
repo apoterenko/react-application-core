@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {
   IEntitySorterWrapper,
   INonInteractiveWrapper,
@@ -333,7 +335,7 @@ export const LAYOUT_BUILDER_FACTOR_TYPES = {
 };
 
 /* @stable - 16.04.2018 */
-export type LayoutBuilderElementT = JSX.Element | ILayoutBuilderConfiguration;
+export type LayoutBuilderElementT = ILayoutBuilderConfiguration | React.ReactNode;
 
 /* @stable - 16.04.2018 */
 export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilderTypeEnum>,

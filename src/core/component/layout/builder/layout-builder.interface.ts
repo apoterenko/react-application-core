@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { IKeyValue } from '../../../definitions.interface';
 import {
   LayoutBuilderElementT,
@@ -6,9 +8,12 @@ import {
 
 /* @stable - 16.04.2018 */
 export interface ILayoutViewBuilder {
-  buildRowView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element;
-  buildColumnView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element;
-  buildSeparatorView(props: IKeyValue): JSX.Element;
+  buildRowView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode;
+  buildColumnView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode;
+  buildSeparatorView(props: IKeyValue): React.ReactNode;
   isReactElement(item: LayoutBuilderElementT): boolean;
-  toClonedElementProps<TProps>(item: LayoutBuilderElementT, layoutConfig: ILayoutBuilderConfiguration, props: TProps): TProps;
+  cloneReactElement(item: JSX.Element, props: React.ClassAttributes<{}>): JSX.Element;
+  toClonedElementProps(item: LayoutBuilderElementT,
+                       layoutConfig: ILayoutBuilderConfiguration,
+                       props: React.ClassAttributes<{}>): React.ClassAttributes<{}>;
 }

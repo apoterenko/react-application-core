@@ -1,25 +1,25 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { isDef, isFn } from '../../../util';
+import { isDef } from '../../../util';
 import { IKeyValue, AnyT } from '../../../definitions.interface';
 import {
   LayoutBuilderFactorEnum,
   LayoutBuilderElementT,
   ILayoutBuilderConfiguration,
 } from '../../../configurations-definitions.interface';
-import { ILayoutViewBuilder } from './layout-builder.interface';
+import { BaseLayoutViewBuilder } from './base-layout-view.builder';
 
-export class RnLayoutViewBuilder implements ILayoutViewBuilder {
+export class RnLayoutViewBuilder extends BaseLayoutViewBuilder {
 
   /**
    * @stable - 16.04.2018
    * @param {IKeyValue} props
-   * @param {JSX.Element[]} children
+   * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  public buildRowView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  public buildRowView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <View {...props}
             style={{
@@ -36,11 +36,11 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
   /**
    * @stable - 19.04.2018
    * @param {IKeyValue} props
-   * @param {JSX.Element[]} children
+   * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  public buildColumnView(props: IKeyValue, children: JSX.Element[], layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  public buildColumnView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <View {...props}
             style={{
@@ -57,9 +57,9 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
   /**
    * @stable - 16.04.2018
    * @param {IKeyValue} props
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  public buildSeparatorView(props: IKeyValue): JSX.Element {
+  public buildSeparatorView(props: IKeyValue): React.ReactNode {
     return (
       <View {...props} style={{ flex: .1 }}/>
     );
@@ -71,8 +71,8 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    * @returns {boolean}
    */
   public isReactElement(item: LayoutBuilderElementT): boolean {
-    const itemEl = this.toReactElementType(item);
-    return (itemEl.type && isDef(itemEl.type.displayName)) || isFn(itemEl.type);
+    const itemEl = item as { type: { displayName?: string }};
+    return (itemEl.type && isDef(itemEl.type.displayName)) || super.isReactElement(item);
   }
 
   /**
@@ -84,23 +84,14 @@ export class RnLayoutViewBuilder implements ILayoutViewBuilder {
    */
   public toClonedElementProps(item: LayoutBuilderElementT,
                               layoutConfig: ILayoutBuilderConfiguration,
-                              props: { style?: IKeyValue }): AnyT {
-    const itemEl = this.toReactElementType(item);
+                              props: IKeyValue): IKeyValue {
+    const itemEl = item as JSX.Element;
     return {
       ...props,
       style: layoutConfig.full === false
         ? itemEl.props.style
         : {flex: 1, ...itemEl.props.style},
     };
-  }
-
-  /**
-   * @stable - 19.04.2018
-   * @param {LayoutBuilderElementT} item
-   * @returns {{type: {displayName?: string}}}
-   */
-  private toReactElementType(item: LayoutBuilderElementT): { type: { displayName?: string }, props?: IKeyValue } {
-    return item as { type: { displayName?: string }, props?: IKeyValue };
   }
 
   /**

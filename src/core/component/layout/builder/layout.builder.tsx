@@ -25,9 +25,9 @@ export class LayoutBuilder {
   /**
    * @stable - 16.04.2018
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  public build(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  public build(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     this.index = 0;   // React keys magic
     return this.buildLayout(layoutConfig);
   }
@@ -35,9 +35,9 @@ export class LayoutBuilder {
   /**
    * @stable - 16.04.2018
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  private buildLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  private buildLayout(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     if (layoutConfig.layout === LayoutBuilderTypeEnum.HORIZONTAL) {
       return this.buildHorizontalLayout(layoutConfig);
     }
@@ -47,9 +47,9 @@ export class LayoutBuilder {
   /**
    * @stable - 19.04.2018
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  private buildHorizontalLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  private buildHorizontalLayout(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     const children = [];
     const filteredItems = layoutConfig.children.filter((item) => !R.isNil(item));
 
@@ -67,14 +67,14 @@ export class LayoutBuilder {
   /**
    * @stable - 19.04.2018
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  private buildVerticalLayout(layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  private buildVerticalLayout(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return this.layoutViewBuilder.buildColumnView(
       this.key,
       layoutConfig.children
         .filter((item) => !R.isNil(item))
-        .map((item): JSX.Element => this.clone(item, layoutConfig)),
+        .map((item): React.ReactNode => this.clone(item, layoutConfig)),
       layoutConfig
     );
   }
@@ -83,16 +83,16 @@ export class LayoutBuilder {
    * @stable - 20.04.2018
    * @param {LayoutBuilderElementT} item
    * @param {ILayoutBuilderConfiguration} layoutConfig
-   * @returns {JSX.Element}
+   * @returns {React.ReactNode}
    */
-  private clone(item: LayoutBuilderElementT, layoutConfig: ILayoutBuilderConfiguration): JSX.Element {
+  private clone(item: LayoutBuilderElementT, layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     const itemEl = item as JSX.Element;
     const itemCfg = item as ILayoutBuilderConfiguration;
 
     return this.layoutViewBuilder.isReactElement(item)
-      ? React.cloneElement<React.ClassAttributes<{}>>(
+      ? this.layoutViewBuilder.cloneReactElement(
           itemEl,
-          this.layoutViewBuilder.toClonedElementProps<React.ClassAttributes<{}>>(item, layoutConfig, {
+          this.layoutViewBuilder.toClonedElementProps(item, layoutConfig, {
             key: itemEl.props.key || this.newKey,
           })
         )
