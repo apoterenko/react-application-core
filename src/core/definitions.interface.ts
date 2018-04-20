@@ -1221,6 +1221,15 @@ export interface IShadowStyleWrapper<TShadowStyle> {
 }
 
 /* @stable - 20.04.2018 */
+export interface IModalWrapper<TModal> {
+  modal?: TModal;
+}
+
+/* @stable - 20.04.2018 */
+export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
+}
+
+/* @stable - 20.04.2018 */
 export interface IFullWrapper<TFull> {
   full?: TFull;
 }

@@ -89,6 +89,7 @@ import {
   IOnEnterWrapper,
   IBooleanFullWrapper,
   IShadowStyleWrapper,
+  IBooleanModalWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -272,6 +273,7 @@ export enum ContainerVisibilityTypeEnum {
 
 /* @stable - 14.04.2018 */
 export interface IRouteConfiguration extends IStringPathWrapper,
+                                             IBooleanModalWrapper,
                                              IStringTitleWrapper,
                                              IBooleanInitialWrapper,
                                              IExactWrapper,

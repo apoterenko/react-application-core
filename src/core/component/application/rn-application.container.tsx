@@ -4,6 +4,7 @@ import {
   Router,
   Reducer,
   Stack,
+  Lightbox,
 } from 'react-native-router-flux';
 
 import { IApplicationContainerProps } from './application.interface';
@@ -30,10 +31,13 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IAppli
     return (
       <Router
         createReducer={reducerCreate}>
-        <Stack hideNavBar={props.hideNavBar}
-               key='root'>
-          {this.getRoutes()}
-        </Stack>
+        <Lightbox key='lightbox'>
+          <Stack hideNavBar={props.hideNavBar}
+                 key='root'>
+            {this.getRoutes((routeConfiguration) => !routeConfiguration.modal)}
+          </Stack>
+          {this.getRoutes((routeConfiguration) => routeConfiguration.modal === true)}
+        </Lightbox>
       </Router>
     );
   }

@@ -15,6 +15,8 @@ import { UniversalBaseContainer } from '../../component/base/universal-base.cont
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 
+export type RoutePredicateT = (routeConfiguration: IRouteConfiguration) => boolean;
+
 export abstract class UniversalApplicationContainer<TProps extends IUniversalContainerEntity>
   extends UniversalBaseContainer<TProps> {
 
@@ -27,8 +29,9 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     this.registerLogoutRoute();
   }
 
-  protected getRoutes(): JSX.Element[] {
-    return this.buildRoutes(this.dynamicRoutes).concat(this.buildRoutes(this.extraRoutes));
+  protected getRoutes(routePredicate: RoutePredicateT = (routeConfiguration) => true): JSX.Element[] {
+    return this.buildRoutes(this.dynamicRoutes, routePredicate)
+      .concat(this.buildRoutes(this.extraRoutes, routePredicate));
   }
 
   protected lookupConnectedContainerByRoutePath(path: string): IContainerClassEntity {
@@ -94,20 +97,23 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
                                 connectorConfiguration: IDefaultConnectorConfiguration,
                                 routeConfiguration: IRouteConfiguration): JSX.Element;
 
-  private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>): JSX.Element[] {
+  private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>,
+                      routePredicate: RoutePredicateT): JSX.Element[] {
     const routes0: string[] = [];
     const routes: JSX.Element[] = [];
 
     map.forEach((connectorConfiguration, ctor) => {
-      const rConfiguration = toRouteConfiguration(connectorConfiguration.routeConfiguration, this.routes);
-      routes0.push(rConfiguration.path || rConfiguration.key);
-      routes.push(
-        this.buildRoute(
-          ctor,
-          connectorConfiguration,
-          rConfiguration
-        )
-      );
+      if (routePredicate.call(connectorConfiguration.routeConfiguration)) {
+        const rConfiguration = toRouteConfiguration(connectorConfiguration.routeConfiguration, this.routes);
+        routes0.push(rConfiguration.path || rConfiguration.key);
+        routes.push(
+          this.buildRoute(
+            ctor,
+            connectorConfiguration,
+            rConfiguration
+          )
+        );
+      }
     });
 
     UniversalApplicationContainer.logger.debug(
