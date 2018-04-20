@@ -88,6 +88,7 @@ import {
   IStringToWrapper,
   IOnEnterWrapper,
   IBooleanFullWrapper,
+  IShadowStyleWrapper,
 } from './definitions.interface';
 import { IContainerClassEntity } from './entities-definitions.interface';
 
@@ -343,4 +344,8 @@ export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilde
                                                      IBooleanFullWrapper,
                                                      IChildrenWrapper<LayoutBuilderElementT[]>,
                                                      IFactorWrapper<LayoutBuilderFactorEnum> {
+}
+
+/* @stable - 20.04.2018 */
+export interface IRnModalConfiguration extends IShadowStyleWrapper<IKeyValue> {
 }

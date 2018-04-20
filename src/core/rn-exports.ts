@@ -2,6 +2,9 @@ export { basicConnector, connector } from './component/connector/connector.decor
 export { convertError } from './error/error.converter';
 
 /* @stable - 20.04.2018 */
+export { RnModal } from './component/modal/rn-modal.component';
+
+/* @stable - 20.04.2018 */
 export { BaseEffects } from './store/effects/base.effects';
 export { BaseTransport } from './transport/base.transport';
 

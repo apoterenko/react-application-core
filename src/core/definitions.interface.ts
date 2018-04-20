@@ -1216,12 +1216,22 @@ export interface ITextStyleWrapper<TTextStyle> {
 }
 
 /* @stable - 20.04.2018 */
+export interface IShadowStyleWrapper<TShadowStyle> {
+  shadowStyle?: TShadowStyle;
+}
+
+/* @stable - 20.04.2018 */
 export interface IFullWrapper<TFull> {
   full?: TFull;
 }
 
 /* @stable - 20.04.2018 */
 export interface IBooleanFullWrapper extends IFullWrapper<boolean> {
+}
+
+/* @stable - 20.04.2018 */
+export interface IOpacityWrapper {
+  opacity?: number;
 }
 
 /* @stable - 19.04.2018 */
