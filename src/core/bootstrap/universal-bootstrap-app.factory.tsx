@@ -20,10 +20,7 @@ import { ApplicationActionBuilder } from '../component/application/application-a
 export const makeBootstrapApp =
   (applicationContainer: IContainerClassEntity, initialProps?: IUniversalContainerEntity):
     { new (): { render: () => JSX.Element } } => {
-    const Component = universalConnectorFactory<IUniversalApplicationStoreEntity>(
-      applicationContainer,
-      (state) => ({...state.application})
-    );
+    const Component = universalConnectorFactory(applicationContainer, (state) => ({...state.application}));
     const store = staticInjector<Store<IUniversalApplicationStoreEntity>>(DI_TYPES.Store);
 
     return class {

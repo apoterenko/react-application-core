@@ -6,7 +6,7 @@ import { IContainerClassEntity, IUniversalApplicationStoreEntity } from '../../e
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 
 /* @stable - 23.04.2018 */
-export const universalConnectorFactory = <TStoreEntity extends IUniversalApplicationStoreEntity>(
+export const universalConnectorFactory = <TStoreEntity extends IUniversalApplicationStoreEntity = IUniversalApplicationStoreEntity>(
   containerCtor: IContainerClassEntity,
   ...mappers: Array<ConnectorMapperT<TStoreEntity>>): IContainerClassEntity => {
 
