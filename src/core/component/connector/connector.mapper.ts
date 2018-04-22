@@ -19,6 +19,7 @@ import {
   IUserWrapperEntity,
   INotificationWrapperEntity,
   IDictionariesWrapperEntity,
+  IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 import { universalDefaultMappers } from './universal-connector.mapper';
 

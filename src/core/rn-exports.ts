@@ -34,6 +34,7 @@ export { RnLayoutBuilder } from './component/layout/builder/rn-layout.builder';
 
 /* @stable - 16.04.2018 */
 export * from './component/connector/universal-connector.mapper';
+export { universalConnectorFactory } from './component/connector/universal-connector.factory';
 
 /* @stable - 16.04.2018 */
 export { RnBaseContainer } from './component/base/rn-base.container';

@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
-import { IContainerClassEntity } from '../../entities-definitions.interface';
+import { IContainerClassEntity, IUniversalApplicationStoreEntity } from '../../entities-definitions.interface';
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 
-export const connectorFactory = <TStoreEntity>(
+/* @stable - 23.04.2018 */
+export const universalConnectorFactory = <TStoreEntity extends IUniversalApplicationStoreEntity>(
   containerCtor: IContainerClassEntity,
   ...mappers: Array<ConnectorMapperT<TStoreEntity>>): IContainerClassEntity => {
 

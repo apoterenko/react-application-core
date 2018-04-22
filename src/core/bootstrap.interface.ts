@@ -1,6 +1,5 @@
 import { ApplicationContainer } from './component/application';
-import { IApplicationStoreEntity } from './entities-definitions.interface';
 
-export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<IApplicationStoreEntity>> {
+export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer> {
   new (...args): TContainer;
 }

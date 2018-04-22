@@ -26,7 +26,7 @@ import {
 } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 
-export class ApplicationContainer<TAppState extends IApplicationStoreEntity>
+export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity = IApplicationStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   public static defaultProps: IApplicationContainerProps = {
@@ -72,7 +72,7 @@ export class ApplicationContainer<TAppState extends IApplicationStoreEntity>
     }
   }
 
-  protected clearStateBeforeSerialization(state: TAppState, ...predicates: PredicateT[]): TAppState {
+  protected clearStateBeforeSerialization(state: TStoreEntity, ...predicates: PredicateT[]): TStoreEntity {
     this.clearSystemState(state);
 
     // You may clear the app state here before the serializing
@@ -82,7 +82,7 @@ export class ApplicationContainer<TAppState extends IApplicationStoreEntity>
     return state;
   }
 
-  protected clearSystemState(state: TAppState): void {
+  protected clearSystemState(state: TStoreEntity): void {
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
     state.application = INITIAL_APPLICATION_STATE;
@@ -153,7 +153,7 @@ export class ApplicationContainer<TAppState extends IApplicationStoreEntity>
     this.clearPreviousStates();
     this.storage.set(
         APPLICATION_STATE_KEY,
-        this.clearStateBeforeSerialization(clone<TAppState>(this.appStore.getState() as TAppState))
+        this.clearStateBeforeSerialization(clone<TStoreEntity>(this.appStore.getState() as TStoreEntity))
     );
   }
 

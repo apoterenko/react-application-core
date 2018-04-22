@@ -10,7 +10,7 @@ import { APPLICATION_SECTIONS } from '../application/application.interface';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './connector.interface';
-import { connectorFactory } from './connector.factory';
+import { universalConnectorFactory } from './connector.factory';
 import { ConnectorActionBuilder } from './connector-action.builder';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
@@ -60,7 +60,7 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
         target}. The init and destroy actions are disabled.`
       );
     }
-    DYNAMIC_ROUTES.set(connectorFactory<TAppState>(target, ...config.mappers), config);
+    DYNAMIC_ROUTES.set(universalConnectorFactory<TAppState>(target, ...config.mappers), config);
   };
 
 export const connector = <TAppState, TApplicationAccessConfig>(

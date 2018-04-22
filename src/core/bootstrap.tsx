@@ -18,7 +18,7 @@ import {
 } from './component/application';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
 import { addClassNameToBody } from './util';
-import { connectorFactory } from './component/connector';
+import { universalConnectorFactory } from './component/connector';
 import { IApplicationStoreEntity } from './entities-definitions.interface';
 
 // Google analytics
@@ -29,14 +29,14 @@ function gtag(...args) {
 }
 
 export function bootstrap(
-    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<IApplicationStoreEntity>>,
+    applicationContainer: IContainerBootstrapCtor<ApplicationContainer>,
     props?: IApplicationContainerProps,
     rootId = 'root',
     ) {
   const ready = () => {
-    const Component = connectorFactory(
+    const Component = universalConnectorFactory<IApplicationStoreEntity>(
       applicationContainer,
-      (state: IApplicationStoreEntity) => ({ ...state.application })
+      (state) => ({ ...state.application })
     );
 
     const store = staticInjector<Store<IApplicationStoreEntity>>(DI_TYPES.Store);
