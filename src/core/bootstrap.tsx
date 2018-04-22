@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Store } from 'redux';
-import { Provider } from 'react-redux';
+
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE } from './env';
@@ -10,16 +9,12 @@ LoggerFactory.configureLogLevel(
     PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
 );
 
-import { DI_TYPES, staticInjector } from './di';
 import {
-  ApplicationActionBuilder,
-  ApplicationContainer,
   IApplicationContainerProps,
 } from './component/application';
-import { IContainerBootstrapCtor } from './bootstrap.interface';
 import { addClassNameToBody } from './util';
-import { universalConnectorFactory } from './component/connector';
-import { IApplicationStoreEntity } from './entities-definitions.interface';
+import { IContainerClassEntity } from './entities-definitions.interface';
+import { makeBootstrapApp } from './bootstrap/universal-bootstrap-app.factory';
 
 // Google analytics
 function gtag(...args) {
@@ -29,26 +24,15 @@ function gtag(...args) {
 }
 
 export function bootstrap(
-    applicationContainer: IContainerBootstrapCtor<ApplicationContainer>,
+    applicationContainer: IContainerClassEntity,
     props?: IApplicationContainerProps,
     rootId = 'root',
     ) {
   const ready = () => {
-    const Component = universalConnectorFactory<IApplicationStoreEntity>(
-      applicationContainer,
-      (state) => ({ ...state.application })
-    );
-
-    const store = staticInjector<Store<IApplicationStoreEntity>>(DI_TYPES.Store);
-    // We must dispatch the init action necessarily before the application instantiating
-    // because of async IApplicationReadyState & Flux architecture
-    store.dispatch({type: ApplicationActionBuilder.buildInitActionType()});
-
+    const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
-        <Provider store={store}>
-          <Component {...props}/>
-        </Provider>,
-        document.getElementById(rootId),
+      new componentClass().render(),
+      document.getElementById(rootId),
     );
 
     addClassNameToBody('rac');

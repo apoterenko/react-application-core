@@ -17,18 +17,46 @@ import { ApplicationActionBuilder } from './application-action.builder';
 
 export type RoutePredicateT = (routeConfiguration: IRouteConfiguration) => boolean;
 
-export abstract class UniversalApplicationContainer<TProps extends IUniversalContainerEntity>
+export abstract class UniversalApplicationContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity>
   extends UniversalBaseContainer<TProps> {
 
   private static logger = LoggerFactory.makeLogger(UniversalApplicationContainer);
   private extraRoutes = new Map<IContainerClassEntity, IDefaultConnectorConfiguration>();
 
+  /**
+   * @stable - 23.04.2018
+   * @param {TProps} props
+   */
   constructor(props: TProps) {
     super(props, APPLICATION_SECTION);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
     this.registerLogoutRoute();
+
+    UniversalApplicationContainer.logger.debug(
+      '[$UniversalApplicationContainer][constructor] The app has been instantiated. The initial props are:',
+      props
+    );
   }
 
+  /**
+   * @stable - 23.04.2018
+   * @param {Readonly<TProps extends IUniversalContainerEntity>} prevProps
+   * @param {Readonly<{}>} prevState
+   */
+  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<{}>): void {
+    UniversalApplicationContainer.logger.debug(
+      '[$UniversalApplicationContainer][componentDidUpdate] The CURRENT props are:',
+      this.props,
+      '. The PREVIOUS props are:',
+      prevProps
+    );
+  }
+
+  /**
+   * @stable - 23.04.2018
+   * @param {RoutePredicateT} routePredicate
+   * @returns {JSX.Element[]}
+   */
   protected getRoutes(routePredicate: RoutePredicateT = (routeConfiguration) => true): JSX.Element[] {
     return this.buildRoutes(this.dynamicRoutes, routePredicate)
       .concat(this.buildRoutes(this.extraRoutes, routePredicate));
