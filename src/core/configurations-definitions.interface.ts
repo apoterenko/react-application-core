@@ -291,14 +291,14 @@ export interface IRouteConfiguration extends IStringPathWrapper,
 export type RouteConfigurationT = IRouteConfiguration | ((routes: IRoutesConfiguration) => IRouteConfiguration);
 
 /* @stable - 14.04.2018 */
-export type ConnectorMapperT<TAppState, TResult> = (state: TAppState) => TResult;
+export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 
 /* @stable - 14.04.2018 */
-export interface IBasicConnectorConfiguration<TAppState>
-  extends IStateInitialChangesWrapper<TAppState>,
+export interface IBasicConnectorConfiguration<TStoreEntity>
+  extends IStateInitialChangesWrapper<TStoreEntity>,
           ICallbackWrapper<(ctor: IContainerClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
-          IMappersWrapper<Array<ConnectorMapperT<TAppState, IKeyValue>>> {
+          IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
 }
 
 /* @stable - 14.04.2018 */

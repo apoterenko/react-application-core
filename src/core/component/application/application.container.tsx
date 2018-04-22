@@ -11,7 +11,6 @@ import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer 
 import { CONNECTOR_SECTION_FIELD } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
-import { IDefaultApplicationState } from '../../store';
 import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
 import { Message } from '../message';
@@ -20,10 +19,14 @@ import {
   ContainerVisibilityTypeEnum,
   IRouteConfiguration,
 } from '../../configurations-definitions.interface';
-import { IContainerClassEntity, IRouterComponentEntity } from '../../entities-definitions.interface';
+import {
+  IContainerClassEntity,
+  IRouterComponentEntity,
+  IApplicationStoreEntity,
+} from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 
-export class ApplicationContainer<TAppState extends IDefaultApplicationState>
+export class ApplicationContainer<TAppState extends IApplicationStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   public static defaultProps: IApplicationContainerProps = {

@@ -3,8 +3,7 @@ import { injectable } from 'inversify';
 
 import { AnyT } from '../definitions.interface';
 import { DI_TYPES, lazyInject } from '../di';
-import { IDefaultApplicationState } from '../store';
-
+import { IApplicationStoreEntity } from '../entities-definitions.interface';
 import {
   IApplicationTransport,
   ITransportRequestEntity,
@@ -21,7 +20,7 @@ import {
 @injectable()
 export class TransportService implements IApplicationTransport {
 
-  @lazyInject(DI_TYPES.Store) private store: Store<IDefaultApplicationState>;
+  @lazyInject(DI_TYPES.Store) private store: Store<IApplicationStoreEntity>;
   @lazyInject(DI_TYPES.TransportFactory) private transportFactory: IApplicationTransportFactory;
 
   public request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {

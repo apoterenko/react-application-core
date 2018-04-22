@@ -16,10 +16,10 @@ import {
   ApplicationContainer,
   IApplicationContainerProps,
 } from './component/application';
-import { IDefaultApplicationState } from './store';
 import { IContainerBootstrapCtor } from './bootstrap.interface';
 import { addClassNameToBody } from './util';
 import { connectorFactory } from './component/connector';
+import { IApplicationStoreEntity } from './entities-definitions.interface';
 
 // Google analytics
 function gtag(...args) {
@@ -29,17 +29,17 @@ function gtag(...args) {
 }
 
 export function bootstrap(
-    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<IDefaultApplicationState>>,
+    applicationContainer: IContainerBootstrapCtor<ApplicationContainer<IApplicationStoreEntity>>,
     props?: IApplicationContainerProps,
     rootId = 'root',
     ) {
   const ready = () => {
     const Component = connectorFactory(
       applicationContainer,
-      (state: IDefaultApplicationState) => ({ ...state.application })
+      (state: IApplicationStoreEntity) => ({ ...state.application })
     );
 
-    const store = staticInjector<Store<IDefaultApplicationState>>(DI_TYPES.Store);
+    const store = staticInjector<Store<IApplicationStoreEntity>>(DI_TYPES.Store);
     // We must dispatch the init action necessarily before the application instantiating
     // because of async IApplicationReadyState & Flux architecture
     store.dispatch({type: ApplicationActionBuilder.buildInitActionType()});

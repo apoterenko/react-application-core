@@ -6,10 +6,10 @@ import {
   INITIAL_DICTIONARIES_STATE,
 } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
-import { IDictionaries } from '../definitions.interface';
+import { IDictionariesEntity } from '../entities-definitions.interface';
 
-export function dictionariesReducer(state: IDictionaries = INITIAL_DICTIONARIES_STATE,
-                                    action: AnyAction): IDictionaries {
+export function dictionariesReducer(state: IDictionariesEntity = INITIAL_DICTIONARIES_STATE,
+                                    action: AnyAction): IDictionariesEntity {
   const section = toSection(action);
   switch (action.type) {
     case DICTIONARIES_DESTROY_ACTION_TYPE:

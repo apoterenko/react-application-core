@@ -103,6 +103,10 @@ import {
   IStateWrapper,
   IPathWrapper,
   IDisabledWrapper,
+  IBindToDictionaryWrapper,
+  IDataWrapper,
+  IDictionariesWrapper,
+  ILoadingWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -472,4 +476,40 @@ export interface INotificationWrapperEntity extends INotificationWrapper<INotifi
 /* @stable - 15.04.2018 */
 export interface INavigateEntity<TPath, TState = {}> extends IPathWrapper<TPath>,
                                                              IStateWrapper<TState> {
+}
+
+/* @stable - 22.04.2018 */
+export interface IDictionaryEntity<TData> extends IDataWrapper<TData[] | TData>,
+                                                               ILoadingWrapper {
+}
+
+/* @stable - 22.04.2018 */
+export interface IDictionariesWrapperEntity extends IDictionariesWrapper<IDictionariesEntity> {
+}
+
+/* @stable - 22.04.2018 */
+export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
+                                                 IOnEmptyDictionaryWrapper,
+                                                 IOnLoadDictionaryWrapper {
+}
+
+/* @stable - 22.04.2018 */
+export interface IDictionariesEntity {
+  [dictionary: string]: IDictionaryEntity<{}>;
+}
+
+/* @stable - 23.07.2018 */
+export interface IUniversalApplicationStoreEntity<TDictionaries = {}> extends IApplicationWrapperEntity,
+                                                                              IUserWrapperEntity,
+                                                                              IChannelWrapperEntity,
+                                                                              ITransportWrapperEntity,
+                                                                              IDictionariesWrapper<TDictionaries> {
+}
+
+/* @stable - 23.07.2018 */
+export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries>,
+                                                                     IStackWrapperEntity,
+                                                                     ILayoutWrapperEntity,
+                                                                     INotificationWrapperEntity,
+                                                                     IRootWrapperEntity {
 }

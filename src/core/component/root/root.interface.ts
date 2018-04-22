@@ -6,8 +6,12 @@ import {
   IStringPathWrapper,
   IStringSectionWrapper,
 } from '../../definitions.interface';
-import { IContainerClassEntity, IContainerEntity, IRootEntity } from '../../entities-definitions.interface';
-import { IDefaultApplicationState } from '../../store';
+import {
+  IContainerClassEntity,
+  IContainerEntity,
+  IRootEntity,
+  IApplicationStoreEntity,
+} from '../../entities-definitions.interface';
 import { IRouteConfiguration } from '../../configurations-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
@@ -18,7 +22,7 @@ export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
 export interface IRootContainerInternalProps extends IContainerEntity,
                                                      IRouteConfiguration,
                                                      IStringSectionWrapper,
-                                                     IStateInitialChangesWrapper<IDefaultApplicationState> {
+                                                     IStateInitialChangesWrapper<IApplicationStoreEntity> {
   container?: IContainerClassEntity;
   accessConfig?: IApplicationAccessConfig;
 }

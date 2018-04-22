@@ -1,8 +1,6 @@
-import { connect, Provider } from 'react-redux';
-
 import { ApplicationContainer } from './component/application';
-import { IDefaultApplicationState } from './store';
+import { IApplicationStoreEntity } from './entities-definitions.interface';
 
-export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<IDefaultApplicationState>> {
+export interface IContainerBootstrapCtor<TContainer extends ApplicationContainer<IApplicationStoreEntity>> {
   new (...args): TContainer;
 }

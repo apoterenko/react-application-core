@@ -12,19 +12,28 @@ import {
   IListEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
+  IDictionariesWrapperEntity,
+  IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 
-/* @stable - 16.04.2018 */
-export const userMapper = (state: IUserWrapperEntity): IUserWrapperEntity => ({
-  user: {
-    ...state.user,
+/* @stable - 22.04.2018 */
+export const dictionariesMapper = (storeEntity: IUniversalApplicationStoreEntity): IDictionariesWrapperEntity => ({
+  dictionaries: {
+    ...storeEntity.dictionaries,
   },
 });
 
 /* @stable - 16.04.2018 */
-export const transportMapper = (state: ITransportWrapperEntity): ITransportWrapperEntity => ({
+export const userMapper = (storeEntity: IUniversalApplicationStoreEntity): IUserWrapperEntity => ({
+  user: {
+    ...storeEntity.user,
+  },
+});
+
+/* @stable - 16.04.2018 */
+export const transportMapper = (storeEntity: IUniversalApplicationStoreEntity): ITransportWrapperEntity => ({
   transport: {
-    ...state.transport,
+    ...storeEntity.transport,
   },
 });
 
@@ -67,5 +76,6 @@ export const listWrapperSelectedEntityMapper =
 /* @stable - 16.04.2018 */
 export const universalDefaultMappers = [
   transportMapper,
-  userMapper
+  userMapper,
+  dictionariesMapper
 ];

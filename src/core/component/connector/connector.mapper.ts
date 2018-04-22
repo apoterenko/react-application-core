@@ -1,9 +1,7 @@
-import { IDefaultApplicationState } from '../../store';
 import {
   IEntity,
   IFormWrapper,
   IDictionariesWrapper,
-  IDictionaries,
   SortDirectionEnum,
   IKeyValue,
 } from '../../definitions.interface';
@@ -20,16 +18,17 @@ import {
   ITransportWrapperEntity,
   IUserWrapperEntity,
   INotificationWrapperEntity,
+  IDictionariesWrapperEntity,
 } from '../../entities-definitions.interface';
 import { universalDefaultMappers } from './universal-connector.mapper';
 
-export const rootMapper = (state: IDefaultApplicationState): IRootWrapperEntity => ({
+export const rootMapper = (state: IRootWrapperEntity): IRootWrapperEntity => ({
   root: {
     ...state.root,
   },
 });
 
-export const layoutMapper = (state: IDefaultApplicationState): ILayoutWrapperEntity => ({
+export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
     ...state.layout,
   },
@@ -53,21 +52,15 @@ export const filterFormMapper = (formState: IDefaultFormEntity) => ({
   },
 });
 
-export const notificationMapper = (state: IDefaultApplicationState): INotificationWrapperEntity => ({
+export const notificationMapper = (state: INotificationWrapperEntity): INotificationWrapperEntity => ({
   notification: {
     ...state.notification,
   },
 });
 
-export const channelMapper = (state: IDefaultApplicationState): IChannelWrapperEntity => ({
+export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEntity => ({
   channel: {
     ...state.channel,
-  },
-});
-
-export const dictionariesMapper = (state: IDefaultApplicationState): IDictionariesWrapper<IDictionaries> => ({
-  dictionaries: {
-    ...state.dictionaries,
   },
 });
 
@@ -82,6 +75,5 @@ export const defaultMappers = [
   layoutMapper,
   rootMapper,
   notificationMapper,
-  dictionariesMapper,
   channelMapper
 ];

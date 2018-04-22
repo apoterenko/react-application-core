@@ -387,33 +387,17 @@ export interface IOnEmptyDictionaryWrapper {
   onEmptyDictionary?(dictionary?: string): void;
 }
 
-/**********************
- * Loading's wrapper
- **********************/
+/* @stable - 22.04.2018 */
 export interface ILoadingWrapper {
   loading?: boolean;
 }
 
-/**********************
- * Dictionary's wrappers
- **********************/
+/* @stable - 22.04.2018 */
 export interface IBindToDictionaryWrapper {
   bindToDictionary?: string;
 }
 
-export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
-                                                 IOnEmptyDictionaryWrapper,
-                                                 IOnLoadDictionaryWrapper {
-}
-
-export interface IDictionaryEntity<TData> extends IDataWrapper<TData[]|TData>,
-                                                  ILoadingWrapper {
-}
-
-export interface IDictionaries {
-  [dictionary: string]: IDictionaryEntity<{}>;
-}
-
+/* @stable - 22.04.2018 */
 export interface IDictionariesWrapper<TDictionaries> {
   dictionaries?: TDictionaries;
 }

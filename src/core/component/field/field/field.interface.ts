@@ -12,10 +12,9 @@ import {
   IStepable,
   ChangeEventT,
   IMaskEntity,
-  IBindToDictionaryEntity,
 } from '../../../definitions.interface';
 import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
-import { IErrorEntity, IFieldEntity, IKeyboardHandlersEntity } from '../../../entities-definitions.interface';
+import { IErrorEntity, IFieldEntity, IKeyboardHandlersEntity, IBindToDictionaryEntity } from '../../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
 export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IDefaultField) => string;

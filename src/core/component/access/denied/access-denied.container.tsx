@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import { IDefaultApplicationState } from '../../../store';
 import { CenterLayout } from '../../layout';
 import { basicConnector, defaultMappers } from '../../connector';
 import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
-import { IContainerEntity } from '../../../entities-definitions.interface';
+import { IContainerEntity, IApplicationStoreEntity } from '../../../entities-definitions.interface';
 
-@basicConnector<IDefaultApplicationState>({
+@basicConnector<IApplicationStoreEntity>({
   routeConfiguration: (routes) => ({
     type: ContainerVisibilityTypeEnum.PRIVATE,
     path: routes.accessDenied,

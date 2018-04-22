@@ -4,18 +4,18 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { provideInSingleton } from '../../di';
 import { FormActionBuilder } from '../../component/form';
 import { ListActionBuilder } from '../../component/list';
-import { IDefaultApplicationState } from '../store.interface';
 import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
 import { StackActionBuilder } from './stack-action.builder';
 import { getDestroyableSections } from './stack.helper';
 import { FilterActionBuilder } from '../../component/filter';
+import { IApplicationStoreEntity } from '../../entities-definitions.interface';
 
 @provideInSingleton(ConnectorEffects)
 export class ConnectorEffects {
   private static logger = LoggerFactory.makeLogger(ConnectorEffects);
 
   @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
-  public $onContainerInit(action: IEffectsAction, state: IDefaultApplicationState): IEffectsAction[] {
+  public $onContainerInit(action: IEffectsAction, state: IApplicationStoreEntity): IEffectsAction[] {
     const currentSection = action.data;
     const destroyableSections = getDestroyableSections(currentSection, state.stack);
 
