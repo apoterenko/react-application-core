@@ -27,7 +27,7 @@ import { IApplicationSettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
 
-export class UniversalBaseContainer<TProps extends IUniversalContainerEntity, TState = {}>
+export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>
   implements IUniversalBaseContainer<TProps, TState> {
 

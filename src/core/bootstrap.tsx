@@ -9,10 +9,8 @@ LoggerFactory.configureLogLevel(
     PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
 );
 
-import {
-  IApplicationContainerProps,
-} from './component/application';
 import { addClassNameToBody } from './util';
+import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
 import { makeBootstrapApp } from './bootstrap/universal-bootstrap-app.factory';
 
@@ -31,7 +29,7 @@ export function bootstrap(
   const ready = () => {
     const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
-      new componentClass().render(),
+      new componentClass({}).render() as JSX.Element,
       document.getElementById(rootId),
     );
 

@@ -1,4 +1,7 @@
 /* @stable - 23.04.2018 */
+export { rnBootstrap } from './rn-bootstrap';
+
+/* @stable - 23.04.2018 */
 export { convertError } from './error/error.converter';
 
 /* @stable - 20.04.2018 */
