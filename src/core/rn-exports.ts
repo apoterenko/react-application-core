@@ -1,4 +1,4 @@
-export { basicConnector, connector } from './component/connector/connector.decorator';
+/* @stable - 23.04.2018 */
 export { convertError } from './error/error.converter';
 
 /* @stable - 20.04.2018 */
@@ -35,6 +35,7 @@ export { RnLayoutBuilder } from './component/layout/builder/rn-layout.builder';
 /* @stable - 16.04.2018 */
 export * from './component/connector/universal-connector.mapper';
 export { universalConnectorFactory } from './component/connector/universal-connector.factory';
+export { basicConnector, connector } from './component/connector/universal-connector.decorator';
 
 /* @stable - 16.04.2018 */
 export { RnBaseContainer } from './component/base/rn-base.container';
@@ -50,6 +51,6 @@ export { makeUntouchedListEffectsProxy } from './store/effects/untouched-list-ef
 
 /* @stable - 15.04.2018 */
 export { RouterActionBuilder } from './router/router-action.builder';
-export { ConnectorActionBuilder } from './component/connector/connector-action.builder';
+export { ConnectorActionBuilder } from './component/connector/universal-connector-action.builder';
 export { ListActionBuilder } from './component/list/list-action.builder';
 export { FormActionBuilder } from './component/form/form-action.builder';

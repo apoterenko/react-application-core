@@ -1,7 +1,7 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { ConnectorActionBuilder } from '../../component/connector/connector-action.builder';
+import { ConnectorActionBuilder } from '../../component/connector/universal-connector-action.builder';
 import { IUntouchedListMiddlewareConfig } from '../middleware/middleware.interface';
 import { makeUntouchedListMiddleware } from '../middleware/untouched-list.middleware';
 

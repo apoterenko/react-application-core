@@ -5,22 +5,24 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { noop, sequence } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
 import { IBasicConnectorConfiguration, IConnectorConfiguration } from '../../configurations-definitions.interface';
-import { IContainerClassEntity } from '../../entities-definitions.interface';
+import { IContainerClassEntity, IUniversalApplicationStoreEntity } from '../../entities-definitions.interface';
 import { APPLICATION_SECTIONS } from '../application/application.interface';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
-import { CONNECTOR_SECTION_FIELD } from './connector.interface';
-import { universalConnectorFactory } from './connector.factory';
-import { ConnectorActionBuilder } from './connector-action.builder';
+import { CONNECTOR_SECTION_FIELD } from './universal-connector.interface';
+import { universalConnectorFactory } from './universal-connector.factory';
+import { ConnectorActionBuilder } from './universal-connector-action.builder';
 
 const logger = LoggerFactory.makeLogger('connector.decorator');
 
 /**
- * @stable - 15.04.2018
- * @param {IBasicConnectorConfiguration<TAppState>} config
+ * @stable - 23.04.2018
+ * @param {IBasicConnectorConfiguration<TStoreEntity>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
-export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<TAppState>) =>
+export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEntity>(
+  config: IBasicConnectorConfiguration<TStoreEntity>
+) =>
   (target: IContainerClassEntity): void => {
     if (config.callback) {
       config.callback(target);
@@ -60,9 +62,14 @@ export const basicConnector = <TAppState>(config: IBasicConnectorConfiguration<T
         target}. The init and destroy actions are disabled.`
       );
     }
-    DYNAMIC_ROUTES.set(universalConnectorFactory<TAppState>(target, ...config.mappers), config);
+    DYNAMIC_ROUTES.set(universalConnectorFactory<TStoreEntity>(target, ...config.mappers), config);
   };
 
-export const connector = <TAppState, TApplicationAccessConfig>(
-    config: IConnectorConfiguration<TAppState, TApplicationAccessConfig>
+/**
+ * @stable - 23.04.2018
+ * @param {IConnectorConfiguration<TStoreEntity extends IUniversalApplicationStoreEntity, TAccessConfig>} config
+ * @returns {(target: IContainerClassEntity) => void}
+ */
+export const connector = <TStoreEntity extends IUniversalApplicationStoreEntity, TAccessConfig>(
+    config: IConnectorConfiguration<TStoreEntity, TAccessConfig>
 ) => basicConnector(config);
