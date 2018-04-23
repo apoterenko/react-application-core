@@ -53,7 +53,7 @@ import {
   IBooleanSelectedWrapper,
   IDefaultOnClickWrapper,
   IStringProgressMessageWrapper,
-  IEmptyDataWrapper,
+  IBooleanEmptyDataWrapper,
   IStringEmptyMessageWrapper,
   IOnSubmitWrapper,
   IFieldsWrapper,
@@ -335,12 +335,9 @@ export interface IUniversalButtonEntity extends IUniversalComponentEntity,
                                                 IBooleanErrorEntity {
 }
 
-/* @stable - 08.04.2018 */
-export interface IMessageEntity extends IUniversalStateEntity,
-                                        IStringEmptyDataMessageWrapper,
-                                        IStringErrorMessageWrapper,
-                                        IStringEmptyMessageWrapper,
-                                        IEmptyDataWrapper {
+/* @stable [23.04.2018] */
+export interface IUniversalMessageEntity extends IUniversalComponentEntity,
+                                                 IUniversalStateEntity {
 }
 
 /* @stable - 08.04.2018 */
@@ -546,7 +543,8 @@ export interface IUniversalComponentProps extends IUniversalComponentEntity,
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
+                                     TState = {}>
   extends Component<TProps, TState> {
 }
 

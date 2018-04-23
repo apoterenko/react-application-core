@@ -97,9 +97,13 @@ export interface IIpWrapper {
   ip?: string;
 }
 
-/* @stable - 08.04.2018 */
-export interface IEmptyDataWrapper {
-  emptyData?: boolean;
+/* @stable [23.04.2018] */
+export interface IEmptyDataWrapper<TEmptyData> {
+  emptyData?: TEmptyData;
+}
+
+/* @stable [23.04.2018] */
+export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
 /* @stable - 14.04.2018 */

@@ -3,11 +3,12 @@ import * as R from 'ramda';
 
 import { uuid } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
-import { IUniversalListProps } from './universal-list.interface';
 import { UniversalComponent } from '../base/universal.component';
+import { IUniversalListConfiguration } from '../../configurations-definitions.interface';
+import { IUniversalListEntity } from '../../entities-definitions.interface';
 
 export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
-                                    TProps extends IUniversalListProps,
+                                    TProps extends IUniversalListConfiguration & IUniversalListEntity,
                                     TState = {}>
   extends UniversalComponent<TComponent, TProps, TState> {
 

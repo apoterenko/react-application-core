@@ -6,13 +6,10 @@ import { toClassName, orNull, scrollIntoView } from '../../util';
 import { IBaseListEntity } from '../../entities-definitions.interface';
 import { IBaseListConfiguration } from '../../configurations-definitions.interface';
 import { Message } from '../message';
-import { IComponentEntity } from '../../entities-definitions.interface';
 import { UniversalList } from './universal-list.component';
 
 export abstract class BaseList<TComponent extends BaseList<TComponent, TProps>,
-                              TProps extends IComponentEntity
-                                & IBaseListConfiguration
-                                & IBaseListEntity>
+                               TProps extends IBaseListConfiguration & IBaseListEntity>
   extends UniversalList<TComponent, TProps> {
 
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
