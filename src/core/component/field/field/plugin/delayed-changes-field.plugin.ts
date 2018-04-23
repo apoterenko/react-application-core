@@ -13,7 +13,7 @@ export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDel
   constructor(private component: IField<IDelayedChangesFieldPluginInternalProps, {}>) {
   }
 
-  public componentWillMount(): void {
+  public componentDidMount(): void {
     this.component.onChange = sequence(this.component.onChange, this.onChange, this);
     this.component.onKeyEnter = sequence(this.component.onKeyEnter, this.onKeyEnter, this);
   }

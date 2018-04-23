@@ -1,14 +1,15 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, scrollIntoView } from '../../util';
+import { uuid } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { IUniversalListProps } from './universal-list.interface';
 import { UniversalComponent } from '../base/universal.component';
 
-export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps>,
-                                    TProps extends IUniversalListProps>
-  extends UniversalComponent<TComponent, TProps, {}> {
+export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
+                                    TProps extends IUniversalListProps,
+                                    TState = {}>
+  extends UniversalComponent<TComponent, TProps, TState> {
 
   /**
    * @stable [23.04.2018]
@@ -26,15 +27,14 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    */
   public render(): JSX.Element {
     const props = this.props;
-    const originalDataSourceEmpty = this.isOriginalDataSourceEmpty();
 
     if (!this.getOriginalDataSource()
           || props.progress
           || props.error
-          || originalDataSourceEmpty) {
+          || this.isOriginalDataSourceEmpty()) {
       return this.getMessage();
     }
-    return this.getList();
+    return this.getView();
   }
 
   /**
@@ -48,7 +48,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
       const rowItem = this.refs[this.toRowKey(selected)] as IAnySelfWrapper;
       if (rowItem) {
         const container = this.refs.container;
-        scrollIntoView(
+        this.doScrollIntoView(
           rowItem.self,
           container instanceof Element
             ? container as Element
@@ -58,9 +58,24 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
     }
   }
 
+  /**
+   * @stable [23.04.2018]
+   * @param {Element} item
+   * @param {Element} view
+   */
+  protected abstract doScrollIntoView(item: Element, view: Element): void;
+
+  /**
+   * @stable [23.04.2018]
+   * @returns {JSX.Element}
+   */
   protected abstract getMessage(): JSX.Element;
 
-  protected abstract getList(): JSX.Element;
+  /**
+   * @stable [23.04.2018]
+   * @returns {JSX.Element}
+   */
+  protected abstract getView(): JSX.Element;
 
   /**
    * @stable [23.04.2018]

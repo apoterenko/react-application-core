@@ -96,6 +96,7 @@ import {
   ICssStyleWrapper,
   IPluginsWrapper,
   IEntityOnSelectWrapper,
+  IOnCreateWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -148,6 +149,7 @@ export interface IListItemConfiguration extends IEntityRendererWrapper,
 /* @stable [23.04.2018] */
 export interface IUniversalListConfiguration extends IUniversalComponentConfiguration,
                                                      IEntitySorterWrapper,
+                                                     IOnCreateWrapper,
                                                      IEntityOnSelectWrapper {
 }
 

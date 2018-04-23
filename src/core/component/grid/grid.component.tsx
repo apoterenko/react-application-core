@@ -1,10 +1,9 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { IGridColumnConfiguration } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT } from '../../definitions.interface';
-import { toClassName, isDef, orDefault, orNull } from '../../util';
+import { toClassName, isDef, orNull } from '../../util';
 import { IGridInternalProps } from './grid.interface';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
@@ -24,39 +23,33 @@ export class Grid extends BaseList<Grid, IGridInternalProps> {
    * @stable - 08.04.2018
    * @returns {JSX.Element}
    */
-  public render(): JSX.Element {
+  protected getView(): JSX.Element {
     const props = this.props;
-    const renderEl = super.render();
-
-    return orDefault<JSX.Element, JSX.Element>(
-      !R.isNil(renderEl),
-      () => renderEl,
-      () => (
-        <div className={toClassName('rac-grid-container-wrapper', 'rac-flex', 'rac-flex-row')}>
-          <div className={toClassName('rac-flex', 'rac-flex-full')}>
-            <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
-              <thead className='rac-grid-head'>
-              {this.getHeader()}
-              {this.getFilter()}
-              </thead>
-              <tbody ref='container'
-                     className='rac-grid-body'>
-              {this.getDataSource().map((entity) => this.getRow(entity))}
-              </tbody>
-            </table>
-            {this.getAddAction()}
-          </div>
-          <div className='rac-grid-service-wrapper'>
-            <div className='rac-grid-service'>
-              {this.uiFactory.makeIcon({
-                type: 'more_vert',
-                className: 'rac-button-icon',
-                onClick: this.onSettingsClick,
-              })}
-            </div>
+    return (
+      <div className={toClassName('rac-grid-container-wrapper', 'rac-flex', 'rac-flex-row')}>
+        <div className={toClassName('rac-flex', 'rac-flex-full')}>
+          <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
+            <thead className='rac-grid-head'>
+            {this.getHeader()}
+            {this.getFilter()}
+            </thead>
+            <tbody ref='container'
+                   className='rac-grid-body'>
+            {this.getDataSource().map((entity) => this.getRow(entity))}
+            </tbody>
+          </table>
+          {this.getAddAction()}
+        </div>
+        <div className='rac-grid-service-wrapper'>
+          <div className='rac-grid-service'>
+            {this.uiFactory.makeIcon({
+              type: 'more_vert',
+              className: 'rac-button-icon',
+              onClick: this.onSettingsClick,
+            })}
           </div>
         </div>
-      )
+      </div>
     );
   }
 

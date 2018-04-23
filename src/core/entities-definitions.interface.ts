@@ -115,7 +115,6 @@ import {
   ITabConfiguration,
   IUniversalComponentConfiguration,
 } from './configurations-definitions.interface';
-import { IUniversalListProps } from 'core/component/list/universal-list.interface';
 
 /* @stable - 05.04.2018 */
 export interface IFieldChangeEntity extends INameWrapper,
@@ -232,8 +231,7 @@ export interface IDefaultFormWrapperEntity extends IFormWrapperEntity<IEntity> {
 export interface IUniversalListEntity extends IUniversalComponentEntity,
                                               IUniversalStateEntity,
                                               IPaginatedEntitiesEntity,
-                                              ISelectedEntityWrapper,
-                                              IOnCreateWrapper {
+                                              ISelectedEntityWrapper {
 }
 
 /* @stable - 31.03.2018 */
