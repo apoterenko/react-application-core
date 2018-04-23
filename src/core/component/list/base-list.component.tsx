@@ -3,13 +3,13 @@ import * as React from 'react';
 import { IUIFactory } from '../factory';
 import { DI_TYPES, lazyInject } from '../../di';
 import { toClassName, orNull, scrollIntoView } from '../../util';
-import { IBaseListEntity } from '../../entities-definitions.interface';
-import { IBaseListConfiguration } from '../../configurations-definitions.interface';
+import { IUniversalListEntity } from '../../entities-definitions.interface';
+import { IUniversalListConfiguration } from '../../configurations-definitions.interface';
 import { Message } from '../message';
 import { UniversalList } from './universal-list.component';
 
 export abstract class BaseList<TComponent extends BaseList<TComponent, TProps>,
-                               TProps extends IBaseListConfiguration & IBaseListEntity>
+                               TProps extends IUniversalListConfiguration & IUniversalListEntity>
   extends UniversalList<TComponent, TProps> {
 
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;

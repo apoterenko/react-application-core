@@ -242,16 +242,7 @@ export interface IListItemEntity extends IComponentEntity,
 }
 
 /* @stable - 04.04.2018 */
-export interface IBaseListEntity extends IComponentEntity,
-                                         IUniversalStateEntity,
-                                         IOnCreateWrapper,
-                                         IEntityOnSelectWrapper,
-                                         ISelectedEntityWrapper,
-                                         IPaginatedEntitiesEntity {
-}
-
-/* @stable - 04.04.2018 */
-export interface IListEntity extends IBaseListEntity,
+export interface IListEntity extends IUniversalListEntity,
                                      ISortDirectionsWrapper,
                                      IKeyValueChangesWrapper,
                                      IDefaultOnSearchWrapper {

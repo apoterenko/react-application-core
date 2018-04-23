@@ -4,7 +4,6 @@ import {
   IEntitySorterWrapper,
   INonInteractiveWrapper,
   ISimpleWrapper,
-  IStringEmptyMessageWrapper,
   IUseAvatarWrapper,
   IUseTwoLineWrapper,
   IUseAddActionWrapper,
@@ -97,6 +96,10 @@ import {
   IPluginsWrapper,
   IEntityOnSelectWrapper,
   IOnCreateWrapper,
+  IBooleanEmptyDataWrapper,
+  IStringEmptyDataMessageWrapper,
+  IStringEmptyMessageWrapper,
+  IStringErrorMessageWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -148,20 +151,14 @@ export interface IListItemConfiguration extends IEntityRendererWrapper,
 
 /* @stable [23.04.2018] */
 export interface IUniversalListConfiguration extends IUniversalComponentConfiguration,
+                                                     IUseAddActionWrapper,
                                                      IEntitySorterWrapper,
                                                      IOnCreateWrapper,
                                                      IEntityOnSelectWrapper {
 }
 
 /* @stable - 04.04.2018 */
-export interface IBaseListConfiguration extends IUniversalComponentConfiguration,
-                                                IUseAddActionWrapper,
-                                                IEntitySorterWrapper,
-                                                IStringEmptyMessageWrapper {
-}
-
-/* @stable - 04.04.2018 */
-export interface IListConfiguration extends IBaseListConfiguration,
+export interface IListConfiguration extends IUniversalListConfiguration,
                                             ISimpleWrapper,
                                             IUseTwoLineWrapper,
                                             IUseAvatarWrapper,
@@ -195,7 +192,7 @@ export interface IGridColumnConfiguration extends IStringTitleWrapper,
 }
 
 /* @stable - 04.04.2018 */
-export interface IGridConfiguration extends IBaseListConfiguration,
+export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IColumnsConfigurationWrapper<IGridColumnConfiguration[]> {
 }
 
@@ -391,4 +388,12 @@ export interface IUniversalComponentConfiguration
 /* @stable [23.04.2018] */
 export interface IComponentConfiguration extends IUniversalComponentConfiguration,
                                                  ICssStyleWrapper {
+}
+
+/* @stable - 08.04.2018 */
+export interface IUniversalMessageConfiguration extends IUniversalComponentConfiguration,
+                                                        IStringEmptyDataMessageWrapper,
+                                                        IStringErrorMessageWrapper,
+                                                        IStringEmptyMessageWrapper,
+                                                        IBooleanEmptyDataWrapper {
 }
