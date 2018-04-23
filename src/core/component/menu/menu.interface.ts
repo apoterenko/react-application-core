@@ -1,11 +1,9 @@
-import { IBaseComponent } from '../base';
 import { INativeMaterialComponent } from '../material';
 import {
   EntityIdT,
   IUseFilterWrapper,
   IRawDataWrapper,
   AnyT,
-  ITplWrapper,
   IRenderToBodyEntity,
   IFilterPlaceholderWrapper,
   IFilterFnWrapper,
@@ -14,7 +12,7 @@ import {
   IItemRendererWrapper,
   IItemTplWrapper,
 } from '../../definitions.interface';
-import { IComponentEntity } from '../../entities-definitions.interface';
+import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
 
 export interface IMenuInternalState {
   filter?: string;
@@ -40,7 +38,7 @@ export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
   show(): void;
 }
 
-export interface IMenu extends IBaseComponent<IMenuInternalProps, IMenuInternalState> {
+export interface IMenu extends IComponent<IMenuInternalProps, IMenuInternalState> {
   show(): void;
   hide(): void;
   isOpen(): boolean;

@@ -1,8 +1,8 @@
 import { Component } from 'react';
 
-import { IBaseComponent } from '../base';
+import { IComponent, IComponentProps } from '../../entities-definitions.interface';
 
-export interface IDndInternalProps {
+export interface IDndInternalProps extends IComponentProps {
   onSelect?(files: File[]): void;
 }
 
@@ -14,6 +14,6 @@ export interface INativeDropZoneComponent extends Component<{}, {}>,
                                                   INativeDropZone {
 }
 
-export interface IDnd extends IBaseComponent<IDndInternalProps, {}>,
+export interface IDnd extends IComponent<IDndInternalProps, {}>,
                               INativeDropZone {
 }

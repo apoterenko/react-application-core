@@ -1,6 +1,5 @@
-import { IBaseComponent } from '../../base';
 import { IListItemConfiguration } from '../../../configurations-definitions.interface';
-import { IListItemEntity } from '../../../entities-definitions.interface';
+import { IListItemEntity, IComponent } from '../../../entities-definitions.interface';
 
 /* @stable - 31.03.2018 */
 export interface IListItemProps extends IListItemConfiguration,
@@ -8,5 +7,5 @@ export interface IListItemProps extends IListItemConfiguration,
 }
 
 /* @stable - 31.03.2018 */
-export interface IListItem extends IBaseComponent<IListItemProps, {}> {
+export interface IListItem extends IComponent<IListItemProps, {}> {
 }

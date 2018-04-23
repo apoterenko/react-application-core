@@ -1,6 +1,5 @@
 import { IEntity, IDefaultSubmitWrapper } from '../../definitions.interface';
 import {
-  IBaseComponent,
   IBaseContainer,
 } from '../base';
 import {
@@ -8,6 +7,7 @@ import {
   IDefaultFormWrapperEntity,
   IDefaultApiEntity,
   IContainerEntity,
+  IComponent,
 } from '../../entities-definitions.interface';
 import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
 import { ISubmitWrapper, IApiEntityWrapper } from '../../definitions.interface';
@@ -28,7 +28,7 @@ export interface IDefaultFormContainerInternalProps extends IFormContainerIntern
 }
 
 /* @stable - 11.04.2018 */
-export interface IForm extends IBaseComponent<IFormInternalProps, {}>,
+export interface IForm extends IComponent<IFormInternalProps, {}>,
                                IApiEntityWrapper<IDefaultApiEntity>,
                                ISubmitWrapper<(apiEntity: IDefaultApiEntity) => void> {
 }

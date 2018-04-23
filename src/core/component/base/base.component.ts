@@ -1,15 +1,14 @@
 import { IBasicEvent } from '../../definitions.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IUIFactory } from '../factory';
-import { IBaseComponent } from './base.interface';
 import { UniversalComponent } from './universal.component';
-import { IComponentEntity } from '../../entities-definitions.interface';
+import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
 
-export class BaseComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
+export class BaseComponent<TComponent extends IComponent<TInternalProps, TInternalState>,
                            TInternalProps = IComponentEntity,
                            TInternalState = {}>
     extends UniversalComponent<TComponent, TInternalProps, TInternalState>
-    implements IBaseComponent<TInternalProps, TInternalState> {
+    implements IComponent<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 

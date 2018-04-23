@@ -108,6 +108,8 @@ import {
   ILoadingWrapper,
   AnyT,
   IDispatchWrapper,
+  IStopEventWrapper,
+  IBasicEvent,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -558,3 +560,14 @@ export interface IUniversalComponentPluginClassEntity<
 
 /* @stable - 23.04.2018 */
 export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;
+
+/* @stable [23.04.2018] */
+export interface IComponentProps extends IUniversalComponentProps {
+}
+
+/* @stable [23.04.2018] */
+export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
+  extends IUniversalComponent<TProps, TState>,
+          IStopEventWrapper<(event: IBasicEvent) => void>,
+          IHtmlElementSelfWrapper {
+}

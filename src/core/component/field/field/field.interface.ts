@@ -13,8 +13,13 @@ import {
   ChangeEventT,
   IMaskEntity,
 } from '../../../definitions.interface';
-import { IBaseComponent } from '../../base';
-import { IErrorEntity, IFieldEntity, IKeyboardHandlersEntity, IBindToDictionaryEntity } from '../../../entities-definitions.interface';
+import {
+  IErrorEntity,
+  IFieldEntity,
+  IKeyboardHandlersEntity,
+  IBindToDictionaryEntity,
+  IComponent,
+} from '../../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
 export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IDefaultField) => string;
@@ -92,7 +97,7 @@ export interface IField<TInternalProps extends IFieldInternalProps,
                         TInternalState extends IFieldInternalState>
     extends IKeyboardHandlersEntity,
             IBasicField<AnyT>,
-            IBaseComponent<TInternalProps, TInternalState> {
+            IComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
   resetError(): void;
 }

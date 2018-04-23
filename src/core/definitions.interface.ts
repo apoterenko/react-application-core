@@ -899,6 +899,11 @@ export interface IAnySelfWrapper extends ISelfWrapper<AnyT> {
 export interface IHtmlElementSelfWrapper extends ISelfWrapper<HTMLElement> {
 }
 
+/* @stable [23.04.2018] */
+export interface IStopEventWrapper<TStopEvent> {
+  stopEvent?: TStopEvent;
+}
+
 /* @stable - 31.03.2018 */
 export interface INonInteractiveWrapper {
   nonInteractive?: boolean;

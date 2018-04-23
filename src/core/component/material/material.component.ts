@@ -1,11 +1,11 @@
-import { BaseComponent, IBaseComponent } from '../../component/base';
+import { BaseComponent } from '../../component/base';
 import {
   INativeMaterialComponent,
   IMaterialComponentFactory,
 } from './material.interface';
-import { IComponentEntity } from '../../entities-definitions.interface';
+import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
 
-export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
+export class MaterialComponent<TComponent extends IComponent<TInternalProps, TInternalState>,
                                TInternalProps extends IComponentEntity,
                                TInternalState,
                                TNativeMaterialComponent extends INativeMaterialComponent>

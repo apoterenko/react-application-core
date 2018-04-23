@@ -1,8 +1,7 @@
-import { IUniversalComponentPlugin } from '../../../entities-definitions.interface';
-import { IBaseComponent } from '../../base';
+import { IUniversalComponentPlugin, IComponent } from '../../../entities-definitions.interface';
 import { IMaterialComponentFactory, INativeMaterialComponent } from '../../material';
 
-export class MaterialPlugin<TComponent extends IBaseComponent,
+export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent>
     implements IUniversalComponentPlugin {
 
