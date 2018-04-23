@@ -2,14 +2,15 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { toClassName, orNull, uuid, scrollIntoView } from '../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import { BaseComponent } from '../base';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { IBaseListEntity } from '../../entities-definitions.interface';
 import { IBaseListConfiguration } from '../../configurations-definitions.interface';
 import { Message } from '../message';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
 export class BaseList<TList extends BaseList<TList, TInternalProps>,
-                      TInternalProps extends IBaseComponentInternalProps
+                      TInternalProps extends IComponentEntity
                                               & IBaseListConfiguration
                                               & IBaseListEntity>
   extends BaseComponent<TList, TInternalProps, {}> {

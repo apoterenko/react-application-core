@@ -20,6 +20,6 @@ export class TimeField extends BasicTextField<TimeField,
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {
-    return this.applicationSettings.dateTime || {};
+    return this.settings.dateTime || {};
   }
 }

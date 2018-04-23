@@ -1,8 +1,8 @@
 import { Component } from 'react';
 
-import { IBaseComponent, IBaseComponentInternalProps } from '../base';
+import { IBaseComponent } from '../base';
 
-export interface IDndInternalProps extends IBaseComponentInternalProps {
+export interface IDndInternalProps {
   onSelect?(files: File[]): void;
 }
 

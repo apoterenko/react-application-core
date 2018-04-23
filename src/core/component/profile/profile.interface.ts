@@ -1,4 +1,3 @@
-import { IBaseComponentInternalProps } from '../base';
 import {
   IStringEmailWrapper,
   INameWrapper,
@@ -7,8 +6,9 @@ import {
   IAnyMenuActionEntity,
 } from '../../definitions.interface';
 import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
-export interface IProfileInternalProps extends IBaseComponentInternalProps,
+export interface IProfileInternalProps extends IComponentEntity,
                                                IStringEmailWrapper,
                                                INameWrapper,
                                                IStringPathWrapper,

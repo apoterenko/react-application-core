@@ -1,10 +1,10 @@
 import { INativeMaterialComponent } from '../material';
-import { IBaseComponentInternalProps } from '../base';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
 export interface INativeMaterialDrawerComponent extends INativeMaterialComponent {
   open: boolean;
 }
 
-export interface IDrawerInternalProps extends IBaseComponentInternalProps {
+export interface IDrawerInternalProps extends IComponentEntity {
   opened: boolean;
 }

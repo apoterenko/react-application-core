@@ -1,10 +1,10 @@
-import { IComponentPlugin } from '../../plugin';
-import { IDefaultBaseComponent } from '../../base';
+import { IUniversalComponentPlugin } from '../../../entities-definitions.interface';
+import { IBaseComponent } from '../../base';
 import { IMaterialComponentFactory, INativeMaterialComponent } from '../../material';
 
-export class MaterialPlugin<TComponent extends IDefaultBaseComponent,
+export class MaterialPlugin<TComponent extends IBaseComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent>
-    implements IComponentPlugin<TComponent, {}, {}> {
+    implements IUniversalComponentPlugin {
 
   protected mdc: TNativeMaterialComponent;
 

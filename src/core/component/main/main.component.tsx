@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { toClassName } from '../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import { BaseComponent } from '../base';
 
-export class Main extends BaseComponent<Main, IBaseComponentInternalProps, {}> {
+export class Main extends BaseComponent<Main> {
 
   public render(): JSX.Element {
     const props = this.props;

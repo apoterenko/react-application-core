@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../../../component/base';
+import { BaseComponent } from '../../../component/base';
 
-export class ToolbarSection extends BaseComponent<ToolbarSection, IBaseComponentInternalProps, {}> {
+export class ToolbarSection extends BaseComponent<ToolbarSection> {
 
   public render(): JSX.Element {
     const props = this.props;

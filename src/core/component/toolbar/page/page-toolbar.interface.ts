@@ -1,9 +1,11 @@
 import {
-  IBaseComponentInternalProps,
-} from '../../base';
-import { IPaginatedEntity, IListWrapperEntity, IContainerEntity } from '../../../entities-definitions.interface';
+  IPaginatedEntity,
+  IListWrapperEntity,
+  IContainerEntity,
+  IComponentEntity,
+} from '../../../entities-definitions.interface';
 
-export interface IPageToolbarInternalProps extends IBaseComponentInternalProps,
+export interface IPageToolbarInternalProps extends IComponentEntity,
                                                    IPaginatedEntity {
   contentDisplay?: boolean;
   onPrevious?(): void;

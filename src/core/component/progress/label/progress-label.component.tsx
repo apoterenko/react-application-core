@@ -16,7 +16,7 @@ export class ProgressLabel extends BaseComponent<ProgressLabel, IProgressLabelIn
         {this.uiFactory.makeIcon({ type: 'timelapse', className: 'rac-loading-icon' })}
         {
           <span className='rac-loading-message'>
-            {this.t(props.progressMessage || this.applicationSettings.messages.waitMessage)}
+            {this.t(props.progressMessage || this.settings.messages.waitMessage)}
           </span>
         }
       </span>

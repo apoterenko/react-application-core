@@ -2,10 +2,10 @@ import * as React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { View, Content } from 'native-base';
 
-import { UniversalBaseComponent } from '../base/universal-base.component';
+import { UniversalComponent } from '../base/universal.component';
 import { IRnModalProps } from './rn-modal.interface';
 
-export class RnModal extends UniversalBaseComponent<RnModal, IRnModalProps> {
+export class RnModal extends UniversalComponent<RnModal, IRnModalProps> {
 
   public static defaultProps: IRnModalProps = {
     shadowStyle: {

@@ -135,7 +135,7 @@ export class DateField extends BasicTextField<DateField,
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {
-    return this.applicationSettings.dateTime || {};
+    return this.settings.dateTime || {};
   }
 
   private formatDate(value: DateTimeLikeTypeT): string {

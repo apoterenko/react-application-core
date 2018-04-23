@@ -1,4 +1,4 @@
-import { IBaseComponent, IBaseComponentInternalProps } from '../base';
+import { IBaseComponent } from '../base';
 import { INativeMaterialComponent } from '../material';
 import {
   EntityIdT,
@@ -14,12 +14,13 @@ import {
   IItemRendererWrapper,
   IItemTplWrapper,
 } from '../../definitions.interface';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
 export interface IMenuInternalState {
   filter?: string;
 }
 
-export interface IMenuOptions extends IBaseComponentInternalProps,
+export interface IMenuOptions extends IComponentEntity,
                                       IUseFilterWrapper,
                                       IFilterFnWrapper<MenuOptionT>,
                                       IFilterPlaceholderWrapper,

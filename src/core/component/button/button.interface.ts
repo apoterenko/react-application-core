@@ -7,6 +7,6 @@ export interface IButtonProps extends IButtonConfiguration,
 }
 
 /* @stable - 19.04.2018 */
-export interface IRnButtonProps extends IRnButtonConfiguration,
-                                        IUniversalButtonEntity {
+export interface IRnButtonProps extends IUniversalButtonEntity,
+                                        IRnButtonConfiguration {
 }

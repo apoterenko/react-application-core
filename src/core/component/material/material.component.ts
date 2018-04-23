@@ -1,11 +1,12 @@
-import { BaseComponent, IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
+import { BaseComponent, IBaseComponent } from '../../component/base';
 import {
   INativeMaterialComponent,
   IMaterialComponentFactory,
 } from './material.interface';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
 export class MaterialComponent<TComponent extends IBaseComponent<TInternalProps, TInternalState>,
-                               TInternalProps extends IBaseComponentInternalProps,
+                               TInternalProps extends IComponentEntity,
                                TInternalState,
                                TNativeMaterialComponent extends INativeMaterialComponent>
     extends BaseComponent<TComponent, TInternalProps, TInternalState> {

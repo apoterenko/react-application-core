@@ -18,7 +18,7 @@ export class Button extends BaseComponent<Button, IButtonProps, {}> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const buttonText = getButtonText(props, this.applicationSettings.messages);
+    const buttonText = getButtonText(props, this.settings.messages);
 
     const className = toClassName(
         !props.notUseClassName && this.uiFactory.button,

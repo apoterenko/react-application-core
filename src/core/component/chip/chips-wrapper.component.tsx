@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import { BaseComponent } from '../base';
 
-export class ChipsWrapper extends BaseComponent<ChipsWrapper, IBaseComponentInternalProps, {}> {
+export class ChipsWrapper extends BaseComponent<ChipsWrapper> {
 
   public render(): JSX.Element {
     return (

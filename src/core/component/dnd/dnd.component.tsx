@@ -22,7 +22,7 @@ export class DnD extends BaseComponent<DnD, IDndInternalProps, {}>
                   className='rac-dnd'
                   style={{}}
                   onDrop={this.onDrop}>
-          {this.t(this.applicationSettings.messages.dndMessage)}
+          {this.t(this.settings.messages.dndMessage)}
         </Dropzone>
     );
   }

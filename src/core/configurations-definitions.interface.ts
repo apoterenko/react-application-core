@@ -92,8 +92,14 @@ import {
   IBooleanModalWrapper,
   ICenterAlignmentWrapper,
   IHasContentWrapperWrapper,
+  IStringArrayExcludeTargetsClassesWrapper,
+  ICssStyleWrapper,
+  IPluginsWrapper,
 } from './definitions.interface';
-import { IContainerClassEntity } from './entities-definitions.interface';
+import {
+  IContainerClassEntity,
+  IUniversalComponentPluginClassEntity,
+} from './entities-definitions.interface';
 
 /* @stable - 05.04.2018 */
 export interface IItemConfigurationWrapper<TItemConfiguration> {
@@ -139,7 +145,8 @@ export interface IListItemConfiguration extends IEntityRendererWrapper,
 }
 
 /* @stable - 04.04.2018 */
-export interface IBaseListConfiguration extends IUseAddActionWrapper,
+export interface IBaseListConfiguration extends IUniversalComponentConfiguration,
+                                                IUseAddActionWrapper,
                                                 IEntitySorterWrapper,
                                                 IStringEmptyMessageWrapper {
 }
@@ -195,11 +202,13 @@ export interface ITabConfiguration extends INumberValueWrapper,
 }
 
 /* @stable - 06.04.2018 */
-export interface ITabPanelConfiguration extends IItemsWrapper<ITabConfiguration[]> {
+export interface ITabPanelConfiguration extends IUniversalComponentConfiguration,
+                                                IItemsWrapper<ITabConfiguration[]> {
 }
 
 /* @stable - 19.04.2018 */
-export interface IUniversalButtonConfiguration extends IStringTextWrapper,
+export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
+                                                       IStringTextWrapper,
                                                        IStringIconWrapper {
 }
 
@@ -238,7 +247,8 @@ export interface IApplicationConfiguration extends IBasenameWrapper,
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldConfiguration extends IReadOnlyWrapper,
+export interface IFieldConfiguration extends IUniversalComponentConfiguration,
+                                             IReadOnlyWrapper,
                                              ILabelWrapper,
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
@@ -350,8 +360,26 @@ export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilde
                                                      IFactorWrapper<LayoutBuilderFactorEnum> {
 }
 
-/* @stable - 20.04.2018 */
-export interface IRnModalConfiguration extends IShadowStyleWrapper<IKeyValue>,
+/* @stable [23.04.2018] */
+export interface IRnModalConfiguration extends IUniversalComponentConfiguration,
+                                               IShadowStyleWrapper<IKeyValue>,
                                                IHasContentWrapperWrapper,
                                                ICenterAlignmentWrapper {
+}
+
+/* @stable [23.04.2018] */
+export interface IGridRowConfiguration extends IComponentConfiguration,
+                                               IStringArrayExcludeTargetsClassesWrapper {
+}
+
+/* @stable [23.04.2018] */
+export interface IUniversalComponentConfiguration
+  extends IClassNameWrapper,
+          IStringTitleWrapper,
+          IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
+}
+
+/* @stable [23.04.2018] */
+export interface IComponentConfiguration extends IUniversalComponentConfiguration,
+                                                 ICssStyleWrapper {
 }

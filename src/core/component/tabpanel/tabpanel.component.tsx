@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
-import { ITabPanelInternalProps } from './tabpanel.interface';
+import { ITabPanelProps } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
 
-export class TabPanel extends BaseComponent<TabPanel, ITabPanelInternalProps, {}> {
+export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
 
   /**
    * @stable - 07.04.2018

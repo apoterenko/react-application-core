@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../../base';
+import { BaseComponent } from '../../base';
 
-export class CenterLayout extends BaseComponent<CenterLayout, IBaseComponentInternalProps, {}> {
+export class CenterLayout extends BaseComponent<CenterLayout> {
 
   public render(): JSX.Element {
     return (

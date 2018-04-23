@@ -5,7 +5,6 @@ import {
   ITypeWrapper,
   IStringIconWrapper,
 } from '../../../definitions.interface';
-import { IBaseComponentInternalProps } from '../../base';
 import { IApplicationAccessConfig } from '../../../permissions';
 
 export enum NavigationListItemTypeEnum {
@@ -25,6 +24,6 @@ export interface INavigationListItemOptions extends IBooleanActiveWrapper,
   children?: INavigationListItemOptions[];
 }
 
-export interface INavigationListInternalProps extends IBaseComponentInternalProps {
+export interface INavigationListInternalProps {
   items: INavigationListItemOptions[];
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../../util';
-import { BaseComponent, IBaseComponentInternalProps } from '../../../base';
+import { BaseComponent } from '../../../base';
 
-export class SimpleListItem extends BaseComponent<SimpleListItem, IBaseComponentInternalProps, {}> {
+export class SimpleListItem extends BaseComponent<SimpleListItem> {
 
   public render(): JSX.Element {
     const props = this.props;

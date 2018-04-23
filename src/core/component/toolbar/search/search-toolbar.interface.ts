@@ -1,12 +1,11 @@
-import { IBaseComponentInternalProps } from '../../base';
 import { IApplicationFilterOptions } from '../../filter';
-import { IQueryFilterEntity, IContainerEntity } from '../../../entities-definitions.interface';
+import { IQueryFilterEntity, IContainerEntity, IComponentEntity } from '../../../entities-definitions.interface';
 
 export interface ISearchToolbarProps {
   onApply?(value?: string): void;
 }
 
-export interface ISearchToolbarInternalProps extends IBaseComponentInternalProps,
+export interface ISearchToolbarInternalProps extends IComponentEntity,
                                                      IQueryFilterEntity,
                                                      IApplicationFilterOptions,
                                                      ISearchToolbarProps {

@@ -1,4 +1,4 @@
-import { ComponentClass } from 'react';
+import { Component, ComponentClass, ComponentLifecycle } from 'react';
 import { History } from 'history';
 
 import {
@@ -52,7 +52,6 @@ import {
   IOnChangeWrapper,
   IBooleanSelectedWrapper,
   IDefaultOnClickWrapper,
-  IStringArrayExcludeTargetsClassesWrapper,
   IStringProgressMessageWrapper,
   IEmptyDataWrapper,
   IStringEmptyMessageWrapper,
@@ -107,9 +106,12 @@ import {
   IDataWrapper,
   IDictionariesWrapper,
   ILoadingWrapper,
+  AnyT,
+  IDispatchWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
+  IUniversalComponentConfiguration,
 } from './configurations-definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -224,13 +226,15 @@ export interface IDefaultFormWrapperEntity extends IFormWrapperEntity<IEntity> {
 }
 
 /* @stable - 31.03.2018 */
-export interface IListItemEntity extends IEntityRawDataWrapper,
+export interface IListItemEntity extends IComponentEntity,
+                                         IEntityRawDataWrapper,
                                          IBooleanActiveWrapper,
                                          IEntityOnClickWrapper {
 }
 
 /* @stable - 04.04.2018 */
-export interface IBaseListEntity extends IStateEntity,
+export interface IBaseListEntity extends IComponentEntity,
+                                         IStateEntity,
                                          IDefaultOnCreateWrapper,
                                          IEntityOnSelectWrapper,
                                          ISelectedEntityWrapper,
@@ -297,15 +301,16 @@ export interface IGridEntity extends IListEntity,
 export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
 }
 
-/* @stable - 04.04.2018 */
-export interface IGridHeaderColumnEntity extends ISortDirectionEntity,
+/* @stable [23.04.2018] */
+export interface IGridHeaderColumnEntity extends IComponentEntity,
+                                                 ISortDirectionEntity,
                                                  IOnClickWrapper<(payload: ISortDirectionEntity) => void> {
 }
 
 /* @stable - 05.04.2018 */
-export interface IGridRowEntity extends IBooleanSelectedWrapper,
-                                        IDefaultOnClickWrapper,
-                                        IStringArrayExcludeTargetsClassesWrapper {
+export interface IGridRowEntity extends IComponentEntity,
+                                        IBooleanSelectedWrapper,
+                                        IDefaultOnClickWrapper {
 }
 
 /* @stable - 06.04.2018 */
@@ -313,7 +318,8 @@ export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfigura
 }
 
 /* @stable - 19.04.2018 */
-export interface IUniversalButtonEntity extends IProgressWrapper,
+export interface IUniversalButtonEntity extends IUniversalComponentEntity,
+                                                IProgressWrapper,
                                                 IDisabledWrapper,
                                                 IStringProgressMessageWrapper,
                                                 IStringErrorMessageWrapper,
@@ -358,11 +364,12 @@ export interface IKeyboardHandlersEntity {
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldEntity extends IKeyboardHandlersEntity,
+export interface IFieldEntity extends IComponentEntity,
+                                      IKeyboardHandlersEntity,
                                       IStringMessageWrapper {
 }
 
-/* @stable - 19.04.2018 */
+/* @stable [23.04.2018] */
 export interface IUniversalComponentEntity {
 }
 
@@ -389,21 +396,24 @@ export interface IContainerEntity extends IUniversalContainerEntity,
 export interface IContainerClassEntity extends ComponentClass<IContainerEntity> {
 }
 
-/* @stable - 15.04.2018 */
-export interface IComponentEntity extends IClassNameWrapper,
+/* @stable [23.04.2018] */
+export interface IComponentEntity extends IUniversalComponentEntity,
+                                          IClassNameWrapper,
                                           ICssStyleWrapper,
                                           IStringTitleWrapper {
 }
 
-/* @stable - 15.04.2018 */
-export interface IComponentClassEntity<TProps extends IComponentEntity,
-                                       TState>
-  extends ComponentClass<IComponentEntity>,
-          IHtmlElementSelfWrapper {
+/* @stable [23.04.2018] */
+export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentEntity = TProps,
+                                                TState = {}>
+  extends ComponentClass<TProps> {
 }
 
 /* @stable - 15.04.2018 */
-export interface IDefaultComponentClassEntity extends IComponentClassEntity<IComponentEntity, {}> {
+export interface IComponentClassEntity<TProps extends IComponentEntity = TProps,
+                                       TState = {}>
+  extends IUniversalComponentClassEntity<TProps>,
+          IHtmlElementSelfWrapper {
 }
 
 /* @stable - 12.04.2018 */
@@ -513,3 +523,38 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
                                                                      INotificationWrapperEntity,
                                                                      IRootWrapperEntity {
 }
+
+/* @stable - 12.04.2018 */
+export interface IUniversalBaseContainer<TProps extends IUniversalContainerEntity, TState = {}>
+  extends Component<TProps, TState>,
+          ISectionNameWrapper,
+          IDispatchWrapper<(type: string, data?: AnyT) => void> {
+}
+
+/* @stable [23.04.2018] */
+export interface IUniversalComponentProps extends IUniversalComponentEntity,
+                                                  IUniversalComponentConfiguration {
+}
+
+/* @stable [23.04.2018] */
+export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+  extends Component<TProps, TState> {
+}
+
+/* @stable [23.04.2018] */
+export interface IUniversalComponentPlugin<TProps extends IUniversalComponentProps = IUniversalComponentProps,
+                                           TState = {}>
+  extends ComponentLifecycle<TProps, TState> {
+}
+
+/* @stable - 23.04.2018 */
+export interface IUniversalComponentPluginClassEntity<
+  TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
+  TProps extends IUniversalComponentProps = IUniversalComponentProps,
+  TState = {}
+> {
+  new(component: TComponent): IUniversalComponentPlugin<TProps, TState>;
+}
+
+/* @stable - 23.04.2018 */
+export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;

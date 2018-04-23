@@ -1,9 +1,7 @@
-import { IBaseComponentInternalProps } from '../../base';
 import { IGridHeaderColumnConfiguration } from '../../../configurations-definitions.interface';
 import { IGridHeaderColumnEntity } from '../../../entities-definitions.interface';
 
-/* @stable - 05.04.2018 */
-export interface IGridHeaderColumnInternalProps extends IBaseComponentInternalProps,
-                                                        IGridHeaderColumnConfiguration,
-                                                        IGridHeaderColumnEntity {
+/* @stable [23.04.2018] */
+export interface IGridHeaderColumnProps extends IGridHeaderColumnConfiguration,
+                                                IGridHeaderColumnEntity {
 }

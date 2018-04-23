@@ -13,7 +13,7 @@ import {
   ChangeEventT,
   IMaskEntity,
 } from '../../../definitions.interface';
-import { IBaseComponent, IBaseComponentInternalProps } from '../../base';
+import { IBaseComponent } from '../../base';
 import { IErrorEntity, IFieldEntity, IKeyboardHandlersEntity, IBindToDictionaryEntity } from '../../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
@@ -34,8 +34,7 @@ export interface IFieldOptions extends ILabelWrapper,
 
 export interface IFieldsOptions { [index: string]: string|IFieldConfiguration; }
 
-export interface IFieldInternalProps extends IBaseComponentInternalProps,
-                                             IFieldConfiguration,
+export interface IFieldInternalProps extends IFieldConfiguration,
                                              IFieldEntity,
                                              IFieldOptions,
                                              INameWrapper,

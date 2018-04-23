@@ -422,6 +422,11 @@ export interface IMessagesWrapper<TMessages> {
   messages?: TMessages;
 }
 
+/* @stable - 23.04.2018 */
+export interface IPluginsWrapper<TPlugins> {
+  plugins?: TPlugins;
+}
+
 /* @stable - 11.04.2018 */
 export interface IPatternWrapper<TPattern> {
   pattern?: TPattern;
@@ -661,8 +666,8 @@ export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
 }
 
-/* @stable - 05.04.2018 */
-export interface IDefaultBasicEvent extends React.SyntheticEvent<{}> {
+/* @stable [23.04.2018] */
+export interface IBasicEvent extends React.SyntheticEvent<{}> {
 }
 
 /* @stable - 11.04.2018 */
@@ -1293,7 +1298,7 @@ export interface IDefaultOnClickWrapper extends IOnClickWrapper<() => void> {
 }
 
 /* @stable - 04.04.2018 */
-export interface IEventOnClickWrapper extends IOnClickWrapper<(event: IDefaultBasicEvent) => void> {
+export interface IEventOnClickWrapper extends IOnClickWrapper<(event: IBasicEvent) => void> {
 }
 
 /* @stable - 31.03.2018 */

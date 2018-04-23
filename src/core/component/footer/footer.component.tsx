@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import { BaseComponent } from '../base';
 import { toClassName } from '../../util';
 
-export class Footer extends BaseComponent<Footer, IBaseComponentInternalProps, {}> {
+export class Footer extends BaseComponent<Footer> {
 
   public render(): JSX.Element {
     const props = this.props;

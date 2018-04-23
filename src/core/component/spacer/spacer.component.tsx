@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { BaseComponent, IBaseComponentInternalProps } from '../base';
+import { BaseComponent } from '../base';
 
-export class Spacer extends BaseComponent<Spacer, IBaseComponentInternalProps, {}> {
+export class Spacer extends BaseComponent<Spacer> {
 
   public render(): JSX.Element {
     return (

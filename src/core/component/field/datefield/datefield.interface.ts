@@ -1,11 +1,10 @@
 import { CSSProperties, Component } from 'react';
 
-import { IBaseComponentInternalProps } from '../../../component/base';
-
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,
 } from '../textfield/basic-textfield.interface';
+import { IComponentEntity } from '../../../entities-definitions.interface';
 
 export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
   container?: 'dialog' | 'inline';
@@ -29,6 +28,6 @@ export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
 export interface IDateFieldInternalState extends IBasicTextFieldInternalState {
 }
 
-export interface IMaterialDateDialogComponent extends Component<IBaseComponentInternalProps, { open: boolean }> {
+export interface IMaterialDateDialogComponent extends Component<IComponentEntity, { open: boolean }> {
   show(): void;
 }

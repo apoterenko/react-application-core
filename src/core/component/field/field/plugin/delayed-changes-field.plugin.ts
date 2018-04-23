@@ -1,22 +1,16 @@
 import { sequence } from '../../../../util';
-import { IComponentPlugin } from '../../../../component/plugin';
 import { AnyT, ChangeEventT, KeyboardEventT } from '../../../../definitions.interface';
-
 import { IField } from '../field.interface';
-
 import { IDelayedChangesFieldPluginInternalProps } from './delayed-changes-field.interface';
+import { IUniversalComponentPlugin } from '../../../../entities-definitions.interface';
 
-export type DelayedChangesFieldT = IField<IDelayedChangesFieldPluginInternalProps, {}>;
-
-export class DelayedChangesFieldPlugin implements IComponentPlugin<DelayedChangesFieldT,
-                                                                   IDelayedChangesFieldPluginInternalProps,
-                                                                   {}> {
+export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDelayedChangesFieldPluginInternalProps> {
   public static DEFAULT_DELAY_TIMEOUT = 1500;
 
   private taskId: number;
   private currentValue: AnyT;
 
-  constructor(private component: DelayedChangesFieldT) {
+  constructor(private component: IField<IDelayedChangesFieldPluginInternalProps, {}>) {
   }
 
   public componentWillMount(): void {

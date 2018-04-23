@@ -1,7 +1,6 @@
 import { IEntity, IDefaultSubmitWrapper } from '../../definitions.interface';
 import {
   IBaseComponent,
-  IBaseComponentInternalProps,
   IBaseContainer,
 } from '../base';
 import {
@@ -14,8 +13,7 @@ import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurati
 import { ISubmitWrapper, IApiEntityWrapper } from '../../definitions.interface';
 
 /* @stable - 10.04.2018 */
-export interface IFormInternalProps extends IBaseComponentInternalProps,
-                                            IFormConfiguration,
+export interface IFormInternalProps extends IFormConfiguration,
                                             IDefaultFormWrapperEntity {
 }
 

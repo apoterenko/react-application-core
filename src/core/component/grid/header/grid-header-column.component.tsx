@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { IDefaultBasicEvent, SortDirectionEnum, UNDEF } from '../../../definitions.interface';
+import { IBasicEvent, SortDirectionEnum, UNDEF } from '../../../definitions.interface';
 import { BaseComponent } from '../../base';
 import { toClassName, isNumber, defValuesFilter, orUndef, isUndef, orNull } from '../../../util';
-import { IGridHeaderColumnInternalProps } from './grid-header-column.interface';
+import { IGridHeaderColumnProps } from './grid-header-column.interface';
 
-export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeaderColumnInternalProps, {}> {
+export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeaderColumnProps, {}> {
 
   /**
    * @stable - 05.04.2018
-   * @param {IGridHeaderColumnInternalProps} props
+   * @param {IGridHeaderColumnProps} props
    */
-  constructor(props: IGridHeaderColumnInternalProps) {
+  constructor(props: IGridHeaderColumnProps) {
     super(props);
     this.onHeaderColumnClick = this.onHeaderColumnClick.bind(this);
   }
@@ -58,9 +58,9 @@ export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeade
 
   /**
    * @stable - 05.04.2018
-   * @param {IDefaultBasicEvent} event
+   * @param {IBasicEvent} event
    */
-  private onHeaderColumnClick(event: IDefaultBasicEvent): void {
+  private onHeaderColumnClick(event: IBasicEvent): void {
     this.stopEvent(event);
 
     const props = this.props;

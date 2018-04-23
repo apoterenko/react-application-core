@@ -1,6 +1,6 @@
 import { IStringToWrapper } from '../../definitions.interface';
-import { IBaseComponentInternalProps } from '../../component/base';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
-export interface ILinkInternalProps extends IBaseComponentInternalProps,
+export interface ILinkInternalProps extends IComponentEntity,
                                             IStringToWrapper {
 }

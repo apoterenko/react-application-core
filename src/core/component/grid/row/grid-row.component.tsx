@@ -2,20 +2,20 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base';
 import { toClassName } from '../../../util';
-import { IGridRowInternalProps } from './grid-row.interface';
-import { IDefaultBasicEvent } from '../../../definitions.interface';
+import { IGridRowProps } from './grid-row.interface';
+import { IBasicEvent } from '../../../definitions.interface';
 
-export class GridRow extends BaseComponent<GridRow, IGridRowInternalProps, {}> {
+export class GridRow extends BaseComponent<GridRow, IGridRowProps, {}> {
 
-  public static defaultProps: IGridRowInternalProps = {
+  public static defaultProps: IGridRowProps = {
     excludeTargetsClasses: ['rac-field-input'],
   };
 
   /**
    * @stable - 05.04.2018
-   * @param {IGridRowInternalProps} props
+   * @param {IGridRowProps} props
    */
-  constructor(props: IGridRowInternalProps) {
+  constructor(props: IGridRowProps) {
     super(props);
     this.onClick = this.onClick.bind(this);
   }
@@ -42,9 +42,9 @@ export class GridRow extends BaseComponent<GridRow, IGridRowInternalProps, {}> {
 
   /**
    * @stable - 05.04.2018
-   * @param {IDefaultBasicEvent} event
+   * @param {IBasicEvent} event
    */
-  private onClick(event: IDefaultBasicEvent): void {
+  private onClick(event: IBasicEvent): void {
     const elClassList = (event.target as HTMLElement).classList;
     const props = this.props;
 

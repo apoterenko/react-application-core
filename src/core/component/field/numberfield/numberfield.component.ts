@@ -29,6 +29,6 @@ export class NumberField extends BasicTextField<NumberField,
   }
 
   private get numberSettings(): IApplicationNumberSettings {
-    return this.applicationSettings.number || {};
+    return this.settings.number || {};
   }
 }

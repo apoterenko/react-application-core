@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import { orNull, toClassName } from '../../../util';
 import { BasicEventT } from '../../../definitions.interface';
-import { IListItemInternalProps } from './list-item.interface';
+import { IListItemProps } from './list-item.interface';
 import { ListItemGraphic, ListItemText } from '../../list';
 import { BaseComponent } from '../../base';
 import { IListItem } from './list-item.interface';
 
-export class ListItem extends BaseComponent<ListItem, IListItemInternalProps, {}>
+export class ListItem extends BaseComponent<ListItem, IListItemProps, {}>
   implements IListItem {
 
-  public static defaultProps: IListItemInternalProps = {
+  public static defaultProps: IListItemProps = {
     rippable: true,
   };
 

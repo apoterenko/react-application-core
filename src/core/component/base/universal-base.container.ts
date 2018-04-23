@@ -11,6 +11,7 @@ import {
   IUniversalContainerEntity,
   INavigateEntity,
   IContainerClassEntity,
+  IUniversalBaseContainer,
 } from '../../entities-definitions.interface';
 import {
   IDefaultConnectorConfiguration,
@@ -20,9 +21,6 @@ import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
 } from '../../router/router.interface';
-import {
-  IUniversalBaseContainer,
-} from './universal-base.interface';
 import { IApplicationSettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
@@ -33,7 +31,7 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = I
 
   /**
    * @stable - 12.04.2018
-   * @param {TInternalProps} props
+   * @param {TProps} props
    * @param {string} sectionName
    */
   constructor(props: TProps, public sectionName = 'section') {

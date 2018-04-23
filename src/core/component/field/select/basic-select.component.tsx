@@ -116,7 +116,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
   }
 
   protected getEmptyValue(): AnyT {
-    return this.applicationSettings.entityEmptyId;
+    return this.settings.entityEmptyId;
   }
 
   protected get options(): SelectOptionT[] {

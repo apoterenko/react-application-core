@@ -3,11 +3,11 @@ import { Text } from 'native-base';
 import { Button, Icon } from 'native-base';
 
 import { orNull } from '../../util';
-import { UniversalBaseComponent } from '../base/universal-base.component';
+import { UniversalComponent } from '../base/universal.component';
 import { IRnButtonProps } from './button.interface';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
 
-export class RnButton extends UniversalBaseComponent<RnButton, IRnButtonProps> {
+export class RnButton extends UniversalComponent<RnButton, IRnButtonProps> {
 
   public static defaultProps: IRnButtonProps = {
     iconLeft: true,

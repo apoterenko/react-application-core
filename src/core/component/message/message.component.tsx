@@ -43,7 +43,7 @@ export class Message extends BaseComponent<Message, IMessageInternalProps, {}> {
    * @returns {string}
    */
   private getErrorMessage(): string {
-    return this.t(this.props.errorMessage || this.applicationSettings.messages.errorMessage);
+    return this.t(this.props.errorMessage || this.settings.messages.errorMessage);
   }
 
   /**
@@ -51,7 +51,7 @@ export class Message extends BaseComponent<Message, IMessageInternalProps, {}> {
    * @returns {string}
    */
   private getEmptyMessage(): string {
-    return this.t(this.props.emptyMessage || this.applicationSettings.messages.emptyMessage);
+    return this.t(this.props.emptyMessage || this.settings.messages.emptyMessage);
   }
 
   /**
@@ -59,6 +59,6 @@ export class Message extends BaseComponent<Message, IMessageInternalProps, {}> {
    * @returns {string}
    */
   private getEmptyDataMessage(): string {
-    return this.t(this.props.emptyDataMessage || this.applicationSettings.messages.emptyDataMessage);
+    return this.t(this.props.emptyDataMessage || this.settings.messages.emptyDataMessage);
   }
 }

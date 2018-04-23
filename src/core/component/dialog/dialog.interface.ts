@@ -1,6 +1,7 @@
 import { INativeMaterialComponent } from '../../component/material';
-import { IBaseComponent, IBaseComponentInternalProps } from '../../component/base';
+import { IBaseComponent } from '../../component/base';
 import { IStringMessageWrapper } from '../../definitions.interface';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
 export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
   show(): void;
@@ -12,7 +13,7 @@ export interface IDialog<TInternalProps extends IDialogInternalProps> extends IB
 
 export type DialogT = IDialog<IDialogInternalProps>;
 
-export interface IDialogInternalProps extends IBaseComponentInternalProps,
+export interface IDialogInternalProps extends IComponentEntity,
                                               IStringMessageWrapper {
   closeMessage?: string;
   acceptMessage?: string;
