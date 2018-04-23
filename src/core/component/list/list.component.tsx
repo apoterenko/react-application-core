@@ -3,11 +3,12 @@ import * as React from 'react';
 import { toClassName } from '../../util';
 import { IEntity } from '../../definitions.interface';
 import { ListItem } from './item';
-import { IListProps } from './list.interface';
 import { SimpleList } from '../list/simple';
 import { BaseList } from './base-list.component';
+import { IListConfiguration } from '../../configurations-definitions.interface';
+import { IListEntity } from '../../entities-definitions.interface';
 
-export class List extends BaseList<List, IListProps> {
+export class List extends BaseList<List, IListConfiguration & IListEntity> {
 
   /**
    * [23.04.2018]

@@ -14,6 +14,7 @@ export { BaseTransport } from './transport/base.transport';
 /* @stable - 20.04.2018 */
 export { IRnButtonProps } from './component/button/button.interface';
 export { RnButton } from './component/button/rn-button.component';
+export { RnList } from './component/list/rn-list.component';
 
 /* @stable - 17.04.2018 */
 export * from './di';
