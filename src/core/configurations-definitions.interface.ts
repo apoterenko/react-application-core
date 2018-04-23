@@ -141,8 +141,17 @@ export interface IAccessConfigurationWrapper<TAccessConfiguration> {
   accessConfiguration?: TAccessConfiguration;
 }
 
+/* @stable [24.04.2018] */
+export interface IUniversalListItemConfiguration {
+}
+
 /* @stable - 31.03.2018 */
-export interface IListItemConfiguration extends IEntityRendererWrapper,
+export interface IRnListItemConfiguration extends IUniversalListItemConfiguration {
+}
+
+/* @stable - 31.03.2018 */
+export interface IListItemConfiguration extends IUniversalListItemConfiguration,
+                                                IEntityRendererWrapper,
                                                 IEntityTplWrapper,
                                                 IEntityToClassNameWrapper,
                                                 IRippableWrapper,
@@ -150,20 +159,26 @@ export interface IListItemConfiguration extends IEntityRendererWrapper,
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalListConfiguration extends IUniversalComponentConfiguration,
-                                                     IUseAddActionWrapper,
-                                                     IEntitySorterWrapper,
-                                                     IOnCreateWrapper,
-                                                     IEntityOnSelectWrapper {
+export interface IUniversalListConfiguration <TItemConfiguration extends IUniversalListItemConfiguration
+                                                = IUniversalListItemConfiguration>
+  extends IUniversalComponentConfiguration,
+          IUseAddActionWrapper,
+          IEntitySorterWrapper,
+          IOnCreateWrapper,
+          IEntityOnSelectWrapper,
+          IItemConfigurationWrapper<TItemConfiguration> {
+}
+
+/* @stable [24.04.2018] */
+export interface IRnListConfiguration extends IUniversalListConfiguration<IRnListItemConfiguration> {
 }
 
 /* @stable - 04.04.2018 */
-export interface IListConfiguration extends IUniversalListConfiguration,
+export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
                                             ISimpleWrapper,
                                             IUseTwoLineWrapper,
                                             IUseAvatarWrapper,
-                                            INonInteractiveWrapper,
-                                            IItemConfigurationWrapper<IListItemConfiguration> {
+                                            INonInteractiveWrapper {
 }
 
 /* @stable - 31.03.2018 */

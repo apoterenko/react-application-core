@@ -24,7 +24,7 @@ export * from './util';
 
 /* @stable - 17.04.2018 */
 export { composeReducers, filterBySection } from './store/store.support';
-export { buildStore } from './store/store.factory';
+export { buildUniversalStore } from './store/universal-store.factory';
 
 /* @stable - 16.04.2018 */
 export {

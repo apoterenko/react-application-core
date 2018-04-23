@@ -241,6 +241,10 @@ export interface IListItemEntity extends IComponentEntity,
                                          IEntityOnClickWrapper {
 }
 
+/* @stable - 24.04.2018 */
+export interface IRnListEntity extends IUniversalListEntity {
+}
+
 /* @stable - 04.04.2018 */
 export interface IListEntity extends IUniversalListEntity,
                                      ISortDirectionsWrapper,

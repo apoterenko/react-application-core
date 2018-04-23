@@ -37,9 +37,9 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
 
   /**
    * @stable [23.04.2018]
-   * @returns {JSX.Element}
+   * @returns {string | JSX.Element}
    */
-  protected abstract getProgressLabel(): JSX.Element;
+  protected abstract getProgressLabel(): string | JSX.Element;
 
   /**
    * @stable [23.04.2018]
@@ -47,7 +47,7 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
    * @param {React.ReactNode} node
    * @returns {JSX.Element}
    */
-  protected abstract getMessageWrapper(message: string|JSX.Element, node: React.ReactNode): JSX.Element;
+  protected abstract getMessageWrapper(message: string | JSX.Element, node: React.ReactNode): JSX.Element;
 
   /**
    * @stable [23.04.2018]

@@ -8,8 +8,7 @@ import { IUniversalListConfiguration } from '../../configurations-definitions.in
 import { IUniversalListEntity } from '../../entities-definitions.interface';
 
 export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
-                                    TProps extends IUniversalListConfiguration & IUniversalListEntity
-                                      = IUniversalListConfiguration & IUniversalListEntity,
+                                    TProps extends IUniversalListConfiguration & IUniversalListEntity,
                                     TState = {}>
   extends UniversalComponent<TComponent, TProps, TState> {
 

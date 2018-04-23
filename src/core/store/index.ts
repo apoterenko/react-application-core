@@ -4,5 +4,5 @@ export * from './middleware';
 export * from './store.interface';
 export * from './store.module';
 export * from './store.support';
-export * from './store.factory';
+export * from './universal-store.factory';
 export * from './universal-default-reducers.interface';
