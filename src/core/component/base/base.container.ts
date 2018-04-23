@@ -6,24 +6,20 @@ import { DictionariesActionBuilder } from '../../dictionary';
 import { ApplicationPermissionsServiceT } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IFormDialog } from '../form';
-import { IBaseContainer } from './base.interface';
 import { IUIFactory } from '../factory';
 import { UniversalBaseContainer } from './universal-base.container';
-import { IContainerEntity } from '../../entities-definitions.interface';
+import { IContainerEntity, IContainer } from '../../entities-definitions.interface';
 
 export class BaseContainer<TInternalProps extends IContainerEntity,
                            TInternalState>
     extends UniversalBaseContainer<TInternalProps, TInternalState>
-    implements IBaseContainer<TInternalProps, TInternalState> {
+    implements IContainer<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
-  constructor(props: TInternalProps, public sectionName = 'section') {
-    super(props);
-    this.sectionName = props.sectionName || sectionName;
-
-    this.navigateToBack = this.navigateToBack.bind(this);
+  constructor(props: TInternalProps, sectionName?: string) {
+    super(props, sectionName);
     this.activateFormDialog = this.activateFormDialog.bind(this);
   }
 

@@ -526,8 +526,8 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
                                                                      IRootWrapperEntity {
 }
 
-/* @stable - 12.04.2018 */
-export interface IUniversalBaseContainer<TProps extends IUniversalContainerEntity, TState = {}>
+/* @stable [12.04.2018] */
+export interface IUniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>,
           ISectionNameWrapper,
           IDispatchWrapper<(type: string, data?: AnyT) => void> {
@@ -570,4 +570,13 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
   extends IUniversalComponent<TProps, TState>,
           IStopEventWrapper<(event: IBasicEvent) => void>,
           IHtmlElementSelfWrapper {
+}
+
+/* @stable [23.04.2018] */
+export interface IContainerProps {
+}
+
+/* @stable [23.04.2018] */
+export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
+  extends IUniversalContainer<TProps, TState> {
 }

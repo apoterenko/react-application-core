@@ -11,7 +11,7 @@ import {
   IUniversalContainerEntity,
   INavigateEntity,
   IContainerClassEntity,
-  IUniversalBaseContainer,
+  IUniversalContainer,
 } from '../../entities-definitions.interface';
 import {
   IDefaultConnectorConfiguration,
@@ -27,7 +27,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 
 export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>
-  implements IUniversalBaseContainer<TProps, TState> {
+  implements IUniversalContainer<TProps, TState> {
 
   /**
    * @stable - 12.04.2018
