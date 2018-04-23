@@ -7,10 +7,11 @@ import { PROD_MODE, RN_MODE_ENABLED } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
 import { orDefault } from '../util';
+import { universalReducers } from '../store/universal-default-reducers.interface';
 
-export function buildStore<TState>(reducers: ReducersMapObject,
-                                   applicationSettings?: IApplicationSettings,
-                                   appMiddlewares?: Middleware[]): Store<TState> {
+export function buildUniversalStore<TState>(reducers: ReducersMapObject,
+                                            applicationSettings?: IApplicationSettings,
+                                            appMiddlewares?: Middleware[]): Store<TState> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
   const preloadedState = orDefault(
@@ -35,6 +36,7 @@ export function buildStore<TState>(reducers: ReducersMapObject,
   store.replaceReducer(
     combineReducers(
       {
+        ...universalReducers,
         ...reducers,
       }
     ));
