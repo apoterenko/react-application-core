@@ -95,6 +95,7 @@ import {
   IStringArrayExcludeTargetsClassesWrapper,
   ICssStyleWrapper,
   IPluginsWrapper,
+  IEntityOnSelectWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -142,6 +143,12 @@ export interface IListItemConfiguration extends IEntityRendererWrapper,
                                                 IEntityToClassNameWrapper,
                                                 IRippableWrapper,
                                                 IStringIconWrapper {
+}
+
+/* @stable [23.04.2018] */
+export interface IUniversalListConfiguration extends IUniversalComponentConfiguration,
+                                                     IEntitySorterWrapper,
+                                                     IEntityOnSelectWrapper {
 }
 
 /* @stable - 04.04.2018 */

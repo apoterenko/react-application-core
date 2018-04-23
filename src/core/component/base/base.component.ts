@@ -1,4 +1,3 @@
-import { IBasicEvent } from '../../definitions.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import { IUIFactory } from '../factory';
 import { UniversalComponent } from './universal.component';
@@ -20,16 +19,6 @@ export class BaseComponent<TComponent extends IComponent<TInternalProps, TIntern
   public componentWillUpdate(nextProps: Readonly<TInternalProps>, nextState: Readonly<TInternalState>, nextContext: {}): void {
     this.plugins.forEach((plugin) =>
         plugin.componentWillUpdate && plugin.componentWillUpdate(nextProps, nextState, nextContext));
-  }
-
-  public stopEvent(event: IBasicEvent): void {
-    if (event.nativeEvent) {
-      event.nativeEvent.stopImmediatePropagation();
-      event.nativeEvent.stopPropagation();
-      event.nativeEvent.preventDefault();
-    }
-    event.stopPropagation();
-    event.preventDefault();
   }
 
   public get self(): HTMLElement {

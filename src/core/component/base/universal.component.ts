@@ -12,6 +12,7 @@ import {
   IUniversalComponentPluginClassEntity,
   IUniversalComponentProps,
 } from '../../entities-definitions.interface';
+import { IBasicEvent } from '../../definitions.interface';
 
 export class UniversalComponent<TComponent extends IUniversalComponent<TProps, TState>,
                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,
@@ -58,6 +59,21 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext: never): void {
     this.plugins.forEach((plugin) =>
       plugin.componentDidUpdate && plugin.componentDidUpdate(prevProps, prevState, prevContext));
+  }
+
+  /**
+   * @stable [23.04.2018]
+   * @param {IBasicEvent} event
+   */
+  public stopEvent(event: IBasicEvent): void {
+    if (event.nativeEvent) {
+      /**
+       * Will prevent any parent handlers and also any other handlers from executing
+       */
+      event.nativeEvent.stopImmediatePropagation();
+    }
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   /**

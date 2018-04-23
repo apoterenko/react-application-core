@@ -34,7 +34,7 @@ import {
   ISelectedEntityWrapper,
   IListWrapper,
   IDefaultOnSearchWrapper,
-  IDefaultOnCreateWrapper,
+  IOnCreateWrapper,
   IEntityOnSelectWrapper,
   IDefaultOperationWrapper,
   IEntityIdTWrapper,
@@ -115,6 +115,7 @@ import {
   ITabConfiguration,
   IUniversalComponentConfiguration,
 } from './configurations-definitions.interface';
+import { IUniversalListProps } from 'core/component/list/universal-list.interface';
 
 /* @stable - 05.04.2018 */
 export interface IFieldChangeEntity extends INameWrapper,
@@ -133,10 +134,10 @@ export interface ISortDirectionEntity extends INameWrapper,
                                               ISortDirectionWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IStateEntity extends ITouchedWrapper,
-                                      IProgressWrapper,
-                                      IStringErrorEntity {
+/* @stable [23.04.2018] */
+export interface IUniversalStateEntity extends ITouchedWrapper,
+                                               IProgressWrapper,
+                                               IStringErrorEntity {
 }
 
 /* @stable - 01.04.2018 */
@@ -194,7 +195,7 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
 export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
                                                                  IDirtyWrapper,
                                                                  IValidWrapper,
-                                                                 IStateEntity {
+                                                                 IUniversalStateEntity {
 }
 
 /* @stable - 31.03.2018 */
@@ -227,6 +228,14 @@ export interface IFormWrapperEntity<TEntity extends IEntity>
 export interface IDefaultFormWrapperEntity extends IFormWrapperEntity<IEntity> {
 }
 
+/* @stable [23.04.2018] */
+export interface IUniversalListEntity extends IUniversalComponentEntity,
+                                              IUniversalStateEntity,
+                                              IPaginatedEntitiesEntity,
+                                              ISelectedEntityWrapper,
+                                              IOnCreateWrapper {
+}
+
 /* @stable - 31.03.2018 */
 export interface IListItemEntity extends IComponentEntity,
                                          IEntityRawDataWrapper,
@@ -236,8 +245,8 @@ export interface IListItemEntity extends IComponentEntity,
 
 /* @stable - 04.04.2018 */
 export interface IBaseListEntity extends IComponentEntity,
-                                         IStateEntity,
-                                         IDefaultOnCreateWrapper,
+                                         IUniversalStateEntity,
+                                         IOnCreateWrapper,
                                          IEntityOnSelectWrapper,
                                          ISelectedEntityWrapper,
                                          IPaginatedEntitiesEntity {
@@ -329,7 +338,7 @@ export interface IUniversalButtonEntity extends IUniversalComponentEntity,
 }
 
 /* @stable - 08.04.2018 */
-export interface IMessageEntity extends IStateEntity,
+export interface IMessageEntity extends IUniversalStateEntity,
                                         IStringEmptyDataMessageWrapper,
                                         IStringErrorMessageWrapper,
                                         IStringEmptyMessageWrapper,
@@ -342,7 +351,7 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 
 /* @stable - 11.04.2018 */
 export interface IApplicationEntity extends IContainerEntity,
-                                            IStateEntity,
+                                            IUniversalStateEntity,
                                             IReadyWrapper {
 }
 

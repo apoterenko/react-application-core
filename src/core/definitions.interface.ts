@@ -364,7 +364,7 @@ export interface IItemsWrapper<TItems> {
   items?: TItems;
 }
 
-/* @stable - 31.03.2018 */
+/* @stable [31.03.2018] */
 export interface IDataWrapper<TData> {
   data?: TData;
 }
@@ -373,7 +373,7 @@ export interface IDataWrapper<TData> {
 export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
 }
 
-/* @stable - 31.03.2018 */
+/* @stable [31.03.2018] */
 export interface IEntitiesDataWrapper extends IDataWrapper<IEntity[]> {
 }
 
@@ -768,12 +768,12 @@ export interface IRequiredWrapper<TRequired> {
 export interface IStringRequiredWrapper extends IRequiredWrapper<string> {
 }
 
-/* @stable - 31.03.2018 */
+/* @stable [31.03.2018] */
 export interface ISelectedWrapper<TSelected> {
   selected?: TSelected;
 }
 
-/* @stable - 31.03.2018 */
+/* @stable [31.03.2018] */
 export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
 }
 
@@ -1314,7 +1314,7 @@ export interface IPayloadOnClickWrapper<TClickPayload> extends IOnClickWrapper<(
 export interface IEntityOnClickWrapper extends IPayloadOnClickWrapper<IEntity> {
 }
 
-/* @stable - 31.03.2018 */
+/* @stable [31.03.2018] */
 export interface IOnSelectWrapper<TOnSelect> {
   onSelect?: TOnSelect;
 }
@@ -1323,7 +1323,7 @@ export interface IOnSelectWrapper<TOnSelect> {
 export interface IPayloadOnSelectWrapper<TSelectPayload> extends IOnSelectWrapper<(payload: TSelectPayload) => void> {
 }
 
-/* @stable - 31.03.2018 */
+/* @stable [31.03.2018] */
 export interface IEntityOnSelectWrapper extends IPayloadOnSelectWrapper<IEntity> {
 }
 
@@ -1337,12 +1337,8 @@ export interface IDefaultOnSearchWrapper extends IOnSearchWrapper<() => void> {
 }
 
 /* @stable - 31.03.2018 */
-export interface IOnCreateWrapper<TOnCreate> {
+export interface IOnCreateWrapper<TOnCreate = () => void> {
   onCreate?: TOnCreate;
-}
-
-/* @stable - 31.03.2018 */
-export interface IDefaultOnCreateWrapper extends IOnCreateWrapper<() => void> {
 }
 
 /* @stable - 31.03.2018 */
