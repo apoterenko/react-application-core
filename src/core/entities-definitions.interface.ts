@@ -344,10 +344,19 @@ export interface IUniversalMessageEntity extends IUniversalComponentEntity,
 export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 }
 
+/* @stable - 25.04.2018 */
+export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
+                                                     IUniversalStateEntity,
+                                                     IReadyWrapper {
+}
+
+/* @stable - 25.04.2018 */
+export interface IRnApplicationEntity extends IUniversalApplicationEntity {
+}
+
 /* @stable - 11.04.2018 */
-export interface IApplicationEntity extends IContainerEntity,
-                                            IUniversalStateEntity,
-                                            IReadyWrapper {
+export interface IApplicationEntity extends IUniversalApplicationEntity,
+                                            IWebContainerEntity {
 }
 
 /* @stable - 11.04.2018 */
@@ -390,12 +399,16 @@ export interface IUniversalContainerEntity extends IClassNameWrapper,
                                                    ITransportWrapperEntity {
 }
 
+/* @stable - 25.04.2018 */
+export interface IWebContainerEntity extends IRootWrapperEntity,
+                                             IBrowserLocationWrapper,
+                                             IURLSearchQueryParamsWrapper,
+                                             IKeyValueRouteParamsWrapper {
+}
+
 /* @stable - 14.04.2018 */
 export interface IContainerEntity extends IUniversalContainerEntity,
-                                          IRootWrapperEntity,
-                                          IBrowserLocationWrapper,
-                                          IURLSearchQueryParamsWrapper,
-                                          IKeyValueRouteParamsWrapper {
+                                          IWebContainerEntity {
 }
 
 /* @stable - 14.04.2018 */

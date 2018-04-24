@@ -268,6 +268,11 @@ export interface IRnButtonConfiguration extends IUniversalButtonConfiguration,
                                                 IDefaultOnPressWrapper {
 }
 
+/* @stable - 25.04.2018 */
+export interface IRnApplicationConfiguration extends IUniversalComponentConfiguration,
+                                                     IHideNavBarWrapper {
+}
+
 /* @stable - 11.04.2018 */
 export interface IApplicationConfiguration extends IBasenameWrapper,
                                                    IHideNavBarWrapper {

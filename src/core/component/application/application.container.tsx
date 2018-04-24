@@ -91,24 +91,12 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
 
   protected getRoutes(): JSX.Element[] {
     const props = this.props;
-    return props.progress || props.error || !props.ready
+    return this.isMessageVisible()
       ? [
         <Message key={uuid()}
                  error={props.error}
                  progress={props.progress}
-                 errorMessage={
-                   orNull(
-                     props.error || props.customError,
-                     () => (
-                       props.customError
-                         ? props.error
-                         : [
-                           this.t(this.settings.messages.followingErrorHasOccurredMessage),
-                           `"${props.error.toLowerCase()}"`
-                         ].join(' ')
-                     )
-                   )
-                 }
+                 errorMessage={this.getErrorMessage()}
                  emptyMessage={this.settings.messages.appNotReadyMessage}
         />
       ]

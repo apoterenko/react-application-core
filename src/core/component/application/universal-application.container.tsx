@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { orNull } from '../../util';
 import {
   IDefaultConnectorConfiguration,
   ContainerVisibilityTypeEnum,
@@ -14,10 +15,11 @@ import { toRouteConfiguration } from '../../router/router.support';
 import { UniversalBaseContainer } from '../../component/base/universal-base.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
+import { IUniversalApplicationContainerProps } from './universal-application.interface';
 
 export type RoutePredicateT = (routeConfiguration: IRouteConfiguration) => boolean;
 
-export abstract class UniversalApplicationContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity>
+export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
   extends UniversalBaseContainer<TProps> {
 
   private static logger = LoggerFactory.makeLogger(UniversalApplicationContainer);
@@ -119,6 +121,25 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalCon
     );
 
     this.dispatchCustomType(ApplicationActionBuilder.buildLogoutActionType());
+  }
+
+  protected isMessageVisible(): boolean {
+    const props = this.props;
+    return props.progress || !!props.error || !props.ready;
+  }
+
+  protected getErrorMessage(): string {
+    const props = this.props;
+    return (
+      orNull<string>(
+        props.error || props.customError,
+        () => (
+          props.customError
+            ? props.error
+            : `${this.t(this.settings.messages.followingErrorHasOccurredMessage)} "${props.error.toLowerCase()}"`
+        )
+      )
+    );
   }
 
   protected abstract buildRoute(ctor: IContainerClassEntity,
