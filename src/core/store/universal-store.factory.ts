@@ -14,15 +14,15 @@ export function buildUniversalStore<TState>(reducers: ReducersMapObject,
                                             appMiddlewares?: Middleware[]): Store<TState> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
-  const preloadedState = orDefault(
+  const preloadedState = orDefault<TState, TState>(
     !RN_MODE_ENABLED && applicationSettings && applicationSettings.usePersistence,
     () => staticInjector<IApplicationStorage>(DI_TYPES.Storage).get(APPLICATION_STATE_KEY),
-    {}
+    {} as TState
   );
 
   const store = createStore(
     (state) => state,
-    preloadedState as TState,
+    preloadedState,
     PROD_MODE || RN_MODE_ENABLED
       ? applyMiddleware(...middlewares)
       : composeWithDevTools(applyMiddleware(...middlewares)),

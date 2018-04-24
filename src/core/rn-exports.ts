@@ -11,8 +11,7 @@ export { RnModal } from './component/modal/rn-modal.component';
 export { BaseEffects } from './store/effects/base.effects';
 export { BaseTransport } from './transport/base.transport';
 
-/* @stable - 20.04.2018 */
-export { IRnButtonProps } from './component/button/button.interface';
+/* @stable [24.04.2018] */
 export { RnButton } from './component/button/rn-button.component';
 export { RnList } from './component/list/rn-list.component';
 
