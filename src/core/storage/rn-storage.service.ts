@@ -16,12 +16,8 @@ export class RnStorage implements IApplicationStorage {
     return await AsyncStorage.getItem(this.toKey(key));
   }
 
-  public async remove(key: string, noPrefix?: boolean): Promise<void> {
-    if (noPrefix) {
-      return await AsyncStorage.removeItem(key);
-    } else {
-      return await AsyncStorage.removeItem(this.toKey(key));
-    }
+  public async remove(key: string): Promise<void> {
+    return await AsyncStorage.removeItem(key);
   }
 
   private toKey(key: string): string {
