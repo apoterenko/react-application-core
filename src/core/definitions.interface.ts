@@ -566,6 +566,11 @@ export interface IRawDataWrapper<TRawData> {
   rawData?: TRawData;
 }
 
+/* @stable - 24.04.2018 */
+export interface ISeparatorsWrapper<TSeparators> {
+  separators?: TSeparators;
+}
+
 /* @stable - 31.03.2018 */
 export interface IEntityRawDataWrapper extends IRawDataWrapper<IEntity> {
 }
@@ -916,6 +921,11 @@ export interface INonInteractiveWrapper {
 /* @stable - 31.03.2018 */
 export interface IUseTwoLineWrapper {
   useTwoLine?: boolean;
+}
+
+/* @stable - 24.04.2018 */
+export interface IAvatarWrapper<TAvatar> {
+  avatar?: TAvatar;
 }
 
 /* @stable - 31.03.2018 */

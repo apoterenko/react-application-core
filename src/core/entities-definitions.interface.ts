@@ -34,8 +34,6 @@ import {
   ISelectedEntityWrapper,
   IListWrapper,
   IDefaultOnSearchWrapper,
-  IOnCreateWrapper,
-  IEntityOnSelectWrapper,
   IDefaultOperationWrapper,
   IEntityIdTWrapper,
   IIsNewWrapper,
@@ -53,8 +51,6 @@ import {
   IBooleanSelectedWrapper,
   IDefaultOnClickWrapper,
   IStringProgressMessageWrapper,
-  IBooleanEmptyDataWrapper,
-  IStringEmptyMessageWrapper,
   IOnSubmitWrapper,
   IFieldsWrapper,
   IDefaultOnValidWrapper,
@@ -97,7 +93,6 @@ import {
   IStringErrorMessageWrapper,
   ICssStyleWrapper,
   IStringMessageWrapper,
-  IStringEmptyDataMessageWrapper,
   IHtmlElementSelfWrapper,
   IStateWrapper,
   IPathWrapper,
@@ -114,6 +109,7 @@ import {
 import {
   ITabConfiguration,
   IUniversalComponentConfiguration,
+  IComponentConfiguration,
 } from './configurations-definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -234,11 +230,20 @@ export interface IUniversalListEntity extends IUniversalComponentEntity,
                                               ISelectedEntityWrapper {
 }
 
+/* @stable [24.04.2018] */
+export interface IUniversalListItemEntity extends IUniversalComponentEntity,
+                                                  IEntityRawDataWrapper,
+                                                  IEntityOnClickWrapper,
+                                                  IBooleanActiveWrapper {
+}
+
+/* @stable [24.04.2018] */
+export interface IRnListItemEntity extends IUniversalListItemEntity {
+}
+
 /* @stable - 31.03.2018 */
-export interface IListItemEntity extends IComponentEntity,
-                                         IEntityRawDataWrapper,
-                                         IBooleanActiveWrapper,
-                                         IEntityOnClickWrapper {
+export interface IListItemEntity extends IUniversalListItemEntity,
+                                         IComponentEntity {
 }
 
 /* @stable - 24.04.2018 */
@@ -562,7 +567,8 @@ export interface IUniversalComponentPluginClassEntity<
 export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;
 
 /* @stable [23.04.2018] */
-export interface IComponentProps extends IUniversalComponentProps {
+export interface IComponentProps extends IComponentEntity,
+                                         IComponentConfiguration {
 }
 
 /* @stable [23.04.2018] */

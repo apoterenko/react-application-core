@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text } from 'native-base';
 
 import { UniversalMessage } from './universal-message.component';
 

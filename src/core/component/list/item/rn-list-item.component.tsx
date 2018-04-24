@@ -1,60 +1,56 @@
 import * as React from 'react';
-import { Text} from 'react-native';
-import { Icon, ListItem, Left, Body, Right } from 'native-base';
+import {
+  Icon,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Text,
+} from 'native-base';
 
-import { orDefault, orNull, isFn } from '../../../util';
+import { orDefault, orNull, isString, uuid, isDef } from '../../../util';
 import { UniversalComponent } from '../../base/universal.component';
+import { IRnListItemProps } from './rn-list-item.interface';
 
-// TODO
-export class RnListItem extends UniversalComponent<RnListItem, any, any> {
-
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
+export class RnListItem extends UniversalComponent<RnListItem, IRnListItemProps> {
 
   public render(): JSX.Element {
     const props = this.props;
     const rawData = props.rawData;
 
     return (
-      <ListItem key={rawData.id}
+      <ListItem key={rawData.id || uuid()}
                 icon={!!props.avatar}
-                onPress={this.onClick}>
-        <Left>
-          {
-            orNull(
-              props.avatar,
-              () => (
-                <Icon name={
-                  isFn(props.avatar) ? props.avatar(rawData) : props.avatar
-                }/>
-              )
-            )
-          }
-        </Left>
-        <Body>
+                onPress={props.onClick}>
         {
-          orDefault(
-            props.renderer,
-            () => props.renderer(rawData),
+          orNull<JSX.Element>(
+            props.avatar,
             () => (
-              <Text>
-                {props.tpl(rawData)}
-              </Text>
+              <Left>
+                <Icon name={
+                  isString(props.avatar)
+                    ? props.avatar
+                    : (props.avatar as ((data) => string)).call(null, rawData)
+                }/>
+              </Left>
             )
           )
         }
+        <Body>
+          {
+            orDefault<JSX.Element, JSX.Element>(
+              isDef(props.renderer),
+              () => props.renderer(rawData),
+              () => (
+                <Text>
+                  {props.tpl(rawData)}
+                </Text>
+              )
+            )
+          }
         </Body>
         <Right/>
       </ListItem>
     );
-  }
-
-  private onClick(data): void {
-    const props = this.props;
-    if (props.onClick) {
-      props.onClick(data);
-    }
   }
 }

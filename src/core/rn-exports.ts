@@ -52,7 +52,7 @@ export { listReducer } from './component/list/list.reducer';
 export { effectsBy } from './store/effects/effects-by.decorator';
 export { makeUntouchedListEffectsProxy } from './store/effects/untouched-list-effects.proxy';
 
-/* @stable - 15.04.2018 */
+/* @stable [24.04.2018] */
 export { RouterActionBuilder } from './router/router-action.builder';
 export { ConnectorActionBuilder } from './component/connector/universal-connector-action.builder';
 export { ListActionBuilder } from './component/list/list-action.builder';

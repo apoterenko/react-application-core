@@ -100,6 +100,8 @@ import {
   IStringEmptyDataMessageWrapper,
   IStringEmptyMessageWrapper,
   IStringErrorMessageWrapper,
+  IAvatarWrapper,
+  ISeparatorsWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -142,17 +144,19 @@ export interface IAccessConfigurationWrapper<TAccessConfiguration> {
 }
 
 /* @stable [24.04.2018] */
-export interface IUniversalListItemConfiguration {
+export interface IUniversalListItemConfiguration extends IUniversalComponentConfiguration,
+                                                         IEntityRendererWrapper,
+                                                         IEntityTplWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IRnListItemConfiguration extends IUniversalListItemConfiguration {
+/* @stable [24.04.2018] */
+export interface IRnListItemConfiguration extends IUniversalListItemConfiguration,
+                                                  IAvatarWrapper<string | ((data: IKeyValue) => string)>,
+                                                  ISeparatorsWrapper<IKeyValue> {
 }
 
 /* @stable - 31.03.2018 */
 export interface IListItemConfiguration extends IUniversalListItemConfiguration,
-                                                IEntityRendererWrapper,
-                                                IEntityTplWrapper,
                                                 IEntityToClassNameWrapper,
                                                 IRippableWrapper,
                                                 IStringIconWrapper {
@@ -175,6 +179,7 @@ export interface IRnListConfiguration extends IUniversalListConfiguration<IRnLis
 
 /* @stable - 04.04.2018 */
 export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
+                                            IComponentConfiguration,
                                             ISimpleWrapper,
                                             IUseTwoLineWrapper,
                                             IUseAvatarWrapper,
@@ -208,6 +213,7 @@ export interface IGridColumnConfiguration extends IStringTitleWrapper,
 
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
+                                            IWebComponentConfiguration,
                                             IColumnsConfigurationWrapper<IGridColumnConfiguration[]> {
 }
 
@@ -223,7 +229,7 @@ export interface ITabConfiguration extends INumberValueWrapper,
 }
 
 /* @stable - 06.04.2018 */
-export interface ITabPanelConfiguration extends IUniversalComponentConfiguration,
+export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 
@@ -393,16 +399,20 @@ export interface IGridRowConfiguration extends IComponentConfiguration,
                                                IStringArrayExcludeTargetsClassesWrapper {
 }
 
-/* @stable [23.04.2018] */
+/* @stable [24.04.2018] */
 export interface IUniversalComponentConfiguration
-  extends IClassNameWrapper,
-          IStringTitleWrapper,
+  extends IStringTitleWrapper,
           IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
 }
 
-/* @stable [23.04.2018] */
+/* @stable [24.04.2018] */
+export interface IWebComponentConfiguration extends IClassNameWrapper,
+                                                    ICssStyleWrapper {
+}
+
+/* @stable [24.04.2018] */
 export interface IComponentConfiguration extends IUniversalComponentConfiguration,
-                                                 ICssStyleWrapper {
+                                                 IWebComponentConfiguration {
 }
 
 /* @stable - 08.04.2018 */
