@@ -5,8 +5,8 @@ const definedWindow = typeof window === 'undefined' ? {} : window;
 const definedDocument = typeof document === 'undefined' ? { baseURI: '' } : document;
 
 const origin = definedLocation.origin || [definedLocation.protocol, definedLocation.host].join('//');
-export const APP_VERSION = process.env.APP_VERSION;
-export const APP_PROFILE = process.env.APP_PROFILE;
+export const APP_VERSION = process.env.APP_VERSION || '0.0.1';
+export const APP_PROFILE = process.env.APP_PROFILE || 'DEFAULT_PROFILE';
 export const APP_NAMESPACE = process.env.APP_NAMESPACE;
 export const PROD_MODE = process.env.NODE_ENV === 'production';
 export const GOOGLE_KEY = process.env.GOOGLE_KEY;
