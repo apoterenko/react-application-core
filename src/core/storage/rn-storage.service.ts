@@ -9,16 +9,16 @@ export class RnStorage implements IApplicationStorage {
   constructor(private prefix: string) {
   }
 
-  public async set(key: string, value: AnyT): Promise<void> {
-    return await AsyncStorage.setItem(this.toKey(key), value);
+  public set(key: string, value: AnyT): Promise<void> {
+    return AsyncStorage.setItem(this.toKey(key), value);
   }
 
-  public async get(key: string): Promise<AnyT> {
-    return await AsyncStorage.getItem(this.toKey(key));
+  public get(key: string): Promise<AnyT> {
+    return AsyncStorage.getItem(this.toKey(key));
   }
 
-  public async remove(key: string): Promise<void> {
-    return await AsyncStorage.removeItem(key);
+  public remove(key: string): Promise<void> {
+    return AsyncStorage.removeItem(key);
   }
 
   private toKey(key: string): string {

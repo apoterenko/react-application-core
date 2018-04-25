@@ -4,8 +4,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage';
 import { BaseEffects } from '../store';
-import { USER_DESTROY_ACTION_TYPE } from '../user';
-import { ApplicationPermissionsServiceT, PERMISSIONS_DESTROY_ACTION_TYPE } from '../permissions';
+import { PERMISSIONS_DESTROY_ACTION_TYPE } from '../permissions';
 import { ApplicationActionBuilder } from '../component/application';
 import { IApplicationSettings } from '../settings';
 import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
@@ -14,6 +13,7 @@ import { DictionariesActionBuilder } from '../dictionary';
 import { TransportActionBuilder } from '../transport';
 import { NotificationActionBuilder } from '../notification';
 import { IApplicationStoreEntity } from '../entities-definitions.interface';
+import { UserActionBuilder } from '../user';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -21,7 +21,6 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.NotVersionedStorage) protected notVersionedStorage: IApplicationStorage;
-  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
 
   @EffectsService.effects(ApplicationActionBuilder.buildInitActionType())
   public onInit(): IEffectsAction[] {
@@ -33,17 +32,13 @@ export class ApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())
   public onLogout(): IEffectsAction[] {
-    const actions: IEffectsAction[] = this.permissionService.isAuthorized()
-        ? [
-          EffectsAction.create(USER_DESTROY_ACTION_TYPE),
-          EffectsAction.create(PERMISSIONS_DESTROY_ACTION_TYPE),
-          ApplicationActionBuilder.buildDestroyTokenAction()
-        ]
-        : [];
-
-    return actions
-        .concat(DictionariesActionBuilder.buildDestroyAction())
-        .concat(ApplicationActionBuilder.buildAfterLogoutAction());
+    return [
+      ApplicationActionBuilder.buildDestroyTokenAction(),
+      DictionariesActionBuilder.buildDestroyAction(),
+      UserActionBuilder.buildDestroyAction(),
+      EffectsAction.create(PERMISSIONS_DESTROY_ACTION_TYPE),
+      ApplicationActionBuilder.buildAfterLogoutAction()
+    ];
   }
 
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
