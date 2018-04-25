@@ -97,6 +97,13 @@ export class FormActionBuilder {
     };
   }
 
+  /**
+   * @stable - 25.04.2018
+   * @param {string} section
+   * @param {string} name
+   * @param {AnyT} value
+   * @returns {AnyAction}
+   */
   public static buildChangeSimpleAction(section: string, name: string, value?: AnyT): AnyAction {
     return {
       type: this.buildChangeActionType(section),
