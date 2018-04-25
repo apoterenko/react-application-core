@@ -120,9 +120,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   protected onBeforeLogout(): void {
-    UniversalApplicationContainer.logger.debug(
-      '[$UniversalApplicationContainer][onBeforeLogout] A user has clicked on a logout button.'
-    );
+    UniversalApplicationContainer.logger.debug('[$UniversalApplicationContainer][onBeforeLogout] Send a logout action.');
 
     this.dispatchCustomType(ApplicationActionBuilder.buildLogoutActionType());
   }
