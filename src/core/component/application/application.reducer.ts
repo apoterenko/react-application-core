@@ -17,7 +17,6 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
       };
     case ApplicationActionBuilder.buildCustomErrorActionType():
     case ApplicationActionBuilder.buildPrepareErrorActionType():
-    case ApplicationActionBuilder.buildPrepareAfterErrorActionType():
       return {
         ...state,
         customError: action.type === ApplicationActionBuilder.buildCustomErrorActionType(),
@@ -35,6 +34,16 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
       return {
         ...state,
         ready: false,
+      };
+    case ApplicationActionBuilder.buildAuthorizedActionType():
+      return {
+        ...state,
+        authorized: true,
+      };
+    case ApplicationActionBuilder.buildUnauthorizedActionType():
+      return {
+        ...state,
+        authorized: false,
       };
   }
   return state;

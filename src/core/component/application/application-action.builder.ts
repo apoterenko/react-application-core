@@ -1,20 +1,21 @@
 import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
 
-import { ACTION_PREFIX } from '../../definitions.interface';
+import { IStringTokenWrapper } from '../../definitions.interface';
 import {
-  APPLICATION_SECTION,
+  $APPLICATION_SECTION,
   APPLICATION_READY_ACTION_TYPE,
+  APPLICATION_PREPARE_DONE_ACTION_TYPE,
   APPLICATION_NOT_READY_ACTION_TYPE,
   APPLICATION_INIT_ACTION_TYPE,
-  APPLICATION_UPDATE_TOKEN_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
   APPLICATION_AFTER_LOGOUT_ACTION_TYPE,
-  APPLICATION_DESTROY_TOKEN_ACTION_TYPE,
   APPLICATION_PREPARE_ACTION_TYPE,
   APPLICATION_PREPARE_ERROR_ACTION_TYPE,
-  APPLICATION_PREPARE_AFTER_ACTION_TYPE,
-  APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE,
   APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
+  APPLICATION_AFTER_LOGIN_ACTION_TYPE,
+  APPLICATION_AUTHORIZED_ACTION_TYPE,
+  APPLICATION_UNAUTHORIZED_ACTION_TYPE,
+  APPLICATION_AFTER_INIT_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
@@ -27,71 +28,83 @@ export class ApplicationActionBuilder {
     return EffectsAction.create(this.buildPrepareActionType());
   }
 
-  public static buildPrepareAfterAction(): IEffectsAction {
-    return EffectsAction.create(this.buildPrepareAfterActionType());
+  public static buildPrepareDoneAction(): IEffectsAction {
+    return EffectsAction.create(this.buildPrepareDoneActionType());
   }
 
   public static buildReadyAction(): IEffectsAction {
     return EffectsAction.create(this.buildReadyActionType());
   }
 
-  public static buildUpdateTokenAction(): IEffectsAction {
-    return EffectsAction.create(this.buildUpdateTokenActionType());
+  public static buildAfterLoginAction(): IEffectsAction {
+    return EffectsAction.create(this.buildAfterLoginActionType());
   }
 
-  public static buildDestroyTokenAction(): IEffectsAction {
-    return EffectsAction.create(this.buildDestroyTokenActionType());
+  public static buildAuthorizedAction(payload?: IStringTokenWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildAuthorizedActionType(), payload);
+  }
+
+  public static buildUnauthorizedAction(): IEffectsAction {
+    return EffectsAction.create(this.buildUnauthorizedActionType());
   }
 
   public static buildAfterLogoutAction(): IEffectsAction {
     return EffectsAction.create(this.buildAfterLogoutActionType());
   }
 
-  public static buildUpdateTokenActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_UPDATE_TOKEN_ACTION_TYPE}`;
-  }
-
-  public static buildDestroyTokenActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_DESTROY_TOKEN_ACTION_TYPE}`;
+  public static buildAfterInitAction(): IEffectsAction {
+    return EffectsAction.create(this.buildAfterInitActionType());
   }
 
   public static buildReadyActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_READY_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_READY_ACTION_TYPE}`;
   }
 
   public static buildNotReadyActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
+  }
+
+  public static buildAuthorizedActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_AUTHORIZED_ACTION_TYPE}`;
+  }
+
+  public static buildUnauthorizedActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_UNAUTHORIZED_ACTION_TYPE}`;
   }
 
   public static buildPrepareActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
   }
 
-  public static buildPrepareAfterActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ACTION_TYPE}`;
-  }
-
-  public static buildPrepareAfterErrorActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_AFTER_ERROR_ACTION_TYPE}`;
+  public static buildPrepareDoneActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_DONE_ACTION_TYPE}`;
   }
 
   public static buildPrepareErrorActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
   }
 
   public static buildInitActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_INIT_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_INIT_ACTION_TYPE}`;
+  }
+
+  public static buildAfterInitActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_AFTER_INIT_ACTION_TYPE}`;
   }
 
   public static buildCustomErrorActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
   }
 
   public static buildLogoutActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_LOGOUT_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_LOGOUT_ACTION_TYPE}`;
   }
 
   public static buildAfterLogoutActionType(): string {
-    return `${ACTION_PREFIX}${APPLICATION_SECTION}.${APPLICATION_AFTER_LOGOUT_ACTION_TYPE}`;
+    return `${$APPLICATION_SECTION}.${APPLICATION_AFTER_LOGOUT_ACTION_TYPE}`;
+  }
+
+  public static buildAfterLoginActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_AFTER_LOGIN_ACTION_TYPE}`;
   }
 }
