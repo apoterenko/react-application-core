@@ -121,4 +121,3 @@ export interface IApplicationTransportPayloadAnalyzer {
 export interface IApplicationTransportErrorInterceptor {
   intercept(payload: ITransportErrorPayload): IEffectsAction[]|IEffectsAction;
 }
-

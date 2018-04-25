@@ -37,8 +37,8 @@ export class Storage implements IApplicationStorage {
     return Promise.resolve(true);
   }
 
-  public get(key: string): AnyT {
-    return this.storage.get(this.toKey(key));
+  public get(key: string): Promise<AnyT> {
+    return Promise.resolve(this.storage.get(this.toKey(key)));
   }
 
   public remove(key: string, noPrefix?: boolean): Promise<boolean> {

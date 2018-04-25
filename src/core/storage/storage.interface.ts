@@ -16,7 +16,7 @@ export interface IApplicationStorage {
   enabled?: boolean;
   disabled?: boolean;
   set(key: string, value: AnyT): Promise<AnyT>;
-  get?(key: string): AnyT;
+  get?(key: string): Promise<AnyT>;
   remove?(key: string, noPrefix?: boolean): Promise<AnyT>;
   each?(command: (o: AnyT, key: string) => void): void;
 }

@@ -6,19 +6,17 @@ import { IApplicationSettings } from '../settings';
 import { PROD_MODE, RN_MODE_ENABLED } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
-import { orDefault } from '../util';
 import { universalReducers } from '../store/universal-default-reducers.interface';
 
-export function buildUniversalStore<TState>(reducers: ReducersMapObject,
-                                            applicationSettings?: IApplicationSettings,
-                                            appMiddlewares?: Middleware[]): Store<TState> {
+export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
+                                                  applicationSettings?: IApplicationSettings,
+                                                  appMiddlewares?: Middleware[]): Promise<Store<TState>> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
-  const preloadedState = orDefault<TState, TState>(
-    !RN_MODE_ENABLED && applicationSettings && applicationSettings.usePersistence,
-    () => staticInjector<IApplicationStorage>(DI_TYPES.Storage).get(APPLICATION_STATE_KEY),
-    {} as TState
-  );
+  let preloadedState = {} as TState;
+  if (!RN_MODE_ENABLED && applicationSettings && applicationSettings.usePersistence) {
+    preloadedState = await staticInjector<IApplicationStorage>(DI_TYPES.Storage).get(APPLICATION_STATE_KEY);
+  }
 
   const store = createStore(
     (state) => state,

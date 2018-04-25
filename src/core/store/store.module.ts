@@ -8,7 +8,7 @@ import { IApplicationStoreEntity } from '../entities-definitions.interface';
 
 export function makeStore(reducers: ReducersMapObject,
                           applicationSettings?: IApplicationSettings,
-                          appMiddlewares?: Middleware[]): Store<IApplicationStoreEntity> {
+                          appMiddlewares?: Middleware[]): Promise<Store<IApplicationStoreEntity>> {
   return buildUniversalStore<IApplicationStoreEntity>(
     {
       ...defaultReducers,
