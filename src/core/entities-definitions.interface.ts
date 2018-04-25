@@ -548,7 +548,6 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
 /* @stable [12.04.2018] */
 export interface IUniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>,
-          ISectionNameWrapper,
           IDispatchWrapper<(type: string, data?: AnyT) => void> {
 }
 

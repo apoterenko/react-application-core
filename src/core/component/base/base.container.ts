@@ -18,8 +18,8 @@ export class BaseContainer<TInternalProps extends IContainerEntity,
   @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
-  constructor(props: TInternalProps, sectionName?: string) {
-    super(props, sectionName);
+  constructor(props: TInternalProps) {
+    super(props);
     this.activateFormDialog = this.activateFormDialog.bind(this);
   }
 

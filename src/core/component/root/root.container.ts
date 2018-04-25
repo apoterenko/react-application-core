@@ -13,9 +13,9 @@ import {
 
 export class RootContainer extends BaseContainer<IRootContainerInternalProps, {}> {
 
-  constructor(props: IRootContainerInternalProps) {
-    super(props, ROOT_SECTION);
-  }
+  public static defaultProps: IRootContainerInternalProps = {
+    sectionName: ROOT_SECTION,
+  };
 
   public componentWillMount(): void {
     const props = this.props;
