@@ -57,3 +57,4 @@ export { RouterActionBuilder } from './router/router-action.builder';
 export { ConnectorActionBuilder } from './component/connector/universal-connector-action.builder';
 export { ListActionBuilder } from './component/list/list-action.builder';
 export { FormActionBuilder } from './component/form/form-action.builder';
+export { ApplicationActionBuilder } from './component/application/application-action.builder';
