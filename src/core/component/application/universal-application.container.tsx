@@ -22,6 +22,10 @@ export type RoutePredicateT = (routeConfiguration: IRouteConfiguration) => boole
 export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
   extends UniversalBaseContainer<TProps> {
 
+  public static defaultProps: IUniversalApplicationContainerProps = {
+    sectionName: APPLICATION_SECTION,
+  };
+
   private static logger = LoggerFactory.makeLogger(UniversalApplicationContainer);
   private extraRoutes = new Map<IContainerClassEntity, IDefaultConnectorConfiguration>();
 
@@ -30,7 +34,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @param {TProps} props
    */
   constructor(props: TProps) {
-    super(props, APPLICATION_SECTION);
+    super(props);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
     this.registerLogoutRoute();
 

@@ -24,6 +24,7 @@ import {
 import { IApplicationSettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
+import { FormActionBuilder } from '../form/form-action.builder';
 
 export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>
@@ -32,11 +33,9 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = I
   /**
    * @stable - 12.04.2018
    * @param {TProps} props
-   * @param {string} sectionName
    */
-  constructor(props: TProps, public sectionName = 'section') {
+  constructor(props: TProps) {
     super(props);
-    this.sectionName = props.sectionName || sectionName;
     this.navigateToBack = this.navigateToBack.bind(this);
   }
 
@@ -57,7 +56,8 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = I
    * @param {IKeyValue} data
    */
   public dispatch(type: string, data?: IKeyValue): void {
-    this.dispatchCustomType(`${this.sectionName}.${type}`, { section: this.sectionName, ...data });
+    const props = this.props;
+    this.dispatchCustomType(`${props.sectionName}.${type}`, { section: props.sectionName, ...data });
   }
 
   /**
@@ -94,6 +94,27 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = I
    */
   protected dispatchCustomType(type: string, data?: AnyT): void {
     this.appStore.dispatch({ type, data });
+  }
+
+  /**
+   * @stable - 25.04.2018
+   * @param {string} fieldName
+   * @param {AnyT} fieldValue
+   */
+  protected dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
+    this.appStore.dispatch(
+      FormActionBuilder.buildChangeSimpleAction(this.props.sectionName, fieldName, fieldValue)
+    );
+  }
+
+  /**
+   * @stable - 25.04.2018
+   * @param {IKeyValue} changes
+   */
+  protected dispatchFormChanges(changes: IKeyValue): void {
+    this.appStore.dispatch(
+      FormActionBuilder.buildChangesSimpleAction(this.props.sectionName, changes)
+    );
   }
 
   /**
