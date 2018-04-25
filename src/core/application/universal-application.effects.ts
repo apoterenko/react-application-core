@@ -21,7 +21,7 @@ import { IApplicationTransportPayloadAnalyzer } from '../transport/transport.int
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
-  protected logger = LoggerFactory.makeLogger(UniversalApplicationEffects);
+  private static logger = LoggerFactory.makeLogger(UniversalApplicationEffects);
 
   @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
@@ -49,7 +49,8 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     }
     const result = actions.concat(ApplicationActionBuilder.buildAfterInitAction());
 
-    this.logger.debug(() => `[$UniversalApplicationEffects][$onInit] The actions are: ${JSON.stringify(result)}`);
+    UniversalApplicationEffects.logger.debug(() =>
+      `[$UniversalApplicationEffects][$onInit] The actions are: ${JSON.stringify(result)}`);
     return result;
   }
 
@@ -63,7 +64,8 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       ? ApplicationActionBuilder.buildPrepareAction()
       : ApplicationActionBuilder.buildReadyAction();
 
-    this.logger.debug(() => `[$UniversalApplicationEffects][$onAfterInit] The result is: ${JSON.stringify(result)}`);
+    UniversalApplicationEffects.logger.debug(() =>
+      `[$UniversalApplicationEffects][$onAfterInit] The result is: ${JSON.stringify(result)}`);
     return result;
   }
 
@@ -148,7 +150,8 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     const token = payload && payload.token || state.transport.token;
 
     await this.notVersionedStorage.set(APPLICATION_TOKEN_KEY, token);
-    this.logger.debug(() => `[$UniversalApplicationEffects][$onAuthorized] The storage token has been saved: ${token}.`);
+    UniversalApplicationEffects.logger.debug(() =>
+      `[$UniversalApplicationEffects][$onAuthorized] The storage token has been saved: ${token}.`);
   }
 
   /**
@@ -157,6 +160,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildUnauthorizedActionType())
   public async $onUnauthorized(): Promise<void> {
     await this.notVersionedStorage.remove(APPLICATION_TOKEN_KEY);
-    this.logger.debug(() => `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
+    UniversalApplicationEffects.logger.debug(() =>
+      `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
   }
 }

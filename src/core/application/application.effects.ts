@@ -8,7 +8,7 @@ import { UniversalApplicationEffects } from './universal-application.effects';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends UniversalApplicationEffects<TApi> {
-  protected logger = LoggerFactory.makeLogger(ApplicationEffects);
+  private static logger0 = LoggerFactory.makeLogger(ApplicationEffects);
 
   /**
    * Initial form state supporting
@@ -23,7 +23,7 @@ export class ApplicationEffects<TApi> extends UniversalApplicationEffects<TApi> 
       return null;
     }
     if (!section) {
-      this.logger.warn(
+      ApplicationEffects.logger0.warn(
           '[$ApplicationEffects][onUpdateRootPath] Section parameter is empty but changes are exists:',
           changes
       );
