@@ -58,6 +58,7 @@ import {
   IOnLoadDictionaryWrapper,
   IDefaultOnResetWrapper,
   IReadyWrapper,
+  IAuthorizedWrapper,
   IApplicationWrapper,
   IStringIdWrapper,
   IDefaultKeyboardEvent,
@@ -347,6 +348,7 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 /* @stable - 25.04.2018 */
 export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
                                                      IUniversalStateEntity,
+                                                     IAuthorizedWrapper,
                                                      IReadyWrapper {
 }
 

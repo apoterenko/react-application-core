@@ -693,6 +693,11 @@ export interface IReadyWrapper {
   ready?: boolean;
 }
 
+/* @stable - 25.04.2018 */
+export interface IAuthorizedWrapper {
+  authorized?: boolean;
+}
+
 /* @stable - 20.04.2018 */
 export interface IAccentWrapper {
   accent?: boolean;
