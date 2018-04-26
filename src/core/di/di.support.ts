@@ -16,24 +16,26 @@ export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifie
  * @param target
  * @returns {(target: any) => any}
  */
-export const provideInSingleton = (target: { new(...args: AnyT[]) }) => provideInSingletonDecorator(target)
+export const provideInSingleton = (target: interfaces.ServiceIdentifier<AnyT>) => provideInSingletonDecorator(target)
   .inSingletonScope()
   .done(true);
 
 /**
  * @stable [26.04.2018]
- * @param {AnyT} contract
- * @param {{new(...args: AnyT[])}} implementation
+ * @param {interfaces.ServiceIdentifier<T> | {new(...args: AnyT[]): T}} contract
+ * @param {{new(...args: AnyT[]): T}} implementation
  * @returns {interfaces.BindingWhenOnSyntax<any>}
  */
-export const bindInSingleton = (contract: AnyT, implementation: { new(...args: AnyT[]) }) =>
-  appContainer.bind(contract).to(implementation || contract).inSingletonScope();
+export const bindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | { new(...args: AnyT[]): T },
+                                   implementation: { new(...args: AnyT[]): T }) =>
+  appContainer.bind(contract).to(contract as { new(...args: AnyT[]): T } || implementation).inSingletonScope();
 
 /**
  * @stable [26.04.2018]
- * @param {AnyT} contract
- * @param {{new(...args: AnyT[])}} implementation
+ * @param {interfaces.ServiceIdentifier<T> | {new(...args: AnyT[]): T}} contract
+ * @param {{new(...args: AnyT[]): T}} implementation
  * @returns {interfaces.BindingWhenOnSyntax<any>}
  */
-export const rebindInSingleton = (contract: AnyT, implementation: { new(...args: AnyT[]) }) =>
-  appContainer.rebind(contract).to(implementation || contract).inSingletonScope();
+export const rebindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | { new(...args: AnyT[]): T },
+                                   implementation: { new(...args: AnyT[]): T }) =>
+  appContainer.rebind(contract).to(contract as { new(...args: AnyT[]): T } || implementation).inSingletonScope();
