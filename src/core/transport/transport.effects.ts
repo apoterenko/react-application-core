@@ -1,6 +1,7 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import {
   IApplicationTransportPayloadAnalyzer,
@@ -14,6 +15,7 @@ import {
 } from './transport-reducer.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
+import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 
 @provideInSingleton(TransportEffects)
 export class TransportEffects {
@@ -34,14 +36,26 @@ export class TransportEffects {
   }
 
   @EffectsService.effects(TRANSPORT_REQUEST_ERROR_ACTION_TYPE)
-  public $onTransportRequestError(action: IEffectsAction): IEffectsAction[] | IEffectsAction {
+  public $onTransportRequestError(action: IEffectsAction,
+                                  storeEntity: IUniversalApplicationStoreEntity): IEffectsAction[] | IEffectsAction {
     const data: ITransportResponsePayload = action.data;
     if (this.payloadAnalyzer.isAuthErrorPayload(data)) {
-      TransportEffects.logger.debug(() =>
-        `[$TransportEffects][$onTransportRequestError] There is an auth error. Navigate to logout. Data: ${
-        JSON.stringify(data)}`);
+      const actions = [
+        ApplicationActionBuilder.buildUnauthorizedAction()
+      ];
 
-      return RouterActionBuilder.buildNavigateAction(this.routes.logout);
+      if (storeEntity.application.ready) {
+        actions.push(RouterActionBuilder.buildNavigateAction(this.routes.logout));
+
+        TransportEffects.logger.debug(() =>
+          `[$TransportEffects][$onTransportRequestError] An auth error has occurred and the app is ready therefore ` +
+          `need to redirect to logout. Actions: ${JSON.stringify(actions)}. Data: ${JSON.stringify(data)}`);
+      } else {
+        TransportEffects.logger.debug(() =>
+          `[$TransportEffects][$onTransportRequestError] An auth error has occurred and the app is NOT ready. ` +
+          `Actions: ${JSON.stringify(actions)}. Data: ${JSON.stringify(data)}`);
+      }
+      return actions;
     }
     return this.errorInterceptor.intercept(data);
   }
