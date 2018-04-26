@@ -5,7 +5,7 @@ import {
   ITypeWrapper,
   IStringIconWrapper,
 } from '../../../definitions.interface';
-import { IApplicationAccessConfig } from '../../../permissions';
+import { IAccessConfig } from '../../../permissions';
 
 export enum NavigationListItemTypeEnum {
   GROUP,
@@ -20,7 +20,7 @@ export interface INavigationListItemOptions extends IBooleanActiveWrapper,
                                                     ILabelWrapper,
                                                     ITypeWrapper<NavigationListItemTypeEnum> {
   link?: string;
-  accessConfig?: IApplicationAccessConfig;
+  accessConfig?: IAccessConfig;
   children?: INavigationListItemOptions[];
 }
 

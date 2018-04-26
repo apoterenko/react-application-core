@@ -1,19 +1,15 @@
 import { Store } from 'redux';
+
 import { lazyInject, DI_TYPES, provideInSingleton } from '../di';
-import { IApplicationPermissionsService } from './permissions.interface';
+import { IPermissionsService } from './permissions.interface';
 import { IApplicationStoreEntity } from '../entities-definitions.interface';
 
 @provideInSingleton(PermissionsService)
-export class PermissionsService<TApplicationAccessConfig>
-  implements IApplicationPermissionsService<TApplicationAccessConfig> {
+export class PermissionsService<TAccessConfig> implements IPermissionsService<TAccessConfig> {
 
   @lazyInject(DI_TYPES.Store) protected store: Store<IApplicationStoreEntity>;
 
-  public isAccessible(permissionObject: TApplicationAccessConfig): boolean {
+  public isAccessible(permissionObject: TAccessConfig): boolean {
     return true;
-  }
-
-  public isAuthorized(): boolean {
-    return this.store.getState().application.authorized;
   }
 }

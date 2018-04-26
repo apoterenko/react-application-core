@@ -1,4 +1,4 @@
-import { IApplicationAccessConfig } from '../../permissions';
+import { IAccessConfig } from '../../permissions';
 import {
   IChangesWrapper,
   IStateInitialChangesWrapper,
@@ -24,7 +24,7 @@ export interface IRootContainerInternalProps extends IContainerEntity,
                                                      IStringSectionWrapper,
                                                      IStateInitialChangesWrapper<IApplicationStoreEntity> {
   container?: IContainerClassEntity;
-  accessConfig?: IApplicationAccessConfig;
+  accessConfig?: IAccessConfig;
 }
 
 export const INITIAL_APPLICATION_ROOT_STATE: IRootEntity = {

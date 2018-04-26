@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { lazyInject, DI_TYPES } from '../../di';
 import { AnyT } from '../../definitions.interface';
 import { DictionariesActionBuilder } from '../../dictionary';
-import { ApplicationPermissionsServiceT } from '../../permissions';
+import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IFormDialog } from '../form';
 import { IUIFactory } from '../factory';
@@ -15,7 +15,7 @@ export class BaseContainer<TInternalProps extends IContainerEntity,
     extends UniversalBaseContainer<TInternalProps, TInternalState>
     implements IContainer<TInternalProps, TInternalState> {
 
-  @lazyInject(DI_TYPES.Permission) protected permissionService: ApplicationPermissionsServiceT;
+  @lazyInject(DI_TYPES.Permission) protected permissionService: IPermissionsService;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
   constructor(props: TInternalProps) {
