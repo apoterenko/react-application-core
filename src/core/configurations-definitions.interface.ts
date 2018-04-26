@@ -63,7 +63,6 @@ import {
   IStringUrlWrapper,
   IStringKeyWrapper,
   ICallbackWrapper,
-  IBooleanInitialWrapper,
   IHideNavBarWrapper,
   IChildrenWrapper,
   ILayoutWrapper,
@@ -102,10 +101,12 @@ import {
   IStringErrorMessageWrapper,
   IAvatarWrapper,
   ISeparatorsWrapper,
+  IInitialWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
   IUniversalComponentPluginClassEntity,
+  IUniversalApplicationStoreEntity,
 } from './entities-definitions.interface';
 
 /* @stable - 05.04.2018 */
@@ -319,7 +320,7 @@ export enum ContainerVisibilityTypeEnum {
 export interface IRouteConfiguration extends IStringPathWrapper,
                                              IBooleanModalWrapper,
                                              IStringTitleWrapper,
-                                             IBooleanInitialWrapper,
+                                             IInitialWrapper<boolean | ((store: IUniversalApplicationStoreEntity) => boolean)>,
                                              IExactWrapper,
                                              IStringKeyWrapper,
                                              IOnEnterWrapper<() => void>,

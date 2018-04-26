@@ -7,6 +7,7 @@ import {
   Lightbox,
 } from 'react-native-router-flux';
 
+import { isFn } from '../../util';
 import { IApplicationContainerProps } from './application.interface';
 import {
   IDefaultConnectorConfiguration,
@@ -63,7 +64,12 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IRnApp
         key={routeConfiguration.key || routeConfiguration.path}
         path={routeConfiguration.path}
         title={routeConfiguration.title}
-        initial={!!routeConfiguration.initial}
+        initial={isFn(routeConfiguration.initial)
+          ? (routeConfiguration.initial as (isAuthorizedFn, store) => boolean)(
+              () => this.auth.isAuthorized(),
+              this.appStore
+            )
+          : !!routeConfiguration.initial}
       />
     );
   }

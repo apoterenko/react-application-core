@@ -116,6 +116,15 @@ export interface IRouteParamsWrapper<TRouteParams> {
   routeParams?: TRouteParams;
 }
 
+/* @stable - 26.04.2018 */
+export interface ICodeIdWrapper<TCodeId> {
+  codeId?: TCodeId;
+}
+
+/* @stable - 26.04.2018 */
+export interface INumberCodeIdWrapper extends ICodeIdWrapper<number> {
+}
+
 /* @stable - 14.04.2018 */
 export interface IKeyValueRouteParamsWrapper extends IRouteParamsWrapper<IKeyValue> {
 }
@@ -1426,13 +1435,9 @@ export interface IHideNavBarWrapper {
   hideNavBar?: boolean;
 }
 
-/* @stable - 15.04.2018 */
+/* @stable [26.04.2018] */
 export interface IInitialWrapper<TInitial> {
-  initial?: boolean;
-}
-
-/* @stable - 15.04.2018 */
-export interface IBooleanInitialWrapper extends IInitialWrapper<boolean> {
+  initial?: TInitial;
 }
 
 /* @stable - 14.04.2018 */
