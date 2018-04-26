@@ -7,7 +7,8 @@ export { convertError } from './error/error.converter';
 /* @stable - 20.04.2018 */
 export { RnModal } from './component/modal/rn-modal.component';
 
-/* @stable - 20.04.2018 */
+/* @stable [26.04.2018] */
+export { UniversalApplicationEffects } from './application/universal-application.effects';
 export { BaseEffects } from './store/effects/base.effects';
 export { BaseTransport } from './transport/base.transport';
 
@@ -25,15 +26,10 @@ export * from './util';
 export { composeReducers, filterBySection } from './store/store.support';
 export { buildUniversalStore } from './store/universal-store.factory';
 
-/* @stable - 16.04.2018 */
-export {
-  LAYOUT_BUILDER_FACTOR_TYPES,
-  LAYOUT_BUILDER_TYPES,
-} from './configurations-definitions.interface';
-
-/* @stable - 16.04.2018 */
-export { RnLayoutViewBuilder } from './component/layout/builder/rn-layout-view.builder';
+/* @stable [26.04.2018] */
 export { RnLayoutBuilder } from './component/layout/builder/rn-layout.builder';
+export { RnLayoutViewBuilder } from './component/layout/builder/rn-layout-view.builder';
+export { LAYOUT_BUILDER_FACTOR_TYPES, LAYOUT_BUILDER_TYPES } from './configurations-definitions.interface';
 
 /* @stable - 16.04.2018 */
 export * from './component/connector/universal-connector.mapper';
@@ -58,3 +54,4 @@ export { ConnectorActionBuilder } from './component/connector/universal-connecto
 export { ListActionBuilder } from './component/list/list-action.builder';
 export { FormActionBuilder } from './component/form/form-action.builder';
 export { ApplicationActionBuilder } from './component/application/application-action.builder';
+export { UserActionBuilder } from './user/user-action.builder';
