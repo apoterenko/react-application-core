@@ -27,8 +27,8 @@ export const provideInSingleton = (target: interfaces.ServiceIdentifier<AnyT>) =
  * @returns {interfaces.BindingWhenOnSyntax<any>}
  */
 export const bindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | { new(...args: AnyT[]): T },
-                                   implementation: { new(...args: AnyT[]): T }) =>
-  appContainer.bind(contract).to(contract as { new(...args: AnyT[]): T } || implementation).inSingletonScope();
+                                   implementation?: { new(...args: AnyT[]): T }) =>
+  appContainer.bind(contract).to(implementation || contract as { new(...args: AnyT[]): T }).inSingletonScope();
 
 /**
  * @stable [26.04.2018]
@@ -37,5 +37,5 @@ export const bindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | {
  * @returns {interfaces.BindingWhenOnSyntax<any>}
  */
 export const rebindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | { new(...args: AnyT[]): T },
-                                     implementation: { new(...args: AnyT[]): T }) =>
-  appContainer.rebind(contract).to(contract as { new(...args: AnyT[]): T } || implementation).inSingletonScope();
+                                     implementation?: { new(...args: AnyT[]): T }) =>
+  appContainer.rebind(contract).to(implementation || contract as { new(...args: AnyT[]): T }).inSingletonScope();
