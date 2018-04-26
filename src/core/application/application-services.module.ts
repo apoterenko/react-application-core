@@ -1,13 +1,9 @@
-import '../converter/converter.module';
+import './universal.module';
 import '../router/router.module';
 import '../storage/storage.module';
 import '../channel/socket/socket-channel.module';
 import '../event/event.module';
-import '../transport/transport.module';
-import '../settings/settings.module';
-import '../translation/translation.module';
 import '../api/entity/modify-entity-payload-factory.module';
 import '../component/field/field.module';
 import '../permissions/permissions.module';
-import './universal-application.module';
 import './application.effects';

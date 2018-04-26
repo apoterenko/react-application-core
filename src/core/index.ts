@@ -1,5 +1,6 @@
 export * from './action';
 export * from './api';
+export * from './auth';
 export * from './application';
 export * from './channel';
 export * from './component/access';
