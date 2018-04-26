@@ -10,7 +10,7 @@ export class PrivateRootContainer extends RootContainer {
     const accessConfig = this.props.accessConfig;
 
     const render = (_) => {
-      if (this.isAuthorized) {
+      if (this.auth.isAuthorized()) {
         return accessConfig && !this.permissionService.isAccessible(accessConfig)
             ? <Redirect to={this.routes.accessDenied}/>
             : <Component routeParams={this.routeParams}

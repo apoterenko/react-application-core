@@ -43,8 +43,4 @@ export class RootContainer extends BaseContainer<IRootContainerInternalProps, {}
   protected get queryParams(): URLSearchParams {
     return new URLSearchParams(this.props.location.search);
   }
-
-  protected get isAuthorized(): boolean {
-    return this.permissionService.isAuthorized();
-  }
 }

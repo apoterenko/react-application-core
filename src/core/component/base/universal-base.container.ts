@@ -12,6 +12,7 @@ import {
   INavigateEntity,
   IContainerClassEntity,
   IUniversalContainer,
+  IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 import {
   IDefaultConnectorConfiguration,
@@ -25,6 +26,7 @@ import { IApplicationSettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
+import { IAuthService } from '../../auth';
 
 export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>
@@ -121,7 +123,7 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = I
    * @stable - 15.04.2018
    * @returns {Store<{}>}
    */
-  protected get appStore(): Store<{}> {
+  protected get appStore(): Store<IUniversalApplicationStoreEntity> {
     return staticInjector(DI_TYPES.Store);
   }
 
@@ -147,6 +149,14 @@ export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = I
    */
   protected get settings(): IApplicationSettings {
     return staticInjector(DI_TYPES.Settings);
+  }
+
+  /**
+   * @stable [26.04.2018]
+   * @returns {IAuthService}
+   */
+  protected get auth(): IAuthService {
+    return staticInjector(DI_TYPES.Auth);
   }
 
   /**
