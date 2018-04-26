@@ -1,5 +1,6 @@
 export const DI_TYPES = {
   Api: Symbol('Api'),
+  Auth: Symbol('Auth'),
   Channel: Symbol('Channel'),
   DateConverter: Symbol('DateConverter'),
   NumberConverter: Symbol('NumberConverter'),
