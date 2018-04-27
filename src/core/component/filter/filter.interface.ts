@@ -27,7 +27,7 @@ export interface IApplicationFilterOptions {
 }
 
 export interface IApplicationFilterFormWrapperState {
-  filterForm: IDefaultFormEntity;
+  filterForm?: IDefaultFormEntity;
 }
 
 export const INITIAL_APPLICATION_FILTER_STATE: IQueryFilterEntity = {

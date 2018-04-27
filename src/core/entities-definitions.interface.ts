@@ -66,7 +66,6 @@ import {
   IEditApiWrapper,
   IAddApiWrapper,
   IExtraParamsWrapper,
-  ISectionNameWrapper,
   ITransportWrapper,
   IQueueWrapper,
   IStringTokenWrapper,
@@ -112,6 +111,7 @@ import {
   IUniversalComponentConfiguration,
   IComponentConfiguration,
 } from './configurations-definitions.interface';
+import { IContainerProps } from './props-definitions.interface';
 
 /* @stable - 05.04.2018 */
 export interface IFieldChangeEntity extends INameWrapper,
@@ -391,13 +391,12 @@ export interface IUniversalComponentEntity {
 }
 
 /* @stable - 12.04.2018 */
-export interface IUniversalContainerEntity extends IStringTitleWrapper,
-                                                   ISectionNameWrapper,
-                                                   IChannelWrapperEntity,
+export interface IUniversalContainerEntity extends IChannelWrapperEntity,
                                                    ILayoutWrapperEntity,
                                                    IUserWrapperEntity,
                                                    INotificationWrapperEntity,
                                                    ITransportWrapperEntity {
+  sectionName?: string; // TODO
 }
 
 /* @stable - 25.04.2018 */
@@ -589,10 +588,6 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
   extends IUniversalComponent<TProps, TState>,
           IStopEventWrapper<(event: IBasicEvent) => void>,
           IHtmlElementSelfWrapper {
-}
-
-/* @stable [23.04.2018] */
-export interface IContainerProps {
 }
 
 /* @stable [23.04.2018] */

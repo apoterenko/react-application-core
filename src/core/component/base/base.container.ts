@@ -9,9 +9,10 @@ import { IFormDialog } from '../form';
 import { IUIFactory } from '../factory';
 import { UniversalBaseContainer } from './universal-base.container';
 import { IContainerEntity, IContainer } from '../../entities-definitions.interface';
+import { IContainerConfiguration } from '../../configurations-definitions.interface';
 
-export class BaseContainer<TInternalProps extends IContainerEntity,
-                           TInternalState>
+export class BaseContainer<TInternalProps extends IContainerEntity & IContainerConfiguration,
+                           TInternalState = {}>
     extends UniversalBaseContainer<TInternalProps, TInternalState>
     implements IContainer<TInternalProps, TInternalState> {
 

@@ -115,6 +115,7 @@ import {
   IHeaderTitleStyleWrapper,
   IHeaderContentWrapper,
   IContentWrapper,
+  ISectionNameWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -155,6 +156,20 @@ export interface IRouteConfigurationWrapper<TRouteConfiguration> {
 /* @stable - 14.04.2018 */
 export interface IAccessConfigurationWrapper<TAccessConfiguration> {
   accessConfiguration?: TAccessConfiguration;
+}
+
+/**
+ * @stable [27.04.2018]
+ */
+export interface IUniversalContainerConfiguration extends IClassNameWrapper,
+                                                          IStringTitleWrapper,
+                                                          ISectionNameWrapper {
+}
+
+/**
+ * @stable [27.04.2018]
+ */
+export interface IContainerConfiguration extends IUniversalContainerConfiguration {
 }
 
 /* @stable [24.04.2018] */
@@ -445,10 +460,6 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentConfi
 /* @stable [27.04.2018] */
 export interface IRnDrawerConfiguration extends IUniversalComponentConfiguration,
                                                 IContentWrapper {
-}
-
-/* @stable [27.04.2018] */
-export interface IUniversalContainerConfiguration extends IClassNameWrapper {
 }
 
 /* @stable [27.04.2018] */
