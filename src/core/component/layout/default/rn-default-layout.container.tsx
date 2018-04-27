@@ -23,6 +23,7 @@ export class RnDefaultLayoutContainer extends UniversalBaseContainer<IRnDefaultL
 
   public static defaultProps: IRnDefaultLayoutContainerProps = {
     useDrawer: true,
+    useHeader: true,
     headerMenuActionEnabled: true,
   };
 
@@ -44,7 +45,7 @@ export class RnDefaultLayoutContainer extends UniversalBaseContainer<IRnDefaultL
   public render(): JSX.Element {
     const props = this.props;
 
-    const header = orNull(
+    const header = orNull<JSX.Element>(
       props.useHeader,
       () => (
         <Header style={props.headerStyle}>
