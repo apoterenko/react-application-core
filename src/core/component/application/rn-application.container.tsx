@@ -57,19 +57,20 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IRnApp
 
   protected buildRoute(ctor: IContainerClassEntity,
                        connectorConfiguration: IDefaultConnectorConfiguration,
-                       routeConfiguration: IRouteConfiguration): JSX.Element {
+                       cfg: IRouteConfiguration): JSX.Element {
     return (
       <Scene
         component={ctor}
-        key={routeConfiguration.key || routeConfiguration.path}
-        path={routeConfiguration.path}
-        title={routeConfiguration.title}
-        initial={isFn(routeConfiguration.initial)
-          ? (routeConfiguration.initial as (isAuthorizedFn, store) => boolean)(
+        key={cfg.key || cfg.path}
+        path={cfg.path}
+        title={cfg.title}
+        initial={isFn(cfg.initial)
+          ? (cfg.initial as (isAuthorizedFn, store) => boolean)(
               () => this.auth.isAuthorized(),
               this.appStore
             )
-          : !!routeConfiguration.initial}
+          : !!cfg.initial}
+        onEnter={cfg.onEnter}
       />
     );
   }

@@ -81,7 +81,7 @@ export class RnDefaultLayoutContainer extends UniversalBaseContainer<IRnDefaultL
                 props.title,
                 () => (
                   <Title style={props.headerTitleStyle}>
-                    {props.title}
+                    {this.t(props.title)}
                   </Title>
                 )
               )

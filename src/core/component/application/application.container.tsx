@@ -113,9 +113,9 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
 
   protected buildRoute(ctor: IContainerClassEntity,
                        connectorConfiguration: IDefaultConnectorConfiguration,
-                       routeConfiguration: IRouteConfiguration): JSX.Element {
+                       cfg: IRouteConfiguration): JSX.Element {
     let Component;
-    switch (routeConfiguration.type) {
+    switch (cfg.type) {
       case ContainerVisibilityTypeEnum.PRIVATE:
         Component = PrivateRootContainer;
         break;
@@ -128,10 +128,10 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
       accessConfig: connectorConfiguration.accessConfiguration,
       initialChanges: connectorConfiguration.initialChanges,
       section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
-      ...routeConfiguration,
+      ...cfg,
     };
     return (
-      <Component key={routeConfiguration.path || routeConfiguration.key}
+      <Component key={cfg.path || cfg.key}
                  container={ctor}
                  {...props}/>
     );
