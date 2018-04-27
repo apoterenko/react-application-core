@@ -19,10 +19,14 @@ export class RnDrawer extends UniversalComponent<RnDrawer, IRnDrawerProps>
    */
   public render(): JSX.Element {
     const props = this.props;
+
+    // A drawer is based on https://github.com/root-two/react-native-drawer.
+    // See the docs for more details.
     return (
       <Drawer
         ref={(ref) => (this.drawer = ref as IRnNativeDrawer)}
         panCloseMask={0.8}
+        captureGestures={false}
         content={props.content}>
         {props.children}
       </Drawer>
