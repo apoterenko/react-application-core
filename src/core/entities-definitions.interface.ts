@@ -391,8 +391,7 @@ export interface IUniversalComponentEntity {
 }
 
 /* @stable - 12.04.2018 */
-export interface IUniversalContainerEntity extends IClassNameWrapper,
-                                                   IStringTitleWrapper,
+export interface IUniversalContainerEntity extends IStringTitleWrapper,
                                                    ISectionNameWrapper,
                                                    IChannelWrapperEntity,
                                                    ILayoutWrapperEntity,

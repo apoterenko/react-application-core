@@ -850,13 +850,17 @@ export interface IPriorityWrapper {
   priority?: number;
 }
 
-/**********************
- * Open's wrappers
- **********************/
+/* @stable [27.04.2018] */
+export interface ICloseWrapper<TClose> {
+  close?: TClose;
+}
+
+/* @stable [27.04.2018] */
 export interface IOpenWrapper<TOpen> {
   open?: TOpen;
 }
 
+/* @stable [27.04.2018] */
 export interface IBooleanOpenWrapper extends IOpenWrapper<boolean> {
 }
 
@@ -1257,6 +1261,21 @@ export interface IModalWrapper<TModal> {
   modal?: TModal;
 }
 
+/* @stable [27.04.2018] */
+export interface IContentWrapper<TContent = JSX.Element> {
+  content?: TContent;
+}
+
+/* @stable [27.04.2018] */
+export interface IDrawerContentWrapper<TDrawerContent = JSX.Element> {
+  drawerContent?: TDrawerContent;
+}
+
+/* @stable [27.04.2018] */
+export interface IHeaderContentWrapper<THeaderContent = JSX.Element> {
+  headerContent?: THeaderContent;
+}
+
 /* @stable - 20.04.2018 */
 export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
 }
@@ -1275,8 +1294,58 @@ export interface IOpacityWrapper {
   opacity?: number;
 }
 
+/* @stable [27.04.2018] */
+export interface IHeaderStyleWrapper<THeaderStyle = IKeyValue> {
+  headerStyle?: THeaderStyle;
+}
+
+/* @stable [27.04.2018] */
+export interface IContentStyleWrapper<TContentStyle  = IKeyValue> {
+  contentStyle?: TContentStyle;
+}
+
+/* @stable [27.04.2018] */
+export interface IDrawerContentStyleWrapper<TDrawerContentStyle = IKeyValue> {
+  drawerContentStyle?: TDrawerContentStyle;
+}
+
+/* @stable [27.04.2018] */
+export interface IUseDrawerWrapper {
+  useDrawer?: boolean;
+}
+
+/* @stable [27.04.2018] */
+export interface IUseHeaderWrapper {
+  useHeader?: boolean;
+}
+
+/* @stable [27.04.2018] */
+export interface IHeaderBackActionEnabledWrapper {
+  headerBackActionEnabled?: boolean;
+}
+
+/* @stable [27.04.2018] */
+export interface IHeaderMenuActionEnabledWrapper {
+  headerMenuActionEnabled?: boolean;
+}
+
+/* @stable [27.04.2018] */
+export interface IHeaderActionStyleWrapper<THeaderActionStyle = IKeyValue> {
+  headerActionStyle?: THeaderActionStyle;
+}
+
+/* @stable [27.04.2018] */
+export interface IHeaderTitleStyleWrapper<THeaderTitleStyle = IKeyValue> {
+  headerTitleStyle?: THeaderTitleStyle;
+}
+
+/* @stable [27.04.2018] */
+export interface IHeaderActionIconStyleWrapper<THeaderActionIconStyle = IKeyValue> {
+  headerActionIconStyle?: THeaderActionIconStyle;
+}
+
 /* @stable - 19.04.2018 */
-export interface IIconStyleWrapper<TIconStyle> {
+export interface IIconStyleWrapper<TIconStyle = IKeyValue> {
   iconStyle?: TIconStyle;
 }
 

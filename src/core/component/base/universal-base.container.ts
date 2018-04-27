@@ -17,6 +17,7 @@ import {
 import {
   IDefaultConnectorConfiguration,
   IRoutesConfiguration,
+  IUniversalContainerConfiguration,
 } from '../../configurations-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
@@ -28,7 +29,8 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 
-export class UniversalBaseContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
+export class UniversalBaseContainer<TProps extends IUniversalContainerEntity & IUniversalContainerConfiguration
+  = IUniversalContainerEntity & IUniversalContainerConfiguration, TState = {}>
   extends Component<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 

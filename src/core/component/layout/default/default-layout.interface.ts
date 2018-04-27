@@ -6,6 +6,7 @@ export interface IHeaderOptions extends IHeaderProps {
 }
 
 export interface IDefaultLayoutContainerInternalProps extends IContainerEntity {
+  className?: string;
   bodyClassName?: string;
   footer?: JSX.Element;
   filter?: IQueryFilterEntity;
