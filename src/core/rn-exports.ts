@@ -1,12 +1,11 @@
 /* @stable [27.04.2018] */
 export { rnBootstrap } from './rn-bootstrap';
 
-/* @stable - 23.04.2018 */
+/* @stable [23.04.2018] */
 export { convertError } from './error/error.converter';
 
 /* @stable [26.04.2018] */
 export { UniversalApplicationEffects } from './application/universal-application.effects';
-export { BaseEffects } from './store/effects/base.effects';
 export { BaseTransport } from './transport/base.transport';
 
 /* @stable [27.04.2018] */
@@ -42,9 +41,10 @@ export { RnApplicationContainer } from './component/application/rn-application.c
 export { formReducer } from './component/form/form.reducer';
 export { listReducer } from './component/list/list.reducer';
 
-/* @stable - 15.04.2018 */
+/* @stable [28.04.2018] */
 export { effectsBy } from './store/effects/effects-by.decorator';
 export { makeUntouchedListEffectsProxy } from './store/effects/untouched-list-effects.proxy';
+export { BaseEffects } from './store/effects/base.effects';
 
 /* @stable [24.04.2018] */
 export { RouterActionBuilder } from './router/router-action.builder';

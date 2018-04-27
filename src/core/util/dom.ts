@@ -1,3 +1,9 @@
+export const createElement = (tag = 'div', parent = document.body): HTMLElement => {
+  const el = document.createElement(tag);
+  addChild(el, parent);
+  return el;
+};
+
 export const addClassNameToElement = (element: HTMLElement, clsName: string): void => element.classList.add(clsName);
 
 export const removeClassNameFromElement = (element: HTMLElement, clsName: string): void =>

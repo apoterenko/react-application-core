@@ -1,15 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE } from './env';
-
-LoggerFactory.configureLogLevel(
-    PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
-);
-
-import { addClassNameToBody } from './util';
+import { addClassNameToBody, createElement, addClassNameToElement } from './util';
 import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
 import { makeBootstrapApp } from './bootstrap/universal-bootstrap-app.factory';
@@ -21,19 +15,32 @@ function gtag(...args) {
   dL.push(arguments);
 }
 
+// Boot element managing
+function addBootElement(rootId: string) {
+  const rootEl = createElement();
+  rootEl.setAttribute('id', rootId);
+  addClassNameToElement(rootEl, 'rac-root');
+  addClassNameToElement(rootEl, 'rac-flex');
+}
+
 export function bootstrap(
     applicationContainer: IContainerClassEntity,
     props?: IApplicationContainerProps,
     rootId = 'root',
-    ) {
+    needToPrepareBody = true
+  ) {
   const ready = () => {
+    if (needToPrepareBody) {
+      addClassNameToBody('rac');
+      addClassNameToBody('mdc-typography');
+      addBootElement(rootId);
+    }
+
     const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
       new componentClass({}).render() as JSX.Element,
       document.getElementById(rootId),
     );
-
-    addClassNameToBody('rac');
   };
 
   if (PROD_MODE) {
@@ -52,3 +59,7 @@ export function bootstrap(
       break;
   }
 }
+
+LoggerFactory.configureLogLevel(
+  PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
+);
