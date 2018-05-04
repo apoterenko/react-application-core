@@ -42,11 +42,6 @@ html, body {
   max-width: 100%;
 }
 
-/* @stable - 05.04.2018 */
-.rac-visibility-hidden {
-  visibility: hidden;
-}
-
 // Core [FRAMEWORK-][RAC+]
 .rac {
 
@@ -70,6 +65,14 @@ html, body {
     right: 24px;                                          /* @stable - 08.04.2018 */
     bottom: 24px;                                         /* @stable - 08.04.2018 */
     background-color: $rac-add-button-background-color;   /* @stable - 08.04.2018 */
+  }
+
+  .rac-visibility-hidden {
+    visibility: hidden;               /* @stable - 04.05.2018 */
+  }
+
+  .rac-display-none {
+    display: none;                    /* @stable [04.05.2018] */
   }
 
   .rac-loading-icon {
