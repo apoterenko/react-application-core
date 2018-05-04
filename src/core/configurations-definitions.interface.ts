@@ -121,6 +121,9 @@ import {
   IOnClickWrapper,
   IEntity,
   ILinkWrapper,
+  IDelayTimeoutWrapper,
+  AnyT,
+  IOnDelayWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -548,4 +551,11 @@ export interface INavigationListItemConfiguration extends IActiveWrapper,
  */
 export interface INavigationListConfiguration extends IUniversalComponentConfiguration,
                                                       IItemsWrapper<INavigationListItemConfiguration[]> {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWrapper,
+                                                                 IOnDelayWrapper<(value: AnyT) => void> {
 }

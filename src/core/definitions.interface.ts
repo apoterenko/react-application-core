@@ -623,6 +623,20 @@ export interface IAlwaysDirtyWrapper {
   alwaysDirty?: boolean;
 }
 
+/**
+ * @stable [04.05.2018]
+ */
+export interface IDelayTimeoutWrapper<TDelayTimeout = number> {
+  delayTimeout?: TDelayTimeout;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IOnDelayWrapper<TOnDelay = () => void> {
+  onDelay?: TOnDelay;
+}
+
 /* @stable - 31.03.2018 */
 export interface ISubmittableWrapper {
   submittable?: boolean;
@@ -707,8 +721,16 @@ export interface IBlobEntity extends IStringIdWrapper,
 export interface IBasicEvent extends React.SyntheticEvent<{}> {
 }
 
-/* @stable - 11.04.2018 */
-export interface IDefaultKeyboardEvent extends React.KeyboardEvent<{}> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IChangeEvent<TTarget = IAnyValueWrapper> extends React.ChangeEvent<TTarget> {
 }
 
 /* @stable - 31.03.2018 */

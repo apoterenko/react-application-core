@@ -61,7 +61,7 @@ import {
   IAuthorizedWrapper,
   IApplicationWrapper,
   IStringIdWrapper,
-  IDefaultKeyboardEvent,
+  IKeyboardEvent,
   IApiEntityWrapper,
   IEditApiWrapper,
   IAddApiWrapper,
@@ -113,6 +113,12 @@ import {
   IComponentConfiguration,
 } from './configurations-definitions.interface';
 import { IContainerProps } from './props-definitions.interface';
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IUniversalComponentPlugin<TProps = {}, TState = {}> extends ComponentLifecycle<TProps, TState> {
+}
 
 /* @stable - 05.04.2018 */
 export interface IFieldChangeEntity extends INameWrapper,
@@ -372,13 +378,13 @@ export interface IOperationEntity extends IStringIdWrapper {
 
 /* @stable - 11.04.2018 */
 export interface IKeyboardHandlersEntity {
-  onKeyEnter?(event: IDefaultKeyboardEvent): void;
-  onKeyUp?(event: IDefaultKeyboardEvent): void;
-  onKeyDown?(event: IDefaultKeyboardEvent): void;
-  onKeyEscape?(event: IDefaultKeyboardEvent): void;
-  onKeyArrowDown?(event: IDefaultKeyboardEvent): void;
-  onKeyArrowUp?(event: IDefaultKeyboardEvent): void;
-  onKeyBackspace?(event: IDefaultKeyboardEvent): void;
+  onKeyEnter?(event: IKeyboardEvent): void;
+  onKeyUp?(event: IKeyboardEvent): void;
+  onKeyDown?(event: IKeyboardEvent): void;
+  onKeyEscape?(event: IKeyboardEvent): void;
+  onKeyArrowDown?(event: IKeyboardEvent): void;
+  onKeyArrowUp?(event: IKeyboardEvent): void;
+  onKeyBackspace?(event: IKeyboardEvent): void;
 }
 
 /* @stable - 11.04.2018 */
@@ -560,12 +566,6 @@ export interface IUniversalComponentProps extends IUniversalComponentEntity,
 export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                      TState = {}>
   extends Component<TProps, TState> {
-}
-
-/* @stable [23.04.2018] */
-export interface IUniversalComponentPlugin<TProps extends IUniversalComponentProps = IUniversalComponentProps,
-                                           TState = {}>
-  extends ComponentLifecycle<TProps, TState> {
 }
 
 /* @stable - 23.04.2018 */

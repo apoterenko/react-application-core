@@ -1,60 +1,75 @@
-import { sequence } from '../../../../util';
-import { AnyT, ChangeEventT, KeyboardEventT } from '../../../../definitions.interface';
-import { IField } from '../field.interface';
-import { IDelayedChangesFieldPluginInternalProps } from './delayed-changes-field.interface';
+import { sequence, DelayedTask } from '../../../../util';
+import { AnyT, IChangeEvent, IKeyboardEvent } from '../../../../definitions.interface';
 import { IUniversalComponentPlugin } from '../../../../entities-definitions.interface';
+import { IField } from '../field.interface';
+import { IDelayedChangesFieldPluginProps } from './delayed-changes-field.interface';
 
-export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDelayedChangesFieldPluginInternalProps> {
+export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDelayedChangesFieldPluginProps> {
   public static DEFAULT_DELAY_TIMEOUT = 1500;
 
-  private taskId: number;
   private currentValue: AnyT;
+  private delayedTask: DelayedTask;
 
-  constructor(private component: IField<IDelayedChangesFieldPluginInternalProps, {}>) {
+  /**
+   * @stable [04.05.2018]
+   * @param {IField} component
+   */
+  constructor(private component: IField) {
+    this.delayedTask = new DelayedTask(
+      this.doDelay.bind(this),
+      this.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
+    );
   }
 
+  /**
+   * @stable [04.05.2018]
+   */
   public componentDidMount(): void {
     this.component.onChange = sequence(this.component.onChange, this.onChange, this);
     this.component.onKeyEnter = sequence(this.component.onKeyEnter, this.onKeyEnter, this);
   }
 
+  /**
+   * @stable [04.05.2018]
+   */
   public componentWillUnmount(): void {
-    this.clearTask();
+    this.delayedTask.stop();
   }
 
-  private onKeyEnter(event: KeyboardEventT): void {
+  /**
+   * @stable [04.05.2018]
+   * @param {IKeyboardEvent} event
+   */
+  private onKeyEnter(event: IKeyboardEvent): void {
     this.component.stopEvent(event);
-    this.clearTask();
-    this.propsOnDelay(this.currentValue);
+    this.delayedTask.stop();
+    this.doDelay(this.currentValue);
   }
 
-  private onChange(event: ChangeEventT): void {
+  /**
+   * @stable [04.05.2018]
+   * @param {IChangeEvent} event
+   */
+  private onChange(event: IChangeEvent): void {
     this.currentValue = event.target.value;
-    this.launchTask();
+    this.delayedTask.start();
   }
 
-  private launchTask(): void {
-    this.clearTask();
-    this.taskId = window.setTimeout(
-        this.propsOnDelay.bind(this),
-        this.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT,
-        this.currentValue,
-    );
-  }
-
-  private clearTask(): void {
-    if (this.taskId) {
-      window.clearTimeout(this.taskId);
-    }
-  }
-
-  private propsOnDelay(value: AnyT): void {
+  /**
+   * @stable [04.05.2018]
+   * @param {AnyT} value
+   */
+  private doDelay(value: AnyT): void {
     if (this.props.onDelay) {
       this.props.onDelay(value);
     }
   }
 
-  private get props(): IDelayedChangesFieldPluginInternalProps {
+  /**
+   * @stable [04.05.2018]
+   * @returns {IDelayedChangesFieldPluginProps}
+   */
+  private get props(): IDelayedChangesFieldPluginProps {
     return this.component.props;
   }
 }

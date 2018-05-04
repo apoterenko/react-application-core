@@ -1,7 +1,7 @@
-import { AnyT } from '../../../../definitions.interface';
-import { IComponentEntity } from '../../../../entities-definitions.interface';
+import { IDelayedChangesFieldPluginConfiguration } from '../../../../configurations-definitions.interface';
 
-export interface IDelayedChangesFieldPluginInternalProps extends IComponentEntity {
-  onDelay?: (value: AnyT) => void;
-  delayTimeout?: number;
+/**
+ * @stable [04.05.2018]
+ */
+export interface IDelayedChangesFieldPluginProps extends IDelayedChangesFieldPluginConfiguration {
 }
