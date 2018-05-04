@@ -53,10 +53,9 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
+    this.delayedTask.stop();
     if (this.props.useRobotMode) {
       this.eventManager.remove(document, 'keypress', this.onKeyPress);
-    } else {
-      this.delayedTask.stop();
     }
   }
 
@@ -87,7 +86,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
    * @param {IKeyboardEvent} e
    */
   private onKeyPress(e: IKeyboardEvent): void {
-    if (this.alreadyFocused) {
+    if (AutoFocused.alreadyFocused) {
       // Don't interfere with normal input mode
       return;
     }
@@ -113,7 +112,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
         this.clearField();
       }
     } else {
-      if (document.activeElement === this.autoFocusedField.input ||  this.alreadyFocused) {
+      if (AutoFocused.alreadyFocused) {
         return;
       }
       this.autoFocusedField.setFocus();
@@ -150,7 +149,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
    * @stable [05.05.2018]
    * @returns {boolean}
    */
-  private get alreadyFocused(): boolean {
+  private static get alreadyFocused(): boolean {
     const activeElement = document.activeElement;
     return activeElement instanceof HTMLInputElement
       || activeElement instanceof HTMLTextAreaElement;
