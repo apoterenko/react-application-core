@@ -85,7 +85,7 @@ import {
   IStringEmailWrapper,
   IStringLoginWrapper,
   INamedEntity,
-  IStringPasswordWrapper,
+  IPasswordWrapper,
   IRootWrapper,
   IStringPathWrapper,
   INotificationWrapper,
@@ -105,6 +105,7 @@ import {
   IDispatchWrapper,
   IStopEventWrapper,
   IBasicEvent,
+  IUrlWrapper,
 } from './definitions.interface';
 import {
   ITabConfiguration,
@@ -476,7 +477,8 @@ export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
 
 /* @stable - 15.04.2018 */
 export interface IUserEntity extends INamedEntity,
-                                     IStringPasswordWrapper,
+                                     IUrlWrapper,
+                                     IPasswordWrapper,
                                      IStringLoginWrapper,
                                      IStringEmailWrapper {
 }

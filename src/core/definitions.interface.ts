@@ -189,6 +189,20 @@ export interface IBasenameWrapper {
   basename?: string;
 }
 
+/**
+ * @stable [02.05.2018]
+ */
+export interface IActionButtonsWrapper<TActionButtons> {
+  actionButtons?: TActionButtons;
+}
+
+/**
+ * @stable [02.05.2018]
+ */
+export interface IActionIconsWrapper<TActionIcons> {
+  actionIcons?: TActionIcons;
+}
+
 /* @stable - 15.04.2018 */
 export interface ILayoutWrapper<TLayout> {
   layout?: TLayout;
@@ -321,8 +335,10 @@ export interface IRestoreAuthWrapper<TRestoreAuth> {
   restoreAuth?: TRestoreAuth;
 }
 
-/* @stable - 01.04.2018 */
-export interface IUrlWrapper<TUrl> {
+/**
+ * @stable [03.05.2018]
+ */
+export interface IUrlWrapper<TUrl = string> {
   url?: TUrl;
 }
 
@@ -357,10 +373,6 @@ export interface IOnChangeSortDirectionWrapper<TOnChangeSortDirection> {
 /* @stable - 01.04.2018 */
 export interface IOnChangeWrapper<TOnChange> {
   onChange?: TOnChange;
-}
-
-/* @stable - 01.04.2018 */
-export interface IStringUrlWrapper extends IUrlWrapper<string> {
 }
 
 /* @stable - 01.04.2018 */
@@ -843,6 +855,11 @@ export interface IValidWrapper {
   valid?: boolean;
 }
 
+/* @stable - 02.05.2018 */
+export interface IPriceWrapper<TPrice = number> {
+  price?: TPrice;
+}
+
 /**********************
  * Priority's wrapper
  **********************/
@@ -895,12 +912,8 @@ export interface IActionIconWrapper {
 }
 
 /* @stable - 31.03.2018 */
-export interface IIconWrapper<TIcon> {
+export interface IIconWrapper<TIcon = string> {
   icon?: TIcon;
-}
-
-/* @stable - 31.03.2018 */
-export interface IStringIconWrapper extends IIconWrapper<string> {
 }
 
 /* @stable - 15.04.2018 */
@@ -1079,7 +1092,7 @@ export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string>
  * Menu's wrappers
  **********************/
 export interface IMenuActionEntity<TValue> extends ILabelWrapper,
-                                                   IStringIconWrapper,
+                                                   IIconWrapper,
                                                    IValueWrapper<TValue>,
                                                    IDisabledWrapper {
 }
@@ -1163,9 +1176,11 @@ export interface IAddApiWrapper {
   addApi?: string;
 }
 
-/* @stable - 31.03.2018 */
-export interface IRippableWrapper {
-  rippable?: boolean;
+/**
+ * @stable [02.05.2018]
+ */
+export interface IRippableWrapper<TRippable = boolean> {
+  rippable?: TRippable;
 }
 
 /* @stable - 19.04.2018 */
@@ -1391,7 +1406,7 @@ export interface IDefaultOnPressWrapper extends IOnPressWrapper<() => void> {
 }
 
 /* @stable - 31.03.2018 */
-export interface IOnClickWrapper<TOnClick> {
+export interface IOnClickWrapper<TOnClick = () => void> {
   onClick?: TOnClick;
 }
 
@@ -1576,13 +1591,11 @@ export interface IKeyWrapper<TKey> {
 export interface IStringKeyWrapper extends IKeyWrapper<string> {
 }
 
-/* @stable - 15.04.2018 */
-export interface IPasswordWrapper<TPassword> {
+/**
+ * @stable [03.05.2018]
+ */
+export interface IPasswordWrapper<TPassword = string> {
   password?: TPassword;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringPasswordWrapper extends IPasswordWrapper<string> {
 }
 
 /* @stable - 16.04.2018 */

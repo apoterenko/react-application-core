@@ -10,7 +10,7 @@ import {
   INumberIdWrapper,
   IKeyValueParamsWrapper,
   INoCacheWrapper,
-  IStringUrlWrapper,
+  IUrlWrapper,
   IKeyValueHeadersWrapper,
   IDataWrapper,
   INotApplyAuthWrapper,
@@ -47,7 +47,7 @@ export interface IApplicationTransportFactory extends ICancelableTransport {
  */
 export interface ITransportHttpRequestEntity extends IMethodWrapper,
                                                      IKeyValueHeadersWrapper,
-                                                     IStringUrlWrapper,
+                                                     IUrlWrapper,
                                                      IDataWrapper<Blob|ITransportRequestParamsEntity> {
   cancelToken?: string;
 }
@@ -60,7 +60,7 @@ export interface ITransportRequestEntity extends INameWrapper,
                                                  IStringPathWrapper,
                                                  IFnReaderWrapper<AnyT, IAnyResultWrapper>,
                                                  INoCacheWrapper,
-                                                 IStringUrlWrapper,
+                                                 IUrlWrapper,
                                                  IDefaultOperationWrapper {
 }
 

@@ -5,7 +5,7 @@ import { BaseComponent } from '../../base';
 import {
   DelayedChangesFieldPlugin,
   IBasicTextFieldAction,
-  IDefaultField,
+  IField,
   TextField,
 } from '../../field';
 import { FilterActionEnum, IFilterActionEntity } from '../../filter';
@@ -126,7 +126,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
   }
 
   private onClear(): void {
-    const qField = this.refs.queryField as IDefaultField;
+    const qField = this.refs.queryField as IField;
     if (qField) {
       qField.setFocus();
     }

@@ -22,7 +22,7 @@ import {
 } from '../../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
-export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IDefaultField) => string;
+export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IField) => string;
 
 export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
 
@@ -93,15 +93,11 @@ export interface IBasicField<TValue> extends IValueWrapper<TValue>,
   setFocus?(): void;
 }
 
-export interface IField<TInternalProps extends IFieldInternalProps,
-                        TInternalState extends IFieldInternalState>
+export interface IField<TInternalProps extends IFieldInternalProps = IFieldInternalProps,
+                        TInternalState extends IFieldInternalState = IFieldInternalState>
     extends IKeyboardHandlersEntity,
             IBasicField<AnyT>,
             IComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;
   resetError(): void;
-}
-
-/* @stable - 11.04.2018 */
-export interface IDefaultField extends IField<IFieldInternalProps, IFieldInternalState> {
 }

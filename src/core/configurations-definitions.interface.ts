@@ -10,7 +10,7 @@ import {
   IEntityRendererWrapper,
   IEntityToClassNameWrapper,
   IEntityTplWrapper,
-  IStringIconWrapper,
+  IIconWrapper,
   IActionIconWrapper,
   IActionTextWrapper,
   IAlwaysDirtyWrapper,
@@ -60,7 +60,7 @@ import {
   IExactWrapper,
   IBeforeEnterWrapper,
   IAfterEnterWrapper,
-  IStringUrlWrapper,
+  IUrlWrapper,
   IStringKeyWrapper,
   ICallbackWrapper,
   IHideNavBarWrapper,
@@ -116,6 +116,10 @@ import {
   IHeaderContentWrapper,
   IContentWrapper,
   ISectionNameWrapper,
+  IActionIconsWrapper,
+  IActionButtonsWrapper,
+  IOnClickWrapper,
+  IEntity,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -188,7 +192,7 @@ export interface IRnListItemConfiguration extends IUniversalListItemConfiguratio
 export interface IListItemConfiguration extends IUniversalListItemConfiguration,
                                                 IEntityToClassNameWrapper,
                                                 IRippableWrapper,
-                                                IStringIconWrapper {
+                                                IIconWrapper {
 }
 
 /* @stable [23.04.2018] */
@@ -204,6 +208,17 @@ export interface IUniversalListConfiguration <TItemConfiguration extends IUniver
 
 /* @stable [24.04.2018] */
 export interface IRnListConfiguration extends IUniversalListConfiguration<IRnListItemConfiguration> {
+}
+
+export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
+                                                    IActionButtonsWrapper<(entity: IEntity) => JSX.Element>,
+                                                    IActionIconsWrapper<(entity: IEntity) => JSX.Element> {
+}
+
+/* @stable - 04.04.2018 */
+export interface ICardListConfiguration extends IUniversalListConfiguration<ICardListItemConfiguration>,
+                                                IComponentConfiguration,
+                                                INonInteractiveWrapper {
 }
 
 /* @stable - 04.04.2018 */
@@ -254,7 +269,7 @@ export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration
 export interface ITabConfiguration extends INumberValueWrapper,
                                            IBooleanActiveWrapper,
                                            INameWrapper,
-                                           IStringIconWrapper {
+                                           IIconWrapper {
 }
 
 /* @stable - 06.04.2018 */
@@ -265,7 +280,7 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
 /* @stable - 19.04.2018 */
 export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
                                                        IStringTextWrapper,
-                                                       IStringIconWrapper {
+                                                       IIconWrapper {
 }
 
 /* @stable - 07.04.2018 */
@@ -334,7 +349,7 @@ export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
 
 /* @stable - 14.04.2018 */
 export interface IRouteComputedMatchConfiguration extends IKeyValueParamsWrapper,
-                                                          IStringUrlWrapper,
+                                                          IUrlWrapper,
                                                           IStringPathWrapper {
 }
 
@@ -477,4 +492,12 @@ export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContai
                                                                 IDrawerContentStyleWrapper,
                                                                 IUseDrawerWrapper,
                                                                 IUseHeaderWrapper {
+}
+
+/* @stable [27.04.2018] */
+export interface ICardConfiguration extends IComponentConfiguration,
+                                            IOnClickWrapper,
+                                            IRippableWrapper,
+                                            IActionButtonsWrapper<JSX.Element>,
+                                            IActionIconsWrapper<JSX.Element> {
 }

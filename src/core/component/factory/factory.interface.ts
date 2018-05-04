@@ -47,7 +47,10 @@ export interface IUIFactory {
   textFieldLabel?: string;
   textFieldFocusedLabel?: string;
   checkboxInput?: string;
+  card?: string;
   cardActions?: string;
+  cardActionButtons?: string;
+  cardActionIcons?: string;
   rippleSurface?: string;
   menuAnchor?: string;
   menu?: string;
