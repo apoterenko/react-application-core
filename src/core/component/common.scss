@@ -93,7 +93,7 @@ html, body {
 
   .rac-invisible {
     position: absolute;   /* @stable [04.05.2018] */
-    top: -10000;          /* @stable [04.05.2018] */
+    top: -10000px;        /* @stable [04.05.2018] */
   }
 
   .rac-no-user-select {

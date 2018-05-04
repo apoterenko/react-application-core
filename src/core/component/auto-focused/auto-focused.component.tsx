@@ -36,6 +36,14 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
 
   /**
    * @stable [04.05.2018]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.delayedTask.stop();
+  }
+
+  /**
+   * @stable [04.05.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
