@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT, IEntity, EntityIdT } from '../../definitions.interface';
+import { AnyT, IEntity, EntityIdT, ISelectedEntityWrapper } from '../../definitions.interface';
 import { applySection } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
@@ -95,6 +95,10 @@ export class ListActionBuilder {
 
   public static buildUnTouchAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildUnTouchActionType(section), applySection(section));
+  }
+
+  public static buildSelectAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildSelectActionType(section), applySection(section, payload));
   }
 
   public static buildDeselectAction(section: string): IEffectsAction {
