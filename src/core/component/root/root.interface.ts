@@ -1,4 +1,3 @@
-import { IAccessConfig } from '../../permissions';
 import {
   IChangesWrapper,
   IStateInitialChangesWrapper,
@@ -12,7 +11,7 @@ import {
   IRootEntity,
   IApplicationStoreEntity,
 } from '../../entities-definitions.interface';
-import { IRouteConfiguration } from '../../configurations-definitions.interface';
+import { IRouteConfiguration, IAccessConfiguration } from '../../configurations-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 IStringSectionWrapper,
@@ -24,7 +23,7 @@ export interface IRootContainerInternalProps extends IContainerEntity,
                                                      IStringSectionWrapper,
                                                      IStateInitialChangesWrapper<IApplicationStoreEntity> {
   container?: IContainerClassEntity;
-  accessConfig?: IAccessConfig;
+  accessConfig?: IAccessConfiguration;
 }
 
 export const INITIAL_APPLICATION_ROOT_STATE: IRootEntity = {

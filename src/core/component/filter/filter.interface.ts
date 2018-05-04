@@ -1,5 +1,5 @@
 import {
-  INotUseClassNameWrapper,
+  INotApplyFrameworkClassNameWrapper,
   ITypeWrapper,
   IClassNameWrapper,
 } from '../../definitions.interface';
@@ -13,7 +13,7 @@ export enum FilterActionEnum {
 }
 
 /* @stable - 31.03.2018 */
-export interface IFilterActionEntity extends INotUseClassNameWrapper,
+export interface IFilterActionEntity extends INotApplyFrameworkClassNameWrapper,
                                              IClassNameWrapper,
                                              ITypeWrapper<FilterActionEnum> {
 }

@@ -1,29 +1,7 @@
-import {
-  IBooleanActiveWrapper,
-  ILabelWrapper,
-  INotUseClassNameWrapper,
-  ITypeWrapper,
-  IIconWrapper,
-} from '../../../definitions.interface';
-import { IAccessConfig } from '../../../permissions';
+import { INavigationListConfiguration } from '../../../configurations-definitions.interface';
 
-export enum NavigationListItemTypeEnum {
-  GROUP,
-  SUB_HEADER,
-  DIVIDER,
-  LINK,
-}
-
-export interface INavigationListItemOptions extends IBooleanActiveWrapper,
-                                                    INotUseClassNameWrapper,
-                                                    IIconWrapper,
-                                                    ILabelWrapper,
-                                                    ITypeWrapper<NavigationListItemTypeEnum> {
-  link?: string;
-  accessConfig?: IAccessConfig;
-  children?: INavigationListItemOptions[];
-}
-
-export interface INavigationListInternalProps {
-  items: INavigationListItemOptions[];
+/**
+ * @stable [04.05.2018]
+ */
+export interface INavigationListProps extends INavigationListConfiguration {
 }

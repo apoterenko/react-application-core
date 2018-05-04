@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { PersistentDrawer } from '../../drawer';
-import { INavigationListItemOptions, NavigationList } from '../../list';
+import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import { toClassName, orNull } from '../../../util';
 import {
@@ -16,6 +16,7 @@ import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { IAnyMenuActionEntity } from '../../../definitions.interface';
+import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
 
@@ -40,7 +41,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const props = this.props;
     const headerOptions = props.headerOptions;
     const menu = this.navigationMenuBuilder.provide()
-        .map((item): INavigationListItemOptions => ({ ...item, active: props.root.path === item.link }));
+        .map((item): INavigationListItemConfiguration => ({ ...item, active: props.root.path === item.link }));
     const runtimeTitle = menu.find((item) => item.active);
 
     return (

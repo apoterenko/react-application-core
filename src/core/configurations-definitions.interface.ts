@@ -17,7 +17,7 @@ import {
   IClassNameWrapper,
   IDisabledWrapper,
   INotUseActionsWrapper,
-  INotUseClassNameWrapper,
+  INotApplyFrameworkClassNameWrapper,
   IReadOnlyWrapper,
   IResetTextWrapper,
   IUseResetButtonWrapper,
@@ -32,7 +32,7 @@ import {
   INameWrapper,
   INumberValueWrapper,
   IItemsWrapper,
-  IBooleanActiveWrapper,
+  IActiveWrapper,
   IStringTypeWrapper,
   IBasenameWrapper,
   IAutoFocusWrapper,
@@ -120,6 +120,7 @@ import {
   IActionButtonsWrapper,
   IOnClickWrapper,
   IEntity,
+  ILinkWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -157,7 +158,9 @@ export interface IRouteConfigurationWrapper<TRouteConfiguration> {
   routeConfiguration?: TRouteConfiguration;
 }
 
-/* @stable - 14.04.2018 */
+/**
+ * @stable [14.04.2018]
+ */
 export interface IAccessConfigurationWrapper<TAccessConfiguration> {
   accessConfiguration?: TAccessConfiguration;
 }
@@ -248,8 +251,7 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
 }
 
 /* @stable - 31.03.2018 */
-export interface IFormConfiguration extends INotUseClassNameWrapper,
-                                            INotUseActionsWrapper,
+export interface IFormConfiguration extends INotUseActionsWrapper,
                                             IUseResetButtonWrapper,
                                             IClassNameWrapper,
                                             ISubmittableWrapper,
@@ -284,7 +286,7 @@ export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration
 
 /* @stable - 06.04.2018 */
 export interface ITabConfiguration extends INumberValueWrapper,
-                                           IBooleanActiveWrapper,
+                                           IActiveWrapper,
                                            INameWrapper,
                                            IIconWrapper {
 }
@@ -302,13 +304,12 @@ export interface IUniversalButtonConfiguration extends IUniversalComponentConfig
 
 /* @stable - 07.04.2018 */
 export interface IButtonConfiguration extends IUniversalButtonConfiguration,
+                                              IWebComponentConfiguration,
                                               IAccentWrapper,
                                               IStringToWrapper,
                                               IRaisedWrapper,
-                                              IClassNameWrapper,
                                               IEventOnClickWrapper,
-                                              INotUseClassNameWrapper,
-                                              IStringTitleWrapper,
+                                              INotApplyFrameworkClassNameWrapper,
                                               ISimpleWrapper,
                                               IStringTypeWrapper {
 }
@@ -512,4 +513,39 @@ export interface ICardConfiguration extends IComponentConfiguration,
                                             IRippableWrapper,
                                             IActionButtonsWrapper<JSX.Element>,
                                             IActionIconsWrapper<JSX.Element> {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IAccessConfiguration {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export enum NavigationListItemTypeEnum {
+  GROUP,
+  SUB_HEADER,
+  DIVIDER,
+  LINK,
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface INavigationListItemConfiguration extends IActiveWrapper,
+                                                          IIconWrapper,
+                                                          ILinkWrapper,
+                                                          ILabelWrapper,
+                                                          IChildrenWrapper<INavigationListItemConfiguration[]>,
+                                                          IAccessConfigurationWrapper<IAccessConfiguration>,
+                                                          ITypeWrapper<NavigationListItemTypeEnum> {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface INavigationListConfiguration extends IUniversalComponentConfiguration,
+                                                      IItemsWrapper<INavigationListItemConfiguration[]> {
 }

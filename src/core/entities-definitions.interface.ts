@@ -28,7 +28,7 @@ import {
   IBooleanNewEntityWrapper,
   IEntityIdWrapper,
   IOriginalEntityWrapper,
-  IBooleanActiveWrapper,
+  IActiveWrapper,
   IEntityOnClickWrapper,
   IEntityRawDataWrapper,
   ISelectedEntityWrapper,
@@ -236,7 +236,7 @@ export interface IUniversalListEntity extends IUniversalComponentEntity,
 export interface IUniversalListItemEntity extends IUniversalComponentEntity,
                                                   IEntityRawDataWrapper,
                                                   IEntityOnClickWrapper,
-                                                  IBooleanActiveWrapper {
+                                                  IActiveWrapper {
 }
 
 /* @stable [24.04.2018] */
@@ -284,7 +284,7 @@ export interface IEditableApiEntity<TEntity extends IEntity> extends IApiEntityW
 }
 
 /* @stable - 01.04.2018 */
-export interface IQueryFilterEntity extends IBooleanActiveWrapper,
+export interface IQueryFilterEntity extends IActiveWrapper,
                                             IStringQueryWrapper {
 }
 

@@ -1,5 +1,4 @@
 import {
-  INotUseClassNameWrapper,
   IStringTypeWrapper,
   IDisabledWrapper,
   BasicEventT,
@@ -10,8 +9,7 @@ import {
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginInternalProps } from '../field';
 
-export interface IBasicTextFieldAction extends INotUseClassNameWrapper,
-                                               IClassNameWrapper,
+export interface IBasicTextFieldAction extends IClassNameWrapper,
                                                IStringTitleWrapper,
                                                IDisabledWrapper,
                                                IStringTypeWrapper {

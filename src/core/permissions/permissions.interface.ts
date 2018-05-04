@@ -1,7 +1,5 @@
 import { AnyT } from '../definitions.interface';
-
-export interface IAccessConfig {
-}
+import { IAccessConfiguration } from '../configurations-definitions.interface';
 
 export interface IApplicationPermissionsState<TPermissions> {
   permissions: TPermissions;
@@ -15,7 +13,7 @@ export const INITIAL_PERMISSION_STATE: IApplicationPermissionsState<AnyT> = {
   permissions: null,
 };
 
-export interface IPermissionsService<TAccessConfig = IAccessConfig> {
+export interface IPermissionsService<TAccessConfig = IAccessConfiguration> {
   isAccessible(checkedObject: TAccessConfig): boolean;
 }
 

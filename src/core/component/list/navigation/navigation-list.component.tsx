@@ -3,13 +3,13 @@ import * as React from 'react';
 import { toClassName, uuid } from '../../../util';
 import { BaseComponent } from '../../../component/base';
 import { Link } from '../../../component/link';
+import { INavigationListProps } from './navigation-list.interface';
 import {
-  INavigationListInternalProps,
+  INavigationListItemConfiguration,
   NavigationListItemTypeEnum,
-  INavigationListItemOptions,
-} from './navigation-list.interface';
+} from '../../../configurations-definitions.interface';
 
-export class NavigationList extends BaseComponent<NavigationList, INavigationListInternalProps, {}> {
+export class NavigationList extends BaseComponent<NavigationList, INavigationListProps> {
 
   public render(): JSX.Element {
     return (
@@ -19,7 +19,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
     );
   }
 
-  private toElement(options: INavigationListItemOptions): JSX.Element {
+  private toElement(options: INavigationListItemConfiguration): JSX.Element {
     switch (options.type) {
       case NavigationListItemTypeEnum.SUB_HEADER:
         return <h3 className={this.uiFactory.listGroupSubHeader} key={uuid()}>

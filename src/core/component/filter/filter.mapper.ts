@@ -1,4 +1,4 @@
-import { INotUseClassNameWrapper, IClassNameWrapper } from '../../definitions.interface';
+import { INotApplyFrameworkClassNameWrapper, IClassNameWrapper } from '../../definitions.interface';
 import {
   IApplicationFilterFormWrapperState,
   IApplicationFilterOptions,
@@ -11,6 +11,6 @@ export const disabledActionsListWrapperMapper =
     });
 
 export const activeClassNameFilterFormWrapperMapper =
-    (state: IApplicationFilterFormWrapperState): INotUseClassNameWrapper & IClassNameWrapper => ({
+    (state: IApplicationFilterFormWrapperState): INotApplyFrameworkClassNameWrapper & IClassNameWrapper => ({
       className: state.filterForm.dirty && 'rac-filter-active',
     });

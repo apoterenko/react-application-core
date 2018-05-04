@@ -511,6 +511,13 @@ export interface ILinkedToSectionsWrapper {
   linkedToSections?: string[];
 }
 
+/**
+ * @stable - 15.04.2018
+ */
+export interface ILinkWrapper<TLink = string> {
+  link?: TLink;
+}
+
 /* @stable - 15.04.2018 */
 export interface INeedToDestroySectionsWrapper {
   needToDestroySections?: string[];
@@ -1069,9 +1076,11 @@ export interface IMessageWrapper<TMessage> {
 export interface IStringMessageWrapper extends IMessageWrapper<string> {
 }
 
-/* @stable - 31.03.2018 */
-export interface INotUseClassNameWrapper {
-  notUseClassName?: boolean;
+/**
+ * @stable [04.05.2018]
+ */
+export interface INotApplyFrameworkClassNameWrapper {
+  notApplyFrameworkClassName?: boolean;
 }
 
 /* @stable - 11.04.2018 */
@@ -1486,13 +1495,11 @@ export interface ITokenWrapper<TToken> {
 export interface IStringTokenWrapper extends ITokenWrapper<string> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IActiveWrapper<TActive> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IActiveWrapper<TActive = boolean> {
   active?: TActive;
-}
-
-/* @stable - 01.04.2018 */
-export interface IBooleanActiveWrapper extends IActiveWrapper<boolean> {
 }
 
 /* @stable - 11.04.2018 */
