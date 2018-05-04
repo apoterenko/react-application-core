@@ -7,8 +7,12 @@ import { ITabConfiguration } from '../../configurations-definitions.interface';
 
 export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
 
+  public static defaultProps: ITabPanelProps = {
+    useIndicator: true,
+  };
+
   /**
-   * @stable - 07.04.2018
+   * @stable [04.05.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -16,10 +20,10 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
     return (
       <div ref='self'
            className={toClassName(
-                         'rac-tab-panel',
-                         props.className,
-                         this.uiFactory.tabBarScroller
-                       )}>
+                       'rac-tab-panel',
+                       props.className,
+                       this.uiFactory.tabBarScroller
+                     )}>
         <div className={toClassName(
                           this.uiFactory.tabBarScrollerIndicator,
                           this.uiFactory.tabBarScrollerIndicatorBack,
@@ -27,25 +31,45 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
           {this.uiFactory.makeTabBarScrollerIndicatorIcon('navigate_before')}
         </div>
         <div className={this.uiFactory.tabBarScrollerFrame}>
-          <nav className={toClassName(
-                            this.uiFactory.tabBarScrollerFrameTabs,
-                            this.uiFactory.tabBar,
-                         )}>
+          <nav className={toClassName(this.uiFactory.tabBarScrollerFrameTabs, this.uiFactory.tabBar)}>
             {
               props.items.map((tab) => (
                 <div key={`rac-tab-${tab.value}`}
                      className={toClassName(
-                       'rac-tab',
-                       this.uiFactory.tab,
-                       tab.active && this.uiFactory.tabActive
-                     )}
+                                 'rac-tab',
+                                 this.uiFactory.tab,
+                                 tab.active && this.uiFactory.tabActive,
+                                 tab.selected && 'rac-tab-selected'
+                               )}
                      onClick={() => this.onTabClick(tab)}>
-                  {this.t(tab.name)}
-                  {orNull(tab.icon, () => this.uiFactory.makeIcon({ type: tab.icon, className: 'rac-tab-icon' }))}
+                  {
+                    orNull<JSX.Element>(
+                      tab.url,
+                      () => <img className={toClassName('rac-tab-url-icon', this.uiFactory.tabIcon)}
+                                 src={tab.url}/>
+                    )
+                  }
+                  {
+                    orNull<JSX.Element>(
+                      tab.icon,
+                      () => this.uiFactory.makeIcon({ type: tab.icon, className: this.uiFactory.tabIcon })
+                    )
+                  }
+                  {
+                    orNull<JSX.Element>(
+                      tab.url || tab.icon,
+                      () => <span className={this.uiFactory.tabIconText}>{this.t(tab.name)}</span>
+                    )
+                  }
+                  {orNull<string>(!(tab.url || tab.icon), () => this.t(tab.name))}
                 </div>
               ))
             }
-            {this.uiFactory.makeTabBarIndicator()}
+            <span className={toClassName(
+                                'rac-tab-bar-indicator',
+                                !props.useIndicator && 'rac-display-none',
+                                this.uiFactory.tabBarIndicator,
+                                )}/>
           </nav>
         </div>
         <div className={toClassName(
@@ -59,7 +83,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
   }
 
   /**
-   * @stable - 07.04.2018
+   * @stable [07.04.2018]
    * @param {ITabConfiguration} tab
    */
   private onTabClick(tab: ITabConfiguration): void {
