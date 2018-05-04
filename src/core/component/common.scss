@@ -47,7 +47,15 @@ html, body {
   visibility: hidden;
 }
 
+// Core [FRAMEWORK-][RAC+]
 .rac {
+
+  &.rac-disabled {
+
+    .rac-root {
+      opacity: $rac-disabled-opacity;   /* @stable - 29.03.2018 */
+    }
+  }
 
   :focus {
     outline: none;          /* @stable - 08.04.2018 */
@@ -83,6 +91,11 @@ html, body {
     transform: translate(-50%, -50%);
   }
 
+  .rac-invisible {
+    position: absolute;   /* @stable [04.05.2018] */
+    top: -10000;          /* @stable [04.05.2018] */
+  }
+
   .rac-no-user-select {
     @include x-user-select;   /* @stable - 08.04.2018 */
   }
@@ -96,17 +109,6 @@ html, body {
       font-size: 11px;                    /* @stable - 08.04.2018 */
       content: 'lens';                    /* @stable - 08.04.2018 */
       color: $rac-filter-active-color;    /* @stable - 08.04.2018 */
-    }
-  }
-}
-
-// Common [FRAMEWORK-][RAC+]
-.rac {
-
-  &.rac-disabled {
-
-    .rac-root {
-      opacity: $rac-disabled-opacity;   /* @stable - 29.03.2018 */
     }
   }
 }
