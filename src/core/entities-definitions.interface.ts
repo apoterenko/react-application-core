@@ -48,7 +48,7 @@ import {
   ISortDirectionsWrapper,
   IValueWrapper,
   IOnChangeWrapper,
-  IBooleanSelectedWrapper,
+  ISelectedWrapper,
   IDefaultOnClickWrapper,
   IStringProgressMessageWrapper,
   IOnSubmitWrapper,
@@ -337,7 +337,7 @@ export interface IGridHeaderColumnEntity extends IComponentEntity,
 
 /* @stable - 05.04.2018 */
 export interface IGridRowEntity extends IComponentEntity,
-                                        IBooleanSelectedWrapper,
+                                        ISelectedWrapper,
                                         IDefaultOnClickWrapper {
 }
 

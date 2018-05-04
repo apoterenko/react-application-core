@@ -135,6 +135,9 @@ import {
   IMaskWrapper,
   IRequiredWrapper,
   IOnChangeWrapper,
+  IRobotModeWrapper,
+  ISelectedWrapper,
+  IUseIndicatorWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -313,15 +316,22 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
 export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration {
 }
 
-/* @stable - 06.04.2018 */
+/**
+ * @stable [04.05.2018]
+ */
 export interface ITabConfiguration extends INumberValueWrapper,
                                            IActiveWrapper,
                                            INameWrapper,
+                                           ISelectedWrapper,
+                                           IUrlWrapper,
                                            IIconWrapper {
 }
 
-/* @stable - 06.04.2018 */
+/**
+ * @stable [04.05.2018]
+ */
 export interface ITabPanelConfiguration extends IComponentConfiguration,
+                                                IUseIndicatorWrapper,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 
@@ -599,6 +609,7 @@ export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWr
  */
 export interface IAutoFocusedConfiguration extends IUniversalComponentConfiguration,
                                                    IDelayTimeoutWrapper,
+                                                   IRobotModeWrapper,
                                                    IComponentPropsWrapper<IFieldProps>,
                                                    IComponentWrapper<IUniversalComponentClassEntity<IFieldProps>> {
 }

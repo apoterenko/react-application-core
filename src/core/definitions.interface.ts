@@ -342,6 +342,13 @@ export interface IUrlWrapper<TUrl = string> {
   url?: TUrl;
 }
 
+/**
+ * @stable [04.05.2018]
+ */
+export interface IUseIndicatorWrapper {
+  useIndicator?: boolean;
+}
+
 /* @stable - 01.04.2018 */
 export interface IOnSubmitWrapper<TOnSubmit> {
   onSubmit?: TOnSubmit;
@@ -873,17 +880,22 @@ export interface IRequiredWrapper<TRequired = boolean> {
 export interface IStringRequiredWrapper extends IRequiredWrapper<string> {
 }
 
-/* @stable [31.03.2018] */
-export interface ISelectedWrapper<TSelected> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IRobotModeWrapper {
+  useRobotMode?: boolean;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface ISelectedWrapper<TSelected = boolean> {
   selected?: TSelected;
 }
 
 /* @stable [31.03.2018] */
 export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
-}
-
-/* @stable - 05.04.2018 */
-export interface IBooleanSelectedWrapper extends ISelectedWrapper<boolean> {
 }
 
 /* @stable - 09.04.2018 */
