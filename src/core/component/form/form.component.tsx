@@ -12,7 +12,7 @@ import { lazyInject, DI_TYPES } from '../../di';
 import {
   Field,
   IFieldInternalProps,
-  IDefaultField,
+  IField,
   IFieldsOptions,
 } from '../field';
 import { IForm, IFormInternalProps } from './form.interface';
@@ -62,7 +62,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
               {
                 cloneNodes<IFieldInternalProps>(
                     this,
-                    (field: IDefaultField) => {
+                    (field: IField) => {
                       const fieldProps = field.props;
                       const predefinedOptions = this.getFieldPredefinedOptions(field);
 
@@ -180,7 +180,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     this.propsOnValid();
   }
 
-  private onEmptyDictionary(field: IDefaultField): void {
+  private onEmptyDictionary(field: IField): void {
     const props = this.props;
 
     if (props.onEmptyDictionary) {
@@ -188,7 +188,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     }
   }
 
-  private onLoadDictionary(field: IDefaultField, items: AnyT): void {
+  private onLoadDictionary(field: IField, items: AnyT): void {
     const props = this.props;
 
     if (props.onLoadDictionary) {
@@ -238,7 +238,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
       const fieldName = childProps.name;
 
       if (groupName === validationGroup && fieldName !== name) {
-        const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as IDefaultField;
+        const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as IField;
         if (otherFieldInstanceAtTheSameGroup) {
           otherFieldInstanceAtTheSameGroup.resetError();
         } else {
@@ -294,23 +294,23 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
 
   /**
    * @stable - 11.04.2018
-   * @param {IDefaultField} field
+   * @param {IField} field
    * @returns {boolean}
    */
-  private isFieldReadOnly(field: IDefaultField): boolean {
+  private isFieldReadOnly(field: IField): boolean {
     return isFormFieldReadOnly(this.props, field.props);
   }
 
   /**
    * @stable - 11.04.2018
-   * @param {IDefaultField} field
+   * @param {IField} field
    * @returns {boolean}
    */
-  private isFieldDisabled(field: IDefaultField): boolean {
+  private isFieldDisabled(field: IField): boolean {
     return isFormFieldDisabled(this.props, field.props);
   }
 
-  private getFieldValue(field: IDefaultField): AnyT {
+  private getFieldValue(field: IField): AnyT {
     const fieldProps = field.props;
 
     return isUndef(fieldProps.value) && fieldProps.name
@@ -318,13 +318,13 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
         : fieldProps.value;
   }
 
-  private getFieldOriginalValue(field: IDefaultField): AnyT {
+  private getFieldOriginalValue(field: IField): AnyT {
     const originalEntity = this.props.originalEntity;
     const fieldProps = field.props;
     return orUndef(fieldProps.name && originalEntity, () => Reflect.get(originalEntity, fieldProps.name));
   }
 
-  private getFieldDisplayValue(field: IDefaultField, fieldConfiguration: IFieldConfiguration): string {
+  private getFieldDisplayValue(field: IField, fieldConfiguration: IFieldConfiguration): string {
     const fieldProps = field.props;
     const fieldDisplayName = fieldProps.displayName || (fieldConfiguration ? fieldConfiguration.displayName : null);
 
@@ -333,7 +333,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
         : fieldProps.displayValue;
   }
 
-  private getFieldPredefinedOptions(field: IDefaultField): IFieldConfiguration {
+  private getFieldPredefinedOptions(field: IField): IFieldConfiguration {
     const fieldOptionsOrLabel = this.fieldsOptions[field.props.name];
 
     let fieldOptions: IFieldConfiguration;

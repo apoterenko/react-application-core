@@ -9,7 +9,7 @@ import {
   IFilterFnWrapper,
   IBooleanOpenWrapper,
   IMenuActionEntity,
-  IItemRendererWrapper,
+  IRendererWrapper,
   IItemTplWrapper,
 } from '../../definitions.interface';
 import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
@@ -22,7 +22,7 @@ export interface IMenuOptions extends IComponentEntity,
                                       IUseFilterWrapper,
                                       IFilterFnWrapper<MenuOptionT>,
                                       IFilterPlaceholderWrapper,
-                                      IItemRendererWrapper<MenuOptionT>,
+                                      IRendererWrapper<MenuOptionT>,
                                       IItemTplWrapper<MenuOptionT>,
                                       IRenderToBodyEntity {
   options?: MenuOptionT[];

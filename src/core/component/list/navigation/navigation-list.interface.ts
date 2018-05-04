@@ -3,7 +3,7 @@ import {
   ILabelWrapper,
   INotUseClassNameWrapper,
   ITypeWrapper,
-  IStringIconWrapper,
+  IIconWrapper,
 } from '../../../definitions.interface';
 import { IAccessConfig } from '../../../permissions';
 
@@ -16,7 +16,7 @@ export enum NavigationListItemTypeEnum {
 
 export interface INavigationListItemOptions extends IBooleanActiveWrapper,
                                                     INotUseClassNameWrapper,
-                                                    IStringIconWrapper,
+                                                    IIconWrapper,
                                                     ILabelWrapper,
                                                     ITypeWrapper<NavigationListItemTypeEnum> {
   link?: string;

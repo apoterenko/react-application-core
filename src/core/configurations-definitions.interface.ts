@@ -163,20 +163,35 @@ export interface IAccessConfigurationWrapper<TAccessConfiguration> {
 }
 
 /**
- * @stable [27.04.2018]
+ * @stable [24.04.2018]
  */
-export interface IUniversalContainerConfiguration extends IClassNameWrapper,
-                                                          IStringTitleWrapper,
-                                                          ISectionNameWrapper {
+export interface IWebComponentConfiguration extends IClassNameWrapper,
+                                                    ICssStyleWrapper {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IWebContainerConfiguration extends IWebComponentConfiguration {
 }
 
 /**
  * @stable [27.04.2018]
  */
-export interface IContainerConfiguration extends IUniversalContainerConfiguration {
+export interface IUniversalContainerConfiguration extends IStringTitleWrapper,
+                                                          ISectionNameWrapper {
 }
 
-/* @stable [24.04.2018] */
+/**
+ * @stable [04.05.2018]
+ */
+export interface IContainerConfiguration extends IUniversalContainerConfiguration,
+                                                 IWebContainerConfiguration {
+}
+
+/**
+ * @stable [24.04.2018]
+ */
 export interface IUniversalListItemConfiguration extends IUniversalComponentConfiguration,
                                                          IEntityRendererWrapper,
                                                          IEntityTplWrapper {
@@ -195,9 +210,17 @@ export interface IListItemConfiguration extends IUniversalListItemConfiguration,
                                                 IIconWrapper {
 }
 
+/**
+ * @stable [04.05.2018]
+ */
+export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
+                                                    IActionButtonsWrapper<(entity: IEntity) => JSX.Element>,
+                                                    IActionIconsWrapper<(entity: IEntity) => JSX.Element> {
+}
+
 /* @stable [23.04.2018] */
-export interface IUniversalListConfiguration <TItemConfiguration extends IUniversalListItemConfiguration
-                                                = IUniversalListItemConfiguration>
+export interface IUniversalListConfiguration
+    <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
   extends IUniversalComponentConfiguration,
           IUseAddActionWrapper,
           IEntitySorterWrapper,
@@ -210,20 +233,14 @@ export interface IUniversalListConfiguration <TItemConfiguration extends IUniver
 export interface IRnListConfiguration extends IUniversalListConfiguration<IRnListItemConfiguration> {
 }
 
-export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
-                                                    IActionButtonsWrapper<(entity: IEntity) => JSX.Element>,
-                                                    IActionIconsWrapper<(entity: IEntity) => JSX.Element> {
-}
-
 /* @stable - 04.04.2018 */
 export interface ICardListConfiguration extends IUniversalListConfiguration<ICardListItemConfiguration>,
-                                                IComponentConfiguration,
-                                                INonInteractiveWrapper {
+                                                IWebComponentConfiguration {
 }
 
 /* @stable - 04.04.2018 */
 export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
-                                            IComponentConfiguration,
+                                            IWebComponentConfiguration,
                                             ISimpleWrapper,
                                             IUseTwoLineWrapper,
                                             IUseAvatarWrapper,
@@ -452,11 +469,6 @@ export interface IGridRowConfiguration extends IComponentConfiguration,
 export interface IUniversalComponentConfiguration
   extends IStringTitleWrapper,
           IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
-}
-
-/* @stable [24.04.2018] */
-export interface IWebComponentConfiguration extends IClassNameWrapper,
-                                                    ICssStyleWrapper {
 }
 
 /* @stable [24.04.2018] */

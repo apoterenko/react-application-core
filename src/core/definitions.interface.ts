@@ -1000,17 +1000,17 @@ export interface IItemTplWrapper<TItem> extends ITplWrapper<(item: TItem) => Rea
 export interface IEntityTplWrapper extends IItemTplWrapper<IEntity> {
 }
 
-/* @stable - 31.03.2018 */
-export interface IRendererWrapper<TRenderer> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.Element> {
   renderer?: TRenderer;
 }
 
-/* @stable - 31.03.2018 */
-export interface IItemRendererWrapper<TItem> extends IRendererWrapper<(item: TItem) => JSX.Element> {
-}
-
-/* @stable - 31.03.2018 */
-export interface IEntityRendererWrapper extends IItemRendererWrapper<IEntity> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IEntityRendererWrapper extends IRendererWrapper<IEntity> {
 }
 
 /* @stable - 31.03.2018 */
