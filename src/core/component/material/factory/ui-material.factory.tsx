@@ -55,7 +55,10 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldLabel = 'mdc-floating-label';
   public textFieldFocusedLabel = 'mdc-floating-label--float-above';
   public checkboxInput = 'mdc-checkbox__native-control';
+  public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
+  public cardActionButtons = 'mdc-card__action-buttons';
+  public cardActionIcons = 'mdc-card__action-icons';
   public rippleSurface = 'mdc-ripple-surface';
   public menuAnchor = 'mdc-menu-anchor';
   public menu = 'mdc-menu';
@@ -69,23 +72,23 @@ export class UIMaterialFactory implements IUIFactory {
     const config = this.toIconConfig(cfg) as any; // TODO IButtonEntity & IButtonConfiguration;
     const className = toClassName('material-icons', config.className);
     return config.onClick && !config.simple
-        ? (
-            <Button key={uuid()}
-                    notUseClassName={true}
-                    disabled={config.disabled}
-                    onClick={config.onClick}
-                    className={className}>
-              {config.type}
-            </Button>
-        )
-        : (
-            <i key={uuid()}
-               title={config.title}
-               onClick={config.onClick}
-               className={className}>
-              {config.type}
-            </i>
-        );
+      ? (
+        <Button key={uuid()}
+                notApplyFrameworkClassName={true}
+                disabled={config.disabled}
+                onClick={config.onClick}
+                className={className}>
+          {config.type}
+        </Button>
+      )
+      : (
+        <i key={uuid()}
+           title={config.title}
+           onClick={config.onClick}
+           className={className}>
+          {config.type}
+        </i>
+      );
   }
 
   /**
@@ -122,16 +125,16 @@ export class UIMaterialFactory implements IUIFactory {
 
   public makeCheckboxAttachment(): JSX.Element {
     return (
-        <div className='mdc-checkbox__background'>
-          <svg className='mdc-checkbox__checkmark'
-               viewBox='0 0 24 24'>
-            <path className='mdc-checkbox__checkmark-path'
-                  fill='none'
-                  stroke='white'
-                  d='M1.73,12.91 8.1,19.28 22.79,4.59'/>
-          </svg>
-          <div className='mdc-checkbox__mixedmark'/>
-        </div>
+      <div className='mdc-checkbox__background'>
+        <svg className='mdc-checkbox__checkmark'
+             viewBox='0 0 24 24'>
+          <path className='mdc-checkbox__checkmark-path'
+                fill='none'
+                stroke='white'
+                d='M1.73,12.91 8.1,19.28 22.79,4.59'/>
+        </svg>
+        <div className='mdc-checkbox__mixedmark'/>
+      </div>
     );
   }
 
