@@ -23,10 +23,13 @@ export class UIMaterialFactory implements IUIFactory {
   public listTwoLine = 'mdc-list--two-line';
   public listAvatar = 'mdc-list--avatar-list';
   public listNonInteractive = 'mdc-list--non-interactive';
+  public tabBarIndicator = 'mdc-tab-bar__indicator';
   public tabBarScrollerFrameTabs = 'mdc-tab-bar-scroller__scroll-frame__tabs';
   public tabBarScrollerFrame = 'mdc-tab-bar-scroller__scroll-frame';
   public tabBar = 'mdc-tab-bar';
   public tab = 'mdc-tab';
+  public tabIcon = 'mdc-tab__icon';
+  public tabIconText = 'mdc-tab__icon-text';
   public tabActive = 'mdc-tab--active';
   public tabBarScroller = 'mdc-tab-bar-scroller';
   public tabBarScrollerIndicator = 'mdc-tab-bar-scroller__indicator';
@@ -89,14 +92,6 @@ export class UIMaterialFactory implements IUIFactory {
           {config.type}
         </i>
       );
-  }
-
-  /**
-   * @stable - 06.04.2018
-   * @returns {JSX.Element}
-   */
-  public makeTabBarIndicator?(): JSX.Element {
-    return <span className='mdc-tab-bar__indicator'/>;
   }
 
   public makeTabBarScrollerIndicatorIcon(cfg: UIIconConfigT): JSX.Element {
