@@ -8,19 +8,18 @@ import {
   INameWrapper,
   IValueWrapper,
   IOriginalValueWrapper,
-  ILabelWrapper,
   IStepable,
   ChangeEventT,
-  IMaskEntity,
 } from '../../../definitions.interface';
 import {
   IErrorEntity,
   IFieldEntity,
-  IKeyboardHandlersEntity,
-  IBindToDictionaryEntity,
   IComponent,
 } from '../../../entities-definitions.interface';
-import { IFieldConfiguration } from '../../../configurations-definitions.interface';
+import {
+  IFieldConfiguration,
+  IKeyboardHandlersConfiguration,
+} from '../../../configurations-definitions.interface';
 
 export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IField) => string;
 
@@ -29,29 +28,18 @@ export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
 export interface IFieldDisplayValueWrapper<TValue> extends IDisplayValueWrapper<string|IFieldDisplayValueConverter<TValue>> {
 }
 
-/**
- * The field options - the read-only props (cannot be changed)
- */
-export interface IFieldOptions extends ILabelWrapper,
-                                       IMaskEntity,
-                                       IBindToDictionaryEntity {
-}
-
 export interface IFieldsOptions { [index: string]: string|IFieldConfiguration; }
 
 export interface IFieldInternalProps extends IFieldConfiguration,
                                              IFieldEntity,
-                                             IFieldOptions,
                                              INameWrapper,
                                              IStepable,
-                                             IValueWrapper<AnyT>,
                                              IOriginalValueWrapper<AnyT>,
                                              IFieldDisplayValueWrapper<AnyT> {
   inputWrapperClassName?: string; // @stable
   noErrorMessage?: boolean;
   noInfoMessage?: boolean;
   renderCondition?: boolean;
-  required?: boolean;
   autoComplete?: string;
   minLength?: number;
   maxLength?: number;
@@ -95,7 +83,7 @@ export interface IBasicField<TValue> extends IValueWrapper<TValue>,
 
 export interface IField<TInternalProps extends IFieldInternalProps = IFieldInternalProps,
                         TInternalState extends IFieldInternalState = IFieldInternalState>
-    extends IKeyboardHandlersEntity,
+    extends IKeyboardHandlersConfiguration,
             IBasicField<AnyT>,
             IComponent<TInternalProps, TInternalState> {
   input: HTMLInputElement;

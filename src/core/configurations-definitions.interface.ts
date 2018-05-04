@@ -124,12 +124,25 @@ import {
   IDelayTimeoutWrapper,
   AnyT,
   IOnDelayWrapper,
+  IComponentWrapper,
+  IComponentPropsWrapper,
+  IKeyboardEvent,
+  IBindDictionaryWrapper,
+  IOnEmptyDictionaryWrapper,
+  IOnLoadDictionaryWrapper,
+  IMaskGuideWrapper,
+  IMaskPlaceholderCharWrapper,
+  IMaskWrapper,
+  IRequiredWrapper,
+  IOnChangeWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
   IUniversalComponentPluginClassEntity,
   IUniversalApplicationStoreEntity,
+  IUniversalComponentClassEntity,
 } from './entities-definitions.interface';
+import { IFieldProps } from './props-definitions.interface';
 
 /* @stable - 05.04.2018 */
 export interface IItemConfigurationWrapper<TItemConfiguration> {
@@ -166,6 +179,19 @@ export interface IRouteConfigurationWrapper<TRouteConfiguration> {
  */
 export interface IAccessConfigurationWrapper<TAccessConfiguration> {
   accessConfiguration?: TAccessConfiguration;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IKeyboardHandlersConfiguration {
+  onKeyEnter?(event: IKeyboardEvent): void;
+  onKeyUp?(event: IKeyboardEvent): void;
+  onKeyDown?(event: IKeyboardEvent): void;
+  onKeyEscape?(event: IKeyboardEvent): void;
+  onKeyArrowDown?(event: IKeyboardEvent): void;
+  onKeyArrowUp?(event: IKeyboardEvent): void;
+  onKeyBackspace?(event: IKeyboardEvent): void;
 }
 
 /**
@@ -344,7 +370,15 @@ export interface IApplicationConfiguration extends IBasenameWrapper,
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldConfiguration extends IUniversalComponentConfiguration,
+export interface IFieldConfiguration extends IComponentConfiguration,
+                                             IOnChangeWrapper,
+                                             IDelayedChangesFieldPluginConfiguration,
+                                             IRequiredWrapper,
+                                             IBindDictionaryConfiguration,
+                                             IMaskWrapper,
+                                             IMaskGuideWrapper,
+                                             IMaskPlaceholderCharWrapper,
+                                             IKeyboardHandlersConfiguration,
                                              IReadOnlyWrapper,
                                              ILabelWrapper,
                                              IPrefixLabelWrapper,
@@ -558,4 +592,21 @@ export interface INavigationListConfiguration extends IUniversalComponentConfigu
  */
 export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWrapper,
                                                                  IOnDelayWrapper<(value: AnyT) => void> {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IAutoFocusedConfiguration extends IUniversalComponentConfiguration,
+                                                   IDelayTimeoutWrapper,
+                                                   IComponentPropsWrapper<IFieldProps>,
+                                                   IComponentWrapper<IUniversalComponentClassEntity<IFieldProps>> {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
+                                                      IOnEmptyDictionaryWrapper,
+                                                      IOnLoadDictionaryWrapper {
 }

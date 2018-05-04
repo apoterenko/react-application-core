@@ -77,11 +77,11 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
 
                             // Dynamic linked dictionary callbacks
                             onEmptyDictionary: orUndef<() => void>(
-                              fieldProps.bindToDictionary || fieldProps.onEmptyDictionary,
+                              fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
                               () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
                             ),
                             onLoadDictionary: orUndef<(items: AnyT) => void>(
-                              fieldProps.bindToDictionary || fieldProps.onLoadDictionary,
+                              fieldProps.bindDictionary || fieldProps.onLoadDictionary,
                               (items) => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
                             ),
 
@@ -184,7 +184,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     const props = this.props;
 
     if (props.onEmptyDictionary) {
-      props.onEmptyDictionary(field.props.bindToDictionary);
+      props.onEmptyDictionary(field.props.bindDictionary);
     }
   }
 
@@ -192,7 +192,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     const props = this.props;
 
     if (props.onLoadDictionary) {
-      props.onLoadDictionary(items, field.props.bindToDictionary);
+      props.onLoadDictionary(items, field.props.bindDictionary);
     }
   }
 

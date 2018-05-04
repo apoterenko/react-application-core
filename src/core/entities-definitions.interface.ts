@@ -46,7 +46,7 @@ import {
   IOnChangeSortDirectionWrapper,
   ISortDirectionWrapper,
   ISortDirectionsWrapper,
-  IAnyValueWrapper,
+  IValueWrapper,
   IOnChangeWrapper,
   IBooleanSelectedWrapper,
   IDefaultOnClickWrapper,
@@ -61,7 +61,6 @@ import {
   IAuthorizedWrapper,
   IApplicationWrapper,
   IStringIdWrapper,
-  IKeyboardEvent,
   IApiEntityWrapper,
   IEditApiWrapper,
   IAddApiWrapper,
@@ -97,7 +96,6 @@ import {
   IStateWrapper,
   IPathWrapper,
   IDisabledWrapper,
-  IBindToDictionaryWrapper,
   IDataWrapper,
   IDictionariesWrapper,
   ILoadingWrapper,
@@ -117,12 +115,25 @@ import { IContainerProps } from './props-definitions.interface';
 /**
  * @stable [04.05.2018]
  */
+export interface IUniversalComponentEntity {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
 export interface IUniversalComponentPlugin<TProps = {}, TState = {}> extends ComponentLifecycle<TProps, TState> {
+}
+
+/**
+ * @stable [23.04.2018]
+ */
+export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentEntity = TProps, TState = {}>
+  extends ComponentClass<TProps> {
 }
 
 /* @stable - 05.04.2018 */
 export interface IFieldChangeEntity extends INameWrapper,
-                                            IAnyValueWrapper {
+                                            IValueWrapper {
 }
 
 /* @stable - 09.04.2018 */
@@ -377,24 +388,9 @@ export interface IOperationEntity extends IStringIdWrapper {
 }
 
 /* @stable - 11.04.2018 */
-export interface IKeyboardHandlersEntity {
-  onKeyEnter?(event: IKeyboardEvent): void;
-  onKeyUp?(event: IKeyboardEvent): void;
-  onKeyDown?(event: IKeyboardEvent): void;
-  onKeyEscape?(event: IKeyboardEvent): void;
-  onKeyArrowDown?(event: IKeyboardEvent): void;
-  onKeyArrowUp?(event: IKeyboardEvent): void;
-  onKeyBackspace?(event: IKeyboardEvent): void;
-}
-
-/* @stable - 11.04.2018 */
 export interface IFieldEntity extends IComponentEntity,
-                                      IKeyboardHandlersEntity,
+                                      IValueWrapper,
                                       IStringMessageWrapper {
-}
-
-/* @stable [23.04.2018] */
-export interface IUniversalComponentEntity {
 }
 
 /* @stable - 12.04.2018 */
@@ -424,15 +420,8 @@ export interface IContainerClassEntity extends ComponentClass<IContainerEntity> 
 
 /* @stable [23.04.2018] */
 export interface IComponentEntity extends IUniversalComponentEntity,
-                                          IClassNameWrapper,
-                                          ICssStyleWrapper,
+                                          IClassNameWrapper,  // TODO remove
                                           IStringTitleWrapper {
-}
-
-/* @stable [23.04.2018] */
-export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentEntity = TProps,
-                                                TState = {}>
-  extends ComponentClass<TProps> {
 }
 
 /* @stable - 15.04.2018 */
@@ -522,12 +511,6 @@ export interface IDictionaryEntity<TData> extends IDataWrapper<TData[] | TData>,
 
 /* @stable - 22.04.2018 */
 export interface IDictionariesWrapperEntity extends IDictionariesWrapper<IDictionariesEntity> {
-}
-
-/* @stable - 22.04.2018 */
-export interface IBindToDictionaryEntity extends IBindToDictionaryWrapper,
-                                                 IOnEmptyDictionaryWrapper,
-                                                 IOnLoadDictionaryWrapper {
 }
 
 /* @stable - 22.04.2018 */

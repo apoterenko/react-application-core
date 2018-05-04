@@ -370,8 +370,10 @@ export interface IOnChangeSortDirectionWrapper<TOnChangeSortDirection> {
   onChangeSortDirection?: TOnChangeSortDirection;
 }
 
-/* @stable - 01.04.2018 */
-export interface IOnChangeWrapper<TOnChange> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IOnChangeWrapper<TOnChange = (value: AnyT) => void> {
   onChange?: TOnChange;
 }
 
@@ -402,12 +404,16 @@ export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
 export interface IEntitiesDataWrapper extends IDataWrapper<IEntity[]> {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [04.05.2018]
+ */
 export interface IOnLoadDictionaryWrapper {
   onLoadDictionary?(items: AnyT, dictionary?: string): void;
 }
 
-/* @stable - 09.04.2018 */
+/**
+ * @stable [04.05.2018]
+ */
 export interface IOnEmptyDictionaryWrapper {
   onEmptyDictionary?(dictionary?: string): void;
 }
@@ -417,9 +423,11 @@ export interface ILoadingWrapper {
   loading?: boolean;
 }
 
-/* @stable - 22.04.2018 */
-export interface IBindToDictionaryWrapper {
-  bindToDictionary?: string;
+/**
+ * @stable [04.05.2018]
+ */
+export interface IBindDictionaryWrapper<TBindDictionary = string> {
+  bindDictionary?: TBindDictionary;
 }
 
 /* @stable - 22.04.2018 */
@@ -642,6 +650,20 @@ export interface ISubmittableWrapper {
   submittable?: boolean;
 }
 
+/**
+ * @stable [04.05.2018]
+ */
+export interface IComponentPropsWrapper<TComponentProps> {
+  componentProps?: TComponentProps;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IComponentWrapper<TComponent> {
+  component?: TComponent;
+}
+
 /* @stable - 01.04.2018 */
 export interface IDateWrapper<TDate> {
   date?: TDate;
@@ -730,7 +752,7 @@ export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarge
 /**
  * @stable [04.05.2018]
  */
-export interface IChangeEvent<TTarget = IAnyValueWrapper> extends React.ChangeEvent<TTarget> {
+export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {
 }
 
 /* @stable - 31.03.2018 */
@@ -777,8 +799,10 @@ export interface IEffectorWrapper<TEffector> {
 export interface IStringEffectorWrapper extends IEffectorWrapper<string> {
 }
 
-/* @stable - 07.04.2018 */
-export interface IValueWrapper<TValue> {
+/**
+ * @stable [07.04.2018]
+ */
+export interface IValueWrapper<TValue = AnyT> {
   value?: TValue;
 }
 
@@ -788,10 +812,6 @@ export interface INumberValueWrapper extends IValueWrapper<number> {
 
 /* @stable - 07.04.2018 */
 export interface IStringValueWrapper extends IValueWrapper<string> {
-}
-
-/* @stable - 07.04.2018 */
-export interface IAnyValueWrapper extends IValueWrapper<AnyT> {
 }
 
 /* @stable - 31.03.2018 */
@@ -822,10 +842,31 @@ export interface IPreventValueBindingWrapper {
   preventValueBinding?: boolean;
 }
 
-/**********************
- * Required's wrappers
- **********************/
-export interface IRequiredWrapper<TRequired> {
+/**
+ * @stable [04.05.2018]
+ */
+export interface IMaskWrapper<TMask = Array<string|RegExp>> {
+  mask?: TMask;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IMaskGuideWrapper<TMaskGuide = boolean> {
+  maskGuide?: TMaskGuide;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
+  maskPlaceholderChar?: TMaskPlaceholderChar;
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IRequiredWrapper<TRequired = boolean> {
   required?: TRequired;
 }
 
@@ -1672,12 +1713,6 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export interface IStepable {
   step?: number;
-}
-
-export interface IMaskEntity {
-  mask?: Array<string|RegExp>;
-  maskGuide?: boolean;
-  maskPlaceholderChar?: string;
 }
 
 export interface IOnBaseClickWrapper extends IPayloadOnClickWrapper<BasicEventT> {

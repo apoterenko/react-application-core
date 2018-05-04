@@ -30,7 +30,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
     implements IField<TInternalProps, TInternalState>, IProgressWrapper {
 
-  private static EMPTY_VALUE = '';
+  public static EMPTY_VALUE = '';
 
   constructor(props: TInternalProps) {
     super(props);
