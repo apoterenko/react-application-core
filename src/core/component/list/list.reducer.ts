@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE } from '../../definitions.interface';
+import { FIRST_PAGE, ISelectedEntityWrapper } from '../../definitions.interface';
 import { toSection } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -97,9 +97,10 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         error: convertError(action.error).message,
       };
     case ListActionBuilder.buildSelectActionType(section):
+      const selectedEntityPayload: ISelectedEntityWrapper = action.data;
       return {
         ...state,
-        selected: action.data.selected,
+        selected: selectedEntityPayload.selected,
       };
     case ListActionBuilder.buildCreateActionType(section):
     case ListActionBuilder.buildDeselectActionType(section):

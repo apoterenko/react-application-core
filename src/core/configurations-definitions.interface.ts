@@ -158,8 +158,8 @@ export interface IColumnsConfigurationWrapper<TColumns> {
 }
 
 /* @stable - 31.03.2018 */
-export interface IListConfigurationWrapper {
-  listConfiguration?: IListConfiguration;
+export interface IListConfigurationWrapper<TListConfiguration = IListConfiguration> {
+  listConfiguration?: TListConfiguration;
 }
 
 /* @stable - 03.04.2018 */

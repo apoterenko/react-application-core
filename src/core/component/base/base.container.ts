@@ -8,18 +8,17 @@ import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IFormDialog } from '../form';
 import { IUIFactory } from '../factory';
 import { UniversalBaseContainer } from './universal-base.container';
-import { IContainerEntity, IContainer } from '../../entities-definitions.interface';
-import { IContainerConfiguration } from '../../configurations-definitions.interface';
+import { IContainer } from '../../entities-definitions.interface';
+import { IContainerProps } from '../../props-definitions.interface';
 
-export class BaseContainer<TInternalProps extends IContainerEntity & IContainerConfiguration,
-                           TInternalState = {}>
-    extends UniversalBaseContainer<TInternalProps, TInternalState>
-    implements IContainer<TInternalProps, TInternalState> {
+export class BaseContainer<TProps extends IContainerProps, TState = {}>
+    extends UniversalBaseContainer<TProps, TState>
+    implements IContainer<TProps, TState> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: IPermissionsService;
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
-  constructor(props: TInternalProps) {
+  constructor(props: TProps) {
     super(props);
     this.activateFormDialog = this.activateFormDialog.bind(this);
   }
@@ -27,11 +26,6 @@ export class BaseContainer<TInternalProps extends IContainerEntity & IContainerC
   // Dictionary service method (DRY)
   protected dispatchLoadDictionary(section: string, payload?: AnyT): void {
     this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(section), { section, payload });
-  }
-
-  // Dictionary service method (DRY)
-  protected dispatchClearDictionary(section: string): void {
-    this.dispatchCustomType(DictionariesActionBuilder.buildClearActionType(section), { section });
   }
 
   // Notification service method (DRY)

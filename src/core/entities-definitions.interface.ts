@@ -33,7 +33,6 @@ import {
   IEntityRawDataWrapper,
   ISelectedEntityWrapper,
   IListWrapper,
-  IDefaultOnSearchWrapper,
   IDefaultOperationWrapper,
   IEntityIdTWrapper,
   IIsNewWrapper,
@@ -272,8 +271,7 @@ export interface IRnListEntity extends IUniversalListEntity {
 /* @stable - 04.04.2018 */
 export interface IListEntity extends IUniversalListEntity,
                                      ISortDirectionsWrapper,
-                                     IKeyValueChangesWrapper,
-                                     IDefaultOnSearchWrapper {
+                                     IKeyValueChangesWrapper {
 }
 
 /* @stable - 31.03.2018 */

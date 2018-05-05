@@ -894,7 +894,9 @@ export interface ISelectedWrapper<TSelected = boolean> {
   selected?: TSelected;
 }
 
-/* @stable [31.03.2018] */
+/**
+ * @stable [31.03.2018]
+ */
 export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
 }
 
@@ -1521,15 +1523,6 @@ export interface IPayloadOnSelectWrapper<TSelectPayload> extends IOnSelectWrappe
 
 /* @stable [31.03.2018] */
 export interface IEntityOnSelectWrapper extends IPayloadOnSelectWrapper<IEntity> {
-}
-
-/* @stable - 31.03.2018 */
-export interface IOnSearchWrapper<TOnSearch> {
-  onSearch?: TOnSearch;
-}
-
-/* @stable - 31.03.2018 */
-export interface IDefaultOnSearchWrapper extends IOnSearchWrapper<() => void> {
 }
 
 /* @stable - 31.03.2018 */

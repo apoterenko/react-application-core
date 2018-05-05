@@ -4,12 +4,12 @@ import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definit
 import { Grid } from './grid.component';
 import { IGridContainerProps } from './grid.interface';
 import {
-  BaseListContainer,
+  UniversalBaseListContainer,
   LIST_CHANGE_ACTION_TYPE,
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
 } from '../list';
 
-export class GridContainer extends BaseListContainer<IGridContainerProps> {
+export class GridContainer extends UniversalBaseListContainer<IGridContainerProps> {
 
   /**
    * @stable - 05.04.2018

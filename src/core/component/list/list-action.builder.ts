@@ -15,7 +15,6 @@ import {
   LIST_LOAD_DONE_ACTION_TYPE,
   LIST_INSERT_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
-  LIST_SEARCH_ACTION_TYPE,
   LIST_UN_TOUCH_ACTION_TYPE,
   LIST_LAST_PAGE_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
@@ -67,10 +66,6 @@ export class ListActionBuilder {
 
   public static buildSelectActionType(section: string): string {
     return `${section}.${LIST_SELECT_ACTION_TYPE}`;
-  }
-
-  public static buildSearchActionType(section: string): string {
-    return `${section}.${LIST_SEARCH_ACTION_TYPE}`;
   }
 
   public static buildInsertActionType(section: string): string {
