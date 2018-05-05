@@ -4,6 +4,7 @@ import {
   IListEntity,
   IRnListEntity,
   IUniversalContainerEntity,
+  IGridEntity,
 } from './entities-definitions.interface';
 import {
   IContainerConfiguration,
@@ -11,6 +12,7 @@ import {
   IListConfiguration,
   IRnListConfiguration,
   IUniversalContainerConfiguration,
+  IGridConfiguration,
 } from './configurations-definitions.interface';
 
 /**
@@ -46,4 +48,11 @@ export interface IListProps extends IListEntity,
  */
 export interface IRnListProps extends IRnListEntity,
                                       IRnListConfiguration {
+}
+
+/**
+ * @stable [05.05.2018]
+ */
+export interface IGridProps extends IGridEntity,
+                                    IGridConfiguration {
 }

@@ -36,6 +36,8 @@ export { basicConnector, connector } from './component/connector/universal-conne
 /* @stable [27.04.2018] */
 export { RnBaseContainer } from './component/base/rn-base.container';
 export { RnApplicationContainer } from './component/application/rn-application.container';
+export { RnDefaultLayoutContainer } from './component/layout/default/rn-default-layout.container';
+export { RnListContainer } from './component/list/rn-list.container';
 
 /* @stable - 15.04.2018 */
 export { formReducer } from './component/form/form.reducer';
@@ -53,6 +55,3 @@ export { ListActionBuilder } from './component/list/list-action.builder';
 export { FormActionBuilder } from './component/form/form-action.builder';
 export { ApplicationActionBuilder } from './component/application/application-action.builder';
 export { UserActionBuilder } from './user/user-action.builder';
-
-/* @stable [27.04.2018] */
-export { RnDefaultLayoutContainer } from './component/layout/default/rn-default-layout.container';

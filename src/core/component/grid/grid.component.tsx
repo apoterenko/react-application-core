@@ -1,10 +1,10 @@
 import * as React from 'react';
 
+import { IGridProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT } from '../../definitions.interface';
 import { toClassName, isDef, orNull } from '../../util';
-import { IGridProps } from './grid.interface';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
