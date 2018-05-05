@@ -18,6 +18,7 @@ import {
   MenuMaterialPlugin,
   ListItemMaterialPlugin,
   TabPanelMaterialPlugin,
+  MaterialPlugin,
 } from './plugin';
 import { INativeMaterialComponent } from '../material';
 import { UIMaterialFactory } from './factory';
@@ -25,6 +26,7 @@ import { Menu } from '../menu';
 import { ListItem } from '../list';
 import { TabPanel } from '../tabpanel';
 import { IComponentClassEntity, UniversalComponentPluginFactoryT } from '../../entities-definitions.interface';
+import { Card } from '../card';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
 uiPlugins.set(
@@ -62,6 +64,11 @@ uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component,
 
 /* @stable - 31.03.2018 */
 uiPlugins.set(ListItem, (component: ListItem) => new ListItemMaterialPlugin<ListItem>(component, MDCRipple));
+
+/**
+ * @stable [05.05.2018]
+ */
+uiPlugins.set(Card, (component: Card) => new MaterialPlugin<Card>(component, MDCRipple));
 
 appContainer.bind<Map<IComponentClassEntity, UniversalComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
