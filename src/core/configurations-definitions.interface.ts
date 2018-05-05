@@ -554,7 +554,9 @@ export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContai
                                                                 IUseHeaderWrapper {
 }
 
-/* @stable [27.04.2018] */
+/**
+ * @stable [27.04.2018]
+ */
 export interface ICardConfiguration extends IComponentConfiguration,
                                             IOnClickWrapper,
                                             IRippableWrapper,
