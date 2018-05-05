@@ -5,7 +5,7 @@ import { FIRST_PAGE, ISelectedEntityWrapper } from '../../definitions.interface'
 import { toSection } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
-import { INITIAL_APPLICATION_LIST_STATE } from './list-reducer.interface';
+import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
 import {
   EntityOnSaveMergeStrategyEnum,
   IModifyEntityPayloadWrapper,

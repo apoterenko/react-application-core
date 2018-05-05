@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import { IEntity, ISelectedEntityWrapper } from '../../definitions.interface';
-import { LIST_SELECT_ACTION_TYPE, LIST_CREATE_ACTION_TYPE } from './list-reducer.interface';
-import { IContainerProps } from '../../props-definitions.interface';
+import { LIST_SELECT_ACTION_TYPE, LIST_CREATE_ACTION_TYPE } from './list.interface';
+import { IUniversalContainerProps } from '../../props-definitions.interface';
 import { UniversalBaseContainer } from '../base/universal-base.container';
 
-export class UniversalBaseListContainer<TProps extends IContainerProps> extends UniversalBaseContainer<TProps> {
+export class UniversalBaseListContainer<TProps extends IUniversalContainerProps> extends UniversalBaseContainer<TProps> {
 
   /**
    * @stable [05.05.2018]

@@ -9,5 +9,4 @@ export * from './list.component';
 export * from './list.reducer';
 export * from './list-action.builder';
 export * from './navigation';
-export * from './list-reducer.interface';
 export * from './universal-base-list.container';

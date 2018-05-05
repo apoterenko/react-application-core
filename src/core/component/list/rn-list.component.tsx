@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { FlatList } from 'react-native';
 
+import { IRnListProps } from '../../props-definitions.interface';
+import { IEntity, IKeyValue } from '../../definitions.interface';
 import { UniversalList } from './universal-list.component';
 import { RnListItem } from './item/rn-list-item.component';
-import { IRnListConfiguration } from '../../configurations-definitions.interface';
-import { IRnListEntity } from '../../entities-definitions.interface';
-import { IEntity, IKeyValue } from '../../definitions.interface';
 import { RnMessage } from '../message/rn-message.component';
 
-export class RnList extends UniversalList<RnList, IRnListConfiguration & IRnListEntity> {
+export class RnList extends UniversalList<RnList, IRnListProps> {
 
   /**
    * @stable - 24.04.2018
@@ -30,7 +29,6 @@ export class RnList extends UniversalList<RnList, IRnListConfiguration & IRnList
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
-    const props = this.props;
     return (
       <FlatList ref='container'
                 data={this.getDataSource().map((item) => ({...item, key: String(item.id)}))}

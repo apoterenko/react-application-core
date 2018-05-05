@@ -5,10 +5,9 @@ import { IEntity } from '../../definitions.interface';
 import { ListItem } from './item';
 import { SimpleList } from '../list/simple';
 import { BaseList } from './base-list.component';
-import { IListConfiguration } from '../../configurations-definitions.interface';
-import { IListEntity } from '../../entities-definitions.interface';
+import { IListProps } from '../../props-definitions.interface';
 
-export class List extends BaseList<List, IListConfiguration & IListEntity> {
+export class List extends BaseList<List, IListProps> {
 
   /**
    * [23.04.2018]

@@ -4,16 +4,16 @@ import { IGridColumnConfiguration } from '../../configurations-definitions.inter
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT } from '../../definitions.interface';
 import { toClassName, isDef, orNull } from '../../util';
-import { IGridInternalProps } from './grid.interface';
+import { IGridProps } from './grid.interface';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
 import { BaseList } from '../list';
 import { GridRow } from './row';
 
-export class Grid extends BaseList<Grid, IGridInternalProps> {
+export class Grid extends BaseList<Grid, IGridProps> {
 
-  constructor(props: IGridInternalProps) {
+  constructor(props: IGridProps) {
     super(props);
     this.onHeaderColumnClick = this.onHeaderColumnClick.bind(this);
     this.onSettingsClick = this.onSettingsClick.bind(this);

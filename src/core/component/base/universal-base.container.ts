@@ -8,7 +8,6 @@ import {
   AnyT,
 } from '../../definitions.interface';
 import {
-  IUniversalContainerEntity,
   INavigateEntity,
   IContainerClassEntity,
   IUniversalContainer,
@@ -17,8 +16,8 @@ import {
 import {
   IDefaultConnectorConfiguration,
   IRoutesConfiguration,
-  IUniversalContainerConfiguration,
 } from '../../configurations-definitions.interface';
+import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
@@ -29,8 +28,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 
-export class UniversalBaseContainer<TProps extends IUniversalContainerEntity & IUniversalContainerConfiguration
-  = IUniversalContainerEntity & IUniversalContainerConfiguration, TState = {}>
+export class UniversalBaseContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends Component<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 

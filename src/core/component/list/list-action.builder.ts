@@ -20,7 +20,7 @@ import {
   LIST_FIRST_PAGE_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
-} from './list-reducer.interface';
+} from './list.interface';
 
 export class ListActionBuilder {
 
