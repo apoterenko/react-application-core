@@ -1,5 +1,5 @@
 import { sequence } from '../../../util';
-import { IMaterialComponentFactory } from '../../material';
+import { INativeMaterialComponentFactory } from '../../material';
 import { MaterialPlugin } from './material.plugin';
 import { IMenu, INativeMaterialMenuComponent } from '../../menu';
 
@@ -12,7 +12,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu>
    * @stable - 29.03.2018
    */
   constructor(menu: TMenu,
-              mdcFactory: IMaterialComponentFactory<INativeMaterialMenuComponent>) {
+              mdcFactory: INativeMaterialComponentFactory<INativeMaterialMenuComponent>) {
     super(menu, mdcFactory);
 
     menu.show = sequence(menu.show, this.onMenuShow, this);

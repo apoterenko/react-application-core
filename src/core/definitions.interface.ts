@@ -1537,18 +1537,21 @@ export interface IOnCreateWrapper<TOnCreate = () => void> {
   onCreate?: TOnCreate;
 }
 
-/* @stable - 31.03.2018 */
-export interface IActivateWrapper<TActivate> {
+/**
+ * @stable [05.05.2018]
+ */
+export interface IActivateWrapper<TActivate = () => void> {
   activate?: TActivate;
-}
-
-/* @stable - 31.03.2018 */
-export interface IDefaultActivateWrapper extends IActivateWrapper<() => void> {
 }
 
 /* @stable - 01.04.2018 */
 export interface IIsNewWrapper {
   isNew?: boolean;
+}
+
+/* @stable [05.05.2018] */
+export interface ICheckedWrapper<TChecked = boolean> {
+  checked?: TChecked;
 }
 
 /* @stable - 03.04.2018 */

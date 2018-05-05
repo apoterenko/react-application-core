@@ -1,7 +1,7 @@
 import { BaseComponent } from '../../component/base';
 import {
   INativeMaterialComponent,
-  IMaterialComponentFactory,
+  INativeMaterialComponentFactory,
 } from './material.interface';
 import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
 
@@ -14,7 +14,7 @@ export class MaterialComponent<TComponent extends IComponent<TInternalProps, TIn
   private mdc: TNativeMaterialComponent;
 
   constructor(props: TInternalProps,
-              private mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
+              private mdcFactory: INativeMaterialComponentFactory<TNativeMaterialComponent>) {
     super(props);
   }
 

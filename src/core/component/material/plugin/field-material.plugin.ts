@@ -1,5 +1,5 @@
 import { sequence } from '../../../util';
-import { IMaterialComponentFactory, INativeMaterialComponent } from '../../../component/material';
+import { INativeMaterialComponentFactory, INativeMaterialComponent } from '../../../component/material';
 import { IField } from '../../../component/field';
 import { MaterialPlugin } from './material.plugin';
 
@@ -8,7 +8,7 @@ export class FieldMaterialPlugin<TField extends IField,
     extends MaterialPlugin<TField, TNativeMaterialComponent> {
 
   constructor(field: TField,
-              mdcFactory: IMaterialComponentFactory<TNativeMaterialComponent>) {
+              mdcFactory: INativeMaterialComponentFactory<TNativeMaterialComponent>) {
     super(field, mdcFactory);
     field.resetError = sequence(field.resetError, this.onResetError, this);
   }

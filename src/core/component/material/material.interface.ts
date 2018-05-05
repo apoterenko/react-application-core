@@ -1,27 +1,43 @@
-import { ReactInstance } from 'react';
+import {
+  IKeyValue,
+  ICheckedWrapper,
+  IActivateWrapper,
+} from '../../definitions.interface';
 
-import { FunctionT } from '../../util';
-import { IKeyValue, IDefaultActivateWrapper } from '../../definitions.interface';
-
-export interface IMaterialComponentFactory<TNativeMaterialComponent extends INativeMaterialComponent> {
-  attachTo(el: ReactInstance): TNativeMaterialComponent;
+/**
+ * @stable [05.05.2018]
+ */
+export interface INativeMaterialComponentFactory<TNativeMaterialComponent extends INativeMaterialComponent> {
+  attachTo(el: Element): TNativeMaterialComponent;
 }
 
+/**
+ * @stable [05.05.2018]
+ */
 export interface INativeMaterialComponent {
   foundation_: INativeMaterialDefaultFoundation;
-  listen(type: string, callback: FunctionT);
-  unlisten(type: string, callback: FunctionT);
+  listen(type: string, callback: () => void);
+  unlisten(type: string, callback: () => void);
   destroy(): void;
 }
 
+/**
+ * @stable [05.05.2018]
+ */
 export interface INativeMaterialDefaultFoundation extends IKeyValue {
   adapter_: IKeyValue;
 }
 
-export interface INativeMaterialCheckboxComponent extends INativeMaterialComponent {
-  checked: boolean;
+/**
+ * @stable [05.05.2018]
+ */
+export interface INativeMaterialCheckboxComponent extends INativeMaterialComponent,
+                                                          ICheckedWrapper {
 }
 
-export interface IListItemNativeMaterialComponent extends INativeMaterialComponent,
-                                                          IDefaultActivateWrapper {
+/**
+ * @stable [05.05.2018]
+ */
+export interface INativeMaterialListItemComponent extends INativeMaterialComponent,
+                                                          IActivateWrapper {
 }

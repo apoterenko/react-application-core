@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ramda from 'ramda';
 
-import { IMaterialComponentFactory, MaterialComponent } from '../../component/material';
+import { INativeMaterialComponentFactory, MaterialComponent } from '../../component/material';
 import { AnyT } from '../../definitions.interface';
 
 import { IDrawerInternalProps, INativeMaterialDrawerComponent } from './drawer.interface';
@@ -13,7 +13,7 @@ export class Drawer<TComponent extends Drawer<TComponent>>
                               INativeMaterialDrawerComponent> {
 
   constructor(props: IDrawerInternalProps,
-              mdcFactory: IMaterialComponentFactory<INativeMaterialDrawerComponent>) {
+              mdcFactory: INativeMaterialComponentFactory<INativeMaterialDrawerComponent>) {
     super(props, mdcFactory);
   }
 
