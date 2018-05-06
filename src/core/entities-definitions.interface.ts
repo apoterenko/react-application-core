@@ -89,7 +89,6 @@ import {
   INotificationWrapper,
   IStringInfoWrapper,
   IStringErrorMessageWrapper,
-  ICssStyleWrapper,
   IStringMessageWrapper,
   IHtmlElementSelfWrapper,
   IStateWrapper,
@@ -105,7 +104,6 @@ import {
   IUrlWrapper,
 } from './definitions.interface';
 import {
-  ITabConfiguration,
   IUniversalComponentConfiguration,
   IComponentConfiguration,
 } from './configurations-definitions.interface';
@@ -337,10 +335,6 @@ export interface IGridHeaderColumnEntity extends IComponentEntity,
 export interface IGridRowEntity extends IComponentEntity,
                                         ISelectedWrapper,
                                         IDefaultOnClickWrapper {
-}
-
-/* @stable - 06.04.2018 */
-export interface ITabPanelEntity extends IOnClickWrapper<(payload: ITabConfiguration) => void> {
 }
 
 /* @stable - 19.04.2018 */

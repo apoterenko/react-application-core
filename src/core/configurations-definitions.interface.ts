@@ -320,6 +320,7 @@ export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration
  * @stable [04.05.2018]
  */
 export interface ITabConfiguration extends INumberValueWrapper,
+                                           IClassNameWrapper,
                                            IActiveWrapper,
                                            INameWrapper,
                                            ISelectedWrapper,
@@ -328,10 +329,11 @@ export interface ITabConfiguration extends INumberValueWrapper,
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [06.05.2018]
  */
 export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IUseIndicatorWrapper,
+                                                IOnClickWrapper<(payload: ITabConfiguration) => void>,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 

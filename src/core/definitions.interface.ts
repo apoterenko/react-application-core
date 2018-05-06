@@ -623,6 +623,13 @@ export interface IDisabledWrapper {
   disabled?: boolean;
 }
 
+/**
+ * @stable [06.05.2018]
+ */
+export interface IOrderWrapper<TOrder = number> {
+  order?: TOrder;
+}
+
 /* @stable - 19.04.2018 */
 export interface IBorderedWrapper {
   bordered?: boolean;
@@ -924,9 +931,25 @@ export interface IPageSizeWrapper {
   pageSize?: number;
 }
 
-/* @stable - 31.03.2018 */
-export interface ITotalAmountWrapper {
-  totalAmount?: number;
+/**
+ * @stable [06.05.2018]
+ */
+export interface ITotalAmountWrapper<TTotalAmount = number> {
+  totalAmount?: TTotalAmount;
+}
+
+/**
+ * @stable [06.05.2018]
+ */
+export interface IMainWrapper<TMain> {
+  main?: TMain;
+}
+
+/**
+ * @stable [06.05.2018]
+ */
+export interface ISeparatedWrapper<TSeparated = boolean> {
+  separated?: TSeparated;
 }
 
 /* @stable - 31.03.2018 */
