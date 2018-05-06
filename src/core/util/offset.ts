@@ -1,11 +1,8 @@
-import * as offset from 'offset';
-import * as computedStyle from 'computed-style';
+import * as $ from 'jquery';
 
 export const setAbsoluteOffset = (source: HTMLElement, sourceAnchor: HTMLElement): void => {
-  const anchorHeight = parseInt(computedStyle(sourceAnchor, 'height').replace('px', ''), 10);
-
-  const offset0 = offset(sourceAnchor);
+  const offset0 = $(sourceAnchor).offset();
   source.style.position = 'absolute';
-  source.style.left = `${offset0.x}px`;
-  source.style.top = `${offset0.y + anchorHeight}px`;
+  source.style.left = `${offset0.left}px`;
+  source.style.top = `${offset0.top + $(sourceAnchor).height()}px`;
 };
