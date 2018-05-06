@@ -60,6 +60,13 @@ html, body {
     text-decoration: none;  /* @stable - 08.04.2018 */
   }
 
+  .rac-fixed-table {
+    table-layout: fixed;    /* @stable [07.05.2018] */
+    border-spacing: 0;      /* @stable [07.05.2018] */
+    width: 100%;            /* @stable [07.05.2018] */
+    height: 100%;           /* @stable [07.05.2018] */
+  }
+
   .rac-add-button {
     position: absolute;                                   /* @stable - 08.04.2018 */
     right: 24px;                                          /* @stable - 08.04.2018 */

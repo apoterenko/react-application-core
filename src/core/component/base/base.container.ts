@@ -11,7 +11,7 @@ import { UniversalBaseContainer } from './universal-base.container';
 import { IContainer } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
 
-export class BaseContainer<TProps extends IContainerProps, TState = {}>
+export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
     extends UniversalBaseContainer<TProps, TState>
     implements IContainer<TProps, TState> {
 
