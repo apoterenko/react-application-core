@@ -138,6 +138,7 @@ import {
   IRobotModeWrapper,
   ISelectedWrapper,
   IUseIndicatorWrapper,
+  IUseKeyboardWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -401,7 +402,8 @@ export interface IFieldConfiguration extends IComponentConfiguration,
                                              IPreventValueBindingWrapper,
                                              IAutoFocusWrapper,
                                              IStringPatternWrapper,
-                                             IDisabledWrapper {
+                                             IDisabledWrapper,
+                                             IUseKeyboardWrapper {
 }
 
 /* @stable - 14.04.2018 */

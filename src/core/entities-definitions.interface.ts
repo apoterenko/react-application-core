@@ -227,7 +227,7 @@ export interface IDefaultBaseFormWrapperEntity extends IBaseFormWrapperEntity<IE
 /* @stable - 09.04.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity>
   extends IBaseFormWrapperEntity<TEntity>,
-          IOnChangeWrapper<(payload: IFieldChangeEntity) => void>,
+          IOnChangeWrapper<IFieldChangeEntity>,
           IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
           IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
@@ -317,7 +317,7 @@ export interface IQueryFilteredListEntity extends IFilteredListEntity<IQueryFilt
 /* @stable - 05.04.2018 */
 export interface IGridEntity extends IListEntity,
                                      IFieldChangeEntity,
-                                     IOnChangeWrapper<(payload: IFieldChangeEntity) => void>,
+                                     IOnChangeWrapper<IFieldChangeEntity>,
                                      IOnChangeSortDirectionWrapper<(payload: ISortDirectionEntity) => void> {
 }
 

@@ -20,6 +20,7 @@ export * from './component/filter';
 export * from './component/footer';
 export * from './component/form';
 export * from './component/header';
+export * from './component/keyboard';
 export * from './component/picture';
 export * from './component/layout';
 export * from './component/link';

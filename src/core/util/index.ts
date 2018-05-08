@@ -1,4 +1,5 @@
 export * from './blob';
+export * from './caret';
 export * from './clone';
 export * from './dom';
 export * from './fn';

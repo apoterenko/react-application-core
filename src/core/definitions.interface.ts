@@ -380,7 +380,7 @@ export interface IOnChangeSortDirectionWrapper<TOnChangeSortDirection> {
 /**
  * @stable [04.05.2018]
  */
-export interface IOnChangeWrapper<TOnChange = (value: AnyT) => void> {
+export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value: TChangedValue) => void> {
   onChange?: TOnChange;
 }
 
@@ -917,10 +917,6 @@ export interface IFieldsWrapper<TFields> {
   fields?: TFields;
 }
 
-/* @stable - 09.04.2018 */
-export interface IStringFieldWrapper extends IFieldWrapper<string> {
-}
-
 /* @stable - 31.03.2018 */
 export interface IPageWrapper {
   page?: number;
@@ -1165,6 +1161,27 @@ export interface IStringTitleWrapper extends ITitleWrapper<string> {
 /* @stable - 31.03.2018 */
 export interface IClassNameWrapper {
   className?: string;
+}
+
+/**
+ * @stable [08.05.2018]
+ */
+export interface IPositionWrapper<TPosition = number> {
+  position?: TPosition;
+}
+
+/**
+ * @stable [08.05.2018]
+ */
+export interface IUseUppercaseWrapper {
+  useUppercase?: boolean;
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IUseDigitalWrapper {
+  useDigital?: boolean;
 }
 
 /* @stable - 15.04.2018 */
@@ -1535,17 +1552,24 @@ export interface IPayloadOnClickWrapper<TClickPayload> extends IOnClickWrapper<(
 export interface IEntityOnClickWrapper extends IPayloadOnClickWrapper<IEntity> {
 }
 
-/* @stable [31.03.2018] */
-export interface IOnSelectWrapper<TOnSelect> {
+/**
+ * @stable [08.05.2018]
+ */
+export interface IOnCloseWrapper<TOnClose = () => void> {
+  onClose?: TOnClose;
+}
+
+/**
+ * @stable [08.05.2018]
+ */
+export interface IOnSelectWrapper<TSelectableObject, TOnSelect = (object: TSelectableObject) => void> {
   onSelect?: TOnSelect;
 }
 
-/* @stable - 31.03.2018 */
-export interface IPayloadOnSelectWrapper<TSelectPayload> extends IOnSelectWrapper<(payload: TSelectPayload) => void> {
-}
-
-/* @stable [31.03.2018] */
-export interface IEntityOnSelectWrapper extends IPayloadOnSelectWrapper<IEntity> {
+/**
+ * @stable [08.05.2018]
+ */
+export interface IEntityOnSelectWrapper extends IOnSelectWrapper<IEntity> {
 }
 
 /* @stable - 31.03.2018 */
@@ -1558,6 +1582,13 @@ export interface IOnCreateWrapper<TOnCreate = () => void> {
  */
 export interface IActivateWrapper<TActivate = () => void> {
   activate?: TActivate;
+}
+
+/**
+ * @stable [08.05.2018]
+ */
+export interface IUseKeyboardWrapper {
+  useKeyboard?: boolean;
 }
 
 /* @stable - 01.04.2018 */
