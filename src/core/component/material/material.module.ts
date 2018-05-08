@@ -27,6 +27,7 @@ import { ListItem } from '../list';
 import { TabPanel } from '../tabpanel';
 import { IComponentClassEntity, UniversalComponentPluginFactoryT } from '../../entities-definitions.interface';
 import { Card } from '../card';
+import { KeyboardKey } from '../keyboard';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
 uiPlugins.set(
@@ -69,6 +70,11 @@ uiPlugins.set(ListItem, (component: ListItem) => new ListItemMaterialPlugin<List
  * @stable [05.05.2018]
  */
 uiPlugins.set(Card, (component: Card) => new MaterialPlugin<Card>(component, MDCRipple));
+
+/**
+ * @stable [08.05.2018]
+ */
+uiPlugins.set(KeyboardKey, (component: KeyboardKey) => new MaterialPlugin<KeyboardKey>(component, MDCRipple));
 
 appContainer.bind<Map<IComponentClassEntity, UniversalComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
