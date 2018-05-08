@@ -94,11 +94,18 @@ html, body {
   }
 
   .rac-absolute-center-position {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute;                 /* @stable [08.05.2018] */
+    left: 50%;                          /* @stable [08.05.2018] */
+    top: 50%;                           /* @stable [08.05.2018] */
+    width: 50%;                         /* @stable [08.05.2018] */
+    transform: translate(-50%, -50%);   /* @stable [08.05.2018] */
+  }
+
+  .rac-absolute-bottom-position {
+    position: absolute;                 /* @stable [08.05.2018] */
+    left: 50%;                          /* @stable [08.05.2018] */
+    top: 100%;                          /* @stable [08.05.2018] */
+    transform: translate(-50%, -100%);  /* @stable [08.05.2018] */
   }
 
   .rac-invisible {
