@@ -56,7 +56,7 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    * @param {Readonly<TState>} prevState
    * @param {never} prevContext
    */
-  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext: never): void {
+  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext?: never): void {
     this.plugins.forEach((plugin) =>
       plugin.componentDidUpdate && plugin.componentDidUpdate(prevProps, prevState, prevContext));
   }
