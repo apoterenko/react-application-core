@@ -13,10 +13,11 @@ import { IAutoFocusedProps } from './auto-focused.interface';
 export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, IAutoFocusedState> {
 
   public static defaultProps: IAutoFocusedProps = {
-    delayTimeout: 100,
+    delayTimeout: 300,
   };
 
-  private static ROBOT_DETECTION_MIN_SYMBOLS_COUNT = 2;
+  private static ROBOT_DETECTION_MIN_SYMBOLS_COUNT = 3;
+  private static ENTER_KEY_CODES = [10, 13];
 
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
   private delayedTask: DelayedTask;
@@ -93,7 +94,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
     let char = e.key;
     const charCode = e.keyCode;
 
-    if (charCode === 13) {  // Enter
+    if (AutoFocused.ENTER_KEY_CODES.includes(charCode)) {
       char = '\n';
     }
     this.delayedTask.start();
