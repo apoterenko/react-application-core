@@ -1,0 +1,35 @@
+// Keyboard [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-keyboard {
+    border: 1px solid $color-1;     /* @stable [08.05.2018 ]*/
+    border-radius: 16px;            /* @stable [08.05.2018 ]*/
+    padding: 8px;                   /* @stable [08.05.2018 ]*/
+
+    .rac-keyboard-close {
+      color: $color-11;             /* @stable [08.05.2018 ]*/
+      font-size: 32px;              /* @stable [08.05.2018 ]*/
+      margin-left: auto;            /* @stable [08.05.2018 ]*/
+      margin-bottom: 4px;           /* @stable [08.05.2018 ]*/
+      cursor: pointer;              /* @stable [08.05.2018 ]*/
+    }
+
+    .rac-keyboard-key {
+      width: 56px;                  /* @stable [08.05.2018 ]*/
+      height: 56px;                 /* @stable [08.05.2018 ]*/
+      margin: 2px;                  /* @stable [08.05.2018 ]*/
+      border: 1px solid $color-1;   /* @stable [08.05.2018 ]*/
+      cursor: pointer;              /* @stable [08.05.2018 ]*/
+      border-radius: 16px;          /* @stable [08.05.2018 ]*/
+      line-height: 56px;            /* @stable [08.05.2018 ]*/
+      font-size: 32px;              /* @stable [08.05.2018 ]*/
+      font-weight: bold;            /* @stable [08.05.2018 ]*/
+      background-color: $color-10;  /* @stable [08.05.2018 ]*/;
+      opacity: .6;                  /* @stable [08.05.2018 ]*/
+
+      &.rac-keyboard-digital {
+        font-size: 24px;            /* @stable [09.05.2018 ]*/
+      }
+    }
+  }
+}
