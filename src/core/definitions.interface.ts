@@ -1562,7 +1562,7 @@ export interface IOnCloseWrapper<TOnClose = () => void> {
 /**
  * @stable [08.05.2018]
  */
-export interface IOnSelectWrapper<TSelectableObject, TOnSelect = (object: TSelectableObject) => void> {
+export interface IOnSelectWrapper<TSelectedObject, TOnSelect = (object: TSelectedObject) => void> {
   onSelect?: TOnSelect;
 }
 
