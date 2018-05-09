@@ -122,11 +122,13 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   protected getDataSource(): IEntity[] {
     const props = this.props;
     const originalDataSource = this.getOriginalDataSource();
-    return (
+    const sortedData = (
       props.sorter
-        ? R.sort<IEntity>(props.sorter, originalDataSource)
-        : originalDataSource
-    ).slice(this.fromNumber, this.toNumber);
+      ? R.sort<IEntity>(props.sorter, originalDataSource)
+      : originalDataSource
+    );
+    const pagedData = sortedData.slice(this.fromNumber, this.toNumber);
+    return pagedData.length === 0 ? sortedData : pagedData;
   }
 
   /**
