@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { BasicEventT, IFocusEvent } from '../../../definitions.interface';
+import { BasicEventT, IFocusEvent, IBasicEvent } from '../../../definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
@@ -32,6 +33,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   constructor(props: TInternalProps) {
     super(props);
     this.onKeyboardClose = this.onKeyboardClose.bind(this);
+    this.onWindowMouseDown = this.onWindowMouseDown.bind(this);
 
     if (this.props.clearAction !== false) {
       this.addClearAction();
@@ -167,6 +169,27 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   protected onFocus(event: IFocusEvent): void {
     super.onFocus(event);
     this.setState({keyboard: true});
+    this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
+  }
+
+  /**
+   * @stable [09.05.2018]
+   * @param {IFocusEvent} event
+   */
+  protected onBlur(event: IFocusEvent): void {
+    super.onBlur(event);
+    this.eventManager.remove(window, 'mousedown', this.onWindowMouseDown);
+  }
+
+  /**
+   * @stable [09.05.2018]
+   * @param {IBasicEvent} e
+   */
+  private onWindowMouseDown(e: IBasicEvent): void {
+    if (this.input === e.target || $(e.target).parents('.rac-keyboard').length !== 0) {
+      return;
+    }
+    this.onKeyboardClose();
   }
 
   /**

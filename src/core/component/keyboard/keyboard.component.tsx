@@ -55,8 +55,9 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
   public componentDidUpdate(prevProps: Readonly<IKeyboardProps>, prevState: Readonly<IKeyboardState>): void {
     super.componentDidUpdate(prevProps, prevState);
 
-    if (this.props.value) {
-      caret(this.jField, this.state.position);
+    const jField = this.jField;
+    if (jField.val() && document.activeElement !== this.props.field) {
+      caret(jField, this.state.position);
     }
   }
 
@@ -117,7 +118,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
     const state = this.state;
     const jEl = this.jField;
     const position = jEl.caret();
-    const chars = props.value.split('');
+    const chars = (jEl.val() as string).split('');
     const keyAsString = key as string;
     const keyAsObject = key as IKeyboardKey;
 
@@ -135,9 +136,11 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
           this.setState({mode: this.state.mode === props.layout.length - 1 ? 0 : this.state.mode + 1});
           break;
         case KeyboardKeyEnum.BACKSPACE:
-          nextValue = R.remove<string>(Math.min(position, chars.length - 1), 1, chars).join('');
-          props.onChange(nextValue);
-          this.setState({position: position - 1});
+          if (position > 0) {
+            nextValue = R.remove<string>(position - 1, 1, chars).join('');
+            props.onChange(nextValue);
+            this.setState({position: position - 1});
+          }
           break;
       }
     }
