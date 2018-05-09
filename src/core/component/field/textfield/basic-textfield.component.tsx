@@ -3,9 +3,10 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { BasicEventT } from '../../../definitions.interface';
+import { BasicEventT, IFocusEvent } from '../../../definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
+import { Keyboard } from '../../keyboard';
 import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
@@ -30,6 +31,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   constructor(props: TInternalProps) {
     super(props);
+    this.onKeyboardClose = this.onKeyboardClose.bind(this);
 
     if (this.props.clearAction !== false) {
       this.addClearAction();
@@ -96,6 +98,16 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
           {this.getFieldMessage()}
           {this.getFieldErrorMessage()}
           {this.getAttachment()}
+          {
+            orNull<JSX.Element>(
+              props.useKeyboard && this.state.keyboard,
+              () => (
+                <Keyboard field={this.input}
+                          onClose={this.onKeyboardClose}
+                          onChange={this.onChangeManually}/>
+              )
+            )
+          }
         </div>
     );
   }
@@ -146,6 +158,22 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       },
     };
     this.defaultActions.push(clearAction);
+  }
+
+  /**
+   * @stable [09.05.2018]
+   * @param {IFocusEvent} event
+   */
+  protected onFocus(event: IFocusEvent): void {
+    super.onFocus(event);
+    this.setState({keyboard: true});
+  }
+
+  /**
+   * @stable [09.05.2018]
+   */
+  private onKeyboardClose(): void {
+    this.setState({keyboard: false});
   }
 
   private get actions(): IBasicTextFieldAction[] {

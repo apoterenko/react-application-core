@@ -17,6 +17,7 @@ export interface IBasicTextFieldAction extends IClassNameWrapper,
 }
 
 export interface IBasicTextFieldInternalState extends IFieldInternalState {
+  keyboard?: boolean;
 }
 
 export interface IBasicTextFieldInternalProps

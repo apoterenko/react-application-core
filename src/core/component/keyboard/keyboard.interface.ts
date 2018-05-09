@@ -1,6 +1,5 @@
 import {
   IPositionWrapper,
-  IStringValueWrapper,
   IFieldWrapper,
   IUseUppercaseWrapper,
   IOnChangeWrapper,
@@ -88,8 +87,7 @@ export interface IKeyboardConfiguration extends IFieldWrapper<HTMLInputElement |
 /**
  * @stable [08.05.2018]
  */
-export interface IKeyboardEntity extends IStringValueWrapper,
-                                         IOnChangeWrapper<string> {
+export interface IKeyboardEntity extends IOnChangeWrapper<string> {
 }
 
 /**

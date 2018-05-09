@@ -41,6 +41,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     this.onClick = this.onClick.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onChangeManually = this.onChangeManually.bind(this);
 
     this.state = {} as TInternalState;
   }
@@ -127,9 +128,14 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     this.input.focus();
   }
 
-  public get input(): HTMLInputElement {
+  /**
+   * @stable [09.05.2018]
+   * @returns {HTMLInputElement | HTMLTextAreaElement}
+   */
+  public get input(): HTMLInputElement | HTMLTextAreaElement {
     const input = this.refs.input;
-    return input && (input as INativeMaskedInputComponent).inputElement || input as HTMLInputElement;
+    return input && (input as INativeMaskedInputComponent).inputElement
+      || input as ( HTMLInputElement | HTMLTextAreaElement);
   }
 
   public get progress(): boolean {

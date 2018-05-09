@@ -678,6 +678,19 @@ export interface IComponentWrapper<TComponent> {
   component?: TComponent;
 }
 
+/**
+ * @stable [09.05.2018]
+ */
+export interface IInputWrapper<TInput> {
+  input?: TInput;
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IHTMLInputWrapper extends IInputWrapper<HTMLInputElement | HTMLTextAreaElement> {
+}
+
 /* @stable - 01.04.2018 */
 export interface IDateWrapper<TDate> {
   date?: TDate;
@@ -761,6 +774,12 @@ export interface IBasicEvent extends React.SyntheticEvent<{}> {
  * @stable [04.05.2018]
  */
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> {
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {
 }
 
 /**

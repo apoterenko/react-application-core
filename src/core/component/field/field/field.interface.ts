@@ -10,6 +10,7 @@ import {
   IOriginalValueWrapper,
   IStepable,
   ChangeEventT,
+  IHTMLInputWrapper,
 } from '../../../definitions.interface';
 import {
   IErrorEntity,
@@ -67,7 +68,10 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
 export interface IFieldInternalState extends IErrorEntity<string> {
 }
 
-export interface INativeMaskedInputComponent extends Component<{}, {}> {
+/**
+ * @stable [09.05.2018]
+ */
+export interface INativeMaskedInputComponent extends Component {
   inputElement: HTMLInputElement;
 }
 
@@ -85,7 +89,7 @@ export interface IField<TInternalProps extends IFieldInternalProps = IFieldInter
                         TInternalState extends IFieldInternalState = IFieldInternalState>
     extends IKeyboardHandlersConfiguration,
             IBasicField<AnyT>,
+            IHTMLInputWrapper,
             IComponent<TInternalProps, TInternalState> {
-  input: HTMLInputElement;
   resetError(): void;
 }
