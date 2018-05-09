@@ -168,8 +168,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   protected onFocus(event: IFocusEvent): void {
     super.onFocus(event);
-    this.setState({keyboard: true});
-    this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
+
+    if (this.props.useKeyboard) {
+      this.setState({keyboard: true});
+      this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
+    }
   }
 
   /**
@@ -178,7 +181,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   protected onBlur(event: IFocusEvent): void {
     super.onBlur(event);
-    this.eventManager.remove(window, 'mousedown', this.onWindowMouseDown);
+
+    if (this.props.useKeyboard) {
+      this.eventManager.remove(window, 'mousedown', this.onWindowMouseDown);
+    }
   }
 
   /**

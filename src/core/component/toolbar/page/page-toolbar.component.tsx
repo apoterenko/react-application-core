@@ -32,16 +32,16 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
                 ? <div className={this.uiFactory.toolbarRow}/>
                 : (
                     <div className={this.uiFactory.toolbarRow}>
-                      <section className='rac-flex-full'>
+                      <div className='rac-flex-full'>
                         {props.children}
-                      </section>
-                      <section className='rac-toolbar-page-info'>
+                      </div>
+                      <div className='rac-toolbar-pages-info'>
                         {this.fromNumber}-{this.toNumber} {this.t('of')} {props.totalCount}
-                      </section>
+                      </div>
                       {
                         orNull(
                             !(isPreviousBtnDisabled && isNextBtnDisabled),
-                            <section>
+                            <div className='rac-toolbar-pagination-controls'>
                               {
                                 this.uiFactory.makeIcon({
                                   type: 'first_page',
@@ -70,7 +70,7 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
                                   onClick: this.onLast,
                                 })
                               }
-                            </section>
+                            </div>
                         )
                       }
                     </div>

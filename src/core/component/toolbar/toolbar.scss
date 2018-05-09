@@ -1,13 +1,2 @@
-@import '../constant';
-
-// Toolbar [FRAMEWORK-]
-.rac-toolbar {
-  .rac-toolbar-info {
-    color: $rac-toolbar-info-color;               // [RAC+]
-    font-weight: $rac-toolbar-info-font-weight;   // [RAC+]
-  }
-
-  .rac-toolbar-page-info {
-    color: $rac-toolbar-info-color;               // [RAC+]
-  }
-}
+@import './page/page-toolbar';
+@import './info/page-info';

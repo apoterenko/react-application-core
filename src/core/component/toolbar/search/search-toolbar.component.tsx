@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isUndef, toClassName, orNull } from '../../../util';
+import { toClassName, orNull } from '../../../util';
 import { BaseComponent } from '../../base';
 import {
   DelayedChangesFieldPlugin,
@@ -142,14 +142,6 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     if (this.props.onApply) {
       this.props.onApply(value);
     }
-  }
-
-  private get definiteActiveProps(): boolean {
-    return isUndef(this.props.active) ? false : this.props.active;
-  }
-
-  private get definiteQueryProps(): string {
-    return isUndef(this.props.query) ? '' : this.props.query;
   }
 
   private get actions(): IBasicTextFieldAction[] {
