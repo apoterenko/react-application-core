@@ -29,9 +29,9 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
                        )}>
           {
             props.contentDisplay === false
-                ? <div className={this.uiFactory.toolbarRow}/>
+                ? <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}/>
                 : (
-                    <div className={this.uiFactory.toolbarRow}>
+                    <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}>
                       <div className='rac-flex-full'>
                         {props.children}
                       </div>

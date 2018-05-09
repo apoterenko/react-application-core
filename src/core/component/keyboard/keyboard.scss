@@ -9,23 +9,24 @@
     padding: 8px;                   /* @stable [08.05.2018 ]*/
 
     .rac-keyboard-close {
-      color: $color-11;             /* @stable [08.05.2018 ]*/
-      font-size: 32px;              /* @stable [08.05.2018 ]*/
-      margin-left: auto;            /* @stable [08.05.2018 ]*/
-      margin-bottom: 4px;           /* @stable [08.05.2018 ]*/
-      cursor: pointer;              /* @stable [08.05.2018 ]*/
+      color: $rac-keyboard-close-color;           /* @stable [09.05.2018 ]*/
+      font-size: 32px;                            /* @stable [08.05.2018 ]*/
+      margin-left: auto;                          /* @stable [08.05.2018 ]*/
+      margin-bottom: 4px;                         /* @stable [08.05.2018 ]*/
+      cursor: pointer;                            /* @stable [08.05.2018 ]*/
+      opacity: $rac-keyboard-close-opacity;       /* @stable [09.05.2018 ]*/
     }
 
     .rac-keyboard-key {
-      width: 56px;                  /* @stable [08.05.2018 ]*/
-      height: 56px;                 /* @stable [08.05.2018 ]*/
-      margin: 2px;                  /* @stable [08.05.2018 ]*/
+      width: 56px;                                                  /* @stable [08.05.2018 ]*/
+      height: 56px;                                                 /* @stable [08.05.2018 ]*/
+      margin: 2px;                                                  /* @stable [08.05.2018 ]*/
       border: 1px solid $rac-keyboard-key-border-color;             /* @stable [09.05.2018 ]*/
-      cursor: pointer;              /* @stable [08.05.2018 ]*/
-      border-radius: 16px;          /* @stable [08.05.2018 ]*/
-      line-height: 56px;            /* @stable [08.05.2018 ]*/
-      font-size: 32px;              /* @stable [08.05.2018 ]*/
-      font-weight: bold;            /* @stable [08.05.2018 ]*/
+      cursor: pointer;                                              /* @stable [08.05.2018 ]*/
+      border-radius: 16px;                                          /* @stable [08.05.2018 ]*/
+      line-height: 56px;                                            /* @stable [08.05.2018 ]*/
+      font-size: 32px;                                              /* @stable [08.05.2018 ]*/
+      font-weight: bold;                                            /* @stable [08.05.2018 ]*/
       background-color: $rac-keyboard-key-background-color;         /* @stable [09.05.2018 ]*/;
       opacity: $rac-keyboard-key-opacity;                           /* @stable [09.05.2018 ]*/
 
