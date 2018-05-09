@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid } from '../../util';
+import { uuid, pageFromNumber, pageToNumber } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
-import { IUniversalListConfiguration } from '../../configurations-definitions.interface';
-import { IUniversalListEntity } from '../../entities-definitions.interface';
+import { IUniversalListProps } from '../../props-definitions.interface';
 
 export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
-                                    TProps extends IUniversalListConfiguration & IUniversalListEntity,
+                                    TProps extends IUniversalListProps,
                                     TState = {}>
   extends UniversalComponent<TComponent, TProps, TState> {
 
@@ -117,7 +116,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [09.05.2018]
    * @returns {IEntity[]}
    */
   protected getDataSource(): IEntity[] {
@@ -127,7 +126,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
       props.sorter
         ? R.sort<IEntity>(props.sorter, originalDataSource)
         : originalDataSource
-    );
+    ).slice(this.fromNumber, this.toNumber);
   }
 
   /**
@@ -145,5 +144,21 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   protected isOriginalDataSourceEmpty(): boolean {
     const originalDataSource = this.getOriginalDataSource();
     return Array.isArray(originalDataSource) && !originalDataSource.length;
+  }
+
+  /**
+   * @stable [09.05.2018]
+   * @returns {number}
+   */
+  private get fromNumber(): number {
+    return pageFromNumber(this.props) - 1;
+  }
+
+  /**
+   * @stable [09.05.2018]
+   * @returns {number}
+   */
+  private get toNumber(): number {
+    return pageToNumber(this.props);
   }
 }

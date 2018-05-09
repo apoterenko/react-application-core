@@ -10,9 +10,9 @@ import {
   IUniversalComponent,
   UniversalComponentPluginFactoryT,
   IUniversalComponentPluginClassEntity,
-  IUniversalComponentProps,
 } from '../../entities-definitions.interface';
 import { IBasicEvent } from '../../definitions.interface';
+import { IUniversalComponentProps } from '../../props-definitions.interface';
 
 export class UniversalComponent<TComponent extends IUniversalComponent<TProps, TState>,
                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,

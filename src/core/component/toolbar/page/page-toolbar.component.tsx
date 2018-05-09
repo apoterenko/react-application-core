@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { orNull, toClassName } from '../../../util';
+import { orNull, toClassName, pageFromNumber, pageToNumber } from '../../../util';
 import { FIRST_PAGE } from '../../../definitions.interface';
 import { BaseComponent } from '../../../component/base';
 import { IPageToolbarInternalProps } from './page-toolbar.interface';
@@ -80,12 +80,20 @@ export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternal
     );
   }
 
+  /**
+   * @stable [09.05.2018]
+   * @returns {number}
+   */
   private get fromNumber(): number {
-    return 1 + (this.props.page - FIRST_PAGE) * this.props.pageSize;
+    return pageFromNumber(this.props);
   }
 
+  /**
+   * @stable [09.05.2018]
+   * @returns {number}
+   */
   private get toNumber(): number {
-    return Math.min(this.props.page * this.props.pageSize, this.props.totalCount);
+    return pageToNumber(this.props);
   }
 
   private get isPreviousBtnDisabled(): boolean {
