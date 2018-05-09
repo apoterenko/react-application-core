@@ -1,0 +1,20 @@
+@import '../../constant';
+
+// PageToolbar [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-toolbar {
+
+    &.rac-page-toolbar {
+
+      .rac-toolbar-pagination-controls {
+        margin-right: 16px;                     /* @stable [09.05.2018] */
+      }
+
+      .rac-toolbar-pages-info {
+        margin-right: 16px;                     /* @stable [09.05.2018] */
+        color: $rac-toolbar-pages-info-color;   /* @stable [09.05.2018] */
+      }
+    }
+  }
+}

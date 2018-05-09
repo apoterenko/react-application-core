@@ -1,0 +1,13 @@
+@import '../../constant';
+
+// PageInfo [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-toolbar {
+
+    .rac-toolbar-info {
+      color: $rac-toolbar-info-color;               /* @stable [09.05.2018] */
+      font-weight: $rac-toolbar-info-font-weight;   /* @stable [09.05.2018] */
+    }
+  }
+}

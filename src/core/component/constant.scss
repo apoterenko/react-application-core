@@ -12,6 +12,21 @@ $color-9: #787878 !default;
 $color-10: #e1e1e1 !default;
 $color-11: #ff0000 !default;
 
+/* @stable [09.05.2018] */
+$rac-toolbar-info-color: $color-2 !default;
+$rac-toolbar-info-font-weight: bold !default;
+$rac-toolbar-pages-info-color: $color-2 !default;
+
+/* @stable [09.05.2018] */
+$rac-keyboard-key-opacity: $opacity !default;
+$rac-keyboard-key-background-color: $color-10 !default;
+$rac-keyboard-key-background-color: $color-10 !default;
+$rac-keyboard-key-border-color: $color-1 !default;
+
+
+
+
+
 $rac-snackbar-action-button-ink-color: $color-1 !default;
 
 /* @stable - 08.04.2018 */
@@ -53,8 +68,6 @@ $rac-profile-icon-background-color: $color-9 !default;
 $rac-profile-icon-color: $color-5 !default;
 
 $rac-toolbar-fill-color: $color-5 !default;
-$rac-toolbar-info-color: $color-2 !default;
-$rac-toolbar-info-font-weight: bold !default;
 
 $rac-drop-zone-border-color: $color-4 !default;
 $rac-drop-zone-border-width: 2px !default;
