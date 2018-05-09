@@ -44,21 +44,25 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
     case ListActionBuilder.buildFirstPageActionType(section):
       return {
         ...state,
+        lockPage: true,
         page: FIRST_PAGE,
       };
     case ListActionBuilder.buildLastPageActionType(section):
       return {
         ...state,
+        lockPage: true,
         page: Math.ceil(state.totalCount / state.pageSize),
       };
     case ListActionBuilder.buildPreviousPageActionType(section):
       return {
         ...state,
+        lockPage: true,
         page: --state.page,
       };
     case ListActionBuilder.buildNextPageActionType(section):
       return {
         ...state,
+        lockPage: true,
         page: ++state.page,
       };
     case ListActionBuilder.buildUnTouchActionType(section):
@@ -71,6 +75,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         ...INITIAL_APPLICATION_LIST_STATE,
         progress: true,
         touched: true,
+        lockPage: state.lockPage,
       };
     case ListActionBuilder.buildDestroyActionType(section):
       return {
@@ -81,6 +86,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       return {
         ...state,
         progress: false,
+        lockPage: false,
         ...(
           Array.isArray(listEntity)
             ? {
@@ -89,11 +95,13 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
             }
             : listEntity
         ),
+        page: state.lockPage ? listEntity.page : INITIAL_APPLICATION_LIST_STATE.page,
       };
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
         ...state,
         progress: false,
+        lockPage: false,
         error: convertError(action.error).message,
       };
     case ListActionBuilder.buildSelectActionType(section):

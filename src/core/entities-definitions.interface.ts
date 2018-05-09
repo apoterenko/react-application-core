@@ -102,6 +102,7 @@ import {
   IStopEventWrapper,
   IBasicEvent,
   IUrlWrapper,
+  ILockPageWrapper,
 } from './definitions.interface';
 import {
   IComponentConfiguration,
@@ -161,6 +162,7 @@ export interface IPagedEntity extends IPageWrapper,
  * @stable [09.05.2018]
  */
 export interface IPaginatedEntity extends IPagedEntity,
+                                          ILockPageWrapper,
                                           ITotalCountWrapper,
                                           ITotalAmountWrapper {
 }

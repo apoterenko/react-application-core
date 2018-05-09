@@ -953,6 +953,13 @@ export interface IPageSizeWrapper<TPageSize = number> {
 }
 
 /**
+ * @stable [09.05.2018]
+ */
+export interface ILockPageWrapper<TLockPage = boolean> {
+  lockPage?: TLockPage;
+}
+
+/**
  * @stable [06.05.2018]
  */
 export interface ITotalAmountWrapper<TTotalAmount = number> {
