@@ -104,10 +104,9 @@ import {
   IUrlWrapper,
 } from './definitions.interface';
 import {
-  IUniversalComponentConfiguration,
   IComponentConfiguration,
 } from './configurations-definitions.interface';
-import { IContainerProps } from './props-definitions.interface';
+import { IContainerProps, IUniversalComponentProps } from './props-definitions.interface';
 
 /**
  * @stable [04.05.2018]
@@ -151,12 +150,16 @@ export interface IUniversalStateEntity extends ITouchedWrapper,
                                                IStringErrorEntity {
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [09.05.2018]
+ */
 export interface IPagedEntity extends IPageWrapper,
                                       IPageSizeWrapper {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [09.05.2018]
+ */
 export interface IPaginatedEntity extends IPagedEntity,
                                           ITotalCountWrapper,
                                           ITotalAmountWrapper {
@@ -530,11 +533,6 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
 export interface IUniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>,
           IDispatchWrapper<(type: string, data?: AnyT) => void> {
-}
-
-/* @stable [23.04.2018] */
-export interface IUniversalComponentProps extends IUniversalComponentEntity,
-                                                  IUniversalComponentConfiguration {
 }
 
 /* @stable [23.04.2018] */

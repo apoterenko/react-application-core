@@ -813,9 +813,11 @@ export interface IRaisedWrapper {
   raised?: boolean;
 }
 
-/* @stable - 31.03.2018 */
-export interface ITotalCountWrapper {
-  totalCount?: number;
+/**
+ * @stable [09.05.2018]
+ */
+export interface ITotalCountWrapper<TTotalCount = number> {
+  totalCount?: TTotalCount;
 }
 
 /* @stable - 31.03.2018 */
@@ -936,14 +938,18 @@ export interface IFieldsWrapper<TFields> {
   fields?: TFields;
 }
 
-/* @stable - 31.03.2018 */
-export interface IPageWrapper {
-  page?: number;
+/**
+ * @stable [09.05.2018]
+ */
+export interface IPageWrapper<TPage = number> {
+  page?: TPage;
 }
 
-/* @stable - 31.03.2018 */
-export interface IPageSizeWrapper {
-  pageSize?: number;
+/**
+ * @stable [09.05.2018]
+ */
+export interface IPageSizeWrapper<TPageSize = number> {
+  pageSize?: TPageSize;
 }
 
 /**

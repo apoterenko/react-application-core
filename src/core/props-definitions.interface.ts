@@ -5,6 +5,8 @@ import {
   IRnListEntity,
   IUniversalContainerEntity,
   IGridEntity,
+  IUniversalListEntity,
+  IUniversalComponentEntity,
 } from './entities-definitions.interface';
 import {
   IContainerConfiguration,
@@ -13,6 +15,8 @@ import {
   IRnListConfiguration,
   IUniversalContainerConfiguration,
   IGridConfiguration,
+  IUniversalListConfiguration,
+  IUniversalComponentConfiguration,
 } from './configurations-definitions.interface';
 
 /**
@@ -20,6 +24,13 @@ import {
  */
 export interface IContainerProps extends IContainerEntity,
                                          IContainerConfiguration {
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IUniversalComponentProps extends IUniversalComponentEntity,
+                                                  IUniversalComponentConfiguration {
 }
 
 /**
@@ -34,6 +45,13 @@ export interface IUniversalContainerProps extends IUniversalContainerEntity,
  */
 export interface IFieldProps extends IFieldEntity,
                                      IFieldConfiguration {
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IUniversalListProps extends IUniversalListEntity,
+                                             IUniversalListConfiguration {
 }
 
 /**
