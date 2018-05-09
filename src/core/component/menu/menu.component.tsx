@@ -13,8 +13,6 @@ import {
   removeClassNameFromBody,
   addChildToBody,
 } from '../../util';
-import { lazyInject, DI_TYPES } from '../../di';
-import { IEventManager } from '../../event';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
 import {
@@ -34,7 +32,6 @@ export class Menu extends BaseComponent<Menu,
   };
 
   private menuParent: HTMLElement;
-  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   constructor(props: IMenuInternalProps) {
     super(props);

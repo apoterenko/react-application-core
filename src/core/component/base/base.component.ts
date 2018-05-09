@@ -1,4 +1,5 @@
 import { lazyInject, DI_TYPES } from '../../di';
+import { IEventManager } from '../../event';
 import { IUIFactory } from '../factory';
 import { UniversalComponent } from './universal.component';
 import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
@@ -10,6 +11,7 @@ export class BaseComponent<TComponent extends IComponent<TInternalProps, TIntern
     implements IComponent<TInternalProps, TInternalState> {
 
   @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
+  @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
 
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: {}): void {
     this.plugins.forEach((plugin) =>

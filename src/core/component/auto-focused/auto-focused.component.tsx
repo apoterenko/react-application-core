@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { DI_TYPES, lazyInject } from '../../di';
-import { IEventManager } from '../../event';
 import { IKeyboardEvent } from '../../definitions.interface';
 import { DelayedTask, orNull } from '../../util';
 import { IField } from '../field';
@@ -19,7 +17,6 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
   private static ROBOT_DETECTION_MIN_SYMBOLS_COUNT = 3;
   private static ENTER_KEY_CODES = [10, 13];
 
-  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
   private delayedTask: DelayedTask;
 
   /**
