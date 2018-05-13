@@ -4,7 +4,7 @@ import { injectable } from 'inversify';
 import { isString, toClassName, uuid } from '../../../util';
 import { IUIFactory, UIIconConfigT } from '../../factory';
 import { Button } from '../../button';
-import { IStringTypeWrapper, IClassNameWrapper } from '../../../definitions.interface';
+import { ITypeWrapper, IClassNameWrapper } from '../../../definitions.interface';
 import { IButtonConfiguration } from '../../../configurations-definitions.interface';
 import { IUniversalButtonEntity } from '../../../entities-definitions.interface';
 
@@ -133,11 +133,11 @@ export class UIMaterialFactory implements IUIFactory {
     );
   }
 
-  private toIconConfig(cfg: UIIconConfigT): IStringTypeWrapper & IClassNameWrapper {
+  private toIconConfig(cfg: UIIconConfigT): ITypeWrapper & IClassNameWrapper {
     return (
       isString(cfg)
         ? { type: cfg }
         : cfg
-    ) as IStringTypeWrapper & IClassNameWrapper;
+    ) as ITypeWrapper & IClassNameWrapper;
   }
 }

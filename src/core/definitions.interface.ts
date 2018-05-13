@@ -46,31 +46,28 @@ export interface IKeyValue {
   [index: string]: AnyT;
 }
 
-/* @stable - 31.03.2018 */
-export interface IIdWrapper<TId> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface IIdWrapper<TId = number> {
   id?: TId;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [13.05.2018]
+ */
 export interface IStringIdWrapper extends IIdWrapper<string> {
 }
 
-/* @stable - 31.03.2018 */
-export interface INumberIdWrapper extends IIdWrapper<number> {
-}
-
-/* @stable - 31.03.2018 */
+/**
+ * @stable [13.05.2018]
+ */
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {
 }
 
 /* @stable - 01.04.2018 */
 export interface IEntity extends IEntityIdTWrapper,
                                  IKeyValue {
-}
-
-/* @stable - 01.04.2018 */
-export interface INamedEntity extends IEntityIdTWrapper,
-                                      INameWrapper {
 }
 
 /* @stable - 01.04.2018 */
@@ -116,13 +113,18 @@ export interface IRouteParamsWrapper<TRouteParams> {
   routeParams?: TRouteParams;
 }
 
-/* @stable - 26.04.2018 */
-export interface ICodeIdWrapper<TCodeId> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface ICodeIdWrapper<TCodeId = number> {
   codeId?: TCodeId;
 }
 
-/* @stable - 26.04.2018 */
-export interface INumberCodeIdWrapper extends ICodeIdWrapper<number> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface IBlockedWrapper<TBlocked = boolean> {
+  blocked?: TBlocked;
 }
 
 /* @stable - 14.04.2018 */
@@ -349,18 +351,23 @@ export interface IUseIndicatorWrapper {
   useIndicator?: boolean;
 }
 
-/* @stable - 01.04.2018 */
-export interface IOnSubmitWrapper<TOnSubmit> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface IOnSubmitWrapper<TOnSubmit = () => void> {
   onSubmit?: TOnSubmit;
 }
 
-/* @stable - 01.04.2018 */
-export interface IOnResetWrapper<TOnReset> {
-  onReset?: TOnReset;
+/**
+ * @stable [13.05.2018]
+ */
+export interface IOnRemoveWrapper<TOnRemove> {
+  onRemove?: TOnRemove;
 }
 
 /* @stable - 01.04.2018 */
-export interface IDefaultOnResetWrapper extends IOnResetWrapper<() => void> {
+export interface IOnResetWrapper<TOnReset = () => void> {
+  onReset?: TOnReset;
 }
 
 /* @stable - 01.04.2018 */
@@ -562,22 +569,25 @@ export interface IChangesWrapper<TChanges extends IKeyValue> {
 export interface IKeyValueChangesWrapper extends IChangesWrapper<IKeyValue> {
 }
 
-/* @stable - 15.04.2018 */
-export interface IEmailWrapper<TEmail> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface IEmailWrapper<TEmail = string> {
   email?: TEmail;
 }
 
-/* @stable - 15.04.2018 */
-export interface IStringEmailWrapper extends IEmailWrapper<string> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface IPhoneWrapper<TPhone = string> {
+  phone?: TPhone;
 }
 
-/* @stable - 15.04.2018 */
-export interface ILoginWrapper<TLogin> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface ILoginWrapper<TLogin = string> {
   login?: TLogin;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringLoginWrapper extends ILoginWrapper<string> {
 }
 
 /* @stable - 01.04.2018 */
@@ -825,13 +835,11 @@ export interface ITouchedWrapper {
   touched?: boolean;
 }
 
-/* @stable - 07.04.2018 */
-export interface IEffectorWrapper<TEffector> {
+/**
+ * @stable [13.05.2018]
+ */
+export interface IEffectorWrapper<TEffector = string> {
   effector?: TEffector;
-}
-
-/* @stable - 07.04.2018 */
-export interface IStringEffectorWrapper extends IEffectorWrapper<string> {
 }
 
 /**
@@ -841,17 +849,23 @@ export interface IValueWrapper<TValue = AnyT> {
   value?: TValue;
 }
 
-/* @stable - 07.04.2018 */
+/**
+ * @stable [13.05.2018]
+ */
 export interface INumberValueWrapper extends IValueWrapper<number> {
 }
 
-/* @stable - 07.04.2018 */
+/**
+ * @stable [13.05.2018]
+ */
 export interface IStringValueWrapper extends IValueWrapper<string> {
 }
 
-/* @stable - 31.03.2018 */
-export interface INameWrapper {
-  name?: string;
+/**
+ * @stable [13.05.2018]
+ */
+export interface INameWrapper<TName = string> {
+  name?: TName;
 }
 
 /* @stable - 04.04.2018 */
@@ -1664,13 +1678,11 @@ export interface IOriginalValueWrapper<TOriginalValue> {
   originalValue?: TOriginalValue;
 }
 
-/* @stable - 11.04.2018 */
-export interface ITypeWrapper<TType> {
+/**
+ * @stable [13.04.2018]
+ */
+export interface ITypeWrapper<TType = string> {
   type?: TType;
-}
-
-/* @stable - 11.04.2018 */
-export interface IStringTypeWrapper extends ITypeWrapper<string> {
 }
 
 /* @stable - 14.04.2018 */

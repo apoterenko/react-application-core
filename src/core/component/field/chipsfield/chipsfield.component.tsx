@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import {
   EntityIdT,
-  INamedEntity,
   KeyboardEventT,
   IEntity,
 } from '../../../definitions.interface';
+import { INamedEntity } from '../../../entities-definitions.interface';
 import { uuid } from '../../../util';
 import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldValueT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';

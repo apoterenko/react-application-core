@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { DI_TYPES, staticInjector } from '../../di';
 import { ApplicationTranslatorT } from '../../translation';
 import { IApplicationSettings } from '../../settings';
+import { IDateConverter, INumberConverter } from '../../converter';
 import {
   IUniversalComponentEntity,
   IUniversalComponentClassEntity,
@@ -98,6 +99,22 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   private get uiPlugins(): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> {
     return staticInjector(DI_TYPES.UIPlugins);
+  }
+
+  /**
+   * @stable [13.05.2018]
+   * @returns {IDateConverter}
+   */
+  protected get dc(): IDateConverter {
+    return staticInjector(DI_TYPES.DateConverter);
+  }
+
+  /**
+   * @stable [13.05.2018]
+   * @returns {INumberConverter}
+   */
+  protected get nc(): INumberConverter {
+    return staticInjector(DI_TYPES.NumberConverter);
   }
 
   /**

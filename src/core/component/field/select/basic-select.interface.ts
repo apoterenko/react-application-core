@@ -1,8 +1,6 @@
 import { IMenuOption } from '../../../component/menu';
-import {
-  INamedEntity,
-  IRendererWrapper,
-} from '../../../definitions.interface';
+import { IRendererWrapper } from '../../../definitions.interface';
+import { INamedEntity } from '../../../entities-definitions.interface';
 import {
   IBasicTextFieldInternalProps,
   IBasicTextFieldInternalState,

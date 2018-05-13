@@ -33,7 +33,7 @@ import {
   INumberValueWrapper,
   IItemsWrapper,
   IActiveWrapper,
-  IStringTypeWrapper,
+  ITypeWrapper,
   IBasenameWrapper,
   IAutoFocusWrapper,
   IPreventValueBindingWrapper,
@@ -47,7 +47,6 @@ import {
   IMappersWrapper,
   IStringPathWrapper,
   IStateInitialChangesWrapper,
-  ITypeWrapper,
   ISignInWrapper,
   ISignUpWrapper,
   IAccessDeniedWrapper,
@@ -353,7 +352,7 @@ export interface IButtonConfiguration extends IUniversalButtonConfiguration,
                                               IEventOnClickWrapper,
                                               INotApplyFrameworkClassNameWrapper,
                                               ISimpleWrapper,
-                                              IStringTypeWrapper {
+                                              ITypeWrapper {
 }
 
 /* @stable - 19.04.2018 */
@@ -397,7 +396,7 @@ export interface IFieldConfiguration extends IComponentConfiguration,
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
                                              IDisplayMessageWrapper,
-                                             IStringTypeWrapper,
+                                             ITypeWrapper,
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IAutoFocusWrapper,

@@ -7,7 +7,6 @@ import {
   IBlobWrapper,
   IMethodWrapper,
   IStringPathWrapper,
-  INumberIdWrapper,
   IKeyValueParamsWrapper,
   INoCacheWrapper,
   IUrlWrapper,
@@ -18,6 +17,7 @@ import {
   IDefaultOperationWrapper,
   IFnReaderWrapper,
   IAnyResultWrapper,
+  IIdWrapper,
   AnyT,
 } from '../definitions.interface';
 import { IErrorEntity } from '../entities-definitions.interface';
@@ -68,7 +68,7 @@ export interface ITransportRequestParamsEntity extends INameWrapper,
                                                        INotApplyAuthWrapper,
                                                        IKeyValueParamsWrapper,
                                                        IStringAuthWrapper,
-                                                       INumberIdWrapper {
+                                                       IIdWrapper {
 }
 
 export interface IApplicationTransportCancelToken {
@@ -93,7 +93,7 @@ export interface ITransportRawResponse {
   request?: XMLHttpRequest;
 }
 
-export interface ITransportRawResponseData extends INumberIdWrapper,
+export interface ITransportRawResponseData extends IIdWrapper,
                                                    IAnyResultWrapper,
                                                    IErrorEntity<ITransportRawResponseError> {
   Message?: string;

@@ -3,10 +3,9 @@ import * as PropTypes from 'prop-types';
 import * as R from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
-import { DI_TYPES, lazyInject } from '../../../di';
 import { isUndef, orUndef } from '../../../util';
 import { ChangeEventT, KeyboardEventT, BasicEventT, AnyT } from '../../../definitions.interface';
-import { DateTimeLikeTypeT, IDateConverter } from '../../../converter';
+import { DateTimeLikeTypeT } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
   IDateFieldInternalProps,
@@ -32,8 +31,6 @@ export class DateField extends BasicTextField<DateField,
   public static contextTypes = {
     muiTheme: PropTypes.object.isRequired,
   };
-
-  @lazyInject(DI_TYPES.DateConverter) private dc: IDateConverter;
 
   constructor(props: IDateFieldInternalProps) {
     super(props);

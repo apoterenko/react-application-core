@@ -2,8 +2,7 @@ import * as R from 'ramda';
 
 import { orNull } from '../../../util';
 import { ISelectOption, SelectOptionT } from './basic-select.interface';
-import { INamedEntity } from '../../../definitions.interface';
-import { IDictionaryEntity } from '../../../entities-definitions.interface';
+import { IDictionaryEntity, INamedEntity } from '../../../entities-definitions.interface';
 
 export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter = false): SelectOptionT[] =>
   orNull<SelectOptionT[]>(

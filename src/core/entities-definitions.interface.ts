@@ -55,7 +55,7 @@ import {
   IDefaultOnValidWrapper,
   IOnEmptyDictionaryWrapper,
   IOnLoadDictionaryWrapper,
-  IDefaultOnResetWrapper,
+  IOnResetWrapper,
   IReadyWrapper,
   IAuthorizedWrapper,
   IApplicationWrapper,
@@ -80,9 +80,8 @@ import {
   ILayoutWrapper,
   IModeWrapper,
   IUserWrapper,
-  IStringEmailWrapper,
-  IStringLoginWrapper,
-  INamedEntity,
+  IEmailWrapper,
+  ILoginWrapper,
   IPasswordWrapper,
   IRootWrapper,
   IStringPathWrapper,
@@ -108,6 +107,13 @@ import {
   IComponentConfiguration,
 } from './configurations-definitions.interface';
 import { IContainerProps, IUniversalComponentProps } from './props-definitions.interface';
+
+/**
+ * @stable [13.05.2018]
+ */
+export interface INamedEntity extends IEntityIdTWrapper,
+                                      INameWrapper {
+}
 
 /**
  * @stable [04.05.2018]
@@ -225,19 +231,15 @@ export interface IBaseFormWrapperEntity<TEntity extends IEntity>
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
 }
 
-/* @stable - 11.04.2018 */
-export interface IDefaultBaseFormWrapperEntity extends IBaseFormWrapperEntity<IEntity> {
-}
-
 /* @stable - 09.04.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity>
   extends IBaseFormWrapperEntity<TEntity>,
+          IOnResetWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
           IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
           IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
-          IDefaultOnValidWrapper,
-          IDefaultOnResetWrapper {
+          IDefaultOnValidWrapper {
 }
 
 /* @stable - 01.04.2018 */
@@ -467,12 +469,14 @@ export interface ILayoutEntity extends IModeWrapper<LayoutT> {
 export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [13.05.2018]
+ */
 export interface IUserEntity extends INamedEntity,
                                      IUrlWrapper,
                                      IPasswordWrapper,
-                                     IStringLoginWrapper,
-                                     IStringEmailWrapper {
+                                     ILoginWrapper,
+                                     IEmailWrapper {
 }
 
 /* @stable - 15.04.2018 */

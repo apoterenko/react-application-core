@@ -1,5 +1,5 @@
 import {
-  IStringTypeWrapper,
+  ITypeWrapper,
   IDisabledWrapper,
   BasicEventT,
   IStringTitleWrapper,
@@ -12,7 +12,7 @@ import { IDelayedChangesFieldPluginProps } from '../field';
 export interface IBasicTextFieldAction extends IClassNameWrapper,
                                                IStringTitleWrapper,
                                                IDisabledWrapper,
-                                               IStringTypeWrapper {
+                                               ITypeWrapper {
   actionHandler?(event: BasicEventT): void;
 }
 

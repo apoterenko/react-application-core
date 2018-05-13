@@ -1,5 +1,5 @@
 import {
-  IStringEmailWrapper,
+  IEmailWrapper,
   INameWrapper,
   IStringPathWrapper,
   IPayloadOnClickWrapper,
@@ -9,7 +9,7 @@ import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
 import { IComponentEntity } from '../../entities-definitions.interface';
 
 export interface IProfileInternalProps extends IComponentEntity,
-                                               IStringEmailWrapper,
+                                               IEmailWrapper,
                                                INameWrapper,
                                                IStringPathWrapper,
                                                IPayloadOnClickWrapper<IAnyMenuActionEntity>,
