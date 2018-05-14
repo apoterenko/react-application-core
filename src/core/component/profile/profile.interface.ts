@@ -3,15 +3,13 @@ import {
   INameWrapper,
   IStringPathWrapper,
   IPayloadOnClickWrapper,
-  IAnyMenuActionEntity,
 } from '../../definitions.interface';
-import { IMenuActionsWrapper, MenuActionsWrapperT } from '../menu';
-import { IComponentEntity } from '../../entities-definitions.interface';
+import { IComponentEntity, IMenuItemEntity } from '../../entities-definitions.interface';
 
 export interface IProfileInternalProps extends IComponentEntity,
                                                IEmailWrapper,
                                                INameWrapper,
                                                IStringPathWrapper,
-                                               IPayloadOnClickWrapper<IAnyMenuActionEntity>,
-                                               MenuActionsWrapperT {
+                                               IPayloadOnClickWrapper<IMenuItemEntity> {
+  menuItems?: any; // TODO
 }

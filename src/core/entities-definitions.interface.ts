@@ -30,7 +30,7 @@ import {
   IOriginalEntityWrapper,
   IActiveWrapper,
   IEntityOnClickWrapper,
-  IEntityRawDataWrapper,
+  IRawDataWrapper,
   ISelectedEntityWrapper,
   IListWrapper,
   IDefaultOperationWrapper,
@@ -75,7 +75,7 @@ import {
   ILockWrapper,
   INeedToDestroySectionsWrapper,
   IStackWrapper,
-  IStringTitleWrapper,
+  ITitleWrapper,
   IClassNameWrapper,
   ILayoutWrapper,
   IModeWrapper,
@@ -102,6 +102,8 @@ import {
   IBasicEvent,
   IUrlWrapper,
   ILockPageWrapper,
+  IIconWrapper,
+  ILabelWrapper,
 } from './definitions.interface';
 import {
   IComponentConfiguration,
@@ -255,7 +257,7 @@ export interface IUniversalListEntity extends IUniversalComponentEntity,
 
 /* @stable [24.04.2018] */
 export interface IUniversalListItemEntity extends IUniversalComponentEntity,
-                                                  IEntityRawDataWrapper,
+                                                  IRawDataWrapper,
                                                   IEntityOnClickWrapper,
                                                   IActiveWrapper {
 }
@@ -417,10 +419,10 @@ export interface IContainerEntity extends IUniversalContainerEntity,
 export interface IContainerClassEntity extends ComponentClass<IContainerEntity> {
 }
 
-/* @stable [23.04.2018] */
+/* @stable - 23.04.2018 */
 export interface IComponentEntity extends IUniversalComponentEntity,
                                           IClassNameWrapper,  // TODO remove
-                                          IStringTitleWrapper {
+                                          ITitleWrapper {
 }
 
 /* @stable - 15.04.2018 */
@@ -574,4 +576,20 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
 /* @stable [23.04.2018] */
 export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
   extends IUniversalContainer<TProps, TState> {
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface IMenuItemEntity<TRawData = IEntity, TValue = EntityIdT> extends ILabelWrapper,
+                                                                                 IIconWrapper,
+                                                                                 IValueWrapper<TValue>,
+                                                                                 IDisabledWrapper,
+                                                                                 IRawDataWrapper<TRawData> {
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface IStringMenuActionEntity extends IMenuItemEntity<IEntity, string> {
 }

@@ -1,35 +1,17 @@
 import { INativeMaterialComponent } from '../material';
 import {
-  EntityIdT,
-  IUseFilterWrapper,
-  IRawDataWrapper,
-  AnyT,
-  IRenderToBodyEntity,
-  IFilterPlaceholderWrapper,
-  IFilterFnWrapper,
   IBooleanOpenWrapper,
-  IMenuActionEntity,
-  IRendererWrapper,
-  IItemTplWrapper,
 } from '../../definitions.interface';
-import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
+import { IComponent, IMenuItemEntity } from '../../entities-definitions.interface';
+import { IMenuConfiguration } from '../../configurations-definitions.interface';
 
 export interface IMenuInternalState {
   filter?: string;
 }
 
-export interface IMenuOptions extends IComponentEntity,
-                                      IUseFilterWrapper,
-                                      IFilterFnWrapper<MenuOptionT>,
-                                      IFilterPlaceholderWrapper,
-                                      IRendererWrapper<MenuOptionT>,
-                                      IItemTplWrapper<MenuOptionT>,
-                                      IRenderToBodyEntity {
-  options?: MenuOptionT[];
-}
-
-export interface IMenuInternalProps extends IMenuOptions {
-  onSelect?(option: MenuOptionT): void;
+export interface IMenuProps extends IMenuConfiguration {
+  options?: IMenuItemEntity[];
+  onSelect?(option: IMenuItemEntity): void;
   getAnchor?(): HTMLElement;
 }
 
@@ -38,7 +20,7 @@ export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
   show(): void;
 }
 
-export interface IMenu extends IComponent<IMenuInternalProps, IMenuInternalState> {
+export interface IMenu extends IComponent<IMenuProps, IMenuInternalState> {
   show(): void;
   hide(): void;
   isOpen(): boolean;
@@ -46,15 +28,3 @@ export interface IMenu extends IComponent<IMenuInternalProps, IMenuInternalState
   onInputFocus(): void;
   onInputBlur(): void;
 }
-
-export interface IMenuActionsWrapper<TValue> {
-  menuActions?: Array<IMenuActionEntity<TValue>>;
-}
-
-export type MenuActionsWrapperT = IMenuActionsWrapper<AnyT>;
-
-export interface IMenuOption<TRawData> extends IMenuActionEntity<EntityIdT>,
-                                               IRawDataWrapper<TRawData> {
-}
-
-export type MenuOptionT = IMenuOption<AnyT>;

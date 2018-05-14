@@ -1,15 +1,14 @@
 import * as React from 'react';
 
 import {
-  IEntitySorterWrapper,
+  ISorterFnWrapper,
   INonInteractiveWrapper,
   ISimpleWrapper,
   IUseAvatarWrapper,
   IUseTwoLineWrapper,
   IUseAddActionWrapper,
-  IEntityRendererWrapper,
+  IRendererWrapper,
   IEntityToClassNameWrapper,
-  IEntityTplWrapper,
   IIconWrapper,
   IActionIconWrapper,
   IActionTextWrapper,
@@ -24,7 +23,7 @@ import {
   ISubmittableWrapper,
   IRippableWrapper,
   IWidthWrapper,
-  IStringTitleWrapper,
+  ITitleWrapper,
   IUseGroupingWrapper,
   IUseSortingWrapper,
   IAlignWrapper,
@@ -138,26 +137,47 @@ import {
   ISelectedWrapper,
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
+  IFilterFnWrapper,
+  IUseFilterWrapper,
+  IFilterPlaceholderWrapper,
+  IRenderToBodyWrapper,
+  IRenderToCenterOfBodyWrapper,
+  ITplFnWrapper,
+  IFilterWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
   IUniversalComponentPluginClassEntity,
   IUniversalApplicationStoreEntity,
   IUniversalComponentClassEntity,
+  IMenuItemEntity,
 } from './entities-definitions.interface';
 import { IFieldProps } from './props-definitions.interface';
 
-/* @stable - 05.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IItemConfigurationWrapper<TItemConfiguration> {
   itemConfiguration?: TItemConfiguration;
 }
 
-/* @stable - 05.04.2018 */
-export interface IColumnsConfigurationWrapper<TColumns> {
-  columnsConfiguration?: TColumns;
+/**
+ * @stable [14.05.2018]
+ */
+export interface IMenuConfigurationWrapper<TMenuConfiguration = IMenuConfiguration> {
+  menuConfiguration?: TMenuConfiguration;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [14.05.2018]
+ */
+export interface IColumnsConfigurationWrapper<TColumnsConfiguration> {
+  columnsConfiguration?: TColumnsConfiguration;
+}
+
+/**
+ * @stable [14.05.2018]
+ */
 export interface IListConfigurationWrapper<TListConfiguration = IListConfiguration> {
   listConfiguration?: TListConfiguration;
 }
@@ -213,7 +233,7 @@ export interface IWebContainerConfiguration extends IWebComponentConfiguration {
 /**
  * @stable [27.04.2018]
  */
-export interface IUniversalContainerConfiguration extends IStringTitleWrapper,
+export interface IUniversalContainerConfiguration extends ITitleWrapper,
                                                           ISectionNameWrapper {
 }
 
@@ -228,8 +248,8 @@ export interface IContainerConfiguration extends IUniversalContainerConfiguratio
  * @stable [24.04.2018]
  */
 export interface IUniversalListItemConfiguration extends IUniversalComponentConfiguration,
-                                                         IEntityRendererWrapper,
-                                                         IEntityTplWrapper {
+                                                         IRendererWrapper,
+                                                         ITplFnWrapper {
 }
 
 /* @stable [24.04.2018] */
@@ -258,7 +278,8 @@ export interface IUniversalListConfiguration
     <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
   extends IUniversalComponentConfiguration,
           IUseAddActionWrapper,
-          IEntitySorterWrapper,
+          ISorterFnWrapper,
+          IFilterFnWrapper,
           IOnCreateWrapper,
           IEntityOnSelectWrapper,
           IItemConfigurationWrapper<TItemConfiguration> {
@@ -296,13 +317,13 @@ export interface IFormConfiguration extends INotUseActionsWrapper,
 }
 
 /* @stable - 04.04.2018 */
-export interface IGridColumnConfiguration extends IStringTitleWrapper,
+export interface IGridColumnConfiguration extends ITitleWrapper,
                                                   IUseGroupingWrapper,
                                                   IUseLocalFilteringWrapper,
                                                   IUseSortingWrapper,
                                                   IAlignWrapper,
-                                                  IEntityTplWrapper,
-                                                  IEntityRendererWrapper,
+                                                  ITplFnWrapper,
+                                                  IRendererWrapper,
                                                   IWidthWrapper {
 }
 
@@ -430,7 +451,7 @@ export enum ContainerVisibilityTypeEnum {
 /* @stable - 14.04.2018 */
 export interface IRouteConfiguration extends IStringPathWrapper,
                                              IBooleanModalWrapper,
-                                             IStringTitleWrapper,
+                                             ITitleWrapper,
                                              IInitialWrapper<boolean | ((store: IUniversalApplicationStoreEntity) => boolean)>,
                                              IExactWrapper,
                                              IStringKeyWrapper,
@@ -518,7 +539,7 @@ export interface IGridRowConfiguration extends IComponentConfiguration,
 
 /* @stable [24.04.2018] */
 export interface IUniversalComponentConfiguration
-  extends IStringTitleWrapper,
+  extends ITitleWrapper,
           IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
 }
 
@@ -625,4 +646,17 @@ export interface IAutoFocusedConfiguration extends IUniversalComponentConfigurat
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
                                                       IOnEmptyDictionaryWrapper,
                                                       IOnLoadDictionaryWrapper {
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface IMenuConfiguration extends IComponentConfiguration,
+                                            IFilterPlaceholderWrapper,
+                                            IUseFilterWrapper,
+                                            IRenderToBodyWrapper,
+                                            IRenderToCenterOfBodyWrapper,
+                                            IRendererWrapper<IMenuItemEntity>,
+                                            IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
+                                            ITplFnWrapper<IMenuItemEntity> {
 }

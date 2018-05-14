@@ -4,7 +4,7 @@ import { orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { Link } from '../link';
 import { IProfileInternalProps } from './profile.interface';
-import { BasicEventT, IAnyMenuActionEntity } from '../../definitions.interface';
+import { BasicEventT } from '../../definitions.interface';
 import { Menu, IMenu } from '../menu';
 
 export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
@@ -30,7 +30,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
           <Menu ref='menu'
                 className='rac-profile-actions-menu'
                 renderToBody={true}
-                options={props.menuActions}
+                options={props.menuItems}
                 getAnchor={() => this.refs.menuAnchor as HTMLElement}
                 onSelect={this.onMenuActionClick}/>
         </div>
@@ -59,7 +59,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     );
   }
 
-  private onMenuActionClick(option: IAnyMenuActionEntity): void {
+  private onMenuActionClick(option: any): void {  // TODO
     const props = this.props;
     if (props.onClick) {
       props.onClick(option);

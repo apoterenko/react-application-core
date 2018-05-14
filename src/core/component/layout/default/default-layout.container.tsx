@@ -15,7 +15,6 @@ import { Header } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
-import { IAnyMenuActionEntity } from '../../../definitions.interface';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
@@ -88,7 +87,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <Profile path={this.routes.profile}
                  name={user && user.name}
                  email={user && user.email}
-                 menuActions={[{ label: 'Exit', icon: 'exit_to_app', value: DefaultLayoutContainer.PROFILE_EXIT_ACTION }]}
+                 menuItems={[{ label: 'Exit', icon: 'exit_to_app', value: DefaultLayoutContainer.PROFILE_EXIT_ACTION }]}
                  onClick={this.onProfileMenuActionClick}/>
       )
     );
@@ -109,11 +108,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     }
   }
 
-  protected onHeaderMenuActionClick(option: IAnyMenuActionEntity): void {
+  protected onHeaderMenuActionClick(option: any): void {  // TODO
     this.dispatch(option.value);
   }
 
-  protected onProfileMenuActionClick(option: IAnyMenuActionEntity): void {
+  protected onProfileMenuActionClick(option: any): void {// TODO
     switch (option.value) {
       case DefaultLayoutContainer.PROFILE_EXIT_ACTION:
         this.navigate(this.routes.logout);

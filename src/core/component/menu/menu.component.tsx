@@ -17,23 +17,21 @@ import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
 import {
   IMenuInternalState,
-  IMenuInternalProps,
+  IMenuProps,
   IMenu,
 } from './menu.interface';
 import { BaseComponent } from '../base';
 
-export class Menu extends BaseComponent<Menu,
-                                        IMenuInternalProps,
-                                        IMenuInternalState>
+export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
     implements IMenu {
 
-  public static defaultProps: IMenuInternalProps = {
-    filterFn: (valueToFilter, option) => String(option.label || option.value).toUpperCase().includes(valueToFilter),
+  public static defaultProps: IMenuProps = {
+    filter: (valueToFilter, option) => String(option.label || option.value).toUpperCase().includes(valueToFilter),
   };
 
   private menuParent: HTMLElement;
 
-  constructor(props: IMenuInternalProps) {
+  constructor(props: IMenuProps) {
     super(props);
 
     this.onSelect = this.onSelect.bind(this);
@@ -84,7 +82,7 @@ export class Menu extends BaseComponent<Menu,
     const optionValueFn = (option) => (option.label ? this.t(option.label) : option.value);
 
     const menuItemsTpl = props.options
-      .filter((option) => !valueToFilter || props.filterFn(valueToFilter, option))
+      .filter((option) => !valueToFilter || props.filter(valueToFilter, option))
       .map((option): JSX.Element => {
         const props0 = {
           role: 'option',

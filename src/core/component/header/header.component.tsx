@@ -6,7 +6,6 @@ import { BaseComponent } from '../base';
 import { ToolbarSection } from '../toolbar';
 import { Menu } from '../menu';
 import { IMenu } from '../menu';
-import { IAnyMenuActionEntity } from '../../definitions.interface';
 
 export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
 
@@ -47,7 +46,7 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
             </ToolbarSection>
             {
               orNull(
-                  props.children || props.menuActions,
+                  props.children || props.menuItems,
                   () => (
                       <ToolbarSection className={
                         toClassName(this.uiFactory.toolbarSectionAlignEnd, 'rac-toolbar-section-wrapper')
@@ -55,7 +54,7 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
                         {props.children}
                         {
                           orNull(
-                              props.menuActions,
+                              props.menuItems,
                               () => (
                                   this.uiFactory.makeIcon({
                                     simple: true,
@@ -68,10 +67,10 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
                         }
                         {
                           orNull(
-                              props.menuActions,
+                              props.menuItems,
                               () => (
                                   <Menu ref='menu'
-                                        options={props.menuActions}
+                                        options={props.menuItems}
                                         onSelect={this.onMenuActionClick}/>
                               )
                           )
@@ -85,7 +84,7 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
     );
   }
 
-  private onMenuActionClick(option: IAnyMenuActionEntity): void {
+  private onMenuActionClick(option: any): void {  // TODO
     if (this.props.menuActionHandler) {
       this.props.menuActionHandler(option);
     }

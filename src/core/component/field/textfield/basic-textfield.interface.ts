@@ -2,7 +2,7 @@ import {
   ITypeWrapper,
   IDisabledWrapper,
   BasicEventT,
-  IStringTitleWrapper,
+  ITitleWrapper,
   IClassNameWrapper,
 } from '../../../definitions.interface';
 
@@ -10,7 +10,7 @@ import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginProps } from '../field';
 
 export interface IBasicTextFieldAction extends IClassNameWrapper,
-                                               IStringTitleWrapper,
+                                               ITitleWrapper,
                                                IDisabledWrapper,
                                                ITypeWrapper {
   actionHandler?(event: BasicEventT): void;
