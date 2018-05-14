@@ -1,6 +1,5 @@
-import { IComponentEntity } from '../../../entities-definitions.interface';
+import { IContainerProps } from '../../../props-definitions.interface';
 
-export interface IFormLayoutInternalProps extends IComponentEntity {
+export interface IFormLayoutProps extends IContainerProps {
   footer?: JSX.Element;
-  sectionName?: string;
 }

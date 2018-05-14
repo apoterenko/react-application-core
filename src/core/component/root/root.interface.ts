@@ -7,21 +7,21 @@ import {
 } from '../../definitions.interface';
 import {
   IContainerClassEntity,
-  IContainerEntity,
   IRootEntity,
   IApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 import { IRouteConfiguration, IAccessConfiguration } from '../../configurations-definitions.interface';
+import { IContainerProps } from '../../props-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 IStringSectionWrapper,
                                                 IStringPathWrapper {
 }
 
-export interface IRootContainerInternalProps extends IContainerEntity,
-                                                     IRouteConfiguration,
-                                                     IStringSectionWrapper,
-                                                     IStateInitialChangesWrapper<IApplicationStoreEntity> {
+export interface IRootContainerProps extends IContainerProps,
+                                             IRouteConfiguration,
+                                             IStringSectionWrapper,
+                                             IStateInitialChangesWrapper<IApplicationStoreEntity> {
   container?: IContainerClassEntity;
   accessConfig?: IAccessConfiguration;
 }

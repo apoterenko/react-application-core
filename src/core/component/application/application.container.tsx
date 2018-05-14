@@ -7,7 +7,7 @@ import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
-import { IRootContainerInternalProps, PrivateRootContainer, PublicRootContainer } from '../root';
+import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
@@ -123,7 +123,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
         Component = PublicRootContainer;
         break;
     }
-    const props: IRootContainerInternalProps = {
+    const props: IRootContainerProps = {
       exact: true,
       accessConfig: connectorConfiguration.accessConfiguration,
       initialChanges: connectorConfiguration.initialChanges,

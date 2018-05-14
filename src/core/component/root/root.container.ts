@@ -5,15 +5,15 @@ import { IKeyValue } from '../../definitions.interface';
 import { BaseContainer } from '../../component/base';
 
 import {
-  IRootContainerInternalProps,
+  IRootContainerProps,
   ROOT_PATH_UPDATE_ACTION_TYPE,
   ROOT_SECTION,
   IRootUpdatePathPayload,
 } from './root.interface';
 
-export class RootContainer extends BaseContainer<IRootContainerInternalProps, {}> {
+export class RootContainer extends BaseContainer<IRootContainerProps> {
 
-  public static defaultProps: IRootContainerInternalProps = {
+  public static defaultProps: IRootContainerProps = {
     sectionName: ROOT_SECTION,
   };
 

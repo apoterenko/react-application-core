@@ -108,7 +108,11 @@ import {
 import {
   IComponentConfiguration,
 } from './configurations-definitions.interface';
-import { IContainerProps, IUniversalComponentProps } from './props-definitions.interface';
+import {
+  IContainerProps,
+  IUniversalComponentProps,
+  IUniversalContainerProps,
+} from './props-definitions.interface';
 
 /**
  * @stable [13.05.2018]
@@ -132,7 +136,14 @@ export interface IUniversalComponentPlugin<TProps = {}, TState = {}> extends Com
 /**
  * @stable [23.04.2018]
  */
-export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentEntity = TProps, TState = {}>
+export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+  extends ComponentClass<TProps> {
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface IUniversalContainerClassEntity<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends ComponentClass<TProps> {
 }
 
@@ -400,7 +411,6 @@ export interface IUniversalContainerEntity extends IChannelWrapperEntity,
                                                    IUserWrapperEntity,
                                                    INotificationWrapperEntity,
                                                    ITransportWrapperEntity {
-  sectionName?: string; // TODO
 }
 
 /* @stable - 25.04.2018 */

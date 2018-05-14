@@ -113,7 +113,6 @@ import {
   IHeaderTitleStyleWrapper,
   IHeaderContentWrapper,
   IContentWrapper,
-  ISectionNameWrapper,
   IActionIconsWrapper,
   IActionButtonsWrapper,
   IOnClickWrapper,
@@ -144,6 +143,7 @@ import {
   IRenderToCenterOfBodyWrapper,
   ITplFnWrapper,
   IFilterWrapper,
+  ISectionNameWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,

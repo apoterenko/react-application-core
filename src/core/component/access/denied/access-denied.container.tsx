@@ -6,7 +6,8 @@ import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
-import { IContainerEntity, IApplicationStoreEntity } from '../../../entities-definitions.interface';
+import { IApplicationStoreEntity } from '../../../entities-definitions.interface';
+import { IContainerProps } from '../../../props-definitions.interface';
 
 @basicConnector<IApplicationStoreEntity>({
   routeConfiguration: (routes) => ({
@@ -17,9 +18,9 @@ import { IContainerEntity, IApplicationStoreEntity } from '../../../entities-def
     ...defaultMappers
   ],
 })
-export class AccessDeniedContainer extends BaseContainer<{}, {}> {
+export class AccessDeniedContainer extends BaseContainer {
 
-  public static defaultProps: IContainerEntity = {
+  public static defaultProps: IContainerProps = {
     sectionName: ACCESS_DENIED_SECTION,
   };
 

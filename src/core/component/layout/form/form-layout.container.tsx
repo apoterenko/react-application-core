@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { toClassName } from '../../../util';
 import { LayoutContainer } from '../layout.container';
-import { IFormLayoutInternalProps } from './form-layout.interface';
+import { IFormLayoutProps } from './form-layout.interface';
 
-export class FormLayoutContainer extends LayoutContainer<IFormLayoutInternalProps> {
+export class FormLayoutContainer extends LayoutContainer<IFormLayoutProps> {
 
   public render(): JSX.Element {
     const props = this.props;
