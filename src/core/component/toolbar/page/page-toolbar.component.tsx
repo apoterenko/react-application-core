@@ -3,11 +3,11 @@ import * as React from 'react';
 import { orNull, toClassName, pageFromNumber, pageToNumber } from '../../../util';
 import { FIRST_PAGE } from '../../../definitions.interface';
 import { BaseComponent } from '../../../component/base';
-import { IPageToolbarInternalProps } from './page-toolbar.interface';
+import { IPageToolbarProps } from './page-toolbar.interface';
 
-export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarInternalProps, {}> {
+export class PageToolbar extends BaseComponent<PageToolbar, IPageToolbarProps> {
 
-  constructor(props: IPageToolbarInternalProps) {
+  constructor(props: IPageToolbarProps) {
     super(props);
     this.onPrevious = this.onPrevious.bind(this);
     this.onNext = this.onNext.bind(this);

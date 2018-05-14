@@ -1,4 +1,4 @@
-import { IComponentEntity } from '../../entities-definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 import { IMenuItemsWrapper } from '../../definitions.interface';
 
 export interface IHeaderProps extends IMenuItemsWrapper<any> {  // TODO
@@ -6,7 +6,7 @@ export interface IHeaderProps extends IMenuItemsWrapper<any> {  // TODO
   navigationActionHandler?(): void;
 }
 
-export interface IHeaderInternalProps extends IComponentEntity,
+export interface IHeaderInternalProps extends IComponentProps,
                                               IHeaderProps {
   menuActionHandler?(option: any): void;  // TODO
 }

@@ -11,6 +11,7 @@ import {
   ILayoutWrapper,
   IModeWrapper,
 } from '../../definitions.interface';
+import { IComponentConfiguration } from '../../configurations-definitions.interface';
 
 /**
  * @stable [08.05.2018]
@@ -79,7 +80,8 @@ export type KeyboardLayoutT = KeyboardKeyT[][];
 /**
  * @stable [08.05.2018]
  */
-export interface IKeyboardConfiguration extends IFieldWrapper<HTMLInputElement | HTMLTextAreaElement>,
+export interface IKeyboardConfiguration extends IComponentConfiguration,
+                                                IFieldWrapper<HTMLInputElement | HTMLTextAreaElement>,
                                                 ILayoutWrapper<KeyboardLayoutT[]>,
                                                 IOnCloseWrapper {
 }

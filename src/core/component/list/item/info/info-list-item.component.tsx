@@ -6,9 +6,9 @@ import { SimpleListItem } from '../simple';
 import { ListItemGraphic } from '../graphic';
 import { ListItemText } from '../text';
 import { ListItemSecondaryText } from '../secondary-text';
-import { IInfoListItemInternalProps } from './info-list-item.interface';
+import { IInfoListItemProps } from './info-list-item.interface';
 
-export class InfoListItem extends BaseComponent<InfoListItem, IInfoListItemInternalProps, {}> {
+export class InfoListItem extends BaseComponent<InfoListItem, IInfoListItemProps, {}> {
 
   public render(): JSX.Element {
     const props = this.props;

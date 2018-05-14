@@ -10,13 +10,11 @@ import {
 } from '../../field';
 import { FilterActionEnum, IFilterActionEntity } from '../../filter';
 import { ToolbarSection } from '../../toolbar';
-import { ISearchToolbarInternalProps } from './search-toolbar.interface';
+import { ISearchToolbarProps } from './search-toolbar.interface';
 
-export class SearchToolbar extends BaseComponent<SearchToolbar,
-                                                 ISearchToolbarInternalProps,
-                                                 {}> {
+export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarProps> {
 
-  public static defaultProps: ISearchToolbarInternalProps = {
+  public static defaultProps: ISearchToolbarProps = {
     fieldActions: [],
     searchIcon: 'search',
     searchFieldOptions: {
@@ -35,14 +33,14 @@ export class SearchToolbar extends BaseComponent<SearchToolbar,
     },
   };
 
-  constructor(props: ISearchToolbarInternalProps) {
+  constructor(props: ISearchToolbarProps) {
     super(props);
 
     this.onActivate = this.onActivate.bind(this);
     this.onApply = this.onApply.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    this.state = {} as ISearchToolbarInternalProps;
+    this.state = {} as ISearchToolbarProps;
   }
 
   public render(): JSX.Element {

@@ -260,6 +260,7 @@ export interface IRnListItemConfiguration extends IUniversalListItemConfiguratio
 
 /* @stable - 31.03.2018 */
 export interface IListItemConfiguration extends IUniversalListItemConfiguration,
+                                                IWebComponentConfiguration,
                                                 IEntityToClassNameWrapper,
                                                 IRippableWrapper,
                                                 IIconWrapper {
@@ -317,7 +318,8 @@ export interface IFormConfiguration extends INotUseActionsWrapper,
 }
 
 /* @stable - 04.04.2018 */
-export interface IGridColumnConfiguration extends ITitleWrapper,
+export interface IGridColumnConfiguration extends IComponentConfiguration,
+                                                  ITitleWrapper,
                                                   IUseGroupingWrapper,
                                                   IUseLocalFilteringWrapper,
                                                   IUseSortingWrapper,

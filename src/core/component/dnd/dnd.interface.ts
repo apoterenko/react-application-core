@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
-import { IComponent, IComponentProps } from '../../entities-definitions.interface';
+import { IComponent } from '../../entities-definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 
 export interface IDndInternalProps extends IComponentProps {
   onSelect?(files: File[]): void;

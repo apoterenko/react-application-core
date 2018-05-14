@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base';
 import { toClassName, isNumber, defValuesFilter, orUndef } from '../../../util';
-import { IGridColumnInternalProps } from './grid-column.interface';
+import { IGridColumnProps } from './grid-column.interface';
 
-export class GridColumn extends BaseComponent<GridColumn, IGridColumnInternalProps, {}> {
+export class GridColumn extends BaseComponent<GridColumn, IGridColumnProps> {
 
   /**
    * @stable - 05.04.2018

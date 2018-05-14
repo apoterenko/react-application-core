@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../../base';
-import { IProgressLabelInternalProps } from './progress-label.interface';
+import { IProgressLabelProps } from './progress-label.interface';
 
-export class ProgressLabel extends BaseComponent<ProgressLabel, IProgressLabelInternalProps, {}> {
+export class ProgressLabel extends BaseComponent<ProgressLabel, IProgressLabelProps> {
 
   /**
    * @stable - 08.04.2018

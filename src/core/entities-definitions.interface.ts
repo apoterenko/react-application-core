@@ -76,7 +76,6 @@ import {
   INeedToDestroySectionsWrapper,
   IStackWrapper,
   ITitleWrapper,
-  IClassNameWrapper,
   ILayoutWrapper,
   IModeWrapper,
   IUserWrapper,
@@ -106,9 +105,7 @@ import {
   ILabelWrapper,
 } from './definitions.interface';
 import {
-  IComponentConfiguration,
-} from './configurations-definitions.interface';
-import {
+  IComponentProps,
   IContainerProps,
   IUniversalComponentProps,
   IUniversalContainerProps,
@@ -431,7 +428,6 @@ export interface IContainerClassEntity extends ComponentClass<IContainerEntity> 
 
 /* @stable - 23.04.2018 */
 export interface IComponentEntity extends IUniversalComponentEntity,
-                                          IClassNameWrapper,  // TODO remove
                                           ITitleWrapper {
 }
 
@@ -570,11 +566,6 @@ export interface IUniversalComponentPluginClassEntity<
 
 /* @stable - 23.04.2018 */
 export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;
-
-/* @stable [23.04.2018] */
-export interface IComponentProps extends IComponentEntity,
-                                         IComponentConfiguration {
-}
 
 /* @stable [23.04.2018] */
 export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>

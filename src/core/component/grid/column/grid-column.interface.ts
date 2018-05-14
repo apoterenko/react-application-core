@@ -2,6 +2,6 @@ import { IGridColumnConfiguration } from '../../../configurations-definitions.in
 import { IComponentEntity } from '../../../entities-definitions.interface';
 
 /* @stable - 05.04.2018 */
-export interface IGridColumnInternalProps extends IComponentEntity,
-                                                  IGridColumnConfiguration {
+export interface IGridColumnProps extends IComponentEntity,
+                                          IGridColumnConfiguration {
 }

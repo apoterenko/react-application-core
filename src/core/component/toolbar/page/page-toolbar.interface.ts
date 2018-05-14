@@ -2,11 +2,11 @@ import {
   IPaginatedEntity,
   IListWrapperEntity,
   IContainerEntity,
-  IComponentEntity,
 } from '../../../entities-definitions.interface';
+import { IComponentProps } from '../../../props-definitions.interface';
 
-export interface IPageToolbarInternalProps extends IComponentEntity,
-                                                   IPaginatedEntity {
+export interface IPageToolbarProps extends IComponentProps,
+                                           IPaginatedEntity {
   contentDisplay?: boolean;
   onPrevious?(): void;
   onNext?(): void;

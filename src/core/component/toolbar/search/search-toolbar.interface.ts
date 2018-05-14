@@ -1,21 +1,18 @@
 import { IApplicationFilterOptions } from '../../filter';
-import { IQueryFilterEntity, IContainerEntity, IComponentEntity } from '../../../entities-definitions.interface';
+import { IQueryFilterEntity, IContainerEntity } from '../../../entities-definitions.interface';
+import { IComponentProps } from '../../../props-definitions.interface';
 
-export interface ISearchToolbarProps {
-  onApply?(value?: string): void;
-}
-
-export interface ISearchToolbarInternalProps extends IComponentEntity,
-                                                     IQueryFilterEntity,
-                                                     IApplicationFilterOptions,
-                                                     ISearchToolbarProps {
+export interface ISearchToolbarProps extends IComponentProps,
+                                             IQueryFilterEntity,
+                                             IApplicationFilterOptions {
   onActivate?(): void;
   onChange?(value: string): void;
   onOpen?(): void;
+  onApply?(value?: string): void;
 }
 
-export interface ISearchToolbarContainerInternalProps extends IContainerEntity,
-                                                              ISearchToolbarProps {
+export interface ISearchToolbarContainerInternalProps extends IContainerEntity {
   filter?: IQueryFilterEntity;
   filterOptions?: IApplicationFilterOptions;
+  onApply?(value?: string): void;
 }
