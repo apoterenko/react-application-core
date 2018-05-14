@@ -79,11 +79,6 @@ export interface IUserWrapper<TUser> {
 export interface INumberUserWrapper extends IUserWrapper<number> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IFilterWrapper<TFilter> {
-  filter?: TFilter;
-}
-
 /* @stable - 10.04.2018 */
 export interface ITransportWrapper<TTransport> {
   transport?: TTransport;
@@ -247,7 +242,7 @@ export interface IReaderWrapper<TReader> {
   reader?: TReader;
 }
 
-export interface IFnReaderWrapper<TRequest, TResult> extends IReaderWrapper<(request: TRequest) => TResult> {
+export interface IReaderFnWrapper<TRequest, TResult> extends IReaderWrapper<(request: TRequest) => TResult> {
 }
 
 /**********************
@@ -449,7 +444,9 @@ export interface IDictionariesWrapper<TDictionaries> {
   dictionaries?: TDictionaries;
 }
 
-/* @stable - 11.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface ILabelWrapper {
   label?: string;
 }
@@ -488,35 +485,32 @@ export interface IPlaceholderWrapper {
   placeholder?: string;
 }
 
+/**
+ * @stable [14.05.2018]
+ */
 export interface IFilterPlaceholderWrapper {
   filterPlaceholder?: string;
 }
 
-/**********************
- * RenderToBody's wrappers
- **********************/
+/**
+ * @stable [14.05.2018]
+ */
 export interface IRenderToBodyWrapper {
   renderToBody?: boolean;
 }
 
+/**
+ * @stable [14.05.2018]
+ */
 export interface IRenderToCenterOfBodyWrapper {
   renderToCenterOfBody?: boolean;
 }
 
-export interface IRenderToBodyEntity extends IRenderToBodyWrapper,
-                                             IRenderToCenterOfBodyWrapper {
-}
-
-/* @stable - 15.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IUseFilterWrapper {
   useFilter?: boolean;
-}
-
-/**********************
- * FilterFn's wrapper
- **********************/
-export interface IFilterFnWrapper<TFilteredItem> {
-  filterFn?: (valueToFilter: string, item: TFilteredItem) => boolean;
 }
 
 /* @stable - 15.04.2018 */
@@ -614,8 +608,10 @@ export interface IFormFilterSectionWrapper {
   formFilterSection?: string;
 }
 
-/* @stable - 31.03.2018 */
-export interface IRawDataWrapper<TRawData> {
+/**
+ * @stable [14.05.2018]
+ */
+export interface IRawDataWrapper<TRawData = IEntity> {
   rawData?: TRawData;
 }
 
@@ -624,11 +620,9 @@ export interface ISeparatorsWrapper<TSeparators> {
   separators?: TSeparators;
 }
 
-/* @stable - 31.03.2018 */
-export interface IEntityRawDataWrapper extends IRawDataWrapper<IEntity> {
-}
-
-/* @stable - 31.03.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IDisabledWrapper {
   disabled?: boolean;
 }
@@ -1060,7 +1054,9 @@ export interface IActionIconWrapper {
   actionIcon?: string;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IIconWrapper<TIcon = string> {
   icon?: TIcon;
 }
@@ -1141,25 +1137,17 @@ export interface ITplWrapper<TTpl> {
   tpl?: TTpl;
 }
 
-/* @stable - 31.03.2018 */
-export interface IItemTplWrapper<TItem> extends ITplWrapper<(item: TItem) => React.ReactNode> {
-}
-
-/* @stable - 31.03.2018 */
-export interface IEntityTplWrapper extends IItemTplWrapper<IEntity> {
+/**
+ * @stable [14.05.2018]
+ */
+export interface ITplFnWrapper<TItem = IEntity, TResult = React.ReactNode> extends ITplWrapper<(item: TItem) => TResult> {
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [14.05.2018]
  */
-export interface IRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.Element> {
+export interface IRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => JSX.Element> {
   renderer?: TRenderer;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IEntityRendererWrapper extends IRendererWrapper<IEntity> {
 }
 
 /* @stable - 31.03.2018 */
@@ -1171,37 +1159,60 @@ export interface IToClassNameWrapper<TItem> {
 export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> {
 }
 
-/* @stable - 04.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IUseGroupingWrapper {
   useGrouping?: boolean;
 }
 
-/* @stable - 04.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IUseLocalFilteringWrapper {
   useLocalFiltering?: boolean;
 }
 
-/* @stable - 04.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IUseSortingWrapper {
   useSorting?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface ISorterWrapper<TSorter> {
   sorter?: TSorter;
 }
 
-/* @stable - 31.03.2018 */
-export interface IEntitySorterWrapper extends ISorterWrapper<(item1: IEntity, item2: IEntity) => number> {
+/**
+ * @stable [14.05.2018]
+ */
+export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSortedItem, item2: TSortedItem) => number>
+  extends ISorterWrapper<TSorter> {
 }
 
-/* @stable - 31.03.2018 */
-export interface ITitleWrapper<TTitle> {
+/**
+ * @stable [14.05.2018]
+ */
+export interface IFilterWrapper<TFilter> {
+  filter?: TFilter;
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface IFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFilteredItem) => boolean>
+  extends IFilterWrapper<TFilter> {
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface ITitleWrapper<TTitle = string> {
   title?: TTitle;
-}
-
-/* @stable - 31.03.2018 */
-export interface IStringTitleWrapper extends ITitleWrapper<string> {
 }
 
 /* @stable - 31.03.2018 */
@@ -1214,6 +1225,13 @@ export interface IClassNameWrapper {
  */
 export interface IPositionWrapper<TPosition = number> {
   position?: TPosition;
+}
+
+/**
+ * @stable [14.05.2018]
+ */
+export interface IMenuItemsWrapper<TMenuItems> {
+  menuItems?: TMenuItems;
 }
 
 /**
@@ -1258,21 +1276,6 @@ export interface IErrorMessageWrapper<TErrorMessage> {
 
 /* @stable - 15.04.2018 */
 export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string> {
-}
-
-/**********************
- * Menu's wrappers
- **********************/
-export interface IMenuActionEntity<TValue> extends ILabelWrapper,
-                                                   IIconWrapper,
-                                                   IValueWrapper<TValue>,
-                                                   IDisabledWrapper {
-}
-
-export interface IStringMenuActionEntity extends IMenuActionEntity<string> {
-}
-
-export interface IAnyMenuActionEntity extends IMenuActionEntity<AnyT> {
 }
 
 /* @stable - 31.03.2018 */
