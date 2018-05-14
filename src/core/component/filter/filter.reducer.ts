@@ -8,6 +8,7 @@ import {
   FILTER_DESTROY_ACTION_TYPE,
 } from './filter.interface';
 import { IQueryFilterEntity } from '../../entities-definitions.interface';
+import { IQueryWrapper } from '../../definitions.interface';
 
 export function filterReducer(state: IQueryFilterEntity = INITIAL_APPLICATION_FILTER_STATE,
                               action: AnyAction): IQueryFilterEntity {
@@ -19,9 +20,10 @@ export function filterReducer(state: IQueryFilterEntity = INITIAL_APPLICATION_FI
         active: true,
       };
     case `${section}.${FILTER_CHANGE_ACTION_TYPE}`:
+      const data: IQueryWrapper = action.data;
       return {
         ...state,
-        query: action.data.query,
+        query: data.query,
       };
     case `${section}.${FILTER_DESTROY_ACTION_TYPE}`:
       return {

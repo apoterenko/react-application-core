@@ -38,7 +38,7 @@ import {
   IIsNewWrapper,
   IMergerWrapper,
   IOnBeforeSubmitWrapper,
-  IStringQueryWrapper,
+  IQueryWrapper,
   IFilterWrapper,
   IKeyValueChangesWrapper,
   IOnClickWrapper,
@@ -313,12 +313,16 @@ export interface IEditableApiEntity<TEntity extends IEntity> extends IApiEntityW
                                                                      IAddApiWrapper {
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IQueryFilterEntity extends IActiveWrapper,
-                                            IStringQueryWrapper {
+                                            IQueryWrapper {
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IQueryFilterWrapperEntity extends IFilterWrapper<IQueryFilterEntity> {
 }
 

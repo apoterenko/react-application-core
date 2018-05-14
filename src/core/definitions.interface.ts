@@ -588,13 +588,11 @@ export interface ILoginWrapper<TLogin = string> {
   login?: TLogin;
 }
 
-/* @stable - 01.04.2018 */
-export interface IQueryWrapper<TQuery> {
+/**
+ * @stable [14.05.2018]
+ */
+export interface IQueryWrapper<TQuery = string> {
   query?: TQuery;
-}
-
-/* @stable - 01.04.2018 */
-export interface IStringQueryWrapper extends IQueryWrapper<string> {
 }
 
 /* @stable - 01.04.2018 */
