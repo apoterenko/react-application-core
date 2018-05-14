@@ -1,13 +1,12 @@
-import { MenuActionsWrapperT, IMenuActionsWrapper } from '../menu';
-import { IAnyMenuActionEntity } from '../../definitions.interface';
 import { IComponentEntity } from '../../entities-definitions.interface';
+import { IMenuItemsWrapper } from '../../definitions.interface';
 
-export interface IHeaderProps extends MenuActionsWrapperT {
+export interface IHeaderProps extends IMenuItemsWrapper<any> {  // TODO
   navigationActionType?: string;
   navigationActionHandler?(): void;
 }
 
 export interface IHeaderInternalProps extends IComponentEntity,
                                               IHeaderProps {
-  menuActionHandler?(option: IAnyMenuActionEntity): void;
+  menuActionHandler?(option: any): void;  // TODO
 }
