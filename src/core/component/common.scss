@@ -33,15 +33,6 @@ html, body {
   padding-top: 0;
 }
 
-/* @stable - 04.04.2018 */
-.rac-overflow-ellipsis {
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-}
-
 // Core [FRAMEWORK-][RAC+]
 .rac {
 
@@ -58,6 +49,18 @@ html, body {
 
   a {
     text-decoration: none;  /* @stable - 08.04.2018 */
+  }
+
+  .rac-overflow-ellipsis {
+    display: inline-block;    /* @stable [14.05.2018] */
+    overflow: hidden;         /* @stable [14.05.2018] */
+    text-overflow: ellipsis;  /* @stable [14.05.2018] */
+    white-space: nowrap;      /* @stable [14.05.2018] */
+    max-width: 100%;          /* @stable [14.05.2018] */
+  }
+
+  .rac-width-full {
+    width: 100%;            /* @stable [14.05.2018] */
   }
 
   .rac-fixed-table {
