@@ -64,18 +64,22 @@
   }
 }
 
-// Profile actions menu [FRAMEWORK-][ROOT-]
-.rac-profile-actions-menu {
 
-  .rac-simple-list {
+// Profile menu [FRAMEWORK-][RAC+]
+.rac {
 
-    .rac-simple-list-item {
-      cursor: pointer;    // [RAC+]
-    }
+  .rac-profile-menu {
 
-    .rac-menu-item-icon {
-      padding-right: $rac-menu-icon-right-offset;   // [RAC+]
-      vertical-align: middle;                       // [RAC+]
+    .rac-simple-list {
+
+      .rac-simple-list-item {
+        cursor: pointer;        // @stable [14.05.2018]
+      }
+
+      .rac-menu-item-icon {
+        padding-right: $rac-menu-icon-right-offset;   // @stable [14.05.2018]
+        vertical-align: middle;                       // @stable [14.05.2018]
+      }
     }
   }
 }
