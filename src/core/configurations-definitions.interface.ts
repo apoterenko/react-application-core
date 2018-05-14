@@ -91,7 +91,7 @@ import {
   IStringArrayExcludeTargetsClassesWrapper,
   ICssStyleWrapper,
   IPluginsWrapper,
-  IEntityOnSelectWrapper,
+  IOnSelectWrapper,
   IOnCreateWrapper,
   IBooleanEmptyDataWrapper,
   IStringEmptyDataMessageWrapper,
@@ -281,7 +281,7 @@ export interface IUniversalListConfiguration
           ISorterFnWrapper,
           IFilterFnWrapper,
           IOnCreateWrapper,
-          IEntityOnSelectWrapper,
+          IOnSelectWrapper,
           IItemConfigurationWrapper<TItemConfiguration> {
 }
 

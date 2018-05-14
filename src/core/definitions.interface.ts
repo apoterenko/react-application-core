@@ -70,12 +70,16 @@ export interface IEntity extends IEntityIdTWrapper,
                                  IKeyValue {
 }
 
-/* @stable - 01.04.2018 */
-export interface IUserWrapper<TUser> {
+/**
+ * @stable [14.05.2018]
+ */
+export interface IUserWrapper<TUser = string> {
   user?: TUser;
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface INumberUserWrapper extends IUserWrapper<number> {
 }
 
@@ -1609,16 +1613,17 @@ export interface IOnCloseWrapper<TOnClose = () => void> {
 }
 
 /**
- * @stable [08.05.2018]
+ * @stable [14.05.2018]
  */
-export interface IOnSelectWrapper<TSelectedObject, TOnSelect = (object: TSelectedObject) => void> {
-  onSelect?: TOnSelect;
+export interface IOnSearchWrapper<TOnSearch = () => void> {
+  onSearch?: TOnSearch;
 }
 
 /**
  * @stable [08.05.2018]
  */
-export interface IEntityOnSelectWrapper extends IOnSelectWrapper<IEntity> {
+export interface IOnSelectWrapper<TSelectedObject = IEntity, TOnSelect = (object?: TSelectedObject) => void> {
+  onSelect?: TOnSelect;
 }
 
 /* @stable - 31.03.2018 */
