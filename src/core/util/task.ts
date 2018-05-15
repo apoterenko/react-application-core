@@ -4,7 +4,7 @@ export class DelayedTask {
 
   private taskId: number;
 
-  constructor(private task: () => {}, private period: number, private repeat = false) {
+  constructor(private task: () => void, private period: number, private repeat = false) {
   }
 
   public start(): void {

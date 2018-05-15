@@ -175,9 +175,18 @@ export interface IResponseWrapper<TResponse> {
 export interface IAnyResponseWrapper extends IResponseWrapper<AnyT> {
 }
 
-/* @stable - 31.03.2018 */
-export interface IListWrapper<TList> {
+/**
+ * @stable [15.05.2018]
+ */
+export interface IListWrapper<TList = JSX.Element> {
   list?: TList;
+}
+
+/**
+ * @stable [15.05.2018]
+ */
+export interface IToolbarWrapper<TToolbar = JSX.Element> {
+  toolbar?: TToolbar;
 }
 
 /* @stable - 11.04.2018 */
@@ -364,9 +373,18 @@ export interface IOnRemoveWrapper<TOnRemove> {
   onRemove?: TOnRemove;
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [15.05.2018]
+ */
 export interface IOnResetWrapper<TOnReset = () => void> {
   onReset?: TOnReset;
+}
+
+/**
+ * @stable [15.05.2018]
+ */
+export interface IOnInfoWrapper<TEntity = IEntity, TOnInfo = (entity?: TEntity) => void> {
+  onInfo?: TOnInfo;
 }
 
 /* @stable - 01.04.2018 */
