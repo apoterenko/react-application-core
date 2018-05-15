@@ -1,8 +1,8 @@
-import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
+import { IField, IFieldState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginProps } from '../field';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
-export interface IBasicTextFieldInternalState extends IFieldInternalState {
+export interface IBasicTextFieldInternalState extends IFieldState {
   keyboard?: boolean;
 }
 

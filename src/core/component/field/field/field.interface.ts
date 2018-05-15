@@ -5,9 +5,7 @@ import {
   BasicEventT,
   FocusEventT,
   IDisplayValueWrapper,
-  INameWrapper,
   IValueWrapper,
-  IOriginalValueWrapper,
   IStepable,
   ChangeEventT,
   IHTMLInputWrapper,
@@ -33,9 +31,7 @@ export interface IFieldsOptions { [index: string]: string|IFieldConfiguration; }
 
 export interface IFieldInternalProps extends IFieldConfiguration,
                                              IFieldEntity,
-                                             INameWrapper,
                                              IStepable,
-                                             IOriginalValueWrapper<AnyT>,
                                              IFieldDisplayValueWrapper<AnyT> {
   inputWrapperClassName?: string; // @stable
   noErrorMessage?: boolean;
@@ -49,10 +45,8 @@ export interface IFieldInternalProps extends IFieldConfiguration,
   validate?: (value: AnyT) => string;
   validationGroup?: string;
   changeForm?(name: string, value: AnyT, validationGroup?: string): void;
-  onChange?(value: AnyT): void;
   onFocus?(event: FocusEventT): void;
   onBlur?(event: FocusEventT): void;
-  onClick?(event: BasicEventT): void;
 }
 
 /* @stable - 13.04.2018 */
@@ -65,7 +59,7 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
                                              ClassAttributes<HTMLTextAreaElement> {
 }
 
-export interface IFieldInternalState extends IErrorEntity<string> {
+export interface IFieldState extends IErrorEntity<string> {
 }
 
 /**
@@ -75,18 +69,14 @@ export interface INativeMaskedInputComponent extends Component {
   inputElement: HTMLInputElement;
 }
 
-export interface IChangesObserver {
+export interface IBasicField<TValue> extends IValueWrapper<TValue> {
+  setFocus?(): void;
   onChange?(event: ChangeEventT): void;
   onChangeManually?(currentRawValue: AnyT, context?: AnyT): void;
 }
 
-export interface IBasicField<TValue> extends IValueWrapper<TValue>,
-                                             IChangesObserver {
-  setFocus?(): void;
-}
-
 export interface IField<TInternalProps extends IFieldInternalProps = IFieldInternalProps,
-                        TInternalState extends IFieldInternalState = IFieldInternalState>
+                        TInternalState extends IFieldState = IFieldState>
     extends IKeyboardHandlersConfiguration,
             IBasicField<AnyT>,
             IHTMLInputWrapper,

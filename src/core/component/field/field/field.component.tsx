@@ -17,7 +17,7 @@ import {
   IField,
   IFieldInputProps,
   IFieldInternalProps,
-  IFieldInternalState,
+  IFieldState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
   FieldDisplayValueConverterT,
@@ -26,7 +26,7 @@ import { toActualChangedValue } from './field.helper';
 
 export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                    TInternalProps extends IFieldInternalProps,
-                   TInternalState extends IFieldInternalState>
+                   TInternalState extends IFieldState>
     extends BaseComponent<TComponent, TInternalProps, TInternalState>
     implements IField<TInternalProps, TInternalState>, IProgressWrapper {
 

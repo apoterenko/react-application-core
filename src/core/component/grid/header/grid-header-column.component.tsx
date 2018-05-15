@@ -5,7 +5,7 @@ import { BaseComponent } from '../../base';
 import { toClassName, isNumber, defValuesFilter, orUndef, isUndef, orNull } from '../../../util';
 import { IGridHeaderColumnProps } from './grid-header-column.interface';
 
-export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeaderColumnProps, {}> {
+export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeaderColumnProps> {
 
   /**
    * @stable - 05.04.2018

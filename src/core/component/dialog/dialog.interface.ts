@@ -1,5 +1,5 @@
 import { INativeMaterialComponent } from '../../component/material';
-import { IStringMessageWrapper } from '../../definitions.interface';
+import { IMessageWrapper } from '../../definitions.interface';
 import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
 
 export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
@@ -13,7 +13,7 @@ export interface IDialog<TInternalProps extends IDialogInternalProps> extends IC
 export type DialogT = IDialog<IDialogInternalProps>;
 
 export interface IDialogInternalProps extends IComponentEntity,
-                                              IStringMessageWrapper {
+                                              IMessageWrapper {
   closeMessage?: string;
   acceptMessage?: string;
   acceptDisabled?: boolean;

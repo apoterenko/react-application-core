@@ -1254,13 +1254,11 @@ export interface IUseDigitalWrapper {
   useDigital?: boolean;
 }
 
-/* @stable - 15.04.2018 */
-export interface IMessageWrapper<TMessage> {
+/**
+ * @stable [15.05.2018]
+ */
+export interface IMessageWrapper<TMessage = string> {
   message?: TMessage;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringMessageWrapper extends IMessageWrapper<string> {
 }
 
 /**
@@ -1589,22 +1587,20 @@ export interface IDefaultOnPressWrapper extends IOnPressWrapper<() => void> {
 /**
  * @stable [15.05.2018]
  */
-export interface IOnClickWrapper<TOnClick = () => void> {
+export interface IOnClickWrapper<TClickPayload = IBasicEvent, TOnClick = (payload?: TClickPayload) => void> {
   onClick?: TOnClick;
 }
 
 /**
  * @stable [15.05.2018]
  */
-export interface IEventOnClickWrapper extends IOnClickWrapper<(event: IBasicEvent) => void> {
+export interface IEventOnClickWrapper extends IOnClickWrapper<IBasicEvent> {
 }
 
-/* @stable - 31.03.2018 */
-export interface IPayloadOnClickWrapper<TClickPayload> extends IOnClickWrapper<(payload: TClickPayload) => void> {
-}
-
-/* @stable - 31.03.2018 */
-export interface IEntityOnClickWrapper extends IPayloadOnClickWrapper<IEntity> {
+/**
+ * @stable [15.05.2018]
+ */
+export interface IEntityOnClickWrapper extends IOnClickWrapper<IEntity> {
 }
 
 /**
@@ -1683,8 +1679,10 @@ export interface IActiveWrapper<TActive = boolean> {
   active?: TActive;
 }
 
-/* @stable - 11.04.2018 */
-export interface IOriginalValueWrapper<TOriginalValue> {
+/**
+ * @stable [15.05.2018]
+ */
+export interface IOriginalValueWrapper<TOriginalValue = AnyT> {
   originalValue?: TOriginalValue;
 }
 
@@ -1829,9 +1827,6 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export interface IStepable {
   step?: number;
-}
-
-export interface IOnBaseClickWrapper extends IPayloadOnClickWrapper<BasicEventT> {
 }
 
 export const UNI_CODES = {

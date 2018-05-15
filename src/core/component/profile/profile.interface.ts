@@ -2,7 +2,7 @@ import {
   IEmailWrapper,
   INameWrapper,
   IStringPathWrapper,
-  IPayloadOnClickWrapper,
+  IOnClickWrapper,
 } from '../../definitions.interface';
 import { IComponentEntity, IMenuItemEntity } from '../../entities-definitions.interface';
 
@@ -10,6 +10,6 @@ export interface IProfileInternalProps extends IComponentEntity,
                                                IEmailWrapper,
                                                INameWrapper,
                                                IStringPathWrapper,
-                                               IPayloadOnClickWrapper<IMenuItemEntity> {
+                                               IOnClickWrapper<IMenuItemEntity> {
   menuItems?: any; // TODO
 }

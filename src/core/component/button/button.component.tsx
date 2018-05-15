@@ -6,7 +6,7 @@ import { IButtonProps } from './button.interface';
 import { Link } from '../../component/link';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
 
-export class Button extends BaseComponent<Button, IButtonProps, {}> {
+export class Button extends BaseComponent<Button, IButtonProps> {
 
   public static defaultProps: IButtonProps = {
     type: 'button',
