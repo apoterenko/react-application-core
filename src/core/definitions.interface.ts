@@ -772,7 +772,9 @@ export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
 }
 
-/* @stable [23.04.2018] */
+/**
+ * @stable [23.04.2018]
+ */
 export interface IBasicEvent extends React.SyntheticEvent<{}> {
 }
 
@@ -1217,7 +1219,9 @@ export interface ITitleWrapper<TTitle = string> {
   title?: TTitle;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [15.05.2018]
+ */
 export interface IClassNameWrapper {
   className?: string;
 }
@@ -1582,16 +1586,16 @@ export interface IOnPressWrapper<TOnPress> {
 export interface IDefaultOnPressWrapper extends IOnPressWrapper<() => void> {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [15.05.2018]
+ */
 export interface IOnClickWrapper<TOnClick = () => void> {
   onClick?: TOnClick;
 }
 
-/* @stable - 04.04.2018 */
-export interface IDefaultOnClickWrapper extends IOnClickWrapper<() => void> {
-}
-
-/* @stable - 04.04.2018 */
+/**
+ * @stable [15.05.2018]
+ */
 export interface IEventOnClickWrapper extends IOnClickWrapper<(event: IBasicEvent) => void> {
 }
 

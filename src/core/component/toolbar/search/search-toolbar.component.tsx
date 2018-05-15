@@ -4,13 +4,13 @@ import { toClassName, orNull } from '../../../util';
 import { BaseComponent } from '../../base';
 import {
   DelayedChangesFieldPlugin,
-  IBasicTextFieldAction,
   IField,
   TextField,
 } from '../../field';
 import { FilterActionEnum, IFilterActionEntity } from '../../filter';
 import { ToolbarSection } from '../../toolbar';
 import { ISearchToolbarProps } from './search-toolbar.interface';
+import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
 export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarProps> {
 
@@ -22,14 +22,14 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
     },
   };
 
-  private defaultActions: {[filter: number]: IBasicTextFieldAction} = {
+  private defaultActions: {[filter: number]: IFieldActionConfiguration} = {
     [FilterActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
-      actionHandler: this.onOpen.bind(this),
+      onClick: this.onOpen.bind(this),
     },
     [FilterActionEnum.CLEAR_FILTER]: {
       type: 'clear',
-      actionHandler: this.onClear.bind(this),
+      onClick: this.onClear.bind(this),
     },
   };
 
@@ -142,7 +142,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
     }
   }
 
-  private get actions(): IBasicTextFieldAction[] {
+  private get actions(): IFieldActionConfiguration[] {
     const props = this.props;
     const defaultFieldActions: IFilterActionEntity[] = props.noSearchField
         ? []
@@ -174,10 +174,8 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
       if (actions.length > 0) {
         return serviceActions.concat(
             this.actions.map((action) => this.uiFactory.makeIcon({
-              type: action.type,
+              ...action,
               disabled: props.disabledActions,
-              className: action.className,
-              onClick: action.actionHandler,
             }))
         );
       }

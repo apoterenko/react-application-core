@@ -662,3 +662,10 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
                                             ITplFnWrapper<IMenuItemEntity> {
 }
+
+export interface IFieldActionConfiguration extends IClassNameWrapper,
+                                                   ITitleWrapper,
+                                                   IDisabledWrapper,
+                                                   ITypeWrapper,
+                                                   IEventOnClickWrapper {
+}

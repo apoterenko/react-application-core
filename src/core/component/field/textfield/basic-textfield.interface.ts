@@ -1,20 +1,6 @@
-import {
-  ITypeWrapper,
-  IDisabledWrapper,
-  BasicEventT,
-  ITitleWrapper,
-  IClassNameWrapper,
-} from '../../../definitions.interface';
-
 import { IField, IFieldInternalState, IFieldInternalProps } from '../field';
 import { IDelayedChangesFieldPluginProps } from '../field';
-
-export interface IBasicTextFieldAction extends IClassNameWrapper,
-                                               ITitleWrapper,
-                                               IDisabledWrapper,
-                                               ITypeWrapper {
-  actionHandler?(event: BasicEventT): void;
-}
+import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
 export interface IBasicTextFieldInternalState extends IFieldInternalState {
   keyboard?: boolean;
@@ -22,7 +8,7 @@ export interface IBasicTextFieldInternalState extends IFieldInternalState {
 
 export interface IBasicTextFieldInternalProps
     extends IFieldInternalProps, IDelayedChangesFieldPluginProps {
-  actions?: IBasicTextFieldAction[];
+  actions?: IFieldActionConfiguration[];
   actionsPosition?: ActionPositionEnum;
   clearAction?: boolean;
 }

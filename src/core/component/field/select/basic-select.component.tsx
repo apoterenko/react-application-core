@@ -3,11 +3,11 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { toClassName } from '../../../util';
-import { BasicTextField, IBasicTextFieldAction } from '../../field/textfield';
+import { BasicTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
   AnyT,
-  BasicEventT,
+  IBasicEvent,
   EntityIdT,
   KeyboardEventT,
 } from '../../../definitions.interface';
@@ -17,6 +17,7 @@ import {
   ISelectOption,
   SelectOptionT,
 } from './basic-select.interface';
+import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalProps, TInternalState>,
                          TInternalProps extends IBasicSelectInternalProps,
@@ -31,10 +32,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    this.defaultActions = R.insert<IBasicTextFieldAction>(0,
+    this.defaultActions = R.insert<IFieldActionConfiguration>(0,
         {
           type: 'arrow_drop_down',
-          actionHandler: (event: BasicEventT) => {
+          onClick: (event: IBasicEvent) => {
             this.setFocus();
             this.openMenu(event);
           },
@@ -88,7 +89,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.state.emptyOptions;
   }
 
-  protected onClick(event: BasicEventT): void {
+  protected onClick(event: IBasicEvent): void {
     super.onClick(event);
     this.openMenu(event);
   }
@@ -146,7 +147,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.refs.menu as IMenu;
   }
 
-  private openMenu(event: BasicEventT): void {
+  private openMenu(event: IBasicEvent): void {
     if (this.menu.isOpen()) {
       return;
     }

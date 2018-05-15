@@ -4,7 +4,8 @@ import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { BasicEventT, IFocusEvent, IBasicEvent } from '../../../definitions.interface';
+import { IFocusEvent, IBasicEvent } from '../../../definitions.interface';
+import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
@@ -12,7 +13,6 @@ import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
   IBasicTextField,
-  IBasicTextFieldAction,
   ActionPositionEnum,
 } from './basic-textfield.interface';
 
@@ -28,7 +28,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   private static DEFAULT_MASK_GUIDE = true;
   private static DEFAULT_MASK_PLACEHOLDER_CHAR = '\u2000';
 
-  protected defaultActions: IBasicTextFieldAction[] = [];
+  protected defaultActions: IFieldActionConfiguration[] = [];
 
   constructor(props: TInternalProps) {
     super(props);
@@ -84,10 +84,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                   disabled: R.isNil(action.disabled)
                       ? this.isDeactivated()
                       : action.disabled,
-                  onClick: (event: BasicEventT) => {
-                    if (action.actionHandler) {
+                  onClick: (event: IBasicEvent) => {
+                    if (action.onClick) {
                       this.stopEvent(event);
-                      action.actionHandler(event);
+                      action.onClick(event);
                     }
                   },
                 }))
@@ -150,9 +150,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected addClearAction(): void {
     const this0 = this;
-    const clearAction: IBasicTextFieldAction = {
+    const clearAction: IFieldActionConfiguration = {
       type: 'clear',
-      actionHandler() {
+      onClick() {
         this0.clearValue();
       },
       get disabled(): boolean {
@@ -205,7 +205,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     this.setState({keyboard: false});
   }
 
-  private get actions(): IBasicTextFieldAction[] {
+  private get actions(): IFieldActionConfiguration[] {
     const props = this.props;
     if (props.actionsPosition === ActionPositionEnum.LEFT) {
       return (this.defaultActions || []).concat(props.actions || []);

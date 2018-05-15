@@ -39,7 +39,7 @@ export class DateField extends BasicTextField<DateField,
     this.defaultActions = R.insert(0,
         {
           type: 'date_range',
-          actionHandler: () => {
+          onClick: () => {
             this.setFocus();
             this.dialogWindow.show();
           },

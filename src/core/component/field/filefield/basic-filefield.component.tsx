@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { BasicTextField, IBasicTextFieldAction } from '../textfield';
+import { BasicTextField } from '../textfield';
 import { orNull } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
@@ -15,6 +15,7 @@ import {
   IBasicFileFieldInternalState,
   IBasicFileFieldInternalProps,
 } from './basic-filefield.interface';
+import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
 export class BasicFileField<TComponent extends BasicFileField<TComponent, TInternalProps, TInternalState>,
                             TInternalProps extends IBasicFileFieldInternalProps,
@@ -30,10 +31,10 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    this.defaultActions = R.insert<IBasicTextFieldAction>(0,
+    this.defaultActions = R.insert<IFieldActionConfiguration>(0,
         {
           type: 'attach_file',
-          actionHandler: (event: BasicEventT) => this.openFileDialog(event),
+          onClick: (event: BasicEventT) => this.openFileDialog(event),
         },
         this.defaultActions
     );
