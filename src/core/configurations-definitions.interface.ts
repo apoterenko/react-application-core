@@ -151,6 +151,7 @@ import {
   IUniversalApplicationStoreEntity,
   IUniversalComponentClassEntity,
   IMenuItemEntity,
+  ISortDirectionEntity,
 } from './entities-definitions.interface';
 import { IFieldProps } from './props-definitions.interface';
 
@@ -319,6 +320,7 @@ export interface IFormConfiguration extends INotUseActionsWrapper,
 
 /* @stable - 04.04.2018 */
 export interface IGridColumnConfiguration extends IComponentConfiguration,
+                                                  IOnClickWrapper<ISortDirectionEntity>,
                                                   ITitleWrapper,
                                                   IUseGroupingWrapper,
                                                   IUseLocalFilteringWrapper,
@@ -352,11 +354,11 @@ export interface ITabConfiguration extends INumberValueWrapper,
 }
 
 /**
- * @stable [06.05.2018]
+ * @stable [15.05.2018]
  */
 export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IUseIndicatorWrapper,
-                                                IOnClickWrapper<(payload: ITabConfiguration) => void>,
+                                                IOnClickWrapper<ITabConfiguration>,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 
@@ -406,8 +408,9 @@ export interface IApplicationConfiguration extends IBasenameWrapper,
 
 /* @stable - 11.04.2018 */
 export interface IFieldConfiguration extends IComponentConfiguration,
-                                             IOnChangeWrapper,
                                              IDelayedChangesFieldPluginConfiguration,
+                                             IOnChangeWrapper,
+                                             IOnClickWrapper,
                                              IRequiredWrapper,
                                              IBindDictionaryConfiguration,
                                              IMaskWrapper,
@@ -420,6 +423,7 @@ export interface IFieldConfiguration extends IComponentConfiguration,
                                              IDisplayNameWrapper,
                                              IDisplayMessageWrapper,
                                              ITypeWrapper,
+                                             INameWrapper,
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IAutoFocusWrapper,
@@ -663,6 +667,9 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             ITplFnWrapper<IMenuItemEntity> {
 }
 
+/**
+ * @stable [15.05.2018]
+ */
 export interface IFieldActionConfiguration extends IClassNameWrapper,
                                                    ITitleWrapper,
                                                    IDisabledWrapper,

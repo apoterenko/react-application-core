@@ -86,7 +86,7 @@ import {
   INotificationWrapper,
   IStringInfoWrapper,
   IStringErrorMessageWrapper,
-  IStringMessageWrapper,
+  IMessageWrapper,
   IHtmlElementSelfWrapper,
   IStateWrapper,
   IPathWrapper,
@@ -102,6 +102,7 @@ import {
   ILockPageWrapper,
   IIconWrapper,
   ILabelWrapper,
+  IOriginalValueWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -345,10 +346,11 @@ export interface IGridEntity extends IListEntity,
 export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
 }
 
-/* @stable [23.04.2018] */
+/**
+ * @stable [15.05.2018]
+ */
 export interface IGridHeaderColumnEntity extends IComponentEntity,
-                                                 ISortDirectionEntity,
-                                                 IOnClickWrapper<(payload: ISortDirectionEntity) => void> {
+                                                 ISortDirectionEntity {
 }
 
 /* @stable - 05.04.2018 */
@@ -399,10 +401,13 @@ export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicat
 export interface IOperationEntity extends IStringIdWrapper {
 }
 
-/* @stable - 11.04.2018 */
-export interface IFieldEntity extends IComponentEntity,
+/**
+ * @stable [15.05.2018]
+ */
+export interface IFieldEntity extends IUniversalComponentEntity,
                                       IValueWrapper,
-                                      IStringMessageWrapper {
+                                      IOriginalValueWrapper,
+                                      IMessageWrapper {
 }
 
 /* @stable - 12.04.2018 */
