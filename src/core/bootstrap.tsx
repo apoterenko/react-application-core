@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+import * as crossvent from 'crossvent';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE } from './env';
@@ -43,7 +44,7 @@ export function bootstrap(
     );
   };
 
-  if (PROD_MODE) {
+  if (PROD_MODE && GOOGLE_KEY) {
     gtag('js', new Date());
     gtag('config', GOOGLE_KEY);
   }
@@ -52,7 +53,7 @@ export function bootstrap(
     case 'loading':
     case 'interactive':
       // We cannot use DOMContentLoaded because fonts loading and UI blinking
-      window.addEventListener('load', ready);
+      crossvent.add(window, 'load', ready);
       break;
     case 'complete':
       ready();
