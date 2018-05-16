@@ -52,11 +52,11 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
   const list: IListEntity = {
     ...listEntity,
   };
-  if (dataMutator && list.data && list.data.length) {
-    if (dataMutator.sorter) {
+  if (!R.isNil(dataMutator) && !R.isNil(list.data) && list.data.length > 0) {
+    if (!R.isNil(dataMutator.sorter)) {
       list.data = R.sort<IEntity>(dataMutator.sorter, list.data);
     }
-    if (dataMutator.filter) {
+    if (!R.isNil(dataMutator.filter)) {
       list.totalCount = (list.data = R.filter<IEntity>(dataMutator.filter, list.data)).length;
     }
   }
