@@ -28,7 +28,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 
-export class UniversalBaseContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends Component<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 

@@ -1,6 +1,6 @@
-import { UniversalBaseContainer } from './universal-base.container';
+import { UniversalContainer } from './universal.container';
 import { IRnBaseContainerProps } from './rn-base.interface';
 
 export class RnBaseContainer<TInternalProps extends IRnBaseContainerProps>
-  extends UniversalBaseContainer<TInternalProps> {
+  extends UniversalContainer<TInternalProps> {
 }

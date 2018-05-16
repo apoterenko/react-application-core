@@ -12,7 +12,7 @@ import {
   IUniversalContainerEntity,
 } from '../../entities-definitions.interface';
 import { toRouteConfiguration } from '../../router/router.support';
-import { UniversalBaseContainer } from '../../component/base/universal-base.container';
+import { UniversalContainer } from '../../component/base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
@@ -20,7 +20,7 @@ import { IUniversalApplicationContainerProps } from './universal-application.int
 export type RoutePredicateT = (routeConfiguration: IRouteConfiguration) => boolean;
 
 export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
-  extends UniversalBaseContainer<TProps> {
+  extends UniversalContainer<TProps> {
 
   public static defaultProps: IUniversalApplicationContainerProps = {
     sectionName: APPLICATION_SECTION,

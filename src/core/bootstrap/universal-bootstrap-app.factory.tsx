@@ -7,7 +7,7 @@ import {
 } from '../entities-definitions.interface';
 import { universalConnectorFactory } from '../component/connector/universal-connector.factory';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
-import { UniversalBaseContainer } from '../component/base/universal-base.container';
+import { UniversalContainer } from '../component/base/universal.container';
 
 /**
  * @stable - 23.04.2018
@@ -20,7 +20,7 @@ export const makeBootstrapApp =
     IContainerClassEntity => {
     const Component = universalConnectorFactory(applicationContainer, (state) => ({...state.application}));
 
-    return class extends UniversalBaseContainer {
+    return class extends UniversalContainer {
       constructor(props: IUniversalContainerEntity) {
         super(props);
 

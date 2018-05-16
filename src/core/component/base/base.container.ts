@@ -7,12 +7,12 @@ import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IFormDialog } from '../form';
 import { IUIFactory } from '../factory';
-import { UniversalBaseContainer } from './universal-base.container';
+import { UniversalContainer } from './universal.container';
 import { IContainer } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
 
 export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
-    extends UniversalBaseContainer<TProps, TState>
+    extends UniversalContainer<TProps, TState>
     implements IContainer<TProps, TState> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: IPermissionsService;

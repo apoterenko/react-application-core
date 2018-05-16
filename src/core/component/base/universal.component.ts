@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+import { cancelEvent } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
 import { ApplicationTranslatorT } from '../../translation';
 import { IApplicationSettings } from '../../settings';
@@ -67,14 +68,7 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    * @param {IBasicEvent} event
    */
   public stopEvent(event: IBasicEvent): void {
-    if (event.nativeEvent) {
-      /**
-       * Will prevent any parent handlers and also any other handlers from executing
-       */
-      event.nativeEvent.stopImmediatePropagation();
-    }
-    event.stopPropagation();
-    event.preventDefault();
+    cancelEvent(event);
   }
 
   /**

@@ -10,7 +10,7 @@ import {
 } from 'native-base';
 
 import { orNull } from '../../../util';
-import { UniversalBaseContainer } from '../../base/universal-base.container';
+import { UniversalContainer } from '../../base/universal.container';
 import {
   IRnDefaultLayoutContainerProps,
   IRnDefaultLayoutContainer,
@@ -18,7 +18,7 @@ import {
 import { RnDrawer } from '../../drawer/rn-drawer.component';
 import { RnButton } from '../../button/rn-button.component';
 
-export class RnDefaultLayoutContainer extends UniversalBaseContainer<IRnDefaultLayoutContainerProps>
+export class RnDefaultLayoutContainer extends UniversalContainer<IRnDefaultLayoutContainerProps>
   implements IRnDefaultLayoutContainer {
 
   public static defaultProps: IRnDefaultLayoutContainerProps = {
