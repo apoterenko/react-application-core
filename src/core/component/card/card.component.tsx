@@ -15,6 +15,7 @@ export class Card extends BaseComponent<Card, ICardProps> {
     return (
       <div ref='self'
            className={toClassName(
+                       'rac-card',
                        this.uiFactory.card,
                        props.rippable && this.uiFactory.rippleSurface,
                        props.className
@@ -25,7 +26,7 @@ export class Card extends BaseComponent<Card, ICardProps> {
           orNull<JSX.Element>(
             props.actionButtons || props.actionIcons,
             () => (
-              <div className={this.uiFactory.cardActions}>
+              <div className={toClassName('rac-card-actions', this.uiFactory.cardActions)}>
                 {
                   orNull<JSX.Element>(
                     props.actionButtons,
@@ -40,7 +41,7 @@ export class Card extends BaseComponent<Card, ICardProps> {
                   orNull<JSX.Element>(
                     props.actionIcons,
                     () => (
-                      <div className={this.uiFactory.cardActionIcons}>
+                      <div className={toClassName('rac-card-action-items', this.uiFactory.cardActionIcons)}>
                         {props.actionIcons}
                       </div>
                     )
