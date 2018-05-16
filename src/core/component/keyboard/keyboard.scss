@@ -9,10 +9,12 @@
     padding: 8px;                   /* @stable [08.05.2018 ]*/
 
     .rac-keyboard-close {
-      color: $rac-keyboard-close-color;           /* @stable [09.05.2018 ]*/
+      position: absolute;                         /* @stable [16.05.2018 ]*/
+      right: 0;                                   /* @stable [16.05.2018 ]*/
+      bottom: 0;                                  /* @stable [16.05.2018 ]*/
+      margin: 4px;                                /* @stable [16.05.2018 ]*/
       font-size: 32px;                            /* @stable [08.05.2018 ]*/
-      margin-left: auto;                          /* @stable [08.05.2018 ]*/
-      margin-bottom: 4px;                         /* @stable [08.05.2018 ]*/
+      color: $rac-keyboard-close-color;           /* @stable [09.05.2018 ]*/
       cursor: pointer;                            /* @stable [08.05.2018 ]*/
       opacity: $rac-keyboard-close-opacity;       /* @stable [09.05.2018 ]*/
     }
