@@ -11,12 +11,14 @@ import {
   IDefaultFormEntity,
   IEntityWrapperEntity,
   IListWrapperEntity,
+  IMutatedListWrapperEntity,
   IListEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
   IDictionariesWrapperEntity,
   IUniversalApplicationStoreEntity,
   IPagedEntity,
+  IDataMutatorEntity,
 } from '../../entities-definitions.interface';
 
 /* @stable - 22.04.2018 */
@@ -41,15 +43,37 @@ export const transportMapper = (storeEntity: IUniversalApplicationStoreEntity): 
 });
 
 /**
- * @stable [09.05.2018]
+ * @stable [16.05.2018]
  * @param {IListEntity} listEntity
+ * @param {IDataMutatorEntity} dataMutator
  * @returns {IListWrapperEntity}
  */
-export const listMapper = (listEntity: IListEntity): IListWrapperEntity => ({
-  list: {
+export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity => {
+  const list: IListEntity = {
     ...listEntity,
-  },
-});
+  };
+  if (dataMutator && list.data && list.data.length) {
+    if (dataMutator.sorter) {
+      list.data = R.sort<IEntity>(dataMutator.sorter, list.data);
+    }
+    if (dataMutator.filter) {
+      list.totalCount = (list.data = R.filter<IEntity>(dataMutator.filter, list.data)).length;
+    }
+  }
+  return {list};
+};
+
+/**
+ * @stable [16.05.2018]
+ * @param {IListEntity} listEntity
+ * @param {IDataMutatorEntity} dataMutator
+ * @returns {IMutatedListWrapperEntity}
+ */
+export const mutatedListMapper = (listEntity: IListEntity, dataMutator: IDataMutatorEntity): IMutatedListWrapperEntity => {
+  return {
+    mutatedList: listMapper(listEntity, dataMutator).list,
+  };
+};
 
 /**
  * @stable [09.05.2018]
@@ -73,12 +97,23 @@ export const listEntityWrapperPageEntityFilterMapper =
     listEntityPageEntityFilterMapper(listEntity.list, pageSize);
 
 /**
- * @stable [09.05.2018]
+ * @stable [16.05.2018]
  * @param {IListWrapperEntity} listWrapperEntity
+ * @param {IDataMutatorEntity} dataMutator
  * @returns {IListWrapperEntity}
  */
-export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity): IListWrapperEntity =>
-  listMapper(listWrapperEntity.list);
+export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity =>
+  listMapper(listWrapperEntity.list, dataMutator);
+
+/**
+ * @stable [16.05.2018]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @param {IDataMutatorEntity} dataMutator
+ * @returns {IMutatedListWrapperEntity}
+ */
+export const mutatedListWrapperMapper =
+  (listWrapperEntity: IListWrapperEntity, dataMutator: IDataMutatorEntity): IMutatedListWrapperEntity =>
+    mutatedListMapper(listWrapperEntity.list, dataMutator);
 
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
