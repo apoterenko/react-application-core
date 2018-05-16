@@ -429,17 +429,24 @@ export interface IItemsWrapper<TItems> {
   items?: TItems;
 }
 
-/* @stable [31.03.2018] */
-export interface IDataWrapper<TData> {
+/**
+ * @stable [17.05.2018]
+ */
+export interface IOriginalDataWrapper<TOriginalData = IEntity[]> {
+  originalData?: TOriginalData;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IDataWrapper<TData = IEntity[]> {
   data?: TData;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [17.05.2018]
+ */
 export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
-}
-
-/* @stable [31.03.2018] */
-export interface IEntitiesDataWrapper extends IDataWrapper<IEntity[]> {
 }
 
 /**

@@ -6,7 +6,7 @@ import {
   IPageWrapper,
   ITotalAmountWrapper,
   ITotalCountWrapper,
-  IEntitiesDataWrapper,
+  IDataWrapper,
   IAnyDataWrapper,
   IIpWrapper,
   IMessagesWrapper,
@@ -91,7 +91,6 @@ import {
   IStateWrapper,
   IPathWrapper,
   IDisabledWrapper,
-  IDataWrapper,
   IDictionariesWrapper,
   ILoadingWrapper,
   AnyT,
@@ -105,6 +104,7 @@ import {
   IOriginalValueWrapper,
   ISorterWrapper,
   IMutatedListWrapper,
+  IOriginalDataWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -187,7 +187,8 @@ export interface IPaginatedEntity extends IPagedEntity,
 
 /* @stable - 31.03.2018 */
 export interface IPaginatedEntitiesEntity extends IPaginatedEntity,
-                                                  IEntitiesDataWrapper {
+                                                  IDataWrapper,
+                                                  IOriginalDataWrapper {
 }
 
 /* @stable - 31.03.2018 */
