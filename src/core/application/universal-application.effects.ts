@@ -106,6 +106,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLoginActionType())
   public $onAfterLogin(): IEffectsAction[] {
     return [
+      ApplicationActionBuilder.buildNotReadyAction(),
       ApplicationActionBuilder.buildAuthorizedAction(),
       ApplicationActionBuilder.buildPrepareAction(),
       RouterActionBuilder.buildNavigateAction(this.routes.home)
