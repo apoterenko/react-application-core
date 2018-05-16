@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { IFocusEvent, IBasicEvent } from '../../../definitions.interface';
+import { IFocusEvent, IBasicEvent, IKeyboardEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
@@ -24,6 +25,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                   TInternalState>
     implements IBasicTextField<TInternalProps, TInternalState> {
 
+  protected static logger = LoggerFactory.makeLogger(BasicTextField);
+
   private static CHAR_WIDTH_AT_PX = 10;
   private static DEFAULT_MASK_GUIDE = true;
   private static DEFAULT_MASK_PLACEHOLDER_CHAR = '\u2000';
@@ -32,12 +35,20 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   constructor(props: TInternalProps) {
     super(props);
-    this.onKeyboardClose = this.onKeyboardClose.bind(this);
+    this.closeKeyboard = this.closeKeyboard.bind(this);
     this.onWindowMouseDown = this.onWindowMouseDown.bind(this);
 
     if (this.props.clearAction !== false) {
       this.addClearAction();
     }
+  }
+
+  /**
+   * @stable [16.05.2018]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.onCloseKeyboard();
   }
 
   public render(): JSX.Element {
@@ -104,14 +115,24 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             orNull<JSX.Element>(
               props.useKeyboard && this.state.keyboard,
               () => (
-                <Keyboard field={this.input}
-                          onClose={this.onKeyboardClose}
+                <Keyboard ref='keyboard'
+                          field={this.input}
+                          onClose={this.closeKeyboard}
                           onChange={this.onChangeManually}/>
               )
             )
           }
         </div>
     );
+  }
+
+  /**
+   * @stable [09.05.2018]
+   * @param {IKeyboardEvent} event
+   */
+  public onKeyTab(event: IKeyboardEvent) {
+    this.closeKeyboard();
+    super.onKeyTab(event);
   }
 
   protected getInputElement(): JSX.Element {
@@ -168,41 +189,61 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   protected onFocus(event: IFocusEvent): void {
     super.onFocus(event);
-
-    if (this.props.useKeyboard) {
-      this.setState({keyboard: true});
-      this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
-    }
+    this.openKeyboard();
   }
 
   /**
-   * @stable [09.05.2018]
-   * @param {IFocusEvent} event
-   */
-  protected onBlur(event: IFocusEvent): void {
-    super.onBlur(event);
-
-    if (this.props.useKeyboard) {
-      this.eventManager.remove(window, 'mousedown', this.onWindowMouseDown);
-    }
-  }
-
-  /**
-   * @stable [09.05.2018]
+   * @stable [16.05.2018]
    * @param {IBasicEvent} e
    */
   private onWindowMouseDown(e: IBasicEvent): void {
-    if (this.input === e.target || $(e.target).parents('.rac-keyboard').length !== 0) {
+    const keyboard = $((this.refs.keyboard as Keyboard).self);
+    if (this.input === e.target || keyboard.find(e.target as HTMLElement).length !== 0) {
       return;
     }
-    this.onKeyboardClose();
+    this.closeKeyboard();
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [16.05.2018]
    */
-  private onKeyboardClose(): void {
+  private closeKeyboard(): void {
+    const props = this.props;
+    if (!props.useKeyboard) {
+      return;
+    }
     this.setState({keyboard: false});
+    this.onCloseKeyboard();
+
+    BasicTextField.logger.debug(
+      `[$BasicTextField][closeKeyboard] A keyboard has been closed to the field "${props.name}".`
+    );
+  }
+
+  /**
+   * @stable [16.05.2018]
+   */
+  private onCloseKeyboard(): void {
+    if (!this.props.useKeyboard) {
+      return;
+    }
+    this.eventManager.remove(window, 'mousedown', this.onWindowMouseDown);
+  }
+
+  /**
+   * @stable [16.05.2018]
+   */
+  private openKeyboard(): void {
+    const props = this.props;
+    if (!props.useKeyboard || this.state.keyboard) {
+      return;
+    }
+    this.setState({keyboard: true});
+    this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
+
+    BasicTextField.logger.debug(
+      `[$BasicTextField][openKeyboard] A keyboard has been opened to the field "${props.name}".`
+    );
   }
 
   private get actions(): IFieldActionConfiguration[] {
