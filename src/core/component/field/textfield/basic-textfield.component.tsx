@@ -127,7 +127,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [16.05.2018]
    * @param {IKeyboardEvent} event
    */
   public onKeyTab(event: IKeyboardEvent) {
@@ -184,7 +184,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [16.05.2018]
    * @param {IFocusEvent} event
    */
   protected onFocus(event: IFocusEvent): void {
@@ -198,7 +198,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   private onWindowMouseDown(e: IBasicEvent): void {
     const keyboard = $((this.refs.keyboard as Keyboard).self);
-    if (this.input === e.target || keyboard.find(e.target as HTMLElement).length !== 0) {
+    const targetEl = e.target as HTMLElement;
+
+    if (this.input === targetEl || keyboard.find(targetEl).length !== 0) {
       return;
     }
     this.closeKeyboard();
