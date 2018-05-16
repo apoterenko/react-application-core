@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IKeyboardEvent } from '../../definitions.interface';
 import { DelayedTask, orNull } from '../../util';
-import { IField } from '../field';
+import { IField, TextField, DelayedChangesFieldPlugin } from '../field';
 import { BaseComponent } from '../base';
 import { IAutoFocusedState } from './auto-focused.interface';
 import { Field } from '../field';
@@ -62,16 +62,17 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const Component = this.props.component;
+    const props = this.props;
     return (
       orNull<JSX.Element>(
-        !this.props.useRobotMode,
+        !props.useRobotMode,
         () => (
           <div className='rac-invisible'>
-            <Component ref='autoFocusedField'
+            <TextField ref='autoFocusedField'
                        value={this.state.focusedFieldValue}
                        onChange={(value) => this.setState({focusedFieldValue: value})}
-                       {...this.props.componentProps}
+                       plugins={[DelayedChangesFieldPlugin]}
+                       delayTimeout={props.delayTimeout}
                        onDelay={this.onDelay}/>
           </div>
         )
@@ -121,9 +122,9 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
    * @stable [04.05.2018]
    */
   private onDelay(): void {
-    const componentProps = this.props.componentProps;
-    if (componentProps.onDelay) {
-      componentProps.onDelay(this.state.focusedFieldValue);
+    const onSelect = this.props.onSelect;
+    if (onSelect) {
+      onSelect(this.state.focusedFieldValue);
     }
     this.clearField();
   }

@@ -121,8 +121,6 @@ import {
   IDelayTimeoutWrapper,
   AnyT,
   IOnDelayWrapper,
-  IComponentWrapper,
-  IComponentPropsWrapper,
   IKeyboardEvent,
   IBindDictionaryWrapper,
   IOnEmptyDictionaryWrapper,
@@ -132,7 +130,6 @@ import {
   IMaskWrapper,
   IRequiredWrapper,
   IOnChangeWrapper,
-  IRobotModeWrapper,
   ISelectedWrapper,
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
@@ -149,11 +146,9 @@ import {
   IContainerClassEntity,
   IUniversalComponentPluginClassEntity,
   IUniversalApplicationStoreEntity,
-  IUniversalComponentClassEntity,
   IMenuItemEntity,
   ISortDirectionEntity,
 } from './entities-definitions.interface';
-import { IFieldProps } from './props-definitions.interface';
 
 /**
  * @stable [14.05.2018]
@@ -634,16 +629,6 @@ export interface INavigationListConfiguration extends IUniversalComponentConfigu
  */
 export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWrapper,
                                                                  IOnDelayWrapper<(value: AnyT) => void> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IAutoFocusedConfiguration extends IUniversalComponentConfiguration,
-                                                   IDelayTimeoutWrapper,
-                                                   IRobotModeWrapper,
-                                                   IComponentPropsWrapper<IFieldProps>,
-                                                   IComponentWrapper<IUniversalComponentClassEntity<IFieldProps>> {
 }
 
 /**

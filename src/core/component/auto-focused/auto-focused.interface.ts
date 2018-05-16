@@ -1,4 +1,14 @@
-import { IAutoFocusedConfiguration } from '../../configurations-definitions.interface';
+import { IDelayTimeoutWrapper, IRobotModeWrapper, IOnSelectWrapper } from '../../definitions.interface';
+import { IUniversalComponentConfiguration } from '../../configurations-definitions.interface';
+
+/**
+ * @stable [15.05.2018]
+ */
+export interface IAutoFocusedConfiguration extends IUniversalComponentConfiguration,
+                                                   IDelayTimeoutWrapper,
+                                                   IOnSelectWrapper<string>,
+                                                   IRobotModeWrapper {
+}
 
 /**
  * @stable [04.05.2018]
