@@ -204,6 +204,7 @@ export interface IAccessConfigurationWrapper<TAccessConfiguration> {
  * @stable [04.05.2018]
  */
 export interface IKeyboardHandlersConfiguration {
+  onKeyTab?(event: IKeyboardEvent): void;
   onKeyEnter?(event: IKeyboardEvent): void;
   onKeyUp?(event: IKeyboardEvent): void;
   onKeyDown?(event: IKeyboardEvent): void;

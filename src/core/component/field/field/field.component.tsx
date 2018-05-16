@@ -8,7 +8,7 @@ import {
   BasicEventT,
   ChangeEventT,
   FocusEventT,
-  KeyboardEventT,
+  IKeyboardEvent,
   IProgressWrapper,
   UNI_CODES,
 } from '../../../definitions.interface';
@@ -63,9 +63,13 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     this.validateField(null, null);
   }
 
-  public onKeyDown(event: KeyboardEventT): void {
+  public onKeyDown(event: IKeyboardEvent): void {
     const key = event.key;
+
     switch (key) {
+      case 'Tab':
+        this.onKeyTab(event);
+        break;
       case 'Enter':
         this.onKeyEnter(event);
         break;
@@ -88,37 +92,43 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     }
   }
 
-  public onKeyBackspace(event: KeyboardEventT): void {
+  public onKeyBackspace(event: IKeyboardEvent): void {
     if (this.props.onKeyBackspace) {
       this.props.onKeyBackspace(event);
     }
   }
 
-  public onKeyUp(event: KeyboardEventT): void {
+  public onKeyUp(event: IKeyboardEvent): void {
     if (this.props.onKeyUp) {
       this.props.onKeyUp(event);
     }
   }
 
-  public onKeyEnter(event: KeyboardEventT): void {
+  public onKeyEnter(event: IKeyboardEvent): void {
     if (this.props.onKeyEnter) {
       this.props.onKeyEnter(event);
     }
   }
 
-  public onKeyEscape(event: KeyboardEventT): void {
+  public onKeyTab(event: IKeyboardEvent): void {
+    if (this.props.onKeyTab) {
+      this.props.onKeyTab(event);
+    }
+  }
+
+  public onKeyEscape(event: IKeyboardEvent): void {
     if (this.props.onKeyEscape) {
       this.props.onKeyEscape(event);
     }
   }
 
-  public onKeyArrowDown(event: KeyboardEventT): void {
+  public onKeyArrowDown(event: IKeyboardEvent): void {
     if (this.props.onKeyArrowDown) {
       this.props.onKeyArrowDown(event);
     }
   }
 
-  public onKeyArrowUp(event: KeyboardEventT): void {
+  public onKeyArrowUp(event: IKeyboardEvent): void {
     if (this.props.onKeyArrowUp) {
       this.props.onKeyArrowUp(event);
     }
