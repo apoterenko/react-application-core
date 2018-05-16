@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BasicTextField } from '../textfield';
 import { orNull } from '../../../util';

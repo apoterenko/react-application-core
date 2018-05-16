@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
-import { LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { orNull, toClassName, nvl } from '../../../util';
 import { IFocusEvent, IBasicEvent, IKeyboardEvent } from '../../../definitions.interface';
