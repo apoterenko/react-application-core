@@ -103,6 +103,8 @@ import {
   IIconWrapper,
   ILabelWrapper,
   IOriginalValueWrapper,
+  ISorterWrapper,
+  IMutatedListWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -289,8 +291,16 @@ export interface IListEntity extends IUniversalListEntity,
                                      IKeyValueChangesWrapper {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [16.05.2018]
+ */
 export interface IListWrapperEntity extends IListWrapper<IListEntity> {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IMutatedListWrapperEntity extends IMutatedListWrapper<IListEntity> {
 }
 
 /* @stable - 01.04.2018 */
@@ -601,4 +611,11 @@ export interface IMenuItemEntity<TRawData = IEntity, TValue = EntityIdT> extends
  * @stable [14.05.2018]
  */
 export interface IStringMenuActionEntity extends IMenuItemEntity<IEntity, string> {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(entity: TEntity) => boolean>,
+                                                               ISorterWrapper<(entity1: TEntity, entity2: TEntity) => number> {
 }

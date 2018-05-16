@@ -183,6 +183,13 @@ export interface IListWrapper<TList = JSX.Element> {
 }
 
 /**
+ * @stable [16.05.2018]
+ */
+export interface IMutatedListWrapper<TMutatedList> {
+  mutatedList?: TMutatedList;
+}
+
+/**
  * @stable [15.05.2018]
  */
 export interface IToolbarWrapper<TToolbar = JSX.Element> {
@@ -476,6 +483,13 @@ export interface ILabelWrapper {
 /* @stable - 11.04.2018 */
 export interface IPrefixLabelWrapper {
   prefixLabel?: string;
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IDisplayWrapper<TDisplay = boolean> {
+  display?: TDisplay;
 }
 
 /* @stable - 11.04.2018 */
@@ -1333,8 +1347,10 @@ export interface IEntityIdWrapper<TEntityId> {
   entityId?: TEntityId;
 }
 
-/* @stable - 31.03.2018 */
-export interface IEntityWrapper<TEntity extends IEntity> {
+/**
+ * @stable [16.05.2018]
+ */
+export interface IEntityWrapper<TEntity = IEntity> {
   entity?: TEntity;
 }
 

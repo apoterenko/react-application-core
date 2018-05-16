@@ -267,8 +267,8 @@ export interface IListItemConfiguration extends IUniversalListItemConfiguration,
  * @stable [04.05.2018]
  */
 export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
-                                                    IActionButtonsWrapper<(entity: IEntity) => JSX.Element>,
-                                                    IActionIconsWrapper<(entity: IEntity) => JSX.Element> {
+                                                    IActionButtonsWrapper<(entity: IEntity) => React.ReactNode>,
+                                                    IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
 }
 
 /* @stable [23.04.2018] */
@@ -586,8 +586,8 @@ export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContai
 export interface ICardConfiguration extends IComponentConfiguration,
                                             IOnClickWrapper,
                                             IRippableWrapper,
-                                            IActionButtonsWrapper<JSX.Element>,
-                                            IActionIconsWrapper<JSX.Element> {
+                                            IActionButtonsWrapper<React.ReactNode>,
+                                            IActionIconsWrapper<React.ReactNode> {
 }
 
 /**
