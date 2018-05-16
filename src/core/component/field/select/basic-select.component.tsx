@@ -26,7 +26,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
                            TInternalProps,
                            TInternalState> {
 
-  private static logger = LoggerFactory.makeLogger(BasicSelect);
+  protected static logger = LoggerFactory.makeLogger(BasicSelect);
 
   constructor(props: TInternalProps) {
     super(props);

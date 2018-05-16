@@ -22,7 +22,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
                             TInternalState extends IBasicFileFieldInternalState>
     extends BasicTextField<TComponent, TInternalProps, TInternalState> {
 
-  private static logger = LoggerFactory.makeLogger(BasicFileField);
+  protected static logger = LoggerFactory.makeLogger(BasicFileField);
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
   private filesMap = new Map<EntityIdT, File>();
