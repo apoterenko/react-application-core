@@ -36,6 +36,10 @@ export class ApplicationActionBuilder {
     return EffectsAction.create(this.buildReadyActionType());
   }
 
+  public static buildNotReadyAction(): IEffectsAction {
+    return EffectsAction.create(this.buildNotReadyActionType());
+  }
+
   public static buildAfterLoginAction(): IEffectsAction {
     return EffectsAction.create(this.buildAfterLoginActionType());
   }
