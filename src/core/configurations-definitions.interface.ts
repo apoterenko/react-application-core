@@ -215,6 +215,16 @@ export interface IKeyboardHandlersConfiguration {
 }
 
 /**
+ * @stable [16.05.2018]
+ */
+export interface INavigationHandlersConfiguration {
+  onPrevious?(): void;
+  onNext?(): void;
+  onFirst?(): void;
+  onLast?(): void;
+}
+
+/**
  * @stable [24.04.2018]
  */
 export interface IWebComponentConfiguration extends IClassNameWrapper,

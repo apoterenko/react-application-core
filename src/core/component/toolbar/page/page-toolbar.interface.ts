@@ -1,21 +1,59 @@
 import {
   IPaginatedEntity,
   IListWrapperEntity,
-  IContainerEntity,
+  IUniversalComponentEntity,
 } from '../../../entities-definitions.interface';
-import { IComponentProps } from '../../../props-definitions.interface';
+import {
+  INavigationHandlersConfiguration,
+  IUniversalComponentConfiguration,
+} from '../../../configurations-definitions.interface';
+import { IContainerProps } from '../../../props-definitions.interface';
 
-export interface IPageToolbarProps extends IComponentProps,
-                                           IPaginatedEntity {
-  contentDisplay?: boolean;
-  onPrevious?(): void;
-  onNext?(): void;
-  onFirst?(): void;
-  onLast?(): void;
+/**
+ * @stable [16.05.2018]
+ */
+export interface IUniversalPageToolbarEntity extends IUniversalComponentEntity,
+                                                     IPaginatedEntity {
 }
 
-export interface IPageToolbarContainerInternalProps extends IContainerEntity,
-                                                            IListWrapperEntity {
+/**
+ * @stable [16.05.2018]
+ */
+export interface IUniversalPageToolbarConfiguration extends IUniversalComponentConfiguration,
+                                                            INavigationHandlersConfiguration {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IUniversalPageToolbarProps extends IUniversalPageToolbarEntity,
+                                                    IUniversalPageToolbarConfiguration {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IPageToolbarEntity extends IUniversalPageToolbarEntity {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IPageToolbarConfiguration extends IUniversalPageToolbarConfiguration {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IPageToolbarProps extends IPageToolbarEntity,
+                                           IPageToolbarConfiguration {
+}
+
+/**
+ * @stable [16.05.2018]
+ */
+export interface IPageToolbarContainerProps extends IContainerProps,
+                                                    IListWrapperEntity {
 }
 
 export const PAGER_NEXT_ACTION_TYPE = 'pager.next';
