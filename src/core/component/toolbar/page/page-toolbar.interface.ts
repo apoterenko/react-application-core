@@ -6,6 +6,7 @@ import {
 import {
   INavigationHandlersConfiguration,
   IUniversalComponentConfiguration,
+  IWebComponentConfiguration,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
 
@@ -39,7 +40,8 @@ export interface IPageToolbarEntity extends IUniversalPageToolbarEntity {
 /**
  * @stable [16.05.2018]
  */
-export interface IPageToolbarConfiguration extends IUniversalPageToolbarConfiguration {
+export interface IPageToolbarConfiguration extends IUniversalPageToolbarConfiguration,
+                                                   IWebComponentConfiguration {
 }
 
 /**
