@@ -1,29 +1,25 @@
 @import '../constant';
 
-// List [FRAMEWORK-][RAC+]
+// Button [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-button {
+    border-radius: $rac-button-border-radius;   /* @stable [16.05.2018] */
 
     &.rac-button-icon {
-      cursor: pointer;    /* @stable - 05.04.2018 */
-      background: none;   /* @stable - 05.04.2018 */
-      border: none;       /* @stable - 05.04.2018 */
+      cursor: pointer;                          /* @stable [16.05.2018] */
+      background: none;                         /* @stable [16.05.2018] */
+      border: none;                             /* @stable [16.05.2018] */
+    }
+
+    &[disabled] {
+      opacity: $rac-button-disabled-opacity;    /* @stable [16.05.2018] */
+      cursor: default;                          /* @stable [16.05.2018] */
     }
   }
 }
 
-// Button [FRAMEWORK-]
-.rac-button {
-  border-radius: $rac-button-border-radius;   // [RAC+]
-
-  &[disabled] {
-    opacity: $rac-button-disabled-opacity;    // [RAC+]
-    cursor: default;                          // [RAC+]
-  }
-}
-
-// Field button [FRAMEWORK-]
+// TODO
 .rac-text-field, .rac-chip, .rac-toolbar {
   .rac-button {
     border-style: none;
@@ -31,7 +27,7 @@
     cursor: pointer;
 
     &[disabled] {
-      cursor: default;                          // [RAC+]
+      cursor: default;
     }
   }
 }
