@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import * as crossvent from 'crossvent';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
-import { GOOGLE_KEY, PROD_MODE } from './env';
+import { GOOGLE_KEY, PROD_MODE, APP_PROFILE } from './env';
 import { addClassNameToBody, createElement, addClassNameToElement } from './util';
 import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
@@ -36,6 +36,7 @@ export function bootstrap(
       addClassNameToBody('mdc-typography');
       addBootElement(rootId);
     }
+    addClassNameToBody(APP_PROFILE);
 
     const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
