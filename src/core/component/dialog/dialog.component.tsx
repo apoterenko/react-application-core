@@ -1,118 +1,111 @@
 import * as React from 'react';
-import { MDCDialog } from '@material/dialog';
+import * as R from 'ramda';
 
-import { MaterialComponent } from '../../component/material';
-import { Button } from '../../component/button';
-import { isUndef, orNull } from '../../util';
+import { Button } from '../button';
+import { orNull, toClassName } from '../../util';
+import { BaseComponent } from '../base';
 import {
-  IDialog,
-  IDialogInternalProps,
-  INativeMaterialDialogComponent,
+  IUniversalDialog,
+  IUniversalDialogProps,
 } from './dialog.interface';
 
-export class Dialog<TComponent extends IDialog<TInternalProps>,
-                    TInternalProps extends IDialogInternalProps>
-    extends MaterialComponent<TComponent,
-                              TInternalProps,
-                              {},
-                              INativeMaterialDialogComponent>
-    implements IDialog<TInternalProps> {
+export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDialog<TProps>,
+                    TProps extends IUniversalDialogProps = IUniversalDialogProps>
+  extends BaseComponent<TComponent, TProps>
+  implements IUniversalDialog<TProps> {
 
-  constructor(props: TInternalProps) {
-    super(props, MDCDialog);
-    this.onAccept = this.onAccept.bind(this);
-    this.onClose = this.onClose.bind(this);
-  }
-
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    if (this.canAccept) {
-      this.nativeMdcInstance.listen('MDCDialog:accept', this.onAccept);
-    }
-    if (this.canClose) {
-      this.nativeMdcInstance.listen('MDCDialog:cancel', this.onClose);
-    }
-  }
-
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
-    if (this.canAccept) {
-      this.nativeMdcInstance.unlisten('MDCDialog:accept', this.onAccept);
-    }
-    if (this.canClose) {
-      this.nativeMdcInstance.unlisten('MDCDialog:cancel', this.onClose);
-    }
-  }
-
+  /**
+   * @stable [17.05.2018]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
 
     return (
-        <aside ref='self'
-               className='mdc-dialog'
-               role='alertdialog'>
-          <div className='mdc-dialog__surface'>
-            <header className='mdc-dialog__header'>
-              <h2 className='mdc-dialog__header__title'>
-                {this.t(props.title || 'Notice')}
-              </h2>
-            </header>
+      <aside ref='self'
+             className={this.uiFactory.dialog}>
+        <div className={this.uiFactory.dialogSurface}>
+          <header className={this.uiFactory.dialogHeader}>
+            <h2 className={this.uiFactory.dialogHeaderTitle}>
+              {this.t(props.title || this.settings.messages.dialogTitleMessage)}
+            </h2>
+          </header>
+          {
+            orNull(
+              !R.isNil(props.children) || !R.isNil(props.message),
+              <section className={this.uiFactory.dialogBody}>
+                {props.children || this.t(props.message)}
+              </section>
+            )
+          }
+          <footer className={this.uiFactory.dialogFooter}>
             {
               orNull(
-                props.children || !isUndef(props.message),
-                <section className='mdc-dialog__body'>
-                  {props.children || this.t(props.message)}
-                </section>
+                this.closable,
+                <Button disabled={props.closeDisabled}
+                        className={toClassName(this.uiFactory.dialogFooterButton,
+                                               this.uiFactory.dialogFooterButtonCancel)}>
+                  {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
+                </Button>
               )
             }
-            <footer className='mdc-dialog__footer'>
-              {
-                orNull(
-                  this.canClose,
-                  <Button disabled={props.closeDisabled}
-                          className='mdc-dialog__footer__button mdc-dialog__footer__button--cancel'>
-                    {this.t(props.closeMessage || 'Decline')}
-                  </Button>
-                )
-              }
-              {
-                orNull(this.canAccept,
-                    <Button disabled={props.acceptDisabled}
-                            className='mdc-dialog__footer__button mdc-dialog__footer__button--accept'>
-                      {this.t(props.acceptMessage || 'Accept')}
-                    </Button>
-                )
-              }
-            </footer>
-          </div>
-          <div className='mdc-dialog__backdrop'/>
-        </aside>
+            {
+              orNull(
+                this.acceptable,
+                <Button disabled={props.acceptDisabled}
+                        className={toClassName(this.uiFactory.dialogFooterButton,
+                                               this.uiFactory.dialogFooterButtonAccept)}>
+                  {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
+                </Button>
+              )
+            }
+          </footer>
+        </div>
+        <div className={this.uiFactory.dialogBackdrop}/>
+      </aside>
     );
   }
 
+  /**
+   * @stable [17.05.2018]
+   */
   public activate(): void {
-    this.nativeMdcInstance.show();
+    // Each plugin must implement this method
   }
 
-  protected onAccept(): void {
-    if (this.props.onAccept) {
-      this.props.onAccept();
+  /**
+   * @stable [17.05.2018]
+   */
+  public onAccept(): void {
+    const props = this.props;
+    if (props.onAccept) {
+      props.onAccept();
     }
   }
 
-  protected onClose(): void {
-    if (this.props.onClose) {
-      this.props.onClose();
+  /**
+   * @stable [17.05.2018]
+   */
+  public onClose(): void {
+    const props = this.props;
+    if (props.onClose) {
+      props.onClose();
     }
   }
 
-  private get canAccept(): boolean {
-    return this.props.canAccept !== false;
+  /**
+   * @stable [17.05.2018]
+   * @returns {boolean}
+   */
+  public get acceptable(): boolean {
+    return this.props.acceptable !== false;
   }
 
-  private get canClose(): boolean {
-    return this.props.canClose !== false;
+  /**
+   * @stable [17.05.2018]
+   * @returns {boolean}
+   */
+  public get closable(): boolean {
+    return this.props.closable !== false;
   }
 }
