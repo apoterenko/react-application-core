@@ -72,6 +72,14 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
   }
 
   /**
+   * @stable [18.05.2018]
+   * @returns {Element}
+   */
+  public get self(): Element {
+    return this.refs.self as Element;
+  }
+
+  /**
    * @stable [19.04.2018]
    * @returns {ApplicationTranslatorT}
    */

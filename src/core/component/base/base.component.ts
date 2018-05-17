@@ -23,8 +23,4 @@ export class BaseComponent<TComponent extends IComponent<TProps, TState>,
     this.plugins.forEach((plugin) =>
         plugin.componentWillUpdate && plugin.componentWillUpdate(nextProps, nextState, nextContext));
   }
-
-  public get self(): HTMLElement {
-    return this.refs.self as HTMLElement;
-  }
 }
