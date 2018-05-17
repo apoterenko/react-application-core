@@ -135,9 +135,9 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
     this.onApply();
   }
 
-  private onApply(value?: string): void {
+  private onApply(): void {
     if (this.props.onApply) {
-      this.props.onApply(value);
+      this.props.onApply();
     }
   }
 

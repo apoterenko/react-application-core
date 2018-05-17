@@ -4,10 +4,16 @@ export interface IApplicationFilterFormWrapperState {
   filterForm?: IDefaultFormEntity;
 }
 
+/**
+ * @stable [18.05.2018]
+ */
 export const INITIAL_APPLICATION_FILTER_STATE: IQueryFilterEntity = {
   query: '',
 };
 
+/**
+ * @stable [18.05.2018]
+ */
 export const FILTER_OPEN_ACTION_TYPE = 'filter.open';
 export const FILTER_ACTIVATE_ACTION_TYPE = 'filter.activate';
 export const FILTER_CHANGE_ACTION_TYPE = 'filter.change';
