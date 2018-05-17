@@ -148,15 +148,16 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
     );
   }
 
+  /**
+   * @stable [17.05.2018]
+   */
   public show(): void {
-    const props = this.props;
-
     this.setState({ filter: UNDEF });
 
+    const props = this.props;
     if (props.useFilter) {
       setTimeout(() => this.field.setFocus());
     }
-
     if (props.renderToCenterOfBody) {
       addClassNameToBody('rac-disabled');
     } else if (props.renderToBody) {
@@ -165,41 +166,37 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   public hide(): void {
-    this.onCancel();
-  }
-
-  /**
-   * @stable - 29.03.2018
-   */
-  public onCancel(): void {
-    if (this.props.renderToCenterOfBody) {
-      removeClassNameFromBody('rac-disabled');
+    if (!this.props.renderToCenterOfBody) {
+      return;
     }
+    removeClassNameFromBody('rac-disabled');
   }
 
   /**
+   * Each plugin may implement this method
    * @stable [17.05.2018]
    */
   public onInputFocus(): void {
-    // Each plugin must implement this method
+    // Nothing to do
   }
 
   /**
+   * Each plugin may implement this method
    * @stable [17.05.2018]
    */
   public onInputBlur(): void {
-    // Each plugin must implement this method
+    // Nothing to do
   }
 
   /**
-   * @stable - 29.03.2018
+   * Each plugin should implement this method
+   * @stable [17.05.2018]
    * @returns {boolean}
    */
   public isOpen(): boolean {
-    // Each plugin must implement this method
     return false;
   }
 

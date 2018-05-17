@@ -1,42 +1,50 @@
+import { MDCMenu } from '@material/menu';
+
 import { sequence } from '../../../util';
-import { INativeMaterialComponentFactory } from '../../material';
 import { MaterialPlugin } from './material.plugin';
 import { IMenu, INativeMaterialMenuComponent } from '../../menu';
 
-export class MenuMaterialPlugin<TMenu extends IMenu>
-  extends MaterialPlugin<TMenu, INativeMaterialMenuComponent> {
+export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMenu, INativeMaterialMenuComponent> {
 
+  /**
+   * See https://github.com/material-components/material-components-web/issues/2422
+   */
   private preventKeyboardDownHandling = false;
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
+   * @param {TMenu} menu
    */
-  constructor(menu: TMenu,
-              mdcFactory: INativeMaterialComponentFactory<INativeMaterialMenuComponent>) {
-    super(menu, mdcFactory);
+  constructor(menu: TMenu) {
+    super(menu, MDCMenu);
+    this.onMenuCancel = this.onMenuCancel.bind(this);
 
-    menu.show = sequence(menu.show, this.onMenuShow, this);
-    menu.hide = sequence(menu.hide, this.onMenuHide, this);
+    // We need to patch the native MDC
+    // See https://github.com/material-components/material-components-web/issues/2422
     menu.onInputFocus = sequence(menu.onInputFocus, this.onInputFocus, this);
     menu.onInputBlur = sequence(menu.onInputBlur, this.onInputBlur, this);
-    menu.componentDidMount = sequence(menu.componentDidMount, this.componentDidMount, this);
-    menu.componentWillUnmount = sequence(menu.componentWillUnmount, this.componentWillUnmount, this);
+
+    // Complete the component behavior
     menu.isOpen = this.isMenuOpen.bind(this);
-    this.onMenuCancel = this.onMenuCancel.bind(this);
+    menu.show = sequence(menu.show, this.show, this);
+    menu.hide = sequence(menu.hide, this.hide, this);
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   public componentDidMount(): void {
     super.componentDidMount();
     this.mdc.listen('MDCMenu:cancel', this.onMenuCancel);
 
+    /**
+     * MDC patch
+     * See https://github.com/material-components/material-components-web/issues/2422
+     */
     const self = this;
     const originalHandleKeyboardDownFn = this.mdc.foundation_.handleKeyboardDown_;
     this.mdc.foundation_.handleKeyboardDown_ = function() {
       if (self.preventKeyboardDownHandling) {
-        // https://github.com/material-components/material-components-web/issues/2422
         return false;
       }
       return originalHandleKeyboardDownFn.apply(this, arguments);
@@ -44,7 +52,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu>
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
@@ -52,42 +60,44 @@ export class MenuMaterialPlugin<TMenu extends IMenu>
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   private isMenuOpen(): boolean {
     return this.mdc.open;
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
-  private onMenuShow(): void {
+  private show(): void {
     this.mdc.open = true;
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
-  private onMenuHide(): void {
+  private hide(): void {
     this.mdc.open = false;
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   private onMenuCancel(): void {
-    this.component.onCancel();
+    this.component.hide();
   }
 
   /**
-   * @stable - 29.03.2018
+   * See https://github.com/material-components/material-components-web/issues/2422
+   * @stable [17.05.2018]
    */
   private onInputFocus(): void {
     this.preventKeyboardDownHandling = true;
   }
 
   /**
-   * @stable - 29.03.2018
+   * See https://github.com/material-components/material-components-web/issues/2422
+   * @stable [17.05.2018]
    */
   private onInputBlur(): void {
     this.preventKeyboardDownHandling = false;

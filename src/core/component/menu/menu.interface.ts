@@ -29,7 +29,6 @@ export interface IMenu extends IComponent<IMenuProps, IMenuInternalState>,
                                IShowWrapper,
                                IHideFnWrapper {
   isOpen(): boolean;
-  onCancel(): void;
   onInputFocus(): void;
   onInputBlur(): void;
 }
