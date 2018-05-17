@@ -32,7 +32,7 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
    * @stable [18.05.2018]
    * @returns {IUniversalSearchToolbarProps}
    */
-  protected getComponentProps(): IUniversalSearchToolbarProps {
+  protected getComponentProps<TComponentProps extends IUniversalSearchToolbarProps>(): TComponentProps {
     const props = this.props;
     return {
       onApply: this.onApply,
@@ -41,7 +41,7 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
       onOpen: this.onOpen,
       ...props.filter as {},
       ...props.filterConfiguration as {},
-    };
+    } as TComponentProps;
   }
 
   /**
