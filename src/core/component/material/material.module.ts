@@ -1,8 +1,12 @@
 import { MDCTextField } from '@material/textfield';
-import { MDCMenu, MDCMenuFoundation } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
+import { MDCTabBarScroller } from '@material/tabs';
 
 import { appContainer, DI_TYPES } from '../../di';
+import {
+  IComponentClassEntity,
+  UniversalComponentPluginFactoryT,
+} from '../../entities-definitions.interface';
 import {
   Checkbox,
   ChipsField,
@@ -13,21 +17,21 @@ import {
 } from '../field';
 import { IUIFactory } from '../factory';
 import {
-  FieldMaterialPlugin,
   CheckboxMaterialPlugin,
-  MenuMaterialPlugin,
+  DialogMaterialPlugin,
+  FieldMaterialPlugin,
   ListItemMaterialPlugin,
-  TabPanelMaterialPlugin,
   MaterialPlugin,
+  MenuMaterialPlugin,
 } from './plugin';
 import { INativeMaterialComponent } from '../material';
 import { UIMaterialFactory } from './factory';
 import { Menu } from '../menu';
 import { ListItem } from '../list';
 import { TabPanel } from '../tabpanel';
-import { IComponentClassEntity, UniversalComponentPluginFactoryT } from '../../entities-definitions.interface';
 import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
+import { Dialog } from '../dialog';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
 uiPlugins.set(
@@ -57,11 +61,18 @@ uiPlugins.set(
 );
 uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
 
-/* @stable - 06.04.2018 */
-uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(component));
+/**
+ * @stable [17.05.2018]
+ */
+uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(component, MDCTabBarScroller));
+
+/**
+ * @stable [17.05.2018]
+ */
+uiPlugins.set(Dialog, (component: Dialog) => new DialogMaterialPlugin<Dialog>(component));
 
 /* @stable - 31.03.2018 */
-uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component, MDCMenu));
+uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component));
 
 /* @stable - 31.03.2018 */
 uiPlugins.set(ListItem, (component: ListItem) => new ListItemMaterialPlugin<ListItem>(component, MDCRipple));
