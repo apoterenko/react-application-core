@@ -1172,17 +1172,17 @@ export interface ISimpleWrapper {
   simple?: boolean;
 }
 
-/* @stable - 08.04.2018 */
-export interface ISelfWrapper<TSelf> {
+/**
+ * @stable [17.05.2018]
+ */
+export interface ISelfWrapper<TSelf = Element> {
   self?: TSelf;
 }
 
-/* @stable - 08.04.2018 */
+/**
+ * @stable [17.05.2018]
+ */
 export interface IAnySelfWrapper extends ISelfWrapper<AnyT> {
-}
-
-/* @stable - 08.04.2018 */
-export interface IHtmlElementSelfWrapper extends ISelfWrapper<HTMLElement> {
 }
 
 /* @stable [23.04.2018] */
@@ -1443,7 +1443,9 @@ export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;
 }
 
-/* @stable - 12.04.2018 */
+/**
+ * @stable [17.05.2018]
+ */
 export interface IDispatchWrapper<TDispatch> {
   dispatch?: TDispatch;
 }
