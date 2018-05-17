@@ -70,7 +70,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
    * @stable [17.05.2018]
    */
   public activate(): void {
-    // Each plugin must implement this method
+    // Each plugin must override this method
   }
 
   /**

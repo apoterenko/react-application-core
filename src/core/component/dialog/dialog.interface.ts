@@ -1,25 +1,57 @@
-import { INativeMaterialComponent } from '../../component/material';
-import { IMessageWrapper } from '../../definitions.interface';
-import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
+import { INativeMaterialComponent } from '../material/material.interface';
+import {
+  IAcceptableWrapper,
+  IClosableWrapper,
+  IOnAcceptWrapper,
+  IOnCloseWrapper,
+  IShowWrapper,
+  IMessageWrapper,
+  IActivateWrapper,
+  IAcceptDisabledWrapper,
+  ICloseDisabledWrapper,
+  IAcceptMessageWrapper,
+  ICloseMessageWrapper,
+} from '../../definitions.interface';
+import { IUniversalComponentEntity, IUniversalComponent } from '../../entities-definitions.interface';
+import { IUniversalComponentConfiguration } from '../../configurations-definitions.interface';
 
-export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
-  show(): void;
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalDialogConfiguration extends IUniversalComponentConfiguration,
+                                                       ICloseDisabledWrapper,
+                                                       IAcceptDisabledWrapper,
+                                                       IMessageWrapper,
+                                                       IAcceptMessageWrapper,
+                                                       ICloseMessageWrapper,
+                                                       IOnCloseWrapper,
+                                                       IOnAcceptWrapper,
+                                                       IClosableWrapper,
+                                                       IAcceptableWrapper {
 }
 
-export interface IDialog<TInternalProps extends IDialogInternalProps> extends IComponent<TInternalProps, {}> {
-  activate(): void;
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalDialogProps extends IUniversalComponentEntity,
+                                               IUniversalDialogConfiguration {
 }
 
-export type DialogT = IDialog<IDialogInternalProps>;
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps>
+  extends IUniversalComponent<TProps>,
+          IActivateWrapper,
+          IOnCloseWrapper,
+          IOnAcceptWrapper,
+          IClosableWrapper,
+          IAcceptableWrapper {
+}
 
-export interface IDialogInternalProps extends IComponentEntity,
-                                              IMessageWrapper {
-  closeMessage?: string;
-  acceptMessage?: string;
-  acceptDisabled?: boolean;
-  closeDisabled?: boolean;
-  canClose?: boolean;
-  canAccept?: boolean;
-  onAccept?(): void;
-  onClose?(): void;
+/**
+ * @stable [17.05.2018]
+ */
+export interface INativeMaterialDialogComponent extends INativeMaterialComponent,
+                                                        IShowWrapper {
 }
