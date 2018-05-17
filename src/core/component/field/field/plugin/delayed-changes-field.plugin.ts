@@ -1,4 +1,4 @@
-import { sequence, DelayedTask } from '../../../../util';
+import { sequence, DelayedTask, cancelEvent } from '../../../../util';
 import { AnyT, IChangeEvent, IKeyboardEvent } from '../../../../definitions.interface';
 import { IUniversalComponentPlugin } from '../../../../entities-definitions.interface';
 import { IField } from '../field.interface';
@@ -41,7 +41,7 @@ export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDel
    * @param {IKeyboardEvent} event
    */
   private onKeyEnter(event: IKeyboardEvent): void {
-    this.component.stopEvent(event);
+    cancelEvent(event);
     this.delayedTask.stop();
     this.doDelay(this.currentValue);
   }
