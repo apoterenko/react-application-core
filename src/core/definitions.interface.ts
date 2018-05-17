@@ -669,6 +669,34 @@ export interface IDisabledWrapper {
 }
 
 /**
+ * @stable [17.05.2018]
+ */
+export interface IAcceptDisabledWrapper {
+  acceptDisabled?: boolean;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface ICloseDisabledWrapper {
+  closeDisabled?: boolean;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IClosableWrapper {
+  closable?: boolean;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IAcceptableWrapper {
+  acceptable?: boolean;
+}
+
+/**
  * @stable [06.05.2018]
  */
 export interface IOrderWrapper<TOrder = number> {
@@ -974,9 +1002,22 @@ export interface ISelectedWrapper<TSelected = boolean> {
 }
 
 /**
- * @stable [31.03.2018]
+ * @stable [17.05.2018]
  */
-export interface ISelectedEntityWrapper extends ISelectedWrapper<IEntity> {
+export interface IRemovedWrapper<TRemoved = boolean> {
+  removed?: TRemoved;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IRemovedEntityWrapper<TEntity extends IEntity = IEntity> extends IRemovedWrapper<TEntity> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {
 }
 
 /* @stable - 09.04.2018 */
@@ -1058,13 +1099,11 @@ export interface ICloseWrapper<TClose> {
   close?: TClose;
 }
 
-/* @stable [27.04.2018] */
-export interface IOpenWrapper<TOpen> {
+/**
+ * @stable [27.04.2018]
+ */
+export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
-}
-
-/* @stable [27.04.2018] */
-export interface IBooleanOpenWrapper extends IOpenWrapper<boolean> {
 }
 
 /* @stable - 31.03.2018 */
@@ -1298,6 +1337,20 @@ export interface IUseDigitalWrapper {
  */
 export interface IMessageWrapper<TMessage = string> {
   message?: TMessage;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface ICloseMessageWrapper<TCloseMessage = string> {
+  closeMessage?: TCloseMessage;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IAcceptMessageWrapper<TAcceptMessage = string> {
+  acceptMessage?: TAcceptMessage;
 }
 
 /**
@@ -1645,10 +1698,24 @@ export interface IEntityOnClickWrapper extends IOnClickWrapper<IEntity> {
 }
 
 /**
+ * @stable [17.05.2018]
+ */
+export interface IShowWrapper<TShow = () => void> {
+  show?: TShow;
+}
+
+/**
  * @stable [08.05.2018]
  */
 export interface IOnCloseWrapper<TOnClose = () => void> {
   onClose?: TOnClose;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IOnAcceptWrapper<TOnAccept = () => void> {
+  onAccept?: TOnAccept;
 }
 
 /**
