@@ -87,16 +87,12 @@ import {
   IStringInfoWrapper,
   IStringErrorMessageWrapper,
   IMessageWrapper,
-  IHtmlElementSelfWrapper,
+  ISelfWrapper,
   IStateWrapper,
   IPathWrapper,
   IDisabledWrapper,
   IDictionariesWrapper,
   ILoadingWrapper,
-  AnyT,
-  IDispatchWrapper,
-  IStopEventWrapper,
-  IBasicEvent,
   IUrlWrapper,
   ILockPageWrapper,
   IIconWrapper,
@@ -114,23 +110,53 @@ import {
 } from './props-definitions.interface';
 
 /**
- * @stable [13.05.2018]
- */
-export interface INamedEntity extends IEntityIdTWrapper,
-                                      INameWrapper {
-}
-
-/**
  * @stable [04.05.2018]
  */
 export interface IUniversalComponentEntity {
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [17.05.2018]
+ */
+export interface IComponentEntity extends IUniversalComponentEntity {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalContainerEntity extends IChannelWrapperEntity,
+                                                   ILayoutWrapperEntity,
+                                                   IUserWrapperEntity,
+                                                   INotificationWrapperEntity,
+                                                   ITransportWrapperEntity {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IWebContainerEntity extends IRootWrapperEntity,
+                                             IBrowserLocationWrapper,
+                                             IURLSearchQueryParamsWrapper,
+                                             IKeyValueRouteParamsWrapper {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IContainerEntity extends IUniversalContainerEntity,
+                                          IWebContainerEntity {
+}
+
+/**
+ * @stable [17.05.2018]
  */
 export interface IUniversalComponentPlugin<TProps = {}, TState = {}> extends ComponentLifecycle<TProps, TState> {
 }
+
+/**
+ * @stable [17.05.2018]
+ */
+export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;
 
 /**
  * @stable [23.04.2018]
@@ -144,6 +170,66 @@ export interface IUniversalComponentClassEntity<TProps extends IUniversalCompone
  */
 export interface IUniversalContainerClassEntity<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends ComponentClass<TProps> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalComponentPluginClassEntity<TComponent extends IUniversalComponent<TProps, TState>
+                                                          = IUniversalComponent<TProps, TState>,
+                                                      TProps extends IUniversalComponentProps = IUniversalComponentProps,
+                                                      TState = {}> {
+  new(component: TComponent): IUniversalComponentPlugin<TProps, TState>;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IComponentClassEntity<TProps extends IComponentProps = IComponentProps, TState = {}>
+  extends IUniversalComponentClassEntity<TProps, TState> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IContainerClassEntity<TProps extends IContainerProps = IContainerProps, TState = {}>
+  extends IUniversalContainerClassEntity<TProps, TState> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+  extends Component<TProps, TState>,
+          ISelfWrapper {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
+  extends IUniversalComponent<TProps, TState> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+  extends Component<TProps, TState> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
+  extends IUniversalContainer<TProps, TState> {
+}
+
+/**
+ * @stable [13.05.2018]
+ */
+export interface INamedEntity extends IEntityIdTWrapper,
+                                      INameWrapper {
 }
 
 /* @stable - 05.04.2018 */
@@ -422,42 +508,6 @@ export interface IFieldEntity extends IUniversalComponentEntity,
 }
 
 /* @stable - 12.04.2018 */
-export interface IUniversalContainerEntity extends IChannelWrapperEntity,
-                                                   ILayoutWrapperEntity,
-                                                   IUserWrapperEntity,
-                                                   INotificationWrapperEntity,
-                                                   ITransportWrapperEntity {
-}
-
-/* @stable - 25.04.2018 */
-export interface IWebContainerEntity extends IRootWrapperEntity,
-                                             IBrowserLocationWrapper,
-                                             IURLSearchQueryParamsWrapper,
-                                             IKeyValueRouteParamsWrapper {
-}
-
-/* @stable - 14.04.2018 */
-export interface IContainerEntity extends IUniversalContainerEntity,
-                                          IWebContainerEntity {
-}
-
-/* @stable - 14.04.2018 */
-export interface IContainerClassEntity extends ComponentClass<IContainerEntity> {
-}
-
-/* @stable - 23.04.2018 */
-export interface IComponentEntity extends IUniversalComponentEntity,
-                                          ITitleWrapper {
-}
-
-/* @stable - 15.04.2018 */
-export interface IComponentClassEntity<TProps extends IComponentEntity = TProps,
-                                       TState = {}>
-  extends IUniversalComponentClassEntity<TProps>,
-          IHtmlElementSelfWrapper {
-}
-
-/* @stable - 12.04.2018 */
 export interface ITransportEntity extends IStringTokenWrapper,
                                           IQueueWrapper<string[]> {
 }
@@ -560,42 +610,6 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
                                                                      ILayoutWrapperEntity,
                                                                      INotificationWrapperEntity,
                                                                      IRootWrapperEntity {
-}
-
-/* @stable [12.04.2018] */
-export interface IUniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
-  extends Component<TProps, TState>,
-          IDispatchWrapper<(type: string, data?: AnyT) => void> {
-}
-
-/* @stable [23.04.2018] */
-export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
-                                     TState = {}>
-  extends Component<TProps, TState> {
-}
-
-/* @stable - 23.04.2018 */
-export interface IUniversalComponentPluginClassEntity<
-  TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
-  TProps extends IUniversalComponentProps = IUniversalComponentProps,
-  TState = {}
-> {
-  new(component: TComponent): IUniversalComponentPlugin<TProps, TState>;
-}
-
-/* @stable - 23.04.2018 */
-export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;
-
-/* @stable [23.04.2018] */
-export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
-  extends IUniversalComponent<TProps, TState>,
-          IStopEventWrapper<(event: IBasicEvent) => void>,
-          IHtmlElementSelfWrapper {
-}
-
-/* @stable [23.04.2018] */
-export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
-  extends IUniversalContainer<TProps, TState> {
 }
 
 /**
