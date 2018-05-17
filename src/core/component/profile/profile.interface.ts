@@ -5,8 +5,9 @@ import {
   IOnClickWrapper,
 } from '../../definitions.interface';
 import { IComponentEntity, IMenuItemEntity } from '../../entities-definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 
-export interface IProfileInternalProps extends IComponentEntity,
+export interface IProfileInternalProps extends IComponentProps,
                                                IEmailWrapper,
                                                INameWrapper,
                                                IStringPathWrapper,
