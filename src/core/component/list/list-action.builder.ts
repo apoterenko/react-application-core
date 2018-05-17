@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT, IEntity, EntityIdT, ISelectedEntityWrapper } from '../../definitions.interface';
+import { AnyT, IEntity, EntityIdT, ISelectedEntityWrapper, IRemovedEntityWrapper } from '../../definitions.interface';
 import { applySection } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
@@ -19,6 +19,7 @@ import {
   LIST_LAST_PAGE_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
+  LIST_REMOVE_ACTION_TYPE,
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
 } from './list.interface';
 
@@ -72,6 +73,10 @@ export class ListActionBuilder {
     return `${section}.${LIST_INSERT_ACTION_TYPE}`;
   }
 
+  public static buildRemoveActionType(section: string): string {
+    return `${section}.${LIST_REMOVE_ACTION_TYPE}`;
+  }
+
   public static buildUpdateActionType(section: string): string {
     return `${section}.${LIST_UPDATE_ACTION_TYPE}`;
   }
@@ -106,6 +111,10 @@ export class ListActionBuilder {
 
   public static buildInsertAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
     return EffectsAction.create(this.buildInsertActionType(section), applySection(section, data));
+  }
+
+  public static buildRemoveAction(section: string, data?: IRemovedEntityWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildRemoveActionType(section), applySection(section, data));
   }
 
   public static buildUpdateAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {

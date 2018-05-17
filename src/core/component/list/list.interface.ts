@@ -46,6 +46,7 @@ export const LIST_CREATE_ACTION_TYPE = 'list.create';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
+export const LIST_REMOVE_ACTION_TYPE = 'list.remove';
 export const LIST_CHANGE_ACTION_TYPE = 'list.change';
 export const LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE = 'list.change.sort.direction';
 export const LIST_NEXT_PAGE_ACTION_TYPE = 'list.next.page';

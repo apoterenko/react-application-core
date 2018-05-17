@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE, ISelectedEntityWrapper } from '../../definitions.interface';
+import { FIRST_PAGE, ISelectedEntityWrapper, IRemovedEntityWrapper } from '../../definitions.interface';
 import { toSection } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -105,10 +105,10 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         error: convertError(action.error).message,
       };
     case ListActionBuilder.buildSelectActionType(section):
-      const selectedEntityPayload: ISelectedEntityWrapper = action.data;
+      const entityToSelectPayload: ISelectedEntityWrapper = action.data;
       return {
         ...state,
-        selected: selectedEntityPayload.selected,
+        selected: entityToSelectPayload.selected,
       };
     case ListActionBuilder.buildCreateActionType(section):
     case ListActionBuilder.buildDeselectActionType(section):
@@ -145,6 +145,19 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       return {
         ...state,
         data: (state.data || []).concat({ ...payload.changes }),
+      };
+
+    case ListActionBuilder.buildRemoveActionType(section):
+      const entityToRemovePayload: IRemovedEntityWrapper = action.data;
+      const filterFn = (entity) => !(entity === entityToRemovePayload || entity.id === entityToRemovePayload.removed.id);
+      const isSelectedExist = !R.isNil(state.selected);
+      const filteredData = state.data.filter(filterFn);
+
+      return {
+        ...state,
+        selected: isSelectedExist && filterFn(state.selected) && state.selected
+          || (isSelectedExist && filteredData.length > 0 ? filteredData[0] : null),
+        data: filteredData,
       };
     default:
       return state;
