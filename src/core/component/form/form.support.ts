@@ -4,14 +4,14 @@ import { Operation } from '../../operation';
 import { IEntity } from '../../definitions.interface';
 import {
   IDefaultApiEntity,
-  IDefaultFormWrapperEntity,
+  IFormWrapperEntity,
 } from '../../entities-definitions.interface';
 import {
   IFormConfiguration,
   IFieldConfiguration,
 } from '../../configurations-definitions.interface';
 
-export type SupportFormT = IFormConfiguration & IDefaultFormWrapperEntity;
+export type SupportFormT = IFormConfiguration & IFormWrapperEntity;
 export type SupportFieldT = IFieldConfiguration;
 
 /**

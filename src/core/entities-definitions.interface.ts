@@ -331,7 +331,7 @@ export interface IBaseFormWrapperEntity<TEntity extends IEntity>
 }
 
 /* @stable - 09.04.2018 */
-export interface IFormWrapperEntity<TEntity extends IEntity>
+export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
   extends IBaseFormWrapperEntity<TEntity>,
           IOnResetWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
@@ -339,10 +339,6 @@ export interface IFormWrapperEntity<TEntity extends IEntity>
           IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
           IDefaultOnValidWrapper {
-}
-
-/* @stable - 01.04.2018 */
-export interface IDefaultFormWrapperEntity extends IFormWrapperEntity<IEntity> {
 }
 
 /* @stable [23.04.2018] */
