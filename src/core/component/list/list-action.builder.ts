@@ -73,6 +73,11 @@ export class ListActionBuilder {
     return `${section}.${LIST_INSERT_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [17.05.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildRemoveActionType(section: string): string {
     return `${section}.${LIST_REMOVE_ACTION_TYPE}`;
   }
@@ -113,7 +118,13 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildInsertActionType(section), applySection(section, data));
   }
 
-  public static buildRemoveAction(section: string, data?: IRemovedEntityWrapper): IEffectsAction {
+  /**
+   * @stable [17.05.2018]
+   * @param {string} section
+   * @param {IRemovedEntityWrapper} data
+   * @returns {IEffectsAction}
+   */
+  public static buildRemoveAction(section: string, data: IRemovedEntityWrapper): IEffectsAction {
     return EffectsAction.create(this.buildRemoveActionType(section), applySection(section, data));
   }
 
