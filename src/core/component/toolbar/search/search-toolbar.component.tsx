@@ -7,17 +7,16 @@ import {
   IField,
   TextField,
 } from '../../field';
-import { FilterActionEnum, IFilterActionEntity } from '../../filter';
 import { ToolbarSection } from '../../toolbar';
 import { ISearchToolbarProps } from './search-toolbar.interface';
-import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
+import { IFieldActionConfiguration, FilterActionEnum, IFilterActionConfiguration } from '../../../configurations-definitions.interface';
 
 export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarProps> {
 
   public static defaultProps: ISearchToolbarProps = {
-    fieldActions: [],
-    searchIcon: 'search',
-    searchFieldOptions: {
+    actions: [],
+    icon: 'search',
+    fieldConfiguration: {
       placeholder: 'Search',
     },
   };
@@ -79,7 +78,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
                                    plugins={DelayedChangesFieldPlugin}
                                    onDelay={this.onApply}
                                    onChange={this.onChange}
-                                   {...props.searchFieldOptions}>
+                                   {...props.fieldConfiguration}>
                         </TextField>
                       </ToolbarSection>
                   )
@@ -100,7 +99,7 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
 
   private onActivate(): void {
     const props = this.props;
-    if (props.noSearchField) {
+    if (props.notUseField) {
       this.onApply();
     } else {
       if (props.onActivate) {
@@ -144,14 +143,14 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
 
   private get actions(): IFieldActionConfiguration[] {
     const props = this.props;
-    const defaultFieldActions: IFilterActionEntity[] = props.noSearchField
+    const defaultFieldActions: IFilterActionConfiguration[] = props.notUseField
         ? []
         : [{type: FilterActionEnum.CLEAR_FILTER}];
     return defaultFieldActions
-        .concat(props.fieldActions)
+        .concat(props.actions)
         .map((action) => ({
           ...this.defaultActions[action.type],
-          disabled: props.disabledActions,
+          disabled: props.actionsDisabled,
           className: action.className,
         }));
   }
@@ -163,19 +162,19 @@ export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarPr
     if (!this.isActive) {
       serviceActions.push(
           this.uiFactory.makeIcon({
-            type: props.searchIcon,
-            disabled: props.disabledActions,
+            type: props.icon,
+            disabled: props.actionsDisabled,
             onClick: this.onActivate,
           })
       );
     }
-    if (props.noSearchField) {
+    if (props.notUseField) {
       const actions = this.actions;
       if (actions.length > 0) {
         return serviceActions.concat(
             this.actions.map((action) => this.uiFactory.makeIcon({
               ...action,
-              disabled: props.disabledActions,
+              disabled: props.actionsDisabled,
             }))
         );
       }

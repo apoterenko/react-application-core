@@ -683,6 +683,20 @@ export interface ICloseDisabledWrapper {
 }
 
 /**
+ * @stable [18.05.2018]
+ */
+export interface IActionsDisabledWrapper {
+  actionsDisabled?: boolean;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface INotUseFieldWrapper {
+  notUseField?: boolean;
+}
+
+/**
  * @stable [17.05.2018]
  */
 export interface IClosableWrapper {
@@ -1123,6 +1137,13 @@ export interface IHideWrapper<THide = boolean> {
  * @stable [17.05.2018]
  */
 export interface IHideFnWrapper extends IHideWrapper<() => void> {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IActionsWrapper<TActions> {
+  actions?: TActions;
 }
 
 /* @stable - 31.03.2018 */

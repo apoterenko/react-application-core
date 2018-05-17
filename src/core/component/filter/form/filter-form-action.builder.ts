@@ -1,28 +1,26 @@
-import { FilterActionEnum } from '../filter.interface';
 import { BuildListAndFilterFormWrapperStateT } from './filter-form-action.interface';
 import {
   activeClassNameFilterFormWrapperMapper,
-  disabledActionsListWrapperMapper,
-  IFilterActionEntity,
+  actionsDisabledListWrapperMapper,
   IApplicationFilterFormWrapperState,
-  IApplicationFilterOptions,
 } from '../../../component/filter';
+import { IFilterActionConfiguration, FilterActionEnum, IFilterConfiguration } from '../../../configurations-definitions.interface';
 
 export const buildActiveFilterAction =
-    (state: IApplicationFilterFormWrapperState): IFilterActionEntity => ({
+    (state: IApplicationFilterFormWrapperState): IFilterActionConfiguration => ({
       type: FilterActionEnum.OPEN_FILTER,
       ...activeClassNameFilterFormWrapperMapper(state),
     });
 
 export const buildRefreshFilterFormOptions =
-    (state: BuildListAndFilterFormWrapperStateT): IApplicationFilterOptions => {
+    (state: BuildListAndFilterFormWrapperStateT): IFilterConfiguration => {
       const filterFormState = state as IApplicationFilterFormWrapperState;
       return {
-        fieldActions: filterFormState.filterForm
+        actions: filterFormState.filterForm
             ? [buildActiveFilterAction(filterFormState)]
             : [],
-        noSearchField: true,
-        searchIcon: 'refresh',
-        ...disabledActionsListWrapperMapper(state),
+        notUseField: true,
+        icon: 'refresh',
+        ...actionsDisabledListWrapperMapper(state),
       };
     };

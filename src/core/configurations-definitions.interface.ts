@@ -141,6 +141,9 @@ import {
   ITplFnWrapper,
   IFilterWrapper,
   ISectionNameWrapper,
+  IActionsDisabledWrapper,
+  IActionsWrapper,
+  INotUseFieldWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -155,6 +158,13 @@ import {
  */
 export interface IItemConfigurationWrapper<TItemConfiguration> {
   itemConfiguration?: TItemConfiguration;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldConfiguration> {
+  fieldConfiguration?: TFieldConfiguration;
 }
 
 /**
@@ -671,4 +681,29 @@ export interface IFieldActionConfiguration extends IClassNameWrapper,
                                                    IDisabledWrapper,
                                                    ITypeWrapper,
                                                    IEventOnClickWrapper {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export enum FilterActionEnum {
+  OPEN_FILTER,
+  CLEAR_FILTER,
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IFilterActionConfiguration extends IClassNameWrapper,
+                                                    ITypeWrapper<FilterActionEnum> {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IFilterConfiguration extends IActionsDisabledWrapper,
+                                              INotUseFieldWrapper,
+                                              IIconWrapper,
+                                              IActionsWrapper<IFilterActionConfiguration[]>,
+                                              IFieldConfigurationWrapper {
 }

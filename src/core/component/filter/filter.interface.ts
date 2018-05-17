@@ -1,30 +1,4 @@
-import {
-  INotApplyFrameworkClassNameWrapper,
-  ITypeWrapper,
-  IClassNameWrapper,
-} from '../../definitions.interface';
 import { IDefaultFormEntity, IQueryFilterEntity } from '../../entities-definitions.interface';
-import { IFieldConfiguration } from '../../configurations-definitions.interface';
-
-/* @stable - 31.03.2018 */
-export enum FilterActionEnum {
-  OPEN_FILTER,
-  CLEAR_FILTER,
-}
-
-/* @stable - 31.03.2018 */
-export interface IFilterActionEntity extends INotApplyFrameworkClassNameWrapper,
-                                             IClassNameWrapper,
-                                             ITypeWrapper<FilterActionEnum> {
-}
-
-export interface IApplicationFilterOptions {
-  fieldActions?: IFilterActionEntity[];
-  disabledActions?: boolean;
-  searchIcon?: string;
-  noSearchField?: boolean;
-  searchFieldOptions?: IFieldConfiguration;
-}
 
 export interface IApplicationFilterFormWrapperState {
   filterForm?: IDefaultFormEntity;

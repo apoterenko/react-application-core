@@ -29,16 +29,12 @@ export class SearchToolbarContainer extends BaseContainer<ISearchToolbarContaine
                        onChange={this.onChange}
                        onOpen={this.onOpen}
                        {...props.filter}
-                       {...props.filterOptions}/>
+                       {...props.filterConfiguration}/>
     );
   }
 
   private onApply(value?: string): void {
     this.dispatch(FILTER_APPLY_ACTION_TYPE, { value });
-
-    if (this.props.onApply) {
-      this.props.onApply(value);
-    }
   }
 
   private onOpen(): void {
