@@ -59,6 +59,16 @@ export interface IUIFactory {
   menu?: string;
   menuItems?: string;
   fab?: string;
+  dialog?: string;
+  dialogSurface?: string;
+  dialogBody?: string;
+  dialogHeader?: string;
+  dialogHeaderTitle?: string;
+  dialogBackdrop?: string;
+  dialogFooter?: string;
+  dialogFooterButton?: string;
+  dialogFooterButtonCancel?: string;
+  dialogFooterButtonAccept?: string;
 
   makeIcon?(config: UIIconConfigT): JSX.Element;
   makeTabBarScrollerIndicatorIcon?(config: UIIconConfigT): JSX.Element;

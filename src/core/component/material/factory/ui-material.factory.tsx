@@ -67,6 +67,16 @@ export class UIMaterialFactory implements IUIFactory {
   public menu = 'mdc-menu';
   public menuItems = 'mdc-menu__items';
   public fab = 'mdc-fab';
+  public dialog = 'mdc-dialog';
+  public dialogSurface = 'mdc-dialog__surface';
+  public dialogBody = 'mdc-dialog__body';
+  public dialogHeader = 'mdc-dialog__header';
+  public dialogHeaderTitle = 'mdc-dialog__header__title';
+  public dialogBackdrop = 'mdc-dialog__backdrop';
+  public dialogFooter = 'mdc-dialog__footer';
+  public dialogFooterButton = 'mdc-dialog__footer__button';
+  public dialogFooterButtonCancel = 'mdc-dialog__footer__button--cancel';
+  public dialogFooterButtonAccept = 'mdc-dialog__footer__button--accept';
 
   public makeIcon(cfg: UIIconConfigT): JSX.Element {
     if (!cfg) {
