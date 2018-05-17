@@ -34,6 +34,9 @@ export interface IApplicationNumberSettings {
 }
 
 export interface IApplicationMessagesSettings {
+  dialogTitleMessage?: string;
+  dialogCancelMessage?: string;
+  dialogAcceptMessage?: string;
   logoutNotificationMessage?: string;
   accessDeniedMessage?: string;
   sorryMessage?: string;
@@ -88,6 +91,9 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   companyName: 'Test company',
   entityEmptyId: null,
   messages: {
+    dialogTitleMessage: 'Notice',
+    dialogCancelMessage: 'Cancel',
+    dialogAcceptMessage: 'Continue',
     logoutNotificationMessage: 'You were logged out.',
     accessDeniedMessage: 'The access is restricted for you.',
     sorryMessage: 'Sorry about that.',
