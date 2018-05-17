@@ -13,9 +13,12 @@ export class DialogMaterialPlugin<TDialog extends IUniversalDialog>
    */
   constructor(dialog: TDialog) {
     super(dialog, MDCDialog);
-    dialog.activate = sequence(dialog.activate, this.onMenuActivate, this);
+
     this.onAccept = this.onAccept.bind(this);
     this.onClose = this.onClose.bind(this);
+
+    // Complete the component behavior
+    dialog.activate = sequence(dialog.activate, this.onMenuActivate, this);
   }
 
   /**
