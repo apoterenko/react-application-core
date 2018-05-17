@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
+import { IContainerProps } from '../../props-definitions.interface';
 import { IContainerClassEntity, IUniversalApplicationStoreEntity } from '../../entities-definitions.interface';
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 

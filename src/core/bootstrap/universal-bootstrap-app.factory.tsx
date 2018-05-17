@@ -8,6 +8,7 @@ import {
 import { universalConnectorFactory } from '../component/connector/universal-connector.factory';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { UniversalContainer } from '../component/base/universal.container';
+import { IContainerProps } from '../props-definitions.interface';
 
 /**
  * @stable - 23.04.2018
