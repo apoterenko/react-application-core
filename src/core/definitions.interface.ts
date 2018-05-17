@@ -415,6 +415,13 @@ export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value: TCha
   onChange?: TOnChange;
 }
 
+/**
+ * @stable [18.05.2018]
+ */
+export interface IOnOpenWrapper<TOnOpen = () => void> {
+  onOpen?: TOnOpen;
+}
+
 /* @stable - 01.04.2018 */
 export interface IOperationWrapper<TOperation> {
   operation?: TOperation;
@@ -1777,6 +1784,20 @@ export interface IOnSelectWrapper<TSelectedObject = IEntity, TOnSelect = (object
 /* @stable - 31.03.2018 */
 export interface IOnCreateWrapper<TOnCreate = () => void> {
   onCreate?: TOnCreate;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IOnActivateWrapper<TOnActivate = () => void> {
+  onActivate?: TOnActivate;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppliedValue) => void> {
+  onApply?: TOnApply;
 }
 
 /**

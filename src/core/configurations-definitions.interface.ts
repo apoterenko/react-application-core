@@ -163,6 +163,13 @@ export interface IItemConfigurationWrapper<TItemConfiguration> {
 /**
  * @stable [18.05.2018]
  */
+export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfiguration> {
+  filterConfiguration?: IFilterConfiguration;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
 export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldConfiguration> {
   fieldConfiguration?: TFieldConfiguration;
 }
