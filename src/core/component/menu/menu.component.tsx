@@ -181,17 +181,17 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   public onInputFocus(): void {
-    // Do nothing
+    // Each plugin must implement this method
   }
 
   /**
-   * @stable - 29.03.2018
+   * @stable [17.05.2018]
    */
   public onInputBlur(): void {
-    // Do nothing
+    // Each plugin must implement this method
   }
 
   /**
