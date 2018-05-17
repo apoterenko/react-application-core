@@ -1106,6 +1106,25 @@ export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
 }
 
+/**
+ * @stable [27.04.2018]
+ */
+export interface IOpenFnWrapper extends IOpenWrapper<() => void> {
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IHideWrapper<THide = boolean> {
+  hide?: THide;
+}
+
+/**
+ * @stable [17.05.2018]
+ */
+export interface IHideFnWrapper extends IHideWrapper<() => void> {
+}
+
 /* @stable - 31.03.2018 */
 export interface IReadOnlyWrapper {
   readOnly?: boolean;
