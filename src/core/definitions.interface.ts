@@ -207,6 +207,13 @@ export interface IBasenameWrapper {
 }
 
 /**
+ * @stable [18.05.2018]
+ */
+export interface ISetFocusWrapper<TSetFocus = () => void> {
+  setFocus: TSetFocus;
+}
+
+/**
  * @stable [02.05.2018]
  */
 export interface IActionButtonsWrapper<TActionButtons> {
@@ -604,13 +611,11 @@ export interface IPayloadWrapper<TPayload> {
   payload?: TPayload;
 }
 
-/* @stable - 31.03.2018 */
-export interface IChangesWrapper<TChanges extends IKeyValue> {
+/**
+ * @stable [18.05.2018]
+ */
+export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
   changes?: TChanges;
-}
-
-/* @stable - 11.04.2018 */
-export interface IKeyValueChangesWrapper extends IChangesWrapper<IKeyValue> {
 }
 
 /**
@@ -749,7 +754,7 @@ export interface IDelayTimeoutWrapper<TDelayTimeout = number> {
 /**
  * @stable [04.05.2018]
  */
-export interface IOnDelayWrapper<TOnDelay = () => void> {
+export interface IOnDelayWrapper<TValue = AnyT, TOnDelay = (value?: TValue) => void> {
   onDelay?: TOnDelay;
 }
 
@@ -884,7 +889,9 @@ export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [18.05.2018]
+ */
 export interface IProgressWrapper {
   progress?: boolean;
 }
@@ -916,7 +923,9 @@ export interface ITotalCountWrapper<TTotalCount = number> {
   totalCount?: TTotalCount;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [18.05.2018]
+ */
 export interface ITouchedWrapper {
   touched?: boolean;
 }
@@ -1093,12 +1102,16 @@ export interface ISeparatedWrapper<TSeparated = boolean> {
   separated?: TSeparated;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [18.05.2018]
+ */
 export interface IDirtyWrapper {
   dirty?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [18.05.2018]
+ */
 export interface IValidWrapper {
   valid?: boolean;
 }
@@ -1151,6 +1164,13 @@ export interface IHideFnWrapper extends IHideWrapper<() => void> {
  */
 export interface IActionsWrapper<TActions> {
   actions?: TActions;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface INotUseErrorMessage {
+  notUseErrorMessage?: boolean;
 }
 
 /* @stable - 31.03.2018 */
@@ -1807,6 +1827,13 @@ export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppl
  */
 export interface IActivateWrapper<TActivate = () => void> {
   activate?: TActivate;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IActionsPosition<TActionsPosition> {
+  actionsPosition?: TActionsPosition;
 }
 
 /**

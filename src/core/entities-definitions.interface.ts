@@ -13,7 +13,6 @@ import {
   INameWrapper,
   IStringChannelWrapper,
   IChannelWrapper,
-  IChangesWrapper,
   IDirtyWrapper,
   IErrorWrapper,
   IKeyValue,
@@ -40,8 +39,9 @@ import {
   IOnBeforeSubmitWrapper,
   IQueryWrapper,
   IFilterWrapper,
-  IKeyValueChangesWrapper,
+  IChangesWrapper,
   IOnClickWrapper,
+  ISetFocusWrapper,
   IOnChangeSortDirectionWrapper,
   ISortDirectionWrapper,
   ISortDirectionsWrapper,
@@ -74,7 +74,6 @@ import {
   ILockWrapper,
   INeedToDestroySectionsWrapper,
   IStackWrapper,
-  ITitleWrapper,
   ILayoutWrapper,
   IModeWrapper,
   IUserWrapper,
@@ -107,7 +106,9 @@ import {
   IContainerProps,
   IUniversalComponentProps,
   IUniversalContainerProps,
+  IUniversalFieldProps,
 } from './props-definitions.interface';
+import { IKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 
 /**
  * @stable [04.05.2018]
@@ -313,10 +314,10 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
 }
 
 /* @stable - 31.03.2018 */
-export interface IFormEntity<TChanges extends IKeyValue> extends IChangesWrapper<TChanges>,
-                                                                 IDirtyWrapper,
-                                                                 IValidWrapper,
-                                                                 IUniversalStateEntity {
+export interface IFormEntity<TChanges extends IKeyValue = IKeyValue> extends IChangesWrapper<TChanges>,
+                                                                             IDirtyWrapper,
+                                                                             IValidWrapper,
+                                                                             IUniversalStateEntity {
 }
 
 /* @stable - 31.03.2018 */
@@ -371,7 +372,7 @@ export interface IRnListEntity extends IUniversalListEntity {
 /* @stable - 04.04.2018 */
 export interface IListEntity extends IUniversalListEntity,
                                      ISortDirectionsWrapper,
-                                     IKeyValueChangesWrapper {
+                                     IChangesWrapper {
 }
 
 /**
@@ -629,4 +630,14 @@ export interface IStringMenuActionEntity extends IMenuItemEntity<IEntity, string
  */
 export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(entity: TEntity) => boolean>,
                                                                ISorterWrapper<(entity1: TEntity, entity2: TEntity) => number> {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps, TState = {}>
+  extends IUniversalComponent<TProps, TState>,
+          IKeyboardHandlersConfiguration,
+          ISetFocusWrapper,
+          IOnChangeWrapper {
 }

@@ -1,15 +1,11 @@
 import { IField, IFieldState, IFieldInternalProps } from '../field';
-import { IDelayedChangesFieldPluginProps } from '../field';
-import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
 export interface IBasicTextFieldInternalState extends IFieldState {
   keyboard?: boolean;
 }
 
 export interface IBasicTextFieldInternalProps
-    extends IFieldInternalProps, IDelayedChangesFieldPluginProps {
-  actions?: IFieldActionConfiguration[];
-  actionsPosition?: ActionPositionEnum;
+    extends IFieldInternalProps {
   clearAction?: boolean;
 }
 
@@ -17,9 +13,4 @@ export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalP
                                  TInternalState extends IBasicTextFieldInternalState>
     extends IField<TInternalProps,
                    TInternalState> {
-}
-
-export enum ActionPositionEnum {
-  LEFT,
-  RIGHT,
 }
