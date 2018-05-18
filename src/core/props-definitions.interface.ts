@@ -1,5 +1,6 @@
 import {
   IContainerEntity,
+  IUniversalFieldEntity,
   IFieldEntity,
   IListEntity,
   IRnListEntity,
@@ -19,6 +20,7 @@ import {
   IUniversalListConfiguration,
   IUniversalComponentConfiguration,
   IComponentConfiguration,
+  IUniversalFieldConfiguration,
 } from './configurations-definitions.interface';
 
 /**
@@ -47,6 +49,13 @@ export interface IUniversalContainerProps extends IUniversalContainerEntity,
  */
 export interface IContainerProps extends IContainerEntity,
                                          IContainerConfiguration {
+}
+
+/**
+ * @stable [04.05.2018]
+ */
+export interface IUniversalFieldProps extends IUniversalFieldEntity,
+                                              IUniversalFieldConfiguration {
 }
 
 /**

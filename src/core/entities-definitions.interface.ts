@@ -227,6 +227,21 @@ export interface IContainer<TProps extends IContainerProps = IContainerProps, TS
 }
 
 /**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalFieldEntity extends IUniversalComponentEntity,
+                                               IValueWrapper,
+                                               IOriginalValueWrapper {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IFieldEntity extends IUniversalFieldEntity,
+                                      IMessageWrapper {
+}
+
+/**
  * @stable [13.05.2018]
  */
 export interface INamedEntity extends IEntityIdTWrapper,
@@ -493,15 +508,6 @@ export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicat
 
 /* @stable - 11.04.2018 */
 export interface IOperationEntity extends IStringIdWrapper {
-}
-
-/**
- * @stable [15.05.2018]
- */
-export interface IFieldEntity extends IUniversalComponentEntity,
-                                      IValueWrapper,
-                                      IOriginalValueWrapper,
-                                      IMessageWrapper {
 }
 
 /* @stable - 12.04.2018 */
