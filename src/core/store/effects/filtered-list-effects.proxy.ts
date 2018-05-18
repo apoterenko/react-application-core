@@ -20,6 +20,14 @@ export function makeFilteredListEffectsProxy(
         return ListActionBuilder.buildLoadAction(section);
       }
 
+      @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(section))
+      public $onFilterDeactivate(): IEffectsAction[] {
+        return [
+          FilterActionBuilder.buildDestroyAction(section),
+          ListActionBuilder.buildLoadAction(section)
+        ];
+      }
+
       @EffectsService.effects(FilterActionBuilder.buildOpenActionType(section))
       public $onFilterOpen(): IEffectsAction[] {
         return [

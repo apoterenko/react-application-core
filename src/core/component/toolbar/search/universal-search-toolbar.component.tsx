@@ -38,7 +38,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
     },
     [FilterActionEnum.CLEAR_FILTER]: {
       type: 'clear',
-      onClick: this.onClear.bind(this),
+      onClick: this.onDeactivate.bind(this),
     },
   };
 
@@ -90,11 +90,21 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
 
   /**
    * @stable [18.05.2018]
+   */
+  protected onDeactivate(): void {
+    const props = this.props;
+    if (props.onDeactivate) {
+      // Close a search field
+      props.onDeactivate();
+    }
+  }
+
+  /**
+   * @stable [18.05.2018]
    * @param {string} query
    */
   protected onChange(query?: string): void {
     const props = this.props;
-
     if (props.onChange) {
       props.onChange(query);
     }
@@ -104,8 +114,9 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    * @stable [18.05.2018]
    */
   protected onOpen(): void {
-    if (this.props.onOpen) {
-      this.props.onOpen();
+    const props = this.props;
+    if (props.onOpen) {
+      props.onOpen();
     }
   }
 
@@ -203,20 +214,6 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    * @returns {JSX.Element}
    */
   protected abstract get actionsElementsWrapper(): JSX.Element;
-
-  /**
-   * @stable [18.05.2018]
-   */
-  private onClear(): void {
-    if (this.queryField) {
-      this.queryField.setFocus();
-    }
-    if (!this.query) {
-      return;
-    }
-    this.onChange();
-    this.onApply();
-  }
 
   /**
    * @stable [18.05.2018]

@@ -14,6 +14,7 @@ import {
 import {
   IOnApplyWrapper,
   IOnActivateWrapper,
+  IOnDeactivateWrapper,
   IOnChangeWrapper,
   IOnOpenWrapper,
 } from '../../../definitions.interface';
@@ -24,6 +25,7 @@ import {
 export interface IUniversalSearchToolbarConfiguration extends IUniversalComponentConfiguration,
                                                               IFilterConfiguration,
                                                               IOnActivateWrapper,
+                                                              IOnDeactivateWrapper,
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
                                                               IOnChangeWrapper<string> {

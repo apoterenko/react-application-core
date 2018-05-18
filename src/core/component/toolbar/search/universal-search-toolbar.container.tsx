@@ -5,6 +5,7 @@ import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
+  FILTER_DEACTIVATE_ACTION_TYPE,
   FILTER_OPEN_ACTION_TYPE,
 } from '../../filter/filter.interface';
 import {
@@ -24,6 +25,7 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
 
     this.onApply = this.onApply.bind(this);
     this.onActivate = this.onActivate.bind(this);
+    this.onDeactivate = this.onDeactivate.bind(this);
     this.onOpen = this.onOpen.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -37,6 +39,7 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
     return {
       onApply: this.onApply,
       onActivate: this.onActivate,
+      onDeactivate: this.onDeactivate,
       onChange: this.onChange,
       onOpen: this.onOpen,
       ...props.filter as {},
@@ -63,6 +66,13 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
    */
   protected onActivate(): void {
     this.dispatch(FILTER_ACTIVATE_ACTION_TYPE);
+  }
+
+  /**
+   * @stable [18.05.2018]
+   */
+  protected onDeactivate(): void {
+    this.dispatch(FILTER_DEACTIVATE_ACTION_TYPE);
   }
 
   /**

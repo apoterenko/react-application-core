@@ -6,6 +6,7 @@ import {
   FILTER_APPLY_ACTION_TYPE,
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
+  FILTER_DEACTIVATE_ACTION_TYPE,
 } from './filter.interface';
 
 export class FilterActionBuilder {
@@ -15,6 +16,10 @@ export class FilterActionBuilder {
 
   public static buildOpenActionType(section: string): string {
     return `${section}.${FILTER_OPEN_ACTION_TYPE}`;
+  }
+
+  public static buildDeactivateActionType(section: string): string {
+    return `${section}.${FILTER_DEACTIVATE_ACTION_TYPE}`;
   }
 
   public static buildActivateActionType(section: string): string {
