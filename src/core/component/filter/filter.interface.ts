@@ -1,7 +1,7 @@
-import { IDefaultFormEntity, IQueryFilterEntity } from '../../entities-definitions.interface';
+import { IFormEntity, IQueryFilterEntity } from '../../entities-definitions.interface';
 
 export interface IApplicationFilterFormWrapperState {
-  filterForm?: IDefaultFormEntity;
+  filterForm?: IFormEntity;
 }
 
 /**

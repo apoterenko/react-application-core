@@ -5,8 +5,8 @@ import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { orNull, toClassName, nvl } from '../../../util';
-import { IFocusEvent, IBasicEvent, IKeyboardEvent } from '../../../definitions.interface';
-import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
+import { IFocusEvent, IBasicEvent, IKeyboardEvent, UNI_CODES } from '../../../definitions.interface';
+import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
@@ -14,9 +14,7 @@ import {
   IBasicTextFieldInternalState,
   IBasicTextFieldInternalProps,
   IBasicTextField,
-  ActionPositionEnum,
 } from './basic-textfield.interface';
-
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IBasicTextFieldInternalProps,
                             TInternalState extends IBasicTextFieldInternalState>
@@ -29,7 +27,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   private static CHAR_WIDTH_AT_PX = 10;
   private static DEFAULT_MASK_GUIDE = true;
-  private static DEFAULT_MASK_PLACEHOLDER_CHAR = '\u2000';
 
   protected defaultActions: IFieldActionConfiguration[] = [];
 
@@ -142,7 +139,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return !R.isNil(mask)
         ? <MaskedTextInput
             guide={nvl(props.maskGuide, BasicTextField.DEFAULT_MASK_GUIDE)}
-            placeholderChar={nvl(props.maskPlaceholderChar, BasicTextField.DEFAULT_MASK_PLACEHOLDER_CHAR)}
+            placeholderChar={nvl(props.maskPlaceholderChar, UNI_CODES.space)}
             mask={mask}
             {...this.getInputElementProps()}/>
         : super.getInputElement();
@@ -250,7 +247,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   private get actions(): IFieldActionConfiguration[] {
     const props = this.props;
-    if (props.actionsPosition === ActionPositionEnum.LEFT) {
+    if (props.actionsPosition === FieldActionPositionEnum.LEFT) {
       return (this.defaultActions || []).concat(props.actions || []);
     } else {
       return (this.props.actions || []).concat(this.defaultActions || []);

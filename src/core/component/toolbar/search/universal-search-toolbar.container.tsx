@@ -46,10 +46,9 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
 
   /**
    * @stable [18.05.2018]
-   * @param {string} value
    */
-  protected onApply(value?: string): void {
-    this.dispatch(FILTER_APPLY_ACTION_TYPE, { value });
+  protected onApply(): void {
+    this.dispatch(FILTER_APPLY_ACTION_TYPE);
   }
 
   /**
