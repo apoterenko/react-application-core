@@ -16,7 +16,6 @@ import {
 import {
   IDefaultConnectorConfiguration,
   IRoutesConfiguration,
-  IUniversalUIIconConfiguration,
 } from '../../configurations-definitions.interface';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
@@ -187,9 +186,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable [18.05.2018]
-   * @returns {IUIFactory<IUniversalUIIconConfiguration>}
+   * @returns {IUIFactory}
    */
-  protected get uiFactory(): IUIFactory<IUniversalUIIconConfiguration> {
+  protected get uiFactory(): IUIFactory {
     return staticInjector(DI_TYPES.UIFactory);
   }
 }

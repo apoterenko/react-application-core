@@ -14,7 +14,6 @@ import {
   IUniversalComponentPluginClassEntity,
 } from '../../entities-definitions.interface';
 import { IBasicEvent } from '../../definitions.interface';
-import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 
@@ -123,9 +122,9 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
 
   /**
    * @stable [18.05.2018]
-   * @returns {IUIFactory<IUniversalUIIconConfiguration>}
+   * @returns {IUIFactory}
    */
-  protected get uiFactory(): IUIFactory<IUniversalUIIconConfiguration> {
+  protected get uiFactory(): IUIFactory {
     return staticInjector(DI_TYPES.UIFactory);
   }
 

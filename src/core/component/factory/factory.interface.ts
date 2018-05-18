@@ -1,6 +1,6 @@
 import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 
-export interface IUIFactory<TUniversalUIIconConfiguration extends IUniversalUIIconConfiguration = IUniversalUIIconConfiguration> {
+export interface IUIFactory {
   icons?: string;
   persistentDrawerToolbarSpacer?: string;
   toolbar?: string;
@@ -78,17 +78,19 @@ export interface IUIFactory<TUniversalUIIconConfiguration extends IUniversalUIIc
 
   /**
    * @stable [18.05.2018]
-   * @param {string | TUniversalUIIconConfiguration} config
+   * @param {string | TUIIconConfiguration} config
    * @returns {JSX.Element}
    */
-  makeTabBarScrollerIndicatorIcon?(config: TUniversalUIIconConfiguration | string): JSX.Element;
+  makeTabBarScrollerIndicatorIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(
+    config: TUIIconConfiguration | string): JSX.Element;
 
   /**
    * @stable [18.05.2018]
-   * @param {string | TUniversalUIIconConfiguration} config
+   * @param {string | TUIIconConfiguration} config
    * @returns {JSX.Element}
    */
-  makeListItemMetaIcon?(config: TUniversalUIIconConfiguration | string): JSX.Element;
+  makeListItemMetaIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(
+    config: TUIIconConfiguration | string): JSX.Element;
 
   /**
    * @stable [18.05.2018]

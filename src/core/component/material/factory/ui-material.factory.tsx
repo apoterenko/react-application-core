@@ -7,7 +7,7 @@ import { Button } from '../../button';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 
 @injectable()
-export class UIMaterialFactory implements IUIFactory<IUIIconConfiguration> {
+export class UIMaterialFactory implements IUIFactory {
   public icons = 'material-icons';
   public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
   public toolbar = 'mdc-toolbar';
@@ -78,7 +78,7 @@ export class UIMaterialFactory implements IUIFactory<IUIIconConfiguration> {
 
   /**
    * @stable [18.05.2018]
-   * @param {UIIconConfigurationT} cfg
+   * @param {UniversalUIIconConfigurationT} cfg
    * @returns {JSX.Element}
    */
   public makeIcon(cfg: IUIIconConfiguration | string): JSX.Element {
@@ -158,7 +158,7 @@ export class UIMaterialFactory implements IUIFactory<IUIIconConfiguration> {
 
   /**
    * @stable [18.05.2018]
-   * @param {UIIconConfigurationT} cfg
+   * @param {UniversalUIIconConfigurationT} cfg
    * @returns {IUIIconConfiguration}
    */
   private toIconConfig(cfg: IUIIconConfiguration | string): IUIIconConfiguration {

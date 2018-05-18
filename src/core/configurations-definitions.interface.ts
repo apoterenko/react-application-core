@@ -735,4 +735,4 @@ export interface IUIIconConfiguration extends IUniversalUIIconConfiguration,
 /**
  * @stable [18.05.2018]
  */
-export type UIIconConfigurationT = IUniversalUIIconConfiguration | string;
+export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | string;
