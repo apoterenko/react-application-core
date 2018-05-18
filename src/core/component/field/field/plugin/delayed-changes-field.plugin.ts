@@ -1,30 +1,24 @@
 import { sequence, DelayedTask, cancelEvent } from '../../../../util';
 import { AnyT, IChangeEvent, IKeyboardEvent } from '../../../../definitions.interface';
-import { IUniversalComponentPlugin } from '../../../../entities-definitions.interface';
-import { IField } from '../field.interface';
-import { IDelayedChangesFieldPluginProps } from './delayed-changes-field.interface';
+import { IUniversalComponentPlugin, IUniversalField } from '../../../../entities-definitions.interface';
+import { IDelayedChangesFieldPluginConfiguration } from '../../../../configurations-definitions.interface';
 
-export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDelayedChangesFieldPluginProps> {
+export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDelayedChangesFieldPluginConfiguration> {
   public static DEFAULT_DELAY_TIMEOUT = 1500;
 
   private currentValue: AnyT;
   private delayedTask: DelayedTask;
 
   /**
-   * @stable [04.05.2018]
-   * @param {IField} component
+   * @stable [18.05.2018]
+   * @param {IUniversalField} component
    */
-  constructor(private component: IField) {
+  constructor(private component: IUniversalField) {
     this.delayedTask = new DelayedTask(
       this.doDelay.bind(this),
       this.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
     );
-  }
 
-  /**
-   * @stable [04.05.2018]
-   */
-  public componentDidMount(): void {
     this.component.onChange = sequence(this.component.onChange, this.onChange, this);
     this.component.onKeyEnter = sequence(this.component.onKeyEnter, this.onKeyEnter, this);
   }
@@ -67,9 +61,9 @@ export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDel
 
   /**
    * @stable [04.05.2018]
-   * @returns {IDelayedChangesFieldPluginProps}
+   * @returns {IDelayedChangesFieldPluginConfiguration}
    */
-  private get props(): IDelayedChangesFieldPluginProps {
+  private get props(): IDelayedChangesFieldPluginConfiguration {
     return this.component.props;
   }
 }
