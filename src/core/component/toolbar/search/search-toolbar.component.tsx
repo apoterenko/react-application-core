@@ -5,8 +5,12 @@ import { TextField } from '../../field';
 import { ToolbarSection } from '../../toolbar';
 import { ISearchToolbarProps } from './search-toolbar.interface';
 import { UniversalSearchToolbar } from './universal-search-toolbar.component';
+import { IComponent } from '../../../entities-definitions.interface';
 
-export class SearchToolbar extends UniversalSearchToolbar<SearchToolbar, ISearchToolbarProps> {
+export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
+                           TProps extends ISearchToolbarProps = ISearchToolbarProps,
+                           TState = {}>
+  extends UniversalSearchToolbar<TComponent, TProps> {
 
   /**
    * @stable [18.05.2018]
@@ -55,8 +59,7 @@ export class SearchToolbar extends UniversalSearchToolbar<SearchToolbar, ISearch
   protected get searchField(): JSX.Element {
     return (
       <TextField inputWrapperClassName={this.uiFactory.textFieldBox}
-                 {...this.fieldProps}>
-      </TextField>
+                 {...this.fieldProps}/>
     );
   }
 }
