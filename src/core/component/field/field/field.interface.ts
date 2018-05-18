@@ -12,11 +12,10 @@ import {
 import {
   IErrorEntity,
   IFieldEntity,
-  IComponent,
+  IUniversalField,
 } from '../../../entities-definitions.interface';
 import {
   IFieldConfiguration,
-  IKeyboardHandlersConfiguration,
 } from '../../../configurations-definitions.interface';
 
 export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IField) => string;
@@ -73,11 +72,8 @@ export interface IBasicField<TValue> extends IValueWrapper<TValue> {
   onChangeManually?(currentRawValue: AnyT, context?: AnyT): void;
 }
 
-export interface IField<TInternalProps extends IFieldInternalProps = IFieldInternalProps,
-                        TInternalState extends IFieldState = IFieldState>
-    extends IKeyboardHandlersConfiguration,
-            IBasicField<AnyT>,
-            IHTMLInputWrapper,
-            IComponent<TInternalProps, TInternalState> {
-  resetError(): void;
+export interface IField<TProps extends IFieldInternalProps = IFieldInternalProps,
+                        TState extends IFieldState = IFieldState>
+    extends IUniversalField<TProps, TState>,
+            IHTMLInputWrapper {
 }

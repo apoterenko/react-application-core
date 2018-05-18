@@ -20,6 +20,7 @@ export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDel
     );
 
     this.component.onChange = sequence(this.component.onChange, this.onChange, this);
+    this.component.onChangeManually = sequence(this.component.onChangeManually, this.onChangeManually, this);
     this.component.onKeyEnter = sequence(this.component.onKeyEnter, this.onKeyEnter, this);
   }
 
@@ -45,7 +46,14 @@ export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDel
    * @param {IChangeEvent} event
    */
   private onChange(event: IChangeEvent): void {
-    this.currentValue = event.target.value;
+    this.onChangeManually(event.target.value);
+  }
+
+  /**
+   * @stable [18.05.2018]
+   */
+  private onChangeManually(value: string): void {
+    this.currentValue = value;
     this.delayedTask.start();
   }
 
