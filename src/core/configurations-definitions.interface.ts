@@ -144,6 +144,8 @@ import {
   IActionsDisabledWrapper,
   IActionsWrapper,
   INotUseFieldWrapper,
+  IActionsPosition,
+  INotUseErrorMessage,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -252,6 +254,15 @@ export interface IWebComponentConfiguration extends IClassNameWrapper,
  * @stable [04.05.2018]
  */
 export interface IWebContainerConfiguration extends IWebComponentConfiguration {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalComponentConfiguration
+  extends React.ClassAttributes<AnyT>,
+          ITitleWrapper,
+          IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
 }
 
 /**
@@ -429,10 +440,29 @@ export interface IApplicationConfiguration extends IBasenameWrapper,
                                                    IHideNavBarWrapper {
 }
 
+/**
+ * @stable [18.04.2018]
+ */
+export enum FieldActionPositionEnum {
+  LEFT,
+  RIGHT,
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalFieldConfiguration extends IUniversalComponentConfiguration,
+                                                      IDelayedChangesFieldPluginConfiguration,
+                                                      IOnChangeWrapper,
+                                                      IAutoFocusWrapper,
+                                                      INotUseErrorMessage,
+                                                      IActionsWrapper<IFieldActionConfiguration[]> {
+}
+
 /* @stable - 11.04.2018 */
-export interface IFieldConfiguration extends IComponentConfiguration,
-                                             IDelayedChangesFieldPluginConfiguration,
-                                             IOnChangeWrapper,
+export interface IFieldConfiguration extends IUniversalFieldConfiguration,
+                                             IWebComponentConfiguration,
+                                             IActionsPosition<FieldActionPositionEnum>,
                                              IOnClickWrapper,
                                              IRequiredWrapper,
                                              IBindDictionaryConfiguration,
@@ -449,7 +479,6 @@ export interface IFieldConfiguration extends IComponentConfiguration,
                                              INameWrapper,
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
-                                             IAutoFocusWrapper,
                                              IStringPatternWrapper,
                                              IDisabledWrapper,
                                              IUseKeyboardWrapper {
@@ -567,12 +596,6 @@ export interface IGridRowConfiguration extends IComponentConfiguration,
 }
 
 /* @stable [24.04.2018] */
-export interface IUniversalComponentConfiguration
-  extends ITitleWrapper,
-          IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
-}
-
-/* @stable [24.04.2018] */
 export interface IComponentConfiguration extends IUniversalComponentConfiguration,
                                                  IWebComponentConfiguration {
 }
@@ -656,7 +679,7 @@ export interface INavigationListConfiguration extends IUniversalComponentConfigu
  * @stable [04.05.2018]
  */
 export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWrapper,
-                                                                 IOnDelayWrapper<(value: AnyT) => void> {
+                                                                 IOnDelayWrapper {
 }
 
 /**
