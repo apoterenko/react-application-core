@@ -9,7 +9,11 @@ import {
 } from '../../field';
 import { ToolbarSection } from '../../toolbar';
 import { ISearchToolbarProps } from './search-toolbar.interface';
-import { IFieldActionConfiguration, FilterActionEnum, IFilterActionConfiguration } from '../../../configurations-definitions.interface';
+import {
+  IFieldActionConfiguration,
+  FilterActionEnum,
+  IFilterActionConfiguration,
+} from '../../../configurations-definitions.interface';
 
 export class SearchToolbar extends BaseComponent<SearchToolbar, ISearchToolbarProps> {
 

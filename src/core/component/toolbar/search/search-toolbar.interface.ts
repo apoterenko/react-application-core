@@ -3,13 +3,14 @@ import {
   IUniversalComponentConfiguration,
   IUniversalContainerConfiguration,
   IFilterConfigurationWrapper,
+  IWebComponentConfiguration,
 } from '../../../configurations-definitions.interface';
 import {
   IQueryFilterEntity,
   IUniversalContainerEntity,
   IQueryFilterWrapperEntity,
+  IUniversalComponentEntity,
 } from '../../../entities-definitions.interface';
-import { IComponentProps } from '../../../props-definitions.interface';
 import {
   IOnApplyWrapper,
   IOnActivateWrapper,
@@ -21,6 +22,7 @@ import {
  * @stable [18.05.2018]
  */
 export interface IUniversalSearchToolbarConfiguration extends IUniversalComponentConfiguration,
+                                                              IFilterConfiguration,
                                                               IOnActivateWrapper,
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
@@ -30,7 +32,35 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalSearchToolbarProps extends IUniversalSearchToolbarConfiguration {
+export interface IUniversalSearchToolbarEntity extends IUniversalComponentEntity,
+                                                       IQueryFilterEntity {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalSearchToolbarProps extends IUniversalSearchToolbarEntity,
+                                                      IUniversalSearchToolbarConfiguration {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface ISearchToolbarConfiguration extends IUniversalSearchToolbarConfiguration,
+                                                     IWebComponentConfiguration {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface ISearchToolbarEntity extends IUniversalSearchToolbarEntity {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface ISearchToolbarProps extends ISearchToolbarConfiguration,
+                                             ISearchToolbarEntity {
 }
 
 /**
@@ -52,15 +82,6 @@ export interface IUniversalSearchToolbarContainerConfiguration extends IUniversa
  */
 export interface IUniversalSearchToolbarContainerProps extends IUniversalSearchToolbarContainerEntity,
                                                                IUniversalSearchToolbarContainerConfiguration {
-}
-
-export interface ISearchToolbarProps extends IComponentProps,
-                                             IQueryFilterEntity,
-                                             IFilterConfiguration {
-  onActivate?(): void;
-  onChange?(value: string): void;
-  onOpen?(): void;
-  onApply?(): void;
 }
 
 /**
