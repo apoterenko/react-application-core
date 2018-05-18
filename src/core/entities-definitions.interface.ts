@@ -62,6 +62,7 @@ import {
   IApiEntityWrapper,
   IEditApiWrapper,
   IAddApiWrapper,
+  IOnChangeManuallyWrapper,
   IExtraParamsWrapper,
   ITransportWrapper,
   IQueueWrapper,
@@ -100,6 +101,7 @@ import {
   ISorterWrapper,
   IMutatedListWrapper,
   IOriginalDataWrapper,
+  IResetErrorWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -239,6 +241,18 @@ export interface IUniversalFieldEntity extends IUniversalComponentEntity,
  */
 export interface IFieldEntity extends IUniversalFieldEntity,
                                       IMessageWrapper {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps, TState = {}>
+  extends IUniversalComponent<TProps, TState>,
+          IKeyboardHandlersConfiguration,
+          ISetFocusWrapper,
+          IResetErrorWrapper,
+          IOnChangeWrapper,
+          IOnChangeManuallyWrapper {
 }
 
 /**
@@ -636,14 +650,4 @@ export interface IStringMenuActionEntity extends IMenuItemEntity<IEntity, string
  */
 export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(entity: TEntity) => boolean>,
                                                                ISorterWrapper<(entity1: TEntity, entity2: TEntity) => number> {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps, TState = {}>
-  extends IUniversalComponent<TProps, TState>,
-          IKeyboardHandlersConfiguration,
-          ISetFocusWrapper,
-          IOnChangeWrapper {
 }

@@ -214,6 +214,13 @@ export interface ISetFocusWrapper<TSetFocus = () => void> {
 }
 
 /**
+ * @stable [18.05.2018]
+ */
+export interface IResetErrorWrapper<TResetError = () => void> {
+  resetError: TResetError;
+}
+
+/**
  * @stable [02.05.2018]
  */
 export interface IActionButtonsWrapper<TActionButtons> {
@@ -418,8 +425,15 @@ export interface IOnChangeSortDirectionWrapper<TOnChangeSortDirection> {
 /**
  * @stable [04.05.2018]
  */
-export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value: TChangedValue) => void> {
+export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value?: TChangedValue) => void> {
   onChange?: TOnChange;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void> {
+  onChangeManually?: TOnChangeManually;
 }
 
 /**
@@ -1813,6 +1827,13 @@ export interface IOnCreateWrapper<TOnCreate = () => void> {
  */
 export interface IOnActivateWrapper<TOnActivate = () => void> {
   onActivate?: TOnActivate;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IOnDeactivateWrapper<TOnDeactivate = () => void> {
+  onDeactivate?: TOnDeactivate;
 }
 
 /**
