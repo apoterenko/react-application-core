@@ -2,7 +2,6 @@ import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes
 
 import {
   AnyT,
-  BasicEventT,
   FocusEventT,
   IDisplayValueWrapper,
   IValueWrapper,
@@ -34,7 +33,6 @@ export interface IFieldInternalProps extends IFieldConfiguration,
                                              IStepable,
                                              IFieldDisplayValueWrapper<AnyT> {
   inputWrapperClassName?: string; // @stable
-  noErrorMessage?: boolean;
   noInfoMessage?: boolean;
   renderCondition?: boolean;
   autoComplete?: string;

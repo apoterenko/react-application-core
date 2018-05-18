@@ -170,7 +170,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const props = this.props;
     const error = this.error;
     return orNull(
-      !props.noErrorMessage,
+      !props.notUseErrorMessage,
       () => this.getMessage(error, this.uiFactory.textFieldValidationText)
     );
   }
