@@ -34,8 +34,8 @@ export class InfoListItem extends BaseComponent<InfoListItem, IInfoListItemProps
           </ListItemText>
           {
             orNull(
-                props.metaIconConfig,
-                () => this.uiFactory.makeListItemMetaIcon(props.metaIconConfig)
+                props.metaIconConfiguration,
+                () => this.uiFactory.makeListItemMetaIcon(props.metaIconConfiguration)
             )
           }
         </SimpleListItem>

@@ -16,6 +16,7 @@ import {
 import {
   IDefaultConnectorConfiguration,
   IRoutesConfiguration,
+  IUniversalUIIconConfiguration,
 } from '../../configurations-definitions.interface';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
@@ -27,6 +28,7 @@ import { ApplicationTranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
+import { IUIFactory } from '../factory/factory.interface';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends Component<TProps, TState>
@@ -181,5 +183,13 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get nc(): INumberConverter {
     return staticInjector(DI_TYPES.NumberConverter);
+  }
+
+  /**
+   * @stable [18.05.2018]
+   * @returns {IUIFactory<IUniversalUIIconConfiguration>}
+   */
+  protected get uiFactory(): IUIFactory<IUniversalUIIconConfiguration> {
+    return staticInjector(DI_TYPES.UIFactory);
   }
 }

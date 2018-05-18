@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { injectable } from 'inversify';
 
-import { isString, toClassName, uuid } from '../../../util';
-import { IUIFactory, UIIconConfigT } from '../../factory';
+import { isString, toClassName, uuid, isDef } from '../../../util';
+import { IUIFactory } from '../../factory';
 import { Button } from '../../button';
-import { ITypeWrapper, IClassNameWrapper } from '../../../definitions.interface';
-import { IButtonConfiguration } from '../../../configurations-definitions.interface';
-import { IUniversalButtonEntity } from '../../../entities-definitions.interface';
+import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 
 @injectable()
-export class UIMaterialFactory implements IUIFactory {
-
+export class UIMaterialFactory implements IUIFactory<IUIIconConfiguration> {
+  public icons = 'material-icons';
   public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
@@ -78,13 +76,18 @@ export class UIMaterialFactory implements IUIFactory {
   public dialogFooterButtonCancel = 'mdc-dialog__footer__button--cancel';
   public dialogFooterButtonAccept = 'mdc-dialog__footer__button--accept';
 
-  public makeIcon(cfg: UIIconConfigT): JSX.Element {
+  /**
+   * @stable [18.05.2018]
+   * @param {UIIconConfigurationT} cfg
+   * @returns {JSX.Element}
+   */
+  public makeIcon(cfg: IUIIconConfiguration | string): JSX.Element {
     if (!cfg) {
       return null;
     }
-    const config = this.toIconConfig(cfg) as any; // TODO IButtonEntity & IButtonConfiguration;
-    const className = toClassName('material-icons', config.className);
-    return config.onClick && !config.simple
+    const config = this.toIconConfig(cfg);
+    const className = toClassName(this.icons, config.className);
+    return isDef(config.onClick) && !config.simple
       ? (
         <Button key={uuid()}
                 notApplyFrameworkClassName={true}
@@ -104,7 +107,12 @@ export class UIMaterialFactory implements IUIFactory {
       );
   }
 
-  public makeTabBarScrollerIndicatorIcon(cfg: UIIconConfigT): JSX.Element {
+  /**
+   * @stable [18.05.2018]
+   * @param {IUIIconConfiguration | string} cfg
+   * @returns {JSX.Element}
+   */
+  public makeTabBarScrollerIndicatorIcon(cfg: IUIIconConfiguration | string): JSX.Element {
     const config = this.toIconConfig(cfg);
     return this.makeIcon(
       cfg
@@ -116,7 +124,12 @@ export class UIMaterialFactory implements IUIFactory {
     );
   }
 
-  public makeListItemMetaIcon(cfg: UIIconConfigT): JSX.Element {
+  /**
+   * @stable [18.05.2018]
+   * @param {IUIIconConfiguration | string} cfg
+   * @returns {JSX.Element}
+   */
+  public makeListItemMetaIcon(cfg: IUIIconConfiguration | string): JSX.Element {
     const config = this.toIconConfig(cfg);
     return this.makeIcon(
       cfg
@@ -143,11 +156,12 @@ export class UIMaterialFactory implements IUIFactory {
     );
   }
 
-  private toIconConfig(cfg: UIIconConfigT): ITypeWrapper & IClassNameWrapper {
-    return (
-      isString(cfg)
-        ? { type: cfg }
-        : cfg
-    ) as ITypeWrapper & IClassNameWrapper;
+  /**
+   * @stable [18.05.2018]
+   * @param {UIIconConfigurationT} cfg
+   * @returns {IUIIconConfiguration}
+   */
+  private toIconConfig(cfg: IUIIconConfiguration | string): IUIIconConfiguration {
+    return (isString(cfg) ? {type: cfg} : cfg)  as IUIIconConfiguration;
   }
 }

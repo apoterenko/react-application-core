@@ -1,18 +1,15 @@
 import * as React from 'react';
 
-import { IUIFactory } from '../factory';
-import { DI_TYPES, lazyInject } from '../../di';
 import { toClassName, orNull, scrollIntoView } from '../../util';
-import { IUniversalListEntity } from '../../entities-definitions.interface';
-import { IUniversalListConfiguration } from '../../configurations-definitions.interface';
+import { IUIIconConfiguration } from '../../configurations-definitions.interface';
 import { Message } from '../message';
 import { UniversalList } from './universal-list.component';
+import { IUniversalListProps } from '../../props-definitions.interface';
 
-export abstract class BaseList<TComponent extends BaseList<TComponent, TProps>,
-                               TProps extends IUniversalListConfiguration & IUniversalListEntity>
-  extends UniversalList<TComponent, TProps> {
-
-  @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
+export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, TState>,
+                               TProps extends IUniversalListProps,
+                               TState = {}>
+  extends UniversalList<TComponent, TProps, TState> {
 
   /**
    * @stable [23.04.2018]
@@ -45,7 +42,7 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps>,
   protected getAddAction(): JSX.Element {
     return orNull<JSX.Element>(
       this.props.useAddAction,
-      () => this.uiFactory.makeIcon({
+      () => this.uiFactory.makeIcon<IUIIconConfiguration>({
         type: 'add',
         className: toClassName('rac-add-button', this.uiFactory.fab),
         onClick: this.onCreate,

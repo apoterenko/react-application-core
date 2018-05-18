@@ -14,7 +14,9 @@ import {
   IUniversalComponentPluginClassEntity,
 } from '../../entities-definitions.interface';
 import { IBasicEvent } from '../../definitions.interface';
+import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
+import { IUIFactory } from '../factory/factory.interface';
 
 export class UniversalComponent<TComponent extends IUniversalComponent<TProps, TState>,
                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,
@@ -117,6 +119,14 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   protected get nc(): INumberConverter {
     return staticInjector(DI_TYPES.NumberConverter);
+  }
+
+  /**
+   * @stable [18.05.2018]
+   * @returns {IUIFactory<IUniversalUIIconConfiguration>}
+   */
+  protected get uiFactory(): IUIFactory<IUniversalUIIconConfiguration> {
+    return staticInjector(DI_TYPES.UIFactory);
   }
 
   /**

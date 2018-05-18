@@ -1,8 +1,7 @@
-import { IButtonProps } from '../button';
+import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 
-export type UIIconConfigT = IButtonProps | string;
-
-export interface IUIFactory {
+export interface IUIFactory<TUniversalUIIconConfiguration extends IUniversalUIIconConfiguration = IUniversalUIIconConfiguration> {
+  icons?: string;
   persistentDrawerToolbarSpacer?: string;
   toolbar?: string;
   toolbarSection?: string;
@@ -70,8 +69,30 @@ export interface IUIFactory {
   dialogFooterButtonCancel?: string;
   dialogFooterButtonAccept?: string;
 
-  makeIcon?(config: UIIconConfigT): JSX.Element;
-  makeTabBarScrollerIndicatorIcon?(config: UIIconConfigT): JSX.Element;
-  makeListItemMetaIcon?(config: UIIconConfigT): JSX.Element;
+  /**
+   * @stable [18.05.2018]
+   * @param {string | TUIIconConfiguration} config
+   * @returns {JSX.Element}
+   */
+  makeIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(config: TUIIconConfiguration | string): JSX.Element;
+
+  /**
+   * @stable [18.05.2018]
+   * @param {string | TUniversalUIIconConfiguration} config
+   * @returns {JSX.Element}
+   */
+  makeTabBarScrollerIndicatorIcon?(config: TUniversalUIIconConfiguration | string): JSX.Element;
+
+  /**
+   * @stable [18.05.2018]
+   * @param {string | TUniversalUIIconConfiguration} config
+   * @returns {JSX.Element}
+   */
+  makeListItemMetaIcon?(config: TUniversalUIIconConfiguration | string): JSX.Element;
+
+  /**
+   * @stable [18.05.2018]
+   * @returns {JSX.Element}
+   */
   makeCheckboxAttachment?(): JSX.Element;
 }

@@ -1,14 +1,10 @@
 import * as React from 'react';
 
-import { DI_TYPES, lazyInject } from '../../../di';
 import { toClassName } from '../../../util';
 import { IPageToolbarProps } from './page-toolbar.interface';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
-import { IUIFactory } from '../../factory';
 
 export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarProps> {
-
-  @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
   /**
    * @stable [16.05.2018]

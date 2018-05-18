@@ -714,3 +714,25 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
                                               IActionsWrapper<IFilterActionConfiguration[]>,
                                               IFieldConfigurationWrapper {
 }
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUniversalUIIconConfiguration extends IUniversalComponentConfiguration,
+                                                       IDisabledWrapper,
+                                                       ITypeWrapper,
+                                                       ISimpleWrapper,
+                                                       IOnClickWrapper {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IUIIconConfiguration extends IUniversalUIIconConfiguration,
+                                              IWebComponentConfiguration {
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export type UIIconConfigurationT = IUniversalUIIconConfiguration | string;

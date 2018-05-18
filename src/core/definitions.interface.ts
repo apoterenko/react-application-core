@@ -1195,9 +1195,11 @@ export interface IResolverWrapper<TResolver> {
   resolver?: TResolver;
 }
 
-/* @stable - 07.04.2018 */
-export interface ISimpleWrapper {
-  simple?: boolean;
+/**
+ * @stable [18.05.2018]
+ */
+export interface ISimpleWrapper<TSimple = boolean> {
+  simple?: TSimple;
 }
 
 /**

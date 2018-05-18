@@ -6,7 +6,6 @@ import { DictionariesActionBuilder } from '../../dictionary';
 import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { IFormDialog } from '../form';
-import { IUIFactory } from '../factory';
 import { UniversalContainer } from './universal.container';
 import { IContainer } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
@@ -16,7 +15,6 @@ export class BaseContainer<TProps extends IContainerProps = IContainerProps, TSt
     implements IContainer<TProps, TState> {
 
   @lazyInject(DI_TYPES.Permission) protected permissionService: IPermissionsService;
-  @lazyInject(DI_TYPES.UIFactory) protected uiFactory: IUIFactory;
 
   constructor(props: TProps) {
     super(props);
