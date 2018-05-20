@@ -11,7 +11,6 @@ import {
   IIpWrapper,
   IMessagesWrapper,
   INameWrapper,
-  IStringChannelWrapper,
   IChannelWrapper,
   IDirtyWrapper,
   IErrorWrapper,
@@ -99,6 +98,7 @@ import {
   ILabelWrapper,
   IOriginalValueWrapper,
   ISorterWrapper,
+  IConnectedWrapper,
   IMutatedListWrapper,
   IOriginalDataWrapper,
   IResetErrorWrapper,
@@ -307,19 +307,32 @@ export interface IPaginatedEntitiesEntity extends IPaginatedEntity,
                                                   IOriginalDataWrapper {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [20.05.2018]
+ */
 export interface IChannelMessageEntity extends IIpWrapper,
                                                INameWrapper,
-                                               IStringChannelWrapper,
                                                IAnyDataWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IChannelMessagesWrapperEntity extends IMessagesWrapper<IChannelMessageEntity[]> {
+/**
+ * @stable [20.05.2018]
+ */
+export interface IChannelEntity extends IMessagesWrapper<IChannelMessageEntity[]>,
+                                        IConnectedWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IChannelWrapperEntity extends IChannelWrapper<IChannelMessagesWrapperEntity> {
+/**
+ * @stable [20.05.2018]
+ */
+export interface IChannelsEntity {
+  [ip: string]: IChannelEntity;
+}
+
+/**
+ * @stable [20.05.2018]
+ */
+export interface IChannelWrapperEntity extends IChannelWrapper<IChannelsEntity> {
 }
 
 /* @stable - 31.03.2018 */

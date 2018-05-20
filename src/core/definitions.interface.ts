@@ -88,9 +88,11 @@ export interface ITransportWrapper<TTransport> {
   transport?: TTransport;
 }
 
-/* @stable - 31.03.2018 */
-export interface IIpWrapper {
-  ip?: string;
+/**
+ * @stable [20.05.2018]
+ */
+export interface IIpWrapper<TIp = string> {
+  ip?: TIp;
 }
 
 /* @stable [23.04.2018] */
@@ -301,13 +303,11 @@ export interface IAlignWrapper {
   align?: string;
 }
 
-/* @stable - 31.03.2018 */
-export interface IChannelWrapper<TChannel> {
+/**
+ * @stable [20.05.2018]
+ */
+export interface IChannelWrapper<TChannel = string> {
   channel?: TChannel;
-}
-
-/* @stable - 31.03.2018 */
-export interface IStringChannelWrapper extends IChannelWrapper<string> {
 }
 
 /**********************
@@ -455,6 +455,13 @@ export interface IDefaultOperationWrapper extends IOperationWrapper<IStringIdWra
 /* @stable - 06.04.2018 */
 export interface IItemsWrapper<TItems> {
   items?: TItems;
+}
+
+/**
+ * @stable [20.05.2018]
+ */
+export interface IConnectedWrapper<TConnected = boolean> {
+  connected?: TConnected;
 }
 
 /**
@@ -620,8 +627,10 @@ export interface IStackWrapper<TStack> {
   stack?: TStack;
 }
 
-/* @stable - 15.04.2018 */
-export interface IPayloadWrapper<TPayload> {
+/**
+ * @stable [21.05.2018]
+ */
+export interface IPayloadWrapper<TPayload = AnyT> {
   payload?: TPayload;
 }
 
