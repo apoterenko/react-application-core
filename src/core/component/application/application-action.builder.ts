@@ -15,6 +15,7 @@ import {
   APPLICATION_AFTER_LOGIN_ACTION_TYPE,
   APPLICATION_AUTHORIZED_ACTION_TYPE,
   APPLICATION_UNAUTHORIZED_ACTION_TYPE,
+  APPLICATION_MOUNT_ACTION_TYPE,
   APPLICATION_AFTER_INIT_ACTION_TYPE,
 } from './application.interface';
 
@@ -102,6 +103,10 @@ export class ApplicationActionBuilder {
 
   public static buildLogoutActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_LOGOUT_ACTION_TYPE}`;
+  }
+
+  public static buildMountActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_MOUNT_ACTION_TYPE}`;
   }
 
   public static buildAfterLogoutActionType(): string {

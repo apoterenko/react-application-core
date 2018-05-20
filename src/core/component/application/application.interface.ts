@@ -24,6 +24,7 @@ export const INITIAL_APPLICATION_STATE: IApplicationEntity = {
 export const APPLICATION_SECTION = 'application';
 export const $APPLICATION_SECTION = `${ACTION_PREFIX}${APPLICATION_SECTION}`;
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
+export const APPLICATION_MOUNT_ACTION_TYPE = 'mount';
 export const APPLICATION_AFTER_INIT_ACTION_TYPE = `after.${APPLICATION_INIT_ACTION_TYPE}`;
 export const APPLICATION_CUSTOM_ERROR_ACTION_TYPE = 'custom.error';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';

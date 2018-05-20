@@ -12,7 +12,7 @@ import {
   IUniversalContainerEntity,
 } from '../../entities-definitions.interface';
 import { toRouteConfiguration } from '../../router/router.support';
-import { UniversalContainer } from '../../component/base/universal.container';
+import { UniversalContainer } from '../base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
@@ -42,6 +42,13 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
       '[$UniversalApplicationContainer][constructor] The app has been instantiated. The initial props are:',
       props
     );
+  }
+
+  /**
+   * @stable [19.05.2018]
+   */
+  public componentDidMount(): void {
+    this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
   }
 
   /**
