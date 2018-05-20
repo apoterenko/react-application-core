@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { clone, uuid, PredicateT, cloneUsingFilters, orNull } from '../../util';
+import { clone, uuid, PredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
@@ -11,7 +11,6 @@ import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '
 import { CONNECTOR_SECTION_FIELD } from '../connector';
 import { BASE_PATH } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
-import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
 import { Message } from '../message';
 import {
@@ -29,10 +28,6 @@ import { UniversalApplicationContainer } from './universal-application.container
 export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity = IApplicationStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
-  public static defaultProps: IApplicationContainerProps = {
-    basename: BASE_PATH,
-  };
-
   @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
@@ -45,7 +40,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     return (
         <MuiThemeProvider>
           <BrowserRouter ref='router'
-                         basename={this.props.basename}>
+                         basename={this.props.basename || BASE_PATH}>
             <Switch>
               {...this.getRoutes()}
             </Switch>
@@ -54,8 +49,12 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     );
   }
 
+  /**
+   * @stable [19.05.2018]
+   */
   public componentDidMount(): void {
     appContainer.bind<IRouterComponentEntity>(DI_TYPES.Router).toConstantValue(this.dynamicRouter);
+    super.componentDidMount();
   }
 
   public componentWillMount(): void {
@@ -86,7 +85,6 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
     state.application = INITIAL_APPLICATION_STATE;
-    state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
   }
 
   protected getRoutes(): JSX.Element[] {
