@@ -1,12 +1,26 @@
 import * as io from 'socket.io-client/dist/socket.io';
 import { injectable } from 'inversify';
 
+import { AnyT } from '../../definitions.interface';
 import { BaseChannel } from '../base-channel.service';
 
 @injectable()
 export class SocketChannel extends BaseChannel {
 
-  public connect(ip: string, channel: string): void {
-    this.registerClient(ip, channel, io(ip));
+  /**
+   * @stable [21.05.2018]
+   * @param {string} ip
+   * @param {AnyT} config
+   */
+  public connect(ip: string, config?: AnyT): void {
+    this.registerClient(ip, io(ip, config));
+  }
+
+  /**
+   * @stable [21.05.2018]
+   * @param ip
+   */
+  public disconnect(ip): void {
+    this.deregisterClient(ip);
   }
 }
