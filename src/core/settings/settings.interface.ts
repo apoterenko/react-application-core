@@ -58,7 +58,8 @@ export interface IApplicationAuthorizationSettings {
 }
 
 export interface IApplicationChannelSettings {
-  channelEvent?: string;
+  eventToListen?: string;
+  eventToEmit?: string;
 }
 
 export interface IApplicationSettings {
@@ -136,7 +137,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     uiCurrency: 'USD',
   },
   channel: {
-    channelEvent: 'command-from-client-to-hardware-event',
+    eventToListen: 'client-event-to-listen',
+    eventToEmit: 'client-event-to-emit',
   },
   authorization: {
     isAuthorizationNeeded: true,
