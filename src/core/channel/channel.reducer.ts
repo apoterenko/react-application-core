@@ -1,34 +1,62 @@
 import { AnyAction, Reducer } from 'redux';
-import { IEffectsAction } from 'redux-effects-promise';
 
-import { filter } from '../store/store.support';
 import { IChannelWrapper } from '../definitions.interface';
 import {
-  CHANNEL_CONNECT_MESSAGE,
   CHANNEL_MESSAGE_ACTION_TYPE,
   INITIAL_APPLICATION_CHANNEL_STATE,
+  CHANNEL_CONNECT_MESSAGE,
+  CHANNEL_DISCONNECT_MESSAGE,
 } from './channel.interface';
-import { IChannelMessageEntity, IChannelMessagesWrapperEntity } from '../entities-definitions.interface';
+import {
+  IChannelsEntity,
+  IChannelMessageEntity,
+} from '../entities-definitions.interface';
 
-export function channelReducer(state: IChannelMessagesWrapperEntity = INITIAL_APPLICATION_CHANNEL_STATE,
-                               action: AnyAction): IChannelMessagesWrapperEntity {
+/**
+ * @stable [21.05.2018]
+ * @param {IChannelsEntity} state
+ * @param {AnyAction} action
+ * @returns {IChannelsEntity}
+ */
+export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHANNEL_STATE,
+                               action: AnyAction): IChannelsEntity {
   switch (action.type) {
     case CHANNEL_MESSAGE_ACTION_TYPE:
-      return {
-        ...state,
-        messages: state.messages.concat(action.data),
-      };
+      const message: IChannelMessageEntity = action.data;
+      switch (message.name) {
+        case CHANNEL_CONNECT_MESSAGE:
+          return {
+            ...state,
+            [message.ip]: {
+              ...INITIAL_APPLICATION_CHANNEL_STATE,
+              connected: true,
+            },
+          };
+        case CHANNEL_DISCONNECT_MESSAGE:
+          return {
+            ...state,
+            [message.ip]: {
+              ...INITIAL_APPLICATION_CHANNEL_STATE,
+              connected: false,
+            },
+          };
+        default:
+          const current = state[message.ip] || {};
+          return {
+            ...state,
+            [message.ip]: {
+              ...current,
+              messages: (current.messages || []).concat(message),
+            },
+          };
+      }
   }
   return state;
 }
 
-export const IGNORED_MESSAGES = [CHANNEL_CONNECT_MESSAGE];
-
-export const reducerChannelFilter = (action: IEffectsAction): boolean => {
-  const message: IChannelMessageEntity = action.data;
-  return !message || !IGNORED_MESSAGES.includes(message.name);
-};
-
+/**
+ * @stable [21.05.2018]
+ */
 export const channelsReducers: IChannelWrapper<Reducer<{}>> = {
-  channel: filter(channelReducer, reducerChannelFilter),
+  channel: channelReducer,
 };
