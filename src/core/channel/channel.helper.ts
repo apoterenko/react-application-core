@@ -1,4 +1,4 @@
-import { CommandResult, ICommandResult } from './command';
+/*import { CommandResult, ICommandResult } from './command';
 import { orNull } from '../util';
 import { IChannelWrapperEntity, IChannelMessageEntity } from '../entities-definitions.interface';
 
@@ -16,3 +16,4 @@ export const findCommandResult = (ip: string,
   const messageData: ICommandResult = message && message.data;
   return orNull(message, () => new CommandResult(messageData.command, messageData.uuid, messageData.data));
 };
+*/

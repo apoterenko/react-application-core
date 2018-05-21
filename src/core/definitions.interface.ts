@@ -281,24 +281,23 @@ export interface IReaderWrapper<TReader> {
 export interface IReaderFnWrapper<TRequest, TResult> extends IReaderWrapper<(request: TRequest) => TResult> {
 }
 
-/**********************
- * Uuid's wrapper
- **********************/
+/**
+ * @stable [21.05.2018]
+ */
 export interface IUuidWrapper {
   uuid?: string;
 }
 
-/**********************
- * Command's wrappers
- **********************/
-export interface ICommandWrapper<TCommand> {
+/**
+ * @stable [21.05.2018]
+ */
+export interface ICommandWrapper<TCommand = string> {
   command?: TCommand;
 }
 
-export interface IStringCommandWrapper extends ICommandWrapper<string> {
-}
-
-/* @stable - 04.04.2018 */
+/**
+ * @stable [21.05.2018]
+ */
 export interface IAlignWrapper {
   align?: string;
 }

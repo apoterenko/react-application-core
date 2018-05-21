@@ -1,12 +1,12 @@
-import { Command } from './command';
 import {
   ACTION_PREFIX,
   AnyT,
 } from '../definitions.interface';
 import { IChannelsEntity } from '../entities-definitions.interface';
+import { RequestPayload } from './protocol';
 
 /**
- * @stable [20.05.2018]
+ * @stable [21.05.2018]
  */
 export interface IChannelClient {
   on(event: string, callback: (...args: AnyT[]) => void): void;
@@ -14,6 +14,9 @@ export interface IChannelClient {
   close(): void;
 }
 
+/**
+ * @stable [21.05.2018]
+ */
 export interface IChannelService {
   connect(ip: string, config?: AnyT): void;
   disconnect(ip): void;
@@ -22,8 +25,7 @@ export interface IChannelService {
   onMessage(ip: string, client: IChannelClient, name: string, message?: string): void;
   emitEvent(ip: string, event: string, ...messages: AnyT[]): void;
   emitChannelEvent(ip: string, ...messages: AnyT[]): void;
-  emitCommand(ip: string, event: string, command: Command): void;
-  emitChannelCommand(ip: string, command: Command): void;
+  emitRequestPayload(ip: string, requestPayload: RequestPayload): void;
 }
 
 /**

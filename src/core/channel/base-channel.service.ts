@@ -7,7 +7,6 @@ import { defValuesFilter } from '../util';
 import { AnyT, UNDEF } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
-import { Command } from './command';
 import {
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_DISCONNECT_MESSAGE,
@@ -15,6 +14,7 @@ import {
   IChannelService,
   IChannelClient,
 } from './channel.interface';
+import { RequestPayload } from './protocol';
 import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-definitions.interface';
 
 @injectable()
@@ -26,22 +26,43 @@ export abstract class BaseChannel implements IChannelService {
 
   private clients = new Map<string, IChannelClient>();
 
+  /**
+   * @stable [21.05.2018]
+   * @param {string} ip
+   * @param {AnyT} config
+   */
   public abstract connect(ip: string, config?: AnyT): void;
 
+  /**
+   * @stable [21.05.2018]
+   * @param ip
+   */
   public abstract disconnect(ip): void;
 
+  /**
+   * @stable [21.05.2018]
+   * @param {string} ip
+   * @param {IChannelClient} client
+   */
   public onConnect(ip: string, client: IChannelClient): void {
+    this.onMessage(ip, client, CHANNEL_CONNECT_MESSAGE);
+
     BaseChannel.logger.info(
       `[$BaseChannel][onConnect] Client has been connected successfully. Ip: ${ip}`
     );
-    this.onMessage(ip, client, CHANNEL_CONNECT_MESSAGE);
   }
 
+  /**
+   * @stable [21.05.2018]
+   * @param {string} ip
+   * @param {IChannelClient} client
+   */
   public onDisconnect(ip: string, client: IChannelClient): void {
-    BaseChannel.logger.info(
-      `[$BaseChannel][onDisconnect] Client has been connected successfully. Ip: ${ip}`
-    );
     this.onMessage(ip, client, CHANNEL_DISCONNECT_MESSAGE);
+
+    BaseChannel.logger.info(
+      `[$BaseChannel][onDisconnect] Client has been disconnected successfully. Ip: ${ip}`
+    );
   }
 
   public onMessage(ip: string, client: IChannelClient, name?: string, message?: string): void {
@@ -78,16 +99,17 @@ export abstract class BaseChannel implements IChannelService {
    * @param {string} ip
    * @param {AnyT} messages
    */
-  public emitChannelEvent(ip: string, ...messages: AnyT[]): void {
+  public emitChannelEvent(ip: string, messages: AnyT): void {
     this.emitEvent(ip, this.eventToEmit, messages);
   }
 
-  public emitCommand(ip: string, event: string, command: Command): void {
-    this.emitEvent(ip, event, JSON.stringify(command));
-  }
-
-  public emitChannelCommand(ip: string, command: Command): void {
-    this.emitCommand(ip, this.eventToEmit, command);
+  /**
+   * @stable [21.05.2018]
+   * @param {string} ip
+   * @param {RequestPayload} requestPayload
+   */
+  public emitRequestPayload(ip: string, requestPayload: RequestPayload): void {
+    this.emitChannelEvent(ip, JSON.stringify(requestPayload));
   }
 
   /**
@@ -140,6 +162,11 @@ export abstract class BaseChannel implements IChannelService {
     return this.settings.channel.eventToEmit;
   }
 
+  /**
+   * @stable [21.05.2018]
+   * @param {string} message
+   * @returns {AnyT}
+   */
   private toMessage(message: string): AnyT {
     if (R.isNil(message)) {
       return message;

@@ -1,33 +1,27 @@
 import { orNull } from '../../util';
-import { AnyT } from '../../definitions.interface';
 import { ObjectStatus } from './object.status';
-import { IResponsePayloadEntity, PAYLOAD_OBJECTS_CLASSES } from './protocol.interface';
+import { IProtocolPayloadEntity, RESPONSE_PAYLOAD_OBJECTS_CLASSES } from './protocol.interface';
+import { BasePayload } from './base.payload';
 
 /**
  * @stable [21.05.2018]
  */
-export class ResponsePayload {
-  private payload: AnyT;
+export class ResponsePayload extends BasePayload {
 
   /**
    * @stable [21.05.2018]
-   * @param {IResponsePayloadEntity} responsePayload
+   * @param {IProtocolPayloadEntity} protocolPayload
    */
-  constructor(responsePayload: IResponsePayloadEntity) {
-    const payloadClass = PAYLOAD_OBJECTS_CLASSES.find((ctor) => ctor.name === responsePayload.type);
+  constructor(protocolPayload: IProtocolPayloadEntity) {
+    super();
+    this.type = protocolPayload.type;
+
+    const payloadClass = RESPONSE_PAYLOAD_OBJECTS_CLASSES.find((ctor) => ctor.name === protocolPayload.type);
     if (payloadClass) {
-      this.payload = Object.assign(new payloadClass(), responsePayload.payload);
+      this.payload = Object.assign(new payloadClass(), protocolPayload.payload);
     } else {
-      this.payload = responsePayload.payload;
+      this.payload = protocolPayload.payload;
     }
-  }
-
-  /**
-   * @stable [21.05.2018]
-   * @returns {AnyT}
-   */
-  public getPayload(): AnyT {
-    return this.payload;
   }
 
   /**
