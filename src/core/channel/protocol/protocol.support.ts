@@ -2,7 +2,7 @@ import * as R from 'ramda';
 
 import { orNull } from '../../util';
 import { IChannelsEntity } from '../../entities-definitions.interface';
-import { RequestPayload } from './request.payload';
+import { PayloadWrapper } from './payload.wrapper';
 import { ObjectStatus } from './object.status';
 import { CommandResult } from './command.result';
 
@@ -10,14 +10,14 @@ import { CommandResult } from './command.result';
  * @stable [21.05.2018]
  * @param {string} ip
  * @param {IChannelsEntity} channelsEntity
- * @returns {RequestPayload[]}
+ * @returns {PayloadWrapper[]}
  */
 export const channelsEntityResponsePayloadsMapper = (ip: string,
-                                                     channelsEntity: IChannelsEntity): RequestPayload[] => {
+                                                     channelsEntity: IChannelsEntity): PayloadWrapper[] => {
   const channel = channelsEntity[ip];
-  return orNull<RequestPayload[]>(
+  return orNull<PayloadWrapper[]>(
     !R.isNil(channel) && !R.isNil(channel.messages),
-    () => channel.messages.map((message) => new RequestPayload(message.data))
+    () => channel.messages.map((message) => new PayloadWrapper(message.data))
   );
 };
 

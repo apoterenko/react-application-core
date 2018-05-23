@@ -13,7 +13,7 @@ import {
 /**
  * @stable [24.05.2018]
  */
-export class RequestPayload {
+export class PayloadWrapper {
   private type: string;
   private payload: AnyT;
 

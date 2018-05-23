@@ -3,7 +3,7 @@ import {
   AnyT,
 } from '../definitions.interface';
 import { IChannelsEntity } from '../entities-definitions.interface';
-import { RequestPayload } from './protocol';
+import { PayloadWrapper } from './protocol';
 
 /**
  * @stable [21.05.2018]
@@ -25,7 +25,7 @@ export interface IChannelService {
   onMessage(ip: string, client: IChannelClient, name: string, message?: string): void;
   emitEvent(ip: string, event: string, ...messages: AnyT[]): void;
   emitChannelEvent(ip: string, ...messages: AnyT[]): void;
-  emitRequestPayload(ip: string, requestPayload: RequestPayload): void;
+  emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void;
 }
 
 /**

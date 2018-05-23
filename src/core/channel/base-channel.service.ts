@@ -14,7 +14,7 @@ import {
   IChannelService,
   IChannelClient,
 } from './channel.interface';
-import { RequestPayload } from './protocol';
+import { PayloadWrapper } from './protocol';
 import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-definitions.interface';
 
 @injectable()
@@ -106,9 +106,9 @@ export abstract class BaseChannel implements IChannelService {
   /**
    * @stable [21.05.2018]
    * @param {string} ip
-   * @param {RequestPayload} requestPayload
+   * @param {PayloadWrapper} requestPayload
    */
-  public emitRequestPayload(ip: string, requestPayload: RequestPayload): void {
+  public emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void {
     this.emitChannelEvent(ip, JSON.stringify(requestPayload));
   }
 
