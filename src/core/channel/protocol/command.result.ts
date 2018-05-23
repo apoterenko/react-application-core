@@ -1,9 +1,11 @@
 import { AnyT } from '../../definitions.interface';
 
 /**
- * @stable [21.05.2018]
+ * @stable [23.05.2018]
  */
 export class CommandResult {
+  public static readonly $PROTOCOL_PAYLOAD_CLASS_IDENTIFIER = 'CommandResult';
+
   private command: string;
   private uuid: string;
   private data: AnyT;
@@ -14,7 +16,7 @@ export class CommandResult {
    * @param {string} uuid
    * @param {AnyT} data
    */
-  constructor(command: string, uuid: string, data?: AnyT) {
+  constructor(command?: string, uuid?: string, data?: AnyT) {
     this.command = command;
     this.uuid = uuid;
     this.data = data;

@@ -1,17 +1,17 @@
 import { ObjectStatus } from './object.status';
 import {
-  IUuidWrapper,
-  IAnyDataWrapper,
-  ICommandWrapper,
   IPayloadWrapper,
   ITypeWrapper,
 } from '../../definitions.interface';
+
+import { CommandResult } from './command.result';
 
 /**
  * @stable [21.05.2018]
  */
 export const RESPONSE_PAYLOAD_OBJECTS_CLASSES = [
-  ObjectStatus
+  ObjectStatus,
+  CommandResult
 ];
 
 /**
@@ -22,9 +22,6 @@ export interface IProtocolPayloadEntity extends ITypeWrapper,
 }
 
 /**
- * @stable [21.05.2018]
+ * @stable [23.05.2018]
  */
-export interface ICommandResult extends IUuidWrapper,
-                                        IAnyDataWrapper,
-                                        ICommandWrapper {
-}
+export const $PROTOCOL_PAYLOAD_CLASS_IDENTIFIER = '$PROTOCOL_PAYLOAD_CLASS_IDENTIFIER';

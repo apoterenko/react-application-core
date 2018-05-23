@@ -4,6 +4,7 @@ import { orNull } from '../../util';
 import { IChannelsEntity } from '../../entities-definitions.interface';
 import { ResponsePayload } from './response.payload';
 import { ObjectStatus } from './object.status';
+import { CommandResult } from './command.result';
 
 /**
  * @stable [21.05.2018]
@@ -40,3 +41,35 @@ export const findLastObjectStatus = (ip: string,
   }
   return null;
 };
+
+/**
+ * @stable [23.05.2018]
+ * @param {string} ip
+ * @param {IChannelsEntity} channelsEntity
+ * @param {(cResult: CommandResult) => boolean} predicate
+ * @returns {CommandResult}
+ */
+export const findCommandResult = (ip: string,
+                                  channelsEntity: IChannelsEntity,
+                                  predicate: (cResult: CommandResult) => boolean): CommandResult => {
+  const responsePayloads = channelsEntityResponsePayloadsMapper(ip, channelsEntity);
+  if (responsePayloads) {
+    const responsePayload = responsePayloads
+      .find((rPayload) => !R.isNil(rPayload.getCommandResult()) && predicate(rPayload.getPayload()));
+
+    return orNull<CommandResult>(responsePayload, () => responsePayload.getCommandResult());
+  }
+  return null;
+};
+
+/**
+ * @stable [23.05.2018]
+ * @param {string} ip
+ * @param {IChannelsEntity} channelsEntity
+ * @param {string} uuid
+ * @returns {CommandResult}
+ */
+export const findCommandResultByUuid = (ip: string,
+                                        channelsEntity: IChannelsEntity,
+                                        uuid: string): CommandResult =>
+  findCommandResult(ip, channelsEntity, (cResult: CommandResult) => cResult.getUuid() === uuid);
