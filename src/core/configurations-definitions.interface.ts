@@ -10,6 +10,7 @@ import {
   IRendererWrapper,
   IEntityToClassNameWrapper,
   IIconWrapper,
+  IOnCloseWrapper,
   IActionIconWrapper,
   IActionTextWrapper,
   IAlwaysDirtyWrapper,
@@ -392,6 +393,7 @@ export interface ITabConfiguration extends INumberValueWrapper,
  */
 export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IUseIndicatorWrapper,
+                                                IOnCloseWrapper<ITabConfiguration>,
                                                 IOnClickWrapper<ITabConfiguration>,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }

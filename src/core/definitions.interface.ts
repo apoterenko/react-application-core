@@ -1800,7 +1800,7 @@ export interface IShowWrapper<TShow = () => void> {
 /**
  * @stable [08.05.2018]
  */
-export interface IOnCloseWrapper<TOnClose = () => void> {
+export interface IOnCloseWrapper<TPayload = IEntity, TOnClose = (payload?: TPayload) => void> {
   onClose?: TOnClose;
 }
 
