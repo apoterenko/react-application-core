@@ -31,7 +31,10 @@ export class Card extends BaseComponent<Card, ICardProps> {
                   orNull<JSX.Element>(
                     props.actionButtons,
                     () => (
-                      <div className={this.uiFactory.cardActionButtons}>
+                      <div className={toClassName(
+                                        'rac-card-action-buttons',
+                                        this.uiFactory.cardActionButtons
+                                      )}>
                         {props.actionButtons}
                       </div>
                     )
