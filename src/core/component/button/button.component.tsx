@@ -23,8 +23,8 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     const className = toClassName(
         !props.notApplyFrameworkClassName && this.uiFactory.button,
         'rac-button',
-        props.accent && 'mdc-button--accent',
-        props.raised && 'mdc-button--raised',
+        props.accent && 'rac-button-accent mdc-button--accent',
+        props.raised && 'rac-button-raised mdc-button--raised',
         props.className
     );
 

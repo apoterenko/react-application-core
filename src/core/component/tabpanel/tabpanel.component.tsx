@@ -25,10 +25,12 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
                        this.uiFactory.tabBarScroller
                      )}>
         <div className={toClassName(
+                          'rac-tab-bar-scroller-indicator',
+                          'rac-tab-bar-scroller-indicator-back',
                           this.uiFactory.tabBarScrollerIndicator,
                           this.uiFactory.tabBarScrollerIndicatorBack,
                         )}>
-          {this.uiFactory.makeTabBarScrollerIndicatorIcon('navigate_before')}
+          {this.uiFactory.makeTabBarScrollerIndicatorIcon({type: 'navigate_before', className: 'rac-tab-bar-scroller-indicator-icon'})}
         </div>
         <div className={this.uiFactory.tabBarScrollerFrame}>
           <nav className={toClassName(this.uiFactory.tabBarScrollerFrameTabs, this.uiFactory.tabBar)}>
@@ -73,10 +75,12 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
           </nav>
         </div>
         <div className={toClassName(
+                          'rac-tab-bar-scroller-indicator',
+                          'rac-tab-bar-scroller-indicator-forward',
                           this.uiFactory.tabBarScrollerIndicator,
                           this.uiFactory.tabBarScrollerIndicatorForward,
                         )}>
-          {this.uiFactory.makeTabBarScrollerIndicatorIcon('navigate_next')}
+          {this.uiFactory.makeTabBarScrollerIndicatorIcon({type: 'navigate_next', className: 'rac-tab-bar-scroller-indicator-icon'})}
         </div>
       </div>
     );
