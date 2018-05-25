@@ -6,6 +6,7 @@ export const DI_TYPES = {
   NumberConverter: Symbol('NumberConverter'),
   DynamicRoutes: Symbol('DynamicRoutes'),
   EventManager: Symbol('EventManager'),
+  Lock: Symbol('Lock'),
   ModifyEntityPayloadFactory: Symbol('ModifyEntityPayloadFactory'),
   Menu: Symbol('Menu'),
   FieldsOptions: Symbol('FieldsOptions'),
