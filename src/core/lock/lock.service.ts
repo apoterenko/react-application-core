@@ -12,6 +12,8 @@ export class Lock implements ILock {
    * @stable [26.05.2018]
    */
   public lock(): void {
+    this.unlock();
+
     window.onbeforeunload = this.onBeforeUnload;
     this.eventManager.add(window, 'beforeunload', this.onBeforeUnload);
   }
