@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { orNull } from '../../util';
 import { IChannelsEntity } from '../../entities-definitions.interface';
 import { PayloadWrapper } from './payload.wrapper';
-import { ObjectStatus } from './object.status';
 import { CommandResult } from './command.result';
 
 /**
@@ -19,27 +18,6 @@ export const channelsEntityResponsePayloadsMapper = (ip: string,
     !R.isNil(channel) && !R.isNil(channel.messages),
     () => channel.messages.map((message) => new PayloadWrapper(message.data))
   );
-};
-
-/**
- * @stable [21.05.2018]
- * @param {string} ip
- * @param {IChannelsEntity} channelsEntity
- * @param {(oStatus: ObjectStatus) => boolean} predicate
- * @returns {ObjectStatus}
- */
-export const findLastObjectStatus = (ip: string,
-                                     channelsEntity: IChannelsEntity,
-                                     predicate: (oStatus: ObjectStatus) => boolean): ObjectStatus => {
-  const responsePayloads = channelsEntityResponsePayloadsMapper(ip, channelsEntity);
-  if (responsePayloads) {
-    const responsePayload = responsePayloads
-      .reverse()
-      .find((rPayload) => !R.isNil(rPayload.getObjectStatus()) && predicate(rPayload.getPayload()));
-
-    return orNull<ObjectStatus>(responsePayload, () => responsePayload.getObjectStatus());
-  }
-  return null;
 };
 
 /**

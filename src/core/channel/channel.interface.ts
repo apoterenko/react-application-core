@@ -17,7 +17,7 @@ export interface IChannelClient {
 /**
  * @stable [21.05.2018]
  */
-export interface IChannelService {
+export interface IChannel {
   connect(ip: string, config?: AnyT): void;
   disconnect(ip): void;
   onConnect(ip: string, client: IChannelClient): void;
@@ -36,4 +36,6 @@ export const INITIAL_APPLICATION_CHANNEL_STATE: IChannelsEntity = {
 
 export const CHANNEL_CONNECT_MESSAGE = 'connect';
 export const CHANNEL_DISCONNECT_MESSAGE = 'disconnect';
-export const CHANNEL_MESSAGE_ACTION_TYPE = `${ACTION_PREFIX}channel.message`;
+export const $CHANNEL_MESSAGE_ACTION_TYPE = `${ACTION_PREFIX}channel.message`;
+export const $CHANNEL_CONNECTED_ACTION_TYPE = `${ACTION_PREFIX}channel.connected.message`;
+export const $CHANNEL_DISCONNECTED_ACTION_TYPE = `${ACTION_PREFIX}channel.disconnected.message`;

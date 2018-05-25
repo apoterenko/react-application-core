@@ -10,15 +10,15 @@ import { IApplicationSettings } from '../settings';
 import {
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_DISCONNECT_MESSAGE,
-  CHANNEL_MESSAGE_ACTION_TYPE,
-  IChannelService,
+  $CHANNEL_MESSAGE_ACTION_TYPE,
+  IChannel,
   IChannelClient,
 } from './channel.interface';
 import { PayloadWrapper } from './protocol';
 import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-definitions.interface';
 
 @injectable()
-export abstract class BaseChannel implements IChannelService {
+export abstract class BaseChannel implements IChannel {
   private static logger = LoggerFactory.makeLogger(BaseChannel);
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
@@ -60,22 +60,25 @@ export abstract class BaseChannel implements IChannelService {
   public onDisconnect(ip: string, client: IChannelClient): void {
     this.onMessage(ip, client, CHANNEL_DISCONNECT_MESSAGE);
 
-    BaseChannel.logger.info(
-      `[$BaseChannel][onDisconnect] Client has been disconnected successfully. Ip: ${ip}`
-    );
+    BaseChannel.logger.info(`[$BaseChannel][onDisconnect] Client has been disconnected. Ip: ${ip}`);
   }
 
+  /**
+   * @stable [25.05.2018]
+   * @param {string} ip
+   * @param {IChannelClient} client
+   * @param {string} name
+   * @param {string} message
+   */
   public onMessage(ip: string, client: IChannelClient, name?: string, message?: string): void {
     BaseChannel.logger.info(
-      () => `[$BaseChannel][onMessage] Client has been received the message ${message || '[-]'}. IP: ${ip}, name: ${name || '[-]'}`
+      () => `[$BaseChannel][onMessage] Client received the message ${message && JSON.stringify(message) ||
+      '[-]'}. IP: ${ip}, name: ${name || '[-]'}`
     );
-    const payload: IChannelMessageEntity = {
-      ip,
-      name,
-      data: this.toMessage(message),
-    };
+    const payload: IChannelMessageEntity = {ip, name, data: this.toMessage(message)};
+
     this.appStore.dispatch({
-      type: CHANNEL_MESSAGE_ACTION_TYPE,
+      type: $CHANNEL_MESSAGE_ACTION_TYPE,
       data: defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>(payload),
     });
   }
