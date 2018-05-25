@@ -1,3 +1,5 @@
+import { LoggerFactory } from 'ts-smart-logger';
+
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import { ApplicationTranslatorT } from '../translation';
 import { IEventManager } from '../event';
@@ -5,25 +7,39 @@ import { ILock } from './lock.interface';
 
 @provideInSingleton(Lock)
 export class Lock implements ILock {
+  private static logger = LoggerFactory.makeLogger(Lock);
+
   @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
+
+  private locked: boolean;
 
   /**
    * @stable [26.05.2018]
    */
   public lock(): void {
-    this.unlock();
-
+    if (this.locked) {
+      return;
+    }
     window.onbeforeunload = this.onBeforeUnload;
     this.eventManager.add(window, 'beforeunload', this.onBeforeUnload);
+    this.locked = true;
+
+    Lock.logger.debug('[$Lock][lock] The app has been locked to unload.');
   }
 
   /**
    * @stable [26.05.2018]
    */
   public unlock(): void {
+    if (!this.locked) {
+      return;
+    }
     window.onbeforeunload = null;
     this.eventManager.remove(window, 'beforeunload', this.onBeforeUnload);
+    this.locked = false;
+
+    Lock.logger.debug('[$Lock][lock] The app has been unlocked to unload.');
   }
 
   /**
