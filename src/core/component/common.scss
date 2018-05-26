@@ -59,6 +59,18 @@ html, body {
     max-width: 100%;          /* @stable [14.05.2018] */
   }
 
+  .rac-global-error-message {
+    background: $color-5;         /* @stable [27.05.2018] */
+    padding: 16px;                /* @stable [27.05.2018] */
+    border: 1px solid $color-12;  /* @stable [27.05.2018] */
+    color: $color-12;             /* @stable [27.05.2018] */
+
+    &.rac-absolute-center-position {
+      width: auto;                /* @stable [27.05.2018] */
+      max-width: 70%;             /* @stable [27.05.2018] */
+    }
+  }
+
   .rac-width-full {
     width: 100%;            /* @stable [14.05.2018] */
   }

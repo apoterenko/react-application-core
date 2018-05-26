@@ -3,6 +3,7 @@ import { MDCRipple } from '@material/ripple';
 import { MDCTabBarScroller } from '@material/tabs';
 
 import { appContainer, DI_TYPES } from '../../di';
+import { addClassNameToBody } from '../../util';
 import {
   IComponentClassEntity,
   UniversalComponentPluginFactoryT,
@@ -90,4 +91,12 @@ uiPlugins.set(KeyboardKey, (component: KeyboardKey) => new MaterialPlugin<Keyboa
 appContainer.bind<Map<IComponentClassEntity, UniversalComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
 
+/**
+ * @stable [27.05.2018]
+ */
 appContainer.bind<IUIFactory>(DI_TYPES.UIFactory).to(UIMaterialFactory).inSingletonScope();
+
+/**
+ * @stable [27.05.2018]
+ */
+addClassNameToBody('mdc-typography');

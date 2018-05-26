@@ -245,6 +245,24 @@ export interface INavigationHandlersConfiguration {
 }
 
 /**
+ * @stable [27.05.2018]
+ */
+export interface IBootstrapConfiguration {
+  rootId?: string;
+  needToPrepareBody?: boolean;
+  needToDefineErrorHandler?: boolean;
+}
+
+/**
+ * @stable [27.05.2018]
+ */
+export const DEFAULT_BOOTSTRAP_CONFIGURATION: IBootstrapConfiguration = {
+  rootId: 'root',
+  needToPrepareBody: true,
+  needToDefineErrorHandler: true,
+};
+
+/**
  * @stable [24.04.2018]
  */
 export interface IWebComponentConfiguration extends IClassNameWrapper,
