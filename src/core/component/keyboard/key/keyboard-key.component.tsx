@@ -22,6 +22,8 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
            style={keyAsObject && keyAsObject.width ? {width: `${keyAsObject && keyAsObject.width}px`} : {}}
            className={toClassName(
                        'rac-keyboard-key',
+                       'rac-flex',
+                       'rac-flex-center',
                        keyAsObject && keyAsObject.className,
                        this.uiFactory.rippleSurface
                      )}
