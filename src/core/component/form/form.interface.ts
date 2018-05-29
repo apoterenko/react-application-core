@@ -1,42 +1,58 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IEntity, IDefaultSubmitWrapper } from '../../definitions.interface';
+import { IEntity, ISubmitWrapper, IApiEntityWrapper } from '../../definitions.interface';
 import {
-  IBaseFormWrapperEntity,
+  IBasicFormWrapperEntity,
   IFormWrapperEntity,
-  IDefaultApiEntity,
+  IApiEntity,
   IComponent,
   IContainer,
   IEditableEntity,
+  IContainerEntity,
 } from '../../entities-definitions.interface';
-import { IFormConfigurationWrapper, IFormConfiguration } from '../../configurations-definitions.interface';
-import { ISubmitWrapper, IApiEntityWrapper } from '../../definitions.interface';
-import { IContainerProps } from '../../props-definitions.interface';
+import {
+  IFormConfigurationWrapper,
+  IFormConfiguration,
+  IContainerConfiguration,
+} from '../../configurations-definitions.interface';
 
-/* @stable - 10.04.2018 */
-export interface IFormInternalProps extends IFormConfiguration,
-                                            IFormWrapperEntity {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFormProps extends IFormConfiguration,
+                                    IFormWrapperEntity {
 }
 
-/* @stable - 01.04.2018 */
-export interface IFormContainerInternalProps<TEntity extends IEntity> extends IContainerProps,
-                                                                              IFormConfigurationWrapper,
-                                                                              IBaseFormWrapperEntity<TEntity> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFormContainerEntity<TEntity extends IEntity> extends IContainerEntity,
+                                                                       IBasicFormWrapperEntity<TEntity> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IDefaultFormContainerInternalProps extends IFormContainerInternalProps<IEntity> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFormContainerConfiguration extends IContainerConfiguration,
+                                                     IFormConfigurationWrapper {
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFormContainerProps<TEntity extends IEntity = IEntity> extends IFormContainerEntity<TEntity>,
+                                                                                IFormContainerConfiguration {
 }
 
 /* @stable - 11.04.2018 */
-export interface IForm extends IComponent<IFormInternalProps, {}>,
-                               IApiEntityWrapper<IDefaultApiEntity>,
-                               ISubmitWrapper<(apiEntity: IDefaultApiEntity) => void> {
+export interface IForm extends IComponent<IFormProps, {}>,
+                               IApiEntityWrapper<IApiEntity>,
+                               ISubmitWrapper<IApiEntity> {
 }
 
 /* @stable - 01.04.2018 */
-export interface IFormContainer extends IContainer<IDefaultFormContainerInternalProps, {}>,
-                                        IDefaultSubmitWrapper {
+export interface IFormContainer extends IContainer<IFormContainerProps>,
+                                        ISubmitWrapper {
 }
 
 /**

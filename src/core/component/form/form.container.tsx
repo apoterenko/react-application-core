@@ -4,21 +4,21 @@ import * as R from 'ramda';
 import { AnyT } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
-import { IDefaultApiEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
+import { IFieldChangeEntity, IApiEntity } from '../../entities-definitions.interface';
 import {
   IForm,
   IFormContainer,
-  IDefaultFormContainerInternalProps,
+  IFormContainerProps,
   FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
 } from './form.interface';
 
-export class FormContainer extends BaseContainer<IDefaultFormContainerInternalProps, {}>
+export class FormContainer extends BaseContainer<IFormContainerProps>
     implements IFormContainer {
 
-  constructor(props: IDefaultFormContainerInternalProps) {
+  constructor(props: IFormContainerProps) {
     super(props);
 
     this.onChange = this.onChange.bind(this);
@@ -75,16 +75,16 @@ export class FormContainer extends BaseContainer<IDefaultFormContainerInternalPr
     this.dispatch(FORM_RESET_ACTION_TYPE);
   }
 
-  private onSubmit(apiEntity: IDefaultApiEntity): void {
+  private onSubmit(apiEntity: IApiEntity): void {
     this.dispatch(FORM_SUBMIT_ACTION_TYPE, apiEntity);
   }
 
   /**
    * @stable - 11.04.2018
-   * @param {IDefaultApiEntity} apiEntity
+   * @param {IApiEntity} apiEntity
    * @returns {boolean}
    */
-  private onBeforeSubmit(apiEntity: IDefaultApiEntity): boolean {
+  private onBeforeSubmit(apiEntity: IApiEntity): boolean {
     const props = this.props;
     return props.onBeforeSubmit && props.onBeforeSubmit(apiEntity);
   }

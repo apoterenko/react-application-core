@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef, isNumber } from '../../util';
+import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
-import { IEditableEntity, IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IEditableEntity, IApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
@@ -15,17 +15,20 @@ import {
   IField,
   IFieldsOptions,
 } from '../field';
-import { IForm, IFormInternalProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
+import { IForm, IFormProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import {
   buildApiEntity,
   isFormFieldReadOnly,
   isFormFieldDisabled,
   isFormDisabled,
+  isFormEditable,
+  isFormNewEntity,
+  isFormDirty,
 } from './form.support';
 
-export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implements IForm {
+export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
 
-  public static defaultProps: IFormInternalProps = {
+  public static defaultProps: IFormProps = {
     form: INITIAL_APPLICATION_FORM_STATE,
   };
   private static logger = LoggerFactory.makeLogger(Form);
@@ -33,7 +36,11 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsOptions;
   private readonly childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
-  constructor(props: IFormInternalProps) {
+  /**
+   * @stable [29.05.2018]
+   * @param {IFormProps} props
+   */
+  constructor(props: IFormProps) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -128,7 +135,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
                               disabled={!this.canSubmit}
                               progress={this.form.progress}
                               error={!R.isNil(this.form.error)}
-                              text={props.actionText || (this.newEntity ? 'Create' : 'Save')}/>
+                              text={props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save')}/>
                     </section>
                 )
             )
@@ -142,7 +149,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     this.propsOnValid();
   }
 
-  public componentWillUpdate(nextProps: Readonly<IFormInternalProps>, nextState: Readonly<{}>, nextContext: {}): void {
+  public componentWillUpdate(nextProps: Readonly<IFormProps>, nextState: Readonly<{}>, nextContext: {}): void {
     super.componentWillUpdate(nextProps, nextState, nextContext);
     this.childrenMap.clear();
   }
@@ -154,9 +161,9 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
 
   /**
    * @stable - 11.04.2018
-   * @param {IDefaultApiEntity} apiEntity
+   * @param {IApiEntity} apiEntity
    */
-  public submit(apiEntity: IDefaultApiEntity): void {
+  public submit(apiEntity: IApiEntity): void {
     const props = this.props;
     if (props.onSubmit) {
       props.onSubmit(apiEntity);
@@ -165,9 +172,9 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
 
   /**
    * @stable - 11.04.2018
-   * @returns {IDefaultApiEntity}
+   * @returns {IApiEntity}
    */
-  public get apiEntity(): IDefaultApiEntity {
+  public get apiEntity(): IApiEntity {
     return buildApiEntity(this.changes, this.entity);
   }
 
@@ -247,10 +254,6 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
     });
   }
 
-  private get isFormReadOnly(): boolean {
-    return this.props.readOnly === true;
-  }
-
   /**
    * @stable - 11.04.2018
    * @returns {boolean}
@@ -265,19 +268,11 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
   }
 
   /**
-   * @stable - 31.03.2018
+   * @stable [29.05.2018]
    * @returns {boolean}
    */
   private get isFormDirty(): boolean {
-    return this.props.alwaysDirty || this.props.form.dirty === true;
-  }
-
-  /**
-   * @stable - 31.03.2018
-   * @returns {boolean}
-   */
-  private get isFormSubmittable(): boolean {
-    return R.isNil(this.props.submittable) || this.props.submittable === true;
+    return isFormDirty(this.props);
   }
 
   /**
@@ -286,7 +281,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
    */
   private get canSubmit(): boolean {
     return this.isFormValid
-        && this.isFormSubmittable
+        && isFormEditable(this.props)
         && this.isFormDirty
         && !this.isFormDisabled;
   }
@@ -351,14 +346,6 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
    */
   private get entity(): IEntity {
     return this.props.entity;
-  }
-
-  /**
-   * @stable - 11.04.2018
-   * @returns {IEntity}
-   */
-  private get newEntity(): boolean {
-    return this.entity && isNumber(this.entity.id);
   }
 
   /**
