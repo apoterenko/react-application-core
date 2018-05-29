@@ -918,12 +918,16 @@ export interface IProgressWrapper {
   progress?: boolean;
 }
 
-/* @stable - 11.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IReadyWrapper {
   ready?: boolean;
 }
 
-/* @stable - 25.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IAuthorizedWrapper {
   authorized?: boolean;
 }
@@ -1465,18 +1469,18 @@ export interface IErrorMessageWrapper<TErrorMessage> {
 export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string> {
 }
 
-/* @stable - 31.03.2018 */
-export interface IErrorWrapper<TError> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IErrorWrapper<TError = boolean> {
   error?: TError;
 }
 
-/* @stable - 31.03.2018 */
-export interface ICustomErrorWrapper<TCustomError> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface ICustomErrorWrapper<TCustomError = boolean> {
   customError?: TCustomError;
-}
-
-/* @stable - 31.03.2018 */
-export interface IBooleanCustomErrorWrapper extends ICustomErrorWrapper<boolean> {
 }
 
 /* @stable - 31.03.2018 */

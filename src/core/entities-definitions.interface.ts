@@ -21,7 +21,6 @@ import {
   IEntity,
   IEntityWrapper,
   IFormWrapper,
-  IBooleanCustomErrorWrapper,
   EntityIdT,
   IBooleanNewEntityWrapper,
   IEntityIdWrapper,
@@ -102,6 +101,7 @@ import {
   IMutatedListWrapper,
   IOriginalDataWrapper,
   IResetErrorWrapper,
+  ICustomErrorWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -279,10 +279,12 @@ export interface ISortDirectionEntity extends INameWrapper,
                                               ISortDirectionWrapper {
 }
 
-/* @stable [23.04.2018] */
-export interface IUniversalStateEntity extends ITouchedWrapper,
-                                               IProgressWrapper,
-                                               IStringErrorEntity {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IUniversalLivingEntity extends ITouchedWrapper,
+                                                IProgressWrapper,
+                                                IStringErrorEntity {
 }
 
 /**
@@ -299,12 +301,6 @@ export interface IPaginatedEntity extends IPagedEntity,
                                           ILockPageWrapper,
                                           ITotalCountWrapper,
                                           ITotalAmountWrapper {
-}
-
-/* @stable - 31.03.2018 */
-export interface IPaginatedEntitiesEntity extends IPaginatedEntity,
-                                                  IDataWrapper,
-                                                  IOriginalDataWrapper {
 }
 
 /**
@@ -335,17 +331,17 @@ export interface IChannelsEntity {
 export interface IChannelWrapperEntity extends IChannelWrapper<IChannelsEntity> {
 }
 
-/* @stable - 31.03.2018 */
-export interface IErrorEntity<TError> extends IErrorWrapper<TError>,
-                                              IBooleanCustomErrorWrapper {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IErrorEntity<TError = boolean, TCustomError = boolean> extends IErrorWrapper<TError>,
+                                                                                ICustomErrorWrapper<TCustomError> {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IStringErrorEntity extends IErrorEntity<string> {
-}
-
-/* @stable - 31.03.2018 */
-export interface IBooleanErrorEntity extends IErrorEntity<boolean> {
 }
 
 /* @stable - 31.03.2018 */
@@ -356,10 +352,10 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
 }
 
 /* @stable - 31.03.2018 */
-export interface IFormEntity<TChanges extends IKeyValue = IKeyValue> extends IChangesWrapper<TChanges>,
-                                                                             IDirtyWrapper,
-                                                                             IValidWrapper,
-                                                                             IUniversalStateEntity {
+export interface IFormEntity<TChanges extends IKeyValue = IEntity> extends IChangesWrapper<TChanges>,
+                                                                           IDirtyWrapper,
+                                                                           IValidWrapper,
+                                                                           IUniversalLivingEntity {
 }
 
 /* @stable - 31.03.2018 */
@@ -386,8 +382,10 @@ export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
 
 /* @stable [23.04.2018] */
 export interface IUniversalListEntity extends IUniversalComponentEntity,
-                                              IUniversalStateEntity,
-                                              IPaginatedEntitiesEntity,
+                                              IUniversalLivingEntity,
+                                              IPaginatedEntity,
+                                              IDataWrapper,
+                                              IOriginalDataWrapper,
                                               ISelectedEntityWrapper {
 }
 
@@ -501,21 +499,23 @@ export interface IUniversalButtonEntity extends IUniversalComponentEntity,
                                                 IDisabledWrapper,
                                                 IStringProgressMessageWrapper,
                                                 IStringErrorMessageWrapper,
-                                                IBooleanErrorEntity {
+                                                IErrorEntity {
 }
 
 /* @stable [23.04.2018] */
 export interface IUniversalMessageEntity extends IUniversalComponentEntity,
-                                                 IUniversalStateEntity {
+                                                 IUniversalLivingEntity {
 }
 
 /* @stable - 08.04.2018 */
 export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 }
 
-/* @stable - 25.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
-                                                     IUniversalStateEntity,
+                                                     IUniversalLivingEntity,
                                                      IAuthorizedWrapper,
                                                      IReadyWrapper {
 }

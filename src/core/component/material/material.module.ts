@@ -68,7 +68,7 @@ uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(comp
 uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(component, MDCTabBarScroller));
 
 /**
- * @stable [17.05.2018]
+ * @stable [18.05.2018]
  */
 uiPlugins.set(Dialog, (component: Dialog) => new DialogMaterialPlugin<Dialog>(component));
 
