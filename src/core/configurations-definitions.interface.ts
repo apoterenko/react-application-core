@@ -21,7 +21,7 @@ import {
   IReadOnlyWrapper,
   IResetTextWrapper,
   IUseResetButtonWrapper,
-  ISubmittableWrapper,
+  IEditableWrapper,
   IRippableWrapper,
   IWidthWrapper,
   ITitleWrapper,
@@ -203,9 +203,11 @@ export interface IGridConfigurationWrapper {
   gridConfiguration?: IGridConfiguration;
 }
 
-/* @stable - 31.03.2018 */
-export interface IFormConfigurationWrapper {
-  formConfiguration?: IFormConfiguration;
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFormConfigurationWrapper<TFormConfiguration = IFormConfiguration> {
+  formConfiguration?: TFormConfiguration;
 }
 
 /* @stable - 14.04.2018 */
@@ -358,17 +360,23 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
                                             INonInteractiveWrapper {
 }
 
-/* @stable - 31.03.2018 */
-export interface IFormConfiguration extends INotUseActionsWrapper,
-                                            IUseResetButtonWrapper,
-                                            IClassNameWrapper,
-                                            ISubmittableWrapper,
-                                            IAlwaysDirtyWrapper,
-                                            IDisabledWrapper,
+/**
+ * @stable [29.05.2018]
+ */
+export interface IUniversalFormConfiguration extends IUniversalComponentConfiguration,
+                                                     INotUseActionsWrapper,
+                                                     IUseResetButtonWrapper,
+                                                     IEditableWrapper,
+                                                     IDisabledWrapper,
+                                                     IAlwaysDirtyWrapper,
+                                                     IActionIconWrapper {
+}
+
+export interface IFormConfiguration extends IUniversalFormConfiguration,
+                                            IWebComponentConfiguration,
                                             IReadOnlyWrapper,
                                             IActionTextWrapper,
-                                            IResetTextWrapper,
-                                            IActionIconWrapper {
+                                            IResetTextWrapper {
 }
 
 /* @stable - 04.04.2018 */

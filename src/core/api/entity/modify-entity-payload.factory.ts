@@ -10,7 +10,7 @@ import {
   IModifyEntityPayloadWrapper,
   EntityOnSaveMergeStrategyEnum,
 } from './modify-entity-payload-factory.interface';
-import { IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../entities-definitions.interface';
 
 @injectable()
 export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPayloadFactory {
@@ -18,7 +18,7 @@ export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPaylo
   private static logger = LoggerFactory.makeLogger(ModifyEntityPayloadFactory);
 
   public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapper {
-    const apiEntity = action.initialData as IDefaultApiEntity;
+    const apiEntity = action.initialData as IApiEntity;
     const requestChanges = apiEntity.changes;
     const responseData = action.data;
     const responseEntity = responseData as IEntity;

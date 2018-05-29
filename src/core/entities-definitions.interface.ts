@@ -22,7 +22,7 @@ import {
   IEntityWrapper,
   IFormWrapper,
   EntityIdT,
-  IBooleanNewEntityWrapper,
+  INewEntityWrapper,
   IEntityIdWrapper,
   IOriginalEntityWrapper,
   IActiveWrapper,
@@ -340,9 +340,11 @@ export interface IErrorEntity<TError = boolean, TCustomError = boolean> extends 
 export interface IStringErrorEntity extends IErrorEntity<string> {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWrapper<TEntity>,
-                                                                       IBooleanNewEntityWrapper,
+                                                                       INewEntityWrapper,
                                                                        IOriginalEntityWrapper<TEntity>,
                                                                        IEntityIdWrapper<EntityIdT> {
 }
@@ -356,8 +358,10 @@ export interface IEditableEntity<TChanges extends IKeyValue = IEntity> extends I
                                                                                IValidWrapper {
 }
 
-/* @stable - 11.04.2018 */
-export interface IBaseFormWrapperEntity<TEntity extends IEntity>
+/**
+ * @stable [29.05.2018]
+ */
+export interface IBasicFormWrapperEntity<TEntity extends IEntity = IEntity>
   extends IFormWrapper<IEditableEntity<TEntity>>,
           IEntityWrapperEntity<TEntity>,
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
@@ -365,7 +369,7 @@ export interface IBaseFormWrapperEntity<TEntity extends IEntity>
 
 /* @stable - 09.04.2018 */
 export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
-  extends IBaseFormWrapperEntity<TEntity>,
+  extends IBasicFormWrapperEntity<TEntity>,
           IOnResetWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
           IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
@@ -428,16 +432,12 @@ export interface IMutatedListWrapperEntity extends IMutatedListWrapper<IListEnti
 }
 
 /* @stable - 01.04.2018 */
-export interface IApiEntity<TEntity extends IEntity> extends IEntityWrapperEntity<TEntity>,
-                                                             IEntityIdTWrapper,
-                                                             IChangesWrapper<TEntity>,
-                                                             IMergerWrapper<TEntity>,
-                                                             IDefaultOperationWrapper,
-                                                             IIsNewWrapper {
-}
-
-/* @stable - 01.04.2018 */
-export interface IDefaultApiEntity extends IApiEntity<IEntity> {
+export interface IApiEntity<TEntity extends IEntity = IEntity> extends IEntityWrapperEntity<TEntity>,
+                                                                       IEntityIdTWrapper,
+                                                                       IChangesWrapper<TEntity>,
+                                                                       IMergerWrapper<TEntity>,
+                                                                       IDefaultOperationWrapper,
+                                                                       IIsNewWrapper {
 }
 
 /* @stable - 12.04.2018 */

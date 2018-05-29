@@ -764,7 +764,9 @@ export interface IRoundedWrapper {
   rounded?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IAlwaysDirtyWrapper {
   alwaysDirty?: boolean;
 }
@@ -783,9 +785,11 @@ export interface IOnDelayWrapper<TValue = AnyT, TOnDelay = (value?: TValue) => v
   onDelay?: TOnDelay;
 }
 
-/* @stable - 31.03.2018 */
-export interface ISubmittableWrapper {
-  submittable?: boolean;
+/**
+ * @stable [29.05.2018]
+ */
+export interface IEditableWrapper {
+  editable?: boolean;
 }
 
 /**
@@ -1203,12 +1207,16 @@ export interface IReadOnlyWrapper {
   readOnly?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IUseResetButtonWrapper {
   useResetButton?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface INotUseActionsWrapper {
   notUseActions?: boolean;
 }
@@ -1223,9 +1231,11 @@ export interface IResetTextWrapper {
   resetText?: string;
 }
 
-/* @stable - 31.03.2018 */
-export interface IActionIconWrapper {
-  actionIcon?: string;
+/**
+ * @stable [29.05.2018]
+ */
+export interface IActionIconWrapper<TActionIcon = string> {
+  actionIcon?: TActionIcon;
 }
 
 /**
@@ -1482,13 +1492,11 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
   customError?: TCustomError;
 }
 
-/* @stable - 31.03.2018 */
-export interface INewEntityWrapper<TNewEntity> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface INewEntityWrapper<TNewEntity = boolean> {
   newEntity?: TNewEntity;
-}
-
-/* @stable - 31.03.2018 */
-export interface IBooleanNewEntityWrapper extends INewEntityWrapper<boolean> {
 }
 
 /* @stable - 31.03.2018 */
@@ -1760,18 +1768,18 @@ export interface IExcludeTargetsClassesWrapper<TExcludeTargetsClasses> {
 export interface IStringArrayExcludeTargetsClassesWrapper extends IExcludeTargetsClassesWrapper<string[]> {
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> {
   onBeforeSubmit?: TOnBeforeSubmit;
 }
 
-/* @stable - 31.03.2018 */
-export interface ISubmitWrapper<TSubmit> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface ISubmitWrapper<TPayload = AnyT, TSubmit = (payload?: TPayload) => void> {
   submit?: TSubmit;
-}
-
-/* @stable - 31.03.2018 */
-export interface IDefaultSubmitWrapper extends ISubmitWrapper<() => void> {
 }
 
 /* @stable - 19.04.2018 */

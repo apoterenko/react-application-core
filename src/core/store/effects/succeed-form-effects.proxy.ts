@@ -7,7 +7,7 @@ import { ListActionBuilder } from '../../component/list';
 import { IApplicationModifyEntityPayloadFactory } from '../../api';
 import { RouterActionBuilder, toRouteConfiguration } from '../../router';
 import { APPLICATION_SECTIONS } from '../../component/application';
-import { IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../entities-definitions.interface';
 import { IRoutesConfiguration } from '../../configurations-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('succeed-form-effects.proxy');
@@ -29,7 +29,7 @@ export function makeSucceedFormEffectsProxy(config: {
 
       @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(formSection))
       public $onFormSubmitDone(action: IEffectsAction): IEffectsAction[] {
-        const apiEntity = action.initialData as IDefaultApiEntity;
+        const apiEntity = action.initialData as IApiEntity;
 
         const connectorConfig = APPLICATION_SECTIONS.get(listSection);
         const listRoute0 = listRoute
