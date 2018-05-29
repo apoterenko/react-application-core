@@ -2,12 +2,10 @@ import * as React from 'react';
 
 import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
-import { FormContainer } from '../../form';
-import { IDefaultFilterContainerInternalProps, IDefaultFilterContainerInternalState } from './default-filter.interface';
+import { FormContainer, IFormContainerProps } from '../../form';
 
-export class DefaultFilterContainer<TInternalProps extends IDefaultFilterContainerInternalProps,
-                                    TInternalState extends IDefaultFilterContainerInternalState>
-  extends BaseContainer<TInternalProps, TInternalState> {
+export class DefaultFilterContainer<TProps extends IFormContainerProps>
+  extends BaseContainer<TProps> {
 
   public render(): JSX.Element {
     const props = this.props;
