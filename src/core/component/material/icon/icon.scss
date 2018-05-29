@@ -7,3 +7,11 @@
     color: $color-2;
   }
 }
+
+// MDC icons fonts
+@font-face {
+  font-family: 'Material Icons';                                    /* @stable [29.05.2018] */
+  font-style: normal;                                               /* @stable [29.05.2018] */
+  font-weight: 400;                                                 /* @stable [29.05.2018] */
+  src: url(~assets/material-icons-v38.woff2) format('woff2');       /* @stable [29.05.2018] */
+}
