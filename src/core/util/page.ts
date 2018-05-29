@@ -1,3 +1,6 @@
+import * as R from 'ramda';
+
+import { orNull } from '../util';
 import { FIRST_PAGE } from '../definitions.interface';
 import { IPaginatedEntity } from '../entities-definitions.interface';
 
@@ -11,10 +14,13 @@ export const pageFromNumber = (entity: IPaginatedEntity): number => {
 };
 
 /**
- * @stable [09.05.2018]
+ * @stable [29.05.2018]
  * @param {IPaginatedEntity} entity
  * @returns {number}
  */
 export const pageToNumber = (entity: IPaginatedEntity): number => {
-  return Math.min(entity.page * entity.pageSize, entity.totalCount);
+  return orNull<number>(
+    !R.isNil(entity.pageSize),
+    () => Math.min(entity.page * entity.pageSize, entity.totalCount)
+  );
 };
