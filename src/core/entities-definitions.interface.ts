@@ -102,6 +102,7 @@ import {
   ICustomErrorWrapper,
   IDirectionsWrapper,
   IDirectionWrapper,
+  IFilterFormWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -346,20 +347,18 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
                                                                        IEntityIdWrapper<EntityIdT> {
 }
 
-/* @stable - 31.03.2018 */
-export interface IFormEntity<TChanges extends IKeyValue = IEntity> extends IChangesWrapper<TChanges>,
-                                                                           IDirtyWrapper,
-                                                                           IValidWrapper,
-                                                                           IUniversalLivingEntity {
-}
-
-/* @stable - 31.03.2018 */
-export interface IDefaultFormEntity extends IFormEntity<IEntity> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IEditableEntity<TChanges extends IKeyValue = IEntity> extends IUniversalLivingEntity,
+                                                                               IChangesWrapper<TChanges>,
+                                                                               IDirtyWrapper,
+                                                                               IValidWrapper {
 }
 
 /* @stable - 11.04.2018 */
 export interface IBaseFormWrapperEntity<TEntity extends IEntity>
-  extends IFormWrapper<IFormEntity<TEntity>>,
+  extends IFormWrapper<IEditableEntity<TEntity>>,
           IEntityWrapperEntity<TEntity>,
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
 }
@@ -685,4 +684,17 @@ export interface ISortDirectionEntity extends INameWrapper,
  * @stable [29.05.2018]
  */
 export interface ISortDirectionsEntity extends IDirectionsWrapper<{ [name: string]: SortDirectionEnum }> {
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFilterFormWrapperEntity extends IFilterFormWrapper<IEditableEntity> {
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export interface IListAndFilterFormWrapperEntity extends IListWrapperEntity,
+                                                         IFilterFormWrapperEntity {
 }
