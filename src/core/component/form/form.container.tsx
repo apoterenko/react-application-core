@@ -9,13 +9,11 @@ import {
   IForm,
   IFormContainer,
   IDefaultFormContainerInternalProps,
-} from './form.interface';
-import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
-} from './form-reducer.interface';
+} from './form.interface';
 
 export class FormContainer extends BaseContainer<IDefaultFormContainerInternalProps, {}>
     implements IFormContainer {

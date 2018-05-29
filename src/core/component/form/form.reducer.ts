@@ -3,12 +3,12 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { isDef, toSection } from '../../util';
 import { convertError } from '../../error';
-import { IDefaultFormEntity, IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
-import { INITIAL_APPLICATION_FORM_STATE } from './form-reducer.interface';
+import { IEditableEntity, IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
+import { INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import { FormActionBuilder } from './form-action.builder';
 
-export function formReducer(state: IDefaultFormEntity = INITIAL_APPLICATION_FORM_STATE,
-                            action: IEffectsAction): IDefaultFormEntity {
+export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_STATE,
+                            action: IEffectsAction): IEditableEntity {
   const section = toSection(action);
   switch (action.type) {
     case FormActionBuilder.buildDestroyActionType(section):

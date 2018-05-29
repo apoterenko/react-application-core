@@ -699,6 +699,13 @@ export interface IDisabledWrapper {
 }
 
 /**
+ * @stable [29.05.2018]
+ */
+export interface IEnabledWrapper {
+  enabled?: boolean;
+}
+
+/**
  * @stable [17.05.2018]
  */
 export interface IAcceptDisabledWrapper {
@@ -1730,9 +1737,18 @@ export interface IIconStyleWrapper<TIconStyle = IKeyValue> {
 export interface ICssStyleWrapper extends IStyleWrapper<React.CSSProperties> {
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IFormWrapper<TForm> {
   form?: TForm;
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export interface IFilterFormWrapper<TFilterForm> {
+  filterForm?: TFilterForm;
 }
 
 /* @stable - 05.04.2018 */

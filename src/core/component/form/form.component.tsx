@@ -4,7 +4,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef, isNumber } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
-import { IFormEntity, IDefaultApiEntity } from '../../entities-definitions.interface';
+import { IEditableEntity, IDefaultApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
@@ -15,8 +15,7 @@ import {
   IField,
   IFieldsOptions,
 } from '../field';
-import { IForm, IFormInternalProps } from './form.interface';
-import { INITIAL_APPLICATION_FORM_STATE } from './form-reducer.interface';
+import { IForm, IFormInternalProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import {
   buildApiEntity,
   isFormFieldReadOnly,
@@ -374,7 +373,7 @@ export class Form extends BaseComponent<IForm, IFormInternalProps, {}> implement
    * @stable - 01.04.2018
    * @returns {IEntity}
    */
-  private get form(): IFormEntity<IEntity> {
+  private get form(): IEditableEntity<IEntity> {
     return this.props.form;
   }
 }

@@ -19,7 +19,7 @@ import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
-} from './form-reducer.interface';
+} from './form.interface';
 
 export class FormActionBuilder {
 
