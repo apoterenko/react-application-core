@@ -2,7 +2,6 @@ import {
   IEntity,
   IFormWrapper,
   IDictionariesWrapper,
-  SortDirectionEnum,
   IKeyValue,
 } from '../../definitions.interface';
 import {
@@ -20,6 +19,7 @@ import {
   INotificationWrapperEntity,
   IDictionariesWrapperEntity,
   IUniversalApplicationStoreEntity,
+  SortDirectionEnum,
 } from '../../entities-definitions.interface';
 import { universalDefaultMappers } from './universal-connector.mapper';
 

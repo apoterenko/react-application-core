@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { IBasicEvent, SortDirectionEnum, UNDEF } from '../../../definitions.interface';
+import { IBasicEvent, UNDEF } from '../../../definitions.interface';
+import { SortDirectionEnum } from '../../../entities-definitions.interface';
 import { BaseComponent } from '../../base';
 import { toClassName, isNumber, defValuesFilter, orUndef, isUndef, orNull } from '../../../util';
 import { IGridHeaderColumnProps } from './grid-header-column.interface';

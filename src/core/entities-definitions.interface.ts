@@ -41,8 +41,6 @@ import {
   IOnClickWrapper,
   ISetFocusWrapper,
   IOnChangeSortDirectionWrapper,
-  ISortDirectionWrapper,
-  ISortDirectionsWrapper,
   IValueWrapper,
   IOnChangeWrapper,
   ISelectedWrapper,
@@ -102,6 +100,8 @@ import {
   IOriginalDataWrapper,
   IResetErrorWrapper,
   ICustomErrorWrapper,
+  IDirectionsWrapper,
+  IDirectionWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -274,11 +274,6 @@ export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[
 /* @stable - 09.04.2018 */
 export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 
-/* @stable - 04.04.2018 */
-export interface ISortDirectionEntity extends INameWrapper,
-                                              ISortDirectionWrapper {
-}
-
 /**
  * @stable [29.05.2018]
  */
@@ -380,7 +375,9 @@ export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
           IDefaultOnValidWrapper {
 }
 
-/* @stable [23.04.2018] */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IUniversalListEntity extends IUniversalComponentEntity,
                                               IUniversalLivingEntity,
                                               IPaginatedEntity,
@@ -405,13 +402,17 @@ export interface IListItemEntity extends IUniversalListItemEntity,
                                          IComponentEntity {
 }
 
-/* @stable - 24.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IRnListEntity extends IUniversalListEntity {
 }
 
-/* @stable - 04.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IListEntity extends IUniversalListEntity,
-                                     ISortDirectionsWrapper,
+                                     ISortDirectionsEntity,
                                      IChangesWrapper {
 }
 
@@ -663,4 +664,25 @@ export interface IStringMenuActionEntity extends IMenuItemEntity<IEntity, string
  */
 export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(entity: TEntity) => boolean>,
                                                                ISorterWrapper<(entity1: TEntity, entity2: TEntity) => number> {
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export enum SortDirectionEnum {
+  ASC,
+  DESC,
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export interface ISortDirectionEntity extends INameWrapper,
+                                              IDirectionWrapper<SortDirectionEnum> {
+}
+
+/**
+ * @stable [29.05.2018]
+ */
+export interface ISortDirectionsEntity extends IDirectionsWrapper<{ [name: string]: SortDirectionEnum }> {
 }

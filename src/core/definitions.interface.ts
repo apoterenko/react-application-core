@@ -11,10 +11,6 @@ export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const ACTION_PREFIX = '$$-RAC-';
-export enum SortDirectionEnum {
-  ASC,
-  DESC,
-}
 
 /**
  * Core fields
@@ -989,22 +985,18 @@ export interface INameWrapper<TName = string> {
   name?: TName;
 }
 
-/* @stable - 04.04.2018 */
+/**
+ * @stable [29.05.2018]
+ */
 export interface IDirectionWrapper<TDirection> {
   direction?: TDirection;
 }
 
-/* @stable - 04.04.2018 */
-export interface IDirectionsWrapper<TDirection> {
-  directions?: { [name: string]: TDirection };
-}
-
-/* @stable - 04.04.2018 */
-export interface ISortDirectionWrapper extends IDirectionWrapper<SortDirectionEnum> {
-}
-
-/* @stable - 04.04.2018 */
-export interface ISortDirectionsWrapper extends IDirectionsWrapper<SortDirectionEnum> {
+/**
+ * @stable [29.05.2018]
+ */
+export interface IDirectionsWrapper<TDirections> {
+  directions?: TDirections;
 }
 
 /* @stable - 11.04.2018 */
