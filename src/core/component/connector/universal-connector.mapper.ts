@@ -8,7 +8,7 @@ import {
   FIRST_PAGE,
 } from '../../definitions.interface';
 import {
-  IDefaultFormEntity,
+  IEditableEntity,
   IEntityWrapperEntity,
   IListWrapperEntity,
   IMutatedListWrapperEntity,
@@ -19,7 +19,9 @@ import {
   IUniversalApplicationStoreEntity,
   IPagedEntity,
   IDataMutatorEntity,
+  IFilterFormWrapperEntity,
 } from '../../entities-definitions.interface';
+import { IFilterConfiguration } from '../../configurations-definitions.interface';
 
 /* @stable - 22.04.2018 */
 export const dictionariesMapper = (storeEntity: IUniversalApplicationStoreEntity): IDictionariesWrapperEntity => ({
@@ -39,6 +41,17 @@ export const userMapper = (storeEntity: IUniversalApplicationStoreEntity): IUser
 export const transportMapper = (storeEntity: IUniversalApplicationStoreEntity): ITransportWrapperEntity => ({
   transport: {
     ...storeEntity.transport,
+  },
+});
+
+/**
+ * @stable [29.05.2018]
+ * @param {IEditableEntity} editableEntity
+ * @returns {IFilterFormWrapperEntity}
+ */
+export const filterFormMapper = (editableEntity: IEditableEntity): IFilterFormWrapperEntity => ({
+  filterForm: {
+    ...editableEntity,
   },
 });
 
@@ -106,6 +119,14 @@ export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMut
   listMapper(listWrapperEntity.list, dataMutator);
 
 /**
+ * @stable [29.05.2018]
+ * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
+ * @returns {IFilterFormWrapperEntity}
+ */
+export const filterFormWrapperMapper = (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterFormWrapperEntity =>
+  filterFormMapper(filterFormWrapperEntity.filterForm);
+
+/**
  * @stable [16.05.2018]
  * @param {IListWrapperEntity} listWrapperEntity
  * @param {IDataMutatorEntity} dataMutator
@@ -117,7 +138,7 @@ export const mutatedListWrapperMapper =
 
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
-                                                      formEntity?: IDefaultFormEntity): IEntityWrapperEntity<TEntity> =>
+                                                      formEntity?: IEditableEntity): IEntityWrapperEntity<TEntity> =>
     ({
       entity: {
         ...entity as {},
@@ -147,13 +168,32 @@ export const listSelectedEntityMapper = <TEntity extends IEntity>(listWrapperEnt
 /* @stable - 12.04.2018 */
 export const listWrapperSelectedEntityMapper =
   <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
-                            formEntity?: IDefaultFormEntity): IEntityWrapper<TEntity> =>
+                            formEntity?: IEditableEntity): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
       listSelectedEntityMapper<TEntity>(listWrapperState),
       formEntity
     );
 
-/* @stable - 16.04.2018 */
+/**
+ * @stable [29.05.2018]
+ * @param {IListEntity} listEntity
+ * @returns {IFilterConfiguration}
+ */
+export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IFilterConfiguration => ({
+  actionsDisabled: listEntity.progress,
+});
+
+/**
+ * @stable [29.05.2018]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {IFilterConfiguration}
+ */
+export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IFilterConfiguration =>
+  actionsDisabledListEntityMapper(listWrapperEntity.list);
+
+/**
+ * @stable [29.05.2018]
+ */
 export const universalDefaultMappers = [
   transportMapper,
   userMapper,

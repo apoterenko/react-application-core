@@ -5,11 +5,8 @@ import {
   IKeyValue,
 } from '../../definitions.interface';
 import {
-  IApplicationFilterFormWrapperState,
-} from '../../component/filter';
-import {
   IChannelWrapperEntity,
-  IDefaultFormEntity,
+  IEditableEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   ILayoutWrapperEntity,
@@ -20,8 +17,18 @@ import {
   IDictionariesWrapperEntity,
   IUniversalApplicationStoreEntity,
   SortDirectionEnum,
+  IFilterFormWrapperEntity,
+  IListAndFilterFormWrapperEntity,
 } from '../../entities-definitions.interface';
-import { universalDefaultMappers } from './universal-connector.mapper';
+import {
+  IFilterActionConfiguration,
+  FilterActionEnum,
+  IFilterConfiguration,
+} from '../../configurations-definitions.interface';
+import {
+  universalDefaultMappers,
+  actionsDisabledListWrapperEntityMapper,
+} from './universal-connector.mapper';
 
 export const rootMapper = (state: IRootWrapperEntity): IRootWrapperEntity => ({
   root: {
@@ -35,7 +42,7 @@ export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity 
   },
 });
 
-export const formMapper = (formState: IDefaultFormEntity): IFormWrapper<IDefaultFormEntity> => ({
+export const formMapper = (formState: IEditableEntity): IFormWrapper<IEditableEntity> => ({
   form: {
     ...formState,
   },
@@ -44,12 +51,6 @@ export const formMapper = (formState: IDefaultFormEntity): IFormWrapper<IDefault
 export const filterMapper = (filterState: IQueryFilterEntity) => ({
   filter: {
     ...filterState,
-  },
-});
-
-export const filterFormMapper = (formState: IDefaultFormEntity) => ({
-  filterForm: {
-    ...formState,
   },
 });
 
@@ -68,8 +69,48 @@ export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEnti
 export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
     filterMapper(filterState.filter);
 
-export const filterFormWrapperMapper = (filterState: IApplicationFilterFormWrapperState) =>
-    filterFormMapper(filterState.filterForm);
+/**
+ * @stable [29.05.2018]
+ * @param {IEditableEntity} editableEntity
+ * @returns {IFilterActionConfiguration}
+ */
+export const activeClassNameEditableEntityMapper = (editableEntity: IEditableEntity): IFilterActionConfiguration =>
+  ({className: editableEntity.dirty && 'rac-filter-active'});
+
+/**
+ * @stable [29.05.2018]
+ * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
+ * @returns {IFilterActionConfiguration}
+ */
+export const activeClassNameFilterFormWrapperEntityMapper =
+  (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration =>
+    activeClassNameEditableEntityMapper(filterFormWrapperEntity.filterForm);
+
+/**
+ * @stable [29.05.2018]
+ * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
+ * @returns {IFilterActionConfiguration}
+ */
+export const openFilterFilterFormWrapperEntityMapper =
+  (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
+    type: FilterActionEnum.OPEN_FILTER,
+    ...activeClassNameFilterFormWrapperEntityMapper(filterFormWrapperEntity),
+  });
+
+/**
+ * @stable [29.05.2018]
+ * @param {IListAndFilterFormWrapperEntity} mappedEntity
+ * @returns {IFilterConfiguration}
+ */
+export const refreshListAndFilterFormWrapperEntityMapper =
+  (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
+    actions: mappedEntity.filterForm
+      ? [openFilterFilterFormWrapperEntityMapper(mappedEntity)]
+      : [],
+    notUseField: true,
+    icon: 'refresh',
+    ...actionsDisabledListWrapperEntityMapper(mappedEntity),
+  });
 
 export const defaultMappers = [
   ...universalDefaultMappers,
