@@ -92,6 +92,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
             ? {
               data: listEntity,
               totalCount: listEntity.length,
+              pageSize: null,
             }
             : listEntity
         ),

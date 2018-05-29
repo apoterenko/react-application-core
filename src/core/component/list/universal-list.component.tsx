@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, pageFromNumber, pageToNumber } from '../../util';
+import { uuid, pageFromNumber, pageToNumber, orDefault } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalListProps } from '../../props-definitions.interface';
@@ -116,24 +116,32 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [14.05.2018]
+   * @stable [29.05.2018]
    * @returns {IEntity[]}
    */
   protected getDataSource(): IEntity[] {
     const props = this.props;
     const originalDataSource = this.getOriginalDataSource();
-    const sortedData = (
-      props.sorter
-      ? R.sort<IEntity>(props.sorter, originalDataSource)
-      : originalDataSource
+    const sortedData = orDefault<IEntity[], IEntity[]>(
+      R.isNil(props.sorter),
+      originalDataSource,
+      () => R.sort<IEntity>(props.sorter, originalDataSource),
     );
-    const filteredData = (
-      props.filter
-        ? R.filter<IEntity>(props.filter, sortedData)
-        : sortedData
+    const filteredData = orDefault<IEntity[], IEntity[]>(
+      R.isNil(props.filter),
+      sortedData,
+      () => R.filter<IEntity>(props.filter, sortedData),
     );
-    const pagedData = filteredData.slice(this.fromNumber, this.toNumber);
-    return pagedData.length === 0 ? filteredData : pagedData;
+    const toNumber = this.toNumber;
+    let pagedData;
+    return orDefault<IEntity[], IEntity[]>(
+      R.isNil(toNumber)
+        // Remote and local pagination is supported simultaneously.
+        // Length result is zero in the case of remote pagination
+        || (pagedData = filteredData.slice(this.fromNumber, toNumber)).length === 0,
+      filteredData,
+      () => pagedData
+    );
   }
 
   /**
