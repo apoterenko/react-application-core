@@ -35,6 +35,7 @@ export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
 export const VALUE_FIELD_NAME = 'value';
+export const TITLE_FIELD_NAME = 'title';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /* @stable - 01.04.2018 */
