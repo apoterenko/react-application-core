@@ -1,6 +1,5 @@
 import * as R from 'ramda';
 
-import { isNumber } from '../../util';
 import { Operation } from '../../operation';
 import { IEntity } from '../../definitions.interface';
 import { IApiEntity } from '../../entities-definitions.interface';
@@ -86,4 +85,4 @@ export const isFormDirty = (formProps: IFormProps): boolean =>
  * @param {IFormProps} formProps
  * @returns {boolean}
  */
-export const isFormNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || !isNumber(formProps.entity.id);
+export const isFormNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || R.isNil(formProps.entity.id);
