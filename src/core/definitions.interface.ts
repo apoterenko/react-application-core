@@ -448,9 +448,18 @@ export interface IOperationWrapper<TOperation> {
 export interface IDefaultOperationWrapper extends IOperationWrapper<IStringIdWrapper> {
 }
 
-/* @stable - 06.04.2018 */
+/**
+ * @stable [30.05.2018]
+ */
 export interface IItemsWrapper<TItems> {
   items?: TItems;
+}
+
+/**
+ * @stable [30.05.2018]
+ */
+export interface IItemWrapper<TItem> {
+  item?: TItem;
 }
 
 /**
@@ -506,7 +515,9 @@ export interface IBindDictionaryWrapper<TBindDictionary = string> {
   bindDictionary?: TBindDictionary;
 }
 
-/* @stable - 22.04.2018 */
+/**
+ * @stable [30.05.2018]
+ */
 export interface IDictionariesWrapper<TDictionaries> {
   dictionaries?: TDictionaries;
 }

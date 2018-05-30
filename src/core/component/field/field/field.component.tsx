@@ -322,8 +322,20 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return this.state.error;
   }
 
-  protected get hasInputFocus(): boolean {
+  /**
+   * @stable [30.05.2018]
+   * @returns {boolean}
+   */
+  protected hasInputFocus(): boolean {
     return document.activeElement === this.input;
+  }
+
+  /**
+   * @stable [30.05.2018]
+   * @returns {boolean}
+   */
+  protected isFieldFocused(): boolean {
+    return this.hasInputFocus() || this.isValuePresent();
   }
 
   /**

@@ -50,7 +50,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   public render(): JSX.Element {
     const props = this.props;
-    const autoFocusOrValuePresent = props.autoFocus || this.isValuePresent();
     const fieldLabel = props.label ? this.t(props.label) : props.children;
 
     return (
@@ -74,7 +73,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                               : undefined}}
                                className={toClassName(
                                    this.uiFactory.textFieldLabel,
-                                   autoFocusOrValuePresent && this.uiFactory.textFieldFocusedLabel
+                                   this.isFieldFocused() && this.uiFactory.textFieldFocusedLabel
                                )}>
                           {props.label ? this.t(props.label) : props.children}
                         </label>
@@ -161,7 +160,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         'rac-text-field',
         this.uiFactory.textField,
         this.uiFactory.textFieldUpgraded,
-        this.hasInputFocus && this.uiFactory.textFieldFocused,
+        this.isFieldFocused() && this.uiFactory.textFieldFocused,
         error && this.uiFactory.textFieldInvalid
     );
   }
