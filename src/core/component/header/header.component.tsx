@@ -1,23 +1,22 @@
 import * as React from 'react';
 
 import { toClassName, orNull } from '../../util';
-import { IHeaderInternalProps } from './header.interface';
+import { IHeaderProps } from './header.interface';
 import { BaseComponent } from '../base';
 import { ToolbarSection } from '../toolbar';
 import { Menu } from '../menu';
 import { IMenu } from '../menu';
 
-export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
+export class Header extends BaseComponent<Header, IHeaderProps> {
 
-  public static defaultProps: IHeaderInternalProps = {
+  public static defaultProps: IHeaderProps = {
     navigationActionType: 'menu',
   };
 
-  constructor(props: IHeaderInternalProps) {
+  constructor(props: IHeaderProps) {
     super(props);
     this.onNavigationActionClick = this.onNavigationActionClick.bind(this);
     this.onMenuClick = this.onMenuClick.bind(this);
-    this.onMenuActionClick = this.onMenuActionClick.bind(this);
   }
 
   public render(): JSX.Element {
@@ -46,15 +45,15 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
             </ToolbarSection>
             {
               orNull(
-                  props.children || props.menuItems,
+                  props.children || props.moreOptions,
                   () => (
                       <ToolbarSection className={
                         toClassName(this.uiFactory.toolbarSectionAlignEnd, 'rac-toolbar-section-wrapper')
                       }>
                         {props.children}
                         {
-                          orNull(
-                              props.menuItems,
+                          orNull<JSX.Element>(
+                              props.moreOptions,
                               () => (
                                   this.uiFactory.makeIcon({
                                     simple: true,
@@ -66,12 +65,12 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
                           )
                         }
                         {
-                          orNull(
-                              props.menuItems,
+                          orNull<JSX.Element>(
+                              props.moreOptions,
                               () => (
                                   <Menu ref='menu'
-                                        options={props.menuItems}
-                                        onSelect={this.onMenuActionClick}/>
+                                        options={props.moreOptions}
+                                        onSelect={props.onMoreOptionsSelect}/>
                               )
                           )
                         }
@@ -84,15 +83,9 @@ export class Header extends BaseComponent<Header, IHeaderInternalProps, {}> {
     );
   }
 
-  private onMenuActionClick(option: any): void {  // TODO
-    if (this.props.menuActionHandler) {
-      this.props.menuActionHandler(option);
-    }
-  }
-
   private onNavigationActionClick(): void {
-    if (this.props.navigationActionHandler) {
-      this.props.navigationActionHandler();
+    if (this.props.onNavigationActionClick) {
+      this.props.onNavigationActionClick();
     }
   }
 

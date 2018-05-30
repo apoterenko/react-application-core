@@ -147,6 +147,10 @@ import {
   INotUseFieldWrapper,
   IActionsPosition,
   INotUseErrorMessage,
+  IMoreOptionsWrapper,
+  INavigationActionTypeWrapper,
+  IOnNavigationActionClickWrapper,
+  IOnMoreOptionsSelectWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -155,6 +159,13 @@ import {
   IMenuItemEntity,
   ISortDirectionEntity,
 } from './entities-definitions.interface';
+
+/**
+ * @stable [31.05.2018]
+ */
+export interface IHeaderConfigurationWrapper<THeaderConfiguration = IHeaderConfiguration> {
+  headerConfiguration?: THeaderConfiguration;
+}
 
 /**
  * @stable [14.05.2018]
@@ -787,3 +798,13 @@ export interface IUIIconConfiguration extends IUniversalUIIconConfiguration,
  * @stable [18.05.2018]
  */
 export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | string;
+
+/**
+ * @stable [31.05.2018]
+ */
+export interface IHeaderConfiguration extends IMoreOptionsWrapper<IMenuItemEntity[]>,
+                                              IItemsWrapper<JSX.Element>,
+                                              INavigationActionTypeWrapper,
+                                              IOnNavigationActionClickWrapper,
+                                              IOnMoreOptionsSelectWrapper<IMenuItemEntity> {
+}

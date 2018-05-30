@@ -463,6 +463,27 @@ export interface IItemWrapper<TItem> {
 }
 
 /**
+ * @stable [31.05.2018]
+ */
+export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
+  navigationActionType?: TNavigationActionType;
+}
+
+/**
+ * @stable [31.05.2018]
+ */
+export interface IOnNavigationActionClickWrapper<TPayload = IBasicEvent, TOnNavigationActionClick = (payload?: TPayload) => void> {
+  onNavigationActionClick?: TOnNavigationActionClick;
+}
+
+/**
+ * @stable [31.05.2018]
+ */
+export interface IOnMoreOptionsSelectWrapper<TPayload, TOnMoreOptionsSelect = (payload?: TPayload) => void> {
+  onMoreOptionsSelect?: TOnMoreOptionsSelect;
+}
+
+/**
  * @stable [20.05.2018]
  */
 export interface IConnectedWrapper<TConnected = boolean> {
@@ -1428,10 +1449,10 @@ export interface IPositionWrapper<TPosition = number> {
 }
 
 /**
- * @stable [14.05.2018]
+ * @stable [31.05.2018]
  */
-export interface IMenuItemsWrapper<TMenuItems> {
-  menuItems?: TMenuItems;
+export interface IMoreOptionsWrapper<TMoreOptions> {
+  moreOptions?: TMoreOptions;
 }
 
 /**
@@ -1771,6 +1792,13 @@ export interface IFilterFormWrapper<TFilterForm> {
   filterForm?: TFilterForm;
 }
 
+/**
+ * @stable [31.05.2018]
+ */
+export interface IFooterWrapper<TFooter = JSX.Element> {
+  footer?: TFooter;
+}
+
 /* @stable - 05.04.2018 */
 export interface IExcludeTargetsClassesWrapper<TExcludeTargetsClasses> {
   excludeTargetsClasses?: TExcludeTargetsClasses;
@@ -1806,7 +1834,7 @@ export interface IDefaultOnPressWrapper extends IOnPressWrapper<() => void> {
 /**
  * @stable [15.05.2018]
  */
-export interface IOnClickWrapper<TClickPayload = IBasicEvent, TOnClick = (payload?: TClickPayload) => void> {
+export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
   onClick?: TOnClick;
 }
 
