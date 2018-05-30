@@ -6,6 +6,7 @@ import {
   IEntityWrapper,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
+  IFormWrapper,
 } from '../../definitions.interface';
 import {
   IEditableEntity,
@@ -20,6 +21,7 @@ import {
   IPagedEntity,
   IDataMutatorEntity,
   IFilterFormWrapperEntity,
+  IFormWrapperEntity,
 } from '../../entities-definitions.interface';
 import { IFilterConfiguration } from '../../configurations-definitions.interface';
 
@@ -51,6 +53,17 @@ export const transportMapper = (storeEntity: IUniversalApplicationStoreEntity): 
  */
 export const filterFormMapper = (editableEntity: IEditableEntity): IFilterFormWrapperEntity => ({
   filterForm: {
+    ...editableEntity,
+  },
+});
+
+/**
+ * @stable [31.05.2018]
+ * @param {IEditableEntity} editableEntity
+ * @returns {IFormWrapper<IEditableEntity>}
+ */
+export const formMapper = (editableEntity: IEditableEntity): IFormWrapper<IEditableEntity> => ({
+  form: {
     ...editableEntity,
   },
 });
@@ -119,12 +132,14 @@ export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMut
   listMapper(listWrapperEntity.list, dataMutator);
 
 /**
- * @stable [29.05.2018]
+ * @stable [31.05.2018]
  * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
- * @returns {IFilterFormWrapperEntity}
+ * @param {boolean} useFormMapper
+ * @returns {IFilterFormWrapperEntity | IFormWrapperEntity}
  */
-export const filterFormWrapperMapper = (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterFormWrapperEntity =>
-  filterFormMapper(filterFormWrapperEntity.filterForm);
+export const filterFormWrapperMapper = (filterFormWrapperEntity: IFilterFormWrapperEntity,
+                                        useFormMapper: boolean = false): IFilterFormWrapperEntity | IFormWrapperEntity =>
+  (useFormMapper ? formMapper : filterFormMapper)(filterFormWrapperEntity.filterForm);
 
 /**
  * @stable [16.05.2018]
