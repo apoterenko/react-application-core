@@ -1,19 +1,26 @@
 import { MDCCheckbox } from '@material/checkbox';
 
 import { noop } from '../../../util';
-import { INativeMaterialCheckboxComponent } from '../../../component/material';
-import { Checkbox } from '../../../component/field';
-import { FieldMaterialPlugin } from './field-material.plugin';
+import { INativeMaterialCheckboxComponent } from '../../material';
+import { Checkbox } from '../../field';
+import { MaterialPlugin } from './material.plugin';
 
 export class CheckboxMaterialPlugin
-    extends FieldMaterialPlugin<Checkbox, INativeMaterialCheckboxComponent> {
+    extends MaterialPlugin<Checkbox, INativeMaterialCheckboxComponent> {
 
+  /**
+   * @stable [30.05.2018]
+   * @param {Checkbox} field
+   */
   constructor(field: Checkbox) {
     super(field, MDCCheckbox);
 
     field.getRawValueFromEvent = this.getRawValueFromEvent.bind(this);
   }
 
+  /**
+   * @stable [30.05.2018]
+   */
   public componentDidMount(): void {
     super.componentDidMount();
 
@@ -23,6 +30,10 @@ export class CheckboxMaterialPlugin
     });
   }
 
+  /**
+   * @stable [30.05.2018]
+   * @returns {boolean}
+   */
   private getRawValueFromEvent(): boolean {
     return this.mdc.checked;
   }

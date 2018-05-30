@@ -1,4 +1,3 @@
-import { MDCTextField } from '@material/textfield';
 import { MDCRipple } from '@material/ripple';
 import { MDCTabBarScroller } from '@material/tabs';
 
@@ -10,22 +9,15 @@ import {
 } from '../../entities-definitions.interface';
 import {
   Checkbox,
-  ChipsField,
-  DateField,
-  Select,
-  TextField,
-  TimeField,
 } from '../field';
 import { IUIFactory } from '../factory';
 import {
   CheckboxMaterialPlugin,
   DialogMaterialPlugin,
-  FieldMaterialPlugin,
   ListItemMaterialPlugin,
   MaterialPlugin,
   MenuMaterialPlugin,
 } from './plugin';
-import { INativeMaterialComponent } from '../material';
 import { UIMaterialFactory } from './factory';
 import { Menu } from '../menu';
 import { ListItem } from '../list';
@@ -36,31 +28,10 @@ import { Dialog } from '../dialog';
 import { FormDialog } from '../form';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
-uiPlugins.set(
-  TextField,
-  (component: TextField) =>
-    new FieldMaterialPlugin<TextField, INativeMaterialComponent>(component, MDCTextField)
-);
-uiPlugins.set(
-  Select,
-  (component: Select) =>
-    new FieldMaterialPlugin<Select, INativeMaterialComponent>(component, MDCTextField)
-);
-uiPlugins.set(
-  TimeField,
-  (component: TimeField) =>
-    new FieldMaterialPlugin<TimeField, INativeMaterialComponent>(component, MDCTextField)
-);
-uiPlugins.set(
-  DateField,
-  (component: DateField) =>
-    new FieldMaterialPlugin<DateField, INativeMaterialComponent>(component, MDCTextField)
-);
-uiPlugins.set(
-  ChipsField,
-  (component: ChipsField) =>
-    new FieldMaterialPlugin<ChipsField, INativeMaterialComponent>(component, MDCTextField)
-);
+
+/**
+ * @stable [30.05.2018]
+ */
 uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
 
 /**
