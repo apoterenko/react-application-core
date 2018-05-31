@@ -145,12 +145,14 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       }
       break;
     case ListActionBuilder.buildInsertActionType(section):
-      updatedData = (state.data || []).concat({ ...payload.changes });
+      const insertedItem = { ...payload.changes };
+      updatedData = (state.data || []).concat(insertedItem);
 
       return {
         ...state,
         data: updatedData,
         totalCount: ++state.totalCount,
+        selected: insertedItem,
       };
     case ListActionBuilder.buildRemoveActionType(section):
       const entityToRemovePayload: IRemovedEntityWrapper = action.data;
