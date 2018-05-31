@@ -5,11 +5,12 @@ import { FilterActionBuilder } from '../../component/filter';
 import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
 import { StackActionBuilder } from '../stack';
+import { FormActionBuilder } from '../../component/form';
 
 export function makeFilteredListEffectsProxy(
-    config: { filterPath?: string; section: string, filterSection?: string }
+    config: { filterPath?: string; section: string, filterSection?: string, filterFormSection?: string }
     ): () => void {
-  const { filterPath, section, filterSection } = config;
+  const { filterPath, section, filterSection, filterFormSection } = config;
   return (): void => {
 
     @provideInSingleton(Effects)
@@ -22,10 +23,12 @@ export function makeFilteredListEffectsProxy(
 
       @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(section))
       public $onFilterDeactivate(): IEffectsAction[] {
-        return [
+        return (
+          filterFormSection ? [FormActionBuilder.buildDestroyAction(filterFormSection)] : []
+        ).concat([
           FilterActionBuilder.buildDestroyAction(section),
           ListActionBuilder.buildLoadAction(section)
-        ];
+        ]);
       }
 
       @EffectsService.effects(FilterActionBuilder.buildOpenActionType(section))
