@@ -5,10 +5,10 @@ import { AnyT } from '../../definitions.interface';
 import { DictionariesActionBuilder } from '../../dictionary';
 import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
-import { IFormDialog } from '../form';
 import { UniversalContainer } from './universal.container';
 import { IContainer } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
+import { IUniversalDialog } from '../dialog';
 
 export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
     extends UniversalContainer<TProps, TState>
@@ -38,6 +38,6 @@ export class BaseContainer<TProps extends IContainerProps = IContainerProps, TSt
 
   // Service method (DRY)
   protected activateFormDialog(): void {
-    (this.refs.formDialog as IFormDialog).activate();
+    (this.refs.formDialog as IUniversalDialog).activate();
   }
 }
