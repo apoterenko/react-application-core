@@ -11,9 +11,9 @@ export class DefaultFilterContainer<TProps extends IFormContainerProps>
     const props = this.props;
 
     return (
-      <DefaultLayoutContainer headerOptions={{
+      <DefaultLayoutContainer headerConfiguration={{
                                 navigationActionType: 'arrow_back',
-                                navigationActionHandler: this.navigateToBack,
+                                onNavigationActionClick: this.navigateToBack,
                               }}
                               title={this.t('Filter')}
                               {...props}>

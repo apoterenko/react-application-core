@@ -802,7 +802,8 @@ export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | stri
 /**
  * @stable [31.05.2018]
  */
-export interface IHeaderConfiguration extends IMoreOptionsWrapper<IMenuItemEntity[]>,
+export interface IHeaderConfiguration extends IComponentConfiguration,
+                                              IMoreOptionsWrapper<IMenuItemEntity[]>,
                                               IItemsWrapper<JSX.Element>,
                                               INavigationActionTypeWrapper,
                                               IOnNavigationActionClickWrapper,

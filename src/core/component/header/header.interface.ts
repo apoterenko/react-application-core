@@ -1,12 +1,9 @@
-import { IComponentProps } from '../../props-definitions.interface';
-import { IMenuItemsWrapper } from '../../definitions.interface';
+import { IHeaderConfiguration } from '../../configurations-definitions.interface';
+import { IComponentEntity } from '../../entities-definitions.interface';
 
-export interface IHeaderProps extends IMenuItemsWrapper<any> {  // TODO
-  navigationActionType?: string;
-  navigationActionHandler?(): void;
-}
-
-export interface IHeaderInternalProps extends IComponentProps,
-                                              IHeaderProps {
-  menuActionHandler?(option: any): void;  // TODO
+/**
+ * @stable [31.05.2018]
+ */
+export interface IHeaderProps extends IComponentEntity,
+                                      IHeaderConfiguration {
 }

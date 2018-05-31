@@ -13,43 +13,43 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
     navigationActionType: 'menu',
   };
 
+  /**
+   * @stable [31.05.2018]
+   * @param {IHeaderProps} props
+   */
   constructor(props: IHeaderProps) {
     super(props);
-    this.onNavigationActionClick = this.onNavigationActionClick.bind(this);
     this.onMenuClick = this.onMenuClick.bind(this);
   }
 
+  /**
+   * @stable [31.05.2018]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
 
     return (
-        <header className={toClassName(
-                              this.uiFactory.toolbar,
-                              'rac-header',
-                              props.className,
-                          )}>
+        <header className={toClassName(this.uiFactory.toolbar, 'rac-header', props.className)}>
           <div className={this.uiFactory.toolbarRow}>
-            <ToolbarSection className={toClassName(
-                                          'rac-navigation-section',
-                                          this.uiFactory.toolbarSectionAlignStart
-                                      )}>
+            <ToolbarSection className={toClassName('rac-navigation-section', this.uiFactory.toolbarSectionAlignStart)}>
               {
                 this.uiFactory.makeIcon({
                   simple: true,
                   type: props.navigationActionType,
                   className: this.uiFactory.toolbarMenuIcon,
-                  onClick: this.onNavigationActionClick,
+                  onClick: props.onNavigationActionClick,
                 })
               }
               <span className={this.uiFactory.toolbarTitle}>{props.title}</span>
             </ToolbarSection>
             {
-              orNull(
+              orNull<JSX.Element>(
                   props.children || props.moreOptions,
                   () => (
                       <ToolbarSection className={
-                        toClassName(this.uiFactory.toolbarSectionAlignEnd, 'rac-toolbar-section-wrapper')
-                      }>
+                                        toClassName(this.uiFactory.toolbarSectionAlignEnd, 'rac-toolbar-section-wrapper')
+                                      }>
                         {props.children}
                         {
                           orNull<JSX.Element>(
@@ -83,16 +83,17 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
     );
   }
 
-  private onNavigationActionClick(): void {
-    if (this.props.onNavigationActionClick) {
-      this.props.onNavigationActionClick();
-    }
-  }
-
+  /**
+   * @stable [31.05.2018]
+   */
   private onMenuClick(): void {
     this.menu.show();
   }
 
+  /**
+   * @stable [31.05.2018]
+   * @returns {IMenu}
+   */
   private get menu(): IMenu {
     return this.refs.menu as IMenu;
   }
