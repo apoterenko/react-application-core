@@ -10,17 +10,18 @@ import {
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
 import { LayoutContainer } from '../layout.container';
-import { IDefaultLayoutContainerInternalProps } from './default-layout.interface';
+import { IDefaultLayoutContainerProps } from './default-layout.interface';
 import { Header } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
+import { IMenuItemEntity } from '../../../entities-definitions.interface';
 
-export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerInternalProps> {
+export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
-  public static defaultProps: IDefaultLayoutContainerInternalProps = {
-    headerOptions: {},
+  public static defaultProps: IDefaultLayoutContainerProps = {
+    headerConfiguration: {},
     user: {
       email: '(no email)',
     },
@@ -29,16 +30,15 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   @lazyInject(NavigationMenuBuilder) private navigationMenuBuilder: NavigationMenuBuilder;
 
-  constructor(props: IDefaultLayoutContainerInternalProps) {
+  constructor(props: IDefaultLayoutContainerProps) {
     super(props);
-    this.onHeaderMenuActionClick = this.onHeaderMenuActionClick.bind(this);
+    this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
     this.onProfileMenuActionClick = this.onProfileMenuActionClick.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
-    const headerOptions = props.headerOptions;
     const menu = this.navigationMenuBuilder.provide()
         .map((item): INavigationListItemConfiguration => ({ ...item, active: props.root.path === item.link }));
     const runtimeTitle = menu.find((item) => item.active);
@@ -61,14 +61,14 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             <NavigationList items={menu}/>
           </PersistentDrawer>
           <div className='rac-flex rac-flex-column rac-flex-full'>
-            <Header {...props.headerOptions}
+            <Header {...props.headerConfiguration}
                     title={runtimeTitle && runtimeTitle.label || props.title}
                     className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
-                    navigationActionHandler={this.onHeaderNavigationActionClick}
-                    menuActionHandler={this.onHeaderMenuActionClick}>
-              {headerOptions.items}
+                    onNavigationActionClick={this.onHeaderNavigationActionClick}
+                    onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
+              {props.headerConfiguration.items}
             </Header>
-            <Main className={props.bodyClassName}>
+            <Main>
               {props.children}
             </Main>
             {orNull(props.footer, () => <footer className='rac-footer'>{props.footer}</footer>)}
@@ -98,8 +98,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   protected onHeaderNavigationActionClick(): void {
-    if (this.props.headerOptions.navigationActionHandler) {
-      this.props.headerOptions.navigationActionHandler();
+    if (this.props.headerConfiguration.onNavigationActionClick) {
+      this.props.headerConfiguration.onNavigationActionClick();
     } else {
       this.appStore.dispatch({
         type: LAYOUT_MODE_UPDATE_ACTION_TYPE,
@@ -108,8 +108,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     }
   }
 
-  protected onHeaderMenuActionClick(option: any): void {  // TODO
-    this.dispatch(option.value);
+  /**
+   * @stable [31.05.2018]
+   * @param {IMenuItemEntity} option
+   */
+  protected onHeaderMoreOptionsSelect(option: IMenuItemEntity): void {
+    this.dispatch(option.value as string);
   }
 
   protected onProfileMenuActionClick(option: any): void {// TODO

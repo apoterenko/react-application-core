@@ -1,15 +1,31 @@
-import { IHeaderProps } from '../../../component/header';
-import { IQueryFilterEntity, IContainerEntity } from '../../../entities-definitions.interface';
-import { IContainerConfiguration } from '../../../configurations-definitions.interface';
+import {
+  IContainerEntity,
+  IQueryFilterWrapperEntity,
+} from '../../../entities-definitions.interface';
+import {
+  IContainerConfiguration,
+  IHeaderConfigurationWrapper,
+} from '../../../configurations-definitions.interface';
+import { IFooterWrapper } from '../../../definitions.interface';
 
-export interface IHeaderOptions extends IHeaderProps {
-  items?: JSX.Element;
+/**
+ * @stable [31.05.2018]
+ */
+export interface IDefaultLayoutContainerEntity extends IContainerEntity,
+                                                       IQueryFilterWrapperEntity {
 }
 
-export interface IDefaultLayoutContainerInternalProps extends IContainerEntity,
-                                                              IContainerConfiguration {
-  bodyClassName?: string;
-  footer?: JSX.Element;
-  filter?: IQueryFilterEntity;
-  headerOptions?: IHeaderOptions;
+/**
+ * @stable [31.05.2018]
+ */
+export interface IDefaultLayoutContainerConfiguration extends IContainerConfiguration,
+                                                              IFooterWrapper,
+                                                              IHeaderConfigurationWrapper {
+}
+
+/**
+ * @stable [31.05.2018]
+ */
+export interface IDefaultLayoutContainerProps extends IDefaultLayoutContainerEntity,
+                                                      IDefaultLayoutContainerConfiguration {
 }
