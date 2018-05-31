@@ -6,14 +6,6 @@
 
   .rac-header {
 
-    .rac-header-title, .rac-header-subtitle {
-      margin-left: 4px;                                         /* @stable [01.06.2018] */
-    }
-
-    .rac-navigation-section {
-      @include flex(unset);                                     /* @stable [01.06.2018] */
-    }
-
     &.rac-header-search-toolbar-active {
 
       .rac-search-toolbar {
