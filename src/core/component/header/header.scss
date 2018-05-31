@@ -6,55 +6,49 @@
 
   .rac-header {
 
-    .rac-button {
-      height: 100%;                       /* @stable - 27.03.2018 */
-      color: $rac-header-action-color;    /* @stable - 27.03.2018 */
+    .rac-header-title, .rac-header-subtitle {
+      margin-left: 4px;                                         /* @stable [01.06.2018] */
     }
 
-    .rac-search-toolbar {
-      background: none;   /* @stable - 27.03.2018 */
+    .rac-navigation-section {
+      @include flex(unset);                                     /* @stable [01.06.2018] */
+    }
 
-      .rac-toolbar-section {
-        padding-top: 0;       /* @stable - 27.03.2018 */
-        padding-bottom: 0;    /* @stable - 27.03.2018 */
+    &.rac-header-search-toolbar-active {
+
+      .rac-search-toolbar {
+        animation: headerSearchToolbarAnimationRule;                       /* @stable [01.06.2018] */
+        animation-duration: $rac-header-search-animation-duration;         /* @stable [01.06.2018] */
       }
     }
-  }
-}
 
-// Header [FRAMEWORK-]
-.rac-header {
-
-  .rac-header-title, .rac-header-subtitle {
-    margin: 4px 0;
-  }
-
-  &.rac-header-search-toolbar-active {
     .rac-search-toolbar {
-      animation: headerSearchToolbarAnimationRule;                       // [RAC+]
-      animation-duration: $rac-header-search-animation-duration;         // [RAC+]
-    }
-  }
 
-  .rac-navigation-section {
-    @include flex(unset); // [RAC+]
-  }
+      .rac-button {
+        height: 100%;                                           /* @stable [01.06.2018] */
+        color: $rac-header-action-color;                        /* @stable [01.06.2018] */
+      }
 
-  .rac-search-toolbar {
-    .rac-form-field {
+      .rac-form-field {
+        margin-left: 16px;                                      /* @stable [01.06.2018] */
+        margin-right: 16px;                                     /* @stable [01.06.2018] */
 
-      .rac-field-input {
-        &::placeholder {
-          color: $rac-header-search-field-color;    // [RAC+]
+        .rac-text-field {
+          border-bottom-color: $rac-header-search-field-color;  /* @stable [01.06.2018] */
+
+          .rac-field-input-wrapper {
+            height: 100%;                                       /* @stable [01.06.2018] */
+
+            .rac-field-input {
+              height: 100%;
+              color: $rac-header-search-field-color;            /* @stable [01.06.2018] */
+
+              &::placeholder {
+                color: $rac-header-search-field-color;          /* @stable [01.06.2018] */
+              }
+            }
+          }
         }
-      }
-
-      .rac-text-field {
-        border-bottom-color: $rac-header-search-field-color;    // [RAC+]
-      }
-
-      .rac-field-input, .rac-button {
-        color: $rac-header-search-field-color;      // [RAC+]
       }
     }
   }

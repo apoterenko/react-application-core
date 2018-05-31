@@ -4,21 +4,17 @@
   .rac-header {
 
     .rac-toolbar-section-wrapper {
-      padding: 0;                     /* @override @stable - 08.04.2018 */
-    }
+      padding: 0;                     /* @stable [01.06.2018] */
 
-    .rac-form-field {
+      .rac-search-toolbar {
 
-      .rac-text-field {
-        margin-top: 8px;              /* @override @stable - 08.04.2018 */
-      }
-    }
+        .rac-text-field {
+          margin-top: 8px;            /* @stable [01.06.2018] */
 
-    .rac-field-input-wrapper {
-      background: none;               /* @override @stable - 08.04.2018 */
-
-      &::after, &::before {
-        background: none;             /* @override @stable - 08.04.2018 */
+          .rac-field-input {
+            padding-top: 0;           /* @stable [01.06.2018] */
+          }
+        }
       }
     }
   }

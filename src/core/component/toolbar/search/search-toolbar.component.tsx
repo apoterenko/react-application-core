@@ -19,7 +19,7 @@ export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <div className={toClassName(this.uiFactory.toolbar, 'rac-toolbar', 'rac-search-toolbar', props.className)}>
+      <div className={this.getComponentClassName()}>
         <div className={this.uiFactory.toolbarRow}>
           {this.actionsElementsSection}
           {this.fieldSection}
@@ -61,5 +61,18 @@ export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
       <TextField inputWrapperClassName={this.uiFactory.textFieldBox}
                  {...this.fieldProps}/>
     );
+  }
+
+  /**
+   * @stable [01.06.2018]
+   * @returns {string}
+   */
+  protected getComponentClassName(): string {
+    return toClassName('rac-toolbar',
+                        'rac-search-toolbar',
+                        'rac-flex',
+                        'rac-flex-full',
+                        this.props.className
+                      );
   }
 }
