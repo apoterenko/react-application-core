@@ -1,10 +1,5 @@
 import { isDef, orDefault } from '../../util';
-import {
-  IEntity,
-  IFormWrapper,
-  IDictionariesWrapper,
-  IKeyValue,
-} from '../../definitions.interface';
+import { IEntity } from '../../definitions.interface';
 import {
   IChannelWrapperEntity,
   IEditableEntity,
@@ -17,7 +12,6 @@ import {
   INotificationWrapperEntity,
   IDictionariesWrapperEntity,
   IUniversalApplicationStoreEntity,
-  SortDirectionEnum,
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
 } from '../../entities-definitions.interface';
