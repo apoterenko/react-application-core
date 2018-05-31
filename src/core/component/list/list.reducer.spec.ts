@@ -22,6 +22,7 @@ describe('list.reducer', () => {
             entity3
           ],
           selected: entity2,
+          totalCount: 3,
         }),
         {
           type: ListActionBuilder.buildRemoveActionType(TEST_SECTION),
@@ -38,6 +39,7 @@ describe('list.reducer', () => {
             entity3
           ],
           selected: entity1,
+          totalCount: 2,
         })
       );
     });
@@ -55,6 +57,7 @@ describe('list.reducer', () => {
             entity3
           ],
           selected: entity2,
+          totalCount: 3,
         }),
         {
           type: ListActionBuilder.buildRemoveActionType(TEST_SECTION),
@@ -71,6 +74,7 @@ describe('list.reducer', () => {
             entity3
           ],
           selected: entity1,
+          totalCount: 2,
         })
       );
     });
@@ -88,6 +92,7 @@ describe('list.reducer', () => {
             entity3
           ],
           selected: entity3,
+          totalCount: 3,
         }),
         {
           type: ListActionBuilder.buildRemoveActionType(TEST_SECTION),
@@ -104,6 +109,7 @@ describe('list.reducer', () => {
             entity3
           ],
           selected: entity3,
+          totalCount: 2,
         })
       );
     });
@@ -120,6 +126,7 @@ describe('list.reducer', () => {
             entity2,
             entity3
           ],
+          totalCount: 3,
         }),
         {
           type: ListActionBuilder.buildRemoveActionType(TEST_SECTION),
@@ -135,6 +142,7 @@ describe('list.reducer', () => {
             entity1,
             entity3
           ],
+          totalCount: 2,
         })
       );
     });

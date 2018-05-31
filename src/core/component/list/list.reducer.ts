@@ -22,6 +22,8 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
   const modifyData: IModifyEntityPayloadWrapper = action.data;
   const payload = modifyData && modifyData.payload;
 
+  let updatedData;
+
   switch (action.type) {
     case ListActionBuilder.buildChangeSortDirectionActionType(section):
       const sortDirectionEntity: ISortDirectionEntity = action.data;
@@ -124,7 +126,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
             ? EntityOnSaveMergeStrategyEnum.MERGE
             : EntityOnSaveMergeStrategyEnum.OVERRIDE;
 
-        const updatedData = state.data.map((item) => (
+        updatedData = state.data.map((item) => (
             item.id === payload.id
                 ? (
                     mergeStrategy === EntityOnSaveMergeStrategyEnum.OVERRIDE
@@ -143,11 +145,13 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       }
       break;
     case ListActionBuilder.buildInsertActionType(section):
+      updatedData = (state.data || []).concat({ ...payload.changes });
+
       return {
         ...state,
-        data: (state.data || []).concat({ ...payload.changes }),
+        data: updatedData,
+        totalCount: ++state.totalCount,
       };
-
     case ListActionBuilder.buildRemoveActionType(section):
       const entityToRemovePayload: IRemovedEntityWrapper = action.data;
       const filterFn = (entity) => !(entity === entityToRemovePayload || entity.id === entityToRemovePayload.removed.id);
@@ -159,6 +163,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         selected: isSelectedExist && filterFn(state.selected) && state.selected
           || (isSelectedExist && filteredData.length > 0 ? filteredData[0] : null),
         data: filteredData,
+        totalCount: --state.totalCount,
       };
     default:
       return state;
