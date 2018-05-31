@@ -1,3 +1,4 @@
+import { isDef, orDefault } from '../../util';
 import {
   IEntity,
   IFormWrapper,
@@ -39,12 +40,6 @@ export const rootMapper = (state: IRootWrapperEntity): IRootWrapperEntity => ({
 export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
     ...state.layout,
-  },
-});
-
-export const formMapper = (formState: IEditableEntity): IFormWrapper<IEditableEntity> => ({
-  form: {
-    ...formState,
   },
 });
 
@@ -104,11 +99,24 @@ export const openFilterFilterFormWrapperEntityMapper =
  */
 export const refreshListAndFilterFormWrapperEntityMapper =
   (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
-    actions: mappedEntity.filterForm
-      ? [openFilterFilterFormWrapperEntityMapper(mappedEntity)]
-      : [],
+    actions: orDefault<IFilterActionConfiguration[], IFilterActionConfiguration[]>(
+      isDef(mappedEntity.filterForm),
+      () => [openFilterFilterFormWrapperEntityMapper(mappedEntity)],
+      []
+    ),
     notUseField: true,
     icon: 'refresh',
+    ...actionsDisabledListWrapperEntityMapper(mappedEntity),
+  });
+
+/**
+ * @stable [31.05.2018]
+ * @param {IListAndFilterFormWrapperEntity} mappedEntity
+ * @returns {IFilterConfiguration}
+ */
+export const listAndFilterFormWrapperEntityMapper =
+  (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
+    actions: [openFilterFilterFormWrapperEntityMapper(mappedEntity)],
     ...actionsDisabledListWrapperEntityMapper(mappedEntity),
   });
 
