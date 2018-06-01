@@ -14,9 +14,21 @@ export function toActualEntities(entity: MultiFieldEntityT): IMultiItemEntity[] 
   }
   const multiEntity = entity as IMultiEntity;
   if (!isNotMultiEntity(entity)) {
+    const editedItems = {};
+    multiEntity.edit.forEach((editedItem) => {
+      const editedItemId = editedItem.id;
+      const editedItem0 = editedItems[editedItemId] || {...editedItem.rawData};
+      editedItem0[editedItem.name] = editedItem.value;
+      editedItems[editedItemId] = editedItem0;
+    });
+
     return multiEntity.add.concat(
       (multiEntity.source || [])
-        .filter((entity0) => !multiEntity.remove.find((removeId) => removeId.id === entity0.id))
+        .filter(
+          (entity0) =>
+            !multiEntity.remove.find((removeId) => removeId.id === entity0.id)
+              && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
+        ).concat(Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]))
     );
   }
   return entity as IEntity[];

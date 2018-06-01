@@ -209,9 +209,11 @@ export interface IListConfigurationWrapper<TListConfiguration = IListConfigurati
   listConfiguration?: TListConfiguration;
 }
 
-/* @stable - 03.04.2018 */
-export interface IGridConfigurationWrapper {
-  gridConfiguration?: IGridConfiguration;
+/**
+ * @stable [02.06.2018]
+ */
+export interface IGridConfigurationWrapper<TGridConfiguration = IGridConfiguration> {
+  gridConfiguration?: TGridConfiguration;
 }
 
 /**
@@ -399,6 +401,7 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
                                                   IUseSortingWrapper,
                                                   IAlignWrapper,
                                                   ITplFnWrapper,
+                                                  INameWrapper,
                                                   IRendererWrapper,
                                                   IWidthWrapper {
 }
