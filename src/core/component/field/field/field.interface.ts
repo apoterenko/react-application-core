@@ -10,8 +10,8 @@ import {
   IHTMLInputWrapper,
 } from '../../../definitions.interface';
 import {
-  IErrorEntity,
   IFieldEntity,
+  IStringErrorEntity,
   IUniversalField,
 } from '../../../entities-definitions.interface';
 import {
@@ -56,7 +56,10 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
                                              ClassAttributes<HTMLTextAreaElement> {
 }
 
-export interface IFieldState extends IErrorEntity<string> {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IFieldState extends IStringErrorEntity {
 }
 
 /**

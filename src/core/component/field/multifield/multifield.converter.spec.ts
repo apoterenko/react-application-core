@@ -39,6 +39,7 @@ describe('multifield.converter', function () {
       var length = toActualEntitiesLength({
         add: [{ id: 1 }],
         remove: [{ id: 2 }],
+        edit: [],
         source: [{ id: 3 }],
       });
       expect(length).toEqual(2);
@@ -48,6 +49,7 @@ describe('multifield.converter', function () {
       var length = toActualEntitiesLength({
         add: [{ id: 1 }],
         remove: [{ id: 2 }],
+        edit: [],
       });
       expect(length).toEqual(1);
     });
@@ -56,6 +58,7 @@ describe('multifield.converter', function () {
       var length = toActualEntitiesLength({
         add: [{ id: 1 }, { id: 3 }],
         remove: [{ id: 2 }],
+        edit: [],
       });
       expect(length).toEqual(2);
     });
@@ -64,6 +67,7 @@ describe('multifield.converter', function () {
       var length = toActualEntitiesLength({
         add: [],
         remove: [{ id: 1 }],
+        edit: [],
       });
       expect(length).toEqual(0);
     });
@@ -72,6 +76,7 @@ describe('multifield.converter', function () {
       var length = toActualEntitiesLength({
         add: [],
         remove: [{ id: 1 }],
+        edit: [],
         source: [{ id: 2 }],
       });
       expect(length).toEqual(1);
@@ -83,6 +88,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [],
         remove: [],
+        edit: [],
         source: [],
       });
       expect(ids).toEqual([]);
@@ -92,6 +98,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [],
         remove: [],
+        edit: [],
       });
       expect(ids).toEqual([]);
     });
@@ -100,6 +107,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [{id: 1}],
         remove: [],
+        edit: [],
         source: [],
       });
       expect(ids).toEqual([1]);
@@ -109,6 +117,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
+        edit: [],
         source: [],
       });
       expect(ids).toEqual([1, 2]);
@@ -118,6 +127,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
+        edit: [],
         source: [{id: 3}],
       });
       expect(ids).toEqual([1, 2, 3]);
@@ -127,6 +137,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [{id: 1}, {id: 2}],
         remove: [{id: 3}],
+        edit: [],
         source: [{id: 3}],
       });
       expect(ids).toEqual([1, 2]);
@@ -136,6 +147,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [],
         remove: [{id: 3}],
+        edit: [],
         source: [{id: 3}],
       });
       expect(ids).toEqual([]);
@@ -145,6 +157,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [],
         remove: [{id: 3}],
+        edit: [],
         source: [{id: 3}, {id: 4}],
       });
       expect(ids).toEqual([4]);
@@ -154,6 +167,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [{id: 1}],
         remove: [],
+        edit: [],
         source: [{id: 2}, {id: 3}],
       });
       expect(ids).toEqual([1, 2, 3]);
@@ -163,6 +177,7 @@ describe('multifield.converter', function () {
       var ids = toEntityIds({
         add: [{id: 1}],
         remove: [],
+        edit: [],
       });
       expect(ids).toEqual([1]);
     });

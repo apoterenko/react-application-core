@@ -23,7 +23,7 @@ describe('MultiFieldPlugin', function () {
 
   it('test3', function () {
     var multiFieldPlugin = new MultiFieldPlugin({
-      value: {add: [], remove: [{id: 1}], source: [{id: 1}, {id: 2}]},
+      value: {add: [], remove: [{id: 1}], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
     var result = multiFieldPlugin.onAdd({id: 1});
@@ -33,7 +33,7 @@ describe('MultiFieldPlugin', function () {
 
   it('test4', function () {
     var multiFieldPlugin = new MultiFieldPlugin({
-      value: {add: [{id: 3}], remove: [], source: [{id: 1}, {id: 2}]},
+      value: {add: [{id: 3}], remove: [], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
     var result = multiFieldPlugin.onDelete({id: 3});
@@ -43,7 +43,7 @@ describe('MultiFieldPlugin', function () {
 
   it('test4', function () {
     var multiFieldPlugin = new MultiFieldPlugin({
-      value: {add: [{id: 3}], remove: [{id: 4}], source: [{id: 1}, {id: 2}]},
+      value: {add: [{id: 3}], remove: [{id: 4}], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
     var result = multiFieldPlugin.onAdd({id: 5});
@@ -61,7 +61,7 @@ describe('MultiFieldPlugin', function () {
 
   it('test5', function () {
     var multiFieldPlugin = new MultiFieldPlugin({
-      value: {add: [{id: 3}], remove: [{id: 4}], source: [{id: 1}, {id: 2}]},
+      value: {add: [{id: 3}], remove: [{id: 4}], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
     var result = multiFieldPlugin.onDelete({id: 5});

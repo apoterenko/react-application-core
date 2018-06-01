@@ -1,4 +1,21 @@
 import { IEntity, EntityIdT } from '../../../definitions.interface';
+import { IGridConfigurationWrapper } from '../../../configurations-definitions.interface';
+import {
+  IBasicSelectState,
+  IBasicSelectProps,
+} from '../select';
+
+/**
+ * @stable [01.06.2018]
+ */
+export interface IMultiFieldState extends IBasicSelectState {
+}
+
+/**
+ * @stable [01.06.2018]
+ */
+export interface IMultiFieldProps extends IBasicSelectProps {
+}
 
 export interface IMultiFieldPlugin {
   activeValue: IEntity[];
@@ -13,11 +30,13 @@ export interface IMultiFieldPlugin {
 export interface IMultiFieldChangesResult {
   addArray: IEntity[];
   removeArray: IEntity[];
+  editArray?: IEntity[];
 }
 
 export interface IMultiEntity {
   add: IEntity[];
   remove: IEntity[];
+  edit: IEntity[];
   source?: IEntity[];
 }
 

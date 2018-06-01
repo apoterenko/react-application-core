@@ -1,10 +1,13 @@
-import {
-  IBasicSelectInternalState,
-  IBasicSelectInternalProps,
-} from '../../field';
+import { IMultiFieldState, IMultiFieldProps } from '../multifield';
 
-export interface IChipsFieldInternalState extends IBasicSelectInternalState {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IChipsFieldState extends IMultiFieldState {
 }
 
-export interface IChipsFieldInternalProps extends IBasicSelectInternalProps {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IChipsFieldProps extends IMultiFieldProps {
 }

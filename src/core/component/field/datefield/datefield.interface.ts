@@ -2,7 +2,7 @@ import { CSSProperties, Component } from 'react';
 
 import {
   IBasicTextFieldInternalProps,
-  IBasicTextFieldInternalState,
+  IBasicTextFieldState,
 } from '../textfield/basic-textfield.interface';
 import { IComponentEntity } from '../../../entities-definitions.interface';
 
@@ -25,7 +25,7 @@ export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
   hideCalendarDate?: boolean;
 }
 
-export interface IDateFieldInternalState extends IBasicTextFieldInternalState {
+export interface IDateFieldInternalState extends IBasicTextFieldState {
 }
 
 export interface IMaterialDateDialogComponent extends Component<IComponentEntity, { open: boolean }> {

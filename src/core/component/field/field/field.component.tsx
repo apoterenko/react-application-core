@@ -369,8 +369,8 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   }
 
   /**
-   * @stable
-   * @returns Element
+   * @stable [01.06.2018]
+   * @returns {JSX.Element}
    */
   protected getInputElementAttachment(): JSX.Element {
     return null;

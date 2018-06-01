@@ -9,26 +9,23 @@ import {
   AnyT,
   IBasicEvent,
   EntityIdT,
-  KeyboardEventT,
+  IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
-  IBasicSelectInternalProps,
-  IBasicSelectInternalState,
-  ISelectOption,
-  SelectOptionT,
+  IBasicSelectProps,
+  IBasicSelectState,
+  ISelectOptionEntity,
 } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
-export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalProps, TInternalState>,
-                         TInternalProps extends IBasicSelectInternalProps,
-                         TInternalState extends IBasicSelectInternalState>
-    extends BasicTextField<TComponent,
-                           TInternalProps,
-                           TInternalState> {
+export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
+                         TProps extends IBasicSelectProps,
+                         TState extends IBasicSelectState>
+    extends BasicTextField<TComponent, TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger(BasicSelect);
 
-  constructor(props: TInternalProps) {
+  constructor(props: TProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
@@ -44,7 +41,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     );
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: AnyT): void {
+  public componentWillReceiveProps(nextProps: Readonly<TProps>, nextContext: AnyT): void {
     super.componentWillReceiveProps(nextProps, nextContext);
 
     const props = this.props;
@@ -62,22 +59,22 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  public onKeyDown(event: KeyboardEventT): void {
+  public onKeyDown(event: IKeyboardEvent): void {
     super.onKeyDown(event);
     this.stopEvent(event);
   }
 
-  public onKeyBackspace(event: KeyboardEventT): void {
+  public onKeyBackspace(event: IKeyboardEvent): void {
     super.onKeyBackspace(event);
     this.clearValue();
   }
 
-  public onKeyEnter(event: KeyboardEventT): void {
+  public onKeyEnter(event: IKeyboardEvent): void {
     super.onKeyEnter(event);
     this.openMenu(event);
   }
 
-  public onKeyEscape(event: KeyboardEventT): void {
+  public onKeyEscape(event: IKeyboardEvent): void {
     super.onKeyEscape(event);
 
     if (this.menu.isOpen()) {
@@ -94,11 +91,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     this.openMenu(event);
   }
 
+  /**
+   * @stable [01.06.2018]
+   * @returns {JSX.Element}
+   */
   protected getInputElementAttachment(): JSX.Element {
     const props = this.props;
     return (
         <Menu ref='menu'
-              renderer={props.renderer}
               options={this.toFilteredOptions()}
               onSelect={this.onSelect}
               {...props.menuConfiguration}/>
@@ -112,7 +112,12 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     );
   }
 
-  protected toFilteredOptions(options: SelectOptionT[] = this.options): SelectOptionT[] {
+  /**
+   * @stable [01.06.2018]
+   * @param {ISelectOptionEntity[]} options
+   * @returns {ISelectOptionEntity[]}
+   */
+  protected toFilteredOptions(options: ISelectOptionEntity[] = this.options): ISelectOptionEntity[] {
     return options;
   }
 
@@ -120,11 +125,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     return this.settings.entityEmptyId;
   }
 
-  protected get options(): SelectOptionT[] {
+  protected get options(): ISelectOptionEntity[] {
     return this.props.options || [];
   }
 
-  protected onSelect(option: SelectOptionT): void {
+  protected onSelect(option: ISelectOptionEntity): void {
     this.onChangeManually(option.value);
 
     if (this.props.onSelect) {
@@ -139,8 +144,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
         : super.toDisplayValue(value);
   }
 
-  private getSelectedOption(value: AnyT): SelectOptionT {
-    return R.find<SelectOptionT>((option) => option.value === value, this.options);
+  private getSelectedOption(value: AnyT): ISelectOptionEntity {
+    return R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
   }
 
   private get menu(): IMenu {
@@ -168,7 +173,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TInternalPro
     }
   }
 
-  private showMenu(options?: SelectOptionT[]): void {
+  private showMenu(options?: ISelectOptionEntity[]): void {
     const filteredOptions = this.toFilteredOptions(options);
     if (filteredOptions.length) {
       this.input.blur();  // https://github.com/material-components/material-components-web/issues/1977

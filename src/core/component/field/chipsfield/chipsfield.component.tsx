@@ -1,84 +1,47 @@
 import * as React from 'react';
 
-import {
-  EntityIdT,
-  KeyboardEventT,
-  IEntity,
-} from '../../../definitions.interface';
+import { EntityIdT } from '../../../definitions.interface';
 import { INamedEntity } from '../../../entities-definitions.interface';
 import { uuid } from '../../../util';
-import { BasicSelect, SelectOptionT, MultiFieldPlugin, MultiFieldValueT } from '../../field';
 import { Chip, ChipsWrapper } from '../../chip';
 import {
-  IChipsFieldInternalProps,
-  IChipsFieldInternalState,
+  IChipsFieldProps,
+  IChipsFieldState,
 } from './chipsfield.interface';
+import { MultiField } from '../multifield';
 
-export class ChipsField extends BasicSelect<ChipsField,
-                                            IChipsFieldInternalProps,
-                                            IChipsFieldInternalState> {
+export class ChipsField extends MultiField<ChipsField, IChipsFieldProps, IChipsFieldState> {
 
-  public static defaultProps: IChipsFieldInternalProps = {
-    displayMessage: '%d value(s)',
-    clearAction: false,
-    forceAll: true,
-    displayValue: (value: MultiFieldValueT<IEntity>, field: ChipsField) => {
-      const len = field.multiFieldPlugin.getActiveValueLength(value);
-      return field.printfDisplayMessage(len > 0, len);
-    },
-  };
-
-  private multiFieldPlugin = new MultiFieldPlugin(this);
-
-  public onKeyBackspace(event: KeyboardEventT): void {
-    // Nothing to do, only invoke the props
-
-    if (this.props.onKeyBackspace) {
-      this.props.onKeyBackspace(event);
-    }
-  }
-
-  protected getEmptyValue(): EntityIdT[] {
-    return [];
-  }
-
-  protected onSelect(option: SelectOptionT): void {
-    this.multiFieldPlugin.onAddItem({id: option.value, name: option.label});
-    this.setFocus();
-  }
-
+  /**
+   * @stable [01.06.2018]
+   * @returns {JSX.Element}
+   */
   protected getAttachment(): JSX.Element {
     return (
-        <ChipsWrapper>
-          {this.multiFieldPlugin.activeValue.map((item) => (
-                  <Chip key={uuid()}
-                        disabled={this.isDeactivated()}
-                        onClick={() => this.onDelete(item)}>
-                    {this.toDisplayLabel(item)}
-                  </Chip>
-              )
-          )}
-        </ChipsWrapper>
+      <ChipsWrapper>
+        {this.multiFieldPlugin.activeValue.map((item) => (
+            <Chip key={uuid()}
+                  disabled={this.isDeactivated()}
+                  onClick={() => this.onDelete(item)}>
+              {this.toDisplayLabel(item)}
+            </Chip>
+          )
+        )}
+      </ChipsWrapper>
     );
   }
 
-  protected toFilteredOptions(options: SelectOptionT[]): SelectOptionT[] {
-    const activeValue = this.multiFieldPlugin.activeValue;
-    return super.toFilteredOptions(options).filter((option) =>
-        !activeValue.find((item) => item.id === option.value));
-  }
-
-  private onDelete(item: INamedEntity): void {
-    this.multiFieldPlugin.onDeleteItem(item);
-    this.setFocus();
-  }
-
+  /**
+   * @stable [01.06.2018]
+   * @param {INamedEntity} item
+   * @returns {EntityIdT}
+   */
   private toDisplayLabel(item: INamedEntity): EntityIdT {
     const value = item.id;
 
     const selectedOption = this.options.find((option0) => option0.value === value);
     return selectedOption
-        ? this.t(selectedOption.label)
-        : item.name || value;
+      ? this.t(selectedOption.label)
+      : (item.name || value);
   }
 }
