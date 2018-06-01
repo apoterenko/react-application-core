@@ -491,6 +491,20 @@ export interface IConnectedWrapper<TConnected = boolean> {
 }
 
 /**
+ * @stable [01.06.2018]
+ */
+export interface IKeyboardOpenedWrapper {
+  keyboardOpened?: boolean;
+}
+
+/**
+ * @stable [01.06.2018]
+ */
+export interface IEmptyOptionsWrapper {
+  emptyOptions?: boolean;
+}
+
+/**
  * @stable [17.05.2018]
  */
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> {
@@ -870,22 +884,18 @@ export interface ITimeWrapper<TTime> {
 export interface IStringTimeWrapper extends ITimeWrapper<string> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IFromDateWrapper<TFromDate> {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IFromDateWrapper<TFromDate = string> {
   fromDate?: TFromDate;
 }
 
-/* @stable - 01.04.2018 */
-export interface IStringFromDateWrapper extends IFromDateWrapper<string> {
-}
-
-/* @stable - 01.04.2018 */
-export interface IToDateWrapper<TToDate> {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IToDateWrapper<TToDate = string> {
   toDate?: TToDate;
-}
-
-/* @stable - 01.04.2018 */
-export interface IStringToDateWrapper extends IToDateWrapper<string> {
 }
 
 export interface IStringFromTimeWrapper {
@@ -900,16 +910,16 @@ export interface IDateTimeEntity extends IStringDateWrapper,
                                          IStringTimeWrapper {
 }
 
-export interface IFromDateFromTimeEntity extends IStringFromDateWrapper,
+export interface IFromDateFromTimeEntity extends IFromDateWrapper,
                                                  IStringFromTimeWrapper {
 }
 
-export interface IToDateToTimeEntity extends IStringToDateWrapper,
+export interface IToDateToTimeEntity extends IToDateWrapper,
                                              IStringToTimeWrapper {
 }
 
-export interface IFromDateToDateEntity extends IStringFromDateWrapper,
-                                               IStringToDateWrapper {
+export interface IFromDateToDateEntity extends IFromDateWrapper,
+                                               IToDateWrapper {
 }
 
 export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,
