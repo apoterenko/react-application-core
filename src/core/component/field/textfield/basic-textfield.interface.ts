@@ -1,7 +1,11 @@
+import { IKeyboardOpenedWrapper } from '../../../definitions.interface';
 import { IField, IFieldState, IFieldInternalProps } from '../field';
 
-export interface IBasicTextFieldInternalState extends IFieldState {
-  keyboard?: boolean;
+/**
+ * @stable [01.06.2018]
+ */
+export interface IBasicTextFieldState extends IFieldState,
+                                              IKeyboardOpenedWrapper {
 }
 
 export interface IBasicTextFieldInternalProps
@@ -10,7 +14,7 @@ export interface IBasicTextFieldInternalProps
 }
 
 export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalProps,
-                                 TInternalState extends IBasicTextFieldInternalState>
+                                 TInternalState extends IBasicTextFieldState>
     extends IField<TInternalProps,
                    TInternalState> {
 }

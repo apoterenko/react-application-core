@@ -11,13 +11,13 @@ import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import {
-  IBasicTextFieldInternalState,
+  IBasicTextFieldState,
   IBasicTextFieldInternalProps,
   IBasicTextField,
 } from './basic-textfield.interface';
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IBasicTextFieldInternalProps,
-                            TInternalState extends IBasicTextFieldInternalState>
+                            TInternalState extends IBasicTextFieldState>
     extends Field<TComponent,
                   TInternalProps,
                   TInternalState>
@@ -109,7 +109,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
           {this.getAttachment()}
           {
             orNull<JSX.Element>(
-              props.useKeyboard && this.state.keyboard,
+              props.useKeyboard && this.state.keyboardOpened,
               () => (
                 <Keyboard ref='keyboard'
                           field={this.input}
@@ -144,6 +144,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         : super.getInputElement();
   }
 
+  /**
+   * @stable [01.06.2018]
+   * @returns {JSX.Element}
+   */
   protected getAttachment(): JSX.Element {
     return null;
   }
@@ -210,7 +214,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     if (!props.useKeyboard) {
       return;
     }
-    this.setState({keyboard: false});
+    this.setState({keyboardOpened: false});
     this.onCloseKeyboard();
 
     BasicTextField.logger.debug(
@@ -233,10 +237,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   private openKeyboard(): void {
     const props = this.props;
-    if (!props.useKeyboard || this.state.keyboard) {
+    if (!props.useKeyboard || this.state.keyboardOpened) {
       return;
     }
-    this.setState({keyboard: true});
+    this.setState({keyboardOpened: true});
     this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
 
     BasicTextField.logger.debug(
