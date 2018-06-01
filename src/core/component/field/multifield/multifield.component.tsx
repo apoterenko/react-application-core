@@ -7,6 +7,7 @@ import {
 } from '../../../definitions.interface';
 import { INamedEntity } from '../../../entities-definitions.interface';
 import { ISelectOptionEntity, BasicSelect } from '../../field/select';
+import { IField } from '../../field/field';
 import { IMultiFieldState, IMultiFieldProps, MultiFieldValueT } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 
@@ -23,7 +24,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     clearAction: false,
     forceAll: true,
     displayValue: (value: MultiFieldValueT<IEntity>,
-                   field: MultiField<any, IMultiFieldProps, IMultiFieldState>) => {
+                   field: MultiField<IField, IMultiFieldProps, IMultiFieldState>) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
       return field.printfDisplayMessage(len > 0, len);
     },

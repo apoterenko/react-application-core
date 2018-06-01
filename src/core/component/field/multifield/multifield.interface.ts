@@ -21,13 +21,16 @@ export interface IMultiFieldPlugin {
   activeValue: IEntity[];
   originalValue: IEntity[];
   getActiveValueLength(entity: MultiFieldEntityT<IEntity>): number;
-  onAdd(item: IEntity): IMultiFieldChangesResult;
-  onDelete(item: IEntity): IMultiFieldChangesResult;
+  onAdd(item: IEntity): IMultiFieldChangesEntity;
+  onDelete(item: IEntity): IMultiFieldChangesEntity;
   onAddItem(item: IEntity): void;
   onDeleteItem(item: IEntity): void;
 }
 
-export interface IMultiFieldChangesResult {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IMultiFieldChangesEntity {
   addArray: IEntity[];
   removeArray: IEntity[];
   editArray?: IEntity[];
