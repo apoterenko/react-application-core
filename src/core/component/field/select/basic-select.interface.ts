@@ -1,24 +1,28 @@
-import { IRendererWrapper } from '../../../definitions.interface';
+import { IEmptyOptionsWrapper } from '../../../definitions.interface';
 import { INamedEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper } from '../../../configurations-definitions.interface';
 import {
   IBasicTextFieldInternalProps,
-  IBasicTextFieldInternalState,
+  IBasicTextFieldState,
 } from '../textfield';
 
-export interface IBasicSelectInternalState extends IBasicTextFieldInternalState {
-  emptyOptions?: boolean;
+/**
+ * @stable [01.06.2018]
+ */
+export interface IBasicSelectState extends IBasicTextFieldState,
+                                           IEmptyOptionsWrapper {
 }
 
-export interface IBasicSelectInternalProps extends IBasicTextFieldInternalProps,
-                                                   IMenuConfigurationWrapper,
-                                                   IRendererWrapper<SelectOptionT> {
+export interface IBasicSelectProps extends IBasicTextFieldInternalProps,
+                                           IMenuConfigurationWrapper {
   forceAll?: boolean;
-  options?: SelectOptionT[];
-  onSelect?(option: SelectOptionT): void;
+  options?: ISelectOptionEntity[];
+  onSelect?(option: ISelectOptionEntity): void;
 }
 
-export interface ISelectOption<TRawData extends INamedEntity> extends IMenuItemEntity<TRawData> {
+/**
+ * @stable [01.06.2018]
+ */
+export interface ISelectOptionEntity<TRawData extends INamedEntity = INamedEntity>
+  extends IMenuItemEntity<TRawData> {
 }
-
-export type SelectOptionT = ISelectOption<INamedEntity>;

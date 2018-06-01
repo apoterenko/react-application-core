@@ -1,11 +1,11 @@
 import * as R from 'ramda';
 
 import { orNull } from '../../../util';
-import { ISelectOption, SelectOptionT } from './basic-select.interface';
+import { ISelectOptionEntity } from './basic-select.interface';
 import { IDictionaryEntity, INamedEntity } from '../../../entities-definitions.interface';
 
-export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter = false): SelectOptionT[] =>
-  orNull<SelectOptionT[]>(
+export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter = false): ISelectOptionEntity[] =>
+  orNull<ISelectOptionEntity[]>(
     data,
     () => R.sort<INamedEntity>(
       useIdFilter
@@ -13,7 +13,7 @@ export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter
         : (item1, item2) => String(item1.name || item1.id).localeCompare(String(item2.name || item2.id)),
       [].concat(data)
     )
-      .map<SelectOptionT>((entity) => ({
+      .map<ISelectOptionEntity>((entity) => ({
         value: entity.id,
         label: entity.name,
         rawData: entity,
@@ -21,5 +21,5 @@ export const toSelectOptions = (data: INamedEntity[] | INamedEntity, useIdFilter
   );
 
 export const toSelectOptionsFromDictionary = <TDictionaryEntityData>(dictionaryEntity: IDictionaryEntity<TDictionaryEntityData>,
-                                                                     useIdFilter = false): SelectOptionT[] =>
+                                                                     useIdFilter = false): ISelectOptionEntity[] =>
     toSelectOptions(dictionaryEntity && dictionaryEntity.data, useIdFilter);
