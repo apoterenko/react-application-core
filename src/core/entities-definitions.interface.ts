@@ -263,16 +263,23 @@ export interface INamedEntity extends IEntityIdTWrapper,
                                       INameWrapper {
 }
 
-/* @stable - 05.04.2018 */
+/**
+ * @stable [01.06.2018]
+ */
 export interface IFieldChangeEntity extends INameWrapper,
-                                            IValueWrapper {
+                                            IValueWrapper,
+                                            IRawDataWrapper {
 }
 
-/* @stable - 09.04.2018 */
+/**
+ * @stable [01.06.2018]
+ */
 export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[]> {
 }
 
-/* @stable - 09.04.2018 */
+/**
+ * @stable [01.06.2018]
+ */
 export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 
 /**

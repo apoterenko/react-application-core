@@ -4,11 +4,10 @@ import {
   EntityIdT,
   IEntity,
   IKeyboardEvent,
+  AnyT,
 } from '../../../definitions.interface';
-import { INamedEntity } from '../../../entities-definitions.interface';
 import { ISelectOptionEntity, BasicSelect } from '../../field/select';
-import { IField } from '../../field/field';
-import { IMultiFieldState, IMultiFieldProps, MultiFieldValueT } from './multifield.interface';
+import { IMultiFieldState, IMultiFieldProps, MultiFieldValueT, IMultiItemEntity } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 
 export class MultiField<TComponent extends MultiField<TComponent, TProps, TState>,
@@ -23,8 +22,8 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     displayMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,
-    displayValue: (value: MultiFieldValueT<IEntity>,
-                   field: MultiField<IField, IMultiFieldProps, IMultiFieldState>) => {
+    displayValue: (value: MultiFieldValueT,
+                   field: MultiField<AnyT, IMultiFieldProps, IMultiFieldState>) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
       return field.printfDisplayMessage(len > 0, len);
     },
@@ -39,8 +38,9 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
   public onKeyBackspace(event: IKeyboardEvent): void {
     // Nothing to do, only need to invoke the props callback
 
-    if (this.props.onKeyBackspace) {
-      this.props.onKeyBackspace(event);
+    const props = this.props;
+    if (props.onKeyBackspace) {
+      props.onKeyBackspace(event);
     }
   }
 
@@ -63,6 +63,15 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
 
   /**
    * @stable [01.06.2018]
+   * @param {IMultiItemEntity} item
+   */
+  protected onDelete(item: IMultiItemEntity): void {
+    this.multiFieldPlugin.onDeleteItem(item);
+    this.setFocus();
+  }
+
+  /**
+   * @stable [01.06.2018]
    * @param {ISelectOptionEntity[]} options
    * @returns {ISelectOptionEntity[]}
    */
@@ -72,14 +81,5 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     return super.toFilteredOptions(options).filter(
       (option) => !activeValue.find((item) => item.id === option.value)
     );
-  }
-
-  /**
-   * @stable [01.06.2018]
-   * @param {INamedEntity} item
-   */
-  protected onDelete(item: INamedEntity): void {
-    this.multiFieldPlugin.onDeleteItem(item);
-    this.setFocus();
   }
 }

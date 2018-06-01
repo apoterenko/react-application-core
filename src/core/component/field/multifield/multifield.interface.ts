@@ -1,9 +1,9 @@
-import { IEntity, EntityIdT } from '../../../definitions.interface';
-import { IGridConfigurationWrapper } from '../../../configurations-definitions.interface';
 import {
-  IBasicSelectState,
-  IBasicSelectProps,
-} from '../select';
+  EntityIdT,
+  IEntityIdTWrapper,
+} from '../../../definitions.interface';
+import { IFieldChangeEntity } from '../../../entities-definitions.interface';
+import { IBasicSelectState, IBasicSelectProps } from '../select';
 
 /**
  * @stable [01.06.2018]
@@ -17,33 +17,49 @@ export interface IMultiFieldState extends IBasicSelectState {
 export interface IMultiFieldProps extends IBasicSelectProps {
 }
 
+/**
+ * @stable [01.06.2018]
+ */
 export interface IMultiFieldPlugin {
-  activeValue: IEntity[];
-  originalValue: IEntity[];
-  getActiveValueLength(entity: MultiFieldEntityT<IEntity>): number;
-  onAdd(item: IEntity): IMultiFieldChangesEntity;
-  onDelete(item: IEntity): IMultiFieldChangesEntity;
-  onAddItem(item: IEntity): void;
-  onDeleteItem(item: IEntity): void;
+  activeValue: IMultiItemEntity[];
+  originalValue: IMultiItemEntity[];
+  getActiveValueLength(entity: MultiFieldEntityT): number;
+  onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity;
+  onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity;
+  onAddItem(item: IMultiItemEntity): void;
+  onDeleteItem(item: IMultiItemEntity): void;
 }
 
 /**
  * @stable [01.06.2018]
  */
 export interface IMultiFieldChangesEntity {
-  addArray: IEntity[];
-  removeArray: IEntity[];
-  editArray?: IEntity[];
+  addArray: IMultiItemEntity[];
+  removeArray: IMultiItemEntity[];
+  editArray?: IMultiItemEntity[];
 }
 
+/**
+ * @stable [01.06.2018]
+ */
+export interface IMultiItemEntity extends IEntityIdTWrapper,
+                                          IFieldChangeEntity {
+}
+
+/**
+ * @stable [02.06.2018]
+ */
 export interface IMultiEntity {
-  add: IEntity[];
-  remove: IEntity[];
-  edit: IEntity[];
-  source?: IEntity[];
+  add: IMultiItemEntity[];
+  remove: IMultiItemEntity[];
+  edit: IMultiItemEntity[];
+  source?: IMultiItemEntity[];
 }
 
-export type NotMultiFieldEntityT<TEntity extends IEntity> = TEntity[] | EntityIdT;
-export type MultiFieldEntityT<TEntity extends IEntity> = TEntity[] | IMultiEntity;
-export type MultiFieldValueT<TEntity extends IEntity> = MultiFieldEntityT<TEntity> | EntityIdT;
+/**
+ * @stable [01.06.2018]
+ */
+export type NotMultiFieldEntityT<TEntity extends IMultiItemEntity = IMultiItemEntity> = TEntity[] | EntityIdT;
+export type MultiFieldEntityT<TEntity extends IMultiItemEntity = IMultiItemEntity> = TEntity[] | IMultiEntity;
+export type MultiFieldValueT<TEntity extends IMultiItemEntity = IMultiItemEntity> = MultiFieldEntityT<TEntity> | EntityIdT;
 export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;

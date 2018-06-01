@@ -8,7 +8,7 @@ export class FileField
 
   public static defaultProps: IFileFieldInternalProps = {
     displayMessage: '%d file(s)',
-    displayValue: (value: MultiFieldValueT<IEntity>, field: FileField) => {
+    displayValue: (value: MultiFieldValueT, field: FileField) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
       return field.printfDisplayMessage(len > 0, len);
     },
