@@ -51,6 +51,7 @@ export interface IApplicationMessagesSettings {
   emptyDataMessage?: string;
   appNotReadyMessage?: string;
   followingErrorHasOccurredMessage?: string;
+  noSelectedItems?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -109,6 +110,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     emptyDataMessage: 'No data found',
     appNotReadyMessage: 'The application is not ready.',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
+    noSelectedItems: 'No selected items',
   },
   dateTime: {
     currentDate: new Date(),

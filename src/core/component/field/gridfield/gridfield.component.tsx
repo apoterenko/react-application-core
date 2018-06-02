@@ -30,6 +30,7 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
 
     return (
       <Grid onChange={this.onGridChange}
+            emptyDataMessage={this.settings.messages.noSelectedItems}
             {...props.gridConfiguration}
             {...gridListEntity}/>
     );

@@ -1363,22 +1363,18 @@ export interface IUseAddActionWrapper {
   useAddAction?: boolean;
 }
 
-/* @stable - 31.03.2018 */
-export interface IEmptyMessageWrapper<TEmptyMessage> {
+/**
+ * @stable [02.06.2018]
+ */
+export interface IEmptyMessageWrapper<TEmptyMessage = string> {
   emptyMessage?: TEmptyMessage;
 }
 
-/* @stable - 31.03.2018 */
-export interface IStringEmptyMessageWrapper extends IEmptyMessageWrapper<string> {
-}
-
-/* @stable - 15.04.2018 */
-export interface IEmptyDataMessageWrapper<TEmptyDataMessage> {
+/**
+ * @stable [02.06.2018]
+ */
+export interface IEmptyDataMessageWrapper<TEmptyDataMessage = string> {
   emptyDataMessage?: TEmptyDataMessage;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringEmptyDataMessageWrapper extends IEmptyDataMessageWrapper<string> {
 }
 
 /* @stable - 31.03.2018 */

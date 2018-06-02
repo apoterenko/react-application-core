@@ -31,12 +31,12 @@ export class Grid extends BaseList<Grid, IGridProps> {
         <div className={toClassName('rac-flex', 'rac-flex-full')}>
           <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
             <thead className='rac-grid-head'>
-            {this.getHeader()}
-            {this.getFilter()}
+              {this.getHeader()}
+              {this.getFilter()}
             </thead>
             <tbody ref='container'
                    className='rac-grid-body'>
-            {this.getDataSource().map((entity) => this.getRow(entity))}
+              {this.getDataSource().map((entity) => this.getRow(entity))}
             </tbody>
           </table>
           {this.getAddAction()}

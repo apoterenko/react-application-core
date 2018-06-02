@@ -29,7 +29,8 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
     return (
       <Message emptyData={this.isOriginalDataSourceEmpty()}
                error={props.error}
-               progress={props.progress}>
+               progress={props.progress}
+               emptyDataMessage={props.emptyDataMessage}>
         {this.getAddAction()}
       </Message>
     );

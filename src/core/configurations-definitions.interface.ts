@@ -95,8 +95,7 @@ import {
   IOnSelectWrapper,
   IOnCreateWrapper,
   IBooleanEmptyDataWrapper,
-  IStringEmptyDataMessageWrapper,
-  IStringEmptyMessageWrapper,
+  IEmptyMessageWrapper,
   IStringErrorMessageWrapper,
   IAvatarWrapper,
   ISeparatorsWrapper,
@@ -152,6 +151,7 @@ import {
   IOnNavigationActionClickWrapper,
   IOnMoreOptionsSelectWrapper,
   IUseServiceWrapper,
+  IEmptyDataMessageWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -353,6 +353,7 @@ export interface IUniversalListConfiguration
           IFilterFnWrapper,
           IOnCreateWrapper,
           IOnSelectWrapper,
+          IEmptyDataMessageWrapper,
           IItemConfigurationWrapper<TItemConfiguration> {
 }
 
@@ -646,9 +647,9 @@ export interface IComponentConfiguration extends IUniversalComponentConfiguratio
 
 /* @stable - 08.04.2018 */
 export interface IUniversalMessageConfiguration extends IUniversalComponentConfiguration,
-                                                        IStringEmptyDataMessageWrapper,
+                                                        IEmptyDataMessageWrapper,
                                                         IStringErrorMessageWrapper,
-                                                        IStringEmptyMessageWrapper,
+                                                        IEmptyMessageWrapper,
                                                         IBooleanEmptyDataWrapper {
 }
 
