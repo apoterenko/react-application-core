@@ -16,7 +16,7 @@ import {
   normalizeEntities,
   isNotMultiEntity,
   toActualEntitiesLength,
-} from './multifield.converter';
+} from './multifield.support';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 

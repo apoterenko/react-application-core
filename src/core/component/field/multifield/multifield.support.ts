@@ -19,7 +19,9 @@ export function toActualEntities(entity: MultiFieldEntityT): IMultiItemEntity[] 
     const editedItems = {};
     multiEntity.edit.forEach((editedItem) => {
       const editedItemId = editedItem.id;
-      const editedItem0 = editedItems[editedItemId] || {...editedItem.rawData};
+      const editedItem0 = editedItems[editedItemId] || {
+        ...multiEntity.source.find((originalEntity) => originalEntity.id === editedItemId),
+      };
       editedItem0[editedItem.name] = editedItem.value;
       editedItems[editedItemId] = editedItem0;
     });
