@@ -164,6 +164,7 @@ export class Grid extends BaseList<Grid, IGridProps> {
       if (Field.isPrototypeOf(renderEl.type)) {
         return React.cloneElement<IFieldProps>(renderEl, {
           notUseErrorMessage: true,
+          readOnly: this.props.deactivated,
           onChange: (value) => this.onChangeField({value, name: column.name || name, rawData: entity}),
         });
       } else {

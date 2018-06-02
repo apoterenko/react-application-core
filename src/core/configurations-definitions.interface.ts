@@ -152,6 +152,7 @@ import {
   IOnMoreOptionsSelectWrapper,
   IUseServiceWrapper,
   IEmptyDataMessageWrapper,
+  IDeactivatedWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -354,7 +355,8 @@ export interface IUniversalListConfiguration
           IOnCreateWrapper,
           IOnSelectWrapper,
           IEmptyDataMessageWrapper,
-          IItemConfigurationWrapper<TItemConfiguration> {
+          IItemConfigurationWrapper<TItemConfiguration>,
+          IDeactivatedWrapper {
 }
 
 /* @stable [24.04.2018] */

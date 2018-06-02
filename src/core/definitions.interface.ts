@@ -1931,6 +1931,13 @@ export interface IOnDeactivateWrapper<TOnDeactivate = () => void> {
 }
 
 /**
+ * @stable [02.06.2018]
+ */
+export interface IDeactivatedWrapper {
+  deactivated?: boolean;
+}
+
+/**
  * @stable [18.05.2018]
  */
 export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppliedValue) => void> {
