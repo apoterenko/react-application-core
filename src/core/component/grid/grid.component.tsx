@@ -41,15 +41,22 @@ export class Grid extends BaseList<Grid, IGridProps> {
           </table>
           {this.getAddAction()}
         </div>
-        <div className='rac-grid-service-wrapper'>
-          <div className='rac-grid-service'>
-            {this.uiFactory.makeIcon({
-              type: 'more_vert',
-              className: 'rac-button-icon',
-              onClick: this.onSettingsClick,
-            })}
-          </div>
-        </div>
+        {
+          orNull<JSX.Element>(
+            props.useService,
+            () => (
+              <div className='rac-grid-service-wrapper'>
+                <div className='rac-grid-service'>
+                  {this.uiFactory.makeIcon({
+                    type: 'more_vert',
+                    className: 'rac-button-icon',
+                    onClick: this.onSettingsClick,
+                  })}
+                </div>
+              </div>
+            )
+          )
+        }
       </div>
     );
   }

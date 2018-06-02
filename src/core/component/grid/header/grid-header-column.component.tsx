@@ -31,6 +31,7 @@ export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeade
           className={toClassName(
                       'rac-grid-column',
                       'rac-grid-header-column',
+                      props.align && `rac-grid-column-align-${props.align}`,
                       props.useSorting && 'rac-grid-sorted-column',
                       'rac-no-user-select',
                       props.className

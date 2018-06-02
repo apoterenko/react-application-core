@@ -8,6 +8,20 @@
       .rac-grid-column {
         padding: 8px 16px;            /* @stable - 05.04.2018 */
 
+        &.rac-grid-column-align-right {
+
+          .rac-field-input {
+            text-align: right;              /* @stable [02.06.2018] */
+          }
+        }
+
+        &.rac-grid-column-align-center {
+
+          .rac-field-input {
+            text-align: center;             /* @stable [02.06.2018] */
+          }
+        }
+
         &.rac-grid-sorted-column {
           cursor: pointer;            /* @stable - 05.04.2018 */
         }

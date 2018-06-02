@@ -18,7 +18,11 @@ export class GridColumn extends BaseComponent<GridColumn, IGridColumnProps> {
                   textAlign: props.align,
                   width: orUndef(isNumber(props.width), () => `${props.width}px`),
                 })}
-          className={toClassName('rac-grid-column', props.className)}>
+          className={toClassName(
+                        'rac-grid-column',
+                        props.align && `rac-grid-column-align-${props.align}`,
+                        props.className
+                      )}>
         <div className='rac-grid-column-content rac-overflow-ellipsis'>
           {props.children}
         </div>
