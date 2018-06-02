@@ -76,6 +76,14 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date()): string {
+    return this.format(date, this.dateTimeFormat, this.dateTimeSettings.pstDateFormat);
+  }
+
+  /**
    * @test
    * @param {string} startUiDate [2018-01-31]
    * @param {string} startUiTime [21:58:59]
@@ -107,10 +115,29 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [02.06.2018]
    * @returns {Date}
    */
   public get30DaysAgo(): Date {
-    return this.getCurrentMomentDate().subtract(30, 'days').toDate();
+    return this.getXDaysAgo(30);
+  }
+
+  /**
+   * @stable [02.06.2018]
+   * @param {number} days
+   * @returns {Date}
+   */
+  public getXDaysLater(days: number): Date {
+    return this.getCurrentMomentDate().add(days, 'days').toDate();
+  }
+
+  /**
+   * @stable [02.06.2018]
+   * @param {number} days
+   * @returns {Date}
+   */
+  public getXDaysAgo(days: number): Date {
+    return this.getCurrentMomentDate().subtract(days, 'days').toDate();
   }
 
   /**

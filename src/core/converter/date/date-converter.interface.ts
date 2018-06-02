@@ -18,6 +18,7 @@ export interface IDateConverter {
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
+  fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
   parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date;
   parseDateFromDateTime(date: DateTimeLikeTypeT): Date;
@@ -26,6 +27,8 @@ export interface IDateConverter {
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;
   getFirstDayOfMonth(): Date;
   get30DaysAgo(): Date;
+  getXDaysLater(days: number): Date;
+  getXDaysAgo(days: number): Date;
   getLocalizedMonth(index: number): string;
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
