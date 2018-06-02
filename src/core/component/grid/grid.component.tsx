@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IGridProps } from '../../props-definitions.interface';
+import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT } from '../../definitions.interface';
@@ -10,6 +10,7 @@ import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
 import { BaseList } from '../list';
 import { GridRow } from './row';
+import { Field } from '../field';
 
 export class Grid extends BaseList<Grid, IGridProps> {
 
@@ -142,8 +143,8 @@ export class Grid extends BaseList<Grid, IGridProps> {
   private getColumn(entity: IEntity,
                     column: IGridColumnConfiguration,
                     columnNum: number): React.ReactNode {
+    const name = this.toFieldName(entity, columnNum);
     if (column.useGrouping) {
-      const name = this.toFieldName(entity, columnNum);
       return (
         <Checkbox name={name}
                   value={this.toCheckboxFieldValue(name)}
@@ -152,7 +153,15 @@ export class Grid extends BaseList<Grid, IGridProps> {
     } else if (column.tpl) {
       return column.tpl(entity);
     } else if (column.renderer) {
-      return column.renderer(entity);
+      const renderEl = column.renderer(entity);
+      if (Field.isPrototypeOf(renderEl.type)) {
+        return React.cloneElement<IFieldProps>(renderEl, {
+          notUseErrorMessage: true,
+          onChange: (value) => this.onChangeField({value, name: column.name || name, rawData: entity}),
+        });
+      } else {
+        return renderEl;
+      }
     }
     return null;
   }
