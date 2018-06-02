@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { IEntity, EntityIdT, UNDEF } from '../../../definitions.interface';
 import { orUndef, isPrimitive, orDefault, isDef } from '../../../util';
 import {
@@ -21,14 +23,17 @@ export function toActualEntities(entity: MultiFieldEntityT): IMultiItemEntity[] 
       editedItem0[editedItem.name] = editedItem.value;
       editedItems[editedItemId] = editedItem0;
     });
+    const sourceItems = multiEntity.source || [];
 
-    return multiEntity.add.concat(
-      (multiEntity.source || [])
-        .filter(
+    return R.sort<IMultiItemEntity>(
+      (item1, item2) => sourceItems.findIndex((i) => i.id === item1.id) > sourceItems.findIndex((i) => i.id === item2.id) ? 1 : -1,
+      multiEntity.add.concat(
+        sourceItems.filter(
           (entity0) =>
             !multiEntity.remove.find((removeId) => removeId.id === entity0.id)
-              && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
+            && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
         ).concat(Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]))
+      )
     );
   }
   return entity as IEntity[];

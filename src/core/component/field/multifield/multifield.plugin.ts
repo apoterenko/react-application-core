@@ -72,10 +72,35 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    */
   public onEdit(item: IMultiItemEntity): IMultiFieldChangesEntity {
     const removeArray = this.removeValue;
-    const addArray = this.addValue;
-    const editArray = this.editValue
-      .filter((entity) => !(item.id === entity.id && (R.isNil(item.name) || R.isNil(entity.name) || item.name === entity.name)))
-      .concat(item);
+    const addValue = this.addValue;
+    const editValue = this.editValue;
+
+    const editedOriginalItem = this.originalValue.find((originalItem0) => originalItem0.id === item.id);
+    const editedNewItem = addValue.find((editedNewItem0) => editedNewItem0.id === item.id);
+    const isEditedNewItem = !R.isNil(editedNewItem);
+
+    const editArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
+      isEditedNewItem,
+      editValue,
+      () => (
+        editValue
+          .filter(
+            (editedItem) =>
+              !(item.id === editedItem.id && item.name === editedItem.name)
+          )
+          .concat(item)
+          .filter((editedItem) => R.isNil(editedOriginalItem)
+            || !(item.id === editedItem.id && item.name === editedItem.name && editedOriginalItem[item.name] === item.value))
+      )
+    );
+
+    const addArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
+      isEditedNewItem,
+      () => (
+        addValue.map((newItem) => newItem.id === item.id ? ({...item.rawData, [item.name]: item.value}) : newItem)
+      ),
+      addValue
+    );
     return {addArray, removeArray, editArray};
   }
 

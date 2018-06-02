@@ -866,22 +866,18 @@ export interface IInputWrapper<TInput> {
 export interface IHTMLInputWrapper extends IInputWrapper<HTMLInputElement | HTMLTextAreaElement> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IDateWrapper<TDate> {
+/**
+ * @stable [02.06.2018]
+ */
+export interface IDateWrapper<TDate = string> {
   date?: TDate;
 }
 
-/* @stable - 01.04.2018 */
-export interface IStringDateWrapper extends IDateWrapper<string> {
-}
-
-/* @stable - 01.04.2018 */
-export interface ITimeWrapper<TTime> {
+/**
+ * @stable [02.06.2018]
+ */
+export interface ITimeWrapper<TTime = string> {
   time?: TTime;
-}
-
-/* @stable - 01.04.2018 */
-export interface IStringTimeWrapper extends ITimeWrapper<string> {
 }
 
 /**
@@ -906,8 +902,11 @@ export interface IStringToTimeWrapper {
   toTime?: string;
 }
 
-export interface IDateTimeEntity extends IStringDateWrapper,
-                                         IStringTimeWrapper {
+/**
+ * @stable [01.06.2018]
+ */
+export interface IDateTimeEntity extends IDateWrapper,
+                                         ITimeWrapper {
 }
 
 export interface IFromDateFromTimeEntity extends IFromDateWrapper,
