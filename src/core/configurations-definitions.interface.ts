@@ -146,11 +146,12 @@ import {
   IActionsWrapper,
   INotUseFieldWrapper,
   IActionsPosition,
-  INotUseErrorMessage,
+  INotUseErrorMessageWrapper,
   IMoreOptionsWrapper,
   INavigationActionTypeWrapper,
   IOnNavigationActionClickWrapper,
   IOnMoreOptionsSelectWrapper,
+  IUseServiceWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -409,7 +410,8 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IWebComponentConfiguration,
-                                            IColumnsConfigurationWrapper<IGridColumnConfiguration[]> {
+                                            IColumnsConfigurationWrapper<IGridColumnConfiguration[]>,
+                                            IUseServiceWrapper {
 }
 
 /* @stable - 03.04.2018 */
@@ -497,7 +499,7 @@ export interface IUniversalFieldConfiguration extends IUniversalComponentConfigu
                                                       IDelayedChangesFieldPluginConfiguration,
                                                       IOnChangeWrapper,
                                                       IAutoFocusWrapper,
-                                                      INotUseErrorMessage,
+                                                      INotUseErrorMessageWrapper,
                                                       IActionsWrapper<IFieldActionConfiguration[]> {
 }
 

@@ -6,6 +6,7 @@ export type StringNumberT = number | string;
 export type EntityIdT = StringNumberT;
 export const FIRST_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_MAX_PAGE_SIZE = 100000;
 export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
@@ -460,6 +461,13 @@ export interface IItemsWrapper<TItems> {
  */
 export interface IItemWrapper<TItem> {
   item?: TItem;
+}
+
+/**
+ * @stable [02.06.2018]
+ */
+export interface IItemIdWrapper<TItemId = EntityIdT> {
+  itemId?: TItemId;
 }
 
 /**
@@ -1244,10 +1252,17 @@ export interface IActionsWrapper<TActions> {
 }
 
 /**
- * @stable [18.05.2018]
+ * @stable [02.06.2018]
  */
-export interface INotUseErrorMessage {
+export interface INotUseErrorMessageWrapper {
   notUseErrorMessage?: boolean;
+}
+
+/**
+ * @stable [02.06.2018]
+ */
+export interface IUseServiceWrapper {
+  useService?: boolean;
 }
 
 /* @stable - 31.03.2018 */
