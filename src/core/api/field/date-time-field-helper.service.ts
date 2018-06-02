@@ -97,11 +97,16 @@ export class DateTimeFieldHelper {
   }
 
   /**
-   * @test
+   * @stable [02.06.2018]
    * @param {TEntity} entity
+   * @param {Date} defaultFromDate
+   * @param {Date} defaultToDate
    * @returns {IFromDateToDateEntity}
    */
-  public composeDateTimeRangeFields<TEntity extends IFromDateFromTimeToDateToTimeEntity>(entity: TEntity): IFromDateToDateEntity {
+  public composeDateTimeRangeFields<TEntity extends IFromDateFromTimeToDateToTimeEntity>(
+      entity: TEntity,
+      defaultFromDate: Date = this.dc.get30DaysAgo(),
+      defaultToDate: Date = this.dc.getCurrentDate()): IFromDateToDateEntity {
     return this.buildDateTimeRangeFields<TEntity>(
       entity,
       (source) => source.fromDate,
@@ -110,6 +115,8 @@ export class DateTimeFieldHelper {
       (source) => source.toTime,
       FROM_DATE_FIELD_NAME,
       TO_DATE_FIELD_NAME,
+      defaultFromDate,
+      defaultToDate
     );
   }
 
@@ -119,14 +126,16 @@ export class DateTimeFieldHelper {
                                                            fromTimeResolver: (entity: TEntity) => string,
                                                            toTimeResolver: (entity: TEntity) => string,
                                                            fromDateFieldName: string,
-                                                           toDateFieldName: string): TEntity {
+                                                           toDateFieldName: string,
+                                                           defaultFromDate: Date,
+                                                           defaultToDate: Date): TEntity {
     return {
       [fromDateFieldName]: this.dc.fromStartUiDateTimeToDateTime(
-        fromDateResolver(entity) || this.dc.fromDateToUiDate(this.dc.get30DaysAgo()),
+        fromDateResolver(entity) || this.dc.fromDateToUiDate(defaultFromDate),
         fromTimeResolver(entity)
       ),
       [toDateFieldName]: this.dc.fromEndUiDateTimeToDateTime(
-        toDateResolver(entity) || this.dc.fromDateToUiDate(this.dc.getCurrentDate()),
+        toDateResolver(entity) || this.dc.fromDateToUiDate(defaultToDate),
         toTimeResolver(entity)
       ),
     } as TEntity;
