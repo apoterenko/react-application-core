@@ -711,19 +711,25 @@ export interface IQueryWrapper<TQuery = string> {
   query?: TQuery;
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IListRoutePathWrapper {
   listRoutePath?: string;
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [02.06.2018]
+ */
 export interface IListSectionWrapper {
   listSection?: string;
 }
 
-/* @stable - 01.04.2018 */
-export interface IFormFilterSectionWrapper {
-  formFilterSection?: string;
+/**
+ * @stable [02.06.2018]
+ */
+export interface IFilterSectionWrapper {
+  filterSection?: string;
 }
 
 /**

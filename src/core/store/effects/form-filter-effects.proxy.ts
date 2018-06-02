@@ -8,7 +8,9 @@ import {
 } from '../middleware';
 import { FormActionBuilder } from '../../component/form';
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [02.06.2018]
+ */
 export function makeFormFilterEffectsProxy(config: IFormFilterMiddlewareConfig): () => void {
   const formFilterSubmitMiddleware = makeFormFilterSubmitMiddleware(config);
   const formFilterResetMiddleware = makeFormFilterResetMiddleware(config);
@@ -18,12 +20,12 @@ export function makeFormFilterEffectsProxy(config: IFormFilterMiddlewareConfig):
     @provideInSingleton(Effects)
     class Effects {
 
-      @EffectsService.effects(FormActionBuilder.buildSubmitActionType(config.formFilterSection))
+      @EffectsService.effects(FormActionBuilder.buildSubmitActionType(config.filterSection))
       public $onFilterSubmit(): IEffectsAction[] {
         return formFilterSubmitMiddleware;
       }
 
-      @EffectsService.effects(FormActionBuilder.buildResetActionType(config.formFilterSection))
+      @EffectsService.effects(FormActionBuilder.buildResetActionType(config.filterSection))
       public $onFilterReset(): IEffectsAction[] {
         return formFilterResetMiddleware;
       }

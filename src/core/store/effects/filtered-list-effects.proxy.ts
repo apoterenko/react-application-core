@@ -8,9 +8,9 @@ import { StackActionBuilder } from '../stack';
 import { FormActionBuilder } from '../../component/form';
 
 export function makeFilteredListEffectsProxy(
-    config: { filterPath?: string; section: string, filterSection?: string, filterFormSection?: string }
+    config: { filterPath?: string; section: string, filterSection?: string }
     ): () => void {
-  const { filterPath, section, filterSection, filterFormSection } = config;
+  const { filterPath, section, filterSection } = config;
   return (): void => {
 
     @provideInSingleton(Effects)
@@ -24,7 +24,7 @@ export function makeFilteredListEffectsProxy(
       @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(section))
       public $onFilterDeactivate(): IEffectsAction[] {
         return (
-          filterFormSection ? [FormActionBuilder.buildDestroyAction(filterFormSection)] : []
+          filterSection ? [FormActionBuilder.buildDestroyAction(filterSection)] : []
         ).concat([
           FilterActionBuilder.buildDestroyAction(section),
           ListActionBuilder.buildLoadAction(section)

@@ -2,7 +2,7 @@ import {
   IResolverWrapper,
   IStringSectionWrapper,
   IListSectionWrapper,
-  IFormFilterSectionWrapper,
+  IFilterSectionWrapper,
   IListRoutePathWrapper,
 } from '../../definitions.interface';
 import { IListWrapperEntity } from '../../entities-definitions.interface';
@@ -13,8 +13,10 @@ export interface IUntouchedListMiddlewareConfig<TApplicationState>
           IStringSectionWrapper {
 }
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [14.05.2018]
+ */
 export interface IFormFilterMiddlewareConfig extends IListRoutePathWrapper,
                                                      IListSectionWrapper,
-                                                     IFormFilterSectionWrapper {
+                                                     IFilterSectionWrapper {
 }
