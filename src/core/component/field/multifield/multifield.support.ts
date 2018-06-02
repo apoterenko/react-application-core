@@ -41,9 +41,13 @@ export function toActualEntities(entity: MultiFieldEntityT): IMultiItemEntity[] 
   return entity as IEntity[];
 }
 
-export function toEntityIds(multiFieldValue: MultiFieldEntityT): EntityIdT[] {
+export const toEntityIds = (multiFieldValue: MultiFieldEntityT): EntityIdT[] =>
+  toEntities<EntityIdT>(multiFieldValue, (entity) => entity.id);
+
+export function toEntities<TItem>(multiFieldValue: MultiFieldEntityT,
+                                  mapper: (entity: IEntity, index: number) => TItem): TItem[] {
   const result = toActualEntities(multiFieldValue);
-  return orUndef<EntityIdT[]>(result, () => result.map<EntityIdT>((entity) => entity.id));
+  return orUndef<TItem[]>(result, () => result.map<TItem>(mapper));
 }
 
 export function toActualEntitiesLength(value: MultiFieldValueT): number {
