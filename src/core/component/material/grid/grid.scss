@@ -1,0 +1,22 @@
+// Grid [FRAMEWORK+][RAC+]
+.rac {
+
+  .rac-grid-container-wrapper {
+
+    .rac-grid {
+
+      .rac-form-field {
+
+        .rac-text-field {
+          height: auto  !important;             /* @stable [02.06.2018] */
+          margin-top: 0;                        /* @stable [02.06.2018] */
+          margin-bottom: 0;                     /* @stable [02.06.2018] */
+
+          .rac-field-input {
+            padding-top: 0;                     /* @stable [02.06.2018] */
+          }
+        }
+      }
+    }
+  }
+}

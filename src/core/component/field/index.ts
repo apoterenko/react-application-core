@@ -5,6 +5,7 @@ export * from './imagefield';
 export * from './multifield';
 export * from './textfield';
 export * from './select';
+export * from './gridfield';
 export * from './textarea';
 export * from './checkbox';
 export * from './chipsfield';
