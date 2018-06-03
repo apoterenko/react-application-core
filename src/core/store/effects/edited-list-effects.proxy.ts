@@ -5,9 +5,10 @@ import { provideInSingleton } from '../../di';
 import { ListActionBuilder } from '../../component/list';
 import { RouterActionBuilder } from '../../router';
 import { CustomActionBuilder } from '../../action';
-import { IEntity, ISelectedWrapper } from '../../definitions.interface';
+import { IEntity } from '../../definitions.interface';
 import { FormActionBuilder } from '../../component/form';
 import { StackActionBuilder } from '../../store';
+import { makeSelectEntityMiddleware } from '../middleware';
 
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
                                            TApplicationState>(config: {
@@ -32,11 +33,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
 
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(listSection))
       public $onSelectEntity(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        const actionParams: ISelectedWrapper<TEntity> = action.data;
-        return [
-          StackActionBuilder.buildLockAction(formSection),
-          RouterActionBuilder.buildNavigateAction(pathResolver(actionParams.selected, state))
-        ];
+        return makeSelectEntityMiddleware<TEntity>({action, formSection, path: (entity) => pathResolver(entity, state)});
       }
 
       @EffectsService.effects(CustomActionBuilder.buildCustomCloneActionType(formSection))

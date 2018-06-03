@@ -6,8 +6,13 @@ import {
   ROUTER_BACK_ACTION_TYPE,
 } from './router.interface';
 
-/* @stable - 15.04.2018 */
 export class RouterActionBuilder {
+
+  /**
+   * @stable [03.06.2018]
+   * @param {string} path
+   * @returns {IEffectsAction}
+   */
   public static buildNavigateAction(path: string): IEffectsAction {
     return EffectsAction.create(ROUTER_NAVIGATE_ACTION_TYPE, path);
   }
