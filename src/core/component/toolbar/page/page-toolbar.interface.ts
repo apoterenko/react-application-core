@@ -9,12 +9,14 @@ import {
   IWebComponentConfiguration,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
+import { IProgressWrapper } from '../../../definitions.interface';
 
 /**
  * @stable [16.05.2018]
  */
 export interface IUniversalPageToolbarEntity extends IUniversalComponentEntity,
-                                                     IPaginatedEntity {
+                                                     IPaginatedEntity,
+                                                     IProgressWrapper {
 }
 
 /**

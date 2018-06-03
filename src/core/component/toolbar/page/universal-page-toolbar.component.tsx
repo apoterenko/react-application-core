@@ -28,7 +28,7 @@ export abstract class UniversalPageToolbar<TToolbar extends UniversalPageToolbar
   protected getToolbarBody(): JSX.Element {
     const props = this.props;
     return orDefault<JSX.Element, JSX.Element>(
-      props.totalCount > 0,
+      props.totalCount > 0 && !props.progress,
       () => this.getContent(),
       () => this.getDefaultContent()
     );
