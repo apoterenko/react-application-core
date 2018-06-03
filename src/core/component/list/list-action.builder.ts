@@ -20,7 +20,10 @@ import {
   LIST_FIRST_PAGE_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
   LIST_REMOVE_ACTION_TYPE,
+  LIST_LAZY_LOAD_ACTION_TYPE,
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
+  LIST_LAZY_LOAD_DONE_ACTION_TYPE,
+  LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
@@ -53,6 +56,24 @@ export class ListActionBuilder {
     return `${section}.${LIST_LOAD_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [03.06.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildLazyLoadActionType(section: string): string {
+    return `${section}.${LIST_LAZY_LOAD_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [03.06.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildLazyLoadDoneActionType(section: string): string {
+    return `${section}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
+  }
+
   public static buildUnTouchActionType(section: string): string {
     return `${section}.${LIST_UN_TOUCH_ACTION_TYPE}`;
   }
@@ -63,6 +84,15 @@ export class ListActionBuilder {
 
   public static buildLoadErrorActionType(section: string): string {
     return `${section}.${LIST_LOAD_ERROR_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [04.06.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildLazyLoadErrorActionType(section: string): string {
+    return `${section}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   public static buildSelectActionType(section: string): string {
@@ -104,6 +134,16 @@ export class ListActionBuilder {
 
   public static buildSelectAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
     return EffectsAction.create(this.buildSelectActionType(section), applySection(section, payload));
+  }
+
+  /**
+   * @stable [03.06.2018]
+   * @param {string} section
+   * @param {ISelectedEntityWrapper} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildLazyLoadAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildLazyLoadActionType(section), applySection(section, payload));
   }
 
   public static buildDeselectAction(section: string): IEffectsAction {

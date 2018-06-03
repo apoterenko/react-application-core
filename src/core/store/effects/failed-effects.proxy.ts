@@ -25,8 +25,12 @@ export function makeFailedFormEffectsProxy(actionType: string): () => void {
   return makeFailedEffectsProxy(FormActionBuilder.buildSubmitErrorActionType(actionType));
 }
 
-export function makeFailedListEffectsProxy(section: string): () => void {
+export function makeFailedListLoadEffectsProxy(section: string): () => void {
   return makeFailedEffectsProxy(ListActionBuilder.buildLoadErrorActionType(section));
+}
+
+export function makeFailedListLazyLoadEffectsProxy(section: string): () => void {
+  return makeFailedEffectsProxy(ListActionBuilder.buildLazyLoadErrorActionType(section));
 }
 
 export function makeFailedFormErrorEffectsProxy(actionType: string): () => void {

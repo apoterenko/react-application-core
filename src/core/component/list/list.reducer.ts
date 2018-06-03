@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE, ISelectedEntityWrapper, IRemovedEntityWrapper } from '../../definitions.interface';
+import { FIRST_PAGE, ISelectedEntityWrapper, IRemovedEntityWrapper, IEntity } from '../../definitions.interface';
 import { toSection } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -20,8 +20,8 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IListEntity {
   const section = toSection(action);
   const modifyData: IModifyEntityPayloadWrapper = action.data;
-  const payload = modifyData && modifyData.payload;
 
+  let modifyDataPayload = modifyData && modifyData.payload;
   let updatedData;
 
   switch (action.type) {
@@ -67,6 +67,11 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         lockPage: true,
         page: ++state.page,
       };
+    case ListActionBuilder.buildLazyLoadActionType(section):
+      return {
+        ...state,
+        progress: true,
+      };
     case ListActionBuilder.buildUnTouchActionType(section):
       return {
         ...state,
@@ -100,11 +105,10 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         ),
         page: state.lockPage ? listEntity.page : INITIAL_APPLICATION_LIST_STATE.page,
       };
+    case ListActionBuilder.buildLazyLoadErrorActionType(section):
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
-        ...state,
-        progress: false,
-        lockPage: false,
+        ...INITIAL_APPLICATION_LIST_STATE,
         error: convertError(action.error).message,
       };
     case ListActionBuilder.buildSelectActionType(section):
@@ -119,19 +123,26 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         ...state,
         selected: null,
       };
+    case ListActionBuilder.buildLazyLoadDoneActionType(section):
+      const lazyLoadedEntity: IEntity = action.data;
+      modifyDataPayload = {
+        id: lazyLoadedEntity.id,
+        changes: lazyLoadedEntity,
+      };
+      // No breaks! Go to update the entity.
     case ListActionBuilder.buildUpdateActionType(section):
       if (state.data && state.data.length) {
-        const mergeStrategy = (R.isNil(payload.mergeStrategy)
-              || payload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
+        const mergeStrategy = (R.isNil(modifyDataPayload.mergeStrategy)
+              || modifyDataPayload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
             ? EntityOnSaveMergeStrategyEnum.MERGE
             : EntityOnSaveMergeStrategyEnum.OVERRIDE;
 
         updatedData = state.data.map((item) => (
-            item.id === payload.id
+            item.id === modifyDataPayload.id
                 ? (
                     mergeStrategy === EntityOnSaveMergeStrategyEnum.OVERRIDE
-                      ? { ...payload.changes }
-                      : {...item, ...payload.changes}
+                      ? { ...modifyDataPayload.changes }
+                      : {...item, ...modifyDataPayload.changes}
                     )
                 : item
         ));
@@ -141,11 +152,12 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
               ? updatedData.find((item) => item.id === state.selected.id) || state.selected
               : state.selected,
           data: updatedData,
+          progress: false,      // In a lazy-loading case
         };
       }
       break;
     case ListActionBuilder.buildInsertActionType(section):
-      const insertedItem = { ...payload.changes };
+      const insertedItem = { ...modifyDataPayload.changes };
       updatedData = (state.data || []).concat(insertedItem);
 
       return {
