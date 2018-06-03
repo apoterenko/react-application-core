@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as URLSearchParams from 'url-search-params';
+import { IEffectsAction } from 'redux-effects-promise';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -734,6 +735,13 @@ export interface IListSectionWrapper {
 }
 
 /**
+ * @stable [03.06.2018]
+ */
+export interface IFormSectionWrapper {
+  formSection?: string;
+}
+
+/**
  * @stable [02.06.2018]
  */
 export interface IFilterSectionWrapper {
@@ -1361,6 +1369,19 @@ export interface IUseAvatarWrapper {
 /* @stable - 31.03.2018 */
 export interface IUseAddActionWrapper {
   useAddAction?: boolean;
+}
+
+/**
+ * @stable [03.06.2018]
+ */
+export interface IActionWrapper<TAction> {
+  action?: TAction;
+}
+
+/**
+ * @stable [03.06.2018]
+ */
+export interface IEffectsActionWrapper extends IActionWrapper<IEffectsAction> {
 }
 
 /**
@@ -2074,7 +2095,9 @@ export interface IStateWrapper<TState> {
   state?: TState;
 }
 
-/* @stable - 14.04.2018 */
+/**
+ * @stable [03.06.2018]
+ */
 export interface IPathWrapper<TPath> {
   path?: TPath;
 }
