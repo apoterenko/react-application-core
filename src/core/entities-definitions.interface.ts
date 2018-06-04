@@ -468,12 +468,7 @@ export interface IQueryFilterWrapperEntity extends IFilterWrapper<IQueryFilterEn
 }
 
 /* @stable - 01.04.2018 */
-export interface IFilteredListEntity<TFilter, TList> extends IFilterWrapper<TFilter>,
-                                                             IListWrapper<TList> {
-}
-
-/* @stable - 01.04.2018 */
-export interface IQueryFilteredListEntity extends IFilteredListEntity<IQueryFilterEntity, IListEntity> {
+export interface IQueryFilteredListEntity extends IListAndFilterWrapperEntity<IQueryFilterEntity, IListEntity> {
 }
 
 /* @stable - 05.04.2018 */
@@ -704,4 +699,11 @@ export interface IFilterFormWrapperEntity extends IFilterFormWrapper<IEditableEn
  */
 export interface IListAndFilterFormWrapperEntity extends IListWrapperEntity,
                                                          IFilterFormWrapperEntity {
+}
+
+/**
+ * @stable [04.06.2018]
+ */
+export interface IListAndFilterWrapperEntity<TFilter, TList> extends IListWrapper<TList>,
+                                                                     IFilterWrapper<TFilter> {
 }

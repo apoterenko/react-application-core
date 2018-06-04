@@ -12,7 +12,7 @@ import { IEditedListMiddlewareConfig } from './middleware.interface';
  */
 export const makeSelectEntityMiddleware =
   <TEntity extends IEntity>(config: IEditedListMiddlewareConfig<TEntity>): IEffectsAction[] => {
-    const payloadWrapper: ISelectedWrapper<TEntity> = config.action.data;
+    const payloadWrapper: ISelectedWrapper<TEntity> = config.action.initialData || config.action.data;
     const selected = payloadWrapper.selected;
     return [
       StackActionBuilder.buildLockAction(config.formSection),
