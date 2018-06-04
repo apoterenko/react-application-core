@@ -1,3 +1,5 @@
+import JQuery from 'jquery';
+
 /**
  * @stable [09.05.2018]
  */
