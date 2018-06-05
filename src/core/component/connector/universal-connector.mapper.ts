@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull } from '../../util';
+import { orNull, filterAndSortEntities } from '../../util';
 import {
   IEntity,
   IEntityWrapper,
@@ -22,8 +22,14 @@ import {
   IDataMutatorEntity,
   IFilterFormWrapperEntity,
   IFormWrapperEntity,
+  IDictionaryEntity,
+  INamedEntity,
+  ISelectOptionEntity,
 } from '../../entities-definitions.interface';
-import { IFilterConfiguration } from '../../configurations-definitions.interface';
+import {
+  IFilterConfiguration,
+  IFilterAndSorterConfiguration,
+} from '../../configurations-definitions.interface';
 
 /* @stable - 22.04.2018 */
 export const dictionariesMapper = (storeEntity: IUniversalApplicationStoreEntity): IDictionariesWrapperEntity => ({
@@ -205,6 +211,40 @@ export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IFilte
  */
 export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IFilterConfiguration =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);
+
+/**
+ * @stable [05.06.2018]
+ * @param {INamedEntity[] | INamedEntity} data
+ * @param {IFilterAndSorterConfiguration} config
+ * @returns {ISelectOptionEntity[]}
+ */
+export const selectOptionsMapper = (data: INamedEntity[] | INamedEntity,
+                                    config?: IFilterAndSorterConfiguration): ISelectOptionEntity[] => {
+  const entities: INamedEntity[] = filterAndSortEntities(data, config);
+  return orNull<ISelectOptionEntity[]>(
+    !R.isNil(entities),
+    () => (
+      entities.map<ISelectOptionEntity>((entity): ISelectOptionEntity => ({
+        value: entity.id,
+        label: entity.name,
+        rawData: entity,
+      }))
+    )
+  );
+};
+
+/**
+ * @stable [05.06.2018]
+ * @param {IDictionaryEntity<TDictionaryEntityData>} dictionaryEntity
+ * @param {IFilterAndSorterConfiguration} config
+ * @returns {ISelectOptionEntity[]}
+ */
+export const dictionaryEntityMapper = <TDictionaryEntityData>(dictionaryEntity: IDictionaryEntity<TDictionaryEntityData>,
+                                                              config?: IFilterAndSorterConfiguration): ISelectOptionEntity[] =>
+  selectOptionsMapper(
+    orNull<TDictionaryEntityData | TDictionaryEntityData[]>(dictionaryEntity, () => dictionaryEntity.data),
+    config
+  );
 
 /**
  * @stable [29.05.2018]
