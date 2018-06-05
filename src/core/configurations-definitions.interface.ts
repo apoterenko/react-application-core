@@ -817,3 +817,10 @@ export interface IHeaderConfiguration extends IComponentConfiguration,
                                               IOnNavigationActionClickWrapper,
                                               IOnMoreOptionsSelectWrapper<IMenuItemEntity> {
 }
+
+/**
+ * @stable [05.06.2018]
+ */
+export interface IFilterAndSorterConfiguration extends IFilterFnWrapper,
+                                                       ISorterFnWrapper {
+}

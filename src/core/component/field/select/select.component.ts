@@ -1,6 +1,6 @@
 import { BasicSelect } from './basic-select.component';
 import { ISelectInternalProps, ISelectInternalState } from './select.interface';
-import { ISelectOptionEntity } from '../../field';
+import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 
 export class Select extends BasicSelect<Select, ISelectInternalProps, ISelectInternalState> {
 

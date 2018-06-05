@@ -645,13 +645,19 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
 }
 
 /**
- * @stable [14.05.2018]
+ * @stable [05.06.2018]
  */
-export interface IMenuItemEntity<TRawData = IEntity, TValue = EntityIdT> extends ILabelWrapper,
-                                                                                 IIconWrapper,
-                                                                                 IValueWrapper<TValue>,
-                                                                                 IDisabledWrapper,
-                                                                                 IRawDataWrapper<TRawData> {
+export interface IMenuItemEntity<TRawData extends IEntity = IEntity, TValue = EntityIdT> extends IValueWrapper<TValue>,
+                                                                                                 ILabelWrapper,
+                                                                                                 IIconWrapper,
+                                                                                                 IDisabledWrapper,
+                                                                                                 IRawDataWrapper<TRawData> {
+}
+
+/**
+ * @stable [05.06.2018]
+ */
+export interface ISelectOptionEntity<TRawData extends INamedEntity = INamedEntity> extends IMenuItemEntity<TRawData> {
 }
 
 /**
