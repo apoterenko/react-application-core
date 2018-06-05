@@ -1,7 +1,13 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { FIRST_PAGE, ISelectedEntityWrapper, IRemovedEntityWrapper, IEntity } from '../../definitions.interface';
+import {
+  FIRST_PAGE,
+  ISelectedEntityWrapper,
+  IRemovedEntityWrapper,
+  IEntity,
+  IPayloadWrapper,
+} from '../../definitions.interface';
 import { toSection } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -26,12 +32,12 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
 
   switch (action.type) {
     case ListActionBuilder.buildChangeSortDirectionActionType(section):
-      const sortDirectionEntity: ISortDirectionEntity = action.data;
+      const sortDirectionEntityWrapper: IPayloadWrapper<ISortDirectionEntity> = action.data;
       return {
         ...state,
         directions: {
           ...state.directions,
-          [sortDirectionEntity.name]: sortDirectionEntity.direction,
+          [sortDirectionEntityWrapper.payload.name]: sortDirectionEntityWrapper.payload.direction,
         },
       };
     case ListActionBuilder.buildChangeActionType(section):

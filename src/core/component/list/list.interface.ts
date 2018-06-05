@@ -3,13 +3,19 @@ import { EffectsActionBuilder } from 'redux-effects-promise';
 import { DEFAULT_PAGE_SIZE, FIRST_PAGE } from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IListWrapperEntity, IListEntity } from '../../entities-definitions.interface';
-import { IContainerProps, IUniversalContainerProps } from '../../props-definitions.interface';
+import { IUniversalContainerProps } from '../../props-definitions.interface';
+
+/**
+ * @stable [05.06.2018]
+ */
+export interface IUniversalListContainerProps extends IUniversalContainerProps,
+                                                      IListWrapperEntity {
+}
 
 /**
  * @stable [05.05.2018]
  */
-export interface IListContainerProps extends IContainerProps,
-                                             IListWrapperEntity,
+export interface IListContainerProps extends IUniversalListContainerProps,
                                              IListConfigurationWrapper {
 }
 

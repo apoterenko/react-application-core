@@ -7,14 +7,11 @@ import { IRnListContainerProps } from './list.interface';
 export class RnListContainer extends UniversalBaseListContainer<IRnListContainerProps> {
 
   /**
-   * @stable [05.05.2018]
+   * @stable [06.06.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    return <RnList onSelect={this.onSelect}
-                   onCreate={this.onCreate}
-                   {...props.listConfiguration}
-                   {...props.list}/>;
+    return <RnList {...this.getComponentProps()}
+                   {...this.props.listConfiguration}/>;
   }
 }

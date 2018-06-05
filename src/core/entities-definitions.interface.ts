@@ -40,7 +40,6 @@ import {
   IChangesWrapper,
   IOnClickWrapper,
   ISetFocusWrapper,
-  IOnChangeSortDirectionWrapper,
   IValueWrapper,
   IOnChangeWrapper,
   ISelectedWrapper,
@@ -473,9 +472,7 @@ export interface IQueryFilteredListEntity extends IListAndFilterWrapperEntity<IQ
 
 /* @stable - 05.04.2018 */
 export interface IGridEntity extends IListEntity,
-                                     IFieldChangeEntity,
-                                     IOnChangeWrapper<IFieldChangeEntity>,
-                                     IOnChangeSortDirectionWrapper<(payload: ISortDirectionEntity) => void> {
+                                     IFieldChangeEntity {
 }
 
 /* @stable - 04.04.2018 */
