@@ -1,4 +1,4 @@
-// Grid [FRAMEWORK-][RAC+]
+// Grid column [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-grid-container-wrapper {
@@ -6,7 +6,11 @@
     .rac-grid {
 
       .rac-grid-column {
-        padding: 8px 16px;            /* @stable - 05.04.2018 */
+        padding: 8px 16px;                  /* @stable [02.06.2018] */
+
+        .rac-grid-column-content {
+          vertical-align: middle;           /* @stable [05.06.2018] */
+        }
 
         &.rac-grid-column-align-right {
 
@@ -23,7 +27,7 @@
         }
 
         &.rac-grid-sorted-column {
-          cursor: pointer;            /* @stable - 05.04.2018 */
+          cursor: pointer;                  /* @stable [02.06.2018] */
         }
       }
     }
