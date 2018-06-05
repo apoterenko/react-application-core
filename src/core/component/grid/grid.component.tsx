@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration } from '../../configurations-definitions.interface';
@@ -161,6 +162,9 @@ export class Grid extends BaseList<Grid, IGridProps> {
       return column.tpl(entity);
     } else if (column.renderer) {
       const renderEl = column.renderer(entity);
+      if (R.isNil(renderEl)) {
+        return renderEl;
+      }
       if (Field.isPrototypeOf(renderEl.type)) {
         return React.cloneElement<IFieldProps>(renderEl, {
           notUseErrorMessage: true,
@@ -170,6 +174,8 @@ export class Grid extends BaseList<Grid, IGridProps> {
       } else {
         return renderEl;
       }
+    } else if (column.name) {
+      return Reflect.get(entity, column.name);
     }
     return null;
   }
