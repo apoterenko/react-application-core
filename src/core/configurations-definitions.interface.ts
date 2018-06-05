@@ -415,7 +415,7 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IWebComponentConfiguration,
-                                            IOnChangeSortDirectionWrapper,
+                                            IOnChangeSortDirectionWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper<IGridColumnConfiguration[]>,
                                             IUseServiceWrapper {
 }
@@ -531,6 +531,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration,
                                              IPreventValueBindingWrapper,
                                              IStringPatternWrapper,
                                              IDisabledWrapper,
+                                             IPartiallyDisabledWrapper,
                                              IUseKeyboardWrapper {
 }
 

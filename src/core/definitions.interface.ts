@@ -415,8 +415,10 @@ export interface IOnValidWrapper<TOnValid> {
 export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean) => void> {
 }
 
-/* @stable - 04.04.2018 */
-export interface IOnChangeSortDirectionWrapper<TOnChangeSortDirection> {
+/**
+ * @stable [06.06.2018]
+ */
+export interface IOnChangeSortDirectionWrapper<TPayload, TOnChangeSortDirection = (payload: TPayload) => void> {
   onChangeSortDirection?: TOnChangeSortDirection;
 }
 
@@ -765,6 +767,13 @@ export interface ISeparatorsWrapper<TSeparators> {
  */
 export interface IDisabledWrapper {
   disabled?: boolean;
+}
+
+/**
+ * @stable [06.06.2018]
+ */
+export interface IPartiallyDisabledWrapper {
+  partiallyDisabled?: boolean;
 }
 
 /**
