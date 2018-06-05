@@ -10,9 +10,11 @@ import {
   TO_TIME_FIELD_NAME,
   TIME_FIELD_NAME,
   EFFECTOR_FIELD_NAME,
-  KEY_FIELD_NAME,
+  IEntity,
 } from '../definitions.interface';
 import { isDef, isObject, isFn } from './type';
+import { INamedEntity } from '../entities-definitions.interface';
+import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 
 export type PredicateT = (key: string, value: AnyT) => boolean;
 
@@ -50,7 +52,6 @@ export function excludeFieldsPredicateFactory(...fields: string[]) {
   return (key: string, value: AnyT) => !fields.includes(key);
 }
 
-export const EXCLUDE_KEY_FIELD_PREDICATE = excludeFieldsPredicateFactory(KEY_FIELD_NAME);
 export const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
 export const EXCLUDE_EFFECTOR_FIELD_PREDICATE = excludeFieldsPredicateFactory(EFFECTOR_FIELD_NAME);
 export const EXCLUDE_TIME_FIELDS_PREDICATE = excludeFieldsPredicateFactory(
@@ -89,8 +90,28 @@ export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyV
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);
 
-export const excludeKeyFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-  filterByPredicate<TSource, TResult>(source, EXCLUDE_KEY_FIELD_PREDICATE);
-
 export const excludeEffectorFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_EFFECTOR_FIELD_PREDICATE);
+
+/**
+ * @stable [05.06.2018]
+ * @param {IEntity[] | IEntity} data
+ * @param {IFilterAndSorterConfiguration} config
+ * @returns {IEntity[]}
+ */
+export const filterAndSortEntities = (data: IEntity[] | IEntity,
+                                      config?: IFilterAndSorterConfiguration): IEntity[] => {
+  if (R.isNil(data)) {
+    return data;
+  }
+  let entities: INamedEntity[] = [].concat(data);
+  if (!R.isNil(config)) {
+    if (!R.isNil(config.filter)) {
+      entities = R.filter<INamedEntity>(config.filter, entities);
+    }
+    if (!R.isNil(config.sorter)) {
+      entities = R.sort<INamedEntity>(config.sorter, entities);
+    }
+  }
+  return entities;
+};
