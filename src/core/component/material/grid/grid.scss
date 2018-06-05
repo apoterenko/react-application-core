@@ -17,6 +17,13 @@
           }
         }
       }
+
+      .rac-grid-column {
+
+        .material-icons {
+          vertical-align: bottom;               /* @stable [05.06.2018] */
+        }
+      }
     }
   }
 }

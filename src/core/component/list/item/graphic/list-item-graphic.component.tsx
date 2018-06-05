@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../../util';
-import { BaseComponent } from '../../../../component/base';
+import { BaseComponent } from '../../../base';
 
 export class ListItemGraphic extends BaseComponent<ListItemGraphic> {
 
@@ -9,10 +9,8 @@ export class ListItemGraphic extends BaseComponent<ListItemGraphic> {
     const props = this.props;
 
     return (
-        <span className={toClassName(
-            this.uiFactory.listItemGraphic,
-            props.className
-        )}>
+        <span {...props}
+              className={toClassName(this.uiFactory.listItemGraphic, props.className)}>
           {props.children}
         </span>
     );
