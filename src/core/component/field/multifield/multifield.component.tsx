@@ -6,7 +6,8 @@ import {
   IKeyboardEvent,
   AnyT,
 } from '../../../definitions.interface';
-import { ISelectOptionEntity, BasicSelect } from '../../field/select';
+import { BasicSelect } from '../../field/select';
+import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMultiFieldState, IMultiFieldProps, MultiFieldValueT, IMultiItemEntity } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 

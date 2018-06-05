@@ -11,10 +11,10 @@ import {
   EntityIdT,
   IKeyboardEvent,
 } from '../../../definitions.interface';
+import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import {
   IBasicSelectProps,
   IBasicSelectState,
-  ISelectOptionEntity,
 } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
@@ -29,7 +29,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    this.defaultActions = R.insert<IFieldActionConfiguration>(0,
+    if (!this.isPartiallyDisabled()) {
+      this.defaultActions = R.insert<IFieldActionConfiguration>(0,
         {
           type: 'arrow_drop_down',
           onClick: (event: IBasicEvent) => {
@@ -38,7 +39,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
           },
         },
         this.defaultActions
-    );
+      );
+    }
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TProps>, nextContext: AnyT): void {
@@ -88,7 +90,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
 
   protected onClick(event: IBasicEvent): void {
     super.onClick(event);
-    this.openMenu(event);
+
+    if (!this.isPartiallyDisabled()) {
+      this.openMenu(event);
+    }
   }
 
   /**
