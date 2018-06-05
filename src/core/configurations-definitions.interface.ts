@@ -154,6 +154,7 @@ import {
   IEmptyDataMessageWrapper,
   IDeactivatedWrapper,
   IOnChangeSortDirectionWrapper,
+  IPartiallyDisabledWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
