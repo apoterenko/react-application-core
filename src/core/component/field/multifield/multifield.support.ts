@@ -42,12 +42,12 @@ export function toActualEntities(entity: MultiFieldEntityT): IMultiItemEntity[] 
 }
 
 export const toEntityIds = (multiFieldValue: MultiFieldEntityT): EntityIdT[] =>
-  toEntities<EntityIdT>(multiFieldValue, (entity) => entity.id);
+  toEntities<IEntity, EntityIdT>(multiFieldValue, (entity) => entity.id);
 
-export function toEntities<TItem>(multiFieldValue: MultiFieldEntityT,
-                                  mapper: (entity: IEntity, index: number) => TItem): TItem[] {
+export function toEntities<TItem extends IEntity, TResult>(multiFieldValue: MultiFieldEntityT,
+                                                           mapper: (entity: TItem, index: number) => TResult): TResult[] {
   const result = toActualEntities(multiFieldValue);
-  return orUndef<TItem[]>(result, () => result.map<TItem>(mapper));
+  return orUndef<TResult[]>(result, (): TResult[] => result.map<TResult>(mapper));
 }
 
 export function toActualEntitiesLength(value: MultiFieldValueT): number {

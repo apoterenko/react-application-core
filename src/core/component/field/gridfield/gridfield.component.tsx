@@ -14,7 +14,7 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
    */
   constructor(props: IGridFieldProps) {
     super(props);
-    this.onGridChange = this.onGridChange.bind(this);
+    this.onChangeRowField = this.onChangeRowField.bind(this);
   }
 
   /**
@@ -29,7 +29,7 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
     };
 
     return (
-      <Grid onChange={this.onGridChange}
+      <Grid onChange={this.onChangeRowField}
             deactivated={this.isDeactivated()}
             emptyDataMessage={this.settings.messages.noSelectedItems}
             {...props.gridConfiguration}
@@ -38,10 +38,10 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
   }
 
   /**
-   * @stable [02.06.2018]
+   * @stable [07.06.2018]
    * @param {IFieldChangeEntity} fieldChangeEntity
    */
-  private onGridChange(fieldChangeEntity: IFieldChangeEntity): void {
+  private onChangeRowField(fieldChangeEntity: IFieldChangeEntity): void {
     this.multiFieldPlugin.onEditItem({id: fieldChangeEntity.rawData.id, ...fieldChangeEntity});
   }
 }

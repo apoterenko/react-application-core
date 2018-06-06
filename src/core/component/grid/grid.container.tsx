@@ -17,7 +17,7 @@ export class GridContainer extends UniversalBaseListContainer<IGridContainerProp
    */
   constructor(props: IGridContainerProps) {
     super(props);
-    this.onChangeSortDirection = this.onChangeSortDirection.bind(this);
+    this.onChangeSorting = this.onChangeSorting.bind(this);
   }
 
   /**
@@ -25,7 +25,7 @@ export class GridContainer extends UniversalBaseListContainer<IGridContainerProp
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    return <Grid onChangeSortDirection={this.onChangeSortDirection}
+    return <Grid onChangeSorting={this.onChangeSorting}
                  {...this.getComponentProps()}
                  {...this.props.gridConfiguration}/>;
   }
@@ -34,7 +34,7 @@ export class GridContainer extends UniversalBaseListContainer<IGridContainerProp
    * @stable [06.06.2018]
    * @param {ISortDirectionEntity} sortDirectionEntity
    */
-  private onChangeSortDirection(sortDirectionEntity: ISortDirectionEntity): void {
+  private onChangeSorting(sortDirectionEntity: ISortDirectionEntity): void {
     const payloadWrapper: IPayloadWrapper<ISortDirectionEntity> = {payload: sortDirectionEntity};
     this.dispatch(LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE, payloadWrapper);
   }

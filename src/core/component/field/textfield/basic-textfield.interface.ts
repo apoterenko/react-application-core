@@ -10,7 +10,6 @@ export interface IBasicTextFieldState extends IFieldState,
 
 export interface IBasicTextFieldInternalProps
     extends IFieldInternalProps {
-  clearAction?: boolean;
 }
 
 export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalProps,
