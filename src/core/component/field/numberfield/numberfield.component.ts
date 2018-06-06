@@ -14,6 +14,8 @@ export class NumberField extends BasicTextField<NumberField,
 
   public static defaultProps: INumberFieldInternalProps = {
     clearAction: false,
+    type: 'number',
+    step: .01,
   };
 
   public getRawValueFromEvent(event: ChangeEventT): number | string {
