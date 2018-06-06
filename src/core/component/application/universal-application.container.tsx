@@ -57,6 +57,8 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @param {Readonly<{}>} prevState
    */
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<{}>): void {
+    super.componentDidUpdate(prevProps, prevState);
+
     UniversalApplicationContainer.logger.debug(
       () => (
         `[$UniversalApplicationContainer][componentDidUpdate] The CURRENT props are: ${

@@ -33,6 +33,11 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   extends Component<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 
+  // Because of Flux-architecture.
+  // Needed for updating an array of dependent fields (each field depends on previous field state).
+  // Each next field would be updated in one full cycle.
+  private lifecycleTasks: Array<() => void> = [];
+
   /**
    * @stable - 12.04.2018
    * @param {TProps} props
@@ -51,6 +56,18 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   public shouldComponentUpdate(props: TProps, nextState: Readonly<TState>, nextContext: AnyT) {
     return !R.equals(props, this.props);
+  }
+
+  /**
+   * @stable [07.06.2018]
+   * @param {Readonly<TProps extends IUniversalContainerProps>} prevProps
+   * @param {Readonly<TState>} prevState
+   */
+  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
+    const task = this.lifecycleTasks.pop();
+    if (task) {
+      task();
+    }
   }
 
   /**
@@ -190,5 +207,13 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get uiFactory(): IUIFactory {
     return staticInjector(DI_TYPES.UIFactory);
+  }
+
+  /**
+   * @stable [07.06.2018]
+   * @param {() => void} task
+   */
+  protected registerLifecycleTask(task: () => void): void {
+    this.lifecycleTasks.push(task);
   }
 }
