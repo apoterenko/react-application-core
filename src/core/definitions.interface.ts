@@ -416,17 +416,38 @@ export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean)
 }
 
 /**
- * @stable [06.06.2018]
- */
-export interface IOnChangeSortDirectionWrapper<TPayload, TOnChangeSortDirection = (payload: TPayload) => void> {
-  onChangeSortDirection?: TOnChangeSortDirection;
-}
-
-/**
  * @stable [04.05.2018]
  */
 export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value?: TChangedValue) => void> {
   onChange?: TOnChange;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = (value?: TChangedValue) => void> {
+  onChangeFilter?: TOnChangeFilter;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface IOnChangeHeaderWrapper<TChangedValue = AnyT, TOnChangeHeader = (value?: TChangedValue) => void> {
+  onChangeHeader?: TOnChangeHeader;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface IOnChangeGroupingWrapper<TChangedValue = AnyT, TOnChangeGrouping = (value?: TChangedValue) => void> {
+  onChangeGrouping?: TOnChangeGrouping;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface IOnChangeSortingWrapper<TPayload, TOnChangeSorting = (payload: TPayload) => void> {
+  onChangeSorting?: TOnChangeSorting;
 }
 
 /**
@@ -699,6 +720,13 @@ export interface IPayloadWrapper<TPayload = AnyT> {
  */
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
   changes?: TChanges;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
+  filterChanges?: TChanges;
 }
 
 /**
@@ -1467,6 +1495,13 @@ export interface IUseGroupingWrapper {
  */
 export interface IUseSortingWrapper {
   useSorting?: boolean;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface IUseLocalFilteringWrapper {
+  useLocalFiltering?: boolean;
 }
 
 /**

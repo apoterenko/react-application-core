@@ -154,11 +154,15 @@ import {
   IUseServiceWrapper,
   IEmptyDataMessageWrapper,
   IDeactivatedWrapper,
-  IOnChangeSortDirectionWrapper,
+  IOnChangeSortingWrapper,
   IPartiallyDisabledWrapper,
   IHeaderRendererWrapper,
   IClearActionWrapper,
   IFilterRendererWrapper,
+  IUseLocalFilteringWrapper,
+  IOnChangeFilterWrapper,
+  IOnChangeHeaderWrapper,
+  IOnChangeGroupingWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -360,10 +364,13 @@ export interface IUniversalListConfiguration
     <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
   extends IUniversalComponentConfiguration,
           IFilterAndSorterConfiguration,
+          IUseLocalFilteringWrapper,
           IUseAddActionWrapper,
           IOnCreateWrapper,
           IOnSelectWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
+          IOnChangeHeaderWrapper<IFieldChangeEntity>,
+          IOnChangeFilterWrapper<IFieldChangeEntity>,
           IEmptyDataMessageWrapper,
           IItemConfigurationWrapper<TItemConfiguration>,
           IDeactivatedWrapper {
@@ -424,7 +431,8 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IWebComponentConfiguration,
-                                            IOnChangeSortDirectionWrapper<ISortDirectionEntity>,
+                                            IOnChangeGroupingWrapper<IFieldChangeEntity>,
+                                            IOnChangeSortingWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper<IGridColumnConfiguration[]>,
                                             IUseServiceWrapper {
 }
