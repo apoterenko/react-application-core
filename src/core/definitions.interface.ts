@@ -437,6 +437,13 @@ export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void>
 }
 
 /**
+ * @stable [06.06.2018]
+ */
+export interface IClearValueWrapper<TClearValue = () => void> {
+  clearValue: TClearValue;
+}
+
+/**
  * @stable [18.05.2018]
  */
 export interface IOnOpenWrapper<TOnOpen = () => void> {
@@ -1556,6 +1563,20 @@ export interface INotApplyFrameworkClassNameWrapper {
 /* @stable - 11.04.2018 */
 export interface IAutoFocusWrapper {
   autoFocus?: boolean;
+}
+
+/**
+ * @stable [06.06.2018]
+ */
+export interface IRegisterWrapper<TRegister> {
+  register?: TRegister;
+}
+
+/**
+ * @stable [06.06.2018]
+ */
+export interface IUnregisterWrapper<TUnregister> {
+  unregister?: TUnregister;
 }
 
 /* @stable - 15.04.2018 */

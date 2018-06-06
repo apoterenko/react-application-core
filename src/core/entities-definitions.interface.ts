@@ -9,6 +9,7 @@ import {
   IDataWrapper,
   IAnyDataWrapper,
   IIpWrapper,
+  IClearValueWrapper,
   IMessagesWrapper,
   INameWrapper,
   IChannelWrapper,
@@ -244,12 +245,13 @@ export interface IFieldEntity extends IUniversalFieldEntity,
 }
 
 /**
- * @stable [18.05.2018]
+ * @stable [06.06.2018]
  */
 export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps, TState = {}>
   extends IUniversalComponent<TProps, TState>,
           IKeyboardHandlersConfiguration,
           ISetFocusWrapper,
+          IClearValueWrapper,
           IResetErrorWrapper,
           IOnChangeWrapper,
           IOnChangeManuallyWrapper {
