@@ -111,6 +111,8 @@ export class Grid extends BaseList<Grid, IGridProps> {
                   value={this.toCheckboxFieldValue(name)}
                   onChange={(value) => this.onChangeField({value, name})}/>
       );
+    } else if (column.headerRenderer) {
+      return column.headerRenderer(column);
     }
     return this.t(column.title);
   }

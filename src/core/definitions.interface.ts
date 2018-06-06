@@ -1432,6 +1432,13 @@ export interface IRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => 
   renderer?: TRenderer;
 }
 
+/**
+ * @stable [06.06.2018]
+ */
+export interface IHeaderRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => JSX.Element> {
+  headerRenderer?: TRenderer;
+}
+
 /* @stable - 31.03.2018 */
 export interface IToClassNameWrapper<TItem> {
   toClassName?(entity: TItem): string;

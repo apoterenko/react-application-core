@@ -157,6 +157,7 @@ import {
   IDeactivatedWrapper,
   IOnChangeSortDirectionWrapper,
   IPartiallyDisabledWrapper,
+  IHeaderRendererWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -415,6 +416,7 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
                                                   ITplFnWrapper,
                                                   INameWrapper,
                                                   IRendererWrapper,
+                                                  IHeaderRendererWrapper<IGridColumnConfiguration>,
                                                   IWidthWrapper {
 }
 
