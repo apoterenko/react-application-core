@@ -1533,6 +1533,20 @@ export interface IFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFil
 }
 
 /**
+ * @stable [07.06.2018]
+ */
+export interface ILocalFilterWrapper<TLocalFilter> {
+  localFilter?: TLocalFilter;
+}
+
+/**
+ * @stable [07.06.2018]
+ */
+export interface ILocalFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFilteredItem) => boolean>
+  extends ILocalFilterWrapper<TFilter> {
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface ITitleWrapper<TTitle = string> {

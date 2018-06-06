@@ -163,6 +163,7 @@ import {
   IOnChangeFilterWrapper,
   IOnChangeHeaderWrapper,
   IOnChangeGroupingWrapper,
+  ILocalFilterFnWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -415,6 +416,7 @@ export interface IFormConfiguration extends IUniversalFormConfiguration,
 
 /* @stable - 04.04.2018 */
 export interface IGridColumnConfiguration extends IComponentConfiguration,
+                                                  ILocalFilterFnWrapper<{entity: IEntity, query: string, columnName: string}>,
                                                   IOnClickWrapper<ISortDirectionEntity>,
                                                   ITitleWrapper,
                                                   IUseGroupingWrapper,
