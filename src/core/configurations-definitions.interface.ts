@@ -91,6 +91,8 @@ import {
   IHasContentWrapperWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
   ICssStyleWrapper,
+  IRegisterWrapper,
+  IUnregisterWrapper,
   IPluginsWrapper,
   IOnSelectWrapper,
   IOnCreateWrapper,
@@ -163,6 +165,7 @@ import {
   IMenuItemEntity,
   ISortDirectionEntity,
   IFieldChangeEntity,
+  IUniversalComponent,
 } from './entities-definitions.interface';
 
 /**
@@ -301,7 +304,9 @@ export interface IWebContainerConfiguration extends IWebComponentConfiguration {
 export interface IUniversalComponentConfiguration
   extends React.ClassAttributes<AnyT>,
           ITitleWrapper,
-          IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]> {
+          IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]>,
+          IRegisterWrapper<(component: IUniversalComponent) => void>,
+          IUnregisterWrapper<(component: IUniversalComponent) => void> {
 }
 
 /**
