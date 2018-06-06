@@ -249,6 +249,7 @@ export interface IFieldEntity extends IUniversalFieldEntity,
  */
 export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps, TState = {}>
   extends IUniversalComponent<TProps, TState>,
+          IValueWrapper,
           IKeyboardHandlersConfiguration,
           ISetFocusWrapper,
           IClearValueWrapper,

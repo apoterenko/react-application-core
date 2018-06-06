@@ -192,7 +192,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
 
   protected getInputElementProps(): IFieldInputProps|IFieldTextAreaProps {
     const props = this.props;
-    const isFieldClicked = !(this.isDeactivated() || this.isPartiallyDisabled());
     const autoFocus = props.autoFocus;
     const name = props.name;
     const step = props.step;
@@ -208,9 +207,9 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const cols = props.cols;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
-    const onClick = isFieldClicked ? this.onClick : noop;
-    const onKeyDown = isFieldClicked ? this.onKeyDown : noop;
-    const onKeyUp = isFieldClicked ? this.onKeyUp : noop;
+    const onClick = this.isDeactivated() || this.isPartiallyDisabled() ? noop : this.onClick;
+    const onKeyDown = this.isDeactivated() ? noop : this.onKeyDown;
+    const onKeyUp = this.isDeactivated() ? noop : this.onKeyUp;
     const onChange = this.onChange;
     return {
       ...props.preventValueBinding ? {} : { value: this.displayValue },
