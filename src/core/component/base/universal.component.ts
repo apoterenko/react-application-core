@@ -44,6 +44,11 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   public componentDidMount(): void {
     this.plugins.forEach((plugin) => plugin.componentDidMount && plugin.componentDidMount());
+
+    const props = this.props;
+    if (props.register) {
+      props.register(this);
+    }
   }
 
   /**
@@ -51,6 +56,11 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   public componentWillUnmount(): void {
     this.plugins.forEach((plugin) => plugin.componentWillUnmount && plugin.componentWillUnmount());
+
+    const props = this.props;
+    if (props.unregister) {
+      props.unregister(this);
+    }
   }
 
   /**
