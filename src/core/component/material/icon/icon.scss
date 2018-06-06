@@ -1,4 +1,13 @@
+@import '~sass-mixins/partials/_user-select';
 @import '../../constant';
+
+// Icon [FRAMEWORK+][RAC+]
+.rac {
+
+  .material-icons {
+    @include x-user-select;   /* @stable [06.06.2018] */
+  }
+}
 
 // Access denied component [MDC+]
 .rac-access-denied {
