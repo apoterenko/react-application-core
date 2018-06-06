@@ -51,6 +51,12 @@ html, body {
     text-decoration: none;  /* @stable - 08.04.2018 */
   }
 
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;         /* @stable [06.06.2018] */
+    -moz-appearance: none;            /* @stable [06.06.2018] */
+    margin: 0;                        /* @stable [06.06.2018] */
+  }
+
   .rac-icon-avatar-image {
     width: 100%;                      /* @stable [04.06.2018] */
     height: 100%;                     /* @stable [04.06.2018] */
