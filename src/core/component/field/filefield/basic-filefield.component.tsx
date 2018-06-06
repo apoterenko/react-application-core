@@ -65,6 +65,18 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     this.clearValue();
   }
 
+  public clearValue(): void {
+    const activeValue = this.multiFieldPlugin.activeValue[0];
+    const currentValue = activeValue.id;
+
+    this.destroyBlob(currentValue);
+
+    if (this.isValuePresent()) {
+      this.multiFieldPlugin.onDeleteItem({id: currentValue});
+    }
+    this.setFocus();
+  }
+
   protected onClick(event: BasicEventT): void {
     super.onClick(event);
     this.openFileDialog(event);
@@ -96,18 +108,6 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     this.filesMap.set(fileUrl , selectedFile);
 
     this.multiFieldPlugin.onAddItem({id: fileUrl});
-    this.setFocus();
-  }
-
-  protected clearValue(): void {
-    const activeValue = this.multiFieldPlugin.activeValue[0];
-    const currentValue = activeValue.id;
-
-    this.destroyBlob(currentValue);
-
-    if (this.isValuePresent()) {
-      this.multiFieldPlugin.onDeleteItem({id: currentValue});
-    }
     this.setFocus();
   }
 

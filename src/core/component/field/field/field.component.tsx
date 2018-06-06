@@ -156,6 +156,17 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return this.props.value;
   }
 
+  /**
+   * @stable [06.06.2018]
+   */
+  public clearValue(): void {
+    this.setFocus();
+
+    if (this.isValuePresent()) {
+      this.onChangeManually(this.getEmptyValue());
+    }
+  }
+
   protected get definiteValue(): AnyT {
     return isUndef(this.value) ? this.getEmptyValue() : this.value;
   }
@@ -294,14 +305,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   protected updateNativeInputBeforeHTML5Validation(value: AnyT): void {
     // We must update the field manually before calls HTML5 validation
     this.input.value = value;
-  }
-
-  protected clearValue(): void {
-    this.setFocus();
-
-    if (this.isValuePresent()) {
-      this.onChangeManually(this.getEmptyValue());
-    }
   }
 
   protected getFieldClassName(): string {
