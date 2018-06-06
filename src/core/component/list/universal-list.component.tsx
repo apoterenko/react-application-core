@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, pageFromNumber, pageToNumber, orDefault } from '../../util';
+import { uuid, pageFromNumber, pageToNumber, orDefault, filterAndSortEntities } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalListProps } from '../../props-definitions.interface';
@@ -116,21 +116,13 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [29.05.2018]
+   * @stable [06.06.2018]
    * @returns {IEntity[]}
    */
   protected getDataSource(): IEntity[] {
-    const props = this.props;
-    const originalDataSource = this.getOriginalDataSource();
-    const sortedData = orDefault<IEntity[], IEntity[]>(
-      R.isNil(props.sorter),
-      originalDataSource,
-      () => R.sort<IEntity>(props.sorter, originalDataSource),
-    );
-    const filteredData = orDefault<IEntity[], IEntity[]>(
-      R.isNil(props.filter),
-      sortedData,
-      () => R.filter<IEntity>(props.filter, sortedData),
+    const filteredAndSortedEntities = filterAndSortEntities(
+      this.filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(),
+      this.props
     );
     const toNumber = this.toNumber;
     let pagedData;
@@ -138,8 +130,8 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
       R.isNil(toNumber)
         // Remote and local pagination is supported simultaneously.
         // Length result is zero in the case of remote pagination
-        || (pagedData = filteredData.slice(this.fromNumber, toNumber)).length === 0,
-      filteredData,
+        || (pagedData = filteredAndSortedEntities.slice(this.fromNumber, toNumber)).length === 0,
+      filteredAndSortedEntities,
       () => pagedData
     );
   }
@@ -150,6 +142,14 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    */
   protected getOriginalDataSource(): IEntity[] {
     return this.props.data;
+  }
+
+  /**
+   * @stable [06.06.2018]
+   * @returns {IEntity[]}
+   */
+  protected filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(): IEntity[] {
+    return this.getOriginalDataSource();
   }
 
   /**
