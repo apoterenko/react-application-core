@@ -28,7 +28,6 @@ import {
   IUseGroupingWrapper,
   IUseSortingWrapper,
   IAlignWrapper,
-  IUseLocalFilteringWrapper,
   INameWrapper,
   INumberValueWrapper,
   IItemsWrapper,
@@ -158,6 +157,8 @@ import {
   IOnChangeSortDirectionWrapper,
   IPartiallyDisabledWrapper,
   IHeaderRendererWrapper,
+  IClearActionWrapper,
+  IFilterRendererWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -410,13 +411,13 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
                                                   IOnClickWrapper<ISortDirectionEntity>,
                                                   ITitleWrapper,
                                                   IUseGroupingWrapper,
-                                                  IUseLocalFilteringWrapper,
                                                   IUseSortingWrapper,
                                                   IAlignWrapper,
                                                   ITplFnWrapper,
                                                   INameWrapper,
                                                   IRendererWrapper,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
+                                                  IFilterRendererWrapper<IGridColumnConfiguration>,
                                                   IWidthWrapper {
 }
 
@@ -540,6 +541,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration,
                                              IStringPatternWrapper,
                                              IDisabledWrapper,
                                              IPartiallyDisabledWrapper,
+                                             IClearActionWrapper,
                                              IUseKeyboardWrapper {
 }
 

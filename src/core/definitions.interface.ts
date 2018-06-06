@@ -1435,8 +1435,15 @@ export interface IRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => 
 /**
  * @stable [06.06.2018]
  */
-export interface IHeaderRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => JSX.Element> {
+export interface IHeaderRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.Element> {
   headerRenderer?: TRenderer;
+}
+
+/**
+ * @stable [06.06.2018]
+ */
+export interface IFilterRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.Element> {
+  filterRenderer?: TRenderer;
 }
 
 /* @stable - 31.03.2018 */
@@ -1453,13 +1460,6 @@ export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> 
  */
 export interface IUseGroupingWrapper {
   useGrouping?: boolean;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IUseLocalFilteringWrapper {
-  useLocalFiltering?: boolean;
 }
 
 /**
@@ -1502,6 +1502,13 @@ export interface IFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFil
  */
 export interface ITitleWrapper<TTitle = string> {
   title?: TTitle;
+}
+
+/**
+ * @stable [06.06.2018]
+ */
+export interface IClearActionWrapper<TClearAction = boolean> {
+  clearAction?: TClearAction;
 }
 
 /**
