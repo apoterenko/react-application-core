@@ -1,16 +1,31 @@
+@import '~sass-flex-mixin/_flex';
+
 // Menu [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-menu {
+
+    .rac-menu-close-action {
+      padding-right: 8px;                   /* @stable [07.06.2018] */
+      cursor: pointer;                      /* @stable [07.06.2018] */
+    }
+
+    .rac-menu-item {
+      width: 100%;                          /* @stable [07.06.2018] */
+      height: 100%;                         /* @stable [07.06.2018] */
+      padding: 0 16px;                      /* @stable [07.06.2018] */
+      @include align-items(center);         /* @stable [07.06.2018] */
+    }
+
     .rac-simple-list {
-      max-height: 200px;        // [RAC+]
+      max-height: 200px;                    /* @stable [07.06.2018] */
     }
 
     .rac-form-field {
-      width: 100%;              // [RAC+]
+      width: 100%;                          /* @stable [07.06.2018] */
 
       .rac-text-field {
-        margin: 0 16px 16px;    // [RAC+]
+        margin: 0 16px 16px;                /* @stable [07.06.2018] */
       }
     }
   }

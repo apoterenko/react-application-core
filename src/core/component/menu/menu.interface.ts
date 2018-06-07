@@ -3,12 +3,15 @@ import {
   IOpenWrapper,
   IShowWrapper,
   IHideFnWrapper,
+  IFilterWrapper,
 } from '../../definitions.interface';
 import { IComponent, IMenuItemEntity } from '../../entities-definitions.interface';
 import { IMenuConfiguration } from '../../configurations-definitions.interface';
 
-export interface IMenuInternalState {
-  filter?: string;
+/**
+ * @stable [07.06.2018]
+ */
+export interface IMenuState extends IFilterWrapper {
 }
 
 export interface IMenuProps extends IMenuConfiguration {
@@ -25,7 +28,7 @@ export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
                                                       IShowWrapper {
 }
 
-export interface IMenu extends IComponent<IMenuProps, IMenuInternalState>,
+export interface IMenu extends IComponent<IMenuProps, IMenuState>,
                                IShowWrapper,
                                IHideFnWrapper {
   isOpen(): boolean;

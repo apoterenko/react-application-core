@@ -2,8 +2,13 @@
 .rac {
 
   .rac-menu {
+
     .rac-simple-list {
       padding: 0;                       // [MDC OVERRIDE+]
+
+      .rac-simple-list-item {
+        padding: 0;                     /* @stable [07.06.2018] */
+      }
     }
 
     .rac-form-field {
