@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BasicEventT, KeyboardEventT, UNDEF } from '../../definitions.interface';
+import { BasicEventT, KeyboardEventT, UNDEF, IBasicEvent } from '../../definitions.interface';
+import { IMenuItemEntity } from '../../entities-definitions.interface';
 import {
   orNull,
   toClassName,
-  uuid,
+  isDef,
   setAbsoluteOffset,
   orDefault,
   addClassNameToBody,
@@ -16,13 +17,13 @@ import {
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
 import {
-  IMenuInternalState,
+  IMenuState,
   IMenuProps,
   IMenu,
 } from './menu.interface';
 import { BaseComponent } from '../base';
 
-export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
+export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     implements IMenu {
 
   public static defaultProps: IMenuProps = {
@@ -75,63 +76,41 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
     super.componentWillUnmount();
   }
 
+  /**
+   * @stable [07.06.2018]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
     const state = this.state;
-    const valueToFilter = state.filter && state.filter.toUpperCase();
-    const optionValueFn = (option) => (option.label ? this.t(option.label) : option.value);
-
-    const menuItemsTpl = props.options
-      .filter((option) => !valueToFilter || props.filter(valueToFilter, option))
-      .map((option): JSX.Element => {
-        const props0 = {
-          role: 'option',
-          key: uuid(),
-          value: option.value,
-          className: toClassName(this.uiFactory.listItem, 'rac-simple-list-item'),
-          ['aria-disabled']: option.disabled === true,
-          onClick: this.onSelect,
-        };
-        return (
-          orDefault(
-            !!props.renderer,
-            () => React.cloneElement(props.renderer(option), props0),
-            () => (
-              <li {...props0}>
-                {
-                  orDefault(
-                    !!props.tpl,
-                    () => props.tpl(option),
-                    () => (
-                      orDefault(
-                        !!option.icon,
-                        () => (
-                          <div>
-                            {this.uiFactory.makeIcon({ type: option.icon, className: 'rac-menu-item-icon' })}
-                            {optionValueFn(option)}
-                          </div>
-                        ),
-                        () => optionValueFn(option)
-                      )
-                    )
-                  )
-                }
-              </li>
-            ),
-          )
-        );
-      });
+    const optionValueFn = (option: IMenuItemEntity): string | number => (option.label ? this.t(option.label) : option.value);
 
     return (
       <div className={this.uiFactory.menuAnchor}>
         <div ref='self'
              className={toClassName('rac-menu', props.className, this.uiFactory.menu)}>
-          {orNull(
+          {
+            orNull<JSX.Element>(
+              props.renderToCenterOfBody,
+              () => (
+                <div className='rac-menu-close-action rac-flex rac-flex-end'>
+                  {
+                    this.uiFactory.makeIcon({
+                      type: 'close',
+                      simple: true,
+                      onClick: () => this.hide(),
+                    })
+                  }
+                </div>
+              )
+            )
+          }
+          {orNull<JSX.Element>(
             props.useFilter,
             () => (
               <TextField ref='field'
                          value={state.filter}
-                         placeholder={props.filterPlaceholder || 'Filter'}
+                         placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
                          onChange={this.onInputChange}
                          onFocus={this.onInputFocus}
                          onBlur={this.onInputBlur}
@@ -141,7 +120,43 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
           <SimpleList useTwoLine={false}
                       nonInteractive={false}
                       className={this.uiFactory.menuItems}>
-            {menuItemsTpl}
+            {
+              this.getMenuItems()
+                .map((option): JSX.Element => (
+                  <li role='option'
+                      key={`menu-item-${option.value}`}
+                      className={toClassName(this.uiFactory.listItem, 'rac-simple-list-item')}
+                      aria-disabled={option.disabled === true}>
+                    <div className='rac-menu-item rac-flex'
+                         onClick={(event) => this.onSelect(event, option)}>
+                      {
+                        orDefault<React.ReactNode, React.ReactNode>(
+                          isDef(props.renderer),
+                          (): React.ReactNode => props.renderer(option),
+                          (): React.ReactNode => (
+                            orDefault<React.ReactNode, React.ReactNode>(
+                              R.isNil(option.icon),
+                              (): React.ReactNode => (
+                                orDefault<React.ReactNode, React.ReactNode>(
+                                  isDef(props.tpl),
+                                  () => props.tpl(option),
+                                  () => optionValueFn(option)
+                                )
+                              ),
+                              (): React.ReactNode => (
+                                <div>
+                                  {this.uiFactory.makeIcon({type: option.icon, className: 'rac-menu-item-icon'})}
+                                  {optionValueFn(option)}
+                                </div>
+                              )
+                            )
+                          )
+                        )
+                      }
+                    </div>
+                  </li>
+                ))
+            }
           </SimpleList>
         </div>
       </div>
@@ -200,6 +215,15 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
     return false;
   }
 
+  private getMenuItems(): any {
+    const props = this.props;
+    const state = this.state;
+    const valueToFilter = state.filter && state.filter.toUpperCase();
+
+    return props.options
+      .filter((option) => !valueToFilter || props.filter(valueToFilter, option));
+  }
+
   private onInputChange(filter: string): void {
     this.setState({ filter });
   }
@@ -213,6 +237,10 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
     this.stopEvent(event);
   }
 
+  /**
+   * @stable [07.06.2018]
+   * @returns {IField}
+   */
   private get field(): IField {
     return this.refs.field as IField;
   }
@@ -222,15 +250,21 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuInternalState>
     return props.renderToBody || props.renderToCenterOfBody;
   }
 
-  private onSelect(event: React.SyntheticEvent<HTMLElement>): void {
+  /**
+   * @stable [07.06.2018]
+   * @param {IBasicEvent<HTMLElement>} event
+   * @param {IMenuItemEntity} option
+   */
+  private onSelect(event: IBasicEvent<HTMLElement>, option: IMenuItemEntity): void {
     this.stopEvent(event);
 
     const props = this.props;
     if (props.onSelect) {
-      const optionAsText = event.currentTarget.getAttribute('value');
-      props.onSelect(R.find((option) => String(option.value) === optionAsText, props.options));
+      props.onSelect(option);
     }
 
-    this.hide();
+    if (!props.multi) {
+      this.hide();
+    }
   }
 }
