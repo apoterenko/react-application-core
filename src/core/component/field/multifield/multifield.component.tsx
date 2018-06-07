@@ -54,11 +54,11 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [07.06.2018]
    * @param {ISelectOptionEntity} option
    */
   protected onSelect(option: ISelectOptionEntity): void {
-    this.multiFieldPlugin.onAddItem({id: option.value, name: option.label});
+    this.multiFieldPlugin.onAddItem({...option.rawData, id: option.value, name: option.label});
     this.setFocus();
   }
 
