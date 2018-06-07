@@ -52,6 +52,7 @@ export interface IApplicationMessagesSettings {
   appNotReadyMessage?: string;
   followingErrorHasOccurredMessage?: string;
   noSelectedItems?: string;
+  filterPlaceholderMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -111,6 +112,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     appNotReadyMessage: 'The application is not ready.',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     noSelectedItems: 'No selected items',
+    filterPlaceholderMessage: 'Filter',
   },
   dateTime: {
     currentDate: new Date(),

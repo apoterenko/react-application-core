@@ -164,6 +164,7 @@ import {
   IOnChangeHeaderWrapper,
   IOnChangeGroupingWrapper,
   ILocalFilterFnWrapper,
+  IMultiWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -762,10 +763,11 @@ export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
 }
 
 /**
- * @stable [14.05.2018]
+ * @stable [07.06.2018]
  */
 export interface IMenuConfiguration extends IComponentConfiguration,
                                             IFilterPlaceholderWrapper,
+                                            IMultiWrapper,
                                             IUseFilterWrapper,
                                             IRenderToBodyWrapper,
                                             IRenderToCenterOfBodyWrapper,

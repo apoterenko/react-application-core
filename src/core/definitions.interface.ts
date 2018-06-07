@@ -672,6 +672,13 @@ export interface IUseFilterWrapper {
   useFilter?: boolean;
 }
 
+/**
+ * @stable [07.06.2018]
+ */
+export interface IMultiWrapper {
+  multi?: boolean;
+}
+
 /* @stable - 15.04.2018 */
 export interface ISectionWrapper<TSection> {
   section?: TSection;
@@ -1005,7 +1012,7 @@ export interface IBlobEntity extends IStringIdWrapper,
 /**
  * @stable [23.04.2018]
  */
-export interface IBasicEvent extends React.SyntheticEvent<{}> {
+export interface IBasicEvent<TElement = {}> extends React.SyntheticEvent<TElement> {
 }
 
 /**
@@ -1448,9 +1455,9 @@ export interface ITplWrapper<TTpl> {
 }
 
 /**
- * @stable [14.05.2018]
+ * @stable [07.06.2018]
  */
-export interface ITplFnWrapper<TItem = IEntity, TResult = React.ReactNode> extends ITplWrapper<(item: TItem) => TResult> {
+export interface ITplFnWrapper<TItem = IEntity, TResult = string | number> extends ITplWrapper<(item: TItem) => TResult> {
 }
 
 /**
@@ -1521,7 +1528,7 @@ export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSort
 /**
  * @stable [14.05.2018]
  */
-export interface IFilterWrapper<TFilter> {
+export interface IFilterWrapper<TFilter = string> {
   filter?: TFilter;
 }
 
