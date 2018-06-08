@@ -11,8 +11,9 @@ import {
   TIME_FIELD_NAME,
   EFFECTOR_FIELD_NAME,
   IEntity,
+  EntityIdT,
 } from '../definitions.interface';
-import { isDef, isObject, isFn } from './type';
+import { isDef, isObject, isFn, isString } from './type';
 import { INamedEntity } from '../entities-definitions.interface';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 
@@ -114,4 +115,20 @@ export const filterAndSortEntities = (data: IEntity[] | IEntity,
     }
   }
   return entities;
+};
+
+/**
+ * @stable [08.06.2018]
+ * @param {string} query
+ * @param {EntityIdT} items
+ * @returns {boolean}
+ */
+export const containsQuery = (query: string, ...items: EntityIdT[]): boolean => {
+  if (R.isNil(query)) {
+    return false;
+  }
+  let result = false;
+  items.map((v) => (isString(v) ? v as string : String(R.isNil(v) ? '' : v)).toUpperCase())
+    .forEach((v) => result = result || v.includes(query.toUpperCase()));
+  return result;
 };
