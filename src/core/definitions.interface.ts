@@ -2136,6 +2136,20 @@ export interface ITypeWrapper<TType = string> {
   type?: TType;
 }
 
+/**
+ * @stable [08.06.2018]
+ */
+export interface ITypeIdWrapper<TTypeId = EntityIdT> {
+  typeId?: TTypeId;
+}
+
+/**
+ * @stable [08.06.2018]
+ */
+export interface ITypeNameWrapper {
+  typeName?: string;
+}
+
 /* @stable - 14.04.2018 */
 export interface IExactWrapper {
   exact?: boolean;
