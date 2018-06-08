@@ -33,6 +33,11 @@
             background-color: $color-10;      /* @stable - 05.04.2018 */
           }
         }
+
+        .rac-icon-avatar-image {
+          width: 40px;                        /* @stable [08.06.2018] */
+          height: 40px;                       /* @stable [08.06.2018] */
+        }
       }
     }
   }

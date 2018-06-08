@@ -10,6 +10,7 @@
 
         .rac-grid-column-content {
           vertical-align: middle;           /* @stable [05.06.2018] */
+          width: 100%;                      /* @stable [08.06.2018] */
         }
 
         &.rac-grid-column-align-right {
