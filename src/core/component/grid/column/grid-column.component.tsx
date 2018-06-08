@@ -1,7 +1,8 @@
 import * as React from 'react';
 
+import { AnyT } from '../../../definitions.interface';
 import { BaseComponent } from '../../base';
-import { toClassName, isNumber, defValuesFilter, orUndef } from '../../../util';
+import { toClassName, isNumber, defValuesFilter, orUndef, isPrimitive } from '../../../util';
 import { IGridColumnProps } from './grid-column.interface';
 
 export class GridColumn extends BaseComponent<GridColumn, IGridColumnProps> {
@@ -16,14 +17,15 @@ export class GridColumn extends BaseComponent<GridColumn, IGridColumnProps> {
     return (
       <td style={defValuesFilter({
                   textAlign: props.align,
-                  width: orUndef(isNumber(props.width), () => `${props.width}px`),
+                  width: orUndef<string>(isNumber(props.width), () => `${props.width}px`),
                 })}
           className={toClassName(
                         'rac-grid-column',
                         props.align && `rac-grid-column-align-${props.align}`,
                         props.className
                       )}>
-        <div className='rac-grid-column-content rac-overflow-ellipsis'>
+        <div className='rac-grid-column-content rac-overflow-ellipsis'
+             title={orUndef<AnyT>(isPrimitive(props.children), props.children)}>
           {props.children}
         </div>
       </td>
