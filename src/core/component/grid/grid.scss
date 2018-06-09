@@ -25,6 +25,10 @@
 
         &.grid-data-row {
 
+          &:hover {
+            background-color: $color-14;      /* @stable [09.06.2018] */
+          }
+
           &:last-child {
             border-bottom: none;              /* @stable - 05.04.2018 */
           }

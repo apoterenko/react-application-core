@@ -32,10 +32,11 @@ export const TIME_FIELD_NAME = 'time';
 export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
 export const URL_FIELD_NAME = 'url';
-export const EFFECTOR_FIELD_NAME = 'effector';    /* @stable - 28.03.2018 */
+export const EFFECTOR_FIELD_NAME = 'effector';                                            /* @stable [28.03.2018] */
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
+export const QUERY_FIELD_NAME = 'query';                                                  /* @stable [09.06.2018] */
 export const VALUE_FIELD_NAME = 'value';
 export const TITLE_FIELD_NAME = 'title';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
@@ -769,6 +770,13 @@ export interface IQueryWrapper<TQuery = string> {
  */
 export interface IListRoutePathWrapper {
   listRoutePath?: string;
+}
+
+/**
+ * @stable [09.06.2018]
+ */
+export interface IFilterRoutePathWrapper {
+  filterRoutePath?: string;
 }
 
 /**
@@ -1986,6 +1994,13 @@ export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: T
 }
 
 /**
+ * @stable [09.06.2018]
+ */
+export interface IOnEmptyMessageClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
+  onEmptyMessageClick?: TOnClick;
+}
+
+/**
  * @stable [15.05.2018]
  */
 export interface IEventOnClickWrapper extends IOnClickWrapper<IBasicEvent> {
@@ -2070,6 +2085,20 @@ export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppl
  */
 export interface IActivateWrapper<TActivate = () => void> {
   activate?: TActivate;
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IEmptyMessageActionWrapper {
+  emptyMessageAction?: boolean;
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IEmptyMessageActionConfigurationWrapper<TEmptyMessageActionConfigurationWrapper> {
+  emptyMessageActionConfiguration?: TEmptyMessageActionConfigurationWrapper;
 }
 
 /**

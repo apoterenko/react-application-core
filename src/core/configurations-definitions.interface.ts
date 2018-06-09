@@ -165,6 +165,9 @@ import {
   IOnChangeGroupingWrapper,
   ILocalFilterFnWrapper,
   IMultiWrapper,
+  IOnEmptyMessageClickWrapper,
+  IEmptyMessageActionWrapper,
+  IEmptyMessageActionConfigurationWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -366,14 +369,18 @@ export interface IUniversalListConfiguration
     <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
   extends IUniversalComponentConfiguration,
           IFilterAndSorterConfiguration,
+          IEmptyMessageWrapper,
+          IEmptyDataMessageWrapper,
           IUseLocalFilteringWrapper,
           IUseAddActionWrapper,
+          IEmptyMessageActionWrapper,
+          IEmptyMessageActionConfigurationWrapper<IButtonConfiguration>,
           IOnCreateWrapper,
           IOnSelectWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
           IOnChangeHeaderWrapper<IFieldChangeEntity>,
           IOnChangeFilterWrapper<IFieldChangeEntity>,
-          IEmptyDataMessageWrapper,
+          IOnEmptyMessageClickWrapper,
           IItemConfigurationWrapper<TItemConfiguration>,
           IDeactivatedWrapper {
 }
@@ -676,7 +683,7 @@ export interface IComponentConfiguration extends IUniversalComponentConfiguratio
 export interface IUniversalMessageConfiguration extends IUniversalComponentConfiguration,
                                                         IEmptyDataMessageWrapper,
                                                         IStringErrorMessageWrapper,
-                                                        IEmptyMessageWrapper,
+                                                        IEmptyMessageWrapper<React.ReactNode>,
                                                         IBooleanEmptyDataWrapper {
 }
 
