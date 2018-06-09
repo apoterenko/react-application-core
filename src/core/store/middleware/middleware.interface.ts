@@ -7,6 +7,7 @@ import {
   IFormSectionWrapper,
   IEffectsActionWrapper,
   IPathWrapper,
+  IFilterRoutePathWrapper,
 } from '../../definitions.interface';
 import { IListWrapperEntity } from '../../entities-definitions.interface';
 
@@ -17,11 +18,25 @@ export interface IUntouchedListMiddlewareConfig<TApplicationState>
 }
 
 /**
- * @stable [14.05.2018]
+ * @stable [09.06.2018]
  */
-export interface IFormFilterMiddlewareConfig extends IListRoutePathWrapper,
-                                                     IListSectionWrapper,
-                                                     IFilterSectionWrapper {
+export interface IFormFilterResetMiddlewareConfig extends IListRoutePathWrapper,
+                                                          IListSectionWrapper {
+}
+
+/**
+ * @stable [09.06.2018]
+ */
+export interface IFormFilterSubmitMiddlewareConfig extends IListRoutePathWrapper,
+                                                           IListSectionWrapper,
+                                                           IFilterSectionWrapper {
+}
+
+/**
+ * @stable [09.06.2018]
+ */
+export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilterRoutePathWrapper,
+                                                                           IListSectionWrapper {
 }
 
 /**

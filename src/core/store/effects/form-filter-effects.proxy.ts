@@ -4,14 +4,14 @@ import { provideInSingleton } from '../../di';
 import {
   makeFormFilterSubmitMiddleware,
   makeFormFilterResetMiddleware,
-  IFormFilterMiddlewareConfig,
+  IFormFilterSubmitMiddlewareConfig,
 } from '../middleware';
 import { FormActionBuilder } from '../../component/form';
 
 /**
  * @stable [02.06.2018]
  */
-export function makeFormFilterEffectsProxy(config: IFormFilterMiddlewareConfig): () => void {
+export function makeFormFilterEffectsProxy(config: IFormFilterSubmitMiddlewareConfig): () => void {
   const formFilterSubmitMiddleware = makeFormFilterSubmitMiddleware(config);
   const formFilterResetMiddleware = makeFormFilterResetMiddleware(config);
 

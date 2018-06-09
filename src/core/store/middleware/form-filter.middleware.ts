@@ -1,7 +1,10 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { ListActionBuilder } from '../../component/list';
-import { IFormFilterMiddlewareConfig } from './middleware.interface';
+import {
+  IFormFilterSubmitMiddlewareConfig,
+  IFormFilterResetMiddlewareConfig,
+} from './middleware.interface';
 import { StackActionBuilder } from '../stack';
 import { FormActionBuilder } from '../../component/form';
 import { RouterActionBuilder } from '../../router';
@@ -9,7 +12,7 @@ import { RouterActionBuilder } from '../../router';
 /**
  * @stable [02.06.2018]
  */
-export const makeFormFilterSubmitMiddleware = (config: IFormFilterMiddlewareConfig): IEffectsAction[] =>
+export const makeFormFilterSubmitMiddleware = (config: IFormFilterSubmitMiddlewareConfig): IEffectsAction[] =>
   [
     StackActionBuilder.buildLockAction(config.listSection),
     FormActionBuilder.buildSubmitFinishedAction(config.filterSection),
@@ -20,7 +23,7 @@ export const makeFormFilterSubmitMiddleware = (config: IFormFilterMiddlewareConf
 /**
  * @stable [02.06.2018]
  */
-export const makeFormFilterResetMiddleware = (config: IFormFilterMiddlewareConfig): IEffectsAction[] =>
+export const makeFormFilterResetMiddleware = (config: IFormFilterResetMiddlewareConfig): IEffectsAction[] =>
   [
     RouterActionBuilder.buildNavigateAction(config.listRoutePath),
     ListActionBuilder.buildLoadAction(config.listSection)
