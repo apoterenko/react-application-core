@@ -53,6 +53,7 @@ export const LIST_UN_TOUCH_ACTION_TYPE = 'list.untouch';
 export const LIST_DESTROY_ACTION_TYPE = 'list.destroy';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
 export const LIST_CREATE_ACTION_TYPE = 'list.create';
+export const LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE = 'list.empty.message.click';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';

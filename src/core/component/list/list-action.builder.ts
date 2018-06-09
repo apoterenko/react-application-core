@@ -24,6 +24,7 @@ import {
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
   LIST_LAZY_LOAD_DONE_ACTION_TYPE,
   LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
+  LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
@@ -93,6 +94,15 @@ export class ListActionBuilder {
    */
   public static buildLazyLoadErrorActionType(section: string): string {
     return `${section}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [09.06.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildEmptyMessageClickActionType(section: string): string {
+    return `${section}.${LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE}`;
   }
 
   public static buildSelectActionType(section: string): string {
