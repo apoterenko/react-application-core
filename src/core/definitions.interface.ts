@@ -1748,13 +1748,11 @@ export interface IRippableWrapper<TRippable = boolean> {
   rippable?: TRippable;
 }
 
-/* @stable - 19.04.2018 */
-export interface ITextWrapper<TText> {
+/**
+ * @stable [09.06.2018]
+ */
+export interface ITextWrapper<TText = string> {
   text?: TText;
-}
-
-/* @stable - 19.04.2018 */
-export interface IStringTextWrapper extends ITextWrapper<string> {
 }
 
 /* @stable - 19.04.2018 */
@@ -1998,12 +1996,6 @@ export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: T
  */
 export interface IOnEmptyMessageClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
   onEmptyMessageClick?: TOnClick;
-}
-
-/**
- * @stable [15.05.2018]
- */
-export interface IEventOnClickWrapper extends IOnClickWrapper<IBasicEvent> {
 }
 
 /**

@@ -76,10 +76,9 @@ import {
   IBorderedWrapper,
   IIconStyleWrapper,
   IRoundedWrapper,
-  IStringTextWrapper,
+  ITextWrapper,
   ITextStyleWrapper,
   IAccentWrapper,
-  IEventOnClickWrapper,
   IRaisedWrapper,
   IStringToWrapper,
   IOnEnterWrapper,
@@ -473,9 +472,12 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 
-/* @stable - 19.04.2018 */
+/**
+ * @stable [09.06.2018]
+ */
 export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
-                                                       IStringTextWrapper,
+                                                       IOnClickWrapper,
+                                                       ITextWrapper,
                                                        IIconWrapper {
 }
 
@@ -485,7 +487,6 @@ export interface IButtonConfiguration extends IUniversalButtonConfiguration,
                                               IAccentWrapper,
                                               IStringToWrapper,
                                               IRaisedWrapper,
-                                              IEventOnClickWrapper,
                                               INotApplyFrameworkClassNameWrapper,
                                               ISimpleWrapper,
                                               ITypeWrapper {
@@ -790,7 +791,7 @@ export interface IFieldActionConfiguration extends IClassNameWrapper,
                                                    ITitleWrapper,
                                                    IDisabledWrapper,
                                                    ITypeWrapper,
-                                                   IEventOnClickWrapper {
+                                                   IOnClickWrapper {
 }
 
 /**

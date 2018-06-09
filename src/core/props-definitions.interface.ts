@@ -9,6 +9,7 @@ import {
   IUniversalListEntity,
   IUniversalComponentEntity,
   IComponentEntity,
+  IUniversalButtonEntity,
 } from './entities-definitions.interface';
 import {
   IContainerConfiguration,
@@ -21,6 +22,7 @@ import {
   IUniversalComponentConfiguration,
   IComponentConfiguration,
   IUniversalFieldConfiguration,
+  IUniversalButtonConfiguration,
 } from './configurations-definitions.interface';
 
 /**
@@ -91,4 +93,11 @@ export interface IRnListProps extends IRnListEntity,
  */
 export interface IGridProps extends IGridEntity,
                                     IGridConfiguration {
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IUniversalButtonProps extends IUniversalButtonConfiguration,
+                                               IUniversalButtonEntity {
 }
