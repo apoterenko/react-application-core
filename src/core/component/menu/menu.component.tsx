@@ -132,14 +132,14 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
                       {
                         orDefault<React.ReactNode, React.ReactNode>(
                           isDef(props.renderer),
-                          (): React.ReactNode => props.renderer(option),
+                          (): React.ReactNode => props.renderer.call(this, option),
                           (): React.ReactNode => (
                             orDefault<React.ReactNode, React.ReactNode>(
                               R.isNil(option.icon),
                               (): React.ReactNode => (
                                 orDefault<React.ReactNode, React.ReactNode>(
                                   isDef(props.tpl),
-                                  () => props.tpl(option),
+                                  () => props.tpl.call(this, option),
                                   () => optionValueFn(option)
                                 )
                               ),
