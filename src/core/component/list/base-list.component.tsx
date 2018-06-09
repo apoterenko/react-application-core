@@ -2,9 +2,10 @@ import * as React from 'react';
 
 import { toClassName, orNull, scrollIntoView } from '../../util';
 import { IUIIconConfiguration } from '../../configurations-definitions.interface';
-import { Message } from '../message';
-import { UniversalList } from './universal-list.component';
 import { IUniversalListProps } from '../../props-definitions.interface';
+import { Message } from '../message';
+import { Button } from '../button';
+import { UniversalList } from './universal-list.component';
 
 export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, TState>,
                                TProps extends IUniversalListProps,
@@ -21,18 +22,26 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [09.06.2018]
    * @returns {JSX.Element}
    */
   protected getMessage(): JSX.Element {
-    const props = this.props;
     return (
-      <Message emptyData={this.isOriginalDataSourceEmpty()}
-               error={props.error}
-               progress={props.progress}
-               emptyDataMessage={props.emptyDataMessage}>
+      <Message {...this.getMessageComponentProps()}>
         {this.getAddAction()}
       </Message>
+    );
+  }
+
+  /**
+   * @stable [09.06.2018]
+   * @returns {JSX.Element}
+   */
+  protected getEmptyMessageAction(): JSX.Element {
+    return (
+      <Button {...this.getEmptyMessageActionComponentProps()}
+              raised={true}
+              accent={true}/>
     );
   }
 

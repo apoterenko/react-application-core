@@ -1,10 +1,18 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { uuid, pageFromNumber, pageToNumber, orDefault, filterAndSortEntities } from '../../util';
+import {
+  uuid,
+  pageFromNumber,
+  pageToNumber,
+  orDefault,
+  filterAndSortEntities,
+  isDef,
+} from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
-import { IUniversalListProps } from '../../props-definitions.interface';
+import { IUniversalListProps, IUniversalButtonProps } from '../../props-definitions.interface';
+import { IUniversalMessageProps } from '../message/universal-message.interface';
 
 export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
                                     TProps extends IUniversalListProps,
@@ -22,16 +30,16 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [09.06.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
 
-    if (!this.getOriginalDataSource()
+    if (R.isNil(this.getOriginalDataSource())
+          || this.isOriginalDataSourceEmpty()
           || props.progress
-          || props.error
-          || this.isOriginalDataSourceEmpty()) {
+          || props.error) {
       return this.getMessage();
     }
     return this.getView();
@@ -76,6 +84,12 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    * @returns {JSX.Element}
    */
   protected abstract getView(): JSX.Element;
+
+  /**
+   * @stable [09.06.2018]
+   * @returns {JSX.Element}
+   */
+  protected abstract getEmptyMessageAction(): JSX.Element;
 
   /**
    * @stable [23.04.2018]
@@ -137,6 +151,34 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
+   * @stable [09.06.2018]
+   * @returns {TMessageComponentProps}
+   */
+  protected getMessageComponentProps<TMessageComponentProps extends IUniversalMessageProps>(): TMessageComponentProps {
+    const props = this.props;
+    return {
+      error: props.error,
+      progress: props.progress,
+      emptyData: this.isOriginalDataSourceEmpty(),
+      emptyMessage: this.getEmptyMessage(),
+      emptyDataMessage: props.emptyDataMessage,
+    } as TMessageComponentProps;
+  }
+
+  /**
+   * @stable [09.06.2018]
+   * @returns {TActionComponentProps}
+   */
+  protected getEmptyMessageActionComponentProps<TActionComponentProps extends IUniversalButtonProps>(): TActionComponentProps {
+    const props = this.props;
+    return {
+      ...props.emptyMessageActionConfiguration as {},
+      text: props.emptyMessage,
+      onClick: props.onEmptyMessageClick,
+    } as TActionComponentProps;
+  }
+
+  /**
    * @stable [23.04.2018]
    * @returns {IEntity[]}
    */
@@ -153,10 +195,25 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [09.06.2018]
+   * @returns {React.ReactNode}
+   */
+  private getEmptyMessage(): React.ReactNode {
+    const props = this.props;
+    return (
+      orDefault<JSX.Element, string>(
+        props.emptyMessageAction && isDef(props.onEmptyMessageClick),
+        () => this.getEmptyMessageAction(),
+        () => props.emptyMessage
+      )
+    );
+  }
+
+  /**
+   * @stable [09.06.2018]
    * @returns {boolean}
    */
-  protected isOriginalDataSourceEmpty(): boolean {
+  private isOriginalDataSourceEmpty(): boolean {
     const originalDataSource = this.getOriginalDataSource();
     return Array.isArray(originalDataSource) && !originalDataSource.length;
   }

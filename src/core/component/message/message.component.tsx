@@ -15,12 +15,12 @@ export class Message extends UniversalMessage<Message> {
   }
 
   /**
-   * @stable [23.04.2018]
-   * @param {string | JSX.Element} message
+   * @stable [09.06.2018]
+   * @param {React.ReactNode} message
    * @param {React.ReactNode} node
    * @returns {JSX.Element}
    */
-  protected getMessageWrapper(message: string | JSX.Element, node: React.ReactNode): JSX.Element {
+  protected getMessageWrapper(message: React.ReactNode, node: React.ReactNode): JSX.Element {
     return (
       <CenterLayout>
         {message}

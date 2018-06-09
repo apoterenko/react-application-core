@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { orNull } from '../../util';
+import { orNull, isString } from '../../util';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalMessageProps } from './universal-message.interface';
 
@@ -42,12 +42,12 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
   protected abstract getProgressLabel(): string | JSX.Element;
 
   /**
-   * @stable [23.04.2018]
-   * @param {string | JSX.Element} message
+   * @stable [09.06.2018]
+   * @param {React.ReactNode} message
    * @param {React.ReactNode} node
    * @returns {JSX.Element}
    */
-  protected abstract getMessageWrapper(message: string | JSX.Element, node: React.ReactNode): JSX.Element;
+  protected abstract getMessageWrapper(message: React.ReactNode, node: React.ReactNode): JSX.Element;
 
   /**
    * @stable [23.04.2018]
@@ -58,11 +58,14 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
   }
 
   /**
-   * @stable [23.04.2018]
-   * @returns {string}
+   * @stable [09.06.2018]
+   * @returns {React.ReactNode}
    */
-  private getEmptyMessage(): string {
-    return this.t(this.props.emptyMessage || this.settings.messages.emptyMessage);
+  private getEmptyMessage(): React.ReactNode {
+    const emptyMessage = this.props.emptyMessage;
+    return isString(emptyMessage)
+      ? this.t(emptyMessage as string)
+      : (emptyMessage || this.t(this.settings.messages.emptyMessage));
   }
 
   /**

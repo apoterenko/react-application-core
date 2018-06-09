@@ -6,19 +6,25 @@ import { IEntity, IKeyValue } from '../../definitions.interface';
 import { UniversalList } from './universal-list.component';
 import { RnListItem } from './item/rn-list-item.component';
 import { RnMessage } from '../message/rn-message.component';
+import { RnButton } from '../button/rn-button.component';
 
 export class RnList extends UniversalList<RnList, IRnListProps> {
 
   /**
-   * @stable - 24.04.2018
+   * @stable [09.06.2018]
+   * @returns {JSX.Element}
+   */
+  protected getEmptyMessageAction(): JSX.Element {
+    return <RnButton {...this.getEmptyMessageActionComponentProps()}/>;
+  }
+
+  /**
+   * @stable [09.06.2018]
    * @returns {JSX.Element}
    */
   protected getMessage(): JSX.Element {
-    const props = this.props;
     return (
-      <RnMessage emptyData={this.isOriginalDataSourceEmpty()}
-                 error={props.error}
-                 progress={props.progress}>
+      <RnMessage {...this.getMessageComponentProps()}>
         {this.getAddAction()}
       </RnMessage>
     );
