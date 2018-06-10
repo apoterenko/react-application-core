@@ -5,6 +5,7 @@ import { IEntity } from '../../definitions.interface';
 import { IApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from './form.interface';
+import { defValuesFilter } from '../../util';
 
 /**
  * @stable - 11.04.2018
@@ -27,7 +28,15 @@ export const buildApiEntity = (changes: IEntity, entity?: IEntity, originalEntit
       ? { isNew: true, changes: {...changes}, merger, }
 
       // You should use formMapper and entityMapper at least (editable entity)
-      : { isNew: false, changes: {...changes}, entity: {...entity}, merger, id: entityId, originalEntity: {...originalEntity} }
+      : defValuesFilter(
+        {
+          isNew: false,
+          id: entityId,
+          changes: {...changes},
+          merger,
+          entity: R.isNil(entity) ? entity : {...entity},
+          originalEntity: R.isNil(originalEntity) ? originalEntity : {...originalEntity},
+        })
   );
   return {
     operation: Operation.create(operationId),

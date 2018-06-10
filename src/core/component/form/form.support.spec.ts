@@ -100,7 +100,7 @@ describe('form.support', () => {
           field1: 101,
           field2: 'fieldValue2',
         },
-        null,
+        UNDEF,
         '999c2ea8-2d5d-4c18-9b3b-f498ffc9b987',
       );
 
@@ -133,7 +133,7 @@ describe('form.support', () => {
           field1: 101,
           field2: 'fieldValue2',
         },
-        null,
+        UNDEF,
         '999c2ea8-2d5d-4c18-9b3b-f498ffc9b987',
       );
 
