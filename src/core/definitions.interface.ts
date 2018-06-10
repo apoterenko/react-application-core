@@ -1604,13 +1604,6 @@ export interface IClassNameWrapper {
 }
 
 /**
- * @stable [10.06.2018]
- */
-export interface IIconClassNameWrapper {
-  iconClassName?: string;
-}
-
-/**
  * @stable [08.05.2018]
  */
 export interface IPositionWrapper<TPosition = number> {

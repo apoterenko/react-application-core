@@ -7,7 +7,7 @@ import { ListItemGraphic, ListItemText } from '../../list';
 import { BaseComponent } from '../../base';
 import { IListItem } from './list-item.interface';
 
-export class ListItem extends BaseComponent<ListItem, IListItemProps, {}>
+export class ListItem extends BaseComponent<ListItem, IListItemProps>
   implements IListItem {
 
   public static defaultProps: IListItemProps = {
@@ -37,9 +37,13 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps, {}>
         : (
             <li {...defaultProps}>
               {
-                orNull(
+                orNull<JSX.Element>(
                     props.icon,
-                    () => <ListItemGraphic>{this.uiFactory.makeIcon(props.icon)}</ListItemGraphic>
+                    () => (
+                      <ListItemGraphic>
+                        {this.uiFactory.makeIcon(props.icon)}
+                      </ListItemGraphic>
+                    )
                 )
               }
               <ListItemText>
