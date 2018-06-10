@@ -13,11 +13,11 @@ import { makeSelectEntityMiddleware } from '../middleware';
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
                                            TApplicationState>(config: {
   listSection: string;
-  formSection: string;
-  pathResolver(entity?: TEntity, state?: TApplicationState): string;
+  formSection: any; // TODO
+  path(entity?: TEntity, state?: TApplicationState, isChainExist?: boolean): string;
   changesResolver?(state: TApplicationState): TEntity;
 }): () => void {
-  const {pathResolver, changesResolver, listSection, formSection} = config;
+  const {path, changesResolver, listSection, formSection} = config;
   return (): void => {
 
     @provideInSingleton(Effects)
@@ -27,13 +27,13 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
       public $onCreateEntity(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
         return [
           StackActionBuilder.buildLockAction(formSection),
-          RouterActionBuilder.buildNavigateAction(pathResolver(null, state))
+          RouterActionBuilder.buildNavigateAction(path(null, state))
         ];
       }
 
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(listSection))
       public $onSelectEntity(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return makeSelectEntityMiddleware<TEntity>({action, formSection, path: (entity) => pathResolver(entity, state)});
+        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, formSection, path});
       }
 
       @EffectsService.effects(CustomActionBuilder.buildCustomCloneActionType(formSection))
@@ -44,7 +44,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
               excludeIdFieldFilter<TEntity, TEntity>(changesResolver(state))
           ),
           ListActionBuilder.buildDeselectAction(listSection),
-          RouterActionBuilder.buildReplaceAction(pathResolver(null, state))
+          RouterActionBuilder.buildReplaceAction(path(null, state))
         ];
       }
     }

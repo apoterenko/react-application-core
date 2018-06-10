@@ -1,3 +1,4 @@
+export * from './barcode';
 export * from './blob';
 export * from './caret';
 export * from './clone';
