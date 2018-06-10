@@ -175,7 +175,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    * @returns {IApiEntity}
    */
   public get apiEntity(): IApiEntity {
-    return buildApiEntity(this.changes, this.entity);
+    return buildApiEntity(this.changes, this.entity, this.originalEntity);
   }
 
   private onChange(name: string, value: AnyT, validationGroup: string): void {
@@ -313,7 +313,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   }
 
   private getFieldOriginalValue(field: IField): AnyT {
-    const originalEntity = this.props.originalEntity;
+    const originalEntity = this.originalEntity;
     const fieldProps = field.props;
     return orUndef(fieldProps.name && originalEntity, () => Reflect.get(originalEntity, fieldProps.name));
   }
@@ -346,6 +346,14 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    */
   private get entity(): IEntity {
     return this.props.entity;
+  }
+
+  /**
+   * @stable [10.06.2018]
+   * @returns {IEntity}
+   */
+  private get originalEntity(): IEntity {
+    return this.props.originalEntity;
   }
 
   /**

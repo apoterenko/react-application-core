@@ -10,10 +10,11 @@ import { IFormProps } from './form.interface';
  * @stable - 11.04.2018
  * @param {IEntity} changes
  * @param {IEntity} entity
+ * @param {IEntity} originalEntity
  * @param {string} operationId
  * @returns {IApiEntity}
  */
-export const buildApiEntity = (changes: IEntity, entity?: IEntity, operationId?: string): IApiEntity => {
+export const buildApiEntity = (changes: IEntity, entity?: IEntity, originalEntity?: IEntity, operationId?: string): IApiEntity => {
   const entityId = entity && entity.id;
   const merger = {
     ...entity,
@@ -26,7 +27,7 @@ export const buildApiEntity = (changes: IEntity, entity?: IEntity, operationId?:
       ? { isNew: true, changes: {...changes}, merger, }
 
       // You should use formMapper and entityMapper at least (editable entity)
-      : { isNew: false, changes: {...changes}, entity: {...entity}, merger, id: entityId }
+      : { isNew: false, changes: {...changes}, entity: {...entity}, merger, id: entityId, originalEntity: {...originalEntity} }
   );
   return {
     operation: Operation.create(operationId),
