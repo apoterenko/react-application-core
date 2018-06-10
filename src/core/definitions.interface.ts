@@ -787,10 +787,10 @@ export interface IListSectionWrapper {
 }
 
 /**
- * @stable [03.06.2018]
+ * @stable [11.06.2018]
  */
-export interface IFormSectionWrapper {
-  formSection?: string;
+export interface IFormSectionWrapper<TFormSection = string> {
+  formSection?: TFormSection;
 }
 
 /**
@@ -1049,6 +1049,13 @@ export interface IProgressWrapper {
 }
 
 /**
+ * @stable [11.06.2018]
+ */
+export interface IBarcodeWrapper {
+  barcode?: string;
+}
+
+/**
  * @stable [29.05.2018]
  */
 export interface IReadyWrapper {
@@ -1084,6 +1091,20 @@ export interface ITotalCountWrapper<TTotalCount = number> {
  */
 export interface ITouchedWrapper {
   touched?: boolean;
+}
+
+/**
+ * @stable [11.06.2018]
+ */
+export interface IHeightWrapper {
+  height?: number;
+}
+
+/**
+ * @stable [11.06.2018]
+ */
+export interface IFontSizeWrapper {
+  fontSize?: number;
 }
 
 /**
@@ -1580,6 +1601,13 @@ export interface IClearActionWrapper<TClearAction = boolean> {
  */
 export interface IClassNameWrapper {
   className?: string;
+}
+
+/**
+ * @stable [10.06.2018]
+ */
+export interface IIconClassNameWrapper {
+  iconClassName?: string;
 }
 
 /**
@@ -2117,9 +2145,18 @@ export interface ICheckedWrapper<TChecked = boolean> {
   checked?: TChecked;
 }
 
-/* @stable - 03.04.2018 */
+/**
+ * @stable [10.06.2018]
+ */
 export interface IWidthWrapper {
   width?: number;
+}
+
+/**
+ * @stable [10.06.2018]
+ */
+export interface IMinWidthWrapper {
+  minWidth?: number;
 }
 
 /* @stable - 01.04.2018 */
@@ -2225,7 +2262,9 @@ export interface ICallbackWrapper<TCallback> {
   callback?: TCallback;
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [11.06.2018]
+ */
 export interface IStateWrapper<TState> {
   state?: TState;
 }

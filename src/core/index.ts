@@ -6,6 +6,7 @@ export * from './channel';
 export * from './component/access';
 export * from './component/application';
 export * from './component/auto-focused';
+export * from './component/barcode';
 export * from './component/base';
 export * from './component/button';
 export * from './component/card';

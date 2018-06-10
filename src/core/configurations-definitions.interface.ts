@@ -167,6 +167,7 @@ import {
   IOnEmptyMessageClickWrapper,
   IEmptyMessageActionWrapper,
   IEmptyMessageActionConfigurationWrapper,
+  IIconClassNameWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -352,7 +353,8 @@ export interface IListItemConfiguration extends IUniversalListItemConfiguration,
                                                 IWebComponentConfiguration,
                                                 IEntityToClassNameWrapper,
                                                 IRippableWrapper,
-                                                IIconWrapper {
+                                                IIconWrapper,
+                                                IIconClassNameWrapper {
 }
 
 /**
