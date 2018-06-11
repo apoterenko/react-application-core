@@ -42,7 +42,7 @@ export class PayloadWrapper {
     } else {
 
       // Request
-      this.type = payload.constructor.name;
+      this.type = Reflect.get(payload.constructor, $PROTOCOL_PAYLOAD_CLASS_IDENTIFIER);
       this.payload = payload;
     }
   }

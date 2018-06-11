@@ -6,6 +6,8 @@ import { CommandParam } from './command.param';
  * @stable [21.05.2018]
  */
 export class Command {
+  public static readonly $PROTOCOL_PAYLOAD_CLASS_IDENTIFIER = 'Command';
+
   /**
    * @stable [21.05.2018]
    * @returns {Command}
