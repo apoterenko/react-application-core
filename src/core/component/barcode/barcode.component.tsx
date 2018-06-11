@@ -3,7 +3,7 @@ import * as JsBarcode from 'jsbarcode';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../base';
-import { toBarcode, uuid, defValuesFilter } from '../../util';
+import { uuid, defValuesFilter } from '../../util';
 import { IBarcodeProps } from './barcode.interface';
 
 export class Barcode extends BaseComponent<Barcode, IBarcodeProps> {
@@ -47,7 +47,7 @@ export class Barcode extends BaseComponent<Barcode, IBarcodeProps> {
   private refresh(): void {
     const props = this.props;
     JsBarcode(`#${this.tagId}`)
-      .EAN13(toBarcode(props.barcode), defValuesFilter({
+      .EAN13(props.barcode, defValuesFilter({
         height: props.height,
         fontSize: props.fontSize,
       }))
