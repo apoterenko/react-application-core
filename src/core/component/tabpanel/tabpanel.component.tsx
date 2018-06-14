@@ -47,8 +47,12 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
                   {
                     orNull<JSX.Element>(
                       tab.url,
-                      () => <img className={toClassName('rac-tab-url-icon', this.uiFactory.tabIcon)}
-                                 src={tab.url}/>
+                      () => (
+                        <div className='rac-tab-url-icon-wrapper'>
+                          <img className={toClassName('rac-tab-url-icon', this.uiFactory.tabIcon)}
+                               src={tab.url}/>
+                        </div>
+                      )
                     )
                   }
                   {

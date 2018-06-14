@@ -245,6 +245,10 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     return this.refs.field as IField;
   }
 
+  /**
+   * @stable [14.06.2018]
+   * @returns {boolean}
+   */
   private get isRenderToBody(): boolean {
     const props = this.props;
     return props.renderToBody || props.renderToCenterOfBody;
