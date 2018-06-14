@@ -1,5 +1,12 @@
-export const createElement = (tag = 'div', parent = document.body): Element => {
-  const el = document.createElement(tag);
+/**
+ * @stable [14.06.2018]
+ * @param {string} tag
+ * @param {Element} parent
+ * @returns {TElement}
+ */
+export const createElement = <TElement extends HTMLElement = HTMLElement>(tag = 'div',
+                                                                          parent: Element = document.body): TElement => {
+  const el: TElement = document.createElement(tag) as TElement;
   addChild(el, parent);
   return el;
 };
@@ -16,3 +23,17 @@ export const removeClassNameFromBody = (clsName: string): void => removeClassNam
 export const addChild = (child: Element, parent: Element): Element => parent.appendChild(child);
 
 export const addChildToBody = (child: Element): Element => addChild(child, document.body);
+
+/**
+ * @stable [14.06.2018]
+ * @param {string} images
+ */
+export const createPreloadedImg = (...images: string[]): void => {
+  const preloadedWrapper = createElement();
+  addClassNameToElement(preloadedWrapper, 'rac-invisible');
+
+  images.forEach((src) => {
+    const el = createElement<HTMLImageElement>('img', preloadedWrapper);
+    el.src = src;
+  });
+};
