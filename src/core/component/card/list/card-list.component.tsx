@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { toClassName } from '../../util';
-import { IEntity } from '../../definitions.interface';
-import { BaseList } from '../list';
-import { Card } from './card.component';
+import { toClassName } from '../../../util';
+import { IEntity } from '../../../definitions.interface';
+import { BaseList } from '../../list';
+import { Card } from '../card.component';
 import { ICardListProps } from './card-list.interface';
 
 export class CardList extends BaseList<CardList, ICardListProps> {

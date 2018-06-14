@@ -1,0 +1,16 @@
+// Card list [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-card-list {
+    padding: 8px 0 8px 16px;  /* @stable [12.06.2018] */
+    overflow: auto;           /* @stable [12.06.2018] */
+
+    .rac-card-list-item {
+      width: 150px;           /* @stable [12.06.2018] */
+      height: 208px;          /* @stable [12.06.2018] */
+      margin-right: 16px;     /* @stable [12.06.2018] */
+      margin-bottom: 16px;    /* @stable [12.06.2018] */
+      float: left;            /* @stable [12.06.2018] */
+    }
+  }
+}
