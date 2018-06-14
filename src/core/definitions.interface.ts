@@ -1314,6 +1314,13 @@ export interface IOpenWrapper<TOpen = boolean> {
 }
 
 /**
+ * @stable [14.06.2018]
+ */
+export interface IOpenedWrapper<TOpened = boolean> {
+  opened?: TOpened;
+}
+
+/**
  * @stable [27.04.2018]
  */
 export interface IOpenFnWrapper extends IOpenWrapper<() => void> {

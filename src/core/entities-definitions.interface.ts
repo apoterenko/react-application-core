@@ -368,6 +368,12 @@ export interface IEditableEntity<TChanges extends IKeyValue = IEntity> extends I
 }
 
 /**
+ * @stable [14.06.2018]
+ */
+export interface IEditableEntityFormWrapperEntity extends IFormWrapper<IEditableEntity> {
+}
+
+/**
  * @stable [29.05.2018]
  */
 export interface IBasicFormWrapperEntity<TEntity extends IEntity = IEntity>
