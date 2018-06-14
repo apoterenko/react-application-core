@@ -6,7 +6,6 @@ import {
   IEntityWrapper,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IFormWrapper,
 } from '../../definitions.interface';
 import {
   IEditableEntity,
@@ -25,6 +24,7 @@ import {
   IDictionaryEntity,
   INamedEntity,
   ISelectOptionEntity,
+  IEditableEntityFormWrapperEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
@@ -64,11 +64,11 @@ export const filterFormMapper = (editableEntity: IEditableEntity): IFilterFormWr
 });
 
 /**
- * @stable [31.05.2018]
+ * @stable [14.06.2018]
  * @param {IEditableEntity} editableEntity
- * @returns {IFormWrapper<IEditableEntity>}
+ * @returns {IEditableEntityFormWrapperEntity}
  */
-export const formMapper = (editableEntity: IEditableEntity): IFormWrapper<IEditableEntity> => ({
+export const formMapper = (editableEntity: IEditableEntity): IEditableEntityFormWrapperEntity => ({
   form: {
     ...editableEntity,
   },

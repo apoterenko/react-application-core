@@ -15,6 +15,13 @@ export class Lock implements ILock {
   private locked: boolean;
 
   /**
+   * @stable [14.06.2018]
+   */
+  constructor() {
+    this.onBeforeUnload = this.onBeforeUnload.bind(this);
+  }
+
+  /**
    * @stable [26.05.2018]
    */
   public lock(): void {
