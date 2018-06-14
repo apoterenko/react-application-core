@@ -1,10 +1,22 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { FunctionT, isFn, isPrimitive, uuid } from '../util';
+import { FunctionT, isFn, isPrimitive, uuid, orNull } from '../util';
 import { ReactElementT } from '../definitions.interface';
 
-export const clone = <TObject>(o: TObject): TObject => JSON.parse(JSON.stringify(o));
+/**
+ * @stable [14.06.2018]
+ * @param {T} o
+ * @returns {T}
+ */
+export const shallowCloneIfExists = <T>(o: T): T => orNull<T>(!R.isNil(o), (): T => ({...o as {}} as T));
+
+/**
+ * @stable [14.06.2018]
+ * @param {T} o
+ * @returns {T}
+ */
+export const clone = <T>(o: T): T => R.clone<T>(o);
 
 export type RenderPredicateT = (child: ReactElementT) => boolean;
 export type ClonedComponentT = ReactElementT | React.Component;
