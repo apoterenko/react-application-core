@@ -64,7 +64,11 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
                   {
                     orNull<JSX.Element>(
                       tab.url || tab.icon,
-                      () => <span className={this.uiFactory.tabIconText}>{this.t(tab.name)}</span>
+                      () => (
+                        <span className={toClassName('rac-tab-icon-text', this.uiFactory.tabIconText)}>
+                          {this.t(tab.name)}
+                        </span>
+                      )
                     )
                   }
                   {orNull<string>(!(tab.url || tab.icon), () => this.t(tab.name))}

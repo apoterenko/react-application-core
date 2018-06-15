@@ -73,7 +73,7 @@ export abstract class BaseChannel implements IChannel {
   public onMessage(ip: string, client: IChannelClient, name?: string, message?: string): void {
     BaseChannel.logger.info(
       () => `[$BaseChannel][onMessage] Client received the message ${message && JSON.stringify(message) ||
-      '[-]'}. IP: ${ip}, name: ${name || '[-]'}`
+      '[-]'}. Ip: ${ip}, name: ${name || '[-]'}`
     );
     const payload: IChannelMessageEntity = {ip, name, data: this.toMessage(message)};
 
@@ -86,15 +86,20 @@ export abstract class BaseChannel implements IChannel {
   /**
    * @stable [21.05.2018]
    * @param {string} ip
-   * @param {string} event
+   * @param {string} event0
    * @param {AnyT} messages
    */
-  public emitEvent(ip: string, event: string, ...messages: AnyT[]): void {
+  public emitEvent(ip: string, event0: string, ...messages: AnyT[]): void {
     const client = this.clients.get(ip);
     if (!client) {
       throw new Error(`The client ${ip} doesn't exist!`);
     }
-    client.emit(event, ...messages);
+    BaseChannel.logger.debug(
+      () => `[$BaseChannel][emitEvent] Client sent the messages ${
+        messages || '[-]'}. Ip: ${ip}, event: ${event0}`
+    );
+
+    client.emit(event0, ...messages);
   }
 
   /**

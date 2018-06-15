@@ -95,11 +95,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
               () => (
                 <div className='rac-menu-close-action rac-flex rac-flex-end'>
                   {
-                    this.uiFactory.makeIcon({
-                      type: 'close',
-                      simple: true,
-                      onClick: () => this.hide(),
-                    })
+                    this.uiFactory.makeIcon('close')
                   }
                 </div>
               )
