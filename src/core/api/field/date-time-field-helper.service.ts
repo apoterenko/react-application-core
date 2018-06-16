@@ -12,13 +12,12 @@ import {
   FROM_DATE_FIELD_NAME,
   TO_TIME_FIELD_NAME,
   FROM_TIME_FIELD_NAME,
-  IDateTimeEntity,
   DATE_FIELD_NAME,
   TIME_FIELD_NAME,
   IFromDateToDateEntity,
   IFromDateFromTimeToDateToTimeEntity,
 } from '../../definitions.interface';
-import { IApiEntity } from '../../entities-definitions.interface';
+import { IApiEntity, IDateTimeEntity } from '../../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { IDateConverter } from '../../converter';
 import { orUndef, isUndef, isNull } from '../../util';
@@ -167,11 +166,16 @@ export class DateTimeFieldHelper {
   }
 
   public splitToDateTimeBasicFields(entity: IDateTimeEntity): IDateTimeEntity {
+    return this.splitToDateAndTimeBasicFields<IDateTimeEntity>(entity, (source) => source.date);
+  }
+
+  public splitToDateAndTimeBasicFields<TEntity>(entity: IDateTimeEntity,
+                                                dateResolver: (entity: TEntity) => string): IDateTimeEntity {
     return this.splitToDateTimeFields<IDateTimeEntity>(
       entity,
       DATE_FIELD_NAME,
       TIME_FIELD_NAME,
-      (source) => source.date
+      dateResolver
     );
   }
 

@@ -112,24 +112,24 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
             </section>
           </fieldset>
           {
-            orNull(
+            orNull<JSX.Element>(
                 !props.notUseActions,
                 () => (
                     <section className={toClassName('rac-form-actions', this.uiFactory.cardActions)}>
-                      {orNull(
+                      {orNull<JSX.Element>(
                           props.useResetButton,
                           () => (
-                              <Button type='reset'
-                                      icon='clear_all'
+                              <Button icon='clear_all'
+                                      {...props.buttonConfiguration}
+                                      type='reset'
                                       raised={true}
                                       disabled={!this.isFormDirty}
                                       text={props.resetText || 'Reset'}/>
                           )
                       )}
-                      <Button type='submit'
-                              icon={this.isFormValid
-                                  ? (props.actionIcon || 'save')
-                                  : 'error_outline'}
+                      <Button icon={this.isFormValid ? (props.actionIcon || 'save') : 'error_outline'}
+                              {...props.buttonConfiguration}
+                              type='submit'
                               accent={true}
                               raised={true}
                               disabled={!this.canSubmit}

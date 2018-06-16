@@ -43,7 +43,10 @@ export class Button extends BaseComponent<Button, IButtonProps> {
                 className={className}
                 disabled={isButtonDisabled(props)}>
           {
-            this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))
+            orNull<JSX.Element>(
+              props.icon !== null,    // Prevent show any icons
+              () => this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))
+            )
           }
           {orNull(buttonText, () => this.t(buttonText))}
           {props.children}
