@@ -629,9 +629,11 @@ export interface INavigateEntity<TPath, TState = {}> extends IPathWrapper<TPath>
                                                              IStateWrapper<TState> {
 }
 
-/* @stable - 22.04.2018 */
+/**
+ * @stable [16.06.2018]
+ */
 export interface IDictionaryEntity<TData> extends IDataWrapper<TData[] | TData>,
-                                                               ILoadingWrapper {
+                                                  ILoadingWrapper {
 }
 
 /* @stable - 22.04.2018 */

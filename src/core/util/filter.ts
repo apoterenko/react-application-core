@@ -95,23 +95,23 @@ export const excludeEffectorFieldFilter = <TSource extends IKeyValue, TResult ex
   filterByPredicate<TSource, TResult>(source, EXCLUDE_EFFECTOR_FIELD_PREDICATE);
 
 /**
- * @stable [05.06.2018]
- * @param {IEntity[] | IEntity} data
+ * @stable [16.06.2018]
+ * @param {TEntity[] | TEntity} data
  * @param {IFilterAndSorterConfiguration} config
- * @returns {IEntity[]}
+ * @returns {TEntity[]}
  */
-export const filterAndSortEntities = (data: IEntity[] | IEntity,
-                                      config?: IFilterAndSorterConfiguration): IEntity[] => {
+export const filterAndSortEntities = <TEntity = IEntity>(data: TEntity[] | TEntity,
+                                                         config?: IFilterAndSorterConfiguration): TEntity[] => {
   if (R.isNil(data)) {
     return data;
   }
-  let entities: INamedEntity[] = [].concat(data);
+  let entities: TEntity[] = [].concat(data);
   if (!R.isNil(config)) {
     if (!R.isNil(config.filter)) {
-      entities = R.filter<INamedEntity>(config.filter, entities);
+      entities = R.filter<TEntity>(config.filter, entities);
     }
     if (!R.isNil(config.sorter)) {
-      entities = R.sort<INamedEntity>(config.sorter, entities);
+      entities = R.sort<TEntity>(config.sorter, entities);
     }
   }
   return entities;

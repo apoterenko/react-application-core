@@ -213,18 +213,19 @@ export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListW
   actionsDisabledListEntityMapper(listWrapperEntity.list);
 
 /**
- * @stable [05.06.2018]
- * @param {INamedEntity[] | INamedEntity} data
+ * @stable [16.06.2018]
+ * @param {TEntity[] | TEntity} data
  * @param {IFilterAndSorterConfiguration} config
- * @returns {ISelectOptionEntity[]}
+ * @returns {Array<ISelectOptionEntity<TEntity extends INamedEntity>>}
  */
-export const selectOptionsMapper = (data: INamedEntity[] | INamedEntity,
-                                    config?: IFilterAndSorterConfiguration): ISelectOptionEntity[] => {
-  const entities: INamedEntity[] = filterAndSortEntities(data, config);
-  return orNull<ISelectOptionEntity[]>(
+export const selectOptionsMapper =
+  <TEntity extends INamedEntity>(data: TEntity[] | TEntity,
+                                 config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TEntity>> => {
+  const entities: TEntity[] = filterAndSortEntities<TEntity>(data, config);
+  return orNull<Array<ISelectOptionEntity<TEntity>>>(
     !R.isNil(entities),
     () => (
-      entities.map<ISelectOptionEntity>((entity): ISelectOptionEntity => ({
+      entities.map<ISelectOptionEntity<TEntity>>((entity): ISelectOptionEntity<TEntity> => ({
         value: entity.id,
         label: entity.name,
         rawData: entity,
@@ -234,15 +235,16 @@ export const selectOptionsMapper = (data: INamedEntity[] | INamedEntity,
 };
 
 /**
- * @stable [05.06.2018]
- * @param {IDictionaryEntity<TDictionaryEntityData>} dictionaryEntity
+ * @stable [16.06.2018]
+ * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
  * @param {IFilterAndSorterConfiguration} config
- * @returns {ISelectOptionEntity[]}
+ * @returns {Array<ISelectOptionEntity<TDictionaryEntity>>}
  */
-export const dictionaryEntityMapper = <TDictionaryEntityData>(dictionaryEntity: IDictionaryEntity<TDictionaryEntityData>,
-                                                              config?: IFilterAndSorterConfiguration): ISelectOptionEntity[] =>
-  selectOptionsMapper(
-    orNull<TDictionaryEntityData | TDictionaryEntityData[]>(dictionaryEntity, () => dictionaryEntity.data),
+export const dictionaryEntityMapper
+  = <TDictionaryEntity>(dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
+                        config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TDictionaryEntity>> =>
+  selectOptionsMapper<TDictionaryEntity>(
+    orNull<TDictionaryEntity | TDictionaryEntity[]>(dictionaryEntity, () => dictionaryEntity.data),
     config
   );
 

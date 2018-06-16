@@ -1817,13 +1817,39 @@ export interface ISuccessWrapper<TSuccess> {
 export interface IBooleanSuccessWrapper extends ISuccessWrapper<boolean> {
 }
 
-/* @stable - 19.04.2018 */
-export interface IBlockWrapper<TBlock> {
+/**
+ * @stable [16.06.2018]
+ */
+export interface IBlockWrapper<TBlock = boolean> {
   block?: TBlock;
 }
 
-/* @stable - 19.04.2018 */
-export interface IBooleanBlockWrapper extends IBlockWrapper<boolean> {
+/**
+ * @stable [16.06.2018]
+ */
+export interface IParentsWrapper<TParents> {
+  parents?: TParents;
+}
+
+/**
+ * @stable [16.06.2018]
+ */
+export interface IParentWrapper<TParent> {
+  parent?: TParent;
+}
+
+/**
+ * @stable [16.06.2018]
+ */
+export interface IParentIdWrapper {
+  parentId?: EntityIdT;
+}
+
+/**
+ * @stable [16.06.2018]
+ */
+export interface IParentNameWrapper {
+  parentName?: string;
 }
 
 /* @stable - 19.04.2018 */
