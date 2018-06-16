@@ -36,8 +36,8 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   public render(): JSX.Element {
     const props = this.props;
 
-    if (R.isNil(this.getOriginalDataSource())
-          || this.isOriginalDataSourceEmpty()
+    if (this.originalDataSourceDoesNotExist
+          || this.emptyData
           || props.progress
           || props.error) {
       return this.getMessage();
@@ -130,16 +130,25 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [06.06.2018]
+   * @stable [17.06.2018]
    * @returns {IEntity[]}
    */
-  protected getDataSource(): IEntity[] {
+  protected get originalDataSource(): IEntity[] {
+    return this.props.data;
+  }
+
+  /**
+   * @stable [17.06.2018]
+   * @returns {IEntity[]}
+   */
+  protected get dataSource(): IEntity[] {
     const filteredAndSortedEntities = filterAndSortEntities(
       this.filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(),
       this.props
     );
     const toNumber = this.toNumber;
     let pagedData;
+
     return orDefault<IEntity[], IEntity[]>(
       R.isNil(toNumber)
         // Remote and local pagination is supported simultaneously.
@@ -159,8 +168,8 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
     return {
       error: props.error,
       progress: props.progress,
-      emptyData: this.isOriginalDataSourceEmpty(),
-      emptyMessage: this.getEmptyMessage(),
+      emptyData: this.emptyData,
+      emptyMessage: this.emptyMessage,
       emptyDataMessage: props.emptyDataMessage,
     } as TMessageComponentProps;
   }
@@ -179,26 +188,18 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [23.04.2018]
-   * @returns {IEntity[]}
-   */
-  protected getOriginalDataSource(): IEntity[] {
-    return this.props.data;
-  }
-
-  /**
    * @stable [06.06.2018]
    * @returns {IEntity[]}
    */
   protected filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(): IEntity[] {
-    return this.getOriginalDataSource();
+    return this.originalDataSource;
   }
 
   /**
    * @stable [09.06.2018]
    * @returns {React.ReactNode}
    */
-  private getEmptyMessage(): React.ReactNode {
+  private get emptyMessage(): React.ReactNode {
     const props = this.props;
     return (
       orDefault<JSX.Element, string>(
@@ -210,12 +211,23 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [09.06.2018]
+   * @stable [17.06.2018]
    * @returns {boolean}
    */
-  private isOriginalDataSourceEmpty(): boolean {
-    const originalDataSource = this.getOriginalDataSource();
-    return Array.isArray(originalDataSource) && !originalDataSource.length;
+  private get emptyData(): boolean {
+    if (!this.originalDataSourceDoesNotExist) {
+      const dataSource = this.dataSource;
+      return Array.isArray(dataSource) && !dataSource.length;
+    }
+    return false; // It's important to show difference when length === 0 and data === null!
+  }
+
+  /**
+   * @stable [17.06.2018]
+   * @returns {boolean}
+   */
+  private get originalDataSourceDoesNotExist(): boolean {
+    return R.isNil(this.originalDataSource);
   }
 
   /**
