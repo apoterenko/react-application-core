@@ -660,6 +660,20 @@ export interface IRenderToBodyWrapper {
 }
 
 /**
+ * @stable [16.06.2018]
+ */
+export interface IAdjustWidthWrapper<TAdjustWidth = boolean> {
+  adjustWidth?: TAdjustWidth;
+}
+
+/**
+ * @stable [16.06.2018]
+ */
+export interface IAnchorWrapper<TAnchor = Element> {
+  anchor?: TAnchor;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IRenderToCenterOfBodyWrapper {
@@ -981,13 +995,6 @@ export interface IStringFromTimeWrapper {
 
 export interface IStringToTimeWrapper {
   toTime?: string;
-}
-
-/**
- * @stable [01.06.2018]
- */
-export interface IDateTimeEntity extends IDateWrapper,
-                                         ITimeWrapper {
 }
 
 export interface IFromDateFromTimeEntity extends IFromDateWrapper,

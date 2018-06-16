@@ -103,6 +103,8 @@ import {
   IDirectionsWrapper,
   IDirectionWrapper,
   IFilterFormWrapper,
+  IDateWrapper,
+  ITimeWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -112,6 +114,13 @@ import {
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IKeyboardHandlersConfiguration } from './configurations-definitions.interface';
+
+/**
+ * @stable [16.06.2018]
+ */
+export interface IDateTimeEntity extends IDateWrapper,
+                                         ITimeWrapper {
+}
 
 /**
  * @stable [04.05.2018]

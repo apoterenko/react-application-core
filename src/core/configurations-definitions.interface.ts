@@ -167,6 +167,8 @@ import {
   IOnEmptyMessageClickWrapper,
   IEmptyMessageActionWrapper,
   IEmptyMessageActionConfigurationWrapper,
+  IAdjustWidthWrapper,
+  IAnchorWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -177,6 +179,13 @@ import {
   IFieldChangeEntity,
   IUniversalComponent,
 } from './entities-definitions.interface';
+
+/**
+ * @stable [16.06.2018]
+ */
+export interface IButtonConfigurationWrapper<TButtonConfiguration = IButtonConfiguration> {
+  buttonConfiguration?: TButtonConfiguration;
+}
 
 /**
  * @stable [31.05.2018]
@@ -416,6 +425,7 @@ export interface IUniversalFormConfiguration extends IUniversalComponentConfigur
 
 export interface IFormConfiguration extends IUniversalFormConfiguration,
                                             IWebComponentConfiguration,
+                                            IButtonConfigurationWrapper,
                                             IReadOnlyWrapper,
                                             IActionTextWrapper,
                                             IResetTextWrapper {
@@ -771,7 +781,7 @@ export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
 }
 
 /**
- * @stable [07.06.2018]
+ * @stable [16.06.2018]
  */
 export interface IMenuConfiguration extends IComponentConfiguration,
                                             IFilterPlaceholderWrapper,
@@ -779,6 +789,8 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IUseFilterWrapper,
                                             IRenderToBodyWrapper,
                                             IRenderToCenterOfBodyWrapper,
+                                            IAdjustWidthWrapper,
+                                            IAnchorWrapper<() => Element>,
                                             IRendererWrapper<IMenuItemEntity>,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
                                             ITplFnWrapper<IMenuItemEntity> {
