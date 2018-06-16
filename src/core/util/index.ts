@@ -11,7 +11,6 @@ export * from './json';
 export * from './merge';
 export * from './name';
 export * from './nvl';
-export * from './offset';
 export * from './page';
 export * from './route';
 export * from './scroll';

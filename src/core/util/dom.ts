@@ -1,3 +1,5 @@
+import * as $ from 'jquery';
+
 /**
  * @stable [14.06.2018]
  * @param {string} tag
@@ -36,4 +38,27 @@ export const createPreloadedImg = (...images: string[]): void => {
     const el = createElement<HTMLImageElement>('img', preloadedWrapper);
     el.src = src;
   });
+};
+
+/**
+ * @stable [17.05.2018]
+ * @param {HTMLElement} source
+ * @param {Element} sourceAnchor
+ */
+export const setAbsoluteOffset = (source: HTMLElement, sourceAnchor: Element): void => {
+  const offset0 = $(sourceAnchor).offset();
+  const anchor = $(sourceAnchor);
+  source.style.position = 'absolute';
+  source.style.left = `${offset0.left}px`;
+  source.style.top = `${offset0.top + anchor.height()}px`;
+};
+
+/**
+ * @stable [16.06.2018]
+ * @param {HTMLElement} source
+ * @param {Element} sourceAnchor
+ */
+export const adjustWidth = (source: HTMLElement, sourceAnchor: Element): void => {
+  const anchor = $(sourceAnchor);
+  source.style.width = `${anchor.width()}px`;
 };

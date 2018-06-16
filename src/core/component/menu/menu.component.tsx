@@ -13,6 +13,8 @@ import {
   addClassNameToElement,
   removeClassNameFromBody,
   addChildToBody,
+  adjustWidth,
+  isFn,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -30,7 +32,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     filter: (valueToFilter, option) => String(option.label || option.value).toUpperCase().includes(valueToFilter),
   };
 
-  private menuParent: HTMLElement;
+  private menuParent: Element;
 
   constructor(props: IMenuProps) {
     super(props);
@@ -160,7 +162,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.05.2018]
+   * @stable [16.06.2018]
    */
   public show(): void {
     this.setState({ filter: UNDEF });
@@ -171,8 +173,15 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     }
     if (props.renderToCenterOfBody) {
       addClassNameToBody('rac-disabled');
+
     } else if (props.renderToBody) {
-      setAbsoluteOffset(this.self, props.getAnchor ? props.getAnchor() : this.menuParent);
+      const anchorEl = isFn(props.anchor) ? props.anchor() : this.menuParent;
+      const menuEl = this.self as HTMLElement;
+
+      setAbsoluteOffset(menuEl, anchorEl);
+      if (props.adjustWidth) {
+        adjustWidth(menuEl, anchorEl);
+      }
     }
   }
 

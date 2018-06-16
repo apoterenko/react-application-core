@@ -31,7 +31,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
                 className='rac-profile-menu'
                 renderToBody={true}
                 options={props.menuItems}
-                getAnchor={() => this.refs.menuAnchor as HTMLElement}
+                anchor={() => this.refs.menuAnchor as HTMLElement}
                 onSelect={this.onMenuActionClick}/>
         </div>
         <div className='rac-profile-logo-wrapper rac-profile-avatar'>

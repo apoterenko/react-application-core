@@ -17,7 +17,6 @@ export interface IMenuState extends IFilterWrapper {
 export interface IMenuProps extends IMenuConfiguration {
   options?: IMenuItemEntity[];
   onSelect?(option: IMenuItemEntity): void;
-  getAnchor?(): HTMLElement;
 }
 
 /**
