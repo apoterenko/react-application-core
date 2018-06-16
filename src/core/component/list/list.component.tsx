@@ -22,7 +22,7 @@ export class List extends BaseList<List, IListProps> {
                   simple={false}
                   {...props}
                   className={toClassName('rac-list', props.className)}>
-        {this.getDataSource().map((item) => this.getItem(item))}
+        {this.dataSource.map((item) => this.getItem(item))}
         {this.getAddAction()}
       </SimpleList>
     );

@@ -37,7 +37,7 @@ export class RnList extends UniversalList<RnList, IRnListProps> {
   protected getView(): JSX.Element {
     return (
       <FlatList ref='container'
-                data={this.getDataSource().map((item) => ({...item, key: String(item.id)}))}
+                data={this.dataSource.map((item) => ({...item, key: String(item.id)}))}
                 renderItem={({item, separators}) => this.getItem(item, separators)}>
         {this.getAddAction()}
       </FlatList>

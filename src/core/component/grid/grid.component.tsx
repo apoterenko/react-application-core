@@ -44,7 +44,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             </thead>
             <tbody ref='container'
                    className='rac-grid-body'>
-              {this.getDataSource().map((entity) => this.getRow(entity))}
+              {this.dataSource.map((entity) => this.getRow(entity))}
             </tbody>
           </table>
           {this.getAddAction()}
@@ -76,7 +76,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   protected filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(): IEntity[] {
     const props = this.props;
     const state = this.state;
-    const source = super.filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters();
+    const source = this.originalDataSource;
 
     if (!R.isNil(source)) {
       if (props.useLocalFiltering) {
