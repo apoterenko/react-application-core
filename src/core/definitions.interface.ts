@@ -1852,6 +1852,13 @@ export interface IParentNameWrapper {
   parentName?: string;
 }
 
+/**
+ * @stable [17.06.2018]
+ */
+export interface IRowWrapper<TRow> {
+  row?: TRow;
+}
+
 /* @stable - 19.04.2018 */
 export interface ISmallWrapper<TSmall> {
   small?: TSmall;
