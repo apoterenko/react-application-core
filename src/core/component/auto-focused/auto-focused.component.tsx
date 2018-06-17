@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import { IKeyboardEvent } from '../../definitions.interface';
 import { DelayedTask, orNull } from '../../util';
-import { IField, TextField, DelayedChangesFieldPlugin } from '../field';
+import { IField, TextField, DelayedChangesFieldPlugin, FIELD_EMPTY_VALUE } from '../field';
 import { BaseComponent } from '../base';
 import { IAutoFocusedState } from './auto-focused.interface';
-import { Field } from '../field';
 import { IAutoFocusedProps } from './auto-focused.interface';
 
 export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, IAutoFocusedState> {
@@ -133,7 +132,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
    * @stable [05.05.2018]
    */
   private clearField(): void {
-    this.setState({focusedFieldValue: Field.EMPTY_VALUE});
+    this.setState({focusedFieldValue: FIELD_EMPTY_VALUE});
   }
 
   /**

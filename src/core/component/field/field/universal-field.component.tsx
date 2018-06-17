@@ -18,9 +18,13 @@ import { UniversalComponent } from '../../base/universal.component';
 import { toActualChangedValue } from './field.support';
 
 export abstract class UniversalField<TComponent extends IUniversalField<TProps, TState>,
-                                     TProps extends IUniversalFieldProps<TKeyboardEvent>,
+                                     TProps extends IUniversalFieldProps<TKeyboardEvent,
+                                                                         TFocusEvent,
+                                                                         TBasicEvent>,
                                      TState extends IUniversalFieldState,
-                                     TKeyboardEvent>
+                                     TKeyboardEvent,
+                                     TFocusEvent,
+                                     TBasicEvent>
   extends UniversalComponent<TComponent, TProps, TState>
   implements IUniversalField<TProps, TState> {
 
@@ -31,8 +35,13 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   constructor(props: TProps) {
     super(props);
 
+    this.onClick = this.onClick.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onChangeManually = this.onChangeManually.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+
+    this.state = {} as TState;
   }
 
   /**
@@ -191,6 +200,16 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * This props helps to disable click event handler
+   *
+   * @stable [06.06.2018]
+   * @returns {boolean}
+   */
+  protected isPartiallyDisabled(): boolean {
+    return this.props.partiallyDisabled === true;
+  }
+
+  /**
    * @stable [17.06.2018]
    * @param {AnyT} value
    * @returns {boolean}
@@ -234,14 +253,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
 
   /**
    * @stable [18.06.2018]
-   * @returns {boolean}
-   */
-  protected get progress(): boolean {
-    return false;
-  }
-
-  /**
-   * @stable [18.06.2018]
    * @returns {AnyT}
    */
   protected get displayValue(): AnyT {
@@ -252,7 +263,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     const props = this.props;
     const displayValue = props.displayValue;
 
-    return this.progress
+    return this.inProgress()
       ? FIELD_EMPTY_VALUE // The dictionaries data is cleaned before request
       : (
         this.isValuePresent(value)
@@ -263,6 +274,24 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
                   : displayValue))
           : FIELD_EMPTY_VALUE
       );
+  }
+
+  /**
+   * @stable [18.06.2018]
+   * @returns {boolean}
+   */
+  protected isDeactivated(): boolean {
+    const props = this.props;
+    return props.disabled || props.readOnly || this.inProgress();
+  }
+
+  /**
+   * @stable [18.06.2018]
+   * @returns {boolean}
+   */
+  protected inProgress(): boolean {
+    const props = this.props;
+    return props.progress === true;
   }
 
   /**
@@ -278,6 +307,36 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
       () => Printf.sprintf(this.t(props.displayMessage), ...args),
       FIELD_EMPTY_VALUE
     );
+  }
+
+  /**
+   * @stable [18.06.2018]
+   * @param {TFocusEvent} event
+   */
+  protected onFocus(event: TFocusEvent): void {
+    if (this.props.onFocus) {
+      this.props.onFocus(event);
+    }
+  }
+
+  /**
+   * @stable [18.06.2018]
+   * @param {TFocusEvent} event
+   */
+  protected onBlur(event: TFocusEvent): void {
+    if (this.props.onBlur) {
+      this.props.onBlur(event);
+    }
+  }
+
+  /**
+   * @stable [18.06.2018]
+   * @param {TBasicEvent} event
+   */
+  protected onClick(event: TBasicEvent): void {
+    if (this.props.onClick) {
+      this.props.onClick(event);
+    }
   }
 
   /**

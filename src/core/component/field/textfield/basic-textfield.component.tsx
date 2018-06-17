@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull, toClassName, nvl } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent } from '../../../util';
 import { IFocusEvent, IBasicEvent, IKeyboardEvent, UNI_CODES } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
@@ -93,14 +93,14 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                       : action.disabled,
                   onClick: (event: IBasicEvent) => {
                     if (action.onClick) {
-                      this.stopEvent(event);
+                      cancelEvent(event);
                       action.onClick(event);
                     }
                   },
                 }))
             )}
             {orNull(
-              this.progress,
+              this.inProgress(),
               () => <ProgressLabel className='rac-text-field-loader'/>
             )}
           </div>

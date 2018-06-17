@@ -1,6 +1,5 @@
 import { Component } from 'react';
 
-import { cancelEvent } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
 import { ApplicationTranslatorT } from '../../translation';
 import { IApplicationSettings } from '../../settings';
@@ -13,7 +12,6 @@ import {
   UniversalComponentPluginFactoryT,
   IUniversalComponentPluginClassEntity,
 } from '../../entities-definitions.interface';
-import { IBasicEvent } from '../../definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 
@@ -72,14 +70,6 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext?: never): void {
     this.plugins.forEach((plugin) =>
       plugin.componentDidUpdate && plugin.componentDidUpdate(prevProps, prevState, prevContext));
-  }
-
-  /**
-   * @stable [23.04.2018]
-   * @param {IBasicEvent} event
-   */
-  public stopEvent(event: IBasicEvent): void {
-    cancelEvent(event);
   }
 
   /**

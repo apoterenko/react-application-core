@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BasicTextField } from '../textfield';
-import { orNull } from '../../../util';
+import { cancelEvent, orNull } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   BasicEventT,
@@ -41,8 +41,6 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: {}): void {
-    super.componentWillReceiveProps(nextProps, nextContext);
-
     const activeValue = this.multiFieldPlugin.activeValue;
     if (R.isNil(nextProps.value) && activeValue.length > 0) {
       activeValue.forEach((item) => this.destroyBlob(item.id));
@@ -116,7 +114,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   }
 
   private openFileDialog(event: BasicEventT): void {
-    this.stopEvent(event);
+    cancelEvent(event);
     this.dnd.open();
   }
 

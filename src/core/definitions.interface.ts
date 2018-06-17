@@ -459,6 +459,20 @@ export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void>
 }
 
 /**
+ * @stable [18.05.2018]
+ */
+export interface IOnFocusWrapper<TPayload = AnyT, TOnFocus = (payload: TPayload) => void> {
+  onFocus?: TOnFocus;
+}
+
+/**
+ * @stable [18.05.2018]
+ */
+export interface IOnBlurWrapper<TPayload = AnyT, TOnBlur = (payload: TPayload) => void> {
+  onBlur?: TOnBlur;
+}
+
+/**
  * @stable [06.06.2018]
  */
 export interface IClearValueWrapper<TClearValue = () => void> {

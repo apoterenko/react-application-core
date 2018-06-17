@@ -24,6 +24,7 @@ import {
   IUniversalFieldConfiguration,
   IUniversalButtonConfiguration,
 } from './configurations-definitions.interface';
+import { AnyT } from './definitions.interface';
 
 /**
  * @stable [09.05.2018]
@@ -56,9 +57,11 @@ export interface IContainerProps extends IContainerEntity,
 /**
  * @stable [18.06.2018]
  */
-export interface IUniversalFieldProps<TKeyboardEvent>
+export interface IUniversalFieldProps<TKeyboardEvent = AnyT,
+                                      TFocusEvent = AnyT,
+                                      TBasicEvent = AnyT>
   extends IUniversalFieldEntity,
-          IUniversalFieldConfiguration<TKeyboardEvent> {
+          IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent> {
 }
 
 /**

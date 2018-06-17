@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { isUndef, noop, toClassName, orNull } from '../../../util';
+import { isUndef, noop, toClassName, orNull, cancelEvent } from '../../../util';
 import {
   AnyT,
-  BasicEventT,
-  FocusEventT,
   IKeyboardEvent,
   IChangeEvent,
   UNI_CODES,
+  IFocusEvent,
+  IBasicEvent,
 } from '../../../definitions.interface';
 import {
   IField,
@@ -26,23 +26,21 @@ import { DI_TYPES, lazyInject } from '../../../di';
 export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                    TInternalProps extends IFieldInternalProps,
                    TInternalState extends IFieldState>
-    extends UniversalField<TComponent, TInternalProps, TInternalState, IKeyboardEvent>
+    extends UniversalField<TComponent,
+                           TInternalProps,
+                           TInternalState,
+                           IKeyboardEvent,
+                           IFocusEvent,
+                           IBasicEvent>
     implements IField<TInternalProps, TInternalState> {
-
-  public static EMPTY_VALUE = '';
 
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
 
   constructor(props: TInternalProps) {
     super(props);
 
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onClick = this.onClick.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-
-    this.state = {} as TInternalState;
   }
 
   public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
@@ -146,7 +144,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const step = props.step;
     const type = props.type || 'text';
     const autoComplete = props.autoComplete || 'new-password';
-    const readOnly = props.readOnly  || this.progress;
+    const readOnly = props.readOnly  || this.inProgress();
     const disabled = props.disabled;
     const pattern = this.getFieldPattern();
     const required = props.required;
@@ -171,24 +169,13 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     };
   }
 
-  protected onFocus(event: FocusEventT): void {
-    if (this.props.onFocus) {
-      this.props.onFocus(event);
-    }
-  }
-
-  protected onBlur(event: FocusEventT): void {
-    if (this.props.onBlur) {
-      this.props.onBlur(event);
-    }
-  }
-
-  protected onClick(event: BasicEventT): void {
-    this.stopEvent(event);
-
-    if (this.props.onClick) {
-      this.props.onClick(event);
-    }
+  /**
+   * @stable [18.06.2018]
+   * @param {IBasicEvent} event
+   */
+  protected onClick(event: IBasicEvent): void {
+    cancelEvent(event);
+    super.onClick(event);
   }
 
   protected getFieldClassName(): string {
@@ -220,23 +207,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
    */
   protected isFieldFocused(): boolean {
     return this.hasInputFocus() || this.isValuePresent();
-  }
-
-  /**
-   * @stable
-   * @returns {boolean}
-   */
-  protected isDeactivated(): boolean {
-    const props = this.props;
-    return props.disabled || props.readOnly || this.progress;
-  }
-
-  /**
-   * @stable [06.06.2018]
-   * @returns {boolean}
-   */
-  protected isPartiallyDisabled(): boolean {
-    return this.props.partiallyDisabled === true;
   }
 
   protected getInputElementWrapperClassName(): string {

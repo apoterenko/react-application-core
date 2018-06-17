@@ -2,7 +2,6 @@ import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes
 
 import {
   AnyT,
-  FocusEventT,
   IValueWrapper,
   IStepable,
   IHTMLInputWrapper,
@@ -11,6 +10,7 @@ import {
   IOriginalValueWrapper,
   UNDEF,
   IKeyboardEvent,
+  IFocusEvent,
 } from '../../../definitions.interface';
 import {
   IFieldEntity,
@@ -64,8 +64,6 @@ export interface IFieldInternalProps extends IFieldConfiguration,
   rows?: number;
   cols?: number;
   validate?: (value: AnyT) => string;
-  onFocus?(event: FocusEventT): void;
-  onBlur?(event: FocusEventT): void;
 }
 
 /* @stable - 13.04.2018 */
@@ -98,6 +96,6 @@ export interface IBasicField<TValue> extends IValueWrapper<TValue> {
 
 export interface IField<TProps extends IFieldInternalProps = IFieldInternalProps,
                         TState extends IFieldState = IFieldState>
-    extends IUniversalField<TProps, TState, IKeyboardEvent>,
+    extends IUniversalField<TProps, TState, IKeyboardEvent, IFocusEvent>,
             IHTMLInputWrapper {
 }

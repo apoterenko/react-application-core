@@ -171,6 +171,11 @@ import {
   IAnchorWrapper,
   IValidationGroupWrapper,
   IChangeFormWrapper,
+  IOnBlurWrapper,
+  IOnFocusWrapper,
+  IFocusEvent,
+  IProgressWrapper,
+  IBasicEvent,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -539,12 +544,15 @@ export enum FieldActionPositionEnum {
 }
 
 /**
- * @stable [18.05.2018]
+ * @stable [18.06.2018]
  */
-export interface IUniversalFieldConfiguration<TKeyboardEvent>
+export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
   extends IUniversalComponentConfiguration,
           IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IDelayedChangesFieldPluginConfiguration,
+          IOnFocusWrapper<TFocusEvent>,
+          IOnBlurWrapper<TFocusEvent>,
+          IOnClickWrapper<TBasicEvent>,
           IOnChangeWrapper,
           IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
           IAutoFocusWrapper,
@@ -554,27 +562,29 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent>
           IMaskWrapper,
           IPatternWrapper,
           IDisplayMessageWrapper,
-          IValidationGroupWrapper {
+          IValidationGroupWrapper,
+          IPartiallyDisabledWrapper,
+          IDisabledWrapper,
+          IReadOnlyWrapper,
+          IProgressWrapper {
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeyboardEvent>,
+export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeyboardEvent,
+                                                                          IFocusEvent,
+                                                                          IBasicEvent>,
                                              IWebComponentConfiguration,
                                              IActionsPosition<FieldActionPositionEnum>,
-                                             IOnClickWrapper,
                                              IRequiredWrapper,
                                              IBindDictionaryConfiguration,
                                              IMaskGuideWrapper,
                                              IMaskPlaceholderCharWrapper,
-                                             IReadOnlyWrapper,
                                              ILabelWrapper,
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
                                              ITypeWrapper,
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
-                                             IDisabledWrapper,
-                                             IPartiallyDisabledWrapper,
                                              IClearActionWrapper,
                                              IUseKeyboardWrapper {
 }

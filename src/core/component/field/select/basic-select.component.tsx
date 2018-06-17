@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { toClassName } from '../../../util';
+import { cancelEvent, toClassName } from '../../../util';
 import { BasicTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
@@ -62,7 +62,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
 
   public onKeyDown(event: IKeyboardEvent): void {
     super.onKeyDown(event);
-    this.stopEvent(event);
+    cancelEvent(event);
   }
 
   public onKeyBackspace(event: IKeyboardEvent): void {
@@ -83,8 +83,12 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     }
   }
 
-  public get progress(): boolean {
-    return this.state.emptyOptions;
+  /**
+   * @stable [18.06.2018]
+   * @returns {boolean}
+   */
+  protected inProgress(): boolean {
+    return super.inProgress() || !!this.state.emptyOptions;
   }
 
   protected onClick(event: IBasicEvent): void {
@@ -162,7 +166,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     if (this.menu.isOpen()) {
       return;
     }
-    this.stopEvent(event);
+    cancelEvent(event);
 
     const props = this.props;
     const noAvailableOptions = R.isNil(props.options);

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import * as R from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
-import { isUndef, orUndef } from '../../../util';
+import { cancelEvent, isUndef, orUndef } from '../../../util';
 import { ChangeEventT, KeyboardEventT, BasicEventT, AnyT } from '../../../definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
@@ -52,7 +52,7 @@ export class DateField extends BasicTextField<DateField,
     super.onKeyEnter(event);
 
     if (this.dialogWindow.state.open) {
-      this.stopEvent(event);
+      cancelEvent(event);
     }
   }
 

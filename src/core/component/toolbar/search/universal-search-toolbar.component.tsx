@@ -6,7 +6,6 @@ import {
   IFilterActionConfiguration,
   FilterActionEnum,
 } from '../../../configurations-definitions.interface';
-import { AnyT } from '../../../definitions.interface';
 import { IUniversalComponent, IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
@@ -135,7 +134,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    * @stable [18.05.2018]
    * @returns {IUniversalFieldProps}
    */
-  protected get fieldProps(): IUniversalFieldProps<AnyT> {
+  protected get fieldProps(): IUniversalFieldProps {
     const props = this.props;
     return {
       ref: 'queryField',

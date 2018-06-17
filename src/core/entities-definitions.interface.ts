@@ -271,10 +271,11 @@ export interface IFieldEntity extends IUniversalFieldEntity,
 /**
  * @stable [18.06.2018]
  */
-export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent>
-                                    = IUniversalFieldProps<TKeyboardEvent>,
+export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent, TFocusEvent>
+                                    = IUniversalFieldProps<TKeyboardEvent, TFocusEvent>,
                                  TState = {},
-                                 TKeyboardEvent = AnyT>
+                                 TKeyboardEvent = AnyT,
+                                 TFocusEvent = AnyT>
   extends IUniversalComponent<TProps, TState>,
           IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IValueWrapper,
