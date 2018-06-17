@@ -1,18 +1,18 @@
-import { toActualChangedValue } from './field.helper';
-import { UNDEF } from '../../../definitions.interface';
+import { toActualChangedValue } from './field.support';
+import { FIELD_EMPTY_ERROR_VALUE, FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE } from './field.interface';
 
-describe('field.helper', () => {
+describe('field.support', () => {
   describe('toActualChangedValue', () => {
     it('test1', () => {
       const actualChangedValue = toActualChangedValue({
         value: [],
         emptyValue: [],
-        originalValue: UNDEF,
+        originalValue: FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
         error: 'error1',
       });
       expect(actualChangedValue).toEqual({
-        value: UNDEF,
-        error: null,
+        value: FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
+        error: FIELD_EMPTY_ERROR_VALUE,
       });
     });
 
@@ -37,8 +37,8 @@ describe('field.helper', () => {
         error: 'error1',
       });
       expect(actualChangedValue).toEqual({
-        value: UNDEF,
-        error: null,
+        value: FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
+        error: FIELD_EMPTY_ERROR_VALUE,
       });
     });
 
@@ -63,8 +63,8 @@ describe('field.helper', () => {
         error: 'error1',
       });
       expect(actualChangedValue).toEqual({
-        value: UNDEF,
-        error: null,
+        value: FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
+        error: FIELD_EMPTY_ERROR_VALUE,
       });
     });
   });

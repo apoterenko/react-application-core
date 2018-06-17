@@ -60,7 +60,7 @@ export class DateField extends BasicTextField<DateField,
     return this.tryConvertToDate(super.getRawValueFromEvent(event));
   }
 
-  protected toOutputValue(rawValue: DateTimeLikeTypeT): string {
+  protected toSerializedValue(rawValue: DateTimeLikeTypeT): string {
     // Date value must be able to be serialized as a string
     return orUndef(!isUndef(rawValue), () => this.formatDate(rawValue));
   }

@@ -37,7 +37,7 @@ import {
   IAutoFocusWrapper,
   IPreventValueBindingWrapper,
   IPlaceholderWrapper,
-  IStringPatternWrapper,
+  IPatternWrapper,
   IDisplayNameWrapper,
   IDisplayMessageWrapper,
   ILabelWrapper,
@@ -169,6 +169,8 @@ import {
   IEmptyMessageActionConfigurationWrapper,
   IAdjustWidthWrapper,
   IAnchorWrapper,
+  IValidationGroupWrapper,
+  IChangeFormWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -263,17 +265,17 @@ export interface IAccessConfigurationWrapper<TAccessConfiguration> {
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [18.06.2018]
  */
-export interface IKeyboardHandlersConfiguration {
-  onKeyTab?(event: IKeyboardEvent): void;
-  onKeyEnter?(event: IKeyboardEvent): void;
-  onKeyUp?(event: IKeyboardEvent): void;
-  onKeyDown?(event: IKeyboardEvent): void;
-  onKeyEscape?(event: IKeyboardEvent): void;
-  onKeyArrowDown?(event: IKeyboardEvent): void;
-  onKeyArrowUp?(event: IKeyboardEvent): void;
-  onKeyBackspace?(event: IKeyboardEvent): void;
+export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent> {
+  onKeyTab?(event: TKeyboardEvent): void;
+  onKeyEnter?(event: TKeyboardEvent): void;
+  onKeyUp?(event: TKeyboardEvent): void;
+  onKeyDown?(event: TKeyboardEvent): void;
+  onKeyEscape?(event: TKeyboardEvent): void;
+  onKeyArrowDown?(event: TKeyboardEvent): void;
+  onKeyArrowUp?(event: TKeyboardEvent): void;
+  onKeyBackspace?(event: TKeyboardEvent): void;
 }
 
 /**
@@ -539,35 +541,38 @@ export enum FieldActionPositionEnum {
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalFieldConfiguration extends IUniversalComponentConfiguration,
-                                                      IDelayedChangesFieldPluginConfiguration,
-                                                      IOnChangeWrapper,
-                                                      IAutoFocusWrapper,
-                                                      INotUseErrorMessageWrapper,
-                                                      IActionsWrapper<IFieldActionConfiguration[]> {
+export interface IUniversalFieldConfiguration<TKeyboardEvent>
+  extends IUniversalComponentConfiguration,
+          IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
+          IDelayedChangesFieldPluginConfiguration,
+          IOnChangeWrapper,
+          IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
+          IAutoFocusWrapper,
+          INotUseErrorMessageWrapper,
+          IActionsWrapper<IFieldActionConfiguration[]>,
+          INameWrapper,
+          IMaskWrapper,
+          IPatternWrapper,
+          IDisplayMessageWrapper,
+          IValidationGroupWrapper {
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldConfiguration extends IUniversalFieldConfiguration,
+export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeyboardEvent>,
                                              IWebComponentConfiguration,
                                              IActionsPosition<FieldActionPositionEnum>,
                                              IOnClickWrapper,
                                              IRequiredWrapper,
                                              IBindDictionaryConfiguration,
-                                             IMaskWrapper,
                                              IMaskGuideWrapper,
                                              IMaskPlaceholderCharWrapper,
-                                             IKeyboardHandlersConfiguration,
                                              IReadOnlyWrapper,
                                              ILabelWrapper,
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
-                                             IDisplayMessageWrapper,
                                              ITypeWrapper,
-                                             INameWrapper,
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
-                                             IStringPatternWrapper,
                                              IDisabledWrapper,
                                              IPartiallyDisabledWrapper,
                                              IClearActionWrapper,

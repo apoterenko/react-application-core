@@ -105,6 +105,8 @@ import {
   IFilterFormWrapper,
   IDateWrapper,
   ITimeWrapper,
+  AnyT,
+  IDisplayValueWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -113,7 +115,7 @@ import {
   IUniversalContainerProps,
   IUniversalFieldProps,
 } from './props-definitions.interface';
-import { IKeyboardHandlersConfiguration } from './configurations-definitions.interface';
+import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 
 /**
  * @stable [16.06.2018]
@@ -239,11 +241,24 @@ export interface IContainer<TProps extends IContainerProps = IContainerProps, TS
 }
 
 /**
+ * @stable [18.06.2018]
+ */
+export type IUniversalFieldDisplayValueConverter<TValue = AnyT> = (value: TValue, scope?: IUniversalField) => string;
+
+/**
+ * @stable [18.06.2018]
+ */
+export interface IUniversalFieldDisplayValueWrapper<TValue = AnyT>
+  extends IDisplayValueWrapper<string | IUniversalFieldDisplayValueConverter<TValue>> {
+}
+
+/**
  * @stable [18.05.2018]
  */
 export interface IUniversalFieldEntity extends IUniversalComponentEntity,
                                                IValueWrapper,
-                                               IOriginalValueWrapper {
+                                               IOriginalValueWrapper,
+                                               IUniversalFieldDisplayValueWrapper {
 }
 
 /**
@@ -254,12 +269,15 @@ export interface IFieldEntity extends IUniversalFieldEntity,
 }
 
 /**
- * @stable [06.06.2018]
+ * @stable [18.06.2018]
  */
-export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps, TState = {}>
+export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent>
+                                    = IUniversalFieldProps<TKeyboardEvent>,
+                                 TState = {},
+                                 TKeyboardEvent = AnyT>
   extends IUniversalComponent<TProps, TState>,
+          IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IValueWrapper,
-          IKeyboardHandlersConfiguration,
           ISetFocusWrapper,
           IClearValueWrapper,
           IResetErrorWrapper,

@@ -1,19 +1,15 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as Printf from 'sprintf-js';
 
-import { isFn, isUndef, isDef, noop, toClassName, orDefault, orNull } from '../../../util';
+import { isUndef, noop, toClassName, orNull } from '../../../util';
 import {
   AnyT,
   BasicEventT,
-  ChangeEventT,
   FocusEventT,
   IKeyboardEvent,
-  IProgressWrapper,
-  UNDEF,
+  IChangeEvent,
   UNI_CODES,
 } from '../../../definitions.interface';
-import { BaseComponent } from '../../base';
 import {
   IField,
   IFieldInputProps,
@@ -21,43 +17,45 @@ import {
   IFieldState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
-  FieldDisplayValueConverterT,
   FIELD_EMPTY_ERROR_VALUE,
 } from './field.interface';
-import { toActualChangedValue } from './field.helper';
+import { UniversalField } from './universal-field.component';
+import { IEventManager } from '../../../event';
+import { DI_TYPES, lazyInject } from '../../../di';
 
 export class Field<TComponent extends IField<TInternalProps, TInternalState>,
                    TInternalProps extends IFieldInternalProps,
                    TInternalState extends IFieldState>
-    extends BaseComponent<TComponent, TInternalProps, TInternalState>
-    implements IField<TInternalProps, TInternalState>, IProgressWrapper {
+    extends UniversalField<TComponent, TInternalProps, TInternalState, IKeyboardEvent>
+    implements IField<TInternalProps, TInternalState> {
 
   public static EMPTY_VALUE = '';
+
+  @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
 
   constructor(props: TInternalProps) {
     super(props);
 
-    this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.onChangeManually = this.onChangeManually.bind(this);
 
     this.state = {} as TInternalState;
   }
 
-  public onChange(event: ChangeEventT): void {
-    this.onChangeValue(this.getRawValueFromEvent(event));
-  }
-
   public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
     this.updateInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
-    this.onChangeValue(currentRawValue);
+    super.onChangeManually(currentRawValue, context);
   }
 
-  public getRawValueFromEvent(event: ChangeEventT): AnyT {
+  /**
+   * @stable [18.06.2018]
+   * @param {IChangeEvent} event
+   * @returns {AnyT}
+   */
+  public getRawValueFromEvent(event: IChangeEvent): AnyT {
     return event.target.value;
   }
 
@@ -72,7 +70,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
 
       this.input.required = false;
     }
-    this.validateField(UNDEF, FIELD_EMPTY_ERROR_VALUE);
+    super.resetError();
   }
 
   public onKeyDown(event: IKeyboardEvent): void {
@@ -104,48 +102,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     }
   }
 
-  public onKeyBackspace(event: IKeyboardEvent): void {
-    if (this.props.onKeyBackspace) {
-      this.props.onKeyBackspace(event);
-    }
-  }
-
-  public onKeyUp(event: IKeyboardEvent): void {
-    if (this.props.onKeyUp) {
-      this.props.onKeyUp(event);
-    }
-  }
-
-  public onKeyEnter(event: IKeyboardEvent): void {
-    if (this.props.onKeyEnter) {
-      this.props.onKeyEnter(event);
-    }
-  }
-
-  public onKeyTab(event: IKeyboardEvent): void {
-    if (this.props.onKeyTab) {
-      this.props.onKeyTab(event);
-    }
-  }
-
-  public onKeyEscape(event: IKeyboardEvent): void {
-    if (this.props.onKeyEscape) {
-      this.props.onKeyEscape(event);
-    }
-  }
-
-  public onKeyArrowDown(event: IKeyboardEvent): void {
-    if (this.props.onKeyArrowDown) {
-      this.props.onKeyArrowDown(event);
-    }
-  }
-
-  public onKeyArrowUp(event: IKeyboardEvent): void {
-    if (this.props.onKeyArrowUp) {
-      this.props.onKeyArrowUp(event);
-    }
-  }
-
   public setFocus(): void {
     this.input.focus();
   }
@@ -158,25 +114,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     const input = this.refs.input;
     return input && (input as INativeMaskedInputComponent).inputElement
       || input as ( HTMLInputElement | HTMLTextAreaElement);
-  }
-
-  public get progress(): boolean {
-    return false;
-  }
-
-  public get value(): AnyT {
-    return this.props.value;
-  }
-
-  /**
-   * @stable [06.06.2018]
-   */
-  public clearValue(): void {
-    this.setFocus();
-
-    if (this.isValuePresent()) {
-      this.onChangeManually(this.getEmptyValue());
-    }
   }
 
   protected get definiteValue(): AnyT {
@@ -234,35 +171,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     };
   }
 
-  protected get displayValue(): AnyT {
-    return this.toDisplayValue(this.value);
-  }
-
-  protected toDisplayValue(value: AnyT, context?: AnyT): AnyT {
-    const props = this.props;
-
-    return this.progress
-      ? Field.EMPTY_VALUE
-      : (
-        this.isValuePresent(value)
-          ? (isUndef(props.displayValue)
-              ? value
-              : (isFn(props.displayValue)
-                  ? (props.displayValue as FieldDisplayValueConverterT)(value, this)
-                  : props.displayValue))
-          : Field.EMPTY_VALUE
-      );
-  }
-
-  protected printfDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
-    const props = this.props;
-    return orDefault(
-      usePrintf,
-      () => Printf.sprintf(this.t(props.displayMessage), ...args),
-      Field.EMPTY_VALUE
-    );
-  }
-
   protected onFocus(event: FocusEventT): void {
     if (this.props.onFocus) {
       this.props.onFocus(event);
@@ -283,36 +191,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     }
   }
 
-  protected onChangeValue(currentRawValue: AnyT, error?: string): void {
-    const actualChangedValue = toActualChangedValue({
-      value: currentRawValue,
-      emptyValue: this.getEmptyValue(),
-      originalValue: this.props.originalValue,
-      error,
-    });
-    currentRawValue = actualChangedValue.value;
-
-    this.validateField(currentRawValue, actualChangedValue.error);
-
-    this.propsOnChange(currentRawValue);
-    this.propsChangeForm(currentRawValue);
-  }
-
-  protected propsChangeForm(rawValue: AnyT): void {
-    if (this.props.changeForm) {
-      this.props.changeForm(
-          this.props.name,
-          this.toOutputValue(rawValue),
-          this.props.validationGroup
-      );
-    }
-  }
-
-  protected toOutputValue(rawValue: AnyT): AnyT {
-    // The state may be an external storage and the value must be able to be serialized
-    return rawValue;
-  }
-
   protected getFieldClassName(): string {
     const props = this.props;
     return toClassName(
@@ -322,10 +200,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
       'rac-flex-full',
       this.isDeactivated() && 'rac-form-field-disabled'
     );
-  }
-
-  protected isValuePresent(value = this.value): boolean {
-    return isDef(value) && !R.equals(value, this.getEmptyValue());
   }
 
   protected get error(): string {
@@ -365,18 +239,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return this.props.partiallyDisabled === true;
   }
 
-  protected getFieldMask(): Array<string|RegExp> {
-    return this.props.mask;
-  }
-
-  protected getFieldPattern(): string {
-    return this.props.pattern;
-  }
-
-  protected getEmptyValue(): AnyT {
-    return Field.EMPTY_VALUE;
-  }
-
   protected getInputElementWrapperClassName(): string {
     return toClassName(
       'rac-field-input-wrapper',
@@ -412,7 +274,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
    * @param {AnyT} value
    * @returns {string}
    */
-  private validateValueAndSetCustomValidity(value: AnyT): string {
+  protected validateValueAndSetCustomValidity(value: AnyT): string {
     const props = this.props;
     let error = FIELD_EMPTY_ERROR_VALUE;
 
@@ -438,22 +300,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   private updateInputBeforeHTML5Validation(value: AnyT): void {
     // We must update the field manually before calls HTML5 validation
     this.input.value = value;
-  }
-
-  private propsOnChange(rawValue: AnyT): void {
-    if (this.props.onChange) {
-      this.props.onChange(rawValue);
-    }
-  }
-
-  /**
-   * @stable [17.06.2018]
-   * @param {AnyT} rawValue
-   * @param {string} err
-   */
-  private validateField(rawValue?: AnyT, err?: string): void {
-    // State value cannot take an undefined value then we should pass a null value at least
-    this.setState({error: R.isNil(err) ? this.validateValueAndSetCustomValidity(rawValue) : err});
   }
 
   private getMessage(message: string, className = 'rac-text-field-help-text-info'): JSX.Element {

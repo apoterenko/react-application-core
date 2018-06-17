@@ -631,13 +631,11 @@ export interface IPluginsWrapper<TPlugins> {
   plugins?: TPlugins;
 }
 
-/* @stable - 11.04.2018 */
-export interface IPatternWrapper<TPattern> {
+/**
+ * @stable [17.06.2018]
+ */
+export interface IPatternWrapper<TPattern = string> {
   pattern?: TPattern;
-}
-
-/* @stable - 11.04.2018 */
-export interface IStringPatternWrapper extends IPatternWrapper<string> {
 }
 
 /* @stable - 11.04.2018 */
@@ -1126,6 +1124,20 @@ export interface IEffectorWrapper<TEffector = string> {
  */
 export interface IValueWrapper<TValue = AnyT> {
   value?: TValue;
+}
+
+/**
+ * @stable [18.06.2018]
+ */
+export interface IDisplayValueWrapper<TDisplayValue = AnyT> {
+  displayValue?: TDisplayValue;
+}
+
+/**
+ * @stable [17.06.2018]
+ */
+export interface IEmptyValueWrapper<TValue = AnyT> {
+  emptyValue?: TValue;
 }
 
 /**
@@ -1706,6 +1718,26 @@ export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string>
  */
 export interface IErrorWrapper<TError = boolean> {
   error?: TError;
+}
+
+/**
+ * @stable [17.06.2018]
+ */
+export interface IStringErrorWrapper extends IErrorWrapper<string> {
+}
+
+/**
+ * @stable [17.06.2018]
+ */
+export interface IValidationGroupWrapper<TValidationGroup = string> {
+  validationGroup?: TValidationGroup;
+}
+
+/**
+ * @stable [17.06.2018]
+ */
+export interface IChangeFormWrapper<TChangeForm> {
+  changeForm?: TChangeForm;
 }
 
 /**
@@ -2292,9 +2324,11 @@ export interface IInitialChangesWrapper<TInitialChanges> {
 export interface IStateInitialChangesWrapper<TAppState> extends IInitialChangesWrapper<(state: TAppState) => IKeyValue> {
 }
 
-/* @stable - 11.04.2018 */
-export interface IDisplayMessageWrapper {
-  displayMessage?: string;
+/**
+ * @stable [18.06.2018]
+ */
+export interface IDisplayMessageWrapper<TDisplayMessage = string> {
+  displayMessage?: TDisplayMessage;
 }
 
 /* @stable - 15.04.2018 */
@@ -2372,10 +2406,6 @@ export interface IToWrapper<TTo> {
 
 /* @stable - 20.04.2018 */
 export interface IStringToWrapper extends IToWrapper<string> {
-}
-
-export interface IDisplayValueWrapper<TDisplay> {
-  displayValue?: TDisplay;
 }
 
 export const IMAGE_FIELD_NAME = 'image';

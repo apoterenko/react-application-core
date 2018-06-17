@@ -44,7 +44,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TProps>, nextContext: AnyT): void {
-    super.componentWillReceiveProps(nextProps, nextContext);
 
     const props = this.props;
     if (!R.isNil(nextProps.options)

@@ -54,10 +54,11 @@ export interface IContainerProps extends IContainerEntity,
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [18.06.2018]
  */
-export interface IUniversalFieldProps extends IUniversalFieldEntity,
-                                              IUniversalFieldConfiguration {
+export interface IUniversalFieldProps<TKeyboardEvent>
+  extends IUniversalFieldEntity,
+          IUniversalFieldConfiguration<TKeyboardEvent> {
 }
 
 /**

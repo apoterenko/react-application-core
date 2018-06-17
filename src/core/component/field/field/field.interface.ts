@@ -3,11 +3,14 @@ import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes
 import {
   AnyT,
   FocusEventT,
-  IDisplayValueWrapper,
   IValueWrapper,
   IStepable,
-  ChangeEventT,
   IHTMLInputWrapper,
+  IEmptyValueWrapper,
+  IStringErrorWrapper,
+  IOriginalValueWrapper,
+  UNDEF,
+  IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
   IFieldEntity,
@@ -18,21 +21,40 @@ import {
   IFieldConfiguration,
 } from '../../../configurations-definitions.interface';
 
-export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IField) => string;
-
-export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
-
+/**
+ * @stable [17.06.2018]
+ * @type {null}
+ */
+export const FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const FIELD_EMPTY_ERROR_VALUE = null;
+export const FIELD_EMPTY_VALUE = '';
 
-export interface IFieldDisplayValueWrapper<TValue> extends IDisplayValueWrapper<string|IFieldDisplayValueConverter<TValue>> {
+/**
+ * @stable [17.06.2018]
+ */
+export interface IFieldActualChangedValueResultEntity extends IValueWrapper,
+                                                              IStringErrorWrapper {
+}
+
+/**
+ * @stable [17.06.2018]
+ */
+export interface IFieldActualChangedValueConfigEntity extends IFieldActualChangedValueResultEntity,
+                                                              IEmptyValueWrapper,
+                                                              IOriginalValueWrapper {
+}
+
+/**
+ * @stable [17.06.2018]
+ */
+export interface IUniversalFieldState extends IStringErrorWrapper {
 }
 
 export interface IFieldsOptions { [index: string]: string|IFieldConfiguration; }
 
 export interface IFieldInternalProps extends IFieldConfiguration,
                                              IFieldEntity,
-                                             IStepable,
-                                             IFieldDisplayValueWrapper<AnyT> {
+                                             IStepable {
   inputWrapperClassName?: string; // @stable
   noInfoMessage?: boolean;
   renderCondition?: boolean;
@@ -42,8 +64,6 @@ export interface IFieldInternalProps extends IFieldConfiguration,
   rows?: number;
   cols?: number;
   validate?: (value: AnyT) => string;
-  validationGroup?: string;
-  changeForm?(name: string, value: AnyT, validationGroup?: string): void;
   onFocus?(event: FocusEventT): void;
   onBlur?(event: FocusEventT): void;
 }
@@ -73,12 +93,11 @@ export interface INativeMaskedInputComponent extends Component {
 
 export interface IBasicField<TValue> extends IValueWrapper<TValue> {
   setFocus?(): void;
-  onChange?(event: ChangeEventT): void;
   onChangeManually?(currentRawValue: AnyT, context?: AnyT): void;
 }
 
 export interface IField<TProps extends IFieldInternalProps = IFieldInternalProps,
                         TState extends IFieldState = IFieldState>
-    extends IUniversalField<TProps, TState>,
+    extends IUniversalField<TProps, TState, IKeyboardEvent>,
             IHTMLInputWrapper {
 }
