@@ -10,6 +10,7 @@ import {
   FocusEventT,
   IKeyboardEvent,
   IProgressWrapper,
+  UNDEF,
   UNI_CODES,
 } from '../../../definitions.interface';
 import { BaseComponent } from '../../base';
@@ -21,6 +22,7 @@ import {
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
   FieldDisplayValueConverterT,
+  FIELD_EMPTY_ERROR_VALUE,
 } from './field.interface';
 import { toActualChangedValue } from './field.helper';
 
@@ -51,7 +53,7 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
   }
 
   public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
-    this.updateNativeInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
+    this.updateInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
     this.onChangeValue(currentRawValue);
   }
 
@@ -59,8 +61,18 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return event.target.value;
   }
 
+  /**
+   * @stable [17.06.2018]
+   */
   public resetError(): void {
-    this.validateField(null, null);
+    if (!R.isNil(this.input.required)) {
+      // Because of Flux-architecture (chicken-and-egg dilemma)
+      // This flag is being set by a redux engine on a new cycle
+      // Need to reset: required, pattern, etc...
+
+      this.input.required = false;
+    }
+    this.validateField(UNDEF, FIELD_EMPTY_ERROR_VALUE);
   }
 
   public onKeyDown(event: IKeyboardEvent): void {
@@ -301,11 +313,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return rawValue;
   }
 
-  protected updateNativeInputBeforeHTML5Validation(value: AnyT): void {
-    // We must update the field manually before calls HTML5 validation
-    this.input.value = value;
-  }
-
   protected getFieldClassName(): string {
     const props = this.props;
     return toClassName(
@@ -400,12 +407,22 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return 'rac-self-field';
   }
 
+  /**
+   * @stable [17.06.2018]
+   * @param {AnyT} value
+   * @returns {string}
+   */
   private validateValueAndSetCustomValidity(value: AnyT): string {
     const props = this.props;
-    let error = null;
+    let error = FIELD_EMPTY_ERROR_VALUE;
+
+    this.input.setCustomValidity('');
+
     if (this.input.validity.valid) {
-      error = props.validate ? props.validate(value) : null;
-      if (error) {
+      // If HTML5-validator returns true then we should call a custom validator
+      error = props.validate ? props.validate(value) : error;
+
+      if (!R.isNil(error)) {
         this.input.setCustomValidity(error);
       }
     } else {
@@ -414,16 +431,29 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return error;
   }
 
+  /**
+   * @stable [17.06.2018]
+   * @param {AnyT} value
+   */
+  private updateInputBeforeHTML5Validation(value: AnyT): void {
+    // We must update the field manually before calls HTML5 validation
+    this.input.value = value;
+  }
+
   private propsOnChange(rawValue: AnyT): void {
     if (this.props.onChange) {
       this.props.onChange(rawValue);
     }
   }
 
-  private validateField(rawValue: AnyT, error?: string): void {
-    this.input.setCustomValidity(''); // Support of HTML5 Validation Api
-    const error0 = R.isNil(error) ? this.validateValueAndSetCustomValidity(rawValue) : error;
-    this.setState({ error: error0  });
+  /**
+   * @stable [17.06.2018]
+   * @param {AnyT} rawValue
+   * @param {string} err
+   */
+  private validateField(rawValue?: AnyT, err?: string): void {
+    // State value cannot take an undefined value then we should pass a null value at least
+    this.setState({error: R.isNil(err) ? this.validateValueAndSetCustomValidity(rawValue) : err});
   }
 
   private getMessage(message: string, className = 'rac-text-field-help-text-info'): JSX.Element {

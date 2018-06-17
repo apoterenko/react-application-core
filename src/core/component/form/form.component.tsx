@@ -179,10 +179,11 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   }
 
   private onChange(name: string, value: AnyT, validationGroup: string): void {
-    this.resetGroupFieldsErrors(name, validationGroup);
+
     if (this.props.onChange) {
       this.props.onChange({name, value});
     }
+    this.resetGroupFieldsErrors(name, validationGroup);
     this.propsOnValid();
   }
 
@@ -245,6 +246,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
 
       if (groupName === validationGroup && fieldName !== name) {
         const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as IField;
+
         if (otherFieldInstanceAtTheSameGroup) {
           otherFieldInstanceAtTheSameGroup.resetError();
         } else {

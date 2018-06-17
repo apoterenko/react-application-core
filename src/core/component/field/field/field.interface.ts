@@ -22,6 +22,8 @@ export type IFieldDisplayValueConverter<TValue> = (value: TValue, scope?: IField
 
 export type FieldDisplayValueConverterT = IFieldDisplayValueConverter<AnyT>;
 
+export const FIELD_EMPTY_ERROR_VALUE = null;
+
 export interface IFieldDisplayValueWrapper<TValue> extends IDisplayValueWrapper<string|IFieldDisplayValueConverter<TValue>> {
 }
 
