@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IEditableEntity, IApiEntity } from '../../entities-definitions.interface';
-import { IFieldConfiguration } from '../../configurations-definitions.interface';
+import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
@@ -13,7 +13,6 @@ import {
   Field,
   IFieldInternalProps,
   IField,
-  IFieldsOptions,
 } from '../field';
 import { IForm, IFormProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import {
@@ -33,7 +32,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   };
   private static logger = LoggerFactory.makeLogger(Form);
 
-  @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsOptions;
+  @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
   private readonly childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
 
   /**
@@ -106,7 +105,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                     },
                     (child) => Field.isPrototypeOf(child.type),
                     this.childrenMap,
-                    (child) => (child.props as IFieldInternalProps).renderCondition,
+                    (child) => (child.props as IFieldInternalProps).rendered,
                 )
               }
             </section>

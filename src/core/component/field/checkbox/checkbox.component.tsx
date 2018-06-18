@@ -25,15 +25,15 @@ export class Checkbox extends Field<Checkbox,
                className={this.getSelfElementClassName()}>
             <div className={this.getInputElementWrapperClassName()}>
               {this.getInputElement()}
-              {this.getInputElementAttachment()}
+              {this.getInputAttachmentElement()}
             </div>
           </div>
           <label htmlFor={this.inputId}>
             {props.label ? this.t(props.label) : props.children}
           </label>
         </div>
-        {this.getFieldMessage()}
-        {this.getFieldErrorMessage()}
+        {this.fieldMessage}
+        {this.fieldErrorMessageElement}
       </div>
     );
   }
@@ -48,7 +48,7 @@ export class Checkbox extends Field<Checkbox,
   /**
    * @inheritDoc
    */
-  protected getInputElementAttachment(): JSX.Element {
+  protected getInputAttachmentElement(): JSX.Element {
     return this.uiFactory.makeCheckboxAttachment();
   }
 

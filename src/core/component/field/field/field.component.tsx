@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { isUndef, noop, toClassName, orNull, cancelEvent } from '../../../util';
+import { noop, toClassName, orNull, cancelEvent } from '../../../util';
 import {
   AnyT,
   IKeyboardEvent,
@@ -114,22 +114,22 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
       || input as ( HTMLInputElement | HTMLTextAreaElement);
   }
 
-  protected get definiteValue(): AnyT {
-    return isUndef(this.value) ? this.getEmptyValue() : this.value;
-  }
-
-  protected getFieldMessage(): JSX.Element {
+  protected get fieldMessage(): JSX.Element {
     const props = this.props;
     const message = props.message;
-    return orNull(!props.noInfoMessage && message, () => this.getMessage(message));
+    return orNull<JSX.Element>(message, () => this.getMessageElement(message));
   }
 
-  protected getFieldErrorMessage(): JSX.Element {
+  /**
+   * @stable [18.06.2018]
+   * @returns {JSX.Element}
+   */
+  protected get fieldErrorMessageElement(): JSX.Element {
     const props = this.props;
     const error = this.error;
-    return orNull(
+    return orNull<JSX.Element>(
       !props.notUseErrorMessage,
-      () => this.getMessage(error, this.uiFactory.textFieldValidationText)
+      () => this.getMessageElement(error, this.uiFactory.textFieldValidationText)
     );
   }
 
@@ -201,14 +201,6 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     return document.activeElement === this.input;
   }
 
-  /**
-   * @stable [30.05.2018]
-   * @returns {boolean}
-   */
-  protected isFieldFocused(): boolean {
-    return this.hasInputFocus() || this.isValuePresent();
-  }
-
   protected getInputElementWrapperClassName(): string {
     return toClassName(
       'rac-field-input-wrapper',
@@ -222,11 +214,12 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
    * @stable [01.06.2018]
    * @returns {JSX.Element}
    */
-  protected getInputElementAttachment(): JSX.Element {
+  protected getInputAttachmentElement(): JSX.Element {
     return null;
   }
 
   /**
+   * stable [18.06.2018]
    * @example [
    *            rac-checkbox-field,
    *            rac-textarea-field,
@@ -272,14 +265,16 @@ export class Field<TComponent extends IField<TInternalProps, TInternalState>,
     this.input.value = value;
   }
 
-  private getMessage(message: string, className = 'rac-text-field-help-text-info'): JSX.Element {
+  /**
+   * @stable [18.06.2018]
+   * @param {string} message
+   * @param {string} className
+   * @returns {JSX.Element}
+   */
+  private getMessageElement(message: string, className?: string): JSX.Element {
     return (
       <p title={message}
-         className={toClassName(
-           'rac-text-field-help-text',
-           this.uiFactory.textFieldHelpText,
-           className,
-         )}>
+         className={toClassName('rac-text-field-help-text', this.uiFactory.textFieldHelpText, className)}>
         {message ? this.t(message) : UNI_CODES.noBreakSpace}
       </p>
     );

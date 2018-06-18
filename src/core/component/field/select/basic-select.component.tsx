@@ -103,7 +103,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
    * @stable [01.06.2018]
    * @returns {JSX.Element}
    */
-  protected getInputElementAttachment(): JSX.Element {
+  protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     return (
         <Menu ref='menu'

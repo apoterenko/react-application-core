@@ -219,11 +219,27 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [18.06.2018]
+   * @returns {boolean}
+   */
+  protected isFieldFocused(): boolean {
+    return this.hasInputFocus() || this.isValuePresent();
+  }
+
+  /**
    * @stable [17.06.2018]
    * @returns {AnyT}
    */
   protected getEmptyValue(): AnyT {
     return FIELD_EMPTY_VALUE;
+  }
+
+  /**
+   * @stable [18.06.2018]
+   * @returns {AnyT}
+   */
+  protected get definiteValue(): AnyT {
+    return isUndef(this.value) ? this.getEmptyValue() : this.value;
   }
 
   /**
@@ -259,6 +275,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     return this.toDisplayValue(this.value);
   }
 
+  /**
+   * @stable [18.06.2018]
+   * @param {AnyT} value
+   * @param {AnyT} context
+   * @returns {AnyT}
+   */
   protected toDisplayValue(value: AnyT, context?: AnyT): AnyT {
     const props = this.props;
     const displayValue = props.displayValue;
@@ -338,6 +360,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
       this.props.onClick(event);
     }
   }
+
+  /**
+   * @stable [18.06.2018]
+   * @returns {boolean}
+   */
+  protected abstract hasInputFocus(): boolean;
 
   /**
    * @stable [17.06.2018]

@@ -65,7 +65,7 @@ export class DateField extends BasicTextField<DateField,
     return orUndef(!isUndef(rawValue), () => this.formatDate(rawValue));
   }
 
-  protected getInputElementAttachment(): JSX.Element {
+  protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     return (
         <DatePickerDialog ref='dialogWindow'

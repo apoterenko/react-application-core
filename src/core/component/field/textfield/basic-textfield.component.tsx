@@ -80,7 +80,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                     )
                 )
               }
-              {this.getInputElementAttachment()}
+              {this.getInputAttachmentElement()}
             </div>
             {orNull(
                 this.actions,
@@ -104,8 +104,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
               () => <ProgressLabel className='rac-text-field-loader'/>
             )}
           </div>
-          {this.getFieldMessage()}
-          {this.getFieldErrorMessage()}
+          {this.fieldMessage}
+          {this.fieldErrorMessageElement}
           {this.getAttachment()}
           {
             orNull<JSX.Element>(
@@ -152,12 +152,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return null;
   }
 
-  protected getInputElementAttachment(): JSX.Element {
+  protected getInputAttachmentElement(): JSX.Element {
     return null;
   }
 
   protected getSelfElementClassName(): string {
-    const props = this.props;
     const error = this.error;
 
     return toClassName(

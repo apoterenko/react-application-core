@@ -176,6 +176,9 @@ import {
   IFocusEvent,
   IProgressWrapper,
   IBasicEvent,
+  IAutoCompleteWrapper,
+  IRenderedWrapper,
+  IStepWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -566,7 +569,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IPartiallyDisabledWrapper,
           IDisabledWrapper,
           IReadOnlyWrapper,
-          IProgressWrapper {
+          IProgressWrapper,
+          IRenderedWrapper {
 }
 
 /* @stable - 11.04.2018 */
@@ -574,6 +578,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                                                           IFocusEvent,
                                                                           IBasicEvent>,
                                              IWebComponentConfiguration,
+                                             IAutoCompleteWrapper,
                                              IActionsPosition<FieldActionPositionEnum>,
                                              IRequiredWrapper,
                                              IBindDictionaryConfiguration,
@@ -586,7 +591,15 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IClearActionWrapper,
-                                             IUseKeyboardWrapper {
+                                             IUseKeyboardWrapper,
+                                             IStepWrapper {
+}
+
+/**
+ * @stable [18.06.2018]
+ */
+export interface IFieldsConfigurations {
+  [fieldName: string]: string | IFieldConfiguration;
 }
 
 /* @stable - 14.04.2018 */

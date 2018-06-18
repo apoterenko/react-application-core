@@ -3,7 +3,6 @@ import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes
 import {
   AnyT,
   IValueWrapper,
-  IStepable,
   IHTMLInputWrapper,
   IEmptyValueWrapper,
   IStringErrorWrapper,
@@ -23,7 +22,6 @@ import {
 
 /**
  * @stable [17.06.2018]
- * @type {null}
  */
 export const FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const FIELD_EMPTY_ERROR_VALUE = null;
@@ -50,15 +48,9 @@ export interface IFieldActualChangedValueConfigEntity extends IFieldActualChange
 export interface IUniversalFieldState extends IStringErrorWrapper {
 }
 
-export interface IFieldsOptions { [index: string]: string|IFieldConfiguration; }
-
 export interface IFieldInternalProps extends IFieldConfiguration,
-                                             IFieldEntity,
-                                             IStepable {
+                                             IFieldEntity {
   inputWrapperClassName?: string; // @stable
-  noInfoMessage?: boolean;
-  renderCondition?: boolean;
-  autoComplete?: string;
   minLength?: number;
   maxLength?: number;
   rows?: number;
@@ -66,12 +58,16 @@ export interface IFieldInternalProps extends IFieldConfiguration,
   validate?: (value: AnyT) => string;
 }
 
-/* @stable - 13.04.2018 */
+/**
+ * @stable [18.06.2018]
+ */
 export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
                                           ClassAttributes<HTMLInputElement> {
 }
 
-/* @stable - 13.04.2018 */
+/**
+ * @stable [18.06.2018]
+ */
 export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>,
                                              ClassAttributes<HTMLTextAreaElement> {
 }

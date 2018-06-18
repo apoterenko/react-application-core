@@ -839,6 +839,13 @@ export interface ISeparatorsWrapper<TSeparators> {
 }
 
 /**
+ * @stable [18.06.2018]
+ */
+export interface IRenderedWrapper {
+  rendered?: boolean;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IDisabledWrapper {
@@ -1384,6 +1391,13 @@ export interface IActionsWrapper<TActions> {
  */
 export interface INotUseErrorMessageWrapper {
   notUseErrorMessage?: boolean;
+}
+
+/**
+ * @stable [18.06.2018]
+ */
+export interface IAutoCompleteWrapper<TAutoComplete = string> {
+  autoComplete?: TAutoComplete;
 }
 
 /**
@@ -2373,6 +2387,13 @@ export interface IRootWrapper<TRoot> {
   root?: TRoot;
 }
 
+/**
+ * @stable [18.06.2018]
+ */
+export interface IStepWrapper<TStep = number> {
+  step?: TStep;
+}
+
 /* @stable - 15.04.2018 */
 export interface IKeyWrapper<TKey> {
   key?: TKey;
@@ -2428,10 +2449,6 @@ export const LOGIN_FIELD_NAME = 'login';
 
 export const PROGRESS_FIELD_NAME = 'progress';
 
-export interface IStepable {
-  step?: number;
-}
-
 export const UNI_CODES = {
   dash: '\u2014',
   space: '\u0020',
@@ -2440,7 +2457,6 @@ export const UNI_CODES = {
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
-export type FocusEventT = React.FocusEvent<{}>;
 export type KeyboardEventT = React.KeyboardEvent<{}>;
 export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;
 

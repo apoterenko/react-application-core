@@ -21,7 +21,7 @@ export class TextArea extends BasicTextField<TextArea,
   /**
    * @inheritDoc
    */
-  protected getInputElementAttachment(): JSX.Element {
+  protected getInputAttachmentElement(): JSX.Element {
     return orNull(
       isDef(this.props.maxLength),
       () => (
