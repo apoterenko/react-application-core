@@ -21,6 +21,7 @@ export class GridColumn extends BaseComponent<GridColumn, IGridColumnProps> {
                 })}
           className={toClassName(
                         'rac-grid-column',
+                        props.actioned && 'rac-grid-actioned-column',
                         props.align && `rac-grid-column-align-${props.align}`,
                         props.className
                       )}>

@@ -35,10 +35,9 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    */
   public render(): JSX.Element {
     const props = this.props;
-    const isLocalMode = !props.touched;
 
     if (this.originalDataSourceDoesNotExist
-          || (!isLocalMode && this.emptyData)    // The local filters are not considered
+          || this.emptyData
           || props.progress
           || props.error) {
       return this.getMessage();
@@ -217,7 +216,8 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    */
   private get emptyData(): boolean {
     if (!this.originalDataSourceDoesNotExist) {
-      const dataSource = this.dataSource;
+      const isRemoteMode = this.props.touched;   // The local filters are not considered
+      const dataSource = isRemoteMode ? this.dataSource : this.originalDataSource;
       return Array.isArray(dataSource) && !dataSource.length;
     }
     return false; // It's important to show difference when length === 0 and data === null!

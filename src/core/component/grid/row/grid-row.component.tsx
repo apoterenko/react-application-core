@@ -30,8 +30,8 @@ export class GridRow extends BaseComponent<GridRow, IGridRowProps, {}> {
     return (
       <tr ref='self'
           className={toClassName(
-            'grid-row',
-            props.selected && 'grid-row-selected',
+            'rac-grid-row',
+            props.selected && 'rac-grid-row-selected',
             props.className
           )}
           onClick={this.onClick}>

@@ -19,10 +19,20 @@
       }
 
       .rac-icon {
-        font-size: $rac-grid-header-icon-size;            /* @stable [21.06.2018] */
-        width: $rac-grid-header-icon-size;                /* @stable [21.06.2018] */
-        height: $rac-grid-header-icon-size;               /* @stable [21.06.2018] */
-        line-height: $rac-grid-header-icon-line-height;   /* @stable [21.06.2018] */
+        font-size: $rac-grid-icon-size;                   /* @stable [21.06.2018] */
+        width: $rac-grid-icon-size;                       /* @stable [21.06.2018] */
+        height: $rac-grid-icon-size;                      /* @stable [21.06.2018] */
+        line-height: $rac-grid-icon-line-height;          /* @stable [21.06.2018] */
+      }
+
+      &.rac-grid-actioned-column {
+
+        .rac-icon {
+          font-size: $rac-grid-actioned-icon-size;         /* @stable [21.06.2018] */
+          width: $rac-grid-actioned-icon-size;             /* @stable [21.06.2018] */
+          height: $rac-grid-actioned-icon-size;            /* @stable [21.06.2018] */
+          line-height: $rac-grid-actioned-icon-line-height;/* @stable [21.06.2018] */
+        }
       }
     }
 
