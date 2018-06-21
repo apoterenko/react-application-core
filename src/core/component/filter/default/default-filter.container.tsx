@@ -12,7 +12,7 @@ export class DefaultFilterContainer<TProps extends IFormContainerProps>
 
     return (
       <DefaultLayoutContainer headerConfiguration={{
-                                navigationActionType: 'arrow_back',
+                                navigationActionType: 'keyboard_arrow_left',
                                 onNavigationActionClick: this.navigateToBack,
                               }}
                               title={this.t('Filter')}

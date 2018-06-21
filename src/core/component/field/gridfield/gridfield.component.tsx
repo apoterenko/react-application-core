@@ -18,7 +18,7 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
   }
 
   /**
-   * @stable [02.06.2018]
+   * @stable [21.06.2018]
    * @returns {JSX.Element}
    */
   protected getAttachment(): JSX.Element {
@@ -31,6 +31,7 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
     return (
       <Grid onChange={this.onChangeRowField}
             deactivated={this.isDeactivated()}
+            emptyMessage={this.settings.messages.noSelectedItems}
             emptyDataMessage={this.settings.messages.noSelectedItems}
             {...props.gridConfiguration}
             {...gridListEntity}/>

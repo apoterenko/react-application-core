@@ -30,14 +30,15 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [09.06.2018]
+   * @stable [21.06.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
+    const isLocalMode = !props.touched;
 
     if (this.originalDataSourceDoesNotExist
-          || this.emptyData
+          || (!isLocalMode && this.emptyData)    // The local filters are not considered
           || props.progress
           || props.error) {
       return this.getMessage();

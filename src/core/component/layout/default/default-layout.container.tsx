@@ -17,6 +17,7 @@ import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
 import { IMenuItemEntity } from '../../../entities-definitions.interface';
+import { FlexLayout } from '../../layout';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
@@ -60,7 +61,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             </div>
             <NavigationList items={menu}/>
           </PersistentDrawer>
-          <div className='rac-flex rac-flex-column rac-flex-full'>
+          <FlexLayout className='rac-default-layout-body'>
             <Header {...props.headerConfiguration}
                     title={runtimeTitle && runtimeTitle.label || props.title}
                     className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
@@ -72,7 +73,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
               {props.children}
             </Main>
             {orNull(props.footer, () => <footer className='rac-footer'>{props.footer}</footer>)}
-          </div>
+          </FlexLayout>
           {this.snackbarTpl}
         </div>
     );

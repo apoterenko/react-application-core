@@ -1,16 +1,16 @@
 @import '../../constant';
 
-// Default layout [FRAMEWORK-][ROOT+]
-.rac-root {
+// Default layout [FRAMEWORK-][RAC+]
+.rac {
 
   .rac-default-layout {
 
     .rac-footer {
-      border-top: 1px solid $color-3;             // [RAC+]
+      border-top: 1px solid $color-3;             /* @stable [19.06.2018] */
     }
 
     .rac-persistent-drawer-toolbar-spacer {
-      background: $color-7;                       // [RAC+]
+      background: $color-7;                       /* @stable [19.06.2018] */
     }
   }
 }

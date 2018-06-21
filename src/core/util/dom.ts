@@ -32,11 +32,14 @@ export const addChildToBody = (child: Element): Element => addChild(child, docum
  */
 export const createPreloadedImg = (...images: string[]): void => {
   const preloadedWrapper = createElement();
-  addClassNameToElement(preloadedWrapper, 'rac-invisible');
+  preloadedWrapper.style.width = '0px';
+  preloadedWrapper.style.height = '0px';
 
   images.forEach((src) => {
     const el = createElement<HTMLImageElement>('img', preloadedWrapper);
     el.src = src;
+    el.style.height = '0px';
+    el.style.width = '0px';
   });
 };
 

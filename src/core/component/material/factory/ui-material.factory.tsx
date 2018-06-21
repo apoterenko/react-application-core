@@ -101,7 +101,7 @@ export class UIMaterialFactory implements IUIFactory {
         <i key={uuid()}
            title={config.title}
            onClick={config.onClick}
-           className={className}>
+           className={toClassName(className, 'rac-icon')}>
           {config.type}
         </i>
       );

@@ -32,7 +32,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     if (!this.isPartiallyDisabled()) {
       this.defaultActions = R.insert<IFieldActionConfiguration>(0,
         {
-          type: 'arrow_drop_down',
+          type: 'expand_more',
           onClick: (event: IBasicEvent) => {
             this.setFocus();
             this.openMenu(event);

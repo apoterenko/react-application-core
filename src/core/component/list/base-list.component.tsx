@@ -40,6 +40,7 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
   protected getEmptyMessageAction(): JSX.Element {
     return (
       <Button {...this.getEmptyMessageActionComponentProps()}
+              className='rac-list-empty-message-button'
               raised={true}
               accent={true}/>
     );

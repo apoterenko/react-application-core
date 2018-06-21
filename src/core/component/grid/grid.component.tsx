@@ -39,12 +39,12 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
         <div className={toClassName('rac-flex', 'rac-flex-full')}>
           <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
             <thead className='rac-grid-head'>
-              {this.getHeader()}
+              {this.headerElement}
               {this.getFilter()}
             </thead>
             <tbody ref='container'
                    className='rac-grid-body'>
-              {this.dataSource.map((entity) => this.getRow(entity))}
+              {this.dataSource.map((entity, index) => this.getRow(entity, index))}
             </tbody>
           </table>
           {this.getAddAction()}
@@ -199,10 +199,10 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @stable - 06.04.2018
    * @returns {JSX.Element}
    */
-  private getHeader(): JSX.Element {
+  private get headerElement(): JSX.Element {
     const props = this.props;
     return (
-      <GridRow>
+      <GridRow className='rac-grid-header'>
         {
           this.columnsConfiguration.map((column, columnNum) => {
             const headerColumnName = this.toHeaderColumnKey(columnNum);
@@ -306,14 +306,15 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   /**
    * @stable - 05.04.2018
    * @param {IEntity} entity
+   * @param {number} index
    * @returns {JSX.Element}
    */
-  private getRow(entity: IEntity): JSX.Element {
+  private getRow(entity: IEntity, index: number): JSX.Element {
     const rowKey = this.toRowKey(entity);
     return (
       <GridRow ref={rowKey}
                key={rowKey}
-               className='grid-data-row'
+               className={toClassName('rac-grid-data-row',  index % 2 === 0 ? 'rac-grid-data-row-odd' : '')}
                selected={this.isEntitySelected(entity)}
                onClick={() => this.onSelect(entity)}>
         {
