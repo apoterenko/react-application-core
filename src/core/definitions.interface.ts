@@ -95,6 +95,13 @@ export interface IIpWrapper<TIp = string> {
   ip?: TIp;
 }
 
+/**
+ * @stable [22.06.2018]
+ */
+export interface IActionedWrapper {
+  actioned?: boolean;
+}
+
 /* @stable [23.04.2018] */
 export interface IEmptyDataWrapper<TEmptyData> {
   emptyData?: TEmptyData;

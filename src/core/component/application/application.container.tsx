@@ -123,7 +123,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     }
     const props: IRootContainerProps = {
       exact: true,
-      accessConfig: connectorConfiguration.accessConfiguration,
+      accessConfiguration: connectorConfiguration.accessConfiguration,
       initialChanges: connectorConfiguration.initialChanges,
       section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
       ...cfg,

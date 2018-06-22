@@ -4,17 +4,34 @@
 .rac {
 
   .rac-navigation-list {
-    overflow: auto;                                                 /* @stable - 08.04.2018 */
+    overflow: auto;                                                            /* @stable [08.04.2018] */
 
     .rac-navigation-list-item {
+      position: relative;                                                      /* @stable [22.06.2018] */
+      height: $rac-navigation-list-item-height;                                /* @stable [22.06.2018] */
+      padding-left: $rac-navigation-list-item-padding-left;                    /* @stable [22.06.2018] */
+      font-size: $rac-navigation-list-item-font-size;                          /* @stable [22.06.2018] */
+      line-height: $rac-navigation-list-item-line-height;                      /* @stable [22.06.2018] */
+      letter-spacing: $rac-navigation-list-item-letter-spacing;                /* @stable [22.06.2018] */
 
-      &.rac-list-item-active {
-        color: $rac-list-item-active-color;                         /* @stable - 08.04.2018 */
-        background-color: $rac-list-item-active-background-color;   /* @stable - 08.04.2018 */
+      .rac-navigation-list-item-active-border {
+        position: absolute;                                                           /* @stable [22.06.2018] */
+        left: 0;                                                                      /* @stable [22.06.2018] */
+        top: 0;                                                                       /* @stable [22.06.2018] */
+        width: $rac-navigation-list-item-active-border-width;                         /* @stable [22.06.2018] */                                                    /* @stable [22.06.2018] */
+        height: 100%;                                                                 /* @stable [22.06.2018] */
+        background-color: $rac-navigation-list-item-active-border-background-color;   /* @stable [22.06.2018] */
       }
 
-      .rac-navigation-icon {
-        padding-right: $rac-navigation-icon-padding-right;          /* @stable - 08.04.2018 */
+      &.rac-list-item-active {
+        color: $rac-navigation-list-item-active-color;                         /* @stable [22.06.2018] */
+        background-color: $rac-navigation-list-item-active-background-color;   /* @stable [22.06.2018] */
+        outline: 1px solid $rac-navigation-list-item-active-outline-color;     /* @stable [22.06.2018] */
+      }
+
+      .rac-icon {
+        padding-right: $rac-navigation-list-item-icon-padding-right;           /* @stable [08.04.2018] */
+        font-size: $rac-navigation-list-item-icon-font-size;                   /* @stable [22.06.2018] */
       }
     }
   }

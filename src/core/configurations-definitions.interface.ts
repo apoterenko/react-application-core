@@ -179,6 +179,7 @@ import {
   IAutoCompleteWrapper,
   IRenderedWrapper,
   IStepWrapper,
+  IActionedWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -452,6 +453,7 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
                                                   ITplFnWrapper,
                                                   INameWrapper,
                                                   IRendererWrapper,
+                                                  IActionedWrapper,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
                                                   IFilterRendererWrapper<IGridColumnConfiguration>,
                                                   IWidthWrapper {
