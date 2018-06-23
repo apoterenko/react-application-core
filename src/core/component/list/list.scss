@@ -2,8 +2,17 @@
 @import './navigation/navigation-list';
 @import './subheader/subheader';
 
-.rac-list {
-  cursor: default;
-  overflow-x: hidden;
-  overflow-y: auto;
+// List [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-list, .rac-simple-list {
+    cursor: default;                        /* @stable [23.06.2018] */
+    overflow-x: hidden;                     /* @stable [23.06.2018] */
+    overflow-y: auto;                       /* @stable [23.06.2018] */
+
+    .rac-list-item {
+      color: $rac-list-item-color;          /* @stable [23.06.2018] */
+      font-size: $rac-list-item-font-size;  /* @stable [23.06.2018] */
+    }
+  }
 }

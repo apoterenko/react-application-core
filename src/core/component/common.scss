@@ -39,16 +39,16 @@ html, body {
   &.rac-disabled {
 
     .rac-root {
-      opacity: $rac-disabled-opacity;   /* @stable - 29.03.2018 */
+      opacity: $rac-disabled-opacity; /* @stable - 29.03.2018 */
     }
   }
 
   :focus {
-    outline: none;          /* @stable - 08.04.2018 */
+    outline: none;                    /* @stable [23.06.2018] */
   }
 
   a {
-    text-decoration: none;  /* @stable - 08.04.2018 */
+    text-decoration: none;            /* @stable [23.06.2018] */
   }
 
   input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
@@ -80,8 +80,8 @@ html, body {
     color: $color-12;             /* @stable [27.05.2018] */
 
     &.rac-absolute-center-position {
-      width: auto;                /* @stable [27.05.2018] */
-      max-width: 70%;             /* @stable [27.05.2018] */
+      width: auto;          /* @stable [27.05.2018] */
+      max-width: 70%;       /* @stable [27.05.2018] */
     }
   }
 
@@ -97,29 +97,29 @@ html, body {
   }
 
   .rac-add-button {
-    position: absolute;                                   /* @stable - 08.04.2018 */
-    right: 24px;                                          /* @stable - 08.04.2018 */
-    bottom: 24px;                                         /* @stable - 08.04.2018 */
-    background-color: $rac-add-button-background-color;   /* @stable - 08.04.2018 */
+    position: absolute;                                   /* @stable [23.06.2018] */
+    right: $rac-add-button-right;                         /* @stable [23.06.2018] */
+    bottom: $rac-add-button-bottom;                       /* @stable [23.06.2018] */
+    background-color: $rac-add-button-background-color;   /* @stable [23.06.2018] */
   }
 
   .rac-visibility-hidden {
-    visibility: hidden;               /* @stable - 04.05.2018 */
+    visibility: hidden;      /* @stable [23.06.2018] */
   }
 
   .rac-display-none {
-    display: none;                    /* @stable [04.05.2018] */
+    display: none;           /* @stable [04.05.2018] */
   }
 
   .rac-loading-icon {
-    vertical-align: middle;           /* @stable - 08.04.2018 */
-    color: $rac-loading-icon-color;   /* @stable - 08.04.2018 */
+    vertical-align: middle;               /* @stable [19.06.2018] */
+    color: $rac-loading-icon-color;       /* @stable [19.06.2018] */
   }
 
   .rac-loading-message {
-    vertical-align: middle;               /* @stable - 08.04.2018 */
-    margin-left: 4px;                     /* @stable - 08.04.2018 */
-    color: $rac-loading-message-color;    /* @stable - 08.04.2018 */
+    vertical-align: middle;               /* @stable [19.06.2018] */
+    margin-left: 4px;                     /* @stable [19.06.2018] */
+    color: $rac-loading-message-color;    /* @stable [19.06.2018] */
   }
 
   .rac-absolute-center-position {
@@ -130,31 +130,38 @@ html, body {
     transform: translate(-50%, -50%);   /* @stable [08.05.2018] */
   }
 
-  .rac-absolute-bottom-position {
+  .rac-absolute-top-position, .rac-absolute-bottom-position {
     position: absolute;                 /* @stable [08.05.2018] */
     left: 50%;                          /* @stable [08.05.2018] */
-    top: 100%;                          /* @stable [08.05.2018] */
     transform: translate(-50%, -100%);  /* @stable [08.05.2018] */
   }
 
+  .rac-absolute-top-position {
+    top: 0;                             /* @stable [23.06.2018] */
+  }
+
+  .rac-absolute-bottom-position {
+    top: 100%;                          /* @stable [23.06.2018] */
+  }
+
   .rac-invisible {
-    position: absolute;   /* @stable [04.05.2018] */
-    top: -10000px;        /* @stable [04.05.2018] */
+    position: absolute;                 /* @stable [04.05.2018] */
+    top: -10000px;                      /* @stable [04.05.2018] */
   }
 
   .rac-no-user-select {
-    @include x-user-select;   /* @stable - 08.04.2018 */
+    @include x-user-select;             /* @stable [04.05.2018] */
   }
 
   .rac-filter-active {
-    position: relative;                   /* @stable - 08.04.2018 */
+    position: relative;                             /* @stable [23.06.2018] */
 
     &::after {
-      position: absolute;                 /* @stable - 08.04.2018 */
-      left: 20px;                         /* @stable - 08.04.2018 */
-      font-size: 11px;                    /* @stable - 08.04.2018 */
-      content: 'lens';                    /* @stable - 08.04.2018 */
-      color: $rac-filter-active-color;    /* @stable - 08.04.2018 */
+      position: absolute;                           /* @stable [23.06.2018] */
+      left: $rac-filter-active-left;                /* @stable [23.06.2018] */
+      font-size: $rac-filter-active-font-size;      /* @stable [23.06.2018] */
+      content: 'lens';                              /* @stable [23.06.2018] */
+      color: $rac-filter-active-color;              /* @stable [23.06.2018] */
     }
   }
 }

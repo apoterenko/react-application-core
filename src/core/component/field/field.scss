@@ -5,6 +5,21 @@
 @import './imagefield/imagefield';
 @import './textarea/textarea';
 
+// Form field [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-form-field {
+
+    .rac-filter-active {
+
+      &::after {
+        left: $rac-form-field-filter-active-after-left;               /* @stable [23.06.2018] */
+        font-size: $rac-form-field-filter-active-after-font-size;     /* @stable [23.06.2018] */
+      }
+    }
+  }
+}
+
 // Field label [FRAMEWORK-]
 .rac-form-field-disabled {
   label {

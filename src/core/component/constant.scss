@@ -34,18 +34,18 @@ $rac-list-item-color: $color-2 !default;
 $rac-list-item-font-size: 12px !default;
 
 /* @stable [22.06.2018] */
-$rac-navigation-list-item-height: 40px;
-$rac-navigation-list-item-padding-left: 24px;
-$rac-navigation-list-item-font-size: 14px;
-$rac-navigation-list-item-line-height: 14px;
-$rac-navigation-list-item-letter-spacing: 1px;
-$rac-navigation-list-item-active-border-width: 3px;
+$rac-navigation-list-item-height: 40px !default;
+$rac-navigation-list-item-padding-left: 24px !default;
+$rac-navigation-list-item-font-size: 14px !default;
+$rac-navigation-list-item-line-height: 14px !default;
+$rac-navigation-list-item-letter-spacing: 1px !default;
+$rac-navigation-list-item-active-border-width: 3px !default;
 $rac-navigation-list-item-active-border-background-color: $color-5 !default;
 $rac-navigation-list-item-active-color: $color-5 !default;
 $rac-navigation-list-item-active-background-color: $color-1 !default;
 $rac-navigation-list-item-active-outline-color: $color-5 !default;
 $rac-navigation-list-item-icon-padding-right: 24px !default;
-$rac-navigation-list-item-icon-font-size: 20px;
+$rac-navigation-list-item-icon-font-size: 20px !default;
 
 /* @stable [22.06.2018] */
 $rac-grid-color: $color-2 !default;
@@ -65,12 +65,25 @@ $rac-grid-column-content-picture-width: 60px !default;
 $rac-loading-message-color: $color-2 !default;
 $rac-loading-icon-color: $color-2 !default;
 
+/* @stable [23.06.2018] */
+$rac-add-button-background-color: $color-2 !default;
+$rac-add-button-bottom: 32px !default;
+$rac-add-button-right: 64px !default;
+
+/* @stable [23.06.2018] */
+$rac-form-field-filter-active-after-left: 17px !default;
+$rac-form-field-filter-active-after-font-size: 8px !default;
+
+/* @stable [23.06.2018] */
+$rac-filter-active-color: $color-6 !default;
+$rac-filter-active-left: 20px !default;
+$rac-filter-active-font-size: 10px !default;
+
+
+
 $rac-list-item-graphic-background-color: $color-4 !default;
 
 $rac-snackbar-action-button-ink-color: $color-1 !default;
-
-/* @stable - 08.04.2018 */
-$rac-add-button-background-color: $color-2 !default;
 
 /* @stable - 08.04.2018 */
 $rac-form-layout-background-color: $color-7 !default;
@@ -79,8 +92,6 @@ $rac-form-layout-content-min-width: 280px !default;
 $rac-form-layout-content-border-color: $color-2 !default;
 $rac-form-layout-content-background-color: $color-5 !default;
 
-/* @stable - 08.04.2018 */
-$rac-filter-active-color: $color-6 !default;
 
 /**/
 $rac-button-accent-fill-color: $color-1 !default;
