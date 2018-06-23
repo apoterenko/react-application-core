@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphonenumber';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { isNumber } from '../../util';
+import { isNumber, isString } from '../../util';
 import { IApplicationSettings } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
 
@@ -56,10 +56,13 @@ export class NumberConverter implements INumberConverter {
   }
 
   public phone(value: number | string, phoneNumberFormat: PNF = PNF.INTERNATIONAL): string {
-    const v = String(value);
-    const phoneNumber = this.phoneUtilInstance.parse(
-        v, this.settings.phone.uiCountryAbbreviation
-    );
+    const v = isString(value) ? value as string : String(value);
+    let phoneNumber;
+    try {
+      phoneNumber = this.phoneUtilInstance.parse(v, this.settings.phone.uiCountryAbbreviation);
+    } catch (e) {
+      return v;
+    }
     return this.phoneUtilInstance.isValidNumber(phoneNumber)
         ? this.phoneUtilInstance.format(phoneNumber, phoneNumberFormat)
         : v;
