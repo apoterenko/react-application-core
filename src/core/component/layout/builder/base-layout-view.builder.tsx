@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
-import { isFn } from '../../../util';
+import { isFn, isString } from '../../../util';
 import { IKeyValue } from '../../../definitions.interface';
 import {
   LayoutBuilderElementT,
@@ -40,13 +41,15 @@ export abstract class BaseLayoutViewBuilder implements ILayoutViewBuilder {
   public abstract buildSeparatorView(props: IKeyValue): React.ReactNode;
 
   /**
-   * @stable - 20.04.2018
+   * @stable [23.06.2018]
    * @param {LayoutBuilderElementT} item
    * @returns {boolean}
    */
   public isReactElement(item: LayoutBuilderElementT): boolean {
     const itemEl = item as JSX.Element;
-    return isFn(itemEl.type);
+    const type = itemEl.type;
+    return isFn(type)
+      || (isString(type) && !R.isEmpty(type));  // type = {'div', 'span', ...}
   }
 
   /**

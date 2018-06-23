@@ -72,9 +72,11 @@ export class LayoutBuilder {
   private buildVerticalLayout(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return this.layoutViewBuilder.buildColumnView(
       this.key,
-      layoutConfig.children
-        .filter((item) => !R.isNil(item))
-        .map((item): React.ReactNode => this.clone(item, layoutConfig)),
+      R.isNil(layoutConfig.children)
+        ? [layoutConfig]
+        : layoutConfig.children
+          .filter((item) => !R.isNil(item))
+          .map((item) => this.clone(item, layoutConfig)),
       layoutConfig
     );
   }
