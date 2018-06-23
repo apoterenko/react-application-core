@@ -27,6 +27,7 @@ export interface IMultiFieldPlugin {
   onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity;
   onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity;
   onAddItem(item: IMultiItemEntity): void;
+  onEditItem(item: IMultiItemEntity): void;
   onDeleteItem(item: IMultiItemEntity): void;
 }
 

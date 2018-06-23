@@ -1,29 +1,26 @@
 // Grid column [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-grid-container-wrapper {
+  .rac-grid {
 
-    .rac-grid {
+    .rac-grid-column {
 
-      .rac-grid-column {
+      &.rac-grid-column-align-right {
 
-        &.rac-grid-column-align-right {
-
-          .rac-field-input {
-            text-align: right;              /* @stable [02.06.2018] */
-          }
+        .rac-field-input {
+          text-align: right;              /* @stable [02.06.2018] */
         }
+      }
 
-        &.rac-grid-column-align-center {
+      &.rac-grid-column-align-center {
 
-          .rac-field-input {
-            text-align: center;             /* @stable [02.06.2018] */
-          }
+        .rac-field-input {
+          text-align: center;             /* @stable [02.06.2018] */
         }
+      }
 
-        &.rac-grid-sorted-column {
-          cursor: pointer;                  /* @stable [02.06.2018] */
-        }
+      &.rac-grid-sorted-column {
+        cursor: pointer;                  /* @stable [02.06.2018] */
       }
     }
   }

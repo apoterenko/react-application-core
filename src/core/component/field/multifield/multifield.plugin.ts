@@ -1,21 +1,21 @@
 import * as R from 'ramda';
 
 import { IBasicField } from '../field';
-import { isDef, orDefault } from '../../../util';
+import { orDefault } from '../../../util';
 import {
-  IMultiEntity,
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
   MultiFieldEntityT,
   MultiFieldValueT,
-  NotMultiFieldEntityT,
   IMultiItemEntity,
 } from './multifield.interface';
 import {
-  toActualEntities,
-  normalizeEntities,
-  isNotMultiEntity,
-  toActualEntitiesLength,
+  toActualMultiItemEntities,
+  toActualMultiItemEntitiesLength,
+  extractMultiEditItemEntities,
+  extractMultiRemoveItemEntities,
+  extractMultiAddItemEntities,
+  extractMultiSourceItemEntities,
 } from './multifield.support';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
@@ -125,11 +125,11 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [23.06.2018]
    * @returns {IMultiItemEntity[]}
    */
   public get originalValue(): IMultiItemEntity[] {
-    return this.extract((currentValue) => currentValue.source);
+    return extractMultiSourceItemEntities(this.value);
   }
 
   /**
@@ -137,7 +137,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {IMultiItemEntity[]}
    */
   public get activeValue(): IMultiItemEntity[] {
-    return toActualEntities({
+    return toActualMultiItemEntities({
       source: this.originalValue,
       remove: this.removeValue,
       add: this.addValue,
@@ -151,7 +151,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {number}
    */
   public getActiveValueLength(value: MultiFieldValueT): number {
-    return toActualEntitiesLength(value);
+    return toActualMultiItemEntitiesLength(value);
   }
 
   /**
@@ -180,27 +180,27 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [23.06.2018]
    * @returns {IMultiItemEntity[]}
    */
   private get addValue(): IMultiItemEntity[] {
-    return this.extract((currentValue) => currentValue.add, []);
+    return extractMultiAddItemEntities(this.value);
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [23.06.2018]
    * @returns {IMultiItemEntity[]}
    */
   private get removeValue(): IMultiItemEntity[] {
-    return this.extract((currentValue) => currentValue.remove, []);
+    return extractMultiRemoveItemEntities(this.value);
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [23.06.2018]
    * @returns {IMultiItemEntity[]}
    */
   private get editValue(): IMultiItemEntity[] {
-    return this.extract((currentValue) => currentValue.edit, []);
+    return extractMultiEditItemEntities(this.value);
   }
 
   /**
@@ -209,17 +209,5 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    */
   private get value(): MultiFieldValueT {
     return this.field.value;
-  }
-
-  private extract(converter: (value: IMultiEntity) => IMultiItemEntity[],
-                  defaultValue?: IMultiItemEntity[]): IMultiItemEntity[] {
-    const currentValue = this.value;
-    return isNotMultiEntity(currentValue)
-      ? orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
-          isDef(defaultValue),
-          defaultValue,
-          () => normalizeEntities(currentValue as NotMultiFieldEntityT)
-      )
-      : (currentValue ? converter(currentValue as IMultiEntity) : []);
   }
 }

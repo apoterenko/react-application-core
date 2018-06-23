@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { IEntity, EntityIdT, UNDEF } from '../../../definitions.interface';
+import { IEntity, EntityIdT, UNDEF, AnyT } from '../../../definitions.interface';
 import { orUndef, isPrimitive, orDefault, isDef } from '../../../util';
 import {
   IMultiEntity,
@@ -10,7 +10,7 @@ import {
   IMultiItemEntity,
 } from './multifield.interface';
 
-export function toActualEntities(entity: MultiFieldEntityT): IMultiItemEntity[] {
+export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItemEntity[] {
   if (!entity) {
     return UNDEF;
   }
@@ -46,25 +46,133 @@ export const toEntityIds = (multiFieldValue: MultiFieldEntityT): EntityIdT[] =>
 
 export function toEntities<TItem extends IEntity, TResult>(multiFieldValue: MultiFieldEntityT,
                                                            mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = toActualEntities(multiFieldValue);
+  const result = toActualMultiItemEntities(multiFieldValue);
   return orUndef<TResult[]>(result, (): TResult[] => result.map<TResult>(mapper));
 }
 
-export function toActualEntitiesLength(value: MultiFieldValueT): number {
-  return orDefault<number, number>(
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @returns {number}
+ */
+export const toActualMultiItemEntitiesLength = (value: MultiFieldValueT): number =>
+  orDefault<number, number>(
     isDef(value),
     () => (
       (isNotMultiEntity(value)
-        ? normalizeEntities(value as NotMultiFieldEntityT)
-        : toActualEntities(value as IMultiEntity)).length
+          ? toMultiItemEntities(value as NotMultiFieldEntityT)
+          : toActualMultiItemEntities(value as IMultiEntity)
+      ).length
     ),
     0
   );
-}
 
-export const normalizeEntities = (value: NotMultiFieldEntityT): IMultiItemEntity[] =>
+/**
+ * @stable [23.06.2018]
+ * @param {NotMultiFieldEntityT} value
+ * @returns {IMultiItemEntity[]}
+ */
+export const toMultiItemEntities = (value: NotMultiFieldEntityT): IMultiItemEntity[] =>
   isPrimitive(value) ? [{id: value as EntityIdT}] : value as IMultiItemEntity[];
 
-export function isNotMultiEntity(value: MultiFieldValueT): boolean {
-  return Array.isArray(value) || isPrimitive(value);
-}
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @returns {boolean}
+ */
+export const isNotMultiEntity = (value: MultiFieldValueT): boolean =>
+  Array.isArray(value) || isPrimitive(value);
+
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @param {(value: IMultiEntity) => IMultiItemEntity[]} converter
+ * @param {IMultiItemEntity[]} defaultValue
+ * @returns {IMultiItemEntity[]}
+ */
+export const extractMultiItemEntities = (value: MultiFieldValueT,
+                                         converter: (value: IMultiEntity) => IMultiItemEntity[],
+                                         defaultValue: IMultiItemEntity[]): IMultiItemEntity[] =>
+  isNotMultiEntity(value)
+    ? orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
+        isDef(defaultValue),
+        defaultValue,
+        () => toMultiItemEntities(value as NotMultiFieldEntityT)
+      )
+    : (R.isNil(value) ? [] : converter(value as IMultiEntity));
+
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @param {IMultiItemEntity[]} defaultValue
+ * @returns {IMultiItemEntity[]}
+ */
+export const extractMultiEditItemEntities = (value: MultiFieldValueT,
+                                             defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
+  extractMultiItemEntities(value, (currentValue) => currentValue.edit, defaultValue);
+
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @param {IMultiItemEntity[]} defaultValue
+ * @returns {IMultiItemEntity[]}
+ */
+export const extractMultiRemoveItemEntities = (value: MultiFieldValueT,
+                                               defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
+  extractMultiItemEntities(value, (currentValue) => currentValue.remove, defaultValue);
+
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @param {IMultiItemEntity[]} defaultValue
+ * @returns {IMultiItemEntity[]}
+ */
+export const extractMultiAddItemEntities = (value: MultiFieldValueT,
+                                            defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
+  extractMultiItemEntities(value, (currentValue) => currentValue.add, defaultValue);
+
+/**
+ * @stable [23.06.2018]
+ * @param {MultiFieldValueT} value
+ * @param {IMultiItemEntity[]} defaultValue
+ * @returns {IMultiItemEntity[]}
+ */
+export const extractMultiSourceItemEntities = (value: MultiFieldValueT,
+                                               defaultValue?: IMultiItemEntity[]): IMultiItemEntity[] =>
+  extractMultiItemEntities(value, (currentValue) => currentValue.source, defaultValue);
+
+/**
+ * @stable [23.06.2018]
+ * @param {string} name
+ * @param {AnyT} value
+ * @param {IEntity} rawData
+ * @returns {IMultiItemEntity}
+ */
+export const buildMultiEntity = (name: string,
+                                 value: AnyT,
+                                 rawData: IEntity): IMultiItemEntity => ({id: rawData.id, value, name, rawData});
+
+/**
+ * @stable [23.06.2018]
+ * @param {string} fieldName
+ * @param {MultiFieldValueT} value
+ * @param {(itm: IMultiItemEntity) => boolean} predicate
+ * @param {(itm: IMultiItemEntity) => AnyT} nextValueFn
+ * @returns {IMultiItemEntity}
+ */
+export const buildMultiEditItemEntityPayload = (fieldName: string,
+                                                value: MultiFieldValueT,
+                                                predicate: (itm: IMultiItemEntity) => boolean,
+                                                nextValueFn: (itm: IMultiItemEntity) => AnyT): IMultiItemEntity => {
+  const sourceMultiItemEntities = extractMultiSourceItemEntities(value);
+  const editedMultiItemEntities = extractMultiEditItemEntities(value);
+
+  const editedMultiItemEntity = editedMultiItemEntities.find(predicate);
+  const sourceMultiItemEntity = sourceMultiItemEntities.find(predicate);
+
+  return buildMultiEntity(
+    fieldName,
+    nextValueFn(editedMultiItemEntity),
+    sourceMultiItemEntity,
+  );
+};
