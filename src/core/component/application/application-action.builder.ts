@@ -17,6 +17,8 @@ import {
   APPLICATION_UNAUTHORIZED_ACTION_TYPE,
   APPLICATION_MOUNT_ACTION_TYPE,
   APPLICATION_AFTER_INIT_ACTION_TYPE,
+  APPLICATION_CLICK_ACTION_TYPE,
+  APPLICATION_BLUR_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
@@ -107,6 +109,22 @@ export class ApplicationActionBuilder {
 
   public static buildMountActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_MOUNT_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [23.06.2018]
+   * @returns {string}
+   */
+  public static buildClickActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_CLICK_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [23.06.2018]
+   * @returns {string}
+   */
+  public static buildBlurActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_BLUR_ACTION_TYPE}`;
   }
 
   public static buildAfterLogoutActionType(): string {

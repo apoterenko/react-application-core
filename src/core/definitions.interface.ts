@@ -1096,6 +1096,13 @@ export interface IReadyWrapper {
 }
 
 /**
+ * @stable [23.06.2018]
+ */
+export interface IFocusedWrapper {
+  focused?: boolean;
+}
+
+/**
  * @stable [29.05.2018]
  */
 export interface IAuthorizedWrapper {
@@ -1336,14 +1343,9 @@ export interface IValidWrapper {
   valid?: boolean;
 }
 
-/* @stable - 02.05.2018 */
-export interface IPriceWrapper<TPrice = number> {
-  price?: TPrice;
-}
-
-/**********************
- * Priority's wrapper
- **********************/
+/**
+ * @stable [22.06.2018]
+ */
 export interface IPriorityWrapper {
   priority?: number;
 }

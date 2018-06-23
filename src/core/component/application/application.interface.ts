@@ -1,5 +1,6 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
+import { isDocumentHasFocus } from '../../util';
 import { ACTION_PREFIX } from '../../definitions.interface';
 import { IApplicationEntity } from '../../entities-definitions.interface';
 import { IApplicationConfiguration, IDefaultConnectorConfiguration } from '../../configurations-definitions.interface';
@@ -12,12 +13,15 @@ export interface IApplicationContainerProps extends IApplicationEntity,
 /* @stable - 15.04.2018 */
 export const APPLICATION_SECTIONS = new Map<string, IDefaultConnectorConfiguration>();
 
-/* @stable - 11.04.2018 */
+/**
+ * @stable [23.06.2018]
+ */
 export const INITIAL_APPLICATION_STATE: IApplicationEntity = {
   ready: false,         // By default the application is not ready because an async token
   authorized: false,    // By default the application is not authorized because an async token
   progress: false,
   error: null,
+  focused: isDocumentHasFocus(),
 };
 
 /* @stable - 15.04.2018 */
@@ -25,6 +29,8 @@ export const APPLICATION_SECTION = 'application';
 export const $APPLICATION_SECTION = `${ACTION_PREFIX}${APPLICATION_SECTION}`;
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
 export const APPLICATION_MOUNT_ACTION_TYPE = 'mount';
+export const APPLICATION_CLICK_ACTION_TYPE = 'click';
+export const APPLICATION_BLUR_ACTION_TYPE = 'blur';
 export const APPLICATION_AFTER_INIT_ACTION_TYPE = `after.${APPLICATION_INIT_ACTION_TYPE}`;
 export const APPLICATION_CUSTOM_ERROR_ACTION_TYPE = 'custom.error';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';

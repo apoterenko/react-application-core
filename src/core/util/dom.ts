@@ -1,5 +1,7 @@
 import * as $ from 'jquery';
 
+import { isFn } from './type';
+
 /**
  * @stable [14.06.2018]
  * @param {string} tag
@@ -65,3 +67,9 @@ export const adjustWidth = (source: HTMLElement, sourceAnchor: Element): void =>
   const anchor = $(sourceAnchor);
   source.style.width = `${anchor.width()}px`;
 };
+
+/**
+ * @stable [23.06.2018]
+ * @returns {boolean}
+ */
+export const isDocumentHasFocus = (): boolean => isFn(document.hasFocus) && document.hasFocus();
