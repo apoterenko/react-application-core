@@ -35,7 +35,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   protected getView(): JSX.Element {
     const props = this.props;
     return (
-      <div className={toClassName('rac-grid-container-wrapper', 'rac-flex', 'rac-flex-row')}>
+      <div className={toClassName('rac-flex', 'rac-flex-row')}>
         <div className={toClassName('rac-flex', 'rac-flex-full')}>
           <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
             <thead className='rac-grid-head'>

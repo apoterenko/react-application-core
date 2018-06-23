@@ -57,14 +57,6 @@ html, body {
     margin: 0;                        /* @stable [06.06.2018] */
   }
 
-  .rac-icon-avatar-image {
-    width: 100%;                      /* @stable [04.06.2018] */
-    height: 100%;                     /* @stable [04.06.2018] */
-    background-size: contain;         /* @stable [04.06.2018] */
-    background-repeat: no-repeat;     /* @stable [04.06.2018] */
-    background-position: center;      /* @stable [04.06.2018] */
-  }
-
   .rac-overflow-ellipsis {
     display: inline-block;    /* @stable [14.05.2018] */
     overflow: hidden;         /* @stable [14.05.2018] */

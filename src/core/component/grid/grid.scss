@@ -101,26 +101,11 @@
     }
   }
 
-  .rac-grid-container-wrapper {
-
-    .rac-grid {
-
-      .rac-grid-row {
-
-        .rac-icon-avatar-image {
-          width: 40px;                        /* @stable [08.06.2018] */
-          height: 40px;                       /* @stable [08.06.2018] */
-        }
-      }
-    }
-  }
-
   .rac-grid-service-wrapper {
-
-    border-left: 1px solid $color-3;          /* @stable - 05.04.2018 */
+    border-left: 1px solid $rac-grid-service-wrapper-border-left-color;      /* @stable [09.06.2018] */
 
     .rac-grid-service {
-      padding-top: 8px;                       /* @stable - 05.04.2018 */
+      padding-top: 8px;                                                      /* @stable [09.06.2018] */
     }
   }
 }
