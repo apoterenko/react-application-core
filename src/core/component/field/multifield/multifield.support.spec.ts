@@ -1,42 +1,42 @@
-import { toEntityIds, normalizeEntities, toActualEntitiesLength } from './multifield.support';
+import { toEntityIds, toMultiItemEntities, toActualMultiItemEntitiesLength } from './multifield.support';
 import { UNDEF } from '../../../definitions.interface';
 
-describe('multifield.converter', function () {
-  describe('normalizeEntities', function () {
+describe('multifield.support', function () {
+  describe('toMultiItemEntities', function () {
     it('test1', function () {
-      var ids = normalizeEntities(1);
+      var ids = toMultiItemEntities(1);
       expect(ids).toEqual([{ id: 1 }]);
     });
 
     it('test2', function () {
-      var ids = normalizeEntities([{ id: 1 }]);
+      var ids = toMultiItemEntities([{ id: 1 }]);
       expect(ids).toEqual([{ id: 1 }]);
     });
   });
 
-  describe('toActualEntitiesLength', function () {
+  describe('toActualMultiItemEntitiesLength', function () {
     it('test1', function () {
-      var length = toActualEntitiesLength(1);
+      var length = toActualMultiItemEntitiesLength(1);
       expect(length).toEqual(1);
     });
 
     it('test2', function () {
-      var length = toActualEntitiesLength('1');
+      var length = toActualMultiItemEntitiesLength('1');
       expect(length).toEqual(1);
     });
 
     it('test3', function () {
-      var length = toActualEntitiesLength([{ id: 1 }, { id: 2 }]);
+      var length = toActualMultiItemEntitiesLength([{ id: 1 }, { id: 2 }]);
       expect(length).toEqual(2);
     });
 
     it('test4', function () {
-      var length = toActualEntitiesLength(UNDEF);
+      var length = toActualMultiItemEntitiesLength(UNDEF);
       expect(length).toEqual(0);
     });
 
     it('test5', function () {
-      var length = toActualEntitiesLength({
+      var length = toActualMultiItemEntitiesLength({
         add: [{ id: 1 }],
         remove: [{ id: 2 }],
         edit: [],
@@ -46,7 +46,7 @@ describe('multifield.converter', function () {
     });
 
     it('test6', function () {
-      var length = toActualEntitiesLength({
+      var length = toActualMultiItemEntitiesLength({
         add: [{ id: 1 }],
         remove: [{ id: 2 }],
         edit: [],
@@ -55,7 +55,7 @@ describe('multifield.converter', function () {
     });
 
     it('test7', function () {
-      var length = toActualEntitiesLength({
+      var length = toActualMultiItemEntitiesLength({
         add: [{ id: 1 }, { id: 3 }],
         remove: [{ id: 2 }],
         edit: [],
@@ -64,7 +64,7 @@ describe('multifield.converter', function () {
     });
 
     it('test8', function () {
-      var length = toActualEntitiesLength({
+      var length = toActualMultiItemEntitiesLength({
         add: [],
         remove: [{ id: 1 }],
         edit: [],
@@ -73,7 +73,7 @@ describe('multifield.converter', function () {
     });
 
     it('test9', function () {
-      var length = toActualEntitiesLength({
+      var length = toActualMultiItemEntitiesLength({
         add: [],
         remove: [{ id: 1 }],
         edit: [],
