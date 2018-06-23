@@ -5,7 +5,6 @@ import { orUndef, isPrimitive, orDefault, isDef } from '../../../util';
 import {
   IMultiEntity,
   MultiFieldEntityT,
-  MultiFieldValueT,
   NotMultiFieldEntityT,
   IMultiItemEntity,
 } from './multifield.interface';
@@ -52,10 +51,10 @@ export function toEntities<TItem extends IEntity, TResult>(multiFieldValue: Mult
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @returns {number}
  */
-export const toActualMultiItemEntitiesLength = (value: MultiFieldValueT): number =>
+export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT): number =>
   orDefault<number, number>(
     isDef(value),
     () => (
@@ -77,20 +76,20 @@ export const toMultiItemEntities = (value: NotMultiFieldEntityT): IMultiItemEnti
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @returns {boolean}
  */
-export const isNotMultiEntity = (value: MultiFieldValueT): boolean =>
+export const isNotMultiEntity = (value: MultiFieldEntityT): boolean =>
   Array.isArray(value) || isPrimitive(value);
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @param {(value: IMultiEntity) => IMultiItemEntity[]} converter
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiItemEntities = (value: MultiFieldValueT,
+export const extractMultiItemEntities = (value: MultiFieldEntityT,
                                          converter: (value: IMultiEntity) => IMultiItemEntity[],
                                          defaultValue: IMultiItemEntity[]): IMultiItemEntity[] =>
   isNotMultiEntity(value)
@@ -103,41 +102,41 @@ export const extractMultiItemEntities = (value: MultiFieldValueT,
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiEditItemEntities = (value: MultiFieldValueT,
+export const extractMultiEditItemEntities = (value: MultiFieldEntityT,
                                              defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.edit, defaultValue);
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiRemoveItemEntities = (value: MultiFieldValueT,
+export const extractMultiRemoveItemEntities = (value: MultiFieldEntityT,
                                                defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.remove, defaultValue);
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiAddItemEntities = (value: MultiFieldValueT,
+export const extractMultiAddItemEntities = (value: MultiFieldEntityT,
                                             defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.add, defaultValue);
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiSourceItemEntities = (value: MultiFieldValueT,
+export const extractMultiSourceItemEntities = (value: MultiFieldEntityT,
                                                defaultValue?: IMultiItemEntity[]): IMultiItemEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.source, defaultValue);
 
@@ -155,13 +154,13 @@ export const buildMultiEntity = (name: string,
 /**
  * @stable [23.06.2018]
  * @param {string} fieldName
- * @param {MultiFieldValueT} value
+ * @param {MultiFieldEntityT} value
  * @param {(itm: IMultiItemEntity) => boolean} predicate
  * @param {(itm: IMultiItemEntity) => AnyT} nextValueFn
  * @returns {IMultiItemEntity}
  */
 export const buildMultiEditItemEntityPayload = (fieldName: string,
-                                                value: MultiFieldValueT,
+                                                value: MultiFieldEntityT,
                                                 predicate: (itm: IMultiItemEntity) => boolean,
                                                 nextValueFn: (itm: IMultiItemEntity) => AnyT): IMultiItemEntity => {
   const sourceMultiItemEntities = extractMultiSourceItemEntities(value);

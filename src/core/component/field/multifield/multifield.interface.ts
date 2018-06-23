@@ -1,5 +1,6 @@
 import {
   EntityIdT,
+  IEntity,
   IEntityIdTWrapper,
 } from '../../../definitions.interface';
 import { IFieldChangeEntity } from '../../../entities-definitions.interface';
@@ -60,7 +61,6 @@ export interface IMultiEntity {
 /**
  * @stable [01.06.2018]
  */
-export type NotMultiFieldEntityT<TEntity extends IMultiItemEntity = IMultiItemEntity> = TEntity[] | EntityIdT;
-export type MultiFieldEntityT<TEntity extends IMultiItemEntity = IMultiItemEntity> = TEntity[] | IMultiEntity;
-export type MultiFieldValueT<TEntity extends IMultiItemEntity = IMultiItemEntity> = MultiFieldEntityT<TEntity> | EntityIdT;
+export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
+export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IMultiEntity;
 export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;

@@ -1,7 +1,42 @@
-import { toEntityIds, toMultiItemEntities, toActualMultiItemEntitiesLength } from './multifield.support';
+import {
+  toEntityIds,
+  toMultiItemEntities,
+  toActualMultiItemEntitiesLength,
+  buildMultiEditItemEntityPayload,
+} from './multifield.support';
 import { UNDEF } from '../../../definitions.interface';
 
-describe('multifield.support', function () {
+describe('multifield.support', () => {
+
+  describe('buildMultiEditItemEntityPayload', () => {
+    it('test1', () => {
+      const entity = Object.freeze({id: 1, count: 100});
+      const result = buildMultiEditItemEntityPayload(
+        'count',
+        [entity],
+        (itm) => itm.id === entity.id,
+        (itm) => entity.count + 1
+      );
+      expect(result).toEqual({id: 1, value: 101, name: 'count', rawData: {id: 1, count: 100}});
+    });
+
+    it('test2', () => {
+      const entity = Object.freeze({id: 1, count: 100});
+      const result = buildMultiEditItemEntityPayload(
+        'count',
+        {
+          add: [],
+          remove: [],
+          edit: [{id: entity.id, name: 'count', value: 101, rawData: entity}],
+          source: [entity],
+        },
+        (itm) => itm.id === entity.id,
+        (itm) => itm.value + 1
+      );
+      expect(result).toEqual({id: 1, value: 102, name: 'count', rawData: {id: 1, count: 100}});
+    });
+  });
+
   describe('toMultiItemEntities', function () {
     it('test1', function () {
       var ids = toMultiItemEntities(1);
