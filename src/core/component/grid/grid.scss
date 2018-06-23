@@ -19,8 +19,8 @@
         font-size: $rac-grid-column-content-font-size;              /* @stable [22.06.2018] */
 
         .rac-picture {
-          width: $rac-grid-column-content-picture-width;            /* @stable [23.06.2018] */
-          max-height: $rac-grid-column-content-picture-width;       /* @stable [23.06.2018] */
+          height: $rac-grid-column-content-picture-height;          /* @stable [23.06.2018] */
+          max-width: $rac-grid-column-content-picture-height;       /* @stable [23.06.2018] */
           vertical-align: middle;                                   /* @stable [23.06.2018] */
         }
       }
@@ -42,6 +42,7 @@
           height: $rac-grid-actioned-icon-size;             /* @stable [21.06.2018] */
           line-height: $rac-grid-actioned-icon-line-height; /* @stable [21.06.2018] */
           margin-right: 8px;                                /* @stable [22.06.2018] */
+          vertical-align: middle;                           /* @stable [23.06.2018] */
         }
       }
     }
@@ -105,12 +106,6 @@
     .rac-grid {
 
       .rac-grid-row {
-        &.rac-grid-data-row {
-
-          &:last-child {
-            border-bottom: none;              /* @stable - 05.04.2018 */
-          }
-        }
 
         .rac-icon-avatar-image {
           width: 40px;                        /* @stable [08.06.2018] */

@@ -1,27 +1,20 @@
 // Grid [FRAMEWORK+][RAC+]
 .rac {
 
-  .rac-grid-container-wrapper {
+  .rac-grid {
 
-    .rac-grid {
+    .rac-grid-column-content {
 
       .rac-form-field {
 
         .rac-text-field {
-          height: auto  !important;             /* @stable [02.06.2018] */
-          margin-top: 0;                        /* @stable [02.06.2018] */
-          margin-bottom: 0;                     /* @stable [02.06.2018] */
+          height: auto !important;      /* @stable [23.06.2018] */
+          margin-top: 0;                /* @stable [23.06.2018] */
+          margin-bottom: 0;             /* @stable [23.06.2018] */
 
           .rac-field-input {
-            padding-top: 0;                     /* @stable [02.06.2018] */
+            padding-top: 0;             /* @stable [23.06.2018] */
           }
-        }
-      }
-
-      .rac-grid-column {
-
-        .material-icons {
-          vertical-align: bottom;               /* @stable [05.06.2018] */
         }
       }
     }
