@@ -5,17 +5,24 @@
 .rac {
 
   .rac-grid {
-    color: $rac-grid-color;                               /* @stable [21.06.2018] */
-    border-collapse: collapse;                            /* @stable [21.06.2018] */
+    color: $rac-grid-color;                                         /* @stable [21.06.2018] */
+    border-collapse: collapse;                                      /* @stable [21.06.2018] */
 
     .rac-grid-column {
-      padding-right: 12px;                                /* @stable [21.06.2018] */
-      padding-left: 4px;                                  /* @stable [21.06.2018] */
+      padding-right: 12px;                                          /* @stable [21.06.2018] */
+      padding-left: 4px;                                            /* @stable [21.06.2018] */
 
       .rac-grid-column-content {
-        vertical-align: middle;                           /* @stable [21.06.2018] */
-        width: 100%;                                      /* @stable [21.06.2018] */
-        letter-spacing: 1px;                              /* @stable [21.06.2018] */
+        width: 100%;                                                /* @stable [21.06.2018] */
+        vertical-align: middle;                                     /* @stable [21.06.2018] */
+        letter-spacing: $rac-grid-column-content-letter-spacing;    /* @stable [22.06.2018] */
+        font-size: $rac-grid-column-content-font-size;              /* @stable [22.06.2018] */
+
+        .rac-picture {
+          width: $rac-grid-column-content-picture-width;            /* @stable [23.06.2018] */
+          max-height: $rac-grid-column-content-picture-width;       /* @stable [23.06.2018] */
+          vertical-align: middle;                                   /* @stable [23.06.2018] */
+        }
       }
 
       .rac-icon {
@@ -28,10 +35,13 @@
       &.rac-grid-actioned-column {
 
         .rac-icon {
-          font-size: $rac-grid-actioned-icon-size;         /* @stable [21.06.2018] */
-          width: $rac-grid-actioned-icon-size;             /* @stable [21.06.2018] */
-          height: $rac-grid-actioned-icon-size;            /* @stable [21.06.2018] */
-          line-height: $rac-grid-actioned-icon-line-height;/* @stable [21.06.2018] */
+          color: $rac-grid-actioned-color;                  /* @stable [22.06.2018] */
+          cursor: pointer;                                  /* @stable [22.06.2018] */
+          font-size: $rac-grid-actioned-icon-size;          /* @stable [21.06.2018] */
+          width: $rac-grid-actioned-icon-size;              /* @stable [21.06.2018] */
+          height: $rac-grid-actioned-icon-size;             /* @stable [21.06.2018] */
+          line-height: $rac-grid-actioned-icon-line-height; /* @stable [21.06.2018] */
+          margin-right: 8px;                                /* @stable [22.06.2018] */
         }
       }
     }

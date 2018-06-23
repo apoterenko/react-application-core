@@ -1,3 +1,19 @@
+@import '../constant';
+
+// Form [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-form {
+
+    .rac-list, .rac-simple-list {
+
+      .rac-list-item {
+        padding: 0;                           /* @stable [23.06.2018] */
+      }
+    }
+  }
+}
+
 .rac-form {
   .rac-fieldset {
     overflow: auto;
