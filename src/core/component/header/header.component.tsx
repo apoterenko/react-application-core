@@ -23,7 +23,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
   }
 
   /**
-   * @stable [31.05.2018]
+   * @stable [24.06.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -35,13 +35,12 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
             <ToolbarSection className={toClassName('rac-navigation-section', this.uiFactory.toolbarSectionAlignStart)}>
               {
                 this.uiFactory.makeIcon({
-                  simple: true,
                   type: props.navigationActionType,
-                  className: this.uiFactory.toolbarMenuIcon,
+                  className: 'rac-toolbar-menu-icon',
                   onClick: props.onNavigationActionClick,
                 })
               }
-              <span className={this.uiFactory.toolbarTitle}>{props.title}</span>
+              <span className='rac-toolbar-title'>{props.title}</span>
             </ToolbarSection>
             {
               orNull<JSX.Element>(
@@ -56,9 +55,8 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                               props.moreOptions,
                               () => (
                                   this.uiFactory.makeIcon({
-                                    simple: true,
                                     type: 'more_vert',
-                                    className: this.uiFactory.toolbarMenuIcon,
+                                    className: 'rac-toolbar-menu-icon',
                                     onClick: this.onMenuClick,
                                   })
                               )
