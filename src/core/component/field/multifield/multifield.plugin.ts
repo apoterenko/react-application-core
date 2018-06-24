@@ -6,7 +6,6 @@ import {
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
   MultiFieldEntityT,
-  MultiFieldValueT,
   IMultiItemEntity,
 } from './multifield.interface';
 import {
@@ -147,10 +146,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [02.06.2018]
-   * @param {MultiFieldValueT} value
+   * @param {MultiFieldEntityT} value
    * @returns {number}
    */
-  public getActiveValueLength(value: MultiFieldValueT): number {
+  public getActiveValueLength(value: MultiFieldEntityT): number {
     return toActualMultiItemEntitiesLength(value);
   }
 
@@ -205,9 +204,9 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [01.06.2018]
-   * @returns {MultiFieldValueT}
+   * @returns {MultiFieldEntityT}
    */
-  private get value(): MultiFieldValueT {
+  private get value(): MultiFieldEntityT {
     return this.field.value;
   }
 }

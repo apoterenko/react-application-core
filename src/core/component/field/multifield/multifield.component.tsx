@@ -2,13 +2,12 @@ import * as React from 'react';
 
 import {
   EntityIdT,
-  IEntity,
   IKeyboardEvent,
   AnyT,
 } from '../../../definitions.interface';
 import { BasicSelect } from '../../field/select';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { IMultiFieldState, IMultiFieldProps, MultiFieldValueT, IMultiItemEntity } from './multifield.interface';
+import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiItemEntity } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 
 export class MultiField<TComponent extends MultiField<TComponent, TProps, TState>,
@@ -23,7 +22,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     displayMessage: '%d value(s)',
     clearAction: false,
     forceAll: true,
-    displayValue: (value: MultiFieldValueT,
+    displayValue: (value: MultiFieldEntityT,
                    field: MultiField<AnyT, IMultiFieldProps, IMultiFieldState>) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
       return field.printfDisplayMessage(len > 0, len);

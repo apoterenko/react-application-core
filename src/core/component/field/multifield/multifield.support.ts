@@ -50,11 +50,11 @@ export function toEntities<TItem extends IEntity, TResult>(multiFieldValue: Mult
 }
 
 /**
- * @stable [23.06.2018]
- * @param {MultiFieldEntityT} value
+ * @stable [24.06.2018]
+ * @param {MultiFieldEntityT | EntityIdT} value
  * @returns {number}
  */
-export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT): number =>
+export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT | EntityIdT): number =>
   orDefault<number, number>(
     isDef(value),
     () => (
@@ -75,11 +75,11 @@ export const toMultiItemEntities = (value: NotMultiFieldEntityT): IMultiItemEnti
   isPrimitive(value) ? [{id: value as EntityIdT}] : value as IMultiItemEntity[];
 
 /**
- * @stable [23.06.2018]
- * @param {MultiFieldEntityT} value
+ * @stable [24.06.2018]
+ * @param {MultiFieldEntityT | EntityIdT} value
  * @returns {boolean}
  */
-export const isNotMultiEntity = (value: MultiFieldEntityT): boolean =>
+export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean =>
   Array.isArray(value) || isPrimitive(value);
 
 /**
