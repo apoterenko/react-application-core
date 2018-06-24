@@ -1,26 +1,33 @@
 @import '../constant';
 
-// Chips wrapper [FRAMEWORK-]
-.rac-chip {
-  padding: 6px 8px 6px 10px;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  border-radius: 12px;
-  display: inline-block;
-  white-space: nowrap;
-  cursor: default;
-  background-color: $color-3;
+// Chip [FRAMEWORK-][RAC+]
+.rac {
 
-  .rac-chip-description {
-    padding-right: 4px;
-    max-width: 120px;
-  }
+  .rac-chip {
+    display: inline-block;                                              /* @stable [24.06.2018] */
+    white-space: nowrap;                                                /* @stable [24.06.2018] */
+    padding: $rac-chip-padding;                                         /* @stable [24.06.2018] */
+    margin-right: $rac-chip-margin-right;                               /* @stable [24.06.2018] */
+    margin-bottom: $rac-chip-margin-bottom;                             /* @stable [24.06.2018] */
+    border-radius: $rac-chip-border-radius;                             /* @stable [24.06.2018] */
+    color: $rac-chip-color;                                             /* @stable [24.06.2018] */
+    background: $rac-chip-background-color $rac-chip-background-image;  /* @stable [24.06.2018] */
+    background-size: $rac-chip-background-size;                         /* @stable [24.06.2018] */
 
-  .rac-button {
-    color: $color-4;
-  }
+    .rac-icon {
+      display: inline-block;                                            /* @stable [24.06.2018] */
+      width: $rac-chip-icon-width;                                      /* @stable [24.06.2018] */
+      height: $rac-chip-icon-height;                                    /* @stable [24.06.2018] */
+      color: $rac-chip-icon-color;                                      /* @stable [24.06.2018] */
+    }
 
-  .rac-button, .rac-chip-description {
-    vertical-align: middle;
+    .rac-chip-description {
+      padding-right: $rac-chip-description-padding-right;               /* @stable [24.06.2018] */
+      padding-bottom: $rac-chip-description-padding-bottom;             /* @stable [24.06.2018] */
+      max-width: $rac-chip-description-max-width;                       /* @stable [24.06.2018] */
+      font-size: $rac-chip-description-font-size;                       /* @stable [24.06.2018] */
+      font-weight: $rac-chip-description-font-weight;                   /* @stable [24.06.2018] */
+      vertical-align: middle;                                           /* @stable [24.06.2018] */
+    }
   }
 }
