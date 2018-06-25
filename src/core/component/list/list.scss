@@ -5,6 +5,10 @@
 // List [FRAMEWORK-][RAC+]
 .rac {
 
+  .rac-list {
+    padding: unset;                                          /* @stable [25.06.2018] */
+  }
+
   .rac-list, .rac-simple-list {
     cursor: default;                                         /* @stable [23.06.2018] */
     overflow-x: hidden;                                      /* @stable [23.06.2018] */
@@ -18,8 +22,6 @@
 
         &.rac-list-item-meta-icon {
           margin-left: auto;                                 /* @stable [24.06.2018] */
-          width: $rac-list-item-meta-icon-width;             /* @stable [24.06.2018] */
-          height: $rac-list-item-meta-icon-height;           /* @stable [24.06.2018] */
         }
       }
 
@@ -31,10 +33,12 @@
       }
 
       .rac-list-item-graphic {
+        background-color: $rac-list-item-graphic-background-color;  /* @stable [25.06.2018] */
 
         .rac-icon {
-          width: $rac-list-item-graphic-icon-width;          /* @stable [24.06.2018] */
-          height: $rac-list-item-graphic-icon-height;        /* @stable [24.06.2018] */
+          color: $rac-list-item-graphic-icon-color;                 /* @stable [25.06.2018] */
+          width: $rac-list-item-graphic-icon-width;                 /* @stable [24.06.2018] */
+          height: $rac-list-item-graphic-icon-height;               /* @stable [24.06.2018] */
         }
       }
     }
