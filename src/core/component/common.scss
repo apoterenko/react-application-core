@@ -109,6 +109,10 @@ html, body {
     font-size: $rac-loading-message-font-size;    /* @stable [25.06.2018] */
   }
 
+  .rac-message {
+    font-size: $rac-message-font-size;            /* @stable [25.06.2018] */
+  }
+
   .rac-absolute-center-position {
     position: absolute;                 /* @stable [08.05.2018] */
     left: 50%;                          /* @stable [08.05.2018] */

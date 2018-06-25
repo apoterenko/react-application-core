@@ -10,13 +10,14 @@
       .rac-button-page-icon {
 
         &.rac-icon {
-          display: inline-block;                /* @stable [25.06.2018] */
+          display: inline-block;                                      /* @stable [25.06.2018] */
         }
       }
 
       .rac-page-toolbar-content {
-        padding-left: 16px;         /* @stable [09.05.2018] */
-        padding-right: 16px;        /* @stable [09.05.2018] */
+        padding-left: $rac-page-toolbar-content-padding-left;         /* @stable [25.06.2018] */
+        padding-right: $rac-page-toolbar-content-padding-right;       /* @stable [25.06.2018] */
+        min-height: $rac-page-toolbar-content-min-height;             /* @stable [25.06.2018] */
       }
 
       .rac-toolbar-pages-info {

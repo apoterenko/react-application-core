@@ -22,7 +22,7 @@ export class Message extends UniversalMessage<Message> {
    */
   protected getMessageWrapper(message: React.ReactNode, node: React.ReactNode): JSX.Element {
     return (
-      <CenterLayout>
+      <CenterLayout className='rac-message'>
         {message}
         {node}
       </CenterLayout>

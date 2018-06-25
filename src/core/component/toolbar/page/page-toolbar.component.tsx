@@ -25,9 +25,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
    * @returns {JSX.Element}
    */
   protected getDefaultContent(): JSX.Element {
-    return (
-      <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}/>
-    );
+    return null;
   }
 
   /**
