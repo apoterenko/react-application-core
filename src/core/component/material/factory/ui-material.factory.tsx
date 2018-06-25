@@ -136,6 +136,7 @@ export class UIMaterialFactory implements IUIFactory {
     format_list_numbered: faListOl,
     attach_file: faPaperclip,
     help_outline: faQuestionCircle,
+    question: faQuestion,
     clear_all: faEraser,
     stop: faStopCircle,
     forward: faArrowAltCircleRight,

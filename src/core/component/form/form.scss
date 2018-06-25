@@ -8,19 +8,33 @@
     .rac-list, .rac-simple-list {
 
       .rac-list-item {
-        padding: 0;                           /* @stable [23.06.2018] */
+        padding: 0;                                                         /* @stable [23.06.2018] */
+      }
+    }
+
+    .rac-fieldset {
+      overflow: auto;                                                       /* @stable [25.06.2018] */
+    }
+
+    .rac-form-actions {
+      padding: $rac-form-actions-padding;                                   /* @stable [25.06.2018] */
+    }
+
+    .rac-simple-list {
+
+      .rac-list-item {
+
+        .rac-list-item-graphic {
+          border-radius: $rac-form-simple-list-item-graphic-border-radius;  /* @stable [25.06.2018] */
+        }
       }
     }
   }
 }
 
 .rac-form {
-  .rac-fieldset {
-    overflow: auto;
-  }
 
   .rac-form-actions {
-    padding: 16px;
     justify-content: flex-end;
 
     .rac-button {

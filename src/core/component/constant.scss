@@ -47,8 +47,8 @@ $rac-add-button-icon-background-color: $color-2 !default;
 $rac-add-button-icon-color: $color-5 !default;
 $rac-add-button-icon-bottom: 32px !default;
 $rac-add-button-icon-right: 64px !default;
-$rac-add-button-icon-width: 64px !default;
-$rac-add-button-icon-height: 64px !default;
+$rac-add-button-icon-width: 56px !default;
+$rac-add-button-icon-height: $rac-add-button-icon-width !default;
 $rac-add-button-fa-icon-width: $rac-icon-width2 !default;
 $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
@@ -90,6 +90,7 @@ $rac-grid-column-content-font-size: 12px !default;
 $rac-grid-column-content-letter-spacing: 1px !default;
 $rac-grid-column-content-picture-height: 40px !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
+$rac-grid-column-content-picture-border-radius: $rac-grid-column-content-picture-height / 2 !default;
 
 /* @stable [25.06.2018] */
 $rac-loading-color: $color-2 !default;
@@ -103,6 +104,10 @@ $rac-form-field-input-color: $color-2 !default;
 $rac-form-field-input-placeholder-color: $color-2 !default;
 $rac-form-field-input-font-size: 12px !default;
 $rac-form-field-input-letter-spacing: 1px !default;
+
+/* @stable [25.06.2018] */
+$rac-form-actions-padding: 16px;
+$rac-form-simple-list-item-graphic-border-radius: 16px;
 
 /* @stable [23.06.2018] */
 $rac-filter-active-color: $color-6 !default;
