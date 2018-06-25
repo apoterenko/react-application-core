@@ -6,38 +6,35 @@
 
   .rac-header {
 
+    .rac-header-section {
+      font-weight: $rac-header-section-font-weight;                                      /* @stable [25.06.2018] */
+      margin-left: $rac-header-section-margin-left;                                      /* @stable [25.06.2018] */
+    }
+
     &.rac-header-search-toolbar-active {
 
       .rac-search-toolbar {
-        animation: headerSearchToolbarAnimationRule;                       /* @stable [01.06.2018] */
-        animation-duration: $rac-header-search-animation-duration;         /* @stable [01.06.2018] */
+        animation: headerSearchToolbarAnimationRule;                                     /* @stable [25.06.2018] */
+        animation-duration: $rac-header-search-toolbar-animation-duration;               /* @stable [25.06.2018] */
       }
     }
 
-    .rac-search-toolbar {
+    .rac-form-field {
 
-      .rac-button {
-        height: 100%;                                           /* @stable [01.06.2018] */
-        color: $rac-header-action-color;                        /* @stable [01.06.2018] */
-      }
+      .rac-text-field {
+        margin-top: unset;                                                               /* @stable [25.06.2018] */
+        border-bottom-color: $rac-header-text-field-border-bottom-color;                 /* @stable [25.06.2018] */
 
-      .rac-form-field {
-        margin-left: 16px;                                      /* @stable [01.06.2018] */
-        margin-right: 16px;                                     /* @stable [01.06.2018] */
+        .rac-field-input-wrapper {
+          height: 100%;                                                                  /* @stable [24.06.2018] */
 
-        .rac-text-field {
-          border-bottom-color: $rac-header-search-field-color;  /* @stable [01.06.2018] */
+          .rac-field-input {
+            height: 100%;
+            color: $rac-header-field-input-color;                                        /* @stable [24.06.2018] */
+            padding-top: unset;                                                          /* @stable [25.06.2018] */
 
-          .rac-field-input-wrapper {
-            height: 100%;                                       /* @stable [01.06.2018] */
-
-            .rac-field-input {
-              height: 100%;
-              color: $rac-header-search-field-color;            /* @stable [01.06.2018] */
-
-              &::placeholder {
-                color: $rac-header-search-field-color;          /* @stable [01.06.2018] */
-              }
+            &::placeholder {
+              color: $rac-header-field-input-placeholder-color;                          /* @stable [24.06.2018] */
             }
           }
         }
