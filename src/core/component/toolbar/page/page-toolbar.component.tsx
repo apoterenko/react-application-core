@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
-import { toClassName } from '../../../util';
+import { orNull, toClassName } from '../../../util';
 import { IPageToolbarProps } from './page-toolbar.interface';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
 
@@ -29,13 +30,22 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
     );
   }
 
+  /**
+   * @stable [25.06.2018]
+   * @returns {JSX.Element}
+   */
   protected getContent(): JSX.Element {
-    return (
-      <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}>
-        {this.getLeftContent()}
-        {this.checkAndGetControls()}
-        {this.getRightContent()}
-      </div>
+    const controls = this.checkAndGetControls();
+
+    return orNull<JSX.Element>(
+      !(R.isNil(this.props.children) && R.isNil(controls)),
+      () => (
+        <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}>
+          {this.getLeftContent()}
+          {controls}
+          {this.getRightContent()}
+        </div>
+      )
     );
   }
 
