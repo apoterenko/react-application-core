@@ -10,6 +10,19 @@
 
   .rac-form-field {
 
+    .rac-text-field {
+
+      .rac-icon {
+        margin-top: auto;                                             /* @stable [24.06.2018] */
+        margin-bottom: auto;                                          /* @stable [24.06.2018] */
+        margin-left: $rac-form-field-icon-margin-left;                /* @stable [24.06.2018] */
+
+        .svg-inline--fa {
+          margin-top: $rac-form-field-fa-icon-margin-top;             /* @stable [24.06.2018] */
+        }
+      }
+    }
+
     .rac-filter-active {
 
       &::after {
