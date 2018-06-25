@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { orNull } from '../../../util';
+import { orNull, toClassName } from '../../../util';
 import {
   IFieldActionConfiguration,
   IFilterActionConfiguration,
@@ -179,10 +179,19 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
       .concat(
         this.isActive
           ? []
-          : this.uiFactory.makeIcon({type: props.icon, onClick: this.onActivate, disabled: props.actionsDisabled})
+          : this.uiFactory.makeIcon({
+              type: props.icon,
+              onClick: this.onActivate,
+              disabled: props.actionsDisabled,
+              className: 'rac-search-toolbar-action',
+          })
       ).concat(
         props.notUseField && (actions = this.actions).length > 0
-          ? actions.map((action) => this.uiFactory.makeIcon({...action, disabled: props.actionsDisabled}))
+          ? actions.map((action) => this.uiFactory.makeIcon({
+            ...action,
+            disabled: props.actionsDisabled,
+            className: toClassName(action.className, 'rac-search-toolbar-action'),
+          }))
           : []
       );
   }

@@ -1,11 +1,18 @@
 @import '../../constant';
 
-// PageToolbar [FRAMEWORK-][RAC+]
+// Page toolbar [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-toolbar {
 
     &.rac-page-toolbar {
+
+      .rac-button-page-icon {
+
+        &.rac-icon {
+          display: inline-block;                /* @stable [25.06.2018] */
+        }
+      }
 
       .rac-page-toolbar-content {
         padding-left: 16px;         /* @stable [09.05.2018] */
@@ -13,7 +20,9 @@
       }
 
       .rac-toolbar-pages-info {
-        color: $rac-toolbar-pages-info-color;   /* @stable [09.05.2018] */
+        color: $rac-toolbar-pages-info-color;           /* @stable [09.05.2018] */
+        margin-left: 16px;                              /* @stable [25.06.2018] */
+        margin-right: 16px;                             /* @stable [25.06.2018] */
       }
     }
   }

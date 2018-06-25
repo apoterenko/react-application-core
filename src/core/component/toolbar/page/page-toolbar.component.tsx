@@ -32,10 +32,20 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
   protected getContent(): JSX.Element {
     return (
       <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}>
-        {this.getChildrenContent()}
-        {this.getPagesElement()}
+        {this.getLeftContent()}
         {this.checkAndGetControls()}
+        {this.getRightContent()}
       </div>
+    );
+  }
+
+  /**
+   * @stable [25.06.2018]
+   * @returns {JSX.Element}
+   */
+  protected getRightContent(): JSX.Element {
+    return (
+      <div className='rac-flex-full'/>
     );
   }
 
@@ -43,7 +53,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
    * @stable [16.05.2018]
    * @returns {JSX.Element}
    */
-  protected getChildrenContent(): JSX.Element {
+  protected getLeftContent(): JSX.Element {
     return (
       <div className='rac-flex-full'>
         {this.props.children}
@@ -52,14 +62,14 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [25.06.2018]
    * @returns {JSX.Element}
    */
   protected getPagesElement(): JSX.Element {
     return (
-      <div className='rac-toolbar-pages-info'>
+      <span className='rac-toolbar-pages-info'>
         {this.pagesInfoLabel}
-      </div>
+      </span>
     );
   }
 
@@ -77,6 +87,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
         {
           this.uiFactory.makeIcon({
             type: 'first_page',
+            className: 'rac-button-page-icon',
             disabled: isPreviousBtnDisabled,
             onClick: props.onFirst,
           })
@@ -84,13 +95,16 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
         {
           this.uiFactory.makeIcon({
             type: 'keyboard_arrow_left',
+            className: 'rac-button-page-icon',
             disabled: isPreviousBtnDisabled,
             onClick: props.onPrevious,
           })
         }
+        {this.getPagesElement()}
         {
           this.uiFactory.makeIcon({
             type: 'keyboard_arrow_right',
+            className: 'rac-button-page-icon',
             disabled: isNextBtnDisabled,
             onClick: props.onNext,
           })
@@ -98,6 +112,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
         {
           this.uiFactory.makeIcon({
             type: 'last_page',
+            className: 'rac-button-page-icon',
             disabled: isNextBtnDisabled,
             onClick: props.onLast,
           })

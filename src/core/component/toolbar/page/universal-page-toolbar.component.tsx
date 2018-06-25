@@ -15,7 +15,7 @@ export abstract class UniversalPageToolbar<TToolbar extends UniversalPageToolbar
    * @returns {JSX.Element}
    */
   protected checkAndGetControls(): JSX.Element {
-    return orNull(
+    return orNull<JSX.Element>(
       !(this.isPreviousBtnDisabled && this.isNextBtnDisabled),
       this.getControls()
     );

@@ -1,0 +1,29 @@
+@import '../../constant';
+
+// Search toolbar [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-toolbar {
+
+    &.rac-search-toolbar {
+
+      .rac-search-toolbar-action {
+
+        margin-left: $rac-search-toolbar-action-margin-left;      /* @stable [25.06.2018] */
+      }
+
+      .rac-form-field {
+
+        .rac-text-field {
+
+          .rac-icon {
+
+            .svg-inline--fa {
+              margin-top: 0;                                      /* @stable [25.06.2018] */
+            }
+          }
+        }
+      }
+    }
+  }
+}
