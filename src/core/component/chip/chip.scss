@@ -15,10 +15,12 @@
     background-size: $rac-chip-background-size;                         /* @stable [24.06.2018] */
 
     .rac-icon {
-      display: inline-block;                                            /* @stable [24.06.2018] */
-      width: $rac-chip-icon-width;                                      /* @stable [24.06.2018] */
-      height: $rac-chip-icon-height;                                    /* @stable [24.06.2018] */
-      color: $rac-chip-icon-color;                                      /* @stable [24.06.2018] */
+      &.rac-action-icon {
+        display: inline-block;                                           /* @stable [24.06.2018] */
+        width: $rac-chip-icon-width;                                     /* @stable [24.06.2018] */
+        height: $rac-chip-icon-height;                                   /* @stable [24.06.2018] */
+        color: $rac-chip-icon-color;                                     /* @stable [24.06.2018] */
+      }
     }
 
     .rac-chip-description {

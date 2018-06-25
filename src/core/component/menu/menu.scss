@@ -1,4 +1,5 @@
 @import '~sass-flex-mixin/_flex';
+@import '../constant';
 
 // Menu [FRAMEWORK-][RAC+]
 .rac {
@@ -6,26 +7,41 @@
   .rac-menu {
 
     .rac-menu-close-action {
-      margin: 8px;                          /* @stable [15.06.2018] */
-      cursor: pointer;                      /* @stable [07.06.2018] */
-    }
-
-    .rac-menu-item {
-      width: 100%;                          /* @stable [07.06.2018] */
-      height: 100%;                         /* @stable [07.06.2018] */
-      padding: 0 16px;                      /* @stable [07.06.2018] */
-      @include align-items(center);         /* @stable [07.06.2018] */
+      margin: 8px;                                            /* @stable [25.06.2018] */
+      cursor: pointer;                                        /* @stable [25.06.2018] */
     }
 
     .rac-simple-list {
-      max-height: 200px;                    /* @stable [07.06.2018] */
+      padding: unset;                                         /* @stable [25.06.2018] */
+      max-height: $rac-menu-simple-list-max-height;           /* @stable [25.06.2018] */
+
+      .rac-simple-list-item {
+        height: $rac-menu-simple-list-item-height;            /* @stable [25.06.2018] */
+
+        .rac-menu-item {
+          width: 100%;                                        /* @stable [25.06.2018] */
+          height: 100%;                                       /* @stable [25.06.2018] */
+          font-size: $rac-menu-item-font-size;                /* @stable [25.06.2018] */
+          color: $rac-menu-item-color;                        /* @stable [25.06.2018] */
+          @include align-items(center);                       /* @stable [25.06.2018] */
+
+          .rac-menu-item-icon {
+
+            &.rac-icon {
+              display: inline-block;                          /* @stable [25.06.2018] */
+              margin-right: $rac-menu-item-icon-margin-right; /* @stable [25.06.2018] */
+            }
+          }
+        }
+      }
     }
 
     .rac-form-field {
-      width: 100%;                          /* @stable [07.06.2018] */
+      width: 100%;                                            /* @stable [25.06.2018] */
 
       .rac-text-field {
-        margin: 0 16px 16px;                /* @stable [07.06.2018] */
+        height: 24px !important;                              /* @stable [25.06.2018] */
+        margin: 0 16px 16px;                                  /* @stable [25.06.2018] */
       }
     }
   }

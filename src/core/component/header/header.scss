@@ -30,12 +30,7 @@
 
           .rac-field-input {
             height: 100%;
-            color: $rac-header-field-input-color;                                        /* @stable [24.06.2018] */
             padding-top: unset;                                                          /* @stable [25.06.2018] */
-
-            &::placeholder {
-              color: $rac-header-field-input-placeholder-color;                          /* @stable [24.06.2018] */
-            }
           }
         }
       }

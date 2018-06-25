@@ -33,15 +33,11 @@
       .rac-field-input {
         color: $rac-form-field-input-color;                           /* @stable [25.06.2018] */
         font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
-        letter-spacing: $rac-form-field-letter-spacing;               /* @stable [25.06.2018] */
-      }
-    }
+        letter-spacing: $rac-form-field-input-letter-spacing;         /* @stable [25.06.2018] */
 
-    .rac-filter-active {
-
-      &::after {
-        left: $rac-form-field-filter-active-after-left;               /* @stable [23.06.2018] */
-        font-size: $rac-form-field-filter-active-after-font-size;     /* @stable [23.06.2018] */
+        &::placeholder {
+          color: $rac-form-field-input-placeholder-color;             /* @stable [24.06.2018] */
+        }
       }
     }
   }
