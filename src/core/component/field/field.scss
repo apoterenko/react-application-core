@@ -31,7 +31,9 @@
       }
 
       .rac-field-input {
+        color: $rac-form-field-input-color;                           /* @stable [25.06.2018] */
         font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
+        letter-spacing: $rac-form-field-letter-spacing;               /* @stable [25.06.2018] */
       }
     }
 
