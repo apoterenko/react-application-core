@@ -88,13 +88,6 @@ html, body {
     height: 100%;           /* @stable [07.05.2018] */
   }
 
-  .rac-add-button {
-    position: absolute;                                   /* @stable [23.06.2018] */
-    right: $rac-add-button-right;                         /* @stable [23.06.2018] */
-    bottom: $rac-add-button-bottom;                       /* @stable [23.06.2018] */
-    background-color: $rac-add-button-background-color;   /* @stable [23.06.2018] */
-  }
-
   .rac-visibility-hidden {
     visibility: hidden;      /* @stable [23.06.2018] */
   }
@@ -141,19 +134,39 @@ html, body {
     top: -10000px;                      /* @stable [04.05.2018] */
   }
 
+  .rac-icon {
+    width: $rac-icon-width;             /* @stable [24.06.2018] */
+    height: $rac-icon-height;           /* @stable [24.06.2018] */
+
+    &.rac-action-icon {
+      color: $rac-icon-color;           /* @stable [24.06.2018] */
+      cursor: pointer;                  /* @stable [24.06.2018] */
+    }
+
+    &.rac-disabled-icon {
+      opacity: $opacity;                /* @stable [24.06.2018] */
+    }
+
+    .svg-inline--fa {
+      width: 100%;                      /* @stable [24.06.2018] */
+      height: 100%;                     /* @stable [24.06.2018] */
+    }
+  }
+
   .rac-no-user-select {
     @include x-user-select;             /* @stable [04.05.2018] */
   }
 
   .rac-filter-active {
-    position: relative;                             /* @stable [23.06.2018] */
+    position: relative;                             /* @stable [25.06.2018] */
 
     &::after {
-      position: absolute;                           /* @stable [23.06.2018] */
-      left: $rac-filter-active-left;                /* @stable [23.06.2018] */
-      font-size: $rac-filter-active-font-size;      /* @stable [23.06.2018] */
-      content: 'lens';                              /* @stable [23.06.2018] */
-      color: $rac-filter-active-color;              /* @stable [23.06.2018] */
+      position: absolute;                           /* @stable [25.06.2018] */
+      left: $rac-filter-active-left;                /* @stable [25.06.2018] */
+      top: $rac-filter-active-top;                  /* @stable [25.06.2018] */
+      font-size: $rac-filter-active-font-size;      /* @stable [25.06.2018] */
+      content: '●';                                /* @stable [25.06.2018] */
+      color: $rac-filter-active-color;              /* @stable [25.06.2018] */
     }
   }
 }

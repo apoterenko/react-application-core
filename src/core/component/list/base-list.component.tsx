@@ -55,7 +55,6 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
       this.props.useAddAction,
       () => this.uiFactory.makeIcon<IUIIconConfiguration>({
         type: 'add',
-        className: toClassName('rac-add-button', this.uiFactory.fab),
         onClick: this.onCreate,
       })
     );
