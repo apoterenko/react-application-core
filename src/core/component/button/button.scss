@@ -1,4 +1,5 @@
 @import '../constant';
+@import '../mixin';
 
 // Button [FRAMEWORK-][RAC+]
 .rac {
@@ -16,6 +17,11 @@
     &[disabled] {
       opacity: $rac-button-disabled-opacity;        /* @stable [16.05.2018] */
       cursor: default;                              /* @stable [16.05.2018] */
+
+      .rac-icon {
+        @include rac-invert;                        /* @stable [25.06.2018] */
+        opacity: $rac-button-disabled-opacity;      /* @stable [25.06.2018] */
+      }
     }
   }
 }
