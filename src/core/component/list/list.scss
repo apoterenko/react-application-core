@@ -5,7 +5,7 @@
 // List [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-list {
+  .rac-list, .rac-simple-list, .rac-navigation-list {
     padding: unset;                                          /* @stable [25.06.2018] */
   }
 
@@ -17,6 +17,7 @@
     .rac-list-item {
       color: $rac-list-item-color;                           /* @stable [23.06.2018] */
       font-size: $rac-list-item-font-size;                   /* @stable [23.06.2018] */
+      letter-spacing: $rac-list-item-letter-spacing;         /* @stable [23.06.2018] */
 
       .rac-icon {
 
@@ -26,6 +27,8 @@
       }
 
       .rac-list-item-secondary-text {
+        font-size: $rac-list-item-font-size;                 /* @stable [23.06.2018] */
+        letter-spacing: $rac-list-item-letter-spacing;       /* @stable [23.06.2018] */
 
         .rac-icon {
           display: inline-block;                             /* @stable [25.06.2018] */

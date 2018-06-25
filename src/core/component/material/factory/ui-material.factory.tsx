@@ -45,6 +45,10 @@ import {
   faClock,
   faClipboardCheck,
   faCheckCircle,
+  faPen,
+  faPhone,
+  faEraser,
+  faPaperclip,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -57,6 +61,10 @@ import {
   faSave,
   faCalendarAlt,
   faUser,
+  faEnvelope,
+  faQuestionCircle,
+  faStopCircle,
+  faArrowAltCircleRight,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -121,8 +129,17 @@ export class UIMaterialFactory implements IUIFactory {
     cancel: faBan,
     playlist_add_check: faClipboardCheck,
     done_outline: faCheckCircle,
+    contact_phone: faPhone,
+    contact_mail: faEnvelope,
+    edit: faPen,
+    priority_high: faExclamation,
+    format_list_numbered: faListOl,
+    attach_file: faPaperclip,
+    help_outline: faQuestionCircle,
+    clear_all: faEraser,
+    stop: faStopCircle,
+    forward: faArrowAltCircleRight,
     houzz: faHouzz,
-    listOl: faListOl,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 

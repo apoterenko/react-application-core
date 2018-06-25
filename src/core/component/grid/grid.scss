@@ -23,6 +23,18 @@
           max-width: $rac-grid-column-content-picture-height;       /* @stable [23.06.2018] */
           vertical-align: middle;                                   /* @stable [23.06.2018] */
         }
+
+        .rac-form-field {
+
+          .rac-text-field {
+
+            .rac-icon {
+              .svg-inline--fa {
+                margin-top: unset;                                  /* @stable [25.06.2018] */
+              }
+            }
+          }
+        }
       }
 
       .rac-icon {
@@ -42,7 +54,7 @@
           width: $rac-grid-actioned-icon-size;              /* @stable [21.06.2018] */
           height: $rac-grid-actioned-icon-size;             /* @stable [21.06.2018] */
           line-height: $rac-grid-actioned-icon-line-height; /* @stable [21.06.2018] */
-          margin-right: 8px;                                /* @stable [22.06.2018] */
+          margin-right: $rac-grid-actioned-margin-right;    /* @stable [25.06.2018] */
           vertical-align: middle;                           /* @stable [23.06.2018] */
         }
       }
