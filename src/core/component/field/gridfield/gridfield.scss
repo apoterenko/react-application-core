@@ -1,0 +1,19 @@
+// GridField [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-form-field {
+
+    .rac-grid {
+
+      .rac-grid-head {
+        padding-left: 0;          /* @stable [25.06.2018] */
+        padding-right: 0;         /* @stable [25.06.2018] */
+        padding-top: 0;           /* @stable [25.06.2018] */
+      }
+
+      .rac-grid-body {
+        padding: 0;               /* @stable [25.06.2018] */
+      }
+    }
+  }
+}
