@@ -18,8 +18,10 @@ $color-15: #d0d0d0 !default;
 
 /* @stable [09.05.2018] */
 $rac-toolbar-info-color: $color-2 !default;
-$rac-toolbar-info-font-weight: bold !default;
 $rac-toolbar-pages-info-color: $color-2 !default;
+
+/* @stable [25.06.2018] */
+$rac-search-toolbar-action-margin-left: 16px !default;
 
 /* @stable [09.05.2018] */
 $rac-keyboard-close-color: $color-11 !default;
@@ -30,13 +32,6 @@ $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-border-color: $color-1 !default;
 
 /* @stable [24.06.2018] */
-$rac-add-button-background-color: $color-2 !default;
-$rac-add-button-bottom: 32px !default;
-$rac-add-button-right: 64px !default;
-$rac-add-button-icon-width: 64px !default;
-$rac-add-button-icon-height: 64px !default;
-
-/* @stable [24.06.2018] */
 $rac-icon-color: $color-2 !default;
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
@@ -44,6 +39,18 @@ $rac-icon-width: 16px !default;
 $rac-icon-height: 16px !default;
 $rac-icon-width2: 20px !default;
 $rac-icon-height2: 20px !default;
+
+/* @stable [25.06.2018] */
+$rac-add-button-icon-border-radius: 32px !default;
+$rac-add-button-icon-opacity: $opacity !default;
+$rac-add-button-icon-background-color: $color-2 !default;
+$rac-add-button-icon-color: $color-5 !default;
+$rac-add-button-icon-bottom: 32px !default;
+$rac-add-button-icon-right: 64px !default;
+$rac-add-button-icon-width: 64px !default;
+$rac-add-button-icon-height: 64px !default;
+$rac-add-button-fa-icon-width: $rac-icon-width2 !default;
+$rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
 /* @stable [24.06.2018] */
 $rac-list-item-color: $color-2 !default;
@@ -94,8 +101,9 @@ $rac-form-field-filter-active-after-font-size: 8px !default;
 
 /* @stable [23.06.2018] */
 $rac-filter-active-color: $color-6 !default;
-$rac-filter-active-left: 20px !default;
-$rac-filter-active-font-size: 10px !default;
+$rac-filter-active-left: 9px !default;
+$rac-filter-active-top: -11px !default;
+$rac-filter-active-font-size: 18px !default;
 
 /* @stable [24.06.2018] */
 $rac-button-icon-color: $color-5 !default;
@@ -128,6 +136,11 @@ $rac-header-search-toolbar-field-input-color: $color-5 !default;
 $rac-header-search-toolbar-field-input-placeholder-color: $color-5 !default;
 $rac-header-search-toolbar-text-field-border-bottom-color: $color-5 !default;
 
+/* @stable [25.06.2018] */
+$rac-menu-item-icon-margin-right: 20px !default;
+
+/* @stable [25.06.2018] */
+$rac-profile-menu-icon-color: $color-5 !default;
 
 
 $rac-list-item-graphic-background-color: $color-4 !default;
