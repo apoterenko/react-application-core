@@ -21,6 +21,10 @@
           margin-top: $rac-form-field-fa-icon-margin-top;             /* @stable [24.06.2018] */
         }
       }
+
+      .rac-field-input {
+        font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
+      }
     }
 
     .rac-filter-active {
