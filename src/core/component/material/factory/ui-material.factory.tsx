@@ -1,13 +1,131 @@
 import * as React from 'react';
 import { injectable } from 'inversify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBars,
+  faTruckMoving,
+  faCannabis,
+  faQuestion,
+  faCubes,
+  faTag,
+  faHome,
+  faExchangeAlt,
+  faMapMarkerAlt,
+  faFilter,
+  faEllipsisV,
+  faListOl,
+  faShippingFast,
+  faSpinner,
+  faSync,
+  faTimes,
+  faAngleLeft,
+  faAngleRight,
+  faBan,
+  faPlus,
+  faLock,
+  faExclamationTriangle,
+  faChevronDown,
+  faUnlockAlt,
+  faExclamation,
+  faCheck,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
+  faFileInvoiceDollar,
+  faSignOutAlt,
+  faSearch,
+  faUsers,
+  faMoneyBill,
+  faUser as faSolidUser,
+  faHistory,
+  faCommentDots,
+  faBriefcase,
+  faShieldAlt,
+  faCheckDouble,
+  faMinus,
+  faClock,
+  faClipboardCheck,
+  faCheckCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faHouzz,
+  faCodepen,
+  faGratipay,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+  faUserCircle,
+  faCreditCard,
+  faSave,
+  faCalendarAlt,
+  faUser,
+} from '@fortawesome/free-regular-svg-icons';
+import { LoggerFactory } from 'ts-smart-logger';
 
-import { isString, toClassName, uuid, isDef } from '../../../util';
+import { isFn, isString, toClassName, uuid } from '../../../util';
 import { IUIFactory } from '../../factory';
-import { Button } from '../../button';
+import { IBasicEvent } from '../../../definitions.interface';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
+  public static ICONS_MAP = {
+    product: faCannabis,
+    supplier: faTruckMoving,
+    delivery: faShippingFast,
+    menu: faBars,
+    category: faCodepen,
+    local_offer: faTag,
+    home: faHome,
+    timelapse: faSpinner,
+    http: faExchangeAlt,
+    location_on: faMapMarkerAlt,
+    search: faSearch,
+    more_vert: faEllipsisV,
+    save: faSave,
+    refresh: faSync,
+    clear: faTimes,
+    keyboard_arrow_left: faAngleLeft,
+    keyboard_arrow_right: faAngleRight,
+    expand_more: faChevronDown,
+    block: faBan,
+    widgets: faCubes,
+    spa: faCannabis,
+    add: faPlus,
+    lock: faLock,
+    warning: faExclamationTriangle,
+    close: faTimes,
+    lock_open: faUnlockAlt,
+    filter_list: faFilter,
+    error_outline: faExclamation,
+    done: faCheck,
+    check: faCheck,
+    first_page: faAngleDoubleLeft,
+    last_page: faAngleDoubleRight,
+    date_range: faCalendarAlt,
+    payment: faCreditCard,
+    account_circle: faUserCircle,
+    shopping_cart: faFileInvoiceDollar,
+    exit_to_app: faSignOutAlt,
+    group: faUsers,
+    people_outline: faUser,
+    person_outline: faUser,
+    person: faSolidUser,
+    loyalty: faGratipay,
+    local_atm: faMoneyBill,
+    access_time: faHistory,
+    sms: faCommentDots,
+    work: faBriefcase,
+    verified_user: faShieldAlt,
+    done_all: faCheckDouble,
+    remove: faMinus,
+    clock: faClock,
+    cancel: faBan,
+    playlist_add_check: faClipboardCheck,
+    done_outline: faCheckCircle,
+    houzz: faHouzz,
+    listOl: faListOl,
+  };
+  private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
+
   public icons = 'material-icons';
   public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
   public toolbar = 'mdc-toolbar';
@@ -86,25 +204,35 @@ export class UIMaterialFactory implements IUIFactory {
       return null;
     }
     const config = this.toIconConfig(cfg);
-    const className = toClassName(this.icons, config.className);
-    return isDef(config.onClick) && !config.simple
-      ? (
-        <Button key={uuid()}
-                notApplyFrameworkClassName={true}
-                disabled={config.disabled}
-                onClick={config.onClick}
-                className={className}>
-          {config.type}
-        </Button>
-      )
-      : (
-        <i key={uuid()}
-           title={config.title}
-           onClick={config.onClick}
-           className={toClassName(className, 'rac-icon')}>
-          {config.type}
-        </i>
+
+    const awIconCtor = UIMaterialFactory.ICONS_MAP[config.type];
+    if (!awIconCtor) {
+      UIMaterialFactory.logger.warn(
+        `[$UIMaterialFactory] The icon ${config.type} is not defined.`
       );
+    }
+
+    const iconCtor = awIconCtor || faQuestion;
+    const isButton = isFn(config.onClick);
+
+    return (
+      <div key={uuid()}
+           className={toClassName(
+                        config.className,
+                        'rac-flex',
+                        'rac-flex-center',
+                        'rac-icon',
+                        isButton && `rac-action-icon rac-button-${config.type}-icon`,
+                        config.disabled && 'rac-disabled-icon',
+                      )}
+           onClick={(event: IBasicEvent) => {
+             if (!config.disabled && isButton) {
+               config.onClick(event);
+             }
+           }}>
+        <FontAwesomeIcon icon={iconCtor}/>
+      </div>
+    );
   }
 
   /**
@@ -135,7 +263,7 @@ export class UIMaterialFactory implements IUIFactory {
       cfg
         ? {
           ...config,
-          className: toClassName(config.className, this.listItemMeta),
+          className: toClassName(config.className, 'rac-list-item-meta-icon'),
         }
         : cfg
     );
