@@ -97,14 +97,17 @@ html, body {
   }
 
   .rac-loading-icon {
-    vertical-align: middle;               /* @stable [19.06.2018] */
-    color: $rac-loading-icon-color;       /* @stable [19.06.2018] */
+    display: inline-block;                        /* @stable [25.06.2018] */
+    margin-right: $rac-loading-icon-margin-right; /* @stable [25.06.2018] */
+  }
+
+  .rac-loading-icon, .rac-loading-message {
+    vertical-align: middle;                       /* @stable [25.06.2018] */
+    color: $rac-loading-color;                    /* @stable [25.06.2018] */
   }
 
   .rac-loading-message {
-    vertical-align: middle;               /* @stable [19.06.2018] */
-    margin-left: 4px;                     /* @stable [19.06.2018] */
-    color: $rac-loading-message-color;    /* @stable [19.06.2018] */
+    font-size: $rac-loading-message-font-size;    /* @stable [25.06.2018] */
   }
 
   .rac-absolute-center-position {
@@ -145,6 +148,7 @@ html, body {
 
     &.rac-disabled-icon {
       opacity: $opacity;                /* @stable [24.06.2018] */
+      cursor: default;                  /* @stable [25.06.2018] */
     }
 
     .svg-inline--fa {

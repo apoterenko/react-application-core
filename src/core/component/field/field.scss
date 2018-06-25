@@ -16,9 +16,17 @@
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
         margin-left: $rac-form-field-icon-margin-left;                /* @stable [24.06.2018] */
+        color: $rac-form-field-icon-color;                            /* @stable [24.06.2018] */
 
         .svg-inline--fa {
-          margin-top: $rac-form-field-fa-icon-margin-top;             /* @stable [24.06.2018] */
+          margin-top: 100%;                                           /* @stable [25.06.2018] */
+        }
+
+        &.rac-loading-icon {
+
+          .svg-inline--fa {
+            margin-top: unset;                                        /* @stable [25.06.2018] */
+          }
         }
       }
 
