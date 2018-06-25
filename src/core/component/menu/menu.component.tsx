@@ -96,9 +96,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
               props.renderToCenterOfBody,
               () => (
                 <div className='rac-menu-close-action rac-flex rac-flex-end'>
-                  {
-                    this.uiFactory.makeIcon('close')
-                  }
+                  {this.uiFactory.makeIcon('close')}
                 </div>
               )
             )

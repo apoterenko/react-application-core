@@ -18,6 +18,7 @@ $color-15: #d0d0d0 !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
+$rac-default-action-color: $color-2 !default;
 
 /* @stable [09.05.2018] */
 $rac-toolbar-info-color: $color-2 !default;
@@ -35,7 +36,7 @@ $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-border-color: $color-1 !default;
 
 /* @stable [24.06.2018] */
-$rac-icon-color: $color-2 !default;
+$rac-action-icon-color: $rac-default-action-color !default;
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
 $rac-icon-width: 16px !default;
@@ -46,7 +47,7 @@ $rac-icon-height2: 20px !default;
 /* @stable [25.06.2018] */
 $rac-add-button-icon-border-radius: 32px !default;
 $rac-add-button-icon-opacity: $opacity !default;
-$rac-add-button-icon-background-color: $color-2 !default;
+$rac-add-button-icon-background-color: $rac-default-action-color !default;
 $rac-add-button-icon-color: $color-5 !default;
 $rac-add-button-icon-bottom: 32px !default;
 $rac-add-button-icon-right: 64px !default;
@@ -159,6 +160,7 @@ $rac-menu-item-color: $color-2 !default;
 $rac-menu-item-icon-margin-right: 20px !default;
 $rac-menu-simple-list-max-height: 200px !default;
 $rac-menu-simple-list-item-height: 40px !default;
+$rac-menu-close-action-color: $rac-default-action-color !default;
 
 /* @stable [25.06.2018] */
 $rac-profile-menu-icon-color: $color-5 !default;

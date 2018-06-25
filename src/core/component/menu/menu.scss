@@ -9,6 +9,7 @@
     .rac-menu-close-action {
       margin: 8px;                                            /* @stable [25.06.2018] */
       cursor: pointer;                                        /* @stable [25.06.2018] */
+      color: $rac-menu-close-action-color;                    /* @stable [26.06.2018] */
     }
 
     .rac-simple-list {

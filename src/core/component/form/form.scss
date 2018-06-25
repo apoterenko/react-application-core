@@ -1,3 +1,4 @@
+@import '~sass-flex-mixin/_flex';
 @import '../constant';
 
 // Form [FRAMEWORK-][RAC+]
@@ -18,6 +19,7 @@
 
     .rac-form-actions {
       padding: $rac-form-actions-padding;                                   /* @stable [25.06.2018] */
+      @include justify-content(flex-end);                                   /* @stable [26.06.2018] */
     }
 
     .rac-simple-list {
@@ -35,7 +37,6 @@
 .rac-form {
 
   .rac-form-actions {
-    justify-content: flex-end;
 
     .rac-button {
       &[type=reset] {
