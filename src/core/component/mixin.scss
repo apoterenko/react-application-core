@@ -1,0 +1,4 @@
+@mixin rac-invert ($value: 100%) {
+  -webkit-filter: invert($value);
+  filter: invert($value);
+}
