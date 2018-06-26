@@ -10,7 +10,7 @@ import {
 } from './multifield.interface';
 
 export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItemEntity[] {
-  if (!entity) {
+  if (R.isNil(entity)) {
     return UNDEF;
   }
   const multiEntity = entity as IMultiEntity;
@@ -40,12 +40,24 @@ export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItem
   return entity as IEntity[];
 }
 
-export const toEntityIds = (multiFieldValue: MultiFieldEntityT): EntityIdT[] =>
-  toEntities<IEntity, EntityIdT>(multiFieldValue, (entity) => entity.id);
+/**
+ * @stable [26.06.2018]
+ * @param {MultiFieldEntityT} multiFieldEntity
+ * @returns {EntityIdT[]}
+ */
+export const fromMultiFieldEntityToEntitiesIds = (multiFieldEntity: MultiFieldEntityT): EntityIdT[] =>
+  fromMultiFieldEntityToEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
 
-export function toEntities<TItem extends IEntity, TResult>(multiFieldValue: MultiFieldEntityT,
-                                                           mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = toActualMultiItemEntities(multiFieldValue);
+/**
+ * @stable [26.06.2018]
+ * @param {MultiFieldEntityT} multiFieldEntity
+ * @param {(entity: TItem, index: number) => TResult} mapper
+ * @returns {TResult[]}
+ */
+export function fromMultiFieldEntityToEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
+  multiFieldEntity: MultiFieldEntityT,
+  mapper: (entity: TItem, index: number) => TResult): TResult[] {
+  const result = toActualMultiItemEntities(multiFieldEntity);
   return orUndef<TResult[]>(result, (): TResult[] => result.map<TResult>(mapper));
 }
 

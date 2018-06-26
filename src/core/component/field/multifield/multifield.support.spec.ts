@@ -1,10 +1,11 @@
 import {
-  toEntityIds,
+  fromMultiFieldEntityToEntitiesIds,
   toMultiItemEntities,
   toActualMultiItemEntitiesLength,
   buildMultiEditItemEntityPayload,
+  fromMultiFieldEntityToEntities,
 } from './multifield.support';
-import { UNDEF } from '../../../definitions.interface';
+import { UNDEF, IEntity } from '../../../definitions.interface';
 
 describe('multifield.support', () => {
 
@@ -128,9 +129,9 @@ describe('multifield.support', () => {
     });
   });
 
-  describe('toEntityIds', () => {
+  describe('fromMultiFieldEntityToEntitiesIds', () => {
     it('test1', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [],
         remove: [],
         edit: [],
@@ -140,7 +141,7 @@ describe('multifield.support', () => {
     });
 
     it('test2', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [],
         remove: [],
         edit: [],
@@ -149,7 +150,7 @@ describe('multifield.support', () => {
     });
 
     it('test3', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -159,7 +160,7 @@ describe('multifield.support', () => {
     });
 
     it('test4', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
         edit: [],
@@ -169,7 +170,7 @@ describe('multifield.support', () => {
     });
 
     it('test5', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
         edit: [],
@@ -179,7 +180,7 @@ describe('multifield.support', () => {
     });
 
     it('test6', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [{id: 3}],
         edit: [],
@@ -189,7 +190,7 @@ describe('multifield.support', () => {
     });
 
     it('test7', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [],
         remove: [{id: 3}],
         edit: [],
@@ -199,7 +200,7 @@ describe('multifield.support', () => {
     });
 
     it('test8', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [],
         remove: [{id: 3}],
         edit: [],
@@ -209,7 +210,7 @@ describe('multifield.support', () => {
     });
 
     it('test9', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -219,7 +220,7 @@ describe('multifield.support', () => {
     });
 
     it('test10', () => {
-      const ids = toEntityIds({
+      const ids = fromMultiFieldEntityToEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -228,12 +229,41 @@ describe('multifield.support', () => {
     });
 
     it('test11', () => {
-      const ids = toEntityIds([{id: 1}, {id: 2}]);
+      const ids = fromMultiFieldEntityToEntitiesIds([{id: 1}, {id: 2}]);
       expect(ids).toEqual([1, 2]);
     });
 
     it('test12', () => {
-      expect(toEntityIds(UNDEF)).toEqual(UNDEF);
+      expect(fromMultiFieldEntityToEntitiesIds(UNDEF)).toEqual(UNDEF);
+    });
+  });
+
+  describe('fromMultiFieldEntityToEntities', () => {
+    it('test1', () => {
+      const data = fromMultiFieldEntityToEntities(
+        [{id: 100, name: 'name100'}, {id: 200, name: 'name200'}],
+        (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
+      );
+      const result = [];
+      result.push({id: 100, name: 'name100', extraField: 'extraField0'});
+      result.push({id: 200, name: 'name200', extraField: 'extraField1'});
+      expect(data).toEqual(result);
+    });
+
+    it('test2', () => {
+      const data = fromMultiFieldEntityToEntities(
+        null,
+        (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
+      );
+      expect(data).toEqual(UNDEF);
+    });
+
+    it('test3', () => {
+      const data = fromMultiFieldEntityToEntities(
+        UNDEF,
+        (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
+      );
+      expect(data).toEqual(UNDEF);
     });
   });
 });
