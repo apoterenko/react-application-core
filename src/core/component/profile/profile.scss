@@ -1,84 +1,47 @@
 @import '../constant';
 
-// Profile [FRAMEWORK-][ROOT+]
-.rac-root {
-
-  .rac-profile {
-    width: 100%;      // [RAC+]
-    cursor: pointer;  // [RAC+]
-    color: inherit;   // [RAC+]
-
-    &:active {
-      color: inherit; // [RAC+]
-    }
-
-    // Common
-    .rac-profile-logo-wrapper {
-      position: relative;                               // [RAC+]
-      border-radius: 50%;                               // [RAC+]
-      background: $rac-profile-icon-background-color;   // [RAC+]
-
-      .rac-profile-icon {
-        position: absolute;                             // [RAC+]
-        color: $rac-profile-icon-color;                 // [RAC+]
-
-        &.rac-button {
-          padding: 0;           // [RAC+]
-          cursor: pointer;      // [RAC+]
-          border-style: none;   // [RAC+]
-          background: none;     // [RAC+]
-        }
-      }
-    }
-
-    // Name
-    .rac-profile-name {
-      margin-bottom: 2px;     // [RAC+]
-      font-weight: bold;      // [RAC+]
-    }
-
-    // Avatar
-    .rac-profile-avatar {
-      margin-bottom: $rac-default-offset;   // [RAC+]
-      width: 64px;                          // [RAC+]
-      height: 64px;                         // [RAC+]
-
-      .rac-profile-icon {
-        left: 8px;          // [RAC+]
-        top: 8px;           // [RAC+]
-        font-size: 48px;    // [RAC+]
-      }
-    }
-
-    // Menu
-    .rac-profile-menu {
-      float: right;         // [RAC+]
-      width: 36px;          // [RAC+]
-      height: 36px;         // [RAC+]
-
-      .rac-profile-icon {
-        left: 6px;          // [RAC+]
-        top: 6px;           // [RAC+]
-      }
-    }
-  }
-}
-
-
-// Profile menu [FRAMEWORK-][RAC+]
+// Profile [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-profile-menu {
+  .rac-profile {
+    width: 100%;                                                   /* @stable [26.06.2018] */
+    cursor: pointer;                                               /* @stable [26.06.2018] */
+    font-weight: $rac-profile-font-weight;                         /* @stable [26.06.2018] */
+    color: inherit;                                                /* @stable [26.06.2018] */
 
-    .rac-simple-list {
+    &:active {
+      color: inherit;                                              /* @stable [26.06.2018] */
+    }
 
-      .rac-simple-list-item {
-        cursor: pointer;        // @stable [14.05.2018]
-      }
+    .rac-profile-avatar {
+      margin-bottom: $rac-profile-avatar-margin-bottom;            /* @stable [26.06.2018] */
+      width: $rac-profile-avatar-width;                            /* @stable [26.06.2018] */
+      height: $rac-profile-avatar-height;                          /* @stable [26.06.2018] */
+      background-color: $rac-profile-avatar-background-color;      /* @stable [26.06.2018] */
+      border-radius: $rac-profile-avatar-border-radius;            /* @stable [26.06.2018] */
+    }
 
-      .rac-menu-item-icon {
-        padding-right: $rac-menu-icon-right-offset;   // @stable [14.05.2018]
-        vertical-align: middle;                       // @stable [14.05.2018]
+    .rac-profile-menu-wrapper {
+      position: absolute;                                          /* @stable [26.06.2018] */
+      top: $rac-profile-menu-wrapper-top;                          /* @stable [26.06.2018] */
+      right: $rac-profile-menu-wrapper-right;                      /* @stable [26.06.2018] */
+      width: $rac-profile-menu-wrapper-width;                      /* @stable [26.06.2018] */
+      height: $rac-profile-menu-wrapper-height;                    /* @stable [26.06.2018] */
+      border-radius: $rac-profile-menu-wrapper-border-radius;      /* @stable [26.06.2018] */
+      background-color: $rac-profile-menu-wrapper-background-color;/* @stable [26.06.2018] */
+
+      .rac-icon {
+
+        &.rac-action-icon {
+          width: 100%;                                             /* @stable [26.06.2018] */
+          height: 100%;                                            /* @stable [26.06.2018] */
+          color: $rac-profile-menu-icon-color;                     /* @stable [26.06.2018] */
+
+          .svg-inline--fa {
+            width: $rac-profile-menu-icon-width;                   /* @stable [26.06.2018] */
+            height: $rac-profile-menu-icon-height;                 /* @stable [26.06.2018] */
+          }
+        }
       }
     }
   }

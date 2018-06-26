@@ -4,7 +4,7 @@ import { orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { Link } from '../link';
 import { IProfileInternalProps } from './profile.interface';
-import { BasicEventT } from '../../definitions.interface';
+import { IBasicEvent } from '../../definitions.interface';
 import { Menu, IMenu } from '../menu';
 
 export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
@@ -20,31 +20,21 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     return (
       <Link to={props.path}
             className='rac-profile'>
+        <div className='rac-profile-avatar'/>
         <div ref='menuAnchor'
-             className='rac-profile-logo-wrapper rac-profile-menu'
-             onClick={this.onMenuClick}>
-          {this.uiFactory.makeIcon({
-            type: 'more_vert',
-            className: 'rac-profile-icon',
-          })}
+             className='rac-profile-menu-wrapper'>
+          {this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onMenuClick})}
           <Menu ref='menu'
-                className='rac-profile-menu'
                 renderToBody={true}
                 options={props.menuItems}
                 anchor={() => this.refs.menuAnchor as HTMLElement}
                 onSelect={this.onMenuActionClick}/>
         </div>
-        <div className='rac-profile-logo-wrapper rac-profile-avatar'>
-          {this.uiFactory.makeIcon({
-            type: 'person',
-            className: 'rac-profile-icon',
-          })}
-        </div>
         {
           orNull(
             props.name,
             () => (
-              <div className='rac-profile-name rac-overflow-ellipsis'
+              <div className='rac-profile-name rac-profile-text rac-overflow-ellipsis'
                    title={props.name}>{props.name}</div>
             )
           )
@@ -52,7 +42,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
         {
           orNull(
             props.email,
-            () => <div className='rac-overflow-ellipsis' title={props.email}>{props.email}</div>
+            () => <div className='rac-profile-email rac-profile-text rac-overflow-ellipsis' title={props.email}>{props.email}</div>
           )
         }
       </Link>
@@ -66,7 +56,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     }
   }
 
-  private onMenuClick(event: BasicEventT): void {
+  private onMenuClick(event: IBasicEvent): void {
     this.stopEvent(event);
     this.menu.show();
   }
