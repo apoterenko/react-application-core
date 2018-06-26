@@ -37,90 +37,100 @@ describe('multifield.support', () => {
     });
   });
 
-  describe('toMultiItemEntities', function () {
-    it('test1', function () {
-      var ids = toMultiItemEntities(1);
+  describe('toMultiItemEntities', () => {
+    it('test1', () => {
+      const ids = toMultiItemEntities(1);
       expect(ids).toEqual([{ id: 1 }]);
     });
 
-    it('test2', function () {
-      var ids = toMultiItemEntities([{ id: 1 }]);
+    it('test2', () => {
+      const ids = toMultiItemEntities([{ id: 1 }]);
       expect(ids).toEqual([{ id: 1 }]);
     });
   });
 
-  describe('toActualMultiItemEntitiesLength', function () {
-    it('test1', function () {
-      var length = toActualMultiItemEntitiesLength(1);
+  describe('toActualMultiItemEntitiesLength', () => {
+    it('test1', () => {
+      const length = toActualMultiItemEntitiesLength(1);
       expect(length).toEqual(1);
     });
 
-    it('test2', function () {
-      var length = toActualMultiItemEntitiesLength('1');
+    it('test2', () => {
+      const length = toActualMultiItemEntitiesLength('1');
       expect(length).toEqual(1);
     });
 
-    it('test3', function () {
-      var length = toActualMultiItemEntitiesLength([{ id: 1 }, { id: 2 }]);
+    it('test3', () => {
+      const length = toActualMultiItemEntitiesLength([{id: 1}, {id: 2}]);
       expect(length).toEqual(2);
     });
 
-    it('test4', function () {
-      var length = toActualMultiItemEntitiesLength(UNDEF);
+    it('test4', () => {
+      const length = toActualMultiItemEntitiesLength(UNDEF);
       expect(length).toEqual(0);
     });
 
-    it('test5', function () {
-      var length = toActualMultiItemEntitiesLength({
-        add: [{ id: 1 }],
-        remove: [{ id: 2 }],
+    it('test5', () => {
+      const length = toActualMultiItemEntitiesLength({
+        add: [{id: 1}],
+        remove: [{id: 2}],
         edit: [],
-        source: [{ id: 3 }],
+        source: [{id: 3}],
       });
       expect(length).toEqual(2);
     });
 
-    it('test6', function () {
-      var length = toActualMultiItemEntitiesLength({
-        add: [{ id: 1 }],
-        remove: [{ id: 2 }],
+    it('test6', () => {
+      const length = toActualMultiItemEntitiesLength({
+        add: [{id: 1}],
+        remove: [{id: 2}],
         edit: [],
       });
       expect(length).toEqual(1);
     });
 
-    it('test7', function () {
-      var length = toActualMultiItemEntitiesLength({
-        add: [{ id: 1 }, { id: 3 }],
-        remove: [{ id: 2 }],
+    it('test7', () => {
+      const length = toActualMultiItemEntitiesLength({
+        add: [{id: 1}, {id: 3}],
+        remove: [{id: 2}],
         edit: [],
       });
       expect(length).toEqual(2);
     });
 
-    it('test8', function () {
-      var length = toActualMultiItemEntitiesLength({
+    it('test8', () => {
+      const length = toActualMultiItemEntitiesLength({
         add: [],
-        remove: [{ id: 1 }],
+        remove: [{id: 1}],
         edit: [],
       });
       expect(length).toEqual(0);
     });
 
-    it('test9', function () {
-      var length = toActualMultiItemEntitiesLength({
+    it('test9', () => {
+      const length = toActualMultiItemEntitiesLength({
         add: [],
-        remove: [{ id: 1 }],
+        remove: [{id: 1}],
         edit: [],
-        source: [{ id: 2 }],
+        source: [{id: 2}],
       });
       expect(length).toEqual(1);
+    });
+
+    it('test10', () => {
+      const length = toActualMultiItemEntitiesLength({
+        add: [{id: '1'}],
+        remove: [{id: '2'}],
+        edit: [],
+        source: [{id: '3'}],
+      });
+      expect(length).toEqual(2);
     });
   });
 
-  describe('toEntityIds', function () {
-    it('test1', function () {
-      var ids = toEntityIds({
+  describe('toEntityIds', () => {
+    it('test1', () => {
+      const ids = toEntityIds({
         add: [],
         remove: [],
         edit: [],
@@ -129,8 +139,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([]);
     });
 
-    it('test2', function () {
-      var ids = toEntityIds({
+    it('test2', () => {
+      const ids = toEntityIds({
         add: [],
         remove: [],
         edit: [],
@@ -138,8 +148,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([]);
     });
 
-    it('test3', function () {
-      var ids = toEntityIds({
+    it('test3', () => {
+      const ids = toEntityIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -148,8 +158,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([1]);
     });
 
-    it('test4', function () {
-      var ids = toEntityIds({
+    it('test4', () => {
+      const ids = toEntityIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
         edit: [],
@@ -158,8 +168,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([1, 2]);
     });
 
-    it('test5', function () {
-      var ids = toEntityIds({
+    it('test5', () => {
+      const ids = toEntityIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
         edit: [],
@@ -168,8 +178,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([1, 2, 3]);
     });
 
-    it('test6', function () {
-      var ids = toEntityIds({
+    it('test6', () => {
+      const ids = toEntityIds({
         add: [{id: 1}, {id: 2}],
         remove: [{id: 3}],
         edit: [],
@@ -178,8 +188,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([1, 2]);
     });
 
-    it('test7', function () {
-      var ids = toEntityIds({
+    it('test7', () => {
+      const ids = toEntityIds({
         add: [],
         remove: [{id: 3}],
         edit: [],
@@ -188,8 +198,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([]);
     });
 
-    it('test8', function () {
-      var ids = toEntityIds({
+    it('test8', () => {
+      const ids = toEntityIds({
         add: [],
         remove: [{id: 3}],
         edit: [],
@@ -198,8 +208,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([4]);
     });
 
-    it('test9', function () {
-      var ids = toEntityIds({
+    it('test9', () => {
+      const ids = toEntityIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -208,8 +218,8 @@ describe('multifield.support', () => {
       expect(ids).toEqual([1, 2, 3]);
     });
 
-    it('test10', function () {
-      var ids = toEntityIds({
+    it('test10', () => {
+      const ids = toEntityIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -217,12 +227,12 @@ describe('multifield.support', () => {
       expect(ids).toEqual([1]);
     });
 
-    it('test11', function () {
-      var ids = toEntityIds([{id: 1}, {id: 2}]);
+    it('test11', () => {
+      const ids = toEntityIds([{id: 1}, {id: 2}]);
       expect(ids).toEqual([1, 2]);
     });
 
-    it('test12', function () {
+    it('test12', () => {
       expect(toEntityIds(UNDEF)).toEqual(UNDEF);
     });
   });
