@@ -2,6 +2,8 @@
 
 A react-based application core for the business applications.
 
+[![Build Status](https://travis-ci.org/apoterenko/react-application-core.svg?branch=master)](https://travis-ci.org/apoterenko/react-application-core)
+
 # Description
 
 The library is designed to quickly start developing business applications are based on React, Redux, Material-UI.
