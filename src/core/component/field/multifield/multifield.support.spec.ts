@@ -265,5 +265,50 @@ describe('multifield.support', () => {
       );
       expect(data).toEqual(UNDEF);
     });
+
+    it('test4', () => {
+      const data = fromMultiFieldEntityToEntities(
+        {
+          add: [{id: 100, name: 'name100'}, {id: 200, name: 'name200'}],
+          remove: [],
+          edit: [],
+        },
+        (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
+      );
+      const result = [];
+      result.push({id: 100, name: 'name100', extraField: 'extraField0'});
+      result.push({id: 200, name: 'name200', extraField: 'extraField1'});
+      expect(data).toEqual(result);
+    });
+
+    it('test5', () => {
+      const data = fromMultiFieldEntityToEntities(
+        {
+          add: [{id: 100, name: 'name100'}],
+          remove: [{id: 200, name: 'name200'}],
+          edit: [],
+          source: [{id: 200, name: 'name200'}, {id: 200, name: 'name200'}],
+        },
+        (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
+      );
+      const result = [];
+      result.push({id: 100, name: 'name100', extraField: 'extraField0'});
+      expect(data).toEqual(result);
+    });
+
+    it('test5', () => {
+      const data = fromMultiFieldEntityToEntities(
+        {
+          add: [],
+          remove: [],
+          edit: [{id: 100, value: 'name101', name: 'name', rawData: {id: 100, name: 'name100'}}],
+          source: [{id: 100, name: 'name100'}],
+        },
+        (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
+      );
+      const result = [];
+      result.push({id: 100, name: 'name101', extraField: 'extraField0'});
+      expect(data).toEqual(result);
+    });
   });
 });
