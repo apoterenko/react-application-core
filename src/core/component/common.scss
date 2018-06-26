@@ -111,6 +111,7 @@ html, body {
 
   .rac-message {
     font-size: $rac-message-font-size;            /* @stable [25.06.2018] */
+    color: $rac-message-color;                    /* @stable [26.06.2018] */
   }
 
   .rac-absolute-center-position {

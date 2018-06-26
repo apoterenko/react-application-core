@@ -40,7 +40,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                   onClick: props.onNavigationActionClick,
                 })
               }
-              <span className='rac-header-section'>{props.title}</span>
+              <span className='rac-header-section-title'>{props.title}</span>
             </ToolbarSection>
             {
               orNull<JSX.Element>(

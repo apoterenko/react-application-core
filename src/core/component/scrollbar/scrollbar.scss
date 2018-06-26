@@ -1,16 +1,18 @@
-::-webkit-scrollbar-track
-{
-  background: transparent;
-}
+@import '../constant';
 
-::-webkit-scrollbar
-{
-  width: 8px;
-  height: 8px;
-  background: transparent;
-}
+// Scrollbar [FRAMEWORK-][RAC+]
+.rac {
+  ::-webkit-scrollbar-track {
+    background: transparent;                                          /* @stable [26.06.2018] */
+  }
 
-::-webkit-scrollbar-thumb
-{
-  background: #bdbdbd;
+  ::-webkit-scrollbar {
+    width: $rac-scrollbar-width;                                      /* @stable [26.06.2018] */
+    height: $rac-scrollbar-height;                                    /* @stable [26.06.2018] */
+    background: transparent;                                          /* @stable [26.06.2018] */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $rac-scrollbar-thumb-background-color;          /* @stable [26.06.2018] */
+  }
 }

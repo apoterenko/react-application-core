@@ -48,7 +48,9 @@ import {
   faPen,
   faPhone,
   faEraser,
+  faPrint,
   faPaperclip,
+  faServer,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -140,6 +142,8 @@ export class UIMaterialFactory implements IUIFactory {
     clear_all: faEraser,
     stop: faStopCircle,
     forward: faArrowAltCircleRight,
+    print: faPrint,
+    router: faServer,
     houzz: faHouzz,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);

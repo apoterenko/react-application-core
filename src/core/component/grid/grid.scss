@@ -85,8 +85,8 @@
       overflow: auto;                                     /* @stable [21.06.2018] */
 
       .rac-grid-column {
-        padding-top: 12px;                                /* @stable [21.06.2018] */
-        padding-bottom: 12px;                             /* @stable [21.06.2018] */
+        padding-top: 8px;                                 /* @stable [26.06.2018] */
+        padding-bottom: 8px;                              /* @stable [26.06.2018] */
       }
     }
 
@@ -110,6 +110,17 @@
 
         &:hover {
           background-color: $rac-grid-data-row-hover-background-color;       /* @stable [09.06.2018] */
+        }
+      }
+    }
+
+    &.rac-big-row-grid {
+
+      .rac-grid-body {
+
+        .rac-grid-column {
+          padding-top: 4px;                                                  /* @stable [26.06.2018] */
+          padding-bottom: 4px;                                               /* @stable [26.06.2018] */
         }
       }
     }
