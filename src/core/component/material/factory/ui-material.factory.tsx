@@ -51,6 +51,7 @@ import {
   faPrint,
   faPaperclip,
   faServer,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
