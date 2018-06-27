@@ -55,6 +55,7 @@ export interface IApplicationMessagesSettings {
   followingErrorHasOccurredMessage?: string;
   noSelectedItems?: string;
   filterPlaceholderMessage?: string;
+  topHeaderMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
