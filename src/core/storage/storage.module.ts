@@ -5,6 +5,7 @@ import { Storage } from './storage.service';
 import { ApplicationStorageTypeEnum } from './storage.interface';
 import { CloudFileStorage } from './cloud-file-storage.service';
 import { joinStorageKeyPrefix } from './storage.support';
+import { StorageHelper } from './storage.helper';
 
 const settingsResolver = () => staticInjector<IApplicationSettings>(DI_TYPES.Settings);
 
@@ -22,3 +23,4 @@ appContainer.bind(DI_TYPES.NotVersionedStorage).toConstantValue(
     )
 );
 appContainer.bind(DI_TYPES.CloudFileStorage).to(CloudFileStorage).inSingletonScope();
+appContainer.bind(DI_TYPES.StorageHelper).to(StorageHelper).inSingletonScope();

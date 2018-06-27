@@ -21,6 +21,13 @@ export interface IApplicationStorage {
   each?(command: (o: AnyT, key: string) => void): void;
 }
 
+/**
+ * @stable [28.06.2018]
+ */
+export interface IApplicationStorageHelper {
+  saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<ISetFilesResult[]>;
+}
+
 export enum ApplicationStorageTypeEnum {
   SESSION,
   LOCAL,

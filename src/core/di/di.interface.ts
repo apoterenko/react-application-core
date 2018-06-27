@@ -15,6 +15,7 @@ export const DI_TYPES = {
   Routes: Symbol('Routes'),
   Settings: Symbol('Settings'),
   Storage: Symbol('Storage'),
+  StorageHelper: Symbol('StorageHelper'),
   NotVersionedStorage: Symbol('NotVersionedStorage'),
   CloudStorage: Symbol('CloudStorage'),
   CloudFileStorage: Symbol('CloudFileStorage'),
