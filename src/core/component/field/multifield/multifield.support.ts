@@ -1,12 +1,13 @@
 import * as R from 'ramda';
 
 import { IEntity, EntityIdT, UNDEF, AnyT } from '../../../definitions.interface';
-import { orUndef, isPrimitive, orDefault, isDef } from '../../../util';
+import { orUndef, isPrimitive, orDefault, isDef, orNull } from '../../../util';
 import {
   IMultiEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
   IMultiItemEntity,
+  MultiFieldSingleValueT,
 } from './multifield.interface';
 
 export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItemEntity[] {
@@ -39,6 +40,23 @@ export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItem
   }
   return entity as IEntity[];
 }
+
+/**
+ * @stable [27.06.2018]
+ * @param {MultiFieldSingleValueT} multiFieldEntity
+ * @returns {string}
+ */
+export const toLastAddedMultiItemEntity = (multiFieldEntity: MultiFieldSingleValueT): string => {
+  if (R.isNil(multiFieldEntity)) {
+    return null;
+  }
+  if (isPrimitive(multiFieldEntity)) {
+    return String(multiFieldEntity);
+  }
+  const valueAsMultiEntity = multiFieldEntity as IMultiEntity;
+  const add = valueAsMultiEntity.add;
+  return orNull<string>(add.length, () => String(add[add.length - 1].id));
+};
 
 /**
  * @stable [26.06.2018]
