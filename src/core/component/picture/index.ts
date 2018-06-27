@@ -1,1 +1,1 @@
-export * from './picture.component';
+export * from './picture-viewer.component';
