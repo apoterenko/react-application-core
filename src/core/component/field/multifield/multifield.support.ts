@@ -55,7 +55,10 @@ export const toLastAddedMultiItemEntity = (multiFieldEntity: MultiFieldSingleVal
   }
   const valueAsMultiEntity = multiFieldEntity as IMultiEntity;
   const add = valueAsMultiEntity.add;
-  return orNull<string>(add.length, () => String(add[add.length - 1].id));
+  if (R.isNil(add)) {
+    return null;
+  }
+  return orNull<string>(add.length > 0, () => String(add[add.length - 1].id));
 };
 
 /**

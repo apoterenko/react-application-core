@@ -3,14 +3,9 @@ import * as React from 'react';
 import { Field, IFieldInputProps, toLastAddedMultiItemEntity } from '../../field';
 import { CenterLayout } from '../../layout';
 import { PictureViewer } from '../../picture';
-import {
-  IViewFieldState,
-  IViewFieldProps,
-} from './viewfield.interface';
+import { IViewFieldProps } from './viewfield.interface';
 
-export class ViewField extends Field<ViewField,
-                                     IViewFieldProps,
-                                     IViewFieldState> {
+export class ViewField extends Field<ViewField, IViewFieldProps> {
 
   public static defaultProps: IViewFieldProps = {
     viewer: PictureViewer,
@@ -24,7 +19,7 @@ export class ViewField extends Field<ViewField,
     return (
       <div className={this.getFieldClassName()}>
         <CenterLayout ref='self'
-                      className='rac-image-field'>
+                      className='rac-view-field'>
           {this.getInputElement()}
           {this.viewElement}
         </CenterLayout>
@@ -49,8 +44,6 @@ export class ViewField extends Field<ViewField,
    */
   private get viewElement(): JSX.Element {
     const Component = this.props.viewer;
-    return (
-      <Component src={toLastAddedMultiItemEntity(this.value)}/>
-    );
+    return <Component src={toLastAddedMultiItemEntity(this.value)}/>;
   }
 }

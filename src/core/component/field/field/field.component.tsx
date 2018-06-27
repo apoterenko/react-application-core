@@ -23,16 +23,16 @@ import { UniversalField } from './universal-field.component';
 import { IEventManager } from '../../../event';
 import { DI_TYPES, lazyInject } from '../../../di';
 
-export class Field<TComponent extends IField<TInternalProps, TInternalState>,
+export class Field<TComponent extends IField<TInternalProps, TState>,
                    TInternalProps extends IFieldInternalProps,
-                   TInternalState extends IFieldState>
+                   TState extends IFieldState = IFieldState>
     extends UniversalField<TComponent,
                            TInternalProps,
-                           TInternalState,
+                           TState,
                            IKeyboardEvent,
                            IFocusEvent,
                            IBasicEvent>
-    implements IField<TInternalProps, TInternalState> {
+    implements IField<TInternalProps, TState> {
 
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
 

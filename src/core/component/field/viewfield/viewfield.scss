@@ -1,22 +1,22 @@
-// View field [FRAMEWORK-]
+// View field [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-form-field {
 
-    .rac-image-field {
-      width: 100%;
-      margin-right: 8px;
-      margin-left: 8px;
+    .rac-view-field {
+      width: 100%;                          /* @stable [27.06.2018] */
+      margin-right: 8px;                    /* @stable [27.06.2018] */
+      margin-left: 8px;                     /* @stable [27.06.2018] */
 
       
       .rac-picture-empty {
-        width: 100px;
-        height: 100px;
+        width: 100px;                       /* @stable [27.06.2018] */
+        height: 100px;                      /* @stable [27.06.2018] */
       }
 
       .rac-picture {
-        max-width: 100px;
-        max-height: 100px;
+        max-width: 100px;                   /* @stable [27.06.2018] */
+        max-height: 100px;                  /* @stable [27.06.2018] */
       }
     }
   }
