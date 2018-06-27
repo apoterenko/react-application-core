@@ -45,6 +45,8 @@ export interface IApplicationMessagesSettings {
   defaultErrorMessage?: string;
   dndMessage?: string;
   errorMessage?: string;
+  pdfErrorMessage?: string;
+  noPdfToShow?: string;
   serviceTemporarilyUnavailableMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   emptyMessage?: string;
@@ -67,6 +69,7 @@ export interface IApplicationChannelSettings {
 export interface IApplicationSettings {
   apiUrl?: string;
   binaryUrl?: string;
+  pdfWorkerDirectoryUrl?: string;
   companyName?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
@@ -107,6 +110,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     errorMessage: 'Something went wrong. There was a problem loading your data',
+    pdfErrorMessage: 'Can\'t load the pdf file.',
+    noPdfToShow: 'No pdf to show.',
     emptyMessage: 'Start a search',
     emptyDataMessage: 'No data found',
     appNotReadyMessage: 'The application is not ready.',

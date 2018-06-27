@@ -96,6 +96,27 @@ export interface IIpWrapper<TIp = string> {
 }
 
 /**
+ * @stable [27.06.2018]
+ */
+export interface ISrcWrapper<TSrc = string> {
+  src?: TSrc;
+}
+
+/**
+ * @stable [27.06.2018]
+ */
+export interface IScaleWrapper<TScale = number> {
+  scale?: TScale;
+}
+
+/**
+ * @stable [27.06.2018]
+ */
+export interface IDefaultSrcWrapper<TDefaultSrc = string> {
+  defaultScr?: TDefaultSrc;
+}
+
+/**
  * @stable [22.06.2018]
  */
 export interface IActionedWrapper {

@@ -81,7 +81,7 @@ $rac-add-button-fa-icon-width: $rac-icon-width2 !default;
 $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
 /* @stable [25.06.2018] */
-$rac-list-item-color: $color-2 !default;
+$rac-list-item-color: $rac-default-text-color !default;
 $rac-list-item-font-size: $rac-default-font-size !default;
 $rac-list-item-letter-spacing: 1px !default;
 $rac-list-item-graphic-icon-width: 40% !default;
@@ -193,6 +193,9 @@ $rac-menu-close-action-color: $rac-default-action-color !default;
 $rac-page-toolbar-content-padding-left: 8px !default;
 $rac-page-toolbar-content-padding-right: 8px !default;
 $rac-page-toolbar-content-min-height: 48px !default;
+
+/* @stable [27.06.2018] */
+$rac-pdf-viewer-font-size: $rac-default-font-size !default;
 
 
 $rac-snackbar-action-button-ink-color: $color-1 !default;
