@@ -1316,6 +1316,13 @@ export interface IPageWrapper<TPage = number> {
 }
 
 /**
+ * @stable [27.06.2018]
+ */
+export interface IViewerWrapper<TViewer> {
+  viewer?: TViewer;
+}
+
+/**
  * @stable [09.05.2018]
  */
 export interface IPageSizeWrapper<TPageSize = number> {

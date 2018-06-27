@@ -113,6 +113,8 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     this.cancelTask();
     this.cancelPageTask();
 
+    this.loadedDocument = null;
+
     const loadingTask = pdfjsLib.getDocument(src);
     this.loadTask = Promise.resolve<IPdfViewerDocument>(loadingTask.promise)
       .then<IPdfViewerDocument>(this.onLoad, this.onLoadError);
@@ -164,7 +166,8 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
    * @returns {AnyT}
    */
   private onLoadError(error: AnyT): AnyT {
-    this.loadedDocument = null;
+    PdfViewer.logger.error(`[$PdfViewer][onLoadError] Error:`, error);
+
     this.setState({error});
     return error;
   }
@@ -184,7 +187,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     if (this.loadTask && this.loadTask.isPending()) {
       this.loadTask.cancel();
 
-      PdfViewer.logger.warn(`[$PdfViewer] The pdf task has been cancelled.`);
+      PdfViewer.logger.warn(`[$PdfViewer][cancelTask] The pdf task has been cancelled.`);
     }
   }
 
@@ -195,7 +198,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     if (this.loadPageTask && this.loadPageTask.isPending()) {
       this.loadPageTask.cancel();
 
-      PdfViewer.logger.warn(`[$PdfViewer] The pdf page task has been cancelled.`);
+      PdfViewer.logger.warn(`[$PdfViewer][cancelPageTask] The pdf page task has been cancelled.`);
     }
   }
 }

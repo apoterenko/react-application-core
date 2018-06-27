@@ -12,7 +12,7 @@ import {
  * @stable [27.06.2018]
  */
 export interface IPdfViewerDocument {
-  getPage(page: number): Promise<any>;
+  getPage(page: number): Promise<IPdfViewerPage>;
 }
 
 /**

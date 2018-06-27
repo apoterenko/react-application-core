@@ -52,6 +52,7 @@ import {
   faPaperclip,
   faServer,
   IconDefinition,
+  faExclamationCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -145,6 +146,7 @@ export class UIMaterialFactory implements IUIFactory {
     forward: faArrowAltCircleRight,
     print: faPrint,
     router: faServer,
+    error: faExclamationCircle,
     houzz: faHouzz,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
