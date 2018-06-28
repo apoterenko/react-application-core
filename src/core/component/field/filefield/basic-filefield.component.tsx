@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BasicTextField } from '../textfield';
-import { cancelEvent, orNull, downloadFile } from '../../../util';
+import { cancelEvent, orNull, downloadBlob } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   IBasicEvent,
@@ -147,11 +147,8 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   private downloadFile(event: IBasicEvent): void {
     cancelEvent(event);
 
-    const props = this.props;
     const url = toLastAddedMultiItemEntity(this.value);
-
-    fetch(url)
-      .then((res) => res.blob()).then((blob) => downloadFile(props.fileName || url, blob));
+    downloadBlob(url, this.props.fileName || url);
   }
 
   private destroyBlob(key: EntityIdT): void {
