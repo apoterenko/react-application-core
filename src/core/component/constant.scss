@@ -138,9 +138,12 @@ $rac-form-field-input-font-size: $rac-default-font-size !default;
 $rac-form-field-input-letter-spacing: 1px !default;
 $rac-form-field-input-font-weight: bold !default;
 
-/* @stable [25.06.2018] */
-$rac-form-actions-padding: 16px;
-$rac-form-simple-list-item-graphic-border-radius: 16px;
+/* @stable [28.06.2018] */
+$rac-form-actions-padding: 16px !default;
+$rac-form-simple-list-item-graphic-border-radius: 16px !default;
+$rac-form-simple-list-group-subheader-color: $rac-default-text-color !default;
+$rac-form-simple-list-group-subheader-font-size: 14px !default;
+$rac-form-simple-list-group-subheader-text-transform: uppercase !default;
 
 /* @stable [23.06.2018] */
 $rac-filter-active-color: $color-6 !default;

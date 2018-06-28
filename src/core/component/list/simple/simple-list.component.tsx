@@ -21,6 +21,7 @@ export class SimpleList extends BaseComponent<SimpleList, ISimpleListInternalPro
             className={toClassName(
                 this.uiFactory.list,
                 props.className,
+                'rac-flex-full',
                 props.simple && 'rac-simple-list',
                 props.useAvatar && this.uiFactory.listAvatar,
                 props.nonInteractive && this.uiFactory.listNonInteractive,
