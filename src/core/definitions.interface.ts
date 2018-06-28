@@ -2056,6 +2056,20 @@ export interface IUseDrawerWrapper {
   useDrawer?: boolean;
 }
 
+/**
+ * @stable [28.06.2018]
+ */
+export interface IUseDownloadActionWrapper {
+  useDownloadAction?: boolean;
+}
+
+/**
+ * @stable [28.06.2018]
+ */
+export interface IFileNameWrapper {
+  fileName?: string;
+}
+
 /* @stable [27.04.2018] */
 export interface IUseHeaderWrapper {
   useHeader?: boolean;

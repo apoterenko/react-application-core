@@ -4,6 +4,7 @@
 .rac {
 
   .rac-pdf-viewer {
+    color: $rac-pdf-viewer-color;                     /* @stable [28.06.2018] */
     font-size: $rac-pdf-viewer-font-size;             /* @stable [27.06.2018] */
   }
 }

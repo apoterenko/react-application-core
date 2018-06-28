@@ -24,9 +24,21 @@ export const addClassNameToBody = (clsName: string): void => addClassNameToEleme
 
 export const removeClassNameFromBody = (clsName: string): void => removeClassNameFromElement(document.body, clsName);
 
-export const addChild = (child: Element, parent: Element): Element => parent.appendChild(child);
+/**
+ * @stable [28.06.2018]
+ * @param {Element} child
+ * @param {Element} parent
+ * @returns {Element}
+ */
+export const addChild = (child: Element, parent: Element = document.body): Element => parent.appendChild(child);
 
-export const addChildToBody = (child: Element): Element => addChild(child, document.body);
+/**
+ * @stable [28.06.2018]
+ * @param {Element} child
+ * @param {Element} parent
+ * @returns {Element}
+ */
+export const removeChild = (child: Element, parent: Element = document.body): Element => parent.removeChild(child);
 
 /**
  * @stable [14.06.2018]
@@ -73,3 +85,25 @@ export const adjustWidth = (source: HTMLElement, sourceAnchor: Element): void =>
  * @returns {boolean}
  */
 export const isDocumentHasFocus = (): boolean => isFn(document.hasFocus) && document.hasFocus();
+
+/**
+ * @stable [28.06.2018]
+ * @param {string} fileName
+ * @param {Blob} blob
+ */
+export const downloadFile = (fileName: string, blob: Blob) => {
+  const url = URL.createObjectURL(blob);
+
+  try {
+    const loader = createElement<HTMLAnchorElement>('a');
+    addClassNameToElement(loader, 'rac-invisible');
+
+    loader.href = url;
+    loader.download = fileName;
+    loader.click();
+
+    removeChild(loader);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+};

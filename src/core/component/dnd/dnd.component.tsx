@@ -23,6 +23,7 @@ export class DnD extends BaseComponent<DnD, IDndInternalProps, {}>
                   style={{}}
                   onDrop={this.onDrop}>
           {this.t(this.settings.messages.dndMessage)}
+          {this.props.children}
         </Dropzone>
     );
   }

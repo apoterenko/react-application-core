@@ -3,10 +3,10 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BasicTextField } from '../textfield';
-import { cancelEvent, orNull } from '../../../util';
+import { cancelEvent, orNull, downloadFile } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
-  BasicEventT,
+  IBasicEvent,
   EntityIdT,
   KeyboardEventT,
 } from '../../../definitions.interface';
@@ -16,6 +16,7 @@ import {
   IBasicFileFieldInternalProps,
 } from './basic-filefield.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
+import { toLastAddedMultiItemEntity } from '../multifield';
 
 export class BasicFileField<TComponent extends BasicFileField<TComponent, TInternalProps, TInternalState>,
                             TInternalProps extends IBasicFileFieldInternalProps,
@@ -31,12 +32,21 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    this.defaultActions = R.insert<IFieldActionConfiguration>(0,
-        {
-          type: 'attach_file',
-          onClick: (event: BasicEventT) => this.openFileDialog(event),
-        },
-        this.defaultActions
+    this.defaultActions = R.insertAll<IFieldActionConfiguration>(0,
+      [{
+        type: 'attach_file',
+        onClick: (event: IBasicEvent) => this.openFileDialog(event),
+      }].concat(
+        props.useDownloadAction
+          ? [
+            {
+              type: 'cloud_download',
+              onClick: (event: IBasicEvent) => this.downloadFile(event),
+            }
+          ]
+          : []
+      ),
+      this.defaultActions
     );
   }
 
@@ -75,13 +85,21 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     this.setFocus();
   }
 
-  protected onClick(event: BasicEventT): void {
+  /**
+   * @stable [28.06.2018]
+   * @param {IBasicEvent} event
+   */
+  protected onClick(event: IBasicEvent): void {
     super.onClick(event);
     this.openFileDialog(event);
   }
 
+  /**
+   * @stable [28.06.2018]
+   * @returns {JSX.Element}
+   */
   protected getAttachment(): JSX.Element {
-    return orNull(
+    return orNull<JSX.Element>(
       !this.isDeactivated(),
       () => (
         <DnD ref='dnd'
@@ -113,9 +131,27 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     return this.refs.dnd as IDnd;
   }
 
-  private openFileDialog(event: BasicEventT): void {
+  /**
+   * @stable [28.06.2018]
+   * @param {IBasicEvent} event
+   */
+  private openFileDialog(event: IBasicEvent): void {
     cancelEvent(event);
     this.dnd.open();
+  }
+
+  /**
+   * @stable [28.06.2018]
+   * @param {IBasicEvent} event
+   */
+  private downloadFile(event: IBasicEvent): void {
+    cancelEvent(event);
+
+    const props = this.props;
+    const url = toLastAddedMultiItemEntity(this.value);
+
+    fetch(url)
+      .then((res) => res.blob()).then((blob) => downloadFile(props.fileName || url, blob));
   }
 
   private destroyBlob(key: EntityIdT): void {

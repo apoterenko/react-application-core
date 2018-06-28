@@ -12,7 +12,7 @@ import {
   addClassNameToBody,
   addClassNameToElement,
   removeClassNameFromBody,
-  addChildToBody,
+  addChild,
   adjustWidth,
   isFn,
 } from '../../util';
@@ -57,7 +57,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     }
     if (this.isRenderToBody) {
       this.menuParent = this.self.parentElement;
-      addChildToBody(this.self);
+      addChild(this.self);
     }
     if (props.renderToCenterOfBody) {
       addClassNameToElement(this.self as HTMLElement, 'rac-absolute-center-position');
