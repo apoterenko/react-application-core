@@ -1,5 +1,4 @@
 @import '../constant';
-@import '../mixin';
 
 // Button [FRAMEWORK-][RAC+]
 .rac {
@@ -8,7 +7,6 @@
     border-radius: $rac-button-border-radius;       /* @stable [24.06.2018] */
 
     .rac-icon {
-      color: $rac-button-icon-color;                /* @stable [24.06.2018] */
       width: $rac-button-icon-width;                /* @stable [24.06.2018] */
       height: $rac-button-icon-height;              /* @stable [24.06.2018] */
       margin-right: $rac-button-icon-margin-right;  /* @stable [24.06.2018] */
@@ -19,22 +17,8 @@
       cursor: default;                              /* @stable [16.05.2018] */
 
       .rac-icon {
-        @include rac-invert;                        /* @stable [25.06.2018] */
         opacity: $rac-button-disabled-opacity;      /* @stable [25.06.2018] */
       }
-    }
-  }
-}
-
-// TODO
-.rac-text-field, .rac-chip, .rac-toolbar {
-  .rac-button {
-    border-style: none;
-    background: none;
-    cursor: pointer;
-
-    &[disabled] {
-      cursor: default;
     }
   }
 }
