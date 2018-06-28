@@ -35,6 +35,8 @@ export interface IUIFactory {
   tabBarScrollerIndicatorForward?: string;
   tabBarScrollerIndicatorInner?: string;
   button?: string;
+  buttonOutlined?: string;
+  buttonRaised?: string;
   formField?: string;
   textField?: string;
   textFieldBox?: string;

@@ -41,8 +41,7 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
     return (
       <Button {...this.getEmptyMessageActionComponentProps()}
               className='rac-list-empty-message-button'
-              raised={true}
-              accent={true}/>
+              raised={true}/>
     );
   }
 

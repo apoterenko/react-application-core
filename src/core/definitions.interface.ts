@@ -1129,9 +1129,11 @@ export interface IAuthorizedWrapper {
   authorized?: boolean;
 }
 
-/* @stable - 20.04.2018 */
-export interface IAccentWrapper {
-  accent?: boolean;
+/**
+ * @stable [28.06.2018]
+ */
+export interface IOutlinedWrapper {
+  outlined?: boolean;
 }
 
 /* @stable - 20.04.2018 */
@@ -2061,6 +2063,27 @@ export interface IUseDrawerWrapper {
  */
 export interface IUseDownloadActionWrapper {
   useDownloadAction?: boolean;
+}
+
+/**
+ * @stable [28.06.2018]
+ */
+export interface IUseCameraWrapper {
+  useCamera?: boolean;
+}
+
+/**
+ * @stable [28.06.2018]
+ */
+export interface ICameraWidthWrapper {
+  cameraWidth?: number;
+}
+
+/**
+ * @stable [28.06.2018]
+ */
+export interface ICameraHeightWrapper {
+  cameraHeight?: number;
 }
 
 /**

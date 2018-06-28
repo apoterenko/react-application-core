@@ -121,7 +121,6 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                               <Button icon='clear_all'
                                       {...props.buttonConfiguration}
                                       type='reset'
-                                      raised={true}
                                       disabled={!this.isFormDirty}
                                       text={props.resetText || 'Reset'}/>
                           )
@@ -129,7 +128,6 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                       <Button icon={this.isFormValid ? (props.actionIcon || 'save') : 'error_outline'}
                               {...props.buttonConfiguration}
                               type='submit'
-                              accent={true}
                               raised={true}
                               disabled={!this.canSubmit}
                               progress={this.form.progress}

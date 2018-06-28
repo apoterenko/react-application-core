@@ -56,6 +56,7 @@ export interface IApplicationMessagesSettings {
   noSelectedItems?: string;
   filterPlaceholderMessage?: string;
   topHeaderMessage?: string;
+  takeSnapshot?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -119,6 +120,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     noSelectedItems: 'No selected items',
     filterPlaceholderMessage: 'Filter',
+    takeSnapshot: 'Take a snapshot',
   },
   dateTime: {
     currentDate: new Date(),

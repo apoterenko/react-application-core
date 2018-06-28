@@ -20,7 +20,7 @@ export class CloudFileStorage implements IApplicationStorage {
   }
 
   private process(entity: IMultiEntity): Promise<ISetFilesResult> {
-    return toBlobEntities(entity.add.map((entity0) => entity0.id as string))
+    return toBlobEntities(...entity.add.map((entity0) => entity0.id as string))
       .then((entities) =>
         Promise.all<ISetFileResult[], IRemoveFileResult[]>([
           this.upload(entities),

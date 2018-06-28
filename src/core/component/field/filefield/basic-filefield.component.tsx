@@ -1,14 +1,15 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import * as Webcam from 'webcamjs';
 
 import { BasicTextField } from '../textfield';
-import { cancelEvent, orNull, downloadBlob } from '../../../util';
+import { cancelEvent, orNull, downloadBlob, toBlobEntities, uuid } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   IBasicEvent,
   EntityIdT,
-  KeyboardEventT,
+  IKeyboardEvent,
 } from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield';
 import {
@@ -17,22 +18,34 @@ import {
 } from './basic-filefield.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { toLastAddedMultiItemEntity } from '../multifield';
+import { Button } from '../../button';
+import { FlexLayout } from '../../layout';
 
-export class BasicFileField<TComponent extends BasicFileField<TComponent, TInternalProps, TInternalState>,
-                            TInternalProps extends IBasicFileFieldInternalProps,
+export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps, TInternalState>,
+                            TProps extends IBasicFileFieldInternalProps,
                             TInternalState extends IBasicFileFieldInternalState>
-    extends BasicTextField<TComponent, TInternalProps, TInternalState> {
+    extends BasicTextField<TComponent, TProps, TInternalState> {
 
-  protected static logger = LoggerFactory.makeLogger(BasicFileField);
+  protected static readonly logger = LoggerFactory.makeLogger(BasicFileField);
+
+  private static readonly CAMERA_ID = uuid(true);
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
-  private filesMap = new Map<EntityIdT, File>();
+  private filesMap = new Map<EntityIdT, Blob>();
 
-  constructor(props: TInternalProps) {
+  /**
+   * @stable [28.06.2018]
+   * @param {TProps} props
+   */
+  constructor(props: TProps) {
     super(props);
-    this.onSelect = this.onSelect.bind(this);
 
-    this.defaultActions = R.insertAll<IFieldActionConfiguration>(0,
+    this.onSelect = this.onSelect.bind(this);
+    this.doCapture = this.doCapture.bind(this);
+    this.onCapture = this.onCapture.bind(this);
+
+    this.defaultActions = R.insertAll<IFieldActionConfiguration>(
+      0,
       [{
         type: 'attach_file',
         onClick: (event: IBasicEvent) => this.openFileDialog(event),
@@ -50,25 +63,50 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     );
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<TInternalProps>, nextContext: {}): void {
-    const activeValue = this.multiFieldPlugin.activeValue;
-    if (R.isNil(nextProps.value) && activeValue.length > 0) {
-      activeValue.forEach((item) => this.destroyBlob(item.id));
+  /**
+   * @stable [28.06.2018]
+   */
+  public componentDidMount(): void {
+    super.componentDidMount();
+
+    const props = this.props;
+    if (props.useCamera) {
+      Webcam.set({
+        width: props.cameraWidth || 270,
+        height: props.cameraHeight || 203,
+        image_format: 'jpeg',
+        jpeg_quality: 90,
+      });
+      Webcam.attach(`#${BasicFileField.CAMERA_ID}`);
     }
   }
 
+  /**
+   * @stable [28.06.2018]
+   */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
+    if (this.props.useCamera) {
+      Webcam.reset();
+    }
     this.filesMap.forEach((value, key) => this.destroyBlob(key));
   }
 
-  public onKeyEnter(event: KeyboardEventT): void {
+  /**
+   * @stable [28.06.2018]
+   * @param {IKeyboardEvent} event
+   */
+  public onKeyEnter(event: IKeyboardEvent): void {
     super.onKeyEnter(event);
     this.openFileDialog(event);
   }
 
-  public onKeyBackspace(event: KeyboardEventT): void {
+  /**
+   * @stable [28.06.2018]
+   * @param {IKeyboardEvent} event
+   */
+  public onKeyBackspace(event: IKeyboardEvent): void {
     super.onKeyBackspace(event);
     this.clearValue();
   }
@@ -99,18 +137,29 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
    * @returns {JSX.Element}
    */
   protected getAttachment(): JSX.Element {
+    const dndElement = (
+      <DnD ref='dnd'
+           onSelect={this.onSelect}/>
+    );
+    if (!this.props.useCamera) {
+      return dndElement;
+    }
     return orNull<JSX.Element>(
       !this.isDeactivated(),
       () => (
-        <DnD ref='dnd'
-             onSelect={this.onSelect}/>
+        <div className='rac-dnd-wrapper'>
+          {dndElement}
+          <FlexLayout row={true}
+                      className='rac-web-camera-wrapper'>
+            <div id={BasicFileField.CAMERA_ID}
+                 className='rac-web-camera'/>
+            <Button text={this.settings.messages.takeSnapshot}
+                    outlined={true}
+                    onClick={this.doCapture}/>
+          </FlexLayout>
+        </div>
       )
     );
-  }
-
-  protected toDisplayValue(value: EntityIdT): EntityIdT {
-    const file = this.filesMap.get(value);
-    return file ? file.name : super.toDisplayValue(value);
   }
 
   protected getEmptyValue(): EntityIdT[] {
@@ -118,10 +167,13 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
   }
 
   protected onSelect(file: File[]): void {
-    const selectedFile = file[0];
-    const fileUrl = URL.createObjectURL(selectedFile);
+    this.doSelectBlob(file[0]);
+  }
 
-    this.filesMap.set(fileUrl , selectedFile);
+  private doSelectBlob(blob: Blob): void {
+    const fileUrl = URL.createObjectURL(blob);
+
+    this.filesMap.set(fileUrl , blob);
 
     this.multiFieldPlugin.onAddItem({id: fileUrl});
     this.setFocus();
@@ -151,10 +203,31 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TInter
     downloadBlob(url, this.props.fileName || url);
   }
 
+  /**
+   * @stable [28.06.2018]
+   * @param {EntityIdT} key
+   */
   private destroyBlob(key: EntityIdT): void {
     URL.revokeObjectURL(key as string);
     this.filesMap.delete(key);
 
-    BasicFileField.logger.debug(`The blob has been destroyed on the key ${key}`);
+    BasicFileField.logger.debug(`[$BasicFileField][destroyBlob] The blob has been destroyed to the key ${key}`);
+  }
+
+  /**
+   * @stable [28.06.2018]
+   */
+  private doCapture(): void {
+    Webcam.snap(this.onCapture);
+  }
+
+  /**
+   * @stable [28.06.2018]
+   * @param {string} dataUri
+   * @returns {Promise<void>}
+   */
+  private async onCapture(dataUri: string): Promise<void> {
+    const blobEntities = await toBlobEntities(dataUri);
+    this.doSelectBlob(blobEntities[0].blob);
   }
 }

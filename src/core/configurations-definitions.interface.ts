@@ -78,7 +78,7 @@ import {
   IRoundedWrapper,
   ITextWrapper,
   ITextStyleWrapper,
-  IAccentWrapper,
+  IOutlinedWrapper,
   IRaisedWrapper,
   IStringToWrapper,
   IOnEnterWrapper,
@@ -506,7 +506,7 @@ export interface IUniversalButtonConfiguration extends IUniversalComponentConfig
 /* @stable - 07.04.2018 */
 export interface IButtonConfiguration extends IUniversalButtonConfiguration,
                                               IWebComponentConfiguration,
-                                              IAccentWrapper,
+                                              IOutlinedWrapper,
                                               IStringToWrapper,
                                               IRaisedWrapper,
                                               INotApplyFrameworkClassNameWrapper,

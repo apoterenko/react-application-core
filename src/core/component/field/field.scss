@@ -1,3 +1,4 @@
+@import '~sass-flex-mixin/_flex';
 @import '../constant';
 @import './textfield/textfield';
 @import './chipsfield/chipsfield';
@@ -9,6 +10,24 @@
 .rac {
 
   .rac-form-field {
+
+    .rac-dnd-wrapper {
+      width: 100%;                                                    /* @stable [28.06.2018] */
+
+      .rac-web-camera-wrapper {
+        margin-top: 8px;                                              /* @stable [28.06.2018] */
+        @include justify-content(center);                             /* @stable [28.06.2018] */
+
+        .rac-web-camera {
+          margin-right: 8px;                                          /* @stable [28.06.2018] */
+        }
+
+        .rac-button {
+          margin-bottom: auto;                                        /* @stable [28.06.2018] */
+          margin-top: auto;                                           /* @stable [28.06.2018] */
+        }
+      }
+    }
 
     .rac-text-field {
 

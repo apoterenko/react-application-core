@@ -180,6 +180,8 @@ export class UIMaterialFactory implements IUIFactory {
   public tabBarScrollerIndicatorForward = 'mdc-tab-bar-scroller__indicator--forward';
   public tabBarScrollerIndicatorInner = 'mdc-tab-bar-scroller__indicator__inner';
   public button = 'mdc-button';
+  public buttonOutlined = 'mdc-button--outlined';
+  public buttonRaised = 'mdc-button--raised';
   public listItem = 'mdc-list-item';
   public listItemGraphic = 'mdc-list-item__graphic';
   public listItemMeta = 'mdc-list-item__meta';
