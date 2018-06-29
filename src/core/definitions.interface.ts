@@ -1626,6 +1626,13 @@ export interface IUseGroupingWrapper {
 }
 
 /**
+ * @stable [29.05.2018]
+ */
+export interface IUseLazyLoading {
+  useLazyLoading?: boolean;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IUseSortingWrapper {

@@ -13,31 +13,49 @@ import { makeSelectEntityMiddleware } from '../middleware';
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
                                            TApplicationState>(config: {
   listSection: string;
+  useLazyLoading?: boolean;
   formSection: any; // TODO
   path(entity?: TEntity, state?: TApplicationState, isChainExist?: boolean): string;
   changesResolver?(state: TApplicationState): TEntity;
 }): () => void {
-  const {path, changesResolver, listSection, formSection} = config;
+  const {path, changesResolver, listSection, formSection, useLazyLoading} = config;
   return (): void => {
 
     @provideInSingleton(Effects)
     class Effects {
 
       @EffectsService.effects(ListActionBuilder.buildCreateActionType(listSection))
-      public $onCreateEntity(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
+      public $onEntityCreate(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
         return [
           StackActionBuilder.buildLockAction(formSection),
           RouterActionBuilder.buildNavigateAction(path(null, state))
         ];
       }
 
+      /**
+       * @stable [29.06.2018]
+       * @param {IEffectsAction} action
+       * @param {TApplicationState} state
+       * @returns {IEffectsAction[]}
+       */
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(listSection))
-      public $onSelectEntity(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, formSection, path});
+      public $onEntitySelect(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
+        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, path, useLazyLoading, formSection, listSection});
+      }
+
+      /**
+       * @stable [29.06.2018]
+       * @param {IEffectsAction} action
+       * @param {TApplicationState} state
+       * @returns {IEffectsAction[]}
+       */
+      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(listSection))
+      public $onEntityLazyLoadDone(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
+        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, path, formSection, listSection});
       }
 
       @EffectsService.effects(CustomActionBuilder.buildCustomCloneActionType(formSection))
-      public $onCloneEntity(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
+      public $onEntityClone(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
         return [
           FormActionBuilder.buildChangesAction(
               formSection,

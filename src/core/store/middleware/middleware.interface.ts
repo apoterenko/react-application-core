@@ -9,6 +9,7 @@ import {
   IPathWrapper,
   IFilterRoutePathWrapper,
   IStateWrapper,
+  IUseLazyLoading,
 } from '../../definitions.interface';
 import { IListWrapperEntity } from '../../entities-definitions.interface';
 
@@ -41,11 +42,13 @@ export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilt
 }
 
 /**
- * @stable [11.06.2018]
+ * @stable [29.06.2018]
  */
 export interface IEditedListMiddlewareConfig<TEntity, TApplicationState>
   extends IFormSectionWrapper<string | ((entity: TEntity, state: TApplicationState, isChainExist: boolean) => string)>,
+          IListSectionWrapper,
           IStateWrapper<TApplicationState>,
           IPathWrapper<string | ((entity: TEntity, state: TApplicationState, isChainExist: boolean) => string)>,
-          IEffectsActionWrapper {
+          IEffectsActionWrapper,
+          IUseLazyLoading {
 }

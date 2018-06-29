@@ -5,9 +5,10 @@ import { RouterActionBuilder } from '../../router';
 import { StackActionBuilder } from '../stack';
 import { ISelectedWrapper, IEntity } from '../../definitions.interface';
 import { IEditedListMiddlewareConfig } from './middleware.interface';
+import { ListActionBuilder } from '../../component/list';
 
 /**
- * @stable [11.06.2018]
+ * @stable [29.06.2018]
  * @param {IEditedListMiddlewareConfig<TEntity extends IEntity, TApplicationState>} config
  * @returns {IEffectsAction[]}
  */
@@ -16,6 +17,12 @@ export const makeSelectEntityMiddleware = <TEntity extends IEntity, TApplication
     const isChainExist = isDef(config.action.initialData);
     const payloadWrapper: ISelectedWrapper<TEntity> = config.action.initialData || config.action.data;
     const selected = payloadWrapper.selected;
+
+    if (config.useLazyLoading) {
+      return [
+        ListActionBuilder.buildLazyLoadAction(config.listSection, {selected})
+      ];
+    }
     return [
       StackActionBuilder.buildLockAction(
         isFn(config.formSection)
