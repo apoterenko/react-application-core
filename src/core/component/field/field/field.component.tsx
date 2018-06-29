@@ -154,7 +154,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const cols = props.cols;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
-    const onClick = this.isDeactivated() || this.isPartiallyDisabled() ? noop : this.onClick;
+    const onClick = this.isDeactivated() ? noop : this.onClick;
     const onKeyDown = this.isDeactivated() ? noop : this.onKeyDown;
     const onKeyUp = this.isDeactivated() ? noop : this.onKeyUp;
     const onChange = this.onChange;

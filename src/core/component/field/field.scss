@@ -29,6 +29,15 @@
       }
     }
 
+    .rac-dnd {
+      width: 100%;                                                    /* @stable [29.06.2018] */
+      margin-bottom: $rac-form-field-dnd-margin-bottom;               /* @stable [29.06.2018] */
+    }
+
+    .rac-message {
+      color: $rac-form-field-message-color;                           /* @stable [29.06.2018] */
+    }
+
     .rac-text-field {
 
       .rac-icon {
@@ -76,7 +85,7 @@
     resize: none;
   }
 
-  .rac-menu, .rac-dnd {
+  .rac-menu {
     width: 100%;
   }
 }

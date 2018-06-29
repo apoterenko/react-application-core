@@ -887,13 +887,6 @@ export interface IDisabledWrapper {
 }
 
 /**
- * @stable [06.06.2018]
- */
-export interface IPartiallyDisabledWrapper {
-  partiallyDisabled?: boolean;
-}
-
-/**
  * @stable [29.05.2018]
  */
 export interface IEnabledWrapper {

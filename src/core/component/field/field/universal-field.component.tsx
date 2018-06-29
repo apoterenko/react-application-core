@@ -200,16 +200,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * This props helps to disable click event handler
-   *
-   * @stable [06.06.2018]
-   * @returns {boolean}
-   */
-  protected isPartiallyDisabled(): boolean {
-    return this.props.partiallyDisabled === true;
-  }
-
-  /**
    * @stable [17.06.2018]
    * @param {AnyT} value
    * @returns {boolean}

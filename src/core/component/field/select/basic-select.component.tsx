@@ -29,18 +29,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    if (!this.isPartiallyDisabled()) {
-      this.defaultActions = R.insert<IFieldActionConfiguration>(0,
-        {
-          type: 'expand_more',
-          onClick: (event: IBasicEvent) => {
-            this.setFocus();
-            this.openMenu(event);
-          },
+    this.defaultActions = R.insert<IFieldActionConfiguration>(0,
+      {
+        type: 'expand_more',
+        onClick: (event: IBasicEvent) => {
+          this.setFocus();
+          this.openMenu(event);
         },
-        this.defaultActions
-      );
-    }
+      },
+      this.defaultActions
+    );
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TProps>, nextContext: AnyT): void {
@@ -94,9 +92,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected onClick(event: IBasicEvent): void {
     super.onClick(event);
 
-    if (!this.isPartiallyDisabled()) {
-      this.openMenu(event);
-    }
+    this.openMenu(event);
   }
 
   /**
