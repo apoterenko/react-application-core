@@ -727,6 +727,13 @@ export interface IUseFilterWrapper {
 }
 
 /**
+ * @stable [29.06.2018]
+ */
+export interface IUseFooterWrapper {
+  useFooter?: boolean;
+}
+
+/**
  * @stable [07.06.2018]
  */
 export interface IMultiWrapper {

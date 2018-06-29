@@ -23,7 +23,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
   }
 
   /**
-   * @stable [24.06.2018]
+   * @stable [29.06.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -77,6 +77,10 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
               )
             }
           </div>
+          {orNull<JSX.Element>(
+            props.useFooter,
+            () => <div className='rac-header-footer'/>
+          )}
         </header>
     );
   }

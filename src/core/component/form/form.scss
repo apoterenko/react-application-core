@@ -22,7 +22,7 @@
       @include justify-content(flex-end);                                     /* @stable [26.06.2018] */
 
       .rac-button {
-        margin-left: 8px;                                                     /* @stable [28.06.2018] */
+        margin-left: $rac-form-actions-button-padding-left;                   /* @stable [28.06.2018] */
       }
     }
 

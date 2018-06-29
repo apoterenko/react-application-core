@@ -12,5 +12,9 @@
         transform: translate(0, -50%);    /* @stable - 06.04.2018 */
       }
     }
+
+    .rac-tab-bar-scroller-indicator-icon {
+      color: $rac-tab-bar-scroller-indicator-icon;      /* @stable [29.06.2018] */
+    }
   }
 }

@@ -55,7 +55,11 @@ import {
   faFileDownload,
   faExclamationCircle,
   faGift,
+  faChevronRight,
+  faChevronLeft,
+  faPlug,
   faKey,
+  faInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -72,6 +76,7 @@ import {
   faQuestionCircle,
   faStopCircle,
   faArrowAltCircleRight,
+  faMinusSquare,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -153,7 +158,12 @@ export class UIMaterialFactory implements IUIFactory {
     cloud_download: faFileDownload,
     vpn_key: faKey,
     card_giftcard: faGift,
+    navigate_before: faChevronLeft,
+    navigate_next: faChevronRight,
+    plug: faPlug,
+    info: faInfo,
     houzz: faHouzz,
+    minus_square: faMinusSquare,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 

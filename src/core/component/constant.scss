@@ -140,6 +140,7 @@ $rac-form-field-input-font-weight: bold !default;
 
 /* @stable [28.06.2018] */
 $rac-form-actions-padding: 16px !default;
+$rac-form-actions-button-padding-left: 8px !default;
 $rac-form-simple-list-item-graphic-border-radius: 16px !default;
 $rac-form-simple-list-group-subheader-color: $rac-default-text-color !default;
 $rac-form-simple-list-group-subheader-font-size: 14px !default;
@@ -179,6 +180,7 @@ $rac-chip-description-padding-bottom: 1px !default;
 /* @stable [26.06.2018] */
 $rac-header-section-title-font-weight: bold !default;
 $rac-header-section-title-margin-left: 14px !default;
+$rac-header-section-title-margin-right: unset !default;
 $rac-header-section-title-font-size: 14px !default;
 $rac-header-search-toolbar-animation-duration: 0.3s !default;
 $rac-header-text-field-border-bottom-color: $color-5 !default;
@@ -199,6 +201,9 @@ $rac-page-toolbar-content-min-height: 48px !default;
 /* @stable [27.06.2018] */
 $rac-pdf-viewer-font-size: $rac-default-font-size !default;
 $rac-pdf-viewer-color: $rac-default-text-color !default;
+
+/* @stable [29.06.2018] */
+$rac-tab-bar-scroller-indicator-icon: $rac-default-action-color !default;
 
 
 

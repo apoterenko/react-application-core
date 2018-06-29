@@ -26,6 +26,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
                      )}>
         <div className={toClassName(
                           'rac-tab-bar-scroller-indicator',
+                          'rac-tab-bar-scroller-indicator-left',
                           'rac-tab-bar-scroller-indicator-back',
                           this.uiFactory.tabBarScrollerIndicator,
                           this.uiFactory.tabBarScrollerIndicatorBack,
@@ -84,6 +85,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
         </div>
         <div className={toClassName(
                           'rac-tab-bar-scroller-indicator',
+                          'rac-tab-bar-scroller-indicator-right',
                           'rac-tab-bar-scroller-indicator-forward',
                           this.uiFactory.tabBarScrollerIndicator,
                           this.uiFactory.tabBarScrollerIndicatorForward,

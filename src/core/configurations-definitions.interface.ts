@@ -180,6 +180,7 @@ import {
   IRenderedWrapper,
   IStepWrapper,
   IActionedWrapper,
+  IUseFooterWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -895,6 +896,7 @@ export interface IHeaderConfiguration extends IComponentConfiguration,
                                               IMoreOptionsWrapper<IMenuItemEntity[]>,
                                               IItemsWrapper<JSX.Element>,
                                               INavigationActionTypeWrapper,
+                                              IUseFooterWrapper,
                                               IOnNavigationActionClickWrapper,
                                               IOnMoreOptionsSelectWrapper<IMenuItemEntity> {
 }
