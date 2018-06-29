@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull, filterAndSortEntities } from '../../util';
+import { orNull, filterAndSortEntities, isFn } from '../../util';
 import {
   IEntity,
   IEntityWrapper,
@@ -244,8 +244,25 @@ export const dictionaryEntityMapper
   = <TDictionaryEntity>(dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
                         config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TDictionaryEntity>> =>
   selectOptionsMapper<TDictionaryEntity>(
-    orNull<TDictionaryEntity | TDictionaryEntity[]>(dictionaryEntity, () => dictionaryEntity.data),
+    dictionaryEntityDataMapper<TDictionaryEntity>(dictionaryEntity) as TDictionaryEntity[] | TDictionaryEntity,
     config
+  );
+
+/**
+ * @stable [29.06.2018]
+ * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
+ * @param {(data: (TDictionaryEntity[] | TDictionaryEntity)) => (TDictionaryEntity[] | TDictionaryEntityResult[] | TDictionaryEntity)} accessor
+ * @returns {TDictionaryEntity[] | TDictionaryEntityResult[] | TDictionaryEntity}
+ */
+export const dictionaryEntityDataMapper = <TDictionaryEntity, TDictionaryEntityResult = {}>(
+  dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
+  accessor?: (data: TDictionaryEntity[] | TDictionaryEntity) => TDictionaryEntity[] | TDictionaryEntity | TDictionaryEntityResult[]
+): TDictionaryEntity[] | TDictionaryEntity | TDictionaryEntityResult[] =>
+  orNull<TDictionaryEntity[] | TDictionaryEntity | TDictionaryEntityResult[]>(
+    dictionaryEntity,
+    () => isFn(accessor) && !R.isNil(dictionaryEntity.data)
+      ? accessor(dictionaryEntity.data)
+      : dictionaryEntity.data as TDictionaryEntity[] | TDictionaryEntity
   );
 
 /**
