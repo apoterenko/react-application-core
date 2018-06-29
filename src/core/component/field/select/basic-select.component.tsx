@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, toClassName } from '../../../util';
+import { cancelEvent, toClassName, isDef } from '../../../util';
 import { BasicTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
@@ -29,16 +29,18 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    this.defaultActions = R.insert<IFieldActionConfiguration>(0,
-      {
-        type: 'expand_more',
-        onClick: (event: IBasicEvent) => {
-          this.setFocus();
-          this.openMenu(event);
+    if (!props.notUseExpandAction) {
+      this.defaultActions = R.insert<IFieldActionConfiguration>(0,
+        {
+          type: 'expand_more',
+          onClick: (event: IBasicEvent) => {
+            this.setFocus();
+            this.openMenu(event);
+          },
         },
-      },
-      this.defaultActions
-    );
+        this.defaultActions
+      );
+    }
   }
 
   public componentWillReceiveProps(nextProps: Readonly<TProps>, nextContext: AnyT): void {
@@ -127,8 +129,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     return options;
   }
 
+  /**
+   * @stable [29.06.2018]
+   * @returns {AnyT}
+   */
   protected getEmptyValue(): AnyT {
-    return this.settings.entityEmptyId;
+    const props = this.props;
+    return isDef(props.emptyValue) ? props.emptyValue : this.settings.entityEmptyId;
   }
 
   protected get options(): ISelectOptionEntity[] {

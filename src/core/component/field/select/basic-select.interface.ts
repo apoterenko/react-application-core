@@ -17,6 +17,7 @@ export interface IBasicSelectState extends IBasicTextFieldState,
 export interface IBasicSelectProps extends IBasicTextFieldInternalProps,
                                            IMenuConfigurationWrapper {
   forceAll?: boolean;
+  notUseExpandAction?: boolean;
   options?: ISelectOptionEntity[];
   onSelect?(option: ISelectOptionEntity): void;
 }
