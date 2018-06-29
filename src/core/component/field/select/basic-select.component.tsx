@@ -25,19 +25,18 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
 
   protected static logger = LoggerFactory.makeLogger(BasicSelect);
 
+  /**
+   * @stable [29.06.2018]
+   * @param {TProps} props
+   */
   constructor(props: TProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
     if (!props.notUseExpandAction) {
-      this.defaultActions = R.insert<IFieldActionConfiguration>(0,
-        {
-          type: 'expand_more',
-          onClick: (event: IBasicEvent) => {
-            this.setFocus();
-            this.openMenu(event);
-          },
-        },
+      this.defaultActions = R.insert<IFieldActionConfiguration>(
+        0,
+        {type: 'expand_more', onClick: this.onExpand},
         this.defaultActions
       );
     }
@@ -47,8 +46,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
 
     const props = this.props;
     if (!R.isNil(nextProps.options)
-        && !R.equals(props.options, nextProps.options)) {
-      this.setState({ emptyOptions: false });
+      && !R.equals(props.options, nextProps.options)) {
+      this.setState({emptyOptions: false});
 
       if (this.hasInputFocus()) {
         this.showMenu(nextProps.options);
@@ -104,19 +103,19 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     return (
-        <Menu ref='menu'
-              adjustWidth={true}
-              options={this.toFilteredOptions()}
-              onSelect={this.onSelect}
-              anchor={() => this.self}
-              {...props.menuConfiguration}/>
+      <Menu ref='menu'
+            adjustWidth={true}
+            options={this.toFilteredOptions()}
+            onSelect={this.onSelect}
+            anchor={() => this.self}
+            {...props.menuConfiguration}/>
     );
   }
 
   protected getInputElementWrapperClassName(): string {
     return toClassName(
-        super.getInputElementWrapperClassName(),
-        'rac-flex-column'  // inner popup menu - width 100%
+      super.getInputElementWrapperClassName(),
+      'rac-flex-column'  // inner popup menu - width 100%
     );
   }
 
@@ -153,8 +152,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected toDisplayValue(value: AnyT): EntityIdT {
     const selectedItem = this.getSelectedOption(value);
     return selectedItem
-        ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-        : super.toDisplayValue(value);
+      ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
+      : super.toDisplayValue(value);
   }
 
   private getSelectedOption(value: AnyT): ISelectOptionEntity {
@@ -176,7 +175,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
 
     if (props.forceAll || noAvailableOptions) {
       if (props.onEmptyDictionary) {
-        this.setState({ emptyOptions: true });
+        this.setState({emptyOptions: true});
         props.onEmptyDictionary();
       } else if (!noAvailableOptions) {
         this.showMenu();
@@ -198,5 +197,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
 
   private hideMenu(): void {
     this.menu.hide();
+  }
+
+  /**
+   * @stable [29.06.2018]
+   * @param {IBasicEvent} event
+   */
+  private onExpand(event: IBasicEvent): void {
+    this.setFocus();
+    this.openMenu(event);
   }
 }
