@@ -6,6 +6,8 @@ import {
   IErrorWrapper,
   IScaleWrapper,
   IPageWrapper,
+  IOpenedWrapper,
+  IUsePreviewWrapper,
 } from '../../definitions.interface';
 
 /**
@@ -36,6 +38,7 @@ export interface IPdfViewerViewport {
  */
 export interface IPdfViewerConfiguration extends IComponentConfiguration,
                                                  ISrcWrapper,
+                                                 IUsePreviewWrapper,
                                                  IScaleWrapper,
                                                  IDefaultSrcWrapper {
 }
@@ -57,5 +60,6 @@ export interface IPdfViewerProps extends IPdfViewerConfiguration,
 /**
  * @stable [27.06.2018]
  */
-export interface IPdfViewerState extends IErrorWrapper<Error> {
+export interface IPdfViewerState extends IErrorWrapper<Error>,
+                                         IOpenedWrapper {
 }

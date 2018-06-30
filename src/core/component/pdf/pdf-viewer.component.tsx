@@ -5,18 +5,23 @@ import * as Promise from 'bluebird';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { APP_VERSION } from '../../env';
-import { toClassName , orDefault } from '../../util';
+import { toClassName , orDefault, orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { IPdfViewerProps, IPdfViewerState, IPdfViewerDocument, IPdfViewerPage } from './pdf-viewer.interface';
 import { FlexLayout, CenterLayout } from '../layout';
 import { AnyT } from '../../definitions.interface';
+import { IUniversalDialog, Dialog } from '../dialog';
 
 export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfViewerState> {
 
   public static defaultProps: IPdfViewerProps = {
     scale: .3,
     page: 1,
+    usePreview: true,
   };
+
+  private static PREVIEW_WIDTH = 600;
+  private static PREVIEW_SCALE = 1.5;
 
   private static logger = LoggerFactory.makeLogger(PdfViewer);
 
@@ -33,6 +38,8 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     this.onLoad = this.onLoad.bind(this);
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
+    this.onPreview = this.onPreview.bind(this);
+    this.onDialogClose = this.onDialogClose.bind(this);
     this.state = {};
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.js?${APP_VERSION}`;
@@ -74,7 +81,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [30.06.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -82,11 +89,15 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     const props = this.props;
     const isErrorExist = !R.isNil(state.error);
     const isSrcNotPresent = R.isNil(props.src);
+    const isShowMessage = isErrorExist || isSrcNotPresent;
+    const previewWidth = PdfViewer.PREVIEW_WIDTH * PdfViewer.PREVIEW_SCALE;
+    const previewScale = PdfViewer.PREVIEW_SCALE;
 
     return (
-      <FlexLayout className={toClassName('rac-pdf-viewer', this.props.className)}>
+      <FlexLayout style={props.style}
+                  className={toClassName('rac-pdf-viewer', this.props.className)}>
         {orDefault<JSX.Element, JSX.Element>(
-          isErrorExist || isSrcNotPresent,
+          isShowMessage,
           () => (
             <CenterLayout>{
               this.t(isErrorExist
@@ -96,6 +107,43 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
           ),
           () => <canvas ref='canvas'/>,
         )}
+        {
+          orNull<JSX.Element>(
+            !isShowMessage && props.usePreview,
+            () => (
+              this.uiFactory.makeIcon({
+                type: 'search_plus',
+                className: 'rac-pdf-preview-action-icon rac-absolute-center-position',
+                onClick: this.onPreview,
+              })
+            )
+          )
+        }
+        {
+          orNull<JSX.Element>(
+            !isShowMessage,
+            () => (
+              <Dialog ref='dialog'
+                      className='rac-pdf-preview-dialog'
+                      title='Preview'
+                      closeMessage='Close'
+                      acceptable={false}
+                      onClose={this.onDialogClose}>
+                {
+                  orNull<JSX.Element>(
+                    state.opened,
+                    () => (
+                      <PdfViewer src={props.src}
+                                 style={{width: previewWidth}}
+                                 usePreview={false}
+                                 scale={previewScale}/>
+                    )
+                  )
+                }
+              </Dialog>
+            )
+          )
+        }
       </FlexLayout>
     );
   }
@@ -200,5 +248,22 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
 
       PdfViewer.logger.warn(`[$PdfViewer][cancelPageTask] The pdf page task has been cancelled.`);
     }
+  }
+
+  /**
+   * @stable [30.06.2018]
+   */
+  private onDialogClose(): void {
+    this.setState({opened: false});
+  }
+
+  /**
+   * @stable [30.06.2018]
+   */
+  private onPreview(): void {
+    this.setState({opened: true});
+
+    const dialog = this.refs.dialog as IUniversalDialog;
+    dialog.activate();
   }
 }

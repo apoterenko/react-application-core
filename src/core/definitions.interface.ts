@@ -1243,6 +1243,13 @@ export interface IMaskWrapper<TMask = Array<string|RegExp>> {
 }
 
 /**
+ * @stable [30.06.2018]
+ */
+export interface IUsePreviewWrapper {
+  usePreview?: boolean;
+}
+
+/**
  * @stable [04.05.2018]
  */
 export interface IMaskGuideWrapper<TMaskGuide = boolean> {
