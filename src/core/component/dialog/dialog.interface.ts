@@ -13,7 +13,7 @@ import {
   ICloseMessageWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponentEntity, IUniversalComponent } from '../../entities-definitions.interface';
-import { IUniversalComponentConfiguration } from '../../configurations-definitions.interface';
+import { IUniversalComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
 
 /**
  * @stable [17.05.2018]
@@ -35,6 +35,13 @@ export interface IUniversalDialogConfiguration extends IUniversalComponentConfig
  */
 export interface IUniversalDialogProps extends IUniversalComponentEntity,
                                                IUniversalDialogConfiguration {
+}
+
+/**
+ * @stable [30.06.2018]
+ */
+export interface IDialogProps extends IUniversalDialogProps,
+                                      IWebComponentConfiguration {
 }
 
 /**

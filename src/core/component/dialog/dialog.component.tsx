@@ -6,11 +6,11 @@ import { orNull, toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import {
   IUniversalDialog,
-  IUniversalDialogProps,
+  IDialogProps,
 } from './dialog.interface';
 
 export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDialog<TProps>,
-                    TProps extends IUniversalDialogProps = IUniversalDialogProps>
+                    TProps extends IDialogProps = IDialogProps>
   extends BaseComponent<TComponent, TProps>
   implements IUniversalDialog<TProps> {
 
@@ -23,7 +23,11 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
 
     return (
       <aside ref='self'
-             className={toClassName(this.uiFactory.dialog, !this.isDialogVisible() && 'rac-display-none')}>
+             className={toClassName(
+                         props.className,
+                         this.uiFactory.dialog,
+                         !this.isDialogVisible() && 'rac-display-none'
+                       )}>
         {this.getDialogBody()}
         <div className={this.uiFactory.dialogBackdrop}/>
       </aside>
@@ -74,13 +78,13 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
   }
 
   /**
-   * @stable [31.05.2018]
+   * @stable [30.06.2018]
    * @returns {JSX.Element}
    */
   protected getDialogBody(): JSX.Element {
     const props = this.props;
     return (
-      <div className={this.uiFactory.dialogSurface}>
+      <div className={toClassName('rac-dialog-surface', this.uiFactory.dialogSurface)}>
         <header className={this.uiFactory.dialogHeader}>
           <h2 className={this.uiFactory.dialogHeaderTitle}>
             {this.t(props.title || this.settings.messages.dialogTitleMessage)}
@@ -89,7 +93,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
         {
           orNull(
             !R.isNil(props.children) || !R.isNil(props.message),
-            <section className={this.uiFactory.dialogBody}>
+            <section className={toClassName('rac-dialog-body', this.uiFactory.dialogBody)}>
               {props.children || this.t(props.message)}
             </section>
           )
