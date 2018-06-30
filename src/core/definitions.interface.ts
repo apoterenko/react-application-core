@@ -109,6 +109,13 @@ export interface IScaleWrapper<TScale = number> {
 }
 
 /**
+ * @stable [30.06.2018]
+ */
+export interface IPreviewScaleWrapper<TScale = number> {
+  previewScale?: TScale;
+}
+
+/**
  * @stable [27.06.2018]
  */
 export interface IDefaultSrcWrapper<TDefaultSrc = string> {

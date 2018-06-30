@@ -15,13 +15,13 @@ import { IUniversalDialog, Dialog } from '../dialog';
 export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfViewerState> {
 
   public static defaultProps: IPdfViewerProps = {
+    previewScale: 1.5,
     scale: .3,
     page: 1,
     usePreview: true,
   };
 
   private static PREVIEW_WIDTH = 600;
-  private static PREVIEW_SCALE = 1.5;
 
   private static logger = LoggerFactory.makeLogger(PdfViewer);
 
@@ -90,8 +90,8 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     const isErrorExist = !R.isNil(state.error);
     const isSrcNotPresent = R.isNil(props.src);
     const isShowMessage = isErrorExist || isSrcNotPresent;
-    const previewWidth = PdfViewer.PREVIEW_WIDTH * PdfViewer.PREVIEW_SCALE;
-    const previewScale = PdfViewer.PREVIEW_SCALE;
+    const previewScale = props.previewScale;
+    const previewWidth = PdfViewer.PREVIEW_WIDTH * previewScale;
 
     return (
       <FlexLayout style={props.style}

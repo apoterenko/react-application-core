@@ -8,6 +8,7 @@ import {
   IPageWrapper,
   IOpenedWrapper,
   IUsePreviewWrapper,
+  IPreviewScaleWrapper,
 } from '../../definitions.interface';
 
 /**
@@ -40,6 +41,7 @@ export interface IPdfViewerConfiguration extends IComponentConfiguration,
                                                  ISrcWrapper,
                                                  IUsePreviewWrapper,
                                                  IScaleWrapper,
+                                                 IPreviewScaleWrapper,
                                                  IDefaultSrcWrapper {
 }
 
