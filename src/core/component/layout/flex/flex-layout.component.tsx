@@ -18,7 +18,8 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
                             'rac-flex-full',
                             props.row ? 'rac-flex-row' : 'rac-flex-column',
                             props.className,
-                        )}>
+                        )}
+             style={props.style}>
           {props.children}
         </div>
     );

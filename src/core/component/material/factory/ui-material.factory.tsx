@@ -60,6 +60,8 @@ import {
   faPlug,
   faKey,
   faInfo,
+  faBinoculars,
+  faSearchPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -162,6 +164,8 @@ export class UIMaterialFactory implements IUIFactory {
     navigate_next: faChevronRight,
     plug: faPlug,
     info: faInfo,
+    binoculars: faBinoculars,
+    search_plus: faSearchPlus,
     houzz: faHouzz,
     minus_square: faMinusSquare,
   };

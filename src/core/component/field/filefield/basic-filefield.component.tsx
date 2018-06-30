@@ -34,7 +34,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
   private filesMap = new Map<EntityIdT, Blob>();
 
   /**
-   * @stable [28.06.2018]
+   * @stable [30.06.2018]
    * @param {TProps} props
    */
   constructor(props: TProps) {
@@ -43,20 +43,14 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
     this.onSelect = this.onSelect.bind(this);
     this.doCapture = this.doCapture.bind(this);
     this.onCapture = this.onCapture.bind(this);
+    this.openFileDialog = this.openFileDialog.bind(this);
+    this.downloadFile = this.downloadFile.bind(this);
 
     this.defaultActions = R.insertAll<IFieldActionConfiguration>(
       0,
-      [{
-        type: 'attach_file',
-        onClick: (event: IBasicEvent) => this.openFileDialog(event),
-      }].concat(
+      [{type: 'attach_file', onClick: this.openFileDialog}].concat(
         props.useDownloadAction
-          ? [
-            {
-              type: 'cloud_download',
-              onClick: (event: IBasicEvent) => this.downloadFile(event),
-            }
-          ]
+          ? [{type: 'cloud_download', onClick: this.downloadFile}]
           : []
       ),
       this.defaultActions

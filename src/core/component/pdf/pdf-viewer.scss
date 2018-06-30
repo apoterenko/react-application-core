@@ -6,12 +6,12 @@
   .rac-pdf-preview-dialog {
 
     .rac-dialog-body {
-      max-height: $rac-pdf-preview-dialog-body-max-height;      /* @stable [30.06.2018] */
+      max-height: $rac-pdf-preview-dialog-body-max-height;        /* @stable [30.06.2018] */
       overflow: auto;                                             /* @stable [30.06.2018] */
     }
 
     .rac-dialog-surface {
-      max-width: $rac-pdf-preview-dialog-surface-max-width;     /* @stable [30.06.2018] */
+      max-width: $rac-pdf-preview-dialog-surface-max-width;       /* @stable [30.06.2018] */
       max-height: unset;                                          /* @stable [30.06.2018] */
     }
   }
@@ -25,9 +25,9 @@
 
     .rac-pdf-preview-action-icon {
       &.rac-action-icon {
-        color: $rac-pdf-preview-action-color;         /* @stable [30.06.2018] */
-        width: $rac-pdf-preview-action-width;         /* @stable [30.06.2018] */
-        height: $rac-pdf-preview-action-height;       /* @stable [30.06.2018] */
+        color: $rac-pdf-preview-action-color;           /* @stable [30.06.2018] */
+        width: $rac-pdf-preview-action-width;           /* @stable [30.06.2018] */
+        height: $rac-pdf-preview-action-height;         /* @stable [30.06.2018] */
       }
     }
   }
