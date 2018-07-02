@@ -1,3 +1,5 @@
+import { IEffectsAction } from 'redux-effects-promise';
+
 import {
   IResolverWrapper,
   IStringSectionWrapper,
@@ -45,10 +47,10 @@ export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilt
  * @stable [29.06.2018]
  */
 export interface IEditedListMiddlewareConfig<TEntity, TApplicationState>
-  extends IFormSectionWrapper<string | ((entity: TEntity, state: TApplicationState, isChainExist: boolean) => string)>,
+  extends IFormSectionWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IListSectionWrapper,
           IStateWrapper<TApplicationState>,
-          IPathWrapper<string | ((entity: TEntity, state: TApplicationState, isChainExist: boolean) => string)>,
+          IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IEffectsActionWrapper,
           IUseLazyLoading {
 }

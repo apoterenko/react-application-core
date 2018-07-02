@@ -15,7 +15,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
   listSection: string;
   useLazyLoading?: boolean;
   formSection: any; // TODO
-  path(entity?: TEntity, state?: TApplicationState, isChainExist?: boolean): string;
+  path(entity?: TEntity, state?: TApplicationState, action?: IEffectsAction): string;
   changesResolver?(state: TApplicationState): TEntity;
 }): () => void {
   const {path, changesResolver, listSection, formSection, useLazyLoading} = config;
