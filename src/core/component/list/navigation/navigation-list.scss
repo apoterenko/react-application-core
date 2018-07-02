@@ -13,6 +13,7 @@
       font-size: $rac-navigation-list-item-font-size;                          /* @stable [22.06.2018] */
       line-height: $rac-navigation-list-item-line-height;                      /* @stable [22.06.2018] */
       letter-spacing: $rac-navigation-list-item-letter-spacing;                /* @stable [22.06.2018] */
+      word-break: $rac-navigation-list-item-word-break;                        /* @stable [02.07.2018] */
 
       .rac-navigation-list-item-active-border {
         position: absolute;                                                           /* @stable [22.06.2018] */
@@ -27,7 +28,6 @@
         color: $rac-navigation-list-item-active-color;                         /* @stable [22.06.2018] */
         background-color: $rac-navigation-list-item-active-background-color;   /* @stable [22.06.2018] */
         outline: 1px solid $rac-navigation-list-item-active-outline-color;     /* @stable [22.06.2018] */
-        word-break: $rac-navigation-list-item-word-break;                      /* @stable [02.07.2018] */
       }
 
       .rac-icon {
