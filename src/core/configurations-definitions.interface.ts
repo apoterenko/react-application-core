@@ -181,6 +181,7 @@ import {
   IActionedWrapper,
   IUseFooterWrapper,
   IEmptyValueWrapper,
+  IPreventFocusWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -573,7 +574,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IReadOnlyWrapper,
           IProgressWrapper,
           IRenderedWrapper,
-          IEmptyValueWrapper {
+          IEmptyValueWrapper,
+          IPreventFocusWrapper {
 }
 
 /* @stable - 11.04.2018 */

@@ -147,7 +147,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
                       className='rac-web-camera-wrapper'>
             <div id={BasicFileField.CAMERA_ID}
                  className='rac-web-camera'/>
-            <Button text={this.settings.messages.takeSnapshot}
+            <Button text={this.settings.messages.takeSnapshotMessage}
                     outlined={true}
                     onClick={this.doCapture}/>
           </FlexLayout>

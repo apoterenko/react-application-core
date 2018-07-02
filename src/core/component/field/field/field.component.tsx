@@ -114,6 +114,19 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       || input as ( HTMLInputElement | HTMLTextAreaElement);
   }
 
+  /**
+   * @stable [02.07.2018]
+   * @param {IFocusEvent} event
+   * @returns {boolean}
+   */
+  protected onFocus(event: IFocusEvent): boolean {
+    if (this.props.preventFocus) {
+      this.input.blur();
+      return false;
+    }
+    return super.onFocus(event);
+  }
+
   protected get fieldMessage(): JSX.Element {
     const props = this.props;
     const message = props.message;

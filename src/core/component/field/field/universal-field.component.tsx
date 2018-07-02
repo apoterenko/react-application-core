@@ -322,13 +322,15 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [18.06.2018]
+   * @stable [02.07.2018]
    * @param {TFocusEvent} event
+   * @returns {boolean}
    */
-  protected onFocus(event: TFocusEvent): void {
+  protected onFocus(event: TFocusEvent): boolean {
     if (this.props.onFocus) {
       this.props.onFocus(event);
     }
+    return true;
   }
 
   /**
