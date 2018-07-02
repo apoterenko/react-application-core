@@ -15,7 +15,9 @@ import {
   extractMultiRemoveItemEntities,
   extractMultiAddItemEntities,
   extractMultiSourceItemEntities,
+  fromMultiItemEntityToEntity,
 } from './multifield.support';
+import { UNDEF, IEntity } from '../../../definitions.interface';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
@@ -32,6 +34,18 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    */
   public onAddItem(item: IMultiItemEntity): void {
     this.onChangeManually(this.toChangesPayload(this.onAdd(item)));
+  }
+
+  /**
+   * @stable [01.07.2018]
+   * @param {IMultiItemEntity} item
+   */
+  public onMergeItem(item: IMultiItemEntity): void {
+    if (item.newEntity) {
+      this.onAddItem(item);
+    } else {
+      this.onEditItem(item);
+    }
   }
 
   /**
@@ -59,7 +73,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     let addArray = addValue;
 
     if (removeArray.length === removeLen) {
-      addArray = addValue.concat({ ...item });
+      addArray = addValue.concat(fromMultiItemEntityToEntity(item));
     }
     return {addArray, removeArray, editArray};
   }
@@ -96,7 +110,9 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     const addArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
       isEditedNewItem,
       () => (
-        addValue.map((newItem) => newItem.id === item.id ? ({...item.rawData, [item.name]: item.value}) : newItem)
+        item.value === UNDEF    // Destroy added entity
+          ? R.filter<IEntity>((itm) => itm.id !== item.id, addValue)
+          : addValue.map((newItem) => newItem.id === item.id ? fromMultiItemEntityToEntity(item) : newItem)
       ),
       addValue
     );
@@ -180,9 +196,9 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [23.06.2018]
-   * @returns {IMultiItemEntity[]}
+   * @returns {IEntity[]}
    */
-  private get addValue(): IMultiItemEntity[] {
+  private get addValue(): IEntity[] {
     return extractMultiAddItemEntities(this.value);
   }
 

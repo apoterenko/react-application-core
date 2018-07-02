@@ -2,6 +2,7 @@ import {
   EntityIdT,
   IEntity,
   IEntityIdTWrapper,
+  INewEntityWrapper,
 } from '../../../definitions.interface';
 import { IFieldChangeEntity } from '../../../entities-definitions.interface';
 import { IBasicSelectState, IBasicSelectProps } from '../select';
@@ -28,6 +29,7 @@ export interface IMultiFieldPlugin {
   onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity;
   onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity;
   onAddItem(item: IMultiItemEntity): void;
+  onMergeItem(item: IMultiItemEntity): void;
   onEditItem(item: IMultiItemEntity): void;
   onDeleteItem(item: IMultiItemEntity): void;
 }
@@ -36,23 +38,24 @@ export interface IMultiFieldPlugin {
  * @stable [01.06.2018]
  */
 export interface IMultiFieldChangesEntity {
-  addArray: IMultiItemEntity[];
+  addArray: IEntity[];
   removeArray: IMultiItemEntity[];
   editArray?: IMultiItemEntity[];
 }
 
 /**
- * @stable [01.06.2018]
+ * @stable [01.07.2018]
  */
 export interface IMultiItemEntity extends IEntityIdTWrapper,
-                                          IFieldChangeEntity {
+                                          IFieldChangeEntity,
+                                          INewEntityWrapper {
 }
 
 /**
  * @stable [02.06.2018]
  */
 export interface IMultiEntity {
-  add: IMultiItemEntity[];
+  add: IEntity[];
   remove: IMultiItemEntity[];
   edit: IMultiItemEntity[];
   source?: IMultiItemEntity[];

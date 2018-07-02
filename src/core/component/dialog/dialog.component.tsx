@@ -91,7 +91,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
           </h2>
         </header>
         {
-          orNull(
+          orNull<React.ReactNode>(
             !R.isNil(props.children) || !R.isNil(props.message),
             <section className={toClassName('rac-dialog-body', this.uiFactory.dialogBody)}>
               {props.children || this.t(props.message)}
