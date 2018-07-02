@@ -7,8 +7,7 @@ import { RouterActionBuilder } from '../../router';
 import { CustomActionBuilder } from '../../action';
 import { IEntity } from '../../definitions.interface';
 import { FormActionBuilder } from '../../component/form';
-import { StackActionBuilder } from '../../store';
-import { makeSelectEntityMiddleware } from '../middleware';
+import { makeSelectEntityMiddleware, makeCreateEntityMiddleware } from '../middleware';
 
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
                                            TApplicationState>(config: {
@@ -25,11 +24,8 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
     class Effects {
 
       @EffectsService.effects(ListActionBuilder.buildCreateActionType(listSection))
-      public $onEntityCreate(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return [
-          StackActionBuilder.buildLockAction(formSection),
-          RouterActionBuilder.buildNavigateAction(path(null, state))
-        ];
+      public $onEntityCreate(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
+        return makeCreateEntityMiddleware<TEntity, TApplicationState>({action, state, path, formSection});
       }
 
       /**
