@@ -107,7 +107,6 @@ import {
   ITimeWrapper,
   AnyT,
   IDisplayValueWrapper,
-  IFocusedWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -554,8 +553,7 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
                                                      IUniversalLivingEntity,
                                                      IAuthorizedWrapper,
-                                                     IReadyWrapper,
-                                                     IFocusedWrapper {
+                                                     IReadyWrapper {
 }
 
 /* @stable - 25.04.2018 */

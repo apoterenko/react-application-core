@@ -48,14 +48,14 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 16.04.2018
+   * @stable [02.07.2018]
    * @param {TProps} props
    * @param {Readonly<TState>} nextState
-   * @param {AnyT} nextContext
    * @returns {boolean}
    */
-  public shouldComponentUpdate(props: TProps, nextState: Readonly<TState>, nextContext: AnyT) {
-    return !R.equals(props, this.props);
+  public shouldComponentUpdate(props: TProps, nextState: Readonly<TState>) {
+    return !R.equals(props, this.props)
+      || (!R.isNil(this.state) && !R.equals(nextState, this.state));
   }
 
   /**
