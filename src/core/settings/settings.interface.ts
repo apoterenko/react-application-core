@@ -56,7 +56,9 @@ export interface IApplicationMessagesSettings {
   noSelectedItems?: string;
   filterPlaceholderMessage?: string;
   topHeaderMessage?: string;
-  takeSnapshot?: string;
+  takeSnapshotMessage?: string;
+  confirmationMessage?: string;
+  continueMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -118,9 +120,11 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     emptyDataMessage: 'No data found',
     appNotReadyMessage: 'The application is not ready.',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
-    noSelectedItems: 'No selected items',
+    noSelectedItems: 'No selected items.',
     filterPlaceholderMessage: 'Filter',
-    takeSnapshot: 'Take a snapshot',
+    takeSnapshotMessage: 'Take a snapshot',
+    confirmationMessage: 'Confirmation',
+    continueMessage: 'Continue',
   },
   dateTime: {
     currentDate: new Date(),

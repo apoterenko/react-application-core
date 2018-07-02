@@ -17,7 +17,7 @@ export const ACTION_PREFIX = '$$-RAC-';
 /**
  * Core fields
  */
-export const ID_FIELD_NAME = 'id';
+export const ID_FIELD_NAME = 'id';                                                              /* @stable [02.07.2018] */
 export const KEY_FIELD_NAME = 'key';
 export const TYPE_FIELD_NAME = 'type';
 export const BODY_FIELD_NAME = 'body';
@@ -32,7 +32,7 @@ export const TIME_FIELD_NAME = 'time';
 export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
 export const URL_FIELD_NAME = 'url';
-export const EFFECTOR_FIELD_NAME = 'effector';                                            /* @stable [28.03.2018] */
+export const EFFECTOR_FIELD_NAME = 'effector';                                                  /* @stable [28.03.2018] */
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
@@ -132,6 +132,13 @@ export interface IActionedWrapper {
 /* @stable [23.04.2018] */
 export interface IEmptyDataWrapper<TEmptyData> {
   emptyData?: TEmptyData;
+}
+
+/**
+ * @stable [02.07.2018]
+ */
+export interface IGroupByWrapper<TGroupBy> {
+  groupBy?: TGroupBy;
 }
 
 /* @stable [23.04.2018] */
@@ -967,6 +974,13 @@ export interface IAlwaysDirtyWrapper {
 }
 
 /**
+ * @stable [02.07.2018]
+ */
+export interface ITimeoutWrapper<TTimeout = number> {
+  timeout?: TTimeout;
+}
+
+/**
  * @stable [04.05.2018]
  */
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> {
@@ -1012,6 +1026,13 @@ export interface IInputWrapper<TInput> {
  * @stable [09.05.2018]
  */
 export interface IHTMLInputWrapper extends IInputWrapper<HTMLInputElement | HTMLTextAreaElement> {
+}
+
+/**
+ * @stable [02.06.2018]
+ */
+export interface I$DateWrapper<TDate = string> {
+  $date?: TDate;
 }
 
 /**
@@ -2306,6 +2327,13 @@ export interface IActivateWrapper<TActivate = () => void> {
  */
 export interface IEmptyMessageActionWrapper {
   emptyMessageAction?: boolean;
+}
+
+/**
+ * @stable [02.07.2018]
+ */
+export interface IPreventFocusWrapper {
+  preventFocus?: boolean;
 }
 
 /**
