@@ -1,16 +1,19 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { isDocumentHasFocus } from '../../util';
 import { ACTION_PREFIX } from '../../definitions.interface';
 import { IApplicationEntity } from '../../entities-definitions.interface';
 import { IApplicationConfiguration, IDefaultConnectorConfiguration } from '../../configurations-definitions.interface';
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [02.07.2018]
+ */
 export interface IApplicationContainerProps extends IApplicationEntity,
                                                     IApplicationConfiguration {
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [02.07.2018]
+ */
 export const APPLICATION_SECTIONS = new Map<string, IDefaultConnectorConfiguration>();
 
 /**
@@ -21,10 +24,11 @@ export const INITIAL_APPLICATION_STATE: IApplicationEntity = {
   authorized: false,    // By default the application is not authorized because an async token
   progress: false,
   error: null,
-  focused: isDocumentHasFocus(),
 };
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [02.07.2018]
+ */
 export const APPLICATION_SECTION = 'application';
 export const $APPLICATION_SECTION = `${ACTION_PREFIX}${APPLICATION_SECTION}`;
 export const APPLICATION_INIT_ACTION_TYPE = 'init';

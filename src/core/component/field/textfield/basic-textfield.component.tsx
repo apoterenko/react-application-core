@@ -184,12 +184,16 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [02.07.2018]
    * @param {IFocusEvent} event
+   * @returns {boolean}
    */
-  protected onFocus(event: IFocusEvent): void {
-    super.onFocus(event);
-    this.openKeyboard();
+  protected onFocus(event: IFocusEvent): boolean {
+    const result = super.onFocus(event);
+    if (result) {
+      this.openKeyboard();
+    }
+    return result;
   }
 
   /**

@@ -23,16 +23,6 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
         progress: false,
         error: convertError(action.error).message,
       };
-    case ApplicationActionBuilder.buildClickActionType():
-      return {
-        ...state,
-        focused: true,
-      };
-    case ApplicationActionBuilder.buildBlurActionType():
-      return {
-        ...state,
-        focused: false,
-      };
     case ApplicationActionBuilder.buildReadyActionType():
       return {
         ...state,

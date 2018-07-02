@@ -103,10 +103,14 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     return state;
   }
 
+  /**
+   * @stable [02.07.2018]
+   * @param {TStoreEntity} state
+   */
   protected clearSystemState(state: TStoreEntity): void {
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
-    state.application = {...INITIAL_APPLICATION_STATE, focused: false};
+    state.application = INITIAL_APPLICATION_STATE;
   }
 
   protected getRoutes(): JSX.Element[] {

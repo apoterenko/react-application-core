@@ -61,7 +61,10 @@ import {
   faKey,
   faInfo,
   faBinoculars,
+  faFileImport,
+  faEye,
   faSearchPlus,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -166,7 +169,10 @@ export class UIMaterialFactory implements IUIFactory {
     info: faInfo,
     binoculars: faBinoculars,
     search_plus: faSearchPlus,
+    eye: faEye,
+    file_import: faFileImport,
     houzz: faHouzz,
+    undo: faUndo,
     minus_square: faMinusSquare,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
