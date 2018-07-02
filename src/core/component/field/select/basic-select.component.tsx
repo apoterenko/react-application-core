@@ -32,6 +32,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   constructor(props: TProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
+    this.onExpand = this.onExpand.bind(this);
 
     if (!props.notUseExpandAction) {
       this.defaultActions = R.insert<IFieldActionConfiguration>(
