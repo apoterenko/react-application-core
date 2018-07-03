@@ -14,7 +14,6 @@ import {
   EntityIdT,
 } from '../definitions.interface';
 import { isDef, isObject, isFn, isString } from './type';
-import { INamedEntity } from '../entities-definitions.interface';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 
 export type PredicateT = (key: string, value: AnyT) => boolean;
@@ -123,12 +122,12 @@ export const filterAndSortEntities = <TEntity = IEntity>(data: TEntity[] | TEnti
  * @param {EntityIdT} items
  * @returns {boolean}
  */
-export const containsQuery = (query: string, ...items: EntityIdT[]): boolean => {
-  if (R.isNil(query)) {
-    return false;
+export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
+  if (R.isNil(query) || R.isEmpty(query)) {
+    return true;
   }
   let result = false;
-  items.map((v) => (isString(v) ? v as string : String(R.isNil(v) ? '' : v)).toUpperCase())
+  items.map((v) => (isString(v) ? v as string : R.isNil(v) ? '' : String(v)).toUpperCase())
     .forEach((v) => result = result || v.includes(query.toUpperCase()));
   return result;
 };

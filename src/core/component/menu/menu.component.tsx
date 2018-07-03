@@ -15,6 +15,7 @@ import {
   addChild,
   adjustWidth,
   isFn,
+  queryFilter,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -29,7 +30,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     implements IMenu {
 
   public static defaultProps: IMenuProps = {
-    filter: (valueToFilter, option) => String(option.label || option.value).toUpperCase().includes(valueToFilter),
+    filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
   private menuParent: Element;

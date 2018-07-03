@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
-import { IGridColumnConfiguration } from '../../configurations-definitions.interface';
+import { IGridColumnConfiguration, IGridFilterConfiguration } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, UNDEF } from '../../definitions.interface';
-import { toClassName, isDef, orNull, isFn } from '../../util';
+import { toClassName, isDef, orNull, isFn, queryFilter } from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
@@ -83,9 +83,8 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
         const filterChanges = state.filterChanges;
         const columns = this.columnsConfiguration;
         const changedColumns = Object.keys(filterChanges);
-
-        const defaultLocalFilter = ({query, columnName, entity}) =>
-          R.isNil(query) || R.isEmpty(query) || entity[columnName].toUpperCase().includes(query.toUpperCase());
+        const defaultLocalFilter = (cfg: IGridFilterConfiguration) =>
+          queryFilter(cfg.query, cfg.entity[cfg.columnName]);
 
         if (changedColumns.length > 0) {
           return source.filter((entity) => {

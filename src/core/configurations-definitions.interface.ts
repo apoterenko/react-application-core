@@ -182,6 +182,9 @@ import {
   IUseFooterWrapper,
   IEmptyValueWrapper,
   IPreventFocusWrapper,
+  IQueryWrapper,
+  IEntityWrapper,
+  IColumnNameWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -446,7 +449,7 @@ export interface IFormConfiguration extends IUniversalFormConfiguration,
 
 /* @stable - 04.04.2018 */
 export interface IGridColumnConfiguration extends IComponentConfiguration,
-                                                  ILocalFilterFnWrapper<{entity: IEntity, query: string, columnName: string}>,
+                                                  ILocalFilterFnWrapper<IGridFilterConfiguration>,
                                                   IOnClickWrapper<ISortDirectionEntity>,
                                                   ITitleWrapper,
                                                   IUseGroupingWrapper,
@@ -459,6 +462,14 @@ export interface IGridColumnConfiguration extends IComponentConfiguration,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
                                                   IFilterRendererWrapper<IGridColumnConfiguration>,
                                                   IWidthWrapper {
+}
+
+/**
+ * @stable [03.07.2018]
+ */
+export interface IGridFilterConfiguration<TEntity extends IEntity = IEntity> extends IQueryWrapper,
+                                                                                     IColumnNameWrapper,
+                                                                                     IEntityWrapper<TEntity> {
 }
 
 /* @stable - 04.04.2018 */

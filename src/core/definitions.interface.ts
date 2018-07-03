@@ -840,6 +840,13 @@ export interface IQueryWrapper<TQuery = string> {
 }
 
 /**
+ * @stable [03.07.2018]
+ */
+export interface IColumnNameWrapper {
+  columnName?: string;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IListRoutePathWrapper {
