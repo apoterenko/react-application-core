@@ -100,7 +100,7 @@ export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT | Entit
     isDef(value),
     () => (
       (isNotMultiEntity(value)
-          ? toMultiItemEntities(value as NotMultiFieldEntityT)
+          ? normalizeEntities(value as NotMultiFieldEntityT)
           : toActualMultiItemEntities(value as IMultiEntity)
       ).length
     ),
@@ -108,12 +108,12 @@ export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT | Entit
   );
 
 /**
- * @stable [23.06.2018]
+ * @stable [03.07.2018]
  * @param {NotMultiFieldEntityT} value
- * @returns {IMultiItemEntity[]}
+ * @returns {IEntity[]}
  */
-export const toMultiItemEntities = (value: NotMultiFieldEntityT): IMultiItemEntity[] =>
-  isPrimitive(value) ? [{id: value as EntityIdT}] : value as IMultiItemEntity[];
+export const normalizeEntities = (value: NotMultiFieldEntityT): IEntity[] =>
+  isPrimitive(value) ? [{id: value as EntityIdT}] : value as IEntity[];
 
 /**
  * @stable [24.06.2018]
@@ -127,17 +127,17 @@ export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean 
  * @stable [23.06.2018]
  * @param {MultiFieldEntityT} value
  * @param {(value: IMultiEntity) => IMultiItemEntity[]} converter
- * @param {IMultiItemEntity[] | IEntity[]} defaultValue
+ * @param {IEntity[]} defaultValue
  * @returns {IMultiItemEntity[] | IEntity[]}
  */
 export const extractMultiItemEntities = (value: MultiFieldEntityT,
                                          converter: (value: IMultiEntity) => IMultiItemEntity[],
-                                         defaultValue: IMultiItemEntity[] | IEntity[]): IMultiItemEntity[] | IEntity[] =>
+                                         defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
   isNotMultiEntity(value)
-    ? orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
+    ? orDefault<IEntity[], IEntity[]>(
         isDef(defaultValue),
         defaultValue,
-        () => toMultiItemEntities(value as NotMultiFieldEntityT)
+        () => normalizeEntities(value as NotMultiFieldEntityT)
       )
     : (R.isNil(value) ? [] : converter(value as IMultiEntity));
 

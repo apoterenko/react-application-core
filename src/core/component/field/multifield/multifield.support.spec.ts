@@ -1,6 +1,6 @@
 import {
   fromMultiFieldEntityToEntitiesIds,
-  toMultiItemEntities,
+  normalizeEntities,
   toActualMultiItemEntitiesLength,
   buildMultiEditItemEntityPayload,
   fromMultiFieldEntityToEntities,
@@ -38,14 +38,14 @@ describe('multifield.support', () => {
     });
   });
 
-  describe('toMultiItemEntities', () => {
+  describe('normalizeEntities', () => {
     it('test1', () => {
-      const ids = toMultiItemEntities(1);
+      const ids = normalizeEntities(1);
       expect(ids).toEqual([{ id: 1 }]);
     });
 
     it('test2', () => {
-      const ids = toMultiItemEntities([{ id: 1 }]);
+      const ids = normalizeEntities([{ id: 1 }]);
       expect(ids).toEqual([{ id: 1 }]);
     });
   });
