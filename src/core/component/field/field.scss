@@ -66,6 +66,7 @@
 
         &::placeholder {
           color: $rac-form-field-input-placeholder-color;             /* @stable [24.06.2018] */
+          font-weight: $rac-form-field-input-placeholder-font-weight; /* @stable [03.07.2018] */
         }
       }
     }
