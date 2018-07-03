@@ -107,6 +107,7 @@ import {
   ITimeWrapper,
   AnyT,
   IDisplayValueWrapper,
+  IIdWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -291,6 +292,13 @@ export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEv
  */
 export interface INamedEntity extends IEntityIdTWrapper,
                                       INameWrapper {
+}
+
+/**
+ * @stable [03.07.2018]
+ */
+export interface INamedEntity2 extends IIdWrapper,
+                                       INameWrapper {
 }
 
 /**

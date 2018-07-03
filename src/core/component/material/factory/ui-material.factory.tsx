@@ -64,7 +64,9 @@ import {
   faFileImport,
   faEye,
   faSearchPlus,
+  faUserClock,
   faUndo,
+  faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -82,6 +84,7 @@ import {
   faStopCircle,
   faArrowAltCircleRight,
   faMinusSquare,
+  faThumbsUp,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -173,7 +176,10 @@ export class UIMaterialFactory implements IUIFactory {
     file_import: faFileImport,
     houzz: faHouzz,
     undo: faUndo,
+    user_clock: faUserClock,
     minus_square: faMinusSquare,
+    arrow_right: faArrowRight,
+    thumbs_up: faThumbsUp,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 
