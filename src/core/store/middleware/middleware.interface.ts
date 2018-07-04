@@ -12,8 +12,10 @@ import {
   IFilterRoutePathWrapper,
   IStateWrapper,
   IUseLazyLoading,
+  ICanComeBackWrapper,
+  IEntity,
 } from '../../definitions.interface';
-import { IListWrapperEntity } from '../../entities-definitions.interface';
+import { IListWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
 
 /* @stable - 01.04.2018 */
 export interface IUntouchedListMiddlewareConfig<TApplicationState>
@@ -53,4 +55,14 @@ export interface IEditedListMiddlewareConfig<TEntity, TApplicationState>
           IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IEffectsActionWrapper,
           IUseLazyLoading {
+}
+
+/**
+ * @stable [04.07.2018]
+ */
+export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity>
+  extends ICanComeBackWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
+          IEffectsActionWrapper,
+          IListSectionWrapper,
+          IFormSectionWrapper {
 }
