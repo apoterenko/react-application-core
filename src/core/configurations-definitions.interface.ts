@@ -56,6 +56,7 @@ import {
   IComputedMatchWrapper,
   IKeyValueParamsWrapper,
   IExactWrapper,
+  IColspanWrapper,
   IBeforeEnterWrapper,
   IAfterEnterWrapper,
   IUrlWrapper,
@@ -185,6 +186,8 @@ import {
   IQueryWrapper,
   IEntityWrapper,
   IColumnNameWrapper,
+  IGroupByWrapper,
+  EntityIdT,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -406,7 +409,11 @@ export interface IUniversalListConfiguration
           IOnChangeFilterWrapper<IFieldChangeEntity>,
           IOnEmptyMessageClickWrapper,
           IItemConfigurationWrapper<TItemConfiguration>,
-          IDeactivatedWrapper {
+          IDeactivatedWrapper,
+          IGroupByWrapper<{
+            columnName: string,
+            groupValue: (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode}
+          > {
 }
 
 /* @stable [24.04.2018] */
@@ -726,7 +733,8 @@ export interface IRnModalConfiguration extends IUniversalComponentConfiguration,
 
 /* @stable [23.04.2018] */
 export interface IGridRowConfiguration extends IComponentConfiguration,
-                                               IStringArrayExcludeTargetsClassesWrapper {
+                                               IStringArrayExcludeTargetsClassesWrapper,
+                                               IColspanWrapper {
 }
 
 /* @stable [24.04.2018] */

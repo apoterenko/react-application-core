@@ -812,6 +812,13 @@ export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
 }
 
 /**
+ * @stable [04.07.2018]
+ */
+export interface IExpandedGroupsWrapper<TExpandedGroups extends IKeyValue = IKeyValue> {
+  expandedGroups?: TExpandedGroups;
+}
+
+/**
  * @stable [13.05.2018]
  */
 export interface IEmailWrapper<TEmail = string> {
@@ -2449,6 +2456,13 @@ export interface ITypeNameWrapper {
 /* @stable - 14.04.2018 */
 export interface IExactWrapper {
   exact?: boolean;
+}
+
+/**
+ * @stable [04.07.2018]
+ */
+export interface IColspanWrapper {
+  colspan?: number;
 }
 
 /* @stable - 14.04.2018 */
