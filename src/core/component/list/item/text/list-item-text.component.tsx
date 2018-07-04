@@ -1,18 +1,23 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../../util';
-import { BaseComponent } from '../../../../component/base';
+import { BaseComponent } from '../../../base';
 
 export class ListItemText extends BaseComponent<ListItemText> {
 
+  /**
+   * @stable [04.07.2018]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
 
     return (
-        <span className={toClassName(
-            this.uiFactory.listItemText,
-            props.className
-        )}>
+      <span className={toClassName(
+                        'rac-list-item-text',
+                        this.uiFactory.listItemText,
+                        props.className
+                      )}>
           {props.children}
         </span>
     );

@@ -43,6 +43,10 @@
         .rac-list-item-graphic {
           border-radius: $rac-form-simple-list-item-graphic-border-radius;    /* @stable [25.06.2018] */
         }
+
+        .rac-list-item-text {
+          white-space: normal;                                                /* @stable [04.07.2018] */
+        }
       }
     }
   }

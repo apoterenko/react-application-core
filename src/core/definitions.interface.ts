@@ -1886,9 +1886,18 @@ export interface IEntityWrapper<TEntity = IEntity> {
   entity?: TEntity;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [04.07.2018]
+ */
 export interface IApiEntityWrapper<TApiEntity> {
   apiEntity?: TApiEntity;
+}
+
+/**
+ * @stable [04.07.2018]
+ */
+export interface ICanComeBackWrapper<TCanComeBack = boolean> {
+  canComeBack?: TCanComeBack;
 }
 
 /* @stable - 12.04.2018 */
