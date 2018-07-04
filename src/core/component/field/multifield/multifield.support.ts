@@ -24,15 +24,7 @@ export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItem
   }
   const multiEntity = entity as IMultiEntity;
   if (!isNotMultiEntity(entity)) {
-    const editedItems = {};
-    multiEntity.edit.forEach((editedItem) => {
-      const editedItemId = editedItem.id;
-      const editedItem0 = editedItems[editedItemId] || {
-        ...multiEntity.source.find((originalEntity) => originalEntity.id === editedItemId),
-      };
-      editedItem0[editedItem.name] = editedItem.value;
-      editedItems[editedItemId] = editedItem0;
-    });
+    const editedEntities = toActualMultiItemEditedEntities(entity);
     const sourceItems = multiEntity.source || [];
 
     return R.sort<IMultiItemEntity>(
@@ -42,12 +34,37 @@ export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItem
           (entity0) =>
             !multiEntity.remove.find((removeId) => removeId.id === entity0.id)
             && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
-        ).concat(Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]))
+        ).concat(editedEntities)
       )
     );
   }
   return entity as IEntity[];
 }
+
+/**
+ * @stable [04.07.2018]
+ * @param {MultiFieldEntityT} entity
+ * @returns {IMultiItemEntity[]}
+ */
+export const toActualMultiItemEditedEntities = (entity: MultiFieldEntityT): IMultiItemEntity[] => {
+  if (R.isNil(entity)) {
+    return UNDEF;
+  }
+  const multiEntity = entity as IMultiEntity;
+  if (!isNotMultiEntity(entity)) {
+    const editedItems = {};
+    multiEntity.edit.forEach((editedItem) => {
+      const editedItemId = editedItem.id;
+      const editedItem0 = editedItems[editedItemId] || {
+        ...multiEntity.source.find((originalEntity) => originalEntity.id === editedItemId),
+      };
+      editedItem0[editedItem.name] = editedItem.value;
+      editedItems[editedItemId] = editedItem0;
+    });
+    return Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]);
+  }
+  return entity as IEntity[];
+};
 
 /**
  * @stable [27.06.2018]
@@ -87,7 +104,28 @@ export function fromMultiFieldEntityToEntities<TItem extends IEntity = IEntity, 
   multiFieldEntity: MultiFieldEntityT,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
   const result = toActualMultiItemEntities(multiFieldEntity);
-  return orUndef<TResult[]>(result, (): TResult[] => result.map<TResult>(mapper));
+  return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
+}
+
+/**
+ * @stable [04.07.2018]
+ * @param {MultiFieldEntityT} multiFieldEntity
+ * @returns {EntityIdT[]}
+ */
+export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiFieldEntityT): EntityIdT[] =>
+  fromMultiFieldEntityToEditedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
+
+/**
+ * @stable [04.07.2018]
+ * @param {MultiFieldEntityT} multiFieldEntity
+ * @param {(entity: TItem, index: number) => TResult} mapper
+ * @returns {TResult[]}
+ */
+export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
+  multiFieldEntity: MultiFieldEntityT,
+  mapper: (entity: TItem, index: number) => TResult): TResult[] {
+  const result = toActualMultiItemEditedEntities(multiFieldEntity);
+  return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
 /**

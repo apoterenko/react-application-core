@@ -54,13 +54,13 @@ export interface IMultiItemEntity extends IEntityIdTWrapper,
 }
 
 /**
- * @stable [02.06.2018]
+ * @stable [04.07.2018]
  */
 export interface IMultiEntity {
   add: IEntity[];
   remove: IMultiItemEntity[];
   edit: IMultiItemEntity[];
-  source?: IMultiItemEntity[];
+  source?: IEntity[];
 }
 
 /**

@@ -4,8 +4,9 @@ import {
   toActualMultiItemEntitiesLength,
   buildMultiEditItemEntityPayload,
   fromMultiFieldEntityToEntities,
+  toActualMultiItemEditedEntities,
 } from './multifield.support';
-import { UNDEF, IEntity } from '../../../definitions.interface';
+import { UNDEF } from '../../../definitions.interface';
 
 describe('multifield.support', () => {
 
@@ -235,6 +236,43 @@ describe('multifield.support', () => {
 
     it('test12', () => {
       expect(fromMultiFieldEntityToEntitiesIds(UNDEF)).toEqual(UNDEF);
+    });
+  });
+
+  describe('toActualMultiItemEditedEntities', () => {
+
+    it('test1', () => {
+      const data = toActualMultiItemEditedEntities({
+        add: [],
+        remove: [],
+        edit: [{id: 1, name: 'field1', value: 101}],
+        source: [{id: 1, field1: 100}],
+      });
+      const result = [];
+      result.push({id: 1, field1: 101});
+      expect(data).toEqual(result);
+    });
+
+    it('test2', () => {
+      const data = toActualMultiItemEditedEntities(UNDEF);
+      expect(data).toEqual(UNDEF);
+    });
+
+    it('test3', () => {
+      const data = toActualMultiItemEditedEntities(null);
+      expect(data).toEqual(UNDEF);
+    });
+
+    it('test4', () => {
+      const data = toActualMultiItemEditedEntities({
+        add: [],
+        remove: [],
+        edit: [{id: 1, name: 'field1', value: 101}, {id: 1, name: 'field2', value: 201}],
+        source: [{id: 1, field1: 100, field2: 200}, {id: 2, field3: 202}],
+      });
+      const result = [];
+      result.push({id: 1, field1: 101, field2: 201});
+      expect(data).toEqual(result);
     });
   });
 
