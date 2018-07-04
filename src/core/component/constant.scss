@@ -120,6 +120,10 @@ $rac-grid-column-content-letter-spacing: 1px !default;
 $rac-grid-column-content-picture-height: 40px !default;
 $rac-grid-column-content-picture-border-radius: $rac-grid-column-content-picture-height / 2 !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
+$rac-grid-edited-column-content-font-size: 12px !default;
+$rac-grid-edited-column-content-color: $color-6 !default;
+$rac-grid-edited-column-content-top: -2px !default;
+$rac-grid-edited-column-content-right: 0 !default;
 
 /* @stable [25.06.2018] */
 $rac-loading-color: $rac-default-label-color !default;

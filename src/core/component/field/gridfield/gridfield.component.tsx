@@ -4,7 +4,7 @@ import { IFieldChangeEntity, IListEntity } from '../../../entities-definitions.i
 import { Grid } from '../../grid';
 import { INITIAL_APPLICATION_LIST_STATE } from '../../list';
 import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
-import { MultiField } from '../multifield';
+import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
 
 export class GridField extends MultiField<GridField, IGridFieldProps, IGridFieldState> {
 
@@ -23,9 +23,11 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
    */
   protected getAttachment(): JSX.Element {
     const props = this.props;
+
     const gridListEntity: IListEntity = {
       ...INITIAL_APPLICATION_LIST_STATE,
       data: this.multiFieldPlugin.activeValue,
+      changes: fromMultiItemEntitiesToFieldsChanges(this.multiFieldPlugin.editValue),
     };
 
     return (

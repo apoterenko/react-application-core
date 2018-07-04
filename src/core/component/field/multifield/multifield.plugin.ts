@@ -170,6 +170,22 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
+   * @stable [04.07.2018]
+   * @returns {IMultiItemEntity[]}
+   */
+  public get editValue(): IMultiItemEntity[] {
+    return extractMultiEditItemEntities(this.value);
+  }
+
+  /**
+   * @stable [04.07.2018]
+   * @returns {IEntity[]}
+   */
+  public get addValue(): IEntity[] {
+    return extractMultiAddItemEntities(this.value);
+  }
+
+  /**
    * @stable [01.06.2018]
    * @param {MultiFieldEntityT} payload
    */
@@ -196,26 +212,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [23.06.2018]
-   * @returns {IEntity[]}
-   */
-  private get addValue(): IEntity[] {
-    return extractMultiAddItemEntities(this.value);
-  }
-
-  /**
-   * @stable [23.06.2018]
    * @returns {IMultiItemEntity[]}
    */
   private get removeValue(): IMultiItemEntity[] {
     return extractMultiRemoveItemEntities(this.value);
-  }
-
-  /**
-   * @stable [23.06.2018]
-   * @returns {IMultiItemEntity[]}
-   */
-  private get editValue(): IMultiItemEntity[] {
-    return extractMultiEditItemEntities(this.value);
   }
 
   /**

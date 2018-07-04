@@ -20,10 +20,12 @@ export interface IMultiFieldProps extends IBasicSelectProps {
 }
 
 /**
- * @stable [01.06.2018]
+ * @stable [04.07.2018]
  */
 export interface IMultiFieldPlugin {
   activeValue: IMultiItemEntity[];
+  editValue: IMultiItemEntity[];
+  addValue: IMultiItemEntity[];
   originalValue: IMultiItemEntity[];
   getActiveValueLength(entity: MultiFieldEntityT): number;
   onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity;

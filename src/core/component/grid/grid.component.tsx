@@ -308,7 +308,11 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @returns {JSX.Element}
    */
   private getRow(entity: IEntity, index: number): JSX.Element {
+    const props = this.props;
     const rowKey = this.toRowKey(entity);
+    const changes = props.changes;
+    const entityChanges = changes[entity.id];
+
     return (
       <GridRow ref={rowKey}
                key={rowKey}
@@ -318,6 +322,9 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
         {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridColumn key={`${rowKey}-${columnNum}`}
+                        className={toClassName(
+                          !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited'
+                        )}
                         {...column}>
               {this.getColumn(entity, column, columnNum)}
             </GridColumn>

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { IEntity, EntityIdT, UNDEF, AnyT } from '../../../definitions.interface';
+import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
 import {
   orUndef,
   isPrimitive,
@@ -263,3 +263,16 @@ export const buildMultiAddItemEntityPayload =
       newEntity,
     );
   };
+
+/**
+ * @stable [04.07.2018]
+ * @param {IMultiItemEntity[]} multiItemEntities
+ * @returns {IKeyValue}
+ */
+export const fromMultiItemEntitiesToFieldsChanges = (multiItemEntities: IMultiItemEntity[]): IKeyValue =>
+  R.reduceBy<IMultiItemEntity, {}>(
+    (acc, entity) => ({...acc, [entity.name]: entity.value}),
+    {},
+    (entity) => String(entity.id),
+    multiItemEntities
+  );

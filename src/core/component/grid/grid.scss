@@ -12,7 +12,22 @@
       padding-right: 12px;                                          /* @stable [21.06.2018] */
       padding-left: 4px;                                            /* @stable [21.06.2018] */
 
+      &.rac-grid-column-edited {
+
+        .rac-grid-column-content {
+          &::after {
+            position: absolute;                                                     /* @stable [04.07.2018] */
+            right: $rac-grid-edited-column-content-right;                           /* @stable [04.07.2018] */
+            top: $rac-grid-edited-column-content-top;                               /* @stable [04.07.2018] */
+            font-size: $rac-grid-edited-column-content-font-size;                   /* @stable [04.07.2018] */
+            content: '◹';                                                           /* @stable [04.07.2018] */
+            color: $rac-grid-edited-column-content-color;                           /* @stable [04.07.2018] */
+          }
+        }
+      }
+
       .rac-grid-column-content {
+        position: relative;                                         /* @stable [04.07.2018] */
         width: 100%;                                                /* @stable [21.06.2018] */
         vertical-align: middle;                                     /* @stable [21.06.2018] */
         letter-spacing: $rac-grid-column-content-letter-spacing;    /* @stable [22.06.2018] */

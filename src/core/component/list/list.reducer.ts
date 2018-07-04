@@ -42,11 +42,15 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       };
     case ListActionBuilder.buildChangeActionType(section):
       const fieldChangeEntity: IFieldChangeEntity = action.data;
+      const fieldChangeEntityId = fieldChangeEntity.rawData.id;
       return {
         ...state,
         changes: {
           ...state.changes,
-          [fieldChangeEntity.name]: fieldChangeEntity.value,
+          [fieldChangeEntityId]: {
+            ...(state.changes || {})[fieldChangeEntityId],
+            [fieldChangeEntity.name]: fieldChangeEntity.value,
+          },
         },
       };
     case ListActionBuilder.buildFirstPageActionType(section):
