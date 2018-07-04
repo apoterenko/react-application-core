@@ -85,6 +85,8 @@ import {
   faArrowAltCircleRight,
   faMinusSquare,
   faThumbsUp,
+  faPlusSquare,
+  faMinusSquare,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -179,6 +181,7 @@ export class UIMaterialFactory implements IUIFactory {
     user_clock: faUserClock,
     minus_square: faMinusSquare,
     arrow_right: faArrowRight,
+    plus_square: faPlusSquare,
     thumbs_up: faThumbsUp,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
