@@ -86,7 +86,6 @@ import {
   faMinusSquare,
   faThumbsUp,
   faPlusSquare,
-  faMinusSquare,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
