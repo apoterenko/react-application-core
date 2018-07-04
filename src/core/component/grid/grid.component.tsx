@@ -4,8 +4,8 @@ import * as R from 'ramda';
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, IGridFilterConfiguration } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
-import { IEntity, AnyT, UNDEF } from '../../definitions.interface';
-import { toClassName, isDef, orNull, isFn, queryFilter } from '../../util';
+import { IEntity, AnyT, EntityIdT, IBasicEvent } from '../../definitions.interface';
+import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent } from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
@@ -25,7 +25,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     this.onHeaderColumnClick = this.onHeaderColumnClick.bind(this);
     this.onSettingsClick = this.onSettingsClick.bind(this);
 
-    this.state = {filterChanges: {}};
+    this.state = {filterChanges: {}, expandedGroups: {}};
   }
 
   /**
@@ -34,9 +34,11 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    */
   protected getView(): JSX.Element {
     const props = this.props;
+    const dataSource = this.dataSource;
+
     return (
-      <div className={toClassName('rac-flex', 'rac-flex-row')}>
-        <div className={toClassName('rac-flex', 'rac-flex-full')}>
+      <div className='rac-flex rac-flex-row'>
+        <div className='rac-flex rac-flex-full'>
           <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
             <thead className='rac-grid-head'>
               {this.headerElement}
@@ -44,7 +46,13 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             </thead>
             <tbody ref='container'
                    className='rac-grid-body'>
-              {this.dataSource.map((entity, index) => this.getRow(entity, index))}
+              {
+                orDefault<JSX.Element[], JSX.Element[]>(
+                  isDef(props.groupBy),
+                  () => this.getGroupedRows(dataSource),
+                  () => dataSource.map((entity, index) => this.getRow(entity, index))
+                )
+              }
             </tbody>
           </table>
           {this.getAddAction()}
@@ -55,10 +63,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             () => (
               <div className='rac-grid-service-wrapper'>
                 <div className='rac-grid-service'>
-                  {this.uiFactory.makeIcon({
-                    type: 'more_vert',
-                    onClick: this.onSettingsClick,
-                  })}
+                  {this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onSettingsClick})}
                 </div>
               </div>
             )
@@ -256,6 +261,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
       if (this.isElementField(renderEl)) {
         return React.cloneElement<IFieldProps>(renderEl, {
           ...this.getDefaultFieldProps(),
+          value: Reflect.get(entity, column.name),
           onChange: (value) => this.onChangeRowField({value, name, rawData: entity}),
         });
       }
@@ -370,7 +376,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   private toFilterFieldValue(name: string): AnyT {
     const props = this.props;
     const state = this.state;
-    return props.useLocalFiltering ? state.filterChanges[name] : UNDEF;
+    return orUndef<AnyT>(props.useLocalFiltering, () => state.filterChanges[name]);
   }
 
   /**
@@ -466,5 +472,97 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    */
   private get columnsConfiguration(): IGridColumnConfiguration[] {
     return this.props.columnsConfiguration;
+  }
+
+  /**
+   * @stable [04.07.2018]
+   * @param {EntityIdT} groupedRowValue
+   * @returns {string}
+   */
+  private toGroupedRowKey(groupedRowValue: EntityIdT): string {
+    return `data-grouped-row-${groupedRowValue}`;
+  }
+
+  /**
+   * @stable [04.07.2018]
+   * @param {EntityIdT} groupedRowValue
+   * @returns {string}
+   */
+  private toGroupedColumnKey(groupedRowValue: EntityIdT): string {
+    return `data-grouped-column-${groupedRowValue}`;
+  }
+
+  /**
+   * @stable [04.07.2018]
+   * @param {IEntity[]} dataSource
+   * @returns {JSX.Element[]}
+   */
+  private getGroupedRows(dataSource: IEntity[]): JSX.Element[] {
+    const state = this.state;
+    const groupBy = this.props.groupBy;
+    const rows = [];
+
+    const groupedDataSource = {};
+    dataSource.forEach((entity) => {
+      const groupColumnValue = Reflect.get(entity, groupBy.columnName);
+
+      let groupedDataSourceEntities = Reflect.get(groupedDataSource, groupColumnValue);
+      if (!groupedDataSource.hasOwnProperty(groupColumnValue)) {
+        Reflect.set(groupedDataSource, groupColumnValue, groupedDataSourceEntities = []);
+      }
+      groupedDataSourceEntities.push(entity);
+    });
+
+    Object.keys(groupedDataSource).forEach((groupedRowValue) => {
+      const groupedRows = groupedDataSource[groupedRowValue];
+      rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
+
+      if (state.expandedGroups[groupedRowValue]) {
+        groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index)));
+      }
+    });
+    return rows;
+  }
+
+  /**
+   * @stable [04.07.2018]
+   * @param {EntityIdT} groupedRowValue
+   * @param {IEntity[]} groupedRows
+   * @returns {JSX.Element}
+   */
+  private getGroupingRow(groupedRowValue: EntityIdT, groupedRows: IEntity[]): JSX.Element {
+    const props = this.props;
+    const groupBy = props.groupBy;
+    const state = this.state;
+    const isExpanded = Reflect.get(state.expandedGroups, groupedRowValue);
+
+    return (
+      <GridRow key={this.toGroupedRowKey(groupedRowValue)}
+               className={toClassName('rac-grid-data-row')}
+               colspan={this.columnsConfiguration.length}>
+        {
+          <GridColumn key={this.toGroupedColumnKey(groupedRowValue)}>
+            {
+              this.uiFactory.makeIcon({
+                type: isExpanded ? 'minus_square' : 'plus_square',
+                onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
+              })
+            } {isFn(groupBy.groupValue) ? groupBy.groupValue(groupedRowValue, groupedRows) : groupedRowValue}
+          </GridColumn>
+        }
+      </GridRow>
+    );
+  }
+
+  /**
+   * @stable [04.07.2018]
+   * @param {IBasicEvent} event
+   * @param {EntityIdT} groupedRowValue
+   * @param {boolean} expanded
+   */
+  private onExpandGroup(event: IBasicEvent, groupedRowValue: EntityIdT, expanded: boolean): void {
+    cancelEvent(event);
+
+    this.setState({expandedGroups: {...this.state.expandedGroups, [groupedRowValue]: expanded}});
   }
 }
