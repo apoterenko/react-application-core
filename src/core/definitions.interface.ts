@@ -847,6 +847,13 @@ export interface IQueryWrapper<TQuery = string> {
 }
 
 /**
+ * @stable [06.07.2018]
+ */
+export interface IActivateQueryFilterWrapper {
+  activateQueryFilter?: boolean;
+}
+
+/**
  * @stable [03.07.2018]
  */
 export interface IColumnNameWrapper {

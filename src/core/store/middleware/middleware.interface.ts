@@ -14,6 +14,7 @@ import {
   IUseLazyLoading,
   ICanComeBackWrapper,
   IEntity,
+  IActivateQueryFilterWrapper,
 } from '../../definitions.interface';
 import { IListWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
 
@@ -42,7 +43,8 @@ export interface IFormFilterSubmitMiddlewareConfig extends IListRoutePathWrapper
  * @stable [09.06.2018]
  */
 export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilterRoutePathWrapper,
-                                                                           IListSectionWrapper {
+                                                                           IListSectionWrapper,
+                                                                           IActivateQueryFilterWrapper {
 }
 
 /**
@@ -55,6 +57,13 @@ export interface IEditedListMiddlewareConfig<TEntity, TApplicationState>
           IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IEffectsActionWrapper,
           IUseLazyLoading {
+}
+
+/**
+ * @stable [06.07.2018]
+ */
+export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
+                                                       IEffectsActionWrapper {
 }
 
 /**

@@ -7,9 +7,16 @@ import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
   FILTER_DEACTIVATE_ACTION_TYPE,
+  FILTER_MANUAL_APPLY_ACTION_TYPE,
+  FILTER_CHANGE_ACTION_TYPE,
 } from './filter.interface';
+import { IQueryWrapper } from '../../definitions.interface';
 
 export class FilterActionBuilder {
+  public static buildManualApplyActionType(section: string): string {
+    return `${section}.${FILTER_MANUAL_APPLY_ACTION_TYPE}`;
+  }
+
   public static buildApplyActionType(section: string): string {
     return `${section}.${FILTER_APPLY_ACTION_TYPE}`;
   }
@@ -28,6 +35,14 @@ export class FilterActionBuilder {
 
   public static buildDestroyActionType(section: string): string {
     return `${section}.${FILTER_DESTROY_ACTION_TYPE}`;
+  }
+
+  public static buildChangeActionType(section: string): string {
+    return `${section}.${FILTER_CHANGE_ACTION_TYPE}`;
+  }
+
+  public static buildChangeAction(section: string, queryWrapper: IQueryWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildChangeActionType(section), applySection(section, queryWrapper));
   }
 
   public static buildDestroyAction(section: string): IEffectsAction {

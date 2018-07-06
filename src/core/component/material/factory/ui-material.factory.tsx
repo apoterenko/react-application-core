@@ -61,6 +61,7 @@ import {
   faKey,
   faInfo,
   faBinoculars,
+  faUserPlus,
   faFileImport,
   faEye,
   faSearchPlus,
@@ -180,6 +181,7 @@ export class UIMaterialFactory implements IUIFactory {
     user_clock: faUserClock,
     minus_square: faMinusSquare,
     arrow_right: faArrowRight,
+    user_plus: faUserPlus,
     plus_square: faPlusSquare,
     thumbs_up: faThumbsUp,
   };

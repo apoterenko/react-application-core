@@ -11,6 +11,7 @@ export const INITIAL_APPLICATION_FILTER_STATE: IQueryFilterEntity = {
  * @stable [18.05.2018]
  */
 export const FILTER_OPEN_ACTION_TYPE = 'filter.open';
+export const FILTER_MANUAL_APPLY_ACTION_TYPE = 'filter.manual.apply';
 export const FILTER_ACTIVATE_ACTION_TYPE = 'filter.activate';
 export const FILTER_DEACTIVATE_ACTION_TYPE = 'filter.deactivate';
 export const FILTER_CHANGE_ACTION_TYPE = 'filter.change';
