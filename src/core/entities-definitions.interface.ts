@@ -31,7 +31,7 @@ import {
   IRawDataWrapper,
   ISelectedEntityWrapper,
   IListWrapper,
-  IDefaultOperationWrapper,
+  IOperationWrapper,
   IEntityIdTWrapper,
   IIsNewWrapper,
   IMergerWrapper,
@@ -80,7 +80,7 @@ import {
   IRootWrapper,
   IStringPathWrapper,
   INotificationWrapper,
-  IStringInfoWrapper,
+  IInfoWrapper,
   IStringErrorMessageWrapper,
   IMessageWrapper,
   ISelfWrapper,
@@ -487,7 +487,7 @@ export interface IApiEntity<TEntity extends IEntity = IEntity> extends IEntityWr
                                                                        IEntityIdTWrapper,
                                                                        IChangesWrapper<TEntity>,
                                                                        IMergerWrapper<TEntity>,
-                                                                       IDefaultOperationWrapper,
+                                                                       IOperationWrapper,
                                                                        IIsNewWrapper {
 }
 
@@ -644,7 +644,7 @@ export interface IRootWrapperEntity extends IRootWrapper<IRootEntity> {
 
 /* @stable - 15.04.2018 */
 export interface INotificationEntity extends IStringErrorEntity,
-                                             IStringInfoWrapper {
+                                             IInfoWrapper {
 }
 
 /* @stable - 15.04.2018 */

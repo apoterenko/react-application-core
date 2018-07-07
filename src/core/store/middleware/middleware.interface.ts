@@ -15,6 +15,7 @@ import {
   ICanComeBackWrapper,
   IEntity,
   IActivateQueryFilterWrapper,
+  ICanUpdateWrapper,
 } from '../../definitions.interface';
 import { IListWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
 
@@ -67,10 +68,11 @@ export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
- * @stable [04.07.2018]
+ * @stable [07.07.2018]
  */
 export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity>
   extends ICanComeBackWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
+          ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           IEffectsActionWrapper,
           IListSectionWrapper,
           IFormSectionWrapper {

@@ -14,7 +14,7 @@ import {
   IDataWrapper,
   INotApplyAuthWrapper,
   IStringAuthWrapper,
-  IDefaultOperationWrapper,
+  IOperationWrapper,
   IReaderFnWrapper,
   IAnyResultWrapper,
   IIdWrapper,
@@ -61,7 +61,7 @@ export interface ITransportRequestEntity extends INameWrapper,
                                                  IReaderFnWrapper<AnyT, IAnyResultWrapper>,
                                                  INoCacheWrapper,
                                                  IUrlWrapper,
-                                                 IDefaultOperationWrapper {
+                                                 IOperationWrapper {
 }
 
 export interface ITransportRequestParamsEntity extends INameWrapper,

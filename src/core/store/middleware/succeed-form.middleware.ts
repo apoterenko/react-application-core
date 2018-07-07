@@ -16,13 +16,13 @@ import { IApplicationModifyEntityPayloadFactory } from '../../api';
 const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 
 /**
- * @stable [04.07.2018]
+ * @stable [07.07.2018]
  * @param {ISucceedFormMiddlewareConfig<TEntity extends IEntity>} config
  * @returns {IEffectsAction[]}
  */
 export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucceedFormMiddlewareConfig<TEntity>): IEffectsAction[] => {
 
-  const {listSection, action, canComeBack} = config;
+  const {listSection, action, canComeBack, canUpdate} = config;
   const apiEntity = action.initialData as IApiEntity;
 
   const connectorConfig = APPLICATION_SECTIONS.get(listSection);
@@ -36,14 +36,21 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
       `[$makeSucceedFormMiddleware] The list route is empty for the section ${listSection}`
     );
   }
-  const payloadWrapper = (staticInjector(DI_TYPES.ModifyEntityPayloadFactory) as IApplicationModifyEntityPayloadFactory)
-    .makeInstance(action);
+  const isUpdateNeeded = R.isNil(canUpdate) || (isFn(canUpdate) ? (canUpdate as (...args) => boolean)(apiEntity, action) : canUpdate);
+  const payloadWrapper = isUpdateNeeded
+    ? (staticInjector(DI_TYPES.ModifyEntityPayloadFactory) as IApplicationModifyEntityPayloadFactory)
+        .makeInstance(action)
+    : null;
 
-  return [
-    apiEntity.isNew
-      ? ListActionBuilder.buildInsertAction(listSection, payloadWrapper)
-      : ListActionBuilder.buildUpdateAction(listSection, payloadWrapper)
-  ].concat(
+  return (
+    isUpdateNeeded
+      ? [
+        apiEntity.isNew
+          ? ListActionBuilder.buildInsertAction(listSection, payloadWrapper)
+          : ListActionBuilder.buildUpdateAction(listSection, payloadWrapper)
+      ]
+      : []
+  ).concat(
     R.isNil(canComeBack) || (isFn(canComeBack) ? (canComeBack as (...args) => boolean)(apiEntity, action) : canComeBack)
       ? RouterActionBuilder.buildNavigateAction(dynamicListRoute)
       : []

@@ -527,13 +527,11 @@ export interface IOnOpenWrapper<TOnOpen = () => void> {
   onOpen?: TOnOpen;
 }
 
-/* @stable - 01.04.2018 */
-export interface IOperationWrapper<TOperation> {
+/**
+ * @stable [07.07.2018]
+ */
+export interface IOperationWrapper<TOperation = IStringIdWrapper> {
   operation?: TOperation;
-}
-
-/* @stable - 01.04.2018 */
-export interface IDefaultOperationWrapper extends IOperationWrapper<IStringIdWrapper> {
 }
 
 /**
@@ -1914,6 +1912,13 @@ export interface ICanComeBackWrapper<TCanComeBack = boolean> {
   canComeBack?: TCanComeBack;
 }
 
+/**
+ * @stable [07.07.2018]
+ */
+export interface ICanUpdateWrapper<TCanUpdate = boolean> {
+  canUpdate?: TCanUpdate;
+}
+
 /* @stable - 12.04.2018 */
 export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;
@@ -2579,13 +2584,18 @@ export interface IChildrenWrapper<TChildren> {
   children?: TChildren;
 }
 
-/* @stable - 15.04.2018 */
-export interface IInfoWrapper<TInfo> {
+/**
+ * @stable [06.07.2018]
+ */
+export interface IInfoWrapper<TInfo = string> {
   info?: TInfo;
 }
 
-/* @stable - 15.04.2018 */
-export interface IStringInfoWrapper extends IInfoWrapper<string> {
+/**
+ * @stable [06.07.2018]
+ */
+export interface IWarningWrapper<TWarning = string> {
+  warning?: TWarning;
 }
 
 /* @stable - 15.04.2018 */

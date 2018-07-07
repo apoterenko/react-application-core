@@ -52,4 +52,8 @@ export class FilterActionBuilder {
   public static buildActivateAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildActivateActionType(section), applySection(section));
   }
+
+  public static buildManualApplyAction(section: string, queryWrapper: IQueryWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildManualApplyActionType(section), applySection(section, queryWrapper));
+  }
 }
