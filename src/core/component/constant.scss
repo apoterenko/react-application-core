@@ -206,14 +206,14 @@ $rac-page-toolbar-content-padding-left: 8px !default;
 $rac-page-toolbar-content-padding-right: 8px !default;
 $rac-page-toolbar-content-min-height: 48px !default;
 
-/* @stable [30.06.2018] */
-$rac-pdf-preview-action-color: $rac-default-action-color !default;
-$rac-pdf-preview-action-width: 32px !default;
-$rac-pdf-preview-action-height: 32px !default;
-$rac-pdf-viewer-font-size: $rac-default-font-size !default;
-$rac-pdf-viewer-color: $rac-default-text-color !default;
-$rac-pdf-preview-dialog-surface-max-width: 80vw !default;
-$rac-pdf-preview-dialog-body-max-height: 60vh !default;
+/* @stable [08.07.2018] */
+$rac-preview-action-color: $rac-default-action-color !default;
+$rac-preview-action-width: 32px !default;
+$rac-preview-action-height: 32px !default;
+$rac-viewer-font-size: $rac-default-font-size !default;
+$rac-viewer-color: $rac-default-text-color !default;
+$rac-preview-dialog-surface-max-width: 80vw !default;
+$rac-preview-dialog-body-max-height: 60vh !default;
 
 /* @stable [29.06.2018] */
 $rac-tab-bar-scroller-indicator-icon: $rac-default-action-color !default;

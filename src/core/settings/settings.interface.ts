@@ -45,20 +45,22 @@ export interface IApplicationMessagesSettings {
   defaultErrorMessage?: string;
   dndMessage?: string;
   errorMessage?: string;
-  pdfErrorMessage?: string;
-  noPdfToShow?: string;
+  fileLoadErrorMessage?: string;
+  noFileToShowMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   emptyMessage?: string;
   emptyDataMessage?: string;
   appNotReadyMessage?: string;
   followingErrorHasOccurredMessage?: string;
-  noSelectedItems?: string;
+  noSelectedItemsMessage?: string;
   filterPlaceholderMessage?: string;
   topHeaderMessage?: string;
   takeSnapshotMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
+  closeMessage?: string;
+  previewMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -114,17 +116,19 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     errorMessage: 'Something went wrong. There was a problem loading your data',
-    pdfErrorMessage: 'Can\'t load the pdf file.',
-    noPdfToShow: 'No pdf to show.',
+    fileLoadErrorMessage: 'Can\'t load the file.',
+    noFileToShowMessage: 'No file to show.',
     emptyMessage: 'Start a search',
     emptyDataMessage: 'No data found',
     appNotReadyMessage: 'The application is not ready.',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
-    noSelectedItems: 'No selected items.',
+    noSelectedItemsMessage: 'No selected items.',
     filterPlaceholderMessage: 'Filter',
     takeSnapshotMessage: 'Take a snapshot',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
+    closeMessage: 'Close',
+    previewMessage: 'Preview',
   },
   dateTime: {
     currentDate: new Date(),

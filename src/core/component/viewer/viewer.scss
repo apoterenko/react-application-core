@@ -1,0 +1,34 @@
+@import '../constant';
+
+// Viewer [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-preview-dialog {
+
+    .rac-dialog-body {
+      max-height: $rac-preview-dialog-body-max-height;        /* @stable [30.06.2018] */
+      overflow: auto;                                         /* @stable [30.06.2018] */
+    }
+
+    .rac-dialog-surface {
+      max-width: $rac-preview-dialog-surface-max-width;       /* @stable [30.06.2018] */
+      max-height: unset;                                      /* @stable [30.06.2018] */
+    }
+  }
+
+  .rac-viewer {
+    position: relative;                                       /* @stable [30.06.2018] */
+    margin-right: auto;
+    margin-left: auto;
+    color: $rac-viewer-color;                                 /* @stable [28.06.2018] */
+    font-size: $rac-viewer-font-size;                         /* @stable [27.06.2018] */
+
+    .rac-preview-action-icon {
+      &.rac-action-icon {
+        color: $rac-preview-action-color;                     /* @stable [30.06.2018] */
+        width: $rac-preview-action-width;                     /* @stable [30.06.2018] */
+        height: $rac-preview-action-height;                   /* @stable [30.06.2018] */
+      }
+    }
+  }
+}

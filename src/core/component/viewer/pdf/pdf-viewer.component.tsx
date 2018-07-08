@@ -4,15 +4,12 @@ import * as pdfjsLib from 'pdfjs-dist';
 import * as Promise from 'bluebird';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { APP_VERSION } from '../../env';
-import { toClassName , orDefault, orNull } from '../../util';
-import { BaseComponent } from '../base';
+import { APP_VERSION } from '../../../env';
 import { IPdfViewerProps, IPdfViewerState, IPdfViewerDocument, IPdfViewerPage } from './pdf-viewer.interface';
-import { FlexLayout, CenterLayout } from '../layout';
-import { AnyT } from '../../definitions.interface';
-import { IUniversalDialog, Dialog } from '../dialog';
+import { AnyT } from '../../../definitions.interface';
+import { Viewer } from '../viewer.component';
 
-export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfViewerState> {
+export class PdfViewer extends Viewer<PdfViewer, IPdfViewerProps, IPdfViewerState> {
 
   public static defaultProps: IPdfViewerProps = {
     previewScale: 1.5,
@@ -22,7 +19,6 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   };
 
   private static PREVIEW_WIDTH = 600;
-
   private static logger = LoggerFactory.makeLogger(PdfViewer);
 
   private loadTask: Promise<IPdfViewerDocument>;
@@ -30,7 +26,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   private loadedDocument: IPdfViewerDocument;
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    * @param {IPdfViewerProps} props
    */
   constructor(props: IPdfViewerProps) {
@@ -38,40 +34,26 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
     this.onLoad = this.onLoad.bind(this);
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
-    this.onPreview = this.onPreview.bind(this);
-    this.onDialogClose = this.onDialogClose.bind(this);
-    this.state = {};
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.js?${APP_VERSION}`;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.min.js?${APP_VERSION}`;
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    * @param {IPdfViewerProps} props
-   * @param {{}} state
+   * @param {IPdfViewerState} state
    */
-  public componentDidUpdate(props: IPdfViewerProps, state: {}) {
+  public componentDidUpdate(props: IPdfViewerProps, state: IPdfViewerState) {
     super.componentDidUpdate(props, state);
 
     const currentProps = this.props;
-    if (!R.equals(currentProps.src, props.src)) {
-      this.refresh();
-    } else if (!R.equals(currentProps.page, props.page)) {
+    if (!R.equals(currentProps.page, props.page)) {
       this.refreshPage();
     }
   }
 
   /**
-   * @stable [27.06.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    this.refresh();
-  }
-
-  /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
@@ -81,77 +63,41 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [30.06.2018]
+   * @stable [08.07.2018]
    * @returns {JSX.Element}
    */
-  public render(): JSX.Element {
-    const state = this.state;
+  protected getRenderAreaElement(): JSX.Element {
+    return <canvas ref='canvas'/>;
+  }
+
+  /**
+   * @stable [08.07.2018]
+   * @returns {JSX.Element}
+   */
+  protected gePreviewElement(): JSX.Element {
     const props = this.props;
-    const isErrorExist = !R.isNil(state.error);
-    const isSrcNotPresent = R.isNil(props.src);
-    const isShowMessage = isErrorExist || isSrcNotPresent;
     const previewScale = props.previewScale;
     const previewWidth = PdfViewer.PREVIEW_WIDTH * previewScale;
-
     return (
-      <FlexLayout style={props.style}
-                  className={toClassName('rac-pdf-viewer', this.props.className)}>
-        {orDefault<JSX.Element, JSX.Element>(
-          isShowMessage,
-          () => (
-            <CenterLayout>{
-              this.t(isErrorExist
-                ? this.settings.messages.pdfErrorMessage
-                : this.settings.messages.noPdfToShow)
-            }</CenterLayout>
-          ),
-          () => <canvas ref='canvas'/>,
-        )}
-        {
-          orNull<JSX.Element>(
-            !isShowMessage && props.usePreview,
-            () => (
-              this.uiFactory.makeIcon({
-                type: 'search_plus',
-                className: 'rac-pdf-preview-action-icon rac-absolute-center-position',
-                onClick: this.onPreview,
-              })
-            )
-          )
-        }
-        {
-          orNull<JSX.Element>(
-            !isShowMessage,
-            () => (
-              <Dialog ref='dialog'
-                      className='rac-pdf-preview-dialog'
-                      title='Preview'
-                      closeMessage='Close'
-                      acceptable={false}
-                      onClose={this.onDialogClose}>
-                {
-                  orNull<JSX.Element>(
-                    state.opened,
-                    () => (
-                      <PdfViewer src={props.src}
-                                 style={{width: previewWidth}}
-                                 usePreview={false}
-                                 scale={previewScale}/>
-                    )
-                  )
-                }
-              </Dialog>
-            )
-          )
-        }
-      </FlexLayout>
+      <PdfViewer src={props.src}
+                 style={{width: previewWidth}}
+                 usePreview={false}
+                 scale={previewScale}/>
     );
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
+   * @returns {boolean}
    */
-  private refresh(): void {
+  protected get isProgressMessageShown(): boolean {
+    return R.isNil(this.loadedDocument);
+  }
+
+  /**
+   * @stable [08.07.2018]
+   */
+  protected refresh(): void {
     const props = this.props;
     const src = props.src;
 
@@ -169,7 +115,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    */
   private refreshPage(): void {
     const props = this.props;
@@ -180,7 +126,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    * @param {IPdfViewerPage} page
    * @returns {IPdfViewerPage}
    */
@@ -197,7 +143,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    * @param {IPdfViewerDocument} pdf
    * @returns {IPdfViewerDocument}
    */
@@ -209,7 +155,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    * @param {AnyT} error
    * @returns {AnyT}
    */
@@ -221,7 +167,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    * @returns {HTMLCanvasElement}
    */
   private get renderArea(): HTMLCanvasElement {
@@ -229,7 +175,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    */
   private cancelTask(): void {
     if (this.loadTask && this.loadTask.isPending()) {
@@ -240,7 +186,7 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [08.07.2018]
    */
   private cancelPageTask(): void {
     if (this.loadPageTask && this.loadPageTask.isPending()) {
@@ -248,22 +194,5 @@ export class PdfViewer extends BaseComponent<PdfViewer, IPdfViewerProps, IPdfVie
 
       PdfViewer.logger.warn(`[$PdfViewer][cancelPageTask] The pdf page task has been cancelled.`);
     }
-  }
-
-  /**
-   * @stable [30.06.2018]
-   */
-  private onDialogClose(): void {
-    this.setState({opened: false});
-  }
-
-  /**
-   * @stable [30.06.2018]
-   */
-  private onPreview(): void {
-    this.setState({opened: true});
-
-    const dialog = this.refs.dialog as IUniversalDialog;
-    dialog.activate();
   }
 }

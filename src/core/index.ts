@@ -31,7 +31,7 @@ export * from './component/main';
 export * from './component/material';
 export * from './component/menu';
 export * from './component/message';
-export * from './component/pdf';
+export * from './component/viewer/pdf';
 export * from './component/profile';
 export * from './component/progress';
 export * from './component/root';

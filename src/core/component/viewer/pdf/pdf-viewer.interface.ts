@@ -1,15 +1,6 @@
-import { IComponentEntity } from '../../entities-definitions.interface';
-import { IComponentConfiguration } from '../../configurations-definitions.interface';
-import {
-  ISrcWrapper,
-  IDefaultSrcWrapper,
-  IErrorWrapper,
-  IScaleWrapper,
-  IPageWrapper,
-  IOpenedWrapper,
-  IUsePreviewWrapper,
-  IPreviewScaleWrapper,
-} from '../../definitions.interface';
+import { IComponentEntity } from '../../../entities-definitions.interface';
+import { IPageWrapper, IScaleWrapper, IPreviewScaleWrapper } from '../../../definitions.interface';
+import { IViewerConfiguration, IViewerState  } from '../viewer.interface';
 
 /**
  * @stable [27.06.2018]
@@ -37,12 +28,9 @@ export interface IPdfViewerViewport {
 /**
  * @stable [27.06.2018]
  */
-export interface IPdfViewerConfiguration extends IComponentConfiguration,
-                                                 ISrcWrapper,
-                                                 IUsePreviewWrapper,
+export interface IPdfViewerConfiguration extends IViewerConfiguration,
                                                  IScaleWrapper,
-                                                 IPreviewScaleWrapper,
-                                                 IDefaultSrcWrapper {
+                                                 IPreviewScaleWrapper {
 }
 
 /**
@@ -62,6 +50,5 @@ export interface IPdfViewerProps extends IPdfViewerConfiguration,
 /**
  * @stable [27.06.2018]
  */
-export interface IPdfViewerState extends IErrorWrapper<Error>,
-                                         IOpenedWrapper {
+export interface IPdfViewerState extends IViewerState {
 }
