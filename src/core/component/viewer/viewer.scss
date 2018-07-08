@@ -1,4 +1,5 @@
 @import '../constant';
+@import './picture/picture-viewer';
 
 // Viewer [FRAMEWORK-][RAC+]
 .rac {
@@ -11,6 +12,7 @@
     }
 
     .rac-dialog-surface {
+      width: auto;                                            /* @stable [08.07.2018] */
       max-width: $rac-preview-dialog-surface-max-width;       /* @stable [30.06.2018] */
       max-height: unset;                                      /* @stable [30.06.2018] */
     }
@@ -28,6 +30,7 @@
         color: $rac-preview-action-color;                     /* @stable [30.06.2018] */
         width: $rac-preview-action-width;                     /* @stable [30.06.2018] */
         height: $rac-preview-action-height;                   /* @stable [30.06.2018] */
+        opacity: $rac-preview-action-opacity;                 /* @stable [08.07.2018] */
       }
     }
   }

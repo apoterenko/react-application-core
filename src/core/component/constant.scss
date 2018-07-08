@@ -15,6 +15,7 @@ $color-11: #ff0000 !default;
 $color-12: #a70101 !default;
 $color-13: #1aa51a !default;
 $color-14: #f0f0f0 !default;
+$color-15: #000 !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
@@ -207,9 +208,10 @@ $rac-page-toolbar-content-padding-right: 8px !default;
 $rac-page-toolbar-content-min-height: 48px !default;
 
 /* @stable [08.07.2018] */
-$rac-preview-action-color: $rac-default-action-color !default;
+$rac-preview-action-color: $color-15 !default;
 $rac-preview-action-width: 32px !default;
 $rac-preview-action-height: 32px !default;
+$rac-preview-action-opacity: $opacity !default;
 $rac-viewer-font-size: $rac-default-font-size !default;
 $rac-viewer-color: $rac-default-text-color !default;
 $rac-preview-dialog-surface-max-width: 80vw !default;

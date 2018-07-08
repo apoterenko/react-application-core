@@ -54,15 +54,15 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
     const state = this.state;
     const props = this.props;
     const isErrorExist = !R.isNil(state.error);
-    const isSrcNotPresent = R.isNil(props.src);
+    const isSrcAbsent = R.isNil(props.src);
     const isProgressMessageShown = this.isProgressMessageShown;
-    const isMessageShown = isErrorExist || isSrcNotPresent;
+    const canShowPreview = props.usePreview && !isSrcAbsent && !isProgressMessageShown && !isErrorExist;
 
     return (
       <FlexLayout style={props.style}
                   className={toClassName('rac-viewer', this.props.className)}>
         {orDefault<React.ReactNode, React.ReactNode>(
-          isMessageShown,
+          isErrorExist,
           () => (
             <CenterLayout>{
               this.t(isErrorExist
@@ -78,7 +78,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
         )}
         {
           orNull<JSX.Element>(
-            props.usePreview && !isProgressMessageShown && !isMessageShown,
+            canShowPreview,
             () => (
               this.uiFactory.makeIcon({
                 type: 'search_plus',
@@ -90,7 +90,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
         }
         {
           orNull<JSX.Element>(
-            !isMessageShown,
+            canShowPreview,
             () => (
               <Dialog ref='dialog'
                       className='rac-preview-dialog'
@@ -115,7 +115,9 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
   /**
    * @stable [08.07.2018]
    */
-  protected abstract refresh(): void;
+  protected refresh(): void {
+    // Nothing to do
+  }
 
   /**
    * @stable [08.07.2018]

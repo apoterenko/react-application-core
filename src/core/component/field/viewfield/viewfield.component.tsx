@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Field, IFieldInputProps, toLastAddedMultiItemEntity } from '../../field';
 import { CenterLayout } from '../../layout';
-import { PictureViewer } from '../../picture';
+import { PictureViewer } from '../../viewer';
 import { IViewFieldProps } from './viewfield.interface';
 
 export class ViewField extends Field<ViewField, IViewFieldProps> {

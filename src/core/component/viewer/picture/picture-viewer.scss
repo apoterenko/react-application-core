@@ -1,0 +1,26 @@
+// Picture viewer [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-picture-empty, .rac-picture {
+    margin: auto;                       /* @stable [08.07.2018] */
+  }
+
+  .rac-picture-empty {
+    width: 100px;                       /* @stable [08.07.2018] */
+    height: 100px;                      /* @stable [08.07.2018] */
+  }
+
+  .rac-picture {
+    width: fit-content;                 /* @stable [08.07.2018] */
+    max-width: 100px;                   /* @stable [08.07.2018] */
+    max-height: 100px;                  /* @stable [08.07.2018] */
+  }
+
+  .rac-preview-dialog {
+
+    .rac-picture {
+      max-width: unset;                 /* @stable [08.07.2018] */
+      max-height: unset;                /* @stable [08.07.2018] */
+    }
+  }
+}
