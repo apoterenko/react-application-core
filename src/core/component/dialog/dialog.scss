@@ -1,0 +1,12 @@
+@import '../constant';
+
+// Dialog [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-dialog {
+
+    .rac-dialog-header {
+      color: $rac-dialog-header-color;        /* @stable [29.07.2018] */
+    }
+  }
+}
