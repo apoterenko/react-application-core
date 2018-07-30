@@ -8,11 +8,10 @@ export interface IBasicTextFieldState extends IFieldState,
                                               IKeyboardOpenedWrapper {
 }
 
-export interface IBasicTextFieldInternalProps
-    extends IFieldInternalProps {
+export interface IBasicTextFieldProps extends IFieldInternalProps {
 }
 
-export interface IBasicTextField<TInternalProps extends IBasicTextFieldInternalProps,
+export interface IBasicTextField<TInternalProps extends IBasicTextFieldProps,
                                  TInternalState extends IBasicTextFieldState>
     extends IField<TInternalProps,
                    TInternalState> {

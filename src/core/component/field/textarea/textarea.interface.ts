@@ -1,13 +1,13 @@
 import {
   IBasicTextFieldState,
-  IBasicTextFieldInternalProps,
+  IBasicTextFieldProps,
   IBasicTextField,
 } from '../textfield';
 
 export interface ITextAreaInternalState extends IBasicTextFieldState {
 }
 
-export interface ITextAreaInternalProps extends IBasicTextFieldInternalProps {
+export interface ITextAreaInternalProps extends IBasicTextFieldProps {
 }
 
 export interface ITextArea extends IBasicTextField<ITextAreaInternalProps,

@@ -1,5 +1,5 @@
 import {
-  IBasicTextFieldInternalProps,
+  IBasicTextFieldProps,
   IBasicTextFieldState,
 } from '../textfield';
 import {
@@ -13,7 +13,7 @@ import {
 export interface IBasicFileFieldInternalState extends IBasicTextFieldState {
 }
 
-export interface IBasicFileFieldInternalProps extends IBasicTextFieldInternalProps,
+export interface IBasicFileFieldInternalProps extends IBasicTextFieldProps,
                                                       ICameraWidthWrapper,
                                                       ICameraHeightWrapper,
                                                       IUseCameraWrapper,

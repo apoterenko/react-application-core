@@ -12,11 +12,11 @@ import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import {
   IBasicTextFieldState,
-  IBasicTextFieldInternalProps,
+  IBasicTextFieldProps,
   IBasicTextField,
 } from './basic-textfield.interface';
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState>,
-                            TInternalProps extends IBasicTextFieldInternalProps,
+                            TInternalProps extends IBasicTextFieldProps,
                             TInternalState extends IBasicTextFieldState>
     extends Field<TComponent,
                   TInternalProps,

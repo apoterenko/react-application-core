@@ -2,7 +2,7 @@ import { IEmptyOptionsWrapper } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper } from '../../../configurations-definitions.interface';
 import {
-  IBasicTextFieldInternalProps,
+  IBasicTextFieldProps,
   IBasicTextFieldState,
 } from '../textfield';
 
@@ -14,7 +14,7 @@ export interface IBasicSelectState extends IBasicTextFieldState,
 }
 
 // TODO
-export interface IBasicSelectProps extends IBasicTextFieldInternalProps,
+export interface IBasicSelectProps extends IBasicTextFieldProps,
                                            IMenuConfigurationWrapper {
   forceAll?: boolean;
   notUseExpandAction?: boolean;

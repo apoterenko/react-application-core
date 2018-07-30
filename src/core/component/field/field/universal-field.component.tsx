@@ -63,10 +63,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [17.06.2018]
-   * @param {TChangeEvent} event
+   * @stable [27.07.2018]
+   * @param {AnyT} event
    */
-  public onChange<TChangeEvent>(event: TChangeEvent): void {
+  public onChange(event: AnyT): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
