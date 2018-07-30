@@ -1,6 +1,7 @@
 import * as $ from 'jquery';
 
-import { isFn } from './type';
+import { isFn, isDef } from './type';
+import { GOOGLE_MAPS_KEY } from '../env';
 
 /**
  * @stable [14.06.2018]
@@ -15,10 +16,48 @@ export const createElement = <TElement extends HTMLElement = HTMLElement>(tag = 
   return el;
 };
 
-export const addClassNameToElement = (element: Element, clsName: string): void => element.classList.add(clsName);
+/**
+ * @stable [28.07.2018]
+ * @param {{} | HTMLScriptElement} cfg
+ * @returns {HTMLScriptElement}
+ */
+export const createScript = (cfg: {} | HTMLScriptElement): HTMLScriptElement => {
+  const el = createElement<HTMLScriptElement>('script');
+  el.type = 'text/javascript';
+  return Object.assign(el, cfg);
+};
 
-export const removeClassNameFromElement = (element: Element, clsName: string): void =>
-  element.classList.remove(clsName);
+/**
+ * @stable [28.07.2018]
+ * @param {{} | HTMLScriptElement} cfg
+ * @returns {HTMLScriptElement}
+ */
+export const createGoogleMapsScript = (cfg: {} | HTMLScriptElement) => createScript({
+  ...cfg,
+  src: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&libraries=places`,
+});
+
+/**
+ * @stable [28.07.2018]
+ * @returns {boolean}
+ */
+export const isGoogleMapsNamespaceExist = () => typeof google !== 'undefined' && isDef(google.maps);
+
+/**
+ * @stable [30.07.2018]
+ * @param {Element} element
+ * @param {string} clsName
+ */
+export const addClassNameToElement = (element: Element, ...clsName: string[]): void =>
+  element.classList.add(...clsName);
+
+/**
+ * @stable [30.07.2018]
+ * @param {Element} element
+ * @param {string} clsName
+ */
+export const removeClassNameFromElement = (element: Element, ...clsName: string[]): void =>
+  element.classList.remove(...clsName);
 
 export const addClassNameToBody = (clsName: string): void => addClassNameToElement(document.body, clsName);
 
@@ -58,16 +97,28 @@ export const createPreloadedImg = (...images: string[]): void => {
 };
 
 /**
- * @stable [17.05.2018]
+ * @stable [30.07.2018]
  * @param {HTMLElement} source
  * @param {Element} sourceAnchor
  */
 export const setAbsoluteOffset = (source: HTMLElement, sourceAnchor: Element): void => {
   const offset0 = $(sourceAnchor).offset();
   const anchor = $(sourceAnchor);
+  setAbsoluteOffsetByCoordinates(source, offset0.left, offset0.top + anchor.height());
+};
+
+/**
+ * @stable [30.07.2018]
+ * @param {HTMLElement} source
+ * @param {number | (() => number)} left
+ * @param {number | (() => number)} top
+ */
+export const setAbsoluteOffsetByCoordinates = (source: HTMLElement,
+                                               left: number | (() => number),
+                                               top: number | (() => number)): void => {
   source.style.position = 'absolute';
-  source.style.left = `${offset0.left}px`;
-  source.style.top = `${offset0.top + anchor.height()}px`;
+  source.style.left = `${isFn(left) ? (left as () => number)() : left}px`;
+  source.style.top = `${isFn(top) ? (top as () => number)() : top}px`;
 };
 
 /**
@@ -107,3 +158,9 @@ export const downloadFile = (fileName: string, blob: Blob) => {
     URL.revokeObjectURL(url);
   }
 };
+
+/**
+ * @stable [30.07.2018]
+ * @returns {() => boolean}
+ */
+export const preventContextMenu = () => document.body.oncontextmenu = () => false;

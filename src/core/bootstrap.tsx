@@ -4,7 +4,7 @@ import * as crossvent from 'crossvent';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE, APP_PROFILE, APP_VERSION } from './env';
-import { addClassNameToBody, createElement, addClassNameToElement } from './util';
+import { addClassNameToBody, createElement, addClassNameToElement, preventContextMenu } from './util';
 import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
 import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from './configurations-definitions.interface';
@@ -21,8 +21,7 @@ function gtag(...args) {
 function addBootElement(rootId: string) {
   const rootEl = createElement();
   rootEl.setAttribute('id', rootId);
-  addClassNameToElement(rootEl, 'rac-root');
-  addClassNameToElement(rootEl, 'rac-flex');
+  addClassNameToElement(rootEl, 'rac-root', 'rac-flex');
 }
 
 // Global error handler
@@ -63,6 +62,7 @@ export function bootstrap(
       addBootElement(bootstrapConfiguration.rootId);
     }
     addClassNameToBody(APP_PROFILE);
+    preventContextMenu();
 
     const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
