@@ -1,4 +1,5 @@
 import './universal.module';
+import '../google/maps/geocoder.module';
 import '../router/router.module';
 import '../storage/storage.module';
 import '../channel/socket/socket-channel.module';
