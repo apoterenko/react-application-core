@@ -27,7 +27,6 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
           <Menu ref='menu'
                 renderToBody={true}
                 options={props.menuItems}
-                anchor={() => this.refs.menuAnchor as HTMLElement}
                 onSelect={this.onMenuActionClick}/>
         </div>
         {

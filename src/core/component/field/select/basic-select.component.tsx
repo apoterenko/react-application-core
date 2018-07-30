@@ -108,7 +108,6 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
             adjustWidth={true}
             options={this.toFilteredOptions()}
             onSelect={this.onSelect}
-            anchor={() => this.self}
             {...props.menuConfiguration}/>
     );
   }

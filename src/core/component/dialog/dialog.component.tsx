@@ -24,6 +24,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
     return (
       <aside ref='self'
              className={toClassName(
+                         'rac-dialog',
                          props.className,
                          this.uiFactory.dialog,
                          !this.isDialogVisible() && 'rac-display-none'
@@ -85,7 +86,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
     const props = this.props;
     return (
       <div className={toClassName('rac-dialog-surface', this.uiFactory.dialogSurface)}>
-        <header className={this.uiFactory.dialogHeader}>
+        <header className={toClassName('rac-dialog-header', this.uiFactory.dialogHeader)}>
           <h2 className={this.uiFactory.dialogHeaderTitle}>
             {this.t(props.title || this.settings.messages.dialogTitleMessage)}
           </h2>

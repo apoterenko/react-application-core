@@ -1,12 +1,12 @@
 import { CSSProperties, Component } from 'react';
 
 import {
-  IBasicTextFieldInternalProps,
+  IBasicTextFieldProps,
   IBasicTextFieldState,
 } from '../textfield/basic-textfield.interface';
 import { IComponentEntity } from '../../../entities-definitions.interface';
 
-export interface IDateFieldInternalProps extends IBasicTextFieldInternalProps {
+export interface IDateFieldInternalProps extends IBasicTextFieldProps {
   container?: 'dialog' | 'inline';
   mode?: 'portrait' | 'landscape';
   format?: string;
