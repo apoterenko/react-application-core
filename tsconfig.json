@@ -18,7 +18,8 @@
     ],
     "types": [
       "node",
-      "jasmine"
+      "jasmine",
+      "googlemaps"
     ],
     "typeRoots": [
       "node_modules/@types"
