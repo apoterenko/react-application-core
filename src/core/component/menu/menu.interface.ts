@@ -4,6 +4,7 @@ import {
   IShowWrapper,
   IHideFnWrapper,
   IFilterWrapper,
+  IOptionsWrapper,
 } from '../../definitions.interface';
 import { IComponent, IMenuItemEntity } from '../../entities-definitions.interface';
 import { IMenuConfiguration } from '../../configurations-definitions.interface';
@@ -14,9 +15,17 @@ import { IMenuConfiguration } from '../../configurations-definitions.interface';
 export interface IMenuState extends IFilterWrapper {
 }
 
-export interface IMenuProps extends IMenuConfiguration {
-  options?: IMenuItemEntity[];
-  onSelect?(option: IMenuItemEntity): void;
+/**
+ * @stable [31.07.2018]
+ */
+export interface IMenuEntity extends IOptionsWrapper<IMenuItemEntity[]> {
+}
+
+/**
+ * @stable [31.07.2018]
+ */
+export interface IMenuProps extends IMenuConfiguration,
+                                    IMenuEntity {
 }
 
 /**

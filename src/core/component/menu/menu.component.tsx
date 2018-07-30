@@ -14,8 +14,9 @@ import {
   removeClassNameFromBody,
   addChild,
   adjustWidth,
-  isFn,
   queryFilter,
+  setAbsoluteOffsetByCoordinates,
+  removeChild,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -35,6 +36,10 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
 
   private menuParent: Element;
 
+  /**
+   * @stable [31.07.2018]
+   * @param {IMenuProps} props
+   */
   constructor(props: IMenuProps) {
     super(props);
 
@@ -48,29 +53,35 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     this.state = {};
   }
 
+  /**
+   * @stable [31.07.2018]
+   */
   public componentDidMount(): void {
-    const props = this.props;
     super.componentDidMount();
 
-    if (props.useFilter) {
-      // We must handle the events through native DOM Api because MDC
-      this.eventManager.add(this.field.input, 'click', this.onFilterClick);
-    }
+    const props = this.props;
     if (this.isRenderToBody) {
       this.menuParent = this.self.parentElement;
       addChild(this.self);
+    }
+    if (props.useFilter) {
+      // We must handle the events through native DOM Api because MDC
+      this.eventManager.add(this.field.input, 'click', this.onFilterClick);
     }
     if (props.renderToCenterOfBody) {
       addClassNameToElement(this.self as HTMLElement, 'rac-absolute-center-position');
     }
   }
 
+  /**
+   * @stable [31.07.2018]
+   */
   public componentWillUnmount(): void {
     const props = this.props;
 
     if (this.isRenderToBody) {
       delete this.menuParent;
-      document.body.removeChild(this.self);
+      removeChild(this.self);
     }
     if (props.useFilter) {
       // We must handle the events through native DOM Api because MDC
@@ -89,7 +100,8 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     const optionValueFn = (option: IMenuItemEntity): string | number => (option.label ? this.t(option.label) : option.value);
 
     return (
-      <div className={this.uiFactory.menuAnchor}>
+      <div ref='selfWrapper'
+           className={this.uiFactory.menuAnchor}>
         <div ref='self'
              className={toClassName('rac-menu', props.className, this.uiFactory.menu)}>
           {
@@ -161,7 +173,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [16.06.2018]
+   * @stable [31.07.2018]
    */
   public show(): void {
     this.setState({ filter: UNDEF });
@@ -174,13 +186,14 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
       addClassNameToBody('rac-disabled');
 
     } else if (props.renderToBody) {
-      const anchorEl = isFn(props.anchor) ? props.anchor() : this.menuParent;
       const menuEl = this.self as HTMLElement;
 
-      setAbsoluteOffset(menuEl, anchorEl);
+      setAbsoluteOffset(menuEl, this.menuParent);
       if (props.adjustWidth) {
-        adjustWidth(menuEl, anchorEl);
+        adjustWidth(menuEl, this.menuParent);
       }
+    } else if (props.renderToX || props.renderToY) {
+      setAbsoluteOffsetByCoordinates(this.refs.selfWrapper as HTMLElement, props.renderToX, props.renderToY);
     }
   }
 
