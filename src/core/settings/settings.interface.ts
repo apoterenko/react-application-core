@@ -59,8 +59,12 @@ export interface IApplicationMessagesSettings {
   takeSnapshotMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
+  acceptMessage?: string;
   closeMessage?: string;
   previewMessage?: string;
+  addressSelectionMessage?: string;
+  putMarkerHereMessage?: string;
+  invalidAddressMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -70,6 +74,13 @@ export interface IApplicationAuthorizationSettings {
 export interface IApplicationChannelSettings {
   eventToListen?: string;
   eventToEmit?: string;
+}
+
+export interface IApplicationGoogleMapsSettings {
+  lat?: number;
+  lng?: number;
+  zoom?: number;
+  prettyZoom?: number;
 }
 
 export interface IApplicationSettings {
@@ -87,6 +98,7 @@ export interface IApplicationSettings {
   messages?: IApplicationMessagesSettings;
   channel?: IApplicationChannelSettings;
   authorization?: IApplicationAuthorizationSettings;
+  googleMaps?: IApplicationGoogleMapsSettings;
 }
 
 export const REGEXP_REPO = {
@@ -127,8 +139,12 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     takeSnapshotMessage: 'Take a snapshot',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
+    acceptMessage: 'Accept',
     closeMessage: 'Close',
     previewMessage: 'Preview',
+    addressSelectionMessage: 'Address selection',
+    putMarkerHereMessage: 'Put marker here',
+    invalidAddressMessage: 'Invalid address',
   },
   dateTime: {
     currentDate: new Date(),
@@ -162,5 +178,11 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   },
   authorization: {
     isAuthorizationNeeded: true,
+  },
+  googleMaps: {
+    lat: 34.0522,
+    lng: -118.2436,
+    zoom: 13,
+    prettyZoom: 17,
   },
 };

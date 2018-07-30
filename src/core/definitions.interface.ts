@@ -18,7 +18,6 @@ export const ACTION_PREFIX = '$$-RAC-';
  * Core fields
  */
 export const ID_FIELD_NAME = 'id';                                                              /* @stable [02.07.2018] */
-export const KEY_FIELD_NAME = 'key';
 export const TYPE_FIELD_NAME = 'type';
 export const BODY_FIELD_NAME = 'body';
 export const AUTH_FIELD_NAME = 'auth';
@@ -40,7 +39,9 @@ export const VALUE_FIELD_NAME = 'value';
 export const TITLE_FIELD_NAME = 'title';
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [31.07.2018]
+ */
 export interface IKeyValue {
   [index: string]: AnyT;
 }
@@ -182,7 +183,9 @@ export interface IQueryParamsWrapper<TQueryParams> {
 export interface IURLSearchQueryParamsWrapper extends IQueryParamsWrapper<URLSearchParams> {
 }
 
-/* @stable - 14.04.2018 */
+/**
+ * @stable [29.07.2018]
+ */
 export interface ILocationWrapper<TLocation> {
   location?: TLocation;
 }
@@ -465,6 +468,13 @@ export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value?: TCh
 }
 
 /**
+ * @stable [29.07.2018]
+ */
+export interface IOnChangePlaceWrapper<TChangedValue = AnyT, TOnChangePlace = (value?: TChangedValue) => void> {
+  onChangePlace?: TOnChangePlace;
+}
+
+/**
  * @stable [07.06.2018]
  */
 export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = (value?: TChangedValue) => void> {
@@ -598,6 +608,13 @@ export interface IEmptyOptionsWrapper {
 }
 
 /**
+ * @stable [31.07.2018]
+ */
+export interface IOptionsWrapper<TOptions> {
+  options?: TOptions;
+}
+
+/**
  * @stable [17.05.2018]
  */
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> {
@@ -718,13 +735,6 @@ export interface IAdjustWidthWrapper<TAdjustWidth = boolean> {
 }
 
 /**
- * @stable [16.06.2018]
- */
-export interface IAnchorWrapper<TAnchor = Element> {
-  anchor?: TAnchor;
-}
-
-/**
  * @stable [14.05.2018]
  */
 export interface IRenderToCenterOfBodyWrapper {
@@ -736,6 +746,20 @@ export interface IRenderToCenterOfBodyWrapper {
  */
 export interface IUseFilterWrapper {
   useFilter?: boolean;
+}
+
+/**
+ * @stable [31.07.2018]
+ */
+export interface IRenderToXWrapper {
+  renderToX?: number | (() => number);
+}
+
+/**
+ * @stable [31.07.2018]
+ */
+export interface IRenderToYWrapper {
+  renderToY?: number | (() => number);
 }
 
 /**
@@ -1761,6 +1785,90 @@ export interface IClassNameWrapper {
  */
 export interface IPositionWrapper<TPosition = number> {
   position?: TPosition;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface ICountryWrapper<TCountry = string> {
+  country?: TCountry;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IPlaceWrapper<TPlace = string> {
+  place?: TPlace;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IPlaceIdWrapper<TPlaceId = string> {
+  placeId?: TPlaceId;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IXWrapper<Tx = number> {
+  x?: Tx;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IYWrapper<Ty = number> {
+  y?: Ty;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface ILatWrapper<TLat = number> {
+  lat?: TLat;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface ILngWrapper<TLng = number> {
+  lng?: TLng;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IPostalCodeWrapper<TPostalCode = string> {
+  postalCode?: TPostalCode;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IAreaWrapper<TArea = string> {
+  area?: TArea;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface ICityWrapper<TCity = string> {
+  city?: TCity;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IStreetWrapper<TStreet = string> {
+  street?: TStreet;
+}
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IStreetNumberWrapper<TStreetNumber = string> {
+  streetNumber?: TStreetNumber;
 }
 
 /**

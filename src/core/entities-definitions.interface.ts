@@ -108,6 +108,12 @@ import {
   AnyT,
   IDisplayValueWrapper,
   IIdWrapper,
+  ICountryWrapper,
+  IAreaWrapper,
+  ICityWrapper,
+  IStreetWrapper,
+  IStreetNumberWrapper,
+  IPostalCodeWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -117,6 +123,17 @@ import {
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
+
+/**
+ * @stable [29.07.2018]
+ */
+export interface IPlaceEntity extends ICountryWrapper,
+                                      IAreaWrapper,
+                                      ICityWrapper,
+                                      IStreetWrapper,
+                                      IStreetNumberWrapper,
+                                      IPostalCodeWrapper {
+}
 
 /**
  * @stable [16.06.2018]

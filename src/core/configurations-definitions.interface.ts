@@ -168,7 +168,6 @@ import {
   IEmptyMessageActionWrapper,
   IEmptyMessageActionConfigurationWrapper,
   IAdjustWidthWrapper,
-  IAnchorWrapper,
   IValidationGroupWrapper,
   IChangeFormWrapper,
   IOnBlurWrapper,
@@ -188,6 +187,8 @@ import {
   IColumnNameWrapper,
   IGroupByWrapper,
   EntityIdT,
+  IRenderToXWrapper,
+  IRenderToYWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -833,19 +834,21 @@ export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
 }
 
 /**
- * @stable [16.06.2018]
+ * @stable [31.07.2018]
  */
 export interface IMenuConfiguration extends IComponentConfiguration,
+                                            IRenderToXWrapper,
+                                            IRenderToYWrapper,
                                             IFilterPlaceholderWrapper,
                                             IMultiWrapper,
                                             IUseFilterWrapper,
                                             IRenderToBodyWrapper,
                                             IRenderToCenterOfBodyWrapper,
                                             IAdjustWidthWrapper,
-                                            IAnchorWrapper<() => Element>,
                                             IRendererWrapper<IMenuItemEntity>,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
-                                            ITplFnWrapper<IMenuItemEntity> {
+                                            ITplFnWrapper<IMenuItemEntity>,
+                                            IOnSelectWrapper<IMenuItemEntity> {
 }
 
 /**

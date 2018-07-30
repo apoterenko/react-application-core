@@ -12,6 +12,7 @@ export * from './merge';
 export * from './name';
 export * from './nvl';
 export * from './page';
+export * from './place';
 export * from './route';
 export * from './scroll';
 export * from './section';

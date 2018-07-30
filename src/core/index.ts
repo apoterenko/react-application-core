@@ -44,6 +44,7 @@ export * from './dictionary';
 export * from './env';
 export * from './error';
 export * from './event';
+export * from './google';
 export * from './lock';
 export * from './navigation';
 export * from './notification';
