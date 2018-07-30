@@ -23,6 +23,7 @@
     "@types/bluebird": "^3.5.21",
     "@types/core-js": "^0.9.42",
     "@types/google-libphonenumber": "^7.4.12",
+    "@types/googlemaps": "^3.30.11",
     "@types/history": "^4.6.0",
     "@types/jquery": "^3.3.1",
     "@types/moment-timezone": "^0.5.4",
