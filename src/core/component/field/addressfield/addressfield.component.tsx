@@ -3,16 +3,9 @@ import * as R from 'ramda';
 import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
-import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import {
-  getGoogleMapsScript,
-  orNull,
-  DelayedTask,
-  toAddress,
-} from '../../../util';
+import { orNull, toAddress, setMarkerState } from '../../../util';
 import { BasicTextField } from '../textfield';
-import { IMenu, Menu } from '../../menu';
 import { IUniversalDialog,  Dialog } from '../../dialog';
 import {
   IAddressFieldState,
@@ -21,6 +14,7 @@ import {
 } from './addressfield.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IGeoCoder } from '../../../google';
+import { GoogleMaps, IGoogleMapsSelectEntity } from '../../google';
 
 export class AddressField extends BasicTextField<AddressField, IAddressFieldProps, IAddressFieldState> {
 
@@ -31,15 +25,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   private autocomplete: google.maps.places.Autocomplete;
   private marker: google.maps.Marker;
   private map: google.maps.Map;
-  private clickEventListener: google.maps.MapsEventListener;
-  private dbClickEventListener: google.maps.MapsEventListener;
   private dragEndEventListener: google.maps.MapsEventListener;
-  private delayedTask: DelayedTask;
   private geoCoderTask: Promise<google.maps.GeocoderResult[]>;
-  private googleMapsScriptTask: Promise<void>;
 
-  private x: number;
-  private y: number;
   private lat: number;
   private lng: number;
   private placeId: string;
@@ -55,26 +43,11 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
     this.addMapAction();
 
-    this.onMapClick = this.onMapClick.bind(this);
     this.onMenuSelect = this.onMenuSelect.bind(this);
     this.onPlaceChanged = this.onPlaceChanged.bind(this);
     this.onDialogClose = this.onDialogClose.bind(this);
     this.onDialogAccept = this.onDialogAccept.bind(this);
-    this.openMenu = this.openMenu.bind(this);
     this.initGoogleMapsObjects = this.initGoogleMapsObjects.bind(this);
-
-    this.delayedTask = new DelayedTask(this.openMenu, 200);
-  }
-
-  /**
-   * @stable [31.07.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    // We cannot cancel the original promise, because of it is shared
-    this.googleMapsScriptTask = new Promise<HTMLScriptElement>((resolve, reject) => getGoogleMapsScript().then(resolve, reject))
-      .then(this.initGoogleMapsObjects);
   }
 
   /**
@@ -83,23 +56,14 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
-    this.delayedTask.stop();
     this.cancelGeoCoderTaskIfPending();
-    this.cancelGoogleMapsScriptTaskIfPending();
 
     this.autocomplete = null;
     this.map = null;
     this.marker = null;
     this.geoCoderTask = null;
-    this.delayedTask = null;
     this.clearInternalVariables();
 
-    if (this.clickEventListener) {
-      this.clickEventListener.remove();
-    }
-    if (this.dbClickEventListener) {
-      this.dbClickEventListener.remove();
-    }
     if (this.dragEndEventListener) {
       this.dragEndEventListener.remove();
     }
@@ -123,7 +87,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    * @returns {JSX.Element}
    */
   protected getAttachment(): JSX.Element {
@@ -139,22 +103,15 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
               acceptMessage={messages.acceptMessage}
               onClose={this.onDialogClose}
               onAccept={this.onDialogAccept}>
-        {
-          orNull<JSX.Element>(
-            currentPlace,
-            () => <div className='rac-dialog-addressfield-place'>{currentPlace}</div>
-          )
+        {orNull<JSX.Element>(
+          currentPlace, () => <div className='rac-dialog-addressfield-place'>{currentPlace}</div>)
         }
-        <div ref='map'
-             className='rac-dialog-addressfield-map'/>
-        <Menu ref='menu'
-              renderToX={() => this.x + this.mapElement.offsetLeft}
-              renderToY={() => this.y + this.mapElement.offsetTop}
-              options={[{
-                label: this.settings.messages.putMarkerHereMessage,
-                value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
-              }]}
-              onSelect={this.onMenuSelect}/>
+        <GoogleMaps onInit={this.initGoogleMapsObjects}
+                    onSelect={this.onMenuSelect}
+                    options={[{
+                      label: this.settings.messages.putMarkerHereMessage,
+                      value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
+                    }]}/>
       </Dialog>
     );
   }
@@ -227,32 +184,15 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   /**
    * @stable [31.07.2018]
    */
-  private initGoogleMapsObjects(): void {
-    this.map = new google.maps.Map(this.mapElement);
+  private initGoogleMapsObjects(map: google.maps.Map): void {
+    this.map = map;
     this.marker = new google.maps.Marker({map: this.map, draggable: true, anchorPoint: new google.maps.Point(0, -29), position: null});
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement);
     this.autocomplete.bindTo('bounds', this.map);
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
 
-    this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
-    this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', () => this.delayedTask.stop());
     this.dragEndEventListener = google.maps.event.addListener(this.marker, 'dragend', () => this.onMarkerDragEnd());
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {{pixel: google.maps.Point; latLng: google.maps.LatLng}} event
-   */
-  private onMapClick(event: { pixel: google.maps.Point, latLng: google.maps.LatLng }): void {
-    if (event.pixel) {
-      const x = event.pixel.x;
-      const y = event.pixel.y;
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
-
-      this.delayedTask.start({x, y, lat, lng});
-    }
   }
 
   /**
@@ -266,11 +206,14 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
-   * @param {IMenuItemEntity} option
+   * @stable [31.07.2018]
+   * @param {IGoogleMapsSelectEntity} payload
    */
-  private onMenuSelect(option: IMenuItemEntity): void {
-    switch (option.value) {
+  private onMenuSelect(payload: IGoogleMapsSelectEntity): void {
+    this.lat = payload.lat;
+    this.lng = payload.lng;
+
+    switch (payload.item.value) {
       case AddressMapMarkerActionEnum.PUT_MARKER_HERE:
         this.updateMarkerState(true, false, this.lat, this.lng);
         this.updateGeocodeInfo();
@@ -279,25 +222,19 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    * @param {boolean} markerVisibility
-   * @param {boolean} changeMapState
+   * @param {boolean} refreshMap
    * @param {number} lat
    * @param {number} lng
    * @param {number} zoom
    */
   private updateMarkerState(markerVisibility: boolean,
-                            changeMapState: boolean,
+                            refreshMap: boolean,
                             lat = this.settings.googleMaps.lat,
                             lng = this.settings.googleMaps.lng,
                             zoom = this.settings.googleMaps.zoom): void {
-    this.marker.setPosition({lat, lng});
-    this.marker.setVisible(markerVisibility);
-
-    if (changeMapState) {
-      this.map.setCenter({lat, lng});
-      this.map.setZoom(zoom);
-    }
+    setMarkerState(this.marker, this.map, markerVisibility, refreshMap, lat, lng, zoom);
   }
 
   /**
@@ -323,13 +260,6 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    */
   private cancelGeoCoderTaskIfPending(): void {
     this.cancelTaskIfPending(this.geoCoderTask);
-  }
-
-  /**
-   * @stable [31.07.2018]
-   */
-  private cancelGoogleMapsScriptTaskIfPending(): void {
-    this.cancelTaskIfPending(this.googleMapsScriptTask);
   }
 
   /**
@@ -368,8 +298,6 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @stable [30.07.2018]
    */
   private clearInternalVariables(): void {
-    delete this.x;
-    delete this.y;
     delete this.lat;
     delete this.lng;
     delete this.placeId;
@@ -396,15 +324,6 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
   /**
    * @stable [30.07.2018]
-   * @param {{x: number; y: number; lat: number; lng: number}} nextState
-   */
-  private openMenu(nextState: { x: number, y: number, lat: number, lng: number }) {
-    Object.assign(this, nextState);   // We need to sync the internal state with a starting task state
-    this.menu.show();
-  }
-
-  /**
-   * @stable [30.07.2018]
    */
   private openDialog(): void {
     this.dialog.activate();
@@ -421,25 +340,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
   /**
    * @stable [29.07.2018]
-   * @returns {HTMLElement}
-   */
-  private get mapElement(): HTMLElement {
-    return this.refs.map as HTMLElement;
-  }
-
-  /**
-   * @stable [29.07.2018]
    * @returns {IUniversalDialog}
    */
   private get dialog(): IUniversalDialog {
     return this.refs.dialog as IUniversalDialog;
-  }
-
-  /**
-   * @stable [29.07.2018]
-   * @returns {IMenu}
-   */
-  private get menu(): IMenu {
-    return this.refs.menu as IMenu;
   }
 }
