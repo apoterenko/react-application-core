@@ -14,7 +14,7 @@
       }
 
       .rac-google-maps-map {
-        min-height: $rac-google-maps-map;                             /* @stable [31.07.2018] */
+        min-height: $rac-dialog-addressfield-google-maps-min-height;  /* @stable [31.07.2018] */
       }
     }
   }

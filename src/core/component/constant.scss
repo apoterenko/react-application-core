@@ -147,6 +147,11 @@ $rac-form-field-input-font-size: $rac-default-font-size !default;
 $rac-form-field-input-letter-spacing: 1px !default;
 $rac-form-field-input-font-weight: bold !default;
 
+/* @stable [30.07.2018] */
+$rac-dialog-addressfield-place-color: $rac-default-text-color !default;
+$rac-dialog-addressfield-place-font-size: $rac-default-font-size !default;
+$rac-dialog-addressfield-google-maps-min-height: 200px !default;
+
 /* @stable [28.06.2018] */
 $rac-form-actions-padding: 16px !default;
 $rac-form-actions-button-padding-left: 8px !default;
@@ -226,7 +231,8 @@ $rac-card-list-item-height: 208px !default;
 $rac-card-list-item-margin-right: 16px !default;
 $rac-card-list-item-margin-bottom: 16px !default;
 
-
+/* @stable [29.07.2018] */
+$rac-dialog-header-color: $rac-default-label-color !default;
 
 $rac-snackbar-action-button-ink-color: $color-1 !default;
 

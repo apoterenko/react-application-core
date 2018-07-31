@@ -20,6 +20,7 @@ export * from './component/field';
 export * from './component/filter';
 export * from './component/footer';
 export * from './component/form';
+export * from './component/google';
 export * from './component/header';
 export * from './component/keyboard';
 export * from './component/layout';
