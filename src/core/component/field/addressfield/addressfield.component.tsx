@@ -6,10 +6,9 @@ import { AnyT } from '../../../definitions.interface';
 import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import {
-  createGoogleMapsScript,
+  getGoogleMapsScript,
   orNull,
   DelayedTask,
-  isGoogleMapsNamespaceExist,
   toAddress,
 } from '../../../util';
 import { BasicTextField } from '../textfield';
@@ -37,6 +36,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   private dragEndEventListener: google.maps.MapsEventListener;
   private delayedTask: DelayedTask;
   private geoCoderTask: Promise<google.maps.GeocoderResult[]>;
+  private googleMapsScriptTask: Promise<void>;
 
   private x: number;
   private y: number;
@@ -67,16 +67,14 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [29.07.2018]
+   * @stable [31.07.2018]
    */
   public componentDidMount(): void {
     super.componentDidMount();
 
-    if (isGoogleMapsNamespaceExist()) {
-      this.initGoogleMapsObjects();
-    } else {
-      createGoogleMapsScript({onload: this.initGoogleMapsObjects});
-    }
+    // We cannot cancel the original promise, because of it is shared
+    this.googleMapsScriptTask = new Promise<HTMLScriptElement>((resolve, reject) => getGoogleMapsScript().then(resolve, reject))
+      .then(this.initGoogleMapsObjects);
   }
 
   /**
@@ -87,6 +85,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
     this.delayedTask.stop();
     this.cancelGeoCoderTaskIfPending();
+    this.cancelGoogleMapsScriptTaskIfPending();
 
     this.autocomplete = null;
     this.map = null;
@@ -246,12 +245,14 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @param {{pixel: google.maps.Point; latLng: google.maps.LatLng}} event
    */
   private onMapClick(event: { pixel: google.maps.Point, latLng: google.maps.LatLng }): void {
-    const x = event.pixel.x;
-    const y = event.pixel.y;
-    const lat = event.latLng.lat();
-    const lng = event.latLng.lng();
+    if (event.pixel) {
+      const x = event.pixel.x;
+      const y = event.pixel.y;
+      const lat = event.latLng.lat();
+      const lng = event.latLng.lng();
 
-    this.delayedTask.start({x, y, lat, lng});
+      this.delayedTask.start({x, y, lat, lng});
+    }
   }
 
   /**
@@ -321,8 +322,22 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @stable [31.07.2018]
    */
   private cancelGeoCoderTaskIfPending(): void {
-    if (this.geoCoderTask && this.geoCoderTask.isPending()) {
-      this.geoCoderTask.cancel();
+    this.cancelTaskIfPending(this.geoCoderTask);
+  }
+
+  /**
+   * @stable [31.07.2018]
+   */
+  private cancelGoogleMapsScriptTaskIfPending(): void {
+    this.cancelTaskIfPending(this.googleMapsScriptTask);
+  }
+
+  /**
+   * @stable [31.07.2018]
+   */
+  private cancelTaskIfPending<TResult = void>(promise: Promise<TResult>): void {
+    if (promise && promise.isPending()) {
+      promise.cancel();
     }
   }
 

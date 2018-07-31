@@ -1,7 +1,10 @@
+import * as Promise from 'bluebird';
 import * as $ from 'jquery';
 
-import { isFn, isDef } from './type';
+import { isFn } from './type';
 import { GOOGLE_MAPS_KEY } from '../env';
+
+let googleMapsScriptTask: Promise<HTMLScriptElement>;
 
 /**
  * @stable [14.06.2018]
@@ -17,31 +20,27 @@ export const createElement = <TElement extends HTMLElement = HTMLElement>(tag = 
 };
 
 /**
- * @stable [28.07.2018]
+ * @stable [31.07.2018]
  * @param {{} | HTMLScriptElement} cfg
- * @returns {HTMLScriptElement}
+ * @returns {Bluebird<HTMLScriptElement>}
  */
-export const createScript = (cfg: {} | HTMLScriptElement): HTMLScriptElement => {
+export const createScript = (cfg: {} | HTMLScriptElement): Promise<HTMLScriptElement> => new Promise<HTMLScriptElement>((resolve) => {
   const el = createElement<HTMLScriptElement>('script');
   el.type = 'text/javascript';
-  return Object.assign(el, cfg);
-};
-
-/**
- * @stable [28.07.2018]
- * @param {{} | HTMLScriptElement} cfg
- * @returns {HTMLScriptElement}
- */
-export const createGoogleMapsScript = (cfg: {} | HTMLScriptElement) => createScript({
-  ...cfg,
-  src: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&libraries=places`,
+  el.onload = () => resolve(el);
+  Object.assign(el, cfg);
 });
 
 /**
- * @stable [28.07.2018]
- * @returns {boolean}
+ * @stable [31.07.2018]
+ * @param {{} | HTMLScriptElement} cfg
+ * @returns {Bluebird<HTMLScriptElement>}
  */
-export const isGoogleMapsNamespaceExist = () => typeof google !== 'undefined' && isDef(google.maps);
+export const getGoogleMapsScript = (cfg?: {} | HTMLScriptElement) =>
+  googleMapsScriptTask = googleMapsScriptTask || createScript({
+    ...cfg,
+    src: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&libraries=places`,
+  });
 
 /**
  * @stable [30.07.2018]

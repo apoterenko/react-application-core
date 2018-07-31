@@ -1944,6 +1944,13 @@ export interface IStringErrorWrapper extends IErrorWrapper<string> {
 }
 
 /**
+ * @stable [31.07.2018]
+ */
+export interface IOnInitWrapper<TOnInit = (...args: AnyT[]) => void> {
+  onInit?: TOnInit;
+}
+
+/**
  * @stable [17.06.2018]
  */
 export interface IValidationGroupWrapper<TValidationGroup = string> {

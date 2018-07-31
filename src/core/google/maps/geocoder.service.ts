@@ -1,13 +1,11 @@
 import * as Promise from 'bluebird';
 import { injectable } from 'inversify';
 
-import { createGoogleMapsScript, isGoogleMapsNamespaceExist } from '../../util';
+import { getGoogleMapsScript } from '../../util';
 import { IGeoCoder } from './geocoder.interface';
 
 @injectable()
 export class GeoCoder implements IGeoCoder {
-
-  private scriptTask: Promise<void>;
   private geocoder: google.maps.Geocoder;
 
   /**
@@ -29,19 +27,7 @@ export class GeoCoder implements IGeoCoder {
    * @returns {Bluebird<void>}
    */
   private getScriptPromise(): Promise<void> {
-    return this.scriptTask = this.scriptTask || new Promise<void>((resolve) => {
-      if (isGoogleMapsNamespaceExist()) {
-        this.initGoogleMapsObjects();
-        resolve();
-      } else {
-        createGoogleMapsScript({
-          onload: () => {
-            this.initGoogleMapsObjects();
-            resolve();
-          },
-        });
-      }
-    });
+    return getGoogleMapsScript().then(() => this.initGoogleMapsObjects());
   }
 
   /**

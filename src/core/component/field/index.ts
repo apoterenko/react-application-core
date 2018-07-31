@@ -1,3 +1,4 @@
+export * from './addressfield';
 export * from './datefield';
 export * from './field';
 export * from './filefield';
