@@ -17,7 +17,6 @@ import {
   IFieldState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
-  FIELD_EMPTY_ERROR_VALUE,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
 import { IEventManager } from '../../../event';
@@ -246,27 +245,27 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
-   * @stable [17.06.2018]
-   * @param {AnyT} value
+   * @stable [31.07.2018]
+   * @returns {boolean}
+   */
+  protected isNativeInputValid(): boolean {
+    return this.input.validity.valid;
+  }
+
+  /**
+   * @stable [31.07.2018]
    * @returns {string}
    */
-  protected validateValueAndSetCustomValidity(value: AnyT): string {
-    const props = this.props;
-    let error = FIELD_EMPTY_ERROR_VALUE;
+  protected getNativeInputValidationMessage(): string {
+    return this.input.validationMessage;
+  }
 
-    this.input.setCustomValidity('');
-
-    if (this.input.validity.valid) {
-      // If HTML5-validator returns true then we should call a custom validator
-      error = props.validate ? props.validate(value) : error;
-
-      if (!R.isNil(error)) {
-        this.input.setCustomValidity(error);
-      }
-    } else {
-      error = this.input.validationMessage;
-    }
-    return error;
+  /**
+   * @stable [31.07.2018]
+   * @param {string} error
+   */
+  protected setNativeInputValidity(error: string): void {
+    this.input.setCustomValidity(error);
   }
 
   /**

@@ -3,7 +3,7 @@ import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes
 import {
   AnyT,
   IValueWrapper,
-  IHTMLInputWrapper,
+  IInputWrapper,
   IEmptyValueWrapper,
   IStringErrorWrapper,
   IOriginalValueWrapper,
@@ -30,14 +30,7 @@ export const FIELD_EMPTY_VALUE = '';
 /**
  * @stable [17.06.2018]
  */
-export interface IFieldActualChangedValueResultEntity extends IValueWrapper,
-                                                              IStringErrorWrapper {
-}
-
-/**
- * @stable [17.06.2018]
- */
-export interface IFieldActualChangedValueConfigEntity extends IFieldActualChangedValueResultEntity,
+export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
                                                               IEmptyValueWrapper,
                                                               IOriginalValueWrapper {
 }
@@ -55,7 +48,6 @@ export interface IFieldInternalProps extends IFieldConfiguration,
   maxLength?: number;
   rows?: number;
   cols?: number;
-  validate?: (value: AnyT) => string;
 }
 
 /**
@@ -93,5 +85,5 @@ export interface IBasicField<TValue> extends IValueWrapper<TValue> {
 export interface IField<TProps extends IFieldInternalProps = IFieldInternalProps,
                         TState extends IFieldState = IFieldState>
     extends IUniversalField<TProps, TState, IKeyboardEvent, IFocusEvent>,
-            IHTMLInputWrapper {
+            IInputWrapper {
 }

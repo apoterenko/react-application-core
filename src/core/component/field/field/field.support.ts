@@ -2,30 +2,22 @@ import * as R from 'ramda';
 
 import { isDef } from '../../../util';
 import {
-  FIELD_EMPTY_ERROR_VALUE,
   FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
   IFieldActualChangedValueConfigEntity,
-  IFieldActualChangedValueResultEntity,
 } from './field.interface';
+import { IValueWrapper, AnyT } from '../../../definitions.interface';
 
 /**
- * @stable [17.06.2018]
+ * @stable [31.07.2018]
  * @param {IFieldActualChangedValueConfigEntity} config
- * @returns {IFieldActualChangedValueResultEntity}
+ * @returns {AnyT}
  */
-export const toActualChangedValue =
-  (config: IFieldActualChangedValueConfigEntity): IFieldActualChangedValueResultEntity => {
+export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntity): AnyT => {
   const hasOriginalValue = isDef(config.originalValue);
 
   if ((hasOriginalValue && R.equals(config.value, config.originalValue))
     || (!hasOriginalValue && R.equals(config.value, config.emptyValue))) {
-    return {
-      value: FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
-      error: FIELD_EMPTY_ERROR_VALUE,
-    };
+    return FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE;
   }
-  return {
-    value: config.value,
-    error: config.error,
-  };
+  return config.value;
 };

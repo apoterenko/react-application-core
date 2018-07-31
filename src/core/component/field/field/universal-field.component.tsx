@@ -48,7 +48,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [17.06.2018]
    */
   public resetError(): void {
-    this.validateField(FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE, FIELD_EMPTY_ERROR_VALUE);
+    this.validateField(FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE);
   }
 
   /**
@@ -170,25 +170,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   public abstract setFocus(): void;
 
   /**
-   * @stable [17.06.2018]
-   * @param {AnyT} currentRawValue
-   * @param {string} error
-   */
-  protected onChangeValue(currentRawValue: AnyT, error?: string): void {
-    const actualChangedValue = toActualChangedValue({
-      value: currentRawValue,
-      emptyValue: this.getEmptyValue(),
-      originalValue: this.props.originalValue,
-      error,
-    });
-    const nextCurrentRawValue = actualChangedValue.value;
-
-    this.validateField(nextCurrentRawValue, actualChangedValue.error);
-    this.propsOnChange(nextCurrentRawValue);
-    this.propsChangeForm(nextCurrentRawValue);      // Notify the form about changes
-  }
-
-  /**
    * The state may be an external storage and the value must be able to be serialized.
    *
    * @stable [17.06.2018]
@@ -233,12 +214,62 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [31.07.2018]
    * @param {AnyT} value
    * @returns {string}
    */
   protected validateValueAndSetCustomValidity(value: AnyT): string {
-    return null;
+    const props = this.props;
+    let error = FIELD_EMPTY_ERROR_VALUE;
+
+    this.setNativeInputValidity('');
+
+    if (this.isNativeInputValid()) {
+      error = isFn(props.validate) ? props.validate(value) : error;
+      if (R.isNil(error)) {
+        error = this.validateValue(value); // The custom internal validator
+      }
+
+      if (!R.isNil(error)) {
+        this.setNativeInputValidity(error);
+      }
+    } else {
+      error = this.getNativeInputValidationMessage();
+    }
+    return error;
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @param {AnyT} value
+   * @returns {string}
+   */
+  protected validateValue(value: AnyT): string {
+    return FIELD_EMPTY_ERROR_VALUE;
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @returns {boolean}
+   */
+  protected isNativeInputValid(): boolean {
+    return true;
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @returns {string}
+   */
+  protected getNativeInputValidationMessage(): string {
+    return FIELD_EMPTY_ERROR_VALUE;
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @param {string} error
+   */
+  protected setNativeInputValidity(error: string): void {
+    // Nothing to do
   }
 
   /**
@@ -360,13 +391,28 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   protected abstract hasInputFocus(): boolean;
 
   /**
-   * @stable [17.06.2018]
-   * @param {AnyT} rawValue
-   * @param {string} err
+   * @stable [31.07.2018]
+   * @param {AnyT} currentRawValue
    */
-  private validateField(rawValue?: AnyT, err?: string): void {
+  private onChangeValue(currentRawValue: AnyT): void {
+    const actualChangedValue = toActualChangedValue({
+      value: currentRawValue,
+      emptyValue: this.getEmptyValue(),
+      originalValue: this.props.originalValue,
+    });
+
+    this.validateField(actualChangedValue);
+    this.propsOnChange(actualChangedValue);
+    this.propsChangeForm(actualChangedValue);      // Notify the form about changes
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @param {AnyT} rawValue
+   */
+  private validateField(rawValue: AnyT): void {
     // State value cannot take an undefined value then we should pass a null value at least
-    this.setState({error: R.isNil(err) ? this.validateValueAndSetCustomValidity(rawValue) : err});
+    this.setState({error: this.validateValueAndSetCustomValidity(rawValue)});
   }
 
   /**
