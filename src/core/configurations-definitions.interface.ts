@@ -189,6 +189,7 @@ import {
   EntityIdT,
   IRenderToXWrapper,
   IRenderToYWrapper,
+  IValidateWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -570,7 +571,7 @@ export enum FieldActionPositionEnum {
 }
 
 /**
- * @stable [18.06.2018]
+ * @stable [31.07.2018]
  */
 export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
   extends IUniversalComponentConfiguration,
@@ -594,7 +595,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IProgressWrapper,
           IRenderedWrapper,
           IEmptyValueWrapper,
-          IPreventFocusWrapper {
+          IPreventFocusWrapper,
+          IValidateWrapper<string> {
 }
 
 /* @stable - 11.04.2018 */

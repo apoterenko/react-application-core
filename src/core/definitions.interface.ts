@@ -735,6 +735,15 @@ export interface IAdjustWidthWrapper<TAdjustWidth = boolean> {
 }
 
 /**
+ * @stable [31.07.2018]
+ */
+export interface IValidateWrapper<TValidatedValueResult = AnyT,
+                                  TValidatedValue = AnyT,
+                                  TValidate = (validatedValue?: TValidatedValue) => TValidatedValueResult> {
+  validate?: TValidate;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IRenderToCenterOfBodyWrapper {
@@ -1017,13 +1026,6 @@ export interface IAlwaysDirtyWrapper {
 }
 
 /**
- * @stable [02.07.2018]
- */
-export interface ITimeoutWrapper<TTimeout = number> {
-  timeout?: TTimeout;
-}
-
-/**
  * @stable [04.05.2018]
  */
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> {
@@ -1045,30 +1047,10 @@ export interface IEditableWrapper {
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [31.07.2018]
  */
-export interface IComponentPropsWrapper<TComponentProps> {
-  componentProps?: TComponentProps;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IComponentWrapper<TComponent> {
-  component?: TComponent;
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IInputWrapper<TInput> {
+export interface IInputWrapper<TInput = HTMLInputElement | HTMLTextAreaElement> {
   input?: TInput;
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IHTMLInputWrapper extends IInputWrapper<HTMLInputElement | HTMLTextAreaElement> {
 }
 
 /**
