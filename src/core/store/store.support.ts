@@ -1,7 +1,9 @@
-import { Reducer, ReducersMapObject, combineReducers } from 'redux';
+import { Reducer, ReducersMapObject, combineReducers, AnyAction } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
+import * as R from 'ramda';
 
 import { toSection } from '../util';
+import { IEntity, IPayloadWrapper } from '../definitions.interface';
 
 export type FilterT = (action: IEffectsAction) => boolean;
 
@@ -40,3 +42,27 @@ export const filterBySection = <S>(reducer: Reducer<S>, customSection: string): 
  */
 export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersMap): Reducer<ReducersMapObject> =>
   combineReducers<ReducersMapObject>(reducersMap as ReducersMapObject);
+
+/**
+ * @stable [31.07.2018]
+ * @param {string} updateActionType
+ * @param {string} destroyActionType
+ * @returns {(state: IEntity, action: AnyAction) => IEntity}
+ */
+export const entityReducerFactory = (updateActionType: string, destroyActionType: string) =>
+  (state: IEntity = null,
+   action: AnyAction): IEntity => {
+    switch (action.type) {
+      case updateActionType:
+        const payloadWrapper: IPayloadWrapper<IEntity> = action.data;
+        return R.isNil(payloadWrapper.payload)
+          ? state
+          : {
+            ...state,
+            ...payloadWrapper.payload,
+          };
+      case destroyActionType:
+        return null;
+    }
+    return state;
+  };
