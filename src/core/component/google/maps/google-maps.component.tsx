@@ -60,17 +60,18 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
     this.cancelGoogleMapsScriptTaskIfPending();
 
     this.markersDragListeners.forEach((dragEndEventListener) => dragEndEventListener.remove());
-
-    this.map = null;
-    this.delayedTask = null;
-    this.googleMapsScriptTask = null;
-
     if (this.clickEventListener) {
       this.clickEventListener.remove();
     }
     if (this.dbClickEventListener) {
       this.dbClickEventListener.remove();
     }
+
+    this.map = null;
+    this.markers = null;
+    this.delayedTask = null;
+    this.googleMapsScriptTask = null;
+    this.markersDragListeners = null;
   }
 
   /**
