@@ -11,7 +11,6 @@ import {
   DelayedTask,
   isGoogleMapsNamespaceExist,
   toAddress,
-  orDefault,
 } from '../../../util';
 import { BasicTextField } from '../textfield';
 import { IMenu, Menu } from '../../menu';
@@ -59,10 +58,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     this.onMapClick = this.onMapClick.bind(this);
     this.onMenuSelect = this.onMenuSelect.bind(this);
     this.onPlaceChanged = this.onPlaceChanged.bind(this);
+    this.onDialogClose = this.onDialogClose.bind(this);
     this.onDialogAccept = this.onDialogAccept.bind(this);
     this.openMenu = this.openMenu.bind(this);
-    this.changeValueManually = this.changeValueManually.bind(this);
-    this.clearInternalVariables = this.clearInternalVariables.bind(this);
     this.initGoogleMapsObjects = this.initGoogleMapsObjects.bind(this);
 
     this.delayedTask = new DelayedTask(this.openMenu, 200);
@@ -113,16 +111,16 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @param {AnyT} event
    */
   public onChange(event: AnyT): void {
+    this.resetAllStateOnChangeOrClearValue();
     super.onChange(event);
-    this.clearAll();
   }
 
   /**
    * @stable [30.07.2018]
    */
   public clearValue(): void {
+    this.resetAllStateOnChangeOrClearValue();
     super.clearValue();
-    this.clearAll();
   }
 
   /**
@@ -140,7 +138,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
               acceptDisabled={!this.isPlaceChanged}
               closeMessage={messages.closeMessage}
               acceptMessage={messages.acceptMessage}
-              onClose={this.clearInternalVariables}
+              onClose={this.onDialogClose}
               onAccept={this.onDialogAccept}>
         {
           orNull<JSX.Element>(
@@ -172,54 +170,52 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
-   * @param {AnyT} value
+   * @stable [31.07.2018]
+   * @param {string} value
    * @returns {string}
    */
-  protected validateValue(value: AnyT): string {
-    return this.state.place === value ? null : this.settings.messages.invalidAddressMessage;
+  protected validateValue(value: string): string {
+    return R.isNil(this.placeId)
+      && !R.isNil(value)
+      && !R.isEmpty(value) ? this.settings.messages.invalidAddressMessage : null;
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    */
   private onPlaceChanged(): void {
-    this.marker.setVisible(false);
-
     const place = this.autocomplete.getPlace();
     if (!place || !place.geometry) {
-      this.clearInternalVariables();
+      this.clearInternalVariables();                    // Clear the internal variables if error
       return;
     }
 
-    const placeAsString = this.buildValue(place);
     this.lat = place.geometry.location.lat();
     this.lng = place.geometry.location.lng();
     this.placeId = place.place_id;
-    this.setState({place: placeAsString});
 
-    this.changeValueManually(placeAsString);
-    this.setCustomMarkerState();
+    this.onChangeManually(this.buildValue(place));      // Emit event to update a component value
+    this.propsChangePlace();                            // Emit event to update a side values
   }
 
   /**
-   * @stable [30.07.2018]
-   */
-  private changeValueManually(value = this.state.place): void {
-    this.onChangeManually(value);
-    this.propsChangePlace();
-  }
-
-  /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    */
   private onDialogAccept(): void {
-    this.changeValueManually();
-    this.clearInternalVariables();
+    this.onChangeManually(this.state.place);  // Emit event to update a component value
+    this.propsChangePlace();                  // Emit event to update a side values
+    this.clearInternalVariables();            // Clear the internal variables
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
+   */
+  private onDialogClose(): void {
+    this.clearInternalVariables();            // Clear the internal variables
+  }
+
+  /**
+   * @stable [31.07.2018]
    */
   private propsChangePlace(): void {
     const props = this.props;
@@ -230,28 +226,13 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    */
   private initGoogleMapsObjects(): void {
-    const props = this.props;
-    const googleMapsSettings = this.settings.googleMaps;
-    const isMarkerVisible = !(R.isNil(props.lat) && R.isNil(props.lng));
-    const lat = orDefault<number, number>(!R.isNil(props.lat), props.lat, googleMapsSettings.lat);
-    const lng = orDefault<number, number>(!R.isNil(props.lng), props.lng, googleMapsSettings.lng);
+    this.map = new google.maps.Map(this.mapElement);
+    this.marker = new google.maps.Marker({map: this.map, draggable: true, anchorPoint: new google.maps.Point(0, -29), position: null});
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement);
-    this.map = new google.maps.Map(this.mapElement, {
-      center: {lat, lng},
-      zoom: isMarkerVisible ? googleMapsSettings.prettyZoom : googleMapsSettings.zoom,
-    });
-    this.marker = new google.maps.Marker({
-      map: this.map,
-      draggable: true,
-      visible: isMarkerVisible,
-      anchorPoint: new google.maps.Point(0, -29),
-      position: new google.maps.LatLng(lat, lng),
-    });
-
     this.autocomplete.bindTo('bounds', this.map);
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
 
@@ -261,7 +242,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    * @param {{pixel: google.maps.Point; latLng: google.maps.LatLng}} event
    */
   private onMapClick(event: { pixel: google.maps.Point, latLng: google.maps.LatLng }): void {
@@ -320,17 +301,6 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
   /**
    * @stable [30.07.2018]
-   */
-  private setCustomMarkerState() {
-    if (this.isPlaceChanged) {
-      this.updateMarkerState(true, true, this.lat, this.lng, this.settings.googleMaps.prettyZoom);
-    } else {
-      // TODO
-    }
-  }
-
-  /**
-   * @stable [30.07.2018]
    * @returns {boolean}
    */
   private get isPlaceChanged(): boolean {
@@ -338,20 +308,17 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    */
   private updateGeocodeInfo(): void {
     this.cancelGeoCoderTaskIfPending();
 
     this.geoCoderTask = this.geoCoder.geocode({location: {lat: this.lat, lng: this.lng}})
-      .then((geocoderResults: google.maps.GeocoderResult[]) => {
-        this.onGeocodeInfoLoad(geocoderResults);
-        return geocoderResults;
-      });
+      .then((geocoderResults) => this.onGeocodeInfoLoad(geocoderResults));
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    */
   private cancelGeoCoderTaskIfPending(): void {
     if (this.geoCoderTask && this.geoCoderTask.isPending()) {
@@ -360,23 +327,24 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    * @param {google.maps.GeocoderResult[]} geocoderResults
+   * @returns {google.maps.GeocoderResult[]}
    */
-  private onGeocodeInfoLoad(geocoderResults: google.maps.GeocoderResult[]): void {
+  private onGeocodeInfoLoad(geocoderResults: google.maps.GeocoderResult[]): google.maps.GeocoderResult[] {
     if (!Array.isArray(geocoderResults) || geocoderResults.length === 0) {
       return;
     }
     const place = geocoderResults[0];
     this.placeId = place.place_id;
     this.setState({place: this.buildValue(place)});
+    return geocoderResults;
   }
 
   /**
-   * @stable [30.07.2018]
+   * @stable [31.07.2018]
    */
-  private clearAll(): void {
-    this.updateMarkerState(false, true);
+  private resetAllStateOnChangeOrClearValue(): void {
     this.clearInternalVariables();
     this.propsChangePlace();
   }
@@ -416,7 +384,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @param {{x: number; y: number; lat: number; lng: number}} nextState
    */
   private openMenu(nextState: { x: number, y: number, lat: number, lng: number }) {
-    Object.assign(this, nextState);
+    Object.assign(this, nextState);   // We need to sync the internal state with a starting task state
     this.menu.show();
   }
 
@@ -424,8 +392,16 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @stable [30.07.2018]
    */
   private openDialog(): void {
-    this.setCustomMarkerState();
     this.dialog.activate();
+
+    const props = this.props;
+    const isMarkerVisible = !(R.isNil(props.lat) && R.isNil(props.lng));
+
+    if (isMarkerVisible) {
+      this.updateMarkerState(true, true, props.lat, props.lng, this.settings.googleMaps.prettyZoom);
+    } else {
+      this.updateMarkerState(false, true);
+    }
   }
 
   /**
