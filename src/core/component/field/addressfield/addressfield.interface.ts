@@ -5,6 +5,9 @@ import {
   ILngWrapper,
   IOnChangePlaceWrapper,
   IPlaceIdWrapper,
+  INotUsePlaceActionWrapper,
+  IUseZipCodeWrapper,
+  IZipCodeWrapper,
 } from '../../../definitions.interface';
 import { IBasicTextFieldProps } from '../textfield';
 
@@ -20,13 +23,16 @@ export enum AddressMapMarkerActionEnum {
  */
 export interface IAddressFieldChangePlacePayload extends ILatWrapper,
                                                          ILngWrapper,
-                                                         IPlaceIdWrapper {
+                                                         IPlaceIdWrapper,
+                                                         IZipCodeWrapper {
 }
 
 /**
  * @stable [29.07.2018]
  */
 export interface IAddressFieldProps extends IBasicTextFieldProps,
+                                            IUseZipCodeWrapper,
+                                            INotUsePlaceActionWrapper,
                                             IOnChangePlaceWrapper<IAddressFieldChangePlacePayload>,
                                             ILatWrapper,
                                             ILngWrapper {
@@ -36,5 +42,5 @@ export interface IAddressFieldProps extends IBasicTextFieldProps,
  * @stable [30.07.2018]
  */
 export interface IAddressFieldState extends IBasicTextFieldState,
-                                            IPlaceWrapper {
+                                            IPlaceWrapper<number | string> {
 }

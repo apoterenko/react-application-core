@@ -37,6 +37,7 @@ export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
 export const VALUE_FIELD_NAME = 'value';
 export const TITLE_FIELD_NAME = 'title';
+export const ZIP_CODE_FIELD_NAME = 'zipCode';                                                   /* @stable [01.08.2018] */
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**
@@ -674,7 +675,9 @@ export interface ILabelWrapper {
   label?: string;
 }
 
-/* @stable - 11.04.2018 */
+/**
+ * @stable [01.08.2018]
+ */
 export interface IPrefixLabelWrapper {
   prefixLabel?: string;
 }
@@ -686,7 +689,9 @@ export interface IDisplayWrapper<TDisplay = boolean> {
   display?: TDisplay;
 }
 
-/* @stable - 11.04.2018 */
+/**
+ * @stable [01.08.2018]
+ */
 export interface IDisplayNameWrapper {
   displayName?: string;
 }
@@ -985,6 +990,20 @@ export interface IActionsDisabledWrapper {
  */
 export interface INotUseFieldWrapper {
   notUseField?: boolean;
+}
+
+/**
+ * @stable [01.08.2018]
+ */
+export interface INotUsePlaceActionWrapper {
+  notUsePlaceAction?: boolean;
+}
+
+/**
+ * @stable [01.08.2018]
+ */
+export interface IUseZipCodeWrapper {
+  useZipCode?: boolean;
 }
 
 /**
@@ -1791,6 +1810,13 @@ export interface IPlaceIdWrapper<TPlaceId = string> {
 }
 
 /**
+ * @stable [01.08.2018]
+ */
+export interface IZipCodeWrapper<TZipCode = number> {
+  zipCode?: TZipCode;
+}
+
+/**
  * @stable [29.07.2018]
  */
 export interface IXWrapper<Tx = number> {
@@ -1816,13 +1842,6 @@ export interface ILatWrapper<TLat = number> {
  */
 export interface ILngWrapper<TLng = number> {
   lng?: TLng;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface IPostalCodeWrapper<TPostalCode = string> {
-  postalCode?: TPostalCode;
 }
 
 /**

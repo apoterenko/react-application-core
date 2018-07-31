@@ -13,8 +13,12 @@
         margin-bottom: 16px;                                          /* @stable [29.07.2018] */
       }
 
-      .rac-google-maps-map {
-        min-height: $rac-dialog-addressfield-google-maps-min-height;  /* @stable [31.07.2018] */
+      .rac-google-maps {
+        position: relative;                                             /* @stable [31.07.2018] */
+
+        .rac-google-maps-map {
+          min-height: $rac-dialog-addressfield-google-maps-min-height;  /* @stable [31.07.2018] */
+        }
       }
     }
   }

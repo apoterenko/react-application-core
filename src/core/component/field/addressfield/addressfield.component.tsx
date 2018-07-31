@@ -4,7 +4,7 @@ import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import { orNull, toAddress, uuid } from '../../../util';
+import { orNull, toAddress, uuid, toPlace } from '../../../util';
 import { BasicTextField } from '../textfield';
 import { IUniversalDialog,  Dialog } from '../../dialog';
 import {
@@ -34,6 +34,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
   private lat: number;
   private lng: number;
+  private zipCode: number;
   private placeId: string;
 
   @lazyInject(DI_TYPES.GeoCoder) private geoCoder: IGeoCoder;
@@ -45,7 +46,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   constructor(props: IAddressFieldProps) {
     super(props);
 
-    this.addMapAction();
+    if (!props.notUsePlaceAction) {
+      this.addMapAction();
+    }
 
     this.onMenuSelect = this.onMenuSelect.bind(this);
     this.onMarkerChangePlace = this.onMarkerChangePlace.bind(this);
@@ -122,7 +125,10 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @param {google.maps.GeocoderResult | google.maps.places.PlaceResult} place
    * @returns {string}
    */
-  protected buildValue(place: google.maps.GeocoderResult | google.maps.places.PlaceResult): string {
+  protected buildValue(place: google.maps.GeocoderResult | google.maps.places.PlaceResult): string | number {
+    if (this.props.useZipCode) {
+      return toPlace(place).zipCode;
+    }
     return toAddress(place);
   }
 
@@ -150,6 +156,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     this.lat = place.geometry.location.lat();
     this.lng = place.geometry.location.lng();
     this.placeId = place.place_id;
+    this.zipCode = toPlace(place).zipCode;
 
     this.onChangeManually(this.buildValue(place));      // Emit event to update a component value
     this.propsChangePlace();                            // Emit event to update a side values
@@ -178,18 +185,17 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     const props = this.props;
 
     if (props.onChangePlace) {
-      props.onChangePlace({lat: this.lat, lng: this.lng, placeId: this.placeId});
+      props.onChangePlace({lat: this.lat, lng: this.lng, placeId: this.placeId, zipCode: this.zipCode});
     }
   }
 
   /**
    * @stable [31.07.2018]
    */
-  private initGoogleMapsObjects(map: google.maps.Map): void {
+  private initGoogleMapsObjects(): void {
     this.googleMaps.addMarker({draggable: true, position: null}, AddressField.ADDRESS_MARKER);
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement);
-    this.autocomplete.bindTo('bounds', map);
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
   }
 
@@ -260,10 +266,11 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    */
   private onGeocodeInfoLoad(geocoderResults: google.maps.GeocoderResult[]): google.maps.GeocoderResult[] {
     if (!Array.isArray(geocoderResults) || geocoderResults.length === 0) {
-      return;
+      return null;
     }
     const place = geocoderResults[0];
     this.placeId = place.place_id;
+    this.zipCode = toPlace(place).zipCode;
     this.setState({place: this.buildValue(place)});
     return geocoderResults;
   }
@@ -283,6 +290,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     delete this.lat;
     delete this.lng;
     delete this.placeId;
+    delete this.zipCode;
     this.setState({place: null});
   }
 

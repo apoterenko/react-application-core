@@ -113,7 +113,7 @@ import {
   ICityWrapper,
   IStreetWrapper,
   IStreetNumberWrapper,
-  IPostalCodeWrapper,
+  IZipCodeWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -132,7 +132,7 @@ export interface IPlaceEntity extends ICountryWrapper,
                                       ICityWrapper,
                                       IStreetWrapper,
                                       IStreetNumberWrapper,
-                                      IPostalCodeWrapper {
+                                      IZipCodeWrapper {
 }
 
 /**

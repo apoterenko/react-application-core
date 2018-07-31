@@ -21,13 +21,14 @@ export const toAddress = (place: google.maps.GeocoderResult | google.maps.places
 };
 
 /**
- * @stable [30.07.2018]
+ * @stable [01.08.2018]
  * @param {google.maps.GeocoderAddressComponent} cmp
- * @param {(cmp: google.maps.GeocoderAddressComponent) => string} extractor
- * @returns {string}
+ * @param {(cmp: google.maps.GeocoderAddressComponent) => TType} extractor
+ * @returns {TType}
  */
-export const toPlaceDescription = (cmp: google.maps.GeocoderAddressComponent,
-                                   extractor: (cmp: google.maps.GeocoderAddressComponent) => string): string => cmp && extractor(cmp);
+export const toPlaceDescription = <TType>(cmp: google.maps.GeocoderAddressComponent,
+                                          extractor: (cmp: google.maps.GeocoderAddressComponent) => TType): TType =>
+  cmp && extractor(cmp);
 
 /**
  * @stable [30.07.2018]
@@ -59,9 +60,9 @@ export const toPlace = (place: google.maps.GeocoderResult | google.maps.places.P
       place.address_components.find((addr) => addr.types.includes('street_number')),
       (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name
     ),
-    postalCode: toPlaceDescription(
+    zipCode: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('postal_code')),
-      (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name
+      (cmp: google.maps.GeocoderAddressComponent) => parseInt(cmp.long_name, 10)
     ),
   };
 };
