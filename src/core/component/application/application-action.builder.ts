@@ -19,6 +19,7 @@ import {
   APPLICATION_AFTER_INIT_ACTION_TYPE,
   APPLICATION_CLICK_ACTION_TYPE,
   APPLICATION_BLUR_ACTION_TYPE,
+  APPLICATION_PREPARE_DONE_ERROR_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
@@ -89,6 +90,15 @@ export class ApplicationActionBuilder {
 
   public static buildPrepareErrorActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
+  }
+
+  /**
+   * If there a chain of async tasks
+   * @stable [31.07.2018]
+   * @returns {string}
+   */
+  public static buildPrepareDoneErrorActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_DONE_ERROR_ACTION_TYPE}`;
   }
 
   public static buildInitActionType(): string {

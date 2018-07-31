@@ -17,6 +17,7 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
       };
     case ApplicationActionBuilder.buildCustomErrorActionType():
     case ApplicationActionBuilder.buildPrepareErrorActionType():
+    case ApplicationActionBuilder.buildPrepareDoneErrorActionType():
       return {
         ...state,
         customError: action.type === ApplicationActionBuilder.buildCustomErrorActionType(),
