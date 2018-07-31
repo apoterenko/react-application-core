@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Drawer } from 'native-base';
+import { Drawer } from 'react-native-drawer';
 
 import { UniversalComponent } from '../base/universal.component';
 import {

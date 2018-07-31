@@ -1,4 +1,4 @@
-import { Drawer } from 'native-base';
+import { Drawer } from 'react-native-drawer';
 
 import { IOpenWrapper, ICloseWrapper } from '../../definitions.interface';
 import { IUniversalComponentEntity } from '../../entities-definitions.interface';
