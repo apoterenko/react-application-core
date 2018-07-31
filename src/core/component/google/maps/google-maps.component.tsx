@@ -3,11 +3,13 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base';
 import { Menu, IMenu } from '../../menu';
-import { getGoogleMapsScript, DelayedTask } from '../../../util';
+import { getGoogleMapsScript, DelayedTask, uuid, isString } from '../../../util';
 import { IGoogleMapsProps } from './google-maps.interface';
 import { IMenuItemEntity } from '../../../entities-definitions.interface';
+import { IGoogleMaps } from './google-maps.interface';
 
-export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps> {
+export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
+  implements IGoogleMaps {
 
   private map: google.maps.Map;
   private googleMapsScriptTask: Promise<void>;
@@ -19,6 +21,8 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps> {
   private y: number;
   private lat: number;
   private lng: number;
+  private markers = new Map<string, google.maps.Marker>();
+  private markersDragListeners = new Map<string, google.maps.MapsEventListener>();
 
   /**
    * @stable [31.07.2018]
@@ -55,6 +59,8 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps> {
     this.delayedTask.stop();
     this.cancelGoogleMapsScriptTaskIfPending();
 
+    this.markersDragListeners.forEach((dragEndEventListener) => dragEndEventListener.remove());
+
     this.map = null;
     this.delayedTask = null;
     this.googleMapsScriptTask = null;
@@ -84,6 +90,74 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps> {
               onSelect={this.onMenuSelect}/>
       </div>
     );
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @param {google.maps.MarkerOptions} cfg
+   * @param {string} name
+   * @returns {google.maps.Marker}
+   */
+  public addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker {
+    const config: google.maps.MarkerOptions = {
+      anchorPoint: new google.maps.Point(0, -29),
+      position: null,
+      ...cfg,
+      map: this.map,
+    };
+    const markerId = name || uuid();
+    const marker = new google.maps.Marker(config);
+    this.markers.set(markerId, marker);
+
+    if (config.draggable) {
+      this.markersDragListeners.set(
+        markerId,
+        google.maps.event.addListener(marker, 'dragend', () => this.onMarkerDragEnd(markerId, marker))
+      );
+    }
+    return marker;
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @param {string | google.maps.Marker} marker
+   * @param {boolean} markerVisibility
+   * @param {boolean} refreshMap
+   * @param {number | undefined} lat
+   * @param {number | undefined} lng
+   * @param {number | undefined} zoom
+   */
+  public setMarkerState(marker: string | google.maps.Marker,
+                        markerVisibility: boolean,
+                        refreshMap: boolean,
+                        lat = this.settings.googleMaps.lat,
+                        lng = this.settings.googleMaps.lng,
+                        zoom = this.settings.googleMaps.zoom): void {
+
+    const markerAsObject = isString(marker) ? this.markers.get(marker as string) : marker as google.maps.Marker;
+    markerAsObject.setPosition({lat, lng});
+    markerAsObject.setVisible(markerVisibility);
+
+    if (refreshMap) {
+      this.map.setCenter({lat, lng});
+      this.map.setZoom(zoom);
+    }
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @param {string} markerId
+   * @param {google.maps.Marker} marker
+   */
+  private onMarkerDragEnd(markerId: string, marker: google.maps.Marker): void {
+    const position = marker.getPosition();
+    const lat = position.lat();
+    const lng = position.lng();
+
+    const props = this.props;
+    if (props.onChangePlace) {
+      props.onChangePlace({name: markerId, item: marker, lat, lng});
+    }
   }
 
   /**

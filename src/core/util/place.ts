@@ -65,29 +65,3 @@ export const toPlace = (place: google.maps.GeocoderResult | google.maps.places.P
     ),
   };
 };
-
-/**
- * @stable [31.07.2018]
- * @param {google.maps.Marker} marker
- * @param {google.maps.Map} map
- * @param {boolean} markerVisibility
- * @param {boolean} refreshMap
- * @param {number} lat
- * @param {number} lng
- * @param {number} zoom
- */
-export const setMarkerState = (marker: google.maps.Marker,
-                               map: google.maps.Map,
-                               markerVisibility: boolean,
-                               refreshMap: boolean,
-                               lat: number,
-                               lng: number,
-                               zoom: number): void => {
-  marker.setPosition({lat, lng});
-  marker.setVisible(markerVisibility);
-
-  if (refreshMap) {
-    map.setCenter({lat, lng});
-    map.setZoom(zoom);
-  }
-};

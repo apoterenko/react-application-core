@@ -4,7 +4,7 @@ import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import { orNull, toAddress, setMarkerState } from '../../../util';
+import { orNull, toAddress, uuid } from '../../../util';
 import { BasicTextField } from '../textfield';
 import { IUniversalDialog,  Dialog } from '../../dialog';
 import {
@@ -14,7 +14,12 @@ import {
 } from './addressfield.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IGeoCoder } from '../../../google';
-import { GoogleMaps, IGoogleMapsSelectEntity } from '../../google';
+import {
+  GoogleMaps,
+  IGoogleMapsSelectEntity,
+  IGoogleMaps,
+  IGoogleMapsMarkerChangePlaceEntity,
+} from '../../google';
 
 export class AddressField extends BasicTextField<AddressField, IAddressFieldProps, IAddressFieldState> {
 
@@ -22,10 +27,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     placeholder: ' ',   // Need to replace a google input placeholder
   };
 
+  private static readonly ADDRESS_MARKER = uuid();
+
   private autocomplete: google.maps.places.Autocomplete;
-  private marker: google.maps.Marker;
-  private map: google.maps.Map;
-  private dragEndEventListener: google.maps.MapsEventListener;
   private geoCoderTask: Promise<google.maps.GeocoderResult[]>;
 
   private lat: number;
@@ -44,6 +48,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     this.addMapAction();
 
     this.onMenuSelect = this.onMenuSelect.bind(this);
+    this.onMarkerChangePlace = this.onMarkerChangePlace.bind(this);
     this.onPlaceChanged = this.onPlaceChanged.bind(this);
     this.onDialogClose = this.onDialogClose.bind(this);
     this.onDialogAccept = this.onDialogAccept.bind(this);
@@ -59,14 +64,8 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     this.cancelGeoCoderTaskIfPending();
 
     this.autocomplete = null;
-    this.map = null;
-    this.marker = null;
     this.geoCoderTask = null;
     this.clearInternalVariables();
-
-    if (this.dragEndEventListener) {
-      this.dragEndEventListener.remove();
-    }
   }
 
   /**
@@ -106,8 +105,10 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
         {orNull<JSX.Element>(
           currentPlace, () => <div className='rac-dialog-addressfield-place'>{currentPlace}</div>)
         }
-        <GoogleMaps onInit={this.initGoogleMapsObjects}
+        <GoogleMaps ref='googleMaps'
+                    onInit={this.initGoogleMapsObjects}
                     onSelect={this.onMenuSelect}
+                    onChangePlace={this.onMarkerChangePlace}
                     options={[{
                       label: this.settings.messages.putMarkerHereMessage,
                       value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
@@ -185,24 +186,11 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @stable [31.07.2018]
    */
   private initGoogleMapsObjects(map: google.maps.Map): void {
-    this.map = map;
-    this.marker = new google.maps.Marker({map: this.map, draggable: true, anchorPoint: new google.maps.Point(0, -29), position: null});
+    this.googleMaps.addMarker({draggable: true, position: null}, AddressField.ADDRESS_MARKER);
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement);
-    this.autocomplete.bindTo('bounds', this.map);
+    this.autocomplete.bindTo('bounds', map);
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
-
-    this.dragEndEventListener = google.maps.event.addListener(this.marker, 'dragend', () => this.onMarkerDragEnd());
-  }
-
-  /**
-   * @stable [30.07.2018]
-   */
-  private onMarkerDragEnd(): void {
-    const position = this.marker.getPosition();
-    this.lat = position.lat();
-    this.lng = position.lng();
-    this.updateGeocodeInfo();
   }
 
   /**
@@ -215,7 +203,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
     switch (payload.item.value) {
       case AddressMapMarkerActionEnum.PUT_MARKER_HERE:
-        this.updateMarkerState(true, false, this.lat, this.lng);
+        this.googleMaps.setMarkerState(AddressField.ADDRESS_MARKER, true, false, this.lat, this.lng);
         this.updateGeocodeInfo();
         break;
     }
@@ -223,18 +211,12 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
 
   /**
    * @stable [31.07.2018]
-   * @param {boolean} markerVisibility
-   * @param {boolean} refreshMap
-   * @param {number} lat
-   * @param {number} lng
-   * @param {number} zoom
+   * @param {IGoogleMapsMarkerChangePlaceEntity} place
    */
-  private updateMarkerState(markerVisibility: boolean,
-                            refreshMap: boolean,
-                            lat = this.settings.googleMaps.lat,
-                            lng = this.settings.googleMaps.lng,
-                            zoom = this.settings.googleMaps.zoom): void {
-    setMarkerState(this.marker, this.map, markerVisibility, refreshMap, lat, lng, zoom);
+  private onMarkerChangePlace(place: IGoogleMapsMarkerChangePlaceEntity): void {
+    this.lat = place.lat;
+    this.lng = place.lng;
+    this.updateGeocodeInfo();
   }
 
   /**
@@ -332,9 +314,11 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     const isMarkerVisible = !(R.isNil(props.lat) && R.isNil(props.lng));
 
     if (isMarkerVisible) {
-      this.updateMarkerState(true, true, props.lat, props.lng, this.settings.googleMaps.prettyZoom);
+      this.googleMaps.setMarkerState(
+        AddressField.ADDRESS_MARKER, true, true, props.lat, props.lng, this.settings.googleMaps.prettyZoom
+      );
     } else {
-      this.updateMarkerState(false, true);
+      this.googleMaps.setMarkerState(AddressField.ADDRESS_MARKER, false, true);
     }
   }
 
@@ -344,5 +328,13 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    */
   private get dialog(): IUniversalDialog {
     return this.refs.dialog as IUniversalDialog;
+  }
+
+  /**
+   * @stable [31.07.2018]
+   * @returns {IGoogleMaps}
+   */
+  private get googleMaps(): IGoogleMaps {
+    return this.refs.googleMaps as IGoogleMaps;
   }
 }
