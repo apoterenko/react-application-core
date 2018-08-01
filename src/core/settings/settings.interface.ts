@@ -88,6 +88,7 @@ export interface IApplicationSettings {
   binaryUrl?: string;
   pdfWorkerDirectoryUrl?: string;
   companyName?: string;
+  companyCountry?: string;
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
   entityEmptyId?: AnyT;

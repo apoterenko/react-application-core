@@ -1002,6 +1002,13 @@ export interface INotUsePlaceActionWrapper {
 /**
  * @stable [01.08.2018]
  */
+export interface INotUseCustomValidatorWrapper {
+  notUseCustomValidator?: boolean;
+}
+
+/**
+ * @stable [01.08.2018]
+ */
 export interface IUseZipCodeWrapper {
   useZipCode?: boolean;
 }
@@ -1812,7 +1819,7 @@ export interface IPlaceIdWrapper<TPlaceId = string> {
 /**
  * @stable [01.08.2018]
  */
-export interface IZipCodeWrapper<TZipCode = number> {
+export interface IZipCodeWrapper<TZipCode = number | string> {
   zipCode?: TZipCode;
 }
 

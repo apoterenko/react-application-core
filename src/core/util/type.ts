@@ -16,9 +16,19 @@ export function isFn(value: AnyT): boolean {
   return typeof value === 'function';
 }
 
-export function isNumber(value: AnyT): boolean {
-  return typeof value === 'number';
-}
+/**
+ * @stable [01.08.2018]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isNumber = (value: AnyT): boolean => typeof value === 'number';
+
+/**
+ * @stable [01.08.2018]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isNumberLike = (value: AnyT): boolean => /^-?[0-9]\d*(\.\d+)?$/.test(String(value));
 
 export function isBoolean(value: AnyT): boolean {
   return typeof value === 'boolean';
