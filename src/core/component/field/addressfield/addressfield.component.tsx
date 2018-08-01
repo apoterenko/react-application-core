@@ -32,9 +32,10 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   private autocomplete: google.maps.places.Autocomplete;
   private geoCoderTask: Promise<google.maps.GeocoderResult[]>;
 
+  // Don't need to save this values to React State, because UI doesn't use these bindings !!
   private lat: number;
   private lng: number;
-  private zipCode: number;
+  private zipCode: number | string;
   private placeId: string;
 
   @lazyInject(DI_TYPES.GeoCoder) private geoCoder: IGeoCoder;
@@ -56,6 +57,11 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     this.onDialogClose = this.onDialogClose.bind(this);
     this.onDialogAccept = this.onDialogAccept.bind(this);
     this.initGoogleMapsObjects = this.initGoogleMapsObjects.bind(this);
+
+    // Don't need to save this values to React State, because UI doesn't use these bindings !!
+    // => Need to initialize the internal "state" manually
+    this.lat = props.lat;
+    this.lng = props.lng;
   }
 
   /**
@@ -133,14 +139,18 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [01.08.2018]
    * @param {string} value
    * @returns {string}
    */
   protected validateValue(value: string): string {
-    return R.isNil(this.placeId)
-      && !R.isNil(value)
-      && !R.isEmpty(value) ? this.settings.messages.invalidAddressMessage : null;
+    if (this.props.notUseCustomValidator) {
+      return null;
+    }
+    if (R.isNil(this.lat) && R.isNil(this.lng) && !R.isNil(value) && !R.isEmpty(value)) {
+      return this.settings.messages.invalidAddressMessage;
+    }
+    return null;
   }
 
   /**
@@ -195,7 +205,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   private initGoogleMapsObjects(): void {
     this.googleMaps.addMarker({draggable: true, position: null}, AddressField.ADDRESS_MARKER);
 
-    this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement);
+    this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement, {
+      componentRestrictions: this.settings.companyCountry ? {country: this.settings.companyCountry} : null,
+    });
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
   }
 

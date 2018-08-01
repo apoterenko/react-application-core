@@ -8,6 +8,7 @@ import {
   INotUsePlaceActionWrapper,
   IUseZipCodeWrapper,
   IZipCodeWrapper,
+  INotUseCustomValidatorWrapper,
 } from '../../../definitions.interface';
 import { IBasicTextFieldProps } from '../textfield';
 
@@ -32,6 +33,7 @@ export interface IAddressFieldChangePlacePayload extends ILatWrapper,
  */
 export interface IAddressFieldProps extends IBasicTextFieldProps,
                                             IUseZipCodeWrapper,
+                                            INotUseCustomValidatorWrapper,
                                             INotUsePlaceActionWrapper,
                                             IOnChangePlaceWrapper<IAddressFieldChangePlacePayload>,
                                             ILatWrapper,
