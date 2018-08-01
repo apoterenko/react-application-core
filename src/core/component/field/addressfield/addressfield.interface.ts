@@ -7,10 +7,11 @@ import {
   IPlaceIdWrapper,
   INotUsePlaceActionWrapper,
   IUseZipCodeWrapper,
-  IZipCodeWrapper,
+  IPlaceEntityWrapper,
   INotUseCustomValidatorWrapper,
 } from '../../../definitions.interface';
 import { IBasicTextFieldProps } from '../textfield';
+import { IPlaceEntity } from '../../../entities-definitions.interface';
 
 /**
  * @stable [30.07.2018]
@@ -20,12 +21,12 @@ export enum AddressMapMarkerActionEnum {
 }
 
 /**
- * @stable [29.07.2018]
+ * @stable [01.08.2018]
  */
 export interface IAddressFieldChangePlacePayload extends ILatWrapper,
                                                          ILngWrapper,
                                                          IPlaceIdWrapper,
-                                                         IZipCodeWrapper {
+                                                         IPlaceEntityWrapper<IPlaceEntity> {
 }
 
 /**

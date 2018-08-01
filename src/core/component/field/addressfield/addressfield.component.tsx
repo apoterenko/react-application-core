@@ -4,6 +4,7 @@ import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
+import { IPlaceEntity } from '../../../entities-definitions.interface';
 import { orNull, toAddress, uuid, toPlace } from '../../../util';
 import { BasicTextField } from '../textfield';
 import { IUniversalDialog,  Dialog } from '../../dialog';
@@ -35,8 +36,8 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   // Don't need to save this values to React State, because UI doesn't use these bindings !!
   private lat: number;
   private lng: number;
-  private zipCode: number | string;
   private placeId: string;
+  private placeEntity: IPlaceEntity;
 
   @lazyInject(DI_TYPES.GeoCoder) private geoCoder: IGeoCoder;
 
@@ -127,15 +128,14 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
   }
 
   /**
-   * @stable [30.07.2018]
-   * @param {google.maps.GeocoderResult | google.maps.places.PlaceResult} place
-   * @returns {string}
+   * @stable [01.08.2018]
+   * @returns {string | number}
    */
-  protected buildValue(place: google.maps.GeocoderResult | google.maps.places.PlaceResult): string | number {
+  protected buildValue(): string | number {
     if (this.props.useZipCode) {
-      return toPlace(place).zipCode;
+      return this.placeEntity.zipCode;
     }
-    return toAddress(place);
+    return toAddress(this.placeEntity);
   }
 
   /**
@@ -166,9 +166,9 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     this.lat = place.geometry.location.lat();
     this.lng = place.geometry.location.lng();
     this.placeId = place.place_id;
-    this.zipCode = toPlace(place).zipCode;
+    this.placeEntity = toPlace(place);
 
-    this.onChangeManually(this.buildValue(place));      // Emit event to update a component value
+    this.onChangeManually(this.buildValue());           // Emit event to update a component value
     this.propsChangePlace();                            // Emit event to update a side values
   }
 
@@ -195,7 +195,12 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     const props = this.props;
 
     if (props.onChangePlace) {
-      props.onChangePlace({lat: this.lat, lng: this.lng, placeId: this.placeId, zipCode: this.zipCode});
+      props.onChangePlace({
+        lat: this.lat,
+        lng: this.lng,
+        placeId: this.placeId,
+        placeEntity: this.placeEntity,
+      });
     }
   }
 
@@ -282,8 +287,8 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     }
     const place = geocoderResults[0];
     this.placeId = place.place_id;
-    this.zipCode = toPlace(place).zipCode;
-    this.setState({place: this.buildValue(place)});
+    this.placeEntity = toPlace(place);
+    this.setState({place: this.buildValue()});
     return geocoderResults;
   }
 
@@ -302,7 +307,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
     delete this.lat;
     delete this.lng;
     delete this.placeId;
-    delete this.zipCode;
+    delete this.placeEntity;
     this.setState({place: null});
   }
 

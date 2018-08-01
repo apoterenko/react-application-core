@@ -5,17 +5,16 @@ import { DI_TYPES, staticInjector } from '../di';
 import { INumberConverter } from '../converter';
 
 /**
- * @stable [30.07.2018]
- * @param {google.maps.GeocoderResult | google.maps.places.PlaceResult} place
+ * @stable [01.08.2018]
+ * @param {IPlaceEntity} placeEntity
  * @returns {string}
  */
-export const toAddress = (place: google.maps.GeocoderResult | google.maps.places.PlaceResult) => {
-  const placeEntity = toPlace(place);
+export const toAddress = (placeEntity: IPlaceEntity) => {
   if (!R.isNil(placeEntity)) {
     return [
       [placeEntity.streetNumber, placeEntity.street].filter((v) => !!v).join(' '),
       placeEntity.city,
-      placeEntity.area,
+      placeEntity.region,
       placeEntity.country
     ].filter((v) => !!v).join(', ');
   }
@@ -47,9 +46,13 @@ export const toPlace = (place: google.maps.GeocoderResult | google.maps.places.P
       place.address_components.find((addr) => addr.types.includes('country')),
       (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name
     ),
-    area: toPlaceDescription(
+    region: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('administrative_area_level_1')),
-      (cmp: google.maps.GeocoderAddressComponent) => cmp.short_name
+      (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name
+    ),
+    area: toPlaceDescription(
+      place.address_components.find((addr) => addr.types.includes('administrative_area_level_2')),
+      (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name
     ),
     city: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('locality')),

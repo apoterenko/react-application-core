@@ -109,11 +109,12 @@ import {
   IDisplayValueWrapper,
   IIdWrapper,
   ICountryWrapper,
-  IAreaWrapper,
+  IRegionWrapper,
   ICityWrapper,
   IStreetWrapper,
   IStreetNumberWrapper,
   IZipCodeWrapper,
+  IAreaWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -128,6 +129,7 @@ import { IUniversalKeyboardHandlersConfiguration } from './configurations-defini
  * @stable [29.07.2018]
  */
 export interface IPlaceEntity extends ICountryWrapper,
+                                      IRegionWrapper,
                                       IAreaWrapper,
                                       ICityWrapper,
                                       IStreetWrapper,

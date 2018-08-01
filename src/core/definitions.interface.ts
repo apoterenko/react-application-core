@@ -38,6 +38,8 @@ export const NAME_FIELD_NAME = 'name';
 export const VALUE_FIELD_NAME = 'value';
 export const TITLE_FIELD_NAME = 'title';
 export const ZIP_CODE_FIELD_NAME = 'zipCode';                                                   /* @stable [01.08.2018] */
+export const AREA_FIELD_NAME = 'area';                                                          /* @stable [01.08.2018] */
+export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**
@@ -1810,6 +1812,13 @@ export interface IPlaceWrapper<TPlace = string> {
 }
 
 /**
+ * @stable [01.08.2018]
+ */
+export interface IPlaceEntityWrapper<TPlaceEntity> {
+  placeEntity?: TPlaceEntity;
+}
+
+/**
  * @stable [29.07.2018]
  */
 export interface IPlaceIdWrapper<TPlaceId = string> {
@@ -1852,7 +1861,14 @@ export interface ILngWrapper<TLng = number> {
 }
 
 /**
- * @stable [29.07.2018]
+ * @stable [01.08.2018]
+ */
+export interface IRegionWrapper<TRegion = string> {
+  region?: TRegion;
+}
+
+/**
+ * @stable [01.08.2018]
  */
 export interface IAreaWrapper<TArea = string> {
   area?: TArea;
