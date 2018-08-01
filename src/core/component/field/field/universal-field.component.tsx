@@ -45,6 +45,16 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [01.08.2018]
+   */
+  public componentDidMount(): void {
+    super.componentDidMount();
+
+    // Need to invoke a user validator if it exists (After F5, etc...)
+    this.validateValueAndSetCustomValidity(this.value);
+  }
+
+  /**
    * @stable [17.06.2018]
    */
   public resetError(): void {
