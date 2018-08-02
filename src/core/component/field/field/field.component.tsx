@@ -159,7 +159,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const readOnly = props.readOnly  || this.inProgress();
     const disabled = props.disabled;
     const pattern = this.getFieldPattern();
-    const required = props.required;
     const minLength = props.minLength;
     const maxLength = props.maxLength;
     const rows = props.rows;
@@ -172,10 +171,11 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const onChange = this.onChange;
     return {
       ...props.preventValueBinding ? {} : { value: this.displayValue },
-      name, type, step, autoFocus, readOnly, disabled, pattern, required, minLength,
+      name, type, step, autoFocus, readOnly, disabled, pattern, minLength,
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
+      required: this.isFieldRequired(),
       className: toClassName(this.uiFactory.textFieldInput, 'rac-field-input'),
       placeholder: orNull(props.placeholder, () => this.t(props.placeholder)),
     };

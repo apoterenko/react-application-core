@@ -208,6 +208,15 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [02.08.2018]
+   * @returns {boolean}
+   */
+  protected isFieldRequired(): boolean {
+    const props = this.props;
+    return isFn(props.required) ? (props.required as (() => boolean))() : props.required as boolean;
+  }
+
+  /**
    * @stable [17.06.2018]
    * @returns {AnyT}
    */

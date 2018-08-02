@@ -596,6 +596,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IRenderedWrapper,
           IEmptyValueWrapper,
           IPreventFocusWrapper,
+          IRequiredWrapper,
           IValidateWrapper<string> {
 }
 
@@ -606,7 +607,6 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IWebComponentConfiguration,
                                              IAutoCompleteWrapper,
                                              IActionsPosition<FieldActionPositionEnum>,
-                                             IRequiredWrapper,
                                              IBindDictionaryConfiguration,
                                              IMaskGuideWrapper,
                                              IMaskPlaceholderCharWrapper,
