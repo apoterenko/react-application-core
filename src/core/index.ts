@@ -39,6 +39,7 @@ export * from './component/snackbar';
 export * from './component/spacer';
 export * from './component/toolbar';
 export * from './component/viewer';
+export * from './component/web-camera';
 export * from './converter';
 export * from './di';
 export * from './dictionary';

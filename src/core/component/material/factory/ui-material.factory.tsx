@@ -37,6 +37,7 @@ import {
   faMoneyBill,
   faUser as faSolidUser,
   faHistory,
+  faVideo,
   faCommentDots,
   faBriefcase,
   faShieldAlt,
@@ -193,6 +194,7 @@ export class UIMaterialFactory implements IUIFactory {
     id_card: faIdCard,
     map_marked_alt: faMapMarkedAlt,
     address_card: faAddressCard,
+    video: faVideo,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 

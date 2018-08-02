@@ -99,6 +99,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
                       title={this.settings.messages.previewMessage}
                       closeMessage={this.settings.messages.closeMessage}
                       acceptable={false}
+                      autoWidth={true}
                       onClose={this.onDialogClose}>
                 {
                   orNull<JSX.Element>(

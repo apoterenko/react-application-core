@@ -1527,6 +1527,13 @@ export interface IAutoCompleteWrapper<TAutoComplete = string> {
 }
 
 /**
+ * @stable [02.08.2018]
+ */
+export interface IAutoWidthWrapper<TAutoWidth = boolean> {
+  autoWidth?: TAutoWidth;
+}
+
+/**
  * @stable [02.06.2018]
  */
 export interface IUseServiceWrapper {
@@ -2286,6 +2293,13 @@ export interface IUseDownloadActionWrapper {
  */
 export interface IUseCameraWrapper {
   useCamera?: boolean;
+}
+
+/**
+ * @stable [02.08.2018]
+ */
+export interface ICameraEnabledWrapper {
+  cameraEnabled?: boolean;
 }
 
 /**

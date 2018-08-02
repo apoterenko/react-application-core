@@ -93,9 +93,13 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
   protected getDialogBody(): JSX.Element {
     const props = this.props;
     return (
-      <div className={toClassName('rac-dialog-surface', this.uiFactory.dialogSurface)}>
+      <div className={toClassName(
+                        'rac-dialog-surface',
+                        this.uiFactory.dialogSurface,
+                        props.autoWidth && 'rac-dialog-surface-auto-width'
+                      )}>
         <header className={toClassName('rac-dialog-header', this.uiFactory.dialogHeader)}>
-          <h2 className={this.uiFactory.dialogHeaderTitle}>
+          <h2 className={toClassName('rac-dialog-header-title', this.uiFactory.dialogHeaderTitle)}>
             {this.t(props.title || this.settings.messages.dialogTitleMessage)}
           </h2>
         </header>

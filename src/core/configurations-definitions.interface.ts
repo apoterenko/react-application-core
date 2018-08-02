@@ -190,6 +190,8 @@ import {
   IRenderToXWrapper,
   IRenderToYWrapper,
   IValidateWrapper,
+  ICameraHeightWrapper,
+  ICameraWidthWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -200,6 +202,13 @@ import {
   IFieldChangeEntity,
   IUniversalComponent,
 } from './entities-definitions.interface';
+
+/**
+ * @stable [02.08.2018]
+ */
+export interface IWebCameraConfigurationWrapper<TWebCameraConfigurationWrapper = IWebCameraConfiguration> {
+  webCameraConfiguration?: TWebCameraConfigurationWrapper;
+}
 
 /**
  * @stable [16.06.2018]
@@ -514,6 +523,15 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IOnCloseWrapper<ITabConfiguration>,
                                                 IOnClickWrapper<ITabConfiguration>,
                                                 IItemsWrapper<ITabConfiguration[]> {
+}
+
+/**
+ * @stable [02.08.2018]
+ */
+export interface IWebCameraConfiguration extends IComponentConfiguration,
+                                                 ICameraWidthWrapper,
+                                                 ICameraHeightWrapper,
+                                                 IOnSelectWrapper<Blob> {
 }
 
 /**

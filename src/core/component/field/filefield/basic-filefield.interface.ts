@@ -6,16 +6,14 @@ import {
   IUseDownloadActionWrapper,
   IFileNameWrapper,
   IUseCameraWrapper,
-  ICameraHeightWrapper,
-  ICameraWidthWrapper,
+  ICameraEnabledWrapper,
 } from '../../../definitions.interface';
 
-export interface IBasicFileFieldInternalState extends IBasicTextFieldState {
+export interface IBasicFileFieldInternalState extends IBasicTextFieldState,
+                                                      ICameraEnabledWrapper {
 }
 
 export interface IBasicFileFieldInternalProps extends IBasicTextFieldProps,
-                                                      ICameraWidthWrapper,
-                                                      ICameraHeightWrapper,
                                                       IUseCameraWrapper,
                                                       IUseDownloadActionWrapper,
                                                       IFileNameWrapper {

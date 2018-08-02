@@ -5,8 +5,19 @@
 
   .rac-dialog {
 
+    .rac-dialog-surface {
+
+      &.rac-dialog-surface-auto-width {
+        width: auto;                           /* @stable [02.08.2018] */
+      }
+    }
+
     .rac-dialog-header {
       color: $rac-dialog-header-color;        /* @stable [29.07.2018] */
+
+      .rac-dialog-header-title {
+        text-align: left;                     /* @stable [02.08.2018] */
+      }
     }
   }
 }

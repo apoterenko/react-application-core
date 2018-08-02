@@ -12,6 +12,7 @@ import {
   IAcceptMessageWrapper,
   ICloseMessageWrapper,
   IIsOpenWrapper,
+  IAutoWidthWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponentEntity, IUniversalComponent } from '../../entities-definitions.interface';
 import { IUniversalComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
@@ -28,7 +29,8 @@ export interface IUniversalDialogConfiguration extends IUniversalComponentConfig
                                                        IOnCloseWrapper,
                                                        IOnAcceptWrapper,
                                                        IClosableWrapper,
-                                                       IAcceptableWrapper {
+                                                       IAcceptableWrapper,
+                                                       IAutoWidthWrapper {
 }
 
 /**

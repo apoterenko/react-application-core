@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
-import * as Webcam from 'webcamjs';
 
 import { BasicTextField } from '../textfield';
-import { cancelEvent, orNull, downloadBlob, toBlobEntities, uuid } from '../../../util';
+import { cancelEvent, orNull, downloadBlob } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   IBasicEvent,
@@ -18,8 +17,8 @@ import {
 } from './basic-filefield.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { toLastAddedMultiItemEntity } from '../multifield';
-import { Button } from '../../button';
-import { FlexLayout } from '../../layout';
+import { IUniversalDialog, Dialog } from '../../dialog';
+import { WebCamera, IWebCamera } from '../../web-camera';
 
 export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps, TInternalState>,
                             TProps extends IBasicFileFieldInternalProps,
@@ -27,8 +26,6 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
     extends BasicTextField<TComponent, TProps, TInternalState> {
 
   protected static readonly logger = LoggerFactory.makeLogger(BasicFileField);
-
-  private static readonly CAMERA_ID = uuid(true);
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
   private filesMap = new Map<EntityIdT, Blob>();
@@ -41,38 +38,19 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
     super(props);
 
     this.onSelect = this.onSelect.bind(this);
-    this.doCapture = this.doCapture.bind(this);
-    this.onCapture = this.onCapture.bind(this);
+    this.onCameraDialogClose = this.onCameraDialogClose.bind(this);
+    this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
+    this.doSelectBlob = this.doSelectBlob.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
+    this.openCameraDialog = this.openCameraDialog.bind(this);
 
-    this.defaultActions = R.insertAll<IFieldActionConfiguration>(
-      0,
-      [{type: 'attach_file', onClick: this.openFileDialog}].concat(
-        props.useDownloadAction
-          ? [{type: 'cloud_download', onClick: this.downloadFile}]
-          : []
-      ),
-      this.defaultActions
-    );
-  }
-
-  /**
-   * @stable [28.06.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    const props = this.props;
-    if (props.useCamera) {
-      Webcam.set({
-        width: props.cameraWidth || 270,
-        height: props.cameraHeight || 203,
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-      });
-      Webcam.attach(`#${BasicFileField.CAMERA_ID}`);
-    }
+    const actions: IFieldActionConfiguration[] = [
+      orNull<IFieldActionConfiguration>(props.useCamera, () => ({type: 'video', onClick: this.openCameraDialog})),
+      {type: 'attach_file', onClick: this.openFileDialog},
+      orNull<IFieldActionConfiguration>(props.useDownloadAction, () => ({type: 'cloud_download', onClick: this.downloadFile}))
+    ];
+    this.defaultActions = R.insertAll<IFieldActionConfiguration>(0, actions.filter((cfg) => !R.isNil(cfg)), this.defaultActions);
   }
 
   /**
@@ -81,9 +59,6 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
-    if (this.props.useCamera) {
-      Webcam.reset();
-    }
     this.filesMap.forEach((value, key) => this.destroyBlob(key));
   }
 
@@ -131,6 +106,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
    * @returns {JSX.Element}
    */
   protected getAttachment(): JSX.Element {
+    const state = this.state;
     const dndElement = (
       <DnD ref='dnd'
            onSelect={this.onSelect}/>
@@ -143,38 +119,83 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
       () => (
         <div className='rac-dnd-wrapper'>
           {dndElement}
-          <FlexLayout row={true}
-                      className='rac-web-camera-wrapper'>
-            <div id={BasicFileField.CAMERA_ID}
-                 className='rac-web-camera'/>
-            <Button text={this.settings.messages.takeSnapshotMessage}
-                    outlined={true}
-                    onClick={this.doCapture}/>
-          </FlexLayout>
+          <Dialog ref='cameraDialog'
+                  autoWidth={true}
+                  title={this.settings.messages.takeSnapshotMessage}
+                  acceptMessage={this.settings.messages.acceptMessage}
+                  onClose={this.onCameraDialogClose}
+                  onAccept={this.onCameraDialogAccept}>
+            {
+              orNull<JSX.Element>(
+                state.cameraEnabled,
+                () => (
+                  <WebCamera ref='camera'
+                             onSelect={this.doSelectBlob}/>
+                )
+              )
+            }
+          </Dialog>
         </div>
       )
     );
   }
 
+  /**
+   * @stable [02.08.2018]
+   * @returns {EntityIdT[]}
+   */
   protected getEmptyValue(): EntityIdT[] {
     return [];
   }
 
-  protected onSelect(file: File[]): void {
+  /**
+   * @stable [02.08.2018]
+   */
+  private onCameraDialogClose(): void {
+    this.setState({cameraEnabled: false});
+  }
+
+  /**
+   * @stable [02.08.2018]
+   */
+  private onCameraDialogAccept(): void {
+    this.camera.capture();
+    this.onCameraDialogClose();
+  }
+
+  /**
+   * @stable [02.08.2018]
+   * @param {File[]} file
+   */
+  private onSelect(file: File[]): void {
     this.doSelectBlob(file[0]);
   }
 
+  /**
+   * @stable [02.08.2018]
+   * @param {Blob} blob
+   */
   private doSelectBlob(blob: Blob): void {
     const fileUrl = URL.createObjectURL(blob);
 
-    this.filesMap.set(fileUrl , blob);
-
+    this.filesMap.set(fileUrl, blob);
     this.multiFieldPlugin.onAddItem({id: fileUrl});
+
     this.setFocus();
   }
 
   private get dnd(): IDnd {
     return this.refs.dnd as IDnd;
+  }
+
+  /**
+   * @stable [02.08.2018]
+   * @param {IBasicEvent} event
+   */
+  private openCameraDialog(event: IBasicEvent): void {
+    cancelEvent(event);
+    this.setState({cameraEnabled: true});
+    this.cameraDialog.activate();
   }
 
   /**
@@ -209,19 +230,18 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
   }
 
   /**
-   * @stable [28.06.2018]
+   * @stable [02.08.2018]
+   * @returns {IUniversalDialog}
    */
-  private doCapture(): void {
-    Webcam.snap(this.onCapture);
+  private get cameraDialog(): IUniversalDialog {
+    return this.refs.cameraDialog as IUniversalDialog;
   }
 
   /**
-   * @stable [28.06.2018]
-   * @param {string} dataUri
-   * @returns {Promise<void>}
+   * @stable [02.08.2018]
+   * @returns {IWebCamera}
    */
-  private async onCapture(dataUri: string): Promise<void> {
-    const blobEntities = await toBlobEntities(dataUri);
-    this.doSelectBlob(blobEntities[0].blob);
+  private get camera(): IWebCamera {
+    return this.refs.camera as IWebCamera;
   }
 }
