@@ -1,0 +1,12 @@
+@import '../constant';
+
+// Drawer [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-drawer {
+
+    .rac-navigation-list {
+      padding-bottom: $rac-drawer-navigation-list-padding-bottom;                    /* @stable [02.08.2018] */
+    }
+  }
+}
