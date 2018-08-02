@@ -55,14 +55,16 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
     const props = this.props;
     const isErrorExist = !R.isNil(state.error);
     const isSrcAbsent = R.isNil(props.src);
+    const isDefaultSrcAbsent = R.isNil(props.defaultScr);
+    const isSrcAndDefaultSrcAbsent = isSrcAbsent && isDefaultSrcAbsent;
     const isProgressMessageShown = this.isProgressMessageShown;
-    const canShowPreview = props.usePreview && !isSrcAbsent && !isProgressMessageShown && !isErrorExist;
+    const canShowPreview = props.usePreview && !isSrcAbsent && !isProgressMessageShown && !isSrcAndDefaultSrcAbsent && !isErrorExist;
 
     return (
       <FlexLayout style={props.style}
                   className={toClassName('rac-viewer', this.props.className)}>
         {orDefault<React.ReactNode, React.ReactNode>(
-          isErrorExist,
+          isErrorExist || isSrcAndDefaultSrcAbsent,
           () => (
             <CenterLayout>{
               this.t(isErrorExist
