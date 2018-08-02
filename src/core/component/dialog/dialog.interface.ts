@@ -11,6 +11,7 @@ import {
   ICloseDisabledWrapper,
   IAcceptMessageWrapper,
   ICloseMessageWrapper,
+  IIsOpenWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponentEntity, IUniversalComponent } from '../../entities-definitions.interface';
 import { IUniversalComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
@@ -45,10 +46,11 @@ export interface IDialogProps extends IUniversalDialogProps,
 }
 
 /**
- * @stable [17.05.2018]
+ * @stable [02.08.2018]
  */
 export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps>
   extends IUniversalComponent<TProps>,
+          IIsOpenWrapper,
           IActivateWrapper,
           IOnCloseWrapper,
           IOnAcceptWrapper,
@@ -57,7 +59,7 @@ export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniver
 }
 
 /**
- * @stable [17.05.2018]
+ * @stable [02.08.2018]
  */
 export interface INativeMaterialDialogComponent extends INativeMaterialComponent,
                                                         IShowWrapper {

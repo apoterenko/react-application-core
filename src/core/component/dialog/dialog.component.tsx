@@ -43,6 +43,14 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
   }
 
   /**
+   * @stable [02.08.2018]
+   */
+  public isOpen(): boolean {
+    // Each plugin must override this method
+    return false;
+  }
+
+  /**
    * @stable [17.05.2018]
    */
   public onAccept(): void {

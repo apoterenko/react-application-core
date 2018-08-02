@@ -1347,7 +1347,7 @@ export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
 /**
  * @stable [04.05.2018]
  */
-export interface IRequiredWrapper<TRequired = boolean> {
+export interface IRequiredWrapper<TRequired = boolean | (() => boolean)> {
   required?: TRequired;
 }
 
@@ -2426,6 +2426,13 @@ export interface IEntityOnClickWrapper extends IOnClickWrapper<IEntity> {
  */
 export interface IShowWrapper<TShow = () => void> {
   show?: TShow;
+}
+
+/**
+ * @stable [02.08.2018]
+ */
+export interface IIsOpenWrapper<TIsOpen = (...args: AnyT[]) => boolean> {
+  isOpen?: TIsOpen;
 }
 
 /**

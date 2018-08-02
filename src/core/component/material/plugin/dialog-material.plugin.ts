@@ -16,9 +16,11 @@ export class DialogMaterialPlugin<TDialog extends IUniversalDialog>
 
     this.onAccept = this.onAccept.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.isOpen = this.isOpen.bind(this);
 
     // Complete the component behavior
     dialog.activate = sequence(dialog.activate, this.onMenuActivate, this);
+    dialog.isOpen = this.isOpen;
   }
 
   /**
@@ -54,6 +56,14 @@ export class DialogMaterialPlugin<TDialog extends IUniversalDialog>
    */
   private onMenuActivate(): void {
     this.mdc.show();
+  }
+
+  /**
+   * @stable [02.08.2018]
+   * @returns {boolean}
+   */
+  private isOpen(): boolean {
+    return this.mdc.foundation_.isOpen();
   }
 
   /**
