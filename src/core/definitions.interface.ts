@@ -866,13 +866,6 @@ export interface IEmailWrapper<TEmail = string> {
 /**
  * @stable [13.05.2018]
  */
-export interface IPhoneWrapper<TPhone = string> {
-  phone?: TPhone;
-}
-
-/**
- * @stable [13.05.2018]
- */
 export interface ILoginWrapper<TLogin = string> {
   login?: TLogin;
 }

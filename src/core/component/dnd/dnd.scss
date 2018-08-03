@@ -1,10 +1,9 @@
 @import '../constant';
 
-// Menu [FRAMEWORK-]
+// Dnd [FRAMEWORK-][RAC+]
 .rac-dnd {
-  display: inline-block;
   cursor: pointer;
   text-align: center;
-  font-size: 12px;
-  border: $rac-drop-zone-border-width dashed $rac-drop-zone-border-color;
+  font-size: $rac-dnd-font-size;
+  border: $rac-dnd-border-width dashed $rac-dnd-border-color;
 }

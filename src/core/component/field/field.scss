@@ -12,6 +12,18 @@
 
   .rac-form-field {
 
+    &.rac-form-field-disabled {
+
+      .rac-dnd {
+        opacity: $opacity;                                            /* @stable [03.08.2018] */
+        cursor: default;                                              /* @stable [03.08.2018] */
+      }
+
+      label {
+        opacity: $opacity-label;                                      /* @stable [03.08.2018] */
+      }
+    }
+
     .rac-dnd-wrapper {
       width: 100%;                                                    /* @stable [28.06.2018] */
     }
@@ -57,13 +69,6 @@
         }
       }
     }
-  }
-}
-
-// Field label [FRAMEWORK-]
-.rac-form-field-disabled {
-  label {
-    opacity: $opacity-label;
   }
 }
 

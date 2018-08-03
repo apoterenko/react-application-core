@@ -152,10 +152,11 @@ $rac-dialog-addressfield-place-color: $rac-default-text-color !default;
 $rac-dialog-addressfield-place-font-size: $rac-default-font-size !default;
 $rac-dialog-addressfield-google-maps-min-height: 200px !default;
 
-/* @stable [28.06.2018] */
+/* @stable [03.08.2018] */
 $rac-form-actions-padding: 16px !default;
 $rac-form-actions-button-padding-left: 8px !default;
 $rac-form-simple-list-item-graphic-border-radius: 16px !default;
+$rac-form-simple-list-item-graphic-margin-right: 20px !default;
 $rac-form-simple-list-group-subheader-color: $rac-default-text-color !default;
 $rac-form-simple-list-group-subheader-font-size: 14px !default;
 $rac-form-simple-list-group-subheader-text-transform: uppercase !default;
@@ -237,6 +238,12 @@ $rac-dialog-header-color: $rac-default-label-color !default;
 /* @stable [02.08.2018] */
 $rac-drawer-navigation-list-padding-bottom: 48px !default;
 
+/* @stable [03.08.2018] */
+$rac-dnd-border-color: $color-4 !default;
+$rac-dnd-border-width: 2px !default;
+$rac-dnd-font-size: $rac-default-font-size !default;
+
+
 $rac-snackbar-action-button-ink-color: $color-1 !default;
 
 /* @stable - 08.04.2018 */
@@ -254,9 +261,6 @@ $rac-profile-icon-background-color: $color-9 !default;
 $rac-profile-icon-color: $color-5 !default;
 
 $rac-toolbar-fill-color: $color-5 !default;
-
-$rac-drop-zone-border-color: $color-4 !default;
-$rac-drop-zone-border-width: 2px !default;
 
 $rac-default-offset: 16px !default;
 

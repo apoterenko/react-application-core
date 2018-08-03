@@ -102,41 +102,42 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
   }
 
   /**
-   * @stable [28.06.2018]
+   * @stable [03.08.2018]
    * @returns {JSX.Element}
    */
   protected getAttachment(): JSX.Element {
     const state = this.state;
+    const props = this.props;
+    const messages = this.settings.messages;
+
     const dndElement = (
       <DnD ref='dnd'
+           disabled={this.isDeactivated()}
            onSelect={this.onSelect}/>
     );
-    if (!this.props.useCamera) {
+    if (!props.useCamera) {
       return dndElement;
     }
-    return orNull<JSX.Element>(
-      !this.isDeactivated(),
-      () => (
-        <div className='rac-dnd-wrapper'>
-          {dndElement}
-          <Dialog ref='cameraDialog'
-                  autoWidth={true}
-                  title={this.settings.messages.takeSnapshotMessage}
-                  acceptMessage={this.settings.messages.acceptMessage}
-                  onClose={this.onCameraDialogClose}
-                  onAccept={this.onCameraDialogAccept}>
-            {
-              orNull<JSX.Element>(
-                state.cameraEnabled,
-                () => (
-                  <WebCamera ref='camera'
-                             onSelect={this.doSelectBlob}/>
-                )
+    return (
+      <div className='rac-dnd-wrapper'>
+        {dndElement}
+        <Dialog ref='cameraDialog'
+                autoWidth={true}
+                title={messages.takeSnapshotMessage}
+                acceptMessage={messages.acceptMessage}
+                onClose={this.onCameraDialogClose}
+                onAccept={this.onCameraDialogAccept}>
+          {
+            orNull<JSX.Element>(
+              state.cameraEnabled,
+              () => (
+                <WebCamera ref='camera'
+                           onSelect={this.doSelectBlob}/>
               )
-            }
-          </Dialog>
-        </div>
-      )
+            )
+          }
+        </Dialog>
+      </div>
     );
   }
 
