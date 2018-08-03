@@ -75,6 +75,14 @@ export const isFormDisabled = (formProps: IFormProps): boolean =>
   formProps.disabled === true || formProps.form.progress === true;
 
 /**
+ * @stable [03.08.2018]
+ * @param {IFormProps} formProps
+ * @returns {boolean}
+ */
+export const isFormValid = (formProps: IFormProps): boolean =>
+  R.isNil(formProps.form.valid) || formProps.form.valid === true;
+
+/**
  * @stable [29.05.2018]
  * @param {IFormProps} formProps
  * @returns {boolean}
@@ -89,6 +97,17 @@ export const isFormEditable = (formProps: IFormProps): boolean =>
  */
 export const isFormDirty = (formProps: IFormProps): boolean =>
   formProps.alwaysDirty || formProps.form.dirty === true;
+
+/**
+ * @stable [03.08.2018]
+ * @param {IFormProps} formProps
+ * @returns {boolean}
+ */
+export const isFormSubmittable = (formProps: IFormProps): boolean =>
+  isFormValid(formProps)
+    && isFormEditable(formProps)
+    && isFormDirty(formProps)
+    && !isFormDisabled(formProps);
 
 /**
  * @stable [29.05.2018]

@@ -117,7 +117,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
                   orNull<JSX.Element>(
                     this.closable,
                     () => (
-                      <Button disabled={this.isCancelButtonDisabled()}
+                      <Button disabled={this.isCloseButtonDisabled()}
                               className={toClassName(this.uiFactory.dialogFooterButton,
                                                      this.uiFactory.dialogFooterButtonCancel)}>
                         {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
@@ -149,7 +149,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
    * @stable [03.08.2018]
    * @returns {boolean}
    */
-  protected isCancelButtonDisabled(): boolean {
+  protected isCloseButtonDisabled(): boolean {
     return this.props.closeDisabled;
   }
 

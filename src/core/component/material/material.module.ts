@@ -24,7 +24,7 @@ import { ListItem } from '../list';
 import { TabPanel } from '../tabpanel';
 import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
-import { Dialog } from '../dialog';
+import { Dialog, ArbitraryFormDialog } from '../dialog';
 import { FormDialog } from '../form';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
@@ -43,6 +43,11 @@ uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(co
  * @stable [18.05.2018]
  */
 uiPlugins.set(Dialog, (component: Dialog) => new DialogMaterialPlugin<Dialog>(component));
+
+/**
+ * @stable [03.08.2018]
+ */
+uiPlugins.set(ArbitraryFormDialog, (component: ArbitraryFormDialog) => new DialogMaterialPlugin<ArbitraryFormDialog>(component));
 
 /**
  * @stable [29.05.2018]

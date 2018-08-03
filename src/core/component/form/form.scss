@@ -6,6 +6,10 @@
 
   .rac-form {
 
+    .rac-section {
+      padding: $rac-form-section-padding;                                     /* @stable [03.08.2018] */
+    }
+
     .rac-list, .rac-simple-list {
 
       .rac-list-item {
