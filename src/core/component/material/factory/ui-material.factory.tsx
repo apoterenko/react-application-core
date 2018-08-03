@@ -291,6 +291,7 @@ export class UIMaterialFactory implements IUIFactory {
 
     return (
       <div key={uuid()}
+           title={config.title}
            className={toClassName(
                         config.className,
                         'rac-flex',

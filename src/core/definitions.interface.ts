@@ -2674,7 +2674,3 @@ export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
 export type KeyboardEventT = React.KeyboardEvent<{}>;
 export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;
-
-export const INITIAL_DIRTY_STATE: IDirtyWrapper = {
-  dirty: true,
-};
