@@ -331,20 +331,6 @@ export interface IReaderFnWrapper<TRequest, TResult> extends IReaderWrapper<(req
 /**
  * @stable [21.05.2018]
  */
-export interface IUuidWrapper {
-  uuid?: string;
-}
-
-/**
- * @stable [21.05.2018]
- */
-export interface ICommandWrapper<TCommand = string> {
-  command?: TCommand;
-}
-
-/**
- * @stable [21.05.2018]
- */
 export interface IAlignWrapper {
   align?: string;
 }
@@ -445,13 +431,6 @@ export interface IOnRemoveWrapper<TOnRemove> {
  */
 export interface IOnResetWrapper<TOnReset = () => void> {
   onReset?: TOnReset;
-}
-
-/**
- * @stable [15.05.2018]
- */
-export interface IOnInfoWrapper<TEntity = IEntity, TOnInfo = (entity?: TEntity) => void> {
-  onInfo?: TOnInfo;
 }
 
 /* @stable - 01.04.2018 */
@@ -682,13 +661,6 @@ export interface ILabelWrapper {
  */
 export interface IPrefixLabelWrapper {
   prefixLabel?: string;
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IDisplayWrapper<TDisplay = boolean> {
-  display?: TDisplay;
 }
 
 /**
@@ -1190,13 +1162,6 @@ export interface IReadyWrapper {
 }
 
 /**
- * @stable [23.06.2018]
- */
-export interface IFocusedWrapper {
-  focused?: boolean;
-}
-
-/**
  * @stable [29.05.2018]
  */
 export interface IAuthorizedWrapper {
@@ -1480,12 +1445,6 @@ export interface IOpenedWrapper<TOpened = boolean> {
 }
 
 /**
- * @stable [27.04.2018]
- */
-export interface IOpenFnWrapper extends IOpenWrapper<() => void> {
-}
-
-/**
  * @stable [17.05.2018]
  */
 export interface IHideWrapper<THide = boolean> {
@@ -1599,11 +1558,6 @@ export interface ISelfWrapper<TSelf = Element> {
  * @stable [17.05.2018]
  */
 export interface IAnySelfWrapper extends ISelfWrapper<AnyT> {
-}
-
-/* @stable [23.04.2018] */
-export interface IStopEventWrapper<TStopEvent> {
-  stopEvent?: TStopEvent;
 }
 
 /* @stable - 31.03.2018 */
@@ -1835,20 +1789,6 @@ export interface IZipCodeWrapper<TZipCode = number | string> {
 /**
  * @stable [29.07.2018]
  */
-export interface IXWrapper<Tx = number> {
-  x?: Tx;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface IYWrapper<Ty = number> {
-  y?: Ty;
-}
-
-/**
- * @stable [29.07.2018]
- */
 export interface ILatWrapper<TLat = number> {
   lat?: TLat;
 }
@@ -1907,13 +1847,6 @@ export interface IMoreOptionsWrapper<TMoreOptions> {
  */
 export interface IUseUppercaseWrapper {
   useUppercase?: boolean;
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IUseDigitalWrapper {
-  useDigital?: boolean;
 }
 
 /**
@@ -2063,13 +1996,6 @@ export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;
 }
 
-/**
- * @stable [17.05.2018]
- */
-export interface IDispatchWrapper<TDispatch> {
-  dispatch?: TDispatch;
-}
-
 /* @stable - 12.04.2018 */
 export interface IQueueWrapper<TQueue> {
   queue?: TQueue;
@@ -2143,13 +2069,6 @@ export interface IBlockWrapper<TBlock = boolean> {
  */
 export interface IParentsWrapper<TParents> {
   parents?: TParents;
-}
-
-/**
- * @stable [16.06.2018]
- */
-export interface IParentWrapper<TParent> {
-  parent?: TParent;
 }
 
 /**
@@ -2247,11 +2166,6 @@ export interface IFullWrapper<TFull> {
 
 /* @stable - 20.04.2018 */
 export interface IBooleanFullWrapper extends IFullWrapper<boolean> {
-}
-
-/* @stable - 20.04.2018 */
-export interface IOpacityWrapper {
-  opacity?: number;
 }
 
 /* @stable [27.04.2018] */
@@ -2457,13 +2371,6 @@ export interface IOnAcceptWrapper<TOnAccept = (...args: AnyT[]) => void> {
 }
 
 /**
- * @stable [14.05.2018]
- */
-export interface IOnSearchWrapper<TOnSearch = () => void> {
-  onSearch?: TOnSearch;
-}
-
-/**
  * @stable [08.05.2018]
  */
 export interface IOnSelectWrapper<TSelectedObject = IEntity, TOnSelect = (object?: TSelectedObject) => void> {
@@ -2560,13 +2467,6 @@ export interface ICheckedWrapper<TChecked = boolean> {
  */
 export interface IWidthWrapper {
   width?: number;
-}
-
-/**
- * @stable [10.06.2018]
- */
-export interface IMinWidthWrapper {
-  minWidth?: number;
 }
 
 /* @stable - 01.04.2018 */
@@ -2742,13 +2642,6 @@ export interface IChildrenWrapper<TChildren> {
  */
 export interface IInfoWrapper<TInfo = string> {
   info?: TInfo;
-}
-
-/**
- * @stable [06.07.2018]
- */
-export interface IWarningWrapper<TWarning = string> {
-  warning?: TWarning;
 }
 
 /* @stable - 15.04.2018 */
