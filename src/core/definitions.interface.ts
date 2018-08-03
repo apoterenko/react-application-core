@@ -2452,7 +2452,7 @@ export interface IOnCloseWrapper<TPayload = IEntity, TOnClose = (payload?: TPayl
 /**
  * @stable [17.05.2018]
  */
-export interface IOnAcceptWrapper<TOnAccept = () => void> {
+export interface IOnAcceptWrapper<TOnAccept = (...args: AnyT[]) => void> {
   onAccept?: TOnAccept;
 }
 
@@ -2506,7 +2506,7 @@ export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppl
 /**
  * @stable [05.05.2018]
  */
-export interface IActivateWrapper<TActivate = () => void> {
+export interface IActivateWrapper<TActivate = (...args: AnyT[]) => void> {
   activate?: TActivate;
 }
 
