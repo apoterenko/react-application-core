@@ -50,8 +50,8 @@ export interface IDialogProps extends IUniversalDialogProps,
 /**
  * @stable [02.08.2018]
  */
-export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps>
-  extends IUniversalComponent<TProps>,
+export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps, TState = {}>
+  extends IUniversalComponent<TProps, TState>,
           IIsOpenWrapper,
           IActivateWrapper,
           IOnCloseWrapper,

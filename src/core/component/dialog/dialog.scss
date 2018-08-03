@@ -5,10 +5,17 @@
 
   .rac-dialog {
 
+    .rac-form {
+
+      .rac-section {
+        padding: 0;                           /* @stable [03.08.2018] */
+      }
+    }
+
     .rac-dialog-surface {
 
       &.rac-dialog-surface-auto-width {
-        width: auto;                           /* @stable [02.08.2018] */
+        width: auto;                          /* @stable [02.08.2018] */
       }
     }
 

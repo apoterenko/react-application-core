@@ -25,7 +25,7 @@ export class FormDialog extends Dialog<FormDialog, IFormDialogProps> {
   /**
    * @stable [31.05.2018]
    */
-  protected isDialogVisible(): boolean {
+  private isDialogVisible(): boolean {
     return this.props.form.dirty;
   }
 }

@@ -62,6 +62,7 @@ export const INITIAL_APPLICATION_FORM_STATE: IEditableEntity = {
   changes: {},
 };
 
+export const FORM_REF = 'form';
 export const FORM_SUBMIT_ACTION_TYPE = 'form.submit';
 export const FORM_SUBMIT_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(FORM_SUBMIT_ACTION_TYPE);
 export const FORM_SUBMIT_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(FORM_SUBMIT_ACTION_TYPE);

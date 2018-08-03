@@ -9,13 +9,14 @@ import {
   IDialogProps,
 } from './dialog.interface';
 
-export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDialog<TProps>,
-                    TProps extends IDialogProps = IDialogProps>
-  extends BaseComponent<TComponent, TProps>
-  implements IUniversalDialog<TProps> {
+export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUniversalDialog<TProps, TState>,
+                    TProps extends IDialogProps = IDialogProps,
+                    TState = {}>
+  extends BaseComponent<TComponent, TProps, TState>
+  implements IUniversalDialog<TProps, TState> {
 
   /**
-   * @stable [31.05.2018]
+   * @stable [03.08.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -23,12 +24,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
 
     return (
       <aside ref='self'
-             className={toClassName(
-                         'rac-dialog',
-                         props.className,
-                         this.uiFactory.dialog,
-                         !this.isDialogVisible() && 'rac-display-none'
-                       )}>
+             className={toClassName('rac-dialog', props.className, this.uiFactory.dialog)}>
         {this.getDialogBody()}
         <div className={this.uiFactory.dialogBackdrop}/>
       </aside>
@@ -38,7 +34,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
   /**
    * @stable [17.05.2018]
    */
-  public activate(): void {
+  public activate(callback?: () => void): void {
     // Each plugin must override this method
   }
 
@@ -92,6 +88,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
    */
   protected getDialogBody(): JSX.Element {
     const props = this.props;
+    const dialogBodyEl = this.getDialogBodyElement();
     return (
       <div className={toClassName(
                         'rac-dialog-surface',
@@ -105,9 +102,9 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
         </header>
         {
           orNull<React.ReactNode>(
-            !R.isNil(props.children) || !R.isNil(props.message),
+            !R.isNil(dialogBodyEl) || !R.isNil(props.message),
             <section className={toClassName('rac-dialog-body', this.uiFactory.dialogBody)}>
-              {props.children || this.t(props.message)}
+              {dialogBodyEl || this.t(props.message)}
             </section>
           )
         }
@@ -120,7 +117,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
                   orNull<JSX.Element>(
                     this.closable,
                     () => (
-                      <Button disabled={props.closeDisabled}
+                      <Button disabled={this.isCancelButtonDisabled()}
                               className={toClassName(this.uiFactory.dialogFooterButton,
                                                      this.uiFactory.dialogFooterButtonCancel)}>
                         {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
@@ -132,7 +129,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
                   orNull<JSX.Element>(
                     this.acceptable,
                     () => (
-                      <Button disabled={props.acceptDisabled}
+                      <Button disabled={this.isAcceptButtonDisabled()}
                               className={toClassName(this.uiFactory.dialogFooterButton,
                                                      this.uiFactory.dialogFooterButtonAccept)}>
                         {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
@@ -149,10 +146,26 @@ export class Dialog<TComponent extends IUniversalDialog<TProps> = IUniversalDial
   }
 
   /**
-   * @stable [31.05.2018]
+   * @stable [03.08.2018]
    * @returns {boolean}
    */
-  protected isDialogVisible(): boolean {
-    return true;
+  protected isCancelButtonDisabled(): boolean {
+    return this.props.closeDisabled;
+  }
+
+  /**
+   * @stable [03.08.2018]
+   * @returns {boolean}
+   */
+  protected isAcceptButtonDisabled(): boolean {
+    return this.props.acceptDisabled;
+  }
+
+  /**
+   * @stable [03.08.2018]
+   * @returns {React.ReactNode}
+   */
+  protected getDialogBodyElement(): React.ReactNode {
+    return this.props.children;
   }
 }

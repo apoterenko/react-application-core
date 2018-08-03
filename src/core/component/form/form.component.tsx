@@ -23,6 +23,8 @@ import {
   isFormEditable,
   isFormNewEntity,
   isFormDirty,
+  isFormValid,
+  isFormSubmittable,
 } from './form.support';
 
 export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
@@ -61,7 +63,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                             'rac-flex-full',
                             props.className
                         )}>
-          <fieldset disabled={this.isFormDisabled}
+          <fieldset disabled={this.isFormDisabled()}
                     className='rac-fieldset rac-flex-full'>
             <section className='rac-section'>
               {
@@ -121,15 +123,15 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                               <Button icon='clear_all'
                                       {...props.buttonConfiguration}
                                       type='reset'
-                                      disabled={!this.isFormDirty}
+                                      disabled={!this.isFormDirty()}
                                       text={props.resetText || 'Reset'}/>
                           )
                       )}
-                      <Button icon={this.isFormValid ? (props.actionIcon || 'save') : 'error_outline'}
+                      <Button icon={this.isFormValid() ? (props.actionIcon || 'save') : 'error_outline'}
                               {...props.buttonConfiguration}
                               type='submit'
                               raised={true}
-                              disabled={!this.canSubmit}
+                              disabled={!this.isFormSubmittable()}
                               progress={this.form.progress}
                               error={!R.isNil(this.form.error)}
                               text={props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save')}/>
@@ -254,35 +256,43 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [03.08.2018]
    * @returns {boolean}
    */
-  private get isFormDisabled(): boolean {
+  private isFormDisabled(): boolean {
     return isFormDisabled(this.props);
   }
 
-  private get isFormValid(): boolean {
-    const form = this.props.form;
-    return R.isNil(form.valid) || form.valid;
+  /**
+   * @stable [03.08.2018]
+   * @returns {boolean}
+   */
+  private isFormValid(): boolean {
+    return isFormValid(this.props);
   }
 
   /**
-   * @stable [29.05.2018]
+   * @stable [03.08.2018]
    * @returns {boolean}
    */
-  private get isFormDirty(): boolean {
+  private isFormDirty(): boolean {
     return isFormDirty(this.props);
   }
 
   /**
-   * @stable - 31.03.2018
+   * @stable [03.08.2018]
    * @returns {boolean}
    */
-  private get canSubmit(): boolean {
-    return this.isFormValid
-        && isFormEditable(this.props)
-        && this.isFormDirty
-        && !this.isFormDisabled;
+  private isFormEditable(): boolean {
+    return isFormEditable(this.props);
+  }
+
+  /**
+   * @stable [03.08.2018]
+   * @returns {boolean}
+   */
+  private isFormSubmittable(): boolean {
+    return isFormSubmittable(this.props);
   }
 
   /**
