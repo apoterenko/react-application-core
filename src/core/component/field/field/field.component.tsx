@@ -155,7 +155,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const name = props.name;
     const step = props.step;
     const type = props.type || 'text';
-    const autoComplete = props.autoComplete || 'new-password';
+    const autoComplete = props.autoComplete || 'off';
     const readOnly = props.readOnly  || this.inProgress();
     const disabled = props.disabled;
     const pattern = this.getFieldPattern();
