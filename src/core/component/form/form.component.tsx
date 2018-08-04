@@ -186,11 +186,15 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
     this.propsOnValid();
   }
 
+  /**
+   * @stable [04.08.2018]
+   * @param {IField} field
+   */
   private onEmptyDictionary(field: IField): void {
     const props = this.props;
 
     if (props.onEmptyDictionary) {
-      props.onEmptyDictionary(field.props.bindDictionary);
+      props.onEmptyDictionary(field.props.bindDictionary, this.apiEntity);
     }
   }
 

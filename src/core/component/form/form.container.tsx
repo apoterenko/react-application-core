@@ -89,8 +89,13 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
     return props.onBeforeSubmit && props.onBeforeSubmit(apiEntity);
   }
 
-  private onEmptyDictionary(dictionary: string): void {
-    this.dispatchLoadDictionary(dictionary);
+  /**
+   * @stable [04.08.2018]
+   * @param {string} dictionary
+   * @param {IApiEntity} apiEntity
+   */
+  private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
+    this.dispatchLoadDictionary(dictionary, apiEntity);
   }
 
   private onLoadDictionary(items: AnyT): void {
