@@ -1,7 +1,7 @@
 import { Dialog } from '../../dialog';
 
 import { IFormDialogProps } from './form-dialog.interface';
-import { toClassName } from '../../util';
+import { toClassName } from '../../../util';
 
 export class FormDialog extends Dialog<FormDialog, IFormDialogProps> {
 
