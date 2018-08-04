@@ -10,6 +10,7 @@ export class FormDialog extends Dialog<FormDialog, IFormDialogProps> {
     message: 'Changes you made will not be saved.',
     closeMessage: 'Cancel',
     acceptMessage: 'Discard',
+    ...Dialog.defaultProps,
   };
 
   /**

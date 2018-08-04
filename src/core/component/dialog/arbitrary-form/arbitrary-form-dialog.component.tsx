@@ -17,10 +17,6 @@ export class ArbitraryFormDialog extends Dialog<ArbitraryFormDialog,
                                                 IArbitraryFormDialogProps,
                                                 IArbitraryFormDialogState> {
 
-  public static readonly defaultProps: IArbitraryFormDialogProps = {
-    autoWidth: true,
-  };
-
   private static REDUCER_FORM_SECTION = uuid();
 
   /**

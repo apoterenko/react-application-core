@@ -122,7 +122,6 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
       <div className='rac-dnd-wrapper'>
         {dndElement}
         <Dialog ref='cameraDialog'
-                autoWidth={true}
                 title={messages.takeSnapshotMessage}
                 acceptMessage={messages.acceptMessage}
                 onClose={this.onCameraDialogClose}

@@ -7,6 +7,7 @@ import { BaseComponent } from '../base';
 import {
   IUniversalDialog,
   IDialogProps,
+  IUniversalDialogProps,
 } from './dialog.interface';
 
 export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUniversalDialog<TProps, TState>,
@@ -14,6 +15,10 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
                     TState = {}>
   extends BaseComponent<TComponent, TProps, TState>
   implements IUniversalDialog<TProps, TState> {
+
+  public static readonly defaultProps: IUniversalDialogProps = {
+    autoWidth: true,
+  };
 
   /**
    * @stable [03.08.2018]
