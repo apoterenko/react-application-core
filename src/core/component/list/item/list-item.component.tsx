@@ -28,6 +28,7 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps>
           this.uiFactory.listItem,
           props.rippable && this.uiFactory.rippleSurface,
           props.className,
+          props.warning && 'rac-list-item-warning',
           props.toClassName && props.toClassName(props.rawData)
       ),
     };
