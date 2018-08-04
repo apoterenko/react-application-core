@@ -24,12 +24,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
 
     return (
       <aside ref='self'
-             className={toClassName(
-               'rac-dialog',
-               props.className,
-               this.uiFactory.dialog,
-               !this.isDialogVisible() && 'rac-display-none'
-             )}>
+             className={this.getDialogClassName()}>
         {this.getDialogBody()}
         <div className={this.uiFactory.dialogBackdrop}/>
       </aside>
@@ -147,6 +142,19 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
           )
         }
       </div>
+    );
+  }
+
+  /**
+   * @stable [05.08.2018]
+   * @returns {string}
+   */
+  protected getDialogClassName(): string {
+    return toClassName(
+      'rac-dialog',
+      this.props.className,
+      this.uiFactory.dialog,
+      !this.isDialogVisible() && 'rac-display-none'
     );
   }
 

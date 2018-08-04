@@ -1,6 +1,7 @@
 import { Dialog } from '../../dialog';
 
 import { IFormDialogProps } from './form-dialog.interface';
+import { toClassName } from '../../util';
 
 export class FormDialog extends Dialog<FormDialog, IFormDialogProps> {
 
@@ -20,6 +21,17 @@ export class FormDialog extends Dialog<FormDialog, IFormDialogProps> {
     } else {
       this.onAccept();
     }
+  }
+
+  /**
+   * @stable [05.08.2018]
+   * @returns {string}
+   */
+  protected getDialogClassName(): string {
+    return toClassName(
+      super.getDialogClassName(),
+      'rac-form-dialog'
+    );
   }
 
   /**

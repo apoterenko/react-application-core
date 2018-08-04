@@ -35,7 +35,6 @@ export const EFFECTOR_FIELD_NAME = 'effector';                                  
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
 export const NAME_FIELD_NAME = 'name';
-export const VALUE_FIELD_NAME = 'value';
 export const TITLE_FIELD_NAME = 'title';
 export const ZIP_CODE_FIELD_NAME = 'zipCode';                                                   /* @stable [01.08.2018] */
 export const AREA_FIELD_NAME = 'area';                                                          /* @stable [01.08.2018] */
