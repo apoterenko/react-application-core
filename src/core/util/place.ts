@@ -1,8 +1,6 @@
 import * as R from 'ramda';
 
 import { IPlaceEntity } from '../entities-definitions.interface';
-import { DI_TYPES, staticInjector } from '../di';
-import { INumberConverter } from '../converter';
 
 /**
  * @stable [01.08.2018]
@@ -32,7 +30,7 @@ export const toPlaceDescription = <TType>(cmp: google.maps.GeocoderAddressCompon
   cmp && extractor(cmp);
 
 /**
- * @stable [30.07.2018]
+ * @stable [04.08.2018]
  * @param {google.maps.GeocoderResult | google.maps.places.PlaceResult} place
  * @returns {IPlaceEntity}
  */
@@ -40,7 +38,6 @@ export const toPlace = (place: google.maps.GeocoderResult | google.maps.places.P
   if (!Array.isArray(place.address_components)) {
     return null;
   }
-  const nc = staticInjector<INumberConverter>(DI_TYPES.NumberConverter);
   return {
     country: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('country')),
@@ -68,7 +65,7 @@ export const toPlace = (place: google.maps.GeocoderResult | google.maps.places.P
     ),
     zipCode: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('postal_code')),
-      (cmp: google.maps.GeocoderAddressComponent) => nc.number(cmp.long_name, false)
+      (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name
     ),
   };
 };
