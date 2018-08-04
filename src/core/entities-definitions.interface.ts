@@ -443,7 +443,6 @@ export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
           IOnResetWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
           IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
-          IOnEmptyDictionaryWrapper,
           IOnLoadDictionaryWrapper,
           IDefaultOnValidWrapper {
 }

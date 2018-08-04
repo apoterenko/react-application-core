@@ -40,6 +40,7 @@ export const TITLE_FIELD_NAME = 'title';
 export const ZIP_CODE_FIELD_NAME = 'zipCode';                                                   /* @stable [01.08.2018] */
 export const AREA_FIELD_NAME = 'area';                                                          /* @stable [01.08.2018] */
 export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
+export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**
@@ -624,10 +625,10 @@ export interface IOnLoadDictionaryWrapper {
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [04.08.2018]
  */
-export interface IOnEmptyDictionaryWrapper {
-  onEmptyDictionary?(dictionary?: string): void;
+export interface IOnEmptyDictionaryWrapper<TPayload> {
+  onEmptyDictionary?(dictionary?: string, payload?: TPayload): void;
 }
 
 /* @stable - 22.04.2018 */
@@ -1631,6 +1632,13 @@ export interface IRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => 
 }
 
 /**
+ * @stable [04.08.2018]
+ */
+export interface IWarningWrapper<TWarning = boolean> {
+  warning?: TWarning;
+}
+
+/**
  * @stable [06.06.2018]
  */
 export interface IHeaderRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.Element> {
@@ -1782,7 +1790,7 @@ export interface IPlaceIdWrapper<TPlaceId = string> {
 /**
  * @stable [01.08.2018]
  */
-export interface IZipCodeWrapper<TZipCode = number | string> {
+export interface IZipCodeWrapper<TZipCode = string> {
   zipCode?: TZipCode;
 }
 

@@ -192,6 +192,7 @@ import {
   IValidateWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
+  IWarningWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -201,6 +202,7 @@ import {
   ISortDirectionEntity,
   IFieldChangeEntity,
   IUniversalComponent,
+  IApiEntity,
 } from './entities-definitions.interface';
 
 /**
@@ -377,7 +379,8 @@ export interface IContainerConfiguration extends IUniversalContainerConfiguratio
  */
 export interface IUniversalListItemConfiguration extends IUniversalComponentConfiguration,
                                                          IRendererWrapper,
-                                                         ITplFnWrapper {
+                                                         ITplFnWrapper,
+                                                         IWarningWrapper {
 }
 
 /* @stable [24.04.2018] */
@@ -446,7 +449,7 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
 }
 
 /**
- * @stable [29.05.2018]
+ * @stable [04.08.2018]
  */
 export interface IUniversalFormConfiguration extends IUniversalComponentConfiguration,
                                                      INotUseActionsWrapper,
@@ -454,7 +457,8 @@ export interface IUniversalFormConfiguration extends IUniversalComponentConfigur
                                                      IEditableWrapper,
                                                      IDisabledWrapper,
                                                      IAlwaysDirtyWrapper,
-                                                     IActionIconWrapper {
+                                                     IActionIconWrapper,
+                                                     IOnEmptyDictionaryWrapper<IApiEntity> {
 }
 
 export interface IFormConfiguration extends IUniversalFormConfiguration,
@@ -849,7 +853,7 @@ export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWr
  * @stable [04.05.2018]
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
-                                                      IOnEmptyDictionaryWrapper,
+                                                      IOnEmptyDictionaryWrapper<IApiEntity>,
                                                       IOnLoadDictionaryWrapper {
 }
 
