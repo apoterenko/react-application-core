@@ -11,19 +11,22 @@
 
         &.rac-icon {
           display: inline-block;                                      /* @stable [25.06.2018] */
+          width: $rac-page-toolbar-button-page-icon-width;            /* @stable [05.08.2018] */
+          height: $rac-page-toolbar-button-page-icon-height;          /* @stable [05.08.2018] */
         }
       }
 
-      .rac-page-toolbar-content {
+      .rac-toolbar-content {
         padding-left: $rac-page-toolbar-content-padding-left;         /* @stable [25.06.2018] */
         padding-right: $rac-page-toolbar-content-padding-right;       /* @stable [25.06.2018] */
         min-height: $rac-page-toolbar-content-min-height;             /* @stable [25.06.2018] */
       }
 
       .rac-toolbar-pages-info {
-        color: $rac-toolbar-pages-info-color;           /* @stable [09.05.2018] */
-        margin-left: 16px;                              /* @stable [25.06.2018] */
-        margin-right: 16px;                             /* @stable [25.06.2018] */
+        font-size: $rac-page-toolbar-pages-info-font-size;   /* @stable [05.08.2018] */
+        color: $rac-page-toolbar-pages-info-color;           /* @stable [09.05.2018] */
+        margin-left: 16px;                                   /* @stable [25.06.2018] */
+        margin-right: 16px;                                  /* @stable [25.06.2018] */
       }
     }
   }

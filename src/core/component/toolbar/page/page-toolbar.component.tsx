@@ -38,7 +38,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
     return orNull<JSX.Element>(
       !(R.isNil(this.props.children) && R.isNil(controls)),
       () => (
-        <div className={toClassName(this.uiFactory.toolbarRow, 'rac-page-toolbar-content')}>
+        <div className={toClassName(this.uiFactory.toolbarRow, 'rac-toolbar-content')}>
           {this.getLeftContent()}
           {controls}
           {this.getRightContent()}
