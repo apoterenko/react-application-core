@@ -19,6 +19,10 @@
       .rac-simple-list-item {
         height: $rac-menu-simple-list-item-height;            /* @stable [25.06.2018] */
 
+        &[aria-disabled='true'] {
+          opacity: $opacity-text;                             /* @stable [05.08.2018] */
+        }
+
         .rac-menu-item {
           width: 100%;                                        /* @stable [25.06.2018] */
           height: 100%;                                       /* @stable [25.06.2018] */

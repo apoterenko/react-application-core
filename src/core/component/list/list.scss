@@ -15,6 +15,11 @@
     overflow-y: auto;                                        /* @stable [23.06.2018] */
 
     .rac-list-item {
+
+      color: $rac-list-item-color;                           /* @stable [23.06.2018] */
+      font-size: $rac-list-item-font-size;                   /* @stable [23.06.2018] */
+      letter-spacing: $rac-list-item-letter-spacing;         /* @stable [23.06.2018] */
+
       &.rac-list-item-warning {
 
         .rac-list-item-graphic {
@@ -35,10 +40,6 @@
           background-color: $rac-list-item-fail-graphic-background-color;     /* @stable [05.08.2018] */
         }
       }
-
-      color: $rac-list-item-color;                           /* @stable [23.06.2018] */
-      font-size: $rac-list-item-font-size;                   /* @stable [23.06.2018] */
-      letter-spacing: $rac-list-item-letter-spacing;         /* @stable [23.06.2018] */
 
       .rac-icon {
 
