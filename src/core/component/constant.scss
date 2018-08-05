@@ -13,7 +13,7 @@ $color-9: #787878 !default;
 $color-10: #e1e1e1 !default;
 $color-11: #ff0000 !default;
 $color-12: #a70101 !default;
-$color-13: #1aa51a !default;
+$color-13: #73af90 !default;
 $color-14: #f0f0f0 !default;
 $color-15: #000 !default;
 $color-16: #c8ccce !default;
@@ -92,6 +92,8 @@ $rac-list-item-graphic-icon-height: 40% !default;
 $rac-list-item-graphic-icon-color: $color-5 !default;
 $rac-list-item-graphic-background-color: $color-8 !default;
 $rac-list-item-warning-graphic-background-color: $color-6 !default;
+$rac-list-item-normal-graphic-background-color: $color-13 !default;
+$rac-list-item-fail-graphic-background-color: $color-11 !default;
 
 /* @stable [22.06.2018] */
 $rac-navigation-list-item-height: 40px !default;
