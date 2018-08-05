@@ -85,7 +85,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     return orNull(
       this.routes.profile,
       () => (
-        <Profile path={this.routes.profile}
+        <Profile path={this.routes.home}
                  name={user && user.name}
                  email={user && user.email}
                  menuItems={[{ label: 'Exit', icon: 'exit_to_app', value: DefaultLayoutContainer.PROFILE_EXIT_ACTION }]}
