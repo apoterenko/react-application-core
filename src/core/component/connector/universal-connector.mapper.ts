@@ -6,6 +6,7 @@ import {
   IEntityWrapper,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
+  IQueryWrapper,
 } from '../../definitions.interface';
 import {
   IEditableEntity,
@@ -25,6 +26,7 @@ import {
   INamedEntity,
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
+  IQueryFilterWrapperEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
@@ -138,14 +140,35 @@ export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMut
   listMapper(listWrapperEntity.list, dataMutator);
 
 /**
- * @stable [31.05.2018]
+ * @stable [05.08.2018]
  * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
  * @param {boolean} useFormMapper
- * @returns {IFilterFormWrapperEntity | IFormWrapperEntity}
+ * @returns {TResult}
  */
-export const filterFormWrapperMapper = (filterFormWrapperEntity: IFilterFormWrapperEntity,
-                                        useFormMapper: boolean = false): IFilterFormWrapperEntity | IFormWrapperEntity =>
-  (useFormMapper ? formMapper : filterFormMapper)(filterFormWrapperEntity.filterForm);
+export const filterFormWrapperMapper = <TResult = IFilterFormWrapperEntity | IFormWrapperEntity>(
+  filterFormWrapperEntity: IFilterFormWrapperEntity,
+  useFormMapper: boolean = false): TResult =>
+  (useFormMapper ? formMapper : filterFormMapper)(filterFormWrapperEntity.filterForm) as TResult;
+
+/**
+ * @stable [05.08.2018]
+ * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
+ * @returns {TResult}
+ */
+export const filterFormChangesWrapperMapper = <TResult = IEntity>(filterFormWrapperEntity: IFilterFormWrapperEntity): TResult =>
+  ({
+    ...filterFormWrapperEntity.filterForm.changes,
+  } as TResult);
+
+/**
+ * @stable [05.08.2018]
+ * @param {IQueryFilterWrapperEntity} queryFilterWrapperEntity
+ * @returns {IQueryWrapper}
+ */
+export const filterQueryWrapperMapper = (queryFilterWrapperEntity: IQueryFilterWrapperEntity): IQueryWrapper =>
+  ({
+    query: queryFilterWrapperEntity.filter.query,
+  });
 
 /**
  * @stable [16.05.2018]
