@@ -17,17 +17,4 @@
       color: $color-9;
     }
   }
-
-  &.rac-form-field-disabled {
-    .rac-text-field {
-      .rac-text-field-prefix-label {
-        opacity: $opacity-label;
-      }
-
-      .rac-field-input {
-        opacity: $opacity-text;
-        cursor: default;
-      }
-    }
-  }
 }

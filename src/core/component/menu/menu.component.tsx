@@ -130,7 +130,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
                       nonInteractive={false}
                       className={this.uiFactory.menuItems}>
             {
-              this.getMenuItems()
+              this.menuItems
                 .map((option): JSX.Element => (
                   <li role='option'
                       key={`menu-item-${option.value}`}
@@ -232,13 +232,18 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     return false;
   }
 
-  private getMenuItems(): any {
+  /**
+   * @stable [06.08.2018]
+   * @returns {IMenuItemEntity[]}
+   */
+  private get menuItems(): IMenuItemEntity[] {
     const props = this.props;
     const state = this.state;
-    const valueToFilter = state.filter && state.filter.toUpperCase();
+    const query = state.filter;
 
-    return props.options
-      .filter((option) => !valueToFilter || props.filter(valueToFilter, option));
+    return props.useFilter
+      ? props.options.filter((option) => props.filter(query, option))
+      : props.options;
   }
 
   private onInputChange(filter: string): void {
@@ -272,7 +277,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [07.06.2018]
+   * @stable [06.08.2018]
    * @param {IBasicEvent<HTMLElement>} event
    * @param {IMenuItemEntity} option
    */
@@ -284,7 +289,9 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
       props.onSelect(option);
     }
 
-    if (!props.multi) {
+    if (!props.multi
+      || this.menuItems.length === 1 // Because a "Flux Cycle", to prevent empty list after updating
+    ) {
       this.hide();
     }
   }

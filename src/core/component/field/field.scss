@@ -14,13 +14,14 @@
 
     &.rac-form-field-disabled {
 
-      .rac-dnd {
+      label,
+        .rac-dnd,
+        .rac-field-input,
+        .rac-message-content,
+        .rac-text-field-prefix-label,
+        .rac-text-field-help-text {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default;                                              /* @stable [03.08.2018] */
-      }
-
-      label {
-        opacity: $opacity-label;                                      /* @stable [03.08.2018] */
       }
     }
 

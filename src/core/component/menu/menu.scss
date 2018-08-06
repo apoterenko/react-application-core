@@ -20,7 +20,7 @@
         height: $rac-menu-simple-list-item-height;            /* @stable [25.06.2018] */
 
         &[aria-disabled='true'] {
-          opacity: $opacity-text;                             /* @stable [05.08.2018] */
+          opacity: $opacity;                                  /* @stable [05.08.2018] */
         }
 
         .rac-menu-item {
