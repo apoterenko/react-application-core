@@ -55,7 +55,6 @@ export interface IApplicationMessagesSettings {
   followingErrorHasOccurredMessage?: string;
   noSelectedItemsMessage?: string;
   filterPlaceholderMessage?: string;
-  topHeaderMessage?: string;
   takeSnapshotMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
