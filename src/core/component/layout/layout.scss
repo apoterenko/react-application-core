@@ -2,17 +2,6 @@
 @import './form/form-layout';
 @import './default/default-layout';
 
-// Button [FRAMEWORK-]
-.rac-form-layout {
-  .rac-header {
-    background-color: $color-2;
-
-    * {
-      color: white;
-    }
-  }
-}
-
 // Flex layout [FRAMEWORK-]
 .rac-flex {
   @include flexbox;

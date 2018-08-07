@@ -5,6 +5,8 @@
 .rac {
 
   .rac-header {
+    color: $rac-header-color;                                                            /* @stable [07.08.2018] */
+    background: $rac-header-background;                                                  /* @stable [07.08.2018] */
 
     .rac-header-section-title {
       font-weight: $rac-header-section-title-font-weight;                                /* @stable [26.06.2018] */

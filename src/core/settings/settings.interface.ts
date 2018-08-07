@@ -65,6 +65,8 @@ export interface IApplicationMessagesSettings {
   addressSelectionMessage?: string;
   putMarkerHereMessage?: string;
   invalidAddressMessage?: string;
+  signIntoYourAccountMessage?: string;
+  welcomeMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {

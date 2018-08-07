@@ -83,7 +83,8 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    * @returns {Promise<AnyT> | IEffectsAction[] | IEffectsAction}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildPrepareDoneActionType())
-  public $onPrepareDone(): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
+  public $onPrepareDone(action: IEffectsAction,
+                        state: IUniversalApplicationStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
     return ApplicationActionBuilder.buildReadyAction();
   }
 

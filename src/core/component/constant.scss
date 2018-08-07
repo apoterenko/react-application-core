@@ -194,7 +194,9 @@ $rac-chip-description-font-size: 13px !default;
 $rac-chip-description-padding-right: 16px !default;
 $rac-chip-description-padding-bottom: 1px !default;
 
-/* @stable [26.06.2018] */
+/* @stable [07.08.2018] */
+$rac-header-color: $color-5 !default;
+$rac-header-background: $color-2 !default;
 $rac-header-section-title-font-weight: bold !default;
 $rac-header-section-title-margin-left: 14px !default;
 $rac-header-section-title-margin-right: unset !default;
@@ -256,15 +258,26 @@ $rac-dnd-border-color: $color-4 !default;
 $rac-dnd-border-width: 2px !default;
 $rac-dnd-font-size: $rac-default-font-size !default;
 
-
-$rac-snackbar-action-button-ink-color: $color-1 !default;
-
-/* @stable - 08.04.2018 */
-$rac-form-layout-background-color: $color-7 !default;
+/* @stable [07.08.2018] */
+$rac-form-layout-background: $color-7 !default;
 $rac-form-layout-content-width: 25% !default;
 $rac-form-layout-content-min-width: 280px !default;
-$rac-form-layout-content-border-color: $color-2 !default;
-$rac-form-layout-content-background-color: $color-5 !default;
+$rac-form-layout-content-border: 1px solid $color-2 !default;
+$rac-form-layout-header-background: $rac-header-background !default;
+$rac-form-layout-content-background: $color-5 !default;
+$rac-form-layout-top-header-height: 100px !default;
+$rac-form-layout-top-header-top: 0px !default;
+$rac-form-layout-top-header-background: none !default;
+$rac-form-layout-top-header-content-margin: 0 !default;
+$rac-form-layout-top-header-content-font-size: $rac-default-font-size !default;
+$rac-form-layout-top-header-content-font-weight: bold !default;
+$rac-form-layout-top-header-content-text-transform: none !default;
+$rac-form-layout-top-header-content-color: $color-5 !default;
+$rac-form-layout-field-input-color: $rac-form-field-input-color !default;
+
+
+
+$rac-snackbar-action-button-ink-color: $color-1 !default;
 
 /**/
 

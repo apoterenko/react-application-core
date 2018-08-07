@@ -4,13 +4,44 @@
 .rac {
 
   .rac-form-layout {
-    background-color: $rac-form-layout-background-color;              /* @stable - 08.04.2018 */
+    background: $rac-form-layout-background;                           /* @stable [07.08.2018] */
 
     .rac-form-layout-content {
-      width: $rac-form-layout-content-width;                          /* @stable - 08.04.2018 */
-      min-width: $rac-form-layout-content-min-width;                  /* @stable - 08.04.2018 */
-      border: 1px solid $rac-form-layout-content-border-color;        /* @stable - 08.04.2018 */
-      background-color: $rac-form-layout-content-background-color;    /* @stable - 08.04.2018 */
+      position: relative;                                              /* @stable [07.08.2018] */
+      width: $rac-form-layout-content-width;                           /* @stable [07.08.2018] */
+      min-width: $rac-form-layout-content-min-width;                   /* @stable [07.08.2018] */
+      border: $rac-form-layout-content-border;                         /* @stable [07.08.2018] */
+      background: $rac-form-layout-content-background;                 /* @stable [07.08.2018] */
+
+      .rac-header {
+        background: $rac-form-layout-header-background;                /* @stable [07.08.2018] */
+      }
+
+      .rac-form-layout-top-header {
+        width: 100%;                                                   /* @stable [07.08.2018] */
+        height: $rac-form-layout-top-header-height;                    /* @stable [07.08.2018] */
+        top: $rac-form-layout-top-header-top;                          /* @stable [07.08.2018] */
+        background: $rac-form-layout-top-header-background;            /* @stable [07.08.2018] */
+
+        .rac-form-layout-top-header-content {
+          white-space: nowrap;                                                 /* @stable [07.08.2018] */
+          margin: $rac-form-layout-top-header-content-margin;                  /* @stable [07.08.2018] */
+          font-size: $rac-form-layout-top-header-content-font-size;            /* @stable [07.08.2018] */
+          font-weight: $rac-form-layout-top-header-content-font-weight;        /* @stable [07.08.2018] */
+          text-transform: $rac-form-layout-top-header-content-text-transform;  /* @stable [07.08.2018] */
+          color: $rac-form-layout-top-header-content-color;                    /* @stable [07.08.2018] */
+        }
+      }
+
+      .rac-form-field {
+
+        .rac-text-field {
+
+          .rac-field-input {
+            color: $rac-form-layout-field-input-color;                         /* @stable [25.06.2018] */
+          }
+        }
+      }
     }
   }
 }
