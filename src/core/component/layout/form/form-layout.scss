@@ -1,3 +1,4 @@
+@import '~sass-flex-mixin/_flex';
 @import '../../constant';
 
 // Form layout [FRAMEWORK-][RAC+]
@@ -5,16 +6,40 @@
 
   .rac-form-layout {
     background: $rac-form-layout-background;                           /* @stable [07.08.2018] */
+    background-size: $rac-form-layout-background-size;                 /* @stable [07.08.2018] */
 
     .rac-form-layout-content {
       position: relative;                                              /* @stable [07.08.2018] */
       width: $rac-form-layout-content-width;                           /* @stable [07.08.2018] */
       min-width: $rac-form-layout-content-min-width;                   /* @stable [07.08.2018] */
       border: $rac-form-layout-content-border;                         /* @stable [07.08.2018] */
+      border-radius: $rac-form-layout-content-border-radius;           /* @stable [07.08.2018] */
       background: $rac-form-layout-content-background;                 /* @stable [07.08.2018] */
+      margin: $rac-form-layout-content-margin;                         /* @stable [08.08.2018] */
 
       .rac-header {
         background: $rac-form-layout-header-background;                /* @stable [07.08.2018] */
+
+        .rac-header-title {
+          color: $rac-form-layout-header-title-color;                  /* @stable [08.08.2018] */
+          font-size: $rac-form-layout-header-title-font-size;          /* @stable [08.08.2018] */
+        }
+      }
+
+      .rac-form {
+
+        .rac-form-actions {
+          padding: $rac-form-layout-form-actions-padding;              /* @stable [08.08.2018] */
+          @include justify-content(center);                            /* @stable [08.08.2018] */
+        }
+
+        .rac-section {
+          padding: $rac-form-layout-form-section-padding;              /* @stable [08.08.2018] */
+        }
+      }
+
+      .rac-section {
+        padding: $rac-form-layout-section-padding;                     /* @stable [07.08.2018] */
       }
 
       .rac-form-layout-top-header {
@@ -36,9 +61,11 @@
       .rac-form-field {
 
         .rac-text-field {
+          margin-top: $rac-form-layout-form-text-field-margin-top;                  /* @stable [08.08.2018] */
+          border-bottom-color: $rac-form-layout-form-text-field-border-bottom-color;/* @stable [07.08.2018] */
 
           .rac-field-input {
-            color: $rac-form-layout-field-input-color;                         /* @stable [25.06.2018] */
+            color: $rac-form-layout-field-input-color;                              /* @stable [07.08.2018] */
           }
         }
       }

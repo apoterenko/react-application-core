@@ -30,16 +30,6 @@
   }
 
   .rac-text-field {
-    width: 100%;                        // [RAC]
-    border-bottom: 1px solid $color-2;
-    border-radius: 0;
-
-    will-change: unset;  // [MDC workaround (menu)]
-                         // https://github.com/material-components/material-components-web/issues/1978
-
-    .rac-field-input {
-      border: none;
-    }
 
     + .rac-text-field-help-text {
       margin-bottom: 0;
@@ -61,11 +51,6 @@
         opacity: $opacity;
       }
     }
-  }
-
-  .mdc-text-field-helper-text--validation-msg {
-    opacity: 1;               // workaround (help message + error)
-    color: $color-1;          // workaround (help message + error)
   }
 }
 
