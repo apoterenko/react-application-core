@@ -5,6 +5,11 @@
 
     .rac-tab {
 
+      &::before,
+        &::after {
+        display: $rac-tab-before-after-display;                       /* @mdc @stable [07.08.2018] */
+      }
+
       .rac-tab-icon {
         position: absolute;               /* @stable - 06.04.2018 */
         top: 50%;                         /* @stable - 06.04.2018 */
