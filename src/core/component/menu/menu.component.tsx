@@ -135,9 +135,9 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
                   <li role='option'
                       key={`menu-item-${option.value}`}
                       className={toClassName(this.uiFactory.listItem, 'rac-simple-list-item')}
-                      aria-disabled={option.disabled === true}>
-                    <div className='rac-menu-item rac-flex'
-                         onClick={(event) => this.onSelect(event, option)}>
+                      aria-disabled={option.disabled === true}
+                      onClick={(event) => this.onSelect(event, option)}>
+                    <div className='rac-menu-item rac-flex'>
                       {
                         orDefault<React.ReactNode, React.ReactNode>(
                           isDef(props.renderer),
