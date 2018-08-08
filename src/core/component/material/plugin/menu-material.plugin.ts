@@ -37,6 +37,8 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
     super.componentDidMount();
     this.mdc.listen('MDCMenu:cancel', this.onMenuCancel);
 
+    this.mdc.quickOpen = true; // Turn off menu open animations
+
     /**
      * MDC patch
      * See https://github.com/material-components/material-components-web/issues/2422

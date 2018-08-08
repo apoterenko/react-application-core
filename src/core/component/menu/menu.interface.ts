@@ -29,11 +29,12 @@ export interface IMenuProps extends IMenuConfiguration,
 }
 
 /**
- * @stable [17.05.2018]
+ * @stable [08.09.2018]
  */
 export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
                                                       IOpenWrapper,
                                                       IShowWrapper {
+  quickOpen?: boolean;
 }
 
 export interface IMenu extends IComponent<IMenuProps, IMenuState>,

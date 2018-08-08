@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
@@ -38,7 +37,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps> {
         <div className={this.uiFactory.tabBarScrollerFrame}>
           <nav className={toClassName(this.uiFactory.tabBarScrollerFrameTabs, this.uiFactory.tabBar)}>
             {
-              props.items.filter((item) => !R.isNil(item)).map((tab) => (
+              props.items.filter((item) => !!item).map((tab) => (
                 <div key={`rac-tab-${tab.value}`}
                      className={toClassName(
                                  'rac-tab',
