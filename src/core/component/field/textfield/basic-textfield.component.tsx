@@ -72,8 +72,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                               ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
                               : undefined}}
                                className={toClassName(
-                                   'rac-floating-label',
+                                   'rac-field-label',
                                    this.uiFactory.textFieldLabel,
+                                   this.isFieldFocused() && 'rac-floating-focused-label',
                                    this.isFieldFocused() && this.uiFactory.textFieldFocusedLabel
                                )}>
                           {props.label ? this.t(props.label) : props.children}

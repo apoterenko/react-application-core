@@ -136,7 +136,12 @@ $rac-loading-message-font-size: $rac-default-font-size !default;
 $rac-message-color: $rac-default-label-color !default;
 $rac-message-font-size: $rac-default-font-size !default;
 
-/* @stable [24.06.2018] */
+/* @stable [08.08.2018] */
+$rac-form-field-label-color: $rac-default-text-color !default;
+$rac-form-field-label-font-size: $rac-default-font-size !default;
+$rac-form-field-label-text-transform: uppercase !default;
+$rac-form-field-floating-focused-label-font-size: 16px !default;
+$rac-form-field-floating-focused-label-color: $rac-form-field-label-color !default;
 $rac-form-field-message-color: $rac-default-text-color !default;
 $rac-form-field-icon-margin-left: 8px !default;
 $rac-form-field-dnd-margin-bottom: 16px !default;
@@ -237,8 +242,11 @@ $rac-preview-dialog-body-max-height: 60vh !default;
 $rac-picture-photo-height: 40px !default;
 $rac-picture-photo-border-radius: $rac-picture-photo-height / 2 !default;
 
-/* @stable [07.08.2018] */
+/* @stable [08.08.2018] */
+$rac-tab-color: $rac-default-label-color !default;
+$rac-tab-font-size: $rac-default-font-size-2 !default;
 $rac-tab-before-after-display: block !default;
+$rac-tab-bar-indicator-background: $color-2 !default;
 $rac-tab-bar-scroller-indicator-icon: $rac-default-action-color !default;
 
 /* @stable [29.06.2018] */

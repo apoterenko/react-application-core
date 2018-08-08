@@ -28,7 +28,8 @@ export class Checkbox extends Field<Checkbox,
               {this.getInputAttachmentElement()}
             </div>
           </div>
-          <label htmlFor={this.inputId}>
+          <label className='rac-field-label'
+                 htmlFor={this.inputId}>
             {props.label ? this.t(props.label) : props.children}
           </label>
         </div>

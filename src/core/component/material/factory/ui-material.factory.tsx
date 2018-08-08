@@ -71,6 +71,9 @@ import {
   faUndo,
   faArrowRight,
   faMapMarkedAlt,
+  faUserTie,
+  faStoreAlt,
+  faUserShield,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -99,6 +102,8 @@ import { isFn, isString, toClassName, uuid } from '../../../util';
 import { IUIFactory } from '../../factory';
 import { IBasicEvent } from '../../../definitions.interface';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
+import { DI_TYPES, lazyInject } from '../../../di';
+import { ApplicationTranslatorT } from '../../../translation';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -172,7 +177,6 @@ export class UIMaterialFactory implements IUIFactory {
     error: faExclamationCircle,
     cloud_download: faFileDownload,
     cloud: faCloud,
-    vpn_key: faKey,
     card_giftcard: faGift,
     navigate_before: faChevronLeft,
     navigate_next: faChevronRight,
@@ -195,6 +199,10 @@ export class UIMaterialFactory implements IUIFactory {
     map_marked_alt: faMapMarkedAlt,
     address_card: faAddressCard,
     video: faVideo,
+    user_tie: faUserTie,
+    store: faStoreAlt,
+    user_shield: faUserShield,
+    key: faKey,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 
@@ -268,6 +276,8 @@ export class UIMaterialFactory implements IUIFactory {
   public dialogFooterButtonCancel = 'mdc-dialog__footer__button--cancel';
   public dialogFooterButtonAccept = 'mdc-dialog__footer__button--accept';
 
+  @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslatorT;
+
   /**
    * @stable [18.05.2018]
    * @param {UniversalUIIconConfigurationT} cfg
@@ -291,7 +301,7 @@ export class UIMaterialFactory implements IUIFactory {
 
     return (
       <div key={uuid()}
-           title={config.title}
+           title={this.t(config.title)}
            className={toClassName(
                         config.className,
                         'rac-flex',

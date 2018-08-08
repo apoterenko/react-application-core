@@ -25,12 +25,14 @@
       }
     }
 
-    .rac-dnd-wrapper {
-      width: 100%;                                                    /* @stable [28.06.2018] */
+    .rac-dnd,
+      .rac-menu,
+      .rac-dnd-wrapper,
+      .rac-text-field {
+      width: 100%;                                                    /* @stable [08.08.2018] */
     }
 
     .rac-dnd {
-      width: 100%;                                                    /* @stable [29.06.2018] */
       margin-bottom: $rac-form-field-dnd-margin-bottom;               /* @stable [29.06.2018] */
     }
 
@@ -42,9 +44,21 @@
       resize: none;                                                   /* @stable [07.08.2018] */
     }
 
+    .rac-field-label {
+      white-space: nowrap;                                            /* @stable [08.08.2018] */
+      color: $rac-form-field-label-color;                             /* @stable [08.08.2018] */
+      font-size: $rac-form-field-label-font-size;                     /* @stable [08.08.2018] */
+      text-transform: $rac-form-field-label-text-transform;           /* @stable [08.08.2018] */
+
+      &.rac-floating-focused-label {
+        color: $rac-form-field-floating-focused-label-color;          /* @stable [08.08.2018] */
+        font-size: $rac-form-field-floating-focused-label-font-size;  /* @stable [08.08.2018] */
+      }
+    }
+
     .rac-text-field {
-      width: 100%;                                                    /* @stable [07.08.2018] */
       border-bottom: 1px solid $rac-text-field-border-bottom-color;   /* @stable [07.08.2018] */
+      will-change: unset;                                             /* @mdc @stable [08.08.2018] https://github.com/material-components/material-components-web/issues/1978 */
 
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
@@ -66,7 +80,6 @@
 
       .rac-field-input {
         border: none;                                                 /* @mdc @stable [07.08.2018] */
-        will-change: unset;                                           /* @mdc @stable [07.08.2018] https://github.com/material-components/material-components-web/issues/1978 */
         color: $rac-form-field-input-color;                           /* @stable [25.06.2018] */
         font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
         letter-spacing: $rac-form-field-input-letter-spacing;         /* @stable [25.06.2018] */
@@ -78,14 +91,6 @@
         }
       }
     }
-  }
-}
-
-// Form field [FRAMEWORK-]
-.rac-form-field {
-
-  .rac-menu {
-    width: 100%;
   }
 }
 
