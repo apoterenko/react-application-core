@@ -16,8 +16,10 @@ import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
-import { IMenuItemEntity } from '../../../entities-definitions.interface';
+import { IStringMenuActionEntity } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
+import { Operation } from '../../../operation';
+import { IPayloadWrapper } from '../../../definitions.interface';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
@@ -110,11 +112,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [31.05.2018]
-   * @param {IMenuItemEntity} option
+   * @stable [08.08.2018]
+   * @param {IStringMenuActionEntity} option
    */
-  protected onHeaderMoreOptionsSelect(option: IMenuItemEntity): void {
-    this.dispatch(option.value as string);
+  protected onHeaderMoreOptionsSelect(option: IStringMenuActionEntity): void {
+    const params: IPayloadWrapper = {payload: Operation.create(option.value)};
+    this.dispatch(option.value, params);
   }
 
   protected onProfileMenuActionClick(option: any): void {// TODO
