@@ -1,25 +1,26 @@
+@import '../constant';
+
 // Tab panel [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-tab-panel {
 
     .rac-tab {
+      color: $rac-tab-color;                                          /* @stable [08.08.2018] */
+      font-size: $rac-tab-font-size;                                  /* @stable [08.08.2018] */
 
       &::before,
         &::after {
         display: $rac-tab-before-after-display;                       /* @mdc @stable [07.08.2018] */
       }
+    }
 
-      .rac-tab-icon {
-        position: absolute;               /* @stable - 06.04.2018 */
-        top: 50%;                         /* @stable - 06.04.2018 */
-        right: 2px;                       /* @stable - 06.04.2018 */
-        transform: translate(0, -50%);    /* @stable - 06.04.2018 */
-      }
+    .rac-tab-bar-indicator {
+      background: $rac-tab-bar-indicator-background;                  /* @stable [08.08.2018] */
     }
 
     .rac-tab-bar-scroller-indicator-icon {
-      color: $rac-tab-bar-scroller-indicator-icon;      /* @stable [29.06.2018] */
+      color: $rac-tab-bar-scroller-indicator-icon;                    /* @stable [29.06.2018] */
     }
   }
 }
