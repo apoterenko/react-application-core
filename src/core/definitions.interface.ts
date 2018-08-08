@@ -1864,6 +1864,13 @@ export interface IMoreOptionsWrapper<TMoreOptions> {
 }
 
 /**
+ * @stable [08.08.2018]
+ */
+export interface IMoreOptionsConfigurationWrapper<TMoreOptionsConfiguration> {
+  moreOptionsConfiguration?: TMoreOptionsConfiguration;
+}
+
+/**
  * @stable [08.05.2018]
  */
 export interface IUseUppercaseWrapper {

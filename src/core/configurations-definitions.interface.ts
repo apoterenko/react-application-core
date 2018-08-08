@@ -193,6 +193,7 @@ import {
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   IWarningWrapper,
+  IMoreOptionsConfigurationWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -204,6 +205,7 @@ import {
   IUniversalComponent,
   IApiEntity,
 } from './entities-definitions.interface';
+import { IUniversalButtonProps } from './props-definitions.interface';
 
 /**
  * @stable [02.08.2018]
@@ -938,10 +940,11 @@ export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | stri
 export type UIIconConfigurationT = IUIIconConfiguration | string;
 
 /**
- * @stable [31.05.2018]
+ * @stable [08.08.2018]
  */
 export interface IHeaderConfiguration extends IComponentConfiguration,
                                               IMoreOptionsWrapper<IMenuItemEntity[]>,
+                                              IMoreOptionsConfigurationWrapper<IUniversalButtonProps>,
                                               IItemsWrapper<JSX.Element>,
                                               INavigationActionTypeWrapper,
                                               IUseFooterWrapper,

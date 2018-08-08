@@ -55,6 +55,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                               props.moreOptions,
                               () => (
                                   this.uiFactory.makeIcon({
+                                    ...props.moreOptionsConfiguration,
                                     type: 'more_vert',
                                     className: 'rac-toolbar-menu-icon',
                                     onClick: this.onMenuClick,
