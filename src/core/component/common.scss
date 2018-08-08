@@ -66,10 +66,12 @@ html, body {
   }
 
   .rac-global-error-message {
-    background: $color-5;         /* @stable [27.05.2018] */
-    padding: 16px;                /* @stable [27.05.2018] */
-    border: 1px solid $color-12;  /* @stable [27.05.2018] */
-    color: $color-12;             /* @stable [27.05.2018] */
+    font-size: $rac-global-error-message-font-size;          /* @stable [08.08.2018] */
+    background: $rac-global-error-message-background;        /* @stable [08.08.2018] */
+    padding: $rac-global-error-message-padding;              /* @stable [08.08.2018] */
+    border: $rac-global-error-message-border;                /* @stable [08.08.2018] */
+    border-radius: $rac-global-error-message-border-radius;  /* @stable [08.08.2018] */
+    color: $rac-global-error-message-color;                  /* @stable [08.08.2018] */
 
     &.rac-absolute-center-position {
       width: auto;          /* @stable [27.05.2018] */

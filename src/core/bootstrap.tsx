@@ -4,7 +4,7 @@ import * as crossvent from 'crossvent';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE, APP_PROFILE, APP_VERSION } from './env';
-import { addClassNameToBody, createElement, addClassNameToElement, preventContextMenu } from './util';
+import { addClassNameToBody, createElement, addClassNameToElement } from './util';
 import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
 import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from './configurations-definitions.interface';
@@ -43,7 +43,7 @@ function defineErrorHandler() {
     }
     errorMessageEl.innerHTML = [
       'Houston! We\'re in trouble!',
-      'Please send this screen to app developers.',
+      'Please send this screen to the developers.',
       'Thank you!',
       `Build: ${APP_VERSION}`,
       `Details info: [${e1}]`
@@ -62,7 +62,6 @@ export function bootstrap(
       addBootElement(bootstrapConfiguration.rootId);
     }
     addClassNameToBody(APP_PROFILE);
-    preventContextMenu();
 
     const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
