@@ -34,6 +34,7 @@ import {
   faFileInvoiceDollar,
   faSignOutAlt,
   faSearch,
+  faWarehouse,
   faUsers,
   faMoneyBill,
   faUser as faSolidUser,
@@ -90,6 +91,9 @@ import {
   faQuestionCircle,
   faStopCircle,
   faArrowAltCircleRight,
+  faArrowAltCircleLeft,
+  faArrowAltCircleDown,
+  faArrowAltCircleUp,
   faMinusSquare,
   faThumbsUp,
   faPlusSquare,
@@ -109,6 +113,7 @@ import { ApplicationTranslatorT } from '../../../translation';
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
   public static ICONS_MAP = {
+    warehouse: faWarehouse,
     product: faCannabis,
     supplier: faTruckMoving,
     delivery: faShippingFast,
@@ -176,6 +181,9 @@ export class UIMaterialFactory implements IUIFactory {
     clear_all: faEraser,
     stop: faStopCircle,
     forward: faArrowAltCircleRight,
+    backward: faArrowAltCircleLeft,
+    down: faArrowAltCircleDown,
+    up: faArrowAltCircleUp,
     print: faPrint,
     router: faServer,
     error: faExclamationCircle,
@@ -210,6 +218,9 @@ export class UIMaterialFactory implements IUIFactory {
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 
   public icons = 'material-icons';
+  public drawerOpen = 'mdc-drawer--open';
+  public drawer = 'mdc-drawer__drawer';
+  public drawerPersistent = 'mdc-drawer--persistent';
   public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
