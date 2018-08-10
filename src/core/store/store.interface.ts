@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 
+import { IEntity } from '../definitions.interface';
 import { rootReducer } from '../component/root';
 import { LAYOUT_UPDATE_ACTION_TYPE, LAYOUT_DESTROY_ACTION_TYPE } from '../component/layout';
 import { notificationReducer } from '../notification';
