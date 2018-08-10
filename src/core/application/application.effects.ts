@@ -4,6 +4,8 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { provideInSingleton } from '../di';
 import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
 import { FormActionBuilder } from '../component/form';
+import { ApplicationActionBuilder } from '../component/application';
+import { LayoutActionBuilder } from '../component/layout';
 import { UniversalApplicationEffects } from './universal-application.effects';
 
 @provideInSingleton(ApplicationEffects)
@@ -30,5 +32,14 @@ export class ApplicationEffects<TApi> extends UniversalApplicationEffects<TApi> 
       return null;
     }
     return FormActionBuilder.buildChangesAction(section, changes);
+  }
+
+  /**
+   * @stable [11.08.2018]
+   * @returns {IEffectsAction[]}
+   */
+  @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())
+  public $onLogout(): IEffectsAction[] {
+    return super.$onLogout().concat(LayoutActionBuilder.buildDestroyAction());
   }
 }
