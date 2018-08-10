@@ -115,6 +115,8 @@ import {
   IStreetNumberWrapper,
   IZipCodeWrapper,
   IAreaWrapper,
+  IYWrapper,
+  IXWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -627,14 +629,21 @@ export interface IStackEntity extends IStackWrapper<IStackItemEntity[]>,
 export interface IStackWrapperEntity extends IStackWrapper<IStackEntity> {
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [10.08.2018]
+ */
 export type LayoutT = 'full' | 'minimal';
 
-/* @stable - 15.04.2018 */
-export interface ILayoutEntity extends IModeWrapper<LayoutT> {
+/**
+ * @stable [10.08.2018]
+ */
+export interface ILayoutEntity extends IModeWrapper<LayoutT>,
+                                       IXYEntity {
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [11.08.2018]
+ */
 export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
 }
 
@@ -774,4 +783,11 @@ export interface IListAndFilterFormWrapperEntity extends IListWrapperEntity,
  */
 export interface IListAndFilterWrapperEntity<TFilter, TList> extends IListWrapper<TList>,
                                                                      IFilterWrapper<TFilter> {
+}
+
+/**
+ * @stable [10.08.2018]
+ */
+export interface IXYEntity extends IXWrapper,
+                                   IYWrapper {
 }

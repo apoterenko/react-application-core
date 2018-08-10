@@ -283,13 +283,17 @@ export interface IActionIconsWrapper<TActionIcons> {
   actionIcons?: TActionIcons;
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [11.08.2018]
+ */
 export interface ILayoutWrapper<TLayout> {
   layout?: TLayout;
 }
 
-/* @stable - 15.04.2018 */
-export interface IModeWrapper<TMode> {
+/**
+ * @stable [10.08.2018]
+ */
+export interface IModeWrapper<TMode = string> {
   mode?: TMode;
 }
 
@@ -1428,6 +1432,20 @@ export interface IPriorityWrapper {
 /* @stable [27.04.2018] */
 export interface ICloseWrapper<TClose> {
   close?: TClose;
+}
+
+/**
+ * @stable [10.08.2018]
+ */
+export interface IXWrapper<TX = number> {
+  x?: TX;
+}
+
+/**
+ * @stable [10.08.2018]
+ */
+export interface IYWrapper<TY = number> {
+  y?: TY;
 }
 
 /**
