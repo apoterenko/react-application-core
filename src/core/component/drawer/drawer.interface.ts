@@ -1,10 +1,17 @@
 import { INativeMaterialComponent } from '../material';
-import { IComponentEntity } from '../../entities-definitions.interface';
+import { IOpenedWrapper, IOpenWrapper } from '../../definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 
-export interface INativeMaterialDrawerComponent extends INativeMaterialComponent {
-  open: boolean;
+/**
+ * @stable [10.08.2018]
+ */
+export interface INativeMaterialDrawerComponent extends INativeMaterialComponent,
+                                                        IOpenWrapper {
 }
 
-export interface IDrawerInternalProps extends IComponentEntity {
-  opened: boolean;
+/**
+ * @stable [10.08.2018]
+ */
+export interface IDrawerProps extends IComponentProps,
+                                      IOpenedWrapper {
 }

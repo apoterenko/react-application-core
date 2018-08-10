@@ -1,40 +1,25 @@
 import * as React from 'react';
-import * as ramda from 'ramda';
 
-import { INativeMaterialComponentFactory, MaterialComponent } from '../../component/material';
-import { AnyT } from '../../definitions.interface';
+import { IDrawerProps } from './drawer.interface';
+import { toClassName } from '../../util';
+import { BaseComponent } from '../base';
 
-import { IDrawerInternalProps, INativeMaterialDrawerComponent } from './drawer.interface';
+export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
 
-export class Drawer<TComponent extends Drawer<TComponent>>
-    extends MaterialComponent<TComponent,
-                              IDrawerInternalProps,
-                              {},
-                              INativeMaterialDrawerComponent> {
-
-  constructor(props: IDrawerInternalProps,
-              mdcFactory: INativeMaterialComponentFactory<INativeMaterialDrawerComponent>) {
-    super(props, mdcFactory);
-  }
-
-  public componentWillReceiveProps(nextProps: Readonly<IDrawerInternalProps>, nextContext: AnyT): void {
-    super.componentWillReceiveProps(nextProps, nextContext);
-
-    if (!ramda.equals(nextProps.opened, this.props.opened)) {
-      this.nativeMdcInstance.open = nextProps.opened;
-    }
-  }
-
-  public componentDidMount(): void {
-    super.componentDidMount();
-    this.nativeMdcInstance.open = this.props.opened;
-  }
-
-  public render() {
+  /**
+   * @stable [10.08.2018]
+   * @returns {JSX.Element}
+   */
+  public render(): JSX.Element {
+    const opened = this.props.opened;
     return (
       <aside ref='self'
-           className='rac-drawer-persistent mdc-drawer--persistent'>
-        <nav className='rac-drawer mdc-drawer__drawer'>
+             className={toClassName(
+                         'rac-drawer-persistent',
+                         this.uiFactory.drawerPersistent,
+                         opened && this.uiFactory.drawerOpen
+                       )}>
+        <nav className={toClassName('rac-drawer', this.uiFactory.drawer)}>
           {this.props.children}
         </nav>
       </aside>

@@ -2,6 +2,9 @@ import { IUniversalUIIconConfiguration } from '../../configurations-definitions.
 
 export interface IUIFactory {
   icons?: string;
+  drawerOpen?: string;
+  drawer?: string;
+  drawerPersistent?: string;
   persistentDrawerToolbarSpacer?: string;
   toolbar?: string;
   toolbarSection?: string;
