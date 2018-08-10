@@ -204,15 +204,9 @@ import {
   IFieldChangeEntity,
   IUniversalComponent,
   IApiEntity,
+  IXYEntity,
 } from './entities-definitions.interface';
 import { IUniversalButtonProps } from './props-definitions.interface';
-
-/**
- * @stable [02.08.2018]
- */
-export interface IWebCameraConfigurationWrapper<TWebCameraConfigurationWrapper = IWebCameraConfiguration> {
-  webCameraConfiguration?: TWebCameraConfigurationWrapper;
-}
 
 /**
  * @stable [16.06.2018]
@@ -835,13 +829,6 @@ export interface INavigationListItemConfiguration extends IActiveWrapper,
                                                           IChildrenWrapper<INavigationListItemConfiguration[]>,
                                                           IAccessConfigurationWrapper<IAccessConfiguration>,
                                                           ITypeWrapper<NavigationListItemTypeEnum> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface INavigationListConfiguration extends IUniversalComponentConfiguration,
-                                                      IItemsWrapper<INavigationListItemConfiguration[]> {
 }
 
 /**

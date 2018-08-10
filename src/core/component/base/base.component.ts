@@ -31,4 +31,12 @@ export class BaseComponent<TComponent extends IComponent<TProps, TState>,
   public stopEvent(event: IBasicEvent): void {
     cancelEvent(event);
   }
+
+  /**
+   * @stable [10.08.2018]
+   * @returns {HTMLElement}
+   */
+  public get selfAsHtmlElement(): HTMLElement {
+    return this.self as HTMLElement;
+  }
 }
