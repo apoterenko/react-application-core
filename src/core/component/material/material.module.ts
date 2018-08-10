@@ -1,5 +1,6 @@
 import { MDCRipple } from '@material/ripple';
 import { MDCTabBarScroller } from '@material/tabs';
+import { MDCPersistentDrawer } from '@material/drawer';
 
 import { appContainer, DI_TYPES } from '../../di';
 import { addClassNameToBody } from '../../util';
@@ -7,9 +8,7 @@ import {
   IComponentClassEntity,
   UniversalComponentPluginFactoryT,
 } from '../../entities-definitions.interface';
-import {
-  Checkbox,
-} from '../field';
+import { Checkbox } from '../field';
 import { IUIFactory } from '../factory';
 import {
   CheckboxMaterialPlugin,
@@ -26,6 +25,7 @@ import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
 import { Dialog, ArbitraryFormDialog } from '../dialog';
 import { FormDialog } from '../form';
+import { Drawer } from '../drawer';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
 
@@ -38,6 +38,11 @@ uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(comp
  * @stable [17.05.2018]
  */
 uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(component, MDCTabBarScroller));
+
+/**
+ * @stable [17.05.2018]
+ */
+uiPlugins.set(Drawer, (component: Drawer) => new MaterialPlugin(component, MDCPersistentDrawer));
 
 /**
  * @stable [18.05.2018]
