@@ -1,7 +1,27 @@
-import { INavigationListConfiguration } from '../../../configurations-definitions.interface';
+import { IXYEntity } from '../../../entities-definitions.interface';
+import {
+  INavigationListItemConfiguration,
+  IUniversalComponentConfiguration,
+} from '../../../configurations-definitions.interface';
+import { IItemsWrapper, IOnChangeWrapper } from '../../../definitions.interface';
 
 /**
- * @stable [04.05.2018]
+ * @stable [10.08.2018]
  */
-export interface INavigationListProps extends INavigationListConfiguration {
+export interface INavigationListConfiguration extends IUniversalComponentConfiguration,
+                                                      IItemsWrapper<INavigationListItemConfiguration[]>,
+                                                      IOnChangeWrapper<IXYEntity> {
+}
+
+/**
+ * @stable [10.08.2018]
+ */
+export interface INavigationListEntity extends IXYEntity {
+}
+
+/**
+ * @stable [10.08.2018]
+ */
+export interface INavigationListProps extends INavigationListConfiguration,
+                                              INavigationListEntity {
 }
