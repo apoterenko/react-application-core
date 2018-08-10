@@ -8,7 +8,8 @@ export type DateTimeLikeTypeT = string | Date;
 export interface IDateConverter {
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
-  fromDateTimeToUiDateTime(date: string, time: string): string;
+  fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
+  fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateTimeToDateTime(date: string, time: string): string;
   fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime?: string): string;
   fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime?: string): string;

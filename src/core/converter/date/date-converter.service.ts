@@ -22,6 +22,13 @@ export class DateConverter implements IDateConverter {
 
   @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
 
+  /**
+   * @stable [11.08.2018]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @param {string} outputFormat
+   * @returns {string}
+   */
   public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
     if (!date) {
       return '';
@@ -42,16 +49,21 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @param {string} date
-   * @param {string} time
+   * @stable [11.08.2018]
+   * @param {DateTimeLikeTypeT} date
    * @returns {string}
    */
-  public fromDateTimeToUiDateTime(date: string, time: string): string {
-    return this.format(
-        this.combine(date, time),
-        this.dateTimeFormat,
-        this.uiDateTimeFormat
-    );
+  public fromDateTimeToUiDate(date: DateTimeLikeTypeT): string {
+    return this.format(date, this.dateTimeFormat, this.uiDateFormat);
+  }
+
+  /**
+   * @stable [11.08.2018]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {
+    return this.format(date, this.dateTimeFormat, this.uiDateTimeFormat);
   }
 
   /**
@@ -213,6 +225,12 @@ export class DateConverter implements IDateConverter {
     return [dateAsString, timeAsString].join(' ');
   }
 
+  /**
+   * @stable [11.08.2018]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @returns {moment.Moment}
+   */
   private toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string): moment.Moment {
     const momentDate = date instanceof Date
       ? moment(date)
@@ -225,6 +243,10 @@ export class DateConverter implements IDateConverter {
     return this.toMomentDate(this.currentDate);
   }
 
+  /**
+   * @stable [11.08.2018]
+   * @returns {string}
+   */
   private get timeZone(): string {
     return this.dateTimeSettings.timeZone;
   }
