@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull, filterAndSortEntities, isFn } from '../../util';
+import { orNull, filterAndSortEntities, isFn, trimmedUndefEmpty } from '../../util';
 import {
   IEntity,
   IEntityWrapper,
@@ -167,7 +167,7 @@ export const filterFormChangesWrapperMapper = <TResult = IEntity>(filterFormWrap
  */
 export const filterQueryWrapperMapper = (queryFilterWrapperEntity: IQueryFilterWrapperEntity): IQueryWrapper =>
   ({
-    query: queryFilterWrapperEntity.filter.query,
+    query: trimmedUndefEmpty(queryFilterWrapperEntity.filter.query),
   });
 
 /**
