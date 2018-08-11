@@ -255,8 +255,6 @@ export class UIMaterialFactory implements IUIFactory {
   public listItemGraphic = 'mdc-list-item__graphic';
   public listItemMeta = 'mdc-list-item__meta';
   public listItemText = 'mdc-list-item__text';
-  public listItemPrimaryText = 'mdc-list-item__primary-text';
-  public listItemSecondaryText = 'mdc-list-item__secondary-text';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
   public formField = 'mdc-form-field';

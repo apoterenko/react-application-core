@@ -19,7 +19,7 @@ export class ListItemText extends BaseComponent<ListItemText> {
                         props.className
                       )}>
           {props.children}
-        </span>
+      </span>
     );
   }
 }

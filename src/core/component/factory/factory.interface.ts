@@ -19,8 +19,6 @@ export interface IUIFactory {
   listItemGraphic?: string;
   listItemMeta?: string;
   listItemText?: string;
-  listItemPrimaryText?: string;
-  listItemSecondaryText?: string;
   list?: string;
   listTwoLine?: string;
   listAvatar?: string;

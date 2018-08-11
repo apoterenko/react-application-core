@@ -17,8 +17,8 @@
     .rac-list-item {
 
       color: $rac-list-item-color;                           /* @stable [23.06.2018] */
-      font-size: $rac-list-item-font-size;                   /* @stable [23.06.2018] */
-      letter-spacing: $rac-list-item-letter-spacing;         /* @stable [23.06.2018] */
+      font-size: $rac-list-item-secondary-text-font-size;                   /* @stable [23.06.2018] */
+      letter-spacing: $rac-list-item-secondary-text-letter-spacing;         /* @stable [23.06.2018] */
 
       &.rac-list-item-warning {
 
@@ -44,16 +44,25 @@
       .rac-icon {
 
         &.rac-list-item-meta-icon {
-          margin-left: auto;                                 /* @stable [24.06.2018] */
+          margin-left: auto;                                          /* @stable [24.06.2018] */
         }
       }
 
+      .rac-list-item-text {
+        margin-bottom: auto;                                          /* @stable [11.08.2018] */
+        margin-top: auto;                                             /* @stable [11.08.2018] */
+      }
+
       .rac-list-item-secondary-text {
-        font-size: $rac-list-item-font-size;                 /* @stable [23.06.2018] */
-        letter-spacing: $rac-list-item-letter-spacing;       /* @stable [23.06.2018] */
+        display: block;                                               /* @stable [11.08.2018] */
+        line-height: $rac-list-item-secondary-text-line-height;       /* @stable [11.08.2018] */
+        font-size: $rac-list-item-secondary-text-font-size;           /* @stable [23.06.2018] */
+        letter-spacing: $rac-list-item-secondary-text-letter-spacing; /* @stable [23.06.2018] */
 
         .rac-icon {
-          display: inline-block;                             /* @stable [25.06.2018] */
+          width: $rac-list-item-secondary-text-icon-width;            /* @stable [11.08.2018] */
+          height: $rac-list-item-secondary-text-icon-height;          /* @stable [11.08.2018] */
+          display: inline-block;                                      /* @stable [25.06.2018] */
         }
       }
 
