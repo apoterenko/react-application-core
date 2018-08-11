@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   Scene,
   Router,
-  Reducer,
   Stack,
   Lightbox,
 } from 'react-native-router-flux';
@@ -17,11 +16,6 @@ import { IContainerClassEntity } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 import { IRnApplicationContainerProps } from './rn-application.interface';
 import { RnMessage } from '../message/rn-message.component';
-
-export const reducerCreate = (params) => {
-  const defaultReducer = new Reducer(params);
-  return (state, action) => defaultReducer(state, action);
-};
 
 export class RnApplicationContainer extends UniversalApplicationContainer<IRnApplicationContainerProps> {
 
@@ -42,8 +36,7 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IRnApp
     }
 
     return (
-      <Router
-        createReducer={reducerCreate}>
+      <Router>
         <Lightbox key='lightbox'>
           <Stack hideNavBar={props.hideNavBar}
                  key='root'>
