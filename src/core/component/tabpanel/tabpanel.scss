@@ -9,18 +9,37 @@
       color: $rac-tab-color;                                          /* @stable [08.08.2018] */
       font-size: $rac-tab-font-size;                                  /* @stable [08.08.2018] */
 
-      &::before,
-        &::after {
-        display: $rac-tab-before-after-display;                       /* @mdc @stable [07.08.2018] */
+      .rac-tab-no-rippable {
+        &::before,
+          &::after {
+          display: $rac-tab-before-after-display;                     /* @mdc @stable [07.08.2018] */
+        }
+      }
+
+      .rac-tab-url-icon,
+        .rac-icon {
+        opacity: 1;                                                   /* @mdc @stable [11.08.2018] */
+      }
+
+      .rac-tab-icon-text {
+        letter-spacing: $rac-tab-icon-text-letter-spacing;            /* @stable [11.08.2018] */
+        line-height: $rac-tab-icon-text-line-height;                  /* @stable [11.08.2018] */
+      }
+
+      .rac-tab-url-icon-wrapper {
+        margin: 0 auto;                                               /* @stable [11.08.2018] */
+
+        .rac-tab-url-icon {
+          height: 100%;                                               /* @stable [11.08.2018] */
+          width: 100%;                                                /* @stable [11.08.2018] */
+        }
       }
     }
 
-    .rac-tab-bar-indicator {
-      background: $rac-tab-bar-indicator-background;                  /* @stable [08.08.2018] */
-    }
-
-    .rac-tab-bar-scroller-indicator-icon {
-      color: $rac-tab-bar-scroller-indicator-icon;                    /* @stable [29.06.2018] */
+    .rac-tab-nav-icon {
+      margin-top: auto;                                               /* @stable [11.08.2018] */
+      margin-bottom: auto;                                            /* @stable [11.08.2018] */
+      width: 64px;                                                    /* @stable [11.08.2018] */
     }
   }
 }

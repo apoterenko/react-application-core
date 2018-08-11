@@ -233,19 +233,21 @@ export class UIMaterialFactory implements IUIFactory {
   public listTwoLine = 'mdc-list--two-line';
   public listAvatar = 'mdc-list--avatar-list';
   public listNonInteractive = 'mdc-list--non-interactive';
-  public tabBarIndicator = 'mdc-tab-bar__indicator';
-  public tabBarScrollerFrameTabs = 'mdc-tab-bar-scroller__scroll-frame__tabs';
-  public tabBarScrollerFrame = 'mdc-tab-bar-scroller__scroll-frame';
+  public tabBarScrollerScrollArea = 'mdc-tab-scroller__scroll-area';
+  public tabBarScrollerScrollAreaScroll = 'mdc-tab-scroller__scroll-area--scroll';
+  public tabBarScrollerScrollContent = 'mdc-tab-scroller__scroll-content';
+  public tabRipple = 'mdc-tab__ripple';
   public tabBar = 'mdc-tab-bar';
   public tab = 'mdc-tab';
+  public tabContent = 'mdc-tab__content';
   public tabIcon = 'mdc-tab__icon';
   public tabIconText = 'mdc-tab__icon-text';
   public tabActive = 'mdc-tab--active';
-  public tabBarScroller = 'mdc-tab-bar-scroller';
-  public tabBarScrollerIndicator = 'mdc-tab-bar-scroller__indicator';
-  public tabBarScrollerIndicatorBack = 'mdc-tab-bar-scroller__indicator--back';
-  public tabBarScrollerIndicatorForward = 'mdc-tab-bar-scroller__indicator--forward';
-  public tabBarScrollerIndicatorInner = 'mdc-tab-bar-scroller__indicator__inner';
+  public tabIndicator = 'mdc-tab-indicator';
+  public tabIndicatorActive = 'mdc-tab-indicator--active';
+  public tabIndicatorContent = 'mdc-tab-indicator__content';
+  public tabIndicatorContentUnderline = 'mdc-tab-indicator__content--underline';
+  public tabBarScroller = 'mdc-tab-scroller';
   public button = 'mdc-button';
   public buttonOutlined = 'mdc-button--outlined';
   public buttonRaised = 'mdc-button--raised';
@@ -253,6 +255,7 @@ export class UIMaterialFactory implements IUIFactory {
   public listItemGraphic = 'mdc-list-item__graphic';
   public listItemMeta = 'mdc-list-item__meta';
   public listItemText = 'mdc-list-item__text';
+  public listItemPrimaryText = 'mdc-list-item__primary-text';
   public listItemSecondaryText = 'mdc-list-item__secondary-text';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
@@ -331,23 +334,6 @@ export class UIMaterialFactory implements IUIFactory {
            }}>
         <FontAwesomeIcon icon={iconCtor}/>
       </div>
-    );
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @param {IUIIconConfiguration | string} cfg
-   * @returns {JSX.Element}
-   */
-  public makeTabBarScrollerIndicatorIcon(cfg: IUIIconConfiguration | string): JSX.Element {
-    const config = this.toIconConfig(cfg);
-    return this.makeIcon(
-      cfg
-        ? {
-          ...config,
-          className: toClassName(config.className, this.tabBarScrollerIndicatorInner),
-        }
-        : cfg
     );
   }
 

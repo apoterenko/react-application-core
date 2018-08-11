@@ -19,24 +19,27 @@ export interface IUIFactory {
   listItemGraphic?: string;
   listItemMeta?: string;
   listItemText?: string;
+  listItemPrimaryText?: string;
   listItemSecondaryText?: string;
   list?: string;
   listTwoLine?: string;
   listAvatar?: string;
   listNonInteractive?: string;
-  tabBarIndicator?: string;
-  tabBarScrollerFrameTabs?: string;
-  tabBarScrollerFrame?: string;
+  tabBarScrollerScrollArea?: string;
+  tabBarScrollerScrollAreaScroll?: string;
+  tabBarScrollerScrollContent?: string;
+  tabRipple?: string;
   tabBar?: string;
   tab?: string;
+  tabContent?: string;
   tabIcon?: string;
   tabIconText?: string;
   tabActive?: string;
+  tabIndicator?: string;
+  tabIndicatorActive?: string;
+  tabIndicatorContent?: string;
+  tabIndicatorContentUnderline?: string;
   tabBarScroller?: string;
-  tabBarScrollerIndicator?: string;
-  tabBarScrollerIndicatorBack?: string;
-  tabBarScrollerIndicatorForward?: string;
-  tabBarScrollerIndicatorInner?: string;
   button?: string;
   buttonOutlined?: string;
   buttonRaised?: string;
@@ -80,14 +83,6 @@ export interface IUIFactory {
    * @returns {JSX.Element}
    */
   makeIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(config: TUIIconConfiguration | string): JSX.Element;
-
-  /**
-   * @stable [18.05.2018]
-   * @param {string | TUIIconConfiguration} config
-   * @returns {JSX.Element}
-   */
-  makeTabBarScrollerIndicatorIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(
-    config: TUIIconConfiguration | string): JSX.Element;
 
   /**
    * @stable [18.05.2018]

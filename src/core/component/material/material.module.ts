@@ -1,4 +1,5 @@
 import { MDCRipple } from '@material/ripple';
+import { MDCTabBar } from '@material/tab-bar';
 import { MDCPersistentDrawer } from '@material/drawer';
 
 import { appContainer, DI_TYPES } from '../../di';
@@ -36,7 +37,7 @@ uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(comp
 /**
  * @stable [17.05.2018]
  */
-// TODO uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(component, MDCTabBarScroller));
+uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(component, MDCTabBar));
 
 /**
  * @stable [17.05.2018]

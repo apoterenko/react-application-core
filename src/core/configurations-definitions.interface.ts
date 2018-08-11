@@ -517,10 +517,11 @@ export interface ITabConfiguration extends INumberValueWrapper,
 }
 
 /**
- * @stable [15.05.2018]
+ * @stable [11.08.2018]
  */
 export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IUseIndicatorWrapper,
+                                                IRippableWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
                                                 IOnClickWrapper<ITabConfiguration>,
                                                 IItemsWrapper<ITabConfiguration[]> {
