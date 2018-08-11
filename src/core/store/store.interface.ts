@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 
 import { IEntity } from '../definitions.interface';
+import { ILayoutEntity } from '../entities-definitions.interface';
 import { rootReducer } from '../component/root';
 import {
   LAYOUT_UPDATE_ACTION_TYPE,
