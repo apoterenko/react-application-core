@@ -414,10 +414,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {AnyT} currentRawValue
    */
   private onChangeValue(currentRawValue: AnyT): void {
+    const props = this.props;
     const actualChangedValue = toActualChangedValue({
       value: currentRawValue,
       emptyValue: this.getEmptyValue(),
-      originalValue: this.props.originalValue,
+      originalValue: props.originalValue,
+      canReturnClearDirtyChangesValue: props.canReturnClearDirtyChangesValue,
     });
 
     this.validateField(actualChangedValue);

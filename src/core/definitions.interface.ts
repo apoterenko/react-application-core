@@ -2544,6 +2544,13 @@ export interface IOriginalValueWrapper<TOriginalValue = AnyT> {
 }
 
 /**
+ * @stable [11.08.2018]
+ */
+export interface ICanReturnClearDirtyChangesValueWrapper {
+  canReturnClearDirtyChangesValue?: boolean;
+}
+
+/**
  * @stable [13.04.2018]
  */
 export interface ITypeWrapper<TType = string> {

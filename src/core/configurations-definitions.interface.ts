@@ -194,6 +194,7 @@ import {
   ICameraWidthWrapper,
   IWarningWrapper,
   IMoreOptionsConfigurationWrapper,
+  ICanReturnClearDirtyChangesValueWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -615,6 +616,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IEmptyValueWrapper,
           IPreventFocusWrapper,
           IRequiredWrapper,
+          ICanReturnClearDirtyChangesValueWrapper,
           IValidateWrapper<string> {
 }
 

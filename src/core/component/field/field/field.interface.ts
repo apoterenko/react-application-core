@@ -10,6 +10,7 @@ import {
   UNDEF,
   IKeyboardEvent,
   IFocusEvent,
+  ICanReturnClearDirtyChangesValueWrapper,
 } from '../../../definitions.interface';
 import {
   IFieldEntity,
@@ -28,11 +29,12 @@ export const FIELD_EMPTY_ERROR_VALUE = null;
 export const FIELD_EMPTY_VALUE = '';
 
 /**
- * @stable [17.06.2018]
+ * @stable [11.08.2018]
  */
 export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
                                                               IEmptyValueWrapper,
-                                                              IOriginalValueWrapper {
+                                                              IOriginalValueWrapper,
+                                                              ICanReturnClearDirtyChangesValueWrapper {
 }
 
 /**

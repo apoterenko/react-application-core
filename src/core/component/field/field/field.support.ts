@@ -15,8 +15,11 @@ import { IValueWrapper, AnyT } from '../../../definitions.interface';
 export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntity): AnyT => {
   const hasOriginalValue = isDef(config.originalValue);
 
-  if ((hasOriginalValue && R.equals(config.value, config.originalValue))
-    || (!hasOriginalValue && R.equals(config.value, config.emptyValue))) {
+  if (
+    ((hasOriginalValue && R.equals(config.value, config.originalValue))
+      || (!hasOriginalValue && R.equals(config.value, config.emptyValue)))
+    && config.canReturnClearDirtyChangesValue !== false
+  ) {
     return FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE;
   }
   return config.value;
