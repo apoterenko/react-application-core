@@ -24,7 +24,6 @@ import {
   IApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
-import { ApplicationActionBuilder } from './application-action.builder';
 
 export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity = IApplicationStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
@@ -35,8 +34,6 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
   constructor(props: IApplicationContainerProps) {
     super(props);
     this.onUnload = this.onUnload.bind(this);
-    this.onClick = this.onClick.bind(this);
-    this.onBlur = this.onBlur.bind(this);
   }
 
   public render(): JSX.Element {
@@ -57,8 +54,6 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
    */
   public componentDidMount(): void {
     this.eventManager.add(window, 'unload', this.onUnload);
-    this.eventManager.add(window, 'click', this.onClick);
-    this.eventManager.add(window, 'blur', this.onBlur);
 
     appContainer.bind<IRouterComponentEntity>(DI_TYPES.Router).toConstantValue(this.dynamicRouter);
     super.componentDidMount();
@@ -68,8 +63,6 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
    * @stable [23.06.2018]
    */
   public componentWillUnmount(): void {
-    this.eventManager.remove(window, 'blur', this.onBlur);
-    this.eventManager.remove(window, 'click', this.onClick);
     this.eventManager.remove(window, 'unload', this.onUnload);
   }
 
@@ -77,20 +70,6 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     if (this.settings.usePersistence) {
       this.saveState();
     }
-  }
-
-  /**
-   * @stable [23.06.2018]
-   */
-  protected onClick(): void {
-    this.dispatchCustomType(ApplicationActionBuilder.buildClickActionType());
-  }
-
-  /**
-   * @stable [23.06.2018]
-   */
-  protected onBlur(): void {
-    this.dispatchCustomType(ApplicationActionBuilder.buildBlurActionType());
   }
 
   protected clearStateBeforeSerialization(state: TStoreEntity, ...predicates: PredicateT[]): TStoreEntity {
