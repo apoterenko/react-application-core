@@ -2,7 +2,11 @@ import { AnyAction } from 'redux';
 
 import { IEntity } from '../definitions.interface';
 import { rootReducer } from '../component/root';
-import { LAYOUT_UPDATE_ACTION_TYPE, LAYOUT_DESTROY_ACTION_TYPE } from '../component/layout';
+import {
+  LAYOUT_UPDATE_ACTION_TYPE,
+  LAYOUT_DESTROY_ACTION_TYPE,
+  INITIAL_APPLICATION_LAYOUT_STATE,
+} from '../component/layout';
 import { notificationReducer } from '../notification';
 import { dictionariesReducer } from '../dictionary';
 import { permissionsReducer } from '../permissions';
@@ -16,7 +20,8 @@ export const defaultReducers = {
   permissions: permissionsReducer,
   root: rootReducer,
   user: entityReducerFactory(USER_UPDATE_ACTION_TYPE, USER_DESTROY_ACTION_TYPE),
-  layout: entityReducerFactory(LAYOUT_UPDATE_ACTION_TYPE, LAYOUT_DESTROY_ACTION_TYPE),
+  layout: entityReducerFactory(LAYOUT_UPDATE_ACTION_TYPE,
+    LAYOUT_DESTROY_ACTION_TYPE, INITIAL_APPLICATION_LAYOUT_STATE),
   stack: stackReducer,
   notification: notificationReducer,
   ...channelsReducers,

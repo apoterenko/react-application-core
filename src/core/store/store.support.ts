@@ -3,7 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import { toSection } from '../util';
-import { IEntity, IPayloadWrapper } from '../definitions.interface';
+import { IEntity, IKeyValue, IPayloadWrapper } from '../definitions.interface';
 
 export type FilterT = (action: IEffectsAction) => boolean;
 
@@ -44,23 +44,27 @@ export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersM
   combineReducers<ReducersMapObject>(reducersMap as ReducersMapObject);
 
 /**
- * @stable [31.07.2018]
+ * @stable [11.08.2018]
  * @param {string} updateActionType
  * @param {string} destroyActionType
- * @returns {(state: IEntity, action: AnyAction) => IEntity}
+ * @param {TKeyValue} initialState
+ * @returns {(state: TKeyValue, action: AnyAction) => TKeyValue}
  */
-export const entityReducerFactory = (updateActionType: string, destroyActionType: string) =>
-  (state: IEntity = null,
-   action: AnyAction): IEntity => {
+export const entityReducerFactory = <TKeyValue extends IKeyValue>(
+      updateActionType: string,
+      destroyActionType: string,
+      initialState: TKeyValue = null): (state: TKeyValue, action: AnyAction) => TKeyValue =>
+  (state = initialState,
+   action: AnyAction): TKeyValue => {
     switch (action.type) {
       case updateActionType:
-        const payloadWrapper: IPayloadWrapper<IEntity> = action.data;
+        const payloadWrapper: IPayloadWrapper<TKeyValue> = action.data;
         return R.isNil(payloadWrapper.payload)
           ? state
           : {
-            ...state,
-            ...payloadWrapper.payload,
-          };
+            ...state as {},
+            ...payloadWrapper.payload as {},
+          } as TKeyValue;
       case destroyActionType:
         return null;
     }
