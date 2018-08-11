@@ -5,10 +5,108 @@ import {
   buildMultiEditItemEntityPayload,
   fromMultiFieldEntityToEntities,
   toActualMultiItemEditedEntities,
+  toMultiFieldChangesEntityOnEdit,
 } from './multifield.support';
 import { UNDEF } from '../../../definitions.interface';
 
 describe('multifield.support', () => {
+
+  describe('toMultiFieldChangesEntityOnEdit', () => {
+    it('test1', () => {
+      const item1 = {id: 100, field1: 20, field2: 30};
+      const item2 = {id: 101, field1: 200, field2: 300};
+      const result = toMultiFieldChangesEntityOnEdit(
+        {name: 'field1', value: 21, id: 100, rawData: item1},       // payload
+        [item1, item2],                                             // add
+        [],                                                         // remove
+        [{id: 101, name: 'field2', value: 301, rawData: item2}],    // edit
+        []                                                          // original
+      );
+      expect(result).toEqual({
+        removeArray: [],
+        editArray: [{id: 101, name: 'field2', value: 301, rawData: item2}],
+        addArray: [Object.assign({}, item1, {field1: 21}), item2],
+      });
+    });
+
+    it('test2', () => {
+      const item1 = {id: 100, field1: 20, field2: 30};
+      const item2 = {id: 101, field1: 200, field2: 300};
+      const item3 = {id: 102, field1: 2000, field2: 3000};
+      const result = toMultiFieldChangesEntityOnEdit(
+        {name: 'field1', value: 21, id: 100, rawData: item1},  // payload
+        [],   // add
+        [],   // remove
+        [],   // edit
+        [item1, item2, item3]    // original
+      );
+      expect(result).toEqual({
+        removeArray: [],
+        editArray: [{id: 100, name: 'field1', value: 21, rawData: item1}],
+        addArray: [],
+      });
+    });
+
+    it('test3', () => {
+      const item1 = {id: 100, field1: 20, field2: 30};
+      const item2 = {id: 101, field1: 200, field2: 300};
+      const item3 = {id: 102, field1: 2000, field2: 3000};
+      const result = toMultiFieldChangesEntityOnEdit(
+        {id: 100, name: 'field1', value: 21, rawData: item1},  // payload
+        [],   // add
+        [],   // remove
+        [{id: 101, name: 'field2', value: 301, rawData: item2}],   // edit
+        [item1, item2, item3]    // original
+      );
+      expect(result).toEqual({
+        removeArray: [],
+        editArray: [
+          {id: 101, name: 'field2', value: 301, rawData: item2},
+          {id: 100, name: 'field1', value: 21, rawData: item1}
+        ],
+        addArray: [],
+      });
+    });
+
+    it('test4', () => {
+      const item1 = {id: 100, field1: 20, field2: 30};
+      const item2 = {id: 101, field1: 200, field2: 300};
+      const item3 = {id: 102, field1: 2000, field2: 3000};
+      const result = toMultiFieldChangesEntityOnEdit(
+        {id: 101, name: 'field2', value: 300, rawData: item1},  // payload
+        [],   // add
+        [],   // remove
+        [{id: 101, name: 'field2', value: 301, rawData: item2}],   // edit
+        [item1, item2, item3]    // original
+      );
+      expect(result).toEqual({
+        removeArray: [],
+        editArray: [],
+        addArray: [],
+      });
+    });
+
+    it('test5', () => {
+      const item1 = {id: 100, field1: 20, field2: 30};
+      const item2 = {id: 101, field1: 200, field2: 300};
+      const item3 = {id: 102, field1: 2000, field2: 3000};
+      const result = toMultiFieldChangesEntityOnEdit(
+        {id: 101, name: 'field2', value: 300, rawData: item1},  // payload
+        [],   // add
+        [],   // remove
+        [
+          {id: 101, name: 'field2', value: 301, rawData: item2},
+          {id: 101, name: 'field1', value: 201, rawData: item2}
+        ],   // edit
+        [item1, item2, item3]    // original
+      );
+      expect(result).toEqual({
+        removeArray: [],
+        editArray: [{id: 101, name: 'field1', value: 201, rawData: item2}],
+        addArray: [],
+      });
+    });
+  });
 
   describe('buildMultiEditItemEntityPayload', () => {
     it('test1', () => {

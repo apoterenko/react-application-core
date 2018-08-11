@@ -1,7 +1,4 @@
-import * as R from 'ramda';
-
 import { IBasicField } from '../field';
-import { orDefault } from '../../../util';
 import {
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
@@ -16,8 +13,9 @@ import {
   extractMultiAddItemEntities,
   extractMultiSourceItemEntities,
   fromMultiItemEntityToEntity,
+  toMultiFieldChangesEntityOnEdit,
 } from './multifield.support';
-import { UNDEF, IEntity } from '../../../definitions.interface';
+import { IEntity } from '../../../definitions.interface';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
@@ -79,44 +77,12 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [02.06.2018]
+   * @stable [11.08.2018]
    * @param {IMultiItemEntity} item
    * @returns {IMultiFieldChangesEntity}
    */
   public onEdit(item: IMultiItemEntity): IMultiFieldChangesEntity {
-    const removeArray = this.removeValue;
-    const addValue = this.addValue;
-    const editValue = this.editValue;
-
-    const editedOriginalItem = this.originalValue.find((originalItem0) => originalItem0.id === item.id);
-    const editedNewItem = addValue.find((editedNewItem0) => editedNewItem0.id === item.id);
-    const isEditedNewItem = !R.isNil(editedNewItem);
-
-    const editArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
-      isEditedNewItem,
-      editValue,
-      () => (
-        editValue
-          .filter(
-            (editedItem) =>
-              !(item.id === editedItem.id && item.name === editedItem.name)
-          )
-          .concat(item)
-          .filter((editedItem) => R.isNil(editedOriginalItem)
-            || !(item.id === editedItem.id && item.name === editedItem.name && editedOriginalItem[item.name] === item.value))
-      )
-    );
-
-    const addArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
-      isEditedNewItem,
-      () => (
-        item.value === UNDEF    // Destroy added entity
-          ? R.filter<IEntity>((itm) => itm.id !== item.id, addValue)
-          : addValue.map((newItem) => newItem.id === item.id ? fromMultiItemEntityToEntity(item) : newItem)
-      ),
-      addValue
-    );
-    return {addArray, removeArray, editArray};
+    return toMultiFieldChangesEntityOnEdit(item, this.addValue, this.removeValue, this.editValue, this.originalValue);
   }
 
   public onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity {

@@ -147,6 +147,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     if (this.props.onSelect) {
       this.props.onSelect(option);
     }
+    this.setFocus();
   }
 
   protected toDisplayValue(value: AnyT): EntityIdT {

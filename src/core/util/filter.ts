@@ -22,31 +22,38 @@ export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKe
     source: TSource, ...predicates: PredicateT[]
 ): TResult {
   const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_VALUE_PREDICATE));
-  const result = filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_VALUE_PREDICATE));
+  const result: TResult = {...filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_VALUE_PREDICATE)) as {}} as TResult;
   Object.keys(sourceWithObjectValues).forEach((key) => {
     result[key] = cloneUsingFilters<TSource, TResult>(sourceWithObjectValues[key], ...predicates);
   });
   return result;
 }
 
-export function filterByPredicate<TSource extends IKeyValue, TResult extends IKeyValue>(
-    source: TSource,
-    ...predicates: PredicateT[]
-): TResult {
-  return R.pickBy<TSource, TResult>(
+/**
+ * @stable [11.08.2018]
+ * @param {TSource} source
+ * @param {PredicateT} predicates
+ * @returns {TResult}
+ */
+export const filterByPredicate = <TSource extends IKeyValue, TResult extends IKeyValue>(
+  source: TSource,
+  ...predicates: PredicateT[]
+): TResult =>
+  Object.freeze(
+    R.pickBy<TSource, TResult>(
       (value, key): boolean => predicates.length > 1
-          ? (predicates as Array<PredicateT | boolean>)
-              .reduce(
-                  (previousValue, currentValue): boolean =>
-                      (currentValue as PredicateT)(key, value)
-                      && (isFn(previousValue)
-                            ? (previousValue as PredicateT)(key, value)
-                            : previousValue as boolean)
-              ) as boolean
-          : predicates[0](key, value),
+        ? (predicates as Array<PredicateT | boolean>)
+          .reduce(
+            (previousValue, currentValue): boolean =>
+              (currentValue as PredicateT)(key, value)
+              && (isFn(previousValue)
+              ? (previousValue as PredicateT)(key, value)
+              : previousValue as boolean)
+          ) as boolean
+        : predicates[0](key, value),
       source
+    )
   );
-}
 
 export function excludeFieldsPredicateFactory(...fields: string[]) {
   return (key: string, value: AnyT) => !fields.includes(key);

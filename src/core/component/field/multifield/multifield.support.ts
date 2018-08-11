@@ -16,6 +16,7 @@ import {
   NotMultiFieldEntityT,
   IMultiItemEntity,
   MultiFieldSingleValueT,
+  IMultiFieldChangesEntity,
 } from './multifield.interface';
 
 export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItemEntity[] {
@@ -314,3 +315,65 @@ export const fromMultiItemEntitiesToFieldsChanges = (multiItemEntities: IMultiIt
     (entity) => String(entity.id),
     multiItemEntities
   );
+
+/**
+ * @stable [11.08.2018]
+ * @param {IMultiItemEntity} first
+ * @param {IMultiItemEntity} second
+ * @returns {boolean}
+ */
+export const isSameEntityByIdAndChangedFieldName = (first: IMultiItemEntity, second: IMultiItemEntity): boolean => (
+  first.id === second.id
+    && first.name === second.name
+);
+
+/**
+ * @stable [11.08.2018]
+ * @param {IMultiItemEntity} item
+ * @param {IEntity[]} addValue
+ * @param {IMultiItemEntity[]} removeValue
+ * @param {IMultiItemEntity[]} editValue
+ * @param {IEntity[]} originalValue
+ * @returns {IMultiFieldChangesEntity}
+ */
+export const toMultiFieldChangesEntityOnEdit = (item: IMultiItemEntity,
+                                                addValue: IEntity[],
+                                                removeValue: IMultiItemEntity[],
+                                                editValue: IMultiItemEntity[],
+                                                originalValue: IEntity[]): IMultiFieldChangesEntity => {
+  const removeArray = removeValue;
+  const originalEditedItem = originalValue.find((originalItem0) => originalItem0.id === item.id);
+  const editedNewItem = addValue.find((editedNewItem0) => editedNewItem0.id === item.id);
+  const isEditedNewItem = !R.isNil(editedNewItem);
+  const isOriginalEditedItem = !R.isNil(originalEditedItem);
+
+  const editArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
+    isEditedNewItem,
+    editValue,  // If a user is editing a new record then returning an input value
+    () => ( // Otherwise, we should replace an old item with an input item
+      editValue
+        .filter((editedItem) => !isSameEntityByIdAndChangedFieldName(item, editedItem))
+        .concat(item)
+        .filter(
+          (editedItem) =>
+            // Totally destroy the dirty changes, if an edited entity attribute is equal an original entity attribute
+            !isOriginalEditedItem
+              || !(isSameEntityByIdAndChangedFieldName(item, editedItem)
+                    && originalEditedItem[item.name] === item.value)
+        )
+    )
+  );
+
+  const addArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
+    isEditedNewItem,
+    () => (
+      item.value === UNDEF    // Need to destroy added entity
+        ? R.filter<IEntity>((itm) => itm.id !== item.id, addValue)
+        : R.map<IEntity, IEntity>(
+          (newItem) => newItem.id === item.id ? fromMultiItemEntityToEntity(item) : newItem, addValue
+        )
+    ),
+    addValue
+  );
+  return {addArray, removeArray, editArray};
+};
