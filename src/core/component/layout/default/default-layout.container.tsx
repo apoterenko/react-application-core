@@ -24,6 +24,8 @@ import {
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper } from '../../../definitions.interface';
+import { Message } from '../../message';
+import { CenterLayout } from '../../layout';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
@@ -80,6 +82,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
             </Header>
             <Main>
               {props.children}
+              {
+                orNull<JSX.Element>(
+                  props.progress,
+                  () => (
+                    <CenterLayout className='rac-overlay'>
+                      <Message progress={true}/>
+                    </CenterLayout>
+                  )
+                )
+              }
             </Main>
             {orNull(props.footer, () => <footer className='rac-footer'>{props.footer}</footer>)}
           </FlexLayout>

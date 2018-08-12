@@ -37,17 +37,6 @@ export class DateTimeFieldHelper {
     );
   }
 
-  public buildDateTimeToField<TEntity extends IDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
-                                                               returnOriginalValueIfNoChanges = false): string {
-    return this.toDateTime<TEntity>(
-      apiEntity,
-      (source) => source.date,
-      (source) => source.time,
-      returnOriginalValueIfNoChanges,
-      DEFAULT_TIME_TO
-    );
-  }
-
   public buildDateTimeSinceField<TEntity extends IFromDateFromTimeEntity>(apiEntity: IApiEntity<TEntity>,
                                                                           returnOriginalValueIfNoChanges = false): string {
     return this.toDateTime<TEntity>(

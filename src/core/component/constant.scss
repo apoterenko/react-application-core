@@ -81,10 +81,10 @@ $rac-add-button-icon-height: $rac-add-button-icon-width !default;
 $rac-add-button-fa-icon-width: $rac-icon-width2 !default;
 $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
-/* @stable [25.06.2018] */
+/* @stable [13.08.2018] */
 $rac-list-item-color: $rac-default-text-color !default;
 $rac-list-item-font-size: $rac-default-font-size !default;
-$rac-list-item-text-line-height: 14px !default;
+$rac-list-item-text-line-height: 18px !default;
 $rac-list-item-text-letter-spacing: 1px !default;
 $rac-list-item-secondary-text-icon-width: 14px !default;
 $rac-list-item-secondary-text-icon-height: 14px !default;
@@ -314,6 +314,13 @@ $rac-global-error-message-border: 1px solid $rac-global-error-message-color !def
 $rac-global-error-message-border-radius: 8px !default;
 $rac-global-error-message-background: $color-5 !default;
 $rac-global-error-message-padding: 16px !default;
+
+/* @stable [13.08.2018] */
+$rac-overlay-background: rgba(0, 0, 0, 0.24) !default;
+$rac-overlay-message-background: $color-5 !default;
+$rac-overlay-message-max-width: 200px !default;
+$rac-overlay-message-height: 32px !default;
+$rac-overlay-message-border-radius: 8px !default;
 
 
 $rac-snackbar-action-button-ink-color: $color-1 !default;

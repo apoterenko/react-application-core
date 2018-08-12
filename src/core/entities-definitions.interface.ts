@@ -117,6 +117,7 @@ import {
   IAreaWrapper,
   IYWrapper,
   IXWrapper,
+  IPayloadWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -597,7 +598,9 @@ export interface IApplicationEntity extends IUniversalApplicationEntity,
 export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicationEntity> {
 }
 
-/* @stable - 11.04.2018 */
+/**
+ * @stable [13.08.2018]
+ */
 export interface IOperationEntity extends IStringIdWrapper {
 }
 
@@ -790,4 +793,11 @@ export interface IListAndFilterWrapperEntity<TFilter, TList> extends IListWrappe
  */
 export interface IXYEntity extends IXWrapper,
                                    IYWrapper {
+}
+
+/**
+ * @stable [13.08.2018]
+ */
+export interface IOperationPayloadEntity<TPayload> extends IPayloadWrapper<TPayload>,
+                                                           IOperationWrapper<IOperationEntity> {
 }

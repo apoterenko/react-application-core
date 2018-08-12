@@ -6,13 +6,14 @@ import {
   IContainerConfiguration,
   IHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
-import { IFooterWrapper } from '../../../definitions.interface';
+import { IFooterWrapper, IProgressWrapper } from '../../../definitions.interface';
 
 /**
- * @stable [31.05.2018]
+ * @stable [13.08.2018]
  */
 export interface IDefaultLayoutContainerEntity extends IContainerEntity,
-                                                       IQueryFilterWrapperEntity {
+                                                       IQueryFilterWrapperEntity,
+                                                       IProgressWrapper {
 }
 
 /**

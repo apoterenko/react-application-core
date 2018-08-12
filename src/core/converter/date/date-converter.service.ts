@@ -41,11 +41,16 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [11.08.2018]
    * @param {DateTimeLikeTypeT} date
    * @returns {string}
    */
   public fromDateToUiDate(date: DateTimeLikeTypeT): string {
-    return this.format(date, this.dateFormat, this.uiDateFormat);
+    return this.format(
+      this.shrinkDate(date), /* Need to clear a timezone */
+      this.dateFormat,
+      this.uiDateFormat
+    );
   }
 
   /**
@@ -223,6 +228,15 @@ export class DateConverter implements IDateConverter {
 
   public combine(dateAsString: string, timeAsString: string): string {
     return [dateAsString, timeAsString].join(' ');
+  }
+
+  /**
+   * @stable [13.08.2018]
+   * @param {DateTimeLikeTypeT} dateTime
+   * @returns {DateTimeLikeTypeT}
+   */
+  private shrinkDate(dateTime: DateTimeLikeTypeT): DateTimeLikeTypeT {
+    return isString(dateTime) ? (dateTime as string).split('T')[0] : dateTime;
   }
 
   /**

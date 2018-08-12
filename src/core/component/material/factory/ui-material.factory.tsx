@@ -100,6 +100,7 @@ import {
   faIdCard,
   faClock,
   faAddressCard,
+  faTrashAlt,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -215,6 +216,7 @@ export class UIMaterialFactory implements IUIFactory {
     store: faStoreAlt,
     user_shield: faUserShield,
     key: faKey,
+    trash: faTrashAlt,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 

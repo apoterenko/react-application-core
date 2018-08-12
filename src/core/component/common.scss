@@ -92,6 +92,20 @@ html, body {
     height: 100%;           /* @stable [07.05.2018] */
   }
 
+  .rac-overlay {
+    position: absolute;                     /* @stable [13.08.2018] */
+    height: 100%;                           /* @stable [13.08.2018] */
+    width: 100%;                            /* @stable [13.08.2018] */
+    background: $rac-overlay-background;    /* @stable [13.08.2018] */
+
+    .rac-message {
+      background: $rac-overlay-message-background;            /* @stable [13.08.2018] */
+      max-width: $rac-overlay-message-max-width;              /* @stable [13.08.2018] */
+      height: $rac-overlay-message-height;                    /* @stable [13.08.2018] */
+      border-radius: $rac-overlay-message-border-radius;      /* @stable [13.08.2018] */
+    }
+  }
+
   .rac-visibility-hidden {
     visibility: hidden;      /* @stable [23.06.2018] */
   }
