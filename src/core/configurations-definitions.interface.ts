@@ -195,6 +195,8 @@ import {
   IWarningWrapper,
   IMoreOptionsConfigurationWrapper,
   ICanReturnClearDirtyChangesValueWrapper,
+  IUsePlusActionWrapper,
+  IOnPlusClickWrapper,
 } from './definitions.interface';
 import {
   IContainerClassEntity,
@@ -205,7 +207,6 @@ import {
   IFieldChangeEntity,
   IUniversalComponent,
   IApiEntity,
-  IXYEntity,
 } from './entities-definitions.interface';
 import { IUniversalButtonProps } from './props-definitions.interface';
 
@@ -497,6 +498,8 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IOnChangeGroupingWrapper<IFieldChangeEntity>,
                                             IOnChangeSortingWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper<IGridColumnConfiguration[]>,
+                                            IUsePlusActionWrapper,
+                                            IOnPlusClickWrapper,
                                             IUseServiceWrapper {
 }
 

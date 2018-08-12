@@ -139,6 +139,7 @@ export class UIMaterialFactory implements IUIFactory {
     widgets: faCubes,
     spa: faCannabis,
     add: faPlus,
+    plus: faPlus,
     lock: faLock,
     warning: faExclamationTriangle,
     close: faTimes,

@@ -128,6 +128,7 @@ $rac-grid-data-row-hover-background-color: $color-10 !default;
 $rac-grid-column-content-font-size: $rac-default-font-size !default;
 $rac-grid-column-content-letter-spacing: 1px !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
+$rac-grid-service-wrapper-width: 32px !default;
 $rac-grid-edited-column-content-font-size: 10px !default;
 $rac-grid-edited-column-content-color: $color-6 !default;
 $rac-grid-edited-column-content-top: -4px !default;
@@ -254,6 +255,9 @@ $rac-tab-font-size: $rac-default-font-size-2 !default;
 $rac-tab-before-after-display: block !default;
 $rac-tab-icon-text-line-height: 24px !default;
 $rac-tab-icon-text-letter-spacing: 0 !default;
+$rac-tab-nav-icon-width: 12px !default;
+$rac-tab-nav-icon-height: 12px !default;
+$rac-tab-nav-margin: 28px !default;
 
 /* @stable [29.06.2018] */
 $rac-card-list-item-width: 150px !default;

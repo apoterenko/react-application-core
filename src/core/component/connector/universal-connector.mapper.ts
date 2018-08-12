@@ -199,7 +199,7 @@ export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
  * @returns {TEntity}
  */
 export const selectedEntityMapper = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
-  orNull(listEntity, () => listEntity.selected as TEntity);
+  orNull<TEntity>(listEntity, (): TEntity => listEntity.selected as TEntity);
 
 /**
  * @stable [09.05.2018]

@@ -37,9 +37,12 @@
     }
 
     .rac-tab-nav-icon {
-      margin-top: auto;                                               /* @stable [11.08.2018] */
-      margin-bottom: auto;                                            /* @stable [11.08.2018] */
-      width: 64px;                                                    /* @stable [11.08.2018] */
+      margin: auto $rac-tab-nav-margin;                               /* @stable [12.08.2018] */
+
+      &.rac-icon {
+        width: $rac-tab-nav-icon-width;                                /* @stable [12.08.2018] */
+        height: $rac-tab-nav-icon-height;                              /* @stable [12.08.2018] */
+      }
     }
   }
 }

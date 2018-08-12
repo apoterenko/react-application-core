@@ -1598,9 +1598,25 @@ export interface IUseAvatarWrapper {
   useAvatar?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [12.08.2018]
+ */
 export interface IUseAddActionWrapper {
   useAddAction?: boolean;
+}
+
+/**
+ * @stable [12.08.2018]
+ */
+export interface IUsePlusActionWrapper {
+  usePlusAction?: boolean;
+}
+
+/**
+ * @stable [12.08.2018]
+ */
+export interface IOnPlusClickWrapper<TOnPlusClick = () => void> {
+  onPlusClick?: TOnPlusClick;
 }
 
 /**

@@ -24,6 +24,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     super(props);
     this.onHeaderColumnClick = this.onHeaderColumnClick.bind(this);
     this.onSettingsClick = this.onSettingsClick.bind(this);
+    this.onPlusClick = this.onPlusClick.bind(this);
 
     this.state = {filterChanges: {}, expandedGroups: {}};
   }
@@ -59,11 +60,18 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
         </div>
         {
           orNull<JSX.Element>(
-            props.useService,
+            props.useService || props.usePlusAction,
             () => (
               <div className='rac-grid-service-wrapper'>
                 <div className='rac-grid-service'>
-                  {this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onSettingsClick})}
+                  {orNull<JSX.Element>(
+                    props.useService,
+                    () => this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onSettingsClick}),
+                  )}
+                  {orNull<JSX.Element>(
+                    props.usePlusAction,
+                    () => this.uiFactory.makeIcon({type: 'plus', onClick: this.onPlusClick}),
+                  )}
                 </div>
               </div>
             )
@@ -109,6 +117,17 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
 
   private onSettingsClick(): void {
     // TODO
+  }
+
+  /**
+   * @stable [12.08.2018]
+   */
+  private onPlusClick(): void {
+    const props = this.props;
+
+    if (props.onPlusClick) {
+      props.onPlusClick();
+    }
   }
 
   /**
