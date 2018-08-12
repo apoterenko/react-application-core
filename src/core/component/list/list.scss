@@ -15,10 +15,8 @@
     overflow-y: auto;                                        /* @stable [23.06.2018] */
 
     .rac-list-item {
-
       color: $rac-list-item-color;                           /* @stable [23.06.2018] */
-      font-size: $rac-list-item-secondary-text-font-size;                   /* @stable [23.06.2018] */
-      letter-spacing: $rac-list-item-secondary-text-letter-spacing;         /* @stable [23.06.2018] */
+      font-size: $rac-list-item-font-size;                   /* @stable [23.06.2018] */
 
       &.rac-list-item-warning {
 
@@ -51,13 +49,13 @@
       .rac-list-item-text {
         margin-bottom: auto;                                          /* @stable [11.08.2018] */
         margin-top: auto;                                             /* @stable [11.08.2018] */
+        letter-spacing: $rac-list-item-text-letter-spacing;           /* @stable [12.08.2018] */
+        line-height: $rac-list-item-text-line-height;                 /* @stable [12.08.2018] */
       }
 
       .rac-list-item-secondary-text {
-        display: block;                                               /* @stable [11.08.2018] */
-        line-height: $rac-list-item-secondary-text-line-height;       /* @stable [11.08.2018] */
-        font-size: $rac-list-item-secondary-text-font-size;           /* @stable [23.06.2018] */
-        letter-spacing: $rac-list-item-secondary-text-letter-spacing; /* @stable [23.06.2018] */
+        display: block;                                               /* @stable [12.08.2018] */
+        font-size: $rac-list-item-secondary-text-font-size;           /* @stable [12.08.2018] */
 
         .rac-icon {
           width: $rac-list-item-secondary-text-icon-width;            /* @stable [11.08.2018] */

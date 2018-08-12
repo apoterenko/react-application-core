@@ -83,9 +83,12 @@ $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
 /* @stable [25.06.2018] */
 $rac-list-item-color: $rac-default-text-color !default;
+$rac-list-item-font-size: $rac-default-font-size !default;
+$rac-list-item-text-line-height: 14px !default;
+$rac-list-item-text-letter-spacing: 1px !default;
+$rac-list-item-secondary-text-icon-width: 14px !default;
+$rac-list-item-secondary-text-icon-height: 14px !default;
 $rac-list-item-secondary-text-font-size: 11px !default;
-$rac-list-item-secondary-text-line-height: 11px !default;
-$rac-list-item-secondary-text-letter-spacing: 1px !default;
 $rac-list-item-graphic-icon-width: 40% !default;
 $rac-list-item-graphic-icon-height: 40% !default;
 $rac-list-item-graphic-icon-color: $color-5 !default;
@@ -93,8 +96,6 @@ $rac-list-item-graphic-background-color: $color-8 !default;
 $rac-list-item-warning-graphic-background-color: $color-6 !default;
 $rac-list-item-normal-graphic-background-color: $color-13 !default;
 $rac-list-item-fail-graphic-background-color: $color-11 !default;
-$rac-list-item-secondary-text-icon-width: 14px !default;
-$rac-list-item-secondary-text-icon-height: 14px !default;
 
 /* @stable [22.06.2018] */
 $rac-navigation-list-item-height: 40px !default;
