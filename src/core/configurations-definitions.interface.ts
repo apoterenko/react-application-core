@@ -199,7 +199,7 @@ import {
   IOnPlusClickWrapper,
 } from './definitions.interface';
 import {
-  IContainerClassEntity,
+  IUniversalContainerClassEntity,
   IUniversalComponentPluginClassEntity,
   IUniversalApplicationStoreEntity,
   IMenuItemEntity,
@@ -697,7 +697,7 @@ export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TStoreEntity>
   extends IStateInitialChangesWrapper<TStoreEntity>,
-          ICallbackWrapper<(ctor: IContainerClassEntity) => void>,
+          ICallbackWrapper<(ctor: IUniversalContainerClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
 }

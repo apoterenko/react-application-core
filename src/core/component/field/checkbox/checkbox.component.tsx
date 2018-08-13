@@ -34,7 +34,7 @@ export class Checkbox extends Field<Checkbox,
           </label>
         </div>
         {this.fieldMessage}
-        {this.fieldErrorMessageElement}
+        {props.required && this.fieldErrorMessageElement}
       </div>
     );
   }
