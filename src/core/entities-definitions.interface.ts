@@ -118,6 +118,7 @@ import {
   IYWrapper,
   IXWrapper,
   IPayloadWrapper,
+  IActiveValueWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -422,7 +423,8 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
 export interface IEditableEntity<TChanges extends IKeyValue = IEntity> extends IUniversalLivingEntity,
                                                                                IChangesWrapper<TChanges>,
                                                                                IDirtyWrapper,
-                                                                               IValidWrapper {
+                                                                               IValidWrapper,
+                                                                               IActiveValueWrapper {
 }
 
 /**

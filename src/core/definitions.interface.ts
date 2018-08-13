@@ -74,6 +74,13 @@ export interface IEntity extends IEntityIdTWrapper,
 }
 
 /**
+ * @stable [14.08.2018]
+ */
+export interface IActiveValueWrapper<TActiveValue = number> {
+  activeValue?: TActiveValue;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IUserWrapper<TUser = string> {

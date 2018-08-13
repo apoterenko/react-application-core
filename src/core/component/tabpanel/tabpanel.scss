@@ -42,6 +42,8 @@
       &.rac-icon {
         width: $rac-tab-nav-icon-width;                                /* @stable [12.08.2018] */
         height: $rac-tab-nav-icon-height;                              /* @stable [12.08.2018] */
+        min-width: $rac-tab-nav-icon-width;                            /* @stable [14.08.2018] */
+        min-height: $rac-tab-nav-icon-height;                          /* @stable [14.08.2018] */
       }
     }
   }

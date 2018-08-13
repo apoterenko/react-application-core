@@ -1,5 +1,7 @@
 import * as uuid0 from 'uuid';
 
+import { INumberValueWrapper } from '../definitions.interface';
+
 /**
  * @stable [11.06.2018]
  * @param {boolean} onlyChars
@@ -14,3 +16,11 @@ export function uuid(onlyChars = false) {
   }
   return result;
 }
+
+/**
+ * @stable [14.08.2018]
+ * @param {TObject} objects
+ * @returns {TObject[]}
+ */
+export const makeUniqueObjects = <TObject extends INumberValueWrapper = INumberValueWrapper>(...objects: TObject[]): TObject[] =>
+  objects.map((o, index): TObject => ({...o as {}, value: index} as TObject));

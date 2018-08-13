@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
@@ -24,13 +25,16 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
   }
 
   /**
-   * @stable [11.08.2018]
+   * @stable [14.08.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
-    const items = props.items.filter((item) => !!item);
-    const selectedIndex = this.state.value || 0;
+    const state = this.state;
+    const items = props.items;
+    const activeValue = R.isNil(props.activeValue)
+      ? (R.isNil(state.activeValue) ? items[0].value : state.activeValue)
+      : props.activeValue;
 
     return (
       <div ref='self'
@@ -58,13 +62,13 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
                               this.uiFactory.tabBarScrollerScrollContent)
                            }>
               {
-                items.map((tab, index) => (
+                items.map((tab) => (
                   <div key={`rac-tab-${tab.value}`}
                           className={toClassName(
                                         'rac-tab',
                                         tab.selected && 'rac-tab-selected',
                                         this.uiFactory.tab,
-                                        orNull<string>(index === selectedIndex, this.uiFactory.tabActive)
+                                        orNull<string>(tab.value === activeValue, this.uiFactory.tabActive)
                                     )}
                           onClick={() => this.onTabClick(tab)}>
                     <span className={this.uiFactory.tabContent}>
@@ -102,7 +106,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
                      <span className={toClassName(
                                         this.uiFactory.tabIndicator,
                                         !props.useIndicator && 'rac-display-none',
-                                        orNull<string>(index === selectedIndex, this.uiFactory.tabIndicatorActive)
+                                        orNull<string>(tab.value === activeValue, this.uiFactory.tabIndicatorActive)
                                       )}>
                         <span className={toClassName(
                                             this.uiFactory.tabIndicatorContent,
@@ -127,21 +131,20 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
   }
 
   private onNextClick(): void {
-
+    // TODO
   }
 
   private onBeforeClick(): void {
-
+    // TODO
   }
 
   /**
-   * @stable [11.08.2018]
+   * @stable [14.08.2018]
    * @param {ITabConfiguration} tab
    */
   private onTabClick(tab: ITabConfiguration): void {
     const props = this.props;
-    const value = props.items.findIndex((item) => item.value === tab.value);
-    this.setState({value});
+    this.setState({activeValue: tab.value});
 
     if (props.onClick) {
       props.onClick(tab);
