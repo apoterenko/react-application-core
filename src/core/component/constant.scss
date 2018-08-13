@@ -42,6 +42,10 @@ $rac-keyboard-key-opacity: $opacity !default;
 $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-border-color: $color-1 !default;
+$rac-keyboard-key-width: 56px !default;
+$rac-keyboard-key-height: $rac-keyboard-key-width !default;
+$rac-keyboard-key-height-factor: 4px !default;
+$rac-keyboard-key-width-factor: 8px !default;
 
 /* @stable [24.06.2018] */
 $rac-action-icon-color: $rac-default-action-color !default;
