@@ -4,7 +4,7 @@ import JQuery from 'jquery';
  * @stable [09.05.2018]
  */
 export interface IJqField extends JQuery<HTMLElement> {
-  caret(position?: number): number;
+  caret?(position?: number): number;
 }
 
 /**
