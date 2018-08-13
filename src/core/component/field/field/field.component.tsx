@@ -141,7 +141,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const error = this.error;
     return orNull<JSX.Element>(
       !props.notUseErrorMessage,
-      () => this.getMessageElement(error, this.uiFactory.textFieldValidationText)
+      () => this.getMessageElement(error, toClassName(this.uiFactory.textFieldValidationText, 'rac-text-field-help-validation-text'))
     );
   }
 
