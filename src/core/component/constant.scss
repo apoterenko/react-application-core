@@ -164,7 +164,9 @@ $rac-form-field-input-placeholder-font-weight: 100 !default;
 $rac-form-field-input-font-size: $rac-default-font-size !default;
 $rac-form-field-input-letter-spacing: 1px !default;
 $rac-form-field-input-font-weight: bold !default;
-$rac-text-field-border-bottom-color: $color-2 !default;
+$rac-form-text-field-border-bottom-color: $color-2 !default;
+$rac-form-text-field-help-text-color: $color-12 !default;
+$rac-form-text-field-help-text-font-size: $rac-default-font-size !default;
 
 /* @stable [30.07.2018] */
 $rac-dialog-addressfield-place-color: $rac-default-text-color !default;
@@ -303,10 +305,10 @@ $rac-form-layout-top-header-content-font-size: $rac-default-font-size !default;
 $rac-form-layout-top-header-content-font-weight: bold !default;
 $rac-form-layout-top-header-content-text-transform: none !default;
 $rac-form-layout-top-header-content-color: $color-5 !default;
-$rac-form-layout-field-input-color: $rac-form-field-input-color !default;
-$rac-form-layout-field-floating-focused-label-color: $rac-form-field-label-color !default;
-$rac-form-layout-form-text-field-margin-top: 8px !default;
-$rac-form-layout-form-text-field-border-bottom-color: $rac-text-field-border-bottom-color !default;
+$rac-form-layout-floating-focused-label-color: $rac-form-field-label-color !default;
+$rac-form-layout-text-field-input-color: $rac-form-field-input-color !default;
+$rac-form-layout-text-field-margin-top: 8px !default;
+$rac-form-layout-text-field-border-bottom-color: $rac-form-text-field-border-bottom-color !default;
 $rac-form-layout-section-padding: $rac-form-section-padding !default;
 $rac-form-layout-form-section-padding: $rac-form-section-padding !default;
 $rac-form-layout-form-actions-padding: $rac-form-actions-padding !default;

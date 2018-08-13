@@ -62,16 +62,16 @@
 
         .rac-field-label {
           &.rac-floating-focused-label {
-            color: $rac-form-layout-field-floating-focused-label-color;             /* @stable [08.08.2018] */
+            color: $rac-form-layout-floating-focused-label-color;              /* @stable [08.08.2018] */
           }
         }
 
         .rac-text-field {
-          margin-top: $rac-form-layout-form-text-field-margin-top;                  /* @stable [08.08.2018] */
-          border-bottom-color: $rac-form-layout-form-text-field-border-bottom-color;/* @stable [07.08.2018] */
+          margin-top: $rac-form-layout-text-field-margin-top;                  /* @stable [08.08.2018] */
+          border-bottom-color: $rac-form-layout-text-field-border-bottom-color;/* @stable [07.08.2018] */
 
           .rac-field-input {
-            color: $rac-form-layout-field-input-color;                              /* @stable [07.08.2018] */
+            color: $rac-form-layout-text-field-input-color;                    /* @stable [07.08.2018] */
           }
         }
       }

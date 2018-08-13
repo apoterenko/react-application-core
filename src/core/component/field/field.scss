@@ -57,8 +57,8 @@
     }
 
     .rac-text-field {
-      border-bottom: 1px solid $rac-text-field-border-bottom-color;   /* @stable [07.08.2018] */
-      will-change: unset;                                             /* @mdc @stable [08.08.2018] https://github.com/material-components/material-components-web/issues/1978 */
+      border-bottom: 1px solid $rac-form-text-field-border-bottom-color;  /* @stable [07.08.2018] */
+      will-change: unset;                                                 /* @mdc @stable [08.08.2018] https://github.com/material-components/material-components-web/issues/1978 */
 
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
@@ -89,6 +89,11 @@
           color: $rac-form-field-input-placeholder-color;             /* @stable [24.06.2018] */
           font-weight: $rac-form-field-input-placeholder-font-weight; /* @stable [03.07.2018] */
         }
+      }
+
+      .rac-text-field-help-text {
+        color: $rac-form-text-field-help-text-color;                  /* @stable [13.08.2018] */
+        font-size: $rac-form-text-field-help-text-font-size;          /* @stable [13.08.2018] */
       }
     }
   }
