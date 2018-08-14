@@ -10,7 +10,6 @@ import {
   IRendererWrapper,
   IEntityToClassNameWrapper,
   IIconWrapper,
-  IOnCloseWrapper,
   IActionIconWrapper,
   IActionTextWrapper,
   IAlwaysDirtyWrapper,
@@ -29,7 +28,6 @@ import {
   IUseSortingWrapper,
   IAlignWrapper,
   INameWrapper,
-  INumberValueWrapper,
   IItemsWrapper,
   IActiveWrapper,
   ITypeWrapper,
@@ -132,7 +130,6 @@ import {
   IRequiredWrapper,
   IOnChangeWrapper,
   ISelectedWrapper,
-  IUseIndicatorWrapper,
   IUseKeyboardWrapper,
   IFilterFnWrapper,
   IUseFilterWrapper,
@@ -197,6 +194,8 @@ import {
   ICanReturnClearDirtyChangesValueWrapper,
   IUsePlusActionWrapper,
   IOnPlusClickWrapper,
+  IActiveValueWrapper,
+  IValueWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -510,24 +509,14 @@ export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration
 /**
  * @stable [04.05.2018]
  */
-export interface ITabConfiguration extends INumberValueWrapper,
+export interface ITabConfiguration extends IValueWrapper,
                                            IClassNameWrapper,
                                            IActiveWrapper,
                                            INameWrapper,
                                            ISelectedWrapper,
                                            IUrlWrapper,
-                                           IIconWrapper {
-}
-
-/**
- * @stable [11.08.2018]
- */
-export interface ITabPanelConfiguration extends IComponentConfiguration,
-                                                IUseIndicatorWrapper,
-                                                IRippableWrapper,
-                                                IOnCloseWrapper<ITabConfiguration>,
-                                                IOnClickWrapper<ITabConfiguration>,
-                                                IItemsWrapper<ITabConfiguration[]> {
+                                           IIconWrapper,
+                                           IActiveValueWrapper {
 }
 
 /**

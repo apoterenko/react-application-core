@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Operation } from '../../operation';
 import { IEntity } from '../../definitions.interface';
 import { IApiEntity } from '../../entities-definitions.interface';
-import { IFieldConfiguration } from '../../configurations-definitions.interface';
+import { IFieldConfiguration, ITabConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from './form.interface';
 import { defValuesFilter } from '../../util';
 
@@ -115,3 +115,30 @@ export const isFormSubmittable = (formProps: IFormProps): boolean =>
  * @returns {boolean}
  */
 export const isFormNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || R.isNil(formProps.entity.id);
+
+/**
+ * @stable [14.08.2018]
+ * @param {IFormProps} formProps
+ * @param {ITabConfiguration} tab
+ * @returns {boolean}
+ */
+export const isFormTabActive = (formProps: IFormProps, tab: ITabConfiguration): boolean =>
+  R.isNil(formProps.form.activeValue) ? !!tab.active : formProps.form.activeValue === tab.value;
+
+/**
+ * @stable [14.08.2018]
+ * @param {IFormProps} formProps
+ * @param {ITabConfiguration[]} tabs
+ * @returns {number}
+ */
+export const getFormTabActiveValue = (formProps: IFormProps, tabs: ITabConfiguration[]): number => {
+  const currentActiveValue = formProps.form.activeValue;
+  if (!R.isNil(currentActiveValue)) {
+    return currentActiveValue;
+  }
+  const activeTab = tabs.find((tab) => tab.active);
+  if (R.isNil(activeTab)) {
+    return tabs[0].value;
+  }
+  return activeTab.value;
+};
