@@ -3,20 +3,14 @@ import { Store } from 'redux';
 import * as R from 'ramda';
 
 import { DI_TYPES, staticInjector } from '../../di';
-import {
-  IKeyValue,
-  AnyT,
-} from '../../definitions.interface';
+import { IKeyValue, AnyT, ACTION_PREFIX } from '../../definitions.interface';
 import {
   INavigateEntity,
   IContainerClassEntity,
   IUniversalContainer,
   IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
-import {
-  IDefaultConnectorConfiguration,
-  IRoutesConfiguration,
-} from '../../configurations-definitions.interface';
+import { IDefaultConnectorConfiguration, IRoutesConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
@@ -28,6 +22,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
+import { applySection } from '../../util';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends Component<TProps, TState>
@@ -71,13 +66,27 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 12.04.2018
+   * Needed for the custom actions
+   *
+   * @stable [14.08.2018]
    * @param {string} type
    * @param {IKeyValue} data
    */
   public dispatch(type: string, data?: IKeyValue): void {
     const props = this.props;
-    this.dispatchCustomType(`${props.sectionName}.${type}`, { section: props.sectionName, ...data });
+    this.dispatchCustomType(`${props.sectionName}.${type}`, applySection(props.sectionName, data));
+  }
+
+  /**
+   * Needed for the framework actions
+   *
+   * @stable [14.08.2018]
+   * @param {string} type
+   * @param {IKeyValue} data
+   */
+  public dispatchFrameworkAction(type: string, data?: IKeyValue): void {
+    const props = this.props;
+    this.dispatchCustomType(`${ACTION_PREFIX}.${props.sectionName}.${type}`, applySection(props.sectionName, data));
   }
 
   /**

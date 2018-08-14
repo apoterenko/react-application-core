@@ -44,6 +44,6 @@ export class FormTabPanelContainer extends BaseContainer<IFormTabPanelContainerP
    */
   private onTabClick(tab: ITabConfiguration): void {
     const payloadWrapper: IPayloadWrapper<number> = {payload: tab.value};
-    this.dispatchAction(FORM_ACTIVE_VALUE_ACTION_TYPE, payloadWrapper);
+    this.dispatchFrameworkAction(FORM_ACTIVE_VALUE_ACTION_TYPE, payloadWrapper);
   }
 }
