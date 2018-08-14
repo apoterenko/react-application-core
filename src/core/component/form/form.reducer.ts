@@ -3,6 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { isDef, toSection } from '../../util';
 import { convertError } from '../../error';
+import { IPayloadWrapper } from '../../definitions.interface';
 import { IEditableEntity, IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
 import { INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import { FormActionBuilder } from './form-action.builder';
@@ -43,6 +44,15 @@ export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_ST
         ...state,
         valid: action.data.valid,
       };
+    case FormActionBuilder.buildActiveValueActionType(section):
+      /**
+       * @stable [14.08.2018]
+       */
+      const activeValuePayload: IPayloadWrapper<number> = action.data;
+      return {
+        ...state,
+        activeValue: activeValuePayload.payload,
+      };
     case FormActionBuilder.buildSubmitActionType(section):
       return {
         ...state,
@@ -62,8 +72,13 @@ export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_ST
       };
     case FormActionBuilder.buildResetActionType(section):
     case FormActionBuilder.buildSubmitDoneActionType(section):
+      /**
+       * @stable [14.08.2018]
+       */
+      const activeValueState: IEditableEntity = {activeValue: state.activeValue};
       return {
         ...INITIAL_APPLICATION_FORM_STATE,
+        ...(isDef(activeValueState.activeValue) ? activeValueState : {}),
       };
   }
   return state;

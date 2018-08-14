@@ -4,7 +4,7 @@ import { BaseContainer } from '../../base';
 import { TabPanel } from '../tabpanel.component';
 import { ITabConfiguration } from '../../../configurations-definitions.interface';
 import { IFormTabPanelContainerProps } from './form-tabpanel.interface';
-import { FORM_INDEX_ACTION_TYPE, getFormTabActiveValue } from '../../form';
+import { FORM_ACTIVE_VALUE_ACTION_TYPE, getFormTabActiveValue } from '../../form';
 import { orNull } from '../../../util';
 import { IPayloadWrapper } from '../../../definitions.interface';
 
@@ -44,6 +44,6 @@ export class FormTabPanelContainer extends BaseContainer<IFormTabPanelContainerP
    */
   private onTabClick(tab: ITabConfiguration): void {
     const payloadWrapper: IPayloadWrapper<number> = {payload: tab.value};
-    this.dispatch(FORM_INDEX_ACTION_TYPE, payloadWrapper);
+    this.dispatchAction(FORM_ACTIVE_VALUE_ACTION_TYPE, payloadWrapper);
   }
 }

@@ -71,3 +71,4 @@ export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
 export const FORM_VALID_ACTION_TYPE = 'form.valid';
 export const FORM_RESET_ACTION_TYPE = 'form.reset';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
+export const FORM_ACTIVE_VALUE_ACTION_TYPE = 'form.active.value';

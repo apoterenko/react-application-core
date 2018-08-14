@@ -5,6 +5,7 @@ import { applySection } from '../../util';
 import {
   AnyT,
   IKeyValue,
+  ACTION_PREFIX,
 } from '../../definitions.interface';
 import {
   FieldChangeEntityT,
@@ -19,6 +20,7 @@ import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
+  FORM_ACTIVE_VALUE_ACTION_TYPE,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -37,6 +39,15 @@ export class FormActionBuilder {
 
   public static buildValidActionType(section: string): string {
     return `${section}.${FORM_VALID_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [14.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildActiveValueActionType(section: string): string {
+    return `${ACTION_PREFIX}.${section}.${FORM_ACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   public static buildSubmitActionType(section: string): string {
