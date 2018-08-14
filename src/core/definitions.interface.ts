@@ -775,13 +775,11 @@ export interface IMultiWrapper {
   multi?: boolean;
 }
 
-/* @stable - 15.04.2018 */
-export interface ISectionWrapper<TSection> {
+/**
+ * @stable [14.08.2018]
+ */
+export interface ISectionWrapper<TSection = string> {
   section?: TSection;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringSectionWrapper extends ISectionWrapper<string> {
 }
 
 /* @stable - 15.04.2018 */

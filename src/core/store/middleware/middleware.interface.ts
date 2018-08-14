@@ -2,7 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IResolverWrapper,
-  IStringSectionWrapper,
+  ISectionWrapper,
   IListSectionWrapper,
   IFilterSectionWrapper,
   IListRoutePathWrapper,
@@ -22,7 +22,7 @@ import { IListWrapperEntity, IApiEntity } from '../../entities-definitions.inter
 /* @stable - 01.04.2018 */
 export interface IUntouchedListMiddlewareConfig<TApplicationState>
   extends IResolverWrapper<(state: TApplicationState) => IListWrapperEntity>,
-          IStringSectionWrapper {
+          ISectionWrapper {
 }
 
 /**

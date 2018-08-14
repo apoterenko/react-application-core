@@ -67,7 +67,7 @@ import {
   IKeyValueRouteParamsWrapper,
   IURLSearchQueryParamsWrapper,
   ILinkedToSectionsWrapper,
-  IStringSectionWrapper,
+  ISectionWrapper,
   ILockWrapper,
   INeedToDestroySectionsWrapper,
   IStackWrapper,
@@ -620,7 +620,7 @@ export interface IRouterComponentEntity extends History {
 }
 
 /* @stable - 15.04.2018 */
-export interface IStackItemEntity extends IStringSectionWrapper,
+export interface IStackItemEntity extends ISectionWrapper,
                                           ILinkedToSectionsWrapper {
 }
 

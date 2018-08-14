@@ -3,7 +3,7 @@ import {
   IStateInitialChangesWrapper,
   IKeyValue,
   IStringPathWrapper,
-  IStringSectionWrapper,
+  ISectionWrapper,
 } from '../../definitions.interface';
 import {
   IContainerClassEntity,
@@ -18,13 +18,13 @@ import {
 import { IContainerProps } from '../../props-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
-                                                IStringSectionWrapper,
+                                                ISectionWrapper,
                                                 IStringPathWrapper {
 }
 
 export interface IRootContainerProps extends IContainerProps,
                                              IRouteConfiguration,
-                                             IStringSectionWrapper,
+                                             ISectionWrapper,
                                              IStateInitialChangesWrapper<IApplicationStoreEntity>,
                                              IAccessConfigurationWrapper<IAccessConfiguration> {
   container?: IContainerClassEntity;
