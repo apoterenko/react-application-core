@@ -1,5 +1,9 @@
 import { IUniversalComponentPlugin, IComponent } from '../../../entities-definitions.interface';
-import { INativeMaterialComponentFactory, INativeMaterialComponent } from '../../material';
+import {
+  INativeMaterialComponentFactory,
+  INativeMaterialComponent,
+  INativeMaterialAdapter,
+} from '../../material';
 
 export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>
@@ -25,5 +29,12 @@ export class MaterialPlugin<TComponent extends IComponent,
     if (this.mdc) {
       this.mdc.destroy();
     }
+  }
+
+  /**
+   * @stable [15.08.2018]
+   */
+  protected get adapter(): INativeMaterialAdapter {
+    return this.mdc.foundation_.adapter_;
   }
 }

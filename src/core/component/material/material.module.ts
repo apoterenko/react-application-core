@@ -1,5 +1,4 @@
 import { MDCRipple } from '@material/ripple';
-import { MDCTabBar } from '@material/tab-bar';
 import { MDCPersistentDrawer } from '@material/drawer';
 
 import { appContainer, DI_TYPES } from '../../di';
@@ -16,6 +15,7 @@ import {
   ListItemMaterialPlugin,
   MaterialPlugin,
   MenuMaterialPlugin,
+  TabPanelMaterialPlugin,
 } from './plugin';
 import { UIMaterialFactory } from './factory';
 import { Menu } from '../menu';
@@ -35,9 +35,9 @@ const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactory
 uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
 
 /**
- * @stable [17.05.2018]
+ * @stable [15.08.2018]
  */
-uiPlugins.set(TabPanel, (component: TabPanel) => new MaterialPlugin<TabPanel>(component, MDCTabBar));
+uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(component));
 
 /**
  * @stable [17.05.2018]

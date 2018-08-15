@@ -3,10 +3,11 @@ import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
-import { ITabPanelProps, ITabPanelState } from './tabpanel.interface';
+import { ITabPanelProps, ITabPanelState, ITabPanel } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
 
-export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelState> {
+export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelState>
+  implements ITabPanel {
 
   public static defaultProps: ITabPanelProps = {
     useIndicator: true,
@@ -19,8 +20,6 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
    */
   constructor(props: ITabPanelProps) {
     super(props);
-    this.onNextClick = this.onNextClick.bind(this);
-    this.onBeforeClick = this.onBeforeClick.bind(this);
     this.state = {};
   }
 
@@ -49,7 +48,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
         {this.uiFactory.makeIcon({
           type: 'navigate_before',
           className: 'rac-tab-nav-icon',
-          onClick: this.onBeforeClick,
+          onClick: this.onBackward,
         })}
         <div className={toClassName(this.uiFactory.tabBarScroller, 'rac-tab-scroller')}>
           <div className={toClassName(
@@ -124,18 +123,26 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
         {this.uiFactory.makeIcon({
           type: 'navigate_next',
           className: 'rac-tab-nav-icon',
-          onClick: this.onNextClick,
+          onClick: this.onForward,
         })}
       </div>
     );
   }
 
-  private onNextClick(): void {
-    // TODO
+  /**
+   * Each plugin may implement this method
+   * @stable [15.08.2018]
+   */
+  public onForward(): void {
+    // Nothing to do
   }
 
-  private onBeforeClick(): void {
-    // TODO
+  /**
+   * Each plugin may implement this method
+   * @stable [15.08.2018]
+   */
+  public onBackward(): void {
+    // Nothing to do
   }
 
   /**

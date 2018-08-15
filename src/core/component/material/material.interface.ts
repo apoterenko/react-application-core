@@ -14,8 +14,8 @@ export interface INativeMaterialComponentFactory<TNativeMaterialComponent extend
 /**
  * @stable [05.05.2018]
  */
-export interface INativeMaterialComponent {
-  foundation_: INativeMaterialDefaultFoundation;
+export interface INativeMaterialComponent extends IKeyValue {
+  foundation_: INativeMaterialFoundation;
   listen(type: string, callback: () => void);
   unlisten(type: string, callback: () => void);
   destroy(): void;
@@ -24,8 +24,14 @@ export interface INativeMaterialComponent {
 /**
  * @stable [05.05.2018]
  */
-export interface INativeMaterialDefaultFoundation extends IKeyValue {
-  adapter_: IKeyValue;
+export interface INativeMaterialFoundation extends IKeyValue {
+  adapter_: INativeMaterialAdapter;
+}
+
+/**
+ * @stable [15.08.2018]
+ */
+export interface INativeMaterialAdapter extends IKeyValue {
 }
 
 /**
@@ -40,4 +46,11 @@ export interface INativeMaterialCheckboxComponent extends INativeMaterialCompone
  */
 export interface INativeMaterialListItemComponent extends INativeMaterialComponent,
                                                           IActivateWrapper {
+}
+
+/**
+ * @stable [15.08.2018]
+ */
+export interface INativeMaterialTabPanelComponent extends INativeMaterialComponent {
+  scrollTo(x: number): void;
 }
