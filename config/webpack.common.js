@@ -1,9 +1,5 @@
-const webpack = require('webpack');
 const helpers = require('./helpers');
-const fs = require('fs');
 
-const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const StringReplacePlugin = require('string-replace-webpack-plugin');
