@@ -31,6 +31,10 @@
         .rac-form-actions {
           padding: $rac-form-layout-form-actions-padding;              /* @stable [08.08.2018] */
           @include justify-content(center);                            /* @stable [08.08.2018] */
+
+          .rac-button {
+            margin-left: 0;                                            /* @stable [08.08.2018] */
+          }
         }
 
         .rac-section {
