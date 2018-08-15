@@ -43,7 +43,6 @@ export class RouterEffects {
   @EffectsService.effects(ROUTER_BACK_ACTION_TYPE)
   public $onBack(): void {
     RouterEffects.logger.debug('[$RouterEffects][$onBack]');
-
     this.router.goBack();
   }
 
