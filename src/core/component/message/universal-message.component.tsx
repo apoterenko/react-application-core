@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { orNull, isString } from '../../util';
+import { orNull, isString, join } from '../../util';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalMessageProps } from './universal-message.interface';
 
@@ -50,11 +50,12 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
   protected abstract getMessageWrapper(message: React.ReactNode, node: React.ReactNode): JSX.Element;
 
   /**
-   * @stable [23.04.2018]
+   * @stable [17.08.2018]
    * @returns {string}
    */
   private getErrorMessage(): string {
-    return this.t(this.props.errorMessage || this.settings.messages.errorMessage);
+    const props = this.props;
+    return join([this.t(props.errorMessage || this.settings.messages.errorMessage), props.error], '\n');
   }
 
   /**
