@@ -40,6 +40,7 @@ import {
   faUser as faSolidUser,
   faHistory,
   faVideo,
+  faPeopleCarry,
   faCommentDots,
   faBriefcase,
   faShieldAlt,
@@ -101,6 +102,7 @@ import {
   faClock,
   faAddressCard,
   faTrashAlt,
+  faHdd,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -127,12 +129,14 @@ export class UIMaterialFactory implements IUIFactory {
     exchange: faExchangeAlt,
     user_clock: faUserClock,
     tablet: faTabletAlt,
+    location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
     search: faSearch,
     more_vert: faEllipsisV,
     save: faSave,
     refresh: faSync,
     clear: faTimes,
+    people_carry: faPeopleCarry,
     keyboard_arrow_left: faAngleLeft,
     keyboard_arrow_right: faAngleRight,
     expand_more: faChevronDown,
@@ -182,6 +186,7 @@ export class UIMaterialFactory implements IUIFactory {
     question: faQuestion,
     clear_all: faEraser,
     stop: faStopCircle,
+    hdd: faHdd,
     forward: faArrowAltCircleRight,
     backward: faArrowAltCircleLeft,
     down: faArrowAltCircleDown,

@@ -44,7 +44,7 @@ $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-border-color: $color-1 !default;
 $rac-keyboard-key-width: 56px !default;
 $rac-keyboard-key-height: $rac-keyboard-key-width !default;
-$rac-keyboard-key-height-factor: 4px !default;
+$rac-keyboard-key-height-factor: 16px !default;
 $rac-keyboard-key-width-factor: 8px !default;
 
 /* @stable [24.06.2018] */
@@ -319,6 +319,9 @@ $rac-global-error-message-border: 1px solid $rac-global-error-message-color !def
 $rac-global-error-message-border-radius: 8px !default;
 $rac-global-error-message-background: $color-5 !default;
 $rac-global-error-message-padding: 16px !default;
+
+/* @stable [17.08.2018] */
+$rac-status-attention-color: $color-12 !default;
 
 /* @stable [13.08.2018] */
 $rac-overlay-background: rgba(0, 0, 0, 0.24) !default;

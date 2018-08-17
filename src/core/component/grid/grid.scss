@@ -85,6 +85,7 @@
 
         .rac-grid-column-content {
           text-transform: uppercase;                      /* @stable [21.06.2018] */
+          white-space: normal;                            /* @stable [17.08.2018] */
         }
       }
     }

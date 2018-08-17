@@ -67,6 +67,10 @@ html, body {
     max-width: 100%;          /* @stable [14.05.2018] */
   }
 
+  .rac-status-attention {
+    color: $rac-status-attention-color;                      /* @stable [17.08.2018] */
+  }
+
   .rac-global-error-message {
     font-size: $rac-global-error-message-font-size;          /* @stable [08.08.2018] */
     background: $rac-global-error-message-background;        /* @stable [08.08.2018] */

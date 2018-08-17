@@ -31,7 +31,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
 
     return (
         <header className={toClassName(this.uiFactory.toolbar, 'rac-header', props.className)}>
-          <div className={this.uiFactory.toolbarRow}>
+          <div className={toClassName(this.uiFactory.toolbarRow, 'rac-header-row')}>
             <ToolbarSection className={toClassName('rac-navigation-section', this.uiFactory.toolbarSectionAlignStart)}>
               {
                 this.uiFactory.makeIcon({

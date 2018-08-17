@@ -55,6 +55,10 @@ export class NumberConverter implements INumberConverter {
     return `#${value}`;
   }
 
+  public internalId(value: number | string): string {
+    return `(# ${value})`;
+  }
+
   public phone(value: number | string, phoneNumberFormat: PNF = PNF.INTERNATIONAL): string {
     const v = isString(value) ? value as string : String(value);
     let phoneNumber;

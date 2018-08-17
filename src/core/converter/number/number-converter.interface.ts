@@ -6,4 +6,5 @@ export interface INumberConverter {
   currency(value: number | string, options?: Intl.NumberFormatOptions): string;
   phone(value: number | string, phoneNumberFormat?: PNF): string;
   id(value: number | string): string;
+  internalId(value: number | string): string;
 }

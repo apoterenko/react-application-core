@@ -76,6 +76,7 @@
 
           .rac-field-input {
             color: $rac-form-layout-text-field-input-color;                    /* @stable [07.08.2018] */
+            caret-color: $rac-form-layout-text-field-input-color;              /* @stable [15.08.2018] */
           }
         }
       }
