@@ -70,6 +70,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (this.isValuePresent()) {
       this.onChangeManually(this.getEmptyValue());
     }
+
+    if (this.props.onClear) {
+      this.props.onClear();
+    }
   }
 
   /**
