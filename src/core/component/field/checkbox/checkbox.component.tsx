@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { BasicEventT } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../definitions.interface';
 import { Field, IFieldInputProps } from '../../field';
-import { toClassName, uuid } from '../../../util';
+import { noop, toClassName, uuid } from '../../../util';
 import {
   ICheckboxInternalState,
   ICheckboxInternalProps,
 } from './checkbox.interface';
+import { CenterLayout } from '../../layout';
 
 export class Checkbox extends Field<Checkbox,
                                     ICheckboxInternalProps,
@@ -19,7 +20,7 @@ export class Checkbox extends Field<Checkbox,
 
     return (
       <div className={this.getFieldClassName()}>
-        <div className='rac-flex-full rac-flex rac-flex-row rac-flex-center'>
+        <CenterLayout>
           <div ref='self'
                style={props.style}
                className={this.getSelfElementClassName()}>
@@ -32,7 +33,7 @@ export class Checkbox extends Field<Checkbox,
                  htmlFor={this.inputId}>
             {props.label ? this.t(props.label) : props.children}
           </label>
-        </div>
+        </CenterLayout>
         {this.fieldMessage}
         {props.required && this.fieldErrorMessageElement}
       </div>
@@ -59,12 +60,30 @@ export class Checkbox extends Field<Checkbox,
 
       id: this.inputId,
       type: 'checkbox',
-      checked: this.displayValue,
       className: toClassName(this.uiFactory.checkboxInput, 'rac-field-input'),
+
+      /**
+       * Needed for entity initializing
+       * @stable [17.08.2018]
+       */
+      checked: this.displayValue,
+
+      /**
+       * Only the manual changes
+       * @stable [17.08.2018]
+       */
+      onChange: noop,
     };
   }
 
-  protected onClick(event: BasicEventT): void {
+  /**
+   * @stable [17.08.2018]
+   * @param {IBasicEvent} event
+   */
+  protected onClick(event: IBasicEvent): void {
+    // A workaround to any implementation
+    this.onChangeManually(!this.props.value);
+
     if (this.props.onClick) {
       this.props.onClick(event);
     }
@@ -74,6 +93,10 @@ export class Checkbox extends Field<Checkbox,
     return toClassName(super.getFieldClassName(), 'rac-form-checkbox');
   }
 
+  /**
+   * @stable [17.08.2018]
+   * @returns {boolean}
+   */
   protected getEmptyValue(): boolean {
     return false;
   }

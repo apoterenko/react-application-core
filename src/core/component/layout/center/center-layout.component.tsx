@@ -12,11 +12,11 @@ export class CenterLayout extends BaseComponent<CenterLayout> {
   public render(): JSX.Element {
     return (
         <div className={toClassName(
-            'rac-flex',
-            'rac-flex-full',
-            'rac-flex-center',
-            this.props.className,
-        )}>
+                            'rac-flex',
+                            'rac-flex-full',
+                            'rac-flex-center',
+                            this.props.className,
+                        )}>
           {this.props.children}
         </div>
     );

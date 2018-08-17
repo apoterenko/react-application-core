@@ -1,4 +1,5 @@
 import { MDCRipple } from '@material/ripple';
+import { MDCCheckbox } from '@material/checkbox';
 import { MDCPersistentDrawer } from '@material/drawer';
 
 import { appContainer, DI_TYPES } from '../../di';
@@ -10,7 +11,6 @@ import {
 import { Checkbox } from '../field';
 import { IUIFactory } from '../factory';
 import {
-  CheckboxMaterialPlugin,
   DialogMaterialPlugin,
   ListItemMaterialPlugin,
   MaterialPlugin,
@@ -30,9 +30,9 @@ import { Drawer } from '../drawer';
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
 
 /**
- * @stable [30.05.2018]
+ * @stable [17.08.2018]
  */
-uiPlugins.set(Checkbox, (component: Checkbox) => new CheckboxMaterialPlugin(component));
+uiPlugins.set(Checkbox, (component: Checkbox) => new MaterialPlugin(component, MDCCheckbox));
 
 /**
  * @stable [15.08.2018]
