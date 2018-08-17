@@ -46,11 +46,15 @@ export class Barcode extends BaseComponent<Barcode, IBarcodeProps> {
    */
   private refresh(): void {
     const props = this.props;
-    JsBarcode(`#${this.tagId}`)
-      .EAN13(props.barcode, defValuesFilter({
+    const options = {
+      // defValuesFilter returns frozen object but JsBarcode changes its
+      ...defValuesFilter({
         height: props.height,
         fontSize: props.fontSize,
-      }))
+      }),
+    };
+    JsBarcode(`#${this.tagId}`)
+      .EAN13(props.barcode, options)
       .render();
   }
 }
