@@ -32,6 +32,7 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
   if (!isNotMultiEntity(entity)) {
     const editedEntities = toActualMultiItemEditedEntities<TItem>(entity);
 
+    const originalSourceItems = multiEntity.source as TItem[] || [];
     const actualSourceItems = R.filter<TItem>(
       (entity0) => (
         // Exclude the removed entities from original snapshot
@@ -41,15 +42,19 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
         // because we need to replace them with actual edited entities
         && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
       ),
-      multiEntity.source as TItem[] || []
+      originalSourceItems
     );
 
     // The final snapshot
     const entities = actualSourceItems.concat(multiEntity.add as TItem[]).concat(editedEntities);
 
-    // Finally, we are sorting by id
+    // Finally, need to sorting by original entity position in an original snapshot
     return R.sort<TItem>(
-      (item1, item2) => entities.findIndex((i) => i.id === item1.id) > entities.findIndex((i) => i.id === item2.id) ? 1 : -1,
+      (item1, item2) => {
+        const firstIndex = originalSourceItems.findIndex((i) => i.id === item1.id);
+        const secondIndex = originalSourceItems.findIndex((i) => i.id === item2.id);
+        return firstIndex > secondIndex ? 1 : (secondIndex === secondIndex ? 0 : -1);
+      },
       entities as TItem[]
     );
   }
