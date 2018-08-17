@@ -95,8 +95,7 @@ export interface ITransportResponseEntity extends INameWrapper,
 /**
  * @stable [17.08.2018]
  */
-export class TransportCancelRequestError extends Error {
-}
+export const TRANSPORT_REQUEST_CANCEL_REASON = 'TRANSPORT_REQUEST_CANCEL_REASON';
 
 export interface ITransportRawResponse {
   data: ITransportRawResponseData;

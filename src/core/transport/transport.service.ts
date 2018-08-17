@@ -11,7 +11,7 @@ import {
   TransportResponseErrorT,
   IApplicationTransportFactory,
   ITransportResponseEntity,
-  TransportCancelRequestError,
+  TRANSPORT_REQUEST_CANCEL_REASON,
 } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ACTION_TYPE,
@@ -31,28 +31,29 @@ export class TransportService implements IApplicationTransport {
     this.onRequest(req);
 
     return new Promise<TResponse>((resolve, reject) => (
-            this.transportFactory
-                .request(req)
-                .then((response) => {
-                  const error = response.data.error || response.data.Message;
-                  if (error) {
-                    this.onRequestError(req, error);
-                    reject(error);
-                  } else {
-                    const result = (req.reader ? req.reader(response.data) : response.data).result;
-                    this.onRequestDone(req, result);
-                    resolve(result);
-                  }
-                }, (e: Error | string) => {
-                  if (e instanceof TransportCancelRequestError) {
-                    this.onRequestCancel(req);
-                    // Don't need to worry about unresolved promises as long as you don't have external references to them
-                  } else {
-                    this.onRequestError(req, e);
-                    reject(e);
-                  }
-                })
-        )
+        this.transportFactory
+          .request(req)
+          .then((response) => {
+            const error = response.data.error || response.data.Message;
+            if (error) {
+              this.onRequestError(req, error);
+              reject(error);
+            } else {
+              const result = (req.reader ? req.reader(response.data) : response.data).result;
+              this.onRequestDone(req, result);
+              resolve(result);
+            }
+          })
+          .catch((e: Error | string) => {
+            if (e === TRANSPORT_REQUEST_CANCEL_REASON) {
+              this.onRequestCancel(req);
+              // Don't need to worry about unresolved promises as long as you don't have external references to them
+            } else {
+              this.onRequestError(req, e);
+              reject(e);
+            }
+          })
+      )
     );
   }
 

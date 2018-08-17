@@ -16,7 +16,7 @@ import {
   ITransportHttpRequestEntity,
   IApplicationTransportCancelToken,
   IApplicationTransportTokenAccessor,
-  TransportCancelRequestError,
+  TRANSPORT_REQUEST_CANCEL_REASON,
 } from './transport.interface';
 
 @injectable()
@@ -78,9 +78,10 @@ export class TransportFactory implements IApplicationTransportFactory {
           TransportFactory.logger.debug(`[$TransportFactory][request] An error occurred during a request. Error: ${err}`);
           this.clearOperation(operationId);
 
-          if (err && err.message === TransportFactory.CANCEL_MESSAGE) {
-            // There is no other way to determine a cancel action
-            throw new TransportCancelRequestError();
+          if (err
+                // There is no other way to determine a cancel action
+                && err.message === TransportFactory.CANCEL_MESSAGE) {
+            return Promise.reject(TRANSPORT_REQUEST_CANCEL_REASON);
           }
           throw err;
         }
