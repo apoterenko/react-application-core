@@ -19,35 +19,49 @@ import {
   IMultiFieldChangesEntity,
 } from './multifield.interface';
 
-export function toActualMultiItemEntities(entity: MultiFieldEntityT): IMultiItemEntity[] {
+/**
+ * @stable [18.08.2018]
+ * @param {MultiFieldEntityT} entity
+ * @returns {TItem[]}
+ */
+export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
   const multiEntity = entity as IMultiEntity;
   if (!isNotMultiEntity(entity)) {
-    const editedEntities = toActualMultiItemEditedEntities(entity);
-    const sourceItems = multiEntity.source || [];
+    const editedEntities = toActualMultiItemEditedEntities<TItem>(entity);
 
-    return R.sort<IMultiItemEntity>(
-      (item1, item2) => sourceItems.findIndex((i) => i.id === item1.id) > sourceItems.findIndex((i) => i.id === item2.id) ? 1 : -1,
-      multiEntity.add.concat(
-        sourceItems.filter(
-          (entity0) =>
-            !multiEntity.remove.find((removeId) => removeId.id === entity0.id)
-            && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
-        ).concat(editedEntities)
-      )
+    const actualSourceItems = R.filter<TItem>(
+      (entity0) => (
+        // Exclude the removed entities from original snapshot
+        !multiEntity.remove.find((removeId) => removeId.id === entity0.id)
+
+        // Exclude the edited entities from an original snapshot,
+        // because we need to replace them with actual edited entities
+        && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
+      ),
+      multiEntity.source as TItem[] || []
+    );
+
+    // The final snapshot
+    const entities = actualSourceItems.concat(multiEntity.add as TItem[]).concat(editedEntities);
+
+    // Finally, we are sorting by id
+    return R.sort<TItem>(
+      (item1, item2) => entities.findIndex((i) => i.id === item1.id) > entities.findIndex((i) => i.id === item2.id) ? 1 : -1,
+      entities as TItem[]
     );
   }
-  return entity as IEntity[];
+  return entity as TItem[];
 }
 
 /**
- * @stable [04.07.2018]
+ * @stable [18.08.2018]
  * @param {MultiFieldEntityT} entity
- * @returns {IMultiItemEntity[]}
+ * @returns {TItem[]}
  */
-export const toActualMultiItemEditedEntities = (entity: MultiFieldEntityT): IMultiItemEntity[] => {
+export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
@@ -64,7 +78,7 @@ export const toActualMultiItemEditedEntities = (entity: MultiFieldEntityT): IMul
     });
     return Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]);
   }
-  return entity as IEntity[];
+  return entity as TItem[];
 };
 
 /**
@@ -117,7 +131,7 @@ export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiF
   fromMultiFieldEntityToEditedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
 
 /**
- * @stable [04.07.2018]
+ * @stable [18.08.2018]
  * @param {MultiFieldEntityT} multiFieldEntity
  * @param {(entity: TItem, index: number) => TResult} mapper
  * @returns {TResult[]}
@@ -125,7 +139,7 @@ export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiF
 export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
   multiFieldEntity: MultiFieldEntityT,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = toActualMultiItemEditedEntities(multiFieldEntity);
+  const result = toActualMultiItemEditedEntities<TItem>(multiFieldEntity);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
