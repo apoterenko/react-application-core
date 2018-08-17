@@ -2402,6 +2402,13 @@ export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: T
 }
 
 /**
+ * @stable [17.08.2018]
+ */
+export interface IOnClearWrapper<TOnClear = () => void> {
+  onClear?: TOnClear;
+}
+
+/**
  * @stable [09.06.2018]
  */
 export interface IOnEmptyMessageClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {

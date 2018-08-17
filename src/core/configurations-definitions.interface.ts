@@ -196,6 +196,7 @@ import {
   IOnPlusClickWrapper,
   IActiveValueWrapper,
   IValueWrapper,
+  IOnClearWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -593,6 +594,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IOnBlurWrapper<TFocusEvent>,
           IOnClickWrapper<TBasicEvent>,
           IOnChangeWrapper,
+          IOnClearWrapper,
           IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
           IAutoFocusWrapper,
           INotUseErrorMessageWrapper,

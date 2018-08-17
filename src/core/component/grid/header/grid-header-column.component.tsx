@@ -36,7 +36,7 @@ export class GridHeaderColumn extends BaseComponent<GridHeaderColumn, IGridHeade
                       props.className
                     )}
           onClick={props.useSorting ? this.onHeaderColumnClick : UNDEF}>
-        <div className='rac-grid-column-content rac-overflow-ellipsis'>
+        <div className='rac-grid-column-content'>
           {props.children}
         </div>
         {
