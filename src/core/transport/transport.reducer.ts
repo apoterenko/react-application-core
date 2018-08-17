@@ -9,6 +9,7 @@ import {
   TRANSPORT_DESTROY_ACTION_TYPE,
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
   TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
+  TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
 
 export function transportReducer(state: ITransportEntity = INITIAL_APPLICATION_TRANSPORT_STATE,
@@ -22,6 +23,7 @@ export function transportReducer(state: ITransportEntity = INITIAL_APPLICATION_T
             ? state.queue.concat(action.data.operationId)
             : state.queue,
       };
+    case TRANSPORT_REQUEST_CANCEL_ACTION_TYPE:
     case TRANSPORT_REQUEST_ERROR_ACTION_TYPE:
     case TRANSPORT_REQUEST_DONE_ACTION_TYPE:
       return {

@@ -34,7 +34,7 @@ export const URL_FIELD_NAME = 'url';
 export const EFFECTOR_FIELD_NAME = 'effector';                                                  /* @stable [28.03.2018] */
 export const PASSWORD_FIELD_NAME = 'password';
 export const EMAIL_FIELD_NAME = 'email';
-export const NAME_FIELD_NAME = 'name';
+export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
 export const TITLE_FIELD_NAME = 'title';
 export const ZIP_CODE_FIELD_NAME = 'zipCode';                                                   /* @stable [01.08.2018] */
 export const AREA_FIELD_NAME = 'area';                                                          /* @stable [01.08.2018] */
@@ -213,13 +213,11 @@ export interface IProgressMessageWrapper<TProgressMessage> {
 export interface IStringProgressMessageWrapper extends IProgressMessageWrapper<string> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IResultWrapper<TResult> {
+/**
+ * @stable [17.08.2018]
+ */
+export interface IResultWrapper<TResult = AnyT> {
   result?: TResult;
-}
-
-/* @stable - 01.04.2018 */
-export interface IAnyResultWrapper extends IResultWrapper<AnyT> {
 }
 
 /* @stable - 01.04.2018 */
@@ -535,6 +533,13 @@ export interface IOnOpenWrapper<TOnOpen = () => void> {
  */
 export interface IOperationWrapper<TOperation = IStringIdWrapper> {
   operation?: TOperation;
+}
+
+/**
+ * @stable [17.08.2018]
+ */
+export interface IOperationIdWrapper {
+  operationId?: string;
 }
 
 /**

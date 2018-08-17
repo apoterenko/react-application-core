@@ -6,7 +6,7 @@ import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
 import {
   IApplicationTransportPayloadAnalyzer,
   IApplicationTransportErrorInterceptor,
-  ITransportResponsePayload,
+  ITransportResponseEntity,
 } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
@@ -27,7 +27,7 @@ export class TransportEffects {
 
   @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
   public $onTransportRequestDone(action: IEffectsAction): IEffectsAction {
-    const data: ITransportResponsePayload = action.data;
+    const data: ITransportResponseEntity = action.data;
     const token = this.payloadAnalyzer.toToken(data);
     if (token) {
       return EffectsAction.create(TRANSPORT_UPDATE_TOKEN_ACTION_TYPE, { token });
@@ -38,7 +38,7 @@ export class TransportEffects {
   @EffectsService.effects(TRANSPORT_REQUEST_ERROR_ACTION_TYPE)
   public $onTransportRequestError(action: IEffectsAction,
                                   storeEntity: IUniversalApplicationStoreEntity): IEffectsAction[] | IEffectsAction {
-    const data: ITransportResponsePayload = action.data;
+    const data: ITransportResponseEntity = action.data;
     if (this.payloadAnalyzer.isAuthErrorPayload(data)) {
       const actions = [
         ApplicationActionBuilder.buildUnauthorizedAction()

@@ -16,9 +16,10 @@ import {
   IStringAuthWrapper,
   IOperationWrapper,
   IReaderFnWrapper,
-  IAnyResultWrapper,
+  IResultWrapper,
   IIdWrapper,
   AnyT,
+  IOperationIdWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from '../entities-definitions.interface';
 
@@ -58,7 +59,7 @@ export interface ITransportRequestEntity extends INameWrapper,
                                                  IBlobWrapper,
                                                  IMethodWrapper,
                                                  IStringPathWrapper,
-                                                 IReaderFnWrapper<AnyT, IAnyResultWrapper>,
+                                                 IReaderFnWrapper<AnyT, IResultWrapper>,
                                                  INoCacheWrapper,
                                                  IUrlWrapper,
                                                  IOperationWrapper {
@@ -76,13 +77,25 @@ export interface IApplicationTransportCancelToken {
   cancel(message?: string): void;
 }
 
-export interface ITransportErrorPayload extends IErrorEntity<TransportResponseErrorT> {
+/**
+ * @stable [17.08.2018]
+ */
+export interface ITransportErrorEntity extends IErrorEntity<TransportResponseErrorT> {
 }
 
-export interface ITransportResponsePayload extends INameWrapper,
-                                                   IAnyResultWrapper,
-                                                   ITransportErrorPayload {
-  operationId?: string;
+/**
+ * @stable [17.08.2018]
+ */
+export interface ITransportResponseEntity extends INameWrapper,
+                                                  IResultWrapper,
+                                                  IOperationIdWrapper,
+                                                  ITransportErrorEntity {
+}
+
+/**
+ * @stable [17.08.2018]
+ */
+export class TransportCancelRequestError extends Error {
 }
 
 export interface ITransportRawResponse {
@@ -94,7 +107,7 @@ export interface ITransportRawResponse {
 }
 
 export interface ITransportRawResponseData extends IIdWrapper,
-                                                   IAnyResultWrapper,
+                                                   IResultWrapper,
                                                    IErrorEntity<ITransportRawResponseError> {
   Message?: string;
 }
@@ -114,10 +127,10 @@ export interface ITransportRawResponseError {
 export type TransportResponseErrorT = Error | string | ITransportRawResponseError;
 
 export interface IApplicationTransportPayloadAnalyzer {
-  isAuthErrorPayload(payload: ITransportErrorPayload): boolean;
-  toToken(payload: ITransportErrorPayload): string;
+  isAuthErrorPayload(payload: ITransportErrorEntity): boolean;
+  toToken(payload: ITransportErrorEntity): string;
 }
 
 export interface IApplicationTransportErrorInterceptor {
-  intercept(payload: ITransportErrorPayload): IEffectsAction[]|IEffectsAction;
+  intercept(payload: ITransportErrorEntity): IEffectsAction[]|IEffectsAction;
 }

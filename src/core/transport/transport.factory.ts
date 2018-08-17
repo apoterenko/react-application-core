@@ -16,11 +16,13 @@ import {
   ITransportHttpRequestEntity,
   IApplicationTransportCancelToken,
   IApplicationTransportTokenAccessor,
+  TransportCancelRequestError,
 } from './transport.interface';
 
 @injectable()
 export class TransportFactory implements IApplicationTransportFactory {
   private static logger = LoggerFactory.makeLogger(TransportFactory);
+  private static CANCEL_MESSAGE = 'The operation has been canceled by the user.';
 
   private id = 0;
   private operationsMap = new Map<string, IApplicationTransportCancelToken>();
@@ -69,15 +71,18 @@ export class TransportFactory implements IApplicationTransportFactory {
       .then(
         (res) => {
           TransportFactory.logger.debug(`[$TransportFactory][request] Data have been loaded. Result: `, res);
-
           this.clearOperation(operationId);
           return res;
         },
         (err) => {
           TransportFactory.logger.debug(`[$TransportFactory][request] An error occurred during a request. Error: ${err}`);
-
           this.clearOperation(operationId);
-          throw err; // This is because of the strange axios behavior
+
+          if (err && err.message === TransportFactory.CANCEL_MESSAGE) {
+            // There is no other way to determine a cancel action
+            throw new TransportCancelRequestError();
+          }
+          throw err;
         }
       );
   }
@@ -85,7 +90,7 @@ export class TransportFactory implements IApplicationTransportFactory {
   public cancelRequest(operationId: string): void {
     const cancelToken = this.operationsMap.get(operationId);
     if (cancelToken) {
-      cancelToken.cancel('The operation has been canceled by the user.');
+      cancelToken.cancel(TransportFactory.CANCEL_MESSAGE);
       this.clearOperation(operationId);
     } else {
       TransportFactory.logger.warn(
