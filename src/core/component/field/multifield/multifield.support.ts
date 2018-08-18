@@ -396,3 +396,33 @@ export const toMultiFieldChangesEntityOnEdit = (item: IMultiItemEntity,
   );
   return {addArray, removeArray, editArray};
 };
+
+/**
+ * @stable [18.08.2018]
+ * @param {IMultiItemEntity} item
+ * @param {IEntity[]} addValue
+ * @param {IMultiItemEntity[]} removeValue
+ * @param {IMultiItemEntity[]} editValue
+ * @param {IEntity[]} originalValue
+ * @returns {IMultiFieldChangesEntity}
+ */
+export const toMultiFieldChangesEntityOnDelete = (item: IMultiItemEntity,
+                                                  addValue: IEntity[],
+                                                  removeValue: IMultiItemEntity[],
+                                                  editValue: IMultiItemEntity[],
+                                                  originalValue: IEntity[]): IMultiFieldChangesEntity => {
+  const deletedItemId = item.id;
+  const addValueLenBeforeFiltering = addValue.length;
+  const editArray = editValue.filter(((addItem) => addItem.id !== deletedItemId));
+  const addArray = addValue.filter(((addItem) => addItem.id !== deletedItemId));
+
+  let removeArray = removeValue;
+  if (addArray.length === addValueLenBeforeFiltering) {
+    // The local added items do not contain deleted item
+    const deletedEntity = originalValue.find((entity) => entity.id === deletedItemId);
+    removeArray = (R.isNil(deletedEntity) ? [] : [deletedEntity]).concat(removeValue);
+  } else {
+    // We just now have removed deleted item from addValue array
+  }
+  return {addArray, removeArray, editArray};
+};

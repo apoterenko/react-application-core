@@ -14,6 +14,7 @@ import {
   extractMultiSourceItemEntities,
   fromMultiItemEntityToEntity,
   toMultiFieldChangesEntityOnEdit,
+  toMultiFieldChangesEntityOnDelete,
 } from './multifield.support';
 import { IEntity } from '../../../definitions.interface';
 
@@ -85,24 +86,13 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     return toMultiFieldChangesEntityOnEdit(item, this.addValue, this.removeValue, this.editValue, this.originalValue);
   }
 
+  /**
+   * @stable [18.08.2018]
+   * @param {IMultiItemEntity} item
+   * @returns {IMultiFieldChangesEntity}
+   */
   public onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity {
-    const removeValue = this.removeValue;
-    const addValue = this.addValue;
-    const editArray = this.editValue;
-    const deletedValue = item.id;
-    const addLen = addValue.length;
-    const addArray = addValue.filter(((addItem) => addItem.id !== deletedValue));
-    let removeArray = removeValue;
-
-    if (addArray.length === addLen) {
-      const deletedEntity: IMultiItemEntity = { id: deletedValue };
-      if (this.originalValue.find((entity) => entity.id === deletedValue)) {
-        removeArray = [deletedEntity].concat(removeValue);
-      } else {
-        removeArray = [].concat(removeValue);
-      }
-    }
-    return {addArray, removeArray, editArray};
+    return toMultiFieldChangesEntityOnDelete(item, this.addValue, this.removeValue, this.editValue, this.originalValue);
   }
 
   /**
