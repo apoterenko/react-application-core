@@ -60,7 +60,7 @@ export class Checkbox extends Field<Checkbox,
 
       id: this.inputId,
       type: 'checkbox',
-      className: toClassName(this.uiFactory.checkboxInput, 'rac-field-input'),
+      className: this.uiFactory.checkboxInput,
 
       /**
        * Needed for entity initializing

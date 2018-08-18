@@ -20,7 +20,6 @@ export class DateField extends BasicTextField<DateField,
   public static defaultProps: IDateFieldInternalProps = {
     container: 'dialog',
     autoOk: true,
-    disabled: false,
     disableYearSelection: false,
     firstDayOfWeek: 1,
     hideCalendarDate: false,

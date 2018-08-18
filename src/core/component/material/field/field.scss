@@ -28,30 +28,6 @@
       margin-top: 36px;   // [MDC bugfix]
     }
   }
-
-  .rac-text-field {
-
-    + .rac-text-field-help-text {
-      margin-bottom: 0;
-    }
-
-    &.mdc-text-field--box {
-      margin-top: 0;
-      margin-bottom: 7px;
-    }
-  }
-
-  &.rac-form-field-disabled {
-    .rac-checkbox-field {
-      .rac-field-input {
-        pointer-events: unset;  // workaround
-      }
-
-      .mdc-checkbox__background {
-        opacity: $opacity;
-      }
-    }
-  }
 }
 
 // Form field  [MDC+]
