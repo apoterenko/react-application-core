@@ -57,7 +57,7 @@ export class LayoutBuilder {
       children.push(this.clone(item, layoutConfig));
       if (index < filteredItems.length - 1) {
         children.push(
-          this.layoutViewBuilder.buildSeparatorView({ key: uuid() })
+          this.layoutViewBuilder.buildSeparatorView(this.key)
         );
       }
     });
