@@ -53,7 +53,7 @@ describe('multifield.support', () => {
       const item1 = {id: 100, field1: 20, field2: 30};
       const item2 = {id: 101, field1: 200, field2: 300};
       const item3 = {id: 102, field1: 2000, field2: 3000};
-      const item4 = {id: 103, field1: 2000, field2: 3000};
+      const item4 = {id: 103, field1: 20000, field2: 30000};
       const result = toMultiFieldChangesEntityOnDelete(
         {id: 103},                                                  // payload
         [item1, item2],                                             // add
@@ -72,10 +72,10 @@ describe('multifield.support', () => {
       const item1 = {id: 100, field1: 20, field2: 30};
       const item2 = {id: 101, field1: 200, field2: 300};
       const item3 = {id: 102, field1: 2000, field2: 3000};
-      const item4 = {id: 103, field1: 2000, field2: 3000};
-      const item5 = {id: 104, field1: 2000, field2: 3000};
+      const item4 = {id: 103, field1: 20000, field2: 30000};
+      const item5 = {id: 104, field1: 200000, field2: 300000};
       const result = toMultiFieldChangesEntityOnDelete(
-        {id: 104},                                                  // payload
+        {id: 103},                                                  // payload
         [item1, item2],                                             // add
         [item5],                                                    // remove
         [{id: 102, name: 'field2', value: 3001, rawData: item3}],   // edit
