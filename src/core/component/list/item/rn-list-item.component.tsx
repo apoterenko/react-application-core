@@ -8,7 +8,7 @@ import {
   Text,
 } from 'native-base';
 
-import { orDefault, orNull, isString, uuid, isDef } from '../../../util';
+import { ifNilReturnUuid, orDefault, orNull, isString, isDef } from '../../../util';
 import { UniversalComponent } from '../../base/universal.component';
 import { IRnListItemProps } from './rn-list-item.interface';
 
@@ -19,7 +19,7 @@ export class RnListItem extends UniversalComponent<RnListItem, IRnListItemProps>
     const rawData = props.rawData;
 
     return (
-      <ListItem key={rawData.id || uuid()}
+      <ListItem key={ifNilReturnUuid<string>(rawData.id, String(rawData.id))}
                 icon={!!props.avatar}
                 onPress={props.onClick}>
         {

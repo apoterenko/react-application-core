@@ -341,7 +341,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     return (
       <GridRow ref={rowKey}
                key={rowKey}
-               className={toClassName('rac-grid-data-row',  index % 2 === 0 ? 'rac-grid-data-row-odd' : '')}
+               className={toClassName('rac-grid-data-row', index % 2 === 0 ? 'rac-grid-data-row-odd' : '')}
                selected={this.isEntitySelected(entity)}
                onClick={() => this.onSelect(entity)}>
         {

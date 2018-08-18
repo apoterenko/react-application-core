@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  uuid,
   pageFromNumber,
   pageToNumber,
   orDefault,
   filterAndSortEntities,
   isDef,
+  ifNilReturnUuid,
 } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
@@ -121,12 +121,12 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [19.08.2018]
    * @param {IEntity} entity
    * @returns {string}
    */
   protected toRowKey(entity: IEntity): string {
-    return `data-row-${entity.id || uuid()}`;   // Infinity scroll supporting
+    return `data-row-${ifNilReturnUuid<string>(entity.id, String(entity.id))}`;   // Infinity scroll supporting
   }
 
   /**
