@@ -45,13 +45,17 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [01.08.2018]
+   * @stable [20.08.2018]
    */
   public componentDidMount(): void {
     super.componentDidMount();
 
     // Need to invoke a user validator if it exists (After F5, etc...)
     this.validateValueAndSetCustomValidity(this.value);
+
+    if (this.props.autoFocus) {
+      this.setFocus();  // The manual "autoFocus" replacing
+    }
   }
 
   /**
@@ -62,10 +66,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [06.06.2018]
+   * @stable [20.08.2018]
    */
   public clearValue(): void {
-    this.setFocus();
+    this.setFocus();    // UX
 
     if (this.isValuePresent()) {
       this.onChangeManually(this.getEmptyValue());
@@ -376,13 +380,14 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [02.07.2018]
+   * @stable [20.082018]
    * @param {TFocusEvent} event
    * @returns {boolean}
    */
   protected onFocus(event: TFocusEvent): boolean {
-    if (this.props.onFocus) {
-      this.props.onFocus(event);
+    const props = this.props;
+    if (props.onFocus) {
+      props.onFocus(event);
     }
     return true;
   }

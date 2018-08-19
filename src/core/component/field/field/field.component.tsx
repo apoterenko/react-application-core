@@ -99,8 +99,14 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     }
   }
 
+  /**
+   * @stable [20.08.2018]
+   */
   public setFocus(): void {
-    this.input.focus();
+    const input = this.input;
+    if (!R.isNil(input)) {
+      input.focus();
+    }
   }
 
   /**
@@ -114,13 +120,23 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
+   * @stable [20.08.2018]
+   */
+  protected removeFocus(): void {
+    const input = this.input;
+    if (!R.isNil(input)) {
+      input.blur();
+    }
+  }
+
+  /**
    * @stable [02.07.2018]
    * @param {IFocusEvent} event
    * @returns {boolean}
    */
   protected onFocus(event: IFocusEvent): boolean {
     if (this.props.preventFocus) {
-      this.input.blur();
+      this.removeFocus();
       return false;
     }
     return super.onFocus(event);
@@ -151,7 +167,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
 
   protected getInputElementProps(): IFieldInputProps|IFieldTextAreaProps {
     const props = this.props;
-    const autoFocus = props.autoFocus;
     const name = props.name;
     const step = props.step;
     const type = props.type || 'text';
@@ -171,7 +186,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const onChange = this.onChange;
     return {
       ...props.preventValueBinding ? {} : { value: this.displayValue },
-      name, type, step, autoFocus, readOnly, disabled, pattern, minLength,
+      name, type, step, readOnly, disabled, pattern, minLength,
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
