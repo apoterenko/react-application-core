@@ -26,36 +26,38 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected static logger = LoggerFactory.makeLogger(BasicSelect);
 
   /**
-   * @stable [29.06.2018]
+   * @stable [19.08.2018]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
-    this.onExpand = this.onExpand.bind(this);
+    this.openMenu = this.openMenu.bind(this);
 
     if (!props.notUseExpandAction) {
       this.defaultActions = R.insert<IFieldActionConfiguration>(
         0,
-        {type: 'expand_more', onClick: this.onExpand},
+        {type: 'expand_more', onClick: this.openMenu},
         this.defaultActions
       );
     }
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<TProps>, nextContext: AnyT): void {
+  /**
+   * @stable [20.08.2018]
+   * @param {Readonly<TProps extends IBasicSelectProps>} prevProps
+   * @param {Readonly<TState extends IBasicSelectState>} prevState
+   */
+  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
+    super.componentDidUpdate(prevProps, prevState);
 
     const props = this.props;
-    if (!R.isNil(nextProps.options)
-      && !R.equals(props.options, nextProps.options)) {
-      this.setState({emptyOptions: false});
+    if (this.state.needToOpenMenu && !R.isNil(props.options)) {
+      this.showMenu();
+      this.setState({needToOpenMenu: false});
 
-      if (this.hasInputFocus()) {
-        this.showMenu(nextProps.options);
-
-        if (props.onLoadDictionary) {
-          props.onLoadDictionary(this.toFilteredOptions(nextProps.options));
-        }
+      if (props.onLoadDictionary) {
+        props.onLoadDictionary(this.toFilteredOptions());
       }
     }
   }
@@ -88,7 +90,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
    * @returns {boolean}
    */
   protected inProgress(): boolean {
-    return super.inProgress() || !!this.state.emptyOptions;
+    return super.inProgress() || !!this.state.needToOpenMenu;
   }
 
   protected onClick(event: IBasicEvent): void {
@@ -120,12 +122,11 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   }
 
   /**
-   * @stable [01.06.2018]
-   * @param {ISelectOptionEntity[]} options
+   * @stable [20.08.2018]
    * @returns {ISelectOptionEntity[]}
    */
-  protected toFilteredOptions(options: ISelectOptionEntity[] = this.options): ISelectOptionEntity[] {
-    return options;
+  protected toFilteredOptions(): ISelectOptionEntity[] {
+    return this.options;
   }
 
   /**
@@ -137,34 +138,45 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     return isDef(props.emptyValue) ? props.emptyValue : this.settings.entityEmptyId;
   }
 
-  protected get options(): ISelectOptionEntity[] {
-    return this.props.options || [];
-  }
-
+  /**
+   * @stable [20.08.2018]
+   * @param {ISelectOptionEntity} option
+   */
   protected onSelect(option: ISelectOptionEntity): void {
     this.onChangeManually(option.value);
 
     if (this.props.onSelect) {
       this.props.onSelect(option);
     }
-    this.setFocus();
   }
 
   protected toDisplayValue(value: AnyT): EntityIdT {
-    const selectedItem = this.getSelectedOption(value);
+    const selectedItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
     return selectedItem
       ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
       : super.toDisplayValue(value);
   }
 
-  private getSelectedOption(value: AnyT): ISelectOptionEntity {
-    return R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
+  /**
+   * @stable [20.08.2018]
+   * @returns {ISelectOptionEntity[]}
+   */
+  protected get options(): ISelectOptionEntity[] {
+    return this.props.options || [];
   }
 
+  /**
+   * @stable [20.08.2018]
+   * @returns {IMenu}
+   */
   private get menu(): IMenu {
     return this.refs.menu as IMenu;
   }
 
+  /**
+   * @stable [20.08.2018]
+   * @param {IBasicEvent} event
+   */
   private openMenu(event: IBasicEvent): void {
     if (this.menu.isOpen()) {
       return;
@@ -172,13 +184,13 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     cancelEvent(event);
 
     const props = this.props;
-    const noAvailableOptions = R.isNil(props.options);
+    const areOptionsEmpty = R.isNil(props.options);
 
-    if (props.forceAll || noAvailableOptions) {
+    if (props.forceReload || areOptionsEmpty) {
       if (props.onEmptyDictionary) {
-        this.setState({emptyOptions: true});
+        this.setState({needToOpenMenu: true});
         props.onEmptyDictionary();
-      } else if (!noAvailableOptions) {
+      } else if (!areOptionsEmpty) {
         this.showMenu();
       }
     } else {
@@ -186,26 +198,22 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     }
   }
 
-  private showMenu(options?: ISelectOptionEntity[]): void {
-    const filteredOptions = this.toFilteredOptions(options);
+  /**
+   * @stable [20.08.2018]
+   */
+  private showMenu(): void {
+    const filteredOptions = this.toFilteredOptions();
     if (filteredOptions.length) {
-      this.input.blur();  // https://github.com/material-components/material-components-web/issues/1977
       this.menu.show();
     } else {
       BasicSelect.logger.debug('[$BasicSelect][showMenu] The options are empty. The menu does not show.');
     }
   }
 
+  /**
+   * @stable [20.08.2018]
+   */
   private hideMenu(): void {
     this.menu.hide();
-  }
-
-  /**
-   * @stable [29.06.2018]
-   * @param {IBasicEvent} event
-   */
-  private onExpand(event: IBasicEvent): void {
-    this.setFocus();
-    this.openMenu(event);
   }
 }

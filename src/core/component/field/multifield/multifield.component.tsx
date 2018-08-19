@@ -23,7 +23,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     displayMessage: '%d value(s)',
     clearAction: false,
     notUseErrorMessage: true,
-    forceAll: true,
+    forceReload: true,
     displayValue: (value: MultiFieldEntityT,
                    field: MultiField<AnyT, IMultiFieldProps, IMultiFieldState>) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
@@ -83,9 +83,9 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
    * @param {ISelectOptionEntity[]} options
    * @returns {ISelectOptionEntity[]}
    */
-  protected toFilteredOptions(options: ISelectOptionEntity[]): ISelectOptionEntity[] {
+  protected toFilteredOptions(): ISelectOptionEntity[] {
     const activeValue = this.multiFieldPlugin.activeValue;
-    const result = super.toFilteredOptions(options);
+    const result = super.toFilteredOptions();
 
     return this.props.notUseActiveValueFilter
       ? result

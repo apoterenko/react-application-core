@@ -5,15 +5,14 @@ import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 export class Select extends BasicSelect<Select, ISelectInternalProps, ISelectInternalState> {
 
   public static defaultProps: ISelectInternalProps = {
-    forceAll: true,
+    forceReload: true,
   };
 
   /**
-   * @stable [01.06.2018]
-   * @param {ISelectOptionEntity[]} options
+   * @stable [20.08.2018]
    * @returns {ISelectOptionEntity[]}
    */
-  protected toFilteredOptions(options: ISelectOptionEntity[]): ISelectOptionEntity[] {
-    return super.toFilteredOptions(options).filter((option) => option.value !== this.value);
+  protected toFilteredOptions(): ISelectOptionEntity[] {
+    return super.toFilteredOptions().filter((option) => option.value !== this.value);
   }
 }
