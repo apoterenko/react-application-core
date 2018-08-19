@@ -608,10 +608,10 @@ export interface IKeyboardOpenedWrapper {
 }
 
 /**
- * @stable [01.06.2018]
+ * @stable [20.08.2018]
  */
-export interface IEmptyOptionsWrapper {
-  emptyOptions?: boolean;
+export interface INeedToOpenMenuWrapper {
+  needToOpenMenu?: boolean;
 }
 
 /**

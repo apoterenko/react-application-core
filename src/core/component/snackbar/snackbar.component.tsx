@@ -2,7 +2,7 @@ import { MDCSnackbar } from '@material/snackbar';
 import * as React from 'react';
 
 import { AnyT } from '../../definitions.interface';
-import { noop } from '../../util';
+import { noop, toClassName } from '../../util';
 import { MaterialComponent } from '../../component/material';
 import { Button } from '../../component/button';
 
@@ -47,7 +47,7 @@ export class Snackbar extends MaterialComponent<Snackbar,
              aria-live='assertive'>
           <div className='mdc-snackbar__text'/>
           <div className='mdc-snackbar__action-wrapper'>
-            <Button className='mdc-snackbar__action-button'/>
+            <Button className={toClassName('mdc-snackbar__action-button', 'rac-snackbar-action-button')}/>
           </div>
         </div>
     );
