@@ -9,19 +9,22 @@
 .rac {
 
   .rac-keyboard {
-    border: 1px solid $color-1;     /* @stable [08.05.2018] */
-    border-radius: 16px;            /* @stable [08.05.2018] */
-    padding: 2px;                   /* @stable [13.08.2018] */
+    border: 1px solid $rac-keyboard-border-color;   /* @stable [19.08.2018] */
+    border-radius: 16px;                            /* @stable [08.05.2018] */
+    padding: 2px;                                   /* @stable [13.08.2018] */
 
     .rac-keyboard-close {
-      position: absolute;                         /* @stable [16.05.2018] */
-      right: 0;                                   /* @stable [16.05.2018] */
-      bottom: 0;                                  /* @stable [16.05.2018] */
-      margin: 4px;                                /* @stable [16.05.2018] */
-      font-size: 32px;                            /* @stable [08.05.2018] */
-      color: $rac-keyboard-close-color;           /* @stable [09.05.2018] */
-      cursor: pointer;                            /* @stable [08.05.2018] */
-      opacity: $rac-keyboard-close-opacity;       /* @stable [09.05.2018] */
+      &.rac-icon {
+        color: $rac-keyboard-close-color;           /* @stable [19.08.2018] */
+        opacity: $rac-keyboard-close-opacity;       /* @stable [19.08.2018] */
+        height: $rac-keyboard-close-height;         /* @stable [19.08.2018] */
+        width: $rac-keyboard-close-width;           /* @stable [19.08.2018] */
+        cursor: pointer;                            /* @stable [08.05.2018] */
+        position: absolute;                         /* @stable [16.05.2018] */
+        right: 0;                                   /* @stable [16.05.2018] */
+        bottom: 0;                                  /* @stable [16.05.2018] */
+        margin: 4px;                                /* @stable [16.05.2018] */
+      }
     }
 
     .rac-keyboard-key {
