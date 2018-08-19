@@ -615,6 +615,13 @@ export interface INeedToOpenMenuWrapper {
 }
 
 /**
+ * @stable [20.08.2018]
+ */
+export interface IForceReloadWrapper {
+  forceReload?: boolean;
+}
+
+/**
  * @stable [31.07.2018]
  */
 export interface IOptionsWrapper<TOptions> {
