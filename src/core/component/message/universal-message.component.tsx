@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { orNull, isString, join } from '../../util';
+import { orNull, isString } from '../../util';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalMessageProps } from './universal-message.interface';
 
@@ -55,7 +55,7 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
    */
   private getErrorMessage(): string {
     const props = this.props;
-    return join([this.t(props.errorMessage || this.settings.messages.errorMessage), props.error], '\n');
+    return this.t(props.errorMessage || this.settings.messages.errorMessage);
   }
 
   /**
