@@ -3,9 +3,11 @@ import {
   IEntity,
   IEntityIdTWrapper,
   INewEntityWrapper,
+  INotUseActiveValueFilterWrapper,
 } from '../../../definitions.interface';
 import { IFieldChangeEntity } from '../../../entities-definitions.interface';
 import { IBasicSelectState, IBasicSelectProps } from '../select';
+import { IField } from '../field';
 
 /**
  * @stable [01.06.2018]
@@ -16,7 +18,8 @@ export interface IMultiFieldState extends IBasicSelectState {
 /**
  * @stable [01.06.2018]
  */
-export interface IMultiFieldProps extends IBasicSelectProps {
+export interface IMultiFieldProps extends IBasicSelectProps,
+                                          INotUseActiveValueFilterWrapper {
 }
 
 /**
@@ -51,6 +54,13 @@ export interface IMultiFieldChangesEntity {
 export interface IMultiItemEntity extends IEntityIdTWrapper,
                                           IFieldChangeEntity,
                                           INewEntityWrapper {
+}
+
+/**
+ * @stable [19.08.2018]
+ */
+export interface IMultiField extends IField {
+  deleteItem(item: IMultiItemEntity): void;
 }
 
 /**

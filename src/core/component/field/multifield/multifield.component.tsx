@@ -7,13 +7,14 @@ import {
 } from '../../../definitions.interface';
 import { BasicSelect } from '../../field/select';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiItemEntity } from './multifield.interface';
+import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiItemEntity, IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 
 export class MultiField<TComponent extends MultiField<TComponent, TProps, TState>,
                         TProps extends IMultiFieldProps,
                         TState extends IMultiFieldState>
-  extends BasicSelect<TComponent, TProps, TState> {
+  extends BasicSelect<TComponent, TProps, TState>
+  implements IMultiField {
 
   /**
    * @stable [01.06.2018]
@@ -46,6 +47,14 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
   }
 
   /**
+   * @stable [19.08.2018]
+   * @param {IMultiItemEntity} item
+   */
+  public deleteItem(item: IMultiItemEntity): void {
+    this.onDelete(item);
+  }
+
+  /**
    * @stable [01.06.2018]
    * @returns {EntityIdT[]}
    */
@@ -59,7 +68,6 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
    */
   protected onSelect(option: ISelectOptionEntity): void {
     this.multiFieldPlugin.onAddItem({id: option.value, rawData: option.rawData});
-    this.setFocus();
   }
 
   /**
@@ -68,19 +76,19 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
    */
   protected onDelete(item: IMultiItemEntity): void {
     this.multiFieldPlugin.onDeleteItem(item);
-    this.setFocus();
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [19.06.2018]
    * @param {ISelectOptionEntity[]} options
    * @returns {ISelectOptionEntity[]}
    */
   protected toFilteredOptions(options: ISelectOptionEntity[]): ISelectOptionEntity[] {
     const activeValue = this.multiFieldPlugin.activeValue;
+    const result = super.toFilteredOptions(options);
 
-    return super.toFilteredOptions(options).filter(
-      (option) => !activeValue.find((item) => item.id === option.value)
-    );
+    return this.props.notUseActiveValueFilter
+      ? result
+      : result.filter((option) => !activeValue.find((item) => item.id === option.value));
   }
 }
