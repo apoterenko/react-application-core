@@ -26,7 +26,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     this.onSettingsClick = this.onSettingsClick.bind(this);
     this.onPlusClick = this.onPlusClick.bind(this);
 
-    this.state = {filterChanges: {}, expandedGroups: {}};
+    this.state = {filterChanges: {}, expandedGroups: {...props.expandedGroups}};
   }
 
   /**

@@ -1,18 +1,18 @@
 import { IGridConfigurationWrapper } from '../../../configurations-definitions.interface';
 import {
-  IBasicSelectState,
-  IBasicSelectProps,
-} from '../../field';
+  IMultiFieldState,
+  IMultiFieldProps,
+} from '../multifield';
 
 /**
- * @stable [01.06.2018]
+ * @stable [19.08.2018]
  */
-export interface IGridFieldState extends IBasicSelectState {
+export interface IGridFieldState extends IMultiFieldState {
 }
 
 /**
- * @stable [01.06.2018]
+ * @stable [19.08.2018]
  */
-export interface IGridFieldProps extends IBasicSelectProps,
+export interface IGridFieldProps extends IMultiFieldProps,
                                          IGridConfigurationWrapper {
 }

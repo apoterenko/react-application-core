@@ -19,5 +19,6 @@ export * from './section';
 export * from './sort';
 export * from './style';
 export * from './task';
+export * from './time';
 export * from './type';
 export * from './uuid';
