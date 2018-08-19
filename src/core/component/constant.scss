@@ -15,6 +15,7 @@ $color-13: #73af90 !default;
 $color-14: #f0f0f0 !default;
 $color-15: #000 !default;
 $color-16: #c8ccce !default;
+$color-17: #57fff1 !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
@@ -35,13 +36,16 @@ $rac-toolbar-info-font-size: $rac-default-font-size !default;
 /* @stable [25.06.2018] */
 $rac-search-toolbar-action-margin-left: 16px !default;
 
-/* @stable [09.05.2018] */
-$rac-keyboard-close-color: $color-11 !default;
+/* @stable [19.08.2018] */
+$rac-keyboard-border-color: $color-17 !default;
+$rac-keyboard-close-color: $color-17 !default;
 $rac-keyboard-close-opacity: $opacity !default;
+$rac-keyboard-close-height: 24px !default;
+$rac-keyboard-close-width: 24px !default;
 $rac-keyboard-key-opacity: $opacity !default;
 $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-background-color: $color-10 !default;
-$rac-keyboard-key-border-color: $color-1 !default;
+$rac-keyboard-key-border-color: $color-17 !default;
 $rac-keyboard-key-width: 56px !default;
 $rac-keyboard-key-height: $rac-keyboard-key-width !default;
 $rac-keyboard-key-height-factor: 16px !default;
@@ -164,7 +168,7 @@ $rac-form-field-input-placeholder-font-weight: 100 !default;
 $rac-form-field-input-font-size: $rac-default-font-size !default;
 $rac-form-field-input-letter-spacing: 1px !default;
 $rac-form-field-input-font-weight: bold !default;
-$rac-form-text-field-border-bottom-color: $color-2 !default;
+$rac-form-text-field-keyboard-opened-border-bottom-color: $color-2 !default;
 $rac-form-text-field-help-text-font-size: $rac-default-font-size !default;
 
 /* @stable [30.07.2018] */
@@ -307,7 +311,7 @@ $rac-form-layout-top-header-content-color: $color-5 !default;
 $rac-form-layout-floating-focused-label-color: $rac-form-field-label-color !default;
 $rac-form-layout-text-field-input-color: $rac-form-field-input-color !default;
 $rac-form-layout-text-field-margin-top: 8px !default;
-$rac-form-layout-text-field-border-bottom-color: $rac-form-text-field-border-bottom-color !default;
+$rac-form-layout-text-field-keyboard-opened-border-bottom-color: $color-17 !default;
 $rac-form-layout-section-padding: $rac-form-section-padding !default;
 $rac-form-layout-form-section-padding: $rac-form-section-padding !default;
 $rac-form-layout-form-actions-padding: $rac-form-actions-padding !default;
