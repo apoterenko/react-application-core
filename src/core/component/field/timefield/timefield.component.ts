@@ -12,11 +12,13 @@ export class TimeField extends BasicTextField<TimeField,
     implements ITimeField {
 
   protected getFieldMask(): Array<string|RegExp> {
-    return super.getFieldMask() || this.dateTimeSettings.uiTimeMask;
+    return super.getFieldMask() ||
+      (this.props.useShortMask ? this.dateTimeSettings.uiShortTimeMask : this.dateTimeSettings.uiTimeMask);
   }
 
   protected getFieldPattern(): string {
-    return super.getFieldPattern() || this.dateTimeSettings.uiTimePattern;
+    return super.getFieldPattern() ||
+      (this.props.useShortMask ? this.dateTimeSettings.uiShortTimePattern : this.dateTimeSettings.uiTimePattern);
   }
 
   private get dateTimeSettings(): IApplicationDateTimeSettings {

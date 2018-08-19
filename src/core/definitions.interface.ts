@@ -13,6 +13,15 @@ export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const ACTION_PREFIX = '$$-RAC-';
+export const DAYS_OF_WEEK: Array<{id: number, name: string}> = [
+  {id: 0, name: 'Sunday'},
+  {id: 1, name: 'Monday'},
+  {id: 2, name: 'Tuesday'},
+  {id: 3, name: 'Wednesday'},
+  {id: 4, name: 'Thursday'},
+  {id: 5, name: 'Friday'},
+  {id: 6, name: 'Saturday'}
+];
 
 /**
  * Core fields
@@ -988,6 +997,13 @@ export interface INotUseCustomValidatorWrapper {
 }
 
 /**
+ * @stable [19.08.2018]
+ */
+export interface INotUseActiveValueFilterWrapper {
+  notUseActiveValueFilter?: boolean;
+}
+
+/**
  * @stable [01.08.2018]
  */
 export interface IUseZipCodeWrapper {
@@ -1095,20 +1111,26 @@ export interface IToDateWrapper<TToDate = string> {
   toDate?: TToDate;
 }
 
-export interface IStringFromTimeWrapper {
-  fromTime?: string;
+/**
+ * @stable [19.08.2018]
+ */
+export interface IFromTimeWrapper<TFromTime = string> {
+  fromTime?: TFromTime;
 }
 
-export interface IStringToTimeWrapper {
-  toTime?: string;
+/**
+ * @stable [19.08.2018]
+ */
+export interface IToTimeWrapper<TToTime = string> {
+  toTime?: TToTime;
 }
 
 export interface IFromDateFromTimeEntity extends IFromDateWrapper,
-                                                 IStringFromTimeWrapper {
+                                                 IFromTimeWrapper {
 }
 
 export interface IToDateToTimeEntity extends IToDateWrapper,
-                                             IStringToTimeWrapper {
+                                             IToTimeWrapper {
 }
 
 export interface IFromDateToDateEntity extends IFromDateWrapper,

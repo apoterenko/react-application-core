@@ -197,6 +197,7 @@ import {
   IActiveValueWrapper,
   IValueWrapper,
   IOnClearWrapper,
+  IExpandedGroupsWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -500,7 +501,8 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IColumnsConfigurationWrapper<IGridColumnConfiguration[]>,
                                             IUsePlusActionWrapper,
                                             IOnPlusClickWrapper,
-                                            IUseServiceWrapper {
+                                            IUseServiceWrapper,
+                                            IExpandedGroupsWrapper {
 }
 
 /* @stable - 03.04.2018 */
