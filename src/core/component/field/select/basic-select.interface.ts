@@ -1,4 +1,7 @@
-import { INeedToOpenMenuWrapper } from '../../../definitions.interface';
+import {
+  INeedToOpenMenuWrapper,
+  IForceReloadWrapper,
+} from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper } from '../../../configurations-definitions.interface';
 import {
@@ -15,8 +18,8 @@ export interface IBasicSelectState extends IBasicTextFieldState,
 
 // TODO
 export interface IBasicSelectProps extends IBasicTextFieldProps,
-                                           IMenuConfigurationWrapper {
-  forceReload?: boolean;
+                                           IMenuConfigurationWrapper,
+                                           IForceReloadWrapper {
   notUseExpandAction?: boolean;
   options?: ISelectOptionEntity[];
   onSelect?(option: ISelectOptionEntity): void;

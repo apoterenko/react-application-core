@@ -160,13 +160,15 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getSelfElementClassName(): string {
     const error = this.error;
+    const state = this.state;
 
     return toClassName(
-        'rac-text-field',
-        this.uiFactory.textField,
-        this.uiFactory.textFieldUpgraded,
-        this.isFieldFocused() && this.uiFactory.textFieldFocused,
-        error && this.uiFactory.textFieldInvalid
+      'rac-text-field',
+      state.keyboardOpened && 'rac-text-field-keyboard-opened',
+      this.uiFactory.textField,
+      this.uiFactory.textFieldUpgraded,
+      this.isFieldFocused() && this.uiFactory.textFieldFocused,
+      error && this.uiFactory.textFieldInvalid
     );
   }
 
@@ -185,13 +187,15 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [02.07.2018]
+   * @stable [20.08.2018]
    * @param {IFocusEvent} event
    * @returns {boolean}
    */
   protected onFocus(event: IFocusEvent): boolean {
+    const props = this.props;
     const result = super.onFocus(event);
-    if (result) {
+    if (result && props.useKeyboard) {
+      this.removeFocus(); // Prevent native keyboard opening
       this.openKeyboard();
     }
     return result;
@@ -238,11 +242,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [20.08.2018]
    */
   private openKeyboard(): void {
     const props = this.props;
-    if (!props.useKeyboard || this.state.keyboardOpened) {
+    if (this.state.keyboardOpened) {
       return;
     }
     this.setState({keyboardOpened: true});

@@ -105,9 +105,13 @@ export class DateField extends BasicTextField<DateField,
     this.dialogWindow.show();
   }
 
+  /**
+   * @stable [20.08.2018]
+   * @param {Date} date
+   */
   private onAccept(date: Date): void {
     this.onChangeManually(date);
-    this.setFocus();
+    this.setFocus();  // UX
   }
 
   private get dialogDate(): Date {
