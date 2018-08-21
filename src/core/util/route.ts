@@ -7,8 +7,14 @@ export function buildRoute(path: string, params: IKeyValue): string {
   return path;
 }
 
-export function buildEntityRoute<TEntity extends IEntity>(path: string,
-                                                          entity: TEntity,
-                                                          params?: IKeyValue): string {
-  return buildRoute(path, { id: entity ? entity.id : NEW_OPTION, ...params });
-}
+/**
+ * @stable [21.08.2018]
+ * @param {string} path
+ * @param {TEntity} entity
+ * @param {IKeyValue} params
+ * @returns {string}
+ */
+export const buildEntityRoute = <TEntity extends IEntity>(path: string,
+                                                          entity?: TEntity,
+                                                          params?: IKeyValue): string =>
+  buildRoute(path, {id: entity ? entity.id : NEW_OPTION, ...params});
