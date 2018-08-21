@@ -74,7 +74,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
           </Drawer>
           <FlexLayout className='rac-default-layout-body'>
             <Header {...props.headerConfiguration}
-                    title={runtimeTitle && runtimeTitle.label || props.title}
+                    title={props.title || (runtimeTitle && runtimeTitle.label)}
                     className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
                     onNavigationActionClick={this.onHeaderNavigationActionClick}
                     onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
