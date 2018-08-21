@@ -2092,6 +2092,13 @@ export interface ICanUpdateWrapper<TCanUpdate = boolean> {
   canUpdate?: TCanUpdate;
 }
 
+/**
+ * @stable [21.08.2018]
+ */
+export interface ISaveMessageWrapper {
+  saveMessage?: string;
+}
+
 /* @stable - 12.04.2018 */
 export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;

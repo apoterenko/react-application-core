@@ -320,8 +320,8 @@ export interface INamedEntity extends IEntityIdTWrapper,
 /**
  * @stable [03.07.2018]
  */
-export interface INamedEntity2 extends IIdWrapper,
-                                       INameWrapper {
+export interface INamedNumericEntity extends IIdWrapper,
+                                             INameWrapper {
 }
 
 /**
