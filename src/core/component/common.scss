@@ -71,6 +71,10 @@ html, body {
     color: $rac-status-attention-color;                      /* @stable [17.08.2018] */
   }
 
+  .rac-status-warning {
+    color: $rac-status-warning-color;                        /* @stable [21.08.2018] */
+  }
+
   .rac-global-error-message {
     font-size: $rac-global-error-message-font-size;          /* @stable [08.08.2018] */
     background: $rac-global-error-message-background;        /* @stable [08.08.2018] */
