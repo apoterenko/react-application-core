@@ -31,7 +31,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     },
   };
 
-  protected multiFieldPlugin = new MultiFieldPlugin(this);
+  public multiFieldPlugin = new MultiFieldPlugin(this);
 
   /**
    * @stable [01.06.2018]

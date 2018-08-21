@@ -188,6 +188,21 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   public abstract setFocus(): void;
 
   /**
+   * @stable [18.06.2018]
+   * @param {boolean} usePrintf
+   * @param {AnyT} args
+   * @returns {string}
+   */
+  public printfDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
+    const props = this.props;
+    return orDefault<string, string>(
+      usePrintf,
+      () => Printf.sprintf(this.t(props.displayMessage), ...args),
+      FIELD_EMPTY_VALUE
+    );
+  }
+
+  /**
    * The state may be an external storage and the value must be able to be serialized.
    *
    * @stable [17.06.2018]
@@ -362,21 +377,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   protected inProgress(): boolean {
     const props = this.props;
     return props.progress === true;
-  }
-
-  /**
-   * @stable [18.06.2018]
-   * @param {boolean} usePrintf
-   * @param {AnyT} args
-   * @returns {string}
-   */
-  protected printfDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
-    const props = this.props;
-    return orDefault<string, string>(
-      usePrintf,
-      () => Printf.sprintf(this.t(props.displayMessage), ...args),
-      FIELD_EMPTY_VALUE
-    );
   }
 
   /**
