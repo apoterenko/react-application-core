@@ -53,7 +53,7 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
       (item1, item2) => {
         const firstIndex = originalSourceItems.findIndex((i) => i.id === item1.id);
         const secondIndex = originalSourceItems.findIndex((i) => i.id === item2.id);
-        return firstIndex > secondIndex ? 1 : (secondIndex === secondIndex ? 0 : -1);
+        return firstIndex > secondIndex ? 1 : (firstIndex === secondIndex ? 0 : -1);
       },
       entities as TItem[]
     );
