@@ -12,6 +12,9 @@ import { APPLICATION_SECTIONS } from '../../component/application';
 import { toRouteConfiguration } from '../../router';
 import { DI_TYPES, staticInjector } from '../../di';
 import { IApplicationModifyEntityPayloadFactory } from '../../api';
+import { NotificationActionBuilder } from '../../notification';
+import { ApplicationTranslatorT } from '../../translation';
+import { IApplicationSettings } from '../../settings';
 
 const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 
@@ -22,7 +25,7 @@ const logger = LoggerFactory.makeLogger('succeed-form.middleware');
  */
 export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucceedFormMiddlewareConfig<TEntity>): IEffectsAction[] => {
 
-  const {listSection, action, canComeBack, canUpdate} = config;
+  const {listSection, action, canComeBack, canUpdate, saveMessage} = config;
   const apiEntity = action.initialData as IApiEntity;
 
   const connectorConfig = APPLICATION_SECTIONS.get(listSection);
@@ -53,6 +56,12 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
   ).concat(
     R.isNil(canComeBack) || (isFn(canComeBack) ? (canComeBack as (...args) => boolean)(apiEntity, action) : canComeBack)
       ? RouterActionBuilder.buildNavigateAction(dynamicListRoute)
-      : []
+      : [
+        NotificationActionBuilder.buildInfoAction(
+          staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate)(
+            saveMessage || staticInjector<IApplicationSettings>(DI_TYPES.Settings).messages.dataSaved
+          )
+        )
+      ]
   );
 };

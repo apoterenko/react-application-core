@@ -45,6 +45,7 @@ export interface IApplicationMessagesSettings {
   waitMessage?: string;
   waitingMessage?: string;
   defaultErrorMessage?: string;
+  dataSaved?: string;
   dndMessage?: string;
   errorMessage?: string;
   fileLoadErrorMessage?: string;
@@ -128,6 +129,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     waitMessage: 'Please wait...',
     waitingMessage: 'Waiting...',
     defaultErrorMessage: 'Error',
+    dataSaved: 'The data has been successfully saved.',
     dndMessage: 'Try dropping some file(s) here, or click to select file(s) to upload.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     noAvailableItemsToSelectMessage: 'No available items to select.',

@@ -16,6 +16,7 @@ import {
   IEntity,
   IActivateQueryFilterWrapper,
   ICanUpdateWrapper,
+  ISaveMessageWrapper,
 } from '../../definitions.interface';
 import { IListWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
 
@@ -75,5 +76,6 @@ export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity>
           ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           IEffectsActionWrapper,
           IListSectionWrapper,
-          IFormSectionWrapper {
+          IFormSectionWrapper,
+          ISaveMessageWrapper {
 }
