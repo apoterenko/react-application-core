@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { caret, IJqField, isString } from '../../util';
+import { IJqField, isString } from '../../util';
 import { BaseComponent } from '../base';
 import {
   IKeyboardKey,
@@ -27,7 +27,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
   constructor(props: IKeyboardProps) {
     super(props);
 
-    this.state = {position: 0, mode: 0, useUppercase: false};
+    this.state = {position: this.currentPosition, mode: 0, useUppercase: false};
     this.onSelect = this.onSelect.bind(this);
   }
 
@@ -45,20 +45,6 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
   public componentWillUnmount() {
     document.body.removeChild(this.self);
     super.componentWillUnmount();
-  }
-
-  /**
-   * @stable [08.05.2018]
-   * @param {Readonly<IKeyboardProps>} prevProps
-   * @param {Readonly<IKeyboardState>} prevState
-   */
-  public componentDidUpdate(prevProps: Readonly<IKeyboardProps>, prevState: Readonly<IKeyboardState>): void {
-    super.componentDidUpdate(prevProps, prevState);
-
-    const jField = this.jField;
-    if (jField.val() && document.activeElement !== this.props.field) {
-      caret(jField, this.state.position);
-    }
   }
 
   /**
@@ -117,7 +103,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
     const props = this.props;
     const state = this.state;
     const jEl = this.jField;
-    const position = jEl.caret();
+    const position = this.currentPosition;
     const chars = (jEl.val() as string).split('');
     const keyAsString = key as string;
     const keyAsObject = key as IKeyboardKey;
@@ -152,5 +138,13 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
    */
   private get jField(): IJqField {
     return $(this.props.field) as IJqField;
+  }
+
+  /**
+   * @stable [21.08.2018]
+   * @returns {number}
+   */
+  private get currentPosition(): number {
+    return this.props.field.value.length;
   }
 }
