@@ -3,7 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import { toSection } from '../util';
-import { IEntity, IKeyValue, IPayloadWrapper } from '../definitions.interface';
+import { IEntity, IKeyValue, IPayloadWrapper, ISelectedWrapper } from '../definitions.interface';
 
 export type FilterT = (action: IEffectsAction) => boolean;
 
@@ -59,11 +59,14 @@ export const entityReducerFactory = <TKeyValue extends IKeyValue>(
     switch (action.type) {
       case updateActionType:
         const payloadWrapper: IPayloadWrapper<TKeyValue> = action.data;
-        return R.isNil(payloadWrapper.payload)
+        const selectedWrapper: ISelectedWrapper<TKeyValue> = action.data;
+        const values = payloadWrapper.payload || selectedWrapper.selected;
+
+        return R.isNil(values)
           ? state
           : {
             ...state as {},
-            ...payloadWrapper.payload as {},
+            ...values as {},
           } as TKeyValue;
       case destroyActionType:
         return null;
