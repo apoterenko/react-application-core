@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { Snackbar } from '../../component/snackbar';
 import { BaseContainer } from '../../component/base';
@@ -24,10 +25,10 @@ export class LayoutContainer<TProps extends IContainerProps> extends BaseContain
     const {notification} = this.props;
     const message = notification && (notification.error || notification.info);
     return (
-        <Snackbar message={message}
-                  info={!!notification.info}
-                  afterShow={this.clearAllNotifications}>
-        </Snackbar>
+      <Snackbar message={message}
+                error={!R.isNil(notification.error)}
+                afterShow={this.clearAllNotifications}>
+      </Snackbar>
     );
   }
 

@@ -16,6 +16,7 @@ import {
   MaterialPlugin,
   MenuMaterialPlugin,
   TabPanelMaterialPlugin,
+  SnackbarMaterialPlugin,
 } from './plugin';
 import { UIMaterialFactory } from './factory';
 import { Menu } from '../menu';
@@ -26,6 +27,7 @@ import { KeyboardKey } from '../keyboard';
 import { Dialog, ArbitraryFormDialog } from '../dialog';
 import { FormDialog } from '../form';
 import { Drawer } from '../drawer';
+import { Snackbar } from '../snackbar';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
 
@@ -38,6 +40,11 @@ uiPlugins.set(Checkbox, (component: Checkbox) => new MaterialPlugin(component, M
  * @stable [15.08.2018]
  */
 uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(component));
+
+/**
+ * @stable [15.08.2018]
+ */
+uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(component));
 
 /**
  * @stable [17.05.2018]

@@ -1,21 +1,33 @@
 import { FunctionT } from '../../util';
-import { INativeMaterialComponent } from '../../component/material';
-import { IInfoWrapper } from '../../definitions.interface';
-import { IComponentEntity } from '../../entities-definitions.interface';
+import {
+  IErrorWrapper,
+  IMessageWrapper,
+  IActionTextWrapper,
+  ITimeoutWrapper,
+  IAfterShowWrapper,
+} from '../../definitions.interface';
+import { IComponentConfiguration } from '../../configurations-definitions.interface';
 
-export interface IMaterialSnackbarComponentOptions {
-  message?: string;
-  timeout?: number;
+/**
+ * @stable [22.08.2018]
+ */
+export interface ISnackbarConfiguration extends IComponentConfiguration,
+                                                IMessageWrapper,
+                                                IActionTextWrapper,
+                                                ITimeoutWrapper,
+                                                IAfterShowWrapper {
   actionHandler?: FunctionT;
-  actionText?: string;
 }
 
-export interface INativeMaterialSnackbarComponent extends INativeMaterialComponent {
-  show(options: IMaterialSnackbarComponentOptions): void;
+/**
+ * @stable [22.08.2018]
+ */
+export interface ISnackbarEntity extends IErrorWrapper {
 }
 
-export interface ISnackbarInternalProps extends IMaterialSnackbarComponentOptions,
-                                                IComponentEntity,
-                                                IInfoWrapper<boolean> {
-  afterShow?(): void;
+/**
+ * @stable [22.08.2018]
+ */
+export interface ISnackbarProps extends ISnackbarConfiguration,
+                                        ISnackbarEntity {
 }

@@ -226,6 +226,10 @@ export class UIMaterialFactory implements IUIFactory {
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 
+  public snackbar = 'mdc-snackbar';
+  public snackbarText = 'mdc-snackbar__text';
+  public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
+  public snackbarActionButton = 'mdc-snackbar__action-button';
   public icons = 'material-icons';
   public drawerOpen = 'mdc-drawer--open';
   public drawer = 'mdc-drawer__drawer';

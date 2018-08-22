@@ -908,10 +908,10 @@ export interface IFilterRoutePathWrapper {
 }
 
 /**
- * @stable [02.06.2018]
+ * @stable [22.08.2018]
  */
-export interface IListSectionWrapper {
-  listSection?: string;
+export interface IListSectionWrapper<TListSection = string> {
+  listSection?: TListSection;
 }
 
 /**
@@ -1568,9 +1568,18 @@ export interface INotUseActionsWrapper {
   notUseActions?: boolean;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [22.08.2018]
+ */
 export interface IActionTextWrapper {
   actionText?: string;
+}
+
+/**
+ * @stable [22.08.2018]
+ */
+export interface ITimeoutWrapper {
+  timeout?: number;
 }
 
 /* @stable - 31.03.2018 */
@@ -2072,6 +2081,13 @@ export interface IEntityWrapper<TEntity = IEntity> {
 }
 
 /**
+ * @stable [22.08.2018]
+ */
+export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
+  relatedEntity?: TRelatedEntity;
+}
+
+/**
  * @stable [04.07.2018]
  */
 export interface IApiEntityWrapper<TApiEntity> {
@@ -2462,6 +2478,13 @@ export interface IEntityOnClickWrapper extends IOnClickWrapper<IEntity> {
  */
 export interface IShowWrapper<TShow = () => void> {
   show?: TShow;
+}
+
+/**
+ * @stable [22.08.2018]
+ */
+export interface IAfterShowWrapper<TAfterShow = () => void> {
+  afterShow?: TAfterShow;
 }
 
 /**

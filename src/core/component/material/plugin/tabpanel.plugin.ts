@@ -1,7 +1,6 @@
 import { MDCTabBar } from '@material/tab-bar';
 
 import { sequence } from '../../../util';
-import { Checkbox } from '../../field';
 import { MaterialPlugin } from './material.plugin';
 import { TabPanel } from '../../tabpanel';
 import { INativeMaterialTabPanelComponent } from '../material.interface';
@@ -12,7 +11,7 @@ export class TabPanelMaterialPlugin extends MaterialPlugin<TabPanel, INativeMate
 
   /**
    * @stable [30.05.2018]
-   * @param {Checkbox} tabPanel
+   * @param {TabPanel} tabPanel
    */
   constructor(tabPanel: TabPanel) {
     super(tabPanel, MDCTabBar);

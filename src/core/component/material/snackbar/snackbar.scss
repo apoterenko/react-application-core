@@ -1,8 +1,0 @@
-@import '~@material/button/mdc-button';
-
-// Snackbar button theme [MDC+]
-.rac-button {
-  &.mdc-snackbar__action-button {
-    @include mdc-button-ink-color($rac-snackbar-action-button-ink-color);
-  }
-}

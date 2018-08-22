@@ -1,6 +1,10 @@
 import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 
 export interface IUIFactory {
+  snackbar?: string;
+  snackbarText?: string;
+  snackbarActionWrapper?: string;
+  snackbarActionButton?: string;
   icons?: string;
   drawerOpen?: string;
   drawer?: string;

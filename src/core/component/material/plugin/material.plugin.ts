@@ -4,6 +4,8 @@ import {
   INativeMaterialComponent,
   INativeMaterialAdapter,
 } from '../../material';
+import { DI_TYPES, staticInjector } from '../../../di';
+import { ApplicationTranslatorT } from '../../../translation';
 
 export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>
@@ -36,5 +38,13 @@ export class MaterialPlugin<TComponent extends IComponent,
    */
   protected get adapter(): INativeMaterialAdapter {
     return this.mdc.foundation_.adapter_;
+  }
+
+  /**
+   * @stable [22.08.2018]
+   * @returns {ApplicationTranslatorT}
+   */
+  protected get t(): ApplicationTranslatorT {
+    return staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate);
   }
 }

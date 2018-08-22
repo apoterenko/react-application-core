@@ -16,6 +16,7 @@ $color-14: #f0f0f0 !default;
 $color-15: #000 !default;
 $color-16: #c8ccce !default;
 $color-17: #57fff1 !default;
+$color-18: #ff7272 !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
@@ -336,8 +337,12 @@ $rac-overlay-message-max-width: 200px !default;
 $rac-overlay-message-height: 32px !default;
 $rac-overlay-message-border-radius: 8px !default;
 
-
-$rac-snackbar-action-button-ink-color: $color-1 !default;
+/* @stable [13.08.2018] */
+$rac-snackbar-text-font-size: $rac-default-font-size !default;
+$rac-snackbar-button-font-size: $rac-default-font-size !default;
+$rac-snackbar-button-background-color: $color-5 !default;
+$rac-snackbar-error-button-color: $color-11 !default;
+$rac-snackbar-error-text-color: $color-18 !default;
 
 /**/
 

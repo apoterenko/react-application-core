@@ -1,16 +1,28 @@
-.app-snackbar {
-  &.mdc-snackbar {
-    z-index: 9999;
+@import '../constant';
 
-    &.app-snackbar-info {
-      button {
-        color: #89c3ff;
-      }
+// Snackbar [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-snackbar {
+
+    .rac-snackbar-text {
+      font-size: $rac-snackbar-text-font-size;                         /* @stable [22.08.2018] */
     }
 
-    .mdc-snackbar__text {
-      height: auto;
-      min-height: 48px;
+    .rac-button {
+      background-color: $rac-snackbar-button-background-color;         /* @stable [22.08.2018] */
+      font-size: $rac-snackbar-button-font-size;                       /* @stable [22.08.2018] */
+    }
+
+    &.rac-snackbar-error {
+
+      .rac-snackbar-text {
+        color: $rac-snackbar-error-text-color;                         /* @stable [22.08.2018] */
+      }
+
+      .rac-button {
+        color: $rac-snackbar-error-button-color;                       /* @stable [22.08.2018] */
+      }
     }
   }
 }

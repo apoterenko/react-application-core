@@ -1,8 +1,8 @@
 import {
   IKeyValue,
-  ICheckedWrapper,
   IActivateWrapper,
 } from '../../definitions.interface';
+import { ISnackbarConfiguration } from '../snackbar';
 
 /**
  * @stable [05.05.2018]
@@ -37,13 +37,6 @@ export interface INativeMaterialAdapter extends IKeyValue {
 /**
  * @stable [05.05.2018]
  */
-export interface INativeMaterialCheckboxComponent extends INativeMaterialComponent,
-                                                          ICheckedWrapper {
-}
-
-/**
- * @stable [05.05.2018]
- */
 export interface INativeMaterialListItemComponent extends INativeMaterialComponent,
                                                           IActivateWrapper {
 }
@@ -53,4 +46,11 @@ export interface INativeMaterialListItemComponent extends INativeMaterialCompone
  */
 export interface INativeMaterialTabPanelComponent extends INativeMaterialComponent {
   scrollTo(x: number): void;
+}
+
+/**
+ * @stable [22.08.2018]
+ */
+export interface INativeMaterialSnackbarComponent extends INativeMaterialComponent,
+                                                          ISnackbarConfiguration {
 }
