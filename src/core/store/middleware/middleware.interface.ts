@@ -17,8 +17,13 @@ import {
   IActivateQueryFilterWrapper,
   ICanUpdateWrapper,
   ISaveMessageWrapper,
+  IRelatedEntityWrapper,
 } from '../../definitions.interface';
-import { IListWrapperEntity, IApiEntity } from '../../entities-definitions.interface';
+import {
+  IListWrapperEntity,
+  IApiEntity,
+  IApplicationStoreEntity,
+} from '../../entities-definitions.interface';
 
 /* @stable - 01.04.2018 */
 export interface IUntouchedListMiddlewareConfig<TApplicationState>
@@ -69,13 +74,31 @@ export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
- * @stable [07.07.2018]
+ * @stable [22.08.2018]
  */
-export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity>
+export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
+                                              TApplicationState = IApplicationStoreEntity>
   extends ICanComeBackWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           IEffectsActionWrapper,
           IListSectionWrapper,
           IFormSectionWrapper,
-          ISaveMessageWrapper {
+          ISaveMessageWrapper,
+          IStateWrapper<TApplicationState> {
+}
+
+/**
+ * @stable [22.08.2018]
+ */
+export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
+                                                     TRelatedEntity extends IEntity = IEntity,
+                                                     TApplicationState = IApplicationStoreEntity>
+    extends IRelatedEntityWrapper<TRelatedEntity>,
+            IEffectsActionWrapper,
+            IListSectionWrapper,
+            IStateWrapper<TApplicationState>,
+            ISaveMessageWrapper {
+  getEntity?(state: TApplicationState): TEntity;
+  getRelatedEntities?(entity: TEntity): TRelatedEntity[];
+  makeRelatedChanges?(relatedEntities: TRelatedEntity[]): TEntity;
 }
