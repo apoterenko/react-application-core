@@ -4,9 +4,13 @@
 .rac {
 
   .rac-snackbar {
+    z-index: $rac-snackbar-z-index;                                    /* @stable [23.08.2018] */
+    background-color: $rac-snackbar-background-color;                  /* @stable [24.08.2018] */
 
     .rac-snackbar-text {
-      font-size: $rac-snackbar-text-font-size;                         /* @stable [22.08.2018] */
+      font-size: $rac-snackbar-text-font-size;                         /* @stable [23.08.2018] */
+      height: $rac-snackbar-text-height;                               /* @stable [23.08.2018] */
+      min-height: $rac-snackbar-text-min-height;                       /* @stable [23.08.2018] */
     }
 
     .rac-button {
@@ -15,10 +19,7 @@
     }
 
     &.rac-snackbar-error {
-
-      .rac-snackbar-text {
-        color: $rac-snackbar-error-text-color;                         /* @stable [22.08.2018] */
-      }
+      background-color: $rac-snackbar-error-background-color;          /* @stable [24.08.2018] */
 
       .rac-button {
         color: $rac-snackbar-error-button-color;                       /* @stable [22.08.2018] */

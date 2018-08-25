@@ -93,6 +93,7 @@
 
       &.rac-text-field-keyboard-opened {
         border-bottom-color: $rac-form-text-field-keyboard-opened-border-bottom-color;  /* @stable [19.08.2018] */
+        outline: $rac-form-text-field-keyboard-opened-outline;                          /* @stable [23.08.2018] */
       }
     }
 
