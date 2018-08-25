@@ -32,7 +32,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
     const state = this.state;
     const items = props.items;
     const activeValue = R.isNil(props.activeValue)
-      ? (R.isNil(state.activeValue) ? items[0].value : state.activeValue)
+      ? (R.isNil(state.activeValue) ? (items.length ? items[0].value : null) : state.activeValue)
       : props.activeValue;
 
     return (

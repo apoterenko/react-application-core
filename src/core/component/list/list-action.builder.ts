@@ -190,6 +190,10 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
   }
 
+  public static buildLoadDoneAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildLoadDoneActionType(section), applySection(section, data));
+  }
+
   public static buildNextPageAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildNextPageActionType(section), applySection(section, data));
   }

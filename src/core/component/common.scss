@@ -148,6 +148,12 @@ html, body {
     transform: translate(-50%, -50%);   /* @stable [08.05.2018] */
   }
 
+  .rac-absolute-left-center-position {
+    position: absolute;                 /* @stable [24.08.2018] */
+    top: 50%;                           /* @stable [24.08.2018] */
+    transform: translateY(-50%);        /* @stable [24.08.2018] */
+  }
+
   .rac-absolute-top-position, .rac-absolute-bottom-position {
     position: absolute;                 /* @stable [08.05.2018] */
     left: 50%;                          /* @stable [08.05.2018] */

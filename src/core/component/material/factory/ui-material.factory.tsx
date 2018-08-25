@@ -51,6 +51,7 @@ import {
   faPen,
   faPhone,
   faEraser,
+  faChartPie,
   faPrint,
   faPaperclip,
   faServer,
@@ -75,6 +76,8 @@ import {
   faExclamationCircle,
   faUserTie,
   faStoreAlt,
+  faLongArrowAltDown,
+  faLongArrowAltUp,
   faUserShield,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -103,6 +106,7 @@ import {
   faAddressCard,
   faTrashAlt,
   faHdd,
+  faFileAlt,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -120,7 +124,10 @@ export class UIMaterialFactory implements IUIFactory {
     product: faCannabis,
     supplier: faTruckMoving,
     delivery: faShippingFast,
+    file: faFileAlt,
     menu: faBars,
+    long_arrow_down: faLongArrowAltDown,
+    long_arrow_up: faLongArrowAltUp,
     category: faCodepen,
     local_offer: faTag,
     home: faHome,
@@ -129,6 +136,7 @@ export class UIMaterialFactory implements IUIFactory {
     exchange: faExchangeAlt,
     user_clock: faUserClock,
     tablet: faTabletAlt,
+    chart_pie: faChartPie,
     location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
     search: faSearch,
