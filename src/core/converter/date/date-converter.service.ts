@@ -94,10 +94,11 @@ export class DateConverter implements IDateConverter {
 
   /**
    * @param {DateTimeLikeTypeT} date
+   * @param {string} input
    * @returns {string}
    */
-  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date()): string {
-    return this.format(date, this.dateTimeFormat, this.dateTimeSettings.pstDateFormat);
+  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date(), input = this.dateTimeFormat): string {
+    return this.format(date, input, this.dateTimeSettings.pstDateFormat);
   }
 
   /**
@@ -245,12 +246,13 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [13.08.2018]
+   * @stable [25.08.2018]
    * @param {DateTimeLikeTypeT} dateTime
+   * @param {string} separator
    * @returns {DateTimeLikeTypeT}
    */
-  private shrinkDate(dateTime: DateTimeLikeTypeT): DateTimeLikeTypeT {
-    return isString(dateTime) ? (dateTime as string).split('T')[0] : dateTime;
+  public shrinkDate(dateTime: DateTimeLikeTypeT, separator = 'T'): DateTimeLikeTypeT {
+    return isString(dateTime) ? (dateTime as string).split(separator)[0] : dateTime;
   }
 
   /**

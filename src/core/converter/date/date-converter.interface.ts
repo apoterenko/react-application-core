@@ -19,7 +19,7 @@ export interface IDateConverter {
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
-  fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
+  fromDateTimeToPstDate(date?: DateTimeLikeTypeT, input?: string): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
   parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date;
   parseDateFromDateTime(date: DateTimeLikeTypeT): Date;
@@ -36,4 +36,5 @@ export interface IDateConverter {
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
   combine(dateAsString: string, timeAsString: string): string;
+  shrinkDate(dateTime: DateTimeLikeTypeT, separator?: string): DateTimeLikeTypeT;
 }

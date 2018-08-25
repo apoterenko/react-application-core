@@ -109,6 +109,7 @@ export interface IApplicationSettings {
 export const REGEXP_REPO = {
   price: '\\d+(\\.\\d{1,2})?',
   number: '[-+]?[0-9]*[.,]?[0-9]+',
+  digital: '[0-9]+',
 };
 
 export const prepareUrl = (url) => url.replace(/(\/\/)+/, '/');
