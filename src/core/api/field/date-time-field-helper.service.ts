@@ -20,11 +20,32 @@ import {
 import { IApiEntity, IDateTimeEntity } from '../../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { IDateConverter } from '../../converter';
-import { orUndef, isUndef, isNull } from '../../util';
+import { orUndef, isUndef, isNull, isFn } from '../../util';
 
 @provideInSingleton(DateTimeFieldHelper)
 export class DateTimeFieldHelper {
   @lazyInject(DI_TYPES.DateConverter) private dc: IDateConverter;
+
+  /**
+   * @stable [25.08.2018]
+   * @param {IApiEntity<TEntity extends IFromDateToDateEntity>} apiEntity
+   * @param {(entity: TEntity) => string} fromDateResolver
+   * @param {(entity: TEntity) => string} toDateResolver
+   * @param {number} monthAgo
+   * @returns {IFromDateToDateEntity}
+   */
+  public buildLastPeriod<TEntity extends IFromDateToDateEntity>(apiEntity: IApiEntity<TEntity>,
+                                                                fromDateResolver: (entity: TEntity) => string,
+                                                                toDateResolver: (entity: TEntity) => string,
+                                                                monthAgo = 0): IFromDateToDateEntity {
+    const lastDayOfLastMonth = this.dc.getLastDayOfMonth(monthAgo);
+    const firstDayOfLastMonth = this.dc.getFirstDayOfMonth(monthAgo);
+
+    return {
+      fromDate: this.dc.formatDateFromDateTime(this.toDateTime(apiEntity, fromDateResolver) || firstDayOfLastMonth),
+      toDate: this.dc.formatDateFromDateTime(this.toDateTime(apiEntity, toDateResolver) || lastDayOfLastMonth),
+    };
+  }
 
   public buildDateTimeFromField<TEntity extends IDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
                                                                  returnOriginalValueIfNoChanges = false): string {
@@ -182,7 +203,7 @@ export class DateTimeFieldHelper {
 
   public toDateTime<TEntity extends IEntity>(apiEntity: IApiEntity<TEntity>,
                                              dateResolver: (entity: TEntity) => string,
-                                             timeResolver: (entity: TEntity) => string,
+                                             timeResolver?: (entity: TEntity) => string,
                                              returnOriginalValueIfNoChanges = false,
                                              defaultTime?: string): string {
     let returnedDate;
@@ -192,7 +213,7 @@ export class DateTimeFieldHelper {
     const entity = apiEntity.entity;
 
     const changedDate = dateResolver(entityChanges);
-    const changedTime = timeResolver(entityChanges);
+    const changedTime = orUndef<string>(isFn(timeResolver), () => timeResolver(entityChanges));
 
     if (isUndef(changedDate) && isUndef(changedTime) && !returnOriginalValueIfNoChanges) {
       // The are no changes at all and we don't want to return the original value
@@ -206,7 +227,7 @@ export class DateTimeFieldHelper {
     returnedTime = changedTime;
 
     const originalDate = entity && dateResolver(entity);
-    const originalTime = entity && timeResolver(entity);
+    const originalTime = entity && (orUndef<string>(isFn(timeResolver), () => timeResolver(entity)));
 
     if (isNull(changedTime)) {
       // Reset a time

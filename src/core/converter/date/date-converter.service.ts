@@ -222,8 +222,22 @@ export class DateConverter implements IDateConverter {
     return DateConverter.WEEKDAYS_SHORT[index];
   }
 
-  public getFirstDayOfMonth(): Date {
-    return moment().startOf('month').toDate();
+  /**
+   * @stable [25.08.2018]
+   * @param {number} monthsAgo
+   * @returns {Date}
+   */
+  public getLastDayOfMonth(monthsAgo = 1): Date {
+    return moment().subtract(monthsAgo, 'months').endOf('month').toDate();
+  }
+
+  /**
+   * @stable [25.08.2018]
+   * @param {number} monthsAgo
+   * @returns {Date}
+   */
+  public getFirstDayOfMonth(monthsAgo = 0): Date {
+    return moment().subtract(monthsAgo, 'months').startOf('month').toDate();
   }
 
   public combine(dateAsString: string, timeAsString: string): string {
