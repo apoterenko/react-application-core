@@ -28,22 +28,39 @@ export class DateTimeFieldHelper {
 
   /**
    * @stable [25.08.2018]
-   * @param {IApiEntity<TEntity extends IFromDateToDateEntity>} apiEntity
+   * @param {TEntity} changes
    * @param {(entity: TEntity) => string} fromDateResolver
    * @param {(entity: TEntity) => string} toDateResolver
    * @param {number} monthAgo
    * @returns {IFromDateToDateEntity}
    */
-  public buildLastPeriod<TEntity extends IFromDateToDateEntity>(apiEntity: IApiEntity<TEntity>,
-                                                                fromDateResolver: (entity: TEntity) => string,
-                                                                toDateResolver: (entity: TEntity) => string,
-                                                                monthAgo = 0): IFromDateToDateEntity {
+  public buildLastPeriodFromChanges<TEntity extends IEntity>(changes: TEntity,
+                                                             fromDateResolver: (entity: TEntity) => string,
+                                                             toDateResolver: (entity: TEntity) => string,
+                                                             monthAgo?: number): IFromDateToDateEntity {
+    return this.buildLastPeriod<TEntity>({changes}, fromDateResolver, toDateResolver, monthAgo);
+  }
+
+  /**
+   * @stable [25.08.2018]
+   * @param {IApiEntity<TEntity extends IEntity>} apiEntity
+   * @param {(entity: TEntity) => string} fromDateResolver
+   * @param {(entity: TEntity) => string} toDateResolver
+   * @param {number} monthAgo
+   * @returns {IFromDateToDateEntity}
+   */
+  public buildLastPeriod<TEntity extends IEntity>(apiEntity: IApiEntity<TEntity>,
+                                                  fromDateResolver: (entity: TEntity) => string,
+                                                  toDateResolver: (entity: TEntity) => string,
+                                                  monthAgo = 0): IFromDateToDateEntity {
     const lastDayOfLastMonth = this.dc.getLastDayOfMonth(monthAgo);
     const firstDayOfLastMonth = this.dc.getFirstDayOfMonth(monthAgo);
+    const currentDate = this.dc.getCurrentDate();
 
     return {
-      fromDate: this.dc.formatDateFromDateTime(this.toDateTime(apiEntity, fromDateResolver) || firstDayOfLastMonth),
-      toDate: this.dc.formatDateFromDateTime(this.toDateTime(apiEntity, toDateResolver) || lastDayOfLastMonth),
+      fromDate: this.dc.formatDateFromDateTime(this.toDateTime<TEntity>(apiEntity, fromDateResolver) || firstDayOfLastMonth),
+      toDate: this.dc.formatDateFromDateTime(this.toDateTime<TEntity>(apiEntity, toDateResolver) ||
+        (lastDayOfLastMonth.getTime() > currentDate.getTime() ? currentDate : lastDayOfLastMonth)),
     };
   }
 
