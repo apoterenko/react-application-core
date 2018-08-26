@@ -4,6 +4,7 @@ import { provideInSingleton } from '../../di';
 import {
   makeFormFilterSubmitMiddleware,
   makeFormFilterResetMiddleware,
+  makeFormFilterClearMiddleware,
   IFormFilterSubmitMiddlewareConfig,
 } from '../middleware';
 import { FormActionBuilder } from '../../component/form';
@@ -14,11 +15,23 @@ import { FormActionBuilder } from '../../component/form';
 export function makeFormFilterEffectsProxy(config: IFormFilterSubmitMiddlewareConfig): () => void {
   const formFilterSubmitMiddleware = makeFormFilterSubmitMiddleware(config);
   const formFilterResetMiddleware = makeFormFilterResetMiddleware(config);
+  const formFilterClearMiddleware = makeFormFilterClearMiddleware(config);
 
   return (): void => {
 
     @provideInSingleton(Effects)
     class Effects {
+
+      /**
+       * Manual clear of a single filter field to provoke a reload.
+       *
+       * @stable [26.08.2018]
+       * @returns {IEffectsAction[]}
+       */
+      @EffectsService.effects(FormActionBuilder.buildClearActionType(config.filterSection))
+      public $onFilterClear(): IEffectsAction[] {
+        return formFilterClearMiddleware;
+      }
 
       @EffectsService.effects(FormActionBuilder.buildSubmitActionType(config.filterSection))
       public $onFilterSubmit(): IEffectsAction[] {
