@@ -39,10 +39,15 @@ export interface IFormFilterResetMiddlewareConfig extends IListRoutePathWrapper,
 }
 
 /**
- * @stable [09.06.2018]
+ * @stable [26.08.2018]
  */
-export interface IFormFilterSubmitMiddlewareConfig extends IListRoutePathWrapper,
-                                                           IListSectionWrapper,
+export interface IFormFilterClearMiddlewareConfig extends IListSectionWrapper {
+}
+
+/**
+ * @stable [26.08.2018]
+ */
+export interface IFormFilterSubmitMiddlewareConfig extends IListSectionWrapper,
                                                            IFilterSectionWrapper {
 }
 
