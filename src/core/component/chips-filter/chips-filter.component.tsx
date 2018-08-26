@@ -40,9 +40,9 @@ export class ChipsFilter extends BaseComponent<ChipsFilter, IChipsFilterProps> {
             const fieldConfig = props.fieldsConfigurations[changedFieldName];
             const fieldConfigAsString = fieldConfig as string;
             const fieldConfigAsObject = fieldConfig as IFieldConfiguration;
-            const isFieldConfigString = isString(fieldConfigAsString);
+            const str = isString(fieldConfigAsString) ? fieldConfigAsString : fieldConfigAsObject.label;
 
-            if (R.isNil(fieldConfigAsString)) {
+            if (R.isNil(str) || R.isEmpty(str)) {
               ChipsFilter.logger.warn(
                 `[$ChipsFilter][render] The config is not defined to the field name ${changedFieldName}`
               );
@@ -51,7 +51,7 @@ export class ChipsFilter extends BaseComponent<ChipsFilter, IChipsFilterProps> {
             return (
               <Chip key={`chips-filter-item-key-${changedFieldName}`}
                     onClick={() => this.onRemoveFilter(changedFieldName)}>
-                {isFieldConfigString ? fieldConfigAsString : fieldConfigAsObject.label}
+                {str}
               </Chip>
             );
           })
