@@ -87,6 +87,16 @@ export const openFilterFilterFormWrapperEntityMapper =
   });
 
 /**
+ * @stable [26.08.2018]
+ * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
+ * @returns {IFilterActionConfiguration}
+ */
+export const refreshWrapperEntityMapper =
+  (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
+    type: FilterActionEnum.REFRESH_DATA,
+  });
+
+/**
  * @stable [29.05.2018]
  * @param {IListAndFilterFormWrapperEntity} mappedEntity
  * @returns {IFilterConfiguration}
@@ -110,7 +120,10 @@ export const refreshListAndFilterFormWrapperEntityMapper =
  */
 export const listAndFilterFormWrapperEntityMapper =
   (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
-    actions: [openFilterFilterFormWrapperEntityMapper(mappedEntity)],
+    actions: [
+      refreshWrapperEntityMapper(mappedEntity),
+      openFilterFilterFormWrapperEntityMapper(mappedEntity)
+    ],
     ...actionsDisabledListWrapperEntityMapper(mappedEntity),
   });
 

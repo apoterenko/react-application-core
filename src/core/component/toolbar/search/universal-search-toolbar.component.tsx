@@ -40,6 +40,10 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
       type: 'clear',
       onClick: this.onDeactivate.bind(this),
     },
+    [FilterActionEnum.REFRESH_DATA]: {
+      type: 'refresh',
+      onClick: this.onRefresh.bind(this),
+    },
   };
 
   /**
@@ -107,26 +111,6 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
     const props = this.props;
     if (props.onChange) {
       props.onChange(query);
-    }
-  }
-
-  /**
-   * @stable [18.05.2018]
-   */
-  protected onOpen(): void {
-    const props = this.props;
-    if (props.onOpen) {
-      props.onOpen();
-    }
-  }
-
-  /**
-   * @stable [18.05.2018]
-   */
-  protected onApply(): void {
-    const props = this.props;
-    if (props.onApply) {
-      props.onApply();
     }
   }
 
@@ -230,5 +214,35 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    */
   private get queryField(): IUniversalField {
     return this.refs.queryField as IUniversalField;
+  }
+
+  /**
+   * @stable [18.05.2018]
+   */
+  private onOpen(): void {
+    const props = this.props;
+    if (props.onOpen) {
+      props.onOpen();
+    }
+  }
+
+  /**
+   * @stable [18.05.2018]
+   */
+  private onApply(): void {
+    const props = this.props;
+    if (props.onApply) {
+      props.onApply();
+    }
+  }
+
+  /**
+   * @stable [26.08.2018]
+   */
+  private onRefresh(): void {
+    const props = this.props;
+    if (props.onRefresh) {
+      props.onRefresh();
+    }
   }
 }

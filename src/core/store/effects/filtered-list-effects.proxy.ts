@@ -32,6 +32,11 @@ export function makeFilteredListEffectsProxy(
         return ListActionBuilder.buildLoadAction(listSection);
       }
 
+      @EffectsService.effects(FilterActionBuilder.buildRefreshActionType(listSection))
+      public $onFilterRefresh(): IEffectsAction {
+        return ListActionBuilder.buildLoadAction(listSection);
+      }
+
       @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(listSection))
       public $onFilterDeactivate(): IEffectsAction[] {
         return (

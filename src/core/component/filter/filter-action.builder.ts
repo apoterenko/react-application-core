@@ -9,12 +9,22 @@ import {
   FILTER_DEACTIVATE_ACTION_TYPE,
   FILTER_MANUAL_APPLY_ACTION_TYPE,
   FILTER_CHANGE_ACTION_TYPE,
+  FILTER_REFRESH_ACTION_TYPE,
 } from './filter.interface';
-import { IQueryWrapper } from '../../definitions.interface';
+import { IQueryWrapper, ACTION_PREFIX } from '../../definitions.interface';
 
 export class FilterActionBuilder {
   public static buildManualApplyActionType(section: string): string {
     return `${section}.${FILTER_MANUAL_APPLY_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [26.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildRefreshActionType(section: string): string {
+    return `${ACTION_PREFIX}.${section}.${FILTER_REFRESH_ACTION_TYPE}`;
   }
 
   public static buildApplyActionType(section: string): string {

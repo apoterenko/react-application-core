@@ -886,6 +886,7 @@ export interface IFieldActionConfiguration extends IClassNameWrapper,
 export enum FilterActionEnum {
   OPEN_FILTER,
   CLEAR_FILTER,
+  REFRESH_DATA,
 }
 
 /**

@@ -2549,6 +2549,13 @@ export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppl
 }
 
 /**
+ * @stable [26.08.2018]
+ */
+export interface IOnRefreshWrapper<TOnRefresh = () => void> {
+  onRefresh?: TOnRefresh;
+}
+
+/**
  * @stable [05.05.2018]
  */
 export interface IActivateWrapper<TActivate = (...args: AnyT[]) => void> {
