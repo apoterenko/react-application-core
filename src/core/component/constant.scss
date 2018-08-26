@@ -1,4 +1,5 @@
 $opacity: .7 !default;
+$opacity-2: .5 !default;
 $snackbar-z-index: 9999 !default;
 $color-1: #d50000 !default;
 $color-2: #212121 !default;
@@ -123,8 +124,9 @@ $rac-navigation-list-item-active-background-color: $color-1 !default;
 $rac-navigation-list-item-active-outline-color: $color-5 !default;
 $rac-navigation-list-item-hover-background-color: $color-1 !default;
 $rac-navigation-list-item-hover-outline-color: $color-5 !default;
-$rac-navigation-list-item-icon-padding-right: 24px !default;
-$rac-navigation-list-item-icon-font-size: 20px !default;
+$rac-navigation-list-item-icon-margin-right: 24px !default;
+$rac-navigation-list-item-icon-height: 20px !default;
+$rac-navigation-list-item-icon-width: 20px !default;
 
 /* @stable [22.06.2018] */
 $rac-grid-color: $rac-default-text-color !default;
@@ -334,6 +336,7 @@ $rac-global-error-message-padding: 16px !default;
 /* @stable [17.08.2018] */
 $rac-status-attention-color: $color-11 !default;
 $rac-status-warning-color: $color-6 !default;
+$rac-status-ok-color: $color-19 !default;
 
 /* @stable [13.08.2018] */
 $rac-overlay-background: rgba(0, 0, 0, 0.24) !default;

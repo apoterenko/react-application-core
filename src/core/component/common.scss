@@ -75,6 +75,10 @@ html, body {
     color: $rac-status-warning-color;                        /* @stable [21.08.2018] */
   }
 
+  .rac-status-ok {
+    color: $rac-status-ok-color;                             /* @stable [26.08.2018] */
+  }
+
   .rac-global-error-message {
     font-size: $rac-global-error-message-font-size;          /* @stable [08.08.2018] */
     background: $rac-global-error-message-background;        /* @stable [08.08.2018] */
@@ -208,5 +212,13 @@ html, body {
       content: '●';                                /* @stable [25.06.2018] */
       color: $rac-filter-active-color;              /* @stable [25.06.2018] */
     }
+  }
+
+  .rac-opacity-2 {
+    opacity: $opacity-2;                            /* @stable [26.06.2018] */
+  }
+
+  .rac-strong {
+    font-weight: bold;                              /* @stable [26.06.2018] */
   }
 }
