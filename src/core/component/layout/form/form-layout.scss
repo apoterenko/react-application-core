@@ -51,6 +51,7 @@
         height: $rac-form-layout-top-header-height;                    /* @stable [07.08.2018] */
         top: $rac-form-layout-top-header-top;                          /* @stable [07.08.2018] */
         background: $rac-form-layout-top-header-background;            /* @stable [07.08.2018] */
+        background-size: $rac-form-layout-top-header-background-size;  /* @stable [26.08.2018] */
 
         .rac-form-layout-top-header-content {
           white-space: nowrap;                                                 /* @stable [07.08.2018] */
