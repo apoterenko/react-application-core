@@ -5,14 +5,14 @@ import {
   makeFormFilterSubmitMiddleware,
   makeFormFilterResetMiddleware,
   makeFormFilterClearMiddleware,
-  IFormFilterSubmitMiddlewareConfig,
+  IFormFilterMiddlewareConfig,
 } from '../middleware';
 import { FormActionBuilder } from '../../component/form';
 
 /**
  * @stable [02.06.2018]
  */
-export function makeFormFilterEffectsProxy(config: IFormFilterSubmitMiddlewareConfig): () => void {
+export function makeFormFilterEffectsProxy(config: IFormFilterMiddlewareConfig): () => void {
   const formFilterSubmitMiddleware = makeFormFilterSubmitMiddleware(config);
   const formFilterResetMiddleware = makeFormFilterResetMiddleware(config);
   const formFilterClearMiddleware = makeFormFilterClearMiddleware(config);
@@ -29,7 +29,7 @@ export function makeFormFilterEffectsProxy(config: IFormFilterSubmitMiddlewareCo
        * @returns {IEffectsAction[]}
        */
       @EffectsService.effects(FormActionBuilder.buildClearActionType(config.filterSection))
-      public $onFilterClear(): IEffectsAction[] {
+      public $onFilterClear(): IEffectsAction {
         return formFilterClearMiddleware;
       }
 

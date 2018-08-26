@@ -52,6 +52,14 @@ export interface IFormFilterSubmitMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
+ * @stable [26.08.2018]
+ */
+export interface IFormFilterMiddlewareConfig extends IFormFilterSubmitMiddlewareConfig,
+                                                     IFormFilterClearMiddlewareConfig,
+                                                     IFormFilterResetMiddlewareConfig {
+}
+
+/**
  * @stable [09.06.2018]
  */
 export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilterRoutePathWrapper,

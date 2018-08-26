@@ -40,6 +40,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   constructor(props: TProps) {
     super(props);
     this.navigateToBack = this.navigateToBack.bind(this);
+    this.dispatchFormClear = this.dispatchFormClear.bind(this);
   }
 
   /**

@@ -33,7 +33,5 @@ export const makeFormFilterResetMiddleware = (config: IFormFilterResetMiddleware
 /**
  * @stable [26.08.2018]
  */
-export const makeFormFilterClearMiddleware = (config: IFormFilterClearMiddlewareConfig): IEffectsAction[] =>
-  [
-    ListActionBuilder.buildLoadAction(config.listSection)
-  ];
+export const makeFormFilterClearMiddleware = (config: IFormFilterClearMiddlewareConfig): IEffectsAction =>
+  ListActionBuilder.buildLoadAction(config.listSection);
