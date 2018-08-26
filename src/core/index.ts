@@ -11,6 +11,7 @@ export * from './component/base';
 export * from './component/button';
 export * from './component/card';
 export * from './component/chip';
+export * from './component/chips-filter';
 export * from './component/connector';
 export * from './component/dialog';
 export * from './component/dnd';

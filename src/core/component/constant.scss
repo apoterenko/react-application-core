@@ -353,6 +353,13 @@ $rac-snackbar-button-background-color: $color-5 !default;
 $rac-snackbar-error-button-color: $color-11 !default;
 $rac-snackbar-error-background-color: $color-11 !default;
 
+/* @stable [26.08.2018] */
+$rac-chips-filter-wrapper-padding: 16px 16px 0 16px !default;
+$rac-chips-filter-chip-background: none !default;
+$rac-chips-filter-chip-color: $color-6 !default;
+$rac-chips-filter-chip-border: 1px solid $color-6 !default;
+$rac-chips-filter-chip-icon-color: $color-6 !default;
+
 /**/
 
 $rac-header-action-color: $color-5 !default;
