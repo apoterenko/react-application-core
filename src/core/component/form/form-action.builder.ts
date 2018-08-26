@@ -6,6 +6,7 @@ import {
   AnyT,
   IKeyValue,
   ACTION_PREFIX,
+  UNDEF,
 } from '../../definitions.interface';
 import {
   FieldChangeEntityT,
@@ -21,12 +22,22 @@ import {
   FORM_DESTROY_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
   FORM_ACTIVE_VALUE_ACTION_TYPE,
+  FORM_CLEAR_ACTION_TYPE,
 } from './form.interface';
 
 export class FormActionBuilder {
 
   public static buildDestroyActionType(section: string): string {
     return `${section}.${FORM_DESTROY_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [26.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildClearActionType(section: string): string {
+    return `${ACTION_PREFIX}.${section}.${FORM_CLEAR_ACTION_TYPE}`;
   }
 
   public static buildChangeActionType(section: string): string {
@@ -83,6 +94,19 @@ export class FormActionBuilder {
   }
 
   /**
+   * @stable [26.08.2018]
+   * @param {string} section
+   * @param {string} fieldName
+   * @returns {IEffectsAction}
+   */
+  public static buildClearSimpleAction(section: string, fieldName: string): IEffectsAction {
+    return {
+      type: this.buildClearActionType(section),
+      data: applySection(section, this.buildChangesPayload({[fieldName]: UNDEF})),
+    };
+  }
+
+  /**
    * @stable - 10.04.2018
    * @param {string} section
    * @param {IKeyValue} changes
@@ -123,15 +147,15 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable - 10.04.2018
+   * @stable [26.08.2018]
    * @param {IKeyValue} changes
    * @returns {FieldChangeEntityT}
    */
   private static buildChangesPayload(changes: IKeyValue): FieldChangeEntityT {
     return {
       fields: Object
-        .keys(changes)
-        .map((name): IFieldChangeEntity => ({name, value: Reflect.get(changes, name)})),
+                .keys(changes)
+                .map((name): IFieldChangeEntity => ({name, value: Reflect.get(changes, name)})),
     };
   }
 }

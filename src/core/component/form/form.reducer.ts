@@ -1,9 +1,9 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { isDef, toSection } from '../../util';
+import { isDef, toSection, defValuesFilter } from '../../util';
 import { convertError } from '../../error';
-import { IPayloadWrapper } from '../../definitions.interface';
+import { IPayloadWrapper, IKeyValue } from '../../definitions.interface';
 import { IEditableEntity, IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
 import { INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import { FormActionBuilder } from './form-action.builder';
@@ -16,20 +16,16 @@ export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_ST
       return {
         ...INITIAL_APPLICATION_FORM_STATE,
       };
+    case FormActionBuilder.buildClearActionType(section):
     case FormActionBuilder.buildChangeActionType(section):
-      const payloadAsFieldChangeEntity: IFieldChangeEntity = action.data;
-      const payloadAsFieldsChangesEntity: IFieldsChangesEntity = action.data;
-      const changes = R.pickBy((value) => isDef(value), {
+      const fieldChangeEntity: IFieldChangeEntity = action.data;
+      const fieldsChangesEntity: IFieldsChangesEntity = action.data;
+      const changes = defValuesFilter<IKeyValue, IKeyValue>({
         ...state.changes,
         ...(
-            Array.isArray(payloadAsFieldsChangesEntity.fields)
-                ? R.mergeAll(
-                    payloadAsFieldsChangesEntity.fields
-                      .map((elem) => ({[elem.name]: elem.value}))
-                )
-                : {
-                  [payloadAsFieldChangeEntity.name]: payloadAsFieldChangeEntity.value,
-                }
+          Array.isArray(fieldsChangesEntity.fields)
+            ? R.mergeAll<IKeyValue>(fieldsChangesEntity.fields.map((elem) => ({[elem.name]: elem.value})))
+            : {[fieldChangeEntity.name]: fieldChangeEntity.value}
         ),
       });
       return {

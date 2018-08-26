@@ -137,6 +137,16 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
+   * @stable [26.08.2018]
+   * @param {string} fieldName
+   */
+  protected dispatchFormClear(fieldName: string): void {
+    this.appStore.dispatch(
+      FormActionBuilder.buildClearSimpleAction(this.props.sectionName, fieldName)
+    );
+  }
+
+  /**
    * @stable - 25.04.2018
    * @param {IKeyValue} changes
    */

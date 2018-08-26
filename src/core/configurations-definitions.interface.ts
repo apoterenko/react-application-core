@@ -212,6 +212,13 @@ import {
 import { IUniversalButtonProps } from './props-definitions.interface';
 
 /**
+ * @stable [26.08.2018]
+ */
+export interface IFieldsConfigurationsWrapper<TFieldsConfigurations = IFieldsConfigurations> {
+  fieldsConfigurations?: TFieldsConfigurations;
+}
+
+/**
  * @stable [16.06.2018]
  */
 export interface IButtonConfigurationWrapper<TButtonConfiguration = IButtonConfiguration> {

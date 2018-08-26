@@ -440,7 +440,7 @@ export interface IOnSubmitWrapper<TOnSubmit = () => void> {
 /**
  * @stable [13.05.2018]
  */
-export interface IOnRemoveWrapper<TOnRemove> {
+export interface IOnRemoveWrapper<TItem = AnyT, TOnRemove = (item?: TItem) => void> {
   onRemove?: TOnRemove;
 }
 
