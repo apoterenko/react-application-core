@@ -4,7 +4,7 @@ import * as crossvent from 'crossvent';
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE, APP_PROFILE, APP_VERSION } from './env';
-import { addClassNameToBody, createElement, addClassNameToElement } from './util';
+import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage } from './util';
 import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
 import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from './configurations-definitions.interface';
@@ -26,14 +26,9 @@ function addBootElement(rootId: string) {
 
 // Global error handler
 function defineErrorHandler() {
-  window.onerror = (e0) => {
+  window.onerror = (e) => {
     const errorElId = '$$error-message-el';
-    let e1;
-    try {
-      e1 = JSON.stringify(e0);
-    } catch (e2) {
-      e1 = e0;
-    }
+
     let errorMessageEl: Element = document.getElementById(errorElId);
     if (!errorMessageEl) {
       errorMessageEl = createElement();
@@ -41,13 +36,7 @@ function defineErrorHandler() {
       addClassNameToElement(errorMessageEl, 'rac-absolute-center-position');
       addClassNameToElement(errorMessageEl, 'rac-global-error-message');
     }
-    errorMessageEl.innerHTML = [
-      'Houston! We\'re in trouble!',
-      'Please send this screen to the developers.',
-      'Thank you!',
-      `Build: ${APP_VERSION}`,
-      `Details info: [${e1}]`
-    ].join('<br>');
+    errorMessageEl.innerHTML = buildErrorMessage(e, '<br>');
   };
 }
 

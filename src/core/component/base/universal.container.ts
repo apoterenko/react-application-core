@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import * as React from 'react';
 import { Store } from 'redux';
 import * as R from 'ramda';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { DI_TYPES, staticInjector } from '../../di';
 import { IKeyValue, AnyT, ACTION_PREFIX } from '../../definitions.interface';
@@ -22,11 +23,13 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
-import { applySection } from '../../util';
+import { applySection, buildErrorMessage } from '../../util';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
-  extends Component<TProps, TState>
+  extends React.Component<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
+
+  protected static logger = LoggerFactory.makeLogger(UniversalContainer);
 
   // Because of Flux-architecture.
   // Needed for updating an array of dependent fields (each field depends on previous field state).
@@ -41,6 +44,18 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     super(props);
     this.navigateToBack = this.navigateToBack.bind(this);
     this.dispatchFormClear = this.dispatchFormClear.bind(this);
+
+    const originalRenderer = this.render;
+    if (!R.isNil(originalRenderer)) {
+      this.render = (): React.ReactNode => {
+        try {
+          return originalRenderer.call(this);
+        } catch (e) {
+          UniversalContainer.logger.error(`[$UniversalContainer][constructor] The error:`, e);
+          return this.getErrorMessageElement(e);
+        }
+      };
+    }
   }
 
   /**
@@ -235,5 +250,14 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected registerLifecycleTask(task: () => void): void {
     this.lifecycleTasks.push(task);
+  }
+
+  /**
+   * @stable [27.08.2018]
+   * @param {Error} e
+   * @returns {React.ReactNode}
+   */
+  protected getErrorMessageElement(e: Error): React.ReactNode {
+    return buildErrorMessage(e.stack);
   }
 }
