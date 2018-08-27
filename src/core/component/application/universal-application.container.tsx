@@ -26,7 +26,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     sectionName: APPLICATION_SECTION,
   };
 
-  private static logger = LoggerFactory.makeLogger(UniversalApplicationContainer);
+  protected static logger = LoggerFactory.makeLogger(UniversalApplicationContainer);
   private extraRoutes = new Map<IContainerClassEntity, IDefaultConnectorConfiguration>();
 
   /**

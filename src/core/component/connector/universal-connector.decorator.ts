@@ -14,7 +14,7 @@ import { universalConnectorFactory } from './universal-connector.factory';
 import { ConnectorActionBuilder } from './universal-connector-action.builder';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 
-const logger = LoggerFactory.makeLogger('connector.decorator');
+const logger = LoggerFactory.makeLogger('universal-connector.decorator');
 
 /**
  * @stable - 23.04.2018
