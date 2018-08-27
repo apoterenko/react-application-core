@@ -176,6 +176,7 @@ export class UIMaterialFactory implements IUIFactory {
     loyalty: faGratipay,
     local_atm: faMoneyBill,
     access_time: faHistory,
+    history: faHistory,
     sms: faCommentDots,
     work: faBriefcase,
     verified_user: faShieldAlt,

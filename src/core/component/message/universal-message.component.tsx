@@ -1,8 +1,10 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
-import { orNull, isString } from '../../util';
+import { orNull, isString, isPrimitive } from '../../util';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalMessageProps } from './universal-message.interface';
+import { AnyT } from '../../definitions.interface';
 
 export abstract class UniversalMessage<TComponent extends UniversalMessage<TComponent, TProps, TState>,
                                        TProps extends IUniversalMessageProps = IUniversalMessageProps,
@@ -55,7 +57,14 @@ export abstract class UniversalMessage<TComponent extends UniversalMessage<TComp
    */
   private getErrorMessage(): string {
     const props = this.props;
-    return this.t(props.errorMessage || this.settings.messages.errorMessage);
+    const errorMessage: AnyT = props.errorMessage;
+
+    return R.isNil(errorMessage) || R.isEmpty(errorMessage)
+      ? this.t(this.settings.messages.errorMessage)
+      : (isPrimitive(errorMessage)
+            ? this.t(errorMessage)
+            : (errorMessage instanceof Error ? errorMessage.stack : JSON.stringify(errorMessage))
+      );
   }
 
   /**

@@ -48,7 +48,6 @@ import {
   IOnSubmitWrapper,
   IFieldsWrapper,
   IDefaultOnValidWrapper,
-  IOnEmptyDictionaryWrapper,
   IOnLoadDictionaryWrapper,
   IOnResetWrapper,
   IReadyWrapper,
@@ -348,7 +347,7 @@ export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
  */
 export interface IUniversalLivingEntity extends ITouchedWrapper,
                                                 IProgressWrapper,
-                                                IStringErrorEntity {
+                                                IErrorEntity<AnyT> {
 }
 
 /**

@@ -171,6 +171,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
       emptyData: this.emptyData,
       emptyMessage: this.emptyMessage,
       emptyDataMessage: props.emptyDataMessage,
+      errorMessage: props.error,
     } as TMessageComponentProps;
   }
 
