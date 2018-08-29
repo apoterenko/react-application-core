@@ -4,6 +4,7 @@ import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
+  ROUTER_REWRITE_ACTION_TYPE,
 } from './router.interface';
 
 export class RouterActionBuilder {
@@ -15,6 +16,10 @@ export class RouterActionBuilder {
    */
   public static buildNavigateAction(path: string): IEffectsAction {
     return EffectsAction.create(ROUTER_NAVIGATE_ACTION_TYPE, path);
+  }
+
+  public static buildRewriteAction(path: string): IEffectsAction {
+    return EffectsAction.create(ROUTER_REWRITE_ACTION_TYPE, path);
   }
 
   public static buildReplaceAction(path: string): IEffectsAction {

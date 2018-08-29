@@ -8,6 +8,7 @@ import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
+  ROUTER_REWRITE_ACTION_TYPE,
 } from './router.interface';
 import {
   IRouterComponentEntity,
@@ -19,6 +20,17 @@ export class RouterEffects {
   private static logger = LoggerFactory.makeLogger(RouterEffects);
 
   @lazyInject(DI_TYPES.Router) private router: IRouterComponentEntity;
+
+  @EffectsService.effects(ROUTER_REWRITE_ACTION_TYPE)
+  public $onRewrite(action: IEffectsAction): void {
+    const pathAndState = this.toPathAndState(action);
+    this.router.go(-this.router.length);
+
+    RouterEffects.logger.debug(
+      `[$RouterEffects][$onRewrite] Path: ${pathAndState.path}, state: ${pathAndState.state}`
+    );
+    this.router.replace(pathAndState.path, pathAndState.state);
+  }
 
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {
