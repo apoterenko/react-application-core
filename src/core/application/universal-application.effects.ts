@@ -1,13 +1,14 @@
 import { injectable } from 'inversify';
 import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
+import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { IApplicationSettings } from '../settings';
 import { IStringTokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
-import { APPLICATION_TOKEN_KEY, IApplicationStorage } from '../storage/storage.interface';
+import { APPLICATION_TOKEN_KEY, APPLICATION_UUID_KEY, IApplicationStorage } from '../storage/storage.interface';
 import { BaseEffects } from '../store/effects/base.effects';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
@@ -17,7 +18,8 @@ import { UserActionBuilder } from '../user/user-action.builder';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
-import { IApplicationTransportPayloadAnalyzer } from '../transport/transport.interface';
+import { IApplicationTransportPayloadAnalyzer, IApplicationTransportFactory } from '../transport/transport.interface';
+import { FetchJsonTransportFactory } from '../transport/fetch-json-transport.factory';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -25,8 +27,10 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
-  @lazyInject(DI_TYPES.NotVersionedStorage) protected notVersionedStorage: IApplicationStorage;
+  @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IApplicationStorage;
+  @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected notVersionedSessionStorage: IApplicationStorage;
   @lazyInject(DI_TYPES.TransportPayloadAnalyzer) protected transportPayloadAnalyzer: IApplicationTransportPayloadAnalyzer;
+  @lazyInject(FetchJsonTransportFactory) protected fetchJsonTransportFactory: IApplicationTransportFactory;
 
   /**
    * @stable - 25.04.2018
@@ -40,7 +44,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         ApplicationActionBuilder.buildAfterInitAction()
       ];
     }
-    const token = await this.notVersionedStorage.get(APPLICATION_TOKEN_KEY);
+    const token = await this.notVersionedPersistentStorage.get(APPLICATION_TOKEN_KEY);
     const actions = [];
 
     if (token) {
@@ -59,10 +63,40 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    * @returns {IEffectsAction}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterInitActionType())
-  public $onAfterInit(_: IEffectsAction, state: IUniversalApplicationStoreEntity): IEffectsAction {
-    const result = state.application.authorized
-      ? ApplicationActionBuilder.buildPrepareAction()
-      : ApplicationActionBuilder.buildReadyAction();
+  public async $onAfterInit(_: IEffectsAction, state: IUniversalApplicationStoreEntity): Promise<IEffectsAction[]> {
+    const isApplicationAuthorized = state.application.authorized;
+    const result: IEffectsAction[] = [
+      isApplicationAuthorized
+        ? ApplicationActionBuilder.buildPrepareAction()
+        : ApplicationActionBuilder.buildReadyAction()
+    ];
+
+    const metaFilesJsonUrl = this.settings.metaFilesJsonUrl;
+    if (!R.isNil(metaFilesJsonUrl) && !R.isEmpty(metaFilesJsonUrl)) {
+      const data = await Promise.all([
+        this.notVersionedSessionStorage.get(APPLICATION_UUID_KEY),
+        this.fetchJsonTransportFactory.request({url: metaFilesJsonUrl})
+      ]);
+      const localAppUuid = data[0];
+      const remoteAppMetaInfo = data[1];
+      const remoteAppUuid = remoteAppMetaInfo.data.result.uuid;
+
+      if (!R.isNil(remoteAppUuid)
+        && !R.isEmpty(remoteAppUuid)
+        && !R.equals(localAppUuid, remoteAppUuid)) {
+        this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
+
+        if (isApplicationAuthorized) {
+          // After F5 we desire to get a previous saves hash, but it is empty. This means a team had released
+          // a new version. To exclude the inconsistent state of App - redirect to initial path
+
+          UniversalApplicationEffects.logger.debug(
+            '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
+          );
+          result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
+        }
+      }
+    }
 
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onAfterInit] The result is: ${JSON.stringify(result)}`);
@@ -151,7 +185,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     const payload: IStringTokenWrapper = action.data;
     const token = payload && payload.token || state.transport.token;
 
-    await this.notVersionedStorage.set(APPLICATION_TOKEN_KEY, token);
+    await this.notVersionedPersistentStorage.set(APPLICATION_TOKEN_KEY, token);
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onAuthorized] The storage token has been saved: ${token}.`);
   }
@@ -161,7 +195,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    */
   @EffectsService.effects(ApplicationActionBuilder.buildUnauthorizedActionType())
   public async $onUnauthorized(): Promise<void> {
-    await this.notVersionedStorage.remove(APPLICATION_TOKEN_KEY);
+    await this.notVersionedPersistentStorage.remove(APPLICATION_TOKEN_KEY);
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
   }

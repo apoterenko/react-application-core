@@ -1,5 +1,5 @@
 const definedLocation = typeof location === 'undefined'
-  ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '' }
+  ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '', pathname: '', assign: (url: string) => null }
   : location;
 const definedWindow = typeof window === 'undefined' ? {} : window;
 const definedDocument = typeof document === 'undefined' ? { baseURI: '' } : document;
@@ -16,3 +16,4 @@ export const RN_MODE_ENABLED = !!RN_PLATFORM;
 export const BASE_PATH = (definedDocument.baseURI || definedLocation.href).replace(origin, '');
 export const PORT = definedLocation.port || '80';
 export const NORMALIZED_BASE_PATH = BASE_PATH.replace(/\//g, '');
+export const REDIRECT_FN = (path = BASE_PATH) => definedLocation.assign(path);

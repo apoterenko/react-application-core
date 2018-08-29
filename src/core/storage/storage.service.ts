@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import * as engine from 'store/src/store-engine';
 import * as sessionStorage from 'store/storages/sessionStorage';
 import * as localStorage from 'store/storages/localStorage';
@@ -56,7 +57,9 @@ export class Storage implements IApplicationStorage {
 
   private get storage(): IApplicationStorage {
     const settings = this.settingsResolver();
-    const storageType = this.storageType || (settings && settings.persistenceStorage);
+    const storageType = R.isNil(this.storageType)
+      ? (settings && settings.persistenceStorage)
+      : this.storageType;
 
     switch (storageType) {
       case ApplicationStorageTypeEnum.SESSION:

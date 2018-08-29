@@ -36,3 +36,4 @@ export enum ApplicationStorageTypeEnum {
 export const STORAGE_KEY_SEPARATOR = '#';
 export const APPLICATION_STATE_KEY = '$$state';
 export const APPLICATION_TOKEN_KEY = `${APPLICATION_STATE_KEY}.token`;
+export const APPLICATION_UUID_KEY = `${APPLICATION_STATE_KEY}.app.uuid`;

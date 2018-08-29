@@ -79,11 +79,13 @@ import {
   faLongArrowAltDown,
   faLongArrowAltUp,
   faUserShield,
+  faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
   faCodepen,
   faGratipay,
+  faAdversal,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faUserCircle,
@@ -107,6 +109,7 @@ import {
   faTrashAlt,
   faHdd,
   faFileAlt,
+  faSmileBeam,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -151,6 +154,7 @@ export class UIMaterialFactory implements IUIFactory {
     attention: faExclamationCircle,
     block: faBan,
     widgets: faCubes,
+    times_circle: faTimesCircle,
     spa: faCannabis,
     add: faPlus,
     plus: faPlus,
@@ -232,6 +236,8 @@ export class UIMaterialFactory implements IUIFactory {
     user_shield: faUserShield,
     key: faKey,
     trash: faTrashAlt,
+    smile_beam: faSmileBeam,
+    adversal: faAdversal,
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 

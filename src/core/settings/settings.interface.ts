@@ -90,6 +90,7 @@ export interface IApplicationGoogleMapsSettings {
 export interface IApplicationSettings {
   apiUrl?: string;
   binaryUrl?: string;
+  metaFilesJsonUrl?: string;
   pdfWorkerDirectoryUrl?: string;
   companyName?: string;
   companyCountry?: string;
