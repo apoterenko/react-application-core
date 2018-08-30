@@ -37,7 +37,7 @@ export class FormActionBuilder {
    * @returns {string}
    */
   public static buildClearActionType(section: string): string {
-    return `${ACTION_PREFIX}.${section}.${FORM_CLEAR_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${section}.${FORM_CLEAR_ACTION_TYPE}`;
   }
 
   public static buildChangeActionType(section: string): string {
@@ -58,7 +58,7 @@ export class FormActionBuilder {
    * @returns {string}
    */
   public static buildActiveValueActionType(section: string): string {
-    return `${ACTION_PREFIX}.${section}.${FORM_ACTIVE_VALUE_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${section}.${FORM_ACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   public static buildSubmitActionType(section: string): string {

@@ -24,7 +24,7 @@ export class FilterActionBuilder {
    * @returns {string}
    */
   public static buildRefreshActionType(section: string): string {
-    return `${ACTION_PREFIX}.${section}.${FILTER_REFRESH_ACTION_TYPE}`;
+    return `${ACTION_PREFIX}${section}.${FILTER_REFRESH_ACTION_TYPE}`;
   }
 
   public static buildApplyActionType(section: string): string {

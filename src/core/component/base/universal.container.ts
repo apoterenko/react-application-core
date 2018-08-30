@@ -102,7 +102,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   public dispatchFrameworkAction(type: string, data?: IKeyValue): void {
     const props = this.props;
-    this.dispatchCustomType(`${ACTION_PREFIX}.${props.sectionName}.${type}`, applySection(props.sectionName, data));
+    this.dispatchCustomType(`${ACTION_PREFIX}${props.sectionName}.${type}`, applySection(props.sectionName, data));
   }
 
   /**
