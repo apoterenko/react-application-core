@@ -246,6 +246,13 @@ export interface IListWrapper<TList = JSX.Element> {
 }
 
 /**
+ * @stable [30.08.2018]
+ */
+export interface ITabPanelWrapper<TTabPanel = JSX.Element> {
+  tabPanel?: TTabPanel;
+}
+
+/**
  * @stable [16.05.2018]
  */
 export interface IMutatedListWrapper<TMutatedList> {

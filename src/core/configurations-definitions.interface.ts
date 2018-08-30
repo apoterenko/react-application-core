@@ -198,6 +198,8 @@ import {
   IValueWrapper,
   IOnClearWrapper,
   IExpandedGroupsWrapper,
+  IOnCloseWrapper,
+  IUseIndicatorWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -210,7 +212,6 @@ import {
   IApiEntity,
 } from './entities-definitions.interface';
 import { IUniversalButtonProps } from './props-definitions.interface';
-
 /**
  * @stable [26.08.2018]
  */
@@ -286,6 +287,13 @@ export interface IGridConfigurationWrapper<TGridConfiguration = IGridConfigurati
  */
 export interface IFormConfigurationWrapper<TFormConfiguration = IFormConfiguration> {
   formConfiguration?: TFormConfiguration;
+}
+
+/**
+ * @stable [31.08.2018]
+ */
+export interface ITabPanelConfigurationWrapper<TabPanelConfiguration = ITabPanelConfiguration> {
+  tabPanelConfiguration?: TabPanelConfiguration;
 }
 
 /* @stable - 14.04.2018 */
@@ -527,6 +535,17 @@ export interface ITabConfiguration extends IValueWrapper,
                                            IUrlWrapper,
                                            IIconWrapper,
                                            IActiveValueWrapper {
+}
+
+/**
+ * @stable [30.08.2018]
+ */
+export interface ITabPanelConfiguration extends IComponentConfiguration,
+                                                IUseIndicatorWrapper,
+                                                IRippableWrapper,
+                                                IOnCloseWrapper<ITabConfiguration>,
+                                                IOnClickWrapper<ITabConfiguration>,
+                                                IItemsWrapper<ITabConfiguration[]> {
 }
 
 /**
