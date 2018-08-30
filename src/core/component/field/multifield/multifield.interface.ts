@@ -61,6 +61,8 @@ export interface IMultiItemEntity extends IEntityIdTWrapper,
  */
 export interface IMultiField extends IField {
   deleteItem(item: IMultiItemEntity): void;
+  editItem(item: IMultiItemEntity): void;
+  mergeItem(item: IMultiItemEntity): void;
 }
 
 /**

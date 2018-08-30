@@ -55,6 +55,22 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
   }
 
   /**
+   * @stable [29.08.2018]
+   * @param {IMultiItemEntity} item
+   */
+  public editItem(item: IMultiItemEntity): void {
+    this.onEdit(item);
+  }
+
+  /**
+   * @stable [29.08.2018]
+   * @param {IMultiItemEntity} item
+   */
+  public mergeItem(item: IMultiItemEntity): void {
+    this.onMerge(item);
+  }
+
+  /**
    * @stable [01.06.2018]
    * @returns {EntityIdT[]}
    */
@@ -76,6 +92,22 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
    */
   protected onDelete(item: IMultiItemEntity): void {
     this.multiFieldPlugin.onDeleteItem(item);
+  }
+
+  /**
+   * @stable [29.08.2018]
+   * @param {IMultiItemEntity} item
+   */
+  protected onEdit(item: IMultiItemEntity): void {
+    this.multiFieldPlugin.onEditItem(item);
+  }
+
+  /**
+   * @stable [29.08.2018]
+   * @param {IMultiItemEntity} item
+   */
+  protected onMerge(item: IMultiItemEntity): void {
+    this.multiFieldPlugin.onMergeItem(item);
   }
 
   /**
