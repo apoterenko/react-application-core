@@ -13,6 +13,7 @@ import { BaseList } from '../list';
 import { GridRow } from './row';
 import { Field } from '../field';
 import { IGridState } from './grid.interface';
+import { FlexLayout } from '../layout';
 
 export class Grid extends BaseList<Grid, IGridProps, IGridState> {
 
@@ -38,8 +39,8 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     const dataSource = this.dataSource;
 
     return (
-      <div className='rac-flex rac-flex-row'>
-        <div className='rac-flex rac-flex-full'>
+      <FlexLayout row={true}>
+        <FlexLayout>
           <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
             <thead className='rac-grid-head'>
               {this.headerElement}
@@ -57,7 +58,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             </tbody>
           </table>
           {this.getAddAction()}
-        </div>
+        </FlexLayout>
         {
           orNull<JSX.Element>(
             props.useService || props.usePlusAction,
@@ -77,7 +78,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             )
           )
         }
-      </div>
+      </FlexLayout>
     );
   }
 
@@ -341,7 +342,12 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     return (
       <GridRow ref={rowKey}
                key={rowKey}
-               className={toClassName('rac-grid-data-row', index % 2 === 0 ? 'rac-grid-data-row-odd' : '')}
+               className={
+                 toClassName(
+                   'rac-grid-data-row',
+                   index % 2 === 0 ? 'rac-grid-data-row-odd' : ''
+                 )
+               }
                selected={this.isEntitySelected(entity)}
                onClick={() => this.onSelect(entity)}>
         {
