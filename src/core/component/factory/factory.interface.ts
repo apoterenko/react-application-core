@@ -1,6 +1,7 @@
 import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 
 export interface IUIFactory {
+  switch?: string;
   snackbar?: string;
   snackbarText?: string;
   snackbarActionWrapper?: string;
@@ -99,4 +100,10 @@ export interface IUIFactory {
    * @returns {JSX.Element}
    */
   makeCheckboxAttachment?(): JSX.Element;
+
+  /**
+   * @stable [30.05.2018]
+   * @returns {JSX.Element}
+   */
+  makeSwitchAttachment?(): JSX.Element;
 }

@@ -241,6 +241,7 @@ export class UIMaterialFactory implements IUIFactory {
   };
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 
+  public switch = 'mdc-switch';
   public snackbar = 'mdc-snackbar';
   public snackbarText = 'mdc-snackbar__text';
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
@@ -393,6 +394,14 @@ export class UIMaterialFactory implements IUIFactory {
         <div className='mdc-checkbox__mixedmark'/>
       </div>
     );
+  }
+
+  /**
+   * @stable [30.08.2018]
+   * @returns {JSX.Element}
+   */
+  public makeSwitchAttachment(): JSX.Element {
+    return <div className='mdc-switch__track'/>;
   }
 
   /**
