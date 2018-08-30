@@ -5,12 +5,9 @@
 
   .rac-dialog {
 
-    &.rac-form-dialog {
-
-      .rac-dialog-body {
-        font-size: $rac-form-dialog-body-font-size;   /* @stable [05.08.2018] */
-        color: $rac-form-dialog-body-color;           /* @stable [05.08.2018] */
-      }
+    .rac-dialog-body {
+      font-size: $rac-dialog-body-font-size;   /* @stable [05.08.2018] */
+      color: $rac-dialog-body-color;           /* @stable [05.08.2018] */
     }
 
     .rac-form {
