@@ -1,49 +1,26 @@
 import * as React from 'react';
 
-import { BaseContainer } from '../../base';
-import { TabPanel } from '../tabpanel.component';
-import { ITabConfiguration } from '../../../configurations-definitions.interface';
-import { IFormTabPanelContainerProps } from './form-tabpanel.interface';
-import { FORM_ACTIVE_VALUE_ACTION_TYPE, getFormTabActiveValue } from '../../form';
-import { orNull } from '../../../util';
+import { FORM_ACTIVE_VALUE_ACTION_TYPE } from '../../form';
 import { IPayloadWrapper } from '../../../definitions.interface';
+import { TabPanelContainer } from '../tabpanel.container';
+import { getFormTabActiveValue } from '../../form';
 
-export class FormTabPanelContainer extends BaseContainer<IFormTabPanelContainerProps> {
-
-  /**
-   * @stable [14.08.2018]
-   * @param {IFormTabPanelContainerProps} props
-   */
-  constructor(props: IFormTabPanelContainerProps) {
-    super(props);
-    this.onTabClick = this.onTabClick.bind(this);
-  }
+export class FormTabPanelContainer extends TabPanelContainer {
 
   /**
-   * @stable [14.08.2018]
-   * @returns {JSX.Element}
+   * @stable [30.08.2018]
+   * @param {IPayloadWrapper<number>} payloadWrapper
    */
-  public render(): JSX.Element {
-    const props = this.props;
-    const tabItems = props.items;
-    return (
-      orNull<JSX.Element>(
-        tabItems.length > 1,
-        () => (
-          <TabPanel items={tabItems}
-                    activeValue={getFormTabActiveValue(props, tabItems)}
-                    onClick={this.onTabClick}/>
-        )
-      )
-    );
-  }
-
-  /**
-   * @stable [14.08.2018]
-   * @param {ITabConfiguration} tab
-   */
-  private onTabClick(tab: ITabConfiguration): void {
-    const payloadWrapper: IPayloadWrapper<number> = {payload: tab.value};
+  protected dispatchActiveValue(payloadWrapper: IPayloadWrapper<number>): void {
     this.dispatchFrameworkAction(FORM_ACTIVE_VALUE_ACTION_TYPE, payloadWrapper);
+  }
+
+  /**
+   * @stable [30.08.2018]
+   * @returns {number}
+   */
+  protected getTabActiveValue(): number {
+    const props = this.props;
+    return getFormTabActiveValue(props, props.tabPanelConfiguration);
   }
 }

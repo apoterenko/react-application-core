@@ -3,11 +3,11 @@ import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
-import { ITabPanelProps, ITabPanelState, ITabPanel } from './tabpanel.interface';
+import { ITabPanelState, ITabPanel } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
+import { ITabPanelProps } from '../../props-definitions.interface';
 
-export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelState>
-  implements ITabPanel {
+export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelState> implements ITabPanel {
 
   public static defaultProps: ITabPanelProps = {
     useIndicator: true,
@@ -31,6 +31,11 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
     const props = this.props;
     const state = this.state;
     const items = props.items;
+
+    if (items.length <= 1) {
+      return null;
+    }
+
     const activeValue = R.isNil(props.activeValue)
       ? (R.isNil(state.activeValue) ? (items.length ? items[0].value : null) : state.activeValue)
       : props.activeValue;

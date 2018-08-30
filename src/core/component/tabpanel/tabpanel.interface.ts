@@ -1,43 +1,20 @@
-import {
-  IItemsWrapper,
-  IOnClickWrapper,
-  IOnCloseWrapper,
-  IRippableWrapper,
-  IUseIndicatorWrapper,
-  IActiveValueWrapper,
-} from '../../definitions.interface';
-import { IComponentConfiguration, ITabConfiguration } from '../../configurations-definitions.interface';
-import { IComponentEntity, IComponent } from '../../entities-definitions.interface';
-
-/**
- * @stable [14.08.2018]
- */
-export interface ITabPanelConfiguration extends IComponentConfiguration,
-                                                IUseIndicatorWrapper,
-                                                IRippableWrapper,
-                                                IOnCloseWrapper<ITabConfiguration>,
-                                                IOnClickWrapper<ITabConfiguration> {
-}
-
-/**
- * @stable [14.08.2018]
- */
-export interface ITabPanelEntity extends IComponentEntity,
-                                         IItemsWrapper<ITabConfiguration[]>,
-                                         IActiveValueWrapper {
-}
-
-/**
- * @stable [11.08.2018]
- */
-export interface ITabPanelProps extends ITabPanelConfiguration,
-                                        ITabPanelEntity {
-}
+import { IActiveValueWrapper } from '../../definitions.interface';
+import { ITabPanelConfigurationWrapper } from '../../configurations-definitions.interface';
+import { IComponent, ITabPanelWrapperEntity } from '../../entities-definitions.interface';
+import { IContainerProps, ITabPanelProps } from '../../props-definitions.interface';
 
 /**
  * @stable [11.08.2018]
  */
 export interface ITabPanelState extends IActiveValueWrapper {
+}
+
+/**
+ * @stable [30.08.2018]
+ */
+export interface ITabPanelContainerProps extends IContainerProps,
+                                                 ITabPanelWrapperEntity,
+                                                 ITabPanelConfigurationWrapper {
 }
 
 /**
@@ -47,3 +24,10 @@ export interface ITabPanel extends IComponent<ITabPanelProps, ITabPanelState> {
   onForward(): void;
   onBackward(): void;
 }
+
+/**
+ * @stable [30.08.2018]
+ * @type {string}
+ */
+export const TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE = 'tabpanel.active.value';
+export const TAB_PANEL_DESTROY_ACTION_TYPE = 'tabpanel.destroy';
