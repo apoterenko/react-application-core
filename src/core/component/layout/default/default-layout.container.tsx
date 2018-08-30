@@ -26,6 +26,7 @@ import { Operation } from '../../../operation';
 import { IPayloadWrapper } from '../../../definitions.interface';
 import { Message } from '../../message';
 import { CenterLayout } from '../../layout';
+import { APP_VERSION } from '../../../env';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
@@ -107,6 +108,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
       this.routes.profile,
       () => (
         <Profile path={this.routes.home}
+                 appVersion={APP_VERSION}
                  name={user && user.name}
                  email={user && user.email}
                  menuItems={[{ label: 'Exit', icon: 'exit_to_app', value: DefaultLayoutContainer.PROFILE_EXIT_ACTION }]}
