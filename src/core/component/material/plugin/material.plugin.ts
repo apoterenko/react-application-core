@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { IUniversalComponentPlugin, IComponent } from '../../../entities-definitions.interface';
 import {
   INativeMaterialComponentFactory,
@@ -18,10 +20,14 @@ export class MaterialPlugin<TComponent extends IComponent,
   }
 
   /**
-   * @stable [05.05.2018]
+   * @stable [31.08.2018]
    */
   public componentDidMount(): void {
-    this.mdc = this.mdcFactory.attachTo(this.component.self);
+    const self = this.component.self;
+
+    if (!R.isNil(self)) {
+      this.mdc = this.mdcFactory.attachTo(self);
+    }
   }
 
   /**
