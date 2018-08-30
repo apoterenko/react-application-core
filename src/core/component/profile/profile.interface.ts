@@ -13,4 +13,5 @@ export interface IProfileInternalProps extends IComponentProps,
                                                IStringPathWrapper,
                                                IOnClickWrapper<IMenuItemEntity> {
   menuItems?: any; // TODO
+  appVersion?: string; // TODO
 }

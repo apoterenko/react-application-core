@@ -80,6 +80,9 @@ $rac-profile-menu-icon-color: $color-5 !default;
 $rac-profile-menu-icon-width: $rac-icon-width;
 $rac-profile-menu-icon-height: $rac-icon-height;
 $rac-profile-menu-wrapper-background-color: $color-4 !default;
+$rac-profile-app-version-top: 4px !default;
+$rac-profile-app-version-left: 4px !default;
+$rac-profile-app-version-font-size: 11px !default;
 
 /* @stable [25.06.2018] */
 $rac-add-button-icon-border-radius: 32px !default;
@@ -256,8 +259,6 @@ $rac-preview-action-color: $color-15 !default;
 $rac-preview-action-width: 32px !default;
 $rac-preview-action-height: 32px !default;
 $rac-preview-action-opacity: $opacity !default;
-$rac-viewer-font-size: $rac-default-font-size !default;
-$rac-viewer-color: $rac-default-text-color !default;
 $rac-preview-dialog-surface-max-width: 80vw !default;
 $rac-preview-dialog-body-max-height: 60vh !default;
 
@@ -283,8 +284,8 @@ $rac-card-list-item-margin-bottom: 16px !default;
 
 /* @stable [05.08.2018] */
 $rac-dialog-header-color: $rac-default-label-color !default;
-$rac-form-dialog-body-font-size: $rac-default-font-size !default;
-$rac-form-dialog-body-color: $rac-default-text-color !default;
+$rac-dialog-body-font-size: $rac-default-font-size !default;
+$rac-dialog-body-color: $rac-default-text-color !default;
 
 /* @stable [02.08.2018] */
 $rac-drawer-navigation-list-padding-bottom: 48px !default;

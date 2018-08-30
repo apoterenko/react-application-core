@@ -20,6 +20,12 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
     return (
       <Link to={props.path}
             className='rac-profile'>
+        {
+          orNull<JSX.Element>(
+            props.appVersion,
+            () => <div className='rac-profile-app-version'>{props.appVersion}</div>
+          )
+        }
         <div className='rac-profile-avatar'/>
         <div ref='menuAnchor'
              className='rac-profile-menu-wrapper'>
@@ -30,7 +36,7 @@ export class Profile extends BaseComponent<Profile, IProfileInternalProps, {}> {
                 onSelect={this.onMenuActionClick}/>
         </div>
         {
-          orNull(
+          orNull<JSX.Element>(
             props.name,
             () => (
               <div className='rac-profile-name rac-profile-text rac-overflow-ellipsis'

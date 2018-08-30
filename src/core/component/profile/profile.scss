@@ -13,6 +13,13 @@
       color: inherit;                                              /* @stable [26.06.2018] */
     }
 
+    .rac-profile-app-version {
+      position: absolute;                                          /* @stable [30.08.2018] */
+      top: $rac-profile-app-version-top;                           /* @stable [30.08.2018] */
+      left: $rac-profile-app-version-left;                         /* @stable [30.08.2018] */
+      font-size: $rac-profile-app-version-font-size;               /* @stable [30.08.2018] */
+    }
+
     .rac-profile-avatar {
       margin-bottom: $rac-profile-avatar-margin-bottom;            /* @stable [26.06.2018] */
       width: $rac-profile-avatar-width;                            /* @stable [26.06.2018] */
