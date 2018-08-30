@@ -21,7 +21,7 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
    * @stable [21.06.2018]
    * @returns {JSX.Element}
    */
-  protected getAttachment(): JSX.Element {
+  protected getAttachmentElement(): JSX.Element {
     const props = this.props;
 
     const gridListEntity: IListEntity = {

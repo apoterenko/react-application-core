@@ -108,7 +108,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
           </div>
           {this.fieldMessage}
           {this.fieldErrorMessageElement}
-          {this.getAttachment()}
+          {this.getAttachmentElement()}
           {
             orNull<JSX.Element>(
               props.useKeyboard && this.state.keyboardOpened,
@@ -150,7 +150,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @stable [01.06.2018]
    * @returns {JSX.Element}
    */
-  protected getAttachment(): JSX.Element {
+  protected getAttachmentElement(): JSX.Element {
     return null;
   }
 

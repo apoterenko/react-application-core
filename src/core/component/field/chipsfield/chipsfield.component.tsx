@@ -16,7 +16,7 @@ export class ChipsField extends MultiField<ChipsField, IChipsFieldProps, IChipsF
    * @stable [01.06.2018]
    * @returns {JSX.Element}
    */
-  protected getAttachment(): JSX.Element {
+  protected getAttachmentElement(): JSX.Element {
     return (
       <ChipsWrapper>
         {this.multiFieldPlugin.activeValue.map((item) => (

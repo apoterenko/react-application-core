@@ -105,7 +105,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
    * @stable [03.08.2018]
    * @returns {JSX.Element}
    */
-  protected getAttachment(): JSX.Element {
+  protected getAttachmentElement(): JSX.Element {
     const state = this.state;
     const props = this.props;
     const messages = this.settings.messages;

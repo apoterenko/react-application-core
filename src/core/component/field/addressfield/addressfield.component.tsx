@@ -99,7 +99,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
    * @stable [31.07.2018]
    * @returns {JSX.Element}
    */
-  protected getAttachment(): JSX.Element {
+  protected getAttachmentElement(): JSX.Element {
     const state = this.state;
     const messages = this.settings.messages;
     const currentPlace = R.isNil(state.place) ? this.value : state.place;
