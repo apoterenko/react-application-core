@@ -1,5 +1,9 @@
 import { IContainerProps } from '../../props-definitions.interface';
-import { IFilterFormWrapperEntity, IComponentEntity } from '../../entities-definitions.interface';
+import {
+  IFilterFormWrapperEntity,
+  IComponentEntity,
+  IListWrapperEntity,
+} from '../../entities-definitions.interface';
 import { IFieldsConfigurationsWrapper, IComponentConfiguration } from '../../configurations-definitions.interface';
 import { IOnRemoveWrapper } from '../../definitions.interface';
 
@@ -29,5 +33,6 @@ export interface IChipsFilterProps extends IChipsFilterEntity,
  * @stable [26.08.2018]
  */
 export interface IChipsFilterContainerProps extends IContainerProps,
+                                                    IListWrapperEntity,
                                                     IFilterFormWrapperEntity {
 }
