@@ -26,3 +26,10 @@ export const trimmedUndefEmpty = (v: AnyT): AnyT => {
  * @returns {AnyT}
  */
 export const nvl = (v1: AnyT, v2: AnyT): AnyT => R.isNil(v1) ? v2 : v1;
+
+/**
+ * @stable [31.08.2018]
+ * @param {TValue} v
+ * @returns {TValue}
+ */
+export const coalesce = <TValue = AnyT>(...v: TValue[]): TValue => R.find<TValue>((v0) => !R.isNil(v0), v);
