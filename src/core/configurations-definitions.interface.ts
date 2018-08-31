@@ -200,6 +200,7 @@ import {
   IExpandedGroupsWrapper,
   IOnCloseWrapper,
   IUseIndicatorWrapper,
+  IAliasWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -212,6 +213,7 @@ import {
   IApiEntity,
 } from './entities-definitions.interface';
 import { IUniversalButtonProps } from './props-definitions.interface';
+
 /**
  * @stable [26.08.2018]
  */
@@ -525,7 +527,7 @@ export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [31.08.2018]
  */
 export interface ITabConfiguration extends IValueWrapper,
                                            IClassNameWrapper,
@@ -534,6 +536,7 @@ export interface ITabConfiguration extends IValueWrapper,
                                            ISelectedWrapper,
                                            IUrlWrapper,
                                            IIconWrapper,
+                                           IAliasWrapper,
                                            IActiveValueWrapper {
 }
 

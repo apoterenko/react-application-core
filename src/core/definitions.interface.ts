@@ -1611,6 +1611,13 @@ export interface IIconWrapper<TIcon = string> {
 /**
  * @stable [31.08.2018]
  */
+export interface IAliasWrapper<TAlias = string> {
+  alias?: TAlias;
+}
+
+/**
+ * @stable [31.08.2018]
+ */
 export interface IResolverWrapper<TResolver> {
   resolver?: TResolver;
 }
