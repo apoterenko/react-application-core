@@ -1,20 +1,16 @@
 import * as React from 'react';
 
-import { IBasicEvent } from '../../../definitions.interface';
-import { Field, IFieldInputProps } from '../../field';
-import { noop, toClassName, uuid } from '../../../util';
-import {
-  ICheckboxInternalState,
-  ICheckboxInternalProps,
-} from './checkbox.interface';
+import { toClassName } from '../../../util';
+import { ICheckboxState, ICheckboxProps, ICheckboxInputProps } from './checkbox.interface';
 import { CenterLayout } from '../../layout';
+import { BaseCheckbox } from './base-checkbox.component';
 
-export class Checkbox extends Field<Checkbox,
-                                    ICheckboxInternalProps,
-                                    ICheckboxInternalState> {
+export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxState> {
 
-  private inputId = uuid();
-
+  /**
+   * @stable [31.08.2018]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
 
@@ -41,63 +37,37 @@ export class Checkbox extends Field<Checkbox,
   }
 
   /**
-   * @inheritDoc
-   */
-  protected getSelfElementClassName(): string {
-    return toClassName(this.uiFactory.checkbox, 'rac-checkbox-field');
-  }
-
-  /**
-   * @inheritDoc
+   * @stable [31.08.2018]
+   * @returns {JSX.Element}
    */
   protected getInputAttachmentElement(): JSX.Element {
     return this.uiFactory.makeCheckboxAttachment();
   }
 
-  protected getInputElementProps(): IFieldInputProps {
+  /**
+   * @stable [31.08.2018]
+   * @returns {ICheckboxInputProps}
+   */
+  protected getInputElementProps(): ICheckboxInputProps {
     return {
-      ...super.getInputElementProps() as IFieldInputProps,
-
-      id: this.inputId,
-      type: 'checkbox',
+      ...super.getInputElementProps(),
       className: this.uiFactory.checkboxInput,
-
-      /**
-       * Needed for entity initializing
-       * @stable [17.08.2018]
-       */
-      checked: this.displayValue,
-
-      /**
-       * Only the manual changes
-       * @stable [17.08.2018]
-       */
-      onChange: noop,
     };
   }
 
   /**
-   * @stable [17.08.2018]
-   * @param {IBasicEvent} event
+   * @stable [31.08.2018]
+   * @returns {string}
    */
-  protected onClick(event: IBasicEvent): void {
-    // A workaround to any implementation
-    this.onChangeManually(!this.props.value);
-
-    if (this.props.onClick) {
-      this.props.onClick(event);
-    }
-  }
-
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-form-checkbox');
+    return toClassName(super.getFieldClassName(), 'rac-checkbox');
   }
 
   /**
-   * @stable [17.08.2018]
-   * @returns {boolean}
+   * @stable [31.08.2018]
+   * @returns {JSX.Element}
    */
-  protected getEmptyValue(): boolean {
-    return false;
+  protected getSelfElementClassName(): string {
+    return toClassName(this.uiFactory.checkbox, 'rac-checkbox-field');
   }
 }
