@@ -8,6 +8,7 @@ import {
   LIST_CREATE_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
   LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
+  LIST_CANCEL_LOAD_ACTION_TYPE,
   IUniversalListContainerProps,
 } from './list.interface';
 import { UniversalContainer } from '../base/universal.container';
@@ -24,6 +25,13 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
     this.onCreate = this.onCreate.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onEmptyMessageClick = this.onEmptyMessageClick.bind(this);
+  }
+
+  /**
+   * @stable [31.08.2018]
+   */
+  public componentWillUnmount(): void {
+    this.dispatchFrameworkAction(LIST_CANCEL_LOAD_ACTION_TYPE);
   }
 
   /**
@@ -65,9 +73,9 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [31.08.2018]
    */
   private onEmptyMessageClick(): void {
-    this.dispatch(LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE);
+    this.dispatchFrameworkAction(LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE);
   }
 }

@@ -94,6 +94,15 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         touched: true,
         lockPage: state.lockPage,
       };
+    case ListActionBuilder.buildCancelLoadActionType(section):
+      /**
+       * @stable [31.08.2018]
+       */
+      return {
+        ...state,
+        progress: false,
+        touched: !R.isNil(state.data),  // We should allow load a data after cancel. This is actual for already created containers
+      };
     case ListActionBuilder.buildDestroyActionType(section):
       return {
         ...INITIAL_APPLICATION_LIST_STATE,
