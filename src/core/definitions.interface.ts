@@ -2850,6 +2850,7 @@ export const UNI_CODES = {
   dash: '\u2014',
   space: '\u0020',
   noBreakSpace: '\u00a0',
+  arrowRight:  '\u27f6',
 };
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;

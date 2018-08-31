@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull, filterAndSortEntities, isFn, trimmedUndefEmpty } from '../../util';
+import { orNull, filterAndSortEntities, isFn, trimmedUndefEmpty, defValuesFilter } from '../../util';
 import {
   IEntity,
   IEntityWrapper,
@@ -9,6 +9,7 @@ import {
   IQueryWrapper,
 } from '../../definitions.interface';
 import {
+  IOptionEntity,
   IEditableEntity,
   IEntityWrapperEntity,
   IListWrapperEntity,
@@ -23,7 +24,6 @@ import {
   IFilterFormWrapperEntity,
   IFormWrapperEntity,
   IDictionaryEntity,
-  INamedEntity,
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
   IQueryFilterWrapperEntity,
@@ -268,23 +268,25 @@ export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListW
   actionsDisabledListEntityMapper(listWrapperEntity.list);
 
 /**
- * @stable [16.06.2018]
+ * @stable [31.08.2018]
  * @param {TEntity[] | TEntity} data
  * @param {IFilterAndSorterConfiguration} config
- * @returns {Array<ISelectOptionEntity<TEntity extends INamedEntity>>}
+ * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
  */
 export const selectOptionsMapper =
-  <TEntity extends INamedEntity>(data: TEntity[] | TEntity,
-                                 config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TEntity>> => {
+  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity,
+                                  config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TEntity>> => {
   const entities: TEntity[] = filterAndSortEntities<TEntity>(data, config);
   return orNull<Array<ISelectOptionEntity<TEntity>>>(
     !R.isNil(entities),
     () => (
-      entities.map<ISelectOptionEntity<TEntity>>((entity): ISelectOptionEntity<TEntity> => ({
-        value: entity.id,
-        label: entity.name,
-        rawData: entity,
-      }))
+      entities.map<ISelectOptionEntity<TEntity>>((entity): ISelectOptionEntity<TEntity> =>
+        defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
+          value: entity.id,
+          label: entity.name,
+          disabled: entity.disabled,
+          rawData: entity,
+        }))
     )
   );
 };

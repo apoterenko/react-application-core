@@ -318,6 +318,14 @@ export interface INamedEntity extends IEntityIdTWrapper,
 }
 
 /**
+ * @stable [31.08.2018]
+ */
+export interface IOptionEntity extends IEntityIdTWrapper,
+                                       INameWrapper,
+                                       IDisabledWrapper {
+}
+
+/**
  * @stable [03.07.2018]
  */
 export interface INamedNumericEntity extends IIdWrapper,
