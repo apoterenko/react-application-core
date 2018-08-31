@@ -81,7 +81,9 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       const remoteAppMetaInfo = data[1];
       const remoteAppUuid = remoteAppMetaInfo.data.result.uuid;
 
-      if (!R.isNil(remoteAppUuid)
+      if (!R.isNil(localAppUuid)
+        && !R.isEmpty(localAppUuid)
+        && !R.isNil(remoteAppUuid)
         && !R.isEmpty(remoteAppUuid)
         && !R.equals(localAppUuid, remoteAppUuid)) {
         this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
