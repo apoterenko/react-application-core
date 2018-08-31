@@ -2,7 +2,6 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IResolverWrapper,
-  ISectionWrapper,
   IListSectionWrapper,
   IFilterSectionWrapper,
   IListRoutePathWrapper,
@@ -18,6 +17,8 @@ import {
   ICanUpdateWrapper,
   ISaveMessageWrapper,
   IRelatedEntityWrapper,
+  ILazyLoadedSectionWrapper,
+  ILazyLoadedResolverWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
@@ -25,10 +26,14 @@ import {
   IApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 
-/* @stable - 01.04.2018 */
+/**
+ * @stable [31.08.2018]
+ */
 export interface IUntouchedListMiddlewareConfig<TApplicationState>
   extends IResolverWrapper<(state: TApplicationState) => IListWrapperEntity>,
-          ISectionWrapper {
+          IListSectionWrapper,
+          ILazyLoadedResolverWrapper<(state: TApplicationState, action?: IEffectsAction) => IListWrapperEntity>,
+          ILazyLoadedSectionWrapper<(state: TApplicationState, action?: IEffectsAction) => string> {
 }
 
 /**
