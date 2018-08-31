@@ -94,6 +94,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
             '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
           );
           result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
+          result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionMessageHasBeenDeployed));
         }
       }
     }

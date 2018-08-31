@@ -36,6 +36,7 @@ export interface IApplicationNumberSettings {
 }
 
 export interface IApplicationMessagesSettings {
+  newAppVersionMessageHasBeenDeployed?: string;
   dialogTitleMessage?: string;
   dialogCancelMessage?: string;
   dialogAcceptMessage?: string;
@@ -122,6 +123,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   companyName: 'Test company',
   entityEmptyId: null,
   messages: {
+    newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
     dialogTitleMessage: 'Notice',
     dialogCancelMessage: 'Cancel',
     dialogAcceptMessage: 'Continue',
@@ -140,7 +142,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     noFileToShowMessage: 'No file to show.',
     emptyMessage: 'Start a search',
     emptyDataMessage: 'No data found',
-    appNotReadyMessage: 'The application is not ready.',
+    appNotReadyMessage: 'The application is being initialized...',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     noSelectedItemsMessage: 'No selected items.',
     filterPlaceholderMessage: 'Filter',
