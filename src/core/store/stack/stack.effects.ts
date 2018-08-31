@@ -9,6 +9,7 @@ import { StackActionBuilder } from './stack-action.builder';
 import { getDestroyableSections } from './stack.helper';
 import { FilterActionBuilder } from '../../component/filter';
 import { IApplicationStoreEntity } from '../../entities-definitions.interface';
+import { TabPanelActionBuilder } from '../../component/tabpanel';
 
 @provideInSingleton(ConnectorEffects)
 export class ConnectorEffects {
@@ -31,6 +32,7 @@ export class ConnectorEffects {
   private buildActionsToDestroy(sectionsToDestroy: string[]): IEffectsAction[] {
     return sectionsToDestroy.map((section) => ListActionBuilder.buildDestroyAction(section))
       .concat(sectionsToDestroy.map((section) => FormActionBuilder.buildDestroyAction(section)))
-      .concat(sectionsToDestroy.map((section) => FilterActionBuilder.buildDestroyAction(section)));
+      .concat(sectionsToDestroy.map((section) => FilterActionBuilder.buildDestroyAction(section)))
+      .concat(sectionsToDestroy.map((section) => TabPanelActionBuilder.buildDestroyAction(section)));
   }
 }
