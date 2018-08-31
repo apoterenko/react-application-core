@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import { ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IActiveValueWrapper, IPayloadWrapper } from '../../definitions.interface';
+import { ITabPanelWrapperEntity } from '../../entities-definitions.interface';
 
 /**
  * @stable [31.08.2018]
@@ -27,6 +28,12 @@ export const isTabActivated = (action: IEffectsAction,
 export const findTabByAlias = (alias: string, tabPanelConfiguration: ITabPanelConfiguration): ITabConfiguration =>
   tabPanelConfiguration.items.find((tab) => tab.alias === alias);
 
+/**
+ * @stable [31.08.2018]
+ * @param {string} alias
+ * @param {ITabPanelConfiguration} tabPanelConfiguration
+ * @returns {ITabConfiguration}
+ */
 export const findTabValueByAlias = (alias: string, tabPanelConfiguration: ITabPanelConfiguration): ITabConfiguration =>
   findTabByAlias(alias, tabPanelConfiguration).value;
 
@@ -41,6 +48,18 @@ export const isTabActiveByAlias = (activeValueWrapper: IActiveValueWrapper,
                                    tabPanelConfiguration: ITabPanelConfiguration,
                                    alias: string): boolean =>
   isTabActive(activeValueWrapper, findTabByAlias(alias, tabPanelConfiguration));
+
+/**
+ * @stable [31.08.2018]
+ * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
+ * @param {ITabPanelConfiguration} tabPanelConfiguration
+ * @param {string} alias
+ * @returns {boolean}
+ */
+export const isTabPanelWrapperEntityActiveByAlias = (tabPanelWrapperEntity: ITabPanelWrapperEntity,
+                                                     tabPanelConfiguration: ITabPanelConfiguration,
+                                                     alias: string): boolean =>
+  isTabActiveByAlias(tabPanelWrapperEntity.tabPanel, tabPanelConfiguration, alias);
 
 /**
  * @stable [30.08.2018]
