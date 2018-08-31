@@ -157,6 +157,21 @@ export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEnt
   tabPanelMapper(tabPanelWrapperEntity.tabPanel);
 
 /**
+ * @stable [31.08.2018]
+ * @param {ITabPanelEntity} tabPanel
+ * @returns {number}
+ */
+export const tabPanelActiveValueMapper = (tabPanel: ITabPanelEntity): number => tabPanel.activeValue;
+
+/**
+ * @stable [31.08.2018]
+ * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
+ * @returns {number}
+ */
+export const tabPanelWrapperActiveValueMapper = (tabPanelWrapperEntity: ITabPanelWrapperEntity): number =>
+  tabPanelActiveValueMapper(tabPanelWrapperEntity.tabPanel);
+
+/**
  * @stable [05.08.2018]
  * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
  * @param {boolean} useFormMapper
