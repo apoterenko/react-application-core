@@ -1,6 +1,7 @@
 import { MDCRipple } from '@material/ripple';
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCPersistentDrawer } from '@material/drawer';
+import { MDCSwitch } from '@material/switch';
 
 import { appContainer, DI_TYPES } from '../../di';
 import { addClassNameToBody } from '../../util';
@@ -8,7 +9,7 @@ import {
   IComponentClassEntity,
   UniversalComponentPluginFactoryT,
 } from '../../entities-definitions.interface';
-import { Checkbox } from '../field';
+import { Checkbox, Switch } from '../field';
 import { IUIFactory } from '../factory';
 import {
   DialogMaterialPlugin,
@@ -35,6 +36,11 @@ const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactory
  * @stable [17.08.2018]
  */
 uiPlugins.set(Checkbox, (component: Checkbox) => new MaterialPlugin(component, MDCCheckbox));
+
+/**
+ * @stable [31.08.2018]
+ */
+uiPlugins.set(Switch, (component: Switch) => new MaterialPlugin(component, MDCSwitch));
 
 /**
  * @stable [15.08.2018]

@@ -8,6 +8,7 @@ export * from './textfield';
 export * from './select';
 export * from './gridfield';
 export * from './textarea';
+export * from './switch';
 export * from './checkbox';
 export * from './chipsfield';
 export * from './date-range';

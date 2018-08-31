@@ -2,6 +2,9 @@ import { IUniversalUIIconConfiguration } from '../../configurations-definitions.
 
 export interface IUIFactory {
   switch?: string;
+  switchInput?: string;
+  switchInputWrapper?: string;
+  switchInputWrapperBody?: string;
   snackbar?: string;
   snackbarText?: string;
   snackbarActionWrapper?: string;
@@ -50,6 +53,7 @@ export interface IUIFactory {
   textField?: string;
   textFieldBox?: string;
   checkbox?: string;
+  checkboxInput?: string;
   textFieldInput?: string;
   textFieldTextArea?: string;
   textFieldFocused?: string;
@@ -59,7 +63,6 @@ export interface IUIFactory {
   textFieldValidationText?: string;
   textFieldLabel?: string;
   textFieldFocusedLabel?: string;
-  checkboxInput?: string;
   card?: string;
   cardActions?: string;
   cardActionButtons?: string;

@@ -161,11 +161,15 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     );
   }
 
+  /**
+   * @stable [31.08.2018]
+   * @returns {JSX.Element}
+   */
   protected getInputElement(): JSX.Element {
     return <input {...this.getInputElementProps() as IFieldInputProps}/>;
   }
 
-  protected getInputElementProps(): IFieldInputProps|IFieldTextAreaProps {
+  protected getInputElementProps(): IFieldInputProps | IFieldTextAreaProps {
     const props = this.props;
     const name = props.name;
     const step = props.step;

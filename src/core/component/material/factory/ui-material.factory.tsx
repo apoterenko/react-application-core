@@ -242,6 +242,9 @@ export class UIMaterialFactory implements IUIFactory {
   private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
 
   public switch = 'mdc-switch';
+  public switchInput = 'mdc-switch__native-control';
+  public switchInputWrapper = 'mdc-switch__thumb-underlay';
+  public switchInputWrapperBody = 'mdc-switch__thumb';
   public snackbar = 'mdc-snackbar';
   public snackbarText = 'mdc-snackbar__text';
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
@@ -290,6 +293,7 @@ export class UIMaterialFactory implements IUIFactory {
   public textField = 'mdc-text-field';
   public textFieldBox = 'mdc-text-field--box';
   public checkbox = 'mdc-checkbox';
+  public checkboxInput = 'mdc-checkbox__native-control';
   public textFieldInput = 'mdc-text-field__input';
   public textFieldTextArea = 'mdc-text-field--textarea';
   public textFieldFocused = 'mdc-text-field--focused';
@@ -299,7 +303,6 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldValidationText = 'mdc-text-field-helper-text--validation-msg';
   public textFieldLabel = 'mdc-floating-label';
   public textFieldFocusedLabel = 'mdc-floating-label--float-above';
-  public checkboxInput = 'mdc-checkbox__native-control';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';
