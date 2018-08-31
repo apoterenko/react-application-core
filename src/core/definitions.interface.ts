@@ -1608,9 +1608,25 @@ export interface IIconWrapper<TIcon = string> {
   icon?: TIcon;
 }
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [31.08.2018]
+ */
 export interface IResolverWrapper<TResolver> {
   resolver?: TResolver;
+}
+
+/**
+ * @stable [31.08.2018]
+ */
+export interface ILazyLoadedResolverWrapper<TLazyLoadedResolver> {
+  lazyLoadedResolver?: TLazyLoadedResolver;
+}
+
+/**
+ * @stable [31.08.2018]
+ */
+export interface ILazyLoadedSectionWrapper<TLazyLoadedSection> {
+  lazyLoadedSection?: TLazyLoadedSection;
 }
 
 /**
