@@ -4,7 +4,7 @@ import {
   TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE,
   TAB_PANEL_DESTROY_ACTION_TYPE
 } from './tabpanel.interface';
-import { applySection } from '../../util';
+import { applySection, toActionPrefix } from '../../util';
 import { ACTION_PREFIX } from '../../definitions.interface';
 
 export class TabPanelActionBuilder {
@@ -15,7 +15,7 @@ export class TabPanelActionBuilder {
    * @returns {string}
    */
   public static buildActivateActionType(section: string): string {
-    return `${ACTION_PREFIX}${section}.${TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   /**
@@ -24,7 +24,7 @@ export class TabPanelActionBuilder {
    * @returns {string}
    */
   public static buildDestroyActionType(section: string): string {
-    return `${ACTION_PREFIX}${section}.${TAB_PANEL_DESTROY_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${TAB_PANEL_DESTROY_ACTION_TYPE}`;
   }
 
   /**

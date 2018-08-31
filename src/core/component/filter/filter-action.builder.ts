@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { applySection } from '../../util';
+import { applySection, toActionPrefix } from '../../util';
 import {
   FILTER_OPEN_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
@@ -11,7 +11,7 @@ import {
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_REFRESH_ACTION_TYPE,
 } from './filter.interface';
-import { IQueryWrapper, ACTION_PREFIX } from '../../definitions.interface';
+import { IQueryWrapper } from '../../definitions.interface';
 
 export class FilterActionBuilder {
   public static buildManualApplyActionType(section: string): string {
@@ -24,7 +24,7 @@ export class FilterActionBuilder {
    * @returns {string}
    */
   public static buildRefreshActionType(section: string): string {
-    return `${ACTION_PREFIX}${section}.${FILTER_REFRESH_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FILTER_REFRESH_ACTION_TYPE}`;
   }
 
   public static buildApplyActionType(section: string): string {

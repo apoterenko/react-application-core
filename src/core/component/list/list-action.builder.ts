@@ -1,7 +1,13 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { AnyT, IEntity, EntityIdT, ISelectedEntityWrapper, IRemovedEntityWrapper } from '../../definitions.interface';
-import { applySection } from '../../util';
+import {
+  AnyT,
+  IEntity,
+  EntityIdT,
+  ISelectedEntityWrapper,
+  IRemovedEntityWrapper,
+} from '../../definitions.interface';
+import { applySection, toActionPrefix } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
   LIST_LOAD_ACTION_TYPE,
@@ -25,6 +31,7 @@ import {
   LIST_LAZY_LOAD_DONE_ACTION_TYPE,
   LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
   LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
+  LIST_CANCEL_LOAD_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
@@ -53,8 +60,22 @@ export class ListActionBuilder {
     return `${section}.${LIST_NEXT_PAGE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [31.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildLoadActionType(section: string): string {
-    return `${section}.${LIST_LOAD_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_LOAD_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [31.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildCancelLoadActionType(section: string): string {
+    return `${toActionPrefix(section)}.${LIST_CANCEL_LOAD_ACTION_TYPE}`;
   }
 
   /**
@@ -63,7 +84,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLazyLoadActionType(section: string): string {
-    return `${section}.${LIST_LAZY_LOAD_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_ACTION_TYPE}`;
   }
 
   /**
@@ -72,19 +93,29 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLazyLoadDoneActionType(section: string): string {
-    return `${section}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
   }
 
   public static buildUnTouchActionType(section: string): string {
     return `${section}.${LIST_UN_TOUCH_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [31.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildLoadDoneActionType(section: string): string {
-    return `${section}.${LIST_LOAD_DONE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_LOAD_DONE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [31.08.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildLoadErrorActionType(section: string): string {
-    return `${section}.${LIST_LOAD_ERROR_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   /**
@@ -93,7 +124,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLazyLoadErrorActionType(section: string): string {
-    return `${section}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   /**
@@ -102,7 +133,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildEmptyMessageClickActionType(section: string): string {
-    return `${section}.${LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE}`;
   }
 
   public static buildSelectActionType(section: string): string {
@@ -119,7 +150,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildRemoveActionType(section: string): string {
-    return `${section}.${LIST_REMOVE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_REMOVE_ACTION_TYPE}`;
   }
 
   public static buildUpdateActionType(section: string): string {
