@@ -27,6 +27,8 @@ import {
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
   IQueryFilterWrapperEntity,
+  ITabPanelWrapperEntity,
+  ITabPanelEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
@@ -138,6 +140,21 @@ export const listEntityWrapperPageEntityFilterMapper =
  */
 export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity =>
   listMapper(listWrapperEntity.list, dataMutator);
+
+/**
+ * @stable [31.08.2018]
+ * @param {ITabPanelEntity} tabPanel
+ * @returns {ITabPanelEntity}
+ */
+export const tabPanelMapper = (tabPanel: ITabPanelEntity): ITabPanelWrapperEntity => ({tabPanel: {...tabPanel}});
+
+/**
+ * @stable [30.08.2018]
+ * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
+ * @returns {ITabPanelWrapperEntity}
+ */
+export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEntity): ITabPanelWrapperEntity =>
+  tabPanelMapper(tabPanelWrapperEntity.tabPanel);
 
 /**
  * @stable [05.08.2018]

@@ -118,6 +118,7 @@ import {
   IXWrapper,
   IPayloadWrapper,
   IActiveValueWrapper,
+  ITabPanelWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -490,6 +491,19 @@ export interface IRnListEntity extends IUniversalListEntity {
 export interface IListEntity extends IUniversalListEntity,
                                      ISortDirectionsEntity,
                                      IChangesWrapper {
+}
+
+/**
+ * @stable [30.08.2018]
+ */
+export interface ITabPanelEntity extends IUniversalComponentEntity,
+                                         IActiveValueWrapper {
+}
+
+/**
+ * @stable [30.08.2018]
+ */
+export interface ITabPanelWrapperEntity extends ITabPanelWrapper<ITabPanelEntity> {
 }
 
 /**
