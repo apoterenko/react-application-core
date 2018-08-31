@@ -16,7 +16,7 @@ export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TS
                 TProps,
                 TState> {
 
-  protected inputId = uuid();
+  private inputId = uuid();
 
   /**
    * @stable [31.08.2018]
@@ -64,5 +64,19 @@ export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TS
    */
   protected getEmptyValue(): boolean {
     return false;
+  }
+
+  /**
+   * @stable [31.08.2018]
+   * @returns {JSX.Element}
+   */
+  protected getLabelElement(): JSX.Element {
+    const props = this.props;
+    return (
+      <label className='rac-field-label'
+             htmlFor={this.inputId}>
+        {props.label ? this.t(props.label) : props.children}
+      </label>
+    );
   }
 }

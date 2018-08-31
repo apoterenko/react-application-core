@@ -26,10 +26,7 @@ export class Switch extends BaseCheckbox<Switch, ISwitchProps, ISwitchState> {
               </div>
             </div>
           </div>
-          <label className='rac-field-label'
-                 htmlFor={this.inputId}>
-            {props.label ? this.t(props.label) : props.children}
-          </label>
+          {this.getLabelElement()}
         </CenterLayout>
         {this.fieldMessage}
         {props.required && this.fieldErrorMessageElement}
