@@ -38,6 +38,7 @@
     }
 
     .rac-message {
+      width: 100%;                                                    /* @stable [01.09.2018] */
       color: $rac-form-field-message-color;                           /* @stable [29.06.2018] */
     }
 
