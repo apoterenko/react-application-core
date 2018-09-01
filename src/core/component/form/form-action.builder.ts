@@ -5,7 +5,6 @@ import { applySection, toActionPrefix } from '../../util';
 import {
   AnyT,
   IKeyValue,
-  ACTION_PREFIX,
   UNDEF,
 } from '../../definitions.interface';
 import {
@@ -23,6 +22,7 @@ import {
   FORM_RESET_ACTION_TYPE,
   FORM_ACTIVE_VALUE_ACTION_TYPE,
   FORM_CLEAR_ACTION_TYPE,
+  FORM_DEACTIVATED_VALUE_ACTION_TYPE,
 } from './form.interface';
 
 export class FormActionBuilder {
@@ -59,6 +59,15 @@ export class FormActionBuilder {
    */
   public static buildActiveValueActionType(section: string): string {
     return `${toActionPrefix(section)}.${FORM_ACTIVE_VALUE_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [02.09.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildDeactivatedValueActionType(section: string): string {
+    return `${toActionPrefix(section)}.${FORM_DEACTIVATED_VALUE_ACTION_TYPE}`;
   }
 
   public static buildSubmitActionType(section: string): string {

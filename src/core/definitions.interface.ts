@@ -2560,7 +2560,7 @@ export interface IOnActivateWrapper<TOnActivate = () => void> {
 /**
  * @stable [18.05.2018]
  */
-export interface IOnDeactivateWrapper<TOnDeactivate = () => void> {
+export interface IOnDeactivateWrapper<TOnDeactivate = (...args: AnyT[]) => void> {
   onDeactivate?: TOnDeactivate;
 }
 

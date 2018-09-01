@@ -73,3 +73,4 @@ export const FORM_RESET_ACTION_TYPE = 'form.reset';
 export const FORM_CHANGE_ACTION_TYPE = 'form.change';
 export const FORM_CLEAR_ACTION_TYPE = 'form.clear';
 export const FORM_ACTIVE_VALUE_ACTION_TYPE = 'form.active.value';
+export const FORM_DEACTIVATED_VALUE_ACTION_TYPE = 'form.deactivated.value';

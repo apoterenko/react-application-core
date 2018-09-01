@@ -201,6 +201,7 @@ import {
   IOnCloseWrapper,
   IUseIndicatorWrapper,
   IAliasWrapper,
+  IOnDeactivateWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -549,6 +550,7 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IRippableWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
                                                 IOnClickWrapper<ITabConfiguration>,
+                                                IOnDeactivateWrapper,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 

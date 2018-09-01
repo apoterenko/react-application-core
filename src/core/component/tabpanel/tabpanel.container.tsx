@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import { BaseContainer } from '../base';
-import { ITabPanelContainerProps, TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE } from './tabpanel.interface';
+import {
+  ITabPanelContainerProps,
+  TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE,
+  TAB_PANEL_DEACTIVATED_VALUE_ACTION_TYPE,
+} from './tabpanel.interface';
 import { getTabActiveValue } from './tabpanel.support';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
 import { IPayloadWrapper } from '../../definitions.interface';
@@ -17,6 +21,7 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
   constructor(props: TProps) {
     super(props);
     this.onTabClick = this.onTabClick.bind(this);
+    this.onDeactivate = this.onDeactivate.bind(this);
   }
 
   /**
@@ -26,6 +31,7 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
   public render(): JSX.Element {
     return (
       <TabPanel {...this.props.tabPanelConfiguration}
+                onDeactivate={this.onDeactivate}
                 activeValue={this.getTabActiveValue()}
                 onClick={this.onTabClick}/>
     );
@@ -50,10 +56,27 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
 
   /**
    * @stable [30.08.2018]
+   * @param {IPayloadWrapper<number>} payloadWrapper
+   */
+  protected dispatchDeactivatedValue(payloadWrapper: IPayloadWrapper<number>): void {
+    this.dispatchFrameworkAction(TAB_PANEL_DEACTIVATED_VALUE_ACTION_TYPE, payloadWrapper);
+  }
+
+  /**
+   * @stable [30.08.2018]
    * @param {ITabConfiguration} tab
    */
   private onTabClick(tab: ITabConfiguration): void {
     const payloadWrapper: IPayloadWrapper<number> = {payload: tab.value};
     this.dispatchActiveValue(payloadWrapper);
+  }
+
+  /**
+   * @stable [02.09.2018]
+   * @param {number} activeValue
+   */
+  private onDeactivate(activeValue: number): void {
+    const payloadWrapper: IPayloadWrapper<number> = {payload: activeValue};
+    this.dispatchDeactivatedValue(payloadWrapper);
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, orNull } from '../../util';
+import { toClassName, orNull, isFn } from '../../util';
 import { BaseComponent } from '../base';
 import { ITabPanelState, ITabPanel } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
@@ -24,21 +24,27 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
   }
 
   /**
+   * @stable [02.09.2018]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+
+    this.onDeactivateValue();
+  }
+
+  /**
    * @stable [14.08.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
-    const state = this.state;
     const items = props.items;
 
     if (items.length <= 1) {
       return null;
     }
 
-    const activeValue = R.isNil(props.activeValue)
-      ? (R.isNil(state.activeValue) ? (orNull<number>(items.length, () => items[0].value)) : state.activeValue)
-      : props.activeValue;
+    const activeValue = this.activeValue;
 
     return (
       <div ref='self'
@@ -158,8 +164,34 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
     const props = this.props;
     this.setState({activeValue: tab.value});
 
-    if (props.onClick) {
+    this.onDeactivateValue();
+
+    if (isFn(props.onClick)) {
       props.onClick(tab);
     }
+  }
+
+  /**
+   * @stable [02.09.2018]
+   */
+  private onDeactivateValue(): void {
+    const props = this.props;
+    if (isFn(props.onDeactivate)) {
+      props.onDeactivate(this.activeValue);
+    }
+  }
+
+  /**
+   * @stable [02.09.2018]
+   * @returns {number}
+   */
+  private get activeValue(): number {
+    const props = this.props;
+    const state = this.state;
+    const items = props.items;
+
+    return R.isNil(props.activeValue)
+      ? (R.isNil(state.activeValue) ? (orNull<number>(items.length, () => items[0].value)) : state.activeValue)
+      : props.activeValue;
   }
 }
