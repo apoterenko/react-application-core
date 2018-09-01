@@ -59,7 +59,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [02.09.2018]
    * @returns {IEffectsAction}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterInitActionType())
@@ -81,22 +81,23 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       const remoteAppMetaInfo = data[1];
       const remoteAppUuid = remoteAppMetaInfo.data.result.uuid;
 
-      if (!R.isNil(localAppUuid)
-        && !R.isEmpty(localAppUuid)
-        && !R.isNil(remoteAppUuid)
-        && !R.isEmpty(remoteAppUuid)
-        && !R.equals(localAppUuid, remoteAppUuid)) {
+      if (!R.isNil(remoteAppUuid) && !R.isEmpty(remoteAppUuid)) {
         this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
 
-        if (isApplicationAuthorized) {
-          // After F5 we desire to get a previous saves hash, but it is empty. This means a team had released
-          // a new version. To exclude the inconsistent state of App - redirect to initial path
+        if (!R.isNil(localAppUuid)
+          && !R.isEmpty(localAppUuid)
+          && !R.equals(localAppUuid, remoteAppUuid)) {
 
-          UniversalApplicationEffects.logger.debug(
-            '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
-          );
-          result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
-          result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionMessageHasBeenDeployed));
+          if (isApplicationAuthorized) {
+            // After F5 we desire to get a previous saves hash, but it is empty. This means a team had released
+            // a new version. To exclude the inconsistent state of App - redirect to initial path
+
+            UniversalApplicationEffects.logger.debug(
+              '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
+            );
+            result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
+            result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionMessageHasBeenDeployed));
+          }
         }
       }
     }
