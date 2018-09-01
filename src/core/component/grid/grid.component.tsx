@@ -27,7 +27,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     this.onSettingsClick = this.onSettingsClick.bind(this);
     this.onPlusClick = this.onPlusClick.bind(this);
 
-    this.state = {filterChanges: {}, expandedGroups: {...props.expandedGroups}};
+    this.state = {filterChanges: {}, expandedGroups: {}};
   }
 
   /**
@@ -542,7 +542,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
       const groupedRows = groupedDataSource[groupedRowValue];
       rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
 
-      if (state.expandedGroups[groupedRowValue]) {
+      if (this.isGroupedRowExpanded(groupedRowValue)) {
         groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index)));
       }
     });
@@ -558,12 +558,11 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   private getGroupingRow(groupedRowValue: EntityIdT, groupedRows: IEntity[]): JSX.Element {
     const props = this.props;
     const groupBy = props.groupBy;
-    const state = this.state;
-    const isExpanded = Reflect.get(state.expandedGroups, groupedRowValue);
+    const isExpanded = this.isGroupedRowExpanded(groupedRowValue);
 
     return (
       <GridRow key={this.toGroupedRowKey(groupedRowValue)}
-               className={toClassName('rac-grid-data-row')}
+               className={'rac-grid-data-row rac-grid-data-row-grouped'}
                colspan={this.columnsConfiguration.length}>
         {
           <GridColumn key={this.toGroupedColumnKey(groupedRowValue)}>
@@ -589,5 +588,25 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     cancelEvent(event);
 
     this.setState({expandedGroups: {...this.state.expandedGroups, [groupedRowValue]: expanded}});
+  }
+
+  /**
+   * @stable [02.09.2018]
+   * @param {EntityIdT} groupedRowValue
+   * @returns {boolean}
+   */
+  private isGroupedRowExpanded(groupedRowValue: EntityIdT): boolean {
+    const props = this.props;
+    const state = this.state;
+
+    const localExpandedState = Reflect.get(state.expandedGroups, groupedRowValue);
+    if (R.isNil(localExpandedState)) {
+      const propsExpandedState = Reflect.get(props.expandedGroups, groupedRowValue);
+      if (R.isNil(propsExpandedState)) {
+        return false;
+      }
+      return propsExpandedState;
+    }
+    return localExpandedState;
   }
 }

@@ -31,12 +31,12 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
     };
 
     return (
-      <Grid onChange={this.onChangeRowField}
-            deactivated={this.isDeactivated()}
-            emptyMessage={this.settings.messages.noSelectedItemsMessage}
+      <Grid emptyMessage={this.settings.messages.noSelectedItemsMessage}
             emptyDataMessage={this.settings.messages.noSelectedItemsMessage}
+            {...gridListEntity}
             {...props.gridConfiguration}
-            {...gridListEntity}/>
+            onChange={this.onChangeRowField}
+            deactivated={this.isDeactivated()}/>
     );
   }
 

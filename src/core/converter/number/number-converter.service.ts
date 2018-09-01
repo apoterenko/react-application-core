@@ -6,6 +6,7 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { isNumber, isString } from '../../util';
 import { IApplicationSettings } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
+import { EntityIdT } from '../../definitions.interface';
 
 @injectable()
 export class NumberConverter implements INumberConverter {
@@ -51,12 +52,22 @@ export class NumberConverter implements INumberConverter {
     return this.format(value, this.currencyFormatter);
   }
 
-  public id(value: number | string): string {
+  /**
+   * @stable [01.09.2018]
+   * @param {EntityIdT} value
+   * @returns {string}
+   */
+  public id(value: EntityIdT): string {
     return `#${value}`;
   }
 
-  public internalId(value: number | string): string {
-    return `(# ${value})`;
+  /**
+   * @stable [01.09.2018]
+   * @param {EntityIdT} value
+   * @returns {string}
+   */
+  public internalId(value: EntityIdT): string {
+    return `(#${value})`;
   }
 
   public phone(value: number | string, phoneNumberFormat: PNF = PNF.INTERNATIONAL): string {

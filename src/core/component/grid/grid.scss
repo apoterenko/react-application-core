@@ -114,8 +114,12 @@
           background-color: $rac-grid-data-row-odd-background-color;         /* @stable [21.06.2018] */
         }
 
+        &.rac-grid-data-row-grouped {
+          font-weight: $rac-grid-data-row-grouped-font-weight;               /* @stable [01.09.2018] */
+        }
+
         &.rac-grid-row-selected {
-          font-weight: bold;
+          font-weight: $rac-grid-data-row-selected-font-weight;              /* @stable [01.09.2018] */
           background-color: $rac-grid-data-row-selected-background-color;    /* @stable [21.06.2018] */
         }
 
