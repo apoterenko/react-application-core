@@ -112,7 +112,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
 
     const dndElement = (
       <DnD ref='dnd'
-           disabled={this.isDeactivated()}
+           disabled={this.isInactive()}
            onSelect={this.onSelect}/>
     );
     if (!props.useCamera) {

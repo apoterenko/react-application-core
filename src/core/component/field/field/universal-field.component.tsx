@@ -379,10 +379,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [18.06.2018]
+   * @stable [03.09.2018]
    * @returns {boolean}
    */
-  protected isDeactivated(): boolean {
+  protected isInactive(): boolean {
     const props = this.props;
     return props.disabled || props.readOnly || this.inProgress();
   }
@@ -403,13 +403,13 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    */
   protected onFocus(event: TFocusEvent): boolean {
     const props = this.props;
-    if (isFn(props.onFocus)) {
-      props.onFocus(event);
-    }
 
     if (props.preventFocus) {
       this.removeFocus();
       return false;
+    }
+    if (isFn(props.onFocus)) {
+      props.onFocus(event);
     }
     return true;
   }
@@ -419,8 +419,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TFocusEvent} event
    */
   protected onBlur(event: TFocusEvent): void {
-    if (this.props.onBlur) {
-      this.props.onBlur(event);
+    const props = this.props;
+    if (isFn(props.onBlur)) {
+      props.onBlur(event);
     }
   }
 
@@ -429,8 +430,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TBasicEvent} event
    */
   protected onClick(event: TBasicEvent): void {
-    if (this.props.onClick) {
-      this.props.onClick(event);
+    const props = this.props;
+    if (isFn(props.onClick)) {
+      props.onClick(event);
     }
   }
 
@@ -440,6 +442,27 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    */
   protected getInputAttachmentElement(): JSX.Element {
     return null;
+  }
+
+  /**
+   * @stable [03.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected toKeyboardElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [03.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected getKeyboardElement(): JSX.Element {
+    return (
+      orNull<JSX.Element>(
+        this.props.useKeyboard && this.state.keyboardOpened,
+        () => this.toKeyboardElement(),
+      )
+    );
   }
 
   /**

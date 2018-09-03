@@ -152,9 +152,9 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const cols = props.cols;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
-    const onClick = this.isDeactivated() ? noop : this.onClick;
-    const onKeyDown = this.isDeactivated() ? noop : this.onKeyDown;
-    const onKeyUp = this.isDeactivated() ? noop : this.onKeyUp;
+    const onClick = this.isInactive() ? noop : this.onClick;
+    const onKeyDown = this.isInactive() ? noop : this.onKeyDown;
+    const onKeyUp = this.isInactive() ? noop : this.onKeyUp;
     const onChange = this.onChange;
     return {
       ...props.preventValueBinding ? {} : { value: this.displayValue },
@@ -184,7 +184,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       props.className,
       'rac-form-field',
       'rac-flex-full',
-      this.isDeactivated() && 'rac-form-field-disabled'
+      this.isInactive() && 'rac-form-field-disabled'
     );
   }
 

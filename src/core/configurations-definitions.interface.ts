@@ -648,6 +648,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IRequiredWrapper,
           ICanReturnClearDirtyChangesValueWrapper,
           IMessageWrapper,
+          IUseKeyboardWrapper,
           IValidateWrapper<string> {
 }
 
@@ -668,7 +669,6 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IClearActionWrapper,
-                                             IUseKeyboardWrapper,
                                              IStepWrapper {
 }
 
