@@ -118,7 +118,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
    * @stable [08.07.2018]
    */
   protected refresh(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**

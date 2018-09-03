@@ -212,7 +212,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
    * @stable [17.05.2018]
    */
   public onInputFocus(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**
@@ -220,7 +220,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
    * @stable [17.05.2018]
    */
   public onInputBlur(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**

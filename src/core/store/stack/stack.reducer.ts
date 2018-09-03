@@ -35,7 +35,7 @@ export function stackReducer(state: IStackEntity = INITIAL_APPLICATION_STACK_STA
         lock: false,
         ...(
           lock
-            ? {}  // If there is a lock - nothing to do
+            ? {}  // If there is a lock - do nothing
             : {   // Otherwise - remove the last item from stack
               stack: R.remove<IStackItemEntity>(stack.length - 1, 1, stack),
             }

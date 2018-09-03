@@ -145,7 +145,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
    * @stable [15.08.2018]
    */
   public onForward(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**
@@ -153,7 +153,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
    * @stable [15.08.2018]
    */
   public onBackward(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**

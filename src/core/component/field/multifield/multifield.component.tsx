@@ -38,7 +38,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
    * @param {IKeyboardEvent} event
    */
   public onKeyBackspace(event: IKeyboardEvent): void {
-    // Nothing to do, only need to invoke the props callback
+    // Do nothing, only need to invoke the props callback
 
     const props = this.props;
     if (props.onKeyBackspace) {
