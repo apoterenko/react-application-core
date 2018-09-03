@@ -76,13 +76,12 @@
           border-bottom-color: $rac-form-layout-text-field-border-bottom-color;/* @stable [07.08.2018] */
 
           .rac-field-input {
-            color: $rac-form-layout-text-field-input-color;                    /* @stable [07.08.2018] */
-            caret-color: $rac-form-layout-text-field-input-color;              /* @stable [15.08.2018] */
+            color: $rac-form-layout-field-input-color;                         /* @stable [07.08.2018] */
+            caret-color: $rac-form-layout-field-input-color;                   /* @stable [15.08.2018] */
           }
 
-          &.rac-text-field-keyboard-opened {
-            border-bottom-color: $rac-form-layout-text-field-keyboard-opened-border-bottom-color;  /* @stable [19.08.2018] */
-            outline: $rac-form-layout-text-field-keyboard-opened-outline;                          /* @stable [23.08.2018] */
+          .rac-field-input-caret {
+            color: $rac-form-layout-field-input-caret-color;                  /* @stable [03.09.2018] */
           }
         }
       }
