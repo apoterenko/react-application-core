@@ -20,7 +20,7 @@
         .rac-field-input,
         .rac-message-content,
         .rac-text-field-prefix-label,
-        .rac-text-field-help-text {
+        .rac-field-help-text {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default;                                              /* @stable [03.08.2018] */
       }
@@ -82,7 +82,7 @@
 
       .rac-field-input {
         border: none;                                                 /* @mdc @stable [07.08.2018] */
-        color: $rac-form-field-input-color;                           /* @stable [25.06.2018] */
+        color: $rac-field-input-color;                                /* @stable [25.06.2018] */
         font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
         letter-spacing: $rac-form-field-input-letter-spacing;         /* @stable [25.06.2018] */
         font-weight: $rac-form-field-input-font-weight;               /* @stable [26.06.2018] */
@@ -93,13 +93,19 @@
         }
       }
 
-      &.rac-text-field-keyboard-opened {
-        border-bottom-color: $rac-form-text-field-keyboard-opened-border-bottom-color;  /* @stable [19.08.2018] */
-        outline: $rac-form-text-field-keyboard-opened-outline;                          /* @stable [23.08.2018] */
+      .rac-field-input-cursor {
+        position: absolute;                                           /* @stable [03.09.2018] */
+        bottom: $rac-field-input-cursor-bottom;                       /* @stable [03.09.2018] */
+        font-size: $rac-field-input-cursor-font-size;                 /* @stable [03.09.2018] */
+        color: $rac-field-input-cursor-color;                         /* @stable [03.09.2018] */
+
+        &.rac-field-input-password-cursor {
+          padding-left: 4px;                                          /* @stable [03.09.2018] */
+        }
       }
     }
 
-    .rac-text-field-help-text {
+    .rac-field-help-text {
       opacity: 1;                                                     /* @mdc @stable [31.08.2018] */
       font-size: $rac-form-text-field-help-text-font-size;            /* @stable [13.08.2018] */
     }

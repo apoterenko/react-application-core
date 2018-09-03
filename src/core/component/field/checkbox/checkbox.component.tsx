@@ -27,8 +27,8 @@ export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxSt
           </div>
           {this.getLabelElement()}
         </CenterLayout>
-        {this.fieldMessage}
-        {props.required && this.fieldErrorMessageElement}
+        {this.getMessageElement()}
+        {props.required && this.getErrorMessageElement()}
       </div>
     );
   }

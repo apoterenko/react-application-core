@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IJqField, isString } from '../../util';
+import { IJqField, isString, addChild, removeChild } from '../../util';
 import { BaseComponent } from '../base';
 import {
   IKeyboardKey,
@@ -21,29 +21,29 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
   };
 
   /**
-   * @stable [08.05.2018]
+   * @stable [03.09.2018]
    * @param {IKeyboardProps} props
    */
   constructor(props: IKeyboardProps) {
     super(props);
+    this.onSelect = this.onSelect.bind(this);
 
     this.state = {position: this.currentPosition, mode: 0, useUppercase: false};
-    this.onSelect = this.onSelect.bind(this);
   }
 
   /**
-   * @stable [08.05.2018]
+   * @stable [03.09.2018]
    */
   public componentDidMount() {
     super.componentDidMount();
-    document.body.appendChild(this.self);
+    addChild(this.self);
   }
 
   /**
-   * @stable [08.05.2018]
+   * @stable [03.09.2018]
    */
   public componentWillUnmount() {
-    document.body.removeChild(this.self);
+    removeChild(this.self);
     super.componentWillUnmount();
   }
 

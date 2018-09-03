@@ -3,8 +3,14 @@ import JQuery from 'jquery';
 /**
  * @stable [09.05.2018]
  */
-export interface IJqField extends JQuery<HTMLElement> {
+export interface IJqField extends JQuery<HTMLInputElement> {
   caret?(position?: number): number;
+}
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IJqElement extends JQuery<HTMLElement> {
 }
 
 /**

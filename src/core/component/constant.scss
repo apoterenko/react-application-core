@@ -172,15 +172,18 @@ $rac-form-field-message-color: $rac-default-text-color !default;
 $rac-form-field-icon-margin-left: 8px !default;
 $rac-form-field-dnd-margin-bottom: 16px !default;
 $rac-form-field-icon-color: $rac-default-text-color !default;
-$rac-form-field-input-color: $rac-default-text-color !default;
 $rac-form-field-input-placeholder-color: $rac-default-text-color !default;
 $rac-form-field-input-placeholder-font-weight: 100 !default;
 $rac-form-field-input-font-size: $rac-default-font-size !default;
 $rac-form-field-input-letter-spacing: 1px !default;
 $rac-form-field-input-font-weight: bold !default;
-$rac-form-text-field-keyboard-opened-border-bottom-color: $color-2 !default;
-$rac-form-text-field-keyboard-opened-outline: unset !default;
 $rac-form-text-field-help-text-font-size: $rac-default-font-size !default;
+
+/* @stable [03.09.2018] */
+$rac-field-input-color: $rac-default-text-color !default;
+$rac-field-input-cursor-color: $rac-default-text-color !default;
+$rac-field-input-cursor-font-size: 24px !default;
+$rac-field-input-cursor-bottom: 6px !default;
 
 /* @stable [30.07.2018] */
 $rac-dialog-addressfield-place-color: $rac-default-text-color !default;
@@ -319,11 +322,10 @@ $rac-form-layout-top-header-content-font-weight: bold !default;
 $rac-form-layout-top-header-content-text-transform: none !default;
 $rac-form-layout-top-header-content-color: $color-5 !default;
 $rac-form-layout-floating-focused-label-color: $rac-form-field-label-color !default;
-$rac-form-layout-text-field-input-color: $rac-form-field-input-color !default;
+$rac-form-layout-field-input-color: $rac-field-input-color !default;
+$rac-form-layout-field-input-cursor-color: $rac-field-input-color !default;
 $rac-form-layout-text-field-margin-top: 8px !default;
 $rac-form-layout-text-field-border-bottom-color: $color-2 !default;
-$rac-form-layout-text-field-keyboard-opened-border-bottom-color: $color-17 !default;
-$rac-form-layout-text-field-keyboard-opened-outline: unset !default;
 $rac-form-layout-section-padding: $rac-form-section-padding !default;
 $rac-form-layout-form-section-padding: $rac-form-section-padding !default;
 $rac-form-layout-form-actions-padding: $rac-form-actions-padding !default;

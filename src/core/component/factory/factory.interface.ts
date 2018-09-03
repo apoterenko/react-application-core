@@ -56,11 +56,11 @@ export interface IUIFactory {
   checkboxInput?: string;
   textFieldInput?: string;
   textFieldTextArea?: string;
-  textFieldFocused?: string;
+  fieldFocused?: string;
   textFieldInvalid?: string;
   textFieldUpgraded?: string;
-  textFieldHelpText?: string;
-  textFieldValidationText?: string;
+  fieldHelpText?: string;
+  fieldValidationText?: string;
   textFieldLabel?: string;
   textFieldFocusedLabel?: string;
   card?: string;

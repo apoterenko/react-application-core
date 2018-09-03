@@ -202,6 +202,7 @@ import {
   IUseIndicatorWrapper,
   IAliasWrapper,
   IOnDeactivateWrapper,
+  IMessageWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -646,6 +647,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IPreventFocusWrapper,
           IRequiredWrapper,
           ICanReturnClearDirtyChangesValueWrapper,
+          IMessageWrapper,
           IValidateWrapper<string> {
 }
 

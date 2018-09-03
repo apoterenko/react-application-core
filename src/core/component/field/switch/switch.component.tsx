@@ -28,8 +28,8 @@ export class Switch extends BaseCheckbox<Switch, ISwitchProps, ISwitchState> {
           </div>
           {this.getLabelElement()}
         </CenterLayout>
-        {this.fieldMessage}
-        {props.required && this.fieldErrorMessageElement}
+        {this.getMessageElement()}
+        {props.required && this.getErrorMessageElement()}
       </div>
     );
   }

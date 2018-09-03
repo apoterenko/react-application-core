@@ -1,19 +1,14 @@
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
-import { isDef, isFn, isUndef, orDefault } from '../../../util';
+import { isDef, isFn, isUndef, orDefault, orNull } from '../../../util';
 import {
   IUniversalField,
   IUniversalFieldDisplayValueConverter,
 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
-import { AnyT } from '../../../definitions.interface';
-import {
-  FIELD_EMPTY_VALUE,
-  FIELD_EMPTY_ERROR_VALUE,
-  FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
-  IUniversalFieldState,
-} from './field.interface';
+import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
+import { FIELD_EMPTY_VALUE, FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { UniversalComponent } from '../../base/universal.component';
 import { toActualChangedValue } from './field.support';
 
@@ -40,6 +35,8 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     this.onChangeManually = this.onChangeManually.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
 
     this.state = {} as TState;
   }
@@ -62,7 +59,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [17.06.2018]
    */
   public resetError(): void {
-    this.validateField(FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE);
+    this.validateField(CLEAR_DIRTY_CHANGES_VALUE);
   }
 
   /**
@@ -75,8 +72,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
       this.onChangeManually(this.getEmptyValue());
     }
 
-    if (this.props.onClear) {
-      this.props.onClear();
+    const props = this.props;
+    if (isFn(props.onClear)) {
+      props.onClear();
     }
   }
 
@@ -110,8 +108,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyBackspace(event: TKeyboardEvent): void {
-    if (this.props.onKeyBackspace) {
-      this.props.onKeyBackspace(event);
+    const props = this.props;
+    if (isFn(props.onKeyBackspace)) {
+      props.onKeyBackspace(event);
     }
   }
 
@@ -120,8 +119,20 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyUp(event: TKeyboardEvent): void {
-    if (this.props.onKeyUp) {
-      this.props.onKeyUp(event);
+    const props = this.props;
+    if (isFn(props.onKeyUp)) {
+      props.onKeyUp(event);
+    }
+  }
+
+  /**
+   * @stable [03.09.2018]
+   * @param {TKeyboardEvent} event
+   */
+  public onKeyDown(event: TKeyboardEvent): void {
+    const props = this.props;
+    if (isFn(props.onKeyDown)) {
+      props.onKeyDown(event);
     }
   }
 
@@ -130,8 +141,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyEnter(event: TKeyboardEvent): void {
-    if (this.props.onKeyEnter) {
-      this.props.onKeyEnter(event);
+    const props = this.props;
+    if (isFn(props.onKeyEnter)) {
+      props.onKeyEnter(event);
     }
   }
 
@@ -140,8 +152,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyTab(event: TKeyboardEvent): void {
-    if (this.props.onKeyTab) {
-      this.props.onKeyTab(event);
+    const props = this.props;
+    if (isFn(props.onKeyTab)) {
+      props.onKeyTab(event);
     }
   }
 
@@ -150,8 +163,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyEscape(event: TKeyboardEvent): void {
-    if (this.props.onKeyEscape) {
-      this.props.onKeyEscape(event);
+    const props = this.props;
+    if (isFn(props.onKeyEscape)) {
+      props.onKeyEscape(event);
     }
   }
 
@@ -160,8 +174,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyArrowDown(event: TKeyboardEvent): void {
-    if (this.props.onKeyArrowDown) {
-      this.props.onKeyArrowDown(event);
+    const props = this.props;
+    if (isFn(props.onKeyArrowDown)) {
+      props.onKeyArrowDown(event);
     }
   }
 
@@ -170,8 +185,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {TKeyboardEvent} event
    */
   public onKeyArrowUp(event: TKeyboardEvent): void {
-    if (this.props.onKeyArrowUp) {
-      this.props.onKeyArrowUp(event);
+    const props = this.props;
+    if (isFn(props.onKeyArrowUp)) {
+      props.onKeyArrowUp(event);
     }
   }
 
@@ -194,10 +210,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @returns {string}
    */
   public printfDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
-    const props = this.props;
     return orDefault<string, string>(
       usePrintf,
-      () => Printf.sprintf(this.t(props.displayMessage), ...args),
+      () => Printf.sprintf(this.t(this.props.displayMessage), ...args),
       FIELD_EMPTY_VALUE
     );
   }
@@ -227,7 +242,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @returns {boolean}
    */
   protected isFieldFocused(): boolean {
-    return this.hasInputFocus() || this.isValuePresent();
+    return this.state.keyboardOpened  // User input typing emulation mode
+      || this.hasInputFocus()         // If a native input has focus
+      || this.isValuePresent();
   }
 
   /**
@@ -266,7 +283,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
 
     this.setNativeInputValidity('');
 
-    if (this.isNativeInputValid()) {
+    if (this.isInputValid()) {
       error = isFn(props.validate) ? props.validate(value) : error;
       if (R.isNil(error)) {
         error = this.validateValue(value); // The custom internal validator
@@ -291,10 +308,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [03.09.2018]
    * @returns {boolean}
    */
-  protected isNativeInputValid(): boolean {
+  protected isInputValid(): boolean {
     return true;
   }
 
@@ -380,14 +397,19 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [20.082018]
+   * @stable [03.09.2018]
    * @param {TFocusEvent} event
    * @returns {boolean}
    */
   protected onFocus(event: TFocusEvent): boolean {
     const props = this.props;
-    if (props.onFocus) {
+    if (isFn(props.onFocus)) {
       props.onFocus(event);
+    }
+
+    if (props.preventFocus) {
+      this.removeFocus();
+      return false;
     }
     return true;
   }
@@ -413,10 +435,60 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [03.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected getInputAttachmentElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [03.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected getErrorMessageElement(): JSX.Element {
+    return orNull<JSX.Element>(
+      !this.props.notUseErrorMessage,
+      () => this.toMessageElement(this.error, this.uiFactory.fieldValidationText)
+    );
+  }
+
+  /**
+   * @stable [03.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected getMessageElement(): JSX.Element {
+    const props = this.props;
+    const message = props.message;
+    return orNull<JSX.Element>(message, () => this.toMessageElement(message));
+  }
+
+  /**
+   * @stable [03.09.2018]
+   * @returns {string}
+   */
+  protected get error(): string {
+    return this.state.error;
+  }
+
+  /**
    * @stable [18.06.2018]
    * @returns {boolean}
    */
   protected abstract hasInputFocus(): boolean;
+
+  /**
+   * @stable [03.09.2018]
+   */
+  protected abstract removeFocus(): void;
+
+  /**
+   * @stable [03.09.2018]
+   * @param {string} message
+   * @param {string | IKeyValue} styles
+   * @returns {JSX.Element}
+   */
+  protected abstract toMessageElement(message: string, styles?: string | IKeyValue): JSX.Element;
 
   /**
    * @stable [31.07.2018]

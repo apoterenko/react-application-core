@@ -296,11 +296,11 @@ export class UIMaterialFactory implements IUIFactory {
   public checkboxInput = 'mdc-checkbox__native-control';
   public textFieldInput = 'mdc-text-field__input';
   public textFieldTextArea = 'mdc-text-field--textarea';
-  public textFieldFocused = 'mdc-text-field--focused';
+  public fieldFocused = 'mdc-text-field--focused';
   public textFieldInvalid = 'mdc-text-field--invalid';
   public textFieldUpgraded = 'mdc-text-field--upgraded';
-  public textFieldHelpText = 'mdc-text-field-helper-text';
-  public textFieldValidationText = 'mdc-text-field-helper-text--validation-msg';
+  public fieldHelpText = 'mdc-text-field-helper-text';
+  public fieldValidationText = 'mdc-text-field-helper-text--validation-msg';
   public textFieldLabel = 'mdc-floating-label';
   public textFieldFocusedLabel = 'mdc-floating-label--float-above';
   public card = 'mdc-card';

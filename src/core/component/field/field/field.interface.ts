@@ -11,15 +11,10 @@ import {
   IKeyboardEvent,
   IFocusEvent,
   ICanReturnClearDirtyChangesValueWrapper,
+  IKeyboardOpenedWrapper,
 } from '../../../definitions.interface';
-import {
-  IFieldEntity,
-  IStringErrorEntity,
-  IUniversalField,
-} from '../../../entities-definitions.interface';
-import {
-  IFieldConfiguration,
-} from '../../../configurations-definitions.interface';
+import { IFieldEntity, IUniversalField } from '../../../entities-definitions.interface';
+import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 
 /**
  * @stable [17.06.2018]
@@ -38,9 +33,16 @@ export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
 }
 
 /**
- * @stable [17.06.2018]
+ * @stable [03.09.2018]
  */
-export interface IUniversalFieldState extends IStringErrorWrapper {
+export interface IUniversalFieldState extends IStringErrorWrapper,
+                                              IKeyboardOpenedWrapper {
+}
+
+/**
+ * @stable [03.09.2018]
+ */
+export interface IFieldState extends IUniversalFieldState {
 }
 
 export interface IFieldInternalProps extends IFieldConfiguration,
@@ -64,12 +66,6 @@ export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
  */
 export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>,
                                              ClassAttributes<HTMLTextAreaElement> {
-}
-
-/**
- * @stable [01.06.2018]
- */
-export interface IFieldState extends IStringErrorEntity {
 }
 
 /**

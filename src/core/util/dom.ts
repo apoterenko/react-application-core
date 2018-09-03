@@ -159,6 +159,13 @@ export const downloadFile = (fileName: string, blob: Blob) => {
 };
 
 /**
+ * @stable [03.09.2018]
+ * @param {HTMLElement} el
+ * @returns {boolean}
+ */
+export const isElementFocused = (el: HTMLElement) => document.activeElement === el;
+
+/**
  * @stable [30.07.2018]
  * @returns {() => boolean}
  */

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { noop, toClassName, orNull, cancelEvent } from '../../../util';
+import { noop, toClassName, orNull, cancelEvent, isElementFocused } from '../../../util';
 import {
   AnyT,
   IKeyboardEvent,
@@ -35,13 +35,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
 
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
 
-  constructor(props: TInternalProps) {
-    super(props);
-
-    this.onKeyUp = this.onKeyUp.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
   public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
     this.updateInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
     super.onChangeManually(currentRawValue, context);
@@ -70,6 +63,10 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     super.resetError();
   }
 
+  /**
+   * @stable [03.09.2018]
+   * @param {IKeyboardEvent} event
+   */
   public onKeyDown(event: IKeyboardEvent): void {
     const key = event.key;
 
@@ -94,9 +91,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
         break;
     }
 
-    if (this.props.onKeyDown) {
-      this.props.onKeyDown(event);
-    }
+    super.onKeyDown(event);
   }
 
   /**
@@ -130,36 +125,9 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
-   * @stable [02.07.2018]
-   * @param {IFocusEvent} event
-   * @returns {boolean}
-   */
-  protected onFocus(event: IFocusEvent): boolean {
-    if (this.props.preventFocus) {
-      this.removeFocus();
-      return false;
-    }
-    return super.onFocus(event);
-  }
-
-  protected get fieldMessage(): JSX.Element {
-    const props = this.props;
-    const message = props.message;
-    return orNull<JSX.Element>(message, () => this.getMessageElement(message));
-  }
-
-  /**
    * @stable [18.06.2018]
    * @returns {JSX.Element}
    */
-  protected get fieldErrorMessageElement(): JSX.Element {
-    const props = this.props;
-    const error = this.error;
-    return orNull<JSX.Element>(
-      !props.notUseErrorMessage,
-      () => this.getMessageElement(error, toClassName(this.uiFactory.textFieldValidationText, 'rac-text-field-help-validation-text'))
-    );
-  }
 
   /**
    * @stable [31.08.2018]
@@ -220,16 +188,12 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     );
   }
 
-  protected get error(): string {
-    return this.state.error;
-  }
-
   /**
-   * @stable [30.05.2018]
+   * @stable [03.09.2018]
    * @returns {boolean}
    */
   protected hasInputFocus(): boolean {
-    return document.activeElement === this.input;
+    return isElementFocused(this.input);
   }
 
   protected getInputElementWrapperClassName(): string {
@@ -239,14 +203,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       'rac-flex-full',
       this.props.inputWrapperClassName
     );
-  }
-
-  /**
-   * @stable [01.06.2018]
-   * @returns {JSX.Element}
-   */
-  protected getInputAttachmentElement(): JSX.Element {
-    return null;
   }
 
   /**
@@ -267,7 +223,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    * @stable [31.07.2018]
    * @returns {boolean}
    */
-  protected isNativeInputValid(): boolean {
+  protected isInputValid(): boolean {
     return this.input.validity.valid;
   }
 
@@ -288,26 +244,26 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
+   * @stable [03.09.2018]
+   * @param {string} message
+   * @param {string} className
+   * @returns {JSX.Element}
+   */
+  protected toMessageElement(message: string, className?: string): JSX.Element {
+    return (
+      <p title={message}
+         className={toClassName('rac-field-help-text', this.uiFactory.fieldHelpText, className)}>
+        {message ? this.t(message) : UNI_CODES.noBreakSpace}
+      </p>
+    );
+  }
+
+  /**
    * @stable [17.06.2018]
    * @param {AnyT} value
    */
   private updateInputBeforeHTML5Validation(value: AnyT): void {
     // We must update the field manually before calls HTML5 validation
     this.input.value = value;
-  }
-
-  /**
-   * @stable [18.06.2018]
-   * @param {string} message
-   * @param {string} className
-   * @returns {JSX.Element}
-   */
-  private getMessageElement(message: string, className?: string): JSX.Element {
-    return (
-      <p title={message}
-         className={toClassName('rac-text-field-help-text', this.uiFactory.textFieldHelpText, className)}>
-        {message ? this.t(message) : UNI_CODES.noBreakSpace}
-      </p>
-    );
   }
 }

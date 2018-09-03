@@ -288,8 +288,7 @@ export interface IUniversalFieldEntity extends IUniversalComponentEntity,
 /**
  * @stable [18.05.2018]
  */
-export interface IFieldEntity extends IUniversalFieldEntity,
-                                      IMessageWrapper {
+export interface IFieldEntity extends IUniversalFieldEntity {
 }
 
 /**

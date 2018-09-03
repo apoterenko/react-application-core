@@ -12,6 +12,7 @@ export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
+export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 export const DAYS_OF_WEEK: Array<{id: number, name: string}> = [
   {id: 0, name: 'Sunday'},
@@ -2421,6 +2422,13 @@ export interface IIconStyleWrapper<TIconStyle = IKeyValue> {
 
 /* @stable - 04.04.2018 */
 export interface ICssStyleWrapper extends IStyleWrapper<React.CSSProperties> {
+}
+
+/**
+ * @stable [03.09.2018]
+ */
+export interface ICursorFlashingFrequencyWrapper {
+  cursorFlashingFrequency?: number;
 }
 
 /**
