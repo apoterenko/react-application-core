@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 
-import { isDef, isFn, isUndef, orDefault, orNull } from '../../../util';
+import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask } from '../../../util';
 import {
   IUniversalField,
   IUniversalFieldDisplayValueConverter,
@@ -23,6 +23,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   extends UniversalComponent<TComponent, TProps, TState>
   implements IUniversalField<TProps, TState> {
 
+  private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 300;
+
+  private caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together
+
   /**
    * @stable [17.06.2018]
    * @param {TProps} props
@@ -37,8 +41,25 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     this.onBlur = this.onBlur.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.closeSyntheticKeyboard = this.closeSyntheticKeyboard.bind(this);
 
     this.state = {} as TState;
+
+    if (props.useKeyboard) {
+      this.caretBlinkingTask = new DelayedTask(
+        this.changeCaretVisibility.bind(this),
+        UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
+        true
+      );
+    }
+  }
+
+  /**
+   * @stable [04.09.2018]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.onCloseKeyboard();
   }
 
   /**
@@ -148,7 +169,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [18.06.2018]
+   * @stable [04.09.2018]
    * @param {TKeyboardEvent} event
    */
   public onKeyTab(event: TKeyboardEvent): void {
@@ -328,7 +349,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {string} error
    */
   protected setNativeInputValidity(error: string): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**
@@ -404,8 +425,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   protected onFocus(event: TFocusEvent): boolean {
     const props = this.props;
 
-    if (props.preventFocus) {
-      this.removeFocus();
+    if (props.preventFocus || props.useKeyboard) {
+      this.removeFocus();   // Prevent native keyboard opening when using a synthetic keyboard
+
+      if (props.useKeyboard) {
+        this.openSyntheticKeyboard();
+      }
       return false;
     }
     if (isFn(props.onFocus)) {
@@ -450,6 +475,48 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    */
   protected toKeyboardElement(): JSX.Element {
     return null;
+  }
+
+  /**
+   * @stable [04.09.2018]
+   */
+  protected openSyntheticKeyboard(): boolean {
+    if (this.state.keyboardOpened) {
+      return false;
+    }
+    this.setState({keyboardOpened: true});
+    this.updateCursor();
+    this.caretBlinkingTask.start();
+    return true;
+  }
+
+  /**
+   * @stable [04.09.2018]
+   */
+  protected closeSyntheticKeyboard(): void {
+    if (!this.props.useKeyboard) {
+      return;
+    }
+    this.setState({keyboardOpened: false});
+    this.onCloseKeyboard();
+  }
+
+  /**
+   * @stable [04.09.2018]
+   */
+  protected onCloseKeyboard(): boolean {
+    if (this.props.useKeyboard) {
+      this.caretBlinkingTask.stop();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @stable [04.09.2018]
+   */
+  protected updateCursor(): void {
+    // Do nothing
   }
 
   /**
@@ -561,5 +628,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (props.onChange) {
       props.onChange(rawValue);
     }
+  }
+
+  /**
+   * @stable [04.09.2018]
+   */
+  private changeCaretVisibility(): void {
+    this.setState({caretVisibility: !this.state.caretVisibility});
   }
 }
