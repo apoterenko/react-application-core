@@ -203,6 +203,7 @@ import {
   IAliasWrapper,
   IOnDeactivateWrapper,
   IMessageWrapper,
+  ICaretBlinkingFrequencyTimeoutWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -649,6 +650,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           ICanReturnClearDirtyChangesValueWrapper,
           IMessageWrapper,
           IUseKeyboardWrapper,
+          ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string> {
 }
 

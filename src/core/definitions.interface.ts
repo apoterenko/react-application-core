@@ -2427,8 +2427,15 @@ export interface ICssStyleWrapper extends IStyleWrapper<React.CSSProperties> {
 /**
  * @stable [03.09.2018]
  */
-export interface ICursorFlashingFrequencyWrapper {
-  cursorFlashingFrequency?: number;
+export interface ICaretBlinkingFrequencyTimeoutWrapper {
+  caretBlinkingFrequencyTimeout?: number;
+}
+
+/**
+ * @stable [04.09.2018]
+ */
+export interface ICaretVisibilityWrapper {
+  caretVisibility?: boolean;
 }
 
 /**
