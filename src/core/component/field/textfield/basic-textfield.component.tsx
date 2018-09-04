@@ -57,8 +57,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             )}
             <div className={this.getInputElementWrapperClassName()}>
               {this.getInputElement()}
-              {this.getInputMirrorElement()}
-              {this.getInputCaretElement()}
               {
                 orNull(
                     fieldLabel,
@@ -77,6 +75,8 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                     )
                 )
               }
+              {this.getMirrorInputElement()}
+              {this.getInputCaretElement()}
               {this.getInputAttachmentElement()}
             </div>
             {orNull(
@@ -205,12 +205,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @returns {number}
    */
   protected getCaretPosition(): number {
-    const value = this.value;
-    const rightBorderWidth = 2;
-
-    return R.isNil(value) || R.isEmpty(String(value))
-      ? 0
-      : Math.min(this.jMirrorInput.width(), this.jqInput.width() - rightBorderWidth);
+    return this.isValuePresent()
+      ? Math.min(this.jMirrorInput.width(), this.jqInput.width())
+      : 0;
   }
 
   /**
@@ -240,16 +237,20 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @stable [04.09.2018]
    * @returns {JSX.Element}
    */
-  private getInputMirrorElement(): JSX.Element {
-    const value = this.value;
-    const content = this.props.type === 'password'
-      ? new Array((value || '').length).join(P.name === 'Safari' ? 'o' : '•')
+  private getMirrorInputElement(): JSX.Element {
+    const props = this.props;
+    if (!props.useKeyboard || !this.isValuePresent()) {
+      return null;
+    }
+
+    const value = this.value as string;
+    const content = props.type === 'password'
+      ? value.replace(/./g, P.name === 'Safari' ? '●' : '•')
       : value;
 
     return (
-      <span ref='mirrorFieldInput'
-            className={toClassName(this.getInputElementProps().className, 'rac-invisible')}
-            style={{width: 'auto'}}>
+      <span ref='mirrorInput'
+            className={toClassName(this.getInputElementProps().className, 'rac-field-input-mirror', 'rac-invisible')}>
         {content}
       </span>
     );
@@ -264,10 +265,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const props = this.props;
 
     return orNull<JSX.Element>(
-      state.keyboardOpened && !R.isNil(state.caretVisibility),
+      state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
-        <div className={toClassName('rac-field-input-caret', props.type && `rac-field-input-password-${props.type}`)}
-             style={{visibility: state.caretVisibility ? 'hidden' : 'visible', left: state.caretPosition}}>
+        <div className='rac-field-input-caret'
+             style={{left: state.caretPosition}}>
           |
         </div>
       )
@@ -279,6 +280,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @returns {IJqElement}
    */
   private get jMirrorInput(): IJqElement {
-    return $(this.refs.mirrorFieldInput as HTMLElement);
+    return $(this.refs.mirrorInput as HTMLElement);
   }
 }

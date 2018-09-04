@@ -496,8 +496,11 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (this.state.keyboardOpened) {
       return false;
     }
-    this.setState({keyboardOpened: true});
-    this.caretBlinkingTask.start();
+    this.setState({keyboardOpened: true}, () => this.caretBlinkingTask.start());
+
+    UniversalField.logger.debug(
+      `[$UniversalField][openSyntheticKeyboard] A keyboard for the field "${this.props.name}" will be opened soon.`
+    );
     return true;
   }
 
@@ -518,6 +521,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   protected onCloseKeyboard(): boolean {
     if (this.props.useKeyboard) {
       this.caretBlinkingTask.stop();
+
+      UniversalField.logger.debug(
+        `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
+      );
       return true;
     }
     return false;

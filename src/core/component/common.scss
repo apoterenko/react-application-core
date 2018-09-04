@@ -175,6 +175,7 @@ html, body {
   .rac-invisible {
     position: absolute;                 /* @stable [04.05.2018] */
     top: -10000px;                      /* @stable [04.05.2018] */
+    left: -10000px;                     /* @stable [04.09.2018] */
   }
 
   .rac-icon {
