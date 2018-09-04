@@ -1,7 +1,8 @@
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask } from '../../../util';
+import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef } from '../../../util';
 import {
   IUniversalField,
   IUniversalFieldDisplayValueConverter,
@@ -23,6 +24,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   extends UniversalComponent<TComponent, TProps, TState>
   implements IUniversalField<TProps, TState> {
 
+  protected static logger = LoggerFactory.makeLogger(UniversalField);
   private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 200;
 
   private caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together
@@ -47,7 +49,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
 
     if (props.useKeyboard) {
       this.caretBlinkingTask = new DelayedTask(
-        this.changeCaretVisibility.bind(this),
+        this.setCaretVisibility.bind(this),
         props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
         true
       );
@@ -72,7 +74,23 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     this.validateValueAndSetCustomValidity(this.value);
 
     if (this.props.autoFocus) {
-      this.setFocus();  // The manual "autoFocus" replacing
+      this.setFocus();              // The manual "autoFocus" replacing
+    }
+  }
+
+  /**
+   * @stable [04.09.2018]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
+   */
+  public componentDidUpdate(prevProps: TProps, prevState: TState): void {
+    super.componentDidUpdate(prevProps, prevState);
+
+    if (this.props.useKeyboard
+          && this.state.keyboardOpened
+          && !R.equals(this.value, prevProps.value)) {
+      // Refresh a caret position according to a changed value
+      this.refreshCaretPosition();
     }
   }
 
@@ -548,6 +566,26 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [04.09.2018]
+   */
+  protected refreshCaretPosition(): void {
+    this.setState({caretPosition: this.getCaretPosition()});
+
+    UniversalField.logger.debug(
+      `[$UniversalField][refreshCaretPosition] A caret position for the field ${this.props.name} had been refreshed.".`
+    );
+  }
+
+  /**
+   * @stable [04.09.2018]
+   * @returns {number}
+   */
+  protected getCaretPosition(): number {
+    // Need to implement
+    return 0;
+  }
+
+  /**
    * @stable [18.06.2018]
    * @returns {boolean}
    */
@@ -619,7 +657,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   /**
    * @stable [04.09.2018]
    */
-  private changeCaretVisibility(): void {
-    this.setState({caretVisibility: !this.state.caretVisibility});
+  private setCaretVisibility(): void {
+    this.setState(defValuesFilter<IUniversalFieldState, IUniversalFieldState>({
+      caretVisibility: !this.state.caretVisibility,
+
+      // Lazy initialization to do not use a setTimeout
+      caretPosition: orUndef<number>(R.isNil(this.state.caretPosition), () => this.getCaretPosition()),
+    }));
   }
 }

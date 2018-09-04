@@ -3,7 +3,7 @@ import JQuery from 'jquery';
 /**
  * @stable [09.05.2018]
  */
-export interface IJqField extends JQuery<HTMLInputElement> {
+export interface IJqInput extends JQuery<HTMLInputElement> {
   caret?(position?: number): number;
 }
 
@@ -15,8 +15,8 @@ export interface IJqElement extends JQuery<HTMLElement> {
 
 /**
  * @stable [09.05.2018]
- * @param {IJqField} field
+ * @param {IJqInput} input
  * @param {number} position
  * @returns {number}
  */
-export const caret = (field: IJqField, position?: number): number => field.caret(position);
+export const caret = (input: IJqInput, position?: number): number => input.caret(position);

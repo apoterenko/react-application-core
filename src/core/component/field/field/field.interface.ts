@@ -13,6 +13,7 @@ import {
   ICanReturnClearDirtyChangesValueWrapper,
   IKeyboardOpenedWrapper,
   ICaretVisibilityWrapper,
+  ICaretPositionWrapper,
 } from '../../../definitions.interface';
 import { IFieldEntity, IUniversalField } from '../../../entities-definitions.interface';
 import { IFieldConfiguration } from '../../../configurations-definitions.interface';
@@ -38,7 +39,8 @@ export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
  */
 export interface IUniversalFieldState extends IStringErrorWrapper,
                                               IKeyboardOpenedWrapper,
-                                              ICaretVisibilityWrapper {
+                                              ICaretVisibilityWrapper,
+                                              ICaretPositionWrapper {
 }
 
 /**

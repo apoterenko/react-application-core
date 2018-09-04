@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import * as $ from 'jquery';
 
-import { noop, toClassName, orNull, cancelEvent, isElementFocused } from '../../../util';
+import { noop, toClassName, orNull, cancelEvent, isElementFocused, IJqInput } from '../../../util';
 import {
   AnyT,
   IKeyboardEvent,
@@ -265,5 +266,13 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   private updateInputBeforeHTML5Validation(value: AnyT): void {
     // We must update the field manually before calls HTML5 validation
     this.input.value = value;
+  }
+
+  /**
+   * @stable [04.09.2018]
+   * @returns {IJqInput}
+   */
+  protected get jqInput(): IJqInput {
+    return $(this.input) as IJqInput;
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IJqField, isString, addChild, removeChild } from '../../util';
+import { IJqInput, isString, addChild, removeChild } from '../../util';
 import { BaseComponent } from '../base';
 import {
   IKeyboardKey,
@@ -134,10 +134,10 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
 
   /**
    * @stable [08.05.2018]
-   * @returns {IJqField}
+   * @returns {IJqInput}
    */
-  private get jField(): IJqField {
-    return $(this.props.field) as IJqField;
+  private get jField(): IJqInput {
+    return $(this.props.field) as IJqInput;
   }
 
   /**

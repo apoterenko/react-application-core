@@ -92,16 +92,16 @@
           font-weight: $rac-form-field-input-placeholder-font-weight; /* @stable [03.07.2018] */
         }
       }
+    }
 
-      .rac-field-input-caret {
-        position: absolute;                                           /* @stable [03.09.2018] */
-        bottom: $rac-field-input-caret-bottom;                        /* @stable [03.09.2018] */
-        font-size: $rac-field-input-caret-font-size;                  /* @stable [03.09.2018] */
-        color: $rac-field-input-caret-color;                          /* @stable [03.09.2018] */
+    .rac-field-input-caret {
+      position: absolute;                                           /* @stable [03.09.2018] */
+      bottom: $rac-field-input-caret-bottom;                        /* @stable [03.09.2018] */
+      font-size: $rac-field-input-caret-font-size;                  /* @stable [03.09.2018] */
+      color: $rac-field-input-caret-color;                          /* @stable [03.09.2018] */
 
-        &.rac-field-input-password-cursor {
-          padding-left: 4px;                                          /* @stable [03.09.2018] */
-        }
+      &.rac-field-input-password-cursor {
+        padding-left: 4px;                                          /* @stable [03.09.2018] */
       }
     }
 

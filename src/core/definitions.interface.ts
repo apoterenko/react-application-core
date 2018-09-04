@@ -2439,6 +2439,13 @@ export interface ICaretVisibilityWrapper {
 }
 
 /**
+ * @stable [04.09.2018]
+ */
+export interface ICaretPositionWrapper {
+  caretPosition?: number;
+}
+
+/**
  * @stable [29.05.2018]
  */
 export interface IFormWrapper<TForm> {
