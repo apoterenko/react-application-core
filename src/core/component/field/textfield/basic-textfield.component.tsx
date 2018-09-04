@@ -281,7 +281,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   private onKeyboardChange(rawValue: string): void {
     // To handle various field types, NumberField, etc..
-    const syntheticEvent = this.getRawValueFromEvent({target: {value: rawValue}} as IChangeEvent));
+    const syntheticEvent = this.getRawValueFromEvent({target: {value: rawValue}} as IChangeEvent);
     this.onChangeManually(syntheticEvent);
   }
 
