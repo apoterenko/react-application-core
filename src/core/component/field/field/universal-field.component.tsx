@@ -23,7 +23,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   extends UniversalComponent<TComponent, TProps, TState>
   implements IUniversalField<TProps, TState> {
 
-  private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 300;
+  private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 200;
 
   private caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together
 
@@ -48,7 +48,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (props.useKeyboard) {
       this.caretBlinkingTask = new DelayedTask(
         this.changeCaretVisibility.bind(this),
-        UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
+        props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
         true
       );
     }
@@ -418,25 +418,19 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [03.09.2018]
+   * @stable [04.09.2018]
    * @param {TFocusEvent} event
-   * @returns {boolean}
    */
-  protected onFocus(event: TFocusEvent): boolean {
+  protected onFocus(event: TFocusEvent): void {
     const props = this.props;
 
     if (props.preventFocus || props.useKeyboard) {
-      this.removeFocus();   // Prevent native keyboard opening when using a synthetic keyboard
-
-      if (props.useKeyboard) {
-        this.openSyntheticKeyboard();
-      }
-      return false;
+      this.removeFocus();             // Prevent native keyboard opening when using a synthetic keyboard
+      this.openSyntheticKeyboard();   // "useKeyboard" props checking inside
     }
     if (isFn(props.onFocus)) {
       props.onFocus(event);
     }
-    return true;
   }
 
   /**
@@ -485,7 +479,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
       return false;
     }
     this.setState({keyboardOpened: true});
-    this.updateCursor();
     this.caretBlinkingTask.start();
     return true;
   }
@@ -510,13 +503,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
       return true;
     }
     return false;
-  }
-
-  /**
-   * @stable [04.09.2018]
-   */
-  protected updateCursor(): void {
-    // Do nothing
   }
 
   /**
