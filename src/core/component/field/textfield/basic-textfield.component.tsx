@@ -6,7 +6,7 @@ import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { orNull, toClassName, nvl, cancelEvent, IJqElement } from '../../../util';
-import { IBasicEvent, UNI_CODES } from '../../../definitions.interface';
+import { IBasicEvent, UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
@@ -35,6 +35,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   constructor(props: TInternalProps) {
     super(props);
     this.onWindowMouseDown = this.onWindowMouseDown.bind(this);
+    this.onKeyboardChange = this.onKeyboardChange.bind(this);
 
     if (this.props.clearAction !== false) {
       this.addClearAction();
@@ -166,7 +167,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       <Keyboard ref='keyboard'
                 field={this.input}
                 onClose={this.closeSyntheticKeyboard}
-                onChange={this.onChangeManually}/>
+                onChange={this.onKeyboardChange}/>
     );
   }
 
@@ -262,7 +263,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   private getInputCaretElement(): JSX.Element {
     const state = this.state;
-    const props = this.props;
 
     return orNull<JSX.Element>(
       state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
@@ -273,6 +273,16 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         </div>
       )
     );
+  }
+
+  /**
+   * @stable [04.09.2018]
+   * @param {string} rawValue
+   */
+  private onKeyboardChange(rawValue: string): void {
+    // To handle various field types, NumberField, etc..
+    const syntheticEvent = this.getRawValueFromEvent({target: {value: rawValue}} as IChangeEvent));
+    this.onChangeManually(syntheticEvent);
   }
 
   /**

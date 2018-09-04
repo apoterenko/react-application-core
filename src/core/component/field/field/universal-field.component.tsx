@@ -493,7 +493,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [04.09.2018]
    */
   protected openSyntheticKeyboard(): boolean {
-    if (this.state.keyboardOpened) {
+    if (!this.props.useKeyboard || this.state.keyboardOpened) {
       return false;
     }
     this.setState({keyboardOpened: true}, () => this.caretBlinkingTask.start());
