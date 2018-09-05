@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import * as crossvent from 'crossvent';
-import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
 import { GOOGLE_KEY, PROD_MODE, APP_PROFILE, APP_VERSION } from './env';
 import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage } from './util';
@@ -80,6 +79,3 @@ export function bootstrap(
   }
 }
 
-LoggerFactory.configureLogLevel(
-  PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
-);
