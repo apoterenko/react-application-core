@@ -518,34 +518,50 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   }
 
   /**
-   * @stable [04.07.2018]
+   * @stable [06.09.2018]
    * @param {IEntity[]} dataSource
    * @returns {JSX.Element[]}
    */
   private getGroupedRows(dataSource: IEntity[]): JSX.Element[] {
-    const state = this.state;
-    const groupBy = this.props.groupBy;
-    const rows = [];
+    if (R.isEmpty(dataSource)) {
+      return [];
+    }
 
-    const groupedDataSource = {};
+    const groupBy = this.props.groupBy;
+    const currentGroupedEntities = [];
+    let rows = [];
+    let currentGroupColumnValue;
+
     dataSource.forEach((entity) => {
       const groupColumnValue = Reflect.get(entity, groupBy.columnName);
-
-      let groupedDataSourceEntities = Reflect.get(groupedDataSource, groupColumnValue);
-      if (!groupedDataSource.hasOwnProperty(groupColumnValue)) {
-        Reflect.set(groupedDataSource, groupColumnValue, groupedDataSourceEntities = []);
+      if (!R.equals(currentGroupColumnValue, groupColumnValue)
+            && !R.isNil(currentGroupColumnValue)) {
+        rows = this.buildRowsGroup(rows, currentGroupColumnValue, currentGroupedEntities);
+        currentGroupedEntities.length = 0;
       }
-      groupedDataSourceEntities.push(entity);
+      currentGroupColumnValue = groupColumnValue;
+      currentGroupedEntities.push(entity);
     });
+    if (currentGroupedEntities.length) {
+      rows = this.buildRowsGroup(rows, currentGroupColumnValue, currentGroupedEntities);
+    }
+    return rows;
+  }
 
-    Object.keys(groupedDataSource).forEach((groupedRowValue) => {
-      const groupedRows = groupedDataSource[groupedRowValue];
-      rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
-
-      if (this.isGroupedRowExpanded(groupedRowValue)) {
-        groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index)));
-      }
-    });
+  /**
+   * @stable [06.09.2018]
+   * @param {JSX.Element[]} rows
+   * @param {EntityIdT} currentGroupColumnValue
+   * @param {IEntity[]} currentGroupedEntities
+   * @returns {JSX.Element[]}
+   */
+  private buildRowsGroup(rows: JSX.Element[],
+                         currentGroupColumnValue: EntityIdT,
+                         currentGroupedEntities: IEntity[]): JSX.Element[] {
+    rows = rows.concat(this.getGroupingRow(currentGroupColumnValue, currentGroupedEntities));
+    if (this.isGroupedRowExpanded(currentGroupColumnValue)) {
+      return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index)));
+    }
     return rows;
   }
 
