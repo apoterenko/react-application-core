@@ -23,7 +23,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
                          TState extends IBasicSelectState>
     extends BasicTextField<TComponent, TProps, TState> {
 
-  protected static logger = LoggerFactory.makeLogger(BasicSelect);
+  protected static logger = LoggerFactory.makeLogger('BasicSelect');
 
   /**
    * @stable [19.08.2018]

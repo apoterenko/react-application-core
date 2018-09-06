@@ -25,7 +25,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
                   TInternalState>
     implements IBasicTextField<TInternalProps, TInternalState> {
 
-  protected static logger = LoggerFactory.makeLogger(BasicTextField);
+  protected static logger = LoggerFactory.makeLogger('BasicTextField');
 
   private static CHAR_WIDTH_AT_PX = 10;
   private static DEFAULT_MASK_GUIDE = false;

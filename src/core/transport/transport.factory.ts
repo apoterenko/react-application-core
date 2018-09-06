@@ -21,7 +21,7 @@ import {
 
 @injectable()
 export class TransportFactory implements IApplicationTransportFactory {
-  private static logger = LoggerFactory.makeLogger(TransportFactory);
+  private static logger = LoggerFactory.makeLogger('TransportFactory');
   private static CANCEL_MESSAGE = 'The operation has been canceled by the user.';
 
   private id = 0;

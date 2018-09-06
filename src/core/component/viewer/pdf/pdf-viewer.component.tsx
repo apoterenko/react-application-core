@@ -19,7 +19,7 @@ export class PdfViewer extends Viewer<PdfViewer, IPdfViewerProps, IPdfViewerStat
   };
 
   private static PREVIEW_WIDTH = 600;
-  private static logger = LoggerFactory.makeLogger(PdfViewer);
+  private static logger = LoggerFactory.makeLogger('PdfViewer');
 
   private loadTask: Promise<IPdfViewerDocument>;
   private loadPageTask: Promise<IPdfViewerPage>;

@@ -19,7 +19,7 @@ import { ApplicationActionBuilder } from '../component/application/application-a
 
 @provideInSingleton(TransportEffects)
 export class TransportEffects {
-  private static logger = LoggerFactory.makeLogger(TransportEffects);
+  private static logger = LoggerFactory.makeLogger('TransportEffects');
 
   @lazyInject(DI_TYPES.TransportPayloadAnalyzer) private payloadAnalyzer: IApplicationTransportPayloadAnalyzer;
   @lazyInject(DI_TYPES.TransportErrorInterceptor) private errorInterceptor: IApplicationTransportErrorInterceptor;

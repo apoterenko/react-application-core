@@ -10,7 +10,7 @@ import { UniversalApplicationEffects } from './universal-application.effects';
 
 @provideInSingleton(ApplicationEffects)
 export class ApplicationEffects<TApi> extends UniversalApplicationEffects<TApi> {
-  private static logger0 = LoggerFactory.makeLogger(ApplicationEffects);
+  private static logger0 = LoggerFactory.makeLogger('ApplicationEffects');
 
   /**
    * Initial form state supporting

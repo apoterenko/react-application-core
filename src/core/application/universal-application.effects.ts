@@ -23,7 +23,7 @@ import { FetchJsonTransportFactory } from '../transport/fetch-json-transport.fac
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
-  private static logger = LoggerFactory.makeLogger(UniversalApplicationEffects);
+  private static logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
 
   @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;

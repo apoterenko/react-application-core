@@ -15,7 +15,7 @@ import { IApiEntity } from '../../entities-definitions.interface';
 @injectable()
 export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPayloadFactory {
 
-  private static logger = LoggerFactory.makeLogger(ModifyEntityPayloadFactory);
+  private static logger = LoggerFactory.makeLogger('ModifyEntityPayloadFactory');
 
   public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapper {
     const apiEntity = action.initialData as IApiEntity;

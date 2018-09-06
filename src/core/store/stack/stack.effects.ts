@@ -13,7 +13,7 @@ import { TabPanelActionBuilder } from '../../component/tabpanel';
 
 @provideInSingleton(ConnectorEffects)
 export class ConnectorEffects {
-  private static logger = LoggerFactory.makeLogger(ConnectorEffects);
+  private static logger = LoggerFactory.makeLogger('ConnectorEffects');
 
   @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
   public $onContainerInit(action: IEffectsAction, state: IApplicationStoreEntity): IEffectsAction[] {

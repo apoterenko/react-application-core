@@ -29,7 +29,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   extends React.Component<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 
-  protected static logger = LoggerFactory.makeLogger(UniversalContainer);
+  protected static logger = LoggerFactory.makeLogger('UniversalContainer');
 
   // Because of Flux-architecture.
   // Needed for updating an array of dependent fields (each field depends on previous field state).

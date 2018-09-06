@@ -7,7 +7,7 @@ import { ILock } from './lock.interface';
 
 @provideInSingleton(Lock)
 export class Lock implements ILock {
-  private static logger = LoggerFactory.makeLogger(Lock);
+  private static logger = LoggerFactory.makeLogger('Lock');
 
   @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;

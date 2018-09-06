@@ -25,7 +25,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
                             TInternalState extends IBasicFileFieldInternalState>
     extends BasicTextField<TComponent, TProps, TInternalState> {
 
-  protected static readonly logger = LoggerFactory.makeLogger(BasicFileField);
+  protected static readonly logger = LoggerFactory.makeLogger('BasicFileField');
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
   private filesMap = new Map<EntityIdT, Blob>();

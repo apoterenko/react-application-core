@@ -24,7 +24,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   extends UniversalComponent<TComponent, TProps, TState>
   implements IUniversalField<TProps, TState> {
 
-  protected static logger = LoggerFactory.makeLogger(UniversalField);
+  protected static logger = LoggerFactory.makeLogger('UniversalField');
   private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 200;
 
   private caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together

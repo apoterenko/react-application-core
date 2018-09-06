@@ -239,7 +239,7 @@ export class UIMaterialFactory implements IUIFactory {
     smile_beam: faSmileBeam,
     adversal: faAdversal,
   };
-  private static logger = LoggerFactory.makeLogger(UIMaterialFactory);
+  private static logger = LoggerFactory.makeLogger('UIMaterialFactory');
 
   public switch = 'mdc-switch';
   public switchInput = 'mdc-switch__native-control';

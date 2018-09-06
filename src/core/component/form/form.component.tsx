@@ -32,7 +32,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   public static defaultProps: IFormProps = {
     form: INITIAL_APPLICATION_FORM_STATE,
   };
-  private static logger = LoggerFactory.makeLogger(Form);
+  private static logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
   private readonly childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();

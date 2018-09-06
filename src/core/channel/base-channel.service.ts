@@ -19,7 +19,7 @@ import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-defi
 
 @injectable()
 export abstract class BaseChannel implements IChannel {
-  private static logger = LoggerFactory.makeLogger(BaseChannel);
+  private static logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<IApplicationStoreEntity>;

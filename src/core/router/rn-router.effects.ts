@@ -13,7 +13,7 @@ import { INavigateEntity } from '../entities-definitions.interface';
 
 @provideInSingleton(RnRouterEffects)
 export class RnRouterEffects {
-  private static logger = LoggerFactory.makeLogger(RnRouterEffects);
+  private static logger = LoggerFactory.makeLogger('RnRouterEffects');
 
   /* @stable - 15.04.2018 */
   @EffectsService.effects(ROUTER_NAVIGATE_ACTION_TYPE)

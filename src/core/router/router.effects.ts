@@ -17,7 +17,7 @@ import {
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {
-  private static logger = LoggerFactory.makeLogger(RouterEffects);
+  private static logger = LoggerFactory.makeLogger('RouterEffects');
 
   @lazyInject(DI_TYPES.Router) private router: IRouterComponentEntity;
 
