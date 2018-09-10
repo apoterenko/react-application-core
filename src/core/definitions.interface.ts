@@ -963,6 +963,20 @@ export interface IRenderedWrapper {
 }
 
 /**
+ * @stable [10.09.2018]
+ */
+export interface IHeaderRenderedWrapper {
+  headerRendered?: boolean;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IColumnRenderedWrapper {
+  columnRendered?: boolean;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IDisabledWrapper {

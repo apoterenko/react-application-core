@@ -211,6 +211,8 @@ import {
   IHeaderClassNameWrapper,
   IColSpanWrapper,
   IColumnWidthWrapper,
+  IColumnRenderedWrapper,
+  IHeaderRenderedWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -511,6 +513,7 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   IColumnTitleWrapper,
                                                   IColumnWidthWrapper,
                                                   IColumnClassNameWrapper<string | ((props: IGridColumnProps) => string)>,
+                                                  IColumnRenderedWrapper,
                                                   ILocalFilterFnWrapper<IGridFilterConfiguration>,
                                                   IOnClickWrapper<ISortDirectionEntity>,
                                                   ITitleWrapper,
@@ -548,8 +551,8 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
 export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration,
                                                         IHeaderColSpanWrapper,
                                                         IHeaderWidthWrapper,
-                                                        IHeaderClassNameWrapper {
-  headerRendered?: boolean;
+                                                        IHeaderClassNameWrapper,
+                                                        IHeaderRenderedWrapper {
 }
 
 /**

@@ -28,7 +28,7 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
   protected getMessage(): JSX.Element {
     return (
       <Message {...this.getMessageComponentProps()}>
-        {this.getAddAction()}
+        {this.addActionElement}
       </Message>
     );
   }
@@ -46,16 +46,13 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [09.09.2018]
    * @returns {JSX.Element}
    */
-  protected getAddAction(): JSX.Element {
+  protected get addActionElement(): JSX.Element {
     return orNull<JSX.Element>(
       this.props.useAddAction,
-      () => this.uiFactory.makeIcon<IUIIconConfiguration>({
-        type: 'add',
-        onClick: this.onCreate,
-      })
+      () => this.uiFactory.makeIcon<IUIIconConfiguration>({type: 'add', onClick: this.onCreate})
     );
   }
 }
