@@ -18,7 +18,7 @@ export class CardList extends BaseList<CardList, ICardListProps> {
       <div ref='container'
            className={toClassName('rac-card-list', props.className)}>
         {this.dataSource.map((item) => this.getItem(item))}
-        {this.getAddAction()}
+        {this.addActionElement}
       </div>
     );
   }
