@@ -1,8 +1,14 @@
 @import '../constant';
+@import './time-grid';
+@import './tight-grid';
 @import './column/grid-column';
 
 // Grid [FRAMEWORK-][RAC+]
 .rac {
+
+  .rac-grid-wrapper {
+    overflow: auto;                                                 /* @stable [11.09.2018] */
+  }
 
   .rac-grid {
     color: $rac-grid-color;                                         /* @stable [21.06.2018] */
@@ -128,25 +134,14 @@
         }
       }
     }
-
-    &.rac-big-row-grid {
-
-      .rac-grid-body {
-
-        .rac-grid-column {
-          padding-top: 4px;                                                  /* @stable [26.06.2018] */
-          padding-bottom: 4px;                                               /* @stable [26.06.2018] */
-        }
-      }
-    }
   }
 
   .rac-grid-service-wrapper {
     border-left: 1px solid $rac-grid-service-wrapper-border-left-color;      /* @stable [09.06.2018] */
-    width: $rac-grid-service-wrapper-width;                                  /* @stable [12.08.2018] */
+    min-width: $rac-grid-service-wrapper-width;                              /* @stable [11.09.2018] */
 
     .rac-grid-service {
-      padding-top: 4px;                                                      /* @stable [12.08.2018] */
+      padding-top: 8px;                                                      /* @stable [11.09.2018] */
     }
 
     .rac-icon {

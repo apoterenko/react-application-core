@@ -2181,6 +2181,13 @@ export interface ISaveMessageWrapper {
   saveMessage?: string;
 }
 
+/**
+ * @stable [11.09.2018]
+ */
+export interface ITightGridWrapper {
+  tightGrid?: boolean;
+}
+
 /* @stable - 12.04.2018 */
 export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;

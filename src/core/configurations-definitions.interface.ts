@@ -213,6 +213,7 @@ import {
   IColumnWidthWrapper,
   IColumnRenderedWrapper,
   IHeaderRenderedWrapper,
+  ITightGridWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -544,7 +545,8 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IColumnsConfigurationWrapper,
                                             IOnPlusClickWrapper,
                                             IUseServiceWrapper,
-                                            IExpandedGroupsWrapper {
+                                            IExpandedGroupsWrapper,
+                                            ITightGridWrapper {
 }
 
 /* @stable - 03.04.2018 */

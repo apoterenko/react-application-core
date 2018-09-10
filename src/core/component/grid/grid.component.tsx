@@ -39,8 +39,17 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     const dataSource = this.dataSource;
 
     const gridEl = (
-      <FlexLayout className='rac-grid-wrapper'>
-        <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
+      <FlexLayout row={true}
+                  className='rac-grid-wrapper'>
+        <table cellPadding={0}
+               cellSpacing={0}
+               className={toClassName(
+                 'rac-grid',
+                 'rac-flex',
+                 'rac-flex-column',
+                 props.tightGrid && 'rac-tight-grid',
+                 props.className
+               )}>
           <thead className='rac-grid-head'>
           {this.headerElement}
           {this.filterElement}
