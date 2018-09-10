@@ -81,7 +81,6 @@ import {
   INotificationWrapper,
   IInfoWrapper,
   IStringErrorMessageWrapper,
-  IMessageWrapper,
   ISelfWrapper,
   IStateWrapper,
   IPathWrapper,
@@ -119,6 +118,8 @@ import {
   IPayloadWrapper,
   IActiveValueWrapper,
   ITabPanelWrapper,
+  IWidthWrapper,
+  ITextAlignWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -822,4 +823,18 @@ export interface IXYEntity extends IXWrapper,
  */
 export interface IOperationPayloadEntity<TPayload> extends IPayloadWrapper<TPayload>,
                                                            IOperationWrapper<IOperationEntity> {
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IStyleEntity extends ITextAlignWrapper,
+                                      IWidthWrapper {
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IGridColumnEntity extends IComponentEntity,
+                                           IEntityWrapper<IEntity> {
 }

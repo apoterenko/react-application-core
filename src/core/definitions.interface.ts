@@ -357,8 +357,15 @@ export interface IReaderFnWrapper<TRequest, TResult> extends IReaderWrapper<(req
 /**
  * @stable [21.05.2018]
  */
-export interface IAlignWrapper {
-  align?: string;
+export interface IAlignWrapper<TAlign = string> {
+  align?: TAlign;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface ITextAlignWrapper<TTextAlign = string> {
+  textAlign?: TTextAlign;
 }
 
 /**
@@ -1687,13 +1694,6 @@ export interface IUseAddActionWrapper {
 /**
  * @stable [12.08.2018]
  */
-export interface IUsePlusActionWrapper {
-  usePlusAction?: boolean;
-}
-
-/**
- * @stable [12.08.2018]
- */
 export interface IOnPlusClickWrapper<TOnPlusClick = () => void> {
   onPlusClick?: TOnPlusClick;
 }
@@ -1865,6 +1865,13 @@ export interface ISubTitleWrapper<TSubTitle = string> {
 }
 
 /**
+ * @stable [10.09.2018]
+ */
+export interface IColumnTitleWrapper<TColumnTitle = string> {
+  columnTitle?: TColumnTitle;
+}
+
+/**
  * @stable [06.06.2018]
  */
 export interface IClearActionWrapper<TClearAction = boolean> {
@@ -1876,6 +1883,20 @@ export interface IClearActionWrapper<TClearAction = boolean> {
  */
 export interface IClassNameWrapper {
   className?: string;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IColumnClassNameWrapper<TColumnClassName = string> {
+  columnClassName?: TColumnClassName;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IHeaderClassNameWrapper {
+  headerClassName?: string;
 }
 
 /**
@@ -2506,6 +2527,13 @@ export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: T
 }
 
 /**
+ * @stable [10.09.2018]
+ */
+export interface IOnColumnClickWrapper<TPayload = IBasicEvent, TOnColumnClick = (payload?: TPayload) => void> {
+  onColumnClick?: TOnColumnClick;
+}
+
+/**
  * @stable [17.08.2018]
  */
 export interface IOnClearWrapper<TOnClear = () => void> {
@@ -2666,6 +2694,20 @@ export interface IWidthWrapper {
   width?: number;
 }
 
+/**
+ * @stable [10.09.2018]
+ */
+export interface IHeaderWidthWrapper {
+  headerWidth?: number;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IColumnWidthWrapper {
+  columnWidth?: number;
+}
+
 /* @stable - 01.04.2018 */
 export interface IMergerWrapper<TMerger> {
   merger?: TMerger;
@@ -2728,10 +2770,24 @@ export interface IExactWrapper {
 }
 
 /**
- * @stable [04.07.2018]
+ * @stable [10.09.2018]
  */
-export interface IColspanWrapper {
-  colspan?: number;
+export interface IColSpanWrapper {
+  colSpan?: number;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IHeaderColSpanWrapper {
+  headerColSpan?: number;
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IColumnColSpanWrapper {
+  columnColSpan?: number;
 }
 
 /* @stable - 14.04.2018 */

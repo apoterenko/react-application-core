@@ -54,7 +54,6 @@ import {
   IComputedMatchWrapper,
   IKeyValueParamsWrapper,
   IExactWrapper,
-  IColspanWrapper,
   IBeforeEnterWrapper,
   IAfterEnterWrapper,
   IUrlWrapper,
@@ -192,7 +191,6 @@ import {
   IWarningWrapper,
   IMoreOptionsConfigurationWrapper,
   ICanReturnClearDirtyChangesValueWrapper,
-  IUsePlusActionWrapper,
   IOnPlusClickWrapper,
   IActiveValueWrapper,
   IValueWrapper,
@@ -204,6 +202,15 @@ import {
   IOnDeactivateWrapper,
   IMessageWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
+  IOnColumnClickWrapper,
+  IColumnClassNameWrapper,
+  IColumnTitleWrapper,
+  IColumnColSpanWrapper,
+  IHeaderColSpanWrapper,
+  IHeaderWidthWrapper,
+  IHeaderClassNameWrapper,
+  IColSpanWrapper,
+  IColumnWidthWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -215,7 +222,7 @@ import {
   IUniversalComponent,
   IApiEntity,
 } from './entities-definitions.interface';
-import { IUniversalButtonProps } from './props-definitions.interface';
+import { IUniversalButtonProps, IGridColumnProps } from './props-definitions.interface';
 
 /**
  * @stable [26.08.2018]
@@ -269,7 +276,7 @@ export interface IMenuConfigurationWrapper<TMenuConfiguration = IMenuConfigurati
 /**
  * @stable [14.05.2018]
  */
-export interface IColumnsConfigurationWrapper<TColumnsConfiguration> {
+export interface IColumnsConfigurationWrapper<TColumnsConfiguration = IGridColumnConfiguration[]> {
   columnsConfiguration?: TColumnsConfiguration;
 }
 
@@ -488,22 +495,34 @@ export interface IFormConfiguration extends IUniversalFormConfiguration,
                                             IResetTextWrapper {
 }
 
+/**
+ * @stable [10.09.2018]
+ */
+export interface IBaseGridColumnConfiguration extends IComponentConfiguration,
+                                                      IAlignWrapper,
+                                                      IWidthWrapper,
+                                                      IColSpanWrapper {
+}
+
 /* @stable - 04.04.2018 */
-export interface IGridColumnConfiguration extends IComponentConfiguration,
+export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
+                                                  IOnColumnClickWrapper<IGridColumnProps>,
+                                                  IColumnColSpanWrapper,
+                                                  IColumnTitleWrapper,
+                                                  IColumnWidthWrapper,
+                                                  IColumnClassNameWrapper<string | ((props: IGridColumnProps) => string)>,
                                                   ILocalFilterFnWrapper<IGridFilterConfiguration>,
                                                   IOnClickWrapper<ISortDirectionEntity>,
                                                   ITitleWrapper,
                                                   IUseGroupingWrapper,
                                                   IUseSortingWrapper,
-                                                  IAlignWrapper,
                                                   ITplFnWrapper,
                                                   INameWrapper,
                                                   IRenderedWrapper,
                                                   IRendererWrapper,
                                                   IActionedWrapper,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
-                                                  IFilterRendererWrapper<IGridColumnConfiguration>,
-                                                  IWidthWrapper {
+                                                  IFilterRendererWrapper<IGridColumnConfiguration> {
 }
 
 /**
@@ -519,16 +538,24 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IWebComponentConfiguration,
                                             IOnChangeGroupingWrapper<IFieldChangeEntity>,
                                             IOnChangeSortingWrapper<ISortDirectionEntity>,
-                                            IColumnsConfigurationWrapper<IGridColumnConfiguration[]>,
-                                            IUsePlusActionWrapper,
+                                            IColumnsConfigurationWrapper,
                                             IOnPlusClickWrapper,
                                             IUseServiceWrapper,
                                             IExpandedGroupsWrapper {
 }
 
 /* @stable - 03.04.2018 */
-export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration {
+export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration,
+                                                        IHeaderColSpanWrapper,
+                                                        IHeaderWidthWrapper,
+                                                        IHeaderClassNameWrapper {
+  headerRendered?: boolean;
 }
+
+/**
+ * @stable [10.09.2018]
+ */
+export type GridColumnConfigurationT = IGridColumnConfiguration | IGridHeaderColumnConfiguration;
 
 /**
  * @stable [31.08.2018]
@@ -789,8 +816,7 @@ export interface IRnModalConfiguration extends IUniversalComponentConfiguration,
 
 /* @stable [23.04.2018] */
 export interface IGridRowConfiguration extends IComponentConfiguration,
-                                               IStringArrayExcludeTargetsClassesWrapper,
-                                               IColspanWrapper {
+                                               IStringArrayExcludeTargetsClassesWrapper {
 }
 
 /* @stable [24.04.2018] */

@@ -34,15 +34,12 @@ export const getDiffAtSecondsBetween = (time1: string, time2: string): number =>
  * @param {string} time2
  * @returns {number}
  */
-export const getDiffAtMinutesBetween = (time1: string, time2: string): number => {
-  return getDiffAtSecondsBetween(time1, time2) / 60;
-};
+export const getDiffAtMinutesBetween = (time1: string, time2: string): number =>
+  getDiffAtSecondsBetween(time1, time2) / 60;
 
 /**
  * @stable [19.08.2018]
  * @param {string} time1
  * @returns {number}
  */
-export const getDiffAtMinutes = (time1: string): number => {
-  return getDiffAtMinutesBetween('00:00', time1);
-};
+export const getDiffAtMinutes = (time1: string): number => getDiffAtMinutesBetween('00:00', time1);

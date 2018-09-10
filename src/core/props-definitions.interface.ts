@@ -11,6 +11,7 @@ import {
   IComponentEntity,
   IUniversalButtonEntity,
   ITabPanelEntity,
+  IGridColumnEntity,
 } from './entities-definitions.interface';
 import {
   IContainerConfiguration,
@@ -25,6 +26,7 @@ import {
   IUniversalFieldConfiguration,
   IUniversalButtonConfiguration,
   ITabPanelConfiguration,
+  IGridColumnConfiguration,
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
 
@@ -113,4 +115,11 @@ export interface IUniversalButtonProps extends IUniversalButtonConfiguration,
  */
 export interface ITabPanelProps extends ITabPanelConfiguration,
                                         ITabPanelEntity {
+}
+
+/**
+ * @stable [10.09.2018]
+ */
+export interface IGridColumnProps extends IGridColumnConfiguration,
+                                          IGridColumnEntity {
 }
