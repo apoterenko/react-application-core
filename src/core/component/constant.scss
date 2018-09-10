@@ -20,6 +20,8 @@ $color-16: #c8ccce !default;
 $color-17: #57fff1 !default;
 $color-18: #ff7575 !default;
 $color-19: #3bac73 !default;
+$color-20: #e4e4e4 !default;
+$color-21: #f2f2f2 !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
@@ -152,6 +154,11 @@ $rac-grid-edited-column-content-font-size: 10px !default;
 $rac-grid-edited-column-content-color: $color-6 !default;
 $rac-grid-edited-column-content-top: -4px !default;
 $rac-grid-edited-column-content-right: 0 !default;
+$rac-time-grid-column-content-font-size: $rac-default-font-size !default;
+$rac-time-grid-column-content-border-right-color: $color-21 !default;
+$rac-time-grid-column-hover-background-color: $color-10 !default;
+$rac-time-grid-bordered-column-content-border-right-color: $color-20 !default;
+$rac-time-grid-row-border-bottom-color: $color-16 !default;
 
 /* @stable [25.06.2018] */
 $rac-loading-color: $rac-default-label-color !default;

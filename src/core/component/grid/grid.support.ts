@@ -50,7 +50,7 @@ export const buildTimeGridColumns = (
       const usaCurrentHour = isBeforeNoon ? currentHour : currentHour - HOURS_PER_HALF_OF_DAY;
       const normalizedTime = normalizeTime(String(currentMinutes));
       const normalizedHour = normalizeTime(String(currentHour));
-      const columnClassName = currentPeriodPerHour === periodsPerHourCount - 1 && 'rac-time-grid-border-column';
+      const columnClassName = currentPeriodPerHour === periodsPerHourCount - 1 && 'rac-grid-bordered-column';
 
       const item: GridColumnConfigurationT = {
         align: 'center',
