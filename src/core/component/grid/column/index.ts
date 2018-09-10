@@ -1,2 +1,2 @@
 export * from './grid-column.component';
-export * from './grid-column.interface';
+
