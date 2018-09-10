@@ -6,7 +6,7 @@ A react-based application core for the business applications.
 
 # Description
 
-The library is designed to quickly start developing business applications are based on React, Redux, Material-UI.
+The library is designed to quickly start develop the business applications are based on React, Redux, Material-UI.
 
 # Demo
 
