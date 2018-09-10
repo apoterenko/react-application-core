@@ -31,53 +31,49 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   }
 
   /**
-   * @stable - 08.04.2018
+   * @stable [09.09.2018]
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
     const props = this.props;
     const dataSource = this.dataSource;
 
+    const gridEl = (
+      <FlexLayout className='rac-grid-wrapper'>
+        <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
+          <thead className='rac-grid-head'>
+          {this.headerElement}
+          {this.filterElement}
+          </thead>
+          <tbody ref='container'
+                 className='rac-grid-body'>
+            {
+              orDefault<JSX.Element[], JSX.Element[]>(
+                isDef(props.groupBy),
+                () => this.getGroupedRows(dataSource),
+                () => dataSource.map((entity, index) => this.getRow(entity, index))
+              )
+            }
+          </tbody>
+        </table>
+        {this.addActionElement}
+      </FlexLayout>
+    );
+
+    if (!props.useService) {
+      return gridEl;
+    }
     return (
       <FlexLayout row={true}>
-        <FlexLayout>
-          <table className={toClassName('rac-grid rac-flex rac-flex-column', props.className)}>
-            <thead className='rac-grid-head'>
-              {this.headerElement}
-              {this.getFilter()}
-            </thead>
-            <tbody ref='container'
-                   className='rac-grid-body'>
-              {
-                orDefault<JSX.Element[], JSX.Element[]>(
-                  isDef(props.groupBy),
-                  () => this.getGroupedRows(dataSource),
-                  () => dataSource.map((entity, index) => this.getRow(entity, index))
-                )
-              }
-            </tbody>
-          </table>
-          {this.getAddAction()}
-        </FlexLayout>
-        {
-          orNull<JSX.Element>(
-            props.useService || props.usePlusAction,
-            () => (
-              <div className='rac-grid-service-wrapper'>
-                <div className='rac-grid-service'>
-                  {orNull<JSX.Element>(
-                    props.useService,
-                    () => this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onSettingsClick}),
-                  )}
-                  {orNull<JSX.Element>(
-                    props.usePlusAction,
-                    () => this.uiFactory.makeIcon({type: 'plus', onClick: this.onPlusClick}),
-                  )}
-                </div>
-              </div>
-            )
-          )
-        }
+        {gridEl}
+        <div className='rac-grid-service-wrapper'>
+          <div className='rac-grid-service'>
+            {orNull<JSX.Element>(
+              props.useService,
+              () => this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onSettingsClick}),
+            )}
+          </div>
+        </div>
       </FlexLayout>
     );
   }
@@ -356,6 +352,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                         className={toClassName(
                           !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited'
                         )}
+                        entity={entity}
                         {...column}>
               {this.getColumn(entity, column, columnNum)}
             </GridColumn>
@@ -369,9 +366,9 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @stable - 05.04.2018
    * @returns {JSX.Element}
    */
-  private getFilter(): JSX.Element {
-    const columnsConfiguration = this.columnsConfiguration;
-    const isAtLeastOneFilterExist = columnsConfiguration
+  private get filterElement(): JSX.Element {
+    const columns = this.columnsConfiguration;
+    const isAtLeastOneFilterExist = columns
       .filter((column) => !R.isNil(column.filterRenderer)).length > 0;
 
     return (
@@ -380,7 +377,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
         () => (
           <GridRow>
             {
-              columnsConfiguration.map((column, columnNum) => (
+              columns.map((column, columnNum) => (
                 <GridHeaderColumn key={this.toFilterColumnKey(columnNum)}
                                   {...column}>
                   {this.getFilterColumn(column, columnNum)}
@@ -578,8 +575,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
 
     return (
       <GridRow key={this.toGroupedRowKey(groupedRowValue)}
-               className={'rac-grid-data-row rac-grid-data-row-grouped'}
-               colspan={this.columnsConfiguration.length}>
+               className={'rac-grid-data-row rac-grid-data-row-grouped'}>
         {
           <GridColumn key={this.toGroupedColumnKey(groupedRowValue)}>
             {

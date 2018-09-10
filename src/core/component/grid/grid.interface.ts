@@ -4,6 +4,17 @@ import { IContainerProps } from '../../props-definitions.interface';
 import { IFilterChangesWrapper, IExpandedGroupsWrapper } from '../../definitions.interface';
 
 /**
+ * @stable [10.09.2018]
+ */
+export interface ITimeGridBuilderConfigEntity {
+  hourFrom?: number;
+  hourTo?: number;
+  cellWidthFactor?: number;
+  minPeriodAtMinutes?: number;
+  timeAbbreviationResolver?: (isBeforeNoon?: boolean) => string;
+}
+
+/**
  * @stable [05.05.2018]
  */
 export interface IGridContainerProps extends IContainerProps,
