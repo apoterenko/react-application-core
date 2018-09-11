@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { isFn, join, normalizeTime, orNull, orUndef, toClassName } from '../../util';
+import { isFn, join, normalizeTime, orNull, orUndef, toClassName, defValuesFilter } from '../../util';
 import { GridColumnConfigurationT } from '../../configurations-definitions.interface';
 import { UNI_CODES } from '../../definitions.interface';
 import { ITimeGridBuilderConfigEntity } from './grid.interface';
@@ -19,6 +19,24 @@ export const DEFAULT_BUILDER_CONFIG: ITimeGridBuilderConfigEntity = {
   minPeriodAtMinutes: 10,
   timeAbbreviationResolver: (isBeforeNoon: boolean) => isBeforeNoon ? 'am' : 'pm',
 };
+
+/**
+ * @stable [11.09.2018]
+ * @param {GridColumnConfigurationT} defaultConfig
+ * @param {string} extraClassName
+ * @returns {GridColumnConfigurationT}
+ */
+export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT,
+                                        extraClassName = 'rac-grid-bordered-column'): GridColumnConfigurationT =>
+  ({
+    ...defaultConfig,
+    columnClassName: (props) => toClassName(
+      extraClassName,
+      isFn(defaultConfig.columnClassName)
+        ? (defaultConfig.columnClassName as (props) => string)(props)
+        : defaultConfig.columnClassName as string,
+    ),
+  });
 
 /**
  * @stable [10.09.2018]
@@ -52,7 +70,7 @@ export const buildTimeGridColumns = (
       const normalizedHour = normalizeTime(String(currentHour));
       const columnClassName = currentPeriodPerHour === periodsPerHourCount - 1 && 'rac-grid-bordered-column';
 
-      const item: GridColumnConfigurationT = {
+      const item = defValuesFilter<GridColumnConfigurationT, GridColumnConfigurationT>({
         align: 'center',
         title: join([usaCurrentHour, timeAbbreviation], ' '),
         width: ceilWidth,
@@ -63,14 +81,9 @@ export const buildTimeGridColumns = (
         headerClassName: 'rac-time-grid-time-header-column',
         tpl: () => UNI_CODES.noBreakSpace,
         ...defaultConfig,
-        columnClassName: (props) => toClassName(
-          columnClassName,
-          isFn(defaultConfig.columnClassName)
-            ? (defaultConfig.columnClassName as (props) => string)(props)
-            : defaultConfig.columnClassName as string,
-        ),
+        ...buildTimeGridInfoColumn({}, columnClassName),
         name: `${normalizedHour}:${normalizedTime}`,
-      };
+      });
 
       currentPeriodPerHour = ++currentPeriodPerHour === periodsPerHourCount ? 0 : currentPeriodPerHour;
       return orNull<GridColumnConfigurationT>(
