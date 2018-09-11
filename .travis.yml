@@ -4,6 +4,8 @@ branches:
 language: node_js
 node_js:
   - "8"
+install:
+  - npm install opencollective
 script:
   - npm run lint
   - npm run scss
