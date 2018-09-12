@@ -4,7 +4,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import * as Promise from 'bluebird';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { APP_VERSION } from '../../../env';
+import { ENV } from '../../../env';
 import { IPdfViewerProps, IPdfViewerState, IPdfViewerDocument, IPdfViewerPage } from './pdf-viewer.interface';
 import { AnyT } from '../../../definitions.interface';
 import { Viewer } from '../viewer.component';
@@ -35,7 +35,7 @@ export class PdfViewer extends Viewer<PdfViewer, IPdfViewerProps, IPdfViewerStat
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.min.js?${APP_VERSION}`;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.min.js?_dc=${ENV.appVersion}`;
   }
 
   /**

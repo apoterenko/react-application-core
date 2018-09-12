@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
-import * as P from 'platform';
+
 import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
@@ -11,6 +11,7 @@ import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../con
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
+import { ENV } from '../../../env';
 import {
   IBasicTextFieldState,
   IBasicTextFieldProps,
@@ -31,6 +32,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   private static DEFAULT_MASK_GUIDE = false;
 
   protected defaultActions: IFieldActionConfiguration[] = [];
+  private mirrorInputRef = React.createRef<HTMLElement>();
 
   constructor(props: TInternalProps) {
     super(props);
@@ -235,7 +237,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [12.09.2018]
    * @returns {JSX.Element}
    */
   private getMirrorInputElement(): JSX.Element {
@@ -244,14 +246,20 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       return null;
     }
 
-    const value = this.value as string;
-    const content = props.type === 'password'
-      ? value.replace(/./g, P.name === 'Safari' ? '●' : '•')
-      : value;
+    const value = this.value;
+    const content = (
+      props.type === 'password'
+        ? value.replace(/./g, ENV.passwordInputPlaceholder)
+        : value
+    ).replace(/ /g, UNI_CODES.noBreakSpace);
 
     return (
-      <span ref='mirrorInput'
-            className={toClassName(this.getInputElementProps().className, 'rac-field-input-mirror', 'rac-invisible')}>
+      <span ref={this.mirrorInputRef}
+            className={toClassName(
+              this.getInputElementProps().className,
+              'rac-field-input-mirror',
+              'rac-invisible'
+            )}>
         {content}
       </span>
     );
@@ -288,10 +296,10 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [12.09.2018]
    * @returns {IJqElement}
    */
   private get jMirrorInput(): IJqElement {
-    return $(this.refs.mirrorInput as HTMLElement);
+    return $(this.mirrorInputRef.current);
   }
 }
