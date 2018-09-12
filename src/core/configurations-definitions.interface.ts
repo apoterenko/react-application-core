@@ -931,6 +931,16 @@ export interface IMenuConfiguration extends IComponentConfiguration,
 }
 
 /**
+ * @stable [13.09.2018]
+ */
+export enum ToolbarActionEnum {
+  OPEN_FILTER,
+  CLEAR_FILTER,
+  REFRESH_DATA,
+  DOWNLOAD_DATA,
+}
+
+/**
  * @stable [15.05.2018]
  */
 export interface IFieldActionConfiguration extends IClassNameWrapper,
@@ -943,18 +953,9 @@ export interface IFieldActionConfiguration extends IClassNameWrapper,
 /**
  * @stable [18.05.2018]
  */
-export enum FilterActionEnum {
-  OPEN_FILTER,
-  CLEAR_FILTER,
-  REFRESH_DATA,
-  DOWNLOAD_DATA,
-}
-
-/**
- * @stable [18.05.2018]
- */
 export interface IFilterActionConfiguration extends IClassNameWrapper,
-                                                    ITypeWrapper<FilterActionEnum> {
+                                                    IDisabledWrapper,
+                                                    ITypeWrapper<ToolbarActionEnum> {
 }
 
 /**

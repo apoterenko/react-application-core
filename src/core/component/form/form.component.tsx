@@ -143,6 +143,9 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
     );
   }
 
+  /**
+   * @stable [12.09.2018]
+   */
   public componentDidMount(): void {
     super.componentDidMount();
     this.propsOnValid();

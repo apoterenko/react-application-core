@@ -120,3 +120,10 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
   getRelatedEntities?(entity: TEntity): TRelatedEntity[];
   makeRelatedChanges?(relatedEntities: TRelatedEntity[]): TEntity;
 }
+
+/**
+ * @stable [13.09.2018]
+ */
+export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
+                                                        IEffectsActionWrapper {
+}

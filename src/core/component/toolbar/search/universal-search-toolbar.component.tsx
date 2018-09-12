@@ -1,10 +1,11 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
-import { orNull, toClassName } from '../../../util';
+import { orNull, toClassName, isFn, nvl } from '../../../util';
 import {
   IFieldActionConfiguration,
   IFilterActionConfiguration,
-  FilterActionEnum,
+  ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import { IUniversalComponent, IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
@@ -32,18 +33,16 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    * @stable [18.05.2018]
    */
   protected readonly commonActionsProps: {[filter: number]: IFieldActionConfiguration} = {
-    [FilterActionEnum.OPEN_FILTER]: {
+    [ToolbarActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
       onClick: this.onOpen.bind(this),
     },
-    [FilterActionEnum.CLEAR_FILTER]: {
+    [ToolbarActionEnum.CLEAR_FILTER]: {
       type: 'clear',
       onClick: this.onDeactivate.bind(this),
     },
-    [FilterActionEnum.REFRESH_DATA]: {
-      type: 'refresh',
-      onClick: this.onRefresh.bind(this),
-    },
+    [ToolbarActionEnum.REFRESH_DATA]: {type: 'refresh'},
+    [ToolbarActionEnum.DOWNLOAD_DATA]: {type: 'cloud_download'},
   };
 
   /**
@@ -56,6 +55,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
     this.onActivate = this.onActivate.bind(this);
     this.onApply = this.onApply.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onActionClick = this.onActionClick.bind(this);
   }
 
   /**
@@ -133,23 +133,22 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
     };
   }
 
-  /**
-   * @stable [18.05.2018]
-   * @returns {IFieldActionConfiguration[]}
-   */
+  // TODO
   protected get actions(): IFieldActionConfiguration[] {
     const props = this.props;
     const defaultActions: IFilterActionConfiguration[] = props.notUseField
       ? []
-      : [{type: FilterActionEnum.CLEAR_FILTER}];
+      : [{type: ToolbarActionEnum.CLEAR_FILTER}];
 
-    return defaultActions
-      .concat(props.actions)
-      .map((action) => ({
-        ...this.commonActionsProps[action.type],
-        disabled: props.actionsDisabled,
+    return R.map<IFilterActionConfiguration, IFieldActionConfiguration>((action): IFieldActionConfiguration => {
+      const config = this.commonActionsProps[action.type];
+      return ({
+        ...config,
+        onClick: isFn(config.onClick) ? config.onClick : (() => this.onActionClick(action.type)),
+        disabled: nvl(action.disabled, props.actionsDisabled),
         className: action.className,
-      }));
+      });
+    }, defaultActions.concat(props.actions));
   }
 
   /**
@@ -237,12 +236,13 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
   }
 
   /**
-   * @stable [26.08.2018]
+   * @stable [12.09.2018]
+   * @param {ToolbarActionEnum} type
    */
-  private onRefresh(): void {
+  private onActionClick(type: ToolbarActionEnum): void {
     const props = this.props;
-    if (props.onRefresh) {
-      props.onRefresh();
+    if (props.onActionClick) {
+      props.onActionClick(type);
     }
   }
 }

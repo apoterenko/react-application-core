@@ -602,6 +602,13 @@ export interface IOnNavigationActionClickWrapper<TPayload = IBasicEvent, TOnNavi
 }
 
 /**
+ * @stable [13.09.2018]
+ */
+export interface IOnActionClickWrapper<TPayload = IBasicEvent, TOnActionClick = (payload?: TPayload) => void> {
+  onActionClick?: TOnActionClick;
+}
+
+/**
  * @stable [31.05.2018]
  */
 export interface IOnMoreOptionsSelectWrapper<TPayload, TOnMoreOptionsSelect = (payload?: TPayload) => void> {
@@ -2654,13 +2661,6 @@ export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppl
  */
 export interface IOnRefreshWrapper<TOnRefresh = () => void> {
   onRefresh?: TOnRefresh;
-}
-
-/**
- * @stable [11.09.2018]
- */
-export interface IOnDownloadWrapper<TOnDownload = () => void> {
-  onDownload?: TOnDownload;
 }
 
 /**

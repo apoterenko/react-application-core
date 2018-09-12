@@ -4,6 +4,7 @@ import {
   IUniversalContainerConfiguration,
   IFilterConfigurationWrapper,
   IWebComponentConfiguration,
+  ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import {
   IQueryFilterEntity,
@@ -18,11 +19,11 @@ import {
   IOnChangeWrapper,
   IOnOpenWrapper,
   IOnRefreshWrapper,
-  IOnDownloadWrapper,
+  IOnActionClickWrapper,
 } from '../../../definitions.interface';
 
 /**
- * @stable [18.05.2018]
+ * @stable [13.09.2018]
  */
 export interface IUniversalSearchToolbarConfiguration extends IUniversalComponentConfiguration,
                                                               IFilterConfiguration,
@@ -31,7 +32,7 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
                                                               IOnRefreshWrapper,
-                                                              IOnDownloadWrapper,
+                                                              IOnActionClickWrapper<ToolbarActionEnum>,
                                                               IOnChangeWrapper<string> {
 }
 

@@ -1,5 +1,7 @@
+import * as R from 'ramda';
+
 import { isDef, orDefault } from '../../util';
-import { IEntity } from '../../definitions.interface';
+
 import {
   IChannelWrapperEntity,
   IEditableEntity,
@@ -14,10 +16,11 @@ import {
   IUniversalApplicationStoreEntity,
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
+  IListEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterActionConfiguration,
-  FilterActionEnum,
+  ToolbarActionEnum,
   IFilterConfiguration,
 } from '../../configurations-definitions.interface';
 import {
@@ -82,7 +85,7 @@ export const activeClassNameFilterFormWrapperEntityMapper =
  */
 export const openFilterFilterFormWrapperEntityMapper =
   (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
-    type: FilterActionEnum.OPEN_FILTER,
+    type: ToolbarActionEnum.OPEN_FILTER,
     ...activeClassNameFilterFormWrapperEntityMapper(filterFormWrapperEntity),
   });
 
@@ -93,21 +96,17 @@ export const openFilterFilterFormWrapperEntityMapper =
  */
 export const refreshWrapperEntityMapper =
   (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
-    type: FilterActionEnum.REFRESH_DATA,
+    type: ToolbarActionEnum.REFRESH_DATA,
   });
 
-/**
- * @stable [29.05.2018]
- * @param {IListAndFilterFormWrapperEntity} mappedEntity
- * @returns {IFilterConfiguration}
- */
+// TODO
 export const refreshListAndFilterFormWrapperEntityMapper =
-  (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
+  (mappedEntity: IListAndFilterFormWrapperEntity, actions?: IFilterActionConfiguration[]): IFilterConfiguration => ({
     actions: orDefault<IFilterActionConfiguration[], IFilterActionConfiguration[]>(
       isDef(mappedEntity.filterForm),
       () => [openFilterFilterFormWrapperEntityMapper(mappedEntity)],
       []
-    ),
+    ).concat((actions || []).map((action) => ({disabled: R.isNil(mappedEntity.list.data) || mappedEntity.list.progress, ...action}))),
     notUseField: true,
     icon: 'refresh',
     ...actionsDisabledListWrapperEntityMapper(mappedEntity),

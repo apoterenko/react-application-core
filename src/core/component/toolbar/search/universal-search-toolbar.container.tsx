@@ -13,6 +13,9 @@ import {
   IUniversalSearchToolbarContainerProps,
   IUniversalSearchToolbarProps,
 } from './search-toolbar.interface';
+import { TOOLBAR_CUSTOM_ACTION_ACTION_TYPE } from '../toolbar.interface';
+import { ToolbarActionEnum } from '../../../configurations-definitions.interface';
+import { IPayloadWrapper } from '../../../definitions.interface';
 
 export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchToolbarContainerProps, TState = {}>
   extends UniversalContainer<TProps, TState> {
@@ -28,6 +31,7 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
     this.onRefresh = this.onRefresh.bind(this);
     this.onActivate = this.onActivate.bind(this);
     this.onDeactivate = this.onDeactivate.bind(this);
+    this.onActionClick = this.onActionClick.bind(this);
     this.onOpen = this.onOpen.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -41,6 +45,7 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
     return {
       onApply: this.onApply,
       onRefresh: this.onRefresh,
+      onActionClick: this.onActionClick,
       onActivate: this.onActivate,
       onDeactivate: this.onDeactivate,
       onChange: this.onChange,
@@ -91,5 +96,13 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
    */
   protected onRefresh(): void {
     this.dispatchFrameworkAction(FILTER_REFRESH_ACTION_TYPE);
+  }
+
+  /**
+   * @stable [13.09.2018]
+   */
+  private onActionClick(action: ToolbarActionEnum): void {
+    const payloadWrapper: IPayloadWrapper<ToolbarActionEnum> = {payload: action};
+    this.dispatchFrameworkAction(TOOLBAR_CUSTOM_ACTION_ACTION_TYPE, payloadWrapper);
   }
 }
