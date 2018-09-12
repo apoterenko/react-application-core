@@ -7,6 +7,8 @@ import { RouterActionBuilder } from '../../router';
 import { StackActionBuilder } from '../stack';
 import { FormActionBuilder } from '../../component/form';
 import { makeFilterManualApplyMiddleware } from '../middleware';
+import { ToolbarActionBuilder } from '../../component/toolbar';
+import { makeRefreshedListMiddleware } from '../middleware';
 
 export function makeFilteredListEffectsProxy(
     config: { filterPath?: string; filterSection?: string, listSection?: string }
@@ -32,9 +34,10 @@ export function makeFilteredListEffectsProxy(
         return ListActionBuilder.buildLoadAction(listSection);
       }
 
-      @EffectsService.effects(FilterActionBuilder.buildRefreshActionType(listSection))
-      public $onFilterRefresh(): IEffectsAction {
-        return ListActionBuilder.buildLoadAction(listSection);
+      // TODO Toolbar
+      @EffectsService.effects(ToolbarActionBuilder.buildCustomActionActionType(listSection))
+      public $onFilterRefresh(action: IEffectsAction): IEffectsAction[] {
+        return makeRefreshedListMiddleware({listSection, action});
       }
 
       @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(listSection))
