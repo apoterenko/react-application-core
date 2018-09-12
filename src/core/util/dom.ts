@@ -2,7 +2,7 @@ import * as Promise from 'bluebird';
 import * as $ from 'jquery';
 
 import { isFn } from './type';
-import { GOOGLE_MAPS_KEY } from '../env';
+import { ENV } from '../env';
 
 let googleMapsScriptTask: Promise<HTMLScriptElement>;
 
@@ -32,14 +32,15 @@ export const createScript = (cfg: {} | HTMLScriptElement): Promise<HTMLScriptEle
 });
 
 /**
- * @stable [31.07.2018]
+ * @stable [12.09.2018]
  * @param {{} | HTMLScriptElement} cfg
+ * @param {string} libraries
  * @returns {Bluebird<HTMLScriptElement>}
  */
-export const getGoogleMapsScript = (cfg?: {} | HTMLScriptElement) =>
+export const getGoogleMapsScript = (cfg?: {} | HTMLScriptElement, libraries = 'places') =>
   googleMapsScriptTask = googleMapsScriptTask || createScript({
     ...cfg,
-    src: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&libraries=places`,
+    src: `https://maps.googleapis.com/maps/api/js?key=${ENV.googleMapsKey}&libraries=${libraries}`,
   });
 
 /**
@@ -156,6 +157,18 @@ export const downloadFile = (fileName: string, blob: Blob) => {
   } finally {
     URL.revokeObjectURL(url);
   }
+};
+
+/**
+ * @stable [12.09.2018]
+ * @param {string} path
+ * @param {string} target
+ */
+export const downloadAnchoredFile = (path: string, target = '_blank'): void => {
+  const link = createElement<HTMLAnchorElement>('a');
+  link.href = path;
+  link.target = target;
+  link.click();
 };
 
 /**
