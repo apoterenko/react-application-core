@@ -947,6 +947,7 @@ export enum FilterActionEnum {
   OPEN_FILTER,
   CLEAR_FILTER,
   REFRESH_DATA,
+  DOWNLOAD_DATA,
 }
 
 /**

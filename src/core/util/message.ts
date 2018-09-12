@@ -1,4 +1,4 @@
-import { APP_VERSION } from '../env';
+import { ENV } from '../env';
 
 /**
  * @stable [27.08.2018]
@@ -10,7 +10,7 @@ export const buildErrorMessage = (error: string | Error | {}, separator = '\n'):
   'Houston! We\'re in trouble!',
   'Please send this screen to the developers.',
   'Thank you!',
-  `Build: ${APP_VERSION}`,
+  `Build: ${ENV.appVersion}`,
   `Details info: [${(() => {
     try {
       return JSON.stringify(error);

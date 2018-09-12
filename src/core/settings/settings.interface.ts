@@ -1,6 +1,7 @@
-import { BASE_PATH } from '../env';
+import { ENV } from '../env';
 import { ApplicationStorageTypeEnum } from '../storage';
 import { AnyT } from '../definitions.interface';
+import { prepareUrl } from '../util/url';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;
@@ -91,6 +92,7 @@ export interface IApplicationGoogleMapsSettings {
 export interface IApplicationSettings {
   apiUrl?: string;
   binaryUrl?: string;
+  downloadUrl?: string;
   metaFilesJsonUrl?: string;
   pdfWorkerDirectoryUrl?: string;
   companyName?: string;
@@ -114,12 +116,11 @@ export const REGEXP_REPO = {
   digital: '[0-9]+',
 };
 
-export const prepareUrl = (url) => url.replace(/(\/\/)+/, '/');
-
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
-  apiUrl: prepareUrl(BASE_PATH + '/api/'),
-  binaryUrl: prepareUrl(BASE_PATH + '/api/blobs/upload/'),
+  apiUrl: prepareUrl(ENV.basePath + '/api/'),
+  binaryUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
+  downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
   companyName: 'Test company',
   entityEmptyId: null,
   messages: {

@@ -18,6 +18,7 @@ import {
   IOnChangeWrapper,
   IOnOpenWrapper,
   IOnRefreshWrapper,
+  IOnDownloadWrapper,
 } from '../../../definitions.interface';
 
 /**
@@ -30,6 +31,7 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
                                                               IOnRefreshWrapper,
+                                                              IOnDownloadWrapper,
                                                               IOnChangeWrapper<string> {
 }
 

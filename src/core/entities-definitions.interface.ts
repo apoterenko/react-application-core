@@ -838,3 +838,36 @@ export interface IStyleEntity extends ITextAlignWrapper,
 export interface IGridColumnEntity extends IComponentEntity,
                                            IEntityWrapper<IEntity> {
 }
+
+/**
+ * @stable [12.09.2018]
+ */
+export interface IEnvironmentPlatformOsEntity {
+  architecture?: number;
+  family?: string;
+  version?: string;
+}
+
+/**
+ * @stable [12.09.2018]
+ */
+export interface IEnvironmentEntity {
+  appVersion?: string;
+  appProfile?: string;
+  appNamespace?: string;
+  prodMode?: boolean;
+  devModeEnabled?: boolean;
+  basePath?: string;
+  normalizedBasePath?: string;
+  port?: string;
+  googleKey?: string;
+  googleMapsKey?: string;
+  rnPlatformName?: string;
+  rnPlatform?: boolean;
+  macPlatform?: boolean;
+  iosPlatform?: boolean;
+  platformName?: string;
+  platformOs?: IEnvironmentPlatformOsEntity;
+  safariPlatform?: boolean;
+  passwordInputPlaceholder?: string;
+}

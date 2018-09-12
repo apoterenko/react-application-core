@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
 import { IApplicationSettings } from '../settings';
-import { PROD_MODE, DEV_MODE_ENABLED, RN_MODE_ENABLED } from '../env';
+import { ENV } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
 import { universalReducers } from '../store/universal-default-reducers.interface';
@@ -14,14 +14,14 @@ export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
   let preloadedState = {} as TState;
-  if (!RN_MODE_ENABLED && applicationSettings && applicationSettings.usePersistence) {
+  if (!ENV.rnPlatform && applicationSettings && applicationSettings.usePersistence) {
     preloadedState = await staticInjector<IApplicationStorage>(DI_TYPES.Storage).get(APPLICATION_STATE_KEY);
   }
 
   const store = createStore(
     (state) => state,
     preloadedState,
-    (PROD_MODE || RN_MODE_ENABLED) && !DEV_MODE_ENABLED
+    (ENV.prodMode || ENV.rnPlatform) && !ENV.devModeEnabled
       ? applyMiddleware(...middlewares)
       : composeWithDevTools(applyMiddleware(...middlewares)),
   );

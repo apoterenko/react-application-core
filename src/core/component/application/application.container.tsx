@@ -9,7 +9,7 @@ import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
-import { BASE_PATH } from '../../env';
+import { ENV } from '../../env';
 import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
 import { Message } from '../message';
@@ -40,7 +40,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     return (
         <MuiThemeProvider>
           <BrowserRouter ref='router'
-                         basename={this.props.basename || BASE_PATH}>
+                         basename={this.props.basename || ENV.basePath}>
             <Switch>
               {...this.getRoutes()}
             </Switch>

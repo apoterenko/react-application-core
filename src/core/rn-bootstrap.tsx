@@ -3,10 +3,10 @@ import { AppRegistry } from 'react-native';
 
 import { LoggerFactory, LoggerLevelEnum } from 'ts-smart-logger';
 
-import { PROD_MODE } from './env';
+import { ENV } from './env';
 
 LoggerFactory.configureLogLevel(
-  PROD_MODE ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
+  ENV.prodMode ? LoggerLevelEnum.ERROR_LEVEL : LoggerLevelEnum.DEBUG_LEVEL
 );
 
 import { IApplicationContainerProps } from './component/application';

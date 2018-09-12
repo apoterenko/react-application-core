@@ -50,6 +50,7 @@
 
       .rac-grid-column {
         padding: 0;                                                                         /* @stable [11.09.2018] */
+        cursor: pointer;                                                                    /* @stable [11.09.2018] */
 
         .rac-grid-column-content {
           padding: 8px 0;                                                                   /* @stable [11.09.2018] */

@@ -2657,6 +2657,13 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
 }
 
 /**
+ * @stable [11.09.2018]
+ */
+export interface IOnDownloadWrapper<TOnDownload = () => void> {
+  onDownload?: TOnDownload;
+}
+
+/**
  * @stable [05.05.2018]
  */
 export interface IActivateWrapper<TActivate = (...args: AnyT[]) => void> {

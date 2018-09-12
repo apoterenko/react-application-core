@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import * as crossvent from 'crossvent';
 
-import { GOOGLE_KEY, PROD_MODE, APP_PROFILE, APP_VERSION } from './env';
+import { ENV } from './env';
 import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage } from './util';
 import { IApplicationContainerProps } from './component/application';
 import { IContainerClassEntity } from './entities-definitions.interface';
@@ -49,7 +49,7 @@ export function bootstrap(
       addClassNameToBody('rac');
       addBootElement(bootstrapConfiguration.rootId);
     }
-    addClassNameToBody(APP_PROFILE);
+    addClassNameToBody(ENV.appProfile);
 
     const componentClass = makeBootstrapApp(applicationContainer, props);
     render(
@@ -58,9 +58,9 @@ export function bootstrap(
     );
   };
 
-  if (PROD_MODE && GOOGLE_KEY) {
+  if (ENV.prodMode && ENV.googleKey) {
     gtag('js', new Date());
-    gtag('config', GOOGLE_KEY);
+    gtag('config', ENV.googleKey);
   }
 
   switch (document.readyState) {

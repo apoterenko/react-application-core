@@ -81,7 +81,7 @@ export const buildTimeGridColumns = (
         headerClassName: 'rac-time-grid-time-header-column',
         tpl: () => UNI_CODES.noBreakSpace,
         ...defaultConfig,
-        ...buildTimeGridInfoColumn({}, columnClassName),
+        ...buildTimeGridInfoColumn({columnClassName: defaultConfig.columnClassName}, columnClassName),
         name: `${normalizedHour}:${normalizedTime}`,
       });
 
