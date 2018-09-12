@@ -1,14 +1,25 @@
 import { injectable } from 'inversify';
 
-import { defValuesFilter } from '../util';
+import { defValuesFilter, downloadAnchoredFile, join, buildUrl } from '../util';
 import { lazyInject, DI_TYPES } from '../di';
-import { IApplicationTransport } from './transport.interface';
+import { IApplicationTransport, ITransportRequestParamsEntity } from './transport.interface';
 import { IEntity } from '../definitions.interface';
 import { IEditableApiEntity } from '../entities-definitions.interface';
+import { IApplicationSettings } from '../settings';
 
 @injectable()
 export class BaseTransport {
   @lazyInject(DI_TYPES.Transport) protected transport: IApplicationTransport;
+  @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
+
+  /**
+   * @stable [11.09.2018]
+   * @param {ITransportRequestParamsEntity} params
+   */
+  protected downloadAnchoredFile(params: ITransportRequestParamsEntity): void {
+    const requestParams = this.transport.toRequestParams(params);
+    downloadAnchoredFile(join([this.settings.downloadUrl, buildUrl(requestParams)]));
+  }
 
   /**
    * @stable - 12.04.2018

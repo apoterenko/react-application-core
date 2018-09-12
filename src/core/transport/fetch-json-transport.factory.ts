@@ -5,6 +5,7 @@ import {
   IApplicationTransportFactory,
   ITransportRawResponse,
   ITransportRequestEntity,
+  ITransportRequestParamsEntity,
 } from './transport.interface';
 import { DI_TYPES, lazyInject } from '../di';
 import { IApplicationSettings } from '../settings';
@@ -25,6 +26,10 @@ export class FetchJsonTransportFactory implements IApplicationTransportFactory {
   }
 
   public cancelRequest(operationId: string): void {
+    throw new Error('Unsupported operation');
+  }
+
+  public toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity {
     throw new Error('Unsupported operation');
   }
 }

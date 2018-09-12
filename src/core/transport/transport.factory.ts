@@ -100,7 +100,7 @@ export class TransportFactory implements IApplicationTransportFactory {
     }
   }
 
-  protected toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity {
+  public toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity {
     return defValuesFilter<ITransportRequestParamsEntity, ITransportRequestParamsEntity>({
       id: this.id++,
       name: req.name,

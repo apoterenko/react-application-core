@@ -26,6 +26,10 @@ import { IErrorEntity } from '../entities-definitions.interface';
 export interface IApplicationTransportTokenAccessor extends IStringTokenWrapper {
 }
 
+export interface IRequestParamsConverterTransport {
+  toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity;
+}
+
 export interface ICancelableTransport {
   cancelRequest(operationId: string): void;
 }
@@ -35,11 +39,13 @@ export interface IApplicationTransportRequestFactory {
   request<TRequest, TResponse>(req: TRequest): Promise<TResponse>;
 }
 
-export interface IApplicationTransport extends ICancelableTransport {
+export interface IApplicationTransport extends ICancelableTransport,
+                                               IRequestParamsConverterTransport {
   request<TResponse>(req: ITransportRequestEntity): Promise<TResponse>;
 }
 
-export interface IApplicationTransportFactory extends ICancelableTransport {
+export interface IApplicationTransportFactory extends ICancelableTransport,
+                                                      IRequestParamsConverterTransport {
   request(req: ITransportRequestEntity): Promise<ITransportRawResponse>;
 }
 

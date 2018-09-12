@@ -11,6 +11,7 @@ import {
   TransportResponseErrorT,
   IApplicationTransportFactory,
   ITransportResponseEntity,
+  ITransportRequestParamsEntity,
   TRANSPORT_REQUEST_CANCEL_REASON,
 } from './transport.interface';
 import {
@@ -23,9 +24,12 @@ import { defValuesFilter, orUndef } from '../util';
 
 @injectable()
 export class TransportService implements IApplicationTransport {
-
   @lazyInject(DI_TYPES.Store) private store: Store<IApplicationStoreEntity>;
   @lazyInject(DI_TYPES.TransportFactory) private transportFactory: IApplicationTransportFactory;
+
+  public toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity {
+    return this.transportFactory.toRequestParams(req);
+  }
 
   public request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
     this.onRequest(req);
