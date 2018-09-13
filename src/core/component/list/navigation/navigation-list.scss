@@ -6,6 +6,14 @@
   .rac-navigation-list {
     overflow: auto;                                                            /* @stable [08.04.2018] */
 
+    .rac-list-group-subheader {
+      color: $rac-navigation-list-group-subheader-color;                       /* @stable [13.09.2018] */
+      text-transform: $rac-navigation-list-group-subheader-text-transform;     /* @stable [13.09.2018] */
+      text-align: $rac-navigation-list-group-subheader-text-align;             /* @stable [13.09.2018] */
+      font-weight: $rac-navigation-list-group-subheader-font-weight;           /* @stable [13.09.2018] */
+      font-size: $rac-navigation-list-group-subheader-font-size;               /* @stable [13.09.2018] */
+    }
+
     .rac-navigation-list-item {
       position: relative;                                                      /* @stable [22.06.2018] */
       height: $rac-navigation-list-item-height;                                /* @stable [22.06.2018] */
@@ -41,6 +49,7 @@
       }
 
       .rac-icon {
+        color: $rac-navigation-list-item-icon-color;                           /* @stable [13.09.2018] */
         margin-right: $rac-navigation-list-item-icon-margin-right;             /* @stable [26.04.2018] */
         height: $rac-navigation-list-item-icon-height;                         /* @stable [26.06.2018] */
         width: $rac-navigation-list-item-icon-width;                           /* @stable [26.06.2018] */

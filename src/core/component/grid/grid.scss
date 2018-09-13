@@ -78,6 +78,8 @@
 
     .rac-grid-head {
       padding: 20px 16px 8px 16px;                        /* @stable [21.06.2018] */
+      color: $rac-grid-head-color;                        /* @stable [13.09.2018] */
+      background: $rac-grid-head-background;              /* @stable [13.09.2018] */
 
       .rac-grid-column {
         text-align: left;                                 /* @stable [21.06.2018] */
