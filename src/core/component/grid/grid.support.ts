@@ -8,6 +8,7 @@ import { ITimeGridBuilderConfigEntity } from './grid.interface';
 const MINUTES_PER_HOUR = 60;
 const HOURS_PER_DAY = 24;
 const HOURS_PER_HALF_OF_DAY = HOURS_PER_DAY / 2;
+const RANGE_SEPARATOR = ' - ';
 
 /**
  * @stable [10.09.2018]
@@ -39,6 +40,27 @@ export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT,
   });
 
 /**
+ * @stable [13.09.2018]
+ * @param {number} hour
+ * @param {number} minutes
+ * @param {ITimeGridBuilderConfigEntity} builderConfig
+ * @returns {GridColumnConfigurationT}
+ */
+const toUsaTime = (hour: number, minutes: number, builderConfig?: ITimeGridBuilderConfigEntity): GridColumnConfigurationT => {
+  const isBeforeNoon = hour < HOURS_PER_HALF_OF_DAY;
+  const timeAbbreviationResolver = builderConfig.timeAbbreviationResolver;
+  const timeAbbreviation = timeAbbreviationResolver(isBeforeNoon);
+  const usaHour = isBeforeNoon ? hour : hour - HOURS_PER_HALF_OF_DAY;
+  const normalizedMinutes = normalizeTime(String(minutes));
+  const normalizedHour = normalizeTime(String(hour));
+  return {
+    name: `${normalizedHour}:${normalizedMinutes}`,
+    title: join([usaHour, timeAbbreviation], ' '),
+    columnTitle: join([`${usaHour}:${normalizedMinutes}`, timeAbbreviation], ' '),
+  };
+};
+
+/**
  * @stable [10.09.2018]
  * @param {GridColumnConfigurationT} defaultConfig
  * @param {ITimeGridBuilderConfigEntity} builderConfig
@@ -53,39 +75,47 @@ export const buildTimeGridColumns = (
     ...builderConfig,
   };
   const cellWidthFactor = builderConfig.cellWidthFactor;
-  const timeAbbreviationResolver = builderConfig.timeAbbreviationResolver;
   const periodsPerHourCount = MINUTES_PER_HOUR / builderConfig.minPeriodAtMinutes;
+  const periodsCount = Math.max(periodsPerHourCount, 1);
   const columnsCount = periodsPerHourCount * HOURS_PER_DAY;
 
   let currentPeriodPerHour = 0;
   return new Array<GridColumnConfigurationT>(columnsCount).join(' ').split(' ')
     .map((_, position) => {
+      const minPeriodAtMinutes = builderConfig.minPeriodAtMinutes;
       const currentHour = Math.floor(position / periodsPerHourCount);
-      const isBeforeNoon = currentHour < HOURS_PER_HALF_OF_DAY;
-      const timeAbbreviation = timeAbbreviationResolver(isBeforeNoon);
-      const ceilWidth = Math.floor(builderConfig.minPeriodAtMinutes / cellWidthFactor);
-      const currentMinutes = currentPeriodPerHour * builderConfig.minPeriodAtMinutes;
-      const usaCurrentHour = isBeforeNoon ? currentHour : currentHour - HOURS_PER_HALF_OF_DAY;
-      const normalizedTime = normalizeTime(String(currentMinutes));
-      const normalizedHour = normalizeTime(String(currentHour));
+      const ceilWidth = Math.floor(minPeriodAtMinutes / cellWidthFactor);
+      const currentMinutes = currentPeriodPerHour * minPeriodAtMinutes;
       const columnClassName = currentPeriodPerHour === periodsPerHourCount - 1 && 'rac-grid-bordered-column';
+
+      const tillTime = currentHour * MINUTES_PER_HOUR + minPeriodAtMinutes;
+      const tillHour = Math.floor(tillTime / MINUTES_PER_HOUR);
+      const tillMinutes = tillTime - tillHour * MINUTES_PER_HOUR;
+      const isSameHour = tillHour - currentHour <= 1;
+
+      const currentUsaTime = toUsaTime(currentHour, currentMinutes, builderConfig);
+      const tillUsaTime = toUsaTime(tillHour, tillMinutes, builderConfig);
 
       const item = defValuesFilter<GridColumnConfigurationT, GridColumnConfigurationT>({
         align: 'center',
-        title: join([usaCurrentHour, timeAbbreviation], ' '),
+        headerClassName: 'rac-time-grid-time-header-column',
+        title: isSameHour
+          ? currentUsaTime.title
+          : join([currentUsaTime.title, tillUsaTime.title], RANGE_SEPARATOR),
         width: ceilWidth,
         headerRendered: currentPeriodPerHour === 0,
-        headerWidth: ceilWidth * periodsPerHourCount,
-        headerColSpan: orUndef<number>(currentPeriodPerHour === 0, periodsPerHourCount),
-        columnTitle: join([`${usaCurrentHour}:${normalizedTime}`, timeAbbreviation], ' '),
-        headerClassName: 'rac-time-grid-time-header-column',
+        headerWidth: ceilWidth * periodsCount,
+        headerColSpan: orUndef<number>(currentPeriodPerHour === 0, periodsCount),
+        columnTitle: isSameHour
+          ? currentUsaTime.columnTitle
+          : join([currentUsaTime.columnTitle, tillUsaTime.columnTitle], RANGE_SEPARATOR),
         tpl: () => UNI_CODES.noBreakSpace,
         ...defaultConfig,
         ...buildTimeGridInfoColumn({columnClassName: defaultConfig.columnClassName}, columnClassName),
-        name: `${normalizedHour}:${normalizedTime}`,
+        name: currentUsaTime.name,
       });
 
-      currentPeriodPerHour = ++currentPeriodPerHour === periodsPerHourCount ? 0 : currentPeriodPerHour;
+      currentPeriodPerHour = ++currentPeriodPerHour === periodsCount ? 0 : currentPeriodPerHour;
       return orNull<GridColumnConfigurationT>(
         builderConfig.hourFrom <= currentHour && currentHour <= builderConfig.hourTo, item
       );

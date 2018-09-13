@@ -143,7 +143,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     noFileToShowMessage: 'No file to show.',
     emptyMessage: 'Start a search',
     emptyDataMessage: 'No data found',
-    appNotReadyMessage: 'The application is being initialized...',
+    appNotReadyMessage: 'The application is initialized...',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     noSelectedItemsMessage: 'No selected items.',
     filterPlaceholderMessage: 'Filter',

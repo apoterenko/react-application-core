@@ -92,5 +92,17 @@ describe('grid.support', () => {
       expect(columns[46].name).toEqual('23:00');
       expect(columns[47].name).toEqual('23:30');
     });
+
+    it('test5', () => {
+      const columns = buildTimeGridColumns({}, {minPeriodAtMinutes: 180});
+      expect(columns[0].name).toEqual('00:00');
+      expect(columns[1].name).toEqual('03:00');
+      expect(columns[2].name).toEqual('06:00');
+      expect(columns[3].name).toEqual('09:00');
+      expect(columns[4].name).toEqual('12:00');
+      expect(columns[5].name).toEqual('15:00');
+      expect(columns[6].name).toEqual('18:00');
+      expect(columns[7].name).toEqual('21:00');
+    });
   });
 });
