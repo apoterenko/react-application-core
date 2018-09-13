@@ -41,6 +41,7 @@
     "@types/uglify-js": "^2.6.28",
     "@types/uuid": "^3.4.2",
     "@types/webpack": "^2.2.16",
+    "@typopro/web-montserrat": "^3.7.5",
     "awesome-typescript-loader": "^3.3.0",
     "axios": "^0.16.2",
     "babel-core": "^6.26.0",
