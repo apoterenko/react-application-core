@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { IBaseGridColumnProps } from './base-grid-column.interface';
@@ -23,7 +24,7 @@ export class BaseGridColumn<TComponent extends BaseGridColumn<TComponent, TProps
   }
 
   /**
-   * @stable [10.09.2018]
+   * @stable [15.09.2018]
    * @param {string} classNames
    * @returns {string}
    */
@@ -31,6 +32,7 @@ export class BaseGridColumn<TComponent extends BaseGridColumn<TComponent, TProps
     const props = this.props;
     return toClassName(
       'rac-grid-column',
+      !R.isNil(props.index) && props.index % 2 === 0 ? 'rac-grid-column-odd' : '',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
       ...classNames

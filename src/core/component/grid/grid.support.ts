@@ -8,7 +8,7 @@ import { ITimeGridBuilderConfigEntity } from './grid.interface';
 const MINUTES_PER_HOUR = 60;
 const HOURS_PER_DAY = 24;
 const HOURS_PER_HALF_OF_DAY = HOURS_PER_DAY / 2;
-const RANGE_SEPARATOR = ' - ';
+const RANGE_SEPARATOR = ` ${UNI_CODES.nDash} `;
 
 /**
  * @stable [10.09.2018]
@@ -19,16 +19,16 @@ export const DEFAULT_BUILDER_CONFIG: ITimeGridBuilderConfigEntity = {
   cellWidthFactor: 1.2,
   minPeriodAtMinutes: 10,
   timeAbbreviationResolver: (isBeforeNoon: boolean) => isBeforeNoon ? 'am' : 'pm',
+  timeResolver: (hour: number, isBeforeNoon?: boolean) => isBeforeNoon ? hour : hour - HOURS_PER_HALF_OF_DAY,
 };
 
 /**
- * @stable [11.09.2018]
+ * @stable [15.09.2018]
  * @param {GridColumnConfigurationT} defaultConfig
  * @param {string} extraClassName
  * @returns {GridColumnConfigurationT}
  */
-export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT,
-                                        extraClassName = 'rac-grid-bordered-column'): GridColumnConfigurationT =>
+export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT, extraClassName?: string): GridColumnConfigurationT =>
   ({
     ...defaultConfig,
     columnClassName: (props) => toClassName(
@@ -48,15 +48,18 @@ export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT,
  */
 const toUsaTime = (hour: number, minutes: number, builderConfig?: ITimeGridBuilderConfigEntity): GridColumnConfigurationT => {
   const isBeforeNoon = hour < HOURS_PER_HALF_OF_DAY;
+  const timeResolver = builderConfig.timeResolver;
   const timeAbbreviationResolver = builderConfig.timeAbbreviationResolver;
-  const timeAbbreviation = timeAbbreviationResolver(isBeforeNoon);
-  const usaHour = isBeforeNoon ? hour : hour - HOURS_PER_HALF_OF_DAY;
+  const timeAbbreviation = timeAbbreviationResolver(isBeforeNoon) || '';
+  const isUsaTimeAbbreviation = timeAbbreviation.length > 0;
+  const localHour = timeResolver(hour, isBeforeNoon);
+  const normalizedLocalHour = localHour === HOURS_PER_DAY && !isUsaTimeAbbreviation ? '00' : localHour;
   const normalizedMinutes = normalizeTime(String(minutes));
   const normalizedHour = normalizeTime(String(hour));
   return {
     name: `${normalizedHour}:${normalizedMinutes}`,
-    title: join([usaHour, timeAbbreviation], ' '),
-    columnTitle: join([`${usaHour}:${normalizedMinutes}`, timeAbbreviation], ' '),
+    title: join([normalizedLocalHour, timeAbbreviation], ' '),
+    columnTitle: join([`${normalizedLocalHour}:${normalizedMinutes}`, timeAbbreviation], ' '),
   };
 };
 
@@ -86,7 +89,10 @@ export const buildTimeGridColumns = (
       const currentHour = Math.floor(position / periodsPerHourCount);
       const ceilWidth = Math.floor(minPeriodAtMinutes / cellWidthFactor);
       const currentMinutes = currentPeriodPerHour * minPeriodAtMinutes;
-      const columnClassName = currentPeriodPerHour === periodsPerHourCount - 1 && 'rac-grid-bordered-column';
+      const columnClassName = toClassName(
+        currentPeriodPerHour === periodsPerHourCount - 1 && 'rac-time-grid-bordered-column',
+        'rac-time-grid-column'
+      );
 
       const tillTime = currentHour * MINUTES_PER_HOUR + minPeriodAtMinutes;
       const tillHour = Math.floor(tillTime / MINUTES_PER_HOUR);

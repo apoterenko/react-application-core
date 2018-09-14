@@ -22,6 +22,7 @@ $color-18: #ff7575 !default;
 $color-19: #3bac73 !default;
 $color-20: #e4e4e4 !default;
 $color-21: #eeeeee !default;
+$color-22: #f2f2f2 !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
@@ -145,7 +146,8 @@ $rac-navigation-list-divider-display: block !default;
 /* @stable [22.06.2018] */
 $rac-grid-color: $rac-default-text-color !default;
 $rac-grid-head-color: $rac-default-text-color !default;
-$rac-grid-head-padding: 8px 0 !default;
+$rac-grid-head-padding-top: 4px !default;
+$rac-grid-head-padding-bottom: 4px !default;
 $rac-grid-head-border-radius: 4px 4px 0 0 !default;
 $rac-grid-head-background: unset !default;
 $rac-grid-icon-size: 14px !default;
@@ -159,6 +161,9 @@ $rac-grid-data-row-selected-background-color: $color-8 !default;
 $rac-grid-data-row-selected-font-weight: bold !default;
 $rac-grid-data-row-grouped-font-weight: 500 !default;
 $rac-grid-data-row-hover-background-color: $color-10 !default;
+$rac-grid-column-line-height: 16px !default;
+$rac-grid-column-padding-right: 12px !default;
+$rac-grid-column-padding-left: 8px !default;
 $rac-grid-column-content-font-size: $rac-default-font-size !default;
 $rac-grid-column-content-letter-spacing: 1px !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
@@ -167,11 +172,8 @@ $rac-grid-edited-column-content-font-size: 10px !default;
 $rac-grid-edited-column-content-color: $color-6 !default;
 $rac-grid-edited-column-content-top: -4px !default;
 $rac-grid-edited-column-content-right: 0 !default;
-$rac-time-grid-column-content-font-size: $rac-default-font-size !default;
-$rac-time-grid-column-content-border-right-color: $color-14 !default;
 $rac-time-grid-column-hover-background-color: $color-10 !default;
 $rac-time-grid-bordered-column-content-border-right-color: $color-20 !default;
-$rac-time-grid-row-border-bottom-color: $color-16 !default;
 
 /* @stable [25.06.2018] */
 $rac-loading-color: $rac-default-label-color !default;

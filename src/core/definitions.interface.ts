@@ -150,6 +150,13 @@ export interface IActionedWrapper {
   actioned?: boolean;
 }
 
+/**
+ * @stable [15.09.2018]
+ */
+export interface IIndexWrapper<TIndex = number> {
+  index?: TIndex;
+}
+
 /* @stable [23.04.2018] */
 export interface IEmptyDataWrapper<TEmptyData> {
   emptyData?: TEmptyData;
@@ -1746,7 +1753,7 @@ export interface ITplFnWrapper<TItem = IEntity, TResult = string | number> exten
 /**
  * @stable [14.05.2018]
  */
-export interface IRendererWrapper<TItem = IEntity, TRenderer = (item: TItem) => JSX.Element> {
+export interface IRendererWrapper<TItem = IEntity, TContext = AnyT, TRenderer = (item: TItem, context?: TContext) => JSX.Element> {
   renderer?: TRenderer;
 }
 
@@ -2942,6 +2949,7 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export const UNI_CODES = {
   dash: '\u2014',
+  nDash: '\u2013',
   space: '\u0020',
   noBreakSpace: '\u00a0',
   arrowRight:  '\u27f6',

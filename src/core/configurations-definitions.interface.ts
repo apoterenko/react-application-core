@@ -213,6 +213,7 @@ import {
   IColumnRenderedWrapper,
   IHeaderRenderedWrapper,
   ITightGridWrapper,
+  IIndexWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -503,7 +504,8 @@ export interface IFormConfiguration extends IUniversalFormConfiguration,
 export interface IBaseGridColumnConfiguration extends IComponentConfiguration,
                                                       IAlignWrapper,
                                                       IWidthWrapper,
-                                                      IColSpanWrapper {
+                                                      IColSpanWrapper,
+                                                      IIndexWrapper {
 }
 
 /* @stable - 04.04.2018 */
@@ -522,7 +524,7 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   ITplFnWrapper,
                                                   INameWrapper,
                                                   IRenderedWrapper,
-                                                  IRendererWrapper,
+                                                  IRendererWrapper<IEntity, IGridColumnConfiguration>,
                                                   IActionedWrapper,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
                                                   IFilterRendererWrapper<IGridColumnConfiguration> {

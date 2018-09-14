@@ -11,6 +11,7 @@ export interface ITimeGridBuilderConfigEntity {
   hourTo?: number;
   cellWidthFactor?: number;
   minPeriodAtMinutes?: number;
+  timeResolver?: (hour: number, isBeforeNoon?: boolean) => number;
   timeAbbreviationResolver?: (isBeforeNoon?: boolean) => string;
 }
 

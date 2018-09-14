@@ -11,12 +11,13 @@
   }
 
   .rac-grid {
-    color: $rac-grid-color;                                         /* @stable [21.06.2018] */
-    border-collapse: collapse;                                      /* @stable [21.06.2018] */
+    color: $rac-grid-color;                                                         /* @stable [21.06.2018] */
+    border-collapse: collapse;                                                      /* @stable [21.06.2018] */
 
     .rac-grid-column {
-      padding-right: 12px;                                          /* @stable [21.06.2018] */
-      padding-left: 4px;                                            /* @stable [21.06.2018] */
+      line-height:  $rac-grid-column-line-height;                                   /* @stable [15.09.2018] */
+      padding-right: $rac-grid-column-padding-right;                                /* @stable [15.09.2018] */
+      padding-left: $rac-grid-column-padding-left;                                  /* @stable [15.09.2018] */
 
       &.rac-grid-column-edited {
 
@@ -77,7 +78,8 @@
     }
 
     .rac-grid-head {
-      padding: $rac-grid-head-padding;                    /* @stable [13.09.2018] */
+      padding-top: $rac-grid-head-padding-top;            /* @stable [15.09.2018] */
+      padding-bottom: $rac-grid-head-padding-bottom;      /* @stable [15.09.2018] */
       border-radius: $rac-grid-head-border-radius;        /* @stable [13.09.2018] */
       color: $rac-grid-head-color;                        /* @stable [13.09.2018] */
       background: $rac-grid-head-background;              /* @stable [13.09.2018] */

@@ -237,6 +237,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             return (
               <GridHeaderColumn key={headerColumnName}
                                 name={headerColumnName}
+                                index={columnNum}
                                 direction={props.directions[headerColumnName]}
                                 onClick={this.onHeaderColumnClick}
                                 {...column}>
@@ -279,7 +280,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
       /**
        * Build using a renderer
        */
-      const renderEl = column.renderer(entity);
+      const renderEl = column.renderer(entity, column);
       if (R.isNil(renderEl)) {
         return renderEl;
       }
@@ -358,8 +359,9 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
         {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridColumn key={`${rowKey}-${columnNum}`}
+                        index={columnNum}
                         className={toClassName(
-                          !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited'
+                          !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited',
                         )}
                         entity={entity}
                         {...column}>
@@ -388,6 +390,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
             {
               columns.map((column, columnNum) => (
                 <GridHeaderColumn key={this.toFilterColumnKey(columnNum)}
+                                  index={columnNum}
                                   {...column}>
                   {this.getFilterColumn(column, columnNum)}
                 </GridHeaderColumn>

@@ -9,7 +9,6 @@
       width: min-content;                                                                   /* @stable [11.09.2018] */
 
       .rac-grid-head {
-        padding-bottom: 0;                                                                  /* @stable [11.09.2018] */
 
         .rac-time-grid-time-header-column {
 
@@ -20,14 +19,10 @@
       }
 
       .rac-grid-body {
-
-        .rac-grid-column {
-          padding: 0;                                                                       /* @stable [11.09.2018] */
-        }
+        overflow: hidden;                                                                   /* @stable [14.09.2018] */
       }
 
       .rac-grid-row {
-        border-bottom: 1px solid $rac-time-grid-row-border-bottom-color;                    /* @stable [11.09.2018] */
 
         &.rac-grid-data-row {
 
@@ -37,33 +32,43 @@
 
           &.rac-grid-data-row-odd {
             background: none;                                                               /* @stable [11.09.2018] */
+
+            .rac-grid-column {
+
+              &.rac-time-grid-column {
+                background-color: #f3f3f3;
+
+                &.rac-grid-column-odd {
+                  background-color: $color-5;
+                }
+              }
+            }
           }
 
           .rac-grid-column {
 
-            &:hover {
-              background-color: $rac-time-grid-column-hover-background-color;               /* @stable [11.09.2018] */
+            &.rac-time-grid-column {
+              background-color: #e6e6e6;
+
+              &:hover {
+                background-color: $rac-time-grid-column-hover-background-color;             /* @stable [11.09.2018] */
+              }
+
+              &.rac-grid-column-odd {
+                background-color: $color-22;
+
+                &:hover {
+                  background-color: $rac-time-grid-column-hover-background-color;           /* @stable [11.09.2018] */
+                }
+              }
             }
           }
         }
       }
 
       .rac-grid-column {
-        padding: 0;                                                                         /* @stable [11.09.2018] */
+        padding: 4px 0;                                                                     /* @stable [15.09.2018] */
         cursor: pointer;                                                                    /* @stable [11.09.2018] */
-
-        .rac-grid-column-content {
-          padding: 8px 0;                                                                   /* @stable [11.09.2018] */
-          font-size: $rac-time-grid-column-content-font-size;                               /* @stable [11.09.2018] */
-          border-right: 1px solid $rac-time-grid-column-content-border-right-color;         /* @stable [11.09.2018] */
-        }
-
-        &.rac-grid-bordered-column {
-
-          .rac-grid-column-content {
-            border-right-color: $rac-time-grid-bordered-column-content-border-right-color;  /* @stable [11.09.2018] */
-          }
-        }
       }
     }
   }
