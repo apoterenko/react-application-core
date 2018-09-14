@@ -247,11 +247,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     }
 
     const value = this.value;
-    const content = (
+    const content = String((
       props.type === 'password'
         ? value.replace(/./g, ENV.passwordInputPlaceholder)
         : value
-    ).replace(/ /g, UNI_CODES.noBreakSpace);
+    )).replace(/ /g, UNI_CODES.noBreakSpace);
 
     return (
       <span ref={this.mirrorInputRef}
