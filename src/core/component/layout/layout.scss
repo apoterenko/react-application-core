@@ -54,6 +54,11 @@
   @include align-items(center);
 }
 
+// Flex center layout [FRAMEWORK-]
+.rac-flex-align-items-center {
+  @include align-items(center);
+}
+
 // Flex end position [FRAMEWORK-]
 .rac-flex-end {
   @include justify-content(flex-end);

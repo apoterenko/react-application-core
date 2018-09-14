@@ -5,12 +5,30 @@
 
   .rac-default-layout {
 
+    .rac-header {
+      margin: $rac-default-layout-header-margin;                                                      /* @stable [13.09.2018] */
+    }
+
+    .rac-main {
+      position: relative;                                                                             /* @stable [19.06.2018] */
+      overflow: auto;                                                                                 /* @stable [19.06.2018] */
+      margin: $rac-default-layout-main-margin;                                                        /* @stable [13.09.2018] */
+
+      .rac-main-body {
+        position: absolute;                                                                           /* @stable [19.06.2018] */
+        height: 100%;                                                                                 /* @stable [19.06.2018] */
+        width: 100%;                                                                                  /* @stable [19.06.2018] */
+      }
+    }
+
     .rac-footer {
-      border-top: 1px solid $color-3;             /* @stable [19.06.2018] */
+      border-top: 1px solid $color-3;                                                                 /* @stable [19.06.2018] */
     }
 
     .rac-persistent-drawer-toolbar-spacer {
-      background: $color-7;                       /* @stable [19.06.2018] */
+      height: auto;                                                                                   /* @mdc @stable [19.06.2018] */
+      background: $rac-default-layout-persistent-drawer-toolbar-spacer-background;                    /* @stable [19.06.2018] */
+      border-bottom-color: $rac-default-layout-persistent-drawer-toolbar-spacer-border-bottom-color;  /* @stable [13.09.2018] */
     }
   }
 }

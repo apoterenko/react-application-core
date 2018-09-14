@@ -21,6 +21,7 @@ $color-17: #57fff1 !default;
 $color-18: #ff7575 !default;
 $color-19: #3bac73 !default;
 $color-20: #e4e4e4 !default;
+$color-21: #eeeeee !default;
 
 /* @stable [25.06.2018] */
 $rac-default-font-size: 12px !default;
@@ -112,15 +113,17 @@ $rac-list-item-graphic-background-color: $color-8 !default;
 $rac-list-item-warning-graphic-background-color: $color-6 !default;
 $rac-list-item-normal-graphic-background-color: $color-13 !default;
 $rac-list-item-fail-graphic-background-color: $color-11 !default;
+$rac-list-item-odd-background-color: $color-21 !default;
 
 /* @stable [13.09.2018] */
+$rac-navigation-list-color: $color-5 !default;
 $rac-navigation-list-group-subheader-color: $color-5 !default;
 $rac-navigation-list-group-subheader-text-transform: uppercase !default;
 $rac-navigation-list-group-subheader-text-align: center !default;
 $rac-navigation-list-group-subheader-font-weight: bold !default;
 $rac-navigation-list-group-subheader-font-size: $rac-default-font-size-2 !default;
 $rac-navigation-list-item-height: 32px !default;
-$rac-navigation-list-item-padding-left: 24px !default;
+$rac-navigation-list-item-padding-left: 16px !default;
 $rac-navigation-list-item-font-size: $rac-default-font-size-2 !default;
 $rac-navigation-list-item-line-height: 16px !default;
 $rac-navigation-list-item-letter-spacing: 1px !default;
@@ -137,10 +140,13 @@ $rac-navigation-list-item-icon-color: $color-5 !default;
 $rac-navigation-list-item-icon-margin-right: 8px !default;
 $rac-navigation-list-item-icon-height: 16px !default;
 $rac-navigation-list-item-icon-width: 16px !default;
+$rac-navigation-list-divider-display: block !default;
 
 /* @stable [22.06.2018] */
 $rac-grid-color: $rac-default-text-color !default;
 $rac-grid-head-color: $rac-default-text-color !default;
+$rac-grid-head-padding: 8px 0 !default;
+$rac-grid-head-border-radius: 4px 4px 0 0 !default;
 $rac-grid-head-background: unset !default;
 $rac-grid-icon-size: 14px !default;
 $rac-grid-icon-line-height: 12px !default;
@@ -148,7 +154,7 @@ $rac-grid-actioned-icon-size: 18px !default;
 $rac-grid-actioned-color: $rac-default-action-color !default;
 $rac-grid-actioned-icon-line-height: 16px !default;
 $rac-grid-actioned-margin-right: 12px !default;
-$rac-grid-data-row-odd-background-color: $color-14 !default;
+$rac-grid-data-row-odd-background-color: $color-21 !default;
 $rac-grid-data-row-selected-background-color: $color-8 !default;
 $rac-grid-data-row-selected-font-weight: bold !default;
 $rac-grid-data-row-grouped-font-weight: 500 !default;
@@ -246,12 +252,14 @@ $rac-chip-description-padding-right: 16px !default;
 $rac-chip-description-padding-bottom: 1px !default;
 
 /* @stable [07.08.2018] */
+$rac-header-height: 64px !default;
 $rac-header-color: $color-5 !default;
 $rac-header-background: $color-2 !default;
 $rac-header-padding: unset !default;
 $rac-header-section-title-font-weight: bold !default;
 $rac-header-section-title-margin-left: 14px !default;
 $rac-header-section-title-margin-right: unset !default;
+$rac-header-section-title-padding-right: unset !default;
 $rac-header-section-title-font-size: $rac-default-font-size-2 !default;
 $rac-header-search-toolbar-animation-duration: 0.3s !default;
 $rac-header-text-field-border-bottom-color: $color-5 !default;
@@ -376,12 +384,18 @@ $rac-snackbar-error-button-color: $color-11 !default;
 $rac-snackbar-error-background-color: $color-11 !default;
 
 /* @stable [26.08.2018] */
-$rac-chips-filter-wrapper-padding: 16px 16px 0 16px !default;
+$rac-chips-filter-wrapper-padding: 16px !default;
 $rac-chips-filter-chip-background: none !default;
 $rac-chips-filter-chip-color: $color-6 !default;
 $rac-chips-filter-chip-border: 1px solid $color-6 !default;
 $rac-chips-filter-chip-icon-color: $color-6 !default;
 $rac-chips-filter-chip-text-transform: uppercase !default;
+
+/* @stable [13.09.2018] */
+$rac-default-layout-header-margin: 0 40px !default;
+$rac-default-layout-main-margin: 0 40px !default;
+$rac-default-layout-persistent-drawer-toolbar-spacer-background: $color-7 !default;
+$rac-default-layout-persistent-drawer-toolbar-spacer-border-bottom-color: $color-7 !default;
 
 /**/
 

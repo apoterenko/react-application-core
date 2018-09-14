@@ -191,8 +191,8 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    * @stable [18.05.2018]
    * @returns {JSX.Element}
    */
-  protected get actionsElementsSection(): JSX.Element {
-    return orNull<JSX.Element>(this.actionsElements.length > 0, () => this.actionsElementsWrapper);
+  protected get actionsElementsSection(): JSX.Element[] {
+    return orNull<JSX.Element[]>(this.actionsElements.length > 0, () => this.actionsElementsWrapper);
   }
 
   /**
@@ -205,7 +205,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
    * @stable [18.05.2018]
    * @returns {JSX.Element}
    */
-  protected abstract get actionsElementsWrapper(): JSX.Element;
+  protected abstract get actionsElementsWrapper(): JSX.Element[];
 
   /**
    * @stable [18.05.2018]

@@ -805,13 +805,6 @@ export interface IRenderToYWrapper {
 }
 
 /**
- * @stable [29.06.2018]
- */
-export interface IUseFooterWrapper {
-  useFooter?: boolean;
-}
-
-/**
  * @stable [07.06.2018]
  */
 export interface IMultiWrapper {
@@ -1474,13 +1467,6 @@ export interface ITotalAmountWrapper<TTotalAmount = number> {
  */
 export interface IMainWrapper<TMain> {
   main?: TMain;
-}
-
-/**
- * @stable [06.05.2018]
- */
-export interface ISeparatedWrapper<TSeparated = boolean> {
-  separated?: TSeparated;
 }
 
 /**
@@ -2363,7 +2349,9 @@ export interface IHeaderContentWrapper<THeaderContent = JSX.Element> {
 export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
 }
 
-/* @stable - 20.04.2018 */
+/**
+ * @stable [14.09.2018]
+ */
 export interface IFullWrapper<TFull> {
   full?: TFull;
 }

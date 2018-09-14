@@ -3,9 +3,9 @@ import * as React from 'react';
 import { toClassName, orNull } from '../../util';
 import { IHeaderProps } from './header.interface';
 import { BaseComponent } from '../base';
-import { ToolbarSection } from '../toolbar';
 import { Menu } from '../menu';
 import { IMenu } from '../menu';
+import { FlexLayout } from '../layout';
 
 export class Header extends BaseComponent<Header, IHeaderProps> {
 
@@ -30,59 +30,51 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
     const props = this.props;
 
     return (
-        <header className={toClassName(this.uiFactory.toolbar, 'rac-header', props.className)}>
-          <div className={toClassName(this.uiFactory.toolbarRow, 'rac-header-row')}>
-            <ToolbarSection className={toClassName('rac-navigation-section', this.uiFactory.toolbarSectionAlignStart)}>
-              {
-                this.uiFactory.makeIcon({
-                  type: props.navigationActionType,
-                  className: 'rac-toolbar-menu-icon',
-                  onClick: props.onNavigationActionClick,
-                })
-              }
-              <span className='rac-header-section-title'>{props.title}</span>
-            </ToolbarSection>
-            {
-              orNull<JSX.Element>(
-                  props.children || props.moreOptions,
-                  () => (
-                      <ToolbarSection className={
-                                        toClassName(this.uiFactory.toolbarSectionAlignEnd, 'rac-toolbar-section-wrapper')
-                                      }>
-                        {props.children}
-                        {
-                          orNull<JSX.Element>(
-                              props.moreOptions,
-                              () => (
-                                  this.uiFactory.makeIcon({
-                                    ...props.moreOptionsConfiguration,
-                                    type: 'more_vert',
-                                    className: 'rac-toolbar-menu-icon',
-                                    onClick: this.onMenuClick,
-                                  })
-                              )
-                          )
-                        }
-                        {
-                          orNull<JSX.Element>(
-                              props.moreOptions,
-                              () => (
-                                  <Menu ref='menu'
-                                        options={props.moreOptions}
-                                        onSelect={props.onMoreOptionsSelect}/>
-                              )
-                          )
-                        }
-                      </ToolbarSection>
+      <header className={toClassName('rac-header', 'rac-flex', props.className)}>
+        <FlexLayout row={true}
+                    className='rac-navigation-section rac-flex-align-items-center'>
+          {
+            this.uiFactory.makeIcon({
+              className: 'rac-navigation-action',
+              type: props.navigationActionType,
+              onClick: props.onNavigationActionClick,
+            })
+          }
+          <span className='rac-header-section-title'>{props.title}</span>
+        </FlexLayout>
+        {
+          orNull<JSX.Element>(
+            props.children || props.moreOptions,
+            () => (
+              <div className='rac-flex rac-flex-align-items-center'>
+                {props.children}
+                {
+                  orNull<JSX.Element>(
+                    props.moreOptions,
+                    () => (
+                      this.uiFactory.makeIcon({
+                        ...props.moreOptionsConfiguration,
+                        type: 'more_vert',
+                        onClick: this.onMenuClick,
+                      })
+                    )
                   )
-              )
-            }
-          </div>
-          {orNull<JSX.Element>(
-            props.useFooter,
-            () => <div className='rac-header-footer'/>
-          )}
-        </header>
+                }
+                {
+                  orNull<JSX.Element>(
+                    props.moreOptions,
+                    () => (
+                      <Menu ref='menu'
+                            options={props.moreOptions}
+                            onSelect={props.onMoreOptionsSelect}/>
+                    )
+                  )
+                }
+              </div>
+            )
+          )
+        }
+      </header>
     );
   }
 

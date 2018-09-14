@@ -22,18 +22,19 @@ export class List extends BaseList<List, IListProps> {
                   simple={false}
                   {...props}
                   className={toClassName('rac-list', props.className)}>
-        {this.dataSource.map((item) => this.getItem(item))}
+        {this.dataSource.map((item, index) => this.getItem(item, index))}
         {this.addActionElement}
       </SimpleList>
     );
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [13.09.2018]
    * @param {IEntity} entity
+   * @param {number} index
    * @returns {JSX.Element}
    */
-  protected getItem(entity: IEntity): JSX.Element {
+  protected getItem(entity: IEntity, index: number): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
     return (
@@ -42,7 +43,8 @@ export class List extends BaseList<List, IListProps> {
                 rawData={entity}
                 active={this.isEntitySelected(entity)}
                 onClick={this.onSelect}
-                {...props.itemConfiguration}/>
+                {...props.itemConfiguration}
+                className={toClassName(props.itemConfiguration.className, index % 2 === 0 ? 'rac-list-item-odd' : '')}/>
     );
   }
 }

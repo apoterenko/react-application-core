@@ -15,8 +15,12 @@
     overflow-y: auto;                                        /* @stable [23.06.2018] */
 
     .rac-list-item {
-      color: $rac-list-item-color;                           /* @stable [23.06.2018] */
-      font-size: $rac-list-item-font-size;                   /* @stable [23.06.2018] */
+      color: $rac-list-item-color;                                           /* @stable [23.06.2018] */
+      font-size: $rac-list-item-font-size;                                   /* @stable [23.06.2018] */
+
+      &.rac-list-item-odd {
+        background-color: $rac-list-item-odd-background-color;               /* @stable [13.09.2018] */
+      }
 
       &.rac-list-item-warning {
 

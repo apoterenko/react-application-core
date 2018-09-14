@@ -22,14 +22,6 @@ export class SearchFieldToolbar extends SearchToolbar<SearchFieldToolbar> {
    * @stable [18.05.2018]
    * @returns {JSX.Element}
    */
-  protected get fieldWrapper(): JSX.Element {
-    return this.searchField;
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
   protected get searchField(): JSX.Element {
     return <TextField {...this.fieldProps}/>;
   }

@@ -77,7 +77,8 @@
     }
 
     .rac-grid-head {
-      padding: 20px 16px 8px 16px;                        /* @stable [21.06.2018] */
+      padding: $rac-grid-head-padding;                    /* @stable [13.09.2018] */
+      border-radius: $rac-grid-head-border-radius;        /* @stable [13.09.2018] */
       color: $rac-grid-head-color;                        /* @stable [13.09.2018] */
       background: $rac-grid-head-background;              /* @stable [13.09.2018] */
 
@@ -92,15 +93,13 @@
         }
 
         .rac-grid-column-content {
-          text-transform: uppercase;                      /* @stable [21.06.2018] */
           white-space: normal;                            /* @stable [17.08.2018] */
-          overflow: hidden;                               /* @stable [18.08.2018] */
+          overflow: hidden;                               /* @stable [13.09.2018] */
         }
       }
     }
 
     .rac-grid-body {
-      padding: 0 16px 16px 16px;                          /* @stable [21.06.2018] */
       overflow: auto;                                     /* @stable [21.06.2018] */
 
       .rac-grid-column {

@@ -5,6 +5,7 @@
 
   .rac-navigation-list {
     overflow: auto;                                                            /* @stable [08.04.2018] */
+    color: $rac-navigation-list-color;                                         /* @stable [13.09.2018] */
 
     .rac-list-group-subheader {
       color: $rac-navigation-list-group-subheader-color;                       /* @stable [13.09.2018] */
@@ -12,6 +13,10 @@
       text-align: $rac-navigation-list-group-subheader-text-align;             /* @stable [13.09.2018] */
       font-weight: $rac-navigation-list-group-subheader-font-weight;           /* @stable [13.09.2018] */
       font-size: $rac-navigation-list-group-subheader-font-size;               /* @stable [13.09.2018] */
+    }
+
+    .rac-list-divider {
+      display: $rac-navigation-list-divider-display;                           /* @stable [13.09.2018] */
     }
 
     .rac-navigation-list-item {

@@ -175,7 +175,6 @@ import {
   IRenderedWrapper,
   IStepWrapper,
   IActionedWrapper,
-  IUseFooterWrapper,
   IEmptyValueWrapper,
   IPreventFocusWrapper,
   IQueryWrapper,
@@ -1003,7 +1002,6 @@ export interface IHeaderConfiguration extends IComponentConfiguration,
                                               IMoreOptionsConfigurationWrapper<IUniversalButtonProps>,
                                               IItemsWrapper<JSX.Element>,
                                               INavigationActionTypeWrapper,
-                                              IUseFooterWrapper,
                                               IOnNavigationActionClickWrapper,
                                               IOnMoreOptionsSelectWrapper<IMenuItemEntity> {
 }
