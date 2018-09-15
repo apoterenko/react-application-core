@@ -44,71 +44,20 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     }
   }
 
+  /**
+   * @stable [15.09.2018]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
-    const props = this.props;
-    const fieldLabel = props.label ? this.t(props.label) : props.children;
-
     return (
-        <div className={this.getFieldClassName()}
-             style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
-          <div ref='self'
-               style={props.style}
-               className={this.getSelfElementClassName()}>
-            {orNull(
-                props.prefixLabel,
-                <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
-            )}
-            <div className={this.getInputElementWrapperClassName()}>
-              {this.getInputElement()}
-              {
-                orNull(
-                    fieldLabel,
-                    () => (
-                        <label style={{paddingLeft: props.prefixLabel
-                              ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
-                              : undefined}}
-                               className={toClassName(
-                                   'rac-field-label',
-                                   this.uiFactory.textFieldLabel,
-                                   this.isFieldFocused() && 'rac-floating-focused-label',
-                                   this.isFieldFocused() && this.uiFactory.textFieldFocusedLabel
-                               )}>
-                          {props.label ? this.t(props.label) : props.children}
-                        </label>
-                    )
-                )
-              }
-              {this.getMirrorInputElement()}
-              {this.getInputCaretElement()}
-              {this.getInputAttachmentElement()}
-            </div>
-            {orNull(
-                this.actions,
-                this.actions.map((action) => this.uiFactory.makeIcon({
-                  type: action.type,
-                  title: action.title && this.t(action.title),
-                  className: action.className,
-                  disabled: R.isNil(action.disabled)
-                      ? this.isInactive()
-                      : action.disabled,
-                  onClick: (event: IBasicEvent) => {
-                    if (action.onClick) {
-                      cancelEvent(event);
-                      action.onClick(event);
-                    }
-                  },
-                }))
-            )}
-            {orNull(
-              this.inProgress(),
-              () => <ProgressLabel className='rac-text-field-loader'/>
-            )}
-          </div>
-          {this.getMessageElement()}
-          {this.getErrorMessageElement()}
-          {this.getAttachmentElement()}
-          {this.getKeyboardElement()}
-        </div>
+      <div className={this.getFieldClassName()}
+           style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
+        {this.getSelfElement()}
+        {this.getMessageElement()}
+        {this.getErrorMessageElement()}
+        {this.getAttachmentElement()}
+        {this.getKeyboardElement()}
+      </div>
     );
   }
 
@@ -135,14 +84,15 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected getSelfElementClassName(): string {
     const error = this.error;
-    const state = this.state;
+    const props = this.props;
 
     return toClassName(
       'rac-text-field',
       this.uiFactory.textField,
       this.uiFactory.textFieldUpgraded,
       this.isFieldFocused() && this.uiFactory.fieldFocused,
-      error && this.uiFactory.textFieldInvalid
+      error && this.uiFactory.textFieldInvalid,
+      props.fieldRendered === false && 'rac-display-none',
     );
   }
 
@@ -234,6 +184,78 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     } else {
       return (this.props.actions || []).concat(this.defaultActions || []);
     }
+  }
+
+  private getSelfElement(): JSX.Element {
+    const props = this.props;
+    const fieldLabel = props.label ? this.t(props.label) : props.children;
+
+    return (
+      <div ref='self'
+           style={props.style}
+           className={this.getSelfElementClassName()}>
+        {this.getPrefixLabelElement()}
+        <div className={this.getInputElementWrapperClassName()}>
+          {this.getInputElement()}
+          {
+            orNull(
+              fieldLabel,
+              () => (
+                <label style={{paddingLeft: props.prefixLabel
+                    ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
+                    : undefined}}
+                       className={toClassName(
+                         'rac-field-label',
+                         this.uiFactory.textFieldLabel,
+                         this.isFieldFocused() && 'rac-floating-focused-label',
+                         this.isFieldFocused() && this.uiFactory.textFieldFocusedLabel
+                       )}>
+                  {props.label ? this.t(props.label) : props.children}
+                </label>
+              )
+            )
+          }
+          {this.getMirrorInputElement()}
+          {this.getInputCaretElement()}
+          {this.getInputAttachmentElement()}
+        </div>
+        {orNull(
+          this.actions,
+          this.actions.map((action) => this.uiFactory.makeIcon({
+            type: action.type,
+            title: action.title && this.t(action.title),
+            className: action.className,
+            disabled: R.isNil(action.disabled)
+              ? this.isInactive()
+              : action.disabled,
+            onClick: (event: IBasicEvent) => {
+              if (action.onClick) {
+                cancelEvent(event);
+                action.onClick(event);
+              }
+            },
+          }))
+        )}
+        {orNull(
+          this.inProgress(),
+          () => <ProgressLabel className='rac-text-field-loader'/>
+        )}
+      </div>
+    );
+  }
+
+  /**
+   * @stable [15.09.2018]
+   * @returns {JSX.Element}
+   */
+  private getPrefixLabelElement(): JSX.Element {
+    const props = this.props;
+    return (
+      orNull<JSX.Element>(
+        props.prefixLabel,
+        <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
+      )
+    );
   }
 
   /**

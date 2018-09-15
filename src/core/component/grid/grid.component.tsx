@@ -590,12 +590,12 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                className={'rac-grid-data-row rac-grid-data-row-grouped'}>
         {
           <GridColumn key={this.toGroupedColumnKey(groupedRowValue)}>
-            {
+            {orNull<JSX.Element>(props.expandRendered !== false, () => (
               this.uiFactory.makeIcon({
                 type: isExpanded ? 'minus_square' : 'plus_square',
                 onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
               })
-            } {isFn(groupBy.groupValue) ? groupBy.groupValue(groupedRowValue, groupedRows) : groupedRowValue}
+            ))} {isFn(groupBy.groupValue) ? groupBy.groupValue(groupedRowValue, groupedRows) : groupedRowValue}
           </GridColumn>
         }
       </GridRow>

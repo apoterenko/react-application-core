@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as URLSearchParams from 'url-search-params';
 import { IEffectsAction } from 'redux-effects-promise';
+import * as R from 'ramda';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -14,6 +15,10 @@ export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
+
+/**
+ * @stable [15.09.2018]
+ */
 export const DAYS_OF_WEEK: Array<{id: number, name: string}> = [
   {id: 0, name: 'Sunday'},
   {id: 1, name: 'Monday'},
@@ -23,6 +28,7 @@ export const DAYS_OF_WEEK: Array<{id: number, name: string}> = [
   {id: 5, name: 'Friday'},
   {id: 6, name: 'Saturday'}
 ];
+export const DAYS_OF_WEEK_MAP = R.mergeAll<{[id: number]: boolean}>(DAYS_OF_WEEK.map((day) => ({[day.id]: true})));
 
 /**
  * Core fields
@@ -1602,6 +1608,20 @@ export interface INotUseActionsWrapper {
  */
 export interface IActionTextWrapper {
   actionText?: string;
+}
+
+/**
+ * @stable [15.09.2018]
+ */
+export interface IFieldRenderedWrapper {
+  fieldRendered?: boolean;
+}
+
+/**
+ * @stable [15.09.2018]
+ */
+export interface IExpandRenderedWrapper {
+  expandRendered?: boolean;
 }
 
 /**

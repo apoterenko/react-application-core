@@ -119,11 +119,11 @@ html, body {
   }
 
   .rac-visibility-hidden {
-    visibility: hidden;      /* @stable [23.06.2018] */
+    visibility: hidden !important;                /* @stable [15.09.2018] */
   }
 
   .rac-display-none {
-    display: none;           /* @stable [04.05.2018] */
+    display: none !important;                     /* @stable [15.09.2018] */
   }
 
   .rac-loading-icon {

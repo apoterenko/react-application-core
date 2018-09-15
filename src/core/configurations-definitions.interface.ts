@@ -214,6 +214,8 @@ import {
   IHeaderRenderedWrapper,
   ITightGridWrapper,
   IIndexWrapper,
+  IFieldRenderedWrapper,
+  IExpandRenderedWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -546,6 +548,7 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IColumnsConfigurationWrapper,
                                             IOnPlusClickWrapper,
                                             IUseServiceWrapper,
+                                            IExpandRenderedWrapper,
                                             IExpandedGroupsWrapper,
                                             ITightGridWrapper {
 }
@@ -684,7 +687,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IMessageWrapper,
           IUseKeyboardWrapper,
           ICaretBlinkingFrequencyTimeoutWrapper,
-          IValidateWrapper<string> {
+          IValidateWrapper<string>,
+          IFieldRenderedWrapper {
 }
 
 /* @stable - 11.04.2018 */
