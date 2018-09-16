@@ -135,7 +135,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     waitingMessage: 'Waiting...',
     defaultErrorMessage: 'Error',
     dataSaved: 'The data has been successfully saved.',
-    dndMessage: 'Try dropping some file(s) here, or click to select file(s) to upload.',
+    dndMessage: 'Upload a file(s) here',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     errorMessage: 'Something went wrong. There was a problem loading your data',

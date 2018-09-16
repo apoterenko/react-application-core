@@ -7,6 +7,6 @@ export class TextField extends BasicTextField<TextField,
     implements ITextField {
 
   public static defaultProps: ITextFieldInternalProps = {
-    clearAction: false,
+    clearActionRendered: false,
   };
 }

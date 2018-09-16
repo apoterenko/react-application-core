@@ -32,6 +32,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   public static defaultProps: IDefaultLayoutContainerProps = {
     headerConfiguration: {},
+    footerRendered: true,
     user: {
       email: '(no email)',
     },
@@ -55,13 +56,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const runtimeTitle = menu.find((item) => item.active);
 
     return (
-        <div className={toClassName(
-                            'rac-default-layout',
-                            'rac-flex',
-                            'rac-flex-row',
-                            'rac-flex-full',
-                            this.props.className
-                        )}>
+        <FlexLayout row={true}
+                    className={toClassName('rac-default-layout', props.className)}>
           <Drawer opened={this.isLayoutFullModeEnabled}>
             <div className={toClassName(
                                 'rac-persistent-drawer-toolbar-spacer',
@@ -73,7 +69,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                             items={menu}
                             onChange={this.onChangeNavigationList}/>
           </Drawer>
-          <FlexLayout className='rac-default-layout-body'>
+          <FlexLayout>
             <Header {...props.headerConfiguration}
                     title={props.title || (runtimeTitle && runtimeTitle.label)}
                     className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
@@ -94,10 +90,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                 )
               }
             </Main>
-            {orNull(props.footer, () => <footer className='rac-footer'>{props.footer}</footer>)}
+            {orNull<JSX.Element>(props.footerRendered, () => <footer className='rac-footer'>{props.footer}</footer>)}
           </FlexLayout>
           {this.snackbarTpl}
-        </div>
+        </FlexLayout>
     );
   }
 

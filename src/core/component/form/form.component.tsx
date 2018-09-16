@@ -9,11 +9,7 @@ import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
-import {
-  Field,
-  IFieldInternalProps,
-  IField,
-} from '../field';
+import { Field, IFieldInternalProps, IField } from '../field';
 import { IForm, IFormProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import {
   buildApiEntity,
@@ -26,6 +22,7 @@ import {
   isFormValid,
   isFormSubmittable,
 } from './form.support';
+import { FlexLayout } from '../layout';
 
 export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
 
@@ -63,60 +60,62 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                             'rac-flex-full',
                             props.className
                         )}>
-          <fieldset disabled={this.isFormDisabled()}
-                    className='rac-fieldset rac-flex-full'>
-            <section className='rac-section'>
+          <FlexLayout className='rac-form-body-wrapper'>
+            <FlexLayout full={false}
+                        className='rac-form-body'>
               {
                 cloneNodes<IFieldInternalProps>(
-                    this,
-                    (field: IField) => {
-                      const fieldProps = field.props;
-                      const predefinedOptions = this.getFieldPredefinedOptions(field);
+                  this,
+                  (field: IField) => {
+                    const fieldProps = field.props;
+                    const predefinedOptions = this.getFieldPredefinedOptions(field);
 
-                      return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
-                          {
-                            value: this.getFieldValue(field),
-                            originalValue: this.getFieldOriginalValue(field),
-                            displayValue: this.getFieldDisplayValue(field, predefinedOptions),
-                            readOnly: this.isFieldReadOnly(field),
-                            disabled: this.isFieldDisabled(field),
-                            changeForm: this.onChange,
+                    return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
+                      {
+                        value: this.getFieldValue(field),
+                        originalValue: this.getFieldOriginalValue(field),
+                        displayValue: this.getFieldDisplayValue(field, predefinedOptions),
+                        readOnly: this.isFieldReadOnly(field),
+                        disabled: this.isFieldDisabled(field),
+                        changeForm: this.onChange,
 
-                            // Dynamic linked dictionary callbacks
-                            onEmptyDictionary: orUndef<() => void>(
-                              fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
-                              () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
-                            ),
-                            onLoadDictionary: orUndef<(items: AnyT) => void>(
-                              fieldProps.bindDictionary || fieldProps.onLoadDictionary,
-                              (items) => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
-                            ),
+                        // Dynamic linked dictionary callbacks
+                        onEmptyDictionary: orUndef<() => void>(
+                          fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
+                          () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
+                        ),
+                        onLoadDictionary: orUndef<(items: AnyT) => void>(
+                          fieldProps.bindDictionary || fieldProps.onLoadDictionary,
+                          (items) => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
+                        ),
 
-                            // Predefined options
-                            ...predefinedOptions,
+                        // Predefined options
+                        ...predefinedOptions,
 
-                            // The fields props have a higher priority
-                            ...defValuesFilter<IFieldConfiguration, IFieldConfiguration>({
-                              label: fieldProps.label,
-                              type: fieldProps.type,
-                              placeholder: fieldProps.placeholder,
-                              prefixLabel: fieldProps.prefixLabel,
-                            }),
-                          }
-                      );
-                    },
-                    (child) => Field.isPrototypeOf(child.type),
-                    this.childrenMap,
-                    (child) => (child.props as IFieldInternalProps).rendered,
+                        // The fields props have a higher priority
+                        ...defValuesFilter<IFieldConfiguration, IFieldConfiguration>({
+                          label: fieldProps.label,
+                          type: fieldProps.type,
+                          placeholder: fieldProps.placeholder,
+                          prefixLabel: fieldProps.prefixLabel,
+                        }),
+                      }
+                    );
+                  },
+                  (child) => Field.isPrototypeOf(child.type),
+                  this.childrenMap,
+                  (child) => (child.props as IFieldInternalProps).rendered,
                 )
               }
-            </section>
-          </fieldset>
+            </FlexLayout>
+          </FlexLayout>
           {
             orNull<JSX.Element>(
                 !props.notUseActions,
                 () => (
-                    <section className={toClassName('rac-form-actions', this.uiFactory.cardActions)}>
+                    <FlexLayout full={false}
+                                row={true}
+                                className='rac-form-actions rac-flex-end'>
                       {orNull<JSX.Element>(
                           props.useResetButton,
                           () => (
@@ -135,7 +134,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                               progress={this.form.progress}
                               error={!R.isNil(this.form.error)}
                               text={props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save')}/>
-                    </section>
+                    </FlexLayout>
                 )
             )
           }

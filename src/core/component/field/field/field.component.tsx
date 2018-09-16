@@ -178,14 +178,20 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     super.onClick(event);
   }
 
+  /**
+   * @stable [16.09.2018]
+   * @returns {string}
+   */
   protected getFieldClassName(): string {
     const props = this.props;
     return toClassName(
+      'rac-field',
+      'rac-flex-full',
+      this.isInactive() && 'rac-field-disabled',
+      props.shrink && 'rac-field-shrink',
       this.uiFactory.formField,
       props.className,
-      'rac-form-field',
-      'rac-flex-full',
-      this.isInactive() && 'rac-form-field-disabled'
+      'rac-form-field'   // TODO Legacy
     );
   }
 

@@ -1,28 +1,37 @@
 @import '~sass-mixins/partials/_user-select';
 @import './constant';
 
-// Html + body [FRAMEWORK-]
+// Html, Body [FRAMEWORK-]
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
+  margin: 0;                                                                        /* @stable [16.09.2018] */
+  padding: 0;                                                                       /* @stable [16.09.2018] */
+  height: 100%;                                                                     /* @stable [16.09.2018] */
+  width: 100%;                                                                      /* @stable [16.09.2018] */
+  -webkit-tap-highlight-color: transparent;                                         /* @stable [16.09.2018] */
+}
 
-  -webkit-tap-highlight-color: transparent;
+// Rac [FRAMEWORK-]
+.rac {
+  min-width: $rac-min-width;                                                        /* @stable [16.09.2018] */
+
+  .rac-overflow-ellipsis {
+    display: inline-block;                                                          /* @stable [16.09.2018] */
+    overflow: hidden;                                                               /* @stable [16.09.2018] */
+    text-overflow: ellipsis;                                                        /* @stable [16.09.2018] */
+    white-space: nowrap;                                                            /* @stable [16.09.2018] */
+    max-width: 100%;                                                                /* @stable [16.09.2018] */
+
+    * {
+      text-overflow: ellipsis;                                                      /* @stable [16.09.2018] */
+      overflow: hidden;                                                             /* @stable [16.09.2018] */
+    }
+  }
 }
 
 // Root [FRAMEWORK-]
 .rac-root {
   height: 100%;
   width: 100%;
-}
-
-// Fieldset [FRAMEWORK-]
-.rac-fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 100%;
 }
 
 // Section [FRAMEWORK-]
@@ -57,14 +66,6 @@ html, body {
     -webkit-appearance: none;         /* @stable [06.06.2018] */
     -moz-appearance: none;            /* @stable [06.06.2018] */
     margin: 0;                        /* @stable [06.06.2018] */
-  }
-
-  .rac-overflow-ellipsis {
-    display: inline-block;    /* @stable [14.05.2018] */
-    overflow: hidden;         /* @stable [14.05.2018] */
-    text-overflow: ellipsis;  /* @stable [14.05.2018] */
-    white-space: nowrap;      /* @stable [14.05.2018] */
-    max-width: 100%;          /* @stable [14.05.2018] */
   }
 
   .rac-status-attention {

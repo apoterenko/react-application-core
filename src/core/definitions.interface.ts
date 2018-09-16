@@ -1620,8 +1620,15 @@ export interface IFieldRenderedWrapper {
 /**
  * @stable [15.09.2018]
  */
-export interface IExpandRenderedWrapper {
-  expandRendered?: boolean;
+export interface IExpandActionRenderedWrapper {
+  expandActionRendered?: boolean;
+}
+
+/**
+ * @stable [16.09.2018]
+ */
+export interface IFooterRenderedWrapper {
+  footerRendered?: boolean;
 }
 
 /**
@@ -1906,10 +1913,10 @@ export interface IColumnTitleWrapper<TColumnTitle = string> {
 }
 
 /**
- * @stable [06.06.2018]
+ * @stable [15.09.2018]
  */
-export interface IClearActionWrapper<TClearAction = boolean> {
-  clearAction?: TClearAction;
+export interface IClearActionWrapper {
+  clearActionRendered?: boolean;
 }
 
 /**
@@ -2669,6 +2676,13 @@ export interface IDeactivatedWrapper {
  */
 export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppliedValue) => void> {
   onApply?: TOnApply;
+}
+
+/**
+ * @stable [16.09.2018]
+ */
+export interface IShrinkWrapper {
+  shrink?: boolean;
 }
 
 /**

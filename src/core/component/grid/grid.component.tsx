@@ -51,8 +51,8 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                  props.className
                )}>
           <thead className='rac-grid-head'>
-          {this.headerElement}
-          {this.filterElement}
+            {this.headerElement}
+            {this.filterElement}
           </thead>
           <tbody ref='container'
                  className='rac-grid-body'>
@@ -324,7 +324,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
           ...this.getDefaultFieldProps(),
           value: this.toFilterFieldValue(name),
           placeholder: 'Filter',
-          clearAction: true,
+          clearActionRendered: true,
           onChange: (value) => this.onChangeFilterField({value, name}),
         });
       }
@@ -386,7 +386,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
       orNull(
         isAtLeastOneFilterExist,
         () => (
-          <GridRow>
+          <GridRow className='rac-grid-filter-row'>
             {
               columns.map((column, columnNum) => (
                 <GridHeaderColumn key={this.toFilterColumnKey(columnNum)}
@@ -590,7 +590,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                className={'rac-grid-data-row rac-grid-data-row-grouped'}>
         {
           <GridColumn key={this.toGroupedColumnKey(groupedRowValue)}>
-            {orNull<JSX.Element>(props.expandRendered !== false, () => (
+            {orNull<JSX.Element>(props.expandActionRendered !== false, () => (
               this.uiFactory.makeIcon({
                 type: isExpanded ? 'minus_square' : 'plus_square',
                 onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),

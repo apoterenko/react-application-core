@@ -21,7 +21,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
    */
   public static defaultProps: IMultiFieldProps = {
     displayMessage: '%d value(s)',
-    clearAction: false,
+    clearActionRendered: false,
     notUseErrorMessage: true,
     forceReload: true,
     displayValue: (value: MultiFieldEntityT,

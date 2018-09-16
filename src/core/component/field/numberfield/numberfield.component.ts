@@ -14,7 +14,7 @@ export class NumberField extends BasicTextField<NumberField,
 
   // We can't use number type because an input field throws an empty value on change if valid = false
   public static defaultProps: INumberFieldInternalProps = {
-    clearAction: false,
+    clearActionRendered: false,
   };
 
   public getRawValueFromEvent(event: ChangeEventT): number | string {

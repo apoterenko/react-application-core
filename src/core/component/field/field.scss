@@ -3,7 +3,6 @@
 @import './addressfield/addressfield';
 @import './textfield/textfield';
 @import './chipsfield/chipsfield';
-@import './gridfield/gridfield';
 @import './switch/switch';
 @import './viewfield/viewfield';
 @import './textarea/textarea';
@@ -11,9 +10,14 @@
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-form-field {
+  .rac-form-field, .rac-field {       // TODO rac-form-field - legacy
+    flex-shrink: 0;                                                   /* @layout @stable [17.09.2018] */
 
-    &.rac-form-field-disabled {
+    &.rac-field-shrink {
+      flex-shrink: 1;                                                 /* @layout @stable [17.09.2018] */
+    }
+
+    &.rac-field-disabled {
 
       label,
         .rac-dnd,
@@ -48,29 +52,33 @@
 
     .rac-field-label {
       white-space: nowrap;                                            /* @stable [08.08.2018] */
-      color: $rac-form-field-label-color;                             /* @stable [08.08.2018] */
+      color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
       font-size: $rac-form-field-label-font-size;                     /* @stable [08.08.2018] */
       text-transform: $rac-form-field-label-text-transform;           /* @stable [08.08.2018] */
+      margin-left: $rac-field-label-margin-left;                      /* @stable [08.08.2018] */
 
       &.rac-floating-focused-label {
-        color: $rac-form-field-floating-focused-label-color;          /* @stable [08.08.2018] */
-        font-size: $rac-form-field-floating-focused-label-font-size;  /* @stable [08.08.2018] */
+        color: $rac-field-floating-focused-label-color;                   /* @stable [08.08.2018] */
+        font-size: $rac-field-floating-focused-label-font-size;           /* @stable [08.08.2018] */
+        margin-bottom: $rac-field-floating-focused-label-margin-bottom;   /* @stable [17.09.2018] */
       }
     }
 
     .rac-text-field {
-      border-bottom: 1px solid;                                       /* @stable [21.08.2018] */
+      height: $rac-text-field-height !important;                      /* @mdc @stable [15.09.2018] */
       will-change: unset;                                             /* @mdc @stable [08.08.2018] https://github.com/material-components/material-components-web/issues/1978 */
+      flex-shrink: 0;                                                 /* @layout @stable [17.09.2018] */
+      border-style: solid;                                            /* @stable [17.09.2018] */
+      border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
+      border-color: $rac-text-field-border-color !important;          /* @mdc @stable [17.09.2018] */
+      border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
+      margin-bottom: $rac-text-field-margin-bottom;                   /* @mdc @stable [17.09.2018] */
 
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
-        margin-left: $rac-form-field-icon-margin-left;                /* @stable [24.06.2018] */
+        margin-right: $rac-form-field-icon-margin-right;              /* @stable [24.06.2018] */
         color: $rac-form-field-icon-color;                            /* @stable [24.06.2018] */
-
-        .svg-inline--fa {
-          margin-top: 100%;                                           /* @stable [25.06.2018] */
-        }
 
         &.rac-loading-icon {
 
@@ -81,15 +89,17 @@
       }
 
       .rac-field-input {
+        padding-left: $rac-field-input-padding-left;                  /* @stable [17.09.2018] */
+        padding-right: $rac-field-input-padding-right;                /* @stable [17.09.2018] */
         border: none;                                                 /* @mdc @stable [07.08.2018] */
         color: $rac-field-input-color;                                /* @stable [25.06.2018] */
         font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
+        font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
         letter-spacing: $rac-form-field-input-letter-spacing;         /* @stable [25.06.2018] */
-        font-weight: $rac-form-field-input-font-weight;               /* @stable [26.06.2018] */
 
         &::placeholder {
-          color: $rac-form-field-input-placeholder-color;             /* @stable [24.06.2018] */
-          font-weight: $rac-form-field-input-placeholder-font-weight; /* @stable [03.07.2018] */
+          color: $rac-field-input-placeholder-color;                  /* @stable [24.06.2018] */
+          font-weight: $rac-field-input-placeholder-font-weight;      /* @stable [03.07.2018] */
         }
       }
     }

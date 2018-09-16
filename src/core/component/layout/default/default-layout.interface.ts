@@ -6,7 +6,7 @@ import {
   IContainerConfiguration,
   IHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
-import { IFooterWrapper, IProgressWrapper } from '../../../definitions.interface';
+import { IFooterWrapper, IProgressWrapper, IFooterRenderedWrapper } from '../../../definitions.interface';
 
 /**
  * @stable [13.08.2018]
@@ -21,6 +21,7 @@ export interface IDefaultLayoutContainerEntity extends IContainerEntity,
  */
 export interface IDefaultLayoutContainerConfiguration extends IContainerConfiguration,
                                                               IFooterWrapper,
+                                                              IFooterRenderedWrapper,
                                                               IHeaderConfigurationWrapper {
 }
 

@@ -39,7 +39,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     this.onWindowMouseDown = this.onWindowMouseDown.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
 
-    if (this.props.clearAction !== false) {
+    if (this.props.clearActionRendered !== false) {
       this.addClearAction();
     }
   }

@@ -11,7 +11,7 @@ import { BaseLayoutViewBuilder } from './base-layout-view.builder';
 export class LayoutViewBuilder extends BaseLayoutViewBuilder {
 
   /**
-   * @stable - 19.04.2018
+   * @stable [16.09.2018]
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
@@ -22,10 +22,11 @@ export class LayoutViewBuilder extends BaseLayoutViewBuilder {
                       layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <div className={toClassName(
-             'rac-flex',
-             'rac-flex-row',
-             this.toFactorClassName(layoutConfig.factor)
-           )}
+                       'rac-flex',
+                       'rac-flex-row',
+                       'rac-layout-view-row',
+                       this.toFactorClassName(layoutConfig.factor)
+                     )}
            {...props}>
         {children}
       </div>

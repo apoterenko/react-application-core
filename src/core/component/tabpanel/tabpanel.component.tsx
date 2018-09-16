@@ -6,6 +6,7 @@ import { BaseComponent } from '../base';
 import { ITabPanelState, ITabPanel } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
 import { ITabPanelProps } from '../../props-definitions.interface';
+import { FlexLayout } from '../layout';
 
 export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelState> implements ITabPanel {
 
@@ -47,96 +48,99 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
     const activeValue = this.activeValue;
 
     return (
-      <div ref='self'
-           className={toClassName(
-                        'rac-tab-panel',
-                        'rac-flex',
-                        'rac-flex-row',
-                        'rac-flex-center',
-                        props.className,
-                        this.uiFactory.tabBar
-                     )}>
-        {this.uiFactory.makeIcon({
-          type: 'navigate_before',
-          className: 'rac-tab-nav-icon',
-          onClick: this.onBackward,
-        })}
-        <div className={toClassName(this.uiFactory.tabBarScroller, 'rac-tab-scroller')}>
-          <div className={toClassName(
-                              this.uiFactory.tabBarScrollerScrollArea,
-                              this.uiFactory.tabBarScrollerScrollAreaScroll)
-                          }>
+      <FlexLayout full={false}
+                  className='rac-tab-panel-wrapper'>
+        <div ref='self'
+             className={toClassName(
+                          'rac-tab-panel',
+                          'rac-flex',
+                          'rac-flex-row',
+                          'rac-flex-center',
+                          props.className,
+                          this.uiFactory.tabBar
+                       )}>
+          {this.uiFactory.makeIcon({
+            type: 'navigate_before',
+            className: 'rac-tab-nav-icon',
+            onClick: this.onBackward,
+          })}
+          <div className={toClassName(this.uiFactory.tabBarScroller, 'rac-tab-scroller')}>
             <div className={toClassName(
-                              'rac-tab-scroll-content',
-                              'rac-flex-center',
-                              this.uiFactory.tabBarScrollerScrollContent)
-                           }>
-              {
-                items.map((tab) => (
-                  <div key={`rac-tab-${tab.value}`}
-                          className={toClassName(
-                                        'rac-tab',
-                                        tab.selected && 'rac-tab-selected',
-                                        this.uiFactory.tab,
-                                        orNull<string>(tab.value === activeValue, this.uiFactory.tabActive)
-                                    )}
-                          onClick={() => this.onTabClick(tab)}>
-                    <span className={this.uiFactory.tabContent}>
-                      <div>
-                        {
-                          orNull<JSX.Element>(
-                            tab.url,
-                            () => (
-                              <div className='rac-tab-url-icon-wrapper'>
-                                <img className={toClassName('rac-tab-url-icon', this.uiFactory.tabIcon)}
-                                     src={tab.url}/>
-                              </div>
+                                this.uiFactory.tabBarScrollerScrollArea,
+                                this.uiFactory.tabBarScrollerScrollAreaScroll)
+                            }>
+              <div className={toClassName(
+                                'rac-tab-scroll-content',
+                                'rac-flex-center',
+                                this.uiFactory.tabBarScrollerScrollContent)
+                             }>
+                {
+                  items.map((tab) => (
+                    <div key={`rac-tab-${tab.value}`}
+                            className={toClassName(
+                                          'rac-tab',
+                                          tab.selected && 'rac-tab-selected',
+                                          this.uiFactory.tab,
+                                          orNull<string>(tab.value === activeValue, this.uiFactory.tabActive)
+                                      )}
+                            onClick={() => this.onTabClick(tab)}>
+                      <span className={this.uiFactory.tabContent}>
+                        <div>
+                          {
+                            orNull<JSX.Element>(
+                              tab.url,
+                              () => (
+                                <div className='rac-tab-url-icon-wrapper'>
+                                  <img className={toClassName('rac-tab-url-icon', this.uiFactory.tabIcon)}
+                                       src={tab.url}/>
+                                </div>
+                              )
                             )
-                          )
-                        }
-                        {
-                          orNull<JSX.Element>(
-                            tab.icon,
-                            () => this.uiFactory.makeIcon({type: tab.icon, className: this.uiFactory.tabIcon})
-                          )
-                        }
-                        {
-                          orNull<JSX.Element>(
-                            tab.url || tab.icon,
-                            () => (
-                              <div className={toClassName('rac-tab-icon-text', this.uiFactory.tabIconText)}>
-                                {this.t(tab.name)}
-                              </div>
+                          }
+                          {
+                            orNull<JSX.Element>(
+                              tab.icon,
+                              () => this.uiFactory.makeIcon({type: tab.icon, className: this.uiFactory.tabIcon})
                             )
-                          )
-                        }
-                        {orNull<string>(!(tab.url || tab.icon), () => this.t(tab.name))}
-                      </div>
-                     </span>
-                     <span className={toClassName(
-                                        this.uiFactory.tabIndicator,
-                                        !props.useIndicator && 'rac-display-none',
-                                        orNull<string>(tab.value === activeValue, this.uiFactory.tabIndicatorActive)
-                                      )}>
-                        <span className={toClassName(
-                                            this.uiFactory.tabIndicatorContent,
-                                            this.uiFactory.tabIndicatorContentUnderline
-                                         )}/>
-                    </span>
-                    <span className={toClassName(!props.rippable && 'rac-tab-no-rippable',
-                                    this.uiFactory.tabRipple)}/>
-                  </div>
-                ))
-              }
+                          }
+                          {
+                            orNull<JSX.Element>(
+                              tab.url || tab.icon,
+                              () => (
+                                <div className={toClassName('rac-tab-icon-text', this.uiFactory.tabIconText)}>
+                                  {this.t(tab.name)}
+                                </div>
+                              )
+                            )
+                          }
+                          {orNull<string>(!(tab.url || tab.icon), () => this.t(tab.name))}
+                        </div>
+                       </span>
+                       <span className={toClassName(
+                                          this.uiFactory.tabIndicator,
+                                          !props.useIndicator && 'rac-display-none',
+                                          orNull<string>(tab.value === activeValue, this.uiFactory.tabIndicatorActive)
+                                        )}>
+                          <span className={toClassName(
+                                              this.uiFactory.tabIndicatorContent,
+                                              this.uiFactory.tabIndicatorContentUnderline
+                                           )}/>
+                      </span>
+                      <span className={toClassName(!props.rippable && 'rac-tab-no-rippable',
+                                      this.uiFactory.tabRipple)}/>
+                    </div>
+                  ))
+                }
+              </div>
             </div>
           </div>
+          {this.uiFactory.makeIcon({
+            type: 'navigate_next',
+            className: 'rac-tab-nav-icon',
+            onClick: this.onForward,
+          })}
         </div>
-        {this.uiFactory.makeIcon({
-          type: 'navigate_next',
-          className: 'rac-tab-nav-icon',
-          onClick: this.onForward,
-        })}
-      </div>
+      </FlexLayout>
     );
   }
 

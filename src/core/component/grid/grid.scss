@@ -7,7 +7,7 @@
 .rac {
 
   .rac-grid-wrapper {
-    overflow: auto;                                                 /* @stable [11.09.2018] */
+    overflow: auto;                                                                 /* @stable [11.09.2018] */
   }
 
   .rac-grid {
@@ -78,16 +78,16 @@
     }
 
     .rac-grid-head {
-      padding-top: $rac-grid-head-padding-top;            /* @stable [15.09.2018] */
-      padding-bottom: $rac-grid-head-padding-bottom;      /* @stable [15.09.2018] */
       border-radius: $rac-grid-head-border-radius;        /* @stable [13.09.2018] */
       color: $rac-grid-head-color;                        /* @stable [13.09.2018] */
       background: $rac-grid-head-background;              /* @stable [13.09.2018] */
 
       .rac-grid-column {
-        text-align: left;                                 /* @stable [21.06.2018] */
-        white-space: nowrap;                              /* @stable [21.06.2018] */
-        font-weight: 400;                                 /* @stable [21.06.2018] */
+        text-align: left;                                       /* @stable [21.06.2018] */
+        white-space: nowrap;                                    /* @stable [21.06.2018] */
+        font-weight: 400;                                       /* @stable [21.06.2018] */
+        padding-top: $rac-grid-head-column-padding-top;         /* @stable [15.09.2018] */
+        padding-bottom: $rac-grid-head-column-padding-bottom;   /* @stable [15.09.2018] */
 
         .rac-grid-column-direction {
           margin-left: 4px;                               /* @stable - 05.04.2018 */
@@ -102,11 +102,11 @@
     }
 
     .rac-grid-body {
-      overflow: auto;                                     /* @stable [21.06.2018] */
+      overflow: auto;                                                        /* @stable [21.06.2018] */
 
       .rac-grid-column {
-        padding-top: 8px;                                 /* @stable [26.06.2018] */
-        padding-bottom: 8px;                              /* @stable [26.06.2018] */
+        padding-top: $rac-grid-body-column-padding-top;                      /* @stable [15.09.2018] */
+        padding-bottom: $rac-grid-body-column-padding-bottom;                /* @stable [15.09.2018] */
       }
     }
 
@@ -116,6 +116,11 @@
       width: 100%;                                                           /* @stable [21.06.2018] */
       cursor: default;                                                       /* @stable [21.06.2018] */
       padding: 8px 16px;                                                     /* @stable [21.06.2018] */
+
+      &.rac-grid-filter-row {
+        background: $rac-grid-filter-row-background;                         /* @stable [16.09.2018] */
+        border-bottom: $rac-grid-filter-row-border-bottom;                   /* @stable [16.09.2018] */
+      }
 
       &.rac-grid-data-row {
 

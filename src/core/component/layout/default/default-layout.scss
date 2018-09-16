@@ -10,19 +10,39 @@
     }
 
     .rac-main {
-      position: relative;                                                                             /* @stable [19.06.2018] */
-      overflow: auto;                                                                                 /* @stable [19.06.2018] */
-      margin: $rac-default-layout-main-margin;                                                        /* @stable [13.09.2018] */
+      position: relative;                                                                             /* @stable [16.09.2018] */
 
-      .rac-main-body {
-        position: absolute;                                                                           /* @stable [19.06.2018] */
-        height: 100%;                                                                                 /* @stable [19.06.2018] */
-        width: 100%;                                                                                  /* @stable [19.06.2018] */
+      .rac-main-body-wrapper {
+        position: absolute;                                                                           /* @stable [16.09.2018] */
+        width: 100%;                                                                                  /* @stable [16.09.2018] */
+        height: 100%;                                                                                 /* @stable [16.09.2018] */
+
+        .rac-main-body {
+          padding-left: $rac-default-layout-main-body-padding-left;                                   /* @stable [16.09.2018] */
+
+          .rac-tab-panel-wrapper,
+            .rac-chips-filter-wrapper {
+            margin-bottom: $rac-default-layout-main-body-container-margin-bottom;                     /* @stable [17.09.2018] */
+          }
+        }
+
+        .rac-main-body > {
+          .rac-grid-wrapper,
+            .rac-chips-filter-wrapper,
+            .rac-tab-panel-wrapper {
+            margin-right: $rac-default-layout-main-body-first-level-container-margin-right;           /* @stable [16.09.2018] */
+          }
+
+          .rac-list {
+            padding-right: $rac-default-layout-main-body-first-level-container-padding-right;         /* @stable [16.09.2018] */
+          }
+        }
       }
     }
 
     .rac-footer {
-      border-top: 1px solid $color-3;                                                                 /* @stable [19.06.2018] */
+      height: $rac-default-layout-footer-height;                                                      /* @stable [16.09.2018] */
+      max-height: $rac-default-layout-footer-height;                                                  /* @stable [16.09.2018] */
     }
 
     .rac-persistent-drawer-toolbar-spacer {

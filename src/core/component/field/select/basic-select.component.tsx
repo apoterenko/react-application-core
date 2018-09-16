@@ -26,7 +26,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected static logger = LoggerFactory.makeLogger('BasicSelect');
 
   /**
-   * @stable [19.08.2018]
+   * @stable [15.09.2018]
    * @param {TProps} props
    */
   constructor(props: TProps) {
@@ -34,7 +34,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
-    if (!props.notUseExpandAction) {
+    if (props.expandActionRendered !== false) {
       this.defaultActions = R.insert<IFieldActionConfiguration>(
         0,
         {type: 'expand_more', onClick: this.openMenu},

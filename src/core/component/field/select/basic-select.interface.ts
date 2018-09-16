@@ -1,26 +1,34 @@
 import {
   INeedToOpenMenuWrapper,
   IForceReloadWrapper,
+  IExpandActionRenderedWrapper,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { IMenuConfigurationWrapper } from '../../../configurations-definitions.interface';
+import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
 import {
   IBasicTextFieldProps,
-  IBasicTextFieldState,
 } from '../textfield';
+import { IFieldState } from '../field/field.interface';
 
 /**
- * @stable [01.06.2018]
+ * @stable [15.09.2018]
  */
-export interface IBasicSelectState extends IBasicTextFieldState,
+export interface IBasicSelectState extends IFieldState,
                                            INeedToOpenMenuWrapper {
 }
 
+/**
+ * @stable [15.09.2018]
+ */
+export interface IBasicSelectConfiguration extends IFieldConfiguration,
+                                                   IExpandActionRenderedWrapper {
+}
+
 // TODO
-export interface IBasicSelectProps extends IBasicTextFieldProps,
+export interface IBasicSelectProps extends IBasicSelectConfiguration,
+                                           IBasicTextFieldProps,
                                            IMenuConfigurationWrapper,
                                            IForceReloadWrapper {
-  notUseExpandAction?: boolean;
   options?: ISelectOptionEntity[];
   onSelect?(option: ISelectOptionEntity): void;
 }

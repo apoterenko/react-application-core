@@ -16,7 +16,6 @@ $color-12: #a70101 !default;
 $color-13: #73af90 !default;
 $color-14: #f0f0f0 !default;
 $color-15: #000 !default;
-$color-16: #c8ccce !default;
 $color-17: #57fff1 !default;
 $color-18: #ff7575 !default;
 $color-19: #3bac73 !default;
@@ -25,16 +24,21 @@ $color-21: #eeeeee !default;
 $color-22: #f2f2f2 !default;
 
 /* @stable [25.06.2018] */
+$rac-default-layout-offset: 40px !default;
 $rac-default-font-size: 12px !default;
 $rac-default-font-size-2: 14px !default;
 $rac-default-action-color: $color-2 !default;
 $rac-default-label-color: $color-2 !default;
 $rac-default-text-color: $color-2 !default;
+$rac-default-border-radius: 2px !default;
+
+/* @stable [26.06.2018] */
+$rac-min-width: 750px !default;
 
 /* @stable [26.06.2018] */
 $rac-scrollbar-width: 5px !default;
 $rac-scrollbar-height: 5px !default;
-$rac-scrollbar-thumb-background-color: $color-16 !default;
+$rac-scrollbar-thumb-background-color: $color-8 !default;
 
 /* @stable [26.06.2018] */
 $rac-toolbar-info-color: $rac-default-label-color !default;
@@ -92,7 +96,7 @@ $rac-add-button-icon-border-radius: 32px !default;
 $rac-add-button-icon-opacity: $opacity !default;
 $rac-add-button-icon-background-color: $rac-default-action-color !default;
 $rac-add-button-icon-color: $color-5 !default;
-$rac-add-button-icon-bottom: 32px !default;
+$rac-add-button-icon-bottom: 8px !default;
 $rac-add-button-icon-right: 64px !default;
 $rac-add-button-icon-width: 56px !default;
 $rac-add-button-icon-height: $rac-add-button-icon-width !default;
@@ -146,16 +150,22 @@ $rac-navigation-list-divider-display: block !default;
 /* @stable [22.06.2018] */
 $rac-grid-color: $rac-default-text-color !default;
 $rac-grid-head-color: $rac-default-text-color !default;
-$rac-grid-head-padding-top: 4px !default;
-$rac-grid-head-padding-bottom: 4px !default;
-$rac-grid-head-border-radius: 4px 4px 0 0 !default;
+$rac-grid-head-border-radius: $rac-default-border-radius $rac-default-border-radius 0 0 !default;
 $rac-grid-head-background: unset !default;
+$rac-grid-head-column-padding-top: 8px !default;
+$rac-grid-head-column-padding-bottom: 8px !default;
+$rac-grid-body-column-padding-top: 8px !default;
+$rac-grid-body-column-padding-bottom: 8px !default;
+$rac-tight-grid-body-column-padding-top: 4px !default;
+$rac-tight-grid-body-column-padding-bottom: 4px !default;
 $rac-grid-icon-size: 14px !default;
 $rac-grid-icon-line-height: 12px !default;
 $rac-grid-actioned-icon-size: 18px !default;
 $rac-grid-actioned-color: $rac-default-action-color !default;
 $rac-grid-actioned-icon-line-height: 16px !default;
 $rac-grid-actioned-margin-right: 12px !default;
+$rac-grid-filter-row-background: unset !default;
+$rac-grid-filter-row-border-bottom: unset !default;
 $rac-grid-data-row-odd-background-color: $color-21 !default;
 $rac-grid-data-row-selected-background-color: $color-8 !default;
 $rac-grid-data-row-selected-font-weight: bold !default;
@@ -185,27 +195,36 @@ $rac-message-color: $rac-default-label-color !default;
 $rac-message-font-size: $rac-default-font-size !default;
 
 /* @stable [08.08.2018] */
-$rac-form-field-label-color: $rac-default-text-color !default;
 $rac-form-field-label-font-size: $rac-default-font-size !default;
 $rac-form-field-label-text-transform: uppercase !default;
-$rac-form-field-floating-focused-label-font-size: 16px !default;
-$rac-form-field-floating-focused-label-color: $rac-form-field-label-color !default;
 $rac-form-field-message-color: $rac-default-text-color !default;
-$rac-form-field-icon-margin-left: 8px !default;
+$rac-form-field-icon-margin-right: 8px !default;
 $rac-form-field-dnd-margin-bottom: 16px !default;
 $rac-form-field-icon-color: $rac-default-text-color !default;
-$rac-form-field-input-placeholder-color: $rac-default-text-color !default;
-$rac-form-field-input-placeholder-font-weight: 100 !default;
 $rac-form-field-input-font-size: $rac-default-font-size !default;
 $rac-form-field-input-letter-spacing: 1px !default;
-$rac-form-field-input-font-weight: bold !default;
 $rac-form-text-field-help-text-font-size: $rac-default-font-size !default;
 
-/* @stable [03.09.2018] */
+/* @stable [17.09.2018] */
+$rac-field-input-padding-left: unset !default;
+$rac-field-input-padding-right: unset !default;
 $rac-field-input-color: $rac-default-text-color !default;
 $rac-field-input-caret-color: $rac-default-text-color !default;
 $rac-field-input-caret-font-size: 24px !default;
 $rac-field-input-caret-bottom: 7px !default;
+$rac-field-input-font-weight: 500 !default;
+$rac-field-input-placeholder-font-weight: 100 !default;
+$rac-field-input-placeholder-color: $rac-default-text-color !default;
+$rac-field-label-color: $rac-default-text-color !default;
+$rac-field-label-margin-left: unset !default;
+$rac-field-floating-focused-label-font-size: 16px !default;
+$rac-field-floating-focused-label-margin-bottom: unset !default;
+$rac-field-floating-focused-label-color: $rac-field-label-color !default;
+$rac-text-field-height: 32px !default;
+$rac-text-field-margin-bottom: 4px !default;
+$rac-text-field-border-radius: $rac-default-border-radius !default;
+$rac-text-field-border-width: 0 0 1px 0 !default;
+$rac-text-field-border-color: $color-10 !default;
 
 /* @stable [30.07.2018] */
 $rac-dialog-addressfield-place-color: $rac-default-text-color !default;
@@ -213,8 +232,8 @@ $rac-dialog-addressfield-place-font-size: $rac-default-font-size !default;
 $rac-dialog-addressfield-google-maps-min-height: 200px !default;
 
 /* @stable [03.08.2018] */
-$rac-form-actions-padding: 24px !default;
-$rac-form-section-padding: 24px !default;
+$rac-form-body-padding: 0 $rac-default-layout-offset 0 0 !default;
+$rac-form-actions-padding: 24px $rac-default-layout-offset 0 0 !default;
 $rac-form-actions-button-padding-left: 8px !default;
 $rac-form-simple-list-item-graphic-border-radius: 16px !default;
 $rac-form-simple-list-item-graphic-margin-right: 20px !default;
@@ -232,7 +251,7 @@ $rac-filter-active-font-size: 18px !default;
 $rac-button-icon-height: $rac-icon-width !default;
 $rac-button-icon-width: $rac-icon-width !default;
 $rac-button-icon-margin-right: 8px !default;
-$rac-button-border-radius: 2px !default;
+$rac-button-border-radius: $rac-default-border-radius !default;
 $rac-button-disabled-opacity: $opacity !default;
 
 /* @stable [24.06.2018] */
@@ -295,7 +314,7 @@ $rac-preview-dialog-body-max-height: 60vh !default;
 $rac-picture-photo-height: 40px !default;
 $rac-picture-photo-border-radius: $rac-picture-photo-height / 2 !default;
 
-/* @stable [08.08.2018] */
+/* @stable [15.09.2018] */
 $rac-tab-color: $rac-default-label-color !default;
 $rac-tab-font-size: $rac-default-font-size-2 !default;
 $rac-tab-before-after-display: block !default;
@@ -345,20 +364,16 @@ $rac-form-layout-top-header-content-font-size: $rac-default-font-size !default;
 $rac-form-layout-top-header-content-font-weight: bold !default;
 $rac-form-layout-top-header-content-text-transform: none !default;
 $rac-form-layout-top-header-content-color: $color-5 !default;
-$rac-form-layout-floating-focused-label-color: $rac-form-field-label-color !default;
+$rac-form-layout-floating-focused-label-color: $rac-field-label-color !default;
 $rac-form-layout-field-input-color: $rac-field-input-color !default;
 $rac-form-layout-field-input-caret-color: $rac-field-input-color !default;
-$rac-form-layout-text-field-margin-top: 8px !default;
 $rac-form-layout-text-field-border-bottom-color: $color-2 !default;
-$rac-form-layout-section-padding: $rac-form-section-padding !default;
-$rac-form-layout-form-section-padding: $rac-form-section-padding !default;
-$rac-form-layout-form-actions-padding: $rac-form-actions-padding !default;
 
 /* @stable [08.08.2018] */
 $rac-global-error-message-font-size: $rac-default-font-size-2 !default;
 $rac-global-error-message-color: $color-12 !default;
 $rac-global-error-message-border: 1px solid $rac-global-error-message-color !default;
-$rac-global-error-message-border-radius: 8px !default;
+$rac-global-error-message-border-radius: $rac-default-border-radius !default;
 $rac-global-error-message-background: $color-5 !default;
 $rac-global-error-message-padding: 16px !default;
 
@@ -372,7 +387,7 @@ $rac-overlay-background: rgba(0, 0, 0, 0.24) !default;
 $rac-overlay-message-background: $color-5 !default;
 $rac-overlay-message-max-width: 200px !default;
 $rac-overlay-message-height: 32px !default;
-$rac-overlay-message-border-radius: 8px !default;
+$rac-overlay-message-border-radius: $rac-default-border-radius !default;
 
 /* @stable [13.08.2018] */
 $rac-snackbar-z-index: $snackbar-z-index !default;
@@ -386,7 +401,6 @@ $rac-snackbar-error-button-color: $color-11 !default;
 $rac-snackbar-error-background-color: $color-11 !default;
 
 /* @stable [26.08.2018] */
-$rac-chips-filter-wrapper-padding: 16px !default;
 $rac-chips-filter-chip-background: none !default;
 $rac-chips-filter-chip-color: $color-6 !default;
 $rac-chips-filter-chip-border: 1px solid $color-6 !default;
@@ -394,8 +408,13 @@ $rac-chips-filter-chip-icon-color: $color-6 !default;
 $rac-chips-filter-chip-text-transform: uppercase !default;
 
 /* @stable [13.09.2018] */
-$rac-default-layout-header-margin: 0 40px !default;
-$rac-default-layout-main-margin: 0 40px !default;
+$rac-default-layout-header-margin: 0 $rac-default-layout-offset !default;
+$rac-default-layout-main-margin: 0 40px 40px 40px !default;
+$rac-default-layout-main-body-padding-left: 40px !default;
+$rac-default-layout-footer-height: 64px !default;
+$rac-default-layout-main-body-first-level-container-margin-right: 40px !default;
+$rac-default-layout-main-body-first-level-container-padding-right: 40px !default;
+$rac-default-layout-main-body-container-margin-bottom: 16px !default;
 $rac-default-layout-persistent-drawer-toolbar-spacer-background: $color-7 !default;
 $rac-default-layout-persistent-drawer-toolbar-spacer-border-bottom-color: $color-7 !default;
 

@@ -215,7 +215,8 @@ import {
   ITightGridWrapper,
   IIndexWrapper,
   IFieldRenderedWrapper,
-  IExpandRenderedWrapper,
+  IExpandActionRenderedWrapper,
+  IShrinkWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -548,7 +549,7 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IColumnsConfigurationWrapper,
                                             IOnPlusClickWrapper,
                                             IUseServiceWrapper,
-                                            IExpandRenderedWrapper,
+                                            IExpandActionRenderedWrapper,
                                             IExpandedGroupsWrapper,
                                             ITightGridWrapper {
 }
@@ -708,7 +709,8 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IClearActionWrapper,
-                                             IStepWrapper {
+                                             IStepWrapper,
+                                             IShrinkWrapper {                                    // @stable [16.09.2018]
 }
 
 /**

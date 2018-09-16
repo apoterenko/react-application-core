@@ -11,7 +11,7 @@ export class TextArea extends BasicTextField<TextArea,
     implements ITextArea {
 
   public static defaultProps: ITextAreaInternalProps = {
-    clearAction: false,
+    clearActionRendered: false,
   };
 
   protected getInputElement(): JSX.Element {

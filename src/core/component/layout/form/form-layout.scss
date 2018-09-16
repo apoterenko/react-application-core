@@ -29,21 +29,12 @@
       .rac-form {
 
         .rac-form-actions {
-          padding: $rac-form-layout-form-actions-padding;              /* @stable [08.08.2018] */
           @include justify-content(center);                            /* @stable [08.08.2018] */
 
           .rac-button {
             margin-left: 0;                                            /* @stable [08.08.2018] */
           }
         }
-
-        .rac-section {
-          padding: $rac-form-layout-form-section-padding;              /* @stable [08.08.2018] */
-        }
-      }
-
-      .rac-section {
-        padding: $rac-form-layout-section-padding;                     /* @stable [07.08.2018] */
       }
 
       .rac-form-layout-top-header {
@@ -72,7 +63,6 @@
         }
 
         .rac-text-field {
-          margin-top: $rac-form-layout-text-field-margin-top;                  /* @stable [08.08.2018] */
           border-bottom-color: $rac-form-layout-text-field-border-bottom-color;/* @stable [07.08.2018] */
 
           .rac-field-input {

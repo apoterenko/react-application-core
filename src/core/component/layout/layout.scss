@@ -2,6 +2,13 @@
 @import './form/form-layout';
 @import './default/default-layout';
 
+.rac {
+
+  .rac-layout-view-row {
+    flex-shrink: 0;                                         /* @stable [16.09.2018] */
+  }
+}
+
 // Flex layout [FRAMEWORK-]
 .rac-flex {
   @include flexbox;
@@ -62,9 +69,4 @@
 // Flex end position [FRAMEWORK-]
 .rac-flex-end {
   @include justify-content(flex-end);
-}
-
-// Block center layout [FRAMEWORK-]
-.rac-block-center {
-  margin: auto;
 }
