@@ -7,22 +7,35 @@
 
     .rac-header {
       color: $rac-default-layout-header-color;                                                      /* @stable [17.09.2018] */
-      margin: $rac-default-layout-header-margin;                                                    /* @stable [17.09.2018] */
       height: $rac-default-layout-header-height;                                                    /* @stable [17.09.2018] */
 
-      &.rac-full-header {
-        height: $rac-default-layout-full-header-height;                                             /* @stable [17.09.2018] */
+      .rac-header-north,
+        .rac-header-center {
+        padding: $rac-default-layout-header-area-padding;                                           /* @stable [17.09.2018] */
+      }
+
+      .rac-header-north {
+        max-height: $rac-default-layout-header-north-height;                                        /* @stable [17.09.2018] */
+        background: $rac-default-layout-header-north-background;                                    /* @stable [17.09.2018] */
       }
 
       .rac-header-navigation-action {
         color: $rac-default-layout-header-navigation-action;                                        /* @stable [17.09.2018] */
+        margin-right: $rac-default-layout-header-navigation-margin-right;                           /* @stable [17.09.2018] */
       }
 
       .rac-user {
-        color: $rac-default-layout-header-user-color;                                               /* @stable [17.09.2018] */
         margin-right: $rac-default-layout-header-user-margin-right;                                 /* @stable [17.09.2018] */
         font-weight: $rac-default-layout-header-user-font-weight;                                   /* @stable [17.09.2018] */
         font-size: $rac-default-layout-header-user-font-size;                                       /* @stable [17.09.2018] */
+      }
+
+      .rac-user-photo {
+        width: $rac-default-layout-header-user-photo-width;                                                /* @stable [17.09.2018] */
+        height: $rac-default-layout-header-user-photo-height;                                              /* @stable [17.09.2018] */
+        border-radius: $rac-default-layout-header-user-photo-border-radius;                                /* @stable [17.09.2018] */
+        background-size: cover;                                                                            /* @stable [17.09.2018] */
+        margin-right: $rac-default-layout-header-user-photo-margin-right;                                  /* @stable [17.09.2018] */
       }
 
       .rac-search-toolbar {
@@ -74,6 +87,36 @@
       height: $rac-default-layout-drawer-toolbar-spacer-height;                                     /* @stable [17.09.2018] */
       min-height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [17.09.2018] */
       background: $rac-default-layout-drawer-toolbar-spacer-background;                             /* @stable [17.09.2018] */
+
+      .rac-logo-menu-action {
+        margin-left: auto;                                                                          /* @stable [18.09.2018] */
+        margin-right: $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-margin-right;      /* @stable [18.09.2018] */
+
+        &.rac-action-icon {
+          color: $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-color;                  /* @stable [18.09.2018] */
+        }
+      }
+    }
+
+    .rac-drawer-wrapper-short {
+      width: $rac-default-layout-drawer-wrapper-short-width;                                        /* @stable [18.09.2018] */
+
+      .rac-drawer {
+        width: $rac-default-layout-drawer-wrapper-short-width;                                      /* @stable [18.09.2018] */
+
+        .rac-drawer-toolbar-spacer {
+
+          .rac-logo-menu-action {
+            margin-right: auto;                                                                     /* @stable [18.09.2018] */
+          }
+        }
+
+        .rac-profile-avatar,
+          .rac-navigation-list-item-label,
+          .rac-list-group-subheader {
+          display: none;                                                                            /* @stable [18.09.2018] */
+        }
+      }
     }
   }
 }

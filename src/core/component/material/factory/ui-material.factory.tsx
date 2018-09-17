@@ -256,7 +256,7 @@ export class UIMaterialFactory implements IUIFactory {
   public icons = 'material-icons';
   public drawerOpen = 'mdc-drawer--open';
   public drawer = 'mdc-drawer__drawer';
-  public drawerPersistent = 'mdc-drawer--persistent';
+  public drawerPermanent = 'mdc-drawer--permanent';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
   public toolbarSectionAlignEnd = 'mdc-toolbar__section--align-end';

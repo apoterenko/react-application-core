@@ -75,11 +75,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                   )}
                   onClick={this.onLinkClick}>
               {this.uiFactory.makeIcon(options.icon)}
-              {options.label}
-              {orNull<JSX.Element>(
-                options.active,
-                () => <div className='rac-navigation-list-item-active-border'/>
-              )}
+              <span className='rac-navigation-list-item-label'>{options.label}</span>
             </Link>
         );
     }

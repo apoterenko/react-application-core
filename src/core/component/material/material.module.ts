@@ -1,6 +1,5 @@
 import { MDCRipple } from '@material/ripple';
 import { MDCCheckbox } from '@material/checkbox';
-import { MDCPersistentDrawer } from '@material/drawer';
 import { MDCSwitch } from '@material/switch';
 
 import { appContainer, DI_TYPES } from '../../di';
@@ -27,7 +26,6 @@ import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
 import { Dialog, ArbitraryFormDialog } from '../dialog';
 import { FormDialog } from '../form';
-import { Drawer } from '../drawer';
 import { Snackbar } from '../snackbar';
 
 const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
@@ -51,11 +49,6 @@ uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(comp
  * @stable [15.08.2018]
  */
 uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(component));
-
-/**
- * @stable [17.05.2018]
- */
-uiPlugins.set(Drawer, (component: Drawer) => new MaterialPlugin(component, MDCPersistentDrawer));
 
 /**
  * @stable [18.05.2018]

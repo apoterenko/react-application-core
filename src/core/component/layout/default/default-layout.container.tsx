@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Drawer } from '../../drawer';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
-import { toClassName, orNull } from '../../../util';
+import { toClassName, orNull, isFn } from '../../../util';
 import {
   LAYOUT_FULL_MODE,
   LAYOUT_MINIMAL_MODE,
@@ -16,6 +16,7 @@ import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
+import { IOperationEntity } from '../../../entities-definitions.interface';
 import {
   ILayoutEntity,
   IStringMenuActionEntity,
@@ -41,11 +42,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   @lazyInject(NavigationMenuBuilder) private navigationMenuBuilder: NavigationMenuBuilder;
 
+  /**
+   * @stable [18.09.2018]
+   * @param {IDefaultLayoutContainerProps} props
+   */
   constructor(props: IDefaultLayoutContainerProps) {
     super(props);
     this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
-    this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
+    this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
+    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onChangeNavigationList = this.onChangeNavigationList.bind(this);
   }
 
@@ -59,12 +65,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     return (
         <FlexLayout row={true}
                     className={toClassName('rac-default-layout', props.className)}>
-          <Drawer opened={this.isLayoutFullModeEnabled}>
+          <Drawer opened={this.isLayoutFullMode}>
             <FlexLayout row={true}
                         alignItemsCenter={true}
                         className='rac-drawer-toolbar-spacer'>
               <Profile path={this.routes.home}
-                       appVersion={ENV.appVersion}/>
+                       appVersion={ENV.appVersion}
+                       onActionClick={this.onLogoMenuActionClick}/>
             </FlexLayout>
             <NavigationList {...props.layout}
                             items={menu}
@@ -76,6 +83,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
                     onNavigationActionClick={this.onHeaderNavigationActionClick}
                     onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
+              <div className='rac-user-photo'
+                   style={{backgroundImage: `url(${user.url || 'media/no_avatar.jpg'})`}}>&nbsp;</div>
               <div className='rac-user'>{user.name}</div>
               {this.uiFactory.makeIcon({
                 type: 'more_hor',
@@ -103,15 +112,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     );
   }
 
-  /**
-   * @stable [08.08.2018]
-   * @param {IStringMenuActionEntity} option
-   */
-  protected onHeaderMoreOptionsSelect(option: IStringMenuActionEntity): void {
-    const params: IPayloadWrapper = {payload: Operation.create(option.value)};
-    this.dispatch(option.value, params);
-  }
-
   protected onUserMenuActionClick(option: any): void {// TODO
     switch (option.value) {
       case DefaultLayoutContainer.PROFILE_EXIT_ACTION:
@@ -121,18 +121,32 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [11.08.2018]
+   * @stable [18.09.2018]
+   * @param {IStringMenuActionEntity} option
+   */
+  private onHeaderMoreOptionsSelect(option: IStringMenuActionEntity): void {
+    const params: IPayloadWrapper<IOperationEntity> = {payload: Operation.create(option.value)};
+    this.dispatch(option.value, params);
+  }
+
+  /**
+   * @stable [18.09.2018]
+   */
+  private onLogoMenuActionClick(): void {
+    this.dispatchLayoutChanges({
+      payload: {mode: this.isLayoutFullMode ? LAYOUT_MINIMAL_MODE : LAYOUT_FULL_MODE},
+    });
+  }
+
+  /**
+   * @stable [18.09.2018]
    */
   private onHeaderNavigationActionClick(): void {
     const props = this.props;
     const headerConfiguration = props.headerConfiguration;
 
-    if (headerConfiguration.onNavigationActionClick) {
+    if (isFn(headerConfiguration.onNavigationActionClick)) {
       headerConfiguration.onNavigationActionClick();
-    } else {
-      this.dispatchLayoutChanges({
-        payload: {mode: this.isLayoutFullModeEnabled ? LAYOUT_MINIMAL_MODE : LAYOUT_FULL_MODE},
-      });
     }
   }
 
@@ -145,18 +159,18 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [11.08.2018]
+   * @stable [18.09.2018]
    * @param {IPayloadWrapper<ILayoutEntity>} payloadWrapper
    */
   private dispatchLayoutChanges(payloadWrapper: IPayloadWrapper<ILayoutEntity>): void {
-    this.appStore.dispatch({type: LAYOUT_UPDATE_ACTION_TYPE, data: payloadWrapper});
+    this.dispatchCustomType(LAYOUT_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 
   /**
    * @stable [11.08.2018]
    * @returns {boolean}
    */
-  private get isLayoutFullModeEnabled(): boolean {
+  private get isLayoutFullMode(): boolean {
     return this.props.layout.mode === LAYOUT_FULL_MODE;
   }
 }

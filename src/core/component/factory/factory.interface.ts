@@ -12,8 +12,7 @@ export interface IUIFactory {
   icons?: string;
   drawerOpen?: string;
   drawer?: string;
-  drawerPersistent?: string;
-  persistentDrawerToolbarSpacer?: string;
+  drawerPermanent?: string;
   toolbar?: string;
   toolbarSection?: string;
   toolbarSectionAlignEnd?: string;

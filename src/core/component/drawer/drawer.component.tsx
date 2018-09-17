@@ -16,8 +16,9 @@ export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
       <aside ref='self'
              className={toClassName(
                          'rac-drawer-wrapper',
-                         this.uiFactory.drawerPersistent,
-                         opened && this.uiFactory.drawerOpen
+                         this.uiFactory.drawerPermanent,
+                         this.uiFactory.drawerOpen,
+                         !opened && 'rac-drawer-wrapper-short',
                        )}>
         <nav className={toClassName('rac-drawer', this.uiFactory.drawer)}>
           {this.props.children}

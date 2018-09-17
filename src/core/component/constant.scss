@@ -31,6 +31,7 @@ $rac-default-action-color: $color-2 !default;
 $rac-default-label-color: $color-2 !default;
 $rac-default-text-color: $color-2 !default;
 $rac-default-border-radius: 2px !default;
+$rac-default-logo-toolbar-size: 56px !default;
 
 /* @stable [26.06.2018] */
 $rac-min-width: 750px !default;
@@ -78,8 +79,8 @@ $rac-profile-avatar-height: $rac-profile-avatar-width !default;
 $rac-profile-avatar-background: $color-4 !default;
 $rac-profile-avatar-border-radius: $rac-profile-avatar-width / 2 !default;
 $rac-profile-app-version-top: 4px !default;
-$rac-profile-app-version-right: 4px !default;
-$rac-profile-app-version-font-size: 10px !default;
+$rac-profile-app-version-left: 4px !default;
+$rac-profile-app-version-font-size: 8px !default;
 
 /* @stable [25.06.2018] */
 $rac-add-button-icon-border-radius: 32px !default;
@@ -122,13 +123,10 @@ $rac-navigation-list-item-padding-left: 16px !default;
 $rac-navigation-list-item-font-size: $rac-default-font-size-2 !default;
 $rac-navigation-list-item-line-height: 16px !default;
 $rac-navigation-list-item-letter-spacing: 1px !default;
-$rac-navigation-list-item-active-border-width: 3px !default;
-$rac-navigation-list-item-active-border-background-color: $color-5 !default;
 $rac-navigation-list-item-active-color: $color-5 !default;
 $rac-navigation-list-item-word-break: break-word !default;
 $rac-navigation-list-item-before-after-display: block !default;
 $rac-navigation-list-item-active-background-color: $color-1 !default;
-$rac-navigation-list-item-active-outline-color: $color-5 !default;
 $rac-navigation-list-item-hover-background-color: $color-1 !default;
 $rac-navigation-list-item-hover-outline-color: $color-5 !default;
 $rac-navigation-list-item-icon-color: $color-5 !default;
@@ -268,7 +266,7 @@ $rac-header-color: $color-5 !default;
 $rac-header-background: $color-2 !default;
 $rac-header-section-title-color: $color-5 !default;
 $rac-header-section-title-font-weight: bold !default;
-$rac-header-section-title-margin-left: 14px !default;
+$rac-header-section-title-margin-left: unset !default;
 $rac-header-section-title-margin-right: unset !default;
 $rac-header-section-title-padding-right: unset !default;
 $rac-header-section-title-font-size: 24px !default;
@@ -397,23 +395,31 @@ $rac-chips-filter-chip-icon-color: $color-6 !default;
 $rac-chips-filter-chip-text-transform: uppercase !default;
 
 /* @stable [13.09.2018] */
-$rac-default-layout-full-header-height: 128px !default;
-$rac-default-layout-header-height: $rac-default-layout-full-header-height / 2 !default;
-$rac-default-layout-header-user-color: $color-5 !default;
+$rac-default-layout-header-height: 144px !default;
+$rac-default-layout-header-north-height: 56px !default;
 $rac-default-layout-header-user-margin-right: 16px !default;
 $rac-default-layout-header-user-font-weight: bold !default;
 $rac-default-layout-header-user-font-size: 14px !default;
+$rac-default-layout-header-user-photo-width: 24px !default;
+$rac-default-layout-header-user-photo-height: $rac-default-layout-header-user-photo-width !default;
+$rac-default-layout-header-user-photo-border-radius: $rac-default-layout-header-user-photo-width / 2 !default;
+$rac-default-layout-header-user-photo-margin-right: 8px !default;
 $rac-default-layout-header-color: $color-5 !default;
 $rac-default-layout-header-navigation-action: $color-5 !default;
-$rac-default-layout-header-margin: 0 $rac-default-layout-offset !default;
+$rac-default-layout-header-navigation-margin-right: 16px !default;
+$rac-default-layout-header-area-padding: 0 $rac-default-layout-offset !default;
+$rac-default-layout-header-north-background: unset !default;
 $rac-default-layout-main-margin: 0 40px 40px 40px !default;
 $rac-default-layout-main-body-padding-left: 40px !default;
 $rac-default-layout-footer-height: 64px !default;
 $rac-default-layout-main-body-first-level-container-margin-right: 40px !default;
 $rac-default-layout-main-body-first-level-container-padding-right: 40px !default;
 $rac-default-layout-main-body-container-margin-bottom: 16px !default;
-$rac-default-layout-drawer-toolbar-spacer-height: 56px !default;
+$rac-default-layout-drawer-toolbar-spacer-height: $rac-default-logo-toolbar-size !default;
 $rac-default-layout-drawer-toolbar-spacer-background: $color-7 !default;
+$rac-default-layout-drawer-toolbar-spacer-logo-menu-action-color: $color-5 !default;
+$rac-default-layout-drawer-toolbar-spacer-logo-menu-action-margin-right: 16px !default;
+$rac-default-layout-drawer-wrapper-short-width: $rac-default-logo-toolbar-size !default;
 
 /**/
 

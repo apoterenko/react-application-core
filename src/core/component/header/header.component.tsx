@@ -25,16 +25,32 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const hasExtraItems = !R.isNil(props.items) || !R.isNil(props.moreOptions);
 
     return (
       <header className={toClassName(
                           'rac-header',
-                          hasExtraItems && 'rac-full-header',
                           'rac-flex',
                           'rac-flex-column',
                           props.className)}>
-        <FlexLayout row={true}>
+        <FlexLayout row={true}
+                    className='rac-header-north'>
+          {
+            orNull<JSX.Element>(
+              props.children,
+              () => (
+                <FlexLayout row={true}
+                            justifyContentEnd={true}
+                            alignItemsCenter={true}>
+                  {props.children}
+                </FlexLayout>
+              )
+            )
+          }
+        </FlexLayout>
+        <FlexLayout row={true}
+                    justifyContentEnd={true}
+                    alignItemsCenter={true}
+                    className='rac-header-center'>
           <FlexLayout row={true}
                       alignItemsCenter={true}>
             {orNull<JSX.Element>(
@@ -49,53 +65,30 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
             )}
             <span className='rac-header-section-title'>{props.title}</span>
           </FlexLayout>
+          {props.items}
           {
             orNull<JSX.Element>(
-              props.children,
+              props.moreOptions,
               () => (
-                <FlexLayout row={true}
-                            justifyContentEnd={true}
-                            alignItemsCenter={true}>
-                  {props.children}
-                </FlexLayout>
+                this.uiFactory.makeIcon({
+                  ...props.moreOptionsConfiguration,
+                  type: 'more_vert',
+                  onClick: this.onMoreOptionsClick,
+                })
+              )
+            )
+          }
+          {
+            orNull<JSX.Element>(
+              props.moreOptions,
+              () => (
+                <Menu ref='menu'
+                      options={props.moreOptions}
+                      onSelect={props.onMoreOptionsSelect}/>
               )
             )
           }
         </FlexLayout>
-        {
-          orNull<JSX.Element>(
-            hasExtraItems,
-            () => (
-              <FlexLayout row={true}
-                          justifyContentEnd={true}
-                          alignItemsCenter={true}>
-                {props.items}
-                {
-                  orNull<JSX.Element>(
-                    props.moreOptions,
-                    () => (
-                      this.uiFactory.makeIcon({
-                        ...props.moreOptionsConfiguration,
-                        type: 'more_vert',
-                        onClick: this.onMoreOptionsClick,
-                      })
-                    )
-                  )
-                }
-                {
-                  orNull<JSX.Element>(
-                    props.moreOptions,
-                    () => (
-                      <Menu ref='menu'
-                            options={props.moreOptions}
-                            onSelect={props.onMoreOptionsSelect}/>
-                    )
-                  )
-                }
-              </FlexLayout>
-            )
-          )
-        }
       </header>
     );
   }
