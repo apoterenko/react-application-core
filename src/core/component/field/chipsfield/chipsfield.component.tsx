@@ -3,7 +3,7 @@ import * as React from 'react';
 import { EntityIdT } from '../../../definitions.interface';
 import { INamedEntity } from '../../../entities-definitions.interface';
 import { uuid } from '../../../util';
-import { Chip, ChipsWrapper } from '../../chip';
+import { Chip } from '../../chip';
 import {
   IChipsFieldProps,
   IChipsFieldState,
@@ -18,7 +18,7 @@ export class ChipsField extends MultiField<ChipsField, IChipsFieldProps, IChipsF
    */
   protected getAttachmentElement(): JSX.Element {
     return (
-      <ChipsWrapper>
+      <div className='rac-field-chips-wrapper'>
         {this.multiFieldPlugin.activeValue.map((item) => (
             <Chip key={uuid()}
                   disabled={this.isInactive()}
@@ -27,7 +27,7 @@ export class ChipsField extends MultiField<ChipsField, IChipsFieldProps, IChipsF
             </Chip>
           )
         )}
-      </ChipsWrapper>
+      </div>
     );
   }
 

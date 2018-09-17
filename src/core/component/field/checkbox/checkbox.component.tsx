@@ -16,7 +16,7 @@ export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxSt
 
     return (
       <div className={this.getFieldClassName()}>
-        <CenterLayout>
+        <CenterLayout className='rac-self-field-wrapper'>
           <div ref='self'
                style={props.style}
                className={this.getSelfElementClassName()}>

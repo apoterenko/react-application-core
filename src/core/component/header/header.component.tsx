@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { IHeaderProps } from './header.interface';
@@ -9,17 +10,13 @@ import { FlexLayout } from '../layout';
 
 export class Header extends BaseComponent<Header, IHeaderProps> {
 
-  public static defaultProps: IHeaderProps = {
-    navigationActionType: 'menu',
-  };
-
   /**
    * @stable [31.05.2018]
    * @param {IHeaderProps} props
    */
   constructor(props: IHeaderProps) {
     super(props);
-    this.onMenuClick = this.onMenuClick.bind(this);
+    this.onMoreOptionsClick = this.onMoreOptionsClick.bind(this);
   }
 
   /**
@@ -28,26 +25,51 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
+    const hasExtraItems = !R.isNil(props.items) || !R.isNil(props.moreOptions);
 
     return (
-      <header className={toClassName('rac-header', 'rac-flex', props.className)}>
-        <FlexLayout row={true}
-                    className='rac-navigation-section rac-flex-align-items-center'>
+      <header className={toClassName(
+                          'rac-header',
+                          hasExtraItems && 'rac-full-header',
+                          'rac-flex',
+                          'rac-flex-column',
+                          props.className)}>
+        <FlexLayout row={true}>
+          <FlexLayout row={true}
+                      alignItemsCenter={true}>
+            {orNull<JSX.Element>(
+              props.navigationActionType,
+              () => (
+                this.uiFactory.makeIcon({
+                  className: 'rac-header-navigation-action',
+                  type: props.navigationActionType,
+                  onClick: props.onNavigationActionClick,
+                })
+              )
+            )}
+            <span className='rac-header-section-title'>{props.title}</span>
+          </FlexLayout>
           {
-            this.uiFactory.makeIcon({
-              className: 'rac-navigation-action',
-              type: props.navigationActionType,
-              onClick: props.onNavigationActionClick,
-            })
+            orNull<JSX.Element>(
+              props.children,
+              () => (
+                <FlexLayout row={true}
+                            justifyContentEnd={true}
+                            alignItemsCenter={true}>
+                  {props.children}
+                </FlexLayout>
+              )
+            )
           }
-          <span className='rac-header-section-title'>{props.title}</span>
         </FlexLayout>
         {
           orNull<JSX.Element>(
-            props.children || props.moreOptions,
+            hasExtraItems,
             () => (
-              <div className='rac-flex rac-flex-align-items-center'>
-                {props.children}
+              <FlexLayout row={true}
+                          justifyContentEnd={true}
+                          alignItemsCenter={true}>
+                {props.items}
                 {
                   orNull<JSX.Element>(
                     props.moreOptions,
@@ -55,7 +77,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                       this.uiFactory.makeIcon({
                         ...props.moreOptionsConfiguration,
                         type: 'more_vert',
-                        onClick: this.onMenuClick,
+                        onClick: this.onMoreOptionsClick,
                       })
                     )
                   )
@@ -70,7 +92,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                     )
                   )
                 }
-              </div>
+              </FlexLayout>
             )
           )
         }
@@ -81,7 +103,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
   /**
    * @stable [31.05.2018]
    */
-  private onMenuClick(): void {
+  private onMoreOptionsClick(): void {
     this.menu.show();
   }
 

@@ -5,7 +5,15 @@
 .rac {
 
   .rac-layout-view-row {
-    flex-shrink: 0;                                         /* @stable [16.09.2018] */
+    flex-shrink: 0;                                                 /* @stable [16.09.2018] */
+  }
+
+  .rac-flex-align-items-center {
+    @include align-items(center);                                   /* @stable [16.09.2018] */
+  }
+
+  .rac-flex-justify-content-end {
+    @include justify-content(flex-end);                             /* @stable [17.09.2018] */
   }
 }
 
@@ -59,14 +67,4 @@
   text-align: center;
   @include justify-content(center);
   @include align-items(center);
-}
-
-// Flex center layout [FRAMEWORK-]
-.rac-flex-align-items-center {
-  @include align-items(center);
-}
-
-// Flex end position [FRAMEWORK-]
-.rac-flex-end {
-  @include justify-content(flex-end);
 }

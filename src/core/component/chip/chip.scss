@@ -11,7 +11,7 @@
     margin-bottom: $rac-chip-margin-bottom;                             /* @stable [24.06.2018] */
     border-radius: $rac-chip-border-radius;                             /* @stable [24.06.2018] */
     color: $rac-chip-color;                                             /* @stable [24.06.2018] */
-    background: $rac-chip-background-color $rac-chip-background-image;  /* @stable [24.06.2018] */
+    background: $rac-chip-background;                                   /* @stable [24.06.2018] */
     background-size: $rac-chip-background-size;                         /* @stable [24.06.2018] */
 
     .rac-icon {

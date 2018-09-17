@@ -115,7 +115,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                 () => (
                     <FlexLayout full={false}
                                 row={true}
-                                className='rac-form-actions rac-flex-end'>
+                                justifyContentEnd={true}
+                                className='rac-form-actions'>
                       {orNull<JSX.Element>(
                           props.useResetButton,
                           () => (

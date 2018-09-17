@@ -5,10 +5,8 @@
 .rac {
 
   .rac-header {
-    height: $rac-header-height;                                                          /* @stable [13.09.2018] */
     color: $rac-header-color;                                                            /* @stable [07.08.2018] */
     background: $rac-header-background;                                                  /* @stable [07.08.2018] */
-    padding: $rac-header-padding;                                                        /* @stable [08.08.2018] */
 
     .rac-header-section-title {
       font-weight: $rac-header-section-title-font-weight;                                /* @stable [26.06.2018] */
@@ -17,36 +15,5 @@
       margin-right: $rac-header-section-title-margin-right;                              /* @stable [29.06.2018] */
       padding-right: $rac-header-section-title-padding-right;                            /* @stable [14.09.2018] */
     }
-
-    &.rac-header-search-toolbar-active {
-
-      .rac-search-toolbar {
-        animation: headerSearchToolbarAnimationRule;                                     /* @stable [25.06.2018] */
-        animation-duration: $rac-header-search-toolbar-animation-duration;               /* @stable [25.06.2018] */
-      }
-    }
-
-    .rac-form-field {
-
-      .rac-text-field {
-        margin-top: unset;                                                               /* @stable [25.06.2018] */
-        border-bottom-color: $rac-header-text-field-border-bottom-color;                 /* @stable [25.06.2018] */
-
-        .rac-field-input-wrapper {
-          height: 100%;                                                                  /* @stable [24.06.2018] */
-
-          .rac-field-input {
-            height: 100%;
-            padding-top: unset;                                                          /* @stable [25.06.2018] */
-          }
-        }
-      }
-    }
   }
-}
-
-// Search toolbar animation rule [FRAMEWORK-]
-@keyframes headerSearchToolbarAnimationRule {
-  from { @include flex(0); }
-  to { @include flex; }
 }

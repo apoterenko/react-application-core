@@ -2,7 +2,7 @@ import {
   IChangesWrapper,
   IStateInitialChangesWrapper,
   IKeyValue,
-  IStringPathWrapper,
+  IPathWrapper,
   ISectionWrapper,
 } from '../../definitions.interface';
 import {
@@ -19,7 +19,7 @@ import { IContainerProps } from '../../props-definitions.interface';
 
 export interface IRootUpdatePathPayload extends IChangesWrapper<IKeyValue>,
                                                 ISectionWrapper,
-                                                IStringPathWrapper {
+                                                IPathWrapper {
 }
 
 export interface IRootContainerProps extends IContainerProps,

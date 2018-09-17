@@ -108,6 +108,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     return (
       <Menu ref='menu'
             adjustWidth={true}
+            renderToBody={true}
             options={this.toFilteredOptions()}
             onSelect={this.onSelect}
             {...props.menuConfiguration}/>

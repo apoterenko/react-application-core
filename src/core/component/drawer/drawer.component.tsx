@@ -7,7 +7,7 @@ import { BaseComponent } from '../base';
 export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
 
   /**
-   * @stable [10.08.2018]
+   * @stable [17.09.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -15,7 +15,7 @@ export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
     return (
       <aside ref='self'
              className={toClassName(
-                         'rac-drawer-persistent',
+                         'rac-drawer-wrapper',
                          this.uiFactory.drawerPersistent,
                          opened && this.uiFactory.drawerOpen
                        )}>

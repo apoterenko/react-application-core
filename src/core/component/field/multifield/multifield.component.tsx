@@ -22,7 +22,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
   public static defaultProps: IMultiFieldProps = {
     displayMessage: '%d value(s)',
     clearActionRendered: false,
-    notUseErrorMessage: true,
+    errorMessageRendered: false,
     forceReload: true,
     displayValue: (value: MultiFieldEntityT,
                    field: MultiField<AnyT, IMultiFieldProps, IMultiFieldState>) => {

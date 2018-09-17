@@ -4,52 +4,22 @@
 .rac {
 
   .rac-profile {
-    width: 100%;                                                   /* @stable [26.06.2018] */
     cursor: pointer;                                               /* @stable [26.06.2018] */
-    font-weight: $rac-profile-font-weight;                         /* @stable [26.06.2018] */
-    color: inherit;                                                /* @stable [26.06.2018] */
-
-    &:active {
-      color: inherit;                                              /* @stable [26.06.2018] */
-    }
 
     .rac-profile-app-version {
       position: absolute;                                          /* @stable [30.08.2018] */
       top: $rac-profile-app-version-top;                           /* @stable [30.08.2018] */
-      left: $rac-profile-app-version-left;                         /* @stable [30.08.2018] */
+      right: $rac-profile-app-version-right;                       /* @stable [17.09.2018] */
       font-size: $rac-profile-app-version-font-size;               /* @stable [30.08.2018] */
     }
 
     .rac-profile-avatar {
-      margin-bottom: $rac-profile-avatar-margin-bottom;            /* @stable [26.06.2018] */
       width: $rac-profile-avatar-width;                            /* @stable [26.06.2018] */
       height: $rac-profile-avatar-height;                          /* @stable [26.06.2018] */
-      background-color: $rac-profile-avatar-background-color;      /* @stable [26.06.2018] */
+      margin-left: $rac-profile-avatar-margin-left;                /* @stable [17.09.2018] */
+      background: $rac-profile-avatar-background;                  /* @stable [26.06.2018] */
+      background-size: contain;                                    /* @stable [17.09.2018] */
       border-radius: $rac-profile-avatar-border-radius;            /* @stable [26.06.2018] */
-    }
-
-    .rac-profile-menu-wrapper {
-      position: absolute;                                          /* @stable [26.06.2018] */
-      top: $rac-profile-menu-wrapper-top;                          /* @stable [26.06.2018] */
-      right: $rac-profile-menu-wrapper-right;                      /* @stable [26.06.2018] */
-      width: $rac-profile-menu-wrapper-width;                      /* @stable [26.06.2018] */
-      height: $rac-profile-menu-wrapper-height;                    /* @stable [26.06.2018] */
-      border-radius: $rac-profile-menu-wrapper-border-radius;      /* @stable [26.06.2018] */
-      background-color: $rac-profile-menu-wrapper-background-color;/* @stable [26.06.2018] */
-
-      .rac-icon {
-
-        &.rac-action-icon {
-          width: 100%;                                             /* @stable [26.06.2018] */
-          height: 100%;                                            /* @stable [26.06.2018] */
-          color: $rac-profile-menu-icon-color;                     /* @stable [26.06.2018] */
-
-          .svg-inline--fa {
-            width: $rac-profile-menu-icon-width;                   /* @stable [26.06.2018] */
-            height: $rac-profile-menu-icon-height;                 /* @stable [26.06.2018] */
-          }
-        }
-      }
     }
   }
 }

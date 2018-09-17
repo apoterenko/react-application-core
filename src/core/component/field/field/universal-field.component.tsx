@@ -549,7 +549,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    */
   protected getErrorMessageElement(): JSX.Element {
     return orNull<JSX.Element>(
-      !this.props.notUseErrorMessage,
+      this.props.errorMessageRendered !== false,
       () => this.toMessageElement(this.error, this.uiFactory.fieldValidationText)
     );
   }

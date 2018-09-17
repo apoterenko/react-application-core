@@ -2,7 +2,6 @@
 @import '../constant';
 @import './addressfield/addressfield';
 @import './textfield/textfield';
-@import './chipsfield/chipsfield';
 @import './switch/switch';
 @import './viewfield/viewfield';
 @import './textarea/textarea';
@@ -50,6 +49,13 @@
       resize: none;                                                   /* @stable [07.08.2018] */
     }
 
+    &.rac-checkbox {
+
+      .rac-self-field-wrapper {
+        padding-bottom: $rac-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
+      }
+    }
+
     .rac-field-label {
       white-space: nowrap;                                            /* @stable [08.08.2018] */
       color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
@@ -78,7 +84,7 @@
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
         margin-right: $rac-form-field-icon-margin-right;              /* @stable [24.06.2018] */
-        color: $rac-form-field-icon-color;                            /* @stable [24.06.2018] */
+        color: $rac-field-icon-color;                                 /* @stable [24.06.2018] */
 
         &.rac-loading-icon {
 
@@ -118,6 +124,11 @@
     .rac-field-help-text {
       opacity: 1;                                                     /* @mdc @stable [31.08.2018] */
       font-size: $rac-form-text-field-help-text-font-size;            /* @stable [13.08.2018] */
+    }
+
+    .rac-field-chips-wrapper {
+      width: 100%;                                                    /* @stable [17.09.2018] */
+      margin: $rac-field-chips-wrapper-margin;                        /* @stable [17.09.2018] */
     }
   }
 }

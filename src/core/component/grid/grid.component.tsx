@@ -419,7 +419,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    */
   private getDefaultFieldProps(): IFieldProps {
     return {
-      notUseErrorMessage: true,
+      errorMessageRendered: false,
       readOnly: this.props.deactivated,
     };
   }

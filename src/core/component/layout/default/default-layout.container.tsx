@@ -44,13 +44,14 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   constructor(props: IDefaultLayoutContainerProps) {
     super(props);
     this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
-    this.onProfileMenuActionClick = this.onProfileMenuActionClick.bind(this);
+    this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
     this.onChangeNavigationList = this.onChangeNavigationList.bind(this);
   }
 
   public render(): JSX.Element {
     const props = this.props;
+    const user = props.user;
     const menu = this.navigationMenuBuilder.provide()
         .map((item): INavigationListItemConfiguration => ({ ...item, active: props.root.path === item.link }));
     const runtimeTitle = menu.find((item) => item.active);
@@ -59,12 +60,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <FlexLayout row={true}
                     className={toClassName('rac-default-layout', props.className)}>
           <Drawer opened={this.isLayoutFullModeEnabled}>
-            <div className={toClassName(
-                                'rac-persistent-drawer-toolbar-spacer',
-                                this.uiFactory.persistentDrawerToolbarSpacer
-                            )}>
-              {this.profileTpl}
-            </div>
+            <FlexLayout row={true}
+                        alignItemsCenter={true}
+                        className='rac-drawer-toolbar-spacer'>
+              <Profile path={this.routes.home}
+                       appVersion={ENV.appVersion}/>
+            </FlexLayout>
             <NavigationList {...props.layout}
                             items={menu}
                             onChange={this.onChangeNavigationList}/>
@@ -75,7 +76,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     className={props.filter && props.filter.active && 'rac-header-search-toolbar-active'}
                     onNavigationActionClick={this.onHeaderNavigationActionClick}
                     onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
-              {props.headerConfiguration.items}
+              <div className='rac-user'>{user.name}</div>
+              {this.uiFactory.makeIcon({
+                type: 'more_hor',
+                className: 'rac-user-menu',
+                onClick: this.onUserMenuActionClick,
+              })}
             </Header>
             <Main>
               {props.children}
@@ -97,22 +103,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     );
   }
 
-  protected get profileTpl(): JSX.Element {
-    const user = this.props.user;
-
-    return orNull(
-      this.routes.profile,
-      () => (
-        <Profile path={this.routes.home}
-                 appVersion={ENV.appVersion}
-                 name={user && user.name}
-                 email={user && user.email}
-                 menuItems={[{ label: 'Exit', icon: 'exit_to_app', value: DefaultLayoutContainer.PROFILE_EXIT_ACTION }]}
-                 onClick={this.onProfileMenuActionClick}/>
-      )
-    );
-  }
-
   /**
    * @stable [08.08.2018]
    * @param {IStringMenuActionEntity} option
@@ -122,7 +112,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.dispatch(option.value, params);
   }
 
-  protected onProfileMenuActionClick(option: any): void {// TODO
+  protected onUserMenuActionClick(option: any): void {// TODO
     switch (option.value) {
       case DefaultLayoutContainer.PROFILE_EXIT_ACTION:
         this.navigate(this.routes.logout);
