@@ -70,6 +70,7 @@
     }
 
     .rac-drawer-toolbar-spacer {
+      position: relative;                                                                           /* @stable [17.09.2018] */
       height: $rac-default-layout-drawer-toolbar-spacer-height;                                     /* @stable [17.09.2018] */
       min-height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [17.09.2018] */
       background: $rac-default-layout-drawer-toolbar-spacer-background;                             /* @stable [17.09.2018] */
