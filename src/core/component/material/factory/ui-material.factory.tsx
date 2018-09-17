@@ -63,6 +63,7 @@ import {
   faChevronLeft,
   faPlug,
   faKey,
+  faEllipsisH,
   faInfo,
   faBinoculars,
   faUserPlus,
@@ -145,6 +146,7 @@ export class UIMaterialFactory implements IUIFactory {
     location_on: faMapMarkerAlt,
     search: faSearch,
     more_vert: faEllipsisV,
+    more_hor: faEllipsisH,
     save: faSave,
     refresh: faSync,
     clear: faTimes,
@@ -255,7 +257,6 @@ export class UIMaterialFactory implements IUIFactory {
   public drawerOpen = 'mdc-drawer--open';
   public drawer = 'mdc-drawer__drawer';
   public drawerPersistent = 'mdc-drawer--persistent';
-  public persistentDrawerToolbarSpacer = 'mdc-drawer__toolbar-spacer';
   public toolbar = 'mdc-toolbar';
   public toolbarSection = 'mdc-toolbar__section';
   public toolbarSectionAlignEnd = 'mdc-toolbar__section--align-end';

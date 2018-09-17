@@ -26,6 +26,7 @@ import {
   IMenu,
 } from './menu.interface';
 import { BaseComponent } from '../base';
+import { FlexLayout } from '../layout';
 
 export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     implements IMenu {
@@ -107,23 +108,23 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
           {
             orNull<JSX.Element>(
               props.renderToCenterOfBody,
-              () => (
-                <div className='rac-menu-close-action rac-flex rac-flex-end'>
-                  {this.uiFactory.makeIcon('close')}
-                </div>
-              )
+              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action'})
             )
           }
           {orNull<JSX.Element>(
             props.useFilter,
             () => (
-              <TextField ref='field'
-                         value={state.filter}
-                         placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
-                         onChange={this.onInputChange}
-                         onFocus={this.onInputFocus}
-                         onBlur={this.onInputBlur}
-                         onKeyEscape={this.onInputKeyEscape}/>
+              <FlexLayout full={false}
+                          row={true}
+                          className='rac-menu-field-wrapper'>
+                <TextField ref='field'
+                           value={state.filter}
+                           placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
+                           onChange={this.onInputChange}
+                           onFocus={this.onInputFocus}
+                           onBlur={this.onInputBlur}
+                           onKeyEscape={this.onInputKeyEscape}/>
+              </FlexLayout>
             )
           )}
           <SimpleList useTwoLine={false}

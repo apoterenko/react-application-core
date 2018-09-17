@@ -7,9 +7,13 @@
   .rac-menu {
 
     .rac-menu-close-action {
-      margin: 8px;                                            /* @stable [25.06.2018] */
+      margin: 8px 8px 8px auto;                               /* @stable [17.09.2018] */
       cursor: pointer;                                        /* @stable [25.06.2018] */
       color: $rac-menu-close-action-color;                    /* @stable [26.06.2018] */
+    }
+
+    .rac-menu-field-wrapper {
+      padding: 0 8px 8px 8px;                                 /* @stable [17.09.2018] */
     }
 
     .rac-simple-list {
@@ -38,15 +42,6 @@
             }
           }
         }
-      }
-    }
-
-    .rac-form-field {
-      width: 100%;                                            /* @stable [25.06.2018] */
-
-      .rac-text-field {
-        height: 24px !important;                              /* @stable [25.06.2018] */
-        margin: 0 16px 16px;                                  /* @stable [25.06.2018] */
       }
     }
   }
