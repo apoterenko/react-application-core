@@ -1,11 +1,21 @@
 import * as React from 'react';
 
-import { orNull } from '../../util';
+import { orNull, cancelEvent, isFn } from '../../util';
 import { BaseComponent } from '../base';
 import { Link } from '../link';
 import { IProfileProps } from './profile.interface';
+import { IBasicEvent } from '../../definitions.interface';
 
 export class Profile extends BaseComponent<Profile, IProfileProps> {
+
+  /**
+   * @stable [18.09.2018]
+   * @param {IProfileProps} props
+   */
+  constructor(props: IProfileProps) {
+    super(props);
+    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
+  }
 
   /**
    * @stable [17.09.2018]
@@ -23,7 +33,25 @@ export class Profile extends BaseComponent<Profile, IProfileProps> {
           )
         }
         <div className='rac-profile-avatar'/>
+        {this.uiFactory.makeIcon({
+          type: 'menu',
+          className: 'rac-logo-menu-action',
+          onClick: this.onLogoMenuActionClick,
+        })}
       </Link>
     );
+  }
+
+  /**
+   * @stable [17.09.2018]
+   * @param {IBasicEvent} event
+   */
+  private onLogoMenuActionClick(event: IBasicEvent): void {
+    cancelEvent(event);
+
+    const props = this.props;
+    if (isFn(props.onActionClick)) {
+      props.onActionClick();
+    }
   }
 }
