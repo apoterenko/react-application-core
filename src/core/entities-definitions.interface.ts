@@ -77,13 +77,12 @@ import {
   ILoginWrapper,
   IPasswordWrapper,
   IRootWrapper,
-  IStringPathWrapper,
+  IPathWrapper,
   INotificationWrapper,
   IInfoWrapper,
   IStringErrorMessageWrapper,
   ISelfWrapper,
   IStateWrapper,
-  IPathWrapper,
   IDisabledWrapper,
   IDictionariesWrapper,
   ILoadingWrapper,
@@ -688,7 +687,7 @@ export interface IUserWrapperEntity extends IUserWrapper<IUserEntity> {
 }
 
 /* @stable - 15.04.2018 */
-export interface IRootEntity extends IStringPathWrapper {
+export interface IRootEntity extends IPathWrapper {
 }
 
 /* @stable - 15.04.2018 */

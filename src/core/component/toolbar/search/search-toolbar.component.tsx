@@ -5,6 +5,7 @@ import { TextField } from '../../field';
 import { ISearchToolbarProps } from './search-toolbar.interface';
 import { UniversalSearchToolbar } from './universal-search-toolbar.component';
 import { IComponent } from '../../../entities-definitions.interface';
+import { FlexLayout } from '../../layout';
 
 export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
                            TProps extends ISearchToolbarProps = ISearchToolbarProps,
@@ -12,16 +13,17 @@ export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
   extends UniversalSearchToolbar<TComponent, TProps> {
 
   /**
-   * @stable [18.05.2018]
+   * @stable [17.09.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
     return (
-      <div className={this.getComponentClassName()}>
+      <FlexLayout row={true}
+                  justifyContentEnd={true}
+                  className={toClassName('rac-toolbar', 'rac-search-toolbar', this.props.className)}>
         {this.actionsElementsSection}
         {this.fieldSection}
-      </div>
+      </FlexLayout>
     );
   }
 
@@ -50,18 +52,5 @@ export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
       <TextField inputWrapperClassName={this.uiFactory.textFieldBox}
                  {...this.fieldProps}/>
     );
-  }
-
-  /**
-   * @stable [01.06.2018]
-   * @returns {string}
-   */
-  protected getComponentClassName(): string {
-    return toClassName('rac-toolbar',
-                        'rac-search-toolbar',
-                        'rac-flex',
-                        'rac-flex-full',
-                        this.props.className
-                      );
   }
 }

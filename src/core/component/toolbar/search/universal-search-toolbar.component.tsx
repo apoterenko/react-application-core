@@ -123,7 +123,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
     return {
       ref: 'queryField',
       autoFocus: true,
-      notUseErrorMessage: true,
+      errorMessageRendered: false,
       value: this.query,
       actions: this.actions,
       onChange: this.onChange,

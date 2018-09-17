@@ -42,7 +42,7 @@ import {
   IPrefixLabelWrapper,
   IKeyValue,
   IMappersWrapper,
-  IStringPathWrapper,
+  IPathWrapper,
   IStateInitialChangesWrapper,
   ISignInWrapper,
   ISignUpWrapper,
@@ -80,7 +80,7 @@ import {
   IRaisedWrapper,
   IStringToWrapper,
   IOnEnterWrapper,
-  IBooleanFullWrapper,
+  IFullWrapper,
   IShadowStyleWrapper,
   IBooleanModalWrapper,
   ICenterAlignmentWrapper,
@@ -142,7 +142,7 @@ import {
   IActionsWrapper,
   INotUseFieldWrapper,
   IActionsPosition,
-  INotUseErrorMessageWrapper,
+  IErrorMessageRenderedWrapper,
   IMoreOptionsWrapper,
   INavigationActionTypeWrapper,
   IOnNavigationActionClickWrapper,
@@ -670,7 +670,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IOnClearWrapper,
           IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
           IAutoFocusWrapper,
-          INotUseErrorMessageWrapper,
+          IErrorMessageRenderedWrapper,
           IActionsWrapper<IFieldActionConfiguration[]>,
           INameWrapper,
           IMaskWrapper,
@@ -733,7 +733,7 @@ export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
 /* @stable - 14.04.2018 */
 export interface IRouteComputedMatchConfiguration extends IKeyValueParamsWrapper,
                                                           IUrlWrapper,
-                                                          IStringPathWrapper {
+                                                          IPathWrapper {
 }
 
 /* @stable - 14.04.2018 */
@@ -743,7 +743,7 @@ export enum ContainerVisibilityTypeEnum {
 }
 
 /* @stable - 14.04.2018 */
-export interface IRouteConfiguration extends IStringPathWrapper,
+export interface IRouteConfiguration extends IPathWrapper,
                                              IBooleanModalWrapper,
                                              ITitleWrapper,
                                              IInitialWrapper<boolean | ((store: IUniversalApplicationStoreEntity) => boolean)>,
@@ -814,7 +814,7 @@ export type LayoutBuilderElementT = ILayoutBuilderConfiguration | React.ReactNod
 /* @stable - 16.04.2018 */
 export interface ILayoutBuilderConfiguration extends ILayoutWrapper<LayoutBuilderTypeEnum>,
                                                      IStyleWrapper<IKeyValue>,
-                                                     IBooleanFullWrapper,
+                                                     IFullWrapper,
                                                      IChildrenWrapper<LayoutBuilderElementT[]>,
                                                      IFactorWrapper<LayoutBuilderFactorEnum> {
 }

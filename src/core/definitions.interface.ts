@@ -1559,8 +1559,8 @@ export interface IActionsWrapper<TActions> {
 /**
  * @stable [02.06.2018]
  */
-export interface INotUseErrorMessageWrapper {
-  notUseErrorMessage?: boolean;
+export interface IErrorMessageRenderedWrapper {
+  errorMessageRendered?: boolean;
 }
 
 /**
@@ -2312,7 +2312,7 @@ export interface IParentNameWrapper {
 /**
  * @stable [17.06.2018]
  */
-export interface IRowWrapper<TRow> {
+export interface IRowWrapper<TRow = boolean> {
   row?: TRow;
 }
 
@@ -2386,12 +2386,22 @@ export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
 /**
  * @stable [14.09.2018]
  */
-export interface IFullWrapper<TFull> {
+export interface IFullWrapper<TFull = boolean> {
   full?: TFull;
 }
 
-/* @stable - 20.04.2018 */
-export interface IBooleanFullWrapper extends IFullWrapper<boolean> {
+/**
+ * @stable [17.09.2018]
+ */
+export interface IAlignItemsCenterWrapper {
+  alignItemsCenter?: boolean;
+}
+
+/**
+ * @stable [17.09.2018]
+ */
+export interface IJustifyContentEndWrapper {
+  justifyContentEnd?: boolean;
 }
 
 /* @stable [27.04.2018] */
@@ -2908,12 +2918,15 @@ export interface IStateWrapper<TState> {
 /**
  * @stable [03.06.2018]
  */
-export interface IPathWrapper<TPath> {
+export interface IPathWrapper<TPath = string> {
   path?: TPath;
 }
 
-/* @stable - 14.04.2018 */
-export interface IStringPathWrapper extends IPathWrapper<string> {
+/**
+ * @stable [17.06.2018]
+ */
+export interface IAppVersionWrapper {
+  appVersion?: string;
 }
 
 /* @stable - 15.04.2018 */

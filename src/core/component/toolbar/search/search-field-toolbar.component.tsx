@@ -6,19 +6,6 @@ import { SearchToolbar } from './search-toolbar.component';
 export class SearchFieldToolbar extends SearchToolbar<SearchFieldToolbar> {
 
   /**
-   * @stable [01.06.2018]
-   * @returns {JSX.Element}
-   */
-  public render(): JSX.Element {
-    return (
-      <div className={this.getComponentClassName()}>
-        {this.actionsElementsSection}
-        {this.fieldSection}
-      </div>
-    );
-  }
-
-  /**
    * @stable [18.05.2018]
    * @returns {JSX.Element}
    */
