@@ -138,7 +138,8 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
                       className={toClassName(this.uiFactory.listItem, 'rac-simple-list-item')}
                       aria-disabled={option.disabled === true}
                       onClick={(event) => this.onSelect(event, option)}>
-                    <div className='rac-menu-item rac-flex'>
+                    <FlexLayout justifyContentCenter={true}
+                                className='rac-menu-item'>
                       {
                         orDefault<React.ReactNode, React.ReactNode>(
                           isDef(props.renderer),
@@ -154,16 +155,17 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
                                 )
                               ),
                               (): React.ReactNode => (
-                                <div>
+                                <FlexLayout row={true}
+                                            alignItemsCenter={true}>
                                   {this.uiFactory.makeIcon({type: option.icon, className: 'rac-menu-item-icon'})}
                                   {optionValueFn(option)}
-                                </div>
+                                </FlexLayout>
                               )
                             )
                           )
                         )
                       }
-                    </div>
+                    </FlexLayout>
                   </li>
                 ))
             }

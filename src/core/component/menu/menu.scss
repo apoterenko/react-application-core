@@ -28,16 +28,13 @@
         }
 
         .rac-menu-item {
-          width: 100%;                                        /* @stable [25.06.2018] */
-          height: 100%;                                       /* @stable [25.06.2018] */
-          font-size: $rac-menu-item-font-size;                /* @stable [25.06.2018] */
+          height: 100%;                                       /* @stable [18.09.2018] */
           color: $rac-menu-item-color;                        /* @stable [25.06.2018] */
-          @include align-items(center);                       /* @stable [25.06.2018] */
+          font-size: $rac-menu-item-font-size;                /* @stable [25.06.2018] */
 
           .rac-menu-item-icon {
 
             &.rac-icon {
-              display: inline-block;                          /* @stable [25.06.2018] */
               margin-right: $rac-menu-item-icon-margin-right; /* @stable [25.06.2018] */
             }
           }

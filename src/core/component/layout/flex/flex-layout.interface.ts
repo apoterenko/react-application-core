@@ -4,6 +4,7 @@ import {
   IFullWrapper,
   IAlignItemsCenterWrapper,
   IJustifyContentEndWrapper,
+  IJustifyContentCenterWrapper,
 } from '../../../definitions.interface';
 
 /**
@@ -11,6 +12,7 @@ import {
  */
 export interface IFlexLayoutProps extends IComponentProps,
                                           IAlignItemsCenterWrapper,
+                                          IJustifyContentCenterWrapper,
                                           IJustifyContentEndWrapper,
                                           IFullWrapper,
                                           IRowWrapper {

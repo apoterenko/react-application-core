@@ -23,6 +23,7 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
                             props.row ? 'rac-flex-row' : 'rac-flex-column',
                             props.full && 'rac-flex-full',
                             props.alignItemsCenter && 'rac-flex-align-items-center',
+                            props.justifyContentCenter && 'rac-flex-justify-content-center',
                             props.justifyContentEnd && 'rac-flex-justify-content-end'
                         )}
              style={props.style}>

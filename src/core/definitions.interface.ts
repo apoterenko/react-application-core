@@ -2404,6 +2404,13 @@ export interface IJustifyContentEndWrapper {
   justifyContentEnd?: boolean;
 }
 
+/**
+ * @stable [18.09.2018]
+ */
+export interface IJustifyContentCenterWrapper {
+  justifyContentCenter?: boolean;
+}
+
 /* @stable [27.04.2018] */
 export interface IHeaderStyleWrapper<THeaderStyle = IKeyValue> {
   headerStyle?: THeaderStyle;

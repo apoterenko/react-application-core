@@ -12,6 +12,10 @@
     @include align-items(center);                                   /* @stable [16.09.2018] */
   }
 
+  .rac-flex-justify-content-center {
+    @include justify-content(center);                               /* @stable [18.09.2018] */
+  }
+
   .rac-flex-justify-content-end {
     @include justify-content(flex-end);                             /* @stable [17.09.2018] */
   }
