@@ -156,7 +156,7 @@ $rac-grid-filter-row-background: unset !default;
 $rac-grid-filter-row-border-bottom: unset !default;
 $rac-grid-data-row-odd-background-color: $color-21 !default;
 $rac-grid-data-row-selected-background-color: $color-8 !default;
-$rac-grid-data-row-selected-font-weight: bold !default;
+$rac-grid-data-row-selected-font-weight: 500 !default;
 $rac-grid-data-row-grouped-font-weight: 500 !default;
 $rac-grid-data-row-hover-background-color: $color-10 !default;
 $rac-grid-column-line-height: 16px !default;
@@ -209,11 +209,14 @@ $rac-field-floating-focused-label-margin-bottom: unset !default;
 $rac-field-floating-focused-label-color: $rac-field-label-color !default;
 $rac-field-icon-color: $rac-default-text-color !default;
 $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
+$rac-field-loader-loading-message-color: $rac-default-text-color !default;
 $rac-text-field-height: 32px !default;
 $rac-text-field-margin-bottom: 4px !default;
 $rac-text-field-border-radius: $rac-default-border-radius !default;
 $rac-text-field-border-width: 0 0 1px 0 !default;
 $rac-text-field-border-color: $color-10 !default;
+$rac-text-field-active-background: $color-6 !default;
+$rac-text-field-active-icon-color: $color-15 !default;
 $rac-self-field-wrapper-padding-bottom: unset !default;
 
 /* @stable [30.07.2018] */
