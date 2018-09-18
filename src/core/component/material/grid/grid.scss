@@ -8,13 +8,7 @@
       .rac-form-field {
 
         .rac-text-field {
-          height: auto !important;      /* @stable [23.06.2018] */
-          margin-top: 0;                /* @stable [23.06.2018] */
-          margin-bottom: 0;             /* @stable [23.06.2018] */
-
-          .rac-field-input {
-            padding-top: 0;             /* @stable [23.06.2018] */
-          }
+          margin-top: 0;                // TODO
         }
       }
     }

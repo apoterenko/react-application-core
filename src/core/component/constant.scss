@@ -193,6 +193,7 @@ $rac-form-field-input-letter-spacing: 1px !default;
 $rac-form-text-field-help-text-font-size: $rac-default-font-size !default;
 
 /* @stable [17.09.2018] */
+$rac-field-input-padding-top: 0 !default;
 $rac-field-input-padding-left: unset !default;
 $rac-field-input-padding-right: unset !default;
 $rac-field-input-color: $rac-default-text-color !default;
@@ -366,6 +367,7 @@ $rac-form-layout-field-input-caret-color: $rac-field-input-color !default;
 $rac-form-layout-field-input-placeholder-font-size: 16px !default;
 $rac-form-layout-field-input-placeholder-color: $rac-field-input-placeholder-color !default;
 $rac-form-layout-field-input-font-size: 16px !default;
+$rac-form-layout-field-icon-color: $rac-default-text-color !default;
 $rac-form-layout-text-field-height: 40px !default;
 $rac-form-layout-text-field-border-color: $rac-text-field-border-color !default;
 $rac-form-layout-text-field-background: none !default;

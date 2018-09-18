@@ -75,6 +75,11 @@
       }
     }
 
+    .rac-field-input,
+      .rac-field-input-wrapper {
+      height: 100%;                                                   /* @stable [18.09.2018] */
+    }
+
     .rac-field-label {
       white-space: nowrap;                                            /* @stable [08.08.2018] */
       color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
@@ -114,6 +119,7 @@
       }
 
       .rac-field-input {
+        padding-top: $rac-field-input-padding-top;                    /* @mdc @stable [18.09.2018] */
         padding-left: $rac-field-input-padding-left;                  /* @stable [17.09.2018] */
         padding-right: $rac-field-input-padding-right;                /* @stable [17.09.2018] */
         border: none;                                                 /* @mdc @stable [07.08.2018] */

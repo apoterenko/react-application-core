@@ -80,6 +80,10 @@
           .rac-field-input-caret {
             color: $rac-form-layout-field-input-caret-color;                   /* @stable [03.09.2018] */
           }
+
+          .rac-icon {
+            color: $rac-form-layout-field-icon-color;                          /* @stable [18.09.2018] */
+          }
         }
       }
     }
