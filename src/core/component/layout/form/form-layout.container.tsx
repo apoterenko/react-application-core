@@ -38,7 +38,7 @@ export class FormLayoutContainer extends LayoutContainer<IFormLayoutProps> {
               orNull<JSX.Element>(
                 props.title || props.subTitle,
                 () => (
-                  <section className='rac-header rac-section'>
+                  <div className='rac-header rac-section'>
                     {
                       orNull<JSX.Element>(
                         props.title,
@@ -51,7 +51,7 @@ export class FormLayoutContainer extends LayoutContainer<IFormLayoutProps> {
                         () => <h5 className='rac-header-subtitle'>{this.t(props.subTitle)}</h5>
                       )
                     }
-                  </section>
+                  </div>
                 )
               )
             }

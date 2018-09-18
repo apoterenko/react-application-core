@@ -125,6 +125,7 @@
         &::placeholder {
           color: $rac-field-input-placeholder-color;                  /* @stable [24.06.2018] */
           font-weight: $rac-field-input-placeholder-font-weight;      /* @stable [03.07.2018] */
+          font-size: $rac-field-input-placeholder-font-size;          /* @stable [18.09.2018] */
         }
       }
     }

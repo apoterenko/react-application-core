@@ -108,9 +108,9 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
         {
           orNull<React.ReactNode>(
             !R.isNil(dialogBodyEl) || !R.isNil(props.message),
-            <section className={toClassName('rac-dialog-body', this.uiFactory.dialogBody)}>
+            <div className={toClassName('rac-dialog-body', this.uiFactory.dialogBody)}>
               {dialogBodyEl || this.t(props.message)}
-            </section>
+            </div>
           )
         }
         {

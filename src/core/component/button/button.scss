@@ -4,7 +4,12 @@
 .rac {
 
   .rac-button {
-    border-radius: $rac-button-border-radius;       /* @stable [24.06.2018] */
+    height: $rac-button-height;                                   /* @stable [18.09.2018] */
+    border-radius: $rac-button-border-radius;                     /* @stable [24.06.2018] */
+    color: $rac-button-color !important;                          /* @mdc @stable [18.09.2018] */
+    background-color: $rac-button-background-color !important;    /* @mdc @stable [18.09.2018] */
+    text-transform: $rac-button-text-transform;                   /* @stable [18.09.2018 */
+    font-weight: $rac-button-font-weight;                         /* @stable [18.09.2018 */
 
     .rac-icon {
       width: $rac-button-icon-width;                /* @stable [24.06.2018] */

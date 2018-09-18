@@ -61,6 +61,17 @@
             .rac-chips-filter-wrapper {
             margin-bottom: $rac-default-layout-main-body-container-margin-bottom;                   /* @stable [17.09.2018] */
           }
+
+          .rac-form {
+
+            .rac-form-body {
+              padding: $rac-default-layout-main-body-form-body-padding;                             /* @stable [18.09.2018] */
+            }
+
+            .rac-form-actions {
+              padding: $rac-default-layout-main-body-form-actions-padding;                          /* @stable [18.09.2018] */
+            }
+          }
         }
 
         .rac-main-body > {

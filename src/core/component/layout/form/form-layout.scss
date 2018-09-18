@@ -1,4 +1,3 @@
-@import '~sass-flex-mixin/_flex';
 @import '../../constant';
 
 // Form layout [FRAMEWORK-][RAC+]
@@ -9,13 +8,12 @@
     background-size: $rac-form-layout-background-size;                 /* @stable [07.08.2018] */
 
     .rac-form-layout-content {
-      position: relative;                                              /* @stable [07.08.2018] */
-      width: $rac-form-layout-content-width;                           /* @stable [07.08.2018] */
-      min-width: $rac-form-layout-content-min-width;                   /* @stable [07.08.2018] */
-      border: $rac-form-layout-content-border;                         /* @stable [07.08.2018] */
-      border-radius: $rac-form-layout-content-border-radius;           /* @stable [07.08.2018] */
+      position: relative;                                              /* @stable [18.09.2018] */
+      width: $rac-form-layout-content-width;                           /* @stable [18.09.2018] */
+      margin: $rac-form-layout-content-margin;                         /* @stable [18.09.2018] */
+      border: $rac-form-layout-content-border;                         /* @stable [18.09.2018] */
+      border-radius: $rac-form-layout-content-border-radius;           /* @stable [18.09.2018] */
       background: $rac-form-layout-content-background;                 /* @stable [07.08.2018] */
-      margin: $rac-form-layout-content-margin;                         /* @stable [08.08.2018] */
 
       .rac-header {
         background: $rac-form-layout-header-background;                /* @stable [07.08.2018] */
@@ -29,16 +27,17 @@
       .rac-form {
 
         .rac-form-actions {
-          @include justify-content(center);                            /* @stable [08.08.2018] */
+          margin: $rac-form-layout-form-actions-margin;                /* @stable [18.09.2018] */
 
           .rac-button {
+            width: $rac-form-layout-form-actions-button-width;         /* @stable [18.09.2018] */
             margin-left: 0;                                            /* @stable [08.08.2018] */
           }
         }
       }
 
       .rac-form-layout-top-header {
-        width: 100%;                                                   /* @stable [07.08.2018] */
+        width: $rac-form-layout-top-header-width;                      /* @stable [18.09.2018] */
         height: $rac-form-layout-top-header-height;                    /* @stable [07.08.2018] */
         top: $rac-form-layout-top-header-top;                          /* @stable [07.08.2018] */
         background: $rac-form-layout-top-header-background;            /* @stable [07.08.2018] */
@@ -54,7 +53,7 @@
         }
       }
 
-      .rac-form-field {
+      .rac-field {
 
         .rac-field-label {
           &.rac-floating-focused-label {
@@ -63,15 +62,23 @@
         }
 
         .rac-text-field {
-          border-bottom-color: $rac-form-layout-text-field-border-bottom-color;/* @stable [07.08.2018] */
+          height: $rac-form-layout-text-field-height !important;               /* @mdc @stable [18.09.2018] */
+          border-color: $rac-form-layout-text-field-border-color !important;   /* @mdc @stable [18.09.2018] */
+          background: $rac-form-layout-text-field-background;                  /* @stable [18.09.2018] */
 
           .rac-field-input {
+            font-size: $rac-form-layout-field-input-font-size;                 /* @stable [18.09.2018] */
             color: $rac-form-layout-field-input-color;                         /* @stable [07.08.2018] */
             caret-color: $rac-form-layout-field-input-color;                   /* @stable [15.08.2018] */
+
+            &::placeholder {
+              font-size: $rac-form-layout-field-input-placeholder-font-size;   /* @stable [18.09.2018] */
+              color: $rac-form-layout-field-input-placeholder-color;           /* @stable [18.09.2018] */
+            }
           }
 
           .rac-field-input-caret {
-            color: $rac-form-layout-field-input-caret-color;                  /* @stable [03.09.2018] */
+            color: $rac-form-layout-field-input-caret-color;                   /* @stable [03.09.2018] */
           }
         }
       }

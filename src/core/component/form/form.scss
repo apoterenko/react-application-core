@@ -8,12 +8,9 @@
 
     .rac-form-body {
       overflow: auto;                                                               /* @stable [17.09.2018] */
-      padding: $rac-form-body-padding;                                              /* @stable [17.09.2018] */
     }
 
     .rac-form-actions {
-      padding: $rac-form-actions-padding;                                           /* @stable [17.09.2018] */
-
       .rac-button {
         margin-left: $rac-form-actions-button-padding-left;                         /* @stable [17.09.2018] */
       }
