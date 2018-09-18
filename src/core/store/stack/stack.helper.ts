@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import { IStackItemEntity, IStackEntity } from '../../entities-definitions.interface';
 
+// TODO toAllDependentSections
 export const getDestroyableSections = (currentSection: string, state: IStackEntity): string[] => {
   const sectionsToDestroy = new Set<string>();
   const gr = new graphlib.Graph();

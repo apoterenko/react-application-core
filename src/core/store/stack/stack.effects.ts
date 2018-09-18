@@ -16,7 +16,7 @@ export class ConnectorEffects {
   private static logger = LoggerFactory.makeLogger('ConnectorEffects');
 
   @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
-  public $onContainerInit(action: IEffectsAction, state: IApplicationStoreEntity): IEffectsAction[] {
+  public $onStackPush(action: IEffectsAction, state: IApplicationStoreEntity): IEffectsAction[] {
     const currentSection = action.data;
     const destroyableSections = getDestroyableSections(currentSection, state.stack);
 
