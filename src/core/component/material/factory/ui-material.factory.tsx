@@ -304,8 +304,8 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldUpgraded = 'mdc-text-field--upgraded';
   public fieldHelpText = 'mdc-text-field-helper-text';
   public fieldValidationText = 'mdc-text-field-helper-text--validation-msg';
-  public textFieldLabel = 'mdc-floating-label';
-  public textFieldFocusedLabel = 'mdc-floating-label--float-above';
+  public fieldLabel = 'mdc-floating-label';
+  public fieldFocusedLabel = 'mdc-floating-label--float-above';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';

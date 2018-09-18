@@ -60,8 +60,8 @@ export interface IUIFactory {
   textFieldUpgraded?: string;
   fieldHelpText?: string;
   fieldValidationText?: string;
-  textFieldLabel?: string;
-  textFieldFocusedLabel?: string;
+  fieldLabel?: string;
+  fieldFocusedLabel?: string;
   card?: string;
   cardActions?: string;
   cardActionButtons?: string;

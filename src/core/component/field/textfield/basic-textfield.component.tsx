@@ -5,7 +5,7 @@ import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull, toClassName, nvl, cancelEvent, IJqElement } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent, IJqElement, orUndef } from '../../../util';
 import { IBasicEvent, UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
@@ -82,17 +82,22 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return null;
   }
 
+  /**
+   * @stable [19.09.2018]
+   * @returns {string}
+   */
   protected getSelfElementClassName(): string {
     const error = this.error;
     const props = this.props;
 
     return toClassName(
       'rac-text-field',
+      this.isValuePresent() && 'rac-filled-field',
+      props.fieldRendered === false && 'rac-display-none',
       this.uiFactory.textField,
       this.uiFactory.textFieldUpgraded,
       this.isFieldFocused() && this.uiFactory.fieldFocused,
-      error && this.uiFactory.textFieldInvalid,
-      props.fieldRendered === false && 'rac-display-none',
+      !R.isNil(error) && this.uiFactory.textFieldInvalid
     );
   }
 
@@ -188,8 +193,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   private getSelfElement(): JSX.Element {
     const props = this.props;
-    const fieldLabel = props.label ? this.t(props.label) : props.children;
-
     return (
       <div ref='self'
            style={props.style}
@@ -197,24 +200,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         {this.getPrefixLabelElement()}
         <div className={this.getInputElementWrapperClassName()}>
           {this.getInputElement()}
-          {
-            orNull(
-              fieldLabel,
-              () => (
-                <label style={{paddingLeft: props.prefixLabel
-                    ? (props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX) + 'px'
-                    : undefined}}
-                       className={toClassName(
-                         'rac-field-label',
-                         this.uiFactory.textFieldLabel,
-                         this.isFieldFocused() && 'rac-floating-focused-label',
-                         this.isFieldFocused() && this.uiFactory.textFieldFocusedLabel
-                       )}>
-                  {props.label ? this.t(props.label) : props.children}
-                </label>
-              )
-            )
-          }
+          {this.getLabelElement()}
           {this.getMirrorInputElement()}
           {this.getInputCaretElement()}
           {this.getInputAttachmentElement()}
@@ -276,6 +262,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       return null;
     }
 
+    // TODO Move to support
     const value = this.value;
     const content = String((
       props.type === 'password'
@@ -292,6 +279,30 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             )}>
         {content}
       </span>
+    );
+  }
+
+  private getLabelElement(): JSX.Element {
+    const props = this.props;
+    const isFieldFocused = this.isFieldFocused();
+    const fieldLabel = props.label ? this.t(props.label) : props.children; // TODO offset
+    return orNull<JSX.Element>(
+      fieldLabel,
+      () => (
+        <label style={{
+                  paddingLeft: orUndef<number>(
+                    !R.isNil(props.prefixLabel),
+                    () => props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX
+                  ),
+                }}
+               className={toClassName(
+                 'rac-field-label',
+                 isFieldFocused && `rac-focused-label ${this.uiFactory.fieldFocusedLabel}`,
+                 this.uiFactory.fieldLabel
+               )}>
+          {fieldLabel}
+        </label>
+      )
     );
   }
 

@@ -87,10 +87,10 @@
       text-transform: $rac-form-field-label-text-transform;           /* @stable [08.08.2018] */
       margin-left: $rac-field-label-margin-left;                      /* @stable [08.08.2018] */
 
-      &.rac-floating-focused-label {
-        color: $rac-field-floating-focused-label-color;                   /* @stable [08.08.2018] */
-        font-size: $rac-field-floating-focused-label-font-size;           /* @stable [08.08.2018] */
-        margin-bottom: $rac-field-floating-focused-label-margin-bottom;   /* @stable [17.09.2018] */
+      &.rac-focused-label {
+        color: $rac-field-focused-label-color;                   /* @stable [08.08.2018] */
+        font-size: $rac-field-focused-label-font-size;           /* @stable [08.08.2018] */
+        margin-bottom: $rac-field-focused-label-margin-bottom;   /* @stable [17.09.2018] */
       }
     }
 
@@ -103,6 +103,7 @@
       border-color: $rac-text-field-border-color !important;          /* @mdc @stable [17.09.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
       margin-bottom: $rac-text-field-margin-bottom;                   /* @mdc @stable [17.09.2018] */
+      margin-top: $rac-text-field-margin-top !important;              /* @mdc @stable [19.09.2018] */
 
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
@@ -124,14 +125,17 @@
         padding-right: $rac-field-input-padding-right;                /* @stable [17.09.2018] */
         border: none;                                                 /* @mdc @stable [07.08.2018] */
         color: $rac-field-input-color;                                /* @stable [25.06.2018] */
-        font-size: $rac-form-field-input-font-size;                   /* @stable [25.06.2018] */
+        font-size: $rac-field-input-font-size;                        /* @stable [19.09.2018] */
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
-        letter-spacing: $rac-form-field-input-letter-spacing;         /* @stable [25.06.2018] */
+        letter-spacing: $rac-field-input-letter-spacing;              /* @stable [19.09.2018] */
 
         &::placeholder {
           color: $rac-field-input-placeholder-color;                  /* @stable [24.06.2018] */
           font-weight: $rac-field-input-placeholder-font-weight;      /* @stable [03.07.2018] */
-          font-size: $rac-field-input-placeholder-font-size;          /* @stable [18.09.2018] */
+        }
+
+        &:-webkit-autofill {
+          transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
         }
       }
     }

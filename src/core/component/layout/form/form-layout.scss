@@ -38,14 +38,13 @@
 
       .rac-form-layout-top-header {
         width: $rac-form-layout-top-header-width;                      /* @stable [18.09.2018] */
-        height: $rac-form-layout-top-header-height;                    /* @stable [07.08.2018] */
-        top: $rac-form-layout-top-header-top;                          /* @stable [07.08.2018] */
+        height: $rac-form-layout-top-header-height;                    /* @stable [19.09.2018] */
+        top: $rac-form-layout-top-header-top;                          /* @stable [19.09.2018] */
         background: $rac-form-layout-top-header-background;            /* @stable [07.08.2018] */
         background-size: $rac-form-layout-top-header-background-size;  /* @stable [26.08.2018] */
 
         .rac-form-layout-top-header-content {
           white-space: nowrap;                                                 /* @stable [07.08.2018] */
-          margin: $rac-form-layout-top-header-content-margin;                  /* @stable [07.08.2018] */
           font-size: $rac-form-layout-top-header-content-font-size;            /* @stable [07.08.2018] */
           font-weight: $rac-form-layout-top-header-content-font-weight;        /* @stable [07.08.2018] */
           text-transform: $rac-form-layout-top-header-content-text-transform;  /* @stable [07.08.2018] */
@@ -56,7 +55,8 @@
       .rac-field {
 
         .rac-field-label {
-          &.rac-floating-focused-label {
+
+          &.rac-focused-label {
             color: $rac-form-layout-floating-focused-label-color;              /* @stable [08.08.2018] */
           }
         }
@@ -72,7 +72,6 @@
             caret-color: $rac-form-layout-field-input-color;                   /* @stable [15.08.2018] */
 
             &::placeholder {
-              font-size: $rac-form-layout-field-input-placeholder-font-size;   /* @stable [18.09.2018] */
               color: $rac-form-layout-field-input-placeholder-color;           /* @stable [18.09.2018] */
             }
           }
@@ -83,6 +82,10 @@
 
           .rac-icon {
             color: $rac-form-layout-field-icon-color;                          /* @stable [18.09.2018] */
+          }
+
+          &.rac-filled-field {
+            background: $rac-form-layout-text-filled-field-background;         /* @stable [19.09.2018] */
           }
         }
       }
