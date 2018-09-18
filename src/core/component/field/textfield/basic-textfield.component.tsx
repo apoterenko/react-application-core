@@ -236,11 +236,19 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
             },
           }))
         )}
-        {orNull(
-          this.inProgress(),
-          () => <ProgressLabel className='rac-text-field-loader'/>
-        )}
+        {this.getProgressLabelElement()}
       </div>
+    );
+  }
+
+  /**
+   *
+   * @returns {JSX.Element}
+   */
+  private getProgressLabelElement(): JSX.Element {
+    return orNull<JSX.Element>(
+      this.inProgress(),
+      () => <ProgressLabel className='rac-field-loader rac-absolute-center-position'/>
     );
   }
 

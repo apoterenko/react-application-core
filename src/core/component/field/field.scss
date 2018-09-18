@@ -16,6 +16,17 @@
       flex-shrink: 1;                                                 /* @layout @stable [17.09.2018] */
     }
 
+    &.rac-field-active {
+
+      .rac-text-field {
+        background: $rac-text-field-active-background;                /* @stable [18.09.2018] */
+
+        .rac-icon {
+          color: $rac-text-field-active-icon-color;                   /* @stable [18.09.2018] */
+        }
+      }
+    }
+
     &.rac-field-disabled {
 
       label,
@@ -38,6 +49,14 @@
 
     .rac-dnd {
       margin-bottom: $rac-form-field-dnd-margin-bottom;               /* @stable [29.06.2018] */
+    }
+
+    .rac-field-loader {
+      width: auto;                                                    /* @stable [18.09.2018] */
+
+      .rac-loading-message {
+        color: $rac-field-loader-loading-message-color;               /* @stable [18.09.2018] */
+      }
     }
 
     .rac-message {
