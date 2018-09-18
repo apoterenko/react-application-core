@@ -30,7 +30,8 @@ import { Message } from '../../message';
 import { CenterLayout } from '../../layout';
 import { ENV } from '../../../env';
 import { Menu } from '../../menu';
-import { toAllDependentRoutePaths, APPLICATION_SECTIONS } from '../../application';
+import { APPLICATION_SECTIONS } from '../../application';
+import { toAllDependentRoutePaths } from '../../connector';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
