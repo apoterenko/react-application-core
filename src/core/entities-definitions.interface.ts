@@ -174,6 +174,7 @@ export interface IUniversalContainerEntity extends IChannelWrapperEntity,
  * @stable [17.05.2018]
  */
 export interface IWebContainerEntity extends IRootWrapperEntity,
+                                             IStackWrapperEntity,
                                              IBrowserLocationWrapper,
                                              IURLSearchQueryParamsWrapper,
                                              IKeyValueRouteParamsWrapper {

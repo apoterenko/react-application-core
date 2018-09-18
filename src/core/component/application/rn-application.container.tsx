@@ -9,7 +9,7 @@ import {
 import { isFn } from '../../util';
 import { IApplicationContainerProps } from './application.interface';
 import {
-  IDefaultConnectorConfiguration,
+  IConnectorConfiguration,
   IRouteConfiguration,
 } from '../../configurations-definitions.interface';
 import { IContainerClassEntity } from '../../entities-definitions.interface';
@@ -49,7 +49,7 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IRnApp
   }
 
   protected buildRoute(ctor: IContainerClassEntity,
-                       connectorConfiguration: IDefaultConnectorConfiguration,
+                       connectorConfiguration: IConnectorConfiguration,
                        cfg: IRouteConfiguration): JSX.Element {
     return (
       <Scene

@@ -689,7 +689,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IUseKeyboardWrapper,
           ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string>,
-          IFieldRenderedWrapper {
+          IFieldRenderedWrapper,
+          IActiveWrapper {
 }
 
 /* @stable - 11.04.2018 */
@@ -771,13 +772,9 @@ export interface IBasicConnectorConfiguration<TStoreEntity>
 }
 
 /* @stable - 14.04.2018 */
-export interface IConnectorConfiguration<TAppState, TApplicationAccessConfig>
+export interface IConnectorConfiguration<TAppState = {}, TApplicationAccessConfig = {}>
   extends IBasicConnectorConfiguration<TAppState>,
           IAccessConfigurationWrapper<TApplicationAccessConfig> {
-}
-
-/* @stable - 14.04.2018 */
-export interface IDefaultConnectorConfiguration extends IConnectorConfiguration<{}, {}> {
 }
 
 /* @stable - 16.04.2018 */

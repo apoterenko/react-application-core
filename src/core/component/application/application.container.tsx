@@ -14,7 +14,7 @@ import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
 import { Message } from '../message';
 import {
-  IDefaultConnectorConfiguration,
+  IConnectorConfiguration,
   ContainerVisibilityTypeEnum,
   IRouteConfiguration,
 } from '../../configurations-definitions.interface';
@@ -115,7 +115,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
   }
 
   protected buildRoute(ctor: IContainerClassEntity,
-                       connectorConfiguration: IDefaultConnectorConfiguration,
+                       connectorConfiguration: IConnectorConfiguration,
                        cfg: IRouteConfiguration): JSX.Element {
     let Component;
     switch (cfg.type) {

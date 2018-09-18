@@ -3,7 +3,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { orNull } from '../../util';
 import {
-  IDefaultConnectorConfiguration,
+  IConnectorConfiguration,
   ContainerVisibilityTypeEnum,
   IRouteConfiguration,
 } from '../../configurations-definitions.interface';
@@ -27,7 +27,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   };
 
   protected static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
-  private extraRoutes = new Map<IContainerClassEntity, IDefaultConnectorConfiguration>();
+  private extraRoutes = new Map<IContainerClassEntity, IConnectorConfiguration>();
 
   /**
    * @stable - 23.04.2018
@@ -99,7 +99,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     return result;
   }
 
-  protected registerRoute(container: IContainerClassEntity, config: IDefaultConnectorConfiguration): void {
+  protected registerRoute(container: IContainerClassEntity, config: IConnectorConfiguration): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -154,10 +154,10 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   protected abstract buildRoute(ctor: IContainerClassEntity,
-                                connectorConfiguration: IDefaultConnectorConfiguration,
+                                connectorConfiguration: IConnectorConfiguration,
                                 routeConfiguration: IRouteConfiguration): JSX.Element;
 
-  private buildRoutes(map: Map<IContainerClassEntity, IDefaultConnectorConfiguration>,
+  private buildRoutes(map: Map<IContainerClassEntity, IConnectorConfiguration>,
                       routePredicate: RoutePredicateT): JSX.Element[] {
     const routes0: string[] = [];
     const routes: JSX.Element[] = [];

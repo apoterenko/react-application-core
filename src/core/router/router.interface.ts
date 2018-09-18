@@ -1,10 +1,10 @@
 import { ACTION_PREFIX } from '../definitions.interface';
-import { IDefaultConnectorConfiguration } from '../configurations-definitions.interface';
+import { IConnectorConfiguration } from '../configurations-definitions.interface';
 import { IUniversalContainerClassEntity } from '../entities-definitions.interface';
 import { IContainerProps } from '../props-definitions.interface';
 
 /* @stable - 15.04.2018 */
-export const DYNAMIC_ROUTES = new Map<IUniversalContainerClassEntity, IDefaultConnectorConfiguration>();
+export const DYNAMIC_ROUTES = new Map<IUniversalContainerClassEntity, IConnectorConfiguration>();
 
 /* @stable - 15.04.2018 */
 export const ROUTER_REWRITE_ACTION_TYPE = `${ACTION_PREFIX}router.rewrite`;
