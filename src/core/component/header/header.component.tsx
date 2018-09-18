@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { IHeaderProps } from './header.interface';

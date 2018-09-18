@@ -11,7 +11,7 @@ import {
   IUniversalContainer,
   IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
-import { IDefaultConnectorConfiguration, IRoutesConfiguration } from '../../configurations-definitions.interface';
+import { IConnectorConfiguration, IRoutesConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
@@ -182,9 +182,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable - 15.04.2018
-   * @returns {Map<IContainerClassEntity, IDefaultConnectorConfiguration>}
+   * @returns {Map<IContainerClassEntity, IConnectorConfiguration>}
    */
-  protected get dynamicRoutes(): Map<IContainerClassEntity, IDefaultConnectorConfiguration> {
+  protected get dynamicRoutes(): Map<IContainerClassEntity, IConnectorConfiguration> {
     return staticInjector(DI_TYPES.DynamicRoutes);
   }
 

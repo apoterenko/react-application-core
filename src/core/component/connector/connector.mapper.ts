@@ -17,6 +17,7 @@ import {
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
   IListEntity,
+  IStackWrapperEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterActionConfiguration,
@@ -37,6 +38,17 @@ export const rootMapper = (state: IRootWrapperEntity): IRootWrapperEntity => ({
 export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
     ...state.layout,
+  },
+});
+
+/**
+ * @stable [18.09.2018]
+ * @param {IStackWrapperEntity} state
+ * @returns {IStackWrapperEntity}
+ */
+export const stackMapper = (state: IStackWrapperEntity): IStackWrapperEntity => ({
+  stack: {
+    ...state.stack,
   },
 });
 
@@ -128,6 +140,7 @@ export const listAndFilterFormWrapperEntityMapper =
 
 export const defaultMappers = [
   ...universalDefaultMappers,
+  stackMapper,
   layoutMapper,
   rootMapper,
   notificationMapper,
