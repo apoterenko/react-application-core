@@ -21,7 +21,7 @@ export class LayoutContainer<TProps extends IContainerProps> extends BaseContain
    * @stable [19.08.2018]
    * @returns {JSX.Element}
    */
-  protected get snackbarTpl(): JSX.Element {
+  protected get snackbarElement(): JSX.Element {
     const {notification} = this.props;
     const message = notification && (notification.error || notification.info);
     return (

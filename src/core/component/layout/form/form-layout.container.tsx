@@ -58,7 +58,7 @@ export class FormLayoutContainer extends LayoutContainer<IFormLayoutProps> {
             {props.children}
             {props.footer}
           </div>
-          {this.snackbarTpl}
+          {this.snackbarElement}
         </main>
     );
   }
