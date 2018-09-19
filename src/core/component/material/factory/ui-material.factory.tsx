@@ -60,6 +60,7 @@ import {
   faFileDownload,
   faGift,
   faChevronRight,
+  faChartLine,
   faChevronLeft,
   faPlug,
   faKey,
@@ -75,6 +76,7 @@ import {
   faUndo,
   faArrowRight,
   faMapMarkedAlt,
+  faSignInAlt,
   faExclamationCircle,
   faUserTie,
   faStoreAlt,
@@ -125,6 +127,7 @@ import { ApplicationTranslatorT } from '../../../translation';
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
   public static ICONS_MAP = {
+    dashboard: faChartLine,
     warehouse: faWarehouse,
     product: faCannabis,
     supplier: faTruckMoving,
@@ -177,6 +180,7 @@ export class UIMaterialFactory implements IUIFactory {
     account_circle: faUserCircle,
     shopping_cart: faFileInvoiceDollar,
     exit_to_app: faSignOutAlt,
+    signIn: faSignInAlt,
     group: faUsers,
     people_outline: faUser,
     person_outline: faUser,

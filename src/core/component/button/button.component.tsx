@@ -23,6 +23,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     const className = toClassName(
         !props.notApplyFrameworkClassName && this.uiFactory.button,
         'rac-button',
+        props.submitted && 'rac-submitted-button',
         props.outlined && toClassName('rac-button-outlined', this.uiFactory.buttonOutlined),
         props.raised && toClassName('rac-button-raised', this.uiFactory.buttonRaised),
         props.className

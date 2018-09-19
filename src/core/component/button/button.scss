@@ -6,8 +6,6 @@
   .rac-button {
     height: $rac-button-height;                                   /* @stable [18.09.2018] */
     border-radius: $rac-button-border-radius;                     /* @stable [24.06.2018] */
-    color: $rac-button-color !important;                          /* @mdc @stable [18.09.2018] */
-    background-color: $rac-button-background-color !important;    /* @mdc @stable [18.09.2018] */
     text-transform: $rac-button-text-transform;                   /* @stable [18.09.2018 */
     font-weight: $rac-button-font-weight;                         /* @stable [18.09.2018 */
 
@@ -15,6 +13,11 @@
       width: $rac-button-icon-width;                /* @stable [24.06.2018] */
       height: $rac-button-icon-height;              /* @stable [24.06.2018] */
       margin-right: $rac-button-icon-margin-right;  /* @stable [24.06.2018] */
+    }
+
+    &.rac-submitted-button {
+      color: $rac-submitted-button-color !important;                          /* @mdc @stable [18.09.2018] */
+      background-color: $rac-submitted-button-background-color !important;    /* @mdc @stable [18.09.2018] */
     }
 
     &[disabled] {

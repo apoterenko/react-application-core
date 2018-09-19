@@ -217,6 +217,7 @@ import {
   IFieldRenderedWrapper,
   IExpandActionRenderedWrapper,
   IShrinkWrapper,
+  ISubmittedWrapper
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -608,6 +609,7 @@ export interface IWebCameraConfiguration extends IComponentConfiguration,
 export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
                                                        IOnClickWrapper,
                                                        ITextWrapper,
+                                                       ISubmittedWrapper,
                                                        IIconWrapper {
 }
 

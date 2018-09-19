@@ -65,13 +65,20 @@
     }
 
     .rac-field-input {
-      resize: none;                                                   /* @stable [07.08.2018] */
+      resize: none;                                                            /* @stable [07.08.2018] */
     }
 
     &.rac-checkbox {
 
       .rac-self-field-wrapper {
-        padding-bottom: $rac-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
+        padding-bottom: $rac-checkbox-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
+      }
+    }
+
+    &.rac-gridfield {
+
+      .rac-text-field {
+        margin-bottom: $rac-gridfield-text-field-margin-bottom;                /* @stable [19.09.2018] */
       }
     }
 
@@ -153,7 +160,8 @@
 
     .rac-field-help-text {
       opacity: 1;                                                     /* @mdc @stable [31.08.2018] */
-      font-size: $rac-form-text-field-help-text-font-size;            /* @stable [13.08.2018] */
+      font-size: $rac-field-help-text-font-size;                      /* @stable [19.09.2018] */
+      margin-bottom: $rac-field-help-text-margin-bottom;              /* @mdc @stable [19.09.2018] */
     }
 
     .rac-field-chips-wrapper {

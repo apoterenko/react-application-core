@@ -13,7 +13,7 @@
         .rac-time-grid-time-header-column {
 
           .rac-grid-column-content {
-            letter-spacing: 0;                                                              /* @stable [11.09.2018] */
+            letter-spacing: $rac-time-grid-time-header-column-content-letter-spacing;       /* @stable [19.09.2018] */                                                          /* @stable [11.09.2018] */
           }
         }
       }

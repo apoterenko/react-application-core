@@ -1658,6 +1658,13 @@ export interface IIconWrapper<TIcon = string> {
 }
 
 /**
+ * @stable [19.09.2018]
+ */
+export interface ISubmittedWrapper {
+  submitted?: boolean;
+}
+
+/**
  * @stable [31.08.2018]
  */
 export interface IAliasWrapper<TAlias = string> {

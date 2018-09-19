@@ -5,6 +5,7 @@ import { Grid } from '../../grid';
 import { INITIAL_APPLICATION_LIST_STATE } from '../../list';
 import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
+import { toClassName } from '../../../util';
 
 export class GridField extends MultiField<GridField, IGridFieldProps, IGridFieldState> {
 
@@ -38,6 +39,14 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
             onChange={this.onChangeRowField}
             deactivated={this.isInactive()}/>
     );
+  }
+
+  /**
+   * @stable [19.09.2018]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-gridfield');
   }
 
   /**
