@@ -85,6 +85,11 @@
       .rac-self-field-wrapper {
         padding-bottom: $rac-checkbox-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
       }
+
+      .rac-field-label {
+        margin-left: 0;                                                        /* @stable [17.09.2018] */
+        line-height: $rac-checkbox-field-label-line-height;                    /* @stable [17.09.2018] */
+      }
     }
 
     .rac-field-input,
