@@ -247,7 +247,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return (
       orNull<JSX.Element>(
         props.prefixLabel,
-        <span className='rac-text-field-prefix-label'>{props.prefixLabel}</span>
+        <span className='rac-field-prefix-label'>{props.prefixLabel}</span>
       )
     );
   }

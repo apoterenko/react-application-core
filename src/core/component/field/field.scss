@@ -1,7 +1,6 @@
 @import '~sass-flex-mixin/_flex';
 @import '../constant';
 @import './addressfield/addressfield';
-@import './textfield/textfield';
 @import './switch/switch';
 @import './viewfield/viewfield';
 @import './textarea/textarea';
@@ -33,7 +32,7 @@
         .rac-dnd,
         .rac-field-input,
         .rac-message-content,
-        .rac-text-field-prefix-label,
+        .rac-field-prefix-label,
         .rac-field-help-text {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default;                                              /* @stable [03.08.2018] */
@@ -49,6 +48,12 @@
 
     .rac-dnd {
       margin-bottom: $rac-form-field-dnd-margin-bottom;               /* @stable [29.06.2018] */
+    }
+
+    .rac-field-prefix-label {
+      padding: $rac-field-prefix-label-padding;                       /* @stable [19.09.2018] */
+      cursor: default;
+      color: $rac-field-prefix-label-color;                           /* @stable [19.09.2018] */
     }
 
     .rac-field-loader {
@@ -68,17 +73,17 @@
       resize: none;                                                            /* @stable [07.08.2018] */
     }
 
-    &.rac-checkbox {
-
-      .rac-self-field-wrapper {
-        padding-bottom: $rac-checkbox-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
-      }
-    }
-
     &.rac-gridfield {
 
       .rac-text-field {
         margin-bottom: $rac-gridfield-text-field-margin-bottom;                /* @stable [19.09.2018] */
+      }
+    }
+
+    &.rac-checkbox {
+
+      .rac-self-field-wrapper {
+        padding-bottom: $rac-checkbox-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
       }
     }
 
@@ -144,6 +149,10 @@
         &:-webkit-autofill {
           transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
         }
+      }
+
+      &.rac-textarea-field {
+        height: 100% !important;                                      /* @mdc @stable [19.09.2018] */
       }
     }
 

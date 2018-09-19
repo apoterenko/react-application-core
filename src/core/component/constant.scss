@@ -212,6 +212,8 @@ $rac-field-focused-label-margin-bottom: 6px !default;
 $rac-field-focused-label-color: $rac-field-label-color !default;
 $rac-field-icon-color: $rac-default-text-color !default;
 $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
+$rac-field-prefix-label-padding: 0 0 5px 3px !default;
+$rac-field-prefix-label-color: $rac-default-text-color !default;
 $rac-field-loader-loading-message-color: $rac-default-text-color !default;
 $rac-field-help-text-margin-bottom: 2px !default;
 $rac-field-help-text-font-size: $rac-default-font-size !default;
@@ -222,7 +224,7 @@ $rac-text-field-border-width: 1px !default;
 $rac-text-field-border-color: $color-10 !default;
 $rac-text-field-active-background: $color-6 !default;
 $rac-text-field-active-icon-color: $color-15 !default;
-$rac-checkbox-self-field-wrapper-padding-bottom: 12px !default;
+$rac-checkbox-self-field-wrapper-padding-bottom: 8px !default;
 $rac-gridfield-text-field-margin-bottom: 8px !default;
 
 /* @stable [30.07.2018] */

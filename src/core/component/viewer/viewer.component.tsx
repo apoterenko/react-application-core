@@ -6,6 +6,7 @@ import { BaseComponent } from '../base';
 import { FlexLayout, CenterLayout } from '../layout';
 import { IUniversalDialog, Dialog } from '../dialog';
 import { IViewerProps, IViewerState } from './viewer.interface';
+import { PictureViewer } from '../viewer';
 
 export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TState>,
                              TProps extends IViewerProps,
@@ -66,11 +67,13 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
         {orDefault<React.ReactNode, React.ReactNode>(
           isErrorExist || isSrcAndDefaultSrcAbsent,
           () => (
-            <CenterLayout>{
-              this.t(isErrorExist
-                ? this.settings.messages.fileLoadErrorMessage
-                : this.settings.messages.noFileToShowMessage)
-            }</CenterLayout>
+            isErrorExist
+              ? (
+                <CenterLayout>{
+                  this.t(this.settings.messages.fileLoadErrorMessage)
+                }</CenterLayout>
+              )
+              : <PictureViewer usePreview={false}/>
           ),
           () => orDefault<React.ReactNode, React.ReactNode>(
             isProgressMessageShown,

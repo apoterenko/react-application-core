@@ -44,13 +44,16 @@
         .rac-field {
           width: 100%;                                              /* @stable [19.09.2018] */
 
-          .rac-text-field {
+          &.rac-checkbox {
+            width: auto;                                            /* @stable [19.09.2018] */
 
-            .rac-icon {
-              .svg-inline--fa {
-                margin-top: unset;                                  /* @stable [25.06.2018] */
-              }
+            .rac-self-field-wrapper {
+              padding-bottom: 0;                                    /* @stable [19.09.2018] */
             }
+          }
+
+          .rac-text-field {
+            margin-bottom: 0;                                       /* @stable [19.09.2018] */
           }
         }
       }

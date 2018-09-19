@@ -8,6 +8,14 @@
     flex-shrink: 0;                                                 /* @stable [16.09.2018] */
   }
 
+  .rac-flex-unset {
+    @include flex(unset);                                           /* @stable [19.09.2018] */
+  }
+
+  .rac-flex-full {
+    @include flex;                                                  /* @stable [19.09.2018] */
+  }
+
   .rac-flex-align-items-center {
     @include align-items(center);                                   /* @stable [16.09.2018] */
   }
@@ -30,11 +38,6 @@
   @include flexbox;
 }
 
-// Flex full layout [FRAMEWORK-]
-.rac-flex-full {
-  @include flex;
-}
-
 // Flex full layout (x2) [FRAMEWORK-]
 .rac-flex-full-x2 {
   @include flex(2);
@@ -53,11 +56,6 @@
 // Flex layout separator [FRAMEWORK-]
 .rac-flex-separator {
   @include flex(.1);
-}
-
-// Flex unset layout [FRAMEWORK-]
-.rac-flex-unset {
-  @include flex(unset);
 }
 
 // Flex row layout [FRAMEWORK-]
