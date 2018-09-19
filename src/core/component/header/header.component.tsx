@@ -31,21 +31,21 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                           'rac-flex',
                           'rac-flex-column',
                           props.className)}>
-        <FlexLayout row={true}
-                    className='rac-header-north'>
-          {
-            orNull<JSX.Element>(
-              props.children,
-              () => (
+        {
+          orNull<JSX.Element>(
+            props.children,
+            () => (
+              <FlexLayout row={true}
+                          className='rac-header-north'>
                 <FlexLayout row={true}
                             justifyContentEnd={true}
                             alignItemsCenter={true}>
                   {props.children}
                 </FlexLayout>
-              )
+              </FlexLayout>
             )
-          }
-        </FlexLayout>
+          )
+        }
         <FlexLayout row={true}
                     justifyContentEnd={true}
                     alignItemsCenter={true}

@@ -5,7 +5,7 @@ import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull, toClassName, nvl, cancelEvent, IJqElement, orUndef } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent, IJqElement, orUndef, parseValueAtPx } from '../../../util';
 import { IBasicEvent, UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
@@ -317,7 +317,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
         <div className='rac-field-input-caret'
-             style={{left: state.caretPosition}}>
+             style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft'))}}>
           |
         </div>
       )

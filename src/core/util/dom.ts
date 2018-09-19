@@ -179,6 +179,13 @@ export const downloadAnchoredFile = (path: string, target = '_blank'): void => {
 export const isElementFocused = (el: HTMLElement) => document.activeElement === el;
 
 /**
+ * @stable [19.09.2018]
+ * @param {string} v
+ * @returns {number}
+ */
+export const parseValueAtPx = (v: string): number => parseFloat((v || '').split('px')[0] || '0');
+
+/**
  * @stable [30.07.2018]
  * @returns {() => boolean}
  */
