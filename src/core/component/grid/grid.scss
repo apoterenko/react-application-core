@@ -41,7 +41,8 @@
         letter-spacing: $rac-grid-column-content-letter-spacing;    /* @stable [22.06.2018] */
         font-size: $rac-grid-column-content-font-size;              /* @stable [22.06.2018] */
 
-        .rac-form-field {
+        .rac-field {
+          width: 100%;                                              /* @stable [19.09.2018] */
 
           .rac-text-field {
 

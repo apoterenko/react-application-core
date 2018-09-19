@@ -120,6 +120,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
                 <TextField ref='field'
                            value={state.filter}
                            placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
+                           errorMessageRendered={false}
                            onChange={this.onInputChange}
                            onFocus={this.onInputFocus}
                            onBlur={this.onInputBlur}

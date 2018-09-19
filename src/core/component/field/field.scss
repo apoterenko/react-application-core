@@ -81,6 +81,7 @@
     }
 
     .rac-field-label {
+      height: $rac-field-label-height;                                /* @stable [19.09.2018] */
       white-space: nowrap;                                            /* @stable [08.08.2018] */
       color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
       font-size: $rac-form-field-label-font-size;                     /* @stable [08.08.2018] */
@@ -88,9 +89,9 @@
       margin-left: $rac-field-label-margin-left;                      /* @stable [08.08.2018] */
 
       &.rac-focused-label {
-        color: $rac-field-focused-label-color;                   /* @stable [08.08.2018] */
-        font-size: $rac-field-focused-label-font-size;           /* @stable [08.08.2018] */
-        margin-bottom: $rac-field-focused-label-margin-bottom;   /* @stable [17.09.2018] */
+        color: $rac-field-focused-label-color;                        /* @stable [08.08.2018] */
+        font-size: $rac-field-focused-label-font-size;                /* @stable [08.08.2018] */
+        margin-bottom: $rac-field-focused-label-margin-bottom;        /* @stable [17.09.2018] */
       }
     }
 
@@ -102,8 +103,7 @@
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
       border-color: $rac-text-field-border-color !important;          /* @mdc @stable [17.09.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
-      margin-bottom: $rac-text-field-margin-bottom;                   /* @mdc @stable [17.09.2018] */
-      margin-top: $rac-text-field-margin-top !important;              /* @mdc @stable [19.09.2018] */
+      margin-bottom: $rac-text-field-margin-bottom;                   /* @mdc @stable [19.09.2018] */
 
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */

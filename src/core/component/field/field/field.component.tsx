@@ -186,7 +186,10 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const props = this.props;
     return toClassName(
       'rac-field',
+      'rac-flex',
+      'rac-flex-column',
       'rac-flex-full',
+      'rac-flex-align-items-start',
       this.isInactive() && 'rac-field-disabled',
       props.active && 'rac-field-active',
       props.shrink && 'rac-field-shrink',

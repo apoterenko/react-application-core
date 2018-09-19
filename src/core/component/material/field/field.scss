@@ -29,13 +29,3 @@
     }
   }
 }
-
-// Form field  [MDC+]
-.rac-form {
-  .rac-form-field {
-    @include flexbox;
-    @include flex-direction(column);
-    @include justify-content(start);
-    @include align-items(flex-start);
-  }
-}
