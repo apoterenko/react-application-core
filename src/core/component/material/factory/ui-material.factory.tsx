@@ -262,12 +262,6 @@ export class UIMaterialFactory implements IUIFactory {
   public drawer = 'mdc-drawer__drawer';
   public drawerPermanent = 'mdc-drawer--permanent';
   public toolbar = 'mdc-toolbar';
-  public toolbarSection = 'mdc-toolbar__section';
-  public toolbarSectionAlignEnd = 'mdc-toolbar__section--align-end';
-  public toolbarSectionAlignStart = 'mdc-toolbar__section--align-start';
-  public toolbarRow = 'mdc-toolbar__row';
-  public toolbarTitle = 'mdc-toolbar__title';
-  public toolbarMenuIcon = 'mdc-toolbar__menu-icon';
   public list = 'mdc-list';
   public listTwoLine = 'mdc-list--two-line';
   public listAvatar = 'mdc-list--avatar-list';
@@ -354,7 +348,7 @@ export class UIMaterialFactory implements IUIFactory {
     const isButton = isFn(config.onClick);
 
     return (
-      <div key={uuid()}
+      <div key={config.key || uuid()}
            title={this.t(config.title)}
            className={toClassName(
                         config.className,

@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { orNull, toClassName } from '../../../util';
 import { IPageToolbarProps } from './page-toolbar.interface';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
+import { FlexLayout } from '../../layout';
 
 export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarProps> {
 
@@ -14,9 +15,9 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <div className={toClassName(this.uiFactory.toolbar, 'rac-toolbar', 'rac-page-toolbar', props.className)}>
-          {this.getToolbarBody()}
-        </div>
+      <FlexLayout className={toClassName('rac-toolbar', 'rac-page-toolbar', props.className)}>
+        {this.getToolbarBody()}
+      </FlexLayout>
     );
   }
 
@@ -38,11 +39,12 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
     return orNull<JSX.Element>(
       !(R.isNil(this.props.children) && R.isNil(controls)),
       () => (
-        <div className={toClassName(this.uiFactory.toolbarRow, 'rac-toolbar-content')}>
+        <FlexLayout alignItemsCenter={true}
+                    className={'rac-toolbar-content'}>
           {this.getLeftContent()}
           {controls}
           {this.getRightContent()}
-        </div>
+        </FlexLayout>
       )
     );
   }

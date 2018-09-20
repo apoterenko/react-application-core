@@ -14,12 +14,6 @@ export interface IUIFactory {
   drawer?: string;
   drawerPermanent?: string;
   toolbar?: string;
-  toolbarSection?: string;
-  toolbarSectionAlignEnd?: string;
-  toolbarSectionAlignStart?: string;
-  toolbarRow?: string;
-  toolbarTitle?: string;
-  toolbarMenuIcon?: string;
   listGroupSubHeader?: string;
   listDivider?: string;
   listItem?: string;

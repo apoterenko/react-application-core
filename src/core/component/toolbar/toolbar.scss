@@ -1,3 +1,11 @@
 @import './page/page-toolbar';
 @import './info/page-info';
 @import './search/search-toolbar';
+
+// Toolbar [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-toolbar {
+    height: 100%;           /* @stable [20.09.2018] */
+  }
+}
