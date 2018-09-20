@@ -57,7 +57,6 @@ import {
   IBeforeEnterWrapper,
   IAfterEnterWrapper,
   IUrlWrapper,
-  IStringKeyWrapper,
   ICallbackWrapper,
   IHideNavBarWrapper,
   IChildrenWrapper,
@@ -217,7 +216,8 @@ import {
   IFieldRenderedWrapper,
   IExpandActionRenderedWrapper,
   IShrinkWrapper,
-  ISubmittedWrapper
+  ISubmittedWrapper,
+  IKeyWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -751,7 +751,7 @@ export interface IRouteConfiguration extends IPathWrapper,
                                              ITitleWrapper,
                                              IInitialWrapper<boolean | ((store: IUniversalApplicationStoreEntity) => boolean)>,
                                              IExactWrapper,
-                                             IStringKeyWrapper,
+                                             IKeyWrapper,
                                              IOnEnterWrapper<() => void>,
                                              IAfterEnterWrapper<() => void>,
                                              IBeforeEnterWrapper<() => void>,

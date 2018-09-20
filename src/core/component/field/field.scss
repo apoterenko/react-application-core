@@ -97,6 +97,10 @@
       height: 100%;                                                   /* @stable [18.09.2018] */
     }
 
+    .rac-field-input-wrapper {
+      overflow: hidden;                                               /* @stable [19.09.2018] */
+    }
+
     .rac-field-label {
       height: $rac-field-label-height;                                /* @stable [19.09.2018] */
       white-space: nowrap;                                            /* @stable [08.08.2018] */

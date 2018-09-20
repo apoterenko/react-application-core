@@ -81,6 +81,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
           <div className='rac-flex'>
             {
               this.uiFactory.makeIcon({
+                key: 'keyboard-close-action',
                 type: 'cancel',
                 simple: true,
                 className: 'rac-keyboard-close',

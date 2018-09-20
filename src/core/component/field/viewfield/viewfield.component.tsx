@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Field, IFieldInputProps, toLastAddedMultiItemEntity } from '../../field';
-import { CenterLayout } from '../../layout';
+import { FlexLayout } from '../../layout';
 import { PictureViewer } from '../../viewer';
 import { IViewFieldProps } from './viewfield.interface';
 
@@ -18,11 +18,11 @@ export class ViewField extends Field<ViewField, IViewFieldProps> {
   public render(): JSX.Element {
     return (
       <div className={this.getFieldClassName()}>
-        <CenterLayout ref='self'
-                      className='rac-view-field'>
+        <FlexLayout ref='self'
+                    className='rac-view-field'>
           {this.getInputElement()}
           {this.viewElement}
-        </CenterLayout>
+        </FlexLayout>
       </div>
     );
   }

@@ -2955,13 +2955,11 @@ export interface IStepWrapper<TStep = number> {
   step?: TStep;
 }
 
-/* @stable - 15.04.2018 */
-export interface IKeyWrapper<TKey> {
+/**
+ * @stable [19.09.2018]
+ */
+export interface IKeyWrapper<TKey = string> {
   key?: TKey;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringKeyWrapper extends IKeyWrapper<string> {
 }
 
 /**
