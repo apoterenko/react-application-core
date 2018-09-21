@@ -27,6 +27,7 @@ import {
 } from './menu.interface';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
+import { cancelEvent } from '../../util';
 
 export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     implements IMenu {
@@ -108,7 +109,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
           {
             orNull<JSX.Element>(
               props.renderToCenterOfBody,
-              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action'})
+              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action', onClick: (e) => cancelEvent(e)})
             )
           }
           {orNull<JSX.Element>(
