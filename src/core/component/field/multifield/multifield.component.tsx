@@ -9,6 +9,7 @@ import { BasicSelect } from '../../field/select';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiItemEntity, IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
+import { toClassName } from '../../../util';
 
 export class MultiField<TComponent extends MultiField<TComponent, TProps, TState>,
                         TProps extends IMultiFieldProps,
@@ -24,6 +25,7 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     clearActionRendered: false,
     errorMessageRendered: false,
     forceReload: true,
+    preventFocus: true,
     displayValue: (value: MultiFieldEntityT,
                    field: MultiField<AnyT, IMultiFieldProps, IMultiFieldState>) => {
       const len = field.multiFieldPlugin.getActiveValueLength(value);
@@ -122,5 +124,13 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     return this.props.notUseActiveValueFilter
       ? result
       : result.filter((option) => !activeValue.find((item) => item.id === option.value));
+  }
+
+  /**
+   * @stable [21.09.2018]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-multifield');
   }
 }

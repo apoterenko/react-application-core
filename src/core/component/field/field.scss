@@ -35,7 +35,7 @@
         .rac-field-prefix-label,
         .rac-field-help-text {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
-        cursor: default;                                              /* @stable [03.08.2018] */
+        cursor: default !important;                                   /* @stable [21.09.2018] */
       }
     }
 
@@ -89,6 +89,13 @@
       .rac-field-label {
         margin-left: 0;                                                        /* @stable [17.09.2018] */
         line-height: $rac-checkbox-field-label-line-height;                    /* @stable [17.09.2018] */
+      }
+    }
+
+    &.rac-select, &.rac-multifield {
+
+      .rac-field-input {
+        cursor: pointer;                                              /* @stable [21.09.2018] */
       }
     }
 
