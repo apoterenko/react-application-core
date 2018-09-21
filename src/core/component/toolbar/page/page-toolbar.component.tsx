@@ -14,19 +14,14 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
    */
   public render(): JSX.Element {
     const props = this.props;
-    return (
-      <FlexLayout className={toClassName('rac-toolbar', 'rac-page-toolbar', props.className)}>
-        {this.getToolbarBody()}
-      </FlexLayout>
+    return orNull<JSX.Element>(
+      this.isToolbarVisible(),
+      () => (
+        <FlexLayout className={toClassName('rac-toolbar', 'rac-page-toolbar', props.className)}>
+          {this.getToolbarBody()}
+        </FlexLayout>
+      )
     );
-  }
-
-  /**
-   * @stable [16.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected getDefaultContent(): JSX.Element {
-    return null;
   }
 
   /**
@@ -40,7 +35,8 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
       !(R.isNil(this.props.children) && R.isNil(controls)),
       () => (
         <FlexLayout alignItemsCenter={true}
-                    className={'rac-toolbar-content'}>
+                    row={true}
+                    className='rac-toolbar-content'>
           {this.getLeftContent()}
           {controls}
           {this.getRightContent()}
@@ -54,9 +50,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
    * @returns {JSX.Element}
    */
   protected getRightContent(): JSX.Element {
-    return (
-      <div className='rac-flex-full'/>
-    );
+    return <FlexLayout/>;
   }
 
   /**
@@ -65,9 +59,9 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
    */
   protected getLeftContent(): JSX.Element {
     return (
-      <div className='rac-flex-full'>
+      <FlexLayout row={true}>
         {this.props.children}
-      </div>
+      </FlexLayout>
     );
   }
 
@@ -77,9 +71,11 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
    */
   protected getPagesElement(): JSX.Element {
     return (
-      <span className='rac-toolbar-pages-info'>
+      <FlexLayout alignItemsCenter={true}
+                  justifyContentCenter={true}
+                  className='rac-toolbar-pages-info'>
         {this.pagesInfoLabel}
-      </span>
+      </FlexLayout>
     );
   }
 
@@ -93,7 +89,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
     const isNextBtnDisabled = this.isNextBtnDisabled;
 
     return (
-      <div>
+      <FlexLayout row={true}>
         {
           this.uiFactory.makeIcon({
             type: 'first_page',
@@ -127,7 +123,7 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
             onClick: props.onLast,
           })
         }
-      </div>
+      </FlexLayout>
     );
   }
 }

@@ -2398,10 +2398,24 @@ export interface IFullWrapper<TFull = boolean> {
 }
 
 /**
+ * @stable [20.09.2018]
+ */
+export interface ISeparatorWrapper<TSeparator = boolean> {
+  separator?: TSeparator;
+}
+
+/**
  * @stable [17.09.2018]
  */
 export interface IAlignItemsCenterWrapper {
   alignItemsCenter?: boolean;
+}
+
+/**
+ * @stable [17.09.2018]
+ */
+export interface IAlignItemsEndWrapper {
+  alignItemsEnd?: boolean;
 }
 
 /**

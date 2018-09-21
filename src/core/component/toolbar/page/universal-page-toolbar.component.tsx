@@ -35,6 +35,15 @@ export abstract class UniversalPageToolbar<TToolbar extends UniversalPageToolbar
   }
 
   /**
+   * @stable [21.09.2018]
+   * @returns {boolean}
+   */
+  protected isToolbarVisible(): boolean {
+    const props = this.props;
+    return props.totalCount > props.pageSize;
+  }
+
+  /**
    * @stable [16.05.2018]
    * @returns {boolean}
    */
@@ -78,7 +87,9 @@ export abstract class UniversalPageToolbar<TToolbar extends UniversalPageToolbar
    * @stable [16.05.2018]
    * @returns {JSX.Element}
    */
-  protected abstract getDefaultContent(): JSX.Element;
+  protected getDefaultContent(): JSX.Element {
+    return null;
+  }
 
   /**
    * @stable [16.05.2018]
