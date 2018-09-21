@@ -55,16 +55,16 @@ $rac-search-toolbar-action-color: $rac-default-action-color !default;
 $rac-search-toolbar-action-margin-left: 16px !default;
 
 /* @stable [19.08.2018] */
+$rac-keyboard-opacity: .6 !default;
 $rac-keyboard-border-color: $color-17 !default;
 $rac-keyboard-close-color: $color-17 !default;
-$rac-keyboard-close-opacity: $opacity !default;
 $rac-keyboard-close-height: 24px !default;
 $rac-keyboard-close-width: 24px !default;
-$rac-keyboard-key-opacity: $opacity !default;
 $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-background-color: $color-10 !default;
-$rac-keyboard-key-border-color: $color-17 !default;
+$rac-keyboard-key-border-color: $rac-keyboard-border-color !default;
 $rac-keyboard-key-width: 56px !default;
+$rac-keyboard-key-margin: 1px !default;
 $rac-keyboard-key-height: $rac-keyboard-key-width !default;
 $rac-keyboard-key-height-factor: 16px !default;
 $rac-keyboard-key-width-factor: 8px !default;
