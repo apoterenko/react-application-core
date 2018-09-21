@@ -2717,13 +2717,6 @@ export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppl
 }
 
 /**
- * @stable [16.09.2018]
- */
-export interface IShrinkWrapper {
-  shrink?: boolean;
-}
-
-/**
  * @stable [26.08.2018]
  */
 export interface IOnRefreshWrapper<TOnRefresh = () => void> {

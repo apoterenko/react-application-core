@@ -215,7 +215,6 @@ import {
   IIndexWrapper,
   IFieldRenderedWrapper,
   IExpandActionRenderedWrapper,
-  IShrinkWrapper,
   ISubmittedWrapper,
   IKeyWrapper,
 } from './definitions.interface';
@@ -712,8 +711,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IClearActionWrapper,
-                                             IStepWrapper,
-                                             IShrinkWrapper {                                    // @stable [16.09.2018]
+                                             IStepWrapper {
 }
 
 /**
