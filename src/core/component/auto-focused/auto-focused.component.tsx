@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { IKeyboardEvent } from '../../definitions.interface';
 import { DelayedTask, orNull } from '../../util';
@@ -12,6 +13,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
   public static defaultProps: IAutoFocusedProps = {
     delayTimeout: 300,
   };
+  private static logger = LoggerFactory.makeLogger('AutoFocused');
 
   private static ROBOT_DETECTION_MIN_SYMBOLS_COUNT = 3;
   private static ENTER_KEY_CODES = [10, 13];
@@ -88,14 +90,21 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
       // Don't interfere with normal input mode
       return;
     }
+    const props = this.props;
     let char = e.key;
     const charCode = e.keyCode;
 
     if (AutoFocused.ENTER_KEY_CODES.includes(charCode)) {
+      if (props.ignoreEnterKeyCodeWrapper) {
+        AutoFocused.logger.debug('[$AutoFocused][onKeyPress] Ignore enter key code and exit.');
+        return;
+      }
       char = '\n';
     }
     this.delayedTask.start();
     this.setState({focusedFieldValue: this.state.focusedFieldValue + char});
+
+    AutoFocused.logger.debug(`[$AutoFocused][onKeyPress] Char: ${char}, char code: ${charCode}`);
   }
 
   /**

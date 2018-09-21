@@ -2752,6 +2752,13 @@ export interface IPreventFocusWrapper {
 }
 
 /**
+ * @stable [21.09.2018]
+ */
+export interface IIgnoreEnterKeyCodeWrapper {
+  ignoreEnterKeyCodeWrapper?: boolean;
+}
+
+/**
  * @stable [09.05.2018]
  */
 export interface IEmptyMessageActionConfigurationWrapper<TEmptyMessageActionConfigurationWrapper> {

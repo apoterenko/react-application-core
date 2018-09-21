@@ -1,4 +1,9 @@
-import { IDelayTimeoutWrapper, IRobotModeWrapper, IOnSelectWrapper } from '../../definitions.interface';
+import {
+  IDelayTimeoutWrapper,
+  IRobotModeWrapper,
+  IOnSelectWrapper,
+  IIgnoreEnterKeyCodeWrapper,
+} from '../../definitions.interface';
 import { IUniversalComponentConfiguration } from '../../configurations-definitions.interface';
 
 /**
@@ -6,6 +11,7 @@ import { IUniversalComponentConfiguration } from '../../configurations-definitio
  */
 export interface IAutoFocusedConfiguration extends IUniversalComponentConfiguration,
                                                    IDelayTimeoutWrapper,
+                                                   IIgnoreEnterKeyCodeWrapper,
                                                    IOnSelectWrapper<string>,
                                                    IRobotModeWrapper {
 }
