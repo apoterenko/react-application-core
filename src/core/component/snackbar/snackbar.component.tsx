@@ -25,7 +25,7 @@ export class Snackbar extends BaseComponent<Snackbar, ISnackbarProps> {
            aria-live='assertive'>
         <div className={toClassName(this.uiFactory.snackbarText, 'rac-snackbar-text')}/>
         <div className={toClassName(this.uiFactory.snackbarActionWrapper, 'rac-snackbar-action-wrapper')}>
-          <Button className={toClassName(this.uiFactory.snackbarActionButton, 'rac-snackbar-action-button')}/>
+          <Button className={toClassName(this.uiFactory.snackbarActionButton)}/>
         </div>
       </div>
     );

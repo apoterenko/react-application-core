@@ -11,40 +11,43 @@
     }
 
     .rac-form-actions {
+      @include justify-content(center);                                             /* @stable [21.09.2018] */
+
       .rac-button {
         margin-left: $rac-form-actions-button-padding-left;                         /* @stable [17.09.2018] */
+        min-width: $rac-form-actions-button-min-width;                              /* @stable [21.09.2018] */
       }
     }
 
     .rac-list, .rac-simple-list {
 
       .rac-list-item {
-        padding: 0;                                                           /* @stable [23.06.2018] */
+        padding: 0;                                                                 /* @stable [23.06.2018] */
       }
     }
 
     .rac-simple-list {
-      flex-shrink: 0;                                                         /* @layout @stable [19.09.2018] */
+      flex-shrink: 0;                                                               /* @layout @stable [19.09.2018] */
 
       .rac-list-group-subheader {
-        padding-left: 0;                                                      /* @stable [28.06.2018] */
-        padding-right: 0;                                                     /* @stable [28.06.2018] */
-        margin-left: 0;                                                       /* @stable [28.06.2018] */
-        margin-right: 0;                                                      /* @stable [28.06.2018] */
-        color: $rac-form-simple-list-group-subheader-color;                   /* @stable [28.06.2018] */
-        font-size: $rac-form-simple-list-group-subheader-font-size;           /* @stable [28.06.2018] */
-        text-transform: $rac-form-simple-list-group-subheader-text-transform; /* @stable [28.06.2018] */
+        padding-left: 0;                                                            /* @stable [28.06.2018] */
+        padding-right: 0;                                                           /* @stable [28.06.2018] */
+        margin-left: 0;                                                             /* @stable [28.06.2018] */
+        margin-right: 0;                                                            /* @stable [28.06.2018] */
+        color: $rac-form-simple-list-group-subheader-color;                         /* @stable [28.06.2018] */
+        font-size: $rac-form-simple-list-group-subheader-font-size;                 /* @stable [28.06.2018] */
+        text-transform: $rac-form-simple-list-group-subheader-text-transform;       /* @stable [28.06.2018] */
       }
 
       .rac-list-item {
 
         .rac-list-item-graphic {
-          border-radius: $rac-form-simple-list-item-graphic-border-radius;    /* @stable [25.06.2018] */
-          margin-right: $rac-form-simple-list-item-graphic-margin-right;      /* @stable [03.08.2018] */
+          border-radius: $rac-form-simple-list-item-graphic-border-radius;          /* @stable [25.06.2018] */
+          margin-right: $rac-form-simple-list-item-graphic-margin-right;            /* @stable [03.08.2018] */
         }
 
         .rac-list-item-text {
-          white-space: normal;                                                /* @stable [04.07.2018] */
+          white-space: normal;                                                      /* @stable [04.07.2018] */
         }
       }
     }
