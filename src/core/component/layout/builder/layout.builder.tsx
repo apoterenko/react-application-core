@@ -51,6 +51,7 @@ export class LayoutBuilder {
    */
   private buildHorizontalLayout(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     const children = [];
+    const root = this.isRootLevel;
     const filteredItems = layoutConfig.children.filter((item) => !R.isNil(item));
 
     filteredItems.forEach((item, index) => {
@@ -61,7 +62,7 @@ export class LayoutBuilder {
         );
       }
     });
-    return this.layoutViewBuilder.buildRowView(this.key, children, layoutConfig);
+    return this.layoutViewBuilder.buildRowView(this.key, children, layoutConfig, root);
   }
 
   /**
@@ -70,6 +71,7 @@ export class LayoutBuilder {
    * @returns {React.ReactNode}
    */
   private buildVerticalLayout(layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
+    const root = this.isRootLevel;
     return this.layoutViewBuilder.buildColumnView(
       this.key,
       R.isNil(layoutConfig.children)
@@ -77,7 +79,8 @@ export class LayoutBuilder {
         : layoutConfig.children
           .filter((item) => !R.isNil(item))
           .map((item) => this.clone(item, layoutConfig)),
-      layoutConfig
+      layoutConfig,
+      root
     );
   }
 
@@ -115,5 +118,13 @@ export class LayoutBuilder {
    */
   private get newKey(): string {
     return `${this.layoutId}-${this.index++}`;
+  }
+
+  /**
+   * @stable [21.09.2018]
+   * @returns {boolean}
+   */
+  private get isRootLevel(): boolean {
+    return this.index === 0;
   }
 }

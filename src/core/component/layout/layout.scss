@@ -4,12 +4,31 @@
 
 .rac {
 
-  .rac-layout-view-row {
-    flex-shrink: 0;                                                 /* @stable [16.09.2018] */
+  .rac-layout-view-root {
+
+    .rac-flex-row,
+      .rac-flex-column,
+      &.rac-flex-row,
+      &.rac-flex-column {
+
+      flex-shrink: 0;                                               /* @layout @stable [21.09.2018] */
+
+      &.rac-flex-full {
+        flex-shrink: 0;                                             /* @layout @stable [21.09.2018] */
+      }
+    }
   }
 
   .rac-flex-unset {
     @include flex(unset);                                           /* @stable [19.09.2018] */
+  }
+
+  .rac-flex-row {
+    @include flex-direction(row);                                   /* @stable [21.09.2018] */
+  }
+
+  .rac-flex-column {
+    @include flex-direction(column);                                /* @stable [21.09.2018] */
   }
 
   .rac-flex-full {
@@ -59,16 +78,6 @@
 // Flex full layout (x8) [FRAMEWORK-]
 .rac-flex-full-x8 {
   @include flex(8);
-}
-
-// Flex row layout [FRAMEWORK-]
-.rac-flex-row {
-  @include flex-direction(row);
-}
-
-// Flex column layout [FRAMEWORK-]
-.rac-flex-column {
-  @include flex-direction(column);
 }
 
 // Flex center layout [FRAMEWORK-]

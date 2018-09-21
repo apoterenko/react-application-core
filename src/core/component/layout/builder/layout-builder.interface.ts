@@ -6,10 +6,9 @@ import {
   ILayoutBuilderConfiguration,
 } from '../../../configurations-definitions.interface';
 
-/* @stable - 16.04.2018 */
 export interface ILayoutViewBuilder {
-  buildRowView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode;
-  buildColumnView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode;
+  buildRowView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration, root: boolean): React.ReactNode;
+  buildColumnView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration, root: boolean): React.ReactNode;
   buildSeparatorView(props: IKeyValue): React.ReactNode;
   isReactElement(item: LayoutBuilderElementT): boolean;
   cloneReactElement(item: JSX.Element, props: React.ClassAttributes<{}>): JSX.Element;

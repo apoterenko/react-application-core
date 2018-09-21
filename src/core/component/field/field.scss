@@ -9,11 +9,6 @@
 .rac {
 
   .rac-form-field, .rac-field {       // TODO rac-form-field - legacy
-    flex-shrink: 0;                                                   /* @layout @stable [17.09.2018] */
-
-    &.rac-field-shrink {
-      flex-shrink: 1;                                                 /* @layout @stable [17.09.2018] */
-    }
 
     &.rac-field-active {
 

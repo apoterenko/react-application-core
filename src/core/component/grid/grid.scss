@@ -10,6 +10,16 @@
     overflow: auto;                                                                 /* @stable [11.09.2018] */
   }
 
+  .rac-layout-view-root {
+
+    .rac-grid {
+
+      &.rac-flex-row, &.rac-flex-column {
+        flex-shrink: 1;                                                             /* @layout @stable [21.09.2018] */
+      }
+    }
+  }
+
   .rac-grid {
     color: $rac-grid-color;                                                         /* @stable [21.06.2018] */
     border-collapse: collapse;                                                      /* @stable [21.06.2018] */

@@ -12,26 +12,30 @@ import { ILayoutViewBuilder } from './layout-builder.interface';
 export abstract class BaseLayoutViewBuilder implements ILayoutViewBuilder {
 
   /**
-   * @stable - 20.04.2018
+   * @stable [20.04.2018]
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @param {boolean} root
    * @returns {React.ReactNode}
    */
   public abstract buildRowView(props: IKeyValue,
                                children: React.ReactNode[],
-                               layoutConfig: ILayoutBuilderConfiguration): React.ReactNode;
+                               layoutConfig: ILayoutBuilderConfiguration,
+                               root: boolean): React.ReactNode;
 
   /**
-   * @stable - 20.04.2018
+   * @stable [20.04.2018]
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @param {boolean} root
    * @returns {React.ReactNode}
    */
   public abstract buildColumnView(props: IKeyValue,
                                   children: React.ReactNode[],
-                                  layoutConfig: ILayoutBuilderConfiguration): React.ReactNode;
+                                  layoutConfig: ILayoutBuilderConfiguration,
+                                  root: boolean): React.ReactNode;
 
   /**
    * @stable - 20.04.2018

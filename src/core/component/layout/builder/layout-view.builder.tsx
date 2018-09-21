@@ -11,20 +11,22 @@ import { BaseLayoutViewBuilder } from './base-layout-view.builder';
 export class LayoutViewBuilder extends BaseLayoutViewBuilder {
 
   /**
-   * @stable [16.09.2018]
+   * @stable [21.09.2018]
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @param {boolean} root
    * @returns {React.ReactNode}
    */
   public buildRowView(props: IKeyValue,
                       children: React.ReactNode[],
-                      layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
+                      layoutConfig: ILayoutBuilderConfiguration,
+                      root: boolean): React.ReactNode {
     return (
       <div className={toClassName(
+                       root && 'rac-layout-view-root',
                        'rac-flex',
                        'rac-flex-row',
-                       'rac-layout-view-row',
                        this.toFactorClassName(layoutConfig.factor)
                      )}
            {...props}>
@@ -34,17 +36,20 @@ export class LayoutViewBuilder extends BaseLayoutViewBuilder {
   }
 
   /**
-   * @stable - 19.04.2018
+   * @stable [19.04.2018]
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
    * @param {ILayoutBuilderConfiguration} layoutConfig
+   * @param {boolean} root
    * @returns {React.ReactNode}
    */
   public buildColumnView(props: IKeyValue,
                          children: React.ReactNode[],
-                         layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
+                         layoutConfig: ILayoutBuilderConfiguration,
+                         root: boolean): React.ReactNode {
     return (
       <div className={toClassName(
+              root && 'rac-layout-view-root',
               'rac-flex',
               'rac-flex-column',
               this.toFactorClassName(layoutConfig.factor)
