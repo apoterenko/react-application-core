@@ -22,11 +22,14 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
                             'rac-flex',
                             props.row ? 'rac-flex-row' : 'rac-flex-column',
                             props.full && 'rac-flex-full',
+                            props.separator && 'rac-flex-separator',
                             props.alignItemsCenter && 'rac-flex-align-items-center',
+                            props.alignItemsEnd && 'rac-flex-align-items-end',
                             props.justifyContentCenter && 'rac-flex-justify-content-center',
                             props.justifyContentEnd && 'rac-flex-justify-content-end'
                         )}
-             style={props.style}>
+             style={props.style}
+             onClick={props.onClick}>
           {props.children}
         </div>
     );

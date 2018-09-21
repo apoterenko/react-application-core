@@ -10,6 +10,8 @@
       margin: 8px 8px 8px auto;                               /* @stable [17.09.2018] */
       cursor: pointer;                                        /* @stable [25.06.2018] */
       color: $rac-menu-close-action-color;                    /* @stable [26.06.2018] */
+      width: $rac-menu-close-action-size;                     /* @stable [21.09.2018] */
+      height: $rac-menu-close-action-size;                    /* @stable [21.09.2018] */
     }
 
     .rac-menu-field-wrapper {
@@ -36,6 +38,8 @@
 
             &.rac-icon {
               margin-right: $rac-menu-item-icon-margin-right; /* @stable [25.06.2018] */
+              width: $rac-menu-item-icon-size;                /* @stable [21.09.2018] */
+              height: $rac-menu-item-icon-size;               /* @stable [21.09.2018] */
             }
           }
         }

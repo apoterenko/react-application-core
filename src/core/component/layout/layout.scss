@@ -16,12 +16,20 @@
     @include flex;                                                  /* @stable [19.09.2018] */
   }
 
+  .rac-flex-separator {
+    @include flex(.1);                                              /* @stable [20.09.2018] */
+  }
+
   .rac-flex-align-items-center {
     @include align-items(center);                                   /* @stable [16.09.2018] */
   }
 
   .rac-flex-align-items-start {
     @include align-items(flex-start);                               /* @stable [19.09.2018] */
+  }
+
+  .rac-flex-align-items-end {
+    @include align-items(flex-end);                                 /* @stable [20.09.2018] */
   }
 
   .rac-flex-justify-content-center {
@@ -51,11 +59,6 @@
 // Flex full layout (x8) [FRAMEWORK-]
 .rac-flex-full-x8 {
   @include flex(8);
-}
-
-// Flex layout separator [FRAMEWORK-]
-.rac-flex-separator {
-  @include flex(.1);
 }
 
 // Flex row layout [FRAMEWORK-]

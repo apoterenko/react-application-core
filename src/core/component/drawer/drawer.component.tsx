@@ -11,7 +11,8 @@ export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const opened = this.props.opened;
+    const props = this.props;
+    const opened = props.opened;
     return (
       <aside ref='self'
              className={toClassName(
@@ -20,8 +21,8 @@ export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
                          this.uiFactory.drawerOpen,
                          !opened && 'rac-drawer-wrapper-short',
                        )}>
-        <nav className={toClassName('rac-drawer', this.uiFactory.drawer)}>
-          {this.props.children}
+        <nav className={toClassName('rac-drawer', 'rac-flex', 'rac-flex-column', this.uiFactory.drawer)}>
+          {props.children}
         </nav>
       </aside>
     );

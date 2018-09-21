@@ -8,6 +8,7 @@ html, body {
   height: 100%;                                                                     /* @stable [16.09.2018] */
   width: 100%;                                                                      /* @stable [16.09.2018] */
   -webkit-tap-highlight-color: transparent;                                         /* @stable [16.09.2018] */
+  overflow: $html-overflow;                                                         /* @stable [21.09.2018] */
 }
 
 // Rac [FRAMEWORK-]
@@ -217,7 +218,7 @@ html, body {
   }
 
   .rac-opacity-2 {
-    opacity: $opacity-2;                            /* @stable [26.06.2018] */
+    opacity: $opacity;                              /* @stable [26.06.2018] */
   }
 
   .rac-strong {

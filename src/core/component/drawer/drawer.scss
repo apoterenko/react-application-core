@@ -3,12 +3,10 @@
 // Drawer [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-drawer {
-    height: 100%;                                                                    /* @stable [18.09.2018] */
+  .rac-drawer {                                                                      /* @stable [18.09.2018] */
     background: $rac-drawer-background;                                              /* @stable [17.09.2018] */
 
     .rac-navigation-list {
-      height: 100%;                                                                  /* @stable [18.09.2018] */
       padding-bottom: $rac-drawer-navigation-list-padding-bottom;                    /* @stable [02.08.2018] */
     }
   }

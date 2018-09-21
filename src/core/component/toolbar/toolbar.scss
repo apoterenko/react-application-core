@@ -1,11 +1,18 @@
 @import './page/page-toolbar';
 @import './info/page-info';
-@import './search/search-toolbar';
 
 // Toolbar [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-toolbar {
-    height: 100%;           /* @stable [20.09.2018] */
+    height: 100%;                                                         /* @stable [20.09.2018] */
+
+    &.rac-search-toolbar {
+
+      .rac-search-toolbar-action {
+        color: $rac-search-toolbar-action-color;                          /* @stable [21.09.2018] */
+        margin-left: $rac-search-toolbar-action-margin-left;              /* @stable [21.09.2018] */
+      }
+    }
   }
 }
