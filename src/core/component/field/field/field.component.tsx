@@ -192,7 +192,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       'rac-flex-align-items-start',
       this.isInactive() && 'rac-field-disabled',
       props.active && 'rac-field-active',
-      props.shrink && 'rac-field-shrink',
       this.uiFactory.formField,
       props.className,
       'rac-form-field'   // TODO Legacy
