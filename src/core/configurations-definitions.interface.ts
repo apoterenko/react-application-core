@@ -217,6 +217,7 @@ import {
   IExpandActionRenderedWrapper,
   ISubmittedWrapper,
   IKeyWrapper,
+  IParentWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -896,6 +897,8 @@ export interface INavigationListItemConfiguration extends IActiveWrapper,
                                                           IIconWrapper,
                                                           ILinkWrapper,
                                                           ILabelWrapper,
+                                                          IValueWrapper,
+                                                          IParentWrapper<INavigationListItemConfiguration>,
                                                           IChildrenWrapper<INavigationListItemConfiguration[]>,
                                                           IAccessConfigurationWrapper<IAccessConfiguration>,
                                                           ITypeWrapper<NavigationListItemTypeEnum> {

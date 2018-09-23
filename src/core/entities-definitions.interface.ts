@@ -119,6 +119,7 @@ import {
   ITabPanelWrapper,
   IWidthWrapper,
   ITextAlignWrapper,
+  IExpandedGroupsWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -661,9 +662,10 @@ export interface IStackWrapperEntity extends IStackWrapper<IStackEntity> {
 export type LayoutT = 'full' | 'minimal';
 
 /**
- * @stable [10.08.2018]
+ * @stable [23.09.2018]
  */
-export interface ILayoutEntity extends IModeWrapper<LayoutT>,
+export interface ILayoutEntity extends IExpandedGroupsWrapper,
+                                       IModeWrapper<LayoutT>,
                                        IXYEntity {
 }
 

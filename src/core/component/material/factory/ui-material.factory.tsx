@@ -32,6 +32,7 @@ import {
   faAngleDoubleRight,
   faTabletAlt,
   faAngleDoubleLeft,
+  faListUl,
   faFileInvoiceDollar,
   faSignOutAlt,
   faSearch,
@@ -110,6 +111,7 @@ import {
   faIdCard,
   faClock,
   faAddressCard,
+  faObjectGroup as faObjectGroupRegular,
   faTrashAlt,
   faHdd,
   faFileAlt,
@@ -172,6 +174,7 @@ export class UIMaterialFactory implements IUIFactory {
     filter_list: faFilter,
     error_outline: faExclamation,
     done: faCheck,
+    object_group_regular: faObjectGroupRegular,
     check: faCheck,
     first_page: faAngleDoubleLeft,
     last_page: faAngleDoubleRight,
@@ -223,6 +226,7 @@ export class UIMaterialFactory implements IUIFactory {
     navigate_next: faChevronRight,
     plug: faPlug,
     info: faInfo,
+    list_ul: faListUl,
     binoculars: faBinoculars,
     search_plus: faSearchPlus,
     eye: faEye,
@@ -258,7 +262,6 @@ export class UIMaterialFactory implements IUIFactory {
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
   public snackbarActionButton = 'mdc-snackbar__action-button';
   public icons = 'material-icons';
-  public drawerOpen = 'mdc-drawer--open';
   public drawer = 'mdc-drawer__drawer';
   public drawerPermanent = 'mdc-drawer--permanent';
   public toolbar = 'mdc-toolbar';

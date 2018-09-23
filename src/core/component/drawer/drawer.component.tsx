@@ -12,16 +12,15 @@ export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const opened = props.opened;
+    const mini = props.mini;
     return (
       <aside ref='self'
              className={toClassName(
                          'rac-drawer-wrapper',
                          this.uiFactory.drawerPermanent,
-                         this.uiFactory.drawerOpen,
-                         !opened && 'rac-drawer-wrapper-short',
+                         mini && 'rac-drawer-wrapper-mini',
                        )}>
-        <nav className={toClassName('rac-drawer', 'rac-flex', 'rac-flex-column', this.uiFactory.drawer)}>
+        <nav className={toClassName('rac-drawer', 'rac-flex', 'rac-flex-column', 'rac-flex-full', this.uiFactory.drawer)}>
           {props.children}
         </nav>
       </aside>
