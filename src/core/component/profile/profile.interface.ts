@@ -1,4 +1,4 @@
-import { IPathWrapper, IAppVersionWrapper, IOnActionClickWrapper } from '../../definitions.interface';
+import { IPathWrapper, IAppVersionWrapper, IOnActionClickWrapper, IAvatarRenderedWrapper } from '../../definitions.interface';
 import { IComponentProps } from '../../props-definitions.interface';
 
 /**
@@ -6,6 +6,7 @@ import { IComponentProps } from '../../props-definitions.interface';
  */
 export interface IProfileProps extends IComponentProps,
                                        IPathWrapper,
+                                       IAvatarRenderedWrapper,
                                        IAppVersionWrapper,
                                        IOnActionClickWrapper {
 }

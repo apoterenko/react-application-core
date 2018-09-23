@@ -657,15 +657,18 @@ export interface IStackWrapperEntity extends IStackWrapper<IStackEntity> {
 }
 
 /**
- * @stable [10.08.2018]
+ * @stable [23.09.2018]
  */
-export type LayoutT = 'full' | 'minimal';
+export enum LayoutModeEnum {
+  FULL,
+  MINIMAL,
+}
 
 /**
  * @stable [23.09.2018]
  */
 export interface ILayoutEntity extends IExpandedGroupsWrapper,
-                                       IModeWrapper<LayoutT>,
+                                       IModeWrapper<LayoutModeEnum>,
                                        IXYEntity {
 }
 

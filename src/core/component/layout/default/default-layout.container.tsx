@@ -13,12 +13,7 @@ import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
 import { IOperationEntity, LayoutModeEnum } from '../../../entities-definitions.interface';
-import {
-  ILayoutEntity,
-  IStringMenuActionEntity,
-  IXYEntity,
-  IMenuItemEntity,
-} from '../../../entities-definitions.interface';
+import { ILayoutEntity, IStringMenuActionEntity, IXYEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper, IBasicEvent, StringNumberT } from '../../../definitions.interface';
@@ -214,12 +209,14 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   private get drawerElement(): JSX.Element {
     const props = this.props;
+    const layoutFullModeEnabled = this.layoutFullModeEnabled;
     return (
-      <Drawer mini={!this.layoutFullModeEnabled}>
+      <Drawer mini={!layoutFullModeEnabled}>
         <FlexLayout row={true}
                     alignItemsCenter={true}
                     className='rac-drawer-toolbar-spacer'>
           <Profile path={this.routes.home}
+                   avatarRendered={layoutFullModeEnabled}
                    appVersion={ENV.appVersion}
                    onActionClick={this.onLogoMenuActionClick}/>
         </FlexLayout>

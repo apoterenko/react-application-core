@@ -3,20 +3,28 @@ import {
   INavigationListItemConfiguration,
   IUniversalComponentConfiguration,
 } from '../../../configurations-definitions.interface';
-import { IItemsWrapper, IOnChangeWrapper } from '../../../definitions.interface';
+import {
+  IItemsWrapper,
+  IOnClickWrapper,
+  IExpandedGroupsWrapper,
+  IOnGroupClickWrapper,
+} from '../../../definitions.interface';
+import { ILayoutEntity } from '../../../entities-definitions.interface';
 
 /**
- * @stable [10.08.2018]
+ * @stable [23.09.2018]
  */
 export interface INavigationListConfiguration extends IUniversalComponentConfiguration,
+                                                      IExpandedGroupsWrapper,
                                                       IItemsWrapper<INavigationListItemConfiguration[]>,
-                                                      IOnChangeWrapper<IXYEntity> {
+                                                      IOnClickWrapper<IXYEntity>,
+                                                      IOnGroupClickWrapper<INavigationListItemConfiguration> {
 }
 
 /**
  * @stable [10.08.2018]
  */
-export interface INavigationListEntity extends IXYEntity {
+export interface INavigationListEntity extends ILayoutEntity {
 }
 
 /**

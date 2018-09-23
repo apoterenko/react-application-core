@@ -32,7 +32,12 @@ export class Profile extends BaseComponent<Profile, IProfileProps> {
             () => <div className='rac-profile-app-version'>{props.appVersion}</div>
           )
         }
-        <div className='rac-profile-avatar'/>
+        {
+          orNull<JSX.Element>(
+            props.avatarRendered,
+            () => <div className='rac-profile-avatar'/>
+          )
+        }
         {this.uiFactory.makeIcon({
           type: 'menu',
           className: 'rac-logo-menu-action',

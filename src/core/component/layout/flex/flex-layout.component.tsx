@@ -28,6 +28,7 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
                             props.justifyContentCenter && 'rac-flex-justify-content-center',
                             props.justifyContentEnd && 'rac-flex-justify-content-end'
                         )}
+             title={props.title}
              style={props.style}
              onClick={props.onClick}>
           {props.children}

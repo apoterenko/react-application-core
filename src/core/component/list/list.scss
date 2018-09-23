@@ -1,6 +1,5 @@
 @import '../constant';
 @import './navigation/navigation-list';
-@import './subheader/subheader';
 
 // List [FRAMEWORK-][RAC+]
 .rac {
@@ -95,9 +94,9 @@
         opacity: $rac-add-button-icon-opacity;                      /* @stable [25.06.2018] */
         border-radius: $rac-add-button-icon-border-radius;          /* @stable [25.06.2018] */
 
-        .svg-inline--fa {
-          width: $rac-add-button-fa-icon-width;                     /* @stable [24.06.2018] */
-          height: $rac-add-button-fa-icon-height;                   /* @stable [24.06.2018] */
+        svg {
+           width: $rac-add-button-fa-icon-width;                    /* @stable [24.06.2018] */
+           height: $rac-add-button-fa-icon-height;                  /* @stable [24.06.2018] */
         }
       }
     }

@@ -496,6 +496,13 @@ export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value?: TCh
 }
 
 /**
+ * @stable [23.09.2018]
+ */
+export interface IOnGroupClickWrapper<TGroup = AnyT, TOnGroupClick = (value?: TGroup) => void> {
+  onGroupClick?: TOnGroupClick;
+}
+
+/**
  * @stable [29.07.2018]
  */
 export interface IOnChangePlaceWrapper<TChangedValue = AnyT, TOnChangePlace = (value?: TChangedValue) => void> {
@@ -973,6 +980,13 @@ export interface ISeparatorsWrapper<TSeparators> {
  */
 export interface IRenderedWrapper {
   rendered?: boolean;
+}
+
+/**
+ * @stable [23.09.2018]
+ */
+export interface IAvatarRenderedWrapper {
+  avatarRendered?: boolean;
 }
 
 /**
@@ -2296,6 +2310,13 @@ export interface IBlockWrapper<TBlock = boolean> {
 }
 
 /**
+ * @stable [23.09.2018]
+ */
+export interface IParentWrapper<TParent> {
+  parent?: TParent;
+}
+
+/**
  * @stable [16.06.2018]
  */
 export interface IParentsWrapper<TParents> {
@@ -2742,6 +2763,13 @@ export interface IEmptyMessageActionWrapper {
  */
 export interface IPreventFocusWrapper {
   preventFocus?: boolean;
+}
+
+/**
+ * @stable [23.09.2018]
+ */
+export interface IMiniWrapper {
+  mini?: boolean;
 }
 
 /**
