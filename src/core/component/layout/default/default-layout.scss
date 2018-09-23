@@ -147,6 +147,10 @@
         .rac-navigation-list-item {
           height: $rac-default-layout-drawer-navigation-list-item-height;                           /* @stable [23.069.2018] */
 
+          &.rac-navigation-list-item-as-group {
+            height: $rac-default-layout-drawer-navigation-list-group-subheader-height;              /* @stable [23.09.2018] */
+          }
+
           .rac-navigation-list-icon {
             &.rac-icon {
               min-width: $rac-default-layout-drawer-navigation-list-icon-width;                     /* @stable [23.09.2018] */

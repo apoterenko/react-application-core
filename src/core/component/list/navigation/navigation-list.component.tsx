@@ -69,8 +69,8 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                       className={toClassName(
                         'rac-navigation-list-group-subheader',
                         isGroupItemActive
-                          ? 'rac-navigation-list-group-subheader-active'
-                          : (isExpanded ? 'rac-navigation-list-group-subheader-expanded' : ''),
+                          ? 'rac-navigation-list-item-active'
+                          : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
                       )}
                       title={label}
                       onClick={() => this.onGroupLinkClick(item)}>
@@ -82,16 +82,27 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
             {
               orNull<JSX.Element>(
                 fullLayoutModeEnabled,
-                () => <span className='rac-navigation-list-group-label'>{label}</span>
+                () => <span className='rac-navigation-list-group-label rac-flex-full'>{label}</span>
               )
             }
+            {orNull<JSX.Element>(
+              fullLayoutModeEnabled,
+              () => (
+                this.uiFactory.makeIcon({
+                  key: this.toUniqueKey(item.label, 'group-expand-icon'),
+                  type: isExpanded ? 'chevron_up' : 'chevron_down',
+                  className: 'rac-navigation-list-group-subheader-expand-icon rac-navigation-list-group-subheader-icon',
+                })
+              )
+            )}
           </FlexLayout>
         );
       case NavigationListItemTypeEnum.DIVIDER:
         return <ListDivider key={R.isNil(item.parent) ? uuid() : this.toUniqueKey(item.parent.label, 'divider')}/>;
       default:
+        const itemAsGroup = R.isNil(item.parent);
         return orNull<JSX.Element>(
-          isExpanded || !fullLayoutModeEnabled,
+          isExpanded || itemAsGroup,
           () => (
             <Link to={item.link}
                   key={this.toUniqueKey(item.link, 'link')}
@@ -100,6 +111,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                     item.active
                       ? 'rac-navigation-list-item-active'
                       : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
+                    itemAsGroup && 'rac-navigation-list-item-as-group',
                     'rac-flex',
                     'rac-flex-row',
                     'rac-flex-full',
