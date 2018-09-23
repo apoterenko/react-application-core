@@ -196,7 +196,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
               onNavigationActionClick={this.onHeaderNavigationActionClick}
               onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
         <div className='rac-user-photo'
-             style={{backgroundImage: `url(${user.url || 'media/no_avatar.jpg'})`}}>&nbsp;</div>
+             style={{backgroundImage: `url(${user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
         <div className='rac-user'>{user.name}</div>
         {this.userMenuElement}
       </Header>

@@ -56,18 +56,21 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
    */
   private toElement(item: INavigationListItemConfiguration): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
-    const fullLayoutModeEnabled = !this.fullLayoutModeEnabled;
+    const fullLayoutModeEnabled = this.fullLayoutModeEnabled;
     const label = this.t(item.label);
 
     switch (item.type) {
       case NavigationListItemTypeEnum.SUB_HEADER:
+        const isGroupItemActive = !isExpanded && this.hasActiveChild(item);
         return (
           <FlexLayout key={this.toUniqueKey(item.label, 'label')}
                       row={true}
                       alignItemsCenter={true}
                       className={toClassName(
                         'rac-navigation-list-group-subheader',
-                        isExpanded && 'rac-navigation-list-group-subheader-expanded',
+                        isGroupItemActive
+                          ? 'rac-navigation-list-group-subheader-active'
+                          : (isExpanded ? 'rac-navigation-list-group-subheader-expanded' : ''),
                       )}
                       title={label}
                       onClick={() => this.onGroupLinkClick(item)}>
@@ -78,7 +81,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
             })}
             {
               orNull<JSX.Element>(
-                !fullLayoutModeEnabled,
+                fullLayoutModeEnabled,
                 () => <span className='rac-navigation-list-group-label'>{label}</span>
               )
             }
@@ -111,7 +114,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
               })}
               {
                 orNull<JSX.Element>(
-                  !fullLayoutModeEnabled,
+                  fullLayoutModeEnabled,
                   () => <span className='rac-navigation-list-item-label'>{label}</span>
                 )
               }
@@ -170,5 +173,15 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
    */
   private get fullLayoutModeEnabled(): boolean {
     return this.props.mode === LayoutModeEnum.FULL;
+  }
+
+  /**
+   * @stable [23.09.2018]
+   * @param {INavigationListItemConfiguration} item
+   * @returns {boolean}
+   */
+  private hasActiveChild(item: INavigationListItemConfiguration): boolean {
+    const activeItem = R.find((itm) => !!itm.active, this.props.items);
+    return !R.isNil(activeItem) && !R.isNil(R.find((child) => child.link === activeItem.link, item.children || []));
   }
 }

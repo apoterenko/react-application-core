@@ -16,6 +16,15 @@
 
       &:hover {
         background-color: $rac-navigation-list-item-hover-background-color;    /* @stable [23.09.2018] */
+
+        &.rac-navigation-list-group-subheader-active {
+          background-color: $rac-navigation-list-item-active-background-color; /* @stable [23.09.2018] */
+        }
+      }
+
+      &.rac-navigation-list-group-subheader-active {
+        color: $rac-navigation-list-item-active-color;                         /* @stable [23.09.2018] */
+        background-color: $rac-navigation-list-item-active-background-color;   /* @stable [23.09.2018] */
       }
 
       &.rac-navigation-list-group-subheader-expanded {

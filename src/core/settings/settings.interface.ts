@@ -95,6 +95,7 @@ export interface IApplicationSettings {
   downloadUrl?: string;
   metaFilesJsonUrl?: string;
   pdfWorkerDirectoryUrl?: string;
+  emptyPictureUrl?: string;
   companyName?: string;
   companyCountry?: string;
   usePersistence?: boolean;
@@ -121,6 +122,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   apiUrl: prepareUrl(ENV.basePath + '/api/'),
   binaryUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
+  emptyPictureUrl: 'media/no_avatar.jpg',
   companyName: 'Test company',
   entityEmptyId: null,
   messages: {
