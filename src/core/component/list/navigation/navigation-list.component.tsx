@@ -77,7 +77,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
             {this.uiFactory.makeIcon({
               key: this.toUniqueKey(item.label, 'group-icon'),
               type: item.icon || 'list_ul',
-              className: 'rac-navigation-list-item-icon',
+              className: 'rac-navigation-list-icon',
             })}
             {
               orNull<JSX.Element>(
@@ -91,7 +91,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                 this.uiFactory.makeIcon({
                   key: this.toUniqueKey(item.label, 'group-expand-icon'),
                   type: isExpanded ? 'chevron_up' : 'chevron_down',
-                  className: 'rac-navigation-list-group-subheader-expand-icon rac-navigation-list-item-icon',
+                  className: 'rac-navigation-list-group-subheader-expand-icon rac-navigation-list-icon',
                 })
               )
             )}

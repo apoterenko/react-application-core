@@ -24,6 +24,7 @@
 
       &.rac-navigation-list-item-expanded {
         background-color: $rac-navigation-list-item-expanded-background-color;          /* @stable [23.09.2018] */
+        opacity: $rac-navigation-list-item-expanded-opacity;                            /* @stable [23.09.2018] */
 
         &:hover {
           background-color: $rac-navigation-list-item-hover-background-color;           /* @stable [23.09.2018] */

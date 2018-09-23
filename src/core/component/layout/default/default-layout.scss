@@ -135,12 +135,6 @@
 
         .rac-navigation-list-group-subheader {
           height: $rac-default-layout-drawer-navigation-list-group-subheader-height;                /* @stable [23.09.2018] */
-
-          .rac-navigation-list-item-icon {
-            &.rac-icon {
-              min-width: $rac-default-layout-drawer-navigation-list-group-icon-width;               /* @stable [23.09.2018] */
-            }
-          }
         }
 
         .rac-navigation-list-item {
@@ -149,11 +143,11 @@
           &.rac-navigation-list-item-as-group {
             height: $rac-default-layout-drawer-navigation-list-group-subheader-height;              /* @stable [23.09.2018] */
           }
+        }
 
-          .rac-navigation-list-icon {
-            &.rac-icon {
-              min-width: $rac-default-layout-drawer-navigation-list-icon-width;                     /* @stable [23.09.2018] */
-            }
+        .rac-navigation-list-icon {
+          &.rac-icon {
+            min-width: $rac-default-layout-drawer-navigation-list-icon-width;                       /* @stable [24.09.2018] */
           }
         }
       }
