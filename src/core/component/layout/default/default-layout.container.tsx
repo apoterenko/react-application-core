@@ -1,14 +1,10 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { Drawer } from '../../drawer';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import { toClassName, orNull, isFn, cancelEvent } from '../../../util';
-import {
-  LAYOUT_FULL_MODE,
-  LAYOUT_MINIMAL_MODE,
-  LAYOUT_UPDATE_ACTION_TYPE,
-} from '../layout.interface';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerProps } from './default-layout.interface';
 import { Header } from '../../header';
@@ -16,7 +12,7 @@ import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
-import { IOperationEntity } from '../../../entities-definitions.interface';
+import { IOperationEntity, LayoutModeEnum } from '../../../entities-definitions.interface';
 import {
   ILayoutEntity,
   IStringMenuActionEntity,
@@ -25,9 +21,14 @@ import {
 } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
-import { IPayloadWrapper, IBasicEvent } from '../../../definitions.interface';
+import { IPayloadWrapper, IBasicEvent, StringNumberT } from '../../../definitions.interface';
 import { Message } from '../../message';
-import { CenterLayout } from '../../layout';
+import {
+  CenterLayout,
+  LAYOUT_XY_UPDATE_ACTION_TYPE,
+  LAYOUT_MODE_UPDATE_ACTION_TYPE,
+  LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
+} from '../../layout';
 import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { APPLICATION_SECTIONS } from '../../application';
@@ -61,7 +62,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
     this.onUserMenuSelect = this.onUserMenuSelect.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
-    this.onChangeNavigationList = this.onChangeNavigationList.bind(this);
+    this.onNavigationListItemClick = this.onNavigationListItemClick.bind(this);
+    this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
   }
 
   /**
@@ -115,12 +117,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
+   * @stable [23.09.2018]
    */
   private onLogoMenuActionClick(): void {
-    this.dispatchLayoutChanges({
-      payload: {mode: this.isLayoutFullMode ? LAYOUT_MINIMAL_MODE : LAYOUT_FULL_MODE},
-    });
+    const payloadWrapper: IPayloadWrapper<LayoutModeEnum> = {payload: this.layoutMode};
+    this.dispatchCustomType(LAYOUT_MODE_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 
   /**
@@ -136,27 +137,41 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [10.08.2018]
+   * @stable [23.09.2018]
    * @param {IXYEntity} xy
    */
-  private onChangeNavigationList(xy: IXYEntity): void {
-    this.dispatchLayoutChanges({payload: xy});
+  private onNavigationListItemClick(xy: IXYEntity): void {
+    const payloadWrapper: IPayloadWrapper<ILayoutEntity> = {payload: xy};
+    this.dispatchCustomType(LAYOUT_XY_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 
   /**
-   * @stable [18.09.2018]
-   * @param {IPayloadWrapper<ILayoutEntity>} payloadWrapper
+   * @stable [23.09.2018]
+   * @param {INavigationListItemConfiguration} item
    */
-  private dispatchLayoutChanges(payloadWrapper: IPayloadWrapper<ILayoutEntity>): void {
-    this.dispatchCustomType(LAYOUT_UPDATE_ACTION_TYPE, payloadWrapper);
+  private onNavigationListGroupClick(item: INavigationListItemConfiguration): void {
+    const itemValue = item.value;
+    if (R.isNil(itemValue)) {
+      return;
+    }
+    const payloadWrapper: IPayloadWrapper<StringNumberT> = {payload: itemValue};
+    this.dispatchCustomType(LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 
   /**
-   * @stable [11.08.2018]
+   * @stable [23.09.2018]
    * @returns {boolean}
    */
-  private get isLayoutFullMode(): boolean {
-    return this.props.layout.mode === LAYOUT_FULL_MODE;
+  private get layoutFullModeEnabled(): boolean {
+    return this.layoutMode === LayoutModeEnum.FULL;
+  }
+
+  /**
+   * @stable [23.09.2018]
+   * @returns {LayoutModeEnum}
+   */
+  private get layoutMode(): LayoutModeEnum {
+    return this.props.layout.mode;
   }
 
   /**
@@ -200,7 +215,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   private get drawerElement(): JSX.Element {
     const props = this.props;
     return (
-      <Drawer opened={this.isLayoutFullMode}>
+      <Drawer mini={!this.layoutFullModeEnabled}>
         <FlexLayout row={true}
                     alignItemsCenter={true}
                     className='rac-drawer-toolbar-spacer'>
@@ -210,7 +225,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         </FlexLayout>
         <NavigationList {...props.layout}
                         items={this.menuItems}
-                        onChange={this.onChangeNavigationList}/>
+                        onClick={this.onNavigationListItemClick}
+                        onGroupClick={this.onNavigationListGroupClick}/>
       </Drawer>
     );
   }

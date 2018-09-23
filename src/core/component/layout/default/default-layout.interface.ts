@@ -6,7 +6,11 @@ import {
   IContainerConfiguration,
   IHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
-import { IFooterWrapper, IProgressWrapper, IFooterRenderedWrapper } from '../../../definitions.interface';
+import {
+  IFooterWrapper,
+  IProgressWrapper,
+  IFooterRenderedWrapper,
+} from '../../../definitions.interface';
 
 /**
  * @stable [13.08.2018]

@@ -31,11 +31,11 @@
       }
 
       .rac-user-photo {
-        width: $rac-default-layout-header-user-photo-width;                                                /* @stable [17.09.2018] */
-        height: $rac-default-layout-header-user-photo-height;                                              /* @stable [17.09.2018] */
-        border-radius: $rac-default-layout-header-user-photo-border-radius;                                /* @stable [17.09.2018] */
-        background-size: cover;                                                                            /* @stable [17.09.2018] */
-        margin-right: $rac-default-layout-header-user-photo-margin-right;                                  /* @stable [17.09.2018] */
+        width: $rac-default-layout-header-user-photo-width;                                         /* @stable [17.09.2018] */
+        height: $rac-default-layout-header-user-photo-height;                                       /* @stable [17.09.2018] */
+        border-radius: $rac-default-layout-header-user-photo-border-radius;                         /* @stable [17.09.2018] */
+        background-size: cover;                                                                     /* @stable [17.09.2018] */
+        margin-right: $rac-default-layout-header-user-photo-margin-right;                           /* @stable [17.09.2018] */
       }
 
       .rac-search-toolbar {
@@ -95,8 +95,8 @@
 
     .rac-drawer-toolbar-spacer {
       position: relative;                                                                           /* @stable [17.09.2018] */
-      height: $rac-default-layout-drawer-toolbar-spacer-height;                                     /* @stable [17.09.2018] */
-      min-height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [17.09.2018] */
+      min-height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [23.09.2018] */
+      max-height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [23.09.2018] */
       background: $rac-default-layout-drawer-toolbar-spacer-background;                             /* @stable [17.09.2018] */
 
       .rac-logo-menu-action {
@@ -109,11 +109,11 @@
       }
     }
 
-    .rac-drawer-wrapper-short {
-      width: $rac-default-layout-drawer-wrapper-short-width;                                        /* @stable [18.09.2018] */
+    .rac-drawer-wrapper-mini {
+      width: $rac-default-layout-drawer-wrapper-mini-width;                                         /* @stable [23.09.2018] */
 
       .rac-drawer {
-        width: $rac-default-layout-drawer-wrapper-short-width;                                      /* @stable [18.09.2018] */
+        width: $rac-default-layout-drawer-wrapper-mini-width;                                       /* @stable [23.09.2018] */
 
         .rac-drawer-toolbar-spacer {
 
@@ -124,8 +124,34 @@
 
         .rac-profile-avatar,
           .rac-navigation-list-item-label,
-          .rac-list-group-subheader {
+          .rac-navigation-list-group-subheader {
           display: none;                                                                            /* @stable [18.09.2018] */
+        }
+      }
+    }
+
+    .rac-drawer {
+
+      .rac-navigation-list {
+
+        .rac-navigation-list-group-subheader {
+          height: $rac-default-layout-drawer-navigation-list-group-subheader-height;                /* @stable [23.09.2018] */
+
+          .rac-navigation-list-group-subheader-icon {
+            &.rac-icon {
+              min-width: $rac-default-layout-drawer-navigation-list-group-icon-width;               /* @stable [23.09.2018] */
+            }
+          }
+        }
+
+        .rac-navigation-list-item {
+          height: $rac-default-layout-drawer-navigation-list-item-height;                           /* @stable [23.069.2018] */
+
+          .rac-navigation-list-icon {
+            &.rac-icon {
+              min-width: $rac-default-layout-drawer-navigation-list-icon-width;                     /* @stable [23.09.2018] */
+            }
+          }
         }
       }
     }
