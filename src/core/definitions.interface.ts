@@ -1469,6 +1469,20 @@ export interface IViewerWrapper<TViewer> {
 }
 
 /**
+ * @stable [24.09.2018]
+ */
+export interface IWestWrapper<TWest = JSX.Element> {
+  west?: TWest;
+}
+
+/**
+ * @stable [24.09.2018]
+ */
+export interface IEastWrapper<TEast = JSX.Element> {
+  east?: TEast;
+}
+
+/**
  * @stable [09.05.2018]
  */
 export interface IPageSizeWrapper<TPageSize = number> {

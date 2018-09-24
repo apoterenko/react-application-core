@@ -1,0 +1,11 @@
+// Chart [FRAMEWORK-][RAC+]
+.rac {
+
+  .rac-chart {
+
+    .rac-chart-canvas-wrapper {
+      width: 99%;                                   /* @magic @stable [24.09.2018] */
+      position: relative;                           /* @stable [24.09.2018] */
+    }
+  }
+}
