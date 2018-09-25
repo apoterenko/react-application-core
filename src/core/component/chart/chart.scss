@@ -1,11 +1,15 @@
+@import '../constant';
+
 // Chart [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-chart {
 
     .rac-chart-canvas-wrapper {
-      width: 99%;                                   /* @magic @stable [24.09.2018] */
-      position: relative;                           /* @stable [24.09.2018] */
+      position: relative;                                     /* @stable [24.09.2018] */
+      width: $rac-chart-canvas-wrapper-width;                 /* @stable [25.09.2018] */
+      margin-left: $rac-chart-canvas-wrapper-margin-left;     /* @stable [25.09.2018] */
+      margin-right: $rac-chart-canvas-wrapper-margin-left;    /* @stable [25.09.2018] */
     }
   }
 }

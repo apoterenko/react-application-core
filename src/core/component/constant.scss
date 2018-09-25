@@ -42,8 +42,8 @@ $html-overflow: hidden !default;
 $rac-min-width: 750px !default;
 
 /* @stable [26.06.2018] */
-$rac-scrollbar-width: 5px !default;
-$rac-scrollbar-height: 5px !default;
+$rac-scrollbar-width: 6px !default;
+$rac-scrollbar-height: 6px !default;
 $rac-scrollbar-thumb-background-color: $color-8 !default;
 
 /* @stable [26.06.2018] */
@@ -451,6 +451,11 @@ $rac-default-layout-drawer-wrapper-mini-width: $rac-default-logo-toolbar-size !d
 $rac-default-layout-drawer-navigation-list-group-subheader-height: 40px !default;
 $rac-default-layout-drawer-navigation-list-item-height: 32px !default;
 $rac-default-layout-drawer-navigation-list-icon-width: 48px !default;
+
+/* @stable [25.09.2018] */
+$rac-chart-canvas-wrapper-width: 90% !default;           /* @magic [need to resize canvas smoothly] @stable [25.09.2018] */
+$rac-chart-canvas-wrapper-margin-left: auto !default;
+$rac-chart-canvas-wrapper-margin-right: auto !default;
 
 /**/
 

@@ -29,6 +29,7 @@ export const DAYS_OF_WEEK: Array<{id: number, name: string}> = [
   {id: 6, name: 'Saturday'}
 ];
 export const DAYS_OF_WEEK_MAP = R.mergeAll<{[id: number]: boolean}>(DAYS_OF_WEEK.map((day) => ({[day.id]: true})));
+export const DAYS_OF_WEEK_SHORT_ARRAY = DAYS_OF_WEEK.map((day) => day.name.substr(0, 2).toUpperCase());
 
 /**
  * Core fields
