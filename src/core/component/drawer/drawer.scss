@@ -7,6 +7,7 @@
     background: $rac-drawer-background;                                              /* @stable [17.09.2018] */
 
     .rac-navigation-list {
+      padding-top: $rac-drawer-navigation-list-padding-top;                          /* @stable [26.09.2018] */
       padding-bottom: $rac-drawer-navigation-list-padding-bottom;                    /* @stable [02.08.2018] */
     }
   }

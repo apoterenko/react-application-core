@@ -1,21 +1,11 @@
 import * as React from 'react';
 
-import { orNull, cancelEvent, isFn } from '../../util';
+import { orNull } from '../../util';
 import { BaseComponent } from '../base';
-import { Link } from '../link';
 import { IProfileProps } from './profile.interface';
-import { IBasicEvent } from '../../definitions.interface';
+import { FlexLayout } from '../layout';
 
 export class Profile extends BaseComponent<Profile, IProfileProps> {
-
-  /**
-   * @stable [18.09.2018]
-   * @param {IProfileProps} props
-   */
-  constructor(props: IProfileProps) {
-    super(props);
-    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
-  }
 
   /**
    * @stable [17.09.2018]
@@ -24,8 +14,9 @@ export class Profile extends BaseComponent<Profile, IProfileProps> {
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <Link to={props.path}
-            className='rac-profile rac-flex rac-flex-row rac-flex-full rac-flex-align-items-center'>
+      <FlexLayout row={true}
+                  alignItemsCenter={true}
+                  className='rac-profile'>
         {
           orNull<JSX.Element>(
             props.appVersion,
@@ -41,22 +32,8 @@ export class Profile extends BaseComponent<Profile, IProfileProps> {
         {this.uiFactory.makeIcon({
           type: 'menu',
           className: 'rac-logo-menu-action',
-          onClick: this.onLogoMenuActionClick,
         })}
-      </Link>
+      </FlexLayout>
     );
-  }
-
-  /**
-   * @stable [17.09.2018]
-   * @param {IBasicEvent} event
-   */
-  private onLogoMenuActionClick(event: IBasicEvent): void {
-    cancelEvent(event);
-
-    const props = this.props;
-    if (isFn(props.onActionClick)) {
-      props.onActionClick();
-    }
   }
 }

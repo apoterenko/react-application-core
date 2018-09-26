@@ -17,31 +17,28 @@
         color: $rac-navigation-list-item-active-color;                                  /* @stable [23.09.2018] */
         background-color: $rac-navigation-list-item-active-background-color;            /* @stable [23.09.2018] */
 
-        &:hover {
-          background-color: $rac-navigation-list-item-active-background-color;          /* @stable [23.09.2018] */
+        .rac-icon {
+          color: $rac-navigation-list-item-active-color;                                /* @stable [26.09.2018] */
+        }
+
+        &.rac-navigation-list-item-as-group {
+          .rac-icon {
+            color: $rac-navigation-list-item-active-color;                              /* @stable [26.09.2018] */
+          }
         }
       }
 
       &.rac-navigation-list-item-expanded {
         background-color: $rac-navigation-list-item-expanded-background-color;          /* @stable [23.09.2018] */
-        opacity: $rac-navigation-list-item-expanded-opacity;                            /* @stable [23.09.2018] */
-
-        &:hover {
-          background-color: $rac-navigation-list-item-hover-background-color;           /* @stable [23.09.2018] */
-        }
       }
 
       &:hover {
-        background-color: $rac-navigation-list-item-hover-background-color;             /* @stable [23.09.2018] */
+        outline: $rac-navigation-list-item-hover-outline;                               /* @stable [26.09.2018] */
       }
 
       .rac-icon, svg {
         height: $rac-navigation-list-item-icon-size;                                    /* @stable [23.09.2018] */
         width: $rac-navigation-list-item-icon-size;                                     /* @stable [23.09.2018] */
-      }
-
-      .rac-icon {
-        color: $rac-navigation-list-item-icon-color;                                    /* @stable [23.09.2018] */
       }
     }
 
@@ -57,6 +54,10 @@
           color: $rac-navigation-list-group-subheader-expand-icon-color;                /* @stable [23.09.2018] */
         }
       }
+
+      .rac-icon {
+        color: $rac-navigation-list-group-subheader-icon-color;                         /* @stable [26.09.2018] */
+      }
     }
 
     .rac-navigation-list-item {
@@ -66,6 +67,14 @@
         text-transform: $rac-navigation-list-group-subheader-text-transform;            /* @stable [23.09.2018] */
         font-weight: $rac-navigation-list-group-subheader-font-weight;                  /* @stable [23.09.2018] */
         font-size: $rac-navigation-list-group-subheader-font-size;                      /* @stable [23.09.2018] */
+
+        .rac-icon {
+          color: $rac-navigation-list-group-subheader-icon-color;                       /* @stable [26.09.2018] */
+        }
+      }
+
+      .rac-icon {
+        color: $rac-navigation-list-item-icon-color;                                    /* @stable [26.09.2018] */
       }
     }
 

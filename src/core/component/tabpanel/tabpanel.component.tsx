@@ -75,16 +75,22 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
                                 this.uiFactory.tabBarScrollerScrollContent)
                              }>
                 {
-                  items.map((tab) => (
+                  items.map((tab, index) => (
                     <div key={`rac-tab-${tab.value}`}
                             className={toClassName(
                                           'rac-tab',
                                           tab.selected && 'rac-tab-selected',
+                                          index === 0 && 'rac-first-tab',
+                                          index % 2 === 0 && 'rac-tab-odd',
+                                          index === items.length - 1 && 'rac-last-tab',
                                           this.uiFactory.tab,
-                                          orNull<string>(tab.value === activeValue, this.uiFactory.tabActive)
+                                          orNull<string>(
+                                            tab.value === activeValue,
+                                            toClassName(this.uiFactory.tabActive, 'rac-tab-active')
+                                          )
                                       )}
                             onClick={() => this.onTabClick(tab)}>
-                      <span className={this.uiFactory.tabContent}>
+                      <span className={toClassName(this.uiFactory.tabContent, 'rac-tab-content')}>
                         <div>
                           {
                             orNull<JSX.Element>(
@@ -122,6 +128,7 @@ export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelS
                                           orNull<string>(tab.value === activeValue, this.uiFactory.tabIndicatorActive)
                                         )}>
                           <span className={toClassName(
+                                              'rac-tab-indicator',
                                               this.uiFactory.tabIndicatorContent,
                                               this.uiFactory.tabIndicatorContentUnderline
                                            )}/>

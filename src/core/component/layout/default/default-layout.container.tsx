@@ -28,6 +28,7 @@ import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { APPLICATION_SECTIONS } from '../../application';
 import { toAllDependentRoutePaths } from '../../connector';
+import { Link } from '../../link';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
@@ -195,9 +196,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
               title={props.title || (runtimeTitle && runtimeTitle.label)}
               onNavigationActionClick={this.onHeaderNavigationActionClick}
               onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
-        <div className='rac-user-photo'
-             style={{backgroundImage: `url(${user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
-        <div className='rac-user'>{user.name}</div>
+        <Link to={this.routes.profile}>
+          <div className='rac-user-photo'
+               style={{backgroundImage: `url(${user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
+        </Link>
+        <Link to={this.routes.profile}>
+          <div className='rac-user'>{user.name}</div>
+        </Link>
         {this.userMenuElement}
       </Header>
     );
@@ -214,11 +219,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
       <Drawer mini={!layoutFullModeEnabled}>
         <FlexLayout row={true}
                     alignItemsCenter={true}
-                    className='rac-drawer-toolbar-spacer'>
-          <Profile path={this.routes.home}
-                   avatarRendered={layoutFullModeEnabled}
-                   appVersion={ENV.appVersion}
-                   onActionClick={this.onLogoMenuActionClick}/>
+                    className='rac-drawer-toolbar-spacer'
+                    onClick={this.onLogoMenuActionClick}>
+          <Profile avatarRendered={layoutFullModeEnabled}
+                   appVersion={ENV.appVersion}/>
         </FlexLayout>
         <NavigationList {...props.layout}
                         items={this.menuItems}
