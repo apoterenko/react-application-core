@@ -191,7 +191,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       (props.className || '').includes('rac-flex-') ? '' : 'rac-flex-full',
       this.isInactive() && 'rac-field-disabled',
       props.active && 'rac-field-active',
-      this.uiFactory.formField,
       props.className,
       'rac-form-field'   // TODO Legacy
     );
