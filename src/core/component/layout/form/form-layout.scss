@@ -73,7 +73,8 @@
             caret-color: $rac-form-layout-field-input-color;                   /* @stable [15.08.2018] */
 
             &::placeholder {
-              color: $rac-form-layout-field-input-placeholder-color;           /* @stable [18.09.2018] */
+              color: $rac-form-layout-field-input-placeholder-color;                /* @stable [18.09.2018] */
+              font-weight: $rac-form-layout-field-input-placeholder-font-weight;    /* @stable [27.09.2018] */
             }
           }
 

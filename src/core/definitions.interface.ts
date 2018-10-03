@@ -1958,8 +1958,8 @@ export interface IClearActionWrapper {
 /**
  * @stable [15.05.2018]
  */
-export interface IClassNameWrapper {
-  className?: string;
+export interface IClassNameWrapper<TClassName = string> {
+  className?: TClassName;
 }
 
 /**
@@ -2865,6 +2865,13 @@ export interface IStringTokenWrapper extends ITokenWrapper<string> {
  */
 export interface IActiveWrapper<TActive = boolean> {
   active?: TActive;
+}
+
+/**
+ * @stable [27.09.2018]
+ */
+export interface ISingleWrapper<TSingle = boolean> {
+  single?: TSingle;
 }
 
 /**

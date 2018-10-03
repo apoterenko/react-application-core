@@ -19,6 +19,10 @@
 
         .rac-icon {
           color: $rac-navigation-list-item-active-color;                                /* @stable [26.09.2018] */
+
+          &.rac-navigation-list-group-subheader-expand-icon {
+            color: $rac-navigation-list-item-active-color;                              /* @stable [27.09.2018] */
+          }
         }
 
         &.rac-navigation-list-item-as-group {

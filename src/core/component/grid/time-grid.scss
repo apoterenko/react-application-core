@@ -20,6 +20,10 @@
 
       .rac-grid-body {
         overflow: hidden;                                                                   /* @stable [14.09.2018] */
+
+        .rac-grid-column {
+          cursor: pointer;                                                                  /* @stable [27.09.2018] */
+        }
       }
 
       .rac-grid-row {
@@ -68,7 +72,6 @@
 
       .rac-grid-column {
         padding: 4px 0;                                                                     /* @stable [15.09.2018] */
-        cursor: pointer;                                                                    /* @stable [11.09.2018] */
       }
     }
   }
