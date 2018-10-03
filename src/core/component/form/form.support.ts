@@ -8,7 +8,7 @@ import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '
 import { IFormProps } from './form.interface';
 import { defValuesFilter, isPrimitive } from '../../util';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
-import { Field } from '../field';
+import { UniversalField } from '../field/field/universal-field.component';
 
 /**
  * @stable - 11.04.2018
@@ -145,5 +145,5 @@ export const getFormTabActiveValue = (formProps: IFormProps, tabPanelConfigurati
 export const isFormContainOnlySingleField = (node: React.ReactNode): boolean => {
   const children = R.filter<React.ReactNode>((node0) => !R.isNil(node0), [].concat(node || []));
   const nodeAsReactElement = children.length === 1 ? children[0] as React.ReactElement<AnyT> : null;
-  return !R.isNil(nodeAsReactElement) && !isPrimitive(nodeAsReactElement) && Field.isPrototypeOf(nodeAsReactElement.type);
+  return !R.isNil(nodeAsReactElement) && !isPrimitive(nodeAsReactElement) && UniversalField.isPrototypeOf(nodeAsReactElement.type);
 };
