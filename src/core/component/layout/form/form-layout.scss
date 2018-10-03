@@ -54,13 +54,6 @@
 
       .rac-field {
 
-        .rac-field-label {
-
-          &.rac-focused-label {
-            color: $rac-form-layout-floating-focused-label-color;              /* @stable [08.08.2018] */
-          }
-        }
-
         .rac-text-field {
           height: $rac-form-layout-text-field-height !important;               /* @mdc @stable [18.09.2018] */
           border-color: $rac-form-layout-text-field-border-color !important;   /* @mdc @stable [18.09.2018] */
@@ -87,8 +80,8 @@
             color: $rac-form-layout-field-icon-color;                          /* @stable [18.09.2018] */
           }
 
-          &.rac-filled-field {
-            background: $rac-form-layout-text-filled-field-background;         /* @stable [19.09.2018] */
+          &.rac-field-filled {
+            background: $rac-form-layout-text-field-filled-background;         /* @stable [03.10.2018] */
           }
         }
       }

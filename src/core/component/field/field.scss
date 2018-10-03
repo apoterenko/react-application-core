@@ -21,6 +21,13 @@
       }
     }
 
+    &.rac-field-single {
+
+      .rac-text-field {
+        margin-top: 0;                                                /* @mdc @stable [27.09.2018] */
+      }
+    }
+
     &.rac-field-disabled {
 
       label,
@@ -36,8 +43,7 @@
 
     .rac-dnd,
       .rac-menu,
-      .rac-dnd-wrapper,
-      .rac-text-field {
+      .rac-dnd-wrapper {
       width: 100%;                                                    /* @stable [08.08.2018] */
     }
 
@@ -46,9 +52,8 @@
     }
 
     .rac-field-prefix-label {
-      padding: $rac-field-prefix-label-padding;                       /* @stable [19.09.2018] */
-      cursor: default;
       color: $rac-field-prefix-label-color;                           /* @stable [19.09.2018] */
+      left: $rac-field-prefix-label-left;                             /* @stable [03.10.2018] */
     }
 
     .rac-field-loader {
@@ -77,12 +82,7 @@
 
     &.rac-checkbox {
 
-      .rac-self-field-wrapper {
-        padding-bottom: $rac-checkbox-self-field-wrapper-padding-bottom;       /* @stable [17.09.2018] */
-      }
-
       .rac-field-label {
-        margin-left: 0;                                                        /* @stable [17.09.2018] */
         line-height: $rac-checkbox-field-label-line-height;                    /* @stable [17.09.2018] */
       }
     }
@@ -100,40 +100,30 @@
       }
     }
 
-    .rac-field-input,
-      .rac-field-input-wrapper {
-      height: 100%;                                                   /* @stable [18.09.2018] */
-    }
-
-    .rac-field-input-wrapper {
-      overflow: hidden;                                               /* @stable [19.09.2018] */
-    }
-
     .rac-field-label {
-      height: $rac-field-label-height;                                /* @stable [19.09.2018] */
       white-space: nowrap;                                            /* @stable [08.08.2018] */
+      height: $rac-field-label-height;                                /* @stable [19.09.2018] */
       color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
-      font-size: $rac-form-field-label-font-size;                     /* @stable [08.08.2018] */
-      text-transform: $rac-form-field-label-text-transform;           /* @stable [08.08.2018] */
-      margin-left: $rac-field-label-margin-left;                      /* @stable [08.08.2018] */
-
-      &.rac-focused-label {
-        color: $rac-field-focused-label-color;                        /* @stable [08.08.2018] */
-        font-size: $rac-field-focused-label-font-size;                /* @stable [08.08.2018] */
-        margin-bottom: $rac-field-focused-label-margin-bottom;        /* @stable [17.09.2018] */
-        margin-left: $rac-field-focused-label-margin-left;            /* @stable [23.09.2018] */
-      }
+      font-size: $rac-field-label-font-size;                          /* @stable [03.10.2018] */
+      font-weight: $rac-field-label-font-weight;                      /* @stable [03.10.2018] */
+      text-transform: $rac-field-label-text-transform;                /* @stable [03.10.2018] */
     }
 
     .rac-text-field {
-      height: $rac-text-field-height !important;                      /* @mdc @stable [15.09.2018] */
-      will-change: unset;                                             /* @mdc @stable [08.08.2018] https://github.com/material-components/material-components-web/issues/1978 */
+      position: relative;
+      height: $rac-text-field-height;                                 /* @stable [03.10.2018] */
       flex-shrink: 0;                                                 /* @layout @stable [17.09.2018] */
       border-style: solid;                                            /* @stable [17.09.2018] */
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
-      border-color: $rac-text-field-border-color !important;          /* @mdc @stable [17.09.2018] */
+      border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
-      margin-bottom: $rac-text-field-margin-bottom;                   /* @mdc @stable [19.09.2018] */
+      margin-top: $rac-text-field-margin-top;
+
+      .rac-field-label {
+        position: $rac-text-field-label-position;                     /* @stable [03.10.2018] */
+        top: $rac-text-field-label-top;                               /* @stable [03.10.2018] */
+        left: $rac-text-field-label-left;                             /* @stable [03.10.2018] */
+      }
 
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
@@ -150,10 +140,9 @@
       }
 
       .rac-field-input {
-        padding-top: $rac-field-input-padding-top;                    /* @mdc @stable [18.09.2018] */
-        padding-left: $rac-field-input-padding-left;                  /* @stable [17.09.2018] */
-        padding-right: $rac-field-input-padding-right;                /* @stable [17.09.2018] */
-        border: none;                                                 /* @mdc @stable [07.08.2018] */
+        padding: $rac-field-input-padding;                            /* @stable [03.10.2018] */
+        border: none;                                                 /* @stable [03.10.2018] */
+        background: none;                                             /* @stable [03.10.2018] */
         color: $rac-field-input-color;                                /* @stable [25.06.2018] */
         font-size: $rac-field-input-font-size;                        /* @stable [19.09.2018] */
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
@@ -186,9 +175,7 @@
     }
 
     .rac-field-help-text {
-      opacity: 1;                                                     /* @mdc @stable [31.08.2018] */
       font-size: $rac-field-help-text-font-size;                      /* @stable [19.09.2018] */
-      margin-bottom: $rac-field-help-text-margin-bottom;              /* @mdc @stable [19.09.2018] */
     }
 
     .rac-field-chips-wrapper {

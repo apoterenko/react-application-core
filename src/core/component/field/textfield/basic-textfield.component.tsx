@@ -28,7 +28,6 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   protected static logger = LoggerFactory.makeLogger('BasicTextField');
 
-  private static CHAR_WIDTH_AT_PX = 10;
   private static DEFAULT_MASK_GUIDE = false;
 
   protected defaultActions: IFieldActionConfiguration[] = [];
@@ -83,7 +82,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [19.09.2018]
+   * @stable [03.10.2018]
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
@@ -92,12 +91,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
     return toClassName(
       'rac-text-field',
-      this.isValuePresent() && 'rac-filled-field',
+      'rac-flex',
+      'rac-flex-row',
       props.fieldRendered === false && 'rac-display-none',
-      this.uiFactory.textField,
-      this.uiFactory.textFieldUpgraded,
-      this.isFieldFocused() && this.uiFactory.fieldFocused,
-      !R.isNil(error) && this.uiFactory.textFieldInvalid
+      this.isValuePresent() && 'rac-field-filled',
+      !R.isNil(error) && 'rac-field-invalid',
     );
   }
 
@@ -247,7 +245,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     return (
       orNull<JSX.Element>(
         props.prefixLabel,
-        <span className='rac-field-prefix-label'>{props.prefixLabel}</span>
+        <span className='rac-field-prefix-label rac-absolute-left-center-position'>{props.prefixLabel}</span>
       )
     );
   }
@@ -282,24 +280,17 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     );
   }
 
+  /**
+   * @stable [03.10.2018]
+   * @returns {JSX.Element}
+   */
   private getLabelElement(): JSX.Element {
     const props = this.props;
-    const isFieldFocused = this.isFieldFocused();
-    const fieldLabel = props.label ? this.t(props.label) : props.children; // TODO offset
+    const fieldLabel = props.label ? this.t(props.label) : props.children;
     return orNull<JSX.Element>(
       fieldLabel,
       () => (
-        <label style={{
-                  paddingLeft: orUndef<number>(
-                    !R.isNil(props.prefixLabel),
-                    () => props.prefixLabel.length * BasicTextField.CHAR_WIDTH_AT_PX
-                  ),
-                }}
-               className={toClassName(
-                 'rac-field-label',
-                 isFieldFocused && `rac-focused-label ${this.uiFactory.fieldFocusedLabel}`,
-                 this.uiFactory.fieldLabel
-               )}>
+        <label className={'rac-field-label'}>
           {fieldLabel}
         </label>
       )
