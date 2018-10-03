@@ -41,14 +41,8 @@
       }
     }
 
-    .rac-dnd,
-      .rac-menu,
-      .rac-dnd-wrapper {
+    .rac-menu {
       width: 100%;                                                    /* @stable [08.08.2018] */
-    }
-
-    .rac-dnd {
-      margin-bottom: $rac-form-field-dnd-margin-bottom;               /* @stable [29.06.2018] */
     }
 
     .rac-field-prefix-label {

@@ -1,6 +1,7 @@
 @import '~sass-flex-mixin/_flex';
 @import './form/form-layout';
 @import './default/default-layout';
+@import '../constant';
 
 .rac {
 
@@ -25,6 +26,11 @@
 
   .rac-flex-row {
     @include flex-direction(row);                                   /* @stable [21.09.2018] */
+
+    & > .rac-flex-separator {
+      max-width: $rac-flex-separator-width;                         /* @stable [03.10.2018] */
+      min-width: $rac-flex-separator-width;                         /* @stable [03.10.2018] */
+    }
   }
 
   .rac-flex-column {
@@ -36,7 +42,7 @@
   }
 
   .rac-flex-separator {
-    @include flex(.1);                                              /* @stable [20.09.2018] */
+    @include flex(.1);                                              /* @stable [19.09.2018] */
   }
 
   .rac-flex-align-items-center {

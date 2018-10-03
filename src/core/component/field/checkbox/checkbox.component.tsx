@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { toClassName } from '../../../util';
 import { ICheckboxState, ICheckboxProps, ICheckboxInputProps } from './checkbox.interface';
-import { CenterLayout } from '../../layout';
+import { FlexLayout } from '../../layout';
 import { BaseCheckbox } from './base-checkbox.component';
 
 export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxState> {
@@ -16,7 +16,9 @@ export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxSt
 
     return (
       <div className={this.getFieldClassName()}>
-        <CenterLayout className='rac-self-field-wrapper'>
+        <FlexLayout className='rac-self-field-wrapper'
+                    row={true}
+                    alignItemsCenter={true}>
           <div ref='self'
                style={props.style}
                className={this.getSelfElementClassName()}>
@@ -26,7 +28,7 @@ export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxSt
             </div>
           </div>
           {this.getLabelElement()}
-        </CenterLayout>
+        </FlexLayout>
         {this.getMessageElement()}
         {props.required && this.getErrorMessageElement()}
       </div>

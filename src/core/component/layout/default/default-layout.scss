@@ -71,7 +71,9 @@
             }
 
             .rac-form-actions {
-              padding: $rac-default-layout-main-body-form-actions-padding;                          /* @stable [18.09.2018] */
+              border-top: $rac-default-layout-main-body-form-actions-border-top;                    /* @stable [03.10.2018] */
+              margin: $rac-default-layout-main-body-form-actions-margin;                            /* @stable [03.10.2018] */
+              padding-top: $rac-default-layout-main-body-form-actions-padding-top;                  /* @stable [03.10.2018] */
             }
           }
         }
