@@ -1,12 +1,14 @@
+import * as React from 'react';
 import * as R from 'ramda';
 
 import { Operation } from '../../operation';
-import { IEntity } from '../../definitions.interface';
+import { IEntity, AnyT } from '../../definitions.interface';
 import { IApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from './form.interface';
-import { defValuesFilter } from '../../util';
+import { defValuesFilter, isPrimitive } from '../../util';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
+import { Field } from '../field';
 
 /**
  * @stable - 11.04.2018
@@ -134,3 +136,14 @@ export const isFormTabActive = (formProps: IFormProps, tab: ITabConfiguration): 
  */
 export const getFormTabActiveValue = (formProps: IFormProps, tabPanelConfiguration: ITabPanelConfiguration): number =>
   getTabActiveValue(formProps.form, tabPanelConfiguration);
+
+/**
+ * @stable [03.10.2018]
+ * @param {React.ReactNode} node
+ * @returns {boolean}
+ */
+export const isFormContainOnlySingleField = (node: React.ReactNode): boolean => {
+  const children = R.filter<React.ReactNode>((node0) => !R.isNil(node0), [].concat(node || []));
+  const nodeAsReactElement = children.length === 1 ? children[0] as React.ReactElement<AnyT> : null;
+  return !R.isNil(nodeAsReactElement) && !isPrimitive(nodeAsReactElement) && Field.isPrototypeOf(nodeAsReactElement.type);
+};

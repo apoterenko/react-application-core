@@ -7,7 +7,11 @@
   .rac-form {
 
     .rac-form-body {
-      overflow: auto;                                                               /* @stable [17.09.2018] */
+
+      &.rac-form-multi-body {
+        // A complex issue about layout "shaking" effect. See the selector [a54af8b9-7175-4b4f-acbc-dc3ee6fbf557]
+        overflow: auto;                                                             /* @stable [03.10.2018] */
+      }
     }
 
     .rac-form-actions {

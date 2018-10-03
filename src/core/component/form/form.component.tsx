@@ -21,6 +21,7 @@ import {
   isFormDirty,
   isFormValid,
   isFormSubmittable,
+  isFormContainOnlySingleField,
 } from './form.support';
 import { FlexLayout } from '../layout';
 
@@ -62,7 +63,10 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                         )}>
           <FlexLayout className='rac-form-body-wrapper'>
             <FlexLayout full={false}
-                        className='rac-form-body'>
+                        className={toClassName(
+                          'rac-form-body',
+                          !isFormContainOnlySingleField(props.children) && 'rac-form-multi-body'
+                        )}>
               {
                 cloneNodes<IFieldInternalProps>(
                   this,

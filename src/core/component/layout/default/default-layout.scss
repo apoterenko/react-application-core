@@ -76,6 +76,12 @@
           }
         }
 
+        // Selector id: [a54af8b9-7175-4b4f-acbc-dc3ee6fbf557]
+        .rac-main-body > .rac-grid-wrapper {
+          // A complex issue about layout "shaking" effect => that is being applied to an only first level
+          overflow: auto;                                                                           /* @stable [03.10.2018] */
+        }
+
         .rac-main-body > {
           .rac-grid-wrapper,
             .rac-chips-filter-wrapper,
