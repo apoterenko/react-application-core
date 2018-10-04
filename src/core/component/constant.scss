@@ -1,4 +1,6 @@
 $opacity: .5 !default;
+$rac-opacity: .5 !default;
+$rac-menu-z-index: 9998 !default;
 $snackbar-z-index: 9999 !default;
 $color-1: #d50000 !default;
 $color-2: #212121 !default;
@@ -29,6 +31,7 @@ $rac-default-font-size-2: 14px !default;
 $rac-default-action-color: $color-2 !default;
 $rac-default-label-color: $color-2 !default;
 $rac-default-text-color: $color-2 !default;
+$rac-default-hover-background: $color-10 !default;
 $rac-default-border-radius: 2px !default;
 $rac-default-logo-toolbar-size: 56px !default;
 $rac-default-letter-spacing: 1px !default;
@@ -226,6 +229,7 @@ $rac-text-field-label-top: -$rac-text-field-margin-top !default;
 $rac-text-field-label-left: 0 !default;
 $rac-gridfield-text-field-margin-bottom: 8px !default;
 $rac-checkbox-field-label-line-height: 16px !default;
+$rac-view-field-margin-bottom: 20px !default;
 
 /* @stable [30.07.2018] */
 $rac-dialog-addressfield-place-color: $rac-default-text-color !default;
@@ -286,13 +290,18 @@ $rac-header-section-title-margin-right: unset !default;
 $rac-header-section-title-padding-right: unset !default;
 $rac-header-section-title-font-size: 24px !default;
 
-/* @stable [25.06.2018] */
+/* @stable [04.10.2018] */
+$rac-menu-window-position: $rac-menu-z-index !default;
+$rac-menu-field-wrapper-padding: 0 16px 16px 16px !default;
+$rac-menu-item-margin: 0 16px !default;
 $rac-menu-item-font-size: $rac-default-font-size !default;
+$rac-menu-item-hover-background: $rac-default-hover-background !default;
 $rac-menu-item-color: $rac-default-text-color !default;
 $rac-menu-item-icon-margin-right: 20px !default;
 $rac-menu-item-icon-size: $rac-default-icon-size !default;
 $rac-menu-simple-list-max-height: 200px !default;
 $rac-menu-simple-list-item-height: 40px !default;
+$rac-menu-close-action-margin: 8px 16px 8px auto !default;
 $rac-menu-close-action-color: $rac-action-icon-color !default;
 $rac-menu-close-action-size: $rac-default-action-icon-size !default;
 
@@ -317,7 +326,7 @@ $rac-picture-photo-height: 40px !default;
 $rac-picture-photo-border-radius: $rac-picture-photo-height / 2 !default;
 
 /* @stable [15.09.2018] */
-$rac-tab-color: $rac-default-label-color !default;
+$rac-tab-color: $rac-default-text-color !default;
 $rac-tab-font-size: $rac-default-font-size-2 !default;
 $rac-tab-background: unset !default;
 $rac-tab-active-background: unset !default;
@@ -441,8 +450,11 @@ $rac-default-layout-header-user-photo-height: $rac-default-layout-header-user-ph
 $rac-default-layout-header-user-photo-border-radius: $rac-default-layout-header-user-photo-width / 2 !default;
 $rac-default-layout-header-user-photo-margin-right: 8px !default;
 $rac-default-layout-header-color: $color-5 !default;
-$rac-default-layout-header-navigation-action: $color-5 !default;
-$rac-default-layout-header-navigation-margin-right: 16px !default;
+$rac-default-layout-header-navigation-action-color: $color-5 !default;
+$rac-default-layout-header-navigation-action-background: $color-10 !default;
+$rac-default-layout-header-navigation-action-margin-right: 16px !default;
+$rac-default-layout-header-navigation-action-padding: 12px !default;
+$rac-default-layout-header-navigation-action-border-radius: $rac-default-border-radius !default;
 $rac-default-layout-header-area-padding: 0 $rac-default-layout-offset !default;
 $rac-default-layout-header-north-background: unset !default;
 $rac-default-layout-main-margin: 0 $rac-default-layout-offset $rac-default-layout-offset $rac-default-layout-offset !default;
@@ -461,7 +473,8 @@ $rac-default-layout-drawer-toolbar-spacer-color: $color-5 !default;
 $rac-default-layout-drawer-toolbar-spacer-background: $color-7 !default;
 $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-color: $color-5 !default;
 $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-margin-right: 16px !default;
-$rac-default-layout-drawer-wrapper-mini-width: $rac-default-logo-toolbar-size !default;
+$rac-default-layout-drawer-width: 220px !default;
+$rac-default-layout-drawer-mini-width: 48px !default;
 $rac-default-layout-drawer-navigation-list-group-subheader-height: 40px !default;
 $rac-default-layout-drawer-navigation-list-item-height: 32px !default;
 $rac-default-layout-drawer-navigation-list-icon-width: 48px !default;

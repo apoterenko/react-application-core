@@ -3,6 +3,8 @@ import * as $ from 'jquery';
 
 import { isFn } from './type';
 import { ENV } from '../env';
+import { calc } from './calc';
+import { AnyT } from '../definitions.interface';
 
 let googleMapsScriptTask: Promise<HTMLScriptElement>;
 
@@ -51,17 +53,7 @@ export const getGoogleMapsScript = (cfg?: {} | HTMLScriptElement, libraries = 'p
 export const addClassNameToElement = (element: Element, ...clsName: string[]): void =>
   element.classList.add(...clsName);
 
-/**
- * @stable [30.07.2018]
- * @param {Element} element
- * @param {string} clsName
- */
-export const removeClassNameFromElement = (element: Element, ...clsName: string[]): void =>
-  element.classList.remove(...clsName);
-
 export const addClassNameToBody = (clsName: string): void => addClassNameToElement(document.body, clsName);
-
-export const removeClassNameFromBody = (clsName: string): void => removeClassNameFromElement(document.body, clsName);
 
 /**
  * @stable [28.06.2018]
@@ -97,39 +89,41 @@ export const createPreloadedImg = (...images: string[]): void => {
 };
 
 /**
- * @stable [30.07.2018]
- * @param {HTMLElement} source
- * @param {Element} sourceAnchor
- */
-export const setAbsoluteOffset = (source: HTMLElement, sourceAnchor: Element): void => {
-  const offset0 = $(sourceAnchor).offset();
-  const anchor = $(sourceAnchor);
-  setAbsoluteOffsetByCoordinates(source, offset0.left, offset0.top + anchor.height());
-};
-
-/**
- * @stable [30.07.2018]
- * @param {HTMLElement} source
+ * @stable [04.10.2018]
+ * @param {Element} source
  * @param {number | (() => number)} left
  * @param {number | (() => number)} top
  */
-export const setAbsoluteOffsetByCoordinates = (source: HTMLElement,
+export const setAbsoluteOffsetByCoordinates = (source: Element,
                                                left: number | (() => number),
                                                top: number | (() => number)): void => {
-  source.style.position = 'absolute';
-  source.style.left = `${isFn(left) ? (left as () => number)() : left}px`;
-  source.style.top = `${isFn(top) ? (top as () => number)() : top}px`;
+  applyStyle(source, 'position', 'absolute');
+  applyStyle(source, 'left', `${calc(left)}px`);
+  applyStyle(source, 'top', `${calc(top)}px`);
 };
 
 /**
- * @stable [16.06.2018]
- * @param {HTMLElement} source
- * @param {Element} sourceAnchor
+ * @stable [04.10.2018]
+ * @param {Element} source
+ * @param {string} style
+ * @param {AnyT} value
+ * @returns {any}
  */
-export const adjustWidth = (source: HTMLElement, sourceAnchor: Element): void => {
-  const anchor = $(sourceAnchor);
-  source.style.width = `${anchor.width()}px`;
-};
+export const applyStyle = (source: Element, style: string, value: AnyT) => $(source).css(style, value);
+
+/**
+ * @stable [04.10.2018]
+ * @param {Element} source
+ * @returns {number}
+ */
+export const getWidth = (source: Element): number => $(source).width();
+
+/**
+ * @stable [04.10.2018]
+ * @param {Element} source
+ * @returns {boolean}
+ */
+export const isParentDocumentBody = (source: Element): boolean => $(source).parent().get(0) === document.body;
 
 /**
  * @stable [23.06.2018]

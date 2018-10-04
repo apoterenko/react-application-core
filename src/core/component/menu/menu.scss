@@ -1,38 +1,51 @@
-@import '~sass-flex-mixin/_flex';
 @import '../constant';
 
 // Menu [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-menu {
+    z-index: $rac-menu-window-position;                       /* @stable [04.10.2018] */
+
+    &.rac-menu-centered {
+
+      .rac-simple-list {
+        overflow: auto;                                       /* @stable [04.10.2018] */
+      }
+    }
 
     .rac-menu-close-action {
-      margin: 8px 8px 8px auto;                               /* @stable [17.09.2018] */
-      cursor: pointer;                                        /* @stable [25.06.2018] */
+      margin: $rac-menu-close-action-margin;                  /* @stable [04.10.2018] */
       color: $rac-menu-close-action-color;                    /* @stable [26.06.2018] */
       width: $rac-menu-close-action-size;                     /* @stable [21.09.2018] */
       height: $rac-menu-close-action-size;                    /* @stable [21.09.2018] */
     }
 
     .rac-menu-field-wrapper {
-      padding: 0 8px 8px 8px;                                 /* @stable [17.09.2018] */
+      padding: $rac-menu-field-wrapper-padding;               /* @stable [04.10.2018] */
     }
 
     .rac-simple-list {
-      padding: unset;                                         /* @stable [25.06.2018] */
       max-height: $rac-menu-simple-list-max-height;           /* @stable [25.06.2018] */
 
-      .rac-simple-list-item {
+      .rac-list-item {
         height: $rac-menu-simple-list-item-height;            /* @stable [25.06.2018] */
+        cursor: pointer;                                      /* @stable [04.10.2018] */
 
         &[aria-disabled='true'] {
-          opacity: $opacity;                                  /* @stable [05.08.2018] */
+          opacity: $rac-opacity;                              /* @stable [05.08.2018] */
+          cursor: default;                                    /* @stable [04.10.2018] */
+        }
+
+        &:hover {
+          background: $rac-menu-item-hover-background;        /* @stable [04.10.2018] */
         }
 
         .rac-menu-item {
-          height: 100%;                                       /* @stable [18.09.2018] */
+          white-space: nowrap;                                /* @stable [04.10.2018] */
+          overflow: hidden;                                   /* @stable [04.10.2018] */
           color: $rac-menu-item-color;                        /* @stable [25.06.2018] */
           font-size: $rac-menu-item-font-size;                /* @stable [25.06.2018] */
+          margin: $rac-menu-item-margin;                      /* @stable [04.10.2018] */
 
           .rac-menu-item-icon {
 

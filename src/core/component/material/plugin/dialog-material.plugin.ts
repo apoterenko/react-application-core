@@ -8,75 +8,35 @@ export class DialogMaterialPlugin<TDialog extends IUniversalDialog>
   extends MaterialPlugin<TDialog, INativeMaterialDialogComponent> {
 
   /**
-   * @stable [17.05.2018]
+   * @stable [04.10.2018]
    * @param {TDialog} dialog
    */
   constructor(dialog: TDialog) {
     super(dialog, MDCDialog);
 
-    this.onAccept = this.onAccept.bind(this);
-    this.onClose = this.onClose.bind(this);
-    this.isOpen = this.isOpen.bind(this);
-
-    // Complete the component behavior
     dialog.activate = sequence(dialog.activate, this.onMenuActivate, this);
-    dialog.isOpen = this.isOpen;
+    dialog.onClose = sequence(dialog.onClose, this.onClose, this);
+    dialog.onAccept = sequence(dialog.onAccept, this.onAccept, this);
   }
 
   /**
-   * @stable [17.05.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    if (this.component.acceptable) {
-      this.mdc.listen('MDCDialog:accept', this.onAccept);
-    }
-    if (this.component.closable) {
-      this.mdc.listen('MDCDialog:cancel', this.onClose);
-    }
-  }
-
-  /**
-   * @stable [17.05.2018]
-   */
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
-    if (this.component.acceptable) {
-      this.mdc.unlisten('MDCDialog:accept', this.onAccept);
-    }
-    if (this.component.closable) {
-      this.mdc.unlisten('MDCDialog:cancel', this.onClose);
-    }
-  }
-
-  /**
-   * @stable [17.05.2018]
+   * @stable [04.10.2018]
    */
   private onMenuActivate(): void {
-    this.mdc.show();
+    this.mdc.open();
   }
 
   /**
-   * @stable [02.08.2018]
-   * @returns {boolean}
-   */
-  private isOpen(): boolean {
-    return this.mdc.foundation_.isOpen();
-  }
-
-  /**
-   * @stable [17.05.2018]
+   * @stable [04.10.2018]
    */
   private onAccept(): void {
-    this.component.onAccept();
+    this.mdc.close();
   }
 
   /**
-   * @stable [17.05.2018]
+   * @stable [04.10.2018]
    */
   private onClose(): void {
-    this.component.onClose();
+    this.mdc.close();
   }
 }

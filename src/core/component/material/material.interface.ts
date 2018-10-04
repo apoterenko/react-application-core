@@ -1,6 +1,7 @@
 import {
   IKeyValue,
   IActivateWrapper,
+  AnyT,
 } from '../../definitions.interface';
 import { ISnackbarConfiguration } from '../snackbar';
 
@@ -14,10 +15,8 @@ export interface INativeMaterialComponentFactory<TNativeMaterialComponent extend
 /**
  * @stable [05.05.2018]
  */
-export interface INativeMaterialComponent extends IKeyValue {
+export interface INativeMaterialComponent {
   foundation_: INativeMaterialFoundation;
-  listen(type: string, callback: () => void);
-  unlisten(type: string, callback: () => void);
   destroy(): void;
 }
 
@@ -53,4 +52,5 @@ export interface INativeMaterialTabPanelComponent extends INativeMaterialCompone
  */
 export interface INativeMaterialSnackbarComponent extends INativeMaterialComponent,
                                                           ISnackbarConfiguration {
+  show(config: AnyT);
 }

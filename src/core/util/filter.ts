@@ -16,10 +16,11 @@ import {
 import { isDef, isObject, isFn, isString } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 
-export type PredicateT = (key: string, value: AnyT) => boolean;
+export type KeyPredicateT = (key: string, value: AnyT) => boolean;
+export type ValuePredicateT = (value: AnyT) => boolean;
 
 export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKeyValue>(
-    source: TSource, ...predicates: PredicateT[]
+    source: TSource, ...predicates: KeyPredicateT[]
 ): TResult {
   const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_VALUE_PREDICATE));
   const result: TResult = {...filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_VALUE_PREDICATE)) as {}} as TResult;
@@ -32,22 +33,22 @@ export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKe
 /**
  * @stable [11.08.2018]
  * @param {TSource} source
- * @param {PredicateT} predicates
+ * @param {KeyPredicateT} predicates
  * @returns {TResult}
  */
 export const filterByPredicate = <TSource extends IKeyValue, TResult extends IKeyValue>(
   source: TSource,
-  ...predicates: PredicateT[]
+  ...predicates: KeyPredicateT[]
 ): TResult =>
   Object.freeze(
     R.pickBy<TSource, TResult>(
       (value, key): boolean => predicates.length > 1
-        ? (predicates as Array<PredicateT | boolean>)
+        ? (predicates as Array<KeyPredicateT | boolean>)
           .reduce(
             (previousValue, currentValue): boolean =>
-              (currentValue as PredicateT)(key, value)
+              (currentValue as KeyPredicateT)(key, value)
               && (isFn(previousValue)
-              ? (previousValue as PredicateT)(key, value)
+              ? (previousValue as KeyPredicateT)(key, value)
               : previousValue as boolean)
           ) as boolean
         : predicates[0](key, value),
@@ -82,7 +83,44 @@ export const NOT_OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => !isObjec
 export const NOT_PROGRESS_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PROGRESS_FIELD_NAME;
 export const NOT_PASSWORD_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PASSWORD_FIELD_NAME;
 
-export const DEF_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
+/**
+ * @stable [03.10.2018]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
+
+/**
+ * @stable [03.10.2018]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
+
+/**
+ * @stable [03.10.2018]
+ * @param {TValue[]} data
+ * @param {ValuePredicateT} predicates
+ * @returns {TValue[]}
+ */
+export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicateT[]): TValue[] =>
+  R.filter<TValue>((value) => predicates.length > 1
+    ? (predicates as Array<ValuePredicateT | boolean>)
+      .reduce(
+        (previousValue, currentValue) => (currentValue as ValuePredicateT)(value)
+          && (isFn(previousValue) ? (previousValue as ValuePredicateT)(value) : previousValue as boolean)
+      ) as boolean
+    : predicates[0](value), data);
+
+/**
+ * @stable [03.10.2018]
+ * @param {TValue[]} data
+ * @returns {any[]}
+ */
+export const defValuesArrayFilter = <TValue>(...data: TValue[]) => filterArray(data, DEF_VALUE_PREDICATE);
 
 export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource,
@@ -92,7 +130,7 @@ export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends I
 }
 
 export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-  filterByPredicate<TSource, TResult>(source, DEF_VALUE_PREDICATE);
+  filterByPredicate<TSource, TResult>(source, DEF_KEY_VALUE_PREDICATE);
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);

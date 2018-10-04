@@ -782,13 +782,6 @@ export interface IRenderToBodyWrapper {
 }
 
 /**
- * @stable [16.06.2018]
- */
-export interface IAdjustWidthWrapper<TAdjustWidth = boolean> {
-  adjustWidth?: TAdjustWidth;
-}
-
-/**
  * @stable [31.07.2018]
  */
 export interface IValidateWrapper<TValidatedValueResult = AnyT,
@@ -2284,6 +2277,27 @@ export interface IRippableWrapper<TRippable = boolean> {
 }
 
 /**
+ * @stable [03.10.2018]
+ */
+export interface ICenteredWrapper<TCentered = boolean> {
+  centered?: TCentered;
+}
+
+/**
+ * @stable [03.10.2018]
+ */
+export interface IBackwardRenderedWrapper<TBackwardRendered = boolean> {
+  backwardRendered?: TBackwardRendered;
+}
+
+/**
+ * @stable [03.10.2018]
+ */
+export interface IForwardRenderedWrapper<TForwardRendered = boolean> {
+  forwardRendered?: TForwardRendered;
+}
+
+/**
  * @stable [09.06.2018]
  */
 export interface ITextWrapper<TText = string> {
@@ -2828,8 +2842,8 @@ export interface ICheckedWrapper<TChecked = boolean> {
 /**
  * @stable [10.06.2018]
  */
-export interface IWidthWrapper {
-  width?: number;
+export interface IWidthWrapper<TWidth = number> {
+  width?: TWidth;
 }
 
 /**

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, toClassName, isDef } from '../../../util';
+import { cancelEvent, toClassName, isDef, getWidth } from '../../../util';
 import { BasicTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
@@ -12,10 +12,7 @@ import {
   IKeyboardEvent,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import {
-  IBasicSelectProps,
-  IBasicSelectState,
-} from './basic-select.interface';
+import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
@@ -107,8 +104,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     const props = this.props;
     return (
       <Menu ref='menu'
-            adjustWidth={true}
-            renderToBody={true}
+            width={() => getWidth(this.self)}
             options={this.toFilteredOptions()}
             onSelect={this.onSelect}
             {...props.menuConfiguration}/>

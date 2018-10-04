@@ -34,13 +34,11 @@ export interface IMenuProps extends IMenuConfiguration,
 export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
                                                       IOpenWrapper,
                                                       IShowWrapper {
-  quickOpen?: boolean;
+  hoistMenuToBody();
 }
 
 export interface IMenu extends IComponent<IMenuProps, IMenuState>,
                                IShowWrapper,
                                IHideFnWrapper {
   isOpen(): boolean;
-  onInputFocus(): void;
-  onInputBlur(): void;
 }

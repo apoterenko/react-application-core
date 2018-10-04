@@ -294,8 +294,6 @@ export class UIMaterialFactory implements IUIFactory {
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
   public snackbarActionButton = 'mdc-snackbar__action-button';
   public icons = 'material-icons';
-  public drawer = 'mdc-drawer__drawer';
-  public drawerPermanent = 'mdc-drawer--permanent';
   public toolbar = 'mdc-toolbar';
   public list = 'mdc-list';
   public listTwoLine = 'mdc-list--two-line';
@@ -335,9 +333,9 @@ export class UIMaterialFactory implements IUIFactory {
   public cardActionButtons = 'mdc-card__action-buttons';
   public cardActionIcons = 'mdc-card__action-icons';
   public rippleSurface = 'mdc-ripple-surface';
-  public menuAnchor = 'mdc-menu-anchor';
+  public menuAnchor = 'mdc-menu-surface--anchor';
+  public menuSurface = 'mdc-menu-surface';
   public menu = 'mdc-menu';
-  public menuItems = 'mdc-menu__items';
   public fab = 'mdc-fab';
   public dialog = 'mdc-dialog';
   public dialogSurface = 'mdc-dialog__surface';

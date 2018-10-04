@@ -1,33 +1,24 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BasicEventT, KeyboardEventT, UNDEF, IBasicEvent } from '../../definitions.interface';
+import { UNDEF, IBasicEvent } from '../../definitions.interface';
 import { IMenuItemEntity } from '../../entities-definitions.interface';
 import {
   orNull,
   toClassName,
   isDef,
-  setAbsoluteOffset,
   orDefault,
-  addClassNameToBody,
   addClassNameToElement,
-  removeClassNameFromBody,
-  addChild,
-  adjustWidth,
   queryFilter,
   setAbsoluteOffsetByCoordinates,
-  removeChild,
+  applyStyle,
+  calc,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
-import {
-  IMenuState,
-  IMenuProps,
-  IMenu,
-} from './menu.interface';
+import { IMenuState, IMenuProps, IMenu } from './menu.interface';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
-import { cancelEvent } from '../../util';
 
 export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     implements IMenu {
@@ -36,7 +27,8 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
-  private menuParent: Element;
+  private fieldRef = React.createRef<TextField>();
+  private menuAnchorRef = React.createRef<HTMLDivElement>();
 
   /**
    * @stable [31.07.2018]
@@ -45,51 +37,21 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
   constructor(props: IMenuProps) {
     super(props);
 
+    this.hide = this.hide.bind(this);
     this.onSelect = this.onSelect.bind(this);
-    this.onFilterClick = this.onFilterClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.onInputFocus = this.onInputFocus.bind(this);
-    this.onInputBlur = this.onInputBlur.bind(this);
-    this.onInputKeyEscape = this.onInputKeyEscape.bind(this);
 
     this.state = {};
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [04.10.2018]
    */
   public componentDidMount(): void {
+    if (this.props.renderToCenterOfBody) {
+      addClassNameToElement(this.self, 'rac-absolute-center-position');
+    }
     super.componentDidMount();
-
-    const props = this.props;
-    if (this.isRenderToBody) {
-      this.menuParent = this.self.parentElement;
-      addChild(this.self);
-    }
-    if (props.useFilter) {
-      // We must handle the events through native DOM Api because MDC
-      this.eventManager.add(this.field.input, 'click', this.onFilterClick);
-    }
-    if (props.renderToCenterOfBody) {
-      addClassNameToElement(this.self as HTMLElement, 'rac-absolute-center-position');
-    }
-  }
-
-  /**
-   * @stable [31.07.2018]
-   */
-  public componentWillUnmount(): void {
-    const props = this.props;
-
-    if (this.isRenderToBody) {
-      delete this.menuParent;
-      removeChild(this.self);
-    }
-    if (props.useFilter) {
-      // We must handle the events through native DOM Api because MDC
-      this.eventManager.remove(this.field.input, 'click', this.onFilterClick);
-    }
-    super.componentWillUnmount();
   }
 
   /**
@@ -102,14 +64,19 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     const optionValueFn = (option: IMenuItemEntity): string | number => (option.label ? this.t(option.label) : option.value);
 
     return (
-      <div ref='selfWrapper'
+      <div ref={this.menuAnchorRef}
            className={this.uiFactory.menuAnchor}>
         <div ref='self'
-             className={toClassName('rac-menu', props.className, this.uiFactory.menu)}>
+             className={toClassName(
+                          'rac-menu',
+                          props.className,
+                          this.uiFactory.menu,
+                          this.uiFactory.menuSurface,
+                          props.renderToCenterOfBody && 'rac-menu-centered')}>
           {
             orNull<JSX.Element>(
               props.renderToCenterOfBody,
-              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action', onClick: (e) => cancelEvent(e)})
+              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action', onClick: this.hide})
             )
           }
           {orNull<JSX.Element>(
@@ -118,26 +85,20 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
               <FlexLayout full={false}
                           row={true}
                           className='rac-menu-field-wrapper'>
-                <TextField ref='field'
+                <TextField ref={this.fieldRef}
                            value={state.filter}
                            placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
                            errorMessageRendered={false}
-                           onChange={this.onInputChange}
-                           onFocus={this.onInputFocus}
-                           onBlur={this.onInputBlur}
-                           onKeyEscape={this.onInputKeyEscape}/>
+                           onChange={this.onInputChange}/>
               </FlexLayout>
             )
           )}
-          <SimpleList useTwoLine={false}
-                      nonInteractive={false}
-                      className={this.uiFactory.menuItems}>
+          <SimpleList>
             {
-              this.menuItems
-                .map((option): JSX.Element => (
+              this.menuItems.map((option): JSX.Element => (
                   <li role='option'
-                      key={`menu-item-${option.value}`}
-                      className={toClassName(this.uiFactory.listItem, 'rac-simple-list-item')}
+                      key={`menu-item-key-${option.value}`}
+                      className='rac-list-item rac-flex'
                       aria-disabled={option.disabled === true}
                       onClick={(event) => this.onSelect(event, option)}>
                     <FlexLayout justifyContentCenter={true}
@@ -178,53 +139,24 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [04.10.2018]
    */
   public show(): void {
-    this.setState({ filter: UNDEF });
-
     const props = this.props;
-    if (props.useFilter) {
-      setTimeout(() => this.field.setFocus());
-    }
-    if (props.renderToCenterOfBody) {
-      addClassNameToBody('rac-disabled');
+    this.setState({filter: UNDEF}, () => props.useFilter && this.field.setFocus());
 
-    } else if (props.renderToBody) {
-      const menuEl = this.self as HTMLElement;
-
-      setAbsoluteOffset(menuEl, this.menuParent);
-      if (props.adjustWidth) {
-        adjustWidth(menuEl, this.menuParent);
-      }
-    } else if (props.renderToX || props.renderToY) {
-      setAbsoluteOffsetByCoordinates(this.refs.selfWrapper as HTMLElement, props.renderToX, props.renderToY);
+    if (!R.isNil(props.renderToX) || !R.isNil(props.renderToY)) {
+      setAbsoluteOffsetByCoordinates(this.menuAnchorRef.current, props.renderToX, props.renderToY);
+    } else if (!R.isNil(props.width)) {
+      applyStyle(this.self, 'width', calc(props.width));
     }
   }
 
   /**
+   * Each plugin may implement this method
    * @stable [17.05.2018]
    */
   public hide(): void {
-    if (!this.props.renderToCenterOfBody) {
-      return;
-    }
-    removeClassNameFromBody('rac-disabled');
-  }
-
-  /**
-   * Each plugin may implement this method
-   * @stable [17.05.2018]
-   */
-  public onInputFocus(): void {
-    // Do nothing
-  }
-
-  /**
-   * Each plugin may implement this method
-   * @stable [17.05.2018]
-   */
-  public onInputBlur(): void {
     // Do nothing
   }
 
@@ -251,17 +183,12 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
       : props.options;
   }
 
+  /**
+   * @stable [04.10.2018]
+   * @param {string} filter
+   */
   private onInputChange(filter: string): void {
-    this.setState({ filter });
-  }
-
-  private onInputKeyEscape(event: KeyboardEventT): void {
-    this.stopEvent(event);
-    this.hide();
-  }
-
-  private onFilterClick(event: BasicEventT): void {
-    this.stopEvent(event);
+    this.setState({filter});
   }
 
   /**
@@ -269,16 +196,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
    * @returns {IField}
    */
   private get field(): IField {
-    return this.refs.field as IField;
-  }
-
-  /**
-   * @stable [14.06.2018]
-   * @returns {boolean}
-   */
-  private get isRenderToBody(): boolean {
-    const props = this.props;
-    return props.renderToBody || props.renderToCenterOfBody;
+    return this.fieldRef.current;
   }
 
   /**
