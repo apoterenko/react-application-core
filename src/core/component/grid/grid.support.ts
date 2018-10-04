@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { isFn, join, normalizeTime, orNull, orUndef, toClassName, defValuesFilter } from '../../util';
+import { calc, join, normalizeTime, orNull, orUndef, toClassName, defValuesFilter } from '../../util';
 import { GridColumnConfigurationT } from '../../configurations-definitions.interface';
 import { UNI_CODES } from '../../definitions.interface';
 import { ITimeGridBuilderConfigEntity } from './grid.interface';
@@ -23,7 +23,7 @@ export const DEFAULT_BUILDER_CONFIG: ITimeGridBuilderConfigEntity = {
 };
 
 /**
- * @stable [15.09.2018]
+ * @stable [04.10.2018]
  * @param {GridColumnConfigurationT} defaultConfig
  * @param {string} extraClassName
  * @returns {GridColumnConfigurationT}
@@ -31,12 +31,7 @@ export const DEFAULT_BUILDER_CONFIG: ITimeGridBuilderConfigEntity = {
 export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT, extraClassName?: string): GridColumnConfigurationT =>
   ({
     ...defaultConfig,
-    columnClassName: (props) => toClassName(
-      extraClassName,
-      isFn(defaultConfig.columnClassName)
-        ? (defaultConfig.columnClassName as (props) => string)(props)
-        : defaultConfig.columnClassName as string,
-    ),
+    columnClassName: (props) => toClassName(extraClassName, calc<string>(defaultConfig.columnClassName, props)),
   });
 
 /**

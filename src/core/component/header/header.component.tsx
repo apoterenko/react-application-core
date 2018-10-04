@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
-import { toClassName, orNull } from '../../util';
+import { toClassName, orNull, orDefault } from '../../util';
 import { IHeaderProps } from './header.interface';
 import { BaseComponent } from '../base';
 import { Menu } from '../menu';
@@ -24,6 +25,7 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
+    const headerTitle = <span className='rac-header-section-title'>{props.title}</span>;
 
     return (
       <header className={toClassName(
@@ -62,7 +64,13 @@ export class Header extends BaseComponent<Header, IHeaderProps> {
                 })
               )
             )}
-            <span className='rac-header-section-title'>{props.title}</span>
+            {
+              orDefault<JSX.Element, JSX.Element>(
+                R.isNil(props.titleRenderer),
+                headerTitle,
+                () => props.titleRenderer(headerTitle)
+              )
+            }
           </FlexLayout>
           {props.items}
           {

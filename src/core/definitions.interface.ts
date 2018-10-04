@@ -1828,6 +1828,13 @@ export interface IHeaderRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.
 }
 
 /**
+ * @stable [04.10.2018]
+ */
+export interface ITitleRendererWrapper<TItem = string, TRenderer = (item?: TItem) => JSX.Element> {
+  titleRenderer?: TRenderer;
+}
+
+/**
  * @stable [06.06.2018]
  */
 export interface IFilterRendererWrapper<TItem, TRenderer = (item: TItem) => JSX.Element> {
@@ -1916,8 +1923,8 @@ export interface ILocalFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item:
 /**
  * @stable [14.05.2018]
  */
-export interface ITitleWrapper<TTitle = string> {
-  title?: TTitle;
+export interface ITitleWrapper {
+  title?: string;
 }
 
 /**

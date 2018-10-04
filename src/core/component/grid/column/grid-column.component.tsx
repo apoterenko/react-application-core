@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { orUndef, isPrimitive, nvl, isFn, cancelEvent, orNull } from '../../../util';
+import { orUndef, isPrimitive, nvl, isFn, orNull, calc } from '../../../util';
 import { IGridColumnProps } from '../../../props-definitions.interface';
 import { BaseGridColumn } from '../base-column/base-grid-column.component';
 import { IBasicEvent } from '../../../definitions.interface';
@@ -31,9 +31,7 @@ export class GridColumn extends BaseGridColumn<GridColumn, IGridColumnProps> {
             colSpan={nvl(props.columnColSpan, props.colSpan)}
             className={this.getClassName(
               props.actioned && 'rac-grid-actioned-column',
-              isFn(props.columnClassName)
-                ? (props.columnClassName as (props: IGridColumnProps) => string)(props)
-                : props.columnClassName as string,
+              calc<string, IGridColumnProps>(props.columnClassName, props)
             )}
             title={
               orUndef<string>(
@@ -55,9 +53,7 @@ export class GridColumn extends BaseGridColumn<GridColumn, IGridColumnProps> {
    * @param {IBasicEvent} event
    */
   private onColumnClick(event: IBasicEvent): void {
-    cancelEvent(event);
-
     const props = this.props;
-    props.onColumnClick(props);
+    props.onColumnClick({event, props});
   }
 }

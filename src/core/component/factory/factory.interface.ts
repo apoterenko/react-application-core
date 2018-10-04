@@ -58,11 +58,11 @@ export interface IUIFactory {
   fab?: string;
   dialog?: string;
   dialogSurface?: string;
-  dialogBody?: string;
-  dialogHeader?: string;
-  dialogHeaderTitle?: string;
-  dialogBackdrop?: string;
-  dialogFooter?: string;
+  dialogContent?: string;
+  dialogContainer?: string;
+  dialogTitle?: string;
+  dialogScrim?: string;
+  dialogActions?: string;
   dialogFooterButton?: string;
   dialogFooterButtonCancel?: string;
   dialogFooterButtonAccept?: string;

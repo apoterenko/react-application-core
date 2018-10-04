@@ -1,9 +1,11 @@
 import { isFn } from './type';
+import { AnyT } from '../definitions.interface';
 
 /**
  * @stable [04.10.2018]
- * @param {(() => TResult) | TResult} result
+ * @param {((payload?: TPayload) => TResult) | TResult} result
+ * @param {TPayload} payload
  * @returns {TResult}
  */
-export const calc = <TResult>(result: TResult | (() => TResult)): TResult =>
-  isFn(result) ? (result as () => TResult)() : result as TResult;
+export const calc = <TResult, TPayload = AnyT>(result: TResult | ((payload?: TPayload) => TResult), payload?: TPayload): TResult =>
+  isFn(result) ? (result as (payload?: TPayload) => TResult)(payload) : result as TResult;

@@ -13,6 +13,7 @@ import {
   IActionIconWrapper,
   IActionTextWrapper,
   IAlwaysDirtyWrapper,
+  ISingleWrapper,
   IClassNameWrapper,
   IDisabledWrapper,
   INotUseActionsWrapper,
@@ -32,6 +33,7 @@ import {
   IActiveWrapper,
   ITypeWrapper,
   IBasenameWrapper,
+  ICenteredWrapper,
   IAutoFocusWrapper,
   IPreventValueBindingWrapper,
   IPlaceholderWrapper,
@@ -162,7 +164,6 @@ import {
   IOnEmptyMessageClickWrapper,
   IEmptyMessageActionWrapper,
   IEmptyMessageActionConfigurationWrapper,
-  IAdjustWidthWrapper,
   IValidationGroupWrapper,
   IChangeFormWrapper,
   IOnBlurWrapper,
@@ -217,7 +218,10 @@ import {
   IExpandActionRenderedWrapper,
   ISubmittedWrapper,
   IKeyWrapper,
+  IBackwardRenderedWrapper,
+  IForwardRenderedWrapper,
   IParentWrapper,
+  ITitleRendererWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -514,7 +518,7 @@ export interface IBaseGridColumnConfiguration extends IComponentConfiguration,
 
 /* @stable - 04.04.2018 */
 export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
-                                                  IOnColumnClickWrapper<IGridColumnProps>,
+                                                  IOnColumnClickWrapper<{event: IBasicEvent, props: IGridColumnProps}>,
                                                   IColumnColSpanWrapper,
                                                   IColumnTitleWrapper,
                                                   IColumnWidthWrapper,
@@ -522,7 +526,6 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   IColumnRenderedWrapper,
                                                   ILocalFilterFnWrapper<IGridFilterConfiguration>,
                                                   IOnClickWrapper<ISortDirectionEntity>,
-                                                  ITitleWrapper,
                                                   IUseGroupingWrapper,
                                                   IUseSortingWrapper,
                                                   ITplFnWrapper,
@@ -588,6 +591,9 @@ export interface ITabConfiguration extends IValueWrapper,
 export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IUseIndicatorWrapper,
                                                 IRippableWrapper,
+                                                ICenteredWrapper,
+                                                IBackwardRenderedWrapper,
+                                                IForwardRenderedWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
                                                 IOnClickWrapper<ITabConfiguration>,
                                                 IOnDeactivateWrapper,
@@ -692,7 +698,9 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string>,
           IFieldRenderedWrapper,
-          IActiveWrapper {
+          IActiveWrapper,
+          ISingleWrapper,
+          IFullWrapper {
 }
 
 /* @stable - 11.04.2018 */
@@ -929,8 +937,8 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IMultiWrapper,
                                             IUseFilterWrapper,
                                             IRenderToBodyWrapper,
+                                            IWidthWrapper<number | (() => number)>,
                                             IRenderToCenterOfBodyWrapper,
-                                            IAdjustWidthWrapper,
                                             IRendererWrapper<IMenuItemEntity>,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
                                             ITplFnWrapper<IMenuItemEntity>,
@@ -1011,7 +1019,8 @@ export interface IHeaderConfiguration extends IComponentConfiguration,
                                               IItemsWrapper<JSX.Element>,
                                               INavigationActionTypeWrapper,
                                               IOnNavigationActionClickWrapper,
-                                              IOnMoreOptionsSelectWrapper<IMenuItemEntity> {
+                                              IOnMoreOptionsSelectWrapper<IMenuItemEntity>,
+                                              ITitleRendererWrapper<JSX.Element> {
 }
 
 /**
