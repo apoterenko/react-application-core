@@ -3,6 +3,7 @@ import * as React from 'react';
 import { IDrawerProps } from './drawer.interface';
 import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
+import { FlexLayout } from '../layout';
 
 export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
 
@@ -14,16 +15,10 @@ export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
     const props = this.props;
     const mini = props.mini;
     return (
-      <aside ref='self'
-             className={toClassName(
-                         'rac-drawer-wrapper',
-                         this.uiFactory.drawerPermanent,
-                         mini && 'rac-drawer-wrapper-mini',
-                       )}>
-        <nav className={toClassName('rac-drawer', 'rac-flex', 'rac-flex-column', 'rac-flex-full', this.uiFactory.drawer)}>
-          {props.children}
-        </nav>
-      </aside>
+      <FlexLayout className={toClassName('rac-drawer', mini && 'rac-drawer-mini')}
+                  full={false}>
+        {props.children}
+      </FlexLayout>
     );
   }
 }

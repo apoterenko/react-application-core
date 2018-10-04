@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { clone, uuid, PredicateT, cloneUsingFilters } from '../../util';
+import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
@@ -72,7 +72,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     }
   }
 
-  protected clearStateBeforeSerialization(state: TStoreEntity, ...predicates: PredicateT[]): TStoreEntity {
+  protected clearStateBeforeSerialization(state: TStoreEntity, ...predicates: KeyPredicateT[]): TStoreEntity {
     this.clearSystemState(state);
 
     // You may clear the app state here before the serializing

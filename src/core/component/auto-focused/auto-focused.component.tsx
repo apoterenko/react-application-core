@@ -7,6 +7,8 @@ import { IField, TextField, DelayedChangesFieldPlugin, FIELD_EMPTY_VALUE } from 
 import { BaseComponent } from '../base';
 import { IAutoFocusedState } from './auto-focused.interface';
 import { IAutoFocusedProps } from './auto-focused.interface';
+import { DI_TYPES, lazyInject } from '../../di';
+import { IEventManager } from '../../event';
 
 export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, IAutoFocusedState> {
 
@@ -17,6 +19,8 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
 
   private static ROBOT_DETECTION_MIN_SYMBOLS_COUNT = 3;
   private static ENTER_KEY_CODES = [10, 13];
+
+  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   private delayedTask: DelayedTask;
 
