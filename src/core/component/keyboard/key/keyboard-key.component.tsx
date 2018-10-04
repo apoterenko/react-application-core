@@ -16,31 +16,31 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
     const props = this.props;
     const keyAsString = props.value as string;
     const keyAsObject = props.value as IKeyboardKey;
+    const value = isString(keyAsString)
+      ? (
+        props.useUppercase
+          ? keyAsString.toUpperCase()
+          : keyAsString
+      )
+      : (
+        keyAsObject.type === KeyboardKeyEnum.UPPERCASE
+          ? (props.useUppercase ? KEYBOARD_SPECIAL_KEYS.LOWERCASE : keyAsObject.value)
+          : keyAsObject.value
+      );
 
     return (
       <div ref='self'
            style={keyAsObject && keyAsObject.width ? {width: `${keyAsObject && keyAsObject.width}px`} : {}}
            className={toClassName(
                        'rac-keyboard-key',
+                       `rac-keyboard-key-${value}`,
                        'rac-flex',
                        'rac-flex-center',
                        keyAsObject && keyAsObject.className,
                        this.uiFactory.rippleSurface
                      )}
            onClick={(event) => this.onClick(event)}>
-        {
-          isString(keyAsString)
-          ? (
-              props.useUppercase
-                ? keyAsString.toUpperCase()
-                : keyAsString
-            )
-          : (
-              keyAsObject.type === KeyboardKeyEnum.UPPERCASE
-             ? (props.useUppercase ? KEYBOARD_SPECIAL_KEYS.LOWERCASE : keyAsObject.value)
-             : keyAsObject.value
-            )
-        }
+        {value}
       </div>
     );
   }
