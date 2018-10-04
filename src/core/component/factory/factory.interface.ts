@@ -12,7 +12,6 @@ export interface IUIFactory {
   icons?: string;
   drawerOpen?: string;
   drawer?: string;
-  drawerPermanent?: string;
   toolbar?: string;
   listGroupSubHeader?: string;
   listDivider?: string;
@@ -54,8 +53,8 @@ export interface IUIFactory {
   cardActionIcons?: string;
   rippleSurface?: string;
   menuAnchor?: string;
+  menuSurface?: string;
   menu?: string;
-  menuItems?: string;
   fab?: string;
   dialog?: string;
   dialogSurface?: string;

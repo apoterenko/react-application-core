@@ -10,6 +10,10 @@
 
   .rac-form-field, .rac-field {       // TODO rac-form-field - legacy
 
+    .rac-view-field {
+      margin-bottom: $rac-view-field-margin-bottom;                   /* @stable [04.10.2018] */
+    }
+
     &.rac-field-active {
 
       .rac-text-field {
@@ -28,6 +32,17 @@
       }
     }
 
+    &.rac-field-readonly {
+
+    }
+
+    &.rac-field-labeled {
+
+      .rac-text-field {
+        margin-top: $rac-text-field-margin-top;                       /* @stable [03.10.2018] */
+      }
+    }
+
     &.rac-field-disabled {
 
       label,
@@ -39,10 +54,6 @@
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default !important;                                   /* @stable [21.09.2018] */
       }
-    }
-
-    .rac-menu {
-      width: 100%;                                                    /* @stable [08.08.2018] */
     }
 
     .rac-field-prefix-label {
@@ -111,7 +122,6 @@
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
-      margin-top: $rac-text-field-margin-top;
 
       .rac-field-label {
         position: $rac-text-field-label-position;                     /* @stable [03.10.2018] */

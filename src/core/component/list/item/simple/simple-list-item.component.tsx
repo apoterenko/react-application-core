@@ -11,7 +11,7 @@ export class SimpleListItem extends BaseComponent<SimpleListItem> {
     return (
         <span className={toClassName(
             this.uiFactory.listItem,
-            'rac-simple-list-item',
+            'rac-list-item',
             props.className
         )}>
           {props.children}

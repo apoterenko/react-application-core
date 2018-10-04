@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
 
-import { noop, toClassName, orNull, cancelEvent, isElementFocused, IJqInput } from '../../../util';
+import { noop, toClassName, orNull, cancelEvent, isElementFocused, IJqInput, orDefault } from '../../../util';
 import {
   AnyT,
   IKeyboardEvent,
@@ -188,9 +188,20 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       'rac-field',
       'rac-flex',
       'rac-flex-column',
-      (props.className || '').includes('rac-flex-') ? '' : 'rac-flex-full',
+      orDefault<string, string>(
+        (props.className || '').includes('rac-flex-'),
+        '',
+        orDefault<string, string>(
+          props.full === false,
+          '',
+          'rac-flex-full'
+        )
+      ),
       this.isInactive() && 'rac-field-disabled',
+      props.readOnly && 'rac-field-readonly',
+      props.label && 'rac-field-labeled',
       props.active && 'rac-field-active',
+      props.single && 'rac-field-single',
       props.className,
       'rac-form-field'   // TODO Legacy
     );
