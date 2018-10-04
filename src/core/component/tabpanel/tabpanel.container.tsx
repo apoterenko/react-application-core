@@ -31,6 +31,9 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
   public render(): JSX.Element {
     return (
       <TabPanel useIndicator={false}
+                forwardRendered={false}
+                backwardRendered={false}
+                centered={false}
                 {...this.props.tabPanelConfiguration}
                 onDeactivate={this.onDeactivate}
                 activeValue={this.getTabActiveValue()}

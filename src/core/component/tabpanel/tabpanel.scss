@@ -22,13 +22,18 @@
         border-right: $rac-tab-border;                                /* @stable [26.09.2018] */
       }
 
+      &.rac-previous-tab-active {
+        &.rac-tab-odd {
+          border-right-color: transparent;                            /* @stable [26.09.2018] */
+        }
+      }
+
       &.rac-tab-active {
         background: $rac-tab-active-background;                       /* @stable [25.09.2018] */
         border: $rac-tab-active-border;                               /* @stable [26.09.2018] */
 
-        &.rac-tab-odd {
-          border-left: $rac-tab-active-border;                        /* @stable [26.09.2018] */
-          border-right: $rac-tab-active-border;                       /* @stable [26.09.2018] */
+        & + .rac-tab-odd {
+          border-left-color: transparent;                             /* @stable [26.09.2018] */
         }
       }
 
@@ -44,13 +49,19 @@
       }
 
       &.rac-first-tab {
-        border-radius: $rac-tab-border-radius 0 0 $rac-tab-border-radius;   /* @stable [25.09.2018] */
         border-left: $rac-tab-border;                                       /* @stable [26.09.2018] */
       }
 
       &.rac-last-tab {
-        border-radius: 0 $rac-tab-border-radius $rac-tab-border-radius 0;   /* @stable [25.09.2018] */
         border-right: $rac-tab-border;                                      /* @stable [26.09.2018] */
+      }
+
+      &.rac-simple-first-tab {
+        border-radius: $rac-tab-border-radius 0 0 $rac-tab-border-radius;   /* @stable [25.09.2018] */
+      }
+
+      &.rac-simple-last-tab {
+        border-radius: 0 $rac-tab-border-radius $rac-tab-border-radius 0;   /* @stable [25.09.2018] */
       }
 
       .rac-tab-url-icon,
