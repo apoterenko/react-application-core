@@ -775,13 +775,6 @@ export interface IFilterPlaceholderWrapper {
 }
 
 /**
- * @stable [14.05.2018]
- */
-export interface IRenderToBodyWrapper {
-  renderToBody?: boolean;
-}
-
-/**
  * @stable [31.07.2018]
  */
 export interface IValidateWrapper<TValidatedValueResult = AnyT,
@@ -2249,6 +2242,27 @@ export interface ISaveMessageWrapper {
  */
 export interface ITightGridWrapper {
   tightGrid?: boolean;
+}
+
+/**
+ * @stable [04.10.2018]
+ */
+export interface IApplyOddWrapper {
+  applyOdd?: boolean;
+}
+
+/**
+ * @stable [04.10.2018]
+ */
+export interface IHoveredWrapper {
+  hovered?: boolean;
+}
+
+/**
+ * @stable [04.10.2018]
+ */
+export interface ISelectableWrapper {
+  selectable?: boolean;
 }
 
 /* @stable - 12.04.2018 */

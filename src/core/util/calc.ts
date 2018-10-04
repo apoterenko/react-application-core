@@ -9,3 +9,10 @@ import { AnyT } from '../definitions.interface';
  */
 export const calc = <TResult, TPayload = AnyT>(result: TResult | ((payload?: TPayload) => TResult), payload?: TPayload): TResult =>
   isFn(result) ? (result as (payload?: TPayload) => TResult)(payload) : result as TResult;
+
+/**
+ * @stable [04.10.2018]
+ * @param {number} value
+ * @returns {boolean}
+ */
+export const isOddNumber = (value: number): boolean => value % 2 === 0;

@@ -39,9 +39,7 @@ export class GridColumn extends BaseGridColumn<GridColumn, IGridColumnProps> {
                 () => R.isNil(props.columnTitle) ? props.children as string : props.columnTitle
               )
             }
-            onClick={
-              orUndef<(payload: IBasicEvent) => void>(isFn(props.onColumnClick), () => this.onColumnClick)
-            }>
+            onClick={orUndef<(payload: IBasicEvent) => void>(isFn(props.onColumnClick), () => this.onColumnClick)}>
           {this.getColumnContentElement('rac-overflow-ellipsis')}
         </td>
       )

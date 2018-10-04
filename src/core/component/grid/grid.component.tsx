@@ -5,7 +5,7 @@ import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, IGridFilterConfiguration } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, EntityIdT, IBasicEvent } from '../../definitions.interface';
-import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent, coalesce } from '../../util';
+import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent, coalesce, isOddNumber } from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
@@ -287,6 +287,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
       if (this.isElementField(renderEl)) {
         return React.cloneElement<IFieldProps>(renderEl, {
           ...this.getDefaultFieldProps(),
+          name: column.name,
           value: Reflect.get(entity, column.name),
           onChange: (value) => this.onChangeRowField({value, name, rawData: entity}),
         });
@@ -351,7 +352,9 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                className={
                  toClassName(
                    'rac-grid-data-row',
-                   index % 2 === 0 ? 'rac-grid-data-row-odd' : ''
+                   orUndef<string>(props.applyOdd !== false && isOddNumber(index), 'rac-grid-data-row-odd'),
+                   orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
+                   orUndef<string>(props.selectable !== false, 'rac-grid-data-row-selectable')
                  )
                }
                selected={this.isEntitySelected(entity)}

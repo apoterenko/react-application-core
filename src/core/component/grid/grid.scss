@@ -1,3 +1,4 @@
+@import '~sass-flex-mixin/_flex';
 @import '../constant';
 @import './time-grid';
 @import './tight-grid';
@@ -40,59 +41,63 @@
         }
       }
 
-      .rac-grid-column-content {
-        position: relative;                                         /* @stable [04.07.2018] */
-        width: 100%;                                                /* @stable [21.06.2018] */
-        overflow: hidden;                                           /* @stable [26.09.2018] */
-        vertical-align: middle;                                     /* @stable [21.06.2018] */
-        letter-spacing: $rac-grid-column-content-letter-spacing;    /* @stable [22.06.2018] */
-        font-size: $rac-grid-column-content-font-size;              /* @stable [22.06.2018] */
+      &.rac-grid-column-align-center {
 
-        .rac-field {
-          width: 100%;                                              /* @stable [19.09.2018] */
+        .rac-grid-column-content {
 
-          &.rac-checkbox {
-            width: auto;                                            /* @stable [19.09.2018] */
+          .rac-field {
 
             .rac-self-field-wrapper {
-              padding-bottom: 0;                                    /* @stable [19.09.2018] */
+              @include justify-content(center);                                     /* @stable [04.10.2018] */
             }
           }
+        }
+      }
+
+      .rac-grid-column-content {
+        position: relative;                                                         /* @stable [04.07.2018] */
+        width: 100%;                                                                /* @stable [21.06.2018] */
+        overflow: hidden;                                                           /* @stable [26.09.2018] */
+        vertical-align: middle;                                                     /* @stable [21.06.2018] */
+        letter-spacing: $rac-grid-column-content-letter-spacing;                    /* @stable [22.06.2018] */
+        font-size: $rac-grid-column-content-font-size;                              /* @stable [22.06.2018] */
+
+        .rac-field {
 
           .rac-text-field {
-            margin-bottom: 0;                                                            /* @stable [19.09.2018] */
-            border-color: $rac-grid-column-content-text-field-border-color !important;   /* @mdc @stable [26.09.2018] */
+            margin-bottom: 0;                                                       /* @stable [19.09.2018] */
+            border-color: $rac-grid-column-content-text-field-border-color;         /* @stable [04.10.2018] */
           }
         }
       }
 
       .rac-icon {
-        display: inline-block;                            /* @stable [25.06.2018] */
-        font-size: $rac-grid-icon-size;                   /* @stable [21.06.2018] */
-        width: $rac-grid-icon-size;                       /* @stable [21.06.2018] */
-        height: $rac-grid-icon-size;                      /* @stable [21.06.2018] */
-        line-height: $rac-grid-icon-line-height;          /* @stable [21.06.2018] */
+        display: inline-block;                                                      /* @stable [25.06.2018] */
+        font-size: $rac-grid-icon-size;                                             /* @stable [21.06.2018] */
+        width: $rac-grid-icon-size;                                                 /* @stable [21.06.2018] */
+        height: $rac-grid-icon-size;                                                /* @stable [21.06.2018] */
+        line-height: $rac-grid-icon-line-height;                                    /* @stable [21.06.2018] */
       }
 
       &.rac-grid-actioned-column {
 
         .rac-icon {
-          color: $rac-grid-actioned-color;                  /* @stable [22.06.2018] */
-          cursor: pointer;                                  /* @stable [22.06.2018] */
-          font-size: $rac-grid-actioned-icon-size;          /* @stable [21.06.2018] */
-          width: $rac-grid-actioned-icon-size;              /* @stable [21.06.2018] */
-          height: $rac-grid-actioned-icon-size;             /* @stable [21.06.2018] */
-          line-height: $rac-grid-actioned-icon-line-height; /* @stable [21.06.2018] */
-          margin-right: $rac-grid-actioned-margin-right;    /* @stable [25.06.2018] */
-          vertical-align: middle;                           /* @stable [23.06.2018] */
+          color: $rac-grid-actioned-color;                                          /* @stable [22.06.2018] */
+          cursor: pointer;                                                          /* @stable [22.06.2018] */
+          font-size: $rac-grid-actioned-icon-size;                                  /* @stable [21.06.2018] */
+          width: $rac-grid-actioned-icon-size;                                      /* @stable [21.06.2018] */
+          height: $rac-grid-actioned-icon-size;                                     /* @stable [21.06.2018] */
+          line-height: $rac-grid-actioned-icon-line-height;                         /* @stable [21.06.2018] */
+          margin-right: $rac-grid-actioned-margin-right;                            /* @stable [25.06.2018] */
+          vertical-align: middle;                                                   /* @stable [23.06.2018] */
         }
       }
     }
 
     .rac-grid-head {
-      border-radius: $rac-grid-head-border-radius;        /* @stable [13.09.2018] */
-      color: $rac-grid-head-color;                        /* @stable [13.09.2018] */
-      background: $rac-grid-head-background;              /* @stable [13.09.2018] */
+      border-radius: $rac-grid-head-border-radius;              /* @stable [13.09.2018] */
+      color: $rac-grid-head-color;                              /* @stable [13.09.2018] */
+      background: $rac-grid-head-background;                    /* @stable [13.09.2018] */
 
       .rac-grid-column {
         text-align: left;                                       /* @stable [21.06.2018] */
@@ -141,9 +146,13 @@
           background-color: $rac-grid-data-row-odd-background-color;         /* @stable [21.06.2018] */
         }
 
+        &.rac-grid-data-row-selectable {
+          cursor: pointer;                                                   /* @stable [04.10.2018] */
+        }
+
         &.rac-grid-data-row-grouped {
           font-weight: $rac-grid-data-row-grouped-font-weight;               /* @stable [01.09.2018] */
-          background-color: $rac-grid-data-row-grouped-background-color;     /* @stable [27.06.2018] */
+          background: $rac-grid-data-row-grouped-background;                 /* @stable [27.06.2018] */
         }
 
         &.rac-grid-row-selected {
@@ -152,7 +161,10 @@
         }
 
         &:hover {
-          background-color: $rac-grid-data-row-hover-background-color;       /* @stable [09.06.2018] */
+
+          &.rac-grid-data-row-hovered {
+            background: $rac-grid-data-row-hover-background;                 /* @stable [04.10.2018] */
+          }
         }
       }
     }

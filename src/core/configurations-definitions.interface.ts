@@ -34,6 +34,7 @@ import {
   ITypeWrapper,
   IBasenameWrapper,
   ICenteredWrapper,
+  ISelectableWrapper,
   IAutoFocusWrapper,
   IPreventValueBindingWrapper,
   IPlaceholderWrapper,
@@ -134,7 +135,6 @@ import {
   IFilterFnWrapper,
   IUseFilterWrapper,
   IFilterPlaceholderWrapper,
-  IRenderToBodyWrapper,
   IRenderToCenterOfBodyWrapper,
   ITplFnWrapper,
   IFilterWrapper,
@@ -222,6 +222,8 @@ import {
   IForwardRenderedWrapper,
   IParentWrapper,
   ITitleRendererWrapper,
+  IApplyOddWrapper,
+  IHoveredWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -461,6 +463,9 @@ export interface IUniversalListConfiguration
           IOnEmptyMessageClickWrapper,
           IItemConfigurationWrapper<TItemConfiguration>,
           IDeactivatedWrapper,
+          IApplyOddWrapper,
+          IHoveredWrapper,
+          ISelectableWrapper,
           IGroupByWrapper<{
             columnName: string,
             groupValue: (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode}
@@ -936,7 +941,6 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IFilterPlaceholderWrapper,
                                             IMultiWrapper,
                                             IUseFilterWrapper,
-                                            IRenderToBodyWrapper,
                                             IWidthWrapper<number | (() => number)>,
                                             IRenderToCenterOfBodyWrapper,
                                             IRendererWrapper<IMenuItemEntity>,
