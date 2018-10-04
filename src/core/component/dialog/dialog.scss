@@ -5,31 +5,20 @@
 
   .rac-dialog {
 
-    .rac-dialog-body {
-      font-size: $rac-dialog-body-font-size;   /* @stable [05.08.2018] */
-      color: $rac-dialog-body-color;           /* @stable [05.08.2018] */
+    .rac-dialog-content {
+      font-size: $rac-dialog-content-font-size;/* @stable [05.08.2018] */
+      color: $rac-dialog-content-color;        /* @stable [05.08.2018] */
     }
 
-    .rac-form {
+    .rac-dialog-container {
 
-      .rac-section {
-        padding: 0;                           /* @stable [03.08.2018] */
+      &.rac-dialog-container-auto-width {
+        width: auto;                           /* @stable [02.08.2018] */
       }
     }
 
-    .rac-dialog-surface {
-
-      &.rac-dialog-surface-auto-width {
-        width: auto;                          /* @stable [02.08.2018] */
-      }
-    }
-
-    .rac-dialog-header {
-      color: $rac-dialog-header-color;        /* @stable [29.07.2018] */
-
-      .rac-dialog-header-title {
-        text-align: left;                     /* @stable [02.08.2018] */
-      }
+    .rac-dialog-title {
+      color: $rac-dialog-header-color;         /* @stable [29.07.2018] */
     }
   }
 }

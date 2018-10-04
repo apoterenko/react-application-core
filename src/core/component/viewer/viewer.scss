@@ -6,13 +6,13 @@
 
   .rac-preview-dialog {
 
-    .rac-dialog-body {
+    .rac-dialog-content {
       max-height: $rac-preview-dialog-body-max-height;        /* @stable [30.06.2018] */
       overflow: auto;                                         /* @stable [30.06.2018] */
     }
 
-    .rac-dialog-surface {
-      max-width: $rac-preview-dialog-surface-max-width;       /* @stable [30.06.2018] */
+    .rac-dialog-container {
+      max-width: $rac-preview-dialog-container-max-width;     /* @stable [30.06.2018] */
       max-height: unset;                                      /* @stable [30.06.2018] */
     }
   }

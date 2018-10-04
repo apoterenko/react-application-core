@@ -1,4 +1,3 @@
-@import '~sass-flex-mixin/_flex';
 @import '../../constant';
 
 // Default layout [FRAMEWORK-][RAC+]
@@ -21,8 +20,11 @@
       }
 
       .rac-header-navigation-action {
-        color: $rac-default-layout-header-navigation-action;                                        /* @stable [17.09.2018] */
-        margin-right: $rac-default-layout-header-navigation-margin-right;                           /* @stable [17.09.2018] */
+        color: $rac-default-layout-header-navigation-action-color;                                  /* @stable [17.09.2018] */
+        background: $rac-default-layout-header-navigation-action-background;                        /* @stable [04.10.2018] */
+        margin-right: $rac-default-layout-header-navigation-action-margin-right;                    /* @stable [17.09.2018] */
+        padding: $rac-default-layout-header-navigation-action-padding;                              /* @stable [04.10.2018] */
+        border-radius: $rac-default-layout-header-navigation-action-border-radius;                  /* @stable [04.10.2018] */
       }
 
       .rac-user {
@@ -121,26 +123,8 @@
       }
     }
 
-    .rac-drawer-wrapper-mini {
-      width: $rac-default-layout-drawer-wrapper-mini-width;                                         /* @stable [23.09.2018] */
-
-      .rac-drawer {
-        width: $rac-default-layout-drawer-wrapper-mini-width;                                       /* @stable [23.09.2018] */
-
-        .rac-drawer-toolbar-spacer {
-
-          .rac-logo-menu-action {
-            margin-right: auto;                                                                     /* @stable [18.09.2018] */
-          }
-        }
-
-        .rac-navigation-list-icon {
-          @include flex(1);                                                                         /* @stable [23.09.2018] */
-        }
-      }
-    }
-
     .rac-drawer {
+      width: $rac-default-layout-drawer-width;                                                      /* @stable [04.10.2018] */
 
       .rac-navigation-list {
 
@@ -161,6 +145,10 @@
             min-width: $rac-default-layout-drawer-navigation-list-icon-width;                       /* @stable [24.09.2018] */
           }
         }
+      }
+
+      &.rac-drawer-mini {
+        width: $rac-default-layout-drawer-mini-width;                                               /* @stable [23.09.2018] */
       }
     }
   }

@@ -318,7 +318,7 @@ $rac-preview-action-color: $color-15 !default;
 $rac-preview-action-width: 32px !default;
 $rac-preview-action-height: 32px !default;
 $rac-preview-action-opacity: $opacity !default;
-$rac-preview-dialog-surface-max-width: 80vw !default;
+$rac-preview-dialog-container-max-width: 80vw !default;
 $rac-preview-dialog-body-max-height: 60vh !default;
 
 /* @stable [04.08.2018] */
@@ -351,8 +351,8 @@ $rac-card-list-item-margin-bottom: 16px !default;
 
 /* @stable [05.08.2018] */
 $rac-dialog-header-color: $rac-default-label-color !default;
-$rac-dialog-body-font-size: $rac-default-font-size !default;
-$rac-dialog-body-color: $rac-default-text-color !default;
+$rac-dialog-content-font-size: $rac-default-font-size !default;
+$rac-dialog-content-color: $rac-default-text-color !default;
 
 /* @stable [17.09.2018] */
 $rac-drawer-background: $color-5 !default;

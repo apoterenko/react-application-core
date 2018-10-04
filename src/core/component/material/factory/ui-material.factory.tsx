@@ -339,11 +339,11 @@ export class UIMaterialFactory implements IUIFactory {
   public fab = 'mdc-fab';
   public dialog = 'mdc-dialog';
   public dialogSurface = 'mdc-dialog__surface';
-  public dialogBody = 'mdc-dialog__body';
-  public dialogHeader = 'mdc-dialog__header';
-  public dialogHeaderTitle = 'mdc-dialog__header__title';
-  public dialogBackdrop = 'mdc-dialog__backdrop';
-  public dialogFooter = 'mdc-dialog__footer';
+  public dialogContent = 'mdc-dialog__content';
+  public dialogContainer = 'mdc-dialog__container';
+  public dialogTitle = 'mdc-dialog__title';
+  public dialogScrim = 'mdc-dialog__scrim';
+  public dialogActions = 'mdc-dialog__actions';
   public dialogFooterButton = 'mdc-dialog__footer__button';
   public dialogFooterButtonCancel = 'mdc-dialog__footer__button--cancel';
   public dialogFooterButtonAccept = 'mdc-dialog__footer__button--accept';
@@ -373,7 +373,7 @@ export class UIMaterialFactory implements IUIFactory {
 
     return (
       <div key={config.key || uuid()}
-           title={this.t(config.title as string)}
+           title={this.t(config.title)}
            className={toClassName(
                         config.className,
                         'rac-flex',

@@ -2,13 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { Button } from '../button';
-import { orNull, toClassName } from '../../util';
+import { orNull, toClassName, calc } from '../../util';
 import { BaseComponent } from '../base';
-import {
-  IUniversalDialog,
-  IDialogProps,
-  IUniversalDialogProps,
-} from './dialog.interface';
+import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
 
 export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUniversalDialog<TProps, TState>,
                     TProps extends IDialogProps = IDialogProps,
@@ -21,6 +17,16 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
   };
 
   /**
+   * @stable [04.10.2018]
+   * @param {TProps} props
+   */
+  constructor(props: TProps) {
+    super(props);
+    this.onAccept = this.onAccept.bind(this);
+    this.onClose = this.onClose.bind(this);
+  }
+
+  /**
    * @stable [03.08.2018]
    * @returns {JSX.Element}
    */
@@ -28,11 +34,11 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
     const props = this.props;
 
     return (
-      <aside ref='self'
-             className={this.getDialogClassName()}>
+      <div ref='self'
+           className={this.getDialogClassName()}>
         {this.getDialogBody()}
-        <div className={this.uiFactory.dialogBackdrop}/>
-      </aside>
+        <div className={this.uiFactory.dialogScrim}/>
+      </div>
     );
   }
 
@@ -41,14 +47,6 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
    */
   public activate(callback?: () => void): void {
     // Each plugin must override this method
-  }
-
-  /**
-   * @stable [02.08.2018]
-   */
-  public isOpen(): boolean {
-    // Each plugin must override this method
-    return false;
   }
 
   /**
@@ -88,7 +86,7 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
   }
 
   /**
-   * @stable [30.06.2018]
+   * @stable [04.10.2018]
    * @returns {JSX.Element}
    */
   protected getDialogBody(): JSX.Element {
@@ -96,56 +94,58 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
     const dialogBodyEl = this.getDialogBodyElement();
     return (
       <div className={toClassName(
-                        'rac-dialog-surface',
-                        this.uiFactory.dialogSurface,
-                        props.autoWidth && 'rac-dialog-surface-auto-width'
+                          'rac-dialog-container',
+                          this.uiFactory.dialogContainer,
+                          props.autoWidth && 'rac-dialog-container-auto-width'
                       )}>
-        <header className={toClassName('rac-dialog-header', this.uiFactory.dialogHeader)}>
-          <h2 className={toClassName('rac-dialog-header-title', this.uiFactory.dialogHeaderTitle)}>
+        <div className={this.uiFactory.dialogSurface}>
+          <h2 className={toClassName('rac-dialog-title', this.uiFactory.dialogTitle)}>
             {this.t(props.title || this.settings.messages.dialogTitleMessage)}
           </h2>
-        </header>
-        {
-          orNull<React.ReactNode>(
-            !R.isNil(dialogBodyEl) || !R.isNil(props.message),
-            <div className={toClassName('rac-dialog-body', this.uiFactory.dialogBody)}>
-              {dialogBodyEl || this.t(props.message)}
-            </div>
-          )
-        }
-        {
-          orNull<JSX.Element>(
-            this.closable || this.acceptable,
-            () => (
-              <footer className={this.uiFactory.dialogFooter}>
-                {
-                  orNull<JSX.Element>(
-                    this.closable,
-                    () => (
-                      <Button disabled={this.isCloseButtonDisabled()}
-                              className={toClassName(this.uiFactory.dialogFooterButton,
-                                                     this.uiFactory.dialogFooterButtonCancel)}>
-                        {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
-                      </Button>
-                    )
-                  )
-                }
-                {
-                  orNull<JSX.Element>(
-                    this.acceptable,
-                    () => (
-                      <Button disabled={this.isAcceptButtonDisabled()}
-                              className={toClassName(this.uiFactory.dialogFooterButton,
-                                                     this.uiFactory.dialogFooterButtonAccept)}>
-                        {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
-                      </Button>
-                    )
-                  )
-                }
-              </footer>
+          {
+            orNull<React.ReactNode>(
+              !R.isNil(dialogBodyEl) || !R.isNil(props.message),
+              <div className={toClassName('rac-dialog-content', this.uiFactory.dialogContent)}>
+                {dialogBodyEl || this.t(props.message)}
+              </div>
             )
-          )
-        }
+          }
+          {
+            orNull<JSX.Element>(
+              this.closable || this.acceptable,
+              () => (
+                <footer className={this.uiFactory.dialogActions}>
+                  {
+                    orNull<JSX.Element>(
+                      this.closable,
+                      () => (
+                        <Button disabled={this.isCloseButtonDisabled()}
+                                className={toClassName(this.uiFactory.dialogFooterButton,
+                                  this.uiFactory.dialogFooterButtonCancel)}
+                                onClick={this.onClose}>
+                          {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
+                        </Button>
+                      )
+                    )
+                  }
+                  {
+                    orNull<JSX.Element>(
+                      this.acceptable,
+                      () => (
+                        <Button disabled={this.isAcceptButtonDisabled()}
+                                className={toClassName(this.uiFactory.dialogFooterButton,
+                                  this.uiFactory.dialogFooterButtonAccept)}
+                                onClick={this.onAccept}>
+                          {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
+                        </Button>
+                      )
+                    )
+                  }
+                </footer>
+              )
+            )
+          }
+        </div>
       </div>
     );
   }

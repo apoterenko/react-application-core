@@ -61,8 +61,9 @@ export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniver
 }
 
 /**
- * @stable [02.08.2018]
+ * @stable [04.10.2018]
  */
-export interface INativeMaterialDialogComponent extends INativeMaterialComponent,
-                                                        IShowWrapper {
+export interface INativeMaterialDialogComponent extends INativeMaterialComponent {
+  open(): void;
+  close(): void;
 }

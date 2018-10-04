@@ -13,8 +13,7 @@ export class ListItemGraphic extends BaseComponent<ListItemGraphic> {
     const props = this.props;
 
     return (
-        <span {...props}
-              className={toClassName(
+        <span className={toClassName(
                             'rac-list-item-graphic',
                             this.uiFactory.listItemGraphic,
                             props.className)}>
