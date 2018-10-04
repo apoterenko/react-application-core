@@ -21,7 +21,7 @@ export class ChipsField extends MultiField<ChipsField, IChipsFieldProps, IChipsF
       <div className='rac-field-chips-wrapper'>
         {this.multiFieldPlugin.activeValue.map((item) => (
             <Chip key={uuid()}
-                  disabled={this.isInactive()}
+                  disabled={this.isFieldInactive()}
                   onClick={() => this.onDelete(item)}>
               {this.toDisplayLabel(item)}
             </Chip>

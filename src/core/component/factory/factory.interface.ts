@@ -45,7 +45,6 @@ export interface IUIFactory {
   checkbox?: string;
   checkboxInput?: string;
   textFieldTextArea?: string;
-  fieldHelpText?: string;
   fieldValidationText?: string;
   card?: string;
   cardActions?: string;

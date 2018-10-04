@@ -32,14 +32,58 @@
       }
     }
 
+    &.rac-field-required {
+
+      .rac-field-label {
+        position: relative;                                           /* @stable [05.10.2018] */
+
+        &::after {
+          position: absolute;                                         /* @stable [05.10.2018] */
+          right: $rac-field-required-label-after-right;               /* @stable [05.10.2018] */
+          top: $rac-field-required-label-after-top;                   /* @stable [05.10.2018] */
+          content: '*';                                               /* @stable [05.10.2018] */
+          color: $rac-field-required-label-after-color;               /* @stable [05.10.2018] */
+          font-size: $rac-field-required-label-after-font-size;       /* @stable [05.10.2018] */
+        }
+      }
+    }
+
+    &.rac-field-invalid {
+
+      .rac-text-field {
+        border-color: $rac-text-field-invalid-border-color;           /* @stable [05.10.2018] */
+      }
+
+      .rac-field-help-text {
+        color: $rac-text-field-help-text-invalid-color;               /* @stable [05.10.2018] */
+      }
+    }
+
     &.rac-field-readonly {
 
+      .rac-text-field {
+        border-bottom: $rac-text-field-readonly-border-bottom;                /* @stable [05.10.2018] */
+        border-right: $rac-text-field-readonly-border-right;                  /* @stable [05.10.2018] */
+        border-left: $rac-text-field-readonly-border-left;                    /* @stable [05.10.2018] */
+        border-radius: $rac-text-field-readonly-border-radius;                /* @stable [05.10.2018] */
+      }
+
+      &.rac-field-label-not-prefixed {
+
+        .rac-text-field {
+
+          .rac-field-input {
+            padding-left: $rac-text-field-input-readonly-padding-left;        /* @stable [05.10.2018] */
+            padding-right: $rac-text-field-input-readonly-padding-right;      /* @stable [05.10.2018] */
+          }
+        }
+      }
     }
 
     &.rac-field-labeled {
 
       .rac-text-field {
-        margin-top: $rac-text-field-margin-top;                       /* @stable [03.10.2018] */
+        margin-top: $rac-text-field-margin-top;                               /* @stable [03.10.2018] */
       }
     }
 
@@ -151,6 +195,7 @@
         font-size: $rac-field-input-font-size;                        /* @stable [19.09.2018] */
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
         letter-spacing: $rac-field-input-letter-spacing;              /* @stable [19.09.2018] */
+        line-height: $rac-field-input-line-height;                    /* @stable [05.10.2018] */
 
         &::placeholder {
           color: $rac-field-input-placeholder-color;                  /* @stable [24.06.2018] */
@@ -180,6 +225,7 @@
 
     .rac-field-help-text {
       font-size: $rac-field-help-text-font-size;                      /* @stable [19.09.2018] */
+      margin: $rac-field-help-text-margin;                            /* @stable [05.10.2018] */
     }
 
     .rac-field-chips-wrapper {
