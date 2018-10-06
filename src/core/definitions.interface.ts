@@ -2910,13 +2910,6 @@ export interface IActiveWrapper<TActive = boolean> {
 }
 
 /**
- * @stable [27.09.2018]
- */
-export interface ISingleWrapper<TSingle = boolean> {
-  single?: TSingle;
-}
-
-/**
  * @stable [15.05.2018]
  */
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> {

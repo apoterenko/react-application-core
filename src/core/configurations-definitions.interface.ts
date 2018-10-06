@@ -13,7 +13,6 @@ import {
   IActionIconWrapper,
   IActionTextWrapper,
   IAlwaysDirtyWrapper,
-  ISingleWrapper,
   IClassNameWrapper,
   IDisabledWrapper,
   INotUseActionsWrapper,
@@ -710,7 +709,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IValidateWrapper<string>,
           IFieldRenderedWrapper,
           IActiveWrapper,
-          ISingleWrapper,
           IFullWrapper,
           IChangeableWrapper {
 }

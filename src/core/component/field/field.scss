@@ -25,13 +25,6 @@
       }
     }
 
-    &.rac-field-single {
-
-      .rac-text-field {
-        margin-top: 0;                                                /* @mdc @stable [27.09.2018] */
-      }
-    }
-
     &.rac-field-required {
 
       .rac-field-label {
@@ -229,10 +222,6 @@
         &:-webkit-autofill {
           transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
         }
-      }
-
-      &.rac-textarea-field {
-        height: 100% !important;                                      /* @mdc @stable [19.09.2018] */
       }
     }
 

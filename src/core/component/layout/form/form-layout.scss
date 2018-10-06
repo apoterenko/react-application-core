@@ -55,10 +55,10 @@
       .rac-field {
 
         .rac-text-field {
-          height: $rac-form-layout-text-field-height !important;               /* @mdc @stable [18.09.2018] */
-          border-color: $rac-form-layout-text-field-border-color !important;   /* @mdc @stable [18.09.2018] */
+          height: $rac-form-layout-text-field-height;                          /* @stable [18.09.2018] */
+          border-color: $rac-form-layout-text-field-border-color;              /* @stable [18.09.2018] */
           background: $rac-form-layout-text-field-background;                  /* @stable [18.09.2018] */
-          margin-top: $rac-form-layout-text-field-margin-top !important;       /* @mdc @stable [19.09.2018] */
+          margin-top: $rac-form-layout-text-field-margin-top;                  /* @stable [19.09.2018] */
 
           .rac-field-input {
             font-size: $rac-form-layout-field-input-font-size;                 /* @stable [18.09.2018] */

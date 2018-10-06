@@ -205,7 +205,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       props.readOnly && 'rac-field-readonly',
       props.label && 'rac-field-labeled',
       props.active && 'rac-field-active',
-      props.single && 'rac-field-single',
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       props.className,
       'rac-form-field'   // TODO Legacy
