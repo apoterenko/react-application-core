@@ -65,7 +65,8 @@
         .rac-field {
 
           .rac-text-field {
-            margin-bottom: 0;                                                       /* @stable [19.09.2018] */
+            margin-bottom: 0;                                                       /* @stable [06.10.2018] */
+            margin-top: 0;                                                          /* @stable [06.10.2018] */
             border-color: $rac-grid-column-content-text-field-border-color;         /* @stable [04.10.2018] */
           }
         }
@@ -95,9 +96,37 @@
     }
 
     .rac-grid-head {
-      border-radius: $rac-grid-head-border-radius;              /* @stable [13.09.2018] */
-      color: $rac-grid-head-color;                              /* @stable [13.09.2018] */
-      background: $rac-grid-head-background;                    /* @stable [13.09.2018] */
+      border-radius: $rac-grid-head-border-radius;                           /* @stable [13.09.2018] */
+      color: $rac-grid-head-color;                                           /* @stable [13.09.2018] */
+      background: $rac-grid-head-background;                                 /* @stable [13.09.2018] */
+
+      .rac-grid-filter-row {
+
+        .rac-grid-column {
+          padding-top: $rac-grid-head-filter-row-column-padding-top;         /* @stable [06.10.2018] */
+          padding-bottom: $rac-grid-head-filter-row-column-padding-bottom;   /* @stable [06.10.2018] */
+
+          .rac-grid-column-content {
+
+            .rac-field {
+
+              .rac-text-field {
+                height: $rac-grid-head-filter-row-text-field-height;         /* @stable [06.10.2018] */
+
+                .rac-field-input {
+                  color: $rac-grid-head-color;                               /* @stable [06.10.2018] */
+                }
+
+                .rac-icon {
+                  &.rac-action-icon {
+                    color: $rac-grid-head-color;                             /* @stable [06.10.2018] */
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
 
       .rac-grid-column {
         text-align: left;                                       /* @stable [21.06.2018] */
@@ -133,7 +162,7 @@
       table-layout: fixed;                                                   /* @stable [21.06.2018] */
       width: 100%;                                                           /* @stable [21.06.2018] */
       cursor: default;                                                       /* @stable [21.06.2018] */
-      padding: 8px 16px;                                                     /* @stable [21.06.2018] */
+      padding: $rac-grid-row-padding;                                        /* @stable [06.10.2018] */
 
       &.rac-grid-filter-row {
         background: $rac-grid-filter-row-background;                         /* @stable [16.09.2018] */

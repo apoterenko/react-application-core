@@ -211,7 +211,7 @@
       }
 
       .rac-field-input {
-        width: 100%;                                                  /* @stable [05.10.2018] It's very important! [Flex Layout] */
+        width: $rac-field-input-width;                                /* @stable [05.10.2018] It's very important! [Flex Layout] */
         padding: $rac-field-input-padding;                            /* @stable [03.10.2018] */
         border: none;                                                 /* @stable [03.10.2018] */
         background: none;                                             /* @stable [03.10.2018] */

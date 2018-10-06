@@ -15,4 +15,4 @@ export const calc = <TResult, TPayload = AnyT>(result: TResult | ((payload?: TPa
  * @param {number} value
  * @returns {boolean}
  */
-export const isOddNumber = (value: number): boolean => value % 2 === 0;
+export const isOddNumber = (value: number): boolean => value % 2 !== 0;
