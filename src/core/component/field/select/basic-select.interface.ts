@@ -2,6 +2,7 @@ import {
   INeedToOpenMenuWrapper,
   IForceReloadWrapper,
   IExpandActionRenderedWrapper,
+  IDisplayValueWrapper,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
@@ -11,10 +12,11 @@ import {
 import { IFieldState } from '../field/field.interface';
 
 /**
- * @stable [15.09.2018]
+ * @stable [06.10.2018]
  */
 export interface IBasicSelectState extends IFieldState,
-                                           INeedToOpenMenuWrapper {
+                                           INeedToOpenMenuWrapper,
+                                           IDisplayValueWrapper {
 }
 
 /**

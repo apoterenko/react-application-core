@@ -224,6 +224,7 @@ import {
   ITitleRendererWrapper,
   IApplyOddWrapper,
   IHoveredWrapper,
+  IChangeableWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -444,6 +445,11 @@ export interface ICardListItemConfiguration extends IUniversalListItemConfigurat
                                                     IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
 }
 
+/**
+ * @stable [05.10.2018]
+ */
+export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode;
+
 /* @stable [23.04.2018] */
 export interface IUniversalListConfiguration
     <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
@@ -468,8 +474,8 @@ export interface IUniversalListConfiguration
           ISelectableWrapper,
           IGroupByWrapper<{
             columnName: string,
-            groupValue: (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode}
-          > {
+            groupValue: GroupValueRendererT | GroupValueRendererT[]
+          }> {
 }
 
 /* @stable [24.04.2018] */
@@ -705,7 +711,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IFieldRenderedWrapper,
           IActiveWrapper,
           ISingleWrapper,
-          IFullWrapper {
+          IFullWrapper,
+          IChangeableWrapper {
 }
 
 /* @stable - 11.04.2018 */

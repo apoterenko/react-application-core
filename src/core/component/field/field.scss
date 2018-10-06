@@ -62,10 +62,20 @@
     &.rac-field-readonly {
 
       .rac-text-field {
-        border-bottom: $rac-text-field-readonly-border-bottom;                /* @stable [05.10.2018] */
-        border-right: $rac-text-field-readonly-border-right;                  /* @stable [05.10.2018] */
-        border-left: $rac-text-field-readonly-border-left;                    /* @stable [05.10.2018] */
-        border-radius: $rac-text-field-readonly-border-radius;                /* @stable [05.10.2018] */
+
+        .rac-field-input {
+          cursor: default !important;                                         /* @stable [06.10.2018] */
+        }
+      }
+    }
+
+    &.rac-field-not-changeable {
+
+      .rac-text-field {
+        border-bottom: $rac-text-field-not-changeable-border-bottom;           /* @stable [06.10.2018] */
+        border-right: $rac-text-field-not-changeable-border-right;             /* @stable [06.10.2018] */
+        border-left: $rac-text-field-not-changeable-border-left;               /* @stable [06.10.2018] */
+        border-radius: $rac-text-field-not-changeable-border-radius;           /* @stable [06.10.2018] */
       }
 
       &.rac-field-label-not-prefixed {
@@ -73,8 +83,8 @@
         .rac-text-field {
 
           .rac-field-input {
-            padding-left: $rac-text-field-input-readonly-padding-left;        /* @stable [05.10.2018] */
-            padding-right: $rac-text-field-input-readonly-padding-right;      /* @stable [05.10.2018] */
+            padding-left: $rac-text-field-input-not-changeable-padding-left;   /* @stable [06.10.2018] */
+            padding-right: $rac-text-field-input-not-changeable-padding-right; /* @stable [06.10.2018] */
           }
         }
       }
@@ -126,6 +136,19 @@
 
       .rac-text-field {
         margin-bottom: $rac-gridfield-text-field-margin-bottom;                /* @stable [19.09.2018] */
+      }
+    }
+
+    &.rac-filefield {
+
+      .rac-text-field {
+
+        .rac-field-input-wrapper {
+
+          .rac-field-input {
+            cursor: pointer;                                                   /* @stable [05.10.2018] */
+          }
+        }
       }
     }
 
@@ -188,6 +211,7 @@
       }
 
       .rac-field-input {
+        width: 100%;                                                  /* @stable [05.10.2018] It's very important! [Flex Layout] */
         padding: $rac-field-input-padding;                            /* @stable [03.10.2018] */
         border: none;                                                 /* @stable [03.10.2018] */
         background: none;                                             /* @stable [03.10.2018] */

@@ -1512,6 +1512,13 @@ export interface IValidWrapper {
 }
 
 /**
+ * @stable [06.10.2018]
+ */
+export interface IChangeableWrapper {
+  changeable?: boolean;
+}
+
+/**
  * @stable [22.06.2018]
  */
 export interface IPriorityWrapper {

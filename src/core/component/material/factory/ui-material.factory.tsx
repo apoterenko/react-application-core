@@ -327,7 +327,6 @@ export class UIMaterialFactory implements IUIFactory {
   public checkbox = 'mdc-checkbox';
   public checkboxInput = 'mdc-checkbox__native-control';
   public textFieldTextArea = 'mdc-text-field--textarea';
-  public fieldHelpText = 'mdc-text-field-helper-text';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';

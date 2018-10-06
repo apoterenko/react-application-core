@@ -11,7 +11,13 @@ import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
 import { FIELD_EMPTY_VALUE, FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { UniversalComponent } from '../../base/universal.component';
-import { toActualChangedValue } from './field.support';
+import {
+  isFieldInactive,
+  isFieldInProgress,
+  isFieldRequired,
+  isFieldChangeable,
+  toActualChangedValue,
+} from './field.support';
 
 export abstract class UniversalField<TComponent extends IUniversalField<TProps, TState>,
                                      TProps extends IUniversalFieldProps<TKeyboardEvent,
@@ -287,12 +293,19 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [02.08.2018]
+   * @stable [05.10.2018]
    * @returns {boolean}
    */
   protected isFieldRequired(): boolean {
-    const props = this.props;
-    return isFn(props.required) ? (props.required as (() => boolean))() : props.required as boolean;
+    return isFieldRequired(this.props);
+  }
+
+  /**
+   * @stable [05.10.2018]
+   * @returns {boolean}
+   */
+  protected isFieldInvalid(): boolean {
+    return !R.isNil(this.error);
   }
 
   /**
@@ -418,21 +431,27 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [03.09.2018]
+   * @stable [06.10.2018]
    * @returns {boolean}
    */
-  protected isInactive(): boolean {
-    const props = this.props;
-    return props.disabled || props.readOnly || this.inProgress();
+  protected isFieldInactive(): boolean {
+    return isFieldInactive(this.props) || this.inProgress();
   }
 
   /**
-   * @stable [18.06.2018]
+   * @stable [06.10.2018]
+   * @returns {boolean}
+   */
+  protected isFieldChangeable(): boolean {
+    return isFieldChangeable(this.props);
+  }
+
+  /**
+   * @stable [06.10.2018]
    * @returns {boolean}
    */
   protected inProgress(): boolean {
-    const props = this.props;
-    return props.progress === true;
+    return isFieldInProgress(this.props);
   }
 
   /**

@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BasicTextField } from '../textfield';
-import { cancelEvent, orNull, downloadBlob } from '../../../util';
+import { cancelEvent, orNull, downloadBlob, toClassName } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   IBasicEvent,
@@ -112,7 +112,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
 
     const dndElement = (
       <DnD ref='dnd'
-           disabled={this.isInactive()}
+           disabled={this.isFieldInactive()}
            onSelect={this.onSelect}/>
     );
     if (!props.useCamera) {
@@ -146,6 +146,14 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
    */
   protected getEmptyValue(): EntityIdT[] {
     return [];
+  }
+
+  /**
+   * @stable [05.10.2018]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-filefield');
   }
 
   /**

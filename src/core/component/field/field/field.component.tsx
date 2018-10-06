@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
 
-import { noop, toClassName, orNull, cancelEvent, isElementFocused, IJqInput, orDefault } from '../../../util';
+import { toClassName, orNull, cancelEvent, isElementFocused, IJqInput, orUndef, defValuesFilter } from '../../../util';
 import {
   AnyT,
   IKeyboardEvent,
@@ -20,8 +20,6 @@ import {
   INativeMaskedInputComponent,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
-import { IEventManager } from '../../../event';
-import { DI_TYPES, lazyInject } from '../../../di';
 
 export class Field<TComponent extends IField<TInternalProps, TState>,
                    TInternalProps extends IFieldInternalProps,
@@ -33,8 +31,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
                            IFocusEvent,
                            IBasicEvent>
     implements IField<TInternalProps, TState> {
-
-  @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
 
   public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
     this.updateInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
@@ -106,13 +102,23 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [05.10.2018]
    * @returns {HTMLInputElement | HTMLTextAreaElement}
    */
   public get input(): HTMLInputElement | HTMLTextAreaElement {
     const input = this.refs.input;
-    return input && (input as INativeMaskedInputComponent).inputElement
-      || input as ( HTMLInputElement | HTMLTextAreaElement);
+    return orNull<HTMLInputElement | HTMLTextAreaElement>(
+      this.hasInput,
+      () => (input as INativeMaskedInputComponent).inputElement || input as HTMLInputElement | HTMLTextAreaElement
+    );
+  }
+
+  /**
+   * @stable [05.10.2018]
+   * @returns {boolean}
+   */
+  protected get hasInput(): boolean {
+    return !R.isNil(this.refs.input);
   }
 
   /**
@@ -153,11 +159,12 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const cols = props.cols;
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
-    const onClick = this.isInactive() ? noop : this.onClick;
-    const onKeyDown = this.isInactive() ? noop : this.onKeyDown;
-    const onKeyUp = this.isInactive() ? noop : this.onKeyUp;
     const onChange = this.onChange;
-    return {
+    const onClick = orUndef(!this.isFieldInactive(), () => this.onClick);
+    const onKeyDown = orUndef(!this.isFieldInactive(), () => this.onKeyDown);
+    const onKeyUp = orUndef(!this.isFieldInactive(), () => this.onKeyUp);
+
+    return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
       ...props.preventValueBinding ? {} : { value: this.displayValue },
       name, type, step, readOnly, disabled, pattern, minLength,
       maxLength, rows, cols,
@@ -166,7 +173,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       required: this.isFieldRequired(),
       className: 'rac-field-input rac-flex-full',
       placeholder: orNull(props.placeholder, () => this.t(props.placeholder)),
-    };
+    });
   }
 
   /**
@@ -179,29 +186,27 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
-   * @stable [16.09.2018]
+   * @stable [06.10.2018]
    * @returns {string}
    */
   protected getFieldClassName(): string {
     const props = this.props;
+
     return toClassName(
       'rac-field',
       'rac-flex',
       'rac-flex-column',
-      orDefault<string, string>(
-        (props.className || '').includes('rac-flex-'),
-        '',
-        orDefault<string, string>(
-          props.full === false,
-          '',
-          'rac-flex-full'
-        )
-      ),
-      this.isInactive() && 'rac-field-disabled',
+      orUndef<string>(!(props.className || '').includes('rac-flex-'), orUndef<string>(props.full !== false, 'rac-flex-full')),
+      this.isFieldRequired() && 'rac-field-required',
+      this.isFieldInvalid() && 'rac-field-invalid',
+      this.isFieldInactive() && 'rac-field-inactive',
+      this.isFieldChangeable() ? 'rac-field-changeable' : 'rac-field-not-changeable',
+      props.disabled && 'rac-field-disabled',
       props.readOnly && 'rac-field-readonly',
       props.label && 'rac-field-labeled',
       props.active && 'rac-field-active',
       props.single && 'rac-field-single',
+      props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       props.className,
       'rac-form-field'   // TODO Legacy
     );
@@ -243,7 +248,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    * @returns {boolean}
    */
   protected isInputValid(): boolean {
-    return this.input.validity.valid;
+    return !this.hasInput || this.input.validity.valid;
   }
 
   /**
@@ -259,7 +264,9 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    * @param {string} error
    */
   protected setNativeInputValidity(error: string): void {
-    this.input.setCustomValidity(error);
+    if (this.hasInput) {
+      this.input.setCustomValidity(error);
+    }
   }
 
   /**
@@ -270,10 +277,10 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    */
   protected toMessageElement(message: string, className?: string): JSX.Element {
     return (
-      <p title={message}
-         className={toClassName('rac-field-help-text', this.uiFactory.fieldHelpText, className)}>
+      <div title={message}
+           className={toClassName('rac-field-help-text', className)}>
         {message ? this.t(message) : UNI_CODES.noBreakSpace}
-      </p>
+      </div>
     );
   }
 
@@ -282,8 +289,10 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    * @param {AnyT} value
    */
   private updateInputBeforeHTML5Validation(value: AnyT): void {
-    // We must update the field manually before calls HTML5 validation
-    this.input.value = value;
+    if (this.hasInput) {
+      // We must update the field manually before calls HTML5 validation
+      this.input.value = value;
+    }
   }
 
   /**

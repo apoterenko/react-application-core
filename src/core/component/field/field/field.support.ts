@@ -1,11 +1,12 @@
 import * as R from 'ramda';
 
-import { isDef } from '../../../util';
+import { isDef, calc } from '../../../util';
 import {
   FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
   IFieldActualChangedValueConfigEntity,
 } from './field.interface';
-import { IValueWrapper, AnyT } from '../../../definitions.interface';
+import { AnyT } from '../../../definitions.interface';
+import { IUniversalFieldProps } from '../../../props-definitions.interface';
 
 /**
  * @stable [31.07.2018]
@@ -24,3 +25,31 @@ export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntit
   }
   return config.value;
 };
+
+/**
+ * @stable [05.10.2018]
+ * @param {IUniversalFieldProps} props
+ * @returns {boolean}
+ */
+export const isFieldRequired = (props: IUniversalFieldProps): boolean => calc<boolean>(props.required);
+
+/**
+ * @stable [06.10.2018]
+ * @param {IUniversalFieldProps} props
+ * @returns {boolean}
+ */
+export const isFieldInactive = (props: IUniversalFieldProps): boolean => props.disabled || props.readOnly;
+
+/**
+ * @stable [06.10.2018]
+ * @param {IUniversalFieldProps} props
+ * @returns {boolean}
+ */
+export const isFieldInProgress = (props: IUniversalFieldProps): boolean => props.progress;
+
+/**
+ * @stable [06.10.2018]
+ * @param {IUniversalFieldProps} props
+ * @returns {boolean}
+ */
+export const isFieldChangeable = (props: IUniversalFieldProps): boolean => R.isNil(props.changeable) || props.changeable === true;

@@ -5,7 +5,9 @@ import * as $ from 'jquery';
 import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull, toClassName, nvl, cancelEvent, IJqElement, orUndef, parseValueAtPx } from '../../../util';
+import { DI_TYPES, lazyInject } from '../../../di';
+import { IEventManager } from '../../../event';
+import { orNull, toClassName, nvl, cancelEvent, IJqElement, parseValueAtPx } from '../../../util';
 import { IBasicEvent, UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
@@ -30,6 +32,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   private static DEFAULT_MASK_GUIDE = false;
 
+  @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   protected defaultActions: IFieldActionConfiguration[] = [];
   private mirrorInputRef = React.createRef<HTMLElement>();
 
@@ -86,17 +89,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    const error = this.error;
-    const props = this.props;
-
-    return toClassName(
-      'rac-text-field',
-      'rac-flex',
-      'rac-flex-row',
-      props.fieldRendered === false && 'rac-display-none',
-      this.isValuePresent() && 'rac-field-filled',
-      !R.isNil(error) && 'rac-field-invalid',
-    );
+    return toClassName('rac-text-field', 'rac-flex', 'rac-flex-row', this.isValuePresent() && 'rac-field-filled');
   }
 
   protected addClearAction(): void {
@@ -107,7 +100,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
         this0.clearValue();
       },
       get disabled(): boolean {
-        return this0.isInactive() || !this0.isValuePresent();
+        return this0.isFieldInactive() || !this0.isValuePresent();
       },
     };
     this.defaultActions.push(clearAction);
@@ -191,37 +184,40 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
   private getSelfElement(): JSX.Element {
     const props = this.props;
-    return (
-      <div ref='self'
-           style={props.style}
-           className={this.getSelfElementClassName()}>
-        {this.getPrefixLabelElement()}
-        <div className={this.getInputElementWrapperClassName()}>
-          {this.getInputElement()}
-          {this.getLabelElement()}
-          {this.getMirrorInputElement()}
-          {this.getInputCaretElement()}
-          {this.getInputAttachmentElement()}
+    return orNull<JSX.Element>(
+      props.fieldRendered !== false,
+      () => (
+        <div ref='self'
+             style={props.style}
+             className={this.getSelfElementClassName()}>
+          {this.getPrefixLabelElement()}
+          <div className={this.getInputElementWrapperClassName()}>
+            {this.getInputElement()}
+            {this.getLabelElement()}
+            {this.getMirrorInputElement()}
+            {this.getInputCaretElement()}
+            {this.getInputAttachmentElement()}
+          </div>
+          {orNull(
+            this.actions,
+            this.actions.map((action) => this.uiFactory.makeIcon({
+              type: action.type,
+              title: action.title && this.t(action.title),
+              className: action.className,
+              disabled: R.isNil(action.disabled)
+                ? this.isFieldInactive()
+                : action.disabled,
+              onClick: (event: IBasicEvent) => {
+                if (action.onClick) {
+                  cancelEvent(event);
+                  action.onClick(event);
+                }
+              },
+            }))
+          )}
+          {this.getProgressLabelElement()}
         </div>
-        {orNull(
-          this.actions,
-          this.actions.map((action) => this.uiFactory.makeIcon({
-            type: action.type,
-            title: action.title && this.t(action.title),
-            className: action.className,
-            disabled: R.isNil(action.disabled)
-              ? this.isInactive()
-              : action.disabled,
-            onClick: (event: IBasicEvent) => {
-              if (action.onClick) {
-                cancelEvent(event);
-                action.onClick(event);
-              }
-            },
-          }))
-        )}
-        {this.getProgressLabelElement()}
-      </div>
+      )
     );
   }
 

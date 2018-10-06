@@ -83,6 +83,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   }
 
   /**
+   * @stable [06.10.2018]
+   */
+  public clearValue(): void {
+    super.clearValue();
+    this.setState({displayValue: null});
+  }
+
+  /**
    * @stable [18.06.2018]
    * @returns {boolean}
    */
@@ -111,10 +119,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     );
   }
 
+  /**
+   * @stable [06.10.2018]
+   * @returns {string}
+   */
   protected getInputElementWrapperClassName(): string {
     return toClassName(
       super.getInputElementWrapperClassName(),
-      'rac-flex-column'  // inner popup menu - width 100%
+      'rac-flex-column'  // popup menu
     );
   }
 
@@ -142,16 +154,28 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected onSelect(option: ISelectOptionEntity): void {
     this.onChangeManually(option.value);
 
+    /**
+     * We need to save a label because dictionary data may be refreshed
+     * TODO Need to save an internal state in storage
+     */
+    this.setState({displayValue: option.label || option.value});
+
     if (this.props.onSelect) {
       this.props.onSelect(option);
     }
   }
 
+  /**
+   * @stable [06.10.2018]
+   * @param {AnyT} value
+   * @returns {EntityIdT}
+   */
   protected toDisplayValue(value: AnyT): EntityIdT {
-    const selectedItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
-    return selectedItem
-      ? (selectedItem.label ? this.t(selectedItem.label) : selectedItem.value)
-      : super.toDisplayValue(value);
+    const selectedDisplayValue = this.state.displayValue;
+    if (!R.isNil(selectedDisplayValue)) {
+      return this.t(selectedDisplayValue);
+    }
+    return super.toDisplayValue(value);
   }
 
   /**
