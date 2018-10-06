@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
-import { IGridColumnConfiguration, IGridFilterConfiguration } from '../../configurations-definitions.interface';
+import { IGridColumnConfiguration, IGridFilterConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, EntityIdT, IBasicEvent } from '../../definitions.interface';
 import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent, coalesce, isOddNumber } from '../../util';
@@ -338,9 +338,10 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @stable - 05.04.2018
    * @param {IEntity} entity
    * @param {number} index
+   * @param {boolean} needToApplyOddClassName
    * @returns {JSX.Element}
    */
-  private getRow(entity: IEntity, index: number): JSX.Element {
+  private getRow(entity: IEntity, index: number, needToApplyOddClassName = true): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
     const changes = props.changes;
@@ -352,7 +353,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                className={
                  toClassName(
                    'rac-grid-data-row',
-                   orUndef<string>(props.applyOdd !== false && isOddNumber(index), 'rac-grid-data-row-odd'),
+                   orUndef<string>(props.applyOdd !== false && needToApplyOddClassName && isOddNumber(index), 'rac-grid-data-row-odd'),
                    orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
                    orUndef<string>(props.selectable !== false, 'rac-grid-data-row-selectable')
                  )
@@ -521,12 +522,13 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   }
 
   /**
-   * @stable [04.07.2018]
+   * @stable [05.10.2018]
    * @param {EntityIdT} groupedRowValue
+   * @param {number} columnNum
    * @returns {string}
    */
-  private toGroupedColumnKey(groupedRowValue: EntityIdT): string {
-    return `data-grouped-column-${groupedRowValue}`;
+  private toGroupedColumnKey(groupedRowValue: EntityIdT, columnNum: number): string {
+    return `data-grouped-column-${groupedRowValue}-${columnNum}`;
   }
 
   /**
@@ -572,7 +574,8 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                          currentGroupedEntities: IEntity[]): JSX.Element[] {
     rows = rows.concat(this.getGroupingRow(currentGroupColumnValue, currentGroupedEntities));
     if (this.isGroupedRowExpanded(currentGroupColumnValue)) {
-      return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index)));
+      const needToApplyOddClassName = currentGroupedEntities.length > 1;
+      return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index, needToApplyOddClassName)));
     }
     return rows;
   }
@@ -587,19 +590,40 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
     const props = this.props;
     const groupBy = props.groupBy;
     const isExpanded = this.isGroupedRowExpanded(groupedRowValue);
+    const columns = this.columnsConfiguration;
 
     return (
       <GridRow key={this.toGroupedRowKey(groupedRowValue)}
                className={'rac-grid-data-row rac-grid-data-row-grouped'}>
         {
-          <GridColumn key={this.toGroupedColumnKey(groupedRowValue)}>
-            {orNull<JSX.Element>(props.expandActionRendered !== false, () => (
-              this.uiFactory.makeIcon({
-                type: isExpanded ? 'minus_square' : 'plus_square',
-                onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
-              })
-            ))} {isFn(groupBy.groupValue) ? groupBy.groupValue(groupedRowValue, groupedRows) : groupedRowValue}
-          </GridColumn>
+          columns.map((column, columnNum) => (
+            <GridColumn key={this.toGroupedColumnKey(groupedRowValue, columnNum)}
+                        {...column}>
+              {orDefault<React.ReactNode, React.ReactNode>(
+                columnNum === 0,
+                () => (
+                  [
+                    <div key={this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum)}>
+                      {orNull<JSX.Element>(props.expandActionRendered !== false, () => (
+                        this.uiFactory.makeIcon({
+                          type: isExpanded ? 'minus_square' : 'plus_square',
+                          onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
+                        })
+                      ))} {
+                        isFn(groupBy.groupValue)
+                          ? (groupBy.groupValue as GroupValueRendererT)(groupedRowValue, groupedRows)
+                          : (Array.isArray(groupBy.groupValue) ? groupBy.groupValue[0](groupedRowValue, groupedRows) : groupedRowValue)
+                      }
+                    </div>
+                  ]
+                ),
+                () => orNull<React.ReactNode>(
+                  Array.isArray(groupBy.groupValue) && isFn(groupBy.groupValue[columnNum]),
+                  () => groupBy.groupValue[columnNum](groupedRowValue, groupedRows)
+                )
+              )}
+            </GridColumn>
+          ))
         }
       </GridRow>
     );

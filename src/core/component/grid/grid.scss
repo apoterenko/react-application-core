@@ -153,6 +153,7 @@
         &.rac-grid-data-row-grouped {
           font-weight: $rac-grid-data-row-grouped-font-weight;               /* @stable [01.09.2018] */
           background: $rac-grid-data-row-grouped-background;                 /* @stable [27.06.2018] */
+          color: $rac-grid-data-row-grouped-color;                           /* @stable [05.10.2018] */
         }
 
         &.rac-grid-row-selected {

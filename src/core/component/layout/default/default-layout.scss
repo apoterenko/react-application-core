@@ -64,6 +64,11 @@
           .rac-tab-panel-wrapper,
             .rac-chips-filter-wrapper {
             margin-bottom: $rac-default-layout-main-body-container-margin-bottom;                   /* @stable [17.09.2018] */
+            padding-bottom: $rac-default-layout-main-body-container-padding-bottom;                 /* @stable [05.10.2018] */
+          }
+
+          .rac-tab-panel-wrapper {
+            border-bottom: $rac-default-layout-main-body-tab-panel-wrapper-border-bottom;           /* @stable [05.10.2018] */
           }
 
           .rac-form {
