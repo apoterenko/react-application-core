@@ -2,6 +2,7 @@ export * from './action';
 export * from './api';
 export * from './auth';
 export * from './application';
+export * from './bootstrap';
 export * from './channel';
 export * from './component/access';
 export * from './component/application';
@@ -67,4 +68,4 @@ export * from './definitions.interface';
 export * from './configurations-definitions.interface';
 export * from './entities-definitions.interface';
 export * from './props-definitions.interface';
-export * from './bootstrap';
+

@@ -2,12 +2,12 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import * as crossvent from 'crossvent';
 
-import { ENV } from './env';
-import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage } from './util';
-import { IApplicationContainerProps } from './component/application';
-import { IContainerClassEntity } from './entities-definitions.interface';
-import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from './configurations-definitions.interface';
-import { makeBootstrapApp } from './bootstrap/universal-bootstrap-app.factory';
+import { ENV } from '../env';
+import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage } from '../util';
+import { IApplicationContainerProps } from '../component/application';
+import { IContainerClassEntity } from '../entities-definitions.interface';
+import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from '../configurations-definitions.interface';
+import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 
 // Google analytics
 function gtag(...args) {
