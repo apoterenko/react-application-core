@@ -107,8 +107,6 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
     }
     this.delayedTask.start();
     this.setState({focusedFieldValue: this.state.focusedFieldValue + char});
-
-    AutoFocused.logger.debug(`[$AutoFocused][onKeyPress] Char: ${char}, char code: ${charCode}`);
   }
 
   /**
