@@ -7,7 +7,7 @@ import { RouterActionBuilder } from '../../router';
 import { IEntity } from '../../definitions.interface';
 import { ListActionBuilder } from '../../component/list';
 import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
-import { IApiEntity } from '../../entities-definitions.interface';
+import { IApiEntity, IApplicationStoreEntity } from '../../entities-definitions.interface';
 import { APPLICATION_SECTIONS } from '../../component/application';
 import { toRouteConfiguration } from '../../router';
 import { DI_TYPES, staticInjector } from '../../di';

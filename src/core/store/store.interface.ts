@@ -9,6 +9,7 @@ import { channelsReducers } from '../channel';
 import { entityReducerFactory } from '../store/store.support';
 import { USER_UPDATE_ACTION_TYPE, USER_DESTROY_ACTION_TYPE } from '../user/user.interface';
 import { defaultLayoutReducer } from '../component/layout/default/default-layout.reducer';
+import { ILayoutEntity } from '../entities-definitions.interface';
 
 export const defaultReducers = {
   dictionaries: dictionariesReducer,

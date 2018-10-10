@@ -28,6 +28,7 @@ import {
   universalDefaultMappers,
   actionsDisabledListWrapperEntityMapper,
 } from './universal-connector.mapper';
+import { IEntity } from '../../definitions.interface';
 
 export const rootMapper = (state: IRootWrapperEntity): IRootWrapperEntity => ({
   root: {
