@@ -505,11 +505,11 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   }
 
   /**
-   * @stable [07.06.2018]
+   * @stable [10.10.2018]
    * @returns {IGridColumnConfiguration[]}
    */
   private get columnsConfiguration(): IGridColumnConfiguration[] {
-    return this.props.columnsConfiguration;
+    return R.filter<IGridColumnConfiguration>((column) => column.rendered !== false, this.props.columnsConfiguration);
   }
 
   /**
@@ -594,7 +594,11 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
 
     return (
       <GridRow key={this.toGroupedRowKey(groupedRowValue)}
-               className={'rac-grid-data-row rac-grid-data-row-grouped'}>
+               className={toClassName(
+                 'rac-grid-data-row',
+                 'rac-grid-data-row-grouped',
+                 isExpanded && 'rac-grid-data-row-group-expanded'
+               )}>
         {
           columns.map((column, columnNum) => (
             <GridColumn key={this.toGroupedColumnKey(groupedRowValue, columnNum)}
@@ -603,18 +607,22 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                 columnNum === 0,
                 () => (
                   [
-                    <div key={this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum)}>
+                    <FlexLayout row={true}
+                                key={this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum)}>
                       {orNull<JSX.Element>(props.expandActionRendered !== false, () => (
                         this.uiFactory.makeIcon({
+                          className: 'rac-grid-data-row-group-expanded-icon',
                           type: isExpanded ? 'minus_square' : 'plus_square',
                           onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
                         })
                       ))} {
                         isFn(groupBy.groupValue)
                           ? (groupBy.groupValue as GroupValueRendererT)(groupedRowValue, groupedRows)
-                          : (Array.isArray(groupBy.groupValue) ? groupBy.groupValue[0](groupedRowValue, groupedRows) : groupedRowValue)
+                          : (Array.isArray(groupBy.groupValue)
+                                ? (isFn(groupBy.groupValue[0]) ? groupBy.groupValue[0](groupedRowValue, groupedRows) : null)
+                                : groupedRowValue)
                       }
-                    </div>
+                    </FlexLayout>
                   ]
                 ),
                 () => orNull<React.ReactNode>(

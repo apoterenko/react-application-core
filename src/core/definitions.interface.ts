@@ -3062,6 +3062,13 @@ export interface IKeyWrapper<TKey = string> {
 }
 
 /**
+ * @stable [02.10.2018]
+ */
+export interface IAppStateWrapper<TAppState> {
+  appState?: TAppState;
+}
+
+/**
  * @stable [03.05.2018]
  */
 export interface IPasswordWrapper<TPassword = string> {

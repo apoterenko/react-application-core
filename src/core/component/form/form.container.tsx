@@ -63,7 +63,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
    */
   private onChange(payload: IFieldChangeEntity): void {
     if (payload.name) {
-      this.dispatch(FORM_CHANGE_ACTION_TYPE, payload);
+      this.dispatchFrameworkAction(FORM_CHANGE_ACTION_TYPE, payload);
     }
   }
 
