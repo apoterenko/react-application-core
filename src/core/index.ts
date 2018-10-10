@@ -68,4 +68,3 @@ export * from './definitions.interface';
 export * from './configurations-definitions.interface';
 export * from './entities-definitions.interface';
 export * from './props-definitions.interface';
-
