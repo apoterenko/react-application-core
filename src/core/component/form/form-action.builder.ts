@@ -40,8 +40,13 @@ export class FormActionBuilder {
     return `${toActionPrefix(section)}.${FORM_CLEAR_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [02.10.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildChangeActionType(section: string): string {
-    return `${section}.${FORM_CHANGE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_CHANGE_ACTION_TYPE}`;
   }
 
   public static buildResetActionType(section: string): string {

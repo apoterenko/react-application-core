@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import { noop, toClassName } from '../../util';
-import { Button } from '../../component/button';
-
 import { ISnackbarProps } from './snackbar.interface';
 import { BaseComponent } from '../base';
 
@@ -25,7 +23,7 @@ export class Snackbar extends BaseComponent<Snackbar, ISnackbarProps> {
            aria-live='assertive'>
         <div className={toClassName(this.uiFactory.snackbarText, 'rac-snackbar-text')}/>
         <div className={toClassName(this.uiFactory.snackbarActionWrapper, 'rac-snackbar-action-wrapper')}>
-          <Button className={toClassName(this.uiFactory.snackbarActionButton)}/>
+          <button className={toClassName('rac-snackbar-button', this.uiFactory.snackbarActionButton)}/>
         </div>
       </div>
     );

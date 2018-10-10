@@ -46,11 +46,16 @@ export class Button extends BaseComponent<Button, IButtonProps> {
           {
             orNull<JSX.Element>(
               props.icon !== null,    // Prevent show any icons
-              () => this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))
+              () => this.uiFactory.makeIcon({
+                type: getButtonIcon(props, 'timelapse', 'error'),
+                className: 'rac-button-icon',
+              })
             )
           }
-          {orNull(buttonText, () => this.t(buttonText))}
-          {props.children}
+          <div className='rac-button-content'>
+            {orNull<string>(buttonText, () => this.t(buttonText))}
+            {props.children}
+          </div>
         </button>
     );
   }

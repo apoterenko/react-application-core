@@ -94,6 +94,8 @@ import {
   faLongArrowAltLeft,
   faUserShield,
   faTimesCircle,
+  faBarcode,
+  faRetweet,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faHouzz,
@@ -144,6 +146,8 @@ import { ApplicationTranslatorT } from '../../../translation';
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
   public static ICONS_MAP = {
+    retweet: faRetweet,
+    barcode: faBarcode,
     dashboard: faChartLine,
     warehouse: faWarehouse,
     product: faCannabis,

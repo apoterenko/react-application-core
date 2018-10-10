@@ -13,15 +13,16 @@
       min-height: $rac-snackbar-text-min-height;                       /* @stable [23.08.2018] */
     }
 
-    .rac-button {
+    .rac-snackbar-button {
       background-color: $rac-snackbar-button-background-color;         /* @stable [22.08.2018] */
+      color: $rac-snackbar-button-color;                               /* @stable [08.10.2018] */
       font-size: $rac-snackbar-button-font-size;                       /* @stable [22.08.2018] */
     }
 
     &.rac-snackbar-error {
       background-color: $rac-snackbar-error-background-color;          /* @stable [24.08.2018] */
 
-      .rac-button {
+      .rac-snackbar-button {
         color: $rac-snackbar-error-button-color;                       /* @stable [22.08.2018] */
       }
     }

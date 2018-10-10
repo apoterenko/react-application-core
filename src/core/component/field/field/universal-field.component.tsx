@@ -442,6 +442,14 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [06.10.2018]
    * @returns {boolean}
    */
+  protected isFieldDeactivated(): boolean {
+    return this.props.disabled || this.inProgress();
+  }
+
+  /**
+   * @stable [06.10.2018]
+   * @returns {boolean}
+   */
   protected isFieldChangeable(): boolean {
     return isFieldChangeable(this.props);
   }

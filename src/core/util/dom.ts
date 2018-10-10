@@ -53,7 +53,21 @@ export const getGoogleMapsScript = (cfg?: {} | HTMLScriptElement, libraries = 'p
 export const addClassNameToElement = (element: Element, ...clsName: string[]): void =>
   element.classList.add(...clsName);
 
-export const addClassNameToBody = (clsName: string): void => addClassNameToElement(document.body, clsName);
+/**
+ * @stable [01.10.2018]
+ * @param {string} rootId
+ */
+export const addRootElement = (rootId: string) => {
+  const rootEl = createElement();
+  rootEl.setAttribute('id', rootId);
+  addClassNameToElement(rootEl, 'rac-root', 'rac-flex');
+};
+
+/**
+ * @stable [01.10.2018]
+ * @param {string} clsName
+ */
+export const addClassNameToBody = (clsName: string): void => clsName && addClassNameToElement(document.body, clsName);
 
 /**
  * @stable [28.06.2018]

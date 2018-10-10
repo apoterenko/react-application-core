@@ -24,12 +24,12 @@
     }
 
     .rac-chip-description {
-      padding-right: $rac-chip-description-padding-right;               /* @stable [24.06.2018] */
-      padding-bottom: $rac-chip-description-padding-bottom;             /* @stable [24.06.2018] */
-      max-width: $rac-chip-description-max-width;                       /* @stable [24.06.2018] */
-      font-size: $rac-chip-description-font-size;                       /* @stable [24.06.2018] */
-      font-weight: $rac-chip-description-font-weight;                   /* @stable [24.06.2018] */
-      vertical-align: middle;                                           /* @stable [24.06.2018] */
+      cursor: default;                                                   /* @stable [06.10.2018] */
+      max-width: $rac-chip-description-max-width;                        /* @stable [24.06.2018] */
+      font-size: $rac-chip-description-font-size;                        /* @stable [24.06.2018] */
+      font-weight: $rac-chip-description-font-weight;                    /* @stable [24.06.2018] */
+      vertical-align: middle;                                            /* @stable [24.06.2018] */
+      line-height: $rac-chip-description-line-height;                    /* @stable [06.10.2018] */
     }
   }
 }

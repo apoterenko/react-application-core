@@ -119,7 +119,8 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
                     orNull<JSX.Element>(
                       this.closable,
                       () => (
-                        <Button disabled={this.isCloseButtonDisabled()}
+                        <Button icon={null}
+                                disabled={this.isCloseButtonDisabled()}
                                 className={toClassName(this.uiFactory.dialogFooterButton,
                                   this.uiFactory.dialogFooterButtonCancel)}
                                 onClick={this.onClose}>
@@ -132,7 +133,8 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
                     orNull<JSX.Element>(
                       this.acceptable,
                       () => (
-                        <Button disabled={this.isAcceptButtonDisabled()}
+                        <Button icon={null}
+                                disabled={this.isAcceptButtonDisabled()}
                                 className={toClassName(this.uiFactory.dialogFooterButton,
                                   this.uiFactory.dialogFooterButtonAccept)}
                                 onClick={this.onAccept}>
