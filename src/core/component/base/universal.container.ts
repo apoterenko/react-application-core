@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Store } from 'redux';
 import * as R from 'ramda';
-import { LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, staticInjector } from '../../di';
 import { IKeyValue, AnyT, ACTION_PREFIX } from '../../definitions.interface';

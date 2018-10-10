@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { orNull } from '../../util';
 import {

@@ -1,3 +1,5 @@
+import { AnyAction, Reducer } from 'redux';
+
 import { rootReducer } from '../component/root';
 import { notificationReducer } from '../notification';
 import { dictionariesReducer } from '../dictionary';
