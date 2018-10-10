@@ -254,7 +254,7 @@ export interface IButtonConfigurationWrapper<TButtonConfiguration = IButtonConfi
 /**
  * @stable [31.05.2018]
  */
-export interface IHeaderConfigurationWrapper<THeaderConfiguration = IHeaderConfiguration> {
+export interface IHeaderConfigurationWrapper<THeaderConfiguration = ISubHeaderConfiguration> {
   headerConfiguration?: THeaderConfiguration;
 }
 
@@ -1022,14 +1022,14 @@ export type UIIconConfigurationT = IUIIconConfiguration | string;
 /**
  * @stable [08.08.2018]
  */
-export interface IHeaderConfiguration extends IComponentConfiguration,
-                                              IMoreOptionsWrapper<IMenuItemEntity[]>,
-                                              IMoreOptionsConfigurationWrapper<IUniversalButtonProps>,
-                                              IItemsWrapper<JSX.Element>,
-                                              INavigationActionTypeWrapper,
-                                              IOnNavigationActionClickWrapper,
-                                              IOnMoreOptionsSelectWrapper<IMenuItemEntity>,
-                                              ITitleRendererWrapper<JSX.Element> {
+export interface ISubHeaderConfiguration extends IComponentConfiguration,
+                                                 IMoreOptionsWrapper<IMenuItemEntity[]>,
+                                                 IMoreOptionsConfigurationWrapper<IUniversalButtonProps>,
+                                                 IItemsWrapper<JSX.Element>,
+                                                 INavigationActionTypeWrapper,
+                                                 IOnNavigationActionClickWrapper,
+                                                 IOnMoreOptionsSelectWrapper<IMenuItemEntity>,
+                                                 ITitleRendererWrapper<JSX.Element> {
 }
 
 /**

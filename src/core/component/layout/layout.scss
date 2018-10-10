@@ -5,21 +5,6 @@
 
 .rac {
 
-  .rac-layout-view-root {
-
-    .rac-flex-row,
-      .rac-flex-column,
-      &.rac-flex-row,
-      &.rac-flex-column {
-
-      flex-shrink: 0;                                               /* @layout @stable [21.09.2018] */
-
-      &.rac-flex-full {
-        flex-shrink: 0;                                             /* @layout @stable [21.09.2018] */
-      }
-    }
-  }
-
   .rac-flex-unset {
     @include flex(unset);                                           /* @stable [19.09.2018] */
   }

@@ -6,3 +6,4 @@ export * from './form-action.builder';
 export * from './form.helper';
 export * from './form.support';
 export * from './dialog';
+export * from './vue';

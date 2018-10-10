@@ -7,7 +7,7 @@ import { lazyInject } from '../../../di';
 import { toClassName, orNull, isFn, cancelEvent } from '../../../util';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerProps } from './default-layout.interface';
-import { Header } from '../../header';
+import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
@@ -189,13 +189,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   private get headerElement(): JSX.Element {
     const props = this.props;
     const user = props.user;
-    const runtimeTitle = this.menuItems.find((item) => item.active);
 
     return (
-      <Header {...props.headerConfiguration}
-              title={props.title || (runtimeTitle && runtimeTitle.label)}
-              onNavigationActionClick={this.onHeaderNavigationActionClick}
-              onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}>
+      <Header>
         <Link to={this.routes.profile}>
           <div className='rac-user-photo'
                style={{backgroundImage: `url(${user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
@@ -233,12 +229,20 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
+   * @stable [08.10.2018]
    * @returns {JSX.Element}
    */
   private get mainElement(): JSX.Element {
+    const props = this.props;
+    const runtimeTitle = this.menuItems.find((item) => item.active);
+    const title = props.title || (runtimeTitle && runtimeTitle.label);
+
     return (
       <Main>
+        <SubHeader {...props.headerConfiguration}
+                   title={props.title || (runtimeTitle && runtimeTitle.label)}
+                   onNavigationActionClick={this.onHeaderNavigationActionClick}
+                   onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
         {this.props.children}
         {this.mainProgressOverlayElement}
       </Main>
@@ -246,12 +250,17 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
+   * @stable [08.10.2018]
    * @returns {JSX.Element}
    */
   private get footerElement(): JSX.Element {
     const props = this.props;
-    return orNull<JSX.Element>(props.footerRendered, () => <footer className='rac-footer'>{props.footer}</footer>);
+    const footer = props.footer;
+
+    return orNull<JSX.Element>(
+      props.footerRendered && !R.isNil(footer) && !R.isNil(footer.props.children),
+      () => <footer className='rac-footer'>{footer}</footer>
+    );
   }
 
   /**

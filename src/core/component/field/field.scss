@@ -44,40 +44,46 @@
     &.rac-field-invalid {
 
       .rac-text-field {
-        border-color: $rac-text-field-invalid-border-color;           /* @stable [05.10.2018] */
+        border-color: $rac-text-field-invalid-border-color;                      /* @stable [05.10.2018] */
       }
 
       .rac-field-help-text {
-        color: $rac-text-field-help-text-invalid-color;               /* @stable [05.10.2018] */
+        color: $rac-text-field-help-text-invalid-color;                          /* @stable [05.10.2018] */
       }
     }
 
     &.rac-field-readonly {
 
-      .rac-text-field {
+      & > .rac-text-field {
 
-        .rac-field-input {
-          cursor: default !important;                                         /* @stable [06.10.2018] */
+        & > .rac-field-input-wrapper {
+
+          & > .rac-field-input {
+            cursor: default !important;                                          /* @stable [06.10.2018] */
+          }
         }
       }
     }
 
     &.rac-field-not-changeable {
 
-      .rac-text-field {
-        border-bottom: $rac-text-field-not-changeable-border-bottom;           /* @stable [06.10.2018] */
-        border-right: $rac-text-field-not-changeable-border-right;             /* @stable [06.10.2018] */
-        border-left: $rac-text-field-not-changeable-border-left;               /* @stable [06.10.2018] */
-        border-radius: $rac-text-field-not-changeable-border-radius;           /* @stable [06.10.2018] */
+      & > .rac-text-field {
+        border-bottom: $rac-text-field-not-changeable-border-bottom;             /* @stable [06.10.2018] */
+        border-right: $rac-text-field-not-changeable-border-right;               /* @stable [06.10.2018] */
+        border-left: $rac-text-field-not-changeable-border-left;                 /* @stable [06.10.2018] */
+        border-radius: $rac-text-field-not-changeable-border-radius;             /* @stable [06.10.2018] */
       }
 
       &.rac-field-label-not-prefixed {
 
-        .rac-text-field {
+        & > .rac-text-field {
 
-          .rac-field-input {
-            padding-left: $rac-text-field-input-not-changeable-padding-left;   /* @stable [06.10.2018] */
-            padding-right: $rac-text-field-input-not-changeable-padding-right; /* @stable [06.10.2018] */
+          & > .rac-field-input-wrapper {
+
+            & > .rac-field-input {
+              padding-left: $rac-text-field-input-not-changeable-padding-left;   /* @stable [06.10.2018] */
+              padding-right: $rac-text-field-input-not-changeable-padding-right; /* @stable [06.10.2018] */
+            }
           }
         }
       }
@@ -177,7 +183,6 @@
     .rac-text-field {
       position: relative;
       height: $rac-text-field-height;                                 /* @stable [03.10.2018] */
-      flex-shrink: 0;                                                 /* @layout @stable [17.09.2018] */
       border-style: solid;                                            /* @stable [17.09.2018] */
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
@@ -222,6 +227,10 @@
         &:-webkit-autofill {
           transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
         }
+
+        &.rac-field-input-mirror {
+          width: auto;                                                /* @stable [10.10.2018] */
+        }
       }
     }
 
@@ -230,10 +239,6 @@
       bottom: $rac-field-input-caret-bottom;                          /* @stable [03.09.2018] */
       font-size: $rac-field-input-caret-font-size;                    /* @stable [03.09.2018] */
       color: $rac-field-input-caret-color;                            /* @stable [03.09.2018] */
-    }
-
-    .rac-field-input-mirror {
-      width: auto;                                                    /* @stable [04.09.2018] */
     }
 
     .rac-field-help-text {

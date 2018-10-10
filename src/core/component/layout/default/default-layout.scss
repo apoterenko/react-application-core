@@ -8,24 +8,8 @@
     .rac-header {
       color: $rac-default-layout-header-color;                                                      /* @stable [17.09.2018] */
       height: $rac-default-layout-header-height;                                                    /* @stable [17.09.2018] */
-
-      .rac-header-north,
-        .rac-header-center {
-        padding: $rac-default-layout-header-area-padding;                                           /* @stable [17.09.2018] */
-      }
-
-      .rac-header-north {
-        max-height: $rac-default-layout-header-north-height;                                        /* @stable [17.09.2018] */
-        background: $rac-default-layout-header-north-background;                                    /* @stable [17.09.2018] */
-      }
-
-      .rac-header-navigation-action {
-        color: $rac-default-layout-header-navigation-action-color;                                  /* @stable [17.09.2018] */
-        background: $rac-default-layout-header-navigation-action-background;                        /* @stable [04.10.2018] */
-        margin-right: $rac-default-layout-header-navigation-action-margin-right;                    /* @stable [17.09.2018] */
-        padding: $rac-default-layout-header-navigation-action-padding;                              /* @stable [04.10.2018] */
-        border-radius: $rac-default-layout-header-navigation-action-border-radius;                  /* @stable [04.10.2018] */
-      }
+      padding: $rac-default-layout-header-padding;                                                  /* @stable [08.10.2018] */
+      background: $rac-default-layout-header-background;                                            /* @stable [08.10.2018] */
 
       .rac-user {
         margin-right: $rac-default-layout-header-user-margin-right;                                 /* @stable [17.09.2018] */
@@ -50,6 +34,19 @@
       }
     }
 
+    .rac-sub-header {
+      height: $rac-default-layout-sub-header-height;                                                /* @stable [08.10.2018] */
+      padding: $rac-default-layout-sub-header-padding;                                              /* @stable [08.10.2018] */
+
+      .rac-sub-header-navigation-action {
+        color: $rac-default-layout-sub-header-navigation-action-color;                              /* @stable [17.09.2018] */
+        background: $rac-default-layout-sub-header-navigation-action-background;                    /* @stable [04.10.2018] */
+        margin-right: $rac-default-layout-sub-header-navigation-action-margin-right;                /* @stable [17.09.2018] */
+        padding: $rac-default-layout-sub-header-navigation-action-padding;                          /* @stable [04.10.2018] */
+        border-radius: $rac-default-layout-sub-header-navigation-action-border-radius;              /* @stable [04.10.2018] */
+      }
+    }
+
     .rac-main {
       position: relative;                                                                           /* @stable [16.09.2018] */
 
@@ -59,6 +56,7 @@
         height: 100%;                                                                               /* @stable [16.09.2018] */
 
         .rac-main-body {
+          overflow: $rac-default-layout-main-body-overflow;                                         /* @stable [08.10.2018] */
           padding-left: $rac-default-layout-main-body-padding-left;                                 /* @stable [16.09.2018] */
 
           .rac-tab-panel-wrapper,
@@ -81,6 +79,7 @@
               border-top: $rac-default-layout-main-body-form-actions-border-top;                    /* @stable [03.10.2018] */
               margin: $rac-default-layout-main-body-form-actions-margin;                            /* @stable [03.10.2018] */
               padding-top: $rac-default-layout-main-body-form-actions-padding-top;                  /* @stable [03.10.2018] */
+              min-height: $rac-default-layout-main-body-form-actions-min-height;                    /* @stable [07.10.2018] */
             }
           }
         }

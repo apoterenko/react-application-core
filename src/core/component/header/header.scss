@@ -7,13 +7,13 @@
   .rac-header {
     color: $rac-header-color;                                                            /* @stable [07.08.2018] */
     background: $rac-header-background;                                                  /* @stable [07.08.2018] */
+  }
 
-    .rac-header-section-title {
-      font-weight: $rac-header-section-title-font-weight;                                /* @stable [26.06.2018] */
-      font-size: $rac-header-section-title-font-size;                                    /* @stable [26.06.2018] */
-      margin-left: $rac-header-section-title-margin-left;                                /* @stable [26.06.2018] */
-      margin-right: $rac-header-section-title-margin-right;                              /* @stable [29.06.2018] */
-      padding-right: $rac-header-section-title-padding-right;                            /* @stable [14.09.2018] */
-    }
+  .rac-sub-header-section-title {
+    font-weight: $rac-sub-header-section-title-font-weight;                              /* @stable [26.06.2018] */
+    font-size: $rac-sub-header-section-title-font-size;                                  /* @stable [26.06.2018] */
+    margin-left: $rac-sub-header-section-title-margin-left;                              /* @stable [26.06.2018] */
+    margin-right: $rac-sub-header-section-title-margin-right;                            /* @stable [29.06.2018] */
+    padding-right: $rac-sub-header-section-title-padding-right;                          /* @stable [14.09.2018] */
   }
 }

@@ -61,12 +61,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                             'rac-flex-full',
                             props.className
                         )}>
-          <FlexLayout className='rac-form-body-wrapper'>
-            <FlexLayout full={false}
-                        className={toClassName(
-                          'rac-form-body',
-                          !isFormContainOnlySingleField(props.children) && 'rac-form-multi-body'
-                        )}>
+          <div className='rac-form-body-wrapper'>
+            <div className='rac-form-body'>
               {
                 cloneNodes<IFieldInternalProps>(
                   this,
@@ -111,8 +107,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                   (child) => (child.props as IFieldInternalProps).rendered,
                 )
               }
-            </FlexLayout>
-          </FlexLayout>
+            </div>
+          </div>
           {
             orNull<JSX.Element>(
                 !props.notUseActions,
