@@ -101,6 +101,10 @@ export class DateConverter implements IDateConverter {
     return this.format(date, input, this.dateTimeSettings.pstDateFormat);
   }
 
+  public fromDateTimeToPstTime(date: DateTimeLikeTypeT = new Date(), input = this.dateTimeFormat): string {
+    return this.format(date, input, this.dateTimeSettings.pstTimeFormat);
+  }
+
   /**
    * @test
    * @param {string} startUiDate [2018-01-31]
@@ -175,6 +179,10 @@ export class DateConverter implements IDateConverter {
 
   public formatTimeFromDateTime(date: DateTimeLikeTypeT): string {
     return this.formatDateTime(date, this.timeFormat);
+  }
+
+  public formatPstTimeFromDateTime(date: DateTimeLikeTypeT): string {
+    return this.formatDateTime(date, this.dateTimeSettings.pstTimeFormat); // TODO
   }
 
   public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {

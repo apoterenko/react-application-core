@@ -6,7 +6,7 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { isNumber, isString } from '../../util';
 import { IApplicationSettings } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
-import { EntityIdT } from '../../definitions.interface';
+import { EntityIdT, StringNumberT } from '../../definitions.interface';
 
 @injectable()
 export class NumberConverter implements INumberConverter {
@@ -26,6 +26,21 @@ export class NumberConverter implements INumberConverter {
     this.format = this.format.bind(this);
     this.currency = this.currency.bind(this);
     this.id = this.id.bind(this);
+  }
+
+  /**
+   * @stable [28.09.2018]
+   * @param {StringNumberT} value
+   * @param {number} radix
+   * @returns {StringNumberT}
+   */
+  public integer(value: StringNumberT, radix = 10): StringNumberT {
+    if (isNumber(value)) {
+      return value;
+    }
+    const valueAsString = value as string;
+    const result = parseInt(valueAsString, radix);
+    return isNaN(result) ? value : result;
   }
 
   public number(value: string | number, stringResult = true): string | number {
