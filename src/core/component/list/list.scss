@@ -4,14 +4,17 @@
 // List [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-list, .rac-simple-list, .rac-navigation-list {
-    padding: unset;                                          /* @stable [25.06.2018] */
+  .rac-list, .rac-simple-list {
+    padding: unset;                                          /* @mdc @stable [25.06.2018] */
+  }
+
+  .rac-list {
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .rac-list, .rac-simple-list {
     cursor: default;                                         /* @stable [23.06.2018] */
-    overflow-x: hidden;                                      /* @stable [23.06.2018] */
-    overflow-y: auto;                                        /* @stable [23.06.2018] */
 
     .rac-list-item {
       color: $rac-list-item-color;                                           /* @stable [23.06.2018] */
