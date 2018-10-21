@@ -1,20 +1,29 @@
-import Vue, { ComponentOptions } from 'vue';
-import { Vue as VueTypes, VueConstructor } from 'vue/types/vue';
+import Vue from 'vue';
 
-import { IAppStateWrapper } from './definitions.interface';
+import { IUniversalApplicationStoreEntity } from './entities-definitions.interface';
+import {
+  IVueIsContainer$Wrapper,
+  IVueSection$Wrapper,
+  IVueState$Wrapper,
+} from './vue-definitions.interface';
 
 /**
- * @stable [10.10.2018]
+ * @stable [21.10.2018]
  */
-export interface IVueContainerCtorEntity<TContainer extends Vue> extends VueConstructor<TContainer> {
-  new(...args: any[]): IVueContainerEntity<any>; // TODO
+export interface IVueComponent extends Vue {
 }
 
 /**
- * @stable [01.10.2018]
+ * @stable [21.10.2018]
  */
-export interface IVueContainerEntity<TApplicationStoreEntity> extends ComponentOptions<VueTypes>,
-                                                                      IAppStateWrapper<TApplicationStoreEntity> {
-  $route?: any;
-  sectionName?: string;
+export interface IVueContainer extends Vue,
+                                       IVueSection$Wrapper,
+                                       IVueState$Wrapper<IVueApplicationStoreEntity>,
+                                       IVueIsContainer$Wrapper {
+}
+
+/**
+ * @stable [21.10.2018]
+ */
+export interface IVueApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries> {
 }
