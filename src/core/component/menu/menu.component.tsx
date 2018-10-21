@@ -13,6 +13,7 @@ import {
   setAbsoluteOffsetByCoordinates,
   applyStyle,
   calc,
+  cancelEvent,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -40,6 +41,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     this.hide = this.hide.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onCloseAction = this.onCloseAction.bind(this);
 
     this.state = {};
   }
@@ -76,7 +78,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
           {
             orNull<JSX.Element>(
               props.renderToCenterOfBody,
-              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action', onClick: this.hide})
+              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action', onClick: this.onCloseAction})
             )
           }
           {orNull<JSX.Element>(
@@ -181,6 +183,15 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     return props.useFilter
       ? props.options.filter((option) => props.filter(query, option))
       : props.options;
+  }
+
+  /**
+   * @stable [17.10.2018]
+   * @param {IBasicEvent} event
+   */
+  private onCloseAction(event: IBasicEvent): void {
+    cancelEvent(event);
+    this.hide();
   }
 
   /**
