@@ -4,7 +4,7 @@ import {Chart as ChartJs} from 'chart.js';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
 import { IChartProps } from './chart.interface';
-import { toClassName, uuid } from '../../util';
+import { toClassName, uuid, orNull } from '../../util';
 
 export class Chart extends BaseComponent<Chart, IChartProps> {
 
@@ -15,8 +15,12 @@ export class Chart extends BaseComponent<Chart, IChartProps> {
    */
   public componentDidMount(): void {
     super.componentDidMount();
-    const ctx = (document.getElementById(this.canvasId) as HTMLCanvasElement).getContext('2d');
-    new ChartJs(ctx, this.props.options);
+    const elId = document.getElementById(this.canvasId);
+
+    if (elId) {
+      const ctx = (elId as HTMLCanvasElement).getContext('2d');
+      new ChartJs(ctx, this.props.options);
+    }
   }
 
   /**
@@ -29,11 +33,18 @@ export class Chart extends BaseComponent<Chart, IChartProps> {
       <FlexLayout row={true}
                   className={toClassName(props.className, 'rac-chart')}>
         {props.west}
-        <FlexLayout className='rac-chart-canvas-holder'>
-          <FlexLayout className='rac-chart-canvas-wrapper'>
-            <canvas id={this.canvasId}/>
-          </FlexLayout>
-        </FlexLayout>
+        {
+          orNull<JSX.Element>(
+            props.rendered !== false,
+            () => (
+              <FlexLayout className='rac-chart-canvas-holder'>
+                <FlexLayout className='rac-chart-canvas-wrapper'>
+                  <canvas id={this.canvasId}/>
+                </FlexLayout>
+              </FlexLayout>
+            )
+          )
+        }
         {props.east}
       </FlexLayout>
     );

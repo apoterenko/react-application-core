@@ -5,6 +5,7 @@ import {
   IOptionsWrapper,
   ITypeWrapper,
   IDataWrapper,
+  IRenderedWrapper,
 } from '../../definitions.interface';
 import { IComponentProps } from '../../props-definitions.interface';
 
@@ -22,5 +23,6 @@ export interface IChartOptions extends ITypeWrapper,
 export interface IChartProps extends IComponentProps,
                                      IWestWrapper,
                                      IEastWrapper,
+                                     IRenderedWrapper,
                                      IOptionsWrapper<IChartOptions> {
 }
