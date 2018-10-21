@@ -2410,13 +2410,11 @@ export interface ISmallWrapper<TSmall> {
 export interface IBooleanSmallWrapper extends ISmallWrapper<boolean> {
 }
 
-/* @stable - 19.04.2018 */
-export interface ILargeWrapper<TLarge> {
+/**
+ * @stable [13.10.2018]
+ */
+export interface ILargeWrapper<TLarge = boolean> {
   large?: TLarge;
-}
-
-/* @stable - 19.04.2018 */
-export interface IBooleanLargeWrapper extends ILargeWrapper<boolean> {
 }
 
 /* @stable - 04.04.2018 */
@@ -2449,7 +2447,9 @@ export interface IModalWrapper<TModal> {
   modal?: TModal;
 }
 
-/* @stable [27.04.2018] */
+/**
+ * @stable [13.10.2018]
+ */
 export interface IContentWrapper<TContent = JSX.Element> {
   content?: TContent;
 }
@@ -3062,13 +3062,6 @@ export interface IKeyWrapper<TKey = string> {
 }
 
 /**
- * @stable [02.10.2018]
- */
-export interface IAppStateWrapper<TAppState> {
-  appState?: TAppState;
-}
-
-/**
  * @stable [03.05.2018]
  */
 export interface IPasswordWrapper<TPassword = string> {
@@ -3097,8 +3090,17 @@ export interface INotificationWrapper<TNotification> {
   notification?: TNotification;
 }
 
-/* @stable - 20.04.2018 */
-export interface IToWrapper<TTo> {
+/**
+ * @stable [12.10.2018]
+ */
+export interface IFromWrapper<TFrom = string> {
+  from?: TFrom;
+}
+
+/**
+ * @stable [12.10.2018]
+ */
+export interface IToWrapper<TTo = string> {
   to?: TTo;
 }
 
@@ -3114,6 +3116,7 @@ export const PROGRESS_FIELD_NAME = 'progress';
 
 export const UNI_CODES = {
   dash: '\u2014',
+  infinity: '\u221e',
   nDash: '\u2013',
   space: '\u0020',
   noBreakSpace: '\u00a0',

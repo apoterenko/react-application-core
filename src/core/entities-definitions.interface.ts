@@ -28,7 +28,6 @@ import {
   IOriginalEntityWrapper,
   IActiveWrapper,
   IEntityOnClickWrapper,
-  IRawDataWrapper,
   ISelectedEntityWrapper,
   IListWrapper,
   IOperationWrapper,
@@ -120,6 +119,7 @@ import {
   IWidthWrapper,
   ITextAlignWrapper,
   IExpandedGroupsWrapper,
+  IRawDataWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -468,6 +468,7 @@ export interface IUniversalListEntity extends IUniversalComponentEntity,
                                               IUniversalLivingEntity,
                                               IPaginatedEntity,
                                               IDataWrapper,
+                                              IRawDataWrapper,
                                               IOriginalDataWrapper,
                                               ISelectedEntityWrapper {
 }
@@ -747,10 +748,16 @@ export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalA
 }
 
 /**
+ * @stable [13.10.2018]
+ */
+export interface ILabeledValueEntity<TValue = AnyT> extends IValueWrapper<TValue>,
+                                                            ILabelWrapper {
+}
+
+/**
  * @stable [05.06.2018]
  */
-export interface IMenuItemEntity<TRawData extends IEntity = IEntity, TValue = EntityIdT> extends IValueWrapper<TValue>,
-                                                                                                 ILabelWrapper,
+export interface IMenuItemEntity<TRawData extends IEntity = IEntity, TValue = EntityIdT> extends ILabeledValueEntity<TValue>,
                                                                                                  IIconWrapper,
                                                                                                  IDisabledWrapper,
                                                                                                  IRawDataWrapper<TRawData> {
