@@ -127,3 +127,10 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
 export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
                                                         IEffectsActionWrapper {
 }
+
+/**
+ * @stable [16.10.2018]
+ */
+export interface IRefreshedListOnValidateFormMiddlewareConfig extends IListSectionWrapper,
+                                                                      IEffectsActionWrapper {
+}
