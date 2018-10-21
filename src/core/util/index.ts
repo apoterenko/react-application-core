@@ -3,6 +3,7 @@ export * from './calc';
 export * from './caret';
 export * from './clone';
 export * from './cond';
+export * from './converter';
 export * from './dom';
 export * from './event';
 export * from './factory';

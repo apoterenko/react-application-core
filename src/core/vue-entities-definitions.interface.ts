@@ -23,6 +23,13 @@ export interface IVueContainer extends Vue,
 }
 
 /**
+ * @stable [22.10.2018]
+ */
+export interface IVueContainerCtor {
+  new (): IVueContainer;
+}
+
+/**
  * @stable [21.10.2018]
  */
 export interface IVueApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries> {
