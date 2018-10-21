@@ -1,21 +1,52 @@
 import Vue from 'vue';
-import { Prop } from 'vue-property-decorator';
 import { Store } from 'redux';
 
-import { IVueContainerEntity } from '../../vue-entities-definitions.interface';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { lazyInject, DI_TYPES } from '../../di';
+import { AnyT, IKeyValue } from '../../definitions.interface';
+import {
+  IVueApplicationStoreEntity,
+  IVueComponent,
+  IVueContainer,
+} from '../../vue-entities-definitions.interface';
 
-export class VueBaseContainer extends Vue implements IVueContainerEntity<any> { // TODO
-  public sectionName: string;
+export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponent>
+  extends Vue implements IVueContainer {
 
-  @Prop() public appState: any;
-  @lazyInject(DI_TYPES.Store) protected store: Store<any>;
+  public section$: string;
+  @lazyInject(DI_TYPES.Store) protected store$: Store<IVueApplicationStoreEntity>;
 
-  protected dispatchFormChanges(fieldName: string, value: string) {
-    this.store.dispatch({
-      type: FormActionBuilder.buildChangeActionType(this.sectionName),
-      data: {section: this.sectionName, fields: [{name: fieldName, value}]},
-    });
+  /**
+   * @stable [21.10.2018]
+   * @returns {IVueApplicationStoreEntity}
+   */
+  public get state$(): IVueApplicationStoreEntity {
+    return this.store$.getState();
+  }
+
+  /**
+   * TODO make common contract to this methods (IUniversalBaseContainer) + delegates
+   * @stable [21.10.2018]
+   * @param {IKeyValue} changes
+   */
+  protected dispatchFormChanges(changes: IKeyValue): void {
+    this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(this.section$, changes));
+  }
+
+  /**
+   * @stable [21.10.2018]
+   * @param {string} type
+   * @param {AnyT} data
+   */
+  protected dispatchCustomType(type: string, data?: AnyT): void {
+    this.store$.dispatch({type, data});
+  }
+
+  /**
+   * @stable [21.10.2018]
+   * @returns {TVueComponent}
+   */
+  protected get vueComponent(): TVueComponent {
+    return this.$vnode.componentInstance as TVueComponent;
   }
 }
