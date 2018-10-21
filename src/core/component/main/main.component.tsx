@@ -7,25 +7,19 @@ import { FlexLayout } from '../layout';
 export class Main extends BaseComponent<Main> {
 
   /**
-   * @stable [16.09.2018]
+   * @stable [12.10.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <main className={toClassName(
-                          'rac-main',
-                          'rac-flex',
-                          'rac-flex-column',
-                          'rac-flex-full',
-                          props.className
-                        )}>
-          <FlexLayout className='rac-main-body-wrapper'>
-            <FlexLayout className='rac-main-body'>
-              {props.children}
-            </FlexLayout>
+      <div className={toClassName('rac-main', props.className)}>
+        <div className='rac-main-body-wrapper'>
+          <FlexLayout className='rac-main-body'>
+            {props.children}
           </FlexLayout>
-        </main>
+        </div>
+      </div>
     );
   }
 }
