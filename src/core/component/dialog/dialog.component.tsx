@@ -161,7 +161,6 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
       'rac-dialog',
       this.props.className,
       this.uiFactory.dialog,
-      !this.isDialogVisible() && 'rac-display-none'
     );
   }
 
