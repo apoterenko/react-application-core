@@ -8,5 +8,6 @@ export * from './list.container';
 export * from './list.component';
 export * from './list.reducer';
 export * from './list-action.builder';
+export * from './wrapper';
 export * from './navigation';
 export * from './universal-base-list.container';
