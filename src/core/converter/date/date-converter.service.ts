@@ -177,6 +177,10 @@ export class DateConverter implements IDateConverter {
     return this.formatDateTime(date, this.dateFormat);
   }
 
+  public formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string {
+    return this.formatDateTime(date, this.dateTimeFormat);
+  }
+
   public formatTimeFromDateTime(date: DateTimeLikeTypeT): string {
     return this.formatDateTime(date, this.timeFormat);
   }

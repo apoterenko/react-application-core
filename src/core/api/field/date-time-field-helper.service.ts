@@ -64,6 +64,29 @@ export class DateTimeFieldHelper {
     };
   }
 
+  // TODO duplication
+  public buildLastDateTimePeriod<TEntity extends IEntity>(apiEntity: IApiEntity<TEntity>,
+                                                          fromDateResolver: (entity: TEntity) => string,
+                                                          toDateResolver: (entity: TEntity) => string,
+                                                          monthAgo = 0): IFromDateFromTimeToDateToTimeEntity {
+    const lastDayOfLastMonth = this.dc.getLastDayOfMonth(monthAgo);
+    const firstDayOfLastMonth = this.dc.getFirstDayOfMonth(monthAgo);
+    const currentDate = this.dc.getCurrentDate();
+
+    return {
+      fromDate: this.dc.formatDateTimeFromDateTime(this.toDateTime<TEntity>(apiEntity, fromDateResolver) || firstDayOfLastMonth),
+      toDate: this.dc.formatDateTimeFromDateTime(this.toDateTime<TEntity>(apiEntity, toDateResolver) ||
+        (lastDayOfLastMonth.getTime() > currentDate.getTime() ? currentDate : lastDayOfLastMonth)),
+    };
+  }
+
+  public buildLastDateTimePeriodFromChanges<TEntity extends IEntity>(changes: TEntity,
+                                                                     fromDateResolver: (entity: TEntity) => string,
+                                                                     toDateResolver: (entity: TEntity) => string,
+                                                                     monthAgo?: number): IFromDateToDateEntity {
+    return this.buildLastDateTimePeriod<TEntity>({changes}, fromDateResolver, toDateResolver, monthAgo);
+  }
+
   public buildDateTimeFromField<TEntity extends IDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
                                                                  returnOriginalValueIfNoChanges = false): string {
     return this.toDateTime<TEntity>(

@@ -16,6 +16,7 @@ export interface IDateConverter {
   from30DaysAgoUiDateTimeToDateTime(): string;
   formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
   formatDateFromDateTime(date: DateTimeLikeTypeT): string;
+  formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatPstTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
