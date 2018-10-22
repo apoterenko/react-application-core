@@ -21,7 +21,6 @@ import {
   isFormDirty,
   isFormValid,
   isFormSubmittable,
-  isFormContainOnlySingleField,
 } from './form.support';
 import { FlexLayout } from '../layout';
 
@@ -48,6 +47,58 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
 
   public render(): JSX.Element {
     const props = this.props;
+    const nodes = (
+      cloneNodes<IFieldInternalProps>(
+        this,
+        (field: IField) => {
+          const fieldProps = field.props;
+          const predefinedOptions = this.getFieldPredefinedOptions(field);
+
+          return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
+            {
+              value: this.getFieldValue(field),
+              originalValue: this.getFieldOriginalValue(field),
+              displayValue: this.getFieldDisplayValue(field, predefinedOptions),
+              readOnly: this.isFieldReadOnly(field),
+              disabled: this.isFieldDisabled(field),
+              changeForm: this.onChange,
+
+              // Dynamic linked dictionary callbacks
+              onEmptyDictionary: orUndef<() => void>(
+                fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
+                () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
+              ),
+              onLoadDictionary: orUndef<(items: AnyT) => void>(
+                fieldProps.bindDictionary || fieldProps.onLoadDictionary,
+                (items) => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
+              ),
+
+              // Predefined options
+              ...predefinedOptions,
+
+              // The fields props have a higher priority
+              ...defValuesFilter<IFieldConfiguration, IFieldConfiguration>({
+                label: fieldProps.label,
+                type: fieldProps.type,
+                placeholder: fieldProps.placeholder,
+                prefixLabel: fieldProps.prefixLabel,
+              }),
+            }
+          );
+        },
+        (child) => Field.isPrototypeOf(child.type),
+        this.childrenMap,
+        (child) => (child.props as IFieldInternalProps).rendered,
+      )
+    );
+
+    const bodyEl = (
+      <div className='rac-form-body-wrapper'>
+        <div className='rac-form-body'>
+          {nodes}
+        </div>
+      </div>
+    );
 
     return (
         <form ref='self'
@@ -58,63 +109,17 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                             'rac-form',
                             'rac-flex',
                             'rac-flex-column',
-                            'rac-flex-full',
+                            !props.compact && 'rac-flex-full',
                             props.className
                         )}>
-          <div className='rac-form-body-wrapper'>
-            <div className='rac-form-body'>
-              {
-                cloneNodes<IFieldInternalProps>(
-                  this,
-                  (field: IField) => {
-                    const fieldProps = field.props;
-                    const predefinedOptions = this.getFieldPredefinedOptions(field);
-
-                    return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
-                      {
-                        value: this.getFieldValue(field),
-                        originalValue: this.getFieldOriginalValue(field),
-                        displayValue: this.getFieldDisplayValue(field, predefinedOptions),
-                        readOnly: this.isFieldReadOnly(field),
-                        disabled: this.isFieldDisabled(field),
-                        changeForm: this.onChange,
-
-                        // Dynamic linked dictionary callbacks
-                        onEmptyDictionary: orUndef<() => void>(
-                          fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
-                          () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
-                        ),
-                        onLoadDictionary: orUndef<(items: AnyT) => void>(
-                          fieldProps.bindDictionary || fieldProps.onLoadDictionary,
-                          (items) => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
-                        ),
-
-                        // Predefined options
-                        ...predefinedOptions,
-
-                        // The fields props have a higher priority
-                        ...defValuesFilter<IFieldConfiguration, IFieldConfiguration>({
-                          label: fieldProps.label,
-                          type: fieldProps.type,
-                          placeholder: fieldProps.placeholder,
-                          prefixLabel: fieldProps.prefixLabel,
-                        }),
-                      }
-                    );
-                  },
-                  (child) => Field.isPrototypeOf(child.type),
-                  this.childrenMap,
-                  (child) => (child.props as IFieldInternalProps).rendered,
-                )
-              }
-            </div>
-          </div>
+          {props.compact ? nodes : bodyEl}
           {
             orNull<JSX.Element>(
                 !props.notUseActions,
                 () => (
                     <FlexLayout full={false}
                                 row={true}
+                                justifyContentCenter={true}
                                 className='rac-form-actions'>
                       {orNull<JSX.Element>(
                           props.useResetButton,
