@@ -51,7 +51,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [17.10.2018]
    */
   public submit(): void {
     this.form.submit(this.form.apiEntity);
