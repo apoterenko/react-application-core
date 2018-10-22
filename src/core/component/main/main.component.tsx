@@ -13,7 +13,7 @@ export class Main extends BaseComponent<Main> {
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <div className={toClassName('rac-main', props.className)}>
+      <div className={toClassName('rac-main rac-flex-full', props.className)}>
         <div className='rac-main-body-wrapper'>
           <FlexLayout className='rac-main-body'>
             {props.children}
