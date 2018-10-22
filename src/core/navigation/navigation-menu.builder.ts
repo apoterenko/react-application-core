@@ -16,9 +16,11 @@ export class NavigationMenuBuilder {
     let menuItems: INavigationListItemConfiguration[] = [];
     this.menu.forEach((item) => {
       const itemChildren = item.children;
-      if (item.type === NavigationListItemTypeEnum.GROUP && Array.isArray(itemChildren) && itemChildren.length) {
-        const filteredChildren = itemChildren
-            .filter((itm) => !itm.accessConfiguration || this.permissionService.isAccessible(itm.accessConfiguration));
+
+      if (item.type === NavigationListItemTypeEnum.GROUP
+            && Array.isArray(itemChildren)
+            && itemChildren.length > 0) {
+        const filteredChildren = itemChildren.filter((itm) => this.isAccessible(itm));
 
         if (filteredChildren.length) {
           if (menuItems.length) {
@@ -28,10 +30,19 @@ export class NavigationMenuBuilder {
               .concat(item.label ? {...item, type: NavigationListItemTypeEnum.SUB_HEADER} : [])
               .concat(filteredChildren.map((itm): INavigationListItemConfiguration => ({...itm, parent: item})));
         }
-      } else {
+      } else if (this.isAccessible(item)) {
         menuItems.push({...item});
       }
     });
     return menuItems;
+  }
+
+  /**
+   * @stable [19.10.2018]
+   * @param {INavigationListItemConfiguration} itm
+   * @returns {boolean}
+   */
+  private isAccessible(itm: INavigationListItemConfiguration): boolean {
+    return !itm.accessConfiguration || this.permissionService.isAccessible(itm.accessConfiguration);
   }
 }
