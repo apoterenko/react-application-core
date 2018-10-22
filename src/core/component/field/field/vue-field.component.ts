@@ -34,9 +34,10 @@ export class VueField extends VueBaseComponent {
       data: () => this.$data,
       template: `
         <div class='${this.getFieldClassName()}'>
-            ${this.getFieldAttachment()}
             <input :type="${VUE_TYPE$_FIELD}"
                    v-model:value="${VUE_VALUE$_FIELD}">
+            ${this.getLabelElement()}
+            ${this.getFieldAttachmentElement()}
         </div>
       `,
     };
@@ -73,7 +74,15 @@ export class VueField extends VueBaseComponent {
    * @stable [21.10.2018]
    * @returns {string}
    */
-  protected getFieldAttachment(): string {
+  protected getFieldAttachmentElement(): string {
+    return '';
+  }
+
+  /**
+   * @stable [22.10.2018]
+   * @returns {string}
+   */
+  protected getLabelElement(): string {
     return '';
   }
 }
