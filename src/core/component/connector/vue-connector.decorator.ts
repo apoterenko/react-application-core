@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { VueConstructor } from 'vue';
 
 import { VueConstructorT } from '../../vue-definitions.interface';
 

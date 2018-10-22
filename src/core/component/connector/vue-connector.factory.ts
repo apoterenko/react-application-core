@@ -1,3 +1,4 @@
+import { ComponentOptions, DefaultData, DefaultMethods, DefaultComputed, PropsDefinition } from 'vue/types/options';
 import { Unsubscribe } from 'redux';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
