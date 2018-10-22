@@ -13,19 +13,50 @@ export class NumberConverter implements INumberConverter {
 
   @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
   private defaultFormatter = new Intl.NumberFormat();
-  private defaultCurrencyFormatOptions = {
-    style: 'currency',
-    currency: this.settings.currency.uiCurrency,
-  };
-  private currencyFormatter = new Intl.NumberFormat(
-      this.settings.currency.uiLocale, this.defaultCurrencyFormatOptions
-  );
   private phoneUtilInstance = PNU.getInstance();
 
+  /**
+   * @stable [22.10.2018]
+   */
+  private defaultCurrencyFormatOptions = {style: 'currency', currency: this.settings.currency.uiCurrency};
+  private currencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultCurrencyFormatOptions);
+
+  /**
+   * @stable [22.10.2018]
+   */
+  private defaultIntegerFormatOptions: Intl.NumberFormatOptions = {
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  };
+  private integerFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerFormatOptions);
+
+  /**
+   * @stable [22.10.2018]
+   */
+  private defaultFractionalFormatOptions: Intl.NumberFormatOptions = {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  };
+  private fractionalFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultFractionalFormatOptions);
+
+  /**
+   * @stable [22.10.2018]
+   */
+  private defaultIntegerCurrencyFormatOptions: Intl.NumberFormatOptions = {
+    ...this.defaultCurrencyFormatOptions,
+    ...this.defaultIntegerFormatOptions,
+  };
+  private integerCurrencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerCurrencyFormatOptions);
+
+  /**
+   * @stable [22.10.2018]
+   */
   constructor() {
+    this.id = this.id.bind(this);
     this.format = this.format.bind(this);
     this.currency = this.currency.bind(this);
-    this.id = this.id.bind(this);
+    this.formatAsInteger = this.formatAsInteger.bind(this);
+    this.formatAsFractional = this.formatAsFractional.bind(this);
   }
 
   /**
@@ -56,10 +87,32 @@ export class NumberConverter implements INumberConverter {
     return formatter.format(this.number(value));
   }
 
+  public integerCurrency(value: StringNumberT): string {
+    return this.integerCurrencyFormatter.format(this.number(value) as number);
+  }
+
+  /**
+   * @stable [22.10.2018]
+   * @param {StringNumberT} value
+   * @returns {string}
+   */
+  public formatAsInteger(value: StringNumberT): string {
+    return this.integerFormatter.format(this.number(value, false) as number);
+  }
+
+  /**
+   * @stable [22.10.2018]
+   * @param {StringNumberT} value
+   * @returns {string}
+   */
+  public formatAsFractional(value: StringNumberT): string {
+    return this.fractionalFormatter.format(this.number(value, false) as number);
+  }
+
   public currency(value: number | string, options?: Intl.NumberFormatOptions): string {
     if (options) {
       const currencyFormatter0 = new Intl.NumberFormat(
-          this.settings.currency.uiLocale,
+          this.uiLocale,
           {...this.defaultCurrencyFormatOptions, ...options}
       );
       return this.format(value, currencyFormatter0);
@@ -96,5 +149,13 @@ export class NumberConverter implements INumberConverter {
     return this.phoneUtilInstance.isValidNumber(phoneNumber)
         ? this.phoneUtilInstance.format(phoneNumber, phoneNumberFormat)
         : v;
+  }
+
+  /**
+   * @stable [22.10.2018]
+   * @returns {string}
+   */
+  private get uiLocale(): string {
+    return this.settings.currency.uiLocale;
   }
 }

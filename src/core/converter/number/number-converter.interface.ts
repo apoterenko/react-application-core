@@ -5,6 +5,9 @@ export interface INumberConverter {
   number(value: StringNumberT, stringResult?: boolean): StringNumberT;
   integer(value: StringNumberT, radix?: number): StringNumberT;
   format(value: StringNumberT): string;
+  integerCurrency(value: StringNumberT): string;
+  formatAsInteger(value: StringNumberT): string;
+  formatAsFractional(value: StringNumberT): string;
   currency(value: StringNumberT, options?: Intl.NumberFormatOptions): string;
   phone(value: StringNumberT, phoneNumberFormat?: PNF): string;
   id(value: StringNumberT): string;
