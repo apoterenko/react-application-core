@@ -19,6 +19,10 @@
       .rac-text-field {
         background: $rac-text-field-active-background;                /* @stable [18.09.2018] */
 
+        .rac-field-input {
+          font-size: $rac-text-field-active-font-size;                /* @stable [22.10.2018] */
+        }
+
         .rac-icon {
           color: $rac-text-field-active-icon-color;                   /* @stable [18.09.2018] */
         }
