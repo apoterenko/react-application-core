@@ -110,7 +110,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   private onHeaderMoreOptionsSelect(option: IStringMenuActionEntity): void {
     const params: IPayloadWrapper<IOperationEntity> = {payload: Operation.create(option.value)};
-    this.dispatch(option.value, params);
+    this.dispatchFrameworkAction(option.value, params);
   }
 
   /**
