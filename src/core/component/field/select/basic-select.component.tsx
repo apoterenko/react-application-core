@@ -166,7 +166,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   }
 
   /**
-   * @stable [06.10.2018]
+   * @stable [22.10.2018]
    * @param {AnyT} value
    * @returns {EntityIdT}
    */
@@ -175,7 +175,10 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     if (!R.isNil(selectedDisplayValue)) {
       return this.t(selectedDisplayValue);
     }
-    return super.toDisplayValue(value);
+    const selectedOptionItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
+    return R.isNil(selectedOptionItem)
+      ? super.toDisplayValue(value)
+      : (R.isNil(selectedOptionItem.label) ? selectedOptionItem.value : this.t(selectedOptionItem.label));
   }
 
   /**
