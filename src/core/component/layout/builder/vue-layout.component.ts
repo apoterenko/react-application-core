@@ -10,7 +10,7 @@ import {
 import { IVueLayoutBuilderConfiguration } from '../../../vue-configurations-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueBaseComponent } from '../../base/vue-index';
-import { VueLayoutBuilder } from '../builder/vue-index';
+import { VueLayoutBuilder } from './vue-index';
 
 @ComponentName('vue-layout')
 @Component
