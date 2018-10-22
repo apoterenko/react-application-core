@@ -27,6 +27,11 @@ html, body {
       overflow: hidden;                                                             /* @stable [16.09.2018] */
     }
   }
+
+  .rac-total {
+    font-weight: bold;                                                              /* @stable [14.10.2018] */
+    text-transform: uppercase;                                                      /* @stable [14.10.2018] */
+  }
 }
 
 // Root [FRAMEWORK-]
@@ -67,6 +72,14 @@ html, body {
     -webkit-appearance: none;         /* @stable [06.06.2018] */
     -moz-appearance: none;            /* @stable [06.06.2018] */
     margin: 0;                        /* @stable [06.06.2018] */
+  }
+
+  .rac-status {
+
+    &.rac-icon {
+      height: $rac-status-size;                              /* @stable [11.10.2018] */
+      width: $rac-status-size;                               /* @stable [11.10.2018] */
+    }
   }
 
   .rac-status-attention {
@@ -211,6 +224,8 @@ html, body {
       position: absolute;                           /* @stable [25.06.2018] */
       left: $rac-filter-active-left;                /* @stable [25.06.2018] */
       top: $rac-filter-active-top;                  /* @stable [25.06.2018] */
+      right: $rac-filter-active-right;              /* @stable [18.10.2018] */
+      bottom: $rac-filter-active-bottom;            /* @stable [18.10.2018] */
       font-size: $rac-filter-active-font-size;      /* @stable [25.06.2018] */
       content: '●';                                /* @stable [25.06.2018] */
       color: $rac-filter-active-color;              /* @stable [25.06.2018] */

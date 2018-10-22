@@ -9,8 +9,8 @@
   }
 
   .rac-list {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: $rac-list-overflow-x;
+    overflow-y: $rac-list-overflow-y;                        /* @stable [17.10.2018] */
   }
 
   .rac-list, .rac-simple-list {
@@ -87,7 +87,7 @@
     &.rac-icon {
 
       &.rac-action-icon {
-        position: absolute;                                         /* @stable [23.06.2018] */
+        position: $rac-add-button-icon-position;                    /* @stable [13.10.2018] */
         right: $rac-add-button-icon-right;                          /* @stable [23.06.2018] */
         bottom: $rac-add-button-icon-bottom;                        /* @stable [23.06.2018] */
         width: $rac-add-button-icon-width;                          /* @stable [24.06.2018] */

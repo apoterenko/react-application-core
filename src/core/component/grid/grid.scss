@@ -63,6 +63,8 @@
 
         .rac-button {
           height: $rac-grid-column-content-button-height;                           /* @stable [09.10.2018] */
+          color: $rac-grid-column-content-button-color;                             /* @stable [11.10.2018] */
+          background: $rac-grid-column-content-button-background;                   /* @stable [11.10.2018] */
         }
       }
 
@@ -142,7 +144,7 @@
     }
 
     .rac-grid-body {
-      overflow: auto;                                                        /* @stable [21.06.2018] */
+      overflow: $rac-grid-body-overflow;                                     /* @stable [17.10.2018] */
 
       .rac-grid-column {
         padding-top: $rac-grid-body-column-padding-top;                      /* @stable [15.09.2018] */
@@ -165,7 +167,17 @@
       &.rac-grid-data-row {
 
         &.rac-grid-data-row-odd {
-          background-color: $rac-grid-data-row-odd-background-color;         /* @stable [21.06.2018] */
+          background-color: $rac-grid-data-row-odd-background-color;                    /* @stable [21.06.2018] */
+
+          .rac-grid-column {
+
+            .rac-grid-column-content {
+
+              .rac-button {
+                background: $rac-grid-data-row-odd-column-content-button-background;    /* @stable [11.10.2018] */
+              }
+            }
+          }
         }
 
         &.rac-grid-data-row-selectable {
@@ -195,7 +207,18 @@
         &:hover {
 
           &.rac-grid-data-row-hovered {
-            background: $rac-grid-data-row-hover-background;                 /* @stable [04.10.2018] */
+            background: $rac-grid-data-row-hover-background;                              /* @stable [04.10.2018] */
+          }
+
+          .rac-grid-column {
+
+            .rac-grid-column-content {
+
+              .rac-button {
+                color: $rac-grid-data-row-hover-column-content-button-color;              /* @stable [11.10.2018] */
+                background: $rac-grid-data-row-hover-column-content-button-background;    /* @stable [11.10.2018] */
+              }
+            }
           }
         }
       }

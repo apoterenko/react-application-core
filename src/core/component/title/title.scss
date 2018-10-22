@@ -3,13 +3,16 @@
 // Title [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-title {
-    white-space: $rac-title-white-space;                                                /* @stable [03.10.2018] */
-    color: $rac-title-color;                                                            /* @stable [03.10.2018] */
-    border-bottom: $rac-title-border-bottom;                                            /* @stable [03.10.2018] */
-    font-weight: $rac-title-font-weight;                                                /* @stable [03.10.2018] */
-    font-size: $rac-title-font-size;                                                    /* @stable [03.10.2018] */
-    padding-bottom: $rac-title-padding-bottom;                                          /* @stable [03.10.2018] */
-    margin: $rac-title-margin;                                                          /* @stable [03.10.2018] */
+  .rac-title-wrapper {
+    border-bottom: $rac-title-wrapper-border-bottom;                                    /* @stable [03.10.2018] */
+    padding-bottom: $rac-title-wrapper-padding-bottom;                                  /* @stable [03.10.2018] */
+    margin: $rac-title-wrapper-margin;                                                  /* @stable [03.10.2018] */
+
+    .rac-title {
+      white-space: $rac-title-white-space;                                              /* @stable [03.10.2018] */
+      color: $rac-title-color;                                                          /* @stable [03.10.2018] */
+      font-weight: $rac-title-font-weight;                                              /* @stable [03.10.2018] */
+      font-size: $rac-title-font-size;                                                  /* @stable [03.10.2018] */
+    }
   }
 }

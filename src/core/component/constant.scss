@@ -28,6 +28,8 @@ $rac-default-toolbar-height: 64px !default;
 $rac-default-layout-offset: 40px !default;
 $rac-default-font-size: 12px !default;
 $rac-default-font-size-2: 14px !default;
+$rac-default-font-weight: 500 !default;
+$rac-default-font-weight-2: 700 !default;
 $rac-default-action-color: $color-2 !default;
 $rac-default-label-color: $color-2 !default;
 $rac-default-text-color: $color-2 !default;
@@ -54,8 +56,7 @@ $rac-toolbar-info-color: $rac-default-label-color !default;
 $rac-toolbar-info-font-size: $rac-default-font-size !default;
 
 /* @stable [25.06.2018] */
-$rac-search-toolbar-action-color: $rac-default-action-color !default;
-$rac-search-toolbar-action-margin-left: 16px !default;
+$rac-search-toolbar-action-margin-left: 8px !default;
 
 /* @stable [19.08.2018] */
 $rac-keyboard-opacity: .6 !default;
@@ -92,6 +93,7 @@ $rac-profile-app-version-left: 4px !default;
 $rac-profile-app-version-font-size: 8px !default;
 
 /* @stable [25.06.2018] */
+$rac-add-button-icon-position: fixed !default;
 $rac-add-button-icon-border-radius: 32px !default;
 $rac-add-button-icon-opacity: $opacity !default;
 $rac-add-button-icon-background-color: $rac-default-action-color !default;
@@ -104,6 +106,8 @@ $rac-add-button-fa-icon-width: $rac-icon-width2 !default;
 $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
 /* @stable [13.08.2018] */
+$rac-list-overflow-x: hidden !default;
+$rac-list-overflow-y: auto !default;
 $rac-list-item-color: $rac-default-text-color !default;
 $rac-list-item-font-size: $rac-default-font-size !default;
 $rac-list-item-text-line-height: 18px !default;
@@ -124,7 +128,7 @@ $rac-list-item-odd-background-color: $color-21 !default;
 $rac-navigation-list-group-subheader-expand-icon-color: $color-5 !default;
 $rac-navigation-list-group-subheader-icon-color: $color-5 !default;
 $rac-navigation-list-group-subheader-text-transform: uppercase !default;
-$rac-navigation-list-group-subheader-font-weight: bold !default;
+$rac-navigation-list-group-subheader-font-weight: $rac-default-font-weight-2 !default;
 $rac-navigation-list-group-subheader-font-size: $rac-default-font-size !default;
 $rac-navigation-list-item-color: $color-5 !default;
 $rac-navigation-list-item-font-size: $rac-default-font-size !default;
@@ -148,11 +152,12 @@ $rac-grid-head-filter-row-column-padding-top: 0 !default;
 $rac-grid-head-filter-row-column-padding-bottom: 8px !default;
 $rac-grid-head-filter-row-text-field-height: 24px !default;
 $rac-grid-head-column-content-font-size: $rac-default-font-size-2 !default;
-$rac-grid-head-column-content-font-weight: 500 !default;
+$rac-grid-head-column-content-font-weight: $rac-default-font-weight !default;
 $rac-grid-head-column-padding-top: 8px !default;
 $rac-grid-head-column-padding-bottom: 8px !default;
 $rac-grid-body-column-padding-top: 8px !default;
 $rac-grid-body-column-padding-bottom: 8px !default;
+$rac-grid-body-overflow: auto !default;
 $rac-tight-grid-body-column-padding-top: 4px !default;
 $rac-tight-grid-body-column-padding-bottom: 4px !default;
 $rac-grid-icon-size: 14px !default;
@@ -163,14 +168,17 @@ $rac-grid-filter-row-background: unset !default;
 $rac-grid-filter-row-border-bottom: unset !default;
 $rac-grid-filter-row-padding: 2px 16px !default;
 $rac-grid-data-row-odd-background-color: $color-22 !default;
+$rac-grid-data-row-odd-column-content-button-background: unset !default;
 $rac-grid-data-row-selected-background-color: $color-8 !default;
-$rac-grid-data-row-selected-font-weight: 500 !default;
-$rac-grid-data-row-grouped-font-weight: 500 !default;
+$rac-grid-data-row-selected-font-weight: $rac-default-font-weight !default;
+$rac-grid-data-row-grouped-font-weight: $rac-default-font-weight !default;
 $rac-grid-data-row-grouped-background: unset !default;
 $rac-grid-data-row-group-expanded-background: $color-4 !default;
 $rac-grid-data-row-group-expanded-icon-margin-right: 4px !default;
 $rac-grid-data-row-grouped-color: $rac-default-text-color !default;
 $rac-grid-data-row-hover-background: $rac-default-hover-background !default;
+$rac-grid-data-row-hover-column-content-button-background: unset !default;
+$rac-grid-data-row-hover-column-content-button-color: $color-5 !default;
 $rac-grid-row-padding: 8px 16px !default;
 $rac-grid-column-line-height: 16px !default;
 $rac-grid-column-padding-right: 12px !default;
@@ -179,6 +187,8 @@ $rac-grid-column-content-font-size: $rac-default-font-size !default;
 $rac-grid-column-content-text-field-border-color: $color-10 !default;
 $rac-grid-column-content-letter-spacing: $rac-default-letter-spacing !default;
 $rac-grid-column-content-button-height: 32px !default;
+$rac-grid-column-content-button-color: $rac-default-text-color !default;
+$rac-grid-column-content-button-background: unset !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
 $rac-grid-service-wrapper-width: 32px !default;
 $rac-grid-edited-column-content-font-size: 10px !default;
@@ -212,11 +222,11 @@ $rac-field-input-color: $rac-default-text-color !default;
 $rac-field-input-caret-color: $rac-default-text-color !default;
 $rac-field-input-caret-font-size: 24px !default;
 $rac-field-input-caret-bottom: 4px !default;
-$rac-field-input-font-weight: 500 !default;
+$rac-field-input-font-weight: $rac-default-font-weight !default;
 $rac-field-input-placeholder-font-weight: 100 !default;
 $rac-field-input-placeholder-color: $rac-default-text-color !default;
 $rac-field-label-height: 16px !default;
-$rac-field-label-font-weight: 500 !default;
+$rac-field-label-font-weight: $rac-default-font-weight !default;
 $rac-field-label-font-size: $rac-default-font-size !default;
 $rac-field-label-color: $rac-default-label-color !default;
 $rac-field-label-text-transform: none !default;
@@ -258,32 +268,34 @@ $rac-dialog-addressfield-place-color: $rac-default-text-color !default;
 $rac-dialog-addressfield-place-font-size: $rac-default-font-size !default;
 $rac-dialog-addressfield-google-maps-min-height: 200px !default;
 
+/* @stable [23.06.2018] */
+$rac-filter-active-color: $color-6 !default;
+$rac-filter-active-left: unset !default;
+$rac-filter-active-top: unset !default;
+$rac-filter-active-right: 8px !default;
+$rac-filter-active-bottom: 18px !default;
+$rac-filter-active-font-size: 18px !default;
+
+/* @stable [24.06.2018] */
+$rac-button-height: 40px !default;
+$rac-button-font-weight: $rac-default-font-weight-2 !default;
+$rac-button-border-radius: $rac-default-border-radius !default;
+$rac-button-text-transform: none !default;
+$rac-button-icon-size: $rac-icon-width !default;
+$rac-button-icon-margin-right: 8px !default;
+$rac-button-disabled-opacity: $opacity !default;
+$rac-submitted-button-color: $color-5 !default;
+$rac-submitted-button-background-color: $color-1 !default;
+
 /* @stable [03.08.2018] */
 $rac-form-actions-button-margin-left: 8px !default;
 $rac-form-actions-button-min-width: unset !default;
+$rac-form-actions-button-content-padding-right: $rac-button-icon-size !default;
 $rac-form-simple-list-item-graphic-border-radius: 16px !default;
 $rac-form-simple-list-item-graphic-margin-right: 20px !default;
 $rac-form-simple-list-group-subheader-color: $rac-default-text-color !default;
 $rac-form-simple-list-group-subheader-font-size: $rac-default-font-size-2 !default;
 $rac-form-simple-list-group-subheader-text-transform: uppercase !default;
-
-/* @stable [23.06.2018] */
-$rac-filter-active-color: $color-6 !default;
-$rac-filter-active-left: 9px !default;
-$rac-filter-active-top: -11px !default;
-$rac-filter-active-font-size: 18px !default;
-
-/* @stable [24.06.2018] */
-$rac-button-height: 40px !default;
-$rac-button-font-weight: bold !default;
-$rac-button-border-radius: $rac-default-border-radius !default;
-$rac-button-text-transform: none !default;
-$rac-button-icon-size: $rac-icon-width !default;
-$rac-button-icon-margin-right: 8px !default;
-$rac-button-content-padding-right: $rac-button-icon-size !default;
-$rac-button-disabled-opacity: $opacity !default;
-$rac-submitted-button-color: $color-5 !default;
-$rac-submitted-button-background-color: $color-1 !default;
 
 /* @stable [24.06.2018] */
 $rac-chip-padding: 6px 20px !default;
@@ -296,7 +308,7 @@ $rac-chip-background: $color-4 !default;
 $rac-chip-icon-width: $rac-icon-width0 !default;
 $rac-chip-icon-height: $rac-icon-height0 !default;
 $rac-chip-icon-color: $color-5 !default;
-$rac-chip-description-font-weight: 500 !default;
+$rac-chip-description-font-weight: $rac-default-font-weight !default;
 $rac-chip-description-max-width: 120px !default;
 $rac-chip-description-font-size: $rac-default-font-size !default;
 $rac-chip-description-line-height: 22px !default;
@@ -305,11 +317,15 @@ $rac-chip-description-line-height: 22px !default;
 $rac-header-color: $color-5 !default;
 $rac-header-background: $color-2 !default;
 $rac-sub-header-section-title-color: $color-5 !default;
-$rac-sub-header-section-title-font-weight: bold !default;
+$rac-sub-header-section-title-font-weight: $rac-default-font-weight-2 !default;
 $rac-sub-header-section-title-margin-left: unset !default;
 $rac-sub-header-section-title-margin-right: unset !default;
 $rac-sub-header-section-title-padding-right: unset !default;
 $rac-sub-header-section-title-font-size: 24px !default;
+$rac-sub-header-action-color: $color-5 !default;
+$rac-sub-header-action-background: unset !default;
+$rac-sub-header-action-padding: unset !default;
+$rac-sub-header-action-border-radius: $rac-default-border-radius !default;
 
 /* @stable [04.10.2018] */
 $rac-menu-window-position: $rac-menu-z-index !default;
@@ -338,13 +354,12 @@ $rac-page-toolbar-pages-info-font-size: $rac-default-font-size-2 !default;
 $rac-preview-action-color: $color-15 !default;
 $rac-preview-action-width: 32px !default;
 $rac-preview-action-height: 32px !default;
-$rac-preview-action-opacity: $opacity !default;
 $rac-preview-dialog-container-max-width: 80vw !default;
 $rac-preview-dialog-body-max-height: 60vh !default;
 
 /* @stable [04.08.2018] */
-$rac-picture-photo-height: 40px !default;
-$rac-picture-photo-border-radius: $rac-picture-photo-height / 2 !default;
+$rac-picture-photo-size: 32px !default;
+$rac-picture-photo-border-radius: $rac-picture-photo-size / 2 !default;
 
 /* @stable [15.09.2018] */
 $rac-tab-color: $rac-default-text-color !default;
@@ -405,7 +420,7 @@ $rac-form-layout-top-header-top: 0px !default;
 $rac-form-layout-top-header-background: none !default;
 $rac-form-layout-top-header-background-size: contain !default;
 $rac-form-layout-top-header-content-font-size: $rac-default-font-size !default;
-$rac-form-layout-top-header-content-font-weight: bold !default;
+$rac-form-layout-top-header-content-font-weight: $rac-default-font-weight-2 !default;
 $rac-form-layout-top-header-content-text-transform: none !default;
 $rac-form-layout-top-header-content-color: $color-5 !default;
 $rac-form-layout-field-input-color: $rac-field-input-color !default;
@@ -430,6 +445,7 @@ $rac-global-error-message-background: $color-5 !default;
 $rac-global-error-message-padding: 16px !default;
 
 /* @stable [17.08.2018] */
+$rac-status-size: 24px !default;
 $rac-status-attention-color: $color-11 !default;
 $rac-status-warning-color: $color-6 !default;
 $rac-status-ok-color: $color-19 !default;
@@ -463,7 +479,7 @@ $rac-chips-filter-chip-text-transform: uppercase !default;
 /* @stable [13.09.2018] */
 $rac-default-layout-header-height: 56px !default;
 $rac-default-layout-header-user-margin-right: 16px !default;
-$rac-default-layout-header-user-font-weight: bold !default;
+$rac-default-layout-header-user-font-weight: $rac-default-font-weight-2 !default;
 $rac-default-layout-header-user-font-size: 14px !default;
 $rac-default-layout-header-user-color: $rac-default-text-color !default;
 $rac-default-layout-header-user-photo-width: 24px !default;
@@ -474,24 +490,20 @@ $rac-default-layout-header-color: $color-5 !default;
 $rac-default-layout-header-padding: 0 $rac-default-layout-offset !default;
 $rac-default-layout-header-background: unset !default;
 $rac-default-layout-sub-header-height: 88px !default;
-$rac-default-layout-sub-header-navigation-action-color: $color-5 !default;
-$rac-default-layout-sub-header-navigation-action-background: $color-10 !default;
+$rac-default-layout-sub-header-bordered-border-bottom: unset !default;
+$rac-default-layout-sub-header-bordered-margin-bottom: unset !default;
 $rac-default-layout-sub-header-navigation-action-margin-right: 16px !default;
-$rac-default-layout-sub-header-navigation-action-padding: 12px !default;
-$rac-default-layout-sub-header-navigation-action-border-radius: $rac-default-border-radius !default;
-$rac-default-layout-sub-header-padding: 0 $rac-default-layout-offset 0 0 !default;
 $rac-default-layout-main-margin: 0 $rac-default-layout-offset $rac-default-layout-offset $rac-default-layout-offset !default;
-$rac-default-layout-main-body-overflow: auto !default;
-$rac-default-layout-main-body-padding-left: $rac-default-layout-offset !default;
-$rac-default-layout-main-body-form-body-padding: 0 $rac-default-layout-offset 0 0 !default;
+$rac-default-layout-main-body-min-width: 920px !default;
+$rac-default-layout-main-body-padding: 0 $rac-default-layout-offset !default;
+$rac-default-layout-main-body-content-min-width: 920px !default;
+$rac-default-layout-main-body-content-padding: 0 $rac-default-layout-offset 0 0 !default;
+$rac-default-layout-main-body-form-actions-margin: 16px 0 0 0 !default;
 $rac-default-layout-main-body-form-actions-border-top: unset !default;
 $rac-default-layout-main-body-form-actions-padding-top: 16px !default;
 $rac-default-layout-main-body-form-actions-min-height: 60px !default;
-$rac-default-layout-main-body-form-actions-margin: 0 $rac-default-layout-offset 0 0 !default;
 $rac-default-layout-main-body-tab-panel-wrapper-border-bottom: unset !default;
 $rac-default-layout-footer-height: $rac-default-toolbar-height !default;
-$rac-default-layout-main-body-first-level-container-margin-right: $rac-default-layout-offset !default;
-$rac-default-layout-main-body-first-level-container-padding-right: $rac-default-layout-offset !default;
 $rac-default-layout-main-body-container-margin-bottom: 16px !default;
 $rac-default-layout-main-body-container-padding-bottom: 16px !default;
 $rac-default-layout-drawer-toolbar-spacer-cursor: pointer !default;
@@ -499,6 +511,7 @@ $rac-default-layout-drawer-toolbar-spacer-height: $rac-default-logo-toolbar-size
 $rac-default-layout-drawer-toolbar-spacer-color: $color-5 !default;
 $rac-default-layout-drawer-toolbar-spacer-background: $color-7 !default;
 $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-color: $color-5 !default;
+$rac-default-layout-drawer-toolbar-spacer-logo-menu-action-outline: 1px solid $color-5 !default;
 $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-margin-right: 16px !default;
 $rac-default-layout-drawer-width: 220px !default;
 $rac-default-layout-drawer-mini-width: 48px !default;
@@ -508,17 +521,17 @@ $rac-default-layout-drawer-navigation-list-icon-width: 48px !default;
 
 /* @stable [25.09.2018] */
 $rac-chart-canvas-wrapper-width: 90% !default;           /* @magic [need to resize canvas smoothly] @stable [25.09.2018] */
-$rac-chart-canvas-wrapper-margin-left: auto !default;
-$rac-chart-canvas-wrapper-margin-right: auto !default;
+$rac-chart-canvas-wrapper-margin-left: unset !default;
+$rac-chart-canvas-wrapper-margin-right: unset !default;
 
 /* @stable [03.10.2018] */
 $rac-title-white-space: nowrap !default;
 $rac-title-color: $rac-default-text-color !default;
 $rac-title-font-size: 16px !default;
-$rac-title-font-weight: 500 !default;
-$rac-title-border-bottom: 1px solid $color-2 !default;
-$rac-title-padding-bottom: 12px !default;
-$rac-title-margin: 16px 0 27px 0 !default;
+$rac-title-font-weight: $rac-default-font-weight !default;
+$rac-title-wrapper-border-bottom: 1px solid $color-2 !default;
+$rac-title-wrapper-padding-bottom: 12px !default;
+$rac-title-wrapper-margin: 16px 0 27px 0 !default;
 
 /* @stable [03.10.2018] */
 $rac-flex-separator-width: 24px !default;
