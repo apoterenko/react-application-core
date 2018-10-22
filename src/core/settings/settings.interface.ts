@@ -71,6 +71,8 @@ export interface IApplicationMessagesSettings {
   invalidAddressMessage?: string;
   signIntoYourAccountMessage?: string;
   welcomeMessage?: string;
+  exportActionTitleMessage?: string;
+  refreshActionTitleMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -158,6 +160,8 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     addressSelectionMessage: 'Address selection',
     putMarkerHereMessage: 'Put marker here',
     invalidAddressMessage: 'Invalid address',
+    exportActionTitleMessage: 'Export',
+    refreshActionTitleMessage: 'Refresh',
   },
   dateTime: {
     currentDate: new Date(),
