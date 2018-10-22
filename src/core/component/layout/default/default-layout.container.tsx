@@ -58,6 +58,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
     this.onUserMenuSelect = this.onUserMenuSelect.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
+    this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
     this.onNavigationListItemClick = this.onNavigationListItemClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
   }
@@ -113,11 +114,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [23.09.2018]
+   * @stable [17.10.2018]
    */
   private onLogoMenuActionClick(): void {
-    const payloadWrapper: IPayloadWrapper<LayoutModeEnum> = {payload: this.layoutMode};
-    this.dispatchCustomType(LAYOUT_MODE_UPDATE_ACTION_TYPE, payloadWrapper);
+    this.navigate(this.routes.home);
   }
 
   /**
@@ -218,7 +218,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     className='rac-drawer-toolbar-spacer'
                     onClick={this.onLogoMenuActionClick}>
           <Profile avatarRendered={layoutFullModeEnabled}
-                   appVersion={ENV.appVersion}/>
+                   appVersion={
+                     (ENV.appVersion || '').startsWith('0.') ? `${ENV.appVersion}-beta` : ENV.appVersion
+                   }
+                   onClick={this.onProfileMenuClick}/>
         </FlexLayout>
         <NavigationList {...props.layout}
                         items={this.menuItems}
@@ -226,6 +229,17 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                         onGroupClick={this.onNavigationListGroupClick}/>
       </Drawer>
     );
+  }
+
+  /**
+   * @stable [17.10.2018]
+   * @param {IBasicEvent} event
+   */
+  private onProfileMenuClick(event: IBasicEvent): void {
+    cancelEvent(event);
+
+    const payloadWrapper: IPayloadWrapper<LayoutModeEnum> = {payload: this.layoutMode};
+    this.dispatchCustomType(LAYOUT_MODE_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 
   /**
@@ -240,7 +254,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     return (
       <Main>
         <SubHeader {...props.headerConfiguration}
-                   title={props.title || (runtimeTitle && runtimeTitle.label)}
+                   title={title}
                    onNavigationActionClick={this.onHeaderNavigationActionClick}
                    onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
         {this.props.children}
