@@ -54,12 +54,12 @@ export abstract class UniversalLayoutViewBuilder<TNode> implements ILayoutViewBu
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
+   * @param {TNode} item
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @param {IKeyValue} props
    * @returns {IKeyValue}
    */
-  public getClonedItemProps(item: UniversalLayoutBuilderChildrenT<TNode>,
+  public getClonedItemProps(item: TNode,
                             layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>,
                             props: IKeyValue): IKeyValue {
     return props;

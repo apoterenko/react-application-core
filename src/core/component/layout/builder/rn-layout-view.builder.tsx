@@ -78,16 +78,16 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
   }
 
   /**
-   * @stable - 20.04.2018
-   * @param {ReactLayoutBuilderChildrenT} item
+   * @stable [22.10.2018]
+   * @param {JSX.Element} item
    * @param {IReactLayoutBuilderConfiguration} layoutConfig
-   * @param {{style?: IKeyValue}} props
-   * @returns {AnyT}
+   * @param {IKeyValue} props
+   * @returns {IKeyValue}
    */
-  public getClonedItemProps(item: ReactLayoutBuilderChildrenT,
+  public getClonedItemProps(item: JSX.Element,
                             layoutConfig: IReactLayoutBuilderConfiguration,
                             props: IKeyValue): IKeyValue {
-    const itemEl = item as JSX.Element;
+    const itemEl = item;
     return {
       ...props,
       style: layoutConfig.full === false

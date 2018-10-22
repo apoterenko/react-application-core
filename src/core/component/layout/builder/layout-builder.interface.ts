@@ -14,6 +14,6 @@ export interface ILayoutViewBuilder<TNode> {
   buildSeparatorView(props: IKeyValue): TNode;
   isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean;
   cloneItem(item: TNode, props: IKeyValue): TNode;
-  getClonedItemProps(item: UniversalLayoutBuilderChildrenT<TNode>,
+  getClonedItemProps(item: TNode,
                      layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>, props: IKeyValue): IKeyValue;
 }

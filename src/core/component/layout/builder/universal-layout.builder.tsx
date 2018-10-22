@@ -108,7 +108,7 @@ export class UniversalLayoutBuilder<TNode> {
     return this.layoutViewBuilder.isClonedItem(item)
       ? this.layoutViewBuilder.cloneItem(
           itemAsNode,
-          this.layoutViewBuilder.getClonedItemProps(item, layoutConfig, {key: this.getClonedItemKey(itemAsNode)})
+          this.layoutViewBuilder.getClonedItemProps(itemAsNode, layoutConfig, {key: this.getClonedItemKey(itemAsNode)})
         )
       : this.buildLayout(itemAsCfg);
   }
