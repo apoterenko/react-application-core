@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { VNode } from 'vue';
+import { VNode, VueConstructor } from 'vue';
 import { ComponentOptions, Accessors } from 'vue/types/options';
 
 import { AnyT } from './definitions.interface';
@@ -73,6 +73,11 @@ export type VueComponentOptionsT<TComponent extends Vue = Vue> = ComponentOption
  * @stable [21.10.2018]
  */
 export type VueAccessorsT<TAccessors = AnyT> = Accessors<TAccessors>;
+
+/**
+ * @stable [22.10.2018]
+ */
+export type VueConstructorT = VueConstructor;
 
 /**
  * @stable [21.10.2018]
