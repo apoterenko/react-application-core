@@ -11,7 +11,7 @@ import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './universal-connector.interface';
 import { universalConnectorFactory } from './universal-connector.factory';
-import { ConnectorActionBuilder } from './universal-connector-action.builder';
+import { UniversalConnectorActionBuilder } from './universal-connector-action.builder';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('universal-connector.decorator');
@@ -42,7 +42,7 @@ export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEn
         () => {
           const store = staticInjector<Store<{}>>(DI_TYPES.Store);
           store.dispatch({type: STACK_POP_ACTION_TYPE, data: sectionName0});
-          store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName0)});
+          store.dispatch({type: UniversalConnectorActionBuilder.buildDestroyActionType(sectionName0)});
 
           logger.debug(`[$basicConnector][componentWillUnmount] Section: ${sectionName0}`);
         }
@@ -52,7 +52,7 @@ export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEn
         () => {
           const store = staticInjector<Store<{}>>(DI_TYPES.Store);
           store.dispatch({type: STACK_PUSH_ACTION_TYPE, data: sectionName0});
-          store.dispatch({type: ConnectorActionBuilder.buildInitActionType(sectionName0)});
+          store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(sectionName0)});
 
           logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName0}`);
         }
