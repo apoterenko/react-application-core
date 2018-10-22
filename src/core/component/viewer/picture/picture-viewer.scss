@@ -16,12 +16,13 @@
     width: fit-content;                 /* @stable [08.07.2018] */
     max-width: 100px;                   /* @stable [08.07.2018] */
     max-height: 100px;                  /* @stable [08.07.2018] */
+    border-radius: 50px;                /* @stable [11.10.2018] */
   }
 
   .rac-picture, .rac-picture-empty {
     &.rac-picture-photo {
-      height: $rac-picture-photo-height;                /* @stable [04.08.2018] */
-      max-width: $rac-picture-photo-height;             /* @stable [04.08.2018] */
+      height: $rac-picture-photo-size;                  /* @stable [04.08.2018] */
+      max-width: $rac-picture-photo-size;               /* @stable [04.08.2018] */
       vertical-align: middle;                           /* @stable [23.06.2018] */
       border-radius: $rac-picture-photo-border-radius;  /* @stable [04.08.2018] */
     }
