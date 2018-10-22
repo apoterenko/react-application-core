@@ -714,7 +714,8 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IFieldRenderedWrapper,
           IActiveWrapper,
           IFullWrapper,
-          IChangeableWrapper {
+          IChangeableWrapper,
+          IDefaultValue {
 }
 
 /* @stable - 11.04.2018 */
@@ -734,8 +735,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IClearActionWrapper,
-                                             IStepWrapper,
-                                             IDefaultValue {
+                                             IStepWrapper {
 }
 
 /**

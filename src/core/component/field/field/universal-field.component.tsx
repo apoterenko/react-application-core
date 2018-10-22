@@ -141,11 +141,13 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [22.10.2018]
    * @returns {AnyT}
    */
   public get value(): AnyT {
-    return this.props.value;
+    const props = this.props;
+    const value = props.value;
+    return isDef(value) ? value : props.defaultValue;
   }
 
   /**
