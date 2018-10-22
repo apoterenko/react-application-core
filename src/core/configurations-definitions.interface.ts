@@ -834,7 +834,7 @@ export const LAYOUT_BUILDER_FACTOR_TYPES = {
 /**
  * @stable [22.10.2018]
  */
-export type UniversalLayoutBuilderElementT<TNode> = IUniversalLayoutBuilderConfiguration<TNode> | TNode;
+export type UniversalLayoutBuilderChildrenT<TNode> = IUniversalLayoutBuilderConfiguration<TNode> | TNode;
 
 /**
  * @stable [22.10.2018]
@@ -843,11 +843,9 @@ export interface IUniversalLayoutBuilderConfiguration<TNode>
   extends ILayoutWrapper<LayoutBuilderTypeEnum>,
           IStyleWrapper<IKeyValue>,
           IFullWrapper,
-          IChildrenWrapper<Array<UniversalLayoutBuilderElementT<TNode>>>,
+          IChildrenWrapper<Array<UniversalLayoutBuilderChildrenT<TNode>>>,
           IFactorWrapper<LayoutBuilderFactorEnum> {
 }
-
-/* @stable - 16.04.2018 */
 
 /* @stable [23.04.2018] */
 export interface IRnModalConfiguration extends IUniversalComponentConfiguration,

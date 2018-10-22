@@ -2,7 +2,7 @@ import { IKeyValue, AnyT } from '../../../definitions.interface';
 import { isDef } from '../../../util';
 import {
   IUniversalLayoutBuilderConfiguration,
-  UniversalLayoutBuilderElementT,
+  UniversalLayoutBuilderChildrenT,
 } from '../../../configurations-definitions.interface';
 import { UniversalLayoutViewBuilder } from './universal-layout-view.builder';
 
@@ -11,12 +11,12 @@ export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<
   /**
    * @stable [22.10.2018]
    * @param {IKeyValue} props
-   * @param {Array<UniversalLayoutBuilderElementT<TNode>>} children
+   * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @returns {AnyT}
    */
   public buildRowView(props: IKeyValue,
-                      children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                      children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
                       layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
@@ -27,12 +27,12 @@ export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<
   /**
    * @stable [22.10.2018]
    * @param {IKeyValue} props
-   * @param {Array<UniversalLayoutBuilderElementT<TNode>>} children
+   * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @returns {AnyT}
    */
   public buildColumnView(props: IKeyValue,
-                         children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                         children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
                          layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
@@ -53,10 +53,10 @@ export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderElementT<TNode>} item
+   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
    * @returns {boolean}
    */
-  public isClonedItem(item: UniversalLayoutBuilderElementT<TNode>): boolean {
+  public isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean {
     return isDef((item as {props: IKeyValue}).props);
   }
 }

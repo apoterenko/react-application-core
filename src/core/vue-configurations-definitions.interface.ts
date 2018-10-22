@@ -9,4 +9,4 @@ export interface IVueLayoutBuilderConfiguration extends IUniversalLayoutBuilderC
 /**
  * @stable [22.10.2018]
  */
-export type VueLayoutBuilderElementT = IVueLayoutBuilderConfiguration | string;
+export type VueLayoutBuilderChildrenT = IVueLayoutBuilderConfiguration | string;

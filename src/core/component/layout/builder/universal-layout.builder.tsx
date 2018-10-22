@@ -4,7 +4,7 @@ import { uuid } from '../../../util';
 import {
   LayoutBuilderTypeEnum,
   IUniversalLayoutBuilderConfiguration,
-  UniversalLayoutBuilderElementT,
+  UniversalLayoutBuilderChildrenT,
 } from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
 
@@ -32,10 +32,10 @@ export class UniversalLayoutBuilder<TNode> {
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderElementT<TNode>} item
+   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
    * @returns {string}
    */
-  protected getClonedItemKey(item: UniversalLayoutBuilderElementT<TNode>): string {
+  protected getClonedItemKey(item: UniversalLayoutBuilderChildrenT<TNode>): string {
     return this.newKey;
   }
 
@@ -87,20 +87,20 @@ export class UniversalLayoutBuilder<TNode> {
   /**
    * @stable [22.10.2018]
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
-   * @returns {Array<UniversalLayoutBuilderElementT<TNode>>}
+   * @returns {Array<UniversalLayoutBuilderChildrenT<TNode>>}
    */
   private getDefinedChildren(
-    layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): Array<UniversalLayoutBuilderElementT<TNode>> {
+    layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): Array<UniversalLayoutBuilderChildrenT<TNode>> {
     return layoutConfig.children.filter((item) => !R.isNil(item));
   }
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderElementT<TNode>} item
+   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @returns {TNode}
    */
-  private tryCloneItem(item: UniversalLayoutBuilderElementT<TNode>,
+  private tryCloneItem(item: UniversalLayoutBuilderChildrenT<TNode>,
                        layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): TNode {
     const itemAsNode = item as TNode;
     const itemAsCfg = item as IUniversalLayoutBuilderConfiguration<TNode>;

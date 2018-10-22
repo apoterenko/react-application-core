@@ -6,7 +6,7 @@ import { IKeyValue, AnyT } from '../../../definitions.interface';
 import { LayoutBuilderFactorEnum } from '../../../configurations-definitions.interface';
 import {
   IReactLayoutBuilderConfiguration,
-  ReactLayoutBuilderElementT,
+  ReactLayoutBuilderChildrenT,
 } from '../../../react-configurations-definitions.interface';
 import { ReactBaseLayoutViewBuilder } from './react-base-layout-view.builder';
 
@@ -20,7 +20,7 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
    * @returns {React.ReactNode}
    */
   public buildRowView(props: IKeyValue,
-                      children: ReactLayoutBuilderElementT[],
+                      children: ReactLayoutBuilderChildrenT[],
                       layoutConfig: IReactLayoutBuilderConfiguration): React.ReactNode {
     return (
       <View {...props}
@@ -42,7 +42,7 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
    * @returns {React.ReactNode}
    */
   public buildColumnView(props: IKeyValue,
-                         children: ReactLayoutBuilderElementT[],
+                         children: ReactLayoutBuilderChildrenT[],
                          layoutConfig: IReactLayoutBuilderConfiguration): React.ReactNode {
     return (
       <View {...props}
@@ -69,22 +69,22 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
 
   /**
    * @stable - 19.04.2018
-   * @param {ReactLayoutBuilderElementT} item
+   * @param {ReactLayoutBuilderChildrenT} item
    * @returns {boolean}
    */
-  public isClonedItem(item: ReactLayoutBuilderElementT): boolean {
+  public isClonedItem(item: ReactLayoutBuilderChildrenT): boolean {
     const itemEl = item as { type: { displayName?: string }};
     return (itemEl.type && isDef(itemEl.type.displayName)) || super.isClonedItem(item);
   }
 
   /**
    * @stable - 20.04.2018
-   * @param {ReactLayoutBuilderElementT} item
+   * @param {ReactLayoutBuilderChildrenT} item
    * @param {IReactLayoutBuilderConfiguration} layoutConfig
    * @param {{style?: IKeyValue}} props
    * @returns {AnyT}
    */
-  public getClonedItemProps(item: ReactLayoutBuilderElementT,
+  public getClonedItemProps(item: ReactLayoutBuilderChildrenT,
                             layoutConfig: IReactLayoutBuilderConfiguration,
                             props: IKeyValue): IKeyValue {
     const itemEl = item as JSX.Element;

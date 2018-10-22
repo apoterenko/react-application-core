@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { isFn, isString } from '../../../util';
 import { IKeyValue, ITypeWrapper } from '../../../definitions.interface';
 import {
-  UniversalLayoutBuilderElementT,
+  UniversalLayoutBuilderChildrenT,
   LayoutBuilderFactorEnum,
   IUniversalLayoutBuilderConfiguration,
 } from '../../../configurations-definitions.interface';
@@ -14,23 +14,23 @@ export abstract class UniversalLayoutViewBuilder<TNode> implements ILayoutViewBu
   /**
    * @stable [22.10.2018]
    * @param {IKeyValue} props
-   * @param {Array<UniversalLayoutBuilderElementT<TNode>>} children
+   * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @returns {TNode}
    */
   public abstract buildRowView(props: IKeyValue,
-                               children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                               children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
                                layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): TNode;
 
   /**
    * @stable [22.10.2018]
    * @param {IKeyValue} props
-   * @param {Array<UniversalLayoutBuilderElementT<TNode>>} children
+   * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @returns {TNode}
    */
   public abstract buildColumnView(props: IKeyValue,
-                                  children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                                  children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
                                   layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): TNode;
 
   /**
@@ -42,10 +42,10 @@ export abstract class UniversalLayoutViewBuilder<TNode> implements ILayoutViewBu
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderElementT<TNode>} item
+   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
    * @returns {boolean}
    */
-  public isClonedItem(item: UniversalLayoutBuilderElementT<TNode>): boolean {
+  public isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean {
     const itemEl = item as ITypeWrapper<() => void | string>;
     const type = itemEl.type;
     return isFn(type)
@@ -54,12 +54,12 @@ export abstract class UniversalLayoutViewBuilder<TNode> implements ILayoutViewBu
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderElementT<TNode>} item
+   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
    * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
    * @param {IKeyValue} props
    * @returns {IKeyValue}
    */
-  public getClonedItemProps(item: UniversalLayoutBuilderElementT<TNode>,
+  public getClonedItemProps(item: UniversalLayoutBuilderChildrenT<TNode>,
                             layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>,
                             props: IKeyValue): IKeyValue {
     return props;

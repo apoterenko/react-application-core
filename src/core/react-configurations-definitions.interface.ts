@@ -2,16 +2,16 @@ import * as React from 'react';
 
 import {
   IUniversalLayoutBuilderConfiguration,
-  UniversalLayoutBuilderElementT,
+  UniversalLayoutBuilderChildrenT,
 } from './configurations-definitions.interface';
 
 /**
  * @stable [22.10.2018]
  */
-export type ReactLayoutBuilderElementT = UniversalLayoutBuilderElementT<React.ReactNode>;
+export type ReactLayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<React.ReactNode>;
 
 /**
  * @stable [22.10.2018]
  */
-export interface IReactLayoutBuilderConfiguration extends IUniversalLayoutBuilderConfiguration<ReactLayoutBuilderElementT> {
+export interface IReactLayoutBuilderConfiguration extends IUniversalLayoutBuilderConfiguration<ReactLayoutBuilderChildrenT> {
 }
