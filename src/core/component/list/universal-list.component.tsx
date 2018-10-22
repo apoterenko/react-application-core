@@ -197,6 +197,14 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
   }
 
   /**
+   * @stable [18.10.2018]
+   * @returns {boolean}
+   */
+  protected get isRemoteMode(): boolean {
+    return !this.props.useLocalFiltering;
+  }
+
+  /**
    * @stable [09.06.2018]
    * @returns {React.ReactNode}
    */
@@ -216,12 +224,14 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    * @returns {boolean}
    */
   private get emptyData(): boolean {
-    if (!this.originalDataSourceDoesNotExist) {
-      const isRemoteMode = this.props.touched;   // The local filters are not considered
-      const dataSource = isRemoteMode ? this.dataSource : this.originalDataSource;
-      return Array.isArray(dataSource) && !dataSource.length;
+    if (this.originalDataSourceDoesNotExist) {
+      return false; // It's important to show the difference between the conditions: length === 0 and data === null!
     }
-    return false; // It's important to show difference when length === 0 and data === null!
+    const dataSource = this.isRemoteMode
+      ? this.dataSource
+      : this.originalDataSource;  // In the case of a local filtering we need to get a false result
+
+    return Array.isArray(dataSource) && dataSource.length === 0;
   }
 
   /**
