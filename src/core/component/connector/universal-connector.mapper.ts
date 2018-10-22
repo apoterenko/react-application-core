@@ -35,6 +35,17 @@ import {
   IFilterAndSorterConfiguration,
 } from '../../configurations-definitions.interface';
 
+/**
+ * @stable [22.10.2018]
+ * @param {IUniversalApplicationStoreEntity} storeEntity
+ * @returns {IUniversalApplicationStoreEntity}
+ */
+export const applicationMapper = (storeEntity: IUniversalApplicationStoreEntity): IUniversalApplicationStoreEntity => ({
+  application: {
+    ...storeEntity.application,
+  },
+});
+
 /* @stable - 22.04.2018 */
 export const dictionariesMapper = (storeEntity: IUniversalApplicationStoreEntity): IDictionariesWrapperEntity => ({
   dictionaries: {
