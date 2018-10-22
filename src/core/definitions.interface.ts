@@ -1660,6 +1660,13 @@ export interface ITimeoutWrapper {
   timeout?: number;
 }
 
+/**
+ * @stable [22.10.2018]
+ */
+export interface ICompactWrapper<TCompact = boolean> {
+  compact?: TCompact;
+}
+
 /* @stable - 31.03.2018 */
 export interface IResetTextWrapper {
   resetText?: string;
@@ -1855,6 +1862,13 @@ export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> 
  */
 export interface IUseGroupingWrapper {
   useGrouping?: boolean;
+}
+
+/**
+ * @stable [22.10.2018]
+ */
+export interface ISubBorderWrapper<TSubBorder = boolean> {
+  subBorder?: TSubBorder;
 }
 
 /**
@@ -3052,6 +3066,13 @@ export interface IRootWrapper<TRoot> {
  */
 export interface IStepWrapper<TStep = number> {
   step?: TStep;
+}
+
+/**
+ * @stable [22.10.2018]
+ */
+export interface IDefaultValue<TDefaultValue = AnyT> {
+  defaultValue?: TDefaultValue;
 }
 
 /**

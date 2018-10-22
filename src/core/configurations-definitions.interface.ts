@@ -68,7 +68,7 @@ import {
   IDefaultOnPressWrapper,
   IBlockWrapper,
   IBooleanIconLeftWrapper,
-  IBooleanLargeWrapper,
+  ILargeWrapper,
   IBooleanSmallWrapper,
   IBooleanSuccessWrapper,
   IBooleanTransparentWrapper,
@@ -224,6 +224,9 @@ import {
   IApplyOddWrapper,
   IHoveredWrapper,
   IChangeableWrapper,
+  ICompactWrapper,
+  IDefaultValue,
+  ISubBorderWrapper,
 } from './definitions.interface';
 import {
   IUniversalContainerClassEntity,
@@ -513,7 +516,8 @@ export interface IFormConfiguration extends IUniversalFormConfiguration,
                                             IButtonConfigurationWrapper,
                                             IReadOnlyWrapper,
                                             IActionTextWrapper,
-                                            IResetTextWrapper {
+                                            IResetTextWrapper,
+                                            ICompactWrapper {
 }
 
 /**
@@ -647,7 +651,7 @@ export interface IRnButtonConfiguration extends IUniversalButtonConfiguration,
                                                 IBooleanSuccessWrapper,
                                                 IBlockWrapper,
                                                 IBooleanSmallWrapper,
-                                                IBooleanLargeWrapper,
+                                                ILargeWrapper,
                                                 IBooleanIconLeftWrapper,
                                                 IBooleanTransparentWrapper,
                                                 IIconStyleWrapper<IKeyValue>,
@@ -730,7 +734,8 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPlaceholderWrapper,
                                              IPreventValueBindingWrapper,
                                              IClearActionWrapper,
-                                             IStepWrapper {
+                                             IStepWrapper,
+                                             IDefaultValue {
 }
 
 /**
@@ -1029,7 +1034,8 @@ export interface ISubHeaderConfiguration extends IComponentConfiguration,
                                                  INavigationActionTypeWrapper,
                                                  IOnNavigationActionClickWrapper,
                                                  IOnMoreOptionsSelectWrapper<IMenuItemEntity>,
-                                                 ITitleRendererWrapper<JSX.Element> {
+                                                 ITitleRendererWrapper<JSX.Element>,
+                                                 ISubBorderWrapper {
 }
 
 /**
