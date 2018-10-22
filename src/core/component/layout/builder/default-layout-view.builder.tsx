@@ -1,41 +1,62 @@
-import * as React from 'react';
-
-import { IKeyValue } from '../../../definitions.interface';
-import { ILayoutViewBuilder } from './layout-builder.interface';
-import { ILayoutBuilderConfiguration, LayoutBuilderElementT } from '../../../configurations-definitions.interface';
+import { IKeyValue, AnyT } from '../../../definitions.interface';
 import { isDef } from '../../../util';
+import {
+  IUniversalLayoutBuilderConfiguration,
+  UniversalLayoutBuilderElementT,
+} from '../../../configurations-definitions.interface';
+import { UniversalLayoutViewBuilder } from './universal-layout-view.builder';
 
-export class DefaultLayoutViewBuilder implements ILayoutViewBuilder {
+export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<TNode> {
 
-  public buildRowView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
+  /**
+   * @stable [22.10.2018]
+   * @param {IKeyValue} props
+   * @param {Array<UniversalLayoutBuilderElementT<TNode>>} children
+   * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
+   * @returns {AnyT}
+   */
+  public buildRowView(props: IKeyValue,
+                      children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                      layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
       columns: children,
     };
   }
 
-  public buildColumnView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
+  /**
+   * @stable [22.10.2018]
+   * @param {IKeyValue} props
+   * @param {Array<UniversalLayoutBuilderElementT<TNode>>} children
+   * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
+   * @returns {AnyT}
+   */
+  public buildColumnView(props: IKeyValue,
+                         children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                         layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
       rows: children,
     };
   }
 
-  public buildSeparatorView(props: IKeyValue): React.ReactNode {
+  /**
+   * @stable [22.10.2018]
+   * @param {IKeyValue} props
+   * @returns {AnyT}
+   */
+  public buildSeparatorView(props: IKeyValue): AnyT {
     return {
       separator: null,
     };
   }
 
-  public isReactElement(item: LayoutBuilderElementT): boolean {
-    return isDef((item as JSX.Element).props);
-  }
-
-  public cloneReactElement(item: JSX.Element, props: React.ClassAttributes<{}>): JSX.Element {
-    return item;
-  }
-
-  public toClonedElementProps(item: LayoutBuilderElementT, layoutConfig: ILayoutBuilderConfiguration, props: React.ClassAttributes<{}>): React.ClassAttributes<{}> {
-    return props;
+  /**
+   * @stable [22.10.2018]
+   * @param {UniversalLayoutBuilderElementT<TNode>} item
+   * @returns {boolean}
+   */
+  public isClonedItem(item: UniversalLayoutBuilderElementT<TNode>): boolean {
+    return isDef((item as {props: IKeyValue}).props);
   }
 }

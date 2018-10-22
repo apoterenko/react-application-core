@@ -1,6 +1,6 @@
-import { LayoutBuilder } from './layout.builder';
 import { DefaultLayoutViewBuilder } from './default-layout-view.builder';
 import { LayoutBuilderTypeEnum, LayoutBuilderFactorEnum } from '../../../configurations-definitions.interface';
+import { UniversalLayoutBuilder } from './universal-layout.builder';
 
 describe('layout.builder', () => {
 
@@ -9,7 +9,7 @@ describe('layout.builder', () => {
       this.props = { [name]: value };
     }
 
-    const layoutBuilder = new LayoutBuilder(new DefaultLayoutViewBuilder());
+    const layoutBuilder = new UniversalLayoutBuilder(new DefaultLayoutViewBuilder());
     const layout = layoutBuilder.build({
       children: [
         new PseudoElement('p1', 'v1'),

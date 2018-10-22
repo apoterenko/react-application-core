@@ -1,18 +1,19 @@
-import * as React from 'react';
-
 import { IKeyValue } from '../../../definitions.interface';
 import {
-  LayoutBuilderElementT,
-  ILayoutBuilderConfiguration,
+  UniversalLayoutBuilderElementT,
+  IUniversalLayoutBuilderConfiguration,
 } from '../../../configurations-definitions.interface';
 
-export interface ILayoutViewBuilder {
-  buildRowView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration, root: boolean): React.ReactNode;
-  buildColumnView(props: IKeyValue, children: React.ReactNode[], layoutConfig: ILayoutBuilderConfiguration, root: boolean): React.ReactNode;
-  buildSeparatorView(props: IKeyValue): React.ReactNode;
-  isReactElement(item: LayoutBuilderElementT): boolean;
-  cloneReactElement(item: JSX.Element, props: React.ClassAttributes<{}>): JSX.Element;
-  toClonedElementProps(item: LayoutBuilderElementT,
-                       layoutConfig: ILayoutBuilderConfiguration,
-                       props: React.ClassAttributes<{}>): React.ClassAttributes<{}>;
+export interface ILayoutViewBuilder<TNode> {
+  buildRowView(props: IKeyValue,
+               children: Array<UniversalLayoutBuilderElementT<TNode>>,
+               layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): TNode;
+  buildColumnView(props: IKeyValue,
+                  children: Array<UniversalLayoutBuilderElementT<TNode>>,
+                  layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): TNode;
+  buildSeparatorView(props: IKeyValue): TNode;
+  isClonedItem(item: UniversalLayoutBuilderElementT<TNode>): boolean;
+  cloneItem(item: TNode, props: IKeyValue): TNode;
+  getClonedItemProps(item: UniversalLayoutBuilderElementT<TNode>,
+                     layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>, props: IKeyValue): IKeyValue;
 }
