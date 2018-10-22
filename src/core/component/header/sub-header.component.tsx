@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { orNull, orDefault } from '../../util';
+import { orNull, orDefault, toClassName } from '../../util';
 import { ISubHeaderProps } from './header.interface';
 import { BaseComponent } from '../base';
 import { Menu } from '../menu';
@@ -33,7 +33,10 @@ export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
                   full={false}
                   justifyContentEnd={true}
                   alignItemsCenter={true}
-                  className='rac-sub-header'>
+                  className={toClassName(
+                    'rac-sub-header',
+                    props.subBorder && 'rac-sub-header-bordered'
+                  )}>
         <FlexLayout row={true}
                     alignItemsCenter={true}>
           {orNull<JSX.Element>(
