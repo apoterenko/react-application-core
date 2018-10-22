@@ -1,6 +1,7 @@
 import * as crossvent from 'crossvent';
 
 import { ENV } from '../env';
+import { addClassNameToBody } from '../util';
 
 /**
  * Google analytics
@@ -18,7 +19,10 @@ function gtag(...args) {
  * @param {() => void} onInit
  */
 export function bootstrapWebApp(onInit: (() => void)) {
-  const ready = () => onInit();
+  const ready = () => {
+    addClassNameToBody('rac');
+    onInit();
+  };
 
   if (ENV.prodMode && ENV.googleKey) {
     gtag('js', new Date());
