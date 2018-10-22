@@ -106,8 +106,8 @@ $rac-add-button-fa-icon-width: $rac-icon-width2 !default;
 $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
 
 /* @stable [13.08.2018] */
-$rac-list-overflow-x: hidden !default;
-$rac-list-overflow-y: auto !default;
+$rac-list-overflow-x: unset !default;   /** @layout hidden **/
+$rac-list-overflow-y: unset !default;   /** @layout auto **/
 $rac-list-item-color: $rac-default-text-color !default;
 $rac-list-item-font-size: $rac-default-font-size !default;
 $rac-list-item-text-line-height: 18px !default;
@@ -157,7 +157,7 @@ $rac-grid-head-column-padding-top: 8px !default;
 $rac-grid-head-column-padding-bottom: 8px !default;
 $rac-grid-body-column-padding-top: 8px !default;
 $rac-grid-body-column-padding-bottom: 8px !default;
-$rac-grid-body-overflow: auto !default;
+$rac-grid-body-overflow: unset !default;  /** @layout auto **/
 $rac-tight-grid-body-column-padding-top: 4px !default;
 $rac-tight-grid-body-column-padding-bottom: 4px !default;
 $rac-grid-icon-size: 14px !default;
@@ -367,11 +367,11 @@ $rac-tab-font-size: $rac-default-font-size-2 !default;
 $rac-tab-background: unset !default;
 $rac-tab-active-background: unset !default;
 $rac-tab-active-border: unset !default;
-$rac-tab-border-radius: unset !default;
+$rac-tab-border-radius: $rac-default-border-radius !default;
 $rac-tab-border: unset !default;
 $rac-tab-text-transform: none !default;
 $rac-tab-letter-spacing: 0 !default;
-$rac-tab-height: 48px !default;
+$rac-tab-height: 32px !default;
 $rac-tab-before-after-display: block !default;
 $rac-tab-icon-text-line-height: 24px !default;
 $rac-tab-icon-text-letter-spacing: $rac-default-letter-spacing !default;
@@ -494,6 +494,11 @@ $rac-default-layout-sub-header-bordered-border-bottom: unset !default;
 $rac-default-layout-sub-header-bordered-margin-bottom: unset !default;
 $rac-default-layout-sub-header-navigation-action-margin-right: 16px !default;
 $rac-default-layout-main-margin: 0 $rac-default-layout-offset $rac-default-layout-offset $rac-default-layout-offset !default;
+$rac-default-layout-main-body-wrapper-overflow: auto !default;
+$rac-default-layout-main-body-wrapper-position: absolute !default;
+$rac-default-layout-main-body-wrapper-width: 100% !default;
+$rac-default-layout-main-body-wrapper-height: 100% !default;
+$rac-default-layout-main-body-height: 100% !default;
 $rac-default-layout-main-body-min-width: 920px !default;
 $rac-default-layout-main-body-padding: 0 $rac-default-layout-offset !default;
 $rac-default-layout-main-body-content-min-width: 920px !default;
