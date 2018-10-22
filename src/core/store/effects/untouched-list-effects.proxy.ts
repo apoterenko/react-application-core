@@ -1,7 +1,7 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { ConnectorActionBuilder } from '../../component/connector/universal-connector-action.builder';
+import { UniversalConnectorActionBuilder } from '../../component/connector/universal-connector-action.builder';
 import { IUntouchedListMiddlewareConfig } from '../middleware/middleware.interface';
 import { makeUntouchedListMiddleware, makeUntouchedLazyLoadedListMiddleware } from '../middleware/untouched-list.middleware';
 import { TabPanelActionBuilder } from '../../component/tabpanel/tabpanel-action.builder';
@@ -27,7 +27,7 @@ export function makeUntouchedListEffectsProxy<TApplicationState>(
        * @param {TApplicationState} state
        * @returns {IEffectsAction}
        */
-      @EffectsService.effects(ConnectorActionBuilder.buildInitActionType(config.listSection))
+      @EffectsService.effects(UniversalConnectorActionBuilder.buildInitActionType(config.listSection))
       public $onConnectorInit(action: IEffectsAction, state: TApplicationState): IEffectsAction {
         return untouchedListMiddleware(action, state);
       }
