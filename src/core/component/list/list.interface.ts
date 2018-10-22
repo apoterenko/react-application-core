@@ -37,6 +37,7 @@ export const INITIAL_APPLICATION_LIST_STATE: IListEntity = {
   touched: false,
   lockPage: false,
   data: null,
+  rawData: null,
   selected: null,
   page: FIRST_PAGE,
   pageSize: DEFAULT_PAGE_SIZE,
