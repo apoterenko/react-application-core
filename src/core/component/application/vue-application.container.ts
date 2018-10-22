@@ -6,12 +6,11 @@ import { APPLICATION_SECTION } from '../application/application.interface';
 import { VueNodeT } from '../../vue-definitions.interface';
 import { VueBaseContainer } from '../base/vue-index';
 import { vueConnectorOptionsFactory } from '../connector/vue-index';
-import { applicationMapper } from '../connector/universal-connector.mapper';
 
 @Component(vueConnectorOptionsFactory({
   section$: APPLICATION_SECTION,
   customComputed$: [
-    applicationMapper
+    (state) => ({application: state.application})   // TODO move to common
   ],
 }))
 export class VueApplicationContainer extends VueBaseContainer {

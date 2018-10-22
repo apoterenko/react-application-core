@@ -73,6 +73,8 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       // Send an init action
       store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.section$)});
 
+      const cachedReduxLinks = {};
+
       // Subscribe
       storeUnsubscriber = store.subscribe(() => {
         const state = self.state$;
@@ -81,25 +83,41 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
          * A "Redux <-> Container" bridge implemented here.
          * Vue is updated when the data is updated via assign new links
          */
-        reduxStoreListeners.forEach((mapper) => {
-          const reduxData = mapper(state);
-          const localStateData = {};
-          R.forEachObjIndexed((value, mappedKey) => (localStateData[mappedKey] = this[mappedKey]), reduxData);
+        reduxStoreListeners.forEach((shallowMapper) => {
+          const reduxData = shallowMapper(state);
+          const needToUpdateReactiveLinks = [];
 
-          // Optimizing the reactive data setting - manual deep comparing
-          if (!R.equals(localStateData, reduxData)) {
+          R.forEachObjIndexed((value, mappedKey) => {
+            let cachedReduxLinksByMapper = cachedReduxLinks[shallowMapper];
+            if (!R.isNil(cachedReduxLinksByMapper)) {
+              if ((mappedKey in cachedReduxLinksByMapper)) {
+                if (cachedReduxLinksByMapper[mappedKey] !== value) {
+                  needToUpdateReactiveLinks.push(mappedKey);
+                }
+              } else {
+                needToUpdateReactiveLinks.push(mappedKey);
+              }
+            } else {
+              cachedReduxLinks[shallowMapper] = cachedReduxLinksByMapper = {};
+              needToUpdateReactiveLinks.push(mappedKey);
+            }
+            cachedReduxLinksByMapper[mappedKey] = value;
+          }, reduxData);
+
+          if (needToUpdateReactiveLinks.length > 0) {
 
             // Need to set and clone reactive data only when the bind snapshot was changed because of:
             // 1. performance
             // 2. vue does replace recursively all links to reactive
 
-            Object.assign(this, R.clone(reduxData));
+            needToUpdateReactiveLinks.forEach((linkToUpdate) => {
+              this[linkToUpdate] = R.clone(reduxData[linkToUpdate]);
 
-            logger.debug(
-              `[$vueConnectorOptionsFactory][mounted] The reactive links for container ${
-                this.$vnode.tag} have been updated! New snapshot:`,
-              reduxData
-            );
+              logger.debug(
+                `[$vueConnectorOptionsFactory][mounted] The reactive link for container ${
+                  this.$vnode.tag} have been updated! Updated  link:`, linkToUpdate
+              );
+            });
           }
         });
       });
