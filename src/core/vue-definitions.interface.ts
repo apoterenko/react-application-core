@@ -53,6 +53,13 @@ export interface IVueSection$Wrapper {
 }
 
 /**
+ * @stable [22.10.2018]
+ */
+export interface IVueStore$Wrapper<TStore$> {
+  store$?: TStore$;
+}
+
+/**
  * @stable [21.10.2018]
  */
 export interface IVueCustomComputed$Wrapper<TCustomComputed$> {

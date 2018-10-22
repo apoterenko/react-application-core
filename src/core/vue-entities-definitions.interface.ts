@@ -1,3 +1,4 @@
+import { Store } from 'redux';
 import Vue from 'vue';
 
 import { IUniversalApplicationStoreEntity } from './entities-definitions.interface';
@@ -5,6 +6,7 @@ import {
   IVueIsContainer$Wrapper,
   IVueSection$Wrapper,
   IVueState$Wrapper,
+  IVueStore$Wrapper,
 } from './vue-definitions.interface';
 
 /**
@@ -18,6 +20,7 @@ export interface IVueComponent extends Vue {
  */
 export interface IVueContainer extends Vue,
                                        IVueSection$Wrapper,
+                                       IVueStore$Wrapper<Store<IVueApplicationStoreEntity>>,
                                        IVueState$Wrapper<IVueApplicationStoreEntity>,
                                        IVueIsContainer$Wrapper {
 }

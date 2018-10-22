@@ -14,7 +14,7 @@ export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponen
   extends Vue implements IVueContainer {
 
   public section$: string;
-  @lazyInject(DI_TYPES.Store) protected store$: Store<IVueApplicationStoreEntity>;
+  @lazyInject(DI_TYPES.Store) public store$: Store<IVueApplicationStoreEntity>;
 
   /**
    * @stable [21.10.2018]

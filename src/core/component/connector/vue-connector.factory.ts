@@ -61,10 +61,15 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
         config.mounted();
       }
 
-      this.store$.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(this.section$)});
+      const self: IVueContainer = this;
+      const store = self.store$;
 
-      storeUnsubscriber = this.store$.subscribe(() => {
-        const state = this.state$;
+      // Send an init action
+      store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.section$)});
+
+      // Subscribe
+      storeUnsubscriber = store.subscribe(() => {
+        const state = self.state$;
 
         /**
          * A "Redux <-> Container" bridge implemented here.
