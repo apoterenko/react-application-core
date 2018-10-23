@@ -18,11 +18,12 @@ export interface IVueComponent extends Vue {
 /**
  * @stable [21.10.2018]
  */
-export interface IVueContainer extends Vue,
-                                       IVueSection$Wrapper,
-                                       IVueStore$Wrapper<Store<IVueApplicationStoreEntity>>,
-                                       IVueState$Wrapper<IVueApplicationStoreEntity>,
-                                       IVueIsContainer$Wrapper {
+export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationStoreEntity = IVueApplicationStoreEntity>
+  extends Vue,
+          IVueSection$Wrapper,
+          IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
+          IVueState$Wrapper<TApplicationStoreEntity>,
+          IVueIsContainer$Wrapper {
 }
 
 /**

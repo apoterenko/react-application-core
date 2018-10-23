@@ -13,16 +13,16 @@ import { IVueConnectorOptionsConfigEntity } from './vue-connector.interface';
 const logger = LoggerFactory.makeLogger('vue-connector.factory');
 
 /**
- * @stable [22.10.2018]
+ * @stable [23.10.2018]
  * @param {IVueConnectorOptionsConfigEntity<TApplicationStoreEntity extends IVueApplicationStoreEntity>} config
- * @returns {VueComponentOptionsT<IVueContainer>}
+ * @returns {VueComponentOptionsT<IVueContainer<TApplicationStoreEntity extends IVueApplicationStoreEntity>>}
  */
 export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueApplicationStoreEntity = IVueApplicationStoreEntity>(
   config: IVueConnectorOptionsConfigEntity<TApplicationStoreEntity>
-): VueComponentOptionsT<IVueContainer> => {
+): VueComponentOptionsT<IVueContainer<TApplicationStoreEntity>> => {
 
   let storeUnsubscriber: Unsubscribe;
-  const reduxStoreListeners = [];
+  const reduxStoreListeners: Array<(state: TApplicationStoreEntity) => AnyT> = [];
   const customComputed = config.customComputed$;
 
   if (Array.isArray(customComputed)) {
@@ -80,7 +80,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
 
       // Subscribe
       storeUnsubscriber = store.subscribe(() => {
-        const state = self.state$;
+        const state = self.state$ as TApplicationStoreEntity;
 
         /**
          * A "Redux <-> Container" bridge implemented here.

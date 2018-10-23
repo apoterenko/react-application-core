@@ -4,6 +4,7 @@ import {
   VueComponentOptionsT,
   IVueCustomComputed$Wrapper,
   IVueSection$Wrapper,
+  IVueForceUpdateOnChangeData$Wrapper,
 } from '../../vue-definitions.interface';
 import { IVueContainer, IVueApplicationStoreEntity } from '../../vue-entities-definitions.interface';
 
@@ -11,8 +12,9 @@ import { IVueContainer, IVueApplicationStoreEntity } from '../../vue-entities-de
  * @stable [22.10.2018]
  */
 export interface IVueConnectorOptionsConfigEntity<TApplicationStoreEntity extends IVueApplicationStoreEntity = IVueApplicationStoreEntity>
-  extends VueComponentOptionsT<IVueContainer>,
+  extends VueComponentOptionsT<IVueContainer<TApplicationStoreEntity>>,
           IVueIsContainer$Wrapper,
           IVueSection$Wrapper,
-          IVueCustomComputed$Wrapper<Array<(state: TApplicationStoreEntity) => AnyT>> {
+          IVueCustomComputed$Wrapper<Array<(state: TApplicationStoreEntity) => AnyT>>,
+          IVueForceUpdateOnChangeData$Wrapper<(state: TApplicationStoreEntity) => AnyT> {
 }

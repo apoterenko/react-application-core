@@ -53,6 +53,13 @@ export interface IVueSection$Wrapper {
 }
 
 /**
+ * @stable [23.10.2018]
+ */
+export interface IVueForceUpdateOnChangeData$Wrapper<TForceUpdateOnChangeData$> {
+  forceUpdateOnChangeData$?: TForceUpdateOnChangeData$;
+}
+
+/**
  * @stable [22.10.2018]
  */
 export interface IVueStore$Wrapper<TStore$> {
