@@ -602,12 +602,13 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 }
 
 /**
- * @stable [23.06.2018]
+ * @stable [23.10.2018]
  */
 export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
                                                      IUniversalLivingEntity,
                                                      IAuthorizedWrapper,
-                                                     IReadyWrapper {
+                                                     IReadyWrapper,
+                                                     IPathWrapper {
 }
 
 /* @stable - 25.04.2018 */
