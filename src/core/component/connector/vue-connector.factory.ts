@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { isFn } from '../../util';
 import { UniversalConnectorActionBuilder } from './universal-connector-action.builder';
-import { IKeyValue } from '../../definitions.interface';
+import { IKeyValue, AnyT } from '../../definitions.interface';
 import { VueComponentOptionsT } from '../../vue-definitions.interface';
 import { IVueContainer, IVueApplicationStoreEntity } from '../../vue-entities-definitions.interface';
 import { IVueConnectorOptionsConfigEntity } from './vue-connector.interface';
@@ -36,6 +36,8 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
     computed: config.computed,
     template: config.template,
     watch: config.watch,
+    beforeUpdate: config.beforeUpdate,
+    updated: config.updated,
 
     /**
      * @stable [21.10.2018]
@@ -74,7 +76,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       // Send an init action
       store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.section$)});
 
-      const cachedReduxLinks = {};
+      const cachedReduxLinks = new Map<((...AnyT) => void), AnyT>();
 
       // Subscribe
       storeUnsubscriber = store.subscribe(() => {
@@ -89,7 +91,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
           const needToUpdateReactiveLinks = [];
 
           R.forEachObjIndexed((value, mappedKey) => {
-            let cachedReduxLinksByMapper = cachedReduxLinks[shallowMapper];
+            let cachedReduxLinksByMapper = cachedReduxLinks.get(shallowMapper);
             if (!R.isNil(cachedReduxLinksByMapper)) {
               if ((mappedKey in cachedReduxLinksByMapper)) {
                 if (cachedReduxLinksByMapper[mappedKey] !== value) {
@@ -99,7 +101,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
                 needToUpdateReactiveLinks.push(mappedKey);
               }
             } else {
-              cachedReduxLinks[shallowMapper] = cachedReduxLinksByMapper = {};
+              cachedReduxLinks.set(shallowMapper, cachedReduxLinksByMapper = {});
               needToUpdateReactiveLinks.push(mappedKey);
             }
             cachedReduxLinksByMapper[mappedKey] = value;
@@ -116,9 +118,25 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
 
               logger.debug(
                 `[$vueConnectorOptionsFactory][mounted] The reactive link for container ${
-                  this.$vnode.tag} have been updated! Updated  link:`, linkToUpdate
+                  this.$vnode.tag} has been updated! Updated link:`, linkToUpdate
               );
             });
+          }
+
+          if (isFn(config.forceUpdateOnChangeData$)) {
+            const previousValue = cachedReduxLinks.get(config.forceUpdateOnChangeData$);
+            const currentValue = config.forceUpdateOnChangeData$(state);
+
+            if (!R.isNil(currentValue) && previousValue !== currentValue) {
+              self.$forceUpdate();
+              cachedReduxLinks.set(config.forceUpdateOnChangeData$, currentValue);
+
+              logger.debug(
+                `[$vueConnectorOptionsFactory][mounted] The "forceUpdate" value has been changed => need to call $forceUpdate. ${
+                    this.$vnode.tag
+                  }`,
+              );
+            }
           }
         });
       });
