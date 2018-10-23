@@ -39,6 +39,7 @@
     "@types/sprintf-js": "^1.1.0",
     "@types/storejs": "^1.3.1",
     "@types/uglify-js": "^2.6.28",
+    "@types/urijs": "^1.15.38",
     "@types/uuid": "^3.4.2",
     "@types/webpack": "^2.2.16",
     "@typopro/web-montserrat": "^3.7.5",
