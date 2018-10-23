@@ -17,6 +17,7 @@ export * from './store/store.module'; // TODO rename
 export * from './store/store.support';
 export * from './store/effects/vue-index';
 export * from './di';
+export * from './util';
 export * from './router/vue-index';
 export {
   IApplicationTransport,
