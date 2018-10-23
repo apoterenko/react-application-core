@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { Store } from 'redux';
 
+import { applySection } from '../../util';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { lazyInject, DI_TYPES } from '../../di';
 import { AnyT, IKeyValue } from '../../definitions.interface';
@@ -9,6 +10,7 @@ import {
   IVueComponent,
   IVueContainer,
 } from '../../vue-entities-definitions.interface';
+import { ROUTER_BACK_ACTION_TYPE } from '../../router/vue-index';
 
 export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponent>
   extends Vue implements IVueContainer {
@@ -33,6 +35,10 @@ export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponen
     this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(this.section$, changes));
   }
 
+  protected dispatch(type: string, data?: IKeyValue): void {
+    this.dispatchCustomType(`${this.section$}.${type}`, applySection(this.section$, data));
+  }
+
   /**
    * @stable [21.10.2018]
    * @param {string} type
@@ -40,6 +46,10 @@ export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponen
    */
   protected dispatchCustomType(type: string, data?: AnyT): void {
     this.store$.dispatch({type, data});
+  }
+
+  protected navigateToBack(): void {
+    this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
   }
 
   /**
