@@ -24,6 +24,7 @@ export const INITIAL_APPLICATION_STATE: IApplicationEntity = {
   authorized: false,    // By default the application is not authorized because an async token
   progress: false,
   error: null,
+  path: null,
 };
 
 /**
@@ -45,5 +46,6 @@ export const APPLICATION_LOGIN_ACTION_TYPE = 'login';
 export const APPLICATION_AFTER_LOGIN_ACTION_TYPE = `after.${APPLICATION_LOGIN_ACTION_TYPE}`;
 export const APPLICATION_READY_ACTION_TYPE = 'ready';
 export const APPLICATION_NOT_READY_ACTION_TYPE = `not.${APPLICATION_READY_ACTION_TYPE}`;
+export const APPLICATION_PATH_ACTION_TYPE = 'path';
 export const APPLICATION_AUTHORIZED_ACTION_TYPE = 'authorized';
 export const APPLICATION_UNAUTHORIZED_ACTION_TYPE = 'unauthorized';

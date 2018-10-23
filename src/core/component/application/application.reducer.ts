@@ -15,6 +15,11 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
         progress: true,
         error: null,
       };
+    case ApplicationActionBuilder.buildPathActionType():
+      return {
+        ...state,
+        path: action.data,
+      };
     case ApplicationActionBuilder.buildCustomErrorActionType():
     case ApplicationActionBuilder.buildPrepareErrorActionType():
     case ApplicationActionBuilder.buildPrepareDoneErrorActionType():

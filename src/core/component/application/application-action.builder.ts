@@ -18,6 +18,7 @@ import {
   APPLICATION_MOUNT_ACTION_TYPE,
   APPLICATION_AFTER_INIT_ACTION_TYPE,
   APPLICATION_PREPARE_DONE_ERROR_ACTION_TYPE,
+  APPLICATION_PATH_ACTION_TYPE,
 } from './application.interface';
 
 export class ApplicationActionBuilder {
@@ -68,6 +69,14 @@ export class ApplicationActionBuilder {
 
   public static buildNotReadyActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [23.10.2018]
+   * @returns {string}
+   */
+  public static buildPathActionType(): string {
+    return `${$APPLICATION_SECTION}.${APPLICATION_PATH_ACTION_TYPE}`;
   }
 
   public static buildAuthorizedActionType(): string {
