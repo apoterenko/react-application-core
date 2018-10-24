@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
+import * as R from 'ramda';
 
 import { ComponentName } from '../connector/vue-index';
 
@@ -23,7 +24,16 @@ import { ComponentName } from '../connector/vue-index';
   computed: {
     listData: {
       get() {
-        return (this.list.data || []).filter((item) => !this.filterQuery || item.name.indexOf(this.filterQuery) > -1);
+        const data = this.list.data || [];
+        return !R.isNil(this.filter)
+        ? (
+            data.filter((item) => this.filter(item, this.filterQuery))
+        )
+        : (
+            !R.isNil(this.filterQuery)
+            ? (item) => !this.filterQuery || item.name.indexOf(this.filterQuery) > -1
+            : data
+        );
       },
     },
   },
@@ -32,6 +42,7 @@ class VueGrid extends Vue {
   @Prop() public columns: any;
   @Prop() public list: any;
   @Prop() public filterQuery: string;
+  @Prop() public filter: (item) => boolean;
 
   /**
    * @stable [23.10.2018]
