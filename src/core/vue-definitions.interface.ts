@@ -1,6 +1,7 @@
 import Vue from 'vue';
-import { VNode, VueConstructor } from 'vue';
+import { VNode, VNodeData, VueConstructor } from 'vue';
 import { ComponentOptions, Accessors } from 'vue/types/options';
+import { CreateElement } from 'vue/types';
 
 import { AnyT } from './definitions.interface';
 
@@ -76,7 +77,7 @@ export interface IVueCustomComputed$Wrapper<TCustomComputed$> {
 /**
  * @stable [21.10.2018]
  */
-export type VueCreateElementFactoryT = typeof Vue.prototype.$createElement;
+export type VueCreateElementFactoryT = CreateElement;
 
 /**
  * @stable [21.10.2018]
@@ -97,3 +98,8 @@ export type VueConstructorT = VueConstructor;
  * @stable [21.10.2018]
  */
 export type VueNodeT = VNode;
+
+/**
+ * @stable [24.10.2018]
+ */
+export type VNodeDataT = VNodeData;

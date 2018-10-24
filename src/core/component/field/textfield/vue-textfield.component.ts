@@ -1,6 +1,7 @@
+import * as R from 'ramda';
 import { Component } from 'vue-property-decorator';
 
-import { orNull } from '../../../util';
+import { orNull, orDefault } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueField, IVueFieldInputPropsEntity } from '../field/vue-index';
@@ -35,9 +36,18 @@ class VueTextField extends VueField {
   }
 
   protected getLabelElement(): string {
-    return orNull<string>(
-      this.label,
-      () => `<label class="rac-field-label">${this.label}</label>`    // TODO translation
+    return orDefault<string, string>(
+      !R.isNil(this.label),
+      () => `<label class="vue-field-label">${this.label}</label>`,    // TODO translation
+      () => ''
+    );
+  }
+
+  protected getFieldAttachmentElement(): string {
+    return orDefault<string, string>(
+      !R.isNil(this.icon),
+      () => `<span class="vue-field-icon ${this.icon}"/>`,    // TODO translation
+      () => ''
     );
   }
 }

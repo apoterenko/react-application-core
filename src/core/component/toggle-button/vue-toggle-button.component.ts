@@ -7,14 +7,22 @@ import { VueBaseComponent } from '../base/vue-index';
 @ComponentName('vue-toggle-button')
 @Component({
   template: `
-    <div class='vue-toggle-button' style='display: flex; flex-direction: row'>
-      <div>
-        1
-      </div>
-      <div>
-        2
-      </div>
-    </div>
+    <vue-flex-layout :className="'vue-toggle-button'"
+                     :row="true"
+                     :full="false">
+      <vue-flex-layout :class="'vue-toggle-button-item'"
+                       :row="true"
+                       :alignItemsCenter="true"
+                       :justifyContentCenter="true">
+        Active
+      </vue-flex-layout>
+      <vue-flex-layout :className="'vue-toggle-button-item'"
+                       :row="true"
+                       :alignItemsCenter="true"
+                       :justifyContentCenter="true">
+        Archive
+      </vue-flex-layout>
+    </vue-flex-layout>
   `,
 })
 class VueToggleButton extends VueBaseComponent {

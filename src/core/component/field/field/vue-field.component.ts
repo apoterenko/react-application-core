@@ -16,6 +16,8 @@ export class VueField extends VueBaseComponent {
   @Prop() protected value: AnyT;
   @Prop() protected type: string;
   @Prop() protected label: string;
+  @Prop() protected icon: string;
+  @Prop() protected placeholder: string;
 
   /**
    * @stable [21.10.2018]
@@ -35,6 +37,7 @@ export class VueField extends VueBaseComponent {
       template: `
         <div class='${this.getFieldClassName()}'>
             <input :type="${VUE_TYPE$_FIELD}"
+                   :placeholder="'${this.placeholder}'"
                    v-model:value="${VUE_VALUE$_FIELD}">
             ${this.getLabelElement()}
             ${this.getFieldAttachmentElement()}
