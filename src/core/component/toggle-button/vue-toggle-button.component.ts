@@ -10,7 +10,7 @@ import { VueBaseComponent } from '../base/vue-index';
     <vue-flex-layout :className="'vue-toggle-button'"
                      :row="true"
                      :full="false">
-      <vue-flex-layout :class="'vue-toggle-button-item'"
+      <vue-flex-layout :class="'vue-toggle-button-item vue-toggle-button-item-active'"
                        :row="true"
                        :alignItemsCenter="true"
                        :justifyContentCenter="true">

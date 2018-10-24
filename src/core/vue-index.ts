@@ -4,6 +4,7 @@ export {
 } from './configurations-definitions.interface';
 export {
   IFieldChangeEntity,
+  INamedEntity,
 } from './entities-definitions.interface';
 export * from './vue-entities-definitions.interface';
 export * from './vue-configurations-definitions.interface';

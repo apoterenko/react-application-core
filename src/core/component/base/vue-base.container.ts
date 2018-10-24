@@ -11,12 +11,14 @@ import {
   IVueContainer,
 } from '../../vue-entities-definitions.interface';
 import { ROUTER_BACK_ACTION_TYPE } from '../../router/vue-index';
+import { ApplicationTranslatorT } from '../../translation';
 
 export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponent>
   extends Vue implements IVueContainer {
 
   public section$: string;
   @lazyInject(DI_TYPES.Store) public store$: Store<IVueApplicationStoreEntity>;
+  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
 
   /**
    * @stable [21.10.2018]
