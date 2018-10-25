@@ -1,5 +1,7 @@
+import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
+import { orNull } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
 import {
   VueCreateElementFactoryT,
@@ -37,7 +39,7 @@ export class VueField extends VueBaseComponent {
       template: `
         <div class='${this.getFieldClassName()}'>
             <input :type="${VUE_TYPE$_FIELD}"
-                   :placeholder="'${this.placeholder}'"
+                   :placeholder="'${orNull<string>(!R.isNil(this.placeholder), () => this.t(this.placeholder))}'"
                    v-model:value="${VUE_VALUE$_FIELD}">
             ${this.getLabelElement()}
             ${this.getFieldAttachmentElement()}
