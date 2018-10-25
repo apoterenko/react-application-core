@@ -1,8 +1,8 @@
-import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
 import { calc } from '../../util';
+import { VueBaseComponent } from '../base/vue-index';
 import { ComponentName } from '../connector/vue-index';
 import { IEntity } from '../../definitions.interface';
 
@@ -23,7 +23,10 @@ import { IEntity } from '../../definitions.interface';
           </tbody>
         </table>
         <div v-if="progress">
-          Please waitt...
+          Please wait...
+        </div>
+        <div v-if="isEmptyData">
+          No data
         </div>
       </div>
     `,
@@ -33,7 +36,7 @@ import { IEntity } from '../../definitions.interface';
         const data = this.list.data || [];
         return !R.isNil(this.filter)
         ? (
-            data.filter((item) => this.filter(item, this.filterQuery))
+            data.filter((item) => this.filter.call(this.findParentContainer(this), item, this.filterQuery))  // TODO
         )
         : (
             !R.isNil(this.filterQuery)
@@ -44,12 +47,13 @@ import { IEntity } from '../../definitions.interface';
     },
   },
 })
-class VueGrid extends Vue {
+class VueGrid extends VueBaseComponent {
   @Prop() public columns: any;
   @Prop() public list: any;
   @Prop() public filterQuery: string;
   @Prop() public filter: (item) => boolean;
   @Prop() public rowClass: string | ((item) => string);
+  public listData: IEntity[];
 
   /**
    * @stable [23.10.2018]
@@ -71,7 +75,7 @@ class VueGrid extends Vue {
 
   private getColumn(entity, column): any {  // TODO
     return column.renderer
-      ? `<div>${column.renderer(entity, column, entity[column.name])}</div>`
+      ? column.renderer(entity, column, entity[column.name])
       : `<div>${entity[column.name]}</div>`;
   }
 
@@ -81,5 +85,9 @@ class VueGrid extends Vue {
 
   private get progress(): boolean {
     return this.list.progress;
+  }
+
+  private get isEmptyData(): boolean {
+    return !this.progress && this.listData.length === 0;
   }
 }

@@ -38,10 +38,6 @@ class VueFlexLayout extends VueBaseComponent
     return factory('div', nodeData, this.$slots.default);
   }
 
-  public onClick(...any): void {
-    // TODO
-  }
-
   private getClassName(): string {
     const props = this;
     return toClassName(

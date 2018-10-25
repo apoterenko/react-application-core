@@ -29,8 +29,7 @@ export class VueBaseContainer<TVueComponent extends IVueComponent = IVueComponen
   }
 
   /**
-   * TODO make common contract to this methods (IUniversalBaseContainer) + delegates
-   * @stable [21.10.2018]
+   * @stable [25.10.2018]
    * @param {IKeyValue} changes
    */
   protected dispatchFormChanges(changes: IKeyValue): void {
