@@ -40,14 +40,12 @@ import { IEntity } from '../../definitions.interface';
       get() {
         const data = this.list.data || [];
         return !R.isNil(this.filter)
-        ? (
-            data.filter((item) => this.filter.call(this.findParentContainer(this), item, this.filterQuery))  // TODO
-        )
+        ? data.filter((item) => this.filter(item, this.filterQuery))
         : (
             !R.isNil(this.filterQuery)
-            ? (item) => !this.filterQuery || item.name.indexOf(this.filterQuery) > -1
-            : data
-        );
+              ? (item) => !this.filterQuery || item.name.indexOf(this.filterQuery) > -1
+              : data
+          );
       },
     },
   },

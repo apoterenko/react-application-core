@@ -38,6 +38,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
     watch: config.watch,
     beforeUpdate: config.beforeUpdate,
     updated: config.updated,
+    methods: config.methods,
 
     /**
      * @stable [21.10.2018]
