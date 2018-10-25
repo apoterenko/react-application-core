@@ -1,7 +1,7 @@
 import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
-import { calc } from '../../util';
+import { calc, toClassName } from '../../util';
 import { VueBaseComponent } from '../base/vue-index';
 import { ComponentName } from '../connector/vue-index';
 import { IEntity } from '../../definitions.interface';
@@ -9,15 +9,20 @@ import { IEntity } from '../../definitions.interface';
 @ComponentName('vue-grid')
 @Component({
   template: `
-      <div class='vue-grid-wrapper'>
-        <table v-if="!progress">
-          <tbody>
+      <vue-flex-layout :row="true"
+                       class="rac-grid-wrapper">
+        <table v-if="!progress"
+               cellpadding="0"
+               cellspacing="0"
+               class="rac-grid rac-flex rac-flex-column">
+          <tbody class="rac-grid-body">
             <tr v-for="entity in listData"
                 :class="getRowClass(entity)"
                 v-on:click="onSelect($event, entity)">
               <td v-for="column in columns"
                   v-html="getColumn(entity, column)"
-                  :style="getColumnStyle(entity, column)">
+                  :style="getColumnStyle(entity, column)"
+                  class="rac-grid-column">
               </td>
             </tr>
           </tbody>
@@ -28,7 +33,7 @@ import { IEntity } from '../../definitions.interface';
         <div v-if="isEmptyData">
           No data
         </div>
-      </div>
+      </vue-flex-layout>
     `,
   computed: {
     listData: {
@@ -70,7 +75,13 @@ class VueGrid extends VueBaseComponent {
    * @returns {string}
    */
   private getRowClass(entity: IEntity): string {
-    return R.isNil(this.rowClass) ? '' : calc<string, IEntity>(this.rowClass, entity);
+    return toClassName(
+      R.isNil(this.rowClass) ? '' : calc<string, IEntity>(this.rowClass, entity),
+      'rac-grid-row',
+      'rac-grid-data-row',
+      'rac-grid-data-row-hovered',
+      'rac-grid-data-row-selectable'
+    );
   }
 
   private getColumn(entity, column): any {  // TODO
