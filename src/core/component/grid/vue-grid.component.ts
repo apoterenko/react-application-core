@@ -9,12 +9,11 @@ import { IEntity } from '../../definitions.interface';
 @ComponentName('vue-grid')
 @Component({
   template: `
-      <vue-flex-layout :row="true"
-                       class="rac-grid-wrapper">
+      <div class="rac-grid-wrapper">
         <table v-if="!progress"
                cellpadding="0"
                cellspacing="0"
-               class="rac-grid rac-flex rac-flex-column">
+               class="rac-grid">
           <tbody class="rac-grid-body">
             <tr v-for="entity in listData"
                 :class="getRowClass(entity)"
@@ -33,7 +32,7 @@ import { IEntity } from '../../definitions.interface';
         <div v-if="isEmptyData">
           No data
         </div>
-      </vue-flex-layout>
+      </div>
     `,
   computed: {
     listData: {

@@ -1,11 +1,10 @@
 import { Component, Prop } from 'vue-property-decorator';
 
+import { toClassName } from '../../util';
+import { ILabeledValueEntity } from '../../entities-definitions.interface';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
-import { ILabeledValueEntity } from '../../entities-definitions.interface';
-import { toClassName } from '../../util';
 
-// TODO
 @ComponentName('vue-toggle-button')
 @Component({
   template: `
@@ -16,6 +15,7 @@ import { toClassName } from '../../util';
                        :key="item.value"
                        :class="getItemClassName(item)"
                        :row="true"
+                       :full="false"
                        :alignItemsCenter="true"
                        :justifyContentCenter="true"
                        v-on:click.native="onItemClick(item)">
@@ -25,8 +25,8 @@ import { toClassName } from '../../util';
   `,
 })
 class VueToggleButton extends VueBaseComponent {
-  @Prop() public items: ILabeledValueEntity[];
-  @Prop() public active: number;
+  @Prop() private items: ILabeledValueEntity[];
+  @Prop() private active: number;
 
   /**
    * @stable [25.10.2018]
@@ -36,6 +36,7 @@ class VueToggleButton extends VueBaseComponent {
   private getItemClassName(item: ILabeledValueEntity): string {
     return toClassName(
       'vue-toggle-button-item',
+      'rac-no-user-select',
       this.active === item.value && 'vue-toggle-button-item-active'
     );
   }

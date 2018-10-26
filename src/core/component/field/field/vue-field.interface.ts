@@ -1,11 +1,14 @@
 import {
   IVueType$Wrapper,
   IVueValue$Wrapper,
+  IVuePlaceholder$Wrapper,
 } from '../../../vue-definitions.interface';
+import { AnyT } from '../../../definitions.interface';
 
 /**
- * @stable [21.10.2018]
+ * @stable [26.10.2018]
  */
-export interface IVueFieldInputPropsEntity extends IVueType$Wrapper,
-                                                   IVueValue$Wrapper {
+export interface IVueFieldInputPropsEntity extends IVueType$Wrapper<AnyT>,
+                                                   IVueValue$Wrapper,
+                                                   IVuePlaceholder$Wrapper {
 }

@@ -1,13 +1,14 @@
 import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
-import { orNull } from '../../../util';
+import { orEmpty } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
 import {
   VueCreateElementFactoryT,
   VueNodeT,
   VUE_VALUE$_FIELD,
   VUE_TYPE$_FIELD,
+  VUE_PLACEHOLDER$_FIELD,
   VueComponentOptionsT,
   VueAccessorsT,
 } from '../../../vue-definitions.interface';
@@ -20,6 +21,16 @@ export class VueField extends VueBaseComponent {
   @Prop() protected label: string;
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
+  @Prop() protected autoFocus: boolean;
+
+  /**
+   * @stable [26.10.2018]
+   */
+  public mounted() {
+    if (this.autoFocus) {
+      this.setFocus();
+    }
+  }
 
   /**
    * @stable [21.10.2018]
@@ -27,23 +38,20 @@ export class VueField extends VueBaseComponent {
    * @returns {VueNodeT}
    */
   public render(createElement: VueCreateElementFactoryT): VueNodeT {
-    const inputPropsEntity: IVueFieldInputPropsEntity = {
-      value$: {
-        get: () => this.value,
-        set: (newValue) => this.onChange(newValue),
-      },
-    };
     const options: VueComponentOptionsT = {
-      computed: inputPropsEntity as VueAccessorsT,
-      data: () => this.$data,
+      computed: this.getInputPropsEntity() as VueAccessorsT,
       template: `
-        <div class='${this.getFieldClassName()}'>
-            <input :type="${VUE_TYPE$_FIELD}"
-                   :placeholder="'${orNull<string>(!R.isNil(this.placeholder), () => this.t(this.placeholder))}'"
-                   v-model:value="${VUE_VALUE$_FIELD}">
-            ${this.getLabelElement()}
-            ${this.getFieldAttachmentElement()}
-        </div>
+        <vue-flex-layout row="true"
+                         alignItemsCenter="true"
+                         class='${this.getFieldClassName()}'>
+          <input ref="self"
+                 :type="${VUE_TYPE$_FIELD}"
+                 :placeholder="${VUE_PLACEHOLDER$_FIELD}"
+                 v-model:value="${VUE_VALUE$_FIELD}"
+                 class="vue-field-input rac-flex-full">
+          ${this.getLabelElement()}
+          ${this.getFieldAttachmentElement()}
+        </vue-flex-layout>
       `,
     };
     return createElement(options);
@@ -59,20 +67,10 @@ export class VueField extends VueBaseComponent {
 
   /**
    * @stable [21.10.2018]
-   * @returns {IVueFieldInputPropsEntity}
-   */
-  protected data(): IVueFieldInputPropsEntity {
-    return {
-      type$: this.type,
-    };
-  }
-
-  /**
-   * @stable [21.10.2018]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return 'vue-field';
+    return 'vue-field rac-flex rac-flex-full rac-flex-row';
   }
 
   /**
@@ -89,5 +87,45 @@ export class VueField extends VueBaseComponent {
    */
   protected getLabelElement(): string {
     return '';
+  }
+
+  /**
+   * @stable [26.10.2018]
+   * @returns {IVueFieldInputPropsEntity}
+   */
+  protected getInputPropsEntity(): any /*IVueFieldInputPropsEntity*/ {
+    /**
+     * We need to have an ability to set a default values via inheritance.
+     */
+    return {
+      value$: {
+        get: () => this.value,
+        set: (newValue) => this.onChange(newValue),
+      },
+      autoFocus$: {
+        get: () => 'true',
+      },
+      type$: {
+        get: () => this.type || 'text',
+      },
+      placeholder$: {
+        get: () => orEmpty(!R.isNil(this.placeholder), () => this.t(this.placeholder)),
+      },
+    };
+  }
+
+  /**
+   * @stable [26.10.2018]
+   * @returns {HTMLInputElement}
+   */
+  protected get inputEl(): HTMLInputElement {
+    return this.$children[0].$refs.self as HTMLInputElement;
+  }
+
+  /**
+   * @stable [26.10.2018]
+   */
+  protected setFocus(): void {
+    this.inputEl.focus();
   }
 }

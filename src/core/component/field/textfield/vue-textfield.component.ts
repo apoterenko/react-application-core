@@ -1,10 +1,10 @@
 import * as R from 'ramda';
 import { Component } from 'vue-property-decorator';
 
-import { orNull, orDefault } from '../../../util';
+import { orEmpty } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { VueField, IVueFieldInputPropsEntity } from '../field/vue-index';
+import { VueField } from '../field/vue-index';
 
 @ComponentName('vue-text-field')
 @Component
@@ -20,11 +20,10 @@ class VueTextField extends VueField {
   }
 
   /**
-   * @stable [21.10.2018]
-   * @returns {IVueFieldInputPropsEntity}
+   * @stable [26.10.2018]
    */
-  protected data(): IVueFieldInputPropsEntity {
-    return super.data();
+  public mounted() {
+    super.mounted();
   }
 
   /**
@@ -35,19 +34,22 @@ class VueTextField extends VueField {
     return `${super.getFieldClassName()} vue-text-field`;
   }
 
+  /**
+   * @stable [26.10.2018]
+   * @returns {string}
+   */
   protected getLabelElement(): string {
-    return orDefault<string, string>(
+    return orEmpty(
       !R.isNil(this.label),
-      () => `<label class="vue-field-label">${this.label}</label>`,    // TODO translation
-      () => ''
+      () => `<label class="vue-field-label">${this.t(this.label)}</label>`
     );
   }
 
+  /**
+   * @stable [26.10.2018]
+   * @returns {string}
+   */
   protected getFieldAttachmentElement(): string {
-    return orDefault<string, string>(
-      !R.isNil(this.icon),
-      () => `<span class="vue-field-icon ${this.icon}"/>`,    // TODO translation
-      () => ''
-    );
+    return orEmpty(!R.isNil(this.icon), () => `<span class="vue-field-icon ${this.icon}"/>`);
   }
 }

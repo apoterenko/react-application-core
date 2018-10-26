@@ -10,6 +10,7 @@ import { AnyT } from './definitions.interface';
  */
 export const VUE_TYPE$_FIELD = 'type$';
 export const VUE_VALUE$_FIELD = 'value$';
+export const VUE_PLACEHOLDER$_FIELD = 'placeholder$';
 
 /**
  * @stable [21.10.2018]
@@ -23,6 +24,13 @@ export interface IVueType$Wrapper<TType$ = string> {
  */
 export interface IVueValue$Wrapper<TValue$ = AnyT> {
   value$?: TValue$;
+}
+
+/**
+ * @stable [26.10.2018]
+ */
+export interface IVuePlaceholder$Wrapper<TPlaceholder$ = AnyT> {
+  placeholder$?: TPlaceholder$;
 }
 
 /**

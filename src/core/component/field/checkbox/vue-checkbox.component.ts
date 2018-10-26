@@ -19,20 +19,22 @@ class VueCheckbox extends VueField {
 
   /**
    * @stable [21.10.2018]
-   * @returns {IVueFieldInputPropsEntity}
-   */
-  protected data(): IVueFieldInputPropsEntity {
-    return {
-      ...super.data(),
-      type$: 'checkbox',
-    };
-  }
-
-  /**
-   * @stable [21.10.2018]
    * @returns {string}
    */
   protected getFieldClassName(): string {
     return `${super.getFieldClassName()} vue-checkbox`;
+  }
+
+  /**
+   * @stable [26.10.2018]
+   * @returns {IVueFieldInputPropsEntity}
+   */
+  protected getInputPropsEntity(): IVueFieldInputPropsEntity {
+    return {
+      ...super.getInputPropsEntity(),
+      type$: {
+        get: () => 'checkbox',
+      },
+    };
   }
 }

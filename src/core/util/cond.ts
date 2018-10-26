@@ -2,6 +2,15 @@ import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
 import { isFn, uuid } from '../util';
+import { calc } from './calc';
+
+/**
+ * @stable [25.10.2018]
+ * @param {AnyT} condition
+ * @param {string | (() => string)} result
+ * @returns {string}
+ */
+export const orEmpty = (condition: AnyT, result: string|(() => string)) => condition ? calc(result) : '';
 
 export function orNull<TResult>(condition: AnyT, result: TResult|(() => TResult)): TResult {
   return condition ? (isFn(result) ? (result as () => TResult)() : result as TResult) : null;
