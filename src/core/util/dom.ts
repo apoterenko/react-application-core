@@ -133,6 +133,20 @@ export const applyStyle = (source: Element, style: string, value: AnyT) => $(sou
 export const getWidth = (source: Element): number => $(source).width();
 
 /**
+ * @stable [27.10.2018]
+ * @param {Element} source
+ * @returns {number}
+ */
+export const getHeight = (source: Element): number => $(source).height();
+
+/**
+ * @stable [27.10.2018]
+ * @param {Element} source
+ * @returns {number}
+ */
+export const getContentHeight = (source: Element): number => $(source).children().height();
+
+/**
  * @stable [04.10.2018]
  * @param {Element} source
  * @returns {boolean}
