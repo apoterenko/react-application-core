@@ -20,7 +20,6 @@ export interface IUIFactory {
   listItemMeta?: string;
   listItemText?: string;
   list?: string;
-  listTwoLine?: string;
   listAvatar?: string;
   listNonInteractive?: string;
   tabBarScrollerScrollArea?: string;

@@ -221,7 +221,6 @@ import {
   IUseResetButtonWrapper,
   IUseServiceWrapper,
   IUseSortingWrapper,
-  IUseTwoLineWrapper,
   IValidateWrapper,
   IValidationGroupWrapper,
   IValueWrapper,
@@ -493,7 +492,6 @@ export interface ICardListConfiguration extends IUniversalListConfiguration<ICar
 export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
                                             IWebComponentConfiguration,
                                             ISimpleWrapper,
-                                            IUseTwoLineWrapper,
                                             IUseAvatarWrapper,
                                             INonInteractiveWrapper {
 }

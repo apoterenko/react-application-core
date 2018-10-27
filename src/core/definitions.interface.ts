@@ -1746,11 +1746,6 @@ export interface INonInteractiveWrapper {
   nonInteractive?: boolean;
 }
 
-/* @stable - 31.03.2018 */
-export interface IUseTwoLineWrapper {
-  useTwoLine?: boolean;
-}
-
 /* @stable - 24.04.2018 */
 export interface IAvatarWrapper<TAvatar> {
   avatar?: TAvatar;

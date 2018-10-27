@@ -309,7 +309,6 @@ export class UIMaterialFactory implements IUIFactory {
   public icons = 'material-icons';
   public toolbar = 'mdc-toolbar';
   public list = 'mdc-list';
-  public listTwoLine = 'mdc-list--two-line';
   public listAvatar = 'mdc-list--avatar-list';
   public listNonInteractive = 'mdc-list--non-interactive';
   public tabBarScrollerScrollArea = 'mdc-tab-scroller__scroll-area';
