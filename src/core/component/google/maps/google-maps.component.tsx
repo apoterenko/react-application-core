@@ -1,12 +1,14 @@
 import * as Promise from 'bluebird';
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { Menu, IMenu } from '../../menu';
-import { getGoogleMapsScript, DelayedTask, uuid, isString } from '../../../util';
+import { getGoogleMapsScript, DelayedTask, uuid, isString, orNull, isDef } from '../../../util';
 import { IGoogleMapsProps } from './google-maps.interface';
 import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import { IGoogleMaps } from './google-maps.interface';
+import { FlexLayout } from '../../layout';
 
 export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
   implements IGoogleMaps {
@@ -36,7 +38,9 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
     this.openMenu = this.openMenu.bind(this);
     this.initGoogleMapsObjects = this.initGoogleMapsObjects.bind(this);
 
-    this.delayedTask = new DelayedTask(this.openMenu, 200);
+    if (this.hasOptions) {
+      this.delayedTask = new DelayedTask(this.openMenu, 200);
+    }
   }
 
   /**
@@ -56,14 +60,17 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
-    this.delayedTask.stop();
+    if (isDef(this.delayedTask)) {
+      this.delayedTask.stop();
+    }
     this.cancelGoogleMapsScriptTaskIfPending();
 
     this.markersDragListeners.forEach((dragEndEventListener) => dragEndEventListener.remove());
-    if (this.clickEventListener) {
+
+    if (isDef(this.clickEventListener)) {
       this.clickEventListener.remove();
     }
-    if (this.dbClickEventListener) {
+    if (isDef(this.dbClickEventListener)) {
       this.dbClickEventListener.remove();
     }
 
@@ -81,15 +88,22 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <div className='rac-google-maps'>
+      <FlexLayout className='rac-google-maps'>
         <div ref='self'
-             className='rac-google-maps-map'/>
-        <Menu ref='menu'
-              renderToX={() => this.x + (this.self as HTMLElement).offsetLeft}
-              renderToY={() => this.y + (this.self as HTMLElement).offsetTop}
-              options={props.options}
-              onSelect={this.onMenuSelect}/>
-      </div>
+             className='rac-google-maps-map rac-flex-full'/>
+        {
+          orNull<JSX.Element>(
+            this.hasOptions,
+            () => (
+              <Menu ref='menu'
+                    renderToX={() => this.x + (this.self as HTMLElement).offsetLeft}
+                    renderToY={() => this.y + (this.self as HTMLElement).offsetTop}
+                    options={props.options}
+                    onSelect={this.onMenuSelect}/>
+            )
+          )
+        }
+      </FlexLayout>
     );
   }
 
@@ -218,8 +232,10 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
   private initGoogleMapsObjects(): void {
     this.map = new google.maps.Map(this.self);
 
-    this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
-    this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', () => this.delayedTask.stop());
+    if (this.hasOptions) {
+      this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
+      this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', () => this.delayedTask.stop());
+    }
 
     const props = this.props;
     if (props.onInit) {
@@ -233,5 +249,13 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
    */
   private get menu(): IMenu {
     return this.refs.menu as IMenu;
+  }
+
+  /**
+   * @stable [26.10.2018]
+   * @returns {boolean}
+   */
+  private get hasOptions(): boolean {
+    return !R.isNil(this.props.options);
   }
 }
