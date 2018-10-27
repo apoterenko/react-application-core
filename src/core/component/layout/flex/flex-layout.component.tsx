@@ -17,11 +17,14 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <div className={toClassName(
+        <div ref='self'
+             className={toClassName(
                             props.className,
                             'rac-flex',
                             props.row ? 'rac-flex-row' : 'rac-flex-column',
                             props.full && 'rac-flex-full',
+                            props.overflow && 'rac-flex-overflow',
+                            props.overflowMinContentHeight && 'rac-flex-overflow-min-content-height',
                             props.separator && 'rac-flex-separator',
                             props.alignItemsCenter && 'rac-flex-align-items-center',
                             props.alignItemsEnd && 'rac-flex-align-items-end',

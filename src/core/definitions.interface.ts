@@ -2485,6 +2485,20 @@ export interface IFullWrapper<TFull = boolean> {
 }
 
 /**
+ * @stable [27.10.2018]
+ */
+export interface IOverflowWrapper<TOverflow = boolean> {
+  overflow?: TOverflow;
+}
+
+/**
+ * @stable [27.10.2018]
+ */
+export interface IOverflowMinContentHeightWrapper<TOverflowMinContentHeight = boolean> {
+  overflowMinContentHeight?: TOverflowMinContentHeight;
+}
+
+/**
  * @stable [20.09.2018]
  */
 export interface ISeparatorWrapper<TSeparator = boolean> {

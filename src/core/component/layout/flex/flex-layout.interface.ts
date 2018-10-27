@@ -8,6 +8,8 @@ import {
   IJustifyContentCenterWrapper,
   IAlignItemsEndWrapper,
   IOnClickWrapper,
+  IOverflowWrapper,
+  IOverflowMinContentHeightWrapper,
 } from '../../../definitions.interface';
 
 /**
@@ -21,5 +23,7 @@ export interface IFlexLayoutProps extends IComponentProps,
                                           IJustifyContentCenterWrapper,
                                           IJustifyContentEndWrapper,
                                           IFullWrapper,
+                                          IOverflowWrapper,
+                                          IOverflowMinContentHeightWrapper,
                                           IRowWrapper {
 }

@@ -2,3 +2,29 @@
   -webkit-filter: invert($value);
   filter: invert($value);
 }
+
+/**
+ * @stable [27.10.2018]
+ */
+@mixin rac-flex-width ($value) {
+  min-width: $value + px;
+  max-width: $value + px;
+}
+
+/**
+ * @stable [27.10.2018]
+ */
+@mixin rac-flex-height ($value) {
+  min-height: $value + px;
+  max-height: $value + px;
+}
+
+/**
+ * @stable [27.10.2018]
+ */
+@mixin rac-circle ($width, $background: unset) {
+  width: $width + px;
+  height: $width + px;
+  border-radius: $width / 2 + px;
+  background: $background;
+}

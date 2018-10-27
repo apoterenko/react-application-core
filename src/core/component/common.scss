@@ -28,6 +28,17 @@ html, body {
     }
   }
 
+  .rac-triangle {
+    position: absolute;                                                             /* @stable [26.10.2018] */
+    width: 0;                                                                       /* @stable [26.10.2018] */
+    height: 0;                                                                      /* @stable [26.10.2018] */
+
+    &.rac-triangle-left-top {
+      border-left: $rac-triangle-size solid transparent;                            /* @stable [26.10.2018] */
+      border-top: $rac-triangle-size solid $rac-triangle-color;                     /* @stable [26.10.2018] */
+    }
+  }
+
   .rac-total {
     font-weight: bold;                                                              /* @stable [14.10.2018] */
     text-transform: uppercase;                                                      /* @stable [14.10.2018] */
