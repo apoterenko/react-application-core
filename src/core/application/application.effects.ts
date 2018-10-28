@@ -2,10 +2,11 @@ import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton } from '../di';
-import { IRootUpdatePathPayload, RootActionBuilder } from '../component/root';
-import { FormActionBuilder } from '../component/form';
-import { ApplicationActionBuilder } from '../component/application';
-import { LayoutActionBuilder } from '../component/layout';
+import { IRootUpdatePathPayload } from '../component/root/root.interface';
+import { RootActionBuilder } from '../component/root/root-action.builder';
+import { FormActionBuilder } from '../component/form/form-action.builder';
+import { ApplicationActionBuilder } from '../component/application/application-action.builder';
+import { LayoutActionBuilder } from '../component/layout/layout-action.builder';
 import { UniversalApplicationEffects } from './universal-application.effects';
 
 @provideInSingleton(ApplicationEffects)
