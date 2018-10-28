@@ -4,7 +4,7 @@ import {
   IRefreshedListMiddlewareConfig,
   IRefreshedListOnValidateFormMiddlewareConfig,
 } from './middleware.interface';
-import { ListActionBuilder } from '../../component/list';
+import { ListActionBuilder } from '../../component/action.builder';
 import { IPayloadWrapper, IValidWrapper } from '../../definitions.interface';
 import { ToolbarActionEnum } from '../../configurations-definitions.interface';
 

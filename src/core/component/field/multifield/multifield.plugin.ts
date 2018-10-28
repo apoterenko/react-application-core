@@ -3,7 +3,6 @@ import {
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
   MultiFieldEntityT,
-  IMultiItemEntity,
 } from './multifield.interface';
 import {
   toActualMultiItemEntities,
@@ -16,6 +15,7 @@ import {
   toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
 } from './multifield.support';
+import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { IEntity } from '../../../definitions.interface';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {

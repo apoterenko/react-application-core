@@ -2,13 +2,13 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { AnyT } from '../../definitions.interface';
-import { DictionariesActionBuilder } from '../../dictionary';
+import { DictionariesActionBuilder } from '../../dictionary/dictionaries-action.builder';
 import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { UniversalContainer } from './universal.container';
 import { IContainer } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
-import { IUniversalDialog } from '../dialog';
+import { IUniversalDialog } from '../dialog/dialog.interface';
 
 export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
     extends UniversalContainer<TProps, TState>

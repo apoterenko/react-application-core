@@ -1,4 +1,4 @@
-import { Dialog } from '../../dialog';
+import { Dialog } from '../../dialog/dialog.component';
 
 import { IFormDialogProps } from './form-dialog.interface';
 

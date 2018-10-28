@@ -1,7 +1,7 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { FormActionBuilder } from '../../component/form/form-action.builder';
+import { FormActionBuilder } from '../../component/action.builder';
 import {
   IRefreshedListOnValidateFormMiddlewareConfig,
   makeRefreshedListOnValidateFormMiddleware,

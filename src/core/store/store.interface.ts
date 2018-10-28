@@ -1,6 +1,6 @@
 import { AnyAction, Reducer } from 'redux';
 
-import { rootReducer } from '../component/root';
+import { rootReducer } from '../component/root/root.reducer';
 import { notificationReducer } from '../notification';
 import { dictionariesReducer } from '../dictionary';
 import { permissionsReducer } from '../permissions';

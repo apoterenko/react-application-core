@@ -1,13 +1,15 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { FilterActionBuilder } from '../../component/filter';
-import { ListActionBuilder } from '../../component/list';
+import {
+  ListActionBuilder,
+  FormActionBuilder,
+  FilterActionBuilder,
+  ToolbarActionBuilder,
+} from '../../component/action.builder';
 import { RouterActionBuilder } from '../../router';
 import { StackActionBuilder } from '../stack';
-import { FormActionBuilder } from '../../component/form';
 import { makeFilterManualApplyMiddleware } from '../middleware';
-import { ToolbarActionBuilder } from '../../component/toolbar';
 import { makeRefreshedListMiddleware } from '../middleware';
 
 export function makeFilteredListEffectsProxy(

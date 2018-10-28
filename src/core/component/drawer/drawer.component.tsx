@@ -3,7 +3,7 @@ import * as React from 'react';
 import { IDrawerProps } from './drawer.interface';
 import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex/flex-layout.component';
 
 export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
 

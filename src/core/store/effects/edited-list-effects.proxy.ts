@@ -2,11 +2,10 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { excludeIdFieldFilter } from '../../util';
 import { provideInSingleton } from '../../di';
-import { ListActionBuilder } from '../../component/list';
-import { RouterActionBuilder } from '../../router';
-import { CustomActionBuilder } from '../../action';
 import { IEntity } from '../../definitions.interface';
-import { FormActionBuilder } from '../../component/form';
+import { ListActionBuilder, FormActionBuilder } from '../../component/action.builder';
+import { RouterActionBuilder } from '../../router/router-action.builder';
+import { CustomActionBuilder } from '../../action/custom/custom-action.builder';
 import { makeSelectEntityMiddleware, makeCreateEntityMiddleware } from '../middleware';
 
 export function makeEditedListEffectsProxy<TEntity extends IEntity,

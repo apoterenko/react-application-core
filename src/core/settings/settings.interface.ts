@@ -1,7 +1,7 @@
 import { ENV } from '../env';
 import { ApplicationStorageTypeEnum } from '../storage';
 import { AnyT } from '../definitions.interface';
-import { prepareUrl } from '../util/url';
+import { prepareUrl } from '../util';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;

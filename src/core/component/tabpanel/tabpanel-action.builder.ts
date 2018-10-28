@@ -5,7 +5,6 @@ import {
   TAB_PANEL_DESTROY_ACTION_TYPE
 } from './tabpanel.interface';
 import { applySection, toActionPrefix } from '../../util';
-import { ACTION_PREFIX } from '../../definitions.interface';
 
 export class TabPanelActionBuilder {
 

@@ -2,8 +2,7 @@ import { EffectsService, EffectsActionBuilder, IEffectsAction } from 'redux-effe
 
 import { provideInSingleton } from '../../di';
 import { NotificationActionBuilder } from '../../notification';
-import { FormActionBuilder } from '../../component/form';
-import { ListActionBuilder } from '../../component/list';
+import { ListActionBuilder, FormActionBuilder } from '../../component/action.builder';
 
 export const makeFailedEffectsProxy = (actionType: string,
                                        actionsResolver?: (action: IEffectsAction) => IEffectsAction[]): () => void =>

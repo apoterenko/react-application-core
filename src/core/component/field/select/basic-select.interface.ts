@@ -8,7 +8,7 @@ import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
 import {
   IBasicTextFieldProps,
-} from '../textfield';
+} from '../textfield/basic-textfield.interface';
 import { IFieldState } from '../field/field.interface';
 
 /**

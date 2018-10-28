@@ -1,7 +1,7 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { FormActionBuilder } from '../../component/form';
+import { FormActionBuilder } from '../../component/action.builder';
 import { makeSucceedFormMiddleware, ISucceedFormMiddlewareConfig } from '../middleware';
 
 /**

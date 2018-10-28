@@ -5,7 +5,7 @@ import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 import { IApplicationSettings } from '../settings';
 import { ENV } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';
-import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage';
+import { APPLICATION_STATE_KEY, IApplicationStorage } from '../storage/storage.interface';
 import { universalReducers } from '../store/universal-default-reducers.interface';
 
 export async function buildUniversalStore<TState>(reducers: ReducersMapObject,

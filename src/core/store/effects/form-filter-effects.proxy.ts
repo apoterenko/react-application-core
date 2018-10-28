@@ -7,7 +7,7 @@ import {
   makeFormFilterClearMiddleware,
   IFormFilterMiddlewareConfig,
 } from '../middleware';
-import { FormActionBuilder } from '../../component/form';
+import { FormActionBuilder } from '../../component/action.builder';
 
 /**
  * @stable [02.06.2018]

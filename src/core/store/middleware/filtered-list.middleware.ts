@@ -1,8 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { IFilteredListMiddlewareConfig } from './middleware.interface';
-import { ListActionBuilder } from '../../component/list';
-import { FilterActionBuilder } from '../../component/filter';
+import { ListActionBuilder, FilterActionBuilder } from '../../component/action.builder';
 
 /**
  * @stable [06.07.2018]

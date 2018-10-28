@@ -2,14 +2,16 @@ import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton } from '../../di';
-import { FormActionBuilder } from '../../component/form';
-import { ListActionBuilder } from '../../component/list';
+import {
+  ListActionBuilder,
+  FormActionBuilder,
+  FilterActionBuilder,
+  TabPanelActionBuilder,
+} from '../../component/action.builder';
 import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
 import { StackActionBuilder } from './stack-action.builder';
 import { getDestroyableSections } from './stack.helper';
-import { FilterActionBuilder } from '../../component/filter';
 import { IApplicationStoreEntity } from '../../entities-definitions.interface';
-import { TabPanelActionBuilder } from '../../component/tabpanel';
 
 @provideInSingleton(ConnectorEffects)
 export class ConnectorEffects {

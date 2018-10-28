@@ -1,13 +1,12 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { ListActionBuilder } from '../../component/list';
+import { ListActionBuilder, FormActionBuilder } from '../../component/action.builder';
 import {
   IFormFilterSubmitMiddlewareConfig,
   IFormFilterResetMiddlewareConfig,
   IFormFilterClearMiddlewareConfig,
 } from './middleware.interface';
 import { StackActionBuilder } from '../stack';
-import { FormActionBuilder } from '../../component/form';
 import { RouterActionBuilder } from '../../router';
 
 /**

@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 
 import { lazyInject, DI_TYPES } from '../di';
 import { IBlobEntity } from '../definitions.interface';
-import { IMultiEntity } from '../component/field';
+import { IMultiEntity } from '../entities-definitions.interface';
 import { toBlobEntities } from '../util';
 import {
   ISetFileResult,

@@ -6,8 +6,8 @@ import {
   AnyT,
 } from '../../../definitions.interface';
 import { BasicSelect } from '../../field/select';
-import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiItemEntity, IMultiField } from './multifield.interface';
+import { ISelectOptionEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
+import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 import { toClassName } from '../../../util';
 

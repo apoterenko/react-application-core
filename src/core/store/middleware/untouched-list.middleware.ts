@@ -2,7 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import { orNull } from '../../util';
-import { ListActionBuilder } from '../../component/list/list-action.builder';
+import { ListActionBuilder } from '../../component/action.builder';
 import { IUntouchedListMiddlewareConfig } from './middleware.interface';
 
 /**

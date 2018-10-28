@@ -5,7 +5,7 @@ import { RouterActionBuilder } from '../../router';
 import { StackActionBuilder } from '../stack';
 import { ISelectedWrapper, IEntity } from '../../definitions.interface';
 import { IEditedListMiddlewareConfig } from './middleware.interface';
-import { ListActionBuilder } from '../../component/list';
+import { ListActionBuilder } from '../../component/action.builder';
 
 /**
  * @stable [02.07.2018]

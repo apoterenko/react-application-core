@@ -1,13 +1,11 @@
 import {
   EntityIdT,
   IEntity,
-  IEntityIdTWrapper,
-  INewEntityWrapper,
   INotUseActiveValueFilterWrapper,
 } from '../../../definitions.interface';
-import { IFieldChangeEntity } from '../../../entities-definitions.interface';
-import { IBasicSelectState, IBasicSelectProps } from '../select';
-import { IField } from '../field';
+import { IMultiEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
+import { IBasicSelectState, IBasicSelectProps } from '../select/basic-select.interface';
+import { IField } from '../field/field.interface';
 
 /**
  * @stable [01.06.2018]
@@ -49,30 +47,12 @@ export interface IMultiFieldChangesEntity {
 }
 
 /**
- * @stable [01.07.2018]
- */
-export interface IMultiItemEntity extends IEntityIdTWrapper,
-                                          IFieldChangeEntity,
-                                          INewEntityWrapper {
-}
-
-/**
  * @stable [19.08.2018]
  */
 export interface IMultiField extends IField {
   deleteItem(item: IMultiItemEntity): void;
   editItem(item: IMultiItemEntity): void;
   mergeItem(item: IMultiItemEntity): void;
-}
-
-/**
- * @stable [04.07.2018]
- */
-export interface IMultiEntity {
-  add: IEntity[];
-  remove: IMultiItemEntity[];
-  edit: IMultiItemEntity[];
-  source?: IEntity[];
 }
 
 /**

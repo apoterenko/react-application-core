@@ -14,13 +14,11 @@ export * from './component/base/vue-index';
 export * from './component/form/vue-index';
 export * from './component/list/vue-index';
 export * from './component/connector/vue-index';
-export * from './component/list/list-action.builder';
-export * from './store/store.module'; // TODO rename
-export * from './store/store.support';
-export * from './store/effects/vue-index';
+export * from './store/vue-index';
+export * from './router/vue-index';
+export * from './component/action.builder';
 export * from './di';
 export * from './util';
-export * from './router/vue-index';
 export {
   IApplicationTransport,
 } from './transport/transport.interface';

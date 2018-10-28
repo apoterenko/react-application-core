@@ -11,13 +11,12 @@ import {
   isFn,
 } from '../../../util';
 import {
-  IMultiEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
-  IMultiItemEntity,
   MultiFieldSingleValueT,
   IMultiFieldChangesEntity,
 } from './multifield.interface';
+import { IMultiEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
 
 /**
  * @stable [18.08.2018]

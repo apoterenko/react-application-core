@@ -1,8 +1,7 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
-import { ToolbarActionBuilder } from '../../component/toolbar';
+import { ListActionBuilder, ToolbarActionBuilder } from '../../component/action.builder';
 import { provideInSingleton } from '../../di';
-import { ListActionBuilder } from '../../component/list';
 
 export function makePaginatedListEffectsProxy(section: string): () => void {
   return (): void => {

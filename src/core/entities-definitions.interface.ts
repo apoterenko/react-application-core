@@ -853,6 +853,24 @@ export interface IGridColumnEntity extends IComponentEntity,
 }
 
 /**
+ * @stable [01.07.2018]
+ */
+export interface IMultiItemEntity extends IEntityIdTWrapper,
+                                          IFieldChangeEntity,
+                                          INewEntityWrapper {
+}
+
+/**
+ * @stable [04.07.2018]
+ */
+export interface IMultiEntity {
+  add: IEntity[];
+  remove: IMultiItemEntity[];
+  edit: IMultiItemEntity[];
+  source?: IEntity[];
+}
+
+/**
  * @stable [12.09.2018]
  */
 export interface IEnvironmentPlatformOsEntity {

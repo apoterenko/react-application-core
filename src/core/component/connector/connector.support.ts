@@ -5,7 +5,7 @@ import {
 } from '../../configurations-definitions.interface';
 import { IStackEntity } from '../../entities-definitions.interface';
 import { isFn } from '../../util';
-import { toAllDependentSections } from '../../store';
+import { toAllDependentSections } from '../../store/stack/stack.support';
 
 /**
  * @stable [18.09.2018]
