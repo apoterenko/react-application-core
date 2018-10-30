@@ -6,6 +6,8 @@ import { getContentHeight } from '../../util';
 
 export class AutoScrollTopPlugin implements IUniversalComponentPlugin {
 
+  private contentHeight: number;
+
   /**
    * @stable [27.10.2018]
    * @param {IUniversalComponent} component
@@ -34,6 +36,11 @@ export class AutoScrollTopPlugin implements IUniversalComponentPlugin {
    */
   private updateScrollTop(): void {
     const el = this.component.self;
-    el.scrollTop = getContentHeight(el);
+    const contentHeight = getContentHeight(el);
+
+    if (this.contentHeight !== contentHeight) {
+      el.scrollTop = getContentHeight(el);
+      this.contentHeight = contentHeight;
+    }
   }
 }

@@ -162,6 +162,10 @@ export class DateConverter implements IDateConverter {
     return this.getCurrentMomentDate().subtract(days, 'days').toDate();
   }
 
+  public addXDays(date: Date, days: number): Date {
+    return this.toMomentDate(date).add(days, 'days').toDate();
+  }
+
   /**
    * @returns {Date}
    */
@@ -206,7 +210,7 @@ export class DateConverter implements IDateConverter {
     return this.parseDate(date, this.dateTimeFormat);
   }
 
-  public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat): DateTimeLikeTypeT {
+  public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat = this.dateTimeSettings.uiDateFormat): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
     return momentDate.isValid() ? momentDate.toDate() : date;
   }

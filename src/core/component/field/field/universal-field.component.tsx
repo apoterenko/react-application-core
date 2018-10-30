@@ -686,7 +686,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   private propsOnChange(rawValue: AnyT): void {
     const props = this.props;
     if (props.onChange) {
-      props.onChange(rawValue);
+      props.onChange(props.returnSerializedValueOnChange ? this.toSerializedValue(rawValue) : rawValue);
     }
   }
 

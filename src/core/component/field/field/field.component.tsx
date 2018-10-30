@@ -2,7 +2,17 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
 
-import { toClassName, orNull, cancelEvent, isElementFocused, IJqInput, orUndef, defValuesFilter } from '../../../util';
+import {
+  addClassNameToElement,
+  removeClassNameFromElement,
+  toClassName,
+  orNull,
+  cancelEvent,
+  isElementFocused,
+  IJqInput,
+  orUndef,
+  defValuesFilter,
+} from '../../../util';
 import {
   AnyT,
   IKeyboardEvent,
@@ -132,9 +142,22 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
-   * @stable [18.06.2018]
-   * @returns {JSX.Element}
+   * @stable [30.10.2018]
+   * @param {IFocusEvent} event
    */
+  protected onBlur(event: IFocusEvent): void {
+    super.onBlur(event);
+    removeClassNameFromElement(this.input, 'rac-field-focused');
+  }
+
+  /**
+   * @stable [30.10.2018]
+   * @param {IFocusEvent} event
+   */
+  protected onFocus(event: IFocusEvent): void {
+    super.onFocus(event);
+    addClassNameToElement(this.input, 'rac-field-focused');
+  }
 
   /**
    * @stable [31.08.2018]
@@ -205,9 +228,10 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       props.readOnly && 'rac-field-readonly',
       props.label && 'rac-field-labeled',
       props.active && 'rac-field-active',
+      props.passive && 'rac-field-passive',
+      props.preventFocus && 'rac-field-prevent-focus',
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
-      props.className,
-      'rac-form-field'   // TODO Legacy
+      props.className
     );
   }
 

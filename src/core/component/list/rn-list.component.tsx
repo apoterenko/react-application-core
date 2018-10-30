@@ -58,7 +58,7 @@ export class RnList extends UniversalList<RnList, IRnListProps> {
                   key={rowKey}
                   rawData={entity}
                   separators={separators}
-                  active={this.isEntitySelected(entity)}
+                  selected={this.isEntitySelected(entity)}
                   onClick={() => this.onSelect(entity)}
                   {...props.itemConfiguration}/>
     );

@@ -12,7 +12,6 @@ import { Checkbox, Switch } from '../field';
 import { IUIFactory } from '../factory';
 import {
   DialogMaterialPlugin,
-  ListItemMaterialPlugin,
   MaterialPlugin,
   MenuMaterialPlugin,
   TabPanelMaterialPlugin,
@@ -20,7 +19,6 @@ import {
 } from './plugin';
 import { UIMaterialFactory } from './factory';
 import { Menu } from '../menu';
-import { ListItem } from '../list';
 import { TabPanel } from '../tabpanel';
 import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
@@ -67,9 +65,6 @@ uiPlugins.set(FormDialog, (component: FormDialog) => new DialogMaterialPlugin<Di
 
 /* @stable - 31.03.2018 */
 uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component));
-
-/* @stable - 31.03.2018 */
-uiPlugins.set(ListItem, (component: ListItem) => new ListItemMaterialPlugin<ListItem>(component, MDCRipple));
 
 /**
  * @stable [05.05.2018]

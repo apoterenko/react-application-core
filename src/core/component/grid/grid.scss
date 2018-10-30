@@ -200,8 +200,8 @@
         }
 
         &.rac-grid-row-selected {
-          font-weight: $rac-grid-data-row-selected-font-weight;              /* @stable [01.09.2018] */
-          background-color: $rac-grid-data-row-selected-background-color;    /* @stable [21.06.2018] */
+          font-weight: $rac-grid-data-row-selected-font-weight;                 /* @stable [01.09.2018] */
+          background: $rac-grid-data-row-selected-background;                   /* @stable [21.06.2018] */
         }
 
         &:hover {

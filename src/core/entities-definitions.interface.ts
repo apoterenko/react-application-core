@@ -120,6 +120,7 @@ import {
   ITextAlignWrapper,
   IExpandedGroupsWrapper,
   IRawDataWrapper,
+  IMiniWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -477,7 +478,7 @@ export interface IUniversalListEntity extends IUniversalComponentEntity,
 export interface IUniversalListItemEntity extends IUniversalComponentEntity,
                                                   IRawDataWrapper,
                                                   IEntityOnClickWrapper,
-                                                  IActiveWrapper {
+                                                  ISelectedWrapper {
 }
 
 /* @stable [24.04.2018] */
@@ -589,7 +590,8 @@ export interface IUniversalButtonEntity extends IUniversalComponentEntity,
                                                 IDisabledWrapper,
                                                 IStringProgressMessageWrapper,
                                                 IStringErrorMessageWrapper,
-                                                IErrorEntity {
+                                                IErrorEntity,
+                                                IMiniWrapper {
 }
 
 /* @stable [23.04.2018] */

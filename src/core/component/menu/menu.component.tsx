@@ -95,7 +95,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
               </FlexLayout>
             )
           )}
-          <SimpleList>
+          <SimpleList className={this.uiFactory.list}>
             {
               this.menuItems.map((option): JSX.Element => (
                   <li role='option'

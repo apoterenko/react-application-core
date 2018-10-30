@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../../component/base';
 import { toClassName, orNull } from '../../util';
@@ -19,14 +20,20 @@ export class Button extends BaseComponent<Button, IButtonProps> {
   public render(): JSX.Element {
     const props = this.props;
     const buttonText = getButtonText(props, this.settings.messages);
+    const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
+    const hasIcon = props.icon !== false;
 
     const className = toClassName(
-        !props.notApplyFrameworkClassName && this.uiFactory.button,
-        'rac-button',
-        props.submitted && 'rac-submitted-button',
-        props.outlined && toClassName('rac-button-outlined', this.uiFactory.buttonOutlined),
-        props.raised && toClassName('rac-button-raised', this.uiFactory.buttonRaised),
-        props.className
+      'rac-button',
+      'rac-flex',
+      'rac-flex-row',
+      hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
+      hasIcon ? 'rac-button-decorated' : 'rac-button-not-decorated',
+      props.mini && 'rac-button-mini',
+      props.submitted && 'rac-submitted-button',
+      props.outlined && 'rac-button-outlined',
+      props.raised && 'rac-button-raised',
+      props.className
     );
 
     if (props.to) {
@@ -37,6 +44,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
           </Link>
       );
     }
+
     return (
         <button type={props.type}
                 title={props.title}
@@ -45,17 +53,21 @@ export class Button extends BaseComponent<Button, IButtonProps> {
                 disabled={isButtonDisabled(props)}>
           {
             orNull<JSX.Element>(
-              props.icon !== null,    // Prevent show any icons
-              () => this.uiFactory.makeIcon({
-                type: getButtonIcon(props, 'timelapse', 'error'),
-                className: 'rac-button-icon',
-              })
+              hasIcon,
+              () => this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))
             )
           }
-          <div className='rac-button-content'>
-            {orNull<string>(buttonText, () => this.t(buttonText))}
-            {props.children}
-          </div>
+          {
+            orNull<JSX.Element>(
+              hasContent,
+              () => (
+                <div className='rac-button-content'>
+                  {orNull<string>(buttonText, () => this.t(buttonText))}
+                  {props.children}
+                </div>
+              )
+            )
+          }
         </button>
     );
   }

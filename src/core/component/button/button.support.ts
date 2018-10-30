@@ -42,5 +42,5 @@ export const getButtonIcon = (entity: UniversalButtonEntityT,
                               errorIcon: string): string => (
   entity.progress
     ? progressIcon
-    : (entity.error ? errorIcon : entity.icon)
+    : (entity.error ? errorIcon : entity.icon as string)
 );

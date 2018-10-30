@@ -38,6 +38,7 @@ export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
                     props.subBorder && 'rac-sub-header-bordered'
                   )}>
         <FlexLayout row={true}
+                    full={R.isNil(props.items)}
                     alignItemsCenter={true}>
           {orNull<JSX.Element>(
             props.navigationActionType,

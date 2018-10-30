@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName } from '../../util';
+import { toClassName, isOddNumber } from '../../util';
 import { IEntity } from '../../definitions.interface';
 import { ListItem } from './item';
 import { SimpleList } from '../list/simple';
@@ -10,18 +10,14 @@ import { IListProps } from '../../props-definitions.interface';
 export class List extends BaseList<List, IListProps> {
 
   /**
-   * [23.04.2018]
+   * [30.10.2018]
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
     const props = this.props;
     return (
       <SimpleList ref='container'
-                  nonInteractive={false}
-                  useAvatar={true}
-                  simple={false}
-                  {...props}
-                  className={toClassName('rac-list', props.className)}>
+                  {...props}>
         {this.dataSource.map((item, index) => this.getItem(item, index))}
         {this.addActionElement}
       </SimpleList>
@@ -41,10 +37,15 @@ export class List extends BaseList<List, IListProps> {
       <ListItem ref={rowKey}
                 key={rowKey}
                 rawData={entity}
-                active={this.isEntitySelected(entity)}
+                selected={this.isEntitySelected(entity)}
                 onClick={this.onSelect}
                 {...props.itemConfiguration}
-                className={toClassName(props.itemConfiguration.className, index % 2 === 0 ? 'rac-list-item-odd' : '')}/>
+                className={
+                  toClassName(
+                    props.itemConfiguration.className,
+                    props.applyOdd !== false && (isOddNumber(index) ? 'rac-list-item-odd' : '')
+                  )
+                }/>
     );
   }
 }

@@ -28,3 +28,70 @@
   border-radius: $width / 2 + px;
   background: $background;
 }
+
+/**
+ * @stable [28.10.2018]
+ */
+@mixin rac-shadowed ($background,
+                     $shadow,
+                     $offset1: 0,
+                     $offset2: 4,
+                     $offset3: 3,
+                     $offset4: 0) {
+  background: $background;
+  box-shadow: $offset1 + px $offset2 + px $offset3 + px $offset4 + px $shadow;
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-google-maps($rac-google-maps-map-min-height: unset) {
+
+  .rac-google-maps {
+    .rac-google-maps-map {
+
+      @if $rac-google-maps-map-min-height != unset {
+        min-height: $rac-google-maps-map-min-height;
+      }
+    }
+  }
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-field($rac-field-width: unset,
+                 $rac-text-field-background: unset) {
+
+  .rac-field {
+    @if $rac-field-width != unset {
+      width: $rac-field-width;
+    }
+
+    .rac-text-field {
+      @if $rac-text-field-background != unset {
+        background: $rac-text-field-background;
+      }
+    }
+  }
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-field-custom($rac-field-custom,
+                        $rac-field-custom-input-cursor: unset) {
+
+  .rac-field {
+    &.#{$rac-field-custom} {
+
+      .rac-text-field {
+        .rac-field-input {
+          @if $rac-field-custom-input-cursor != unset {
+            cursor: $rac-field-custom-input-cursor;
+          }
+        }
+      }
+    }
+  }
+}

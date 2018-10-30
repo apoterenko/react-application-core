@@ -10,10 +10,6 @@ import { IListItem } from './list-item.interface';
 export class ListItem extends BaseComponent<ListItem, IListItemProps>
   implements IListItem {
 
-  public static defaultProps: IListItemProps = {
-    rippable: true,
-  };
-
   private readonly initialProps = {
     ref: 'self',
     onClick: this.onActionClick.bind(this),
@@ -24,12 +20,13 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps>
     const defaultProps = {
       ...this.initialProps,
       className: toClassName(
-          'rac-list-item',
-          this.uiFactory.listItem,
-          props.rippable && this.uiFactory.rippleSurface,
-          props.className,
-          props.warning && 'rac-list-item-warning',
-          props.toClassName && props.toClassName(props.rawData)
+        'rac-list-item',
+        props.selected && 'rac-list-item-selected',
+        props.className,
+        props.warning && 'rac-list-item-warning',
+        props.toClassName && props.toClassName(props.rawData),
+        'rac-flex',
+        'rac-flex-row'
       ),
     };
 

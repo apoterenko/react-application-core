@@ -8,7 +8,7 @@
 
     &.rac-menu-centered {
 
-      .rac-simple-list {
+      .rac-list {
         overflow: auto;                                       /* @stable [04.10.2018] */
       }
     }
@@ -24,7 +24,7 @@
       padding: $rac-menu-field-wrapper-padding;               /* @stable [04.10.2018] */
     }
 
-    .rac-simple-list {
+    .rac-list {
       max-height: $rac-menu-simple-list-max-height;           /* @stable [25.06.2018] */
 
       .rac-list-item {

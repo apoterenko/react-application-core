@@ -113,7 +113,7 @@ export class AddressField extends BasicTextField<AddressField, IAddressFieldProp
               onClose={this.onDialogClose}
               onAccept={this.onDialogAccept}>
         {orNull<JSX.Element>(
-          currentPlace, () => <div className='rac-dialog-addressfield-place'>{currentPlace}</div>)
+          currentPlace, () => <div className='rac-dialog-address-field-place'>{currentPlace}</div>)
         }
         <GoogleMaps ref='googleMaps'
                     onInit={this.initGoogleMapsObjects}

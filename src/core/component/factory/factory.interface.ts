@@ -1,6 +1,7 @@
 import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
 
 export interface IUIFactory {
+  list?: string;
   switch?: string;
   switchInput?: string;
   switchInputWrapper?: string;
@@ -15,13 +16,8 @@ export interface IUIFactory {
   toolbar?: string;
   listGroupSubHeader?: string;
   listDivider?: string;
-  listItem?: string;
-  listItemGraphic?: string;
   listItemMeta?: string;
   listItemText?: string;
-  list?: string;
-  listAvatar?: string;
-  listNonInteractive?: string;
   tabBarScrollerScrollArea?: string;
   tabBarScrollerScrollAreaScroll?: string;
   tabBarScrollerScrollContent?: string;
@@ -37,9 +33,6 @@ export interface IUIFactory {
   tabIndicatorContent?: string;
   tabIndicatorContentUnderline?: string;
   tabBarScroller?: string;
-  button?: string;
-  buttonOutlined?: string;
-  buttonRaised?: string;
   textFieldBox?: string;
   checkbox?: string;
   checkboxInput?: string;

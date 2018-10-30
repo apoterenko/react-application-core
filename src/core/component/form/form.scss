@@ -10,21 +10,10 @@
       .rac-button {
         margin-left: $rac-form-actions-button-margin-left;                          /* @stable [10.10.2018] */
         min-width: $rac-form-actions-button-min-width;                              /* @stable [21.09.2018] */
-
-        .rac-button-content {
-          padding-right: $rac-form-actions-button-content-padding-right;            /* @stable [11.10.2018] */
-        }
       }
     }
 
-    .rac-list, .rac-simple-list {
-
-      .rac-list-item {
-        padding: 0;                                                                 /* @stable [23.06.2018] */
-      }
-    }
-
-    .rac-simple-list {
+    .rac-list {
 
       .rac-list-group-subheader {
         padding-left: 0;                                                            /* @stable [28.06.2018] */

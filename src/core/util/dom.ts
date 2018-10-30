@@ -54,6 +54,14 @@ export const addClassNameToElement = (element: Element, ...clsName: string[]): v
   element.classList.add(...clsName);
 
 /**
+ * @stable [30.10.2018]
+ * @param {Element} element
+ * @param {string} clsName
+ */
+export const removeClassNameFromElement = (element: Element, ...clsName: string[]): void =>
+  element.classList.remove(...clsName);
+
+/**
  * @stable [01.10.2018]
  * @param {string} rootId
  */

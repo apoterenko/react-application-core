@@ -132,8 +132,6 @@ import {
   IMultiWrapper,
   INameWrapper,
   INavigationActionTypeWrapper,
-  INonInteractiveWrapper,
-  INotApplyFrameworkClassNameWrapper,
   INotUseActionsWrapper,
   INotUseFieldWrapper,
   IOnBlurWrapper,
@@ -210,7 +208,6 @@ import {
   IUnregisterWrapper,
   IUrlWrapper,
   IUseAddActionWrapper,
-  IUseAvatarWrapper,
   IUseDrawerWrapper,
   IUseFilterWrapper,
   IUseGroupingWrapper,
@@ -226,6 +223,8 @@ import {
   IValueWrapper,
   IWarningWrapper,
   IWidthWrapper,
+  IReturnSerializedValueOnChangeWrapper,
+  IPassiveWrapper,
 } from './definitions.interface';
 import {
   IApiEntity,
@@ -434,7 +433,6 @@ export interface IRnListItemConfiguration extends IUniversalListItemConfiguratio
 export interface IListItemConfiguration extends IUniversalListItemConfiguration,
                                                 IWebComponentConfiguration,
                                                 IEntityToClassNameWrapper,
-                                                IRippableWrapper,
                                                 IIconWrapper<UIIconConfigurationT> {
 }
 
@@ -490,10 +488,7 @@ export interface ICardListConfiguration extends IUniversalListConfiguration<ICar
 
 /* @stable - 04.04.2018 */
 export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
-                                            IWebComponentConfiguration,
-                                            ISimpleWrapper,
-                                            IUseAvatarWrapper,
-                                            INonInteractiveWrapper {
+                                            IWebComponentConfiguration {
 }
 
 /**
@@ -628,7 +623,7 @@ export interface IUniversalButtonConfiguration extends IUniversalComponentConfig
                                                        IOnClickWrapper,
                                                        ITextWrapper,
                                                        ISubmittedWrapper,
-                                                       IIconWrapper {
+                                                       IIconWrapper<string | boolean> {
 }
 
 /* @stable - 07.04.2018 */
@@ -637,7 +632,6 @@ export interface IButtonConfiguration extends IUniversalButtonConfiguration,
                                               IOutlinedWrapper,
                                               IStringToWrapper,
                                               IRaisedWrapper,
-                                              INotApplyFrameworkClassNameWrapper,
                                               ISimpleWrapper,
                                               ITypeWrapper {
 }
@@ -711,9 +705,11 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IValidateWrapper<string>,
           IFieldRenderedWrapper,
           IActiveWrapper,
+          IPassiveWrapper,
           IFullWrapper,
           IChangeableWrapper,
-          IDefaultValue {
+          IDefaultValue,
+          IReturnSerializedValueOnChangeWrapper {
 }
 
 /* @stable - 11.04.2018 */

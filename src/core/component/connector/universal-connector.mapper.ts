@@ -204,6 +204,16 @@ export const filterFormChangesWrapperMapper = <TResult = IEntity>(filterFormWrap
   } as TResult);
 
 /**
+ * @stable [29.10.2018]
+ * @param {IFormWrapperEntity} formWrapperEntity
+ * @returns {TResult}
+ */
+export const formChangesWrapperMapper = <TResult extends IEntity = IEntity>(formWrapperEntity: IFormWrapperEntity): TResult =>
+  ({
+    ...formWrapperEntity.form.changes,
+  } as TResult);
+
+/**
  * @stable [05.08.2018]
  * @param {IQueryFilterWrapperEntity} queryFilterWrapperEntity
  * @returns {IQueryWrapper}

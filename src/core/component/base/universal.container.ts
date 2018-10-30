@@ -163,10 +163,10 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 25.04.2018
-   * @param {IKeyValue} changes
+   * @stable [29.10.2018]
+   * @param {TChanges} changes
    */
-  protected dispatchFormChanges(changes: IKeyValue): void {
+  protected dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void {
     this.appStore.dispatch(
       FormActionBuilder.buildChangesSimpleAction(this.props.sectionName, changes)
     );

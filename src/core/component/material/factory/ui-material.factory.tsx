@@ -84,6 +84,7 @@ import {
   faUserClock,
   faUndo,
   faArrowRight,
+  faArrowLeft,
   faMapMarkedAlt,
   faSignInAlt,
   faExclamationCircle,
@@ -99,6 +100,7 @@ import {
   faTimesCircle,
   faBarcode,
   faRetweet,
+  faArrowUp,
   faArrowAltCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -120,11 +122,11 @@ import {
   faArrowAltCircleLeft,
   faArrowAltCircleUp as faArrowAltCircleUpRegular,
   faMinusSquare,
-  faComments,
+  faComments as faCommentsRegular,
   faThumbsUp,
   faPlusSquare,
   faIdCard,
-  faClock as faRegularClock,
+  faClock as faClockRegular,
   faAddressCard,
   faPlayCircle as faPlayCircleRegular,
   faObjectGroup as faObjectGroupRegular,
@@ -161,7 +163,6 @@ export class UIMaterialFactory implements IUIFactory {
     shipping_fast: faShippingFast,
     stop_circle_regular: faStopCircleRegular,
     file: faFileAlt,
-    comments: faComments,
     menu: faBars,
     category: faCodepen,
     local_offer: faTag,
@@ -171,6 +172,7 @@ export class UIMaterialFactory implements IUIFactory {
     long_arrow_alt_right: faLongArrowAltRight,
     long_arrow_alt_left: faLongArrowAltLeft,
     timelapse: faSpinner,
+    arrow_up: faArrowUp,
     http: faExchangeAlt,
     exchange: faExchangeAlt,
     user_clock: faUserClock,
@@ -178,6 +180,7 @@ export class UIMaterialFactory implements IUIFactory {
     chart_pie: faChartPie,
     location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
+    map_marker_alt: faMapMarkerAlt,
     search: faSearch,
     more_vert: faEllipsisV,
     more_hor: faEllipsisH,
@@ -239,11 +242,13 @@ export class UIMaterialFactory implements IUIFactory {
     user_shield: faUserShield,
     done_all: faCheckDouble,
     remove: faMinus,
-    clock_regular: faRegularClock,
+    clock_regular: faClockRegular,
     cancel: faBan,
     playlist_add_check: faClipboardCheck,
     done_outline: faCheckCircle,
     contact_phone: faPhone,
+    phone: faPhone,
+    comments_regular: faCommentsRegular,
     contact_mail: faEnvelope,
     edit: faPen,
     priority_high: faExclamation,
@@ -282,6 +287,7 @@ export class UIMaterialFactory implements IUIFactory {
     user: faUser,
     minus_square: faMinusSquare,
     arrow_right: faArrowRight,
+    arrow_left: faArrowLeft,
     user_plus: faUserPlus,
     plus_square: faPlusSquare,
     thumbs_up: faThumbsUp,
@@ -298,6 +304,7 @@ export class UIMaterialFactory implements IUIFactory {
   };
   private static logger = LoggerFactory.makeLogger('UIMaterialFactory');
 
+  public list = 'mdc-list';
   public switch = 'mdc-switch';
   public switchInput = 'mdc-switch__native-control';
   public switchInputWrapper = 'mdc-switch__thumb-underlay';
@@ -308,9 +315,6 @@ export class UIMaterialFactory implements IUIFactory {
   public snackbarActionButton = 'mdc-snackbar__action-button';
   public icons = 'material-icons';
   public toolbar = 'mdc-toolbar';
-  public list = 'mdc-list';
-  public listAvatar = 'mdc-list--avatar-list';
-  public listNonInteractive = 'mdc-list--non-interactive';
   public tabBarScrollerScrollArea = 'mdc-tab-scroller__scroll-area';
   public tabBarScrollerScrollAreaScroll = 'mdc-tab-scroller__scroll-area--scroll';
   public tabBarScrollerScrollContent = 'mdc-tab-scroller__scroll-content';
@@ -326,11 +330,6 @@ export class UIMaterialFactory implements IUIFactory {
   public tabIndicatorContent = 'mdc-tab-indicator__content';
   public tabIndicatorContentUnderline = 'mdc-tab-indicator__content--underline';
   public tabBarScroller = 'mdc-tab-scroller';
-  public button = 'mdc-button';
-  public buttonOutlined = 'mdc-button--outlined';
-  public buttonRaised = 'mdc-button--raised';
-  public listItem = 'mdc-list-item';
-  public listItemGraphic = 'mdc-list-item__graphic';
   public listItemMeta = 'mdc-list-item__meta';
   public listItemText = 'mdc-list-item__text';
   public listDivider = 'mdc-list-divider';

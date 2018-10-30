@@ -1,18 +1,72 @@
+@import '../mixin';
 @import '../constant';
 
 // Button [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-button {
-    height: $rac-button-height;                                   /* @stable [18.09.2018] */
-    border-radius: $rac-button-border-radius;                     /* @stable [24.06.2018] */
-    text-transform: $rac-button-text-transform;                   /* @stable [18.09.2018 */
-    font-weight: $rac-button-font-weight;                         /* @stable [18.09.2018 */
+    height: $rac-button-height;                                           /* @stable [18.09.2018] */
+    border-radius: $rac-button-border-radius;                             /* @stable [24.06.2018] */
+    text-transform: $rac-button-text-transform;                           /* @stable [18.09.2018] */
+    font-weight: $rac-button-font-weight;                                 /* @stable [18.09.2018] */
+    font-size: $rac-button-font-size;                                     /* @stable [30.10.2018] */
+    background: $rac-button-background;                                   /* @stable [30.10.2018] */
+    border: none;                                                         /* @stable [29.10.2018] */
+    cursor: pointer;                                                      /* @stable [29.10.2018] */
 
-    .rac-icon {
-      width: $rac-button-icon-size;                               /* @stable [24.06.2018] */
-      height: $rac-button-icon-size;                              /* @stable [24.06.2018] */
-      margin-right: $rac-button-icon-margin-right;                /* @stable [24.06.2018] */
+    .rac-button-content {
+      margin-right: auto;                                                 /* @stable [09.10.2018] */
+      margin-left: auto;                                                  /* @stable [09.10.2018] */
+    }
+
+    &.rac-button-raised {
+      color: $color-5;                                                    /* @stable [30.10.2018] */
+      @include rac-shadowed($rac-button-raised-background,                /* @stable [30.10.2018] */
+                            $rac-button-raised-shadow);
+
+      &:hover {
+        @include rac-shadowed($rac-button-raised-hover-background,        /* @stable [30.10.2018] */
+                              $rac-button-raised-hover-shadow);           /* @stable [30.10.2018] */
+
+        &[disabled] {
+          @include rac-shadowed($rac-button-raised-background,            /* @stable [30.10.2018] */
+                                $rac-button-raised-shadow);
+        }
+      }
+    }
+
+    &.rac-button-decorated {
+      .rac-button-content {
+        padding: $rac-button-decorated-content-padding;                   /* @stable [30.10.2018] */
+      }
+    }
+
+    &.rac-button-not-filled {
+
+      .rac-icon {
+        margin-left: auto;                                                /* @stable [29.10.2018 */
+        margin-right: auto;                                               /* @stable [29.10.2018 */
+      }
+
+      &.rac-button-decorated {
+        width: 40px;
+
+        &.rac-button-mini {
+          width: 32px;
+          height: 32px;
+
+          .rac-icon {
+            width: 12px;
+            height: 12px;
+          }
+        }
+      }
+    }
+
+    &.rac-button-filled {
+      .rac-icon {
+        margin: $rac-button-icon-margin;                                  /* @stable [24.06.2018] */
+      }
     }
 
     &.rac-submitted-button {
@@ -20,18 +74,9 @@
       background-color: $rac-submitted-button-background-color !important;    /* @mdc @stable [18.09.2018] */
     }
 
-    .rac-button-content {
-      margin-right: auto;                                         /* @stable [09.10.2018] */
-      margin-left: auto;                                          /* @stable [09.10.2018] */
-    }
-
     &[disabled] {
-      opacity: $rac-button-disabled-opacity;                      /* @stable [09.10.2018] */
-      cursor: default;                                            /* @stable [09.10.2018] */
-
-      .rac-icon {
-        opacity: $rac-button-disabled-opacity;                    /* @stable [09.10.2018] */
-      }
+      opacity: $rac-button-disabled-opacity;                              /* @stable [09.10.2018] */
+      cursor: default;                                                    /* @stable [09.10.2018] */
     }
   }
 }

@@ -57,6 +57,7 @@ export const ZIP_CODE_FIELD_NAME = 'zipCode';                                   
 export const AREA_FIELD_NAME = 'area';                                                          /* @stable [01.08.2018] */
 export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
 export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
+export const DISPLAY_MESSAGE_FIELD_NAME = 'displayMessage';                                     /* @stable [29.10.2018] */
 export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**
@@ -745,7 +746,9 @@ export interface IDisplayNameWrapper {
   displayName?: string;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [29.10.2018]
+ */
 export interface IMessagesWrapper<TMessages> {
   messages?: TMessages;
 }
@@ -1741,19 +1744,9 @@ export interface ISelfWrapper<TSelf = Element> {
 export interface IAnySelfWrapper extends ISelfWrapper<AnyT> {
 }
 
-/* @stable - 31.03.2018 */
-export interface INonInteractiveWrapper {
-  nonInteractive?: boolean;
-}
-
 /* @stable - 24.04.2018 */
 export interface IAvatarWrapper<TAvatar> {
   avatar?: TAvatar;
-}
-
-/* @stable - 31.03.2018 */
-export interface IUseAvatarWrapper {
-  useAvatar?: boolean;
 }
 
 /**
@@ -1906,6 +1899,13 @@ export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSort
  */
 export interface IFilterWrapper<TFilter = string> {
   filter?: TFilter;
+}
+
+/**
+ * @stable [29.10.2018]
+ */
+export interface IReturnSerializedValueOnChangeWrapper {
+  returnSerializedValueOnChange?: boolean;
 }
 
 /**
@@ -2116,13 +2116,6 @@ export interface ICloseMessageWrapper<TCloseMessage = string> {
  */
 export interface IAcceptMessageWrapper<TAcceptMessage = string> {
   acceptMessage?: TAcceptMessage;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface INotApplyFrameworkClassNameWrapper {
-  notApplyFrameworkClassName?: boolean;
 }
 
 /* @stable - 11.04.2018 */
@@ -2930,6 +2923,13 @@ export interface IStringTokenWrapper extends ITokenWrapper<string> {
  */
 export interface IActiveWrapper<TActive = boolean> {
   active?: TActive;
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+export interface IPassiveWrapper<TPassive = boolean> {
+  passive?: TPassive;
 }
 
 /**

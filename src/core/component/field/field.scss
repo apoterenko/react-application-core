@@ -1,14 +1,17 @@
 @import '~sass-flex-mixin/_flex';
 @import '../constant';
+@import '../mixin';
 @import './addressfield/addressfield';
 @import './switch/switch';
 @import './viewfield/viewfield';
-@import './textarea/textarea';
 
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-form-field, .rac-field {       // TODO rac-form-field - legacy
+  @include rac-field-custom(rac-field-prevent-focus,
+                            $rac-field-custom-input-cursor: default);
+
+  .rac-field {
 
     .rac-view-field {
       margin-bottom: $rac-view-field-margin-bottom;                   /* @stable [04.10.2018] */
@@ -19,12 +22,17 @@
       .rac-text-field {
         background: $rac-text-field-active-background;                /* @stable [18.09.2018] */
 
-        .rac-field-input {
-          font-size: $rac-text-field-active-font-size;                /* @stable [22.10.2018] */
-        }
-
         .rac-icon {
           color: $rac-text-field-active-icon-color;                   /* @stable [18.09.2018] */
+        }
+      }
+    }
+
+    &.rac-field-active, &.rac-field-passive {
+      .rac-text-field {
+
+        .rac-field-input {
+          font-size: $rac-text-field-active-passive-font-size;        /* @stable [30.10.2018] */
         }
       }
     }
@@ -128,7 +136,7 @@
 
     .rac-message {
       width: 100%;                                                    /* @stable [01.09.2018] */
-      color: $rac-form-field-message-color;                           /* @stable [29.06.2018] */
+      color: $rac-field-message-color;                           /* @stable [29.06.2018] */
     }
 
     .rac-field-input {
@@ -201,7 +209,7 @@
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
-        margin-right: $rac-form-field-icon-margin-right;              /* @stable [24.06.2018] */
+        margin-right: $rac-field-icon-margin-right;              /* @stable [24.06.2018] */
         color: $rac-field-icon-color;                                 /* @stable [24.06.2018] */
 
         &.rac-loading-icon {
