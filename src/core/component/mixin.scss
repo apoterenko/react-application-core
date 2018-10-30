@@ -1,45 +1,53 @@
-@mixin rac-invert ($value: 100%) {
+/**
+ * @stable [27.10.2018]
+ */
+@mixin rac-invert($value: 100%) {
   -webkit-filter: invert($value);
   filter: invert($value);
 }
 
 /**
- * @stable [27.10.2018]
+ * @stable [30.10.2018]
  */
-@mixin rac-flex-width ($value) {
-  min-width: $value + px;
-  max-width: $value + px;
+@mixin rac-flex-width($value) {
+  min-width: $value;
+  max-width: $value;
 }
 
 /**
- * @stable [27.10.2018]
+ * @stable [30.10.2018]
  */
-@mixin rac-flex-height ($value) {
-  min-height: $value + px;
-  max-height: $value + px;
+@mixin rac-flex-height($value) {
+  min-height: $value;
+  max-height: $value;
 }
 
 /**
- * @stable [27.10.2018]
+ * @stable [30.10.2018]
  */
-@mixin rac-circle ($width, $background: unset) {
-  width: $width + px;
-  height: $width + px;
-  border-radius: $width / 2 + px;
+@mixin rac-circle($size,
+                  $background: unset) {
+  width: $size;
+  height: $size;
+  border-radius: $size / 2;
   background: $background;
 }
 
 /**
  * @stable [28.10.2018]
  */
-@mixin rac-shadowed ($background,
-                     $shadow,
-                     $offset1: 0,
-                     $offset2: 4,
-                     $offset3: 3,
-                     $offset4: 0) {
-  background: $background;
-  box-shadow: $offset1 + px $offset2 + px $offset3 + px $offset4 + px $shadow;
+@mixin rac-shadowed($background: unset,
+                    $shadow: unset,
+                    $offset1: 0px,
+                    $offset2: 4px,
+                    $offset3: 3px,
+                    $offset4: 0px) {
+  @if $background != unset {
+    background: $background;
+  }
+  @if $shadow != unset {
+    box-shadow: $offset1 $offset2 $offset3 $offset4 $shadow;
+  }
 }
 
 /**
@@ -93,5 +101,123 @@
         }
       }
     }
+  }
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-list($rac-list-item-padding: unset,
+                $rac-list-max-height: unset,
+                $rac-list-overflow: unset,
+                $rac-list-item-graphic-margin: unset,
+                $rac-list-item-graphic-size: unset) {
+
+  .rac-list {
+    @if $rac-list-max-height != unset {
+      max-height: $rac-list-max-height;
+    }
+    @if $rac-list-overflow != unset {
+      overflow: $rac-list-overflow;
+    }
+
+    .rac-list-item {
+      @if $rac-list-item-padding != unset {
+        padding: $rac-list-item-padding;
+      }
+
+      .rac-list-item-graphic {
+        @if $rac-list-item-graphic-margin != unset {
+          margin: $rac-list-item-graphic-margin
+        }
+
+        @if $rac-list-item-graphic-size != unset {
+          @include rac-circle($rac-list-item-graphic-size);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * @stable [31.10.2018]
+ */
+@mixin _rac-button-custom-properties($rac-button-custom-color: unset,
+                                     $rac-button-custom-height: unset,
+                                     $rac-button-custom-margin: unset,
+                                     $rac-button-custom-border: unset,
+                                     $rac-button-custom-background: unset,
+                                     $rac-button-custom-shadow: unset,
+                                     $rac-button-custom-hover-background: unset,
+                                     $rac-button-custom-hover-shadow: unset) {
+
+  @if $rac-button-custom-color != unset {
+    color: $rac-button-custom-color;
+  }
+  @if $rac-button-custom-height != unset {
+    height: $rac-button-custom-height;
+  }
+  @if $rac-button-custom-margin != unset {
+    margin: $rac-button-custom-margin;
+  }
+  @if $rac-button-custom-border != unset {
+    border: $rac-button-custom-border;
+  }
+
+  @include rac-shadowed($rac-button-custom-background,
+                        $rac-button-custom-shadow);
+
+  &:hover {
+    @include rac-shadowed($rac-button-custom-hover-background,
+                          $rac-button-custom-hover-shadow);
+
+    &[disabled] {
+      @include rac-shadowed($rac-button-custom-background,
+                            $rac-button-custom-shadow);
+    }
+  }
+}
+
+/**
+ * @stable [31.10.2018]
+ */
+@mixin rac-button-custom($rac-button-custom,
+                         $rac-button-custom-color: unset,
+                         $rac-button-custom-background: unset,
+                         $rac-button-custom-shadow: unset,
+                         $rac-button-custom-hover-background: unset,
+                         $rac-button-custom-hover-shadow: unset) {
+
+  .rac-button {
+    &.#{$rac-button-custom} {
+
+      @include _rac-button-custom-properties(
+        $rac-button-custom-color: $rac-button-custom-color,
+        $rac-button-custom-background: $rac-button-custom-background,
+        $rac-button-custom-shadow: $rac-button-custom-shadow,
+        $rac-button-custom-hover-background: $rac-button-custom-hover-background,
+        $rac-button-custom-hover-shadow: $rac-button-custom-hover-shadow
+      );
+    }
+  }
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-button($rac-button-height: unset,
+                  $rac-button-color: unset,
+                  $rac-button-background: unset,
+                  $rac-button-margin: unset,
+                  $rac-button-border: unset) {
+
+  .rac-button {
+    @include _rac-button-custom-properties(
+      $rac-button-custom-height: $rac-button-height,
+      $rac-button-custom-color: $rac-button-color,
+      $rac-button-custom-background: $rac-button-background,
+      $rac-button-custom-margin: $rac-button-margin,
+      $rac-button-custom-border: $rac-button-border
+    );
   }
 }

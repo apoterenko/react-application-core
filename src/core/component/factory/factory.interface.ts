@@ -17,7 +17,6 @@ export interface IUIFactory {
   listGroupSubHeader?: string;
   listDivider?: string;
   listItemMeta?: string;
-  listItemText?: string;
   tabBarScrollerScrollArea?: string;
   tabBarScrollerScrollAreaScroll?: string;
   tabBarScrollerScrollContent?: string;

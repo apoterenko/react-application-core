@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { toClassName } from '../../../../util';
 import { BaseComponent } from '../../../base';
+import { FlexLayout } from '../../../layout';
 
 export class ListItemGraphic extends BaseComponent<ListItemGraphic> {
 
@@ -13,9 +14,13 @@ export class ListItemGraphic extends BaseComponent<ListItemGraphic> {
     const props = this.props;
 
     return (
-      <span className={toClassName('rac-list-item-graphic', props.className)}>
+      <FlexLayout full={false}
+                  alignItemsCenter={true}
+                  justifyContentCenter={true}
+                  row={true}
+                  className={toClassName('rac-list-item-graphic', props.className)}>
         {props.children}
-      </span>
+      </FlexLayout>
     );
   }
 }

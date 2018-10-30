@@ -8,7 +8,7 @@
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-field-custom(rac-field-prevent-focus,
+  @include rac-field-custom($rac-field-custom: rac-field-prevent-focus,               /* @stable [30.10.2018] */
                             $rac-field-custom-input-cursor: default);
 
   .rac-field {

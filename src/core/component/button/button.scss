@@ -4,35 +4,32 @@
 // Button [FRAMEWORK-][RAC+]
 .rac {
 
+  @include rac-button(                                                              /* @stable [31.10.2018] */
+    $rac-button-height: $rac-button-height,
+    $rac-button-background: $rac-button-background,
+    $rac-button-border: none
+  );
+
+  @include rac-button-custom(
+    $rac-button-custom: rac-button-raised,
+    $rac-button-custom-color: $rac-button-raised-color,
+    $rac-button-custom-background: $rac-button-raised-background,
+    $rac-button-custom-shadow: $rac-button-raised-shadow,
+    $rac-button-custom-hover-background: $rac-button-raised-hover-background,
+    $rac-button-custom-hover-shadow: $rac-button-raised-hover-shadow
+  );
+
   .rac-button {
     height: $rac-button-height;                                           /* @stable [18.09.2018] */
     border-radius: $rac-button-border-radius;                             /* @stable [24.06.2018] */
     text-transform: $rac-button-text-transform;                           /* @stable [18.09.2018] */
     font-weight: $rac-button-font-weight;                                 /* @stable [18.09.2018] */
     font-size: $rac-button-font-size;                                     /* @stable [30.10.2018] */
-    background: $rac-button-background;                                   /* @stable [30.10.2018] */
-    border: none;                                                         /* @stable [29.10.2018] */
     cursor: pointer;                                                      /* @stable [29.10.2018] */
 
     .rac-button-content {
       margin-right: auto;                                                 /* @stable [09.10.2018] */
       margin-left: auto;                                                  /* @stable [09.10.2018] */
-    }
-
-    &.rac-button-raised {
-      color: $color-5;                                                    /* @stable [30.10.2018] */
-      @include rac-shadowed($rac-button-raised-background,                /* @stable [30.10.2018] */
-                            $rac-button-raised-shadow);
-
-      &:hover {
-        @include rac-shadowed($rac-button-raised-hover-background,        /* @stable [30.10.2018] */
-                              $rac-button-raised-hover-shadow);           /* @stable [30.10.2018] */
-
-        &[disabled] {
-          @include rac-shadowed($rac-button-raised-background,            /* @stable [30.10.2018] */
-                                $rac-button-raised-shadow);
-        }
-      }
     }
 
     &.rac-button-decorated {

@@ -1,5 +1,6 @@
 @import '~sass-flex-mixin/_flex';
 @import '../constant';
+@import '../mixin';
 @import './time-grid';
 @import './tight-grid';
 @import './column/grid-column';
@@ -61,11 +62,12 @@
           }
         }
 
-        .rac-button {
-          height: $rac-grid-column-content-button-height;                           /* @stable [09.10.2018] */
-          color: $rac-grid-column-content-button-color;                             /* @stable [11.10.2018] */
-          background: $rac-grid-column-content-button-background;                   /* @stable [11.10.2018] */
-        }
+        @include rac-button(                                                        /* @stable [30.10.2018] */
+          $rac-button-height: $rac-grid-column-content-button-height,
+          $rac-button-color: $rac-grid-column-content-button-color,
+          $rac-button-background: $rac-grid-column-content-button-background,
+          $rac-button-margin: $rac-grid-column-content-button-margin
+        );
       }
 
       .rac-icon {
@@ -214,10 +216,10 @@
 
             .rac-grid-column-content {
 
-              .rac-button {
-                color: $rac-grid-data-row-hover-column-content-button-color;              /* @stable [11.10.2018] */
-                background: $rac-grid-data-row-hover-column-content-button-background;    /* @stable [11.10.2018] */
-              }
+              @include rac-button(                                                       /* @stable [31.10.2018] */
+                $rac-button-color: $rac-grid-data-row-hover-column-content-button-color,
+                $rac-button-background: $rac-grid-data-row-hover-column-content-button-background
+              );
             }
           }
         }

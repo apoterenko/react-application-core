@@ -331,7 +331,6 @@ export class UIMaterialFactory implements IUIFactory {
   public tabIndicatorContentUnderline = 'mdc-tab-indicator__content--underline';
   public tabBarScroller = 'mdc-tab-scroller';
   public listItemMeta = 'mdc-list-item__meta';
-  public listItemText = 'mdc-list-item__text';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
   public textFieldBox = 'mdc-text-field--box';

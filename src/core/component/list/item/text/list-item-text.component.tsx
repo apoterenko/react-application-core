@@ -13,12 +13,8 @@ export class ListItemText extends BaseComponent<ListItemText> {
     const props = this.props;
 
     return (
-      <span className={toClassName(
-                        'rac-list-item-text',
-                        this.uiFactory.listItemText,
-                        props.className
-                      )}>
-          {props.children}
+      <span className={toClassName('rac-list-item-text', props.className)}>
+        {props.children}
       </span>
     );
   }

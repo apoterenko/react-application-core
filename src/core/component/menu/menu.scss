@@ -1,16 +1,16 @@
 @import '../constant';
+@import '../mixin';
 
 // Menu [FRAMEWORK-][RAC+]
 .rac {
 
   .rac-menu {
-    z-index: $rac-menu-window-position;                       /* @stable [04.10.2018] */
+    z-index: $rac-menu-window-position;                                               /* @stable [04.10.2018] */
+    @include rac-list($rac-list-item-padding: 0,                                      /* @stable [30.10.2018] */
+                      $rac-list-max-height: $rac-menu-list-max-height);
 
     &.rac-menu-centered {
-
-      .rac-list {
-        overflow: auto;                                       /* @stable [04.10.2018] */
-      }
+      @include rac-list($rac-list-overflow: auto);                                    /* @stable [30.10.2018] */
     }
 
     .rac-menu-close-action {
@@ -25,7 +25,6 @@
     }
 
     .rac-list {
-      max-height: $rac-menu-simple-list-max-height;           /* @stable [25.06.2018] */
 
       .rac-list-item {
         height: $rac-menu-simple-list-item-height;            /* @stable [25.06.2018] */
