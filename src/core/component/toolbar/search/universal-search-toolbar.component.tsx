@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { orNull, toClassName, isFn, nvl } from '../../../util';
+import { orNull, isFn, nvl } from '../../../util';
 import {
   IFieldActionConfiguration,
   IFilterActionConfiguration,
@@ -166,8 +166,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
             key: 'toolbar-action-key',
             icon: props.icon,
             onClick: this.onActivate,
-            disabled: props.actionsDisabled,
-            className: 'rac-toolbar-action',
+            disabled: props.actionsDisabled
           })
       ).concat(
         props.notUseField && (actions = this.actions).length > 0
@@ -176,7 +175,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
             icon: action.type,
             key: `toolbar-action-key-${index}`,
             disabled: props.actionsDisabled,
-            className: toClassName(action.className, 'rac-toolbar-action'),
+            className: action.className,
           }))
           : []
       );

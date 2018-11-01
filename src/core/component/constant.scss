@@ -59,8 +59,8 @@ $rac-scrollbar-thumb-background-color: $color-8 !default;
 $rac-toolbar-info-color: $rac-default-label-color !default;
 $rac-toolbar-info-font-size: $rac-default-font-size !default;
 
-/* @stable [25.06.2018] */
-$rac-toolbar-action-margin: 0 0 0 8px !default;
+/* @stable [01.11.2018] */
+$rac-toolbar-button-margin: 0 0 0 8px !default;
 $rac-toolbar-field-max-width: 342px !default;
 
 /* @stable [19.08.2018] */
@@ -500,7 +500,7 @@ $rac-default-layout-header-background: unset !default;
 $rac-default-layout-sub-header-height: 88px !default;
 $rac-default-layout-sub-header-bordered-border-bottom: unset !default;
 $rac-default-layout-sub-header-bordered-margin-bottom: unset !default;
-$rac-default-layout-sub-header-navigation-action-margin-right: 16px !default;
+$rac-default-layout-sub-header-button-navigation-margin: 0 16px 0 0 !default;
 $rac-default-layout-main-margin: 0 $rac-default-layout-offset $rac-default-layout-offset $rac-default-layout-offset !default;
 $rac-default-layout-main-body-wrapper-overflow: auto !default;
 $rac-default-layout-main-body-wrapper-position: absolute !default;

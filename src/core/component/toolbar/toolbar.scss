@@ -6,7 +6,7 @@
 .rac {
 
   @include rac-toolbar(                                                                 /* @stable [31.10.2018] */
-    $rac-toolbar-action-margin: $rac-toolbar-action-margin
+    $rac-toolbar-button-margin: $rac-toolbar-button-margin
   );
 
   .rac-toolbar {

@@ -1,4 +1,5 @@
 @import '../../constant';
+@import '../../mixin';
 
 // Default layout [FRAMEWORK-][RAC+]
 .rac {
@@ -31,9 +32,10 @@
       min-height: $rac-default-layout-sub-header-height;                                            /* @stable [13.10.2018] */
       max-height: $rac-default-layout-sub-header-height;                                            /* @stable [13.10.2018] */
 
-      .rac-sub-header-navigation-action {
-        margin-right: $rac-default-layout-sub-header-navigation-action-margin-right;                /* @stable [17.09.2018] */
-      }
+      @include rac-button-custom(                                                                   /* @stable [01.11.2018] */
+        $rac-button-custom: rac-button-navigation,
+        $rac-button-custom-margin: $rac-default-layout-sub-header-button-navigation-margin
+      );
 
       &.rac-sub-header-bordered {
         border-bottom: $rac-default-layout-sub-header-bordered-border-bottom;                       /* @stable [22.10.2018] */

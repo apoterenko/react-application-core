@@ -241,25 +241,27 @@
  * @stable [31.10.2018]
  */
 @mixin rac-button-custom($rac-button-custom,
+                         $rac-button-custom-margin: unset,
                          $rac-button-custom-color: unset,
                          $rac-button-custom-background: unset,
                          $rac-button-custom-shadow: unset,
                          $rac-button-custom-hover-background: unset,
                          $rac-button-custom-hover-shadow: unset,
                          $rac-button-custom-icon-margin: unset,
-                         $rac-button-content-padding: unset) {
+                         $rac-button-custom-content-padding: unset) {
 
   .rac-button {
     &.#{$rac-button-custom} {
 
       @include _rac-button-custom-properties(
+        $rac-button-custom-margin: $rac-button-custom-margin,
         $rac-button-custom-color: $rac-button-custom-color,
         $rac-button-custom-background: $rac-button-custom-background,
         $rac-button-custom-shadow: $rac-button-custom-shadow,
         $rac-button-custom-hover-background: $rac-button-custom-hover-background,
         $rac-button-custom-hover-shadow: $rac-button-custom-hover-shadow,
         $rac-button-custom-icon-margin: $rac-button-custom-icon-margin,
-        $rac-button-custom-content-padding: $rac-button-content-padding
+        $rac-button-custom-content-padding: $rac-button-custom-content-padding
       );
     }
   }
@@ -292,16 +294,12 @@
 }
 
 /**
- * @stable [31.10.2018]
+ * @stable [01.11.2018]
  */
-@mixin rac-toolbar($rac-toolbar-action-margin: unset) {
+@mixin rac-toolbar($rac-toolbar-button-margin: unset) {
 
   .rac-toolbar {
-    .rac-toolbar-action {
 
-      @if $rac-toolbar-action-margin != unset {
-        margin: $rac-toolbar-action-margin;
-      }
-    }
+    @include rac-button($rac-button-margin: $rac-toolbar-button-margin);
   }
 }

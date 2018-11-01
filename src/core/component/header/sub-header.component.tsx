@@ -44,9 +44,9 @@ export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
           {orNull<JSX.Element>(
             props.navigationActionType,
             () => (
-              <Button className='rac-sub-header-navigation-action'
-                      icon={props.navigationActionType}
-                      onClick={props.onNavigationActionClick}/>
+              <Button icon={props.navigationActionType}
+                      onClick={props.onNavigationActionClick}
+                      className='rac-button-navigation'/>
             )
           )}
           {orDefault<JSX.Element, JSX.Element>(R.isNil(props.titleRenderer), headerTitle, () => props.titleRenderer(headerTitle))}

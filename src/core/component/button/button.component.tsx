@@ -27,6 +27,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
       'rac-button',
       'rac-flex',
       'rac-flex-row',
+      'rac-flex-align-items-center',
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
       hasIcon ? 'rac-button-decorated' : 'rac-button-not-decorated',
       props.mini && 'rac-button-mini',
