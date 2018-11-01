@@ -197,7 +197,6 @@ import {
   IStringToWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
-  ISubmittedWrapper,
   ITextStyleWrapper,
   ITextWrapper,
   ITightGridWrapper,
@@ -622,7 +621,6 @@ export interface IWebCameraConfiguration extends IComponentConfiguration,
 export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
                                                        IOnClickWrapper,
                                                        ITextWrapper,
-                                                       ISubmittedWrapper,
                                                        IIconWrapper<string | boolean> {
 }
 

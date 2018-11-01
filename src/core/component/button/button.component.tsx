@@ -30,7 +30,6 @@ export class Button extends BaseComponent<Button, IButtonProps> {
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
       hasIcon ? 'rac-button-decorated' : 'rac-button-not-decorated',
       props.mini && 'rac-button-mini',
-      props.submitted && 'rac-submitted-button',
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
       props.className

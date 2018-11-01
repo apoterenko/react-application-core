@@ -139,6 +139,9 @@ export class NumberConverter implements INumberConverter {
   }
 
   public phone(value: number | string, phoneNumberFormat: PNF = PNF.INTERNATIONAL): string {
+    if (!value) {
+      return '';
+    }
     const v = isString(value) ? value as string : String(value);
     let phoneNumber;
     try {

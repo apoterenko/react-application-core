@@ -16,16 +16,15 @@
                     $rac-list-item-graphic-margin: $rac-list-item-graphic-margin,
                     $rac-list-item-graphic-size: $rac-list-item-graphic-size);
 
+  @include rac-list-item-custom($rac-list-item-custom: rac-list-item-odd,                 /* @stable [31.10.2018] */
+                                $rac-list-item-custom-background: $rac-list-item-odd-background-color);
+
   .rac-list {
 
     .rac-list-item {
       cursor: $rac-list-item-cursor;                                                  /* @stable [30.10.2018] */
       color: $rac-list-item-color;                                                    /* @stable [29.10.2018] */
       font-size: $rac-list-item-font-size;                                            /* @stable [29.10.2018] */
-
-      &.rac-list-item-odd {
-        background-color: $rac-list-item-odd-background-color;               /* @stable [13.09.2018] */
-      }
 
       &.rac-list-item-selected {
         background: $rac-list-item-selected-background;                               /* @stable [29.10.2018] */

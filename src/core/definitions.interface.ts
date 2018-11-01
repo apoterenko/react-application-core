@@ -1690,13 +1690,6 @@ export interface IIconWrapper<TIcon = string> {
 }
 
 /**
- * @stable [19.09.2018]
- */
-export interface ISubmittedWrapper {
-  submitted?: boolean;
-}
-
-/**
  * @stable [31.08.2018]
  */
 export interface IAliasWrapper<TAlias = string> {
@@ -3140,8 +3133,6 @@ export interface IStringToWrapper extends IToWrapper<string> {
 
 export const IMAGE_FIELD_NAME = 'image';
 
-export const LOGIN_FIELD_NAME = 'login';
-
 export const PROGRESS_FIELD_NAME = 'progress';
 
 export const UNI_CODES = {
@@ -3151,6 +3142,8 @@ export const UNI_CODES = {
   space: '\u0020',
   noBreakSpace: '\u00a0',
   arrowRight:  '\u27f6',
+  crarr: '\u21b5',
+  lfloor: '\u230a',
 };
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;

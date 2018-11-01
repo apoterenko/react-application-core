@@ -60,7 +60,8 @@ $rac-toolbar-info-color: $rac-default-label-color !default;
 $rac-toolbar-info-font-size: $rac-default-font-size !default;
 
 /* @stable [25.06.2018] */
-$rac-search-toolbar-action-margin-left: 8px !default;
+$rac-toolbar-action-margin: 0 0 0 8px !default;
+$rac-toolbar-field-max-width: 342px !default;
 
 /* @stable [19.08.2018] */
 $rac-keyboard-opacity: .6 !default;
@@ -128,7 +129,7 @@ $rac-list-item-graphic-background-color: $color-8 !default;
 $rac-list-item-warning-graphic-background-color: $color-6 !default;
 $rac-list-item-normal-graphic-background-color: $color-13 !default;
 $rac-list-item-fail-graphic-background-color: $color-11 !default;
-$rac-list-item-odd-background-color: $color-21 !default;
+$rac-list-item-odd-background-color: $color-22 !default;
 
 /* @stable [13.09.2018] */
 $rac-navigation-list-group-subheader-expand-icon-color: $color-5 !default;
@@ -295,10 +296,8 @@ $rac-button-font-weight: $rac-default-font-weight-2 !default;
 $rac-button-font-size: $rac-default-font-size-2 !default;
 $rac-button-border-radius: $rac-default-border-radius !default;
 $rac-button-text-transform: none !default;
-$rac-button-icon-margin: 0 8px !default;
+$rac-button-icon-margin: 0 0 0 8px !default;
 $rac-button-disabled-opacity: $opacity !default;
-$rac-submitted-button-color: $color-5 !default;
-$rac-submitted-button-background-color: $color-1 !default;
 
 /* @stable [03.08.2018] */
 $rac-form-actions-button-margin-left: 8px !default;

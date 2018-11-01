@@ -69,11 +69,15 @@
  * @stable [30.10.2018]
  */
 @mixin rac-field($rac-field-width: unset,
+                 $rac-field-max-width: unset,
                  $rac-text-field-background: unset) {
 
   .rac-field {
     @if $rac-field-width != unset {
       width: $rac-field-width;
+    }
+    @if $rac-field-max-width != unset {
+      max-width: $rac-field-max-width;
     }
 
     .rac-text-field {
@@ -99,6 +103,35 @@
             cursor: $rac-field-custom-input-cursor;
           }
         }
+      }
+    }
+  }
+}
+
+/**
+ * @stable [31.10.2018]
+ */
+@mixin _rac-list-item-custom-properties($rac-list-item-custom-background: unset) {
+
+  @if $rac-list-item-custom-background != unset {
+    background: $rac-list-item-custom-background;
+  }
+}
+
+/**
+ * @stable [31.10.2018]
+ */
+@mixin rac-list-item-custom($rac-list-item-custom,
+                            $rac-list-item-custom-background: unset) {
+
+  .rac-list {
+
+    .rac-list-item {
+      &.#{$rac-list-item-custom} {
+
+        @include _rac-list-item-custom-properties(
+          $rac-list-item-custom-background: $rac-list-item-custom-background
+        );
       }
     }
   }
@@ -149,7 +182,11 @@
                                      $rac-button-custom-background: unset,
                                      $rac-button-custom-shadow: unset,
                                      $rac-button-custom-hover-background: unset,
-                                     $rac-button-custom-hover-shadow: unset) {
+                                     $rac-button-custom-hover-shadow: unset,
+                                     $rac-button-custom-icon-margin: unset,
+                                     $rac-button-custom-content-margin-right: unset,
+                                     $rac-button-custom-content-margin-left: unset,
+                                     $rac-button-custom-content-padding: unset) {
 
   @if $rac-button-custom-color != unset {
     color: $rac-button-custom-color;
@@ -162,6 +199,24 @@
   }
   @if $rac-button-custom-border != unset {
     border: $rac-button-custom-border;
+  }
+
+  .rac-icon {
+    @if $rac-button-custom-icon-margin != unset {
+      margin: $rac-button-custom-icon-margin;
+    }
+  }
+
+  .rac-button-content {
+    @if $rac-button-custom-content-margin-right != unset {
+      margin-right: $rac-button-custom-content-margin-right;
+    }
+    @if $rac-button-custom-content-margin-left != unset {
+      margin-left: $rac-button-custom-content-margin-left;
+    }
+    @if $rac-button-custom-content-padding != unset {
+      padding: $rac-button-custom-content-padding;
+    }
   }
 
   @include rac-shadowed($rac-button-custom-background,
@@ -186,7 +241,9 @@
                          $rac-button-custom-background: unset,
                          $rac-button-custom-shadow: unset,
                          $rac-button-custom-hover-background: unset,
-                         $rac-button-custom-hover-shadow: unset) {
+                         $rac-button-custom-hover-shadow: unset,
+                         $rac-button-custom-icon-margin: unset,
+                         $rac-button-content-padding: unset) {
 
   .rac-button {
     &.#{$rac-button-custom} {
@@ -196,7 +253,9 @@
         $rac-button-custom-background: $rac-button-custom-background,
         $rac-button-custom-shadow: $rac-button-custom-shadow,
         $rac-button-custom-hover-background: $rac-button-custom-hover-background,
-        $rac-button-custom-hover-shadow: $rac-button-custom-hover-shadow
+        $rac-button-custom-hover-shadow: $rac-button-custom-hover-shadow,
+        $rac-button-custom-icon-margin: $rac-button-custom-icon-margin,
+        $rac-button-custom-content-padding: $rac-button-content-padding
       );
     }
   }
@@ -209,7 +268,9 @@
                   $rac-button-color: unset,
                   $rac-button-background: unset,
                   $rac-button-margin: unset,
-                  $rac-button-border: unset) {
+                  $rac-button-border: unset,
+                  $rac-button-content-margin-right: unset,
+                  $rac-button-content-margin-left: unset) {
 
   .rac-button {
     @include _rac-button-custom-properties(
@@ -217,7 +278,24 @@
       $rac-button-custom-color: $rac-button-color,
       $rac-button-custom-background: $rac-button-background,
       $rac-button-custom-margin: $rac-button-margin,
-      $rac-button-custom-border: $rac-button-border
+      $rac-button-custom-border: $rac-button-border,
+      $rac-button-custom-content-margin-right: $rac-button-content-margin-right,
+      $rac-button-custom-content-margin-left: $rac-button-content-margin-left
     );
+  }
+}
+
+/**
+ * @stable [31.10.2018]
+ */
+@mixin rac-toolbar($rac-toolbar-action-margin: unset) {
+
+  .rac-toolbar {
+    .rac-toolbar-action {
+
+      @if $rac-toolbar-action-margin != unset {
+        margin: $rac-toolbar-action-margin;
+      }
+    }
   }
 }

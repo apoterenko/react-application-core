@@ -7,16 +7,28 @@
   @include rac-button(                                                              /* @stable [31.10.2018] */
     $rac-button-height: $rac-button-height,
     $rac-button-background: $rac-button-background,
-    $rac-button-border: none
+    $rac-button-border: none,
+    $rac-button-content-margin-right: auto,
+    $rac-button-content-margin-left: auto
   );
 
-  @include rac-button-custom(
+  @include rac-button-custom(                                                       /* @stable [01.11.2018] */
     $rac-button-custom: rac-button-raised,
     $rac-button-custom-color: $rac-button-raised-color,
     $rac-button-custom-background: $rac-button-raised-background,
     $rac-button-custom-shadow: $rac-button-raised-shadow,
     $rac-button-custom-hover-background: $rac-button-raised-hover-background,
     $rac-button-custom-hover-shadow: $rac-button-raised-hover-shadow
+  );
+
+  @include rac-button-custom(                                                       /* @stable [01.11.2018] */
+    $rac-button-custom: rac-button-filled,
+    $rac-button-custom-icon-margin: $rac-button-icon-margin
+  );
+
+  @include rac-button-custom(                                                       /* @stable [01.11.2018] */
+    $rac-button-custom: rac-button-decorated,
+    $rac-button-content-padding: $rac-button-decorated-content-padding
   );
 
   .rac-button {
@@ -26,17 +38,6 @@
     font-weight: $rac-button-font-weight;                                 /* @stable [18.09.2018] */
     font-size: $rac-button-font-size;                                     /* @stable [30.10.2018] */
     cursor: pointer;                                                      /* @stable [29.10.2018] */
-
-    .rac-button-content {
-      margin-right: auto;                                                 /* @stable [09.10.2018] */
-      margin-left: auto;                                                  /* @stable [09.10.2018] */
-    }
-
-    &.rac-button-decorated {
-      .rac-button-content {
-        padding: $rac-button-decorated-content-padding;                   /* @stable [30.10.2018] */
-      }
-    }
 
     &.rac-button-not-filled {
 
@@ -58,17 +59,6 @@
           }
         }
       }
-    }
-
-    &.rac-button-filled {
-      .rac-icon {
-        margin: $rac-button-icon-margin;                                  /* @stable [24.06.2018] */
-      }
-    }
-
-    &.rac-submitted-button {
-      color: $rac-submitted-button-color !important;                          /* @mdc @stable [18.09.2018] */
-      background-color: $rac-submitted-button-background-color !important;    /* @mdc @stable [18.09.2018] */
     }
 
     &[disabled] {

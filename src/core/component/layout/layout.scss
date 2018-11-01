@@ -34,6 +34,10 @@
     @include flex;                                                  /* @stable [19.09.2018] */
   }
 
+  .rac-flex-half {
+    @include flex(.5);                                              /* @stable [19.09.2018] */
+  }
+
   .rac-flex-separator {
     @include flex(.1);                                              /* @stable [19.09.2018] */
   }

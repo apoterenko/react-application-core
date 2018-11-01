@@ -1,17 +1,15 @@
+@import '../mixin';
 @import './page/page-toolbar';
 @import './info/page-info';
 
 // Toolbar [FRAMEWORK-][RAC+]
 .rac {
 
+  @include rac-toolbar(                                                                 /* @stable [31.10.2018] */
+    $rac-toolbar-action-margin: $rac-toolbar-action-margin
+  );
+
   .rac-toolbar {
-    height: 100%;                                                         /* @stable [20.09.2018] */
-
-    &.rac-search-toolbar {
-
-      .rac-search-toolbar-action {
-        margin-left: $rac-search-toolbar-action-margin-left;              /* @stable [21.09.2018] */
-      }
-    }
+    @include rac-field($rac-field-max-width: $rac-toolbar-field-max-width);             /* @stable [31.10.2018] */
   }
 }

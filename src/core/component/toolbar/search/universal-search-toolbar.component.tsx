@@ -166,14 +166,14 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
               type: props.icon,
               onClick: this.onActivate,
               disabled: props.actionsDisabled,
-              className: 'rac-search-toolbar-action',
+              className: 'rac-toolbar-action',
           })
       ).concat(
         props.notUseField && (actions = this.actions).length > 0
           ? actions.map((action) => this.uiFactory.makeIcon({
             ...action,
             disabled: props.actionsDisabled,
-            className: toClassName(action.className, 'rac-search-toolbar-action'),
+            className: toClassName(action.className, 'rac-toolbar-action'),
           }))
           : []
       );

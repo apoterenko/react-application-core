@@ -20,8 +20,7 @@ export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
     return (
       <FlexLayout row={true}
                   justifyContentEnd={true}
-                  alignItemsCenter={true}
-                  className={toClassName('rac-toolbar', 'rac-search-toolbar', this.props.className)}>
+                  className={toClassName('rac-toolbar', this.props.className)}>
         {this.actionsElementsSection}
         {this.fieldSection}
       </FlexLayout>

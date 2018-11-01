@@ -26,7 +26,8 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps>
         props.warning && 'rac-list-item-warning',
         props.toClassName && props.toClassName(props.rawData),
         'rac-flex',
-        'rac-flex-row'
+        'rac-flex-row',
+        'rac-flex-align-items-center'
       ),
     };
 
