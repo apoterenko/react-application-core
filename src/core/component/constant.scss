@@ -291,12 +291,12 @@ $rac-button-raised-background: $color-4 !default;
 $rac-button-raised-shadow: $color-10 !default;
 $rac-button-raised-hover-background: $rac-button-raised-background !default;
 $rac-button-raised-hover-shadow: $rac-button-raised-shadow !default;
-$rac-button-decorated-content-padding: 0 24px 0 0 !default;
+$rac-button-decorated-content-padding: 0 32px 0 0 !default;
 $rac-button-font-weight: $rac-default-font-weight-2 !default;
 $rac-button-font-size: $rac-default-font-size-2 !default;
 $rac-button-border-radius: $rac-default-border-radius !default;
 $rac-button-text-transform: none !default;
-$rac-button-icon-margin: 0 0 0 8px !default;
+$rac-button-icon-margin: 0 8px !default;
 $rac-button-disabled-opacity: $opacity !default;
 
 /* @stable [03.08.2018] */
@@ -399,6 +399,7 @@ $rac-card-list-item-margin-bottom: 16px !default;
 $rac-dialog-header-color: $rac-default-label-color !default;
 $rac-dialog-content-font-size: $rac-default-font-size !default;
 $rac-dialog-content-color: $rac-default-text-color !default;
+$rac-dialog-actions-footer-button-margin: 0 0 0 8px !default;
 
 /* @stable [17.09.2018] */
 $rac-drawer-background: $color-5 !default;

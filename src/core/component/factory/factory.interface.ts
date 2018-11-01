@@ -53,9 +53,6 @@ export interface IUIFactory {
   dialogTitle?: string;
   dialogScrim?: string;
   dialogActions?: string;
-  dialogFooterButton?: string;
-  dialogFooterButtonCancel?: string;
-  dialogFooterButtonAccept?: string;
 
   /**
    * @stable [18.05.2018]

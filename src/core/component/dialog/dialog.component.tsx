@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { Button } from '../button';
-import { orNull, toClassName, calc } from '../../util';
+import { orNull, toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
 
@@ -114,15 +114,13 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
             orNull<JSX.Element>(
               this.closable || this.acceptable,
               () => (
-                <footer className={this.uiFactory.dialogActions}>
+                <footer className={toClassName('rac-dialog-actions-footer', this.uiFactory.dialogActions)}>
                   {
                     orNull<JSX.Element>(
                       this.closable,
                       () => (
                         <Button icon={false}
                                 disabled={this.isCloseButtonDisabled()}
-                                className={toClassName(this.uiFactory.dialogFooterButton,
-                                  this.uiFactory.dialogFooterButtonCancel)}
                                 onClick={this.onClose}>
                           {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
                         </Button>
@@ -135,8 +133,6 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
                       () => (
                         <Button icon={false}
                                 disabled={this.isAcceptButtonDisabled()}
-                                className={toClassName(this.uiFactory.dialogFooterButton,
-                                  this.uiFactory.dialogFooterButtonAccept)}
                                 onClick={this.onAccept}>
                           {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
                         </Button>

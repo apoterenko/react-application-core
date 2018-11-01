@@ -176,6 +176,7 @@
  * @stable [31.10.2018]
  */
 @mixin _rac-button-custom-properties($rac-button-custom-color: unset,
+                                     $rac-button-custom-border-radius: unset,
                                      $rac-button-custom-height: unset,
                                      $rac-button-custom-margin: unset,
                                      $rac-button-custom-border: unset,
@@ -193,6 +194,9 @@
   }
   @if $rac-button-custom-height != unset {
     height: $rac-button-custom-height;
+  }
+  @if $rac-button-custom-border-radius != unset {
+    border-radius: $rac-button-custom-border-radius;
   }
   @if $rac-button-custom-margin != unset {
     margin: $rac-button-custom-margin;
@@ -265,6 +269,7 @@
  * @stable [30.10.2018]
  */
 @mixin rac-button($rac-button-height: unset,
+                  $rac-button-border-radius: unset,
                   $rac-button-color: unset,
                   $rac-button-background: unset,
                   $rac-button-margin: unset,
@@ -275,6 +280,7 @@
   .rac-button {
     @include _rac-button-custom-properties(
       $rac-button-custom-height: $rac-button-height,
+      $rac-button-custom-border-radius: $rac-button-border-radius,
       $rac-button-custom-color: $rac-button-color,
       $rac-button-custom-background: $rac-button-background,
       $rac-button-custom-margin: $rac-button-margin,

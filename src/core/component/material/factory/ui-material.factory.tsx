@@ -356,9 +356,6 @@ export class UIMaterialFactory implements IUIFactory {
   public dialogTitle = 'mdc-dialog__title';
   public dialogScrim = 'mdc-dialog__scrim';
   public dialogActions = 'mdc-dialog__actions';
-  public dialogFooterButton = 'mdc-dialog__footer__button';
-  public dialogFooterButtonCancel = 'mdc-dialog__footer__button--cancel';
-  public dialogFooterButtonAccept = 'mdc-dialog__footer__button--accept';
 
   @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslatorT;
 

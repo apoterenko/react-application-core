@@ -6,6 +6,7 @@
 
   @include rac-button(                                                              /* @stable [31.10.2018] */
     $rac-button-height: $rac-button-height,
+    $rac-button-border-radius: $rac-button-border-radius,
     $rac-button-background: $rac-button-background,
     $rac-button-border: none,
     $rac-button-content-margin-right: auto,
@@ -27,24 +28,22 @@
   );
 
   @include rac-button-custom(                                                       /* @stable [01.11.2018] */
+    $rac-button-custom: rac-button-not-filled,
+    $rac-button-custom-icon-margin: 0 auto
+  );
+
+  @include rac-button-custom(                                                       /* @stable [01.11.2018] */
     $rac-button-custom: rac-button-decorated,
     $rac-button-content-padding: $rac-button-decorated-content-padding
   );
 
   .rac-button {
-    height: $rac-button-height;                                           /* @stable [18.09.2018] */
-    border-radius: $rac-button-border-radius;                             /* @stable [24.06.2018] */
     text-transform: $rac-button-text-transform;                           /* @stable [18.09.2018] */
     font-weight: $rac-button-font-weight;                                 /* @stable [18.09.2018] */
     font-size: $rac-button-font-size;                                     /* @stable [30.10.2018] */
     cursor: pointer;                                                      /* @stable [29.10.2018] */
 
     &.rac-button-not-filled {
-
-      .rac-icon {
-        margin-left: auto;                                                /* @stable [29.10.2018 */
-        margin-right: auto;                                               /* @stable [29.10.2018 */
-      }
 
       &.rac-button-decorated {
         width: 40px;
