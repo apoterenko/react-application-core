@@ -16,15 +16,4 @@
     margin-right: $rac-sub-header-section-title-margin-right;                            /* @stable [29.06.2018] */
     padding-right: $rac-sub-header-section-title-padding-right;                          /* @stable [14.09.2018] */
   }
-
-  .rac-sub-header {
-
-    .rac-sub-header-navigation-action, .rac-toolbar-action {
-      &.rac-icon {
-        background: $rac-sub-header-action-background;                                   /* @stable [14.10.2018] */
-        padding: $rac-sub-header-action-padding;                                         /* @stable [14.10.2018] */
-        border-radius: $rac-sub-header-action-border-radius;                             /* @stable [14.10.2018] */
-      }
-    }
-  }
 }

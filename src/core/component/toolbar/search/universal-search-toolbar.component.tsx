@@ -162,16 +162,19 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
       .concat(
         this.isActive
           ? []
-          : this.uiFactory.makeIcon({
-              type: props.icon,
-              onClick: this.onActivate,
-              disabled: props.actionsDisabled,
-              className: 'rac-toolbar-action',
+          : this.getActionElement({
+            key: 'toolbar-action-key',
+            icon: props.icon,
+            onClick: this.onActivate,
+            disabled: props.actionsDisabled,
+            className: 'rac-toolbar-action',
           })
       ).concat(
         props.notUseField && (actions = this.actions).length > 0
-          ? actions.map((action) => this.uiFactory.makeIcon({
+          ? actions.map((action, index) => this.getActionElement({
             ...action,
+            icon: action.type,
+            key: `toolbar-action-key-${index}`,
             disabled: props.actionsDisabled,
             className: toClassName(action.className, 'rac-toolbar-action'),
           }))
@@ -194,6 +197,8 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
   protected get actionsElementsSection(): JSX.Element[] {
     return orNull<JSX.Element[]>(this.actionsElements.length > 0, () => this.actionsElementsWrapper);
   }
+
+  protected abstract getActionElement(config: any): JSX.Element;	// TODO
 
   /**
    * @stable [18.05.2018]

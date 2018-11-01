@@ -6,6 +6,7 @@ import { ISubHeaderProps } from './header.interface';
 import { BaseComponent } from '../base';
 import { Menu } from '../menu';
 import { FlexLayout } from '../layout';
+import { Button } from '../button';
 
 export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
 
@@ -43,11 +44,9 @@ export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
           {orNull<JSX.Element>(
             props.navigationActionType,
             () => (
-              this.uiFactory.makeIcon({
-                className: 'rac-sub-header-navigation-action',
-                type: props.navigationActionType,
-                onClick: props.onNavigationActionClick,
-              })
+              <Button className='rac-sub-header-navigation-action'
+                      icon={props.navigationActionType}
+                      onClick={props.onNavigationActionClick}/>
             )
           )}
           {orDefault<JSX.Element, JSX.Element>(R.isNil(props.titleRenderer), headerTitle, () => props.titleRenderer(headerTitle))}

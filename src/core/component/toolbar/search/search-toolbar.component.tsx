@@ -6,6 +6,7 @@ import { ISearchToolbarProps } from './search-toolbar.interface';
 import { UniversalSearchToolbar } from './universal-search-toolbar.component';
 import { IComponent } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
+import { Button } from '../../button';
 
 export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
                            TProps extends ISearchToolbarProps = ISearchToolbarProps,
@@ -41,6 +42,10 @@ export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
    */
   protected get actionsElementsWrapper(): JSX.Element[] {
     return this.actionsElements;
+  }
+
+  protected getActionElement(config: any): JSX.Element {
+    return <Button {...config}/>;	// TODO
   }
 
   /**
