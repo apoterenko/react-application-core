@@ -6,7 +6,7 @@ import {
   IBaseCheckboxState,
   IBaseCheckboxInputProps,
 } from './checkbox.interface';
-import { IBasicEvent } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 import { uuid, noop } from '../../../util';
 
 export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TState>,
@@ -51,19 +51,11 @@ export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TS
     const props = this.props;
 
     // A workaround to any framework implementation
-    this.onChangeManually(!props.value);
+    this.onChangeManually(!this.value);
 
     if (props.onClick) {
       props.onClick(event);
     }
-  }
-
-  /**
-   * @stable [31.08.2018]
-   * @returns {boolean}
-   */
-  protected getEmptyValue(): boolean {
-    return false;
   }
 
   /**
