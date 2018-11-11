@@ -27,7 +27,7 @@
 
       @include rac-form(                                                                              /* @stable [08.11.2018] */
         $rac-form-actions-margin: $rac-form-layout-form-actions-margin,
-        $rac-form-actions-button-min-width: $rac-form-layout-form-actions-button-width
+        $rac-form-actions-button-min-width: $rac-form-layout-form-actions-button-min-width
       );
 
       .rac-form-layout-top-header {

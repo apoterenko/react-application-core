@@ -303,7 +303,7 @@ $rac-button-icon-margin: 0 8px !default;
 $rac-button-disabled-opacity: $opacity !default;
 
 /* @stable [03.08.2018] */
-$rac-form-actions-button-margin: 0 0 0 8px !default;
+$rac-form-actions-button-neighbor-margin: 0 0 0 8px !default;
 $rac-form-actions-button-min-width: unset !default;
 $rac-form-simple-list-item-graphic-border-radius: 16px !default;
 $rac-form-simple-list-item-graphic-margin-right: 20px !default;
@@ -421,7 +421,7 @@ $rac-form-layout-header-background: $rac-header-background !default;
 $rac-form-layout-header-title-color: $color-5 !default;
 $rac-form-layout-header-title-font-size: $rac-default-font-size !default;
 $rac-form-layout-form-actions-margin: 20px 0 0 0 !default;
-$rac-form-layout-form-actions-button-width: 100% !default;
+$rac-form-layout-form-actions-button-min-width: 100% !default;
 $rac-form-layout-content-background: $color-5 !default;
 $rac-form-layout-content-margin: 0 !default;
 $rac-form-layout-content-border-radius: 0 !default;

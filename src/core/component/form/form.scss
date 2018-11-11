@@ -6,7 +6,7 @@
 
   @include rac-form(
     $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
-    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-margin
+    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
   );
 
   .rac-form {
