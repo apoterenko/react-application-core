@@ -39,7 +39,7 @@
 @mixin rac-shadowed($background: unset,
                     $shadow: unset,
                     $offset1: 0px,
-                    $offset2: 4px,
+                    $offset2: 3px,
                     $offset3: 3px,
                     $offset4: 0px) {
   @if $background != unset {
@@ -47,6 +47,19 @@
   }
   @if $shadow != unset {
     box-shadow: $offset1 $offset2 $offset3 $offset4 $shadow;
+  }
+}
+
+/**
+ * @stable [08.11.2018]
+ */
+@mixin rac-neighbor($neighbor,
+                    $neighbor-margin: unset) {
+  &+.#{$neighbor} {
+
+    @if $neighbor-margin != unset {
+      margin: $neighbor-margin;
+    }
   }
 }
 
@@ -66,44 +79,79 @@
 }
 
 /**
- * @stable [30.10.2018]
+ * @stable [08.11.2018]
  */
-@mixin rac-field($rac-field-width: unset,
-                 $rac-field-max-width: unset,
-                 $rac-text-field-background: unset) {
+@mixin _rac-field-custom-properties($rac-field-custom-width: unset,
+                                    $rac-field-custom-max-width: unset,
+                                    $rac-field-custom-min-height: unset,
+                                    $rac-text-field-custom-background: unset,
+                                    $rac-text-field-input-custom-cursor: unset,
+                                    $rac-field-label-custom-margin: unset) {
 
-  .rac-field {
-    @if $rac-field-width != unset {
-      width: $rac-field-width;
+  @if $rac-field-custom-width != unset {
+    width: $rac-field-custom-width;
+  }
+  @if $rac-field-custom-max-width != unset {
+    max-width: $rac-field-custom-max-width;
+  }
+  @if $rac-field-custom-min-height != unset {
+    min-height: $rac-field-custom-min-height;
+  }
+
+  .rac-field-label {
+    @if $rac-field-label-custom-margin != unset {
+      margin: $rac-field-label-custom-margin;
     }
-    @if $rac-field-max-width != unset {
-      max-width: $rac-field-max-width;
+  }
+
+  .rac-text-field {
+    @if $rac-text-field-custom-background != unset {
+      background: $rac-text-field-custom-background
     }
 
-    .rac-text-field {
-      @if $rac-text-field-background != unset {
-        background: $rac-text-field-background;
+    .rac-field-input {
+      @if $rac-text-field-input-custom-cursor != unset {
+        cursor: $rac-text-field-input-custom-cursor;
       }
     }
   }
 }
 
 /**
- * @stable [30.10.2018]
+ * @stable [08.11.2018]
  */
-@mixin rac-field-custom($rac-field-custom,
-                        $rac-field-custom-input-cursor: unset) {
+@mixin rac-field($rac-field-custom: unset,
+                 $rac-field-width: unset,
+                 $rac-field-max-width: unset,
+                 $rac-field-min-height: unset,
+                 $rac-field-input-cursor: unset,
+                 $rac-text-field-background: unset,
+                 $rac-text-field-input-cursor: unset,
+                 $rac-field-label-margin: unset) {
 
-  .rac-field {
-    &.#{$rac-field-custom} {
-
-      .rac-text-field {
-        .rac-field-input {
-          @if $rac-field-custom-input-cursor != unset {
-            cursor: $rac-field-custom-input-cursor;
-          }
-        }
+  @if $rac-field-custom != unset {
+    .rac-field {
+      &.#{$rac-field-custom} {
+        @include _rac-field-custom-properties(
+          $rac-field-custom-width: $rac-field-width,
+          $rac-field-custom-max-width: $rac-field-max-width,
+          $rac-field-custom-min-height: $rac-field-min-height,
+          $rac-text-field-custom-background: $rac-text-field-background,
+          $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
+          $rac-field-label-custom-margin: $rac-field-label-margin
+        );
       }
+    }
+  } @else {
+    .rac-field {
+      @include _rac-field-custom-properties(
+        $rac-field-custom-width: $rac-field-width,
+        $rac-field-custom-max-width: $rac-field-max-width,
+        $rac-field-custom-min-height: $rac-field-min-height,
+        $rac-text-field-custom-background: $rac-text-field-background,
+        $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
+        $rac-field-label-custom-margin: $rac-field-label-margin
+      );
     }
   }
 }
@@ -187,7 +235,8 @@
                                      $rac-button-custom-icon-margin: unset,
                                      $rac-button-custom-content-margin-right: unset,
                                      $rac-button-custom-content-margin-left: unset,
-                                     $rac-button-custom-content-padding: unset) {
+                                     $rac-button-custom-content-padding: unset,
+                                     $rac-button-custom-min-width: unset) {
 
   @if $rac-button-custom-color != unset {
     color: $rac-button-custom-color;
@@ -203,6 +252,9 @@
   }
   @if $rac-button-custom-border != unset {
     border: $rac-button-custom-border;
+  }
+  @if $rac-button-custom-min-width != unset {
+    min-width: $rac-button-custom-min-width;
   }
 
   .rac-icon {
@@ -238,58 +290,70 @@
 }
 
 /**
- * @stable [31.10.2018]
+ * @stable [08.11.2018]
  */
-@mixin rac-button-custom($rac-button-custom,
-                         $rac-button-custom-margin: unset,
-                         $rac-button-custom-color: unset,
-                         $rac-button-custom-background: unset,
-                         $rac-button-custom-shadow: unset,
-                         $rac-button-custom-hover-background: unset,
-                         $rac-button-custom-hover-shadow: unset,
-                         $rac-button-custom-icon-margin: unset,
-                         $rac-button-custom-content-padding: unset) {
-
-  .rac-button {
-    &.#{$rac-button-custom} {
-
-      @include _rac-button-custom-properties(
-        $rac-button-custom-margin: $rac-button-custom-margin,
-        $rac-button-custom-color: $rac-button-custom-color,
-        $rac-button-custom-background: $rac-button-custom-background,
-        $rac-button-custom-shadow: $rac-button-custom-shadow,
-        $rac-button-custom-hover-background: $rac-button-custom-hover-background,
-        $rac-button-custom-hover-shadow: $rac-button-custom-hover-shadow,
-        $rac-button-custom-icon-margin: $rac-button-custom-icon-margin,
-        $rac-button-custom-content-padding: $rac-button-custom-content-padding
-      );
-    }
-  }
-}
-
-/**
- * @stable [30.10.2018]
- */
-@mixin rac-button($rac-button-height: unset,
+@mixin rac-button($rac-button-custom: unset,
+                  $rac-button-height: unset,
                   $rac-button-border-radius: unset,
                   $rac-button-color: unset,
                   $rac-button-background: unset,
                   $rac-button-margin: unset,
                   $rac-button-border: unset,
                   $rac-button-content-margin-right: unset,
-                  $rac-button-content-margin-left: unset) {
+                  $rac-button-content-margin-left: unset,
+                  $rac-button-content-padding: unset,
+                  $rac-button-icon-margin: unset,
+                  $rac-button-hover-shadow: unset,
+                  $rac-button-hover-background: unset,
+                  $rac-button-shadow: unset,
+                  $rac-button-min-width: unset,
+                  $rac-button-neighbor-margin: unset) {
 
-  .rac-button {
-    @include _rac-button-custom-properties(
-      $rac-button-custom-height: $rac-button-height,
-      $rac-button-custom-border-radius: $rac-button-border-radius,
-      $rac-button-custom-color: $rac-button-color,
-      $rac-button-custom-background: $rac-button-background,
-      $rac-button-custom-margin: $rac-button-margin,
-      $rac-button-custom-border: $rac-button-border,
-      $rac-button-custom-content-margin-right: $rac-button-content-margin-right,
-      $rac-button-custom-content-margin-left: $rac-button-content-margin-left
-    );
+  @if $rac-button-custom != unset {
+    .rac-button {
+      &.#{$rac-button-custom} {
+        @include _rac-button-custom-properties(
+          $rac-button-custom-height: $rac-button-height,
+          $rac-button-custom-border: $rac-button-border,
+          $rac-button-custom-border-radius: $rac-button-border-radius,
+          $rac-button-custom-margin: $rac-button-margin,
+          $rac-button-custom-color: $rac-button-color,
+          $rac-button-custom-background: $rac-button-background,
+          $rac-button-custom-shadow: $rac-button-shadow,
+          $rac-button-custom-hover-background: $rac-button-hover-background,
+          $rac-button-custom-hover-shadow: $rac-button-hover-shadow,
+          $rac-button-custom-icon-margin: $rac-button-icon-margin,
+          $rac-button-custom-content-padding: $rac-button-content-padding,
+          $rac-button-custom-content-margin-right: $rac-button-content-margin-right,
+          $rac-button-custom-min-width: $rac-button-min-width
+        );
+      }
+    }
+  } @else {
+    .rac-button {
+
+      @include rac-neighbor(
+        rac-button,
+        $rac-button-neighbor-margin
+      );
+
+      @include _rac-button-custom-properties(
+        $rac-button-custom-height: $rac-button-height,
+        $rac-button-custom-border: $rac-button-border,
+        $rac-button-custom-border-radius: $rac-button-border-radius,
+        $rac-button-custom-margin: $rac-button-margin,
+        $rac-button-custom-color: $rac-button-color,
+        $rac-button-custom-background: $rac-button-background,
+        $rac-button-custom-shadow: $rac-button-shadow,
+        $rac-button-custom-hover-background: $rac-button-hover-background,
+        $rac-button-custom-hover-shadow: $rac-button-hover-shadow,
+        $rac-button-custom-icon-margin: $rac-button-icon-margin,
+        $rac-button-custom-content-padding: $rac-button-content-padding,
+        $rac-button-custom-content-margin-right: $rac-button-content-margin-right,
+        $rac-button-custom-content-margin-left: $rac-button-content-margin-left,
+        $rac-button-custom-min-width: $rac-button-min-width
+      );
+    }
   }
 }
 
@@ -301,5 +365,221 @@
   .rac-toolbar {
 
     @include rac-button($rac-button-margin: $rac-toolbar-button-margin);
+  }
+}
+
+/**
+ * @stable [07.11.2018]
+ */
+@mixin _rac-icon-custom-properties($rac-icon-custom-display: unset,
+                                   $rac-icon-custom-background: unset,
+                                   $rac-icon-custom-color: unset,
+                                   $rac-icon-custom-border-radius: unset,
+                                   $rac-icon-custom-width: unset,
+                                   $rac-icon-custom-height: unset,
+                                   $rac-icon-custom-content-height: unset,
+                                   $rac-icon-custom-content-width: unset,
+                                   $rac-icon-custom-line-height: unset,
+                                   $rac-icon-custom-border: unset) {
+
+  @if $rac-icon-custom-border != unset {
+    border: $rac-icon-custom-border;
+  }
+  @if $rac-icon-custom-line-height != unset {
+    line-height: $rac-icon-custom-line-height;
+  }
+  @if $rac-icon-custom-display != unset {
+    display: $rac-icon-custom-display;
+  }
+  @if $rac-icon-custom-width != unset {
+    width: $rac-icon-custom-width;
+  }
+  @if $rac-icon-custom-height != unset {
+    height: $rac-icon-custom-height;
+  }
+  @if $rac-icon-custom-color != unset {
+    color: $rac-icon-custom-color;
+  }
+  @if $rac-icon-custom-background != unset {
+    background: $rac-icon-custom-background;
+  }
+  @if $rac-icon-custom-border-radius != unset {
+    border-radius: $rac-icon-custom-border-radius;
+  }
+  @if $rac-icon-custom-content-height != unset or $rac-icon-custom-content-width != unset {
+    svg {
+      @if $rac-icon-custom-content-height != unset {
+        height: $rac-icon-custom-content-height;
+      }
+      @if $rac-icon-custom-content-width != unset {
+        width: $rac-icon-custom-content-width;
+      }
+    }
+  }
+}
+
+/**
+ * @stable [07.11.2018]
+ */
+@mixin rac-icon($rac-icon-custom: unset,
+                $rac-icon-display: unset,
+                $rac-icon-background: unset,
+                $rac-icon-color: unset,
+                $rac-icon-border-radius: unset,
+                $rac-icon-width: unset,
+                $rac-icon-height: unset,
+                $rac-icon-content-height: unset,
+                $rac-icon-content-width: unset,
+                $rac-icon-line-height: unset,
+                $rac-icon-border: unset) {
+
+  @if $rac-icon-custom != unset {
+    .rac-icon {
+      &.#{$rac-icon-custom} {
+        @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
+                                             $rac-icon-custom-background: $rac-icon-background,
+                                             $rac-icon-custom-color: $rac-icon-color,
+                                             $rac-icon-custom-border-radius: $rac-icon-border-radius,
+                                             $rac-icon-custom-width: $rac-icon-width,
+                                             $rac-icon-custom-height: $rac-icon-height,
+                                             $rac-icon-custom-content-height: $rac-icon-content-height,
+                                             $rac-icon-custom-content-width: $rac-icon-content-width,
+                                             $rac-icon-custom-line-height: $rac-icon-line-height,
+                                             $rac-icon-custom-border: $rac-icon-border);
+      }
+    }
+  } @else {
+    .rac-icon {
+      @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
+                                           $rac-icon-custom-background: $rac-icon-background,
+                                           $rac-icon-custom-color: $rac-icon-color,
+                                           $rac-icon-custom-border-radius: $rac-icon-border-radius,
+                                           $rac-icon-custom-width: $rac-icon-width,
+                                           $rac-icon-custom-height: $rac-icon-height,
+                                           $rac-icon-custom-content-height: $rac-icon-content-height,
+                                           $rac-icon-custom-content-width: $rac-icon-content-width,
+                                           $rac-icon-custom-line-height: $rac-icon-line-height,
+                                           $rac-icon-custom-border: $rac-icon-border);
+    }
+  }
+}
+
+/**
+ * @stable [07.11.2018]
+ */
+@mixin rac-grid-column($rac-vertical-align: unset,
+                       $rac-icon-custom: unset,
+                       $rac-icon-display: unset,
+                       $rac-icon-width: unset,
+                       $rac-icon-height: unset,
+                       $rac-icon-content-height: unset,
+                       $rac-icon-content-width: unset,
+                       $rac-icon-background: unset,
+                       $rac-icon-color: unset,
+                       $rac-icon-border-radius: unset,
+                       $rac-icon-line-height: unset,
+                       $rac-icon-border: unset) {
+
+  .rac-grid-column {
+    @if $rac-vertical-align != unset {
+      vertical-align: $rac-vertical-align;
+    }
+
+    @include rac-icon($rac-icon-custom: $rac-icon-custom,
+                      $rac-icon-display: $rac-icon-display,
+                      $rac-icon-width: $rac-icon-width,
+                      $rac-icon-height: $rac-icon-height,
+                      $rac-icon-content-height: $rac-icon-content-height,
+                      $rac-icon-content-width: $rac-icon-content-width,
+                      $rac-icon-background: $rac-icon-background,
+                      $rac-icon-color: $rac-icon-color,
+                      $rac-icon-border-radius: $rac-icon-border-radius,
+                      $rac-icon-line-height: $rac-icon-line-height,
+                      $rac-icon-border: $rac-icon-border);
+  }
+}
+
+/**
+ * @stable [07.11.2018]
+ */
+@mixin rac-grid($rac-grid-column-vertical-align: unset,
+                $rac-grid-head-column-vertical-align: unset,
+                $rac-grid-head-border-radius: unset,
+                $rac-grid-head-color: unset,
+                $rac-grid-head-background: unset,
+                $rac-grid-column-icon-custom: unset,
+                $rac-grid-column-icon-display: unset,
+                $rac-grid-column-icon-width: unset,
+                $rac-grid-column-icon-height: unset,
+                $rac-grid-column-icon-content-height: unset,
+                $rac-grid-column-icon-content-width: unset,
+                $rac-grid-column-icon-background: unset,
+                $rac-grid-column-icon-color: unset,
+                $rac-grid-column-icon-border-radius: unset,
+                $rac-grid-column-icon-line-height: unset,
+                $rac-grid-column-icon-border: unset) {
+
+  .rac-grid {
+
+    @include rac-grid-column($rac-vertical-align: $rac-grid-column-vertical-align,
+                             $rac-icon-custom: $rac-grid-column-icon-custom,
+                             $rac-icon-display: $rac-grid-column-icon-display,
+                             $rac-icon-width: $rac-grid-column-icon-width,
+                             $rac-icon-height: $rac-grid-column-icon-height,
+                             $rac-icon-content-height: $rac-grid-column-icon-content-height,
+                             $rac-icon-content-width: $rac-grid-column-icon-content-width,
+                             $rac-icon-background: $rac-grid-column-icon-background,
+                             $rac-icon-color: $rac-grid-column-icon-color,
+                             $rac-icon-border-radius: $rac-grid-column-icon-border-radius,
+                             $rac-icon-line-height: $rac-grid-column-icon-line-height,
+                             $rac-icon-border: $rac-grid-column-icon-border);
+
+    .rac-grid-head {
+      @if $rac-grid-head-border-radius != unset {
+        border-radius: $rac-grid-head-border-radius;
+      }
+      @if $rac-grid-head-color != unset {
+        color: $rac-grid-head-color;
+      }
+      @if $rac-grid-head-background != unset {
+        background: $rac-grid-head-background;
+      }
+
+      @include rac-grid-column($rac-vertical-align: $rac-grid-head-column-vertical-align);
+    }
+  }
+}
+
+/**
+ * @stable [08.11.2018]
+ */
+@mixin rac-form-actions($rac-form-actions-margin: unset,
+                        $rac-form-actions-button-custom: unset,
+                        $rac-form-actions-button-min-width: unset,
+                        $rac-form-actions-button-neighbor-margin: unset) {
+  .rac-form-actions {
+    @if $rac-form-actions-margin != unset {
+      margin: $rac-form-actions-margin;
+    }
+
+    @include rac-button($rac-button-custom: $rac-form-actions-button-custom,
+                        $rac-button-min-width: $rac-form-actions-button-min-width,
+                        $rac-button-neighbor-margin: $rac-form-actions-button-neighbor-margin);
+  }
+}
+
+/**
+ * @stable [08.11.2018]
+ */
+@mixin rac-form($rac-form-actions-button-min-width: unset,
+                $rac-form-actions-button-neighbor-margin: unset,
+                $rac-form-actions-margin: unset) {
+  .rac-form {
+
+    @include rac-form-actions(
+      $rac-form-actions-margin: $rac-form-actions-margin,
+      $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
+      $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
+    );
   }
 }

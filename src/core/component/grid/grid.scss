@@ -8,6 +8,16 @@
 // Grid [FRAMEWORK-][RAC+]
 .rac {
 
+  @include rac-grid(                                                                /* @stable [07.11.2018] */
+    $rac-grid-column-icon-display: inline-block,
+    $rac-grid-column-icon-width: $rac-grid-icon-size,
+    $rac-grid-column-icon-height: $rac-grid-icon-size,
+    $rac-grid-head-border-radius: $rac-grid-head-border-radius,
+    $rac-grid-head-color: $rac-grid-head-color,
+    $rac-grid-head-background: $rac-grid-head-background,
+    $rac-grid-head-column-vertical-align: bottom
+  );
+
   .rac-grid {
     color: $rac-grid-color;                                                         /* @stable [21.06.2018] */
     border-collapse: collapse;                                                      /* @stable [21.06.2018] */
@@ -70,13 +80,6 @@
         );
       }
 
-      .rac-icon {
-        display: inline-block;                                                      /* @stable [25.06.2018] */
-        width: $rac-grid-icon-size;                                                 /* @stable [21.06.2018] */
-        height: $rac-grid-icon-size;                                                /* @stable [21.06.2018] */
-        line-height: $rac-grid-icon-line-height;                                    /* @stable [21.06.2018] */
-      }
-
       &.rac-grid-actioned-column {
 
         .rac-icon {
@@ -89,9 +92,6 @@
     }
 
     .rac-grid-head {
-      border-radius: $rac-grid-head-border-radius;                           /* @stable [13.09.2018] */
-      color: $rac-grid-head-color;                                           /* @stable [13.09.2018] */
-      background: $rac-grid-head-background;                                 /* @stable [13.09.2018] */
 
       .rac-grid-filter-row {
 

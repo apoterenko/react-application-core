@@ -1,17 +1,15 @@
 @import '../constant';
+@import '../mixin';
 
 // Form [FRAMEWORK-][RAC+]
 .rac {
 
+  @include rac-form(
+    $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
+    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-margin
+  );
+
   .rac-form {
-
-    .rac-form-actions {
-
-      .rac-button {
-        margin-left: $rac-form-actions-button-margin-left;                          /* @stable [10.10.2018] */
-        min-width: $rac-form-actions-button-min-width;                              /* @stable [21.09.2018] */
-      }
-    }
 
     .rac-list {
 

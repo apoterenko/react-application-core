@@ -1,4 +1,5 @@
 @import '../../constant';
+@import '../../mixin';
 
 // Form layout [FRAMEWORK-][RAC+]
 .rac {
@@ -24,17 +25,10 @@
         }
       }
 
-      .rac-form {
-
-        .rac-form-actions {
-          margin: $rac-form-layout-form-actions-margin;                /* @stable [18.09.2018] */
-
-          .rac-button {
-            width: $rac-form-layout-form-actions-button-width;         /* @stable [18.09.2018] */
-            margin-left: 0;                                            /* @stable [08.08.2018] */
-          }
-        }
-      }
+      @include rac-form(                                                                              /* @stable [08.11.2018] */
+        $rac-form-actions-margin: $rac-form-layout-form-actions-margin,
+        $rac-form-actions-button-min-width: $rac-form-layout-form-actions-button-width
+      );
 
       .rac-form-layout-top-header {
         width: $rac-form-layout-top-header-width;                      /* @stable [18.09.2018] */
@@ -53,6 +47,12 @@
       }
 
       .rac-field {
+
+        &.rac-field-value-present {
+          .rac-text-field {
+            background: $rac-form-layout-text-field-value-present-background;  /* @stable [07.11.2018] */
+          }
+        }
 
         .rac-text-field {
           height: $rac-form-layout-text-field-height;                          /* @stable [18.09.2018] */
@@ -78,10 +78,6 @@
 
           .rac-icon {
             color: $rac-form-layout-field-icon-color;                          /* @stable [18.09.2018] */
-          }
-
-          &.rac-field-filled {
-            background: $rac-form-layout-text-field-filled-background;         /* @stable [03.10.2018] */
           }
         }
       }
