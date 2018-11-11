@@ -1,3 +1,5 @@
+import { IKeyValue } from '../../definitions.interface';
+
 export const DATE_TIME_TYPES = {
   months: 'months',
   seconds: 'seconds',
@@ -7,6 +9,14 @@ export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
+  fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
+  fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
+  fromDateTimeToDate(date: DateTimeLikeTypeT): string;
+  fromDateTimeToTime(date: DateTimeLikeTypeT): string;
+  splitToDateTimeFields<TEntity>(entity: TEntity,
+                                 dateFieldName: string,
+                                 timeFieldName: string,
+                                 dateResolver: (entity: TEntity) => string): IKeyValue;
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;
@@ -20,7 +30,6 @@ export interface IDateConverter {
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatPstTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
-  fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToPstDate(date?: DateTimeLikeTypeT, input?: string): string;
   fromDateTimeToPstTime(date?: DateTimeLikeTypeT, input?: string): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;

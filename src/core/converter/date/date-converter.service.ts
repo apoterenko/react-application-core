@@ -3,8 +3,8 @@ import * as moment from 'moment';
 import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO } from '../../definitions.interface';
-import { isString, orNull } from '../../util';
+import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
+import { isString, orNull, orUndef, defValuesFilter } from '../../util';
 import { IApplicationDateTimeSettings, IApplicationSettings } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
@@ -41,10 +41,62 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [11.08.2018]
+   * @stable [09.11.2018]
    * @param {DateTimeLikeTypeT} date
+   * @param {string} outputFormat
    * @returns {string}
    */
+  public fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
+    return this.format(date, this.dateTimeFormat, outputFormat);
+  }
+
+  /**
+   * @stable [09.11.2018]
+   * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
+   * @returns {string} [Example: Apr 07 08:54 PM]
+   */
+  public fromDateTimeToPstDateTime(date: DateTimeLikeTypeT = new Date()): string {
+    return this.fromDateTimeToArbitraryFormat(date, this.pstDateTimeFormat);
+  }
+
+  /**
+   * @stable [09.11.2018]
+   * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
+   * @returns {string} [Example: 2018-04-07]
+   */
+  public fromDateTimeToDate(date: DateTimeLikeTypeT): string {
+    return this.fromDateTimeToArbitraryFormat(date, this.dateFormat);
+  }
+
+  /**
+   * @stable [09.11.2018]
+   * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
+   * @returns {string} [Example: 20:54:45]
+   */
+  public fromDateTimeToTime(date: DateTimeLikeTypeT): string {
+    return this.fromDateTimeToArbitraryFormat(date, this.timeFormat);
+  }
+
+  /**
+   * @stable [09.11.2018]
+   * @param {TEntity} entity
+   * @param {string} dateFieldName
+   * @param {string} timeFieldName
+   * @param {(entity: TEntity) => string} dateResolver
+   * @returns {IKeyValue}
+   */
+  public splitToDateTimeFields<TEntity>(entity: TEntity,
+                                        dateFieldName: string,
+                                        timeFieldName: string,
+                                        dateResolver: (entity: TEntity) => string): IKeyValue {
+    const date = dateResolver(entity);
+
+    return defValuesFilter({
+      [timeFieldName]: orUndef<string>(date, () => this.fromDateTimeToTime(date)),
+      [dateFieldName]: orUndef<string>(date, () => this.fromDateTimeToDate(date)),
+    });
+  }
+
   public fromDateToUiDate(date: DateTimeLikeTypeT): string {
     return this.format(
       this.shrinkDate(date), /* Need to clear a timezone */
@@ -53,22 +105,12 @@ export class DateConverter implements IDateConverter {
     );
   }
 
-  /**
-   * @stable [11.08.2018]
-   * @param {DateTimeLikeTypeT} date
-   * @returns {string}
-   */
   public fromDateTimeToUiDate(date: DateTimeLikeTypeT): string {
-    return this.format(date, this.dateTimeFormat, this.uiDateFormat);
+    return this.fromDateTimeToArbitraryFormat(date, this.uiDateFormat);
   }
 
-  /**
-   * @stable [11.08.2018]
-   * @param {DateTimeLikeTypeT} date
-   * @returns {string}
-   */
   public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {
-    return this.format(date, this.dateTimeFormat, this.uiDateTimeFormat);
+    return this.fromDateTimeToArbitraryFormat(date, this.uiDateTimeFormat);
   }
 
   /**
@@ -82,14 +124,6 @@ export class DateConverter implements IDateConverter {
         this.uiDateTimeFormat,
         this.dateTimeFormat
     );
-  }
-
-  /**
-   * @param {DateTimeLikeTypeT} date
-   * @returns {string}
-   */
-  public fromDateTimeToPstDateTime(date: DateTimeLikeTypeT = new Date()): string {
-    return this.format(date, this.dateTimeFormat, this.pstDateTimeFormat);
   }
 
   /**
@@ -177,6 +211,11 @@ export class DateConverter implements IDateConverter {
     return this.format(date, this.dateFormat, outputFormat);
   }
 
+  /**
+   * @deprecated
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
   public formatDateFromDateTime(date: DateTimeLikeTypeT): string {
     return this.formatDateTime(date, this.dateFormat);
   }
