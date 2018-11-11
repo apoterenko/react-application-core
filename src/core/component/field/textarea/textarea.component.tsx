@@ -32,11 +32,11 @@ export class TextArea extends BasicTextField<TextArea,
     );
   }
 
+  /**
+   * @stable [07.11.2018]
+   * @returns {string}
+   */
   protected getSelfElementClassName(): string {
-    return toClassName(
-        super.getSelfElementClassName(),
-        'rac-textarea-field',
-        this.uiFactory.textFieldTextArea,
-    );
+    return `${super.getSelfElementClassName()} rac-textarea-field`;
   }
 }

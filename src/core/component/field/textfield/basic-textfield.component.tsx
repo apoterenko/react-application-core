@@ -8,7 +8,7 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
 import { orNull, toClassName, nvl, cancelEvent, IJqElement, parseValueAtPx } from '../../../util';
-import { IBasicEvent, UNI_CODES, IChangeEvent } from '../../../definitions.interface';
+import { UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
@@ -19,6 +19,7 @@ import {
   IBasicTextFieldProps,
   IBasicTextField,
 } from './basic-textfield.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IBasicTextFieldProps,
@@ -85,11 +86,11 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [03.10.2018]
+   * @stable [07.11.2018]
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return toClassName('rac-text-field', 'rac-flex', 'rac-flex-row', this.isValuePresent() && 'rac-field-filled');
+    return 'rac-text-field rac-flex rac-flex-row';
   }
 
   protected addClearAction(): void {
