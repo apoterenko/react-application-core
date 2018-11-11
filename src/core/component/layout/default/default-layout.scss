@@ -32,9 +32,9 @@
       min-height: $rac-default-layout-sub-header-height;                                            /* @stable [13.10.2018] */
       max-height: $rac-default-layout-sub-header-height;                                            /* @stable [13.10.2018] */
 
-      @include rac-button-custom(                                                                   /* @stable [01.11.2018] */
+      @include rac-button(                                                                          /* @stable [01.11.2018] */
         $rac-button-custom: rac-button-navigation,
-        $rac-button-custom-margin: $rac-default-layout-sub-header-button-navigation-margin
+        $rac-button-margin: $rac-default-layout-sub-header-button-navigation-margin
       );
 
       &.rac-sub-header-bordered {
@@ -85,8 +85,8 @@
       }
     }
 
-    .rac-footer {
-      height: $rac-default-layout-footer-height;                                                    /* @stable [16.09.2018] */
+    .rac-page-toolbar {  // TODO
+      min-height: $rac-default-layout-footer-height;                                                    /* @stable [16.09.2018] */
       max-height: $rac-default-layout-footer-height;                                                /* @stable [16.09.2018] */
     }
 

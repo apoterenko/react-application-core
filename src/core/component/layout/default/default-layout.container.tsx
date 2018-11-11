@@ -16,7 +16,7 @@ import { IOperationEntity, LayoutModeEnum } from '../../../entities-definitions.
 import { ILayoutEntity, IStringMenuActionEntity, IXYEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
-import { IPayloadWrapper, IBasicEvent, StringNumberT } from '../../../definitions.interface';
+import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
 import { Message } from '../../message';
 import {
   CenterLayout,
@@ -29,6 +29,7 @@ import { Menu } from '../../menu';
 import { APPLICATION_SECTIONS } from '../../application';
 import { toAllDependentRoutePaths } from '../../connector';
 import { Link } from '../../link';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
 
@@ -271,10 +272,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const props = this.props;
     const footer = props.footer;
 
-    return orNull<JSX.Element>(
-      props.footerRendered && !R.isNil(footer) && !R.isNil(footer.props.children),
-      () => <footer className='rac-footer'>{footer}</footer>
-    );
+    return orNull<JSX.Element>(props.footerRendered, footer);
   }
 
   /**
