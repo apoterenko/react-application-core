@@ -4,6 +4,7 @@ import { DI_TYPES } from './di.interface';
 import { staticInjector } from './di.support';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { INumberConverter } from '../converter';
+import { IUIFactory } from '../component/factory/factory.interface';
 
 /**
  * @stable [20.10.2018]
@@ -17,3 +18,9 @@ export const getStore = <TStoreEntity extends IUniversalApplicationStoreEntity>(
  * @returns {INumberConverter}
  */
 export const getNumberConverter = (): INumberConverter => staticInjector<INumberConverter>(DI_TYPES.NumberConverter);
+
+/**
+ * @stable [09.11.2018]
+ * @returns {IUIFactory}
+ */
+export const getUiFactory = (): IUIFactory => staticInjector<IUIFactory>(DI_TYPES.UIFactory);
