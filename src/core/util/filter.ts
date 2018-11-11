@@ -124,18 +124,11 @@ export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicat
     : predicates[0](value), data);
 
 /**
- * @stable [03.10.2018]
- * @param {TValue[]} data
- * @returns {any[]}
- */
-export const defValuesArrayFilter = <TValue>(...data: TValue[]) => filterArray(data, DEF_VALUE_PREDICATE);
-
-/**
- * @stable [27.10.2018]
+ * @stable [10.11.2018]
  * @param {TValue} data
- * @returns {any[]}
+ * @returns {TValue[]}
  */
-export const notNilValuesArrayFilter = <TValue>(...data: TValue[]) => filterArray(data, NOT_NIL_VALUE_PREDICATE);
+export const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
 
 export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource,

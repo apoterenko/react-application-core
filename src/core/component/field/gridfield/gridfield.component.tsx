@@ -32,8 +32,8 @@ export class GridField extends MultiField<GridField, IGridFieldProps, IGridField
     };
 
     return (
-      <Grid emptyMessage={this.settings.messages.noSelectedItemsMessage}
-            emptyDataMessage={this.settings.messages.noSelectedItemsMessage}
+      <Grid emptyMessage={this.settings.messages.noItemsMessage}
+            emptyDataMessage={this.settings.messages.noItemsMessage}
             {...gridListEntity}
             {...props.gridConfiguration}
             onChange={this.onChangeRowField}
