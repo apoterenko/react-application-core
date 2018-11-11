@@ -1,3 +1,4 @@
+import './button/vue-button.component';
 import './field/vue-field.module';
 import './grid/vue-grid.component';
 import './layout/builder/vue-layout.component';

@@ -89,4 +89,12 @@ export class VueBaseContainer extends Vue implements IVueContainer {
     const payload: INavigateEntity<TPath0, TState0> = { path, state };
     this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, payload);
   }
+
+  /**
+   * @stable [11.11.2018]
+   * @returns {this}
+   */
+  private get self(): VueBaseContainer {
+    return this;
+  }
 }

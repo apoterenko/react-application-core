@@ -1,10 +1,14 @@
 import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
-import { calc, toClassName } from '../../util';
+import {
+  IVueGridColumnDynamicEntity,
+  IVueGridColumnConfiguration,
+} from '../../vue-entities-definitions.interface';
+import { calc, toClassName, orEmpty, isString } from '../../util';
 import { VueBaseComponent } from '../base/vue-index';
 import { ComponentName } from '../connector/vue-index';
-import { IEntity } from '../../definitions.interface';
+import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
 
 @ComponentName('vue-grid')
 @Component({
@@ -19,9 +23,17 @@ import { IEntity } from '../../definitions.interface';
                 :class="getRowClass(entity)"
                 v-on:click="onSelect($event, entity)">
               <td v-for="column in columns"
-                  v-html="getColumn(entity, column)"
                   :style="getColumnStyle(entity, column)"
                   class="rac-grid-column">
+                    <div v-if="!isColumnDynamicEntity(entity, column)"
+                         v-html="getColumn(entity, column)"
+                         class="rac-grid-column-content"/>
+                    <div v-else
+                         class="rac-grid-column-content">
+                      <component :is="getColumnDynamicComponent(entity, column)"
+                                 v-on="getColumnDynamicEvents(entity, column)"
+                                 v-bind="getColumnDynamicBindings(entity, column)"/>
+                    </div>
               </td>
             </tr>
           </tbody>
@@ -50,12 +62,13 @@ import { IEntity } from '../../definitions.interface';
   },
 })
 class VueGrid extends VueBaseComponent {
-  @Prop() public columns: any;
-  @Prop() public list: any;
+  @Prop() public columns: any; // TODO
+  @Prop() public list: any;   // TODO
   @Prop() public filterQuery: string;
   @Prop() public filter: (item) => boolean;
   @Prop() public rowClass: string | ((item) => string);
   public listData: IEntity[];
+  @Prop() private eventsScope: AnyT;
 
   /**
    * @stable [23.10.2018]
@@ -73,7 +86,7 @@ class VueGrid extends VueBaseComponent {
    */
   private getRowClass(entity: IEntity): string {
     return toClassName(
-      R.isNil(this.rowClass) ? '' : calc<string, IEntity>(this.rowClass, entity),
+      orEmpty(!R.isNil(this.rowClass), calc<string, IEntity>(this.rowClass, entity)),
       'rac-grid-row',
       'rac-grid-data-row',
       'rac-grid-data-row-hovered',
@@ -81,14 +94,78 @@ class VueGrid extends VueBaseComponent {
     );
   }
 
-  private getColumn(entity, column): any {  // TODO
-    return column.renderer
-      ? column.renderer(entity, column, entity[column.name])
-      : `<div>${entity[column.name]}</div>`;
+  /**
+   * @stable [11.11.2018]
+   * @param {IEntity} entity
+   * @param {IVueGridColumnConfiguration} column
+   * @returns {string | IVueGridColumnDynamicEntity}
+   */
+  private getColumn(entity: IEntity, column: IVueGridColumnConfiguration): string | IVueGridColumnDynamicEntity {
+    return column.renderer$
+      ? column.renderer$(entity, column, entity[column.name$])
+      : entity[column.name$];
   }
 
-  private getColumnStyle(entity, column) {
-    return column.style || '';
+  /**
+   * @stable [11.11.2018]
+   * @param {IEntity} entity
+   * @param {IVueGridColumnConfiguration} column
+   * @returns {string}
+   */
+  private getColumnDynamicComponent(entity: IEntity, column: IVueGridColumnConfiguration): string {
+    const columnDynamicEntity = this.getColumn(entity, column) as IVueGridColumnDynamicEntity;
+    return columnDynamicEntity.component$;
+  }
+
+  /**
+   * @stable [11.11.2018]
+   * @param {IEntity} entity
+   * @param {IVueGridColumnConfiguration} column
+   * @returns {string}
+   */
+  private getColumnDynamicEvents(entity: IEntity, column: IVueGridColumnConfiguration): IKeyValue {
+    const columnDynamicEntity = this.getColumn(entity, column) as IVueGridColumnDynamicEntity;
+
+    const events$ = columnDynamicEntity.events$;
+    const eventsScope = this.eventsScope;
+
+    return R.isNil(eventsScope)
+      ? events$
+      : {
+        ...R.mergeAll(Object.keys(events$).map((eventCbName) =>
+          ({[eventCbName]: events$[eventCbName].bind(eventsScope)}))),
+      };
+  }
+
+  /**
+   * @stable [11.11.2018]
+   * @param {IEntity} entity
+   * @param {IVueGridColumnConfiguration} column
+   * @returns {IKeyValue}
+   */
+  private getColumnDynamicBindings(entity: IEntity, column: IVueGridColumnConfiguration): IKeyValue {
+    const columnDynamicEntity = this.getColumn(entity, column) as IVueGridColumnDynamicEntity;
+    return columnDynamicEntity.bindings$;
+  }
+
+  /**
+   * @stable [11.11.2018]
+   * @param {IEntity} entity
+   * @param {IVueGridColumnConfiguration} column
+   * @returns {boolean}
+   */
+  private isColumnDynamicEntity(entity: IEntity, column: IVueGridColumnConfiguration): boolean {
+    return !isString(this.getColumn(entity, column));
+  }
+
+  /**
+   * @stable [11.11.2018]
+   * @param {IEntity} entity
+   * @param {IVueGridColumnConfiguration} column
+   * @returns {string}
+   */
+  private getColumnStyle(entity: IEntity, column: IVueGridColumnConfiguration): string {
+    return column.style$ || '';
   }
 
   private get progress(): boolean {

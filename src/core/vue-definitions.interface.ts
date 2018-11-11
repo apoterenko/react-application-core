@@ -20,6 +20,48 @@ export interface IVueType$Wrapper<TType$ = string> {
 }
 
 /**
+ * @stable [11.11.2018]
+ */
+export interface IVueEvents$Wrapper<TEvents$ = AnyT> {
+  events$?: TEvents$;
+}
+
+/**
+ * @stable [11.11.2018]
+ */
+export interface IVueRenderer$Wrapper<TRenderer$> {
+  renderer$?: TRenderer$;
+}
+
+/**
+ * @stable [11.11.2018]
+ */
+export interface IVueName$Wrapper<TName$ = string> {
+  name$?: TName$;
+}
+
+/**
+ * @stable [11.11.2018]
+ */
+export interface IVueStyle$Wrapper<TStyle$ = string> {
+  style$?: TStyle$;
+}
+
+/**
+ * @stable [11.11.2018]
+ */
+export interface IVueBindings$Wrapper<TBindings$ = AnyT> {
+  bindings$?: TBindings$;
+}
+
+/**
+ * @stable [11.11.2018]
+ */
+export interface IVueComponent$Wrapper<TComponent$ = string> {
+  component$?: TComponent$;
+}
+
+/**
  * @stable [21.10.2018]
  */
 export interface IVueValue$Wrapper<TValue$ = AnyT> {
