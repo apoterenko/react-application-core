@@ -89,7 +89,8 @@ export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarP
     const isNextBtnDisabled = this.isNextBtnDisabled;
 
     return (
-      <FlexLayout row={true}>
+      <FlexLayout row={true}
+                  full={false}>
         {
           this.uiFactory.makeIcon({
             type: 'first_page',

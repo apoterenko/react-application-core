@@ -19,8 +19,8 @@ import {
   IOnChangeWrapper,
   IOnOpenWrapper,
   IOnRefreshWrapper,
-  IOnActionClickWrapper,
-} from '../../../definitions.interface';
+  } from '../../../definitions.interface';
+import { IOnActionClickWrapper } from '../../../react-definitions.interface';
 
 /**
  * @stable [13.09.2018]

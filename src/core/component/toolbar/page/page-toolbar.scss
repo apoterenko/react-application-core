@@ -23,6 +23,7 @@
       .rac-toolbar-pages-info {
         font-size: $rac-page-toolbar-pages-info-font-size;            /* @stable [05.08.2018] */
         color: $rac-page-toolbar-pages-info-color;                    /* @stable [09.05.2018] */
+        margin: 0 16px;  // TODO
       }
     }
   }
