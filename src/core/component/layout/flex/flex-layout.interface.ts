@@ -7,10 +7,10 @@ import {
   ISeparatorWrapper,
   IJustifyContentCenterWrapper,
   IAlignItemsEndWrapper,
-  IOnClickWrapper,
   IOverflowWrapper,
   IOverflowMinContentHeightWrapper,
 } from '../../../definitions.interface';
+import { IOnClickWrapper } from '../../../react-definitions.interface';
 
 /**
  * @stable [17.06.2018]

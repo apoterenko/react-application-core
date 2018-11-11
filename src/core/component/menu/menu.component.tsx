@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { UNDEF, IBasicEvent } from '../../definitions.interface';
+import { UNDEF} from '../../definitions.interface';
 import { IMenuItemEntity } from '../../entities-definitions.interface';
 import {
   orNull,
@@ -20,6 +20,7 @@ import { SimpleList } from '../list';
 import { IMenuState, IMenuProps, IMenu } from './menu.interface';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
+import { IBasicEvent } from '../../react-definitions.interface';
 
 export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     implements IMenu {

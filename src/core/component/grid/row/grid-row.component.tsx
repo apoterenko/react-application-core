@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BaseComponent } from '../../base';
 import { toClassName } from '../../../util';
 import { IGridRowProps } from './grid-row.interface';
-import { IBasicEvent } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class GridRow extends BaseComponent<GridRow, IGridRowProps, {}> {
 

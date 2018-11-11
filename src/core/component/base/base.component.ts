@@ -2,7 +2,7 @@ import { cancelEvent } from '../../util';
 import { UniversalComponent } from './universal.component';
 import { IComponent } from '../../entities-definitions.interface';
 import { IComponentProps } from '../../props-definitions.interface';
-import { IBasicEvent } from '../../definitions.interface';
+import { IBasicEvent } from '../../react-definitions.interface';
 
 export class BaseComponent<TComponent extends IComponent<TProps, TState>,
                            TProps extends IComponentProps = IComponentProps,

@@ -58,7 +58,7 @@ export interface IApplicationMessagesSettings {
   emptyDataMessage?: string;
   appNotReadyMessage?: string;
   followingErrorHasOccurredMessage?: string;
-  noSelectedItemsMessage?: string;
+  noItemsMessage?: string;
   filterPlaceholderMessage?: string;
   takeSnapshotMessage?: string;
   confirmationMessage?: string;
@@ -149,7 +149,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     emptyDataMessage: 'No data found',
     appNotReadyMessage: 'The application is initialized...',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
-    noSelectedItemsMessage: 'No selected items.',
+    noItemsMessage: 'No items.',
     filterPlaceholderMessage: 'Filter',
     takeSnapshotMessage: 'Take a snapshot',
     confirmationMessage: 'Confirmation',

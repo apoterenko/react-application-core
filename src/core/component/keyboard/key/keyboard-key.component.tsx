@@ -4,7 +4,7 @@ import { toClassName, isString } from '../../../util';
 import { BaseComponent } from '../../base';
 import { IKeyboardKey, KeyboardKeyEnum, KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 import { IKeyboardKeyProps } from './keyboard-key.interface';
-import { IBasicEvent } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
 

@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { orUndef, isPrimitive, nvl, isFn, orNull, calc } from '../../../util';
 import { IGridColumnProps } from '../../../props-definitions.interface';
 import { BaseGridColumn } from '../base-column/base-grid-column.component';
-import { IBasicEvent } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class GridColumn extends BaseGridColumn<GridColumn, IGridColumnProps> {
 

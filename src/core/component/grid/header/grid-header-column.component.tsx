@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IBasicEvent } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 import { SortDirectionEnum } from '../../../entities-definitions.interface';
 import { nvl, orUndef, orNull, cancelEvent } from '../../../util';
 import { IGridHeaderColumnProps } from './grid-header-column.interface';

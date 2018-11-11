@@ -10,7 +10,7 @@ import {
   IPathWrapper,
   IFilterRoutePathWrapper,
   IStateWrapper,
-  IUseLazyLoading,
+  IUseLazyLoadingWrapper,
   ICanComeBackWrapper,
   IEntity,
   IActivateQueryFilterWrapper,
@@ -81,7 +81,7 @@ export interface IEditedListMiddlewareConfig<TEntity, TApplicationState>
           IStateWrapper<TApplicationState>,
           IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IEffectsActionWrapper,
-          IUseLazyLoading {
+          IUseLazyLoadingWrapper {
 }
 
 /**

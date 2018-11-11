@@ -15,9 +15,8 @@ import {
   DATE_FIELD_NAME,
   TIME_FIELD_NAME,
   IFromDateToDateEntity,
-  IFromDateFromTimeToDateToTimeEntity,
 } from '../../definitions.interface';
-import { IApiEntity, IDateTimeEntity } from '../../entities-definitions.interface';
+import { IApiEntity, IDateTimeEntity, IFromDateFromTimeToDateToTimeEntity } from '../../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { IDateConverter } from '../../converter';
 import { orUndef, isUndef, isNull, isFn } from '../../util';
@@ -229,6 +228,9 @@ export class DateTimeFieldHelper {
     );
   }
 
+  /**
+   * @deprecated
+   */
   public splitToDateTimeFields<TEntity>(entity: TEntity,
                                         dateFieldName: string,
                                         timeFieldName: string,
@@ -236,8 +238,8 @@ export class DateTimeFieldHelper {
     const date = dateResolver(entity);
 
     return {
-      [timeFieldName]: orUndef(date, () => this.dc.formatTimeFromDateTime(date)),
-      [dateFieldName]: orUndef(date, () => this.dc.formatDateFromDateTime(date)),
+      [timeFieldName]: orUndef(date, () => this.dc.fromDateTimeToTime(date)),
+      [dateFieldName]: orUndef(date, () => this.dc.fromDateTimeToDate(date)),
     };
   }
 

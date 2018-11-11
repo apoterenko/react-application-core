@@ -144,7 +144,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { isFn, isString, toClassName, uuid } from '../../../util';
 import { IUIFactory } from '../../factory';
-import { IBasicEvent } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { ApplicationTranslatorT } from '../../../translation';
@@ -246,6 +246,7 @@ export class UIMaterialFactory implements IUIFactory {
     user_shield: faUserShield,
     done_all: faCheckDouble,
     remove: faMinus,
+    minus: faMinus,
     clock_regular: faClockRegular,
     cancel: faBan,
     playlist_add_check: faClipboardCheck,
@@ -275,6 +276,7 @@ export class UIMaterialFactory implements IUIFactory {
     error: faExclamationCircle,
     cloud_download: faFileDownload,
     cloud: faCloud,
+    gift: faGift,
     card_giftcard: faGift,
     play_circle_regular: faPlayCircleRegular,
     navigate_before: faChevronLeft,
@@ -339,7 +341,6 @@ export class UIMaterialFactory implements IUIFactory {
   public textFieldBox = 'mdc-text-field--box';
   public checkbox = 'mdc-checkbox';
   public checkboxInput = 'mdc-checkbox__native-control';
-  public textFieldTextArea = 'mdc-text-field--textarea';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';

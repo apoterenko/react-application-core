@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, IGridFilterConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
-import { IEntity, AnyT, EntityIdT, IBasicEvent } from '../../definitions.interface';
+import { IEntity, AnyT, EntityIdT} from '../../definitions.interface';
 import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent, coalesce, isOddNumber } from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
@@ -14,6 +14,7 @@ import { GridRow } from './row';
 import { Field } from '../field';
 import { IGridState } from './grid.interface';
 import { FlexLayout } from '../layout';
+import { IBasicEvent } from '../../react-definitions.interface';
 
 export class Grid extends BaseList<Grid, IGridProps, IGridState> {
 

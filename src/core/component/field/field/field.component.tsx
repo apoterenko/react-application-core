@@ -19,8 +19,7 @@ import {
   IChangeEvent,
   UNI_CODES,
   IFocusEvent,
-  IBasicEvent,
-} from '../../../definitions.interface';
+  } from '../../../definitions.interface';
 import {
   IField,
   IFieldInputProps,
@@ -30,6 +29,7 @@ import {
   INativeMaskedInputComponent,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class Field<TComponent extends IField<TInternalProps, TState>,
                    TInternalProps extends IFieldInternalProps,
@@ -223,6 +223,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       this.isFieldRequired() && 'rac-field-required',
       this.isFieldInvalid() && 'rac-field-invalid',
       this.isFieldInactive() && 'rac-field-inactive',
+      this.isValuePresent() && 'rac-field-value-present',
       this.isFieldChangeable() ? 'rac-field-changeable' : 'rac-field-not-changeable',
       props.disabled && 'rac-field-disabled',
       props.readOnly && 'rac-field-readonly',

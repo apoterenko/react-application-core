@@ -7,13 +7,13 @@ import { BasicTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
   AnyT,
-  IBasicEvent,
   EntityIdT,
   IKeyboardEvent,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
                          TProps extends IBasicSelectProps,

@@ -6,7 +6,6 @@ import { BasicTextField } from '../textfield';
 import { cancelEvent, orNull, downloadBlob, toClassName } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
-  IBasicEvent,
   EntityIdT,
   IKeyboardEvent,
 } from '../../../definitions.interface';
@@ -19,6 +18,7 @@ import { IFieldActionConfiguration } from '../../../configurations-definitions.i
 import { toLastAddedMultiItemEntity } from '../multifield';
 import { IUniversalDialog, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
+import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps, TInternalState>,
                             TProps extends IBasicFileFieldInternalProps,

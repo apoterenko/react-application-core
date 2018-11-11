@@ -24,7 +24,6 @@ import {
   IAvatarWrapper,
   IBackwardRenderedWrapper,
   IBasenameWrapper,
-  IBasicEvent,
   IBeforeEnterWrapper,
   IBindDictionaryWrapper,
   IBlockWrapper,
@@ -141,19 +140,15 @@ import {
   IOnChangeSortingWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
-  IOnClickWrapper,
   IOnCloseWrapper,
-  IOnColumnClickWrapper,
   IOnCreateWrapper,
   IOnDeactivateWrapper,
   IOnDelayWrapper,
   IOnEmptyDictionaryWrapper,
-  IOnEmptyMessageClickWrapper,
   IOnEnterWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
   IOnMoreOptionsSelectWrapper,
-  IOnNavigationActionClickWrapper,
   IOnPlusClickWrapper,
   IOnSelectWrapper,
   IOutlinedWrapper,
@@ -236,6 +231,13 @@ import {
   IUniversalContainerClassEntity,
 } from './entities-definitions.interface';
 import { IGridColumnProps, IUniversalButtonProps } from './props-definitions.interface';
+import {
+  IBasicEvent,
+  IOnClickWrapper,
+  IOnColumnClickWrapper,
+  IOnEmptyMessageClickWrapper,
+  IOnNavigationActionClickWrapper,
+} from './react-definitions.interface';
 
 /**
  * @stable [26.08.2018]

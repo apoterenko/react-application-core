@@ -5,11 +5,11 @@ import {
 } from '../../../configurations-definitions.interface';
 import {
   IItemsWrapper,
-  IOnClickWrapper,
   IExpandedGroupsWrapper,
   IOnGroupClickWrapper,
 } from '../../../definitions.interface';
 import { ILayoutEntity } from '../../../entities-definitions.interface';
+import { IOnClickWrapper } from '../../../react-definitions.interface';
 
 /**
  * @stable [23.09.2018]

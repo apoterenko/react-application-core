@@ -6,8 +6,8 @@ import {
   ISeparatorWrapper,
   IJustifyContentCenterWrapper,
   IAlignItemsEndWrapper,
-  IOnClickWrapper,
 } from '../../../definitions.interface';
+import { IOnClickWrapper } from '../../../react-definitions.interface';
 
 /**
  * @stable [24.10.2018]

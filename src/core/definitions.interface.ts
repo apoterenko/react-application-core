@@ -39,7 +39,6 @@ export const TYPE_FIELD_NAME = 'type';
 export const BODY_FIELD_NAME = 'body';
 export const AUTH_FIELD_NAME = 'auth';
 export const PARAMETERS_FIELD_NAME = 'parameters';
-export const PRIORITY_FIELD_NAME = 'priority';
 export const FROM_DATE_FIELD_NAME = 'fromDate';
 export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
@@ -58,7 +57,6 @@ export const AREA_FIELD_NAME = 'area';                                          
 export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
 export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
 export const DISPLAY_MESSAGE_FIELD_NAME = 'displayMessage';                                     /* @stable [29.10.2018] */
-export const TIMES_FIELDS = [TIME_FIELD_NAME, FROM_TIME_FIELD_NAME, TO_TIME_FIELD_NAME];
 
 /**
  * @stable [31.07.2018]
@@ -614,20 +612,6 @@ export interface IItemIdWrapper<TItemId = EntityIdT> {
  */
 export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
   navigationActionType?: TNavigationActionType;
-}
-
-/**
- * @stable [31.05.2018]
- */
-export interface IOnNavigationActionClickWrapper<TPayload = IBasicEvent, TOnNavigationActionClick = (payload?: TPayload) => void> {
-  onNavigationActionClick?: TOnNavigationActionClick;
-}
-
-/**
- * @stable [13.09.2018]
- */
-export interface IOnActionClickWrapper<TPayload = IBasicEvent, TOnActionClick = (payload?: TPayload) => void> {
-  onActionClick?: TOnActionClick;
 }
 
 /**
@@ -1190,10 +1174,6 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
                                                IToDateWrapper {
 }
 
-export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,
-                                                             IToDateToTimeEntity {
-}
-
 /**********************
  * Blob's wrappers
  **********************/
@@ -1203,12 +1183,6 @@ export interface IBlobWrapper {
 
 export interface IBlobEntity extends IStringIdWrapper,
                                      IBlobWrapper {
-}
-
-/**
- * @stable [23.04.2018]
- */
-export interface IBasicEvent<TElement = {}> extends React.SyntheticEvent<TElement> {
 }
 
 /**
@@ -1335,6 +1309,13 @@ export interface INumberValueWrapper extends IValueWrapper<number> {
  * @stable [13.05.2018]
  */
 export interface IStringValueWrapper extends IValueWrapper<string> {
+}
+
+/**
+ * @stable [10.11.2018]
+ */
+export interface ICodeWrapper<TCode = string> {
+  code?: TCode;
 }
 
 /**
@@ -1855,7 +1836,7 @@ export interface ISubBorderWrapper<TSubBorder = boolean> {
 /**
  * @stable [29.05.2018]
  */
-export interface IUseLazyLoading {
+export interface IUseLazyLoadingWrapper {
   useLazyLoading?: boolean;
 }
 
@@ -2695,37 +2676,10 @@ export interface IDefaultOnPressWrapper extends IOnPressWrapper<() => void> {
 }
 
 /**
- * @stable [15.05.2018]
- */
-export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
-  onClick?: TOnClick;
-}
-
-/**
- * @stable [10.09.2018]
- */
-export interface IOnColumnClickWrapper<TPayload = IBasicEvent, TOnColumnClick = (payload?: TPayload) => void> {
-  onColumnClick?: TOnColumnClick;
-}
-
-/**
  * @stable [17.08.2018]
  */
 export interface IOnClearWrapper<TOnClear = () => void> {
   onClear?: TOnClear;
-}
-
-/**
- * @stable [09.06.2018]
- */
-export interface IOnEmptyMessageClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
-  onEmptyMessageClick?: TOnClick;
-}
-
-/**
- * @stable [15.05.2018]
- */
-export interface IEntityOnClickWrapper extends IOnClickWrapper<IEntity> {
 }
 
 /**
@@ -3129,6 +3083,15 @@ export interface IToWrapper<TTo = string> {
 
 /* @stable - 20.04.2018 */
 export interface IStringToWrapper extends IToWrapper<string> {
+}
+
+/**
+ * @stable [11.11.2018]
+ */
+export interface IBaseEvent {
+  nativeEvent?: Event;
+  stopPropagation();
+  preventDefault();
 }
 
 export const IMAGE_FIELD_NAME = 'image';

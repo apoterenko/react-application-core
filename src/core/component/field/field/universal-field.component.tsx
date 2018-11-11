@@ -285,16 +285,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [18.06.2018]
-   * @returns {boolean}
-   */
-  protected isFieldFocused(): boolean {
-    return this.state.keyboardOpened  // User input typing emulation mode
-      || this.hasInputFocus()         // If a native input has focus
-      || this.isValuePresent();
-  }
-
-  /**
    * @stable [05.10.2018]
    * @returns {boolean}
    */

@@ -1,15 +1,16 @@
-@import '~sass-flex-mixin/_flex';
 @import '../constant';
 @import '../mixin';
 @import './addressfield/addressfield';
-@import './switch/switch';
 @import './viewfield/viewfield';
 
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-field-custom($rac-field-custom: rac-field-prevent-focus,               /* @stable [30.10.2018] */
-                            $rac-field-custom-input-cursor: default);
+  @include rac-field($rac-field-custom: rac-field-prevent-focus,                          /* @stable [08.11.2018] */
+                     $rac-text-field-input-cursor: default);
+
+  @include rac-field($rac-field-custom: rac-switch,                                       /* @stable [08.11.2018] */
+                     $rac-field-label-margin: $rac-switch-label-margin);
 
   .rac-field {
 
@@ -209,7 +210,7 @@
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
-        margin-right: $rac-field-icon-margin-right;              /* @stable [24.06.2018] */
+        margin-right: $rac-field-icon-margin-right;                   /* @stable [24.06.2018] */
         color: $rac-field-icon-color;                                 /* @stable [24.06.2018] */
 
         &.rac-loading-icon {
@@ -242,6 +243,12 @@
 
         &.rac-field-input-mirror {
           width: auto;                                                /* @stable [10.10.2018] */
+        }
+      }
+
+      &.rac-textarea-field {
+        .rac-field-input {
+          padding: $rac-field-area-input-padding;                     /* @stable [07.11.2018] */
         }
       }
     }

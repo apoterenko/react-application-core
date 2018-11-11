@@ -8,6 +8,7 @@ import {
   filterAndSortEntities,
   isDef,
   ifNilReturnUuid,
+  isFn,
 } from '../../util';
 import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
@@ -95,7 +96,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    * @stable [23.04.2018]
    */
   protected onCreate(): void {
-    if (this.props.onCreate) {
+    if (isFn(this.props.onCreate)) {
       this.props.onCreate();
     }
   }
@@ -105,7 +106,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    * @param {IEntity} entity
    */
   protected onSelect(entity: IEntity): void {
-    if (this.props.onSelect) {
+    if (isFn(this.props.onSelect)) {
       this.props.onSelect(entity);
     }
   }
