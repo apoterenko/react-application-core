@@ -15,11 +15,9 @@ import { IUniversalFlexLayoutProps } from './universal-flex-layout.interface';
 @Component
 class VueFlexLayout extends VueBaseComponent
   implements IUniversalFlexLayoutProps {
-
   @Prop() public children: string;
   @Prop() public className: string;
   @Prop() public title: string;
-  @Prop() public style1: string;
   @Prop() public row: boolean;
   @Prop() public full: boolean;
   @Prop() public separator: boolean;
@@ -31,6 +29,7 @@ class VueFlexLayout extends VueBaseComponent
   public render(factory: VueCreateElementFactoryT): VueNodeT {
     const nodeData: VNodeDataT = {
       class: this.getClassName(),
+      style: this.styles,
       attrs: {
         title: this.title,
       },
