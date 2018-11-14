@@ -8,7 +8,6 @@ import { AnyT } from './definitions.interface';
 /**
  * @stable [21.10.2018]
  */
-export const VUE_TYPE$_FIELD = 'type$';
 export const VUE_VALUE$_FIELD = 'value$';
 export const VUE_PLACEHOLDER$_FIELD = 'placeholder$';
 

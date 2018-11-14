@@ -15,12 +15,13 @@ function gtag(...args) {
 }
 
 /**
- * @stable [10.10.2018]
+ * @stable [14.11.2018]
  * @param {() => void} onInit
+ * @param {string} extraClasses
  */
-export function bootstrapWebApp(onInit: (() => void)) {
+export function bootstrapWebApp(onInit: (() => void), ...extraClasses: string[]) {
   const ready = () => {
-    addClassNameToBody('rac');
+    addClassNameToBody('rac', ...extraClasses);
     onInit();
   };
 

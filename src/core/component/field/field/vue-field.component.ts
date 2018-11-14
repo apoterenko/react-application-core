@@ -1,27 +1,30 @@
 import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
-import { orEmpty } from '../../../util';
-import { AnyT } from '../../../definitions.interface';
+import { orEmpty, isDef } from '../../../util';
+import { AnyT, IKeyValue } from '../../../definitions.interface';
 import {
   VueCreateElementFactoryT,
   VueNodeT,
   VUE_VALUE$_FIELD,
-  VUE_TYPE$_FIELD,
   VUE_PLACEHOLDER$_FIELD,
   VueComponentOptionsT,
   VueAccessorsT,
 } from '../../../vue-definitions.interface';
+import { IVueContainer } from '../../../vue-entities-definitions.interface';
 import { IVueFieldInputPropsEntity } from './vue-field.interface';
 import { VueBaseComponent } from '../../base/vue-index';
 
 export class VueField extends VueBaseComponent {
   @Prop() protected value: AnyT;
   @Prop() protected type: string;
+  @Prop() protected name: string;
   @Prop() protected label: string;
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
   @Prop() protected autoFocus: boolean;
+  @Prop() protected bindContainer: IVueContainer;
+  @Prop() protected bindStore: IKeyValue;
 
   /**
    * @stable [26.10.2018]
@@ -40,15 +43,17 @@ export class VueField extends VueBaseComponent {
   public render(createElement: VueCreateElementFactoryT): VueNodeT {
     const options: VueComponentOptionsT = {
       computed: this.getInputPropsEntity() as VueAccessorsT,
+      methods: this.getMethods(),
       template: `
         <vue-flex-layout row="true"
                          alignItemsCenter="true"
                          class='${this.getFieldClassName()}'>
           <input ref="self"
-                 :type="${VUE_TYPE$_FIELD}"
                  :placeholder="${VUE_PLACEHOLDER$_FIELD}"
+                 v-bind="getBindings()"
+                 v-on="getListeners()"
                  v-model:value="${VUE_VALUE$_FIELD}"
-                 class="vue-field-input rac-flex-full">
+                 class="${this.getInputClassName()}">
           ${this.getLabelElement()}
           ${this.getFieldAttachmentElement()}
         </vue-flex-layout>
@@ -63,6 +68,10 @@ export class VueField extends VueBaseComponent {
    */
   protected onChange(newValue: AnyT): void {
     this.$emit('change', newValue);
+
+    if (isDef(this.bindContainer)) {
+      this.bindContainer.dispatchFormChanges({[this.name]: newValue});
+    }
   }
 
   /**
@@ -71,6 +80,10 @@ export class VueField extends VueBaseComponent {
    */
   protected getFieldClassName(): string {
     return 'vue-field rac-flex rac-flex-full rac-flex-row';
+  }
+
+  protected getInputClassName(): string {
+    return 'vue-field-input';
   }
 
   /**
@@ -86,7 +99,29 @@ export class VueField extends VueBaseComponent {
    * @returns {string}
    */
   protected getLabelElement(): string {
-    return '';
+    return orEmpty(
+      !R.isNil(this.label),
+      () => `<label class="vue-field-label">${this.t(this.label)}</label>`
+    );
+  }
+
+  /**
+   * @stable [13.11.2018]
+   * @returns {Partial<HTMLInputElement>}
+   */
+  protected getInputBindings(): Partial<HTMLInputElement> {
+    return {
+      type: this.type || 'text',
+      checked: !!this.getValue(),
+    };
+  }
+
+  protected getInputListeners(): any {  // TODO
+    return {};
+  }
+
+  protected getValue(): AnyT {
+    return isDef(this.bindStore) ? this.bindStore[this.name] : this.value;
   }
 
   /**
@@ -99,18 +134,26 @@ export class VueField extends VueBaseComponent {
      */
     return {
       value$: {
-        get: () => this.value,
+        get: () => this.getValue(),
         set: (newValue) => this.onChange(newValue),
       },
       autoFocus$: {
         get: () => 'true',
       },
-      type$: {
-        get: () => this.type || 'text',
-      },
       placeholder$: {
         get: () => orEmpty(!R.isNil(this.placeholder), () => this.t(this.placeholder)),
       },
+    };
+  }
+
+  /**
+   * @stable [13.11.2018]
+   * @returns {{[p: string]: () => AnyT}}
+   */
+  protected getMethods(): { [methodName: string]: () => AnyT } {
+    return {
+      getBindings: () => this.getInputBindings(),
+      getListeners: () => this.getInputListeners(),
     };
   }
 

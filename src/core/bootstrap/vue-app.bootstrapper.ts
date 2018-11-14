@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { addRootElement, fromMapToObject } from '../util';
+import { addRootElement, fromMapToObject, addClassNameToBody } from '../util';
 import { appContainer, DI_TYPES } from '../di';
 import { VueNodeT, VueCreateElementFactoryT } from '../vue-definitions.interface';
 import { VUE_DYNAMIC_ROUTES } from '../router/vue-index';
@@ -12,6 +12,7 @@ import { VueApplicationContainer } from '../component/application/vue-index';
  */
 export const bootstrapVueApp = <TApplicationStoreEntity>(applicationContainerCtor: typeof VueApplicationContainer) => {
   addRootElement('appId');
+  addClassNameToBody('vac');
 
   // The Vue app needs in lazy route initializing.
   appContainer.bind(DI_TYPES.Routes).toConstantValue(fromMapToObject(VUE_DYNAMIC_ROUTES));

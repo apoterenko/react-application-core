@@ -1,7 +1,11 @@
 import { Store } from 'redux';
 import Vue from 'vue';
 
-import { IEntity, AnyT } from './definitions.interface';
+import {
+  IEntity,
+  AnyT,
+  IDispatchFormChangesWrapper,
+} from './definitions.interface';
 import { IUniversalApplicationStoreEntity } from './entities-definitions.interface';
 import {
   IVueIsContainer$Wrapper,
@@ -43,7 +47,8 @@ export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationSt
           IVueSection$Wrapper,
           IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
           IVueState$Wrapper<TApplicationStoreEntity>,
-          IVueIsContainer$Wrapper {
+          IVueIsContainer$Wrapper,
+          IDispatchFormChangesWrapper {
 }
 
 /**

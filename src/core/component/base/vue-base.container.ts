@@ -36,6 +36,14 @@ export class VueBaseContainer extends Vue implements IVueContainer {
     return this.store$.getState();
   }
 
+  /**
+   * @stable [13.11.2018]
+   * @param {TChanges} changes
+   */
+  public dispatchFormChanges<TChanges = IKeyValue>(changes: TChanges): void {
+    this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(this.section$, changes));
+  }
+
   protected dispatch(type: string, data?: IKeyValue): void {
     this.dispatchCustomType(`${this.section$}.${type}`, applySection(this.section$, data));
   }
@@ -47,14 +55,6 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    */
   protected dispatchCustomType(type: string, data?: AnyT): void {
     this.store$.dispatch({type, data});
-  }
-
-  /**
-   * @stable [25.10.2018]
-   * @param {TChanges} changes
-   */
-  protected dispatchFormChanges<TChanges = IKeyValue>(changes: TChanges): void {
-    this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(this.section$, changes));
   }
 
   /**

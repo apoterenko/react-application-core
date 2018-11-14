@@ -34,15 +34,8 @@ class VueTextField extends VueField {
     return `${super.getFieldClassName()} vue-text-field`;
   }
 
-  /**
-   * @stable [26.10.2018]
-   * @returns {string}
-   */
-  protected getLabelElement(): string {
-    return orEmpty(
-      !R.isNil(this.label),
-      () => `<label class="vue-field-label">${this.t(this.label)}</label>`
-    );
+  protected getInputClassName(): string {
+    return `${super.getInputClassName()} rac-flex-full`;
   }
 
   /**
