@@ -72,10 +72,10 @@ export const addRootElement = (rootId: string) => {
 };
 
 /**
- * @stable [01.10.2018]
+ * @stable [14.11.2018]
  * @param {string} clsName
  */
-export const addClassNameToBody = (clsName: string): void => clsName && addClassNameToElement(document.body, clsName);
+export const addClassNameToBody = (...clsName: string[]): void => addClassNameToElement(document.body, ...clsName);
 
 /**
  * @stable [28.06.2018]

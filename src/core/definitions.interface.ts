@@ -1862,6 +1862,13 @@ export interface ISorterWrapper<TSorter> {
 }
 
 /**
+ * @stable [14.11.2018]
+ */
+export interface IDispatchFormChangesWrapper<TChanges = IKeyValue, TDispatchFormChanges = ((changes: TChanges) => void)> {
+  dispatchFormChanges?: TDispatchFormChanges;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSortedItem, item2: TSortedItem) => number>
