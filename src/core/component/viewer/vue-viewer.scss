@@ -1,0 +1,29 @@
+@import '../vue-constant';
+@import '../mixin';
+
+// Viewer [FRAMEWORK-][VAC+]
+.vac {
+
+  .vue-pdf-viewer, .vue-viewer-canvas {
+    @include _rac-position-properties($rac-position: relative);                             /* @stable [14.11.2018] */
+  }
+
+  .vue-viewer-canvas {
+    overflow: auto;                                                                         /* @stable [14.11.2018] */
+  }
+
+  .vue-viewer-scale-action {
+    @include _rac-position-properties($rac-position: absolute,                              /* @stable [14.11.2018] */
+                                      $rac-position-top: $vue-viewer-scale-action-position-top,
+                                      $rac-position-right: $vue-viewer-scale-action-position-right
+    );
+
+    width: $vue-viewer-scale-action-size;                                                   /* @stable [14.11.2018] */
+    height: $vue-viewer-scale-action-size;                                                  /* @stable [14.11.2018] */
+    cursor: pointer;                                                                        /* @stable [14.11.2018] */
+
+    &.vue-icon-search-zoom-plus {
+      margin-top: -$vue-viewer-scale-action-size;                                           /* @stable [14.11.2018] */
+    }
+  }
+}
