@@ -2,6 +2,7 @@ var sass = require('node-sass');
 var path = require('path');
 var fs = require('fs');
 var ncp = require('ncp').ncp;
+var fsExtra = require('fs-extra');
 
 var compile = function (inFile, outFile) {
   var result = sass.renderSync({
@@ -31,3 +32,5 @@ ncp('src/core/assets', 'assets', function (err) {
 
 compile('src/core/bootstrap.scss', 'rac.min.css');
 compile('src/core/material.bootstrap.scss', 'rac-material.min.css');
+
+fsExtra.copySync('src/core', 'scss', {filter: function (file) {return file.indexOf('.ts') === -1;}});
