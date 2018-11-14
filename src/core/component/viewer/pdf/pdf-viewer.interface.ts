@@ -3,6 +3,19 @@ import { IPageWrapper, IScaleWrapper, IPreviewScaleWrapper } from '../../../defi
 import { IViewerConfiguration, IViewerState  } from '../viewer.interface';
 
 /**
+ * @stable [14.11.2018]
+ */
+export interface IUniversalPdfPlugin {
+  hasLoadedDocument: boolean;
+  refreshPage(): void;
+  setSrc(src: string): IUniversalPdfPlugin;
+  setScale(scale: number): IUniversalPdfPlugin;
+  setPage(page: number): IUniversalPdfPlugin;
+  loadDocument(): void;
+  cancel(): void;
+}
+
+/**
  * @stable [27.06.2018]
  */
 export interface IPdfViewerDocument {
