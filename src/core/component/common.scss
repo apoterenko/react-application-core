@@ -1,5 +1,6 @@
 @import '~sass-mixins/partials/_user-select';
 @import './constant';
+@import './mixin';
 
 // Html, Body [FRAMEWORK-]
 html, body {
@@ -42,6 +43,12 @@ html, body {
   .rac-total {
     font-weight: bold;                                                              /* @stable [14.10.2018] */
     text-transform: uppercase;                                                      /* @stable [14.10.2018] */
+  }
+
+  .rac-absolute {
+    @include _rac-position-properties($rac-position: absolute,                      /* @stable [14.11.2018] */
+                                      $rac-position-top: 0,
+                                      $rac-position-left: 0);
   }
 }
 

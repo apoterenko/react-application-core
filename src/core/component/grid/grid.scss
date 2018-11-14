@@ -15,7 +15,9 @@
     $rac-grid-head-border-radius: $rac-grid-head-border-radius,
     $rac-grid-head-color: $rac-grid-head-color,
     $rac-grid-head-background: $rac-grid-head-background,
-    $rac-grid-head-column-vertical-align: bottom
+    $rac-grid-head-column-vertical-align: bottom,
+    $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+    $rac-grid-column-content-font-size: $rac-grid-column-content-font-size
   );
 
   .rac-grid {
@@ -60,8 +62,6 @@
         width: 100%;                                                                /* @stable [21.06.2018] */
         overflow: hidden;                                                           /* @stable [26.09.2018] */
         vertical-align: middle;                                                     /* @stable [21.06.2018] */
-        letter-spacing: $rac-grid-column-content-letter-spacing;                    /* @stable [22.06.2018] */
-        font-size: $rac-grid-column-content-font-size;                              /* @stable [22.06.2018] */
 
         .rac-field {
 
