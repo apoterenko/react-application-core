@@ -21,6 +21,7 @@ import {
   isFormDirty,
   isFormValid,
   isFormSubmittable,
+  isFormFieldChangeable,
 } from './form.support';
 import { FlexLayout } from '../layout';
 
@@ -61,6 +62,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
               displayValue: this.getFieldDisplayValue(field, predefinedOptions),
               readOnly: this.isFieldReadOnly(field),
               disabled: this.isFieldDisabled(field),
+              changeable: this.isFieldChangeable(field),
               changeForm: this.onChange,
 
               // Dynamic linked dictionary callbacks
@@ -322,6 +324,15 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    */
   private isFieldDisabled(field: IField): boolean {
     return isFormFieldDisabled(this.props, field.props);
+  }
+
+  /**
+   * @stable [16.11.2018]
+   * @param {IField} field
+   * @returns {boolean}
+   */
+  private isFieldChangeable(field: IField): boolean {
+    return isFormFieldChangeable(this.props, field.props);
   }
 
   private getFieldValue(field: IField): AnyT {

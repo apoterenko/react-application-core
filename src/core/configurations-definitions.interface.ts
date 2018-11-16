@@ -502,6 +502,7 @@ export interface IUniversalFormConfiguration extends IUniversalComponentConfigur
                                                      IDisabledWrapper,
                                                      IAlwaysDirtyWrapper,
                                                      IActionIconWrapper,
+                                                     IChangeableWrapper,
                                                      IOnEmptyDictionaryWrapper<IApiEntity> {
 }
 

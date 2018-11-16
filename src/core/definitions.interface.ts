@@ -452,6 +452,13 @@ export interface IUrlWrapper<TUrl = string> {
 }
 
 /**
+ * @stable [03.05.2018]
+ */
+export interface IPhotoUrlWrapper<TUrl = string> {
+  photoUrl?: TUrl;
+}
+
+/**
  * @stable [04.05.2018]
  */
 export interface IUseIndicatorWrapper {
@@ -2891,6 +2898,13 @@ export interface IPassiveWrapper<TPassive = boolean> {
  */
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> {
   originalValue?: TOriginalValue;
+}
+
+/**
+ * @stable [16.11.2018]
+ */
+export interface ICanReturnWrapper {
+  canReturn?: boolean;
 }
 
 /**

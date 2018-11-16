@@ -5,6 +5,7 @@ import { staticInjector } from './di.support';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { INumberConverter } from '../converter';
 import { IUIFactory } from '../component/factory/factory.interface';
+import { ApplicationTranslatorT } from '../translation';
 
 /**
  * @stable [20.10.2018]
@@ -24,3 +25,9 @@ export const getNumberConverter = (): INumberConverter => staticInjector<INumber
  * @returns {IUIFactory}
  */
 export const getUiFactory = (): IUIFactory => staticInjector<IUIFactory>(DI_TYPES.UIFactory);
+
+/**
+ * @stable [15.11.2018]
+ * @returns {ApplicationTranslatorT}
+ */
+export const getTranslator = (): ApplicationTranslatorT => staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate);

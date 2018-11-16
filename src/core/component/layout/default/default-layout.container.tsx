@@ -195,7 +195,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
       <Header>
         <Link to={this.routes.profile}>
           <div className='rac-user-photo'
-               style={{backgroundImage: `url(${user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
+               style={{backgroundImage: `url(${user.photoUrl || user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
         </Link>
         <Link to={this.routes.profile}>
           <div className='rac-user'>{user.name}</div>

@@ -70,12 +70,31 @@ export const isFormFieldDisabled = (formProps: IFormProps,
     : fieldProps.disabled === true;
 
 /**
+ * @stable [16.11.2018]
+ * @param {IFormProps} formProps
+ * @param {IFieldConfiguration} fieldProps
+ * @returns {boolean}
+ */
+export const isFormFieldChangeable = (formProps: IFormProps,
+                                      fieldProps: IFieldConfiguration): boolean =>
+  R.isNil(fieldProps.changeable)
+    ? isFormChangeable(formProps)
+    : fieldProps.changeable !== false;
+
+/**
  * @stable [29.05.2018]
  * @param {IFormProps} formProps
  * @returns {boolean}
  */
 export const isFormDisabled = (formProps: IFormProps): boolean =>
   formProps.disabled === true || formProps.form.progress === true;
+
+/**
+ * @stable [16.11.2018]
+ * @param {IFormProps} formProps
+ * @returns {boolean}
+ */
+export const isFormChangeable = (formProps: IFormProps): boolean => formProps.changeable !== false;
 
 /**
  * @stable [03.08.2018]

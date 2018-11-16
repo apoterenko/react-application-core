@@ -121,6 +121,7 @@ import {
   IZipCodeWrapper,
   IFromDateFromTimeEntity,
   IToDateToTimeEntity,
+  IPhotoUrlWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -690,6 +691,7 @@ export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
  */
 export interface IUserEntity extends INamedEntity,
                                      IUrlWrapper,
+                                     IPhotoUrlWrapper,
                                      IPasswordWrapper,
                                      ILoginWrapper,
                                      IEmailWrapper {

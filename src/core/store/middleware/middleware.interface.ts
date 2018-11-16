@@ -19,6 +19,7 @@ import {
   IRelatedEntityWrapper,
   ILazyLoadedSectionWrapper,
   ILazyLoadedResolverWrapper,
+  ICanReturnWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
@@ -114,6 +115,7 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
     extends IRelatedEntityWrapper<TRelatedEntity>,
             IEffectsActionWrapper,
             IListSectionWrapper,
+            ICanReturnWrapper,
             IStateWrapper<TApplicationState>,
             ISaveMessageWrapper {
   getEntity?(state: TApplicationState): TEntity;

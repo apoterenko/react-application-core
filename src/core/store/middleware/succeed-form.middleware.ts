@@ -41,10 +41,8 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
   return (
     R.isNil(config.listSection)
       ? []
-      : [
-        ListActionBuilder.buildUpdateAction(config.listSection, payloadWrapper),
-        RouterActionBuilder.buildNavigateBackAction()
-      ]
+      : [ListActionBuilder.buildUpdateAction(config.listSection, payloadWrapper)]
+        .concat(config.canReturn !== false ? RouterActionBuilder.buildNavigateBackAction() : [])
   ).concat(
     NotificationActionBuilder.buildInfoAction(
       staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate)(
