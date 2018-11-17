@@ -1,6 +1,5 @@
 import {
   IKeyValue,
-  IActivateWrapper,
   AnyT,
 } from '../../definitions.interface';
 import { ISnackbarConfiguration } from '../snackbar';
@@ -31,13 +30,6 @@ export interface INativeMaterialFoundation extends IKeyValue {
  * @stable [15.08.2018]
  */
 export interface INativeMaterialAdapter extends IKeyValue {
-}
-
-/**
- * @stable [05.05.2018]
- */
-export interface INativeMaterialListItemComponent extends INativeMaterialComponent,
-                                                          IActivateWrapper {
 }
 
 /**
