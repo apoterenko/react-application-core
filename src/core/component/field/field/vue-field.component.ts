@@ -1,23 +1,30 @@
 import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
-import { orEmpty, isDef } from '../../../util';
+import { orEmpty, isDef, defValuesFilter, orUndef } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
+import { VueBaseComponent } from '../../base/vue-index';
 import {
   VueCreateElementFactoryT,
   VueNodeT,
   VUE_VALUE$_FIELD,
-  VUE_PLACEHOLDER$_FIELD,
   VueComponentOptionsT,
   VueAccessorsT,
+  VueDefaultMethodsT,
 } from '../../../vue-definitions.interface';
-import { IVueContainer } from '../../../vue-entities-definitions.interface';
-import { IVueFieldInputPropsEntity } from './vue-field.interface';
-import { VueBaseComponent } from '../../base/vue-index';
+import {
+  IVueContainer,
+} from '../../../vue-entities-definitions.interface';
+import {
+  IVueFieldTemplateComputedEntity,
+  IVueFieldTemplateMethodsEntity,
+  IVueFieldInputEventsEntity,
+} from './vue-field.interface';
 
-export class VueField extends VueBaseComponent {
+export class VueField extends VueBaseComponent implements IVueFieldTemplateMethodsEntity {
   @Prop() protected value: AnyT;
   @Prop() protected type: string;
+  @Prop() protected full: boolean;
   @Prop() protected name: string;
   @Prop() protected label: string;
   @Prop() protected icon: string;
@@ -25,6 +32,17 @@ export class VueField extends VueBaseComponent {
   @Prop() protected autoFocus: boolean;
   @Prop() protected bindContainer: IVueContainer;
   @Prop() protected bindStore: IKeyValue;
+
+  /**
+   * @stable [17.11.2018]
+   */
+  constructor() {
+    super();
+    this.getInputBindings = this.getInputBindings.bind(this);
+    this.getInputListeners = this.getInputListeners.bind(this);
+    this.isInputWrapperFull = this.isInputWrapperFull.bind(this);
+    this.isFieldFull = this.isFieldFull.bind(this);
+  }
 
   /**
    * @stable [26.10.2018]
@@ -42,24 +60,70 @@ export class VueField extends VueBaseComponent {
    */
   public render(createElement: VueCreateElementFactoryT): VueNodeT {
     const options: VueComponentOptionsT = {
-      computed: this.getInputPropsEntity() as VueAccessorsT,
-      methods: this.getMethods(),
+      computed: this.getTemplateComputed() as VueAccessorsT,
+      methods: this.getTemplateMethods() as VueDefaultMethodsT,
       template: `
-        <vue-flex-layout row="true"
-                         alignItemsCenter="true"
-                         class='${this.getFieldClassName()}'>
-          <input ref="self"
-                 :placeholder="${VUE_PLACEHOLDER$_FIELD}"
-                 v-bind="getBindings()"
-                 v-on="getListeners()"
-                 v-model:value="${VUE_VALUE$_FIELD}"
-                 class="${this.getInputClassName()}">
+        <vue-flex-layout :row="true"
+                         :alignItemsCenter="true"
+                         :full="isFieldFull()"
+                         :class="getFieldClassName()">
+          <vue-flex-layout :full="isInputWrapperFull()">
+            <input ref="self"
+                   v-bind="getInputBindings()"
+                   v-on="getInputListeners()"
+                   v-model:value="${VUE_VALUE$_FIELD}"/>
+            ${this.getInputAttachmentElement()}
+          </vue-flex-layout>
           ${this.getLabelElement()}
           ${this.getFieldAttachmentElement()}
         </vue-flex-layout>
       `,
     };
     return createElement(options);
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {Partial<HTMLInputElement>}
+   */
+  public getInputBindings(): Partial<HTMLInputElement> {
+    return defValuesFilter<Partial<HTMLInputElement>, Partial<HTMLInputElement>>({
+      type: this.type || 'text',
+      placeholder: orUndef<string>(!R.isNil(this.placeholder), () => this.t(this.placeholder)),
+      ...{class: this.getInputClassName()} as IKeyValue,
+    });
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {string}
+   */
+  public getFieldClassName(): string {
+    return 'vue-field';
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {IVueFieldInputEventsEntity}
+   */
+  public getInputListeners(): IVueFieldInputEventsEntity {
+    return {};
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {boolean}
+   */
+  public isInputWrapperFull(): boolean {
+    return true;
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {boolean}
+   */
+  public isFieldFull(): boolean {
+    return this.full;
   }
 
   /**
@@ -74,14 +138,6 @@ export class VueField extends VueBaseComponent {
     }
   }
 
-  /**
-   * @stable [21.10.2018]
-   * @returns {string}
-   */
-  protected getFieldClassName(): string {
-    return 'vue-field rac-flex rac-flex-full rac-flex-row';
-  }
-
   protected getInputClassName(): string {
     return 'vue-field-input';
   }
@@ -91,6 +147,10 @@ export class VueField extends VueBaseComponent {
    * @returns {string}
    */
   protected getFieldAttachmentElement(): string {
+    return '';
+  }
+
+  protected getInputAttachmentElement(): string {
     return '';
   }
 
@@ -106,54 +166,23 @@ export class VueField extends VueBaseComponent {
   }
 
   /**
-   * @stable [13.11.2018]
-   * @returns {Partial<HTMLInputElement>}
+   * @stable [17.11.2018]
+   * @returns {AnyT}
    */
-  protected getInputBindings(): Partial<HTMLInputElement> {
-    return {
-      type: this.type || 'text',
-      checked: !!this.getValue(),
-    };
-  }
-
-  protected getInputListeners(): any {  // TODO
-    return {};
-  }
-
   protected getValue(): AnyT {
     return isDef(this.bindStore) ? this.bindStore[this.name] : this.value;
   }
 
   /**
    * @stable [26.10.2018]
-   * @returns {IVueFieldInputPropsEntity}
+   * @returns {IVueFieldTemplateComputedEntity}
    */
-  protected getInputPropsEntity(): any /*IVueFieldInputPropsEntity*/ {
-    /**
-     * We need to have an ability to set a default values via inheritance.
-     */
+  protected getTemplateComputed(): IVueFieldTemplateComputedEntity {
     return {
       value$: {
         get: () => this.getValue(),
         set: (newValue) => this.onChange(newValue),
       },
-      autoFocus$: {
-        get: () => 'true',
-      },
-      placeholder$: {
-        get: () => orEmpty(!R.isNil(this.placeholder), () => this.t(this.placeholder)),
-      },
-    };
-  }
-
-  /**
-   * @stable [13.11.2018]
-   * @returns {{[p: string]: () => AnyT}}
-   */
-  protected getMethods(): { [methodName: string]: () => AnyT } {
-    return {
-      getBindings: () => this.getInputBindings(),
-      getListeners: () => this.getInputListeners(),
     };
   }
 
@@ -170,5 +199,19 @@ export class VueField extends VueBaseComponent {
    */
   protected setFocus(): void {
     this.inputEl.focus();
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {IVueFieldTemplateMethodsEntity}
+   */
+  protected getTemplateMethods(): IVueFieldTemplateMethodsEntity {
+    return {
+      getFieldClassName: this.getFieldClassName,
+      getInputBindings: this.getInputBindings,
+      getInputListeners: this.getInputListeners,
+      isInputWrapperFull: this.isInputWrapperFull,
+      isFieldFull: this.isFieldFull,
+    };
   }
 }

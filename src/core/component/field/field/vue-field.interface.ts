@@ -1,14 +1,28 @@
 import {
-  IVueType$Wrapper,
   IVueValue$Wrapper,
-  IVuePlaceholder$Wrapper,
+  VueAccessorsT,
 } from '../../../vue-definitions.interface';
-import { AnyT } from '../../../definitions.interface';
 
 /**
- * @stable [26.10.2018]
+ * @stable [17.11.2018]
  */
-export interface IVueFieldInputPropsEntity extends IVueType$Wrapper<AnyT>,
-                                                   IVueValue$Wrapper,
-                                                   IVuePlaceholder$Wrapper {
+export interface IVueFieldTemplateComputedEntity extends VueAccessorsT<IVueValue$Wrapper> {
+}
+
+/**
+ * @stable [17.11.2018]
+ */
+export interface IVueFieldInputEventsEntity {
+  click?(): void;
+}
+
+/**
+ * @stable [17.11.2018]
+ */
+export interface IVueFieldTemplateMethodsEntity {
+  getInputBindings?(): Partial<HTMLInputElement>;
+  getInputListeners?(): IVueFieldInputEventsEntity;
+  isInputWrapperFull?(): boolean;
+  isFieldFull?(): boolean;
+  getFieldClassName?(): string;
 }

@@ -1,9 +1,8 @@
 import { Component } from 'vue-property-decorator';
 
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
-import { IVueEventsDefinitions } from '../../../vue-entities-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { VueField } from '../field/vue-index';
+import { VueField, IVueFieldInputEventsEntity } from '../field/vue-index';
 
 @ComponentName('vue-checkbox')
 @Component
@@ -27,10 +26,10 @@ class VueCheckbox extends VueField {
   }
 
   /**
-   * @stable [21.10.2018]
+   * @stable [17.11.2018]
    * @returns {string}
    */
-  protected getFieldClassName(): string {
+  public getFieldClassName(): string {
     return `${super.getFieldClassName()} vue-checkbox`;
   }
 
@@ -38,7 +37,7 @@ class VueCheckbox extends VueField {
    * @stable [17.11.2018]
    * @returns {boolean}
    */
-  protected isInputWrapperFull(): boolean {
+  public isInputWrapperFull(): boolean {
     return false;
   }
 
@@ -46,7 +45,7 @@ class VueCheckbox extends VueField {
    * @stable [13.11.2018]
    * @returns {Partial<HTMLInputElement>}
    */
-  protected getInputBindings(): Partial<HTMLInputElement> {
+  public getInputBindings(): Partial<HTMLInputElement> {
     return {
       ...super.getInputBindings(),
       type: 'checkbox',
@@ -56,9 +55,9 @@ class VueCheckbox extends VueField {
 
   /**
    * @stable [17.11.2018]
-   * @returns {IVueEventsDefinitions}
+   * @returns {IVueFieldInputEventsEntity}
    */
-  protected getInputListeners(): IVueEventsDefinitions {
+  public getInputListeners(): IVueFieldInputEventsEntity {
     return {
       ...super.getInputListeners(),
       click: this.onInputClick,
