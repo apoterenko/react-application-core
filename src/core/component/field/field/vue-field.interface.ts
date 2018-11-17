@@ -2,6 +2,7 @@ import {
   IVueValue$Wrapper,
   VueAccessorsT,
 } from '../../../vue-definitions.interface';
+import { IDisplayValueWrapper } from '../../../definitions.interface';
 
 /**
  * @stable [17.11.2018]
@@ -14,6 +15,12 @@ export interface IVueFieldTemplateComputedEntity extends VueAccessorsT<IVueValue
  */
 export interface IVueFieldInputEventsEntity {
   click?(): void;
+}
+
+/**
+ * @stable [18.11.2018]
+ */
+export interface IVueFieldStateEntity extends IDisplayValueWrapper {
 }
 
 /**

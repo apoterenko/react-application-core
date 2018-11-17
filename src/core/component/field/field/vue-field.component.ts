@@ -1,13 +1,12 @@
 import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
-import { orEmpty, isDef, defValuesFilter, orUndef } from '../../../util';
+import { orEmpty, isDef, defValuesFilter, orUndef, orDefault } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
 import { VueBaseComponent } from '../../base/vue-index';
 import {
   VueCreateElementFactoryT,
   VueNodeT,
-  VUE_VALUE$_FIELD,
   VueComponentOptionsT,
   VueAccessorsT,
   VueDefaultMethodsT,
@@ -20,13 +19,16 @@ import {
   IVueFieldTemplateComputedEntity,
   IVueFieldTemplateMethodsEntity,
   IVueFieldInputEventsEntity,
+  IVueFieldStateEntity,
 } from './vue-field.interface';
 
-export class VueField extends VueBaseComponent implements IVueFieldTemplateMethodsEntity {
+export class VueField extends VueBaseComponent<IVueFieldStateEntity>
+  implements IVueFieldTemplateMethodsEntity {
   @Prop() protected value: AnyT;
   @Prop() protected type: string;
   @Prop() protected full: boolean;
   @Prop() protected name: string;
+  @Prop() protected displayName: string;
   @Prop() protected label: string;
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
@@ -74,11 +76,11 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
             <input ref="self"
                    v-bind="getInputBindings()"
                    v-on="getInputListeners()"
-                   v-model:value="${VUE_VALUE$_FIELD}"/>
-            ${this.getInputAttachmentElement()}
+                   v-model:value="value$"/>
+            ${this.getInputAttachmentTemplate()}
           </vue-flex-layout>
-          ${this.getLabelElement()}
-          ${this.getFieldAttachmentElement()}
+          ${this.getLabelTemplate()}
+          ${this.getFieldAttachmentTemplate()}
         </vue-flex-layout>
       `,
     };
@@ -153,11 +155,15 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
    * @stable [21.10.2018]
    * @returns {string}
    */
-  protected getFieldAttachmentElement(): string {
+  protected getFieldAttachmentTemplate(): string {
     return '';
   }
 
-  protected getInputAttachmentElement(): string {
+  /**
+   * @stable [18.11.2018]
+   * @returns {string}
+   */
+  protected getInputAttachmentTemplate(): string {
     return '';
   }
 
@@ -165,7 +171,7 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
    * @stable [22.10.2018]
    * @returns {string}
    */
-  protected getLabelElement(): string {
+  protected getLabelTemplate(): string {
     return orEmpty(
       !R.isNil(this.label),
       () => `<label class="vue-field-label">${this.t(this.label)}</label>`
@@ -187,10 +193,29 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
   protected getTemplateComputed(): IVueFieldTemplateComputedEntity {
     return {
       value$: {
-        get: () => this.getValue(),
+        get: () => this.getDisplayValue(),
         set: (newValue) => this.onChange(newValue),
       },
     };
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {AnyT}
+   */
+  protected getDisplayValue(): AnyT {
+    const displayValue = this.getData().displayValue;
+    let displayNameValue;
+
+    return orDefault(
+      R.isNil(displayValue),
+      () => orDefault(
+        isDef(this.bindStore) && !R.isNil(displayNameValue = this.bindStore[this.displayName]),
+        displayNameValue,
+        () => this.getValue()
+      ),
+      displayValue
+    );
   }
 
   /**

@@ -25,7 +25,7 @@ export class VueBaseTextField extends VueField {
    * @stable [26.10.2018]
    * @returns {string}
    */
-  protected getFieldAttachmentElement(): string {
+  protected getFieldAttachmentTemplate(): string {
     return orEmpty(!R.isNil(this.icon), () => `<span class="vue-field-icon ${this.icon}"/>`);
   }
 }
