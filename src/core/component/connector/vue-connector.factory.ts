@@ -33,6 +33,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
     /**
      * @stable [21.10.2018]
      */
+    components: config.components,
     computed: config.computed,
     template: config.template,
     watch: config.watch,
@@ -67,12 +68,15 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
     mounted() {
       logger.debug(`[$vueConnectorOptionsFactory][mounted] Section: ${config.section$}`);
 
+      const self: IVueContainer = this;
+      const store = self.store$;
+
       if (isFn(config.mounted)) {
         config.mounted();
       }
-
-      const self: IVueContainer = this;
-      const store = self.store$;
+      if (isFn(self.onMount$)) {
+        self.onMount$();
+      }
 
       // Send an init action
       store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.section$)});

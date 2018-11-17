@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { VNode, VNodeData, VueConstructor } from 'vue';
-import { ComponentOptions, Accessors } from 'vue/types/options';
+import { ComponentOptions, Accessors, DefaultMethods } from 'vue/types/options';
 import { CreateElement } from 'vue/types';
 
 import { AnyT } from './definitions.interface';
@@ -9,13 +9,12 @@ import { AnyT } from './definitions.interface';
  * @stable [21.10.2018]
  */
 export const VUE_VALUE$_FIELD = 'value$';
-export const VUE_PLACEHOLDER$_FIELD = 'placeholder$';
 
 /**
- * @stable [21.10.2018]
+ * @stable [16.11.2018]
  */
-export interface IVueType$Wrapper<TType$ = string> {
-  type$?: TType$;
+export interface IVueOnMount$Wrapper {
+  onMount$?(): void;
 }
 
 /**
@@ -68,10 +67,10 @@ export interface IVueValue$Wrapper<TValue$ = AnyT> {
 }
 
 /**
- * @stable [26.10.2018]
+ * @stable [17.11.2018]
  */
-export interface IVuePlaceholder$Wrapper<TPlaceholder$ = AnyT> {
-  placeholder$?: TPlaceholder$;
+export interface IVueOptions$Wrapper<TOptions$ = AnyT> {
+  options$?: TOptions$;
 }
 
 /**
@@ -137,6 +136,11 @@ export type VueComponentOptionsT<TComponent extends Vue = Vue> = ComponentOption
  * @stable [21.10.2018]
  */
 export type VueAccessorsT<TAccessors = AnyT> = Accessors<TAccessors>;
+
+/**
+ * @stable [17.11.2018]
+ */
+export type VueDefaultMethodsT = DefaultMethods<AnyT>;
 
 /**
  * @stable [22.10.2018]
