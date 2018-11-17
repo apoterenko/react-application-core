@@ -6,7 +6,9 @@ import {
   AnyT,
   IDispatchFormChangesWrapper,
 } from './definitions.interface';
-import { IUniversalApplicationStoreEntity } from './entities-definitions.interface';
+import {
+  IUniversalApplicationStoreEntity,
+} from './entities-definitions.interface';
 import {
   IVueIsContainer$Wrapper,
   IVueSection$Wrapper,
@@ -18,6 +20,7 @@ import {
   IVueRenderer$Wrapper,
   IVueName$Wrapper,
   IVueStyle$Wrapper,
+  IVueOnMount$Wrapper,
 } from './vue-definitions.interface';
 
 /**
@@ -40,6 +43,12 @@ export interface IVueGridColumnDynamicEntity extends IVueComponent$Wrapper,
 }
 
 /**
+ * @stable [17.11.2018]
+ */
+export interface IVueComponent extends Vue {
+}
+
+/**
  * @stable [21.10.2018]
  */
 export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationStoreEntity = IVueApplicationStoreEntity>
@@ -48,6 +57,7 @@ export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationSt
           IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
           IVueState$Wrapper<TApplicationStoreEntity>,
           IVueIsContainer$Wrapper,
+          IVueOnMount$Wrapper,
           IDispatchFormChangesWrapper {
 }
 

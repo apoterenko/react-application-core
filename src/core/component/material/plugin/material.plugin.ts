@@ -1,10 +1,13 @@
 import * as R from 'ramda';
 
-import { IUniversalComponentPlugin, IComponent } from '../../../entities-definitions.interface';
 import {
-  INativeMaterialComponentFactory,
+  IUniversalComponentPlugin,
+  IComponent,
   INativeMaterialComponent,
   INativeMaterialAdapter,
+} from '../../../entities-definitions.interface';
+import {
+  INativeMaterialComponentFactory,
 } from '../../material';
 import { DI_TYPES, staticInjector } from '../../../di';
 import { ApplicationTranslatorT } from '../../../translation';

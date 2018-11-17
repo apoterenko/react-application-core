@@ -122,6 +122,7 @@ import {
   IFromDateFromTimeEntity,
   IToDateToTimeEntity,
   IPhotoUrlWrapper,
+  IOpenWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -915,4 +916,35 @@ export interface IEnvironmentEntity {
  */
 export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,
                                                              IToDateToTimeEntity {
+}
+
+/**
+ * @stable [15.08.2018]
+ */
+export interface INativeMaterialAdapter extends IKeyValue {
+}
+
+/**
+ * @stable [05.05.2018]
+ */
+export interface INativeMaterialFoundation extends IKeyValue {
+  adapter_: INativeMaterialAdapter;
+}
+
+/**
+ * @stable [17.11.2018]
+ */
+export interface INativeMaterialComponent {
+  foundation_: INativeMaterialFoundation;
+  destroy();
+  unlisten(event: string, callback: () => void);
+  listen(event: string, callback: () => void);
+}
+
+/**
+ * @stable [17.11.2018]
+ */
+export interface IMenuMaterialComponent extends INativeMaterialComponent,
+                                                IOpenWrapper {
+  hoistMenuToBody();
 }

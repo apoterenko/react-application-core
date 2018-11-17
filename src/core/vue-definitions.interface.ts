@@ -6,11 +6,6 @@ import { CreateElement } from 'vue/types';
 import { AnyT } from './definitions.interface';
 
 /**
- * @stable [21.10.2018]
- */
-export const VUE_VALUE$_FIELD = 'value$';
-
-/**
  * @stable [16.11.2018]
  */
 export interface IVueOnMount$Wrapper {
@@ -156,3 +151,10 @@ export type VueNodeT = VNode;
  * @stable [24.10.2018]
  */
 export type VNodeDataT = VNodeData;
+
+/**
+ * @stable [17.11.2018]
+ */
+export interface IVueRefs {
+  [key: string]: Vue | Element | Vue[] | Element[];
+}
