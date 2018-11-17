@@ -1,14 +1,12 @@
-import * as R from 'ramda';
 import { Component } from 'vue-property-decorator';
 
-import { orEmpty } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { VueField } from '../field/vue-index';
+import { VueBaseTextField } from './vue-base-textfield.component';
 
 @ComponentName('vue-text-field')
 @Component
-class VueTextField extends VueField {
+export class VueTextField extends VueBaseTextField {
 
   /**
    * @stable [21.10.2018]
@@ -17,32 +15,5 @@ class VueTextField extends VueField {
    */
   public render(createElement: VueCreateElementFactoryT): VueNodeT {
     return super.render(createElement);
-  }
-
-  /**
-   * @stable [26.10.2018]
-   */
-  public mounted() {
-    super.mounted();
-  }
-
-  /**
-   * @stable [21.10.2018]
-   * @returns {string}
-   */
-  protected getFieldClassName(): string {
-    return `${super.getFieldClassName()} vue-text-field`;
-  }
-
-  protected getInputClassName(): string {
-    return `${super.getInputClassName()} rac-flex-full`;
-  }
-
-  /**
-   * @stable [26.10.2018]
-   * @returns {string}
-   */
-  protected getFieldAttachmentElement(): string {
-    return orEmpty(!R.isNil(this.icon), () => `<span class="vue-field-icon ${this.icon}"/>`);
   }
 }

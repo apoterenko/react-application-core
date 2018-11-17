@@ -11,6 +11,7 @@ import {
   VueComponentOptionsT,
   VueAccessorsT,
   VueDefaultMethodsT,
+  IVueRefs,
 } from '../../../vue-definitions.interface';
 import {
   IVueContainer,
@@ -67,7 +68,9 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
                          :alignItemsCenter="true"
                          :full="isFieldFull()"
                          :class="getFieldClassName()">
-          <vue-flex-layout :full="isInputWrapperFull()">
+          <vue-flex-layout ref="inputWrapper"
+                           class="vue-field-input-wrapper"
+                           :full="isInputWrapperFull()">
             <input ref="self"
                    v-bind="getInputBindings()"
                    v-on="getInputListeners()"
@@ -138,6 +141,10 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
     }
   }
 
+  /**
+   * @stable [17.11.2018]
+   * @returns {string}
+   */
   protected getInputClassName(): string {
     return 'vue-field-input';
   }
@@ -191,7 +198,23 @@ export class VueField extends VueBaseComponent implements IVueFieldTemplateMetho
    * @returns {HTMLInputElement}
    */
   protected get inputEl(): HTMLInputElement {
-    return this.$children[0].$refs.self as HTMLInputElement;
+    return this.childrenRefs.self as HTMLInputElement;
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {HTMLInputElement}
+   */
+  protected get inputWrapperEl(): HTMLInputElement {
+    return (this.childrenRefs.inputWrapper as VueBaseComponent).$el as HTMLInputElement;
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @returns {IVueRefs}
+   */
+  protected get childrenRefs(): IVueRefs {
+    return this.$children[0].$refs;
   }
 
   /**
