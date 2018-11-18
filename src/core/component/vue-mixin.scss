@@ -1,0 +1,32 @@
+/**
+ * @stable [18.11.2018]
+ */
+@mixin _vue-popup-custom-properties($vue-popup-body-padding: unset) {
+  .vue-popup-body {
+    @if $vue-popup-body-padding != unset {
+      padding: $vue-popup-body-padding;
+    }
+  }
+}
+
+/**
+ * @stable [18.11.2018]
+ */
+@mixin vue-popup($vue-popup-custom: unset,
+                 $vue-popup-body-padding: unset) {
+  @if $vue-popup-custom != unset {
+    .vue-popup {
+      &.#{$vue-popup-custom} {
+        @include _vue-popup-custom-properties(
+          $vue-popup-body-padding: $vue-popup-body-padding
+        );
+      }
+    }
+  } @else {
+    .vue-popup {
+      @include _vue-popup-custom-properties(
+        $vue-popup-body-padding: $vue-popup-body-padding
+      );
+    }
+  }
+}

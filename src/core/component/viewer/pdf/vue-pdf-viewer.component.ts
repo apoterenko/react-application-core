@@ -68,6 +68,13 @@ class VuePdfViewer extends VueBaseComponent {
   }
 
   /**
+   * @stable [18.11.2018]
+   */
+  public beforeDestroy(): void {
+    this.pdfPlugin.cancel();
+  }
+
+  /**
    * @stable [11.11.2018]
    * @param {MouseEvent} event
    */

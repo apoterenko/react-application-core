@@ -9,5 +9,4 @@ import '../api/entity/modify-entity-payload-factory.module';
 import '../component/jquery/jquery.module';
 import '../component/field/field.module';
 import '../permissions/permissions.module';
-import '../promise/promise.module';
 import './application.effects';

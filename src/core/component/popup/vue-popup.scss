@@ -1,0 +1,6 @@
+@import '../vue-constant';
+@import '../vue-mixin';
+
+.vac {
+  @include vue-popup($vue-popup-body-padding: $vue-popup-body-padding);
+}
