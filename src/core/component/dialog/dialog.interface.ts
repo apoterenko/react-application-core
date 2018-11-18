@@ -1,10 +1,8 @@
-import { INativeMaterialComponent } from '../material/material.interface';
 import {
   IAcceptableWrapper,
   IClosableWrapper,
   IOnAcceptWrapper,
   IOnCloseWrapper,
-  IShowWrapper,
   IMessageWrapper,
   IActivateWrapper,
   IAcceptDisabledWrapper,
@@ -14,7 +12,7 @@ import {
   IIsOpenWrapper,
   IAutoWidthWrapper,
 } from '../../definitions.interface';
-import { IUniversalComponentEntity, IUniversalComponent } from '../../entities-definitions.interface';
+import { IUniversalComponentEntity, IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IUniversalComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
 
 /**

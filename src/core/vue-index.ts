@@ -26,3 +26,4 @@ export {
 export * from './bootstrap/vue-index';
 export * from './storage';
 export * from './settings';
+export * from './dictionary';

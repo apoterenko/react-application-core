@@ -1871,8 +1871,15 @@ export interface ISorterWrapper<TSorter> {
 /**
  * @stable [14.11.2018]
  */
-export interface IDispatchFormChangesWrapper<TChanges = IKeyValue, TDispatchFormChanges = ((changes: TChanges) => void)> {
-  dispatchFormChanges?: TDispatchFormChanges;
+export interface IDispatchFormChangesWrapper {
+  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void;
+}
+
+/**
+ * @stable [18.11.2018]
+ */
+export interface IDispatchLoadDictionaryWrapper {
+  dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void;
 }
 
 /**
