@@ -1886,7 +1886,7 @@ export interface IDispatchFormChangesWrapper {
  * @stable [18.11.2018]
  */
 export interface IDispatchFormChangeWrapper {
-  dispatchFormChange(fieldName: string, fieldValue?: AnyT): void
+  dispatchFormChange(fieldName: string, fieldValue?: AnyT): void;
 }
 
 /**
