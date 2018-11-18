@@ -1,12 +1,6 @@
 export * from './definitions.interface';
-export {
-  LayoutBuilderTypeEnum,
-} from './configurations-definitions.interface';
-export {
-  IFieldChangeEntity,
-  INamedEntity,
-  ILabeledValueEntity,
-} from './entities-definitions.interface';
+export * from './configurations-definitions.interface';
+export * from './entities-definitions.interface';
 export * from './vue-entities-definitions.interface';
 export * from './vue-configurations-definitions.interface';
 export * from './component/application/vue-index';

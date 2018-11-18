@@ -94,6 +94,14 @@ export const addChild = (child: Element, parent: Element = document.body): Eleme
 export const removeChild = (child: Element, parent: Element = document.body): Element => parent.removeChild(child);
 
 /**
+ * @stable [17.11.2018]
+ * @param {Element} child
+ * @param {Element} parent
+ * @returns {Element}
+ */
+export const removeSelf = (child: Element, parent: Element = document.body): Element => removeChild(child, child.parentElement);
+
+/**
  * @stable [14.06.2018]
  * @param {string} images
  */
@@ -139,6 +147,14 @@ export const applyStyle = (source: Element, style: string, value: AnyT) => $(sou
  * @returns {number}
  */
 export const getWidth = (source: Element): number => $(source).width();
+
+/**
+ * @stable [18.11.2018]
+ * @param {Element} source
+ * @param {number} width
+ * @returns {any}
+ */
+export const setWidth = (source: Element, width: number) => $(source).width(width);
 
 /**
  * @stable [27.10.2018]
