@@ -23,7 +23,8 @@ import { IVueMenu, IVueMenuContextEntity } from './vue-menu.interface';
             aria-orientation="vertical">
           <li v-for="item in options"
               class="mdc-list-item"
-              role="menuitem">
+              role="menuitem"
+              @click="onSelect(item)">
             <span class="mdc-list-item__text">{{item.label}}</span>
           </li>
           <li v-if="!options">
@@ -95,6 +96,14 @@ class VueMenu extends VueBaseComponent implements IVueMenu {
     this.mdc = null;
     this.$data.opened = false;
     removeSelf(this.el);  // TODO @mdc_issue Prevent DOM memory leak
+  }
+
+  /**
+   * @stable [17.11.2018]
+   * @param {IMenuItemEntity} option
+   */
+  private onSelect(option: IMenuItemEntity): void {
+    this.$emit('select', option);
   }
 
   /**

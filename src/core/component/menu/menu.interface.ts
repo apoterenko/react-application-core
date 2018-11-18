@@ -1,4 +1,3 @@
-import { INativeMaterialComponent } from '../material';
 import {
   IOpenWrapper,
   IShowWrapper,
@@ -6,7 +5,7 @@ import {
   IFilterWrapper,
   IOptionsWrapper,
 } from '../../definitions.interface';
-import { IComponent, IMenuItemEntity } from '../../entities-definitions.interface';
+import { IComponent, IMenuItemEntity, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IMenuConfiguration } from '../../configurations-definitions.interface';
 
 /**
