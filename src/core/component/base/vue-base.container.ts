@@ -24,7 +24,6 @@ import {
 import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/vue-index';
 
 export class VueBaseContainer extends Vue implements IVueContainer {
-
   public section$: string;
   @lazyInject(DI_TYPES.Store) public store$: Store<IVueApplicationStoreEntity>;
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
@@ -38,6 +37,15 @@ export class VueBaseContainer extends Vue implements IVueContainer {
   }
 
   /**
+   * @stable [18.11.2018]
+   * @param {string} type
+   * @param {TChanges} data
+   */
+  public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
+    this.dispatchCustomType(`${this.section$}.${type}`, applySection(this.section$, data));
+  }
+
+  /**
    * @stable [13.11.2018]
    * @param {TChanges} changes
    */
@@ -47,15 +55,22 @@ export class VueBaseContainer extends Vue implements IVueContainer {
 
   /**
    * @stable [18.11.2018]
+   * @param {string} fieldName
+   * @param {AnyT} fieldValue
+   */
+  public dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
+    this.store$.dispatch(
+      FormActionBuilder.buildChangeSimpleAction(this.section$, fieldName, fieldValue)
+    );
+  }
+
+  /**
+   * @stable [18.11.2018]
    * @param {string} dictionary
    * @param {TData} data
    */
   public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
     this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
-  }
-
-  protected dispatch(type: string, data?: IKeyValue): void {
-    this.dispatchCustomType(`${this.section$}.${type}`, applySection(this.section$, data));
   }
 
   /**

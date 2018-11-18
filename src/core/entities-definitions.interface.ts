@@ -125,6 +125,8 @@ import {
   IOpenWrapper,
   IDispatchFormChangesWrapper,
   IDispatchLoadDictionaryWrapper,
+  IDispatchFormChangeWrapper,
+  IDispatchWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -261,12 +263,20 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
 }
 
 /**
+ * @stable [18.11.2018]
+ */
+export interface IDispatchEntity extends IDispatchWrapper,
+                                         IDispatchFormChangesWrapper,
+                                         IDispatchLoadDictionaryWrapper,
+                                         IDispatchFormChangeWrapper {
+}
+
+/**
  * @stable [17.05.2018]
  */
 export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends Component<TProps, TState>,
-          IDispatchFormChangesWrapper,
-          IDispatchLoadDictionaryWrapper {
+          IDispatchEntity {
 }
 
 /**

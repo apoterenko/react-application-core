@@ -4,11 +4,10 @@ import Vue from 'vue';
 import {
   IEntity,
   AnyT,
-  IDispatchFormChangesWrapper,
-  IDispatchLoadDictionaryWrapper,
 } from './definitions.interface';
 import {
   IUniversalApplicationStoreEntity,
+  IDispatchEntity,
 } from './entities-definitions.interface';
 import {
   IVueSection$Wrapper,
@@ -57,8 +56,7 @@ export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationSt
           IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
           IVueState$Wrapper<TApplicationStoreEntity>,
           IVueOnMount$Wrapper,
-          IDispatchLoadDictionaryWrapper,
-          IDispatchFormChangesWrapper {
+          IDispatchEntity {
 }
 
 /**

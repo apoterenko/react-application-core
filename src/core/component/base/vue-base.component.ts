@@ -5,11 +5,14 @@ import { DI_TYPES, lazyInject } from '../../di';
 import { ApplicationTranslatorT } from '../../translation';
 import { IKeyValue } from '../../definitions.interface';
 import { IApplicationSettings } from '../../settings';
+import { IVueContainer } from '../../vue-entities-definitions.interface';
 
 export class VueBaseComponent<TState = IKeyValue> extends Vue {
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @Prop() protected styles: IKeyValue;
+  @Prop() protected bindContainer: IVueContainer;
+  @Prop() protected bindStore: IKeyValue;
 
   /**
    * @stable [17.11.2018]

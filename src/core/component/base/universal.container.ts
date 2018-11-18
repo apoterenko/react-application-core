@@ -83,13 +83,11 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * Needed for the custom actions
-   *
-   * @stable [14.08.2018]
+   * @stable [18.11.2018]
    * @param {string} type
-   * @param {IKeyValue} data
+   * @param {TChanges} data
    */
-  public dispatch(type: string, data?: IKeyValue): void {
+  public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
     const props = this.props;
     this.dispatchCustomType(`${props.sectionName}.${type}`, applySection(props.sectionName, data));
   }
@@ -128,6 +126,17 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable [18.11.2018]
+   * @param {string} fieldName
+   * @param {AnyT} fieldValue
+   */
+  public dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
+    this.appStore.dispatch(
+      FormActionBuilder.buildChangeSimpleAction(this.props.sectionName, fieldName, fieldValue)
+    );
+  }
+
+  /**
+   * @stable [18.11.2018]
    * @param {string} dictionary
    * @param {TData} data
    */
@@ -159,17 +168,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected dispatchCustomType(type: string, data?: AnyT): void {
     this.appStore.dispatch({ type, data });
-  }
-
-  /**
-   * @stable - 25.04.2018
-   * @param {string} fieldName
-   * @param {AnyT} fieldValue
-   */
-  protected dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
-    this.appStore.dispatch(
-      FormActionBuilder.buildChangeSimpleAction(this.props.sectionName, fieldName, fieldValue)
-    );
   }
 
   /**

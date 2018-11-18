@@ -13,9 +13,6 @@ import {
   IVueRefs,
 } from '../../../vue-definitions.interface';
 import {
-  IVueContainer,
-} from '../../../vue-entities-definitions.interface';
-import {
   IVueFieldTemplateComputedEntity,
   IVueFieldTemplateMethodsEntity,
   IVueFieldInputEventsEntity,
@@ -33,8 +30,6 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
   @Prop() protected autoFocus: boolean;
-  @Prop() protected bindContainer: IVueContainer;
-  @Prop() protected bindStore: IKeyValue;
 
   /**
    * @stable [17.11.2018]
@@ -136,11 +131,10 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    * @param {AnyT} newValue
    */
   protected onChange(newValue: AnyT): void {
-    this.$emit('change', newValue);
-
     if (isDef(this.bindContainer)) {
-      this.bindContainer.dispatchFormChanges({[this.name]: newValue});
+      this.bindContainer.dispatchFormChange(this.name, newValue);
     }
+    this.$emit('change', newValue);
   }
 
   /**
