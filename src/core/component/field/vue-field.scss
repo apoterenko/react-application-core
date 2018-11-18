@@ -1,0 +1,23 @@
+@import '../vue-constant';
+
+.vac {
+
+  .vue-field {
+
+    .vue-field-input-wrapper {
+      height: 100%;                                                                           /* @stable [17.11.2018] */
+    }
+
+    &.vue-text-field {
+      height: $vue-text-field-height;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+
+      .vue-field-input {
+        border: 0;
+        padding: 0 16px;
+        background: none;
+      }
+    }
+  }
+}
