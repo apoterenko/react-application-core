@@ -11,6 +11,7 @@ import {
   ISelectedEntityWrapper,
 } from '../../definitions.interface';
 import { INavigateEntity } from '../../entities-definitions.interface';
+import { DictionariesActionBuilder } from '../../dictionary';
 import {
   IVueApplicationStoreEntity,
   IVueContainer,
@@ -42,6 +43,15 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    */
   public dispatchFormChanges<TChanges = IKeyValue>(changes: TChanges): void {
     this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(this.section$, changes));
+  }
+
+  /**
+   * @stable [18.11.2018]
+   * @param {string} dictionary
+   * @param {TData} data
+   */
+  public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
+    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
   }
 
   protected dispatch(type: string, data?: IKeyValue): void {
@@ -91,10 +101,10 @@ export class VueBaseContainer extends Vue implements IVueContainer {
   }
 
   /**
-   * @stable [11.11.2018]
-   * @returns {this}
+   * @stable [17.11.2018]
+   * @returns {VueBaseContainer}
    */
-  private get self(): VueBaseContainer {
+  protected getSelf(): VueBaseContainer {
     return this;
   }
 }

@@ -62,20 +62,6 @@ export interface IVueValue$Wrapper<TValue$ = AnyT> {
 }
 
 /**
- * @stable [17.11.2018]
- */
-export interface IVueOptions$Wrapper<TOptions$ = AnyT> {
-  options$?: TOptions$;
-}
-
-/**
- * @stable [21.10.2018]
- */
-export interface IVueIsContainer$Wrapper {
-  isContainer$?: boolean;
-}
-
-/**
  * @stable [21.10.2018]
  */
 export interface IVueParentContainer$Wrapper<TParentContainer$> {

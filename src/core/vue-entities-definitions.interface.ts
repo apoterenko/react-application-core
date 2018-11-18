@@ -5,12 +5,12 @@ import {
   IEntity,
   AnyT,
   IDispatchFormChangesWrapper,
+  IDispatchLoadDictionaryWrapper,
 } from './definitions.interface';
 import {
   IUniversalApplicationStoreEntity,
 } from './entities-definitions.interface';
 import {
-  IVueIsContainer$Wrapper,
   IVueSection$Wrapper,
   IVueState$Wrapper,
   IVueStore$Wrapper,
@@ -56,8 +56,8 @@ export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationSt
           IVueSection$Wrapper,
           IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
           IVueState$Wrapper<TApplicationStoreEntity>,
-          IVueIsContainer$Wrapper,
           IVueOnMount$Wrapper,
+          IDispatchLoadDictionaryWrapper,
           IDispatchFormChangesWrapper {
 }
 

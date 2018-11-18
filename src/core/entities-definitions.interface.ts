@@ -123,6 +123,8 @@ import {
   IToDateToTimeEntity,
   IPhotoUrlWrapper,
   IOpenWrapper,
+  IDispatchFormChangesWrapper,
+  IDispatchLoadDictionaryWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -262,7 +264,9 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
  * @stable [17.05.2018]
  */
 export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
-  extends Component<TProps, TState> {
+  extends Component<TProps, TState>,
+          IDispatchFormChangesWrapper,
+          IDispatchLoadDictionaryWrapper {
 }
 
 /**

@@ -1,8 +1,6 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { AnyT } from '../../definitions.interface';
-import { DictionariesActionBuilder } from '../../dictionary/dictionaries-action.builder';
 import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { UniversalContainer } from './universal.container';
@@ -19,11 +17,6 @@ export class BaseContainer<TProps extends IContainerProps = IContainerProps, TSt
   constructor(props: TProps) {
     super(props);
     this.activateFormDialog = this.activateFormDialog.bind(this);
-  }
-
-  // Dictionary service method (DRY)
-  protected dispatchLoadDictionary(section: string, payload?: AnyT): void {
-    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(section), { section, payload });
   }
 
   // Notification service method (DRY)

@@ -58,7 +58,6 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
      * @stable [21.10.2018]
      */
     beforeCreate() {
-      this.isContainer$ = config.isContainer$ !== false;
       this.section$ = config.section$;
     },
 

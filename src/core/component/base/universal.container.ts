@@ -24,6 +24,7 @@ import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
 import { applySection, buildErrorMessage } from '../../util';
+import { DictionariesActionBuilder } from '../../dictionary';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends React.Component<TProps, TState>
@@ -116,6 +117,25 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
+   * @stable [18.11.2018]
+   * @param {TChanges} changes
+   */
+  public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void {
+    this.appStore.dispatch(
+      FormActionBuilder.buildChangesSimpleAction(this.props.sectionName, changes)
+    );
+  }
+
+  /**
+   * @stable [18.11.2018]
+   * @param {string} dictionary
+   * @param {TData} data
+   */
+  public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
+    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
+  }
+
+  /**
    * @stable - 12.04.2018
    */
   protected navigateToBack(): void {
@@ -159,16 +179,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   protected dispatchFormClear(fieldName: string): void {
     this.appStore.dispatch(
       FormActionBuilder.buildClearSimpleAction(this.props.sectionName, fieldName)
-    );
-  }
-
-  /**
-   * @stable [29.10.2018]
-   * @param {TChanges} changes
-   */
-  protected dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void {
-    this.appStore.dispatch(
-      FormActionBuilder.buildChangesSimpleAction(this.props.sectionName, changes)
     );
   }
 
