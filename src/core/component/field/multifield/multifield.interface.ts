@@ -51,6 +51,7 @@ export interface IMultiFieldChangesEntity {
  */
 export interface IMultiField extends IField {
   deleteItem(item: IMultiItemEntity): void;
+  addItem(item: IMultiItemEntity): void;
   editItem(item: IMultiItemEntity): void;
   mergeItem(item: IMultiItemEntity): void;
 }

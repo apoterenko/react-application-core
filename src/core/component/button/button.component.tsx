@@ -39,6 +39,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     if (props.to) {
       return (
           <Link to={props.to}
+                style={props.style}
                 className={className}>
             {buttonText}
           </Link>
@@ -48,6 +49,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     return (
         <button type={props.type}
                 title={props.title}
+                style={props.style}
                 onClick={props.onClick}
                 className={className}
                 disabled={isButtonDisabled(props)}>

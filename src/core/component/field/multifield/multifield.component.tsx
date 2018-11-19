@@ -49,6 +49,14 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
   }
 
   /**
+   * @stable [19.11.2018]
+   * @param {IMultiItemEntity} item
+   */
+  public addItem(item: IMultiItemEntity): void {
+    this.multiFieldPlugin.onAddItem(item);
+  }
+
+  /**
    * @stable [19.08.2018]
    * @param {IMultiItemEntity} item
    */
