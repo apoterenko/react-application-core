@@ -91,11 +91,11 @@ class VueMenu extends VueBaseComponent implements IVueMenu {
    * @stable [17.11.2018]
    */
   private onMenuClose() {
-    this.mdc.unlisten('MDCMenuSurface:closed', this.onMenuClose); // TODO @mdc_issue Why the destroy method does not remove a listener?
+    this.mdc.unlisten('MDCMenuSurface:closed', this.onMenuClose);
     this.mdc.destroy();
     this.mdc = null;
     this.$data.opened = false;
-    removeSelf(this.el);  // TODO @mdc_issue Prevent DOM memory leak
+    removeSelf(this.el);
   }
 
   /**

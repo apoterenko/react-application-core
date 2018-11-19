@@ -1,6 +1,6 @@
 import { MDCMenu } from '@material/menu';
 
-import { sequence, isParentDocumentBody } from '../../../util';
+import { sequence, isParentDocumentBody, removeSelf } from '../../../util';
 import { MaterialPlugin } from './material.plugin';
 import { IMenu, INativeMaterialMenuComponent } from '../../menu';
 
@@ -28,6 +28,15 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
     if (!isParentDocumentBody(this.component.self)) {
       this.mdc.hoistMenuToBody();   // Prevent an outer container scroll appearing
     }
+  }
+
+  /**
+   * @stable [19.11.2018]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+
+    removeSelf(this.component.self);  // Because of hoistMenuToBody
   }
 
   /**
