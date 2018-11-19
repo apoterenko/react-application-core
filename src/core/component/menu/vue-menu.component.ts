@@ -25,7 +25,7 @@ import { IVueMenu, IVueMenuContextEntity } from './vue-menu.interface';
               class="mdc-list-item"
               role="menuitem"
               @click="onSelect(item)">
-            <span class="mdc-list-item__text">{{item.label}}</span>
+            <span class="mdc-list-item__text">{{item.label || item.value}}</span>
           </li>
           <li v-if="!options">
             <span class="mdc-list-item__text">{{getPleaseWaitMessage()}}</span>

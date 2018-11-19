@@ -131,7 +131,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    * @param {AnyT} newValue
    */
   protected onChange(newValue: AnyT): void {
-    if (isDef(this.bindContainer)) {
+    if (this.isContainerBound()) {
       this.bindContainer.dispatchFormChange(this.name, newValue);
     }
     this.$emit('change', newValue);

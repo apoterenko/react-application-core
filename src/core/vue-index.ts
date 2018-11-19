@@ -14,9 +14,7 @@ export * from './router/vue-index';
 export * from './component/action.builder';
 export * from './di';
 export * from './util';
-export {
-  IApplicationTransport,
-} from './transport/transport.interface';
+export * from './transport';
 export * from './bootstrap/vue-index';
 export * from './storage';
 export * from './settings';

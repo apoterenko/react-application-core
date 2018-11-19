@@ -65,6 +65,13 @@ export class VueBaseContainer extends Vue implements IVueContainer {
   }
 
   /**
+   * @stable [19.11.2018]
+   */
+  public dispatchFormSubmit(): void {
+    this.dispatchCustomType(FormActionBuilder.buildSubmitActionType(this.section$));
+  }
+
+  /**
    * @stable [18.11.2018]
    * @param {string} dictionary
    * @param {TData} data

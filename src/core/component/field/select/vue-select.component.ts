@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 
-import { getWidth } from '../../../util';
+import { getWidth, isString } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
@@ -19,6 +19,7 @@ import {
   }),
 })
 class VueSelect extends VueBaseTextField {
+  @Prop() private bindDictionary: string;
   @Prop() private options: ISelectOptionEntity[];
 
   /**
@@ -93,6 +94,10 @@ class VueSelect extends VueBaseTextField {
    */
   private onInputClick(): void {
     this.menu.show({width: getWidth(this.inputWrapperEl)});
+
+    if (this.isContainerBound() && isString(this.bindDictionary)) {
+      this.bindContainer.dispatchLoadDictionary(this.bindDictionary);
+    }
     this.$emit('show');
   }
 

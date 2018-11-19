@@ -1890,6 +1890,13 @@ export interface IDispatchFormChangeWrapper {
 }
 
 /**
+ * @stable [19.11.2018]
+ */
+export interface IDispatchFormSubmitWrapper {
+  dispatchFormSubmit(): void;
+}
+
+/**
  * @stable [18.11.2018]
  */
 export interface IDispatchLoadDictionaryWrapper {

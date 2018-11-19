@@ -64,7 +64,7 @@ export class TransportFactory implements IApplicationTransportFactory {
           headers,
           url: uri0.valueOf(),
           method: req.method || 'POST',
-          data: req.blob || this.toRequestParams(req),
+          data: this.getRequestData(req),
           cancelToken: cancelToken && cancelToken.token,
         }
       ))
@@ -72,7 +72,7 @@ export class TransportFactory implements IApplicationTransportFactory {
         (res) => {
           TransportFactory.logger.debug(`[$TransportFactory][request] Data have been loaded. Result: `, res);
           this.clearOperation(operationId);
-          return res;
+          return this.getResponseData(res);
         },
         (err) => {
           TransportFactory.logger.debug(`[$TransportFactory][request] An error occurred during a request. Error: ${err}`);
@@ -107,6 +107,14 @@ export class TransportFactory implements IApplicationTransportFactory {
       params: orUndef(req.params, () => defValuesFilter(req.params)),
       auth: orUndef(!req.notApplyAuth, () => this.tokenAccessor.token),
     });
+  }
+
+  protected getResponseData(res): any { // TODO
+    return res;
+  }
+
+  protected getRequestData(req: ITransportRequestEntity): ITransportRequestParamsEntity | Blob {
+    return req.blob || this.toRequestParams(req);
   }
 
   private clearOperation(operationId?: string): void {

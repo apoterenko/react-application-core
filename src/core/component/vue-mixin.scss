@@ -30,3 +30,52 @@
     }
   }
 }
+
+/**
+ * @stable [19.11.2018]
+ */
+@mixin _vue-field-custom-properties($vue-field-input-wrapper-height: unset,
+                                    $vue-field-height: unset,
+                                    $vue-field-border-radius: unset) {
+
+  @if $vue-field-height != unset {
+    height: $vue-field-height;
+  }
+  @if $vue-field-border-radius != unset {
+    border-radius: $vue-field-border-radius;
+  }
+
+  .vue-field-input-wrapper {
+    @if $vue-field-input-wrapper-height != unset {
+      height: $vue-field-input-wrapper-height;
+    }
+  }
+}
+
+/**
+ * @stable [19.11.2018]
+ */
+@mixin vue-field($vue-field-custom: unset,
+                 $vue-field-height: unset,
+                 $vue-field-border-radius: unset,
+                 $vue-field-input-wrapper-height: unset) {
+  @if $vue-field-custom != unset {
+    .vue-field {
+      &.#{$vue-field-custom} {
+        @include _vue-field-custom-properties(
+          $vue-field-input-wrapper-height: $vue-field-input-wrapper-height,
+          $vue-field-height: $vue-field-height,
+          $vue-field-border-radius: $vue-field-border-radius
+        );
+      }
+    }
+  } @else {
+    .vue-field {
+      @include _vue-field-custom-properties(
+        $vue-field-input-wrapper-height: $vue-field-input-wrapper-height,
+        $vue-field-height: $vue-field-height,
+        $vue-field-border-radius: $vue-field-border-radius
+      );
+    }
+  }
+}

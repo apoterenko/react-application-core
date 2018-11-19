@@ -1,3 +1,4 @@
+export * from './array';
 export * from './blob';
 export * from './calc';
 export * from './caret';
