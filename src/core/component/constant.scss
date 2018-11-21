@@ -392,8 +392,9 @@ $rac-tab-nav-margin: 28px !default;
 /* @stable [29.06.2018] */
 $rac-card-list-item-width: 150px !default;
 $rac-card-list-item-height: 208px !default;
-$rac-card-list-item-margin-right: 16px !default;
-$rac-card-list-item-margin-bottom: 16px !default;
+$rac-card-list-item-margin: 0 8px 8px 0 !default;
+$rac-card-list-padding: 8px 0 8px 8px !default;
+$rac-card-list-item-border-radius: unset !default;
 
 /* @stable [05.08.2018] */
 $rac-dialog-header-color: $rac-default-label-color !default;

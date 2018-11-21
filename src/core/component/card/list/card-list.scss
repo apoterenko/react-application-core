@@ -1,16 +1,14 @@
+@import '../../constant';
+@import '../../mixin';
+
 // Card list [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-card-list {
-    padding: 8px 0 8px 8px;   /* @stable [12.06.2018] */
-    overflow: auto;           /* @stable [12.06.2018] */
-
-    .rac-card-list-item {
-      width: $rac-card-list-item-width;                   /* @stable [12.06.2018] */
-      height: $rac-card-list-item-height;                 /* @stable [12.06.2018] */
-      margin-right: $rac-card-list-item-margin-right;     /* @stable [29.06.2018] */
-      margin-bottom: $rac-card-list-item-margin-bottom;   /* @stable [29.06.2018] */
-      float: left;                                        /* @stable [12.06.2018] */
-    }
-  }
+  @include rac-card-list($rac-card-list-overflow: auto,
+                         $rac-card-list-padding: $rac-card-list-padding,
+                         $rac-card-list-item-width: $rac-card-list-item-width,
+                         $rac-card-list-item-height: $rac-card-list-item-height,
+                         $rac-card-list-item-margin: $rac-card-list-item-margin,
+                         $rac-card-list-item-border-radius: $rac-card-list-item-border-radius,
+                         $rac-card-list-item-float: left);
 }

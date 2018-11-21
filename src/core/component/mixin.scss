@@ -27,6 +27,7 @@
  */
 @mixin _rac-position-properties($rac-position-left: unset,
                                 $rac-position-top: unset,
+                                $rac-position-bottom: unset,
                                 $rac-position-right: unset,
                                 $rac-position: unset) {
   @if $rac-position != unset {
@@ -40,6 +41,9 @@
   }
   @if $rac-position-top != unset {
     top: $rac-position-top;
+  }
+  @if $rac-position-bottom != unset {
+    bottom: $rac-position-bottom;
   }
 }
 
@@ -130,7 +134,18 @@
                                    $rac-icon-custom-content-height: unset,
                                    $rac-icon-custom-content-width: unset,
                                    $rac-icon-custom-line-height: unset,
-                                   $rac-icon-custom-border: unset) {
+                                   $rac-icon-custom-border: unset,
+                                   $rac-icon-custom-position: unset,
+                                   $rac-icon-custom-left: unset,
+                                   $rac-icon-custom-right: unset,
+                                   $rac-icon-custom-top: unset,
+                                   $rac-icon-custom-bottom: unset) {
+
+  @include _rac-position-properties($rac-position-left: $rac-icon-custom-left,
+                                    $rac-position-top: $rac-icon-custom-top,
+                                    $rac-position-bottom: $rac-icon-custom-bottom,
+                                    $rac-position-right: $rac-icon-custom-right,
+                                    $rac-position: $rac-icon-custom-position);
 
   @if $rac-icon-custom-border != unset {
     border: $rac-icon-custom-border;
@@ -194,7 +209,12 @@
                 $rac-icon-content-height: unset,
                 $rac-icon-content-width: unset,
                 $rac-icon-line-height: unset,
-                $rac-icon-border: unset) {
+                $rac-icon-border: unset,
+                $rac-icon-position: unset,
+                $rac-icon-left: unset,
+                $rac-icon-right: unset,
+                $rac-icon-top: unset,
+                $rac-icon-bottom: unset) {
 
   @if $rac-icon-custom != unset {
     .rac-icon {
@@ -211,7 +231,12 @@
                                              $rac-icon-custom-content-height: $rac-icon-content-height,
                                              $rac-icon-custom-content-width: $rac-icon-content-width,
                                              $rac-icon-custom-line-height: $rac-icon-line-height,
-                                             $rac-icon-custom-border: $rac-icon-border);
+                                             $rac-icon-custom-border: $rac-icon-border,
+                                             $rac-icon-custom-position: $rac-icon-position,
+                                             $rac-icon-custom-left: $rac-icon-left,
+                                             $rac-icon-custom-right: $rac-icon-right,
+                                             $rac-icon-custom-top: $rac-icon-top,
+                                             $rac-icon-custom-bottom: $rac-icon-bottom);
       }
     }
   } @else {
@@ -228,7 +253,12 @@
                                            $rac-icon-custom-content-height: $rac-icon-content-height,
                                            $rac-icon-custom-content-width: $rac-icon-content-width,
                                            $rac-icon-custom-line-height: $rac-icon-line-height,
-                                           $rac-icon-custom-border: $rac-icon-border);
+                                           $rac-icon-custom-border: $rac-icon-border,
+                                           $rac-icon-custom-position: $rac-icon-position,
+                                           $rac-icon-custom-left: $rac-icon-left,
+                                           $rac-icon-custom-right: $rac-icon-right,
+                                           $rac-icon-custom-top: $rac-icon-top,
+                                           $rac-icon-custom-bottom: $rac-icon-bottom);
     }
   }
 }
@@ -783,5 +813,79 @@
       $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
       $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
     );
+  }
+}
+
+/**
+ * @stable [21.11.2018]
+ */
+@mixin _rac-card-list-custom-properties($rac-card-list-padding: unset,
+                                        $rac-card-list-overflow: unset,
+                                        $rac-card-list-item-width: unset,
+                                        $rac-card-list-item-height: unset,
+                                        $rac-card-list-item-float: unset,
+                                        $rac-card-list-item-margin: unset,
+                                        $rac-card-list-item-border-radius: unset) {
+
+  @if $rac-card-list-padding != unset {
+    padding: $rac-card-list-padding;
+  }
+  @if $rac-card-list-overflow != unset {
+    overflow: $rac-card-list-overflow;
+  }
+
+  .rac-card-list-item {
+    @if $rac-card-list-item-width != unset {
+      width: $rac-card-list-item-width;
+    }
+    @if $rac-card-list-item-height != unset {
+      height: $rac-card-list-item-height;
+    }
+    @if $rac-card-list-item-margin != unset {
+      margin: $rac-card-list-item-margin;
+    }
+    @if $rac-card-list-item-float != unset {
+      float: $rac-card-list-item-float;
+    }
+    @if $rac-card-list-item-border-radius != unset {
+      border-radius: $rac-card-list-item-border-radius;
+    }
+  }
+}
+
+/**
+ * @stable [21.11.2018]
+ */
+@mixin rac-card-list($rac-card-list-custom: unset,
+                     $rac-card-list-padding: unset,
+                     $rac-card-list-overflow: unset,
+                     $rac-card-list-item-width: unset,
+                     $rac-card-list-item-height: unset,
+                     $rac-card-list-item-float: unset,
+                     $rac-card-list-item-margin: unset,
+                     $rac-card-list-item-border-radius: unset) {
+
+  @if $rac-card-list-custom != unset {
+    .rac-card-list {
+      &.#{$rac-card-list-custom} {
+        @include _rac-card-list-custom-properties($rac-card-list-padding: $rac-card-list-padding,
+                                                  $rac-card-list-overflow: $rac-card-list-overflow,
+                                                  $rac-card-list-item-width: $rac-card-list-item-width,
+                                                  $rac-card-list-item-height: $rac-card-list-item-height,
+                                                  $rac-card-list-item-float: $rac-card-list-item-float,
+                                                  $rac-card-list-item-margin: $rac-card-list-item-margin,
+                                                  $rac-card-list-item-border-radius: $rac-card-list-item-border-radius);
+      }
+    }
+  } @else {
+    .rac-card-list {
+      @include _rac-card-list-custom-properties($rac-card-list-padding: $rac-card-list-padding,
+                                                $rac-card-list-overflow: $rac-card-list-overflow,
+                                                $rac-card-list-item-width: $rac-card-list-item-width,
+                                                $rac-card-list-item-height: $rac-card-list-item-height,
+                                                $rac-card-list-item-float: $rac-card-list-item-float,
+                                                $rac-card-list-item-margin: $rac-card-list-item-margin,
+                                                $rac-card-list-item-border-radius: $rac-card-list-item-border-radius);
+    }
   }
 }
