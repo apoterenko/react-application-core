@@ -116,6 +116,124 @@
 }
 
 /**
+ * @stable [07.11.2018]
+ */
+@mixin _rac-icon-custom-properties($rac-icon-custom-display: unset,
+                                   $rac-icon-custom-background: unset,
+                                   $rac-icon-custom-color: unset,
+                                   $rac-icon-custom-margin: unset,
+                                   $rac-icon-custom-padding: unset,
+                                   $rac-icon-custom-border-radius: unset,
+                                   $rac-icon-custom-width: unset,
+                                   $rac-icon-custom-height: unset,
+                                   $rac-icon-custom-size: unset,
+                                   $rac-icon-custom-content-height: unset,
+                                   $rac-icon-custom-content-width: unset,
+                                   $rac-icon-custom-line-height: unset,
+                                   $rac-icon-custom-border: unset) {
+
+  @if $rac-icon-custom-border != unset {
+    border: $rac-icon-custom-border;
+  }
+  @if $rac-icon-custom-margin != unset {
+    margin: $rac-icon-custom-margin;
+  }
+  @if $rac-icon-custom-padding != unset {
+    padding: $rac-icon-custom-padding;
+  }
+  @if $rac-icon-custom-line-height != unset {
+    line-height: $rac-icon-custom-line-height;
+  }
+  @if $rac-icon-custom-display != unset {
+    display: $rac-icon-custom-display;
+  }
+  @if $rac-icon-custom-size != unset {
+    width: $rac-icon-custom-size;
+    height: $rac-icon-custom-size;
+  }
+  @if $rac-icon-custom-width != unset {
+    width: $rac-icon-custom-width;
+  }
+  @if $rac-icon-custom-height != unset {
+    height: $rac-icon-custom-height;
+  }
+  @if $rac-icon-custom-color != unset {
+    color: $rac-icon-custom-color;
+  }
+  @if $rac-icon-custom-background != unset {
+    background: $rac-icon-custom-background;
+  }
+  @if $rac-icon-custom-border-radius != unset {
+    border-radius: $rac-icon-custom-border-radius;
+  }
+  @if $rac-icon-custom-content-height != unset or $rac-icon-custom-content-width != unset {
+    svg {
+      @if $rac-icon-custom-content-height != unset {
+        height: $rac-icon-custom-content-height;
+      }
+      @if $rac-icon-custom-content-width != unset {
+        width: $rac-icon-custom-content-width;
+      }
+    }
+  }
+}
+
+/**
+ * @stable [07.11.2018]
+ */
+@mixin rac-icon($rac-icon-custom: unset,
+                $rac-icon-display: unset,
+                $rac-icon-background: unset,
+                $rac-icon-color: unset,
+                $rac-icon-margin: unset,
+                $rac-icon-padding: unset,
+                $rac-icon-border-radius: unset,
+                $rac-icon-width: unset,
+                $rac-icon-height: unset,
+                $rac-icon-size: unset,
+                $rac-icon-content-height: unset,
+                $rac-icon-content-width: unset,
+                $rac-icon-line-height: unset,
+                $rac-icon-border: unset) {
+
+  @if $rac-icon-custom != unset {
+    .rac-icon {
+      &.#{$rac-icon-custom} {
+        @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
+                                             $rac-icon-custom-background: $rac-icon-background,
+                                             $rac-icon-custom-color: $rac-icon-color,
+                                             $rac-icon-custom-margin: $rac-icon-margin,
+                                             $rac-icon-custom-padding: $rac-icon-padding,
+                                             $rac-icon-custom-border-radius: $rac-icon-border-radius,
+                                             $rac-icon-custom-width: $rac-icon-width,
+                                             $rac-icon-custom-height: $rac-icon-height,
+                                             $rac-icon-custom-size: $rac-icon-size,
+                                             $rac-icon-custom-content-height: $rac-icon-content-height,
+                                             $rac-icon-custom-content-width: $rac-icon-content-width,
+                                             $rac-icon-custom-line-height: $rac-icon-line-height,
+                                             $rac-icon-custom-border: $rac-icon-border);
+      }
+    }
+  } @else {
+    .rac-icon {
+      @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
+                                           $rac-icon-custom-background: $rac-icon-background,
+                                           $rac-icon-custom-color: $rac-icon-color,
+                                           $rac-icon-custom-margin: $rac-icon-margin,
+                                           $rac-icon-custom-padding: $rac-icon-padding,
+                                           $rac-icon-custom-border-radius: $rac-icon-border-radius,
+                                           $rac-icon-custom-width: $rac-icon-width,
+                                           $rac-icon-custom-height: $rac-icon-height,
+                                           $rac-icon-custom-size: $rac-icon-size,
+                                           $rac-icon-custom-content-height: $rac-icon-content-height,
+                                           $rac-icon-custom-content-width: $rac-icon-content-width,
+                                           $rac-icon-custom-line-height: $rac-icon-line-height,
+                                           $rac-icon-custom-border: $rac-icon-border);
+    }
+  }
+}
+
+/**
  * @stable [30.10.2018]
  */
 @mixin rac-google-maps($rac-google-maps-map-min-height: unset) {
@@ -133,13 +251,29 @@
 /**
  * @stable [08.11.2018]
  */
-@mixin _rac-field-custom-properties($rac-field-custom-width: unset,
+@mixin _rac-field-custom-properties($rac-field-custom-margin: unset,
+                                    $rac-field-custom-width: unset,
                                     $rac-field-custom-max-width: unset,
                                     $rac-field-custom-min-height: unset,
                                     $rac-text-field-custom-background: unset,
+                                    $rac-text-field-custom-height: unset,
+                                    $rac-text-field-custom-border-color: unset,
+                                    $rac-text-field-custom-margin: unset,
+                                    $rac-field-label-custom-margin: unset,
+                                    $rac-text-field-label-custom-position: unset,
+                                    $rac-text-field-label-custom-top: unset,
+                                    $rac-text-field-label-custom-left: unset,
+                                    $rac-text-field-input-custom-color: unset,
                                     $rac-text-field-input-custom-cursor: unset,
-                                    $rac-field-label-custom-margin: unset) {
-
+                                    $rac-text-field-input-custom-font-size: unset,
+                                    $rac-text-field-input-caret-custom-position: unset,
+                                    $rac-text-field-input-caret-custom-bottom: unset,
+                                    $rac-text-field-input-caret-custom-font-size: unset,
+                                    $rac-text-field-input-caret-custom-color: unset,
+                                    $rac-text-field-icon-custom-color: unset) {
+  @if $rac-field-custom-margin != unset {
+    margin: $rac-field-custom-margin;
+  }
   @if $rac-field-custom-width != unset {
     width: $rac-field-custom-width;
   }
@@ -158,14 +292,58 @@
 
   .rac-text-field {
     @if $rac-text-field-custom-background != unset {
-      background: $rac-text-field-custom-background
+      background: $rac-text-field-custom-background;
+    }
+    @if $rac-text-field-custom-height != unset {
+      height: $rac-text-field-custom-height;
+    }
+    @if $rac-text-field-custom-margin != unset {
+      margin: $rac-text-field-custom-margin;
+    }
+    @if $rac-text-field-custom-border-color != unset {
+      border-color: $rac-text-field-custom-border-color;
     }
 
     .rac-field-input {
       @if $rac-text-field-input-custom-cursor != unset {
         cursor: $rac-text-field-input-custom-cursor;
       }
+      @if $rac-text-field-input-custom-font-size != unset {
+        font-size: $rac-text-field-input-custom-font-size;
+      }
+      @if $rac-text-field-input-custom-color != unset {
+        color: $rac-text-field-input-custom-color;
+      }
     }
+
+    .rac-field-label {
+      @if $rac-text-field-label-custom-position != unset {
+        position: $rac-text-field-label-custom-position;
+      }
+      @if $rac-text-field-label-custom-top != unset {
+        top: $rac-text-field-label-custom-top;
+      }
+      @if $rac-text-field-label-custom-left != unset {
+        left: $rac-text-field-label-custom-left;
+      }
+    }
+
+    .rac-field-input-caret {
+      @if $rac-text-field-input-caret-custom-position != unset {
+        position: $rac-text-field-input-caret-custom-position;
+      }
+      @if $rac-text-field-input-caret-custom-bottom != unset {
+        bottom: $rac-text-field-input-caret-custom-bottom;
+      }
+      @if $rac-text-field-input-caret-custom-font-size != unset {
+        font-size: $rac-text-field-input-caret-custom-font-size;
+      }
+      @if $rac-text-field-input-caret-custom-color != unset {
+        color: $rac-text-field-input-caret-custom-color;
+      }
+    }
+
+    @include rac-icon($rac-icon-color: $rac-text-field-icon-custom-color);
   }
 }
 
@@ -174,35 +352,77 @@
  */
 @mixin rac-field($rac-field-custom: unset,
                  $rac-field-width: unset,
+                 $rac-field-margin: unset,
                  $rac-field-max-width: unset,
                  $rac-field-min-height: unset,
                  $rac-field-input-cursor: unset,
+                 $rac-text-field-height: unset,
                  $rac-text-field-background: unset,
+                 $rac-text-field-border-color: unset,
+                 $rac-text-field-margin: unset,
+                 $rac-field-label-margin: unset,    // TODO $rac-text-field-label--margin
+                 $rac-text-field-label-position: unset,
+                 $rac-text-field-label-top: unset,
+                 $rac-text-field-label-left: unset,
+                 $rac-text-field-input-color: unset,
+                 $rac-text-field-input-font-size: unset,
                  $rac-text-field-input-cursor: unset,
-                 $rac-field-label-margin: unset) {
+                 $rac-text-field-input-caret-position: unset,
+                 $rac-text-field-input-caret-bottom: unset,
+                 $rac-text-field-input-caret-font-size: unset,
+                 $rac-text-field-input-caret-color: unset,
+                 $rac-text-field-icon-color: unset) {
 
   @if $rac-field-custom != unset {
     .rac-field {
       &.#{$rac-field-custom} {
         @include _rac-field-custom-properties(
+          $rac-field-custom-margin: $rac-field-margin,
           $rac-field-custom-width: $rac-field-width,
           $rac-field-custom-max-width: $rac-field-max-width,
           $rac-field-custom-min-height: $rac-field-min-height,
           $rac-text-field-custom-background: $rac-text-field-background,
+          $rac-text-field-custom-height: $rac-text-field-height,
+          $rac-text-field-custom-border-color: $rac-text-field-border-color,
+          $rac-text-field-custom-margin: $rac-text-field-margin,
+          $rac-field-label-custom-margin: $rac-field-label-margin,
+          $rac-text-field-label-custom-position: $rac-text-field-label-position,
+          $rac-text-field-label-custom-top: $rac-text-field-label-top,
+          $rac-text-field-label-custom-left: $rac-text-field-label-left,
+          $rac-text-field-input-custom-color: $rac-text-field-input-color,
+          $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
           $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
-          $rac-field-label-custom-margin: $rac-field-label-margin
+          $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
+          $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
+          $rac-text-field-input-caret-custom-font-size: $rac-text-field-input-caret-font-size,
+          $rac-text-field-input-caret-custom-color: $rac-text-field-input-caret-color,
+          $rac-text-field-icon-custom-color: $rac-text-field-icon-color
         );
       }
     }
   } @else {
     .rac-field {
       @include _rac-field-custom-properties(
+        $rac-field-custom-margin: $rac-field-margin,
         $rac-field-custom-width: $rac-field-width,
         $rac-field-custom-max-width: $rac-field-max-width,
         $rac-field-custom-min-height: $rac-field-min-height,
         $rac-text-field-custom-background: $rac-text-field-background,
+        $rac-text-field-custom-height: $rac-text-field-height,
+        $rac-text-field-custom-border-color: $rac-text-field-border-color,
+        $rac-text-field-custom-margin: $rac-text-field-margin,
+        $rac-field-label-custom-margin: $rac-field-label-margin,
+        $rac-text-field-label-custom-position: $rac-text-field-label-position,
+        $rac-text-field-label-custom-top: $rac-text-field-label-top,
+        $rac-text-field-label-custom-left: $rac-text-field-label-left,
+        $rac-text-field-input-custom-color: $rac-text-field-input-color,
+        $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
         $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
-        $rac-field-label-custom-margin: $rac-field-label-margin
+        $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
+        $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
+        $rac-text-field-input-caret-custom-font-size: $rac-text-field-input-caret-font-size,
+        $rac-text-field-input-caret-custom-color: $rac-text-field-input-caret-color,
+        $rac-text-field-icon-custom-color: $rac-text-field-icon-color
       );
     }
   }
@@ -417,102 +637,6 @@
   .rac-toolbar {
 
     @include rac-button($rac-button-margin: $rac-toolbar-button-margin);
-  }
-}
-
-/**
- * @stable [07.11.2018]
- */
-@mixin _rac-icon-custom-properties($rac-icon-custom-display: unset,
-                                   $rac-icon-custom-background: unset,
-                                   $rac-icon-custom-color: unset,
-                                   $rac-icon-custom-border-radius: unset,
-                                   $rac-icon-custom-width: unset,
-                                   $rac-icon-custom-height: unset,
-                                   $rac-icon-custom-content-height: unset,
-                                   $rac-icon-custom-content-width: unset,
-                                   $rac-icon-custom-line-height: unset,
-                                   $rac-icon-custom-border: unset) {
-
-  @if $rac-icon-custom-border != unset {
-    border: $rac-icon-custom-border;
-  }
-  @if $rac-icon-custom-line-height != unset {
-    line-height: $rac-icon-custom-line-height;
-  }
-  @if $rac-icon-custom-display != unset {
-    display: $rac-icon-custom-display;
-  }
-  @if $rac-icon-custom-width != unset {
-    width: $rac-icon-custom-width;
-  }
-  @if $rac-icon-custom-height != unset {
-    height: $rac-icon-custom-height;
-  }
-  @if $rac-icon-custom-color != unset {
-    color: $rac-icon-custom-color;
-  }
-  @if $rac-icon-custom-background != unset {
-    background: $rac-icon-custom-background;
-  }
-  @if $rac-icon-custom-border-radius != unset {
-    border-radius: $rac-icon-custom-border-radius;
-  }
-  @if $rac-icon-custom-content-height != unset or $rac-icon-custom-content-width != unset {
-    svg {
-      @if $rac-icon-custom-content-height != unset {
-        height: $rac-icon-custom-content-height;
-      }
-      @if $rac-icon-custom-content-width != unset {
-        width: $rac-icon-custom-content-width;
-      }
-    }
-  }
-}
-
-/**
- * @stable [07.11.2018]
- */
-@mixin rac-icon($rac-icon-custom: unset,
-                $rac-icon-display: unset,
-                $rac-icon-background: unset,
-                $rac-icon-color: unset,
-                $rac-icon-border-radius: unset,
-                $rac-icon-width: unset,
-                $rac-icon-height: unset,
-                $rac-icon-content-height: unset,
-                $rac-icon-content-width: unset,
-                $rac-icon-line-height: unset,
-                $rac-icon-border: unset) {
-
-  @if $rac-icon-custom != unset {
-    .rac-icon {
-      &.#{$rac-icon-custom} {
-        @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
-                                             $rac-icon-custom-background: $rac-icon-background,
-                                             $rac-icon-custom-color: $rac-icon-color,
-                                             $rac-icon-custom-border-radius: $rac-icon-border-radius,
-                                             $rac-icon-custom-width: $rac-icon-width,
-                                             $rac-icon-custom-height: $rac-icon-height,
-                                             $rac-icon-custom-content-height: $rac-icon-content-height,
-                                             $rac-icon-custom-content-width: $rac-icon-content-width,
-                                             $rac-icon-custom-line-height: $rac-icon-line-height,
-                                             $rac-icon-custom-border: $rac-icon-border);
-      }
-    }
-  } @else {
-    .rac-icon {
-      @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
-                                           $rac-icon-custom-background: $rac-icon-background,
-                                           $rac-icon-custom-color: $rac-icon-color,
-                                           $rac-icon-custom-border-radius: $rac-icon-border-radius,
-                                           $rac-icon-custom-width: $rac-icon-width,
-                                           $rac-icon-custom-height: $rac-icon-height,
-                                           $rac-icon-custom-content-height: $rac-icon-content-height,
-                                           $rac-icon-custom-content-width: $rac-icon-content-width,
-                                           $rac-icon-custom-line-height: $rac-icon-line-height,
-                                           $rac-icon-custom-border: $rac-icon-border);
-    }
   }
 }
 

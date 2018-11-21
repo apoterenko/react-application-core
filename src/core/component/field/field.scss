@@ -12,6 +12,18 @@
   @include rac-field($rac-field-custom: rac-switch,                                       /* @stable [08.11.2018] */
                      $rac-field-label-margin: $rac-switch-label-margin);
 
+  @include rac-field($rac-text-field-label-position: $rac-text-field-label-position,      /* @stable [20.11.2018] */
+                     $rac-text-field-label-top: $rac-text-field-label-top,
+                     $rac-text-field-label-left: $rac-text-field-label-left,
+                     $rac-text-field-height: $rac-text-field-height,
+                     $rac-text-field-input-font-size: $rac-text-field-input-font-size,
+                     $rac-text-field-input-color: $rac-text-field-input-color,
+                     $rac-text-field-input-caret-position: absolute,
+                     $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,
+                     $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
+                     $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
+                     $rac-text-field-icon-color: $rac-text-field-icon-color);
+
   .rac-field {
 
     .rac-view-field {
@@ -41,7 +53,6 @@
     &.rac-field-required {
 
       .rac-field-label {
-        position: relative;                                           /* @stable [05.10.2018] */
 
         &::after {
           position: absolute;                                         /* @stable [05.10.2018] */
@@ -195,23 +206,15 @@
 
     .rac-text-field {
       position: relative;
-      height: $rac-text-field-height;                                 /* @stable [03.10.2018] */
       border-style: solid;                                            /* @stable [17.09.2018] */
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
 
-      .rac-field-label {
-        position: $rac-text-field-label-position;                     /* @stable [03.10.2018] */
-        top: $rac-text-field-label-top;                               /* @stable [03.10.2018] */
-        left: $rac-text-field-label-left;                             /* @stable [03.10.2018] */
-      }
-
       .rac-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
         margin-right: $rac-field-icon-margin-right;                   /* @stable [24.06.2018] */
-        color: $rac-field-icon-color;                                 /* @stable [24.06.2018] */
 
         &.rac-loading-icon {
 
@@ -226,8 +229,6 @@
         padding: $rac-field-input-padding;                            /* @stable [03.10.2018] */
         border: none;                                                 /* @stable [03.10.2018] */
         background: none;                                             /* @stable [03.10.2018] */
-        color: $rac-field-input-color;                                /* @stable [25.06.2018] */
-        font-size: $rac-field-input-font-size;                        /* @stable [19.09.2018] */
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
         letter-spacing: $rac-field-input-letter-spacing;              /* @stable [19.09.2018] */
         line-height: $rac-field-input-line-height;                    /* @stable [05.10.2018] */
@@ -251,13 +252,6 @@
           padding: $rac-field-area-input-padding;                     /* @stable [07.11.2018] */
         }
       }
-    }
-
-    .rac-field-input-caret {
-      position: absolute;                                             /* @stable [03.09.2018] */
-      bottom: $rac-field-input-caret-bottom;                          /* @stable [03.09.2018] */
-      font-size: $rac-field-input-caret-font-size;                    /* @stable [03.09.2018] */
-      color: $rac-field-input-caret-color;                            /* @stable [03.09.2018] */
     }
 
     .rac-field-help-text {

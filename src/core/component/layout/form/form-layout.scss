@@ -46,6 +46,12 @@
         }
       }
 
+      @include rac-field($rac-field-margin: $rac-form-layout-field-margin,
+                         $rac-text-field-height: $rac-form-layout-text-field-height,
+                         $rac-text-field-border-color: $rac-form-layout-text-field-border-color,
+                         $rac-text-field-background: $rac-form-layout-text-field-background,
+                         $rac-text-field-input-font-size: $rac-form-layout-text-field-input-font-size);
+
       .rac-field {
 
         &.rac-field-value-present {
@@ -55,13 +61,8 @@
         }
 
         .rac-text-field {
-          height: $rac-form-layout-text-field-height;                          /* @stable [18.09.2018] */
-          border-color: $rac-form-layout-text-field-border-color;              /* @stable [18.09.2018] */
-          background: $rac-form-layout-text-field-background;                  /* @stable [18.09.2018] */
-          margin-top: $rac-form-layout-text-field-margin-top;                  /* @stable [19.09.2018] */
 
           .rac-field-input {
-            font-size: $rac-form-layout-field-input-font-size;                 /* @stable [18.09.2018] */
             color: $rac-form-layout-field-input-color;                         /* @stable [07.08.2018] */
             caret-color: $rac-form-layout-field-input-color;                   /* @stable [15.08.2018] */
 
@@ -69,11 +70,6 @@
               color: $rac-form-layout-field-input-placeholder-color;                /* @stable [18.09.2018] */
               font-weight: $rac-form-layout-field-input-placeholder-font-weight;    /* @stable [27.09.2018] */
             }
-          }
-
-          .rac-field-input-caret {
-            color: $rac-form-layout-field-input-caret-color;                   /* @stable [03.09.2018] */
-            bottom: $rac-form-layout-field-input-caret-bottom;                 /* @stable [19.09.2018] */
           }
 
           .rac-icon {
