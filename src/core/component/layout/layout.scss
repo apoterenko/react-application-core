@@ -42,6 +42,14 @@
     @include flex(.1);                                              /* @stable [19.09.2018] */
   }
 
+  .rac-flex-full-x2 {
+    @include flex(2);                                               /* @stable [21.11.2018] */
+  }
+
+  .rac-flex-full-x3 {
+    @include flex(3);                                               /* @stable [21.11.2018] */
+  }
+
   .rac-flex-align-items-center {
     @include align-items(center);                                   /* @stable [16.09.2018] */
   }
@@ -66,11 +74,6 @@
 // Flex layout [FRAMEWORK-]
 .rac-flex {
   @include flexbox;
-}
-
-// Flex full layout (x2) [FRAMEWORK-]
-.rac-flex-full-x2 {
-  @include flex(2);
 }
 
 // Flex full layout (x4) [FRAMEWORK-]

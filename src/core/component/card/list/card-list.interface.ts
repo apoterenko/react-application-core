@@ -3,12 +3,13 @@ import {
   IListConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
-import { IListWrapperEntity } from '../../../entities-definitions.interface';
+import { IListWrapperEntity, IUniversalListEntity } from '../../../entities-definitions.interface';
 
 /**
  * @stable [05.05.2018]
  */
-export interface ICardListProps extends ICardListConfiguration {
+export interface ICardListProps extends ICardListConfiguration,
+                                        IUniversalListEntity {
 }
 
 /**

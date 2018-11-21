@@ -139,7 +139,9 @@
                                    $rac-icon-custom-left: unset,
                                    $rac-icon-custom-right: unset,
                                    $rac-icon-custom-top: unset,
-                                   $rac-icon-custom-bottom: unset) {
+                                   $rac-icon-custom-bottom: unset,
+                                   $rac-icon-custom-opacity: unset,
+                                   $rac-icon-custom-cursor: unset) {
 
   @include _rac-position-properties($rac-position-left: $rac-icon-custom-left,
                                     $rac-position-top: $rac-icon-custom-top,
@@ -147,6 +149,9 @@
                                     $rac-position-right: $rac-icon-custom-right,
                                     $rac-position: $rac-icon-custom-position);
 
+  @if $rac-icon-custom-cursor != unset {
+    cursor: $rac-icon-custom-cursor;
+  }
   @if $rac-icon-custom-border != unset {
     border: $rac-icon-custom-border;
   }
@@ -181,6 +186,10 @@
   @if $rac-icon-custom-border-radius != unset {
     border-radius: $rac-icon-custom-border-radius;
   }
+  @if $rac-icon-custom-opacity != unset {
+    opacity: $rac-icon-custom-opacity;
+  }
+
   @if $rac-icon-custom-content-height != unset or $rac-icon-custom-content-width != unset {
     svg {
       @if $rac-icon-custom-content-height != unset {
@@ -214,7 +223,9 @@
                 $rac-icon-left: unset,
                 $rac-icon-right: unset,
                 $rac-icon-top: unset,
-                $rac-icon-bottom: unset) {
+                $rac-icon-bottom: unset,
+                $rac-icon-opacity: unset,
+                $rac-icon-cursor: unset) {
 
   @if $rac-icon-custom != unset {
     .rac-icon {
@@ -236,7 +247,9 @@
                                              $rac-icon-custom-left: $rac-icon-left,
                                              $rac-icon-custom-right: $rac-icon-right,
                                              $rac-icon-custom-top: $rac-icon-top,
-                                             $rac-icon-custom-bottom: $rac-icon-bottom);
+                                             $rac-icon-custom-bottom: $rac-icon-bottom,
+                                             $rac-icon-custom-opacity: $rac-icon-opacity,
+                                             $rac-icon-custom-cursor: $rac-icon-cursor);
       }
     }
   } @else {
@@ -258,7 +271,9 @@
                                            $rac-icon-custom-left: $rac-icon-left,
                                            $rac-icon-custom-right: $rac-icon-right,
                                            $rac-icon-custom-top: $rac-icon-top,
-                                           $rac-icon-custom-bottom: $rac-icon-bottom);
+                                           $rac-icon-custom-bottom: $rac-icon-bottom,
+                                           $rac-icon-custom-opacity: $rac-icon-opacity,
+                                           $rac-icon-custom-cursor: $rac-icon-cursor);
     }
   }
 }

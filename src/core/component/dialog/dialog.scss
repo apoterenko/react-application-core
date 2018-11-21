@@ -27,6 +27,7 @@
 
     .rac-dialog-title {
       color: $rac-dialog-header-color;         /* @stable [29.07.2018] */
+      font-size: $rac-dialog-header-font-size;/* @stable [05.08.2018] */
     }
   }
 }

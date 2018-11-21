@@ -82,8 +82,7 @@ $rac-keyboard-key-width-factor: 8px !default;
 /* @stable [24.06.2018] */
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
-$rac-icon-width: 16px !default;
-$rac-icon-height: 16px !default;
+$rac-icon-size: 16px !default;
 $rac-icon-width2: 20px !default;
 $rac-icon-height2: 20px !default;
 
@@ -350,11 +349,8 @@ $rac-menu-list-max-height: 200px !default;
 $rac-menu-simple-list-item-height: 40px !default;
 $rac-menu-close-action-margin: 8px 16px 8px auto !default;
 $rac-menu-close-action-color: $rac-default-action-color !default;
-$rac-menu-close-action-size: $rac-default-action-icon-size !default;
 
 /* @stable [05.08.2018] */
-$rac-page-toolbar-button-page-icon-width: $rac-default-action-icon-size !default;
-$rac-page-toolbar-button-page-icon-height: $rac-default-action-icon-size !default;
 $rac-page-toolbar-content-padding-left: 8px !default;
 $rac-page-toolbar-content-padding-right: 8px !default;
 $rac-page-toolbar-pages-info-color: $rac-default-label-color !default;
@@ -385,8 +381,6 @@ $rac-tab-height: 32px !default;
 $rac-tab-before-after-display: block !default;
 $rac-tab-icon-text-line-height: 24px !default;
 $rac-tab-icon-text-letter-spacing: $rac-default-letter-spacing !default;
-$rac-tab-nav-icon-width: $rac-default-action-icon-size !default;
-$rac-tab-nav-icon-height: $rac-default-action-icon-size !default;
 $rac-tab-nav-margin: 28px !default;
 
 /* @stable [29.06.2018] */
@@ -398,6 +392,7 @@ $rac-card-list-item-border-radius: unset !default;
 
 /* @stable [05.08.2018] */
 $rac-dialog-header-color: $rac-default-label-color !default;
+$rac-dialog-header-font-size: $rac-default-font-size-2 !default;
 $rac-dialog-content-font-size: $rac-default-font-size !default;
 $rac-dialog-content-color: $rac-default-text-color !default;
 $rac-dialog-actions-footer-button-margin: 0 0 0 8px !default;

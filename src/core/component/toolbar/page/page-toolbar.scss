@@ -7,14 +7,6 @@
 
     &.rac-page-toolbar {
 
-      .rac-button-page-icon {
-
-        &.rac-icon {
-          width: $rac-page-toolbar-button-page-icon-width;            /* @stable [05.08.2018] */
-          height: $rac-page-toolbar-button-page-icon-height;          /* @stable [05.08.2018] */
-        }
-      }
-
       .rac-toolbar-content {
         padding-left: $rac-page-toolbar-content-padding-left;         /* @stable [25.06.2018] */
         padding-right: $rac-page-toolbar-content-padding-right;       /* @stable [25.06.2018] */
