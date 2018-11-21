@@ -21,7 +21,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     const props = this.props;
     const buttonText = getButtonText(props, this.settings.messages);
     const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
-    const hasIcon = props.icon !== false;
+    const hasIcon = !R.isNil(props.icon) && props.icon !== false;
 
     const className = toClassName(
       'rac-button',

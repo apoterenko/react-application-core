@@ -6,6 +6,7 @@ import {
   INumberFieldInternalProps,
 } from './numberfield.interface';
 import { ChangeEventT } from '../../../definitions.interface';
+import { IKeyboardConfiguration, KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
 
 export class NumberField extends BasicTextField<NumberField,
                                                 INumberFieldInternalProps,
@@ -27,5 +28,15 @@ export class NumberField extends BasicTextField<NumberField,
 
   private get numberSettings(): IApplicationNumberSettings {
     return this.settings.number || {};
+  }
+
+  /**
+   * @stable [21.11.2018]
+   * @returns {IKeyboardConfiguration}
+   */
+  protected getKeyboardConfiguration(): IKeyboardConfiguration{
+    return {
+      layout: [KEYBOARD_NUMERIC_LAYOUT],
+    };
   }
 }

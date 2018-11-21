@@ -12,7 +12,7 @@ import { UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
-import { Keyboard } from '../../keyboard';
+import { Keyboard, IKeyboardConfiguration } from '../../keyboard';
 import { ENV } from '../../../env';
 import {
   IBasicTextFieldState,
@@ -116,8 +116,17 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
       <Keyboard ref='keyboard'
                 field={this.input}
                 onClose={this.closeSyntheticKeyboard}
-                onChange={this.onKeyboardChange}/>
+                onChange={this.onKeyboardChange}
+                {...this.getKeyboardConfiguration()}/>
     );
+  }
+
+  /**
+   * @stable [21.11.2018]
+   * @returns {IKeyboardConfiguration}
+   */
+  protected getKeyboardConfiguration(): IKeyboardConfiguration{
+    return {};
   }
 
   /**
@@ -300,12 +309,13 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   private getInputCaretElement(): JSX.Element {
     const state = this.state;
+    const textOffset = 2;
 
     return orNull<JSX.Element>(
       state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
         <div className='rac-field-input-caret'
-             style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft'))}}>
+             style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
           |
         </div>
       )

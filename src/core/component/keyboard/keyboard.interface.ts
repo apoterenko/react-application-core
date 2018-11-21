@@ -74,6 +74,15 @@ export const KEYBOARD_QWERTY_DIGITAL_LAYOUT: KeyboardLayoutT = [
     ';', ',', {value: KEYBOARD_SPECIAL_KEYS.SPACE, type: KeyboardKeyEnum.SPACE, width: 200}, '.', '=']
 ];
 
+/**
+ * @stable [21.11.2018]
+ */
+export const KEYBOARD_NUMERIC_LAYOUT: KeyboardLayoutT = [
+  ['1', '2', '3', '4', '5'],
+  ['6', '7', '8', '9', '0'],
+  ['+', '-', ',', '.', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}]
+];
+
 export type KeyboardKeyT = string | IKeyboardKey;
 export type KeyboardLayoutT = KeyboardKeyT[][];
 
