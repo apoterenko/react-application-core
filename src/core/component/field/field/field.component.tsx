@@ -257,7 +257,6 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    * stable [18.06.2018]
    * @example [
    *            rac-checkbox-field,
-   *            rac-textarea-field,
    *            rac-text-field
    *          ]
    * @stable

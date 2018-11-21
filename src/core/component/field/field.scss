@@ -6,23 +6,36 @@
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-field($rac-field-custom: rac-field-prevent-focus,                          /* @stable [08.11.2018] */
+  @include rac-field($rac-field-custom: rac-field-prevent-focus,                              /* @stable [08.11.2018] */
                      $rac-text-field-input-cursor: default);
 
-  @include rac-field($rac-field-custom: rac-switch,                                       /* @stable [08.11.2018] */
+  @include rac-field($rac-field-custom: rac-switch,                                           /* @stable [08.11.2018] */
                      $rac-field-label-margin: $rac-switch-label-margin);
 
-  @include rac-field($rac-text-field-label-position: $rac-text-field-label-position,      /* @stable [20.11.2018] */
+  @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
+                     $rac-text-field-input-padding: $rac-text-area-input-padding);
+
+  @include rac-field($rac-text-field-label-position: $rac-text-field-label-position,          /* @stable [20.11.2018] */
                      $rac-text-field-label-top: $rac-text-field-label-top,
                      $rac-text-field-label-left: $rac-text-field-label-left,
                      $rac-text-field-height: $rac-text-field-height,
                      $rac-text-field-input-font-size: $rac-text-field-input-font-size,
                      $rac-text-field-input-color: $rac-text-field-input-color,
+                     $rac-text-field-input-padding: $rac-text-field-input-padding,
                      $rac-text-field-input-caret-position: absolute,
                      $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,
                      $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
                      $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
                      $rac-text-field-icon-color: $rac-text-field-icon-color);
+
+  .rac-text-area-length-label {
+    @include _rac-position-properties($rac-position: absolute,
+                                      $rac-position-right: 8px,
+                                      $rac-position-top: 2px);
+
+    font-size: $rac-text-area-length-label-font-size;
+    color: $rac-text-area-length-label-color;
+  }
 
   .rac-field {
 
@@ -226,7 +239,6 @@
 
       .rac-field-input {
         width: $rac-field-input-width;                                /* @stable [05.10.2018] It's very important! [Flex Layout] */
-        padding: $rac-field-input-padding;                            /* @stable [03.10.2018] */
         border: none;                                                 /* @stable [03.10.2018] */
         background: none;                                             /* @stable [03.10.2018] */
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
@@ -246,12 +258,6 @@
           width: auto;                                                /* @stable [10.10.2018] */
         }
       }
-
-      &.rac-textarea-field {
-        .rac-field-input {
-          padding: $rac-field-area-input-padding;                     /* @stable [07.11.2018] */
-        }
-      }
     }
 
     .rac-field-help-text {
@@ -264,13 +270,4 @@
       margin: $rac-field-chips-wrapper-margin;                        /* @stable [17.09.2018] */
     }
   }
-}
-
-// Form field [FRAMEWORK-]
-.rac-textarea-length-label {
-  position: absolute;
-  right: 8px;
-  top: 6px;
-  font-size: 11px;
-  color: $color-4;
 }

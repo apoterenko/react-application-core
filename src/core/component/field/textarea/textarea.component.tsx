@@ -25,7 +25,7 @@ export class TextArea extends BasicTextField<TextArea,
     return orNull(
       isDef(this.props.maxLength),
       () => (
-        <label className='rac-textarea-length-label'>
+        <label className='rac-text-area-length-label'>
           {this.definiteValue.length} {this.t('of')} {this.props.maxLength}
         </label>
       )
@@ -33,10 +33,10 @@ export class TextArea extends BasicTextField<TextArea,
   }
 
   /**
-   * @stable [07.11.2018]
+   * @stable [22.11.2018]
    * @returns {string}
    */
-  protected getSelfElementClassName(): string {
-    return `${super.getSelfElementClassName()} rac-textarea-field`;
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-text-area');
   }
 }

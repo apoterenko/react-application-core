@@ -311,6 +311,7 @@
                                     $rac-text-field-input-custom-color: unset,
                                     $rac-text-field-input-custom-cursor: unset,
                                     $rac-text-field-input-custom-font-size: unset,
+                                    $rac-text-field-input-custom-padding: unset,
                                     $rac-text-field-input-caret-custom-position: unset,
                                     $rac-text-field-input-caret-custom-bottom: unset,
                                     $rac-text-field-input-caret-custom-font-size: unset,
@@ -358,6 +359,9 @@
       }
       @if $rac-text-field-input-custom-color != unset {
         color: $rac-text-field-input-custom-color;
+      }
+      @if $rac-text-field-input-custom-padding != unset {
+        padding: $rac-text-field-input-custom-padding;
       }
     }
 
@@ -411,6 +415,7 @@
                  $rac-text-field-label-left: unset,
                  $rac-text-field-input-color: unset,
                  $rac-text-field-input-font-size: unset,
+                 $rac-text-field-input-padding: unset,
                  $rac-text-field-input-cursor: unset,
                  $rac-text-field-input-caret-position: unset,
                  $rac-text-field-input-caret-bottom: unset,
@@ -436,6 +441,7 @@
           $rac-text-field-label-custom-left: $rac-text-field-label-left,
           $rac-text-field-input-custom-color: $rac-text-field-input-color,
           $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
+          $rac-text-field-input-custom-padding: $rac-text-field-input-padding,
           $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
           $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
           $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
@@ -462,6 +468,7 @@
         $rac-text-field-label-custom-left: $rac-text-field-label-left,
         $rac-text-field-input-custom-color: $rac-text-field-input-color,
         $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
+        $rac-text-field-input-custom-padding: $rac-text-field-input-padding,
         $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
         $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
         $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,

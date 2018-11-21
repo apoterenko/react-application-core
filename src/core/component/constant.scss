@@ -222,7 +222,7 @@ $rac-field-icon-margin-right: 8px !default;
 
 /* @stable [17.09.2018] */
 $rac-field-input-width: calc(100% - 32px) !default;
-$rac-field-input-padding: 0 $rac-default-field-input-padding !default;
+$rac-text-field-input-padding: 0 $rac-default-field-input-padding !default;
 $rac-text-field-input-font-size: $rac-default-font-size !default;
 $rac-field-input-line-height: $rac-text-field-input-font-size !default;
 $rac-field-input-letter-spacing: $rac-default-letter-spacing !default;
@@ -233,7 +233,7 @@ $rac-text-field-input-caret-bottom: 4px !default;
 $rac-field-input-font-weight: $rac-default-font-weight !default;
 $rac-field-input-placeholder-font-weight: 100 !default;
 $rac-field-input-placeholder-color: $rac-default-text-color !default;
-$rac-field-area-input-padding: $rac-default-field-input-padding / 2 $rac-default-field-input-padding !default;
+$rac-text-area-input-padding: $rac-default-field-input-padding !default;
 $rac-field-label-height: 16px !default;
 $rac-field-label-font-weight: $rac-default-font-weight !default;
 $rac-field-label-font-size: $rac-default-font-size !default;
@@ -273,6 +273,8 @@ $rac-gridfield-text-field-margin-bottom: 8px !default;
 $rac-checkbox-field-label-line-height: 16px !default;
 $rac-view-field-margin-bottom: 20px !default;
 $rac-switch-label-margin: 16px !default;
+$rac-text-area-length-label-font-size: $rac-default-font-size - 1 !default;
+$rac-text-area-length-label-color: $rac-default-label-color !default;
 
 /* @stable [30.07.2018] */
 $rac-dialog-address-field-google-maps-map-min-height: 200px !default;
