@@ -14,6 +14,8 @@ export interface IDateConverter {
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
+  fromUiDateTimeToDateTime(date: string, time: string): string;
+  fromUiDateTimeToPstDate(date: string, time: string): string;
   splitToDateTimeFields<TEntity>(entity: TEntity,
                                  dateFieldName: string,
                                  timeFieldName: string,
@@ -21,7 +23,6 @@ export interface IDateConverter {
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;
-  fromUiDateTimeToDateTime(date: string, time: string): string;
   fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime?: string): string;
   fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime?: string): string;
   from30DaysAgoUiDateTimeToDateTime(): string;

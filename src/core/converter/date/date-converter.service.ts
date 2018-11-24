@@ -87,6 +87,26 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [24.11.2018]
+   * @param {string} date [Example: 2018-11-24]
+   * @param {string} time [Example: 03:47:17]
+   * @returns {string} [Example: 2018-11-24T03:47:17+03:00]
+   */
+  public fromUiDateTimeToDateTime(date: string, time: string): string {
+    return this.format(this.combine(date, time), this.uiDateTimeFormat, this.dateTimeFormat);
+  }
+
+  /**
+   * @stable [24.11.2018]
+   * @param {string} date [Example: 2018-11-24]
+   * @param {string} time [Example: 03:47:17]
+   * @returns {string} [Example: Nov 24]
+   */
+  public fromUiDateTimeToPstDate(date: string, time: string): string {
+    return this.fromDateTimeToPstDate(this.fromUiDateTimeToDateTime(date, time));
+  }
+
+  /**
    * @stable [09.11.2018]
    * @param {TEntity} entity
    * @param {string} dateFieldName
@@ -120,19 +140,6 @@ export class DateConverter implements IDateConverter {
 
   public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {
     return this.fromDateTimeToArbitraryFormat(date, this.uiDateTimeFormat);
-  }
-
-  /**
-   * @param {string} date
-   * @param {string} time
-   * @returns {string}
-   */
-  public fromUiDateTimeToDateTime(date: string, time: string): string {
-    return this.format(
-        this.combine(date, time),
-        this.uiDateTimeFormat,
-        this.dateTimeFormat
-    );
   }
 
   /**
@@ -296,6 +303,12 @@ export class DateConverter implements IDateConverter {
     return moment().subtract(monthsAgo, 'months').startOf('month').toDate();
   }
 
+  /**
+   * @stable [24.11.2018]
+   * @param {string} dateAsString
+   * @param {string} timeAsString
+   * @returns {string}
+   */
   public combine(dateAsString: string, timeAsString: string): string {
     return [dateAsString, timeAsString].join(' ');
   }
