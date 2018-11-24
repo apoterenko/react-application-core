@@ -14,7 +14,7 @@ export class UserActionBuilder {
    * @param {IPayloadWrapper<IUserEntity>} data
    * @returns {IEffectsAction}
    */
-  public static buildUpdateAction(data: IPayloadWrapper<IUserEntity>): IEffectsAction {
+  public static buildUpdateAction<TUserEntity extends IUserEntity>(data: IPayloadWrapper<TUserEntity>): IEffectsAction {
     return EffectsAction.create(USER_UPDATE_ACTION_TYPE, data);
   }
 

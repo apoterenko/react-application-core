@@ -57,8 +57,8 @@ export class DateTimeFieldHelper {
     const currentDate = this.dc.getCurrentDate();
 
     return {
-      fromDate: this.dc.formatDateFromDateTime(this.toDateTime<TEntity>(apiEntity, fromDateResolver) || firstDayOfLastMonth),
-      toDate: this.dc.formatDateFromDateTime(this.toDateTime<TEntity>(apiEntity, toDateResolver) ||
+      fromDate: this.dc.fromDateTimeToDate(this.toDateTime<TEntity>(apiEntity, fromDateResolver) || firstDayOfLastMonth),
+      toDate: this.dc.fromDateTimeToDate(this.toDateTime<TEntity>(apiEntity, toDateResolver) ||
         (lastDayOfLastMonth.getTime() > currentDate.getTime() ? currentDate : lastDayOfLastMonth)),
     };
   }

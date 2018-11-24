@@ -173,7 +173,8 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const step = props.step;
     const type = props.type || 'text';
     const autoComplete = props.autoComplete || 'off';
-    const readOnly = props.readOnly  || this.inProgress();
+    const readOnly = props.readOnly || this.inProgress();
+    const placeholder = orNull<string>(props.placeholder && !this.inProgress(), () => this.t(props.placeholder));
     const disabled = props.disabled;
     const pattern = this.getFieldPattern();
     const minLength = props.minLength;
@@ -189,13 +190,12 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
 
     return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
       ...props.preventValueBinding ? {} : { value: this.displayValue },
-      name, type, step, readOnly, disabled, pattern, minLength,
+      name, type, step, readOnly, disabled, pattern, minLength, placeholder,
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       required: this.isFieldRequired(),
       className: 'rac-field-input rac-flex-full',
-      placeholder: orNull(props.placeholder, () => this.t(props.placeholder)),
     });
   }
 

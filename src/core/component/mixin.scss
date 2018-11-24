@@ -95,8 +95,8 @@
 @mixin rac-shadowed($background: unset,
                     $shadow: unset,
                     $offset1: 0px,
-                    $offset2: 3px,
-                    $offset3: 3px,
+                    $offset2: 6px,
+                    $offset3: 16px,
                     $offset4: 0px) {
   @if $background != unset {
     background: $background;

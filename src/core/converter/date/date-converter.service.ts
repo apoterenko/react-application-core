@@ -78,6 +78,15 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [23.11.2018]
+   * @param {DateTimeLikeTypeT} date [Example: Wed Oct 24 2018 04:07:41 GMT+0300 (RTZ 2 (зима))]
+   * @returns {string} [Example: 2018-10-24T04:07:41+03:00]
+   */
+  public fromDateTimeToDateTime(date: DateTimeLikeTypeT): string {
+    return this.fromDateTimeToArbitraryFormat(date, this.dateTimeFormat);
+  }
+
+  /**
    * @stable [09.11.2018]
    * @param {TEntity} entity
    * @param {string} dateFieldName
@@ -209,15 +218,6 @@ export class DateConverter implements IDateConverter {
 
   public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateFormat, outputFormat);
-  }
-
-  /**
-   * @deprecated
-   * @param {DateTimeLikeTypeT} date
-   * @returns {string}
-   */
-  public formatDateFromDateTime(date: DateTimeLikeTypeT): string {
-    return this.formatDateTime(date, this.dateFormat);
   }
 
   public formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string {

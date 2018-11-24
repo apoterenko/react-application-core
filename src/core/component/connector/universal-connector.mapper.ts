@@ -344,6 +344,14 @@ export const dictionaryEntityDataMapper = <TDictionaryEntity, TDictionaryEntityR
   );
 
 /**
+ * @stable [23.11.2018]
+ * @param {TEntity} entity
+ * @returns {TEntity}
+ */
+export const simpleEntityMapper = <TEntity extends IEntity>(entity: TEntity) =>
+  orNull<TEntity>(!R.isNil(entity), {...entity as {}} as TEntity);
+
+/**
  * @stable [29.05.2018]
  */
 export const universalDefaultMappers = [

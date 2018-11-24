@@ -61,6 +61,22 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
 }
 
 /**
+ * @stable [22.11.2018]
+ * @param {MultiFieldEntityT} entity
+ * @returns {TItem[]}
+ */
+export const toActualMultiItemDeletedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
+  if (R.isNil(entity)) {
+    return UNDEF;
+  }
+  const multiEntity = entity as IMultiEntity;
+  if (!isNotMultiEntity(entity)) {
+    return multiEntity.remove as TItem[];
+  }
+  return [];
+};
+
+/**
  * @stable [18.08.2018]
  * @param {MultiFieldEntityT} entity
  * @returns {TItem[]}
@@ -82,7 +98,7 @@ export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>
     });
     return Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]);
   }
-  return entity as TItem[];
+  return [];
 };
 
 /**
@@ -144,6 +160,19 @@ export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEn
   multiFieldEntity: MultiFieldEntityT,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
   const result = toActualMultiItemEditedEntities<TItem>(multiFieldEntity);
+  return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
+}
+
+/**
+ * @stable [22.11.2018]
+ * @param {MultiFieldEntityT} multiFieldEntity
+ * @param {(entity: TItem, index: number) => TResult} mapper
+ * @returns {TResult[]}
+ */
+export function fromMultiFieldEntityToDeletedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
+  multiFieldEntity: MultiFieldEntityT,
+  mapper: (entity: TItem, index: number) => TResult): TResult[] {
+  const result = toActualMultiItemDeletedEntities<TItem>(multiFieldEntity);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
