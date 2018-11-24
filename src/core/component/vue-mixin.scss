@@ -1,3 +1,5 @@
+@import './mixin';
+
 /**
  * @stable [18.11.2018]
  */
@@ -34,20 +36,76 @@
 /**
  * @stable [19.11.2018]
  */
-@mixin _vue-field-custom-properties($vue-field-input-wrapper-height: unset,
-                                    $vue-field-height: unset,
-                                    $vue-field-border-radius: unset) {
+@mixin _vue-field-custom-properties($vue-field-height: unset,
+                                    $vue-field-border-radius: unset,
+                                    $vue-field-border: unset,
+                                    $vue-field-position: unset,
+                                    $vue-field-label-color: unset,
+                                    $vue-field-float-label-color: unset,
+                                    $vue-field-float-label-font-size: unset,
+                                    $vue-field-float-label-display: unset,
+                                    $vue-field-float-label-padding: unset,
+                                    $vue-field-float-label-absolute: unset,
+                                    $vue-field-input-border: unset,
+                                    $vue-field-input-padding: unset,
+                                    $vue-field-input-background: unset,
+                                    $vue-field-input-wrapper-height: unset) {
 
+  @if $vue-field-position != unset {
+    position: $vue-field-position;
+  }
   @if $vue-field-height != unset {
     height: $vue-field-height;
   }
   @if $vue-field-border-radius != unset {
     border-radius: $vue-field-border-radius;
   }
+  @if $vue-field-border != unset {
+    border: $vue-field-border;
+  }
 
   .vue-field-input-wrapper {
     @if $vue-field-input-wrapper-height != unset {
       height: $vue-field-input-wrapper-height;
+    }
+  }
+
+  .vue-field-input {
+    @if $vue-field-input-border != unset {
+      border: $vue-field-input-border;
+    }
+    @if $vue-field-input-padding != unset {
+      padding: $vue-field-input-padding;
+    }
+    @if $vue-field-input-background != unset {
+      background: $vue-field-input-background;
+    }
+  }
+
+  .vue-field-label {
+    @if $vue-field-label-color != unset {
+      color: $vue-field-label-color;
+    }
+
+    &.vue-field-float-label {
+      @if $vue-field-float-label-font-size != unset {
+        font-size: $vue-field-float-label-font-size;
+      }
+      @if $vue-field-float-label-padding != unset {
+        padding: $vue-field-float-label-padding;
+      }
+      @if $vue-field-float-label-display != unset {
+        display: $vue-field-float-label-display;
+      }
+      @if $vue-field-float-label-color != unset {
+        color: $vue-field-float-label-color;
+      }
+
+      @if $vue-field-float-label-absolute != unset {
+        @include _rac-position-properties($rac-position: absolute,
+                                          $rac-position-left: 0,
+                                          $rac-position-top: 0);
+      }
     }
   }
 }
@@ -57,24 +115,108 @@
  */
 @mixin vue-field($vue-field-custom: unset,
                  $vue-field-height: unset,
+                 $vue-field-position: unset,
                  $vue-field-border-radius: unset,
+                 $vue-field-border: unset,
+                 $vue-field-label-color: unset,
+                 $vue-field-float-label-color: unset,
+                 $vue-field-float-label-font-size: unset,
+                 $vue-field-float-label-padding: unset,
+                 $vue-field-float-label-display: unset,
+                 $vue-field-float-label-absolute: unset,
+                 $vue-field-input-border: unset,
+                 $vue-field-input-padding: unset,
+                 $vue-field-input-background: unset,
                  $vue-field-input-wrapper-height: unset) {
   @if $vue-field-custom != unset {
     .vue-field {
       &.#{$vue-field-custom} {
         @include _vue-field-custom-properties(
-          $vue-field-input-wrapper-height: $vue-field-input-wrapper-height,
           $vue-field-height: $vue-field-height,
-          $vue-field-border-radius: $vue-field-border-radius
+          $vue-field-position: $vue-field-position,
+          $vue-field-border-radius: $vue-field-border-radius,
+          $vue-field-border: $vue-field-border,
+          $vue-field-label-color: $vue-field-label-color,
+          $vue-field-float-label-color: $vue-field-float-label-color,
+          $vue-field-float-label-font-size: $vue-field-float-label-font-size,
+          $vue-field-float-label-display: $vue-field-float-label-display,
+          $vue-field-float-label-absolute: $vue-field-float-label-absolute,
+          $vue-field-float-label-padding: $vue-field-float-label-padding,
+          $vue-field-input-border: $vue-field-input-border,
+          $vue-field-input-padding: $vue-field-input-padding,
+          $vue-field-input-background: $vue-field-input-background,
+          $vue-field-input-wrapper-height: $vue-field-input-wrapper-height
         );
       }
     }
   } @else {
     .vue-field {
       @include _vue-field-custom-properties(
-        $vue-field-input-wrapper-height: $vue-field-input-wrapper-height,
         $vue-field-height: $vue-field-height,
-        $vue-field-border-radius: $vue-field-border-radius
+        $vue-field-position: $vue-field-position,
+        $vue-field-border-radius: $vue-field-border-radius,
+        $vue-field-border: $vue-field-border,
+        $vue-field-label-color: $vue-field-label-color,
+        $vue-field-float-label-color: $vue-field-float-label-color,
+        $vue-field-float-label-font-size: $vue-field-float-label-font-size,
+        $vue-field-float-label-display: $vue-field-float-label-display,
+        $vue-field-float-label-absolute: $vue-field-float-label-absolute,
+        $vue-field-float-label-padding: $vue-field-float-label-padding,
+        $vue-field-input-border: $vue-field-input-border,
+        $vue-field-input-padding: $vue-field-input-padding,
+        $vue-field-input-background: $vue-field-input-background,
+        $vue-field-input-wrapper-height: $vue-field-input-wrapper-height
+      );
+    }
+  }
+}
+
+/**
+ * @stable [24.11.2018]
+ */
+@mixin _vue-menu-custom-properties($vue-menu-list-padding: unset,
+                                   $vue-menu-list-max-height: unset,
+                                   $vue-menu-list-empty-item-padding: unset) {
+
+  .vue-menu-list {
+    @if $vue-menu-list-padding != unset {
+      padding: $vue-menu-list-padding;
+    }
+    @if $vue-menu-list-max-height != unset {
+      max-height: $vue-menu-list-max-height;
+    }
+
+    .vue-menu-list-empty-item {
+      @if $vue-menu-list-empty-item-padding != unset {
+        padding: $vue-menu-list-empty-item-padding;
+      }
+    }
+  }
+}
+
+/**
+ * @stable [24.11.2018]
+ */
+@mixin vue-menu($vue-menu-custom: unset,
+                $vue-menu-list-padding: unset,
+                $vue-menu-list-max-height: unset,
+                $vue-menu-list-empty-item-padding: unset) {
+  @if $vue-menu-custom != unset {
+    .vue-menu {
+      &.#{$vue-menu-custom} {
+        @include _vue-menu-custom-properties(
+          $vue-menu-list-padding: $vue-menu-list-padding,
+          $vue-menu-list-max-height: $vue-menu-list-max-height,
+          $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding
+        );
+      }
+    }
+  } @else {
+    .vue-menu {
+      @include _vue-menu-custom-properties(
+        $vue-menu-list-padding: $vue-menu-list-padding,
+        $vue-menu-list-max-height: $vue-menu-list-max-height,
+        $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding
       );
     }
   }

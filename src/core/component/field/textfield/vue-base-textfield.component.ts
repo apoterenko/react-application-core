@@ -1,9 +1,11 @@
 import * as R from 'ramda';
+import { Prop } from 'vue-property-decorator';
 
 import { orEmpty } from '../../../util';
 import { VueField } from '../field/vue-index';
 
 export class VueBaseTextField extends VueField {
+  @Prop({default: (): boolean => true}) protected floatLabel: boolean;
 
   /**
    * @stable [21.10.2018]

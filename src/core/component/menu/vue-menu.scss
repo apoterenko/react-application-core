@@ -1,0 +1,9 @@
+@import '../vue-constant';
+@import '../vue-mixin';
+
+.vac {
+
+  @include vue-menu($vue-menu-list-padding: $vue-menu-list-padding,                           /* @stable [25.11.2018] */
+                    $vue-menu-list-max-height: $vue-menu-list-max-height,
+                    $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding);
+}

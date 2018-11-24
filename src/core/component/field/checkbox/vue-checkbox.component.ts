@@ -1,4 +1,4 @@
-import { Component } from 'vue-property-decorator';
+import { Prop, Component } from 'vue-property-decorator';
 
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
@@ -7,6 +7,7 @@ import { VueField, IVueFieldInputEventsEntity } from '../field/vue-index';
 @ComponentName('vue-checkbox')
 @Component
 class VueCheckbox extends VueField {
+  @Prop({default: (): boolean => false}) protected floatLabel: boolean;
 
   /**
    * @stable [17.11.2018]

@@ -1,6 +1,7 @@
 import { MDCMenu } from '@material/menu';
 import { Component, Prop } from 'vue-property-decorator';
 
+import { EntityIdT } from '../../definitions.interface';
 import { setWidth, isNumber, isDef, removeSelf } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
@@ -16,19 +17,20 @@ import { IVueMenu, IVueMenuContextEntity } from './vue-menu.interface';
     <div v-if="opened"
          class="mdc-menu-surface--anchor">
       <div ref="self"
-           class="mdc-menu mdc-menu-surface">
-        <ul class="mdc-list"
+           class="vue-menu mdc-menu mdc-menu-surface">
+        <ul class="vue-menu-list mdc-list"
             role="menu"
             aria-hidden="true"
             aria-orientation="vertical">
           <li v-for="item in options"
-              class="mdc-list-item"
+              class="vue-menu-list-item mdc-list-item"
               role="menuitem"
               @click="onSelect(item)">
-            <span class="mdc-list-item__text">{{item.label || item.value}}</span>
+            <span class="mdc-list-item__text">{{getDisplayValue(item)}}</span>
           </li>
-          <li v-if="!options">
-            <span class="mdc-list-item__text">{{getPleaseWaitMessage()}}</span>
+          <li v-if="!options"
+              class="vue-menu-list-empty-item">
+            <span class="vue-menu-list-empty-item-text mdc-list-item__text">{{getPleaseWaitMessage()}}</span>
           </li>
         </ul>
       </div>
@@ -112,5 +114,14 @@ class VueMenu extends VueBaseComponent implements IVueMenu {
    */
   private getPleaseWaitMessage(): string {
     return this.settings.messages.waitMessage;
+  }
+
+  /**
+   * @stable [24.11.2018]
+   * @param {IMenuItemEntity} item
+   * @returns {EntityIdT}
+   */
+  private getDisplayValue(item: IMenuItemEntity): EntityIdT {
+    return item.label || item.value;
   }
 }

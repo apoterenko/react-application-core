@@ -93,7 +93,7 @@ class VueSelect extends VueBaseTextField {
    * @stable [18.11.2018]
    */
   private onInputClick(): void {
-    this.menu.show({width: getWidth(this.inputWrapperEl)});
+    this.getMenu().show({width: getWidth(this.inputWrapperEl)});
 
     if (this.isContainerBound() && isString(this.bindDictionary)) {
       this.bindContainer.dispatchLoadDictionary(this.bindDictionary);
@@ -115,7 +115,7 @@ class VueSelect extends VueBaseTextField {
    * @stable [17.11.2018]
    * @returns {IVueMenu}
    */
-  private get menu(): IVueMenu {
+  private getMenu(): IVueMenu {
     return this.childrenRefs.menu as IVueMenu;
   }
 }

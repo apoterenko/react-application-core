@@ -1,7 +1,14 @@
 import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
-import { orEmpty, isDef, defValuesFilter, orUndef, orDefault } from '../../../util';
+import {
+  orEmpty,
+  isDef,
+  defValuesFilter,
+  orUndef,
+  orDefault,
+  toClassName,
+} from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
 import { VueBaseComponent } from '../../base/vue-index';
 import {
@@ -27,6 +34,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
   @Prop() protected name: string;
   @Prop() protected displayName: string;
   @Prop() protected label: string;
+  @Prop() protected floatLabel: boolean;
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
   @Prop() protected autoFocus: boolean;
@@ -38,6 +46,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
     super();
     this.getInputBindings = this.getInputBindings.bind(this);
     this.getInputListeners = this.getInputListeners.bind(this);
+    this.getFieldClassName = this.getFieldClassName.bind(this);
     this.isInputWrapperFull = this.isInputWrapperFull.bind(this);
     this.isFieldFull = this.isFieldFull.bind(this);
   }
@@ -89,7 +98,14 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
   public getInputBindings(): Partial<HTMLInputElement> {
     return defValuesFilter<Partial<HTMLInputElement>, Partial<HTMLInputElement>>({
       type: this.type || 'text',
-      placeholder: orUndef<string>(!R.isNil(this.placeholder), () => this.t(this.placeholder)),
+      placeholder: orDefault<string, string>(
+        !R.isNil(this.placeholder),
+        () => this.t(this.placeholder),
+        orUndef<string>(
+          !R.isNil(this.label) && this.floatLabel,
+          () => this.t(this.label),
+        )
+      ),
       ...{class: this.getInputClassName()} as IKeyValue,
     });
   }
@@ -99,7 +115,10 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    * @returns {string}
    */
   public getFieldClassName(): string {
-    return 'vue-field';
+    return toClassName(
+      'vue-field',
+      this.hasValue() ? 'vue-field-filled' : 'vue-field-not-filled',
+    );
   }
 
   /**
@@ -168,7 +187,10 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
   protected getLabelTemplate(): string {
     return orEmpty(
       !R.isNil(this.label),
-      () => `<label class="vue-field-label">${this.t(this.label)}</label>`
+      () => `<label class="${toClassName(
+        'vue-field-label',
+        this.floatLabel && 'vue-field-float-label',
+      )} ">${this.t(this.label)}</label>`
     );
   }
 
@@ -178,6 +200,14 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    */
   protected getValue(): AnyT {
     return isDef(this.bindStore) ? this.bindStore[this.name] : this.value;
+  }
+
+  /**
+   * @stable [24.11.2018]
+   * @returns {boolean}
+   */
+  protected hasValue(): boolean {
+    return !R.isNil(this.getValue());
   }
 
   /**
