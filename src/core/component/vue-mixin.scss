@@ -37,6 +37,8 @@
  * @stable [19.11.2018]
  */
 @mixin _vue-field-custom-properties($vue-field-height: unset,
+                                    $vue-field-padding: unset,
+                                    $vue-field-margin: unset,
                                     $vue-field-border-radius: unset,
                                     $vue-field-border: unset,
                                     $vue-field-position: unset,
@@ -55,7 +57,13 @@
     position: $vue-field-position;
   }
   @if $vue-field-height != unset {
-    height: $vue-field-height;
+    @include rac-flex-height($vue-field-height);
+  }
+  @if $vue-field-padding != unset {
+    padding: $vue-field-padding;
+  }
+  @if $vue-field-margin != unset {
+    margin: $vue-field-margin;
   }
   @if $vue-field-border-radius != unset {
     border-radius: $vue-field-border-radius;
@@ -115,6 +123,8 @@
  */
 @mixin vue-field($vue-field-custom: unset,
                  $vue-field-height: unset,
+                 $vue-field-padding: unset,
+                 $vue-field-margin: unset,
                  $vue-field-position: unset,
                  $vue-field-border-radius: unset,
                  $vue-field-border: unset,
@@ -133,6 +143,8 @@
       &.#{$vue-field-custom} {
         @include _vue-field-custom-properties(
           $vue-field-height: $vue-field-height,
+          $vue-field-padding: $vue-field-padding,
+          $vue-field-margin: $vue-field-margin,
           $vue-field-position: $vue-field-position,
           $vue-field-border-radius: $vue-field-border-radius,
           $vue-field-border: $vue-field-border,
@@ -153,6 +165,8 @@
     .vue-field {
       @include _vue-field-custom-properties(
         $vue-field-height: $vue-field-height,
+        $vue-field-padding: $vue-field-padding,
+        $vue-field-margin: $vue-field-margin,
         $vue-field-position: $vue-field-position,
         $vue-field-border-radius: $vue-field-border-radius,
         $vue-field-border: $vue-field-border,
@@ -217,6 +231,64 @@
         $vue-menu-list-padding: $vue-menu-list-padding,
         $vue-menu-list-max-height: $vue-menu-list-max-height,
         $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding
+      );
+    }
+  }
+}
+
+/**
+ * @stable [26.11.2018]
+ */
+@mixin _vue-form-custom-properties($vue-form-title-font-size: unset,
+                                   $vue-form-title-font-weight: unset,
+                                   $vue-form-header-height: unset,
+                                   $vue-form-field-margin: unset) {
+  .vue-form-header {
+    @if $vue-form-header-height != unset {
+      @include rac-flex-height($vue-form-header-height);
+    }
+
+    .vue-form-title {
+      @if $vue-form-title-font-size != unset {
+        font-size: $vue-form-title-font-size;
+      }
+      @if $vue-form-title-font-weight != unset {
+        font-weight: $vue-form-title-font-weight;
+      }
+    }
+  }
+
+  @if $vue-form-field-margin != unset {
+    @include vue-field($vue-field-margin: $vue-form-field-margin);
+  }
+}
+
+/**
+ * @stable [26.11.2018]
+ */
+@mixin vue-form($vue-form-custom: unset,
+                $vue-form-title-font-size: unset,
+                $vue-form-title-font-weight: unset,
+                $vue-form-header-height: unset,
+                $vue-form-field-margin: unset) {
+  @if $vue-form-custom != unset {
+    .vue-form {
+      &.#{$vue-form-custom} {
+        @include _vue-form-custom-properties(
+          $vue-form-title-font-size: $vue-form-title-font-size,
+          $vue-form-title-font-weight: $vue-form-title-font-weight,
+          $vue-form-header-height: $vue-form-header-height,
+          $vue-form-field-margin: $vue-form-field-margin
+        );
+      }
+    }
+  } @else {
+    .vue-form {
+      @include _vue-form-custom-properties(
+        $vue-form-title-font-size: $vue-form-title-font-size,
+        $vue-form-title-font-weight: $vue-form-title-font-weight,
+        $vue-form-header-height: $vue-form-header-height,
+        $vue-form-field-margin: $vue-form-field-margin
       );
     }
   }
