@@ -29,6 +29,8 @@
                                 $rac-position-top: unset,
                                 $rac-position-bottom: unset,
                                 $rac-position-right: unset,
+                                $rac-position-height: unset,
+                                $rac-position-width: unset,
                                 $rac-position: unset) {
   @if $rac-position != unset {
     position: $rac-position;
@@ -44,6 +46,12 @@
   }
   @if $rac-position-bottom != unset {
     bottom: $rac-position-bottom;
+  }
+  @if $rac-position-width != unset {
+    width: $rac-position-width;
+  }
+  @if $rac-position-height != unset {
+    height: $rac-position-height;
   }
 }
 

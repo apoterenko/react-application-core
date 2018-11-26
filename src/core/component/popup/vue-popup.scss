@@ -2,5 +2,5 @@
 @import '../vue-mixin';
 
 .vac {
-  @include vue-popup($vue-popup-body-padding: $vue-popup-body-padding);
+  @include vue-popup($vue-popup-body-padding: $vue-popup-body-padding);                       /* @stable [26.11.2018] */
 }
