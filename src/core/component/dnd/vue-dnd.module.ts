@@ -1,0 +1,1 @@
+import './vue-dnd.component';
