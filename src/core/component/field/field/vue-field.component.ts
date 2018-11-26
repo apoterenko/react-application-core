@@ -196,9 +196,11 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
     return orEmpty(
       !R.isNil(this.label),
       () => `<label class="${toClassName(
-        'vue-field-label',
-        this.floatLabel && 'vue-field-float-label',
-      )} ">${this.t(this.label)}</label>`
+                              'vue-field-label',
+                              this.floatLabel && 'vue-field-float-label',
+                            )} ">
+                ${this.t(this.label)}
+             </label>`
     );
   }
 
