@@ -32,4 +32,5 @@ export interface IVueFieldTemplateMethodsEntity {
   isInputWrapperFull?(): boolean;
   isFieldFull?(): boolean;
   getFieldClassName?(): string;
+  getInputWrapperClassName?(): string;
 }

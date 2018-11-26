@@ -26,7 +26,7 @@ import {
   IVueFieldStateEntity,
 } from './vue-field.interface';
 
-export class VueField extends VueBaseComponent<IVueFieldStateEntity>
+export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
   implements IVueFieldTemplateMethodsEntity {
   @Prop() protected value: AnyT;
   @Prop() protected type: string;
@@ -48,6 +48,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
     this.getInputListeners = this.getInputListeners.bind(this);
     this.getFieldClassName = this.getFieldClassName.bind(this);
     this.isInputWrapperFull = this.isInputWrapperFull.bind(this);
+    this.getInputWrapperClassName = this.getInputWrapperClassName.bind(this);
     this.isFieldFull = this.isFieldFull.bind(this);
   }
 
@@ -75,7 +76,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
                          :full="isFieldFull()"
                          :class="getFieldClassName()">
           <vue-flex-layout ref="inputWrapper"
-                           class="vue-field-input-wrapper"
+                           :class="getInputWrapperClassName()"
                            :full="isInputWrapperFull()">
             <input ref="self"
                    v-bind="getInputBindings()"
@@ -97,7 +98,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    */
   public getInputBindings(): Partial<HTMLInputElement> {
     return defValuesFilter<Partial<HTMLInputElement>, Partial<HTMLInputElement>>({
-      type: this.type || 'text',
+      type: this.type,
       placeholder: orDefault<string, string>(
         !R.isNil(this.placeholder),
         () => this.t(this.placeholder),
@@ -143,6 +144,13 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    */
   public isFieldFull(): boolean {
     return this.full;
+  }
+
+  public getInputWrapperClassName(): string {
+    return toClassName(
+      'vue-field-input-wrapper',
+      this.type === 'hidden' && 'rac-display-none',
+    );
   }
 
   /**
@@ -279,6 +287,7 @@ export class VueField extends VueBaseComponent<IVueFieldStateEntity>
    */
   protected getTemplateMethods(): IVueFieldTemplateMethodsEntity {
     return {
+      getInputWrapperClassName: this.getInputWrapperClassName,
       getFieldClassName: this.getFieldClassName,
       getInputBindings: this.getInputBindings,
       getInputListeners: this.getInputListeners,

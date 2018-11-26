@@ -8,6 +8,7 @@ import { VueField, IVueFieldInputEventsEntity } from '../field/vue-index';
 @Component
 class VueCheckbox extends VueField {
   @Prop({default: (): boolean => false}) protected floatLabel: boolean;
+  @Prop({default: (): string => 'checkbox'}) protected type: string;
 
   /**
    * @stable [17.11.2018]
@@ -49,7 +50,6 @@ class VueCheckbox extends VueField {
   public getInputBindings(): Partial<HTMLInputElement> {
     return {
       ...super.getInputBindings(),
-      type: 'checkbox',
       checked: !!this.getValue(),
     };
   }
