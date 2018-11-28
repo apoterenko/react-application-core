@@ -271,7 +271,7 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    * @returns {HTMLInputElement}
    */
   protected get inputEl(): HTMLInputElement {
-    return this.childrenRefs.self as HTMLInputElement;
+    return this.getChildrenRefs().self as HTMLInputElement;
   }
 
   /**
@@ -279,15 +279,7 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    * @returns {HTMLInputElement}
    */
   protected get inputWrapperEl(): HTMLInputElement {
-    return (this.childrenRefs.inputWrapper as VueBaseComponent).$el as HTMLInputElement;
-  }
-
-  /**
-   * @stable [17.11.2018]
-   * @returns {IVueRefs}
-   */
-  protected get childrenRefs(): IVueRefs {
-    return this.$children[0].$refs;
+    return (this.getChildrenRefs().inputWrapper as VueBaseComponent).$el as HTMLInputElement;
   }
 
   /**

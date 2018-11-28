@@ -13,6 +13,13 @@ export interface IVueOnMount$Wrapper {
 }
 
 /**
+ * @stable [29.11.2018]
+ */
+export interface IVueGetInitialData$Wrapper {
+  getInitialData$?(): void;
+}
+
+/**
  * @stable [11.11.2018]
  */
 export interface IVueEvents$Wrapper<TEvents$ = AnyT> {
@@ -59,6 +66,13 @@ export interface IVueComponent$Wrapper<TComponent$ = string> {
  */
 export interface IVueValue$Wrapper<TValue$ = AnyT> {
   value$?: TValue$;
+}
+
+/**
+ * @stable [29.11.2018]
+ */
+export interface IVuePopup$Wrapper<TPopup$ = boolean> {
+  popup$?: TPopup$;
 }
 
 /**

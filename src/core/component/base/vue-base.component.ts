@@ -8,6 +8,7 @@ import { ApplicationTranslatorT } from '../../translation';
 import { IKeyValue } from '../../definitions.interface';
 import { IApplicationSettings } from '../../settings';
 import { IVueContainer, IVueComponent } from '../../vue-entities-definitions.interface';
+import { IVueRefs } from '../../vue-definitions.interface';
 
 export class VueBaseComponent<TStore = IKeyValue,
                               TState = IKeyValue> extends Vue
@@ -50,5 +51,14 @@ export class VueBaseComponent<TStore = IKeyValue,
    */
   protected hasSlot(slotName: string): boolean {
     return !R.isNil(Reflect.get(this.$slots, slotName));
+  }
+
+  /**
+   * @stable [28.11.2018]
+   * @param {number} index
+   * @returns {IVueRefs}
+   */
+  protected getChildrenRefs(index = 0): IVueRefs {
+    return this.$children[index].$refs;
   }
 }

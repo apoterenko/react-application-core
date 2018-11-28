@@ -116,6 +116,6 @@ class VueSelect extends VueBaseTextField {
    * @returns {IVueMenu}
    */
   private getMenu(): IVueMenu {
-    return this.childrenRefs.menu as IVueMenu;
+    return this.getChildrenRefs().menu as IVueMenu;
   }
 }

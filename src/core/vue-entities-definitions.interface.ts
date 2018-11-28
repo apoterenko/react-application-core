@@ -21,6 +21,7 @@ import {
   IVueName$Wrapper,
   IVueStyle$Wrapper,
   IVueOnMount$Wrapper,
+  IVueGetInitialData$Wrapper,
 } from './vue-definitions.interface';
 
 /**
@@ -45,7 +46,8 @@ export interface IVueGridColumnDynamicEntity extends IVueComponent$Wrapper,
 /**
  * @stable [17.11.2018]
  */
-export interface IVueComponent extends Vue {
+export interface IVueComponent extends Vue,
+                                       IVueGetInitialData$Wrapper {
 }
 
 /**
