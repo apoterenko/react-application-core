@@ -25,6 +25,7 @@ class VueFlexLayout extends VueBaseComponent
   @Prop() public alignItemsEnd: boolean;
   @Prop() public justifyContentCenter: boolean;
   @Prop() public justifyContentEnd: boolean;
+  @Prop() private fullSize: boolean;
 
   public render(factory: VueCreateElementFactoryT): VueNodeT {
     const nodeData: VNodeDataT = {
@@ -42,6 +43,7 @@ class VueFlexLayout extends VueBaseComponent
     return toClassName(
       props.className,
       'rac-flex',
+      props.fullSize && 'rac-full-size',
       props.row ? 'rac-flex-row' : 'rac-flex-column',
       props.full !== false && 'rac-flex-full',
       props.separator && 'rac-flex-separator',

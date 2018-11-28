@@ -2,7 +2,7 @@ import { Prop, Component } from 'vue-property-decorator';
 
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { VueField, IVueFieldInputEventsEntity } from '../field/vue-index';
+import { VueField, IVueFieldInputListenersEntity } from '../field/vue-index';
 
 @ComponentName('vue-checkbox')
 @Component
@@ -56,9 +56,9 @@ class VueCheckbox extends VueField {
 
   /**
    * @stable [17.11.2018]
-   * @returns {IVueFieldInputEventsEntity}
+   * @returns {IVueFieldInputListenersEntity}
    */
-  public getInputListeners(): IVueFieldInputEventsEntity {
+  public getInputListeners(): IVueFieldInputListenersEntity {
     return {
       ...super.getInputListeners(),
       click: this.onInputClick,

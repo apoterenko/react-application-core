@@ -5,7 +5,6 @@ import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 import { IVueComponent } from '../../vue-entities-definitions.interface';
 import {
-  VUE_POPUP_BODY_SLOT,
   VUE_POPUP_CLOSE_EVENT,
   VUE_POPUP_FOOTER_SLOT,
   VUE_POPUP_HEADER_SLOT,
@@ -27,7 +26,7 @@ import {
                 <slot name="${VUE_POPUP_HEADER_SLOT}"/>
             </vue-flex-layout>
             <vue-flex-layout class="vue-popup-body">
-                <slot name="${VUE_POPUP_BODY_SLOT}"/>
+                <slot/>
             </vue-flex-layout>
             <vue-flex-layout :full="false"
                              class="vue-popup-footer">

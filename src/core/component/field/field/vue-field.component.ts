@@ -22,13 +22,14 @@ import {
 import {
   IVueFieldTemplateComputedEntity,
   IVueFieldTemplateMethodsEntity,
-  IVueFieldInputEventsEntity,
+  IVueFieldInputListenersEntity,
   IVueFieldStateEntity,
+  IVueField,
+  VUE_FIELD_CHANGE_EVENT,
 } from './vue-field.interface';
 
-export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
-  implements IVueFieldTemplateMethodsEntity {
-  @Prop() protected value: AnyT;
+export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> implements IVueField {
+  @Prop() public value: AnyT;
   @Prop() protected type: string;
   @Prop() protected full: boolean;
   @Prop() protected name: string;
@@ -44,6 +45,7 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
    */
   constructor() {
     super();
+    this.getValue = this.getValue.bind(this);
     this.getInputBindings = this.getInputBindings.bind(this);
     this.getInputListeners = this.getInputListeners.bind(this);
     this.getFieldClassName = this.getFieldClassName.bind(this);
@@ -124,9 +126,9 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
 
   /**
    * @stable [17.11.2018]
-   * @returns {IVueFieldInputEventsEntity}
+   * @returns {IVueFieldInputListenersEntity}
    */
-  public getInputListeners(): IVueFieldInputEventsEntity {
+  public getInputListeners(): IVueFieldInputListenersEntity {
     return {};
   }
 
@@ -146,6 +148,10 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
     return this.full;
   }
 
+  /**
+   * @stable [27.11.2018]
+   * @returns {string}
+   */
   public getInputWrapperClassName(): string {
     return toClassName(
       'vue-field-input-wrapper',
@@ -154,14 +160,31 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
   }
 
   /**
+   * @stable [17.11.2018]
+   * @returns {AnyT}
+   */
+  public getValue(): AnyT {
+    return isDef(this.bindStore) ? this.bindStore[this.name] : this.value;
+  }
+
+  /**
    * @stable [21.10.2018]
    * @param {AnyT} newValue
    */
-  protected onChange(newValue: AnyT): void {
+  public onChange(newValue: AnyT): void {
     if (this.isContainerBound()) {
       this.bindContainer.dispatchFormChange(this.name, newValue);
     }
-    this.$emit('change', newValue);
+    this.$emit(VUE_FIELD_CHANGE_EVENT, newValue);
+  }
+
+  /**
+   * @stable [28.11.2018]
+   * @param newValue
+   * @param {AnyT} context
+   */
+  public onChangeManually(newValue, context?: AnyT): void {
+    this.onChange(newValue);
   }
 
   /**
@@ -202,14 +225,6 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
                 ${this.t(this.label)}
              </label>`
     );
-  }
-
-  /**
-   * @stable [17.11.2018]
-   * @returns {AnyT}
-   */
-  protected getValue(): AnyT {
-    return isDef(this.bindStore) ? this.bindStore[this.name] : this.value;
   }
 
   /**
@@ -284,11 +299,12 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity>
   }
 
   /**
-   * @stable [17.11.2018]
+   * @stable [27.11.2018]
    * @returns {IVueFieldTemplateMethodsEntity}
    */
   protected getTemplateMethods(): IVueFieldTemplateMethodsEntity {
     return {
+      getValue: this.getValue,
       getInputWrapperClassName: this.getInputWrapperClassName,
       getFieldClassName: this.getFieldClassName,
       getInputBindings: this.getInputBindings,
