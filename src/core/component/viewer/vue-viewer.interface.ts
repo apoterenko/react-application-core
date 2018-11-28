@@ -10,7 +10,10 @@ export interface IVueViewerStateEntity extends IVuePopup$Wrapper {
  * @stable [29.11.2018]
  */
 export interface IVueViewerTemplateMethodsEntity {
+  getSrc?(): string;
   isPopupOpened?(): boolean;
+  onOpenPopup?(): void;
+  onClosePopup?(): void;
 }
 
 /**

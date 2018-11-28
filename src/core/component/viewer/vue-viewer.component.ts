@@ -67,7 +67,10 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
    */
   protected getTemplateMethods(): IVueViewerTemplateMethodsEntity {
     return {
+      getSrc: () => this.src,
       isPopupOpened: () => this.getData().popup$,
+      onOpenPopup: this.onOpenPopup,
+      onClosePopup: this.onClosePopup,
     };
   }
 

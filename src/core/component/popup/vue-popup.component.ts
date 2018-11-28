@@ -21,14 +21,16 @@ import {
              @click="onOverlayClick"/>
         <vue-flex-layout class="vue-popup"
                         :class="animationClasses">
-            <vue-flex-layout :full="false"
+            <vue-flex-layout v-if="hasHeaderSlot()"
+                             :full="false"
                              class="vue-popup-header">
                 <slot name="${VUE_POPUP_HEADER_SLOT}"/>
             </vue-flex-layout>
             <vue-flex-layout class="vue-popup-body">
                 <slot/>
             </vue-flex-layout>
-            <vue-flex-layout :full="false"
+            <vue-flex-layout v-if="hasFooterSlot()"
+                             :full="false"
                              class="vue-popup-footer">
                 <slot name="${VUE_POPUP_FOOTER_SLOT}"/>
             </vue-flex-layout>
@@ -63,5 +65,21 @@ class VuePopup extends VueBaseComponent {
    */
   private onOverlayClick(): void {
     this.$emit(VUE_POPUP_CLOSE_EVENT);
+  }
+
+  /**
+   * @stable [29.11.2018]
+   * @returns {boolean}
+   */
+  private hasFooterSlot(): boolean {
+    return this.hasSlot(VUE_POPUP_FOOTER_SLOT);
+  }
+
+  /**
+   * @stable [29.11.2018]
+   * @returns {boolean}
+   */
+  private hasHeaderSlot(): boolean {
+    return this.hasSlot(VUE_POPUP_HEADER_SLOT);
   }
 }
