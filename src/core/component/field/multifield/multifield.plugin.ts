@@ -1,4 +1,6 @@
-import { IBasicField } from '../field';
+import { isFn } from '../../../util';
+import { IEntity } from '../../../definitions.interface';
+import { IMultiItemEntity, ICrossPlatformField } from '../../../entities-definitions.interface';
 import {
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
@@ -15,16 +17,14 @@ import {
   toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
 } from './multifield.support';
-import { IMultiItemEntity } from '../../../entities-definitions.interface';
-import { IEntity } from '../../../definitions.interface';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
-   * @stable [01.06.2018]
-   * @param {IBasicField<MultiFieldEntityT>} field
+   * @stable [28.11.2018]
+   * @param {ICrossPlatformField} field
    */
-  constructor(private field: IBasicField<MultiFieldEntityT>) {
+  constructor(private field: ICrossPlatformField) {
   }
 
   /**
@@ -175,10 +175,11 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [28.11.2018]
    * @returns {MultiFieldEntityT}
    */
   private get value(): MultiFieldEntityT {
-    return this.field.value;
+    const field = this.field;
+    return isFn(field.getValue) ? field.getValue() : field.value;
   }
 }

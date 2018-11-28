@@ -65,6 +65,7 @@ export class TransportFactory implements IApplicationTransportFactory {
           url: uri0.valueOf(),
           method: req.method || 'POST',
           data: this.getRequestData(req),
+          withCredentials: true,
           cancelToken: cancelToken && cancelToken.token,
         }
       ))

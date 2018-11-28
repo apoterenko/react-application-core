@@ -1,4 +1,4 @@
-import { IField, IFieldState, IFieldInternalProps } from '../field';
+import { IField, IFieldState, IFieldInternalProps } from '../field/field.interface';
 
 /**
  * @stable [01.06.2018]

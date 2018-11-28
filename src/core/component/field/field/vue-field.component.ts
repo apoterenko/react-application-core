@@ -45,7 +45,6 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    */
   constructor() {
     super();
-    this.getValue = this.getValue.bind(this);
     this.getInputBindings = this.getInputBindings.bind(this);
     this.getInputListeners = this.getInputListeners.bind(this);
     this.getFieldClassName = this.getFieldClassName.bind(this);
@@ -304,7 +303,6 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    */
   protected getTemplateMethods(): IVueFieldTemplateMethodsEntity {
     return {
-      getValue: this.getValue,
       getInputWrapperClassName: this.getInputWrapperClassName,
       getFieldClassName: this.getFieldClassName,
       getInputBindings: this.getInputBindings,

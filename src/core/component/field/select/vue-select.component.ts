@@ -4,7 +4,7 @@ import { getWidth, isString } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { IVueFieldInputEventsEntity } from '../field/vue-index';
+import { IVueFieldInputListenersEntity } from '../field/vue-index';
 import { VueBaseTextField } from '../textfield/vue-index';
 import { IVueMenu } from '../../menu/vue-index';
 import {
@@ -42,9 +42,9 @@ class VueSelect extends VueBaseTextField {
 
   /**
    * @stable [17.11.2018]
-   * @returns {IVueFieldInputEventsEntity}
+   * @returns {IVueFieldInputListenersEntity}
    */
-  public getInputListeners(): IVueFieldInputEventsEntity {
+  public getInputListeners(): IVueFieldInputListenersEntity {
     return {
       ...super.getInputListeners(),
       click: this.onInputClick,

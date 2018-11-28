@@ -326,6 +326,13 @@ export interface ILayoutWrapper<TLayout> {
 }
 
 /**
+ * @stable [27.11.2018]
+ */
+export interface IWithCredentialsWrapper {
+  withCredentials?: boolean;
+}
+
+/**
  * @stable [10.08.2018]
  */
 export interface IModeWrapper<TMode = string> {
@@ -549,6 +556,13 @@ export interface IOnChangeSortingWrapper<TPayload, TOnChangeSorting = (payload: 
  */
 export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void> {
   onChangeManually?: TOnChangeManually;
+}
+
+/**
+ * @stable [28.11.2018]
+ */
+export interface IGetValueWrapper<TValue = AnyT> {
+  getValue?(): TValue;
 }
 
 /**

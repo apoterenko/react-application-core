@@ -127,6 +127,7 @@ import {
   IDispatchLoadDictionaryWrapper,
   IDispatchFormChangeWrapper,
   IDispatchWrapper,
+  IGetValueWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -961,4 +962,12 @@ export interface INativeMaterialComponent {
 export interface IMenuMaterialComponent extends INativeMaterialComponent,
                                                 IOpenWrapper {
   hoistMenuToBody();
+}
+
+/**
+ * @stable [28.11.2018]
+ */
+export interface ICrossPlatformField extends IOnChangeManuallyWrapper,
+                                             IGetValueWrapper,
+                                             IValueWrapper {
 }

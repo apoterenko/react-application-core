@@ -20,6 +20,7 @@ import {
   IIdWrapper,
   AnyT,
   IOperationIdWrapper,
+  IWithCredentialsWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from '../entities-definitions.interface';
 
@@ -55,6 +56,7 @@ export interface IApplicationTransportFactory extends ICancelableTransport,
 export interface ITransportHttpRequestEntity extends IMethodWrapper,
                                                      IKeyValueHeadersWrapper,
                                                      IUrlWrapper,
+                                                     IWithCredentialsWrapper,
                                                      IDataWrapper<Blob|ITransportRequestParamsEntity> {
   cancelToken?: string;
 }
