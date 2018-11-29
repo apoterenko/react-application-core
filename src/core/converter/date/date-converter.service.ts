@@ -65,7 +65,6 @@ export class DateConverter implements IDateConverter {
    * @returns {string} [Example: Nov 30]
    */
   public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date()): string {
-    console.log(date, this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstDateFormat));
     return this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstDateFormat);
   }
 
