@@ -11,6 +11,7 @@ export interface IDateConverter {
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
+  fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;

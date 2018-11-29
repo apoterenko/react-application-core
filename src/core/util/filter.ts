@@ -130,6 +130,13 @@ export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicat
  */
 export const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
 
+/**
+ * @stable [29.11.2018]
+ * @param {TValue} data
+ * @returns {TValue[]}
+ */
+export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
+
 export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource,
     ...fields: string[]

@@ -61,6 +61,16 @@ export class DateConverter implements IDateConverter {
 
   /**
    * @stable [09.11.2018]
+   * @param {DateTimeLikeTypeT} date [Example: 2018-11-30T03:00:00+03:00]
+   * @returns {string} [Example: Nov 30]
+   */
+  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date()): string {
+    console.log(date, this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstDateFormat));
+    return this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstDateFormat);
+  }
+
+  /**
+   * @stable [09.11.2018]
    * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
    * @returns {string} [Example: 2018-04-07]
    */
@@ -140,15 +150,6 @@ export class DateConverter implements IDateConverter {
 
   public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {
     return this.fromDateTimeToArbitraryFormat(date, this.uiDateTimeFormat);
-  }
-
-  /**
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} input
-   * @returns {string}
-   */
-  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date(), input = this.dateTimeFormat): string {
-    return this.format(date, input, this.dateTimeSettings.pstDateFormat);
   }
 
   public fromDateTimeToPstTime(date: DateTimeLikeTypeT = new Date(), input = this.dateTimeFormat): string {
