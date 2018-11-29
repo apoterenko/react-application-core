@@ -2,7 +2,10 @@ import { Prop } from 'vue-property-decorator';
 
 import { IKeyValue } from '../../definitions.interface';
 import { VueBaseComponent } from '../base/vue-index';
-import { VUE_POPUP_CLOSE_EVENT } from '../popup/vue-index';
+import {
+  VUE_POPUP_CLOSE_EVENT,
+  VUE_POPUP_HEADER_SLOT,
+} from '../popup/vue-index';
 import {
   VueComponentOptionsT,
   VueCreateElementFactoryT,
@@ -16,17 +19,7 @@ import {
 
 export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVueViewerStateEntity>
   extends VueBaseComponent<IKeyValue, TVueViewerStateEntity> {
-
   @Prop() protected src: string;
-
-  /**
-   * @stable [28.11.2018]
-   */
-  constructor() {
-    super();
-    this.onOpenPopup = this.onOpenPopup.bind(this);
-    this.onClosePopup = this.onClosePopup.bind(this);
-  }
 
   /**
    * @stable [29.11.2018]
@@ -41,7 +34,9 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
             ${this.getPreviewTemplate()}
             <vue-popup :open="isPopupOpened()"
                        @${VUE_POPUP_CLOSE_EVENT}="onClosePopup">
-                ${this.getPopupHeaderTemplate()}
+                <template slot="${VUE_POPUP_HEADER_SLOT}">
+                    ${this.getPopupHeaderTemplate()}
+                </template>
                 <template>
                     ${this.getPopupBodyTemplate()}
                 </template>

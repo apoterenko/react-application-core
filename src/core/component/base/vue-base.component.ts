@@ -32,8 +32,8 @@ export class VueBaseComponent<TStore = IKeyValue,
    * @stable [17.11.2018]
    * @returns {Element}
    */
-  protected getSelf(): Element {
-    return this.$refs.self as Element;
+  protected getSelf<TElement extends Element>(): TElement {
+    return this.$refs.self as TElement;
   }
 
   /**

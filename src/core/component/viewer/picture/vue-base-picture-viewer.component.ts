@@ -55,6 +55,14 @@ export class VueBasePictureViewer extends VueViewer {
 
   /**
    * @stable [29.11.2018]
+   * @returns {TElement}
+   */
+  protected getSelf<TElement extends Element>(): TElement {
+    return this.getChildrenRefs().self as TElement;
+  }
+
+  /**
+   * @stable [29.11.2018]
    * @returns {string}
    */
   private getBackgroundImage(): string {
