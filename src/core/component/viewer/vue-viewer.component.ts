@@ -38,14 +38,16 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
       methods: this.getTemplateMethods() as VueDefaultMethodsT,
       template: `
         <vue-flex-layout :fullSize="true">
-          ${this.getPreviewTemplate()}
-          <vue-popup :open="isPopupOpened()"
-                     @${VUE_POPUP_CLOSE_EVENT}="onClosePopup">
-              ${this.getPopupHeaderTemplate()}
-              ${this.getPopupBodyTemplate()}
-              ${this.getPopupFooterTemplate()}
-          </vue-popup>
-       </vue-flex-layout>
+            ${this.getPreviewTemplate()}
+            <vue-popup :open="isPopupOpened()"
+                       @${VUE_POPUP_CLOSE_EVENT}="onClosePopup">
+                ${this.getPopupHeaderTemplate()}
+                <template>
+                    ${this.getPopupBodyTemplate()}
+                </template>
+                ${this.getPopupFooterTemplate()}
+            </vue-popup>
+        </vue-flex-layout>
       `,
     };
     return createElement(options);

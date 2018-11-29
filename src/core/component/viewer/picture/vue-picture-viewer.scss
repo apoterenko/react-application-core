@@ -1,0 +1,16 @@
+@import '../../mixin';
+
+.vac {
+
+  @include rac-background(
+    $rac-background-custom: vue-picture-viewer-preview,                                       /* @stable [29.11.2018] */
+    $rac-background-size: cover,
+    $rac-background-repeat: no-repeat,
+    $rac-background-position: center
+  );
+
+  .vue-picture-viewer-image {
+    max-width: 100%;                                                                          /* @stable [29.11.2018] */
+    max-height: 100%;                                                                         /* @stable [29.11.2018] */
+  }
+}

@@ -95,23 +95,43 @@
 }
 
 /**
- * @stable [30.10.2018]
+ * @stable [29.11.2018]
  */
-@mixin rac-background($background-size: unset,
-                      $background-repeat: unset,
-                      $background-position: unset,
-                      $background-image: unset) {
-  @if $background-size != unset {
-    background-size: $background-size;
+@mixin _rac-background-custom-properties($rac-background-size: unset,
+                                         $rac-background-repeat: unset,
+                                         $rac-background-position: unset,
+                                         $rac-background-image: unset) {
+  @if $rac-background-size != unset {
+    background-size: $rac-background-size;
   }
-  @if $background-repeat != unset {
-    background-repeat: $background-repeat;
+  @if $rac-background-repeat != unset {
+    background-repeat: $rac-background-repeat;
   }
-  @if $background-position != unset {
-    background-position: $background-position;
+  @if $rac-background-position != unset {
+    background-position: $rac-background-position;
   }
-  @if $background-image != unset {
-    background-image: $background-image;
+  @if $rac-background-image != unset {
+    background-image: $rac-background-image;
+  }
+}
+
+/**
+ * @stable [29.11.2018]
+ */
+@mixin rac-background($rac-background-custom: unset,
+                      $rac-background-size: unset,
+                      $rac-background-repeat: unset,
+                      $rac-background-position: unset,
+                      $rac-background-image: unset) {
+  @if $rac-background-custom != unset {
+    .#{$rac-background-custom} {
+      @include _rac-background-custom-properties(
+        $rac-background-size: $rac-background-size,
+        $rac-background-repeat: $rac-background-repeat,
+        $rac-background-position: $rac-background-position,
+        $rac-background-image: $rac-background-image
+      );
+    }
   }
 }
 
