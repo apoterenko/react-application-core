@@ -17,7 +17,8 @@
     $rac-grid-head-background: $rac-grid-head-background,
     $rac-grid-head-column-vertical-align: bottom,
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
-    $rac-grid-column-content-font-size: $rac-grid-column-content-font-size
+    $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
+    $rac-grid-column-align-center-content-field-align-items: true
   );
 
   .rac-grid {
@@ -40,19 +41,6 @@
             font-size: $rac-grid-edited-column-content-font-size;                   /* @stable [04.07.2018] */
             content: '◹';                                                           /* @stable [04.07.2018] */
             color: $rac-grid-edited-column-content-color;                           /* @stable [04.07.2018] */
-          }
-        }
-      }
-
-      &.rac-grid-column-align-center {
-
-        .rac-grid-column-content {
-
-          .rac-field {
-
-            .rac-self-field-wrapper {
-              @include justify-content(center);                                     /* @stable [04.10.2018] */
-            }
           }
         }
       }

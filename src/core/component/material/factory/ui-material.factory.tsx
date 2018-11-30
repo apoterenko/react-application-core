@@ -211,6 +211,7 @@ export class UIMaterialFactory implements IUIFactory {
     add: faPlus,
     plus: faPlus,
     lock: faLock,
+    exchange_alt: faExchangeAlt,
     warning: faExclamationTriangle,
     exclamation_triangle: faExclamationTriangle,
     exclamation_circle: faExclamationCircle,
