@@ -8,7 +8,7 @@
 // Grid [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-grid(                                                                /* @stable [07.11.2018] */
+  @include rac-grid(                                                                          /* @stable [01.12.2018] */
     $rac-grid-column-icon-display: inline-block,
     $rac-grid-column-icon-width: $rac-grid-icon-size,
     $rac-grid-column-icon-height: $rac-grid-icon-size,
@@ -18,7 +18,7 @@
     $rac-grid-head-column-vertical-align: bottom,
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-    $rac-grid-column-align-center-content-field-align-items: true
+    $rac-grid-column-align-center-content-field: true
   );
 
   .rac-grid {

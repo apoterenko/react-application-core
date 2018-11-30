@@ -370,6 +370,7 @@
                                     $rac-text-field-input-custom-cursor: unset,
                                     $rac-text-field-input-custom-font-size: unset,
                                     $rac-text-field-input-custom-padding: unset,
+                                    $rac-text-field-input-custom-text-align: unset,
                                     $rac-text-field-input-caret-custom-position: unset,
                                     $rac-text-field-input-caret-custom-bottom: unset,
                                     $rac-text-field-input-caret-custom-font-size: unset,
@@ -420,6 +421,9 @@
       }
       @if $rac-text-field-input-custom-padding != unset {
         padding: $rac-text-field-input-custom-padding;
+      }
+      @if $rac-text-field-input-custom-text-align != unset {
+        text-align: $rac-text-field-input-custom-text-align;
       }
     }
 
@@ -474,6 +478,7 @@
                  $rac-text-field-input-color: unset,
                  $rac-text-field-input-font-size: unset,
                  $rac-text-field-input-padding: unset,
+                 $rac-text-field-input-text-align: unset,
                  $rac-text-field-input-cursor: unset,
                  $rac-text-field-input-caret-position: unset,
                  $rac-text-field-input-caret-bottom: unset,
@@ -500,6 +505,7 @@
           $rac-text-field-input-custom-color: $rac-text-field-input-color,
           $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
           $rac-text-field-input-custom-padding: $rac-text-field-input-padding,
+          $rac-text-field-input-custom-text-align: $rac-text-field-input-text-align,
           $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
           $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
           $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
@@ -527,6 +533,7 @@
         $rac-text-field-input-custom-color: $rac-text-field-input-color,
         $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
         $rac-text-field-input-custom-padding: $rac-text-field-input-padding,
+        $rac-text-field-input-custom-text-align: $rac-text-field-input-text-align,
         $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
         $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
         $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
@@ -755,7 +762,8 @@
  */
 @mixin rac-grid-column-content($rac-grid-column-content-letter-spacing: unset,
                                $rac-grid-column-content-font-size: unset,
-                               $rac-grid-column-content-field-align-items: unset) {
+                               $rac-grid-column-content-field-align-items: unset,
+                               $rac-grid-column-content-text-field-input-text-align: unset) {
   @if $rac-grid-column-content-letter-spacing != unset {
     letter-spacing: $rac-grid-column-content-letter-spacing;
   }
@@ -767,6 +775,10 @@
     @if $rac-grid-column-content-field-align-items != unset {
       @include align-items($rac-grid-column-content-field-align-items);
     }
+  }
+
+  @if $rac-grid-column-content-text-field-input-text-align != unset {
+    @include rac-field($rac-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align);
   }
 }
 
@@ -787,14 +799,16 @@
                                           $rac-icon-border: unset,
                                           $rac-grid-column-content-letter-spacing: unset,
                                           $rac-grid-column-content-font-size: unset,
-                                          $rac-grid-column-content-field-align-items: unset) {
+                                          $rac-grid-column-content-field-align-items: unset,
+                                          $rac-grid-column-content-text-field-input-text-align: unset) {
   @if $rac-vertical-align != unset {
     vertical-align: $rac-vertical-align;
   }
 
-  @include rac-grid-column-content($rac-grid-column-content-letter-spacing,
-                                   $rac-grid-column-content-font-size,
-                                   $rac-grid-column-content-field-align-items);
+  @include rac-grid-column-content($rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+                                   $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
+                                   $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
+                                   $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align);
 
   @include rac-icon($rac-icon-custom: $rac-icon-custom,
                     $rac-icon-display: $rac-icon-display,
@@ -827,7 +841,8 @@
                        $rac-icon-border: unset,
                        $rac-grid-column-content-letter-spacing: unset,
                        $rac-grid-column-content-font-size: unset,
-                       $rac-grid-column-content-field-align-items: unset) {
+                       $rac-grid-column-content-field-align-items: unset,
+                       $rac-grid-column-content-text-field-input-text-align: unset) {
 
   @if $rac-grid-column-custom != unset {
     .rac-grid-column {
@@ -846,7 +861,8 @@
                                                     $rac-icon-border: $rac-icon-border,
                                                     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
                                                     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-                                                    $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items);
+                                                    $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
+                                                    $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align);
       }
     }
   } @else {
@@ -865,7 +881,8 @@
                                                   $rac-icon-border: $rac-icon-border,
                                                   $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
                                                   $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-                                                  $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items);
+                                                  $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
+                                                  $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align);
     }
   }
 }
@@ -893,12 +910,13 @@
                 $rac-grid-column-icon-border: unset,
                 $rac-grid-column-content-letter-spacing: unset,
                 $rac-grid-column-content-font-size: unset,
-                $rac-grid-column-align-center-content-field-align-items: unset) {
+                $rac-grid-column-align-center-content-field: unset) {
 
   .rac-grid {
-    @if $rac-grid-column-align-center-content-field-align-items != unset {
+    @if $rac-grid-column-align-center-content-field != unset {
       @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-center,
-                               $rac-grid-column-content-field-align-items: center);
+                               $rac-grid-column-content-field-align-items: center,
+                               $rac-grid-column-content-text-field-input-text-align: center);
     }
 
     @include rac-grid-column($rac-vertical-align: $rac-grid-column-vertical-align,
