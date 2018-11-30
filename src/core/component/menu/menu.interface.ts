@@ -4,6 +4,7 @@ import {
   IHideFnWrapper,
   IFilterWrapper,
   IOptionsWrapper,
+  IOpenedWrapper,
 } from '../../definitions.interface';
 import { IComponent, IMenuItemEntity, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IMenuConfiguration } from '../../configurations-definitions.interface';
@@ -11,8 +12,8 @@ import { IMenuConfiguration } from '../../configurations-definitions.interface';
 /**
  * @stable [07.06.2018]
  */
-export interface IMenuState extends IFilterWrapper {
-  opened?: boolean;
+export interface IMenuState extends IFilterWrapper,
+                                    IOpenedWrapper {
 }
 
 /**
