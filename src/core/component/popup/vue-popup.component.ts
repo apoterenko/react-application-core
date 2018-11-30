@@ -16,7 +16,7 @@ import {
     <vue-flex-layout v-if="open"
                      ref="popupWrapper"
                      class="vue-popup-wrapper rac-absolute-full">
-        <div class='rac-overlay'
+        <div class='rac-overlay rac-absolute-full'
              :class="animationClasses"
              @click="onOverlayClick"/>
         <vue-flex-layout class="vue-popup"

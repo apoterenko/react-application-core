@@ -34,6 +34,7 @@ export * from './component/main';
 export * from './component/material';
 export * from './component/menu';
 export * from './component/message';
+export * from './component/overlay';
 export * from './component/plugin';
 export * from './component/profile';
 export * from './component/progress';

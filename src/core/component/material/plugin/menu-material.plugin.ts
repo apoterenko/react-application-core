@@ -43,7 +43,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
    * @stable [04.10.2018]
    */
   private isMenuOpen(): boolean {
-    return this.mdc.open;
+    return this.mdc && this.mdc.open;
   }
 
   /**

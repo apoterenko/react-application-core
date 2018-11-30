@@ -32,7 +32,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
   /**
    * @stable [18.05.2018]
    */
-  protected readonly commonActionsProps: {[filter: number]: IFieldActionConfiguration} = {
+  protected readonly commonActionsProps: Record<number, IFieldActionConfiguration> = {
     [ToolbarActionEnum.OPEN_FILTER]: {
       type: 'filter_list',
       onClick: this.onOpen.bind(this),

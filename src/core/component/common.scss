@@ -165,9 +165,6 @@ html, body {
   }
 
   .rac-overlay {
-    position: absolute;                     /* @stable [13.08.2018] */
-    height: 100%;                           /* @stable [13.08.2018] */
-    width: 100%;                            /* @stable [13.08.2018] */
     background: $rac-overlay-background;    /* @stable [13.08.2018] */
 
     .rac-message {

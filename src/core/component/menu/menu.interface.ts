@@ -12,6 +12,7 @@ import { IMenuConfiguration } from '../../configurations-definitions.interface';
  * @stable [07.06.2018]
  */
 export interface IMenuState extends IFilterWrapper {
+  opened?: boolean;
 }
 
 /**
