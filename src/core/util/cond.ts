@@ -41,6 +41,16 @@ export const ifNilReturnDefault = <TResult1, TResult2>(value: AnyT,
   orDefault<TResult1, TResult2>(!R.isNil(value), result1, result2);
 
 /**
+ * @stable [01.12.2018]
+ * @param {AnyT} value
+ * @param {(() => TResult) | TResult} result
+ * @returns {void | TResult}
+ */
+export const ifNotNilReturnValue = <TResult>(value: AnyT,
+                                             result: TResult | (() => TResult)): TResult | null =>
+  ifNilReturnDefault<TResult, null>(value, result, null);
+
+/**
  * @stable [19.08.2018]
  * @param {AnyT} value
  * @param {(() => TResult) | TResult} result

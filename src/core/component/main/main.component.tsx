@@ -14,12 +14,21 @@ export class Main extends BaseComponent<Main> {
     const props = this.props;
     return (
       <div className={toClassName('rac-main rac-flex-full', props.className)}>
-        <div className='rac-main-body-wrapper'>
+        <div ref={this.getSelfRef()}
+             className='rac-main-body-wrapper'>
           <FlexLayout className='rac-main-body'>
             {props.children}
           </FlexLayout>
         </div>
       </div>
     );
+  }
+
+  /**
+   * @stable [01.12.2018]
+   */
+  public componentDidMount() {
+    super.componentDidMount();
+    this.scrollToUniversalSelectedElement();
   }
 }

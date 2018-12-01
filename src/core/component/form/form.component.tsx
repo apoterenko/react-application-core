@@ -157,8 +157,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
     this.propsOnValid();
   }
 
+  // TODO deprecated
   public componentWillUpdate(nextProps: Readonly<IFormProps>, nextState: Readonly<{}>, nextContext: {}): void {
-    super.componentWillUpdate(nextProps, nextState, nextContext);
     this.childrenMap.clear();
   }
 

@@ -10,7 +10,6 @@ import {
   orDefault,
   queryFilter,
   setAbsoluteOffsetByCoordinates,
-  applyStyle,
   calc,
   cancelEvent,
 } from '../../util';
@@ -58,7 +57,8 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     return (
       <div ref={this.menuAnchorRef}
            className={this.uiFactory.menuAnchor}>
-        <div ref='self'
+        <div ref={this.getSelfRef()}
+             style={{width: calc(props.width)}}
              className={toClassName(
                           'rac-menu',
                           props.className,
@@ -106,8 +106,6 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
 
     if (!R.isNil(props.renderToX) || !R.isNil(props.renderToY)) {
       setAbsoluteOffsetByCoordinates(this.menuAnchorRef.current, props.renderToX, props.renderToY);
-    } else if (!R.isNil(props.width)) {
-      applyStyle(this.self, 'width', calc(props.width));
     }
   }
 

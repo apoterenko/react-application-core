@@ -41,7 +41,8 @@
                                 $rac-position-right: unset,
                                 $rac-position-height: unset,
                                 $rac-position-width: unset,
-                                $rac-position: unset) {
+                                $rac-position: unset,
+                                $rac-position-horizontal-align-center: unset) {
   @if $rac-position != unset {
     position: $rac-position;
   }
@@ -62,6 +63,10 @@
   }
   @if $rac-position-height != unset {
     height: $rac-position-height;
+  }
+  @if $rac-position-horizontal-align-center != unset {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 

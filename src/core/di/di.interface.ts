@@ -3,6 +3,7 @@ export const DI_TYPES = {
   Auth: Symbol('Auth'),
   Channel: Symbol('Channel'),
   DateConverter: Symbol('DateConverter'),
+  DomAccessor: Symbol('DomAccessor'),
   GeoCoder: Symbol('GeoCoder'),
   NumberConverter: Symbol('NumberConverter'),
   DynamicRoutes: Symbol('DynamicRoutes'),

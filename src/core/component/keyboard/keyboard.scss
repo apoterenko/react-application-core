@@ -1,4 +1,5 @@
 @import '../constant';
+@import '../mixin';
 
 @mixin rac-keyboard-size ($factor: 1) {
   width: $rac-keyboard-key-width - $rac-keyboard-key-width-factor * $factor;                                     /* @stable [13.08.2018] */
@@ -9,6 +10,10 @@
 .rac {
 
   .rac-keyboard {
+    @include _rac-position-properties($rac-position: fixed,                                   /* @stable [01.12.2018] */
+                                      $rac-position-bottom: 0,
+                                      $rac-position-horizontal-align-center: true);
+
     opacity: $rac-keyboard-opacity;                 /* @stable [21.09.2018] */
     border: 1px solid $rac-keyboard-border-color;   /* @stable [19.08.2018] */
     border-radius: 16px;                            /* @stable [08.05.2018] */

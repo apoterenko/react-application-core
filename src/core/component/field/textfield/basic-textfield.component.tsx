@@ -174,7 +174,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @param {IBasicEvent} e
    */
   private onWindowMouseDown(e: IBasicEvent): void {
-    const keyboard = $((this.refs.keyboard as Keyboard).self);
+    const keyboard = $((this.refs.keyboard as Keyboard).getSelf());
     const targetEl = e.target as HTMLElement;
 
     if (this.input === targetEl || keyboard.find(targetEl).length !== 0) {

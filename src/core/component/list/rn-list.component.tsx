@@ -64,10 +64,6 @@ export class RnList extends UniversalList<RnList, IRnListProps> {
     );
   }
 
-  protected doScrollIntoView(item: Element, view: Element): void {
-    // TODO
-  }
-
   protected getAddAction(): JSX.Element {
     // TODO
     return null;

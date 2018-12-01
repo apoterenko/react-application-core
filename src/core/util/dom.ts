@@ -4,7 +4,8 @@ import * as $ from 'jquery';
 import { isFn } from './type';
 import { ENV } from '../env';
 import { calc } from './calc';
-import { AnyT } from '../definitions.interface';
+import { AnyT, UNIVERSAL_SELECTED_ELEMENT_SELECTOR, IJQueryElement } from '../definitions.interface';
+import { IXYEntity } from '../entities-definitions.interface';
 
 let googleMapsScriptTask: Promise<HTMLScriptElement>;
 
@@ -171,6 +172,28 @@ export const getHeight = (source: Element): number => $(source).height();
 export const getContentHeight = (source: Element): number => $(source).children().height();
 
 /**
+ * @stable [01.12.2018]
+ * @param {Element} source
+ * @returns {number}
+ */
+export const getScrollLeft = (source: Element): number => $(source).scrollLeft();
+
+/**
+ * @stable [01.12.2018]
+ * @param {Element} source
+ * @returns {number}
+ */
+export const getScrollTop = (source: Element): number => $(source).scrollTop();
+
+/**
+ * @stable [01.12.2018]
+ * @param {Element} source
+ * @param {number} value
+ * @returns {IJQueryElement}
+ */
+export const setScrollTop = (source: Element, value: number): IJQueryElement => $(source).scrollTop(value);
+
+/**
  * @stable [04.10.2018]
  * @param {Element} source
  * @returns {boolean}
@@ -236,3 +259,27 @@ export const parseValueAtPx = (v: string): number => parseFloat((v || '').split(
  * @returns {() => boolean}
  */
 export const preventContextMenu = () => document.body.oncontextmenu = () => false;
+
+/**
+ * @stable [01.12.2018]
+ * @param {string} selector
+ * @param {Element} parent
+ * @returns {Element}
+ */
+export const findElement = (selector: string, parent: Element = document.body): Element =>
+  $(parent).find(selector)[0];
+
+/**
+ * @stable [01.12.2018]
+ * @param {Element} parent
+ * @returns {Element}
+ */
+export const findUniversalSelectedElement = (parent: Element = document.body): Element =>
+  findElement(`.${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`, parent);
+
+/**
+ * @stable [01.12.2018]
+ * @param {Element} element
+ * @param {IXYEntity} xyEntity
+ */
+export const scrollTo = (element: Element, xyEntity: IXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);

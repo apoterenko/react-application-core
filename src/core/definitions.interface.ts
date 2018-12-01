@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as URLSearchParams from 'url-search-params';
 import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
+import JQuery from 'jquery';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -15,6 +16,7 @@ export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
+export const UNIVERSAL_SELECTED_ELEMENT_SELECTOR = 'rac-universal-selected-element';
 
 /**
  * @stable [15.09.2018]
@@ -611,6 +613,13 @@ export interface IOperationIdWrapper {
  */
 export interface IItemsWrapper<TItems> {
   items?: TItems;
+}
+
+/**
+ * @stable [01.12.2018]
+ */
+export interface IOnScrollWrapper<TPayload = AnyT> {
+  onScroll?(payload?: TPayload): void;
 }
 
 /**
@@ -1726,16 +1735,10 @@ export interface ISimpleWrapper<TSimple = boolean> {
 }
 
 /**
- * @stable [17.05.2018]
+ * @stable [01.12.2018]
  */
-export interface ISelfWrapper<TSelf = Element> {
-  self?: TSelf;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IAnySelfWrapper extends ISelfWrapper<AnyT> {
+export interface IGetSelfWrapper {
+  getSelf(): Element;
 }
 
 /* @stable - 24.04.2018 */
@@ -3156,7 +3159,11 @@ export interface IBaseEvent {
   preventDefault();
 }
 
-export const IMAGE_FIELD_NAME = 'image';
+/**
+ * @stable [01.12.2018]
+ */
+export interface IJQueryElement<TElement extends Element = Element> extends JQuery<TElement> {
+}
 
 export const PROGRESS_FIELD_NAME = 'progress';
 

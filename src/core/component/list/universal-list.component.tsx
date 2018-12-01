@@ -10,7 +10,7 @@ import {
   ifNilReturnUuid,
   isFn,
 } from '../../util';
-import { IEntity, IAnySelfWrapper } from '../../definitions.interface';
+import { IEntity } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalListProps, IUniversalButtonProps } from '../../props-definitions.interface';
 import { IUniversalMessageProps } from '../message/universal-message.interface';
@@ -45,34 +45,6 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
     }
     return this.getView();
   }
-
-  /**
-   * @stable [23.04.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    const selected = this.props.selected;
-    if (selected) {
-      const rowItem = this.refs[this.toRowKey(selected)] as IAnySelfWrapper;
-      if (rowItem) {
-        const container = this.refs.container;
-        this.doScrollIntoView(
-          rowItem.self,
-          container instanceof Element
-            ? container as Element
-            : (container as IAnySelfWrapper).self
-        );
-      }
-    }
-  }
-
-  /**
-   * @stable [23.04.2018]
-   * @param {Element} item
-   * @param {Element} view
-   */
-  protected abstract doScrollIntoView(item: Element, view: Element): void;
 
   /**
    * @stable [23.04.2018]

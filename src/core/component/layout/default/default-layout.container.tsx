@@ -60,7 +60,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.onUserMenuSelect = this.onUserMenuSelect.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
-    this.onNavigationListItemClick = this.onNavigationListItemClick.bind(this);
+    this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
   }
 
@@ -134,10 +134,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [23.09.2018]
+   * @stable [01.12.2018]
    * @param {IXYEntity} xy
    */
-  private onNavigationListItemClick(xy: IXYEntity): void {
+  private onNavigationListScroll(xy: IXYEntity): void {
     const payloadWrapper: IPayloadWrapper<ILayoutEntity> = {payload: xy};
     this.dispatchCustomType(LAYOUT_XY_UPDATE_ACTION_TYPE, payloadWrapper);
   }
@@ -226,7 +226,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         </FlexLayout>
         <NavigationList {...props.layout}
                         items={this.menuItems}
-                        onClick={this.onNavigationListItemClick}
+                        onScroll={this.onNavigationListScroll}
                         onGroupClick={this.onNavigationListGroupClick}/>
       </Drawer>
     );

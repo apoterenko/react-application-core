@@ -92,7 +92,6 @@ import {
   ISectionWrapper,
   ISelectedEntityWrapper,
   ISelectedWrapper,
-  ISelfWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
   IStackWrapper,
@@ -128,6 +127,7 @@ import {
   IDispatchFormChangeWrapper,
   IDispatchWrapper,
   IGetValueWrapper,
+  IGetSelfWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -163,7 +163,7 @@ export interface IDateTimeEntity extends IDateWrapper,
 /**
  * @stable [04.05.2018]
  */
-export interface IUniversalComponentEntity {
+export interface IUniversalComponentEntity extends IXYEntity {
 }
 
 /**
@@ -253,7 +253,7 @@ export interface IContainerClassEntity<TProps extends IContainerProps = IContain
  */
 export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends Component<TProps, TState>,
-          ISelfWrapper {
+          IGetSelfWrapper {
 }
 
 /**
@@ -691,9 +691,9 @@ export enum LayoutModeEnum {
 /**
  * @stable [23.09.2018]
  */
-export interface ILayoutEntity extends IExpandedGroupsWrapper,
-                                       IModeWrapper<LayoutModeEnum>,
-                                       IXYEntity {
+export interface ILayoutEntity extends IUniversalComponentEntity,
+                                       IExpandedGroupsWrapper,
+                                       IModeWrapper<LayoutModeEnum> {
 }
 
 /**
@@ -924,6 +924,7 @@ export interface IEnvironmentEntity {
   platformOs?: IEnvironmentPlatformOsEntity;
   safariPlatform?: boolean;
   passwordInputPlaceholder?: string;
+  documentBody?: Element;
 }
 
 /**

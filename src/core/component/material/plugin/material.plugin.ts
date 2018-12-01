@@ -26,7 +26,7 @@ export class MaterialPlugin<TComponent extends IComponent,
    * @stable [31.08.2018]
    */
   public componentDidMount(): void {
-    const self = this.component.self;
+    const self = this.component.getSelf();
 
     if (!R.isNil(self)) {
       this.mdc = this.mdcFactory.attachTo(self);

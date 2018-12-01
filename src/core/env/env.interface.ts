@@ -8,7 +8,7 @@ const definedLocation = typeof location === 'undefined'
   ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '', pathname: '', assign: (url: string) => null }
   : location;
 const definedWindow = typeof window === 'undefined' ? {} : window;
-const definedDocument = typeof document === 'undefined' ? { baseURI: '' } : document;
+const definedDocument = typeof document === 'undefined' ? { baseURI: '', body: null } : document;
 const definedLocalStorage = typeof localStorage === 'undefined' ? { getItem: (item: string) => null } : localStorage;
 
 const origin = definedLocation.origin || [definedLocation.protocol, definedLocation.host].join('//');
@@ -37,6 +37,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   platformOs: P.os,
   safariPlatform: SAFARI_PLATFORM,
   passwordInputPlaceholder: SAFARI_PLATFORM && IOS_PLATFORM ? '●' : '•',
+  documentBody: definedDocument.body,
 });
 
 LoggerFactory.makeLogger('env.interface').debug('[$environment]', ENV);

@@ -4,11 +4,11 @@ import { IKeyValue } from '../definitions.interface';
 
 /**
  * @stable [10.08.2018]
- * @param {HTMLElement} source
- * @param {HTMLElement} container
+ * @param {Element} source
+ * @param {Element} container
  * @param {IKeyValue} config
  */
-export const scrollIntoView = (source: HTMLElement,
-                               container: HTMLElement,
+export const scrollIntoView = (source: Element,
+                               container: Element,
                                config: IKeyValue = {alignWithTop: true, alignWithLeft: true}): void =>
   scrollIntoView0(source, container, config);

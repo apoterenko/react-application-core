@@ -89,15 +89,15 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
     const props = this.props;
     return (
       <FlexLayout className='rac-google-maps'>
-        <div ref='self'
+        <div ref={this.getSelfRef()}
              className='rac-google-maps-map rac-flex-full'/>
         {
           orNull<JSX.Element>(
             this.hasOptions,
             () => (
               <Menu ref='menu'
-                    renderToX={() => this.x + (this.self as HTMLElement).offsetLeft}
-                    renderToY={() => this.y + (this.self as HTMLElement).offsetTop}
+                    renderToX={() => this.x + this.getSelf().offsetLeft}
+                    renderToY={() => this.y + this.getSelf().offsetTop}
                     options={props.options}
                     onSelect={this.onMenuSelect}/>
             )
@@ -230,7 +230,7 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
    * @stable [31.07.2018]
    */
   private initGoogleMapsObjects(): void {
-    this.map = new google.maps.Map(this.self);
+    this.map = new google.maps.Map(this.getSelf());
 
     if (this.hasOptions) {
       this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);

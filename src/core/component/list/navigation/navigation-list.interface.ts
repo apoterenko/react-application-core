@@ -7,9 +7,9 @@ import {
   IItemsWrapper,
   IExpandedGroupsWrapper,
   IOnGroupClickWrapper,
+  IOnScrollWrapper,
 } from '../../../definitions.interface';
 import { ILayoutEntity } from '../../../entities-definitions.interface';
-import { IOnClickWrapper } from '../../../react-definitions.interface';
 
 /**
  * @stable [23.09.2018]
@@ -17,7 +17,7 @@ import { IOnClickWrapper } from '../../../react-definitions.interface';
 export interface INavigationListConfiguration extends IUniversalComponentConfiguration,
                                                       IExpandedGroupsWrapper,
                                                       IItemsWrapper<INavigationListItemConfiguration[]>,
-                                                      IOnClickWrapper<IXYEntity>,
+                                                      IOnScrollWrapper<IXYEntity>,
                                                       IOnGroupClickWrapper<INavigationListItemConfiguration> {
 }
 

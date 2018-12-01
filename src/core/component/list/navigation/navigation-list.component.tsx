@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as $ from 'jquery';
 
-import { toClassName, uuid, orNull, isFn } from '../../../util';
+import { toClassName, uuid, orNull } from '../../../util';
 import { BaseComponent } from '../../base';
 import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
@@ -19,20 +18,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
    */
   constructor(props: INavigationListProps) {
     super(props);
-    this.onLinkClick = this.onLinkClick.bind(this);
     this.toElement = this.toElement.bind(this);
-  }
-
-  /**
-   * @stable [11.08.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    const props = this.props;
-    if (!R.isNil(props.x) || !R.isNil(props.y)) {
-      this.selfAsHtmlElement.scrollTo(props.x, props.y);
-    }
   }
 
   /**
@@ -42,7 +28,8 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
   public render(): JSX.Element {
     return (
         <nav ref='self'
-             className='rac-navigation-list rac-no-user-select'>
+             className='rac-navigation-list rac-no-user-select'
+             onScroll={this.onNativeScroll}>
           <ListDivider/>
           {this.props.items.map(this.toElement)}
         </nav>
@@ -117,8 +104,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                     'rac-flex-full',
                     'rac-flex-align-items-center'
                   )}
-                  title={label}
-                  onClick={this.onLinkClick}>
+                  title={label}>
               {this.uiFactory.makeIcon({
                 type: item.icon,
                 key: this.toUniqueKey(item.link, 'icon'),
@@ -133,17 +119,6 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
             </Link>
           )
         );
-    }
-  }
-
-  /**
-   * @stable [11.08.2018]
-   */
-  private onLinkClick(): void {
-    const props = this.props;
-    if (isFn(props.onClick)) {
-      const el = $(this.selfAsHtmlElement);
-      props.onClick({x: el.scrollLeft(), y: el.scrollTop()});
     }
   }
 

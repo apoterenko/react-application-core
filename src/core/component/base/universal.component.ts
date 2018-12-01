@@ -1,5 +1,6 @@
-import { Component } from 'react';
+import * as React from 'react';
 
+import { DelayedTask, isFn, isDef } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
 import { ApplicationTranslatorT } from '../../translation';
 import { IApplicationSettings } from '../../settings';
@@ -14,14 +15,17 @@ import {
 } from '../../entities-definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
+import { IApplicationDomAccessor } from '../dom-accessor/dom-accessor.interface';
 
 export class UniversalComponent<TComponent extends IUniversalComponent<TProps, TState>,
                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>
-  extends Component<TProps, TState>
+  extends React.Component<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
   protected plugins: IUniversalComponentPlugin[] = [];
+  protected scrollTask: DelayedTask;
+  protected selfRef = React.createRef<Element>();
 
   /**
    * @stable [23.04.2018]
@@ -29,12 +33,17 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   constructor(props: TProps) {
     super(props);
+    this.onNativeScroll = this.onNativeScroll.bind(this);
 
     const dynamicPluginFactory = this.uiPlugins.get(this.constructor as IUniversalComponentClassEntity);
     if (dynamicPluginFactory) {
       this.plugins.push(dynamicPluginFactory(this));
     }
     [].concat(props.plugins || []).forEach((plugin) => this.registerPlugin(plugin));
+
+    if (isFn(props.onScroll)) {
+      this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
+    }
   }
 
   /**
@@ -47,6 +56,7 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
     if (props.register) {
       props.register(this);
     }
+    this.domAccessor.scrollTo(props, this.getSelf());
   }
 
   /**
@@ -58,6 +68,9 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
     const props = this.props;
     if (props.unregister) {
       props.unregister(this);
+    }
+    if (isDef(this.scrollTask)) {
+      this.scrollTask.stop();
     }
   }
 
@@ -73,11 +86,37 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
   }
 
   /**
-   * @stable [18.05.2018]
+   * @stable [01.12.2018]
    * @returns {Element}
    */
-  public get self(): Element {
-    return this.refs.self as Element;
+  public getSelf(): Element {
+    return this.selfRef.current || this.refs.self as any; // TODO any
+  }
+
+  /**
+   * @stable [01.12.2018]
+   */
+  protected scrollToUniversalSelectedElement(): void {
+    const selectedElement = this.domAccessor.findUniversalSelectedElement(this.getSelf());
+    if (selectedElement) {
+      this.domAccessor.scrollTo(selectedElement, this.getSelf());
+    }
+  }
+
+  /**
+   * @stable [01.12.2018]
+   */
+  protected onNativeScroll(): void {
+    if (isDef(this.scrollTask)) {
+      this.scrollTask.start();
+    }
+  }
+
+  /**
+   * @stable [01.12.2018]
+   */
+  protected doScroll(): void {
+    this.props.onScroll(this.domAccessor.getScrollInfo(this.getSelf()));
   }
 
   /**
@@ -126,6 +165,22 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   protected get uiFactory(): IUIFactory {
     return staticInjector(DI_TYPES.UIFactory);
+  }
+
+  /**
+   * @stable [01.12.2018]
+   * @returns {IApplicationDomAccessor}
+   */
+  protected get domAccessor(): IApplicationDomAccessor {
+    return staticInjector(DI_TYPES.DomAccessor);
+  }
+
+  /**
+   * @stable [01.12.2018]
+   * @returns {React.RefObject<TElement extends Element>}
+   */
+  protected getSelfRef<TElement extends Element>(): React.RefObject<TElement> {
+    return this.selfRef as React.RefObject<TElement>;
   }
 
   /**

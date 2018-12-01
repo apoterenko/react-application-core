@@ -219,6 +219,7 @@ import {
   IWidthWrapper,
   IReturnSerializedValueOnChangeWrapper,
   IPassiveWrapper,
+  IOnScrollWrapper,
 } from './definitions.interface';
 import {
   IApiEntity,
@@ -229,6 +230,7 @@ import {
   IUniversalComponent,
   IUniversalComponentPluginClassEntity,
   IUniversalContainerClassEntity,
+  IXYEntity,
 } from './entities-definitions.interface';
 import { IGridColumnProps, IUniversalButtonProps } from './props-definitions.interface';
 import {
@@ -396,6 +398,7 @@ export interface IWebContainerConfiguration extends IWebComponentConfiguration {
 export interface IUniversalComponentConfiguration
   extends React.ClassAttributes<AnyT>,
           ITitleWrapper,
+          IOnScrollWrapper<IXYEntity>,
           IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]>,
           IRegisterWrapper<(component: IUniversalComponent) => void>,
           IUnregisterWrapper<(component: IUniversalComponent) => void> {

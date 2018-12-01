@@ -4,6 +4,7 @@ import { BaseComponent } from '../../base';
 import { toClassName } from '../../../util';
 import { IGridRowProps } from './grid-row.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
+import { UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
 
 export class GridRow extends BaseComponent<GridRow, IGridRowProps, {}> {
 
@@ -31,7 +32,7 @@ export class GridRow extends BaseComponent<GridRow, IGridRowProps, {}> {
       <tr ref='self'
           className={toClassName(
             'rac-grid-row',
-            props.selected && 'rac-grid-row-selected',
+            props.selected && `rac-grid-row-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`,
             props.className
           )}
           onClick={this.onClick}>

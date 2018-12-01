@@ -25,7 +25,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
   public componentDidMount(): void {
     super.componentDidMount();
 
-    if (!isParentDocumentBody(this.component.self)) {
+    if (!isParentDocumentBody(this.component.getSelf())) {
       this.mdc.hoistMenuToBody();   // Prevent an outer container scroll appearing
     }
   }
@@ -36,7 +36,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
-    removeSelf(this.component.self);  // Because of hoistMenuToBody
+    removeSelf(this.component.getSelf());  // Because of hoistMenuToBody
   }
 
   /**

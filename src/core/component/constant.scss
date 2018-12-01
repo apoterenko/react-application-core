@@ -40,6 +40,7 @@ $rac-default-logo-toolbar-size: 56px !default;
 $rac-default-letter-spacing: 1px !default;
 $rac-default-action-icon-size: 14px !default;
 $rac-default-icon-size: 16px !default;
+$rac-default-selected-background: $color-8 !default;
 
 /* @stable [21.09.2018] */
 $html-overflow: hidden !default;
@@ -114,7 +115,7 @@ $rac-list-margin: unset !default;
 $rac-list-padding: unset !default;
 $rac-list-overflow-x: unset !default;   /** @layout hidden **/
 $rac-list-overflow-y: unset !default;   /** @layout auto **/
-$rac-list-item-selected-background: $color-8 !default;
+$rac-list-item-selected-background: $rac-default-selected-background !default;
 $rac-list-item-padding: 8px !default;
 $rac-list-item-cursor: pointer !default;
 $rac-list-item-color: $rac-default-text-color !default;
@@ -176,7 +177,7 @@ $rac-grid-filter-row-border-bottom: unset !default;
 $rac-grid-filter-row-padding: 2px 16px !default;
 $rac-grid-data-row-odd-background-color: $color-22 !default;
 $rac-grid-data-row-odd-column-content-button-background: unset !default;
-$rac-grid-data-row-selected-background: $color-8 !default;
+$rac-grid-data-row-selected-background: $rac-default-selected-background !default;
 $rac-grid-data-row-selected-font-weight: $rac-default-font-weight !default;
 $rac-grid-data-row-grouped-font-weight: $rac-default-font-weight !default;
 $rac-grid-data-row-grouped-background: unset !default;

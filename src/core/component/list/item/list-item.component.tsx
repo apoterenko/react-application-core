@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { orNull, toClassName } from '../../../util';
-import { BasicEventT } from '../../../definitions.interface';
+import { BasicEventT, UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
 import { IListItemProps } from './list-item.interface';
 import { ListItemGraphic, ListItemText } from '../../list';
 import { BaseComponent } from '../../base';
@@ -21,7 +21,7 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps>
       ...this.initialProps,
       className: toClassName(
         'rac-list-item',
-        props.selected && 'rac-list-item-selected',
+        props.selected && `rac-list-item-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`,
         props.className,
         props.warning && 'rac-list-item-warning',
         props.toClassName && props.toClassName(props.rawData),

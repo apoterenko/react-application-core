@@ -1,7 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as R from 'ramda';
 
-import { IJqInput, isString, addChild, removeChild } from '../../util';
+import { ENV } from '../../env';
+import { IJqInput, isString } from '../../util';
 import { BaseComponent } from '../base';
 import {
   IKeyboardKey,
@@ -32,26 +34,10 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
   }
 
   /**
-   * @stable [03.09.2018]
-   */
-  public componentDidMount() {
-    super.componentDidMount();
-    addChild(this.self);
-  }
-
-  /**
-   * @stable [03.09.2018]
-   */
-  public componentWillUnmount() {
-    removeChild(this.self);
-    super.componentWillUnmount();
-  }
-
-  /**
    * @stable [08.05.2018]
-   * @returns {JSX.Element}
+   * @returns {React.ReactPortal}
    */
-  public render(): JSX.Element {
+  public render(): React.ReactPortal {
     const props = this.props;
     const state = this.state;
     const keys = props.layout[state.mode];
@@ -74,24 +60,21 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
     });
 
     // React waiting for a wrapper at least before clearing => <div>KEYBOARD_DIV</div>
-    return (
-      <div>
-        <div ref='self'
-             className='rac-keyboard rac-absolute-bottom-position rac-no-user-select'>
-          <div className='rac-flex'>
-            {
-              this.uiFactory.makeIcon({
-                key: 'keyboard-close-action',
-                type: 'cancel',
-                simple: true,
-                className: 'rac-keyboard-close',
-                onClick: props.onClose,
-              })
-            }
-          </div>
-          {keysEls}
-        </div>
-      </div>
+    return ReactDOM.createPortal(
+      <div ref={this.getSelfRef()}
+           className='rac-keyboard rac-no-user-select'>
+        {
+          this.uiFactory.makeIcon({
+            key: 'keyboard-close-action',
+            type: 'cancel',
+            simple: true,
+            className: 'rac-keyboard-close',
+            onClick: props.onClose,
+          })
+        }
+        {keysEls}
+      </div>,
+      ENV.documentBody
     );
   }
 

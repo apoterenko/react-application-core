@@ -6,6 +6,7 @@ import '../channel/socket/socket-channel.module';
 import '../event/event.module';
 import '../lock/lock.module';
 import '../api/entity/modify-entity-payload-factory.module';
+import '../component/dom-accessor/dom-accessor.module';
 import '../component/jquery/jquery.module';
 import '../component/field/field.module';
 import '../permissions/permissions.module';

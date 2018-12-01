@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName, orNull, scrollIntoView } from '../../util';
+import { orNull } from '../../util';
 import { IUIIconConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalListProps } from '../../props-definitions.interface';
 import { Message } from '../message';
@@ -11,15 +11,6 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
                                TProps extends IUniversalListProps,
                                TState = {}>
   extends UniversalList<TComponent, TProps, TState> {
-
-  /**
-   * @stable [23.04.2018]
-   * @param {HTMLElement} item
-   * @param {HTMLElement} view
-   */
-  protected doScrollIntoView(item: HTMLElement, view: HTMLElement): void {
-    scrollIntoView(item, view);
-  }
 
   /**
    * @stable [09.06.2018]
