@@ -37,17 +37,17 @@ export class VueApplicationContainer extends VueBaseContainer {
    * @returns {string}
    */
   private getContainer() {
-    const appPath = ENV.appPath;
+    const appPath = ENV.appPath();
     const routePatternResult = findUrlPattern(appPath, this.routes);
 
     if (routePatternResult.route) {
       VueApplicationContainer.logger.debug(
         `[$VueApplicationContainer][getContainer] Router is recognized. Route result: ${
-          JSON.stringify(routePatternResult)}, pathname: ${appPath}`
+          JSON.stringify(routePatternResult)}, pathname: "${appPath}"`
       );
     } else {
-      VueApplicationContainer.logger.debug(
-        `[$VueApplicationContainer][getContainer] Router is not recognized. Route result: ${appPath}`
+      VueApplicationContainer.logger.warn(
+        `[$VueApplicationContainer][getContainer] Router is not recognized. Route result: "${appPath}"`
       );
     }
     return this.routes[routePatternResult.route] || this.routes['/not_found'];
