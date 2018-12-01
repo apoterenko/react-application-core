@@ -38,6 +38,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   safariPlatform: SAFARI_PLATFORM,
   passwordInputPlaceholder: SAFARI_PLATFORM && IOS_PLATFORM ? '●' : '•',
   documentBody: definedDocument.body,
+  appPath: definedLocation.pathname.replace(BASE_PATH, '/'),
 });
 
 LoggerFactory.makeLogger('env.interface').debug('[$environment]', ENV);

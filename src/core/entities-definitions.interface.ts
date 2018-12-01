@@ -925,6 +925,7 @@ export interface IEnvironmentEntity {
   safariPlatform?: boolean;
   passwordInputPlaceholder?: string;
   documentBody?: Element;
+  appPath?: string;
 }
 
 /**

@@ -3,6 +3,7 @@ import { Component } from 'vue-property-decorator';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { findUrlPattern } from '../../util';
+import { ENV } from '../../env';
 import { DI_TYPES, lazyInject } from '../../di';
 import { IKeyValue } from '../../definitions.interface';
 import { APPLICATION_SECTION } from '../application/application.interface';
@@ -36,17 +37,17 @@ export class VueApplicationContainer extends VueBaseContainer {
    * @returns {string}
    */
   private getContainer() {
-    const pathname = location.pathname;
-    const routePatternResult = findUrlPattern(pathname, this.routes);
+    const appPath = ENV.appPath;
+    const routePatternResult = findUrlPattern(appPath, this.routes);
 
     if (routePatternResult.route) {
       VueApplicationContainer.logger.debug(
         `[$VueApplicationContainer][getContainer] Router is recognized. Route result: ${
-          JSON.stringify(routePatternResult)}, pathname: ${pathname}`
+          JSON.stringify(routePatternResult)}, pathname: ${appPath}`
       );
     } else {
       VueApplicationContainer.logger.debug(
-        `[$VueApplicationContainer][getContainer] Router is not recognized. Route result: ${pathname}`
+        `[$VueApplicationContainer][getContainer] Router is not recognized. Route result: ${appPath}`
       );
     }
     return this.routes[routePatternResult.route] || this.routes['/not_found'];
