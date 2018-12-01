@@ -2,7 +2,8 @@ import { LoggerFactory } from 'ts-smart-logger';
 import * as P from 'platform';
 
 import { IEnvironmentEntity } from '../entities-definitions.interface';
-import { defValuesFilter, buildNormalizedPath } from '../util';
+import { defValuesFilter } from '../util/filter';
+import { buildNormalizedPath } from '../util/route';
 
 const definedLocation = typeof location === 'undefined'
   ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '', pathname: '', assign: (url: string) => null }
