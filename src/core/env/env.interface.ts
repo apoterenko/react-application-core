@@ -2,7 +2,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import * as P from 'platform';
 
 import { IEnvironmentEntity } from '../entities-definitions.interface';
-import { defValuesFilter } from '../util/filter';
+import { defValuesFilter, buildNormalizedPath } from '../util';
 
 const definedLocation = typeof location === 'undefined'
   ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '', pathname: '', assign: (url: string) => null }
@@ -38,11 +38,8 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   safariPlatform: SAFARI_PLATFORM,
   passwordInputPlaceholder: SAFARI_PLATFORM && IOS_PLATFORM ? '●' : '•',
   documentBody: definedDocument.body,
-  appPath: () => (
-      definedLocation.pathname.endsWith('/')
-        ? definedLocation.pathname
-        : `${definedLocation.pathname}/`
-    ).replace(BASE_PATH, '/'),
+  appPath: () => buildNormalizedPath(`${definedLocation.pathname}/`.replace(BASE_PATH, '/')),
+  buildAppPath: (path) => buildNormalizedPath(`${BASE_PATH}/${path}/`),
 });
 
 LoggerFactory.makeLogger('env.interface').debug('[$environment]', ENV);

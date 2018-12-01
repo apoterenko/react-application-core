@@ -2,6 +2,7 @@ import { Store } from 'redux';
 import { injectable } from 'inversify';
 
 import { isFn } from '../util';
+import { ENV } from '../env';
 import { DI_TYPES, lazyInject } from '../di';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 
@@ -27,8 +28,9 @@ export class VueRouter { // TODO implements contract
    * @stable [23.10.2018]
    * @param path
    */
-  public push(path): void {
-    history.pushState({}, path, path);
+  public push(path: string): void {
+    const fullPath = ENV.buildAppPath(path);
+    history.pushState({}, fullPath, fullPath);
     this.dispatchPathAction(path);
   }
 

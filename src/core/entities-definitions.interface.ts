@@ -926,6 +926,7 @@ export interface IEnvironmentEntity {
   passwordInputPlaceholder?: string;
   documentBody?: Element;
   appPath?(): string;
+  buildAppPath?(path: string): string;
 }
 
 /**
