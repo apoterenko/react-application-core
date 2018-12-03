@@ -23,9 +23,9 @@ export class RouterEffects {
 
   @EffectsService.effects(ROUTER_REWRITE_ACTION_TYPE)
   public $onRewrite(action: IEffectsAction): void {
-    const pathAndState = this.toPathAndState(action);
     this.router.go(-this.router.length);
 
+    const pathAndState = this.toPathAndState(action);
     RouterEffects.logger.debug(
       `[$RouterEffects][$onRewrite] Path: ${pathAndState.path}, state: ${pathAndState.state}`
     );
@@ -44,8 +44,9 @@ export class RouterEffects {
 
   @EffectsService.effects(ROUTER_REPLACE_ACTION_TYPE)
   public $onReplace(action: IEffectsAction): void {
-    const pathAndState = this.toPathAndState(action);
+    this.router.go(-1);
 
+    const pathAndState = this.toPathAndState(action);
     RouterEffects.logger.debug(
         `[$RouterEffects][$onReplace] Path: ${pathAndState.path}, state: ${pathAndState.state}`
     );

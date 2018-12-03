@@ -19,7 +19,6 @@ export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPaylo
 
   public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapper {
     const apiEntity = action.initialData as IApiEntity;
-    const requestChanges = apiEntity.changes;
     const responseData = action.data;
     const responseEntity = responseData as IEntity;
     const isResponseDataNotPrimitiveAndExists = !R.isNil(responseData) && !isPrimitive(responseData);
@@ -34,7 +33,7 @@ export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPaylo
             : EntityOnSaveMergeStrategyEnum.MERGE,
         changes: isResponseDataNotPrimitiveAndExists
             ? responseEntity
-            : requestChanges,
+            : apiEntity.changes,
       },
     };
 
