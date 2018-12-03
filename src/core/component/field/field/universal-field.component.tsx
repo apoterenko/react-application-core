@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef } from '../../../util';
+import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
 import {
   IUniversalField,
   IUniversalFieldDisplayValueConverter,
@@ -417,9 +417,21 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
               ? value
               : (isFn(displayValue)
                   ? (displayValue as IUniversalFieldDisplayValueConverter)(value, this)
+            // TODO remove scope and use tryCalcDisplayValue
                   : displayValue))
           : FIELD_EMPTY_VALUE
       );
+  }
+
+  /**
+   * @stable [03.12.2018]
+   * @param {AnyT} value
+   * @returns {AnyT}
+   */
+  protected tryCalcDisplayValue(value: AnyT): AnyT {
+    const props = this.props;
+    const displayValue = props.displayValue;
+    return isFn(displayValue) ? calc(displayValue, value) : value;
   }
 
   /**

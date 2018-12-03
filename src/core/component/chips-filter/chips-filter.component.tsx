@@ -38,6 +38,12 @@ export class ChipsFilter extends BaseComponent<ChipsFilter, IChipsFilterProps> {
         {
           changedFieldsNames.map((changedFieldName) => {
             const fieldConfig = props.fieldsConfigurations[changedFieldName];
+            if (R.isNil(fieldConfig)) {
+              ChipsFilter.logger.warn(
+                `[$ChipsFilter][render] The config is not defined to the field name ${changedFieldName}`
+              );
+              return null;
+            }
             const fieldConfigAsString = fieldConfig as string;
             const fieldConfigAsObject = fieldConfig as IFieldConfiguration;
             const str = isString(fieldConfigAsString) ? fieldConfigAsString : fieldConfigAsObject.label;

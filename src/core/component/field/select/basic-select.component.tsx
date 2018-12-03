@@ -173,12 +173,16 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   protected toDisplayValue(value: AnyT): EntityIdT {
     const selectedDisplayValue = this.state.displayValue;
     if (!R.isNil(selectedDisplayValue)) {
-      return this.t(selectedDisplayValue);
+      return this.tryCalcDisplayValue(this.t(selectedDisplayValue));
     }
     const selectedOptionItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
     return R.isNil(selectedOptionItem)
       ? super.toDisplayValue(value)
-      : (R.isNil(selectedOptionItem.label) ? selectedOptionItem.value : this.t(selectedOptionItem.label));
+      : this.tryCalcDisplayValue(
+          R.isNil(selectedOptionItem.label)
+            ? selectedOptionItem.value
+            : this.t(selectedOptionItem.label)
+      );
   }
 
   /**

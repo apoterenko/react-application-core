@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { AnyT } from '../../definitions.interface';
+import { AnyT, IValidWrapper } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
 import { IFieldChangeEntity, IApiEntity } from '../../entities-definitions.interface';
@@ -63,7 +63,8 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
    */
   private onChange(payload: IFieldChangeEntity): void {
     if (payload.name) {
-      this.dispatchFrameworkAction(FORM_CHANGE_ACTION_TYPE, payload);
+      // TODO typings IValidWrapper makeRefreshedListOnChangeFormEffectsProxy
+      this.dispatchFrameworkAction(FORM_CHANGE_ACTION_TYPE, {...payload, valid: this.form.isFormValid()});
     }
   }
 

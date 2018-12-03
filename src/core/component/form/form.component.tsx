@@ -168,6 +168,14 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   }
 
   /**
+   * @stable [03.08.2018]
+   * @returns {boolean}
+   */
+  public isFormValid(): boolean {
+    return isFormValid(this.props);
+  }
+
+  /**
    * @stable - 11.04.2018
    * @param {IApiEntity} apiEntity
    */
@@ -274,14 +282,6 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    */
   private isFormDisabled(): boolean {
     return isFormDisabled(this.props);
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
-  private isFormValid(): boolean {
-    return isFormValid(this.props);
   }
 
   /**

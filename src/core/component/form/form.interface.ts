@@ -48,6 +48,7 @@ export interface IFormContainerProps<TEntity extends IEntity = IEntity> extends 
 export interface IForm extends IComponent<IFormProps, {}>,
                                IApiEntityWrapper<IApiEntity>,
                                ISubmitWrapper<IApiEntity> {
+  isFormValid?(): boolean; // TODO
 }
 
 /* @stable - 01.04.2018 */

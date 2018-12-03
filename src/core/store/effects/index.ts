@@ -6,7 +6,7 @@ export * from './failed-effects.proxy';
 export * from './succeed-form-effects.proxy';
 export * from './edited-list-effects.proxy';
 export * from './effects-by.decorator';
-export * from './refreshed-list-on-validate-form-effects.proxy';
+export * from './refreshed-list-on-change-form-effects.proxy';
 export * from './router-effects.proxy';
 export * from './form-filter-effects.proxy';
 export * from './base.effects';
