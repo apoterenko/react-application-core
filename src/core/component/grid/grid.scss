@@ -18,7 +18,8 @@
     $rac-grid-head-column-vertical-align: bottom,
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-    $rac-grid-column-align-center-content-field: true
+    $rac-grid-column-align-center-content: true,
+    $rac-grid-column-align-right-content: true
   );
 
   .rac-grid {
@@ -60,12 +61,12 @@
           }
         }
 
-        @include rac-button(                                                        /* @stable [30.10.2018] */
-          $rac-button-height: $rac-grid-column-content-button-height,
-          $rac-button-color: $rac-grid-column-content-button-color,
-          $rac-button-background: $rac-grid-column-content-button-background,
-          $rac-button-margin: $rac-grid-column-content-button-margin
-        );
+        // TODO @include rac-button(                                                        /* @stable [30.10.2018] */
+       //   $rac-button-height: $rac-grid-column-content-button-height,
+       //   $rac-button-color: $rac-grid-column-content-button-color,
+       //   $rac-button-background: $rac-grid-column-content-button-background,
+       //   $rac-button-margin: $rac-grid-column-content-button-margin
+       // );
       }
 
       &.rac-grid-actioned-column {
@@ -164,7 +165,7 @@
             .rac-grid-column-content {
 
               .rac-button {
-                background: $rac-grid-data-row-odd-column-content-button-background;    /* @stable [11.10.2018] */
+              //  TODO background: $rac-grid-data-row-odd-column-content-button-background;    /* @stable [11.10.2018] */
               }
             }
           }
@@ -205,8 +206,8 @@
             .rac-grid-column-content {
 
               @include rac-button(                                                       /* @stable [31.10.2018] */
-                $rac-button-color: $rac-grid-data-row-hover-column-content-button-color,
-                $rac-button-background: $rac-grid-data-row-hover-column-content-button-background
+              // TODO $rac-button-color: $rac-grid-data-row-hover-column-content-button-color,
+              // TODO $rac-button-background: $rac-grid-data-row-hover-column-content-button-background
               );
             }
           }

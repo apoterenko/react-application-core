@@ -65,7 +65,8 @@ html, body {
 
   @include rac-icon($rac-icon-size: $rac-icon-size,                                           /* @stable [21.11.2018] */
                     $rac-icon-content-height: 100%,
-                    $rac-icon-content-width: 100%);
+                    $rac-icon-content-width: 100%,
+                    $rac-icon-content-vertical-align: top);
 
   @include rac-icon($rac-icon-custom: rac-action-icon,                                        /* @stable [21.11.2018] */
                     $rac-icon-size: $rac-default-action-icon-size,
