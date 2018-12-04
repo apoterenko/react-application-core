@@ -11,6 +11,7 @@
     "deploy": "npm install && npm run build && npm publish ./",
     "scss": "node scripts/scss.js",
     "test": "node_modules/.bin/karma start --browsers ChromeHeadlessNoSandbox",
+    "test:local": "node_modules/.bin/karma start",
     "rn-node-compatibility-replace": "node scripts/rn-node-compatibility-replace.js"
   },
   "dependencies": {
@@ -150,11 +151,11 @@
     "@types/jasmine": "^2.5.45",
     "eslint": "^4.17.0",
     "jasmine-core": "^2.5.2",
-    "karma": "^1.6.0",
+    "karma": "^2.0.5",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
-    "karma-jasmine": "^1.1.0",
-    "karma-mocha-reporter": "^2.2.3",
+    "karma-jasmine": "^1.1.2",
+    "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-remap-coverage": "^0.1.4",
     "karma-sourcemap-loader": "^0.3.7",
@@ -191,15 +192,11 @@
     "react",
     "react-business",
     "react-business-core",
-    "react-business-layer",
-    "react-application-layer",
     "business",
     "application",
     "core",
     "redux",
-    "material",
     "core",
-    "logic",
-    "layer"
+    "logic"
   ]
 }
