@@ -695,30 +695,20 @@
     }
   }
 
-  @if ($rac-button-custom-background != unset
-        or $rac-button-custom-shadow != unset) {
-    @include rac-shadowed($rac-button-custom-background,
-                          $rac-button-custom-shadow);
-  }
+  @include rac-shadowed($rac-button-custom-background,
+                        $rac-button-custom-shadow);
 
   &:hover {
     @if $rac-button-custom-hover-color != unset {
       color: $rac-button-custom-hover-color;
     }
 
-    @if ($rac-button-custom-hover-background != unset
-          or $rac-button-custom-hover-shadow != unset) {
-      @include rac-shadowed($rac-button-custom-hover-background,
-                            $rac-button-custom-hover-shadow);
-    }
+    @include rac-shadowed($rac-button-custom-hover-background,
+                          $rac-button-custom-hover-shadow);
 
     &[disabled] {
-
-      @if ($rac-button-custom-background != unset
-            or $rac-button-custom-shadow != unset) {
-        @include rac-shadowed($rac-button-custom-background,
-                              $rac-button-custom-shadow);
-      }
+      @include rac-shadowed($rac-button-custom-background,
+                            $rac-button-custom-shadow);
     }
   }
 }
@@ -814,6 +804,8 @@
                                $rac-grid-column-content-text-field-input-text-align: unset,
                                $rac-grid-column-content-button-margin: unset,
                                $rac-grid-column-content-button-height: unset,
+                               $rac-grid-column-content-button-background: unset,
+                               $rac-grid-column-content-button-color: unset,
                                $rac-grid-column-content-button-hover-background: unset,
                                $rac-grid-column-content-button-hover-color: unset) {
 
@@ -826,21 +818,15 @@
       font-size: $rac-grid-column-content-font-size;
     }
 
-    @if ($rac-grid-column-content-button-margin != unset
-          or $rac-grid-column-content-button-height != unset
-          or $rac-grid-column-content-button-hover-background != unset
-          or $rac-grid-column-content-button-hover-color != unset){
-      @include rac-button($rac-button-margin: $rac-grid-column-content-button-margin,
-                          $rac-button-height: $rac-grid-column-content-button-height,
-                          $rac-button-hover-background: $rac-grid-column-content-button-hover-background,
-                          $rac-button-hover-color: $rac-grid-column-content-button-hover-color);
-    }
+    @include rac-button($rac-button-margin: $rac-grid-column-content-button-margin,
+                        $rac-button-height: $rac-grid-column-content-button-height,
+                        $rac-button-background: $rac-grid-column-content-button-background,
+                        $rac-button-color: $rac-grid-column-content-button-color,
+                        $rac-button-hover-background: $rac-grid-column-content-button-hover-background,
+                        $rac-button-hover-color: $rac-grid-column-content-button-hover-color);
 
-    @if ($rac-grid-column-content-text-field-input-text-align != unset)
-          or $rac-grid-column-content-field-align-items != unset {
-      @include rac-field($rac-field-align-items: $rac-grid-column-content-field-align-items,
-                         $rac-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align);
-    }
+    @include rac-field($rac-field-align-items: $rac-grid-column-content-field-align-items,
+                       $rac-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align);
   }
 }
 
@@ -987,6 +973,51 @@
 }
 
 /**
+ * @stable [05.12.2018]
+ */
+@mixin _rac-grid-row-custom-properties($rac-grid-row-background: unset,
+                                       $rac-grid-row-column-content-button-background: unset,
+                                       $rac-grid-row-column-content-button-color: unset) {
+  @if $rac-grid-row-background != unset {
+    background: $rac-grid-row-background;
+  }
+
+  @include rac-grid-column-content(
+    $rac-grid-column-content-button-background: $rac-grid-row-column-content-button-background,
+    $rac-grid-column-content-button-color: $rac-grid-row-column-content-button-color
+  );
+}
+
+/**
+ * @stable [05.12.2018]
+ */
+@mixin rac-grid-row($rac-grid-row-custom: unset,
+                    $rac-grid-row-background: unset,
+                    $rac-grid-row-column-content-button-background: unset,
+                    $rac-grid-row-column-content-button-color: unset) {
+
+  @if $rac-grid-row-custom != unset {
+    .rac-grid-row {
+      &.#{$rac-grid-row-custom} {
+        @include _rac-grid-row-custom-properties(
+          $rac-grid-row-background: $rac-grid-row-background,
+          $rac-grid-row-column-content-button-background: $rac-grid-row-column-content-button-background,
+          $rac-grid-row-column-content-button-color: $rac-grid-row-column-content-button-color
+        );
+      }
+    }
+  } @else {
+    .rac-grid-row {
+      @include _rac-grid-row-custom-properties(
+        $rac-grid-row-background: $rac-grid-row-background,
+        $rac-grid-row-column-content-button-background: $rac-grid-row-column-content-button-background,
+        $rac-grid-row-column-content-button-color: $rac-grid-row-column-content-button-color
+      );
+    }
+  }
+}
+
+/**
  * @stable [07.11.2018]
  */
 @mixin _rac-grid-custom-properties($rac-grid-color: unset,
@@ -1017,7 +1048,10 @@
                                    $rac-grid-column-content-button-hover-background: unset,
                                    $rac-grid-column-content-button-hover-color: unset,
                                    $rac-grid-column-align-center-content: unset,
-                                   $rac-grid-column-align-right-content: unset) {
+                                   $rac-grid-column-align-right-content: unset,
+                                   $rac-grid-data-row-odd-background: unset,
+                                   $rac-grid-data-row-odd-column-content-button-background: unset,
+                                   $rac-grid-data-row-odd-column-content-button-color: unset) {
 
   @if $rac-grid-color != unset {
     color: $rac-grid-color;
@@ -1036,6 +1070,11 @@
     @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-right,
                              $rac-grid-column-content-button-margin: 0 0 0 auto);
   }
+
+  @include rac-grid-row($rac-grid-row-custom: rac-grid-data-row-odd,
+                        $rac-grid-row-background: $rac-grid-data-row-odd-background,
+                        $rac-grid-row-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
+                        $rac-grid-row-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color);
 
   @include rac-grid-column($rac-grid-column-vertical-align: $rac-grid-column-vertical-align,
                            $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
@@ -1102,6 +1141,9 @@
                 $rac-grid-column-content-button-height: unset,
                 $rac-grid-column-content-button-hover-color: unset,
                 $rac-grid-column-content-button-hover-background: unset,
+                $rac-grid-data-row-odd-background: unset,
+                $rac-grid-data-row-odd-column-content-button-background: unset,
+                $rac-grid-data-row-odd-column-content-button-color: unset,
                 $rac-grid-column-align-center-content: unset,
                 $rac-grid-column-align-right-content: unset) {
 
@@ -1136,6 +1178,9 @@
           $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
           $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
           $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
+          $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
+          $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
+          $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,
           $rac-grid-column-align-center-content: $rac-grid-column-align-center-content,
           $rac-grid-column-align-right-content: $rac-grid-column-align-right-content
         );
@@ -1171,6 +1216,9 @@
         $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
         $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
         $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
+        $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
+        $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
+        $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,
         $rac-grid-column-align-center-content: $rac-grid-column-align-center-content,
         $rac-grid-column-align-right-content: $rac-grid-column-align-right-content
       );

@@ -24,7 +24,10 @@
     $rac-grid-column-align-right-content: true,
     $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
     $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
-    $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background
+    $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
+    $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
+    $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
+    $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color
   );
 
   .rac-grid {
@@ -63,11 +66,6 @@
             border-color: $rac-grid-column-content-text-field-border-color;         /* @stable [04.10.2018] */
           }
         }
-
-        // TODO @include rac-button(                                                        /* @stable [30.10.2018] */
-       //   $rac-button-background: $rac-grid-column-content-button-background,
-       //   $rac-button-margin: $rac-grid-column-content-button-margin
-       // );
       }
 
       &.rac-grid-actioned-column {
@@ -158,20 +156,6 @@
 
       &.rac-grid-data-row {
 
-        &.rac-grid-data-row-odd {
-          background-color: $rac-grid-data-row-odd-background-color;                    /* @stable [21.06.2018] */
-
-          .rac-grid-column {
-
-            .rac-grid-column-content {
-
-              .rac-button {
-              //  TODO background: $rac-grid-data-row-odd-column-content-button-background;    /* @stable [11.10.2018] */
-              }
-            }
-          }
-        }
-
         &.rac-grid-data-row-selectable {
           cursor: pointer;                                                   /* @stable [04.10.2018] */
         }
@@ -200,17 +184,6 @@
 
           &.rac-grid-data-row-hovered {
             background: $rac-grid-data-row-hover-background;                              /* @stable [04.10.2018] */
-          }
-
-          .rac-grid-column {
-
-            .rac-grid-column-content {
-
-              @include rac-button(                                                       /* @stable [31.10.2018] */
-              // TODO $rac-button-color: $rac-grid-data-row-hover-column-content-button-color,
-              // TODO $rac-button-background: $rac-grid-data-row-hover-column-content-button-background
-              );
-            }
           }
         }
       }
