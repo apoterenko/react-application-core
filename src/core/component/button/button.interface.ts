@@ -4,6 +4,7 @@ import { IButtonConfiguration, IRnButtonConfiguration } from '../../configuratio
 /* @stable - 19.04.2018 */
 export interface IButtonProps extends IButtonConfiguration,
                                       IUniversalButtonEntity {
+  iconCls?: string; // TODO
 }
 
 /* @stable - 19.04.2018 */

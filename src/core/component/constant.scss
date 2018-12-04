@@ -99,16 +99,32 @@ $rac-profile-app-version-font-size: 8px !default;
 
 /* @stable [25.06.2018] */
 $rac-add-button-icon-position: fixed !default;
-$rac-add-button-icon-border-radius: 32px !default;
 $rac-add-button-icon-opacity: $opacity !default;
 $rac-add-button-icon-background-color: $rac-default-action-color !default;
 $rac-add-button-icon-color: $color-5 !default;
 $rac-add-button-icon-bottom: 56px !default;
 $rac-add-button-icon-right: 88px !default;
-$rac-add-button-icon-width: 56px !default;
+$rac-add-button-icon-width: 48px !default;
 $rac-add-button-icon-height: $rac-add-button-icon-width !default;
+$rac-add-button-icon-border-radius: $rac-add-button-icon-width / 2 !default;
 $rac-add-button-fa-icon-width: $rac-icon-width2 !default;
 $rac-add-button-fa-icon-height: $rac-icon-height2 !default;
+
+/* @stable [24.06.2018] */
+$rac-button-height: 40px !default;
+$rac-button-background: $color-10 !default;
+$rac-button-raised-color: $color-5 !default;
+$rac-button-raised-background: $color-4 !default;
+$rac-button-raised-shadow: $color-10 !default;
+$rac-button-raised-hover-background: $rac-button-raised-background !default;
+$rac-button-raised-hover-shadow: $rac-button-raised-shadow !default;
+$rac-button-decorated-content-padding: 0 32px 0 0 !default;
+$rac-button-font-weight: $rac-default-font-weight-2 !default;
+$rac-button-font-size: $rac-default-font-size-2 !default;
+$rac-button-border-radius: $rac-default-border-radius !default;
+$rac-button-text-transform: none !default;
+$rac-button-icon-margin: 0 8px !default;
+$rac-button-disabled-opacity: $opacity !default;
 
 /* @stable [13.08.2018] */
 $rac-list-margin: unset !default;
@@ -195,9 +211,8 @@ $rac-grid-column-content-font-size: $rac-default-font-size !default;
 $rac-grid-column-content-text-field-border-color: $color-10 !default;
 $rac-grid-column-content-letter-spacing: $rac-default-letter-spacing !default;
 $rac-grid-column-content-button-height: 32px !default;
-$rac-grid-column-content-button-color: $rac-default-text-color !default;
-$rac-grid-column-content-button-background: unset !default;
-$rac-grid-column-content-button-margin: 0 0 0 auto !default;
+$rac-grid-column-content-button-hover-color: $rac-button-raised-color;
+$rac-grid-column-content-button-hover-background: $rac-button-raised-background;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
 $rac-grid-service-wrapper-width: 32px !default;
 $rac-grid-edited-column-content-font-size: 10px !default;
@@ -287,22 +302,6 @@ $rac-filter-active-top: unset !default;
 $rac-filter-active-right: 8px !default;
 $rac-filter-active-bottom: 18px !default;
 $rac-filter-active-font-size: 18px !default;
-
-/* @stable [24.06.2018] */
-$rac-button-height: 40px !default;
-$rac-button-background: $color-10 !default;
-$rac-button-raised-color: $color-5 !default;
-$rac-button-raised-background: $color-4 !default;
-$rac-button-raised-shadow: $color-10 !default;
-$rac-button-raised-hover-background: $rac-button-raised-background !default;
-$rac-button-raised-hover-shadow: $rac-button-raised-shadow !default;
-$rac-button-decorated-content-padding: 0 32px 0 0 !default;
-$rac-button-font-weight: $rac-default-font-weight-2 !default;
-$rac-button-font-size: $rac-default-font-size-2 !default;
-$rac-button-border-radius: $rac-default-border-radius !default;
-$rac-button-text-transform: none !default;
-$rac-button-icon-margin: 0 8px !default;
-$rac-button-disabled-opacity: $opacity !default;
 
 /* @stable [03.08.2018] */
 $rac-form-actions-button-neighbor-margin: 0 0 0 8px !default;

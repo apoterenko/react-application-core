@@ -56,7 +56,10 @@ export class Button extends BaseComponent<Button, IButtonProps> {
           {
             orNull<JSX.Element>(
               hasIcon,
-              () => this.uiFactory.makeIcon(getButtonIcon(props, 'timelapse', 'error'))
+              () => this.uiFactory.makeIcon({
+                type: getButtonIcon(props, 'timelapse', 'error'),
+                className: props.iconCls,
+              })
             )
           }
           {

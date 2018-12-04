@@ -62,8 +62,7 @@ export const DISPLAY_MESSAGE_FIELD_NAME = 'displayMessage';                     
 /**
  * @stable [31.07.2018]
  */
-export interface IKeyValue {
-  [index: string]: AnyT;
+export interface IKeyValue extends Record<string, AnyT> {
 }
 
 /**
