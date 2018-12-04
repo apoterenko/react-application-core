@@ -810,27 +810,27 @@
 /**
  * @stable [01.12.2018]
  */
-@mixin _rac-grid-column-custom-properties($rac-vertical-align: unset,
-                                          $rac-icon-custom: unset,
-                                          $rac-icon-display: unset,
-                                          $rac-icon-width: unset,
-                                          $rac-icon-height: unset,
-                                          $rac-icon-content-height: unset,
-                                          $rac-icon-content-width: unset,
-                                          $rac-icon-content-vertical-align: unset,
-                                          $rac-icon-background: unset,
-                                          $rac-icon-color: unset,
-                                          $rac-icon-border-radius: unset,
-                                          $rac-icon-line-height: unset,
-                                          $rac-icon-border: unset,
+@mixin _rac-grid-column-custom-properties($rac-grid-column-vertical-align: unset,
+                                          $rac-grid-column-icon-custom: unset,
+                                          $rac-grid-column-icon-display: unset,
+                                          $rac-grid-column-icon-width: unset,
+                                          $rac-grid-column-icon-height: unset,
+                                          $rac-grid-column-icon-content-height: unset,
+                                          $rac-grid-column-icon-content-width: unset,
+                                          $rac-grid-column-icon-content-vertical-align: unset,
+                                          $rac-grid-column-icon-background: unset,
+                                          $rac-grid-column-icon-color: unset,
+                                          $rac-grid-column-icon-border-radius: unset,
+                                          $rac-grid-column-icon-line-height: unset,
+                                          $rac-grid-column-icon-border: unset,
                                           $rac-grid-column-content-letter-spacing: unset,
                                           $rac-grid-column-content-font-size: unset,
                                           $rac-grid-column-content-field-align-items: unset,
                                           $rac-grid-column-content-text-field-input-text-align: unset,
                                           $rac-grid-column-content-button-margin: usnet) {
 
-  @if $rac-vertical-align != unset {
-    vertical-align: $rac-vertical-align;
+  @if $rac-grid-column-vertical-align != unset {
+    vertical-align: $rac-grid-column-vertical-align;
   }
 
   @include rac-grid-column-content($rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
@@ -839,37 +839,37 @@
                                    $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
                                    $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin);
 
-  @include rac-icon($rac-icon-custom: $rac-icon-custom,
-                    $rac-icon-display: $rac-icon-display,
-                    $rac-icon-width: $rac-icon-width,
-                    $rac-icon-height: $rac-icon-height,
-                    $rac-icon-content-height: $rac-icon-content-height,
-                    $rac-icon-content-width: $rac-icon-content-width,
-                    $rac-icon-content-vertical-align: $rac-icon-content-vertical-align,
-                    $rac-icon-background: $rac-icon-background,
-                    $rac-icon-color: $rac-icon-color,
-                    $rac-icon-border-radius: $rac-icon-border-radius,
-                    $rac-icon-line-height: $rac-icon-line-height,
-                    $rac-icon-border: $rac-icon-border);
+  @include rac-icon($rac-icon-custom: $rac-grid-column-icon-custom,
+                    $rac-icon-display: $rac-grid-column-icon-display,
+                    $rac-icon-width: $rac-grid-column-icon-width,
+                    $rac-icon-height: $rac-grid-column-icon-height,
+                    $rac-icon-content-height: $rac-grid-column-icon-content-height,
+                    $rac-icon-content-width: $rac-grid-column-icon-content-width,
+                    $rac-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
+                    $rac-icon-background: $rac-grid-column-icon-background,
+                    $rac-icon-color: $rac-grid-column-icon-color,
+                    $rac-icon-border-radius: $rac-grid-column-icon-border-radius,
+                    $rac-icon-line-height: $rac-grid-column-icon-line-height,
+                    $rac-icon-border: $rac-grid-column-icon-border);
 }
 
 /**
  * @stable [01.12.2018]
  */
 @mixin rac-grid-column($rac-grid-column-custom: unset,
-                       $rac-vertical-align: unset,
-                       $rac-icon-custom: unset,
-                       $rac-icon-display: unset,
-                       $rac-icon-width: unset,
-                       $rac-icon-height: unset,
-                       $rac-icon-content-height: unset,
-                       $rac-icon-content-width: unset,
-                       $rac-icon-content-vertical-align: unset,
-                       $rac-icon-background: unset,
-                       $rac-icon-color: unset,
-                       $rac-icon-border-radius: unset,
-                       $rac-icon-line-height: unset,
-                       $rac-icon-border: unset,
+                       $rac-grid-column-vertical-align: unset,
+                       $rac-grid-column-icon-custom: unset,
+                       $rac-grid-column-icon-display: unset,
+                       $rac-grid-column-icon-width: unset,
+                       $rac-grid-column-icon-height: unset,
+                       $rac-grid-column-icon-content-height: unset,
+                       $rac-grid-column-icon-content-width: unset,
+                       $rac-grid-column-icon-content-vertical-align: unset,
+                       $rac-grid-column-icon-background: unset,
+                       $rac-grid-column-icon-color: unset,
+                       $rac-grid-column-icon-border-radius: unset,
+                       $rac-grid-column-icon-line-height: unset,
+                       $rac-grid-column-icon-border: unset,
                        $rac-grid-column-content-letter-spacing: unset,
                        $rac-grid-column-content-font-size: unset,
                        $rac-grid-column-content-field-align-items: unset,
@@ -879,46 +879,50 @@
   @if $rac-grid-column-custom != unset {
     .rac-grid-column {
       &.#{$rac-grid-column-custom} {
-        @include _rac-grid-column-custom-properties($rac-vertical-align: $rac-vertical-align,
-                                                    $rac-icon-custom: $rac-icon-custom,
-                                                    $rac-icon-display: $rac-icon-display,
-                                                    $rac-icon-width: $rac-icon-width,
-                                                    $rac-icon-height: $rac-icon-height,
-                                                    $rac-icon-content-height: $rac-icon-content-height,
-                                                    $rac-icon-content-width: $rac-icon-content-width,
-                                                    $rac-icon-content-vertical-align: $rac-icon-content-vertical-align,
-                                                    $rac-icon-background: $rac-icon-background,
-                                                    $rac-icon-color: $rac-icon-color,
-                                                    $rac-icon-border-radius: $rac-icon-border-radius,
-                                                    $rac-icon-line-height: $rac-icon-line-height,
-                                                    $rac-icon-border: $rac-icon-border,
-                                                    $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
-                                                    $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-                                                    $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
-                                                    $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
-                                                    $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin);
+        @include _rac-grid-column-custom-properties(
+          $rac-grid-column-vertical-align: $rac-grid-column-vertical-align,
+          $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
+          $rac-grid-column-icon-display: $rac-grid-column-icon-display,
+          $rac-grid-column-icon-width: $rac-grid-column-icon-width,
+          $rac-grid-column-icon-height: $rac-grid-column-icon-height,
+          $rac-grid-column-icon-content-height: $rac-grid-column-icon-content-height,
+          $rac-grid-column-icon-content-width: $rac-grid-column-icon-content-width,
+          $rac-grid-column-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
+          $rac-grid-column-icon-background: $rac-grid-column-icon-background,
+          $rac-grid-column-icon-color: $rac-grid-column-icon-color,
+          $rac-grid-column-icon-border-radius: $rac-grid-column-icon-border-radius,
+          $rac-grid-column-icon-line-height: $rac-grid-column-icon-line-height,
+          $rac-grid-column-icon-border: $rac-grid-column-icon-border,
+          $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+          $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
+          $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
+          $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
+          $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin
+        );
       }
     }
   } @else {
     .rac-grid-column {
-      @include _rac-grid-column-custom-properties($rac-vertical-align: $rac-vertical-align,
-                                                  $rac-icon-custom: $rac-icon-custom,
-                                                  $rac-icon-display: $rac-icon-display,
-                                                  $rac-icon-width: $rac-icon-width,
-                                                  $rac-icon-height: $rac-icon-height,
-                                                  $rac-icon-content-height: $rac-icon-content-height,
-                                                  $rac-icon-content-width: $rac-icon-content-width,
-                                                  $rac-icon-content-vertical-align: $rac-icon-content-vertical-align,
-                                                  $rac-icon-background: $rac-icon-background,
-                                                  $rac-icon-color: $rac-icon-color,
-                                                  $rac-icon-border-radius: $rac-icon-border-radius,
-                                                  $rac-icon-line-height: $rac-icon-line-height,
-                                                  $rac-icon-border: $rac-icon-border,
-                                                  $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
-                                                  $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-                                                  $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
-                                                  $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
-                                                  $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin);
+      @include _rac-grid-column-custom-properties(
+        $rac-grid-column-vertical-align: $rac-grid-column-vertical-align,
+        $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
+        $rac-grid-column-icon-display: $rac-grid-column-icon-display,
+        $rac-grid-column-icon-width: $rac-grid-column-icon-width,
+        $rac-grid-column-icon-height: $rac-grid-column-icon-height,
+        $rac-grid-column-icon-content-height: $rac-grid-column-icon-content-height,
+        $rac-grid-column-icon-content-width: $rac-grid-column-icon-content-width,
+        $rac-grid-column-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
+        $rac-grid-column-icon-background: $rac-grid-column-icon-background,
+        $rac-grid-column-icon-color: $rac-grid-column-icon-color,
+        $rac-grid-column-icon-border-radius: $rac-grid-column-icon-border-radius,
+        $rac-grid-column-icon-line-height: $rac-grid-column-icon-line-height,
+        $rac-grid-column-icon-border: $rac-grid-column-icon-border,
+        $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+        $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
+        $rac-grid-column-content-field-align-items: $rac-grid-column-content-field-align-items,
+        $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
+        $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin
+      );
     }
   }
 }
@@ -926,13 +930,93 @@
 /**
  * @stable [07.11.2018]
  */
-@mixin rac-grid($rac-grid-column-vertical-align: unset,
+@mixin _rac-grid-custom-properties($rac-grid-color: unset,
+                                   $rac-grid-border-collapse: unset,
+                                   $rac-grid-head-column-vertical-align: unset,
+                                   $rac-grid-head-column-content-font-size: unset,
+                                   $rac-grid-head-column-content-letter-spacing: unset,
+                                   $rac-grid-head-border-radius: unset,
+                                   $rac-grid-head-color: unset,
+                                   $rac-grid-head-background: unset,
+                                   $rac-grid-column-vertical-align: unset,
+                                   $rac-grid-column-icon-custom: unset,
+                                   $rac-grid-column-icon-display: unset,
+                                   $rac-grid-column-icon-width: unset,
+                                   $rac-grid-column-icon-height: unset,
+                                   $rac-grid-column-icon-content-height: unset,
+                                   $rac-grid-column-icon-content-width: unset,
+                                   $rac-grid-column-icon-content-vertical-align: unset,
+                                   $rac-grid-column-icon-background: unset,
+                                   $rac-grid-column-icon-color: unset,
+                                   $rac-grid-column-icon-border-radius: unset,
+                                   $rac-grid-column-icon-line-height: unset,
+                                   $rac-grid-column-icon-border: unset,
+                                   $rac-grid-column-content-letter-spacing: unset,
+                                   $rac-grid-column-content-font-size: unset,
+                                   $rac-grid-column-align-center-content: unset,
+                                   $rac-grid-column-align-right-content: unset) {
+
+  @if $rac-grid-color != unset {
+    color: $rac-grid-color;
+  }
+  @if $rac-grid-border-collapse != unset {
+    border-collapse: $rac-grid-border-collapse;
+  }
+
+  @if $rac-grid-column-align-center-content != unset {
+    @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-center,
+                             $rac-grid-column-content-field-align-items: center,
+                             $rac-grid-column-content-text-field-input-text-align: center,
+                             $rac-grid-column-content-button-margin: 0 auto);
+  }
+  @if $rac-grid-column-align-right-content != unset {
+    @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-right,
+                             $rac-grid-column-content-button-margin: 0 0 0 auto);
+  }
+
+  @include rac-grid-column($rac-grid-column-vertical-align: $rac-grid-column-vertical-align,
+                           $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
+                           $rac-grid-column-icon-display: $rac-grid-column-icon-display,
+                           $rac-grid-column-icon-width: $rac-grid-column-icon-width,
+                           $rac-grid-column-icon-height: $rac-grid-column-icon-height,
+                           $rac-grid-column-icon-content-height: $rac-grid-column-icon-content-height,
+                           $rac-grid-column-icon-content-width: $rac-grid-column-icon-content-width,
+                           $rac-grid-column-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
+                           $rac-grid-column-icon-background: $rac-grid-column-icon-background,
+                           $rac-grid-column-icon-color: $rac-grid-column-icon-color,
+                           $rac-grid-column-icon-border-radius: $rac-grid-column-icon-border-radius,
+                           $rac-grid-column-icon-line-height: $rac-grid-column-icon-line-height,
+                           $rac-grid-column-icon-border: $rac-grid-column-icon-border,
+                           $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+                           $rac-grid-column-content-font-size: $rac-grid-column-content-font-size);
+
+  .rac-grid-head {
+    @if $rac-grid-head-border-radius != unset {
+      border-radius: $rac-grid-head-border-radius;
+    }
+    @if $rac-grid-head-color != unset {
+      color: $rac-grid-head-color;
+    }
+    @if $rac-grid-head-background != unset {
+      background: $rac-grid-head-background;
+    }
+
+    @include rac-grid-column($rac-grid-column-vertical-align: $rac-grid-head-column-vertical-align,
+                             $rac-grid-column-content-letter-spacing: $rac-grid-head-column-content-letter-spacing,
+                             $rac-grid-column-content-font-size: $rac-grid-head-column-content-font-size);
+  }
+}
+
+@mixin rac-grid($rac-grid-custom: unset,
+                $rac-grid-color: unset,
+                $rac-grid-border-collapse: unset,
                 $rac-grid-head-column-vertical-align: unset,
                 $rac-grid-head-column-content-font-size: unset,
                 $rac-grid-head-column-content-letter-spacing: unset,
                 $rac-grid-head-border-radius: unset,
                 $rac-grid-head-color: unset,
                 $rac-grid-head-background: unset,
+                $rac-grid-column-vertical-align: unset,
                 $rac-grid-column-icon-custom: unset,
                 $rac-grid-column-icon-display: unset,
                 $rac-grid-column-icon-width: unset,
@@ -950,48 +1034,67 @@
                 $rac-grid-column-align-center-content: unset,
                 $rac-grid-column-align-right-content: unset) {
 
-  .rac-grid {
-    @if $rac-grid-column-align-center-content != unset {
-      @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-center,
-                               $rac-grid-column-content-field-align-items: center,
-                               $rac-grid-column-content-text-field-input-text-align: center,
-                               $rac-grid-column-content-button-margin: 0 auto);
+  @if $rac-grid-custom != unset {
+    .rac-grid {
+      &.#{$rac-grid-custom} {
+        @include _rac-grid-custom-properties(
+          $rac-grid-color: $rac-grid-color,
+          $rac-grid-border-collapse: $rac-grid-border-collapse,
+          $rac-grid-head-column-vertical-align: $rac-grid-head-column-vertical-align,
+          $rac-grid-head-column-content-font-size: $rac-grid-head-column-content-font-size,
+          $rac-grid-head-column-content-letter-spacing: $rac-grid-head-column-content-letter-spacing,
+          $rac-grid-head-border-radius: $rac-grid-head-border-radius,
+          $rac-grid-head-color: $rac-grid-head-color,
+          $rac-grid-head-background: $rac-grid-head-background,
+          $rac-grid-column-vertical-align: $rac-grid-column-vertical-align,
+          $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
+          $rac-grid-column-icon-display: $rac-grid-column-icon-display,
+          $rac-grid-column-icon-width: $rac-grid-column-icon-width,
+          $rac-grid-column-icon-height: $rac-grid-column-icon-height,
+          $rac-grid-column-icon-content-height: $rac-grid-column-icon-content-height,
+          $rac-grid-column-icon-content-width: $rac-grid-column-icon-content-width,
+          $rac-grid-column-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
+          $rac-grid-column-icon-background: $rac-grid-column-icon-background,
+          $rac-grid-column-icon-color: $rac-grid-column-icon-color,
+          $rac-grid-column-icon-border-radius: $rac-grid-column-icon-border-radius,
+          $rac-grid-column-icon-line-height: $rac-grid-column-icon-line-height,
+          $rac-grid-column-icon-border: $rac-grid-column-icon-border,
+          $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+          $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
+          $rac-grid-column-align-center-content: $rac-grid-column-align-center-content,
+          $rac-grid-column-align-right-content: $rac-grid-column-align-right-content
+        );
+      }
     }
-    @if $rac-grid-column-align-right-content != unset {
-      @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-right,
-                               $rac-grid-column-content-button-margin: 0 0 0 auto);
-    }
-
-    @include rac-grid-column($rac-vertical-align: $rac-grid-column-vertical-align,
-                             $rac-icon-custom: $rac-grid-column-icon-custom,
-                             $rac-icon-display: $rac-grid-column-icon-display,
-                             $rac-icon-width: $rac-grid-column-icon-width,
-                             $rac-icon-height: $rac-grid-column-icon-height,
-                             $rac-icon-content-height: $rac-grid-column-icon-content-height,
-                             $rac-icon-content-width: $rac-grid-column-icon-content-width,
-                             $rac-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
-                             $rac-icon-background: $rac-grid-column-icon-background,
-                             $rac-icon-color: $rac-grid-column-icon-color,
-                             $rac-icon-border-radius: $rac-grid-column-icon-border-radius,
-                             $rac-icon-line-height: $rac-grid-column-icon-line-height,
-                             $rac-icon-border: $rac-grid-column-icon-border,
-                             $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
-                             $rac-grid-column-content-font-size: $rac-grid-column-content-font-size);
-
-    .rac-grid-head {
-      @if $rac-grid-head-border-radius != unset {
-        border-radius: $rac-grid-head-border-radius;
-      }
-      @if $rac-grid-head-color != unset {
-        color: $rac-grid-head-color;
-      }
-      @if $rac-grid-head-background != unset {
-        background: $rac-grid-head-background;
-      }
-
-      @include rac-grid-column($rac-vertical-align: $rac-grid-head-column-vertical-align,
-                               $rac-grid-column-content-letter-spacing: $rac-grid-head-column-content-letter-spacing,
-                               $rac-grid-column-content-font-size: $rac-grid-head-column-content-font-size);
+  } @else {
+    .rac-grid {
+      @include _rac-grid-custom-properties(
+        $rac-grid-color: $rac-grid-color,
+        $rac-grid-border-collapse: $rac-grid-border-collapse,
+        $rac-grid-head-column-vertical-align: $rac-grid-head-column-vertical-align,
+        $rac-grid-head-column-content-font-size: $rac-grid-head-column-content-font-size,
+        $rac-grid-head-column-content-letter-spacing: $rac-grid-head-column-content-letter-spacing,
+        $rac-grid-head-border-radius: $rac-grid-head-border-radius,
+        $rac-grid-head-color: $rac-grid-head-color,
+        $rac-grid-head-background: $rac-grid-head-background,
+        $rac-grid-column-vertical-align: $rac-grid-column-vertical-align,
+        $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
+        $rac-grid-column-icon-display: $rac-grid-column-icon-display,
+        $rac-grid-column-icon-width: $rac-grid-column-icon-width,
+        $rac-grid-column-icon-height: $rac-grid-column-icon-height,
+        $rac-grid-column-icon-content-height: $rac-grid-column-icon-content-height,
+        $rac-grid-column-icon-content-width: $rac-grid-column-icon-content-width,
+        $rac-grid-column-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
+        $rac-grid-column-icon-background: $rac-grid-column-icon-background,
+        $rac-grid-column-icon-color: $rac-grid-column-icon-color,
+        $rac-grid-column-icon-border-radius: $rac-grid-column-icon-border-radius,
+        $rac-grid-column-icon-line-height: $rac-grid-column-icon-line-height,
+        $rac-grid-column-icon-border: $rac-grid-column-icon-border,
+        $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
+        $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
+        $rac-grid-column-align-center-content: $rac-grid-column-align-center-content,
+        $rac-grid-column-align-right-content: $rac-grid-column-align-right-content
+      );
     }
   }
 }
