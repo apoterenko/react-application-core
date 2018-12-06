@@ -111,7 +111,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                             'rac-form',
                             'rac-flex',
                             'rac-flex-column',
-                            !props.compact && 'rac-flex-full',
+                            props.full !== false && 'rac-flex-full',
                             props.className
                         )}>
           {props.compact ? nodes : bodyEl}

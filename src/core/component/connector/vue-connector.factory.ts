@@ -94,21 +94,25 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
           const reduxData = shallowMapper(state);
           const needToUpdateReactiveLinks = [];
 
-          R.forEachObjIndexed((value, mappedKey) => {
+          R.forEachObjIndexed((primitiveValueOrLinkToComplexObject, mappedKey) => {
             let cachedReduxLinksByMapper = cachedReduxLinks.get(shallowMapper);
             if (!R.isNil(cachedReduxLinksByMapper)) {
               if ((mappedKey in cachedReduxLinksByMapper)) {
-                if (cachedReduxLinksByMapper[mappedKey] !== value) {
+                /**
+                 * Here we compare links to complex objects or primitives (without deep copy!).
+                 * Reducers change the links to objects, therefore, we should compare only links.
+                 */
+                if (cachedReduxLinksByMapper[mappedKey] !== primitiveValueOrLinkToComplexObject) {
                   needToUpdateReactiveLinks.push(mappedKey);
                 }
               } else {
                 needToUpdateReactiveLinks.push(mappedKey);
               }
             } else {
-              cachedReduxLinks.set(shallowMapper, cachedReduxLinksByMapper = {});
+              cachedReduxLinks.set(shallowMapper, cachedReduxLinksByMapper = Object.create(null));
               needToUpdateReactiveLinks.push(mappedKey);
             }
-            cachedReduxLinksByMapper[mappedKey] = value;
+            cachedReduxLinksByMapper[mappedKey] = primitiveValueOrLinkToComplexObject;
           }, reduxData);
 
           if (needToUpdateReactiveLinks.length > 0) {

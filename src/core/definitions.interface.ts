@@ -1638,6 +1638,13 @@ export interface INotUseActionsWrapper {
 }
 
 /**
+ * @stable [06.12.2018]
+ */
+export interface IImgSrcWrapper {
+  imgSrc?: string;
+}
+
+/**
  * @stable [22.08.2018]
  */
 export interface IActionTextWrapper {

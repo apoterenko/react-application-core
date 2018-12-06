@@ -29,15 +29,15 @@ export function orDefault<TResult1, TResult2>(cond: boolean,
 }
 
 /**
- * @stable [19.08.2018]
+ * @stable [06.12.2018]
  * @param {AnyT} value
  * @param {(() => TResult1) | TResult1} result1
  * @param {(() => TResult2) | TResult2} result2
  * @returns {TResult1 | TResult2}
  */
-export const ifNilReturnDefault = <TResult1, TResult2>(value: AnyT,
-                                                       result1: TResult1 | (() => TResult1),
-                                                       result2: TResult2 | (() => TResult2)): TResult1 | TResult2 =>
+export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(value: AnyT,
+                                                              result1: TResult1 | (() => TResult1),
+                                                              result2?: TResult2 | (() => TResult2)): TResult1 | TResult2 =>
   orDefault<TResult1, TResult2>(!R.isNil(value), result1, result2);
 
 /**

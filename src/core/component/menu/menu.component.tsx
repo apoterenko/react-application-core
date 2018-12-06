@@ -68,7 +68,7 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
           {
             orNull<JSX.Element>(
               props.renderToCenterOfBody && this.isOpen(),
-              () => <Overlay onClick={this.hide}/>
+              () => <Overlay onClick={this.onCloseAction}/>
             )
           }
           {

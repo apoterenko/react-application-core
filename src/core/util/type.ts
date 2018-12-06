@@ -47,3 +47,10 @@ export const isPrimitive = (v: AnyT): boolean => {
 export const isObject = (v: AnyT): boolean => {
   return Object.prototype.toString.call(v) === '[object Object]';
 };
+
+/**
+ * @stable [06.12.2018]
+ * @param {TResult} result
+ * @returns {TResult}
+ */
+export const toType = <TResult>(result: TResult): TResult => result;
