@@ -60,7 +60,7 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
    * @stable [05.05.2018]
    */
   private onCreate(): void {
-    this.dispatch(LIST_CREATE_ACTION_TYPE);
+    this.dispatchFrameworkAction(LIST_CREATE_ACTION_TYPE);
   }
 
   /**
@@ -68,8 +68,7 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
    * @param {IEntity} entity
    */
   private onSelect(entity: IEntity): void {
-    const payload: ISelectedEntityWrapper = {selected: entity};
-    this.dispatch(LIST_SELECT_ACTION_TYPE, payload);
+    this.dispatchFrameworkAction<ISelectedEntityWrapper>(LIST_SELECT_ACTION_TYPE, {selected: entity});
   }
 
   /**

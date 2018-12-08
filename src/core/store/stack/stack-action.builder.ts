@@ -11,7 +11,7 @@ export class StackActionBuilder {
     return EffectsAction.create(STACK_LOCK_ACTION_TYPE, nextSection);
   }
 
-  public static buildRemoveAction(sections: string[]): IEffectsAction {
+  public static buildRemoveAction(...sections: string[]): IEffectsAction {
     return EffectsAction.create(STACK_REMOVE_ACTION_TYPE, sections);
   }
 }

@@ -1,4 +1,4 @@
-import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
+import { EffectsAction, IEffectsAction, EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
   AnyT,
@@ -136,8 +136,22 @@ export class ListActionBuilder {
     return `${toActionPrefix(section)}.${LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [07.12.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildSelectActionType(section: string): string {
-    return `${section}.${LIST_SELECT_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_SELECT_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [07.12.2018]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildSelectErrorActionType(section: string): string {
+    return EffectsActionBuilder.buildErrorActionType(this.buildSelectActionType(section));
   }
 
   public static buildInsertActionType(section: string): string {
@@ -157,8 +171,13 @@ export class ListActionBuilder {
     return `${section}.${LIST_UPDATE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [07.12.2018]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildCreateActionType(section: string): string {
-    return `${section}.${LIST_CREATE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_CREATE_ACTION_TYPE}`;
   }
 
   public static buildDeselectActionType(section: string): string {

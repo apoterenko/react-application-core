@@ -17,10 +17,7 @@ import {
   IVueContainer,
 } from '../../vue-entities-definitions.interface';
 import { FormActionBuilder } from '../form/vue-index';
-import {
-  LIST_CREATE_ACTION_TYPE,
-  LIST_SELECT_ACTION_TYPE,
-} from '../list/vue-index';
+import { ListActionBuilder } from '../list/vue-index';
 import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/vue-index';
 
 export class VueBaseContainer extends Vue implements IVueContainer {
@@ -85,7 +82,7 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    * @param {string} type
    * @param {AnyT} data
    */
-  protected dispatchCustomType(type: string, data?: AnyT): void {
+  protected dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
     this.store$.dispatch({type, data});
   }
 
@@ -100,7 +97,7 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    * @stable [25.10.2018]
    */
   protected dispatchListCreate(): void {
-    this.dispatch(LIST_CREATE_ACTION_TYPE);
+    this.dispatchCustomType(ListActionBuilder.buildCreateActionType(this.section$));
   }
 
   /**
@@ -108,8 +105,9 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    * @param {IEntity} entity
    */
   protected dispatchListSelect(entity: IEntity): void {
-    const payload: ISelectedEntityWrapper = {selected: entity};
-    this.dispatch(LIST_SELECT_ACTION_TYPE, payload);
+    this.dispatchCustomType<ISelectedEntityWrapper>(
+      ListActionBuilder.buildSelectActionType(this.section$), {selected: entity}
+    );
   }
 
   /**

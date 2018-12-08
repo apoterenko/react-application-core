@@ -107,7 +107,16 @@
 @mixin _rac-background-custom-properties($rac-background-size: unset,
                                          $rac-background-repeat: unset,
                                          $rac-background-position: unset,
-                                         $rac-background-image: unset) {
+                                         $rac-background-image: unset,
+                                         $rac-background-width: unset,
+                                         $rac-background-height: unset,
+                                         $rac-background-border-radius: unset) {
+  @if $rac-background-width != unset {
+    width: $rac-background-width;
+  }
+  @if $rac-background-height != unset {
+    height: $rac-background-height;
+  }
   @if $rac-background-size != unset {
     background-size: $rac-background-size;
   }
@@ -120,6 +129,9 @@
   @if $rac-background-image != unset {
     background-image: $rac-background-image;
   }
+  @if $rac-background-border-radius != unset {
+    border-radius: $rac-background-border-radius;
+  }
 }
 
 /**
@@ -129,14 +141,20 @@
                       $rac-background-size: unset,
                       $rac-background-repeat: unset,
                       $rac-background-position: unset,
-                      $rac-background-image: unset) {
+                      $rac-background-image: unset,
+                      $rac-background-width: unset,
+                      $rac-background-height: unset,
+                      $rac-background-border-radius: unset) {
   @if $rac-background-custom != unset {
     .#{$rac-background-custom} {
       @include _rac-background-custom-properties(
         $rac-background-size: $rac-background-size,
         $rac-background-repeat: $rac-background-repeat,
         $rac-background-position: $rac-background-position,
-        $rac-background-image: $rac-background-image
+        $rac-background-image: $rac-background-image,
+        $rac-background-width: $rac-background-width,
+        $rac-background-height: $rac-background-height,
+        $rac-background-border-radius: $rac-background-border-radius
       );
     }
   }
@@ -785,13 +803,48 @@
 }
 
 /**
+ * @stable [07.12.2018]
+ */
+@mixin _rac-toolbar-custom-properties($rac-toolbar-button-margin: unset,
+                                      $rac-toolbar-margin: unset,
+                                      $rac-toolbar-border-top: unset) {
+
+  @if $rac-toolbar-margin != unset {
+    margin: $rac-toolbar-margin;
+  }
+  @if $rac-toolbar-border-top != unset {
+    border-top: $rac-toolbar-border-top;
+  }
+
+  @include rac-button($rac-button-margin: $rac-toolbar-button-margin);
+}
+
+/**
  * @stable [01.11.2018]
  */
-@mixin rac-toolbar($rac-toolbar-button-margin: unset) {
+@mixin rac-toolbar($rac-toolbar-custom: unset,
+                   $rac-toolbar-button-margin: unset,
+                   $rac-toolbar-margin: unset,
+                   $rac-toolbar-border-top: unset) {
 
-  .rac-toolbar {
-
-    @include rac-button($rac-button-margin: $rac-toolbar-button-margin);
+  @if $rac-toolbar-custom != unset {
+    .rac-toolbar {
+      &.#{$rac-toolbar-custom} {
+        @include _rac-toolbar-custom-properties(
+          $rac-toolbar-button-margin: $rac-toolbar-button-margin,
+          $rac-toolbar-margin: $rac-toolbar-margin,
+          $rac-toolbar-border-top: $rac-toolbar-border-top
+        );
+      }
+    }
+  } @else {
+    .rac-toolbar {
+      @include _rac-toolbar-custom-properties(
+        $rac-toolbar-button-margin: $rac-toolbar-button-margin,
+        $rac-toolbar-margin: $rac-toolbar-margin,
+        $rac-toolbar-border-top: $rac-toolbar-border-top
+      );
+    }
   }
 }
 
@@ -1245,18 +1298,64 @@
 }
 
 /**
- * @stable [08.11.2018]
+ * @stable [08.12.2018]
  */
-@mixin rac-form($rac-form-actions-button-min-width: unset,
-                $rac-form-actions-button-neighbor-margin: unset,
-                $rac-form-actions-margin: unset) {
-  .rac-form {
+@mixin _rac-form-custom-properties($rac-form-min-width: unset,
+                                   $rac-form-margin: unset,
+                                   $rac-form-actions-margin: unset,
+                                   $rac-form-actions-button-custom: unset,
+                                   $rac-form-actions-button-min-width: unset,
+                                   $rac-form-actions-button-neighbor-margin: unset) {
+  @if $rac-form-min-width != unset {
+    min-width: $rac-form-min-width;
+  }
+  @if $rac-form-margin != unset {
+    margin: $rac-form-margin;
+  }
 
-    @include rac-form-actions(
-      $rac-form-actions-margin: $rac-form-actions-margin,
-      $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
-      $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
-    );
+  @include rac-form-actions(
+    $rac-form-actions-button-custom: $rac-form-actions-button-custom,
+    $rac-form-actions-margin: $rac-form-actions-margin,
+    $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
+    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
+  );
+}
+
+/**
+ * @stable [08.12.2018]
+ */
+@mixin rac-form($rac-form-custom: unset,
+                $rac-form-margin: unset,
+                $rac-form-min-width: unset,
+                $rac-form-actions-margin: unset,
+                $rac-form-actions-button-custom: unset,
+                $rac-form-actions-button-min-width: unset,
+                $rac-form-actions-button-neighbor-margin: unset) {
+
+  @if $rac-form-custom != unset {
+    .rac-form {
+      &.#{$rac-form-custom} {
+        @include _rac-form-custom-properties(
+          $rac-form-min-width: $rac-form-min-width,
+          $rac-form-margin: $rac-form-margin,
+          $rac-form-actions-button-custom: $rac-form-actions-button-custom,
+          $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
+          $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin,
+          $rac-form-actions-margin: $rac-form-actions-margin
+        );
+      }
+    }
+  } @else {
+    .rac-form {
+      @include _rac-form-custom-properties(
+        $rac-form-min-width: $rac-form-min-width,
+        $rac-form-margin: $rac-form-margin,
+        $rac-form-actions-button-custom: $rac-form-actions-button-custom,
+        $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
+        $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin,
+        $rac-form-actions-margin: $rac-form-actions-margin
+      );
+    }
   }
 }
 
@@ -1265,11 +1364,13 @@
  */
 @mixin _rac-card-list-custom-properties($rac-card-list-padding: unset,
                                         $rac-card-list-overflow: unset,
+                                        $rac-card-list-item-padding: unset,
                                         $rac-card-list-item-width: unset,
                                         $rac-card-list-item-height: unset,
                                         $rac-card-list-item-float: unset,
                                         $rac-card-list-item-margin: unset,
-                                        $rac-card-list-item-border-radius: unset) {
+                                        $rac-card-list-item-border-radius: unset,
+                                        $rac-card-list-item-font-size: unset) {
 
   @if $rac-card-list-padding != unset {
     padding: $rac-card-list-padding;
@@ -1279,6 +1380,12 @@
   }
 
   .rac-card-list-item {
+    @if $rac-card-list-item-font-size != unset {
+      font-size: $rac-card-list-item-font-size;
+    }
+    @if $rac-card-list-item-padding != unset {
+      padding: $rac-card-list-item-padding;
+    }
     @if $rac-card-list-item-width != unset {
       width: $rac-card-list-item-width;
     }
@@ -1303,33 +1410,39 @@
 @mixin rac-card-list($rac-card-list-custom: unset,
                      $rac-card-list-padding: unset,
                      $rac-card-list-overflow: unset,
+                     $rac-card-list-item-padding: unset,
                      $rac-card-list-item-width: unset,
                      $rac-card-list-item-height: unset,
                      $rac-card-list-item-float: unset,
                      $rac-card-list-item-margin: unset,
-                     $rac-card-list-item-border-radius: unset) {
+                     $rac-card-list-item-border-radius: unset,
+                     $rac-card-list-item-font-size: unset) {
 
   @if $rac-card-list-custom != unset {
     .rac-card-list {
       &.#{$rac-card-list-custom} {
         @include _rac-card-list-custom-properties($rac-card-list-padding: $rac-card-list-padding,
                                                   $rac-card-list-overflow: $rac-card-list-overflow,
+                                                  $rac-card-list-item-padding: $rac-card-list-item-padding,
                                                   $rac-card-list-item-width: $rac-card-list-item-width,
                                                   $rac-card-list-item-height: $rac-card-list-item-height,
                                                   $rac-card-list-item-float: $rac-card-list-item-float,
                                                   $rac-card-list-item-margin: $rac-card-list-item-margin,
-                                                  $rac-card-list-item-border-radius: $rac-card-list-item-border-radius);
+                                                  $rac-card-list-item-border-radius: $rac-card-list-item-border-radius,
+                                                  $rac-card-list-item-font-size: $rac-card-list-item-font-size);
       }
     }
   } @else {
     .rac-card-list {
       @include _rac-card-list-custom-properties($rac-card-list-padding: $rac-card-list-padding,
                                                 $rac-card-list-overflow: $rac-card-list-overflow,
+                                                $rac-card-list-item-padding: $rac-card-list-item-padding,
                                                 $rac-card-list-item-width: $rac-card-list-item-width,
                                                 $rac-card-list-item-height: $rac-card-list-item-height,
                                                 $rac-card-list-item-float: $rac-card-list-item-float,
                                                 $rac-card-list-item-margin: $rac-card-list-item-margin,
-                                                $rac-card-list-item-border-radius: $rac-card-list-item-border-radius);
+                                                $rac-card-list-item-border-radius: $rac-card-list-item-border-radius,
+                                                $rac-card-list-item-font-size: $rac-card-list-item-font-size);
     }
   }
 }

@@ -64,6 +64,7 @@ $rac-toolbar-info-font-size: $rac-default-font-size !default;
 /* @stable [01.11.2018] */
 $rac-toolbar-button-margin: 0 0 0 8px !default;
 $rac-toolbar-field-max-width: 342px !default;
+$rac-page-toolbar-border-top: unset !default;
 
 /* @stable [19.08.2018] */
 $rac-keyboard-opacity: .6 !default;
@@ -389,7 +390,9 @@ $rac-card-list-item-width: 150px !default;
 $rac-card-list-item-height: 208px !default;
 $rac-card-list-item-margin: 0 8px 8px 0 !default;
 $rac-card-list-padding: 8px 0 8px 8px !default;
+$rac-card-list-item-padding: unset !default;
 $rac-card-list-item-border-radius: unset !default;
+$rac-card-list-item-font-size: $rac-default-font-size !default;
 
 /* @stable [05.08.2018] */
 $rac-dialog-header-color: $rac-default-label-color !default;

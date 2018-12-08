@@ -100,7 +100,8 @@ export interface ISearchToolbarContainerEntity extends IUniversalSearchToolbarCo
 /**
  * @stable [18.05.2018]
  */
-export interface ISearchToolbarContainerConfiguration extends IUniversalSearchToolbarContainerConfiguration {
+export interface ISearchToolbarContainerConfiguration extends IUniversalSearchToolbarContainerConfiguration,
+                                                              IWebComponentConfiguration {
 }
 
 /**

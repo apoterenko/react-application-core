@@ -6,9 +6,11 @@
 
   @include rac-card-list($rac-card-list-overflow: auto,
                          $rac-card-list-padding: $rac-card-list-padding,
+                         $rac-card-list-item-padding: $rac-card-list-item-padding,
                          $rac-card-list-item-width: $rac-card-list-item-width,
                          $rac-card-list-item-height: $rac-card-list-item-height,
                          $rac-card-list-item-margin: $rac-card-list-item-margin,
                          $rac-card-list-item-border-radius: $rac-card-list-item-border-radius,
+                         $rac-card-list-item-font-size: $rac-card-list-item-font-size,
                          $rac-card-list-item-float: left);
 }

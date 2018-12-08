@@ -1241,8 +1241,8 @@ export interface IProgressWrapper {
 /**
  * @stable [11.06.2018]
  */
-export interface IBarcodeWrapper {
-  barcode?: string;
+export interface IBarcodeWrapper<TBarcode = string> {
+  barcode?: TBarcode;
 }
 
 /**
