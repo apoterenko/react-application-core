@@ -1,0 +1,15 @@
+@import '../../vue-constant';
+@import '../../mixin';
+
+.vac {
+
+  .vue-viewer-preview-label {
+    // TODO
+  }
+
+  @include rac-styles(                                                                        /* @stable [09.12.2018] */
+    $rac-styles-custom: vue-viewer-preview-file-name,
+    $rac-styles-color: $vue-viewer-preview-file-name-color,
+    $rac-styles-font-size: $vue-viewer-preview-file-name-font-size
+  );
+}

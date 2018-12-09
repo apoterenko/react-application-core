@@ -1,7 +1,5 @@
 import { AnyT, ISrcWrapper } from '../../../definitions.interface';
-import {
-  IVueFieldTemplateMethodsEntity,
-} from '../field/vue-field.interface';
+import { IVueFieldTemplateMethodsEntity } from '../field/vue-index';
 
 /**
  * @stable [27.11.2018]
@@ -21,15 +19,15 @@ export interface IVueFileFieldViewerBindingsEntity extends ISrcWrapper {
  */
 export interface IVueBaseFileFieldTemplateMethodsEntity extends IVueFieldTemplateMethodsEntity {
   onFilesSelect?(files: File[]): string[];
+  getViewerComponent?(): string;
+  getLabel?(index?: number): string;
+  getViewerBindings?(...AnyT): IVueFileFieldViewerBindingsEntity;
 }
 
 /**
  * @stable [27.11.2018]
  */
 export interface IVueFileFieldTemplateMethodsEntity extends IVueBaseFileFieldTemplateMethodsEntity {
-  getMessage?(): string;
-  getViewerComponent?(): string;
-  getViewerBindings?(...AnyT): IVueFileFieldViewerBindingsEntity;
   getViewerListeners?(...AnyT): IVueFileFieldViewerListenersEntity;
   getFiles(...AnyT);
 }

@@ -1,6 +1,7 @@
 /* @stable [24.11.2018] */
 $vue-color1: rgba(0, 0, 0, 0.2) !default;
 $vue-color2: rgba(0, 0, 0, 0.1) !default;
+$vue-color3: #0053d9 !default;
 
 /* @stable [24.11.2018] */
 $vue-default-text-field-input-padding: 16px !default;
@@ -15,11 +16,14 @@ $vue-text-field-float-label-padding: $vue-text-field-input-padding !default;
 $vue-text-field-filled-float-label-padding: ($vue-default-text-field-input-padding / 2) $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
 $vue-field-float-label-font-size: 12px !default;
 $vue-field-float-label-color: $vue-color1 !default;
+$vue-file-field-attachment-wrapper-content-border: 1px dashed $vue-color2 !default;
 
 /* @stable [18.11.2018] */
 $vue-viewer-scale-action-size: 32px !default;
 $vue-viewer-scale-action-position-right: 5% !default;
 $vue-viewer-scale-action-position-top: 50% !default;
+$vue-viewer-preview-file-name-color: $vue-color3 !default;
+$vue-viewer-preview-file-name-font-size: 16px !default;
 
 /* @stable [18.11.2018] */
 $vue-popup-body-padding: 16px 16px 0 16px !default;

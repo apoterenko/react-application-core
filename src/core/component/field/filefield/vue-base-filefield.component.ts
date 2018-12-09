@@ -1,15 +1,22 @@
 import { Prop } from 'vue-property-decorator';
 
-import { orDefault } from '../../../util';
+import { isFn, orNull } from '../../../util';
+import { IEntity } from '../../../definitions.interface';
+import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
-import { IMultiItemEntity } from '../../../entities-definitions.interface';
+import { IVueFileViewerPropsEntity } from '../../viewer/vue-index';
+import { IVueBaseFileFieldTemplateMethodsEntity } from './vue-filefield.interface';
 
 export class VueBaseFileField extends VueField {
 
-  @Prop({default: (): string => 'hidden'}) protected type: string;
-  protected multiFieldPlugin = new MultiFieldPlugin(this);
-  private cachedFiles = new Set<string>();
+  @Prop({default: (): string => 'hidden'}) protected readonly type: string;
+  @Prop({default: (): string => 'vue-file-viewer'}) protected readonly viewer: string;
+  @Prop() protected readonly emptyMessageFactory: (index: number) => string;
+  @Prop() protected readonly viewerProps: IVueFileViewerPropsEntity;
+
+  protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
+  protected readonly cachedFiles = new Map<string, File>();
 
   /**
    * @stable [27.11.2018]
@@ -17,6 +24,9 @@ export class VueBaseFileField extends VueField {
   constructor() {
     super();
     this.onFilesSelect = this.onFilesSelect.bind(this);
+    this.getViewerBindings = this.getViewerBindings.bind(this);
+    this.getLabel = this.getLabel.bind(this);
+    this.getFiles = this.getFiles.bind(this);
   }
 
   /**
@@ -35,10 +45,52 @@ export class VueBaseFileField extends VueField {
   public onFilesSelect(files: File[]): string[] {
     return Array.from(files).map((file) => {
       const url = URL.createObjectURL(file);
-      this.cachedFiles.add(url);
+      this.cachedFiles.set(url, file);
       this.addFile(url);  // TODO Need to many files handling
       return url;
     });
+  }
+
+  /**
+   * @stable [09.12.2018]
+   * @param {number} index
+   * @returns {string}
+   */
+  public getLabel(index: number): string {
+    return isFn(this.emptyMessageFactory)
+      ? this.emptyMessageFactory(index)
+      : this.settings.messages.dndMessage;
+  }
+
+  // TODO
+  public getFiles(): IEntity[] {
+    return [];
+  }
+
+  /**
+   * @stable [09.12.2018]
+   * @param {IMultiItemEntity} entity
+   * @param {number} index
+   * @returns {IVueFileViewerPropsEntity}
+   */
+  public getViewerBindings(entity: IMultiItemEntity, index: number): IVueFileViewerPropsEntity {
+    const props: IVueFileViewerPropsEntity = {
+      ...this.viewerProps,
+      label: this.getLabel(index),
+    };
+    if (entity.newEntity) {
+      const relationId = entity.id as string;
+      return {
+        ...props,
+        src: relationId,
+        fileName: orNull(this.cachedFiles.has(relationId), () => this.cachedFiles.get(relationId).name),
+      };
+    }
+    return {
+      ...props,
+      src: Reflect.get(entity, this.displayName),
+      entity,
+    };
   }
 
   /**
@@ -50,21 +102,22 @@ export class VueBaseFileField extends VueField {
   }
 
   /**
-   * @stable [28.11.2018]
+   * @stable [09.12.2018]
    * @returns {string}
    */
   protected getFieldAttachmentTemplate(): string {
-    return orDefault<string, string>(
-      this.hasValue(),
-      () => (
-        `<component :is="getViewerComponent()"
-                    v-on="getViewerListeners()"
-                    v-bind="getViewerBindings()"/>`
-      ),
-      () => (
-        `<vue-dnd :defaultMessage="getMessage()"
-                  @select="onFilesSelect"/>`
-      )
+    return (
+      `<div class="vue-field-attachment-wrapper">
+          <template v-for="(file, index) in getFiles()">
+            <component v-if="file"
+                       :is="getViewerComponent()"
+                       v-on="getViewerListeners(file, index)"
+                       v-bind="getViewerBindings(file, index)"/>
+            <vue-dnd v-if="!file"
+                    :defaultMessage="getLabel(index)"
+                    @select="onFilesSelect"/>
+          </template>
+       </div>`
     );
   }
 
@@ -92,5 +145,18 @@ export class VueBaseFileField extends VueField {
   protected destroyFileUrl(fileUrl: string): void {
     this.cachedFiles.delete(fileUrl);
     URL.revokeObjectURL(fileUrl);
+  }
+
+  /**
+   * @stable [08.12.2018]
+   * @returns {IVueBaseFileFieldTemplateMethodsEntity}
+   */
+  protected getTemplateMethods(): IVueBaseFileFieldTemplateMethodsEntity {
+    return {
+      ...super.getTemplateMethods(),
+      getLabel: this.getLabel,
+      getViewerComponent: () => this.viewer,
+      getViewerBindings: this.getViewerBindings,
+    };
   }
 }
