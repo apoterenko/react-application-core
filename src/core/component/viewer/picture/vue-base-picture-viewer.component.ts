@@ -17,14 +17,12 @@ export class VueBasePictureViewer extends VueViewer {
    */
   protected getPopupBodyTemplate(): string {
     return `
-      <template>
-          <vue-flex-layout :alignItemsCenter="true"
-                           :justifyContentCenter="true">
-             <img ref="self"
-                  :src="getSrc()"
-                  class="vue-picture-viewer-image"/>
-          </vue-flex-layout>
-      </template>
+        <vue-flex-layout :alignItemsCenter="true"
+                         :justifyContentCenter="true">
+            <img ref="self"
+                 :src="getSrc()"
+                 class="vue-picture-viewer-image"/>
+        </vue-flex-layout>
     `;
   }
 
@@ -36,9 +34,7 @@ export class VueBasePictureViewer extends VueViewer {
     return `
       <vue-flex-layout :styles="{'background-image': getBackgroundImage()}"
                        class="vue-picture-viewer-preview"
-                       v-on:click.native="onOpenPopup">
-           &nbsp;
-      </vue-flex-layout>
+                       v-on:click.native="onOpenPopup"/>
     `;
   }
 

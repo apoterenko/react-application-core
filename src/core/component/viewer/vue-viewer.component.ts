@@ -15,11 +15,14 @@ import {
 import {
   IVueViewerStateEntity,
   IVueViewerTemplateMethodsEntity,
+  IVueViewerPropsEntity,
+  VUE_VIEWER_REMOVE_EVENT,
 } from './vue-viewer.interface';
 
 export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVueViewerStateEntity>
-  extends VueBaseComponent<IKeyValue, TVueViewerStateEntity> {
-  @Prop() protected src: string;
+  extends VueBaseComponent<IKeyValue, TVueViewerStateEntity> implements IVueViewerPropsEntity {
+
+  @Prop() public src: string;
 
   /**
    * @stable [29.11.2018]
@@ -68,7 +71,15 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
       isPopupOpened: () => this.getData().popup$,
       onOpenPopup: this.onOpenPopup,
       onClosePopup: this.onClosePopup,
+      onRemove: this.onRemove,
     };
+  }
+
+  /**
+   * @stable [09.12.2018]
+   */
+  protected onRemove(): void {
+    this.$emit(VUE_VIEWER_REMOVE_EVENT, this.src);
   }
 
   /**

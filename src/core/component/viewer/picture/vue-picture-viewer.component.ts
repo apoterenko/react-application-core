@@ -2,16 +2,11 @@ import { Component } from 'vue-property-decorator';
 
 import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
-import { IVueComponent } from '../../../vue-entities-definitions.interface';
 import { VueBasePictureViewer } from './vue-base-picture-viewer.component';
+import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
 
 @ComponentName('vue-picture-viewer')
-@Component({
-  data() {
-    const self: IVueComponent = this;
-    return self.getInitialData$();
-  },
-})
+@Component(vueViewerComponentConfigFactory())
 export class VuePictureViewer extends VueBasePictureViewer {
 
   /**

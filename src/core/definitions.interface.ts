@@ -129,6 +129,13 @@ export interface ISrcWrapper<TSrc = string> {
 }
 
 /**
+ * @stable [09.12.2018]
+ */
+export interface IFileWrapper<TFile = File> {
+  file?: TFile;
+}
+
+/**
  * @stable [27.06.2018]
  */
 export interface IScaleWrapper<TScale = number> {
@@ -3152,8 +3159,22 @@ export interface IToWrapper<TTo = string> {
   to?: TTo;
 }
 
+/**
+ * @stable [09.12.2018]
+ */
+export interface IDisplayFileNameWrapper<TDisplayFileName> {
+  displayFileName?: TDisplayFileName;
+}
+
 /* @stable - 20.04.2018 */
 export interface IStringToWrapper extends IToWrapper<string> {
+}
+
+/**
+ * @stable [09.12.2018]
+ */
+export interface IEntityCallbackWrapper<TResult = string> {
+  (entity: IEntity): TResult;
 }
 
 /**

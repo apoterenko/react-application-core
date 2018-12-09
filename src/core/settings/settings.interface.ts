@@ -73,6 +73,7 @@ export interface IApplicationMessagesSettings {
   welcomeMessage?: string;
   exportActionTitleMessage?: string;
   refreshActionTitleMessage?: string;
+  unknownFileMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -162,6 +163,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     invalidAddressMessage: 'Invalid address',
     exportActionTitleMessage: 'Export',
     refreshActionTitleMessage: 'Refresh',
+    unknownFileMessage: 'Unknown file',
   },
   dateTime: {
     currentDate: new Date(),

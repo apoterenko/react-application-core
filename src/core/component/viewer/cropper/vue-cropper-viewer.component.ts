@@ -5,21 +5,18 @@ import { DelayedTask, isDef } from '../../../util';
 import { ComponentName } from '../../connector/vue-index';
 import { VUE_VIEWER_CHANGE_EVENT } from '../vue-viewer.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
-import { IVueComponent } from '../../../vue-entities-definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
 import {
   VUE_CROPPER_VIEWER_CROP_EVENT,
-  VUE_CROPPER_VIEWER_REMOVE_EVENT,
   IVueCropperPictureViewerTemplateMethodsEntity,
 } from './vue-cropper-viewer.interface';
+import {
+  vueViewerComponentConfigFactory,
+  VUE_VIEWER_REMOVE_EVENT,
+} from '../vue-viewer.interface';
 
 @ComponentName('vue-cropper-viewer')
-@Component({
-  data() {
-    const self: IVueComponent = this;
-    return self.getInitialData$();
-  },
-})
+@Component(vueViewerComponentConfigFactory())
 class VueCropperViewer extends VueBasePictureViewer {
   private cropEmitterTask = new DelayedTask(this.onCrop, 100);
   private cropper: Cropper;
@@ -31,6 +28,14 @@ class VueCropperViewer extends VueBasePictureViewer {
    */
   public render(createElement: VueCreateElementFactoryT): VueNodeT {
     return super.render(createElement);
+  }
+
+  /**
+   * @stable [29.11.2018]
+   */
+  public onRemove(): void {
+    this.onClosePopup();
+    this.$nextTick(() => super.onRemove());
   }
 
   /**
@@ -77,7 +82,6 @@ class VueCropperViewer extends VueBasePictureViewer {
     return {
       ...super.getTemplateMethods(),
       onApply: this.onApply,
-      onRemove: this.onRemove,
     };
   }
 
@@ -100,14 +104,6 @@ class VueCropperViewer extends VueBasePictureViewer {
       this.onClosePopup();
       this.$nextTick(() => this.$emit(VUE_VIEWER_CHANGE_EVENT, blob));
     });
-  }
-
-  /**
-   * @stable [29.11.2018]
-   */
-  private onRemove(): void {
-    this.onClosePopup();
-    this.$nextTick(() => this.$emit(VUE_CROPPER_VIEWER_REMOVE_EVENT));
   }
 
   /**

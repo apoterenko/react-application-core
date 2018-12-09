@@ -101,13 +101,11 @@ export class VueBaseContainer extends Vue implements IVueContainer {
   }
 
   /**
-   * @stable [25.10.2018]
+   * @stable [08.12.2018]
    * @param {IEntity} entity
    */
   protected dispatchListSelect(entity: IEntity): void {
-    this.dispatchCustomType<ISelectedEntityWrapper>(
-      ListActionBuilder.buildSelectActionType(this.section$), {selected: entity}
-    );
+    this.store$.dispatch(ListActionBuilder.buildSelectSimpleAction(this.section$, {selected: entity}));
   }
 
   /**
