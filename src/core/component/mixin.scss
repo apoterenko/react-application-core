@@ -33,6 +33,115 @@
 }
 
 /**
+ * @stable [08.12.2018]
+ */
+@mixin _rac-styles-properties($rac-styles-margin: unset,
+                              $rac-styles-border: unset,
+                              $rac-styles-color: unset,
+                              $rac-styles-font-size: unset,
+                              $rac-styles-height: unset,
+                              $rac-styles-position: unset) {
+  @if $rac-styles-margin != unset {
+    margin: $rac-styles-margin;
+  }
+  @if $rac-styles-border != unset {
+    border: $rac-styles-border;
+  }
+  @if $rac-styles-color != unset {
+    color: $rac-styles-color;
+  }
+  @if $rac-styles-font-size != unset {
+    font-size: $rac-styles-font-size;
+  }
+  @if $rac-styles-height != unset {
+    height: $rac-styles-height;
+  }
+  @if $rac-styles-position != unset {
+    position: $rac-styles-position;
+  }
+}
+
+/**
+ * @stable [08.12.2018]
+ */
+@mixin rac-styles($rac-styles-custom: unset,
+                  $rac-styles-margin: unset,
+                  $rac-styles-border: unset,
+                  $rac-styles-color: unset,
+                  $rac-styles-font-size: unset,
+                  $rac-styles-height: unset,
+                  $rac-styles-position: unset) {
+  @if $rac-styles-custom != unset {
+    .#{$rac-styles-custom} {
+      @include _rac-styles-properties(
+        $rac-styles-margin: $rac-styles-margin,
+        $rac-styles-border: $rac-styles-border,
+        $rac-styles-color: $rac-styles-color,
+        $rac-styles-font-size: $rac-styles-font-size,
+        $rac-styles-height: $rac-styles-height,
+        $rac-styles-position: $rac-styles-position
+      );
+    }
+  } @else {
+    @include _rac-styles-properties(
+      $rac-styles-margin: $rac-styles-margin,
+      $rac-styles-border: $rac-styles-border,
+      $rac-styles-color: $rac-styles-color,
+      $rac-styles-font-size: $rac-styles-font-size,
+      $rac-styles-height: $rac-styles-height,
+      $rac-styles-position: $rac-styles-position
+    );
+  }
+}
+
+/**
+ * @stable [08.12.2018]
+ */
+@mixin _rac-first-level-children-properties($rac-first-level-children-custom-border: unset,
+                                            $rac-first-level-children-custom-width: unset,
+                                            $rac-first-level-children-custom-height: unset,
+                                            $rac-first-level-children-custom-margin: unset) {
+  & > * {
+    @include rac-styles($rac-styles-margin: $rac-first-level-children-custom-margin,
+                        $rac-styles-border: $rac-first-level-children-custom-border);
+
+    @if $rac-first-level-children-custom-width != unset {
+      @include rac-flex-width($rac-first-level-children-custom-width);
+    }
+    @if $rac-first-level-children-custom-height != unset {
+      @include rac-flex-height($rac-first-level-children-custom-height);
+    }
+  }
+}
+
+/**
+ * @stable [08.12.2018]
+ */
+@mixin rac-first-level-children($rac-first-level-children-custom: unset,
+                                $rac-first-level-children-custom-border: unset,
+                                $rac-first-level-children-custom-width: unset,
+                                $rac-first-level-children-custom-height: unset,
+                                $rac-first-level-children-custom-margin: unset) {
+  @if $rac-first-level-children-custom != unset {
+    .#{$rac-first-level-children-custom} {
+      @include _rac-first-level-children-properties(
+        $rac-first-level-children-custom-border: $rac-first-level-children-custom-border,
+        $rac-first-level-children-custom-width: $rac-first-level-children-custom-width,
+        $rac-first-level-children-custom-height: $rac-first-level-children-custom-height,
+        $rac-first-level-children-custom-margin: $rac-first-level-children-custom-margin
+      );
+    }
+  } @else {
+    @include _rac-first-level-children-properties(
+      $rac-first-level-children-custom-border: $rac-first-level-children-custom-border,
+      $rac-first-level-children-custom-width: $rac-first-level-children-custom-width,
+      $rac-first-level-children-custom-height: $rac-first-level-children-custom-height,
+      $rac-first-level-children-custom-margin: $rac-first-level-children-custom-margin
+    );
+  }
+}
+
+/**
  * @stable [14.11.2018]
  */
 @mixin _rac-position-properties($rac-position-left: unset,
