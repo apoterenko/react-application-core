@@ -8,7 +8,7 @@ import {
   IEntity,
   IPayloadWrapper,
 } from '../../definitions.interface';
-import { toSection } from '../../util';
+import { toSection, toType } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
@@ -131,10 +131,9 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         error: convertError(action.error).message,
       };
     case ListActionBuilder.buildSelectActionType(section):
-      const entityToSelectPayload: ISelectedEntityWrapper = action.data;
       return {
         ...state,
-        selected: entityToSelectPayload.selected,
+        selected: toType<ISelectedEntityWrapper>(action.data).selected,
       };
     case ListActionBuilder.buildCreateActionType(section):
     case ListActionBuilder.buildDeselectActionType(section):

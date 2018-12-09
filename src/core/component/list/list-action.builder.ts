@@ -192,8 +192,28 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildUnTouchActionType(section), applySection(section));
   }
 
+  /**
+   * @stable [08.12.2018]
+   * @param {string} section
+   * @param {ISelectedEntityWrapper} payload
+   * @returns {IEffectsAction}
+   */
   public static buildSelectAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
-    return EffectsAction.create(this.buildSelectActionType(section), applySection(section, payload));
+    const simpleAction = this.buildSelectSimpleAction(section, payload);
+    return EffectsAction.create(simpleAction.type, simpleAction.data);
+  }
+
+  /**
+   * @stable [08.12.2018]
+   * @param {string} section
+   * @param {ISelectedEntityWrapper} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildSelectSimpleAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
+    return {
+      type: this.buildSelectActionType(section),
+      data: applySection(section, payload),
+    };
   }
 
   /**
