@@ -3173,9 +3173,7 @@ export interface IStringToWrapper extends IToWrapper<string> {
 /**
  * @stable [09.12.2018]
  */
-export interface IEntityCallbackWrapper<TResult = string> {
-  (entity: IEntity): TResult;
-}
+export type EntityCallbackWrapperT<TResult = string> = (entity: IEntity) => TResult;
 
 /**
  * @stable [11.11.2018]

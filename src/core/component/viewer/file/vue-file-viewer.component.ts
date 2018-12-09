@@ -3,7 +3,7 @@ import * as R from 'ramda';
 
 import { isFn, nvl } from '../../../util';
 import { ComponentName } from '../../connector/vue-index';
-import { IEntityCallbackWrapper, IEntity } from '../../../definitions.interface';
+import { EntityCallbackWrapperT, IEntity } from '../../../definitions.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
 import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
@@ -16,7 +16,7 @@ class VueFileViewer extends VueBasePictureViewer implements IVueFileViewerPropsE
   @Prop() public label: string;
   @Prop() public entity: IEntity;
   @Prop() public fileName: string;
-  @Prop() public displayFileName: IEntityCallbackWrapper;
+  @Prop() public displayFileName: EntityCallbackWrapperT;
 
   /**
    * @stable [09.12.2018]

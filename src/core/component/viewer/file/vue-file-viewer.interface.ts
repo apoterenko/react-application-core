@@ -1,6 +1,6 @@
 import {
   IDisplayFileNameWrapper,
-  IEntityCallbackWrapper,
+  EntityCallbackWrapperT,
   IFileNameWrapper,
   ILabelWrapper,
   IEntityWrapper,
@@ -15,7 +15,7 @@ export interface IVueFileViewerPropsEntity extends IVueViewerPropsEntity,
                                                    IFileNameWrapper,
                                                    ILabelWrapper,
                                                    IEntityWrapper,
-                                                   IDisplayFileNameWrapper<IEntityCallbackWrapper> {
+                                                   IDisplayFileNameWrapper<EntityCallbackWrapperT> {
 }
 
 /**
