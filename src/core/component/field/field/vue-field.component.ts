@@ -229,7 +229,16 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    * @returns {boolean}
    */
   protected hasValue(): boolean {
-    return !R.isNil(this.getValue());
+    const value = this.getValue();
+    return !R.isNil(value) && !R.equals(value, this.getEmptyValue());
+  }
+
+  /**
+   * @stable [10.12.2018]
+   * @returns {AnyT}
+   */
+  protected getEmptyValue(): AnyT {
+    return '';
   }
 
   /**

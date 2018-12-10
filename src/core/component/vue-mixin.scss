@@ -57,7 +57,11 @@
                                     $vue-field-attachment-wrapper-content-border: unset,
                                     $vue-field-attachment-wrapper-content-width: unset,
                                     $vue-field-attachment-wrapper-content-height: unset,
-                                    $vue-field-attachment-wrapper-content-margin: unset) {
+                                    $vue-field-attachment-wrapper-content-margin: unset,
+                                    $vue-field-icon-width: unset,
+                                    $vue-field-icon-height: unset,
+                                    $vue-field-icon-margin: unset,
+                                    $vue-field-icon-background-repeat: unset) {
 
   @include _rac-styles-properties(
     $rac-styles-position: $vue-field-position,
@@ -85,17 +89,20 @@
     $rac-first-level-children-custom-margin: $vue-field-attachment-wrapper-content-margin
   );
 
-  .vue-field-input {
-    @if $vue-field-input-border != unset {
-      border: $vue-field-input-border;
-    }
-    @if $vue-field-input-padding != unset {
-      padding: $vue-field-input-padding;
-    }
-    @if $vue-field-input-background != unset {
-      background: $vue-field-input-background;
-    }
-  }
+  @include rac-styles(
+    $rac-styles-custom: vue-field-input,
+    $rac-styles-border: $vue-field-input-border,
+    $rac-styles-padding: $vue-field-input-padding,
+    $rac-styles-background: $vue-field-input-background
+  );
+
+  @include rac-styles(
+    $rac-styles-custom: vue-field-icon,
+    $rac-styles-margin: $vue-field-icon-margin,
+    $rac-styles-width: $vue-field-icon-width,
+    $rac-styles-height: $vue-field-icon-height,
+    $rac-styles-background-repeat: $vue-field-icon-background-repeat
+  );
 
   .vue-field-label {
     @if $vue-field-label-color != unset {
@@ -150,7 +157,11 @@
                  $vue-field-attachment-wrapper-content-border: unset,
                  $vue-field-attachment-wrapper-content-width: unset,
                  $vue-field-attachment-wrapper-content-height: unset,
-                 $vue-field-attachment-wrapper-content-margin: unset) {
+                 $vue-field-attachment-wrapper-content-margin: unset,
+                 $vue-field-icon-width: unset,
+                 $vue-field-icon-height: unset,
+                 $vue-field-icon-margin: unset,
+                 $vue-field-icon-background-repeat: unset) {
   @if $vue-field-custom != unset {
     .vue-field {
       &.#{$vue-field-custom} {
@@ -176,7 +187,11 @@
           $vue-field-attachment-wrapper-content-border: $vue-field-attachment-wrapper-content-border,
           $vue-field-attachment-wrapper-content-width: $vue-field-attachment-wrapper-content-width,
           $vue-field-attachment-wrapper-content-height: $vue-field-attachment-wrapper-content-height,
-          $vue-field-attachment-wrapper-content-margin: $vue-field-attachment-wrapper-content-margin
+          $vue-field-attachment-wrapper-content-margin: $vue-field-attachment-wrapper-content-margin,
+          $vue-field-icon-width: $vue-field-icon-width,
+          $vue-field-icon-height: $vue-field-icon-height,
+          $vue-field-icon-margin: $vue-field-icon-margin,
+          $vue-field-icon-background-repeat: $vue-field-icon-background-repeat
         );
       }
     }
@@ -204,7 +219,11 @@
         $vue-field-attachment-wrapper-content-border: $vue-field-attachment-wrapper-content-border,
         $vue-field-attachment-wrapper-content-width: $vue-field-attachment-wrapper-content-width,
         $vue-field-attachment-wrapper-content-height: $vue-field-attachment-wrapper-content-height,
-        $vue-field-attachment-wrapper-content-margin: $vue-field-attachment-wrapper-content-margin
+        $vue-field-attachment-wrapper-content-margin: $vue-field-attachment-wrapper-content-margin,
+        $vue-field-icon-width: $vue-field-icon-width,
+        $vue-field-icon-height: $vue-field-icon-height,
+        $vue-field-icon-margin: $vue-field-icon-margin,
+        $vue-field-icon-background-repeat: $vue-field-icon-background-repeat
       );
     }
   }

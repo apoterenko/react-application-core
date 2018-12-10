@@ -25,6 +25,14 @@
     $vue-field-float-label-padding: $vue-text-field-float-label-padding
   );
 
+  @include vue-field(                                                                         /* @stable [10.12.2018] */
+    $vue-field-custom: vue-select,
+    $vue-field-icon-width: $vue-select-icon-width,
+    $vue-field-icon-height: $vue-select-icon-height,
+    $vue-field-icon-margin: $vue-select-icon-margin,
+    $vue-field-icon-background-repeat: no-repeat
+  );
+
   @include vue-field(                                                                         /* @stable [08.12.2018] */
     $vue-field-custom: vue-file-field,
     $vue-field-attachment-wrapper-content-border: $vue-file-field-attachment-wrapper-content-border
