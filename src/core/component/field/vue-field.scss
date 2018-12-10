@@ -31,9 +31,9 @@
   );
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */
-    $vue-field-custom: 'vue-text-field.vue-field-filled',
-    $vue-field-input-padding: $vue-text-field-filled-input-padding,
-    $vue-field-float-label-padding: $vue-text-field-filled-float-label-padding
+    $vue-field-custom: 'vue-text-field.vue-field-filled.vue-field-float-labeled',
+    $vue-field-input-padding: $vue-text-field-float-labeled-and-filled-input-padding,
+    $vue-field-float-label-padding: $vue-text-field-float-labeled-and-filled-float-label-padding
   );
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */

@@ -19,6 +19,7 @@ import {
   }),
 })
 class VueSelect extends VueBaseTextField {
+  @Prop({default: (): string => 'vue-icon-expand'}) protected icon: string;
   @Prop() private bindDictionary: string;
   @Prop() private options: ISelectOptionEntity[];
 

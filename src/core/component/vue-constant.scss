@@ -8,12 +8,12 @@ $vue-default-text-field-input-padding: 16px !default;
 
 /* @stable [18.11.2018] */
 $vue-text-field-input-padding: 0 $vue-default-text-field-input-padding !default;
-$vue-text-field-filled-input-padding: $vue-default-text-field-input-padding $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
 $vue-text-field-height: 46px !default;
 $vue-text-field-border-radius: 4px !default;
 $vue-text-field-border: 1px solid $vue-color2 !default;
 $vue-text-field-float-label-padding: $vue-text-field-input-padding !default;
-$vue-text-field-filled-float-label-padding: ($vue-default-text-field-input-padding / 2) $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
+$vue-text-field-float-labeled-and-filled-input-padding: $vue-default-text-field-input-padding $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
+$vue-text-field-float-labeled-and-filled-float-label-padding: ($vue-default-text-field-input-padding / 2) $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
 $vue-field-float-label-font-size: 12px !default;
 $vue-field-float-label-color: $vue-color1 !default;
 $vue-file-field-attachment-wrapper-content-border: 1px dashed $vue-color2 !default;

@@ -59,23 +59,15 @@
                                     $vue-field-attachment-wrapper-content-height: unset,
                                     $vue-field-attachment-wrapper-content-margin: unset) {
 
-  @if $vue-field-position != unset {
-    position: $vue-field-position;
-  }
+  @include _rac-styles-properties(
+    $rac-styles-position: $vue-field-position,
+    $rac-styles-padding: $vue-field-padding,
+    $rac-styles-margin: $vue-field-margin,
+    $rac-styles-border-radius: $vue-field-border-radius,
+    $rac-styles-border: $vue-field-border
+  );
   @if $vue-field-height != unset {
     @include rac-flex-height($vue-field-height);
-  }
-  @if $vue-field-padding != unset {
-    padding: $vue-field-padding;
-  }
-  @if $vue-field-margin != unset {
-    margin: $vue-field-margin;
-  }
-  @if $vue-field-border-radius != unset {
-    border-radius: $vue-field-border-radius;
-  }
-  @if $vue-field-border != unset {
-    border: $vue-field-border;
   }
 
   @include rac-styles(

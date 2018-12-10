@@ -28,7 +28,9 @@
  * @stable [08.12.2018]
  */
 @mixin _rac-styles-properties($rac-styles-margin: unset,
+                              $rac-styles-padding: unset,
                               $rac-styles-border: unset,
+                              $rac-styles-border-radius: unset,
                               $rac-styles-color: unset,
                               $rac-styles-font-size: unset,
                               $rac-styles-height: unset,
@@ -39,8 +41,14 @@
   @if $rac-styles-margin != unset {
     margin: $rac-styles-margin;
   }
+  @if $rac-styles-padding != unset {
+    padding: $rac-styles-padding;
+  }
   @if $rac-styles-border != unset {
     border: $rac-styles-border;
+  }
+  @if $rac-styles-border-radius != unset {
+    border-radius: $rac-styles-border-radius;
   }
   @if $rac-styles-color != unset {
     color: $rac-styles-color;
@@ -70,7 +78,9 @@
  */
 @mixin rac-styles($rac-styles-custom: unset,
                   $rac-styles-margin: unset,
+                  $rac-styles-padding: unset,
                   $rac-styles-border: unset,
+                  $rac-styles-border-radius: unset,
                   $rac-styles-color: unset,
                   $rac-styles-font-size: unset,
                   $rac-styles-height: unset,
@@ -82,7 +92,9 @@
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
         $rac-styles-margin: $rac-styles-margin,
+        $rac-styles-padding: $rac-styles-padding,
         $rac-styles-border: $rac-styles-border,
+        $rac-styles-border-radius: $rac-styles-border-radius,
         $rac-styles-color: $rac-styles-color,
         $rac-styles-font-size: $rac-styles-font-size,
         $rac-styles-height: $rac-styles-height,
@@ -95,7 +107,9 @@
   } @else {
     @include _rac-styles-properties(
       $rac-styles-margin: $rac-styles-margin,
+      $rac-styles-padding: $rac-styles-padding,
       $rac-styles-border: $rac-styles-border,
+      $rac-styles-border-radius: $rac-styles-border-radius,
       $rac-styles-color: $rac-styles-color,
       $rac-styles-font-size: $rac-styles-font-size,
       $rac-styles-height: $rac-styles-height,

@@ -8,6 +8,7 @@ import {
   orUndef,
   orDefault,
   toClassName,
+  ifNilReturnDefault,
 } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
 import { VueBaseComponent } from '../../base/vue-index';
@@ -17,7 +18,6 @@ import {
   VueComponentOptionsT,
   VueAccessorsT,
   VueDefaultMethodsT,
-  IVueRefs,
 } from '../../../vue-definitions.interface';
 import {
   IVueFieldTemplateComputedEntity,
@@ -100,13 +100,10 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
   public getInputBindings(): Partial<HTMLInputElement> {
     return defValuesFilter<Partial<HTMLInputElement>, Partial<HTMLInputElement>>({
       type: this.type,
-      placeholder: orDefault<string, string>(
-        !R.isNil(this.placeholder),
+      placeholder: ifNilReturnDefault<string, string>(
+        this.placeholder,
         () => this.t(this.placeholder),
-        orUndef<string>(
-          !R.isNil(this.label) && this.floatLabel,
-          () => this.t(this.label),
-        )
+        orUndef<string>(this.hasFloatLabel(), () => this.t(this.label))
       ),
       ...{class: this.getInputClassName()} as IKeyValue,
     });
@@ -120,6 +117,7 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
     return toClassName(
       'vue-field',
       this.hasValue() ? 'vue-field-filled' : 'vue-field-not-filled',
+      this.hasFloatLabel() ? 'vue-field-float-labeled' : 'vue-field-not-float-labeled'
     );
   }
 
@@ -232,6 +230,14 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    */
   protected hasValue(): boolean {
     return !R.isNil(this.getValue());
+  }
+
+  /**
+   * @stable [10.12.2018]
+   * @returns {boolean}
+   */
+  protected hasFloatLabel(): boolean {
+    return !R.isNil(this.label) && this.floatLabel;
   }
 
   /**
