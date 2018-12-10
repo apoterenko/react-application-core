@@ -21,8 +21,7 @@
     @include flex-direction(row);                                   /* @stable [21.09.2018] */
 
     & > .rac-flex-separator {
-      max-width: $rac-flex-separator-width;                         /* @stable [03.10.2018] */
-      min-width: $rac-flex-separator-width;                         /* @stable [03.10.2018] */
+      @include rac-flex-width($rac-flex-separator-width);
     }
   }
 

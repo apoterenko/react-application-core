@@ -52,6 +52,7 @@
                                     $vue-field-input-padding: unset,
                                     $vue-field-input-background: unset,
                                     $vue-field-input-wrapper-height: unset,
+                                    $vue-field-input-wrapper-width: unset,
                                     $vue-field-input-wrapper-position: unset,
                                     $vue-field-attachment-wrapper-content-border: unset,
                                     $vue-field-attachment-wrapper-content-width: unset,
@@ -80,6 +81,7 @@
   @include rac-styles(
     $rac-styles-custom: vue-field-input-wrapper,
     $rac-styles-height: $vue-field-input-wrapper-height,
+    $rac-styles-width: $vue-field-input-wrapper-width,
     $rac-styles-position: $vue-field-input-wrapper-position
   );
 
@@ -151,6 +153,7 @@
                  $vue-field-input-padding: unset,
                  $vue-field-input-background: unset,
                  $vue-field-input-wrapper-height: unset,
+                 $vue-field-input-wrapper-width: unset,
                  $vue-field-input-wrapper-position: unset,
                  $vue-field-attachment-wrapper-content-border: unset,
                  $vue-field-attachment-wrapper-content-width: unset,
@@ -176,6 +179,7 @@
           $vue-field-input-padding: $vue-field-input-padding,
           $vue-field-input-background: $vue-field-input-background,
           $vue-field-input-wrapper-height: $vue-field-input-wrapper-height,
+          $vue-field-input-wrapper-width: $vue-field-input-wrapper-width,
           $vue-field-input-wrapper-position: $vue-field-input-wrapper-position,
           $vue-field-attachment-wrapper-content-border: $vue-field-attachment-wrapper-content-border,
           $vue-field-attachment-wrapper-content-width: $vue-field-attachment-wrapper-content-width,
@@ -203,6 +207,7 @@
         $vue-field-input-padding: $vue-field-input-padding,
         $vue-field-input-background: $vue-field-input-background,
         $vue-field-input-wrapper-height: $vue-field-input-wrapper-height,
+        $vue-field-input-wrapper-width: $vue-field-input-wrapper-width,
         $vue-field-input-wrapper-position: $vue-field-input-wrapper-position,
         $vue-field-attachment-wrapper-content-border: $vue-field-attachment-wrapper-content-border,
         $vue-field-attachment-wrapper-content-width: $vue-field-attachment-wrapper-content-width,

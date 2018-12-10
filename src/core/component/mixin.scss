@@ -11,14 +11,6 @@
 /**
  * @stable [30.10.2018]
  */
-@mixin rac-flex-width($value) {
-  min-width: $value;
-  max-width: $value;
-}
-
-/**
- * @stable [30.10.2018]
- */
 @mixin rac-flex-height($value) {
   min-height: $value;
   max-height: $value;
@@ -40,7 +32,10 @@
                               $rac-styles-color: unset,
                               $rac-styles-font-size: unset,
                               $rac-styles-height: unset,
-                              $rac-styles-position: unset) {
+                              $rac-styles-width: unset,
+                              $rac-styles-position: unset,
+                              $rac-styles-min-width: unset,
+                              $rac-styles-max-width: unset) {
   @if $rac-styles-margin != unset {
     margin: $rac-styles-margin;
   }
@@ -56,8 +51,17 @@
   @if $rac-styles-height != unset {
     height: $rac-styles-height;
   }
+  @if $rac-styles-width != unset {
+    width: $rac-styles-width;
+  }
   @if $rac-styles-position != unset {
     position: $rac-styles-position;
+  }
+  @if $rac-styles-min-width != unset {
+    min-width: $rac-styles-min-width;
+  }
+  @if $rac-styles-max-width != unset {
+    max-width: $rac-styles-max-width;
   }
 }
 
@@ -70,7 +74,10 @@
                   $rac-styles-color: unset,
                   $rac-styles-font-size: unset,
                   $rac-styles-height: unset,
-                  $rac-styles-position: unset) {
+                  $rac-styles-width: unset,
+                  $rac-styles-position: unset,
+                  $rac-styles-min-width: unset,
+                  $rac-styles-max-width: unset) {
   @if $rac-styles-custom != unset {
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
@@ -79,7 +86,10 @@
         $rac-styles-color: $rac-styles-color,
         $rac-styles-font-size: $rac-styles-font-size,
         $rac-styles-height: $rac-styles-height,
-        $rac-styles-position: $rac-styles-position
+        $rac-styles-width: $rac-styles-width,
+        $rac-styles-position: $rac-styles-position,
+        $rac-styles-min-width: $rac-styles-min-width,
+        $rac-styles-max-width: $rac-styles-max-width
       );
     }
   } @else {
@@ -89,9 +99,20 @@
       $rac-styles-color: $rac-styles-color,
       $rac-styles-font-size: $rac-styles-font-size,
       $rac-styles-height: $rac-styles-height,
-      $rac-styles-position: $rac-styles-position
+      $rac-styles-width: $rac-styles-width,
+      $rac-styles-position: $rac-styles-position,
+      $rac-styles-min-width: $rac-styles-min-width,
+      $rac-styles-max-width: $rac-styles-max-width
     );
   }
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-flex-width($value) {
+  @include _rac-styles-properties($rac-styles-min-width: $value,
+                                  $rac-styles-max-width: $value);
 }
 
 /**

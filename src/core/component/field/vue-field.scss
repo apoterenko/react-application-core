@@ -6,6 +6,7 @@
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */
     $vue-field-input-wrapper-height: 100%,
+    $vue-field-input-wrapper-width: 100%,
     $vue-field-input-wrapper-position: absolute,  /* Make child 100% height*/
     $vue-field-position: relative,
     $vue-field-float-label-color: $vue-field-float-label-color,
