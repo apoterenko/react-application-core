@@ -2,17 +2,14 @@ import { Component, Prop } from 'vue-property-decorator';
 
 import { generateArray } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
-import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { toActualMultiItemEntities } from '../multifield/vue-index';
-import { IVueFileFieldTemplateMethodsEntity } from './vue-filefield.interface';
 import { VueBaseFileField } from './vue-base-filefield.component';
-import { IVueViewerListenersEntity } from '../../viewer/vue-index';
 
 @ComponentName('vue-multi-file-field')
 @Component
-class VueMultiFileField extends VueBaseFileField implements IVueFileFieldTemplateMethodsEntity {
+class VueMultiFileField extends VueBaseFileField {
   @Prop({default: (): number => 1}) private readonly maxFiles: number;
 
   /**
@@ -46,26 +43,5 @@ class VueMultiFileField extends VueBaseFileField implements IVueFileFieldTemplat
       });
     }
     return relations;
-  }
-
-  // TODO
-  protected getTemplateMethods(): IVueFileFieldTemplateMethodsEntity {
-    return {
-      ...super.getTemplateMethods(),
-      getViewerListeners: (fileEntity: IMultiItemEntity): IVueViewerListenersEntity => ({
-        change: (blob: File) => {
-          const newFileUrl = URL.createObjectURL(blob);
-          if (fileEntity.newEntity) {
-            this.removeFile(fileEntity);
-            this.$nextTick(() => this.addFile(newFileUrl));
-          } else {
-            this.multiFieldPlugin.onEditItem({id: fileEntity.id, name: this.displayName, value: newFileUrl});
-          }
-        },
-        remove: () => this.removeFile(fileEntity),
-      }),
-      onFilesSelect: this.onFilesSelect,
-      getFiles: this.getFiles,
-    };
   }
 }

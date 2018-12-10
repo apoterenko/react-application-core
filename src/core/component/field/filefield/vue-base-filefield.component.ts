@@ -5,10 +5,10 @@ import { IEntity } from '../../../definitions.interface';
 import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
-import { IVueFileViewerPropsEntity } from '../../viewer/vue-index';
+import { IVueFileViewerPropsEntity, IVueViewerListenersEntity } from '../../viewer/vue-index';
 import { IVueBaseFileFieldTemplateMethodsEntity } from './vue-filefield.interface';
 
-export class VueBaseFileField extends VueField {
+export class VueBaseFileField extends VueField implements IVueBaseFileFieldTemplateMethodsEntity {
 
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
   @Prop({default: (): string => 'vue-file-viewer'}) protected readonly viewer: string;
@@ -23,8 +23,10 @@ export class VueBaseFileField extends VueField {
    */
   constructor() {
     super();
+    this.onFileChange = this.onFileChange.bind(this);
     this.onFilesSelect = this.onFilesSelect.bind(this);
     this.getViewerBindings = this.getViewerBindings.bind(this);
+    this.getViewerListeners = this.getViewerListeners.bind(this);
     this.getLabel = this.getLabel.bind(this);
     this.getFiles = this.getFiles.bind(this);
   }
@@ -44,8 +46,7 @@ export class VueBaseFileField extends VueField {
    */
   public onFilesSelect(files: File[]): string[] {
     return Array.from(files).map((file) => {
-      const url = URL.createObjectURL(file);
-      this.cachedFiles.set(url, file);
+      const url = this.toFileUrl(file);
       this.addFile(url);  // TODO Need to many files handling
       return url;
     });
@@ -94,6 +95,18 @@ export class VueBaseFileField extends VueField {
   }
 
   /**
+   * @stable [10.12.2018]
+   * @param {IMultiItemEntity} fileEntity
+   * @returns {IVueViewerListenersEntity<File>}
+   */
+  public getViewerListeners(fileEntity: IMultiItemEntity): IVueViewerListenersEntity<File> {
+    return {
+      change: (file: File) => this.onFileChange(fileEntity, file),
+      remove: () => this.removeFile(fileEntity),
+    };
+  }
+
+  /**
    * @stable [17.11.2018]
    * @returns {string}
    */
@@ -122,10 +135,61 @@ export class VueBaseFileField extends VueField {
   }
 
   /**
+   * @stable [10.12.2018]
+   * @param {IMultiItemEntity} fileEntity
+   * @param {File} file
+   */
+  protected onFileChange(fileEntity: IMultiItemEntity, file: File): void {
+    const newFileUrl = this.toFileUrl(file);
+    if (fileEntity.newEntity) {
+      this.removeFile(fileEntity);
+      this.$nextTick(() => this.addFile(newFileUrl));
+    } else {
+      this.multiFieldPlugin.onEditItem({id: fileEntity.id, name: this.displayName, value: newFileUrl});
+    }
+  }
+
+  /**
+   * @stable [10.12.2018]
+   * @returns {IVueBaseFileFieldTemplateMethodsEntity}
+   */
+  protected getTemplateMethods(): IVueBaseFileFieldTemplateMethodsEntity {
+    return {
+      ...super.getTemplateMethods(),
+      onFilesSelect: this.onFilesSelect,
+      getFiles: this.getFiles,
+      getLabel: this.getLabel,
+      getViewerComponent: () => this.viewer,
+      getViewerListeners: this.getViewerListeners,
+      getViewerBindings: this.getViewerBindings,
+    };
+  }
+
+  /**
+   * @stable [10.12.2018]
+   * @param {File} file
+   * @returns {string}
+   */
+  private toFileUrl(file: File): string {
+    const newFileUrl = URL.createObjectURL(file);
+    this.cachedFiles.set(newFileUrl, file);
+    return newFileUrl;
+  }
+
+  /**
    * @stable [28.11.2018]
    * @param {string} fileUrl
    */
-  protected addFile(fileUrl: string): void {
+  private destroyFileUrl(fileUrl: string): void {
+    this.cachedFiles.delete(fileUrl);
+    URL.revokeObjectURL(fileUrl);
+  }
+
+  /**
+   * @stable [28.11.2018]
+   * @param {string} fileUrl
+   */
+  private addFile(fileUrl: string): void {
     this.multiFieldPlugin.onAddItem({id: fileUrl, newEntity: true});
   }
 
@@ -133,30 +197,8 @@ export class VueBaseFileField extends VueField {
    * @stable [28.11.2018]
    * @param {IMultiItemEntity} fileEntity
    */
-  protected removeFile(fileEntity: IMultiItemEntity): void {
+  private removeFile(fileEntity: IMultiItemEntity): void {
     this.multiFieldPlugin.onDeleteItem(fileEntity);
     this.destroyFileUrl(fileEntity.id as string);
-  }
-
-  /**
-   * @stable [28.11.2018]
-   * @param {string} fileUrl
-   */
-  protected destroyFileUrl(fileUrl: string): void {
-    this.cachedFiles.delete(fileUrl);
-    URL.revokeObjectURL(fileUrl);
-  }
-
-  /**
-   * @stable [08.12.2018]
-   * @returns {IVueBaseFileFieldTemplateMethodsEntity}
-   */
-  protected getTemplateMethods(): IVueBaseFileFieldTemplateMethodsEntity {
-    return {
-      ...super.getTemplateMethods(),
-      getLabel: this.getLabel,
-      getViewerComponent: () => this.viewer,
-      getViewerBindings: this.getViewerBindings,
-    };
   }
 }

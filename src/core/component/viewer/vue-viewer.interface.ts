@@ -29,9 +29,9 @@ export interface IVueViewerTemplateMethodsEntity {
 /**
  * @stable [09.12.2018]
  */
-export interface IVueViewerListenersEntity {
+export interface IVueViewerListenersEntity<TChangedValue = AnyT> {
   remove?(): void;
-  change?(newValue: AnyT): void;
+  change?(newValue: TChangedValue): void;
 }
 
 /**
