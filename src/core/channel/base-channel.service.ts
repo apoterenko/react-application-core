@@ -145,7 +145,7 @@ export abstract class BaseChannel implements IChannel {
     client.close();
     this.clients.delete(ip);
 
-    BaseChannel.logger.debug(`[$BaseChannel][unregisterClient] The client has canceled a registration successfully. Ip: ${ip}`);
+    BaseChannel.logger.debug(`[$BaseChannel][unregisterClient] A registration has been canceled. Ip: ${ip}`);
   }
 
   /**

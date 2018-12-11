@@ -24,6 +24,7 @@ import {
   IApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
+import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 
 export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity = IApplicationStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
@@ -90,6 +91,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
     state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
     state.application = INITIAL_APPLICATION_STATE;
+    state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
   }
 
   protected getRoutes(): JSX.Element[] {
