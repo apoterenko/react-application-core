@@ -10,6 +10,8 @@ import { IApplicationSettings } from '../settings';
 import {
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_DISCONNECT_MESSAGE,
+  CHANNEL_CONNECT_EVENT,
+  CHANNEL_DISCONNECT_EVENT,
   $CHANNEL_MESSAGE_ACTION_TYPE,
   IChannel,
   IChannelClient,
@@ -19,7 +21,7 @@ import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-defi
 
 @injectable()
 export abstract class BaseChannel implements IChannel {
-  private static logger = LoggerFactory.makeLogger('BaseChannel');
+  protected static logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<IApplicationStoreEntity>;
@@ -45,11 +47,9 @@ export abstract class BaseChannel implements IChannel {
    * @param {IChannelClient} client
    */
   public onConnect(ip: string, client: IChannelClient): void {
-    this.onMessage(ip, client, CHANNEL_CONNECT_MESSAGE);
+    this.onMessage(ip, CHANNEL_CONNECT_MESSAGE);
 
-    BaseChannel.logger.info(
-      `[$BaseChannel][onConnect] Client has been connected successfully. Ip: ${ip}`
-    );
+    BaseChannel.logger.info(`[$BaseChannel][onConnect] The client has been connected successfully. Ip: ${ip}`);
   }
 
   /**
@@ -58,28 +58,28 @@ export abstract class BaseChannel implements IChannel {
    * @param {IChannelClient} client
    */
   public onDisconnect(ip: string, client: IChannelClient): void {
-    this.onMessage(ip, client, CHANNEL_DISCONNECT_MESSAGE);
+    this.onMessage(ip, CHANNEL_DISCONNECT_MESSAGE);
 
-    BaseChannel.logger.info(`[$BaseChannel][onDisconnect] Client has been disconnected. Ip: ${ip}`);
+    BaseChannel.logger.info(`[$BaseChannel][onDisconnect] The client has been disconnected. Ip: ${ip}`);
   }
 
   /**
    * @stable [25.05.2018]
    * @param {string} ip
-   * @param {IChannelClient} client
-   * @param {string} name
-   * @param {string} message
+   * @param {string} messageName
+   * @param {string} payload
    */
-  public onMessage(ip: string, client: IChannelClient, name?: string, message?: string): void {
+  public onMessage(ip: string, messageName?: string, payload?: string): void {
     BaseChannel.logger.info(
-      () => `[$BaseChannel][onMessage] Client received the message ${message && JSON.stringify(message) ||
-      '[-]'}. Ip: ${ip}, name: ${name || '[-]'}`
+      () => `[$BaseChannel][onMessage] The client received the data ${payload && JSON.stringify(payload) ||
+      '[-]'}. Ip: ${ip}, message: ${messageName || '[-]'}`
     );
-    const payload: IChannelMessageEntity = {ip, name, data: this.toMessage(message)};
 
     this.appStore.dispatch({
       type: $CHANNEL_MESSAGE_ACTION_TYPE,
-      data: defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>(payload),
+      data: defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>({
+        ip, name: messageName, data: this.toMessage(payload),
+      }),
     });
   }
 
@@ -95,8 +95,8 @@ export abstract class BaseChannel implements IChannel {
       throw new Error(`The client ${ip} doesn't exist!`);
     }
     BaseChannel.logger.debug(
-      () => `[$BaseChannel][emitEvent] Client sent the messages ${
-        messages || '[-]'}. Ip: ${ip}, event: ${event0}`
+      () => `[$BaseChannel][emitEvent] The client sent the messages ${messages && JSON.stringify(messages) || '[-]'
+      }. Ip: ${ip}, event: ${event0}`
     );
 
     client.emit(event0, ...messages);
@@ -128,21 +128,24 @@ export abstract class BaseChannel implements IChannel {
   protected registerClient(ip: string, client: IChannelClient): void {
     this.clients.set(ip, client);
 
-    client.on('connect', () => this.onConnect(ip, client));
-    client.on('disconnect', () => this.onDisconnect(ip, client));
+    client.on(CHANNEL_CONNECT_EVENT, () => this.onConnect(ip, client));
+    client.on(CHANNEL_DISCONNECT_EVENT, () => this.onDisconnect(ip, client));
     this.registerChannelEvent(ip, client);
   }
 
   /**
-   * @stable [20.05.2018]
+   * @stable [11.12.2018]
    * @param {string} ip
    */
-  protected deregisterClient(ip: string): void {
+  protected unregisterClient(ip: string): void {
     const client = this.clients.get(ip);
-    if (!client) {
+    if (R.isNil(client)) {
       return;
     }
     client.close();
+    this.clients.delete(ip);
+
+    BaseChannel.logger.debug(`[$BaseChannel][unregisterClient] The client has canceled a registration successfully. Ip: ${ip}`);
   }
 
   /**
@@ -151,7 +154,7 @@ export abstract class BaseChannel implements IChannel {
    * @param {IChannelClient} client
    */
   protected registerChannelEvent(ip: string, client: IChannelClient): void {
-    client.on(this.eventToListen, (message) => this.onMessage(ip, client, UNDEF, message));
+    client.on(this.eventToListen, (message) => this.onMessage(ip, UNDEF, message));
   }
 
   /**

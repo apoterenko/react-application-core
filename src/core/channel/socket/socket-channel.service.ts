@@ -21,6 +21,6 @@ export class SocketChannel extends BaseChannel {
    * @param ip
    */
   public disconnect(ip): void {
-    this.deregisterClient(ip);
+    this.unregisterClient(ip);
   }
 }

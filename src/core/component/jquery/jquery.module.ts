@@ -1,3 +1,3 @@
 import * as $ from 'jquery';
-Reflect.set(window, '$', $);
+window.jQuery = window.$ = $;
 import 'jquery-caret-plugin/dist/jquery.caret';

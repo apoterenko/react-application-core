@@ -94,6 +94,7 @@ export interface IApplicationGoogleMapsSettings {
 
 export interface IApplicationSettings {
   apiUrl?: string;
+  signalRUrl?: string;
   binaryUrl?: string;
   downloadUrl?: string;
   metaFilesJsonUrl?: string;
@@ -123,6 +124,7 @@ export const REGEXP_REPO = {
 export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
   usePersistence: true,
   apiUrl: prepareUrl(ENV.basePath + '/api/'),
+  signalRUrl: prepareUrl(ENV.basePath + '/api/'),
   binaryUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
   emptyPictureUrl: 'media/no_avatar.jpg',

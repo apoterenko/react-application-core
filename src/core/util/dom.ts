@@ -27,12 +27,13 @@ export const createElement = <TElement extends HTMLElement = HTMLElement>(tag = 
  * @param {Partial<HTMLScriptElement>} cfg
  * @returns {Bluebird<HTMLScriptElement>}
  */
-export const createScript = (cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement> => new Promise<HTMLScriptElement>((resolve) => {
-  const el = createElement<HTMLScriptElement>('script');
-  el.type = 'text/javascript';
-  el.onload = () => resolve(el);
-  Object.assign(el, cfg);
-});
+export const createScript = (cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement> =>
+  new Promise<HTMLScriptElement>((resolve) => {
+    const el = createElement<HTMLScriptElement>('script');
+    el.type = 'text/javascript';
+    el.onload = () => resolve(el);
+    Object.assign(el, cfg);
+  });
 
 /**
  * @stable [12.09.2018]
