@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 import { Store } from 'redux';
 import * as R from 'ramda';
 

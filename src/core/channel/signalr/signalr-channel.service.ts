@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 import 'signalr';
 import * as Promise from 'bluebird';
 import { injectable } from 'inversify';
-import { LoggerFactory } from 'ts-smart-logger';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { AnyT, UNDEF } from '../../definitions.interface';
 import { BaseChannel } from '../base-channel.service';
