@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+window.jQuery = $;  // Needed to signalr
 import 'signalr';
 import * as Promise from 'bluebird';
 import { injectable } from 'inversify';
