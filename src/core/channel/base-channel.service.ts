@@ -20,7 +20,7 @@ import { PayloadWrapper } from './protocol';
 import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-definitions.interface';
 
 @injectable()
-export abstract class BaseChannel implements IChannel {
+export abstract class BaseChannel<TConfig = AnyT> implements IChannel<TConfig> {
   protected static logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
@@ -31,9 +31,9 @@ export abstract class BaseChannel implements IChannel {
   /**
    * @stable [21.05.2018]
    * @param {string} ip
-   * @param {AnyT} config
+   * @param {TConfig} config
    */
-  public abstract connect(ip: string, config?: AnyT): void;
+  public abstract connect(ip: string, config?: TConfig): void;
 
   /**
    * @stable [21.05.2018]
@@ -87,28 +87,28 @@ export abstract class BaseChannel implements IChannel {
    * @stable [21.05.2018]
    * @param {string} ip
    * @param {string} event0
-   * @param {AnyT} messages
+   * @param {AnyT} args
    */
-  public emitEvent(ip: string, event0: string, ...messages: AnyT[]): void {
+  public emitEvent(ip: string, event0: string, ...args: AnyT[]): void {
     const client = this.clients.get(ip);
     if (!client) {
       throw new Error(`The client ${ip} doesn't exist!`);
     }
     BaseChannel.logger.debug(
-      () => `[$BaseChannel][emitEvent] The client sent the messages ${messages && JSON.stringify(messages) || '[-]'
+      () => `[$BaseChannel][emitEvent] The client is about to send a message ${args && JSON.stringify(args) || '[-]'
       }. Ip: ${ip}, event: ${event0}`
     );
 
-    client.emit(event0, ...messages);
+    client.emit(event0, ...args);
   }
 
   /**
-   * @stable [21.05.2018]
+   * @stable [12.12.2018]
    * @param {string} ip
-   * @param {AnyT} messages
+   * @param {AnyT} args
    */
-  public emitChannelEvent(ip: string, messages: AnyT): void {
-    this.emitEvent(ip, this.eventToEmit, messages);
+  public emitChannelEvent(ip: string, ...args: AnyT[]): void {
+    this.emitEvent(ip, this.eventToEmit, ...args);
   }
 
   /**

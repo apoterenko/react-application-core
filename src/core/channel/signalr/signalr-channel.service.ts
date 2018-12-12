@@ -1,32 +1,42 @@
 import * as $ from 'jquery';
+import * as R from 'ramda';
 window.jQuery = $;  // Needed to signalr
 import 'signalr';
 import * as Promise from 'bluebird';
 import { injectable } from 'inversify';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { AnyT, UNDEF } from '../../definitions.interface';
+import { AnyT, UNDEF, IKeyValue } from '../../definitions.interface';
 import { BaseChannel } from '../base-channel.service';
-import { createScript, isFn } from '../../util';
+import { createScript, isFn, toType } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
   CHANNEL_SEND_EVENT,
 } from '../channel.interface';
+import { ISignalRChannelConfig } from './signalr-channel.interface';
 
 @injectable()
-export class SignalRChannel extends BaseChannel {
+export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
   protected static logger = LoggerFactory.makeLogger('SignalRChannel');
 
   private signalRScriptTask: Promise<HTMLScriptElement>;
   private signalRInitTasks = new Map<string, Promise<void>>();
 
   /**
+   * @stable [12.12.2018]
+   */
+  constructor() {
+    super();
+    this.onMessage = this.onMessage.bind(this);
+  }
+
+  /**
    * @stable [21.05.2018]
    * @param {string} ip
-   * @param {AnyT} config
+   * @param {ISignalRChannelConfig} config
    */
-  public connect(ip: string, config?: AnyT): void {
+  public connect(ip: string, config?: ISignalRChannelConfig): void {
     const hubUrl = `${this.settings.signalRUrl}${ip}`;
 
     // We need to load the script at the any case
@@ -37,7 +47,7 @@ export class SignalRChannel extends BaseChannel {
       ip,
       // Need to wrap the script loader promise because of chain cancellation
       new Promise((resolve) => this.signalRScriptTask.then(resolve)) // This new promise instance may be canceled!
-        .then(() => this.onSignalRInitialize(ip, hubUrl))
+        .then(() => this.onSignalRInitialize(ip, hubUrl, config))
     );
   }
 
@@ -54,30 +64,37 @@ export class SignalRChannel extends BaseChannel {
    * @stable [11.12.2018]
    * @param {string} ip
    * @param {string} event0
-   * @param {AnyT} messages
+   * @param {AnyT} args
    */
-  public emitEvent(ip: string, event0: string, ...messages: AnyT[]): void {
-    super.emitEvent(this.prepareIp(ip), event0, ...messages);
+  public emitEvent(ip: string, event0: string, ...args: AnyT[]): void {
+    super.emitEvent(this.prepareIp(ip), event0, ...args);
   }
 
   /**
    * @stable [11.12.2018]
    * @param {string} ip
-   * @param {AnyT} messages
+   * @param {AnyT} args
    */
-  public emitChannelEvent(ip: string, messages: AnyT): void {
-    super.emitChannelEvent(this.prepareIp(ip), messages);
+  public emitChannelEvent(ip: string, ...args: AnyT[]): void {
+    super.emitChannelEvent(this.prepareIp(ip), ...args);
   }
 
   /**
-   * @stable [11.12.2018]
+   * @stable [12.12.2018]
    * @param {string} ip
    * @param {string} hubUrl
+   * @param {ISignalRChannelConfig} config
    */
-  private onSignalRInitialize(ip: string, hubUrl: string): void {
+  private onSignalRInitialize(ip: string, hubUrl: string, config?: ISignalRChannelConfig): void {
+    const onMessage = this.onMessage;
     const hubName = this.prepareIp(ip);
+    const specificChannel = Reflect.get($.connection, !R.isNil(config) && config.channel);
+    const isSpecificChannelPresent = !R.isNil(specificChannel);
 
     $.connection.hub.url = hubUrl;
+    if (!R.isNil(config) && isFn(config.query)) {
+      $.connection.hub.qs = toType<() => IKeyValue>(config.query)();
+    }
     Reflect.set($.connection.hub, 'baseUrl', this.settings.signalRUrl);
 
     let disconnectCallback;
@@ -87,10 +104,15 @@ export class SignalRChannel extends BaseChannel {
         on(event: string, callback: (...args: AnyT[]) => void): void {
           switch (event) {
             case CHANNEL_CONNECT_EVENT:
+              if (isSpecificChannelPresent) {
+                specificChannel.client.addMessage = () => {
+                  // Do nothing. This is needed to receive the messages via "hub.received"
+                };
+              }
               $.connection.hub.start().done(() => {
                 if (!isDisconnected) {
                   callback();
-                  $.connection.hub.received((data) => this.onMessage(hubName, UNDEF, data));
+                  $.connection.hub.received((data) => onMessage(hubName, UNDEF, data));
                 }
               });
               break;
@@ -106,7 +128,11 @@ export class SignalRChannel extends BaseChannel {
           switch (event) {
             case CHANNEL_SEND_EVENT:
               try {
-                $.connection.hub.send(args[0]);
+                if (isSpecificChannelPresent) {
+                  specificChannel.server.sendMessage(...args);
+                } else {
+                  $.connection.hub.send(args[0]);
+                }
               } catch (e) {
                 SignalRChannel.logger.error(
                   `[$SignalRChannel][onSignalRInitialize] An error occurred during send a message! The hub: ${hubName}.`, e

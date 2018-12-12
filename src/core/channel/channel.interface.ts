@@ -17,14 +17,14 @@ export interface IChannelClient {
 /**
  * @stable [21.05.2018]
  */
-export interface IChannel {
-  connect(ip: string, config?: AnyT): void;
+export interface IChannel<TConfig = AnyT> {
+  connect(ip: string, config?: TConfig): void;
   disconnect(ip): void;
   onConnect(ip: string, client: IChannelClient): void;
   onDisconnect(ip: string, client: IChannelClient): void;
   onMessage(ip: string, messageName?: string, payload?: string): void;
-  emitEvent(ip: string, event: string, ...messages: AnyT[]): void;
-  emitChannelEvent(ip: string, ...messages: AnyT[]): void;
+  emitEvent(ip: string, event: string, ...args: AnyT[]): void;
+  emitChannelEvent(ip: string, ...args: AnyT[]): void;
   emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void;
 }
 
