@@ -10,6 +10,7 @@ import {
   IActionIconWrapper,
   IActionsDisabledWrapper,
   IActionsPosition,
+  IMaxCountWrapper,
   IActionsWrapper,
   IActionTextWrapper,
   IActiveValueWrapper,
@@ -952,6 +953,7 @@ export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
  * @stable [31.07.2018]
  */
 export interface IMenuConfiguration extends IComponentConfiguration,
+                                            IMaxCountWrapper,
                                             IRenderToXWrapper,
                                             IRenderToYWrapper,
                                             IFilterPlaceholderWrapper,

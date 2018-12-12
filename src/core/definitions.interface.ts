@@ -827,6 +827,13 @@ export interface IRenderToXWrapper {
 }
 
 /**
+ * @stable [11.12.2018]
+ */
+export interface IMaxCountWrapper {
+  maxCount?: number;
+}
+
+/**
  * @stable [31.07.2018]
  */
 export interface IRenderToYWrapper {

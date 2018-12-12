@@ -33,6 +33,10 @@
     @include flex;                                                  /* @stable [19.09.2018] */
   }
 
+  .rac-flex-one-third {
+    @include flex(.33);                                             /* @stable [11.12.2018] */
+  }
+
   .rac-flex-half {
     @include flex(.5);                                              /* @stable [19.09.2018] */
   }

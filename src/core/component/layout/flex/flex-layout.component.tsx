@@ -6,10 +6,6 @@ import { IFlexLayoutProps } from './flex-layout.interface';
 
 export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
 
-  public static defaultProps: IFlexLayoutProps = {
-    full: true,
-  };
-
   /**
    * @stable [17.06.2018]
    * @returns {JSX.Element}
@@ -22,7 +18,7 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
                             props.className,
                             'rac-flex',
                             props.row ? 'rac-flex-row' : 'rac-flex-column',
-                            props.full && 'rac-flex-full',
+                            (props.full !== false && !(props.className || '').includes('rac-flex-')) && 'rac-flex-full',
                             props.overflow && 'rac-flex-overflow',
                             props.overflowMinContentHeight && 'rac-flex-overflow-min-content-height',
                             props.separator && 'rac-flex-separator',

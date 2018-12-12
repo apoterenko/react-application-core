@@ -30,25 +30,35 @@ export function orDefault<TResult1, TResult2>(cond: boolean,
 
 /**
  * @stable [06.12.2018]
- * @param {AnyT} value
+ * @param {AnyT} checkedValue
  * @param {(() => TResult1) | TResult1} result1
  * @param {(() => TResult2) | TResult2} result2
  * @returns {TResult1 | TResult2}
  */
-export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(value: AnyT,
+export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(checkedValue: AnyT,
                                                               result1: TResult1 | (() => TResult1),
                                                               result2?: TResult2 | (() => TResult2)): TResult1 | TResult2 =>
-  orDefault<TResult1, TResult2>(!R.isNil(value), result1, result2);
+  orDefault<TResult1, TResult2>(!R.isNil(checkedValue), result1, result2);
 
 /**
  * @stable [01.12.2018]
- * @param {AnyT} value
+ * @param {AnyT} checkedValue
  * @param {(() => TResult) | TResult} result
  * @returns {void | TResult}
  */
-export const ifNotNilReturnValue = <TResult>(value: AnyT,
+export const ifNotNilReturnValue = <TResult>(checkedValue: AnyT,
                                              result: TResult | (() => TResult)): TResult | null =>
-  ifNilReturnDefault<TResult, null>(value, result, null);
+  ifNilReturnDefault<TResult, null>(checkedValue, result, null);
+
+/**
+ * @stable [11.12.2018]
+ * @param {AnyT} checkedValue
+ * @param {(() => TResult) | TResult} result
+ * @returns {TResult | null}
+ */
+export const ifNilReturnValue = <TResult>(checkedValue: AnyT,
+                                          result: TResult | (() => TResult)): TResult | null =>
+  ifNilReturnDefault<null, TResult>(checkedValue, null, result);
 
 /**
  * @stable [19.08.2018]

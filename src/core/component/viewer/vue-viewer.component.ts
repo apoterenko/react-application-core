@@ -118,14 +118,14 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
    * @stable [28.11.2018]
    */
   protected onAfterOpenPopup(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**
    * @stable [28.11.2018]
    */
   protected onAfterClosePopup(): void {
-    // Nothing to do
+    // Do nothing
   }
 
   /**
