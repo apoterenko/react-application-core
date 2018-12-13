@@ -1,5 +1,6 @@
 import * as Promise from 'bluebird';
 import * as $ from 'jquery';
+import * as R from 'ramda';
 
 import { isFn } from './type';
 import { ENV } from '../env';
@@ -284,3 +285,41 @@ export const findUniversalSelectedElement = (parent: Element = document.body): E
  * @param {IXYEntity} xyEntity
  */
 export const scrollTo = (element: Element, xyEntity: IXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
+
+/**
+ * @stable [13.12.2018]
+ * @param {IJQueryElement} jqSelfEl
+ * @param {IJQueryElement} jqStickyEl
+ * @param {IJQueryElement} jqStickyElNeighborRightEl
+ * @param {number} initialStickyElTop
+ * @param {number} initialStickyElHeight
+ */
+export const setStickyElementProperties = (jqSelfEl: IJQueryElement,
+                                           jqStickyEl: IJQueryElement,
+                                           jqStickyElNeighborRightEl: IJQueryElement,
+                                           initialStickyElTop: number,
+                                           initialStickyElHeight: number): void => {
+  if (R.isNil(jqStickyEl) || R.isNil(jqStickyEl.val())) {
+    return;
+  }
+  let position;
+  let zIndex;
+  let top;
+  let marginTop;
+  const selfTop = jqSelfEl.offset().top;
+  const selfScrollTop = jqSelfEl.scrollTop();
+
+  if (selfScrollTop >= initialStickyElTop - selfTop) {
+    position = 'absolute';
+    zIndex = 1;
+    top = selfScrollTop - initialStickyElTop + selfTop;
+    marginTop = initialStickyElHeight;
+  } else {
+    position = 'initial';
+    zIndex = 0;
+    top = 0;
+    marginTop = 0;
+  }
+  jqStickyEl.css({position, 'z-index': zIndex, top});
+  jqStickyElNeighborRightEl.css('margin-top', `${marginTop}px`);
+};
