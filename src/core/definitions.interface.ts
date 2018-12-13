@@ -17,6 +17,7 @@ export const UNDEF = void 0;
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 export const UNIVERSAL_SELECTED_ELEMENT_SELECTOR = 'rac-universal-selected-element';
+export const UNIVERSAL_STICKY_ELEMENT_SELECTOR = 'rac-sticky-element';
 
 /**
  * @stable [15.09.2018]
@@ -2303,6 +2304,13 @@ export interface ISaveMessageWrapper {
  */
 export interface ITightGridWrapper {
   tightGrid?: boolean;
+}
+
+/**
+ * @stable [12.12.2018]
+ */
+export interface IStickyHeadWrapper {
+  stickyHead?: boolean;
 }
 
 /**

@@ -95,6 +95,7 @@ import {
   IHeaderActionIconStyleWrapper,
   IHeaderActionStyleWrapper,
   IHeaderBackActionEnabledWrapper,
+  IStickyHeadWrapper,
   IHeaderClassNameWrapper,
   IHeaderColSpanWrapper,
   IHeaderContentWrapper,
@@ -569,7 +570,8 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IUseServiceWrapper,
                                             IExpandActionRenderedWrapper,
                                             IExpandedGroupsWrapper,
-                                            ITightGridWrapper {
+                                            ITightGridWrapper,
+                                            IStickyHeadWrapper {
 }
 
 /* @stable - 03.04.2018 */

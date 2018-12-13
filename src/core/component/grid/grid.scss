@@ -10,10 +10,14 @@
 
   @include rac-grid(                                                                          /* @stable [01.12.2018] */
     $rac-grid-color: $rac-grid-color,
+    $rac-grid-position: relative,
     $rac-grid-border-collapse: collapse,
     $rac-grid-column-icon-display: inline-block,
     $rac-grid-column-icon-width: $rac-grid-icon-size,
     $rac-grid-column-icon-height: $rac-grid-icon-size,
+    $rac-grid-body-overflow: $rac-grid-body-overflow,
+    $rac-grid-body-border-left: $rac-grid-body-border-left,
+    $rac-grid-body-border-right: $rac-grid-body-border-right,
     $rac-grid-head-border-radius: $rac-grid-head-border-radius,
     $rac-grid-head-color: $rac-grid-head-color,
     $rac-grid-head-background: $rac-grid-head-background,
@@ -134,7 +138,6 @@
     }
 
     .rac-grid-body {
-      overflow: $rac-grid-body-overflow;                                     /* @stable [17.10.2018] */
 
       .rac-grid-column {
         padding-top: $rac-grid-body-column-padding-top;                      /* @stable [15.09.2018] */

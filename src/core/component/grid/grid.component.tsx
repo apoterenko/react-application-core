@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, IGridFilterConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
-import { IEntity, AnyT, EntityIdT} from '../../definitions.interface';
+import { IEntity, AnyT, EntityIdT, UNIVERSAL_STICKY_ELEMENT_SELECTOR} from '../../definitions.interface';
 import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent, coalesce, isOddNumber } from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
@@ -51,7 +51,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                  props.tightGrid && 'rac-tight-grid',
                  props.className
                )}>
-          <thead className='rac-grid-head'>
+          <thead className={toClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
             {this.headerElement}
             {this.filterElement}
           </thead>

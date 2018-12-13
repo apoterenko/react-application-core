@@ -57,26 +57,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
    */
   public disconnect(ip: string): void {
     this.cancelInitTask(ip);
-    this.unregisterClient(this.prepareIp(ip));
-  }
-
-  /**
-   * @stable [11.12.2018]
-   * @param {string} ip
-   * @param {string} event0
-   * @param {AnyT} args
-   */
-  public emitEvent(ip: string, event0: string, ...args: AnyT[]): void {
-    super.emitEvent(this.prepareIp(ip), event0, ...args);
-  }
-
-  /**
-   * @stable [11.12.2018]
-   * @param {string} ip
-   * @param {AnyT} args
-   */
-  public emitChannelEvent(ip: string, ...args: AnyT[]): void {
-    super.emitChannelEvent(this.prepareIp(ip), ...args);
+    this.unregisterClient(ip);
   }
 
   /**
@@ -87,7 +68,6 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
    */
   private onSignalRInitialize(ip: string, hubUrl: string, config?: ISignalRChannelConfig): void {
     const onMessage = this.onMessage;
-    const hubName = this.prepareIp(ip);
     const specificChannel = Reflect.get($.connection, !R.isNil(config) && config.channel);
     const isSpecificChannelPresent = !R.isNil(specificChannel);
 
@@ -100,7 +80,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
     let disconnectCallback;
     let isDisconnected = false;
 
-    this.registerClient(hubName, {
+    this.registerClient(ip, {
         on(event: string, callback: (...args: AnyT[]) => void): void {
           switch (event) {
             case CHANNEL_CONNECT_EVENT:
@@ -112,7 +92,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
               $.connection.hub.start().done(() => {
                 if (!isDisconnected) {
                   callback();
-                  $.connection.hub.received((data) => onMessage(hubName, UNDEF, data));
+                  $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
                 }
               });
               break;
@@ -135,7 +115,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
                 }
               } catch (e) {
                 SignalRChannel.logger.error(
-                  `[$SignalRChannel][onSignalRInitialize] An error occurred during send a message! The hub: ${hubName}.`, e
+                  `[$SignalRChannel][onSignalRInitialize] An error occurred during send a message! The hub: ${ip}.`, e
                 );
               }
               break;
@@ -149,15 +129,6 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
         },
       }
     );
-  }
-
-  /**
-   * @stable [11.12.2018]
-   * @param {string} ip
-   * @returns {string}
-   */
-  private prepareIp(ip: string): string {
-    return `signalr:${ip}`;
   }
 
   /**

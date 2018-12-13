@@ -413,10 +413,9 @@ export interface IChannelEntity extends IMessagesWrapper<IChannelMessageEntity[]
 }
 
 /**
- * @stable [20.05.2018]
+ * @stable [13.12.2018]
  */
-export interface IChannelsEntity {
-  [ip: string]: IChannelEntity;
+export interface IChannelsEntity extends Record<string, IChannelEntity> {
 }
 
 /**
