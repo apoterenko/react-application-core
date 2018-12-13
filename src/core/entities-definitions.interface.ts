@@ -128,6 +128,7 @@ import {
   IDispatchWrapper,
   IGetValueWrapper,
   IGetSelfWrapper,
+  IJQueryElement,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -972,4 +973,16 @@ export interface IMenuMaterialComponent extends INativeMaterialComponent,
 export interface ICrossPlatformField extends IOnChangeManuallyWrapper,
                                              IGetValueWrapper,
                                              IValueWrapper {
+}
+
+/**
+ * @stable [13.12.2018]
+ */
+export interface IStickyElementPayloadEntity {
+  jqSelfEl?: IJQueryElement;
+  jqStickyNeighborRightEl?: IJQueryElement;
+  jqStickyEl?: IJQueryElement;
+  jqStickyElHeight?: number;
+  initialStickyElTop?: number;
+  initialStickyElHeight?: number;
 }
