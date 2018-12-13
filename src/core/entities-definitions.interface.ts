@@ -129,6 +129,7 @@ import {
   IGetValueWrapper,
   IGetSelfWrapper,
   IJQueryElement,
+  IOnScrollWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -138,9 +139,7 @@ import {
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
-import {
-  IOnClickWrapper,
-} from './react-definitions.interface';
+import { IOnClickWrapper } from './react-definitions.interface';
 
 /**
  * @stable [29.07.2018]
@@ -255,6 +254,15 @@ export interface IContainerClassEntity<TProps extends IContainerProps = IContain
 export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends Component<TProps, TState>,
           IGetSelfWrapper {
+}
+
+/**
+ * @stable [13.12.2018]
+ */
+export interface IUniversalScrollableComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
+                                               TState = {}>
+  extends IUniversalComponent<TProps, TState>,
+          IOnScrollWrapper {
 }
 
 /**
@@ -984,5 +992,4 @@ export interface IStickyElementPayloadEntity {
   jqStickyEl?: IJQueryElement;
   jqStickyElHeight?: number;
   initialStickyElTop?: number;
-  initialStickyElHeight?: number;
 }

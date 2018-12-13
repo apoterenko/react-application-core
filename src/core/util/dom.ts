@@ -214,6 +214,13 @@ export const isParentDocumentBody = (source: Element): boolean => $(source).pare
 export const isDocumentHasFocus = (): boolean => isFn(document.hasFocus) && document.hasFocus();
 
 /**
+ * @stable [13.12.2018]
+ * @param {Element} source
+ * @returns {IJQueryElement}
+ */
+export const toJqEl = (source: Element): IJQueryElement => $(source);
+
+/**
  * @stable [28.06.2018]
  * @param {string} fileName
  * @param {Blob} blob
@@ -310,7 +317,7 @@ export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadE
     position = 'absolute';
     zIndex = 1;
     top = selfScrollTop - payloadEntity.initialStickyElTop + selfTop;
-    marginTop = payloadEntity.initialStickyElHeight;
+    marginTop = payloadEntity.jqStickyEl.height();
   } else {
     position = 'initial';
     zIndex = 0;
@@ -329,7 +336,7 @@ export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadE
 export const getStickyElementInitialProperties = (jqSelfEl: IJQueryElement): IStickyElementPayloadEntity => {
   const jqStickyEl = jqSelfEl.find(`.${UNIVERSAL_STICKY_ELEMENT_SELECTOR}`);
 
-  if (!R.isNil(jqStickyEl) && !R.isNil(jqStickyEl.val()) && jqSelfEl.scrollTop() === 0) {
+  if (!R.isNil(jqStickyEl) && !R.isNil(jqStickyEl.val())) {
     return {
       jqSelfEl,
       jqStickyEl,

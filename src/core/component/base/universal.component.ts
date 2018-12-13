@@ -188,7 +188,7 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    * @param {IUniversalComponentPluginClassEntity} pluginClassEntity
    * @returns {IUniversalComponentPlugin}
    */
-  private registerPlugin(pluginClassEntity: IUniversalComponentPluginClassEntity): IUniversalComponentPlugin {
+  protected registerPlugin(pluginClassEntity: IUniversalComponentPluginClassEntity): IUniversalComponentPlugin {
     const plugin = Reflect.construct(pluginClassEntity, [this]);
     this.plugins.push(plugin);
     return plugin;

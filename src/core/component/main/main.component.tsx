@@ -1,10 +1,23 @@
 import * as React from 'react';
 
+import { IOnScrollWrapper } from '../../definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
+import { StickyHeaderPlugin } from '../plugin';
 
-export class Main extends BaseComponent<Main> {
+export class Main extends BaseComponent<Main> implements IOnScrollWrapper {
+
+  /**
+   * @stable [13.12.2018]
+   * @param {IComponentProps} props
+   */
+  constructor(props: IComponentProps) {
+    super(props);
+    this.onScroll = this.onScroll.bind(this);
+    this.registerPlugin(StickyHeaderPlugin);
+  }
 
   /**
    * @stable [12.10.2018]
@@ -15,7 +28,8 @@ export class Main extends BaseComponent<Main> {
     return (
       <div className={toClassName('rac-main rac-flex-full', props.className)}>
         <div ref={this.getSelfRef()}
-             className='rac-main-body-wrapper'>
+             className='rac-main-body-wrapper'
+             onScroll={this.onScroll}>
           <FlexLayout className='rac-main-body'>
             {props.children}
           </FlexLayout>
@@ -30,5 +44,12 @@ export class Main extends BaseComponent<Main> {
   public componentDidMount() {
     super.componentDidMount();
     this.scrollToUniversalSelectedElement();
+  }
+
+  /**
+   * @stable [13.12.2018]
+   */
+  public onScroll() {
+    // Each plugin should override this method
   }
 }

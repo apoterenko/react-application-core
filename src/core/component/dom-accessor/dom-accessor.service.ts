@@ -9,12 +9,33 @@ import {
   getContentHeight,
   getScrollLeft,
   getScrollTop,
+  toJqEl,
+  getHeight,
 } from '../../util';
 import { IApplicationDomAccessor } from './dom-accessor.interface';
 import { IXYEntity } from '../../entities-definitions.interface';
+import { IJQueryElement } from '../../definitions.interface';
 
 @injectable()
 export class DomAccessor implements IApplicationDomAccessor {
+
+  /**
+   * @stable [13.12.2018]
+   * @param {Element} source
+   * @returns {number}
+   */
+  public getHeight(source: Element): number {
+    return getHeight(source);
+  }
+
+  /**
+   * @stable [13.12.2018]
+   * @param {Element} source
+   * @returns {IJQueryElement}
+   */
+  public toJqEl(source: Element): IJQueryElement {
+    return toJqEl(source);
+  }
 
   /**
    * @stable [01.12.2018]

@@ -1,4 +1,5 @@
 import { IXYEntity } from '../../entities-definitions.interface';
+import { IJQueryElement } from '../../definitions.interface';
 
 /**
  * @stable [01.12.2018]
@@ -9,4 +10,6 @@ export interface IApplicationDomAccessor {
   setScrollTop(el: Element, top: number): void;
   getContentHeight(source: Element): number;
   getScrollInfo(el: Element): IXYEntity;
+  toJqEl(source: Element): IJQueryElement;
+  getHeight(source: Element): number;
 }
