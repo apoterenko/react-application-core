@@ -42,6 +42,13 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
 
   /**
    * @stable [13.12.2018]
+   */
+  public componentWillUnmount() {
+    this.stickyElementInitialProperties = null;
+  }
+
+  /**
+   * @stable [13.12.2018]
    * @param {Readonly<{}>} prevProps
    * @param {Readonly<{}>} prevState
    * @param {never} prevContext
