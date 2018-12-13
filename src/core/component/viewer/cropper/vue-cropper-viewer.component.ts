@@ -10,10 +10,7 @@ import {
   VUE_CROPPER_VIEWER_CROP_EVENT,
   IVueCropperPictureViewerTemplateMethodsEntity,
 } from './vue-cropper-viewer.interface';
-import {
-  vueViewerComponentConfigFactory,
-  VUE_VIEWER_REMOVE_EVENT,
-} from '../vue-viewer.interface';
+import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
 
 @ComponentName('vue-cropper-viewer')
 @Component(vueViewerComponentConfigFactory())
