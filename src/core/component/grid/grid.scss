@@ -22,6 +22,9 @@
     $rac-grid-head-color: $rac-grid-head-color,
     $rac-grid-head-background: $rac-grid-head-background,
     $rac-grid-head-column-vertical-align: bottom,
+    $rac-grid-head-column-content-text-field-height: $rac-grid-head-column-content-text-field-height,
+    $rac-grid-head-column-content-text-field-background: $rac-grid-head-column-content-text-field-background,
+    $rac-grid-head-column-content-text-field-border-color: $rac-grid-head-column-content-text-field-border-color,
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
     $rac-grid-column-align-center-content: true,
@@ -89,7 +92,6 @@
             .rac-field {
 
               .rac-text-field {
-                height: $rac-grid-head-filter-row-text-field-height;         /* @stable [06.10.2018] */
 
                 .rac-field-input {
                   color: $rac-grid-head-color;                               /* @stable [06.10.2018] */
