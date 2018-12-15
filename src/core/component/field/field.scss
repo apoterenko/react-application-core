@@ -19,6 +19,10 @@
                      $rac-text-field-label-top: $rac-text-field-label-top,
                      $rac-text-field-label-left: $rac-text-field-label-left,
                      $rac-text-field-height: $rac-text-field-height,
+                     $rac-text-field-background: $rac-text-field-background,
+                     $rac-text-field-input-border: $rac-text-field-input-border,
+                     $rac-text-field-input-background: $rac-text-field-input-background,
+                     $rac-text-field-input-width: $rac-text-field-input-width,
                      $rac-text-field-input-font-size: $rac-text-field-input-font-size,
                      $rac-text-field-input-color: $rac-text-field-input-color,
                      $rac-text-field-input-padding: $rac-text-field-input-padding,
@@ -238,9 +242,6 @@
       }
 
       .rac-field-input {
-        width: $rac-field-input-width;                                /* @stable [05.10.2018] It's very important! [Flex Layout] */
-        border: none;                                                 /* @stable [03.10.2018] */
-        background: none;                                             /* @stable [03.10.2018] */
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
         letter-spacing: $rac-field-input-letter-spacing;              /* @stable [19.09.2018] */
         line-height: $rac-field-input-line-height;                    /* @stable [05.10.2018] */
