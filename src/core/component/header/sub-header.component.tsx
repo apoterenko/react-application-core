@@ -56,7 +56,7 @@ export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
         {
           orNull<JSX.Element>(
             props.moreOptions,
-            () => this.uiFactory.makeIcon({...props.moreOptionsConfiguration, type: 'more_vert', onClick: this.onMoreOptionsClick})
+            () => this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onMoreOptionsClick})
           )
         }
         {

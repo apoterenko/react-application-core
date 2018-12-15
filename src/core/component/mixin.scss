@@ -28,8 +28,11 @@
  * @stable [08.12.2018]
  */
 @mixin _rac-styles-properties($rac-styles-margin: unset,
+                              $rac-styles-cursor: unset,
+                              $rac-styles-text-align: unset,
                               $rac-styles-letter-spacing: unset,
                               $rac-styles-padding: unset,
+                              $rac-styles-white-space: unset,
                               $rac-styles-right: unset,
                               $rac-styles-top: unset,
                               $rac-styles-content: unset,
@@ -38,6 +41,7 @@
                               $rac-styles-border-collapse: unset,
                               $rac-styles-color: unset,
                               $rac-styles-font-size: unset,
+                              $rac-styles-font-weight: unset,
                               $rac-styles-height: unset,
                               $rac-styles-width: unset,
                               $rac-styles-position: unset,
@@ -50,6 +54,15 @@
                               $rac-styles-border-right: unset) {
   @if $rac-styles-content != unset {
     content: $rac-styles-content;
+  }
+  @if $rac-styles-text-align != unset {
+    text-align: $rac-styles-text-align;
+  }
+  @if $rac-styles-cursor != unset {
+    cursor: $rac-styles-cursor;
+  }
+  @if $rac-styles-white-space != unset {
+    white-space: $rac-styles-white-space;
   }
   @if $rac-styles-right != unset {
     right: $rac-styles-right;
@@ -90,6 +103,9 @@
   @if $rac-styles-font-size != unset {
     font-size: $rac-styles-font-size;
   }
+  @if $rac-styles-font-weight != unset {
+    font-weight: $rac-styles-font-weight;
+  }
   @if $rac-styles-height != unset {
     height: $rac-styles-height;
   }
@@ -117,9 +133,12 @@
  * @stable [08.12.2018]
  */
 @mixin rac-styles($rac-styles-custom: unset,
+                  $rac-styles-cursor: unset,
+                  $rac-styles-text-align: unset,
                   $rac-styles-letter-spacing: unset,
                   $rac-styles-margin: unset,
                   $rac-styles-padding: unset,
+                  $rac-styles-white-space: unset,
                   $rac-styles-right: unset,
                   $rac-styles-top: unset,
                   $rac-styles-content: unset,
@@ -128,6 +147,7 @@
                   $rac-styles-border-collapse: unset,
                   $rac-styles-color: unset,
                   $rac-styles-font-size: unset,
+                  $rac-styles-font-weight: unset,
                   $rac-styles-height: unset,
                   $rac-styles-width: unset,
                   $rac-styles-position: unset,
@@ -142,8 +162,11 @@
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
         $rac-styles-margin: $rac-styles-margin,
+        $rac-styles-cursor: $rac-styles-cursor,
+        $rac-styles-text-align: $rac-styles-text-align,
         $rac-styles-letter-spacing: $rac-styles-letter-spacing,
         $rac-styles-padding: $rac-styles-padding,
+        $rac-styles-white-space: $rac-styles-white-space,
         $rac-styles-right: $rac-styles-right,
         $rac-styles-top: $rac-styles-top,
         $rac-styles-content: $rac-styles-content,
@@ -152,6 +175,7 @@
         $rac-styles-border-collapse: $rac-styles-border-collapse,
         $rac-styles-color: $rac-styles-color,
         $rac-styles-font-size: $rac-styles-font-size,
+        $rac-styles-font-weight: $rac-styles-font-weight,
         $rac-styles-height: $rac-styles-height,
         $rac-styles-width: $rac-styles-width,
         $rac-styles-position: $rac-styles-position,
@@ -167,8 +191,11 @@
   } @else {
     @include _rac-styles-properties(
       $rac-styles-margin: $rac-styles-margin,
+      $rac-styles-cursor: $rac-styles-cursor,
+      $rac-styles-text-align: $rac-styles-text-align,
       $rac-styles-letter-spacing: $rac-styles-letter-spacing,
       $rac-styles-padding: $rac-styles-padding,
+      $rac-styles-white-space: $rac-styles-white-space,
       $rac-styles-right: $rac-styles-right,
       $rac-styles-top: $rac-styles-top,
       $rac-styles-content: $rac-styles-content,
@@ -177,6 +204,7 @@
       $rac-styles-border-collapse: $rac-styles-border-collapse,
       $rac-styles-color: $rac-styles-color,
       $rac-styles-font-size: $rac-styles-font-size,
+      $rac-styles-font-weight: $rac-styles-font-weight,
       $rac-styles-height: $rac-styles-height,
       $rac-styles-width: $rac-styles-width,
       $rac-styles-position: $rac-styles-position,
@@ -677,7 +705,7 @@
     }
   }
 
-  .rac-text-field {
+  > .rac-text-field { // To prevent inner component inheritance (field - grid - field)
     @if $rac-text-field-custom-background != unset {
       background: $rac-text-field-custom-background;
     }
@@ -691,23 +719,14 @@
       border-color: $rac-text-field-custom-border-color;
     }
 
-    .rac-field-input {
-      @if $rac-text-field-input-custom-cursor != unset {
-        cursor: $rac-text-field-input-custom-cursor;
-      }
-      @if $rac-text-field-input-custom-font-size != unset {
-        font-size: $rac-text-field-input-custom-font-size;
-      }
-      @if $rac-text-field-input-custom-color != unset {
-        color: $rac-text-field-input-custom-color;
-      }
-      @if $rac-text-field-input-custom-padding != unset {
-        padding: $rac-text-field-input-custom-padding;
-      }
-      @if $rac-text-field-input-custom-text-align != unset {
-        text-align: $rac-text-field-input-custom-text-align;
-      }
-    }
+    @include rac-styles(
+      $rac-styles-custom: rac-field-input,
+      $rac-styles-cursor: $rac-text-field-input-custom-cursor,
+      $rac-styles-font-size: $rac-text-field-input-custom-font-size,
+      $rac-styles-color: $rac-text-field-input-custom-color,
+      $rac-styles-padding: $rac-text-field-input-custom-padding,
+      $rac-styles-text-align: $rac-text-field-input-custom-text-align
+    );
 
     .rac-field-label {
       @if $rac-text-field-label-custom-position != unset {

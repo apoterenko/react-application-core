@@ -43,7 +43,7 @@ export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, T
   protected get addActionElement(): JSX.Element {
     return orNull<JSX.Element>(
       this.props.useAddAction,
-      () => this.uiFactory.makeIcon<IUIIconConfiguration>({type: 'add', onClick: this.onCreate})
+      () => this.uiFactory.makeIcon({type: 'add', onClick: this.onCreate})
     );
   }
 }

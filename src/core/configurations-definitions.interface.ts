@@ -128,7 +128,6 @@ import {
   IMaskPlaceholderCharWrapper,
   IMaskWrapper,
   IMessageWrapper,
-  IMoreOptionsConfigurationWrapper,
   IMoreOptionsWrapper,
   IMultiWrapper,
   INameWrapper,
@@ -1013,6 +1012,7 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
 export interface IUniversalUIIconConfiguration extends IUniversalComponentConfiguration,
                                                        IDisabledWrapper,
                                                        ITypeWrapper,
+                                                       IClassNameWrapper,
                                                        ISimpleWrapper,
                                                        IOnClickWrapper {
 }
@@ -1039,7 +1039,6 @@ export type UIIconConfigurationT = IUIIconConfiguration | string;
  */
 export interface ISubHeaderConfiguration extends IComponentConfiguration,
                                                  IMoreOptionsWrapper<IMenuItemEntity[]>,
-                                                 IMoreOptionsConfigurationWrapper<IUniversalButtonProps>,
                                                  IItemsWrapper<JSX.Element>,
                                                  INavigationActionTypeWrapper,
                                                  IOnNavigationActionClickWrapper,

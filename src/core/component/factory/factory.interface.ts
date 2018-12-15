@@ -55,11 +55,11 @@ export interface IUIFactory {
   dialogActions?: string;
 
   /**
-   * @stable [18.05.2018]
-   * @param {string | TUIIconConfiguration} config
+   * @stable [15.12.2018]
+   * @param {IUniversalUIIconConfiguration | string} config
    * @returns {JSX.Element}
    */
-  makeIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(config: TUIIconConfiguration | string): JSX.Element;
+  makeIcon?(config: IUniversalUIIconConfiguration | string): JSX.Element;
 
   /**
    * @stable [18.05.2018]

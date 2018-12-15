@@ -17,7 +17,11 @@ export class Title extends BaseComponent<Title, ITitleProps> {
     return (
       <FlexLayout full={false}
                   row={true}
-                  className={toClassName('rac-title-wrapper', props.className)}>
+                  className={toClassName(
+                    'rac-title-wrapper',
+                    props.bordered !== false && 'rac-title-wrapper-bordered',
+                    props.className
+                  )}>
         <FlexLayout className='rac-title'
                     justifyContentCenter={true}>
           {this.t(props.children as string)}
