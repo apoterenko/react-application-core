@@ -91,6 +91,18 @@ html, body {
 
   @include rac-icon($rac-icon-custom: 'rac-action-icon.rac-disabled-icon',                    /* @stable [21.11.2018] */
                     $rac-icon-cursor: default);
+
+  @include rac-filter-active(                                                                 /* @stable [15.12.2018] */
+    $rac-filter-active-position: relative,
+    $rac-filter-active-after-position: absolute,
+    $rac-filter-active-after-left: $rac-filter-active-left,
+    $rac-filter-active-after-right: $rac-filter-active-right,
+    $rac-filter-active-after-top: $rac-filter-active-top,
+    $rac-filter-active-after-bottom: $rac-filter-active-bottom,
+    $rac-filter-active-after-font-size: $rac-filter-active-font-size,
+    $rac-filter-active-after-content: $rac-filter-active-content,
+    $rac-filter-active-after-color: $rac-filter-active-color
+  );
 }
 
 // Root [FRAMEWORK-]
@@ -243,21 +255,6 @@ html, body {
 
   .rac-no-user-select {
     @include x-user-select;             /* @stable [04.05.2018] */
-  }
-
-  .rac-filter-active {
-    position: relative;                             /* @stable [25.06.2018] */
-
-    &::after {
-      position: absolute;                           /* @stable [25.06.2018] */
-      left: $rac-filter-active-left;                /* @stable [25.06.2018] */
-      top: $rac-filter-active-top;                  /* @stable [25.06.2018] */
-      right: $rac-filter-active-right;              /* @stable [18.10.2018] */
-      bottom: $rac-filter-active-bottom;            /* @stable [18.10.2018] */
-      font-size: $rac-filter-active-font-size;      /* @stable [25.06.2018] */
-      content: '●';                                /* @stable [25.06.2018] */
-      color: $rac-filter-active-color;              /* @stable [25.06.2018] */
-    }
   }
 
   .rac-opacity-2 {

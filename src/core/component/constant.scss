@@ -296,6 +296,8 @@ $rac-text-field-active-icon-color: $color-15 !default;
 $rac-text-field-label-position: absolute !default;
 $rac-text-field-label-top: -$rac-text-field-margin-top !default;
 $rac-text-field-label-left: 0 !default;
+$rac-text-field-filter-active-after-left: 7px !default;
+$rac-text-field-filter-active-after-bottom: 5px !default;
 $rac-gridfield-text-field-margin-bottom: 8px !default;
 $rac-checkbox-field-label-line-height: 16px !default;
 $rac-view-field-margin-bottom: 20px !default;
@@ -306,7 +308,8 @@ $rac-text-area-length-label-color: $rac-default-label-color !default;
 /* @stable [30.07.2018] */
 $rac-dialog-address-field-google-maps-map-min-height: 200px !default;
 
-/* @stable [23.06.2018] */
+/* @stable [15.12.2018] */
+$rac-filter-active-content: '●' !default;
 $rac-filter-active-color: $color-6 !default;
 $rac-filter-active-left: unset !default;
 $rac-filter-active-top: unset !default;

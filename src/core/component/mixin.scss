@@ -35,7 +35,9 @@
                               $rac-styles-padding: unset,
                               $rac-styles-white-space: unset,
                               $rac-styles-right: unset,
+                              $rac-styles-left: unset,
                               $rac-styles-top: unset,
+                              $rac-styles-bottom: unset,
                               $rac-styles-content: unset,
                               $rac-styles-border: unset,
                               $rac-styles-border-radius: unset,
@@ -56,6 +58,9 @@
   @if $rac-styles-content != unset {
     content: $rac-styles-content;
   }
+  @if $rac-styles-left != unset {
+    left: $rac-styles-left;
+  }
   @if $rac-styles-border-color != unset {
     border-color: $rac-styles-border-color;
   }
@@ -73,6 +78,9 @@
   }
   @if $rac-styles-top != unset {
     top: $rac-styles-top;
+  }
+  @if $rac-styles-bottom != unset {
+    bottom: $rac-styles-bottom;
   }
   @if $rac-styles-letter-spacing != unset {
     letter-spacing: $rac-styles-letter-spacing;
@@ -144,7 +152,9 @@
                   $rac-styles-padding: unset,
                   $rac-styles-white-space: unset,
                   $rac-styles-right: unset,
+                  $rac-styles-left: unset,
                   $rac-styles-top: unset,
+                  $rac-styles-bottom: unset,
                   $rac-styles-content: unset,
                   $rac-styles-border: unset,
                   $rac-styles-border-radius: unset,
@@ -174,7 +184,9 @@
         $rac-styles-padding: $rac-styles-padding,
         $rac-styles-white-space: $rac-styles-white-space,
         $rac-styles-right: $rac-styles-right,
+        $rac-styles-left: $rac-styles-left,
         $rac-styles-top: $rac-styles-top,
+        $rac-styles-bottom: $rac-styles-bottom,
         $rac-styles-content: $rac-styles-content,
         $rac-styles-border: $rac-styles-border,
         $rac-styles-border-radius: $rac-styles-border-radius,
@@ -204,7 +216,9 @@
       $rac-styles-padding: $rac-styles-padding,
       $rac-styles-white-space: $rac-styles-white-space,
       $rac-styles-right: $rac-styles-right,
+      $rac-styles-left: $rac-styles-left,
       $rac-styles-top: $rac-styles-top,
+      $rac-styles-bottom: $rac-styles-bottom,
       $rac-styles-content: $rac-styles-content,
       $rac-styles-border: $rac-styles-border,
       $rac-styles-border-radius: $rac-styles-border-radius,
@@ -232,7 +246,9 @@
 @mixin rac-after($rac-after-position: unset,
                  $rac-after-height: unset,
                  $rac-after-right: unset,
+                 $rac-after-left: unset,
                  $rac-after-top: unset,
+                 $rac-after-bottom: unset,
                  $rac-after-font-size: unset,
                  $rac-after-content: unset,
                  $rac-after-color: unset) {
@@ -241,10 +257,43 @@
       $rac-styles-position: $rac-after-position,
       $rac-styles-height: $rac-after-height,
       $rac-styles-right: $rac-after-right,
+      $rac-styles-left: $rac-after-left,
       $rac-styles-top: $rac-after-top,
+      $rac-styles-bottom: $rac-after-bottom,
       $rac-styles-font-size: $rac-after-font-size,
       $rac-styles-content: $rac-after-content,
       $rac-styles-color: $rac-after-color
+    );
+  }
+}
+
+/**
+ * @stable [15.12.2018]
+ */
+@mixin rac-filter-active($rac-filter-active-position: unset,
+                         $rac-filter-active-after-position: unset,
+                         $rac-filter-active-after-left: unset,
+                         $rac-filter-active-after-right: unset,
+                         $rac-filter-active-after-top: unset,
+                         $rac-filter-active-after-bottom: unset,
+                         $rac-filter-active-after-font-size: unset,
+                         $rac-filter-active-after-content: unset,
+                         $rac-filter-active-after-color: unset) {
+
+  .rac-filter-active {
+    @include rac-styles(
+      $rac-styles-position: $rac-filter-active-position
+    );
+
+    @include rac-after(
+      $rac-after-position: $rac-filter-active-after-position,
+      $rac-after-left: $rac-filter-active-after-left,
+      $rac-after-top: $rac-filter-active-after-top,
+      $rac-after-right: $rac-filter-active-after-right,
+      $rac-after-bottom: $rac-filter-active-after-bottom,
+      $rac-after-font-size: $rac-filter-active-after-font-size,
+      $rac-after-content: $rac-filter-active-after-content,
+      $rac-after-color: $rac-filter-active-after-color
     );
   }
 }
@@ -691,7 +740,9 @@
                                     $rac-text-field-input-caret-custom-bottom: unset,
                                     $rac-text-field-input-caret-custom-font-size: unset,
                                     $rac-text-field-input-caret-custom-color: unset,
-                                    $rac-text-field-icon-custom-color: unset) {
+                                    $rac-text-field-icon-custom-color: unset,
+                                    $rac-text-field-filter-active-after-bottom: unset,
+                                    $rac-text-field-filter-active-after-left: unset) {
 
   @if $rac-field-custom-align-items != unset {
     @include align-items($rac-field-custom-align-items);
@@ -722,6 +773,11 @@
       $rac-styles-height: $rac-text-field-custom-height,
       $rac-styles-border-color: $rac-text-field-custom-border-color,
       $rac-styles-margin: $rac-text-field-custom-margin
+    );
+
+    @include rac-filter-active(
+      $rac-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
+      $rac-filter-active-after-left: $rac-text-field-filter-active-after-left
     );
 
     @include rac-styles(
@@ -797,7 +853,9 @@
                  $rac-text-field-input-caret-bottom: unset,
                  $rac-text-field-input-caret-font-size: unset,
                  $rac-text-field-input-caret-color: unset,
-                 $rac-text-field-icon-color: unset) {
+                 $rac-text-field-icon-color: unset,
+                 $rac-text-field-filter-active-after-bottom: unset,
+                 $rac-text-field-filter-active-after-left: unset) {
 
   @if $rac-field-custom != unset {
     .rac-field {
@@ -828,7 +886,9 @@
           $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
           $rac-text-field-input-caret-custom-font-size: $rac-text-field-input-caret-font-size,
           $rac-text-field-input-caret-custom-color: $rac-text-field-input-caret-color,
-          $rac-text-field-icon-custom-color: $rac-text-field-icon-color
+          $rac-text-field-icon-custom-color: $rac-text-field-icon-color,
+          $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
+          $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
         );
       }
     }
@@ -860,7 +920,9 @@
         $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
         $rac-text-field-input-caret-custom-font-size: $rac-text-field-input-caret-font-size,
         $rac-text-field-input-caret-custom-color: $rac-text-field-input-caret-color,
-        $rac-text-field-icon-custom-color: $rac-text-field-icon-color
+        $rac-text-field-icon-custom-color: $rac-text-field-icon-color,
+        $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
+        $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
       );
     }
   }

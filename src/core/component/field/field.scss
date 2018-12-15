@@ -30,7 +30,9 @@
                      $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,
                      $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
                      $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
-                     $rac-text-field-icon-color: $rac-text-field-icon-color);
+                     $rac-text-field-icon-color: $rac-text-field-icon-color,
+                     $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
+                     $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left);
 
   .rac-text-area-length-label {
     @include _rac-position-properties($rac-position: absolute,
