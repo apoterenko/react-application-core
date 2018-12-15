@@ -14,7 +14,20 @@ html, body {
 
 // Rac [FRAMEWORK-]
 .rac {
-  min-width: $rac-min-width;                                                        /* @stable [16.09.2018] */
+
+  @include rac-styles(                                                                        /* @stable [13.12.2018] */
+    $rac-styles-min-width: $rac-min-width
+  );
+
+  @include rac-styles(                                                                        /* @stable [13.12.2018] */
+    $rac-styles-custom: rac-status-ok,
+    $rac-styles-color: $rac-status-ok-color
+  );
+
+  @include rac-styles(                                                                        /* @stable [13.12.2018] */
+    $rac-styles-custom: rac-status-warning,
+    $rac-styles-color: $rac-status-warning-color
+  );
 
   .rac-overflow-ellipsis {
     display: inline-block;                                                          /* @stable [16.09.2018] */
@@ -130,14 +143,6 @@ html, body {
 
   .rac-status-attention {
     color: $rac-status-attention-color;                      /* @stable [17.08.2018] */
-  }
-
-  .rac-status-warning {
-    color: $rac-status-warning-color;                        /* @stable [21.08.2018] */
-  }
-
-  .rac-status-ok {
-    color: $rac-status-ok-color;                             /* @stable [26.08.2018] */
   }
 
   .rac-global-error-message {

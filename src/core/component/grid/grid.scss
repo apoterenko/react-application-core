@@ -29,6 +29,13 @@
     $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
     $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
     $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
+    $rac-grid-column-edited-content-after-position: absolute,
+    $rac-grid-column-edited-content-after-height: $rac-grid-column-edited-content-after-height,
+    $rac-grid-column-edited-content-after-right: $rac-grid-column-edited-content-after-right,
+    $rac-grid-column-edited-content-after-top: $rac-grid-column-edited-content-after-top,
+    $rac-grid-column-edited-content-after-font-size: $rac-grid-column-edited-content-after-font-size,
+    $rac-grid-column-edited-content-after-content: $rac-grid-column-edited-content-after-content,
+    $rac-grid-column-edited-content-after-color: $rac-grid-column-edited-content-after-color,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
     $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
     $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color
@@ -40,21 +47,6 @@
       line-height:  $rac-grid-column-line-height;                                   /* @stable [15.09.2018] */
       padding-right: $rac-grid-column-padding-right;                                /* @stable [15.09.2018] */
       padding-left: $rac-grid-column-padding-left;                                  /* @stable [15.09.2018] */
-
-      &.rac-grid-column-edited {
-
-        .rac-grid-column-content {
-          &::after {
-            position: absolute;                                                     /* @stable [04.07.2018] */
-            height: 0;                                                              /* @stable [04.08.2018] */
-            right: $rac-grid-edited-column-content-right;                           /* @stable [04.07.2018] */
-            top: $rac-grid-edited-column-content-top;                               /* @stable [04.07.2018] */
-            font-size: $rac-grid-edited-column-content-font-size;                   /* @stable [04.07.2018] */
-            content: '◹';                                                           /* @stable [04.07.2018] */
-            color: $rac-grid-edited-column-content-color;                           /* @stable [04.07.2018] */
-          }
-        }
-      }
 
       .rac-grid-column-content {
         position: relative;                                                         /* @stable [04.07.2018] */
