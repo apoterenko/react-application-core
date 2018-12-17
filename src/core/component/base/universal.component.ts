@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { DelayedTask, isFn, isDef } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
@@ -56,7 +57,17 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
     if (props.register) {
       props.register(this);
     }
-    this.domAccessor.scrollTo(props, this.getSelf());
+  }
+
+  /**
+   * @stable [18.12.2018]
+   * @param {Readonly<TProps extends IUniversalComponentProps>} prevProps
+   * @param {Readonly<TState>} prevState
+   */
+  public getSnapshotBeforeUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
+    this.plugins.forEach((plugin) =>
+      isFn(plugin.getSnapshotBeforeUpdate) && plugin.getSnapshotBeforeUpdate(prevProps, prevState));
+    return null;
   }
 
   /**
@@ -91,16 +102,6 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
    */
   public getSelf(): Element {
     return this.selfRef.current || this.refs.self as any; // TODO any
-  }
-
-  /**
-   * @stable [01.12.2018]
-   */
-  protected scrollToUniversalSelectedElement(): void {
-    const selectedElement = this.domAccessor.findUniversalSelectedElement(this.getSelf());
-    if (selectedElement) {
-      this.domAccessor.scrollTo(selectedElement, this.getSelf());
-    }
   }
 
   /**

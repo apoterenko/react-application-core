@@ -5,7 +5,7 @@ import { IComponentProps } from '../../props-definitions.interface';
 import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
-import { StickyHeaderPlugin } from '../plugin';
+import { StickyHeaderPlugin, PersistentScrollPlugin } from '../plugin';
 
 export class Main extends BaseComponent<Main> implements IOnScrollWrapper {
 
@@ -17,6 +17,7 @@ export class Main extends BaseComponent<Main> implements IOnScrollWrapper {
     super(props);
     this.onScroll = this.onScroll.bind(this);
     this.registerPlugin(StickyHeaderPlugin);
+    this.registerPlugin(PersistentScrollPlugin);
   }
 
   /**
@@ -36,14 +37,6 @@ export class Main extends BaseComponent<Main> implements IOnScrollWrapper {
         </div>
       </div>
     );
-  }
-
-  /**
-   * @stable [01.12.2018]
-   */
-  public componentDidMount() {
-    super.componentDidMount();
-    this.scrollToUniversalSelectedElement();
   }
 
   /**
