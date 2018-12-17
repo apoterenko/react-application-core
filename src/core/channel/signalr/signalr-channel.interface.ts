@@ -1,19 +1,35 @@
 import {
-  IChannelWrapper,
+  IChannelsWrapper,
   IKeyValue,
   IQueryWrapper,
+  IChannelWrapper,
+  IParamsWrapper,
+  AnyT,
 } from '../../definitions.interface';
 import { IChannel } from '../channel.interface';
 
 /**
  * @stable [12.12.2018]
  */
-export interface ISignalRChannelConfig extends IChannelWrapper,
-                                               IQueryWrapper<() => IKeyValue> {
+export interface ISignalRChannelConfigEntity extends IChannelsWrapper<string[]>,
+                                                     IQueryWrapper<() => IKeyValue> {
 }
+
+/**
+ * @stable [17.12.2018]
+ */
+export interface ISignalRChannelMessageEntity extends IChannelWrapper,
+                                                      IParamsWrapper<AnyT[]> {
+}
+
+/**
+ * @stable [17.12.2018]
+ */
+export type SignalRChannelMessageEntityT = ISignalRChannelMessageEntity | AnyT;
 
 /**
  * @stable [12.12.2018]
  */
-export interface ISignalRChannel extends IChannel<ISignalRChannelConfig> {
+export interface ISignalRChannel extends IChannel<ISignalRChannelConfigEntity,
+                                                  SignalRChannelMessageEntityT> {
 }

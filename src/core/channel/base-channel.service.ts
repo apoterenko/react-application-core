@@ -20,7 +20,7 @@ import { PayloadWrapper } from './protocol';
 import { IChannelMessageEntity, IApplicationStoreEntity } from '../entities-definitions.interface';
 
 @injectable()
-export abstract class BaseChannel<TConfig = AnyT> implements IChannel<TConfig> {
+export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IChannel<TConfig, TMessage> {
   protected static logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
@@ -67,9 +67,9 @@ export abstract class BaseChannel<TConfig = AnyT> implements IChannel<TConfig> {
    * @stable [25.05.2018]
    * @param {string} ip
    * @param {string} messageName
-   * @param {string} payload
+   * @param {AnyT} payload
    */
-  public onMessage(ip: string, messageName?: string, payload?: string): void {
+  public onMessage(ip: string, messageName?: string, payload?: AnyT): void {
     BaseChannel.logger.info(
       () => `[$BaseChannel][onMessage] The client received the data ${payload && JSON.stringify(payload) ||
       '[-]'}. Ip: ${ip}, message: ${messageName || '[-]'}`
@@ -87,9 +87,9 @@ export abstract class BaseChannel<TConfig = AnyT> implements IChannel<TConfig> {
    * @stable [21.05.2018]
    * @param {string} ip
    * @param {string} event0
-   * @param {AnyT} args
+   * @param {TMessage} args
    */
-  public emitEvent(ip: string, event0: string, ...args: AnyT[]): void {
+  public emitEvent(ip: string, event0: string, ...args: TMessage[]): void {
     const client = this.clients.get(ip);
     if (!client) {
       throw new Error(`The client ${ip} doesn't exist!`);
@@ -105,9 +105,9 @@ export abstract class BaseChannel<TConfig = AnyT> implements IChannel<TConfig> {
   /**
    * @stable [12.12.2018]
    * @param {string} ip
-   * @param {AnyT} args
+   * @param {TMessage} args
    */
-  public emitChannelEvent(ip: string, ...args: AnyT[]): void {
+  public emitChannelEvent(ip: string, ...args: TMessage[]): void {
     this.emitEvent(ip, this.eventToEmit, ...args);
   }
 
@@ -117,7 +117,7 @@ export abstract class BaseChannel<TConfig = AnyT> implements IChannel<TConfig> {
    * @param {PayloadWrapper} requestPayload
    */
   public emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void {
-    this.emitChannelEvent(ip, JSON.stringify(requestPayload));
+    this.emitChannelEvent(ip, JSON.stringify(requestPayload) as AnyT);
   }
 
   /**

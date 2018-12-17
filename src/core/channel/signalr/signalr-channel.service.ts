@@ -14,10 +14,14 @@ import {
   CHANNEL_DISCONNECT_EVENT,
   CHANNEL_SEND_EVENT,
 } from '../channel.interface';
-import { ISignalRChannelConfig } from './signalr-channel.interface';
+import {
+  ISignalRChannelConfigEntity,
+  ISignalRChannelMessageEntity,
+  SignalRChannelMessageEntityT,
+} from './signalr-channel.interface';
 
 @injectable()
-export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
+export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, SignalRChannelMessageEntityT> {
   protected static logger = LoggerFactory.makeLogger('SignalRChannel');
 
   private signalRScriptTask: Promise<HTMLScriptElement>;
@@ -29,14 +33,15 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
   constructor() {
     super();
     this.onMessage = this.onMessage.bind(this);
+    this.toChannelClient = this.toChannelClient.bind(this);
   }
 
   /**
    * @stable [21.05.2018]
    * @param {string} ip
-   * @param {ISignalRChannelConfig} config
+   * @param {ISignalRChannelConfigEntity} config
    */
-  public connect(ip: string, config?: ISignalRChannelConfig): void {
+  public connect(ip: string, config?: ISignalRChannelConfigEntity): void {
     const hubUrl = `${this.settings.signalRUrl}${ip}`;
 
     // We need to load the script at the any case
@@ -64,12 +69,12 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
    * @stable [12.12.2018]
    * @param {string} ip
    * @param {string} hubUrl
-   * @param {ISignalRChannelConfig} config
+   * @param {ISignalRChannelConfigEntity} config
    */
-  private onSignalRInitialize(ip: string, hubUrl: string, config?: ISignalRChannelConfig): void {
+  private onSignalRInitialize(ip: string, hubUrl: string, config?: ISignalRChannelConfigEntity): void {
     const onMessage = this.onMessage;
-    const specificChannel = Reflect.get($.connection, !R.isNil(config) && config.channel);
-    const isSpecificChannelPresent = !R.isNil(specificChannel);
+    const toChannelClient = this.toChannelClient;
+    const areSpecificChannelsPresent = !R.isNil(config) && Array.isArray(config.channels);
 
     $.connection.hub.url = hubUrl;
     if (!R.isNil(config) && isFn(config.query)) {
@@ -84,15 +89,23 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
         on(event: string, callback: (...args: AnyT[]) => void): void {
           switch (event) {
             case CHANNEL_CONNECT_EVENT:
-              if (isSpecificChannelPresent) {
-                specificChannel.client.addMessage = () => {
-                  // Do nothing. This is needed to receive the messages via "hub.received"
-                };
+              if (areSpecificChannelsPresent) {
+                config.channels.forEach((channel) => {
+                  const specificChannel = toChannelClient(channel, CHANNEL_CONNECT_EVENT);
+                  if (!R.isNil(specificChannel)) {
+                    /* tslint:disable */
+                    specificChannel.client.addMessage = function() {
+                      onMessage(ip, UNDEF, Array.from(arguments));
+                    };
+                  }
+                });
               }
               $.connection.hub.start().done(() => {
                 if (!isDisconnected) {
                   callback();
-                  $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
+                  if (!areSpecificChannelsPresent) {
+                    $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
+                  }
                 }
               });
               break;
@@ -104,12 +117,23 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
               break;
           }
         },
-        emit(event: string, ...args: AnyT[]): void {
+        emit(event: string, ...args: SignalRChannelMessageEntityT[]): void {
           switch (event) {
             case CHANNEL_SEND_EVENT:
               try {
-                if (isSpecificChannelPresent) {
-                  specificChannel.server.sendMessage(...args);
+                if (areSpecificChannelsPresent) {
+                  const payload = toType<ISignalRChannelMessageEntity>(args[0]);
+                  if (R.isNil(payload.channel)) {
+                    SignalRChannel.logger.warn(
+                      `[$SignalRChannel][onSignalRInitialize][${CHANNEL_SEND_EVENT
+                        }] A specific channel name is not defined. The params:`, JSON.stringify(args)
+                    );
+                  } else {
+                    const specificChannel = toChannelClient(payload.channel, CHANNEL_SEND_EVENT);
+                    if (!R.isNil(specificChannel)) {
+                      specificChannel.server.sendMessage(...payload.params);
+                    }
+                  }
                 } else {
                   $.connection.hub.send(args[0]);
                 }
@@ -140,5 +164,22 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfig> {
       this.signalRInitTasks.get(ip).cancel();
       this.signalRInitTasks.delete(ip);
     }
+  }
+
+  /**
+   * @stable [17.12.2018]
+   * @param {string} channelName
+   * @param {string} event
+   * @returns {IKeyValue}
+   */
+  private toChannelClient(channelName: string, event: string): IKeyValue {
+    const specificChannel = Reflect.get($.connection, channelName);
+    if (R.isNil(specificChannel)) {
+      SignalRChannel.logger.warn(
+        `[$SignalRChannel][toChannelClient][${event}] A specific channel is not defined by channel name ${
+          channelName || '[-]'}. The event:`, event
+      );
+    }
+    return specificChannel;
   }
 }
