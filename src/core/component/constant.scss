@@ -101,16 +101,16 @@ $rac-profile-app-version-font-size: 8px !default;
 
 /* @stable [25.06.2018] */
 $rac-add-button-icon-position: fixed !default;
-$rac-add-button-icon-opacity: $opacity !default;
-$rac-add-button-icon-background-color: $rac-default-action-color !default;
+$rac-add-button-icon-opacity: unset !default;
+$rac-add-button-icon-background: $rac-default-action-color !default;
 $rac-add-button-icon-color: $color-5 !default;
 $rac-add-button-icon-bottom: 56px !default;
 $rac-add-button-icon-right: 88px !default;
 $rac-add-button-icon-width: 48px !default;
 $rac-add-button-icon-height: $rac-add-button-icon-width !default;
 $rac-add-button-icon-border-radius: $rac-add-button-icon-width / 2 !default;
-$rac-add-button-fa-icon-width: $rac-icon-width2 !default;
-$rac-add-button-fa-icon-height: $rac-icon-height2 !default;
+$rac-add-button-icon-content-width: $rac-icon-width2 !default;
+$rac-add-button-icon-content-height: $rac-icon-height2 !default;
 
 /* @stable [24.06.2018] */
 $rac-button-height: 40px !default;

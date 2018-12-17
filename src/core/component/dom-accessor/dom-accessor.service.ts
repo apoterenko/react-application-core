@@ -9,6 +9,7 @@ import {
   getContentHeight,
   getScrollLeft,
   getScrollTop,
+  setScrollLeft,
   toJqEl,
   getHeight,
 } from '../../util';
@@ -18,6 +19,33 @@ import { IJQueryElement } from '../../definitions.interface';
 
 @injectable()
 export class DomAccessor implements IApplicationDomAccessor {
+
+  /**
+   * @stable [18.12.2018]
+   * @param {Element} el
+   * @param {number} left
+   */
+  public setScrollLeft(el: Element, left: number): void {
+    setScrollLeft(el, left);
+  }
+
+  /**
+   * @stable [18.12.2018]
+   * @param {Element} el
+   * @returns {number}
+   */
+  public getScrollLeft(el: Element): number {
+    return getScrollLeft(el);
+  }
+
+  /**
+   * @stable [18.12.2018]
+   * @param {Element} el
+   * @returns {number}
+   */
+  public getScrollTop(el: Element): number {
+    return getScrollTop(el);
+  }
 
   /**
    * @stable [13.12.2018]

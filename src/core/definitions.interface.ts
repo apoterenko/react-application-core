@@ -76,12 +76,6 @@ export interface IIdWrapper<TId = number> {
 /**
  * @stable [13.05.2018]
  */
-export interface IStringIdWrapper extends IIdWrapper<string> {
-}
-
-/**
- * @stable [13.05.2018]
- */
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {
 }
 
@@ -403,6 +397,13 @@ export interface IChannelWrapper<TChannel = string> {
   channel?: TChannel;
 }
 
+/**
+ * @stable [16.12.2018]
+ */
+export interface IChannelsWrapper<TChannels = string> {
+  channels?: TChannels;
+}
+
 /**********************
  * NoCache's wrapper
  **********************/
@@ -604,7 +605,7 @@ export interface IOnOpenWrapper<TOnOpen = () => void> {
 /**
  * @stable [07.07.2018]
  */
-export interface IOperationWrapper<TOperation = IStringIdWrapper> {
+export interface IOperationWrapper<TOperation = IIdWrapper<string>> {
   operation?: TOperation;
 }
 
@@ -1222,10 +1223,6 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
  **********************/
 export interface IBlobWrapper {
   blob?: Blob;
-}
-
-export interface IBlobEntity extends IStringIdWrapper,
-                                     IBlobWrapper {
 }
 
 /**

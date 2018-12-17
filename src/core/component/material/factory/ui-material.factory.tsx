@@ -159,7 +159,7 @@ export class UIMaterialFactory implements IUIFactory {
     warehouse: faWarehouse,
     minus_circle: faMinusCircle,
     product: faCannabis,
-    supplier: faTruckMoving,
+    truck_moving: faTruckMoving,
     check_circle_regular: faCheckCircleRegular,
     shopping_basket: faShoppingBasket,
     shipping_fast: faShippingFast,

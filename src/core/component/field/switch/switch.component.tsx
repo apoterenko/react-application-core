@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../util';
-import { CenterLayout } from '../../layout';
 import { BaseCheckbox } from '../checkbox';
 import { ISwitchProps, ISwitchState, ISwitchInputProps } from './switch.interface';
 
@@ -12,25 +11,19 @@ export class Switch extends BaseCheckbox<Switch, ISwitchProps, ISwitchState> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-
-    return (
-      <div className={this.getFieldClassName()}>
-        <CenterLayout>
-          <div ref='self'
-               className={this.getSelfElementClassName()}>
-            {this.getAttachmentElement()}
-            <div className={this.uiFactory.switchInputWrapper}>
-              <div className={this.uiFactory.switchInputWrapperBody}>
-                {this.getInputElement()}
-              </div>
+    return this.getWrapperElement(
+      <React.Fragment>
+        <div ref='self'
+             className={this.getSelfElementClassName()}>
+          {this.getAttachmentElement()}
+          <div className={this.uiFactory.switchInputWrapper}>
+            <div className={this.uiFactory.switchInputWrapperBody}>
+              {this.getInputElement()}
             </div>
           </div>
-          {this.getLabelElement()}
-        </CenterLayout>
-        {this.getMessageElement()}
-        {props.required && this.getErrorMessageElement()}
-      </div>
+        </div>
+        {this.getLabelElement()}
+      </React.Fragment>
     );
   }
 

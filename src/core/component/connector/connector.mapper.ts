@@ -42,17 +42,6 @@ export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity 
   },
 });
 
-/**
- * @stable [18.09.2018]
- * @param {IStackWrapperEntity} state
- * @returns {IStackWrapperEntity}
- */
-export const stackMapper = (state: IStackWrapperEntity): IStackWrapperEntity => ({
-  stack: {
-    ...state.stack,
-  },
-});
-
 export const filterMapper = (filterState: IQueryFilterEntity) => ({
   filter: {
     ...filterState,
@@ -138,6 +127,17 @@ export const listAndFilterFormWrapperEntityMapper =
     ],
     ...actionsDisabledListWrapperEntityMapper(mappedEntity),
   });
+
+/**
+ * @stable [18.09.2018]
+ * @param {IStackWrapperEntity} state
+ * @returns {IStackWrapperEntity}
+ */
+export const stackMapper = (state: IStackWrapperEntity): IStackWrapperEntity => ({
+  stack: {
+    ...state.stack,
+  },
+});
 
 export const defaultMappers = [
   ...universalDefaultMappers,

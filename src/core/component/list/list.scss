@@ -78,27 +78,4 @@
       }
     }
   }
-
-  .rac-button-add-icon {
-
-    &.rac-icon {
-
-      &.rac-action-icon {
-        position: $rac-add-button-icon-position;                    /* @stable [13.10.2018] */
-        right: $rac-add-button-icon-right;                          /* @stable [23.06.2018] */
-        bottom: $rac-add-button-icon-bottom;                        /* @stable [23.06.2018] */
-        width: $rac-add-button-icon-width;                          /* @stable [24.06.2018] */
-        height: $rac-add-button-icon-height;                        /* @stable [24.06.2018] */
-        background-color: $rac-add-button-icon-background-color;    /* @stable [23.06.2018] */
-        color: $rac-add-button-icon-color;                          /* @stable [25.06.2018] */
-        opacity: $rac-add-button-icon-opacity;                      /* @stable [25.06.2018] */
-        border-radius: $rac-add-button-icon-border-radius;          /* @stable [25.06.2018] */
-
-        svg {
-           width: $rac-add-button-fa-icon-width;                    /* @stable [24.06.2018] */
-           height: $rac-add-button-fa-icon-height;                  /* @stable [24.06.2018] */
-        }
-      }
-    }
-  }
 }

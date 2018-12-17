@@ -28,6 +28,10 @@ import {
   IDirectionWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
+  IDispatchFormChangesWrapper,
+  IDispatchFormChangeWrapper,
+  IDispatchLoadDictionaryWrapper,
+  IDispatchWrapper,
   IDisplayValueWrapper,
   IEditApiWrapper,
   IEmailWrapper,
@@ -42,11 +46,15 @@ import {
   IFilterFormWrapper,
   IFilterWrapper,
   IFormWrapper,
+  IFromDateFromTimeEntity,
+  IGetSelfWrapper,
+  IGetValueWrapper,
   IIconWrapper,
   IIdWrapper,
   IInfoWrapper,
   IIpWrapper,
   IIsNewWrapper,
+  IJQueryElement,
   IKeyValue,
   IKeyValueRouteParamsWrapper,
   ILabelWrapper,
@@ -71,7 +79,9 @@ import {
   IOnChangeWrapper,
   IOnLoadDictionaryWrapper,
   IOnResetWrapper,
+  IOnScrollWrapper,
   IOnSubmitWrapper,
+  IOpenWrapper,
   IOperationWrapper,
   IOriginalDataWrapper,
   IOriginalEntityWrapper,
@@ -81,6 +91,7 @@ import {
   IPasswordWrapper,
   IPathWrapper,
   IPayloadWrapper,
+  IPhotoUrlWrapper,
   IProgressWrapper,
   IQueryWrapper,
   IQueueWrapper,
@@ -99,12 +110,12 @@ import {
   IStreetNumberWrapper,
   IStreetWrapper,
   IStringErrorMessageWrapper,
-  IStringIdWrapper,
   IStringProgressMessageWrapper,
   IStringTokenWrapper,
   ITabPanelWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
+  IToDateToTimeEntity,
   ITotalAmountWrapper,
   ITotalCountWrapper,
   ITouchedWrapper,
@@ -118,18 +129,7 @@ import {
   IXWrapper,
   IYWrapper,
   IZipCodeWrapper,
-  IFromDateFromTimeEntity,
-  IToDateToTimeEntity,
-  IPhotoUrlWrapper,
-  IOpenWrapper,
-  IDispatchFormChangesWrapper,
-  IDispatchLoadDictionaryWrapper,
-  IDispatchFormChangeWrapper,
-  IDispatchWrapper,
-  IGetValueWrapper,
-  IGetSelfWrapper,
-  IJQueryElement,
-  IOnScrollWrapper,
+  IBlobWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -185,8 +185,8 @@ export interface IUniversalContainerEntity extends IChannelWrapperEntity,
 /**
  * @stable [17.05.2018]
  */
-export interface IWebContainerEntity extends IRootWrapperEntity,
-                                             IStackWrapperEntity,
+export interface IWebContainerEntity extends IStackWrapperEntity,
+                                             IRootWrapperEntity,
                                              IBrowserLocationWrapper,
                                              IURLSearchQueryParamsWrapper,
                                              IKeyValueRouteParamsWrapper {
@@ -657,7 +657,7 @@ export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicat
 /**
  * @stable [13.08.2018]
  */
-export interface IOperationEntity extends IStringIdWrapper {
+export interface IOperationEntity extends IIdWrapper<string> {
 }
 
 /* @stable - 12.04.2018 */
@@ -766,6 +766,7 @@ export interface IDictionariesEntity {
 /* @stable - 23.07.2018 */
 export interface IUniversalApplicationStoreEntity<TDictionaries = {}> extends IApplicationWrapperEntity,
                                                                               IUserWrapperEntity,
+                                                                              IStackWrapperEntity,
                                                                               IChannelWrapperEntity,
                                                                               ITransportWrapperEntity,
                                                                               IDictionariesWrapper<TDictionaries> {
@@ -773,7 +774,6 @@ export interface IUniversalApplicationStoreEntity<TDictionaries = {}> extends IA
 
 /* @stable - 23.07.2018 */
 export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries>,
-                                                                     IStackWrapperEntity,
                                                                      ILayoutWrapperEntity,
                                                                      INotificationWrapperEntity,
                                                                      IRootWrapperEntity {
@@ -992,4 +992,11 @@ export interface IStickyElementPayloadEntity {
   jqStickyEl?: IJQueryElement;
   jqStickyElHeight?: number;
   initialStickyElTop?: number;
+}
+
+/**
+ * @stable [17.12.2018]
+ */
+export interface IBlobEntity extends IIdWrapper<string>,
+                                     IBlobWrapper {
 }

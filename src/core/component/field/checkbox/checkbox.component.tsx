@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { toClassName } from '../../../util';
 import { ICheckboxState, ICheckboxProps, ICheckboxInputProps } from './checkbox.interface';
-import { FlexLayout } from '../../layout';
 import { BaseCheckbox } from './base-checkbox.component';
 
 export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxState> {
@@ -14,24 +13,18 @@ export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxSt
   public render(): JSX.Element {
     const props = this.props;
 
-    return (
-      <div className={this.getFieldClassName()}>
-        <FlexLayout className='rac-self-field-wrapper'
-                    row={true}
-                    alignItemsCenter={true}>
-          <div ref='self'
-               style={props.style}
-               className={this.getSelfElementClassName()}>
-            <div className={this.getInputElementWrapperClassName()}>
-              {this.getInputElement()}
-              {this.getInputAttachmentElement()}
-            </div>
+    return this.getWrapperElement(
+      <React.Fragment>
+        <div ref='self'
+             style={props.style}
+             className={this.getSelfElementClassName()}>
+          <div className={this.getInputElementWrapperClassName()}>
+            {this.getInputElement()}
+            {this.getInputAttachmentElement()}
           </div>
-          {this.getLabelElement()}
-        </FlexLayout>
-        {this.getMessageElement()}
-        {props.required && this.getErrorMessageElement()}
-      </div>
+        </div>
+        {this.getLabelElement()}
+      </React.Fragment>
     );
   }
 

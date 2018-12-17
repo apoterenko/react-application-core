@@ -1,4 +1,4 @@
-import { IBlobEntity } from '../definitions.interface';
+import { IBlobEntity } from '../entities-definitions.interface';
 import { orDefault } from '../util';
 import { downloadFile } from './dom';
 

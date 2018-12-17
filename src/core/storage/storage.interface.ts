@@ -1,6 +1,6 @@
-import { AnyT, IStringIdWrapper } from '../definitions.interface';
+import { AnyT, IIdWrapper } from '../definitions.interface';
 
-export interface ISetFileResult extends IStringIdWrapper {
+export interface ISetFileResult extends IIdWrapper<string> {
   filePath: string;
 }
 

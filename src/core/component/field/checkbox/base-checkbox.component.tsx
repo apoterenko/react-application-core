@@ -8,6 +8,7 @@ import {
 } from './checkbox.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { uuid, noop } from '../../../util';
+import { FlexLayout } from '../../layout';
 
 export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TState>,
                           TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
@@ -17,6 +18,25 @@ export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TS
                 TState> {
 
   private inputId = uuid();
+
+  /**
+   * @stable [17.12.2018]
+   * @param {JSX.Element} body
+   * @returns {JSX.Element}
+   */
+  protected getWrapperElement(body: JSX.Element): JSX.Element {
+    const props = this.props;
+    return (
+      <div className={this.getFieldClassName()}>
+        <FlexLayout row={true}
+                    alignItemsCenter={true}>
+          {body}
+        </FlexLayout>
+        {this.getMessageElement()}
+        {props.required && this.getErrorMessageElement()}
+      </div>
+    );
+  }
 
   /**
    * @stable [31.08.2018]

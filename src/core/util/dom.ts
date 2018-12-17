@@ -201,6 +201,14 @@ export const getScrollTop = (source: Element): number => $(source).scrollTop();
 export const setScrollTop = (source: Element, value: number): IJQueryElement => $(source).scrollTop(value);
 
 /**
+ * @stable [18.12.2018]
+ * @param {Element} source
+ * @param {number} value
+ * @returns {IJQueryElement}
+ */
+export const setScrollLeft = (source: Element, value: number): IJQueryElement => $(source).scrollLeft(value);
+
+/**
  * @stable [04.10.2018]
  * @param {Element} source
  * @returns {boolean}

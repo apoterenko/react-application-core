@@ -37,6 +37,14 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
   }
 
   /**
+   * @stable [17.12.2018]
+   */
+  public componentDidMount(): void {
+    super.componentDidMount();
+    this.domAccessor.scrollTo(this.props, this.getSelf());
+  }
+
+  /**
    * @stable [23.09.2018]
    * @param {INavigationListItemConfiguration} item
    * @returns {JSX.Element}
