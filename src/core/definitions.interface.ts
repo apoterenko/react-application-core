@@ -2949,13 +2949,6 @@ export interface IActiveWrapper<TActive = boolean> {
 }
 
 /**
- * @stable [30.10.2018]
- */
-export interface IPassiveWrapper<TPassive = boolean> {
-  passive?: TPassive;
-}
-
-/**
  * @stable [15.05.2018]
  */
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> {
@@ -3051,15 +3044,6 @@ export interface IAfterEnterWrapper<TAfterEnter> {
 /* @stable - 14.04.2018 */
 export interface IComputedMatchWrapper<TComputedMatch> {
   computedMatch?: TComputedMatch;
-}
-
-/* @stable - 14.04.2018 */
-export interface IInitialChangesWrapper<TInitialChanges> {
-  initialChanges?: TInitialChanges;
-}
-
-/* @stable - 14.04.2018 */
-export interface IStateInitialChangesWrapper<TAppState> extends IInitialChangesWrapper<(state: TAppState) => IKeyValue> {
 }
 
 /**

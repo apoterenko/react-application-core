@@ -39,7 +39,7 @@
 
       &.rac-sub-header-bordered {
         border-bottom: $rac-default-layout-sub-header-bordered-border-bottom;                       /* @stable [22.10.2018] */
-        margin-bottom: $rac-default-layout-sub-header-bordered-margin-bottom;                       /* @stable [22.10.2018] */
+        margin: $rac-default-layout-sub-header-bordered-margin;                               /* @stable [18.12.2018] */
       }
     }
 

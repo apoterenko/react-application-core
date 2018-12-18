@@ -6,9 +6,7 @@ import { BaseContainer } from '../../component/base';
 
 import {
   IRootContainerProps,
-  ROOT_PATH_UPDATE_ACTION_TYPE,
   ROOT_SECTION,
-  IRootUpdatePathPayload,
 } from './root.interface';
 
 export class RootContainer extends BaseContainer<IRootContainerProps> {
@@ -17,17 +15,11 @@ export class RootContainer extends BaseContainer<IRootContainerProps> {
     sectionName: ROOT_SECTION,
   };
 
-  public componentWillMount(): void {
-    const props = this.props;
+  constructor(props: IRootContainerProps) {
+    super(props);
     if (props.beforeEnter) {
       props.beforeEnter();
     }
-    const actionParams: IRootUpdatePathPayload = {
-      path: props.path,
-      section: props.section,
-      changes: props.initialChanges && props.initialChanges(this.appStore.getState()),
-    };
-    this.dispatch(ROOT_PATH_UPDATE_ACTION_TYPE, actionParams);
   }
 
   public componentDidMount(): void {

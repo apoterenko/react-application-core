@@ -186,7 +186,6 @@ import {
   ISignUpWrapper,
   ISimpleWrapper,
   ISorterFnWrapper,
-  IStateInitialChangesWrapper,
   IStepWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
   IStringErrorMessageWrapper,
@@ -219,7 +218,6 @@ import {
   IWarningWrapper,
   IWidthWrapper,
   IReturnSerializedValueOnChangeWrapper,
-  IPassiveWrapper,
   IOnScrollWrapper,
 } from './definitions.interface';
 import {
@@ -711,8 +709,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string>,
           IFieldRenderedWrapper,
-          IActiveWrapper,
-          IPassiveWrapper,
           IFullWrapper,
           IChangeableWrapper,
           IDefaultValue,
@@ -790,8 +786,7 @@ export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfiguration<TStoreEntity>
-  extends IStateInitialChangesWrapper<TStoreEntity>,
-          ICallbackWrapper<(ctor: IUniversalContainerClassEntity) => void>,
+  extends ICallbackWrapper<(ctor: IUniversalContainerClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
 }

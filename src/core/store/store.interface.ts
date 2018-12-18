@@ -1,6 +1,5 @@
 import { AnyAction, Reducer } from 'redux';
 
-import { rootReducer } from '../component/root/root.reducer';
 import { notificationReducer } from '../notification';
 import { dictionariesReducer } from '../dictionary';
 import { permissionsReducer } from '../permissions';
@@ -14,7 +13,6 @@ import { ILayoutEntity } from '../entities-definitions.interface';
 export const defaultReducers = {
   dictionaries: dictionariesReducer,
   permissions: permissionsReducer,
-  root: rootReducer,
   user: entityReducerFactory(USER_UPDATE_ACTION_TYPE, USER_DESTROY_ACTION_TYPE),
   layout: defaultLayoutReducer,
   stack: stackReducer,

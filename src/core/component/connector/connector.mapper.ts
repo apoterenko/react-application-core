@@ -8,7 +8,6 @@ import {
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   ILayoutWrapperEntity,
-  IRootWrapperEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
   INotificationWrapperEntity,
@@ -29,12 +28,6 @@ import {
   actionsDisabledListWrapperEntityMapper,
 } from './universal-connector.mapper';
 import { IEntity } from '../../definitions.interface';
-
-export const rootMapper = (state: IRootWrapperEntity): IRootWrapperEntity => ({
-  root: {
-    ...state.root,
-  },
-});
 
 export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
@@ -143,7 +136,6 @@ export const defaultMappers = [
   ...universalDefaultMappers,
   stackMapper,
   layoutMapper,
-  rootMapper,
   notificationMapper,
   channelMapper
 ];

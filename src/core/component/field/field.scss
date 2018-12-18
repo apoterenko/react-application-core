@@ -49,26 +49,6 @@
       margin-bottom: $rac-view-field-margin-bottom;                   /* @stable [04.10.2018] */
     }
 
-    &.rac-field-active {
-
-      .rac-text-field {
-        background: $rac-text-field-active-background;                /* @stable [18.09.2018] */
-
-        .rac-icon {
-          color: $rac-text-field-active-icon-color;                   /* @stable [18.09.2018] */
-        }
-      }
-    }
-
-    &.rac-field-active, &.rac-field-passive {
-      .rac-text-field {
-
-        .rac-field-input {
-          font-size: $rac-text-field-active-passive-font-size;        /* @stable [30.10.2018] */
-        }
-      }
-    }
-
     &.rac-field-required {
 
       .rac-field-label {

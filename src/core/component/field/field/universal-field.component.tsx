@@ -285,6 +285,15 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [18.12.2018]
+   * @returns {boolean}
+   */
+  protected isNotDefaultValuePresent(): boolean {
+    const props = this.props;
+    return isDef(props.value) && isDef(props.defaultValue) && !R.equals(props.value, props.defaultValue);
+  }
+
+  /**
    * @stable [05.10.2018]
    * @returns {boolean}
    */

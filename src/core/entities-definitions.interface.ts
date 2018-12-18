@@ -186,7 +186,6 @@ export interface IUniversalContainerEntity extends IChannelWrapperEntity,
  * @stable [17.05.2018]
  */
 export interface IWebContainerEntity extends IStackWrapperEntity,
-                                             IRootWrapperEntity,
                                              IBrowserLocationWrapper,
                                              IURLSearchQueryParamsWrapper,
                                              IKeyValueRouteParamsWrapper {
@@ -726,14 +725,6 @@ export interface IUserWrapperEntity extends IUserWrapper<IUserEntity> {
 }
 
 /* @stable - 15.04.2018 */
-export interface IRootEntity extends IPathWrapper {
-}
-
-/* @stable - 15.04.2018 */
-export interface IRootWrapperEntity extends IRootWrapper<IRootEntity> {
-}
-
-/* @stable - 15.04.2018 */
 export interface INotificationEntity extends IStringErrorEntity,
                                              IInfoWrapper {
 }
@@ -775,8 +766,7 @@ export interface IUniversalApplicationStoreEntity<TDictionaries = {}> extends IA
 /* @stable - 23.07.2018 */
 export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries>,
                                                                      ILayoutWrapperEntity,
-                                                                     INotificationWrapperEntity,
-                                                                     IRootWrapperEntity {
+                                                                     INotificationWrapperEntity {
 }
 
 /**
