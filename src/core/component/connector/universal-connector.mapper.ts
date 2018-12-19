@@ -240,7 +240,7 @@ export const filterQueryWrapperMapper = (queryFilterWrapperEntity: IQueryFilterW
  * @param {IListWrapperEntity} entity
  * @returns {IFilterConfiguration}
  */
-export const filteredListWrapperEntityMapper = (entity: IListWrapperEntity): IFilterConfiguration => ({
+export const refreshedListWrapperEntityMapper = (entity: IListWrapperEntity): IFilterConfiguration => ({
   actions: [{type: ToolbarActionEnum.REFRESH_DATA}],
   ...actionsDisabledListWrapperEntityMapper(entity),
 });
