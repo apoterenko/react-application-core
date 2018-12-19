@@ -1,10 +1,10 @@
 import {
-  IBasicFileFieldInternalProps,
-  IBasicFileFieldInternalState,
+  IBaseFileFieldProps,
+  IBaseFileFieldState,
 } from './basic-filefield.interface';
 
-export interface IFileFieldInternalProps extends IBasicFileFieldInternalProps {
+export interface IFileFieldProps extends IBaseFileFieldProps {
 }
 
-export interface IFileFieldInternalState extends IBasicFileFieldInternalState {
+export interface IFileFieldInternalState extends IBaseFileFieldState {
 }

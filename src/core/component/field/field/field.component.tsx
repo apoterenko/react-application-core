@@ -189,11 +189,11 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
     const onKeyUp = orUndef(!this.isFieldInactive(), () => this.onKeyUp);
 
     return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
-      ...props.preventValueBinding ? {} : { value: this.displayValue },
       name, type, step, readOnly, disabled, pattern, minLength, placeholder,
       maxLength, rows, cols,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
+      value: this.displayValue,
       required: this.isFieldRequired(),
       className: 'rac-field-input rac-flex-full',
     });

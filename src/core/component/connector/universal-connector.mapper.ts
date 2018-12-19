@@ -7,6 +7,7 @@ import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IQueryWrapper,
+  IDisabledWrapper,
 } from '../../definitions.interface';
 import {
   IOptionEntity,
@@ -33,6 +34,7 @@ import {
 import {
   IFilterConfiguration,
   IFilterAndSorterConfiguration,
+  ToolbarActionEnum,
 } from '../../configurations-definitions.interface';
 
 /**
@@ -234,6 +236,16 @@ export const filterQueryWrapperMapper = (queryFilterWrapperEntity: IQueryFilterW
   });
 
 /**
+ * @stable [19.12.2018]
+ * @param {IListWrapperEntity} entity
+ * @returns {IFilterConfiguration}
+ */
+export const filteredListWrapperEntityMapper = (entity: IListWrapperEntity): IFilterConfiguration => ({
+  actions: [{type: ToolbarActionEnum.REFRESH_DATA}],
+  ...actionsDisabledListWrapperEntityMapper(entity),
+});
+
+/**
  * @stable [16.05.2018]
  * @param {IListWrapperEntity} listWrapperEntity
  * @param {IDataMutatorEntity} dataMutator
@@ -282,6 +294,15 @@ export const listWrapperSelectedEntityMapper =
     );
 
 /**
+ * @stable [19.12.2018]
+ * @param {IListEntity} listEntity
+ * @returns {IDisabledWrapper}
+ */
+export const disabledListEntityMapper = (listEntity: IListEntity): IDisabledWrapper => ({
+  disabled: listEntity.progress,
+});
+
+/**
  * @stable [29.05.2018]
  * @param {IListEntity} listEntity
  * @returns {IFilterConfiguration}
@@ -297,6 +318,14 @@ export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IFilte
  */
 export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IFilterConfiguration =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);
+
+/**
+ * @stable [19.12.2018]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {IDisabledWrapper}
+ */
+export const disabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
+  disabledListEntityMapper(listWrapperEntity.list);
 
 /**
  * @stable [31.08.2018]

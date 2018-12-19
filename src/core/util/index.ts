@@ -16,6 +16,7 @@ export * from './merge';
 export * from './message';
 export * from './name';
 export * from './nvl';
+export * from './object';
 export * from './page';
 export * from './place';
 export * from './route';

@@ -9,7 +9,7 @@ import {
 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
-import { FIELD_EMPTY_VALUE, FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
+import { FIELD_DISPLAY_EMPTY_VALUE, FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { UniversalComponent } from '../../base/universal.component';
 import {
   isFieldInactive,
@@ -260,7 +260,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     return orDefault<string, string>(
       usePrintf,
       () => Printf.sprintf(this.t(this.props.displayMessage), ...args),
-      FIELD_EMPTY_VALUE
+      FIELD_DISPLAY_EMPTY_VALUE
     );
   }
 
@@ -314,7 +314,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @returns {AnyT}
    */
   protected getEmptyValue(): AnyT {
-    return FIELD_EMPTY_VALUE;
+    return FIELD_DISPLAY_EMPTY_VALUE;
   }
 
   /**
@@ -419,7 +419,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     const displayValue = props.displayValue;
 
     return this.inProgress()
-      ? FIELD_EMPTY_VALUE // The dictionaries data is cleaned before request
+      ? FIELD_DISPLAY_EMPTY_VALUE // The dictionaries data is cleaned before request
       : (
         this.isValuePresent(value)
           ? (isUndef(displayValue)
@@ -428,7 +428,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
                   ? (displayValue as IUniversalFieldDisplayValueConverter)(value, this)
             // TODO remove scope and use tryCalcDisplayValue
                   : displayValue))
-          : FIELD_EMPTY_VALUE
+          : FIELD_DISPLAY_EMPTY_VALUE
       );
   }
 

@@ -62,7 +62,11 @@
                               $rac-styles-border-left: unset,
                               $rac-styles-border-top: unset,
                               $rac-styles-border-right: unset,
-                              $rac-styles-text-transform: unset) {
+                              $rac-styles-text-transform: unset,
+                              $rac-styles-min-height: unset) {
+  @if $rac-styles-min-height != unset {
+    min-height: $rac-styles-min-height;
+  }
   @if $rac-styles-border-bottom != unset {
     border-bottom: $rac-styles-border-bottom;
   }
@@ -212,7 +216,8 @@
                   $rac-styles-border-left: unset,
                   $rac-styles-border-top: unset,
                   $rac-styles-border-right: unset,
-                  $rac-styles-text-transform: unset) {
+                  $rac-styles-text-transform: unset,
+                  $rac-styles-min-height: unset) {
   @if $rac-styles-custom != unset {
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
@@ -251,7 +256,8 @@
         $rac-styles-border-left: $rac-styles-border-left,
         $rac-styles-border-top: $rac-styles-border-top,
         $rac-styles-border-right: $rac-styles-border-right,
-        $rac-styles-text-transform: $rac-styles-text-transform
+        $rac-styles-text-transform: $rac-styles-text-transform,
+        $rac-styles-min-height: $rac-styles-min-height
       );
     }
   } @else {
@@ -291,7 +297,8 @@
       $rac-styles-border-left: $rac-styles-border-left,
       $rac-styles-border-top: $rac-styles-border-top,
       $rac-styles-border-right: $rac-styles-border-right,
-      $rac-styles-text-transform: $rac-styles-text-transform
+      $rac-styles-text-transform: $rac-styles-text-transform,
+      $rac-styles-min-height: $rac-styles-min-height
     );
   }
 }
@@ -743,6 +750,7 @@
  */
 @mixin _rac-field-custom-properties($rac-field-custom-margin: unset,
                                     $rac-field-custom-width: unset,
+                                    $rac-field-custom-height: unset,
                                     $rac-field-custom-align-items: unset,
                                     $rac-field-custom-max-width: unset,
                                     $rac-field-custom-min-height: unset,
@@ -773,18 +781,14 @@
   @if $rac-field-custom-align-items != unset {
     @include align-items($rac-field-custom-align-items);
   }
-  @if $rac-field-custom-margin != unset {
-    margin: $rac-field-custom-margin;
-  }
-  @if $rac-field-custom-width != unset {
-    width: $rac-field-custom-width;
-  }
-  @if $rac-field-custom-max-width != unset {
-    max-width: $rac-field-custom-max-width;
-  }
-  @if $rac-field-custom-min-height != unset {
-    min-height: $rac-field-custom-min-height;
-  }
+
+  @include rac-styles(
+    $rac-styles-margin: $rac-field-custom-margin,
+    $rac-styles-width: $rac-field-custom-width,
+    $rac-styles-height: $rac-field-custom-height,
+    $rac-styles-max-width: $rac-field-custom-max-width,
+    $rac-styles-min-height: $rac-field-custom-min-height
+  );
 
   .rac-field-label {
     @if $rac-field-label-custom-margin != unset {
@@ -854,6 +858,7 @@
  */
 @mixin rac-field($rac-field-custom: unset,
                  $rac-field-width: unset,
+                 $rac-field-height: unset,
                  $rac-field-margin: unset,
                  $rac-field-max-width: unset,
                  $rac-field-min-height: unset,
@@ -889,6 +894,7 @@
         @include _rac-field-custom-properties(
           $rac-field-custom-margin: $rac-field-margin,
           $rac-field-custom-width: $rac-field-width,
+          $rac-field-custom-height: $rac-field-height,
           $rac-field-custom-max-width: $rac-field-max-width,
           $rac-field-custom-min-height: $rac-field-min-height,
           $rac-field-custom-align-items: $rac-field-align-items,
@@ -923,6 +929,7 @@
       @include _rac-field-custom-properties(
         $rac-field-custom-margin: $rac-field-margin,
         $rac-field-custom-width: $rac-field-width,
+        $rac-field-custom-height: $rac-field-height,
         $rac-field-custom-max-width: $rac-field-max-width,
         $rac-field-custom-min-height: $rac-field-min-height,
         $rac-field-custom-align-items: $rac-field-align-items,

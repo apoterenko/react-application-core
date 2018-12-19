@@ -14,21 +14,16 @@ import {
 export class CloudFileStorage implements IApplicationStorage {
   @lazyInject(DI_TYPES.CloudStorage) private cloudStorage: IApplicationStorage;
 
-  public set(key: string, value: IMultiEntity): Promise<ISetFilesResult> {
-    return this.process(value);
-  }
-
-  private process(entity: IMultiEntity): Promise<ISetFilesResult> {
-    return toBlobEntities(...entity.add.map((entity0) => entity0.id as string))
-      .then((entities) =>
-        Promise.all<ISetFileResult[], IRemoveFileResult[]>([
-          this.upload(entities),
-          this.clear(entity)
-        ]).then((result) => ({
-          setFilesResults: result[0],
-          removeFilesResults: result[1],
-        }))
-      );
+  public async set(key: string, entity: IMultiEntity): Promise<ISetFilesResult> {
+    const blobs = await toBlobEntities(...entity.add.map((entity0) => entity0.id as string));
+    const result = await Promise.all<ISetFileResult[], IRemoveFileResult[]>([
+      this.upload(blobs),
+      this.clear(entity)
+    ]);
+    return {
+      setFilesResults: result[0],
+      removeFilesResults: result[1],
+    };
   }
 
   private upload(entities: IBlobEntity[]): Promise<ISetFileResult[]> {

@@ -160,7 +160,6 @@ import {
   IPluginsWrapper,
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
-  IPreventValueBindingWrapper,
   IProfileWrapper,
   IProgressWrapper,
   IQueryWrapper,
@@ -730,7 +729,6 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IDisplayNameWrapper,
                                              ITypeWrapper,
                                              IPlaceholderWrapper,
-                                             IPreventValueBindingWrapper,
                                              IClearActionWrapper,
                                              IStepWrapper {
 }

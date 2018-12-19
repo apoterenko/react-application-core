@@ -3,7 +3,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { IKeyboardEvent } from '../../definitions.interface';
 import { DelayedTask, orNull } from '../../util';
-import { IField, TextField, DelayedChangesFieldPlugin, FIELD_EMPTY_VALUE } from '../field';
+import { IField, TextField, DelayedChangesFieldPlugin, FIELD_DISPLAY_EMPTY_VALUE } from '../field';
 import { BaseComponent } from '../base';
 import { IAutoFocusedState } from './auto-focused.interface';
 import { IAutoFocusedProps } from './auto-focused.interface';
@@ -143,7 +143,7 @@ export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, I
    * @stable [05.05.2018]
    */
   private clearField(): void {
-    this.setState({focusedFieldValue: FIELD_EMPTY_VALUE});
+    this.setState({focusedFieldValue: FIELD_DISPLAY_EMPTY_VALUE});
   }
 
   /**

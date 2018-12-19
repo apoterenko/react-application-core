@@ -14,6 +14,7 @@ import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
+import { FIELD_DISPLAY_EMPTY_VALUE } from '../../field/field/field.interface';
 
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
                          TProps extends IBasicSelectProps,
@@ -166,11 +167,14 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   }
 
   /**
-   * @stable [22.10.2018]
+   * @stable [19.12.2018]
    * @param {AnyT} value
    * @returns {EntityIdT}
    */
   protected toDisplayValue(value: AnyT): EntityIdT {
+    if (this.inProgress()) {
+      return FIELD_DISPLAY_EMPTY_VALUE;
+    }
     const selectedDisplayValue = this.state.displayValue;
     if (!R.isNil(selectedDisplayValue)) {
       return this.tryCalcDisplayValue(this.t(selectedDisplayValue));

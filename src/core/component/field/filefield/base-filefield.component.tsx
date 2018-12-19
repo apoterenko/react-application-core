@@ -11,8 +11,8 @@ import {
 } from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield';
 import {
-  IBasicFileFieldInternalState,
-  IBasicFileFieldInternalProps,
+  IBaseFileFieldState,
+  IBaseFileFieldProps,
 } from './basic-filefield.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { toLastAddedMultiItemEntity } from '../multifield';
@@ -20,12 +20,12 @@ import { IUniversalDialog, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps, TInternalState>,
-                            TProps extends IBasicFileFieldInternalProps,
-                            TInternalState extends IBasicFileFieldInternalState>
-    extends BasicTextField<TComponent, TProps, TInternalState> {
+export class BaseFileField<TComponent extends BaseFileField<TComponent, TProps, TState>,
+                           TProps extends IBaseFileFieldProps,
+                           TState extends IBaseFileFieldState>
+    extends BasicTextField<TComponent, TProps, TState> {
 
-  protected static readonly logger = LoggerFactory.makeLogger('BasicFileField');
+  protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
   private filesMap = new Map<EntityIdT, Blob>();
@@ -82,14 +82,11 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
 
   public clearValue(): void {
     const activeValue = this.multiFieldPlugin.activeValue[0];
-    const currentValue = activeValue.id;
-
-    this.destroyBlob(currentValue);
-
-    if (this.isValuePresent()) {
+    if (!R.isNil(activeValue)) {
+      const currentValue = activeValue.id;
+      this.destroyBlob(currentValue);
       this.multiFieldPlugin.onDeleteItem({id: currentValue});
     }
-    this.setFocus();
   }
 
   /**
@@ -172,10 +169,13 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
   }
 
   /**
-   * @stable [02.08.2018]
+   * @stable [19.12.2018]
    * @param {File[]} file
    */
   private onSelect(file: File[]): void {
+    if (!this.props.multi) {
+      this.clearValue();
+    }
     this.doSelectBlob(file[0]);
   }
 
@@ -234,7 +234,7 @@ export class BasicFileField<TComponent extends BasicFileField<TComponent, TProps
     URL.revokeObjectURL(key as string);
     this.filesMap.delete(key);
 
-    BasicFileField.logger.debug(`[$BasicFileField][destroyBlob] The blob has been destroyed to the key ${key}`);
+    BaseFileField.logger.debug(`[$BasicFileField][destroyBlob] The blob has been destroyed to the key ${key}`);
   }
 
   /**

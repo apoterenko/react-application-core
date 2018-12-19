@@ -13,6 +13,7 @@
                      $rac-field-label-margin: $rac-switch-label-margin);
 
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
+                     $rac-text-field-height: $rac-text-area-height,
                      $rac-text-field-input-padding: $rac-text-area-input-padding);
 
   @include rac-field($rac-text-field-label-position: $rac-text-field-label-position,          /* @stable [20.11.2018] */

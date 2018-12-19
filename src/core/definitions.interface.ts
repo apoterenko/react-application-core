@@ -1379,11 +1379,6 @@ export interface IDirectionsWrapper<TDirections> {
   directions?: TDirections;
 }
 
-/* @stable - 11.04.2018 */
-export interface IPreventValueBindingWrapper {
-  preventValueBinding?: boolean;
-}
-
 /**
  * @stable [04.05.2018]
  */

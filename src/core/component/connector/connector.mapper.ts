@@ -62,7 +62,7 @@ export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
  * @returns {IFilterActionConfiguration}
  */
 export const activeClassNameEditableEntityMapper = (editableEntity: IEditableEntity): IFilterActionConfiguration =>
-  ({className: editableEntity.dirty && 'rac-filter-active'});
+  ({className: editableEntity && editableEntity.dirty && 'rac-filter-active'});
 
 /**
  * @stable [29.05.2018]
@@ -82,16 +82,6 @@ export const openFilterFilterFormWrapperEntityMapper =
   (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
     type: ToolbarActionEnum.OPEN_FILTER,
     ...activeClassNameFilterFormWrapperEntityMapper(filterFormWrapperEntity),
-  });
-
-/**
- * @stable [26.08.2018]
- * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
- * @returns {IFilterActionConfiguration}
- */
-export const refreshWrapperEntityMapper =
-  (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
-    type: ToolbarActionEnum.REFRESH_DATA,
   });
 
 // TODO
@@ -115,7 +105,7 @@ export const refreshListAndFilterFormWrapperEntityMapper =
 export const listAndFilterFormWrapperEntityMapper =
   (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
     actions: [
-      refreshWrapperEntityMapper(mappedEntity),
+      {type: ToolbarActionEnum.REFRESH_DATA},
       openFilterFilterFormWrapperEntityMapper(mappedEntity)
     ],
     ...actionsDisabledListWrapperEntityMapper(mappedEntity),

@@ -1,11 +1,11 @@
-import { IFileFieldInternalProps, IFileFieldInternalState } from './filefield.interface';
-import { BasicFileField } from './basic-filefield.component';
+import { IFileFieldProps, IFileFieldInternalState } from './filefield.interface';
+import { BaseFileField } from './base-filefield.component';
 import { MultiFieldEntityT } from '../multifield';
 
 export class FileField
-    extends BasicFileField<FileField, IFileFieldInternalProps, IFileFieldInternalState> {
+    extends BaseFileField<FileField, IFileFieldProps, IFileFieldInternalState> {
 
-  public static defaultProps: IFileFieldInternalProps = {
+  public static defaultProps: IFileFieldProps = {
     displayMessage: '%d file(s)',
     preventFocus: true,
     displayValue: (value: MultiFieldEntityT, field: FileField) => {

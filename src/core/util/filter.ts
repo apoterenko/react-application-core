@@ -109,6 +109,14 @@ export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
 export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
 /**
+ * @stable [19.12.2018]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const TRUE_VALUE_PREDICATE = (value: AnyT) => !!value;
+
+/**
  * @stable [03.10.2018]
  * @param {TValue[]} data
  * @param {ValuePredicateT} predicates
@@ -136,6 +144,13 @@ export const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => fil
  * @returns {TValue[]}
  */
 export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
+
+/**
+ * @stable [19.12.2018]
+ * @param {TValue} data
+ * @returns {TValue[]}
+ */
+export const trueValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, TRUE_VALUE_PREDICATE);
 
 export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource,

@@ -20,3 +20,10 @@ export const arrayMinValue = (array: number[]): number => R.reduce(R.min, Infini
  * @returns {number}
  */
 export const arrayNextMinNegativeValue = (array: number[]): number => Math.min(Number(arrayMinValue(array)), 0) - 1;
+
+/**
+ * @stable [19.12.2018]
+ * @param {TValue[]} array
+ * @returns {boolean}
+ */
+export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArray(array) && !R.isEmpty(array);
