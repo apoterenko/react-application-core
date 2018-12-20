@@ -28,6 +28,7 @@
  * @stable [08.12.2018]
  */
 @mixin _rac-styles-properties($rac-styles-opacity: unset,
+                              $rac-styles-flex-shrink: unset,
                               $rac-styles-vertical-align: unset,
                               $rac-styles-line-height: unset,
                               $rac-styles-display: unset,
@@ -64,6 +65,9 @@
                               $rac-styles-border-right: unset,
                               $rac-styles-text-transform: unset,
                               $rac-styles-min-height: unset) {
+  @if $rac-styles-flex-shrink != unset {
+    flex-shrink: $rac-styles-flex-shrink;
+  }
   @if $rac-styles-min-height != unset {
     min-height: $rac-styles-min-height;
   }
@@ -183,6 +187,7 @@
 @mixin rac-styles($rac-styles-custom: unset,
                   $rac-styles-vertical-align: unset,
                   $rac-styles-opacity: unset,
+                  $rac-styles-flex-shrink: unset,
                   $rac-styles-display: unset,
                   $rac-styles-line-height: unset,
                   $rac-styles-cursor: unset,
@@ -223,6 +228,7 @@
       @include _rac-styles-properties(
         $rac-styles-vertical-align: $rac-styles-vertical-align,
         $rac-styles-opacity: $rac-styles-opacity,
+        $rac-styles-flex-shrink: $rac-styles-flex-shrink,
         $rac-styles-display: $rac-styles-display,
         $rac-styles-line-height: $rac-styles-line-height,
         $rac-styles-border-color: $rac-styles-border-color,
@@ -264,6 +270,7 @@
     @include _rac-styles-properties(
       $rac-styles-vertical-align: $rac-styles-vertical-align,
       $rac-styles-opacity: $rac-styles-opacity,
+      $rac-styles-flex-shrink: $rac-styles-flex-shrink,
       $rac-styles-display: $rac-styles-display,
       $rac-styles-line-height: $rac-styles-line-height,
       $rac-styles-border-color: $rac-styles-border-color,
@@ -1551,11 +1558,13 @@
  * @stable [05.12.2018]
  */
 @mixin _rac-grid-row-custom-properties($rac-grid-row-background: unset,
+                                       $rac-grid-row-cursor: unset,
                                        $rac-grid-row-column-content-button-background: unset,
                                        $rac-grid-row-column-content-button-color: unset) {
-  @if $rac-grid-row-background != unset {
-    background: $rac-grid-row-background;
-  }
+  @include rac-styles(
+    $rac-styles-background: $rac-grid-row-background,
+    $rac-styles-cursor: $rac-grid-row-cursor
+  );
 
   @include rac-grid-column-content(
     $rac-grid-column-content-button-background: $rac-grid-row-column-content-button-background,
@@ -1567,6 +1576,7 @@
  * @stable [05.12.2018]
  */
 @mixin rac-grid-row($rac-grid-row-custom: unset,
+                    $rac-grid-row-cursor: unset,
                     $rac-grid-row-background: unset,
                     $rac-grid-row-column-content-button-background: unset,
                     $rac-grid-row-column-content-button-color: unset) {
@@ -1575,6 +1585,7 @@
     .rac-grid-row {
       &.#{$rac-grid-row-custom} {
         @include _rac-grid-row-custom-properties(
+          $rac-grid-row-cursor: $rac-grid-row-cursor,
           $rac-grid-row-background: $rac-grid-row-background,
           $rac-grid-row-column-content-button-background: $rac-grid-row-column-content-button-background,
           $rac-grid-row-column-content-button-color: $rac-grid-row-column-content-button-color
@@ -1584,6 +1595,7 @@
   } @else {
     .rac-grid-row {
       @include _rac-grid-row-custom-properties(
+        $rac-grid-row-cursor: $rac-grid-row-cursor,
         $rac-grid-row-background: $rac-grid-row-background,
         $rac-grid-row-column-content-button-background: $rac-grid-row-column-content-button-background,
         $rac-grid-row-column-content-button-color: $rac-grid-row-column-content-button-color
@@ -1632,7 +1644,6 @@
                                    $rac-grid-column-content-text-field-height: unset,
                                    $rac-grid-column-align-center-content: unset,
                                    $rac-grid-column-align-right-content: unset,
-                                   $rac-grid-data-row-odd-background: unset,
                                    $rac-grid-column-edited-content-after-position: unset,
                                    $rac-grid-column-edited-content-after-height: unset,
                                    $rac-grid-column-edited-content-after-right: unset,
@@ -1640,6 +1651,8 @@
                                    $rac-grid-column-edited-content-after-font-size: unset,
                                    $rac-grid-column-edited-content-after-content: unset,
                                    $rac-grid-column-edited-content-after-color: unset,
+                                   $rac-grid-data-row-selectable-cursor: unset,
+                                   $rac-grid-data-row-odd-background: unset,
                                    $rac-grid-data-row-odd-column-content-button-background: unset,
                                    $rac-grid-data-row-odd-column-content-button-color: unset) {
 
@@ -1659,6 +1672,9 @@
     @include rac-grid-column($rac-grid-column-custom: rac-grid-column-align-right,
                              $rac-grid-column-content-button-margin: 0 0 0 auto);
   }
+
+  @include rac-grid-row($rac-grid-row-custom: rac-grid-data-row-selectable,
+                        $rac-grid-row-cursor: $rac-grid-data-row-selectable-cursor);
 
   @include rac-grid-row($rac-grid-row-custom: rac-grid-data-row-odd,
                         $rac-grid-row-background: $rac-grid-data-row-odd-background,
@@ -1759,6 +1775,7 @@
                 $rac-grid-column-content-button-hover-color: unset,
                 $rac-grid-column-content-button-hover-background: unset,
                 $rac-grid-column-content-text-field-height: unset,
+                $rac-grid-data-row-selectable-cursor: unset,
                 $rac-grid-data-row-odd-background: unset,
                 $rac-grid-data-row-odd-column-content-button-background: unset,
                 $rac-grid-data-row-odd-column-content-button-color: unset,
@@ -1811,6 +1828,7 @@
           $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
           $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
           $rac-grid-column-content-text-field-height: $rac-grid-column-content-text-field-height,
+          $rac-grid-data-row-selectable-cursor: $rac-grid-data-row-selectable-cursor,
           $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
           $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
           $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,
@@ -1864,6 +1882,7 @@
         $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
         $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
         $rac-grid-column-content-text-field-height: $rac-grid-column-content-text-field-height,
+        $rac-grid-data-row-selectable-cursor: $rac-grid-data-row-selectable-cursor,
         $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
         $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
         $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,

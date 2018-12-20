@@ -78,9 +78,18 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    * @param {IEntity} entity
    */
   protected onSelect(entity: IEntity): void {
-    if (isFn(this.props.onSelect)) {
-      this.props.onSelect(entity);
+    const props = this.props;
+    if (this.isRowSelectable && isFn(props.onSelect)) {
+      props.onSelect(entity);
     }
+  }
+
+  /**
+   * @stable [20.12.2018]
+   * @returns {boolean}
+   */
+  protected get isRowSelectable(): boolean {
+    return this.props.selectable !== false;
   }
 
   /**

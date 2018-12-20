@@ -54,24 +54,7 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
    * @param {never} prevContext
    */
   public componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, prevContext?: never) {
-    const selfHeight = this.selfHeight;
-    const stickyElementInitialProperties0 = this.getStickyElementInitialProperties();
-    const hasStickyElementChanged = !R.isNil(stickyElementInitialProperties0)
-      && !R.isNil(this.stickyElementInitialProperties)
-      && stickyElementInitialProperties0.jqStickyEl.get()[0] !== this.stickyElementInitialProperties.jqStickyEl.get()[0];
-
-    /**
-     * Only this way we can detect the DOM changes
-     */
-    if (selfHeight !== this.selfElementHeight || hasStickyElementChanged) {
-      this.domAccessor.setScrollTop(this.component.getSelf(), 0); // Need to set a right initial sticky top value
-
-      const stickyElementInitialProperties = this.getStickyElementInitialProperties();
-      if (!R.isNil(stickyElementInitialProperties)) {
-        this.selfElementHeight = selfHeight;
-        this.stickyElementInitialProperties = stickyElementInitialProperties;
-      }
-    }
+    this.doUpdate();
   }
 
   /**
@@ -88,5 +71,27 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
    */
   private getStickyElementInitialProperties(): IStickyElementPayloadEntity {
     return getStickyElementInitialProperties(this.domAccessor.toJqEl(this.component.getSelf()));
+  }
+
+  /**
+   * @stable [20.12.2018]
+   */
+  private doUpdate(): void {
+    const selfHeight = this.selfHeight;
+    const stickyElementInitialProperties0 = this.getStickyElementInitialProperties();
+    const hasStickyElementChanged = !R.isNil(stickyElementInitialProperties0)
+      && !R.isNil(this.stickyElementInitialProperties)
+      && stickyElementInitialProperties0.jqStickyEl.get()[0] !== this.stickyElementInitialProperties.jqStickyEl.get()[0];
+
+    /**
+     * Only this way we can detect the DOM changes
+     */
+    if (selfHeight !== this.selfElementHeight || hasStickyElementChanged) {
+      const stickyElementInitialProperties = this.getStickyElementInitialProperties();
+      if (!R.isNil(stickyElementInitialProperties)) {
+        this.selfElementHeight = selfHeight;
+        this.stickyElementInitialProperties = stickyElementInitialProperties;
+      }
+    }
   }
 }

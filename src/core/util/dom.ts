@@ -332,7 +332,7 @@ export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadE
     top = 0;
     marginTop = 0;
   }
-  payloadEntity.jqStickyEl.css({position, 'z-index': zIndex, top});
+  payloadEntity.jqStickyEl.css({position, 'z-index': zIndex, 'padding-top': top});
   payloadEntity.jqStickyNeighborRightEl.css('margin-top', `${marginTop}px`);
 };
 
@@ -350,7 +350,7 @@ export const getStickyElementInitialProperties = (jqSelfEl: IJQueryElement): ISt
       jqStickyEl,
       jqStickyNeighborRightEl: $(jqStickyEl.siblings()[0]),
       jqStickyElHeight: jqStickyEl.height(),
-      initialStickyElTop: jqStickyEl.offset().top,
+      initialStickyElTop: jqStickyEl.offset().top + jqSelfEl.scrollTop(),
     };
   }
   return null;

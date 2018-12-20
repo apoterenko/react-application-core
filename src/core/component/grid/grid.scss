@@ -40,6 +40,7 @@
     $rac-grid-column-edited-content-after-font-size: $rac-grid-column-edited-content-after-font-size,
     $rac-grid-column-edited-content-after-content: $rac-grid-column-edited-content-after-content,
     $rac-grid-column-edited-content-after-color: $rac-grid-column-edited-content-after-color,
+    $rac-grid-data-row-selectable-cursor: pointer,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
     $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
     $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color
@@ -153,10 +154,6 @@
       }
 
       &.rac-grid-data-row {
-
-        &.rac-grid-data-row-selectable {
-          cursor: pointer;                                                   /* @stable [04.10.2018] */
-        }
 
         &.rac-grid-data-row-grouped {
           font-weight: $rac-grid-data-row-grouped-font-weight;               /* @stable [01.09.2018] */
