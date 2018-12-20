@@ -2,11 +2,11 @@ import { Component } from 'vue-property-decorator';
 
 import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
-import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
 import { VueBaseFileViewer } from '../file/vue-index';
+import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 
 @ComponentName('vue-pdf-file-viewer')
-@Component(vueViewerComponentConfigFactory())
+@Component(vueDefaultComponentConfigFactory())
 class VuePdfFileViewer extends VueBaseFileViewer {
 
   /**

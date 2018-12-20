@@ -5,15 +5,15 @@ import { DelayedTask, isDef } from '../../../util';
 import { ComponentName } from '../../connector/vue-index';
 import { VUE_VIEWER_CHANGE_EVENT } from '../vue-viewer.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
+import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
 import {
   VUE_CROPPER_VIEWER_CROP_EVENT,
   IVueCropperPictureViewerTemplateMethodsEntity,
 } from './vue-cropper-viewer.interface';
-import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
 
 @ComponentName('vue-cropper-viewer')
-@Component(vueViewerComponentConfigFactory())
+@Component(vueDefaultComponentConfigFactory())
 class VueCropperViewer extends VueBasePictureViewer {
   private cropEmitterTask = new DelayedTask(this.onCrop, 100);
   private cropper: Cropper;

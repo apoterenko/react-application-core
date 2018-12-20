@@ -29,7 +29,9 @@ import {
   VUE_FIELD_CHANGE_EVENT,
 } from './vue-field.interface';
 
-export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> implements IVueField {
+export class VueField<TStore = IKeyValue, TState extends IVueFieldStateEntity = IVueFieldStateEntity>
+  extends VueBaseComponent<TStore, TState> implements IVueField {
+
   @Prop() public value: AnyT;
   @Prop() protected type: string;
   @Prop() protected full: boolean;
@@ -170,6 +172,10 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    * @param {AnyT} newValue
    */
   public onChange(newValue: AnyT): void {
+    const data = this.getData();
+    if (!R.isNil(data) && this.canSetDataDisplayValueOnManualInputChange(newValue)) {
+      data.displayValue = newValue;
+    }
     if (this.isContainerBound()) {
       this.bindContainer.dispatchFormChange(this.name, newValue);
     }
@@ -183,6 +189,25 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    */
   public onChangeManually(newValue, context?: AnyT): void {
     this.onChange(newValue);
+  }
+
+  /**
+   * @stable [20.12.2018]
+   * @returns {TState}
+   */
+  public getInitialData$(): TState {
+    return {
+      displayValue: null,
+    } as  TState;
+  }
+
+  /**
+   * @stable [20.12.2018]
+   * @param {AnyT} newValue
+   * @returns {boolean}
+   */
+  protected canSetDataDisplayValueOnManualInputChange(newValue: AnyT): boolean {
+    return false;
   }
 
   /**
@@ -269,16 +294,13 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    */
   protected getDisplayValue(): AnyT {
     const data = this.getData();
+    const value = this.getValue();
     const displayValue = ifNotNilReturnValue(data, () => data.displayValue);
     let displayNameValue;
 
     return orDefault(
       R.isNil(displayValue),
-      () => orDefault(
-        isDef(this.bindStore) && !R.isNil(displayNameValue = this.bindStore[this.displayName]),
-        displayNameValue,
-        () => this.getValue()
-      ),
+      () => orDefault(displayNameValue = this.fromStore(this.displayName), displayNameValue, value),
       displayValue
     );
   }
@@ -319,5 +341,14 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
       isInputWrapperFull: this.isInputWrapperFull,
       isFieldFull: this.isFieldFull,
     };
+  }
+
+  /**
+   * @stable [20.12.2018]
+   * @param {string} fieldName
+   * @returns {AnyT}
+   */
+  protected fromStore(fieldName: string): AnyT {
+    return ifNotNilReturnValue(this.bindStore, () => this.bindStore[fieldName]);
   }
 }

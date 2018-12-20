@@ -8,6 +8,7 @@ import {
   FIRST_PAGE,
   IQueryWrapper,
   IDisabledWrapper,
+  AnyT,
 } from '../../definitions.interface';
 import {
   IOptionEntity,
@@ -366,20 +367,19 @@ export const dictionaryEntityMapper
   );
 
 /**
- * @stable [29.06.2018]
+ * @stable [20.12.2018]
  * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
- * @param {(data: (TDictionaryEntity[] | TDictionaryEntity)) => (TDictionaryEntity[] | TDictionaryEntityResult[] | TDictionaryEntity)} accessor
- * @returns {TDictionaryEntity[] | TDictionaryEntityResult[] | TDictionaryEntity}
+ * @param {(data: (TDictionaryEntity[] | TDictionaryEntity)) => TResult} accessor
+ * @returns {TResult}
  */
-export const dictionaryEntityDataMapper = <TDictionaryEntity, TDictionaryEntityResult = {}>(
+export const dictionaryEntityDataMapper = <TDictionaryEntity, TResult = TDictionaryEntity[] | TDictionaryEntity>(
   dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
-  accessor?: (data: TDictionaryEntity[] | TDictionaryEntity) => TDictionaryEntity[] | TDictionaryEntity | TDictionaryEntityResult[]
-): TDictionaryEntity[] | TDictionaryEntity | TDictionaryEntityResult[] =>
-  orNull<TDictionaryEntity[] | TDictionaryEntity | TDictionaryEntityResult[]>(
+  accessor?: (data: TDictionaryEntity[] | TDictionaryEntity) => TResult): TResult =>
+  orNull(
     dictionaryEntity,
     () => isFn(accessor) && !R.isNil(dictionaryEntity.data)
       ? accessor(dictionaryEntity.data)
-      : dictionaryEntity.data as TDictionaryEntity[] | TDictionaryEntity
+      : dictionaryEntity.data as AnyT
   );
 
 /**

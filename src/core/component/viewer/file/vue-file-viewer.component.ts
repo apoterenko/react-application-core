@@ -2,11 +2,11 @@ import { Component } from 'vue-property-decorator';
 
 import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
-import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
+import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { VueBaseFileViewer } from './vue-base-file-viewer.component';
 
 @ComponentName('vue-file-viewer')
-@Component(vueViewerComponentConfigFactory())
+@Component(vueDefaultComponentConfigFactory())
 export class VueFileViewer extends VueBaseFileViewer {
 
   /**

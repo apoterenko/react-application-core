@@ -1,7 +1,5 @@
-import { toType } from '../../util';
-import { ISrcWrapper, AnyT } from '../../definitions.interface';
-import { IVuePopup$Wrapper, VueComponentOptionsT } from '../../vue-definitions.interface';
-import { IVueComponent } from '../../vue-entities-definitions.interface';
+import { AnyT, ISrcWrapper } from '../../definitions.interface';
+import { IVuePopup$Wrapper } from '../../vue-definitions.interface';
 
 /**
  * @stable [29.11.2018]
@@ -34,15 +32,7 @@ export interface IVueViewerListenersEntity<TChangedValue = AnyT> {
   change?(newValue: TChangedValue): void;
 }
 
-/**
- * @stable [09.12.2018]
- * @returns {{data(): void}}
- */
-export const vueViewerComponentConfigFactory: () => VueComponentOptionsT = () => ({
-  data() {
-    return toType<IVueComponent>(this).getInitialData$();
-  },
-});
+
 
 /**
  * @stable [27.11.2018]

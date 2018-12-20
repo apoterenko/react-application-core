@@ -1,14 +1,12 @@
 import { IMenuItemEntity, ISelectOptionEntity } from '../../../entities-definitions.interface';
 import {
   IVueFieldTemplateMethodsEntity,
-  IVueFieldStateEntity,
 } from '../field/vue-field.interface';
 
 /**
- * @stable [18.11.2018]
+ * @stable [20.12.2018]
  */
-export interface IVueSelectStateEntity extends IVueFieldStateEntity {
-}
+export type VueSelectFilterT = (option: ISelectOptionEntity, query: string) => boolean;
 
 /**
  * @stable [17.11.2018]

@@ -1,6 +1,7 @@
 import { Store } from 'redux';
 import Vue from 'vue';
 
+import { toType } from './util';
 import {
   IEntity,
   AnyT,
@@ -22,6 +23,7 @@ import {
   IVueStyle$Wrapper,
   IVueOnMount$Wrapper,
   IVueGetInitialData$Wrapper,
+  VueComponentOptionsT,
 } from './vue-definitions.interface';
 
 /**
@@ -75,3 +77,13 @@ export interface IVueContainerCtor {
  */
 export interface IVueApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries> {
 }
+
+/**
+ * @stable [20.12.2018]
+ * @returns {{data(): void}}
+ */
+export const vueDefaultComponentConfigFactory: () => VueComponentOptionsT = () => ({
+  data() {
+    return toType<IVueComponent>(this).getInitialData$();
+  },
+});
