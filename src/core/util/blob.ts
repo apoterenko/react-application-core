@@ -1,6 +1,8 @@
-import { IBlobEntity } from '../entities-definitions.interface';
+import * as R from 'ramda';
+
 import { orDefault } from '../util';
 import { downloadFile } from './dom';
+import { IBlobEntity } from '../entities-definitions.interface';
 
 /**
  * @stable [28.06.2018]
@@ -14,6 +16,16 @@ export const toBlobEntities = (...ids: string[]): Promise<IBlobEntity[]> => (
     []
   ))
 );
+
+/**
+ * @stable [16.12.2018]
+ * @param {string} ids
+ * @returns {Promise<Record<number, Blob>>}
+ */
+export const toBlobEntitiesMap = async (...ids: string[]): Promise<Record<number, Blob>> => {
+  const entities = await toBlobEntities(...ids);
+  return R.mergeAll(entities.map((itm, index): Record<number, Blob> => ({[ids[index]]: itm.blob})));
+};
 
 /**
  * @stable [28.06.2018]

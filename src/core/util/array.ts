@@ -1,11 +1,13 @@
 import * as R from 'ramda';
 
+import { AnyT } from '../definitions.interface';
+
 /**
- * @stable [19.11.2018]
+ * @stable [16.12.2018]
  * @param {number} length
- * @returns {any}
+ * @returns {AnyT[]}
  */
-export const generateArray = (length: number) => Array.apply(null, {length});
+export const generateArray = (length: number): AnyT[] => Array.apply(null, {length});
 
 /**
  * @stable [19.11.2018]

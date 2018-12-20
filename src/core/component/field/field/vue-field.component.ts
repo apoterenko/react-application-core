@@ -9,6 +9,7 @@ import {
   orDefault,
   toClassName,
   ifNilReturnDefault,
+  ifNotNilReturnValue,
 } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
 import { VueBaseComponent } from '../../base/vue-index';
@@ -267,7 +268,8 @@ export class VueField extends VueBaseComponent<IKeyValue, IVueFieldStateEntity> 
    * @returns {AnyT}
    */
   protected getDisplayValue(): AnyT {
-    const displayValue = this.getData().displayValue;
+    const data = this.getData();
+    const displayValue = ifNotNilReturnValue(data, () => data.displayValue);
     let displayNameValue;
 
     return orDefault(

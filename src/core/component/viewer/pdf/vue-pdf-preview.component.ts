@@ -7,7 +7,7 @@ import { VueBaseComponent } from '../../base/vue-index';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
 import { IUniversalPdfPlugin } from './pdf-viewer.interface';
 
-@ComponentName('vue-pdf-viewer')
+@ComponentName('vue-pdf-preview')
 @Component({
   data: () => ({
     scale: 1,
@@ -35,7 +35,7 @@ import { IUniversalPdfPlugin } from './pdf-viewer.interface';
     </vue-flex-layout>
   `,
 })
-class VuePdfViewer extends VueBaseComponent {
+class VuePdfPreview extends VueBaseComponent {
   @Prop() private text: string;
   @Prop() private src: string;
   @Prop({default: (): number => .5}) private scaleFactor: number;

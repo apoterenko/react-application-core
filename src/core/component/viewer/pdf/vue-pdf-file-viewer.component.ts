@@ -3,11 +3,11 @@ import { Component } from 'vue-property-decorator';
 import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { vueViewerComponentConfigFactory } from '../vue-viewer.interface';
-import { VueBaseFileViewer } from './vue-base-file-viewer.component';
+import { VueBaseFileViewer } from '../file/vue-index';
 
-@ComponentName('vue-file-viewer')
+@ComponentName('vue-pdf-file-viewer')
 @Component(vueViewerComponentConfigFactory())
-export class VueFileViewer extends VueBaseFileViewer {
+class VuePdfFileViewer extends VueBaseFileViewer {
 
   /**
    * @stable [08.12.2018]
@@ -16,6 +16,16 @@ export class VueFileViewer extends VueBaseFileViewer {
    */
   public render(createElement: VueCreateElementFactoryT): VueNodeT {
     return super.render(createElement);
+  }
+
+  /**
+   * @stable [20.12.2018]
+   * @returns {string}
+   */
+  protected getPopupBodyTemplate(): string {
+    return `
+        <vue-pdf-preview :src="getSrc()"/>
+    `;
   }
 
   /**

@@ -61,4 +61,5 @@ export interface IMultiField extends IField {
  */
 export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
 export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IMultiEntity;
+export type MultiFieldSingleEntityT<TEntity extends IEntity = IEntity> = TEntity | IMultiEntity;
 export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;
