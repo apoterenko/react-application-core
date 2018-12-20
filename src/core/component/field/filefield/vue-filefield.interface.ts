@@ -8,6 +8,7 @@ import { IVueViewerListenersEntity, IVueFileViewerPropsEntity } from '../../view
 export interface IVueBaseFileFieldTemplateMethodsEntity extends IVueFieldTemplateMethodsEntity {
   onFilesSelect?(files: File[], index?: number): string[];
   getLabel?(index?: number): string;
+  getPlaceholder?(index?: number): string;
   getViewerComponent?(): string;
   getViewerBindings?(...AnyT): IVueFileViewerPropsEntity;
   getViewerListeners?(...AnyT): IVueViewerListenersEntity<File>;

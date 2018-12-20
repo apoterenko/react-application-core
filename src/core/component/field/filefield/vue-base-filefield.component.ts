@@ -22,6 +22,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
   @Prop({default: (): string => 'vue-file-viewer'}) protected readonly viewer: string;
   @Prop() protected readonly emptyMessageFactory: (index: number) => string;
+  @Prop() protected readonly placeHolderMessageFactory: (index: number) => string;
   @Prop() protected readonly subFieldConfig: (index: number) => IKeyValue;
   @Prop() protected readonly viewerProps: IVueFileViewerPropsEntity;
   @Prop() protected readonly displayFileName: string;
@@ -41,6 +42,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
     this.getViewerListeners = this.getViewerListeners.bind(this);
     this.getViewerComponent = this.getViewerComponent.bind(this);
     this.getLabel = this.getLabel.bind(this);
+    this.getPlaceholder = this.getPlaceholder.bind(this);
     this.getFiles = this.getFiles.bind(this);
   }
 
@@ -77,6 +79,12 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       : this.settings.messages.dndMessage;
   }
 
+  public getPlaceholder(index: number): string {
+    return isFn(this.placeHolderMessageFactory)
+      ? this.placeHolderMessageFactory(index)
+      : this.t(this.placeholder);
+  }
+
   /**
    * @stable [20.12.2018]
    * @returns {IEntity[]}
@@ -95,7 +103,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   public getViewerBindings(entity: IMultiItemEntity | string, index: number): IVueFileViewerPropsEntity {
     const props: IVueFileViewerPropsEntity = {
       ...this.viewerProps,
-      label: this.getLabel(index),
+      label: this.getPlaceholder(index),
     };
     const multiItemEntity = entity as IMultiItemEntity;
     if (isPrimitive(entity)) {
@@ -160,9 +168,16 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
                        :is="getViewerComponent()"
                        v-on="getViewerListeners(file, index)"
                        v-bind="getViewerBindings(file, index)"/>
-            <vue-dnd v-if="!file"
-                    :defaultMessage="getLabel(index)"
-                    @select="onFilesSelect($event, index)"/>
+            <vue-flex-layout v-if="!file"
+                            :row="true">
+                <vue-flex-layout :justifyContentCenter="true">
+                    {{getPlaceholder(index)}}
+                </vue-flex-layout>
+                <vue-flex-layout>
+                    <vue-dnd :defaultMessage="getLabel(index)"
+                             @select="onFilesSelect($event, index)"/>
+                </vue-flex-layout>
+            </vue-flex-layout>
           </template>
        </div>`
     );
@@ -194,6 +209,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       onFilesSelect: this.onFilesSelect,
       getFiles: this.getFiles,
       getLabel: this.getLabel,
+      getPlaceholder: this.getPlaceholder,
       getViewerComponent: this.getViewerComponent,
       getViewerListeners: this.getViewerListeners,
       getViewerBindings: this.getViewerBindings,
