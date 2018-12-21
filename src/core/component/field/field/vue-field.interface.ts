@@ -39,13 +39,13 @@ export interface IVueFieldProps extends IVueBaseProps,
  */
 export interface IVueField extends ICrossPlatformField,
                                    IVueComponent,
-                                   IVueFieldTemplateMethodsEntity {
+                                   IVueFieldTemplateMethods {
 }
 
 /**
  * @stable [17.11.2018]
  */
-export interface IVueFieldTemplateMethodsEntity {
+export interface IVueFieldTemplateMethods {
   getValue?(): AnyT;
   getInputBindings?(): Partial<HTMLInputElement>;
   getInputListeners?(): IVueFieldInputListenersEntity;

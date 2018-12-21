@@ -11,14 +11,14 @@ import { IVueFieldInputListenersEntity } from '../field/vue-index';
 import { VueBaseTextField } from '../textfield/vue-index';
 import { IVueMenu, IVueMenuProps } from '../../menu/vue-index';
 import {
-  IVueSelectTemplateMethodsEntity,
+  IVueSelectTemplateMethods,
   VueSelectFilterT,
   IVueSelectProps,
 } from './vue-select.interface';
 
 @ComponentName('vue-select')
 @Component(vueDefaultComponentConfigFactory())
-class VueSelect extends VueBaseTextField implements IVueSelectProps {
+class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, IVueSelectProps {
 
   @Prop() public bindDictionary: string;
   @Prop({default: (): string => 'vue-icon-expand'}) protected icon: string;
@@ -58,22 +58,20 @@ class VueSelect extends VueBaseTextField implements IVueSelectProps {
   }
 
   /**
-   * @stable [18.11.2018]
-   * @returns {IVueSelectTemplateMethodsEntity}
+   * @stable [17.11.2018]
+   * @param {IMenuItemEntity} option
    */
-  protected getTemplateMethods(): IVueSelectTemplateMethodsEntity {
-    return {
-      ...super.getTemplateMethods(),
-      onSelect: this.onSelect,
-      getMenuBindings: this.getMenuBindings,
-    };
+  public onSelect(option: ISelectOptionEntity): void {
+    this.getData().displayValue = option.label;
+    this.onChange(option.value);
+    this.$emit('select', option);
   }
 
   /**
    * @stable [21.12.2018]
    * @returns {IVueMenuProps}
    */
-  protected getMenuBindings(): IVueMenuProps {
+  public getMenuBindings(): IVueMenuProps {
     return {
       ...this.menuProps,
       options: this.getOptions(),
@@ -83,8 +81,20 @@ class VueSelect extends VueBaseTextField implements IVueSelectProps {
   /**
    * @stable [21.12.2018]
    */
-  protected onIconClick(): void {
+  public onIconClick(): void {
     this.onInputClick();
+  }
+
+  /**
+   * @stable [22.12.2018]
+   * @returns {TMethods}
+   */
+  protected getTemplateMethods<TMethods extends IVueSelectTemplateMethods>(): TMethods {
+    return {
+      ...super.getTemplateMethods(),
+      onSelect: this.onSelect,
+      getMenuBindings: this.getMenuBindings,
+    } as TMethods;
   }
 
   /**
@@ -138,16 +148,6 @@ class VueSelect extends VueBaseTextField implements IVueSelectProps {
       this.bindContainer.dispatchLoadDictionary(this.bindDictionary);
     }
     this.$emit('show');
-  }
-
-  /**
-   * @stable [17.11.2018]
-   * @param {IMenuItemEntity} option
-   */
-  private onSelect(option: ISelectOptionEntity): void {
-    this.getData().displayValue = option.label;
-    this.onChange(option.value);
-    this.$emit('select', option);
   }
 
   /**

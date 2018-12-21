@@ -16,9 +16,9 @@ import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
 import { IVueBaseFileViewerProps, IVueViewerListenersEntity } from '../../viewer/vue-index';
-import { IVueBaseFileFieldTemplateMethodsEntity } from './vue-filefield.interface';
+import { IVueBaseFileFieldTemplateMethods } from './vue-filefield.interface';
 
-export class VueBaseFileField extends VueField implements IVueBaseFileFieldTemplateMethodsEntity {
+export class VueBaseFileField extends VueField implements IVueBaseFileFieldTemplateMethods {
   @Prop({default: (): number => 1}) protected readonly maxFiles: number;
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
   @Prop({default: (): string => 'vue-file-viewer'}) protected readonly viewer: string;
@@ -207,9 +207,9 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
 
   /**
    * @stable [10.12.2018]
-   * @returns {IVueBaseFileFieldTemplateMethodsEntity}
+   * @returns {TMethods}
    */
-  protected getTemplateMethods(): IVueBaseFileFieldTemplateMethodsEntity {
+  protected getTemplateMethods<TMethods extends IVueBaseFileFieldTemplateMethods>(): TMethods {
     return {
       ...super.getTemplateMethods(),
       onFilesSelect: this.onFilesSelect,
@@ -219,7 +219,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       getViewerComponent: this.getViewerComponent,
       getViewerListeners: this.getViewerListeners,
       getViewerBindings: this.getViewerBindings,
-    };
+    } as TMethods;
   }
 
   protected getFileFormat(): AnyT {

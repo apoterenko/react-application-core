@@ -23,7 +23,7 @@ import {
 } from '../../../vue-definitions.interface';
 import {
   IVueFieldTemplateComputedEntity,
-  IVueFieldTemplateMethodsEntity,
+  IVueFieldTemplateMethods,
   IVueFieldInputListenersEntity,
   IVueFieldState,
   IVueField,
@@ -355,10 +355,10 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   }
 
   /**
-   * @stable [27.11.2018]
-   * @returns {IVueFieldTemplateMethodsEntity}
+   * @stable [22.12.2018]
+   * @returns {TMethods}
    */
-  protected getTemplateMethods(): IVueFieldTemplateMethodsEntity {
+  protected getTemplateMethods<TMethods extends IVueFieldTemplateMethods>(): TMethods {
     return {
       getInputWrapperClassName: this.getInputWrapperClassName,
       getFieldClassName: this.getFieldClassName,
@@ -366,7 +366,7 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
       getInputListeners: this.getInputListeners,
       isInputWrapperFull: this.isInputWrapperFull,
       isFieldFull: this.isFieldFull,
-    };
+    } as TMethods;
   }
 
   /**
