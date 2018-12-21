@@ -6,16 +6,16 @@ import {
   IEntityWrapper,
 } from '../../../definitions.interface';
 import { IVueBasePictureViewerTemplateMethodsEntity } from '../picture/vue-index';
-import { IVueViewerPropsEntity } from '../vue-viewer.interface';
+import { IVueViewerProps } from '../vue-viewer.interface';
 
 /**
- * @stable [09.12.2018]
+ * @stable [22.12.2018]
  */
-export interface IVueFileViewerPropsEntity extends IVueViewerPropsEntity,
-                                                   IFileNameWrapper,
-                                                   ILabelWrapper,
-                                                   IEntityWrapper,
-                                                   IDisplayFileNameWrapper<EntityCallbackWrapperT> {
+export interface IVueBaseFileViewerProps extends IVueViewerProps,
+                                                 IFileNameWrapper,
+                                                 ILabelWrapper,
+                                                 IEntityWrapper,
+                                                 IDisplayFileNameWrapper<EntityCallbackWrapperT> {
 }
 
 /**

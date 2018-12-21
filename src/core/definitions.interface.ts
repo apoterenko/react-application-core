@@ -126,8 +126,8 @@ export interface ISrcWrapper<TSrc = string> {
 /**
  * @stable [21.12.2018]
  */
-export interface IPreviewTemplateAttachmentWrapper<TPreviewTemplateAttachment = string> {
-  previewTemplateAttachment?: TPreviewTemplateAttachment;
+export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> {
+  previewAttachment?: TPreviewAttachment;
 }
 
 /**

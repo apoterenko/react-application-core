@@ -1,6 +1,7 @@
 import { Prop } from 'vue-property-decorator';
 
 import { IKeyValue } from '../../definitions.interface';
+import { calc, toClassName, orEmpty } from '../../util';
 import { VueBaseComponent } from '../base/vue-index';
 import {
   VUE_POPUP_CLOSE_EVENT,
@@ -13,16 +14,17 @@ import {
   VueNodeT,
 } from '../../vue-definitions.interface';
 import {
-  IVueViewerStateEntity,
+  IVueViewerState,
   IVueViewerTemplateMethodsEntity,
-  IVueViewerPropsEntity,
+  IVueViewerProps,
   VUE_VIEWER_REMOVE_EVENT,
 } from './vue-viewer.interface';
 
-export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVueViewerStateEntity>
-  extends VueBaseComponent<IKeyValue, TVueViewerStateEntity> implements IVueViewerPropsEntity {
+export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState>
+  extends VueBaseComponent<IKeyValue, TVueViewerState> implements IVueViewerProps {
 
   @Prop() public src: string;
+  @Prop() public previewAttachment: string;
 
   /**
    * @stable [29.11.2018]
@@ -33,8 +35,10 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
     const options: VueComponentOptionsT = {
       methods: this.getTemplateMethods() as VueDefaultMethodsT,
       template: `
-        <vue-flex-layout :fullSize="true">
+        <vue-flex-layout :fullSize="true"
+                         class="${toClassName('vue-viewer', calc(this.className))}">
             ${this.getPreviewTemplate()}
+            ${this.getPreviewTemplateAttachment()}
             <vue-popup :open="isPopupOpened()"
                        @${VUE_POPUP_CLOSE_EVENT}="onClosePopup">
                 <template slot="${VUE_POPUP_HEADER_SLOT}">
@@ -55,10 +59,10 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
    * @stable [29.11.2018]
    * @returns {TVueViewerStateEntity}
    */
-  public getInitialData$(): TVueViewerStateEntity {
+  public getInitialData$(): TVueViewerState {
     return {
-      popup$: false,
-    } as  TVueViewerStateEntity;
+      popup: false,
+    } as  TVueViewerState;
   }
 
   /**
@@ -68,7 +72,7 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
   protected getTemplateMethods(): IVueViewerTemplateMethodsEntity {
     return {
       getSrc: () => this.src,
-      isPopupOpened: () => this.getData().popup$,
+      isPopupOpened: () => this.getData().popup,
       onOpenPopup: this.onOpenPopup,
       onClosePopup: this.onClosePopup,
       onRemove: this.onRemove,
@@ -107,6 +111,17 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
   }
 
   /**
+   * @stable [22.12.2018]
+   * @returns {string}
+   */
+  protected getPreviewTemplateAttachment(): string {
+    return orEmpty(
+      this.previewAttachment,
+      () => `<div class="vue-viewer-preview-attachment">${this.previewAttachment}</div>`
+    );
+  }
+
+  /**
    * @stable [28.11.2018]
    * @returns {string}
    */
@@ -132,7 +147,7 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
    * @stable [28.11.2018]
    */
   protected onOpenPopup(): void {
-    this.getData().popup$ = true;
+    this.getData().popup = true;
     this.$nextTick(() => this.onAfterOpenPopup());
   }
 
@@ -140,7 +155,7 @@ export class VueViewer<TVueViewerStateEntity extends IVueViewerStateEntity = IVu
    * @stable [28.11.2018]
    */
   protected onClosePopup(): void {
-    this.getData().popup$ = false;
+    this.getData().popup = false;
     this.$nextTick(() => this.onAfterClosePopup());
   }
 }

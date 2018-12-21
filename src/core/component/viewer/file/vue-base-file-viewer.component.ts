@@ -1,12 +1,11 @@
 import { Prop } from 'vue-property-decorator';
-import * as R from 'ramda';
 
-import { isFn, nvl } from '../../../util';
+import { isFn, nvl, orDefault } from '../../../util';
 import { EntityCallbackWrapperT, IEntity } from '../../../definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
-import { IVueFileViewerTemplateMethodsEntity, IVueFileViewerProps } from './vue-file-viewer.interface';
+import { IVueFileViewerTemplateMethodsEntity, IVueBaseFileViewerProps } from './vue-file-viewer.interface';
 
-export class VueBaseFileViewer extends VueBasePictureViewer implements IVueFileViewerProps {
+export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseFileViewerProps {
 
   @Prop() public label: string;
   @Prop() public entity: IEntity;
@@ -61,12 +60,14 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueFileV
   }
 
   /**
-   * @stable [09.12.2018]
+   * @stable [22.12.2018]
    * @returns {string}
    */
   protected getFileName(): string {
-    return isFn(this.displayFileName)
-      ? this.displayFileName(this.entity)
-      : nvl(this.fileName, this.t(this.settings.messages.unknownFileMessage));
+    return orDefault<string, string>(
+      isFn(this.displayFileName),
+      () => this.displayFileName(this.entity),
+      () => nvl(this.fileName, this.t(this.settings.messages.unknownFileMessage))
+    );
   }
 }

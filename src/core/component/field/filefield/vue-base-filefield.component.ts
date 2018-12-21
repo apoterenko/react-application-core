@@ -15,7 +15,7 @@ import { IEntity, IKeyValue, AnyT } from '../../../definitions.interface';
 import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
-import { IVueFileViewerProps, IVueViewerListenersEntity } from '../../viewer/vue-index';
+import { IVueBaseFileViewerProps, IVueViewerListenersEntity } from '../../viewer/vue-index';
 import { IVueBaseFileFieldTemplateMethodsEntity } from './vue-filefield.interface';
 
 export class VueBaseFileField extends VueField implements IVueBaseFileFieldTemplateMethodsEntity {
@@ -26,7 +26,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   @Prop() protected readonly placeHolderMessageFactory: (index: number) => string;
   @Prop() protected readonly clsFactory: (entity: IEntity) => string;
   @Prop() protected readonly subFieldConfig: (index: number) => IKeyValue;
-  @Prop() protected readonly viewerProps: IVueFileViewerProps;
+  @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
   @Prop() protected readonly displayFileName: string;
   @Prop() protected readonly displayFileFormat: string;
 
@@ -99,11 +99,11 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
    * @stable [09.12.2018]
    * @param {IMultiItemEntity} entity
    * @param {number} index
-   * @returns {IVueFileViewerProps}
+   * @returns {IVueBaseFileViewerProps}
    */
   // TODO Check entity typings
-  public getViewerBindings(entity: IMultiItemEntity | string, index: number): IVueFileViewerProps {
-    const props: IVueFileViewerProps = {
+  public getViewerBindings(entity: IMultiItemEntity | string, index: number): IVueBaseFileViewerProps {
+    const props: IVueBaseFileViewerProps = {
       ...this.viewerProps,
       label: this.getPlaceholder(index),
     };

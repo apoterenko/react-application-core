@@ -2,8 +2,9 @@ import {
   AnyT,
   ISrcWrapper,
   IPopupWrapper,
-  IPreviewTemplateAttachmentWrapper,
+  IPreviewAttachmentWrapper,
 } from '../../definitions.interface';
+import { IVueBaseProps } from '../base/vue-index';
 
 /**
  * @stable [21.12.2018]
@@ -14,8 +15,9 @@ export interface IVueViewerState extends IPopupWrapper {
 /**
  * @stable [21.12.2018]
  */
-export interface IVueViewerProps extends ISrcWrapper,
-                                         IPreviewTemplateAttachmentWrapper {
+export interface IVueViewerProps extends IVueBaseProps,
+                                         ISrcWrapper,
+                                         IPreviewAttachmentWrapper {
 }
 
 /**
