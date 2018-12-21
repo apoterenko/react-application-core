@@ -122,6 +122,14 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
   }
 
   /**
+   * @stable [22.12.2018]
+   * @returns {string}
+   */
+  protected getPreviewClassName(): string {
+    return 'vue-viewer-preview';
+  }
+
+  /**
    * @stable [28.11.2018]
    * @returns {string}
    */

@@ -33,9 +33,17 @@ export class VueBasePictureViewer extends VueViewer {
   protected getPreviewTemplate(): string {
     return `
       <vue-flex-layout :styles="{'background-image': getBackgroundImage()}"
-                       class="vue-picture-viewer-preview"
+                       class="${this.getPreviewClassName()}"
                        v-on:click.native="onOpenPopup"/>
     `;
+  }
+
+  /**
+   * @stable [22.12.2018]
+   * @returns {string}
+   */
+  protected getPreviewClassName(): string {
+    return `vue-picture-viewer-preview ${super.getPreviewClassName()}`;
   }
 
   /**
