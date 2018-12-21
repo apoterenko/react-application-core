@@ -10,6 +10,7 @@ import {
   toClassName,
   ifNilReturnDefault,
   ifNotNilReturnValue,
+  calc,
 } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
 import { VueBaseComponent } from '../../base/vue-index';
@@ -24,17 +25,18 @@ import {
   IVueFieldTemplateComputedEntity,
   IVueFieldTemplateMethodsEntity,
   IVueFieldInputListenersEntity,
-  IVueFieldStateEntity,
+  IVueFieldState,
   IVueField,
   VUE_FIELD_CHANGE_EVENT,
+  IVueFieldProps,
 } from './vue-field.interface';
 
-export class VueField<TStore = IKeyValue, TState extends IVueFieldStateEntity = IVueFieldStateEntity>
-  extends VueBaseComponent<TStore, TState> implements IVueField {
+export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFieldState>
+  extends VueBaseComponent<TStore, TState> implements IVueField, IVueFieldProps {
 
   @Prop() public value: AnyT;
+  @Prop() public full: boolean;
   @Prop() protected type: string;
-  @Prop() protected full: boolean;
   @Prop() protected name: string;
   @Prop() protected displayName: string;
   @Prop() protected label: string;
@@ -42,6 +44,7 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldStateEntity = 
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
   @Prop() protected autoFocus: boolean;
+  @Prop() protected useLocalization: boolean;
 
   /**
    * @stable [17.11.2018]
@@ -119,6 +122,7 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldStateEntity = 
   public getFieldClassName(): string {
     return toClassName(
       'vue-field',
+      calc(this.className, this.getDisplayValue()),
       this.hasValue() ? 'vue-field-filled' : 'vue-field-not-filled',
       this.hasFloatLabel() ? 'vue-field-float-labeled' : 'vue-field-not-float-labeled'
     );
@@ -282,7 +286,7 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldStateEntity = 
   protected getTemplateComputed(): IVueFieldTemplateComputedEntity {
     return {
       value$: {
-        get: () => this.getDisplayValue(),
+        get: () => this.getInputDisplayValue(),
         set: (newValue) => this.onChange(newValue),
       },
     };
@@ -303,6 +307,28 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldStateEntity = 
       () => orDefault(displayNameValue = this.fromStore(this.displayName), displayNameValue, value),
       displayValue
     );
+  }
+
+  /**
+   * @stable [21.12.2018]
+   * @returns {AnyT}
+   */
+  protected getInputDisplayValue(): AnyT {
+    const value = this.getValue();
+    const displayValue = this.getDisplayValue();
+
+    return this.isFieldChangedManually(value)
+      ? displayValue
+      : (this.useLocalization ? this.t(displayValue) : displayValue);
+  }
+
+  /**
+   * @stable [21.12.2018]
+   * @param {AnyT} newValue
+   * @returns {boolean}
+   */
+  protected isFieldChangedManually(newValue: AnyT): boolean {
+    return true;
   }
 
   /**
