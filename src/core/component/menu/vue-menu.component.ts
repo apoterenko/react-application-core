@@ -2,11 +2,11 @@ import { MDCMenu } from '@material/menu';
 import { Component, Prop } from 'vue-property-decorator';
 
 import { EntityIdT } from '../../definitions.interface';
-import { setWidth, isNumber, isDef, removeSelf } from '../../util';
+import { setWidth, isNumber, isDef, removeSelf, isFn } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 import { IMenuItemEntity, IMenuMaterialComponent } from '../../entities-definitions.interface';
-import { IVueMenu, IVueMenuContextEntity } from './vue-menu.interface';
+import { IVueMenu, IVueMenuContextEntity, IVueMenuProps } from './vue-menu.interface';
 
 @ComponentName('vue-menu')
 @Component({
@@ -14,31 +14,38 @@ import { IVueMenu, IVueMenuContextEntity } from './vue-menu.interface';
     opened: false,
   }),
   template: `
-    <div v-if="opened"
-         class="mdc-menu-surface--anchor">
-      <div ref="self"
-           class="vue-menu mdc-menu mdc-menu-surface">
-        <ul class="vue-menu-list mdc-list"
-            role="menu"
-            aria-hidden="true"
-            aria-orientation="vertical">
-          <li v-for="item in options"
-              class="vue-menu-list-item mdc-list-item"
-              role="menuitem"
-              @click="onSelect(item)">
-            <span class="mdc-list-item__text">{{getDisplayValue(item)}}</span>
-          </li>
-          <li v-if="!options"
-              class="vue-menu-list-empty-item">
-            <span class="vue-menu-list-empty-item-text mdc-list-item__text">{{getPleaseWaitMessage()}}</span>
-          </li>
-        </ul>
+      <div v-if="opened"
+           class="mdc-menu-surface--anchor">
+          <div ref="self"
+               class="vue-menu mdc-menu mdc-menu-surface">
+              <ul class="vue-menu-list mdc-list"
+                  role="menu"
+                  aria-hidden="true"
+                  aria-orientation="vertical">
+                  <li v-for="item in options"
+                      class="vue-menu-list-item mdc-list-item"
+                      role="menuitem"
+                      @click="onSelect(item)"
+                  >
+                      <component v-if="tpl"
+                                 :is="{template: getTemplateValue(item)}"/>
+                      <template v-if="!tpl">{{getDisplayValue(item)}}</template>
+                  </li>
+                  <li v-if="!options"
+                      class="vue-menu-list-empty-item">
+                        <span class="vue-menu-list-empty-item-text mdc-list-item__text">
+                            {{getPleaseWaitMessage()}}
+                        </span>
+                  </li>
+              </ul>
+          </div>
       </div>
-    </div>
   `,
 })
-class VueMenu extends VueBaseComponent implements IVueMenu {
-  @Prop() private options: IMenuItemEntity[];
+class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
+  @Prop() public options: IMenuItemEntity[];
+  @Prop() public useLocalization: boolean;
+  @Prop() public tpl: (item: IMenuItemEntity) => string;
 
   private mdc: IMenuMaterialComponent;    // TODO Use inheritance
   private el: Element;
@@ -117,11 +124,22 @@ class VueMenu extends VueBaseComponent implements IVueMenu {
   }
 
   /**
-   * @stable [24.11.2018]
+   * @stable [22.12.2018]
    * @param {IMenuItemEntity} item
    * @returns {EntityIdT}
    */
-  private getDisplayValue(item: IMenuItemEntity): EntityIdT {
-    return item.label || item.value;
+  private getDisplayValue(item: IMenuItemEntity): any {
+    return item.label
+      ? (this.useLocalization ? this.t(item.label) : item.label)
+      : item.value;
+  }
+
+  /**
+   * @stable [22.12.2018]
+   * @param {IMenuItemEntity} item
+   * @returns {any}
+   */
+  private getTemplateValue(item: IMenuItemEntity): any {
+    return this.tpl(item);
   }
 }
