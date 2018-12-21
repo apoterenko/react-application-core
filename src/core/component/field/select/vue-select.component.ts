@@ -21,13 +21,13 @@ import {
 class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, IVueSelectProps {
 
   @Prop() public bindDictionary: string;
+  @Prop() public menuProps: IVueMenuProps;
   @Prop({default: (): string => 'vue-icon-expand'}) protected icon: string;
   @Prop({
     default: (): VueSelectFilterT => (option: ISelectOptionEntity, query: string) =>
       String((option.label || option.value)).toLowerCase().includes(query.toLowerCase()),
   }) protected filter: VueSelectFilterT;
   @Prop() private options: ISelectOptionEntity[];
-  @Prop() private menuProps: IVueMenuProps;
 
   /**
    * @stable [21.10.2018]

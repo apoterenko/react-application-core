@@ -740,6 +740,13 @@ export interface ILoadingWrapper {
 }
 
 /**
+ * @stable [22.12.2018]
+ */
+export interface IMenuPropsWrapper<TMenuProps> {
+  menuProps?: TMenuProps;
+}
+
+/**
  * @stable [04.05.2018]
  */
 export interface IBindDictionaryWrapper<TBindDictionary = string> {
