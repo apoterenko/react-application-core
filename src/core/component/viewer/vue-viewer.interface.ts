@@ -1,16 +1,21 @@
-import { AnyT, ISrcWrapper } from '../../definitions.interface';
-import { IVuePopup$Wrapper } from '../../vue-definitions.interface';
+import {
+  AnyT,
+  ISrcWrapper,
+  IPopupWrapper,
+  IPreviewTemplateAttachmentWrapper,
+} from '../../definitions.interface';
 
 /**
- * @stable [29.11.2018]
+ * @stable [21.12.2018]
  */
-export interface IVueViewerStateEntity extends IVuePopup$Wrapper {
+export interface IVueViewerState extends IPopupWrapper {
 }
 
 /**
- * @stable [09.12.2018]
+ * @stable [21.12.2018]
  */
-export interface IVueViewerPropsEntity extends ISrcWrapper {
+export interface IVueViewerProps extends ISrcWrapper,
+                                         IPreviewTemplateAttachmentWrapper {
 }
 
 /**
@@ -31,8 +36,6 @@ export interface IVueViewerListenersEntity<TChangedValue = AnyT> {
   remove?(): void;
   change?(newValue: TChangedValue): void;
 }
-
-
 
 /**
  * @stable [27.11.2018]

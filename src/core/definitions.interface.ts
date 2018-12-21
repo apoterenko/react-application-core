@@ -124,6 +124,13 @@ export interface ISrcWrapper<TSrc = string> {
 }
 
 /**
+ * @stable [21.12.2018]
+ */
+export interface IPreviewTemplateAttachmentWrapper<TPreviewTemplateAttachment = string> {
+  previewTemplateAttachment?: TPreviewTemplateAttachment;
+}
+
+/**
  * @stable [09.12.2018]
  */
 export interface IFileWrapper<TFile = File> {
@@ -1800,7 +1807,9 @@ export interface IEmptyDataMessageWrapper<TEmptyDataMessage = string> {
   emptyDataMessage?: TEmptyDataMessage;
 }
 
-/* @stable - 31.03.2018 */
+/**
+ * @stable [21.12.2018]
+ */
 export interface ITplWrapper<TTpl> {
   tpl?: TTpl;
 }
@@ -1808,7 +1817,7 @@ export interface ITplWrapper<TTpl> {
 /**
  * @stable [07.06.2018]
  */
-export interface ITplFnWrapper<TItem = IEntity, TResult = string | number> extends ITplWrapper<(item: TItem) => TResult> {
+export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends ITplWrapper<(item: TItem) => TResult> {
 }
 
 /**
@@ -1891,6 +1900,13 @@ export interface IUseLocalFilteringWrapper {
 }
 
 /**
+ * @stable [21.12.2018]
+ */
+export interface IUseLocalizationWrapper {
+  useLocalization?: boolean;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface ISorterWrapper<TSorter> {
@@ -1937,6 +1953,13 @@ export interface IDispatchLoadDictionaryWrapper {
  */
 export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSortedItem, item2: TSortedItem) => number>
   extends ISorterWrapper<TSorter> {
+}
+
+/**
+ * @stable [29.11.2018]
+ */
+export interface IPopupWrapper<TPopup = boolean> {
+  popup?: TPopup;
 }
 
 /**

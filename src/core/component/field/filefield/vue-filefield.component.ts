@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 import { generateArray, isPrimitive } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
@@ -11,7 +11,6 @@ import { VueBaseFileField } from './vue-base-filefield.component';
 @ComponentName('vue-file-field')
 @Component
 class VueFileField extends VueBaseFileField {
-  @Prop({default: (): number => 1}) private readonly maxFiles: number;
 
   /**
    * @stable [25.11.2018]
@@ -48,7 +47,7 @@ class VueFileField extends VueBaseFileField {
   }
 
   // TODO refactoring
-  public getViewerComponent(): string {
+  public getViewerComponent(file: File, index: number): string {
     const files = this.getFiles();
 
     return files.length > 0

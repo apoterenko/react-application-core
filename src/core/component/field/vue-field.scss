@@ -30,12 +30,24 @@
     $vue-field-icon-width: $vue-select-icon-width,
     $vue-field-icon-height: $vue-select-icon-height,
     $vue-field-icon-margin: $vue-select-icon-margin,
-    $vue-field-icon-background-repeat: no-repeat
+    $vue-field-icon-background-repeat: no-repeat,
+    $vue-field-icon-position: relative
   );
 
-  @include vue-field(                                                                         /* @stable [08.12.2018] */
+  @include vue-field(                                                                         /* @stable [21.12.2018] */
     $vue-field-custom: vue-file-field,
-    $vue-field-attachment-wrapper-content-border: $vue-file-field-attachment-wrapper-content-border
+    $vue-field-attachment-wrapper-content-border: $vue-file-field-attachment-wrapper-content-border,
+    $vue-field-attachment-wrapper-content-border-radius: $vue-file-field-attachment-wrapper-content-border-radius
+  );
+
+  @include vue-field(                                                                         /* @stable [21.12.2018] */
+    $vue-field-custom: vue-multi-file-field,
+    $vue-field-attachment-wrapper-content-margin: $vue-multi-file-field-attachment-wrapper-content-margin,
+    $vue-field-attachment-wrapper-content-width: $vue-multi-file-field-attachment-wrapper-content-width,
+    $vue-field-attachment-wrapper-content-height: $vue-multi-file-field-attachment-wrapper-content-height,
+    $vue-field-attachment-wrapper-content-float: $vue-multi-file-field-attachment-wrapper-content-float,
+    $vue-field-attachment-wrapper-viewer-selector-border: $vue-multi-file-field-attachment-wrapper-viewer-selector-border,
+    $vue-field-attachment-wrapper-viewer-preview-border-radius: $vue-multi-file-field-attachment-wrapper-viewer-preview-border-radius
   );
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */

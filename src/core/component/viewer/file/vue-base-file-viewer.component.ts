@@ -4,9 +4,9 @@ import * as R from 'ramda';
 import { isFn, nvl } from '../../../util';
 import { EntityCallbackWrapperT, IEntity } from '../../../definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
-import { IVueFileViewerTemplateMethodsEntity, IVueFileViewerPropsEntity } from './vue-file-viewer.interface';
+import { IVueFileViewerTemplateMethodsEntity, IVueFileViewerProps } from './vue-file-viewer.interface';
 
-export class VueBaseFileViewer extends VueBasePictureViewer implements IVueFileViewerPropsEntity {
+export class VueBaseFileViewer extends VueBasePictureViewer implements IVueFileViewerProps {
 
   @Prop() public label: string;
   @Prop() public entity: IEntity;

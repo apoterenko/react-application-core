@@ -8,6 +8,7 @@ export * from './component/base/vue-index';
 export * from './component/form/vue-index';
 export * from './component/list/vue-index';
 export * from './component/field/vue-index';
+export * from './component/menu/vue-index';
 export * from './component/connector/vue-index';
 export * from './component/popup/vue-index';
 export * from './component/viewer/vue-index';

@@ -17,9 +17,16 @@ $vue-text-field-float-labeled-and-filled-float-label-padding: ($vue-default-text
 $vue-field-float-label-font-size: 12px !default;
 $vue-field-float-label-color: $vue-color1 !default;
 $vue-file-field-attachment-wrapper-content-border: 1px dashed $vue-color2 !default;
+$vue-file-field-attachment-wrapper-content-border-radius: 4px !default;
+$vue-multi-file-field-attachment-wrapper-content-margin: 0 16px 16px 0 !default;
+$vue-multi-file-field-attachment-wrapper-content-float: left !default;
+$vue-multi-file-field-attachment-wrapper-content-width: 100px !default;
+$vue-multi-file-field-attachment-wrapper-content-height: 100px !default;
+$vue-multi-file-field-attachment-wrapper-viewer-preview-border-radius: $vue-file-field-attachment-wrapper-content-border-radius !default;
+$vue-multi-file-field-attachment-wrapper-viewer-selector-border: 1px solid transparent !default;  /* CSS float left Workaround*/
 $vue-select-icon-width: 16px !default;
 $vue-select-icon-height: 10px !default;
-$vue-select-icon-margin: 0 16px 0 auto !default;
+$vue-select-icon-margin: 0 20px 0 auto !default;
 
 /* @stable [18.11.2018] */
 $vue-viewer-scale-action-size: 32px !default;

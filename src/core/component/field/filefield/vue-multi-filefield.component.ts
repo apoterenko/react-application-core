@@ -1,4 +1,4 @@
-import { Component, Prop } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 import { generateArray } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
@@ -10,7 +10,6 @@ import { VueBaseFileField } from './vue-base-filefield.component';
 @ComponentName('vue-multi-file-field')
 @Component
 class VueMultiFileField extends VueBaseFileField {
-  @Prop({default: (): number => 1}) private readonly maxFiles: number;
 
   /**
    * @stable [25.11.2018]
@@ -28,6 +27,14 @@ class VueMultiFileField extends VueBaseFileField {
    */
   public onChangeManually(newValue, context?: AnyT): void {
     super.onChangeManually(newValue, context);
+  }
+
+  /**
+   * @stable [21.12.2018]
+   * @returns {string}
+   */
+  public getFieldClassName(): string {
+    return `${super.getFieldClassName()} vue-multi-file-field`;
   }
 
   // TODO

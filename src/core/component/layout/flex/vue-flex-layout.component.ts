@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 
-import { toClassName } from '../../../util';
+import { toClassName, calc } from '../../../util';
 import {
   VueCreateElementFactoryT,
   VueNodeT,
@@ -16,7 +16,6 @@ import { IUniversalFlexLayoutProps } from './universal-flex-layout.interface';
 class VueFlexLayout extends VueBaseComponent
   implements IUniversalFlexLayoutProps {
   @Prop() public children: string;
-  @Prop() public className: string;
   @Prop() public title: string;
   @Prop() public row: boolean;
   @Prop() public full: boolean;
@@ -41,8 +40,8 @@ class VueFlexLayout extends VueBaseComponent
   private getClassName(): string {
     const props = this;
     return toClassName(
-      props.className,
       'rac-flex',
+      calc(props.className),
       props.fullSize && 'rac-full-size',
       props.row ? 'rac-flex-row' : 'rac-flex-column',
       props.full !== false && 'rac-flex-full',

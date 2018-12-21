@@ -9,11 +9,13 @@ import { IKeyValue } from '../../definitions.interface';
 import { IApplicationSettings } from '../../settings';
 import { IVueContainer, IVueComponent } from '../../vue-entities-definitions.interface';
 import { IVueRefs } from '../../vue-definitions.interface';
+import { IVueBaseProps } from './vue-base.interface';
 
 export class VueBaseComponent<TStore = IKeyValue,
                               TState = IKeyValue> extends Vue
-  implements IVueComponent {
+  implements IVueComponent, IVueBaseProps {
 
+  @Prop() public className: string | ((...AnyT) => string);
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
   @Prop() protected styles: IKeyValue;

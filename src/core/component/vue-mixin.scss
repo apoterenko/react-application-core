@@ -58,10 +58,15 @@
                                     $vue-field-attachment-wrapper-content-width: unset,
                                     $vue-field-attachment-wrapper-content-height: unset,
                                     $vue-field-attachment-wrapper-content-margin: unset,
+                                    $vue-field-attachment-wrapper-content-float: unset,
+                                    $vue-field-attachment-wrapper-content-border-radius: unset,
+                                    $vue-field-attachment-wrapper-viewer-selector-border: unset,
+                                    $vue-field-attachment-wrapper-viewer-preview-border-radius: unset,
                                     $vue-field-icon-width: unset,
                                     $vue-field-icon-height: unset,
                                     $vue-field-icon-margin: unset,
-                                    $vue-field-icon-background-repeat: unset) {
+                                    $vue-field-icon-background-repeat: unset,
+                                    $vue-field-icon-position: unset) {
 
   @include _rac-styles-properties(
     $rac-styles-position: $vue-field-position,
@@ -86,7 +91,21 @@
     $rac-first-level-children-custom-border: $vue-field-attachment-wrapper-content-border,
     $rac-first-level-children-custom-width: $vue-field-attachment-wrapper-content-width,
     $rac-first-level-children-custom-height: $vue-field-attachment-wrapper-content-height,
-    $rac-first-level-children-custom-margin: $vue-field-attachment-wrapper-content-margin
+    $rac-first-level-children-custom-margin: $vue-field-attachment-wrapper-content-margin,
+    $rac-first-level-children-custom-float: $vue-field-attachment-wrapper-content-float,
+    $rac-first-level-children-custom-border-radius: $vue-field-attachment-wrapper-content-border-radius
+  );
+
+  @include rac-first-level-children(
+    $rac-first-level-children-custom: vue-field-attachment-wrapper,
+    $rac-first-level-children-custom-selector: vue-viewer,
+    $rac-first-level-children-custom-border: $vue-field-attachment-wrapper-viewer-selector-border
+  );
+
+  @include rac-first-level-children(
+    $rac-first-level-children-custom: vue-field-attachment-wrapper,
+    $rac-first-level-children-custom-selector: 'vue-viewer > .vue-viewer-preview',
+    $rac-first-level-children-custom-border-radius: $vue-field-attachment-wrapper-viewer-preview-border-radius
   );
 
   @include rac-styles(
@@ -101,7 +120,8 @@
     $rac-styles-margin: $vue-field-icon-margin,
     $rac-styles-width: $vue-field-icon-width,
     $rac-styles-height: $vue-field-icon-height,
-    $rac-styles-background-repeat: $vue-field-icon-background-repeat
+    $rac-styles-background-repeat: $vue-field-icon-background-repeat,
+    $rac-styles-position: $vue-field-icon-position
   );
 
   .vue-field-label {
@@ -158,10 +178,15 @@
                  $vue-field-attachment-wrapper-content-width: unset,
                  $vue-field-attachment-wrapper-content-height: unset,
                  $vue-field-attachment-wrapper-content-margin: unset,
+                 $vue-field-attachment-wrapper-content-float: unset,
+                 $vue-field-attachment-wrapper-content-border-radius: unset,
+                 $vue-field-attachment-wrapper-viewer-selector-border: unset,
+                 $vue-field-attachment-wrapper-viewer-preview-border-radius: unset,
                  $vue-field-icon-width: unset,
                  $vue-field-icon-height: unset,
                  $vue-field-icon-margin: unset,
-                 $vue-field-icon-background-repeat: unset) {
+                 $vue-field-icon-background-repeat: unset,
+                 $vue-field-icon-position: unset) {
   @if $vue-field-custom != unset {
     .vue-field {
       &.#{$vue-field-custom} {
@@ -188,10 +213,15 @@
           $vue-field-attachment-wrapper-content-width: $vue-field-attachment-wrapper-content-width,
           $vue-field-attachment-wrapper-content-height: $vue-field-attachment-wrapper-content-height,
           $vue-field-attachment-wrapper-content-margin: $vue-field-attachment-wrapper-content-margin,
+          $vue-field-attachment-wrapper-content-float: $vue-field-attachment-wrapper-content-float,
+          $vue-field-attachment-wrapper-content-border-radius: $vue-field-attachment-wrapper-content-border-radius,
+          $vue-field-attachment-wrapper-viewer-selector-border: $vue-field-attachment-wrapper-viewer-selector-border,
+          $vue-field-attachment-wrapper-viewer-preview-border-radius: $vue-field-attachment-wrapper-viewer-preview-border-radius,
           $vue-field-icon-width: $vue-field-icon-width,
           $vue-field-icon-height: $vue-field-icon-height,
           $vue-field-icon-margin: $vue-field-icon-margin,
-          $vue-field-icon-background-repeat: $vue-field-icon-background-repeat
+          $vue-field-icon-background-repeat: $vue-field-icon-background-repeat,
+          $vue-field-icon-position: $vue-field-icon-position
         );
       }
     }
@@ -220,10 +250,15 @@
         $vue-field-attachment-wrapper-content-width: $vue-field-attachment-wrapper-content-width,
         $vue-field-attachment-wrapper-content-height: $vue-field-attachment-wrapper-content-height,
         $vue-field-attachment-wrapper-content-margin: $vue-field-attachment-wrapper-content-margin,
+        $vue-field-attachment-wrapper-content-float: $vue-field-attachment-wrapper-content-float,
+        $vue-field-attachment-wrapper-content-border-radius: $vue-field-attachment-wrapper-content-border-radius,
+        $vue-field-attachment-wrapper-viewer-selector-border: $vue-field-attachment-wrapper-viewer-selector-border,
+        $vue-field-attachment-wrapper-viewer-preview-border-radius: $vue-field-attachment-wrapper-viewer-preview-border-radius,
         $vue-field-icon-width: $vue-field-icon-width,
         $vue-field-icon-height: $vue-field-icon-height,
         $vue-field-icon-margin: $vue-field-icon-margin,
-        $vue-field-icon-background-repeat: $vue-field-icon-background-repeat
+        $vue-field-icon-background-repeat: $vue-field-icon-background-repeat,
+        $vue-field-icon-position: $vue-field-icon-position
       );
     }
   }

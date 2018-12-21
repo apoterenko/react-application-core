@@ -69,13 +69,6 @@ export interface IVueValue$Wrapper<TValue$ = AnyT> {
 }
 
 /**
- * @stable [29.11.2018]
- */
-export interface IVuePopup$Wrapper<TPopup$ = boolean> {
-  popup$?: TPopup$;
-}
-
-/**
  * @stable [21.10.2018]
  */
 export interface IVueParentContainer$Wrapper<TParentContainer$> {

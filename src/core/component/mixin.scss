@@ -59,12 +59,18 @@
                               $rac-styles-max-width: unset,
                               $rac-styles-background: unset,
                               $rac-styles-background-repeat: unset,
+                              $rac-styles-background-size: unset,
+                              $rac-styles-background-image: unset,
                               $rac-styles-overflow: unset,
                               $rac-styles-border-left: unset,
                               $rac-styles-border-top: unset,
                               $rac-styles-border-right: unset,
                               $rac-styles-text-transform: unset,
-                              $rac-styles-min-height: unset) {
+                              $rac-styles-min-height: unset,
+                              $rac-styles-float: unset) {
+  @if $rac-styles-float != unset {
+    float: $rac-styles-float;
+  }
   @if $rac-styles-flex-shrink != unset {
     flex-shrink: $rac-styles-flex-shrink;
   }
@@ -179,6 +185,12 @@
   @if $rac-styles-background-repeat != unset {
     background-repeat: $rac-styles-background-repeat;
   }
+  @if $rac-styles-background-size != unset {
+    background-size: $rac-styles-background-size;
+  }
+  @if $rac-styles-background-image != unset {
+    background-image: $rac-styles-background-image;
+  }
 }
 
 /**
@@ -216,13 +228,16 @@
                   $rac-styles-max-width: unset,
                   $rac-styles-background: unset,
                   $rac-styles-background-repeat: unset,
+                  $rac-styles-background-size: unset,
+                  $rac-styles-background-image: unset,
                   $rac-styles-overflow: unset,
                   $rac-styles-border-color: unset,
                   $rac-styles-border-left: unset,
                   $rac-styles-border-top: unset,
                   $rac-styles-border-right: unset,
                   $rac-styles-text-transform: unset,
-                  $rac-styles-min-height: unset) {
+                  $rac-styles-min-height: unset,
+                  $rac-styles-float: unset) {
   @if $rac-styles-custom != unset {
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
@@ -258,12 +273,15 @@
         $rac-styles-max-width: $rac-styles-max-width,
         $rac-styles-background: $rac-styles-background,
         $rac-styles-background-repeat: $rac-styles-background-repeat,
+        $rac-styles-background-size: $rac-styles-background-size,
+        $rac-styles-background-image: $rac-styles-background-image,
         $rac-styles-overflow: $rac-styles-overflow,
         $rac-styles-border-left: $rac-styles-border-left,
         $rac-styles-border-top: $rac-styles-border-top,
         $rac-styles-border-right: $rac-styles-border-right,
         $rac-styles-text-transform: $rac-styles-text-transform,
-        $rac-styles-min-height: $rac-styles-min-height
+        $rac-styles-min-height: $rac-styles-min-height,
+        $rac-styles-float: $rac-styles-float
       );
     }
   } @else {
@@ -300,12 +318,15 @@
       $rac-styles-max-width: $rac-styles-max-width,
       $rac-styles-background: $rac-styles-background,
       $rac-styles-background-repeat: $rac-styles-background-repeat,
+      $rac-styles-background-size: $rac-styles-background-size,
+      $rac-styles-background-image: $rac-styles-background-image,
       $rac-styles-overflow: $rac-styles-overflow,
       $rac-styles-border-left: $rac-styles-border-left,
       $rac-styles-border-top: $rac-styles-border-top,
       $rac-styles-border-right: $rac-styles-border-right,
       $rac-styles-text-transform: $rac-styles-text-transform,
-      $rac-styles-min-height: $rac-styles-min-height
+      $rac-styles-min-height: $rac-styles-min-height,
+      $rac-styles-float: $rac-styles-float
     );
   }
 }
@@ -379,19 +400,36 @@
 /**
  * @stable [08.12.2018]
  */
-@mixin _rac-first-level-children-properties($rac-first-level-children-custom-border: unset,
+@mixin _rac-first-level-children-properties($rac-first-level-children-custom-selector: unset,
+                                            $rac-first-level-children-custom-border: unset,
                                             $rac-first-level-children-custom-width: unset,
                                             $rac-first-level-children-custom-height: unset,
-                                            $rac-first-level-children-custom-margin: unset) {
-  & > * {
-    @include rac-styles($rac-styles-margin: $rac-first-level-children-custom-margin,
-                        $rac-styles-border: $rac-first-level-children-custom-border);
-
-    @if $rac-first-level-children-custom-width != unset {
-      @include rac-flex-width($rac-first-level-children-custom-width);
+                                            $rac-first-level-children-custom-margin: unset,
+                                            $rac-first-level-children-custom-float: unset,
+                                            $rac-first-level-children-custom-border-radius: unset) {
+  @if $rac-first-level-children-custom-selector != unset {
+    & > {
+      .#{$rac-first-level-children-custom-selector} {
+        @include rac-styles(
+          $rac-styles-margin: $rac-first-level-children-custom-margin,
+          $rac-styles-border: $rac-first-level-children-custom-border,
+          $rac-styles-float: $rac-first-level-children-custom-float,
+          $rac-styles-width: $rac-first-level-children-custom-width,
+          $rac-styles-height: $rac-first-level-children-custom-height,
+          $rac-styles-border-radius: $rac-first-level-children-custom-border-radius
+        );
+      }
     }
-    @if $rac-first-level-children-custom-height != unset {
-      @include rac-flex-height($rac-first-level-children-custom-height);
+  } @else {
+    & > * {
+      @include rac-styles(
+        $rac-styles-margin: $rac-first-level-children-custom-margin,
+        $rac-styles-border: $rac-first-level-children-custom-border,
+        $rac-styles-float: $rac-first-level-children-custom-float,
+        $rac-styles-width: $rac-first-level-children-custom-width,
+        $rac-styles-height: $rac-first-level-children-custom-height,
+        $rac-styles-border-radius: $rac-first-level-children-custom-border-radius
+      );
     }
   }
 }
@@ -400,25 +438,34 @@
  * @stable [08.12.2018]
  */
 @mixin rac-first-level-children($rac-first-level-children-custom: unset,
+                                $rac-first-level-children-custom-selector: unset,
                                 $rac-first-level-children-custom-border: unset,
                                 $rac-first-level-children-custom-width: unset,
                                 $rac-first-level-children-custom-height: unset,
-                                $rac-first-level-children-custom-margin: unset) {
+                                $rac-first-level-children-custom-margin: unset,
+                                $rac-first-level-children-custom-float: unset,
+                                $rac-first-level-children-custom-border-radius: unset) {
   @if $rac-first-level-children-custom != unset {
     .#{$rac-first-level-children-custom} {
       @include _rac-first-level-children-properties(
+        $rac-first-level-children-custom-selector: $rac-first-level-children-custom-selector,
         $rac-first-level-children-custom-border: $rac-first-level-children-custom-border,
         $rac-first-level-children-custom-width: $rac-first-level-children-custom-width,
         $rac-first-level-children-custom-height: $rac-first-level-children-custom-height,
-        $rac-first-level-children-custom-margin: $rac-first-level-children-custom-margin
+        $rac-first-level-children-custom-margin: $rac-first-level-children-custom-margin,
+        $rac-first-level-children-custom-float: $rac-first-level-children-custom-float,
+        $rac-first-level-children-custom-border-radius: $rac-first-level-children-custom-border-radius
       );
     }
   } @else {
     @include _rac-first-level-children-properties(
+      $rac-first-level-children-custom-selector: $rac-first-level-children-custom-selector,
       $rac-first-level-children-custom-border: $rac-first-level-children-custom-border,
       $rac-first-level-children-custom-width: $rac-first-level-children-custom-width,
       $rac-first-level-children-custom-height: $rac-first-level-children-custom-height,
-      $rac-first-level-children-custom-margin: $rac-first-level-children-custom-margin
+      $rac-first-level-children-custom-margin: $rac-first-level-children-custom-margin,
+      $rac-first-level-children-custom-float: $rac-first-level-children-custom-float,
+      $rac-first-level-children-custom-border-radius: $rac-first-level-children-custom-border-radius
     );
   }
 }

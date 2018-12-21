@@ -9,22 +9,24 @@ import {
   isDef,
   orDefault,
   isPrimitive,
+  calc,
 } from '../../../util';
 import { IEntity, IKeyValue, AnyT } from '../../../definitions.interface';
 import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
-import { IVueFileViewerPropsEntity, IVueViewerListenersEntity } from '../../viewer/vue-index';
+import { IVueFileViewerProps, IVueViewerListenersEntity } from '../../viewer/vue-index';
 import { IVueBaseFileFieldTemplateMethodsEntity } from './vue-filefield.interface';
 
 export class VueBaseFileField extends VueField implements IVueBaseFileFieldTemplateMethodsEntity {
-
+  @Prop({default: (): number => 1}) protected readonly maxFiles: number;
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
   @Prop({default: (): string => 'vue-file-viewer'}) protected readonly viewer: string;
   @Prop() protected readonly emptyMessageFactory: (index: number) => string;
   @Prop() protected readonly placeHolderMessageFactory: (index: number) => string;
+  @Prop() protected readonly clsFactory: (entity: IEntity) => string;
   @Prop() protected readonly subFieldConfig: (index: number) => IKeyValue;
-  @Prop() protected readonly viewerProps: IVueFileViewerPropsEntity;
+  @Prop() protected readonly viewerProps: IVueFileViewerProps;
   @Prop() protected readonly displayFileName: string;
   @Prop() protected readonly displayFileFormat: string;
 
@@ -97,11 +99,11 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
    * @stable [09.12.2018]
    * @param {IMultiItemEntity} entity
    * @param {number} index
-   * @returns {IVueFileViewerPropsEntity}
+   * @returns {IVueFileViewerProps}
    */
   // TODO Check entity typings
-  public getViewerBindings(entity: IMultiItemEntity | string, index: number): IVueFileViewerPropsEntity {
-    const props: IVueFileViewerPropsEntity = {
+  public getViewerBindings(entity: IMultiItemEntity | string, index: number): IVueFileViewerProps {
+    const props: IVueFileViewerProps = {
       ...this.viewerProps,
       label: this.getPlaceholder(index),
     };
@@ -124,6 +126,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       ...props,
       src: Reflect.get(multiItemEntity, this.displayName),
       entity: multiItemEntity,
+      className: calc(this.clsFactory, multiItemEntity),
     };
   }
 
@@ -141,10 +144,12 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   }
 
   /**
-   * @stable [20.12.2018]
+   * @stable [21.12.2018]
+   * @param {File} file
+   * @param {number} index
    * @returns {string}
    */
-  public getViewerComponent(): string {
+  public getViewerComponent(file: File, index: number): string {
     return this.viewer;
   }
 
@@ -165,12 +170,13 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       `<div class="vue-field-attachment-wrapper">
           <template v-for="(file, index) in getFiles()">
             <component v-if="file"
-                       :is="getViewerComponent()"
+                       :is="getViewerComponent(file, index)"
                        v-on="getViewerListeners(file, index)"
                        v-bind="getViewerBindings(file, index)"/>
             <vue-flex-layout v-if="!file"
                             :row="true">
-                <vue-flex-layout :justifyContentCenter="true">
+                <vue-flex-layout v-if="getPlaceholder(index)"
+                                :justifyContentCenter="true">
                     {{getPlaceholder(index)}}
                 </vue-flex-layout>
                 <vue-flex-layout>

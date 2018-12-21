@@ -1,7 +1,12 @@
-import { IDisplayValueWrapper, AnyT } from '../../../definitions.interface';
+import {
+  IDisplayValueWrapper,
+  AnyT,
+  IFullWrapper,
+} from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import { IVueValue$Wrapper, VueAccessorsT } from '../../../vue-definitions.interface';
 import { IVueComponent } from '../../../vue-entities-definitions.interface';
+import { IVueBaseProps } from '../../base/vue-index';
 
 /**
  * @stable [17.11.2018]
@@ -19,7 +24,14 @@ export interface IVueFieldInputListenersEntity {
 /**
  * @stable [18.11.2018]
  */
-export interface IVueFieldStateEntity extends IDisplayValueWrapper {
+export interface IVueFieldState extends IDisplayValueWrapper {
+}
+
+/**
+ * @stable [21.12.2018]
+ */
+export interface IVueFieldProps extends IVueBaseProps,
+                                        IFullWrapper {
 }
 
 /**
