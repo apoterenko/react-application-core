@@ -2915,6 +2915,34 @@ export interface IActionsPosition<TActionsPosition> {
 }
 
 /**
+ * @stable [22.12.2018]
+ */
+export interface IMaxFilesWrapper {
+  maxFiles?: number;
+}
+
+/**
+ * @stable [22.12.2018]
+ */
+export interface IDefaultDndMessageWrapper {
+  defaultDndMessage?: string;
+}
+
+/**
+ * @stable [22.12.2018]
+ */
+export interface IDefaultDndMessageFactoryWrapper<TDefaultDndMessageFactory> {
+  defaultDndMessageFactory?: TDefaultDndMessageFactory;
+}
+
+/**
+ * @stable [22.12.2018]
+ */
+export interface IPlaceholderFactoryWrapper<TPlaceholderFactory> {
+  placeholderFactory?: TPlaceholderFactory;
+}
+
+/**
  * @stable [08.05.2018]
  */
 export interface IUseKeyboardWrapper {

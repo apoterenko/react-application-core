@@ -128,6 +128,7 @@ import {
   IWidthWrapper,
   IXWrapper,
   IYWrapper,
+  ITypeWrapper,
   IZipCodeWrapper,
   IBlobWrapper,
 } from './definitions.interface';
@@ -882,10 +883,22 @@ export interface IMultiItemEntity extends IEntityIdTWrapper,
 }
 
 /**
+ * @stable [22.12.2018]
+ */
+export interface IMultiItemFileEntity extends IMultiItemEntity,
+                                              ITypeWrapper {
+}
+
+/**
+ * @stable [22.12.2018]
+ */
+export type MultiItemEntityT = IMultiItemEntity | EntityIdT;
+
+/**
  * @stable [04.07.2018]
  */
 export interface IMultiEntity {
-  add: IEntity[];
+  add: IMultiItemEntity[];
   remove: IMultiItemEntity[];
   edit: IMultiItemEntity[];
   source?: IEntity[];

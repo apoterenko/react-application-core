@@ -6,10 +6,11 @@ import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.int
 import { ComponentName } from '../../connector/vue-index';
 import { toActualMultiItemEntities } from '../multifield/vue-index';
 import { VueBaseFileField } from './vue-base-filefield.component';
+import { IVueMultiFileFieldProps } from './vue-filefield.interface';
 
 @ComponentName('vue-multi-file-field')
 @Component
-class VueMultiFileField extends VueBaseFileField {
+class VueMultiFileField extends VueBaseFileField implements IVueMultiFileFieldProps {
 
   /**
    * @stable [25.11.2018]

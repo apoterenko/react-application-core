@@ -1,13 +1,13 @@
 import { Prop } from 'vue-property-decorator';
 
-import { isFn, nvl, orDefault } from '../../../util';
+import { isFn, nvl, orDefault, ifNotNilReturnValue } from '../../../util';
 import { EntityCallbackWrapperT, IEntity } from '../../../definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
 import { IVueFileViewerTemplateMethodsEntity, IVueBaseFileViewerProps } from './vue-file-viewer.interface';
 
 export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseFileViewerProps {
 
-  @Prop() public label: string;
+  @Prop() public placeholder: string;
   @Prop() public entity: IEntity;
   @Prop() public fileName: string;
   @Prop() public displayFileName: EntityCallbackWrapperT;
@@ -29,7 +29,7 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
       <vue-flex-layout :row="true">
           <vue-flex-layout :justifyContentCenter="true">
               <span class="vue-viewer-preview-label">
-                    {{getLabel()}}
+                    {{getPlaceholder()}}
               </span>
               <span class="vue-viewer-preview-file-name"
                     @click="onOpenPopup">
@@ -54,7 +54,7 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
   protected getTemplateMethods(): IVueFileViewerTemplateMethodsEntity {
     return {
       ...super.getTemplateMethods(),
-      getLabel: () => this.t(this.label),
+      getPlaceholder: () => ifNotNilReturnValue(this.placeholder, () => this.t(this.placeholder)),
       getFileName: this.getFileName,
     };
   }

@@ -3,29 +3,32 @@ import { Prop } from 'vue-property-decorator';
 
 import {
   isFn,
-  orNull,
-  ifNotNilReturnValue,
-  defValuesFilter,
   isDef,
   orDefault,
   isPrimitive,
   calc,
+  defValuesFilter,
+  orUndef,
+  coalesce,
+  ifNotNilReturnValue,
 } from '../../../util';
-import { IEntity, IKeyValue, AnyT } from '../../../definitions.interface';
-import { IMultiItemEntity } from '../../../entities-definitions.interface';
+import { IEntity, AnyT } from '../../../definitions.interface';
+import { IMultiItemEntity, MultiItemEntityT, IMultiItemFileEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
 import { IVueBaseFileViewerProps, IVueViewerListenersEntity } from '../../viewer/vue-index';
-import { IVueBaseFileFieldTemplateMethods } from './vue-filefield.interface';
+import { IVueBaseFileFieldProps, IVueBaseFileFieldTemplateMethods } from './vue-filefield.interface';
 
-export class VueBaseFileField extends VueField implements IVueBaseFileFieldTemplateMethods {
-  @Prop({default: (): number => 1}) protected readonly maxFiles: number;
+export class VueBaseFileField extends VueField
+  implements IVueBaseFileFieldTemplateMethods, IVueBaseFileFieldProps {
+
+  @Prop() public readonly placeholderFactory: (index: number) => string;
+  @Prop({default: (): number => 1}) public readonly maxFiles: number;
+  @Prop() public readonly defaultDndMessage: string;
+  @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
+  @Prop({default: (): string => 'vue-file-viewer'}) public readonly viewer: string;
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
-  @Prop({default: (): string => 'vue-file-viewer'}) protected readonly viewer: string;
-  @Prop() protected readonly emptyMessageFactory: (index: number) => string;
-  @Prop() protected readonly placeHolderMessageFactory: (index: number) => string;
   @Prop() protected readonly clsFactory: (entity: IEntity) => string;
-  @Prop() protected readonly subFieldConfig: (index: number) => IKeyValue;
   @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
   @Prop() protected readonly displayFileName: string;
   @Prop() protected readonly displayFileFormat: string;
@@ -43,7 +46,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
     this.getViewerBindings = this.getViewerBindings.bind(this);
     this.getViewerListeners = this.getViewerListeners.bind(this);
     this.getViewerComponent = this.getViewerComponent.bind(this);
-    this.getLabel = this.getLabel.bind(this);
+    this.getDefaultDndMessage = this.getDefaultDndMessage.bind(this);
     this.getPlaceholder = this.getPlaceholder.bind(this);
     this.getFiles = this.getFiles.bind(this);
   }
@@ -59,31 +62,39 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   /**
    * @stable [16.12.2018]
    * @param {File[]} files
-   * @param {number} index
    * @returns {string[]}
    */
-  public onFilesSelect(files: File[], index: number): string[] {
+  public onFilesSelect(files: File[]): string[] {
     return Array.from(files).map((file) => {
       const url = this.toFileUrl(file);
-      this.addFile(url, index, file);  // TODO Need to many files handling
+      this.addFile(file, url);  // TODO Need to many files handling
       return url;
     });
   }
 
   /**
-   * @stable [09.12.2018]
+   * @stable [22.12.2018]
    * @param {number} index
    * @returns {string}
    */
-  public getLabel(index: number): string {
-    return isFn(this.emptyMessageFactory)
-      ? this.emptyMessageFactory(index)
-      : this.settings.messages.dndMessage;
+  public getDefaultDndMessage(index: number): string {
+    return coalesce(
+      this.defaultDndMessage,
+      ifNotNilReturnValue(this.defaultDndMessageFactory, () => this.defaultDndMessageFactory(index)),
+      this.settings.messages.dndMessage
+    );
   }
 
+  /**
+   * [<Placeholder: optional> + <Default DnD message>]
+   *
+   * @stable [22.12.2018]
+   * @param {number} index
+   * @returns {string}
+   */
   public getPlaceholder(index: number): string {
-    return isFn(this.placeHolderMessageFactory)
-      ? this.placeHolderMessageFactory(index)
+    return isFn(this.placeholderFactory)
+      ? this.placeholderFactory(index)
       : this.t(this.placeholder);
   }
 
@@ -96,31 +107,32 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   }
 
   /**
-   * @stable [09.12.2018]
-   * @param {IMultiItemEntity} entity
+   * @stable [22.12.2018]
+   * @param {MultiItemEntityT} entityOrEntityId
    * @param {number} index
    * @returns {IVueBaseFileViewerProps}
    */
-  // TODO Check entity typings
-  public getViewerBindings(entity: IMultiItemEntity | string, index: number): IVueBaseFileViewerProps {
+  public getViewerBindings(entityOrEntityId: MultiItemEntityT, index: number): IVueBaseFileViewerProps {
     const props: IVueBaseFileViewerProps = {
       ...this.viewerProps,
-      label: this.getPlaceholder(index),
+      placeholder: this.getPlaceholder(index),
     };
-    const multiItemEntity = entity as IMultiItemEntity;
-    if (isPrimitive(entity)) {
+    const multiItemEntity = entityOrEntityId as IMultiItemEntity;
+    if (isPrimitive(entityOrEntityId)) {
+      // In case of a single field which receives only entity id
       return {
         ...props,
-        src: this.getDisplayValue() || entity,
+        src: this.getDisplayValue() || entityOrEntityId,
         fileName: this.getFileName(),
       };
     } else if (multiItemEntity.newEntity) {
       const relationId = multiItemEntity.id as string;
-      return {
+      return defValuesFilter<IVueBaseFileViewerProps, IVueBaseFileViewerProps>({
         ...props,
         src: relationId,
-        fileName: orNull(this.cachedFiles.has(relationId), () => this.cachedFiles.get(relationId).name),
-      };
+        fileName: orUndef<string>(this.cachedFiles.has(relationId), () => this.cachedFiles.get(relationId).name),
+        className: calc(this.clsFactory, multiItemEntity),
+      });
     }
     return {
       ...props,
@@ -138,7 +150,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
    */
   public getViewerListeners(fileEntity: IMultiItemEntity, index: number): IVueViewerListenersEntity<File> {
     return {
-      change: (file: File) => this.onFileChange(fileEntity, file, index),
+      change: (file: File) => this.onFileChange(fileEntity, file),
       remove: () => this.removeFile(fileEntity),
     };
   }
@@ -179,9 +191,9 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
                                 :justifyContentCenter="true">
                     {{getPlaceholder(index)}}
                 </vue-flex-layout>
-                <vue-flex-layout>
-                    <vue-dnd :defaultMessage="getLabel(index)"
-                             @select="onFilesSelect($event, index)"/>
+                <vue-flex-layout :class="'vue-field-attachment-placeholder vue-field-attachment-placeholder-' + index">
+                    <vue-dnd :defaultMessage="getDefaultDndMessage(index)"
+                             @select="onFilesSelect($event)"/>
                 </vue-flex-layout>
             </vue-flex-layout>
           </template>
@@ -193,13 +205,12 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
    * @stable [16.12.2018]
    * @param {IMultiItemEntity} fileEntity
    * @param {File} file
-   * @param {number} index
    */
-  protected onFileChange(fileEntity: IMultiItemEntity, file: File, index: number): void {
+  protected onFileChange(fileEntity: IMultiItemEntity, file: File): void {
     const newFileUrl = this.toFileUrl(file);
     if (fileEntity.newEntity) {
       this.removeFile(fileEntity);
-      this.$nextTick(() => this.addFile(newFileUrl, index, file));
+      this.$nextTick(() => this.addFile(file, newFileUrl));
     } else {
       this.multiFieldPlugin.onEditItem({id: fileEntity.id, name: this.displayName, value: newFileUrl});
     }
@@ -214,7 +225,7 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       ...super.getTemplateMethods(),
       onFilesSelect: this.onFilesSelect,
       getFiles: this.getFiles,
-      getLabel: this.getLabel,
+      getDefaultDndMessage: this.getDefaultDndMessage,
       getPlaceholder: this.getPlaceholder,
       getViewerComponent: this.getViewerComponent,
       getViewerListeners: this.getViewerListeners,
@@ -252,17 +263,18 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
   }
 
   /**
-   * @stable [16.12.2018]
+   * @stable [22.12.2018]
+   * @param {File} file
    * @param {string} fileUrl
-   * @param {number} index
    */
-  // TODO
-  private addFile(fileUrl: string, index: number, file: File): void {
-    const cfg = this.getSubFieldConfig(index);
-    this.multiFieldPlugin.onAddItem(defValuesFilter<IMultiItemEntity, IMultiItemEntity>({
+  private addFile(file: File, fileUrl: string): void {
+    const rawData: IMultiItemFileEntity = {
       id: fileUrl,
-      rawData: ({...cfg, id: fileUrl, type: file.type, name: file.name, newEntity: true}),  // TODO Typings
-    }));
+      newEntity: true,
+      type: file.type,
+      name: file.name,
+    };
+    this.multiFieldPlugin.onAddItem({id: fileUrl, rawData});
   }
 
   /**
@@ -281,15 +293,6 @@ export class VueBaseFileField extends VueField implements IVueBaseFileFieldTempl
       this.multiFieldPlugin.onDeleteItem(multiItemEntity);
       this.destroyFileUrl(multiItemEntity.id as string);
     }
-  }
-
-  /**
-   * @stable [16.12.2018]
-   * @param {number} index
-   * @returns {IKeyValue}
-   */
-  private getSubFieldConfig(index: number): IKeyValue {
-    return ifNotNilReturnValue(this.subFieldConfig, () => this.subFieldConfig(index));
   }
 
   private getFileName(): AnyT {

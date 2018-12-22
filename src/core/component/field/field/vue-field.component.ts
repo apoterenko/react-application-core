@@ -36,15 +36,15 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
 
   @Prop() public value: AnyT;
   @Prop() public full: boolean;
+  @Prop() public useLocalization: boolean;
+  @Prop() public label: string;
+  @Prop() public displayName: string;
+  @Prop() public name: string;
   @Prop() protected type: string;
-  @Prop() protected name: string;
-  @Prop() protected displayName: string;
-  @Prop() protected label: string;
   @Prop() protected floatLabel: boolean;
   @Prop() protected icon: string;
   @Prop() protected placeholder: string;
   @Prop() protected autoFocus: boolean;
-  @Prop() protected useLocalization: boolean;
 
   /**
    * @stable [17.11.2018]
