@@ -37,11 +37,9 @@ export class Chart extends BaseComponent<Chart, IChartProps> {
           orNull<JSX.Element>(
             props.rendered !== false,
             () => (
-              <FlexLayout className='rac-chart-canvas-holder'>
-                <FlexLayout className='rac-chart-canvas-wrapper'>
-                  <canvas id={this.canvasId}/>
-                </FlexLayout>
-              </FlexLayout>
+              <div className='rac-chart-canvas-wrapper'>
+                <canvas id={this.canvasId}/>
+              </div>
             )
           )
         }

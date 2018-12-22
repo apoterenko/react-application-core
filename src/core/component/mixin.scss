@@ -46,6 +46,8 @@
                               $rac-styles-bottom: unset,
                               $rac-styles-content: unset,
                               $rac-styles-border: unset,
+                              $rac-styles-border-style: unset,
+                              $rac-styles-border-width: unset,
                               $rac-styles-border-bottom: unset,
                               $rac-styles-border-radius: unset,
                               $rac-styles-border-collapse: unset,
@@ -68,6 +70,9 @@
                               $rac-styles-text-transform: unset,
                               $rac-styles-min-height: unset,
                               $rac-styles-float: unset) {
+  @if $rac-styles-border-style != unset {
+    border-style: $rac-styles-border-style;
+  }
   @if $rac-styles-float != unset {
     float: $rac-styles-float;
   }
@@ -149,6 +154,9 @@
   @if $rac-styles-border != unset {
     border: $rac-styles-border;
   }
+  @if $rac-styles-border-width != unset {
+    border-width: $rac-styles-border-width;
+  }
   @if $rac-styles-border-radius != unset {
     border-radius: $rac-styles-border-radius;
   }
@@ -215,6 +223,8 @@
                   $rac-styles-bottom: unset,
                   $rac-styles-content: unset,
                   $rac-styles-border: unset,
+                  $rac-styles-border-width: unset,
+                  $rac-styles-border-style: unset,
                   $rac-styles-border-bottom: unset,
                   $rac-styles-border-radius: unset,
                   $rac-styles-border-collapse: unset,
@@ -260,6 +270,8 @@
         $rac-styles-bottom: $rac-styles-bottom,
         $rac-styles-content: $rac-styles-content,
         $rac-styles-border: $rac-styles-border,
+        $rac-styles-border-width: $rac-styles-border-width,
+        $rac-styles-border-style: $rac-styles-border-style,
         $rac-styles-border-bottom: $rac-styles-border-bottom,
         $rac-styles-border-radius: $rac-styles-border-radius,
         $rac-styles-border-collapse: $rac-styles-border-collapse,
@@ -305,6 +317,8 @@
       $rac-styles-bottom: $rac-styles-bottom,
       $rac-styles-content: $rac-styles-content,
       $rac-styles-border: $rac-styles-border,
+      $rac-styles-border-style: $rac-styles-border-style,
+      $rac-styles-border-width: $rac-styles-border-width,
       $rac-styles-border-bottom: $rac-styles-border-bottom,
       $rac-styles-border-radius: $rac-styles-border-radius,
       $rac-styles-border-collapse: $rac-styles-border-collapse,
@@ -2111,6 +2125,82 @@
                                                 $rac-card-list-item-margin: $rac-card-list-item-margin,
                                                 $rac-card-list-item-border-radius: $rac-card-list-item-border-radius,
                                                 $rac-card-list-item-font-size: $rac-card-list-item-font-size);
+    }
+  }
+}
+
+/**
+ * @stable [22.12.2018]
+ */
+@mixin _rac-chart-custom-properties($rac-chart-border-width: unset,
+                                    $rac-chart-border-style: unset,
+                                    $rac-chart-border-color: unset,
+                                    $rac-chart-background: unset,
+                                    $rac-chart-canvas-wrapper-width: unset,
+                                    $rac-chart-canvas-wrapper-margin: unset,
+                                    $rac-chart-canvas-wrapper-padding: unset,
+                                    $rac-chart-canvas-wrapper-flex-width: unset) {
+  @include rac-styles(
+    $rac-styles-border-width: $rac-chart-border-width,
+    $rac-styles-border-style: $rac-chart-border-style,
+    $rac-styles-border-color: $rac-chart-border-color,
+    $rac-styles-background: $rac-chart-background
+  );
+
+  @include rac-styles(
+    $rac-styles-custom: rac-chart-canvas-wrapper,
+    $rac-styles-width: $rac-chart-canvas-wrapper-width,
+    $rac-styles-margin: $rac-chart-canvas-wrapper-margin,
+    $rac-styles-padding: $rac-chart-canvas-wrapper-padding
+  );
+
+  .rac-chart-canvas-wrapper {
+    @if $rac-chart-canvas-wrapper-flex-width != unset {
+      @include rac-flex-width($rac-chart-canvas-wrapper-flex-width);
+    }
+  }
+}
+
+/**
+ * @stable [22.12.2018]
+ */
+@mixin rac-chart($rac-chart-custom: unset,
+                 $rac-chart-border-width: unset,
+                 $rac-chart-border-style: unset,
+                 $rac-chart-border-color: unset,
+                 $rac-chart-background: unset,
+                 $rac-chart-canvas-wrapper-width: unset,
+                 $rac-chart-canvas-wrapper-margin: unset,
+                 $rac-chart-canvas-wrapper-padding: unset,
+                 $rac-chart-canvas-wrapper-flex-width: unset) {
+
+  @if $rac-chart-custom != unset {
+    .rac-chart {
+      &.#{$rac-chart-custom} {
+        @include _rac-chart-custom-properties(
+          $rac-chart-border-width: $rac-chart-border-width,
+          $rac-chart-border-style: $rac-chart-border-style,
+          $rac-chart-border-color: $rac-chart-border-color,
+          $rac-chart-background: $rac-chart-background,
+          $rac-chart-canvas-wrapper-width: $rac-chart-canvas-wrapper-width,
+          $rac-chart-canvas-wrapper-margin: $rac-chart-canvas-wrapper-margin,
+          $rac-chart-canvas-wrapper-padding: $rac-chart-canvas-wrapper-padding,
+          $rac-chart-canvas-wrapper-flex-width: $rac-chart-canvas-wrapper-flex-width
+        );
+      }
+    }
+  } @else {
+    .rac-chart {
+      @include _rac-chart-custom-properties(
+        $rac-chart-border-width: $rac-chart-border-width,
+        $rac-chart-border-style: $rac-chart-border-style,
+        $rac-chart-border-color: $rac-chart-border-color,
+        $rac-chart-background: $rac-chart-background,
+        $rac-chart-canvas-wrapper-width: $rac-chart-canvas-wrapper-width,
+        $rac-chart-canvas-wrapper-margin: $rac-chart-canvas-wrapper-margin,
+        $rac-chart-canvas-wrapper-padding: $rac-chart-canvas-wrapper-padding,
+        $rac-chart-canvas-wrapper-flex-width: $rac-chart-canvas-wrapper-flex-width
+      );
     }
   }
 }
