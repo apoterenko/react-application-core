@@ -1956,6 +1956,13 @@ export interface IDispatchLoadDictionaryWrapper {
 }
 
 /**
+ * @stable [23.12.2018]
+ */
+export interface IDispatchCustomTypeWrapper {
+  dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSortedItem, item2: TSortedItem) => number>

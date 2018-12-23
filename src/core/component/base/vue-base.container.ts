@@ -82,7 +82,7 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    * @param {string} type
    * @param {AnyT} data
    */
-  protected dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
+  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
     this.store$.dispatch({type, data});
   }
 

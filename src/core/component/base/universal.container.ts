@@ -145,6 +145,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
+   * @stable [23.12.2018]
+   * @param {string} type
+   * @param {TData} data
+   */
+  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
+    this.appStore.dispatch({ type, data });
+  }
+
+  /**
    * @stable - 12.04.2018
    */
   protected navigateToBack(): void {
@@ -159,15 +168,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected isTransportContainsExecutingOperation(operationId: string): boolean {
     return this.props.transport.queue.includes(operationId);
-  }
-
-  /**
-   * @stable - 12.04.2018
-   * @param {string} type
-   * @param {AnyT} data
-   */
-  protected dispatchCustomType(type: string, data?: AnyT): void {
-    this.appStore.dispatch({ type, data });
   }
 
   /**

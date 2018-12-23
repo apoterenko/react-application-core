@@ -131,6 +131,7 @@ import {
   ITypeWrapper,
   IZipCodeWrapper,
   IBlobWrapper,
+  IDispatchCustomTypeWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -278,7 +279,8 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
 export interface IDispatchEntity extends IDispatchWrapper,
                                          IDispatchFormChangesWrapper,
                                          IDispatchLoadDictionaryWrapper,
-                                         IDispatchFormChangeWrapper {
+                                         IDispatchFormChangeWrapper,
+                                         IDispatchCustomTypeWrapper {
 }
 
 /**
