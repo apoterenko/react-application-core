@@ -283,19 +283,43 @@
  */
 @mixin _vue-menu-custom-properties($vue-menu-list-padding: unset,
                                    $vue-menu-list-max-height: unset,
-                                   $vue-menu-list-empty-item-padding: unset) {
+                                   $vue-menu-list-empty-item-padding: unset,
+                                   $vue-menu-list-item-white-space: unset,
+                                   $vue-menu-list-item-height: unset,
+                                   $vue-menu-list-item-padding: unset,
+                                   $vue-menu-list-item-margin: unset,
+                                   $vue-menu-list-item-border-radius: unset,
+                                   $vue-menu-list-item-hover-background: unset,
+                                   $vue-menu-list-item-content-text-overflow: unset) {
 
   .vue-menu-list {
-    @if $vue-menu-list-padding != unset {
-      padding: $vue-menu-list-padding;
-    }
-    @if $vue-menu-list-max-height != unset {
-      max-height: $vue-menu-list-max-height;
-    }
+    @include rac-styles(
+      $rac-styles-padding: $vue-menu-list-padding,
+      $rac-styles-max-height: $vue-menu-list-max-height
+    );
 
-    .vue-menu-list-empty-item {
-      @if $vue-menu-list-empty-item-padding != unset {
-        padding: $vue-menu-list-empty-item-padding;
+    @include rac-styles(
+      $rac-styles-custom: vue-menu-list-item,
+      $rac-styles-white-space: $vue-menu-list-item-white-space,
+      $rac-styles-height: $vue-menu-list-item-height,
+      $rac-styles-padding: $vue-menu-list-item-padding,
+      $rac-styles-margin: $vue-menu-list-item-margin,
+      $rac-styles-border-radius: $vue-menu-list-item-border-radius
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: 'vue-menu-list-item:hover',
+      $rac-styles-background: $vue-menu-list-item-hover-background
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: vue-menu-list-empty-item,
+      $rac-styles-padding: $vue-menu-list-empty-item-padding
+    );
+
+    .vue-menu-list-item-content {
+      @if $vue-menu-list-item-content-text-overflow != unset {
+        @include rac-overflow($vue-menu-list-item-content-text-overflow);
       }
     }
   }
@@ -307,14 +331,28 @@
 @mixin vue-menu($vue-menu-custom: unset,
                 $vue-menu-list-padding: unset,
                 $vue-menu-list-max-height: unset,
-                $vue-menu-list-empty-item-padding: unset) {
+                $vue-menu-list-empty-item-padding: unset,
+                $vue-menu-list-item-white-space: unset,
+                $vue-menu-list-item-height: unset,
+                $vue-menu-list-item-padding: unset,
+                $vue-menu-list-item-margin: unset,
+                $vue-menu-list-item-border-radius: unset,
+                $vue-menu-list-item-hover-background: unset,
+                $vue-menu-list-item-content-text-overflow: unset  ) {
   @if $vue-menu-custom != unset {
     .vue-menu {
       &.#{$vue-menu-custom} {
         @include _vue-menu-custom-properties(
           $vue-menu-list-padding: $vue-menu-list-padding,
           $vue-menu-list-max-height: $vue-menu-list-max-height,
-          $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding
+          $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding,
+          $vue-menu-list-item-white-space: $vue-menu-list-item-white-space,
+          $vue-menu-list-item-height: $vue-menu-list-item-height,
+          $vue-menu-list-item-padding: $vue-menu-list-item-padding,
+          $vue-menu-list-item-margin: $vue-menu-list-item-margin,
+          $vue-menu-list-item-border-radius: $vue-menu-list-item-border-radius,
+          $vue-menu-list-item-hover-background: $vue-menu-list-item-hover-background,
+          $vue-menu-list-item-content-text-overflow: $vue-menu-list-item-content-text-overflow
         );
       }
     }
@@ -323,7 +361,14 @@
       @include _vue-menu-custom-properties(
         $vue-menu-list-padding: $vue-menu-list-padding,
         $vue-menu-list-max-height: $vue-menu-list-max-height,
-        $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding
+        $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding,
+        $vue-menu-list-item-white-space: $vue-menu-list-item-white-space,
+        $vue-menu-list-item-height: $vue-menu-list-item-height,
+        $vue-menu-list-item-padding: $vue-menu-list-item-padding,
+        $vue-menu-list-item-margin: $vue-menu-list-item-margin,
+        $vue-menu-list-item-border-radius: $vue-menu-list-item-border-radius,
+        $vue-menu-list-item-hover-background: $vue-menu-list-item-hover-background,
+        $vue-menu-list-item-content-text-overflow: $vue-menu-list-item-content-text-overflow
       );
     }
   }

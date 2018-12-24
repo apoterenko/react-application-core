@@ -15,6 +15,14 @@ html, body {
 // Rac [FRAMEWORK-]
 .rac {
 
+  input::-ms-clear {                                                                          /* @stable [25.12.2018] */
+    @include rac-styles(
+      $rac-styles-display: none,
+      $rac-styles-width: 0,
+      $rac-styles-height: 0
+    );
+  }
+
   @include rac-styles(                                                                        /* @stable [13.12.2018] */
     $rac-styles-min-width: $rac-min-width
   );

@@ -2,14 +2,17 @@
 $vue-color1: rgba(0, 0, 0, 0.2) !default;
 $vue-color2: rgba(0, 0, 0, 0.1) !default;
 $vue-color3: #0053d9 !default;
+$vue-color4: #fedb06 !default;
 
 /* @stable [24.11.2018] */
+$vue-default-border-radius: 4px !default;
+$vue-default-hover: $vue-color4 !default;
 $vue-default-text-field-input-padding: 16px !default;
 
 /* @stable [18.11.2018] */
 $vue-text-field-input-padding: 0 $vue-default-text-field-input-padding !default;
 $vue-text-field-height: 46px !default;
-$vue-text-field-border-radius: 4px !default;
+$vue-text-field-border-radius: $vue-default-border-radius !default;
 $vue-text-field-border: 1px solid $vue-color2 !default;
 $vue-text-field-float-label-padding: $vue-text-field-input-padding !default;
 $vue-text-field-float-labeled-and-filled-input-padding: $vue-default-text-field-input-padding $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
@@ -17,7 +20,7 @@ $vue-text-field-float-labeled-and-filled-float-label-padding: ($vue-default-text
 $vue-field-float-label-font-size: 12px !default;
 $vue-field-float-label-color: $vue-color1 !default;
 $vue-file-field-attachment-wrapper-content-border: 1px dashed $vue-color2 !default;
-$vue-file-field-attachment-wrapper-content-border-radius: 4px !default;
+$vue-file-field-attachment-wrapper-content-border-radius: $vue-default-border-radius !default;
 $vue-multi-file-field-attachment-wrapper-content-margin: 0 16px 16px 0 !default;
 $vue-multi-file-field-attachment-wrapper-content-float: left !default;
 $vue-multi-file-field-attachment-wrapper-content-width: 100px !default;
@@ -39,9 +42,15 @@ $vue-viewer-preview-file-name-font-size: 16px !default;
 $vue-popup-body-padding: 16px 16px 0 16px !default;
 
 /* @stable [24.11.2018] */
-$vue-menu-list-padding: 0 !default;
+$vue-menu-list-padding: unset !default;
 $vue-menu-list-max-height: 200px !default;
 $vue-menu-list-empty-item-padding: $vue-default-text-field-input-padding !default;
+$vue-menu-list-item-white-space: nowrap !default;
+$vue-menu-list-item-height: 32px !default;
+$vue-menu-list-item-padding: 0 8px !default;
+$vue-menu-list-item-margin: 0 8px !default;
+$vue-menu-list-item-border-radius: $vue-default-border-radius !default;
+$vue-menu-list-item-hover-background: $vue-color4 !default;
 
 /* @stable [26.11.2018] */
 $vue-form-title-font-size: 24px !default;

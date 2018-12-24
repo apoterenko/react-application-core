@@ -5,5 +5,12 @@
 
   @include vue-menu($vue-menu-list-padding: $vue-menu-list-padding,                           /* @stable [25.11.2018] */
                     $vue-menu-list-max-height: $vue-menu-list-max-height,
-                    $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding);
+                    $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding,
+                    $vue-menu-list-item-white-space: $vue-menu-list-item-white-space,
+                    $vue-menu-list-item-height: $vue-menu-list-item-height,
+                    $vue-menu-list-item-padding: $vue-menu-list-item-padding,
+                    $vue-menu-list-item-margin: $vue-menu-list-item-margin,
+                    $vue-menu-list-item-border-radius: $vue-menu-list-item-border-radius,
+                    $vue-menu-list-item-hover-background: $vue-menu-list-item-hover-background,
+                    $vue-menu-list-item-content-text-overflow: ellipsis);
 }

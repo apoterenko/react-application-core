@@ -117,15 +117,21 @@ class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, I
   }
 
   /**
-   * @stable [20.12.2018]
+   * @stable [25.12.2018]
    * @returns {ISelectOptionEntity[]}
    */
   protected getOptions(): ISelectOptionEntity[] {
     const currentValue = this.getValue();
     const areChangesPresent = !R.isEmpty(currentValue) && this.isFieldChangedManually(currentValue);
 
-    return isArrayNotEmpty(this.options) && areChangesPresent
-      ? R.filter<ISelectOptionEntity>((option) => this.filter(option, currentValue), this.options)
+    return isArrayNotEmpty(this.options)
+      ? (
+        areChangesPresent
+          ? R.filter<ISelectOptionEntity>((option) => this.filter(option, currentValue), this.options)
+            .map((option): ISelectOptionEntity =>
+              ({...option, label: String((option.label || option.value)).replace(new RegExp(currentValue, 'i'), `<b>${currentValue}</b>`)}))
+          : R.filter<ISelectOptionEntity>((option) => option.value !== currentValue, this.options)
+      )
       : this.options;
   }
 

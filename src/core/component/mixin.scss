@@ -9,6 +9,15 @@
 }
 
 /**
+ * @stable [25.12.2018]
+ */
+@mixin rac-overflow($text-overflow: ellipsis) {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: $text-overflow;
+}
+
+/**
  * @stable [30.10.2018]
  */
 @mixin rac-flex-height($value) {
@@ -59,6 +68,7 @@
                               $rac-styles-position: unset,
                               $rac-styles-min-width: unset,
                               $rac-styles-max-width: unset,
+                              $rac-styles-max-height: unset,
                               $rac-styles-background: unset,
                               $rac-styles-background-position: unset,
                               $rac-styles-background-repeat: unset,
@@ -188,6 +198,9 @@
   @if $rac-styles-max-width != unset {
     max-width: $rac-styles-max-width;
   }
+  @if $rac-styles-max-height != unset {
+    max-height: $rac-styles-max-height;
+  }
   @if $rac-styles-background != unset {
     background: $rac-styles-background;
   }
@@ -240,6 +253,7 @@
                   $rac-styles-position: unset,
                   $rac-styles-min-width: unset,
                   $rac-styles-max-width: unset,
+                  $rac-styles-max-height: unset,
                   $rac-styles-background: unset,
                   $rac-styles-background-repeat: unset,
                   $rac-styles-background-position: unset,
@@ -288,6 +302,7 @@
         $rac-styles-position: $rac-styles-position,
         $rac-styles-min-width: $rac-styles-min-width,
         $rac-styles-max-width: $rac-styles-max-width,
+        $rac-styles-max-height: $rac-styles-max-height,
         $rac-styles-background: $rac-styles-background,
         $rac-styles-background-position: $rac-styles-background-position,
         $rac-styles-background-repeat: $rac-styles-background-repeat,
@@ -336,6 +351,7 @@
       $rac-styles-position: $rac-styles-position,
       $rac-styles-min-width: $rac-styles-min-width,
       $rac-styles-max-width: $rac-styles-max-width,
+      $rac-styles-max-height: $rac-styles-max-height,
       $rac-styles-background: $rac-styles-background,
       $rac-styles-background-position: $rac-styles-background-position,
       $rac-styles-background-repeat: $rac-styles-background-repeat,

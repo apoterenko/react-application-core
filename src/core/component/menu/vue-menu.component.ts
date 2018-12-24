@@ -1,11 +1,14 @@
 import { MDCMenu } from '@material/menu';
 import { Component, Prop } from 'vue-property-decorator';
+import * as R from 'ramda';
 
+import { DI_TYPES, lazyInject } from '../../di';
+import { IEventManager } from '../../event';
 import { EntityIdT } from '../../definitions.interface';
-import { setWidth, isNumber, isDef, removeSelf, isFn } from '../../util';
+import { IMenuItemEntity, IMenuMaterialComponent } from '../../entities-definitions.interface';
+import { setWidth, isNumber, isDef, removeSelf } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
-import { IMenuItemEntity, IMenuMaterialComponent } from '../../entities-definitions.interface';
 import { IVueMenu, IVueMenuContextEntity, IVueMenuProps } from './vue-menu.interface';
 
 @ComponentName('vue-menu')
@@ -25,11 +28,8 @@ import { IVueMenu, IVueMenuContextEntity, IVueMenuProps } from './vue-menu.inter
                   <li v-for="item in options"
                       class="vue-menu-list-item mdc-list-item"
                       role="menuitem"
-                      @click="onSelect(item)"
-                  >
-                      <component v-if="tpl"
-                                 :is="{template: getTemplateValue(item)}"/>
-                      <template v-if="!tpl">{{getDisplayValue(item)}}</template>
+                      @click="onSelect(item)">
+                      <component :is="{template: tpl ? getTemplateValue(item) : getDisplayValue(item)}"/>
                   </li>
                   <li v-if="!options"
                       class="vue-menu-list-empty-item">
@@ -46,7 +46,7 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
   @Prop() public options: IMenuItemEntity[];
   @Prop() public useLocalization: boolean;
   @Prop() public tpl: (item: IMenuItemEntity) => string;
-
+  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
   private mdc: IMenuMaterialComponent;    // TODO Use inheritance
   private el: Element;
 
@@ -56,6 +56,7 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
   constructor() {
     super();
     this.onMenuClose = this.onMenuClose.bind(this);
+    this.onWindowResize = this.onWindowResize.bind(this);
   }
 
   /**
@@ -82,6 +83,7 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
         setWidth(this.getSelf(), context.width);
       }
     }
+    this.eventManager.add(window, 'resize', this.onWindowResize);
   }
 
   /**
@@ -100,6 +102,7 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
    * @stable [17.11.2018]
    */
   private onMenuClose() {
+    this.eventManager.remove(window, 'resize', this.onWindowResize);
     this.mdc.unlisten('MDCMenuSurface:closed', this.onMenuClose);
     this.mdc.destroy();
     this.mdc = null;
@@ -129,9 +132,15 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
    * @returns {EntityIdT}
    */
   private getDisplayValue(item: IMenuItemEntity): any {
-    return item.label
-      ? (this.useLocalization ? this.t(item.label) : item.label)
-      : item.value;
+    return `
+        <div class='vue-menu-list-item-content'>
+            ${
+          item.label
+            ? (this.useLocalization ? this.t(item.label) : item.label)
+            : item.value
+        }
+        </div>
+    `;
   }
 
   /**
@@ -141,5 +150,21 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
    */
   private getTemplateValue(item: IMenuItemEntity): any {
     return this.tpl(item);
+  }
+
+  /**
+   * @stable [25.12.2018]
+   */
+  private onWindowResize(): void {
+    this.closeMenu();
+  }
+
+  /**
+   * @stable [25.12.2018]
+   */
+  private closeMenu(): void {
+    if (!R.isNil(this.mdc)) {
+      this.mdc.open = false;
+    }
   }
 }
