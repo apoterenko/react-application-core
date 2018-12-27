@@ -9,6 +9,27 @@
 }
 
 /**
+ * @stable [27.12.2018]
+ */
+@mixin rac-flex-layout($flex-layout-direction: unset,
+                       $flex-layout-align-items: unset,
+                       $flex-layout-direction: unset,
+                       $flex-layout-justify-content: unset) {
+  @include flexbox;
+  @include flex;
+
+  @if $flex-layout-direction != unset {
+    @include flex-direction($flex-layout-direction);
+  }
+  @if $flex-layout-align-items != unset {
+    @include align-items($flex-layout-align-items);
+  }
+  @if $flex-layout-justify-content != unset {
+    @include justify-content(center);
+  }
+}
+
+/**
  * @stable [25.12.2018]
  */
 @mixin rac-overflow($text-overflow: ellipsis) {

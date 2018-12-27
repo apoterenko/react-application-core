@@ -1,12 +1,19 @@
-@import '~sass-flex-mixin/_flex';
+@import '../vue-constant';
+@import '../vue-mixin';
 
 .vac {
 
   .vue-dropzone {
-    @include flexbox;                                                                         /* @stable [25.11.2018] */
-    @include flex;                                                                            /* @stable [25.11.2018] */
-    @include flex-direction(column);                                                          /* @stable [25.11.2018] */
-    @include align-items(center);                                                             /* @stable [28.11.2018] */
-    @include justify-content(center);                                                         /* @stable [28.11.2018] */
+
+    @include rac-flex-layout(                                                                 /* @stable [27.12.2018] */
+      $flex-layout-direction: column,
+      $flex-layout-align-items: center,
+      $flex-layout-justify-content: center
+    );
+
+    .dz-message {                                                                             /* @stable [27.12.2018] */
+      color: $vue-dnd-default-message-color;
+      text-decoration: $vue-dnd-default-message-text-decoration;
+    }
   }
 }

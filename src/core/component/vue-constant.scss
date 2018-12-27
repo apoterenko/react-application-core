@@ -57,3 +57,18 @@ $vue-form-title-font-size: 24px !default;
 $vue-form-title-font-weight: bold !default;
 $vue-form-header-height: 50px !default;
 $vue-form-field-margin: 0 0 16px 0 !default;
+
+/* @stable [27.12.2018] */
+$vue-button-padding: 16px 48px !default;
+$vue-button-border: 0 !default;
+$vue-button-border-radius: 4px !default;
+$vue-button-background: $vue-color4 !default;
+$vue-button-cursor: pointer !default;
+
+/* @stable [27.12.2018] */
+$vue-grid-button-padding: 6px !default;
+$vue-grid-button-background: $vue-color2 !default;
+
+/* @stable [27.12.2018] */
+$vue-dnd-default-message-color: $vue-color3 !default;
+$vue-dnd-default-message-text-decoration: underline dashed !default;

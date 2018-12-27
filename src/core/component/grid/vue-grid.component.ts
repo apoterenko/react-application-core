@@ -17,7 +17,7 @@ import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
         <table v-if="!progress"
                cellpadding="0"
                cellspacing="0"
-               class="rac-grid">
+               class="rac-grid vue-grid">
           <tbody class="rac-grid-body">
             <tr v-for="entity in listData"
                 :class="getRowClass(entity)"
@@ -29,7 +29,7 @@ import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
                          v-html="getColumn(entity, column)"
                          class="rac-grid-column-content"/>
                     <div v-else
-                         class="rac-grid-column-content">
+                         class="rac-grid-column-content vue-grid-column-content">
                       <component :is="getColumnDynamicComponent(entity, column)"
                                  v-on="getColumnDynamicEvents(entity, column)"
                                  v-bind="getColumnDynamicBindings(entity, column)"/>
@@ -90,7 +90,8 @@ class VueGrid extends VueBaseComponent {
       'rac-grid-row',
       'rac-grid-data-row',
       'rac-grid-data-row-hovered',
-      'rac-grid-data-row-selectable'
+      'rac-grid-data-row-selectable',
+      'vue-grid-row'
     );
   }
 

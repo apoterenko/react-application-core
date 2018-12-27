@@ -1,0 +1,13 @@
+@import '../vue-constant';
+@import '../vue-mixin';
+
+.vac {
+
+  @include vue-button(                                                                        /* @stable [27.12.2018] */
+    $vue-button-padding: $vue-button-padding,
+    $vue-button-border: $vue-button-border,
+    $vue-button-border-radius: $vue-button-border-radius,
+    $vue-button-background: $vue-button-background,
+    $vue-button-cursor: $vue-button-cursor
+  );
+}
