@@ -177,6 +177,7 @@ export class UIMaterialFactory implements IUIFactory {
     long_arrow_alt_left: faLongArrowAltLeft,
     level_down_alt: faLevelDownAlt,
     timelapse: faSpinner,
+    spinner: faSpinner,
     arrow_up: faArrowUp,
     arrow_down: faArrowDown,
     http: faExchangeAlt,

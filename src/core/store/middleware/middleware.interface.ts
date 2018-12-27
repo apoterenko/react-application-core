@@ -20,6 +20,7 @@ import {
   ILazyLoadedSectionWrapper,
   ILazyLoadedResolverWrapper,
   ICanReturnWrapper,
+  IEntityWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
@@ -76,13 +77,14 @@ export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilt
 /**
  * @stable [29.06.2018]
  */
-export interface IEditedListMiddlewareConfig<TEntity, TApplicationState>
+export interface IEditedListMiddlewareConfig<TEntity extends IEntity, TApplicationState>
   extends IFormSectionWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IListSectionWrapper,
           IStateWrapper<TApplicationState>,
           IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IEffectsActionWrapper,
-          IUseLazyLoadingWrapper {
+          IUseLazyLoadingWrapper,
+          IEntityWrapper<TEntity> {
 }
 
 /**

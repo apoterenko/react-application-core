@@ -218,6 +218,7 @@ import {
   IWidthWrapper,
   IReturnSerializedValueOnChangeWrapper,
   IOnScrollWrapper,
+  ITotalEntityWrapper,
 } from './definitions.interface';
 import {
   IApiEntity,
@@ -567,7 +568,8 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IExpandActionRenderedWrapper,
                                             IExpandedGroupsWrapper,
                                             ITightGridWrapper,
-                                            IStickyHeadWrapper {
+                                            IStickyHeadWrapper,
+                                            ITotalEntityWrapper<IEntity> {
 }
 
 /* @stable - 03.04.2018 */

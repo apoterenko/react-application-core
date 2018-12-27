@@ -43,7 +43,9 @@
     $rac-grid-data-row-selectable-cursor: pointer,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
     $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
-    $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color
+    $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,
+    $rac-grid-data-row-total-background: $rac-grid-data-row-total-background,
+    $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight
   );
 
   .rac-grid {

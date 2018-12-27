@@ -58,3 +58,16 @@ export const makeSelectEntityMiddleware = <TEntity extends IEntity, TApplication
     )
   ];
 };
+
+/**
+ * @stable [27.12.2018]
+ * @param {IEditedListMiddlewareConfig<TEntity extends IEntity, TApplicationState>} config
+ * @returns {IEffectsAction[]}
+ */
+export const makeUpdateEntityMiddleware = <TEntity extends IEntity, TApplicationState>(
+  config: IEditedListMiddlewareConfig<TEntity, TApplicationState>): IEffectsAction[] => {
+  return [
+    ListActionBuilder.buildUpdateItemAction(config.listSection, config.entity.id, config.entity),
+    RouterActionBuilder.buildRewriteAction(config.path as string)
+  ];
+};

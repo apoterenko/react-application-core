@@ -124,6 +124,19 @@ html, body {
     $rac-filter-active-after-content: $rac-filter-active-content,
     $rac-filter-active-after-color: $rac-filter-active-color
   );
+
+  @include rac-styles(                                                                        /* @stable [26.12.2018] */
+    $rac-styles-custom: rac-loading-message,
+    $rac-styles-white-space: nowrap,
+    $rac-styles-font-size: $rac-loading-message-font-size,
+    $rac-styles-color: $rac-loading-message-color,
+    $rac-styles-margin: $rac-loading-message-margin
+  );
+
+  @include rac-icon(                                                                          /* @stable [26.12.2018] */
+    $rac-icon-custom: rac-loading-icon,
+    $rac-icon-color: $rac-loading-icon-color
+  );
 }
 
 // Root [FRAMEWORK-]
@@ -220,19 +233,6 @@ html, body {
 
   .rac-display-none {
     display: none !important;                     /* @stable [15.09.2018] */
-  }
-
-  .rac-loading-icon {
-    display: inline-block;                        /* @stable [25.06.2018] */
-    margin-right: $rac-loading-icon-margin-right; /* @stable [25.06.2018] */
-  }
-
-  .rac-loading-icon, .rac-loading-message {
-    color: $rac-loading-color;                    /* @stable [25.06.2018] */
-  }
-
-  .rac-loading-message {
-    font-size: $rac-loading-message-font-size;    /* @stable [25.06.2018] */
   }
 
   .rac-message {

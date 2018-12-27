@@ -93,9 +93,9 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
                 config.channels.forEach((channel) => {
                   const specificChannel = toChannelClient(channel, CHANNEL_CONNECT_EVENT);
                   if (!R.isNil(specificChannel)) {
-                    /* tslint:disable */
-                    specificChannel.client.addMessage = function() {
-                      onMessage(ip, UNDEF, Array.from(arguments));
+                    specificChannel.client.addMessage = () => {
+                      // !! Don't remove this logger because SignalR observe function via a Reflection !!
+                      const channel0 = channel;
                     };
                   }
                 });
@@ -103,9 +103,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
               $.connection.hub.start().done(() => {
                 if (!isDisconnected) {
                   callback();
-                  if (!areSpecificChannelsPresent) {
-                    $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
-                  }
+                  $.connection.hub.received((data: { H: string }) => onMessage(ip, UNDEF, data));
                 }
               });
               break;

@@ -2,24 +2,31 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base';
 import { IProgressLabelProps } from './progress-label.interface';
+import { FlexLayout } from '../../layout';
 
 export class ProgressLabel extends BaseComponent<ProgressLabel, IProgressLabelProps> {
 
   /**
-   * @stable - 08.04.2018
+   * @stable [26.12.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <span className={props.className}>
-        {this.uiFactory.makeIcon({ type: 'timelapse', className: 'rac-loading-icon' })}
+      <FlexLayout full={false}
+                  row={true}
+                  alignItemsCenter={true}
+                  className={props.className}>
+        <FlexLayout full={false}
+                    justifyContentCenter={true}>
+          {this.uiFactory.makeIcon({ type: 'spinner', className: 'rac-loading-icon' })}
+        </FlexLayout>
         {
-          <span className='rac-loading-message'>
+          <FlexLayout className='rac-loading-message'>
             {this.t(props.progressMessage || this.settings.messages.waitMessage)}
-          </span>
+          </FlexLayout>
         }
-      </span>
+      </FlexLayout>
     );
   }
 }

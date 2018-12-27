@@ -69,3 +69,12 @@ export const ifNilReturnValue = <TResult>(checkedValue: AnyT,
 export const ifNilReturnUuid = <TResult>(value: AnyT,
                                          result: TResult | (() => TResult)): string | TResult =>
   ifNilReturnDefault<TResult, string>(value, result, () => uuid());
+
+/**
+ * @stable [25.12.2018]
+ * @param {TValue} value
+ * @param {(value: TValue) => TResult} callback
+ * @returns {TResult}
+ */
+export const ifNotNilThanValue = <TValue, TResult>(value: TValue, callback: (value: TValue) => TResult): TResult =>
+  !R.isNil(value) ? callback(value) : null;

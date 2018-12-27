@@ -5,7 +5,19 @@ import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, IGridFilterConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, EntityIdT, UNIVERSAL_STICKY_ELEMENT_SELECTOR} from '../../definitions.interface';
-import { toClassName, isDef, orNull, isFn, orUndef, queryFilter, orDefault, cancelEvent, coalesce, isOddNumber } from '../../util';
+import {
+  toClassName,
+  isDef,
+  orNull,
+  isFn,
+  orUndef,
+  queryFilter,
+  orDefault,
+  cancelEvent,
+  coalesce,
+  isOddNumber,
+  ifNotNilThanValue,
+} from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
 import { GridColumn } from './column';
@@ -57,6 +69,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
           </thead>
           <tbody ref='container'
                  className='rac-grid-body'>
+            {this.totalRowElement}
             {
               orDefault<JSX.Element[], JSX.Element[]>(
                 isDef(props.groupBy),
@@ -523,6 +536,14 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
   }
 
   /**
+   * @stable [27.12.2018]
+   * @returns {string}
+   */
+  private toTotalRowKey(): string {
+    return `data-total-row`;
+  }
+
+  /**
    * @stable [05.10.2018]
    * @param {EntityIdT} groupedRowValue
    * @param {number} columnNum
@@ -530,6 +551,15 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    */
   private toGroupedColumnKey(groupedRowValue: EntityIdT, columnNum: number): string {
     return `data-grouped-column-${groupedRowValue}-${columnNum}`;
+  }
+
+  /**
+   * @stable [27.12.2018]
+   * @param {number} columnNum
+   * @returns {string}
+   */
+  private toTotalColumnKey(columnNum: number): string {
+    return `data-total-column-${columnNum}`;
   }
 
   /**
@@ -635,6 +665,33 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
           ))
         }
       </GridRow>
+    );
+  }
+
+  /**
+   * @stable [27.12.2018]
+   * @returns {JSX.Element}
+   */
+  private get totalRowElement(): JSX.Element {
+    const props = this.props;
+    const totalEntity = props.totalEntity;
+    const columns = this.columnsConfiguration;
+
+    return ifNotNilThanValue(
+      totalEntity,
+      () => (
+        <GridRow key={this.toTotalRowKey()}
+                 className={'rac-grid-data-row rac-grid-data-row-total'}>
+          {
+            columns.map((column, columnNum) => (
+              <GridColumn key={this.toTotalColumnKey(columnNum)}
+                          {...column}>
+                {totalEntity[column.name]}
+              </GridColumn>
+            ))
+          }
+        </GridRow>
+      )
     );
   }
 

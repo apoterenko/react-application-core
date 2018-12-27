@@ -149,12 +149,11 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       };
       // No breaks! Go to update the entity.
     case ListActionBuilder.buildUpdateActionType(section):
+      const mergeStrategy = (R.isNil(modifyDataPayload.mergeStrategy)
+        || modifyDataPayload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
+        ? EntityOnSaveMergeStrategyEnum.MERGE
+        : EntityOnSaveMergeStrategyEnum.OVERRIDE;
       if (state.data && state.data.length) {
-        const mergeStrategy = (R.isNil(modifyDataPayload.mergeStrategy)
-              || modifyDataPayload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
-            ? EntityOnSaveMergeStrategyEnum.MERGE
-            : EntityOnSaveMergeStrategyEnum.OVERRIDE;
-
         updatedData = state.data.map((item) => (
             item.id === modifyDataPayload.id
                 ? (
@@ -172,8 +171,15 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
           data: updatedData,
           progress: false,      // In a lazy-loading case
         };
+      } else {
+        return {
+          ...state,
+          selected: mergeStrategy === EntityOnSaveMergeStrategyEnum.OVERRIDE
+            ? {...modifyDataPayload.changes}
+            : {...state.selected, ...modifyDataPayload.changes},
+          progress: false,      // In a lazy-loading case
+        };
       }
-      break;
     case ListActionBuilder.buildInsertActionType(section):
       const insertedItem = { ...modifyDataPayload.changes };
       updatedData = (state.data || []).concat(insertedItem);

@@ -102,6 +102,19 @@ export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>
 };
 
 /**
+ * @stable [26.12.2018]
+ * @param {MultiFieldEntityT} entity
+ * @returns {TItem[]}
+ */
+export const toActualMultiItemAddedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
+  if (R.isNil(entity)) {
+    return UNDEF;
+  }
+  const multiEntity = entity as IMultiEntity;
+  return isNotMultiEntity(entity) ? [] : multiEntity.add as TItem[];
+};
+
+/**
  * @stable [27.06.2018]
  * @param {MultiFieldSingleValueT} multiFieldEntity
  * @returns {string}
@@ -305,10 +318,12 @@ export const buildMultiEntity = (name: string,
  * @param {(itm: IMultiItemEntity) => AnyT} nextFieldValueFn
  * @returns {IMultiItemEntity}
  */
-export const buildMultiEditItemEntityPayload = (fieldName: string,
-                                                multiFieldValue: MultiFieldEntityT,
-                                                predicate: (itm: IMultiItemEntity) => boolean,
-                                                nextFieldValueFn: (itm: IMultiItemEntity) => AnyT): IMultiItemEntity => {
+export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntity>(
+  fieldName: string,
+  multiFieldValue: MultiFieldEntityT,
+  predicate: (itm: IMultiItemEntity) => boolean,
+  nextFieldValueFn: (multiItemEntity: IMultiItemEntity, entity: TEntity) => AnyT): IMultiItemEntity => {
+
   const sourceMultiItemEntities = extractMultiSourceItemEntities(multiFieldValue);
   const editedMultiItemEntities = extractMultiEditItemEntities(multiFieldValue);
 
@@ -317,7 +332,7 @@ export const buildMultiEditItemEntityPayload = (fieldName: string,
 
   return buildMultiEntity(
     fieldName,
-    nextFieldValueFn(editedMultiItemEntity),
+    nextFieldValueFn(editedMultiItemEntity as TEntity, sourceMultiItemEntity as TEntity),
     sourceMultiItemEntity,
   );
 };

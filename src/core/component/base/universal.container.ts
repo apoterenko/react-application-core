@@ -9,6 +9,7 @@ import {
   INavigateEntity,
   IContainerClassEntity,
   IUniversalContainer,
+  IOperationEntity,
   IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
 import { IConnectorConfiguration, IRoutesConfiguration } from '../../configurations-definitions.interface';
@@ -23,7 +24,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
-import { applySection, buildErrorMessage } from '../../util';
+import { applySection, buildErrorMessage, isString } from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
@@ -161,13 +162,16 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * Service method (DRY)
-   * @stable - 12.04.2018
-   * @param {string} operationId
+   * @stable [27.12.2018]
+   * @param {string | IOperationEntity} operation
    * @returns {boolean}
    */
-  protected isTransportContainsExecutingOperation(operationId: string): boolean {
-    return this.props.transport.queue.includes(operationId);
+  protected isTransportContainsExecutingOperation(operation: string | IOperationEntity): boolean {
+    return this.props.transport.queue.includes(
+      isString(operation)
+        ? operation as string
+        : (operation as IOperationEntity).id
+    );
   }
 
   /**

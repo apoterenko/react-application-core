@@ -2329,6 +2329,13 @@ export interface ITightGridWrapper {
 }
 
 /**
+ * @stable [27.12.2018]
+ */
+export interface ITotalEntityWrapper<TTotalEntity> {
+  totalEntity?: TTotalEntity;
+}
+
+/**
  * @stable [12.12.2018]
  */
 export interface IStickyHeadWrapper {

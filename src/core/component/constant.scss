@@ -200,6 +200,8 @@ $rac-grid-filter-row-padding: 2px 16px !default;
 $rac-grid-data-row-odd-background: $color-22 !default;
 $rac-grid-data-row-odd-column-content-button-background: unset !default;
 $rac-grid-data-row-odd-column-content-button-color: unset !default;
+$rac-grid-data-row-total-background: unset !default;
+$rac-grid-data-row-total-column-content-font-weight: bold !default;
 $rac-grid-data-row-selected-background: $rac-default-selected-background !default;
 $rac-grid-data-row-selected-font-weight: $rac-default-font-weight !default;
 $rac-grid-data-row-grouped-font-weight: $rac-default-font-weight !default;
@@ -231,10 +233,11 @@ $rac-time-grid-time-header-column-content-letter-spacing: $rac-default-letter-sp
 $rac-time-grid-column-hover-background-color: $color-10 !default;
 $rac-time-grid-bordered-column-content-border-right-color: $color-20 !default;
 
-/* @stable [25.06.2018] */
-$rac-loading-color: $rac-default-label-color !default;
-$rac-loading-icon-margin-right: 8px !default;
+/* @stable [26.12.2018] */
+$rac-loading-icon-color: $rac-default-label-color !default;
 $rac-loading-message-font-size: $rac-default-font-size !default;
+$rac-loading-message-color: $rac-default-label-color !default;
+$rac-loading-message-margin: 0 0 0 8px !default;
 
 /* @stable [25.06.2018] */
 $rac-message-color: $rac-default-label-color !default;

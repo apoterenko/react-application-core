@@ -211,17 +211,10 @@
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
 
-      .rac-icon {
+      .rac-action-icon {
         margin-top: auto;                                             /* @stable [24.06.2018] */
         margin-bottom: auto;                                          /* @stable [24.06.2018] */
         margin-right: $rac-field-icon-margin-right;                   /* @stable [24.06.2018] */
-
-        &.rac-loading-icon {
-
-          svg {
-            margin-top: unset;                                        /* @stable [25.06.2018] */
-          }
-        }
       }
 
       .rac-field-input {
