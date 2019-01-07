@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import { IKeyValue } from '../../definitions.interface';
 
 export const DATE_TIME_TYPES = {
@@ -5,6 +7,9 @@ export const DATE_TIME_TYPES = {
   seconds: 'seconds',
 };
 
+/**
+ * @stable [07.01.2019]
+ */
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
@@ -21,6 +26,13 @@ export interface IDateConverter {
                                  dateFieldName: string,
                                  timeFieldName: string,
                                  dateResolver: (entity: TEntity) => string): IKeyValue;
+  tryAddXUnitsAsMomentDate(unit: moment.DurationInputArg2,
+                           duration: moment.DurationInputArg1,
+                           date?: DateTimeLikeTypeT,
+                           inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
+  tryAddXDaysAsMomentDate(duration: moment.DurationInputArg1,
+                          date?: DateTimeLikeTypeT,
+                          inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;

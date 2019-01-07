@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+import * as R from 'ramda';
 import * as moment from 'moment';
 import 'moment-timezone';
 
@@ -30,7 +31,7 @@ export class DateConverter implements IDateConverter {
    * @returns {string}
    */
   public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
-    if (!date) {
+    if (R.isNil(date) || R.isEmpty(date)) {
       return '';
     } else {
       const momentDate = this.toMomentDate(date, inputFormat);
@@ -133,6 +134,46 @@ export class DateConverter implements IDateConverter {
       [timeFieldName]: orUndef<string>(date, () => this.fromDateTimeToTime(date)),
       [dateFieldName]: orUndef<string>(date, () => this.fromDateTimeToDate(date)),
     });
+  }
+
+  /**
+   * @stable [07.01.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {DateTimeLikeTypeT}
+   */
+  public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat = this.dateTimeSettings.uiDateFormat): DateTimeLikeTypeT {
+    const momentDate = this.toMomentDate(date, inputFormat);
+    return momentDate.isValid() ? momentDate.toDate() : date;
+  }
+
+  /**
+   * @stable [07.01.2019]
+   * @param {moment.DurationInputArg2} unit
+   * @param {mmoment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {moment.Moment}
+   */
+  public tryAddXUnitsAsMomentDate(unit: moment.DurationInputArg2,
+                                  duration: moment.DurationInputArg1,
+                                  date: DateTimeLikeTypeT = this.currentDate,
+                                  inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
+    const momentDate = this.toMomentDate(date, inputFormat);
+    return orNull(momentDate.isValid(), () => momentDate.add(duration, unit));
+  }
+
+  /**
+   * @stable [07.01.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {moment.Moment}
+   */
+  public tryAddXDaysAsMomentDate(duration: moment.DurationInputArg1,
+                                 date: DateTimeLikeTypeT = this.currentDate,
+                                 inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
+    return this.tryAddXUnitsAsMomentDate('days', duration, date, inputFormat);
   }
 
   public fromDateToUiDate(date: DateTimeLikeTypeT): string {
@@ -254,11 +295,6 @@ export class DateConverter implements IDateConverter {
 
   public parseDateFromDateTime(date: DateTimeLikeTypeT): Date {
     return this.parseDate(date, this.dateTimeFormat);
-  }
-
-  public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat = this.dateTimeSettings.uiDateFormat): DateTimeLikeTypeT {
-    const momentDate = this.toMomentDate(date, inputFormat);
-    return momentDate.isValid() ? momentDate.toDate() : date;
   }
 
   public appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat: string = this.dateFormat): Date {

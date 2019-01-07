@@ -4,6 +4,17 @@ import { DateConverter } from './date-converter.service';
 const dateConverter = staticInjector(DateConverter);
 
 describe('date-converter.service', () => {
+  describe('tryAddXDaysAsMomentDate', () => {
+    it('test1', () => {
+      const value = dateConverter.tryAddXDaysAsMomentDate(30, new Date('2036-07-31')).toDate();
+      expect(value).toEqual(new Date('2036-08-30'));
+    });
+    it('test2', () => {
+      const value = dateConverter.tryAddXDaysAsMomentDate(20, '2036-07-31').format('YYYY-MM-DD');
+      expect(value).toEqual('2036-08-20');
+    });
+  });
+
   describe('fromDateToUiDate', () => {
     // https://www.timeanddate.com/worldclock/converter.html
     it('test1', () => {
