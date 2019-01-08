@@ -13,6 +13,7 @@ export const DATE_TIME_TYPES = {
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
+  compare(date1: Date, date2: Date): boolean;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
@@ -26,13 +27,29 @@ export interface IDateConverter {
                                  dateFieldName: string,
                                  timeFieldName: string,
                                  dateResolver: (entity: TEntity) => string): IKeyValue;
-  tryAddXUnitsAsMomentDate(unit: moment.DurationInputArg2,
-                           duration: moment.DurationInputArg1,
-                           date?: DateTimeLikeTypeT,
-                           inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
+  tryAddXDurationAsMomentDate(unit: moment.DurationInputArg2,
+                              duration: moment.DurationInputArg1,
+                              date?: DateTimeLikeTypeT,
+                              inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
   tryAddXDaysAsMomentDate(duration: moment.DurationInputArg1,
                           date?: DateTimeLikeTypeT,
                           inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
+  tryAddXDuration(unit: moment.DurationInputArg2,
+                  duration: moment.DurationInputArg1,
+                  date?: DateTimeLikeTypeT,
+                  inputFormat?: string): Date;
+  tryAddXDays(duration: moment.DurationInputArg1,
+              date?: DateTimeLikeTypeT,
+              inputFormat?: string): Date;
+  tryAddXMonths(duration: moment.DurationInputArg1,
+                date?: DateTimeLikeTypeT,
+                inputFormat?: string): Date;
+  tryGetFirstDayOfMonthAsMomentDate(duration?: moment.DurationInputArg1,
+                                    date?: DateTimeLikeTypeT,
+                                    inputFormat?: string): moment.Moment;
+  tryGetFirstDayOfMonth(duration?: moment.DurationInputArg1,
+                        date?: DateTimeLikeTypeT,
+                        inputFormat?: string): Date;
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;

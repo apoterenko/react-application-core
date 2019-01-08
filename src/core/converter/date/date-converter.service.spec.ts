@@ -13,6 +13,10 @@ describe('date-converter.service', () => {
       const value = dateConverter.tryAddXDaysAsMomentDate(20, '2036-07-31').format('YYYY-MM-DD');
       expect(value).toEqual('2036-08-20');
     });
+    it('test3', () => {
+      const value = dateConverter.tryAddXDaysAsMomentDate(20, '2036-07-31 12:00:00').format('YYYY-MM-DD HH:mm:ss');
+      expect(value).toEqual('2036-08-20 12:00:00');
+    });
   });
 
   describe('fromDateToUiDate', () => {
