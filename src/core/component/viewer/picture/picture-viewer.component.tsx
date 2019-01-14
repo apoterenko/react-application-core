@@ -27,7 +27,7 @@ export class PictureViewer extends Viewer<PictureViewer, IPictureViewerProps, IP
     const props = this.props;
     return (
       <img
-        className={props.src ? 'rac-viewer-content' : 'rac-viewer-empty-content'}
+        className={toClassName('rac-viewer-content', !props.src && 'rac-viewer-empty-content')}
         src={props.src || props.defaultScr}/>
     );
   }

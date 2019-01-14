@@ -8,6 +8,7 @@ import { DnD, IDnd } from '../../dnd';
 import {
   EntityIdT,
   IKeyboardEvent,
+  AnyT,
 } from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield';
 import {
@@ -151,6 +152,16 @@ export class BaseFileField<TComponent extends BaseFileField<TComponent, TProps, 
    */
   protected getFieldClassName(): string {
     return toClassName(super.getFieldClassName(), 'rac-filefield');
+  }
+
+  /**
+   * @stable [14.01.2019]
+   * @param {AnyT} value
+   * @returns {string}
+   */
+  protected prepareValueBeforeDisplaying(value: AnyT): string {
+    const len = this.multiFieldPlugin.getActiveValueLength(value);
+    return this.printfDisplayMessage(len > 0, len);
   }
 
   /**

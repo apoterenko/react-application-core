@@ -2653,56 +2653,37 @@
 }
 
 /**
- * @stable [10.01.2019]
- */
-@mixin _rac-viewer-custom-properties($rac-viewer-custom: unset,
-                                     $rac-viewer-position: unset,
-                                     $rac-viewer-margin: unset,
-                                     $rac-viewer-content-margin: unset,
-                                     $rac-viewer-content-size: unset,
-                                     $rac-viewer-content-border-radius: unset) {
-  @include rac-styles(
-    $rac-styles-position: $rac-viewer-position,
-    $rac-styles-margin: $rac-viewer-margin
-  );
-
-  @include rac-styles(
-    $rac-styles-custom: rac-viewer-content,
-    $rac-styles-size: $rac-viewer-content-size,
-    $rac-styles-margin: $rac-viewer-content-margin,
-    $rac-styles-border-radius: $rac-viewer-content-border-radius
-  );
-}
-
-/**
- * @stable [10.01.2019]
+ * @stable [14.01.2019]
  */
 @mixin rac-viewer($rac-viewer-custom: unset,
                   $rac-viewer-position: unset,
                   $rac-viewer-margin: unset,
                   $rac-viewer-content-margin: unset,
                   $rac-viewer-content-size: unset,
-                  $rac-viewer-content-border-radius: unset) {
-  @if $rac-viewer-custom != unset {
-    .rac-viewer {
-      &.#{$rac-viewer-custom} {
-        @include _rac-viewer-custom-properties(
-          $rac-viewer-margin: $rac-viewer-margin,
-          $rac-viewer-position: $rac-viewer-position,
-          $rac-viewer-content-size: $rac-viewer-content-size,
-          $rac-viewer-content-margin: $rac-viewer-content-margin,
-          $rac-viewer-content-border-radius: $rac-viewer-content-border-radius
-        );
-      }
+                  $rac-viewer-content-border-radius: unset,
+                  $rac-viewer-empty-content-size: unset,
+                  $rac-viewer-empty-content-margin: unset,
+                  $rac-viewer-empty-content-border-radius: unset) {
+
+  #{rac-build-cls(rac-viewer, $rac-viewer-custom)} {
+    @include rac-styles(
+      $rac-styles-position: $rac-viewer-position,
+      $rac-styles-margin: $rac-viewer-margin
+    );
+
+    > .rac-viewer-content {
+      @include rac-styles(
+        $rac-styles-size: $rac-viewer-content-size,
+        $rac-styles-margin: $rac-viewer-content-margin,
+        $rac-styles-border-radius: $rac-viewer-content-border-radius
+      );
     }
-  } @else {
-    .rac-viewer {
-      @include _rac-viewer-custom-properties(
-        $rac-viewer-margin: $rac-viewer-margin,
-        $rac-viewer-position: $rac-viewer-position,
-        $rac-viewer-content-size: $rac-viewer-content-size,
-        $rac-viewer-content-margin: $rac-viewer-content-margin,
-        $rac-viewer-content-border-radius: $rac-viewer-content-border-radius
+
+    > .rac-viewer-empty-content {
+      @include rac-styles(
+        $rac-styles-size: $rac-viewer-empty-content-size,
+        $rac-styles-margin: $rac-viewer-empty-content-margin,
+        $rac-styles-border-radius: $rac-viewer-empty-content-border-radius
       );
     }
   }
