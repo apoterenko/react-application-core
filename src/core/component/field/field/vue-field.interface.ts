@@ -6,6 +6,7 @@ import {
   IDisplayNameWrapper,
   IUseLocalizationWrapper,
   INameWrapper,
+  IPlaceholderWrapper,
 } from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import { IVueValue$Wrapper, VueAccessorsT } from '../../../vue-definitions.interface';
@@ -37,6 +38,7 @@ export interface IVueFieldState extends IDisplayValueWrapper {
 export interface IVueFieldProps extends IVueBaseProps,
                                         ILabelWrapper,
                                         INameWrapper,
+                                        IPlaceholderWrapper,
                                         IDisplayNameWrapper,
                                         IUseLocalizationWrapper,
                                         IFullWrapper {

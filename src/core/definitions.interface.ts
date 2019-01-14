@@ -829,10 +829,31 @@ export interface IRenderToCenterOfBodyWrapper {
 }
 
 /**
+ * @stable [13.01.2019]
+ */
+export interface IRenderToBodyWrapper {
+  renderToBody?: boolean;
+}
+
+/**
+ * @stable [13.01.2019]
+ */
+export interface IOverlayBackgroundClassNameWrapper {
+  overlayBackgroundClassName?: string;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IUseFilterWrapper {
   useFilter?: boolean;
+}
+
+/**
+ * @stable [13.01.2019]
+ */
+export interface IKeyboardConfigurationWrapper<TKeyboardConfiguration> {
+  keyboardConfiguration?: TKeyboardConfiguration;
 }
 
 /**
@@ -1768,7 +1789,9 @@ export interface IGetSelfWrapper {
   getSelf(): Element;
 }
 
-/* @stable - 24.04.2018 */
+/**
+ * @stable [10.01.2019]
+ */
 export interface IAvatarWrapper<TAvatar> {
   avatar?: TAvatar;
 }
@@ -1981,13 +2004,6 @@ export interface IPopupWrapper<TPopup = boolean> {
  */
 export interface IFilterWrapper<TFilter = string> {
   filter?: TFilter;
-}
-
-/**
- * @stable [29.10.2018]
- */
-export interface IReturnSerializedValueOnChangeWrapper {
-  returnSerializedValueOnChange?: boolean;
 }
 
 /**
@@ -2595,6 +2611,13 @@ export interface IAlignItemsCenterWrapper {
 }
 
 /**
+ * @stable [13.01.2018]
+ */
+export interface IFullSizeWrapper {
+  fullSize?: boolean;
+}
+
+/**
  * @stable [17.09.2018]
  */
 export interface IAlignItemsEndWrapper {
@@ -2735,6 +2758,13 @@ export interface ICaretVisibilityWrapper {
  */
 export interface ICaretPositionWrapper {
   caretPosition?: number;
+}
+
+/**
+ * @stable [08.01.2019]
+ */
+export interface IFormatWrapper<TFormat = string> {
+  format?: TFormat;
 }
 
 /**
@@ -2963,6 +2993,13 @@ export interface IUseKeyboardWrapper {
   useKeyboard?: boolean;
 }
 
+/**
+ * @stable [14.01.2019]
+ */
+export interface IUseSyntheticCursorWrapper {
+  useSyntheticCursor?: boolean;
+}
+
 /* @stable - 01.04.2018 */
 export interface IIsNewWrapper {
   isNew?: boolean;
@@ -3146,11 +3183,6 @@ export interface IAppVersionWrapper {
   appVersion?: string;
 }
 
-/* @stable - 15.04.2018 */
-export interface IRootWrapper<TRoot> {
-  root?: TRoot;
-}
-
 /**
  * @stable [18.06.2018]
  */
@@ -3163,6 +3195,13 @@ export interface IStepWrapper<TStep = number> {
  */
 export interface IDefaultValue<TDefaultValue = AnyT> {
   defaultValue?: TDefaultValue;
+}
+
+/**
+ * @stable [07.01.2019]
+ */
+export interface ICurrentTimeWrapper<TCurrentDate> {
+  currentTime?: TCurrentDate;
 }
 
 /**
@@ -3218,8 +3257,15 @@ export interface IToWrapper<TTo = string> {
 /**
  * @stable [09.12.2018]
  */
-export interface IDisplayFileNameWrapper<TDisplayFileName> {
+export interface IDisplayFileNameWrapper<TDisplayFileName = string> {
   displayFileName?: TDisplayFileName;
+}
+
+/**
+ * @stable [06.01.2019]
+ */
+export interface IDisplayFileFormatWrapper<TDisplayFileFormat = string> {
+  displayFileFormat?: TDisplayFileFormat;
 }
 
 /* @stable - 20.04.2018 */
@@ -3244,6 +3290,13 @@ export interface IBaseEvent {
  * @stable [01.12.2018]
  */
 export interface IJQueryElement<TElement extends Element = Element> extends JQuery<TElement> {
+}
+
+/**
+ * @stable [07.01.2019]
+ */
+export interface IJQueryInputElement extends IJQueryElement<HTMLElement> {
+  caret?(position?: number): number;
 }
 
 export const PROGRESS_FIELD_NAME = 'progress';

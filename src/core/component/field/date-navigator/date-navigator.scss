@@ -1,0 +1,24 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  @include rac-field(                                                                         /* @stable [07.01.2019] */
+    $rac-field-custom: rac-date-navigator,
+    $rac-field-margin: 0 8px,
+    $rac-text-field-background: $rac-date-navigator-text-field-background,
+    $rac-text-field-input-font-size: $rac-date-navigator-text-field-input-font-size
+  );
+
+  .rac-date-navigator-clock {                                                                 /* @stable [08.01.2019] */
+
+    @include rac-styles(
+      $rac-styles-font-size: $rac-date-navigator-clock-font-size,
+      $rac-styles-margin: $rac-date-navigator-clock-margin
+    );
+
+    @include rac-icon(
+      $rac-icon-margin: $rac-date-navigator-clock-icon-margin
+    );
+  }
+}

@@ -1,10 +1,6 @@
 import * as React from 'react';
 
-import {
-  EntityIdT,
-  IKeyboardEvent,
-  AnyT,
-} from '../../../definitions.interface';
+import { EntityIdT, IKeyboardEvent } from '../../../definitions.interface';
 import { BasicSelect } from '../../field/select';
 import { ISelectOptionEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
 import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiField } from './multifield.interface';
@@ -26,11 +22,6 @@ export class MultiField<TComponent extends MultiField<TComponent, TProps, TState
     errorMessageRendered: false,
     forceReload: true,
     preventFocus: true,
-    displayValue: (value: MultiFieldEntityT,
-                   field: MultiField<AnyT, IMultiFieldProps, IMultiFieldState>) => {
-      const len = field.multiFieldPlugin.getActiveValueLength(value);
-      return field.printfDisplayMessage(len > 0, len);
-    },
   };
 
   public multiFieldPlugin = new MultiFieldPlugin(this);

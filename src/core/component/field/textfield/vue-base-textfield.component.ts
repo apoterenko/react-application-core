@@ -47,7 +47,7 @@ export class VueBaseTextField extends VueField implements IVueBaseTextFieldProps
     return orEmpty(
       !R.isNil(this.icon),
       () => (
-        `<span class="vue-field-icon ${this.icon}"
+        `<span class="vue-icon vue-field-icon ${this.icon}"
                @click="onIconClick"/>`
       )
     );

@@ -3,8 +3,9 @@ import { Component } from 'vue-property-decorator';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueBaseTextField } from './vue-base-textfield.component';
+import { VUE_TEXT_FIELD_NAME } from './vue-textfield.interface';
 
-@ComponentName('vue-text-field')
+@ComponentName(VUE_TEXT_FIELD_NAME)
 @Component
 export class VueTextField extends VueBaseTextField {
 

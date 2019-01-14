@@ -6,29 +6,27 @@
 .rac {
 
   .rac-list {
-    margin: $rac-list-margin;                                                             /* @stable [29.10.2018] */
-    padding: $rac-list-padding;                                                           /* @stable [29.10.2018] */
     overflow-x: $rac-list-overflow-x;                                                     /* @stable [29.10.2018] */
     overflow-y: $rac-list-overflow-y;                                                     /* @stable [29.10.2018] */
   }
 
-  @include rac-list($rac-list-item-padding: $rac-list-item-padding,                       /* @stable [30.10.2018] */
+  @include rac-list($rac-list-margin: $rac-list-margin,                                       /* @stable [10.01.2019] */
+                    $rac-list-padding: $rac-list-padding,
+                    $rac-list-item-border-radius: $rac-list-item-border-radius,
+                    $rac-list-item-padding: $rac-list-item-padding,
+                    $rac-list-item-margin: $rac-list-item-margin,
+                    $rac-list-item-color: $rac-list-item-color,
+                    $rac-list-item-font-weight: $rac-list-item-font-weight,
+                    $rac-list-item-font-size: $rac-list-item-font-size,
                     $rac-list-item-graphic-margin: $rac-list-item-graphic-margin,
-                    $rac-list-item-graphic-size: $rac-list-item-graphic-size);
-
-  @include rac-list-item-custom($rac-list-item-custom: rac-list-item-odd,                 /* @stable [31.10.2018] */
-                                $rac-list-item-custom-background: $rac-list-item-odd-background-color);
+                    $rac-list-item-graphic-size: $rac-list-item-graphic-size,
+                    $rac-list-item-odd-background: $rac-list-item-odd-background,
+                    $rac-list-item-selected-background: $rac-list-item-selected-background);
 
   .rac-list {
 
     .rac-list-item {
       cursor: $rac-list-item-cursor;                                                  /* @stable [30.10.2018] */
-      color: $rac-list-item-color;                                                    /* @stable [29.10.2018] */
-      font-size: $rac-list-item-font-size;                                            /* @stable [29.10.2018] */
-
-      &.rac-list-item-selected {
-        background: $rac-list-item-selected-background;                               /* @stable [29.10.2018] */
-      }
 
       &.rac-list-item-warning {
 

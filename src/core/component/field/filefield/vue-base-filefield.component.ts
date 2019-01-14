@@ -11,6 +11,7 @@ import {
   orUndef,
   coalesce,
   ifNotNilReturnValue,
+  toClassName,
 } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
 import { IMultiItemEntity, MultiItemEntityT, IMultiItemFileEntity } from '../../../entities-definitions.interface';
@@ -22,6 +23,8 @@ import { IVueBaseFileFieldProps, IVueBaseFileFieldTemplateMethods } from './vue-
 export class VueBaseFileField extends VueField
   implements IVueBaseFileFieldTemplateMethods, IVueBaseFileFieldProps {
 
+  @Prop() public readonly displayFileName: string;
+  @Prop() public readonly displayFileFormat: string;
   @Prop() public readonly placeholderFactory: (index: number) => string;
   @Prop({default: (): number => 1}) public readonly maxFiles: number;
   @Prop() public readonly defaultDndMessage: string;
@@ -30,8 +33,6 @@ export class VueBaseFileField extends VueField
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
   @Prop() protected readonly clsFactory: (entity: IEntity) => string;
   @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
-  @Prop() protected readonly displayFileName: string;
-  @Prop() protected readonly displayFileFormat: string;
 
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
   protected readonly cachedFiles = new Map<string, File>();
@@ -116,8 +117,11 @@ export class VueBaseFileField extends VueField
     const props: IVueBaseFileViewerProps = {
       ...this.viewerProps,
       placeholder: this.getPlaceholder(index),
+      className: this.getAttachmentContentClassName(index),
     };
     const multiItemEntity = entityOrEntityId as IMultiItemEntity;
+    const className = () => toClassName(calc(this.clsFactory, multiItemEntity), calc(props.className));
+
     if (isPrimitive(entityOrEntityId)) {
       // In case of a single field which receives only entity id
       return {
@@ -131,14 +135,14 @@ export class VueBaseFileField extends VueField
         ...props,
         src: relationId,
         fileName: orUndef<string>(this.cachedFiles.has(relationId), () => this.cachedFiles.get(relationId).name),
-        className: calc(this.clsFactory, multiItemEntity),
+        className: className(),
       });
     }
     return {
       ...props,
       src: Reflect.get(multiItemEntity, this.displayName),
       entity: multiItemEntity,
-      className: calc(this.clsFactory, multiItemEntity),
+      className: className(),
     };
   }
 
@@ -166,6 +170,18 @@ export class VueBaseFileField extends VueField
   }
 
   /**
+   * @stable [06.01.2019]
+   * @param {number} index
+   * @returns {string}
+   */
+  public getAttachmentContentClassName(index: number): string {
+    return toClassName(
+      'vue-field-attachment-content',
+      this.getPlaceholder(index) && ' vue-field-attachment-content-with-placeholder'
+    );
+  }
+
+  /**
    * @stable [17.11.2018]
    * @returns {string}
    */
@@ -186,12 +202,15 @@ export class VueBaseFileField extends VueField
                        v-on="getViewerListeners(file, index)"
                        v-bind="getViewerBindings(file, index)"/>
             <vue-flex-layout v-if="!file"
-                            :row="true">
+                             :row="true"
+                             :class="getAttachmentContentClassName(index)">
                 <vue-flex-layout v-if="getPlaceholder(index)"
-                                :justifyContentCenter="true">
+                                :justifyContentCenter="true"
+                                :class="'vue-field-attachment-placeholder vue-field-attachment-placeholder-' + index">
                     {{getPlaceholder(index)}}
                 </vue-flex-layout>
-                <vue-flex-layout :class="'vue-field-attachment-placeholder vue-field-attachment-placeholder-' + index">
+                <vue-flex-layout :class="'vue-field-attachment-dnd-message vue-field-attachment-dnd-message-' + index"
+                                 :full="!getPlaceholder(index)">
                     <vue-dnd :defaultMessage="getDefaultDndMessage(index)"
                              @select="onFilesSelect($event)"/>
                 </vue-flex-layout>
@@ -226,6 +245,7 @@ export class VueBaseFileField extends VueField
       onFilesSelect: this.onFilesSelect,
       getFiles: this.getFiles,
       getDefaultDndMessage: this.getDefaultDndMessage,
+      getAttachmentContentClassName: this.getAttachmentContentClassName,
       getPlaceholder: this.getPlaceholder,
       getViewerComponent: this.getViewerComponent,
       getViewerListeners: this.getViewerListeners,

@@ -22,6 +22,7 @@
     $vue-field-border-radius: $vue-text-field-border-radius,
     $vue-field-border: $vue-text-field-border,
     $vue-field-input-padding: $vue-text-field-input-padding,
+    $vue-field-input-font-size: $vue-text-field-input-font-size,
     $vue-field-float-label-padding: $vue-text-field-float-label-padding
   );
 
@@ -30,24 +31,30 @@
     $vue-field-icon-width: $vue-select-icon-width,
     $vue-field-icon-height: $vue-select-icon-height,
     $vue-field-icon-margin: $vue-select-icon-margin,
-    $vue-field-icon-background-repeat: no-repeat,
-    $vue-field-icon-position: relative
+    $vue-field-icon-position: relative,
+    $vue-field-icon-cursor: pointer
   );
 
   @include vue-field(                                                                         /* @stable [21.12.2018] */
     $vue-field-custom: vue-file-field,
-    $vue-field-attachment-wrapper-content-border: $vue-file-field-attachment-wrapper-content-border,
-    $vue-field-attachment-wrapper-content-border-radius: $vue-file-field-attachment-wrapper-content-border-radius
+    $vue-field-attachment-wrapper-width: $vue-file-field-attachment-wrapper-width,
+    $vue-field-attachment-content-border: $vue-file-field-attachment-content-border,
+    $vue-field-attachment-content-padding: $vue-file-field-attachment-content-padding,
+    $vue-field-attachment-content-border-radius: $vue-file-field-attachment-content-border-radius,
+    $vue-field-attachment-content-picture-viewer-border: $vue-file-field-attachment-content-picture-viewer-border,
+    $vue-field-attachment-content-picture-viewer-preview-border-radius: $vue-file-field-attachment-content-picture-viewer-preview-border-radius,
+    $vue-field-attachment-placeholder-padding: $vue-file-field-attachment-placeholder-padding,
+    $vue-field-attachment-placeholder-font-size: $vue-file-field-attachment-placeholder-font-size,
+    $vue-field-attachment-dnd-message-padding: $vue-file-field-attachment-dnd-message-padding,
+    $vue-field-attachment-dnd-message-font-size: $vue-file-field-attachment-dnd-message-font-size
   );
 
   @include vue-field(                                                                         /* @stable [21.12.2018] */
     $vue-field-custom: vue-multi-file-field,
-    $vue-field-attachment-wrapper-content-margin: $vue-multi-file-field-attachment-wrapper-content-margin,
-    $vue-field-attachment-wrapper-content-width: $vue-multi-file-field-attachment-wrapper-content-width,
-    $vue-field-attachment-wrapper-content-height: $vue-multi-file-field-attachment-wrapper-content-height,
-    $vue-field-attachment-wrapper-content-float: $vue-multi-file-field-attachment-wrapper-content-float,
-    $vue-field-attachment-wrapper-viewer-selector-border: $vue-multi-file-field-attachment-wrapper-viewer-selector-border,
-    $vue-field-attachment-wrapper-viewer-preview-border-radius: $vue-multi-file-field-attachment-wrapper-viewer-preview-border-radius
+    $vue-field-attachment-content-margin: $vue-multi-file-field-attachment-content-margin,
+    $vue-field-attachment-content-width: $vue-multi-file-field-attachment-content-width,
+    $vue-field-attachment-content-height: $vue-multi-file-field-attachment-content-height,
+    $vue-field-attachment-content-float: $vue-multi-file-field-attachment-content-float
   );
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */

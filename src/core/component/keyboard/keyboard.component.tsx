@@ -3,18 +3,21 @@ import * as ReactDOM from 'react-dom';
 import * as R from 'ramda';
 
 import { ENV } from '../../env';
-import { IJqInput, isString } from '../../util';
+import { isString, toJqEl, toClassName, ifNotNilThanValue, orNull } from '../../util';
 import { BaseComponent } from '../base';
 import {
-  IKeyboardKey,
-  KeyboardKeyEnum,
-  KeyboardKeyT,
   IKeyboardProps,
   KEYBOARD_QWERTY_LAYOUT,
   KEYBOARD_QWERTY_DIGITAL_LAYOUT,
   IKeyboardState,
 } from './keyboard.interface';
 import { KeyboardKey } from './key';
+import { IJQueryElement } from '../../definitions.interface';
+import {
+  IKeyboardKey,
+  KeyboardKeyEnum,
+  KeyboardKeyT,
+} from '../../configurations-definitions.interface';
 
 export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardState> {
 
@@ -35,47 +38,54 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
 
   /**
    * @stable [08.05.2018]
-   * @returns {React.ReactPortal}
+   * @returns {React.ReactNode}
    */
-  public render(): React.ReactPortal {
+  public render(): React.ReactNode {
     const props = this.props;
     const state = this.state;
     const keys = props.layout[state.mode];
-    const keysEls = [];
+    const renderToBody = props.renderToBody !== false;
 
-    keys.forEach((row, index) => {
-      keysEls.push(
-        <div key={`keyboard-row-${index}`}
-             className='rac-flex rac-flex-center'>
-          {
-            row.map((key, index2) => (
-              <KeyboardKey key={`keyboard-row-column-${index}-${index2}`}
-                           value={key}
-                           useUppercase={state.useUppercase}
-                           onSelect={this.onSelect}/>
-            ))
-          }
-        </div>
-      );
-    });
-
-    // React waiting for a wrapper at least before clearing => <div>KEYBOARD_DIV</div>
-    return ReactDOM.createPortal(
-      <div ref={this.getSelfRef()}
-           className='rac-keyboard rac-no-user-select'>
+    const el = (
+      <div
+        ref={this.getSelfRef()}
+        className={toClassName(
+          'rac-keyboard',
+          'rac-no-user-select',
+          renderToBody && 'rac-keyboard-absolute',
+          props.className
+        )}
+      >
         {
-          this.uiFactory.makeIcon({
-            key: 'keyboard-close-action',
-            type: 'ban',
-            simple: true,
-            className: 'rac-keyboard-close',
-            onClick: props.onClose,
-          })
+          orNull<JSX.Element>(
+            renderToBody,
+            () => this.uiFactory.makeIcon({
+              key: 'keyboard-close-action-key',
+              type: 'ban',
+              className: 'rac-keyboard-close',
+              onClick: props.onClose,
+            })
+          )
         }
-        {keysEls}
-      </div>,
-      ENV.documentBody
+        {
+          keys.map((row, index) => (
+            <div key={`keyboard-row-${index}`}
+                 className='rac-flex rac-flex-center'>
+              {
+                row.map((key, index2) => (
+                  <KeyboardKey key={`keyboard-row-column-${index}-${index2}`}
+                               value={key}
+                               useUppercase={state.useUppercase}
+                               onSelect={this.onSelect}/>
+                ))
+              }
+            </div>
+          ))
+        }
+      </div>
     );
+
+    return renderToBody ? ReactDOM.createPortal(el, ENV.documentBody) : el;
   }
 
   /**
@@ -117,11 +127,11 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
   }
 
   /**
-   * @stable [08.05.2018]
+   * TODO dom accessor
    * @returns {IJqInput}
    */
-  private get jField(): IJqInput {
-    return $(this.props.field) as IJqInput;
+  private get jField(): IJQueryElement {
+    return toJqEl(this.props.field) as IJQueryElement;
   }
 
   /**
@@ -129,6 +139,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
    * @returns {number}
    */
   private get currentPosition(): number {
-    return this.props.field.value.length;
+    const field = this.props.field;
+    return ifNotNilThanValue(field, () => field.value.length) || 0;
   }
 }

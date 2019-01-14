@@ -15,3 +15,8 @@ export interface IVueBaseTextFieldProps extends IVueFieldProps {
 export interface IVueBaseTextFieldTemplateMethods extends IVueFieldTemplateMethods {
   onIconClick?(): void;
 }
+
+/**
+ * @stable [06.01.2019]
+ */
+export const VUE_TEXT_FIELD_NAME = 'vue-text-field';

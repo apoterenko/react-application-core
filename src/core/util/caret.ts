@@ -1,22 +1,9 @@
-import JQuery from 'jquery';
+import { IJQueryInputElement } from '../definitions.interface';
 
 /**
- * @stable [09.05.2018]
- */
-export interface IJqInput extends JQuery<HTMLInputElement> {
-  caret?(position?: number): number;
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IJqElement extends JQuery<HTMLElement> {
-}
-
-/**
- * @stable [09.05.2018]
- * @param {IJqInput} input
+ * @stable [07.01.2018]
+ * @param {IJQueryInputElement} input
  * @param {number} position
  * @returns {number}
  */
-export const caret = (input: IJqInput, position?: number): number => input.caret(position);
+export const caret = (input: IJQueryInputElement, position?: number): number => input.caret(position);

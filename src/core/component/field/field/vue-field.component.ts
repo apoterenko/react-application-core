@@ -40,10 +40,10 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   @Prop() public label: string;
   @Prop() public displayName: string;
   @Prop() public name: string;
+  @Prop() public placeholder: string;
   @Prop() protected type: string;
   @Prop() protected floatLabel: boolean;
   @Prop() protected icon: string;
-  @Prop() protected placeholder: string;
   @Prop() protected autoFocus: boolean;
 
   /**

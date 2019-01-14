@@ -74,7 +74,7 @@ export class PdfViewer extends Viewer<PdfViewer, IPdfViewerProps, IPdfViewerStat
    * @stable [08.07.2018]
    * @returns {JSX.Element}
    */
-  protected getRenderAreaElement(): JSX.Element {
+  protected getContentElement(): JSX.Element {
     return <canvas ref='canvas'/>;
   }
 

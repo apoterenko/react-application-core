@@ -23,9 +23,7 @@ class VuePdfFileViewer extends VueBaseFileViewer {
    * @returns {string}
    */
   protected getPopupBodyTemplate(): string {
-    return `
-        <vue-pdf-preview :src="getSrc()"/>
-    `;
+    return `<vue-pdf-preview :src="getSrc()"/>`;
   }
 
   /**

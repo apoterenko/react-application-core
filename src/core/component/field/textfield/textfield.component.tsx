@@ -1,7 +1,7 @@
 import { ITextField, ITextFieldInternalProps, ITextFieldInternalState } from './textfield.interface';
-import { BasicTextField } from './basic-textfield.component';
+import { BaseTextField } from './basic-textfield.component';
 
-export class TextField extends BasicTextField<TextField,
+export class TextField extends BaseTextField<TextField,
                                               ITextFieldInternalProps,
                                               ITextFieldInternalState>
     implements ITextField {

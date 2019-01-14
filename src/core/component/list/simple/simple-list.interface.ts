@@ -1,4 +1,7 @@
 import { IListConfiguration } from '../../../configurations-definitions.interface';
 
-export interface ISimpleListInternalProps extends IListConfiguration {
+/**
+ * @stable [14.01.2019]
+ */
+export interface ISimpleListProps extends IListConfiguration {
 }

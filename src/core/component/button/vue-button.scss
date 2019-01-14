@@ -4,6 +4,7 @@
 .vac {
 
   @include vue-button(                                                                        /* @stable [27.12.2018] */
+    $vue-button-font-size: $vue-button-font-size,
     $vue-button-padding: $vue-button-padding,
     $vue-button-border: $vue-button-border,
     $vue-button-border-radius: $vue-button-border-radius,

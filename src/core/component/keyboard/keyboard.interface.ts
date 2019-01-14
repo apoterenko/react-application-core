@@ -1,38 +1,15 @@
 import {
   IPositionWrapper,
-  IFieldWrapper,
   IUseUppercaseWrapper,
   IOnChangeWrapper,
-  IOnCloseWrapper,
-  ITypeWrapper,
-  IValueWrapper,
-  IWidthWrapper,
-  IClassNameWrapper,
-  ILayoutWrapper,
   IModeWrapper,
 } from '../../definitions.interface';
-import { IComponentConfiguration } from '../../configurations-definitions.interface';
-
-/**
- * @stable [08.05.2018]
- */
-export enum KeyboardKeyEnum {
-  UPPERCASE,
-  CHANGE_LAYOUT,
-  LOWERCASE,
-  BACKSPACE,
-  SPACE,
-  ENTER,
-}
-
-/**
- * @stable [08.05.2018]
- */
-export interface IKeyboardKey extends IValueWrapper<string>,
-                                      ITypeWrapper<KeyboardKeyEnum>,
-                                      IClassNameWrapper,
-                                      IWidthWrapper {
-}
+import {
+  IKeyboardConfiguration,
+  KeyboardKeyEnum,
+  KeyboardLayoutT,
+  IKeyboardKey,
+} from '../../configurations-definitions.interface';
 
 /**
  * @stable [08.05.2018]
@@ -83,17 +60,15 @@ export const KEYBOARD_NUMERIC_LAYOUT: KeyboardLayoutT = [
   ['+', '-', ',', '.', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}]
 ];
 
-export type KeyboardKeyT = string | IKeyboardKey;
-export type KeyboardLayoutT = KeyboardKeyT[][];
-
 /**
- * @stable [08.05.2018]
+ * @stable [13.01.2019]
  */
-export interface IKeyboardConfiguration extends IComponentConfiguration,
-                                                IFieldWrapper<HTMLInputElement | HTMLTextAreaElement>,
-                                                ILayoutWrapper<KeyboardLayoutT[]>,
-                                                IOnCloseWrapper {
-}
+export const KEYBOARD_BASIC_NUMERIC_LAYOUT: KeyboardLayoutT = [
+  ['1', '2', '3'],
+  ['4', '5', '6'],
+  ['7', '8', '9'],
+  ['.', '0', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}]
+];
 
 /**
  * @stable [08.05.2018]

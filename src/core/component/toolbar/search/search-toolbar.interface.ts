@@ -19,7 +19,8 @@ import {
   IOnChangeWrapper,
   IOnOpenWrapper,
   IOnRefreshWrapper,
-  } from '../../../definitions.interface';
+  IFullWrapper,
+} from '../../../definitions.interface';
 import { IOnActionClickWrapper } from '../../../react-definitions.interface';
 
 /**
@@ -31,6 +32,7 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
                                                               IOnDeactivateWrapper,
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
+                                                              IFullWrapper,
                                                               IOnRefreshWrapper,
                                                               IOnActionClickWrapper<ToolbarActionEnum>,
                                                               IOnChangeWrapper<string> {

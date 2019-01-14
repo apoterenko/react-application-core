@@ -84,6 +84,15 @@ export const NOT_PROGRESS_FIELD_PREDICATE = (key: string, value: AnyT) => key !=
 export const NOT_PASSWORD_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PASSWORD_FIELD_NAME;
 
 /**
+ * @stable [09.01.2019]
+ * @param {IEntity} entity1
+ * @param {IEntity} entity2
+ * @returns {boolean}
+ * @constructor
+ */
+export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => entity1 === entity2 || entity1.id === entity2.id;
+
+/**
  * @stable [03.10.2018]
  * @param {string} key
  * @param {AnyT} value

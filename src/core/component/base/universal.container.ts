@@ -17,6 +17,7 @@ import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
+  ROUTER_REWRITE_ACTION_TYPE,
 } from '../../router/router.interface';
 import { IApplicationSettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
@@ -24,7 +25,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
-import { applySection, buildErrorMessage, isString } from '../../util';
+import { applySection, buildErrorMessage, isString, toType } from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
@@ -111,8 +112,16 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    * @param {TState0} state
    */
   public navigate<TPath0, TState0>(path: TPath0, state?: TState0): void {
-    const payload: INavigateEntity<TPath0, TState0> = { path, state };
-    this.dispatchCustomType(ROUTER_NAVIGATE_ACTION_TYPE, payload);
+    this.doNavigate(ROUTER_NAVIGATE_ACTION_TYPE, path, state);
+  }
+
+  /**
+   * @stable [14.01.2019]
+   * @param {TPath0} path
+   * @param {TState0} state
+   */
+  public navigateAndRewrite<TPath0, TState0>(path: TPath0, state?: TState0): void {
+    this.doNavigate(ROUTER_REWRITE_ACTION_TYPE, path, state);
   }
 
   /**
@@ -271,5 +280,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected getErrorMessageElement(e: Error): React.ReactNode {
     return buildErrorMessage(e.stack);
+  }
+
+  /**
+   * @stable [14.01.2019]
+   * @param {string} action
+   * @param {TPath0} path
+   * @param {TState0} state
+   */
+  private doNavigate<TPath0, TState0>(action: string, path: TPath0, state?: TState0): void {
+    this.dispatchCustomType(action, toType<INavigateEntity<TPath0, TState0>>({ path, state }));
   }
 }

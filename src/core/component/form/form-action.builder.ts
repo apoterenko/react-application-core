@@ -126,7 +126,7 @@ export class FormActionBuilder {
    * @param {IKeyValue} changes
    * @returns {IEffectsAction}
    */
-  public static buildChangesAction(section: string, changes: IKeyValue): IEffectsAction {
+  public static buildChangesAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): IEffectsAction {
     return EffectsAction.create(
       this.buildChangeActionType(section),
       applySection(section, this.buildChangesPayload(changes))

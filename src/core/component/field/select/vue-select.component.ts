@@ -14,9 +14,10 @@ import {
   IVueSelectTemplateMethods,
   VueSelectFilterT,
   IVueSelectProps,
+  VUE_SELECT_NAME,
 } from './vue-select.interface';
 
-@ComponentName('vue-select')
+@ComponentName(VUE_SELECT_NAME)
 @Component(vueDefaultComponentConfigFactory())
 class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, IVueSelectProps {
 

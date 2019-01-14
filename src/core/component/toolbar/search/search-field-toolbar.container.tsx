@@ -11,7 +11,6 @@ export class SearchFieldToolbarContainer extends UniversalSearchToolbarContainer
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    return <SearchFieldToolbar {...this.props}
-                               {...this.getComponentProps()}/>;
+    return <SearchFieldToolbar {...this.getComponentProps()}/>;
   }
 }

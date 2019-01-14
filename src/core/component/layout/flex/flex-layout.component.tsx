@@ -17,6 +17,7 @@ export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
              className={toClassName(
                             props.className,
                             'rac-flex',
+                            props.fullSize && 'rac-full-size',
                             props.row ? 'rac-flex-row' : 'rac-flex-column',
                             (props.full !== false && !(props.className || '').includes('rac-flex-')) && 'rac-flex-full',
                             props.overflow && 'rac-flex-overflow',

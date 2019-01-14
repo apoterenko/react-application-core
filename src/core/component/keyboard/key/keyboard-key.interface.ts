@@ -3,8 +3,7 @@ import {
   IValueWrapper,
   IOnSelectWrapper,
 } from '../../../definitions.interface';
-import { KeyboardKeyT } from '../keyboard.interface';
-import { IComponentConfiguration } from '../../../configurations-definitions.interface';
+import { IComponentConfiguration, KeyboardKeyT } from '../../../configurations-definitions.interface';
 
 /**
  * @stable [08.05.2018]

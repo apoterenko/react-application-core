@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as $ from 'jquery';
 
 import {
   addClassNameToElement,
@@ -9,9 +8,9 @@ import {
   orNull,
   cancelEvent,
   isElementFocused,
-  IJqInput,
   orUndef,
   defValuesFilter,
+  toJqEl,
 } from '../../../util';
 import {
   AnyT,
@@ -19,6 +18,7 @@ import {
   IChangeEvent,
   UNI_CODES,
   IFocusEvent,
+  IJQueryInputElement,
   } from '../../../definitions.interface';
 import {
   IField,
@@ -42,9 +42,13 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
                            IBasicEvent>
     implements IField<TInternalProps, TState> {
 
-  public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
-    this.updateInputBeforeHTML5Validation(this.toDisplayValue(currentRawValue, context));
-    super.onChangeManually(currentRawValue, context);
+  /**
+   * @stable [07.01.2019]
+   * @param {AnyT} currentRawValue
+   */
+  public onChangeManually(currentRawValue: AnyT): void {
+    this.updateInputBeforeHTML5Validation(currentRawValue);
+    super.onChangeManually(currentRawValue);
   }
 
   /**
@@ -106,7 +110,9 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    */
   public setFocus(): void {
     const input = this.input;
-    if (!R.isNil(input)) {
+    const props = this.props;
+
+    if (!props.preventFocus && !R.isNil(input)) {
       input.focus();
     }
   }
@@ -318,10 +324,9 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
   }
 
   /**
-   * @stable [04.09.2018]
-   * @returns {IJqInput}
+   * TODO domAccessor
    */
-  protected get jqInput(): IJqInput {
-    return $(this.input) as IJqInput;
+  protected get jqInput(): IJQueryInputElement {
+    return toJqEl(this.input) as IJQueryInputElement;
   }
 }

@@ -1,50 +1,47 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as R from 'ramda';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 
-import { cancelEvent, isUndef, orUndef } from '../../../util';
-import { ChangeEventT, KeyboardEventT, BasicEventT, AnyT } from '../../../definitions.interface';
+import { cancelEvent, orNull, nvl } from '../../../util';
+import { KeyboardEventT, AnyT } from '../../../definitions.interface';
+import { IBasicEvent } from '../../../react-definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
-  IDateFieldInternalProps,
-  IDateFieldInternalState,
+  IDateFieldProps,
+  IDateFieldState,
   IMaterialDateDialogComponent,
 } from './datefield.interface';
-import { BasicTextField } from '../textfield';
+import { BaseTextField } from '../textfield';
 
-export class DateField extends BasicTextField<DateField,
-                                              IDateFieldInternalProps,
-                                              IDateFieldInternalState> {
-  public static defaultProps: IDateFieldInternalProps = {
-    container: 'dialog',
+export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
+                       TProps extends IDateFieldProps = IDateFieldProps,
+                       TState extends IDateFieldState = IDateFieldState>
+  extends BaseTextField<TComponent, TProps, TState> {
+
+  public static defaultProps: IDateFieldProps = {
     autoOk: true,
-    disableYearSelection: false,
     firstDayOfWeek: 1,
-    hideCalendarDate: false,
-    style: {},
-    openToYearSelection: false,
   };
 
-  public static contextTypes = {
-    muiTheme: PropTypes.object.isRequired,
-  };
-
-  constructor(props: IDateFieldInternalProps) {
+  /**
+   * @stable [07.01.2019]
+   * @param {IDateFieldProps} props
+   */
+  constructor(props: TProps) {
     super(props);
     this.onAccept = this.onAccept.bind(this);
+    this.onCalendarClick = this.onCalendarClick.bind(this);
 
-    this.defaultActions = R.insert(0,
-        {
-          type: 'date_range',
-          onClick: () => {
-            this.setFocus();
-            this.dialogWindow.show();
-          },
-        },
-        this.defaultActions
-    );
+    this.defaultActions = R.insert(0, {type: 'calendar_alt', onClick: this.onCalendarClick}, this.defaultActions);
+  }
+
+  /**
+   * @stable [07.01.2018]
+   * @param {DateTimeLikeTypeT} currentRawValue
+   */
+  public onChangeManually(currentRawValue: DateTimeLikeTypeT): void {
+    super.onChangeManually(this.formatDate(currentRawValue));
   }
 
   public onKeyEnter(event: KeyboardEventT): void {
@@ -55,54 +52,77 @@ export class DateField extends BasicTextField<DateField,
     }
   }
 
-  public getRawValueFromEvent(event: ChangeEventT): DateTimeLikeTypeT {
-    return this.tryConvertToDate(super.getRawValueFromEvent(event));
-  }
-
-  protected toSerializedValue(rawValue: DateTimeLikeTypeT): string {
-    // Date value must be able to be serialized as a string
-    return orUndef(!isUndef(rawValue), () => this.formatDate(rawValue));
-  }
-
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     return (
-        <DatePickerDialog ref='dialogWindow'
-                          autoOk={props.autoOk}
-                          cancelLabel={props.cancelLabel}
-                          container={props.container}
-                          containerStyle={props.dialogContainerStyle}
-                          disableYearSelection={props.disableYearSelection}
-                          firstDayOfWeek={props.firstDayOfWeek}
-                          initialDate={this.dialogDate}
-                          locale={props.locale}
-                          maxDate={props.maxDate}
-                          minDate={props.minDate}
-                          mode={props.mode}
-                          okLabel={props.okLabel}
-                          onAccept={this.onAccept}
-                          shouldDisableDate={props.shouldDisableDate}
-                          hideCalendarDate={props.hideCalendarDate}
-                          openToYearSelection={props.openToYearSelection}
-                          utils={props.utils}/>
+      <DatePickerDialog
+        ref='dialogWindow'
+        autoOk={props.autoOk}
+        cancelLabel={props.cancelLabel}
+        container={props.container}
+        containerStyle={props.dialogContainerStyle}
+        disableYearSelection={props.disableYearSelection}
+        firstDayOfWeek={props.firstDayOfWeek}
+        initialDate={this.initialDialogDate}
+        locale={props.locale}
+        maxDate={props.maxDate}
+        minDate={props.minDate}
+        mode={props.mode}
+        okLabel={props.okLabel}
+        onAccept={this.onAccept}
+        shouldDisableDate={props.shouldDisableDate}
+        hideCalendarDate={props.hideCalendarDate}
+        openToYearSelection={props.openToYearSelection}
+        utils={props.utils}/>
     );
   }
 
+  /**
+   * @stable [07.01.2018]
+   * @returns {Array<string | RegExp>}
+   */
   protected getFieldMask(): Array<string|RegExp> {
-    return super.getFieldMask() || this.dateTimeSettings.uiDateMask;
+    return orNull<Array<string|RegExp>>(
+      !this.hasDisplayValue,
+      () => super.getFieldMask() || this.dateTimeSettings.uiDateMask
+    );
   }
 
+  /**
+   * @stable [07.01.2019]
+   * @returns {string}
+   */
   protected getFieldPattern(): string {
-    return super.getFieldPattern() || this.dateTimeSettings.uiDatePattern;
+    return orNull<string>(
+      !this.hasDisplayValue,
+      () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern
+    );
   }
 
-  protected toDisplayValue(value: AnyT): string {
-    return this.formatDate(super.toDisplayValue(value));
+  /**
+   * @stable [07.01.2019]
+   * @returns {string}
+   */
+  protected getFieldFormat(): string {
+    return nvl(this.props.format, this.dateTimeSettings.uiDateFormat);
   }
 
-  protected onClick(event: BasicEventT): void {
+  /**
+   * @stable [07.01.2018]
+   * @param {IBasicEvent} event
+   */
+  protected onClick(event: IBasicEvent): void {
     super.onClick(event);
     this.dialogWindow.show();
+  }
+
+  /**
+   * @stable [07.01.2019]
+   * @param {AnyT} value
+   * @returns {string}
+   */
+  protected prepareValueBeforeDisplaying(value: DateTimeLikeTypeT): string {
+    return this.formatDate(value);
   }
 
   /**
@@ -114,35 +134,42 @@ export class DateField extends BasicTextField<DateField,
     this.setFocus();  // UX
   }
 
-  private get dialogDate(): Date {
-    const value = this.value;
-    const defaultDate = this.dc.getCurrentDate();
-    if (R.isNil(value)) {
-      return defaultDate;
+  /**
+   * @stable [07.01.2019]
+   * @returns {Date}
+   */
+  private get initialDialogDate(): Date {
+    if (!this.isValuePresent()) {
+      return this.dc.getCurrentDate();
     }
-    const dateValue = this.tryConvertToDate(value);
+    const dateValue = this.dc.tryConvertToDate(this.value, this.getFieldFormat());
     return dateValue instanceof Date
-        ? dateValue as Date
-        : defaultDate;
+        ? dateValue
+        : this.dc.getCurrentDate();
   }
 
   private get dialogWindow(): IMaterialDateDialogComponent {
     return this.refs.dialogWindow as IMaterialDateDialogComponent;
   }
 
-  private get fieldFormat(): string {
-    return this.props.format || this.dateTimeSettings.uiDateFormat;
-  }
-
   private get dateTimeSettings(): IApplicationDateTimeSettings {
     return this.settings.dateTime || {};
   }
 
+  /**
+   * @stable [07.01.2019]
+   * @param {DateTimeLikeTypeT} value
+   * @returns {string}
+   */
   private formatDate(value: DateTimeLikeTypeT): string {
-    return this.dc.format(value, this.fieldFormat, this.fieldFormat);
+    return this.dc.format(value, this.getFieldFormat(), this.getFieldFormat());
   }
 
-  private tryConvertToDate(value: string): DateTimeLikeTypeT {
-    return this.dc.tryConvertToDate(value, this.fieldFormat);
+  /**
+   * @stable [07.01.2019]
+   */
+  private onCalendarClick(): void {
+    this.setFocus();
+    this.dialogWindow.show();
   }
 }

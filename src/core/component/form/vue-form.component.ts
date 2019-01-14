@@ -18,7 +18,7 @@ import {
             <vue-flex-layout v-if="title"
                              :full="false"
                              class="vue-form-title">
-                {{t(title)}}
+                {{title}}
             </vue-flex-layout>
             <slot name="${VUE_FORM_HEADER_SLOT}"/>
         </vue-flex-layout>

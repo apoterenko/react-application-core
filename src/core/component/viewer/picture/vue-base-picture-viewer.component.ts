@@ -39,14 +39,6 @@ export class VueBasePictureViewer extends VueViewer {
   }
 
   /**
-   * @stable [22.12.2018]
-   * @returns {string}
-   */
-  protected getPreviewClassName(): string {
-    return `vue-picture-viewer-preview ${super.getPreviewClassName()}`;
-  }
-
-  /**
    * @stable [29.11.2018]
    * @returns {IVueBasePictureViewerTemplateMethodsEntity}
    */

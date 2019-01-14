@@ -6,7 +6,7 @@ import { AnyT } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IPlaceEntity } from '../../../entities-definitions.interface';
 import { orNull, toAddress, uuid, toPlace } from '../../../util';
-import { BasicTextField } from '../textfield';
+import { BaseTextField } from '../textfield';
 import { IUniversalDialog,  Dialog } from '../../dialog';
 import {
   IAddressFieldState,
@@ -22,7 +22,7 @@ import {
   IGoogleMapsMarkerChangePlaceEntity,
 } from '../../google';
 
-export class AddressField extends BasicTextField<AddressField, IAddressFieldProps, IAddressFieldState> {
+export class AddressField extends BaseTextField<AddressField, IAddressFieldProps, IAddressFieldState> {
 
   public static defaultProps: IAddressFieldProps = {
     placeholder: ' ',   // Need to replace a google input placeholder

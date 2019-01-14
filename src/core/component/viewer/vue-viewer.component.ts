@@ -35,8 +35,7 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
     const options: VueComponentOptionsT = {
       methods: this.getTemplateMethods() as VueDefaultMethodsT,
       template: `
-        <vue-flex-layout :fullSize="true"
-                         class="${toClassName('vue-viewer', calc(this.className))}">
+        <vue-flex-layout class="${this.getClassName()}">
             ${this.getPreviewTemplate()}
             ${this.getPreviewTemplateAttachment()}
             <vue-popup :open="isPopupOpened()"
@@ -127,6 +126,14 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
    */
   protected getPreviewClassName(): string {
     return 'vue-viewer-preview';
+  }
+
+  /**
+   * @stable [06.01.2018]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    return toClassName('vue-viewer', calc(this.className));
   }
 
   /**

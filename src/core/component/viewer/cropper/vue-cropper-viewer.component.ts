@@ -1,7 +1,7 @@
 import Cropper from 'cropperjs';
 import { Component } from 'vue-property-decorator';
 
-import { DelayedTask, isDef } from '../../../util';
+import { DelayedTask, isDef, toClassName } from '../../../util';
 import { ComponentName } from '../../connector/vue-index';
 import { VUE_VIEWER_CHANGE_EVENT } from '../vue-viewer.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
@@ -91,6 +91,14 @@ class VueCropperViewer extends VueBasePictureViewer {
     this.cropper = new Cropper(this.getSelf(), {
       crop: () => this.cropEmitterTask.start(),
     });
+  }
+
+  /**
+   * @stable [06.01.2019]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    return toClassName('vue-picture-viewer vue-cropper-viewer', super.getClassName());
   }
 
   /**

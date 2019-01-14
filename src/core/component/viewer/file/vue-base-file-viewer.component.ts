@@ -26,8 +26,10 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
    */
   protected getPreviewTemplate(): string {
     return `
-      <vue-flex-layout :row="true">
-          <vue-flex-layout :justifyContentCenter="true">
+      <vue-flex-layout :row="true"
+                       class="${this.getPreviewClassName()}">
+          <vue-flex-layout :justifyContentCenter="true"
+                           class="vue-viewer-preview-wrapper">
               <span class="vue-viewer-preview-label">
                     {{getPlaceholder()}}
               </span>
@@ -38,10 +40,8 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
           </vue-flex-layout>
           <vue-flex-layout :full="false"
                            :justifyContentCenter="true">
-              <div class="vue-icon vue-icon-close"
-                   @click="onRemove">
-                    &nbsp;
-              </div>
+              <div class="vue-icon vue-icon-close vue-viewer-preview-icon-close"
+                   @click="onRemove"/>
           </vue-flex-layout>
       </vue-flex-layout>
     `;

@@ -10,16 +10,24 @@
     $rac-button-background: $rac-button-background,
     $rac-button-border: none,
     $rac-button-content-margin-right: auto,
-    $rac-button-content-margin-left: auto
+    $rac-button-content-margin-left: auto,
+    $rac-button-content-font-size: $rac-button-content-font-size
   );
 
   @include rac-button(                                                              /* @stable [01.11.2018] */
-    $rac-button-custom: rac-button-raised,
+    $rac-button-custom: $rac-button-raised-cls,
     $rac-button-color: $rac-button-raised-color,
     $rac-button-background: $rac-button-raised-background,
     $rac-button-shadow: $rac-button-raised-shadow,
+    $rac-button-shadow-offset: $rac-button-raised-shadow-offset,
     $rac-button-hover-background: $rac-button-raised-hover-background,
     $rac-button-hover-shadow: $rac-button-raised-hover-shadow
+  );
+
+  @include rac-button(                                                              /* @stable [10.01.2019] */
+    $rac-button-custom: $rac-button-outlined-cls,
+    $rac-button-border: $rac-button-outlined-border,
+    $rac-button-background: $rac-button-outlined-background
   );
 
   @include rac-button(                                                              /* @stable [01.11.2018] */
@@ -40,7 +48,6 @@
   .rac-button {
     text-transform: $rac-button-text-transform;                           /* @stable [18.09.2018] */
     font-weight: $rac-button-font-weight;                                 /* @stable [18.09.2018] */
-    font-size: $rac-button-font-size;                                     /* @stable [30.10.2018] */
     cursor: pointer;                                                      /* @stable [29.10.2018] */
 
     &.rac-button-not-filled {

@@ -1,18 +1,21 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as $ from 'jquery';
 
 import MaskedTextInput from 'react-text-mask';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
-import { orNull, toClassName, nvl, cancelEvent, IJqElement, parseValueAtPx } from '../../../util';
-import { UNI_CODES, IChangeEvent } from '../../../definitions.interface';
-import { IFieldActionConfiguration, FieldActionPositionEnum } from '../../../configurations-definitions.interface';
+import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx } from '../../../util';
+import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
+import {
+  IFieldActionConfiguration,
+  FieldActionPositionEnum,
+  IKeyboardConfiguration,
+} from '../../../configurations-definitions.interface';
 import { Field, IField } from '../field';
 import { ProgressLabel } from '../../progress';
-import { Keyboard, IKeyboardConfiguration } from '../../keyboard';
+import { Keyboard } from '../../keyboard';
 import { ENV } from '../../../env';
 import {
   IBasicTextFieldState,
@@ -21,7 +24,7 @@ import {
 } from './basic-textfield.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BasicTextField<TComponent extends IField<TInternalProps, TInternalState>,
+export class BaseTextField<TComponent extends IField<TInternalProps, TInternalState>,
                             TInternalProps extends IBasicTextFieldProps,
                             TInternalState extends IBasicTextFieldState>
     extends Field<TComponent,
@@ -70,7 +73,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
 
     return !R.isNil(mask)
         ? <MaskedTextInput
-            guide={nvl(props.maskGuide, BasicTextField.DEFAULT_MASK_GUIDE)}
+            guide={nvl(props.maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
             placeholderChar={nvl(props.maskPlaceholderChar, UNI_CODES.space)}
             mask={mask}
             {...this.getInputElementProps()}/>
@@ -111,7 +114,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    * @stable [03.09.2018]
    * @returns {JSX.Element}
    */
-  protected toKeyboardElement(): JSX.Element {
+  protected keyboardElement(): JSX.Element {
     return (
       <Keyboard ref='keyboard'
                 field={this.input}
@@ -122,11 +125,19 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
+   * @stable [13.01.2019]
+   * @returns {boolean}
+   */
+  protected isKeyboardOpened(): boolean {
+    return super.isKeyboardOpened() || this.getKeyboardConfiguration().renderToBody === false;
+  }
+
+  /**
    * @stable [21.11.2018]
    * @returns {IKeyboardConfiguration}
    */
-  protected getKeyboardConfiguration(): IKeyboardConfiguration{
-    return {};
+  protected getKeyboardConfiguration(): IKeyboardConfiguration {
+    return this.props.keyboardConfiguration || {};
   }
 
   /**
@@ -262,7 +273,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
    */
   private getMirrorInputElement(): JSX.Element {
     const props = this.props;
-    if (!props.useKeyboard || !this.isValuePresent()) {
+    if (!props.useKeyboard || !this.isValuePresent() || !this.useSyntheticCursor) {
       return null;
     }
 
@@ -312,7 +323,7 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
     const textOffset = 2;
 
     return orNull<JSX.Element>(
-      state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
+      this.useSyntheticCursor && state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
         <div className='rac-field-input-caret'
              style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
@@ -335,10 +346,9 @@ export class BasicTextField<TComponent extends IField<TInternalProps, TInternalS
   }
 
   /**
-   * @stable [12.09.2018]
-   * @returns {IJqElement}
+   * TODO domAccessor
    */
-  private get jMirrorInput(): IJqElement {
-    return $(this.mirrorInputRef.current);
+  private get jMirrorInput(): IJQueryElement {
+    return toJqEl(this.mirrorInputRef.current);
   }
 }

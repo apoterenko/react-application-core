@@ -6,7 +6,7 @@ import { BaseContainer } from '../../component/base';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
 import { IContainerProps } from '../../props-definitions.interface';
 
-export class LayoutContainer<TProps extends IContainerProps> extends BaseContainer<TProps> {
+export class LayoutContainer<TProps extends IContainerProps, TState = {}> extends BaseContainer<TProps, TState> {
 
   /**
    * @stable [19.08.2018]

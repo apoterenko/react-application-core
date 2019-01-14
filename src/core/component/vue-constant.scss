@@ -5,28 +5,43 @@ $vue-color3: #0053d9 !default;
 $vue-color4: #fedb06 !default;
 
 /* @stable [24.11.2018] */
+$vue-default-font-size: 12px !default;
+$vue-default-font-size-2: 14px !default;
+$vue-default-font-size-3: 16px !default;
 $vue-default-border-radius: 4px !default;
 $vue-default-hover: $vue-color4 !default;
 $vue-default-text-field-input-padding: 16px !default;
 
+/* @stable [24.11.2018] */
+$vue-icons: unset !default;
+$vue-icon-path: unset !default;
+$vue-icon-type: svg !default;
+
 /* @stable [18.11.2018] */
 $vue-text-field-input-padding: 0 $vue-default-text-field-input-padding !default;
+$vue-text-field-input-font-size: $vue-default-font-size-2 !default;
 $vue-text-field-height: 46px !default;
 $vue-text-field-border-radius: $vue-default-border-radius !default;
 $vue-text-field-border: 1px solid $vue-color2 !default;
 $vue-text-field-float-label-padding: $vue-text-field-input-padding !default;
 $vue-text-field-float-labeled-and-filled-input-padding: $vue-default-text-field-input-padding $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
 $vue-text-field-float-labeled-and-filled-float-label-padding: ($vue-default-text-field-input-padding / 2) $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
-$vue-field-float-label-font-size: 12px !default;
+$vue-field-float-label-font-size: $vue-default-font-size !default;
 $vue-field-float-label-color: $vue-color1 !default;
-$vue-file-field-attachment-wrapper-content-border: 1px dashed $vue-color2 !default;
-$vue-file-field-attachment-wrapper-content-border-radius: $vue-default-border-radius !default;
-$vue-multi-file-field-attachment-wrapper-content-margin: 0 16px 16px 0 !default;
-$vue-multi-file-field-attachment-wrapper-content-float: left !default;
-$vue-multi-file-field-attachment-wrapper-content-width: 100px !default;
-$vue-multi-file-field-attachment-wrapper-content-height: 100px !default;
-$vue-multi-file-field-attachment-wrapper-viewer-preview-border-radius: $vue-file-field-attachment-wrapper-content-border-radius !default;
-$vue-multi-file-field-attachment-wrapper-viewer-selector-border: 1px solid transparent !default;  /* CSS float left Workaround*/
+$vue-file-field-attachment-wrapper-width: 100% !default;
+$vue-file-field-attachment-content-border: 1px dashed $vue-color2 !default;
+$vue-file-field-attachment-content-padding: 0 $vue-default-text-field-input-padding !default;
+$vue-file-field-attachment-content-border-radius: $vue-default-border-radius !default;
+$vue-file-field-attachment-content-picture-viewer-border: 1px solid transparent !default;  /* CSS float left Workaround*/
+$vue-file-field-attachment-content-picture-viewer-preview-border-radius: $vue-file-field-attachment-content-border-radius !default;
+$vue-file-field-attachment-placeholder-font-size: $vue-default-font-size-2 !default;
+$vue-file-field-attachment-placeholder-padding: unset !default;
+$vue-file-field-attachment-dnd-message-padding: unset !default;
+$vue-file-field-attachment-dnd-message-font-size: $vue-default-font-size-3 !default;
+$vue-multi-file-field-attachment-content-margin: 0 16px 16px 0 !default;
+$vue-multi-file-field-attachment-content-float: left !default;
+$vue-multi-file-field-attachment-content-width: 100px !default;
+$vue-multi-file-field-attachment-content-height: 100px !default;
 $vue-select-icon-width: 16px !default;
 $vue-select-icon-height: 10px !default;
 $vue-select-icon-margin: 0 20px 0 auto !default;
@@ -35,8 +50,10 @@ $vue-select-icon-margin: 0 20px 0 auto !default;
 $vue-viewer-scale-action-size: 32px !default;
 $vue-viewer-scale-action-position-right: 5% !default;
 $vue-viewer-scale-action-position-top: 50% !default;
+$vue-viewer-preview-label-font-size: $vue-default-font-size-2 !default;
 $vue-viewer-preview-file-name-color: $vue-color3 !default;
-$vue-viewer-preview-file-name-font-size: 16px !default;
+$vue-viewer-preview-file-name-font-size: $vue-default-font-size-3 !default;
+$vue-viewer-preview-icon-close-size: 16px !default;
 
 /* @stable [18.11.2018] */
 $vue-popup-body-padding: 16px 16px 0 16px !default;
@@ -55,13 +72,16 @@ $vue-menu-list-item-hover-background: $vue-color4 !default;
 /* @stable [26.11.2018] */
 $vue-form-title-font-size: 24px !default;
 $vue-form-title-font-weight: bold !default;
-$vue-form-header-height: 50px !default;
+$vue-form-title-padding: unset !default;
+$vue-form-header-height: 48px !default;
+$vue-form-header-padding: 2px 0 0 0 !default;
 $vue-form-field-margin: 0 0 16px 0 !default;
 
 /* @stable [27.12.2018] */
+$vue-button-font-size: $vue-default-font-size-2 !default;
 $vue-button-padding: 16px 48px !default;
 $vue-button-border: 0 !default;
-$vue-button-border-radius: 4px !default;
+$vue-button-border-radius: $vue-default-border-radius !default;
 $vue-button-background: $vue-color4 !default;
 $vue-button-cursor: pointer !default;
 
@@ -72,3 +92,4 @@ $vue-grid-button-background: $vue-color2 !default;
 /* @stable [27.12.2018] */
 $vue-dnd-default-message-color: $vue-color3 !default;
 $vue-dnd-default-message-text-decoration: underline dashed !default;
+$vue-dnd-default-message-cursor: pointer !default;

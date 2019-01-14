@@ -51,16 +51,6 @@ export const ifNotNilReturnValue = <TResult>(checkedValue: AnyT,
   ifNilReturnDefault<TResult, null>(checkedValue, result, null);
 
 /**
- * @stable [11.12.2018]
- * @param {AnyT} checkedValue
- * @param {(() => TResult) | TResult} result
- * @returns {TResult | null}
- */
-export const ifNilReturnValue = <TResult>(checkedValue: AnyT,
-                                          result: TResult | (() => TResult)): TResult | null =>
-  ifNilReturnDefault<null, TResult>(checkedValue, null, result);
-
-/**
  * @stable [19.08.2018]
  * @param {AnyT} value
  * @param {(() => TResult) | TResult} result

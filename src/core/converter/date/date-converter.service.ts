@@ -66,7 +66,7 @@ export class DateConverter implements IDateConverter {
    * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
    * @returns {string} [Example: Apr 07 08:54 PM]
    */
-  public fromDateTimeToPstDateTime(date: DateTimeLikeTypeT = new Date()): string {
+  public fromDateTimeToPstDateTime(date: DateTimeLikeTypeT = this.currentDate): string {
     return this.fromDateTimeToArbitraryFormat(date, this.pstDateTimeFormat);
   }
 
@@ -75,8 +75,17 @@ export class DateConverter implements IDateConverter {
    * @param {DateTimeLikeTypeT} date [Example: 2018-11-30T03:00:00+03:00]
    * @returns {string} [Example: Nov 30]
    */
-  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = new Date()): string {
+  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = this.currentDate): string {
     return this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstDateFormat);
+  }
+
+  /**
+   * @stable [08.01.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromDateTimeToPstTime(date: DateTimeLikeTypeT = this.currentDate): string {
+    return this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstTimeFormat);
   }
 
   /**
@@ -282,10 +291,6 @@ export class DateConverter implements IDateConverter {
     return this.fromDateTimeToArbitraryFormat(date, this.uiDateTimeFormat);
   }
 
-  public fromDateTimeToPstTime(date: DateTimeLikeTypeT = new Date(), input = this.dateTimeFormat): string {
-    return this.format(date, input, this.dateTimeSettings.pstTimeFormat);
-  }
-
   /**
    * @test
    * @param {string} startUiDate [2018-01-31]
@@ -366,25 +371,12 @@ export class DateConverter implements IDateConverter {
     return this.formatDateTime(date, this.timeFormat);
   }
 
-  public formatPstTimeFromDateTime(date: DateTimeLikeTypeT): string {
-    return this.formatDateTime(date, this.dateTimeSettings.pstTimeFormat); // TODO
-  }
-
   public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateTimeFormat, outputFormat);
   }
 
   public formatPSTDate(date: DateTimeLikeTypeT = new Date()): string {
     return this.formatDate(date, this.dateTimeSettings.pstDateFormat);
-  }
-
-  public parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date {
-    const result = this.tryConvertToDate(date, inputFormat);
-    return orNull<Date>(!isString(result), result as Date);
-  }
-
-  public parseDateFromDateTime(date: DateTimeLikeTypeT): Date {
-    return this.parseDate(date, this.dateTimeFormat);
   }
 
   public appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat: string = this.dateFormat): Date {

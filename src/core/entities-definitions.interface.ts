@@ -99,7 +99,6 @@ import {
   IReadyWrapper,
   IRegionWrapper,
   IResetErrorWrapper,
-  IRootWrapper,
   ISectionWrapper,
   ISelectedEntityWrapper,
   ISelectedWrapper,
@@ -299,24 +298,12 @@ export interface IContainer<TProps extends IContainerProps = IContainerProps, TS
 }
 
 /**
- * @stable [18.06.2018]
- */
-export type IUniversalFieldDisplayValueConverter<TValue = AnyT> = (value: TValue, scope?: IUniversalField) => string;
-
-/**
- * @stable [18.06.2018]
- */
-export interface IUniversalFieldDisplayValueWrapper<TValue = AnyT>
-  extends IDisplayValueWrapper<string | IUniversalFieldDisplayValueConverter<TValue>> {
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface IUniversalFieldEntity extends IUniversalComponentEntity,
                                                IValueWrapper,
                                                IOriginalValueWrapper,
-                                               IUniversalFieldDisplayValueWrapper {
+                                               IDisplayValueWrapper<string | ((value: AnyT) => string)> {
 }
 
 /**

@@ -3,10 +3,7 @@ import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
-import {
-  IUniversalField,
-  IUniversalFieldDisplayValueConverter,
-} from '../../../entities-definitions.interface';
+import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
 import { FIELD_DISPLAY_EMPTY_VALUE, FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
@@ -53,7 +50,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
 
     this.state = {} as TState;
 
-    if (props.useKeyboard) {
+    if (props.useKeyboard && this.useSyntheticCursor) {
       this.caretBlinkingTask = new DelayedTask(
         this.setCaretVisibility.bind(this),
         props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
@@ -132,11 +129,10 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [07.01.2018]
    * @param {AnyT} currentRawValue
-   * @param {AnyT} context
    */
-  public onChangeManually(currentRawValue: AnyT, context?: AnyT): void {
+  public onChangeManually(currentRawValue: AnyT): void {
     this.onChangeValue(currentRawValue);
   }
 
@@ -262,17 +258,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
       () => Printf.sprintf(this.t(this.props.displayMessage), ...args),
       FIELD_DISPLAY_EMPTY_VALUE
     );
-  }
-
-  /**
-   * The state may be an external storage and the value must be able to be serialized.
-   *
-   * @stable [17.06.2018]
-   * @param {AnyT} rawValue
-   * @returns {AnyT}
-   */
-  protected toSerializedValue(rawValue: AnyT): AnyT {
-    return rawValue;
   }
 
   /**
@@ -409,38 +394,47 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
-   * @stable [18.06.2018]
+   * @stable [07.01.2019]
    * @param {AnyT} value
-   * @param {AnyT} context
    * @returns {AnyT}
    */
-  protected toDisplayValue(value: AnyT, context?: AnyT): AnyT {
-    const props = this.props;
-    const displayValue = props.displayValue;
-
-    return this.inProgress()
-      ? FIELD_DISPLAY_EMPTY_VALUE // The dictionaries data is cleaned before request
-      : (
-        this.isValuePresent(value)
-          ? (isUndef(displayValue)
-              ? value
-              : (isFn(displayValue)
-                  ? (displayValue as IUniversalFieldDisplayValueConverter)(value, this)
-            // TODO remove scope and use tryCalcDisplayValue
-                  : displayValue))
-          : FIELD_DISPLAY_EMPTY_VALUE
-      );
+  protected toDisplayValue(value: AnyT): AnyT {
+    return orDefault(
+      this.inProgress() || !this.isValuePresent(value),
+      FIELD_DISPLAY_EMPTY_VALUE,  // The dictionaries data is cleaned before request
+      () => this.tryCalcDisplayValue(value)
+    );
   }
 
   /**
-   * @stable [03.12.2018]
+   * @stable [07.01.2019]
    * @param {AnyT} value
    * @returns {AnyT}
    */
   protected tryCalcDisplayValue(value: AnyT): AnyT {
     const props = this.props;
     const displayValue = props.displayValue;
-    return isFn(displayValue) ? calc(displayValue, value) : value;
+
+    return this.hasDisplayValue
+      ? isFn(displayValue) ? calc(displayValue, this.prepareValueBeforeDisplaying(value)) : displayValue
+      : this.prepareValueBeforeDisplaying(value);
+  }
+
+  /**
+   * @stable [07.01.2018]
+   * @returns {boolean}
+   */
+  protected get hasDisplayValue(): boolean {
+    return isDef(this.props.displayValue);
+  }
+
+  /**
+   * @stable [07.01.2018]
+   * @param {AnyT} value
+   * @returns {AnyT}
+   */
+  protected prepareValueBeforeDisplaying(value: AnyT): AnyT {
+    return value;
   }
 
   /**
@@ -525,7 +519,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [03.09.2018]
    * @returns {JSX.Element}
    */
-  protected toKeyboardElement(): JSX.Element {
+  protected keyboardElement(): JSX.Element {
     return null;
   }
 
@@ -536,7 +530,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (!this.props.useKeyboard || this.state.keyboardOpened) {
       return false;
     }
-    this.setState({keyboardOpened: true}, () => this.caretBlinkingTask.start());
+    this.setState({keyboardOpened: true}, () => isDef(this.caretBlinkingTask) && this.caretBlinkingTask.start());
 
     UniversalField.logger.debug(
       `[$UniversalField][openSyntheticKeyboard] A keyboard for the field "${this.props.name}" will be opened soon.`
@@ -560,7 +554,9 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    */
   protected onCloseKeyboard(): boolean {
     if (this.props.useKeyboard) {
-      this.caretBlinkingTask.stop();
+      if (isDef(this.caretBlinkingTask)) {
+        this.caretBlinkingTask.stop();
+      }
 
       UniversalField.logger.debug(
         `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
@@ -575,12 +571,18 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @returns {JSX.Element}
    */
   protected getKeyboardElement(): JSX.Element {
-    return (
-      orNull<JSX.Element>(
-        this.props.useKeyboard && this.state.keyboardOpened,
-        () => this.toKeyboardElement(),
-      )
+    return orNull<JSX.Element>(
+      this.props.useKeyboard && this.isKeyboardOpened(),
+      () => this.keyboardElement(),
     );
+  }
+
+  /**
+   * @stable [13.01.2019]
+   * @returns {boolean}
+   */
+  protected isKeyboardOpened(): boolean {
+    return this.state.keyboardOpened;
   }
 
   /**
@@ -630,6 +632,14 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   protected getCaretPosition(): number {
     // Need to implement
     return 0;
+  }
+
+  /**
+   * @stable [14.01.2019]
+   * @returns {boolean}
+   */
+  protected get useSyntheticCursor(): boolean {
+    return this.props.useSyntheticCursor !== false;
   }
 
   /**
@@ -687,7 +697,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (!isFn(props.changeForm)) {
       return;
     }
-    props.changeForm(props.name, this.toSerializedValue(rawValue), props.validationGroup);
+    props.changeForm(props.name, rawValue, props.validationGroup);
   }
 
   /**
@@ -697,7 +707,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   private propsOnChange(rawValue: AnyT): void {
     const props = this.props;
     if (props.onChange) {
-      props.onChange(props.returnSerializedValueOnChange ? this.toSerializedValue(rawValue) : rawValue);
+      props.onChange(rawValue);
     }
   }
 

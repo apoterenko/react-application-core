@@ -16,25 +16,26 @@ export class CardList extends BaseList<CardList, ICardListProps> {
     const props = this.props;
     return (
       <div ref='container'
-           className={toClassName('rac-card-list', props.className)}>
-        {this.dataSource.map((item) => this.getItem(item))}
+           className={toClassName('rac-list rac-card-list rac-flex-full', props.className)}>
+        {this.dataSource.map((item, index) => this.getItem(item, index))}
         {this.addActionElement}
       </div>
     );
   }
 
   /**
-   * @stable [02.05.2018]
+   * @stable [12.01.2019]
    * @param {IEntity} entity
+   * @param {number} index
    * @returns {JSX.Element}
    */
-  protected getItem(entity: IEntity): JSX.Element {
+  protected getItem(entity: IEntity, index: number): JSX.Element {
     const props = this.props;
     const itemConfiguration = props.itemConfiguration;
     return (
       <Card key={this.toRowKey(entity)}
             rippable={true}
-            className='rac-card-list-item'
+            className={`rac-list-item rac-list-item-${index}`}
             actionButtons={itemConfiguration && itemConfiguration.actionButtons
                               && itemConfiguration.actionButtons(entity)}
             actionIcons={itemConfiguration && itemConfiguration.actionIcons

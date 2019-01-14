@@ -14,6 +14,7 @@
     .dz-message {                                                                             /* @stable [27.12.2018] */
       color: $vue-dnd-default-message-color;
       text-decoration: $vue-dnd-default-message-text-decoration;
+      cursor: $vue-dnd-default-message-cursor;
     }
   }
 }

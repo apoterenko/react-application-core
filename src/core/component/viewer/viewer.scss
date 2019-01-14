@@ -1,8 +1,13 @@
 @import '../constant';
-@import './picture/picture-viewer';
+@import '../mixin';
 
 // Viewer [FRAMEWORK-][RAC+]
 .rac {
+
+  @include rac-viewer(                                                                        /* @stable [10.01.2019] */
+    $rac-viewer-position: relative,
+    $rac-viewer-content-margin: $rac-viewer-content-margin
+  );
 
   .rac-preview-dialog {
 
@@ -18,9 +23,6 @@
   }
 
   .rac-viewer {
-    position: relative;                                       /* @stable [30.06.2018] */
-    margin-right: auto;
-    margin-left: auto;
 
     .rac-preview-action-icon {
       &.rac-action-icon {

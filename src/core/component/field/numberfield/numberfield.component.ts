@@ -1,4 +1,4 @@
-import { BasicTextField } from '../textfield';
+import { BaseTextField } from '../textfield';
 import { IApplicationNumberSettings } from '../../../settings';
 import {
   INumberField,
@@ -6,9 +6,10 @@ import {
   INumberFieldInternalProps,
 } from './numberfield.interface';
 import { ChangeEventT } from '../../../definitions.interface';
-import { IKeyboardConfiguration, KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
+import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
+import { IKeyboardConfiguration } from '../../../configurations-definitions.interface';
 
-export class NumberField extends BasicTextField<NumberField,
+export class NumberField extends BaseTextField<NumberField,
                                                 INumberFieldInternalProps,
                                                 INumberFieldInternalState>
     implements INumberField {
@@ -34,9 +35,10 @@ export class NumberField extends BasicTextField<NumberField,
    * @stable [21.11.2018]
    * @returns {IKeyboardConfiguration}
    */
-  protected getKeyboardConfiguration(): IKeyboardConfiguration{
+  protected getKeyboardConfiguration(): IKeyboardConfiguration {
     return {
       layout: [KEYBOARD_NUMERIC_LAYOUT],
+      ...super.getKeyboardConfiguration(),
     };
   }
 }

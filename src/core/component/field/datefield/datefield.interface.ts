@@ -5,11 +5,12 @@ import {
   IBasicTextFieldState,
 } from '../textfield/basic-textfield.interface';
 import { IComponentEntity } from '../../../entities-definitions.interface';
+import { IFormatWrapper } from '../../../definitions.interface';
 
-export interface IDateFieldInternalProps extends IBasicTextFieldProps {
+export interface IDateFieldProps extends IBasicTextFieldProps,
+                                         IFormatWrapper {
   container?: 'dialog' | 'inline';
   mode?: 'portrait' | 'landscape';
-  format?: string;
   cancelLabel?: string;
   autoOk?: boolean;
   dialogContainerStyle?: CSSProperties;
@@ -21,11 +22,11 @@ export interface IDateFieldInternalProps extends IBasicTextFieldProps {
   okLabel?: string;
   utils?: any;
   openToYearSelection?: boolean;
-  shouldDisableDate?: () => boolean;
+  shouldDisableDate?: (day: Date) => boolean;
   hideCalendarDate?: boolean;
 }
 
-export interface IDateFieldInternalState extends IBasicTextFieldState {
+export interface IDateFieldState extends IBasicTextFieldState {
 }
 
 export interface IMaterialDateDialogComponent extends Component<IComponentEntity, { open: boolean }> {

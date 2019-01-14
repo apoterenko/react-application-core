@@ -4,6 +4,8 @@
 .vac {
   @include vue-form($vue-form-title-font-size: $vue-form-title-font-size,                     /* @stable [27.11.2018] */
                     $vue-form-header-height: $vue-form-header-height,
+                    $vue-form-header-padding: $vue-form-header-padding,
                     $vue-form-title-font-weight: $vue-form-title-font-weight,
+                    $vue-form-title-padding: $vue-form-title-padding,
                     $vue-form-field-margin: $vue-form-field-margin)
 }

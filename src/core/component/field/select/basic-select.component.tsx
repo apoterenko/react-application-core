@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { cancelEvent, toClassName, isDef, getWidth } from '../../../util';
-import { BasicTextField } from '../../field/textfield';
+import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
   AnyT,
@@ -19,7 +19,7 @@ import { FIELD_DISPLAY_EMPTY_VALUE } from '../../field/field/field.interface';
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
                          TProps extends IBasicSelectProps,
                          TState extends IBasicSelectState>
-    extends BasicTextField<TComponent, TProps, TState> {
+    extends BaseTextField<TComponent, TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('BasicSelect');
 

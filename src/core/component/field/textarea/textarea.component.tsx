@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { isDef, toClassName, orNull } from '../../../util';
 import { ITextArea, ITextAreaInternalProps, ITextAreaInternalState } from './textarea.interface';
-import { BasicTextField } from '../textfield';
+import { BaseTextField } from '../textfield';
 import { IFieldTextAreaProps } from '../field';
 
-export class TextArea extends BasicTextField<TextArea,
+export class TextArea extends BaseTextField<TextArea,
                                              ITextAreaInternalProps,
                                              ITextAreaInternalState>
     implements ITextArea {

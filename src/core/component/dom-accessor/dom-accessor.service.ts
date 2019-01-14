@@ -12,13 +12,51 @@ import {
   setScrollLeft,
   toJqEl,
   getHeight,
+  addClassNameToElement,
+  removeClassNameFromElement,
 } from '../../util';
 import { IApplicationDomAccessor } from './dom-accessor.interface';
 import { IXYEntity } from '../../entities-definitions.interface';
 import { IJQueryElement } from '../../definitions.interface';
+import { ENV } from '../../env';
 
 @injectable()
 export class DomAccessor implements IApplicationDomAccessor {
+
+  /**
+   * @stable [13.01.2019]
+   * @returns {Element}
+   */
+  public getRootElement(): Element {
+    // TODO Inject name
+    return document.getElementById('root');
+  }
+
+  /**
+   * @stable [13.01.2019]
+   * @returns {Element}
+   */
+  public getDocumentBodyElement(): Element {
+    return ENV.documentBody;
+  }
+
+  /**
+   * @stable [13.01.2019]
+   * @param {Element} element
+   * @param {string} clsNames
+   */
+  public addClassNameToElement(element: Element, ...clsNames: string[]): void {
+    addClassNameToElement(element, ...clsNames);
+  }
+
+  /**
+   * @stable [13.01.2019]
+   * @param {Element} element
+   * @param {string} clsNames
+   */
+  public removeClassNameFromElement(element: Element, ...clsNames: string[]): void {
+    removeClassNameFromElement(element, ...clsNames);
+  }
 
   /**
    * @stable [18.12.2018]

@@ -1,4 +1,4 @@
-import { BasicTextField } from '../textfield';
+import { BaseTextField } from '../textfield';
 import { IApplicationDateTimeSettings } from '../../../settings';
 import {
   ITimeField,
@@ -6,7 +6,7 @@ import {
   ITimeFieldInternalProps,
 } from './timefield.interface';
 
-export class TimeField extends BasicTextField<TimeField,
+export class TimeField extends BaseTextField<TimeField,
                                               ITimeFieldInternalProps,
                                               ITimeFieldInternalState>
     implements ITimeField {

@@ -12,15 +12,23 @@ export class PictureViewer extends Viewer<PictureViewer, IPictureViewerProps, IP
   };
 
   /**
-   * @stable [08.07.2018]
+   * @stable [10.01.2019]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    return toClassName(super.getClassName(), 'rac-picture-viewer');
+  }
+
+  /**
+   * @stable [11.01.2019]
    * @returns {JSX.Element}
    */
-  protected getRenderAreaElement(): JSX.Element {
+  protected getContentElement(): JSX.Element {
     const props = this.props;
     return (
-      <img className={toClassName(props.src ? 'rac-picture' : 'rac-picture-empty', props.className)}
-           style={props.style}
-           src={props.src || props.defaultScr}/>
+      <img
+        className={props.src ? 'rac-viewer-content' : 'rac-viewer-empty-content'}
+        src={props.src || props.defaultScr}/>
     );
   }
 
@@ -31,8 +39,9 @@ export class PictureViewer extends Viewer<PictureViewer, IPictureViewerProps, IP
   protected gePreviewElement(): JSX.Element {
     const props = this.props;
     return (
-      <PictureViewer src={props.src}
-                     usePreview={false}/>
+      <PictureViewer
+        src={props.src}
+        usePreview={false}/>
     );
   }
 }

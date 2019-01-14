@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull, filterAndSortEntities, isFn, trimmedUndefEmpty, defValuesFilter } from '../../util';
+import { orNull, filterAndSortEntities, isFn, trimmedUndefEmpty, defValuesFilter, ifNotNilThanValue } from '../../util';
 import {
   IEntity,
   IEntityWrapper,
@@ -207,16 +207,6 @@ export const filterFormChangesWrapperMapper = <TResult = IEntity>(filterFormWrap
   } as TResult);
 
 /**
- * @stable [29.10.2018]
- * @param {IFormWrapperEntity} formWrapperEntity
- * @returns {TResult}
- */
-export const formChangesWrapperMapper = <TResult extends IEntity = IEntity>(formWrapperEntity: IFormWrapperEntity): TResult =>
-  ({
-    ...formWrapperEntity.form.changes,
-  } as TResult);
-
-/**
  * @stable [03.12.2018]
  * @param {IEditableEntity} editableEntity
  * @returns {TResult}
@@ -276,6 +266,14 @@ export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
  */
 export const selectedEntityMapper = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
   orNull<TEntity>(listEntity, (): TEntity => listEntity.selected as TEntity);
+
+/**
+ * @stable [10.01.2019]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {TEntity}
+ */
+export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
+  ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => list.selected as TEntity);
 
 /**
  * @stable [09.05.2018]

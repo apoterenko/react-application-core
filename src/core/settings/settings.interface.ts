@@ -15,6 +15,7 @@ export interface IApplicationDateTimeSettings {
   timeFormat?: string;       // Client-server communication format
   dateTimeFormat?: string;   // Client-server communication format
   uiDateFormat?: string;     // UI format
+  uiMonthFormat?: string;    // UI format
   uiTimeFormat?: string;     // UI format
   pstDateFormat?: string;                 // UI PST format
   pstTimeFormat?: string;                 // UI PST format
@@ -173,6 +174,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',
     uiDateFormat: 'YYYY-MM-DD',
+    uiMonthFormat: 'YYYY-MM',
     uiTimeFormat: 'HH:mm:ss',
     pstTimeFormat: 'hh:mm A',
     pstDateFormat: 'MMM DD',

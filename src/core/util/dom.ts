@@ -226,7 +226,7 @@ export const isDocumentHasFocus = (): boolean => isFn(document.hasFocus) && docu
  * @param {Element} source
  * @returns {IJQueryElement}
  */
-export const toJqEl = (source: Element): IJQueryElement => $(source);
+export const toJqEl = <TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement => $(source) as TJqElement;
 
 /**
  * @stable [28.06.2018]
@@ -332,7 +332,7 @@ export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadE
     top = 0;
     marginTop = 0;
   }
-  payloadEntity.jqStickyEl.css({position, 'z-index': zIndex, 'padding-top': top});
+  payloadEntity.jqStickyEl.css({position, 'z-index': zIndex, 'top': top});
   payloadEntity.jqStickyNeighborRightEl.css('margin-top', `${marginTop}px`);
 };
 

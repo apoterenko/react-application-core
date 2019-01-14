@@ -18,6 +18,7 @@ export interface IDateConverter {
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
+  fromDateTimeToPstTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
@@ -59,13 +60,9 @@ export interface IDateConverter {
   formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
   formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
-  formatPstTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDate(date?: DateTimeLikeTypeT, input?: string): string;
-  fromDateTimeToPstTime(date?: DateTimeLikeTypeT, input?: string): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
-  parseDate(date: DateTimeLikeTypeT, inputFormat: string): Date;
-  parseDateFromDateTime(date: DateTimeLikeTypeT): Date;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   getCurrentDate(): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;

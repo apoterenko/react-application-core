@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { BasicTextField } from '../textfield';
+import { BaseTextField } from '../textfield';
 import { cancelEvent, orNull, downloadBlob, toClassName } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
@@ -23,7 +23,7 @@ import { IBasicEvent } from '../../../react-definitions.interface';
 export class BaseFileField<TComponent extends BaseFileField<TComponent, TProps, TState>,
                            TProps extends IBaseFileFieldProps,
                            TState extends IBaseFileFieldState>
-    extends BasicTextField<TComponent, TProps, TState> {
+    extends BaseTextField<TComponent, TProps, TState> {
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
 

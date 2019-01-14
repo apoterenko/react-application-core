@@ -216,9 +216,13 @@ import {
   IValueWrapper,
   IWarningWrapper,
   IWidthWrapper,
-  IReturnSerializedValueOnChangeWrapper,
   IOnScrollWrapper,
   ITotalEntityWrapper,
+  StringNumberT,
+  IKeyboardConfigurationWrapper,
+  IUseSyntheticCursorWrapper,
+  IFieldWrapper,
+  IRenderToBodyWrapper,
 } from './definitions.interface';
 import {
   IApiEntity,
@@ -473,6 +477,7 @@ export interface IUniversalListConfiguration
           IDeactivatedWrapper,
           IApplyOddWrapper,
           IHoveredWrapper,
+          IFullWrapper,
           ISelectableWrapper,
           IGroupByWrapper<{
             columnName: string,
@@ -677,6 +682,38 @@ export enum FieldActionPositionEnum {
 }
 
 /**
+ * @stable [08.05.2018]
+ */
+export enum KeyboardKeyEnum {
+  UPPERCASE,
+  CHANGE_LAYOUT,
+  LOWERCASE,
+  BACKSPACE,
+  SPACE,
+  ENTER,
+}
+
+export type KeyboardKeyT = string | IKeyboardKey;
+export type KeyboardLayoutT = KeyboardKeyT[][];
+
+// TODO Fix class name
+export interface IKeyboardKey extends IValueWrapper<string>,
+                                                   ITypeWrapper<KeyboardKeyEnum>,
+                                                   IClassNameWrapper,
+                                                   IWidthWrapper {
+}
+
+/**
+ * @stable [08.05.2018]
+ */
+export interface IKeyboardConfiguration extends IComponentConfiguration,
+                                                IFieldWrapper<HTMLInputElement | HTMLTextAreaElement>,
+                                                ILayoutWrapper<KeyboardLayoutT[]>,
+                                                IOnCloseWrapper,
+                                                IRenderToBodyWrapper {
+}
+
+/**
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
@@ -707,13 +744,14 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           ICanReturnClearDirtyChangesValueWrapper,
           IMessageWrapper,
           IUseKeyboardWrapper,
+          IKeyboardConfigurationWrapper<IKeyboardConfiguration>,
           ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string>,
           IFieldRenderedWrapper,
           IFullWrapper,
+          IUseSyntheticCursorWrapper,
           IChangeableWrapper,
-          IDefaultValue,
-          IReturnSerializedValueOnChangeWrapper {
+          IDefaultValue {
 }
 
 /* @stable - 11.04.2018 */
@@ -729,7 +767,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              ILabelWrapper,
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
-                                             ITypeWrapper,
+                                             ITypeWrapper<StringNumberT>,
                                              IPlaceholderWrapper,
                                              IClearActionWrapper,
                                              IStepWrapper {
@@ -999,6 +1037,7 @@ export interface IFilterActionConfiguration extends IClassNameWrapper,
 export interface IFilterConfiguration extends IActionsDisabledWrapper,
                                               INotUseFieldWrapper,
                                               IIconWrapper,
+                                              IFullWrapper,
                                               IActionsWrapper<IFilterActionConfiguration[]>,
                                               IFieldConfigurationWrapper {
 }

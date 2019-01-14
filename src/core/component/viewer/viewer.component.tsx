@@ -63,7 +63,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
 
     return (
       <FlexLayout style={props.style}
-                  className={toClassName('rac-viewer', this.props.className)}>
+                  className={this.getClassName()}>
         {orDefault<React.ReactNode, React.ReactNode>(
           isErrorExist || isSrcAndDefaultSrcAbsent,
           () => (
@@ -78,7 +78,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
           () => orDefault<React.ReactNode, React.ReactNode>(
             isProgressMessageShown,
             () => this.settings.messages.waitingMessage,
-            () => this.getRenderAreaElement()
+            () => this.getContentElement()
           ),
         )}
         {
@@ -118,6 +118,14 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
   }
 
   /**
+   * @stable [10.01.2019]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    return toClassName('rac-viewer', this.props.className);
+  }
+
+  /**
    * @stable [08.07.2018]
    */
   protected refresh(): void {
@@ -128,7 +136,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
    * @stable [08.07.2018]
    * @returns {JSX.Element}
    */
-  protected abstract getRenderAreaElement(): JSX.Element;
+  protected abstract getContentElement(): JSX.Element;
 
   /**
    * @stable [08.07.2018]

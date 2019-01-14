@@ -4,6 +4,7 @@ import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { VueBasePictureViewer } from './vue-base-picture-viewer.component';
+import { toClassName } from '../../../util';
 
 @ComponentName('vue-picture-viewer')
 @Component(vueDefaultComponentConfigFactory())
@@ -30,5 +31,13 @@ export class VuePictureViewer extends VueBasePictureViewer {
    */
   protected onClosePopup(): void {
     super.onClosePopup();
+  }
+
+  /**
+   * @stable [06.01.2019]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    return toClassName('vue-picture-viewer', super.getClassName());
   }
 }

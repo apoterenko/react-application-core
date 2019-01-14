@@ -24,3 +24,8 @@ export interface IVueSelectTemplateMethods extends IVueBaseTextFieldTemplateMeth
   onSelect?(option: IMenuItemEntity): void;
   getMenuBindings?(): IVueMenuProps;
 }
+
+/**
+ * @stable [06.01.2018]
+ */
+export const VUE_SELECT_NAME = 'vue-select';

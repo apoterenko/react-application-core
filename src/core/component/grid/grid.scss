@@ -1,8 +1,6 @@
-@import '~sass-flex-mixin/_flex';
 @import '../constant';
 @import '../mixin';
 @import './time-grid';
-@import './tight-grid';
 @import './column/grid-column';
 
 // Grid [FRAMEWORK-][RAC+]
@@ -46,6 +44,12 @@
     $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,
     $rac-grid-data-row-total-background: $rac-grid-data-row-total-background,
     $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight
+  );
+
+  @include rac-grid(                                                                          /* @stable [07.01.2019] */
+    $rac-grid-custom: rac-tight-grid,
+    $rac-grid-body-column-padding-top: $rac-tight-grid-body-column-padding-top,
+    $rac-grid-body-column-padding-bottom: $rac-tight-grid-body-column-padding-bottom
   );
 
   .rac-grid {
