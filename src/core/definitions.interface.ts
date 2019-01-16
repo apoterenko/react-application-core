@@ -1313,6 +1313,13 @@ export interface IOutlinedWrapper {
   outlined?: boolean;
 }
 
+/**
+ * @stable [16.01.2019]
+ */
+export interface IDecoratedWrapper {
+  decorated?: boolean;
+}
+
 /* @stable - 20.04.2018 */
 export interface IRaisedWrapper {
   raised?: boolean;
