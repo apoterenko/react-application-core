@@ -15,8 +15,6 @@ import {
   buildApiEntity,
   isFormFieldReadOnly,
   isFormFieldDisabled,
-  isFormDisabled,
-  isFormEditable,
   isFormNewEntity,
   isFormDirty,
   isFormValid,
@@ -280,24 +278,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    * @stable [03.08.2018]
    * @returns {boolean}
    */
-  private isFormDisabled(): boolean {
-    return isFormDisabled(this.props);
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
   private isFormDirty(): boolean {
     return isFormDirty(this.props);
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
-  private isFormEditable(): boolean {
-    return isFormEditable(this.props);
   }
 
   /**

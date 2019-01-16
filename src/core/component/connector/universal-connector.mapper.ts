@@ -381,12 +381,12 @@ export const dictionaryEntityDataMapper = <TDictionaryEntity, TResult = TDiction
   );
 
 /**
- * @stable [23.11.2018]
+ * @stable [16.01.2019]
  * @param {TEntity} entity
  * @returns {TEntity}
  */
-export const simpleEntityMapper = <TEntity extends IEntity>(entity: TEntity) =>
-  orNull<TEntity>(!R.isNil(entity), {...entity as {}} as TEntity);
+export const simpleEntityMapper = <TEntity extends IEntity>(entity: TEntity): TEntity =>
+  ifNotNilThanValue<TEntity, TEntity>(entity, (): TEntity => ({...entity as {}} as TEntity));
 
 /**
  * @stable [29.05.2018]

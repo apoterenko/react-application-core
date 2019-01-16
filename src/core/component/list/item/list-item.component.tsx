@@ -21,7 +21,7 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps>
       ...this.initialProps,
       className: toClassName(
         'rac-list-item',
-        props.selected && `rac-list-item-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`,
+        props.selected ? `rac-list-item-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}` : 'rac-list-item-unselected',
         props.className,
         props.warning && 'rac-list-item-warning',
         props.toClassName && props.toClassName(props.rawData),

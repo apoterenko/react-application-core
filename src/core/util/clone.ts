@@ -1,15 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { FunctionT, isFn, isPrimitive, uuid, ifNotNilThanValue } from '../util';
+import { FunctionT, isFn, isPrimitive, uuid } from '../util';
 import { ReactElementT } from '../definitions.interface';
-
-/**
- * @stable [14.06.2018]
- * @param {T} o
- * @returns {T}
- */
-export const shallowCloneIfExists = <T>(o: T): T => ifNotNilThanValue<T, T>(o, (): T => ({...o as {}} as T));
 
 /**
  * @stable [14.06.2018]
