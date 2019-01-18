@@ -1288,8 +1288,7 @@
                   $rac-button-background: unset,
                   $rac-button-margin: unset,
                   $rac-button-border: unset,
-                  $rac-button-content-margin-right: unset,
-                  $rac-button-content-margin-left: unset,
+                  $rac-button-content-margin: unset,
                   $rac-button-content-padding: unset,
                   $rac-button-content-font-size: unset,
                   $rac-button-content-color: unset,
@@ -1323,8 +1322,7 @@
 
     @include rac-styles(
       $rac-styles-custom: rac-button-content,
-      $rac-styles-margin-right: $rac-button-content-margin-right,
-      $rac-styles-margin-left: $rac-button-content-margin-left,
+      $rac-styles-margin: $rac-button-content-margin,
       $rac-styles-padding: $rac-button-content-padding,
       $rac-styles-font-size: $rac-button-content-font-size,
       $rac-styles-color: $rac-button-content-color
@@ -2313,13 +2311,13 @@
                      $rac-card-list-item-graphic-size: unset,
                      $rac-card-list-item-selected-background: unset) {
 
-  $rac-card-list-custom-cls: rac-card-list;
+  $rac-card-list-cls: rac-card-list;
   @if $rac-card-list-custom != unset {
-    $rac-card-list-custom-cls: '#{$rac-card-list-custom-cls}.#{$rac-card-list-custom}'
+    $rac-card-list-cls: '#{$rac-card-list-cls}.#{$rac-card-list-custom}'
   }
 
   @include rac-list(
-    $rac-list-custom: $rac-card-list-custom-cls,
+    $rac-list-custom: $rac-card-list-cls,
     $rac-list-margin: $rac-card-list-margin,
     $rac-list-padding: $rac-card-list-padding,
     $rac-list-max-height: $rac-card-list-max-height,
@@ -2432,6 +2430,8 @@
                   $rac-viewer-content-margin: unset,
                   $rac-viewer-content-size: unset,
                   $rac-viewer-content-border-radius: unset,
+                  $rac-viewer-content-max-width: unset,
+                  $rac-viewer-content-max-height: unset,
                   $rac-viewer-empty-content-size: unset,
                   $rac-viewer-empty-content-margin: unset,
                   $rac-viewer-empty-content-border-radius: unset) {
@@ -2445,6 +2445,8 @@
     > .rac-viewer-content {
       @include rac-styles(
         $rac-styles-size: $rac-viewer-content-size,
+        $rac-styles-max-width: $rac-viewer-content-max-width,
+        $rac-styles-max-height: $rac-viewer-content-max-height,
         $rac-styles-margin: $rac-viewer-content-margin,
         $rac-styles-border-radius: $rac-viewer-content-border-radius
       );
@@ -2469,7 +2471,9 @@
                    $rac-overlay-filter-value: unset,
                    $rac-overlay-close-action-position: unset,
                    $rac-overlay-close-action-top: unset,
-                   $rac-overlay-close-action-right: unset) {
+                   $rac-overlay-close-action-right: unset,
+                   $rac-overlay-close-action-size: unset,
+                   $rac-overlay-close-action-color: unset) {
 
   #{rac-build-cls(rac-overlay, $rac-overlay-custom)} {
     @include rac-styles(
@@ -2481,7 +2485,9 @@
       $rac-icon-custom: rac-overlay-close-action,
       $rac-icon-position: $rac-overlay-close-action-position,
       $rac-icon-top: $rac-overlay-close-action-top,
-      $rac-icon-right: $rac-overlay-close-action-right
+      $rac-icon-right: $rac-overlay-close-action-right,
+      $rac-icon-size: $rac-overlay-close-action-size,
+      $rac-icon-color: $rac-overlay-close-action-color
     );
 
     @if $rac-overlay-filter-value != unset {

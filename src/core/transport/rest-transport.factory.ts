@@ -9,7 +9,7 @@ import { defValuesFilter, orDefault} from '../util';
 export class RestTransportFactory extends TransportFactory {
 
   protected getRequestData(req: ITransportRequestEntity): ITransportRequestParamsEntity | Blob {
-    return orDefault(!R.isNil(req.params), () => defValuesFilter(req.params), {});
+    return req.formData || orDefault(!R.isNil(req.params), () => defValuesFilter(req.params), {}); // TODO
   }
 
   protected getResponseData(res): any { // TODO

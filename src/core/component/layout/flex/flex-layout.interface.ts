@@ -9,6 +9,7 @@ import {
   IAlignItemsEndWrapper,
   IOverflowWrapper,
   IFullSizeWrapper,
+  IWrapWrapper,
   IOverflowMinContentHeightWrapper,
 } from '../../../definitions.interface';
 import { IOnClickWrapper } from '../../../react-definitions.interface';
@@ -25,6 +26,7 @@ export interface IFlexLayoutProps extends IComponentProps,
                                           IJustifyContentCenterWrapper,
                                           IJustifyContentEndWrapper,
                                           IFullWrapper,
+                                          IWrapWrapper,
                                           IOverflowWrapper,
                                           IOverflowMinContentHeightWrapper,
                                           IRowWrapper {

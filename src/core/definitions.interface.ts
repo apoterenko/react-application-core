@@ -2618,6 +2618,13 @@ export interface IAlignItemsCenterWrapper {
 }
 
 /**
+ * @stable [16.01.2018]
+ */
+export interface IWrapWrapper {
+  wrap?: boolean;
+}
+
+/**
  * @stable [13.01.2018]
  */
 export interface IFullSizeWrapper {

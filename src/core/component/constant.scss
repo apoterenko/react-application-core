@@ -119,9 +119,10 @@ $rac-add-button-icon-content-height: $rac-icon-height2 !default;
 /* @stable [24.06.2018] */
 $rac-button-outlined-cls: rac-button-outlined;
 $rac-button-raised-cls: rac-button-raised;
+$rac-button-decorated-cls: rac-button-decorated;
 $rac-button-height: 40px !default;
 $rac-button-background: $color-10 !default;
-$rac-button-padding: 0 !default;
+$rac-button-padding: 0 $rac-default-half-offset !default;
 $rac-button-outlined-border: 1px solid $color-4 !default;
 $rac-button-outlined-background: transparent !default;
 $rac-button-raised-color: $color-5 !default;
@@ -131,7 +132,9 @@ $rac-button-raised-shadow-offset: 0 6px 16px 0 !default;
 $rac-button-raised-hover-background: $rac-button-raised-background !default;
 $rac-button-raised-hover-shadow: $rac-button-raised-shadow !default;
 $rac-button-decorated-content-padding: 0 32px 0 0 !default;
+$rac-button-decorated-content-margin: unset !default;
 $rac-button-font-weight: $rac-default-font-weight-2 !default;
+$rac-button-content-margin: 0 auto !default;
 $rac-button-content-font-size: $rac-default-font-size-2 !default;
 $rac-button-border-radius: $rac-default-border-radius !default;
 $rac-button-text-transform: none !default;
@@ -588,6 +591,8 @@ $rac-overlay-opacity: 1 !default;
 $rac-overlay-close-action-position: absolute !default;
 $rac-overlay-close-action-top: 32px !default;
 $rac-overlay-close-action-right: 32px !default;
+$rac-overlay-close-action-size: unset !default;
+$rac-overlay-close-action-color: unset !default;
 
 /**/
 $rac-disabled-opacity: .2;

@@ -48,6 +48,12 @@ export class TransportFactory implements IApplicationTransportFactory {
         'Content-Type': 'application/octet-stream',
       };
     }
+    const isFormData = isDef(req.formData);
+    if (isFormData) {
+      headers = {
+        'Content-Type': 'multipart/form-data', // TODO
+      };
+    }
 
     const uri0 = new URI(
       req.url || [
@@ -55,7 +61,7 @@ export class TransportFactory implements IApplicationTransportFactory {
         req.path || ''
       ].join('')  // URI's segment works incorrectly with a UUID (uri0.segment(req.path))
     );
-    if (req.noCache !== true) {
+    if (req.noCache !== true && !(R.isNil(req.method) || req.method === 'post')) {
       uri0.addSearch('_dc', Date.now());
     }
 
@@ -63,7 +69,7 @@ export class TransportFactory implements IApplicationTransportFactory {
       defValuesFilter<ITransportHttpRequestEntity, ITransportHttpRequestEntity>({
           headers,
           url: uri0.valueOf(),
-          method: req.method || 'POST',
+          method: req.method || 'post',
           data: this.getRequestData(req),
           withCredentials: true,
           cancelToken: cancelToken && cancelToken.token,
@@ -114,8 +120,8 @@ export class TransportFactory implements IApplicationTransportFactory {
     return res;
   }
 
-  protected getRequestData(req: ITransportRequestEntity): ITransportRequestParamsEntity | Blob {
-    return req.blob || this.toRequestParams(req);
+  protected getRequestData(req: ITransportRequestEntity): ITransportRequestParamsEntity | Blob | FormData {
+    return req.formData || req.blob || this.toRequestParams(req); // TODO
   }
 
   private clearOperation(operationId?: string): void {

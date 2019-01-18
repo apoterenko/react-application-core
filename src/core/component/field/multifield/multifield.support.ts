@@ -106,12 +106,12 @@ export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>
  * @param {MultiFieldEntityT} entity
  * @returns {TItem[]}
  */
-export const toActualMultiItemAddedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
+export const toActualMultiItemAddedEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT): TEntity[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
   const multiEntity = entity as IMultiEntity;
-  return isNotMultiEntity(entity) ? [] : multiEntity.add as TItem[];
+  return isNotMultiEntity(entity) ? [] : multiEntity.add as TEntity[];
 };
 
 /**

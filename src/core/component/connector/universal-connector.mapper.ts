@@ -207,13 +207,21 @@ export const filterFormChangesWrapperMapper = <TResult = IEntity>(filterFormWrap
   } as TResult);
 
 /**
- * @stable [03.12.2018]
+ * @stable [17.01.2019]
+ * @param {IEditableEntity} entity
+ * @returns {TResult}
+ */
+export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
+  entity.changes as TResult;
+
+/**
+ * @stable [17.01.2019]
  * @param {IEditableEntity} editableEntity
  * @returns {TResult}
  */
 export const editableEntityChangesMapper = <TResult extends IEntity = IEntity>(editableEntity: IEditableEntity): TResult =>
   ({
-    ...editableEntity.changes,
+    ...editableEntityChangesSelector(editableEntity),
   } as TResult);
 
 /**

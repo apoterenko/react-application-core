@@ -42,7 +42,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   };
   private readonly PROFILE_EXIT_ACTION = 'exit';
   private readonly USER_MENU_OPTIONS = [
-    {label: 'Exit', icon: 'exit_to_app', value: this.PROFILE_EXIT_ACTION}
+    {label: 'Exit', icon: 'sign_out_alt', value: this.PROFILE_EXIT_ACTION}
   ];
   private userMenuRef = React.createRef<Menu>();
 

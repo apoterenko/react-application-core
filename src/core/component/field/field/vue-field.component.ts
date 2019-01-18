@@ -180,10 +180,11 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
     if (!R.isNil(data) && this.canSetDataDisplayValueOnManualInputChange(newValue)) {
       data.displayValue = newValue;
     }
+    const emittedValue = this.toEmittedValue(newValue);
     if (this.isContainerBound()) {
-      this.bindContainer.dispatchFormChange(this.name, newValue);
+      this.bindContainer.dispatchFormChange(this.name, emittedValue);
     }
-    this.$emit(VUE_FIELD_CHANGE_EVENT, newValue);
+    this.$emit(VUE_FIELD_CHANGE_EVENT, emittedValue);
   }
 
   /**
@@ -203,6 +204,15 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
     return {
       displayValue: null,
     } as  TState;
+  }
+
+  /**
+   * @stable [19.01.2019]
+   * @param {AnyT} newValue
+   * @returns {AnyT}
+   */
+  protected toEmittedValue(newValue: AnyT): AnyT {
+    return newValue;
   }
 
   /**

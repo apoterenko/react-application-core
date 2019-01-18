@@ -115,7 +115,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
           {props.compact ? nodes : bodyEl}
           {
             orNull<JSX.Element>(
-                !props.notUseActions,
+                !props.notUseActions && // notUseActions - deprecated
+                  props.useActions !== false,
                 () => (
                     <FlexLayout full={false}
                                 row={true}

@@ -21,70 +21,10 @@ import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { IDateConverter } from '../../converter';
 import { orUndef, isUndef, isNull, isFn } from '../../util';
 
+// TODO
 @provideInSingleton(DateTimeFieldHelper)
 export class DateTimeFieldHelper {
   @lazyInject(DI_TYPES.DateConverter) private dc: IDateConverter;
-
-  /**
-   * @stable [25.08.2018]
-   * @param {TEntity} changes
-   * @param {(entity: TEntity) => string} fromDateResolver
-   * @param {(entity: TEntity) => string} toDateResolver
-   * @param {number} monthAgo
-   * @returns {IFromDateToDateEntity}
-   */
-  public buildLastPeriodFromChanges<TEntity extends IEntity>(changes: TEntity,
-                                                             fromDateResolver: (entity: TEntity) => string,
-                                                             toDateResolver: (entity: TEntity) => string,
-                                                             monthAgo?: number): IFromDateToDateEntity {
-    return this.buildLastPeriod<TEntity>({changes}, fromDateResolver, toDateResolver, monthAgo);
-  }
-
-  /**
-   * @stable [25.08.2018]
-   * @param {IApiEntity<TEntity extends IEntity>} apiEntity
-   * @param {(entity: TEntity) => string} fromDateResolver
-   * @param {(entity: TEntity) => string} toDateResolver
-   * @param {number} monthAgo
-   * @returns {IFromDateToDateEntity}
-   */
-  public buildLastPeriod<TEntity extends IEntity>(apiEntity: IApiEntity<TEntity>,
-                                                  fromDateResolver: (entity: TEntity) => string,
-                                                  toDateResolver: (entity: TEntity) => string,
-                                                  monthAgo = 0): IFromDateToDateEntity {
-    const lastDayOfLastMonth = this.dc.getLastDayOfMonth(monthAgo);
-    const firstDayOfLastMonth = this.dc.getFirstDayOfMonth(monthAgo);
-    const currentDate = this.dc.getCurrentDate();
-
-    return {
-      fromDate: this.dc.fromDateTimeToDate(this.toDateTime<TEntity>(apiEntity, fromDateResolver) || firstDayOfLastMonth),
-      toDate: this.dc.fromDateTimeToDate(this.toDateTime<TEntity>(apiEntity, toDateResolver) ||
-        (lastDayOfLastMonth.getTime() > currentDate.getTime() ? currentDate : lastDayOfLastMonth)),
-    };
-  }
-
-  // TODO duplication
-  public buildLastDateTimePeriod<TEntity extends IEntity>(apiEntity: IApiEntity<TEntity>,
-                                                          fromDateResolver: (entity: TEntity) => string,
-                                                          toDateResolver: (entity: TEntity) => string,
-                                                          monthAgo = 0): IFromDateFromTimeToDateToTimeEntity {
-    const lastDayOfLastMonth = this.dc.getLastDayOfMonth(monthAgo);
-    const firstDayOfLastMonth = this.dc.getFirstDayOfMonth(monthAgo);
-    const currentDate = this.dc.getCurrentDate();
-
-    return {
-      fromDate: this.dc.formatDateTimeFromDateTime(this.toDateTime<TEntity>(apiEntity, fromDateResolver) || firstDayOfLastMonth),
-      toDate: this.dc.formatDateTimeFromDateTime(this.toDateTime<TEntity>(apiEntity, toDateResolver) ||
-        (lastDayOfLastMonth.getTime() > currentDate.getTime() ? currentDate : lastDayOfLastMonth)),
-    };
-  }
-
-  public buildLastDateTimePeriodFromChanges<TEntity extends IEntity>(changes: TEntity,
-                                                                     fromDateResolver: (entity: TEntity) => string,
-                                                                     toDateResolver: (entity: TEntity) => string,
-                                                                     monthAgo?: number): IFromDateToDateEntity {
-    return this.buildLastDateTimePeriod<TEntity>({changes}, fromDateResolver, toDateResolver, monthAgo);
-  }
 
   public buildDateTimeFromField<TEntity extends IDateTimeEntity>(apiEntity: IApiEntity<TEntity>,
                                                                  returnOriginalValueIfNoChanges = false): string {
@@ -117,15 +57,6 @@ export class DateTimeFieldHelper {
       returnOriginalValueIfNoChanges,
       DEFAULT_TIME_TO
     );
-  }
-
-  public joinDateTimeFields<TEntity extends IFromDateFromTimeToDateToTimeEntity>(
-    apiEntity: IApiEntity<TEntity>,
-    returnOriginalValueIfNoChanges = false): IFromDateFromTimeToDateToTimeEntity {
-    return {
-      ...this.composeDateTimeSinceField(apiEntity, returnOriginalValueIfNoChanges),
-      ...this.composeDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
-    };
   }
 
   public composeDateTimeSinceField<TEntity extends IFromDateFromTimeEntity>(
@@ -187,35 +118,6 @@ export class DateTimeFieldHelper {
         toTimeResolver(entity)
       ),
     } as TEntity;
-  }
-
-  public splitToDateTimeRangeFields(entity: IFromDateFromTimeToDateToTimeEntity): IFromDateFromTimeToDateToTimeEntity {
-    return {
-      ...this.splitToDateTimeSinceFields(entity),
-      ...this.splitToDateTimeTillFields(entity),
-    };
-  }
-
-  public splitToDateTimeSinceFields(entity: IFromDateFromTimeEntity): IFromDateFromTimeEntity {
-    return this.splitToDateTimeFields<IFromDateFromTimeEntity>(
-      entity,
-      FROM_DATE_FIELD_NAME,
-      FROM_TIME_FIELD_NAME,
-      (source) => source.fromDate
-    );
-  }
-
-  public splitToDateTimeTillFields(entity: IToDateToTimeEntity): IToDateToTimeEntity {
-    return this.splitToDateTimeFields<IToDateToTimeEntity>(
-      entity,
-      TO_DATE_FIELD_NAME,
-      TO_TIME_FIELD_NAME,
-      (source) => source.toDate
-    );
-  }
-
-  public splitToDateTimeBasicFields(entity: IDateTimeEntity): IDateTimeEntity {
-    return this.splitToDateAndTimeBasicFields<IDateTimeEntity>(entity, (source) => source.date);
   }
 
   public splitToDateAndTimeBasicFields<TEntity>(entity: IDateTimeEntity,

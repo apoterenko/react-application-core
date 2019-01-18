@@ -11,7 +11,7 @@ import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
 import { UniversalField } from '../field/field/universal-field.component';
 
 /**
- * @stable - 11.04.2018
+ * TODO api support buildApiEntity
  * @param {IEntity} changes
  * @param {IEntity} entity
  * @param {IEntity} originalEntity

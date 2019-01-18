@@ -15,6 +15,7 @@ export * from './component/viewer/vue-index';
 export * from './store/vue-index';
 export * from './router/vue-index';
 export * from './component/action.builder';
+export * from './api';
 export * from './di';
 export * from './env';
 export * from './util';

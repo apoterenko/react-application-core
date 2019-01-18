@@ -10,6 +10,7 @@ import { IApplicationSettings } from '../../settings';
 import { IVueContainer, IVueComponent } from '../../vue-entities-definitions.interface';
 import { IVueRefs } from '../../vue-definitions.interface';
 import { IVueBaseProps } from './vue-base.interface';
+import { INumberConverter } from '../../converter';
 
 export class VueBaseComponent<TStore = IKeyValue,
                               TState = IKeyValue> extends Vue
@@ -18,6 +19,7 @@ export class VueBaseComponent<TStore = IKeyValue,
   @Prop() public className: string | ((...AnyT) => string);
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
   @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
+  @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @Prop() protected styles: IKeyValue;
   @Prop() protected bindContainer: IVueContainer;
   @Prop() protected bindStore: TStore;

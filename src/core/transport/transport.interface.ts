@@ -57,7 +57,7 @@ export interface ITransportHttpRequestEntity extends IMethodWrapper,
                                                      IKeyValueHeadersWrapper,
                                                      IUrlWrapper,
                                                      IWithCredentialsWrapper,
-                                                     IDataWrapper<Blob|ITransportRequestParamsEntity> {
+                                                     IDataWrapper<Blob|ITransportRequestParamsEntity|FormData> {
   cancelToken?: string;
 }
 
@@ -71,6 +71,7 @@ export interface ITransportRequestEntity extends INameWrapper,
                                                  INoCacheWrapper,
                                                  IUrlWrapper,
                                                  IOperationWrapper {
+  formData?: FormData; // TODO
 }
 
 export interface ITransportRequestParamsEntity extends INameWrapper,
