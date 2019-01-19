@@ -11,4 +11,9 @@
     $vue-button-background: $vue-button-background,
     $vue-button-cursor: $vue-button-cursor
   );
+
+  @include vue-button(                                                                        /* @stable [19.01.2019] */
+    $vue-button-custom: vue-button-disabled,
+    $vue-button-opacity: $vue-button-disabled-opacity
+  );
 }

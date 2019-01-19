@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { Component } from 'vue-property-decorator';
 
-import { generateArray, isPrimitive } from '../../../util';
+import { generateArray, isPrimitive, isArrayNotEmpty } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
@@ -47,13 +47,16 @@ class VueFileField extends VueBaseFileField implements IVueFileFieldProps {
     return R.isNil(actualEntities) || actualEntities.length === 0 ? generateArray(1) : actualEntities;
   }
 
-  // TODO refactoring
+  /**
+   * @stable [19.01.2019]
+   * @param {File} file
+   * @param {number} index
+   * @returns {string}
+   */
   public getViewerComponent(file: File, index: number): string {
-    const files = this.getFiles();
-
-    return files.length > 0
-      ? (files[0].type === 'application/pdf' || (!files[0].newEntity && this.getFileFormat() === 'pdf')
-        ? 'vue-pdf-file-viewer' : this.viewer)
+    const filesEntities = this.getFiles();
+    return isArrayNotEmpty(filesEntities)
+      ? this.toViewer(filesEntities[0].type || this.getFileFormat())
       : this.viewer;
   }
 }

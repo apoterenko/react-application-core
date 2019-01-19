@@ -4,11 +4,11 @@ import { AnyT } from '../../../definitions.interface';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueBaseTextField } from '../textfield/vue-index';
-import { VUE_NUMBER_FIELD_NAME } from './vue-numberfield.interface';
+import { IVueNumberFieldProps, VUE_NUMBER_FIELD_NAME } from './vue-numberfield.interface';
 
 @ComponentName(VUE_NUMBER_FIELD_NAME)
 @Component
-export class VueNumberField extends VueBaseTextField {
+export class VueNumberField extends VueBaseTextField implements IVueNumberFieldProps {
 
   /**
    * @stable [21.10.2018]

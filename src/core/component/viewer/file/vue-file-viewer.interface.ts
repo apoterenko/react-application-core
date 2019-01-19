@@ -25,3 +25,8 @@ export interface IVueFileViewerTemplateMethodsEntity extends IVueBasePictureView
   getFileName?(): string;
   getPlaceholder?(): string;
 }
+
+/**
+ * @stable [19.01.2018]
+ */
+export const VUE_FILE_VIEWER_NAME = 'vue-file-viewer';

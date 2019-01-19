@@ -239,28 +239,7 @@
 }
 
 /**
- * @stable [27.12.2018]
- */
-@mixin _vue-button-custom-properties($vue-button-padding: unset,
-                                     $vue-button-font-size: unset,
-                                     $vue-button-border: unset,
-                                     $vue-button-color: unset,
-                                     $vue-button-border-radius: unset,
-                                     $vue-button-background: unset,
-                                     $vue-button-cursor: unset) {
-  @include rac-styles(
-    $rac-styles-padding: $vue-button-padding,
-    $rac-styles-font-size: $vue-button-font-size,
-    $rac-styles-border: $vue-button-border,
-    $rac-styles-border-radius: $vue-button-border-radius,
-    $rac-styles-background: $vue-button-background,
-    $rac-styles-color: $vue-button-color,
-    $rac-styles-cursor: $vue-button-cursor
-  );
-}
-
-/**
- * @stable [27.12.2018]
+ * @stable [19.01.2019]
  */
 @mixin vue-button($vue-button-custom: unset,
                   $vue-button-font-size: unset,
@@ -269,33 +248,19 @@
                   $vue-button-color: unset,
                   $vue-button-border-radius: unset,
                   $vue-button-background: unset,
-                  $vue-button-cursor: unset) {
-  @if $vue-button-custom != unset {
-    .vue-button {
-      &.#{$vue-button-custom} {
-        @include _vue-button-custom-properties(
-          $vue-button-font-size: $vue-button-font-size,
-          $vue-button-padding: $vue-button-padding,
-          $vue-button-border: $vue-button-border,
-          $vue-button-color: $vue-button-color,
-          $vue-button-border-radius: $vue-button-border-radius,
-          $vue-button-background: $vue-button-background,
-          $vue-button-cursor: $vue-button-cursor
-        );
-      }
-    }
-  } @else {
-    .vue-button {
-      @include _vue-button-custom-properties(
-        $vue-button-font-size: $vue-button-font-size,
-        $vue-button-padding: $vue-button-padding,
-        $vue-button-border: $vue-button-border,
-        $vue-button-color: $vue-button-color,
-        $vue-button-border-radius: $vue-button-border-radius,
-        $vue-button-background: $vue-button-background,
-        $vue-button-cursor: $vue-button-cursor
-      );
-    }
+                  $vue-button-cursor: unset,
+                  $vue-button-opacity: unset) {
+  #{rac-build-cls(vue-button, $vue-button-custom)} {
+    @include rac-styles(
+      $rac-styles-padding: $vue-button-padding,
+      $rac-styles-font-size: $vue-button-font-size,
+      $rac-styles-border: $vue-button-border,
+      $rac-styles-border-radius: $vue-button-border-radius,
+      $rac-styles-background: $vue-button-background,
+      $rac-styles-color: $vue-button-color,
+      $rac-styles-cursor: $vue-button-cursor,
+      $rac-styles-opacity: $vue-button-opacity
+    );
   }
 }
 

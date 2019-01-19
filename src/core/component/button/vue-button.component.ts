@@ -8,6 +8,7 @@ import { VueBaseComponent } from '../base/vue-index';
 @Component({
   template: `
     <button :class='getClassName()'
+            :disabled='disabled'
             v-on:click="onClick($event)">
       {{getText()}}
     </button>
@@ -15,6 +16,7 @@ import { VueBaseComponent } from '../base/vue-index';
 })
 class VueButton extends VueBaseComponent {
   @Prop() private text: string;
+  @Prop() private disabled: boolean;
 
   /**
    * @stable [11.11.2018]
@@ -29,7 +31,11 @@ class VueButton extends VueBaseComponent {
    * @returns {string}
    */
   private getClassName(): string {
-    return toClassName('vue-button', calc(this.className));
+    return toClassName(
+      'vue-button',
+      calc(this.className),
+      this.disabled && 'vue-button-disabled'
+    );
   }
 
   /**

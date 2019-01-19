@@ -461,11 +461,18 @@ export interface IEditableEntityFormWrapperEntity extends IFormWrapper<IEditable
 }
 
 /**
+ * @stable [19.01.2019]
+ */
+export interface IEntityFormEntity<TEntity extends IEntity = IEntity>
+  extends IFormWrapper<IEditableEntity<TEntity>>,
+          IEntityWrapperEntity<TEntity> {
+}
+
+/**
  * @stable [29.05.2018]
  */
 export interface IBasicFormWrapperEntity<TEntity extends IEntity = IEntity>
-  extends IFormWrapper<IEditableEntity<TEntity>>,
-          IEntityWrapperEntity<TEntity>,
+  extends IEntityFormEntity<TEntity>,
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
 }
 

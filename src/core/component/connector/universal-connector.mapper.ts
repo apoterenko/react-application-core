@@ -381,7 +381,7 @@ export const dictionaryEntityMapper
 export const dictionaryEntityDataMapper = <TDictionaryEntity, TResult = TDictionaryEntity[] | TDictionaryEntity>(
   dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
   accessor?: (data: TDictionaryEntity[] | TDictionaryEntity) => TResult): TResult =>
-  orNull(
+  orNull<TResult>(
     dictionaryEntity,
     () => isFn(accessor) && !R.isNil(dictionaryEntity.data)
       ? accessor(dictionaryEntity.data)

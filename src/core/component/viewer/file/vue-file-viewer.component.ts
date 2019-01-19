@@ -4,8 +4,9 @@ import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { VueBaseFileViewer } from './vue-base-file-viewer.component';
+import { VUE_FILE_VIEWER_NAME } from './vue-file-viewer.interface';
 
-@ComponentName('vue-file-viewer')
+@ComponentName(VUE_FILE_VIEWER_NAME)
 @Component(vueDefaultComponentConfigFactory())
 export class VueFileViewer extends VueBaseFileViewer {
 

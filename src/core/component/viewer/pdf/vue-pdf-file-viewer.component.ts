@@ -4,8 +4,9 @@ import { ComponentName } from '../../connector/vue-index';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { VueBaseFileViewer } from '../file/vue-index';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
+import { VUE_PDF_FILE_VIEWER_NAME } from './vue-pdf-file-viewer.interface';
 
-@ComponentName('vue-pdf-file-viewer')
+@ComponentName(VUE_PDF_FILE_VIEWER_NAME)
 @Component(vueDefaultComponentConfigFactory())
 class VuePdfFileViewer extends VueBaseFileViewer {
 

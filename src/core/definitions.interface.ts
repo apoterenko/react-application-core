@@ -2007,6 +2007,13 @@ export interface IPopupWrapper<TPopup = boolean> {
 }
 
 /**
+ * @stable [19.01.2019]
+ */
+export interface IBindStoreWrapper<TBindStore> {
+  bindStore?: TBindStore;
+}
+
+/**
  * @stable [14.05.2018]
  */
 export interface IFilterWrapper<TFilter = string> {

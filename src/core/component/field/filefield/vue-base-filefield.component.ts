@@ -17,7 +17,12 @@ import { IEntity, AnyT } from '../../../definitions.interface';
 import { IMultiItemEntity, MultiItemEntityT, IMultiItemFileEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
-import { IVueBaseFileViewerProps, IVueViewerListenersEntity } from '../../viewer/vue-index';
+import {
+  IVueBaseFileViewerProps,
+  IVueViewerListenersEntity,
+  VUE_PDF_FILE_VIEWER_NAME,
+  VUE_FILE_VIEWER_NAME,
+} from '../../viewer/vue-index';
 import { IVueBaseFileFieldProps, IVueBaseFileFieldTemplateMethods } from './vue-filefield.interface';
 
 export class VueBaseFileField extends VueField
@@ -29,7 +34,7 @@ export class VueBaseFileField extends VueField
   @Prop({default: (): number => 1}) public readonly maxFiles: number;
   @Prop() public readonly defaultDndMessage: string;
   @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
-  @Prop({default: (): string => 'vue-file-viewer'}) public readonly viewer: string;
+  @Prop({default: (): string => VUE_FILE_VIEWER_NAME}) public readonly viewer: string;
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
   @Prop() protected readonly clsFactory: (entity: IEntity) => string;
   @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
@@ -260,6 +265,19 @@ export class VueBaseFileField extends VueField
       fileFormatValue,
       () => this.getValue()
     );
+  }
+
+  /**
+   * @stable [19.01.2019]
+   * @param {string} type
+   * @returns {string}
+   */
+  protected toViewer(type: string): string {
+    switch (type) {
+      case 'application/pdf':
+        return VUE_PDF_FILE_VIEWER_NAME;
+    }
+    return this.viewer;
   }
 
   /**
