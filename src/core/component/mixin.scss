@@ -558,6 +558,27 @@
 }
 
 /**
+ * @stable [20.01.2019]
+ */
+@mixin rac-absolute-v-center-alignment {
+  @include rac-styles(
+    $rac-styles-top: 50%,
+    $rac-styles-transform: translateY(-50%)
+  );
+}
+
+/**
+ * @stable [20.01.2019]
+ */
+@mixin rac-absolute-center-alignment {
+  @include rac-styles(
+    $rac-styles-top: 50%,
+    $rac-styles-left: 50%,
+    $rac-styles-transform: translate(-50%, -50%)
+  );
+}
+
+/**
  * @stable [14.12.2018]
  */
 @mixin rac-after($rac-after-position: unset,

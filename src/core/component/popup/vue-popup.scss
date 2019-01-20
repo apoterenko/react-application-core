@@ -2,5 +2,12 @@
 @import '../vue-mixin';
 
 .vac {
-  @include vue-popup($vue-popup-body-padding: $vue-popup-body-padding);                       /* @stable [26.11.2018] */
+  @include vue-popup(                                                                         /* @stable [20.01.2019] */
+    $vue-popup-background: $vue-popup-background,
+    $vue-popup-size: $vue-popup-size,
+    $vue-popup-padding: $vue-popup-padding,
+    $vue-popup-position: $vue-popup-position,
+    $vue-popup-body-padding: $vue-popup-body-padding,
+    $vue-popup-absolute-center-alignment: $vue-popup-absolute-center-alignment
+  );
 }

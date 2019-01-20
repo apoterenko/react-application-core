@@ -33,6 +33,15 @@ export class VueBaseContainer extends Vue implements IVueContainer {
   }
 
   /**
+   * @stable [21.10.2018]
+   * @param {string} type
+   * @param {AnyT} data
+   */
+  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
+    this.store$.dispatch({type, data});
+  }
+
+  /**
    * @stable [18.11.2018]
    * @param {string} type
    * @param {TChanges} data
@@ -55,9 +64,7 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    * @param {AnyT} fieldValue
    */
   public dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
-    this.store$.dispatch(
-      FormActionBuilder.buildChangeSimpleAction(this.section$, fieldName, fieldValue)
-    );
+    this.store$.dispatch(FormActionBuilder.buildChangeSimpleAction(this.section$, fieldName, fieldValue));
   }
 
   /**
@@ -77,12 +84,10 @@ export class VueBaseContainer extends Vue implements IVueContainer {
   }
 
   /**
-   * @stable [21.10.2018]
-   * @param {string} type
-   * @param {AnyT} data
+   * @stable [20.01.2019]
    */
-  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
-    this.store$.dispatch({type, data});
+  public dispatchListCreate(): void {
+    this.store$.dispatch(ListActionBuilder.buildCreateSimpleAction(this.section$));
   }
 
   /**
@@ -90,13 +95,6 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    */
   protected navigateToBack(): void {
     this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
-  }
-
-  /**
-   * @stable [25.10.2018]
-   */
-  protected dispatchListCreate(): void {
-    this.dispatchCustomType(ListActionBuilder.buildCreateActionType(this.section$));
   }
 
   /**

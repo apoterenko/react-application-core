@@ -1,6 +1,6 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
 
-import { addChild } from '../../util';
+import { addChild, calc, toClassName } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 import { IVueComponent } from '../../vue-entities-definitions.interface';
@@ -19,8 +19,7 @@ import {
         <div class='rac-overlay rac-absolute-full'
              :class="animationClasses"
              @click="onOverlayClick"/>
-        <vue-flex-layout class="vue-popup"
-                        :class="animationClasses">
+        <vue-flex-layout :class="getClassName()">
             <vue-flex-layout v-if="hasHeaderSlot()"
                              :full="false"
                              class="vue-popup-header">
@@ -81,5 +80,13 @@ class VuePopup extends VueBaseComponent {
    */
   private hasHeaderSlot(): boolean {
     return this.hasSlot(VUE_POPUP_HEADER_SLOT);
+  }
+
+  /**
+   * @stable [20.01.2019]
+   * @returns {string}
+   */
+  private getClassName(): string {
+    return toClassName('vue-popup', calc(this.className), this.animationClasses);
   }
 }

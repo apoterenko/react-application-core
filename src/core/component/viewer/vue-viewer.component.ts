@@ -27,6 +27,7 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
   @Prop() public src: string;
   @Prop() public entity: IEntity;
   @Prop() public previewAttachment: string | ((entity: IEntity) => string);
+  @Prop() public popupClassName: string | ((entity: IEntity) => string);
 
   /**
    * @stable [29.11.2018]
@@ -41,6 +42,7 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
             ${this.getPreviewTemplate()}
             ${this.getPreviewTemplateAttachment()}
             <vue-popup :open="isPopupOpened()"
+                       className="${this.getPopupClassName()}"
                        @${VUE_POPUP_CLOSE_EVENT}="onClosePopup">
                 <template slot="${VUE_POPUP_HEADER_SLOT}">
                     ${this.getPopupHeaderTemplate()}
@@ -112,13 +114,19 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
   }
 
   /**
-   * @stable [22.12.2018]
+   * @stable [20.01.2019]
    * @returns {string}
    */
   protected getPreviewTemplateAttachment(): string {
     return orEmpty(
       !R.isNil(this.previewAttachment),
-      () => `<div class="vue-viewer-preview-attachment">${calc(this.previewAttachment, this.entity)}</div>`
+      () => {
+        const content = calc(this.previewAttachment, this.entity);
+        return orEmpty(
+          !R.isNil(content) && !R.isEmpty(content),
+          () => `<div class="vue-viewer-preview-attachment">${content}</div>`
+        );
+      }
     );
   }
 
@@ -135,7 +143,15 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
    * @returns {string}
    */
   protected getClassName(): string {
-    return toClassName('vue-viewer', calc(this.className));
+    return toClassName('vue-viewer', calc(this.className, this.entity));
+  }
+
+  /**
+   * @stable [20.01.2019]
+   * @returns {string}
+   */
+  protected getPopupClassName(): string {
+    return toClassName('vue-viewer-popup', calc(this.popupClassName, this.entity));
   }
 
   /**

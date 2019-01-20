@@ -28,10 +28,6 @@ import {
   IDirectionWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
-  IDispatchFormChangesWrapper,
-  IDispatchFormChangeWrapper,
-  IDispatchLoadDictionaryWrapper,
-  IDispatchWrapper,
   IDisplayValueWrapper,
   IEditApiWrapper,
   IEmailWrapper,
@@ -130,7 +126,6 @@ import {
   ITypeWrapper,
   IZipCodeWrapper,
   IBlobWrapper,
-  IDispatchCustomTypeWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -273,13 +268,16 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
 }
 
 /**
- * @stable [18.11.2018]
+ * @stable [20.01.2019]
  */
-export interface IDispatchEntity extends IDispatchWrapper,
-                                         IDispatchFormChangesWrapper,
-                                         IDispatchLoadDictionaryWrapper,
-                                         IDispatchFormChangeWrapper,
-                                         IDispatchCustomTypeWrapper {
+export interface IDispatchEntity {
+  dispatchListCreate?(): void;
+  dispatchFormChange?(fieldName: string, fieldValue?: AnyT): void;
+  dispatchFormSubmit?(): void;
+  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void;
+  dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
+  dispatchCustomType?<TData = IKeyValue>(type: string, data?: TData): void;
+  dispatch?<TChanges = IKeyValue>(type: string, data?: TChanges): void;
 }
 
 /**

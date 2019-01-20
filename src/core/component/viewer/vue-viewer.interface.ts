@@ -5,6 +5,7 @@ import {
   IPreviewAttachmentWrapper,
   IEntity,
   IEntityWrapper,
+  IPopupClassNameWrapper,
 } from '../../definitions.interface';
 import { IVueBaseProps } from '../base/vue-index';
 
@@ -20,6 +21,7 @@ export interface IVueViewerState extends IPopupWrapper {
 export interface IVueViewerProps<TEntity extends IEntity = IEntity>
   extends IVueBaseProps,
           ISrcWrapper,
+          IPopupClassNameWrapper<string | ((entity: TEntity) => string)>,
           IEntityWrapper<TEntity>,
           IPreviewAttachmentWrapper<string | ((entity: TEntity) => string)> {
 }

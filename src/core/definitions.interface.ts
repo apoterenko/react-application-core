@@ -131,6 +131,13 @@ export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> {
 }
 
 /**
+ * @stable [20.01.2019]
+ */
+export interface IPopupClassNameWrapper<TPopupClassName = string> {
+  popupClassName?: TPopupClassName;
+}
+
+/**
  * @stable [09.12.2018]
  */
 export interface IFileWrapper<TFile = File> {
@@ -1948,48 +1955,6 @@ export interface IUseLocalizationWrapper {
  */
 export interface ISorterWrapper<TSorter> {
   sorter?: TSorter;
-}
-
-/**
- * @stable [18.11.2018]
- */
-export interface IDispatchWrapper {
-  dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void;
-}
-
-/**
- * @stable [14.11.2018]
- */
-export interface IDispatchFormChangesWrapper {
-  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void;
-}
-
-/**
- * @stable [18.11.2018]
- */
-export interface IDispatchFormChangeWrapper {
-  dispatchFormChange(fieldName: string, fieldValue?: AnyT): void;
-}
-
-/**
- * @stable [19.11.2018]
- */
-export interface IDispatchFormSubmitWrapper {
-  dispatchFormSubmit(): void;
-}
-
-/**
- * @stable [18.11.2018]
- */
-export interface IDispatchLoadDictionaryWrapper {
-  dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void;
-}
-
-/**
- * @stable [23.12.2018]
- */
-export interface IDispatchCustomTypeWrapper {
-  dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void;
 }
 
 /**

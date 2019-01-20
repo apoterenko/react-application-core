@@ -36,7 +36,6 @@ export class VueBaseFileField extends VueField
   @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
   @Prop({default: (): string => VUE_FILE_VIEWER_NAME}) public readonly viewer: string;
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
-  @Prop() protected readonly viewerClassName: (entity: IEntity) => string;
   @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
 
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
@@ -119,13 +118,17 @@ export class VueBaseFileField extends VueField
    * @returns {IVueBaseFileViewerProps}
    */
   public getViewerBindings(entityOrEntityId: MultiItemEntityT, index: number): IVueBaseFileViewerProps {
-    const props: IVueBaseFileViewerProps = {
-      ...this.viewerProps,
-      placeholder: this.getPlaceholder(index),
-      className: this.getAttachmentContentClassName(index),
-    };
+    const viewerProps = this.viewerProps;
     const multiItemEntity = entityOrEntityId as IMultiItemEntity;
-    const className = () => toClassName(calc(this.viewerClassName, multiItemEntity), calc(props.className));
+
+    const props: IVueBaseFileViewerProps = {
+      ...viewerProps,
+      placeholder: this.getPlaceholder(index),
+      className: toClassName(
+        this.getAttachmentContentClassName(index),
+        viewerProps && calc(viewerProps.className, multiItemEntity)
+      ),
+    };
 
     if (isPrimitive(entityOrEntityId)) {
       // In case of a single field which receives only entity id
@@ -140,14 +143,12 @@ export class VueBaseFileField extends VueField
         ...props,
         src: relationId,
         fileName: orUndef<string>(this.cachedFiles.has(relationId), () => this.cachedFiles.get(relationId).name),
-        className: className(),
       });
     }
     return {
       ...props,
       src: Reflect.get(multiItemEntity, this.displayName),
       entity: multiItemEntity,
-      className: className(),
     };
   }
 

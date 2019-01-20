@@ -5,7 +5,6 @@ import { toType } from './util';
 import {
   IEntity,
   AnyT,
-  IDispatchFormSubmitWrapper,
 } from './definitions.interface';
 import {
   IUniversalApplicationStoreEntity,
@@ -61,8 +60,7 @@ export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationSt
           IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
           IVueState$Wrapper<TApplicationStoreEntity>,
           IVueOnMount$Wrapper,
-          IDispatchEntity,
-          IDispatchFormSubmitWrapper {
+          IDispatchEntity {
 }
 
 /**

@@ -217,6 +217,18 @@ export class ListActionBuilder {
   }
 
   /**
+   * @stable [20.01.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildCreateSimpleAction(section: string): IEffectsAction {
+    return {
+      type: this.buildCreateActionType(section),
+      data: applySection(section),
+    };
+  }
+
+  /**
    * @stable [03.06.2018]
    * @param {string} section
    * @param {ISelectedEntityWrapper} payload
@@ -258,10 +270,6 @@ export class ListActionBuilder {
 
   public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
-  }
-
-  public static buildLoadDoneAction(section: string, data?: AnyT): IEffectsAction {
-    return EffectsAction.create(this.buildLoadDoneActionType(section), applySection(section, data));
   }
 
   public static buildNextPageAction(section: string, data?: AnyT): IEffectsAction {

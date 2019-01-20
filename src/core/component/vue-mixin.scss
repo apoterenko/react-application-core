@@ -101,33 +101,40 @@
 /**
  * @stable [18.11.2018]
  */
-@mixin _vue-popup-custom-properties($vue-popup-body-padding: unset) {
-  .vue-popup-body {
-    @if $vue-popup-body-padding != unset {
-      padding: $vue-popup-body-padding;
-    }
-  }
-}
-
-/**
- * @stable [18.11.2018]
- */
 @mixin vue-popup($vue-popup-custom: unset,
-                 $vue-popup-body-padding: unset) {
-  @if $vue-popup-custom != unset {
-    .vue-popup {
-      &.#{$vue-popup-custom} {
-        @include _vue-popup-custom-properties(
-          $vue-popup-body-padding: $vue-popup-body-padding
-        );
-      }
+                 $vue-popup-size: unset,
+                 $vue-popup-background: unset,
+                 $vue-popup-position: unset,
+                 $vue-popup-padding: unset,
+                 $vue-popup-body-padding: unset,
+                 $vue-popup-header-position: unset,
+                 $vue-popup-header-right: unset,
+                 $vue-popup-header-z-index: unset,
+                 $vue-popup-absolute-center-alignment: unset) {
+
+  #{rac-build-cls(vue-popup, $vue-popup-custom)} {
+    @if $vue-popup-absolute-center-alignment != unset {
+      @include rac-absolute-center-alignment;
     }
-  } @else {
-    .vue-popup {
-      @include _vue-popup-custom-properties(
-        $vue-popup-body-padding: $vue-popup-body-padding
-      );
-    }
+
+    @include rac-styles(
+      $rac-styles-size: $vue-popup-size,
+      $rac-styles-position: $vue-popup-position,
+      $rac-styles-background: $vue-popup-background,
+      $rac-styles-padding: $vue-popup-padding
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: vue-popup-body,
+      $rac-styles-padding: $vue-popup-body-padding
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: vue-popup-header,
+      $rac-styles-position: $vue-popup-header-position,
+      $rac-styles-z-index: $vue-popup-header-z-index,
+      $rac-styles-right: $vue-popup-header-right
+    );
   }
 }
 
