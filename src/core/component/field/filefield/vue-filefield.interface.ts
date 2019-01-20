@@ -55,3 +55,4 @@ export interface IVueMultiFileFieldProps extends IVueBaseFileFieldProps {
  * @stable [06.01.2019]
  */
 export const VUE_FILE_FIELD_NAME = 'vue-file-field';
+export const VUE_MULTI_FILE_FIELD_NAME = 'vue-multi-file-field';

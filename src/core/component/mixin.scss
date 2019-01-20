@@ -104,6 +104,8 @@
  * @stable [08.12.2018]
  */
 @mixin _rac-styles-properties($rac-styles-word-break: unset,
+                              $rac-styles-background-color: unset,
+                              $rac-styles-transform: unset,
                               $rac-styles-opacity: unset,
                               $rac-styles-flex-shrink: unset,
                               $rac-styles-vertical-align: unset,
@@ -159,8 +161,14 @@
                               $rac-styles-min-height: unset,
                               $rac-styles-float: unset,
                               $rac-styles-z-index: unset) {
+  @if $rac-styles-background-color != unset {
+    background-color: $rac-styles-background-color;
+  }
   @if $rac-styles-z-index != unset {
     z-index: $rac-styles-z-index;
+  }
+  @if $rac-styles-transform != unset {
+    transform: $rac-styles-transform;
   }
   @if $rac-styles-word-break != unset {
     word-break: $rac-styles-word-break;
@@ -334,6 +342,8 @@
  * @stable [08.12.2018]
  */
 @mixin rac-styles($rac-styles-custom: unset,
+                  $rac-styles-background-color: unset,
+                  $rac-styles-transform: unset,
                   $rac-styles-word-break: unset,
                   $rac-styles-vertical-align: unset,
                   $rac-styles-opacity: unset,
@@ -394,6 +404,8 @@
   @if $rac-styles-custom != unset {
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
+        $rac-styles-background-color: $rac-styles-background-color,
+        $rac-styles-transform: $rac-styles-transform,
         $rac-styles-word-break: $rac-styles-word-break,
         $rac-styles-vertical-align: $rac-styles-vertical-align,
         $rac-styles-opacity: $rac-styles-opacity,
@@ -454,6 +466,8 @@
     }
   } @else {
     @include _rac-styles-properties(
+      $rac-styles-background-color: $rac-styles-background-color,
+      $rac-styles-transform: $rac-styles-transform,
       $rac-styles-word-break: $rac-styles-word-break,
       $rac-styles-vertical-align: $rac-styles-vertical-align,
       $rac-styles-opacity: $rac-styles-opacity,
@@ -512,6 +526,35 @@
       $rac-styles-z-index: $rac-styles-z-index
     );
   }
+}
+
+/**
+ * @stable [20.01.2019]
+ */
+@mixin rac-absolute-full($rac-absolute-full-position: absolute,
+                         $rac-absolute-full-content: ' ',
+                         $rac-absolute-full-top: 0,
+                         $rac-absolute-full-left: 0,
+                         $rac-absolute-full-height: 100%,
+                         $rac-absolute-full-width: 100%) {
+  @include rac-styles(
+    $rac-styles-position: $rac-absolute-full-position,
+    $rac-styles-content: $rac-absolute-full-content,
+    $rac-styles-top: $rac-absolute-full-top,
+    $rac-styles-left: $rac-absolute-full-left,
+    $rac-styles-height: $rac-absolute-full-height,
+    $rac-styles-width: $rac-absolute-full-width
+  );
+}
+
+/**
+ * @stable [20.01.2019]
+ */
+@mixin rac-absolute-h-center-alignment {
+  @include rac-styles(
+    $rac-styles-left: 50%,
+    $rac-styles-transform: translateX(-50%)
+  );
 }
 
 /**

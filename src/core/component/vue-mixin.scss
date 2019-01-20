@@ -134,74 +134,26 @@
 /**
  * @stable [06.01.2019]
  */
-@mixin _vue-viewer-preview-custom-properties($vue-viewer-preview-border-radius: unset,
-                                             $vue-viewer-preview-background-size: unset,
-                                             $vue-viewer-preview-background-repeat: unset,
-                                             $vue-viewer-preview-background-position: unset) {
-  @include rac-styles(
-    $rac-styles-border-radius: $vue-viewer-preview-border-radius,
-    $rac-styles-background-size: $vue-viewer-preview-background-size,
-    $rac-styles-background-repeat: $vue-viewer-preview-background-repeat,
-    $rac-styles-background-position: $vue-viewer-preview-background-position
-  );
-}
-
-/**
- * @stable [06.01.2019]
- */
 @mixin vue-viewer-preview($vue-viewer-preview-custom: unset,
+                          $vue-viewer-preview-position: unset,
                           $vue-viewer-preview-border-radius: unset,
                           $vue-viewer-preview-background-size: unset,
                           $vue-viewer-preview-background-repeat: unset,
                           $vue-viewer-preview-background-position: unset) {
 
-  @if $vue-viewer-preview-custom != unset {
-    .vue-viewer-preview {
-      &.#{$vue-viewer-preview-custom} {
-        @include _vue-viewer-preview-custom-properties(
-          $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
-          $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
-          $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
-          $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
-        );
-      }
-    }
-  } @else {
-    .vue-viewer-preview {
-      @include _vue-viewer-preview-custom-properties(
-        $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
-        $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
-        $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
-        $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
-      );
-    }
+  #{rac-build-cls(vue-viewer-preview, $vue-viewer-preview-custom)} {
+    @include rac-styles(
+      $rac-styles-position: $vue-viewer-preview-position,
+      $rac-styles-border-radius: $vue-viewer-preview-border-radius,
+      $rac-styles-background-size: $vue-viewer-preview-background-size,
+      $rac-styles-background-repeat: $vue-viewer-preview-background-repeat,
+      $rac-styles-background-position: $vue-viewer-preview-background-position
+    );
   }
 }
 
 /**
- * @stable [06.01.2019]
- */
-@mixin _vue-viewer-custom-properties($vue-viewer-border: unset,
-                                     $vue-viewer-preview-custom: unset,
-                                     $vue-viewer-preview-border-radius: unset,
-                                     $vue-viewer-preview-background-size: unset,
-                                     $vue-viewer-preview-background-repeat: unset,
-                                     $vue-viewer-preview-background-position: unset) {
-  @include rac-styles(
-    $rac-styles-border: $vue-viewer-border
-  );
-
-  @include vue-viewer-preview(
-    $vue-viewer-preview-custom: $vue-viewer-preview-custom,
-    $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
-    $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
-    $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
-    $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
-  );
-}
-
-/**
- * @stable [06.01.2019]
+ * @stable [20.01.2019]
  */
 @mixin vue-viewer($vue-viewer-custom: unset,
                   $vue-viewer-border: unset,
@@ -209,32 +161,26 @@
                   $vue-viewer-preview-border-radius: unset,
                   $vue-viewer-preview-background-size: unset,
                   $vue-viewer-preview-background-repeat: unset,
-                  $vue-viewer-preview-background-position: unset) {
+                  $vue-viewer-preview-background-position: unset,
+                  $vue-viewer-preview-attachment-position: unset) {
 
-  @if $vue-viewer-custom != unset {
-    .vue-viewer {
-      &.#{$vue-viewer-custom} {
-        @include _vue-viewer-custom-properties(
-          $vue-viewer-border: $vue-viewer-border,
-          $vue-viewer-preview-custom: $vue-viewer-preview-custom,
-          $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
-          $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
-          $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
-          $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
-        );
-      }
-    }
-  } @else {
-    .vue-viewer {
-      @include _vue-viewer-custom-properties(
-        $vue-viewer-border: $vue-viewer-border,
-        $vue-viewer-preview-custom: $vue-viewer-preview-custom,
-        $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
-        $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
-        $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
-        $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
-      );
-    }
+  #{rac-build-cls(vue-viewer, $vue-viewer-custom)} {
+    @include rac-styles(
+      $rac-styles-border: $vue-viewer-border
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: vue-viewer-preview-attachment,
+      $rac-styles-position: $vue-viewer-preview-attachment-position
+    );
+
+    @include vue-viewer-preview(
+      $vue-viewer-preview-custom: $vue-viewer-preview-custom,
+      $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
+      $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
+      $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
+      $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
+    );
   }
 }
 
@@ -297,6 +243,7 @@
                  $vue-field-attachment-content-padding: unset,
                  $vue-field-attachment-content-picture-viewer-border: unset,
                  $vue-field-attachment-content-picture-viewer-preview-border-radius: unset,
+                 $vue-field-attachment-content-picture-viewer-preview-attachment-position: unset,
                  $vue-field-attachment-dnd-message-padding: unset,
                  $vue-field-attachment-dnd-message-font-size: unset,
                  $vue-field-attachment-dnd-message-background-repeat: unset,
@@ -351,7 +298,8 @@
     @include vue-viewer(
       $vue-viewer-custom: 'vue-field-attachment-content.vue-picture-viewer',
       $vue-viewer-border: $vue-field-attachment-content-picture-viewer-border,
-      $vue-viewer-preview-border-radius: $vue-field-attachment-content-picture-viewer-preview-border-radius
+      $vue-viewer-preview-border-radius: $vue-field-attachment-content-picture-viewer-preview-border-radius,
+      $vue-viewer-preview-attachment-position: $vue-field-attachment-content-picture-viewer-preview-attachment-position
     );
 
     @include rac-styles(

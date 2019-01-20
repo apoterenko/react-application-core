@@ -3,7 +3,7 @@ import {
   EntityCallbackWrapperT,
   IFileNameWrapper,
   IPlaceholderWrapper,
-  IEntityWrapper,
+  IEntity,
 } from '../../../definitions.interface';
 import { IVueBasePictureViewerTemplateMethodsEntity } from '../picture/vue-index';
 import { IVueViewerProps } from '../vue-viewer.interface';
@@ -11,11 +11,11 @@ import { IVueViewerProps } from '../vue-viewer.interface';
 /**
  * @stable [22.12.2018]
  */
-export interface IVueBaseFileViewerProps extends IVueViewerProps,
-                                                 IFileNameWrapper,
-                                                 IPlaceholderWrapper,
-                                                 IEntityWrapper,
-                                                 IDisplayFileNameWrapper<EntityCallbackWrapperT> {
+export interface IVueBaseFileViewerProps<TEntity extends IEntity = IEntity>
+  extends IVueViewerProps<TEntity>,
+          IFileNameWrapper,
+          IPlaceholderWrapper,
+          IDisplayFileNameWrapper<EntityCallbackWrapperT> {
 }
 
 /**

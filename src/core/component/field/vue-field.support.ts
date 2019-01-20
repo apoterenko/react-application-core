@@ -1,5 +1,5 @@
 import { VueComponentOptionsT } from '../../vue-definitions.interface';
-import { VUE_FILE_FIELD_NAME } from './filefield/vue-index';
+import { VUE_FILE_FIELD_NAME, VUE_MULTI_FILE_FIELD_NAME } from './filefield/vue-index';
 import { VUE_TEXT_FIELD_NAME } from './textfield/vue-textfield.interface';
 import { VUE_NUMBER_FIELD_NAME } from './numberfield/vue-numberfield.interface';
 import { VUE_SELECT_NAME } from './select/vue-index';
@@ -10,7 +10,8 @@ const FIELDS = [
   VUE_TEXT_FIELD_NAME,
   VUE_FILE_FIELD_NAME,
   VUE_SELECT_NAME,
-  VUE_NUMBER_FIELD_NAME
+  VUE_NUMBER_FIELD_NAME,
+  VUE_MULTI_FILE_FIELD_NAME
 ];
 
 /**

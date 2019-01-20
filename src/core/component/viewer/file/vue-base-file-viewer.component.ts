@@ -8,7 +8,6 @@ import { IVueFileViewerTemplateMethodsEntity, IVueBaseFileViewerProps } from './
 export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseFileViewerProps {
 
   @Prop() public placeholder: string;
-  @Prop() public entity: IEntity;
   @Prop() public fileName: string;
   @Prop() public displayFileName: EntityCallbackWrapperT;
 

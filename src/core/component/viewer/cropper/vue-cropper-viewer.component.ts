@@ -9,10 +9,11 @@ import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definiti
 import { VueBasePictureViewer } from '../picture/vue-index';
 import {
   VUE_CROPPER_VIEWER_CROP_EVENT,
+  VUE_CROPPER_VIEWER_NAME,
   IVueCropperPictureViewerTemplateMethodsEntity,
 } from './vue-cropper-viewer.interface';
 
-@ComponentName('vue-cropper-viewer')
+@ComponentName(VUE_CROPPER_VIEWER_NAME)
 @Component(vueDefaultComponentConfigFactory())
 class VueCropperViewer extends VueBasePictureViewer {
   private cropEmitterTask = new DelayedTask(this.onCrop, 100);

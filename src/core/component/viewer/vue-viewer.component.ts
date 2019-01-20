@@ -1,6 +1,7 @@
 import { Prop } from 'vue-property-decorator';
+import * as R from 'ramda';
 
-import { IKeyValue } from '../../definitions.interface';
+import { IKeyValue, IEntity } from '../../definitions.interface';
 import { calc, toClassName, orEmpty } from '../../util';
 import { VueBaseComponent } from '../base/vue-index';
 import {
@@ -24,7 +25,8 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
   extends VueBaseComponent<IKeyValue, TVueViewerState> implements IVueViewerProps {
 
   @Prop() public src: string;
-  @Prop() public previewAttachment: string;
+  @Prop() public entity: IEntity;
+  @Prop() public previewAttachment: string | ((entity: IEntity) => string);
 
   /**
    * @stable [29.11.2018]
@@ -115,8 +117,8 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
    */
   protected getPreviewTemplateAttachment(): string {
     return orEmpty(
-      this.previewAttachment,
-      () => `<div class="vue-viewer-preview-attachment">${this.previewAttachment}</div>`
+      !R.isNil(this.previewAttachment),
+      () => `<div class="vue-viewer-preview-attachment">${calc(this.previewAttachment, this.entity)}</div>`
     );
   }
 

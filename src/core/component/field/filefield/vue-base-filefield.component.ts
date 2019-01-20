@@ -36,7 +36,7 @@ export class VueBaseFileField extends VueField
   @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
   @Prop({default: (): string => VUE_FILE_VIEWER_NAME}) public readonly viewer: string;
   @Prop({default: (): string => 'hidden'}) protected readonly type: string;
-  @Prop() protected readonly clsFactory: (entity: IEntity) => string;
+  @Prop() protected readonly viewerClassName: (entity: IEntity) => string;
   @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
 
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
@@ -125,7 +125,7 @@ export class VueBaseFileField extends VueField
       className: this.getAttachmentContentClassName(index),
     };
     const multiItemEntity = entityOrEntityId as IMultiItemEntity;
-    const className = () => toClassName(calc(this.clsFactory, multiItemEntity), calc(props.className));
+    const className = () => toClassName(calc(this.viewerClassName, multiItemEntity), calc(props.className));
 
     if (isPrimitive(entityOrEntityId)) {
       // In case of a single field which receives only entity id

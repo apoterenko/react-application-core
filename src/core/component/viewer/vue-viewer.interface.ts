@@ -3,6 +3,8 @@ import {
   ISrcWrapper,
   IPopupWrapper,
   IPreviewAttachmentWrapper,
+  IEntity,
+  IEntityWrapper,
 } from '../../definitions.interface';
 import { IVueBaseProps } from '../base/vue-index';
 
@@ -13,11 +15,13 @@ export interface IVueViewerState extends IPopupWrapper {
 }
 
 /**
- * @stable [21.12.2018]
+ * @stable [20.01.2019]
  */
-export interface IVueViewerProps extends IVueBaseProps,
-                                         ISrcWrapper,
-                                         IPreviewAttachmentWrapper {
+export interface IVueViewerProps<TEntity extends IEntity = IEntity>
+  extends IVueBaseProps,
+          ISrcWrapper,
+          IEntityWrapper<TEntity>,
+          IPreviewAttachmentWrapper<string | ((entity: TEntity) => string)> {
 }
 
 /**
