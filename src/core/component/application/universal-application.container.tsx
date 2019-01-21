@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull } from '../../util';
+import { orNull, calc } from '../../util';
 import {
   IConnectorConfiguration,
   ContainerVisibilityTypeEnum,
@@ -11,7 +11,6 @@ import {
   IContainerClassEntity,
   IUniversalContainerEntity,
 } from '../../entities-definitions.interface';
-import { toRouteConfiguration } from '../../router/router.support';
 import { UniversalContainer } from '../base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
@@ -86,7 +85,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     }
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
-      const routeConfiguration = toRouteConfiguration(config.routeConfiguration, this.routes);
+      const routeConfiguration = calc(config.routeConfiguration, this.routes);
       if (routeConfiguration && [routeConfiguration.path, routeConfiguration.key].includes(path)) {
         result = ctor;
       }
@@ -164,7 +163,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
 
     map.forEach((connectorConfiguration, ctor) => {
       if (routePredicate.call(null, connectorConfiguration.routeConfiguration)) {
-        const rConfiguration = toRouteConfiguration(connectorConfiguration.routeConfiguration, this.routes);
+        const rConfiguration = calc(connectorConfiguration.routeConfiguration, this.routes);
         routes0.push(rConfiguration.path || rConfiguration.key);
         routes.push(
           this.buildRoute(
