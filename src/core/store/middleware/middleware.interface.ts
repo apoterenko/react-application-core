@@ -95,6 +95,12 @@ export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
+ * @stable [21.01.2019]
+ */
+export interface IDestroyedFormMiddlewareConfig extends IFormSectionWrapper {
+}
+
+/**
  * @stable [22.08.2018]
  */
 export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,

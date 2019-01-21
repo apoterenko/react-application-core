@@ -27,8 +27,13 @@ import {
 
 export class FormActionBuilder {
 
+  /**
+   * @stable [21.01.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildDestroyActionType(section: string): string {
-    return `${section}.${FORM_DESTROY_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_DESTROY_ACTION_TYPE}`;
   }
 
   /**
@@ -99,6 +104,11 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildSubmitFinishedActionType(section), applySection(section));
   }
 
+  /**
+   * @stable [21.01.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
   public static buildDestroyAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
   }

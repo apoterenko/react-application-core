@@ -161,5 +161,16 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
         config.beforeDestroy();
       }
     },
+
+    /**
+     * @stable [21.01.2019]
+     */
+    destroyed() {
+      const self: IVueContainer = this;
+      const store = self.store$;
+
+      // Send an destroy action
+      store.dispatch({type: UniversalConnectorActionBuilder.buildDestroyActionType(self.section$)});
+    },
   };
 };
