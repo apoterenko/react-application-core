@@ -18,7 +18,8 @@ export class VueBasePictureViewer extends VueViewer {
   protected getPopupBodyTemplate(): string {
     return `
         <vue-flex-layout :alignItemsCenter="true"
-                         :justifyContentCenter="true">
+                         :justifyContentCenter="true"
+                         className="vue-viewer-popup-image-wrapper">
             <img ref="self"
                  :src="getSrc()"
                  class="vue-picture-viewer-image"/>

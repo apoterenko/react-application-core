@@ -99,6 +99,86 @@
 }
 
 /**
+ * @stable [19.01.2019]
+ */
+@mixin vue-button($vue-button-custom: unset,
+                  $vue-button-font-size: unset,
+                  $vue-button-padding: unset,
+                  $vue-button-border: unset,
+                  $vue-button-color: unset,
+                  $vue-button-border-radius: unset,
+                  $vue-button-background: unset,
+                  $vue-button-cursor: unset,
+                  $vue-button-opacity: unset) {
+  #{rac-build-cls(vue-button, $vue-button-custom)} {
+    @include rac-styles(
+      $rac-styles-padding: $vue-button-padding,
+      $rac-styles-font-size: $vue-button-font-size,
+      $rac-styles-border: $vue-button-border,
+      $rac-styles-border-radius: $vue-button-border-radius,
+      $rac-styles-background: $vue-button-background,
+      $rac-styles-color: $vue-button-color,
+      $rac-styles-cursor: $vue-button-cursor,
+      $rac-styles-opacity: $vue-button-opacity
+    );
+  }
+}
+
+/**
+ * @stable [21.01.2019]
+ */
+@mixin vue-cropper-viewer-popup-image-wrapper(
+  $vue-cropper-viewer-popup-image-wrapper-custom: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-line-display: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-point-opacity: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-point-background-color: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-point-size: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-point-ne-e-se-right: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-point-sw-s-se-bottom: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-outline: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-border: unset,
+  $vue-cropper-viewer-popup-image-wrapper-cropper-dashed-opacity: unset
+) {
+  #{rac-build-cls(vue-viewer-popup-image-wrapper, $vue-cropper-viewer-popup-image-wrapper-custom)} {
+    @include rac-styles(
+      $rac-styles-custom: cropper-line,
+      $rac-styles-display: $vue-cropper-viewer-popup-image-wrapper-cropper-line-display
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: cropper-view-box,
+      $rac-styles-outline: $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-outline,
+      $rac-styles-border: $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-border
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: cropper-dashed,
+      $rac-styles-opacity: $vue-cropper-viewer-popup-image-wrapper-cropper-dashed-opacity
+    );
+
+    .cropper-point {
+      @include rac-styles(
+        $rac-styles-opacity: $vue-cropper-viewer-popup-image-wrapper-cropper-point-opacity,
+        $rac-styles-background-color: $vue-cropper-viewer-popup-image-wrapper-cropper-point-background-color,
+        $rac-styles-size: $vue-cropper-viewer-popup-image-wrapper-cropper-point-size
+      );
+
+      &.point-ne, &.point-e, &.point-se {
+        @include rac-styles(
+          $rac-styles-right: $vue-cropper-viewer-popup-image-wrapper-cropper-point-ne-e-se-right
+        );
+      }
+
+      &.point-sw, &.point-s, &.point-se {
+        @include rac-styles(
+          $rac-styles-bottom: $vue-cropper-viewer-popup-image-wrapper-cropper-point-sw-s-se-bottom
+        );
+      }
+    }
+  }
+}
+
+/**
  * @stable [18.11.2018]
  */
 @mixin vue-popup($vue-popup-custom: unset,
@@ -109,7 +189,12 @@
                  $vue-popup-body-padding: unset,
                  $vue-popup-header-position: unset,
                  $vue-popup-header-right: unset,
+                 $vue-popup-header-top: unset,
                  $vue-popup-header-z-index: unset,
+                 $vue-popup-header-background: unset,
+                 $vue-popup-header-border-radius: unset,
+                 $vue-popup-header-button-background: unset,
+                 $vue-popup-header-button-padding: unset,
                  $vue-popup-absolute-center-alignment: unset) {
 
   #{rac-build-cls(vue-popup, $vue-popup-custom)} {
@@ -129,12 +214,22 @@
       $rac-styles-padding: $vue-popup-body-padding
     );
 
-    @include rac-styles(
-      $rac-styles-custom: vue-popup-header,
-      $rac-styles-position: $vue-popup-header-position,
-      $rac-styles-z-index: $vue-popup-header-z-index,
-      $rac-styles-right: $vue-popup-header-right
-    );
+    .vue-popup-header {
+
+      @include rac-styles(
+        $rac-styles-border-radius: $vue-popup-header-border-radius,
+        $rac-styles-background: $vue-popup-header-background,
+        $rac-styles-position: $vue-popup-header-position,
+        $rac-styles-z-index: $vue-popup-header-z-index,
+        $rac-styles-right: $vue-popup-header-right,
+        $rac-styles-top: $vue-popup-header-top
+      );
+
+      @include vue-button(
+        $vue-button-padding: $vue-popup-header-button-padding,
+        $vue-button-background: $vue-popup-header-button-background
+      );
+    }
   }
 }
 
@@ -187,32 +282,6 @@
       $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
       $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
       $vue-viewer-preview-background-position: $vue-viewer-preview-background-position
-    );
-  }
-}
-
-/**
- * @stable [19.01.2019]
- */
-@mixin vue-button($vue-button-custom: unset,
-                  $vue-button-font-size: unset,
-                  $vue-button-padding: unset,
-                  $vue-button-border: unset,
-                  $vue-button-color: unset,
-                  $vue-button-border-radius: unset,
-                  $vue-button-background: unset,
-                  $vue-button-cursor: unset,
-                  $vue-button-opacity: unset) {
-  #{rac-build-cls(vue-button, $vue-button-custom)} {
-    @include rac-styles(
-      $rac-styles-padding: $vue-button-padding,
-      $rac-styles-font-size: $vue-button-font-size,
-      $rac-styles-border: $vue-button-border,
-      $rac-styles-border-radius: $vue-button-border-radius,
-      $rac-styles-background: $vue-button-background,
-      $rac-styles-color: $vue-button-color,
-      $rac-styles-cursor: $vue-button-cursor,
-      $rac-styles-opacity: $vue-button-opacity
     );
   }
 }
@@ -368,53 +437,6 @@
 /**
  * @stable [24.11.2018]
  */
-@mixin _vue-menu-custom-properties($vue-menu-list-padding: unset,
-                                   $vue-menu-list-max-height: unset,
-                                   $vue-menu-list-empty-item-padding: unset,
-                                   $vue-menu-list-item-white-space: unset,
-                                   $vue-menu-list-item-height: unset,
-                                   $vue-menu-list-item-padding: unset,
-                                   $vue-menu-list-item-margin: unset,
-                                   $vue-menu-list-item-border-radius: unset,
-                                   $vue-menu-list-item-hover-background: unset,
-                                   $vue-menu-list-item-content-text-overflow: unset) {
-
-  .vue-menu-list {
-    @include rac-styles(
-      $rac-styles-padding: $vue-menu-list-padding,
-      $rac-styles-max-height: $vue-menu-list-max-height
-    );
-
-    @include rac-styles(
-      $rac-styles-custom: vue-menu-list-item,
-      $rac-styles-white-space: $vue-menu-list-item-white-space,
-      $rac-styles-height: $vue-menu-list-item-height,
-      $rac-styles-padding: $vue-menu-list-item-padding,
-      $rac-styles-margin: $vue-menu-list-item-margin,
-      $rac-styles-border-radius: $vue-menu-list-item-border-radius
-    );
-
-    @include rac-styles(
-      $rac-styles-custom: 'vue-menu-list-item:hover',
-      $rac-styles-background: $vue-menu-list-item-hover-background
-    );
-
-    @include rac-styles(
-      $rac-styles-custom: vue-menu-list-empty-item,
-      $rac-styles-padding: $vue-menu-list-empty-item-padding
-    );
-
-    .vue-menu-list-item-content {
-      @if $vue-menu-list-item-content-text-overflow != unset {
-        @include rac-overflow($vue-menu-list-item-content-text-overflow);
-      }
-    }
-  }
-}
-
-/**
- * @stable [24.11.2018]
- */
 @mixin vue-menu($vue-menu-custom: unset,
                 $vue-menu-list-padding: unset,
                 $vue-menu-list-max-height: unset,
@@ -426,37 +448,38 @@
                 $vue-menu-list-item-border-radius: unset,
                 $vue-menu-list-item-hover-background: unset,
                 $vue-menu-list-item-content-text-overflow: unset  ) {
-  @if $vue-menu-custom != unset {
-    .vue-menu {
-      &.#{$vue-menu-custom} {
-        @include _vue-menu-custom-properties(
-          $vue-menu-list-padding: $vue-menu-list-padding,
-          $vue-menu-list-max-height: $vue-menu-list-max-height,
-          $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding,
-          $vue-menu-list-item-white-space: $vue-menu-list-item-white-space,
-          $vue-menu-list-item-height: $vue-menu-list-item-height,
-          $vue-menu-list-item-padding: $vue-menu-list-item-padding,
-          $vue-menu-list-item-margin: $vue-menu-list-item-margin,
-          $vue-menu-list-item-border-radius: $vue-menu-list-item-border-radius,
-          $vue-menu-list-item-hover-background: $vue-menu-list-item-hover-background,
-          $vue-menu-list-item-content-text-overflow: $vue-menu-list-item-content-text-overflow
-        );
-      }
-    }
-  } @else {
-    .vue-menu {
-      @include _vue-menu-custom-properties(
-        $vue-menu-list-padding: $vue-menu-list-padding,
-        $vue-menu-list-max-height: $vue-menu-list-max-height,
-        $vue-menu-list-empty-item-padding: $vue-menu-list-empty-item-padding,
-        $vue-menu-list-item-white-space: $vue-menu-list-item-white-space,
-        $vue-menu-list-item-height: $vue-menu-list-item-height,
-        $vue-menu-list-item-padding: $vue-menu-list-item-padding,
-        $vue-menu-list-item-margin: $vue-menu-list-item-margin,
-        $vue-menu-list-item-border-radius: $vue-menu-list-item-border-radius,
-        $vue-menu-list-item-hover-background: $vue-menu-list-item-hover-background,
-        $vue-menu-list-item-content-text-overflow: $vue-menu-list-item-content-text-overflow
+
+  #{rac-build-cls(vue-menu, $vue-menu-custom)} {
+    .vue-menu-list {
+      @include rac-styles(
+        $rac-styles-padding: $vue-menu-list-padding,
+        $rac-styles-max-height: $vue-menu-list-max-height
       );
+
+      @include rac-styles(
+        $rac-styles-custom: vue-menu-list-item,
+        $rac-styles-white-space: $vue-menu-list-item-white-space,
+        $rac-styles-height: $vue-menu-list-item-height,
+        $rac-styles-padding: $vue-menu-list-item-padding,
+        $rac-styles-margin: $vue-menu-list-item-margin,
+        $rac-styles-border-radius: $vue-menu-list-item-border-radius
+      );
+
+      @include rac-styles(
+        $rac-styles-custom: 'vue-menu-list-item:hover',
+        $rac-styles-background: $vue-menu-list-item-hover-background
+      );
+
+      @include rac-styles(
+        $rac-styles-custom: vue-menu-list-empty-item,
+        $rac-styles-padding: $vue-menu-list-empty-item-padding
+      );
+
+      .vue-menu-list-item-content {
+        @if $vue-menu-list-item-content-text-overflow != unset {
+          @include rac-overflow($vue-menu-list-item-content-text-overflow);
+        }
+      }
     }
   }
 }

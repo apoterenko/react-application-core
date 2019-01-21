@@ -62,13 +62,18 @@ class VueCropperViewer extends VueBasePictureViewer {
     super.onClosePopup();
   }
 
-  // TODO
+  /**
+   * @stable [21.01.2019]
+   * @returns {string}
+   */
   protected getPopupHeaderTemplate(): string {
     return `
-      <vue-button @click="onApply"
-                  text="Apply"/>
-      <vue-button @click="onRemove"
-                  text="Remove"/>
+        <vue-flex-layout :row="true">
+            <vue-button @click="onApply"
+                        icon="check"/>
+            <vue-button @click="onRemove"
+                        icon="trash"/>
+        </vue-flex-layout>
     `;
   }
 
@@ -81,6 +86,14 @@ class VueCropperViewer extends VueBasePictureViewer {
       ...super.getTemplateMethods(),
       onApply: this.onApply,
     };
+  }
+
+  /**
+   * @stable [21.01.2019]
+   * @returns {string}
+   */
+  protected getPopupClassName(): string {
+    return toClassName(super.getPopupClassName(), 'vue-cropper-viewer-popup');
   }
 
   /**

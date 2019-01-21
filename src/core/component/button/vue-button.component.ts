@@ -7,15 +7,18 @@ import { VueBaseComponent } from '../base/vue-index';
 @ComponentName('vue-button')
 @Component({
   template: `
-    <button :class='getClassName()'
-            :disabled='disabled'
+    <button :class="getClassName()"
+            :disabled="disabled"
             v-on:click="onClick($event)">
+      <div v-if="icon"
+           :class="getIconClassName()"/>
       {{getText()}}
     </button>
   `,
 })
 class VueButton extends VueBaseComponent {
   @Prop() private text: string;
+  @Prop() private icon: string;
   @Prop() private disabled: boolean;
 
   /**
@@ -44,5 +47,13 @@ class VueButton extends VueBaseComponent {
    */
   private getText(): string {
     return this.t(this.text);
+  }
+
+  /**
+   * @stable [21.01.2019]
+   * @returns {string}
+   */
+  private getIconClassName(): string {
+    return `vue-icon vue-icon-${this.icon}`;
   }
 }

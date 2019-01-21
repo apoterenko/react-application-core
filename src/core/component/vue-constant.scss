@@ -4,6 +4,9 @@ $vue-color2: rgba(0, 0, 0, 0.1) !default;
 $vue-color3: #0053d9 !default;
 $vue-color4: #fedb06 !default;
 $vue-color5: #fff !default;
+$vue-color6: rgba(0, 0, 0, 0.5) !default;
+$vue-color7: #fedb06 !default;
+$vue-color8: #c1bcbd !default;
 
 /* @stable [24.11.2018] */
 $vue-default-font-size: 12px !default;
@@ -48,6 +51,7 @@ $vue-select-icon-height: 10px !default;
 $vue-select-icon-margin: 0 20px 0 auto !default;
 
 /* @stable [18.11.2018] */
+$vue-cropper-viewer-popup-cls: vue-cropper-viewer-popup;
 $vue-viewer-scale-action-size: 32px !default;
 $vue-viewer-scale-action-position-right: 5% !default;
 $vue-viewer-scale-action-position-top: 50% !default;
@@ -55,6 +59,25 @@ $vue-viewer-preview-label-font-size: $vue-default-font-size-2 !default;
 $vue-viewer-preview-file-name-color: $vue-color3 !default;
 $vue-viewer-preview-file-name-font-size: $vue-default-font-size-3 !default;
 $vue-viewer-preview-icon-close-size: 16px !default;
+$vue-cropper-popup-padding: 0 !default;
+$vue-cropper-popup-body-padding: 0 !default;
+$vue-cropper-popup-header-position: absolute !default;
+$vue-cropper-popup-header-top: 16px !default;
+$vue-cropper-popup-header-right: 16px !default;
+$vue-cropper-popup-header-z-index: 1 !default;
+$vue-cropper-popup-header-border-radius: $vue-default-border-radius !default;
+$vue-cropper-popup-header-background: $vue-color6 !default;
+$vue-cropper-popup-header-button-background: none !default;
+$vue-cropper-popup-header-button-padding: 16px 20px !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-line-display: none !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-point-opacity: 1 !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-point-background-color: $vue-color7 !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-point-size: 8px !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-point-ne-e-se-right: -7px !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-point-sw-s-se-bottom: -7px !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-view-box-outline: none !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-view-box-border: 2px solid $vue-color7 !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-dashed-opacity: 1 !default;
 
 /* @stable [18.11.2018] */
 $vue-popup-background: $vue-color5 !default;
