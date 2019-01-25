@@ -101,6 +101,7 @@ import {
   faMinusCircle,
   faLongArrowAltLeft,
   faUserShield,
+  faGripHorizontal,
   faTimesCircle,
   faBarcode,
   faRetweet,
@@ -141,6 +142,7 @@ import {
   faStopCircle as faStopCircleRegular,
   faFileAlt,
   faSmileBeam,
+  faCircle as faCircleRegular,
   faCheckCircle as faCheckCircleRegular,
   faComment as faCommentRegular,
   faUser as faUserRegular,
@@ -154,9 +156,11 @@ import { IBasicEvent } from '../../../react-definitions.interface';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { ApplicationTranslatorT } from '../../../translation';
+import { IUIDefaultIconFactory } from '../../icon';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
+
   public static ICONS_MAP = {
     access_time: faHistory,
     add: faPlus,
@@ -188,6 +192,7 @@ export class UIMaterialFactory implements IUIFactory {
     check_circle_regular: faCheckCircleRegular,
     chevron_down: faChevronDown,
     chevron_up: faChevronUp,
+    circle_regular: faCircleRegular,
     clear: faTimes,
     clear_all: faEraser,
     clock_regular: faClockRegular,
@@ -221,6 +226,7 @@ export class UIMaterialFactory implements IUIFactory {
     first_page: faAngleDoubleLeft,
     format_list_numbered: faListOl,
     gift: faGift,
+    grip_horizontal: faGripHorizontal,
     group: faUsers,
     hdd: faHdd,
     help_outline: faQuestionCircle,
@@ -374,6 +380,7 @@ export class UIMaterialFactory implements IUIFactory {
   public dialogActions = 'mdc-dialog__actions';
 
   @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslatorT;
+  @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;
 
   /**
    * @stable [18.05.2018]
@@ -412,7 +419,7 @@ export class UIMaterialFactory implements IUIFactory {
                config.onClick(event);
              }
            }}>
-        <FontAwesomeIcon icon={iconCtor}/>
+        {this.uiIconFactory.makeInstance(config.type) || <FontAwesomeIcon icon={iconCtor}/>}
       </div>
     );
   }

@@ -63,6 +63,7 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
 
     return (
       <FlexLayout style={props.style}
+                  full={props.full}
                   className={this.getClassName()}>
         {orDefault<React.ReactNode, React.ReactNode>(
           isErrorExist || isSrcAndDefaultSrcAbsent,

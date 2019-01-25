@@ -1,8 +1,16 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { FunctionT, isFn, isPrimitive, uuid } from '../util';
-import { ReactElementT } from '../definitions.interface';
+import { FunctionT, isFn, isPrimitive, uuid, ifNotNilThanValue } from '../util';
+import { ReactElementT, IEntity } from '../definitions.interface';
+
+/**
+ * @stable [24.01.2019]
+ * @param {TEntity} entity
+ * @returns {TEntity}
+ */
+export const shallowClone = <TEntity extends IEntity>(entity: TEntity): TEntity =>
+  ifNotNilThanValue<TEntity, TEntity>(entity, (): TEntity => ({...entity as {}} as TEntity));
 
 /**
  * @stable [14.06.2018]

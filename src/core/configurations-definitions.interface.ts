@@ -59,7 +59,6 @@ import {
   IContentWrapper,
   ICssStyleWrapper,
   IDeactivatedWrapper,
-  IDecoratedWrapper,
   IDefaultOnPressWrapper,
   IDefaultValue,
   IDelayTimeoutWrapper,
@@ -116,7 +115,7 @@ import {
   IKeyboardConfigurationWrapper,
   IKeyboardEvent,
   IKeyValue,
-  IKeyValueParamsWrapper,
+  IParamsWrapper,
   IKeyWrapper,
   ILabelWrapper,
   ILargeWrapper,
@@ -636,6 +635,7 @@ export interface IWebCameraConfiguration extends IComponentConfiguration,
 export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
                                                        IOnClickWrapper,
                                                        ITextWrapper,
+                                                       IFullWrapper,
                                                        IIconWrapper<string | boolean> {
 }
 
@@ -644,7 +644,6 @@ export interface IButtonConfiguration extends IUniversalButtonConfiguration,
                                               IWebComponentConfiguration,
                                               IOutlinedWrapper,
                                               IStringToWrapper,
-                                              IDecoratedWrapper,
                                               IRaisedWrapper,
                                               ISimpleWrapper,
                                               ITypeWrapper {
@@ -794,7 +793,7 @@ export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
 }
 
 /* @stable - 14.04.2018 */
-export interface IRouteComputedMatchConfiguration extends IKeyValueParamsWrapper,
+export interface IRouteComputedMatchConfiguration extends IParamsWrapper,
                                                           IUrlWrapper,
                                                           IPathWrapper {
 }

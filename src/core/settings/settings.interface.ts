@@ -8,6 +8,10 @@ export interface IApplicationCurrencySettings {
   uiCurrency?: string;
 }
 
+export interface IApplicationResourcePaths {
+  uiDefaultIconPath?: string;
+}
+
 export interface IApplicationDateTimeSettings {
   currentDate?: Date;        // Current date
   timeZone?: string;         // Time zone (+08:00, etc..)
@@ -106,6 +110,7 @@ export interface IApplicationSettings {
   usePersistence?: boolean;
   persistenceStorage?: ApplicationStorageTypeEnum;
   entityEmptyId?: AnyT;
+  resourcePaths?: IApplicationResourcePaths;
   dateTime?: IApplicationDateTimeSettings;
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;

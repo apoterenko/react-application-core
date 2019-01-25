@@ -39,6 +39,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   safariPlatform: SAFARI_PLATFORM,
   passwordInputPlaceholder: SAFARI_PLATFORM && IOS_PLATFORM ? '●' : '•',
   documentBody: definedDocument.body,
+  localModeEnabled: location.hostname === 'localhost',
   appPath: () => buildNormalizedPath(`${definedLocation.pathname}/`.replace(BASE_PATH, '/')),
   buildAppPath: (path) => buildNormalizedPath(`${BASE_PATH}/${path}/`),
 });

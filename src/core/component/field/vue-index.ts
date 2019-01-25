@@ -4,4 +4,5 @@ export * from './multifield/multifield.interface';
 export * from './multifield/multifield.support';
 export * from './numberfield/vue-index';
 export * from './select/vue-index';
+export * from './textfield/vue-textfield.interface';
 export * from './vue-field.support';

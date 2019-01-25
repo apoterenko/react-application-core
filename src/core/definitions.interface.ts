@@ -355,13 +355,11 @@ export interface IModeWrapper<TMode = string> {
   mode?: TMode;
 }
 
-/* @stable - 04.04.2018 */
-export interface IParamsWrapper<TParams> {
+/**
+ * @stable [25.01.2019]
+ */
+export interface IParamsWrapper<TParams = IKeyValue> {
   params?: TParams;
-}
-
-/* @stable - 04.04.2018 */
-export interface IKeyValueParamsWrapper extends IParamsWrapper<IKeyValue> {
 }
 
 /* @stable - 04.04.2018 */
@@ -1318,13 +1316,6 @@ export interface IAuthorizedWrapper {
  */
 export interface IOutlinedWrapper {
   outlined?: boolean;
-}
-
-/**
- * @stable [16.01.2019]
- */
-export interface IDecoratedWrapper {
-  decorated?: boolean;
 }
 
 /* @stable - 20.04.2018 */

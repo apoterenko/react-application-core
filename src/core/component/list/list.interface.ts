@@ -66,6 +66,7 @@ export const LIST_CREATE_ACTION_TYPE = 'list.create';
 export const LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE = 'list.empty.message.click';
 export const LIST_DESELECT_ACTION_TYPE = 'list.deselect';
 export const LIST_UPDATE_ACTION_TYPE = 'list.update';
+export const LIST_MERGE_ACTION_TYPE = 'list.merge';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
 export const LIST_REMOVE_ACTION_TYPE = 'list.remove';
 export const LIST_CHANGE_ACTION_TYPE = 'list.change';

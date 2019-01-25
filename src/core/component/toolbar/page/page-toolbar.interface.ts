@@ -1,7 +1,6 @@
 import {
   IPaginatedEntity,
   IListWrapperEntity,
-  IUniversalComponentEntity,
 } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
@@ -14,8 +13,7 @@ import { IProgressWrapper } from '../../../definitions.interface';
 /**
  * @stable [16.05.2018]
  */
-export interface IUniversalPageToolbarEntity extends IUniversalComponentEntity,
-                                                     IPaginatedEntity,
+export interface IUniversalPageToolbarEntity extends IPaginatedEntity,
                                                      IProgressWrapper {
 }
 

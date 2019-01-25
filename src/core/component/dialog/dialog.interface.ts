@@ -12,7 +12,7 @@ import {
   IIsOpenWrapper,
   IAutoWidthWrapper,
 } from '../../definitions.interface';
-import { IUniversalComponentEntity, IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
+import { IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IUniversalComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
 
 /**
@@ -34,8 +34,7 @@ export interface IUniversalDialogConfiguration extends IUniversalComponentConfig
 /**
  * @stable [17.05.2018]
  */
-export interface IUniversalDialogProps extends IUniversalComponentEntity,
-                                               IUniversalDialogConfiguration {
+export interface IUniversalDialogProps extends IUniversalDialogConfiguration {
 }
 
 /**

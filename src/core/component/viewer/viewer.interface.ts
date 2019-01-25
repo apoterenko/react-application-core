@@ -5,6 +5,7 @@ import {
   IUsePreviewWrapper,
   IOpenedWrapper,
   IErrorWrapper,
+  IFullWrapper,
 } from '../../definitions.interface';
 import { IComponentEntity } from '../../entities-definitions.interface';
 
@@ -13,6 +14,7 @@ import { IComponentEntity } from '../../entities-definitions.interface';
  */
 export interface IViewerConfiguration extends IComponentConfiguration,
                                               ISrcWrapper,
+                                              IFullWrapper,
                                               IUsePreviewWrapper,
                                               IDefaultSrcWrapper {
 }

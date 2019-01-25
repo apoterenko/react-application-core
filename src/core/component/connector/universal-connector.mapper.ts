@@ -244,16 +244,6 @@ export const refreshedListWrapperEntityMapper = (entity: IListWrapperEntity): IF
   ...actionsDisabledListWrapperEntityMapper(entity),
 });
 
-/**
- * @stable [16.05.2018]
- * @param {IListWrapperEntity} listWrapperEntity
- * @param {IDataMutatorEntity} dataMutator
- * @returns {IMutatedListWrapperEntity}
- */
-export const mutatedListWrapperMapper =
-  (listWrapperEntity: IListWrapperEntity, dataMutator: IDataMutatorEntity): IMutatedListWrapperEntity =>
-    mutatedListMapper(listWrapperEntity.list, dataMutator);
-
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
                                                       formEntity?: IEditableEntity): IEntityWrapperEntity<TEntity> =>
@@ -272,7 +262,7 @@ export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
  * @param {IListEntity} listEntity
  * @returns {TEntity}
  */
-export const selectedEntityMapper = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
+export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
   orNull<TEntity>(listEntity, (): TEntity => listEntity.selected as TEntity);
 
 /**
@@ -283,20 +273,12 @@ export const selectedEntityMapper = <TEntity extends IEntity>(listEntity: IListE
 export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
   ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => list.selected as TEntity);
 
-/**
- * @stable [09.05.2018]
- * @param {IListWrapperEntity} listWrapperEntity
- * @returns {TEntity}
- */
-export const listSelectedEntityMapper = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
-  selectedEntityMapper(listWrapperEntity.list);
-
 /* @stable - 12.04.2018 */
 export const listWrapperSelectedEntityMapper =
   <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
                             formEntity?: IEditableEntity): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
-      listSelectedEntityMapper<TEntity>(listWrapperState),
+      listSelectedEntitySelector<TEntity>(listWrapperState),
       formEntity
     );
 

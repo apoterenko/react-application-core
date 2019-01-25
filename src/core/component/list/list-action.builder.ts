@@ -10,28 +10,29 @@ import {
 import { applySection, toActionPrefix } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
-  LIST_LOAD_ACTION_TYPE,
-  LIST_SELECT_ACTION_TYPE,
-  LIST_LOAD_ERROR_ACTION_TYPE,
-  LIST_NEXT_PAGE_ACTION_TYPE,
-  LIST_DESELECT_ACTION_TYPE,
-  LIST_CREATE_ACTION_TYPE,
-  LIST_PREVIOUS_PAGE_ACTION_TYPE,
-  LIST_DESTROY_ACTION_TYPE,
-  LIST_LOAD_DONE_ACTION_TYPE,
-  LIST_INSERT_ACTION_TYPE,
-  LIST_UPDATE_ACTION_TYPE,
-  LIST_UN_TOUCH_ACTION_TYPE,
-  LIST_LAST_PAGE_ACTION_TYPE,
-  LIST_FIRST_PAGE_ACTION_TYPE,
+  LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
-  LIST_REMOVE_ACTION_TYPE,
-  LIST_LAZY_LOAD_ACTION_TYPE,
   LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
+  LIST_CREATE_ACTION_TYPE,
+  LIST_DESELECT_ACTION_TYPE,
+  LIST_DESTROY_ACTION_TYPE,
+  LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
+  LIST_FIRST_PAGE_ACTION_TYPE,
+  LIST_INSERT_ACTION_TYPE,
+  LIST_LAST_PAGE_ACTION_TYPE,
+  LIST_LAZY_LOAD_ACTION_TYPE,
   LIST_LAZY_LOAD_DONE_ACTION_TYPE,
   LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
-  LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
-  LIST_CANCEL_LOAD_ACTION_TYPE,
+  LIST_LOAD_ACTION_TYPE,
+  LIST_LOAD_DONE_ACTION_TYPE,
+  LIST_LOAD_ERROR_ACTION_TYPE,
+  LIST_MERGE_ACTION_TYPE,
+  LIST_NEXT_PAGE_ACTION_TYPE,
+  LIST_PREVIOUS_PAGE_ACTION_TYPE,
+  LIST_REMOVE_ACTION_TYPE,
+  LIST_SELECT_ACTION_TYPE,
+  LIST_UN_TOUCH_ACTION_TYPE,
+  LIST_UPDATE_ACTION_TYPE,
 } from './list.interface';
 
 export class ListActionBuilder {
@@ -167,6 +168,15 @@ export class ListActionBuilder {
     return `${toActionPrefix(section)}.${LIST_REMOVE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [22.01.2019]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildMergeActionType(section: string): string {
+    return `${section}.${LIST_MERGE_ACTION_TYPE}`;
+  }
+
   public static buildUpdateActionType(section: string): string {
     return `${section}.${LIST_UPDATE_ACTION_TYPE}`;
   }
@@ -251,6 +261,16 @@ export class ListActionBuilder {
   }
 
   /**
+   * @stable [22.01.2019]
+   * @param {string} section
+   * @param {IModifyEntityPayloadWrapper} data
+   * @returns {IEffectsAction}
+   */
+  public static buildMergeAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
+    return EffectsAction.create(this.buildMergeActionType(section), applySection(section, data));
+  }
+
+  /**
    * @stable [17.05.2018]
    * @param {string} section
    * @param {IRemovedEntityWrapper} data
@@ -270,6 +290,16 @@ export class ListActionBuilder {
 
   public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
+  }
+
+  /**
+   * @stable [24.01.2019]
+   * @param {string} section
+   * @param {AnyT} data
+   * @returns {IEffectsAction}
+   */
+  public static buildLoadDoneAction(section: string, data?: AnyT): IEffectsAction {
+    return EffectsAction.create(this.buildLoadDoneActionType(section), applySection(section, data));
   }
 
   public static buildNextPageAction(section: string, data?: AnyT): IEffectsAction {

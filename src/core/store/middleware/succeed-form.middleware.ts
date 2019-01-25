@@ -81,11 +81,7 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
 
   return (
     isUpdateNeeded
-      ? [
-        !R.isNil(apiEntity) && apiEntity.isNew
-          ? ListActionBuilder.buildInsertAction(listSection, payloadWrapper)
-          : ListActionBuilder.buildUpdateAction(listSection, payloadWrapper)
-      ]
+      ? [ListActionBuilder.buildMergeAction(listSection, payloadWrapper)]
       : []
   ).concat(
     R.isNil(canComeBack) || (isFn(canComeBack) ? (canComeBack as (...args) => boolean)(apiEntity, action) : canComeBack)

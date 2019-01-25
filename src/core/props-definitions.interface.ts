@@ -7,7 +7,6 @@ import {
   IUniversalContainerEntity,
   IGridEntity,
   IUniversalListEntity,
-  IUniversalComponentEntity,
   IComponentEntity,
   IUniversalButtonEntity,
   ITabPanelEntity,
@@ -33,8 +32,7 @@ import { AnyT } from './definitions.interface';
 /**
  * @stable [09.05.2018]
  */
-export interface IUniversalComponentProps extends IUniversalComponentEntity,
-                                                  IUniversalComponentConfiguration {
+export interface IUniversalComponentProps extends IUniversalComponentConfiguration {
 }
 
 /**

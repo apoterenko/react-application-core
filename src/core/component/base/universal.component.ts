@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { DelayedTask, isFn, isDef } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
@@ -7,7 +6,6 @@ import { ApplicationTranslatorT } from '../../translation';
 import { IApplicationSettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import {
-  IUniversalComponentEntity,
   IUniversalComponentClassEntity,
   IUniversalComponentPlugin,
   IUniversalComponent,
@@ -87,7 +85,7 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
 
   /**
    * @stable [23.04.2018]
-   * @param {Readonly<TProps extends IUniversalComponentEntity>} prevProps
+   * @param {Readonly<TProps>} prevProps
    * @param {Readonly<TState>} prevState
    * @param {never} prevContext
    */

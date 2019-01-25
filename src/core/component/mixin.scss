@@ -832,71 +832,7 @@
 }
 
 /**
- * @stable [07.11.2018]
- */
-@mixin _rac-icon-custom-properties($rac-icon-custom-display: unset,
-                                   $rac-icon-custom-background: unset,
-                                   $rac-icon-custom-color: unset,
-                                   $rac-icon-custom-margin: unset,
-                                   $rac-icon-custom-padding: unset,
-                                   $rac-icon-custom-border-radius: unset,
-                                   $rac-icon-custom-width: unset,
-                                   $rac-icon-custom-height: unset,
-                                   $rac-icon-custom-size: unset,
-                                   $rac-icon-custom-content-height: unset,
-                                   $rac-icon-custom-content-width: unset,
-                                   $rac-icon-custom-content-vertical-align: unset,
-                                   $rac-icon-custom-content-margin: unset,
-                                   $rac-icon-custom-line-height: unset,
-                                   $rac-icon-custom-border: unset,
-                                   $rac-icon-custom-position: unset,
-                                   $rac-icon-custom-left: unset,
-                                   $rac-icon-custom-right: unset,
-                                   $rac-icon-custom-top: unset,
-                                   $rac-icon-custom-bottom: unset,
-                                   $rac-icon-custom-opacity: unset,
-                                   $rac-icon-custom-cursor: unset) {
-
-  @include _rac-position-properties($rac-position-left: $rac-icon-custom-left,
-                                    $rac-position-top: $rac-icon-custom-top,
-                                    $rac-position-bottom: $rac-icon-custom-bottom,
-                                    $rac-position-right: $rac-icon-custom-right,
-                                    $rac-position: $rac-icon-custom-position);
-
-  @include rac-styles(
-    $rac-styles-cursor: $rac-icon-custom-cursor,
-    $rac-styles-border: $rac-icon-custom-border,
-    $rac-styles-margin: $rac-icon-custom-margin,
-    $rac-styles-padding: $rac-icon-custom-padding,
-    $rac-styles-line-height: $rac-icon-custom-line-height,
-    $rac-styles-display: $rac-icon-custom-display,
-    $rac-styles-background: $rac-icon-custom-background,
-    $rac-styles-border-radius: $rac-icon-custom-border-radius,
-    $rac-styles-color: $rac-icon-custom-color,
-    $rac-styles-height: $rac-icon-custom-height,
-    $rac-styles-opacity: $rac-icon-custom-opacity,
-    $rac-styles-width: $rac-icon-custom-width
-  );
-
-  @if $rac-icon-custom-size != unset {
-    @include rac-styles(
-      $rac-styles-width: $rac-icon-custom-size,
-      $rac-styles-height: $rac-icon-custom-size
-    );
-  }
-
-  svg {
-    @include rac-styles(
-      $rac-styles-height: $rac-icon-custom-content-height,
-      $rac-styles-width: $rac-icon-custom-content-width,
-      $rac-styles-vertical-align: $rac-icon-custom-content-vertical-align,
-      $rac-styles-margin: $rac-icon-custom-content-margin
-    );
-  }
-}
-
-/**
- * @stable [07.11.2018]
+ * @stable [25.01.2019]
  */
 @mixin rac-icon($rac-icon-custom: unset,
                 $rac-icon-display: unset,
@@ -922,57 +858,35 @@
                 $rac-icon-opacity: unset,
                 $rac-icon-cursor: unset) {
 
-  @if $rac-icon-custom != unset {
-    .rac-icon {
-      &.#{$rac-icon-custom} {
-        @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
-                                             $rac-icon-custom-background: $rac-icon-background,
-                                             $rac-icon-custom-color: $rac-icon-color,
-                                             $rac-icon-custom-margin: $rac-icon-margin,
-                                             $rac-icon-custom-padding: $rac-icon-padding,
-                                             $rac-icon-custom-border-radius: $rac-icon-border-radius,
-                                             $rac-icon-custom-width: $rac-icon-width,
-                                             $rac-icon-custom-height: $rac-icon-height,
-                                             $rac-icon-custom-size: $rac-icon-size,
-                                             $rac-icon-custom-content-height: $rac-icon-content-height,
-                                             $rac-icon-custom-content-width: $rac-icon-content-width,
-                                             $rac-icon-custom-content-vertical-align: $rac-icon-content-vertical-align,
-                                             $rac-icon-custom-content-margin: $rac-icon-content-margin,
-                                             $rac-icon-custom-line-height: $rac-icon-line-height,
-                                             $rac-icon-custom-border: $rac-icon-border,
-                                             $rac-icon-custom-position: $rac-icon-position,
-                                             $rac-icon-custom-left: $rac-icon-left,
-                                             $rac-icon-custom-right: $rac-icon-right,
-                                             $rac-icon-custom-top: $rac-icon-top,
-                                             $rac-icon-custom-bottom: $rac-icon-bottom,
-                                             $rac-icon-custom-opacity: $rac-icon-opacity,
-                                             $rac-icon-custom-cursor: $rac-icon-cursor);
-      }
-    }
-  } @else {
-    .rac-icon {
-      @include _rac-icon-custom-properties($rac-icon-custom-display: $rac-icon-display,
-                                           $rac-icon-custom-background: $rac-icon-background,
-                                           $rac-icon-custom-color: $rac-icon-color,
-                                           $rac-icon-custom-margin: $rac-icon-margin,
-                                           $rac-icon-custom-padding: $rac-icon-padding,
-                                           $rac-icon-custom-border-radius: $rac-icon-border-radius,
-                                           $rac-icon-custom-width: $rac-icon-width,
-                                           $rac-icon-custom-height: $rac-icon-height,
-                                           $rac-icon-custom-size: $rac-icon-size,
-                                           $rac-icon-custom-content-height: $rac-icon-content-height,
-                                           $rac-icon-custom-content-width: $rac-icon-content-width,
-                                           $rac-icon-custom-content-vertical-align: $rac-icon-content-vertical-align,
-                                           $rac-icon-custom-content-margin: $rac-icon-content-margin,
-                                           $rac-icon-custom-line-height: $rac-icon-line-height,
-                                           $rac-icon-custom-border: $rac-icon-border,
-                                           $rac-icon-custom-position: $rac-icon-position,
-                                           $rac-icon-custom-left: $rac-icon-left,
-                                           $rac-icon-custom-right: $rac-icon-right,
-                                           $rac-icon-custom-top: $rac-icon-top,
-                                           $rac-icon-custom-bottom: $rac-icon-bottom,
-                                           $rac-icon-custom-opacity: $rac-icon-opacity,
-                                           $rac-icon-custom-cursor: $rac-icon-cursor);
+  #{rac-build-cls(rac-icon, $rac-icon-custom)} {
+    @include rac-styles(
+      $rac-styles-position: $rac-icon-position,
+      $rac-styles-left: $rac-icon-left,
+      $rac-styles-top: $rac-icon-top,
+      $rac-styles-bottom: $rac-icon-bottom,
+      $rac-styles-right: $rac-icon-right,
+      $rac-styles-cursor: $rac-icon-cursor,
+      $rac-styles-border: $rac-icon-border,
+      $rac-styles-margin: $rac-icon-margin,
+      $rac-styles-padding: $rac-icon-padding,
+      $rac-styles-line-height: $rac-icon-line-height,
+      $rac-styles-display: $rac-icon-display,
+      $rac-styles-background: $rac-icon-background,
+      $rac-styles-border-radius: $rac-icon-border-radius,
+      $rac-styles-color: $rac-icon-color,
+      $rac-styles-height: $rac-icon-height,
+      $rac-styles-opacity: $rac-icon-opacity,
+      $rac-styles-width: $rac-icon-width,
+      $rac-styles-size: $rac-icon-size
+    );
+
+    svg {
+      @include rac-styles(
+        $rac-styles-height: $rac-icon-content-height,
+        $rac-styles-width: $rac-icon-content-width,
+        $rac-styles-vertical-align: $rac-icon-content-vertical-align,
+        $rac-styles-margin: $rac-icon-content-margin
+      );
     }
   }
 }
@@ -1275,6 +1189,7 @@
                 $rac-list-padding: unset,
                 $rac-list-max-height: unset,
                 $rac-list-overflow: unset,
+                $rac-list-border-bottom: unset,
                 $rac-list-item-custom: unset,
                 $rac-list-item-border: unset,
                 $rac-list-item-background: unset,
@@ -1304,7 +1219,8 @@
       $rac-styles-margin: $rac-list-margin,
       $rac-styles-padding: $rac-list-padding,
       $rac-styles-max-height: $rac-list-max-height,
-      $rac-styles-overflow: $rac-list-overflow
+      $rac-styles-overflow: $rac-list-overflow,
+      $rac-styles-border-bottom: $rac-list-border-bottom
     );
 
     @include rac-list-item(
@@ -1354,12 +1270,17 @@
                   $rac-button-background: unset,
                   $rac-button-margin: unset,
                   $rac-button-border: unset,
+                  $rac-button-text-transform: unset,
+                  $rac-button-font-weight: unset,
+                  $rac-button-cursor: unset,
+                  $rac-button-content-width: unset,
                   $rac-button-content-margin: unset,
                   $rac-button-content-padding: unset,
                   $rac-button-content-font-size: unset,
                   $rac-button-content-color: unset,
                   $rac-button-icon-margin: unset,
                   $rac-button-icon-color: unset,
+                  $rac-button-icon-size: unset,
                   $rac-button-hover-shadow: unset,
                   $rac-button-hover-background: unset,
                   $rac-button-hover-color: unset,
@@ -1367,7 +1288,11 @@
                   $rac-button-shadow-offset: unset,
                   $rac-button-width: unset,
                   $rac-button-min-width: unset,
-                  $rac-button-neighbor-margin: unset) {
+                  $rac-button-neighbor-margin: unset,
+                  $rac-button-disabled-opacity: unset,
+                  $rac-button-disabled-cursor: unset,
+                  $rac-button-disabled-background: unset,
+                  $rac-button-disabled-shadow: unset) {
 
   #{rac-build-cls(rac-button, $rac-button-custom)} {
     @include rac-styles(
@@ -1378,17 +1303,22 @@
       $rac-styles-margin : $rac-button-margin,
       $rac-styles-border : $rac-button-border,
       $rac-styles-min-width : $rac-button-min-width,
-      $rac-styles-width: $rac-button-width
+      $rac-styles-width: $rac-button-width,
+      $rac-styles-text-transform: $rac-button-text-transform,
+      $rac-styles-font-weight: $rac-button-font-weight,
+      $rac-styles-cursor: $rac-button-cursor
     );
 
     @include rac-icon(
       $rac-icon-margin: $rac-button-icon-margin,
-      $rac-icon-color: $rac-button-icon-color
+      $rac-icon-color: $rac-button-icon-color,
+      $rac-icon-size: $rac-button-icon-size
     );
 
     @include rac-styles(
       $rac-styles-custom: rac-button-content,
       $rac-styles-margin: $rac-button-content-margin,
+      $rac-styles-width: $rac-button-content-width,
       $rac-styles-padding: $rac-button-content-padding,
       $rac-styles-font-size: $rac-button-content-font-size,
       $rac-styles-color: $rac-button-content-color
@@ -1416,6 +1346,18 @@
           $rac-button-shadow
         );
       }
+    }
+
+    &[disabled] {
+      @include rac-styles(
+        $rac-styles-opacity: $rac-button-disabled-opacity,
+        $rac-styles-cursor: $rac-button-disabled-cursor
+      );
+
+      @include rac-shadow(
+        $rac-button-disabled-background,
+        $rac-button-disabled-shadow
+      );
     }
   }
 
@@ -2356,6 +2298,7 @@
                      $rac-card-list-padding: unset,
                      $rac-card-list-max-height: unset,
                      $rac-card-list-overflow: unset,
+                     $rac-card-list-border-bottom: unset,
                      $rac-card-list-item-custom: unset,
                      $rac-card-list-item-width: unset,
                      $rac-card-list-item-height: unset,
@@ -2389,6 +2332,7 @@
     $rac-list-padding: $rac-card-list-padding,
     $rac-list-max-height: $rac-card-list-max-height,
     $rac-list-overflow: $rac-card-list-overflow,
+    $rac-list-border-bottom: $rac-card-list-border-bottom,
     $rac-list-item-border-radius: $rac-card-list-item-border-radius,
     $rac-list-item-background: $rac-card-list-item-background,
     $rac-list-item-margin: $rac-card-list-item-margin,

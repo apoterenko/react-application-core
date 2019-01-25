@@ -20,6 +20,9 @@ export function orUndef<TResult>(condition: AnyT, result: TResult|(() => TResult
   return condition ? (isFn(result) ? (result as () => TResult)() : result as TResult) : undefined;
 }
 
+/**
+ * @deprecated
+ */
 export function orDefault<TResult1, TResult2>(cond: boolean,
                                               result1: TResult1|(() => TResult1),
                                               result2: TResult2|(() => TResult2)): TResult1|TResult2 {
@@ -28,12 +31,9 @@ export function orDefault<TResult1, TResult2>(cond: boolean,
       : (isFn(result2) ? (result2 as () => TResult2)() : result2 as TResult2);
 }
 
+// TODO deprecated - use ifNotNilThanValue
 /**
- * @stable [06.12.2018]
- * @param {AnyT} checkedValue
- * @param {(() => TResult1) | TResult1} result1
- * @param {(() => TResult2) | TResult2} result2
- * @returns {TResult1 | TResult2}
+ * @deprecated
  */
 export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(checkedValue: AnyT,
                                                               result1: TResult1 | (() => TResult1),
@@ -61,10 +61,13 @@ export const ifNilReturnUuid = <TResult>(value: AnyT,
   ifNilReturnDefault<TResult, string>(value, result, () => uuid());
 
 /**
- * @stable [25.12.2018]
+ * @stable [23.01.2018]
  * @param {TValue} value
  * @param {(value: TValue) => TResult} callback
+ * @param {any} defaultValue
  * @returns {TResult}
  */
-export const ifNotNilThanValue = <TValue, TResult>(value: TValue, callback: (value: TValue) => TResult): TResult =>
-  !R.isNil(value) ? callback(value) : null;
+export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
+                                                   callback: (value: TValue) => TResult,
+                                                   defaultValue = null): TResult =>
+  !R.isNil(value) ? callback(value) : defaultValue;

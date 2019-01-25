@@ -147,7 +147,22 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,
       };
-      // No breaks! Go to update the entity.
+    // No breaks! Go to update the entity.
+    case ListActionBuilder.buildMergeActionType(section):
+    // No breaks! Go to update the entity.
+    case ListActionBuilder.buildInsertActionType(section):
+      if (R.isNil(modifyDataPayload.id) || R.isNil(R.find((item) => item.id === modifyDataPayload.id, state.data || []))) {
+        const insertedItem = {...modifyDataPayload.changes};
+        updatedData = (state.data || []).concat(insertedItem);
+
+        return {
+          ...state,
+          data: updatedData,
+          totalCount: ++state.totalCount,
+          selected: insertedItem,
+        };
+      }
+    // No breaks! Go to update the entity.
     case ListActionBuilder.buildUpdateActionType(section):
       const mergeStrategy = (R.isNil(modifyDataPayload.mergeStrategy)
         || modifyDataPayload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
@@ -180,16 +195,6 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
           progress: false,      // In a lazy-loading case
         };
       }
-    case ListActionBuilder.buildInsertActionType(section):
-      const insertedItem = { ...modifyDataPayload.changes };
-      updatedData = (state.data || []).concat(insertedItem);
-
-      return {
-        ...state,
-        data: updatedData,
-        totalCount: ++state.totalCount,
-        selected: insertedItem,
-      };
     case ListActionBuilder.buildRemoveActionType(section):
       const entityToRemovePayload: IRemovedEntityWrapper = action.data;
       const filterFn = (entity) => !(entity === entityToRemovePayload || entity.id === entityToRemovePayload.removed.id);

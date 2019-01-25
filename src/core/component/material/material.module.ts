@@ -84,6 +84,9 @@ appContainer.bind<Map<IComponentClassEntity, UniversalComponentPluginFactoryT>>(
  */
 appContainer.bind<IUIFactory>(DI_TYPES.UIFactory).to(UIMaterialFactory).inSingletonScope();
 
+// TODO
+import '../icon/icon-factory/default/ui-default-icon-factory.module';
+
 /**
  * @stable [27.05.2018]
  */

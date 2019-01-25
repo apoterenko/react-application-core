@@ -157,15 +157,9 @@ export interface IDateTimeEntity extends IDateWrapper,
 }
 
 /**
- * @stable [04.05.2018]
+ * @stable [25.01.2019]
  */
-export interface IUniversalComponentEntity extends IXYEntity {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IComponentEntity extends IUniversalComponentEntity {
+export interface IComponentEntity {
 }
 
 /**
@@ -298,8 +292,7 @@ export interface IContainer<TProps extends IContainerProps = IContainerProps, TS
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalFieldEntity extends IUniversalComponentEntity,
-                                               IValueWrapper,
+export interface IUniversalFieldEntity extends IValueWrapper,
                                                IOriginalValueWrapper,
                                                IDisplayValueWrapper<string | ((value: AnyT) => string)> {
 }
@@ -487,8 +480,7 @@ export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
 /**
  * @stable [29.05.2018]
  */
-export interface IUniversalListEntity extends IUniversalComponentEntity,
-                                              IUniversalLivingEntity,
+export interface IUniversalListEntity extends IUniversalLivingEntity,
                                               IPaginatedEntity,
                                               IDataWrapper,
                                               IRawDataWrapper,
@@ -497,8 +489,7 @@ export interface IUniversalListEntity extends IUniversalComponentEntity,
 }
 
 /* @stable [24.04.2018] */
-export interface IUniversalListItemEntity extends IUniversalComponentEntity,
-                                                  IRawDataWrapper,
+export interface IUniversalListItemEntity extends IRawDataWrapper,
                                                   IOnClickWrapper<IEntity>,
                                                   ISelectedWrapper {
 }
@@ -529,8 +520,7 @@ export interface IListEntity extends IUniversalListEntity,
 /**
  * @stable [30.08.2018]
  */
-export interface ITabPanelEntity extends IUniversalComponentEntity,
-                                         IActiveValueWrapper {
+export interface ITabPanelEntity extends IActiveValueWrapper {
 }
 
 /**
@@ -607,8 +597,7 @@ export interface IGridRowEntity extends IComponentEntity,
 }
 
 /* @stable - 19.04.2018 */
-export interface IUniversalButtonEntity extends IUniversalComponentEntity,
-                                                IProgressWrapper,
+export interface IUniversalButtonEntity extends IProgressWrapper,
                                                 IDisabledWrapper,
                                                 IStringProgressMessageWrapper,
                                                 IStringErrorMessageWrapper,
@@ -617,8 +606,7 @@ export interface IUniversalButtonEntity extends IUniversalComponentEntity,
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalMessageEntity extends IUniversalComponentEntity,
-                                                 IUniversalLivingEntity {
+export interface IUniversalMessageEntity extends IUniversalLivingEntity {
 }
 
 /* @stable - 08.04.2018 */
@@ -693,7 +681,7 @@ export enum LayoutModeEnum {
 /**
  * @stable [23.09.2018]
  */
-export interface ILayoutEntity extends IUniversalComponentEntity,
+export interface ILayoutEntity extends IXYEntity,
                                        IExpandedGroupsWrapper,
                                        IModeWrapper<LayoutModeEnum> {
 }
@@ -930,6 +918,7 @@ export interface IEnvironmentEntity {
   safariPlatform?: boolean;
   passwordInputPlaceholder?: string;
   documentBody?: Element;
+  localModeEnabled?: boolean;
   appPath?(): string;
   buildAppPath?(path: string): string;
 }

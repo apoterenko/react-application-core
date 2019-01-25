@@ -10,7 +10,6 @@ import {
   IQueryFilterEntity,
   IUniversalContainerEntity,
   IQueryFilterWrapperEntity,
-  IUniversalComponentEntity,
 } from '../../../entities-definitions.interface';
 import {
   IOnApplyWrapper,
@@ -41,8 +40,7 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalSearchToolbarEntity extends IUniversalComponentEntity,
-                                                       IQueryFilterEntity {
+export interface IUniversalSearchToolbarEntity extends IQueryFilterEntity {
 }
 
 /**

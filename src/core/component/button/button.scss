@@ -4,57 +4,67 @@
 // Button [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-button(                                                              /* @stable [31.10.2018] */
+  @include rac-button(                                                                        /* @stable [31.10.2018] */
     $rac-button-height: $rac-button-height,
     $rac-button-border-radius: $rac-button-border-radius,
     $rac-button-background: $rac-button-background,
-    $rac-button-border: none,
+    $rac-button-border: $rac-button-border,
     $rac-button-padding: $rac-button-padding,
+    $rac-button-text-transform: $rac-button-text-transform,
+    $rac-button-font-weight: $rac-button-font-weight,
+    $rac-button-cursor: $rac-button-cursor,
+    $rac-button-disabled-cursor: $rac-button-disabled-cursor,
+    $rac-button-disabled-opacity: $rac-button-disabled-opacity,
+    $rac-button-disabled-background: $rac-button-disabled-background,
+    $rac-button-disabled-shadow: $rac-button-disabled-shadow,
     $rac-button-content-margin: $rac-button-content-margin,
     $rac-button-content-font-size: $rac-button-content-font-size
   );
 
-  @include rac-button(                                                              /* @stable [01.11.2018] */
+  @include rac-button(                                                                        /* @stable [01.11.2018] */
     $rac-button-custom: $rac-button-raised-cls,
     $rac-button-color: $rac-button-raised-color,
     $rac-button-background: $rac-button-raised-background,
     $rac-button-shadow: $rac-button-raised-shadow,
     $rac-button-shadow-offset: $rac-button-raised-shadow-offset,
     $rac-button-hover-background: $rac-button-raised-hover-background,
-    $rac-button-hover-shadow: $rac-button-raised-hover-shadow
+    $rac-button-hover-shadow: $rac-button-raised-hover-shadow,
+    $rac-button-disabled-background: $rac-button-disabled-background,  // rac-button inheritance
+    $rac-button-disabled-shadow: $rac-button-disabled-shadow           // rac-button inheritance
   );
 
-  @include rac-button(                                                              /* @stable [10.01.2019] */
+  @include rac-button(                                                                        /* @stable [10.01.2019] */
     $rac-button-custom: $rac-button-outlined-cls,
     $rac-button-border: $rac-button-outlined-border,
-    $rac-button-background: $rac-button-outlined-background
+    $rac-button-background: $rac-button-outlined-background,           // rac-button inheritance
+    $rac-button-disabled-background: $rac-button-disabled-background   // rac-button inheritance
   );
 
-  @include rac-button(                                                              /* @stable [01.11.2018] */
-    $rac-button-custom: rac-button-filled,
+  @include rac-button(                                                                        /* @stable [01.11.2018] */
+    $rac-button-custom: $rac-button-filled-cls,
     $rac-button-icon-margin: $rac-button-icon-margin
   );
 
-  @include rac-button(                                                              /* @stable [01.11.2018] */
-    $rac-button-custom: rac-button-not-filled,
+  @include rac-button(                                                                        /* @stable [01.11.2018] */
+    $rac-button-custom: $rac-button-not-filled-cls,
     $rac-button-icon-margin: 0 auto
   );
 
-  @include rac-button(                                                              /* @stable [01.11.2018] */
+  @include rac-button(                                                                        /* @stable [01.11.2018] */
     $rac-button-custom: $rac-button-decorated-cls,
     $rac-button-content-padding: $rac-button-decorated-content-padding,
     $rac-button-content-margin: $rac-button-decorated-content-margin
   );
 
-  .rac-button {
-    text-transform: $rac-button-text-transform;                           /* @stable [18.09.2018] */
-    font-weight: $rac-button-font-weight;                                 /* @stable [18.09.2018] */
-    cursor: pointer;                                                      /* @stable [29.10.2018] */
+  @include rac-button(                                                                        /* @stable [23.01.2019] */
+    $rac-button-custom: $rac-button-decorated-not-filled-cls,
+    $rac-button-width: $rac-button-decorated-not-filled-width
+  );
 
+  .rac-button {
     &.rac-button-not-filled {
 
       &.rac-button-decorated {
-        width: 40px;
 
         &.rac-button-mini {
           width: 32px;
@@ -66,11 +76,6 @@
           }
         }
       }
-    }
-
-    &[disabled] {
-      opacity: $rac-button-disabled-opacity;                              /* @stable [09.10.2018] */
-      cursor: default;                                                    /* @stable [09.10.2018] */
     }
   }
 }

@@ -7,7 +7,6 @@ import {
   IBlobWrapper,
   IMethodWrapper,
   IPathWrapper,
-  IKeyValueParamsWrapper,
   INoCacheWrapper,
   IUrlWrapper,
   IKeyValueHeadersWrapper,
@@ -21,6 +20,7 @@ import {
   AnyT,
   IOperationIdWrapper,
   IWithCredentialsWrapper,
+  IParamsWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from '../entities-definitions.interface';
 
@@ -63,7 +63,7 @@ export interface ITransportHttpRequestEntity extends IMethodWrapper,
 
 export interface ITransportRequestEntity extends INameWrapper,
                                                  INotApplyAuthWrapper,
-                                                 IKeyValueParamsWrapper,
+                                                 IParamsWrapper,
                                                  IBlobWrapper,
                                                  IMethodWrapper,
                                                  IPathWrapper,
@@ -76,7 +76,7 @@ export interface ITransportRequestEntity extends INameWrapper,
 
 export interface ITransportRequestParamsEntity extends INameWrapper,
                                                        INotApplyAuthWrapper,
-                                                       IKeyValueParamsWrapper,
+                                                       IParamsWrapper,
                                                        IStringAuthWrapper,
                                                        IIdWrapper {
 }
