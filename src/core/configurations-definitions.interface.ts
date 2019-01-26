@@ -713,6 +713,7 @@ export interface IKeyboardConfiguration extends IComponentConfiguration,
                                                 ILayoutWrapper<KeyboardLayoutT[]>,
                                                 IOnCloseWrapper,
                                                 IRenderToBodyWrapper {
+  keyboardKeyConfiguration?: any; // TODO
 }
 
 /**

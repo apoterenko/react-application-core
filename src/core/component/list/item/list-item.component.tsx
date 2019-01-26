@@ -32,7 +32,7 @@ export class ListItem extends BaseComponent<ListItem, IListItemProps>
     };
 
     return props.renderer
-        ? React.cloneElement(props.renderer(props.rawData), defaultProps)
+        ? React.cloneElement(props.renderer(props.rawData, props.index), defaultProps)
         : (
             <li {...defaultProps}>
               {

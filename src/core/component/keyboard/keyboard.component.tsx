@@ -44,7 +44,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
     const props = this.props;
     const state = this.state;
     const keys = props.layout[state.mode];
-    const renderToBody = props.renderToBody !== false;
+    const inlineKeyboard = props.renderToBody !== false;
 
     const el = (
       <div
@@ -52,13 +52,13 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
         className={toClassName(
           'rac-keyboard',
           'rac-no-user-select',
-          renderToBody && 'rac-keyboard-absolute',
+          inlineKeyboard && 'rac-keyboard-absolute',
           props.className
         )}
       >
         {
           orNull<JSX.Element>(
-            renderToBody,
+            inlineKeyboard,
             () => this.uiFactory.makeIcon({
               key: 'keyboard-close-action-key',
               type: 'ban',
@@ -73,7 +73,8 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
                  className='rac-flex rac-flex-center'>
               {
                 row.map((key, index2) => (
-                  <KeyboardKey key={`keyboard-row-column-${index}-${index2}`}
+                  <KeyboardKey {...props.keyboardKeyConfiguration}
+                               key={`keyboard-row-column-${index}-${index2}`}
                                value={key}
                                useUppercase={state.useUppercase}
                                onSelect={this.onSelect}/>
@@ -85,7 +86,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
       </div>
     );
 
-    return renderToBody ? ReactDOM.createPortal(el, ENV.documentBody) : el;
+    return inlineKeyboard ? ReactDOM.createPortal(el, ENV.documentBody) : el;
   }
 
   /**

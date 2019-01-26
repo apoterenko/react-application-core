@@ -140,6 +140,11 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
              xlinkHref='#dropdown-opened' />
       </svg>
     ),
+    'pin-delete-thin': (
+      <svg xmlns='http://www.w3.org/2000/svg' width='40' height='24' viewBox='0 0 40 24'>
+        <path fill='currentColor' fillRule='evenodd' d='M10.037 0L0 12l10.037 12h26.766c1.76 0 3.2-1.44 3.2-3.2V3.2c0-1.76-1.44-3.2-3.2-3.2H10.038zm.732 1.6h26.034c.894 0 1.6.706 1.6 1.6v17.6c0 .894-.706 1.6-1.6 1.6H10.772L2 12l8.769-10.4zm7.4 5.034l-1.131 1.132L21.272 12l-4.234 4.234 1.13 1.132 4.235-4.235 4.235 4.235 1.13-1.132L23.535 12l4.235-4.234-1.131-1.132-4.235 4.235-4.234-4.235z'/>
+      </svg>
+    ),
   };
   // tslint:enable:max-line-length
 

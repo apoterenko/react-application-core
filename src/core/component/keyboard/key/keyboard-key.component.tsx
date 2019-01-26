@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName, isString } from '../../../util';
+import { toClassName, isString, isFn } from '../../../util';
 import { BaseComponent } from '../../base';
 import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 import { IKeyboardKeyProps } from './keyboard-key.interface';
@@ -8,6 +8,15 @@ import { IBasicEvent } from '../../../react-definitions.interface';
 import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitions.interface';
 
 export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
+
+  /**
+   * @stable [26.01.2019]
+   * @param {IKeyboardKeyProps} props
+   */
+  constructor(props: IKeyboardKeyProps) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
 
   /**
    * @stable [08.05.2018]
@@ -40,8 +49,8 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
                        keyAsObject && keyAsObject.className,
                        this.uiFactory.rippleSurface
                      )}
-           onClick={(event) => this.onClick(event)}>
-        {value}
+           onClick={this.onClick}>
+        {isFn(props.renderer) ? props.renderer(value) : value}
       </div>
     );
   }

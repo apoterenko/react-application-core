@@ -36,6 +36,7 @@ export class List extends BaseList<List, IListProps> {
     return (
       <ListItem ref={rowKey}
                 key={rowKey}
+                index={index}
                 rawData={entity}
                 selected={this.isEntitySelected(entity)}
                 onClick={this.onSelect}

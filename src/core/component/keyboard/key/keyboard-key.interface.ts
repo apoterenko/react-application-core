@@ -2,26 +2,17 @@ import {
   IUseUppercaseWrapper,
   IValueWrapper,
   IOnSelectWrapper,
+  IRendererWrapper,
 } from '../../../definitions.interface';
-import { IComponentConfiguration, KeyboardKeyT } from '../../../configurations-definitions.interface';
+import { KeyboardKeyT } from '../../../configurations-definitions.interface';
+import { IComponentProps } from '../../../props-definitions.interface';
 
 /**
  * @stable [08.05.2018]
  */
-export interface IKeyboardKeyConfiguration extends IComponentConfiguration,
-                                                   IUseUppercaseWrapper,
-                                                   IOnSelectWrapper<KeyboardKeyT> {
-}
-
-/**
- * @stable [08.05.2018]
- */
-export interface IKeyboardKeyEntity extends IValueWrapper<KeyboardKeyT> {
-}
-
-/**
- * @stable [08.05.2018]
- */
-export interface IKeyboardKeyProps extends IKeyboardKeyConfiguration,
-                                           IKeyboardKeyEntity {
+export interface IKeyboardKeyProps extends IComponentProps,
+                                           IRendererWrapper<string>,
+                                           IUseUppercaseWrapper,
+                                           IOnSelectWrapper<KeyboardKeyT>,
+                                           IValueWrapper<KeyboardKeyT> {
 }
