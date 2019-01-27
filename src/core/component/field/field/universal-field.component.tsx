@@ -462,6 +462,14 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   }
 
   /**
+   * @stable [27.01.2019]
+   * @returns {boolean}
+   */
+  protected isFieldFocused(): boolean {
+    return this.props.useKeyboard ? this.isKeyboardOpened() : this.state.focused;
+  }
+
+  /**
    * @stable [06.10.2018]
    * @returns {boolean}
    */

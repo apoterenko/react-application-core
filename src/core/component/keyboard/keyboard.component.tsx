@@ -12,6 +12,7 @@ import {
   IKeyboardState,
 } from './keyboard.interface';
 import { KeyboardKey } from './key';
+import { FlexLayout } from '../layout';
 import { IJQueryElement } from '../../definitions.interface';
 import {
   IKeyboardKey,
@@ -61,7 +62,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
             inlineKeyboard,
             () => this.uiFactory.makeIcon({
               key: 'keyboard-close-action-key',
-              type: 'ban',
+              type: 'close',
               className: 'rac-keyboard-close',
               onClick: props.onClose,
             })
@@ -69,18 +70,24 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
         }
         {
           keys.map((row, index) => (
-            <div key={`keyboard-row-${index}`}
-                 className='rac-flex rac-flex-center'>
+            <FlexLayout
+              key={`keyboard-row-${index}`}
+              full={false}
+              row={true}
+              justifyContentCenter={true}
+              alignItemsCenter={true}
+            >
               {
                 row.map((key, index2) => (
-                  <KeyboardKey {...props.keyboardKeyConfiguration}
-                               key={`keyboard-row-column-${index}-${index2}`}
-                               value={key}
-                               useUppercase={state.useUppercase}
-                               onSelect={this.onSelect}/>
+                  <KeyboardKey
+                    {...props.keyboardKeyConfiguration}
+                    key={`keyboard-row-column-${index}-${index2}`}
+                    value={key}
+                    useUppercase={state.useUppercase}
+                    onSelect={this.onSelect}/>
                 ))
               }
-            </div>
+            </FlexLayout>
           ))
         }
       </div>

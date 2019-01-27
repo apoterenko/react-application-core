@@ -20,7 +20,12 @@
     $rac-keyboard-key-opacity: $rac-keyboard-key-opacity,
     $rac-keyboard-key-color: $rac-keyboard-key-color,
     $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
-    $rac-keyboard-key-background: $rac-keyboard-key-background
+    $rac-keyboard-key-background: $rac-keyboard-key-background,
+    $rac-keyboard-close-color: $rac-keyboard-close-color,
+    $rac-keyboard-close-position: $rac-keyboard-close-position,
+    $rac-keyboard-close-right: $rac-keyboard-close-right,
+    $rac-keyboard-close-bottom: $rac-keyboard-close-bottom,
+    $rac-keyboard-close-margin: $rac-keyboard-close-margin
   );
 
   .rac-keyboard {
@@ -31,25 +36,8 @@
         $rac-position-horizontal-align-center: true);
     }
 
-    .rac-keyboard-close {
-      &.rac-icon {
-        color: $rac-keyboard-close-color;           /* @stable [19.08.2018] */
-        height: $rac-keyboard-close-height;         /* @stable [19.08.2018] */
-        width: $rac-keyboard-close-width;           /* @stable [19.08.2018] */
-        cursor: pointer;                            /* @stable [08.05.2018] */
-        position: absolute;                         /* @stable [16.05.2018] */
-        right: 0;                                   /* @stable [16.05.2018] */
-        bottom: 0;                                  /* @stable [16.05.2018] */
-        margin: 4px;                                /* @stable [16.05.2018] */
-      }
-    }
-
     .rac-keyboard-key {
       @include rac-keyboard-size(0);                                /* @stable [13.08.2018] */
-
-      &.rac-keyboard-digital {
-        font-size: 24px;                                            /* @stable [27.05.2018] */
-      }
     }
   }
 }
@@ -78,10 +66,6 @@
         @include rac-keyboard-size(2);                                /* @stable [13.08.2018] */
         border-radius: 12px;                                          /* @stable [27.05.2018] */
         font-size: 18px;                                              /* @stable [16.08.2018] */
-
-        &.rac-keyboard-digital {
-          font-size: 16px;                                            /* @stable [27.05.2018] */
-        }
       }
     }
   }

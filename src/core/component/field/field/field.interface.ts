@@ -41,6 +41,7 @@ export interface IUniversalFieldState extends IStringErrorWrapper,
                                               IKeyboardOpenedWrapper,
                                               ICaretVisibilityWrapper,
                                               ICaretPositionWrapper {
+  focused?: boolean; // TODO
 }
 
 /**

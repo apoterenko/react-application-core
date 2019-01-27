@@ -14,7 +14,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
   };
 
   /**
-   * @stable - 20.04.2018
+   * @stable [27.01.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -34,47 +34,46 @@ export class Button extends BaseComponent<Button, IButtonProps> {
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
-      props.className
+      props.className,
+      this.uiFactory.rippleSurface
     );
 
     if (props.to) {
       return (
-          <Link to={props.to}
-                style={props.style}
-                className={className}>
-            {buttonText}
-          </Link>
+        <Link
+          to={props.to}
+          style={props.style}
+          className={className}
+        >
+          {buttonText}
+        </Link>
       );
     }
 
     return (
-        <button type={props.type}
-                title={props.title}
-                style={props.style}
-                onClick={props.onClick}
-                className={className}
-                disabled={isButtonDisabled(props)}>
-          {
-            orNull<JSX.Element>(
-              hasIcon,
-              () => this.uiFactory.makeIcon({
-                type: getButtonIcon(props, 'timelapse', 'error'),
-                className: props.iconCls,
-              })
-            )
-          }
-          {
-            orNull<JSX.Element>(
-              hasContent,
-              () => (
-                <div className='rac-button-content'>
-                  {orNull<string>(buttonText, () => this.t(buttonText))}
-                  {props.children}
-                </div>
-              )
-            )
-          }
-        </button>
+      <button
+        type={props.type}
+        title={props.title}
+        style={props.style}
+        onClick={props.onClick}
+        className={className}
+        disabled={isButtonDisabled(props)}
+      >
+        {
+          hasIcon && this.uiFactory.makeIcon({
+            type: getButtonIcon(props, 'timelapse', 'error'),
+            className: props.iconCls,
+          })
+        }
+        {
+          hasContent && (
+            <div className='rac-button-content'>
+              {buttonText && this.t(buttonText)}
+              {props.children}
+            </div>
+          )
+        }
+      </button>
     );
   }
 }

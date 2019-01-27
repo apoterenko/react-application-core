@@ -33,7 +33,7 @@ export const KEYBOARD_QWERTY_LAYOUT: KeyboardLayoutT = [
     'z', 'x', 'c', 'v', 'b', 'n', 'm',
     {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}],
   [
-    {value: KEYBOARD_SPECIAL_KEYS.DIGITAL, type: KeyboardKeyEnum.CHANGE_LAYOUT, className: 'rac-keyboard-digital'},
+    {value: KEYBOARD_SPECIAL_KEYS.DIGITAL, type: KeyboardKeyEnum.CHANGE_LAYOUT},
     ',',
     {value: KEYBOARD_SPECIAL_KEYS.SPACE, type: KeyboardKeyEnum.SPACE, width: 200},
     '.'
@@ -47,7 +47,7 @@ export const KEYBOARD_QWERTY_DIGITAL_LAYOUT: KeyboardLayoutT = [
   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
   ['!', '@', '#', '$', '%', '&', '+', '?', '/'],
   ['*', '_', '"', '\'', '(', ')', '-', ':', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}],
-  [{value: KEYBOARD_SPECIAL_KEYS.LITERAL, type: KeyboardKeyEnum.CHANGE_LAYOUT, className: 'rac-keyboard-digital'},
+  [{value: KEYBOARD_SPECIAL_KEYS.LITERAL, type: KeyboardKeyEnum.CHANGE_LAYOUT},
     ';', ',', {value: KEYBOARD_SPECIAL_KEYS.SPACE, type: KeyboardKeyEnum.SPACE, width: 200}, '.', '=']
 ];
 

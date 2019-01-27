@@ -30,7 +30,8 @@
     $rac-button-hover-background: $rac-button-raised-hover-background,
     $rac-button-hover-shadow: $rac-button-raised-hover-shadow,
     $rac-button-disabled-background: $rac-button-disabled-background,  // rac-button inheritance
-    $rac-button-disabled-shadow: $rac-button-disabled-shadow           // rac-button inheritance
+    $rac-button-disabled-shadow: $rac-button-disabled-shadow,          // rac-button inheritance,
+    $rac-button-content-font-size: $rac-button-raised-content-font-size
   );
 
   @include rac-button(                                                                        /* @stable [10.01.2019] */

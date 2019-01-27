@@ -1,82 +1,28 @@
 @import '../../constant';
 @import '../../mixin';
 
-// Form layout [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-form-layout {
-    background: $rac-form-layout-background;                           /* @stable [07.08.2018] */
-    background-size: $rac-form-layout-background-size;                 /* @stable [07.08.2018] */
-
-    .rac-form-layout-content {
-      position: relative;                                              /* @stable [18.09.2018] */
-      width: $rac-form-layout-content-width;                           /* @stable [18.09.2018] */
-      margin: $rac-form-layout-content-margin;                         /* @stable [18.09.2018] */
-      border: $rac-form-layout-content-border;                         /* @stable [18.09.2018] */
-      border-radius: $rac-form-layout-content-border-radius;           /* @stable [18.09.2018] */
-      background: $rac-form-layout-content-background;                 /* @stable [07.08.2018] */
-
-      .rac-header {
-        background: $rac-form-layout-header-background;                /* @stable [07.08.2018] */
-
-        .rac-header-title {
-          color: $rac-form-layout-header-title-color;                  /* @stable [08.08.2018] */
-          font-size: $rac-form-layout-header-title-font-size;          /* @stable [08.08.2018] */
-        }
-      }
-
-      @include rac-form(                                                                              /* @stable [08.11.2018] */
-        $rac-form-actions-margin: $rac-form-layout-form-actions-margin,
-        $rac-form-actions-button-min-width: $rac-form-layout-form-actions-button-min-width
-      );
-
-      .rac-form-layout-top-header {
-        width: $rac-form-layout-top-header-width;                      /* @stable [18.09.2018] */
-        height: $rac-form-layout-top-header-height;                    /* @stable [19.09.2018] */
-        top: $rac-form-layout-top-header-top;                          /* @stable [19.09.2018] */
-        background: $rac-form-layout-top-header-background;            /* @stable [07.08.2018] */
-        background-size: $rac-form-layout-top-header-background-size;  /* @stable [26.08.2018] */
-
-        .rac-form-layout-top-header-content {
-          white-space: nowrap;                                                 /* @stable [07.08.2018] */
-          font-size: $rac-form-layout-top-header-content-font-size;            /* @stable [07.08.2018] */
-          font-weight: $rac-form-layout-top-header-content-font-weight;        /* @stable [07.08.2018] */
-          text-transform: $rac-form-layout-top-header-content-text-transform;  /* @stable [07.08.2018] */
-          color: $rac-form-layout-top-header-content-color;                    /* @stable [07.08.2018] */
-        }
-      }
-
-      @include rac-field($rac-field-margin: $rac-form-layout-field-margin,
-                         $rac-text-field-height: $rac-form-layout-text-field-height,
-                         $rac-text-field-border-color: $rac-form-layout-text-field-border-color,
-                         $rac-text-field-background: $rac-form-layout-text-field-background,
-                         $rac-text-field-input-font-size: $rac-form-layout-text-field-input-font-size);
-
-      .rac-field {
-
-        &.rac-field-value-present {
-          .rac-text-field {
-            background: $rac-form-layout-text-field-value-present-background;  /* @stable [07.11.2018] */
-          }
-        }
-
-        .rac-text-field {
-
-          .rac-field-input {
-            color: $rac-form-layout-field-input-color;                         /* @stable [07.08.2018] */
-            caret-color: $rac-form-layout-field-input-color;                   /* @stable [15.08.2018] */
-
-            &::placeholder {
-              color: $rac-form-layout-field-input-placeholder-color;                /* @stable [18.09.2018] */
-              font-weight: $rac-form-layout-field-input-placeholder-font-weight;    /* @stable [27.09.2018] */
-            }
-          }
-
-          .rac-icon {
-            color: $rac-form-layout-field-icon-color;                          /* @stable [18.09.2018] */
-          }
-        }
-      }
-    }
-  }
+  @include rac-form-layout(                                                                   /* @stable [27.01.2019] */
+    $rac-form-layout-background: $rac-form-layout-background,
+    $rac-form-layout-background-size: $rac-form-layout-background-size,
+    $rac-form-layout-content-border: $rac-form-layout-content-border,
+    $rac-form-layout-content-width: $rac-form-layout-content-width,
+    $rac-form-layout-content-margin: $rac-form-layout-content-margin,
+    $rac-form-layout-form-actions-margin: $rac-form-layout-form-actions-margin,
+    $rac-form-layout-field-margin: $rac-form-layout-field-margin,
+    $rac-form-layout-text-field-input-font-size: $rac-form-layout-text-field-input-font-size,
+    $rac-form-layout-text-field-height: $rac-form-layout-text-field-height,
+    $rac-form-layout-text-field-border: $rac-form-layout-text-field-border,
+    $rac-form-layout-text-field-border-color: $rac-form-layout-text-field-border-color,
+    $rac-form-layout-text-field-background: $rac-form-layout-text-field-background,
+    $rac-form-layout-text-field-icon-color: $rac-form-layout-text-field-icon-color,
+    $rac-form-layout-text-field-icon-margin: $rac-form-layout-text-field-icon-margin,
+    $rac-form-layout-text-field-focused-background: $rac-form-layout-text-field-focused-background,
+    $rac-form-layout-text-field-focused-icon-color: $rac-form-layout-text-field-focused-icon-color,
+    $rac-form-layout-top-header-height: $rac-form-layout-top-header-height,
+    $rac-form-layout-top-header-background: $rac-form-layout-top-header-background,
+    $rac-form-layout-top-header-background-size: $rac-form-layout-top-header-background-size,
+    $rac-form-layout-top-header-margin: $rac-form-layout-top-header-margin
+  );
 }

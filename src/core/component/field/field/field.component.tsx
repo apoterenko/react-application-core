@@ -2,8 +2,6 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  addClassNameToElement,
-  removeClassNameFromElement,
   toClassName,
   orNull,
   cancelEvent,
@@ -153,7 +151,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    */
   protected onBlur(event: IFocusEvent): void {
     super.onBlur(event);
-    removeClassNameFromElement(this.input, 'rac-field-focused');
+    this.setState({focused: false});
   }
 
   /**
@@ -162,7 +160,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
    */
   protected onFocus(event: IFocusEvent): void {
     super.onFocus(event);
-    addClassNameToElement(this.input, 'rac-field-focused');
+    this.setState({focused: true});
   }
 
   /**
@@ -232,6 +230,7 @@ export class Field<TComponent extends IField<TInternalProps, TState>,
       this.isValuePresent() && 'rac-field-value-present',
       this.isNotDefaultValuePresent() && 'rac-field-not-default-value-present',
       this.isFieldChangeable() ? 'rac-field-changeable' : 'rac-field-not-changeable',
+      this.isFieldFocused() ? 'rac-field-focused' : 'rac-field-not-focused',
       props.disabled && 'rac-field-disabled',
       props.readOnly && 'rac-field-readonly',
       props.label && 'rac-field-labeled',

@@ -2011,12 +2011,6 @@ export interface ITopTitleWrapper<TTopTitle = string> {
   topTitle?: TTopTitle;
 }
 
-/**
- * @stable [07.08.2018]
- */
-export interface ISubTitleWrapper<TSubTitle = string> {
-  subTitle?: TSubTitle;
-}
 
 /**
  * @stable [10.09.2018]

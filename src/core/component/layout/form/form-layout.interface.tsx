@@ -1,25 +1,10 @@
-import { IFooterWrapper, ITopTitleWrapper, ISubTitleWrapper } from '../../../definitions.interface';
-import { IContainerConfiguration } from '../../../configurations-definitions.interface';
-import { IContainerEntity } from '../../../entities-definitions.interface';
+import { IFooterWrapper, ITopTitleWrapper } from '../../../definitions.interface';
+import { IComponentProps } from '../../../props-definitions.interface';
 
 /**
- * @stable [07.08.2018]
+ * @stable [27.01.2018]
  */
-export interface IFormLayoutEntity extends IContainerEntity {
-}
-
-/**
- * @stable [07.08.2018]
- */
-export interface IFormLayoutConfiguration extends IContainerConfiguration,
-                                                  IFooterWrapper,
-                                                  ITopTitleWrapper,
-                                                  ISubTitleWrapper {
-}
-
-/**
- * @stable [07.08.2018]
- */
-export interface IFormLayoutProps extends IFormLayoutEntity,
-                                          IFormLayoutConfiguration {
+export interface IFormLayoutProps extends IComponentProps,
+                                          IFooterWrapper,
+                                          ITopTitleWrapper {
 }

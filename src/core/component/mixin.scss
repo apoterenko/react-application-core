@@ -1,4 +1,5 @@
 @import '~sass-flex-mixin/_flex';
+@import './constant';
 
 /**
  * @stable [13.01.2019]
@@ -920,114 +921,6 @@
 /**
  * @stable [08.11.2018]
  */
-@mixin _rac-field-custom-properties($rac-field-custom-margin: unset,
-                                    $rac-field-custom-width: unset,
-                                    $rac-field-custom-height: unset,
-                                    $rac-field-custom-align-items: unset,
-                                    $rac-field-custom-max-width: unset,
-                                    $rac-field-custom-min-height: unset,
-                                    $rac-field-label-custom-margin: unset,
-                                    $rac-text-field-custom-background: unset,
-                                    $rac-text-field-custom-height: unset,
-                                    $rac-text-field-custom-border-color: unset,
-                                    $rac-text-field-custom-margin: unset,
-                                    $rac-text-field-label-custom-position: unset,
-                                    $rac-text-field-label-custom-top: unset,
-                                    $rac-text-field-label-custom-left: unset,
-                                    $rac-text-field-input-custom-color: unset,
-                                    $rac-text-field-input-custom-cursor: unset,
-                                    $rac-text-field-input-custom-width: unset,
-                                    $rac-text-field-input-custom-border: unset,
-                                    $rac-text-field-input-custom-background: unset,
-                                    $rac-text-field-input-custom-font-size: unset,
-                                    $rac-text-field-input-custom-padding: unset,
-                                    $rac-text-field-input-custom-text-align: unset,
-                                    $rac-text-field-input-caret-custom-position: unset,
-                                    $rac-text-field-input-caret-custom-bottom: unset,
-                                    $rac-text-field-input-caret-custom-font-size: unset,
-                                    $rac-text-field-input-caret-custom-color: unset,
-                                    $rac-text-field-icon-custom-color: unset,
-                                    $rac-text-field-filter-active-after-bottom: unset,
-                                    $rac-text-field-filter-active-after-left: unset) {
-
-  @if $rac-field-custom-align-items != unset {
-    @include align-items($rac-field-custom-align-items);
-  }
-
-  @include rac-styles(
-    $rac-styles-margin: $rac-field-custom-margin,
-    $rac-styles-width: $rac-field-custom-width,
-    $rac-styles-height: $rac-field-custom-height,
-    $rac-styles-max-width: $rac-field-custom-max-width,
-    $rac-styles-min-height: $rac-field-custom-min-height
-  );
-
-  .rac-field-label {
-    @if $rac-field-label-custom-margin != unset {
-      margin: $rac-field-label-custom-margin;
-    }
-  }
-
-  > .rac-text-field { // To prevent inner component inheritance (field - grid - field)
-
-    @include rac-styles(
-      $rac-styles-background: $rac-text-field-custom-background,
-      $rac-styles-height: $rac-text-field-custom-height,
-      $rac-styles-border-color: $rac-text-field-custom-border-color,
-      $rac-styles-margin: $rac-text-field-custom-margin
-    );
-
-    @include rac-filter-active(
-      $rac-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-      $rac-filter-active-after-left: $rac-text-field-filter-active-after-left
-    );
-
-    @include rac-styles(
-      $rac-styles-custom: rac-field-input,
-      $rac-styles-cursor: $rac-text-field-input-custom-cursor,
-      $rac-styles-width: $rac-text-field-input-custom-width,
-      $rac-styles-border: $rac-text-field-input-custom-border,
-      $rac-styles-background: $rac-text-field-input-custom-background,
-      $rac-styles-font-size: $rac-text-field-input-custom-font-size,
-      $rac-styles-color: $rac-text-field-input-custom-color,
-      $rac-styles-padding: $rac-text-field-input-custom-padding,
-      $rac-styles-text-align: $rac-text-field-input-custom-text-align
-    );
-
-    .rac-field-label {
-      @if $rac-text-field-label-custom-position != unset {
-        position: $rac-text-field-label-custom-position;
-      }
-      @if $rac-text-field-label-custom-top != unset {
-        top: $rac-text-field-label-custom-top;
-      }
-      @if $rac-text-field-label-custom-left != unset {
-        left: $rac-text-field-label-custom-left;
-      }
-    }
-
-    .rac-field-input-caret {
-      @if $rac-text-field-input-caret-custom-position != unset {
-        position: $rac-text-field-input-caret-custom-position;
-      }
-      @if $rac-text-field-input-caret-custom-bottom != unset {
-        bottom: $rac-text-field-input-caret-custom-bottom;
-      }
-      @if $rac-text-field-input-caret-custom-font-size != unset {
-        font-size: $rac-text-field-input-caret-custom-font-size;
-      }
-      @if $rac-text-field-input-caret-custom-color != unset {
-        color: $rac-text-field-input-caret-custom-color;
-      }
-    }
-
-    @include rac-icon($rac-icon-color: $rac-text-field-icon-custom-color);
-  }
-}
-
-/**
- * @stable [08.11.2018]
- */
 @mixin rac-field($rac-field-custom: unset,
                  $rac-field-width: unset,
                  $rac-field-height: unset,
@@ -1039,6 +932,7 @@
                  $rac-field-align-items: unset,
                  $rac-text-field-height: unset,
                  $rac-text-field-background: unset,
+                 $rac-text-field-border: unset,
                  $rac-text-field-border-color: unset,
                  $rac-text-field-margin: unset,
                  $rac-text-field-label-position: unset,
@@ -1057,77 +951,73 @@
                  $rac-text-field-input-caret-font-size: unset,
                  $rac-text-field-input-caret-color: unset,
                  $rac-text-field-icon-color: unset,
+                 $rac-text-field-icon-margin: unset,
                  $rac-text-field-filter-active-after-bottom: unset,
                  $rac-text-field-filter-active-after-left: unset) {
 
-  @if $rac-field-custom != unset {
-    .rac-field {
-      &.#{$rac-field-custom} {
-        @include _rac-field-custom-properties(
-          $rac-field-custom-margin: $rac-field-margin,
-          $rac-field-custom-width: $rac-field-width,
-          $rac-field-custom-height: $rac-field-height,
-          $rac-field-custom-max-width: $rac-field-max-width,
-          $rac-field-custom-min-height: $rac-field-min-height,
-          $rac-field-custom-align-items: $rac-field-align-items,
-          $rac-field-label-custom-margin: $rac-field-label-margin,
-          $rac-text-field-custom-background: $rac-text-field-background,
-          $rac-text-field-custom-height: $rac-text-field-height,
-          $rac-text-field-custom-border-color: $rac-text-field-border-color,
-          $rac-text-field-custom-margin: $rac-text-field-margin,
-          $rac-text-field-label-custom-position: $rac-text-field-label-position,
-          $rac-text-field-label-custom-top: $rac-text-field-label-top,
-          $rac-text-field-label-custom-left: $rac-text-field-label-left,
-          $rac-text-field-input-custom-color: $rac-text-field-input-color,
-          $rac-text-field-input-custom-border: $rac-text-field-input-border,
-          $rac-text-field-input-custom-background: $rac-text-field-input-background,
-          $rac-text-field-input-custom-width: $rac-text-field-input-width,
-          $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
-          $rac-text-field-input-custom-padding: $rac-text-field-input-padding,
-          $rac-text-field-input-custom-text-align: $rac-text-field-input-text-align,
-          $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
-          $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
-          $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
-          $rac-text-field-input-caret-custom-font-size: $rac-text-field-input-caret-font-size,
-          $rac-text-field-input-caret-custom-color: $rac-text-field-input-caret-color,
-          $rac-text-field-icon-custom-color: $rac-text-field-icon-color,
-          $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-          $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
-        );
-      }
+  #{rac-build-cls(rac-field, $rac-field-custom)} {
+    @if $rac-field-align-items != unset {
+      @include align-items($rac-field-align-items);
     }
-  } @else {
-    .rac-field {
-      @include _rac-field-custom-properties(
-        $rac-field-custom-margin: $rac-field-margin,
-        $rac-field-custom-width: $rac-field-width,
-        $rac-field-custom-height: $rac-field-height,
-        $rac-field-custom-max-width: $rac-field-max-width,
-        $rac-field-custom-min-height: $rac-field-min-height,
-        $rac-field-custom-align-items: $rac-field-align-items,
-        $rac-field-label-custom-margin: $rac-field-label-margin,
-        $rac-text-field-custom-background: $rac-text-field-background,
-        $rac-text-field-custom-height: $rac-text-field-height,
-        $rac-text-field-custom-border-color: $rac-text-field-border-color,
-        $rac-text-field-custom-margin: $rac-text-field-margin,
-        $rac-text-field-label-custom-position: $rac-text-field-label-position,
-        $rac-text-field-label-custom-top: $rac-text-field-label-top,
-        $rac-text-field-label-custom-left: $rac-text-field-label-left,
-        $rac-text-field-input-custom-color: $rac-text-field-input-color,
-        $rac-text-field-input-custom-border: $rac-text-field-input-border,
-        $rac-text-field-input-custom-background: $rac-text-field-input-background,
-        $rac-text-field-input-custom-width: $rac-text-field-input-width,
-        $rac-text-field-input-custom-font-size: $rac-text-field-input-font-size,
-        $rac-text-field-input-custom-padding: $rac-text-field-input-padding,
-        $rac-text-field-input-custom-text-align: $rac-text-field-input-text-align,
-        $rac-text-field-input-custom-cursor: $rac-text-field-input-cursor,
-        $rac-text-field-input-caret-custom-position: $rac-text-field-input-caret-position,
-        $rac-text-field-input-caret-custom-bottom: $rac-text-field-input-caret-bottom,
-        $rac-text-field-input-caret-custom-font-size: $rac-text-field-input-caret-font-size,
-        $rac-text-field-input-caret-custom-color: $rac-text-field-input-caret-color,
-        $rac-text-field-icon-custom-color: $rac-text-field-icon-color,
-        $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-        $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
+
+    @include rac-styles(
+      $rac-styles-margin: $rac-field-margin,
+      $rac-styles-width: $rac-field-width,
+      $rac-styles-height: $rac-field-height,
+      $rac-styles-max-width: $rac-field-max-width,
+      $rac-styles-min-height: $rac-field-min-height
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: rac-field-label,
+      $rac-styles-margin: $rac-field-label-margin
+    );
+
+    > .rac-text-field { // To prevent inner component inheritance (field - grid - field)
+
+      @include rac-styles(
+        $rac-styles-background: $rac-text-field-background,
+        $rac-styles-height: $rac-text-field-height,
+        $rac-styles-border: $rac-text-field-border,
+        $rac-styles-border-color: $rac-text-field-border-color,
+        $rac-styles-margin: $rac-text-field-margin
+      );
+
+      @include rac-filter-active(
+        $rac-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
+        $rac-filter-active-after-left: $rac-text-field-filter-active-after-left
+      );
+
+      @include rac-styles(
+        $rac-styles-custom: rac-field-input,
+        $rac-styles-cursor: $rac-text-field-input-cursor,
+        $rac-styles-width: $rac-text-field-input-width,
+        $rac-styles-border: $rac-text-field-input-border,
+        $rac-styles-background: $rac-text-field-input-background,
+        $rac-styles-font-size: $rac-text-field-input-font-size,
+        $rac-styles-color: $rac-text-field-input-color,
+        $rac-styles-padding: $rac-text-field-input-padding,
+        $rac-styles-text-align: $rac-text-field-input-text-align
+      );
+
+      @include rac-styles(
+        $rac-styles-custom: rac-field-label,
+        $rac-styles-position: $rac-text-field-label-position,
+        $rac-styles-top: $rac-text-field-label-top,
+        $rac-styles-left: $rac-text-field-label-left
+      );
+
+      @include rac-styles(
+        $rac-styles-custom: rac-field-input-caret,
+        $rac-styles-position: $rac-text-field-input-caret-position,
+        $rac-styles-bottom: $rac-text-field-input-caret-bottom,
+        $rac-styles-font-size: $rac-text-field-input-caret-font-size,
+        $rac-styles-color: $rac-text-field-input-caret-color
+      );
+
+      @include rac-icon(
+        $rac-icon-color: $rac-text-field-icon-color,
+        $rac-icon-margin: $rac-text-field-icon-margin
       );
     }
   }
@@ -2235,49 +2125,7 @@
 }
 
 /**
- * @stable [08.11.2018]
- */
-@mixin rac-form-actions($rac-form-actions-margin: unset,
-                        $rac-form-actions-button-custom: unset,
-                        $rac-form-actions-button-min-width: unset,
-                        $rac-form-actions-button-neighbor-margin: unset) {
-  .rac-form-actions {
-    @if $rac-form-actions-margin != unset {
-      margin: $rac-form-actions-margin;
-    }
-
-    @include rac-button($rac-button-custom: $rac-form-actions-button-custom,
-                        $rac-button-min-width: $rac-form-actions-button-min-width,
-                        $rac-button-neighbor-margin: $rac-form-actions-button-neighbor-margin);
-  }
-}
-
-/**
- * @stable [08.12.2018]
- */
-@mixin _rac-form-custom-properties($rac-form-min-width: unset,
-                                   $rac-form-margin: unset,
-                                   $rac-form-actions-margin: unset,
-                                   $rac-form-actions-button-custom: unset,
-                                   $rac-form-actions-button-min-width: unset,
-                                   $rac-form-actions-button-neighbor-margin: unset) {
-  @if $rac-form-min-width != unset {
-    min-width: $rac-form-min-width;
-  }
-  @if $rac-form-margin != unset {
-    margin: $rac-form-margin;
-  }
-
-  @include rac-form-actions(
-    $rac-form-actions-button-custom: $rac-form-actions-button-custom,
-    $rac-form-actions-margin: $rac-form-actions-margin,
-    $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
-    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
-  );
-}
-
-/**
- * @stable [08.12.2018]
+ * @stable [27.01.2019]
  */
 @mixin rac-form($rac-form-custom: unset,
                 $rac-form-margin: unset,
@@ -2285,30 +2133,23 @@
                 $rac-form-actions-margin: unset,
                 $rac-form-actions-button-custom: unset,
                 $rac-form-actions-button-min-width: unset,
-                $rac-form-actions-button-neighbor-margin: unset) {
+                $rac-form-actions-button-neighbor-margin: unset
+) {
+  #{rac-build-cls(rac-form, $rac-form-custom)} {
+    @include rac-styles(
+      $rac-styles-min-width: $rac-form-min-width,
+      $rac-styles-margin: $rac-form-margin
+    );
 
-  @if $rac-form-custom != unset {
-    .rac-form {
-      &.#{$rac-form-custom} {
-        @include _rac-form-custom-properties(
-          $rac-form-min-width: $rac-form-min-width,
-          $rac-form-margin: $rac-form-margin,
-          $rac-form-actions-button-custom: $rac-form-actions-button-custom,
-          $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
-          $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin,
-          $rac-form-actions-margin: $rac-form-actions-margin
-        );
-      }
-    }
-  } @else {
-    .rac-form {
-      @include _rac-form-custom-properties(
-        $rac-form-min-width: $rac-form-min-width,
-        $rac-form-margin: $rac-form-margin,
-        $rac-form-actions-button-custom: $rac-form-actions-button-custom,
-        $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
-        $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin,
-        $rac-form-actions-margin: $rac-form-actions-margin
+    .rac-form-actions {
+      @include rac-styles(
+        $rac-styles-margin: $rac-form-actions-margin
+      );
+
+      @include rac-button(
+        $rac-button-custom: $rac-form-actions-button-custom,
+        $rac-button-min-width: $rac-form-actions-button-min-width,
+        $rac-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
       );
     }
   }
@@ -2558,7 +2399,12 @@
                     $rac-keyboard-key-margin: unset,
                     $rac-keyboard-key-icon-width: unset,
                     $rac-keyboard-key-icon-height: unset,
-                    $rac-keyboard-key-icon-margin: unset) {
+                    $rac-keyboard-key-icon-margin: unset,
+                    $rac-keyboard-close-color: unset,
+                    $rac-keyboard-close-position: unset,
+                    $rac-keyboard-close-bottom: unset,
+                    $rac-keyboard-close-right: unset,
+                    $rac-keyboard-close-margin: unset) {
 
   #{rac-build-cls(rac-keyboard, $rac-keyboard-custom)} {
     @include rac-styles(
@@ -2587,5 +2433,80 @@
       $rac-button-content-font-size: $rac-keyboard-key-font-size,
       $rac-button-content-font-weight: $rac-keyboard-key-font-weight
     );
+
+    @include rac-icon(
+      $rac-icon-custom: rac-keyboard-close,
+      $rac-icon-color: $rac-keyboard-close-color,
+      $rac-icon-position: $rac-keyboard-close-position,
+      $rac-icon-bottom: $rac-keyboard-close-bottom,
+      $rac-icon-right: $rac-keyboard-close-right,
+      $rac-icon-margin: $rac-keyboard-close-margin
+    );
+  }
+}
+
+/**
+ * @stable [27.01.2019]
+ */
+@mixin rac-form-layout($rac-form-layout-custom: unset,
+                       $rac-form-layout-background: unset,
+                       $rac-form-layout-background-size: unset,
+                       $rac-form-layout-content-border: unset,
+                       $rac-form-layout-content-width: unset,
+                       $rac-form-layout-content-margin: unset,
+                       $rac-form-layout-form-actions-margin: unset,
+                       $rac-form-layout-field-margin: unset,
+                       $rac-form-layout-text-field-input-font-size: unset,
+                       $rac-form-layout-text-field-height: unset,
+                       $rac-form-layout-text-field-border: unset,
+                       $rac-form-layout-text-field-border-color: unset,
+                       $rac-form-layout-text-field-background: unset,
+                       $rac-form-layout-text-field-icon-color: unset,
+                       $rac-form-layout-text-field-icon-margin: unset,
+                       $rac-form-layout-text-field-focused-background: unset,
+                       $rac-form-layout-text-field-focused-icon-color: unset,
+                       $rac-form-layout-top-header-height: unset,
+                       $rac-form-layout-top-header-background: unset,
+                       $rac-form-layout-top-header-background-size: unset,
+                       $rac-form-layout-top-header-margin: unset) {
+
+  #{rac-build-cls(rac-form-layout, $rac-form-layout-custom)} {
+    @include rac-styles(
+      $rac-styles-background: $rac-form-layout-background,
+      $rac-styles-background-size: $rac-form-layout-background-size
+    );
+
+    .rac-form-layout-content {
+      @include rac-styles(
+        $rac-styles-border: $rac-form-layout-content-border,
+        $rac-styles-width: $rac-form-layout-content-width,
+        $rac-styles-margin: $rac-form-layout-content-margin
+      );
+
+      @include rac-form(
+        $rac-form-actions-margin: $rac-form-layout-form-actions-margin
+      );
+    }
+
+    @include rac-styles(
+      $rac-styles-custom: rac-form-layout-top-header,
+      $rac-styles-height: $rac-form-layout-top-header-height,
+      $rac-styles-margin: $rac-form-layout-top-header-margin,
+      $rac-styles-background: $rac-form-layout-top-header-background,
+      $rac-styles-background-size: $rac-form-layout-top-header-background-size
+    );
+
+    @include rac-field($rac-field-margin: $rac-form-layout-field-margin,
+                       $rac-text-field-background: $rac-form-layout-text-field-background,
+                       $rac-text-field-height: $rac-form-layout-text-field-height,
+                       $rac-text-field-border: $rac-form-layout-text-field-border,
+                       $rac-text-field-border-color: $rac-form-layout-text-field-border-color,
+                       $rac-text-field-icon-color: $rac-form-layout-text-field-icon-color,
+                       $rac-text-field-icon-margin: $rac-form-layout-text-field-icon-margin,
+                       $rac-text-field-input-font-size: $rac-form-layout-text-field-input-font-size);
+
+    @include rac-field($rac-field-custom: $rac-field-focused-cls,
+                       $rac-text-field-background: $rac-form-layout-text-field-focused-background,
+                       $rac-text-field-icon-color: $rac-form-layout-text-field-focused-icon-color);
   }
 }
