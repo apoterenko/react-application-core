@@ -31,6 +31,5 @@ ncp('src/core/assets', 'assets', function (err) {
 });
 
 compile('src/core/bootstrap.scss', 'rac.min.css');
-compile('src/core/material.bootstrap.scss', 'rac-material.min.css');
 
 fsExtra.copySync('src/core', 'scss', {filter: function (file) {return file.indexOf('.ts') === -1;}});

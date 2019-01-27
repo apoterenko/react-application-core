@@ -223,11 +223,6 @@
         letter-spacing: $rac-field-input-letter-spacing;              /* @stable [19.09.2018] */
         line-height: $rac-field-input-line-height;                    /* @stable [05.10.2018] */
 
-        &::placeholder {
-          color: $rac-field-input-placeholder-color;                  /* @stable [24.06.2018] */
-          font-weight: $rac-field-input-placeholder-font-weight;      /* @stable [03.07.2018] */
-        }
-
         &:-webkit-autofill {
           transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
         }
