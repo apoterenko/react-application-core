@@ -2542,6 +2542,7 @@
                     $rac-keyboard-padding: unset,
                     $rac-keyboard-margin: unset,
                     $rac-keyboard-border: unset,
+                    $rac-keyboard-background: unset,
                     $rac-keyboard-border-radius: unset,
                     $rac-keyboard-key-custom: unset,
                     $rac-keyboard-key-size: unset,
@@ -2563,6 +2564,7 @@
     @include rac-styles(
       $rac-styles-opacity: $rac-keyboard-opacity,
       $rac-styles-border: $rac-keyboard-border,
+      $rac-styles-background: $rac-keyboard-background,
       $rac-styles-border-radius: $rac-keyboard-border-radius,
       $rac-styles-margin: $rac-keyboard-margin,
       $rac-styles-padding: $rac-keyboard-padding

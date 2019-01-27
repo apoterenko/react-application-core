@@ -32,6 +32,7 @@ $rac-default-toolbar-height: 64px !default;
 $rac-default-layout-offset: 40px !default;
 $rac-default-font-size: 12px !default;
 $rac-default-font-size-2: 14px !default;
+$rac-default-font-size-3: 16px !default;
 $rac-default-font-weight: 500 !default;
 $rac-default-font-weight-2: 700 !default;
 $rac-default-action-color: $color-2 !default;
@@ -71,24 +72,27 @@ $rac-toolbar-button-margin: 0 0 0 8px !default;
 $rac-toolbar-field-max-width: 342px !default;
 $rac-page-toolbar-border-top: unset !default;
 
-/* @stable [19.08.2018] */
-$rac-keyboard-padding: 2px !default;
-$rac-keyboard-border: 1px solid $color-17 !default;
-$rac-keyboard-border-radius: 16px !default;
-$rac-keyboard-opacity: .6 !default;
+/* @stable [27.01.2019] */
+$rac-keyboard-padding: $rac-default-offset !default;
+$rac-keyboard-border: unset !default;
+$rac-keyboard-background: unset !default;
+$rac-keyboard-border-radius: 5px 5px 0 0 !default;
+$rac-keyboard-opacity: unset !default;
 $rac-keyboard-close-color: $color-17 !default;
 $rac-keyboard-close-height: 24px !default;
 $rac-keyboard-close-width: 24px !default;
 $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-border: $rac-keyboard-border !default;
-$rac-keyboard-key-border-radius: $rac-keyboard-border-radius !default;
+$rac-keyboard-key-opacity: unset !default;
+$rac-keyboard-key-color: unset !default;
+$rac-keyboard-key-border-radius: $rac-default-border-radius !default;
 $rac-keyboard-key-background: unset !default;
 $rac-keyboard-key-width: 56px !default;
 $rac-keyboard-key-margin: 1px !default;
 $rac-keyboard-key-height: $rac-keyboard-key-width !default;
 $rac-keyboard-key-height-factor: 16px !default;
 $rac-keyboard-key-width-factor: 8px !default;
-$rac-keyboard-key-font-size: 28px !default;
+$rac-keyboard-key-font-size: $rac-default-font-size-3 !default;
 
 /* @stable [24.06.2018] */
 $rac-icon-width0: 12px !default;

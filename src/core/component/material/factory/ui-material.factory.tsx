@@ -393,8 +393,9 @@ export class UIMaterialFactory implements IUIFactory {
     }
     const config = this.toIconConfig(cfg);
 
+    const uiIconCtor = this.uiIconFactory.makeInstance(config.type);
     const awIconCtor = UIMaterialFactory.ICONS_MAP[config.type];
-    if (!awIconCtor) {
+    if (!awIconCtor && !uiIconCtor) {
       UIMaterialFactory.logger.warn(
         `[$UIMaterialFactory] The icon ${config.type} is not defined.`
       );
@@ -419,7 +420,7 @@ export class UIMaterialFactory implements IUIFactory {
                config.onClick(event);
              }
            }}>
-        {this.uiIconFactory.makeInstance(config.type) || <FontAwesomeIcon icon={iconCtor}/>}
+        {uiIconCtor || <FontAwesomeIcon icon={iconCtor}/>}
       </div>
     );
   }

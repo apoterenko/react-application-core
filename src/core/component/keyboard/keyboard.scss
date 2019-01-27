@@ -11,11 +11,14 @@
   @include rac-keyboard(                                                                      /* @stable [27.01.2019] */
     $rac-keyboard-opacity: $rac-keyboard-opacity,
     $rac-keyboard-border: $rac-keyboard-border,
+    $rac-keyboard-background: $rac-keyboard-background,
     $rac-keyboard-border-radius: $rac-keyboard-border-radius,
     $rac-keyboard-padding: $rac-keyboard-padding,
     $rac-keyboard-key-margin: $rac-keyboard-key-margin,
     $rac-keyboard-key-font-size: $rac-keyboard-key-font-size,
     $rac-keyboard-key-border: $rac-keyboard-key-border,
+    $rac-keyboard-key-opacity: $rac-keyboard-key-opacity,
+    $rac-keyboard-key-color: $rac-keyboard-key-color,
     $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
     $rac-keyboard-key-background: $rac-keyboard-key-background
   );
