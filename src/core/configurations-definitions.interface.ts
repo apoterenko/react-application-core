@@ -426,6 +426,7 @@ export interface IContainerConfiguration extends IUniversalContainerConfiguratio
  */
 export interface IUniversalListItemConfiguration extends IUniversalComponentConfiguration,
                                                          IRendererWrapper,
+                                                         IIndexWrapper,
                                                          ITplFnWrapper,
                                                          IWarningWrapper {
 }

@@ -126,7 +126,6 @@ import {
   ITypeWrapper,
   IZipCodeWrapper,
   IBlobWrapper,
-  IIndexWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -491,7 +490,6 @@ export interface IUniversalListEntity extends IUniversalLivingEntity,
 
 /* @stable [24.04.2018] */
 export interface IUniversalListItemEntity extends IRawDataWrapper,
-                                                  IIndexWrapper,
                                                   IOnClickWrapper<IEntity>,
                                                   ISelectedWrapper {
 }

@@ -6,8 +6,19 @@
   height: $rac-keyboard-key-height - $rac-keyboard-key-width-factor * $factor - $rac-keyboard-key-height-factor; /* @stable [13.08.2018] */
 }
 
-// Keyboard [FRAMEWORK-][RAC+]
 .rac {
+
+  @include rac-keyboard(                                                                      /* @stable [27.01.2019] */
+    $rac-keyboard-opacity: $rac-keyboard-opacity,
+    $rac-keyboard-border: $rac-keyboard-border,
+    $rac-keyboard-border-radius: $rac-keyboard-border-radius,
+    $rac-keyboard-padding: $rac-keyboard-padding,
+    $rac-keyboard-key-margin: $rac-keyboard-key-margin,
+    $rac-keyboard-key-font-size: $rac-keyboard-key-font-size,
+    $rac-keyboard-key-border: $rac-keyboard-key-border,
+    $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
+    $rac-keyboard-key-background: $rac-keyboard-key-background
+  );
 
   .rac-keyboard {
 
@@ -16,11 +27,6 @@
         $rac-position-bottom: 0,
         $rac-position-horizontal-align-center: true);
     }
-
-    opacity: $rac-keyboard-opacity;                 /* @stable [21.09.2018] */
-    border: 1px solid $rac-keyboard-border-color;   /* @stable [19.08.2018] */
-    border-radius: 16px;                            /* @stable [08.05.2018] */
-    padding: 2px;                                   /* @stable [13.08.2018] */
 
     .rac-keyboard-close {
       &.rac-icon {
@@ -37,14 +43,6 @@
 
     .rac-keyboard-key {
       @include rac-keyboard-size(0);                                /* @stable [13.08.2018] */
-      margin: $rac-keyboard-key-margin;                             /* @stable [08.05.2018] */
-      border-radius: 16px;                                          /* @stable [16.08.2018] */
-      font-size: 28px;                                              /* @stable [27.05.2018] */
-      cursor: pointer;                                              /* @stable [08.05.2018] */
-      border: 1px solid $rac-keyboard-key-border-color;             /* @stable [09.05.2018] */
-      font-weight: bold;                                            /* @stable [08.05.2018] */
-      background-color: $rac-keyboard-key-background-color;         /* @stable [09.05.2018] */
-      box-shadow: 1px 1px $rac-keyboard-key-border-color;           /* @stable [27.05.2018] */
 
       &.rac-keyboard-digital {
         font-size: 24px;                                            /* @stable [27.05.2018] */

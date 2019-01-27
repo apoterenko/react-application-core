@@ -6,6 +6,7 @@ import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 import { IKeyboardKeyProps } from './keyboard-key.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitions.interface';
+import { Button } from '../../button';
 
 export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
 
@@ -19,7 +20,7 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
   }
 
   /**
-   * @stable [08.05.2018]
+   * @stable [27.01.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -39,19 +40,17 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
       );
 
     return (
-      <div ref='self'
-           style={keyAsObject && keyAsObject.width ? {width: `${keyAsObject && keyAsObject.width}px`} : {}}
-           className={toClassName(
-                       'rac-keyboard-key',
-                       `rac-keyboard-key-${value}`,
-                       'rac-flex',
-                       'rac-flex-center',
-                       keyAsObject && keyAsObject.className,
-                       this.uiFactory.rippleSurface
-                     )}
-           onClick={this.onClick}>
+      <Button
+        className={toClassName(
+          'rac-keyboard-key',
+          `rac-keyboard-key-${value}`,
+          keyAsObject && keyAsObject.className
+        )}
+        style={keyAsObject && keyAsObject.width ? {width: `${keyAsObject.width}px`} : {}}
+        onClick={this.onClick}
+      >
         {isFn(props.renderer) ? props.renderer(value) : value}
-      </div>
+      </Button>
     );
   }
 

@@ -11,14 +11,14 @@
     $rac-button-border: $rac-button-border,
     $rac-button-padding: $rac-button-padding,
     $rac-button-text-transform: $rac-button-text-transform,
-    $rac-button-font-weight: $rac-button-font-weight,
     $rac-button-cursor: $rac-button-cursor,
     $rac-button-disabled-cursor: $rac-button-disabled-cursor,
     $rac-button-disabled-opacity: $rac-button-disabled-opacity,
     $rac-button-disabled-background: $rac-button-disabled-background,
     $rac-button-disabled-shadow: $rac-button-disabled-shadow,
     $rac-button-content-margin: $rac-button-content-margin,
-    $rac-button-content-font-size: $rac-button-content-font-size
+    $rac-button-content-font-size: $rac-button-content-font-size,
+    $rac-button-content-font-weight: $rac-button-content-font-weight
   );
 
   @include rac-button(                                                                        /* @stable [01.11.2018] */
