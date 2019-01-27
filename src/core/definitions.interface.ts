@@ -2011,7 +2011,6 @@ export interface ITopTitleWrapper<TTopTitle = string> {
   topTitle?: TTopTitle;
 }
 
-
 /**
  * @stable [10.09.2018]
  */
