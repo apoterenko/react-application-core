@@ -19,6 +19,7 @@ export * from './nvl';
 export * from './object';
 export * from './page';
 export * from './place';
+export * from './replace';
 export * from './route';
 export * from './scroll';
 export * from './section';

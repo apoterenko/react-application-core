@@ -1,6 +1,8 @@
 import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
+import { nvl } from './nvl';
+import { ifNotNilThanValue } from './cond';
 
 /**
  * @stable [16.12.2018]
@@ -29,3 +31,12 @@ export const arrayNextMinNegativeValue = (array: number[]): number => Math.min(N
  * @returns {boolean}
  */
 export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArray(array) && !R.isEmpty(array);
+
+/**
+ * @stable [28.01.2019]
+ * @param {TValue[]} array
+ * @param {number} limit
+ * @returns {TValue[]}
+ */
+export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
+  ifNotNilThanValue(array, () => array.slice(0, Math.min(array.length, nvl(limit, array.length))));

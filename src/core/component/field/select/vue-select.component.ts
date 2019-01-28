@@ -2,7 +2,7 @@ import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
 import { StringNumberT } from '../../../definitions.interface';
-import { getWidth, isString, isArrayNotEmpty } from '../../../util';
+import { getWidth, isString, isArrayNotEmpty, strongHtmlReplace } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
@@ -63,7 +63,7 @@ class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, I
    * @param {IMenuItemEntity} option
    */
   public onSelect(option: ISelectOptionEntity): void {
-    this.getData().displayValue = option.label;
+    this.getData().displayValue = option.rawData && option.rawData.name || option.label;
     this.onChange(option.value);
     this.$emit('select', option);
   }
@@ -124,16 +124,19 @@ class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, I
   protected getOptions(): ISelectOptionEntity[] {
     const currentValue = this.getValue();
     const areChangesPresent = !R.isEmpty(currentValue) && this.isFieldChangedManually(currentValue);
+    const options = this.options;
 
-    return isArrayNotEmpty(this.options)
+    return isArrayNotEmpty(options)
       ? (
         areChangesPresent
-          ? R.filter<ISelectOptionEntity>((option) => this.filter(option, currentValue), this.options)
-            .map((option): ISelectOptionEntity =>
-              ({...option, label: String((option.label || option.value)).replace(new RegExp(currentValue, 'i'), `<b>${currentValue}</b>`)}))
-          : R.filter<ISelectOptionEntity>((option) => option.value !== currentValue, this.options)
+          ? (
+            R.filter<ISelectOptionEntity>((option) => this.filter(option, currentValue), options)
+              .map((option): ISelectOptionEntity =>
+                ({...option, label: strongHtmlReplace(option.label || option.value, currentValue)}))
+          )
+          : R.filter<ISelectOptionEntity>((option) => option.value !== currentValue, options)
       )
-      : this.options;
+      : options;
   }
 
   /**

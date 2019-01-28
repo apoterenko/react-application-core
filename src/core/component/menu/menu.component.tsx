@@ -6,13 +6,12 @@ import { IMenuItemEntity } from '../../entities-definitions.interface';
 import {
   orNull,
   toClassName,
-  isDef,
-  orDefault,
   queryFilter,
   setAbsoluteOffsetByCoordinates,
   calc,
   cancelEvent,
-  nvl,
+  subArray,
+  isFn,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -195,15 +194,16 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     return (
       <SimpleList className={this.uiFactory.list}>
         {
-          menuItems.slice(0, Math.min(menuItems.length, nvl(props.maxCount, menuItems.length)))
-            .map((option): JSX.Element => (
-              <li key={`menu-item-key-${option.value}`}
-                  className='rac-list-item rac-flex'
-                  aria-disabled={option.disabled === true}
-                  onClick={(event) => this.onSelect(event, option)}>
-                {this.getMenuItemElement(option)}
-              </li>
-            ))
+          subArray(menuItems, props.maxCount).map((option): JSX.Element => (
+            <li
+              key={`menu-item-key-${option.value}`}
+              className='rac-list-item rac-flex'
+              aria-disabled={option.disabled === true}
+              onClick={(event) => this.onSelect(event, option)}
+            >
+              {this.getMenuItemElement(option)}
+            </li>
+          ))
         }
       </SimpleList>
     );
@@ -214,32 +214,25 @@ export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
     const optionValueFn = (itm: IMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value);
 
     return (
-      <FlexLayout justifyContentCenter={true}
-                  className='rac-menu-item'>
+      <FlexLayout
+        justifyContentCenter={true}
+        className='rac-menu-item'
+      >
         {
-          orDefault<React.ReactNode, React.ReactNode>(
-            isDef(props.renderer),
-            (): React.ReactNode => props.renderer.call(this, option),
-            (): React.ReactNode => (
-              orDefault<React.ReactNode, React.ReactNode>(
-                R.isNil(option.icon),
-                (): React.ReactNode => (
-                  orDefault<React.ReactNode, React.ReactNode>(
-                    isDef(props.tpl),
-                    () => props.tpl.call(this, option),
-                    () => optionValueFn(option)
-                  )
-                ),
-                (): React.ReactNode => (
-                  <FlexLayout row={true}
-                              alignItemsCenter={true}>
+          isFn(props.renderer)
+            ? props.renderer(option)
+            : (
+              option.icon
+                ? (
+                  <FlexLayout
+                    row={true}
+                    alignItemsCenter={true}>
                     {this.uiFactory.makeIcon({type: option.icon, className: 'rac-menu-item-icon'})}
                     {optionValueFn(option)}
                   </FlexLayout>
                 )
-              )
+                : isFn(props.tpl) ? props.tpl(option) : optionValueFn(option)
             )
-          )
         }
       </FlexLayout>
     );

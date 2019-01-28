@@ -6,7 +6,7 @@ import { DI_TYPES, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 import { EntityIdT } from '../../definitions.interface';
 import { IMenuItemEntity, IMenuMaterialComponent } from '../../entities-definitions.interface';
-import { setWidth, isNumber, isDef, removeSelf } from '../../util';
+import { setWidth, isNumber, isDef, removeSelf, subArray } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 import { IVueMenu, IVueMenuContextEntity, IVueMenuProps } from './vue-menu.interface';
@@ -25,7 +25,7 @@ import { IVueMenu, IVueMenuContextEntity, IVueMenuProps } from './vue-menu.inter
                   role="menu"
                   aria-hidden="true"
                   aria-orientation="vertical">
-                  <li v-for="item in options"
+                  <li v-for="item in getTemplateOptions()"
                       class="vue-menu-list-item mdc-list-item"
                       role="menuitem"
                       @click="onSelect(item)">
@@ -43,9 +43,10 @@ import { IVueMenu, IVueMenuContextEntity, IVueMenuProps } from './vue-menu.inter
   `,
 })
 class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
-  @Prop() public options: IMenuItemEntity[];
-  @Prop() public useLocalization: boolean;
-  @Prop() public tpl: (item: IMenuItemEntity) => string;
+  @Prop() public readonly options: IMenuItemEntity[];
+  @Prop({default: (): number => 100}) public readonly maxCount: number;
+  @Prop() public readonly useLocalization: boolean;
+  @Prop() public readonly tpl: (item: IMenuItemEntity) => string;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
   private mdc: IMenuMaterialComponent;    // TODO Use inheritance
   private el: Element;
@@ -146,10 +147,18 @@ class VueMenu extends VueBaseComponent implements IVueMenu, IVueMenuProps {
   /**
    * @stable [22.12.2018]
    * @param {IMenuItemEntity} item
-   * @returns {any}
+   * @returns {string}
    */
-  private getTemplateValue(item: IMenuItemEntity): any {
+  private getTemplateValue(item: IMenuItemEntity): string {
     return this.tpl(item);
+  }
+
+  /**
+   * @stable [28.01.2019]
+   * @returns {IMenuItemEntity[]}
+   */
+  private getTemplateOptions(): IMenuItemEntity[] {
+    return subArray(this.options || [], this.maxCount);
   }
 
   /**
