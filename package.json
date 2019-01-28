@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.339",
+  "version": "0.0.340",
   "license": "MIT",
   "scripts": {
     "postinstall": "npm run rn-node-compatibility-replace",
