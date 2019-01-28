@@ -3,7 +3,7 @@ import { Unsubscribe } from 'redux';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { isFn } from '../../util';
+import { isFn, shallowClone } from '../../util';
 import { UniversalConnectorActionBuilder } from './universal-connector-action.builder';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import { VueComponentOptionsT } from '../../vue-definitions.interface';
@@ -87,6 +87,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
         const state = self.state$ as TApplicationStoreEntity;
 
         /**
+         * TODO Make unit-tests
          * A "Redux <-> Container" bridge implemented here.
          * Vue is updated when the data is updated via assign new links
          */
@@ -116,13 +117,13 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
           }, reduxData);
 
           if (needToUpdateReactiveLinks.length > 0) {
-
-            // Need to set and clone reactive data only when the bind snapshot was changed because of:
+            // Need to set and shallow clone reactive data only when a snapshot was changed because of:
             // 1. performance
-            // 2. vue does replace recursively all links to reactive
+            // 2. vue does replace recursively all links to reactive (except for arrays)
 
             needToUpdateReactiveLinks.forEach((linkToUpdate) => {
-              this[linkToUpdate] = R.clone(reduxData[linkToUpdate]);
+              // Don't deep copy !! Vue does not replace an arrays (big arrays) !! It's good for performance
+              self[linkToUpdate] = shallowClone(reduxData[linkToUpdate]);
 
               logger.debug(
                 `[$vueConnectorOptionsFactory][mounted] The reactive link for container ${
