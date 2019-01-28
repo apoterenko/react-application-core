@@ -137,7 +137,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                               type='submit'
                               raised={true}
                               disabled={!this.isFormSubmittable()}
-                              progress={this.form.progress}
+                              progress={this.isFormBusy()}
                               error={!R.isNil(this.form.error)}
                               text={props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save')}/>
                     </FlexLayout>
@@ -289,6 +289,10 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    */
   private isFormSubmittable(): boolean {
     return isFormSubmittable(this.props);
+  }
+
+  private isFormBusy(): boolean {
+    return this.props.progress || this.form.progress;
   }
 
   /**

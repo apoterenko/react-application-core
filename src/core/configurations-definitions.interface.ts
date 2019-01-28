@@ -523,6 +523,7 @@ export interface IFormConfiguration extends IUniversalFormConfiguration,
                                             IResetTextWrapper,
                                             ICompactWrapper {
   useActions?: boolean; // TODO
+  progress?: boolean; // TODO
 }
 
 /**

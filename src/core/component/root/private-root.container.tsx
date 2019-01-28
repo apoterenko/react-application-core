@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import * as R from 'ramda';
 
 import { RootContainer } from './root.container';
 
@@ -16,7 +17,8 @@ export class PrivateRootContainer extends RootContainer {
             : <Component routeParams={this.routeParams}
                          queryParams={this.queryParams}/>;
       } else {
-        return <Redirect to={this.routes.signIn}/>;
+        const queryParams = this.queryParams.toString();
+        return <Redirect to={R.isEmpty(queryParams) ? this.routes.signIn : `${this.routes.signIn}/?${queryParams}`}/>;
       }
     };
     return <Route render={render}/>;
