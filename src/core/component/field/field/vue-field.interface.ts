@@ -6,6 +6,8 @@ import {
   IDisplayNameWrapper,
   IUseLocalizationWrapper,
   INameWrapper,
+  IIconWrapper,
+  IAutoFocusWrapper,
   IPlaceholderWrapper,
 } from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
@@ -38,6 +40,8 @@ export interface IVueFieldState extends IDisplayValueWrapper {
 export interface IVueFieldProps extends IVueBaseProps,
                                         ILabelWrapper,
                                         INameWrapper,
+                                        IIconWrapper,
+                                        IAutoFocusWrapper,
                                         IPlaceholderWrapper,
                                         IDisplayNameWrapper,
                                         IUseLocalizationWrapper,

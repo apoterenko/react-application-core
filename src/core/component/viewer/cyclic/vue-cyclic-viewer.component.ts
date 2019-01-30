@@ -72,6 +72,7 @@ class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implem
    */
   private onPrevious(): void {
     this.getData().index--;
+    this.doEmitPositionEvent();
   }
 
   /**
@@ -79,6 +80,7 @@ class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implem
    */
   private onNext(): void {
     this.getData().index++;
+    this.doEmitPositionEvent();
   }
 
   /**
@@ -151,5 +153,12 @@ class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implem
    */
   private getList(): IVueCyclicViewerPayloadEntity[] {
     return this.list || [];
+  }
+
+  /**
+   * @stable [30.01.2019]
+   */
+  private doEmitPositionEvent(): void {
+    this.$emit('change', this.getData().index);
   }
 }

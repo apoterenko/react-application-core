@@ -14,7 +14,7 @@ import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
 @Component({
   template: `
       <div class="rac-grid-wrapper">
-        <table v-if="!progress"
+        <table v-if="!isListBusy()"
                cellpadding="0"
                cellspacing="0"
                class="rac-grid vue-grid">
@@ -38,7 +38,7 @@ import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
             </tr>
           </tbody>
         </table>
-        <div v-if="progress">
+        <div v-if="isListBusy()">
           Please wait...
         </div>
         <div v-if="isEmptyData">
@@ -169,11 +169,11 @@ class VueGrid extends VueBaseComponent {
     return column.style$ || '';
   }
 
-  private get progress(): boolean {
+  private isListBusy(): boolean {
     return this.list.progress;
   }
 
   private get isEmptyData(): boolean {
-    return !this.progress && this.listData.length === 0;
+    return !this.isListBusy() && this.listData.length === 0;
   }
 }

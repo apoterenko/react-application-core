@@ -14,7 +14,6 @@ export * from './join';
 export * from './json';
 export * from './merge';
 export * from './message';
-export * from './name';
 export * from './nvl';
 export * from './object';
 export * from './page';

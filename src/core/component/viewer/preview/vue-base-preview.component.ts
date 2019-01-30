@@ -59,7 +59,14 @@ export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewSta
    * @stable [14.11.2018]
    */
   public mounted(): void {
-    dragscroll.reset();
+    this.refresh();
+  }
+
+  /**
+   * @stable [30.01.2019]
+   */
+  public updated(): void {
+    this.refresh();
   }
 
   /**
@@ -117,5 +124,12 @@ export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewSta
    */
   private onChangeScale(scale: number): void {
     this.$data.scale += scale;
+  }
+
+  /**
+   * @stable [30.01.2019]
+   */
+  private refresh(): void {
+    dragscroll.reset();
   }
 }

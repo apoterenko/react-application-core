@@ -147,13 +147,21 @@ export const listEntityWrapperPageEntityFilterMapper =
     listEntityPageEntityFilterMapper(listEntity.list, pageSize);
 
 /**
+ * @stable [30.01.2019]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {IListEntity}
+ */
+export const listSelector = (listWrapperEntity: IListWrapperEntity): IListEntity =>
+  ifNotNilThanValue<IListWrapperEntity, IListEntity>(listWrapperEntity, () => listWrapperEntity.list);
+
+/**
  * @stable [16.05.2018]
  * @param {IListWrapperEntity} listWrapperEntity
  * @param {IDataMutatorEntity} dataMutator
  * @returns {IListWrapperEntity}
  */
 export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity =>
-  listMapper(listWrapperEntity.list, dataMutator);
+  listMapper(listSelector(listWrapperEntity), dataMutator);
 
 /**
  * @stable [31.08.2018]
@@ -271,7 +279,7 @@ export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: ILis
  * @returns {TEntity}
  */
 export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
-  ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => list.selected as TEntity);
+  ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));
 
 /* @stable - 12.04.2018 */
 export const listWrapperSelectedEntityMapper =

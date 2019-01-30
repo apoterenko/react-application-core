@@ -2,7 +2,7 @@ import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
 import { StringNumberT } from '../../../definitions.interface';
-import { getWidth, isString, isArrayNotEmpty, strongHtmlReplace } from '../../../util';
+import { getWidth, isString, isArrayNotEmpty, strongHtmlReplace, queryFilter } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
@@ -19,14 +19,15 @@ import {
 
 @ComponentName(VUE_SELECT_NAME)
 @Component(vueDefaultComponentConfigFactory())
-class VueSelect extends VueBaseTextField implements IVueSelectTemplateMethods, IVueSelectProps {
+class VueSelect extends VueBaseTextField
+  implements IVueSelectTemplateMethods, IVueSelectProps {
 
-  @Prop() public bindDictionary: string;
-  @Prop() public menuProps: IVueMenuProps;
-  @Prop({default: (): string => 'vue-icon-expand'}) protected icon: string;
+  @Prop() public readonly bindDictionary: string;
+  @Prop() public readonly menuProps: IVueMenuProps;
+  @Prop({default: (): string => 'vue-icon-expand'}) public readonly icon: string;
   @Prop({
     default: (): VueSelectFilterT => (option: ISelectOptionEntity, query: string) =>
-      String((option.label || option.value)).toLowerCase().includes(query.toLowerCase()),
+      queryFilter(query, String(option.label || option.value)),
   }) protected filter: VueSelectFilterT;
   @Prop() private options: ISelectOptionEntity[];
 

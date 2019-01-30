@@ -28,6 +28,13 @@ class VuePicturePreview extends VueBasePreview {
 
   /**
    * @stable [30.01.2019]
+   */
+  public updated(): void {
+    super.updated();
+  }
+
+  /**
+   * @stable [30.01.2019]
    * @returns {string}
    */
   protected getPreviewTemplate(): string {

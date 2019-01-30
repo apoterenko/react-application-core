@@ -32,19 +32,20 @@ import {
 } from './vue-field.interface';
 
 export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFieldState>
-  extends VueBaseComponent<TStore, TState> implements IVueField, IVueFieldProps {
+  extends VueBaseComponent<TStore, TState>
+  implements IVueField, IVueFieldProps {
 
-  @Prop() public value: AnyT;
-  @Prop() public full: boolean;
-  @Prop() public useLocalization: boolean;
-  @Prop() public label: string;
-  @Prop() public displayName: string;
-  @Prop() public name: string;
-  @Prop() public placeholder: string;
+  @Prop() public readonly value: AnyT;
+  @Prop() public readonly full: boolean;
+  @Prop() public readonly useLocalization: boolean;
+  @Prop() public readonly label: string;
+  @Prop() public readonly displayName: string;
+  @Prop() public readonly name: string;
+  @Prop() public readonly placeholder: string;
+  @Prop() public readonly autoFocus: boolean;
+  @Prop() public readonly icon: string;
   @Prop() protected type: string;
   @Prop() protected floatLabel: boolean;
-  @Prop() protected icon: string;
-  @Prop() protected autoFocus: boolean;
 
   /**
    * @stable [17.11.2018]
