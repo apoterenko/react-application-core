@@ -6,6 +6,7 @@ export * from './clone';
 export * from './cond';
 export * from './converter';
 export * from './dom';
+export * from './entity';
 export * from './event';
 export * from './factory';
 export * from './filter';
