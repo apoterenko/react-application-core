@@ -19,7 +19,7 @@ import { FormActionBuilder } from '../form/vue-index';
 import { ListActionBuilder } from '../list/vue-index';
 import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/vue-index';
 
-export class VueBaseContainer extends Vue implements IVueContainer {
+export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueContainer {
   public section$: string;
   @lazyInject(DI_TYPES.Store) public store$: Store<IVueApplicationStoreEntity>;
   @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
@@ -30,6 +30,14 @@ export class VueBaseContainer extends Vue implements IVueContainer {
    */
   public get state$(): IVueApplicationStoreEntity {
     return this.store$.getState();
+  }
+
+  /**
+   * @stable [29.01.2019]
+   * @returns {TState}
+   */
+  protected getData(): TState {
+    return this.$data as TState;
   }
 
   /**

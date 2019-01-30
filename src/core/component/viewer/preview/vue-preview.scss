@@ -1,0 +1,10 @@
+@import '../../vue-constant';
+@import '../../vue-mixin';
+
+.vac {
+
+  @include vue-preview(                                                                       /* @stable [30.01.2019] */
+    $vue-preview-content-overflow: $vue-preview-content-overflow,
+    $vue-preview-content-position: $vue-preview-content-position
+  );
+}

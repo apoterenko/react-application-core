@@ -9,7 +9,8 @@
     $vue-button-border: $vue-button-border,
     $vue-button-border-radius: $vue-button-border-radius,
     $vue-button-background: $vue-button-background,
-    $vue-button-cursor: $vue-button-cursor
+    $vue-button-cursor: $vue-button-cursor,
+    $vue-button-height: $vue-button-height
   );
 
   @include vue-button(                                                                        /* @stable [19.01.2019] */

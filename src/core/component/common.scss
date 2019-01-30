@@ -70,11 +70,12 @@ html, body {
     @include rac-size(100%);                                                                  /* @stable [27.11.2018] */
   }
 
-  .rac-absolute {
-    @include _rac-position-properties($rac-position: absolute,                                /* @stable [14.11.2018] */
-                                      $rac-position-top: 0,
-                                      $rac-position-left: 0);
-  }
+  @include rac-styles(                                                                        /* @stable [30.01.2019] */
+    $rac-styles-custom: rac-absolute,
+    $rac-styles-position: absolute,
+    $rac-styles-top: 0,
+    $rac-styles-left: 0
+  );
 
   @include rac-styles(                                                                        /* @stable [20.01.2019] */
     $rac-styles-custom: rac-absolute-full,
