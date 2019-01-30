@@ -37,6 +37,10 @@ class VueCheckbox extends VueField {
     return `${super.getFieldClassName()} vue-checkbox`;
   }
 
+  /**
+   * @stable [30.01.2019]
+   * @returns {string}
+   */
   public getInputWrapperClassName(): string {
     return toClassName(
       super.getInputWrapperClassName(),
