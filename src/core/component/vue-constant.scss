@@ -49,6 +49,7 @@ $vue-multi-file-field-attachment-content-height: 100px !default;
 $vue-select-icon-width: 16px !default;
 $vue-select-icon-height: 10px !default;
 $vue-select-icon-margin: 0 20px 0 auto !default;
+$vue-checkbox-label-margin: 0 0 0 16px !default;
 
 /* @stable [18.11.2018] */
 $vue-cropper-viewer-popup-cls: vue-cropper-viewer-popup;
@@ -68,7 +69,7 @@ $vue-cropper-popup-header-z-index: 1 !default;
 $vue-cropper-popup-header-border-radius: $vue-default-border-radius !default;
 $vue-cropper-popup-header-background: $vue-color6 !default;
 $vue-cropper-popup-header-button-background: none !default;
-$vue-cropper-popup-header-button-padding: 16px 20px !default;
+$vue-cropper-popup-header-button-padding: 0 20px !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-line-display: none !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-point-opacity: 1 !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-point-background-color: $vue-color7 !default;
@@ -78,6 +79,18 @@ $vue-cropper-viewer-popup-image-wrapper-cropper-point-sw-s-se-bottom: -7px !defa
 $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-outline: none !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-border: 2px solid $vue-color7 !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-dashed-opacity: 1 !default;
+
+/* @stable [29.01.2019] */
+$vue-cyclic-viewer-footer-height: 40px !default;
+$vue-cyclic-viewer-index-info-font-size: $vue-default-font-size !default;
+$vue-cyclic-viewer-index-info-white-space: no-wrap !default;
+$vue-cyclic-viewer-footer-button-background: none !default;
+$vue-cyclic-viewer-footer-button-padding: 0 16px !default;
+$vue-cyclic-viewer-footer-button-height: auto !default;
+
+/* @stable [30.01.2019] */
+$vue-preview-content-overflow: auto !default;
+$vue-preview-content-position: relative !default;
 
 /* @stable [18.11.2018] */
 $vue-popup-background: $vue-color5 !default;
@@ -108,8 +121,9 @@ $vue-form-field-margin: 0 0 16px 0 !default;
 
 /* @stable [27.12.2018] */
 $vue-button-font-size: $vue-default-font-size-2 !default;
-$vue-button-padding: 16px 48px !default;
+$vue-button-padding: 0 48px !default;
 $vue-button-border: 0 !default;
+$vue-button-height: 48px !default;
 $vue-button-border-radius: $vue-default-border-radius !default;
 $vue-button-background: $vue-color4 !default;
 $vue-button-cursor: pointer !default;

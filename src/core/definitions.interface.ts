@@ -18,6 +18,10 @@ export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 export const UNIVERSAL_SELECTED_ELEMENT_SELECTOR = 'rac-universal-selected-element';
 export const UNIVERSAL_STICKY_ELEMENT_SELECTOR = 'rac-sticky-element';
+export const APPLICATION_PDF_FORMAT = 'application/pdf';
+export const IMAGE_JPG_FORMAT = 'image/jpg';
+export const IMAGE_JPEG_FORMAT = 'image/jpeg';
+export const IMAGE_PNG_FORMAT = 'image/png';
 
 /**
  * @stable [15.09.2018]
@@ -121,6 +125,13 @@ export interface IIpWrapper<TIp = string> {
  */
 export interface ISrcWrapper<TSrc = string> {
   src?: TSrc;
+}
+
+/**
+ * @stable [30.01.2019]
+ */
+export interface IScaleFactorWrapper<TScaleFactor = number> {
+  scaleFactor?: TScaleFactor;
 }
 
 /**

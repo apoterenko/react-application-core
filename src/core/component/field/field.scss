@@ -10,6 +10,11 @@
   @include rac-field($rac-field-custom: rac-field-prevent-focus,                              /* @stable [08.11.2018] */
                      $rac-text-field-input-cursor: default);
 
+  @include rac-field($rac-field-custom: rac-field-disabled,                                   /* @stable [30.01.2019] */
+                     $rac-field-opacity: $rac-field-disabled-opacity,
+                     $rac-text-field-opacity: $rac-text-field-disabled-opacity);
+
+
   @include rac-field($rac-field-custom: rac-switch,                                           /* @stable [08.11.2018] */
                      $rac-field-label-margin: $rac-switch-label-margin);
 

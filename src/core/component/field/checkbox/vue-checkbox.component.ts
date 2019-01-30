@@ -1,10 +1,12 @@
 import { Prop, Component } from 'vue-property-decorator';
 
+import { toClassName } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueField, IVueFieldInputListenersEntity } from '../field/vue-index';
+import { VUE_CHECKBOX_NAME } from './vue-checkbox.interface';
 
-@ComponentName('vue-checkbox')
+@ComponentName(VUE_CHECKBOX_NAME)
 @Component
 class VueCheckbox extends VueField {
   @Prop({default: (): boolean => false}) protected floatLabel: boolean;
@@ -33,6 +35,13 @@ class VueCheckbox extends VueField {
    */
   public getFieldClassName(): string {
     return `${super.getFieldClassName()} vue-checkbox`;
+  }
+
+  public getInputWrapperClassName(): string {
+    return toClassName(
+      super.getInputWrapperClassName(),
+      'rac-flex-justify-content-center'
+    );
   }
 
   /**

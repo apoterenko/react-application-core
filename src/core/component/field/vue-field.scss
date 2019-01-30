@@ -35,6 +35,11 @@
     $vue-field-icon-cursor: pointer
   );
 
+  @include vue-field(                                                                         /* @stable [29.01.2019] */
+    $vue-field-custom: vue-checkbox,
+    $vue-field-label-margin: $vue-checkbox-label-margin
+  );
+
   @include vue-field(                                                                         /* @stable [21.12.2018] */
     $vue-field-custom: vue-file-field,
     $vue-field-attachment-wrapper-width: $vue-file-field-attachment-wrapper-width,

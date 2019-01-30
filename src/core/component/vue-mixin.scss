@@ -102,6 +102,7 @@
  * @stable [19.01.2019]
  */
 @mixin vue-button($vue-button-custom: unset,
+                  $vue-button-height: unset,
                   $vue-button-font-size: unset,
                   $vue-button-padding: unset,
                   $vue-button-border: unset,
@@ -112,6 +113,7 @@
                   $vue-button-opacity: unset) {
   #{rac-build-cls(vue-button, $vue-button-custom)} {
     @include rac-styles(
+      $rac-styles-height: $vue-button-height,
       $rac-styles-padding: $vue-button-padding,
       $rac-styles-font-size: $vue-button-font-size,
       $rac-styles-border: $vue-button-border,
@@ -287,6 +289,66 @@
 }
 
 /**
+ * @stable [29.01.2019]
+ */
+@mixin vue-cyclic-viewer($vue-cyclic-viewer-custom: unset,
+                         $vue-cyclic-viewer-footer-height: unset,
+                         $vue-cyclic-viewer-index-info-font-size: unset,
+                         $vue-cyclic-viewer-index-info-white-space: unset,
+                         $vue-cyclic-viewer-footer-button-background: unset,
+                         $vue-cyclic-viewer-footer-button-padding: unset,
+                         $vue-cyclic-viewer-footer-button-height: unset) {
+
+  #{rac-build-cls(vue-cyclic-viewer, $vue-cyclic-viewer-custom)} {
+    .vue-cyclic-viewer-footer {
+      @include rac-flex-height($vue-cyclic-viewer-footer-height);
+
+      @include vue-button(
+        $vue-button-background: $vue-cyclic-viewer-footer-button-background,
+        $vue-button-padding: $vue-cyclic-viewer-footer-button-padding,
+        $vue-button-height: $vue-cyclic-viewer-footer-button-height
+      );
+    }
+
+    @include rac-styles(
+      $rac-styles-custom: vue-cyclic-viewer-index-info
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: vue-cyclic-viewer-index-info,
+      $rac-styles-font-size: $vue-cyclic-viewer-index-info-font-size,
+      $rac-styles-white-space: $vue-cyclic-viewer-index-info-white-space
+    );
+
+    .vue-cyclic-viewer-content { // TODO
+      position: relative;
+      overflow: auto;
+
+      & > {
+        position: absolute;
+      }
+    }
+  }
+}
+
+/**
+ * @stable [30.01.2019]
+ */
+@mixin vue-preview($vue-preview-custom: unset,
+                   $vue-preview-content-overflow: unset,
+                   $vue-preview-content-position: unset) {
+
+  #{rac-build-cls(vue-preview, $vue-preview-custom)} {
+    .vue-preview-content {
+      @include rac-styles(
+        $rac-styles-overflow: $vue-preview-content-overflow,
+        $rac-styles-position: $vue-preview-content-position
+      );
+    }
+  }
+}
+
+/**
  * @stable [19.11.2018]
  */
 @mixin vue-field($vue-field-custom: unset,
@@ -297,6 +359,7 @@
                  $vue-field-border-radius: unset,
                  $vue-field-border: unset,
                  $vue-field-label-color: unset,
+                 $vue-field-label-margin: unset,
                  $vue-field-float-label-color: unset,
                  $vue-field-float-label-font-size: unset,
                  $vue-field-float-label-padding: unset,
@@ -411,7 +474,8 @@
 
     .vue-field-label {
       @include rac-styles(
-        $rac-styles-color: $vue-field-label-color
+        $rac-styles-color: $vue-field-label-color,
+        $rac-styles-margin: $vue-field-label-margin
       );
 
       &.vue-field-float-label {

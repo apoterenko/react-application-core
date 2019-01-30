@@ -1,8 +1,10 @@
 @import '../vue-constant';
 @import '../mixin';
 @import './cropper/vue-cropper-viewer';
+@import './cyclic/vue-cyclic-viewer';
 @import './file/vue-file-viewer';
 @import './picture/vue-picture-viewer';
+@import './preview/vue-preview';
 
 .vac {
 

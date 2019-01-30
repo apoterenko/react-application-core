@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName, isString, isFn } from '../../../util';
+import { toClassName, isString, isFn, cancelEvent } from '../../../util';
 import { BaseComponent } from '../../base';
 import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 import { IKeyboardKeyProps } from './keyboard-key.interface';
@@ -41,6 +41,7 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
 
     return (
       <Button
+        disabled={props.disabled}
         className={toClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,
@@ -59,7 +60,7 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
    * @param {IBasicEvent} e
    */
   private onClick(e: IBasicEvent): void {
-    this.stopEvent(e);
+    cancelEvent(e);
     this.props.onSelect(this.props.value);
   }
 }

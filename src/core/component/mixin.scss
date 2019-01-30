@@ -922,6 +922,7 @@
  * @stable [08.11.2018]
  */
 @mixin rac-field($rac-field-custom: unset,
+                 $rac-field-opacity: unset,
                  $rac-field-width: unset,
                  $rac-field-height: unset,
                  $rac-field-margin: unset,
@@ -930,6 +931,7 @@
                  $rac-field-input-cursor: unset,
                  $rac-field-label-margin: unset,
                  $rac-field-align-items: unset,
+                 $rac-text-field-opacity: unset,
                  $rac-text-field-height: unset,
                  $rac-text-field-background: unset,
                  $rac-text-field-border: unset,
@@ -963,6 +965,7 @@
     }
 
     @include rac-styles(
+      $rac-styles-opacity: $rac-field-opacity,
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-width: $rac-field-width,
       $rac-styles-height: $rac-field-height,
@@ -978,6 +981,7 @@
     > .rac-text-field { // To prevent inner component inheritance (field - grid - field)
 
       @include rac-styles(
+        $rac-styles-opacity: $rac-text-field-opacity,
         $rac-styles-background: $rac-text-field-background,
         $rac-styles-height: $rac-text-field-height,
         $rac-styles-border: $rac-text-field-border,
