@@ -31,9 +31,12 @@
   .rac-keyboard {
 
     &.rac-keyboard-absolute {
-      @include _rac-position-properties($rac-position: fixed, // TODO
-        $rac-position-bottom: 0,
-        $rac-position-horizontal-align-center: true);
+      @include rac-styles(
+        $rac-styles-position: fixed, // TODO
+        $rac-styles-bottom: 0,
+        $rac-styles-transform: translateX(-50%),
+        $rac-styles-left: 50%,       
+      );
     }
 
     .rac-keyboard-key {

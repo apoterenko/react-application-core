@@ -1,18 +1,16 @@
 import { Store } from 'redux';
 import { injectable } from 'inversify';
-import * as R from 'ramda';
+import { LoggerFactory } from 'ts-smart-logger';
 
-import { AnyT } from '../definitions.interface';
 import { DI_TYPES, lazyInject } from '../di';
+import { notNilValuesFilter, ifNotNilThanValue, toType } from '../util';
+import { IKeyValue } from '../definitions.interface';
 import { IApplicationStoreEntity } from '../entities-definitions.interface';
 import {
-  IApplicationTransport,
+  ITransport,
   ITransportRequestEntity,
-  TransportResponseErrorT,
-  IApplicationTransportFactory,
   ITransportResponseEntity,
-  ITransportRequestParamsEntity,
-  TRANSPORT_REQUEST_CANCEL_REASON,
+  ITransportRequestMetaEntity,
 } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ACTION_TYPE,
@@ -20,64 +18,65 @@ import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { defValuesFilter, orUndef } from '../util';
+import { ITransportFactoryResponseEntity, ITransportFactory } from './factory';
+import { ITransportRequestPayloadFactory } from './request';
 
 @injectable()
-export class TransportService implements IApplicationTransport {
+export class Transport implements ITransport {
+  private static readonly logger = LoggerFactory.makeLogger('Transport');
+
   @lazyInject(DI_TYPES.Store) private store: Store<IApplicationStoreEntity>;
-  @lazyInject(DI_TYPES.TransportFactory) private transportFactory: IApplicationTransportFactory;
+  @lazyInject(DI_TYPES.TransportFactory) private transportFactory: ITransportFactory;
+  @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
 
-  public toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity {
-    return this.transportFactory.toRequestParams(req);
+  /**
+   * @stable [02.02.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {IKeyValue}
+   */
+  public makeRequestPayloadData(requestEntity: ITransportRequestEntity): IKeyValue {
+    return this.requestPayloadFactory.makeRequestPayloadData(requestEntity);
   }
 
-  public request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
-    this.onRequest(req);
+  /**
+   * @stable [01.02.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {Promise<TResponse>}
+   */
+  public async request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
+    this.store.dispatch({type: TRANSPORT_REQUEST_ACTION_TYPE, data: this.toRequestMetaEntity(req)});
 
-    return new Promise<TResponse>((resolve, reject) => (
-        this.transportFactory
-          .request(req)
-          .then((response) => {
-            const error = response.data.error || response.data.Message;
-            if (error) {
-              this.onRequestError(req, error);
-              reject(error);
-            } else {
-              const result = (req.reader ? req.reader(response.data) : response.data).result;
-              this.onRequestDone(req, result);
-              resolve(result);
-            }
-          })
-          .catch((e: Error | string) => {
-            if (e === TRANSPORT_REQUEST_CANCEL_REASON) {
-              this.onRequestCancel(req);
-              // Don't need to worry about unresolved promises as long as you don't have external references to them
-            } else {
-              this.onRequestError(req, e);
-              reject(e);
-            }
-          })
-      )
-    );
+    let responseEntity: ITransportFactoryResponseEntity;
+    try {
+      responseEntity = await (req.transportFactory || this.transportFactory).request(req);
+    } catch (e) {
+      if (e.cancelled) {
+        Transport.logger.debug('[$Transport][request] A user has canceled the request:', e);
+        this.onRequestCancel(req);
+        return;
+      } else {
+        Transport.logger.error('[$Transport][request] The system error has occurred:', e);
+        this.onRequestError(req, e);
+        throw e;
+      }
+    }
+    if (responseEntity.error) {
+      Transport.logger.warn('[$Transport][request] The business logic error has occurred:', responseEntity);
+      this.onRequestError(req, responseEntity);
+      throw responseEntity;
+    } else {
+      this.onRequestDone(req, responseEntity);
+      return responseEntity.result;
+    }
   }
 
-  public cancelRequest(operationId: string): void {
-    this.transportFactory.cancelRequest(operationId);
-  }
-
-  private onRequest(req: ITransportRequestEntity): void {
-    this.store.dispatch({
-      type: TRANSPORT_REQUEST_ACTION_TYPE,
-      data: this.toRequestMetaData(req),
-    });
-  }
-
-  private onRequestDone(req: ITransportRequestEntity, result: AnyT): void {
-    const data: ITransportResponseEntity = {
-      ...this.toRequestMetaData(req),
-      result,
-    };
-    this.store.dispatch({ type: TRANSPORT_REQUEST_DONE_ACTION_TYPE, data });
+  /**
+   * @stable [02.02.2019]
+   * @param {string} operationId
+   * @param {ITransportFactory} transportFactory
+   */
+  public cancelRequest(operationId: string, transportFactory?: ITransportFactory): void {
+    (transportFactory || this.transportFactory).cancelRequest(operationId);
   }
 
   /**
@@ -85,26 +84,48 @@ export class TransportService implements IApplicationTransport {
    * @param {ITransportRequestEntity} req
    */
   private onRequestCancel(req: ITransportRequestEntity): void {
-    this.store.dispatch({type: TRANSPORT_REQUEST_CANCEL_ACTION_TYPE, data: this.toRequestMetaData(req)});
-  }
-
-  private onRequestError(req: ITransportRequestEntity, error: TransportResponseErrorT): void {
-    const data: ITransportResponseEntity = {
-      ...this.toRequestMetaData(req),
-      error,
-    };
-    this.store.dispatch({ type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE, data });
+    this.store.dispatch({type: TRANSPORT_REQUEST_CANCEL_ACTION_TYPE, data: this.toRequestMetaEntity(req)});
   }
 
   /**
-   * @stable [17.08.2018]
+   * @stable [01.02.2019]
    * @param {ITransportRequestEntity} req
-   * @returns {ITransportResponseEntity}
+   * @param {ITransportResponseEntity} responseEntity
    */
-  private toRequestMetaData(req: ITransportRequestEntity): ITransportResponseEntity {
-    return defValuesFilter<ITransportResponseEntity, ITransportResponseEntity>({
+  private onRequestError(req: ITransportRequestEntity, responseEntity: ITransportResponseEntity): void {
+    this.store.dispatch({
+      type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
+      data: toType<ITransportResponseEntity>({
+        ...this.toRequestMetaEntity(req),
+        ...responseEntity,
+      }),
+    });
+  }
+
+  /**
+   * @stable [01.02.2019]
+   * @param {ITransportRequestEntity} req
+   * @param {ITransportResponseEntity} responseEntity
+   */
+  private onRequestDone(req: ITransportRequestEntity, responseEntity: ITransportResponseEntity): void {
+    this.store.dispatch({
+      type: TRANSPORT_REQUEST_DONE_ACTION_TYPE,
+      data: toType<ITransportResponseEntity>({
+        ...this.toRequestMetaEntity(req),
+        ...responseEntity,
+      }),
+    });
+  }
+
+  /**
+   * @stable [01.02.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {ITransportRequestMetaEntity}
+   */
+  private toRequestMetaEntity(req: ITransportRequestEntity): ITransportRequestMetaEntity {
+    return notNilValuesFilter<ITransportRequestMetaEntity, ITransportRequestMetaEntity>({
       name: req.name,
-      operationId: orUndef<string>(!R.isNil(req.operation), () => req.operation.id),
+      operationId: ifNotNilThanValue(req.operation, (operation) => operation.id),
     });
   }
 }

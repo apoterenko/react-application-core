@@ -2,17 +2,16 @@ import { injectable } from 'inversify';
 
 import {
   IApplicationTransportPayloadAnalyzer,
-  ITransportErrorEntity,
 } from './transport.interface';
 
 @injectable()
 export class TransportPayloadAnalyzer implements IApplicationTransportPayloadAnalyzer {
 
-  public toToken(payload: ITransportErrorEntity): string {
+  public toToken(payload: any): string { // TODO
     return null;
   }
 
-  public isAuthErrorPayload(payload: ITransportErrorEntity): boolean {
+  public isAuthErrorPayload(payload: any): boolean {
     return false;
   }
 }

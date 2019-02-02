@@ -2,6 +2,7 @@ import { ENV } from '../env';
 import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
 import { ApplicationStorageTypeEnum } from '../storage/storage.interface';
+import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;
@@ -10,6 +11,17 @@ export interface IApplicationCurrencySettings {
 
 export interface IApplicationResourcePaths {
   uiDefaultIconPath?: string;
+}
+
+/**
+ * @stable [02.02.2019]
+ */
+export interface ITransportSettings extends IBaseTransportRequestEntity {
+  binaryContentType?: string;
+  formDataContentType?: string;
+  binaryUrl?: string;
+  apiUrl?: string;
+  noCachePrefix?: string;
 }
 
 export interface IApplicationDateTimeSettings {
@@ -79,6 +91,7 @@ export interface IApplicationMessagesSettings {
   exportActionTitleMessage?: string;
   refreshActionTitleMessage?: string;
   unknownFileMessage?: string;
+  requestCancelErrorMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -97,10 +110,8 @@ export interface IApplicationGoogleMapsSettings {
   prettyZoom?: number;
 }
 
-export interface IApplicationSettings {
-  apiUrl?: string;
+export interface ISettings {
   signalRUrl?: string;
-  binaryUrl?: string;
   downloadUrl?: string;
   metaFilesJsonUrl?: string;
   pdfWorkerDirectoryUrl?: string;
@@ -108,6 +119,7 @@ export interface IApplicationSettings {
   companyName?: string;
   companyCountry?: string;
   usePersistence?: boolean;
+  transport?: ITransportSettings;
   persistenceStorage?: ApplicationStorageTypeEnum;
   entityEmptyId?: AnyT;
   resourcePaths?: IApplicationResourcePaths;
@@ -127,15 +139,22 @@ export const REGEXP_REPO = {
   digital: '[0-9]+',
 };
 
-export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
+export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
   usePersistence: true,
-  apiUrl: prepareUrl(ENV.basePath + '/api/'),
   signalRUrl: prepareUrl(ENV.basePath + '/api/'),
-  binaryUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
   emptyPictureUrl: 'media/no_avatar.jpg',
   companyName: 'Test company',
   entityEmptyId: null,
+  transport: {
+    method: 'post',
+    withCredentials: true,
+    binaryContentType: 'application/octet-stream',
+    formDataContentType: 'multipart/form-data',
+    apiUrl: prepareUrl(ENV.basePath + '/api/'),
+    binaryUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
+    noCachePrefix: '_dc',
+  },
   messages: {
     newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
     dialogTitleMessage: 'Notice',
@@ -172,6 +191,7 @@ export const DEFAULT_APPLICATION_SETTINGS: IApplicationSettings = {
     exportActionTitleMessage: 'Export',
     refreshActionTitleMessage: 'Refresh',
     unknownFileMessage: 'Unknown file',
+    requestCancelErrorMessage: 'The request has been canceled by the user.',
   },
   dateTime: {
     currentDate: new Date(),

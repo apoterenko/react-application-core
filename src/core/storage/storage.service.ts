@@ -8,12 +8,12 @@ const localStore = engine.createStore([localStorage]);
 
 import { ApplicationStorageTypeEnum, IApplicationStorage, STORAGE_KEY_SEPARATOR } from '../storage';
 import { AnyT } from '../definitions.interface';
-import { IApplicationSettings } from '../settings';
+import { ISettings } from '../settings';
 
 export class Storage implements IApplicationStorage {
 
   constructor(private prefix: string,
-              private settingsResolver: () => IApplicationSettings,
+              private settingsResolver: () => ISettings,
               private storageType?: ApplicationStorageTypeEnum) {
   }
 

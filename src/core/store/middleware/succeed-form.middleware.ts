@@ -14,7 +14,7 @@ import { DI_TYPES, staticInjector } from '../../di';
 import { IApplicationModifyEntityPayloadFactory, IModifyEntityPayloadWrapper } from '../../api';
 import { NotificationActionBuilder } from '../../notification';
 import { ApplicationTranslatorT } from '../../translation';
-import { IApplicationSettings } from '../../settings';
+import { ISettings } from '../../settings';
 
 const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 
@@ -46,7 +46,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
   ).concat(
     NotificationActionBuilder.buildInfoAction(
       staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate)(
-        config.saveMessage || staticInjector<IApplicationSettings>(DI_TYPES.Settings).messages.dataSaved
+        config.saveMessage || staticInjector<ISettings>(DI_TYPES.Settings).messages.dataSaved
       )
     )
   );
@@ -90,7 +90,7 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
   ).concat(
     NotificationActionBuilder.buildInfoAction(
       staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate)(
-        saveMessage || staticInjector<IApplicationSettings>(DI_TYPES.Settings).messages.dataSaved
+        saveMessage || staticInjector<ISettings>(DI_TYPES.Settings).messages.dataSaved
       )
     )
   );

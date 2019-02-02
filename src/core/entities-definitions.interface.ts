@@ -12,6 +12,7 @@ import {
   IApplicationWrapper,
   IAreaWrapper,
   IAuthorizedWrapper,
+  IBlobWrapper,
   IBrowserLocationWrapper,
   IChangesWrapper,
   IChannelWrapper,
@@ -45,8 +46,10 @@ import {
   IFromDateFromTimeEntity,
   IGetSelfWrapper,
   IGetValueWrapper,
+  IHeadersWrapper,
   IIconWrapper,
   IIdWrapper,
+  IIndexWrapper,
   IInfoWrapper,
   IIpWrapper,
   IIsNewWrapper,
@@ -63,6 +66,7 @@ import {
   ILoginWrapper,
   IMergerWrapper,
   IMessagesWrapper,
+  IMethodWrapper,
   IMiniWrapper,
   IModeWrapper,
   IMutatedListWrapper,
@@ -106,27 +110,26 @@ import {
   IStreetWrapper,
   IStringErrorMessageWrapper,
   IStringProgressMessageWrapper,
-  IStringTokenWrapper,
   ITabPanelWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
+  ITokenWrapper,
   ITotalAmountWrapper,
   ITotalCountWrapper,
   ITouchedWrapper,
   ITransportWrapper,
+  ITypeWrapper,
   IURLSearchQueryParamsWrapper,
   IUrlWrapper,
   IUserWrapper,
   IValidWrapper,
   IValueWrapper,
   IWidthWrapper,
+  IWithCredentialsWrapper,
   IXWrapper,
   IYWrapper,
-  ITypeWrapper,
   IZipCodeWrapper,
-  IBlobWrapper,
-  IIndexWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -645,7 +648,7 @@ export interface IOperationEntity extends IIdWrapper<string> {
 }
 
 /* @stable - 12.04.2018 */
-export interface ITransportEntity extends IStringTokenWrapper,
+export interface ITransportEntity extends ITokenWrapper,
                                           IQueueWrapper<string[]> {
 }
 
@@ -987,4 +990,13 @@ export interface IStickyElementPayloadEntity {
  */
 export interface IBlobEntity extends IIdWrapper<string>,
                                      IBlobWrapper {
+}
+
+/**
+ * @stable [02.02.2019]
+ */
+export interface IBaseTransportRequestEntity
+  extends IWithCredentialsWrapper,
+          IMethodWrapper,
+          IHeadersWrapper {
 }

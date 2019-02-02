@@ -1,13 +1,13 @@
 import { injectable } from 'inversify';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { IApplicationTransport } from '../../transport';
+import { ITransport } from '../../transport';
 import { IOperationEntity } from '../../entities-definitions.interface';
 
 @injectable()
 export class BaseEffects<TApi> {
   @lazyInject(DI_TYPES.Api) protected api: TApi;
-  @lazyInject(DI_TYPES.Transport) private transport: IApplicationTransport;
+  @lazyInject(DI_TYPES.Transport) private transport: ITransport;
 
   /**
    * @stable [19.12.2018]

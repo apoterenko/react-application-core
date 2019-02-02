@@ -19,7 +19,7 @@ import {
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_REWRITE_ACTION_TYPE,
 } from '../../router/router.interface';
-import { IApplicationSettings } from '../../settings';
+import { ISettings } from '../../settings';
 import { ApplicationTranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
@@ -219,9 +219,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable - 15.04.2018
-   * @returns {IApplicationSettings}
+   * @returns {ISettings}
    */
-  protected get settings(): IApplicationSettings {
+  protected get settings(): ISettings {
     return staticInjector(DI_TYPES.Settings);
   }
 

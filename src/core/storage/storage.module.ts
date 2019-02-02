@@ -1,5 +1,5 @@
 import { appContainer, staticInjector, DI_TYPES } from '../di';
-import { IApplicationSettings,  } from '../settings';
+import { ISettings,  } from '../settings';
 import { ENV } from '../env';
 import { Storage } from './storage.service';
 import { ApplicationStorageTypeEnum } from './storage.interface';
@@ -7,7 +7,7 @@ import { CloudFileStorage } from './cloud-file-storage.service';
 import { joinStorageKeyPrefix } from './storage.support';
 import { StorageHelper } from './storage.helper';
 
-const settingsResolver = () => staticInjector<IApplicationSettings>(DI_TYPES.Settings);
+const settingsResolver = () => staticInjector<ISettings>(DI_TYPES.Settings);
 const notVersionedKey = joinStorageKeyPrefix(ENV.port, ENV.appProfile, ENV.normalizedBasePath);
 
 appContainer.bind(DI_TYPES.Storage).toConstantValue(

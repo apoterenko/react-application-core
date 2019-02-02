@@ -5,8 +5,8 @@ import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
-import { IApplicationSettings } from '../settings';
-import { IStringTokenWrapper } from '../definitions.interface';
+import { ISettings } from '../settings';
+import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
 import { APPLICATION_TOKEN_KEY, APPLICATION_UUID_KEY, IApplicationStorage } from '../storage/storage.interface';
 import { BaseEffects } from '../store/effects/base.effects';
@@ -18,19 +18,20 @@ import { UserActionBuilder } from '../user/user-action.builder';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
-import { IApplicationTransportPayloadAnalyzer, IApplicationTransportFactory } from '../transport/transport.interface';
+import { IApplicationTransportPayloadAnalyzer } from '../transport/transport.interface';
 import { FetchJsonTransportFactory } from '../transport/fetch-json-transport.factory';
+import { ITransportFactory } from '../transport/factory/transport-factory.interface';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   private static logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
 
   @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
-  @lazyInject(DI_TYPES.Settings) protected settings: IApplicationSettings;
+  @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IApplicationStorage;
   @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected notVersionedSessionStorage: IApplicationStorage;
   @lazyInject(DI_TYPES.TransportPayloadAnalyzer) protected transportPayloadAnalyzer: IApplicationTransportPayloadAnalyzer;
-  @lazyInject(FetchJsonTransportFactory) protected fetchJsonTransportFactory: IApplicationTransportFactory;
+  @lazyInject(FetchJsonTransportFactory) protected fetchJsonTransportFactory: ITransportFactory;
 
   /**
    * @stable - 25.04.2018
@@ -79,7 +80,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       ]);
       const localAppUuid = data[0];
       const remoteAppMetaInfo = data[1];
-      const remoteAppUuid = remoteAppMetaInfo.data.result.uuid;
+      const remoteAppUuid = remoteAppMetaInfo.result.uuid;
 
       if (!R.isNil(remoteAppUuid) && !R.isEmpty(remoteAppUuid)) {
         this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
@@ -186,7 +187,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAuthorizedActionType())
   public async $onAuthorized(action: IEffectsAction, state: IUniversalApplicationStoreEntity): Promise<void> {
-    const payload: IStringTokenWrapper = action.data;
+    const payload: ITokenWrapper = action.data;
     const token = payload && payload.token || state.transport.token;
 
     await this.notVersionedPersistentStorage.set(APPLICATION_TOKEN_KEY, token);

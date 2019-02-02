@@ -2,122 +2,34 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IKeyValue,
-  IStringTokenWrapper,
   INameWrapper,
   IBlobWrapper,
-  IMethodWrapper,
   IPathWrapper,
   INoCacheWrapper,
   IUrlWrapper,
-  IKeyValueHeadersWrapper,
-  IDataWrapper,
-  INotApplyAuthWrapper,
-  IStringAuthWrapper,
+  INoAuthWrapper,
+  ITokenWrapper,
   IOperationWrapper,
-  IReaderFnWrapper,
-  IResultWrapper,
-  IIdWrapper,
   AnyT,
-  IOperationIdWrapper,
-  IWithCredentialsWrapper,
   IParamsWrapper,
+  IOperationIdWrapper,
+  IFormDataWrapper,
+  IReaderWrapper,
 } from '../definitions.interface';
-import { IErrorEntity } from '../entities-definitions.interface';
+import {
+  ITransportFactoryResponseEntity,
+  ITransportFactory,
+} from './factory';
+import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
+import { ITransportResponseFactory } from './response';
+import { ITransportRequestPayloadDataFactory } from './request';
 
-export interface IApplicationTransportTokenAccessor extends IStringTokenWrapper {
+export interface ITransportTokenAccessor extends ITokenWrapper {
 }
 
-export interface IRequestParamsConverterTransport {
-  toRequestParams(req: ITransportRequestEntity): ITransportRequestParamsEntity;
-}
-
-export interface ICancelableTransport {
-  cancelRequest(operationId: string): void;
-}
-
-export interface IApplicationTransportRequestFactory {
-  cancelToken?: IApplicationTransportCancelToken;
-  request<TRequest, TResponse>(req: TRequest): Promise<TResponse>;
-}
-
-export interface IApplicationTransport extends ICancelableTransport,
-                                               IRequestParamsConverterTransport {
-  request<TResponse>(req: ITransportRequestEntity): Promise<TResponse>;
-}
-
-export interface IApplicationTransportFactory extends ICancelableTransport,
-                                                      IRequestParamsConverterTransport {
-  request(req: ITransportRequestEntity): Promise<ITransportRawResponse>;
-}
-
-/**
- * Transport raw request
- */
-export interface ITransportHttpRequestEntity extends IMethodWrapper,
-                                                     IKeyValueHeadersWrapper,
-                                                     IUrlWrapper,
-                                                     IWithCredentialsWrapper,
-                                                     IDataWrapper<Blob|ITransportRequestParamsEntity|FormData> {
-  cancelToken?: string;
-}
-
-export interface ITransportRequestEntity extends INameWrapper,
-                                                 INotApplyAuthWrapper,
-                                                 IParamsWrapper,
-                                                 IBlobWrapper,
-                                                 IMethodWrapper,
-                                                 IPathWrapper,
-                                                 IReaderFnWrapper<AnyT, IResultWrapper>,
-                                                 INoCacheWrapper,
-                                                 IUrlWrapper,
-                                                 IOperationWrapper {
-  formData?: FormData; // TODO
-}
-
-export interface ITransportRequestParamsEntity extends INameWrapper,
-                                                       INotApplyAuthWrapper,
-                                                       IParamsWrapper,
-                                                       IStringAuthWrapper,
-                                                       IIdWrapper {
-}
-
-export interface IApplicationTransportCancelToken {
+export interface ITransportCancelTokenEntity {
   token: string;
   cancel(message?: string): void;
-}
-
-/**
- * @stable [17.08.2018]
- */
-export interface ITransportErrorEntity extends IErrorEntity<TransportResponseErrorT> {
-}
-
-/**
- * @stable [17.08.2018]
- */
-export interface ITransportResponseEntity extends INameWrapper,
-                                                  IResultWrapper,
-                                                  IOperationIdWrapper,
-                                                  ITransportErrorEntity {
-}
-
-/**
- * @stable [17.08.2018]
- */
-export const TRANSPORT_REQUEST_CANCEL_REASON = 'TRANSPORT_REQUEST_CANCEL_REASON';
-
-export interface ITransportRawResponse {
-  data: ITransportRawResponseData;
-  status?: number;
-  statusText?: string;
-  headers?: IKeyValue;
-  request?: XMLHttpRequest;
-}
-
-export interface ITransportRawResponseData extends IIdWrapper,
-                                                   IResultWrapper,
-                                                   IErrorEntity<ITransportRawResponseError> {
-  Message?: string;
 }
 
 export interface ITransportRawErrorResponse {
@@ -132,13 +44,61 @@ export interface ITransportRawResponseError {
   data?: IKeyValue;
 }
 
-export type TransportResponseErrorT = Error | string | ITransportRawResponseError;
-
 export interface IApplicationTransportPayloadAnalyzer {
-  isAuthErrorPayload(payload: ITransportErrorEntity): boolean;
-  toToken(payload: ITransportErrorEntity): string;
+  isAuthErrorPayload(payload: any): boolean; // TODO
+  toToken(payload: any): string;
 }
 
 export interface IApplicationTransportErrorInterceptor {
-  intercept(payload: ITransportErrorEntity): IEffectsAction[]|IEffectsAction;
+  intercept(payload: any): IEffectsAction[]|IEffectsAction;
+}
+
+/**
+ * @stable [01.02.2019]
+ */
+export interface ITransportRequestMetaEntity
+  extends INameWrapper,
+          IOperationIdWrapper {
+}
+
+/**
+ * @stable [01.02.2019]
+ */
+export interface ITransportResponseEntity
+  extends ITransportRequestMetaEntity,
+          ITransportFactoryResponseEntity {
+}
+
+/**
+ * @stable [02.02.2019]
+ */
+export interface ITransportRequestEntity
+  extends IBaseTransportRequestEntity,
+          IBlobWrapper,
+          IFormDataWrapper,
+          INameWrapper,
+          INoAuthWrapper,
+          IParamsWrapper,
+          IPathWrapper,
+          INoCacheWrapper,
+          IUrlWrapper,
+          IReaderWrapper<(response) => AnyT>,
+          IOperationWrapper {
+  transportFactory?: ITransportFactory;
+  responseFactory?: ITransportResponseFactory;
+}
+
+/**
+ * @stable [02.02.2019]
+ */
+export interface ICancelableTransport {
+  cancelRequest(operationId: string): void;
+}
+
+/**
+ * @stable [02.02.2019]
+ */
+export interface ITransport extends ICancelableTransport,
+                                    ITransportRequestPayloadDataFactory {
+  request<TResponse>(req: ITransportRequestEntity): Promise<TResponse>;
 }

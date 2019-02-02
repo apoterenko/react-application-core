@@ -93,6 +93,14 @@ export const NOT_PASSWORD_FIELD_PREDICATE = (key: string, value: AnyT) => key !=
 export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => entity1 === entity2 || entity1.id === entity2.id;
 
 /**
+ * @stable [27.10.2018]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
+
+/**
  * @stable [03.10.2018]
  * @param {string} key
  * @param {AnyT} value
@@ -102,20 +110,21 @@ export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => ent
 export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
 
 /**
+ * @stable [31.01.2019]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
+
+/**
  * @stable [03.10.2018]
  * @param {AnyT} value
  * @returns {boolean}
  * @constructor
  */
 export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
-
-/**
- * @stable [27.10.2018]
- * @param {AnyT} value
- * @returns {boolean}
- * @constructor
- */
-export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
 /**
  * @stable [19.12.2018]
@@ -170,6 +179,14 @@ export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends I
 
 export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, DEF_KEY_VALUE_PREDICATE);
+
+/**
+ * @stable [31.01.2019]
+ * @param {TSource} source
+ * @returns {TResult}
+ */
+export const notNilValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, NOT_NIL_KEY_VALUE_PREDICATE);
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);

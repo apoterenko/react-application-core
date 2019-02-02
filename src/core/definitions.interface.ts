@@ -373,30 +373,22 @@ export interface IParamsWrapper<TParams = IKeyValue> {
   params?: TParams;
 }
 
-/* @stable - 04.04.2018 */
-export interface IHeadersWrapper<THeaders> {
-  headers?: IKeyValue;
+/**
+ * @stable [02.02.2019]
+ */
+export interface IHeadersWrapper<THeaders = IKeyValue> {
+  headers?: THeaders;
 }
 
 /* @stable - 04.04.2018 */
 export interface IKeyValueHeadersWrapper extends IHeadersWrapper<IKeyValue> {
 }
 
-/**********************
- * Method's wrapper
- **********************/
+/**
+ * @stable [02.02.2019]
+ */
 export interface IMethodWrapper {
   method?: string;
-}
-
-/**********************
- * Reader's wrapper
- **********************/
-export interface IReaderWrapper<TReader> {
-  reader?: TReader;
-}
-
-export interface IReaderFnWrapper<TRequest, TResult> extends IReaderWrapper<(request: TRequest) => TResult> {
 }
 
 /**
@@ -434,18 +426,18 @@ export interface INoCacheWrapper {
   noCache?: boolean;
 }
 
-/* @stable - 05.04.2018 */
-export interface INotApplyAuthWrapper {
-  notApplyAuth?: boolean;
+/**
+ * @stable [02.02.2019]
+ */
+export interface INoAuthWrapper {
+  noAuth?: boolean;
 }
 
-/* @stable - 01.04.2018 */
-export interface IAuthWrapper<TAuth> {
+/**
+ * @stable [02.02.2019]
+ */
+export interface IAuthWrapper<TAuth = string> {
   auth?: TAuth;
-}
-
-/* @stable - 01.04.2018 */
-export interface IStringAuthWrapper extends IAuthWrapper<string> {
 }
 
 /* @stable - 01.04.2018 */
@@ -1269,11 +1261,18 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
                                                IToDateWrapper {
 }
 
-/**********************
- * Blob's wrappers
- **********************/
-export interface IBlobWrapper {
+/**
+ * @stable [02.02.2019]
+ */
+export interface IBlobWrapper<TBlob = Blob> {
   blob?: Blob;
+}
+
+/**
+ * @stable [.0202.2019]
+ */
+export interface IFormDataWrapper<TFormData = FormData> {
+  formData?: TFormData;
 }
 
 /**
@@ -1414,6 +1413,10 @@ export interface ICodeWrapper<TCode = string> {
  */
 export interface INameWrapper<TName = string> {
   name?: TName;
+}
+
+export interface IReaderWrapper<TReader> {
+  reader?: TReader;
 }
 
 /**
@@ -2202,13 +2205,29 @@ export interface IUnregisterWrapper<TUnregister> {
   unregister?: TUnregister;
 }
 
-/* @stable - 15.04.2018 */
-export interface IErrorMessageWrapper<TErrorMessage> {
+/**
+ * @stable [01.02.2019]
+ */
+export interface IErrorMessageWrapper<TErrorMessage = string> {
   errorMessage?: TErrorMessage;
 }
 
 /* @stable - 15.04.2018 */
 export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string> {
+}
+
+/**
+ * @stable [01.12.2019]
+ */
+export interface IStatusTextWrapper {
+  statusText?: string;
+}
+
+/**
+ * @stable [01.12.2019]
+ */
+export interface IStatusWrapper {
+  status?: number;
 }
 
 /**
@@ -3017,13 +3036,11 @@ export interface IMergerWrapper<TMerger> {
   merger?: TMerger;
 }
 
-/* @stable - 31.03.2018 */
-export interface ITokenWrapper<TToken> {
+/**
+ * @stable [02.02.2019]
+ */
+export interface ITokenWrapper<TToken = string> {
   token?: TToken;
-}
-
-/* @stable - 31.03.2018 */
-export interface IStringTokenWrapper extends ITokenWrapper<string> {
 }
 
 /**

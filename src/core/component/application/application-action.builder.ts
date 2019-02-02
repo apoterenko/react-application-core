@@ -1,6 +1,6 @@
 import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
 
-import { IStringTokenWrapper } from '../../definitions.interface';
+import { ITokenWrapper } from '../../definitions.interface';
 import {
   $APPLICATION_SECTION,
   APPLICATION_READY_ACTION_TYPE,
@@ -47,7 +47,7 @@ export class ApplicationActionBuilder {
     return EffectsAction.create(this.buildAfterLoginActionType());
   }
 
-  public static buildAuthorizedAction(payload?: IStringTokenWrapper): IEffectsAction {
+  public static buildAuthorizedAction(payload?: ITokenWrapper): IEffectsAction {
     return EffectsAction.create(this.buildAuthorizedActionType(), payload);
   }
 

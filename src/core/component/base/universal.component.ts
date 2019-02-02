@@ -3,7 +3,7 @@ import * as React from 'react';
 import { DelayedTask, isFn, isDef } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
 import { ApplicationTranslatorT } from '../../translation';
-import { IApplicationSettings } from '../../settings';
+import { ISettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import {
   IUniversalComponentClassEntity,
@@ -128,9 +128,9 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
 
   /**
    * @stable [19.04.2018]
-   * @returns {IApplicationSettings}
+   * @returns {ISettings}
    */
-  protected get settings(): IApplicationSettings {
+  protected get settings(): ISettings {
     return staticInjector(DI_TYPES.Settings);
   }
 

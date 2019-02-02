@@ -4,14 +4,14 @@ import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphon
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { isNumber, isString } from '../../util';
-import { IApplicationSettings } from '../../settings';
+import { ISettings } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
 import { EntityIdT, StringNumberT } from '../../definitions.interface';
 
 @injectable()
 export class NumberConverter implements INumberConverter {
 
-  @lazyInject(DI_TYPES.Settings) private settings: IApplicationSettings;
+  @lazyInject(DI_TYPES.Settings) private settings: ISettings;
   private defaultFormatter = new Intl.NumberFormat();
   private phoneUtilInstance = PNU.getInstance();
 
