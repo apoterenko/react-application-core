@@ -6,7 +6,7 @@ import 'moment-timezone';
 import { lazyInject, DI_TYPES } from '../../di';
 import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
 import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue } from '../../util';
-import { IApplicationDateTimeSettings, IApplicationSettings } from '../../settings';
+import { IApplicationDateTimeSettings, ISettings } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
 @injectable()
@@ -21,7 +21,7 @@ export class DateConverter implements IDateConverter {
       .slice(1, 7)
       .concat(moment.weekdays()[0]);
 
-  @lazyInject(DI_TYPES.Settings) private applicationSettings: IApplicationSettings;
+  @lazyInject(DI_TYPES.Settings) private applicationSettings: ISettings;
 
   /**
    * @stable [08.01.2018]
