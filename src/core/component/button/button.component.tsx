@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../../component/base';
-import { toClassName, orNull } from '../../util';
+import { toClassName } from '../../util';
 import { IButtonProps } from './button.interface';
 import { Link } from '../../component/link';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
@@ -35,7 +35,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
       props.className,
-      this.uiFactory.rippleSurface
+      props.rippled !== false && this.uiFactory.rippleSurface
     );
 
     if (props.to) {

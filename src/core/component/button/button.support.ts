@@ -1,5 +1,5 @@
 import { orDefault } from '../../util';
-import { IUniversalButtonEntity } from '../../entities-definitions.interface';
+import { IUniversalButtonEntity } from '../../definition';
 import { IUniversalButtonConfiguration } from '../../configurations-definitions.interface';
 import { IApplicationMessagesSettings } from '../../settings';
 

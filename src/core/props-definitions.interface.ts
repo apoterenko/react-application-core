@@ -8,7 +8,6 @@ import {
   IGridEntity,
   IUniversalListEntity,
   IComponentEntity,
-  IUniversalButtonEntity,
   ITabPanelEntity,
   IGridColumnEntity,
 } from './entities-definitions.interface';
@@ -28,6 +27,7 @@ import {
   IGridColumnConfiguration,
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
+import { IUniversalButtonEntity } from './definition';
 
 /**
  * @stable [09.05.2018]

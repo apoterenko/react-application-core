@@ -191,7 +191,7 @@ import {
   IStepWrapper,
   IStickyHeadWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
-  IStringErrorMessageWrapper,
+  IErrorMessageWrapper,
   IStringToWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
@@ -235,7 +235,7 @@ import {
   IUniversalContainerClassEntity,
   IXYEntity,
 } from './entities-definitions.interface';
-import { IGridColumnProps, IUniversalButtonProps } from './props-definitions.interface';
+import { IGridColumnProps } from './props-definitions.interface';
 import {
   IBasicEvent,
   IOnClickWrapper,
@@ -902,7 +902,7 @@ export interface IComponentConfiguration extends IUniversalComponentConfiguratio
 /* @stable - 08.04.2018 */
 export interface IUniversalMessageConfiguration extends IUniversalComponentConfiguration,
                                                         IEmptyDataMessageWrapper,
-                                                        IStringErrorMessageWrapper,
+                                                        IErrorMessageWrapper,
                                                         IEmptyMessageWrapper<React.ReactNode>,
                                                         IBooleanEmptyDataWrapper {
 }

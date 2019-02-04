@@ -24,8 +24,8 @@ export class LayoutContainer<TProps extends IContainerProps, TState = {}> extend
   protected get snackbarElement(): JSX.Element {
     const {notification} = this.props;
     const message = notification && (notification.error || notification.info);
-    return (
-      <Snackbar message={message}
+    return ( // TODO
+      <Snackbar message={message as any}
                 error={!R.isNil(notification.error)}
                 afterShow={this.clearAllNotifications}>
       </Snackbar>

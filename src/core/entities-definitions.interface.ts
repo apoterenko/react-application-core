@@ -20,7 +20,6 @@ import {
   IClearValueWrapper,
   IConnectedWrapper,
   ICountryWrapper,
-  ICustomErrorWrapper,
   IDataWrapper,
   IDateWrapper,
   IDefaultOnValidWrapper,
@@ -36,7 +35,6 @@ import {
   IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
-  IErrorWrapper,
   IExpandedGroupsWrapper,
   IExtraParamsWrapper,
   IFieldsWrapper,
@@ -67,7 +65,6 @@ import {
   IMergerWrapper,
   IMessagesWrapper,
   IMethodWrapper,
-  IMiniWrapper,
   IModeWrapper,
   IMutatedListWrapper,
   INameWrapper,
@@ -92,7 +89,6 @@ import {
   IPathWrapper,
   IPayloadWrapper,
   IPhotoUrlWrapper,
-  IProgressWrapper,
   IQueryWrapper,
   IQueueWrapper,
   IRawDataWrapper,
@@ -108,8 +104,6 @@ import {
   IStateWrapper,
   IStreetNumberWrapper,
   IStreetWrapper,
-  IStringErrorMessageWrapper,
-  IStringProgressMessageWrapper,
   ITabPanelWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
@@ -117,7 +111,6 @@ import {
   ITokenWrapper,
   ITotalAmountWrapper,
   ITotalCountWrapper,
-  ITouchedWrapper,
   ITransportWrapper,
   ITypeWrapper,
   IURLSearchQueryParamsWrapper,
@@ -140,6 +133,7 @@ import {
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 import { IOnClickWrapper } from './react-definitions.interface';
+import { IUniversalLifeCycleEntity, IErrorEntity } from './definition';
 
 /**
  * @stable [29.07.2018]
@@ -367,14 +361,6 @@ export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[
 export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 
 /**
- * @stable [29.05.2018]
- */
-export interface IUniversalLifeCycleEntity extends ITouchedWrapper,
-                                                   IProgressWrapper,
-                                                   IErrorEntity<AnyT> {
-}
-
-/**
  * @stable [09.05.2018]
  */
 export interface IPagedEntity extends IPageWrapper,
@@ -420,19 +406,6 @@ export interface IChannelWrapperEntity extends IChannelWrapper<IChannelsEntity> 
 /**
  * @stable [29.05.2018]
  */
-export interface IErrorEntity<TError = boolean, TCustomError = boolean> extends IErrorWrapper<TError>,
-                                                                                ICustomErrorWrapper<TCustomError> {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IStringErrorEntity extends IErrorEntity<string> {
-}
-
-/**
- * @stable [29.05.2018]
- */
 export interface IEntityWrapperEntity<TEntity> extends IEntityWrapper<TEntity>,
                                                                        INewEntityWrapper,
                                                                        IOriginalEntityWrapper<TEntity>,
@@ -443,10 +416,10 @@ export interface IEntityWrapperEntity<TEntity> extends IEntityWrapper<TEntity>,
  * @stable [29.05.2018]
  */
 export interface IEditableEntity<TChanges = IKeyValue> extends IUniversalLifeCycleEntity,
-                                                                               IChangesWrapper<TChanges>,
-                                                                               IDirtyWrapper,
-                                                                               IValidWrapper,
-                                                                               IActiveValueWrapper {
+                                                               IChangesWrapper<TChanges>,
+                                                               IDirtyWrapper,
+                                                               IValidWrapper,
+                                                               IActiveValueWrapper {
 }
 
 /**
@@ -601,21 +574,8 @@ export interface IGridRowEntity extends IComponentEntity,
                                         IOnClickWrapper {
 }
 
-/* @stable - 19.04.2018 */
-export interface IUniversalButtonEntity extends IProgressWrapper,
-                                                IDisabledWrapper,
-                                                IStringProgressMessageWrapper,
-                                                IStringErrorMessageWrapper,
-                                                IErrorEntity,
-                                                IMiniWrapper {
-}
-
 /* @stable [23.04.2018] */
 export interface IUniversalMessageEntity extends IUniversalLifeCycleEntity {
-}
-
-/* @stable - 08.04.2018 */
-export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
 }
 
 /**
@@ -713,7 +673,7 @@ export interface IUserWrapperEntity extends IUserWrapper<IUserEntity> {
 }
 
 /* @stable - 15.04.2018 */
-export interface INotificationEntity extends IStringErrorEntity,
+export interface INotificationEntity extends IErrorEntity,
                                              IInfoWrapper {
 }
 

@@ -72,8 +72,11 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
     'circle': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm0-3a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z'
-        />
+        <defs>
+          <path id='59c5b385-2d73-41c8-8f66-bd296326c848' d='M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm0-3a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z'
+          />
+        </defs>
+        <use fill='currentColor' fillRule='evenodd' xlinkHref='#59c5b385-2d73-41c8-8f66-bd296326c848' />
       </svg>
     ),
     'dropdown': (
@@ -152,6 +155,16 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
         />
       </svg>
     ),
+    'ok-filled': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='24' height='24' viewBox='0 0 24 24'>
+        <defs>
+          <path id='bb85799a-fb90-4b35-86f9-4f4d227ab135' d='M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm-1.5-7.5c.6 0 1.167-.237 1.59-.665l5.472-5.749a1.527 1.527 0 0 0 0-2.142 1.488 1.488 0 0 0-2.121 0L10.5 13.158l-1.94-2.214a1.488 1.488 0 0 0-2.12 0 1.527 1.527 0 0 0 0 2.142l2.468 2.75c.425.427.988.664 1.59.664h.002z'
+          />
+        </defs>
+        <use fill='currentColor' fillRule='evenodd' xlinkHref='#bb85799a-fb90-4b35-86f9-4f4d227ab135' />
+      </svg>
+    ),
     'password': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -171,7 +184,7 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
       </svg>
     ),
     'item-list': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'>        
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M24 20a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 20zm0-7.5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16a1.5 1.5 0 0 0 1.5-1.5zM24 5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 5zM1.5 21.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z'/>
       </svg>
     ),

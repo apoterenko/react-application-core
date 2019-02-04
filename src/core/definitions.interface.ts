@@ -254,13 +254,11 @@ export interface ILocationWrapper<TLocation> {
 export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
 }
 
-/* @stable - 08.04.2018 */
-export interface IProgressMessageWrapper<TProgressMessage> {
+/**
+ * @stable [04.02.2019]
+ */
+export interface IProgressMessageWrapper<TProgressMessage = string> {
   progressMessage?: TProgressMessage;
-}
-
-/* @stable - 08.04.2018 */
-export interface IStringProgressMessageWrapper extends IProgressMessageWrapper<string> {
 }
 
 /**
@@ -1376,6 +1374,13 @@ export interface IValueWrapper<TValue = AnyT> {
 }
 
 /**
+ * @stable [04.02.2019]
+ */
+export interface IRippledWrapper<TRippled = boolean> {
+  rippled?: TRippled;
+}
+
+/**
  * @stable [18.06.2018]
  */
 export interface IDisplayValueWrapper<TDisplayValue = AnyT> {
@@ -2210,10 +2215,6 @@ export interface IUnregisterWrapper<TUnregister> {
  */
 export interface IErrorMessageWrapper<TErrorMessage = string> {
   errorMessage?: TErrorMessage;
-}
-
-/* @stable - 15.04.2018 */
-export interface IStringErrorMessageWrapper extends IErrorMessageWrapper<string> {
 }
 
 /**
