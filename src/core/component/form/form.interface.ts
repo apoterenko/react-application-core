@@ -8,40 +8,25 @@ import {
   IComponent,
   IContainer,
   IEditableEntity,
-  IContainerEntity,
 } from '../../entities-definitions.interface';
-import {
-  IFormConfigurationWrapper,
-  IFormConfiguration,
-  IContainerConfiguration,
-} from '../../configurations-definitions.interface';
+import { IContainerProps } from '../../props-definitions.interface';
+import { IFormConfigurationEntity } from '../../configurations-definitions.interface';
+import { IFormConfigurationWrapperEntity } from '../../definition';
 
 /**
  * @stable [29.05.2018]
  */
-export interface IFormProps extends IFormConfiguration,
+export interface IFormProps extends IFormConfigurationEntity,
                                     IFormWrapperEntity {
 }
 
 /**
  * @stable [29.05.2018]
  */
-export interface IFormContainerEntity<TEntity extends IEntity> extends IContainerEntity,
-                                                                       IBasicFormWrapperEntity<TEntity> {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IFormContainerConfiguration extends IContainerConfiguration,
-                                                     IFormConfigurationWrapper {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IFormContainerProps<TEntity extends IEntity = IEntity> extends IFormContainerEntity<TEntity>,
-                                                                                IFormContainerConfiguration {
+export interface IFormContainerProps<TEntity = IEntity>
+  extends IContainerProps,
+          IBasicFormWrapperEntity<TEntity>,
+          IFormConfigurationWrapperEntity {
 }
 
 /* @stable - 11.04.2018 */

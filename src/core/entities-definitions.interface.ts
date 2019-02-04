@@ -369,9 +369,9 @@ export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 /**
  * @stable [29.05.2018]
  */
-export interface IUniversalLivingEntity extends ITouchedWrapper,
-                                                IProgressWrapper,
-                                                IErrorEntity<AnyT> {
+export interface IUniversalLifeCycleEntity extends ITouchedWrapper,
+                                                   IProgressWrapper,
+                                                   IErrorEntity<AnyT> {
 }
 
 /**
@@ -433,7 +433,7 @@ export interface IStringErrorEntity extends IErrorEntity<string> {
 /**
  * @stable [29.05.2018]
  */
-export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWrapper<TEntity>,
+export interface IEntityWrapperEntity<TEntity> extends IEntityWrapper<TEntity>,
                                                                        INewEntityWrapper,
                                                                        IOriginalEntityWrapper<TEntity>,
                                                                        IEntityIdWrapper<EntityIdT> {
@@ -442,7 +442,7 @@ export interface IEntityWrapperEntity<TEntity extends IEntity> extends IEntityWr
 /**
  * @stable [29.05.2018]
  */
-export interface IEditableEntity<TChanges extends IKeyValue = IEntity> extends IUniversalLivingEntity,
+export interface IEditableEntity<TChanges = IKeyValue> extends IUniversalLifeCycleEntity,
                                                                                IChangesWrapper<TChanges>,
                                                                                IDirtyWrapper,
                                                                                IValidWrapper,
@@ -458,7 +458,7 @@ export interface IEditableEntityFormWrapperEntity extends IFormWrapper<IEditable
 /**
  * @stable [19.01.2019]
  */
-export interface IEntityFormEntity<TEntity extends IEntity = IEntity>
+export interface IEntityFormEntity<TEntity = IEntity>
   extends IFormWrapper<IEditableEntity<TEntity>>,
           IEntityWrapperEntity<TEntity> {
 }
@@ -466,7 +466,7 @@ export interface IEntityFormEntity<TEntity extends IEntity = IEntity>
 /**
  * @stable [29.05.2018]
  */
-export interface IBasicFormWrapperEntity<TEntity extends IEntity = IEntity>
+export interface IBasicFormWrapperEntity<TEntity = IEntity>
   extends IEntityFormEntity<TEntity>,
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
 }
@@ -484,7 +484,7 @@ export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
 /**
  * @stable [29.05.2018]
  */
-export interface IUniversalListEntity extends IUniversalLivingEntity,
+export interface IUniversalListEntity extends IUniversalLifeCycleEntity,
                                               IPaginatedEntity,
                                               IDataWrapper,
                                               IRawDataWrapper,
@@ -611,7 +611,7 @@ export interface IUniversalButtonEntity extends IProgressWrapper,
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalMessageEntity extends IUniversalLivingEntity {
+export interface IUniversalMessageEntity extends IUniversalLifeCycleEntity {
 }
 
 /* @stable - 08.04.2018 */
@@ -622,7 +622,7 @@ export interface IProgressLabelEntity extends IStringProgressMessageWrapper {
  * @stable [23.10.2018]
  */
 export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
-                                                     IUniversalLivingEntity,
+                                                     IUniversalLifeCycleEntity,
                                                      IAuthorizedWrapper,
                                                      IReadyWrapper,
                                                      IPathWrapper {

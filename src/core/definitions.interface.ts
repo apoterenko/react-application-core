@@ -3072,6 +3072,13 @@ export interface ICanReturnClearDirtyChangesValueWrapper {
 }
 
 /**
+ * @stable [02.02.2019]
+ */
+export interface IFormConfigurationWrapper<TFormConfiguration> {
+  formConfiguration?: TFormConfiguration;
+}
+
+/**
  * @stable [13.04.2018]
  */
 export interface ITypeWrapper<TType = string> {

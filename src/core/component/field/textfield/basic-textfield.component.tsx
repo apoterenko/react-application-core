@@ -6,7 +6,7 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
-import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue } from '../../../util';
 import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
@@ -218,6 +218,7 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
             {this.getMirrorInputElement()}
             {this.getInputCaretElement()}
             {this.getInputAttachmentElement()}
+            {props.children}
           </div>
           {orNull(
             this.actions,
@@ -303,12 +304,11 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
    */
   private getLabelElement(): JSX.Element {
     const props = this.props;
-    const fieldLabel = props.label ? this.t(props.label) : props.children;
-    return orNull<JSX.Element>(
-      fieldLabel,
+    return ifNotNilThanValue(
+      props.label,
       () => (
-        <label className={'rac-field-label'}>
-          {fieldLabel}
+        <label className='rac-field-label'>
+          {this.t(props.label)}
         </label>
       )
     );

@@ -47,6 +47,7 @@ export * from './component/toolbar';
 export * from './component/viewer';
 export * from './component/web-camera';
 export * from './converter';
+export * from './definition';
 export * from './di';
 export * from './dictionary';
 export * from './env';

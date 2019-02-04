@@ -930,6 +930,7 @@
                  $rac-field-min-height: unset,
                  $rac-field-input-cursor: unset,
                  $rac-field-label-margin: unset,
+                 $rac-field-label-font-size: unset,
                  $rac-field-align-items: unset,
                  $rac-text-field-opacity: unset,
                  $rac-text-field-height: unset,
@@ -975,7 +976,8 @@
 
     @include rac-styles(
       $rac-styles-custom: rac-field-label,
-      $rac-styles-margin: $rac-field-label-margin
+      $rac-styles-margin: $rac-field-label-margin,
+      $rac-styles-font-size: $rac-field-label-font-size
     );
 
     > .rac-text-field { // To prevent inner component inheritance (field - grid - field)

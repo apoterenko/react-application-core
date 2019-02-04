@@ -13,9 +13,9 @@ import { StackActionBuilder } from './stack-action.builder';
 import { getDestroyableSections } from './stack.helper';
 import { IApplicationStoreEntity } from '../../entities-definitions.interface';
 
-@provideInSingleton(ConnectorEffects)
-export class ConnectorEffects {
-  private static logger = LoggerFactory.makeLogger('ConnectorEffects');
+@provideInSingleton(StackEffects)
+export class StackEffects {
+  private static logger = LoggerFactory.makeLogger('StackEffects');
 
   @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
   public $onStackPush(action: IEffectsAction, state: IApplicationStoreEntity): IEffectsAction[] {
@@ -23,7 +23,7 @@ export class ConnectorEffects {
     const destroyableSections = getDestroyableSections(currentSection, state.stack);
 
     if (destroyableSections.length) {
-      ConnectorEffects.logger.debug(`[$ConnectorEffects][onContainerInit] The sections to destroy: [${destroyableSections}]`);
+      StackEffects.logger.debug(`[$StackEffects][$onStackPush] The sections to destroy: [${destroyableSections}]`);
 
       return [StackActionBuilder.buildRemoveAction(...destroyableSections)]
         .concat(this.buildActionsToDestroy(destroyableSections));

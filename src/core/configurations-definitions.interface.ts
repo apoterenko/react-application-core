@@ -315,13 +315,6 @@ export interface IGridConfigurationWrapper<TGridConfiguration = IGridConfigurati
 }
 
 /**
- * @stable [29.05.2018]
- */
-export interface IFormConfigurationWrapper<TFormConfiguration = IFormConfiguration> {
-  formConfiguration?: TFormConfiguration;
-}
-
-/**
  * @stable [31.08.2018]
  */
 export interface ITabPanelConfigurationWrapper<TabPanelConfiguration = ITabPanelConfiguration> {
@@ -515,7 +508,7 @@ export interface IUniversalFormConfiguration extends IUniversalComponentConfigur
                                                      IOnEmptyDictionaryWrapper<IApiEntity> {
 }
 
-export interface IFormConfiguration extends IUniversalFormConfiguration,
+export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
                                             IWebComponentConfiguration,
                                             IButtonConfigurationWrapper,
                                             IReadOnlyWrapper,
@@ -757,6 +750,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IUseSyntheticCursorWrapper,
           IChangeableWrapper,
           IDefaultValue {
+  dispatchValue?(rawValue: AnyT); // TODO
 }
 
 /* @stable - 11.04.2018 */

@@ -705,7 +705,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (!isFn(props.changeForm)) {
       return;
     }
-    props.changeForm(props.name, rawValue, props.validationGroup);
+    props.changeForm(props.name, props.dispatchValue ? props.dispatchValue(rawValue) : rawValue, props.validationGroup);
   }
 
   /**
