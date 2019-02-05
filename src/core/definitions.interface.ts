@@ -2598,13 +2598,6 @@ export interface ISeparatorWrapper<TSeparator = boolean> {
 }
 
 /**
- * @stable [17.09.2018]
- */
-export interface IAlignItemsCenterWrapper {
-  alignItemsCenter?: boolean;
-}
-
-/**
  * @stable [16.01.2018]
  */
 export interface IWrapWrapper {
@@ -2616,27 +2609,6 @@ export interface IWrapWrapper {
  */
 export interface IFullSizeWrapper {
   fullSize?: boolean;
-}
-
-/**
- * @stable [17.09.2018]
- */
-export interface IAlignItemsEndWrapper {
-  alignItemsEnd?: boolean;
-}
-
-/**
- * @stable [17.09.2018]
- */
-export interface IJustifyContentEndWrapper {
-  justifyContentEnd?: boolean;
-}
-
-/**
- * @stable [18.09.2018]
- */
-export interface IJustifyContentCenterWrapper {
-  justifyContentCenter?: boolean;
 }
 
 /* @stable [27.04.2018] */

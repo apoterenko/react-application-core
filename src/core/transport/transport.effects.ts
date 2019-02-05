@@ -1,12 +1,8 @@
 import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import {
-  IApplicationTransportPayloadAnalyzer,
-  IApplicationTransportErrorInterceptor,
-} from './transport.interface';
+import { IApplicationTransportErrorInterceptor, ITransportResponseEntity } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
@@ -15,45 +11,46 @@ import {
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
+import { ITransportResponseAccessor } from './response';
 
 @provideInSingleton(TransportEffects)
 export class TransportEffects {
   private static logger = LoggerFactory.makeLogger('TransportEffects');
 
-  @lazyInject(DI_TYPES.TransportPayloadAnalyzer) private payloadAnalyzer: IApplicationTransportPayloadAnalyzer;
+  @lazyInject(DI_TYPES.TransportResponseAccessor) private responseAccessor: ITransportResponseAccessor;
   @lazyInject(DI_TYPES.TransportErrorInterceptor) private errorInterceptor: IApplicationTransportErrorInterceptor;
   @lazyInject(DI_TYPES.Routes) private routes: IRoutesConfiguration;
 
   @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
   public $onTransportRequestDone(action: IEffectsAction): IEffectsAction {
     const data = action.data;
-    const token = this.payloadAnalyzer.toToken(data);
+    const token = this.responseAccessor.toToken(data);
     if (token) {
       return EffectsAction.create(TRANSPORT_UPDATE_TOKEN_ACTION_TYPE, { token });
     }
     return null;
   }
 
+  /**
+   * @stable [05.02.2019]
+   * @param {IEffectsAction} action
+   * @returns {IEffectsAction[] | IEffectsAction}
+   */
   @EffectsService.effects(TRANSPORT_REQUEST_ERROR_ACTION_TYPE)
-  public $onTransportRequestError(action: IEffectsAction,
-                                  storeEntity: IUniversalApplicationStoreEntity): IEffectsAction[] | IEffectsAction {
-    const data = action.data;
-    if (this.payloadAnalyzer.isAuthErrorPayload(data)) {
+  public $onTransportRequestError(action: IEffectsAction): IEffectsAction[] | IEffectsAction {
+    const data: ITransportResponseEntity = action.data;
+    if (this.responseAccessor.isAuthError(data)) {
+      /**
+       * We should destroy the token and go to logout page
+       */
       const actions = [
-        ApplicationActionBuilder.buildUnauthorizedAction()
+        ApplicationActionBuilder.buildUnauthorizedAction(),
+        RouterActionBuilder.buildNavigateAction(this.routes.logout)
       ];
 
-      if (storeEntity.application.ready) {
-        actions.push(RouterActionBuilder.buildNavigateAction(this.routes.logout));
-
-        TransportEffects.logger.debug(() =>
-          `[$TransportEffects][$onTransportRequestError] An auth error has occurred and the app is ready therefore ` +
-          `need to redirect to logout. Actions: ${JSON.stringify(actions)}. Data: ${JSON.stringify(data)}`);
-      } else {
-        TransportEffects.logger.debug(() =>
-          `[$TransportEffects][$onTransportRequestError] An auth error has occurred and the app is NOT ready. ` +
-          `Actions: ${JSON.stringify(actions)}. Data: ${JSON.stringify(data)}`);
-      }
+      TransportEffects.logger.debug(() =>
+        `[$TransportEffects][$onTransportRequestError] An auth error has occurred. Need to redirect to logout. Data: ${
+          JSON.stringify(data)}`);
       return actions;
     }
     return this.errorInterceptor.intercept(data);

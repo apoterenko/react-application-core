@@ -21,7 +21,9 @@ import {
   ITransportFactory,
 } from './factory';
 import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
-import { ITransportResponseFactory } from './response';
+import {
+  ITransportResponseFactory,
+} from './response';
 import { ITransportRequestPayloadDataFactory } from './request';
 
 export interface ITransportTokenAccessor extends ITokenWrapper {
@@ -42,11 +44,6 @@ export interface ITransportRawResponseError {
   message: string;
   response?: ITransportRawErrorResponse;
   data?: IKeyValue;
-}
-
-export interface IApplicationTransportPayloadAnalyzer {
-  isAuthErrorPayload(payload: any): boolean; // TODO
-  toToken(payload: any): string;
 }
 
 export interface IApplicationTransportErrorInterceptor {

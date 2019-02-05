@@ -2,32 +2,27 @@ import { IComponentProps } from '../../../props-definitions.interface';
 import {
   IRowWrapper,
   IFullWrapper,
-  IAlignItemsCenterWrapper,
-  IJustifyContentEndWrapper,
   ISeparatorWrapper,
-  IJustifyContentCenterWrapper,
-  IAlignItemsEndWrapper,
   IOverflowWrapper,
   IFullSizeWrapper,
   IWrapWrapper,
   IOverflowMinContentHeightWrapper,
 } from '../../../definitions.interface';
 import { IOnClickWrapper } from '../../../react-definitions.interface';
+import { IGenericFlexLayoutEntity } from '../../../definition';
 
 /**
  * @stable [17.06.2018]
  */
 export interface IFlexLayoutProps extends IComponentProps,
+                                          IGenericFlexLayoutEntity,
                                           IOnClickWrapper,
                                           IFullSizeWrapper,
                                           ISeparatorWrapper,
-                                          IAlignItemsCenterWrapper,
-                                          IAlignItemsEndWrapper,
-                                          IJustifyContentCenterWrapper,
-                                          IJustifyContentEndWrapper,
                                           IFullWrapper,
                                           IWrapWrapper,
                                           IOverflowWrapper,
                                           IOverflowMinContentHeightWrapper,
                                           IRowWrapper {
+
 }

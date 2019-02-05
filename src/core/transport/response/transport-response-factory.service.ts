@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+import * as R from 'ramda';
 
 import {
   ITransportResponseFactory,
@@ -44,6 +45,13 @@ export class TransportResponseFactory implements ITransportResponseFactory {
   public makeResponse(req: ITransportRequestEntity,
                       payloadEntity: IDataWrapper<AnyT>): ITransportResponseFactoryResponseEntity {
     const data = payloadEntity.data;
+    const errorData = this.readErrorResponseData(data);
+    if (!R.isNil(errorData)) {
+      return {
+        ...errorData,
+        error: true,
+      };
+    }
     return {result: isFn(req.reader)
         ? req.reader(data)
         : this.readResponseData(data)};
@@ -56,5 +64,14 @@ export class TransportResponseFactory implements ITransportResponseFactory {
    */
   protected readResponseData<TData>(data: AnyT): AnyT {
     return data;
+  }
+
+  /**
+   * @stable [04.02.2019]
+   * @param {AnyT} data
+   * @returns {ITransportResponseFactoryResponseEntity}
+   */
+  protected readErrorResponseData<TData>(data: AnyT): ITransportResponseFactoryResponseEntity {
+    return null;
   }
 }

@@ -1,23 +1,18 @@
 import {
   IRowWrapper,
   IFullWrapper,
-  IAlignItemsCenterWrapper,
-  IJustifyContentEndWrapper,
   ISeparatorWrapper,
-  IJustifyContentCenterWrapper,
-  IAlignItemsEndWrapper,
 } from '../../../definitions.interface';
 import { IOnClickWrapper } from '../../../react-definitions.interface';
+import { IGenericFlexLayoutEntity } from '../../../definition';
 
 /**
- * @stable [24.10.2018]
+ * @stable [05.02.2019]
  */
-export interface IUniversalFlexLayoutProps extends IOnClickWrapper,
-                                                   ISeparatorWrapper,
-                                                   IAlignItemsCenterWrapper,
-                                                   IAlignItemsEndWrapper,
-                                                   IJustifyContentCenterWrapper,
-                                                   IJustifyContentEndWrapper,
-                                                   IFullWrapper,
-                                                   IRowWrapper {
+export interface IVueFlexLayoutProps
+  extends IGenericFlexLayoutEntity,
+          IOnClickWrapper,
+          ISeparatorWrapper,
+          IFullWrapper,
+          IRowWrapper {
 }

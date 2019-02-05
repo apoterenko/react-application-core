@@ -5,6 +5,7 @@ import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
+import { orNull } from '../util';
 import { ISettings } from '../settings';
 import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
@@ -18,9 +19,9 @@ import { UserActionBuilder } from '../user/user-action.builder';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
-import { IApplicationTransportPayloadAnalyzer } from '../transport/transport.interface';
 import { FetchJsonTransportFactory } from '../transport/fetch-json-transport.factory';
 import { ITransportFactory } from '../transport/factory/transport-factory.interface';
+import { ITransportResponseAccessor } from '../transport/response/accessor/transport-response-accessor.interface';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -30,7 +31,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IApplicationStorage;
   @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected notVersionedSessionStorage: IApplicationStorage;
-  @lazyInject(DI_TYPES.TransportPayloadAnalyzer) protected transportPayloadAnalyzer: IApplicationTransportPayloadAnalyzer;
+  @lazyInject(DI_TYPES.TransportResponseAccessor) protected responseAccessor: ITransportResponseAccessor;
   @lazyInject(FetchJsonTransportFactory) protected fetchJsonTransportFactory: ITransportFactory;
 
   /**
@@ -128,15 +129,22 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [05.02.2019]
    * @param {IEffectsAction} action
    * @returns {IEffectsAction}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildPrepareErrorActionType())
   public $onPrepareError(action: IEffectsAction): IEffectsAction {
-    return this.transportPayloadAnalyzer.isAuthErrorPayload(action)
-      ? ApplicationActionBuilder.buildReadyAction() // We must show the login page at least
-      : null;
+    return orNull(
+      this.responseAccessor.isAuthError(action.error),
+      () => (
+        /**
+         * We should show the login page instead of error page, therefore we clear an auth error before
+         * page rendering.
+         */
+        ApplicationActionBuilder.buildReadyAction()
+      )
+    );
   }
 
   /**

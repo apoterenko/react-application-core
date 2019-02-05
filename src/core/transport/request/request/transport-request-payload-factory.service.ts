@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 
-import { defValuesFilter, notNilValuesFilter, notNilValuesArrayFilter } from '../../../util';
+import { defValuesFilter, notNilValuesFilter, notNilValuesArrayFilter, orNull } from '../../../util';
 import { DI_TYPES, lazyInject } from '../../../di';
 import {
   ITransportRequestEntity,
@@ -25,7 +25,7 @@ export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadF
       id: this.id++,
       name: req.name,
       params: req.params && defValuesFilter(req.params),
-      auth: req.noAuth !== false && this.tokenAccessor.token,
+      auth: orNull(req.noAuth !== true, () => this.tokenAccessor.token),
     });
   }
 

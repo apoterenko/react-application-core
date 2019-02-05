@@ -8,13 +8,13 @@ import {
 } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueBaseComponent } from '../../base/vue-index';
-import { IUniversalFlexLayoutProps } from './universal-flex-layout.interface';
+import { IVueFlexLayoutProps } from './universal-flex-layout.interface';
 
 // TODO
 @ComponentName('vue-flex-layout')
 @Component
 class VueFlexLayout extends VueBaseComponent
-  implements IUniversalFlexLayoutProps {
+  implements IVueFlexLayoutProps {
   @Prop() public children: string;
   @Prop() public title: string;
   @Prop() public row: boolean;

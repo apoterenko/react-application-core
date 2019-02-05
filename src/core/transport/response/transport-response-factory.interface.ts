@@ -5,6 +5,7 @@ import {
   IStatusTextWrapper,
   IStatusWrapper,
   IKeyValue,
+  ICodeWrapper,
 } from '../../definitions.interface';
 import { ITransportRequestEntity } from '../transport.interface';
 
@@ -21,7 +22,8 @@ export interface ITransportResponseFactoryResponseEntity
           IErrorWrapper,
           IMessageWrapper,
           IStatusTextWrapper,
-          IStatusWrapper {
+          IStatusWrapper,
+          ICodeWrapper<number> {
 }
 
 /**

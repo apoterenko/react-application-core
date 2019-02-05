@@ -76,6 +76,10 @@
   .rac-flex-justify-content-end {
     @include justify-content(flex-end);                             /* @stable [17.09.2018] */
   }
+
+  .rac-flex-justify-content-space-between {
+    @include justify-content(space-between);
+  }
 }
 
 // Flex layout [FRAMEWORK-]
