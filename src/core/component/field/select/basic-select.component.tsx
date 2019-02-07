@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, toClassName, isDef, getWidth } from '../../../util';
+import { cancelEvent, toClassName, isDef, getWidth, toType } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import {
@@ -33,11 +33,8 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     this.openMenu = this.openMenu.bind(this);
 
     if (props.expandActionRendered !== false) {
-      this.defaultActions = R.insert<IFieldActionConfiguration>(
-        0,
-        {type: 'expand_more', onClick: this.openMenu},
-        this.defaultActions
-      );
+      this.defaultActions = [toType<IFieldActionConfiguration>({type: 'dropdown', onClick: this.openMenu})]
+        .concat(this.defaultActions);
     }
   }
 

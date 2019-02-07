@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import * as R from 'ramda';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { uuid } from '../../util';
+import { uuid, ifNotNilThanValue } from '../../util';
 import {
   ITransportRequestEntity,
   ITransportCancelTokenEntity,
@@ -28,7 +28,7 @@ export class TransportFactory implements ITransportFactory {
    */
   public async request(req: ITransportRequestEntity): Promise<ITransportFactoryResponseEntity> {
     let cancelTokenEntity: ITransportCancelTokenEntity;
-    const operationId = req.operation && req.operation.id;
+    const operationId = this.toOperationId(req);
     if (operationId) {
       cancelTokenEntity = this.requestProvider.provideCancelToken();
       if (cancelTokenEntity) {
@@ -56,10 +56,11 @@ export class TransportFactory implements ITransportFactory {
   }
 
   /**
-   * @stable [01.02.2019]
-   * @param {string} operationId
+   * @stable [07.02.2019]
+   * @param {ITransportRequestEntity} req
    */
-  public cancelRequest(operationId: string): void {
+  public cancelRequest(req: ITransportRequestEntity): void {
+    const operationId = this.toOperationId(req);
     const cancelToken = this.operationsIdsMap.get(operationId);
     if (cancelToken) {
       cancelToken.cancel(this.cancelUuid);
@@ -85,5 +86,14 @@ export class TransportFactory implements ITransportFactory {
    */
   private getResponseFactory(req: ITransportRequestEntity): ITransportResponseFactory {
     return req.responseFactory || this.responseFactory;
+  }
+
+  /**
+   * @stable [07.02.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {string}
+   */
+  private toOperationId(req: ITransportRequestEntity): string {
+    return ifNotNilThanValue(req.operation, (operation) => operation.id);
   }
 }

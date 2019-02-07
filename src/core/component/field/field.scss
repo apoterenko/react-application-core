@@ -38,6 +38,7 @@
                      $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
                      $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
                      $rac-text-field-icon-color: $rac-text-field-icon-color,
+                     $rac-text-field-icon-margin: $rac-text-field-icon-margin,
                      $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
                      $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left);
 
@@ -216,12 +217,6 @@
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
       border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
-
-      .rac-action-icon {
-        margin-top: auto;                                             /* @stable [24.06.2018] */
-        margin-bottom: auto;                                          /* @stable [24.06.2018] */
-        margin-right: $rac-field-icon-margin-right;                   /* @stable [24.06.2018] */
-      }
 
       .rac-field-input {
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */

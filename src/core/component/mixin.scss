@@ -130,6 +130,7 @@
                               $rac-styles-margin-right: unset,
                               $rac-styles-cursor: unset,
                               $rac-styles-outline: unset,
+                              $rac-styles-font-family: unset,
                               $rac-styles-text-align: unset,
                               $rac-styles-text-decoration: unset,
                               $rac-styles-letter-spacing: unset,
@@ -178,6 +179,9 @@
   }
   @if $rac-styles-z-index != unset {
     z-index: $rac-styles-z-index;
+  }
+  @if $rac-styles-font-family != unset {
+    font-family: $rac-styles-font-family;
   }
   @if $rac-styles-transform != unset {
     transform: $rac-styles-transform;
@@ -364,6 +368,7 @@
                   $rac-styles-line-height: unset,
                   $rac-styles-cursor: unset,
                   $rac-styles-outline: unset,
+                  $rac-styles-font-family: unset,
                   $rac-styles-text-align: unset,
                   $rac-styles-text-decoration: unset,
                   $rac-styles-letter-spacing: unset,
@@ -431,6 +436,7 @@
         $rac-styles-margin-left: $rac-styles-margin-left,
         $rac-styles-cursor: $rac-styles-cursor,
         $rac-styles-outline: $rac-styles-outline,
+        $rac-styles-font-family: $rac-styles-font-family,
         $rac-styles-text-decoration: $rac-styles-text-decoration,
         $rac-styles-text-align: $rac-styles-text-align,
         $rac-styles-letter-spacing: $rac-styles-letter-spacing,
@@ -493,6 +499,7 @@
       $rac-styles-margin-left: $rac-styles-margin-left,
       $rac-styles-cursor: $rac-styles-cursor,
       $rac-styles-outline: $rac-styles-outline,
+      $rac-styles-font-family: $rac-styles-font-family,
       $rac-styles-text-align: $rac-styles-text-align,
       $rac-styles-text-decoration: $rac-styles-text-decoration,
       $rac-styles-letter-spacing: $rac-styles-letter-spacing,
@@ -856,6 +863,7 @@
                 $rac-icon-width: unset,
                 $rac-icon-height: unset,
                 $rac-icon-size: unset,
+                $rac-icon-content-size: unset,
                 $rac-icon-content-height: unset,
                 $rac-icon-content-width: unset,
                 $rac-icon-content-vertical-align: unset,
@@ -894,6 +902,7 @@
 
     svg {
       @include rac-styles(
+        $rac-styles-size: $rac-icon-content-size,
         $rac-styles-height: $rac-icon-content-height,
         $rac-styles-width: $rac-icon-content-width,
         $rac-styles-vertical-align: $rac-icon-content-vertical-align,
@@ -1206,6 +1215,7 @@
                   $rac-button-icon-size: unset,
                   $rac-button-icon-width: unset,
                   $rac-button-icon-height: unset,
+                  $rac-button-icon-opacity: unset,
                   $rac-button-hover-shadow: unset,
                   $rac-button-hover-background: unset,
                   $rac-button-hover-color: unset,
@@ -1241,7 +1251,8 @@
       $rac-icon-color: $rac-button-icon-color,
       $rac-icon-size: $rac-button-icon-size,
       $rac-icon-height: $rac-button-icon-height,
-      $rac-icon-width: $rac-button-icon-width
+      $rac-icon-width: $rac-button-icon-width,
+      $rac-icon-opacity: $rac-button-icon-opacity
     );
 
     @include rac-styles(
@@ -2366,6 +2377,7 @@
                    $rac-overlay-close-action-top: unset,
                    $rac-overlay-close-action-right: unset,
                    $rac-overlay-close-action-size: unset,
+                   $rac-overlay-close-action-content-size: unset,
                    $rac-overlay-close-action-color: unset) {
 
   #{rac-build-cls(rac-overlay, $rac-overlay-custom)} {
@@ -2380,6 +2392,7 @@
       $rac-icon-top: $rac-overlay-close-action-top,
       $rac-icon-right: $rac-overlay-close-action-right,
       $rac-icon-size: $rac-overlay-close-action-size,
+      $rac-icon-content-size: $rac-overlay-close-action-content-size,
       $rac-icon-color: $rac-overlay-close-action-color
     );
 

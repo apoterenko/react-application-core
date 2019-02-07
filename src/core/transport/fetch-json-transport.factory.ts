@@ -25,7 +25,7 @@ export class FetchJsonTransportFactory implements ITransportFactory {
         .then((result) => ({result}));
   }
 
-  public cancelRequest(operationId: string): void {
+  public cancelRequest(req: ITransportRequestEntity): void {
     throw new Error('Unsupported operation');
   }
 

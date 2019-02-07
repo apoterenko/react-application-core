@@ -89,7 +89,7 @@ export interface ITransportRequestEntity
  * @stable [02.02.2019]
  */
 export interface ICancelableTransport {
-  cancelRequest(operationId: string): void;
+  cancelRequest(req: ITransportRequestEntity): void;
 }
 
 /**

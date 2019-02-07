@@ -284,7 +284,6 @@ $rac-message-font-size: $rac-default-font-size !default;
 
 /* @stable [08.08.2018] */
 $rac-field-message-color: $rac-default-text-color !default;
-$rac-field-icon-margin-right: 8px !default;
 
 /* @stable [17.09.2018] */
 $rac-field-focused-cls: rac-field-focused;
@@ -338,6 +337,7 @@ $rac-text-field-label-position: absolute !default;
 $rac-text-field-label-top: -$rac-text-field-margin-top !default;
 $rac-text-field-label-left: 0 !default;
 $rac-text-field-icon-color: $rac-default-color-0-0 !default;
+$rac-text-field-icon-margin: auto 12px auto 0 !default;
 $rac-text-field-filter-active-after-left: 7px !default;
 $rac-text-field-filter-active-after-bottom: 5px !default;
 $rac-text-field-disabled-opacity: unset !default;
@@ -612,6 +612,7 @@ $rac-overlay-close-action-top: 32px !default;
 $rac-overlay-close-action-right: 32px !default;
 $rac-overlay-close-action-size: unset !default;
 $rac-overlay-close-action-color: unset !default;
+$rac-overlay-close-action-content-size: unset !default;
 
 /**/
 $rac-disabled-opacity: .2;

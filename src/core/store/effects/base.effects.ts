@@ -14,6 +14,6 @@ export class BaseEffects<TApi> {
    * @param {IOperationEntity} operation
    */
   protected cancelApiRequest(operation: IOperationEntity): void {
-    this.transport.cancelRequest(operation.id);
+    this.transport.cancelRequest({operation});
   }
 }

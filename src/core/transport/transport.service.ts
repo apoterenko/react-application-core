@@ -44,11 +44,12 @@ export class Transport implements ITransport {
    * @returns {Promise<TResponse>}
    */
   public async request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
+    this.cancelRequest(req); // Try cancel the same request automatically
     this.store.dispatch({type: TRANSPORT_REQUEST_ACTION_TYPE, data: this.toRequestMetaEntity(req)});
 
     let responseEntity: ITransportFactoryResponseEntity;
     try {
-      responseEntity = await (req.transportFactory || this.transportFactory).request(req);
+      responseEntity = await this.getTransportFactory(req).request(req);
     } catch (e) {
       if (e.cancelled) {
         Transport.logger.debug('[$Transport][request] A user has canceled the request:', e);
@@ -71,12 +72,11 @@ export class Transport implements ITransport {
   }
 
   /**
-   * @stable [02.02.2019]
-   * @param {string} operationId
-   * @param {ITransportFactory} transportFactory
+   * @stable [07.02.2019]
+   * @param {ITransportRequestEntity} req
    */
-  public cancelRequest(operationId: string, transportFactory?: ITransportFactory): void {
-    (transportFactory || this.transportFactory).cancelRequest(operationId);
+  public cancelRequest(req: ITransportRequestEntity): void {
+    this.getTransportFactory(req).cancelRequest(req);
   }
 
   /**
@@ -125,7 +125,25 @@ export class Transport implements ITransport {
   private toRequestMetaEntity(req: ITransportRequestEntity): ITransportRequestMetaEntity {
     return notNilValuesFilter<ITransportRequestMetaEntity, ITransportRequestMetaEntity>({
       name: req.name,
-      operationId: ifNotNilThanValue(req.operation, (operation) => operation.id),
+      operationId: this.toOperationId(req),
     });
+  }
+
+  /**
+   * @stable [07.02.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {string}
+   */
+  private toOperationId(req: ITransportRequestEntity): string {
+    return ifNotNilThanValue(req.operation, (operation) => operation.id);
+  }
+
+  /**
+   * @stable [07.02.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {ITransportFactory}
+   */
+  private getTransportFactory(req: ITransportRequestEntity): ITransportFactory {
+    return req.transportFactory || this.transportFactory;
   }
 }
