@@ -102,7 +102,7 @@ html, body {
   @include rac-icon($rac-icon-custom: 'rac-action-icon.rac-disabled-icon',                    /* @stable [21.11.2018] */
                     $rac-icon-cursor: default);
 
-  @include rac-icon($rac-icon-custom: rac-button-add-icon,                                    /* @stable [17.12.2018] */
+  @include rac-icon($rac-icon-custom: rac-action-add-icon,                                    /* @stable [17.12.2018] */
                     $rac-icon-position: $rac-add-button-icon-position,
                     $rac-icon-opacity: $rac-add-button-icon-opacity,
                     $rac-icon-border-radius: $rac-add-button-icon-border-radius,

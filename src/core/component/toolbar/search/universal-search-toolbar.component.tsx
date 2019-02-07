@@ -38,7 +38,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
       onClick: this.onOpen.bind(this),
     },
     [ToolbarActionEnum.CLEAR_FILTER]: {
-      type: 'clear',
+      type: 'close',
       onClick: this.onDeactivate.bind(this),
     },
     [ToolbarActionEnum.REFRESH_DATA]: {type: 'refresh', title: this.settings.messages.refreshActionTitleMessage},

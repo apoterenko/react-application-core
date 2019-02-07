@@ -292,6 +292,24 @@ export const findElement = (selector: string, parent: Element = document.body): 
   $(parent).find(selector)[0];
 
 /**
+ * @stable [08.02.2019]
+ * @param {string} selector
+ * @param {Element} target
+ * @returns {TJqElement}
+ */
+export const getParents = <TJqElement extends IJQueryElement = IJQueryElement>(selector: string, target: Element): TJqElement =>
+  toJqEl(target).parents(selector) as TJqElement;
+
+/**
+ * @stable [08.02.2019]
+ * @param {string} selector
+ * @param {Element} target
+ * @returns {boolean}
+ */
+export const hasParent = (selector: string, target: Element): boolean =>
+  getParents(selector, target).length > 0;
+
+/**
  * @stable [01.12.2018]
  * @param {Element} parent
  * @returns {Element}

@@ -179,6 +179,11 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
         <use fill='currentColor' fillRule='evenodd' xlinkHref='#bb85799a-fb90-4b35-86f9-4f4d227ab135' />
       </svg>
     ),
+    'search-thin': (
+      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+        <path fill='currentColor' d='M17.583 16.52l5.95 5.945c.707.707-.354 1.768-1.061 1.061l-5.95-5.945A9.96 9.96 0 0 1 10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10a9.96 9.96 0 0 1-2.417 6.52zM10 18.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17z'/>
+      </svg>
+    ),
     'password': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>

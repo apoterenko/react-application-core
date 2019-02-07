@@ -6,7 +6,7 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
-import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue, hasParent } from '../../../util';
 import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
@@ -99,7 +99,7 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
   protected addClearAction(): void {
     const this0 = this;
     const clearAction: IFieldActionConfiguration = {
-      type: 'clear',
+      type: 'close',
       onClick() {
         this0.clearValue();
       },
@@ -187,11 +187,14 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
   private onWindowMouseDown(e: IBasicEvent): void {
     const keyboard = $((this.refs.keyboard as Keyboard).getSelf());
     const targetEl = e.target as HTMLElement;
-
     if (this.input === targetEl || keyboard.find(targetEl).length !== 0) {
       return;
     }
     this.closeSyntheticKeyboard();
+
+    if (hasParent('.rac-action-close-icon', targetEl)) {
+      this.clearValue();
+    }
   }
 
   private get actions(): IFieldActionConfiguration[] {

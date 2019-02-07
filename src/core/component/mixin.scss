@@ -935,6 +935,7 @@
                  $rac-field-width: unset,
                  $rac-field-height: unset,
                  $rac-field-margin: unset,
+                 $rac-field-padding: unset,
                  $rac-field-max-width: unset,
                  $rac-field-min-height: unset,
                  $rac-field-input-cursor: unset,
@@ -945,8 +946,10 @@
                  $rac-text-field-height: unset,
                  $rac-text-field-background: unset,
                  $rac-text-field-border: unset,
+                 $rac-text-field-border-bottom: unset,
                  $rac-text-field-border-color: unset,
                  $rac-text-field-margin: unset,
+                 $rac-text-field-padding: unset,
                  $rac-text-field-label-position: unset,
                  $rac-text-field-label-top: unset,
                  $rac-text-field-label-left: unset,
@@ -955,6 +958,7 @@
                  $rac-text-field-input-background: unset,
                  $rac-text-field-input-width: unset,
                  $rac-text-field-input-font-size: unset,
+                 $rac-text-field-input-font-weight: unset,
                  $rac-text-field-input-padding: unset,
                  $rac-text-field-input-text-align: unset,
                  $rac-text-field-input-cursor: unset,
@@ -965,6 +969,7 @@
                  $rac-text-field-input-placeholder-color: unset,
                  $rac-text-field-input-placeholder-font-weight: unset,
                  $rac-text-field-icon-color: unset,
+                 $rac-text-field-icon-size: unset,
                  $rac-text-field-icon-margin: unset,
                  $rac-text-field-filter-active-after-bottom: unset,
                  $rac-text-field-filter-active-after-left: unset) {
@@ -977,6 +982,7 @@
     @include rac-styles(
       $rac-styles-opacity: $rac-field-opacity,
       $rac-styles-margin: $rac-field-margin,
+      $rac-styles-padding: $rac-field-padding,
       $rac-styles-width: $rac-field-width,
       $rac-styles-height: $rac-field-height,
       $rac-styles-max-width: $rac-field-max-width,
@@ -996,8 +1002,10 @@
         $rac-styles-background: $rac-text-field-background,
         $rac-styles-height: $rac-text-field-height,
         $rac-styles-border: $rac-text-field-border,
+        $rac-styles-border-bottom: $rac-text-field-border-bottom,
         $rac-styles-border-color: $rac-text-field-border-color,
-        $rac-styles-margin: $rac-text-field-margin
+        $rac-styles-margin: $rac-text-field-margin,
+        $rac-styles-padding: $rac-text-field-padding
       );
 
       @include rac-filter-active(
@@ -1012,6 +1020,7 @@
           $rac-styles-border: $rac-text-field-input-border,
           $rac-styles-background: $rac-text-field-input-background,
           $rac-styles-font-size: $rac-text-field-input-font-size,
+          $rac-styles-font-weight: $rac-text-field-input-font-weight,
           $rac-styles-color: $rac-text-field-input-color,
           $rac-styles-padding: $rac-text-field-input-padding,
           $rac-styles-text-align: $rac-text-field-input-text-align
@@ -1041,6 +1050,7 @@
       );
 
       @include rac-icon(
+        $rac-icon-size: $rac-text-field-icon-size,
         $rac-icon-color: $rac-text-field-icon-color,
         $rac-icon-margin: $rac-text-field-icon-margin
       );

@@ -15,7 +15,7 @@ export class Chip extends BaseComponent<Chip, IChipInternalProps, {}> {
           </span>
           {
             this.uiFactory.makeIcon({
-              type: 'clear',
+              type: 'close',
               disabled: props.disabled,
               onClick: props.onClick,
             })
