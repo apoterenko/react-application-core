@@ -109,6 +109,10 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       };
     case ListActionBuilder.buildLoadDoneActionType(section):
       const listEntity: IListEntity = action.data;
+      if (R.isNil(listEntity)) {
+        // A request auto-cancelling
+        return state;
+      }
       return {
         ...state,
         progress: false,

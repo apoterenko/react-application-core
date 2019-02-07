@@ -54,7 +54,7 @@ export class Transport implements ITransport {
       if (e.cancelled) {
         Transport.logger.debug('[$Transport][request] A user has canceled the request:', e);
         this.onRequestCancel(req);
-        return;
+        return null;
       } else {
         Transport.logger.error('[$Transport][request] The system error has occurred:', e);
         this.onRequestError(req, e);
