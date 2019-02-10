@@ -27,7 +27,7 @@ import {
   universalDefaultMappers,
   actionsDisabledListWrapperEntityMapper,
 } from './universal-connector.mapper';
-import { IEntity } from '../../definitions.interface';
+import { IEntity, IKeyValue } from '../../definitions.interface';
 
 export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
