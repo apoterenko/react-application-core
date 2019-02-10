@@ -62,21 +62,10 @@
     $rac-button-width: $rac-button-decorated-not-filled-width
   );
 
-  .rac-button {
-    &.rac-button-not-filled {
-
-      &.rac-button-decorated {
-
-        &.rac-button-mini {
-          width: 32px;
-          height: 32px;
-
-          .rac-icon {
-            width: 12px;
-            height: 12px;
-          }
-        }
-      }
-    }
-  }
+  @include rac-button(                                                                        /* @stable [10.02.2019] */
+    $rac-button-custom: rac-build-cls2($rac-button-mini-cls, $rac-button-decorated-not-filled-cls),
+    $rac-button-width: 32px,
+    $rac-button-height: 32px,
+    $rac-button-icon-size: 12px
+  );
 }

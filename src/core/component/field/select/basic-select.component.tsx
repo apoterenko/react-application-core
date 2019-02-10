@@ -33,7 +33,7 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
     this.openMenu = this.openMenu.bind(this);
 
     if (props.expandActionRendered !== false) {
-      this.defaultActions = [toType<IFieldActionConfiguration>({type: 'dropdown', onClick: this.openMenu})]
+      this.defaultActions = [toType<IFieldActionConfiguration>({type: props.icon || 'dropdown', onClick: this.openMenu})]
         .concat(this.defaultActions);
     }
   }

@@ -130,6 +130,7 @@ $rac-add-button-icon-content-width: $rac-icon-width2 !default;
 $rac-add-button-icon-content-height: $rac-icon-height2 !default;
 
 /* @stable [24.06.2018] */
+$rac-button-mini-cls: rac-button-mini;
 $rac-button-outlined-cls: rac-button-outlined;
 $rac-button-raised-cls: rac-button-raised;
 $rac-button-decorated-cls: rac-button-decorated;
@@ -286,8 +287,10 @@ $rac-message-font-size: $rac-default-font-size !default;
 $rac-field-message-color: $rac-default-text-color !default;
 
 /* @stable [17.09.2018] */
-$rac-field-value-present: rac-field-value-present;
+$rac-field-value-present-cls: rac-field-value-present;
+$rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-focused-cls: rac-field-focused;
+$rac-field-not-focused-cls: rac-field-not-focused;
 $rac-text-field-input-color: $rac-default-text-color !default;
 $rac-text-field-input-border: none !default;
 $rac-text-field-input-background: none !default;
@@ -483,14 +486,17 @@ $rac-form-layout-field-margin: 0 0 $rac-default-half-offset 0 !default;
 $rac-form-layout-text-field-height: unset !default;
 $rac-form-layout-text-field-input-placeholder-color: unset !default;
 $rac-form-layout-text-field-input-font-size: unset !default;
+$rac-form-layout-text-field-input-caret-bottom: unset !default;
 $rac-form-layout-text-field-border: unset !default;
 $rac-form-layout-text-field-border-color: unset !default;
 $rac-form-layout-text-field-background: unset !default;
 $rac-form-layout-text-field-icon-color: $rac-default-color-0-1 !default;
-$rac-form-layout-text-field-icon-margin: auto $rac-default-offset auto 0 !default;
+$rac-form-layout-text-field-icon-size: unset !default;
+$rac-form-layout-text-field-icon-margin: unset !default;
 $rac-form-layout-text-field-focused-background: unset !default;
 $rac-form-layout-text-field-focused-icon-color: unset !default;
 $rac-form-layout-text-field-focused-input-placeholder-color: unset !default;
+$rac-form-layout-text-field-not-focused-input-color: unset !default;
 $rac-form-layout-form-actions-margin: $rac-default-offset 0 0 0 !default;
 
 /* @stable [08.08.2018] */
@@ -545,7 +551,7 @@ $rac-default-layout-header-user-photo-margin-right: 8px !default;
 $rac-default-layout-header-color: $color-5 !default;
 $rac-default-layout-header-padding: 0 $rac-default-layout-offset !default;
 $rac-default-layout-header-background: unset !default;
-$rac-default-layout-sub-header-height: 88px !default;
+$rac-default-layout-sub-header-height: 84px !default;
 $rac-default-layout-sub-header-bordered-border-bottom: unset !default;
 $rac-default-layout-sub-header-bordered-margin: unset !default;
 $rac-default-layout-sub-header-button-navigation-margin: 0 16px 0 0 !default;

@@ -24,7 +24,13 @@ export interface ITransportSettings extends IBaseTransportRequestEntity {
   noCachePrefix?: string;
 }
 
-export interface IApplicationDateTimeSettings {
+export enum StartDayOfWeekT {
+  MONDAY,
+  SUNDAY,
+}
+
+export interface IDateTimeSettings {
+  startDayOfWeek?: StartDayOfWeekT;
   currentDate?: Date;        // Current date
   timeZone?: string;         // Time zone (+08:00, etc..)
   dateFormat?: string;       // Client-server communication format
@@ -123,7 +129,7 @@ export interface ISettings {
   persistenceStorage?: ApplicationStorageTypeEnum;
   entityEmptyId?: AnyT;
   resourcePaths?: IApplicationResourcePaths;
-  dateTime?: IApplicationDateTimeSettings;
+  dateTime?: IDateTimeSettings;
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
   number?: IApplicationNumberSettings;
@@ -194,6 +200,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     requestCancelErrorMessage: 'The request has been canceled by the user.',
   },
   dateTime: {
+    startDayOfWeek: StartDayOfWeekT.MONDAY,
     currentDate: new Date(),
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',

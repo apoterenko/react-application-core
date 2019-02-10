@@ -6,7 +6,7 @@ import { cancelEvent, orNull, nvl } from '../../../util';
 import { KeyboardEventT, AnyT } from '../../../definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
-import { IApplicationDateTimeSettings } from '../../../settings';
+import { IDateTimeSettings } from '../../../settings';
 import {
   IDateFieldProps,
   IDateFieldState,
@@ -152,7 +152,7 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
     return this.refs.dialogWindow as IMaterialDateDialogComponent;
   }
 
-  private get dateTimeSettings(): IApplicationDateTimeSettings {
+  private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
   }
 

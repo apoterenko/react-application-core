@@ -97,14 +97,6 @@
 }
 
 /**
- * @stable [30.10.2018]
- */
-@mixin rac-flex-height($value) {
-  min-height: $value;
-  max-height: $value;
-}
-
-/**
  * @stable [27.11.2018]
  */
 @mixin rac-size($size) {
@@ -548,6 +540,26 @@
 }
 
 /**
+ * @stable [30.10.2018]
+ */
+@mixin rac-flex-height($value) {
+  @include rac-styles(
+    $rac-styles-max-height: $value,
+    $rac-styles-min-height: $value
+  );
+}
+
+/**
+ * @stable [30.10.2018]
+ */
+@mixin rac-flex-width($value) {
+  @include rac-styles(
+    $rac-styles-max-width: $value,
+    $rac-styles-min-width: $value
+  );
+}
+
+/**
  * @stable [20.01.2019]
  */
 @mixin rac-absolute-full($rac-absolute-full-position: absolute,
@@ -653,14 +665,6 @@
       $rac-after-color: $rac-filter-active-after-color
     );
   }
-}
-
-/**
- * @stable [30.10.2018]
- */
-@mixin rac-flex-width($value) {
-  @include _rac-styles-properties($rac-styles-min-width: $value,
-                                  $rac-styles-max-width: $value);
 }
 
 /**
@@ -894,11 +898,16 @@
       $rac-styles-background: $rac-icon-background,
       $rac-styles-border-radius: $rac-icon-border-radius,
       $rac-styles-color: $rac-icon-color,
-      $rac-styles-height: $rac-icon-height,
       $rac-styles-opacity: $rac-icon-opacity,
+      $rac-styles-height: $rac-icon-height,
       $rac-styles-width: $rac-icon-width,
       $rac-styles-size: $rac-icon-size
     );
+
+    @include rac-flex-width($rac-icon-width);
+    @include rac-flex-height($rac-icon-height);
+    @include rac-flex-width($rac-icon-size);
+    @include rac-flex-height($rac-icon-size);
 
     svg {
       @include rac-styles(
@@ -968,9 +977,11 @@
                  $rac-text-field-input-caret-color: unset,
                  $rac-text-field-input-placeholder-color: unset,
                  $rac-text-field-input-placeholder-font-weight: unset,
+                 $rac-text-field-icon-custom: unset,
                  $rac-text-field-icon-color: unset,
                  $rac-text-field-icon-size: unset,
                  $rac-text-field-icon-margin: unset,
+                 $rac-text-field-icon-display: unset,
                  $rac-text-field-filter-active-after-bottom: unset,
                  $rac-text-field-filter-active-after-left: unset) {
 
@@ -1050,9 +1061,11 @@
       );
 
       @include rac-icon(
+        $rac-icon-custom: $rac-text-field-icon-custom,
         $rac-icon-size: $rac-text-field-icon-size,
         $rac-icon-color: $rac-text-field-icon-color,
-        $rac-icon-margin: $rac-text-field-icon-margin
+        $rac-icon-margin: $rac-text-field-icon-margin,
+        $rac-icon-display: $rac-text-field-icon-display
       );
     }
   }
@@ -1081,7 +1094,8 @@
                      $rac-list-item-border-top: unset,
                      $rac-list-item-border-radius: unset,
                      $rac-list-item-graphic-margin: unset,
-                     $rac-list-item-graphic-size: unset) {
+                     $rac-list-item-graphic-size: unset,
+                     $rac-list-item-text-margin: unset) {
 
   #{rac-build-cls(rac-list-item, $rac-list-item-custom)} {
     @include rac-styles(
@@ -1114,6 +1128,11 @@
         @include rac-circle($rac-list-item-graphic-size);
       }
     }
+
+    @include rac-styles(
+      $rac-styles-custom: rac-list-item-text,
+      $rac-styles-margin: $rac-list-item-text-margin
+    );
   }
 }
 
@@ -1147,6 +1166,7 @@
                 $rac-list-item-font-weight: unset,
                 $rac-list-item-graphic-margin: unset,
                 $rac-list-item-graphic-size: unset,
+                $rac-list-item-text-margin: unset,
                 $rac-list-item-selected-background: unset,
                 $rac-list-item-odd-background: unset) {
 
@@ -1180,7 +1200,8 @@
       $rac-list-item-border-right: $rac-list-item-border-right,
       $rac-list-item-border-left: $rac-list-item-border-left,
       $rac-list-item-border-top: $rac-list-item-border-top,
-      $rac-list-item-border-radius: $rac-list-item-border-radius
+      $rac-list-item-border-radius: $rac-list-item-border-radius,
+      $rac-list-item-text-margin: $rac-list-item-text-margin
     );
 
     @include rac-list-item(
@@ -2497,15 +2518,18 @@
                        $rac-form-layout-field-margin: unset,
                        $rac-form-layout-text-field-input-font-size: unset,
                        $rac-form-layout-text-field-input-placeholder-color: unset,
+                       $rac-form-layout-text-field-input-caret-bottom: unset,
                        $rac-form-layout-text-field-height: unset,
                        $rac-form-layout-text-field-border: unset,
                        $rac-form-layout-text-field-border-color: unset,
                        $rac-form-layout-text-field-background: unset,
                        $rac-form-layout-text-field-icon-color: unset,
+                       $rac-form-layout-text-field-icon-size: unset,
                        $rac-form-layout-text-field-icon-margin: unset,
                        $rac-form-layout-text-field-focused-background: unset,
                        $rac-form-layout-text-field-focused-icon-color: unset,
                        $rac-form-layout-text-field-focused-input-placeholder-color: unset,
+                       $rac-form-layout-text-field-not-focused-input-color: unset,
                        $rac-form-layout-top-header-height: unset,
                        $rac-form-layout-top-header-background: unset,
                        $rac-form-layout-top-header-background-size: unset,
@@ -2544,9 +2568,11 @@
       $rac-text-field-border: $rac-form-layout-text-field-border,
       $rac-text-field-border-color: $rac-form-layout-text-field-border-color,
       $rac-text-field-icon-color: $rac-form-layout-text-field-icon-color,
+      $rac-text-field-icon-size: $rac-form-layout-text-field-icon-size,
       $rac-text-field-icon-margin: $rac-form-layout-text-field-icon-margin,
       $rac-text-field-input-font-size: $rac-form-layout-text-field-input-font-size,
-      $rac-text-field-input-placeholder-color: $rac-form-layout-text-field-input-placeholder-color
+      $rac-text-field-input-placeholder-color: $rac-form-layout-text-field-input-placeholder-color,
+      $rac-text-field-input-caret-bottom: $rac-form-layout-text-field-input-caret-bottom
     );
 
     @include rac-field(
@@ -2554,6 +2580,11 @@
       $rac-text-field-background: $rac-form-layout-text-field-focused-background,
       $rac-text-field-icon-color: $rac-form-layout-text-field-focused-icon-color,
       $rac-text-field-input-placeholder-color: $rac-form-layout-text-field-focused-input-placeholder-color
+    );
+
+    @include rac-field(
+      $rac-field-custom: $rac-field-not-focused-cls,
+      $rac-text-field-input-color: $rac-form-layout-text-field-not-focused-input-color
     );
   }
 }

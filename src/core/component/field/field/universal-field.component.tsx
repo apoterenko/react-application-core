@@ -89,11 +89,13 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
     super.componentDidUpdate(prevProps, prevState);
 
-    if (this.props.useKeyboard
-          && this.state.keyboardOpened
-          && !R.equals(this.value, prevProps.value)) {
-      // Refresh a caret position according to a changed value
+    const useKeyboard = this.props.useKeyboard;
+    if (useKeyboard && this.state.keyboardOpened && !R.equals(this.value, prevProps.value)) {
       this.refreshCaretPosition();
+    }
+
+    if (prevProps.useKeyboard && !useKeyboard) {
+      this.closeSyntheticKeyboard();
     }
   }
 
@@ -485,8 +487,12 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     const props = this.props;
 
     if (props.preventFocus || props.useKeyboard) {
-      this.removeFocus();             // Prevent native keyboard opening when using a synthetic keyboard
-      this.openSyntheticKeyboard();   // "useKeyboard" props checking inside
+      // Prevent native keyboard opening when using a synthetic keyboard
+      this.removeFocus();
+
+      if (props.useKeyboard) {
+        this.openSyntheticKeyboard();
+      }
     }
     if (isFn(props.onFocus)) {
       props.onFocus(event);
@@ -535,7 +541,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [04.09.2018]
    */
   protected openSyntheticKeyboard(): boolean {
-    if (!this.props.useKeyboard || this.state.keyboardOpened) {
+    if (this.state.keyboardOpened) {
       return false;
     }
     this.setState({keyboardOpened: true}, () => isDef(this.caretBlinkingTask) && this.caretBlinkingTask.start());
@@ -550,9 +556,6 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @stable [04.09.2018]
    */
   protected closeSyntheticKeyboard(): void {
-    if (!this.props.useKeyboard) {
-      return;
-    }
     this.setState({keyboardOpened: false});
     this.onCloseKeyboard();
   }
@@ -560,18 +563,14 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   /**
    * @stable [04.09.2018]
    */
-  protected onCloseKeyboard(): boolean {
-    if (this.props.useKeyboard) {
-      if (isDef(this.caretBlinkingTask)) {
-        this.caretBlinkingTask.stop();
-      }
-
-      UniversalField.logger.debug(
-        `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
-      );
-      return true;
+  protected onCloseKeyboard(): void {
+    if (isDef(this.caretBlinkingTask)) {
+      this.caretBlinkingTask.stop();
     }
-    return false;
+
+    UniversalField.logger.debug(
+      `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
+    );
   }
 
   /**

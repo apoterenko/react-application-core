@@ -1,5 +1,5 @@
 import { BaseTextField } from '../textfield';
-import { IApplicationDateTimeSettings } from '../../../settings';
+import { IDateTimeSettings } from '../../../settings';
 import {
   ITimeField,
   ITimeFieldInternalState,
@@ -21,7 +21,7 @@ export class TimeField extends BaseTextField<TimeField,
       (this.props.useShortMask ? this.dateTimeSettings.uiShortTimePattern : this.dateTimeSettings.uiTimePattern);
   }
 
-  private get dateTimeSettings(): IApplicationDateTimeSettings {
+  private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
   }
 }

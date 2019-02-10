@@ -6,7 +6,7 @@ import 'moment-timezone';
 import { lazyInject, DI_TYPES } from '../../di';
 import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
 import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue } from '../../util';
-import { IApplicationDateTimeSettings, ISettings } from '../../settings';
+import { IDateTimeSettings, ISettings, StartDayOfWeekT } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
 @injectable()
@@ -21,7 +21,7 @@ export class DateConverter implements IDateConverter {
       .slice(1, 7)
       .concat(moment.weekdays()[0]);
 
-  @lazyInject(DI_TYPES.Settings) private applicationSettings: ISettings;
+  @lazyInject(DI_TYPES.Settings) private settings: ISettings;
 
   /**
    * @stable [08.01.2018]
@@ -226,6 +226,19 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [10.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {Date}
+   */
+  public tryAddXWeeks(duration: moment.DurationInputArg1,
+                      date: DateTimeLikeTypeT = this.currentDate,
+                      inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    return this.tryAddXDuration('weeks', duration, date, inputFormat);
+  }
+
+  /**
    * @stable [07.01.2019]
    * @param {moment.DurationInputArg1} duration
    * @param {DateTimeLikeTypeT} date
@@ -239,11 +252,49 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [08.01.2018]
+   * @stable [10.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {Date}
+   */
+  public tryAddXQuarters(duration: moment.DurationInputArg1,
+                         date: DateTimeLikeTypeT = this.currentDate,
+                         inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    return this.tryAddXDuration('quarters', duration, date, inputFormat);
+  }
+
+  /**
+   * @stable [10.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {Date}
+   */
+  public tryAddXYears(duration: moment.DurationInputArg1,
+                      date: DateTimeLikeTypeT = this.currentDate,
+                      inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    return this.tryAddXDuration('years', duration, date, inputFormat);
+  }
+
+  /**
+   * @stable [09.02.2019]
+   * @param {moment.DurationInputArg2} unit
+   * @param {moment.unitOfTime.StartOf} startOf
+   * @param {moment.DurationInputArg1} duration
    * @param {DateTimeLikeTypeT} date
    * @param {string | undefined} inputFormat
    * @returns {moment.Moment}
    */
+  public tryGetFirstDayOfXAsMomentDate(unit: moment.DurationInputArg2,
+                                       startOf: moment.unitOfTime.StartOf,
+                                       duration: moment.DurationInputArg1 = 0,
+                                       date: DateTimeLikeTypeT = this.currentDate,
+                                       inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
+    return ifNotNilThanValue<moment.Moment, moment.Moment>(
+      this.tryAddXDurationAsMomentDate(unit, duration, date, inputFormat), (value) => value.startOf(startOf)
+    );
+  }
 
   /**
    * @stable [08.01.2019]
@@ -255,8 +306,64 @@ export class DateConverter implements IDateConverter {
   public tryGetFirstDayOfMonthAsMomentDate(duration: moment.DurationInputArg1 = 0,
                                            date: DateTimeLikeTypeT = this.currentDate,
                                            inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
-    return ifNotNilThanValue<moment.Moment, moment.Moment>(
-      this.tryAddXDurationAsMomentDate('months', duration, date, inputFormat), (value) => value.startOf('month')
+    return this.tryGetFirstDayOfXAsMomentDate('months', 'month', duration, date, inputFormat);
+  }
+
+  /**
+   * @stable [10.01.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {moment.Moment}
+   */
+  public tryGetFirstDayOfYearAsMomentDate(duration: moment.DurationInputArg1 = 0,
+                                          date: DateTimeLikeTypeT = this.currentDate,
+                                          inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
+    return this.tryGetFirstDayOfXAsMomentDate('years', 'year', duration, date, inputFormat);
+  }
+
+  /**
+   * @stable [10.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {moment.Moment}
+   */
+  public tryGetFirstDayOfQuarterAsMomentDate(duration: moment.DurationInputArg1 = 0,
+                                             date: DateTimeLikeTypeT = this.currentDate,
+                                             inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
+    return this.tryGetFirstDayOfXAsMomentDate('quarters', 'quarter', duration, date, inputFormat);
+  }
+
+  /**
+   * @stable [09.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {moment.Moment}
+   */
+  public tryGetFirstDayOfWeekAsMomentDate(duration: moment.DurationInputArg1 = 0,
+                                          date: DateTimeLikeTypeT = this.currentDate,
+                                          inputFormat = this.dateTimeSettings.uiDateFormat): moment.Moment {
+    return this.tryGetFirstDayOfXAsMomentDate(
+      'weeks',
+      this.settings.dateTime.startDayOfWeek === StartDayOfWeekT.MONDAY ? 'isoWeek' : 'week',
+      duration, date, inputFormat
+    );
+  }
+
+  /**
+   * @stable [09.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {Date}
+   */
+  public tryGetFirstDayOfWeek(duration: moment.DurationInputArg1 = 0,
+                              date: DateTimeLikeTypeT = this.currentDate,
+                              inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    return ifNotNilThanValue<moment.Moment, Date>(
+      this.tryGetFirstDayOfWeekAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
     );
   }
 
@@ -272,6 +379,36 @@ export class DateConverter implements IDateConverter {
                                inputFormat = this.dateTimeSettings.uiDateFormat): Date {
     return ifNotNilThanValue<moment.Moment, Date>(
       this.tryGetFirstDayOfMonthAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
+    );
+  }
+
+  /**
+   * @stable [10.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {Date}
+   */
+  public tryGetFirstDayOfQuarter(duration: moment.DurationInputArg1 = 0,
+                                 date: DateTimeLikeTypeT = this.currentDate,
+                                 inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    return ifNotNilThanValue<moment.Moment, Date>(
+      this.tryGetFirstDayOfQuarterAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
+    );
+  }
+
+  /**
+   * @stable [10.02.2019]
+   * @param {moment.DurationInputArg1} duration
+   * @param {DateTimeLikeTypeT} date
+   * @param {string | undefined} inputFormat
+   * @returns {Date}
+   */
+  public tryGetFirstDayOfYear(duration: moment.DurationInputArg1 = 0,
+                              date: DateTimeLikeTypeT = this.currentDate,
+                              inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    return ifNotNilThanValue<moment.Moment, Date>(
+      this.tryGetFirstDayOfYearAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
     );
   }
 
@@ -499,7 +636,7 @@ export class DateConverter implements IDateConverter {
     return this.combine(this.dateTimeSettings.pstDateFormat, this.dateTimeSettings.pstTimeFormat);
   }
 
-  private get dateTimeSettings(): IApplicationDateTimeSettings {
-    return this.applicationSettings.dateTime || {};
+  private get dateTimeSettings(): IDateTimeSettings {
+    return this.settings.dateTime || {};
   }
 }

@@ -42,15 +42,47 @@ export interface IDateConverter {
   tryAddXDays(duration: moment.DurationInputArg1,
               date?: DateTimeLikeTypeT,
               inputFormat?: string): Date;
+  tryAddXWeeks(duration: moment.DurationInputArg1,
+               date?: DateTimeLikeTypeT,
+               inputFormat?: string): Date;
   tryAddXMonths(duration: moment.DurationInputArg1,
                 date?: DateTimeLikeTypeT,
                 inputFormat?: string): Date;
+  tryAddXQuarters(duration: moment.DurationInputArg1,
+                  date?: DateTimeLikeTypeT,
+                  inputFormat?: string): Date;
+  tryAddXYears(duration: moment.DurationInputArg1,
+               date?: DateTimeLikeTypeT,
+               inputFormat?: string): Date;
+  tryGetFirstDayOfXAsMomentDate(unit: moment.DurationInputArg2,
+                                startOf: moment.unitOfTime.StartOf,
+                                duration: moment.DurationInputArg1,
+                                date: DateTimeLikeTypeT,
+                                inputFormat?: string): moment.Moment;
+  tryGetFirstDayOfWeekAsMomentDate(duration?: moment.DurationInputArg1,
+                                   date?: DateTimeLikeTypeT,
+                                   inputFormat?: string): moment.Moment;
   tryGetFirstDayOfMonthAsMomentDate(duration?: moment.DurationInputArg1,
                                     date?: DateTimeLikeTypeT,
                                     inputFormat?: string): moment.Moment;
+  tryGetFirstDayOfQuarterAsMomentDate(duration?: moment.DurationInputArg1,
+                                      date?: DateTimeLikeTypeT,
+                                      inputFormat?: string): moment.Moment;
+  tryGetFirstDayOfYearAsMomentDate(duration?: moment.DurationInputArg1,
+                                   date?: DateTimeLikeTypeT,
+                                   inputFormat?: string): moment.Moment;
+  tryGetFirstDayOfWeek(duration?: moment.DurationInputArg1,
+                       date?: DateTimeLikeTypeT,
+                       inputFormat?: string): Date;
   tryGetFirstDayOfMonth(duration?: moment.DurationInputArg1,
                         date?: DateTimeLikeTypeT,
                         inputFormat?: string): Date;
+  tryGetFirstDayOfQuarter(duration?: moment.DurationInputArg1,
+                          date?: DateTimeLikeTypeT,
+                          inputFormat?: string): Date;
+  tryGetFirstDayOfYear(duration?: moment.DurationInputArg1,
+                       date?: DateTimeLikeTypeT,
+                       inputFormat?: string): Date;
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;

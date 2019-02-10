@@ -42,7 +42,7 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
 
   constructor(props: TInternalProps) {
     super(props);
-    this.onWindowMouseDown = this.onWindowMouseDown.bind(this);
+    this.onKeyboardWindowMouseDownHandler = this.onKeyboardWindowMouseDownHandler.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
 
     if (this.props.clearActionRendered !== false) {
@@ -146,20 +146,17 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
   protected openSyntheticKeyboard(): boolean {
     const result = super.openSyntheticKeyboard();
     if (result) {
-      this.eventManager.add(window, 'mousedown', this.onWindowMouseDown);
+      this.eventManager.add(window, 'mousedown', this.onKeyboardWindowMouseDownHandler);
     }
     return result;
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [09.02.2019]
    */
-  protected onCloseKeyboard(): boolean {
-    const result = super.onCloseKeyboard();
-    if (result) {
-      this.eventManager.remove(window, 'mousedown', this.onWindowMouseDown);
-    }
-    return result;
+  protected onCloseKeyboard(): void {
+    super.onCloseKeyboard();
+    this.eventManager.remove(window, 'mousedown', this.onKeyboardWindowMouseDownHandler);
   }
 
   /**
@@ -184,7 +181,7 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
    * @stable [16.05.2018]
    * @param {IBasicEvent} e
    */
-  private onWindowMouseDown(e: IBasicEvent): void {
+  private onKeyboardWindowMouseDownHandler(e: IBasicEvent): void {
     const keyboard = $((this.refs.keyboard as Keyboard).getSelf());
     const targetEl = e.target as HTMLElement;
     if (this.input === targetEl || keyboard.find(targetEl).length !== 0) {

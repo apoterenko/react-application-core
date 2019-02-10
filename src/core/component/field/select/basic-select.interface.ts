@@ -31,6 +31,7 @@ export interface IBasicSelectProps extends IBasicSelectConfiguration,
                                            IBasicTextFieldProps,
                                            IMenuConfigurationWrapper,
                                            IForceReloadWrapper {
+  icon?: string; // TODO
   options?: ISelectOptionEntity[];
   onSelect?(option: ISelectOptionEntity): void;
 }

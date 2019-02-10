@@ -169,6 +169,19 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
         />
       </svg>
     ),
+    'info': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='24' height='24' viewBox='0 0 24 24'>
+        <path fill='currentColor' d='M13.5 21h1.505c.824 0 1.495.666 1.495 1.5 0 .828-.68 1.5-1.495 1.5h-6.01A1.495 1.495 0 0 1 7.5 22.5c0-.828.68-1.5 1.495-1.5H10.5V9H9.015a1.5 1.5 0 1 1 0-3h2.97c.84 0 1.515.666 1.515 1.5V21zM11.25 4.5a2.25 2.25 0 1 0-.002-4.502A2.25 2.25 0 0 0 11.25 4.5z'
+        />
+      </svg>
+    ),
+    'calendar': (
+      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+        <path fill='currentColor' d='M20.99 24H3.01A3.013 3.013 0 0 1 0 21V6a3.002 3.002 0 0 1 3.012-3H6V1.5a1.5 1.5 0 0 1 3 0V3h6V1.5a1.5 1.5 0 0 1 3 0V3h2.99A3.013 3.013 0 0 1 24 6v15a3.002 3.002 0 0 1-3.012 3h.002zM21 6h-3v1.5a1.5 1.5 0 0 1-3 0V6H9v1.5a1.5 1.5 0 0 1-3 0V6H3v15h18V6zm-4.5 12a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 16.5 18zm0-4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 16.5 13.5zM12 18a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 18zm0-4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 13.5zM7.5 18a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 7.5 18zm0-4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 7.5 13.5z'
+        />
+      </svg>
+    ),
     'ok-filled': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -177,6 +190,13 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
           />
         </defs>
         <use fill='currentColor' fillRule='evenodd' xlinkHref='#bb85799a-fb90-4b35-86f9-4f4d227ab135' />
+      </svg>
+    ),
+    'left-right': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='24' height='24' viewBox='0 0 24 24'>
+        <path fill='currentColor' d='M7.094 15.441a1.49 1.49 0 0 1 0 2.12 1.536 1.536 0 0 1-2.15 0L.668 13.59a2.231 2.231 0 0 1-.002-3.181l4.277-3.97a1.538 1.538 0 0 1 2.151 0 1.49 1.49 0 0 1 0 2.121l-2.22 1.936h14.254l-2.22-1.937a1.487 1.487 0 0 1 .002-2.121 1.53 1.53 0 0 1 2.144 0l4.28 3.97a2.23 2.23 0 0 1 0 3.183l-4.287 3.966a1.528 1.528 0 0 1-2.149 0 1.487 1.487 0 0 1 0-2.12l2.221-1.94H4.859l2.235 1.943z'
+        />
       </svg>
     ),
     'search-thin': (
