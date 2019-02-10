@@ -9,6 +9,7 @@ import {
   IQueryWrapper,
   IDisabledWrapper,
   AnyT,
+  IKeyValue,
 } from '../../definitions.interface';
 import {
   IOptionEntity,
