@@ -112,6 +112,16 @@
       }
     }
 
+    .rac-notifications {                                                                      /* @stable [11.02.2019] */
+      @include rac-styles(
+        $rac-styles-position: absolute,
+        $rac-styles-right: 0,
+        $rac-styles-width: $rac-default-layout-notifications-width,
+        $rac-styles-height: 100%,
+        $rac-styles-background: $rac-default-layout-notifications-background
+      );
+    }
+
     .rac-drawer {
       width: $rac-default-layout-drawer-width;                                                      /* @stable [04.10.2018] */
 

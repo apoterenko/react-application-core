@@ -35,7 +35,7 @@ class VueFileField extends VueBaseFileField implements IVueFileFieldProps {
    * @stable [20.11.2018]
    * @returns {IEntity[]}
    */
-  public getFiles(): IEntity[] {
+  public getEntities(): IEntity[] {
     if (!this.hasValue()) {
       return generateArray(1);
     }
@@ -54,7 +54,7 @@ class VueFileField extends VueBaseFileField implements IVueFileFieldProps {
    * @returns {string}
    */
   public getViewerComponent(file: File, index: number): string {
-    const filesEntities = this.getFiles();
+    const filesEntities = this.getEntities();
     return isArrayNotEmpty(filesEntities)
       ? this.toViewer(filesEntities[0].type || this.getFileFormat())
       : this.viewer;

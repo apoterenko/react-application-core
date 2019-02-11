@@ -124,7 +124,10 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
         const content = calc(this.previewAttachment, this.entity);
         return orEmpty(
           !R.isNil(content) && !R.isEmpty(content),
-          () => `<div class="vue-viewer-preview-attachment">${content}</div>`
+          () => (
+            `<div class="vue-viewer-preview-attachment"
+                  v-on:click="onOpenPopup">${content}</div>`
+          )
         );
       }
     );

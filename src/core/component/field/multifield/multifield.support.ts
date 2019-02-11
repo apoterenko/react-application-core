@@ -58,7 +58,7 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
     );
   }
   return entity as TItem[];
-}
+};
 
 /**
  * @stable [22.11.2018]

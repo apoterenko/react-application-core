@@ -6,7 +6,7 @@ import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import { toClassName, orNull, isFn, cancelEvent } from '../../../util';
 import { LayoutContainer } from '../layout.container';
-import { IDefaultLayoutContainerProps } from './default-layout.interface';
+import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
 import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
@@ -30,8 +30,9 @@ import { APPLICATION_SECTIONS } from '../../application';
 import { toAllDependentRoutePaths } from '../../connector';
 import { Link } from '../../link';
 import { IBasicEvent } from '../../../react-definitions.interface';
+import { Button } from '../../button';
 
-export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps> {
+export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
   public static defaultProps: IDefaultLayoutContainerProps = {
     headerConfiguration: {},
@@ -54,6 +55,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   constructor(props: IDefaultLayoutContainerProps) {
     super(props);
+    this.state = {notifications: false};
     this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
     this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
@@ -62,6 +64,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
+    this.onNotificationsClick = this.onNotificationsClick.bind(this);
   }
 
   /**
@@ -193,6 +196,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
     return (
       <Header>
+        <Button
+          icon='notifications'
+          onClick={this.onNotificationsClick}/>
         <Link to={this.routes.profile}>
           <div className='rac-user-photo'
                style={{backgroundImage: `url(${user.photoUrl || user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
@@ -203,6 +209,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         {this.userMenuElement}
       </Header>
     );
+  }
+
+  /**
+   * @stable [11.02.2019]
+   */
+  private onNotificationsClick(): void {
+    this.setState({notifications: !this.state.notifications});
   }
 
   /**
@@ -260,6 +273,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                    onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
         {this.props.children}
         {this.mainProgressOverlayElement}
+        {this.notificationsElement}
       </Main>
     );
   }
@@ -286,6 +300,21 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <CenterLayout className='rac-overlay'>
           <Message progress={true}/>
         </CenterLayout>
+      )
+    );
+  }
+
+  /**
+   * @stable [11.02.2019]
+   * @returns {JSX.Element}
+   */
+  private get notificationsElement(): JSX.Element {
+    return orNull(
+      this.state.notifications,
+      () => (
+        <FlexLayout className='rac-notifications'>
+          3 new notifications
+        </FlexLayout>
       )
     );
   }

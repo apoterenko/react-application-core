@@ -56,10 +56,12 @@
 
   @include vue-field(                                                                         /* @stable [21.12.2018] */
     $vue-field-custom: vue-multi-file-field,
+    $vue-field-attachment-content-cursor: $vue-multi-file-field-attachment-content-cursor,
     $vue-field-attachment-content-margin: $vue-multi-file-field-attachment-content-margin,
     $vue-field-attachment-content-width: $vue-multi-file-field-attachment-content-width,
     $vue-field-attachment-content-height: $vue-multi-file-field-attachment-content-height,
-    $vue-field-attachment-content-float: $vue-multi-file-field-attachment-content-float
+    $vue-field-attachment-holder-float: $vue-multi-file-field-attachment-holder-float,
+    $vue-field-attachment-holder-position: $vue-multi-file-field-attachment-holder-position
   );
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */

@@ -2,7 +2,7 @@ import * as vue2Dropzone from 'vue2-dropzone';
 import { Component, Prop } from 'vue-property-decorator';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { uuid } from '../../util';
+import { uuid, nvl } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 import { IKeyValue } from '../../definitions.interface';
@@ -30,6 +30,7 @@ const vueDndLogger = LoggerFactory.makeLogger('VueDnd');
 class VueDnd extends VueBaseComponent {
   @Prop() private options: IKeyValue;
   @Prop() private defaultMessage: string;
+  @Prop() private customMessage: string;
   private id = uuid(true);
 
   /**
@@ -49,9 +50,15 @@ class VueDnd extends VueBaseComponent {
     return {
       ...this.$data.defaultOptions,
       ...this.options,
-      dictDefaultMessage: this.defaultMessage
-        ? this.t(this.defaultMessage)
-        : this.t(this.settings.messages.dndMessage),
+      dictDefaultMessage: nvl(
+        // It is not possible to override css "text-decoration" rule (https://www.w3.org/TR/CSS21/text.html#propdef-text-decoration)
+        this.customMessage,
+        `<span class='vue-dropzone-message'>${
+          this.defaultMessage
+            ? this.t(this.defaultMessage)
+            : this.t(this.settings.messages.dndMessage)
+          }</span>`
+      ),
     };
   }
 }

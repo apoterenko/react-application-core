@@ -143,6 +143,13 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
              xlinkHref='#dropdown-opened' />
       </svg>
     ),
+    'notifications': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='24' height='24' viewBox='0 0 24 24'>
+        <path fill='currentColor' d='M23.925 19.972a1.504 1.504 0 0 1-1.434 1.027h-7.497A2.997 2.997 0 1 1 9 21H1.5c-.645 0-1.22-.412-1.425-1.026A1.504 1.504 0 0 1 .6 18.3a5.984 5.984 0 0 0 2.408-4.8V9C3.008 4.03 7.037 0 12.004 0 16.972 0 21 4.029 21 9v4.5a5.968 5.968 0 0 0 2.4 4.8c.516.386.726 1.06.525 1.672zm-5.676-6.465v-4.5a6.25 6.25 0 0 0-6.246-6.015 6.249 6.249 0 0 0-6.246 6.015v4.5a8.73 8.73 0 0 1-1.25 4.5H19.5a8.741 8.741 0 0 1-1.251-4.5z'
+        />
+      </svg>
+    ),
     'plus': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='16' height='16' viewBox='0 0 16 16'>

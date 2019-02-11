@@ -39,7 +39,7 @@ class VueMultiFileField extends VueBaseFileField implements IVueMultiFileFieldPr
   }
 
   // TODO
-  public getFiles(): IEntity[] {
+  public getEntities(): IEntity[] {
     const totalFilesCount = this.maxFiles;
     const relations = generateArray(totalFilesCount);
     const actualRelations = toActualMultiItemEntities(this.getValue());

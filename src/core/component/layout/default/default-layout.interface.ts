@@ -35,3 +35,10 @@ export interface IDefaultLayoutContainerConfiguration extends IContainerConfigur
 export interface IDefaultLayoutContainerProps extends IDefaultLayoutContainerEntity,
                                                       IDefaultLayoutContainerConfiguration {
 }
+
+/**
+ * @stable [11.02.2019]
+ */
+export interface IDefaultLayoutContainerState {
+  notifications?: boolean;
+}

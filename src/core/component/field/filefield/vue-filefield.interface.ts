@@ -11,19 +11,26 @@ import {
 import { IVueFieldTemplateMethods } from '../field/vue-index';
 import { IVueViewerListenersEntity, IVueBaseFileViewerProps } from '../../viewer/vue-index';
 import { IVueFieldProps } from '../field/vue-index';
+import {
+  IMultiItemEntity,
+  MultiItemEntityT,
+  IMultiItemFileEntity,
+} from '../../../entities-definitions.interface';
 
 /**
  * @stable [28.11.2018]
  */
 export interface IVueBaseFileFieldTemplateMethods extends IVueFieldTemplateMethods {
-  onFilesSelect?(files: File[]): string[];
-  getDefaultDndMessage?(index?: number): string;
-  getAttachmentContentClassName?(index: number): string;
-  getPlaceholder?(index?: number): string;
+  onFilesSelect?(files: File[], entity: IMultiItemFileEntity | IEntity, index: number): string[];
+  getDefaultDndMessage?(entity: IMultiItemFileEntity | IEntity, index: number): string;
+  getCustomDndMessage?(entity: IMultiItemFileEntity | IEntity, index: number): string;
+  getAttachmentContentClassName?(entityOrEntityId: MultiItemEntityT, index: number): string;
+  getPlaceholder?(entityOrEntityId: MultiItemEntityT, index?: number): string;
   getViewerComponent?(file: File, index: number): string;
-  getViewerBindings?(...AnyT): IVueBaseFileViewerProps;
-  getViewerListeners?(...AnyT): IVueViewerListenersEntity<File>;
-  getFiles?(...AnyT): IEntity[];
+  getViewerBindings?(entityOrEntityId: MultiItemEntityT, index: number): IVueBaseFileViewerProps;
+  getViewerListeners?(entityOrEntityId: IMultiItemEntity, index: number): IVueViewerListenersEntity<File>;
+  getEntities?(): IEntity[];
+  canRenderAttachmentContent?(file: IMultiItemFileEntity | IEntity, index: number): boolean;
 }
 
 /**
@@ -37,6 +44,7 @@ export interface IVueBaseFileFieldProps extends IVueFieldProps,
                                                 IDefaultDndMessageWrapper,
                                                 IDefaultDndMessageFactoryWrapper<(index: number) => string>,
                                                 IPlaceholderFactoryWrapper<(index: number) => string> {
+  canRenderAttachment?: (entity: IMultiItemEntity, index: number) => boolean;
 }
 
 /**

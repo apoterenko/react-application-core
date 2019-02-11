@@ -4,16 +4,15 @@ import { Prop } from 'vue-property-decorator';
 import {
   isFn,
   isDef,
-  orDefault,
   isPrimitive,
   calc,
   defValuesFilter,
   orUndef,
-  coalesce,
+  nvl,
   ifNotNilReturnValue,
   toClassName,
 } from '../../../util';
-import { IEntity, AnyT } from '../../../definitions.interface';
+import { IEntity, AnyT, EntityIdT, IEntityIdTWrapper } from '../../../definitions.interface';
 import { IMultiItemEntity, MultiItemEntityT, IMultiItemFileEntity } from '../../../entities-definitions.interface';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
@@ -31,6 +30,7 @@ export class VueBaseFileField extends VueField
   @Prop() public readonly displayFileName: string;
   @Prop() public readonly displayFileFormat: string;
   @Prop() public readonly placeholderFactory: (index: number) => string;
+  @Prop() public readonly canRenderAttachment: (entity: IMultiItemEntity, index: number) => boolean;
   @Prop({default: (): number => 1}) public readonly maxFiles: number;
   @Prop() public readonly defaultDndMessage: string;
   @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
@@ -52,8 +52,11 @@ export class VueBaseFileField extends VueField
     this.getViewerListeners = this.getViewerListeners.bind(this);
     this.getViewerComponent = this.getViewerComponent.bind(this);
     this.getDefaultDndMessage = this.getDefaultDndMessage.bind(this);
+    this.getCustomDndMessage = this.getCustomDndMessage.bind(this);
     this.getPlaceholder = this.getPlaceholder.bind(this);
-    this.getFiles = this.getFiles.bind(this);
+    this.getEntities = this.getEntities.bind(this);
+    this.getAttachmentContentClassName = this.getAttachmentContentClassName.bind(this);
+    this.canRenderAttachmentContent = this.canRenderAttachmentContent.bind(this);
   }
 
   /**
@@ -65,39 +68,53 @@ export class VueBaseFileField extends VueField
   }
 
   /**
-   * @stable [16.12.2018]
+   * @stable [11.02.2019]
    * @param {File[]} files
+   * @param {IMultiItemFileEntity | IEntity} replacedEntity
+   * @param {number} index
    * @returns {string[]}
    */
-  public onFilesSelect(files: File[]): string[] {
+  public onFilesSelect(files: File[], replacedEntity: IMultiItemFileEntity | IEntity, index: number): string[] {
     return Array.from(files).map((file) => {
       const url = this.toFileUrl(file);
-      this.addFile(file, url);  // TODO Need to many files handling
+      if (R.isNil(replacedEntity)) {
+        this.addFile(file, url);
+      } else {
+        this.replaceFile(replacedEntity, file, url);
+      }
       return url;
     });
   }
 
   /**
-   * @stable [22.12.2018]
+   * @stable [12.02.2019]
+   * @param {IMultiItemFileEntity | IEntity} entity
    * @param {number} index
    * @returns {string}
    */
-  public getDefaultDndMessage(index: number): string {
-    return coalesce(
-      this.defaultDndMessage,
-      ifNotNilReturnValue(this.defaultDndMessageFactory, () => this.defaultDndMessageFactory(index)),
-      this.settings.messages.dndMessage
-    );
+  public getDefaultDndMessage(entity: IMultiItemFileEntity | IEntity, index: number): string {
+    return nvl(this.defaultDndMessage, this.settings.messages.dndMessage);
+  }
+
+  /**
+   * @stable [12.02.2019]
+   * @param {IMultiItemFileEntity | IEntity} entity
+   * @param {number} index
+   * @returns {string}
+   */
+  public getCustomDndMessage(entity: IMultiItemFileEntity | IEntity, index: number): string {
+    return ifNotNilReturnValue(this.defaultDndMessageFactory, () => this.defaultDndMessageFactory(index));
   }
 
   /**
    * [<Placeholder: optional> + <Default DnD message>]
    *
    * @stable [22.12.2018]
+   * @param {MultiItemEntityT} entityOrEntityId
    * @param {number} index
    * @returns {string}
    */
-  public getPlaceholder(index: number): string {
+  public getPlaceholder(entityOrEntityId: MultiItemEntityT, index: number): string {
     return isFn(this.placeholderFactory)
       ? this.placeholderFactory(index)
       : this.t(this.placeholder);
@@ -107,8 +124,18 @@ export class VueBaseFileField extends VueField
    * @stable [20.12.2018]
    * @returns {IEntity[]}
    */
-  public getFiles(): IEntity[] {
+  public getEntities(): IEntity[] {
     return [];
+  }
+
+  /**
+   * @stable [11.02.2019]
+   * @param {IMultiItemFileEntity | IEntity} entity
+   * @param {number} index
+   * @returns {boolean}
+   */
+  public canRenderAttachmentContent(entity: IMultiItemFileEntity | IEntity, index: number): boolean {
+    return isFn(this.canRenderAttachment) ? this.canRenderAttachment(entity, index) : R.isNil(entity);
   }
 
   /**
@@ -123,9 +150,9 @@ export class VueBaseFileField extends VueField
 
     const props: IVueBaseFileViewerProps = {
       ...viewerProps,
-      placeholder: this.getPlaceholder(index),
+      placeholder: this.getPlaceholder(entityOrEntityId, index),
       className: toClassName(
-        this.getAttachmentContentClassName(index),
+        this.toAttachmentContentClassName(entityOrEntityId, index),
         viewerProps && calc(viewerProps.className, multiItemEntity)
       ),
     };
@@ -154,14 +181,14 @@ export class VueBaseFileField extends VueField
 
   /**
    * @stable [16.12.2018]
-   * @param {IMultiItemEntity} fileEntity
+   * @param {MultiItemEntityT} entityOrEntityId
    * @param {number} index
    * @returns {IVueViewerListenersEntity<File>}
    */
-  public getViewerListeners(fileEntity: IMultiItemEntity, index: number): IVueViewerListenersEntity<File> {
+  public getViewerListeners(entityOrEntityId: IMultiItemEntity, index: number): IVueViewerListenersEntity<File> {
     return {
-      change: (file: File) => this.onFileChange(fileEntity, file),
-      remove: () => this.removeFile(fileEntity),
+      change: (file: File) => this.onFileChange(entityOrEntityId, file),
+      remove: () => this.removeFile(entityOrEntityId),
     };
   }
 
@@ -176,14 +203,15 @@ export class VueBaseFileField extends VueField
   }
 
   /**
-   * @stable [06.01.2019]
+   * @stable [11.02.2019]
+   * @param {MultiItemEntityT} entityOrEntityId
    * @param {number} index
    * @returns {string}
    */
-  public getAttachmentContentClassName(index: number): string {
+  public getAttachmentContentClassName(entityOrEntityId: MultiItemEntityT, index: number): string {
     return toClassName(
-      'vue-field-attachment-content',
-      this.getPlaceholder(index) && ' vue-field-attachment-content-with-placeholder'
+      this.toAttachmentContentClassName(entityOrEntityId, index),
+      !R.isNil(entityOrEntityId) && 'vue-field-attachment-content-with-entity'
     );
   }
 
@@ -202,42 +230,43 @@ export class VueBaseFileField extends VueField
   protected getFieldAttachmentTemplate(): string {
     return (
       `<div class="vue-field-attachment-wrapper">
-          <template v-for="(file, index) in getFiles()">
-            <component v-if="file"
-                       :is="getViewerComponent(file, index)"
-                       v-on="getViewerListeners(file, index)"
-                       v-bind="getViewerBindings(file, index)"/>
-            <vue-flex-layout v-if="!file"
+          <div v-for="(entity, index) in getEntities()"
+               class="vue-field-attachment-holder">
+            <component v-if="entity"
+                       :is="getViewerComponent(entity, index)"
+                       v-on="getViewerListeners(entity, index)"
+                       v-bind="getViewerBindings(entity, index)"/>
+            <vue-flex-layout v-if="canRenderAttachmentContent(entity, index)"
                              :row="true"
-                             :class="getAttachmentContentClassName(index)">
-                <vue-flex-layout v-if="getPlaceholder(index)"
+                             :class="getAttachmentContentClassName(entity, index)">
+                <vue-flex-layout v-if="getPlaceholder(entity, index)"
                                 :justifyContentCenter="true"
                                 :class="'vue-field-attachment-placeholder vue-field-attachment-placeholder-' + index">
-                    {{getPlaceholder(index)}}
+                    {{getPlaceholder(entity, index)}}
                 </vue-flex-layout>
                 <vue-flex-layout :class="'vue-field-attachment-dnd-message vue-field-attachment-dnd-message-' + index"
-                                 :full="!getPlaceholder(index)">
-                    <vue-dnd :defaultMessage="getDefaultDndMessage(index)"
-                             @select="onFilesSelect($event)"/>
+                                 :full="!getPlaceholder(entity, index)">
+                    <vue-dnd :defaultMessage="getDefaultDndMessage(entity, index)"
+                             :customMessage="getCustomDndMessage(entity, index)"
+                             @select="onFilesSelect($event, entity, index)"/>
                 </vue-flex-layout>
             </vue-flex-layout>
-          </template>
+          </div>
        </div>`
     );
   }
 
   /**
-   * @stable [16.12.2018]
-   * @param {IMultiItemEntity} fileEntity
+   * @stable [11.02.2019]
+   * @param {IMultiItemFileEntity | IEntity} entity
    * @param {File} file
    */
-  protected onFileChange(fileEntity: IMultiItemEntity, file: File): void {
+  protected onFileChange(entity: IMultiItemFileEntity | IEntity, file: File): void {
     const newFileUrl = this.toFileUrl(file);
-    if (fileEntity.newEntity) {
-      this.removeFile(fileEntity);
-      this.$nextTick(() => this.addFile(file, newFileUrl));
+    if ((entity as IMultiItemFileEntity).newEntity) {
+      this.replaceFile(entity, file, newFileUrl);
     } else {
-      this.multiFieldPlugin.onEditItem({id: fileEntity.id, name: this.displayName, value: newFileUrl});
+      this.multiFieldPlugin.onEditItem({id: entity.id, name: this.displayName, value: newFileUrl});
     }
   }
 
@@ -249,23 +278,23 @@ export class VueBaseFileField extends VueField
     return {
       ...super.getTemplateMethods(),
       onFilesSelect: this.onFilesSelect,
-      getFiles: this.getFiles,
+      getEntities: this.getEntities,
       getDefaultDndMessage: this.getDefaultDndMessage,
+      getCustomDndMessage: this.getCustomDndMessage,
       getAttachmentContentClassName: this.getAttachmentContentClassName,
       getPlaceholder: this.getPlaceholder,
       getViewerComponent: this.getViewerComponent,
       getViewerListeners: this.getViewerListeners,
       getViewerBindings: this.getViewerBindings,
+      canRenderAttachmentContent: this.canRenderAttachmentContent,
     } as TMethods;
   }
 
   protected getFileFormat(): AnyT {
     let fileFormatValue;
-    return orDefault(
-      isDef(this.bindStore) && !R.isNil(fileFormatValue = this.bindStore[this.displayFileFormat]),
-      fileFormatValue,
-      () => this.getValue()
-    );
+    return isDef(this.bindStore) && !R.isNil(fileFormatValue = this.bindStore[this.displayFileFormat])
+      ? fileFormatValue
+      : this.getValue();
   }
 
   /**
@@ -317,29 +346,53 @@ export class VueBaseFileField extends VueField
   }
 
   /**
-   * @stable [28.11.2018]
-   * @param {IMultiItemEntity} fileEntity
+   * @stable [11.02.2019]
+   * @param {IMultiItemFileEntity | IEntity | EntityIdT} entity
    */
-  private removeFile(fileEntity: IMultiItemEntity | string): void {
-    const fileId = fileEntity as string;
-    const multiItemEntity = fileEntity as IMultiItemEntity;
-
-    // TODO refactoring
-    if (isPrimitive(fileEntity)) {
-      this.multiFieldPlugin.onDeleteItem({id: fileId});
-      this.destroyFileUrl(fileId);
+  private removeFile(entity: IMultiItemFileEntity | IEntity | EntityIdT): void {
+    let url;
+    let deletedEntity: IEntityIdTWrapper;
+    if (isPrimitive(entity)) {
+      const fileId = entity as EntityIdT;
+      deletedEntity = {id: fileId};
+      url = fileId as string;
     } else {
-      this.multiFieldPlugin.onDeleteItem(multiItemEntity);
-      this.destroyFileUrl(multiItemEntity.id as string);
+      const multiItemEntity = entity as IMultiItemEntity;
+      deletedEntity = multiItemEntity;
+      url = multiItemEntity.id as string;
     }
+    this.multiFieldPlugin.onDeleteItem(deletedEntity);
+    this.destroyFileUrl(url);
   }
 
   private getFileName(): AnyT {
     let fileNameValue;
-    return orDefault(
-      isDef(this.bindStore) && !R.isNil(fileNameValue = this.bindStore[this.displayFileName]),
-      fileNameValue,
-      () => this.getValue()
+    return isDef(this.bindStore) && !R.isNil(fileNameValue = this.bindStore[this.displayFileName])
+      ? fileNameValue
+      : this.getValue();
+  }
+
+  /**
+   * @stable [11.02.2019]
+   * @param {MultiItemEntityT} entityOrEntityId
+   * @param {number} index
+   * @returns {string}
+   */
+  private toAttachmentContentClassName(entityOrEntityId: MultiItemEntityT, index: number): string {
+    return toClassName(
+      'vue-field-attachment-content',
+      this.getPlaceholder(entityOrEntityId, index) && ' vue-field-attachment-content-with-placeholder'
     );
+  }
+
+  /**
+   * @stable [11.02.2019]
+   * @param {IMultiItemFileEntity} entity
+   * @param {File} file
+   * @param {string} fileUrl
+   */
+  private replaceFile(entity: IMultiItemFileEntity, file: File, fileUrl: string): void {
+    this.removeFile(entity);
+    this.$nextTick(() => this.addFile(file, fileUrl));  // Flux-cycle
   }
 }

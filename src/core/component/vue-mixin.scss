@@ -239,6 +239,9 @@
  * @stable [06.01.2019]
  */
 @mixin vue-viewer-preview($vue-viewer-preview-custom: unset,
+                          $vue-viewer-preview-opacity: unset,
+                          $vue-viewer-preview-filter-name: unset,
+                          $vue-viewer-preview-filter-value: unset,
                           $vue-viewer-preview-position: unset,
                           $vue-viewer-preview-border-radius: unset,
                           $vue-viewer-preview-background-size: unset,
@@ -246,7 +249,16 @@
                           $vue-viewer-preview-background-position: unset) {
 
   #{rac-build-cls(vue-viewer-preview, $vue-viewer-preview-custom)} {
+
+    @if $vue-viewer-preview-filter-name != unset and $vue-viewer-preview-filter-value != unset {
+      @include rac-filter(
+        $rac-filter-value: $vue-viewer-preview-filter-value,
+        $rac-filter-name: $vue-viewer-preview-filter-name
+      );
+    }
+
     @include rac-styles(
+      $rac-styles-opacity: $vue-viewer-preview-opacity,
       $rac-styles-position: $vue-viewer-preview-position,
       $rac-styles-border-radius: $vue-viewer-preview-border-radius,
       $rac-styles-background-size: $vue-viewer-preview-background-size,
@@ -262,6 +274,9 @@
 @mixin vue-viewer($vue-viewer-custom: unset,
                   $vue-viewer-border: unset,
                   $vue-viewer-preview-custom: unset,
+                  $vue-viewer-preview-opacity: unset,
+                  $vue-viewer-preview-filter-name: unset,
+                  $vue-viewer-preview-filter-value: unset,
                   $vue-viewer-preview-border-radius: unset,
                   $vue-viewer-preview-background-size: unset,
                   $vue-viewer-preview-background-repeat: unset,
@@ -280,6 +295,9 @@
 
     @include vue-viewer-preview(
       $vue-viewer-preview-custom: $vue-viewer-preview-custom,
+      $vue-viewer-preview-opacity: $vue-viewer-preview-opacity,
+      $vue-viewer-preview-filter-name: $vue-viewer-preview-filter-name,
+      $vue-viewer-preview-filter-value: $vue-viewer-preview-filter-value,
       $vue-viewer-preview-border-radius: $vue-viewer-preview-border-radius,
       $vue-viewer-preview-background-size: $vue-viewer-preview-background-size,
       $vue-viewer-preview-background-repeat: $vue-viewer-preview-background-repeat,
@@ -373,16 +391,25 @@
                  $vue-field-input-wrapper-width: unset,
                  $vue-field-input-wrapper-position: unset,
                  $vue-field-attachment-wrapper-width: unset,
+                 $vue-field-attachment-holder-float: unset,
+                 $vue-field-attachment-holder-position: unset,
+                 $vue-field-attachment-content-cursor: unset,
                  $vue-field-attachment-content-border: unset,
                  $vue-field-attachment-content-width: unset,
                  $vue-field-attachment-content-height: unset,
                  $vue-field-attachment-content-margin: unset,
-                 $vue-field-attachment-content-float: unset,
                  $vue-field-attachment-content-border-radius: unset,
                  $vue-field-attachment-content-padding: unset,
                  $vue-field-attachment-content-picture-viewer-border: unset,
                  $vue-field-attachment-content-picture-viewer-preview-border-radius: unset,
                  $vue-field-attachment-content-picture-viewer-preview-attachment-position: unset,
+                 $vue-field-attachment-content-with-entity-position: unset,
+                 $vue-field-attachment-content-with-entity-cursor: unset,
+                 $vue-field-attachment-content-with-entity-top: unset,
+                 $vue-field-attachment-content-with-entity-left: unset,
+                 $vue-field-attachment-content-with-entity-border: unset,
+                 $vue-field-attachment-content-with-entity-dnd-message-background: unset,
+                 $vue-field-attachment-dnd-message-background: unset,
                  $vue-field-attachment-dnd-message-padding: unset,
                  $vue-field-attachment-dnd-message-font-size: unset,
                  $vue-field-attachment-dnd-message-background-repeat: unset,
@@ -420,9 +447,15 @@
     );
 
     @include rac-styles(
+      $rac-styles-custom: vue-field-attachment-holder,
+      $rac-styles-float: $vue-field-attachment-holder-float,
+      $rac-styles-position: $vue-field-attachment-holder-position
+    );
+
+    @include rac-styles(
       $rac-styles-custom: vue-field-attachment-content,
       $rac-styles-border: $vue-field-attachment-content-border,
-      $rac-styles-float: $vue-field-attachment-content-float,
+      $rac-styles-cursor: $vue-field-attachment-content-cursor,
       $rac-styles-width: $vue-field-attachment-content-width,
       $rac-styles-height: $vue-field-attachment-content-height,
       $rac-styles-margin: $vue-field-attachment-content-margin,
@@ -430,12 +463,30 @@
     );
 
     @include rac-styles(
-      $rac-styles-custom: 'vue-field-attachment-content.vue-field-attachment-content-with-placeholder',
+      $rac-styles-custom: rac-build-cls2(vue-field-attachment-content, vue-field-attachment-content-with-placeholder),
       $rac-styles-padding: $vue-field-attachment-content-padding
     );
 
+    .vue-field-attachment-content {
+      &.vue-field-attachment-content-with-entity {
+
+        @include rac-styles(
+          $rac-styles-cursor: $vue-field-attachment-content-with-entity-cursor,
+          $rac-styles-position: $vue-field-attachment-content-with-entity-position,
+          $rac-styles-top: $vue-field-attachment-content-with-entity-top,
+          $rac-styles-left: $vue-field-attachment-content-with-entity-left,
+          $rac-styles-border: $vue-field-attachment-content-with-entity-border
+        );
+
+        @include rac-styles(
+          $rac-styles-custom: vue-field-attachment-dnd-message,
+          $rac-styles-background: $vue-field-attachment-content-with-entity-dnd-message-background
+        );
+      }
+    }
+
     @include vue-viewer(
-      $vue-viewer-custom: 'vue-field-attachment-content.vue-picture-viewer',
+      $vue-viewer-custom: rac-build-cls2(vue-field-attachment-content, vue-picture-viewer),
       $vue-viewer-border: $vue-field-attachment-content-picture-viewer-border,
       $vue-viewer-preview-border-radius: $vue-field-attachment-content-picture-viewer-preview-border-radius,
       $vue-viewer-preview-attachment-position: $vue-field-attachment-content-picture-viewer-preview-attachment-position
@@ -460,6 +511,7 @@
 
     @include rac-styles(
       $rac-styles-custom: vue-field-attachment-dnd-message,
+      $rac-styles-background: $vue-field-attachment-dnd-message-background,
       $rac-styles-background-position: $vue-field-attachment-dnd-message-background-position,
       $rac-styles-background-repeat: $vue-field-attachment-dnd-message-background-repeat,
       $rac-styles-padding: $vue-field-attachment-dnd-message-padding,
