@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
+import { isDef, isFn, isUndef, orDefault, nvl, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
@@ -401,25 +401,28 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @returns {AnyT}
    */
   protected toDisplayValue(value: AnyT): AnyT {
-    return orDefault(
-      this.inProgress() || !this.isValuePresent(value),
-      FIELD_DISPLAY_EMPTY_VALUE,  // The dictionaries data is cleaned before request
-      () => this.tryCalcDisplayValue(value)
-    );
+    return this.inProgress() || !this.isValuePresent(value)
+      ? FIELD_DISPLAY_EMPTY_VALUE  // The dictionaries data is cleaned before request
+      : this.getDecoratedValue(value);
   }
 
   /**
-   * @stable [07.01.2019]
+   * @stable [12.02.2019]
    * @param {AnyT} value
+   * @param {boolean} returnDisplayValue
    * @returns {AnyT}
    */
-  protected tryCalcDisplayValue(value: AnyT): AnyT {
+  protected getDecoratedValue(value: AnyT, returnDisplayValue = true): AnyT {
     const props = this.props;
     const displayValue = props.displayValue;
-
-    return this.hasDisplayValue
-      ? isFn(displayValue) ? calc(displayValue, this.prepareValueBeforeDisplaying(value)) : displayValue
-      : this.prepareValueBeforeDisplaying(value);
+    const decoratedValue = this.decorateValueBeforeDisplaying(value);
+    return isFn(displayValue)
+      ? calc(displayValue, decoratedValue)
+      : (
+        returnDisplayValue
+          ? (R.isNil(displayValue) ? decoratedValue : this.decorateValueBeforeDisplaying(displayValue))
+          : decoratedValue
+      );
   }
 
   /**
@@ -435,7 +438,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
    * @param {AnyT} value
    * @returns {AnyT}
    */
-  protected prepareValueBeforeDisplaying(value: AnyT): AnyT {
+  protected decorateValueBeforeDisplaying(value: AnyT): AnyT {
     return value;
   }
 

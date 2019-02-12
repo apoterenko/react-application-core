@@ -87,6 +87,8 @@ export abstract class UniversalLayoutViewBuilder<TNode> implements ILayoutViewBu
     switch (config.factor) {
       case LayoutBuilderFactorEnum.FACTOR_0_5:
         return 'rac-flex-half';
+      case LayoutBuilderFactorEnum.FACTOR_0_75:
+        return 'rac-flex-three-quarters';
       case LayoutBuilderFactorEnum.FACTOR_2:
         return 'rac-flex-full-x2';
       case LayoutBuilderFactorEnum.FACTOR_4:

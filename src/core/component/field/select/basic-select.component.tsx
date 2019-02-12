@@ -5,16 +5,11 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 import { cancelEvent, toClassName, isDef, getWidth, toType } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
-import {
-  AnyT,
-  EntityIdT,
-  IKeyboardEvent,
-} from '../../../definitions.interface';
+import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
-import { FIELD_DISPLAY_EMPTY_VALUE } from '../../field/field/field.interface';
 
 export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
                          TProps extends IBasicSelectProps,
@@ -164,25 +159,23 @@ export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TSta
   }
 
   /**
-   * @stable [19.12.2018]
+   * @stable [12.02.2019]
    * @param {AnyT} value
-   * @returns {EntityIdT}
+   * @returns {AnyT}
    */
-  protected toDisplayValue(value: AnyT): EntityIdT {
-    if (this.inProgress()) {
-      return FIELD_DISPLAY_EMPTY_VALUE;
+  protected getDecoratedValue(value: AnyT): AnyT {
+    const statedDisplayValue = this.state.displayValue;
+    if (!R.isNil(statedDisplayValue)) {
+      return super.getDecoratedValue(statedDisplayValue, false);
     }
-    const selectedDisplayValue = this.state.displayValue;
-    if (!R.isNil(selectedDisplayValue)) {
-      return this.tryCalcDisplayValue(this.t(selectedDisplayValue));
-    }
-    const selectedOptionItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
-    return R.isNil(selectedOptionItem)
-      ? super.toDisplayValue(value)
-      : this.tryCalcDisplayValue(
-          R.isNil(selectedOptionItem.label)
-            ? selectedOptionItem.value
-            : this.t(selectedOptionItem.label)
+    const selectedItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
+    return R.isNil(selectedItem)
+      ? super.getDecoratedValue(value)
+      : super.getDecoratedValue(
+        R.isNil(selectedItem.label)
+          ? selectedItem.value
+          : this.t(selectedItem.label),
+        false
       );
   }
 

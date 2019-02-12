@@ -121,7 +121,7 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
    * @param {AnyT} value
    * @returns {string}
    */
-  protected prepareValueBeforeDisplaying(value: DateTimeLikeTypeT): string {
+  protected decorateValueBeforeDisplaying(value: DateTimeLikeTypeT): string {
     return this.formatDate(value);
   }
 

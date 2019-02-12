@@ -159,7 +159,7 @@ export class BaseFileField<TComponent extends BaseFileField<TComponent, TProps, 
    * @param {AnyT} value
    * @returns {string}
    */
-  protected prepareValueBeforeDisplaying(value: AnyT): string {
+  protected decorateValueBeforeDisplaying(value: AnyT): string {
     const len = this.multiFieldPlugin.getActiveValueLength(value);
     return this.printfDisplayMessage(len > 0, len);
   }

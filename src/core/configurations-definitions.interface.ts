@@ -851,6 +851,7 @@ export const LAYOUT_BUILDER_TYPES = {
 /* @stable - 16.04.2018 */
 export enum LayoutBuilderFactorEnum {
   FACTOR_0_5,
+  FACTOR_0_75,
   FACTOR_1,
   FACTOR_2,
   FACTOR_4,
@@ -860,6 +861,7 @@ export enum LayoutBuilderFactorEnum {
 /* @stable - 16.04.2018 */
 export const LAYOUT_BUILDER_FACTOR_TYPES = {
   FACTOR_0_5: LayoutBuilderFactorEnum.FACTOR_0_5,
+  FACTOR_0_75: LayoutBuilderFactorEnum.FACTOR_0_75,
   FACTOR_1: LayoutBuilderFactorEnum.FACTOR_1,
   FACTOR_2: LayoutBuilderFactorEnum.FACTOR_2,
   FACTOR_4: LayoutBuilderFactorEnum.FACTOR_4,
