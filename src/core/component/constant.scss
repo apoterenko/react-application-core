@@ -46,9 +46,11 @@ $rac-default-hover-background: $color-10 !default;
 $rac-default-border-radius: 2px !default;
 $rac-default-logo-toolbar-size: 56px !default;
 $rac-default-letter-spacing: 0 !default;
-$rac-default-action-icon-size: 14px !default;
 $rac-default-icon-size: 16px !default;
 $rac-default-selected-background: $color-8 !default;
+
+/* @stable [12.02.2019] */
+$rac-action-icon-size: $rac-default-icon-size !default;
 
 /* @stable [21.09.2018] */
 $html-overflow: hidden !default;
@@ -191,11 +193,12 @@ $rac-list-item-selected-background: $rac-default-selected-background !default;
 $rac-list-item-odd-background: $color-22 !default;
 
 /* @stable [13.09.2018] */
-$rac-navigation-list-group-subheader-expand-icon-color: $color-5 !default;
-$rac-navigation-list-group-subheader-icon-color: $color-5 !default;
-$rac-navigation-list-group-subheader-text-transform: uppercase !default;
-$rac-navigation-list-group-subheader-font-weight: $rac-default-font-weight-2 !default;
-$rac-navigation-list-group-subheader-font-size: $rac-default-font-size !default;
+$rac-navigation-list-group-expand-icon-size: 12px !default;
+$rac-navigation-list-group-expand-icon-color: $color-5 !default;
+$rac-navigation-list-group-icon-color: $color-5 !default;
+$rac-navigation-list-group-text-transform: uppercase !default;
+$rac-navigation-list-group-font-weight: $rac-default-font-weight-2 !default;
+$rac-navigation-list-group-font-size: $rac-default-font-size !default;
 $rac-navigation-list-item-color: $color-5 !default;
 $rac-navigation-list-item-font-size: $rac-default-font-size !default;
 $rac-navigation-list-item-letter-spacing: $rac-default-letter-spacing !default;
@@ -206,7 +209,6 @@ $rac-navigation-list-item-active-background-color: $color-1 !default;
 $rac-navigation-list-item-word-break: break-word !default;
 $rac-navigation-list-item-hover-background-color: $color-1 !default;
 $rac-navigation-list-item-icon-color: $color-5 !default;
-$rac-navigation-list-item-icon-size: $rac-default-icon-size !default;
 $rac-navigation-list-divider-display: block !default;
 
 /* @stable [22.06.2018] */
@@ -245,7 +247,7 @@ $rac-grid-data-row-selected-font-weight: $rac-default-font-weight !default;
 $rac-grid-data-row-grouped-font-weight: $rac-default-font-weight !default;
 $rac-grid-data-row-grouped-background: unset !default;
 $rac-grid-data-row-group-expanded-background: $color-4 !default;
-$rac-grid-data-row-group-expanded-icon-margin-right: 4px !default;
+$rac-grid-data-row-group-expanded-icon-color: $rac-default-color-0-0 !default;
 $rac-grid-data-row-grouped-color: $rac-default-text-color !default;
 $rac-grid-data-row-hover-background: $rac-default-hover-background !default;
 $rac-grid-row-padding: 8px 16px !default;
@@ -577,9 +579,6 @@ $rac-default-layout-drawer-toolbar-spacer-cursor: pointer !default;
 $rac-default-layout-drawer-toolbar-spacer-height: $rac-default-logo-toolbar-size !default;
 $rac-default-layout-drawer-toolbar-spacer-color: $color-5 !default;
 $rac-default-layout-drawer-toolbar-spacer-background: $color-7 !default;
-$rac-default-layout-drawer-toolbar-spacer-logo-menu-action-color: $color-5 !default;
-$rac-default-layout-drawer-toolbar-spacer-logo-menu-action-outline: 1px solid $color-5 !default;
-$rac-default-layout-drawer-toolbar-spacer-logo-menu-action-margin-right: 16px !default;
 $rac-default-layout-drawer-width: 220px !default;
 $rac-default-layout-drawer-mini-width: 48px !default;
 $rac-default-layout-drawer-navigation-list-group-subheader-height: 40px !default;
@@ -587,6 +586,8 @@ $rac-default-layout-drawer-navigation-list-item-height: 32px !default;
 $rac-default-layout-drawer-navigation-list-icon-width: 48px !default;
 $rac-default-layout-notifications-width: 400px !default;
 $rac-default-layout-notifications-background: $color-3 !default;
+$rac-default-layout-logo-menu-icon-margin-right: $rac-default-offset !default;
+$rac-default-layout-logo-menu-icon-color: $color-5 !default;
 
 /* @stable [25.09.2018] */
 $rac-chart-canvas-wrapper-width: 93% !default;           /* @magic [need to resize canvas smoothly] @stable [25.09.2018] */

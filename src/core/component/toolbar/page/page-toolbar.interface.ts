@@ -4,7 +4,7 @@ import {
 } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
-  IUniversalComponentConfiguration,
+  IReactComponentConfiguration,
   IWebComponentConfiguration,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
@@ -20,7 +20,7 @@ export interface IUniversalPageToolbarEntity extends IPaginatedEntity,
 /**
  * @stable [16.05.2018]
  */
-export interface IUniversalPageToolbarConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalPageToolbarConfiguration extends IReactComponentConfiguration,
                                                             INavigationHandlersConfiguration {
 }
 

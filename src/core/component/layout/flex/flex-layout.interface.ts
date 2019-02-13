@@ -8,7 +8,7 @@ import {
   IWrapWrapper,
   IOverflowMinContentHeightWrapper,
 } from '../../../definitions.interface';
-import { IOnClickWrapper } from '../../../react-definitions.interface';
+import { IReactOnClickWrapper } from '../../../react-definitions.interface';
 import { IGenericFlexLayoutEntity } from '../../../definition';
 
 /**
@@ -16,7 +16,7 @@ import { IGenericFlexLayoutEntity } from '../../../definition';
  */
 export interface IFlexLayoutProps extends IComponentProps,
                                           IGenericFlexLayoutEntity,
-                                          IOnClickWrapper,
+                                          IReactOnClickWrapper,
                                           IFullSizeWrapper,
                                           ISeparatorWrapper,
                                           IFullWrapper,

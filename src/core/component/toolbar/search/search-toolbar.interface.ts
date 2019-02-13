@@ -1,6 +1,6 @@
 import {
   IFilterConfiguration,
-  IUniversalComponentConfiguration,
+  IReactComponentConfiguration,
   IUniversalContainerConfiguration,
   IFilterConfigurationWrapper,
   IWebComponentConfiguration,
@@ -25,7 +25,7 @@ import { IOnActionClickWrapper } from '../../../react-definitions.interface';
 /**
  * @stable [13.09.2018]
  */
-export interface IUniversalSearchToolbarConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalSearchToolbarConfiguration extends IReactComponentConfiguration,
                                                               IFilterConfiguration,
                                                               IOnActivateWrapper,
                                                               IOnDeactivateWrapper,

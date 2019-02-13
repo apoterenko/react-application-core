@@ -62,7 +62,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                       row={true}
                       alignItemsCenter={true}
                       className={toClassName(
-                        'rac-navigation-list-group-subheader',
+                        'rac-navigation-list-group',
                         isGroupItemActive
                           ? 'rac-navigation-list-item-active'
                           : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
@@ -71,7 +71,7 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
                       onClick={() => this.onGroupLinkClick(item)}>
             {this.uiFactory.makeIcon({
               key: this.toUniqueKey(item.label, 'group-icon'),
-              type: item.icon || 'list_ul',
+              type: item.icon || 'list',
               className: 'rac-navigation-list-icon',
             })}
             {
@@ -85,8 +85,8 @@ export class NavigationList extends BaseComponent<NavigationList, INavigationLis
               () => (
                 this.uiFactory.makeIcon({
                   key: this.toUniqueKey(item.label, 'group-expand-icon'),
-                  type: isExpanded ? 'chevron_up' : 'chevron_down',
-                  className: 'rac-navigation-list-group-subheader-expand-icon rac-navigation-list-icon',
+                  type: isExpanded ? 'dropdown-opened' : 'dropdown',
+                  className: 'rac-navigation-list-group-expand-icon rac-navigation-list-icon',
                 })
               )
             )}

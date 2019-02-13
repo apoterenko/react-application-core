@@ -4,8 +4,8 @@ import { Button, Icon } from 'native-base';
 
 import { orNull } from '../../util';
 import { UniversalComponent } from '../base/universal.component';
-import { IRnButtonProps } from './button.interface';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
+import { IRnButtonProps } from '../../definition';
 
 export class RnButton extends UniversalComponent<RnButton, IRnButtonProps> {
 

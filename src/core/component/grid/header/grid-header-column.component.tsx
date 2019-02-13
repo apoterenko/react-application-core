@@ -1,21 +1,22 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { SortDirectionEnum } from '../../../entities-definitions.interface';
-import { nvl, orUndef, orNull, cancelEvent } from '../../../util';
+import { nvl, orNull, cancelEvent, isFn } from '../../../util';
 import { IGridHeaderColumnProps } from './grid-header-column.interface';
 import { BaseGridColumn } from '../base-column';
+import { FlexLayout } from '../../layout';
 
 export class GridHeaderColumn extends BaseGridColumn<GridHeaderColumn, IGridHeaderColumnProps> {
 
   /**
-   * @stable [05.04.2018]
+   * @stable [12.02.2019]
    * @param {IGridHeaderColumnProps} props
    */
   constructor(props: IGridHeaderColumnProps) {
     super(props);
-    this.onHeaderColumnClick = this.onHeaderColumnClick.bind(this);
+    this.onAscSortDirectionClick = this.onAscSortDirectionClick.bind(this);
+    this.onDescSortDirectionClick = this.onDescSortDirectionClick.bind(this);
   }
 
   /**
@@ -34,46 +35,69 @@ export class GridHeaderColumn extends BaseGridColumn<GridHeaderColumn, IGridHead
               props.useSorting && 'rac-grid-sorted-column',
               'rac-no-user-select',
               props.headerClassName
-            )}
-            onClick={
-              orUndef<(payload: IBasicEvent) => void>(props.useSorting, () => this.onHeaderColumnClick)
-            }
-        >
-          {this.getColumnContentElement()}
-          {
-            orNull<JSX.Element>(
-              props.useSorting,
-              () => (
-                this.uiFactory.makeIcon({
-                  // Prevent text jumping
-                  className: `rac-grid-column-direction ${R.isNil(props.direction) ? 'rac-visibility-hidden' : ''}`,
-                  type: props.direction === SortDirectionEnum.ASC
-                    ? 'arrow_downward'
-                    : 'arrow_upward',
-                })
+            )}>
+          <FlexLayout
+            row={true}
+            alignItemsCenter={true}
+            justifyContentCenter={true}>
+            {this.getColumnContentElement()}
+            {
+              orNull<JSX.Element>(
+                props.useSorting,
+                () => (
+                  <React.Fragment>
+                    {
+                      this.uiFactory.makeIcon({
+                        className: 'rac-grid-column-sorter-icon',
+                        type: 'bottom',
+                        onClick: this.onDescSortDirectionClick,
+                      })
+                    }
+                    {
+                      this.uiFactory.makeIcon({
+                        className: 'rac-grid-column-sorter-icon',
+                        type: 'top',
+                        onClick: this.onAscSortDirectionClick,
+                      })
+                    }
+                  </React.Fragment>
+                )
               )
-            )
-          }
+            }
+          </FlexLayout>
         </th>
       )
     );
   }
 
   /**
-   * @stable - 05.04.2018
+   * @stable [12.02.2019]
    * @param {IBasicEvent} event
    */
-  private onHeaderColumnClick(event: IBasicEvent): void {
+  private onAscSortDirectionClick(event: IBasicEvent): void {
     cancelEvent(event);
 
     const props = this.props;
-
-    if (props.onClick) {
-      props.onClick({
+    if (isFn(this.onDescSortDirectionClick)) {
+      props.onSortingDirectionChange({
         name: props.name,
-        direction: props.direction === SortDirectionEnum.ASC
-          ? SortDirectionEnum.DESC
-          : SortDirectionEnum.ASC,
+        direction: orNull(props.direction !== SortDirectionEnum.ASC, SortDirectionEnum.ASC),
+      });
+    }
+  }
+
+  /**
+   * @stable [12.02.2019]
+   * @param {IBasicEvent} event
+   */
+  private onDescSortDirectionClick(event: IBasicEvent): void {
+    cancelEvent(event);
+
+    const props = this.props;
+    if (isFn(this.onDescSortDirectionClick)) {
+      props.onSortingDirectionChange({
+        name: props.name,
+        direction: orNull(props.direction !== SortDirectionEnum.DESC, SortDirectionEnum.DESC),
       });
     }
   }

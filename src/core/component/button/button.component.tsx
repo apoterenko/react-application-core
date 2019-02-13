@@ -3,9 +3,9 @@ import * as R from 'ramda';
 
 import { BaseComponent } from '../../component/base';
 import { toClassName } from '../../util';
-import { IButtonProps } from './button.interface';
 import { Link } from '../../component/link';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
+import { IButtonProps } from '../../definition';
 
 export class Button extends BaseComponent<Button, IButtonProps> {
 

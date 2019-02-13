@@ -1,9 +1,28 @@
 import * as R from 'ramda';
 
-import { calc, join, normalizeTime, orNull, orUndef, toClassName, defValuesFilter } from '../../util';
-import { GridColumnConfigurationT } from '../../configurations-definitions.interface';
-import { UNI_CODES } from '../../definitions.interface';
-import { ITimeGridBuilderConfigEntity } from './grid.interface';
+import {
+  calc,
+  join,
+  normalizeTime,
+  orNull,
+  orUndef,
+  toClassName,
+  defValuesFilter,
+  isFn,
+  queryFilter,
+} from '../../util';
+import {
+  GridColumnConfigurationT,
+  IGridColumnConfiguration,
+  IGridFilterConfiguration,
+} from '../../configurations-definitions.interface';
+import { UNI_CODES, IEntity } from '../../definitions.interface';
+import {
+  IGridState,
+  ITimeGridBuilderConfigEntity,
+} from './grid.interface';
+import { SortDirectionEnum } from '../../entities-definitions.interface';
+import { IGridProps } from '../../props-definitions.interface';
 
 const MINUTES_PER_HOUR = 60;
 const HOURS_PER_DAY = 24;
@@ -122,4 +141,52 @@ export const buildTimeGridColumns = (
       );
     })
     .filter((item) => !R.isNil(item));
+};
+
+/**
+ * @stable [12.02.2019]
+ * @param {IGridColumnConfiguration} column
+ * @param {IGridProps} props
+ * @returns {SortDirectionEnum}
+ */
+export const getGridColumnSortDirection = (column: IGridColumnConfiguration,
+                                           props: IGridProps): SortDirectionEnum =>
+  props.directions[column.name];
+
+// TODO Need add the tests
+export const filterAndSortGridOriginalDataSource = (source: IEntity[],
+                                                    columns: IGridColumnConfiguration[],
+                                                    props: IGridProps,
+                                                    state: IGridState): IEntity[] => {
+  if (R.isNil(source)) {
+    return source;
+  }
+  if (props.useLocalSorting) {
+    const sorters = columns
+      .filter((column) => isFn(column.sorter) && !R.isNil(getGridColumnSortDirection(column, props)))
+      .map((column) => (entity1, entity2) =>
+        column.sorter(entity1, entity2) * (getGridColumnSortDirection(column, props) === 0 ? 1 : -1));
+    if (sorters.length > 0) {
+      source = R.sortWith(sorters, source);
+    }
+  }
+  if (props.useLocalFiltering) {
+    const filterChanges = state.filterChanges;
+    const changedColumns = Object.keys(filterChanges);
+    const defaultLocalFilter = (cfg: IGridFilterConfiguration) =>
+      queryFilter(cfg.query, cfg.entity[cfg.columnName]);
+
+    if (changedColumns.length > 0) {
+      source = source.filter((entity) => {
+        let result = true;
+        changedColumns.forEach((columnName) => {
+          const query = filterChanges[columnName];
+          const column = columns.find((column0) => column0.name === columnName);
+          result = result && (isFn(column.localFilter) ? column.localFilter : defaultLocalFilter)({query, columnName, entity});
+        });
+        return result;
+      });
+    }
+  }
+  return source;
 };

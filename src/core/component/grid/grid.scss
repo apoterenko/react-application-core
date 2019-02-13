@@ -38,6 +38,7 @@
     $rac-grid-column-edited-content-after-font-size: $rac-grid-column-edited-content-after-font-size,
     $rac-grid-column-edited-content-after-content: $rac-grid-column-edited-content-after-content,
     $rac-grid-column-edited-content-after-color: $rac-grid-column-edited-content-after-color,
+    $rac-grid-data-row-group-expanded-icon-color: $rac-grid-data-row-group-expanded-icon-color,
     $rac-grid-data-row-selectable-cursor: pointer,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
     $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
@@ -51,6 +52,19 @@
     $rac-grid-body-column-padding-top: $rac-tight-grid-body-column-padding-top,
     $rac-grid-body-column-padding-bottom: $rac-tight-grid-body-column-padding-bottom
   );
+
+  .rac-grid-column-sorter-icon { // TODO use rac-icon
+    background: rgba(255, 255, 255, .5);
+    border-radius: 8px;
+
+    &.rac-action-icon {
+      color: white;
+      svg {
+        max-width: 8px;
+        max-height: 8px;
+      }
+    }
+  }
 
   .rac-grid {
 
@@ -126,11 +140,6 @@
         padding-top: $rac-grid-head-column-padding-top;         /* @stable [15.09.2018] */
         padding-bottom: $rac-grid-head-column-padding-bottom;   /* @stable [15.09.2018] */
 
-        .rac-grid-column-direction {
-          margin-left: 4px;                                     /* @stable - 05.04.2018 */
-          vertical-align: bottom;                               /* @stable - 05.04.2018 */
-        }
-
         .rac-grid-column-content {
           white-space: normal;                                      /* @stable [17.08.2018] */
           font-size: $rac-grid-head-column-content-font-size;       /* @stable [26.09.2018] */
@@ -168,11 +177,6 @@
 
           &.rac-grid-data-row-group-expanded {
             background: $rac-grid-data-row-group-expanded-background;           /* @stable [10.10.2018] */
-          }
-
-          .rac-grid-data-row-group-expanded-icon {
-            margin-right: $rac-grid-data-row-group-expanded-icon-margin-right;  /* @stable [10.10.2018] */
-            flex-shrink: 0;                                                     /* @stable [10.10.2018] */
           }
         }
 

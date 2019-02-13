@@ -1,12 +1,24 @@
+@import '../../mixin';
 @import '../../constant';
 
-// Navigation list [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-navigation-list {
-    overflow: auto;                                                                     /* @stable [23.09.2018] */
+  .rac-navigation-list {                                                                      /* @stable [13.02.2019] */
+    @include rac-styles(
+      $rac-styles-overflow: auto
+    );
 
-    .rac-navigation-list-group-subheader,
+    @include rac-icon(
+      $rac-icon-custom: rac-navigation-list-group-expand-icon,
+      $rac-icon-size: $rac-navigation-list-group-expand-icon-size
+    );
+  }
+
+
+
+  .rac-navigation-list {
+
+    .rac-navigation-list-group,
       .rac-navigation-list-item {
 
       color: $rac-navigation-list-item-color;                                           /* @stable [23.09.2018] */
@@ -20,7 +32,7 @@
         .rac-icon {
           color: $rac-navigation-list-item-active-color;                                /* @stable [26.09.2018] */
 
-          &.rac-navigation-list-group-subheader-expand-icon {
+          &.rac-navigation-list-group-expand-icon {
             color: $rac-navigation-list-item-active-color;                              /* @stable [27.09.2018] */
           }
         }
@@ -39,28 +51,23 @@
       &:hover {
         outline: $rac-navigation-list-item-hover-outline;                               /* @stable [26.09.2018] */
       }
-
-      .rac-icon, svg {
-        height: $rac-navigation-list-item-icon-size;                                    /* @stable [23.09.2018] */
-        width: $rac-navigation-list-item-icon-size;                                     /* @stable [23.09.2018] */
-      }
     }
 
-    .rac-navigation-list-group-subheader {
+    .rac-navigation-list-group {
       cursor: pointer;                                                                  /* @stable [23.09.2018] */
-      text-transform: $rac-navigation-list-group-subheader-text-transform;              /* @stable [23.09.2018] */
-      font-weight: $rac-navigation-list-group-subheader-font-weight;                    /* @stable [23.09.2018] */
-      font-size: $rac-navigation-list-group-subheader-font-size;                        /* @stable [23.09.2018] */
+      text-transform: $rac-navigation-list-group-text-transform;              /* @stable [23.09.2018] */
+      font-weight: $rac-navigation-list-group-font-weight;                    /* @stable [23.09.2018] */
+      font-size: $rac-navigation-list-group-font-size;                        /* @stable [23.09.2018] */
 
-      .rac-navigation-list-group-subheader-expand-icon {
+      .rac-navigation-list-group-expand-icon {
 
         &.rac-icon {
-          color: $rac-navigation-list-group-subheader-expand-icon-color;                /* @stable [23.09.2018] */
+          color: $rac-navigation-list-group-expand-icon-color;                /* @stable [23.09.2018] */
         }
       }
 
       .rac-icon {
-        color: $rac-navigation-list-group-subheader-icon-color;                         /* @stable [26.09.2018] */
+        color: $rac-navigation-list-group-icon-color;                         /* @stable [26.09.2018] */
       }
     }
 
@@ -68,12 +75,12 @@
       font-size: $rac-navigation-list-item-font-size;                                   /* @stable [23.09.2018] */
 
       &.rac-navigation-list-item-as-group {
-        text-transform: $rac-navigation-list-group-subheader-text-transform;            /* @stable [23.09.2018] */
-        font-weight: $rac-navigation-list-group-subheader-font-weight;                  /* @stable [23.09.2018] */
-        font-size: $rac-navigation-list-group-subheader-font-size;                      /* @stable [23.09.2018] */
+        text-transform: $rac-navigation-list-group-text-transform;            /* @stable [23.09.2018] */
+        font-weight: $rac-navigation-list-group-font-weight;                  /* @stable [23.09.2018] */
+        font-size: $rac-navigation-list-group-font-size;                      /* @stable [23.09.2018] */
 
         .rac-icon {
-          color: $rac-navigation-list-group-subheader-icon-color;                       /* @stable [26.09.2018] */
+          color: $rac-navigation-list-group-icon-color;                       /* @stable [26.09.2018] */
         }
       }
 

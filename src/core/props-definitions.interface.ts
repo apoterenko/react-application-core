@@ -19,20 +19,18 @@ import {
   IUniversalContainerConfiguration,
   IGridConfiguration,
   IUniversalListConfiguration,
-  IUniversalComponentConfiguration,
+  IReactComponentConfiguration,
   IComponentConfiguration,
   IUniversalFieldConfiguration,
-  IUniversalButtonConfiguration,
   ITabPanelConfiguration,
   IGridColumnConfiguration,
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
-import { IUniversalButtonEntity } from './definition';
 
 /**
  * @stable [09.05.2018]
  */
-export interface IUniversalComponentProps extends IUniversalComponentConfiguration {
+export interface IUniversalComponentProps extends IReactComponentConfiguration {
 }
 
 /**
@@ -99,13 +97,6 @@ export interface IRnListProps extends IRnListEntity,
  */
 export interface IGridProps extends IGridEntity,
                                     IGridConfiguration {
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IUniversalButtonProps extends IUniversalButtonConfiguration,
-                                               IUniversalButtonEntity {
 }
 
 /**

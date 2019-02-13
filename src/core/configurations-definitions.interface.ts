@@ -165,7 +165,6 @@ import {
   IProfileWrapper,
   IProgressWrapper,
   IQueryWrapper,
-  IRaisedWrapper,
   IReadOnlyWrapper,
   IRegisterWrapper,
   IRenderedWrapper,
@@ -212,7 +211,6 @@ import {
   IUseHeaderWrapper,
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
-  IUseLocalFilteringWrapper,
   IUseResetButtonWrapper,
   IUseServiceWrapper,
   IUseSortingWrapper,
@@ -238,11 +236,12 @@ import {
 import { IGridColumnProps } from './props-definitions.interface';
 import {
   IBasicEvent,
-  IOnClickWrapper,
+  IReactOnClickWrapper,
   IOnColumnClickWrapper,
   IOnEmptyMessageClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
+import { IButtonProps } from './definition';
 
 /**
  * @stable [26.08.2018]
@@ -254,7 +253,7 @@ export interface IFieldsConfigurationsWrapper<TFieldsConfigurations = IFieldsCon
 /**
  * @stable [16.06.2018]
  */
-export interface IButtonConfigurationWrapper<TButtonConfiguration = IButtonConfiguration> {
+export interface IButtonConfigurationWrapper<TButtonConfiguration = IButtonProps> {
   buttonConfiguration?: TButtonConfiguration;
 }
 
@@ -391,7 +390,7 @@ export interface IWebContainerConfiguration extends IWebComponentConfiguration {
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalComponentConfiguration
+export interface IReactComponentConfiguration
   extends React.ClassAttributes<AnyT>,
           ITitleWrapper,
           IOnScrollWrapper<IXYEntity>,
@@ -417,7 +416,7 @@ export interface IContainerConfiguration extends IUniversalContainerConfiguratio
 /**
  * @stable [24.04.2018]
  */
-export interface IUniversalListItemConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalListItemConfiguration extends IReactComponentConfiguration,
                                                          IRendererWrapper,
                                                          IIndexWrapper,
                                                          ITplFnWrapper,
@@ -453,14 +452,13 @@ export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEnt
 /* @stable [23.04.2018] */
 export interface IUniversalListConfiguration
     <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
-  extends IUniversalComponentConfiguration,
+  extends IReactComponentConfiguration,
           IFilterAndSorterConfiguration,
           IEmptyMessageWrapper,
           IEmptyDataMessageWrapper,
-          IUseLocalFilteringWrapper,
           IUseAddActionWrapper,
           IEmptyMessageActionWrapper,
-          IEmptyMessageActionConfigurationWrapper<IButtonConfiguration>,
+          IEmptyMessageActionConfigurationWrapper<IButtonProps>,
           IOnCreateWrapper,
           IOnSelectWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
@@ -477,6 +475,8 @@ export interface IUniversalListConfiguration
             columnName: string,
             groupValue: GroupValueRendererT | GroupValueRendererT[]
           }> {
+  useLocalFiltering?: boolean;
+  useLocalSorting?: boolean;
 }
 
 /* @stable [24.04.2018] */
@@ -496,7 +496,7 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
 /**
  * @stable [04.08.2018]
  */
-export interface IUniversalFormConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalFormConfiguration extends IReactComponentConfiguration,
                                                      INotUseActionsWrapper,
                                                      IUseResetButtonWrapper,
                                                      IEditableWrapper,
@@ -538,7 +538,7 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   IColumnClassNameWrapper<string | ((props: IGridColumnProps) => string)>,
                                                   IColumnRenderedWrapper,
                                                   ILocalFilterFnWrapper<IGridFilterConfiguration>,
-                                                  IOnClickWrapper<ISortDirectionEntity>,
+                                                  IReactOnClickWrapper<ISortDirectionEntity>,
                                                   IUseGroupingWrapper,
                                                   IUseSortingWrapper,
                                                   ITplFnWrapper,
@@ -548,6 +548,7 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   IActionedWrapper,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
                                                   IFilterRendererWrapper<IGridColumnConfiguration> {
+  sorter?(entity1: IEntity, entity2: IEntity): number;  // TODO
 }
 
 /**
@@ -610,7 +611,7 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IBackwardRenderedWrapper,
                                                 IForwardRenderedWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
-                                                IOnClickWrapper<ITabConfiguration>,
+                                                IReactOnClickWrapper<ITabConfiguration>,
                                                 IOnDeactivateWrapper,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
@@ -624,44 +625,8 @@ export interface IWebCameraConfiguration extends IComponentConfiguration,
                                                  IOnSelectWrapper<Blob> {
 }
 
-/**
- * @stable [09.06.2018]
- */
-export interface IUniversalButtonConfiguration extends IUniversalComponentConfiguration,
-                                                       IOnClickWrapper,
-                                                       ITextWrapper,
-                                                       IFullWrapper,
-                                                       IIconWrapper<string | boolean> {
-}
-
-/* @stable - 07.04.2018 */
-export interface IButtonConfiguration extends IUniversalButtonConfiguration,
-                                              IWebComponentConfiguration,
-                                              IOutlinedWrapper,
-                                              IStringToWrapper,
-                                              IRaisedWrapper,
-                                              ISimpleWrapper,
-                                              ITypeWrapper {
-}
-
-/* @stable - 19.04.2018 */
-export interface IRnButtonConfiguration extends IUniversalButtonConfiguration,
-                                                IBorderedWrapper,
-                                                IRoundedWrapper,
-                                                IBooleanSuccessWrapper,
-                                                IBlockWrapper,
-                                                IBooleanSmallWrapper,
-                                                ILargeWrapper,
-                                                IBooleanIconLeftWrapper,
-                                                IBooleanTransparentWrapper,
-                                                IIconStyleWrapper<IKeyValue>,
-                                                ITextStyleWrapper<IKeyValue>,
-                                                IStyleWrapper<IKeyValue>,
-                                                IDefaultOnPressWrapper {
-}
-
 /* @stable - 25.04.2018 */
-export interface IRnApplicationConfiguration extends IUniversalComponentConfiguration,
+export interface IRnApplicationConfiguration extends IReactComponentConfiguration,
                                                      IHideNavBarWrapper {
 }
 
@@ -715,12 +680,12 @@ export interface IKeyboardConfiguration extends IComponentConfiguration,
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
-  extends IUniversalComponentConfiguration,
+  extends IReactComponentConfiguration,
           IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IDelayedChangesFieldPluginConfiguration,
           IOnFocusWrapper<TFocusEvent>,
           IOnBlurWrapper<TFocusEvent>,
-          IOnClickWrapper<TBasicEvent>,
+          IReactOnClickWrapper<TBasicEvent>,
           IOnChangeWrapper,
           IOnClearWrapper,
           IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
@@ -885,7 +850,7 @@ export interface IUniversalLayoutBuilderConfiguration<TNode>
 }
 
 /* @stable [23.04.2018] */
-export interface IRnModalConfiguration extends IUniversalComponentConfiguration,
+export interface IRnModalConfiguration extends IReactComponentConfiguration,
                                                IShadowStyleWrapper<IKeyValue>,
                                                IHasContentWrapperWrapper,
                                                ICenterAlignmentWrapper {
@@ -897,12 +862,12 @@ export interface IGridRowConfiguration extends IComponentConfiguration,
 }
 
 /* @stable [24.04.2018] */
-export interface IComponentConfiguration extends IUniversalComponentConfiguration,
+export interface IComponentConfiguration extends IReactComponentConfiguration,
                                                  IWebComponentConfiguration {
 }
 
 /* @stable - 08.04.2018 */
-export interface IUniversalMessageConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalMessageConfiguration extends IReactComponentConfiguration,
                                                         IEmptyDataMessageWrapper,
                                                         IErrorMessageWrapper,
                                                         IEmptyMessageWrapper<React.ReactNode>,
@@ -910,7 +875,7 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentConfi
 }
 
 /* @stable [27.04.2018] */
-export interface IRnDrawerConfiguration extends IUniversalComponentConfiguration,
+export interface IRnDrawerConfiguration extends IReactComponentConfiguration,
                                                 IContentWrapper {
 }
 
@@ -935,7 +900,7 @@ export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContai
  * @stable [27.04.2018]
  */
 export interface ICardConfiguration extends IComponentConfiguration,
-                                            IOnClickWrapper,
+                                            IReactOnClickWrapper,
                                             IRippableWrapper,
                                             IActionButtonsWrapper<React.ReactNode>,
                                             IActionIconsWrapper<React.ReactNode> {
@@ -1021,7 +986,7 @@ export interface IFieldActionConfiguration extends IClassNameWrapper,
                                                    ITitleWrapper,
                                                    IDisabledWrapper,
                                                    ITypeWrapper,
-                                                   IOnClickWrapper {
+                                                   IReactOnClickWrapper {
 }
 
 /**
@@ -1046,12 +1011,12 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalUIIconConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalUIIconConfiguration extends IReactComponentConfiguration,
                                                        IDisabledWrapper,
                                                        ITypeWrapper,
                                                        IClassNameWrapper,
                                                        ISimpleWrapper,
-                                                       IOnClickWrapper {
+                                                       IReactOnClickWrapper {
 }
 
 /**

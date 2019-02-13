@@ -449,8 +449,7 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @test
-   * @returns {string}
+   * @deprecated
    */
   public from30DaysAgoUiDateTimeToDateTime(): string {
     return this.fromUiDateTimeToDateTime(
@@ -460,31 +459,29 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [02.06.2018]
-   * @returns {Date}
+   * @deprecated
    */
   public get30DaysAgo(): Date {
     return this.getXDaysAgo(30);
   }
 
   /**
-   * @stable [02.06.2018]
-   * @param {number} days
-   * @returns {Date}
+   * @deprecated
    */
   public getXDaysLater(days: number): Date {
     return this.getCurrentMomentDate().add(days, 'days').toDate();
   }
 
   /**
-   * @stable [02.06.2018]
-   * @param {number} days
-   * @returns {Date}
+   * @deprecated
    */
   public getXDaysAgo(days: number): Date {
     return this.getCurrentMomentDate().subtract(days, 'days').toDate();
   }
 
+  /**
+   * @deprecated
+   */
   public addXDays(date: Date, days: number): Date {
     return this.toMomentDate(date).add(days, 'days').toDate();
   }

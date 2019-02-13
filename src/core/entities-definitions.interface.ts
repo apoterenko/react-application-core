@@ -132,7 +132,7 @@ import {
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
-import { IOnClickWrapper } from './react-definitions.interface';
+import { IReactOnClickWrapper } from './react-definitions.interface';
 import { IUniversalLifeCycleEntity, IErrorEntity } from './definition';
 
 /**
@@ -468,7 +468,7 @@ export interface IUniversalListEntity extends IUniversalLifeCycleEntity,
 /* @stable [24.04.2018] */
 export interface IUniversalListItemEntity extends IRawDataWrapper,
                                                   IIndexWrapper,
-                                                  IOnClickWrapper<IEntity>,
+                                                  IReactOnClickWrapper<IEntity>,
                                                   ISelectedWrapper {
 }
 
@@ -571,7 +571,7 @@ export interface IGridHeaderColumnEntity extends IComponentEntity,
 /* @stable - 05.04.2018 */
 export interface IGridRowEntity extends IComponentEntity,
                                         ISelectedWrapper,
-                                        IOnClickWrapper {
+                                        IReactOnClickWrapper {
 }
 
 /* @stable [23.04.2018] */

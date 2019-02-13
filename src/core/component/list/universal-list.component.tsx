@@ -12,8 +12,9 @@ import {
 } from '../../util';
 import { IEntity } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
-import { IUniversalListProps, IUniversalButtonProps } from '../../props-definitions.interface';
+import { IUniversalListProps } from '../../props-definitions.interface';
 import { IUniversalMessageProps } from '../message/universal-message.interface';
+import { IReactButtonProps } from '../../definition';
 
 export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
                                     TProps extends IUniversalListProps,
@@ -161,7 +162,7 @@ export abstract class UniversalList<TComponent extends UniversalList<TComponent,
    * @stable [09.06.2018]
    * @returns {TActionComponentProps}
    */
-  protected getEmptyMessageActionComponentProps<TActionComponentProps extends IUniversalButtonProps>(): TActionComponentProps {
+  protected getEmptyMessageActionComponentProps<TActionComponentProps extends IReactButtonProps>(): TActionComponentProps {
     const props = this.props;
     return {
       ...props.emptyMessageActionConfiguration as {},

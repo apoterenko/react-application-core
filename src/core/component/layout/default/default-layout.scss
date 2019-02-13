@@ -1,8 +1,15 @@
 @import '../../constant';
 @import '../../mixin';
 
-// Default layout [FRAMEWORK-][RAC+]
 .rac {
+
+  .rac-default-layout {                                                                       /* @stable [13.02.2019] */
+    @include rac-icon(
+      $rac-icon-custom: rac-logo-menu-icon,
+      $rac-icon-color: $rac-default-layout-logo-menu-icon-color,
+      $rac-icon-margin: 0 $rac-default-layout-logo-menu-icon-margin-right 0 auto
+    );
+  }
 
   .rac-default-layout {
 
@@ -97,19 +104,6 @@
       max-height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [23.09.2018] */
       color: $rac-default-layout-drawer-toolbar-spacer-color;                                       /* @stable [26.09.2018] */
       background: $rac-default-layout-drawer-toolbar-spacer-background;                             /* @stable [17.09.2018] */
-
-      .rac-logo-menu-action {
-        margin-left: auto;                                                                          /* @stable [18.09.2018] */
-        margin-right: $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-margin-right;      /* @stable [18.09.2018] */
-
-        &.rac-action-icon {
-          color: $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-color;                  /* @stable [18.09.2018] */
-        }
-
-        &:hover {
-          outline: $rac-default-layout-drawer-toolbar-spacer-logo-menu-action-outline;              /* @stable [17.10.2018] */                                                   /* @stable [18.09.2018] */
-        }
-      }
     }
 
     .rac-notifications {                                                                      /* @stable [11.02.2019] */
@@ -127,7 +121,7 @@
 
       .rac-navigation-list {
 
-        .rac-navigation-list-group-subheader {
+        .rac-navigation-list-group {
           height: $rac-default-layout-drawer-navigation-list-group-subheader-height;                /* @stable [23.09.2018] */
         }
 

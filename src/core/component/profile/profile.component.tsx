@@ -31,7 +31,7 @@ export class Profile extends BaseComponent<Profile, IProfileProps> {
         }
         {this.uiFactory.makeIcon({
           type: 'menu',
-          className: 'rac-logo-menu-action',
+          className: 'rac-logo-menu-icon',
           onClick: props.onClick,
         })}
       </FlexLayout>

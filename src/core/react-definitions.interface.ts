@@ -9,7 +9,7 @@ export interface IBasicEvent<TElement = {}> extends React.SyntheticEvent<TElemen
 /**
  * @stable [11.11.2018]
  */
-export interface IOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
+export interface IReactOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
   onClick?: TOnClick;
 }
 

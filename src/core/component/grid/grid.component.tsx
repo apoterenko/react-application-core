@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
-import { IGridColumnConfiguration, IGridFilterConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
+import { IGridColumnConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, EntityIdT, UNIVERSAL_STICKY_ELEMENT_SELECTOR} from '../../definitions.interface';
 import {
@@ -11,7 +11,6 @@ import {
   orNull,
   isFn,
   orUndef,
-  queryFilter,
   orDefault,
   cancelEvent,
   coalesce,
@@ -27,6 +26,7 @@ import { Field } from '../field';
 import { IGridState } from './grid.interface';
 import { FlexLayout } from '../layout';
 import { IBasicEvent } from '../../react-definitions.interface';
+import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
 
 export class Grid extends BaseList<Grid, IGridProps, IGridState> {
 
@@ -36,7 +36,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    */
   constructor(props: IGridProps) {
     super(props);
-    this.onHeaderColumnClick = this.onHeaderColumnClick.bind(this);
+    this.onSortingDirectionChange = this.onSortingDirectionChange.bind(this);
     this.onSettingsClick = this.onSettingsClick.bind(this);
     this.onPlusClick = this.onPlusClick.bind(this);
 
@@ -106,33 +106,12 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @returns {IEntity[]}
    */
   protected filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(): IEntity[] {
-    const props = this.props;
-    const state = this.state;
-    const source = this.originalDataSource;
-
-    if (!R.isNil(source)) {
-      if (props.useLocalFiltering) {
-
-        const filterChanges = state.filterChanges;
-        const columns = this.columnsConfiguration;
-        const changedColumns = Object.keys(filterChanges);
-        const defaultLocalFilter = (cfg: IGridFilterConfiguration) =>
-          queryFilter(cfg.query, cfg.entity[cfg.columnName]);
-
-        if (changedColumns.length > 0) {
-          return source.filter((entity) => {
-            let result = true;
-            changedColumns.forEach((columnName) => {
-              const query = filterChanges[columnName];
-              const column = columns.find((column0) => column0.name === columnName);
-              result = result && (isFn(column.localFilter) ? column.localFilter : defaultLocalFilter)({query, columnName, entity});
-            });
-            return result;
-          });
-        }
-      }
-    }
-    return source;
+    return filterAndSortGridOriginalDataSource(
+      this.originalDataSource,
+      this.columnsConfiguration,
+      this.props,
+      this.state
+    );
   }
 
   private onSettingsClick(): void {
@@ -154,7 +133,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @stable - 05.04.2018
    * @param {ISortDirectionEntity} payload
    */
-  private onHeaderColumnClick(payload: ISortDirectionEntity): void {
+  private onSortingDirectionChange(payload: ISortDirectionEntity): void {
     const props = this.props;
     if (props.onChangeSorting) {
       props.onChangeSorting(payload);
@@ -222,16 +201,17 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @param {number} columnNum
    * @returns {React.ReactNode}
    */
-  private getHeaderColumn(column: IGridColumnConfiguration, columnNum: number): React.ReactNode {
+  private getHeaderColumnContent(column: IGridColumnConfiguration, columnNum: number): React.ReactNode {
     if (column.useGrouping) {
       const name = this.toHeaderFieldName(columnNum);
       return (
-        <Checkbox {...this.getDefaultFieldProps()}
-                  name={name}
-                  value={this.toCheckboxFieldValue(name)}
-                  onChange={(value) => this.onChangeHeaderField({value, name})}/>
+        <Checkbox
+          {...this.getDefaultFieldProps()}
+          name={name}
+          value={this.toCheckboxFieldValue(name)}
+          onChange={(value) => this.onChangeHeaderField({value, name})}/>
       );
-    } else if (column.headerRenderer) {
+    } else if (isFn(column.headerRenderer)) {
       return column.headerRenderer(column);
     }
     return this.t(column.title);
@@ -242,23 +222,20 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
    * @returns {JSX.Element}
    */
   private get headerElement(): JSX.Element {
-    const props = this.props;
     return (
       <GridRow className='rac-grid-header'>
         {
-          this.columnsConfiguration.map((column, columnNum) => {
-            const headerColumnName = this.toHeaderColumnKey(columnNum);
-            return (
-              <GridHeaderColumn key={headerColumnName}
-                                name={headerColumnName}
-                                index={columnNum}
-                                direction={props.directions[headerColumnName]}
-                                onClick={this.onHeaderColumnClick}
-                                {...column}>
-                {this.getHeaderColumn(column, columnNum)}
-              </GridHeaderColumn>
-            );
-          })
+          this.columnsConfiguration.map((column, columnNum) => (
+            <GridHeaderColumn
+              key={this.toHeaderColumnKey(columnNum)}
+              name={column.name}
+              index={columnNum}
+              direction={getGridColumnSortDirection(column, this.props)}
+              onSortingDirectionChange={this.onSortingDirectionChange}
+              {...column}>
+              {this.getHeaderColumnContent(column, columnNum)}
+            </GridHeaderColumn>
+          ))
         }
       </GridRow>
     );
@@ -643,7 +620,7 @@ export class Grid extends BaseList<Grid, IGridProps, IGridState> {
                       {orNull<JSX.Element>(props.expandActionRendered !== false, () => (
                         this.uiFactory.makeIcon({
                           className: 'rac-grid-data-row-group-expanded-icon',
-                          type: isExpanded ? 'minus_square' : 'plus_square',
+                          type: isExpanded ? 'close-list' : 'open-list',
                           onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
                         })
                       ))} {

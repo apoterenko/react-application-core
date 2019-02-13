@@ -3,7 +3,7 @@ import {
   IFullWrapper,
   ISeparatorWrapper,
 } from '../../../definitions.interface';
-import { IOnClickWrapper } from '../../../react-definitions.interface';
+import { IReactOnClickWrapper } from '../../../react-definitions.interface';
 import { IGenericFlexLayoutEntity } from '../../../definition';
 
 /**
@@ -11,7 +11,7 @@ import { IGenericFlexLayoutEntity } from '../../../definition';
  */
 export interface IVueFlexLayoutProps
   extends IGenericFlexLayoutEntity,
-          IOnClickWrapper,
+          IReactOnClickWrapper,
           ISeparatorWrapper,
           IFullWrapper,
           IRowWrapper {

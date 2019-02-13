@@ -13,12 +13,12 @@ import {
   IAutoWidthWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
-import { IUniversalComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
+import { IReactComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
 
 /**
  * @stable [17.05.2018]
  */
-export interface IUniversalDialogConfiguration extends IUniversalComponentConfiguration,
+export interface IUniversalDialogConfiguration extends IReactComponentConfiguration,
                                                        ICloseDisabledWrapper,
                                                        IAcceptDisabledWrapper,
                                                        IMessageWrapper,

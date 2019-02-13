@@ -32,9 +32,9 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
   /**
    * @stable [18.05.2018]
    */
-  protected readonly commonActionsProps: Record<number, IFieldActionConfiguration> = {
+  protected readonly baseActionsProps: Record<number, IFieldActionConfiguration> = {
     [ToolbarActionEnum.OPEN_FILTER]: {
-      type: 'filter_list',
+      type: 'filter',
       onClick: this.onOpen.bind(this),
     },
     [ToolbarActionEnum.CLEAR_FILTER]: {
@@ -141,7 +141,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
       : [{type: ToolbarActionEnum.CLEAR_FILTER}];
 
     return R.map<IFilterActionConfiguration, IFieldActionConfiguration>((action): IFieldActionConfiguration => {
-      const config = this.commonActionsProps[action.type];
+      const config = this.baseActionsProps[action.type];
       return ({
         ...config,
         onClick: isFn(config.onClick) ? config.onClick : (() => this.onActionClick(action.type)),

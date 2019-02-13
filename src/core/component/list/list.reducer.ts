@@ -8,7 +8,7 @@ import {
   IEntity,
   IPayloadWrapper,
 } from '../../definitions.interface';
-import { toSection, toType } from '../../util';
+import { notNilValuesFilter, toSection, toType } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
@@ -32,13 +32,13 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
 
   switch (action.type) {
     case ListActionBuilder.buildChangeSortDirectionActionType(section):
-      const sortDirectionEntityWrapper: IPayloadWrapper<ISortDirectionEntity> = action.data;
+      const sortDirectionPayload = toType<IPayloadWrapper<ISortDirectionEntity>>(action.data).payload;
       return {
         ...state,
-        directions: {
+        directions: notNilValuesFilter({
           ...state.directions,
-          [sortDirectionEntityWrapper.payload.name]: sortDirectionEntityWrapper.payload.direction,
-        },
+          [sortDirectionPayload.name]: sortDirectionPayload.direction,
+        }),
       };
     case ListActionBuilder.buildChangeActionType(section):
       const fieldChangeEntity: IFieldChangeEntity = action.data;

@@ -262,6 +262,13 @@ export interface IProgressMessageWrapper<TProgressMessage = string> {
 }
 
 /**
+ * @stable [13.02.2019]
+ */
+export interface IOnClickWrapper<TOnClick> {
+  onClick?: TOnClick;
+}
+
+/**
  * @stable [17.08.2018]
  */
 export interface IResultWrapper<TResult = AnyT> {
@@ -1944,13 +1951,6 @@ export interface IUseLazyLoadingWrapper {
  */
 export interface IUseSortingWrapper {
   useSorting?: boolean;
-}
-
-/**
- * @stable [07.06.2018]
- */
-export interface IUseLocalFilteringWrapper {
-  useLocalFiltering?: boolean;
 }
 
 /**
