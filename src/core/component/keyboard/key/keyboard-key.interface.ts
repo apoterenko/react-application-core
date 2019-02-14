@@ -4,6 +4,7 @@ import {
   IOnSelectWrapper,
   IRendererWrapper,
   IDisabledWrapper,
+  IRippledWrapper,
 } from '../../../definitions.interface';
 import { KeyboardKeyT } from '../../../configurations-definitions.interface';
 import { IComponentProps } from '../../../props-definitions.interface';
@@ -13,6 +14,7 @@ import { IComponentProps } from '../../../props-definitions.interface';
  */
 export interface IKeyboardKeyProps extends IComponentProps,
                                            IDisabledWrapper,
+                                           IRippledWrapper,   // TODO Button props
                                            IRendererWrapper<string>,
                                            IUseUppercaseWrapper,
                                            IOnSelectWrapper<KeyboardKeyT>,

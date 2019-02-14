@@ -3,6 +3,7 @@ import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
 import { ApplicationStorageTypeEnum } from '../storage/storage.interface';
 import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
+import { IButtonProps } from '../definition';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;
@@ -116,6 +117,10 @@ export interface IApplicationGoogleMapsSettings {
   prettyZoom?: number;
 }
 
+export interface IComponentsSettings {
+  button?: IButtonProps;
+}
+
 export interface ISettings {
   signalRUrl?: string;
   downloadUrl?: string;
@@ -137,6 +142,7 @@ export interface ISettings {
   channel?: IApplicationChannelSettings;
   authorization?: IApplicationAuthorizationSettings;
   googleMaps?: IApplicationGoogleMapsSettings;
+  components?: IComponentsSettings;
 }
 
 export const REGEXP_REPO = {

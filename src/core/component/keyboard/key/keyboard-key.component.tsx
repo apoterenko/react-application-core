@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName, isString, isFn, cancelEvent } from '../../../util';
+import { toClassName, isString, isFn, cancelEvent, calc } from '../../../util';
 import { BaseComponent } from '../../base';
 import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 import { IKeyboardKeyProps } from './keyboard-key.interface';
@@ -42,10 +42,12 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
     return (
       <Button
         disabled={props.disabled}
+        rippled={props.rippled}
         className={toClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,
-          keyAsObject && keyAsObject.className
+          keyAsObject && calc(keyAsObject.className),
+          calc(props.className, value)
         )}
         style={keyAsObject && keyAsObject.width ? {width: `${keyAsObject.width}px`} : {}}
         onClick={this.onClick}

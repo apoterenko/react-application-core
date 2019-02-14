@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, orDefault, orNull } from '../../util';
+import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout, CenterLayout } from '../layout';
 import { IUniversalDialog, Dialog } from '../dialog';
@@ -62,26 +62,24 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
     const canShowPreview = props.usePreview && !isSrcAbsent && !isProgressMessageShown && !isSrcAndDefaultSrcAbsent && !isErrorExist;
 
     return (
-      <FlexLayout style={props.style}
-                  full={props.full}
-                  className={this.getClassName()}>
-        {orDefault<React.ReactNode, React.ReactNode>(
-          isErrorExist || isSrcAndDefaultSrcAbsent,
-          () => (
-            isErrorExist
-              ? (
-                <CenterLayout>{
-                  this.t(this.settings.messages.fileLoadErrorMessage)
-                }</CenterLayout>
-              )
-              : <PictureViewer usePreview={false}/>
-          ),
-          () => orDefault<React.ReactNode, React.ReactNode>(
-            isProgressMessageShown,
-            () => this.settings.messages.waitingMessage,
-            () => this.getContentElement()
-          ),
-        )}
+      <FlexLayout
+        style={props.style}
+        full={props.full}
+        className={this.getClassName()}
+      >
+        {
+          isErrorExist || isSrcAndDefaultSrcAbsent
+            ? (
+              isErrorExist
+                ? (
+                  <CenterLayout>{
+                    this.t(this.settings.messages.fileLoadErrorMessage)
+                  }</CenterLayout>
+                )
+                : <PictureViewer usePreview={false}/>
+            )
+            : (isProgressMessageShown ? this.settings.messages.waitingMessage : this.getContentElement())
+        }
         {
           orNull<JSX.Element>(
             canShowPreview,
@@ -98,12 +96,13 @@ export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TStat
           orNull<JSX.Element>(
             canShowPreview,
             () => (
-              <Dialog ref='dialog'
-                      className='rac-preview-dialog'
-                      title={this.settings.messages.previewMessage}
-                      closeMessage={this.settings.messages.closeMessage}
-                      acceptable={false}
-                      onClose={this.onDialogClose}>
+              <Dialog
+                ref='dialog'
+                className='rac-preview-dialog'
+                title={this.settings.messages.previewMessage}
+                closeMessage={this.settings.messages.closeMessage}
+                acceptable={false}
+                onClose={this.onDialogClose}>
                 {
                   orNull<JSX.Element>(
                     state.opened,

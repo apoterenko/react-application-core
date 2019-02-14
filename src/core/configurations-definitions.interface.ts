@@ -653,7 +653,7 @@ export type KeyboardLayoutT = KeyboardKeyT[][];
 // TODO Fix class name
 export interface IKeyboardKey extends IValueWrapper<string>,
                                                    ITypeWrapper<KeyboardKeyEnum>,
-                                                   IClassNameWrapper,
+                                                   IClassNameWrapper<string | ((...AnyT) => string)>, // TODO
                                                    IWidthWrapper {
 }
 

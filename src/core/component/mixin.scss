@@ -1203,6 +1203,7 @@
  * @stable [10.01.2019]
  */
 @mixin rac-list($rac-list-custom: unset,
+                $rac-list-background: unset,
                 $rac-list-margin: unset,
                 $rac-list-padding: unset,
                 $rac-list-max-height: unset,
@@ -1236,6 +1237,7 @@
 
   #{rac-build-cls(rac-list, $rac-list-custom)} {
     @include rac-styles(
+      $rac-styles-background: $rac-list-background,
       $rac-styles-margin: $rac-list-margin,
       $rac-styles-padding: $rac-list-padding,
       $rac-styles-max-height: $rac-list-max-height,
@@ -1968,6 +1970,7 @@
  */
 @mixin rac-card-list($rac-card-list-custom: unset,
                      $rac-card-list-margin: unset,
+                     $rac-card-list-background: unset,
                      $rac-card-list-padding: unset,
                      $rac-card-list-max-height: unset,
                      $rac-card-list-overflow: unset,
@@ -2002,6 +2005,7 @@
 
   @include rac-list(
     $rac-list-custom: $rac-card-list-cls,
+    $rac-list-background: $rac-card-list-background,
     $rac-list-margin: $rac-card-list-margin,
     $rac-list-padding: $rac-card-list-padding,
     $rac-list-max-height: $rac-card-list-max-height,
@@ -2235,6 +2239,7 @@
 @mixin rac-form-layout($rac-form-layout-custom: unset,
                        $rac-form-layout-background: unset,
                        $rac-form-layout-background-size: unset,
+                       $rac-form-layout-content-position: unset,
                        $rac-form-layout-content-border: unset,
                        $rac-form-layout-content-width: unset,
                        $rac-form-layout-content-margin: unset,
@@ -2267,6 +2272,7 @@
 
     .rac-form-layout-content {
       @include rac-styles(
+        $rac-styles-position: $rac-form-layout-content-position,
         $rac-styles-border: $rac-form-layout-content-border,
         $rac-styles-width: $rac-form-layout-content-width,
         $rac-styles-margin: $rac-form-layout-content-margin

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../../component/base';
-import { toClassName } from '../../util';
+import { toClassName, nvl, ifNotNilThanValue } from '../../util';
 import { Link } from '../../component/link';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
 import { IButtonProps } from '../../definition';
@@ -22,6 +22,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     const buttonText = getButtonText(props, this.settings.messages);
     const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
     const hasIcon = !R.isNil(props.icon) && props.icon !== false;
+    const buttonProps = ifNotNilThanValue(this.settings.components, (components) => components.button) || {};
 
     const className = toClassName(
       'rac-button',
@@ -35,7 +36,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
       props.className,
-      props.rippled !== false && this.uiFactory.rippleSurface
+      nvl(props.rippled, buttonProps.rippled) !== false && this.uiFactory.rippleSurface
     );
 
     if (props.to) {
