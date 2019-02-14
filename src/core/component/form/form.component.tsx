@@ -19,6 +19,7 @@ import {
   isFormDirty,
   isFormValid,
   isFormSubmittable,
+  isFormResettable,
   isFormFieldChangeable,
 } from './form.support';
 import { FlexLayout } from '../layout';
@@ -128,7 +129,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
                               <Button icon='clear_all'
                                       {...props.buttonConfiguration}
                                       type='reset'
-                                      disabled={!this.isFormDirty()}
+                                      disabled={!this.isFormResettable()}
                                       text={props.resetText || 'Reset'}/>
                           )
                       )}
@@ -290,6 +291,14 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    */
   private isFormSubmittable(): boolean {
     return isFormSubmittable(this.props);
+  }
+
+  /**
+   * @stable [15.02.2019]
+   * @returns {boolean}
+   */
+  private isFormResettable(): boolean {
+    return isFormResettable(this.props);
   }
 
   private isFormBusy(): boolean {

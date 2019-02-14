@@ -132,6 +132,13 @@ export const isFormSubmittable = (formProps: IFormProps): boolean =>
     && !isFormDisabled(formProps);
 
 /**
+ * @stable [15.02.2019]
+ * @param {IFormProps} formProps
+ * @returns {boolean}
+ */
+export const isFormResettable = (formProps: IFormProps): boolean => formProps.alwaysResettable || isFormDirty(formProps);
+
+/**
  * @stable [29.05.2018]
  * @param {IFormProps} formProps
  * @returns {boolean}

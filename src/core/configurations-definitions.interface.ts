@@ -508,6 +508,7 @@ export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
                                             ICompactWrapper {
   useActions?: boolean; // TODO
   progress?: boolean; // TODO
+  alwaysResettable?: boolean; // TODO
 }
 
 /**
