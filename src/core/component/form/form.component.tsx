@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
+import { cloneReactNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IEditableEntity, IApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
@@ -31,7 +31,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   private static logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
-  private readonly childrenMap: Map<ReactElementT, string> = new Map<ReactElementT, string>();
+  private readonly childrenMap: Map<ReactElementT, string | React.RefObject<IField>> = new Map();
 
   /**
    * @stable [29.05.2018]
@@ -47,7 +47,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
   public render(): JSX.Element {
     const props = this.props;
     const nodes = (
-      cloneNodes<IFieldInternalProps>(
+      cloneReactNodes<IFieldInternalProps>(
         this,
         (field: IField) => {
           const fieldProps = field.props;
@@ -264,7 +264,8 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
       const fieldName = childProps.name;
 
       if (groupName === validationGroup && fieldName !== name) {
-        const otherFieldInstanceAtTheSameGroup = this.refs[uuidRef] as IField;
+        const refObject = isString(uuidRef) ? null : uuidRef as React.RefObject<IField>;
+        const otherFieldInstanceAtTheSameGroup = refObject.current || this.refs[uuidRef as string] as IField;
 
         if (otherFieldInstanceAtTheSameGroup) {
           otherFieldInstanceAtTheSameGroup.resetError();

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { FunctionT, isFn, isPrimitive, uuid, ifNotNilThanValue } from '../util';
-import { ReactElementT, IEntity } from '../definitions.interface';
+import { calc, isPrimitive, uuid, ifNotNilThanValue } from '../util';
+import { IEntity } from '../definitions.interface';
 
 /**
  * @stable [24.01.2019]
@@ -19,56 +19,44 @@ export const shallowClone = <TEntity extends IEntity>(entity: TEntity): TEntity 
  */
 export const clone = <T>(o: T): T => R.clone<T>(o);
 
-export type RenderPredicateT = (child: ReactElementT) => boolean;
-export type ClonedComponentT = ReactElementT | React.Component;
+export type RenderPredicateT = (child: JSX.Element) => boolean;
 
-export function cloneNodes<TProps>(component: ClonedComponentT,
-                                   mergedProps: TProps|((component: ClonedComponentT) => TProps),
-                                   mergePropsPredicate: RenderPredicateT,
-                                   childrenMap?: Map<ReactElementT, string>,
-                                   renderPredicate?: RenderPredicateT): React.ReactNode[]  {
-  return React.Children.map<React.ReactNode, React.ReactNode>(component.props.children, (child: React.ReactChild) => {
-        if (R.isNil(child)) {
+export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component<{}>,
+                                        mergedProps: TProps | ((component: JSX.Element | React.Component<{}>) => TProps),
+                                        mergePropsPredicate: RenderPredicateT,
+                                        childrenMap?: Map<JSX.Element, string | React.RefObject<{}>>,
+                                        renderPredicate?: RenderPredicateT): React.ReactNode[] =>
+  React.Children.map<React.ReactNode, React.ReactNode>(
+    component.props.children,
+    (child) => {
+      if (R.isNil(child)) {
+        return null;
+      } else if (isPrimitive(child)) {
+        return child;
+      } else {
+        const reactChild = child as React.FunctionComponentElement<{ children: React.ReactChild[] }>;
+        const ref = reactChild.ref || uuid();
+        const canMergeProps = mergePropsPredicate(reactChild);
+
+        const canRender = renderPredicate ? renderPredicate(reactChild) : true;
+        if (!R.isNil(canRender) && !canRender) {
           return null;
-        } else if (isPrimitive(child)) {
-          return child;
-        } else {
-          const reactChild = child as ReactElementT;
-          const uuidRef = uuid();
-          const canMergeProps = mergePropsPredicate(reactChild);
-
-          const canRender = renderPredicate ? renderPredicate(reactChild) : true;
-          if (!R.isNil(canRender) && !canRender) {
-            return null;
-          }
-
-          const clonedChild = React.cloneElement<{ children: React.ReactChild[] }>(
-              reactChild,
-              {
-                ...(canMergeProps
-                      ? {
-                          ref: uuidRef,
-                          ...(
-                              isFn(mergedProps)
-                                  ? (mergedProps as FunctionT)(reactChild)
-                                  : mergedProps
-                          ),
-                        }
-                      : {}
-                ),
-                children: cloneNodes<TProps>(
-                    reactChild,
-                    mergedProps,
-                    mergePropsPredicate,
-                    childrenMap,
-                    renderPredicate),
-              }
-          );
-          if (childrenMap && canMergeProps) {
-            childrenMap.set(clonedChild, uuidRef);
-          }
-          return clonedChild;
         }
-      },
+
+        const clonedChild = React.cloneElement<React.Props<TProps>>(
+          reactChild,
+          {
+            ...(canMergeProps && {
+              ref,
+              ...calc<TProps>(mergedProps, reactChild) as {},
+            }),
+            children: cloneReactNodes<TProps>(reactChild, mergedProps, mergePropsPredicate, childrenMap, renderPredicate),
+          }
+        );
+        if (childrenMap && canMergeProps) {
+          childrenMap.set(clonedChild, ref);
+        }
+        return clonedChild;
+      }
+    },
   );
-}
