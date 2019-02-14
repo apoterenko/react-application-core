@@ -15,8 +15,9 @@ export class CardList extends BaseList<CardList, ICardListProps> {
   protected getView(): JSX.Element {
     const props = this.props;
     return (
-      <div ref='container'
-           className={toClassName('rac-list rac-card-list rac-flex-full', props.className)}>
+      <div
+        ref='container'
+        className={toClassName('rac-list rac-card-list rac-flex-full', props.className)}>
         {this.dataSource.map((item, index) => this.getItem(item, index))}
         {this.addActionElement}
       </div>
@@ -31,16 +32,16 @@ export class CardList extends BaseList<CardList, ICardListProps> {
    */
   protected getItem(entity: IEntity, index: number): JSX.Element {
     const props = this.props;
-    const itemConfiguration = props.itemConfiguration;
+    const itemConfiguration = props.itemConfiguration || {};
     return (
-      <Card key={this.toRowKey(entity)}
-            rippable={true}
-            className={toClassName(`rac-list-item rac-list-item-${index}`, calc(itemConfiguration.className, entity))}
-            actionButtons={itemConfiguration && itemConfiguration.actionButtons
-                              && itemConfiguration.actionButtons(entity)}
-            actionIcons={itemConfiguration && itemConfiguration.actionIcons
-                            && itemConfiguration.actionIcons(entity)}
-            onClick={() => this.onSelect(entity)}>
+      <Card
+        key={this.toRowKey(entity)}
+        rippable={true}
+        className={toClassName(`rac-list-item rac-list-item-${index}`, calc(itemConfiguration.className, entity))}
+        actionButtons={itemConfiguration.actionButtons && itemConfiguration.actionButtons(entity)}
+        actionIcons={itemConfiguration.actionIcons && itemConfiguration.actionIcons(entity)}
+        onClick={() => this.onSelect(entity)}
+      >
         {itemConfiguration.renderer(entity)}
       </Card>
     );
