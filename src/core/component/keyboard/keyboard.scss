@@ -1,11 +1,6 @@
 @import '../constant';
 @import '../mixin';
 
-@mixin rac-keyboard-size ($factor: 1) {
-  width: $rac-keyboard-key-width - $rac-keyboard-key-width-factor * $factor;                                     /* @stable [13.08.2018] */
-  height: $rac-keyboard-key-height - $rac-keyboard-key-width-factor * $factor - $rac-keyboard-key-height-factor; /* @stable [13.08.2018] */
-}
-
 .rac {
 
   @include rac-keyboard(                                                                      /* @stable [27.01.2019] */
@@ -21,6 +16,9 @@
     $rac-keyboard-key-color: $rac-keyboard-key-color,
     $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
     $rac-keyboard-key-background: $rac-keyboard-key-background,
+    $rac-keyboard-key-width: $rac-keyboard-key-width,
+    $rac-keyboard-key-height: $rac-keyboard-key-height,
+    $rac-keyboard-close-display: $rac-keyboard-close-display,
     $rac-keyboard-close-color: $rac-keyboard-close-color,
     $rac-keyboard-close-position: $rac-keyboard-close-position,
     $rac-keyboard-close-right: $rac-keyboard-close-right,
@@ -28,66 +26,10 @@
     $rac-keyboard-close-margin: $rac-keyboard-close-margin
   );
 
-  .rac-keyboard {
-
-    &.rac-keyboard-absolute {
-      @include rac-styles(
-        $rac-styles-position: fixed, // TODO
-        $rac-styles-bottom: 0,
-        $rac-styles-transform: translateX(-50%),
-        $rac-styles-left: 50%,       
-      );
-    }
-
-    .rac-keyboard-key {
-      @include rac-keyboard-size(0);                                /* @stable [13.08.2018] */
-    }
-  }
-}
-
-// Keyboard [FRAMEWORK-][RAC+]
-@media (max-width: 960px) {
-  .rac {
-
-    .rac-keyboard {
-
-      .rac-keyboard-key {
-        @include rac-keyboard-size(1);                                /* @stable [13.08.2018] */
-        font-size: 24px;                                              /* @stable [16.08.2018] */
-      }
-    }
-  }
-}
-
-// Keyboard [FRAMEWORK-][RAC+]
-@media (max-width: 800px) {
-  .rac {
-
-    .rac-keyboard {
-
-      .rac-keyboard-key {
-        @include rac-keyboard-size(2);                                /* @stable [13.08.2018] */
-        border-radius: 12px;                                          /* @stable [27.05.2018] */
-        font-size: 18px;                                              /* @stable [16.08.2018] */
-      }
-    }
-  }
-}
-
-// Keyboard [FRAMEWORK-][RAC+]
-@media (max-width: 640px) {
-  .rac {
-
-    .rac-keyboard {
-
-      .rac-keyboard-key {
-        @include rac-keyboard-size(3);                                /* @stable [13.08.2018] */
-        font-size: 16px;                                              /* @stable [16.08.2018] */
-      }
-
-      .rac-keyboard-close {
-        display: none;                                                /* @stable [27.05.2018] */
-      }
-    }
-  }
+  @include rac-keyboard(                                                                      /* @stable [14.02.2019] */
+    $rac-keyboard-custom: rac-keyboard-portal,
+    $rac-keyboard-position: $rac-keyboard-portal-position,
+    $rac-keyboard-bottom: $rac-keyboard-portal-bottom,
+    $rac-keyboard-absolute-h-center-alignment: $rac-keyboard-portal-absolute-h-center-alignment
+  );
 }

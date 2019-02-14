@@ -27,6 +27,7 @@ $color-24: rgba(0, 0, 0, 0.64) !default;
 
 $rac-default-color-0-0: rgba(0, 0, 0, 0.3) !default;
 $rac-default-color-0-1: rgba(255, 255, 255, 0.5) !default;
+$rac-default-width-1: 56px !default;
 
 /* @stable [25.06.2018] */
 $rac-default-offset: 16px !default;
@@ -44,7 +45,7 @@ $rac-default-text-color: $color-2 !default;
 $rac-default-field-input-padding: $rac-default-offset !default;
 $rac-default-hover-background: $color-10 !default;
 $rac-default-border-radius: 2px !default;
-$rac-default-logo-toolbar-size: 56px !default;
+$rac-default-logo-toolbar-size: $rac-default-width-1 !default;
 $rac-default-letter-spacing: 0 !default;
 $rac-default-icon-size: 16px !default;
 $rac-default-selected-background: $color-8 !default;
@@ -89,17 +90,19 @@ $rac-keyboard-key-opacity: unset !default;
 $rac-keyboard-key-color: unset !default;
 $rac-keyboard-key-border-radius: $rac-default-border-radius !default;
 $rac-keyboard-key-background: unset !default;
-$rac-keyboard-key-width: 56px !default;
+$rac-keyboard-key-width: $rac-default-width-1 !default;
 $rac-keyboard-key-margin: 4px !default;
 $rac-keyboard-key-height: $rac-keyboard-key-width !default;
-$rac-keyboard-key-height-factor: 16px !default;
-$rac-keyboard-key-width-factor: 8px !default;
 $rac-keyboard-key-font-size: $rac-default-font-size-3 !default;
+$rac-keyboard-close-display: none !default;
 $rac-keyboard-close-color: $color-17 !default;
 $rac-keyboard-close-position: absolute !default;
 $rac-keyboard-close-right: 0 !default;
 $rac-keyboard-close-bottom: 0 !default;
 $rac-keyboard-close-margin: 4px !default;
+$rac-keyboard-portal-position: fixed !default;
+$rac-keyboard-portal-bottom: 0 !default;
+$rac-keyboard-portal-absolute-h-center-alignment: true !default;
 
 /* @stable [24.06.2018] */
 $rac-icon-width0: 12px !default;

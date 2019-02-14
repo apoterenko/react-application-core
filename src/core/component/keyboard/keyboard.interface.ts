@@ -8,7 +8,6 @@ import {
   IKeyboardConfiguration,
   KeyboardKeyEnum,
   KeyboardLayoutT,
-  IKeyboardKey,
 } from '../../configurations-definitions.interface';
 
 /**
@@ -18,6 +17,7 @@ export const KEYBOARD_SPECIAL_KEYS = {
   UPPERCASE: '↑',
   LOWERCASE: '↓',
   BACK: '‹',
+  CLOSE: '×',
   SPACE: ' ',
   DIGITAL: '123',
   LITERAL: 'ABC',
@@ -36,7 +36,7 @@ export const KEYBOARD_QWERTY_LAYOUT: KeyboardLayoutT = [
     {value: KEYBOARD_SPECIAL_KEYS.DIGITAL, type: KeyboardKeyEnum.CHANGE_LAYOUT},
     ',',
     {value: KEYBOARD_SPECIAL_KEYS.SPACE, type: KeyboardKeyEnum.SPACE, width: 200},
-    '.'
+    '.', {value: KEYBOARD_SPECIAL_KEYS.CLOSE, type: KeyboardKeyEnum.CLOSE}
   ]
 ];
 
@@ -48,7 +48,8 @@ export const KEYBOARD_QWERTY_DIGITAL_LAYOUT: KeyboardLayoutT = [
   ['!', '@', '#', '$', '%', '&', '+', '?', '/'],
   ['*', '_', '"', '\'', '(', ')', '-', ':', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}],
   [{value: KEYBOARD_SPECIAL_KEYS.LITERAL, type: KeyboardKeyEnum.CHANGE_LAYOUT},
-    ';', ',', {value: KEYBOARD_SPECIAL_KEYS.SPACE, type: KeyboardKeyEnum.SPACE, width: 200}, '.', '=']
+    ';', ',', {value: KEYBOARD_SPECIAL_KEYS.SPACE, type: KeyboardKeyEnum.SPACE, width: 200}, '.', '=',
+    {value: KEYBOARD_SPECIAL_KEYS.CLOSE, type: KeyboardKeyEnum.CLOSE}]
 ];
 
 /**

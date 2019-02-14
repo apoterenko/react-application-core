@@ -1576,13 +1576,6 @@ export interface ITotalAmountWrapper<TTotalAmount = number> {
 }
 
 /**
- * @stable [06.05.2018]
- */
-export interface IMainWrapper<TMain> {
-  main?: TMain;
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface IDirtyWrapper {

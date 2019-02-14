@@ -166,7 +166,7 @@ export abstract class UniversalSearchToolbar<TComponent extends IUniversalCompon
             key: 'toolbar-action-key',
             icon: props.icon,
             onClick: this.onActivate,
-            disabled: props.actionsDisabled
+            disabled: props.actionsDisabled,
           })
       ).concat(
         props.notUseField && (actions = this.actions).length > 0

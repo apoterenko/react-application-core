@@ -45,7 +45,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
     const props = this.props;
     const state = this.state;
     const keys = props.layout[state.mode];
-    const inlineKeyboard = props.renderToBody !== false;
+    const portalKeyboard = props.renderToBody !== false;
 
     const el = (
       <div
@@ -53,13 +53,13 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
         className={toClassName(
           'rac-keyboard',
           'rac-no-user-select',
-          inlineKeyboard && 'rac-keyboard-absolute',
+          portalKeyboard && 'rac-keyboard-portal',
           props.className
         )}
       >
         {
           orNull<JSX.Element>(
-            inlineKeyboard,
+            portalKeyboard,
             () => this.uiFactory.makeIcon({
               key: 'keyboard-close-action-key',
               type: 'close',
@@ -93,7 +93,7 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
       </div>
     );
 
-    return inlineKeyboard ? ReactDOM.createPortal(el, ENV.documentBody) : el;
+    return portalKeyboard ? ReactDOM.createPortal(el, ENV.documentBody) : el;
   }
 
   /**
@@ -129,6 +129,9 @@ export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardS
             props.onChange(nextValue);
             this.setState({position: position - 1});
           }
+          break;
+        case KeyboardKeyEnum.CLOSE:
+          props.onClose();
           break;
       }
     }

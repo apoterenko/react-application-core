@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import { toClassName, calc } from '../../../util';
 import { IEntity } from '../../../definitions.interface';
 import { BaseList } from '../../list';
 import { Card } from '../card.component';
@@ -35,7 +35,7 @@ export class CardList extends BaseList<CardList, ICardListProps> {
     return (
       <Card key={this.toRowKey(entity)}
             rippable={true}
-            className={`rac-list-item rac-list-item-${index}`}
+            className={toClassName(`rac-list-item rac-list-item-${index}`, calc(itemConfiguration.className, entity))}
             actionButtons={itemConfiguration && itemConfiguration.actionButtons
                               && itemConfiguration.actionButtons(entity)}
             actionIcons={itemConfiguration && itemConfiguration.actionIcons

@@ -26,14 +26,8 @@ import {
   IBasenameWrapper,
   IBeforeEnterWrapper,
   IBindDictionaryWrapper,
-  IBlockWrapper,
   IBooleanEmptyDataWrapper,
-  IBooleanIconLeftWrapper,
   IBooleanModalWrapper,
-  IBooleanSmallWrapper,
-  IBooleanSuccessWrapper,
-  IBooleanTransparentWrapper,
-  IBorderedWrapper,
   ICallbackWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
@@ -107,7 +101,6 @@ import {
   IHideNavBarWrapper,
   IHomeWrapper,
   IHoveredWrapper,
-  IIconStyleWrapper,
   IIconWrapper,
   IIndexWrapper,
   IInitialWrapper,
@@ -177,7 +170,6 @@ import {
   IResetTextWrapper,
   IRestoreAuthWrapper,
   IRippableWrapper,
-  IRoundedWrapper,
   ISectionNameWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
@@ -191,11 +183,8 @@ import {
   IStickyHeadWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
   IErrorMessageWrapper,
-  IStringToWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
-  ITextStyleWrapper,
-  ITextWrapper,
   ITightGridWrapper,
   ITitleRendererWrapper,
   ITitleWrapper,
@@ -377,8 +366,9 @@ export const DEFAULT_BOOTSTRAP_CONFIGURATION: IBootstrapConfiguration = {
 /**
  * @stable [24.04.2018]
  */
-export interface IWebComponentConfiguration extends IClassNameWrapper,
-                                                    ICssStyleWrapper {
+export interface IWebComponentConfiguration<TClassName = string>
+  extends IClassNameWrapper<TClassName>,
+          ICssStyleWrapper {
 }
 
 /**
@@ -440,6 +430,7 @@ export interface IListItemConfiguration extends IUniversalListItemConfiguration,
  * @stable [04.05.2018]
  */
 export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
+                                                    IWebComponentConfiguration<string | ((...AnyT) => string)>,
                                                     IActionButtonsWrapper<(entity: IEntity) => React.ReactNode>,
                                                     IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
 }
@@ -485,7 +476,7 @@ export interface IRnListConfiguration extends IUniversalListConfiguration<IRnLis
 
 /* @stable - 04.04.2018 */
 export interface ICardListConfiguration extends IUniversalListConfiguration<ICardListItemConfiguration>,
-                                                IWebComponentConfiguration {
+  IWebComponentConfiguration {
 }
 
 /* @stable - 04.04.2018 */
@@ -651,6 +642,7 @@ export enum KeyboardKeyEnum {
   CHANGE_LAYOUT,
   LOWERCASE,
   BACKSPACE,
+  CLOSE,
   SPACE,
   ENTER,
 }
@@ -665,6 +657,10 @@ export interface IKeyboardKey extends IValueWrapper<string>,
                                                    IWidthWrapper {
 }
 
+export interface IKeyboardKeyConfiguration {
+  // TODO
+}
+
 /**
  * @stable [08.05.2018]
  */
@@ -673,7 +669,7 @@ export interface IKeyboardConfiguration extends IComponentConfiguration,
                                                 ILayoutWrapper<KeyboardLayoutT[]>,
                                                 IOnCloseWrapper,
                                                 IRenderToBodyWrapper {
-  keyboardKeyConfiguration?: any; // TODO
+  keyboardKeyConfiguration?: IKeyboardKeyConfiguration; // TODO
 }
 
 /**

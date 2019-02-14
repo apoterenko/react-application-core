@@ -112,6 +112,7 @@
                               $rac-styles-transform: unset,
                               $rac-styles-opacity: unset,
                               $rac-styles-flex-shrink: unset,
+                              $rac-styles-visibility: unset,
                               $rac-styles-vertical-align: unset,
                               $rac-styles-line-height: unset,
                               $rac-styles-display: unset,
@@ -171,6 +172,9 @@
   }
   @if $rac-styles-z-index != unset {
     z-index: $rac-styles-z-index;
+  }
+  @if $rac-styles-visibility != unset {
+    visibility: $rac-styles-visibility;
   }
   @if $rac-styles-font-family != unset {
     font-family: $rac-styles-font-family;
@@ -353,6 +357,7 @@
                   $rac-styles-background-color: unset,
                   $rac-styles-transform: unset,
                   $rac-styles-word-break: unset,
+                  $rac-styles-visibility: unset,
                   $rac-styles-vertical-align: unset,
                   $rac-styles-opacity: unset,
                   $rac-styles-flex-shrink: unset,
@@ -416,6 +421,7 @@
         $rac-styles-background-color: $rac-styles-background-color,
         $rac-styles-transform: $rac-styles-transform,
         $rac-styles-word-break: $rac-styles-word-break,
+        $rac-styles-visibility: $rac-styles-visibility,
         $rac-styles-vertical-align: $rac-styles-vertical-align,
         $rac-styles-opacity: $rac-styles-opacity,
         $rac-styles-flex-shrink: $rac-styles-flex-shrink,
@@ -479,6 +485,7 @@
       $rac-styles-background-color: $rac-styles-background-color,
       $rac-styles-transform: $rac-styles-transform,
       $rac-styles-word-break: $rac-styles-word-break,
+      $rac-styles-visibility: $rac-styles-visibility,
       $rac-styles-vertical-align: $rac-styles-vertical-align,
       $rac-styles-opacity: $rac-styles-opacity,
       $rac-styles-flex-shrink: $rac-styles-flex-shrink,
@@ -1135,6 +1142,7 @@
                      $rac-list-item-height: unset,
                      $rac-list-item-color: unset,
                      $rac-list-item-box-shadow: unset,
+                     $rac-list-item-visibility: unset,
                      $rac-list-item-float: unset,
                      $rac-list-item-outline: unset,
                      $rac-list-item-font-size: unset,
@@ -1159,6 +1167,7 @@
       $rac-styles-width: $rac-list-item-width,
       $rac-styles-height: $rac-list-item-height,
       $rac-styles-box-shadow: $rac-list-item-box-shadow,
+      $rac-styles-visibility: $rac-list-item-visibility,
       $rac-styles-border: $rac-list-item-border,
       $rac-styles-border-right: $rac-list-item-border-right,
       $rac-styles-border-top: $rac-list-item-border-top,
@@ -1212,6 +1221,7 @@
                 $rac-list-item-height: unset,
                 $rac-list-item-padding: unset,
                 $rac-list-item-color: unset,
+                $rac-list-item-visibility: unset,
                 $rac-list-item-box-shadow: unset,
                 $rac-list-item-float: unset,
                 $rac-list-item-outline: unset,
@@ -1241,6 +1251,7 @@
       $rac-list-item-height: $rac-list-item-height,
       $rac-list-item-color: $rac-list-item-color,
       $rac-list-item-box-shadow: $rac-list-item-box-shadow,
+      $rac-list-item-visibility: $rac-list-item-visibility,
       $rac-list-item-float: $rac-list-item-float,
       $rac-list-item-outline: $rac-list-item-outline,
       $rac-list-item-font-size: $rac-list-item-font-size,
@@ -1965,6 +1976,7 @@
                      $rac-card-list-item-width: unset,
                      $rac-card-list-item-height: unset,
                      $rac-card-list-item-border: unset,
+                     $rac-card-list-item-visibility: unset,
                      $rac-card-list-item-border-right: unset,
                      $rac-card-list-item-border-left: unset,
                      $rac-card-list-item-border-top: unset,
@@ -2001,6 +2013,7 @@
     $rac-list-item-custom: $rac-card-list-item-custom,
     $rac-list-item-width: $rac-card-list-item-width,
     $rac-list-item-border: $rac-card-list-item-border,
+    $rac-list-item-visibility: $rac-card-list-item-visibility,
     $rac-list-item-border-right: $rac-card-list-item-border-right,
     $rac-list-item-border-left: $rac-card-list-item-border-left,
     $rac-list-item-border-top: $rac-card-list-item-border-top,
@@ -2143,8 +2156,11 @@
                     $rac-keyboard-border: unset,
                     $rac-keyboard-background: unset,
                     $rac-keyboard-border-radius: unset,
+                    $rac-keyboard-position: unset,
+                    $rac-keyboard-bottom: unset,
                     $rac-keyboard-key-custom: unset,
                     $rac-keyboard-key-size: unset,
+                    $rac-keyboard-key-width: unset,
                     $rac-keyboard-key-height: unset,
                     $rac-keyboard-key-min-width: unset,
                     $rac-keyboard-key-font-size: unset,
@@ -2158,11 +2174,13 @@
                     $rac-keyboard-key-icon-width: unset,
                     $rac-keyboard-key-icon-height: unset,
                     $rac-keyboard-key-icon-margin: unset,
+                    $rac-keyboard-close-display: unset,
                     $rac-keyboard-close-color: unset,
                     $rac-keyboard-close-position: unset,
                     $rac-keyboard-close-bottom: unset,
                     $rac-keyboard-close-right: unset,
-                    $rac-keyboard-close-margin: unset) {
+                    $rac-keyboard-close-margin: unset,
+                    $rac-keyboard-absolute-h-center-alignment: unset) {
 
   #{rac-build-cls(rac-keyboard, $rac-keyboard-custom)} {
     @include rac-styles(
@@ -2170,6 +2188,8 @@
       $rac-styles-border: $rac-keyboard-border,
       $rac-styles-background: $rac-keyboard-background,
       $rac-styles-border-radius: $rac-keyboard-border-radius,
+      $rac-styles-position: $rac-keyboard-position,
+      $rac-styles-bottom: $rac-keyboard-bottom,
       $rac-styles-margin: $rac-keyboard-margin,
       $rac-styles-padding: $rac-keyboard-padding
     );
@@ -2184,6 +2204,7 @@
       $rac-button-height: $rac-keyboard-key-height,
       $rac-button-min-width: $rac-keyboard-key-min-width,
       $rac-button-size: $rac-keyboard-key-size,
+      $rac-button-width: $rac-keyboard-key-width,
       $rac-button-margin: $rac-keyboard-key-margin,
       $rac-button-icon-width: $rac-keyboard-key-icon-width,
       $rac-button-icon-height: $rac-keyboard-key-icon-height,
@@ -2194,12 +2215,17 @@
 
     @include rac-icon(
       $rac-icon-custom: rac-keyboard-close,
+      $rac-icon-display: $rac-keyboard-close-display,
       $rac-icon-color: $rac-keyboard-close-color,
       $rac-icon-position: $rac-keyboard-close-position,
       $rac-icon-bottom: $rac-keyboard-close-bottom,
       $rac-icon-right: $rac-keyboard-close-right,
       $rac-icon-margin: $rac-keyboard-close-margin
     );
+
+    @if $rac-keyboard-absolute-h-center-alignment != unset {
+      @include rac-absolute-h-center-alignment;
+    }
   }
 }
 
