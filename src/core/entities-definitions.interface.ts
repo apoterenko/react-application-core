@@ -214,12 +214,11 @@ export interface IUniversalContainerClassEntity<TProps extends IUniversalContain
 /**
  * @stable [17.05.2018]
  */
-export interface IUniversalComponentPluginClassEntity<TComponent extends IUniversalComponent<TProps, TState>
-                                                          = IUniversalComponent<TProps, TState>,
-                                                      TProps extends IUniversalComponentProps = IUniversalComponentProps,
-                                                      TState = {}> {
-  new(component: TComponent): IUniversalComponentPlugin<TProps, TState>;
-}
+export type IUniversalComponentPluginClassEntity<
+    TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
+    TProps extends IUniversalComponentProps = IUniversalComponentProps,
+    TState = {}
+  > = new(component: TComponent) => IUniversalComponentPlugin<TProps, TState>;
 
 /**
  * @stable [17.05.2018]

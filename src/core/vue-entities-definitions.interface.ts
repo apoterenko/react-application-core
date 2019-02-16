@@ -66,9 +66,7 @@ export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationSt
 /**
  * @stable [22.10.2018]
  */
-export interface IVueContainerCtor {
-  new (): IVueContainer;
-}
+export type IVueContainerCtor = new () => IVueContainer;
 
 /**
  * @stable [21.10.2018]
