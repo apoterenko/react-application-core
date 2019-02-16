@@ -3,10 +3,10 @@ import {
   IUniversalComponent,
 } from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
-import { IApplicationDomAccessor } from '../../component/dom-accessor';
+import { IDomAccessor } from '../../component/dom-accessor';
 
 export class AutoScrollTopPlugin implements IUniversalComponentPlugin {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IApplicationDomAccessor;
+  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
 
   private contentHeight: number;
 

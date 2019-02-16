@@ -2,26 +2,48 @@ import { injectable } from 'inversify';
 import * as R from 'ramda';
 
 import {
+  addClassNameToElement,
   findUniversalSelectedElement,
-  scrollIntoView,
-  scrollTo,
-  setScrollTop,
   getContentHeight,
+  getHeight,
   getScrollLeft,
   getScrollTop,
-  setScrollLeft,
-  toJqEl,
-  getHeight,
-  addClassNameToElement,
+  hasElements,
+  hasParent,
   removeClassNameFromElement,
+  scrollIntoView,
+  scrollTo,
+  setScrollLeft,
+  setScrollTop,
+  toJqEl,
 } from '../../util';
-import { IApplicationDomAccessor } from './dom-accessor.interface';
+import { IDomAccessor } from './dom-accessor.interface';
 import { IXYEntity } from '../../entities-definitions.interface';
 import { IJQueryElement } from '../../definitions.interface';
 import { ENV } from '../../env';
 
 @injectable()
-export class DomAccessor implements IApplicationDomAccessor {
+export class DomAccessor implements IDomAccessor {
+
+  /**
+   * @stable [16.02.2019]
+   * @param {string | Element} selector
+   * @param {Element} target
+   * @returns {boolean}
+   */
+  public hasElements(selector: string | Element, target: Element): boolean {
+    return hasElements(selector, target);
+  }
+
+  /**
+   * @stable [16.02.2019]
+   * @param {string} selector
+   * @param {Element} target
+   * @returns {boolean}
+   */
+  public hasParent(selector: string, target: Element): boolean {
+    return hasParent(selector, target);
+  }
 
   /**
    * @stable [13.01.2019]

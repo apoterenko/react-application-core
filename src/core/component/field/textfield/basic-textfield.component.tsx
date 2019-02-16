@@ -6,7 +6,7 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
-import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue, hasParent } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue } from '../../../util';
 import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
@@ -39,6 +39,7 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   protected defaultActions: IFieldActionConfiguration[] = [];
   private mirrorInputRef = React.createRef<HTMLElement>();
+  private keyboardRef = React.createRef<Keyboard>();
 
   constructor(props: TInternalProps) {
     super(props);
@@ -116,11 +117,12 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
    */
   protected keyboardElement(): JSX.Element {
     return (
-      <Keyboard ref='keyboard'
-                field={this.input}
-                onClose={this.closeSyntheticKeyboard}
-                onChange={this.onKeyboardChange}
-                {...this.getKeyboardConfiguration()}/>
+      <Keyboard
+        ref={this.keyboardRef}
+        field={this.input}
+        onClose={this.closeSyntheticKeyboard}
+        onChange={this.onKeyboardChange}
+        {...this.getKeyboardConfiguration()}/>
     );
   }
 
@@ -178,19 +180,19 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [16.02.2019]
    * @param {IBasicEvent} e
    */
   private onKeyboardWindowMouseDownHandler(e: IBasicEvent): void {
-    const keyboard = $((this.refs.keyboard as Keyboard).getSelf());
-    const targetEl = e.target as HTMLElement;
-    if (this.input === targetEl || keyboard.find(targetEl).length !== 0) {
-      return;
-    }
-    this.closeSyntheticKeyboard();
+    const clickedEl = e.target as Element;
 
-    if (hasParent('.rac-action-close-icon', targetEl)) {
-      this.clearValue();
+    if (this.domAccessor.hasParent('.rac-action-close-icon', clickedEl)) {
+      if (this.isValuePresent()) {
+        this.clearValue();
+      }
+    } else if (!(this.input === clickedEl
+                  || this.domAccessor.hasElements(clickedEl, this.keyboardRef.current.getSelf()))) {
+      this.closeSyntheticKeyboard();
     }
   }
 

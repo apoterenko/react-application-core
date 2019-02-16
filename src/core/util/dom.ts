@@ -283,13 +283,23 @@ export const parseValueAtPx = (v: string): number => parseFloat((v || '').split(
 export const preventContextMenu = () => document.body.oncontextmenu = () => false;
 
 /**
- * @stable [01.12.2018]
- * @param {string} selector
+ * @stable [16.02.2019]
+ * @param {string | Element} selector
  * @param {Element} parent
- * @returns {Element}
+ * @returns {TJqElement}
  */
-export const findElement = (selector: string, parent: Element = document.body): Element =>
-  $(parent).find(selector)[0];
+export const findElements = <TJqElement extends IJQueryElement = IJQueryElement>(selector: string | Element,
+                                                                                 parent: Element = document.body): TJqElement =>
+  toJqEl(parent).find(selector) as TJqElement;
+
+/**
+ * @stable [16.02.2019]
+ * @param {string | Element} selector
+ * @param {Element} parent
+ * @returns {TJqElement}
+ */
+export const findElement = (selector: string | Element, parent: Element = document.body): Element =>
+  findElements(selector, parent)[0];
 
 /**
  * @stable [08.02.2019]
@@ -308,6 +318,15 @@ export const getParents = <TJqElement extends IJQueryElement = IJQueryElement>(s
  */
 export const hasParent = (selector: string, target: Element): boolean =>
   getParents(selector, target).length > 0;
+
+/**
+ * @stable [16.02.2019]
+ * @param {string | Element} selector
+ * @param {Element} target
+ * @returns {boolean}
+ */
+export const hasElements = (selector: string | Element, target: Element): boolean =>
+  findElements(selector, target).length > 0;
 
 /**
  * @stable [01.12.2018]

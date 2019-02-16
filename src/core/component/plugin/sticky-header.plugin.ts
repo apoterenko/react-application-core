@@ -6,7 +6,7 @@ import {
   IStickyElementPayloadEntity,
 } from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
-import { IApplicationDomAccessor } from '../dom-accessor';
+import { IDomAccessor } from '../dom-accessor';
 import {
   getStickyElementInitialProperties,
   setStickyElementProperties,
@@ -14,7 +14,7 @@ import {
 } from '../../util';
 
 export class StickyHeaderPlugin implements IUniversalComponentPlugin {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IApplicationDomAccessor;
+  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
 
   private stickyElementInitialProperties: IStickyElementPayloadEntity;
   private selfElementHeight: number;

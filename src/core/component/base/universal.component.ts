@@ -14,7 +14,7 @@ import {
 } from '../../entities-definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
-import { IApplicationDomAccessor } from '../dom-accessor/dom-accessor.interface';
+import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
 
 export class UniversalComponent<TComponent extends IUniversalComponent<TProps, TState>,
                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,
@@ -168,9 +168,9 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
 
   /**
    * @stable [01.12.2018]
-   * @returns {IApplicationDomAccessor}
+   * @returns {IDomAccessor}
    */
-  protected get domAccessor(): IApplicationDomAccessor {
+  protected get domAccessor(): IDomAccessor {
     return staticInjector(DI_TYPES.DomAccessor);
   }
 

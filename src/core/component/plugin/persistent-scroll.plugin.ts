@@ -5,10 +5,10 @@ import {
   IUniversalScrollableComponent,
 } from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
-import { IApplicationDomAccessor } from '../dom-accessor';
+import { IDomAccessor } from '../dom-accessor';
 
 export class PersistentScrollPlugin implements IUniversalComponentPlugin {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IApplicationDomAccessor;
+  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
 
   private top: number;
   private left: number;
