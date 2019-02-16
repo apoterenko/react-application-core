@@ -1,70 +1,70 @@
 import { MultiFieldPlugin } from './multifield.plugin';
 
-describe('MultiFieldPlugin', function () {
-  it('test1', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+describe('MultiFieldPlugin', () => {
+  it('test1', () => {
+    const multiFieldPlugin = new MultiFieldPlugin({
       value: [{id: 1}, {id: 2}],
     });
 
-    var result = multiFieldPlugin.onAdd({id: 2});
+    const result = multiFieldPlugin.onAdd({id: 2});
     expect(result.addArray).toEqual([{id: 2}]);
     expect(result.removeArray).toEqual([]);
   });
 
-  it('test2', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+  it('test2', () => {
+    const multiFieldPlugin = new MultiFieldPlugin({
       value: [{id: 1}, {id: 2}],
     });
 
-    var result = multiFieldPlugin.onDelete({id: 2});
+    const result = multiFieldPlugin.onDelete({id: 2});
     expect(result.addArray).toEqual([]);
     expect(result.removeArray).toEqual([{id: 2}]);
   });
 
-  it('test3', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+  it('test3', () => {
+    const multiFieldPlugin = new MultiFieldPlugin({
       value: {add: [], remove: [{id: 1}], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
-    var result = multiFieldPlugin.onAdd({id: 1});
+    const result = multiFieldPlugin.onAdd({id: 1});
     expect(result.addArray).toEqual([]);
     expect(result.removeArray).toEqual([]);
   });
 
-  it('test4', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+  it('test4', () => {
+    const multiFieldPlugin = new MultiFieldPlugin({
       value: {add: [{id: 3}], remove: [], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
-    var result = multiFieldPlugin.onDelete({id: 3});
+    const result = multiFieldPlugin.onDelete({id: 3});
     expect(result.addArray).toEqual([]);
     expect(result.removeArray).toEqual([]);
   });
 
-  it('test4', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+  it('test4', () => {
+    const multiFieldPlugin = new MultiFieldPlugin({
       value: {add: [{id: 3}], remove: [{id: 4}], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
-    var result = multiFieldPlugin.onAdd({id: 5});
+    const result = multiFieldPlugin.onAdd({id: 5});
     expect(result.addArray).toEqual([{id: 3}, {id: 5}]);
     expect(result.removeArray).toEqual([{id: 4}]);
 
-    var result2 = multiFieldPlugin.onDelete({id: 3});
+    const result2 = multiFieldPlugin.onDelete({id: 3});
     expect(result2.addArray).toEqual([]);
     expect(result2.removeArray).toEqual([{id: 4}]);
 
-    var result3 = multiFieldPlugin.onAdd({id: 4});
+    const result3 = multiFieldPlugin.onAdd({id: 4});
     expect(result3.addArray).toEqual([{id: 3}]);
     expect(result3.removeArray).toEqual([]);
   });
 
-  it('test5', function () {
-    var multiFieldPlugin = new MultiFieldPlugin({
+  it('test5', () => {
+    const multiFieldPlugin = new MultiFieldPlugin({
       value: {add: [{id: 3}], remove: [{id: 4}], edit: [], source: [{id: 1}, {id: 2}]},
     });
 
-    var result = multiFieldPlugin.onDelete({id: 5});
+    const result = multiFieldPlugin.onDelete({id: 5});
     expect(result.addArray).toEqual([{id: 3}]);
     expect(result.removeArray).toEqual([{id: 4}]);
   });

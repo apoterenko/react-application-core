@@ -33,14 +33,6 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
   }
 
   /**
-   * @stable [29.01.2019]
-   * @returns {TState}
-   */
-  protected getData(): TState {
-    return this.$data as TState;
-  }
-
-  /**
    * @stable [21.10.2018]
    * @param {string} type
    * @param {AnyT} data
@@ -96,6 +88,14 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    */
   public dispatchListCreate(): void {
     this.store$.dispatch(ListActionBuilder.buildCreateSimpleAction(this.section$));
+  }
+
+  /**
+   * @stable [29.01.2019]
+   * @returns {TState}
+   */
+  protected getData(): TState {
+    return this.$data as TState;
   }
 
   /**

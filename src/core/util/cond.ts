@@ -41,6 +41,7 @@ export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(checkedValue: AnyT
   orDefault<TResult1, TResult2>(!R.isNil(checkedValue), result1, result2);
 
 /**
+ * @deprecated
  * @stable [01.12.2018]
  * @param {AnyT} checkedValue
  * @param {(() => TResult) | TResult} result

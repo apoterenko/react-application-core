@@ -93,7 +93,6 @@ export interface IDateConverter {
   formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
-  fromDateTimeToPstDate(date?: DateTimeLikeTypeT, input?: string): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   getCurrentDate(): Date;
