@@ -8,6 +8,7 @@
     "indent": [true, "spaces", 2],
     "max-line-length": [true, 200],
     "no-bitwise": false,
+    "no-var-requires": false,
     "trailing-comma": [
       true,
       {
@@ -17,6 +18,7 @@
         }
       }
     ],
+    "no-unused-expression": [true, "allow-new"],
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-empty-interface": false,
