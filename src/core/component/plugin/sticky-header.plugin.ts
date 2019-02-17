@@ -49,11 +49,8 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
 
   /**
    * @stable [13.12.2018]
-   * @param {Readonly<{}>} prevProps
-   * @param {Readonly<{}>} prevState
-   * @param {never} prevContext
    */
-  public componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, prevContext?: never) {
+  public componentDidUpdate() {
     this.doUpdate();
   }
 

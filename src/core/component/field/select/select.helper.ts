@@ -6,7 +6,7 @@ import { IDictionaryEntity, INamedEntity, ISelectOptionEntity } from '../../../e
 // TODO destroy
 export const toSelectOptions = (data: INamedEntity[] | INamedEntity,
                                 useIdSorter = false,
-                                predicate = (item: INamedEntity) => true): ISelectOptionEntity[] =>
+                                predicate = () => true): ISelectOptionEntity[] =>
   orNull<ISelectOptionEntity[]>(
     data,
     () => R.sort<INamedEntity>(
@@ -25,5 +25,5 @@ export const toSelectOptions = (data: INamedEntity[] | INamedEntity,
 // TODO destroy
 export const toSelectOptionsFromDictionary = <TDictionaryEntityData>(dictionaryEntity: IDictionaryEntity<TDictionaryEntityData>,
                                                                      useIdFilter = false,
-                                                                     predicate = (item: INamedEntity) => true): ISelectOptionEntity[] =>
+                                                                     predicate = () => true): ISelectOptionEntity[] =>
     toSelectOptions(dictionaryEntity && dictionaryEntity.data, useIdFilter, predicate);

@@ -139,8 +139,9 @@ export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
- * @stable [16.10.2018]
+ * @stable [18.02.2019]
  */
-export interface IRefreshedListOnChangeFormMiddlewareConfig extends IListSectionWrapper,
-                                                                    IEffectsActionWrapper {
+export interface IRefreshedListOnValidFormMiddlewareConfig
+  extends IListSectionWrapper,
+    IEffectsActionWrapper {
 }

@@ -1266,65 +1266,15 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
                                                IToDateWrapper {
 }
 
-/**
- * @stable [02.02.2019]
- */
-export interface IBlobWrapper<TBlob = Blob> {
-  blob?: Blob;
-}
-
-/**
- * @stable [.0202.2019]
- */
-export interface IFormDataWrapper<TFormData = FormData> {
-  formData?: TFormData;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> {
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IProgressWrapper {
-  progress?: boolean;
-}
-
-/**
- * @stable [11.06.2018]
- */
-export interface IBarcodeWrapper<TBarcode = string> {
-  barcode?: TBarcode;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IReadyWrapper {
-  ready?: boolean;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IAuthorizedWrapper {
-  authorized?: boolean;
-}
+export interface IBlobWrapper<TBlob = Blob> { blob?: TBlob; }
+export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }
+export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
+export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
+export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
+export interface IProgressWrapper { progress?: boolean; }
+export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
+export interface IReadyWrapper { ready?: boolean; }
+export interface IAuthorizedWrapper { authorized?: boolean; }
 
 /**
  * @stable [28.06.2018]

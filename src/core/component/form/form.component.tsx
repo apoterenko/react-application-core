@@ -28,6 +28,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
 
   public static defaultProps: IFormProps = {
     form: INITIAL_APPLICATION_FORM_STATE,
+    validateOnMount: true,
   };
   private static logger = LoggerFactory.makeLogger('Form');
 
@@ -71,7 +72,7 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
               ),
               onLoadDictionary: orUndef<(items: AnyT) => void>(
                 fieldProps.bindDictionary || fieldProps.onLoadDictionary,
-                (items) => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
+                () => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
               ),
 
               // Predefined options
@@ -154,11 +155,14 @@ export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
    */
   public componentDidMount(): void {
     super.componentDidMount();
-    this.propsOnValid();
+
+    if (this.props.validateOnMount) {
+      this.propsOnValid();
+    }
   }
 
   // TODO deprecated
-  public componentWillUpdate(nextProps: Readonly<IFormProps>, nextState: Readonly<{}>, nextContext: {}): void {
+  public componentWillUpdate(): void {
     this.childrenMap.clear();
   }
 

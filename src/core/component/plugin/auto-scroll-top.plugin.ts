@@ -19,10 +19,8 @@ export class AutoScrollTopPlugin implements IUniversalComponentPlugin {
 
   /**
    * @stable [27.10.2018]
-   * @param {Readonly<{}>} prevProps
-   * @param {Readonly<{}>} prevState
    */
-  public componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>): void {
+  public componentDidUpdate(): void {
     this.updateScrollTop();
   }
 

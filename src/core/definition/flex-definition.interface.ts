@@ -7,4 +7,5 @@ export interface IGenericFlexLayoutEntity {
   justifyContentCenter?: boolean;
   alignItemsCenter?: boolean;
   alignItemsEnd?: boolean;
+  noShrink?: boolean;
 }

@@ -509,6 +509,7 @@ export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
   useActions?: boolean; // TODO
   progress?: boolean; // TODO
   alwaysResettable?: boolean; // TODO
+  validateOnMount?: boolean; // TODO
 }
 
 /**

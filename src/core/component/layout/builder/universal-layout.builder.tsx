@@ -32,10 +32,10 @@ export class UniversalLayoutBuilder<TNode> {
 
   /**
    * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
+   * @param {UniversalLayoutBuilderChildrenT<TNode>} _
    * @returns {string}
    */
-  protected getClonedItemKey(item: UniversalLayoutBuilderChildrenT<TNode>): string {
+  protected getClonedItemKey(_: UniversalLayoutBuilderChildrenT<TNode>): string {
     return this.newKey;
   }
 

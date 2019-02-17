@@ -201,14 +201,14 @@ export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) 
  * @stable [23.04.2018]
  */
 export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
-  extends ComponentClass<TProps> {
+  extends ComponentClass<TProps, TState> {
 }
 
 /**
  * @stable [14.05.2018]
  */
 export interface IUniversalContainerClassEntity<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
-  extends ComponentClass<TProps> {
+  extends ComponentClass<TProps, TState> {
 }
 
 /**

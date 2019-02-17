@@ -42,7 +42,6 @@ export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(checkedValue: AnyT
 
 /**
  * @deprecated
- * @stable [01.12.2018]
  * @param {AnyT} checkedValue
  * @param {(() => TResult) | TResult} result
  * @returns {void | TResult}
@@ -52,7 +51,7 @@ export const ifNotNilReturnValue = <TResult>(checkedValue: AnyT,
   ifNilReturnDefault<TResult, null>(checkedValue, result, null);
 
 /**
- * @stable [19.08.2018]
+ * @deprecated
  * @param {AnyT} value
  * @param {(() => TResult) | TResult} result
  * @returns {string | TResult}
@@ -72,3 +71,15 @@ export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
                                                    callback: (value: TValue) => TResult,
                                                    defaultValue = null): TResult =>
   !R.isNil(value) ? callback(value) : defaultValue;
+
+/**
+ * @stable [16.02.2019]
+ * @param {TValue} value
+ * @param {(value: TValue) => TResult} callback
+ * @param {any} defaultValue
+ * @returns {TResult}
+ */
+export const ifNotEmptyThanValue = <TValue, TResult> (value: TValue,
+                                                      callback: (value: TValue) => TResult,
+                                                      defaultValue = null): TResult =>
+  !R.isEmpty(value) ? callback(value) : defaultValue;

@@ -4,7 +4,7 @@ import { MDCSnackbar } from '@material/snackbar';
 import { DelayedTask } from '../../../util';
 import { MaterialPlugin } from './material.plugin';
 import { INativeMaterialSnackbarComponent } from '../material.interface';
-import { Snackbar, ISnackbarConfiguration, ISnackbarProps } from '../../snackbar';
+import { Snackbar, ISnackbarConfiguration } from '../../snackbar';
 
 export class SnackbarMaterialPlugin extends MaterialPlugin<Snackbar, INativeMaterialSnackbarComponent> {
 
@@ -24,10 +24,8 @@ export class SnackbarMaterialPlugin extends MaterialPlugin<Snackbar, INativeMate
 
   /**
    * @stable [22.08.2018]
-   * @param {Readonly<ISnackbarProps>} prevProps
-   * @param {{}} nextContext
    */
-  public componentDidUpdate(prevProps: Readonly<ISnackbarProps>, nextContext: {}): void {
+  public componentDidUpdate(): void {
     this.task.start();
   }
 

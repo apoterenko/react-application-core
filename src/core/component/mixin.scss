@@ -198,7 +198,7 @@
     float: $rac-styles-float;
   }
   @if $rac-styles-flex-shrink != unset {
-    flex-shrink: $rac-styles-flex-shrink;
+    @include flex-shrink($rac-styles-flex-shrink);
   }
   @if $rac-styles-min-height != unset {
     min-height: $rac-styles-min-height;
@@ -2317,4 +2317,29 @@
       $rac-text-field-input-color: $rac-form-layout-text-field-not-focused-input-color
     );
   }
+}
+
+/**
+ * @stable [17.02.2019]
+ */
+@mixin rac-flex-row($rac-flex-separator-width: unset) {
+  .rac-flex-row {
+    @include flex-direction(row);
+
+    @if $rac-flex-separator-width != unset {
+      & > .rac-flex-separator {
+        @include rac-flex-width($rac-flex-separator-width);
+      }
+    }
+  }
+}
+
+/**
+ * @stable [17.02.2019]
+ */
+@mixin rac-no-flex-shrink {
+  @include rac-styles(
+    $rac-styles-custom: rac-no-flex-shrink,
+    $rac-styles-flex-shrink: 0
+  );
 }

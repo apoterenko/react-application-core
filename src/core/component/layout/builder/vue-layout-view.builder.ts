@@ -10,12 +10,12 @@ export class VueLayoutViewBuilder extends UniversalLayoutViewBuilder<string> {
 
   /**
    * @stable [22.10.2018]
-   * @param {IKeyValue} props
+   * @param {IKeyValue} _
    * @param {VueLayoutBuilderChildrenT[]} children
    * @param {IVueLayoutBuilderConfiguration} layoutConfig
    * @returns {string}
    */
-  public buildRowView(props: IKeyValue,
+  public buildRowView(_: IKeyValue,
                       children: VueLayoutBuilderChildrenT[],
                       layoutConfig: IVueLayoutBuilderConfiguration): string {
     return (
@@ -27,12 +27,12 @@ export class VueLayoutViewBuilder extends UniversalLayoutViewBuilder<string> {
 
   /**
    * @stable [22.10.2018]
-   * @param {IKeyValue} props
+   * @param {IKeyValue} _
    * @param {VueLayoutBuilderChildrenT[]} children
    * @param {IVueLayoutBuilderConfiguration} layoutConfig
    * @returns {string}
    */
-  public buildColumnView(props: IKeyValue,
+  public buildColumnView(_: IKeyValue,
                          children: VueLayoutBuilderChildrenT[],
                          layoutConfig: IVueLayoutBuilderConfiguration): string {
     return (
@@ -44,10 +44,10 @@ export class VueLayoutViewBuilder extends UniversalLayoutViewBuilder<string> {
 
   /**
    * @stable [22.10.2018]
-   * @param {IKeyValue} props
+   * @param {IKeyValue} _
    * @returns {string}
    */
-  public buildSeparatorView(props: IKeyValue): string {
+  public buildSeparatorView(_: IKeyValue): string {
     return '<div class="rac-flex-separator"/>';
   }
 }

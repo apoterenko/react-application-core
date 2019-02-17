@@ -5,6 +5,12 @@
 
 .rac {
 
+  @include rac-flex-row(                                                                      /* @stable [17.02.2019] */
+    $rac-flex-separator-width: $rac-flex-separator-width
+  );
+
+  @include rac-no-flex-shrink;                                                                /* @stable [17.02.2019] */
+
   .rac-flex-overflow {
     overflow: auto;                                                 /* @stable [27.10.2018] */
 
@@ -19,14 +25,6 @@
 
   .rac-flex-unset {
     @include flex(unset);                                           /* @stable [19.09.2018] */
-  }
-
-  .rac-flex-row {
-    @include flex-direction(row);                                   /* @stable [21.09.2018] */
-
-    & > .rac-flex-separator {
-      @include rac-flex-width($rac-flex-separator-width);
-    }
   }
 
   .rac-flex-column {

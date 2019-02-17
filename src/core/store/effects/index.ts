@@ -7,7 +7,7 @@ export * from './filtered-list-effects.proxy';
 export * from './form-filter-effects.proxy';
 export * from './list-empty-message-action.effects';
 export * from './paginated-list-effects.proxy';
-export * from './refreshed-list-on-change-form-effects.proxy';
+export * from './refreshed-list-on-valid-form-effects.proxy';
 export * from './router-effects.proxy';
 export * from './succeed-form-effects.proxy';
 export * from './untouched-list-effects.proxy';

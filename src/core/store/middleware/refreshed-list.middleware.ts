@@ -1,8 +1,9 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
+import { orNull, toType } from '../../util';
 import {
   IRefreshedListMiddlewareConfig,
-  IRefreshedListOnChangeFormMiddlewareConfig,
+  IRefreshedListOnValidFormMiddlewareConfig,
 } from './middleware.interface';
 import { ListActionBuilder } from '../../component/action.builder';
 import { IPayloadWrapper, IValidWrapper } from '../../definitions.interface';
@@ -24,14 +25,14 @@ export const makeRefreshedListMiddleware = (config: IRefreshedListMiddlewareConf
 };
 
 /**
- * @stable [16.10.2018]
- * @param {IRefreshedListOnChangeFormMiddlewareConfig} config
+ * @stable [17.02.2019]
+ * @param {IRefreshedListOnValidFormMiddlewareConfig} config
  * @returns {IEffectsAction[]}
  */
-export const makeRefreshedListOnChangeFormMiddleware = (
-  config: IRefreshedListOnChangeFormMiddlewareConfig): IEffectsAction[] => {
-  const validWrapper: IValidWrapper = config.action.data;
-  return validWrapper.valid
-    ? [ListActionBuilder.buildLoadAction(config.listSection)]
-    : null;
+export const makeRefreshedListOnValidFormMiddleware = (
+  config: IRefreshedListOnValidFormMiddlewareConfig): IEffectsAction[] => {
+  return orNull(
+    toType<IValidWrapper>(config.action.data).valid,
+    () => [ListActionBuilder.buildLoadAction(config.listSection)]
+  );
 };
