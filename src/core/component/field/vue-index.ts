@@ -1,3 +1,4 @@
+export * from './checkbox/vue-index';
 export * from './field/vue-index';
 export * from './filefield/vue-index';
 export * from './multifield/multifield.interface';

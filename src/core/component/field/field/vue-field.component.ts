@@ -44,8 +44,8 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   @Prop() public readonly placeholder: string;
   @Prop() public readonly autoFocus: boolean;
   @Prop() public readonly icon: string;
-  @Prop() protected type: string;
-  @Prop() protected floatLabel: boolean;
+  @Prop() public readonly type: string;
+  @Prop() public readonly floatLabel: boolean;
 
   /**
    * @stable [17.11.2018]

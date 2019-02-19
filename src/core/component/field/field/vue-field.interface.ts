@@ -9,6 +9,8 @@ import {
   IIconWrapper,
   IAutoFocusWrapper,
   IPlaceholderWrapper,
+  IFloatLabelWrapper,
+  ITypeWrapper,
 } from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import { IVueValue$Wrapper, VueAccessorsT } from '../../../vue-definitions.interface';
@@ -45,7 +47,9 @@ export interface IVueFieldProps extends IVueBaseProps,
                                         IPlaceholderWrapper,
                                         IDisplayNameWrapper,
                                         IUseLocalizationWrapper,
-                                        IFullWrapper {
+                                        IFullWrapper,
+                                        ITypeWrapper,
+                                        IFloatLabelWrapper {
 }
 
 /**

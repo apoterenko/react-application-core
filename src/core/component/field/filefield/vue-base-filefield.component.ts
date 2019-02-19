@@ -9,7 +9,7 @@ import {
   defValuesFilter,
   orUndef,
   nvl,
-  ifNotNilReturnValue,
+  ifNotNilThanValue,
   toClassName,
 } from '../../../util';
 import { IEntity, AnyT, EntityIdT, IEntityIdTWrapper } from '../../../definitions.interface';
@@ -35,7 +35,7 @@ export class VueBaseFileField extends VueField
   @Prop() public readonly defaultDndMessage: string;
   @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
   @Prop({default: (): string => VUE_FILE_VIEWER_NAME}) public readonly viewer: string;
-  @Prop({default: (): string => 'hidden'}) protected readonly type: string;
+  @Prop({default: (): string => 'hidden'}) public readonly type: string;
   @Prop() protected readonly viewerProps: IVueBaseFileViewerProps;
 
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
@@ -103,7 +103,7 @@ export class VueBaseFileField extends VueField
    * @returns {string}
    */
   public getCustomDndMessage(entity: IMultiItemFileEntity | IEntity, index: number): string {
-    return ifNotNilReturnValue(this.defaultDndMessageFactory, () => this.defaultDndMessageFactory(index));
+    return ifNotNilThanValue(this.defaultDndMessageFactory, () => this.defaultDndMessageFactory(index));
   }
 
   /**

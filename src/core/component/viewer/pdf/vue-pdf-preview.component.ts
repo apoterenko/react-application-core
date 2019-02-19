@@ -1,4 +1,4 @@
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import * as dragscroll from 'dragscroll';
 
 import { ENV } from '../../../env';
@@ -7,10 +7,12 @@ import { VueBaseComponent } from '../../base/vue-index';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
 import { IUniversalPdfPlugin } from './pdf-viewer.interface';
 
+const INITIAL_SCALE = 1;
+
 @ComponentName('vue-pdf-preview')
 @Component({
   data: () => ({
-    scale: 1,
+    scale: INITIAL_SCALE,
   }),
   template: `
     <vue-flex-layout class="vue-pdf-viewer">
@@ -56,15 +58,18 @@ class VuePdfPreview extends VueBaseComponent {
   }
 
   /**
+   * The src attribute is not bound to view therefore View doesn't update
+   */
+  @Watch('src')
+  public onChangeSrc(): void {
+    this.doRefresh();
+  }
+
+  /**
    * @stable [14.11.2018]
    */
   public mounted(): void {
-    dragscroll.reset();
-
-    this.pdfPlugin
-      .setScale(this.$data.scale)
-      .setSrc(this.src)
-      .loadDocument();
+    this.doRefresh();
   }
 
   /**
@@ -106,5 +111,18 @@ class VuePdfPreview extends VueBaseComponent {
     this.pdfPlugin
       .setScale(this.$data.scale)
       .refreshPage();
+  }
+
+  /**
+   * @stable [19.02.2019]
+   */
+  private doRefresh(): void {
+    dragscroll.reset();
+
+    this.$data.scale = INITIAL_SCALE;
+    this.pdfPlugin
+      .setScale(this.$data.scale)
+      .setSrc(this.src)
+      .loadDocument();
   }
 }

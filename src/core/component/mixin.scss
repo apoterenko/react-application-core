@@ -567,6 +567,14 @@
 }
 
 /**
+ * @stable [30.10.2018]
+ */
+@mixin rac-flex-size($value) {
+  @include rac-flex-width($value);
+  @include rac-flex-height($value);
+}
+
+/**
  * @stable [20.01.2019]
  */
 @mixin rac-absolute-full($rac-absolute-full-position: absolute,

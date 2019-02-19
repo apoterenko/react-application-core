@@ -6,15 +6,11 @@ import {
   IVueCyclicViewerPayloadEntity,
   IVueCyclicViewerProps,
   VUE_CYCLIC_VIEWER_NAME,
-  IVueCyclicViewerState,
 } from './vue-cyclic-viewer.interface';
 import { isImageFileFormat, isPdfFileFormat } from '../../../util';
 
 @ComponentName(VUE_CYCLIC_VIEWER_NAME)
 @Component({
-  data: (): IVueCyclicViewerState => ({
-    index: 0,
-  }),
   template: `
       <vue-flex-layout class="vue-cyclic-viewer">
           <vue-flex-layout v-if="!hasFiles()"
@@ -48,8 +44,9 @@ import { isImageFileFormat, isPdfFileFormat } from '../../../util';
       </vue-flex-layout>
   `,
 })
-class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implements IVueCyclicViewerProps {
+class VueCyclicViewer extends VueBaseComponent<{}> implements IVueCyclicViewerProps {
   @Prop() public list: IVueCyclicViewerPayloadEntity[];
+  @Prop() public index: number;
 
   /**
    * @stable [29.01.2019]
@@ -71,16 +68,14 @@ class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implem
    * @stable [29.01.2019]
    */
   private onPrevious(): void {
-    this.getData().index--;
-    this.doEmitPositionEvent();
+    this.doEmitPositionEvent(this.getIndex() - 1);
   }
 
   /**
    * @stable [29.01.2019]
    */
   private onNext(): void {
-    this.getData().index++;
-    this.doEmitPositionEvent();
+    this.doEmitPositionEvent(this.getIndex() + 1);
   }
 
   /**
@@ -136,7 +131,7 @@ class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implem
    * @returns {number}
    */
   private getIndex(): number {
-    return this.getData().index;
+    return this.index || 0;
   }
 
   /**
@@ -156,9 +151,10 @@ class VueCyclicViewer extends VueBaseComponent<{}, IVueCyclicViewerState> implem
   }
 
   /**
-   * @stable [30.01.2019]
+   * @stable [19.02.2019]
+   * @param {number} index
    */
-  private doEmitPositionEvent(): void {
-    this.$emit('change', this.getData().index);
+  private doEmitPositionEvent(index: number): void {
+    this.$emit('change', index);
   }
 }

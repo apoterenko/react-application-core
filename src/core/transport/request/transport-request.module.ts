@@ -1,1 +1,1 @@
-import './request/transport-request-payload-factory.module';
+import './payload-factory/transport-request-payload-factory.module';

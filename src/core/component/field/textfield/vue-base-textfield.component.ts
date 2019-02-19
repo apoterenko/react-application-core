@@ -9,8 +9,8 @@ import {
 } from './vue-textfield.interface';
 
 export class VueBaseTextField extends VueField implements IVueBaseTextFieldProps {
-  @Prop({default: (): boolean => true}) protected floatLabel: boolean;
-  @Prop({default: (): string => 'text'}) protected type: string;
+  @Prop({default: (): boolean => true}) public readonly floatLabel: boolean;
+  @Prop({default: (): string => 'text'}) public readonly type: string;
 
   /**
    * @stable [21.10.2018]

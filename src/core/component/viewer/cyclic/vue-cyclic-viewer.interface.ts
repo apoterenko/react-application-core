@@ -17,13 +17,8 @@ export interface IVueCyclicViewerPayloadEntity extends IFormatWrapper,
  * @stable [29.01.2019]
  */
 export interface IVueCyclicViewerProps extends IVueBaseProps,
+                                               IIndexWrapper,
                                                IListWrapper<IVueCyclicViewerPayloadEntity[]> {
-}
-
-/**
- * @stable [29.01.2019]
- */
-export interface IVueCyclicViewerState extends IIndexWrapper {
 }
 
 /**

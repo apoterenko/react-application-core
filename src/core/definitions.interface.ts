@@ -1275,6 +1275,7 @@ export interface IProgressWrapper { progress?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IReadyWrapper { ready?: boolean; }
 export interface IAuthorizedWrapper { authorized?: boolean; }
+export interface IFloatLabelWrapper { floatLabel?: boolean; }
 
 /**
  * @stable [28.06.2018]

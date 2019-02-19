@@ -1,2 +1,2 @@
 export * from './provider';
-export * from './request';
+export * from './payload-factory';

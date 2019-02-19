@@ -5,7 +5,7 @@ import {
   IVueGridColumnDynamicEntity,
   IVueGridColumnConfiguration,
 } from '../../vue-entities-definitions.interface';
-import { calc, toClassName, orEmpty, isString } from '../../util';
+import { calc, toClassName, orEmpty, orNull, isString } from '../../util';
 import { VueBaseComponent } from '../base/vue-index';
 import { ComponentName } from '../connector/vue-index';
 import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
@@ -30,7 +30,8 @@ import { IEntity, IKeyValue, AnyT } from '../../definitions.interface';
                          class="rac-grid-column-content"/>
                     <div v-else
                          class="rac-grid-column-content vue-grid-column-content">
-                      <component :is="getColumnDynamicComponent(entity, column)"
+                      <component v-if="getColumnDynamicComponent(entity, column)"
+                                 :is="getColumnDynamicComponent(entity, column)"
                                  v-on="getColumnDynamicEvents(entity, column)"
                                  v-bind="getColumnDynamicBindings(entity, column)"/>
                     </div>
@@ -115,7 +116,7 @@ class VueGrid extends VueBaseComponent {
    */
   private getColumnDynamicComponent(entity: IEntity, column: IVueGridColumnConfiguration): string {
     const columnDynamicEntity = this.getColumn(entity, column) as IVueGridColumnDynamicEntity;
-    return columnDynamicEntity.component$;
+    return orNull(columnDynamicEntity, () => columnDynamicEntity.component$);
   }
 
   /**

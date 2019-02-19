@@ -4,13 +4,13 @@ import { toClassName } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueField, IVueFieldInputListenersEntity } from '../field/vue-index';
-import { VUE_CHECKBOX_NAME } from './vue-checkbox.interface';
+import { IVueCheckboxProps, VUE_CHECKBOX_NAME } from './vue-checkbox.interface';
 
 @ComponentName(VUE_CHECKBOX_NAME)
 @Component
-class VueCheckbox extends VueField {
-  @Prop({default: (): boolean => false}) protected floatLabel: boolean;
-  @Prop({default: (): string => 'checkbox'}) protected type: string;
+class VueCheckbox extends VueField implements IVueCheckboxProps {
+  @Prop({default: (): boolean => false}) public floatLabel: boolean;
+  @Prop({default: (): string => 'checkbox'}) public type: string;
 
   /**
    * @stable [17.11.2018]
