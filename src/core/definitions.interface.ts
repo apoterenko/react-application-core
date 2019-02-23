@@ -64,117 +64,22 @@ export const REGION_FIELD_NAME = 'region';                                      
 export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
 export const DISPLAY_MESSAGE_FIELD_NAME = 'displayMessage';                                     /* @stable [29.10.2018] */
 
-/**
- * @stable [31.07.2018]
- */
-export interface IKeyValue extends Record<string, AnyT> {
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface IIdWrapper<TId = number> {
-  id?: TId;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {
-}
-
-/* @stable - 01.04.2018 */
-export interface IEntity extends IEntityIdTWrapper,
-                                 IKeyValue {
-}
-
-/**
- * @stable [14.08.2018]
- */
-export interface IActiveValueWrapper<TActiveValue = number> {
-  activeValue?: TActiveValue;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IUserWrapper<TUser = string> {
-  user?: TUser;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface INumberUserWrapper extends IUserWrapper<number> {
-}
-
-/* @stable - 10.04.2018 */
-export interface ITransportWrapper<TTransport> {
-  transport?: TTransport;
-}
-
-/**
- * @stable [20.05.2018]
- */
-export interface IIpWrapper<TIp = string> {
-  ip?: TIp;
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface ISrcWrapper<TSrc = string> {
-  src?: TSrc;
-}
-
-/**
- * @stable [30.01.2019]
- */
-export interface IScaleFactorWrapper<TScaleFactor = number> {
-  scaleFactor?: TScaleFactor;
-}
-
-/**
- * @stable [21.12.2018]
- */
-export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> {
-  previewAttachment?: TPreviewAttachment;
-}
-
-/**
- * @stable [20.01.2019]
- */
-export interface IPopupClassNameWrapper<TPopupClassName = string> {
-  popupClassName?: TPopupClassName;
-}
-
-/**
- * @stable [09.12.2018]
- */
-export interface IFileWrapper<TFile = File> {
-  file?: TFile;
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IScaleWrapper<TScale = number> {
-  scale?: TScale;
-}
-
-/**
- * @stable [30.06.2018]
- */
-export interface IPreviewScaleWrapper<TScale = number> {
-  previewScale?: TScale;
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IDefaultSrcWrapper<TDefaultSrc = string> {
-  defaultScr?: TDefaultSrc;
-}
+export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
+export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
+export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
+export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
+export interface IIdWrapper<TId = number> { id?: TId; }
+export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
+export interface IIpWrapper<TIp = string> { ip?: TIp; }
+export interface IKeyValue extends Record<string, AnyT> {}
+export interface IPopupClassNameWrapper<TPopupClassName = string> { popupClassName?: TPopupClassName; }
+export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> { previewAttachment?: TPreviewAttachment; }
+export interface IPreviewScaleWrapper<TScale = number> { previewScale?: TScale; }
+export interface IScaleFactorWrapper<TScaleFactor = number> { scaleFactor?: TScaleFactor; }
+export interface IScaleWrapper<TScale = number> { scale?: TScale; }
+export interface ISrcWrapper<TSrc = string> { src?: TSrc; }
+export interface ITransportWrapper<TTransport> { transport?: TTransport; }
+export interface IUserWrapper<TUser = string> { user?: TUser; }
 
 /**
  * @stable [22.06.2018]
@@ -183,51 +88,22 @@ export interface IActionedWrapper {
   actioned?: boolean;
 }
 
-/**
- * @stable [15.09.2018]
- */
-export interface IIndexWrapper<TIndex = number> {
-  index?: TIndex;
-}
-
 /* @stable [23.04.2018] */
 export interface IEmptyDataWrapper<TEmptyData> {
   emptyData?: TEmptyData;
 }
 
-/**
- * @stable [02.07.2018]
- */
-export interface IGroupByWrapper<TGroupBy> {
-  groupBy?: TGroupBy;
-}
+export interface IGroupByWrapper<TGroupBy> { groupBy?: TGroupBy; }
 
 /* @stable [23.04.2018] */
 export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
-/* @stable - 14.04.2018 */
-export interface IMappersWrapper<TMappers> {
-  mappers?: TMappers;
-}
+export interface IMappersWrapper<TMappers> { mappers?: TMappers; }
 
 /* @stable - 14.04.2018 */
 export interface IRouteParamsWrapper<TRouteParams> {
   routeParams?: TRouteParams;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface ICodeIdWrapper<TCodeId = number> {
-  codeId?: TCodeId;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface IBlockedWrapper<TBlocked = boolean> {
-  blocked?: TBlocked;
 }
 
 /* @stable - 14.04.2018 */
@@ -242,13 +118,7 @@ export interface IQueryParamsWrapper<TQueryParams> {
 /* @stable - 14.04.2018 */
 export interface IURLSearchQueryParamsWrapper extends IQueryParamsWrapper<URLSearchParams> {
 }
-
-/**
- * @stable [29.07.2018]
- */
-export interface ILocationWrapper<TLocation> {
-  location?: TLocation;
-}
+export interface ILocationWrapper<TLocation> { location?: TLocation; }
 
 /* @stable - 14.04.2018 */
 export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
@@ -260,36 +130,9 @@ export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
 export interface IProgressMessageWrapper<TProgressMessage = string> {
   progressMessage?: TProgressMessage;
 }
-
-/**
- * @stable [13.02.2019]
- */
-export interface IOnClickWrapper<TOnClick> {
-  onClick?: TOnClick;
-}
-
-/**
- * @stable [17.08.2018]
- */
-export interface IResultWrapper<TResult = AnyT> {
-  result?: TResult;
-}
-
-/* @stable - 01.04.2018 */
-export interface IResponseWrapper<TResponse> {
-  response?: TResponse;
-}
-
-/* @stable - 01.04.2018 */
-export interface IAnyResponseWrapper extends IResponseWrapper<AnyT> {
-}
-
-/**
- * @stable [15.05.2018]
- */
-export interface IListWrapper<TList = JSX.Element> {
-  list?: TList;
-}
+export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
+export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
+export interface IListWrapper<TList> { list?: TList; }
 
 /**
  * @stable [30.08.2018]
@@ -2130,27 +1973,9 @@ export interface IUnregisterWrapper<TUnregister> {
 export interface IErrorMessageWrapper<TErrorMessage = string> {
   errorMessage?: TErrorMessage;
 }
-
-/**
- * @stable [01.12.2019]
- */
-export interface IStatusTextWrapper {
-  statusText?: string;
-}
-
-/**
- * @stable [01.12.2019]
- */
-export interface IStatusWrapper {
-  status?: number;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IErrorWrapper<TError = boolean> {
-  error?: TError;
-}
+export interface IStatusTextWrapper { statusText?: string; }
+export interface IStatusWrapper<TStatus = number> { status?: TStatus; }
+export interface IErrorWrapper<TError = boolean> { error?: TError; }
 
 /**
  * @stable [17.06.2018]

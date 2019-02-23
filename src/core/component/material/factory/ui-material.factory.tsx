@@ -137,7 +137,7 @@ import { IUIFactory } from '../../factory';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
-import { ApplicationTranslatorT } from '../../../translation';
+import { TranslatorT } from '../../../translation';
 import { IUIDefaultIconFactory } from '../../icon';
 
 @injectable()
@@ -339,7 +339,7 @@ export class UIMaterialFactory implements IUIFactory {
   public dialogScrim = 'mdc-dialog__scrim';
   public dialogActions = 'mdc-dialog__actions';
 
-  @lazyInject(DI_TYPES.Translate) private t: ApplicationTranslatorT;
+  @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;
 
   /**

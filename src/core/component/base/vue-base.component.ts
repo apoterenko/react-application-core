@@ -4,7 +4,7 @@ import * as R from 'ramda';
 
 import { isDef } from '../../util';
 import { DI_TYPES, lazyInject } from '../../di';
-import { ApplicationTranslatorT } from '../../translation';
+import { TranslatorT } from '../../translation';
 import { IKeyValue } from '../../definitions.interface';
 import { ISettings } from '../../settings';
 import { IVueContainer, IVueComponent } from '../../vue-entities-definitions.interface';
@@ -17,7 +17,7 @@ export class VueBaseComponent<TStore = IKeyValue,
   implements IVueComponent, IVueBaseProps {
 
   @Prop() public className: string | ((...args) => string);
-  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
+  @lazyInject(DI_TYPES.Translate) protected t: TranslatorT;
   @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @Prop() protected styles: IKeyValue;

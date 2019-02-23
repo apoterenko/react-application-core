@@ -20,7 +20,7 @@ import {
   ROUTER_REWRITE_ACTION_TYPE,
 } from '../../router/router.interface';
 import { ISettings } from '../../settings';
-import { ApplicationTranslatorT } from '../../translation';
+import { TranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
@@ -235,9 +235,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable - 15.04.2018
-   * @returns {ApplicationTranslatorT}
+   * @returns {TranslatorT}
    */
-  protected get t(): ApplicationTranslatorT {
+  protected get t(): TranslatorT {
     return staticInjector(DI_TYPES.Translate);
   }
 

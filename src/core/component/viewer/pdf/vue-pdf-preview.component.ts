@@ -1,4 +1,4 @@
-import { Component, Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import * as dragscroll from 'dragscroll';
 
 import { ENV } from '../../../env';
@@ -6,18 +6,24 @@ import { ComponentName } from '../../connector/vue-index';
 import { VueBaseComponent } from '../../base/vue-index';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
 import { IUniversalPdfPlugin } from './pdf-viewer.interface';
+import { IVuePdfPreviewState, IVuePdfPreviewProps } from './vue-pdf-preview.interface';
 
 const INITIAL_SCALE = 1;
 
 @ComponentName('vue-pdf-preview')
 @Component({
-  data: () => ({
+  data: (): IVuePdfPreviewState => ({
     scale: INITIAL_SCALE,
   }),
+  /**
+   * Attention!! We can't use the @Watch('src') because of the very very strange error occurred:
+   *   'Error in callback for watcher "src": "TypeError: Cannot read property 'call' of undefined"' => :src="src"
+   */
   template: `
     <vue-flex-layout class="vue-pdf-viewer">
        <vue-flex-layout class="vue-viewer-canvas dragscroll">
          <canvas ref="canvas"
+                 :src="src"
                  class="rac-absolute"/>
        </vue-flex-layout>
        <div class="vue-viewer-scale-action
@@ -37,9 +43,10 @@ const INITIAL_SCALE = 1;
     </vue-flex-layout>
   `,
 })
-class VuePdfPreview extends VueBaseComponent {
-  @Prop() private text: string;
-  @Prop() private src: string;
+class VuePdfPreview extends VueBaseComponent<{}, IVuePdfPreviewState>
+  implements IVuePdfPreviewProps {
+
+  @Prop() public src: string;
   @Prop({default: (): number => .5}) private scaleFactor: number;
   @Prop({default: (): string => 'pdf.worker.min.js'}) private pdfWorkerJs: string;
 
@@ -58,17 +65,16 @@ class VuePdfPreview extends VueBaseComponent {
   }
 
   /**
-   * The src attribute is not bound to view therefore View doesn't update
+   * @stable [14.11.2018]
    */
-  @Watch('src')
-  public onChangeSrc(): void {
+  public mounted(): void {
     this.doRefresh();
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [23.02.2019]
    */
-  public mounted(): void {
+  public updated(): void {
     this.doRefresh();
   }
 
@@ -106,10 +112,10 @@ class VuePdfPreview extends VueBaseComponent {
    * @param {number} scale
    */
   private onChangeScale(scale: number): void {
-    this.$data.scale += scale;
+    this.getData().scale += scale;
 
     this.pdfPlugin
-      .setScale(this.$data.scale)
+      .setScale(this.getData().scale)
       .refreshPage();
   }
 
@@ -119,9 +125,9 @@ class VuePdfPreview extends VueBaseComponent {
   private doRefresh(): void {
     dragscroll.reset();
 
-    this.$data.scale = INITIAL_SCALE;
+    this.getData().scale = INITIAL_SCALE;
     this.pdfPlugin
-      .setScale(this.$data.scale)
+      .setScale(this.getData().scale)
       .setSrc(this.src)
       .loadDocument();
   }

@@ -10,7 +10,7 @@ import {
   INativeMaterialComponentFactory,
 } from '../../material';
 import { DI_TYPES, staticInjector } from '../../../di';
-import { ApplicationTranslatorT } from '../../../translation';
+import { TranslatorT } from '../../../translation';
 
 export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>
@@ -51,9 +51,9 @@ export class MaterialPlugin<TComponent extends IComponent,
 
   /**
    * @stable [22.08.2018]
-   * @returns {ApplicationTranslatorT}
+   * @returns {TranslatorT}
    */
-  protected get t(): ApplicationTranslatorT {
-    return staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate);
+  protected get t(): TranslatorT {
+    return staticInjector<TranslatorT>(DI_TYPES.Translate);
   }
 }

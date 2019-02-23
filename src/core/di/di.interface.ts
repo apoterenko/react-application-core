@@ -1,4 +1,4 @@
-export const DI_TYPES = {
+export const DI_TYPES = Object.freeze({
   Api: Symbol('Api'),
   Auth: Symbol('Auth'),
   Channel: Symbol('Channel'),
@@ -10,6 +10,7 @@ export const DI_TYPES = {
   EventManager: Symbol('EventManager'),
   FieldsOptions: Symbol('FieldsOptions'),
   GeoCoder: Symbol('GeoCoder'),
+  I18n: Symbol('I18n'),
   Lock: Symbol('Lock'),
   Menu: Symbol('Menu'),
   ModifyEntityPayloadFactory: Symbol('ModifyEntityPayloadFactory'),
@@ -35,4 +36,4 @@ export const DI_TYPES = {
   UIFactory: Symbol('UIFactory'),
   UIIconFactory: Symbol('UIIconFactory'),
   UIPlugins: Symbol('UIPlugins'),
-};
+});

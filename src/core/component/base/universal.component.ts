@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DelayedTask, isFn, isDef } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
-import { ApplicationTranslatorT } from '../../translation';
+import { TranslatorT } from '../../translation';
 import { ISettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import {
@@ -120,9 +120,9 @@ export class UniversalComponent<TComponent extends IUniversalComponent<TProps, T
 
   /**
    * @stable [19.04.2018]
-   * @returns {ApplicationTranslatorT}
+   * @returns {TranslatorT}
    */
-  protected get t(): ApplicationTranslatorT {
+  protected get t(): TranslatorT {
     return staticInjector(DI_TYPES.Translate);
   }
 

@@ -3,7 +3,7 @@ import { Store } from 'redux';
 
 import { applySection } from '../../util';
 import { lazyInject, DI_TYPES } from '../../di';
-import { ApplicationTranslatorT } from '../../translation';
+import { TranslatorT } from '../../translation';
 import {
   AnyT,
   IKeyValue,
@@ -22,7 +22,7 @@ import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../rout
 export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueContainer {
   public section$: string;
   @lazyInject(DI_TYPES.Store) public store$: Store<IVueApplicationStoreEntity>;
-  @lazyInject(DI_TYPES.Translate) protected t: ApplicationTranslatorT;
+  @lazyInject(DI_TYPES.Translate) protected t: TranslatorT;
 
   /**
    * @stable [21.10.2018]

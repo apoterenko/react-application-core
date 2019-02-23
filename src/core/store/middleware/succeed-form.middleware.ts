@@ -13,7 +13,7 @@ import { toRouteConfiguration } from '../../router';
 import { DI_TYPES, staticInjector } from '../../di';
 import { IApplicationModifyEntityPayloadFactory, IModifyEntityPayloadWrapper } from '../../api';
 import { NotificationActionBuilder } from '../../notification';
-import { ApplicationTranslatorT } from '../../translation';
+import { TranslatorT } from '../../translation';
 import { ISettings } from '../../settings';
 
 const logger = LoggerFactory.makeLogger('succeed-form.middleware');
@@ -45,7 +45,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
         .concat(config.canReturn !== false ? RouterActionBuilder.buildNavigateBackAction() : [])
   ).concat(
     NotificationActionBuilder.buildInfoAction(
-      staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate)(
+      staticInjector<TranslatorT>(DI_TYPES.Translate)(
         config.saveMessage || staticInjector<ISettings>(DI_TYPES.Settings).messages.dataSaved
       )
     )
@@ -89,7 +89,7 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
       : []
   ).concat(
     NotificationActionBuilder.buildInfoAction(
-      staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate)(
+      staticInjector<TranslatorT>(DI_TYPES.Translate)(
         saveMessage || staticInjector<ISettings>(DI_TYPES.Settings).messages.dataSaved
       )
     )

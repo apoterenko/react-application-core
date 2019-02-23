@@ -5,7 +5,8 @@ import { staticInjector } from './di.support';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { INumberConverter } from '../converter';
 import { IUIFactory } from '../component/factory/factory.interface';
-import { ApplicationTranslatorT } from '../translation';
+import { TranslatorT } from '../translation';
+import { ITransport } from '../transport';
 
 /**
  * @stable [20.10.2018]
@@ -28,6 +29,18 @@ export const getUiFactory = (): IUIFactory => staticInjector<IUIFactory>(DI_TYPE
 
 /**
  * @stable [15.11.2018]
- * @returns {ApplicationTranslatorT}
+ * @returns {TranslatorT}
  */
-export const getTranslator = (): ApplicationTranslatorT => staticInjector<ApplicationTranslatorT>(DI_TYPES.Translate);
+export const getTranslator = (): TranslatorT => staticInjector<TranslatorT>(DI_TYPES.Translate);
+
+/**
+ * @stable [23.02.2019]
+ * @returns {ITransport}
+ */
+export const getTransport = (): ITransport => staticInjector<ITransport>(DI_TYPES.Transport);
+
+/**
+ * @stable [23.02.2019]
+ * @returns {TApi}
+ */
+export const getApi = <TApi>(): TApi => staticInjector<TApi>(DI_TYPES.Api);
