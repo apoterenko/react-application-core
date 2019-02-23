@@ -2,7 +2,7 @@ import {
   IBasicTextFieldState,
   IBasicTextFieldProps,
   IBasicTextField,
-} from './basic-textfield.interface';
+} from './base-textfield.interface';
 
 export interface ITextFieldInternalState extends IBasicTextFieldState {
 }

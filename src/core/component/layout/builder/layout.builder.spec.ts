@@ -5,8 +5,11 @@ import { UniversalLayoutBuilder } from './universal-layout.builder';
 describe('layout.builder', () => {
 
   it('test1', () => {
-    function PseudoElement(name, value) {
-      this.props = { [name]: value };
+    class PseudoElement {
+      private props;
+      constructor(name, value) {
+        this.props = {[name]: value};
+      }
     }
 
     const layoutBuilder = new UniversalLayoutBuilder(new DefaultLayoutViewBuilder());

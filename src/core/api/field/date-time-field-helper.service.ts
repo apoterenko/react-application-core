@@ -99,6 +99,8 @@ export class DateTimeFieldHelper {
     );
   }
 
+  // TODO refactoring
+  /* tslint:disable */
   public buildDateTimeRangeFields<TEntity extends IEntity>(entity: TEntity,
                                                            fromDateResolver: (entity: TEntity) => string,
                                                            toDateResolver: (entity: TEntity) => string,
@@ -119,6 +121,7 @@ export class DateTimeFieldHelper {
       ),
     } as TEntity;
   }
+  /* tslint:enable */
 
   public splitToDateAndTimeBasicFields<TEntity>(entity: IDateTimeEntity,
                                                 dateResolver: (entity: TEntity) => string): IDateTimeEntity {

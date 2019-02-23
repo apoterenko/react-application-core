@@ -226,7 +226,13 @@ export class AddressField extends BaseTextField<AddressField, IAddressFieldProps
 
     switch (payload.item.value) {
       case AddressMapMarkerActionEnum.PUT_MARKER_HERE:
-        this.googleMaps.setMarkerState(AddressField.ADDRESS_MARKER, true, false, this.lat, this.lng);
+        this.googleMaps.setMarkerState({
+          marker: AddressField.ADDRESS_MARKER,
+          visibility: true,
+          refreshMap: false,
+          lat: this.lat,
+          lng: this.lng,
+        });
         this.updateGeocodeInfo();
         break;
     }
@@ -339,11 +345,20 @@ export class AddressField extends BaseTextField<AddressField, IAddressFieldProps
     const isMarkerVisible = !(R.isNil(props.lat) && R.isNil(props.lng));
 
     if (isMarkerVisible) {
-      this.googleMaps.setMarkerState(
-        AddressField.ADDRESS_MARKER, true, true, props.lat, props.lng, this.settings.googleMaps.prettyZoom
-      );
+      this.googleMaps.setMarkerState({
+        marker: AddressField.ADDRESS_MARKER,
+        visibility: true,
+        refreshMap: true,
+        lat: props.lat,
+        lng: props.lng,
+        zoom: this.settings.googleMaps.prettyZoom,
+      });
     } else {
-      this.googleMaps.setMarkerState(AddressField.ADDRESS_MARKER, false, true);
+      this.googleMaps.setMarkerState({
+        marker: AddressField.ADDRESS_MARKER,
+        visibility: false,
+        refreshMap: true,
+      });
     }
   }
 

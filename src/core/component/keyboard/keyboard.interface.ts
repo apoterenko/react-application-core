@@ -53,23 +53,21 @@ export const KEYBOARD_QWERTY_DIGITAL_LAYOUT: KeyboardLayoutT = [
 ];
 
 /**
- * @stable [21.11.2018]
+ * @stable [19.02.2019]
  */
-export const KEYBOARD_NUMERIC_LAYOUT: KeyboardLayoutT = [
-  ['1', '2', '3', '4', '5'],
-  ['6', '7', '8', '9', '0'],
-  ['+', '-', ',', '.', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}]
-];
-
-/**
- * @stable [13.01.2019]
- */
-export const KEYBOARD_BASIC_NUMERIC_LAYOUT: KeyboardLayoutT = [
+export const INLINE_KEYBOARD_NUMERIC_LAYOUT: KeyboardLayoutT = [
   ['1', '2', '3'],
   ['4', '5', '6'],
   ['7', '8', '9'],
   ['.', '0', {value: KEYBOARD_SPECIAL_KEYS.BACK, type: KeyboardKeyEnum.BACKSPACE}]
 ];
+
+/**
+ * @stable [19.02.2019]
+ */
+export const KEYBOARD_NUMERIC_LAYOUT: KeyboardLayoutT = INLINE_KEYBOARD_NUMERIC_LAYOUT.concat([
+  [{value: KEYBOARD_SPECIAL_KEYS.CLOSE, type: KeyboardKeyEnum.CLOSE}]
+]);
 
 /**
  * @stable [08.05.2018]

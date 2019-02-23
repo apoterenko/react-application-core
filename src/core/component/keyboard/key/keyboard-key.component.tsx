@@ -9,6 +9,7 @@ import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitio
 import { Button } from '../../button';
 
 export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
+  private buttonRef = React.createRef<Button>();
 
   /**
    * @stable [26.01.2019]
@@ -41,6 +42,7 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
 
     return (
       <Button
+        ref={this.buttonRef}
         disabled={props.disabled}
         rippled={props.rippled}
         className={toClassName(
@@ -64,5 +66,6 @@ export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
   private onClick(e: IBasicEvent): void {
     cancelEvent(e);
     this.props.onSelect(this.props.value);
+    this.buttonRef.current.blur();
   }
 }

@@ -27,16 +27,6 @@ html, body {
     $rac-styles-min-width: $rac-min-width
   );
 
-  @include rac-styles(                                                                        /* @stable [13.12.2018] */
-    $rac-styles-custom: rac-status-ok,
-    $rac-styles-color: $rac-status-ok-color
-  );
-
-  @include rac-styles(                                                                        /* @stable [13.12.2018] */
-    $rac-styles-custom: rac-status-warning,
-    $rac-styles-color: $rac-status-warning-color
-  );
-
   .rac-overflow-ellipsis {
     display: inline-block;                                                          /* @stable [16.09.2018] */
     overflow: hidden;                                                               /* @stable [16.09.2018] */
@@ -187,10 +177,6 @@ html, body {
       height: $rac-status-size;                              /* @stable [11.10.2018] */
       width: $rac-status-size;                               /* @stable [11.10.2018] */
     }
-  }
-
-  .rac-status-attention {
-    color: $rac-status-attention-color;                      /* @stable [17.08.2018] */
   }
 
   .rac-global-error-message {

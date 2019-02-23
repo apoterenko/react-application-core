@@ -1,6 +1,8 @@
+import * as R from 'ramda';
+
 import { orDefault } from '../../util';
 import { IApplicationMessagesSettings } from '../../settings';
-import { IReactButtonProps } from '../../definition';
+import { IReactButtonProps, IGenericButtonEntity } from '../../definition';
 
 /**
  * @stable - 19.04.2018
@@ -40,3 +42,10 @@ export const getButtonIcon = (entity: IReactButtonProps,
     ? progressIcon
     : (entity.error ? errorIcon : entity.icon as string)
 );
+
+/**
+ * @stable [23.02.2019]
+ * @param {IGenericButtonEntity} props
+ * @returns {boolean}
+ */
+export const hasIconButton = (props: IGenericButtonEntity) => !R.isNil(props.icon) && props.icon !== false;

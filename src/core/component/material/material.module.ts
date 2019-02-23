@@ -5,7 +5,7 @@ import { MDCSwitch } from '@material/switch';
 import { appContainer, DI_TYPES } from '../../di';
 import { addClassNameToBody } from '../../util';
 import {
-  IComponentClassEntity,
+  IReactComponentClassEntity,
   UniversalComponentPluginFactoryT,
 } from '../../entities-definitions.interface';
 import { Checkbox, Switch } from '../field';
@@ -26,7 +26,7 @@ import { Dialog, ArbitraryFormDialog } from '../dialog';
 import { FormDialog } from '../form';
 import { Snackbar } from '../snackbar';
 
-const uiPlugins = new Map<IComponentClassEntity, UniversalComponentPluginFactoryT>();
+const uiPlugins = new Map<IReactComponentClassEntity, UniversalComponentPluginFactoryT>();
 
 /**
  * @stable [17.08.2018]
@@ -76,7 +76,7 @@ uiPlugins.set(Card, (component: Card) => new MaterialPlugin<Card>(component, MDC
  */
 uiPlugins.set(KeyboardKey, (component: KeyboardKey) => new MaterialPlugin<KeyboardKey>(component, MDCRipple));
 
-appContainer.bind<Map<IComponentClassEntity, UniversalComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
+appContainer.bind<Map<IReactComponentClassEntity, UniversalComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
 
 /**

@@ -1,7 +1,8 @@
-import { FunctionT } from '../util';
+import { AnyT } from '../definitions.interface';
 
 export interface IEventManager {
-  add(el: any, type: string, fn: FunctionT, capturing?: boolean): void;
-  remove(el: any, type: string, fn: FunctionT, capturing?: boolean): void;
-  fabricate(el: any, type: string, fn: FunctionT, model?: any): void;
+  add(el: EventTarget, type: string, callback: (...args) => void, capturing?: boolean): void;
+  remove(el: EventTarget, type: string, callback: (...args) => void, capturing?: boolean): void;
+  fabricate(el: EventTarget, type: string, callback: (...args) => void, model?: AnyT): void;
+  subscribe(el: EventTarget, type: string, callback: (...args) => void, capturing?: boolean): () => void;
 }

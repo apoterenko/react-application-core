@@ -570,10 +570,11 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
     if (isDef(this.caretBlinkingTask)) {
       this.caretBlinkingTask.stop();
     }
-
-    UniversalField.logger.debug(
-      `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
-    );
+    if (this.props.useKeyboard) {
+      UniversalField.logger.debug(
+        `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
+      );
+    }
   }
 
   /**

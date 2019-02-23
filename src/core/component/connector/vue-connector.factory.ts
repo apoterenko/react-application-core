@@ -80,7 +80,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       // Send an init action
       store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.section$)});
 
-      const cachedReduxLinks = new Map<((...AnyT) => void), AnyT>();
+      const cachedReduxLinks = new Map<((...args) => void), AnyT>();
 
       // Subscribe
       storeUnsubscriber = store.subscribe(() => {

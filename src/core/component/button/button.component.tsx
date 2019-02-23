@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { BaseComponent } from '../../component/base';
 import { toClassName, nvl, ifNotNilThanValue } from '../../util';
 import { Link } from '../../component/link';
-import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
+import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
 import { IButtonProps } from '../../definition';
 
 export class Button extends BaseComponent<Button, IButtonProps> {
@@ -12,6 +12,8 @@ export class Button extends BaseComponent<Button, IButtonProps> {
   public static defaultProps: IButtonProps = {
     type: 'button',
   };
+
+  private buttonRef = React.createRef<HTMLButtonElement>();
 
   /**
    * @stable [27.01.2019]
@@ -21,22 +23,21 @@ export class Button extends BaseComponent<Button, IButtonProps> {
     const props = this.props;
     const buttonText = getButtonText(props, this.settings.messages);
     const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
-    const hasIcon = !R.isNil(props.icon) && props.icon !== false;
-    const buttonProps = ifNotNilThanValue(this.settings.components, (components) => components.button) || {};
+    const hasIcon = hasIconButton(props);
 
     const className = toClassName(
       'rac-button',
       'rac-flex',
       'rac-flex-row',
       'rac-flex-align-items-center',
+      props.className,
       props.full && 'rac-flex-full',
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
       hasIcon ? 'rac-button-decorated' : 'rac-button-not-decorated',
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
-      props.className,
-      nvl(props.rippled, buttonProps.rippled) !== false && this.uiFactory.rippleSurface
+      this.isButtonRippled && this.uiFactory.rippleSurface
     );
 
     if (props.to) {
@@ -53,6 +54,7 @@ export class Button extends BaseComponent<Button, IButtonProps> {
 
     return (
       <button
+        ref={this.buttonRef}
         type={props.type}
         title={props.title}
         style={props.style}
@@ -76,5 +78,37 @@ export class Button extends BaseComponent<Button, IButtonProps> {
         }
       </button>
     );
+  }
+
+  /**
+   * @stable [23.02.2019]
+   */
+  public blur(): void {
+    this.buttonEl.blur(); // document.activeElement === body
+  }
+
+  /**
+   * @stable [23.02.2019]
+   * @returns {HTMLButtonElement}
+   */
+  private get buttonEl(): HTMLButtonElement {
+    return this.buttonRef.current;
+  }
+
+  /**
+   * @stable [23.02.2019]
+   * @returns {IButtonProps}
+   */
+  private get globalButtonSettings(): IButtonProps {
+    return ifNotNilThanValue(this.settings.components, (components) => components.button) || {};
+  }
+
+  /**
+   * @stable [23.02.2019]
+   * @returns {boolean}
+   */
+  private get isButtonRippled(): boolean {
+    const props = this.props;
+    return nvl(props.rippled, this.globalButtonSettings.rippled) !== false;
   }
 }

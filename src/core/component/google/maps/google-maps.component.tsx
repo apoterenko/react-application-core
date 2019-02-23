@@ -5,7 +5,7 @@ import * as R from 'ramda';
 import { BaseComponent } from '../../base';
 import { Menu, IMenu } from '../../menu';
 import { getGoogleMapsScript, DelayedTask, uuid, isString, orNull, isDef } from '../../../util';
-import { IGoogleMapsProps } from './google-maps.interface';
+import { IGoogleMapsMarkerConfigEntity, IGoogleMapsProps } from './google-maps.interface';
 import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import { IGoogleMaps } from './google-maps.interface';
 import { FlexLayout } from '../../layout';
@@ -134,24 +134,22 @@ export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
   }
 
   /**
-   * @stable [31.07.2018]
-   * @param {string | google.maps.Marker} marker
-   * @param {boolean} markerVisibility
-   * @param {boolean} refreshMap
-   * @param {number | undefined} lat
-   * @param {number | undefined} lng
-   * @param {number | undefined} zoom
+   * @stable [23.02.2019]
+   * @param {IGoogleMapsMarkerConfigEntity} cfg
    */
-  public setMarkerState(marker: string | google.maps.Marker,
-                        markerVisibility: boolean,
-                        refreshMap: boolean,
-                        lat = this.settings.googleMaps.lat,
-                        lng = this.settings.googleMaps.lng,
-                        zoom = this.settings.googleMaps.zoom): void {
+  public setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void {
+    const {
+      marker,
+      visibility,
+      refreshMap,
+      lat = this.settings.googleMaps.lat,
+      lng = this.settings.googleMaps.lng,
+      zoom = this.settings.googleMaps.zoom,
+    } = cfg;
 
     const markerAsObject = isString(marker) ? this.markers.get(marker as string) : marker as google.maps.Marker;
     markerAsObject.setPosition({lat, lng});
-    markerAsObject.setVisible(markerVisibility);
+    markerAsObject.setVisible(visibility);
 
     if (refreshMap) {
       this.map.setCenter({lat, lng});

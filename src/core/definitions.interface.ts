@@ -2036,41 +2036,11 @@ export interface IPlaceWrapper<TPlace = string> {
 export interface IPlaceEntityWrapper<TPlaceEntity> {
   placeEntity?: TPlaceEntity;
 }
-
-/**
- * @stable [29.07.2018]
- */
-export interface IPlaceIdWrapper<TPlaceId = string> {
-  placeId?: TPlaceId;
-}
-
-/**
- * @stable [01.08.2018]
- */
-export interface IZipCodeWrapper<TZipCode = string> {
-  zipCode?: TZipCode;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface ILatWrapper<TLat = number> {
-  lat?: TLat;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface ILngWrapper<TLng = number> {
-  lng?: TLng;
-}
-
-/**
- * @stable [01.08.2018]
- */
-export interface IRegionWrapper<TRegion = string> {
-  region?: TRegion;
-}
+export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
+export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
+export interface ILatWrapper<TLat = number> { lat?: TLat; }
+export interface ILngWrapper<TLng = number> { lng?: TLng; }
+export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
 
 /**
  * @stable [01.08.2018]

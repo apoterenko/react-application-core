@@ -2,11 +2,10 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import MaskedTextInput from 'react-text-mask';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
-import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue } from '../../../util';
+import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue, isFn } from '../../../util';
 import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
@@ -21,7 +20,7 @@ import {
   IBasicTextFieldState,
   IBasicTextFieldProps,
   IBasicTextField,
-} from './basic-textfield.interface';
+} from './base-textfield.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
 export class BaseTextField<TComponent extends IField<TInternalProps, TInternalState>,
@@ -32,14 +31,13 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
                   TInternalState>
     implements IBasicTextField<TInternalProps, TInternalState> {
 
-  protected static logger = LoggerFactory.makeLogger('BasicTextField');
-
   private static DEFAULT_MASK_GUIDE = false;
 
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   protected defaultActions: IFieldActionConfiguration[] = [];
   private mirrorInputRef = React.createRef<HTMLElement>();
   private keyboardRef = React.createRef<Keyboard>();
+  private keyboardWindowMouseDownSubscriber: () => void;
 
   constructor(props: TInternalProps) {
     super(props);
@@ -143,22 +141,27 @@ export class BaseTextField<TComponent extends IField<TInternalProps, TInternalSt
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [23.02.2019]
    */
   protected openSyntheticKeyboard(): boolean {
     const result = super.openSyntheticKeyboard();
     if (result) {
-      this.eventManager.add(window, 'mousedown', this.onKeyboardWindowMouseDownHandler);
+      this.keyboardWindowMouseDownSubscriber =
+        this.eventManager.subscribe(window, 'mousedown', this.onKeyboardWindowMouseDownHandler);
     }
     return result;
   }
 
   /**
-   * @stable [09.02.2019]
+   * @stable [23.02.2019]
    */
   protected onCloseKeyboard(): void {
     super.onCloseKeyboard();
-    this.eventManager.remove(window, 'mousedown', this.onKeyboardWindowMouseDownHandler);
+
+    if (isFn(this.keyboardWindowMouseDownSubscriber)) {
+      this.keyboardWindowMouseDownSubscriber();
+      this.keyboardWindowMouseDownSubscriber = null;
+    }
   }
 
   /**

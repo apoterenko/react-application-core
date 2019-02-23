@@ -88,7 +88,6 @@ import {
   faLongArrowAltDown,
   faLongArrowAltUp,
   faLongArrowAltRight,
-  faMinusCircle,
   faLongArrowAltLeft,
   faUserShield,
   faGripHorizontal,
@@ -121,7 +120,6 @@ import {
   faComments as faCommentsRegular,
   faThumbsUp,
   faIdCard,
-  faClock as faClockRegular,
   faAddressCard,
   faPlayCircle as faPlayCircleRegular,
   faObjectGroup as faObjectGroupRegular,
@@ -130,7 +128,6 @@ import {
   faFileAlt,
   faSmileBeam,
   faCircle as faCircleRegular,
-  faCheckCircle as faCheckCircleRegular,
   faHeart as faHeartRegular
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
@@ -173,10 +170,8 @@ export class UIMaterialFactory implements IUIFactory {
     chart_pie: faChartPie,
     check: faCheck,
     check_circle: faCheckCircle,
-    check_circle_regular: faCheckCircleRegular,
     circle_regular: faCircleRegular,
     clear_all: faEraser,
-    clock_regular: faClockRegular,
     cloud: faCloud,
     cloud_download: faFileDownload,
     comments_regular: faCommentsRegular,
@@ -231,7 +226,6 @@ export class UIMaterialFactory implements IUIFactory {
     map_marker_alt: faMapMarkerAlt,
     menu: faBars,
     minus: faMinus,
-    minus_circle: faMinusCircle,
     more_hor: faEllipsisH,
     more_vert: faEllipsisV,
     navigate_before: faChevronLeft,

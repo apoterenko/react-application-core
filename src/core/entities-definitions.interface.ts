@@ -223,7 +223,7 @@ export type IUniversalComponentPluginClassEntity<
 /**
  * @stable [17.05.2018]
  */
-export interface IComponentClassEntity<TProps extends IComponentProps = IComponentProps, TState = {}>
+export interface IReactComponentClassEntity<TProps extends IComponentProps = IComponentProps, TState = {}>
   extends IUniversalComponentClassEntity<TProps, TState> {
 }
 

@@ -10,6 +10,7 @@ import {
   defValuesFilter,
   isFn,
   queryFilter,
+  generateArray,
 } from '../../util';
 import {
   GridColumnConfigurationT,
@@ -97,10 +98,10 @@ export const buildTimeGridColumns = (
   const columnsCount = periodsPerHourCount * HOURS_PER_DAY;
 
   let currentPeriodPerHour = 0;
-  return new Array<GridColumnConfigurationT>(columnsCount).join(' ').split(' ')
-    .map((_, position) => {
+  return generateArray(columnsCount)
+    .map((_, index) => {
       const minPeriodAtMinutes = builderConfig.minPeriodAtMinutes;
-      const currentHour = Math.floor(position / periodsPerHourCount);
+      const currentHour = Math.floor(index / periodsPerHourCount);
       const ceilWidth = Math.floor(minPeriodAtMinutes / cellWidthFactor);
       const currentMinutes = currentPeriodPerHour * minPeriodAtMinutes;
       const columnClassName = toClassName(

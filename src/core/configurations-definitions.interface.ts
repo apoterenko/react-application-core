@@ -53,7 +53,6 @@ import {
   IContentWrapper,
   ICssStyleWrapper,
   IDeactivatedWrapper,
-  IDefaultOnPressWrapper,
   IDefaultValue,
   IDelayTimeoutWrapper,
   IDisabledWrapper,
@@ -111,7 +110,6 @@ import {
   IParamsWrapper,
   IKeyWrapper,
   ILabelWrapper,
-  ILargeWrapper,
   ILayoutWrapper,
   ILinkWrapper,
   ILocalFilterFnWrapper,
@@ -147,7 +145,6 @@ import {
   IOnPlusClickWrapper,
   IOnScrollWrapper,
   IOnSelectWrapper,
-  IOutlinedWrapper,
   IParentWrapper,
   IPathWrapper,
   IPatternWrapper,
@@ -430,7 +427,7 @@ export interface IListItemConfiguration extends IUniversalListItemConfiguration,
  * @stable [04.05.2018]
  */
 export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
-                                                    IWebComponentConfiguration<string | ((...AnyT) => string)>,
+                                                    IWebComponentConfiguration<string | ((...args) => string)>,
                                                     IActionButtonsWrapper<(entity: IEntity) => React.ReactNode>,
                                                     IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
 }
@@ -655,12 +652,14 @@ export type KeyboardLayoutT = KeyboardKeyT[][];
 // TODO Fix class name
 export interface IKeyboardKey extends IValueWrapper<string>,
                                                    ITypeWrapper<KeyboardKeyEnum>,
-                                                   IClassNameWrapper<string | ((...AnyT) => string)>, // TODO
+                                                   IClassNameWrapper<string | ((...args) => string)>, // TODO
                                                    IWidthWrapper {
 }
 
-export interface IKeyboardKeyConfiguration {
+export interface IKeyboardKeyConfiguration extends IDisabledWrapper {
   // TODO
+  renderer?: any;
+  className?: any;
 }
 
 /**

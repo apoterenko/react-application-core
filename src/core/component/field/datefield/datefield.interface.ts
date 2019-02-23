@@ -3,7 +3,7 @@ import { CSSProperties, Component } from 'react';
 import {
   IBasicTextFieldProps,
   IBasicTextFieldState,
-} from '../textfield/basic-textfield.interface';
+} from '../textfield/base-textfield.interface';
 import { IComponentEntity } from '../../../entities-definitions.interface';
 import { IFormatWrapper } from '../../../definitions.interface';
 

@@ -39,14 +39,21 @@ export interface IGoogleMapsProps extends IComponentProps,
 }
 
 /**
+ * @stable [23.02.2019]
+ */
+export interface IGoogleMapsMarkerConfigEntity
+  extends ILatWrapper,
+    ILngWrapper {
+  refreshMap?: boolean;
+  visibility?: boolean;
+  marker?: string | google.maps.Marker;
+  zoom?: number;
+}
+
+/**
  * @stable [31.07.2018]
  */
 export interface IGoogleMaps extends IComponent {
   addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker;
-  setMarkerState(marker: string | google.maps.Marker,
-                 markerVisibility: boolean,
-                 refreshMap: boolean,
-                 lat?: number,
-                 lng?: number,
-                 zoom?: number): void;
+  setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void;
 }
