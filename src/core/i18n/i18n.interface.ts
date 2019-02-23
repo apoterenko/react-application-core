@@ -2,5 +2,5 @@
  * @stable [23.02.2019]
  */
 export interface II18n {
-  getCurrentLanguage(fallbackLang?: string): string;
+  getCurrentLanguage(dualLanguagesMapper?: Record<string, string>): string;
 }
