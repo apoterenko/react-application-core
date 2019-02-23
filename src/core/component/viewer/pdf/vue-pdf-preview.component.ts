@@ -17,7 +17,9 @@ const INITIAL_SCALE = 1;
   }),
   /**
    * Attention!! We can't use the @Watch('src') because of the very very strange error occurred:
-   *   'Error in callback for watcher "src": "TypeError: Cannot read property 'call' of undefined"' => :src="src"
+   *    @Watch('src') public onChangeSrc(): void { !EMPTY! }
+   *   'Error in callback for watcher "src": "TypeError: Cannot read property 'call' of undefined"'
+   *    => :src="src"
    */
   template: `
     <vue-flex-layout class="vue-pdf-viewer">
