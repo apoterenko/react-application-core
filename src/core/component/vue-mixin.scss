@@ -353,14 +353,20 @@
  * @stable [30.01.2019]
  */
 @mixin vue-preview($vue-preview-custom: unset,
-                   $vue-preview-content-overflow: unset,
-                   $vue-preview-content-position: unset) {
+                   $vue-preview-content-wrapper-overflow: unset,
+                   $vue-preview-content-wrapper-position: unset,
+                   $vue-preview-content-width: unset) {
 
   #{rac-build-cls(vue-preview, $vue-preview-custom)} {
-    .vue-preview-content {
+    .vue-preview-content-wrapper {
       @include rac-styles(
-        $rac-styles-overflow: $vue-preview-content-overflow,
-        $rac-styles-position: $vue-preview-content-position
+        $rac-styles-overflow: $vue-preview-content-wrapper-overflow,
+        $rac-styles-position: $vue-preview-content-wrapper-position
+      );
+
+      @include rac-styles(
+        $rac-styles-custom: vue-preview-content,
+        $rac-styles-width: $vue-preview-content-width
       );
     }
   }

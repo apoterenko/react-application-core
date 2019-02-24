@@ -29,14 +29,14 @@ const INITIAL_SCALE = 1;
                  class="rac-absolute"/>
        </vue-flex-layout>
        <div class="vue-viewer-scale-action
-                   vue-icon-search-zoom-plus
+                   vue-icon-zoom-plus
                    vue-icon
                    rac-no-user-select"
             @click="onScaleIncrease">
           &nbsp;
        </div>
        <div class="vue-viewer-scale-action
-                   vue-icon-search-zoom-minus
+                   vue-icon-zoom-minus
                    vue-icon
                    rac-no-user-select"
             @click="onScaleDecrease">

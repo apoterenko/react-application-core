@@ -91,8 +91,8 @@ $vue-cyclic-viewer-footer-button-padding: 0 16px !default;
 $vue-cyclic-viewer-footer-button-height: auto !default;
 
 /* @stable [30.01.2019] */
-$vue-preview-content-overflow: auto !default;
-$vue-preview-content-position: relative !default;
+$vue-preview-content-wrapper-overflow: auto !default;
+$vue-preview-content-wrapper-position: relative !default;
 
 /* @stable [18.11.2018] */
 $vue-popup-background: $vue-color5 !default;
@@ -137,5 +137,5 @@ $vue-grid-button-background: $vue-color2 !default;
 
 /* @stable [27.12.2018] */
 $vue-dnd-default-message-color: $vue-color3 !default;
-$vue-dnd-default-message-text-decoration: underline dashed !default;
+$vue-dnd-default-message-text-decoration: underline dotted !default;
 $vue-dnd-default-message-cursor: pointer !default;

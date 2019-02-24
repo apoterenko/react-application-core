@@ -14,13 +14,22 @@ import {
   IVueBasePreviewTemplateMethods,
 } from './vue-base-preview.interface';
 
-export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewState = TVuePreviewState>
-  extends VueBaseComponent
+export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewState = IVueBasePreviewState>
+  extends VueBaseComponent<{}, TVuePreviewState>
   implements IVueBasePreviewProps,
              IVueBasePreviewTemplateMethods {
 
   @Prop() public src: string;
   @Prop({default: (): number => 1}) public scaleFactor: number;
+
+  /**
+   * @stable [24.02.2019]
+   */
+  constructor() {
+    super();
+    this.onScaleIncrease = this.onScaleIncrease.bind(this);
+    this.onScaleDecrease = this.onScaleDecrease.bind(this);
+  }
 
   /**
    * @stable [30.01.2019]
@@ -31,19 +40,19 @@ export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewSta
     const options: VueComponentOptionsT = {
       methods: this.getTemplateMethods() as VueDefaultMethodsT,
       template: `
-          <vue-flex-layout class="vue-preview">
-              <vue-flex-layout class="vue-preview-content dragscroll">
+          <vue-flex-layout class="${this.getClassName()}">
+              <vue-flex-layout class="vue-preview-content-wrapper dragscroll">
                     ${this.getPreviewTemplate()}
               </vue-flex-layout>
               <div class="vue-viewer-scale-action
-                          vue-icon-search-zoom-plus
+                          vue-icon-zoom-plus
                           vue-icon
                           rac-no-user-select"
                           @click="onScaleIncrease">
                     &nbsp;
               </div>
               <div class="vue-viewer-scale-action
-                          vue-icon-search-zoom-minus
+                          vue-icon-zoom-minus
                           vue-icon
                           rac-no-user-select"
                           @click="onScaleDecrease">
@@ -88,9 +97,15 @@ export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewSta
    * @returns {TVuePreviewState}
    */
   public getInitialData$(): TVuePreviewState {
-    return {
-      scale: 1,
-    } as  TVuePreviewState;
+    return { scale: 1 } as TVuePreviewState;
+  }
+
+  /**
+   * @stable [24.02.2019]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    return 'vue-preview';
   }
 
   /**
@@ -123,7 +138,7 @@ export abstract class VueBasePreview<TVuePreviewState extends IVueBasePreviewSta
    * @param {number} scale
    */
   private onChangeScale(scale: number): void {
-    this.$data.scale += scale;
+    this.getData().scale += scale;
   }
 
   /**

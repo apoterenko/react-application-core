@@ -5,6 +5,7 @@
 @import './file/vue-file-viewer';
 @import './picture/vue-picture-viewer';
 @import './preview/vue-preview';
+@import './picture/vue-picture-preview';
 
 .vac {
 
@@ -26,7 +27,7 @@
     height: $vue-viewer-scale-action-size;                                                  /* @stable [14.11.2018] */
     cursor: pointer;                                                                        /* @stable [14.11.2018] */
 
-    &.vue-icon-search-zoom-plus {
+    &.vue-icon-zoom-plus {
       margin-top: -$vue-viewer-scale-action-size;                                           /* @stable [14.11.2018] */
     }
   }
