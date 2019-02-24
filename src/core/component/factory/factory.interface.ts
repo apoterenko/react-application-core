@@ -11,8 +11,6 @@ export interface IUIFactory {
   snackbarActionWrapper?: string;
   snackbarActionButton?: string;
   icons?: string;
-  drawerOpen?: string;
-  drawer?: string;
   toolbar?: string;
   listGroupSubHeader?: string;
   listDivider?: string;
@@ -35,8 +33,6 @@ export interface IUIFactory {
   textFieldBox?: string;
   checkbox?: string;
   checkboxInput?: string;
-  textFieldTextArea?: string;
-  fieldValidationText?: string;
   card?: string;
   cardActions?: string;
   cardActionButtons?: string;
@@ -47,7 +43,6 @@ export interface IUIFactory {
   menu?: string;
   fab?: string;
   dialog?: string;
-  dialogSurface?: string;
   dialogContent?: string;
   dialogContainer?: string;
   dialogTitle?: string;

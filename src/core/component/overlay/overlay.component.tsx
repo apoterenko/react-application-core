@@ -7,7 +7,7 @@ import { FlexLayout } from '../layout';
 import { toClassName, isString, isFn, orNull } from '../../util';
 import { UNI_CODES } from '../../definitions.interface';
 
-export class Overlay extends BaseComponent<Overlay, IOverlayProps> {
+export class Overlay extends BaseComponent<IOverlayProps> {
 
   /**
    * @stable [13.01.2019]

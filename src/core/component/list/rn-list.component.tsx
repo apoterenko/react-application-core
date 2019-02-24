@@ -8,7 +8,7 @@ import { RnListItem } from './item/rn-list-item.component';
 import { RnMessage } from '../message/rn-message.component';
 import { RnButton } from '../button/rn-button.component';
 
-export class RnList extends UniversalList<RnList, IRnListProps> {
+export class RnList extends UniversalList<IRnListProps> {
 
   /**
    * @stable [09.06.2018]

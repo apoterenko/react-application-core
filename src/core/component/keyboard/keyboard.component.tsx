@@ -20,7 +20,7 @@ import {
   KeyboardKeyT,
 } from '../../configurations-definitions.interface';
 
-export class Keyboard extends BaseComponent<Keyboard, IKeyboardProps, IKeyboardState> {
+export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
 
   public static defaultProps: IKeyboardProps = {
     layout: [KEYBOARD_QWERTY_LAYOUT, KEYBOARD_QWERTY_DIGITAL_LAYOUT],

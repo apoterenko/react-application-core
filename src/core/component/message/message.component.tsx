@@ -5,7 +5,7 @@ import { ProgressLabel } from '../progress';
 import { UniversalMessage } from './universal-message.component';
 import { isString, uuid } from '../../util';
 
-export class Message extends UniversalMessage<Message> {
+export class Message extends UniversalMessage {
 
   /**
    * @stable [23.04.2018]

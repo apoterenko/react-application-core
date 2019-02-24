@@ -10,7 +10,7 @@ import { IAutoFocusedProps } from './auto-focused.interface';
 import { DI_TYPES, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
 
-export class AutoFocused extends BaseComponent<AutoFocused, IAutoFocusedProps, IAutoFocusedState> {
+export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedState> {
 
   public static defaultProps: IAutoFocusedProps = {
     delayTimeout: 300,

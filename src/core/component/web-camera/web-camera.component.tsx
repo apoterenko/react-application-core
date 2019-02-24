@@ -5,7 +5,7 @@ import { uuid, toBlobEntities } from '../../util';
 import { BaseComponent } from '../base';
 import { IWebCameraProps, IWebCamera } from './web-camera.interface';
 
-export class WebCamera extends BaseComponent<WebCamera, IWebCameraProps>
+export class WebCamera extends BaseComponent<IWebCameraProps>
   implements IWebCamera {
 
   public static readonly defaultProps: IWebCameraProps = {

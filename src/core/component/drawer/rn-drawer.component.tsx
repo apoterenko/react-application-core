@@ -8,7 +8,7 @@ import {
   IRnDrawer,
 } from './rn-drawer.interface';
 
-export class RnDrawer extends UniversalComponent<RnDrawer, IRnDrawerProps>
+export class RnDrawer extends UniversalComponent<IRnDrawerProps>
   implements IRnDrawer {
 
   private drawer: IRnNativeDrawer;

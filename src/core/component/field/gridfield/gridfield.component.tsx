@@ -7,7 +7,7 @@ import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
 import { toClassName } from '../../../util';
 
-export class GridField extends MultiField<GridField, IGridFieldProps, IGridFieldState> {
+export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
 
   /**
    * @stable [02.06.2018]

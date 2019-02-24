@@ -10,7 +10,7 @@ import { ListDivider } from '../../list';
 import { FlexLayout } from '../../layout';
 import { LayoutModeEnum } from '../../../entities-definitions.interface';
 
-export class NavigationList extends BaseComponent<NavigationList, INavigationListProps> {
+export class NavigationList extends BaseComponent<INavigationListProps> {
 
   /**
    * @stable [11.08.2018]

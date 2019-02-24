@@ -4,7 +4,7 @@ import { toClassName } from '../../../util';
 import { BaseComponent } from '../../base';
 
 // TODO deprecated (use FlexLayout instead)
-export class CenterLayout extends BaseComponent<CenterLayout> {
+export class CenterLayout extends BaseComponent {
 
   /**
    * @stable [14.06.2018]

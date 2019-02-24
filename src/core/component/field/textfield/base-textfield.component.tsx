@@ -23,11 +23,9 @@ import {
 } from './base-textfield.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BaseTextField<TComponent extends IField<TInternalProps, TInternalState>,
-                            TInternalProps extends IBasicTextFieldProps,
+export class BaseTextField<TInternalProps extends IBasicTextFieldProps,
                             TInternalState extends IBasicTextFieldState>
-    extends Field<TComponent,
-                  TInternalProps,
+    extends Field<TInternalProps,
                   TInternalState>
     implements IBasicTextField<TInternalProps, TInternalState> {
 

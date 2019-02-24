@@ -4,10 +4,9 @@ import { IComponent } from '../../entities-definitions.interface';
 import { IComponentProps } from '../../props-definitions.interface';
 import { IBasicEvent } from '../../react-definitions.interface';
 
-export class BaseComponent<TComponent extends IComponent<TProps, TState>,
-                           TProps extends IComponentProps = IComponentProps,
+export class BaseComponent<TProps extends IComponentProps = IComponentProps,
                            TState = {}>
-    extends UniversalComponent<TComponent, TProps, TState>
+    extends UniversalComponent<TProps, TState>
     implements IComponent<TProps, TState> {
 
   /**

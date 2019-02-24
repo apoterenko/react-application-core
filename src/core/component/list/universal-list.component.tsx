@@ -16,10 +16,9 @@ import { IUniversalListProps } from '../../props-definitions.interface';
 import { IUniversalMessageProps } from '../message/universal-message.interface';
 import { IReactButtonProps } from '../../definition';
 
-export abstract class UniversalList<TComponent extends UniversalList<TComponent, TProps, TState>,
-                                    TProps extends IUniversalListProps,
+export abstract class UniversalList<TProps extends IUniversalListProps,
                                     TState = {}>
-  extends UniversalComponent<TComponent, TProps, TState> {
+  extends UniversalComponent<TProps, TState> {
 
   /**
    * @stable [23.04.2018]

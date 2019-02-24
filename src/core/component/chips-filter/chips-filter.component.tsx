@@ -8,7 +8,7 @@ import { Chip } from '../chip';
 import { IFieldConfiguration } from '../../configurations-definitions.interface';
 import { IChipsFilterProps } from './chips-filter.interface';
 
-export class ChipsFilter extends BaseComponent<ChipsFilter, IChipsFilterProps> {
+export class ChipsFilter extends BaseComponent<IChipsFilterProps> {
   private static readonly logger = LoggerFactory.makeLogger('ChipsFilter');
 
   /**

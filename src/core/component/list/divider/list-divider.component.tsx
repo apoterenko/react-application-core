@@ -3,7 +3,7 @@ import * as React from 'react';
 import { toClassName } from '../../../util';
 import { BaseComponent } from '../../base';
 
-export class ListDivider extends BaseComponent<ListDivider> {
+export class ListDivider extends BaseComponent {
 
   /**
    * @stable [19.06.2018]

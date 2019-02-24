@@ -29,11 +29,9 @@ import {
 import { UniversalField } from './universal-field.component';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class Field<TComponent extends IField<TInternalProps, TState>,
-                   TInternalProps extends IFieldInternalProps,
+export class Field<TInternalProps extends IFieldInternalProps,
                    TState extends IFieldState = IFieldState>
-    extends UniversalField<TComponent,
-                           TInternalProps,
+    extends UniversalField<TInternalProps,
                            TState,
                            IKeyboardEvent,
                            IFocusEvent,

@@ -4,14 +4,12 @@ import { toClassName } from '../../../util';
 import { TextField } from '../../field';
 import { ISearchToolbarProps } from './search-toolbar.interface';
 import { UniversalSearchToolbar } from './universal-search-toolbar.component';
-import { IComponent } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Button } from '../../button';
 
-export class SearchToolbar<TComponent extends IComponent<TProps, TState>,
-                           TProps extends ISearchToolbarProps = ISearchToolbarProps,
+export class SearchToolbar<TProps extends ISearchToolbarProps = ISearchToolbarProps,
                            TState = {}>
-  extends UniversalSearchToolbar<TComponent, TProps> {
+  extends UniversalSearchToolbar<TProps, TState> {
 
   /**
    * @stable [17.09.2018]

@@ -12,7 +12,7 @@ import { ifNilReturnUuid, orDefault, orNull, isString, isDef } from '../../../ut
 import { UniversalComponent } from '../../base/universal.component';
 import { IRnListItemProps } from './rn-list-item.interface';
 
-export class RnListItem extends UniversalComponent<RnListItem, IRnListItemProps> {
+export class RnListItem extends UniversalComponent<IRnListItemProps> {
 
   public render(): JSX.Element {
     const props = this.props;

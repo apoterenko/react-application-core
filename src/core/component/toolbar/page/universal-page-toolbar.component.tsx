@@ -5,10 +5,9 @@ import { FIRST_PAGE } from '../../../definitions.interface';
 import { IUniversalPageToolbarProps } from './page-toolbar.interface';
 import { UniversalComponent } from '../../base/universal.component';
 
-export abstract class UniversalPageToolbar<TToolbar extends UniversalPageToolbar<TToolbar, TProps, TState>,
-                                           TProps extends IUniversalPageToolbarProps,
+export abstract class UniversalPageToolbar<TProps extends IUniversalPageToolbarProps,
                                            TState = {}>
-  extends UniversalComponent<TToolbar, TProps, TState> {
+  extends UniversalComponent<TProps, TState> {
 
   /**
    * @stable [16.05.2018]

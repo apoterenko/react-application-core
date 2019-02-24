@@ -4,7 +4,7 @@ import { toClassName } from '../../../util';
 import { BaseCheckbox } from '../checkbox';
 import { ISwitchProps, ISwitchState, ISwitchInputProps } from './switch.interface';
 
-export class Switch extends BaseCheckbox<Switch, ISwitchProps, ISwitchState> {
+export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
 
   /**
    * @stable [31.08.2018]

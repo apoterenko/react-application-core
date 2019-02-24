@@ -7,10 +7,9 @@ import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiField } fr
 import { MultiFieldPlugin } from './multifield.plugin';
 import { toClassName } from '../../../util';
 
-export class MultiField<TComponent extends MultiField<TComponent, TProps, TState>,
-                        TProps extends IMultiFieldProps,
+export class MultiField<TProps extends IMultiFieldProps,
                         TState extends IMultiFieldState>
-  extends BasicSelect<TComponent, TProps, TState>
+  extends BasicSelect<TProps, TState>
   implements IMultiField {
 
   /**

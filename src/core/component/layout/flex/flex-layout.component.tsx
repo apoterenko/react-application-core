@@ -4,7 +4,7 @@ import { toClassName } from '../../../util';
 import { BaseComponent } from '../../base';
 import { IFlexLayoutProps } from './flex-layout.interface';
 
-export class FlexLayout extends BaseComponent<FlexLayout, IFlexLayoutProps> {
+export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
 
   /**
    * @stable [17.06.2018]

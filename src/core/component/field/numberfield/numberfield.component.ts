@@ -9,8 +9,7 @@ import { ChangeEventT } from '../../../definitions.interface';
 import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
 import { IKeyboardConfiguration } from '../../../configurations-definitions.interface';
 
-export class NumberField extends BaseTextField<NumberField,
-                                                INumberFieldInternalProps,
+export class NumberField extends BaseTextField<INumberFieldInternalProps,
                                                 INumberFieldInternalState>
     implements INumberField {
 

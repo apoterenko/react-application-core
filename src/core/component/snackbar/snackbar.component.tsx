@@ -4,7 +4,7 @@ import { noop, toClassName } from '../../util';
 import { ISnackbarProps } from './snackbar.interface';
 import { BaseComponent } from '../base';
 
-export class Snackbar extends BaseComponent<Snackbar, ISnackbarProps> {
+export class Snackbar extends BaseComponent<ISnackbarProps> {
 
   public static defaultProps: ISnackbarProps = {
     timeout: 3000,

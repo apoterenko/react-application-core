@@ -5,7 +5,7 @@ import { View, Content } from 'native-base';
 import { UniversalComponent } from '../base/universal.component';
 import { IRnModalProps } from './rn-modal.interface';
 
-export class RnModal extends UniversalComponent<RnModal, IRnModalProps> {
+export class RnModal extends UniversalComponent<IRnModalProps> {
 
   public static defaultProps: IRnModalProps = {
     shadowStyle: {

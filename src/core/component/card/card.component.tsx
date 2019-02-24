@@ -4,7 +4,7 @@ import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { ICardProps } from './card.interface';
 
-export class Card extends BaseComponent<Card, ICardProps> {
+export class Card extends BaseComponent<ICardProps> {
 
   /**
    * @stable [02.05.2018]

@@ -8,7 +8,7 @@ import { Menu } from '../menu';
 import { FlexLayout } from '../layout';
 import { Button } from '../button';
 
-export class SubHeader extends BaseComponent<SubHeader, ISubHeaderProps> {
+export class SubHeader extends BaseComponent<ISubHeaderProps> {
 
   private menuRef = React.createRef<Menu>();
 

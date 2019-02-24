@@ -11,10 +11,9 @@ import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BasicSelect<TComponent extends BasicSelect<TComponent, TProps, TState>,
-                         TProps extends IBasicSelectProps,
+export class BasicSelect<TProps extends IBasicSelectProps,
                          TState extends IBasicSelectState>
-    extends BaseTextField<TComponent, TProps, TState> {
+    extends BaseTextField<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('BasicSelect');
 

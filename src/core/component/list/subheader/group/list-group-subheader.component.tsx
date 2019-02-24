@@ -3,7 +3,7 @@ import * as React from 'react';
 import { toClassName } from '../../../../util';
 import { BaseComponent } from '../../../base';
 
-export class ListGroupSubHeader extends BaseComponent<ListGroupSubHeader> {
+export class ListGroupSubHeader extends BaseComponent {
 
   /**
    * @stable [19.06.2018]

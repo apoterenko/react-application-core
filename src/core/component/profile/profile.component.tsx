@@ -5,7 +5,7 @@ import { BaseComponent } from '../base';
 import { IProfileProps } from './profile.interface';
 import { FlexLayout } from '../layout';
 
-export class Profile extends BaseComponent<Profile, IProfileProps> {
+export class Profile extends BaseComponent<IProfileProps> {
 
   /**
    * @stable [17.09.2018]

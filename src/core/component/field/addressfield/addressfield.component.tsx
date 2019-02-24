@@ -22,7 +22,7 @@ import {
   IGoogleMapsMarkerChangePlaceEntity,
 } from '../../google';
 
-export class AddressField extends BaseTextField<AddressField, IAddressFieldProps, IAddressFieldState> {
+export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFieldState> {
 
   public static defaultProps: IAddressFieldProps = {
     placeholder: ' ',   // Need to replace a google input placeholder

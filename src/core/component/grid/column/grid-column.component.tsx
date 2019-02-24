@@ -6,7 +6,7 @@ import { IGridColumnProps } from '../../../props-definitions.interface';
 import { BaseGridColumn } from '../base-column/base-grid-column.component';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class GridColumn extends BaseGridColumn<GridColumn, IGridColumnProps> {
+export class GridColumn extends BaseGridColumn<IGridColumnProps> {
 
   /**
    * @stable [10.09.2018]

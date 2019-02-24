@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { BaseComponent } from '../../component/base';
 import { ILinkProps } from './link.interface';
 
-export class Link extends BaseComponent<Link, ILinkProps> {
+export class Link extends BaseComponent<ILinkProps> {
 
   /**
    * @stable [11.08.2018]

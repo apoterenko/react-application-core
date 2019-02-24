@@ -7,7 +7,7 @@ import { IGridHeaderColumnProps } from './grid-header-column.interface';
 import { BaseGridColumn } from '../base-column';
 import { FlexLayout } from '../../layout';
 
-export class GridHeaderColumn extends BaseGridColumn<GridHeaderColumn, IGridHeaderColumnProps> {
+export class GridHeaderColumn extends BaseGridColumn<IGridHeaderColumnProps> {
 
   /**
    * @stable [12.02.2019]

@@ -3,7 +3,7 @@ import { View, Text } from 'native-base';
 
 import { UniversalMessage } from './universal-message.component';
 
-export class RnMessage extends UniversalMessage<RnMessage> {
+export class RnMessage extends UniversalMessage {
 
   /**
    * @stable - 24.04.2018

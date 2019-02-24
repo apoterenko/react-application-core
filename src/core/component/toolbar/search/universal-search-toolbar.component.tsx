@@ -7,16 +7,15 @@ import {
   IFilterActionConfiguration,
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
-import { IUniversalComponent, IUniversalField } from '../../../entities-definitions.interface';
+import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { UniversalComponent } from '../../base/universal.component';
 
-export abstract class UniversalSearchToolbar<TComponent extends IUniversalComponent<TProps, TState>,
-                                             TProps extends IUniversalSearchToolbarProps,
+export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchToolbarProps,
                                              TState = {}>
-  extends UniversalComponent<TComponent, TProps> {
+  extends UniversalComponent<TProps> {
 
   /**
    * @stable [18.05.2018]

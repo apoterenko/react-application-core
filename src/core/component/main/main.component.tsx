@@ -7,7 +7,7 @@ import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
 import { StickyHeaderPlugin, PersistentScrollPlugin } from '../plugin';
 
-export class Main extends BaseComponent<Main> implements IOnScrollWrapper {
+export class Main extends BaseComponent implements IOnScrollWrapper {
 
   /**
    * @stable [13.12.2018]

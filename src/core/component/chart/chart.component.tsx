@@ -6,7 +6,7 @@ import { FlexLayout } from '../layout';
 import { IChartProps } from './chart.interface';
 import { toClassName, uuid, orNull } from '../../util';
 
-export class Chart extends BaseComponent<Chart, IChartProps> {
+export class Chart extends BaseComponent<IChartProps> {
 
   private readonly canvasId = uuid(true);
 

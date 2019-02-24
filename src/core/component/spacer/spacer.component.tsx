@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseComponent } from '../base';
 
-export class Spacer extends BaseComponent<Spacer> {
+export class Spacer extends BaseComponent {
 
   public render(): JSX.Element {
     return (

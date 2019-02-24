@@ -1,28 +1,29 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
+import DayPicker from 'react-day-picker';
 
-import { cancelEvent, orNull, nvl } from '../../../util';
-import { KeyboardEventT, AnyT } from '../../../definitions.interface';
+import { orNull, nvl } from '../../../util';
+import { AnyT } from '../../../definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IDateTimeSettings } from '../../../settings';
 import {
   IDateFieldProps,
   IDateFieldState,
-  IMaterialDateDialogComponent,
 } from './datefield.interface';
 import { BaseTextField } from '../textfield';
+import { Dialog } from '../../dialog';
 
-export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
-                       TProps extends IDateFieldProps = IDateFieldProps,
+export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                        TState extends IDateFieldState = IDateFieldState>
-  extends BaseTextField<TComponent, TProps, TState> {
+  extends BaseTextField<TProps, TState> {
 
   public static defaultProps: IDateFieldProps = {
     autoOk: true,
     firstDayOfWeek: 1,
   };
+
+  private dialogRef = React.createRef<Dialog<AnyT>>();
 
   /**
    * @stable [07.01.2019]
@@ -44,36 +45,24 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
     super.onChangeManually(this.formatDate(currentRawValue));
   }
 
-  public onKeyEnter(event: KeyboardEventT): void {
-    super.onKeyEnter(event);
-
-    if (this.dialogWindow.state.open) {
-      cancelEvent(event);
-    }
-  }
-
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
+    const initialDate = this.initialDialogDate;
     return (
-      <DatePickerDialog
-        ref='dialogWindow'
-        autoOk={props.autoOk}
-        cancelLabel={props.cancelLabel}
-        container={props.container}
-        containerStyle={props.dialogContainerStyle}
-        disableYearSelection={props.disableYearSelection}
-        firstDayOfWeek={props.firstDayOfWeek}
-        initialDate={this.initialDialogDate}
-        locale={props.locale}
-        maxDate={props.maxDate}
-        minDate={props.minDate}
-        mode={props.mode}
-        okLabel={props.okLabel}
-        onAccept={this.onAccept}
-        shouldDisableDate={props.shouldDisableDate}
-        hideCalendarDate={props.hideCalendarDate}
-        openToYearSelection={props.openToYearSelection}
-        utils={props.utils}/>
+      <Dialog
+        ref={this.dialogRef}
+        acceptable={false}
+        closable={false}
+        titleRendered={false}
+      >
+        <DayPicker
+          firstDayOfWeek={props.firstDayOfWeek}
+          fixedWeeks={true}
+          locale={props.locale}
+          initialMonth={initialDate}
+          selectedDays={initialDate}
+          onDayClick={this.onAccept}/>
+      </Dialog>
     );
   }
 
@@ -113,7 +102,7 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
    */
   protected onClick(event: IBasicEvent): void {
     super.onClick(event);
-    this.dialogWindow.show();
+    this.onCalendarClick();
   }
 
   /**
@@ -126,12 +115,12 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
   }
 
   /**
-   * @stable [20.08.2018]
-   * @param {Date} date
+   * @stable [24.02.2019]
+   * @param {Date} currentTime
    */
-  private onAccept(date: Date): void {
-    this.onChangeManually(date);
-    this.setFocus();  // UX
+  private onAccept(currentTime: Date): void {
+    this.onChangeManually(currentTime);
+    this.dialog.onAccept();
   }
 
   /**
@@ -148,10 +137,18 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
         : this.dc.getCurrentDate();
   }
 
-  private get dialogWindow(): IMaterialDateDialogComponent {
-    return this.refs.dialogWindow as IMaterialDateDialogComponent;
+  /**
+   * @stable [24.02.2019]
+   * @returns {Dialog}
+   */
+  private get dialog(): Dialog {
+    return this.dialogRef.current;
   }
 
+  /**
+   * @stable [24.02.2019]
+   * @returns {IDateTimeSettings}
+   */
   private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
   }
@@ -166,10 +163,9 @@ export class DateField<TComponent extends DateField<TComponent, TProps, TState>,
   }
 
   /**
-   * @stable [07.01.2019]
+   * @stable [24.02.2019]
    */
   private onCalendarClick(): void {
-    this.setFocus();
-    this.dialogWindow.show();
+    this.dialog.activate();
   }
 }

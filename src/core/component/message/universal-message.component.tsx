@@ -6,10 +6,9 @@ import { UniversalComponent } from '../base/universal.component';
 import { IUniversalMessageProps } from './universal-message.interface';
 import { AnyT } from '../../definitions.interface';
 
-export abstract class UniversalMessage<TComponent extends UniversalMessage<TComponent, TProps, TState>,
-                                       TProps extends IUniversalMessageProps = IUniversalMessageProps,
+export abstract class UniversalMessage<TProps extends IUniversalMessageProps = IUniversalMessageProps,
                                        TState = {}>
-  extends UniversalComponent<TComponent, TProps, TState> {
+  extends UniversalComponent<TProps, TState> {
 
   /**
    * @stable [23.04.2018]

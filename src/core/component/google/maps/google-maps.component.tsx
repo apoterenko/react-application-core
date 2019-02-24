@@ -10,7 +10,7 @@ import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import { IGoogleMaps } from './google-maps.interface';
 import { FlexLayout } from '../../layout';
 
-export class GoogleMaps extends BaseComponent<GoogleMaps, IGoogleMapsProps>
+export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   implements IGoogleMaps {
 
   private map: google.maps.Map;

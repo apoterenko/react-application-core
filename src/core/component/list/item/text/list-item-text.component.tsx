@@ -3,7 +3,7 @@ import * as React from 'react';
 import { toClassName } from '../../../../util';
 import { BaseComponent } from '../../../base';
 
-export class ListItemText extends BaseComponent<ListItemText> {
+export class ListItemText extends BaseComponent {
 
   /**
    * @stable [04.07.2018]

@@ -6,14 +6,14 @@ import { orNull, toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
 
-export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUniversalDialog<TProps, TState>,
-                    TProps extends IDialogProps = IDialogProps,
+export class Dialog<TProps extends IDialogProps = IDialogProps,
                     TState = {}>
-  extends BaseComponent<TComponent, TProps, TState>
+  extends BaseComponent<TProps, TState>
   implements IUniversalDialog<TProps, TState> {
 
   public static readonly defaultProps: IUniversalDialogProps = {
     autoWidth: true,
+    titleRendered: true,
   };
 
   /**
@@ -98,10 +98,14 @@ export class Dialog<TComponent extends IUniversalDialog<TProps, TState> = IUnive
                           this.uiFactory.dialogContainer,
                           props.autoWidth && 'rac-dialog-container-auto-width'
                       )}>
-        <div className={this.uiFactory.dialogSurface}>
-          <h2 className={toClassName('rac-dialog-title', this.uiFactory.dialogTitle)}>
-            {this.t(props.title || this.settings.messages.dialogTitleMessage)}
-          </h2>
+        <div >
+          {
+            props.titleRendered && (
+              <h2 className={toClassName('rac-dialog-title', this.uiFactory.dialogTitle)}>
+                {this.t(props.title || this.settings.messages.dialogTitleMessage)}
+              </h2>
+            )
+          }
           {
             orNull<React.ReactNode>(
               !R.isNil(dialogBodyEl) || !R.isNil(props.message),

@@ -4,7 +4,7 @@ import { toClassName } from '../../../util';
 import { ICheckboxState, ICheckboxProps, ICheckboxInputProps } from './checkbox.interface';
 import { BaseCheckbox } from './base-checkbox.component';
 
-export class Checkbox extends BaseCheckbox<Checkbox, ICheckboxProps, ICheckboxState> {
+export class Checkbox extends BaseCheckbox<ICheckboxProps, ICheckboxState> {
 
   /**
    * @stable [31.08.2018]

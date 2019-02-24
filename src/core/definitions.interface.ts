@@ -868,34 +868,10 @@ export interface IRenderedWrapper {
 export interface IAvatarRenderedWrapper {
   avatarRendered?: boolean;
 }
-
-/**
- * @stable [10.09.2018]
- */
-export interface IHeaderRenderedWrapper {
-  headerRendered?: boolean;
-}
-
-/**
- * @stable [10.09.2018]
- */
-export interface IColumnRenderedWrapper {
-  columnRendered?: boolean;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IDisabledWrapper {
-  disabled?: boolean;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IEnabledWrapper {
-  enabled?: boolean;
-}
+export interface IColumnRenderedWrapper { columnRendered?: boolean; }
+export interface IDisabledWrapper { disabled?: boolean; }
+export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
+export interface ITitleRenderedWrapper { titleRendered?: boolean; }
 
 /**
  * @stable [17.05.2018]

@@ -28,7 +28,7 @@ import { FlexLayout } from '../layout';
 import { IBasicEvent } from '../../react-definitions.interface';
 import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
 
-export class Grid extends BaseList<Grid, IGridProps, IGridState> {
+export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [07.06.2018]

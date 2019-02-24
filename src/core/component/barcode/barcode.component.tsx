@@ -6,7 +6,7 @@ import { BaseComponent } from '../base';
 import { uuid, defValuesFilter } from '../../util';
 import { IBarcodeProps } from './barcode.interface';
 
-export class Barcode extends BaseComponent<Barcode, IBarcodeProps> {
+export class Barcode extends BaseComponent<IBarcodeProps> {
 
   private tagId = uuid(true);
 

@@ -4,7 +4,7 @@ import { BaseComponent } from '../../base';
 import { IProgressLabelProps } from './progress-label.interface';
 import { FlexLayout } from '../../layout';
 
-export class ProgressLabel extends BaseComponent<ProgressLabel, IProgressLabelProps> {
+export class ProgressLabel extends BaseComponent<IProgressLabelProps> {
 
   /**
    * @stable [26.12.2018]

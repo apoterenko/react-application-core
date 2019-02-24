@@ -4,7 +4,7 @@ import { toClassName } from '../../../util';
 import { BaseComponent } from '../../base';
 import { ISimpleListProps } from './simple-list.interface';
 
-export class SimpleList extends BaseComponent<SimpleList, ISimpleListProps> {
+export class SimpleList extends BaseComponent<ISimpleListProps> {
 
   /**
    * @stable [14.01.2019]

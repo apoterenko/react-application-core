@@ -5,7 +5,7 @@ import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex/flex-layout.component';
 
-export class Drawer extends BaseComponent<Drawer, IDrawerProps> {
+export class Drawer extends BaseComponent<IDrawerProps> {
 
   /**
    * @stable [17.09.2018]

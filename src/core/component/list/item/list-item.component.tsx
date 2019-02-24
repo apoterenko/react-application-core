@@ -7,7 +7,7 @@ import { ListItemGraphic, ListItemText } from '../../list';
 import { BaseComponent } from '../../base';
 import { IListItem } from './list-item.interface';
 
-export class ListItem extends BaseComponent<ListItem, IListItemProps>
+export class ListItem extends BaseComponent<IListItemProps>
   implements IListItem {
 
   private readonly initialProps = {

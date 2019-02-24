@@ -6,7 +6,7 @@ import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
 import { ITitleProps } from './title.interface';
 
-export class Title extends BaseComponent<Title, ITitleProps> {
+export class Title extends BaseComponent<ITitleProps> {
 
   /**
    * @stable [03.10.2018]

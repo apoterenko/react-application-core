@@ -1,5 +1,6 @@
 @import '../constant';
 @import '../mixin';
+@import '~react-day-picker/lib/style.css';
 
 // Dialog [FRAMEWORK-][RAC+]
 .rac {
@@ -19,6 +20,7 @@
     }
 
     .rac-dialog-container {
+      background: white; // TODO
 
       &.rac-dialog-container-auto-width {
         width: auto;                           /* @stable [02.08.2018] */

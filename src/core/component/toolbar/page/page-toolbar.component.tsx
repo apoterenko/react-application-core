@@ -6,7 +6,7 @@ import { IPageToolbarProps } from './page-toolbar.interface';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
 import { FlexLayout } from '../../layout';
 
-export class PageToolbar extends UniversalPageToolbar<PageToolbar, IPageToolbarProps> {
+export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
 
   /**
    * @stable [16.05.2018]

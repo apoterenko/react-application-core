@@ -8,7 +8,7 @@ import {
   INativeDropZoneComponent,
 } from './dnd.interface';
 
-export class DnD extends BaseComponent<DnD, IDndProps> implements IDnd {
+export class DnD extends BaseComponent<IDndProps> implements IDnd {
 
   /**
    * @stable [03.08.2018]

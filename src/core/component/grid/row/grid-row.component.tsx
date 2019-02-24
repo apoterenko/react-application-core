@@ -6,7 +6,7 @@ import { IGridRowProps } from './grid-row.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
 
-export class GridRow extends BaseComponent<GridRow, IGridRowProps, {}> {
+export class GridRow extends BaseComponent<IGridRowProps, {}> {
 
   public static defaultProps: IGridRowProps = {
     excludeTargetsClasses: ['rac-field-input'],

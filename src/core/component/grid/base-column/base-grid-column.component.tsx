@@ -6,9 +6,8 @@ import { IBaseGridColumnProps } from './base-grid-column.interface';
 import { toClassName, defValuesFilter, nvl } from '../../../util';
 import { IStyleEntity } from '../../../entities-definitions.interface';
 
-export class BaseGridColumn<TComponent extends BaseGridColumn<TComponent, TProps>,
-                            TProps extends IBaseGridColumnProps>
-  extends BaseComponent<TComponent, TProps> {
+export class BaseGridColumn<TProps extends IBaseGridColumnProps>
+  extends BaseComponent<TProps> {
 
   /**
    * @stable [10.09.2018]

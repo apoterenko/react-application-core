@@ -5,7 +5,7 @@ import { orNull, calc } from '../../../util';
 import { IListWrapperProps } from './list-wrapper.interface';
 import { BaseComponent } from '../../base';
 
-export class ListWrapper extends BaseComponent<ListWrapper, IListWrapperProps> {
+export class ListWrapper extends BaseComponent<IListWrapperProps> {
 
   /**
    * @stable [13.10.2018]

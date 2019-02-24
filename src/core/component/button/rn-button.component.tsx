@@ -7,7 +7,7 @@ import { UniversalComponent } from '../base/universal.component';
 import { isButtonDisabled, getButtonText, getButtonIcon } from './button.support';
 import { IRnButtonProps } from '../../definition';
 
-export class RnButton extends UniversalComponent<RnButton, IRnButtonProps> {
+export class RnButton extends UniversalComponent<IRnButtonProps> {
 
   public static defaultProps: IRnButtonProps = {
     iconLeft: true,

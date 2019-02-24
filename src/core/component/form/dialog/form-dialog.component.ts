@@ -2,7 +2,7 @@ import { Dialog } from '../../dialog/dialog.component';
 
 import { IFormDialogProps } from './form-dialog.interface';
 
-export class FormDialog extends Dialog<FormDialog, IFormDialogProps> {
+export class FormDialog extends Dialog<IFormDialogProps> {
 
   public static defaultProps: IFormDialogProps = {
     title: 'You have unsaved changes',

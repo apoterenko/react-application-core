@@ -3,7 +3,7 @@ import { ISelectInternalProps, ISelectInternalState } from './select.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { toClassName } from '../../../util';
 
-export class Select extends BasicSelect<Select, ISelectInternalProps, ISelectInternalState> {
+export class Select extends BasicSelect<ISelectInternalProps, ISelectInternalState> {
 
   public static defaultProps: ISelectInternalProps = {
     forceReload: true,

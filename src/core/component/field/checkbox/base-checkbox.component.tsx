@@ -10,11 +10,9 @@ import { IBasicEvent } from '../../../react-definitions.interface';
 import { uuid, noop } from '../../../util';
 import { FlexLayout } from '../../layout';
 
-export class BaseCheckbox<TComponent extends BaseCheckbox<TComponent, TProps, TState>,
-                          TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
+export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
-  extends Field<TComponent,
-                TProps,
+  extends Field<TProps,
                 TState> {
 
   private inputId = uuid();

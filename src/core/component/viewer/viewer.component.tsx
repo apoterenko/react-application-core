@@ -8,10 +8,9 @@ import { IUniversalDialog, Dialog } from '../dialog';
 import { IViewerProps, IViewerState } from './viewer.interface';
 import { PictureViewer } from '../viewer';
 
-export abstract class Viewer<TComponent extends Viewer<TComponent, TProps, TState>,
-                             TProps extends IViewerProps,
+export abstract class Viewer<TProps extends IViewerProps,
                              TState extends IViewerState>
-  extends BaseComponent<TComponent, TProps, IViewerState> {
+  extends BaseComponent<TProps, IViewerState> {
 
   /**
    * @stable [08.07.2018]

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
@@ -39,14 +38,13 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
 
   public render(): JSX.Element {
     return (
-        <MuiThemeProvider>
-          <BrowserRouter ref='router'
-                         basename={this.props.basename || ENV.basePath}>
-            <Switch>
-              {...this.getRoutes()}
-            </Switch>
-          </BrowserRouter>
-        </MuiThemeProvider>
+      <BrowserRouter
+        ref='router'
+        basename={this.props.basename || ENV.basePath}>
+        <Switch>
+          {...this.getRoutes()}
+        </Switch>
+      </BrowserRouter>
     );
   }
 

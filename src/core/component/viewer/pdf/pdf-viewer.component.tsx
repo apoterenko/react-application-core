@@ -6,7 +6,7 @@ import { IPdfViewerProps, IPdfViewerState, IUniversalPdfPlugin } from './pdf-vie
 import { Viewer } from '../viewer.component';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
 
-export class PdfViewer extends Viewer<PdfViewer, IPdfViewerProps, IPdfViewerState> {
+export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
 
   public static defaultProps: IPdfViewerProps = {
     previewScale: 1.5,

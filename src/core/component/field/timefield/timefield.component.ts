@@ -6,8 +6,7 @@ import {
   ITimeFieldInternalProps,
 } from './timefield.interface';
 
-export class TimeField extends BaseTextField<TimeField,
-                                              ITimeFieldInternalProps,
+export class TimeField extends BaseTextField<ITimeFieldInternalProps,
                                               ITimeFieldInternalState>
     implements ITimeField {
 

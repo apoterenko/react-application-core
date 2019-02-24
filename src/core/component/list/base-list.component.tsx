@@ -7,10 +7,9 @@ import { Message } from '../message';
 import { Button } from '../button';
 import { UniversalList } from './universal-list.component';
 
-export abstract class BaseList<TComponent extends BaseList<TComponent, TProps, TState>,
-                               TProps extends IUniversalListProps,
+export abstract class BaseList<TProps extends IUniversalListProps,
                                TState = {}>
-  extends UniversalList<TComponent, TProps, TState> {
+  extends UniversalList<TProps, TState> {
 
   /**
    * @stable [09.06.2018]

@@ -13,8 +13,7 @@ import {
 import { uuid } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
 
-export class ArbitraryFormDialog extends Dialog<ArbitraryFormDialog,
-                                                IArbitraryFormDialogProps,
+export class ArbitraryFormDialog extends Dialog<IArbitraryFormDialogProps,
                                                 IArbitraryFormDialogState> {
 
   private static REDUCER_FORM_SECTION = uuid();

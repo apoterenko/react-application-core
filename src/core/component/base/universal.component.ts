@@ -16,10 +16,9 @@ import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
 
-export class UniversalComponent<TComponent extends IUniversalComponent<TProps, TState>,
-                                TProps extends IUniversalComponentProps = IUniversalComponentProps,
+export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>
-  extends React.Component<TProps, TState>
+  extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
   protected plugins: IUniversalComponentPlugin[] = [];

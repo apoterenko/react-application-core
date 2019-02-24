@@ -8,7 +8,7 @@ import { ITabConfiguration } from '../../configurations-definitions.interface';
 import { ITabPanelProps } from '../../props-definitions.interface';
 import { FlexLayout } from '../layout';
 
-export class TabPanel extends BaseComponent<TabPanel, ITabPanelProps, ITabPanelState> implements ITabPanel {
+export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> implements ITabPanel {
 
   public static defaultProps: ITabPanelProps = {
     useIndicator: true,

@@ -5,8 +5,7 @@ import { ITextArea, ITextAreaInternalProps, ITextAreaInternalState } from './tex
 import { BaseTextField } from '../textfield';
 import { IFieldTextAreaProps } from '../field';
 
-export class TextArea extends BaseTextField<TextArea,
-                                             ITextAreaInternalProps,
+export class TextArea extends BaseTextField<ITextAreaInternalProps,
                                              ITextAreaInternalState>
     implements ITextArea {
 

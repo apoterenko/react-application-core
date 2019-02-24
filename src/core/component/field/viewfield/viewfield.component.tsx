@@ -5,7 +5,7 @@ import { FlexLayout } from '../../layout';
 import { PictureViewer } from '../../viewer';
 import { IViewFieldProps } from './viewfield.interface';
 
-export class ViewField extends Field<ViewField, IViewFieldProps> {
+export class ViewField extends Field<IViewFieldProps> {
 
   public static defaultProps: IViewFieldProps = {
     viewer: PictureViewer,

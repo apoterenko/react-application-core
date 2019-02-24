@@ -7,7 +7,7 @@ import { SimpleList } from '../list/simple';
 import { BaseList } from './base-list.component';
 import { IListProps } from '../../props-definitions.interface';
 
-export class List extends BaseList<List, IListProps> {
+export class List extends BaseList<IListProps> {
 
   /**
    * [30.10.2018]

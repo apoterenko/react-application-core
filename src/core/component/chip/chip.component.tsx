@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BaseComponent } from '../base';
 import { IChipInternalProps } from './chip.interface';
 
-export class Chip extends BaseComponent<Chip, IChipInternalProps, {}> {
+export class Chip extends BaseComponent<IChipInternalProps> {
 
   public render(): JSX.Element {
     const props = this.props;

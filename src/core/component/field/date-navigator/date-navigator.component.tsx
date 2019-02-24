@@ -13,7 +13,7 @@ import {
 } from './date-navigator.interface';
 
 export class DateNavigator
-  extends DateField<DateNavigator, IDateNavigatorProps, IDateNavigatorState> { // Should be able to connect to a Form
+  extends DateField<IDateNavigatorProps, IDateNavigatorState> { // Should be able to connect to a Form
 
   public static defaultProps: IDateNavigatorProps = {
     step: 1,

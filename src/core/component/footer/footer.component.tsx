@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BaseComponent } from '../base';
 import { toClassName } from '../../util';
 
-export class Footer extends BaseComponent<Footer> {
+export class Footer extends BaseComponent {
 
   public render(): JSX.Element {
     const props = this.props;

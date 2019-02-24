@@ -8,7 +8,7 @@ import { IBasicEvent } from '../../../react-definitions.interface';
 import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitions.interface';
 import { Button } from '../../button';
 
-export class KeyboardKey extends BaseComponent<KeyboardKey, IKeyboardKeyProps> {
+export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
   private buttonRef = React.createRef<Button>();
 
   /**

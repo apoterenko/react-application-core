@@ -21,7 +21,7 @@ import { FlexLayout } from '../layout';
 import { IBasicEvent } from '../../react-definitions.interface';
 import { Overlay } from '../overlay';
 
-export class Menu extends BaseComponent<Menu, IMenuProps, IMenuState>
+export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
 
   public static defaultProps: IMenuProps = {

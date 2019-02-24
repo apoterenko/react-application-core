@@ -6,7 +6,7 @@ import { BaseList } from '../../list';
 import { Card } from '../card.component';
 import { ICardListProps } from './card-list.interface';
 
-export class CardList extends BaseList<CardList, ICardListProps> {
+export class CardList extends BaseList<ICardListProps> {
 
   /**
    * @stable [02.05.2018]

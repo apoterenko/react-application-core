@@ -4,7 +4,7 @@ import { toClassName } from '../../../../util';
 import { BaseComponent } from '../../../base';
 import { FlexLayout } from '../../../layout';
 
-export class ListItemGraphic extends BaseComponent<ListItemGraphic> {
+export class ListItemGraphic extends BaseComponent {
 
   /**
    * @stable [30.10.2018]

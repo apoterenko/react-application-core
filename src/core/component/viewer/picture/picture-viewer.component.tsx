@@ -4,7 +4,7 @@ import { toClassName } from '../../../util';
 import { Viewer } from '../viewer.component';
 import { IPictureViewerProps, IPictureViewerState } from './picture-viewer.interface';
 
-export class PictureViewer extends Viewer<PictureViewer, IPictureViewerProps, IPictureViewerState> {
+export class PictureViewer extends Viewer<IPictureViewerProps, IPictureViewerState> {
 
   public static defaultProps: IPictureViewerProps = {
     defaultScr: 'media/no_picture.jpg',

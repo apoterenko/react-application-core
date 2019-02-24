@@ -10,7 +10,7 @@ import {
 } from './chipsfield.interface';
 import { MultiField } from '../multifield';
 
-export class ChipsField extends MultiField<ChipsField, IChipsFieldProps, IChipsFieldState> {
+export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
 
   /**
    * @stable [01.06.2018]

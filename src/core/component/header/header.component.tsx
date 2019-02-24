@@ -5,7 +5,7 @@ import { ISubHeaderProps } from './header.interface';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
 
-export class Header extends BaseComponent<Header> {
+export class Header extends BaseComponent {
 
   /**
    * @stable [08.10.2018]

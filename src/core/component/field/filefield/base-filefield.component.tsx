@@ -21,10 +21,9 @@ import { IUniversalDialog, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BaseFileField<TComponent extends BaseFileField<TComponent, TProps, TState>,
-                           TProps extends IBaseFileFieldProps,
+export class BaseFileField<TProps extends IBaseFileFieldProps,
                            TState extends IBaseFileFieldState>
-    extends BaseTextField<TComponent, TProps, TState> {
+    extends BaseTextField<TProps, TState> {
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
 

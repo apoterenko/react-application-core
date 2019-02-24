@@ -16,15 +16,14 @@ import {
   toActualChangedValue,
 } from './field.support';
 
-export abstract class UniversalField<TComponent extends IUniversalField<TProps, TState>,
-                                     TProps extends IUniversalFieldProps<TKeyboardEvent,
+export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
                                                                          TFocusEvent,
                                                                          TBasicEvent>,
                                      TState extends IUniversalFieldState,
                                      TKeyboardEvent,
                                      TFocusEvent,
                                      TBasicEvent>
-  extends UniversalComponent<TComponent, TProps, TState>
+  extends UniversalComponent<TProps, TState>
   implements IUniversalField<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalField');
@@ -603,7 +602,7 @@ export abstract class UniversalField<TComponent extends IUniversalField<TProps, 
   protected getErrorMessageElement(): JSX.Element {
     return orNull<JSX.Element>(
       this.props.errorMessageRendered !== false,
-      () => this.toMessageElement(this.error, this.uiFactory.fieldValidationText)
+      () => this.toMessageElement(this.error)
     );
   }
 

@@ -24,7 +24,7 @@ import {
 } from './form.support';
 import { FlexLayout } from '../layout';
 
-export class Form extends BaseComponent<IForm, IFormProps> implements IForm {
+export class Form extends BaseComponent<IFormProps> implements IForm {
 
   public static defaultProps: IFormProps = {
     form: INITIAL_APPLICATION_FORM_STATE,
