@@ -58,14 +58,14 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
      * @stable [21.10.2018]
      */
     beforeCreate() {
-      this.section$ = config.section$;
+      this.sectionName = config.sectionName;
     },
 
     /**
      * @stable [21.10.2018]
      */
     mounted() {
-      logger.debug(`[$vueConnectorOptionsFactory][mounted] Section: ${config.section$}`);
+      logger.debug(`[$vueConnectorOptionsFactory][mounted] Section: ${config.sectionName}`);
 
       const self: IVueContainer = this;
       const store = self.store$;
@@ -78,7 +78,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       }
 
       // Send an init action
-      store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.section$)});
+      store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.sectionName)});
 
       const cachedReduxLinks = new Map<((...args) => void), AnyT>();
 
@@ -171,7 +171,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       const store = self.store$;
 
       // Send an destroy action
-      store.dispatch({type: UniversalConnectorActionBuilder.buildDestroyActionType(self.section$)});
+      store.dispatch({type: UniversalConnectorActionBuilder.buildDestroyActionType(self.sectionName)});
     },
   };
 };

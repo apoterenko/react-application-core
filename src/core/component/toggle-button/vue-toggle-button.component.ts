@@ -19,7 +19,7 @@ import { VueBaseComponent } from '../base/vue-index';
                        :alignItemsCenter="true"
                        :justifyContentCenter="true"
                        v-on:click.native="onItemClick(item)">
-        {{item.label}}
+        {{t(item.label)}}
       </vue-flex-layout>
     </vue-flex-layout>
   `,

@@ -83,13 +83,6 @@ export interface IVueState$Wrapper<TState$> {
 }
 
 /**
- * @stable [21.10.2018]
- */
-export interface IVueSection$Wrapper {
-  section$?: string;
-}
-
-/**
  * @stable [23.10.2018]
  */
 export interface IVueForceUpdateOnChangeData$Wrapper<TForceUpdateOnChangeData$> {

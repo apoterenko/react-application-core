@@ -8,6 +8,7 @@ import {
   AnyT,
   IKeyValue,
   IEntity,
+  ACTION_PREFIX,
 } from '../../definitions.interface';
 import { INavigateEntity } from '../../entities-definitions.interface';
 import { DictionariesActionBuilder } from '../../dictionary';
@@ -20,7 +21,7 @@ import { ListActionBuilder } from '../list/vue-index';
 import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/vue-index';
 
 export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueContainer {
-  public section$: string;
+  public sectionName: string;
   @lazyInject(DI_TYPES.Store) public store$: Store<IVueApplicationStoreEntity>;
   @lazyInject(DI_TYPES.Translate) protected t: TranslatorT;
 
@@ -47,31 +48,44 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @param {TChanges} data
    */
   public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
-    this.dispatchCustomType(`${this.section$}.${type}`, applySection(this.section$, data));
+    this.dispatchCustomType(`${this.sectionName}.${type}`, applySection(this.sectionName, data));
   }
 
   /**
-   * @stable [13.11.2018]
-   * @param {TChanges} changes
+   * @stable [24.02.2019]
+   * @param {string} type
+   * @param {TData} data
+   * @param {string} otherSection
    */
-  public dispatchFormChanges<TChanges = IKeyValue>(changes: TChanges): void {
-    this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(this.section$, changes));
+  public dispatchFrameworkAction<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void {
+    const section = otherSection || this.sectionName;
+    this.dispatchCustomType(`${ACTION_PREFIX}${section}.${type}`, applySection(section, data));
   }
 
   /**
-   * @stable [18.11.2018]
+   * @stable [24.02.2019]
+   * @param {TChanges} changes
+   * @param {string} otherSection
+   */
+  public dispatchFormChanges<TChanges = IKeyValue>(changes: TChanges, otherSection?: string): void {
+    this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(otherSection || this.sectionName, changes));
+  }
+
+  /**
+   * @stable [24.02.2019]
    * @param {string} fieldName
    * @param {AnyT} fieldValue
+   * @param {string} otherSection
    */
-  public dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
-    this.store$.dispatch(FormActionBuilder.buildChangeSimpleAction(this.section$, fieldName, fieldValue));
+  public dispatchFormChange(fieldName: string, fieldValue?: AnyT, otherSection?: string): void {
+    this.store$.dispatch(FormActionBuilder.buildChangeSimpleAction(otherSection || this.sectionName, fieldName, fieldValue));
   }
 
   /**
    * @stable [19.11.2018]
    */
   public dispatchFormSubmit(): void {
-    this.dispatchCustomType(FormActionBuilder.buildSubmitActionType(this.section$), applySection(this.section$));
+    this.dispatchCustomType(FormActionBuilder.buildSubmitActionType(this.sectionName), applySection(this.sectionName));
   }
 
   /**
@@ -87,7 +101,7 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @stable [20.01.2019]
    */
   public dispatchListCreate(): void {
-    this.store$.dispatch(ListActionBuilder.buildCreateSimpleAction(this.section$));
+    this.store$.dispatch(ListActionBuilder.buildCreateSimpleAction(this.sectionName));
   }
 
   /**
@@ -110,7 +124,7 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @param {IEntity} entity
    */
   protected dispatchListSelect(entity: IEntity): void {
-    this.store$.dispatch(ListActionBuilder.buildSelectSimpleAction(this.section$, {selected: entity}));
+    this.store$.dispatch(ListActionBuilder.buildSelectSimpleAction(this.sectionName, {selected: entity}));
   }
 
   /**

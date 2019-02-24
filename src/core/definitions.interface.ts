@@ -465,26 +465,9 @@ export interface IOnOpenWrapper<TOnOpen = () => void> {
   onOpen?: TOnOpen;
 }
 
-/**
- * @stable [07.07.2018]
- */
-export interface IOperationWrapper<TOperation = IIdWrapper<string>> {
-  operation?: TOperation;
-}
-
-/**
- * @stable [17.08.2018]
- */
-export interface IOperationIdWrapper {
-  operationId?: string;
-}
-
-/**
- * @stable [30.05.2018]
- */
-export interface IItemsWrapper<TItems> {
-  items?: TItems;
-}
+export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
+export interface IOperationIdWrapper { operationId?: string; }
+export interface IItemsWrapper<TItems> { items?: TItems; }
 
 /**
  * @stable [01.12.2018]
@@ -493,19 +476,7 @@ export interface IOnScrollWrapper<TPayload = AnyT> {
   onScroll?(payload?: TPayload): void;
 }
 
-/**
- * @stable [30.05.2018]
- */
-export interface IItemWrapper<TItem> {
-  item?: TItem;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface IItemIdWrapper<TItemId = EntityIdT> {
-  itemId?: TItemId;
-}
+export interface IItemWrapper<TItem> { item?: TItem; }
 
 /**
  * @stable [31.05.2018]

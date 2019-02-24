@@ -7,6 +7,7 @@ import { INumberConverter } from '../converter';
 import { IUIFactory } from '../component/factory/factory.interface';
 import { TranslatorT } from '../translation';
 import { ITransport } from '../transport';
+import { IEventManager } from '../event';
 
 /**
  * @stable [20.10.2018]
@@ -44,3 +45,9 @@ export const getTransport = (): ITransport => staticInjector<ITransport>(DI_TYPE
  * @returns {TApi}
  */
 export const getApi = <TApi>(): TApi => staticInjector<TApi>(DI_TYPES.Api);
+
+/**
+ * @stable [24.02.2019]
+ * @returns {IEventManager}
+ */
+export const getEventManager = (): IEventManager => staticInjector<IEventManager>(DI_TYPES.EventManager);

@@ -5,13 +5,13 @@ import { toType } from './util';
 import {
   IEntity,
   AnyT,
+  ISectionNameWrapper,
 } from './definitions.interface';
 import {
   IUniversalApplicationStoreEntity,
   IDispatchEntity,
 } from './entities-definitions.interface';
 import {
-  IVueSection$Wrapper,
   IVueState$Wrapper,
   IVueStore$Wrapper,
   IVueComponent$Wrapper,
@@ -56,7 +56,7 @@ export interface IVueComponent extends Vue,
  */
 export interface IVueContainer<TApplicationStoreEntity extends IVueApplicationStoreEntity = IVueApplicationStoreEntity>
   extends Vue,
-          IVueSection$Wrapper,
+          ISectionNameWrapper,
           IVueStore$Wrapper<Store<TApplicationStoreEntity>>,
           IVueState$Wrapper<TApplicationStoreEntity>,
           IVueOnMount$Wrapper,

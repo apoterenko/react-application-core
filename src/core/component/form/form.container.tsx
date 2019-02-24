@@ -75,8 +75,11 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
     this.dispatch(FORM_VALID_ACTION_TYPE, {valid});
   }
 
+  /**
+   * @stable [24.02.2019]
+   */
   private onReset(): void {
-    this.dispatch(FORM_RESET_ACTION_TYPE);
+    this.dispatchFrameworkAction(FORM_RESET_ACTION_TYPE);
   }
 
   private onSubmit(apiEntity: IApiEntity): void {

@@ -263,9 +263,10 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
  */
 export interface IDispatchEntity {
   dispatchListCreate?(): void;
-  dispatchFormChange?(fieldName: string, fieldValue?: AnyT): void;
+  dispatchFormChange?(fieldName: string, fieldValue?: AnyT, otherSection?: string): void;
   dispatchFormSubmit?(): void;
-  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void;
+  dispatchFrameworkAction?<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void;
+  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
   dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
   dispatchCustomType?<TData = IKeyValue>(type: string, data?: TData): void;
   dispatch?<TChanges = IKeyValue>(type: string, data?: TChanges): void;

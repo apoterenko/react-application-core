@@ -54,8 +54,13 @@ export class FormActionBuilder {
     return `${toActionPrefix(section)}.${FORM_CHANGE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [24.02.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildResetActionType(section: string): string {
-    return `${section}.${FORM_RESET_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_RESET_ACTION_TYPE}`;
   }
 
   public static buildValidActionType(section: string): string {
@@ -98,6 +103,15 @@ export class FormActionBuilder {
 
   public static buildSubmitDoneAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildSubmitDoneActionType(section), applySection(section));
+  }
+
+  /**
+   * @stable [24.02.2019]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildResetAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildResetActionType(section), applySection(section));
   }
 
   public static buildSubmitFinishedAction(section: string): IEffectsAction {

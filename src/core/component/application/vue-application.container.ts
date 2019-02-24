@@ -12,7 +12,7 @@ import { VueBaseContainer } from '../base/vue-index';
 import { vueConnectorOptionsFactory } from '../connector/vue-index';
 
 @Component(vueConnectorOptionsFactory({
-  section$: APPLICATION_SECTION,
+  sectionName: APPLICATION_SECTION,
   customComputed$: [
     (state) => ({application: state.application})   // TODO move to common
   ],

@@ -1,8 +1,7 @@
-import { AnyT } from '../../definitions.interface';
+import { AnyT, ISectionNameWrapper } from '../../definitions.interface';
 import {
   VueComponentOptionsT,
   IVueCustomComputed$Wrapper,
-  IVueSection$Wrapper,
   IVueForceUpdateOnChangeData$Wrapper,
 } from '../../vue-definitions.interface';
 import { IVueContainer, IVueApplicationStoreEntity } from '../../vue-entities-definitions.interface';
@@ -12,7 +11,7 @@ import { IVueContainer, IVueApplicationStoreEntity } from '../../vue-entities-de
  */
 export interface IVueConnectorOptionsConfigEntity<TApplicationStoreEntity extends IVueApplicationStoreEntity = IVueApplicationStoreEntity>
   extends VueComponentOptionsT<IVueContainer<TApplicationStoreEntity>>,
-          IVueSection$Wrapper,
+          ISectionNameWrapper,
           IVueCustomComputed$Wrapper<Array<(state: TApplicationStoreEntity) => AnyT>>,
           IVueForceUpdateOnChangeData$Wrapper<(state: TApplicationStoreEntity) => AnyT> {
 }

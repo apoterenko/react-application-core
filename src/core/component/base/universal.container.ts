@@ -95,15 +95,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * Needed for the framework actions
-   *
-   * @stable [14.08.2018]
+   * @stable [24.02.2019]
    * @param {string} type
-   * @param {IKeyValue} data
+   * @param {TData} data
+   * @param {string} otherSection
    */
-  public dispatchFrameworkAction<TData = IKeyValue>(type: string, data?: TData): void {
+  public dispatchFrameworkAction<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void {
     const props = this.props;
-    this.dispatchCustomType(`${ACTION_PREFIX}${props.sectionName}.${type}`, applySection(props.sectionName, data));
+    const section = otherSection || props.sectionName;
+    this.dispatchCustomType(`${ACTION_PREFIX}${section}.${type}`, applySection(section, data));
   }
 
   /**
@@ -125,23 +125,25 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [18.11.2018]
+   * @stable [24.02.2019]
    * @param {TChanges} changes
+   * @param {string} otherSection
    */
-  public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges): void {
+  public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void {
     this.appStore.dispatch(
-      FormActionBuilder.buildChangesSimpleAction(this.props.sectionName, changes)
+      FormActionBuilder.buildChangesSimpleAction(otherSection || this.props.sectionName, changes)
     );
   }
 
   /**
-   * @stable [18.11.2018]
+   * @stable [24.02.2019]
    * @param {string} fieldName
    * @param {AnyT} fieldValue
+   * @param {string} otherSection
    */
-  public dispatchFormChange(fieldName: string, fieldValue?: AnyT): void {
+  public dispatchFormChange(fieldName: string, fieldValue?: AnyT, otherSection?: string): void {
     this.appStore.dispatch(
-      FormActionBuilder.buildChangeSimpleAction(this.props.sectionName, fieldName, fieldValue)
+      FormActionBuilder.buildChangeSimpleAction(otherSection || this.props.sectionName, fieldName, fieldValue)
     );
   }
 
