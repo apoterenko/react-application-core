@@ -84,7 +84,7 @@
     "material-components-web": "^0.40.0",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.14",
-    "native-base": "^2.4.2",
+    "native-base": "2.11.0",
     "ncp": "^2.0.0",
     "node-fs-extra": "^0.8.2",
     "node-sass": "^4.8.3",
