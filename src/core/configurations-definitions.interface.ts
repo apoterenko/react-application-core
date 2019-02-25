@@ -11,7 +11,6 @@ import {
   IActionsDisabledWrapper,
   IActionsPosition,
   IActionsWrapper,
-  IActionTextWrapper,
   IActiveValueWrapper,
   IActiveWrapper,
   IAfterEnterWrapper,
@@ -124,7 +123,6 @@ import {
   IMultiWrapper,
   INameWrapper,
   INavigationActionTypeWrapper,
-  INotUseActionsWrapper,
   INotUseFieldWrapper,
   IOnBlurWrapper,
   IOnChangeFilterWrapper,
@@ -164,7 +162,6 @@ import {
   IRenderToXWrapper,
   IRenderToYWrapper,
   IRequiredWrapper,
-  IResetTextWrapper,
   IRestoreAuthWrapper,
   IRippableWrapper,
   ISectionNameWrapper,
@@ -197,7 +194,7 @@ import {
   IUseHeaderWrapper,
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
-  IUseResetButtonWrapper,
+  IResetActionRenderedWrapper,
   IUseServiceWrapper,
   IUseSortingWrapper,
   IUseSyntheticCursorWrapper,
@@ -227,7 +224,7 @@ import {
   IOnEmptyMessageClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
-import { IButtonProps } from './definition';
+import { IButtonProps, IGenericFormEntity } from './definition';
 
 /**
  * @stable [26.08.2018]
@@ -484,9 +481,9 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
 /**
  * @stable [04.08.2018]
  */
-export interface IUniversalFormConfiguration extends IReactComponentConfiguration,
-                                                     INotUseActionsWrapper,
-                                                     IUseResetButtonWrapper,
+export interface IUniversalFormConfiguration extends IGenericFormEntity,
+                                                     IReactComponentConfiguration,
+                                                     IResetActionRenderedWrapper,
                                                      IEditableWrapper,
                                                      IDisabledWrapper,
                                                      IAlwaysDirtyWrapper,
@@ -500,11 +497,8 @@ export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
                                             IWebComponentConfiguration,
                                             IButtonConfigurationWrapper,
                                             IReadOnlyWrapper,
-                                            IActionTextWrapper,
-                                            IResetTextWrapper,
                                             ICompactWrapper {
   actionsProvider?: (defaultActions: IButtonProps[]) => IButtonProps[];
-  useActions?: boolean; // TODO
   progress?: boolean; // TODO
   alwaysResettable?: boolean; // TODO
   validateOnMount?: boolean; // TODO

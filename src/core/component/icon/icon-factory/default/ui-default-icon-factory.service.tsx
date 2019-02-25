@@ -377,6 +377,16 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
         />
       </svg>
     ),
+    'ok': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='24' height='24' viewBox='0 0 24 24'>
+        <defs>
+          <path id='61000029-3ad6-4fb3-a4a7-c6e231a79d7a' d='M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm0-3a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9zm-1.5-4.5c.6 0 1.167-.237 1.59-.665l5.472-5.749a1.527 1.527 0 0 0 0-2.142 1.488 1.488 0 0 0-2.121 0L10.5 13.158l-1.94-2.214a1.488 1.488 0 0 0-2.12 0 1.527 1.527 0 0 0 0 2.142l2.468 2.75c.425.427.988.664 1.59.664h.002z'
+          />
+        </defs>
+        <use fill='currentColor' fillRule='evenodd' xlinkHref='#61000029-3ad6-4fb3-a4a7-c6e231a79d7a' />
+      </svg>
+    ),
     'id': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='80' height='80' viewBox='0 0 80 80'>

@@ -80,6 +80,7 @@ export interface IScaleWrapper<TScale = number> { scale?: TScale; }
 export interface ISrcWrapper<TSrc = string> { src?: TSrc; }
 export interface ITransportWrapper<TTransport> { transport?: TTransport; }
 export interface IUserWrapper<TUser = string> { user?: TUser; }
+export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 
 /**
  * @stable [22.06.2018]
@@ -1316,33 +1317,9 @@ export interface ITotalAmountWrapper<TTotalAmount = number> {
   totalAmount?: TTotalAmount;
 }
 
-/**
- * @stable [18.05.2018]
- */
-export interface IDirtyWrapper {
-  dirty?: boolean;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IValidWrapper {
-  valid?: boolean;
-}
-
-/**
- * @stable [06.10.2018]
- */
-export interface IChangeableWrapper {
-  changeable?: boolean;
-}
-
-/**
- * @stable [22.06.2018]
- */
-export interface IPriorityWrapper {
-  priority?: number;
-}
+export interface IDirtyWrapper { dirty?: boolean; }
+export interface IValidWrapper { valid?: boolean; }
+export interface IChangeableWrapper { changeable?: boolean; }
 
 /* @stable [27.04.2018] */
 export interface ICloseWrapper<TClose> {
@@ -1425,45 +1402,10 @@ export interface IUseServiceWrapper {
   useService?: boolean;
 }
 
-/* @stable - 31.03.2018 */
-export interface IReadOnlyWrapper {
-  readOnly?: boolean;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IUseResetButtonWrapper {
-  useResetButton?: boolean;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface INotUseActionsWrapper {
-  notUseActions?: boolean;
-}
-
-/**
- * @stable [06.12.2018]
- */
-export interface IImgSrcWrapper {
-  imgSrc?: string;
-}
-
-/**
- * @stable [22.08.2018]
- */
-export interface IActionTextWrapper {
-  actionText?: string;
-}
-
-/**
- * @stable [15.09.2018]
- */
-export interface IFieldRenderedWrapper {
-  fieldRendered?: boolean;
-}
+export interface IActionTextWrapper { actionText?: string; }
+export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
+export interface IReadOnlyWrapper { readOnly?: boolean; }
+export interface IResetActionRenderedWrapper { resetActionRendered?: boolean; }
 
 /**
  * @stable [15.09.2018]
@@ -1493,10 +1435,7 @@ export interface ICompactWrapper<TCompact = boolean> {
   compact?: TCompact;
 }
 
-/* @stable - 31.03.2018 */
-export interface IResetTextWrapper {
-  resetText?: string;
-}
+export interface IResetTextWrapper { resetText?: string; }
 
 /**
  * @stable [29.05.2018]
@@ -2664,11 +2603,6 @@ export interface IIsNewWrapper {
   isNew?: boolean;
 }
 
-/* @stable [05.05.2018] */
-export interface ICheckedWrapper<TChecked = boolean> {
-  checked?: TChecked;
-}
-
 /**
  * @stable [10.06.2018]
  */
@@ -2978,5 +2912,4 @@ export const UNI_CODES = {
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
 export type BasicEventT = React.SyntheticEvent<{}>;
-export type KeyboardEventT = React.KeyboardEvent<{}>;
 export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;

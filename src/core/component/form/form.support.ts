@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as R from 'ramda';
 
 import { Operation } from '../../operation';
@@ -6,7 +5,7 @@ import { IEntity, AnyT } from '../../definitions.interface';
 import { IApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from './form.interface';
-import { defValuesFilter, isPrimitive } from '../../util';
+import { defValuesFilter } from '../../util';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
 import { UniversalField } from '../field/field/universal-field.component';
 
@@ -143,7 +142,14 @@ export const isFormResettable = (formProps: IFormProps): boolean => formProps.al
  * @param {IFormProps} formProps
  * @returns {boolean}
  */
-export const isFormNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || R.isNil(formProps.entity.id);
+export const isFormOfNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || R.isNil(formProps.entity.id);
+
+/**
+ * @stable [25.02.2019]
+ * @param {IFormProps} formProps
+ * @returns {boolean}
+ */
+export const isFormBusy = (formProps: IFormProps): boolean => formProps.progress || formProps.form.progress;
 
 /**
  * @stable [30.08.2018]

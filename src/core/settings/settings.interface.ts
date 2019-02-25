@@ -61,44 +61,47 @@ export interface IApplicationNumberSettings {
 }
 
 export interface IApplicationMessagesSettings {
-  newAppVersionMessageHasBeenDeployed?: string;
-  dialogTitleMessage?: string;
-  dialogCancelMessage?: string;
-  dialogAcceptMessage?: string;
-  logoutNotificationMessage?: string;
+  acceptMessage?: string;
   accessDeniedMessage?: string;
-  sorryMessage?: string;
-  waitMessage?: string;
-  waitingMessage?: string;
-  defaultErrorMessage?: string;
-  dataSaved?: string;
-  dndMessage?: string;
-  errorMessage?: string;
-  fileLoadErrorMessage?: string;
-  noFileToShowMessage?: string;
-  serviceTemporarilyUnavailableMessage?: string;
-  noAvailableItemsToSelectMessage?: string;
-  emptyMessage?: string;
-  emptyDataMessage?: string;
+  addressSelectionMessage?: string;
   appNotReadyMessage?: string;
-  followingErrorHasOccurredMessage?: string;
-  noItemsMessage?: string;
-  filterPlaceholderMessage?: string;
-  takeSnapshotMessage?: string;
+  closeMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
-  acceptMessage?: string;
-  closeMessage?: string;
-  previewMessage?: string;
-  addressSelectionMessage?: string;
-  putMarkerHereMessage?: string;
-  invalidAddressMessage?: string;
-  signIntoYourAccountMessage?: string;
-  welcomeMessage?: string;
+  create?: string;
+  dataSaved?: string;
+  defaultErrorMessage?: string;
+  dialogAcceptMessage?: string;
+  dialogCancelMessage?: string;
+  dialogTitleMessage?: string;
+  dndMessage?: string;
+  emptyDataMessage?: string;
+  emptyMessage?: string;
+  errorMessage?: string;
   exportActionTitleMessage?: string;
+  fileLoadErrorMessage?: string;
+  filterPlaceholderMessage?: string;
+  followingErrorHasOccurredMessage?: string;
+  invalidAddressMessage?: string;
+  logoutNotificationMessage?: string;
+  newAppVersionMessageHasBeenDeployed?: string;
+  noAvailableItemsToSelectMessage?: string;
+  noFileToShowMessage?: string;
+  noItemsMessage?: string;
+  previewMessage?: string;
+  putMarkerHereMessage?: string;
   refreshActionTitleMessage?: string;
-  unknownFileMessage?: string;
   requestCancelErrorMessage?: string;
+  reset?: string;
+  save?: string;
+  serviceTemporarilyUnavailableMessage?: string;
+  signIntoYourAccountMessage?: string;
+  sorryMessage?: string;
+  takeSnapshotMessage?: string;
+  unknownFileMessage?: string;
+  waitingMessage?: string;
+  waitMessage?: string;
+  welcomeMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -168,42 +171,45 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     noCachePrefix: '_dc',
   },
   messages: {
-    newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
-    dialogTitleMessage: 'Notice',
-    dialogCancelMessage: 'Cancel',
-    dialogAcceptMessage: 'Continue',
-    logoutNotificationMessage: 'You were logged out.',
+    acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
-    sorryMessage: 'Sorry about that.',
-    waitMessage: 'Please wait...',
-    waitingMessage: 'Waiting...',
-    defaultErrorMessage: 'Error',
-    dataSaved: 'The data has been successfully saved.',
-    dndMessage: 'Upload a file(s) here',
-    serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
-    noAvailableItemsToSelectMessage: 'No available items to select.',
-    errorMessage: 'Something went wrong. There was a problem loading your data',
-    fileLoadErrorMessage: 'Can\'t load the file.',
-    noFileToShowMessage: 'No file to show.',
-    emptyMessage: 'Start a search',
-    emptyDataMessage: 'No data found',
+    addressSelectionMessage: 'Address selection',
     appNotReadyMessage: 'The application is initialized...',
-    followingErrorHasOccurredMessage: 'The following error has occurred:',
-    noItemsMessage: 'No items.',
-    filterPlaceholderMessage: 'Filter',
-    takeSnapshotMessage: 'Take a snapshot',
+    closeMessage: 'Close',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
-    acceptMessage: 'Accept',
-    closeMessage: 'Close',
-    previewMessage: 'Preview',
-    addressSelectionMessage: 'Address selection',
-    putMarkerHereMessage: 'Put marker here',
-    invalidAddressMessage: 'Invalid address',
+    create: 'Create',
+    dataSaved: 'The data has been successfully saved.',
+    defaultErrorMessage: 'Error',
+    dialogAcceptMessage: 'Continue',
+    dialogCancelMessage: 'Cancel',
+    dialogTitleMessage: 'Notice',
+    dndMessage: 'Upload a file(s) here',
+    emptyDataMessage: 'No data found',
+    emptyMessage: 'Start a search',
+    errorMessage: 'Something went wrong. There was a problem loading your data',
     exportActionTitleMessage: 'Export',
+    fileLoadErrorMessage: 'Can\'t load the file.',
+    filterPlaceholderMessage: 'Filter',
+    followingErrorHasOccurredMessage: 'The following error has occurred:',
+    invalidAddressMessage: 'Invalid address',
+    logoutNotificationMessage: 'You were logged out.',
+    newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
+    noAvailableItemsToSelectMessage: 'No available items to select.',
+    noFileToShowMessage: 'No file to show.',
+    noItemsMessage: 'No items.',
+    previewMessage: 'Preview',
+    putMarkerHereMessage: 'Put marker here',
     refreshActionTitleMessage: 'Refresh',
-    unknownFileMessage: 'Unknown file',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
+    reset: 'Reset',
+    save: 'Save',
+    serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
+    sorryMessage: 'Sorry about that.',
+    takeSnapshotMessage: 'Take a snapshot',
+    unknownFileMessage: 'Unknown file',
+    waitingMessage: 'Waiting...',
+    waitMessage: 'Please wait...',
   },
   dateTime: {
     startDayOfWeek: StartDayOfWeekT.MONDAY,

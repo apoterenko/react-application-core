@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, toClassName, isDef, getWidth, toType } from '../../../util';
+import { cancelEvent, toClassName, isDef, getWidth, toType, isFn } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
@@ -82,6 +82,10 @@ export class BasicSelect<TProps extends IBasicSelectProps,
     this.setState({displayValue: null});
   }
 
+  /**
+   * @stable [25.02.2019]
+   * @param {IBasicEvent} event
+   */
   public openMenu(event?: IBasicEvent): void {
     if (this.menu.isOpen() || this.state.needToOpenMenu) {
       return;
@@ -92,7 +96,7 @@ export class BasicSelect<TProps extends IBasicSelectProps,
     const areOptionsEmpty = R.isNil(props.options);
 
     if (props.forceReload || areOptionsEmpty) {
-      if (props.onEmptyDictionary) {
+      if (isFn(props.onEmptyDictionary)) {
         this.setState({needToOpenMenu: true});
         props.onEmptyDictionary();
       } else if (!areOptionsEmpty) {
@@ -111,9 +115,12 @@ export class BasicSelect<TProps extends IBasicSelectProps,
     return super.inProgress() || !!this.state.needToOpenMenu;
   }
 
+  /**
+   * @stable [25.02.2019]
+   * @param {IBasicEvent} event
+   */
   protected onClick(event: IBasicEvent): void {
     super.onClick(event);
-
     this.openMenu(event);
   }
 

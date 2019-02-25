@@ -12,6 +12,7 @@ import {
   orUndef,
   isFn,
   notNilValuesArrayFilter,
+  ifNotFalseThanValue,
 } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IEditableEntity, IApiEntity } from '../../entities-definitions.interface';
@@ -25,12 +26,13 @@ import {
   buildApiEntity,
   isFormFieldReadOnly,
   isFormFieldDisabled,
-  isFormNewEntity,
+  isFormOfNewEntity,
   isFormDirty,
   isFormValid,
   isFormSubmittable,
   isFormResettable,
   isFormFieldChangeable,
+  isFormBusy,
 } from './form.support';
 import { FlexLayout } from '../layout';
 import { IButtonProps } from '../../definition';
@@ -126,20 +128,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
                             props.className
                         )}>
           {props.compact ? nodes : bodyEl}
-          {
-            orNull<JSX.Element>(
-                !props.notUseActions && // notUseActions - deprecated
-                  props.useActions !== false,
-                () => (
-                    <FlexLayout full={false}
-                                row={true}
-                                justifyContentCenter={true}
-                                className='rac-form-actions'>
-                      {this.formActionsElement}
-                    </FlexLayout>
-                )
-            )
-          }
+          {this.formActionsWrapperElement}
         </form>
     );
   }
@@ -299,8 +288,20 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     return isFormResettable(this.props);
   }
 
+  /**
+   * @stable [25.02.2019]
+   * @returns {boolean}
+   */
+  private isFormOfNewEntity(): boolean {
+    return isFormOfNewEntity(this.props);
+  }
+
+  /**
+   * @stable [25.02.2019]
+   * @returns {boolean}
+   */
   private isFormBusy(): boolean {
-    return this.props.progress || this.form.progress;
+    return isFormBusy(this.props);
   }
 
   /**
@@ -398,16 +399,42 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     return this.props.form;
   }
 
+  /**
+   * @stable [25.02.2019]
+   * @returns {JSX.Element}
+   */
+  private get formActionsWrapperElement(): JSX.Element {
+    const props = this.props;
+    return ifNotFalseThanValue<JSX.Element>(
+      props.actionsRendered,
+      () => (
+        <FlexLayout
+          full={false}
+          row={true}
+          justifyContentCenter={true}
+          className='rac-form-actions'>
+          {this.formActionsElement}
+        </FlexLayout>
+      )
+    );
+  }
+
+  /**
+   * @stable [25.02.2019]
+   * @returns {JSX.Element}
+   */
   private get formActionsElement(): JSX.Element {
     const props = this.props;
+    const messages = this.settings.messages;
     const actions = notNilValuesArrayFilter<IButtonProps>(
       orNull(
-        props.useResetButton,
+        props.resetActionRendered,
         (): IButtonProps => ({
           type: 'reset',
           icon: 'clear_all',
           disabled: !this.isFormResettable(),
-          text: props.resetText || 'Reset',
+          text: props.resetText || messages.reset,
+          ...props.buttonConfiguration,
           onClick: null,
         })
       ),
@@ -418,21 +445,22 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         disabled: !this.isFormSubmittable(),
         progress: this.isFormBusy(),
         error: !R.isNil(this.form.error),
-        text: props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save'),
+        text: props.actionText || (this.isFormOfNewEntity() ? messages.create : messages.save),
+        ...props.buttonConfiguration,
         onClick: null,
       }
     );
     return (
       <React.Fragment>
-        {(isFn(props.actionsProvider) ? props.actionsProvider(actions) : actions).map(
-          (action) => (
-            <Button
-              key={`form-action-${action.text}`}
-              {...props.buttonConfiguration}
-              {...action}
-              onClick={orNull(action.onClick !== null, () => () => action.onClick(this.apiEntity))}/>
-          )
-        )}
+        {(isFn(props.actionsProvider) ? props.actionsProvider(actions) : actions)
+          .map(
+            (action, index) => (
+              <Button
+                key={`form-action-${action.text || index}`}
+                {...action}
+                onClick={orNull(action.onClick !== null, () => () => action.onClick(this.apiEntity))}/>
+            )
+          )}
       </React.Fragment>
     );
   }

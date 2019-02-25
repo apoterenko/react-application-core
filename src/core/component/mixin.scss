@@ -857,19 +857,6 @@
 }
 
 /**
- * @stable [08.11.2018]
- */
-@mixin rac-neighbor($neighbor,
-                    $neighbor-margin: unset) {
-  &+.#{$neighbor} {
-
-    @if $neighbor-margin != unset {
-      margin: $neighbor-margin;
-    }
-  }
-}
-
-/**
  * @stable [25.01.2019]
  */
 @mixin rac-icon($rac-icon-custom: unset,
@@ -1339,7 +1326,6 @@
                   $rac-button-width: unset,
                   $rac-button-size: unset,
                   $rac-button-min-width: unset,
-                  $rac-button-neighbor-margin: unset,
                   $rac-button-disabled-opacity: unset,
                   $rac-button-disabled-cursor: unset,
                   $rac-button-disabled-background: unset,
@@ -1415,13 +1401,6 @@
         $rac-button-disabled-shadow
       );
     }
-  }
-
-  @if $rac-button-custom == unset {
-    @include rac-neighbor(
-      rac-button,
-      $rac-button-neighbor-margin
-    );
   }
 }
 
@@ -1977,10 +1956,15 @@
         $rac-styles-margin: $rac-form-actions-margin
       );
 
+      > :not(:first-child) {
+        @include rac-styles(
+          $rac-styles-margin: $rac-form-actions-button-neighbor-margin
+        );
+      }
+
       @include rac-button(
         $rac-button-custom: $rac-form-actions-button-custom,
-        $rac-button-min-width: $rac-form-actions-button-min-width,
-        $rac-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
+        $rac-button-min-width: $rac-form-actions-button-min-width
       );
     }
   }

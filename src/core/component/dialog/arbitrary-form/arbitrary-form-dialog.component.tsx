@@ -58,7 +58,7 @@ export class ArbitraryFormDialog extends Dialog<IArbitraryFormDialogProps,
     return (
       <Form {...props.formConfiguration}
             form={this.state.form}
-            notUseActions={true}
+            actionsRendered={false}
             onChange={this.onFormChange}>
         {super.getDialogBodyElement()}
       </Form>
