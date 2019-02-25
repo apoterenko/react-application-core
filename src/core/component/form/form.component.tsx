@@ -107,29 +107,26 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       )
     );
 
-    const bodyEl = (
-      <div className='rac-form-body-wrapper'>
-        <div className='rac-form-body'>
-          {nodes}
-        </div>
-      </div>
-    );
-
     return (
-        <form ref='self'
-              autoComplete='off'
-              onReset={this.onReset}
-              onSubmit={this.onSubmit}
-              className={toClassName(
-                            'rac-form',
-                            'rac-flex',
-                            'rac-flex-column',
-                            props.full !== false && 'rac-flex-full',
-                            props.className
-                        )}>
-          {props.compact ? nodes : bodyEl}
-          {this.formActionsWrapperElement}
-        </form>
+      <form
+        ref='self'
+        autoComplete='off'
+        onReset={this.onReset}
+        onSubmit={this.onSubmit}
+        className={this.getFormClassName()}>
+        {
+          props.compact
+            ? nodes
+            : (
+              <div className='rac-form-body-wrapper'>
+                <div className='rac-form-body'>
+                  {nodes}
+                </div>
+              </div>
+            )
+        }
+        {this.formActionsWrapperElement}
+      </form>
     );
   }
 
@@ -179,6 +176,21 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   public get apiEntity(): IApiEntity {
     return buildApiEntity(this.changes, this.entity, this.originalEntity);
+  }
+
+  /**
+   * @stable [25.02.2019]
+   * @returns {string}
+   */
+  private getFormClassName(): string {
+    const props = this.props;
+    return toClassName(
+      'rac-form',
+      'rac-flex',
+      'rac-flex-column',
+      props.full !== false && 'rac-flex-full',
+      props.className
+    );
   }
 
   private onChange(name: string, value: AnyT, validationGroup: string): void {
@@ -435,6 +447,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
           disabled: !this.isFormResettable(),
           text: props.resetText || messages.reset,
           ...props.buttonConfiguration,
+          ...props.resetActionConfiguration,
           onClick: null,
         })
       ),
@@ -447,6 +460,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         error: !R.isNil(this.form.error),
         text: props.actionText || (this.isFormOfNewEntity() ? messages.create : messages.save),
         ...props.buttonConfiguration,
+        ...props.submitActionConfiguration,
         onClick: null,
       }
     );

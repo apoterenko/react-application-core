@@ -147,12 +147,17 @@ $rac-button-cursor: pointer !default;
 $rac-button-padding: 0 $rac-default-half-offset !default;
 $rac-button-border-radius: $rac-default-border-radius !default;
 $rac-button-text-transform: none !default;
+$rac-button-icon-margin: 0 8px !default;
+$rac-button-content-margin: 0 auto !default;
+$rac-button-content-font-size: $rac-default-font-size-2 !default;
+$rac-button-content-font-weight: $rac-default-font-weight-2 !default;
 $rac-button-disabled-cursor: default !default;
 $rac-button-disabled-opacity: $opacity !default;
 $rac-button-disabled-background: unset !default;
 $rac-button-disabled-shadow: unset !default;
 $rac-button-outlined-border: 1px solid $color-4 !default;
 $rac-button-outlined-background: transparent !default;
+$rac-button-outlined-icon-color: unset !default;
 $rac-button-raised-color: $color-5 !default;
 $rac-button-raised-background: $color-4 !default;
 $rac-button-raised-shadow: $color-10 !default;
@@ -161,13 +166,10 @@ $rac-button-raised-hover-background: $rac-button-raised-background !default;
 $rac-button-raised-hover-shadow: $rac-button-raised-shadow !default;
 $rac-button-raised-content-font-size: unset !default;
 $rac-button-raised-icon-opacity: unset !default;
+$rac-button-raised-icon-color: unset !default;
 $rac-button-decorated-content-padding: 0 32px 0 0 !default;
 $rac-button-decorated-content-margin: unset !default;
 $rac-button-decorated-not-filled-width: 40px !default;
-$rac-button-content-margin: 0 auto !default;
-$rac-button-content-font-size: $rac-default-font-size-2 !default;
-$rac-button-content-font-weight: $rac-default-font-weight-2 !default;
-$rac-button-icon-margin: 0 8px !default;
 
 /* @stable [13.08.2018] */
 $rac-list-margin: 0 !default;
@@ -369,7 +371,7 @@ $rac-filter-active-bottom: 18px !default;
 $rac-filter-active-font-size: 18px !default;
 
 /* @stable [03.08.2018] */
-$rac-form-actions-button-neighbor-margin: 0 0 0 8px !default;
+$rac-form-actions-button-neighbor-margin: 0 0 0 $rac-default-half-offset !default;
 $rac-form-actions-button-min-width: unset !default;
 $rac-form-simple-list-item-graphic-border-radius: 16px !default;
 $rac-form-simple-list-item-graphic-margin-right: 20px !default;

@@ -111,6 +111,7 @@
                               $rac-styles-background-color: unset,
                               $rac-styles-transform: unset,
                               $rac-styles-opacity: unset,
+                              $rac-styles-flex: unset,
                               $rac-styles-flex-shrink: unset,
                               $rac-styles-visibility: unset,
                               $rac-styles-vertical-align: unset,
@@ -196,6 +197,9 @@
   }
   @if $rac-styles-float != unset {
     float: $rac-styles-float;
+  }
+  @if $rac-styles-flex != unset {
+    @include flex($rac-styles-flex);
   }
   @if $rac-styles-flex-shrink != unset {
     @include flex-shrink($rac-styles-flex-shrink);
@@ -360,6 +364,7 @@
                   $rac-styles-visibility: unset,
                   $rac-styles-vertical-align: unset,
                   $rac-styles-opacity: unset,
+                  $rac-styles-flex: unset,
                   $rac-styles-flex-shrink: unset,
                   $rac-styles-display: unset,
                   $rac-styles-line-height: unset,
@@ -424,6 +429,7 @@
         $rac-styles-visibility: $rac-styles-visibility,
         $rac-styles-vertical-align: $rac-styles-vertical-align,
         $rac-styles-opacity: $rac-styles-opacity,
+        $rac-styles-flex: $rac-styles-flex,
         $rac-styles-flex-shrink: $rac-styles-flex-shrink,
         $rac-styles-display: $rac-styles-display,
         $rac-styles-box-shadow: $rac-styles-box-shadow,
@@ -488,6 +494,7 @@
       $rac-styles-visibility: $rac-styles-visibility,
       $rac-styles-vertical-align: $rac-styles-vertical-align,
       $rac-styles-opacity: $rac-styles-opacity,
+      $rac-styles-flex: $rac-styles-flex,
       $rac-styles-flex-shrink: $rac-styles-flex-shrink,
       $rac-styles-display: $rac-styles-display,
       $rac-styles-box-shadow: $rac-styles-box-shadow,
@@ -1297,6 +1304,7 @@
  */
 @mixin rac-button($rac-button-custom: unset,
                   $rac-button-height: unset,
+                  $rac-button-flex: unset,
                   $rac-button-padding: unset,
                   $rac-button-border-radius: unset,
                   $rac-button-color: unset,
@@ -1377,15 +1385,15 @@
         $rac-styles-color: $rac-button-hover-color
       );
 
-      @include rac-shadowed(
-        $rac-button-hover-background,
-        $rac-button-hover-shadow
+      @include rac-shadow(
+        $background: $rac-button-hover-background,
+        $shadow: $rac-button-hover-shadow
       );
 
       &[disabled] {
-        @include rac-shadowed(
-          $rac-button-background,
-          $rac-button-shadow
+        @include rac-shadow(
+          $background: $rac-button-background,
+          $shadow: $rac-button-shadow
         );
       }
     }
@@ -1937,18 +1945,31 @@
 /**
  * @stable [27.01.2019]
  */
-@mixin rac-form($rac-form-custom: unset,
-                $rac-form-margin: unset,
-                $rac-form-min-width: unset,
-                $rac-form-actions-margin: unset,
-                $rac-form-actions-button-custom: unset,
-                $rac-form-actions-button-min-width: unset,
-                $rac-form-actions-button-neighbor-margin: unset
+@mixin rac-form(
+  $rac-form-custom: unset,
+  $rac-form-position: unset,
+  $rac-form-height: unset,
+  $rac-form-margin: unset,
+  $rac-form-min-width: unset,
+  $rac-form-body-flex: unset,
+  $rac-form-body-wrapper-margin: unset,
+  $rac-form-actions-margin: unset,
+  $rac-form-actions-button-custom: unset,
+  $rac-form-actions-button-min-width: unset,
+  $rac-form-actions-button-neighbor-margin: unset
 ) {
   #{rac-build-cls(rac-form, $rac-form-custom)} {
     @include rac-styles(
+      $rac-styles-height: $rac-form-height,
       $rac-styles-min-width: $rac-form-min-width,
-      $rac-styles-margin: $rac-form-margin
+      $rac-styles-margin: $rac-form-margin,
+      $rac-styles-position: $rac-form-position
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: rac-form-body-wrapper,
+      $rac-styles-flex: $rac-form-body-flex,
+      $rac-styles-margin: $rac-form-body-wrapper-margin
     );
 
     .rac-form-actions {
