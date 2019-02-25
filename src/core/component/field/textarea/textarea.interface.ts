@@ -1,15 +1,15 @@
 import {
-  IBasicTextFieldState,
-  IBasicTextFieldProps,
-  IBasicTextField,
+  IBaseTextFieldState,
+  IBaseTextFieldProps,
+  IBaseTextField,
 } from '../textfield';
 
-export interface ITextAreaInternalState extends IBasicTextFieldState {
+export interface ITextAreaInternalState extends IBaseTextFieldState {
 }
 
-export interface ITextAreaInternalProps extends IBasicTextFieldProps {
+export interface ITextAreaInternalProps extends IBaseTextFieldProps {
 }
 
-export interface ITextArea extends IBasicTextField<ITextAreaInternalProps,
+export interface ITextArea extends IBaseTextField<ITextAreaInternalProps,
                                    ITextAreaInternalState> {
 }

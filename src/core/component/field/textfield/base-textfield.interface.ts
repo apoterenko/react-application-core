@@ -1,18 +1,21 @@
 import { IField, IFieldState, IFieldInternalProps } from '../field/field.interface';
-import { IKeyboardConfiguration } from '../../../configurations-definitions.interface';
-import { IKeyboardConfigurationWrapper } from '../../../definitions.interface';
 
 /**
- * @stable [01.06.2018]
+ * @stable [25.02.2019]
  */
-export interface IBasicTextFieldState extends IFieldState {
+export interface IBaseTextFieldState extends IFieldState {
 }
 
-export interface IBasicTextFieldProps extends IFieldInternalProps {
+/**
+ * @stable [25.02.2019]
+ */
+export interface IBaseTextFieldProps extends IFieldInternalProps {
 }
 
-export interface IBasicTextField<TInternalProps extends IBasicTextFieldProps,
-                                 TInternalState extends IBasicTextFieldState>
-    extends IField<TInternalProps,
-                   TInternalState> {
+/**
+ * @stable [25.02.2019]
+ */
+export interface IBaseTextField<TProps extends IBaseTextFieldProps,
+                                TState extends IBaseTextFieldState>
+    extends IField<TProps, TState> {
 }

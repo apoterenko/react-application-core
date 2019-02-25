@@ -1,4 +1,4 @@
-import { IBasicTextFieldState } from '../textfield';
+import { IBaseTextFieldState } from '../textfield';
 import {
   IPlaceWrapper,
   ILatWrapper,
@@ -10,7 +10,7 @@ import {
   IPlaceEntityWrapper,
   INotUseCustomValidatorWrapper,
 } from '../../../definitions.interface';
-import { IBasicTextFieldProps } from '../textfield';
+import { IBaseTextFieldProps } from '../textfield';
 import { IPlaceEntity } from '../../../entities-definitions.interface';
 
 /**
@@ -32,7 +32,7 @@ export interface IAddressFieldChangePlacePayload extends ILatWrapper,
 /**
  * @stable [29.07.2018]
  */
-export interface IAddressFieldProps extends IBasicTextFieldProps,
+export interface IAddressFieldProps extends IBaseTextFieldProps,
                                             IUseZipCodeWrapper,
                                             INotUseCustomValidatorWrapper,
                                             INotUsePlaceActionWrapper,
@@ -44,6 +44,6 @@ export interface IAddressFieldProps extends IBasicTextFieldProps,
 /**
  * @stable [30.07.2018]
  */
-export interface IAddressFieldState extends IBasicTextFieldState,
+export interface IAddressFieldState extends IBaseTextFieldState,
                                             IPlaceWrapper<number | string> {
 }

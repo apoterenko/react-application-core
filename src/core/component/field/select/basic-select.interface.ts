@@ -7,7 +7,7 @@ import {
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
 import {
-  IBasicTextFieldProps,
+  IBaseTextFieldProps,
 } from '../textfield/base-textfield.interface';
 import { IFieldState } from '../field/field.interface';
 
@@ -28,7 +28,7 @@ export interface IBasicSelectConfiguration extends IFieldConfiguration,
 
 // TODO
 export interface IBasicSelectProps extends IBasicSelectConfiguration,
-                                           IBasicTextFieldProps,
+                                           IBaseTextFieldProps,
                                            IMenuConfigurationWrapper,
                                            IForceReloadWrapper {
   icon?: string; // TODO

@@ -6,6 +6,11 @@
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
+  @include rac-field(                                                                         /* @stable [22.02.2019] */
+    $rac-field-custom: rac-field-no-displayed,
+    $rac-self-field-display: none
+  );
+
   @include rac-field($rac-field-custom: rac-field-prevent-focus,                              /* @stable [08.11.2018] */
                      $rac-text-field-input-cursor: default);
 
@@ -39,7 +44,8 @@
                      $rac-text-field-icon-color: $rac-text-field-icon-color,
                      $rac-text-field-icon-margin: $rac-text-field-icon-margin,
                      $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-                     $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left);
+                     $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
+  );
 
   .rac-text-area-length-label {
     @include _rac-position-properties($rac-position: absolute,

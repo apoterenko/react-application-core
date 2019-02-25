@@ -5,56 +5,67 @@ import MaskedTextInput from 'react-text-mask';
 
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
-import { orNull, toClassName, nvl, cancelEvent, toJqEl, parseValueAtPx, ifNotNilThanValue, isFn } from '../../../util';
+import {
+  orNull,
+  toClassName,
+  nvl,
+  cancelEvent,
+  toJqEl,
+  parseValueAtPx,
+  ifNotNilThanValue,
+  isFn,
+  ifNotFalseThanValue,
+} from '../../../util';
 import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
   FieldActionPositionEnum,
   IKeyboardConfiguration,
 } from '../../../configurations-definitions.interface';
-import { Field, IField } from '../field';
+import { Field } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import { ENV } from '../../../env';
 import {
-  IBasicTextFieldState,
-  IBasicTextFieldProps,
-  IBasicTextField,
+  IBaseTextFieldState,
+  IBaseTextFieldProps,
+  IBaseTextField,
 } from './base-textfield.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BaseTextField<TInternalProps extends IBasicTextFieldProps,
-                            TInternalState extends IBasicTextFieldState>
-    extends Field<TInternalProps,
-                  TInternalState>
-    implements IBasicTextField<TInternalProps, TInternalState> {
+export class BaseTextField<TProps extends IBaseTextFieldProps,
+                           TState extends IBaseTextFieldState>
+    extends Field<TProps, TState>
+    implements IBaseTextField<TProps, TState> {
 
-  private static DEFAULT_MASK_GUIDE = false;
+  private static readonly DEFAULT_MASK_GUIDE = false;
 
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   protected defaultActions: IFieldActionConfiguration[] = [];
-  private mirrorInputRef = React.createRef<HTMLElement>();
-  private keyboardRef = React.createRef<Keyboard>();
+  private readonly mirrorInputRef = React.createRef<HTMLElement>();
+  private readonly keyboardRef = React.createRef<Keyboard>();
   private keyboardWindowMouseDownSubscriber: () => void;
 
-  constructor(props: TInternalProps) {
+  /**
+   * @stable [25.02.2019]
+   * @param {TProps} props
+   */
+  constructor(props: TProps) {
     super(props);
-    this.onKeyboardWindowMouseDownHandler = this.onKeyboardWindowMouseDownHandler.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
+    this.onKeyboardWindowMouseDownHandler = this.onKeyboardWindowMouseDownHandler.bind(this);
 
-    if (this.props.clearActionRendered !== false) {
-      this.addClearAction();
-    }
+    ifNotFalseThanValue(props.clearActionRendered, () => this.addClearAction());
   }
 
   /**
-   * @stable [15.09.2018]
+   * @stable [25.02.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     return (
-      <div className={this.getFieldClassName()}
-           style={orNull(this.context.muiTheme, () => this.context.muiTheme.prepareStyles({}))}>
+      <div className={this.getFieldClassName()}>
+        {this.props.children}
         {this.getSelfElement()}
         {this.getMessageElement()}
         {this.getErrorMessageElement()}
@@ -64,17 +75,14 @@ export class BaseTextField<TInternalProps extends IBasicTextFieldProps,
     );
   }
 
+  /**
+   * @stable [25.02.2019]
+   * @returns {JSX.Element}
+   */
   protected getInputElement(): JSX.Element {
-    const mask = this.getFieldMask();
-    const props = this.props;
-
-    return !R.isNil(mask)
-        ? <MaskedTextInput
-            guide={nvl(props.maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
-            placeholderChar={nvl(props.maskPlaceholderChar, UNI_CODES.space)}
-            mask={mask}
-            {...this.getInputElementProps()}/>
-        : super.getInputElement();
+    return R.isNil(this.getFieldMask())
+      ? super.getInputElement()
+      : this.getMaskedInputElement();
   }
 
   /**
@@ -90,7 +98,12 @@ export class BaseTextField<TInternalProps extends IBasicTextFieldProps,
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return 'rac-text-field rac-flex rac-flex-row';
+    return toClassName(
+      super.getSelfElementClassName(),
+      'rac-text-field',
+      'rac-flex',
+      'rac-flex-row'
+    );
   }
 
   protected addClearAction(): void {
@@ -221,7 +234,6 @@ export class BaseTextField<TInternalProps extends IBasicTextFieldProps,
             {this.getMirrorInputElement()}
             {this.getInputCaretElement()}
             {this.getInputAttachmentElement()}
-            {props.children}
           </div>
           {orNull(
             this.actions,
@@ -353,5 +365,22 @@ export class BaseTextField<TInternalProps extends IBasicTextFieldProps,
    */
   private get jMirrorInput(): IJQueryElement {
     return toJqEl(this.mirrorInputRef.current);
+  }
+
+  /**
+   * @stable [25.02.2019]
+   * @returns {JSX.Element}
+   */
+  private getMaskedInputElement(): JSX.Element {
+    const mask = this.getFieldMask();
+    const props = this.props;
+
+    return (
+      <MaskedTextInput
+        guide={nvl(props.maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
+        placeholderChar={nvl(props.maskPlaceholderChar, UNI_CODES.space)}
+        mask={mask}
+        {...this.getInputElementProps()}/>
+    );
   }
 }

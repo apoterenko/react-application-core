@@ -2,7 +2,17 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { cloneReactNodes, isString, isUndef, defValuesFilter, orNull, toClassName, orUndef } from '../../util';
+import {
+  cloneReactNodes,
+  isString,
+  isUndef,
+  defValuesFilter,
+  orNull,
+  toClassName,
+  orUndef,
+  isFn,
+  notNilValuesArrayFilter,
+} from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IEditableEntity, IApiEntity } from '../../entities-definitions.interface';
 import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
@@ -23,6 +33,7 @@ import {
   isFormFieldChangeable,
 } from './form.support';
 import { FlexLayout } from '../layout';
+import { IButtonProps } from '../../definition';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
@@ -124,24 +135,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
                                 row={true}
                                 justifyContentCenter={true}
                                 className='rac-form-actions'>
-                      {orNull<JSX.Element>(
-                          props.useResetButton,
-                          () => (
-                              <Button icon='clear_all'
-                                      {...props.buttonConfiguration}
-                                      type='reset'
-                                      disabled={!this.isFormResettable()}
-                                      text={props.resetText || 'Reset'}/>
-                          )
-                      )}
-                      <Button icon={this.isFormValid() ? (props.actionIcon || 'save') : 'error_outline'}
-                              {...props.buttonConfiguration}
-                              type='submit'
-                              raised={true}
-                              disabled={!this.isFormSubmittable()}
-                              progress={this.isFormBusy()}
-                              error={!R.isNil(this.form.error)}
-                              text={props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save')}/>
+                      {this.formActionsElement}
                     </FlexLayout>
                 )
             )
@@ -402,5 +396,44 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   private get form(): IEditableEntity<IEntity> {
     return this.props.form;
+  }
+
+  private get formActionsElement(): JSX.Element {
+    const props = this.props;
+    const actions = notNilValuesArrayFilter<IButtonProps>(
+      orNull(
+        props.useResetButton,
+        (): IButtonProps => ({
+          type: 'reset',
+          icon: 'clear_all',
+          disabled: !this.isFormResettable(),
+          text: props.resetText || 'Reset',
+          onClick: null,
+        })
+      ),
+      {
+        type: 'submit',
+        icon: this.isFormValid() ? (props.actionIcon || 'ok-filled') : 'error_outline',
+        raised: true,
+        disabled: !this.isFormSubmittable(),
+        progress: this.isFormBusy(),
+        error: !R.isNil(this.form.error),
+        text: props.actionText || (isFormNewEntity(this.props) ? 'Create' : 'Save'),
+        onClick: null,
+      }
+    );
+    return (
+      <React.Fragment>
+        {(isFn(props.actionsProvider) ? props.actionsProvider(actions) : actions).map(
+          (action) => (
+            <Button
+              key={`form-action-${action.text}`}
+              {...props.buttonConfiguration}
+              {...action}
+              onClick={orNull(action.onClick !== null, () => () => action.onClick(this.apiEntity))}/>
+          )
+        )}
+      </React.Fragment>
+    );
   }
 }

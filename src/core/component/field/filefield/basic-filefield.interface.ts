@@ -1,6 +1,6 @@
 import {
-  IBasicTextFieldProps,
-  IBasicTextFieldState,
+  IBaseTextFieldProps,
+  IBaseTextFieldState,
 } from '../textfield';
 import {
   IUseDownloadActionWrapper,
@@ -10,11 +10,11 @@ import {
   IMultiWrapper,
 } from '../../../definitions.interface';
 
-export interface IBaseFileFieldState extends IBasicTextFieldState,
+export interface IBaseFileFieldState extends IBaseTextFieldState,
                                              ICameraEnabledWrapper {
 }
 
-export interface IBaseFileFieldProps extends IBasicTextFieldProps,
+export interface IBaseFileFieldProps extends IBaseTextFieldProps,
                                              IUseCameraWrapper,
                                              IUseDownloadActionWrapper,
                                              IFileNameWrapper,

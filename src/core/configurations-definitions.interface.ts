@@ -503,6 +503,7 @@ export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
                                             IActionTextWrapper,
                                             IResetTextWrapper,
                                             ICompactWrapper {
+  actionsProvider?: (defaultActions: IButtonProps[]) => IButtonProps[];
   useActions?: boolean; // TODO
   progress?: boolean; // TODO
   alwaysResettable?: boolean; // TODO
@@ -712,6 +713,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IUseSyntheticCursorWrapper,
           IChangeableWrapper,
           IDefaultValue {
+  fieldDisplayed?: boolean;
   dispatchValue?(rawValue: AnyT); // TODO
 }
 

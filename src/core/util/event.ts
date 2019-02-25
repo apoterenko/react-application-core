@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { IBaseEvent } from '../definitions.interface';
 
 /**
@@ -5,6 +6,9 @@ import { IBaseEvent } from '../definitions.interface';
  * @param {IBaseEvent} event
  */
 export const cancelEvent = (event: IBaseEvent) => {
+  if (R.isNil(event)) {
+    return;
+  }
   if (event.nativeEvent) {
     /**
      * Will prevent any parent handlers and also any other handlers from executing

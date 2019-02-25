@@ -82,11 +82,32 @@ export class BasicSelect<TProps extends IBasicSelectProps,
     this.setState({displayValue: null});
   }
 
+  public openMenu(event?: IBasicEvent): void {
+    if (this.menu.isOpen() || this.state.needToOpenMenu) {
+      return;
+    }
+    cancelEvent(event);
+
+    const props = this.props;
+    const areOptionsEmpty = R.isNil(props.options);
+
+    if (props.forceReload || areOptionsEmpty) {
+      if (props.onEmptyDictionary) {
+        this.setState({needToOpenMenu: true});
+        props.onEmptyDictionary();
+      } else if (!areOptionsEmpty) {
+        this.showMenu();
+      }
+    } else {
+      this.showMenu();
+    }
+  }
+
   /**
    * @stable [18.06.2018]
    * @returns {boolean}
    */
-  protected inProgress(): boolean {
+  public inProgress(): boolean {
     return super.inProgress() || !!this.state.needToOpenMenu;
   }
 
@@ -192,31 +213,6 @@ export class BasicSelect<TProps extends IBasicSelectProps,
    */
   private get menu(): IMenu {
     return this.refs.menu as IMenu;
-  }
-
-  /**
-   * @stable [20.08.2018]
-   * @param {IBasicEvent} event
-   */
-  private openMenu(event: IBasicEvent): void {
-    if (this.menu.isOpen()) {
-      return;
-    }
-    cancelEvent(event);
-
-    const props = this.props;
-    const areOptionsEmpty = R.isNil(props.options);
-
-    if (props.forceReload || areOptionsEmpty) {
-      if (props.onEmptyDictionary) {
-        this.setState({needToOpenMenu: true});
-        props.onEmptyDictionary();
-      } else if (!areOptionsEmpty) {
-        this.showMenu();
-      }
-    } else {
-      this.showMenu();
-    }
   }
 
   /**

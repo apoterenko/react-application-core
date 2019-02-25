@@ -1,12 +1,12 @@
 import { CSSProperties, Component } from 'react';
 
 import {
-  IBasicTextFieldProps,
-  IBasicTextFieldState,
+  IBaseTextFieldProps,
+  IBaseTextFieldState,
 } from '../textfield/base-textfield.interface';
 import { IFormatWrapper, ICurrentTimeWrapper } from '../../../definitions.interface';
 
-export interface IDateFieldProps extends IBasicTextFieldProps,
+export interface IDateFieldProps extends IBaseTextFieldProps,
                                          IFormatWrapper {
   autoOk?: boolean;
   firstDayOfWeek?: number;
@@ -16,6 +16,6 @@ export interface IDateFieldProps extends IBasicTextFieldProps,
   okLabel?: string;
 }
 
-export interface IDateFieldState extends IBasicTextFieldState,
+export interface IDateFieldState extends IBaseTextFieldState,
                                         ICurrentTimeWrapper<Date> {
 }

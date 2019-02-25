@@ -1045,7 +1045,8 @@
                  $rac-text-field-filter-active-after-bottom: unset,
                  $rac-text-field-filter-active-after-left: unset,
                  $rac-view-field-viewer-content-max-height: unset,
-                 $rac-view-field-viewer-content-border-radius: unset) {
+                 $rac-view-field-viewer-content-border-radius: unset,
+                 $rac-self-field-display: unset) {
 
   #{rac-build-cls(rac-field, $rac-field-custom)} {
     @if $rac-field-align-items != unset {
@@ -1075,6 +1076,12 @@
           $rac-viewer-content-border-radius: $rac-view-field-viewer-content-border-radius
         );
       }
+    }
+
+    > .rac-self-field {
+      @include rac-styles(
+        $rac-styles-display: $rac-self-field-display
+      );
     }
 
     > .rac-text-field {
