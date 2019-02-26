@@ -10,7 +10,7 @@ import {
   IModifyEntityPayloadWrapper,
   EntityOnSaveMergeStrategyEnum,
 } from './modify-entity-payload-factory.interface';
-import { IApiEntity } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../definition';
 
 @injectable()
 export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPayloadFactory {
@@ -27,7 +27,7 @@ export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPaylo
       payload: {
         id: isResponseDataNotPrimitiveAndExists
             ? responseEntity.id
-            : apiEntity.id,
+            : apiEntity.entityId,
         mergeStrategy: isResponseDataNotPrimitiveAndExists
             ? EntityOnSaveMergeStrategyEnum.OVERRIDE
             : EntityOnSaveMergeStrategyEnum.MERGE,

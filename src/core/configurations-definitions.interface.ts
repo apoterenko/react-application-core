@@ -206,7 +206,6 @@ import {
   StringNumberT,
 } from './definitions.interface';
 import {
-  IApiEntity,
   IFieldChangeEntity,
   IMenuItemEntity,
   ISortDirectionEntity,
@@ -224,7 +223,7 @@ import {
   IOnEmptyMessageClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
-import { IButtonProps, IGenericFormEntity } from './definition';
+import { IButtonProps, IGenericFormEntity, IApiEntity } from './definition';
 
 /**
  * @stable [26.08.2018]

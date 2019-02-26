@@ -11,10 +11,10 @@ import {
   AnyT,
   IKeyValue,
 } from '../../definitions.interface';
+import { IExtendedEntity } from '../../definition';
 import {
   IOptionEntity,
   IEditableEntity,
-  IEntityWrapperEntity,
   IListWrapperEntity,
   IMutatedListWrapperEntity,
   IListEntity,
@@ -255,7 +255,7 @@ export const refreshedListWrapperEntityMapper = (entity: IListWrapperEntity): IF
 
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
-                                                      formEntity?: IEditableEntity): IEntityWrapperEntity<TEntity> =>
+                                                      formEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
     ({
       entity: {
         ...entity as {},
@@ -378,14 +378,6 @@ export const dictionaryEntityDataMapper = <TDictionaryEntity, TResult = TDiction
       ? accessor(dictionaryEntity.data)
       : dictionaryEntity.data as AnyT
   );
-
-/**
- * @stable [16.01.2019]
- * @param {TEntity} entity
- * @returns {TEntity}
- */
-export const simpleEntityMapper = <TEntity extends IEntity>(entity: TEntity): TEntity =>
-  ifNotNilThanValue<TEntity, TEntity>(entity, (): TEntity => ({...entity as {}} as TEntity));
 
 /**
  * @stable [29.05.2018]

@@ -4,7 +4,7 @@ import { defValuesFilter, downloadAnchoredFile, join, buildUrl } from '../util';
 import { lazyInject, DI_TYPES } from '../di';
 import { ITransport } from './transport.interface';
 import { IEntity } from '../definitions.interface';
-import { IEditableApiEntity } from '../entities-definitions.interface';
+import { IEditableApiEntity } from '../definition';
 import { ISettings } from '../settings';
 import { IKeyValue } from '../definitions.interface';
 
@@ -23,7 +23,7 @@ export class BaseTransport {
   }
 
   /**
-   * @stable - 12.04.2018
+   * @stable [26.02.2019]
    * @param {IEditableApiEntity<TEntity extends IEntity>} entity
    * @returns {Promise<TEntity extends IEntity>}
    */
@@ -33,10 +33,10 @@ export class BaseTransport {
       params: {
         ...apiEntity.changes as {},
         ...defValuesFilter(entity.extraParams),
-        ...defValuesFilter({ id: apiEntity.id }),
+        ...defValuesFilter({ id: apiEntity.entityId }),
       },
-      name: apiEntity.isNew ? entity.addApi : entity.editApi,
-      operation: apiEntity.operation,
+      name: apiEntity.newEntity ? entity.addApi : entity.editApi,
+      operation: entity.operation,
     });
   }
 }

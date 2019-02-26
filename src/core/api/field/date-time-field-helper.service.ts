@@ -10,13 +10,12 @@ import {
   IKeyValue,
   TO_DATE_FIELD_NAME,
   FROM_DATE_FIELD_NAME,
-  TO_TIME_FIELD_NAME,
-  FROM_TIME_FIELD_NAME,
   DATE_FIELD_NAME,
   TIME_FIELD_NAME,
   IFromDateToDateEntity,
 } from '../../definitions.interface';
-import { IApiEntity, IDateTimeEntity, IFromDateFromTimeToDateToTimeEntity } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../definition';
+import { IDateTimeEntity, IFromDateFromTimeToDateToTimeEntity } from '../../entities-definitions.interface';
 import { provideInSingleton, lazyInject, DI_TYPES } from '../../di';
 import { IDateConverter } from '../../converter';
 import { orUndef, isUndef, isNull, isFn } from '../../util';

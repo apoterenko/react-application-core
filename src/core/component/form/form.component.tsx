@@ -15,7 +15,8 @@ import {
   ifNotFalseThanValue,
 } from '../../util';
 import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
-import { IEditableEntity, IApiEntity } from '../../entities-definitions.interface';
+import { IEditableEntity } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../definition';
 import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
@@ -23,7 +24,6 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { Field, IFieldInternalProps, IField } from '../field';
 import { IForm, IFormProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import {
-  buildApiEntity,
   isFormFieldReadOnly,
   isFormFieldDisabled,
   isFormOfNewEntity,
@@ -36,6 +36,7 @@ import {
 } from './form.support';
 import { FlexLayout } from '../layout';
 import { IButtonProps } from '../../definition';
+import { apiEntityFactory } from '../../api';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
@@ -175,7 +176,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {IApiEntity}
    */
   public get apiEntity(): IApiEntity {
-    return buildApiEntity(this.changes, this.entity, this.originalEntity);
+    return apiEntityFactory(this.changes, this.entity, this.originalEntity);
   }
 
   /**

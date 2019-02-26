@@ -1,10 +1,9 @@
 import {
-  buildApiEntity,
   isFormFieldReadOnly,
   isFormFieldDisabled,
 } from './form.support';
-import { Operation } from '../../operation';
 import { UNDEF } from '../../definitions.interface';
+import { apiEntityFactory } from '../../api';
 
 describe('form.support', () => {
   describe('isFormFieldReadOnly', () => {
@@ -69,29 +68,27 @@ describe('form.support', () => {
 
   describe('buildApiEntity', () => {
     it('test1', () => {
-      const apiEntity = buildApiEntity(
+      const apiEntity = apiEntityFactory(
         {
           field1: 101,
         },
         UNDEF,
         null,
-        '999c2ea8-2d5d-4c18-9b3b-f498ffc9b987',
       );
 
       expect(apiEntity).toEqual({
-        isNew: true,
+        newEntity: true,
         changes: {
           field1: 101,
         },
         merger: {
           field1: 101,
         },
-        operation: Operation.create('999c2ea8-2d5d-4c18-9b3b-f498ffc9b987'),
       });
     });
 
     it('test2', () => {
-      const apiEntity = buildApiEntity(
+      const apiEntity = apiEntityFactory(
         {
           field1: 102,
         },
@@ -101,12 +98,11 @@ describe('form.support', () => {
           field2: 'fieldValue2',
         },
         UNDEF,
-        '999c2ea8-2d5d-4c18-9b3b-f498ffc9b987',
       );
 
       expect(apiEntity).toEqual({
-        id: 1,
-        isNew: false,
+        entityId: 1,
+        newEntity: false,
         changes: {
           field1: 102,
         },
@@ -120,12 +116,11 @@ describe('form.support', () => {
           field1: 101,
           field2: 'fieldValue2',
         },
-        operation: Operation.create('999c2ea8-2d5d-4c18-9b3b-f498ffc9b987'),
       });
     });
 
     it('test3', () => {
-      const apiEntity = buildApiEntity(
+      const apiEntity = apiEntityFactory(
         {
         },
         {
@@ -133,13 +128,12 @@ describe('form.support', () => {
           field1: 101,
           field2: 'fieldValue2',
         },
-        UNDEF,
-        '999c2ea8-2d5d-4c18-9b3b-f498ffc9b987',
+        UNDEF
       );
 
       expect(apiEntity).toEqual({
-        id: 1,
-        isNew: false,
+        entityId: 1,
+        newEntity: false,
         changes: {
         },
         merger: {
@@ -152,7 +146,6 @@ describe('form.support', () => {
           field1: 101,
           field2: 'fieldValue2',
         },
-        operation: Operation.create('999c2ea8-2d5d-4c18-9b3b-f498ffc9b987'),
       });
     });
   });

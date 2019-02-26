@@ -24,9 +24,9 @@ import {
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
-  IApiEntity,
   IApplicationStoreEntity,
 } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../definition';
 
 /**
  * @stable [31.08.2018]

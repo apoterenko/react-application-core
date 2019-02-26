@@ -6,9 +6,7 @@ import {
   EntityIdT,
   IActiveValueWrapper,
   IActiveWrapper,
-  IAddApiWrapper,
   IAnyDataWrapper,
-  IApiEntityWrapper,
   IApplicationWrapper,
   IAreaWrapper,
   IAuthorizedWrapper,
@@ -29,14 +27,11 @@ import {
   IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueWrapper,
-  IEditApiWrapper,
   IEmailWrapper,
   IEntity,
   IEntityIdTWrapper,
-  IEntityIdWrapper,
   IEntityWrapper,
   IExpandedGroupsWrapper,
-  IExtraParamsWrapper,
   IFieldsWrapper,
   IFilterFormWrapper,
   IFilterWrapper,
@@ -50,7 +45,6 @@ import {
   IIndexWrapper,
   IInfoWrapper,
   IIpWrapper,
-  IIsNewWrapper,
   IJQueryElement,
   IKeyValue,
   IKeyValueRouteParamsWrapper,
@@ -62,7 +56,6 @@ import {
   ILockPageWrapper,
   ILockWrapper,
   ILoginWrapper,
-  IMergerWrapper,
   IMessagesWrapper,
   IMethodWrapper,
   IModeWrapper,
@@ -81,7 +74,6 @@ import {
   IOpenWrapper,
   IOperationWrapper,
   IOriginalDataWrapper,
-  IOriginalEntityWrapper,
   IOriginalValueWrapper,
   IPageSizeWrapper,
   IPageWrapper,
@@ -133,7 +125,13 @@ import {
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 import { IReactOnClickWrapper } from './react-definitions.interface';
-import { IUniversalLifeCycleEntity, IErrorEntity } from './definition';
+import {
+  IUniversalLifeCycleEntity,
+  IErrorEntity,
+  IApiEntity,
+  IExtendedEntity,
+  IOperationEntity,
+} from './definition';
 
 /**
  * @stable [29.07.2018]
@@ -406,15 +404,6 @@ export interface IChannelWrapperEntity extends IChannelWrapper<IChannelsEntity> 
 /**
  * @stable [29.05.2018]
  */
-export interface IEntityWrapperEntity<TEntity> extends IEntityWrapper<TEntity>,
-                                                                       INewEntityWrapper,
-                                                                       IOriginalEntityWrapper<TEntity>,
-                                                                       IEntityIdWrapper<EntityIdT> {
-}
-
-/**
- * @stable [29.05.2018]
- */
 export interface IEditableEntity<TChanges = IKeyValue> extends IUniversalLifeCycleEntity,
                                                                IChangesWrapper<TChanges>,
                                                                IDirtyWrapper,
@@ -433,7 +422,7 @@ export interface IEditableEntityFormWrapperEntity extends IFormWrapper<IEditable
  */
 export interface IEntityFormEntity<TEntity = IEntity>
   extends IFormWrapper<IEditableEntity<TEntity>>,
-          IEntityWrapperEntity<TEntity> {
+          IExtendedEntity<TEntity> {
 }
 
 /**
@@ -519,22 +508,6 @@ export interface IListWrapperEntity extends IListWrapper<IListEntity> {
 export interface IMutatedListWrapperEntity extends IMutatedListWrapper<IListEntity> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IApiEntity<TEntity extends IEntity = IEntity> extends IEntityWrapperEntity<TEntity>,
-                                                                       IEntityIdTWrapper,
-                                                                       IChangesWrapper<TEntity>,
-                                                                       IMergerWrapper<TEntity>,
-                                                                       IOperationWrapper,
-                                                                       IIsNewWrapper {
-}
-
-/* @stable - 12.04.2018 */
-export interface IEditableApiEntity<TEntity extends IEntity> extends IApiEntityWrapper<IApiEntity<TEntity>>,
-                                                                     IExtraParamsWrapper<IKeyValue>,
-                                                                     IEditApiWrapper,
-                                                                     IAddApiWrapper {
-}
-
 /**
  * @stable [14.05.2018]
  */
@@ -599,12 +572,6 @@ export interface IApplicationEntity extends IUniversalApplicationEntity,
 
 /* @stable - 11.04.2018 */
 export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicationEntity> {
-}
-
-/**
- * @stable [13.08.2018]
- */
-export interface IOperationEntity extends IIdWrapper<string> {
 }
 
 /* @stable - 12.04.2018 */
@@ -801,7 +768,7 @@ export interface IXYEntity extends IXWrapper,
 }
 
 /**
- * @stable [13.08.2018]
+ * @deprecated
  */
 export interface IOperationPayloadEntity<TPayload> extends IPayloadWrapper<TPayload>,
                                                            IOperationWrapper<IOperationEntity> {

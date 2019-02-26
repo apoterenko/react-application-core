@@ -9,9 +9,11 @@ import {
   INavigateEntity,
   IContainerClassEntity,
   IUniversalContainer,
-  IOperationEntity,
   IUniversalApplicationStoreEntity,
 } from '../../entities-definitions.interface';
+import {
+  IOperationEntity,
+} from '../../definition';
 import { IConnectorConfiguration, IRoutesConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {

@@ -11,6 +11,7 @@ export * from './component/menu/vue-index';
 export * from './component/popup/vue-index';
 export * from './component/viewer/vue-index';
 export * from './configurations-definitions.interface';
+export * from './definition';
 export * from './definitions.interface';
 export * from './di';
 export * from './dictionary';

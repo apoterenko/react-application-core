@@ -7,7 +7,8 @@ import { RouterActionBuilder } from '../../router';
 import { IEntity } from '../../definitions.interface';
 import { ListActionBuilder } from '../../component/action.builder';
 import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
-import { IApiEntity, IApplicationStoreEntity } from '../../entities-definitions.interface';
+import { IApplicationStoreEntity } from '../../entities-definitions.interface';
+import { IApiEntity } from '../../definition';
 import { APPLICATION_SECTIONS } from '../../component/application/application.interface';
 import { toRouteConfiguration } from '../../router';
 import { DI_TYPES, staticInjector } from '../../di';
@@ -29,7 +30,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
   const apiEntity = config.action.data as IApiEntity<TRelatedEntity>;
   const parentEntity = config.getEntity(config.state);
 
-  const relatedEntities = apiEntity.isNew
+  const relatedEntities = apiEntity.newEntity
     ? (config.getRelatedEntities(parentEntity) || []).concat(config.relatedEntity)
     : (config.getRelatedEntities(parentEntity) || []).map(
       (anotherEntity) => anotherEntity.id === config.relatedEntity.id ? config.relatedEntity : anotherEntity

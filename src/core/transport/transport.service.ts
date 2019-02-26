@@ -30,6 +30,13 @@ export class Transport implements ITransport {
   @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
 
   /**
+   * @stable [26.02.2019]
+   */
+  constructor() {
+    Reflect.set(window, '$$transport', this);
+  }
+
+  /**
    * @stable [02.02.2019]
    * @param {ITransportRequestEntity} requestEntity
    * @returns {IKeyValue}

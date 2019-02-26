@@ -1897,29 +1897,10 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
   customError?: TCustomError;
 }
 
-/**
- * @stable [29.05.2018]
- */
-export interface INewEntityWrapper<TNewEntity = boolean> {
-  newEntity?: TNewEntity;
-}
-
-/* @stable - 31.03.2018 */
-export interface IOriginalEntityWrapper<TOriginalEntity> {
-  originalEntity?: TOriginalEntity;
-}
-
-/* @stable - 31.03.2018 */
-export interface IEntityIdWrapper<TEntityId> {
-  entityId?: TEntityId;
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IEntityWrapper<TEntity = IEntity> {
-  entity?: TEntity;
-}
+export interface IEntityIdWrapper<TEntityId> { entityId?: TEntityId; }
+export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
+export interface INewEntityWrapper<TNewEntity = boolean> { newEntity?: TNewEntity; }
+export interface IOriginalEntityWrapper<TOriginalEntity> { originalEntity?: TOriginalEntity; }
 
 /**
  * @stable [22.08.2018]
@@ -2596,11 +2577,6 @@ export interface IUseKeyboardWrapper {
  */
 export interface IUseSyntheticCursorWrapper {
   useSyntheticCursor?: boolean;
-}
-
-/* @stable - 01.04.2018 */
-export interface IIsNewWrapper {
-  isNew?: boolean;
 }
 
 /**

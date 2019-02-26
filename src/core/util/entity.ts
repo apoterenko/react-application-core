@@ -3,9 +3,9 @@ import * as R from 'ramda';
 import { IEntity } from '../definitions.interface';
 import {
   IEditableEntity,
-  IEntityWrapperEntity,
   IEntityFormEntity,
 } from '../entities-definitions.interface';
+import { IExtendedEntity } from '../definition';
 import { validate, ValidatorRuleEnum } from './validator';
 
 /**
@@ -57,16 +57,16 @@ export const isEntityFormEntityBusy = <TEntity extends IEntity>(entity: IEntityF
 
 /**
  * @stable [30.01.2019]
- * @param {IEntityWrapperEntity<TEntity extends IEntity>} entityWrapper
+ * @param {IExtendedEntity<TEntity extends IEntity>} entityWrapper
  * @returns {boolean}
  */
-export const isNewEntity = <TEntity extends IEntity>(entityWrapper: IEntityWrapperEntity<TEntity>): boolean =>
+export const isNewEntity = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
   entityWrapper.newEntity === true;
 
 /**
  * @stable [30.01.2019]
- * @param {IEntityWrapperEntity<TEntity extends IEntity>} entityWrapper
+ * @param {IExtendedEntity<TEntity extends IEntity>} entityWrapper
  * @returns {boolean}
  */
-export const doesEntityExist = <TEntity extends IEntity>(entityWrapper: IEntityWrapperEntity<TEntity>): boolean =>
+export const doesEntityExist = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
   !isNewEntity(entityWrapper);

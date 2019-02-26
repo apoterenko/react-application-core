@@ -4,14 +4,13 @@ import { IEntity, ISubmitWrapper, IApiEntityWrapper } from '../../definitions.in
 import {
   IBasicFormWrapperEntity,
   IFormWrapperEntity,
-  IApiEntity,
   IComponent,
   IContainer,
   IEditableEntity,
 } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
 import { IFormConfigurationEntity } from '../../configurations-definitions.interface';
-import { IFormConfigurationWrapperEntity } from '../../definition';
+import { IFormConfigurationWrapperEntity, IApiEntity } from '../../definition';
 
 /**
  * @stable [29.05.2018]
