@@ -1,10 +1,9 @@
 import { Component } from 'vue-property-decorator';
 
-import { generateArray } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { toActualMultiItemEntities } from '../multifield/vue-index';
+import { asViewedMultiItemEntities } from '../multifield/vue-index';
 import { VueBaseFileField } from './vue-base-filefield.component';
 import { IVueMultiFileFieldProps } from './vue-filefield.interface';
 
@@ -38,18 +37,11 @@ class VueMultiFileField extends VueBaseFileField implements IVueMultiFileFieldPr
     return `${super.getFieldClassName()} vue-multi-file-field`;
   }
 
-  // TODO
+  /**
+   * @stable [27.02.2019]
+   * @returns {IEntity[]}
+   */
   public getEntities(): IEntity[] {
-    const totalFilesCount = this.maxFiles;
-    const relations = generateArray(totalFilesCount);
-    const actualRelations = toActualMultiItemEntities(this.getValue());
-    if (Array.isArray(actualRelations)) {
-      const isFullFilled = actualRelations.length === totalFilesCount;
-      const startIndex = isFullFilled ? 0 : 1;
-      actualRelations.forEach((actualRelation, index) => {
-        relations[index + startIndex] = actualRelation;
-      });
-    }
-    return relations;
+    return asViewedMultiItemEntities(this.getValue(), this.maxFiles);
   }
 }

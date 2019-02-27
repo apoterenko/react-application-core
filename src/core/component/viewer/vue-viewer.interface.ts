@@ -27,6 +27,13 @@ export interface IVueViewerProps<TEntity extends IEntity = IEntity>
 }
 
 /**
+ * @stable [27.02.2019]
+ */
+export interface IVueViewer {
+  onOpenPopup?();
+}
+
+/**
  * @stable [29.11.2018]
  */
 export interface IVueViewerTemplateMethodsEntity {

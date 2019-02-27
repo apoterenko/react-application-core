@@ -22,7 +22,7 @@ export class VuePictureViewer extends VueBasePictureViewer {
   /**
    * @stable [29.11.2018]
    */
-  protected onOpenPopup(): void {
+  public onOpenPopup(): void {
     super.onOpenPopup();
   }
 

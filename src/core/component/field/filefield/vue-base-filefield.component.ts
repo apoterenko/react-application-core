@@ -11,6 +11,7 @@ import {
   nvl,
   ifNotNilThanValue,
   toClassName,
+  toType,
 } from '../../../util';
 import { IEntity, AnyT, EntityIdT, IEntityIdTWrapper } from '../../../definitions.interface';
 import { IMultiItemEntity, MultiItemEntityT, IMultiItemFileEntity } from '../../../entities-definitions.interface';
@@ -21,6 +22,7 @@ import {
   IVueViewerListenersEntity,
   VUE_PDF_FILE_VIEWER_NAME,
   VUE_FILE_VIEWER_NAME,
+  IVueViewer,
 } from '../../viewer/vue-index';
 import { IVueBaseFileFieldProps, IVueBaseFileFieldTemplateMethods } from './vue-filefield.interface';
 
@@ -32,6 +34,7 @@ export class VueBaseFileField extends VueField
   @Prop() public readonly placeholderFactory: (index: number) => string;
   @Prop() public readonly canRenderAttachment: (entity: IMultiItemEntity, index: number) => boolean;
   @Prop({default: (): number => 1}) public readonly maxFiles: number;
+  @Prop({default: (): boolean => false}) public readonly openViewerPopupOnFileSelect: boolean;
   @Prop() public readonly defaultDndMessage: string;
   @Prop() public readonly defaultDndMessageFactory: (index: number) => string;
   @Prop({default: (): string => VUE_FILE_VIEWER_NAME}) public readonly viewer: string;
@@ -72,18 +75,20 @@ export class VueBaseFileField extends VueField
    * @param {File[]} files
    * @param {IMultiItemFileEntity | IEntity} replacedEntity
    * @param {number} index
-   * @returns {string[]}
    */
-  public onFilesSelect(files: File[], replacedEntity: IMultiItemFileEntity | IEntity, index: number): string[] {
-    return Array.from(files).map((file) => {
+  public onFilesSelect(files: File[], replacedEntity: IMultiItemFileEntity | IEntity, index: number): void {
+    Array.from(files).forEach((file) => {
       const url = this.toFileUrl(file);
       if (R.isNil(replacedEntity)) {
-        this.addFile(file, url);
+        this.addFile(file, url, index);
       } else {
-        this.replaceFile(replacedEntity, file, url);
+        this.replaceFile(replacedEntity, file, url, index);
       }
-      return url;
     });
+    if (this.openViewerPopupOnFileSelect) {
+      // Need to open popup after selecting/change
+      this.openViewerPopup();
+    }
   }
 
   /**
@@ -187,7 +192,7 @@ export class VueBaseFileField extends VueField
    */
   public getViewerListeners(entityOrEntityId: IMultiItemEntity, index: number): IVueViewerListenersEntity<File> {
     return {
-      change: (file: File) => this.onFileChange(entityOrEntityId, file),
+      change: (file: File) => this.onFileChange(entityOrEntityId, file, index),
       remove: () => this.removeFile(entityOrEntityId),
     };
   }
@@ -233,6 +238,7 @@ export class VueBaseFileField extends VueField
           <div v-for="(entity, index) in getEntities()"
                class="vue-field-attachment-holder">
             <component v-if="entity"
+                       ref="viewerRef"
                        :is="getViewerComponent(entity, index)"
                        v-on="getViewerListeners(entity, index)"
                        v-bind="getViewerBindings(entity, index)"/>
@@ -254,20 +260,6 @@ export class VueBaseFileField extends VueField
           </div>
        </div>`
     );
-  }
-
-  /**
-   * @stable [11.02.2019]
-   * @param {IMultiItemFileEntity | IEntity} entity
-   * @param {File} file
-   */
-  protected onFileChange(entity: IMultiItemFileEntity | IEntity, file: File): void {
-    const newFileUrl = this.toFileUrl(file);
-    if ((entity as IMultiItemFileEntity).newEntity) {
-      this.replaceFile(entity, file, newFileUrl);
-    } else {
-      this.multiFieldPlugin.onEditItem({id: entity.id, name: this.displayName, value: newFileUrl});
-    }
   }
 
   /**
@@ -331,38 +323,18 @@ export class VueBaseFileField extends VueField
   }
 
   /**
-   * @stable [22.12.2018]
+   * @stable [27.02.2019]
+   * @param {IMultiItemFileEntity | IEntity} entity
    * @param {File} file
-   * @param {string} fileUrl
+   * @param {number} index
    */
-  private addFile(file: File, fileUrl: string): void {
-    const rawData: IMultiItemFileEntity = {
-      id: fileUrl,
-      newEntity: true,
-      type: file.type,
-      name: file.name,
-    };
-    this.multiFieldPlugin.onAddItem({id: fileUrl, rawData});
-  }
-
-  /**
-   * @stable [11.02.2019]
-   * @param {IMultiItemFileEntity | IEntity | EntityIdT} entity
-   */
-  private removeFile(entity: IMultiItemFileEntity | IEntity | EntityIdT): void {
-    let url;
-    let deletedEntity: IEntityIdTWrapper;
-    if (isPrimitive(entity)) {
-      const fileId = entity as EntityIdT;
-      deletedEntity = {id: fileId};
-      url = fileId as string;
+  private onFileChange(entity: IMultiItemFileEntity | IEntity, file: File, index?: number): void {
+    const newFileUrl = this.toFileUrl(file);
+    if ((entity as IMultiItemFileEntity).newEntity) {
+      this.replaceFile(entity, file, newFileUrl, index);
     } else {
-      const multiItemEntity = entity as IMultiItemEntity;
-      deletedEntity = multiItemEntity;
-      url = multiItemEntity.id as string;
+      this.editFile(entity, file, newFileUrl, index);
     }
-    this.multiFieldPlugin.onDeleteItem(deletedEntity);
-    this.destroyFileUrl(url);
   }
 
   private getFileName(): AnyT {
@@ -386,13 +358,81 @@ export class VueBaseFileField extends VueField
   }
 
   /**
-   * @stable [11.02.2019]
+   * @stable [27.02.2019]
    * @param {IMultiItemFileEntity} entity
    * @param {File} file
    * @param {string} fileUrl
+   * @param {number} index
    */
-  private replaceFile(entity: IMultiItemFileEntity, file: File, fileUrl: string): void {
+  private replaceFile(entity: IMultiItemFileEntity, file: File, fileUrl: string, index?: number): void {
     this.removeFile(entity);
-    this.$nextTick(() => this.addFile(file, fileUrl));  // Flux-cycle
+    this.$nextTick(() => this.addFile(file, fileUrl, index));  // Next tick <=> Flux Cycle
+  }
+
+  /**
+   * @stable [27.02.2019]
+   * @param {File} file
+   * @param {string} fileUrl
+   * @param {number} index
+   */
+  private addFile(file: File, fileUrl: string, index?: number): void {
+    this.multiFieldPlugin.onAddItem({
+      id: fileUrl,
+      rawData: toType<IMultiItemFileEntity>({
+        id: fileUrl,
+        newEntity: true,
+        type: file.type,
+        name: file.name,
+        index,
+      }),
+    });
+  }
+
+  /**
+   * @stable [27.02.2019]
+   * @param {IMultiItemFileEntity} entity
+   * @param {File} file
+   * @param {string} fileUrl
+   * @param {number} index
+   */
+  private editFile(entity: IMultiItemFileEntity, file: File, fileUrl: string, index?: number): void {
+    this.multiFieldPlugin.onEditItem({
+      id: entity.id,
+      name: this.displayName,
+      value: fileUrl,
+      index,
+    });
+  }
+
+  /**
+   * @stable [11.02.2019]
+   * @param {IMultiItemFileEntity | IEntity | EntityIdT} entity
+   */
+  private removeFile(entity: IMultiItemFileEntity | IEntity | EntityIdT): void {
+    let url;
+    let deletedEntity: IEntityIdTWrapper;
+    if (isPrimitive(entity)) {
+      const fileId = entity as EntityIdT;
+      deletedEntity = {id: fileId};
+      url = fileId as string;
+    } else {
+      const multiItemEntity = entity as IMultiItemEntity;
+      deletedEntity = multiItemEntity;
+      url = multiItemEntity.id as string;
+    }
+    this.multiFieldPlugin.onDeleteItem(deletedEntity);
+    this.destroyFileUrl(url);
+  }
+
+  /**
+   * @stable [27.02.2019]
+   */
+  private openViewerPopup(): void {
+    this.$nextTick(() => {
+      const viewer = (this.getChildrenRefs() as {viewerRef?: IVueViewer[]}).viewerRef[0];
+      if (!R.isNil(viewer)) {
+        viewer.onOpenPopup();
+      }
+    });
   }
 }

@@ -34,11 +34,21 @@ export class VueRouter { // TODO implements contract
     this.dispatchPathAction(path);
   }
 
+  public replace(path: string): void {
+    const fullPath = ENV.buildAppPath(path);
+    history.replaceState({}, fullPath, fullPath);
+    this.dispatchPathAction(path);
+  }
+
+  public go(delta?: number) {
+    history.go(delta);
+  }
+
   /**
    * @stable [23.10.2018]
    */
   public goBack() {
-    history.go(-1);
+    this.go(-1);
   }
 
   /**

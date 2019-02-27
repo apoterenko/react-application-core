@@ -514,39 +514,11 @@ export interface INeedToOpenMenuWrapper {
   needToOpenMenu?: boolean;
 }
 
-/**
- * @stable [20.08.2018]
- */
-export interface IForceReloadWrapper {
-  forceReload?: boolean;
-}
-
-/**
- * @stable [31.07.2018]
- */
-export interface IOptionsWrapper<TOptions> {
-  options?: TOptions;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IOriginalDataWrapper<TOriginalData = IEntity[]> {
-  originalData?: TOriginalData;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IDataWrapper<TData = IEntity[]> {
-  data?: TData;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IAnyDataWrapper extends IDataWrapper<AnyT> {
-}
+export interface ICroppedCanvasOptionsWrapper<TCroppedCanvasOptions> { croppedCanvasOptions?: TCroppedCanvasOptions; }
+export interface IDataWrapper<TData = IEntity[]> { data?: TData; }
+export interface IForceReloadWrapper { forceReload?: boolean; }
+export interface IOptionsWrapper<TOptions> { options?: TOptions; }
+export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?: TOriginalData; }
 
 /**
  * @stable [04.05.2018]
@@ -1232,19 +1204,8 @@ export interface IRobotModeWrapper {
   useRobotMode?: boolean;
 }
 
-/**
- * @stable [04.05.2018]
- */
-export interface ISelectedWrapper<TSelected = boolean> {
-  selected?: TSelected;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IRemovedWrapper<TRemoved = boolean> {
-  removed?: TRemoved;
-}
+export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
+export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
 
 /**
  * @stable [17.05.2018]
@@ -1258,29 +1219,10 @@ export interface IRemovedEntityWrapper<TEntity extends IEntity = IEntity> extend
 export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {
 }
 
-/* @stable - 09.04.2018 */
-export interface IFieldWrapper<TField> {
-  field?: TField;
-}
-
-/* @stable - 09.04.2018 */
-export interface IFieldsWrapper<TFields> {
-  fields?: TFields;
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IPageWrapper<TPage = number> {
-  page?: TPage;
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IViewerWrapper<TViewer> {
-  viewer?: TViewer;
-}
+export interface IFieldsWrapper<TFields> { fields?: TFields; }
+export interface IFieldWrapper<TField> { field?: TField; }
+export interface IPageWrapper<TPage = number> { page?: TPage; }
+export interface IViewerWrapper<TViewer> { viewer?: TViewer; }
 
 /**
  * @stable [24.09.2018]
@@ -1310,21 +1252,11 @@ export interface ILockPageWrapper<TLockPage = boolean> {
   lockPage?: TLockPage;
 }
 
-/**
- * @stable [06.05.2018]
- */
-export interface ITotalAmountWrapper<TTotalAmount = number> {
-  totalAmount?: TTotalAmount;
-}
-
-export interface IDirtyWrapper { dirty?: boolean; }
-export interface IValidWrapper { valid?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
-
-/* @stable [27.04.2018] */
-export interface ICloseWrapper<TClose> {
-  close?: TClose;
-}
+export interface ICloseWrapper<TClose> { close?: TClose; }
+export interface IDirtyWrapper { dirty?: boolean; }
+export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
+export interface IValidWrapper { valid?: boolean; }
 
 /**
  * @stable [10.08.2018]
@@ -2502,19 +2434,8 @@ export interface IEmptyMessageActionWrapper {
   emptyMessageAction?: boolean;
 }
 
-/**
- * @stable [02.07.2018]
- */
-export interface IPreventFocusWrapper {
-  preventFocus?: boolean;
-}
-
-/**
- * @stable [23.09.2018]
- */
-export interface IMiniWrapper {
-  mini?: boolean;
-}
+export interface IPreventFocusWrapper { preventFocus?: boolean; }
+export interface IMiniWrapper { mini?: boolean; }
 
 /**
  * @stable [21.09.2018]
@@ -2530,19 +2451,8 @@ export interface IEmptyMessageActionConfigurationWrapper<TEmptyMessageActionConf
   emptyMessageActionConfiguration?: TEmptyMessageActionConfigurationWrapper;
 }
 
-/**
- * @stable [18.05.2018]
- */
-export interface IActionsPosition<TActionsPosition> {
-  actionsPosition?: TActionsPosition;
-}
-
-/**
- * @stable [22.12.2018]
- */
-export interface IMaxFilesWrapper {
-  maxFiles?: number;
-}
+export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
+export interface IMaxFilesWrapper { maxFiles?: number; }
 
 /**
  * @stable [22.12.2018]
@@ -2834,6 +2744,8 @@ export interface IToWrapper<TTo = string> {
 export interface IDisplayFileNameWrapper<TDisplayFileName = string> {
   displayFileName?: TDisplayFileName;
 }
+
+export interface IOpenViewerPopupOnFileSelectWrapper { openViewerPopupOnFileSelect?: boolean; }
 
 /**
  * @stable [06.01.2019]

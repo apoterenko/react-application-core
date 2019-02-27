@@ -22,7 +22,7 @@ export class VueFileViewer extends VueBaseFileViewer {
   /**
    * @stable [29.11.2018]
    */
-  protected onOpenPopup(): void {
+  public onOpenPopup(): void {
     super.onOpenPopup();
   }
 

@@ -20,18 +20,18 @@ class VuePdfFileViewer extends VueBaseFileViewer {
   }
 
   /**
+   * @stable [29.11.2018]
+   */
+  public onOpenPopup(): void {
+    super.onOpenPopup();
+  }
+
+  /**
    * @stable [20.12.2018]
    * @returns {string}
    */
   protected getPopupBodyTemplate(): string {
     return `<vue-pdf-preview :src="getSrc()"/>`;
-  }
-
-  /**
-   * @stable [29.11.2018]
-   */
-  protected onOpenPopup(): void {
-    super.onOpenPopup();
   }
 
   /**

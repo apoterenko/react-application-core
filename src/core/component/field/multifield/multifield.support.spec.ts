@@ -7,10 +7,35 @@ import {
   toActualMultiItemEditedEntities,
   toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
+  asViewedMultiItemEntities,
 } from './multifield.support';
 import { UNDEF } from '../../../definitions.interface';
 
 describe('multifield.support', () => {
+
+  describe('toActualMultiItemEntities2', () => {
+    const itemsCount = 6;
+    it('test1', () => {
+      const item1 = {id: 100, name: 'name1'};
+      const item2 = {id: 101, name: 'name2'};
+      const item3 = {id: 103, name: 'name3', newEntity: true, index: 4};
+      const result = asViewedMultiItemEntities([item3, item1, item2], itemsCount);
+      expect(result).toEqual([item1, item2, UNDEF, UNDEF, item3, UNDEF]);
+    });
+    it('test2', () => {
+      const item1 = {id: 100, name: 'name1'};
+      const item2 = {id: 101, name: 'name2'};
+      const item3 = {id: 103, name: 'name3', newEntity: true, index: 4};
+      const result = asViewedMultiItemEntities([item1, item2, item3], itemsCount);
+      expect(result).toEqual([item1, item2, UNDEF, UNDEF, item3, UNDEF]);
+    });
+    it('test3', () => {
+      const item1 = {id: 100, name: 'name1'};
+      const item2 = {id: 101, name: 'name2', index: 1};
+      const result = asViewedMultiItemEntities([item1, item2], itemsCount);
+      expect(result).toEqual([item1, item2, UNDEF, UNDEF, UNDEF, UNDEF]);
+    });
+  });
 
   describe('toMultiFieldChangesEntityOnDelete', () => {
     it('test1', () => {

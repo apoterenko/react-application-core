@@ -19,6 +19,7 @@ export * from './entities-definitions.interface';
 export * from './env';
 export * from './i18n';
 export * from './operation';
+export * from './router';
 export * from './router/vue-index';
 export * from './settings';
 export * from './storage';

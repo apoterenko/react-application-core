@@ -1,5 +1,5 @@
 import Cropper from 'cropperjs';
-import { Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 
 import { DelayedTask, isDef, toClassName } from '../../../util';
 import { ComponentName } from '../../connector/vue-index';
@@ -10,13 +10,28 @@ import { VueBasePictureViewer } from '../picture/vue-index';
 import {
   VUE_CROPPER_VIEWER_CROP_EVENT,
   VUE_CROPPER_VIEWER_NAME,
+  IVueCropperViewerProps,
   IVueCropperPictureViewerTemplateMethodsEntity,
+  IVueCropperViewerCroppedCanvasOptionsEntity,
+  IVueCropperViewerOptionsEntity,
 } from './vue-cropper-viewer.interface';
 
 @ComponentName(VUE_CROPPER_VIEWER_NAME)
 @Component(vueDefaultComponentConfigFactory())
-class VueCropperViewer extends VueBasePictureViewer {
-  private cropEmitterTask = new DelayedTask(this.onCrop, 100);
+class VueCropperViewer extends VueBasePictureViewer implements IVueCropperViewerProps {
+  @Prop({
+    default: (): IVueCropperViewerOptionsEntity => ({
+      cropBoxResizable: false,
+      aspectRatio: 568 / 426,
+      minCropBoxWidth: 568,
+    }),
+  }) public readonly options: IVueCropperViewerOptionsEntity;
+  @Prop({
+    default: (): IVueCropperViewerCroppedCanvasOptionsEntity => ({
+      maxWidth: 1024,
+    }),
+  }) public readonly croppedCanvasOptions: IVueCropperViewerCroppedCanvasOptionsEntity;
+  private readonly cropEmitterTask = new DelayedTask(this.onCrop, 100);
   private cropper: Cropper;
 
   /**
@@ -39,6 +54,13 @@ class VueCropperViewer extends VueBasePictureViewer {
   /**
    * @stable [29.11.2018]
    */
+  public onOpenPopup(): void {
+    super.onOpenPopup();
+  }
+
+  /**
+   * @stable [29.11.2018]
+   */
   protected beforeDestroy(): void {
     this.cropEmitterTask.stop();
 
@@ -46,13 +68,6 @@ class VueCropperViewer extends VueBasePictureViewer {
       this.cropper.destroy();
       this.cropper = null;
     }
-  }
-
-  /**
-   * @stable [29.11.2018]
-   */
-  protected onOpenPopup(): void {
-    super.onOpenPopup();
   }
 
   /**
@@ -104,6 +119,7 @@ class VueCropperViewer extends VueBasePictureViewer {
 
     this.cropper = new Cropper(this.getSelf(), {
       crop: () => this.cropEmitterTask.start(),
+      ...this.options,
     });
   }
 
@@ -137,6 +153,6 @@ class VueCropperViewer extends VueBasePictureViewer {
    * @param {(blob: Blob) => void} callback
    */
   private getCroppedCanvasBlob(callback: (blob: Blob) => void): void {
-    this.cropper.getCroppedCanvas().toBlob(callback);
+    this.cropper.getCroppedCanvas(this.croppedCanvasOptions).toBlob(callback);
   }
 }

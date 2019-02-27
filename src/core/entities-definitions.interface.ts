@@ -6,7 +6,6 @@ import {
   EntityIdT,
   IActiveValueWrapper,
   IActiveWrapper,
-  IAnyDataWrapper,
   IApplicationWrapper,
   IAreaWrapper,
   IAuthorizedWrapper,
@@ -379,7 +378,7 @@ export interface IPaginatedEntity extends IPagedEntity,
  */
 export interface IChannelMessageEntity extends IIpWrapper,
                                                INameWrapper,
-                                               IAnyDataWrapper {
+                                               IDataWrapper<AnyT> {
 }
 
 /**
@@ -791,16 +790,19 @@ export interface IGridColumnEntity extends IComponentEntity,
 /**
  * @stable [01.07.2018]
  */
-export interface IMultiItemEntity extends IEntityIdTWrapper,
-                                          IFieldChangeEntity,
-                                          INewEntityWrapper {
+export interface IMultiItemEntity
+  extends IEntityIdTWrapper,
+    IFieldChangeEntity,
+    INewEntityWrapper,
+    IIndexWrapper {
 }
 
 /**
  * @stable [22.12.2018]
  */
-export interface IMultiItemFileEntity extends IMultiItemEntity,
-                                              ITypeWrapper {
+export interface IMultiItemFileEntity
+  extends IMultiItemEntity,
+    ITypeWrapper {
 }
 
 /**

@@ -9,6 +9,7 @@ import {
   orNull,
   defValuesFilter,
   isFn,
+  generateArray,
 } from '../../../util';
 import {
   MultiFieldEntityT,
@@ -17,6 +18,33 @@ import {
   IMultiFieldChangesEntity,
 } from './multifield.interface';
 import { IMultiEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
+
+/**
+ * @stable [27.02.2019]
+ * @param {IEntity[]} currentEntities
+ * @param {number} itemsLimit
+ * @returns {TItem[]}
+ */
+export const asViewedMultiItemEntities = <TItem extends IEntity = IEntity>(currentEntities: IEntity[],
+                                                                           itemsLimit: number): TItem[] => {
+  const result = generateArray(itemsLimit);
+  const actualRelations = toActualMultiItemEntities(currentEntities);
+
+  if (Array.isArray(actualRelations)) {
+    let cursor = 0;
+    result.forEach((_, index) => {
+      const entity = actualRelations[index];
+      if (!R.isNil(entity)) {
+        if ((entity as IMultiItemEntity).newEntity) {
+          result[entity.index] = entity;
+        } else {
+          result[cursor++] = entity;
+        }
+      }
+    });
+  }
+  return result;
+};
 
 /**
  * @stable [18.08.2018]

@@ -7,6 +7,7 @@ import {
   IDefaultDndMessageFactoryWrapper,
   IDisplayFileNameWrapper,
   IDisplayFileFormatWrapper,
+  IOpenViewerPopupOnFileSelectWrapper,
 } from '../../../definitions.interface';
 import { IVueFieldTemplateMethods } from '../field/vue-index';
 import { IVueViewerListenersEntity, IVueBaseFileViewerProps } from '../../viewer/vue-index';
@@ -21,16 +22,16 @@ import {
  * @stable [28.11.2018]
  */
 export interface IVueBaseFileFieldTemplateMethods extends IVueFieldTemplateMethods {
-  onFilesSelect?(files: File[], entity: IMultiItemFileEntity | IEntity, index: number): string[];
-  getDefaultDndMessage?(entity: IMultiItemFileEntity | IEntity, index: number): string;
-  getCustomDndMessage?(entity: IMultiItemFileEntity | IEntity, index: number): string;
-  getAttachmentContentClassName?(entityOrEntityId: MultiItemEntityT, index: number): string;
-  getPlaceholder?(entityOrEntityId: MultiItemEntityT, index?: number): string;
-  getViewerComponent?(file: File, index: number): string;
-  getViewerBindings?(entityOrEntityId: MultiItemEntityT, index: number): IVueBaseFileViewerProps;
-  getViewerListeners?(entityOrEntityId: IMultiItemEntity, index: number): IVueViewerListenersEntity<File>;
-  getEntities?(): IEntity[];
   canRenderAttachmentContent?(file: IMultiItemFileEntity | IEntity, index: number): boolean;
+  getAttachmentContentClassName?(entityOrEntityId: MultiItemEntityT, index: number): string;
+  getCustomDndMessage?(entity: IMultiItemFileEntity | IEntity, index: number): string;
+  getDefaultDndMessage?(entity: IMultiItemFileEntity | IEntity, index: number): string;
+  getEntities?(): IEntity[];
+  getPlaceholder?(entityOrEntityId: MultiItemEntityT, index?: number): string;
+  getViewerBindings?(entityOrEntityId: MultiItemEntityT, index: number): IVueBaseFileViewerProps;
+  getViewerComponent?(file: File, index: number): string;
+  getViewerListeners?(entityOrEntityId: IMultiItemEntity, index: number): IVueViewerListenersEntity<File>;
+  onFilesSelect?(files: File[], entity: IMultiItemFileEntity | IEntity, index: number): void;
 }
 
 /**
@@ -40,6 +41,7 @@ export interface IVueBaseFileFieldProps extends IVueFieldProps,
                                                 IMaxFilesWrapper,
                                                 IViewerWrapper<string>,
                                                 IDisplayFileNameWrapper,
+                                                IOpenViewerPopupOnFileSelectWrapper,
                                                 IDisplayFileFormatWrapper,
                                                 IDefaultDndMessageWrapper,
                                                 IDefaultDndMessageFactoryWrapper<(index: number) => string>,
