@@ -1,26 +1,33 @@
 import * as React from 'react';
-import {Chart as ChartJs} from 'chart.js';
+import * as R from 'ramda';
+import { Chart as ChartJs } from 'chart.js';
 
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
 import { IChartProps } from './chart.interface';
-import { toClassName, uuid, orNull } from '../../util';
+import { toClassName, ifNotFalseThanValue } from '../../util';
 
 export class Chart extends BaseComponent<IChartProps> {
 
-  private readonly canvasId = uuid(true);
+  private readonly canvasRef = React.createRef<HTMLCanvasElement>();
+  private chartJs: ChartJs;
 
   /**
-   * @stable [24.09.2018]
+   * @stable [28.02.2019]
    */
   public componentDidMount(): void {
     super.componentDidMount();
-    const elId = document.getElementById(this.canvasId);
+    this.refresh();
+  }
 
-    if (elId) {
-      const ctx = (elId as HTMLCanvasElement).getContext('2d');
-      new ChartJs(ctx, this.props.options);
-    }
+  /**
+   * @stable [28.02.2019]
+   * @param {Readonly<IChartProps>} prevProps
+   * @param {Readonly<{}>} prevState
+   */
+  public componentDidUpdate(prevProps: Readonly<IChartProps>, prevState: Readonly<{}>): void {
+    super.componentDidUpdate(prevProps, prevState);
+    this.refresh();
   }
 
   /**
@@ -30,15 +37,17 @@ export class Chart extends BaseComponent<IChartProps> {
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <FlexLayout row={true}
-                  className={toClassName(props.className, 'rac-chart')}>
+      <FlexLayout
+        row={true}
+        className={toClassName(props.className, 'rac-chart')}
+      >
         {props.west}
         {
-          orNull<JSX.Element>(
-            props.rendered !== false,
+          ifNotFalseThanValue(
+            props.rendered,
             () => (
               <div className='rac-chart-canvas-wrapper'>
-                <canvas id={this.canvasId}/>
+                <canvas ref={this.canvasRef}/>
               </div>
             )
           )
@@ -46,5 +55,18 @@ export class Chart extends BaseComponent<IChartProps> {
         {props.east}
       </FlexLayout>
     );
+  }
+
+  /**
+   * @stable [28.02.2019]
+   */
+  private refresh(): void {
+    if (this.chartJs) {
+      this.chartJs.destroy(); // It's too heavy to call an update() and update partially
+    }
+    const elId = this.canvasRef.current;
+    if (!R.isNil(elId)) {
+      this.chartJs = new ChartJs(elId.getContext('2d'), this.props.options);
+    }
   }
 }

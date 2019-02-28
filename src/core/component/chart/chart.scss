@@ -5,6 +5,7 @@
 .rac {
 
   @include rac-chart(                                                                       /* @stable [22.12.2018] */
-    $rac-chart-canvas-wrapper-width: $rac-chart-canvas-wrapper-width
+    $rac-chart-canvas-wrapper-width: $rac-chart-canvas-wrapper-width,
+    $rac-chart-canvas-wrapper-height: $rac-chart-canvas-wrapper-height
   );
 }

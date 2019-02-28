@@ -595,7 +595,8 @@ $rac-default-layout-logo-menu-icon-margin-right: $rac-default-offset !default;
 $rac-default-layout-logo-menu-icon-color: $color-5 !default;
 
 /* @stable [25.09.2018] */
-$rac-chart-canvas-wrapper-width: 93% !default;           /* @magic [need to resize canvas smoothly] @stable [25.09.2018] */
+$rac-chart-canvas-wrapper-width: 100% !default;
+$rac-chart-canvas-wrapper-height: 100% !default;
 
 /* @stable [03.10.2018] */
 $rac-title-white-space: nowrap !default;

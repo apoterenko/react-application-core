@@ -25,6 +25,7 @@ export * from './component/footer';
 export * from './component/form';
 export * from './component/google';
 export * from './component/header';
+export * from './component/icon';
 export * from './component/keyboard';
 export * from './component/layout';
 export * from './component/link';
