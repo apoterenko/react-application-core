@@ -93,16 +93,6 @@
           }
         }
       }
-
-      &.rac-grid-actioned-column {
-
-        .rac-icon {
-          color: $rac-grid-actioned-color;                                          /* @stable [22.06.2018] */
-          cursor: pointer;                                                          /* @stable [22.06.2018] */
-          width: $rac-grid-actioned-icon-size;                                      /* @stable [21.06.2018] */
-          height: $rac-grid-actioned-icon-size;                                     /* @stable [21.06.2018] */
-        }
-      }
     }
 
     .rac-grid-head {
