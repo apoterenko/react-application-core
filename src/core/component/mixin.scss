@@ -1478,6 +1478,7 @@
  */
 @mixin rac-grid-column-content(
   $rac-grid-column-content-custom: unset,
+  $rac-grid-column-content-padding: unset,
   $rac-grid-column-content-overflow: unset,
   $rac-grid-column-content-position: unset,
   $rac-grid-column-content-background: unset,
@@ -1523,6 +1524,7 @@
 
     @include rac-styles(
       $rac-styles-position: $rac-grid-column-content-position,
+      $rac-styles-padding: $rac-grid-column-content-padding,
       $rac-styles-overflow: $rac-grid-column-content-overflow,
       $rac-styles-vertical-align: $rac-grid-column-content-vertical-align,
       $rac-styles-background: $rac-grid-column-content-background,
@@ -1586,6 +1588,7 @@
   $rac-grid-column-icon-line-height: unset,
   $rac-grid-column-icon-border: unset,
   $rac-grid-column-icon-vertical-align: unset,
+  $rac-grid-column-content-padding: unset,
   $rac-grid-column-content-bottom: unset,
   $rac-grid-column-content-right: unset,
   $rac-grid-column-content-border-radius: unset,
@@ -1636,6 +1639,7 @@
       $rac-grid-column-content-vertical-align: $rac-grid-column-content-vertical-align,
       $rac-grid-column-content-background: $rac-grid-column-content-background,
       $rac-grid-column-content-border-radius: $rac-grid-column-content-border-radius,
+      $rac-grid-column-content-padding: $rac-grid-column-content-padding,
       $rac-grid-column-content-bottom: $rac-grid-column-content-bottom,
       $rac-grid-column-content-right: $rac-grid-column-content-right,
       $rac-grid-column-content-position: $rac-grid-column-content-position,
@@ -1728,6 +1732,7 @@
   $rac-grid-head-column-padding-right: unset,
   $rac-grid-head-column-vertical-align: unset,
   $rac-grid-head-column-content-font-size: unset,
+  $rac-grid-head-column-content-padding: unset,
   $rac-grid-head-column-content-letter-spacing: unset,
   $rac-grid-head-column-content-text-field-height: unset,
   $rac-grid-head-column-content-text-field-background: unset,
@@ -1918,6 +1923,7 @@
         $rac-grid-column-vertical-align: $rac-grid-head-column-vertical-align,
         $rac-grid-column-content-letter-spacing: $rac-grid-head-column-content-letter-spacing,
         $rac-grid-column-content-font-size: $rac-grid-head-column-content-font-size,
+        $rac-grid-column-content-padding: $rac-grid-head-column-content-padding,
         $rac-grid-column-content-text-field-height: $rac-grid-head-column-content-text-field-height,
         $rac-grid-column-content-text-field-background: $rac-grid-head-column-content-text-field-background,
         $rac-grid-column-content-text-field-border-color: $rac-grid-head-column-content-text-field-border-color
