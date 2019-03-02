@@ -65,6 +65,7 @@
     "cross-env": "^5.0.5",
     "crossvent": "^1.5.5",
     "css-loader": "^0.28.0",
+    "csstype": "^2.6.2",
     "dom-scroll-into-view": "^1.2.1",
     "dragscroll": "0.0.8",
     "exports-loader": "^0.6.4",
