@@ -2671,10 +2671,7 @@ export interface IPasswordWrapper<TPassword = string> {
   password?: TPassword;
 }
 
-/* @stable - 16.04.2018 */
-export interface IFactorWrapper<TFactor> {
-  factor?: TFactor;
-}
+export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
 
 /* @stable - 16.04.2018 */
 export interface IChildrenWrapper<TChildren> {
