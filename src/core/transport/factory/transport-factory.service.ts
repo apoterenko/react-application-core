@@ -39,6 +39,7 @@ export class TransportFactory implements ITransportFactory {
     const requestPayload = this.requestPayloadFactory.makeRequestPayload(req, cancelTokenEntity);
     try {
       res = await this.requestProvider.provideRequest(requestPayload);
+      this.clearOperation(operationId);
     } catch (e) {
       const eResponse = this.getResponseFactory(req).makeErrorResponse(e);
       if (eResponse.message === this.cancelUuid) {
@@ -47,10 +48,11 @@ export class TransportFactory implements ITransportFactory {
           message: this.settings.messages.requestCancelErrorMessage,
           cancelled: true,
         };
+      } else {
+        // Does not need to remove canceled operation because the next request does clear it
+        this.clearOperation(operationId);
       }
       throw eResponse;
-    } finally {
-      this.clearOperation(operationId);
     }
     return this.getResponseFactory(req).makeResponse(req, res);
   }

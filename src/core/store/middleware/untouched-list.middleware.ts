@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
-import { orNull } from '../../util';
+import { orNull, isFn } from '../../util';
 import { ListActionBuilder } from '../../component/action.builder';
 import { IUntouchedListMiddlewareConfig } from './middleware.interface';
 
@@ -21,8 +21,10 @@ export const makeUntouchedListMiddleware = <TApplicationState>(config: IUntouche
  */
 export const makeUntouchedLazyLoadedListMiddleware = <TApplicationState>(config: IUntouchedListMiddlewareConfig<TApplicationState>) =>
   (action: IEffectsAction, state: TApplicationState): IEffectsAction => {
+    if (!isFn(config.lazyLoadedSection)) {
+      return ListActionBuilder.buildLoadAction(config.listSection);
+    }
     const lazyLoadedSection = config.lazyLoadedSection(state, action);
-
     return orNull<IEffectsAction>(
       !R.isNil(lazyLoadedSection) && !config.lazyLoadedResolver(state, action).list.touched,
       () => ListActionBuilder.buildLoadAction(lazyLoadedSection)
