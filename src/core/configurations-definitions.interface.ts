@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as CSS from 'csstype';
 
 import {
   AnyT,
@@ -514,6 +515,7 @@ export interface IBaseGridColumnConfiguration extends IComponentConfiguration,
                                                       IWidthWrapper,
                                                       IColSpanWrapper,
                                                       IIndexWrapper {
+  columnStyle?(props: IGridColumnProps): CSS.Properties<string | number>;
 }
 
 /* @stable - 04.04.2018 */
