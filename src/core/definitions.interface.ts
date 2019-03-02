@@ -195,13 +195,6 @@ export interface IActionIconsWrapper<TActionIcons> {
 }
 
 /**
- * @stable [11.08.2018]
- */
-export interface ILayoutWrapper<TLayout> {
-  layout?: TLayout;
-}
-
-/**
  * @stable [27.11.2018]
  */
 export interface IWithCredentialsWrapper {
@@ -229,10 +222,6 @@ export interface IHeadersWrapper<THeaders = IKeyValue> {
   headers?: THeaders;
 }
 
-/* @stable - 04.04.2018 */
-export interface IKeyValueHeadersWrapper extends IHeadersWrapper<IKeyValue> {
-}
-
 /**
  * @stable [02.02.2019]
  */
@@ -240,25 +229,17 @@ export interface IMethodWrapper {
   method?: string;
 }
 
-/**
- * @stable [21.05.2018]
- */
-export interface IAlignWrapper<TAlign = string> {
-  align?: TAlign;
-}
+export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
+export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
+export interface IColumnStylesWrapper<TColumnStyles> { columnStyles?: TColumnStyles; }
+export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
+export interface IUrlWrapper<TUrl = string> { url?: TUrl; }
 
 /**
  * @stable [10.09.2018]
  */
 export interface ITextAlignWrapper<TTextAlign = string> {
   textAlign?: TTextAlign;
-}
-
-/**
- * @stable [20.05.2018]
- */
-export interface IChannelWrapper<TChannel = string> {
-  channel?: TChannel;
 }
 
 /**
@@ -322,13 +303,6 @@ export interface IHomeWrapper<THome> {
 /* @stable - 14.04.2018 */
 export interface IRestoreAuthWrapper<TRestoreAuth> {
   restoreAuth?: TRestoreAuth;
-}
-
-/**
- * @stable [03.05.2018]
- */
-export interface IUrlWrapper<TUrl = string> {
-  url?: TUrl;
 }
 
 /**
@@ -1473,12 +1447,7 @@ export interface IEmptyDataMessageWrapper<TEmptyDataMessage = string> {
   emptyDataMessage?: TEmptyDataMessage;
 }
 
-/**
- * @stable [21.12.2018]
- */
-export interface ITplWrapper<TTpl> {
-  tpl?: TTpl;
-}
+export interface ITplWrapper<TTpl> { tpl?: TTpl; }
 
 /**
  * @stable [07.06.2018]

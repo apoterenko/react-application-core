@@ -54,6 +54,7 @@ import {
   ICssStyleWrapper,
   IDeactivatedWrapper,
   IDefaultValue,
+  IColumnStylesWrapper,
   IDelayTimeoutWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
@@ -510,12 +511,13 @@ export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
 /**
  * @stable [10.09.2018]
  */
-export interface IBaseGridColumnConfiguration extends IComponentConfiguration,
-                                                      IAlignWrapper,
-                                                      IWidthWrapper,
-                                                      IColSpanWrapper,
-                                                      IIndexWrapper {
-  columnStyle?(props: IGridColumnProps): CSS.Properties<string | number>;
+export interface IBaseGridColumnConfiguration
+  extends IComponentConfiguration,
+    IAlignWrapper,
+    IWidthWrapper,
+    IColSpanWrapper,
+    IIndexWrapper,
+    IColumnStylesWrapper<((props: IGridColumnProps) => CSS.Properties<string | number>)> {
 }
 
 /* @stable - 04.04.2018 */

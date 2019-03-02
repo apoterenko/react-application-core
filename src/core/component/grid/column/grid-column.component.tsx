@@ -30,7 +30,7 @@ export class GridColumn extends BaseGridColumn<IGridColumnProps> {
         <td
           style={{
             ...this.getStyle({width: props.columnWidth}),
-            ...calc(props.columnStyle, props),
+            ...calc(props.columnStyles, props),
           }}
           colSpan={nvl(props.columnColSpan, props.colSpan)}
           className={this.getClassName(calc(props.columnClassName, props))}
