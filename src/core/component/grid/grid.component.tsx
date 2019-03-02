@@ -52,30 +52,28 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const dataSource = this.dataSource;
 
     const gridEl = (
-      <FlexLayout row={true}
-                  className='rac-grid-wrapper'>
-        <table cellPadding={0}
-               cellSpacing={0}
-               className={toClassName(
-                 'rac-grid',
-                 'rac-flex',
-                 'rac-flex-column',
-                 props.tightGrid && 'rac-tight-grid',
-                 props.className
-               )}>
+      <FlexLayout className='rac-grid-wrapper'>
+        <table
+          cellPadding={0}
+          cellSpacing={0}
+          className={toClassName(
+            'rac-grid',
+            props.tightGrid && 'rac-tight-grid',
+            props.className
+          )}
+        >
           <thead className={toClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
             {this.headerElement}
             {this.filterElement}
           </thead>
-          <tbody ref='container'
-                 className='rac-grid-body'>
+          <tbody
+            ref='container'
+            className='rac-grid-body'>
             {this.totalRowElement}
             {
-              orDefault<JSX.Element[], JSX.Element[]>(
-                isDef(props.groupBy),
-                () => this.getGroupedRows(dataSource),
-                () => dataSource.map((entity, index) => this.getRow(entity, index))
-              )
+              isDef(props.groupBy)
+                ? this.getGroupedRows(dataSource)
+                : dataSource.map((entity, index) => this.getRow(entity, index))
             }
           </tbody>
         </table>

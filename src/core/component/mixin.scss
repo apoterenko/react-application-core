@@ -108,6 +108,7 @@
  * @stable [08.12.2018]
  */
 @mixin _rac-styles-properties($rac-styles-word-break: unset,
+                              $rac-styles-flex-direction: unset,
                               $rac-styles-background-color: unset,
                               $rac-styles-transform: unset,
                               $rac-styles-opacity: unset,
@@ -172,6 +173,9 @@
   @if $rac-styles-background-color != unset {
     background-color: $rac-styles-background-color;
   }
+  @if $rac-styles-flex-direction != unset {
+    @include flex-direction($rac-styles-flex-direction);
+  }
   @if $rac-styles-z-index != unset {
     z-index: $rac-styles-z-index;
   }
@@ -224,7 +228,11 @@
     opacity: $rac-styles-opacity;
   }
   @if $rac-styles-display != unset {
-    display: $rac-styles-display;
+    @if $rac-styles-display == flex {
+      @include flexbox;
+    } @else {
+      display: $rac-styles-display;
+    }
   }
   @if $rac-styles-line-height != unset {
     line-height: $rac-styles-line-height;
@@ -362,6 +370,7 @@
  * @stable [08.12.2018]
  */
 @mixin rac-styles($rac-styles-custom: unset,
+                  $rac-styles-flex-direction: unset,
                   $rac-styles-background-color: unset,
                   $rac-styles-transform: unset,
                   $rac-styles-word-break: unset,
@@ -428,6 +437,7 @@
   @if $rac-styles-custom != unset {
     .#{$rac-styles-custom} {
       @include _rac-styles-properties(
+        $rac-styles-flex-direction: $rac-styles-flex-direction,
         $rac-styles-background-color: $rac-styles-background-color,
         $rac-styles-transform: $rac-styles-transform,
         $rac-styles-word-break: $rac-styles-word-break,
@@ -494,6 +504,7 @@
     }
   } @else {
     @include _rac-styles-properties(
+      $rac-styles-flex-direction: $rac-styles-flex-direction,
       $rac-styles-background-color: $rac-styles-background-color,
       $rac-styles-transform: $rac-styles-transform,
       $rac-styles-word-break: $rac-styles-word-break,
@@ -1690,6 +1701,7 @@
  */
 @mixin rac-grid-row(
   $rac-grid-row-custom: unset,
+  $rac-grid-row-display: unset,
   $rac-grid-row-cursor: unset,
   $rac-grid-row-padding: unset,
   $rac-grid-row-background: unset,
@@ -1699,6 +1711,7 @@
 ) {
   #{rac-build-cls(rac-grid-row, $rac-grid-row-custom)} {
     @include rac-styles(
+      $rac-styles-display: $rac-grid-row-display,
       $rac-styles-padding: $rac-grid-row-padding,
       $rac-styles-background: $rac-grid-row-background,
       $rac-styles-cursor: $rac-grid-row-cursor
@@ -1717,7 +1730,11 @@
  */
 @mixin rac-grid(
   $rac-grid-custom: unset,
+  $rac-grid-display: unset,
+  $rac-grid-flex-direction: unset,
   $rac-grid-color: unset,
+  $rac-grid-height: unset,
+  $rac-grid-width: unset,
   $rac-grid-margin: unset,
   $rac-grid-position: unset,
   $rac-grid-border-collapse: unset,
@@ -1801,6 +1818,7 @@
   $rac-grid-column-align-center-content: unset,
   $rac-grid-column-align-right-content: unset,
   $rac-grid-row-padding: unset,
+  $rac-grid-row-display: unset,
   $rac-grid-data-row-group-expanded-icon-color: unset,
   $rac-grid-data-row-selectable-cursor: unset,
   $rac-grid-data-row-odd-background: unset,
@@ -1812,6 +1830,10 @@
 
   #{rac-build-cls(rac-grid, $rac-grid-custom)} {
     @include rac-styles(
+      $rac-styles-display: $rac-grid-display,
+      $rac-styles-flex-direction: $rac-grid-flex-direction,
+      $rac-styles-height: $rac-grid-height,
+      $rac-styles-width: $rac-grid-width,
       $rac-styles-position: $rac-grid-position,
       $rac-styles-color: $rac-grid-color,
       $rac-styles-margin: $rac-grid-margin,
@@ -1831,6 +1853,7 @@
     }
 
     @include rac-grid-row(
+      $rac-grid-row-display: $rac-grid-row-display,
       $rac-grid-row-padding: $rac-grid-row-padding
     );
 

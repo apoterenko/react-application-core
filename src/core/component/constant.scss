@@ -216,6 +216,8 @@ $rac-navigation-list-item-icon-color: $color-5 !default;
 $rac-navigation-list-divider-display: block !default;
 
 /* @stable [22.06.2018] */
+$rac-grid-display: flex !default;
+$rac-grid-flex-direction: column !default;
 $rac-grid-color: $rac-default-text-color !default;
 $rac-grid-head-color: $rac-default-text-color !default;
 $rac-grid-head-border-radius: $rac-default-border-radius $rac-default-border-radius 0 0 !default;
@@ -252,6 +254,7 @@ $rac-grid-data-row-group-expanded-background: $color-4 !default;
 $rac-grid-data-row-group-expanded-icon-color: $rac-default-color-0-0 !default;
 $rac-grid-data-row-grouped-color: $rac-default-text-color !default;
 $rac-grid-data-row-hover-background: $rac-default-hover-background !default;
+$rac-grid-row-display: table !default;
 $rac-grid-row-padding: $rac-default-half-offset $rac-default-offset !default;
 $rac-grid-column-position: relative !default;
 $rac-grid-column-line-height: 16px !default;

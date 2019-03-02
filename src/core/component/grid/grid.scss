@@ -8,6 +8,8 @@
 
   @include rac-grid(                                                                          /* @stable [01.12.2018] */
     $rac-grid-color: $rac-grid-color,
+    $rac-grid-display: $rac-grid-display,
+    $rac-grid-flex-direction: $rac-grid-flex-direction,
     $rac-grid-position: relative,
     $rac-grid-border-collapse: collapse,
     $rac-grid-body-overflow: $rac-grid-body-overflow,
@@ -46,6 +48,7 @@
     $rac-grid-column-edited-content-after-font-size: $rac-grid-column-edited-content-after-font-size,
     $rac-grid-column-edited-content-after-content: $rac-grid-column-edited-content-after-content,
     $rac-grid-column-edited-content-after-color: $rac-grid-column-edited-content-after-color,
+    $rac-grid-row-display: $rac-grid-row-display,
     $rac-grid-row-padding: $rac-grid-row-padding,
     $rac-grid-data-row-group-expanded-icon-color: $rac-grid-data-row-group-expanded-icon-color,
     $rac-grid-data-row-selectable-cursor: pointer,
@@ -143,8 +146,7 @@
       }
     }
 
-    .rac-grid-row {
-      display: table;                                                        /* @stable [21.06.2018] */
+    .rac-grid-row {       /* @stable [21.06.2018] */
       table-layout: fixed;                                                   /* @stable [21.06.2018] */
       width: 100%;                                                           /* @stable [21.06.2018] */
       cursor: default;                                                       /* @stable [21.06.2018] */
