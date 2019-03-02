@@ -246,11 +246,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @param {IEntity} entity
    * @param {IGridColumnConfiguration} column
    * @param {number} columnNum
+   * @param {number} rowNum
    * @returns {React.ReactNode}
    */
   private getColumn(entity: IEntity,
                     column: IGridColumnConfiguration,
-                    columnNum: number): React.ReactNode {
+                    columnNum: number,
+                    rowNum: number): React.ReactNode {
     const name = this.toFieldName(entity, column, columnNum);
     if (column.useGrouping) {
       return (
@@ -266,7 +268,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       /**
        * Build using a text template
        */
-      return column.tpl(entity);
+      return column.tpl(entity, column, rowNum);
     } else if (column.renderer) {
       /**
        * Build using a renderer
@@ -328,11 +330,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   /**
    * @stable - 05.04.2018
    * @param {IEntity} entity
-   * @param {number} index
+   * @param {number} rowNum
    * @param {boolean} needToApplyOddClassName
    * @returns {JSX.Element}
    */
-  private getRow(entity: IEntity, index: number, needToApplyOddClassName = true): JSX.Element {
+  private getRow(entity: IEntity, rowNum: number, needToApplyOddClassName = true): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
     const changes = props.changes;
@@ -344,7 +346,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                className={
                  toClassName(
                    'rac-grid-data-row',
-                   orUndef<string>(props.applyOdd !== false && needToApplyOddClassName && isOddNumber(index), 'rac-grid-data-row-odd'),
+                   orUndef<string>(props.applyOdd !== false && needToApplyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
                    orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
                    orUndef<string>(this.isRowSelectable, 'rac-grid-data-row-selectable')
                  )
@@ -360,7 +362,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                         )}
                         entity={entity}
                         {...column}>
-              {this.getColumn(entity, column, columnNum)}
+              {this.getColumn(entity, column, columnNum, rowNum)}
             </GridColumn>
           ))
         }

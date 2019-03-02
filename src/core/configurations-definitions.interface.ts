@@ -203,6 +203,7 @@ import {
   IValueWrapper,
   IWarningWrapper,
   IWidthWrapper,
+  ITplWrapper,
   StringNumberT,
 } from './definitions.interface';
 import {
@@ -527,7 +528,7 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   IReactOnClickWrapper<ISortDirectionEntity>,
                                                   IUseGroupingWrapper,
                                                   IUseSortingWrapper,
-                                                  ITplFnWrapper,
+                                                  ITplWrapper<((entity: IEntity, column?: IGridColumnProps, rowNum?: number) => StringNumberT)>,
                                                   INameWrapper,
                                                   IRenderedWrapper,
                                                   IRendererWrapper<IEntity, IGridColumnConfiguration>,

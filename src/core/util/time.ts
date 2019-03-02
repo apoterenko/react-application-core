@@ -1,4 +1,16 @@
 /**
+ * @stable [02.03.2019]
+ * @param {number} hour
+ * @param {string} pm
+ * @param {string} am
+ * @returns {string}
+ */
+export const asUSATime = (hour: number,
+                          pm = ' PM',
+                          am = ' AM'): string =>
+  hour > 12 ? `${hour - 12}${pm}` : (hour === 12 ? `12${pm}` : `${hour}${am}`);
+
+/**
  * @stable [19.08.2018]
  * @param {string} time
  * @returns {string}

@@ -31,6 +31,7 @@ export class BaseGridColumn<TProps extends IBaseGridColumnProps>
     const props = this.props;
     return toClassName(
       'rac-grid-column',
+      `rac-grid-column-${props.index}`,
       !R.isNil(props.index) && props.index % 2 === 0 ? 'rac-grid-column-odd' : '',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
