@@ -769,45 +769,17 @@ export interface IFilterRoutePathWrapper {
   filterRoutePath?: string;
 }
 
-/**
- * @stable [22.08.2018]
- */
-export interface IListSectionWrapper<TListSection = string> {
-  listSection?: TListSection;
-}
-
-/**
- * @stable [11.06.2018]
- */
-export interface IFormSectionWrapper<TFormSection = string> {
-  formSection?: TFormSection;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface IFilterSectionWrapper {
-  filterSection?: string;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IRawDataWrapper<TRawData = IEntity> {
-  rawData?: TRawData;
-}
+export interface IFilterSectionWrapper { filterSection?: string; }
+export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFormSection; }
+export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
+export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 
 /* @stable - 24.04.2018 */
 export interface ISeparatorsWrapper<TSeparators> {
   separators?: TSeparators;
 }
 
-/**
- * @stable [18.06.2018]
- */
-export interface IRenderedWrapper {
-  rendered?: boolean;
-}
+export interface IRenderedWrapper { rendered?: boolean; }
 
 /**
  * @stable [23.09.2018]
