@@ -1726,6 +1726,20 @@
 }
 
 /**
+ * @stable [03.03.2019]
+ */
+@mixin rac-grid-wrapper(
+  $rac-grid-wrapper-custom: unset,
+  $rac-grid-wrapper-margin: unset
+) {
+  #{rac-build-cls(rac-grid-wrapper, $rac-grid-wrapper-custom)} {
+    @include rac-styles(
+      $rac-styles-margin: $rac-grid-wrapper-margin
+    )
+  }
+}
+
+/**
  * @stable [02.03.2019]
  */
 @mixin rac-grid(

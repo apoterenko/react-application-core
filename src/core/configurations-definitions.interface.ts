@@ -207,6 +207,7 @@ import {
   IWidthWrapper,
   ITplWrapper,
   StringNumberT,
+  IWrapperClassNameWrapper,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -553,6 +554,7 @@ export interface IGridFilterConfiguration<TEntity extends IEntity = IEntity> ext
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IWebComponentConfiguration,
+                                            IWrapperClassNameWrapper,
                                             IOnChangeGroupingWrapper<IFieldChangeEntity>,
                                             IOnChangeSortingWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper,

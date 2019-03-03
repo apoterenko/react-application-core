@@ -1618,12 +1618,8 @@ export interface IClearActionWrapper {
   clearActionRendered?: boolean;
 }
 
-/**
- * @stable [15.05.2018]
- */
-export interface IClassNameWrapper<TClassName = string> {
-  className?: TClassName;
-}
+export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
+export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
 
 /**
  * @stable [10.09.2018]
