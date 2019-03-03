@@ -3,7 +3,6 @@
 @import './time-grid';
 @import './column/grid-column';
 
-// Grid [FRAMEWORK-][RAC+]
 .rac {
 
   @include rac-grid(                                                                          /* @stable [01.12.2018] */

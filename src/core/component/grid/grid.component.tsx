@@ -56,19 +56,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         <table
           cellPadding={0}
           cellSpacing={0}
-          className={toClassName(
-            'rac-grid',
-            props.tightGrid && 'rac-tight-grid',
-            props.className
-          )}
-        >
+          className={toClassName('rac-grid', props.tightGrid && 'rac-tight-grid', props.className)}>
           <thead className={toClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
             {this.headerElement}
             {this.filterElement}
           </thead>
-          <tbody
-            ref='container'
-            className='rac-grid-body'>
+          <tbody className='rac-grid-body'>
             {this.totalRowElement}
             {
               isDef(props.groupBy)
