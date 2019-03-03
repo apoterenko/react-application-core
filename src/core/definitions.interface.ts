@@ -489,7 +489,7 @@ export interface INeedToOpenMenuWrapper {
 }
 
 export interface ICroppedCanvasOptionsWrapper<TCroppedCanvasOptions> { croppedCanvasOptions?: TCroppedCanvasOptions; }
-export interface IDataWrapper<TData = IEntity[]> { data?: TData; }
+export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
 export interface IOptionsWrapper<TOptions> { options?: TOptions; }
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?: TOriginalData; }
@@ -2440,12 +2440,7 @@ export interface IPlaceholderFactoryWrapper<TPlaceholderFactory> {
   placeholderFactory?: TPlaceholderFactory;
 }
 
-/**
- * @stable [08.05.2018]
- */
-export interface IUseKeyboardWrapper {
-  useKeyboard?: boolean;
-}
+export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 
 /**
  * @stable [14.01.2019]
@@ -2454,12 +2449,7 @@ export interface IUseSyntheticCursorWrapper {
   useSyntheticCursor?: boolean;
 }
 
-/**
- * @stable [10.06.2018]
- */
-export interface IWidthWrapper<TWidth = number> {
-  width?: TWidth;
-}
+export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 
 /**
  * @stable [10.09.2018]
@@ -2475,10 +2465,7 @@ export interface IColumnWidthWrapper {
   columnWidth?: number;
 }
 
-/* @stable - 01.04.2018 */
-export interface IMergerWrapper<TMerger> {
-  merger?: TMerger;
-}
+export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 
 /**
  * @stable [02.02.2019]
@@ -2494,12 +2481,7 @@ export interface IActiveWrapper<TActive = boolean> {
   active?: TActive;
 }
 
-/**
- * @stable [15.05.2018]
- */
-export interface IOriginalValueWrapper<TOriginalValue = AnyT> {
-  originalValue?: TOriginalValue;
-}
+export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
 
 /**
  * @stable [16.11.2018]
