@@ -3,9 +3,12 @@ import { injectable } from 'inversify';
 
 import { getGoogleMapsScript } from '../../util';
 import { IGeoCoder } from './geocoder.interface';
+import { DI_TYPES, lazyInject } from '../../di';
+import { ISettings } from '../../settings';
 
 @injectable()
 export class GeoCoder implements IGeoCoder {
+  @lazyInject(DI_TYPES.Settings) private settings: ISettings;
   private geocoder: google.maps.Geocoder;
 
   /**
@@ -27,7 +30,7 @@ export class GeoCoder implements IGeoCoder {
    * @returns {Bluebird<void>}
    */
   private getScriptPromise(): Promise<void> {
-    return getGoogleMapsScript().then(() => this.initGoogleMapsObjects());
+    return getGoogleMapsScript(this.settings.googleMaps.libraries).then(() => this.initGoogleMapsObjects());
   }
 
   /**

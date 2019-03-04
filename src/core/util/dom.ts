@@ -1,4 +1,4 @@
-import * as Promise from 'bluebird';
+import * as BPromise from 'bluebird';
 import * as $ from 'jquery';
 import * as R from 'ramda';
 
@@ -13,7 +13,7 @@ import {
 } from '../definitions.interface';
 import { IXYEntity, IStickyElementPayloadEntity } from '../entities-definitions.interface';
 
-let googleMapsScriptTask: Promise<HTMLScriptElement>;
+let googleMapsScriptTask: BPromise<HTMLScriptElement>;
 
 /**
  * @stable [14.06.2018]
@@ -33,8 +33,8 @@ export const createElement = <TElement extends HTMLElement = HTMLElement>(tag = 
  * @param {Partial<HTMLScriptElement>} cfg
  * @returns {Bluebird<HTMLScriptElement>}
  */
-export const createScript = (cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement> =>
-  new Promise<HTMLScriptElement>((resolve) => {
+export const createScript = (cfg: Partial<HTMLScriptElement>): BPromise<HTMLScriptElement> =>
+  new BPromise<HTMLScriptElement>((resolve) => {
     const el = createElement<HTMLScriptElement>('script');
     el.type = 'text/javascript';
     el.onload = () => resolve(el);
@@ -42,14 +42,12 @@ export const createScript = (cfg: Partial<HTMLScriptElement>): Promise<HTMLScrip
   });
 
 /**
- * @stable [12.09.2018]
- * @param {{} | HTMLScriptElement} cfg
+ * @stable [04.03.2019]
  * @param {string} libraries
- * @returns {Bluebird<HTMLScriptElement>}
+ * @returns {BPromise<HTMLScriptElement>}
  */
-export const getGoogleMapsScript = (cfg?: {} | HTMLScriptElement, libraries = 'places') =>
+export const getGoogleMapsScript = (libraries: string): BPromise<HTMLScriptElement> =>
   googleMapsScriptTask = googleMapsScriptTask || createScript({
-    ...cfg,
     src: `https://maps.googleapis.com/maps/api/js?key=${ENV.googleMapsKey}&libraries=${libraries}`,
   });
 

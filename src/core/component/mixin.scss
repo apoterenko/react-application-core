@@ -953,21 +953,6 @@
 }
 
 /**
- * @stable [30.10.2018]
- */
-@mixin rac-google-maps($rac-google-maps-map-min-height: unset) {
-
-  .rac-google-maps {
-    .rac-google-maps-map {
-
-      @if $rac-google-maps-map-min-height != unset {
-        min-height: $rac-google-maps-map-min-height;
-      }
-    }
-  }
-}
-
-/**
  * @stable [14.01.2019]
  */
 @mixin rac-viewer($rac-viewer-custom: unset,
@@ -2388,4 +2373,25 @@
     $rac-styles-custom: rac-no-flex-shrink,
     $rac-styles-flex-shrink: 0
   );
+}
+
+/**
+ * @stable [04.03.2019]
+ */
+@mixin rac-google-maps(
+  $rac-google-maps-custom: unset,
+  $rac-google-maps-margin: unset,
+  $rac-google-maps-map-min-height: unset
+) {
+  #{rac-build-cls(rac-google-maps, $rac-google-maps-custom)} {
+    @include rac-styles(
+      $rac-styles-margin: $rac-google-maps-margin
+    );
+
+    .rac-google-maps-map {
+      @include rac-styles(
+        $rac-styles-min-height: $rac-google-maps-map-min-height
+      );
+    }
+  }
 }

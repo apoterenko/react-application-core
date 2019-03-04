@@ -1,3 +1,4 @@
+export * from './address-definition.interface';
 export * from './api-definition.interface';
 export * from './button-definition.interface';
 export * from './entity-definition.interface';

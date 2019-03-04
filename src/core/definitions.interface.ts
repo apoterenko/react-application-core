@@ -491,6 +491,7 @@ export interface INeedToOpenMenuWrapper {
 export interface ICroppedCanvasOptionsWrapper<TCroppedCanvasOptions> { croppedCanvasOptions?: TCroppedCanvasOptions; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
+export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions; }
 export interface IOptionsWrapper<TOptions> { options?: TOptions; }
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?: TOriginalData; }
 

@@ -119,7 +119,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
                     onInit={this.initGoogleMapsObjects}
                     onSelect={this.onMenuSelect}
                     onChangePlace={this.onMarkerChangePlace}
-                    options={[{
+                    menuOptions={[{
                       label: this.settings.messages.putMarkerHereMessage,
                       value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
                     }]}/>
@@ -228,7 +228,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
       case AddressMapMarkerActionEnum.PUT_MARKER_HERE:
         this.googleMaps.setMarkerState({
           marker: AddressField.ADDRESS_MARKER,
-          visibility: true,
+          visible: true,
           refreshMap: false,
           lat: this.lat,
           lng: this.lng,
@@ -347,7 +347,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     if (isMarkerVisible) {
       this.googleMaps.setMarkerState({
         marker: AddressField.ADDRESS_MARKER,
-        visibility: true,
+        visible: true,
         refreshMap: true,
         lat: props.lat,
         lng: props.lng,
@@ -356,7 +356,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     } else {
       this.googleMaps.setMarkerState({
         marker: AddressField.ADDRESS_MARKER,
-        visibility: false,
+        visible: false,
         refreshMap: true,
       });
     }

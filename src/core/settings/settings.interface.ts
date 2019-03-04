@@ -113,11 +113,12 @@ export interface IApplicationChannelSettings {
   eventToEmit?: string;
 }
 
-export interface IApplicationGoogleMapsSettings {
+export interface IGoogleMapsSettings {
   lat?: number;
   lng?: number;
   zoom?: number;
   prettyZoom?: number;
+  libraries?: string;
 }
 
 export interface IComponentsSettings {
@@ -144,7 +145,7 @@ export interface ISettings {
   messages?: IApplicationMessagesSettings;
   channel?: IApplicationChannelSettings;
   authorization?: IApplicationAuthorizationSettings;
-  googleMaps?: IApplicationGoogleMapsSettings;
+  googleMaps?: IGoogleMapsSettings;
   components?: IComponentsSettings;
 }
 
@@ -253,5 +254,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     lng: -118.2436,
     zoom: 13,
     prettyZoom: 17,
+    libraries: 'places,visualization',
   },
 };
