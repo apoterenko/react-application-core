@@ -1499,6 +1499,8 @@
   $rac-grid-column-content-button-color: unset,
   $rac-grid-column-content-button-hover-background: unset,
   $rac-grid-column-content-button-hover-color: unset,
+  $rac-grid-column-content-button-content-color: unset,
+  $rac-grid-column-content-button-content-font-size: unset,
   $rac-grid-column-content-after-position: unset,
   $rac-grid-column-content-after-height: unset,
   $rac-grid-column-content-after-right: unset,
@@ -1541,7 +1543,9 @@
       $rac-button-background: $rac-grid-column-content-button-background,
       $rac-button-color: $rac-grid-column-content-button-color,
       $rac-button-hover-background: $rac-grid-column-content-button-hover-background,
-      $rac-button-hover-color: $rac-grid-column-content-button-hover-color
+      $rac-button-hover-color: $rac-grid-column-content-button-hover-color,
+      $rac-button-content-color: $rac-grid-column-content-button-content-color,
+      $rac-button-content-font-size: $rac-grid-column-content-button-content-font-size
     );
 
     @include rac-field(
@@ -1604,8 +1608,11 @@
   $rac-grid-column-content-text-field-input-text-align: unset,
   $rac-grid-column-content-button-margin: unset,
   $rac-grid-column-content-button-height: unset,
+  $rac-grid-column-content-button-color: unset,
   $rac-grid-column-content-button-hover-background: unset,
   $rac-grid-column-content-button-hover-color: unset,
+  $rac-grid-column-content-button-content-color: unset,
+  $rac-grid-column-content-button-content-font-size: unset,
   $rac-grid-column-content-after-position: unset,
   $rac-grid-column-content-after-height: unset,
   $rac-grid-column-content-after-right: unset,
@@ -1651,8 +1658,11 @@
       $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
       $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin,
       $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
+      $rac-grid-column-content-button-color: $rac-grid-column-content-button-color,
       $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
       $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
+      $rac-grid-column-content-button-content-color: $rac-grid-column-content-button-content-color,
+      $rac-grid-column-content-button-content-font-size: $rac-grid-column-content-button-content-font-size,
       $rac-grid-column-content-after-position: $rac-grid-column-content-after-position,
       $rac-grid-column-content-after-height: $rac-grid-column-content-after-height,
       $rac-grid-column-content-after-right: $rac-grid-column-content-after-right,
@@ -1689,6 +1699,7 @@
   $rac-grid-row-display: unset,
   $rac-grid-row-cursor: unset,
   $rac-grid-row-padding: unset,
+  $rac-grid-row-height: unset,
   $rac-grid-row-background: unset,
   $rac-grid-row-column-content-button-background: unset,
   $rac-grid-row-column-content-button-color: unset,
@@ -1698,6 +1709,7 @@
     @include rac-styles(
       $rac-styles-display: $rac-grid-row-display,
       $rac-styles-padding: $rac-grid-row-padding,
+      $rac-styles-height: $rac-grid-row-height,
       $rac-styles-background: $rac-grid-row-background,
       $rac-styles-cursor: $rac-grid-row-cursor
     );
@@ -1806,8 +1818,11 @@
   $rac-grid-column-content-letter-spacing: unset,
   $rac-grid-column-content-font-size: unset,
   $rac-grid-column-content-button-height: unset,
+  $rac-grid-column-content-button-color: unset,
   $rac-grid-column-content-button-hover-color: unset,
   $rac-grid-column-content-button-hover-background: unset,
+  $rac-grid-column-content-button-content-color: unset,
+  $rac-grid-column-content-button-content-font-size: unset,
   $rac-grid-column-content-text-field-height: unset,
   $rac-grid-column-edited-content-after-position: unset,
   $rac-grid-column-edited-content-after-height: unset,
@@ -1819,6 +1834,7 @@
   $rac-grid-column-align-center-content: unset,
   $rac-grid-column-align-right-content: unset,
   $rac-grid-row-padding: unset,
+  $rac-grid-row-height: unset,
   $rac-grid-row-display: unset,
   $rac-grid-data-row-group-expanded-icon-color: unset,
   $rac-grid-data-row-selectable-cursor: unset,
@@ -1856,7 +1872,8 @@
 
     @include rac-grid-row(
       $rac-grid-row-display: $rac-grid-row-display,
-      $rac-grid-row-padding: $rac-grid-row-padding
+      $rac-grid-row-padding: $rac-grid-row-padding,
+      $rac-grid-row-height: $rac-grid-row-height
     );
 
     @include rac-grid-row(
@@ -1911,8 +1928,11 @@
       $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
       $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
       $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
+      $rac-grid-column-content-button-color: $rac-grid-column-content-button-color,
       $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
       $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
+      $rac-grid-column-content-button-content-color: $rac-grid-column-content-button-content-color,
+      $rac-grid-column-content-button-content-font-size: $rac-grid-column-content-button-content-font-size,
       $rac-grid-column-content-text-field-height: $rac-grid-column-content-text-field-height
     );
 
