@@ -12,6 +12,7 @@ export const DEFAULT_PAGE_SIZE = 50;
 export const DEFAULT_MAX_PAGE_SIZE = 100000;
 export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
+export const DEFAULT_MONTH_YEAR_FORMAT = 'MMMM YYYY';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
@@ -1635,11 +1636,15 @@ export interface IPlaceWrapper<TPlace = string> {
 export interface IPlaceEntityWrapper<TPlaceEntity> {
   placeEntity?: TPlaceEntity;
 }
-export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
-export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
+export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
+export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
+export interface IPointsWrapper<TPoints> { points?: TPoints; }
+export interface IRefreshMapWrapper { refreshMap?: boolean; }
 export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
+export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
+export interface IZoomWrapper { zoom?: number; }
 
 /**
  * @stable [01.08.2018]
@@ -2201,6 +2206,8 @@ export interface ICaretBlinkingFrequencyTimeoutWrapper {
 export interface ICaretVisibilityWrapper {
   caretVisibility?: boolean;
 }
+
+export interface IVisibleWrapper { visible?: boolean; }
 
 /**
  * @stable [04.09.2018]

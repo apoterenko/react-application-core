@@ -11,7 +11,6 @@ import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
 @injectable()
 export class DateConverter implements IDateConverter {
-
   private static MONTHS = moment.months();
   private static MONTHS_SHORT = moment.monthsShort();
   private static WEEKDAYS_SHORT = moment.weekdaysShort()
@@ -59,6 +58,25 @@ export class DateConverter implements IDateConverter {
    */
   public fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateTimeFormat, outputFormat);
+  }
+
+  /**
+   * @stable [04.03.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} outputFormat
+   * @returns {string}
+   */
+  public fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
+    return this.format(date, this.dateFormat, outputFormat);
+  }
+
+  /**
+   * @stable [04.03.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {number}
+   */
+  public fromDateToYear(date: DateTimeLikeTypeT = this.currentDate): number {
+    return this.toYear(date, this.dateFormat);
   }
 
   /**
@@ -635,5 +653,25 @@ export class DateConverter implements IDateConverter {
 
   private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
+  }
+
+  /**
+   * @stable [04.03.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @returns {number}
+   */
+  private toYear(date: DateTimeLikeTypeT, inputFormat: string): number {
+    return this.toMomentDate(date, inputFormat).toDate().getFullYear();
+  }
+
+  /**
+   * @stable [04.03.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @returns {number}
+   */
+  private toMonth(date: DateTimeLikeTypeT, inputFormat: string): number {
+    return this.toMomentDate(date, inputFormat).toDate().getMonth();
   }
 }

@@ -14,10 +14,12 @@ import {
   isFn,
   toClassName,
   isArrayNotEmpty,
+  nvl,
 } from '../../../util';
 import {
   IGoogleMapsMarkerConfigEntity,
   IGoogleMapsProps,
+  IGoogleMapsHeatMapLayerConfigEntity,
 } from './google-maps.interface';
 import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import {
@@ -181,18 +183,24 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
   /**
    * @stable [04.03.2019]
-   * @param {ILatLngEntity[]} points
+   * @param {IGoogleMapsHeatMapLayerConfigEntity} cfg
    */
-  public addHeatMapLayer(points: ILatLngEntity[]): void {
-    this.heatMapLayer = new google.maps.visualization.HeatmapLayer({
-      map: this.map,
-      data: points.map((point) => new google.maps.LatLng(point.lat, point.lng)),
-    });
+  public addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void {
+    const {points} = cfg;
+    const isArrayOfPointsNotEmpty = isArrayNotEmpty(points);
 
-    this.refreshMap(
-      isArrayNotEmpty(points) ? points[0] : this.mapsSettings,
-      this.mapsSettings.zoom
-    );
+    if (isArrayOfPointsNotEmpty) {
+      this.heatMapLayer = new google.maps.visualization.HeatmapLayer({
+        map: this.map,
+        data: points.map((point) => new google.maps.LatLng(point.lat, point.lng)),
+      });
+    }
+    if (cfg.refreshMap) {
+      this.refreshMap(
+        isArrayOfPointsNotEmpty ? points[0] : this.mapsSettings,
+        nvl(cfg.zoom, this.mapsSettings.zoom)
+      );
+    }
   }
 
   /**

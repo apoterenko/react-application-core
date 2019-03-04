@@ -16,6 +16,7 @@ export interface IDateConverter {
   compare(date1: Date, date2: Date): boolean;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
+  fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
   fromDateTimeToPstTime(date?: DateTimeLikeTypeT): string;
@@ -24,6 +25,7 @@ export interface IDateConverter {
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateTimeToDateTime(date: string, time: string): string;
   fromUiDateTimeToPstDate(date: string, time: string): string;
+  fromDateToYear(date?: DateTimeLikeTypeT): number;
   splitToDateTimeFields<TEntity>(entity: TEntity,
                                  dateFieldName: string,
                                  timeFieldName: string,

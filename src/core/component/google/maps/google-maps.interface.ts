@@ -1,15 +1,18 @@
 import { IComponentProps } from '../../../props-definitions.interface';
 import {
-  IOnInitWrapper,
-  IOptionsWrapper,
-  IOnSelectWrapper,
   IItemWrapper,
-  ILatWrapper,
-  ILngWrapper,
-  IOnChangePlaceWrapper,
-  INameWrapper,
+  IMarkerWrapper,
   IMenuOptionsWrapper,
+  INameWrapper,
+  IOnChangePlaceWrapper,
   IOnClickWrapper,
+  IOnInitWrapper,
+  IOnSelectWrapper,
+  IOptionsWrapper,
+  IPointsWrapper,
+  IRefreshMapWrapper,
+  IVisibleWrapper,
+  IZoomWrapper,
 } from '../../../definitions.interface';
 import {
   IMenuItemEntity,
@@ -69,12 +72,20 @@ export interface IGoogleMapsClickPayloadEntity {
  * @stable [23.02.2019]
  */
 export interface IGoogleMapsMarkerConfigEntity
-  extends ILatWrapper,
-    ILngWrapper {
-  refreshMap?: boolean;
-  visible?: boolean;
-  marker?: string | google.maps.Marker;
-  zoom?: number;
+  extends ILatLngEntity,
+    IRefreshMapWrapper,
+    IVisibleWrapper,
+    IZoomWrapper,
+    IMarkerWrapper<string | google.maps.Marker> {
+}
+
+/**
+ * @stable [05.03.2019]
+ */
+export interface IGoogleMapsHeatMapLayerConfigEntity
+  extends IPointsWrapper<ILatLngEntity[]>,
+    IRefreshMapWrapper,
+    IZoomWrapper {
 }
 
 /**
@@ -83,5 +94,5 @@ export interface IGoogleMapsMarkerConfigEntity
 export interface IGoogleMaps extends IComponent {
   addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker;
   setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void;
-  addHeatMapLayer(points: ILatLngEntity[]): void;
+  addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
 }
