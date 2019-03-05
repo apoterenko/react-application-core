@@ -52,7 +52,9 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const dataSource = this.dataSource;
 
     const gridEl = (
-      <FlexLayout className={toClassName('rac-grid-wrapper', props.wrapperClassName)}>
+      <FlexLayout
+        row={true}
+        className={toClassName('rac-grid-wrapper', props.wrapperClassName)}>
         <table
           cellPadding={0}
           cellSpacing={0}
