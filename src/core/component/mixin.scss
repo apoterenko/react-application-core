@@ -2136,8 +2136,7 @@
   $rac-chart-canvas-wrapper-width: unset,
   $rac-chart-canvas-wrapper-height: unset,
   $rac-chart-canvas-wrapper-margin: unset,
-  $rac-chart-canvas-wrapper-padding: unset,
-  $rac-chart-canvas-wrapper-flex-width: unset
+  $rac-chart-canvas-wrapper-padding: unset
 ) {
   #{rac-build-cls(rac-chart, $rac-chart-custom)} {
     @include rac-styles(
@@ -2154,12 +2153,6 @@
       $rac-styles-margin: $rac-chart-canvas-wrapper-margin,
       $rac-styles-padding: $rac-chart-canvas-wrapper-padding
     );
-
-    .rac-chart-canvas-wrapper {
-      @if $rac-chart-canvas-wrapper-flex-width != unset {
-        @include rac-flex-width($rac-chart-canvas-wrapper-flex-width);
-      }
-    }
   }
 }
 

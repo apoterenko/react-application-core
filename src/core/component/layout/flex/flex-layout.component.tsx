@@ -28,6 +28,7 @@ export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
                             props.justifyContentCenter && 'rac-flex-justify-content-center',
                             props.justifyContentEnd && 'rac-flex-justify-content-end',
                             props.justifyContentSpaceBetween && 'rac-flex-justify-content-space-between',
+                            props.justifyContentSpaceEvenly && 'rac-flex-justify-content-space-evenly',
                             props.wrap && 'rac-flex-wrap',
                             props.noShrink && 'rac-no-flex-shrink'
                         )}
