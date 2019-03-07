@@ -10,6 +10,7 @@ import {
   defValuesFilter,
   isFn,
   generateArray,
+  toType,
 } from '../../../util';
 import {
   MultiFieldEntityT,
@@ -496,4 +497,36 @@ export const toMultiFieldChangesEntityOnDelete = (item: IMultiItemEntity,
     // We just now have removed deleted item from addValue array
   }
   return {addArray, removeArray, editArray};
+};
+
+/**
+ * @stable [07.03.2019]
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} multiEntity
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} updatedSource
+ * @param {(entity: TEntity) => boolean} addFilter
+ * @param {(entity: TEntity) => boolean} editFilter
+ * @param {(entity: TEntity) => boolean} removeFilter
+ * @returns {IMultiEntity}
+ */
+export const toFilteredMultiEntity = <TEntity extends IEntity>(multiEntity: MultiFieldEntityT<TEntity>,
+                                                               updatedSource: MultiFieldEntityT<TEntity>,
+                                                               addFilter?: (entity: TEntity) => boolean,
+                                                               editFilter?: (entity: TEntity) => boolean,
+                                                               removeFilter?: (entity: TEntity) => boolean): IMultiEntity => {
+  if (R.isNil(multiEntity) || isNotMultiEntity(multiEntity)) {
+    return UNDEF;
+  }
+  const multiEntity0 = multiEntity as IMultiEntity;
+  const add = isFn(addFilter) ? multiEntity0.add.filter(addFilter) : multiEntity0.add;
+  const edit = isFn(editFilter) ? multiEntity0.edit.filter(editFilter) : multiEntity0.edit;
+  const remove = isFn(removeFilter) ? multiEntity0.remove.filter(removeFilter) : multiEntity0.remove;
+  if (add.length === 0 && edit.length === 0 && remove.length === 0) {
+    return UNDEF;
+  }
+  return toType<IMultiEntity>({
+    add,
+    edit,
+    remove,
+    source: updatedSource as TEntity[],
+  });
 };
