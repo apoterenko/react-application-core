@@ -10,12 +10,6 @@
       color: $rac-chips-filter-chip-color;                              /* @stable [26.08.2018] */
       border: $rac-chips-filter-chip-border;                            /* @stable [26.08.2018] */
       text-transform: $rac-chips-filter-chip-text-transform;            /* @stable [26.08.2018] */
-
-      .rac-action-icon {
-        &.rac-icon {
-          color: $rac-chips-filter-chip-icon-color;                     /* @stable [26.08.2018] */
-        }
-      }
     }
   }
 }

@@ -67,14 +67,6 @@
   .rac-grid-column-sorter-icon { // TODO use rac-icon
     background: rgba(255, 255, 255, .5);
     border-radius: 8px;
-
-    &.rac-action-icon {
-      color: white;
-      svg {
-        max-width: 8px;
-        max-height: 8px;
-      }
-    }
   }
 
   .rac-grid {
@@ -116,12 +108,6 @@
 
                   &::placeholder {
                     color: $rac-grid-head-color;                             /* @stable [09.10.2018] */
-                  }
-                }
-
-                .rac-icon {
-                  &.rac-action-icon {
-                    color: $rac-grid-head-color;                             /* @stable [06.10.2018] */
                   }
                 }
               }

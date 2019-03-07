@@ -21,25 +21,4 @@
       max-height: unset;                                      /* @stable [30.06.2018] */
     }
   }
-
-  .rac-viewer {
-
-    .rac-preview-action-icon {
-      &.rac-action-icon {
-        visibility: hidden;                                   /* @stable [11.10.2018] */
-        color: $rac-preview-action-color;                     /* @stable [30.06.2018] */
-        width: $rac-preview-action-width;                     /* @stable [30.06.2018] */
-        height: $rac-preview-action-height;                   /* @stable [30.06.2018] */
-
-      }
-    }
-
-    &:hover {
-      .rac-preview-action-icon {
-        &.rac-action-icon {
-          visibility: visible;                                /* @stable [11.10.2018] */
-        }
-      }
-    }
-  }
 }

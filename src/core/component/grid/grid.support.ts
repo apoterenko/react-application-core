@@ -17,13 +17,14 @@ import {
   IGridColumnConfiguration,
   IGridFilterConfiguration,
 } from '../../configurations-definitions.interface';
-import { UNI_CODES, IEntity } from '../../definitions.interface';
+import { UNI_CODES, IEntity, EntityIdT } from '../../definitions.interface';
 import {
   IGridState,
   ITimeGridBuilderConfigEntity,
 } from './grid.interface';
 import { SortDirectionEnum } from '../../entities-definitions.interface';
 import { IGridProps } from '../../props-definitions.interface';
+import { MultiFieldEntityT, toActualMultiItemEntities } from '../field';
 
 const MINUTES_PER_HOUR = 60;
 const HOURS_PER_DAY = 24;
@@ -191,3 +192,14 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
   }
   return source;
 };
+
+/**
+ * @stable [07.03.2019]
+ * @param {MultiFieldEntityT} entity
+ * @param {(item) => EntityIdT} groupValueAccessor
+ * @returns {Record<EntityIdT, boolean>}
+ */
+export const toExpandedGridGroups =
+  <TEntity extends IEntity>(entity: MultiFieldEntityT,
+                            groupValueAccessor: (item: TEntity) => EntityIdT): Record<EntityIdT, boolean> =>
+    R.mergeAll((toActualMultiItemEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
