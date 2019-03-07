@@ -543,14 +543,20 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     if (R.isEmpty(dataSource)) {
       return [];
     }
+    const groupedDataSorter = this.props.groupedDataSorter;
+    const dataSource0 = isFn(groupedDataSorter)
+      ? R.sort(
+        (entity1, entity2) =>
+          groupedDataSorter(this.extractGroupedValue(entity1), this.extractGroupedValue(entity2), entity1, entity2),
+        dataSource
+      ) : dataSource;
 
-    const groupBy = this.props.groupBy;
     const currentGroupedEntities = [];
     let rows = [];
     let currentGroupColumnValue;
 
-    dataSource.forEach((entity) => {
-      const groupColumnValue = Reflect.get(entity, groupBy.columnName);
+    dataSource0.forEach((entity) => {
+      const groupColumnValue = this.extractGroupedValue(entity);
       if (!R.equals(currentGroupColumnValue, groupColumnValue)
             && !R.isNil(currentGroupColumnValue)) {
         rows = this.buildRowsGroup(rows, currentGroupColumnValue, currentGroupedEntities);
@@ -692,5 +698,15 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       !R.isNil(props.expandedGroups) && Reflect.get(props.expandedGroups, groupedRowValue),
       false
     );
+  }
+
+  /**
+   * @stable [07.03.2019]
+   * @param {IEntity} entity
+   * @returns {AnyT}
+   */
+  private extractGroupedValue(entity: IEntity): AnyT {
+    const groupBy = this.props.groupBy;
+    return Reflect.get(entity, groupBy.columnName);
   }
 }
