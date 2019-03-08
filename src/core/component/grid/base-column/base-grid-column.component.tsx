@@ -1,9 +1,8 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { IBaseGridColumnProps } from './base-grid-column.interface';
-import { toClassName, defValuesFilter, nvl } from '../../../util';
+import { toClassName, defValuesFilter, nvl, ifNotNilThanValue, isOddNumber } from '../../../util';
 import { IStyleEntity } from '../../../entities-definitions.interface';
 
 export class BaseGridColumn<TProps extends IBaseGridColumnProps>
@@ -31,8 +30,8 @@ export class BaseGridColumn<TProps extends IBaseGridColumnProps>
     const props = this.props;
     return toClassName(
       'rac-grid-column',
-      `rac-grid-column-${props.index}`,
-      !R.isNil(props.index) && props.index % 2 === 0 ? 'rac-grid-column-odd' : '',
+      ifNotNilThanValue(props.index, () => `rac-grid-column-${props.index}`),
+      isOddNumber(props.index) ? 'rac-grid-column-odd' : '',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
       ...classNames

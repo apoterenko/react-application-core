@@ -16,6 +16,7 @@ import {
   coalesce,
   isOddNumber,
   ifNotNilThanValue,
+  ifNotFalseThanValue,
 } from '../../util';
 import { Checkbox } from '../field';
 import { GridHeaderColumn } from './header';
@@ -64,12 +65,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
             {this.filterElement}
           </thead>
           <tbody className='rac-grid-body'>
-            {this.totalRowElement}
+            {ifNotFalseThanValue(props.topTotal, () => this.totalRowElement)}
             {
               isDef(props.groupBy)
                 ? this.getGroupedRows(dataSource)
                 : dataSource.map((entity, index) => this.getRow(entity, index))
             }
+            {orNull(props.topTotal === false, () => this.totalRowElement)}
           </tbody>
         </table>
         {this.addActionElement}
@@ -658,12 +660,14 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return ifNotNilThanValue(
       totalEntity,
       () => (
-        <GridRow key={this.toTotalRowKey()}
-                 className={'rac-grid-data-row rac-grid-data-row-total'}>
+        <GridRow
+          key={this.toTotalRowKey()}
+          className='rac-grid-data-row rac-grid-data-row-total'>
           {
             columns.map((column, columnNum) => (
-              <GridColumn key={this.toTotalColumnKey(columnNum)}
-                          {...column}>
+              <GridColumn
+                key={this.toTotalColumnKey(columnNum)}
+                {...column}>
                 {totalEntity[column.name]}
               </GridColumn>
             ))

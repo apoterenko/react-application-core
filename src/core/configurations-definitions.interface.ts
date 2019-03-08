@@ -565,6 +565,7 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             ITightGridWrapper,
                                             IStickyHeadWrapper,
                                             ITotalEntityWrapper<IEntity> {
+  topTotal?: boolean;
   groupedDataSorter?: (groupedValue1, groupedValue2, entity1: IEntity, entity2: IEntity) => number;
 }
 
