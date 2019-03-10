@@ -744,13 +744,6 @@ export interface IQueryWrapper<TQuery = string> {
 }
 
 /**
- * @stable [06.07.2018]
- */
-export interface IActivateQueryFilterWrapper {
-  activateQueryFilter?: boolean;
-}
-
-/**
  * @stable [03.07.2018]
  */
 export interface IColumnNameWrapper {
@@ -762,13 +755,6 @@ export interface IColumnNameWrapper {
  */
 export interface IListRoutePathWrapper {
   listRoutePath?: string;
-}
-
-/**
- * @stable [09.06.2018]
- */
-export interface IFilterRoutePathWrapper {
-  filterRoutePath?: string;
 }
 
 export interface IFilterSectionWrapper { filterSection?: string; }

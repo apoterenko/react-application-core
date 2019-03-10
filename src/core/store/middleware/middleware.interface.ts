@@ -1,26 +1,24 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  IResolverWrapper,
-  IListSectionWrapper,
-  IFilterSectionWrapper,
-  IListRoutePathWrapper,
-  IFormSectionWrapper,
+  ICanComeBackWrapper,
+  ICanReturnWrapper,
+  ICanUpdateWrapper,
   IEffectsActionWrapper,
+  IEntity,
+  IEntityWrapper,
+  IFilterSectionWrapper,
+  IFormSectionWrapper,
+  ILazyLoadedResolverWrapper,
+  ILazyLoadedSectionWrapper,
+  IListRoutePathWrapper,
+  IListSectionWrapper,
   IPathWrapper,
-  IFilterRoutePathWrapper,
+  IRelatedEntityWrapper,
+  IResolverWrapper,
+  ISaveMessageWrapper,
   IStateWrapper,
   IUseLazyLoadingWrapper,
-  ICanComeBackWrapper,
-  IEntity,
-  IActivateQueryFilterWrapper,
-  ICanUpdateWrapper,
-  ISaveMessageWrapper,
-  IRelatedEntityWrapper,
-  ILazyLoadedSectionWrapper,
-  ILazyLoadedResolverWrapper,
-  ICanReturnWrapper,
-  IEntityWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
@@ -64,14 +62,6 @@ export interface IFormFilterSubmitMiddlewareConfig extends IListSectionWrapper,
 export interface IFormFilterMiddlewareConfig extends IFormFilterSubmitMiddlewareConfig,
                                                      IFormFilterClearMiddlewareConfig,
                                                      IFormFilterResetMiddlewareConfig {
-}
-
-/**
- * @stable [09.06.2018]
- */
-export interface IListEmptyMessageActionFormFilterMiddlewareConfig extends IFilterRoutePathWrapper,
-                                                                           IListSectionWrapper,
-                                                                           IActivateQueryFilterWrapper {
 }
 
 /**
@@ -144,4 +134,13 @@ export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
 export interface IRefreshedListOnValidFormMiddlewareConfig
   extends IListSectionWrapper,
     IEffectsActionWrapper {
+}
+
+/**
+ * @stable [11.03.2019]
+ */
+export interface IFilterFormDialogAcceptMiddlewareConfig
+  extends IListSectionWrapper,
+    IFormSectionWrapper,
+    IFilterSectionWrapper {
 }
