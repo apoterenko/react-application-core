@@ -60,11 +60,16 @@ export interface IApplicationNumberSettings {
   uiPattern?: string;
 }
 
-export interface IApplicationMessagesSettings {
+/**
+ * @stable [10.03.2019]
+ */
+export interface IMessagesSettings {
   acceptMessage?: string;
   accessDeniedMessage?: string;
   addressSelectionMessage?: string;
+  applyMessage?: string;
   appNotReadyMessage?: string;
+  clearAllMessage?: string;
   closeMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
@@ -81,6 +86,7 @@ export interface IApplicationMessagesSettings {
   exportActionTitleMessage?: string;
   fileLoadErrorMessage?: string;
   filterPlaceholderMessage?: string;
+  filtersMessage?: string;
   followingErrorHasOccurredMessage?: string;
   invalidAddressMessage?: string;
   logoutNotificationMessage?: string;
@@ -142,7 +148,7 @@ export interface ISettings {
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
   number?: IApplicationNumberSettings;
-  messages?: IApplicationMessagesSettings;
+  messages?: IMessagesSettings;
   channel?: IApplicationChannelSettings;
   authorization?: IApplicationAuthorizationSettings;
   googleMaps?: IGoogleMapsSettings;
@@ -175,7 +181,9 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
     addressSelectionMessage: 'Address selection',
+    applyMessage: 'Apply',
     appNotReadyMessage: 'The application is initialized...',
+    clearAllMessage: 'Clear all',
     closeMessage: 'Close',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
@@ -192,6 +200,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     exportActionTitleMessage: 'Export',
     fileLoadErrorMessage: 'Can\'t load the file.',
     filterPlaceholderMessage: 'Filter',
+    filtersMessage: 'Filters',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     invalidAddressMessage: 'Invalid address',
     logoutNotificationMessage: 'You were logged out.',

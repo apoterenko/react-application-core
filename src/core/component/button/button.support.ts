@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { orDefault } from '../../util';
-import { IApplicationMessagesSettings } from '../../settings';
+import { IMessagesSettings } from '../../settings';
 import { IReactButtonProps, IGenericButtonEntity } from '../../definition';
 
 /**
@@ -14,11 +14,11 @@ export const isButtonDisabled = (entity: IReactButtonProps) => entity.disabled |
 /**
  * @stable - 19.04.2018
  * @param {UniversalButtonEntityT} entity
- * @param {IApplicationMessagesSettings} messages
+ * @param {IMessagesSettings} messages
  * @returns {string}
  */
 export const getButtonText = (entity: IReactButtonProps,
-                              messages: IApplicationMessagesSettings): string => (
+                              messages: IMessagesSettings): string => (
   entity.progress
     ? (entity.progressMessage || messages.waitingMessage)
     : orDefault<string, string>(

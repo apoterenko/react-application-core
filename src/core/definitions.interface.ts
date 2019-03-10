@@ -1154,17 +1154,12 @@ export interface IRobotModeWrapper {
 
 export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
+export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {}
 
 /**
  * @stable [17.05.2018]
  */
 export interface IRemovedEntityWrapper<TEntity extends IEntity = IEntity> extends IRemovedWrapper<TEntity> {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {
 }
 
 export interface IFieldsWrapper<TFields> { fields?: TFields; }
@@ -2029,12 +2024,7 @@ export interface IModalWrapper<TModal> {
   modal?: TModal;
 }
 
-/**
- * @stable [13.10.2018]
- */
-export interface IContentWrapper<TContent = JSX.Element> {
-  content?: TContent;
-}
+export interface IContentWrapper<TContent = JSX.Element> { content?: TContent; }
 
 /* @stable [27.04.2018] */
 export interface IDrawerContentWrapper<TDrawerContent = JSX.Element> {
@@ -2223,12 +2213,8 @@ export interface IFormatWrapper<TFormat = string> {
   format?: TFormat;
 }
 
-/**
- * @stable [29.05.2018]
- */
-export interface IFormWrapper<TForm> {
-  form?: TForm;
-}
+export interface IFormWrapper<TForm> { form?: TForm; }
+export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 
 /**
  * @stable [29.05.2018]

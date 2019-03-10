@@ -171,14 +171,6 @@ html, body {
     margin: 0;                        /* @stable [06.06.2018] */
   }
 
-  .rac-status {
-
-    &.rac-icon {
-      height: $rac-status-size;                              /* @stable [11.10.2018] */
-      width: $rac-status-size;                               /* @stable [11.10.2018] */
-    }
-  }
-
   .rac-global-error-message {
     font-size: $rac-global-error-message-font-size;          /* @stable [08.08.2018] */
     background: $rac-global-error-message-background;        /* @stable [08.08.2018] */
