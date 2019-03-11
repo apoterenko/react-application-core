@@ -60,13 +60,11 @@
         height: $rac-default-layout-main-body-wrapper-height;                                       /* @stable [22.10.2018] */
 
         .rac-main-body-content {
-          min-width: $rac-default-layout-main-body-content-min-width;                               /* @stable [12.10.2018] */
           padding: $rac-default-layout-main-body-content-padding;                                   /* @stable [12.10.2018] */
         }
 
         .rac-main-body {
           height: $rac-default-layout-main-body-height;                                             /* @stable [22.10.2018] */
-          min-width: $rac-default-layout-main-body-min-width;                                       /* @stable [12.10.2018] */
           padding: $rac-default-layout-main-body-padding;                                           /* @stable [12.10.2018] */
 
           .rac-tab-panel-wrapper,
