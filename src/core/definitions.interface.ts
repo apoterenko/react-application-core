@@ -137,6 +137,8 @@ export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
+export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
+export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 
 /**
  * @stable [30.08.2018]
@@ -797,12 +799,7 @@ export interface ICloseDisabledWrapper {
   closeDisabled?: boolean;
 }
 
-/**
- * @stable [18.05.2018]
- */
-export interface IActionsDisabledWrapper {
-  actionsDisabled?: boolean;
-}
+export interface IActionsDisabledWrapper { actionsDisabled?: boolean; }
 
 /**
  * @stable [18.05.2018]

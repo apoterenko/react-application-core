@@ -4,6 +4,9 @@ import {
   IOnFilterClickWrapper,
   IOnRefreshClickWrapper,
   IFlexWrapper,
+  IRightSlotWrapper,
+  ILeftSlotWrapper,
+  IActionsDisabledWrapper,
 } from '../../definitions.interface';
 import { IGenericFlexLayoutEntity } from '../../definition';
 
@@ -20,6 +23,9 @@ export enum ToolbarToolsEnum {
  */
 export interface IToolbarToolsContainerProps
   extends IContainerProps,
+    IActionsDisabledWrapper,
+    ILeftSlotWrapper<JSX.Element>,
+    IRightSlotWrapper<JSX.Element>,
     IFlexWrapper<IGenericFlexLayoutEntity>,
     IOnFilterClickWrapper<() => void>,
     IOnRefreshClickWrapper<() => void>,

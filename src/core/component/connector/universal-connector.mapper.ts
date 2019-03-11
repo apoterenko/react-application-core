@@ -10,6 +10,7 @@ import {
   IDisabledWrapper,
   AnyT,
   IKeyValue,
+  IActionsDisabledWrapper,
 } from '../../definitions.interface';
 import { IExtendedEntity } from '../../definition';
 import {
@@ -303,18 +304,18 @@ export const disabledListEntityMapper = (listEntity: IListEntity): IDisabledWrap
 /**
  * @stable [29.05.2018]
  * @param {IListEntity} listEntity
- * @returns {IFilterConfiguration}
+ * @returns {IActionsDisabledWrapper}
  */
-export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IFilterConfiguration => ({
+export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActionsDisabledWrapper => ({
   actionsDisabled: listEntity.progress,
 });
 
 /**
  * @stable [29.05.2018]
  * @param {IListWrapperEntity} listWrapperEntity
- * @returns {IFilterConfiguration}
+ * @returns {IActionsDisabledWrapper}
  */
-export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IFilterConfiguration =>
+export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IActionsDisabledWrapper =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);
 
 /**

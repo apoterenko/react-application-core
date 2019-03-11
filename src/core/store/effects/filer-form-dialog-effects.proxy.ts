@@ -4,6 +4,7 @@ import { provideInSingleton } from '../../di';
 import {
   makeFilterFormDialogClearMiddleware,
   makeFilterFormDialogAcceptMiddleware,
+  makeFilterFormDialogResetMiddleware,
   IFilterFormDialogMiddlewareConfig,
 } from '../middleware';
 import { FilterFormDialogActionBuilder } from '../../component/dialog/filter-form-dialog/filter-form-dialog-action.builder';
@@ -13,6 +14,7 @@ import { FilterFormDialogActionBuilder } from '../../component/dialog/filter-for
  */
 export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogMiddlewareConfig): () => void {
   const filterFormDialogClearMiddleware = makeFilterFormDialogClearMiddleware(config);
+  const filterFormDialogResetMiddleware = makeFilterFormDialogResetMiddleware(config);
   const filterFormDialogAcceptMiddleware = makeFilterFormDialogAcceptMiddleware(config);
 
   return (): void => {
@@ -36,6 +38,15 @@ export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogMiddle
       @EffectsService.effects(FilterFormDialogActionBuilder.buildClearActionType(config.filterSection))
       public $onClear(): IEffectsAction[] {
         return filterFormDialogClearMiddleware;
+      }
+
+      /**
+       * @stable [12.03.2019]
+       * @returns {IEffectsAction[]}
+       */
+      @EffectsService.effects(FilterFormDialogActionBuilder.buildResetActionType(config.filterSection))
+      public $onReset(): IEffectsAction {
+        return filterFormDialogResetMiddleware;
       }
     }
   };

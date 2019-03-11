@@ -40,16 +40,19 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
         {...props.flex}
         className={toClassName(props.className, 'rac-toolbar-tools')}
       >
+        {props.leftSlot}
         {
           actions.map((cfg, index) => {
             const actionProps = isPrimitive(cfg) ? this.defaultActions[cfg] : cfg as IButtonProps;
             return (
               <Button
                 key={`action-${index}-key`}
+                disabled={props.actionsDisabled}
                 {...actionProps}/>
             );
           })
         }
+        {props.rightSlot}
       </FlexLayout>
     );
   }

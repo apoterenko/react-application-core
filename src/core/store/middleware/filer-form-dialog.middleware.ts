@@ -16,6 +16,14 @@ export const makeFilterFormDialogClearMiddleware = (config: IFilterFormDialogMid
   ];
 
 /**
+ * @stable [12.03.2019]
+ * @param {IFilterFormDialogMiddlewareConfig} config
+ * @returns {IEffectsAction}
+ */
+export const makeFilterFormDialogResetMiddleware = (config: IFilterFormDialogMiddlewareConfig): IEffectsAction =>
+  FormActionBuilder.buildResetAction(config.formSection);
+
+/**
  * @stable [11.03.2019]
  * @param {IFilterFormDialogMiddlewareConfig} config
  * @returns {IEffectsAction}
