@@ -609,9 +609,7 @@ export enum LayoutModeEnum {
   MINIMAL,
 }
 
-/**
- * @stable [23.09.2018]
- */
+// TODO
 export interface ILayoutEntity extends IXYEntity,
                                        IExpandedGroupsWrapper,
                                        IModeWrapper<LayoutModeEnum> {

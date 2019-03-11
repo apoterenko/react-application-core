@@ -4,14 +4,14 @@ import { provideInSingleton } from '../../di';
 import {
   makeFilterFormDialogClearMiddleware,
   makeFilterFormDialogAcceptMiddleware,
-  IFilterFormDialogAcceptMiddlewareConfig,
+  IFilterFormDialogMiddlewareConfig,
 } from '../middleware';
 import { FilterFormDialogActionBuilder } from '../../component/dialog/filter-form-dialog/filter-form-dialog-action.builder';
 
 /**
  * @stable [11.03.2019]
  */
-export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogAcceptMiddlewareConfig): () => void {
+export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogMiddlewareConfig): () => void {
   const filterFormDialogClearMiddleware = makeFilterFormDialogClearMiddleware(config);
   const filterFormDialogAcceptMiddleware = makeFilterFormDialogAcceptMiddleware(config);
 

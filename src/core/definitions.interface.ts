@@ -132,9 +132,11 @@ export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
 export interface IProgressMessageWrapper<TProgressMessage = string> {
   progressMessage?: TProgressMessage;
 }
-export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
-export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
 export interface IListWrapper<TList> { list?: TList; }
+export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
+export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
+export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
+export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
 
 /**
  * @stable [30.08.2018]
@@ -233,6 +235,7 @@ export interface IMethodWrapper {
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
 export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
 export interface IColumnStylesWrapper<TColumnStyles> { columnStyles?: TColumnStyles; }
+export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
 export interface IUrlWrapper<TUrl = string> { url?: TUrl; }
 
@@ -1228,12 +1231,7 @@ export interface IHideWrapper<THide = boolean> {
 export interface IHideFnWrapper extends IHideWrapper<() => void> {
 }
 
-/**
- * @stable [18.05.2018]
- */
-export interface IActionsWrapper<TActions> {
-  actions?: TActions;
-}
+export interface IActionsWrapper<TActions> { actions?: TActions; }
 
 /**
  * @stable [02.06.2018]
