@@ -208,6 +208,7 @@ import {
   ITplWrapper,
   StringNumberT,
   IWrapperClassNameWrapper,
+  IApplyGroupWrapper,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -456,6 +457,7 @@ export interface IUniversalListConfiguration
           IItemConfigurationWrapper<TItemConfiguration>,
           IDeactivatedWrapper,
           IApplyOddWrapper,
+          IApplyGroupWrapper,
           IHoveredWrapper,
           IFullWrapper,
           ISelectableWrapper,

@@ -274,7 +274,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
       if (this.isElementField(renderEl)) {
         return React.cloneElement<IFieldProps>(renderEl, {
-          ...this.getDefaultFieldProps(),
+          ...this.getDefaultFieldProps(renderEl.props),
           name: column.name,
           value: isDef(renderEl.props.value) ? renderEl.props.value : Reflect.get(entity, column.name),
           onChange: (value) => this.onChangeRowField({value, name, rawData: entity}),
@@ -308,7 +308,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
       if (this.isElementField(renderEl)) {
         const name = this.toFilterFieldName(column, columnNum);
-
         return React.cloneElement<IFieldProps>(renderEl, {
           ...this.getDefaultFieldProps(),
           value: this.toFilterFieldValue(name),
@@ -326,10 +325,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @stable - 05.04.2018
    * @param {IEntity} entity
    * @param {number} rowNum
-   * @param {boolean} needToApplyOddClassName
+   * @param {boolean} applyOddClassName
    * @returns {JSX.Element}
    */
-  private getRow(entity: IEntity, rowNum: number, needToApplyOddClassName = true): JSX.Element {
+  private getRow(entity: IEntity, rowNum: number, applyOddClassName = true): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
     const changes = props.changes;
@@ -341,7 +340,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                className={
                  toClassName(
                    'rac-grid-data-row',
-                   orUndef<string>(props.applyOdd !== false && needToApplyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
+                   orUndef<string>(props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
                    orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
                    orUndef<string>(this.isRowSelectable, 'rac-grid-data-row-selectable')
                  )
@@ -409,10 +408,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @stable [07.06.2018]
    * @returns {IFieldProps}
    */
-  private getDefaultFieldProps(): IFieldProps {
+  private getDefaultFieldProps(fieldProps?: IFieldProps): IFieldProps {
     return {
       errorMessageRendered: false,
-      readOnly: this.props.deactivated,
+      readOnly: (fieldProps && fieldProps.readOnly) || this.props.deactivated,
     };
   }
 
@@ -585,8 +584,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                          currentGroupedEntities: IEntity[]): JSX.Element[] {
     rows = rows.concat(this.getGroupingRow(currentGroupColumnValue, currentGroupedEntities));
     if (this.isGroupedRowExpanded(currentGroupColumnValue)) {
-      const needToApplyOddClassName = currentGroupedEntities.length > 1;
-      return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index, needToApplyOddClassName)));
+      const applyOddClassName = currentGroupedEntities.length > 1;
+      return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index, applyOddClassName)));
     }
     return rows;
   }
@@ -608,7 +607,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                className={toClassName(
                  'rac-grid-data-row',
                  'rac-grid-data-row-grouped',
-                 isExpanded && 'rac-grid-data-row-group-expanded'
+                 props.applyGroup !== false && isExpanded && 'rac-grid-data-row-group-expanded'
                )}>
         {
           columns.map((column, columnNum) => (
@@ -619,8 +618,9 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                 () => (
                   [
                     <FlexLayout row={true}
+                                full={false}
                                 key={this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum)}>
-                      {orNull<JSX.Element>(props.expandActionRendered !== false, () => (
+                      {ifNotFalseThanValue(props.expandActionRendered, () => (
                         this.uiFactory.makeIcon({
                           className: 'rac-grid-data-row-group-expanded-icon',
                           type: isExpanded ? 'close-list' : 'open-list',

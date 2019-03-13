@@ -572,6 +572,25 @@
 }
 
 /**
+ * @stable [13.03.2019]
+ */
+@mixin rac-neighbor-child(
+  $rac-neighbor-child-custom: unset,
+  $rac-neighbor-child-margin: unset
+) {
+  $v: unquote('>');
+  @if $rac-neighbor-child-custom != unset {
+   $v: '.#{$rac-neighbor-child-custom} >';
+  }
+
+  #{$v} :not(:first-child) {
+    @include rac-styles(
+      $rac-styles-margin: $rac-neighbor-child-margin
+    );
+  }
+}
+
+/**
  * @stable [30.10.2018]
  */
 @mixin rac-flex-height($value) {
@@ -1701,6 +1720,7 @@
   $rac-grid-row-padding: unset,
   $rac-grid-row-height: unset,
   $rac-grid-row-background: unset,
+  $rac-grid-row-border-bottom: unset,
   $rac-grid-row-column-content-button-background: unset,
   $rac-grid-row-column-content-button-color: unset,
   $rac-grid-row-column-content-font-weight: unset
@@ -1711,7 +1731,8 @@
       $rac-styles-padding: $rac-grid-row-padding,
       $rac-styles-height: $rac-grid-row-height,
       $rac-styles-background: $rac-grid-row-background,
-      $rac-styles-cursor: $rac-grid-row-cursor
+      $rac-styles-cursor: $rac-grid-row-cursor,
+      $rac-styles-border-bottom: $rac-grid-row-border-bottom
     );
 
     @include rac-grid-column-content(
@@ -1771,6 +1792,7 @@
   $rac-grid-body-border: unset,
   $rac-grid-body-border-left: unset,
   $rac-grid-body-border-right: unset,
+  $rac-grid-body-row-border-bottom: unset,
   $rac-grid-body-column-custom: unset,
   $rac-grid-body-column-height: unset,
   $rac-grid-body-column-width: unset,
@@ -1984,6 +2006,10 @@
         $rac-styles-border-right: $rac-grid-body-border-right
       );
 
+      @include rac-grid-row(
+        $rac-grid-row-border-bottom: $rac-grid-body-row-border-bottom
+      );
+
       @include rac-grid-column(
         $rac-grid-column-custom: $rac-grid-body-column-custom,
         $rac-grid-column-height: $rac-grid-body-column-height,
@@ -2039,11 +2065,9 @@
         $rac-styles-margin: $rac-form-actions-margin
       );
 
-      > :not(:first-child) {
-        @include rac-styles(
-          $rac-styles-margin: $rac-form-actions-button-neighbor-margin
-        );
-      }
+      @include rac-neighbor-child(
+        $rac-neighbor-child-margin: $rac-form-actions-button-neighbor-margin
+      );
 
       @include rac-button(
         $rac-button-custom: $rac-form-actions-button-custom,
@@ -2417,10 +2441,8 @@
   $rac-toolbar-tools-neighbor-margin: unset
 ) {
   #{rac-build-cls(rac-toolbar-tools, $rac-toolbar-tools-custom)} {
-    > :not(:first-child) {
-      @include rac-styles(
-        $rac-styles-margin: $rac-toolbar-tools-neighbor-margin
-      );
-    }
+    @include rac-neighbor-child(
+      $rac-neighbor-child-margin: $rac-toolbar-tools-neighbor-margin
+    );
   }
 }

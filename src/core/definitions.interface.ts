@@ -541,25 +541,16 @@ export interface IDictionariesWrapper<TDictionaries> {
   dictionaries?: TDictionaries;
 }
 
-/**
- * @stable [14.05.2018]
- */
-export interface ILabelWrapper {
-  label?: string;
-}
+export interface IDisplayNameWrapper { displayName?: string; }
+export interface ILabelWrapper { label?: string; }
+export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
+export interface IPlaceholderWrapper { placeholder?: string; }
 
 /**
  * @stable [01.08.2018]
  */
 export interface IPrefixLabelWrapper {
   prefixLabel?: string;
-}
-
-/**
- * @stable [01.08.2018]
- */
-export interface IDisplayNameWrapper {
-  displayName?: string;
 }
 
 /**
@@ -572,18 +563,6 @@ export interface IMessagesWrapper<TMessages> {
 /* @stable - 23.04.2018 */
 export interface IPluginsWrapper<TPlugins> {
   plugins?: TPlugins;
-}
-
-/**
- * @stable [17.06.2018]
- */
-export interface IPatternWrapper<TPattern = string> {
-  pattern?: TPattern;
-}
-
-/* @stable - 11.04.2018 */
-export interface IPlaceholderWrapper {
-  placeholder?: string;
 }
 
 /**
@@ -1802,19 +1781,9 @@ export interface ITotalEntityWrapper<TTotalEntity> {
   totalEntity?: TTotalEntity;
 }
 
-/**
- * @stable [12.12.2018]
- */
-export interface IStickyHeadWrapper {
-  stickyHead?: boolean;
-}
-
-/**
- * @stable [04.10.2018]
- */
-export interface IApplyOddWrapper {
-  applyOdd?: boolean;
-}
+export interface IStickyHeadWrapper { stickyHead?: boolean; }
+export interface IApplyOddWrapper { applyOdd?: boolean; }
+export interface IApplyGroupWrapper { applyGroup?: boolean; }
 
 /**
  * @stable [04.10.2018]
@@ -2421,13 +2390,7 @@ export interface ITokenWrapper<TToken = string> {
   token?: TToken;
 }
 
-/**
- * @stable [04.05.2018]
- */
-export interface IActiveWrapper<TActive = boolean> {
-  active?: TActive;
-}
-
+export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
 
 /**
