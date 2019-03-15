@@ -2042,6 +2042,9 @@
   $rac-form-body-flex: unset,
   $rac-form-body-wrapper-margin: unset,
   $rac-form-actions-margin: unset,
+  $rac-form-actions-border-top: unset,
+  $rac-form-actions-padding: unset,
+  $rac-form-actions-height: unset,
   $rac-form-actions-button-custom: unset,
   $rac-form-actions-button-min-width: unset,
   $rac-form-actions-button-neighbor-margin: unset
@@ -2062,7 +2065,10 @@
 
     .rac-form-actions {
       @include rac-styles(
-        $rac-styles-margin: $rac-form-actions-margin
+        $rac-styles-margin: $rac-form-actions-margin,
+        $rac-styles-border-top: $rac-form-actions-border-top,
+        $rac-styles-padding: $rac-form-actions-padding,
+        $rac-styles-height: $rac-form-actions-height
       );
 
       @include rac-neighbor-child(

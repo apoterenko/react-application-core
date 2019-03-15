@@ -7,3 +7,4 @@ export * from './flex-definition.interface';
 export * from './form-definition.interface';
 export * from './life-cycle-definition.interface';
 export * from './operation-definition.interface';
+export * from './tab-definition.interface';

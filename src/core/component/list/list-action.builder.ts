@@ -214,6 +214,15 @@ export class ListActionBuilder {
   }
 
   /**
+   * @stable [15.03.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildCreateAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildCreateActionType(section), applySection(section));
+  }
+
+  /**
    * @stable [08.12.2018]
    * @param {string} section
    * @param {ISelectedEntityWrapper} payload

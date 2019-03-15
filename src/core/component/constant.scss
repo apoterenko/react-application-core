@@ -569,10 +569,12 @@ $rac-default-layout-main-body-wrapper-height: 100% !default;
 $rac-default-layout-main-body-height: 100% !default;
 $rac-default-layout-main-body-padding: 0 $rac-default-layout-offset !default;
 $rac-default-layout-main-body-content-padding: 0 $rac-default-layout-offset 0 0 !default;
-$rac-default-layout-main-body-form-actions-margin: 16px 0 0 0 !default;
-$rac-default-layout-main-body-form-actions-border-top: unset !default;
-$rac-default-layout-main-body-form-actions-padding-top: 16px !default;
-$rac-default-layout-main-body-form-actions-min-height: 60px !default;
+/**/
+$rac-default-layout-form-actions-margin: $rac-default-offset 0 0 0 !default;
+$rac-default-layout-form-actions-border-top: unset !default;
+$rac-default-layout-form-actions-padding: $rac-default-offset 0 0 0 !default;
+$rac-default-layout-form-actions-height: 60px !default;
+/**/
 $rac-default-layout-main-body-tab-panel-wrapper-border-bottom: unset !default;
 $rac-default-layout-footer-height: $rac-default-toolbar-height !default;
 $rac-default-layout-main-body-container-margin-bottom: 16px !default;

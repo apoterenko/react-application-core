@@ -9,6 +9,13 @@
       $rac-icon-color: $rac-default-layout-logo-menu-icon-color,
       $rac-icon-margin: 0 $rac-default-layout-logo-menu-icon-margin-right 0 auto
     );
+
+    @include rac-form(                                                                        /* @stable [15.02.2019] */
+      $rac-form-actions-margin: $rac-default-layout-form-actions-margin,
+      $rac-form-actions-border-top: $rac-default-layout-form-actions-border-top,
+      $rac-form-actions-padding: $rac-default-layout-form-actions-padding,
+      $rac-form-actions-height: $rac-default-layout-form-actions-height
+    );
   }
 
   .rac-default-layout {
@@ -75,16 +82,6 @@
           .rac-tab-panel-wrapper {
             padding-bottom: $rac-default-layout-main-body-container-padding-bottom;                 /* @stable [05.10.2018] */
             border-bottom: $rac-default-layout-main-body-tab-panel-wrapper-border-bottom;           /* @stable [05.10.2018] */
-          }
-
-          .rac-form {
-
-            .rac-form-actions {
-              margin: $rac-default-layout-main-body-form-actions-margin;                            /* @stable [17.10.2018] */
-              border-top: $rac-default-layout-main-body-form-actions-border-top;                    /* @stable [03.10.2018] */
-              padding-top: $rac-default-layout-main-body-form-actions-padding-top;                  /* @stable [03.10.2018] */
-              min-height: $rac-default-layout-main-body-form-actions-min-height;                    /* @stable [07.10.2018] */
-            }
           }
         }
       }

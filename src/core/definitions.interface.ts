@@ -132,20 +132,14 @@ export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
 export interface IProgressMessageWrapper<TProgressMessage = string> {
   progressMessage?: TProgressMessage;
 }
+export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface IListWrapper<TList> { list?: TList; }
 export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
-export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
-
-/**
- * @stable [30.08.2018]
- */
-export interface ITabPanelWrapper<TTabPanel = JSX.Element> {
-  tabPanel?: TTabPanel;
-}
+export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
 
 /**
  * @stable [16.05.2018]
@@ -1729,6 +1723,7 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
 
 export interface IEntityIdWrapper<TEntityId> { entityId?: TEntityId; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
+export interface IListAccessorWrapper<TListAccessor> { listAccessor?: TListAccessor; }
 export interface INewEntityWrapper<TNewEntity = boolean> { newEntity?: TNewEntity; }
 export interface IOriginalEntityWrapper<TOriginalEntity> { originalEntity?: TOriginalEntity; }
 

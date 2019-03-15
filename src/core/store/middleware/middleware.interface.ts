@@ -18,11 +18,13 @@ import {
   IResolverWrapper,
   ISaveMessageWrapper,
   IStateWrapper,
+  IListAccessorWrapper,
   IUseLazyLoadingWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
   IApplicationStoreEntity,
+  IListEntity,
 } from '../../entities-definitions.interface';
 import { IApiEntity } from '../../definition';
 
@@ -30,7 +32,8 @@ import { IApiEntity } from '../../definition';
  * @stable [31.08.2018]
  */
 export interface IUntouchedListMiddlewareConfig<TApplicationState>
-  extends IResolverWrapper<(state: TApplicationState) => IListWrapperEntity>,
+  extends IListAccessorWrapper<(state: TApplicationState) => IListEntity>,
+          IResolverWrapper<(state: TApplicationState) => IListWrapperEntity>,
           IListSectionWrapper,
           ILazyLoadedResolverWrapper<(state: TApplicationState, action?: IEffectsAction) => IListWrapperEntity>,
           ILazyLoadedSectionWrapper<(state: TApplicationState, action?: IEffectsAction) => string> {

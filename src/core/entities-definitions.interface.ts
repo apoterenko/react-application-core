@@ -58,7 +58,6 @@ import {
   IMessagesWrapper,
   IMethodWrapper,
   IModeWrapper,
-  IMutatedListWrapper,
   INameWrapper,
   INeedToDestroySectionsWrapper,
   INewEntityWrapper,
@@ -484,27 +483,9 @@ export interface IListEntity extends IUniversalListEntity,
 }
 
 /**
- * @stable [30.08.2018]
- */
-export interface ITabPanelEntity extends IActiveValueWrapper {
-}
-
-/**
- * @stable [30.08.2018]
- */
-export interface ITabPanelWrapperEntity extends ITabPanelWrapper<ITabPanelEntity> {
-}
-
-/**
  * @stable [16.05.2018]
  */
 export interface IListWrapperEntity extends IListWrapper<IListEntity> {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IMutatedListWrapperEntity extends IMutatedListWrapper<IListEntity> {
 }
 
 /**

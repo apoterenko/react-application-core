@@ -12,12 +12,15 @@ import {
   IKeyValue,
   IActionsDisabledWrapper,
 } from '../../definitions.interface';
-import { IExtendedEntity } from '../../definition';
+import {
+  IExtendedEntity,
+  ITabPanelWrapperEntity,
+  ITabPanelEntity,
+} from '../../definition';
 import {
   IOptionEntity,
   IEditableEntity,
   IListWrapperEntity,
-  IMutatedListWrapperEntity,
   IListEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
@@ -31,25 +34,12 @@ import {
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
   IQueryFilterWrapperEntity,
-  ITabPanelWrapperEntity,
-  ITabPanelEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
   IFilterAndSorterConfiguration,
   ToolbarActionEnum,
 } from '../../configurations-definitions.interface';
-
-/**
- * @stable [22.10.2018]
- * @param {IUniversalApplicationStoreEntity} storeEntity
- * @returns {IUniversalApplicationStoreEntity}
- */
-export const applicationMapper = (storeEntity: IUniversalApplicationStoreEntity): IUniversalApplicationStoreEntity => ({
-  application: {
-    ...storeEntity.application,
-  },
-});
 
 /* @stable - 22.04.2018 */
 export const dictionariesMapper = (storeEntity: IUniversalApplicationStoreEntity): IDictionariesWrapperEntity => ({
@@ -116,18 +106,6 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
 };
 
 /**
- * @stable [16.05.2018]
- * @param {IListEntity} listEntity
- * @param {IDataMutatorEntity} dataMutator
- * @returns {IMutatedListWrapperEntity}
- */
-export const mutatedListMapper = (listEntity: IListEntity, dataMutator: IDataMutatorEntity): IMutatedListWrapperEntity => {
-  return {
-    mutatedList: listMapper(listEntity, dataMutator).list,
-  };
-};
-
-/**
  * @stable [09.05.2018]
  * @param {IListEntity} listEntity
  * @param {number} pageSize
@@ -179,21 +157,6 @@ export const tabPanelMapper = (tabPanel: ITabPanelEntity): ITabPanelWrapperEntit
  */
 export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEntity): ITabPanelWrapperEntity =>
   tabPanelMapper(tabPanelWrapperEntity.tabPanel);
-
-/**
- * @stable [31.08.2018]
- * @param {ITabPanelEntity} tabPanel
- * @returns {number}
- */
-export const tabPanelActiveValueMapper = (tabPanel: ITabPanelEntity): number => tabPanel.activeValue;
-
-/**
- * @stable [31.08.2018]
- * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
- * @returns {number}
- */
-export const tabPanelWrapperActiveValueMapper = (tabPanelWrapperEntity: ITabPanelWrapperEntity): number =>
-  tabPanelActiveValueMapper(tabPanelWrapperEntity.tabPanel);
 
 /**
  * @stable [05.08.2018]

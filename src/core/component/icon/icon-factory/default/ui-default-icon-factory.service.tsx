@@ -373,6 +373,13 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
         <use fill='currentColor' fillRule='evenodd' xlinkHref='#61000029-3ad6-4fb3-a4a7-c6e231a79d7a' />
       </svg>
     ),
+    'icons-search': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='24' height='24' viewBox='0 0 24 24'>
+        <path fill='currentColor' d='M21.442 23.555a1.481 1.481 0 0 0 2.119 0 1.53 1.53 0 0 0 0-2.145l-4.62-4.62a10.474 10.474 0 0 0 2.079-6.28C21.02 4.707 16.314 0 10.51 0 4.707 0 0 4.705 0 10.51c0 5.806 4.705 10.511 10.51 10.511 2.363 0 4.546-.78 6.3-2.096l4.633 4.63zM3.003 10.51a7.507 7.507 0 1 1 15.014 0 7.506 7.506 0 1 1-15.012 0h-.002z'
+        />
+      </svg>
+    ),
     'id': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='80' height='80' viewBox='0 0 80 80'>

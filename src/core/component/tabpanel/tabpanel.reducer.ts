@@ -3,7 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { toSection } from '../../util';
 import { IPayloadWrapper } from '../../definitions.interface';
 import { TabPanelActionBuilder } from './tabpanel-action.builder';
-import { ITabPanelEntity } from '../../entities-definitions.interface';
+import { ITabPanelEntity } from '../../definition';
 
 /**
  * @stable [30.08.2018]

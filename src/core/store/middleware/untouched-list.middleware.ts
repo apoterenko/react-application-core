@@ -12,7 +12,12 @@ import { IUntouchedListMiddlewareConfig } from './middleware.interface';
  */
 export const makeUntouchedListMiddleware = <TApplicationState>(config: IUntouchedListMiddlewareConfig<TApplicationState>) =>
   (action: IEffectsAction, state: TApplicationState): IEffectsAction =>
-    orNull<IEffectsAction>(!config.resolver(state).list.touched, () => ListActionBuilder.buildLoadAction(config.listSection));
+    orNull<IEffectsAction>(
+      !(isFn(config.listAccessor)
+        ? config.listAccessor(state).touched
+        : config.resolver(state).list.touched), // Deprecated
+      () => ListActionBuilder.buildLoadAction(config.listSection)
+    );
 
 /**
  * @stable [31.08.2018]
