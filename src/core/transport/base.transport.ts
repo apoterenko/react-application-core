@@ -27,9 +27,9 @@ export class BaseTransport {
    * @param {IEditableApiEntity<TEntity extends IEntity>} entity
    * @returns {Promise<TEntity extends IEntity>}
    */
-  protected doSaveEntity<TEntity extends IEntity>(entity: IEditableApiEntity<TEntity>): Promise<TEntity> {
+  protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IEditableApiEntity<TEntity>): Promise<TResult> {
     const apiEntity = entity.apiEntity;
-    return this.transport.request<TEntity>({
+    return this.transport.request<TResult>({
       params: {
         ...apiEntity.changes as {},
         ...defValuesFilter(entity.extraParams),

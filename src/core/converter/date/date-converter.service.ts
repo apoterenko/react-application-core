@@ -430,6 +430,9 @@ export class DateConverter implements IDateConverter {
     );
   }
 
+  /**
+   * @deprecated Use fromDateTimeToDate
+   */
   public fromDateToUiDate(date: DateTimeLikeTypeT): string {
     return this.format(
       this.shrinkDate(date), /* Need to clear a timezone */
