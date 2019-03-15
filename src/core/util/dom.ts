@@ -353,21 +353,25 @@ export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadE
   let zIndex;
   let top;
   let marginTop;
-  const selfTop = payloadEntity.jqSelfEl.offset().top;
-  const selfScrollTop = payloadEntity.jqSelfEl.scrollTop();
 
-  if (selfScrollTop >= payloadEntity.initialStickyElTop - selfTop) {
+  const jqStickyEl = payloadEntity.jqStickyEl;
+  const jqSelfEl = payloadEntity.jqSelfEl;
+  const initialStickyElTop = payloadEntity.initialStickyElTop;
+  const selfTop = jqSelfEl.offset().top;
+  const selfScrollTop = jqSelfEl.scrollTop();
+
+  if (selfScrollTop >= initialStickyElTop - selfTop) {
     position = 'absolute';
     zIndex = 1;
-    top = selfScrollTop - payloadEntity.initialStickyElTop + selfTop;
-    marginTop = payloadEntity.jqStickyEl.height();
+    top = selfScrollTop - initialStickyElTop + selfTop;
+    marginTop = jqStickyEl.height();
   } else {
     position = 'initial';
     zIndex = 0;
     top = 0;
     marginTop = 0;
   }
-  payloadEntity.jqStickyEl.css({position, 'z-index': zIndex, 'top': top});
+  jqStickyEl.css({position, 'z-index': zIndex, 'top': top});
   payloadEntity.jqStickyNeighborRightEl.css('margin-top', `${marginTop}px`);
 };
 
