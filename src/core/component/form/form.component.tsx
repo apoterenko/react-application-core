@@ -189,6 +189,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       'rac-form',
       'rac-flex',
       'rac-flex-column',
+      'rac-no-flex-shrink',
       props.full !== false && 'rac-flex-full',
       props.className
     );
@@ -444,7 +445,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         props.resetActionRendered,
         (): IButtonProps => ({
           type: 'reset',
-          icon: 'clear_all',
+          icon: props.resetIcon || 'close',
           disabled: !this.isFormResettable(),
           text: props.resetText || messages.reset,
           ...props.buttonConfiguration,

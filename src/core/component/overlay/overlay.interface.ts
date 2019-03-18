@@ -1,6 +1,6 @@
 import { IComponentProps } from '../../props-definitions.interface';
 import { IReactOnClickWrapper } from '../../react-definitions.interface';
-import { IOverlayBackgroundClassNameWrapper, IOnCloseWrapper } from '../../definitions.interface';
+import { IOverlayBackgroundClassNameWrapper, IOnCloseWrapper, IProgressWrapper } from '../../definitions.interface';
 
 /**
  * @stable [29.11.2018]
@@ -8,5 +8,6 @@ import { IOverlayBackgroundClassNameWrapper, IOnCloseWrapper } from '../../defin
 export interface IOverlayProps extends IComponentProps,
                                        IReactOnClickWrapper,
                                        IOnCloseWrapper,
+                                       IProgressWrapper,
                                        IOverlayBackgroundClassNameWrapper {
 }

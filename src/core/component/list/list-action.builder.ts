@@ -16,7 +16,6 @@ import {
   LIST_CREATE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
-  LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
   LIST_INSERT_ACTION_TYPE,
   LIST_LAST_PAGE_ACTION_TYPE,
@@ -30,6 +29,7 @@ import {
   LIST_NEXT_PAGE_ACTION_TYPE,
   LIST_PREVIOUS_PAGE_ACTION_TYPE,
   LIST_REMOVE_ACTION_TYPE,
+  LIST_RESET_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
   LIST_UN_TOUCH_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
@@ -129,15 +129,6 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [09.06.2018]
-   * @param {string} section
-   * @returns {string}
-   */
-  public static buildEmptyMessageClickActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE}`;
-  }
-
-  /**
    * @stable [07.12.2018]
    * @param {string} section
    * @returns {string}
@@ -194,8 +185,22 @@ export class ListActionBuilder {
     return `${section}.${LIST_DESELECT_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [19.03.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildDestroyActionType(section: string): string {
-    return `${section}.${LIST_DESTROY_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_DESTROY_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [19.03.2019]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildResetActionType(section: string): string {
+    return `${toActionPrefix(section)}.${LIST_RESET_ACTION_TYPE}`;
   }
 
   public static buildUnTouchAction(section: string): IEffectsAction {
@@ -261,8 +266,22 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildDeselectActionType(section), applySection(section));
   }
 
+  /**
+   * @stable [19.03.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
   public static buildDestroyAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
+  }
+
+  /**
+   * @stable [19.03.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildResetAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildResetActionType(section), applySection(section));
   }
 
   public static buildInsertAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {

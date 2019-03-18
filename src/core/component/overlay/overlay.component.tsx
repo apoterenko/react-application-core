@@ -22,6 +22,14 @@ export class Overlay extends BaseComponent<IOverlayProps> {
         onClick={props.onClick}
       >
         {props.children || UNI_CODES.noBreakSpace}
+        {props.progress && (
+          <FlexLayout
+            fullSize={true}
+            alignItemsCenter={true}
+            justifyContentCenter={true}>
+            {this.uiFactory.makeIcon({type: 'spinner', className: 'rac-overlay-progress-icon'})}
+          </FlexLayout>
+        )}
         {orNull<JSX.Element>(
           isFn(props.onClose),
           () => (

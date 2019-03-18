@@ -103,6 +103,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         progress: false,
         touched: !R.isNil(state.data),  // We should allow load a data after cancel. This is actual for already created containers
       };
+    case ListActionBuilder.buildResetActionType(section):
     case ListActionBuilder.buildDestroyActionType(section):
       return {
         ...INITIAL_APPLICATION_LIST_STATE,
@@ -164,6 +165,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
           data: updatedData,
           totalCount: ++state.totalCount,
           selected: insertedItem,
+          progress: false,      // In a lazy-loading case
         };
       }
     // No breaks! Go to update the entity.

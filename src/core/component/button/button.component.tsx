@@ -64,7 +64,7 @@ export class Button extends BaseComponent<IButtonProps> {
       >
         {
           hasIcon && this.uiFactory.makeIcon({
-            type: getButtonIcon(props, 'timelapse', 'error'),
+            type: getButtonIcon(props, 'spinner', 'error'),
             className: props.iconCls,
           })
         }

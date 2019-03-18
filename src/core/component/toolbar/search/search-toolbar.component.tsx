@@ -18,11 +18,12 @@ export class SearchToolbar<TProps extends ISearchToolbarProps = ISearchToolbarPr
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <FlexLayout row={true}
-                  justifyContentEnd={true}
-                  alignItemsCenter={true}
-                  full={props.full}
-                  className={toClassName('rac-toolbar', props.className)}>
+      <FlexLayout
+        row={true}
+        justifyContentEnd={true}
+        alignItemsCenter={true}
+        full={props.full}
+        className={toClassName('rac-toolbar', props.className)}>
         {this.actionsElementsSection}
         {this.fieldSection}
       </FlexLayout>

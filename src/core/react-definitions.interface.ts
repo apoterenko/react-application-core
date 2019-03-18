@@ -23,13 +23,6 @@ export interface IOnColumnClickWrapper<TPayload = IBasicEvent, TOnColumnClick = 
 /**
  * @stable [11.11.2018]
  */
-export interface IOnEmptyMessageClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
-  onEmptyMessageClick?: TOnClick;
-}
-
-/**
- * @stable [11.11.2018]
- */
 export interface IOnNavigationActionClickWrapper<TPayload = IBasicEvent,
                                                  TOnNavigationActionClick = (payload?: TPayload) => void> {
   onNavigationActionClick?: TOnNavigationActionClick;

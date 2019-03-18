@@ -18,9 +18,7 @@ import { ILayoutEntity, IStringMenuActionEntity, IXYEntity, IMenuItemEntity } fr
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
-import { Message } from '../../message';
 import {
-  CenterLayout,
   LAYOUT_XY_UPDATE_ACTION_TYPE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
   LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
@@ -32,6 +30,7 @@ import { toAllDependentRoutePaths } from '../../connector';
 import { Link } from '../../link';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { Button } from '../../button';
+import { Overlay } from '../../overlay';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
@@ -291,18 +290,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
+   * @stable [18.03.2019]
    * @returns {JSX.Element}
    */
   private get mainProgressOverlayElement(): JSX.Element {
-    return orNull<JSX.Element>(
-      this.props.progress,
-      () => (
-        <CenterLayout className='rac-overlay'>
-          <Message progress={true}/>
-        </CenterLayout>
-      )
-    );
+    return orNull<JSX.Element>(this.props.progress, () => <Overlay progress={true}/>);
   }
 
   /**

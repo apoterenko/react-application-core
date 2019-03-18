@@ -6,7 +6,6 @@ import {
   pageToNumber,
   orDefault,
   filterAndSortEntities,
-  isDef,
   ifNilReturnUuid,
   isFn,
 } from '../../util';
@@ -14,7 +13,6 @@ import { IEntity } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalListProps } from '../../props-definitions.interface';
 import { IUniversalMessageProps } from '../message/universal-message.interface';
-import { IReactButtonProps } from '../../definition';
 
 export abstract class UniversalList<TProps extends IUniversalListProps,
                                     TState = {}>
@@ -57,12 +55,6 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
    * @returns {JSX.Element}
    */
   protected abstract getView(): JSX.Element;
-
-  /**
-   * @stable [09.06.2018]
-   * @returns {JSX.Element}
-   */
-  protected abstract getEmptyMessageAction(): JSX.Element;
 
   /**
    * @stable [23.04.2018]
@@ -158,19 +150,6 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
   }
 
   /**
-   * @stable [09.06.2018]
-   * @returns {TActionComponentProps}
-   */
-  protected getEmptyMessageActionComponentProps<TActionComponentProps extends IReactButtonProps>(): TActionComponentProps {
-    const props = this.props;
-    return {
-      ...props.emptyMessageActionConfiguration as {},
-      text: props.emptyMessage,
-      onClick: props.onEmptyMessageClick,
-    } as TActionComponentProps;
-  }
-
-  /**
    * @stable [06.06.2018]
    * @returns {IEntity[]}
    */
@@ -191,14 +170,7 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
    * @returns {React.ReactNode}
    */
   private get emptyMessage(): React.ReactNode {
-    const props = this.props;
-    return (
-      orDefault<JSX.Element, string>(
-        props.emptyMessageAction && isDef(props.onEmptyMessageClick),
-        () => this.getEmptyMessageAction(),
-        () => props.emptyMessage
-      )
-    );
+    return this.props.emptyMessage;
   }
 
   /**

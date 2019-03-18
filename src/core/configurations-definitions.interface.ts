@@ -63,8 +63,6 @@ import {
   IDrawerContentWrapper,
   IEditableWrapper,
   IEmptyDataMessageWrapper,
-  IEmptyMessageActionConfigurationWrapper,
-  IEmptyMessageActionWrapper,
   IEmptyMessageWrapper,
   IEmptyValueWrapper,
   IEntity,
@@ -209,6 +207,7 @@ import {
   StringNumberT,
   IWrapperClassNameWrapper,
   IApplyGroupWrapper,
+  IResetIconWrapper,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -225,7 +224,6 @@ import {
   IBasicEvent,
   IReactOnClickWrapper,
   IOnColumnClickWrapper,
-  IOnEmptyMessageClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
 import { IButtonProps, IGenericFormEntity, IApiEntity } from './definition';
@@ -446,14 +444,11 @@ export interface IUniversalListConfiguration
           IEmptyMessageWrapper,
           IEmptyDataMessageWrapper,
           IUseAddActionWrapper,
-          IEmptyMessageActionWrapper,
-          IEmptyMessageActionConfigurationWrapper<IButtonProps>,
           IOnCreateWrapper,
           IOnSelectWrapper,
           IOnChangeWrapper<IFieldChangeEntity>,
           IOnChangeHeaderWrapper<IFieldChangeEntity>,
           IOnChangeFilterWrapper<IFieldChangeEntity>,
-          IOnEmptyMessageClickWrapper,
           IItemConfigurationWrapper<TItemConfiguration>,
           IDeactivatedWrapper,
           IApplyOddWrapper,
@@ -493,6 +488,7 @@ export interface IUniversalFormConfiguration extends IGenericFormEntity,
                                                      IDisabledWrapper,
                                                      IAlwaysDirtyWrapper,
                                                      IActionIconWrapper,
+                                                     IResetIconWrapper,
                                                      IChangeableWrapper,
                                                      IFullWrapper,
                                                      IOnEmptyDictionaryWrapper<IApiEntity> {

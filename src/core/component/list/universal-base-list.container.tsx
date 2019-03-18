@@ -7,7 +7,6 @@ import {
   LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
-  LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE,
   LIST_CANCEL_LOAD_ACTION_TYPE,
   IUniversalListContainerProps,
 } from './list.interface';
@@ -24,7 +23,6 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
     this.onSelect = this.onSelect.bind(this);
     this.onCreate = this.onCreate.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onEmptyMessageClick = this.onEmptyMessageClick.bind(this);
   }
 
   /**
@@ -51,7 +49,6 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
       onChange: this.onChange,
       onSelect: this.onSelect,
       onCreate: this.onCreate,
-      onEmptyMessageClick: this.onEmptyMessageClick,
       ...this.props.list as {},
     } as TComponentProps;
   }
@@ -69,12 +66,5 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
    */
   private onSelect(entity: IEntity): void {
     this.dispatchFrameworkAction<ISelectedEntityWrapper>(LIST_SELECT_ACTION_TYPE, {selected: entity});
-  }
-
-  /**
-   * @stable [31.08.2018]
-   */
-  private onEmptyMessageClick(): void {
-    this.dispatchFrameworkAction(LIST_EMPTY_MESSAGE_CLICK_ACTION_TYPE);
   }
 }

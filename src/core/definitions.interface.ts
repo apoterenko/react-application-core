@@ -589,12 +589,7 @@ export interface IRenderToBodyWrapper {
   renderToBody?: boolean;
 }
 
-/**
- * @stable [13.01.2019]
- */
-export interface IOverlayBackgroundClassNameWrapper {
-  overlayBackgroundClassName?: string;
-}
+export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 
 /**
  * @stable [14.05.2018]
@@ -1264,14 +1259,9 @@ export interface ICompactWrapper<TCompact = boolean> {
   compact?: TCompact;
 }
 
+export interface IActionIconWrapper<TActionIcon = string> { actionIcon?: TActionIcon; }
+export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
 export interface IResetTextWrapper { resetText?: string; }
-
-/**
- * @stable [29.05.2018]
- */
-export interface IActionIconWrapper<TActionIcon = string> {
-  actionIcon?: TActionIcon;
-}
 
 /**
  * @stable [14.05.2018]
@@ -2303,13 +2293,6 @@ export interface IActivateWrapper<TActivate = (...args: AnyT[]) => void> {
   activate?: TActivate;
 }
 
-/**
- * @stable [09.05.2018]
- */
-export interface IEmptyMessageActionWrapper {
-  emptyMessageAction?: boolean;
-}
-
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IMiniWrapper { mini?: boolean; }
 
@@ -2318,13 +2301,6 @@ export interface IMiniWrapper { mini?: boolean; }
  */
 export interface IIgnoreEnterKeyCodeWrapper {
   ignoreEnterKeyCodeWrapper?: boolean;
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IEmptyMessageActionConfigurationWrapper<TEmptyMessageActionConfigurationWrapper> {
-  emptyMessageActionConfiguration?: TEmptyMessageActionConfigurationWrapper;
 }
 
 export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
