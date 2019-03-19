@@ -245,8 +245,6 @@ $rac-grid-filter-row-background: unset !default;
 $rac-grid-filter-row-border-bottom: unset !default;
 $rac-grid-filter-row-padding: 2px 16px !default;
 $rac-grid-data-row-odd-background: $color-22 !default;
-$rac-grid-data-row-odd-column-content-button-background: unset !default;
-$rac-grid-data-row-odd-column-content-button-color: unset !default;
 $rac-grid-data-row-total-background: unset !default;
 $rac-grid-data-row-total-column-content-font-weight: bold !default;
 $rac-grid-data-row-selected-background: $rac-default-selected-background !default;
@@ -270,9 +268,16 @@ $rac-grid-column-content-width: 100% !default;
 $rac-grid-column-content-font-size: $rac-default-font-size !default;
 $rac-grid-column-content-text-field-border-color: $color-10 !default;
 $rac-grid-column-content-letter-spacing: $rac-default-letter-spacing !default;
+/**/
 $rac-grid-column-content-button-height: 32px !default;
 $rac-grid-column-content-button-hover-color: $rac-button-raised-color;
 $rac-grid-column-content-button-hover-background: $rac-button-raised-background;
+$rac-grid-column-content-button-icon-size: unset !default;
+$rac-grid-column-content-button-icon-color: unset !default;
+/**/
+$rac-grid-column-content-button-content-font-size: $rac-default-font-size !default;
+$rac-grid-column-content-button-content-white-space: nowrap !default;
+/**/
 $rac-grid-column-content-text-field-height: 24px !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
 $rac-grid-service-wrapper-width: 32px !default;

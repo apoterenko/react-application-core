@@ -8,7 +8,7 @@ import {
   IEntity,
   IPayloadWrapper,
 } from '../../definitions.interface';
-import { notNilValuesFilter, toSection, toType } from '../../util';
+import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
@@ -125,7 +125,10 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
               totalCount: listEntity.length,
               pageSize: null,
             }
-            : listEntity
+            : {
+              ...listEntity,
+              totalCount: nvl(listEntity.totalCount, listEntity.data.length),
+            }
         ),
         page: state.lockPage ? listEntity.page : INITIAL_APPLICATION_LIST_STATE.page,
       };
@@ -202,17 +205,16 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         };
       }
     case ListActionBuilder.buildRemoveActionType(section):
-      const entityToRemovePayload: IRemovedEntityWrapper = action.data;
-      const filterFn = (entity) => !(entity === entityToRemovePayload || entity.id === entityToRemovePayload.removed.id);
-      const isSelectedExist = !R.isNil(state.selected);
-      const filteredData = state.data.filter(filterFn);
-
+      /**
+       * @stable [19.03.2019]
+       */
+      const removedEntity = toType<IRemovedEntityWrapper>(action.data).removed;
+      const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
-        selected: isSelectedExist && filterFn(state.selected) && state.selected
-          || (isSelectedExist && filteredData.length > 0 ? filteredData[0] : null),
+        selected: state.selected && filteredData.filter((itm) => SAME_ENTITY_PREDICATE(itm, state.selected)),
         data: filteredData,
-        totalCount: --state.totalCount,
+        totalCount: filteredData.length === state.data.length ? state.totalCount : --state.totalCount,
       };
     default:
       return state;

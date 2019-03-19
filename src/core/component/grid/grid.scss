@@ -37,9 +37,15 @@
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
     $rac-grid-column-content-text-field-height: $rac-grid-column-content-text-field-height,
+    /**/
     $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
+    $rac-grid-column-content-button-icon-size: $rac-grid-column-content-button-icon-size,
+    $rac-grid-column-content-button-icon-color: $rac-grid-column-content-button-icon-color,
     $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
     $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
+    $rac-grid-column-content-button-content-font-size: $rac-grid-column-content-button-content-font-size,
+    $rac-grid-column-content-button-content-white-space: $rac-grid-column-content-button-content-white-space,
+    /**/
     $rac-grid-column-edited-content-after-position: absolute,
     $rac-grid-column-edited-content-after-height: $rac-grid-column-edited-content-after-height,
     $rac-grid-column-edited-content-after-right: $rac-grid-column-edited-content-after-right,
@@ -52,8 +58,6 @@
     $rac-grid-data-row-group-expanded-icon-color: $rac-grid-data-row-group-expanded-icon-color,
     $rac-grid-data-row-selectable-cursor: pointer,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
-    $rac-grid-data-row-odd-column-content-button-background: $rac-grid-data-row-odd-column-content-button-background,
-    $rac-grid-data-row-odd-column-content-button-color: $rac-grid-data-row-odd-column-content-button-color,
     $rac-grid-data-row-total-background: $rac-grid-data-row-total-background,
     $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight
   );
