@@ -38,7 +38,7 @@ describe('list.reducer', () => {
             entity1,
             entity3
           ],
-          selected: entity1,
+          selected: null,
           totalCount: 2,
         })
       );
@@ -73,7 +73,7 @@ describe('list.reducer', () => {
             entity1,
             entity3
           ],
-          selected: entity1,
+          selected: null,
           totalCount: 2,
         })
       );

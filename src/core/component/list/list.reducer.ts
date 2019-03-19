@@ -8,7 +8,7 @@ import {
   IEntity,
   IPayloadWrapper,
 } from '../../definitions.interface';
-import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl } from '../../util';
+import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl, orNull } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
@@ -212,7 +212,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
-        selected: state.selected && filteredData.filter((itm) => SAME_ENTITY_PREDICATE(itm, state.selected)),
+        selected: orNull(state.selected, () => filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, state.selected)) || null),
         data: filteredData,
         totalCount: filteredData.length === state.data.length ? state.totalCount : --state.totalCount,
       };
