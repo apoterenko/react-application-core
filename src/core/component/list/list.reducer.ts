@@ -127,7 +127,10 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
             }
             : {
               ...listEntity,
-              totalCount: nvl(listEntity.totalCount, listEntity.data.length),
+              totalCount: nvl(
+                listEntity.totalCount,
+                Array.isArray(listEntity.data) ? listEntity.data.length : 0
+              ),
             }
         ),
         page: state.lockPage ? listEntity.page : INITIAL_APPLICATION_LIST_STATE.page,
