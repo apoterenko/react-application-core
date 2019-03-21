@@ -30,6 +30,12 @@ export interface IVueCropperViewerProps
  */
 export interface IVueCropperPictureViewerTemplateMethodsEntity extends IVueBasePictureViewerTemplateMethodsEntity {
   onApply?(): void;
+  onZoomIn?(): void;
+  onZoomOut?(): void;
+  onFlipHorizontal?(): void;
+  onFlipVertical?(): void;
+  onRotateLeft?(): void;
+  onRotateRight?(): void;
 }
 
 /**

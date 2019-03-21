@@ -1,6 +1,6 @@
 import { Prop } from 'vue-property-decorator';
 
-import { isFn, nvl, orDefault, ifNotNilReturnValue } from '../../../util';
+import { isFn, nvl, ifNotNilThanValue } from '../../../util';
 import { EntityCallbackWrapperT, IEntity } from '../../../definitions.interface';
 import { VueBasePictureViewer } from '../picture/vue-index';
 import { IVueFileViewerTemplateMethodsEntity, IVueBaseFileViewerProps } from './vue-file-viewer.interface';
@@ -39,8 +39,9 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
           </vue-flex-layout>
           <vue-flex-layout :full="false"
                            :justifyContentCenter="true">
-              <div class="vue-icon vue-icon-close vue-viewer-preview-icon-close"
-                   @click="onRemove"/>
+              <vue-icon class="vue-viewer-preview-icon-close"
+                        icon="close"
+                        v-on:click.native="onRemove"/>
           </vue-flex-layout>
       </vue-flex-layout>
     `;
@@ -53,7 +54,7 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
   protected getTemplateMethods(): IVueFileViewerTemplateMethodsEntity {
     return {
       ...super.getTemplateMethods(),
-      getPlaceholder: () => ifNotNilReturnValue(this.placeholder, () => this.t(this.placeholder)),
+      getPlaceholder: () => ifNotNilThanValue(this.placeholder, () => this.t(this.placeholder)),
       getFileName: this.getFileName,
     };
   }
@@ -63,10 +64,8 @@ export class VueBaseFileViewer extends VueBasePictureViewer implements IVueBaseF
    * @returns {string}
    */
   protected getFileName(): string {
-    return orDefault<string, string>(
-      isFn(this.displayFileName),
-      () => this.displayFileName(this.entity),
-      () => nvl(this.fileName, this.t(this.settings.messages.unknownFileMessage))
-    );
+    return isFn(this.displayFileName)
+      ? this.displayFileName(this.entity)
+      : nvl(this.fileName, this.t(this.settings.messages.unknownFileMessage));
   }
 }

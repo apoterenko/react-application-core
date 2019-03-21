@@ -32,6 +32,9 @@ class VueCropperViewer extends VueBasePictureViewer implements IVueCropperViewer
     }),
   }) public readonly croppedCanvasOptions: IVueCropperViewerCroppedCanvasOptionsEntity;
   private readonly cropEmitterTask = new DelayedTask(this.onCrop, 100);
+  private readonly scaleData = [1, -1];
+  private horizontalScaleCursor = 0;
+  private verticalScaleCursor = 0;
   private cropper: Cropper;
 
   /**
@@ -87,7 +90,31 @@ class VueCropperViewer extends VueBasePictureViewer implements IVueCropperViewer
             <vue-button @click="onApply"
                         icon="check"/>
             <vue-button @click="onRemove"
-                        icon="trash"/>
+                        icon="trash"
+                        className="vue-cropper-viewer-remove-action"/>
+        </vue-flex-layout>
+    `;
+  }
+
+  /**
+   * @stable [21.03.2019]
+   * @returns {string}
+   */
+  protected getPopupFooterTemplate(): string {
+    return `
+        <vue-flex-layout :row="true">
+            <vue-button @click="onZoomIn"
+                        icon="zoom-in"/>
+            <vue-button @click="onZoomOut"
+                        icon="zoom-out"/>
+            <vue-button @click="onRotateLeft"
+                        icon="rotate-left"/>
+            <vue-button @click="onRotateRight"
+                        icon="rotate-right"/>
+            <vue-button @click="onFlipHorizontal"
+                        icon="flip-horizontal"/>
+            <vue-button @click="onFlipVertical"
+                        icon="flip-vertical"/>
         </vue-flex-layout>
     `;
   }
@@ -100,6 +127,12 @@ class VueCropperViewer extends VueBasePictureViewer implements IVueCropperViewer
     return {
       ...super.getTemplateMethods(),
       onApply: this.onApply,
+      onZoomIn: this.onZoomIn,
+      onZoomOut: this.onZoomOut,
+      onFlipHorizontal: this.onFlipHorizontal,
+      onFlipVertical: this.onFlipVertical,
+      onRotateLeft: this.onRotateLeft,
+      onRotateRight: this.onRotateRight,
     };
   }
 
@@ -154,5 +187,62 @@ class VueCropperViewer extends VueBasePictureViewer implements IVueCropperViewer
    */
   private getCroppedCanvasBlob(callback: (blob: Blob) => void): void {
     this.cropper.getCroppedCanvas(this.croppedCanvasOptions).toBlob(callback);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   */
+  private onZoomIn(): void {
+    this.cropper.zoom(0.1);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   */
+  private onZoomOut(): void {
+    this.cropper.zoom(-0.1);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   */
+  private onRotateLeft(): void {
+    this.cropper.rotate(-90);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   */
+  private onRotateRight(): void {
+    this.cropper.rotate(90);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   */
+  private onFlipHorizontal(): void {
+    this.changeScale(true);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   */
+  private onFlipVertical(): void {
+    this.changeScale(false);
+  }
+
+  /**
+   * @stable [21.03.2019]
+   * @param {boolean} horizontal
+   */
+  private changeScale(horizontal: boolean): void {
+    if (horizontal) {
+      this.horizontalScaleCursor = this.horizontalScaleCursor === this.scaleData.length - 1 ? 0 : this.horizontalScaleCursor + 1;
+    } else {
+      this.verticalScaleCursor = this.verticalScaleCursor === this.scaleData.length - 1 ? 0 : this.verticalScaleCursor + 1;
+    }
+    const currentHorizontalScaleData = this.scaleData[this.horizontalScaleCursor];
+    const currentVerticalScaleData = this.scaleData[this.verticalScaleCursor];
+    this.cropper.scale(currentHorizontalScaleData, currentVerticalScaleData);
   }
 }

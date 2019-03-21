@@ -24,7 +24,7 @@ class VueSelect extends VueBaseTextField
 
   @Prop() public readonly bindDictionary: string;
   @Prop() public readonly menuProps: IVueMenuProps;
-  @Prop({default: (): string => 'vue-icon-expand'}) public readonly icon: string;
+  @Prop({default: (): string => 'expand-down'}) public readonly icon: string;
   @Prop({
     default: (): VueSelectFilterT => (option: ISelectOptionEntity, query: string) =>
       queryFilter(query, String(option.label || option.value)),

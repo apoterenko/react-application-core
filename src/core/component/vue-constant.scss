@@ -5,8 +5,8 @@ $vue-color3: #0053d9 !default;
 $vue-color4: #fedb06 !default;
 $vue-color5: #fff !default;
 $vue-color6: rgba(0, 0, 0, 0.5) !default;
-$vue-color7: #fedb06 !default;
-$vue-color8: #c1bcbd !default;
+$vue-color7: #808080 !default;
+$vue-color8: #bd1111 !default;
 
 /* @stable [24.11.2018] */
 $vue-default-font-size: 12px !default;
@@ -15,11 +15,6 @@ $vue-default-font-size-3: 16px !default;
 $vue-default-border-radius: 4px !default;
 $vue-default-hover: $vue-color4 !default;
 $vue-default-text-field-input-padding: 16px !default;
-
-/* @stable [24.11.2018] */
-$vue-icons: unset !default;
-$vue-icon-path: unset !default;
-$vue-icon-type: svg !default;
 
 /* @stable [18.11.2018] */
 $vue-text-field-input-padding: 0 $vue-default-text-field-input-padding !default;
@@ -48,10 +43,11 @@ $vue-multi-file-field-attachment-content-height: 100px !default;
 $vue-multi-file-field-attachment-content-cursor: pointer !default;
 $vue-multi-file-field-attachment-holder-float: left !default;
 $vue-multi-file-field-attachment-holder-position: relative !default;
-$vue-select-icon-width: 16px !default;
+$vue-select-icon-max-width: 16px !default;
 $vue-select-icon-height: 10px !default;
 $vue-select-icon-margin: 0 20px 0 auto !default;
 $vue-checkbox-label-margin: 0 0 0 16px !default;
+$vue-select-icon-color: $vue-color7 !default;
 
 /* @stable [18.11.2018] */
 $vue-cropper-viewer-popup-cls: vue-cropper-viewer-popup;
@@ -62,24 +58,41 @@ $vue-viewer-preview-label-font-size: $vue-default-font-size-2 !default;
 $vue-viewer-preview-file-name-color: $vue-color3 !default;
 $vue-viewer-preview-file-name-font-size: $vue-default-font-size-3 !default;
 $vue-viewer-preview-icon-close-size: 16px !default;
+$vue-viewer-preview-icon-close-color: $vue-color8 !default;
 $vue-cropper-popup-padding: 0 !default;
 $vue-cropper-popup-body-padding: 0 !default;
+/**/
 $vue-cropper-popup-header-position: absolute !default;
 $vue-cropper-popup-header-top: 16px !default;
 $vue-cropper-popup-header-right: 16px !default;
 $vue-cropper-popup-header-z-index: 1 !default;
 $vue-cropper-popup-header-border-radius: $vue-default-border-radius !default;
 $vue-cropper-popup-header-background: $vue-color6 !default;
-$vue-cropper-popup-header-button-background: none !default;
+$vue-cropper-popup-header-button-background: 0 !default;
 $vue-cropper-popup-header-button-padding: 0 20px !default;
+$vue-cropper-popup-header-button-icon-color: $vue-color4 !default;
+/**/
+$vue-cropper-popup-footer-position: absolute !default;
+$vue-cropper-popup-footer-bottom: 24px !default;
+$vue-cropper-popup-footer-left: 50% !default;
+$vue-cropper-popup-footer-transform: translateX(-50%) !default;
+$vue-cropper-popup-footer-z-index: 1 !default;
+$vue-cropper-popup-footer-border-radius: $vue-default-border-radius !default;
+$vue-cropper-popup-footer-background: $vue-color6 !default;
+$vue-cropper-popup-footer-button-background: 0 !default;
+$vue-cropper-popup-footer-button-padding: 0 20px !default;
+$vue-cropper-popup-footer-button-icon-color: $vue-color4 !default;
+/**/
+$vue-cropper-popup-header-button-remove-icon-color: $vue-color5 !default;
+/**/
 $vue-cropper-viewer-popup-image-wrapper-cropper-line-display: none !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-point-opacity: 1 !default;
-$vue-cropper-viewer-popup-image-wrapper-cropper-point-background-color: $vue-color7 !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-point-background-color: $vue-color4 !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-point-size: 8px !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-point-ne-e-se-right: -7px !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-point-sw-s-se-bottom: -7px !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-view-box-outline: none !default;
-$vue-cropper-viewer-popup-image-wrapper-cropper-view-box-border: 2px solid $vue-color7 !default;
+$vue-cropper-viewer-popup-image-wrapper-cropper-view-box-border: 2px solid $vue-color4 !default;
 $vue-cropper-viewer-popup-image-wrapper-cropper-dashed-opacity: 1 !default;
 
 /* @stable [29.01.2019] */

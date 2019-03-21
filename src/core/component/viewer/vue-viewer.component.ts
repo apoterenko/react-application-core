@@ -7,6 +7,7 @@ import { VueBaseComponent } from '../base/vue-index';
 import {
   VUE_POPUP_CLOSE_EVENT,
   VUE_POPUP_HEADER_SLOT,
+  VUE_POPUP_FOOTER_SLOT,
 } from '../popup/vue-index';
 import {
   VueComponentOptionsT,
@@ -52,7 +53,9 @@ export class VueViewer<TVueViewerState extends IVueViewerState = IVueViewerState
                 <template>
                     ${this.getPopupBodyTemplate()}
                 </template>
-                ${this.getPopupFooterTemplate()}
+                <template slot="${VUE_POPUP_FOOTER_SLOT}">
+                    ${this.getPopupFooterTemplate()}
+                </template>
             </vue-popup>
         </vue-flex-layout>
       `,

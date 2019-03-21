@@ -3,15 +3,19 @@
 /**
  * @stable [05.01.2019]
  */
-@mixin _vue-icon-custom-properties($icon: unset,
-                                   $icon-path: unset,
-                                   $icon-type: unset,
-                                   $icon-background-repeat: unset,
-                                   $icon-margin: unset,
-                                   $icon-width: unset,
-                                   $icon-height: unset,
-                                   $icon-position: unset,
-                                   $icon-cursor: unset) {
+@mixin _vue-icon-custom-properties(
+  $icon: unset,
+  $icon-path: unset,
+  $icon-type: unset,
+  $icon-background-repeat: unset,
+  $icon-margin: unset,
+  $icon-width: unset,
+  $icon-max-width: unset,
+  $icon-height: unset,
+  $icon-position: unset,
+  $icon-cursor: unset,
+  $icon-color: unset
+) {
   @if $icon != unset and $icon-path != unset and $icon-type != unset {
     @include rac-styles($rac-styles-background-image: url($icon-path + $icon + '.' + $icon-type));
   }
@@ -20,25 +24,31 @@
     $rac-styles-background-repeat: $icon-background-repeat,
     $rac-styles-margin: $icon-margin,
     $rac-styles-width: $icon-width,
+    $rac-styles-max-width: $icon-max-width,
     $rac-styles-height: $icon-height,
     $rac-styles-position: $icon-position,
-    $rac-styles-cursor: $icon-cursor
+    $rac-styles-cursor: $icon-cursor,
+    $rac-styles-color: $icon-color
   );
 }
 
 /**
  * @stable [05.01.2019]
  */
-@mixin vue-icon($icon-custom: unset,
-                $icon: unset,
-                $icon-type: unset,
-                $icon-path: unset,
-                $icon-background-repeat: unset,
-                $icon-margin: unset,
-                $icon-width: unset,
-                $icon-height: unset,
-                $icon-position: unset,
-                $icon-cursor: unset) {
+@mixin vue-icon(
+  $icon-custom: unset,
+  $icon: unset,
+  $icon-type: unset,
+  $icon-path: unset,
+  $icon-background-repeat: unset,
+  $icon-margin: unset,
+  $icon-width: unset,
+  $icon-max-width: unset,
+  $icon-height: unset,
+  $icon-position: unset,
+  $icon-cursor: unset,
+  $icon-color: unset
+) {
   .vue-icon {
     @if $icon != unset {
       @if $icon-custom != unset {
@@ -51,9 +61,11 @@
               $icon-background-repeat: $icon-background-repeat,
               $icon-margin: $icon-margin,
               $icon-width: $icon-width,
+              $icon-max-width: $icon-max-width,
               $icon-height: $icon-height,
               $icon-position: $icon-position,
-              $icon-cursor: $icon-cursor
+              $icon-cursor: $icon-cursor,
+              $icon-color: $icon-color
             );
           }
         }
@@ -66,9 +78,11 @@
             $icon-background-repeat: $icon-background-repeat,
             $icon-margin: $icon-margin,
             $icon-width: $icon-width,
+            $icon-max-width: $icon-max-width,
             $icon-height: $icon-height,
             $icon-position: $icon-position,
-            $icon-cursor: $icon-cursor
+            $icon-cursor: $icon-cursor,
+            $icon-color: $icon-color
           );
         }
       }
@@ -79,9 +93,11 @@
             $icon-background-repeat: $icon-background-repeat,
             $icon-margin: $icon-margin,
             $icon-width: $icon-width,
+            $icon-max-width: $icon-max-width,
             $icon-height: $icon-height,
             $icon-position: $icon-position,
-            $icon-cursor: $icon-cursor
+            $icon-cursor: $icon-cursor,
+            $icon-color: $icon-color
           );
         }
       } @else {
@@ -89,9 +105,11 @@
           $icon-background-repeat: $icon-background-repeat,
           $icon-margin: $icon-margin,
           $icon-width: $icon-width,
+          $icon-max-width: $icon-max-width,
           $icon-height: $icon-height,
           $icon-position: $icon-position,
-          $icon-cursor: $icon-cursor
+          $icon-cursor: $icon-cursor,
+          $icon-color: $icon-color
         );
       }
     }
@@ -101,16 +119,20 @@
 /**
  * @stable [19.01.2019]
  */
-@mixin vue-button($vue-button-custom: unset,
-                  $vue-button-height: unset,
-                  $vue-button-font-size: unset,
-                  $vue-button-padding: unset,
-                  $vue-button-border: unset,
-                  $vue-button-color: unset,
-                  $vue-button-border-radius: unset,
-                  $vue-button-background: unset,
-                  $vue-button-cursor: unset,
-                  $vue-button-opacity: unset) {
+@mixin vue-button(
+  $vue-button-custom: unset,
+  $vue-button-height: unset,
+  $vue-button-font-size: unset,
+  $vue-button-padding: unset,
+  $vue-button-border: unset,
+  $vue-button-color: unset,
+  $vue-button-border-radius: unset,
+  $vue-button-background: unset,
+  $vue-button-cursor: unset,
+  $vue-button-opacity: unset,
+  $vue-button-icon-custom: unset,
+  $vue-button-icon-color: unset
+) {
   #{rac-build-cls(vue-button, $vue-button-custom)} {
     @include rac-styles(
       $rac-styles-height: $vue-button-height,
@@ -122,6 +144,11 @@
       $rac-styles-color: $vue-button-color,
       $rac-styles-cursor: $vue-button-cursor,
       $rac-styles-opacity: $vue-button-opacity
+    );
+
+    @include vue-icon(
+      $icon-custom: $vue-button-icon-custom,
+      $icon-color: $vue-button-icon-color
     );
   }
 }
@@ -183,21 +210,37 @@
 /**
  * @stable [18.11.2018]
  */
-@mixin vue-popup($vue-popup-custom: unset,
-                 $vue-popup-size: unset,
-                 $vue-popup-background: unset,
-                 $vue-popup-position: unset,
-                 $vue-popup-padding: unset,
-                 $vue-popup-body-padding: unset,
-                 $vue-popup-header-position: unset,
-                 $vue-popup-header-right: unset,
-                 $vue-popup-header-top: unset,
-                 $vue-popup-header-z-index: unset,
-                 $vue-popup-header-background: unset,
-                 $vue-popup-header-border-radius: unset,
-                 $vue-popup-header-button-background: unset,
-                 $vue-popup-header-button-padding: unset,
-                 $vue-popup-absolute-center-alignment: unset) {
+@mixin vue-popup(
+  $vue-popup-custom: unset,
+  $vue-popup-size: unset,
+  $vue-popup-background: unset,
+  $vue-popup-position: unset,
+  $vue-popup-padding: unset,
+  $vue-popup-body-padding: unset,
+  $vue-popup-absolute-center-alignment: unset,
+  /**/
+  $vue-popup-header-position: unset,
+  $vue-popup-header-right: unset,
+  $vue-popup-header-top: unset,
+  $vue-popup-header-z-index: unset,
+  $vue-popup-header-background: unset,
+  $vue-popup-header-border-radius: unset,
+  $vue-popup-header-button-custom: unset,
+  $vue-popup-header-button-background: unset,
+  $vue-popup-header-button-padding: unset,
+  $vue-popup-header-button-icon-color: unset,
+  /**/
+  $vue-popup-footer-position: unset,
+  $vue-popup-footer-bottom: unset,
+  $vue-popup-footer-left: unset,
+  $vue-popup-footer-transform: unset,
+  $vue-popup-footer-z-index: unset,
+  $vue-popup-footer-border-radius: unset,
+  $vue-popup-footer-background: unset,
+  $vue-popup-footer-button-background: unset,
+  $vue-popup-footer-button-padding: unset,
+  $vue-popup-footer-button-icon-color: unset
+) {
 
   #{rac-build-cls(vue-popup, $vue-popup-custom)} {
     @if $vue-popup-absolute-center-alignment != unset {
@@ -217,7 +260,6 @@
     );
 
     .vue-popup-header {
-
       @include rac-styles(
         $rac-styles-border-radius: $vue-popup-header-border-radius,
         $rac-styles-background: $vue-popup-header-background,
@@ -228,8 +270,28 @@
       );
 
       @include vue-button(
+        $vue-button-custom: $vue-popup-header-button-custom,
         $vue-button-padding: $vue-popup-header-button-padding,
-        $vue-button-background: $vue-popup-header-button-background
+        $vue-button-background: $vue-popup-header-button-background,
+        $vue-button-icon-color: $vue-popup-header-button-icon-color
+      );
+    }
+
+    .vue-popup-footer {
+      @include rac-styles(
+        $rac-styles-border-radius: $vue-popup-footer-border-radius,
+        $rac-styles-background: $vue-popup-footer-background,
+        $rac-styles-position: $vue-popup-footer-position,
+        $rac-styles-z-index: $vue-popup-footer-z-index,
+        $rac-styles-bottom: $vue-popup-footer-bottom,
+        $rac-styles-left: $vue-popup-footer-left,
+        $rac-styles-transform: $vue-popup-footer-transform
+      );
+
+      @include vue-button(
+        $vue-button-padding: $vue-popup-footer-button-padding,
+        $vue-button-background: $vue-popup-footer-button-background,
+        $vue-button-icon-color: $vue-popup-footer-button-icon-color
       );
     }
   }
@@ -375,58 +437,62 @@
 /**
  * @stable [19.11.2018]
  */
-@mixin vue-field($vue-field-custom: unset,
-                 $vue-field-height: unset,
-                 $vue-field-padding: unset,
-                 $vue-field-margin: unset,
-                 $vue-field-position: unset,
-                 $vue-field-border-radius: unset,
-                 $vue-field-border: unset,
-                 $vue-field-label-color: unset,
-                 $vue-field-label-margin: unset,
-                 $vue-field-float-label-color: unset,
-                 $vue-field-float-label-font-size: unset,
-                 $vue-field-float-label-padding: unset,
-                 $vue-field-float-label-display: unset,
-                 $vue-field-float-label-absolute: unset,
-                 $vue-field-input-border: unset,
-                 $vue-field-input-padding: unset,
-                 $vue-field-input-font-size: unset,
-                 $vue-field-input-background: unset,
-                 $vue-field-input-wrapper-height: unset,
-                 $vue-field-input-wrapper-width: unset,
-                 $vue-field-input-wrapper-position: unset,
-                 $vue-field-attachment-wrapper-width: unset,
-                 $vue-field-attachment-holder-float: unset,
-                 $vue-field-attachment-holder-position: unset,
-                 $vue-field-attachment-content-cursor: unset,
-                 $vue-field-attachment-content-border: unset,
-                 $vue-field-attachment-content-width: unset,
-                 $vue-field-attachment-content-height: unset,
-                 $vue-field-attachment-content-margin: unset,
-                 $vue-field-attachment-content-border-radius: unset,
-                 $vue-field-attachment-content-padding: unset,
-                 $vue-field-attachment-content-picture-viewer-border: unset,
-                 $vue-field-attachment-content-picture-viewer-preview-border-radius: unset,
-                 $vue-field-attachment-content-picture-viewer-preview-attachment-position: unset,
-                 $vue-field-attachment-content-with-entity-position: unset,
-                 $vue-field-attachment-content-with-entity-cursor: unset,
-                 $vue-field-attachment-content-with-entity-top: unset,
-                 $vue-field-attachment-content-with-entity-left: unset,
-                 $vue-field-attachment-content-with-entity-border: unset,
-                 $vue-field-attachment-content-with-entity-dnd-message-background: unset,
-                 $vue-field-attachment-dnd-message-background: unset,
-                 $vue-field-attachment-dnd-message-padding: unset,
-                 $vue-field-attachment-dnd-message-font-size: unset,
-                 $vue-field-attachment-dnd-message-background-repeat: unset,
-                 $vue-field-attachment-dnd-message-background-position: unset,
-                 $vue-field-attachment-placeholder-padding: unset,
-                 $vue-field-attachment-placeholder-font-size: unset,
-                 $vue-field-icon-width: unset,
-                 $vue-field-icon-height: unset,
-                 $vue-field-icon-margin: unset,
-                 $vue-field-icon-position: unset,
-                 $vue-field-icon-cursor: unset) {
+@mixin vue-field(
+  $vue-field-custom: unset,
+  $vue-field-height: unset,
+  $vue-field-padding: unset,
+  $vue-field-margin: unset,
+  $vue-field-position: unset,
+  $vue-field-border-radius: unset,
+  $vue-field-border: unset,
+  $vue-field-label-color: unset,
+  $vue-field-label-margin: unset,
+  $vue-field-float-label-color: unset,
+  $vue-field-float-label-font-size: unset,
+  $vue-field-float-label-padding: unset,
+  $vue-field-float-label-display: unset,
+  $vue-field-float-label-absolute: unset,
+  $vue-field-input-border: unset,
+  $vue-field-input-padding: unset,
+  $vue-field-input-font-size: unset,
+  $vue-field-input-background: unset,
+  $vue-field-input-wrapper-height: unset,
+  $vue-field-input-wrapper-width: unset,
+  $vue-field-input-wrapper-position: unset,
+  $vue-field-attachment-wrapper-width: unset,
+  $vue-field-attachment-holder-float: unset,
+  $vue-field-attachment-holder-position: unset,
+  $vue-field-attachment-content-cursor: unset,
+  $vue-field-attachment-content-border: unset,
+  $vue-field-attachment-content-width: unset,
+  $vue-field-attachment-content-height: unset,
+  $vue-field-attachment-content-margin: unset,
+  $vue-field-attachment-content-border-radius: unset,
+  $vue-field-attachment-content-padding: unset,
+  $vue-field-attachment-content-picture-viewer-border: unset,
+  $vue-field-attachment-content-picture-viewer-preview-border-radius: unset,
+  $vue-field-attachment-content-picture-viewer-preview-attachment-position: unset,
+  $vue-field-attachment-content-with-entity-position: unset,
+  $vue-field-attachment-content-with-entity-cursor: unset,
+  $vue-field-attachment-content-with-entity-top: unset,
+  $vue-field-attachment-content-with-entity-left: unset,
+  $vue-field-attachment-content-with-entity-border: unset,
+  $vue-field-attachment-content-with-entity-dnd-message-background: unset,
+  $vue-field-attachment-dnd-message-background: unset,
+  $vue-field-attachment-dnd-message-padding: unset,
+  $vue-field-attachment-dnd-message-font-size: unset,
+  $vue-field-attachment-dnd-message-background-repeat: unset,
+  $vue-field-attachment-dnd-message-background-position: unset,
+  $vue-field-attachment-placeholder-padding: unset,
+  $vue-field-attachment-placeholder-font-size: unset,
+  $vue-field-icon-width: unset,
+  $vue-field-icon-max-width: unset,
+  $vue-field-icon-height: unset,
+  $vue-field-icon-margin: unset,
+  $vue-field-icon-position: unset,
+  $vue-field-icon-cursor: unset,
+  $vue-field-icon-color: unset
+) {
 
   #{rac-build-cls(vue-field, $vue-field-custom)} {
     @include rac-styles(
@@ -510,9 +576,11 @@
       $icon-custom: vue-field-icon,
       $icon-margin: $vue-field-icon-margin,
       $icon-width: $vue-field-icon-width,
+      $icon-max-width: $vue-field-icon-max-width,
       $icon-height: $vue-field-icon-height,
       $icon-position: $vue-field-icon-position,
-      $icon-cursor: $vue-field-icon-cursor
+      $icon-cursor: $vue-field-icon-cursor,
+      $icon-color: $vue-field-icon-color
     );
 
     @include rac-styles(

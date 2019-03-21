@@ -9,9 +9,10 @@ import {
 /**
  * @stable [30.01.2019]
  */
-export interface IVueButtonProps extends IVueBaseProps,
-                                         IIconWrapper,
-                                         IDisabledWrapper,
-                                         IProgressWrapper,
-                                         ITextWrapper {
+export interface IVueButtonProps
+  extends IVueBaseProps,
+    IIconWrapper,
+    IDisabledWrapper,
+    IProgressWrapper,
+    ITextWrapper {
 }

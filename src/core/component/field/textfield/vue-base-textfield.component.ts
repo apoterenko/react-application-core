@@ -1,7 +1,6 @@
-import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
-import { orEmpty } from '../../../util';
+import { ifNotNilThanValue } from '../../../util';
 import { VueField } from '../field/vue-index';
 import {
   IVueBaseTextFieldProps,
@@ -44,12 +43,14 @@ export class VueBaseTextField extends VueField implements IVueBaseTextFieldProps
    * @returns {string}
    */
   protected getFieldAttachmentTemplate(): string {
-    return orEmpty(
-      !R.isNil(this.icon),
+    return ifNotNilThanValue(
+      this.icon,
       () => (
-        `<span class="vue-icon vue-field-icon ${this.icon}"
-               @click="onIconClick"/>`
-      )
+        `<vue-icon className="vue-field-icon"
+                   icon="${this.icon}"
+                   v-on:click.native="onIconClick"/>`
+      ),
+      ''
     );
   }
 

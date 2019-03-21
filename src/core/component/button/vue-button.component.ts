@@ -11,8 +11,8 @@ import { IVueButtonProps } from './vue-button.interface';
     <button :class="getClassName()"
             :disabled="disabled"
             v-on:click="onClick($event)">
-      <div v-if="icon"
-           :class="getIconClassName()"/>
+      <vue-icon v-if="icon"
+                :icon="icon"/>
       {{getText()}}
     </button>
   `,

@@ -28,11 +28,12 @@
 
   @include vue-field(                                                                         /* @stable [10.12.2018] */
     $vue-field-custom: vue-select,
-    $vue-field-icon-width: $vue-select-icon-width,
+    $vue-field-icon-max-width: $vue-select-icon-max-width,
     $vue-field-icon-height: $vue-select-icon-height,
     $vue-field-icon-margin: $vue-select-icon-margin,
     $vue-field-icon-position: relative,
-    $vue-field-icon-cursor: pointer
+    $vue-field-icon-cursor: pointer,
+    $vue-field-icon-color: $vue-select-icon-color
   );
 
   @include vue-field(                                                                         /* @stable [29.01.2019] */
