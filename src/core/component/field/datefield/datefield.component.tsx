@@ -21,6 +21,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   public static defaultProps: IDateFieldProps = {
     autoOk: true,
     firstDayOfWeek: 1,
+    preventFocus: true,
   };
 
   private dialogRef = React.createRef<Dialog<AnyT>>();

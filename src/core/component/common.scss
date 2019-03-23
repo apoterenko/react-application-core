@@ -256,12 +256,4 @@ html, body {
   .rac-no-user-select {
     @include x-user-select;             /* @stable [04.05.2018] */
   }
-
-  .rac-opacity-2 {
-    opacity: $opacity;                              /* @stable [26.06.2018] */
-  }
-
-  .rac-strong {
-    font-weight: bold;                              /* @stable [26.06.2018] */
-  }
 }
