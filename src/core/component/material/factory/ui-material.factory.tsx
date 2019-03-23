@@ -327,9 +327,7 @@ export class UIMaterialFactory implements IUIFactory {
   public menu = 'mdc-menu';
   public fab = 'mdc-fab';
   public dialog = 'mdc-dialog';
-  public dialogContent = 'mdc-dialog__content';
   public dialogContainer = 'mdc-dialog__container';
-  public dialogTitle = 'mdc-dialog__title';
   public dialogScrim = 'mdc-dialog__scrim';
   public dialogActions = 'mdc-dialog__actions';
 

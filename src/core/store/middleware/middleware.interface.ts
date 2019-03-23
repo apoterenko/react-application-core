@@ -9,16 +9,20 @@ import {
   IEntityWrapper,
   IFilterSectionWrapper,
   IFormSectionWrapper,
+  IFormsSectionsWrapper,
   ILazyLoadedResolverWrapper,
   ILazyLoadedSectionWrapper,
+  IListAccessorWrapper,
   IListRoutePathWrapper,
   IListSectionWrapper,
+  IListsSectionsWrapper,
   IPathWrapper,
   IRelatedEntityWrapper,
   IResolverWrapper,
   ISaveMessageWrapper,
+  ISectionNameWrapper,
   IStateWrapper,
-  IListAccessorWrapper,
+  ITypeWrapper,
   IUseLazyLoadingWrapper,
 } from '../../definitions.interface';
 import {
@@ -153,4 +157,22 @@ export interface IFilterFormDialogMiddlewareConfig
  */
 export interface IToolbarToolsMiddlewareConfig
   extends IListSectionWrapper {
+}
+
+/**
+ * @stable [22.03.2019]
+ */
+export enum DestroyedComponentTypeEnum {
+  LIST,
+  FORM,
+}
+
+/**
+ * @stable [22.03.2019]
+ */
+export interface IDestroyedComponentMiddlewareConfig
+  extends ISectionNameWrapper,
+    ITypeWrapper<DestroyedComponentTypeEnum>,
+    IListsSectionsWrapper<string[]>,
+    IFormsSectionsWrapper<string[]> {
 }

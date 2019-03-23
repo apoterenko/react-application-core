@@ -602,7 +602,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   protected getErrorMessageElement(): JSX.Element {
     return orNull<JSX.Element>(
       this.props.errorMessageRendered !== false,
-      () => this.toMessageElement(this.error)
+      () => this.toMessageElement(this.error, 'rac-field-error-text')
     );
   }
 
@@ -664,12 +664,12 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   protected abstract removeFocus(): void;
 
   /**
-   * @stable [03.09.2018]
+   * @stable [22.03.2019]
    * @param {string} message
-   * @param {string | IKeyValue} styles
+   * @param {string} className
    * @returns {JSX.Element}
    */
-  protected abstract toMessageElement(message: string, styles?: string | IKeyValue): JSX.Element;
+  protected abstract toMessageElement(message: string, className?: string): JSX.Element;
 
   /**
    * @stable [31.07.2018]

@@ -303,8 +303,9 @@ export class Field<TInternalProps extends IFieldInternalProps,
    */
   protected toMessageElement(message: string, className?: string): JSX.Element {
     return (
-      <div title={message}
-           className={toClassName('rac-field-help-text', className)}>
+      <div
+        title={message}
+        className={toClassName('rac-field-help-text', className)}>
         {message ? this.t(message) : UNI_CODES.noBreakSpace}
       </div>
     );

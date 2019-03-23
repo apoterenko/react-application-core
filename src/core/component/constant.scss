@@ -307,10 +307,12 @@ $rac-message-font-size: $rac-default-font-size !default;
 $rac-field-message-color: $rac-default-text-color !default;
 
 /* @stable [17.09.2018] */
-$rac-field-value-present-cls: rac-field-value-present;
-$rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-focused-cls: rac-field-focused;
+$rac-field-labeled-cls: rac-field-labeled;
 $rac-field-not-focused-cls: rac-field-not-focused;
+$rac-field-value-not-present-cls: rac-field-value-not-present;
+$rac-field-value-present-cls: rac-field-value-present;
+/**/
 $rac-text-field-input-color: $rac-default-text-color !default;
 $rac-text-field-input-border: none !default;
 $rac-text-field-input-background: none !default;
@@ -336,8 +338,6 @@ $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
 $rac-field-prefix-label-color: $rac-default-text-color !default;
 $rac-field-prefix-label-left: 6px !default;
 $rac-field-loader-loading-message-color: $rac-default-text-color !default;
-$rac-field-help-text-font-size: 11px !default;
-$rac-field-help-text-margin: 2px 2px 4px 2px !default;
 $rac-field-disabled-opacity: unset !default;
 $rac-field-required-label-after-right: -8px !default;
 $rac-field-required-label-after-top: 0 !default;
@@ -345,12 +345,10 @@ $rac-field-required-label-after-color: $rac-default-label-color !default;
 $rac-field-required-label-after-font-size: $rac-default-font-size !default;
 $rac-text-field-background: $color-5 !default;
 $rac-text-field-height: 30px !default;
-$rac-text-field-margin-top: 20px !default;
 $rac-text-field-border-radius: $rac-default-border-radius !default;
 $rac-text-field-border-width: 1px !default;
 $rac-text-field-border-color: $color-10 !default;
 $rac-text-field-invalid-border-color: $color-11 !default;
-$rac-text-field-help-text-invalid-color: $color-11 !default;
 $rac-text-field-not-changeable-border-bottom: unset !default;
 $rac-text-field-not-changeable-border-right: unset !default;
 $rac-text-field-not-changeable-border-left: unset !default;
@@ -358,7 +356,6 @@ $rac-text-field-not-changeable-border-radius: unset !default;
 $rac-text-field-input-not-changeable-padding-left: 0 !default;
 $rac-text-field-input-not-changeable-padding-right: 0 !default;
 $rac-text-field-label-position: absolute !default;
-$rac-text-field-label-top: -$rac-text-field-margin-top !default;
 $rac-text-field-label-left: 0 !default;
 $rac-text-field-icon-color: $rac-default-color-0-0 !default;
 $rac-text-field-icon-margin: auto 12px auto 0 !default;
@@ -371,6 +368,12 @@ $rac-view-field-margin-bottom: 20px !default;
 $rac-switch-label-margin: 16px !default;
 $rac-text-area-length-label-font-size: $rac-default-font-size - 1 !default;
 $rac-text-area-length-label-color: $rac-default-label-color !default;
+/**/
+$rac-field-help-text-font-size: 10px !default;
+$rac-field-help-text-line-height: 16px !default;
+/**/
+$rac-field-labeled-self-field-margin: 20px 0 0 0 !default;
+$rac-field-labeled-self-field-label-top: -20px !default;
 
 /* @stable [30.07.2018] */
 $rac-dialog-address-field-google-maps-map-min-height: 200px !default;

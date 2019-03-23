@@ -21,6 +21,8 @@
 
     .rac-dialog-container {
       background: white; // TODO
+      padding: 12px $rac-default-offset $rac-default-offset $rac-default-offset;
+      border-radius: 3px;
 
       &.rac-dialog-container-auto-width {
         width: auto;                           /* @stable [02.08.2018] */

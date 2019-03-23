@@ -1,4 +1,4 @@
-import { IForwardedRefWrapper } from '../../../definitions.interface';
+import { IForwardedRefWrapper, IAutoResetWrapper } from '../../../definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
 import { IEditableEntityFormWrapperEntity } from '../../../entities-definitions.interface';
 
@@ -7,6 +7,7 @@ import { IEditableEntityFormWrapperEntity } from '../../../entities-definitions.
  */
 export interface IFilterFormDialogContainerProps<TRef>
   extends IContainerProps,
+    IAutoResetWrapper,
     IForwardedRefWrapper<TRef>,
     IEditableEntityFormWrapperEntity {
 }

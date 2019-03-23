@@ -101,7 +101,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
         <div >
           {
             props.titleRendered && (
-              <h2 className={toClassName('rac-dialog-title', this.uiFactory.dialogTitle)}>
+              <h2 className='rac-dialog-title'>
                 {this.t(props.title || this.settings.messages.dialogTitleMessage)}
               </h2>
             )
@@ -109,7 +109,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
           {
             orNull<React.ReactNode>(
               !R.isNil(dialogBodyEl) || !R.isNil(props.message),
-              <div className={toClassName('rac-dialog-content', this.uiFactory.dialogContent)}>
+              <div className='rac-dialog-content'>
                 {dialogBodyEl || this.t(props.message)}
               </div>
             )

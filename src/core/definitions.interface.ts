@@ -734,6 +734,8 @@ export interface IFilterSectionWrapper { filterSection?: string; }
 export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFormSection; }
 export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
+export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
+export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
 
 /* @stable - 24.04.2018 */
 export interface ISeparatorsWrapper<TSeparators> {
@@ -2150,6 +2152,7 @@ export interface IFormatWrapper<TFormat = string> {
 
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
+export interface IAutoResetWrapper { autoReset?: boolean; }
 
 /**
  * @stable [29.05.2018]

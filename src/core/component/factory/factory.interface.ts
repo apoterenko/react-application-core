@@ -43,9 +43,7 @@ export interface IUIFactory {
   menu?: string;
   fab?: string;
   dialog?: string;
-  dialogContent?: string;
   dialogContainer?: string;
-  dialogTitle?: string;
   dialogScrim?: string;
   dialogActions?: string;
 

@@ -29,7 +29,9 @@ export class FilterFormDialogContainer
    * @stable [12.03.2019]
    */
   public componentWillUnmount() {
-    this.dispatchFrameworkAction(FILTER_FORM_DIALOG_RESET_ACTION_TYPE);
+    if (this.props.autoReset) {
+      this.dispatchFrameworkAction(FILTER_FORM_DIALOG_RESET_ACTION_TYPE);
+    }
   }
 
   /**
