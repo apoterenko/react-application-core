@@ -2,36 +2,14 @@
 @import '../mixin';
 @import '~react-day-picker/lib/style.css';
 
-// Dialog [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-dialog {
-
-    .rac-dialog-content {
-      font-size: $rac-dialog-content-font-size;/* @stable [05.08.2018] */
-      color: $rac-dialog-content-color;        /* @stable [05.08.2018] */
-    }
-
-    .rac-dialog-actions-footer {
-
-      @include rac-button(                                                        /* @stable [01.11.2018] */
-        $rac-button-margin: $rac-dialog-actions-footer-button-margin
-      )
-    }
-
-    .rac-dialog-container {
-      background: white; // TODO
-      padding: 12px $rac-default-offset $rac-default-offset $rac-default-offset;
-      border-radius: 3px;
-
-      &.rac-dialog-container-auto-width {
-        width: auto;                           /* @stable [02.08.2018] */
-      }
-    }
-
-    .rac-dialog-title {
-      color: $rac-dialog-header-color;         /* @stable [29.07.2018] */
-      font-size: $rac-dialog-header-font-size;/* @stable [05.08.2018] */
-    }
-  }
+  @include rac-dialog(                                                                        /* @stable [24.03.2019] */
+    $rac-dialog-actions-footer-margin: $rac-dialog-actions-footer-margin,
+    $rac-dialog-actions-footer-neighbor-child-margin: $rac-dialog-actions-footer-neighbor-child-margin,
+    $rac-dialog-content-font-size: $rac-dialog-content-font-size,
+    $rac-dialog-body-background: $rac-dialog-body-background,
+    $rac-dialog-body-padding: $rac-dialog-body-padding,
+    $rac-dialog-body-border-radius: $rac-dialog-body-border-radius
+  );
 }

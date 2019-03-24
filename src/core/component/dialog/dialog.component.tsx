@@ -5,6 +5,8 @@ import { Button } from '../button';
 import { orNull, toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
+import { FlexLayout } from '../layout';
+import { Title } from '../title';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
                     TState = {}>
@@ -31,12 +33,11 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-
     return (
-      <div ref='self'
-           className={this.getDialogClassName()}>
-        {this.getDialogBody()}
+      <div
+        ref={this.selfRef}
+        className={this.getDialogClassName()}>
+        {this.dialogBodyElement}
         <div className={this.uiFactory.dialogScrim}/>
       </div>
     );
@@ -86,73 +87,6 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [04.10.2018]
-   * @returns {JSX.Element}
-   */
-  protected getDialogBody(): JSX.Element {
-    const props = this.props;
-    const dialogBodyEl = this.getDialogBodyElement();
-    return (
-      <div className={toClassName(
-                          'rac-dialog-container',
-                          this.uiFactory.dialogContainer,
-                          props.autoWidth && 'rac-dialog-container-auto-width'
-                      )}>
-        <div >
-          {
-            props.titleRendered && (
-              <h2 className='rac-dialog-title'>
-                {this.t(props.title || this.settings.messages.dialogTitleMessage)}
-              </h2>
-            )
-          }
-          {
-            orNull<React.ReactNode>(
-              !R.isNil(dialogBodyEl) || !R.isNil(props.message),
-              <div className='rac-dialog-content'>
-                {dialogBodyEl || this.t(props.message)}
-              </div>
-            )
-          }
-          {
-            orNull<JSX.Element>(
-              this.closable || this.acceptable,
-              () => (
-                <footer className={toClassName('rac-dialog-actions-footer', this.uiFactory.dialogActions)}>
-                  {
-                    orNull<JSX.Element>(
-                      this.closable,
-                      () => (
-                        <Button icon={false}
-                                disabled={this.isCloseButtonDisabled()}
-                                onClick={this.onClose}>
-                          {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
-                        </Button>
-                      )
-                    )
-                  }
-                  {
-                    orNull<JSX.Element>(
-                      this.acceptable,
-                      () => (
-                        <Button icon={false}
-                                disabled={this.isAcceptButtonDisabled()}
-                                onClick={this.onAccept}>
-                          {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
-                        </Button>
-                      )
-                    )
-                  }
-                </footer>
-              )
-            )
-          }
-        </div>
-      </div>
-    );
-  }
-
-  /**
    * @stable [05.08.2018]
    * @returns {string}
    */
@@ -181,18 +115,105 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [03.08.2018]
-   * @returns {React.ReactNode}
-   */
-  protected getDialogBodyElement(): React.ReactNode {
-    return this.props.children;
-  }
-
-  /**
    * @stable [04.08.2018]
    * @returns {boolean}
    */
   protected isDialogVisible(): boolean {
     return true;
+  }
+
+  /**
+   * @stable [24.03.2019]
+   * @returns {JSX.Element}
+   */
+  private get dialogBodyElement(): JSX.Element {
+    const props = this.props;
+    return (
+      <div className={toClassName(
+        'rac-dialog-body',
+        this.uiFactory.dialogContainer
+      )}>
+        <div>
+          {this.dialogBodyContentElement}
+          {this.footerElement}
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * @stable [24.03.2019]
+   * @returns {JSX.Element}
+   */
+  private get dialogBodyContentElement(): JSX.Element {
+    const props = this.props;
+    const children = props.children;
+    return (
+      <React.Fragment>
+        {
+          props.titleRendered && (
+            <Title>
+              {this.t(props.title || this.settings.messages.dialogTitleMessage)}
+            </Title>
+          )
+        }
+        {
+          orNull<React.ReactNode>(
+            !R.isNil(children) || !R.isNil(props.message),
+            <div className='rac-dialog-content'>
+              {children || this.t(props.message)}
+            </div>
+          )
+        }
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * @stable [24.03.2019]
+   * @returns {JSX.Element}
+   */
+  private get footerElement(): JSX.Element {
+    const props = this.props;
+    return (
+      orNull<JSX.Element>(
+        this.closable || this.acceptable,
+        () => (
+          <FlexLayout
+            row={true}
+            className='rac-dialog-actions-footer'>
+            {
+              orNull<JSX.Element>(
+                this.closable,
+                () => (
+                  <Button
+                    icon='close'
+                    full={true}
+                    disabled={this.isCloseButtonDisabled()}
+                    onClick={this.onClose}>
+                    {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
+                  </Button>
+                )
+              )
+            }
+            {
+              orNull<JSX.Element>(
+                this.acceptable,
+                () => (
+                  <Button
+                    icon='ok-filled'
+                    full={true}
+                    raised={true}
+                    disabled={this.isAcceptButtonDisabled()}
+                    onClick={this.onAccept}>
+                    {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
+                  </Button>
+                )
+              )
+            }
+          </FlexLayout>
+        )
+      )
+    );
   }
 }

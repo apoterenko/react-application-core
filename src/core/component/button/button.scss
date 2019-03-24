@@ -18,7 +18,8 @@
     $rac-button-disabled-shadow: $rac-button-disabled-shadow,
     $rac-button-content-margin: $rac-button-content-margin,
     $rac-button-content-font-size: $rac-button-content-font-size,
-    $rac-button-content-font-weight: $rac-button-content-font-weight
+    $rac-button-content-font-weight: $rac-button-content-font-weight,
+    $rac-button-content-white-space: $rac-button-content-white-space
   );
 
   @include rac-button(                                                                        /* @stable [01.11.2018] */

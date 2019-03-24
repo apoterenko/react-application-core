@@ -45,7 +45,6 @@ export interface IUIFactory {
   dialog?: string;
   dialogContainer?: string;
   dialogScrim?: string;
-  dialogActions?: string;
 
   /**
    * @stable [15.12.2018]

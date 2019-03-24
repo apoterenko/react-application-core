@@ -329,7 +329,6 @@ export class UIMaterialFactory implements IUIFactory {
   public dialog = 'mdc-dialog';
   public dialogContainer = 'mdc-dialog__container';
   public dialogScrim = 'mdc-dialog__scrim';
-  public dialogActions = 'mdc-dialog__actions';
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;

@@ -12,6 +12,7 @@ import {
   UniversalComponentPluginFactoryT,
   IUniversalComponentPluginClassEntity,
 } from '../../entities-definitions.interface';
+import { AnyT } from '../../definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
@@ -23,7 +24,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   protected plugins: IUniversalComponentPlugin[] = [];
   protected scrollTask: DelayedTask;
-  protected selfRef = React.createRef<Element>();
+  protected selfRef = React.createRef<AnyT>();
 
   /**
    * @stable [23.04.2018]

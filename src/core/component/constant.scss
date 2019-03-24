@@ -26,6 +26,7 @@ $color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
 $rac-color-0-0: rgba(0, 0, 0, .1) !default;
+$rac-color-0-1: #ffffff !default;
 $rac-default-color-0-0: rgba(0, 0, 0, 0.3) !default;
 $rac-default-color-0-1: rgba(255, 255, 255, 0.5) !default;
 $rac-default-width-1: 56px !default;
@@ -152,9 +153,12 @@ $rac-button-padding: 0 $rac-default-half-offset !default;
 $rac-button-border-radius: $rac-default-border-radius !default;
 $rac-button-text-transform: none !default;
 $rac-button-icon-margin: 0 8px !default;
+/**/
 $rac-button-content-margin: 0 auto !default;
 $rac-button-content-font-size: $rac-default-font-size-2 !default;
 $rac-button-content-font-weight: $rac-default-font-weight-2 !default;
+$rac-button-content-white-space: nowrap !default;
+/**/
 $rac-button-disabled-cursor: default !default;
 $rac-button-disabled-opacity: $opacity !default;
 $rac-button-disabled-background: unset !default;
@@ -277,7 +281,6 @@ $rac-grid-column-content-button-icon-size: unset !default;
 $rac-grid-column-content-button-icon-color: unset !default;
 /**/
 $rac-grid-column-content-button-content-font-size: $rac-default-font-size !default;
-$rac-grid-column-content-button-content-white-space: nowrap !default;
 /**/
 $rac-grid-column-content-text-field-height: 24px !default;
 $rac-grid-service-wrapper-border-left-color: $color-3 !default;
@@ -376,9 +379,6 @@ $rac-field-help-text-line-height: 16px !default;
 $rac-field-labeled-self-field-margin: 20px 0 0 0 !default;
 $rac-field-labeled-self-field-label-top: -20px !default;
 
-/* @stable [30.07.2018] */
-$rac-dialog-address-field-google-maps-map-min-height: 200px !default;
-
 /* @stable [15.12.2018] */
 $rac-filter-active-content: '●' !default;
 $rac-filter-active-color: $color-6 !default;
@@ -476,11 +476,13 @@ $rac-card-list-item-box-shadow: unset !default;
 $rac-card-list-item-font-size: $rac-default-font-size !default;
 
 /* @stable [05.08.2018] */
-$rac-dialog-header-color: $rac-default-label-color !default;
-$rac-dialog-header-font-size: $rac-default-font-size-2 !default;
+$rac-dialog-body-padding: $rac-default-offset !default;
+$rac-dialog-body-background: $rac-color-0-1 !default;
+$rac-dialog-body-border-radius: 3px !default;
 $rac-dialog-content-font-size: $rac-default-font-size !default;
-$rac-dialog-content-color: $rac-default-text-color !default;
-$rac-dialog-actions-footer-button-margin: 0 0 0 8px !default;
+$rac-dialog-actions-footer-margin: $rac-default-offset 0 0 0 !default;
+$rac-dialog-actions-footer-neighbor-child-margin: 0 0 0 $rac-default-half-offset !default;
+$rac-dialog-address-field-google-maps-map-min-height: 200px !default;
 
 /* @stable [17.09.2018] */
 $rac-drawer-background: $color-5 !default;
