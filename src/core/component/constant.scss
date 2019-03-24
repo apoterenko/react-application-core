@@ -25,6 +25,7 @@ $color-22: #f2f2f2 !default;
 $color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
+$rac-color-0-0: rgba(0, 0, 0, .1) !default;
 $rac-default-color-0-0: rgba(0, 0, 0, 0.3) !default;
 $rac-default-color-0-1: rgba(255, 255, 255, 0.5) !default;
 $rac-default-width-1: 56px !default;
@@ -546,12 +547,6 @@ $rac-snackbar-button-color: $color-5 !default;
 $rac-snackbar-error-button-color: $rac-snackbar-button-color !default;
 $rac-snackbar-error-background-color: $color-11 !default;
 
-/* @stable [26.08.2018] */
-$rac-chips-filter-chip-background: none !default;
-$rac-chips-filter-chip-color: $color-6 !default;
-$rac-chips-filter-chip-border: 1px solid $color-6 !default;
-$rac-chips-filter-chip-text-transform: uppercase !default;
-
 /* @stable [13.09.2018] */
 $rac-default-layout-header-height: 56px !default;
 $rac-default-layout-header-user-margin-right: 16px !default;
@@ -610,7 +605,7 @@ $rac-title-white-space: nowrap !default;
 $rac-title-color: $rac-default-text-color !default;
 $rac-title-font-size: 16px !default;
 $rac-title-font-weight: $rac-default-font-weight-2 !default;
-$rac-title-wrapper-border-bottom: 1px solid $color-2 !default;
+$rac-title-wrapper-border-bottom: 1px solid $rac-color-0-0 !default;
 $rac-title-wrapper-padding-bottom: 12px !default;
 $rac-title-wrapper-margin: 16px 0 !default;
 
