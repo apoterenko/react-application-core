@@ -26,7 +26,7 @@ export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogMiddle
        * @stable [11.03.2019]
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(FilterFormDialogActionBuilder.buildAcceptActionType(config.filterSection))
+      @EffectsService.effects(FilterFormDialogActionBuilder.buildAcceptActionType(config.formSection))
       public $onAccept(): IEffectsAction {
         return filterFormDialogAcceptMiddleware;
       }
@@ -35,7 +35,7 @@ export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogMiddle
        * @stable [11.03.2019]
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(FilterFormDialogActionBuilder.buildClearActionType(config.filterSection))
+      @EffectsService.effects(FilterFormDialogActionBuilder.buildClearActionType(config.formSection))
       public $onClear(): IEffectsAction[] {
         return filterFormDialogClearMiddleware;
       }
@@ -44,7 +44,7 @@ export function makeFilterFormDialogEffectsProxy(config: IFilterFormDialogMiddle
        * @stable [12.03.2019]
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(FilterFormDialogActionBuilder.buildResetActionType(config.filterSection))
+      @EffectsService.effects(FilterFormDialogActionBuilder.buildResetActionType(config.formSection))
       public $onReset(): IEffectsAction {
         return filterFormDialogResetMiddleware;
       }

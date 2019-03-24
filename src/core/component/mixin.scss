@@ -2477,11 +2477,13 @@
 @mixin rac-google-maps(
   $rac-google-maps-custom: unset,
   $rac-google-maps-margin: unset,
+  $rac-google-maps-position: unset,
   $rac-google-maps-map-min-height: unset
 ) {
   #{rac-build-cls(rac-google-maps, $rac-google-maps-custom)} {
     @include rac-styles(
-      $rac-styles-margin: $rac-google-maps-margin
+      $rac-styles-margin: $rac-google-maps-margin,
+      $rac-styles-position: $rac-google-maps-position
     );
 
     .rac-google-maps-map {
@@ -2516,7 +2518,8 @@
   $rac-dialog-content-font-size: unset,
   $rac-dialog-body-background: unset,
   $rac-dialog-body-padding: unset,
-  $rac-dialog-body-border-radius: unset
+  $rac-dialog-body-border-radius: unset,
+  $rac-dialog-google-maps-map-min-height: unset
 ) {
   #{rac-build-cls(rac-dialog, $rac-dialog-custom)} {
     .rac-dialog-actions-footer {
@@ -2539,6 +2542,10 @@
     @include rac-styles(
       $rac-styles-custom: rac-dialog-content,
       $rac-styles-font-size: $rac-dialog-content-font-size
+    );
+
+    @include rac-google-maps(
+      $rac-google-maps-map-min-height: $rac-dialog-google-maps-map-min-height
     );
   }
 }

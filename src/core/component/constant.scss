@@ -482,7 +482,6 @@ $rac-dialog-body-border-radius: 3px !default;
 $rac-dialog-content-font-size: $rac-default-font-size !default;
 $rac-dialog-actions-footer-margin: $rac-default-offset 0 0 0 !default;
 $rac-dialog-actions-footer-neighbor-child-margin: 0 0 0 $rac-default-half-offset !default;
-$rac-dialog-address-field-google-maps-map-min-height: 200px !default;
 
 /* @stable [17.09.2018] */
 $rac-drawer-background: $color-5 !default;
@@ -637,6 +636,10 @@ $rac-overlay-progress-icon-size: 64px !default;
 
 /* @stable [11.03.2019] */
 $rac-toolbar-tools-neighbor-margin: 0 0 0 $rac-default-half-offset !default;
+
+/* @stable [24.03.2019] */
+$rac-google-maps-position: relative !default;
+$rac-dialog-google-maps-map-min-height: 200px !default;
 
 /**/
 $rac-disabled-opacity: .2;

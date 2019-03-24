@@ -148,8 +148,7 @@ export interface IRefreshedListOnValidFormMiddlewareConfig
  */
 export interface IFilterFormDialogMiddlewareConfig
   extends IListSectionWrapper,
-    IFormSectionWrapper,
-    IFilterSectionWrapper {
+    IFormSectionWrapper {
 }
 
 /**

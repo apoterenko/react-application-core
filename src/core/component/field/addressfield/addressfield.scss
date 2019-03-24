@@ -1,20 +1,10 @@
 @import '../../constant';
 @import '../../mixin';
 
-// AddressField [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-field {
-
-    .rac-dialog {
-
-      .rac-dialog-address-field-place {
-        margin-bottom: 8px;                                                               /* @stable [30.10.2018] */
-      }
-
-      @include rac-google-maps(                                                           /* @stable [30.10.2018] */
-        $rac-google-maps-map-min-height: $rac-dialog-address-field-google-maps-map-min-height
-      );
-    }
-  }
+  @include rac-styles(                                                                        /* @stable [24.03.2019] */
+    $rac-styles-custom: rac-address-field-dialog-place,
+    $rac-styles-margin: 0 0 $rac-default-half-offset 0
+  );
 }

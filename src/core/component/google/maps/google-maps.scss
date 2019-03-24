@@ -1,7 +1,13 @@
-// Google maps [FRAMEWORK-][RAC+]
+@import '../../constant';
+@import '../../mixin';
+
 .rac {
 
-  .rac-google-maps {
-    position: relative;                                  /* @stable [30.10.2018] */
-  }
+  @include rac-google-maps(                                                                   /* @stable [24.03.2019] */
+    $rac-google-maps-position: $rac-google-maps-position
+  );
+
+  @include rac-dialog(                                                                        /* @stable [24.03.2019] */
+    $rac-dialog-google-maps-map-min-height: $rac-dialog-google-maps-map-min-height
+  );
 }
