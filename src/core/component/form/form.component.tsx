@@ -267,7 +267,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
 
       if (groupName === validationGroup && fieldName !== name) {
         const refObject = isString(uuidRef) ? null : uuidRef as React.RefObject<IField>;
-        const otherFieldInstanceAtTheSameGroup = refObject.current || this.refs[uuidRef as string] as IField;
+        const otherFieldInstanceAtTheSameGroup = refObject && refObject.current || this.refs[uuidRef as string] as IField;
 
         if (otherFieldInstanceAtTheSameGroup) {
           otherFieldInstanceAtTheSameGroup.resetError();
