@@ -1880,33 +1880,7 @@ export interface IBlockWrapper<TBlock = boolean> {
   block?: TBlock;
 }
 
-/**
- * @stable [23.09.2018]
- */
-export interface IParentWrapper<TParent> {
-  parent?: TParent;
-}
-
-/**
- * @stable [16.06.2018]
- */
-export interface IParentsWrapper<TParents> {
-  parents?: TParents;
-}
-
-/**
- * @stable [16.06.2018]
- */
-export interface IParentIdWrapper {
-  parentId?: EntityIdT;
-}
-
-/**
- * @stable [16.06.2018]
- */
-export interface IParentNameWrapper {
-  parentName?: string;
-}
+export interface IParentWrapper<TParent> { parent?: TParent; }
 
 /**
  * @stable [17.06.2018]
