@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { toClassName } from '../../../util';
 import { Field, IFieldInputProps, toLastAddedMultiItemEntity } from '../../field';
 import { FlexLayout } from '../../layout';
 import { PictureViewer } from '../../viewer';
@@ -18,8 +19,9 @@ export class ViewField extends Field<IViewFieldProps> {
   public render(): JSX.Element {
     return (
       <div className={this.getFieldClassName()}>
-        <FlexLayout ref='self'
-                    className='rac-view-field'>
+        <FlexLayout
+          ref={this.selfRef}
+          className={this.getSelfElementClassName()}>
           {this.getInputElement()}
           {this.viewElement}
         </FlexLayout>
@@ -45,5 +47,13 @@ export class ViewField extends Field<IViewFieldProps> {
   private get viewElement(): JSX.Element {
     const Component = this.props.viewer;
     return <Component src={toLastAddedMultiItemEntity(this.value)}/>;
+  }
+
+  /**
+   * @stable [25.03.2019]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-view-field');
   }
 }

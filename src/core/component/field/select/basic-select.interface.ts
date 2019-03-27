@@ -24,6 +24,7 @@ export interface IBasicSelectState extends IFieldState,
  */
 export interface IBasicSelectConfiguration extends IFieldConfiguration,
                                                    IExpandActionRenderedWrapper {
+  onClose?(): void;
 }
 
 // TODO

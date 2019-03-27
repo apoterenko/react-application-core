@@ -37,9 +37,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   public static defaultProps: IDefaultLayoutContainerProps = {
     headerConfiguration: {},
     footerRendered: true,
-    user: {
-      email: '(no email)',
-    },
   };
   private readonly PROFILE_EXIT_ACTION = 'exit';
   private readonly USER_MENU_OPTIONS = [

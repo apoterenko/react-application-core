@@ -24,6 +24,7 @@ export class BasicSelect<TProps extends IBasicSelectProps,
   constructor(props: TProps) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
+    this.onClose = this.onClose.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
     if (props.expandActionRendered !== false) {
@@ -131,11 +132,13 @@ export class BasicSelect<TProps extends IBasicSelectProps,
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     return (
-      <Menu ref='menu'
-            width={() => getWidth(this.getSelf())}
-            options={this.toFilteredOptions()}
-            onSelect={this.onSelect}
-            {...props.menuConfiguration}/>
+      <Menu
+        ref='menu'
+        width={() => getWidth(this.getSelf())}
+        options={this.toFilteredOptions()}
+        onSelect={this.onSelect}
+        onClose={this.onClose}
+        {...props.menuConfiguration}/>
     );
   }
 
@@ -182,6 +185,18 @@ export class BasicSelect<TProps extends IBasicSelectProps,
 
     if (this.props.onSelect) {
       this.props.onSelect(option);
+    }
+  }
+
+  // TODO
+  protected onClose(): void {
+    const props = this.props;
+
+    if (isFn(props.onDestroyDictionary)) {
+      props.onDestroyDictionary();
+    }
+    if (isFn(props.onClose)) {
+      props.onClose();
     }
   }
 

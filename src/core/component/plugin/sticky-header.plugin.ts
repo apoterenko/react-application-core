@@ -11,6 +11,7 @@ import {
   getStickyElementInitialProperties,
   setStickyElementProperties,
   sequence,
+  DelayedTask,
 } from '../../util';
 
 export class StickyHeaderPlugin implements IUniversalComponentPlugin {
@@ -18,6 +19,7 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
 
   private stickyElementInitialProperties: IStickyElementPayloadEntity;
   private selfElementHeight: number;
+  private readonly delayedTask = new DelayedTask(this.onDelayedTask.bind(this), 400);
 
   /**
    * @stable [13.12.2018]
@@ -26,7 +28,15 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
   constructor(private component: IUniversalScrollableComponent) {
     component.onScroll = sequence(
       component.onScroll,
-      () => setStickyElementProperties(this.stickyElementInitialProperties)
+      () => {
+        if (this.stickyElementInitialProperties) {
+          setStickyElementProperties({
+            ...this.stickyElementInitialProperties,
+            initial: true,
+          });
+          this.delayedTask.start();
+        }
+      }
     );
   }
 
@@ -45,6 +55,7 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
    */
   public componentWillUnmount() {
     this.stickyElementInitialProperties = null;
+    this.delayedTask.stop();
   }
 
   /**
@@ -90,5 +101,9 @@ export class StickyHeaderPlugin implements IUniversalComponentPlugin {
         this.stickyElementInitialProperties = stickyElementInitialProperties;
       }
     }
+  }
+
+  private onDelayedTask(): void {
+    setStickyElementProperties(this.stickyElementInitialProperties);
   }
 }

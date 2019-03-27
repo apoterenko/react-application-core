@@ -208,6 +208,7 @@ import {
   IWrapperClassNameWrapper,
   IApplyGroupWrapper,
   IResetIconWrapper,
+  IOnDestroyDictionaryWrapper,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -491,6 +492,7 @@ export interface IUniversalFormConfiguration extends IGenericFormEntity,
                                                      IResetIconWrapper,
                                                      IChangeableWrapper,
                                                      IFullWrapper,
+                                                     IOnDestroyDictionaryWrapper,
                                                      IOnEmptyDictionaryWrapper<IApiEntity> {
 }
 
@@ -949,7 +951,8 @@ export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWr
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
                                                       IOnEmptyDictionaryWrapper<IApiEntity>,
-                                                      IOnLoadDictionaryWrapper {
+                                                      IOnLoadDictionaryWrapper,
+                                                      IOnDestroyDictionaryWrapper {
 }
 
 /**
@@ -967,7 +970,8 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IRendererWrapper<IMenuItemEntity>,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
                                             ITplFnWrapper<IMenuItemEntity>,
-                                            IOnSelectWrapper<IMenuItemEntity> {
+                                            IOnSelectWrapper<IMenuItemEntity>,
+  IOnCloseWrapper {
 }
 
 /**

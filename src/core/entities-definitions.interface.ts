@@ -26,7 +26,6 @@ import {
   IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueWrapper,
-  IEmailWrapper,
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
@@ -609,8 +608,7 @@ export interface IUserEntity extends INamedEntity,
                                      IUrlWrapper,
                                      IPhotoUrlWrapper,
                                      IPasswordWrapper,
-                                     ILoginWrapper,
-                                     IEmailWrapper {
+                                     ILoginWrapper {
 }
 
 /* @stable - 15.04.2018 */
@@ -891,6 +889,7 @@ export interface IStickyElementPayloadEntity {
   jqStickyEl?: IJQueryElement;
   jqStickyElHeight?: number;
   initialStickyElTop?: number;
+  initial?: boolean;
 }
 
 /**

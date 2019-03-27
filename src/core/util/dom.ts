@@ -360,7 +360,7 @@ export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadE
   const selfTop = jqSelfEl.offset().top;
   const selfScrollTop = jqSelfEl.scrollTop();
 
-  if (selfScrollTop >= initialStickyElTop - selfTop) {
+  if (payloadEntity.initial !== true && selfScrollTop >= initialStickyElTop - selfTop) {
     position = 'absolute';
     zIndex = 1;
     top = selfScrollTop - initialStickyElTop + selfTop;

@@ -509,6 +509,10 @@ export interface IOnEmptyDictionaryWrapper<TPayload> {
   onEmptyDictionary?(dictionary?: string, payload?: TPayload): void;
 }
 
+export interface IOnDestroyDictionaryWrapper {
+  onDestroyDictionary?(dictionary?: string);
+}
+
 /* @stable - 22.04.2018 */
 export interface ILoadingWrapper {
   loading?: boolean;
@@ -693,13 +697,6 @@ export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
  */
 export interface IExpandedGroupsWrapper<TExpandedGroups extends IKeyValue = IKeyValue> {
   expandedGroups?: TExpandedGroups;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface IEmailWrapper<TEmail = string> {
-  email?: TEmail;
 }
 
 /**

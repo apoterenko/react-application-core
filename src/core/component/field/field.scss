@@ -11,9 +11,14 @@
     $rac-field-help-text-line-height: $rac-field-help-text-line-height
   );
 
-  @include rac-field(                                                                         /* @stable [22.03.2019] */
-    $rac-field-custom: rac-field-no-displayed,
-    $rac-self-field-display: none
+  @include rac-field(                                                                         /* @stable [27.03.2019] */
+    $rac-field-custom: $rac-view-field-cls,
+    $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
+  );
+
+  @include rac-field(                                                                         /* @stable [27.03.2019] */
+    $rac-field-custom: $rac-field-no-displayed-cls,
+    $rac-self-field-display: none  $rac-field-no-displayed-self-field-display
   );
 
   @include rac-field(                                                                         /* @stable [22.03.2019] */
@@ -68,10 +73,6 @@
   }
 
   .rac-field {
-
-    .rac-view-field {
-      margin-bottom: $rac-view-field-margin-bottom;                   /* @stable [04.10.2018] */
-    }
 
     &.rac-field-required {
 

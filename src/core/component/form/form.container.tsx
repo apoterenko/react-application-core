@@ -15,6 +15,8 @@ import {
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
 } from './form.interface';
+import { applySection } from '../../util';
+import { DictionariesActionBuilder } from '../../dictionary';
 
 export class FormContainer extends BaseContainer<IFormContainerProps>
     implements IFormContainer {
@@ -29,6 +31,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
     this.onBeforeSubmit = this.onBeforeSubmit.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
     this.onLoadDictionary = this.onLoadDictionary.bind(this);
+    this.onDestroyDictionary = this.onDestroyDictionary.bind(this);
   }
 
   public render(): JSX.Element {
@@ -44,6 +47,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
               onReset={this.onReset}
               onValid={this.onValid}
               onEmptyDictionary={this.onEmptyDictionary}
+              onDestroyDictionary={this.onDestroyDictionary}
               onLoadDictionary={this.onLoadDictionary}
               {...props.formConfiguration}>
           {props.children}
@@ -104,6 +108,11 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
    */
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
     this.dispatchLoadDictionary(dictionary, apiEntity);
+  }
+
+  private onDestroyDictionary(dictionary: string): void {
+    // TODO
+    this.dispatchCustomType(DictionariesActionBuilder.buildClearActionType(dictionary), applySection(dictionary));
   }
 
   private onLoadDictionary(items: AnyT): void {

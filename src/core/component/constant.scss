@@ -313,9 +313,11 @@ $rac-field-message-color: $rac-default-text-color !default;
 /* @stable [17.09.2018] */
 $rac-field-focused-cls: rac-field-focused;
 $rac-field-labeled-cls: rac-field-labeled;
+$rac-field-no-displayed-cls: rac-field-no-displayed;
 $rac-field-not-focused-cls: rac-field-not-focused;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
+$rac-view-field-cls: rac-view-field;
 /**/
 $rac-text-field-input-color: $rac-default-text-color !default;
 $rac-text-field-input-border: none !default;
@@ -368,7 +370,6 @@ $rac-text-field-filter-active-after-bottom: 5px !default;
 $rac-text-field-disabled-opacity: unset !default;
 $rac-gridfield-text-field-margin-bottom: 8px !default;
 $rac-checkbox-field-label-line-height: 16px !default;
-$rac-view-field-margin-bottom: 20px !default;
 $rac-switch-label-margin: 16px !default;
 $rac-text-area-length-label-font-size: $rac-default-font-size - 1 !default;
 $rac-text-area-length-label-color: $rac-default-label-color !default;
@@ -378,6 +379,10 @@ $rac-field-help-text-line-height: 16px !default;
 /**/
 $rac-field-labeled-self-field-margin: 20px 0 0 0 !default;
 $rac-field-labeled-self-field-label-top: -20px !default;
+/**/
+$rac-field-no-displayed-self-field-display: none !default;
+/**/
+$rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
 
 /* @stable [15.12.2018] */
 $rac-filter-active-content: '●' !default;

@@ -114,6 +114,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   public hide(): void {
     this.setState({opened: false});
+    const props = this.props;
+    if (isFn(props.onClose)) {
+      props.onClose();
+    }
   }
 
   /**

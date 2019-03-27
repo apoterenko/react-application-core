@@ -84,6 +84,10 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
                 fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
                 () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
               ),
+              onDestroyDictionary: orUndef<() => void>(
+                fieldProps.bindDictionary || fieldProps.onDestroyDictionary,
+                () => fieldProps.onDestroyDictionary || (() => this.onDestroyDictionary(field))
+              ),
               onLoadDictionary: orUndef<(items: AnyT) => void>(
                 fieldProps.bindDictionary || fieldProps.onLoadDictionary,
                 () => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
@@ -213,6 +217,15 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
 
     if (props.onEmptyDictionary) {
       props.onEmptyDictionary(field.props.bindDictionary, this.apiEntity);
+    }
+  }
+
+  // TODO
+  private onDestroyDictionary(field: IField): void {
+    const props = this.props;
+
+    if (props.onDestroyDictionary) {
+      props.onDestroyDictionary(field.props.bindDictionary);
     }
   }
 
