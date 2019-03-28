@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 import DayPicker from 'react-day-picker';
 
-import { orNull, nvl } from '../../../util';
+import { orNull, nvl, generateArray } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
+import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IDateTimeSettings } from '../../../settings';
@@ -13,6 +14,8 @@ import {
 } from './datefield.interface';
 import { BaseTextField } from '../textfield';
 import { Dialog } from '../../dialog';
+import { FlexLayout } from '../../layout';
+import { Select } from '../select';
 
 export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                        TState extends IDateFieldState = IDateFieldState>
@@ -32,6 +35,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   constructor(props: TProps) {
     super(props);
+    this.onChangeYear = this.onChangeYear.bind(this);
     this.onAccept = this.onAccept.bind(this);
     this.onCalendarClick = this.onCalendarClick.bind(this);
 
@@ -48,7 +52,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
-    const initialDate = this.initialDialogDate;
+    const initialDate = this.dialogDate;
     return (
       <Dialog
         ref={this.dialogRef}
@@ -56,11 +60,19 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         closable={false}
         titleRendered={false}
       >
+        <FlexLayout
+          full={false}>
+          <Select
+            onSelect={this.onChangeYear}
+            options={generateArray(100).map((year, i) => ({label: `${1950 + i}`, value: 1950 + i}))}
+            value={initialDate.getFullYear()}>
+          </Select>
+        </FlexLayout>
         <DayPicker
           firstDayOfWeek={props.firstDayOfWeek}
           fixedWeeks={true}
           locale={props.locale}
-          initialMonth={initialDate}
+          month={initialDate}
           selectedDays={initialDate}
           onDayClick={this.onAccept}/>
       </Dialog>
@@ -116,6 +128,16 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
+   * @stable [27.03.2019]
+   * @param {ISelectOptionEntity} option
+   */
+  private onChangeYear(option: ISelectOptionEntity): void {
+    const date = new Date(this.dialogDate.getTime());
+    date.setFullYear(option.value as number);
+    this.onChangeManually(date);
+  }
+
+  /**
    * @stable [24.02.2019]
    * @param {Date} currentTime
    */
@@ -128,7 +150,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [07.01.2019]
    * @returns {Date}
    */
-  private get initialDialogDate(): Date {
+  private get dialogDate(): Date {
     if (!this.isValuePresent()) {
       return this.dc.getCurrentDate();
     }

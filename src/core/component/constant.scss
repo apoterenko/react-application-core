@@ -25,8 +25,12 @@ $color-22: #f2f2f2 !default;
 $color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
+/**/
 $rac-color-0-0: rgba(0, 0, 0, .1) !default;
 $rac-color-0-1: #ffffff !default;
+/**/
+$rac-layout-offset-0: 24px !default;
+/**/
 $rac-default-color-0-0: rgba(0, 0, 0, 0.3) !default;
 $rac-default-color-0-1: rgba(255, 255, 255, 0.5) !default;
 $rac-default-width-1: 56px !default;
@@ -38,7 +42,7 @@ $rac-default-offset: 16px !default;
 $rac-default-half-offset: $rac-default-offset / 2 !default;
 $rac-default-toolbar-height: 64px !default;
 $rac-default-layout-offset: 40px !default;
-$rac-default-layout-offset-2: 24px !default;
+$rac-default-layout-offset-2: $rac-layout-offset-0 !default;
 $rac-default-font-size: 12px !default;
 $rac-default-font-size-2: 14px !default;
 $rac-default-font-size-3: 16px !default;

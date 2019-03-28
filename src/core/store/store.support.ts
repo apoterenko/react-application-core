@@ -2,7 +2,7 @@ import { Reducer, ReducersMapObject, combineReducers, AnyAction } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
-import { toSection, isPrimitive } from '../util';
+import { toSection, isPrimitive, isUndef } from '../util';
 import { IEntity, IKeyValue, IPayloadWrapper, ISelectedWrapper } from '../definitions.interface';
 
 export type FilterT = (action: IEffectsAction) => boolean;
@@ -63,11 +63,15 @@ export const entityReducerFactory = <TKeyValue extends IKeyValue>(
         const entity = payloadWrapper.payload || selectedWrapper.selected;
 
         return R.isNil(entity)
-          ? state
-          : isPrimitive(entity) ? entity : {
-            ...state as {},
-            ...entity as {},
-          } as TKeyValue;
+          ? (isUndef(entity) ? state : entity)
+          : (
+            isPrimitive(entity)
+              ? entity
+              : {
+                ...state as {},
+                ...entity as {},
+              } as TKeyValue
+          );
       case destroyActionType:
         return null;
     }

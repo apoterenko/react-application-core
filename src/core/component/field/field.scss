@@ -18,7 +18,7 @@
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
     $rac-field-custom: $rac-field-no-displayed-cls,
-    $rac-self-field-display: none  $rac-field-no-displayed-self-field-display
+    $rac-self-field-display: $rac-field-no-displayed-self-field-display
   );
 
   @include rac-field(                                                                         /* @stable [22.03.2019] */
