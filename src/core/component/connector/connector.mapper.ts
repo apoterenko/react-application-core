@@ -84,7 +84,9 @@ export const openFilterFilterFormWrapperEntityMapper =
     ...activeClassNameFilterFormWrapperEntityMapper(filterFormWrapperEntity),
   });
 
-// TODO
+/**
+ * @deprecated
+ */
 export const refreshListAndFilterFormWrapperEntityMapper =
   (mappedEntity: IListAndFilterFormWrapperEntity, actions?: IFilterActionConfiguration[]): IFilterConfiguration => ({
     actions: orDefault<IFilterActionConfiguration[], IFilterActionConfiguration[]>(

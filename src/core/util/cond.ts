@@ -95,3 +95,15 @@ export const ifNotFalseThanValue = <TResult>(value: boolean,
                                              callback: (value: boolean) => TResult,
                                              defaultValue = null): TResult =>
   value !== false ? callback(value) : defaultValue;
+
+/**
+ * @stable [29.03.2019]
+ * @param {boolean} value
+ * @param {(value: boolean) => TResult} callback
+ * @param {any} defaultValue
+ * @returns {TResult}
+ */
+export const ifNotTrueThanValue = <TResult>(value: boolean,
+                                            callback: (value: boolean) => TResult,
+                                            defaultValue = null): TResult =>
+  value !== true ? callback(value) : defaultValue;

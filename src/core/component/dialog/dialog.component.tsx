@@ -133,7 +133,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
         'rac-dialog-body',
         this.uiFactory.dialogContainer
       )}>
-        <div>
+        <div className='rac-dialog-body-content-wrapper'>
           {this.dialogBodyContentElement}
           {this.footerElement}
         </div>

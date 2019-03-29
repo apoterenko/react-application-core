@@ -4,14 +4,15 @@ import * as R from 'ramda';
 import { UNDEF, StringNumberT } from '../../definitions.interface';
 import { IMenuItemEntity } from '../../entities-definitions.interface';
 import {
-  orNull,
-  toClassName,
-  queryFilter,
-  setAbsoluteOffsetByCoordinates,
   calc,
   cancelEvent,
-  subArray,
+  ifNotTrueThanValue,
   isFn,
+  orNull,
+  queryFilter,
+  setAbsoluteOffsetByCoordinates,
+  subArray,
+  toClassName,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -203,7 +204,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
               key={`menu-item-key-${option.value}`}
               className='rac-list-item rac-flex'
               aria-disabled={option.disabled === true}
-              onClick={(event) => this.onSelect(event, option)}
+              onClick={ifNotTrueThanValue(option.disabled, () => (event) => this.onSelect(event, option))}
             >
               {this.getMenuItemElement(option)}
             </li>

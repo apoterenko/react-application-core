@@ -39,8 +39,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     footerRendered: true,
   };
   private readonly PROFILE_EXIT_ACTION = 'exit';
+  private readonly PROFILE_PROFILE_ACTION = 'profile';
   private readonly USER_MENU_OPTIONS = [
-    {label: 'Exit', icon: 'sign_out_alt', value: this.PROFILE_EXIT_ACTION}
+    {label: this.settings.messages.settingsMessage, icon: 'settings', value: this.PROFILE_PROFILE_ACTION},
+    {label: this.settings.messages.logOutMessage, icon: 'sign_out_alt', value: this.PROFILE_EXIT_ACTION}
   ];
   private userMenuRef = React.createRef<Menu>();
 
@@ -101,6 +103,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     switch (menuItem.value) {
       case this.PROFILE_EXIT_ACTION:
         this.navigate(this.routes.logout);
+        break;
+      case this.PROFILE_PROFILE_ACTION:
+        this.navigate(this.routes.profile);
         break;
     }
   }

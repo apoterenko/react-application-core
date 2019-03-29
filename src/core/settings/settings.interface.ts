@@ -89,6 +89,7 @@ export interface IMessagesSettings {
   filtersMessage?: string;
   followingErrorHasOccurredMessage?: string;
   invalidAddressMessage?: string;
+  logOutMessage?: string;
   logoutNotificationMessage?: string;
   newAppVersionMessageHasBeenDeployed?: string;
   noAvailableItemsToSelectMessage?: string;
@@ -101,6 +102,7 @@ export interface IMessagesSettings {
   reset?: string;
   save?: string;
   serviceTemporarilyUnavailableMessage?: string;
+  settingsMessage?: string;
   signIntoYourAccountMessage?: string;
   sorryMessage?: string;
   takeSnapshotMessage?: string;
@@ -203,6 +205,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     filtersMessage: 'Filters',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     invalidAddressMessage: 'Invalid address',
+    logOutMessage: 'Log out',
     logoutNotificationMessage: 'You were logged out.',
     newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
@@ -215,6 +218,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     reset: 'Reset',
     save: 'Save',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
+    settingsMessage: 'Settings',
     sorryMessage: 'Sorry about that.',
     takeSnapshotMessage: 'Take a snapshot',
     unknownFileMessage: 'Unknown file',

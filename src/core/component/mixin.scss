@@ -2536,6 +2536,7 @@
   $rac-dialog-body-background: unset,
   $rac-dialog-body-padding: unset,
   $rac-dialog-body-border-radius: unset,
+  $rac-dialog-body-content-wrapper-overflow: unset,
   $rac-dialog-google-maps-map-min-height: unset
 ) {
   #{rac-build-cls(rac-dialog, $rac-dialog-custom)} {
@@ -2554,6 +2555,11 @@
       $rac-styles-background: $rac-dialog-body-background,
       $rac-styles-padding: $rac-dialog-body-padding,
       $rac-styles-border-radius: $rac-dialog-body-border-radius
+    );
+
+    @include rac-styles(
+      $rac-styles-custom: rac-dialog-body-content-wrapper,
+      $rac-styles-overflow: $rac-dialog-body-content-wrapper-overflow
     );
 
     @include rac-styles(
