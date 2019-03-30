@@ -103,7 +103,6 @@ export interface IMessagesSettings {
   save?: string;
   serviceTemporarilyUnavailableMessage?: string;
   settingsMessage?: string;
-  signIntoYourAccountMessage?: string;
   sorryMessage?: string;
   takeSnapshotMessage?: string;
   unknownFileMessage?: string;

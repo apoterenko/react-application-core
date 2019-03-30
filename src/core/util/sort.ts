@@ -27,16 +27,6 @@ export const ID_ASC_SORTER_FN = <TEntity extends IEntity>(value1: StringNumberT,
  * @returns {number}
  * @constructor
  */
-export const ID_DESC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntity, item2: TEntity): number =>
-  ID_DESC_SORTER_FN(item1.id, item2.id);
-
-/**
- * @stable [29.08.2018]
- * @param {TEntity} item1
- * @param {TEntity} item2
- * @returns {number}
- * @constructor
- */
 export const ID_ASC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntity, item2: TEntity): number =>
   ID_ASC_SORTER_FN(item1.id, item2.id);
 

@@ -31,7 +31,7 @@ import { applySection, buildErrorMessage, isString, toType } from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
-  extends React.Component<TProps, TState>
+  extends React.PureComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalContainer');
@@ -61,17 +61,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
         }
       };
     }
-  }
-
-  /**
-   * @stable [02.07.2018]
-   * @param {TProps} props
-   * @param {Readonly<TState>} nextState
-   * @returns {boolean}
-   */
-  public shouldComponentUpdate(props: TProps, nextState: Readonly<TState>) {
-    return !R.equals(props, this.props)
-      || (!R.isNil(this.state) && !R.equals(nextState, this.state));
   }
 
   /**

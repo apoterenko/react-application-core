@@ -42,10 +42,7 @@ export const DAYS_OF_WEEK_MAP = R.mergeAll<Record<number, boolean>>(DAYS_OF_WEEK
  * Core fields
  */
 export const ID_FIELD_NAME = 'id';                                                              /* @stable [02.07.2018] */
-export const TYPE_FIELD_NAME = 'type';
-export const BODY_FIELD_NAME = 'body';
 export const AUTH_FIELD_NAME = 'auth';
-export const PARAMETERS_FIELD_NAME = 'parameters';
 export const FROM_DATE_FIELD_NAME = 'fromDate';
 export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
