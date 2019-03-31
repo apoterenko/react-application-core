@@ -67,7 +67,7 @@ export interface IButtonProps
     IStringToWrapper,
     IRaisedWrapper,
     ISimpleWrapper,
-    ITypeWrapper {
+    ITypeWrapper<'button' | 'submit' | 'reset'> {
   iconCls?: string; // TODO
   rippled?: boolean;
 }
