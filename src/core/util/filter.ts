@@ -4,8 +4,6 @@ import {
   AnyT,
   ID_FIELD_NAME,
   IKeyValue,
-  PROGRESS_FIELD_NAME,
-  PASSWORD_FIELD_NAME,
   FROM_TIME_FIELD_NAME,
   TO_TIME_FIELD_NAME,
   TIME_FIELD_NAME,
@@ -80,8 +78,6 @@ export function cloneUsingTimeFieldsFilters<TSource extends IKeyValue, TResult e
 
 export const OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => isObject(value);
 export const NOT_OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => !isObject(value);
-export const NOT_PROGRESS_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PROGRESS_FIELD_NAME;
-export const NOT_PASSWORD_FIELD_PREDICATE = (key: string, value: AnyT) => key !== PASSWORD_FIELD_NAME;
 
 /**
  * @stable [09.01.2019]
@@ -101,6 +97,14 @@ export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => ent
 export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
 /**
+ * @stable [31.03.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => NOT_NIL_VALUE_PREDICATE(value) && !R.isEmpty(value);
+
+/**
  * @stable [03.10.2018]
  * @param {string} key
  * @param {AnyT} value
@@ -117,6 +121,15 @@ export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value
  * @constructor
  */
 export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
+
+/**
+ * @stable [31.03.2019]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_EMPTY_VALUE_PREDICATE(value);
 
 /**
  * @stable [03.10.2018]
@@ -187,6 +200,14 @@ export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyV
  */
 export const notNilValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, NOT_NIL_KEY_VALUE_PREDICATE);
+
+/**
+ * @stable [31.03.2019]
+ * @param {TSource} source
+ * @returns {TResult}
+ */
+export const notEmptyValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, NOT_EMPTY_KEY_VALUE_PREDICATE);
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);

@@ -51,9 +51,7 @@ export const TIME_FIELD_NAME = 'time';
 export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
 export const EFFECTOR_FIELD_NAME = 'effector';                                                  /* @stable [28.03.2018] */
-export const PASSWORD_FIELD_NAME = 'password';
 export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
-export const ZIP_CODE_FIELD_NAME = 'zipCode';                                                   /* @stable [01.08.2018] */
 export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
 export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
 export const DISPLAY_MESSAGE_FIELD_NAME = 'displayMessage';                                     /* @stable [29.10.2018] */
@@ -2569,8 +2567,6 @@ export interface IJQueryElement<TElement extends Element = Element> extends JQue
 export interface IJQueryInputElement extends IJQueryElement<HTMLElement> {
   caret?(position?: number): number;
 }
-
-export const PROGRESS_FIELD_NAME = 'progress';
 
 export const UNI_CODES = {
   dash: '\u2014',
