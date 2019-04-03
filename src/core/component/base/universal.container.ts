@@ -27,7 +27,7 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
-import { applySection, buildErrorMessage, isString, toType } from '../../util';
+import { applySection, buildErrorMessage, isString, toActionPrefix, toType } from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
@@ -94,7 +94,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   public dispatchFrameworkAction<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void {
     const props = this.props;
     const section = otherSection || props.sectionName;
-    this.dispatchCustomType(`${ACTION_PREFIX}${section}.${type}`, applySection(section, data));
+    this.dispatchCustomType(`${toActionPrefix(section)}.${type}`, applySection(section, data));
   }
 
   /**

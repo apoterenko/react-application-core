@@ -597,6 +597,16 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [03.04.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @returns {Date}
+   */
+  public toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date {
+    return this.toMomentDate(date, inputFormat).toDate();
+  }
+
+  /**
    * @stable [11.08.2018]
    * @param {DateTimeLikeTypeT} date
    * @param {string} inputFormat
@@ -665,7 +675,7 @@ export class DateConverter implements IDateConverter {
    * @returns {number}
    */
   private toYear(date: DateTimeLikeTypeT, inputFormat: string): number {
-    return this.toMomentDate(date, inputFormat).toDate().getFullYear();
+    return this.toDate(date, inputFormat).getFullYear();
   }
 
   /**
@@ -675,6 +685,6 @@ export class DateConverter implements IDateConverter {
    * @returns {number}
    */
   private toMonth(date: DateTimeLikeTypeT, inputFormat: string): number {
-    return this.toMomentDate(date, inputFormat).toDate().getMonth();
+    return this.toDate(date, inputFormat).getMonth();
   }
 }

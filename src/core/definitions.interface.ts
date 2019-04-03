@@ -1394,13 +1394,7 @@ export interface IToClassNameWrapper<TItem> {
 /* @stable - 31.03.2018 */
 export interface IEntityToClassNameWrapper extends IToClassNameWrapper<IEntity> {
 }
-
-/**
- * @stable [14.05.2018]
- */
-export interface IUseGroupingWrapper {
-  useGrouping?: boolean;
-}
+export interface IUseGroupingWrapper { useGrouping?: boolean; }
 
 /**
  * @stable [22.10.2018]

@@ -64,7 +64,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           full={false}>
           <Select
             onSelect={this.onChangeYear}
-            options={generateArray(100).map((year, i) => ({label: `${1950 + i}`, value: 1950 + i}))}
+            options={generateArray(100).map((year, i) => {
+              const v = 2050 - i;
+              return ({label: String(v), value: v});
+            })}
             value={initialDate.getFullYear()}>
           </Select>
         </FlexLayout>

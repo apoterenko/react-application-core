@@ -8,7 +8,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps, IPictureViewerSta
 
   public static defaultProps: IPictureViewerProps = {
     defaultScr: 'media/no_picture.jpg',
-    usePreview: true,
+    usePreview: false,
   };
 
   /**
@@ -37,11 +37,8 @@ export class PictureViewer extends Viewer<IPictureViewerProps, IPictureViewerSta
    * @returns {JSX.Element}
    */
   protected gePreviewElement(): JSX.Element {
-    const props = this.props;
     return (
-      <PictureViewer
-        src={props.src}
-        usePreview={false}/>
+      <PictureViewer src={this.props.src}/>
     );
   }
 }

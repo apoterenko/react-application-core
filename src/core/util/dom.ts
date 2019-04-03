@@ -394,3 +394,19 @@ export const getStickyElementInitialProperties = (jqSelfEl: IJQueryElement): ISt
   }
   return null;
 };
+
+/**
+ * @stable [03.04.2019]
+ * @param {Element & {mozRequestFullScreen?: () => void; msRequestFullscreen?: () => void}} elem
+ */
+export const openFullScreen = (elem: Element & { mozRequestFullScreen?: () => void; msRequestFullscreen?: () => void; }) => {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (isFn(elem.mozRequestFullScreen)) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (isFn(elem.webkitRequestFullscreen)) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (isFn(elem.msRequestFullscreen)) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+};

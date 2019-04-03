@@ -85,6 +85,7 @@ export interface IDateConverter {
   tryGetFirstDayOfYear(duration?: moment.DurationInputArg1,
                        date?: DateTimeLikeTypeT,
                        inputFormat?: string): Date;
+  toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;

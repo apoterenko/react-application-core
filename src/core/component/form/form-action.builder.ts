@@ -85,12 +85,22 @@ export class FormActionBuilder {
     return `${toActionPrefix(section)}.${FORM_DEACTIVATED_VALUE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [02.04.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildSubmitActionType(section: string): string {
-    return `${section}.${FORM_SUBMIT_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_SUBMIT_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [02.04.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildSubmitDoneActionType(section: string): string {
-    return `${section}.${FORM_SUBMIT_DONE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_SUBMIT_DONE_ACTION_TYPE}`;
   }
 
   public static buildSubmitFinishedActionType(section: string): string {
@@ -101,6 +111,11 @@ export class FormActionBuilder {
     return `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [02.04.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
   public static buildSubmitDoneAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildSubmitDoneActionType(section), applySection(section));
   }
