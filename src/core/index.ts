@@ -4,6 +4,7 @@ export * from './auth';
 export * from './application';
 export * from './bootstrap';
 export * from './channel';
+export * from './crypto';
 export * from './component/access';
 export * from './component/application';
 export * from './component/auto-focused';

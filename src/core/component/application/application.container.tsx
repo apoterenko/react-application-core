@@ -4,7 +4,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
-import { APPLICATION_STATE_KEY, IApplicationStorage } from '../../storage';
+import { APPLICATION_STATE_KEY, IStorage } from '../../storage';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
@@ -28,7 +28,7 @@ import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity = IApplicationStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
-  @lazyInject(DI_TYPES.Storage) private storage: IApplicationStorage;
+  @lazyInject(DI_TYPES.Storage) private storage: IStorage;
   @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
 
   constructor(props: IApplicationContainerProps) {

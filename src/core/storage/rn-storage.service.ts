@@ -1,10 +1,10 @@
 import { AsyncStorage } from 'react-native';
 
-import { IApplicationStorage, STORAGE_KEY_SEPARATOR } from '../storage';
+import { IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
 import { AnyT } from '../definitions.interface';
 
 // TODO Encryption/Decryption
-export class RnStorage implements IApplicationStorage {
+export class RnStorage implements IStorage {
 
   constructor(private prefix: string) {
   }

@@ -4,6 +4,7 @@ export const DI_TYPES = Object.freeze({
   Channel: Symbol('Channel'),
   CloudFileStorage: Symbol('CloudFileStorage'),
   CloudStorage: Symbol('CloudStorage'),
+  CryptoManager: Symbol('CryptoManager'),
   DateConverter: Symbol('DateConverter'),
   DomAccessor: Symbol('DomAccessor'),
   DynamicRoutes: Symbol('DynamicRoutes'),

@@ -103,12 +103,22 @@ export class FormActionBuilder {
     return `${toActionPrefix(section)}.${FORM_SUBMIT_DONE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [03.04.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildSubmitFinishedActionType(section: string): string {
-    return `${section}.${FORM_SUBMIT_FINISHED_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_SUBMIT_FINISHED_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [03.04.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildSubmitErrorActionType(section: string): string {
-    return `${section}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
   /**

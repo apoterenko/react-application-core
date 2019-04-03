@@ -12,7 +12,7 @@ export interface ISetFilesResult {
   removeFilesResults: IRemoveFileResult[];
 }
 
-export interface IApplicationStorage {
+export interface IStorage {
   enabled?: boolean;
   disabled?: boolean;
   set(key: string, value: AnyT): Promise<AnyT>;

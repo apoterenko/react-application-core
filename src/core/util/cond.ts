@@ -82,7 +82,7 @@ export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
 export const ifNotEmptyThanValue = <TValue, TResult> (value: TValue,
                                                       callback: (value: TValue) => TResult,
                                                       defaultValue = null): TResult =>
-  !R.isEmpty(value) ? callback(value) : defaultValue;
+  !R.isNil(value) && !R.isEmpty(value) ? callback(value) : defaultValue;
 
 /**
  * @stable [25.02.2019]

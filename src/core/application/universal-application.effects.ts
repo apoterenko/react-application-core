@@ -9,7 +9,7 @@ import { orNull } from '../util';
 import { ISettings } from '../settings';
 import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
-import { APPLICATION_TOKEN_KEY, APPLICATION_UUID_KEY, IApplicationStorage } from '../storage/storage.interface';
+import { APPLICATION_TOKEN_KEY, APPLICATION_UUID_KEY, IStorage } from '../storage/storage.interface';
 import { BaseEffects } from '../store/effects/base.effects';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
@@ -29,8 +29,8 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
   @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
-  @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IApplicationStorage;
-  @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected notVersionedSessionStorage: IApplicationStorage;
+  @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IStorage;
+  @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected notVersionedSessionStorage: IStorage;
   @lazyInject(DI_TYPES.TransportResponseAccessor) protected responseAccessor: ITransportResponseAccessor;
   @lazyInject(FetchJsonTransportFactory) protected fetchJsonTransportFactory: ITransportFactory;
 

@@ -2,13 +2,13 @@ import { injectable } from 'inversify';
 
 import { IApplicationStorageHelper } from './storage.interface';
 import { lazyInject, DI_TYPES } from '../di';
-import { IApplicationStorage, ISetFilesResult } from './storage.interface';
+import { IStorage, ISetFilesResult } from './storage.interface';
 import { isDef, orNull } from '../util';
 import { UNDEF } from '../definitions.interface';
 
 @injectable()
 export class StorageHelper implements IApplicationStorageHelper {
-  @lazyInject(DI_TYPES.CloudFileStorage) private fileStorage: IApplicationStorage;
+  @lazyInject(DI_TYPES.CloudFileStorage) private fileStorage: IStorage;
 
   /**
    * @stable [28.06.2018]

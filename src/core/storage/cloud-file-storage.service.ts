@@ -7,12 +7,12 @@ import {
   ISetFileResult,
   IRemoveFileResult,
   ISetFilesResult,
-  IApplicationStorage,
+  IStorage,
 } from './storage.interface';
 
 @injectable()
-export class CloudFileStorage implements IApplicationStorage {
-  @lazyInject(DI_TYPES.CloudStorage) private cloudStorage: IApplicationStorage;
+export class CloudFileStorage implements IStorage {
+  @lazyInject(DI_TYPES.CloudStorage) private cloudStorage: IStorage;
 
   public async set(key: string, entity: IMultiEntity): Promise<ISetFilesResult> {
     const blobs = await toBlobEntities(...entity.add.map((entity0) => entity0.id as string));

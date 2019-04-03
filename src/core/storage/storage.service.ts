@@ -6,11 +6,11 @@ import * as localStorage from 'store/storages/localStorage';
 const sessionStore = engine.createStore([sessionStorage]);
 const localStore = engine.createStore([localStorage]);
 
-import { ApplicationStorageTypeEnum, IApplicationStorage, STORAGE_KEY_SEPARATOR } from '../storage';
+import { ApplicationStorageTypeEnum, IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
 import { AnyT } from '../definitions.interface';
 import { ISettings } from '../settings';
 
-export class Storage implements IApplicationStorage {
+export class Storage implements IStorage {
 
   constructor(private prefix: string,
               private settingsResolver: () => ISettings,
@@ -55,7 +55,7 @@ export class Storage implements IApplicationStorage {
     this.storage.each((key, value) => command(this.toKey(key), value));
   }
 
-  private get storage(): IApplicationStorage {
+  private get storage(): IStorage {
     const settings = this.settingsResolver();
     const storageType = R.isNil(this.storageType)
       ? (settings && settings.persistenceStorage)

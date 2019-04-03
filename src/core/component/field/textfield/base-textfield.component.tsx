@@ -297,7 +297,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     const value = this.value;
     const content = String((
       props.type === 'password'
-        ? value.replace(/./g, ENV.passwordInputPlaceholder)
+        ? String(value).replace(/./g, ENV.passwordInputPlaceholder)
         : value
     )).replace(/ /g, UNI_CODES.noBreakSpace);
 

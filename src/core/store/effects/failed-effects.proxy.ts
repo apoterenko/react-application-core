@@ -20,9 +20,13 @@ export const makeFailedEffectsProxy = (actionType: string,
   }
 };
 
-export function makeFailedFormEffectsProxy(actionType: string): () => void {
-  return makeFailedEffectsProxy(FormActionBuilder.buildSubmitErrorActionType(actionType));
-}
+/**
+ * @stable [03.04.2019]
+ * @param {string} actionType
+ * @returns {() => void}
+ */
+export const makeFailedFormEffectsProxy = (actionType: string) =>
+  makeFailedEffectsProxy(FormActionBuilder.buildSubmitErrorActionType(actionType));
 
 /**
  * @stable [23.12.2018]
