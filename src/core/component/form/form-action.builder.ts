@@ -63,8 +63,13 @@ export class FormActionBuilder {
     return `${toActionPrefix(section)}.${FORM_RESET_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [03.04.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildValidActionType(section: string): string {
-    return `${section}.${FORM_VALID_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${FORM_VALID_ACTION_TYPE}`;
   }
 
   /**
@@ -137,6 +142,16 @@ export class FormActionBuilder {
    */
   public static buildResetAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildResetActionType(section), applySection(section));
+  }
+
+  /**
+   * @stable [03.04.2019]
+   * @param {string} section
+   * @param {boolean} valid
+   * @returns {IEffectsAction}
+   */
+  public static buildValidAction(section: string, valid: boolean): IEffectsAction {
+    return EffectsAction.create(this.buildValidActionType(section), applySection(section, {valid}));
   }
 
   public static buildSubmitFinishedAction(section: string): IEffectsAction {

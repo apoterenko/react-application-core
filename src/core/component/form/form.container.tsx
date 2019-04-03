@@ -77,7 +77,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
    * @param {boolean} valid
    */
   private onValid(valid: boolean): void {
-    this.dispatch(FORM_VALID_ACTION_TYPE, {valid});
+    this.dispatchFrameworkAction(FORM_VALID_ACTION_TYPE, {valid});
   }
 
   /**
