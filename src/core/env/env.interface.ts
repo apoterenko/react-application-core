@@ -53,4 +53,4 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   buildAppPath: (path) => buildNormalizedPath(`${BASE_PATH}/${path}/`),
 });
 
-LoggerFactory.makeLogger('env.interface').debug('[$environment]', ENV);
+LoggerFactory.makeLogger('env.interface').debug(`[$environment] ${JSON.stringify(ENV)}`);
