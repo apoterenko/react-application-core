@@ -5,4 +5,3 @@ export interface IFullScreenManager {
   enable(): void;
   disable(): void;
 }
-
