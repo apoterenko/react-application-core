@@ -17,8 +17,12 @@ const origin = definedLocation.origin || [definedLocation.protocol, definedLocat
 const BASE_PATH = (definedDocument.baseURI || definedLocation.href).replace(origin, '');
 const RN_PLATFORM_NAME = Reflect.get(definedWindow, '$$RAC-RN_PLATFORM_NAME');
 const SAFARI_PLATFORM = P.name === 'Safari';
+/**/
+const ANDROID_PLATFORM = P.os.family === 'Android';
 const IOS_PLATFORM = P.os.family === 'iOS';
-
+const MAC_PLATFORM = P.os.family === 'OS X';
+const WINDOWS_PHONE_PLATFORM = P.os.family === 'Windows Phone';
+/**/
 export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   appVersion: process.env.APP_VERSION || '0.0.1',
   appProfile: process.env.APP_PROFILE || 'DEFAULT',
@@ -29,8 +33,13 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   googleMapsKey: process.env.GOOGLE_MAPS_KEY,
   rnPlatformName: RN_PLATFORM_NAME,
   rnPlatform: !!RN_PLATFORM_NAME,
-  macPlatform: P.os.family === 'OS X',
+  /**/
+  androidPlatform: ANDROID_PLATFORM,
   iosPlatform: IOS_PLATFORM,
+  macPlatform: MAC_PLATFORM,
+  windowsPhonePlatform: WINDOWS_PHONE_PLATFORM,
+  mobilePlatform: ANDROID_PLATFORM || IOS_PLATFORM || WINDOWS_PHONE_PLATFORM,
+  /**/
   basePath: BASE_PATH,
   normalizedBasePath: BASE_PATH.replace(/\//g, ''),
   port: definedLocation.port || '80',

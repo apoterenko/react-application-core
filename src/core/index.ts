@@ -23,6 +23,7 @@ export * from './component/field';
 export * from './component/filter';
 export * from './component/footer';
 export * from './component/form';
+export * from './component/full-screen';
 export * from './component/google';
 export * from './component/grid';
 export * from './component/header';

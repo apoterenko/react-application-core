@@ -110,6 +110,7 @@ export interface IDateConverter {
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
+  getPersonAge(date: DateTimeLikeTypeT): number;
   combine(dateAsString: string, timeAsString: string): string;
   shrinkDate(dateTime: DateTimeLikeTypeT, separator?: string): DateTimeLikeTypeT;
 }

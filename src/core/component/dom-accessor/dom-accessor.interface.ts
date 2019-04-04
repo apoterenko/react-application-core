@@ -6,6 +6,8 @@ import { IJQueryElement } from '../../definitions.interface';
  */
 export interface IDomAccessor {
   addClassNameToElement(element: Element, ...clsNames: string[]): void;
+  disableFullScreen(element?: Element);
+  enableFullScreen(element?: Element);
   findUniversalSelectedElement(parent: Element): Element;
   getContentHeight(source: Element): number;
   getDocumentBodyElement(): Element;

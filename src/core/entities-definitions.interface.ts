@@ -810,26 +810,29 @@ export interface IEnvironmentPlatformOsEntity {
  * @stable [12.09.2018]
  */
 export interface IEnvironmentEntity {
-  appVersion?: string;
-  appProfile?: string;
+  androidPlatform?: boolean;
+  mobilePlatform?: boolean;
   appNamespace?: string;
-  prodMode?: boolean;
-  devModeEnabled?: boolean;
+  appProfile?: string;
+  appVersion?: string;
   basePath?: string;
-  normalizedBasePath?: string;
-  port?: string;
+  devModeEnabled?: boolean;
+  documentBody?: Element;
   googleKey?: string;
   googleMapsKey?: string;
-  rnPlatformName?: string;
-  rnPlatform?: boolean;
-  macPlatform?: boolean;
   iosPlatform?: boolean;
+  localModeEnabled?: boolean;
+  macPlatform?: boolean;
+  normalizedBasePath?: string;
+  passwordInputPlaceholder?: string;
   platformName?: string;
   platformOs?: IEnvironmentPlatformOsEntity;
+  port?: string;
+  prodMode?: boolean;
+  rnPlatform?: boolean;
+  rnPlatformName?: string;
   safariPlatform?: boolean;
-  passwordInputPlaceholder?: string;
-  documentBody?: Element;
-  localModeEnabled?: boolean;
+  windowsPhonePlatform?: boolean;
   appPath?(): string;
   buildAppPath?(path: string): string;
 }

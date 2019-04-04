@@ -10,6 +10,7 @@ import {
   getScrollTop,
   hasElements,
   hasParent,
+  openFullScreen,
   removeClassNameFromElement,
   scrollIntoView,
   scrollTo,
@@ -24,6 +25,22 @@ import { ENV } from '../../env';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
+
+  /**
+   * @stable [04.04.2019]
+   * @param {HTMLElement} element
+   */
+  public enableFullScreen(element = document.body) {
+    openFullScreen(element);
+  }
+
+  /**
+   * @stable [04.04.2019]
+   * @param {HTMLElement} element
+   */
+  public disableFullScreen(element = document.body) {
+    // TODO
+  }
 
   /**
    * @stable [16.02.2019]

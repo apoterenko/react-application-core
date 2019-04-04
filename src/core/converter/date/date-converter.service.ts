@@ -576,6 +576,10 @@ export class DateConverter implements IDateConverter {
     return moment().subtract(monthsAgo, 'months').startOf('month').toDate();
   }
 
+  public getPersonAge(birthday: DateTimeLikeTypeT): number {
+    return moment().diff(birthday, 'years');
+  }
+
   /**
    * @stable [24.11.2018]
    * @param {string} dateAsString

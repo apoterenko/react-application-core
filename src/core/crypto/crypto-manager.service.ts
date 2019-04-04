@@ -26,15 +26,6 @@ export class CryptoManager implements ICryptoManager {
    */
   public decrypt(payload: AnyT, key: StringNumberT, stringResult = true): AnyT {
     const decryptedBytes = CryptoJS.AES.decrypt(payload, String(key));
-    if (stringResult === false) {
-      return decryptedBytes;
-    }
-    let decryptedValue;
-    try {
-      decryptedValue = decryptedBytes.toString(CryptoJS.enc.Utf8);
-    } catch (e) {
-      throw Error('Key is malformed!');
-    }
-    return decryptedValue;
+    return stringResult === false ? decryptedBytes : decryptedBytes.toString(CryptoJS.enc.Utf8);
   }
 }
