@@ -28,7 +28,7 @@ export interface IApplicationStorageHelper {
   saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<ISetFilesResult[]>;
 }
 
-export enum ApplicationStorageTypeEnum {
+export enum StorageTypeEnum {
   SESSION,
   LOCAL,
 }

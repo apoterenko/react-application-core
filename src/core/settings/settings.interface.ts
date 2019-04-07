@@ -1,7 +1,7 @@
 import { ENV } from '../env';
 import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
-import { ApplicationStorageTypeEnum } from '../storage/storage.interface';
+import { StorageTypeEnum } from '../storage/storage.interface';
 import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
 import { IButtonProps } from '../definition';
 
@@ -142,7 +142,7 @@ export interface ISettings {
   companyCountry?: string;
   usePersistence?: boolean;
   transport?: ITransportSettings;
-  persistenceStorage?: ApplicationStorageTypeEnum;
+  persistenceStorage?: StorageTypeEnum;
   entityEmptyId?: AnyT;
   resourcePaths?: IApplicationResourcePaths;
   dateTime?: IDateTimeSettings;

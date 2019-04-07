@@ -2,7 +2,7 @@ import { appContainer, staticInjector, DI_TYPES } from '../di';
 import { ISettings,  } from '../settings';
 import { ENV } from '../env';
 import { Storage } from './storage.service';
-import { ApplicationStorageTypeEnum } from './storage.interface';
+import { StorageTypeEnum } from './storage.interface';
 import { CloudFileStorage } from './cloud-file-storage.service';
 import { joinStorageKeyPrefix } from './storage.support';
 import { StorageHelper } from './storage.helper';
@@ -17,10 +17,10 @@ appContainer.bind(DI_TYPES.Storage).toConstantValue(
   ),
 );
 appContainer.bind(DI_TYPES.NotVersionedPersistentStorage).toConstantValue(
-  new Storage(notVersionedKey, settingsResolver, ApplicationStorageTypeEnum.LOCAL)
+  new Storage(notVersionedKey, settingsResolver, StorageTypeEnum.LOCAL)
 );
 appContainer.bind(DI_TYPES.NotVersionedSessionStorage).toConstantValue(
-  new Storage(notVersionedKey, settingsResolver, ApplicationStorageTypeEnum.SESSION)
+  new Storage(notVersionedKey, settingsResolver, StorageTypeEnum.SESSION)
 );
 appContainer.bind(DI_TYPES.CloudFileStorage).to(CloudFileStorage).inSingletonScope();
 appContainer.bind(DI_TYPES.StorageHelper).to(StorageHelper).inSingletonScope();

@@ -1873,12 +1873,7 @@ export interface ISmallWrapper<TSmall> {
 export interface IBooleanSmallWrapper extends ISmallWrapper<boolean> {
 }
 
-/**
- * @stable [13.10.2018]
- */
-export interface ILargeWrapper<TLarge = boolean> {
-  large?: TLarge;
-}
+export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
 
 /* @stable - 04.04.2018 */
 export interface IStyleWrapper<TStyle> {

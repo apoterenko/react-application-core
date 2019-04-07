@@ -59,7 +59,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
       <div ref={this.menuAnchorRef}
            className={this.uiFactory.menuAnchor}>
         <div ref={this.getSelfRef()}
-             style={{width: calc(props.width)}}
+             style={{...!props.renderToCenterOfBody && {width: calc(props.width)}}}
              className={toClassName(
                           'rac-menu',
                           props.className,

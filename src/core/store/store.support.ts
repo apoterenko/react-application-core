@@ -65,7 +65,7 @@ export const entityReducerFactory = <TKeyValue extends IKeyValue>(
         return R.isNil(entity)
           ? (isUndef(entity) ? state : entity)
           : (
-            isPrimitive(entity)
+            isPrimitive(entity) || Array.isArray(entity)
               ? entity
               : {
                 ...state as {},

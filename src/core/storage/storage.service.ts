@@ -6,7 +6,7 @@ import * as localStorage from 'store/storages/localStorage';
 const sessionStore = engine.createStore([sessionStorage]);
 const localStore = engine.createStore([localStorage]);
 
-import { ApplicationStorageTypeEnum, IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
+import { StorageTypeEnum, IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
 import { AnyT } from '../definitions.interface';
 import { ISettings } from '../settings';
 
@@ -14,7 +14,7 @@ export class Storage implements IStorage {
 
   constructor(private prefix: string,
               private settingsResolver: () => ISettings,
-              private storageType?: ApplicationStorageTypeEnum) {
+              private storageType?: StorageTypeEnum) {
   }
 
   set enabled(value: boolean) {
@@ -62,7 +62,7 @@ export class Storage implements IStorage {
       : this.storageType;
 
     switch (storageType) {
-      case ApplicationStorageTypeEnum.SESSION:
+      case StorageTypeEnum.SESSION:
         return sessionStore;
       default:
         return localStore;
