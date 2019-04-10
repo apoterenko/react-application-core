@@ -1,11 +1,15 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../base';
-import { IChipInternalProps } from './chip.interface';
 import { FlexLayout } from '../layout';
+import { IChipProps } from './chip.interface';
 
-export class Chip extends BaseComponent<IChipInternalProps> {
+export class Chip extends BaseComponent<IChipProps> {
 
+  /**
+   * @stable [09.04.2019]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
     return (
@@ -21,6 +25,7 @@ export class Chip extends BaseComponent<IChipInternalProps> {
           {
             this.uiFactory.makeIcon({
               type: 'close',
+              key: `chip-key-${props.id}`,
               disabled: props.disabled,
               onClick: props.onClick,
             })

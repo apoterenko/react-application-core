@@ -1,8 +1,13 @@
-import { IDisabledWrapper} from '../../definitions.interface';
+import { IDisabledWrapper, IEntityIdTWrapper } from '../../definitions.interface';
 import { IComponentProps } from '../../props-definitions.interface';
 import { IReactOnClickWrapper } from '../../react-definitions.interface';
 
-export interface IChipInternalProps extends IComponentProps,
-                                            IDisabledWrapper,
-                                            IReactOnClickWrapper {
+/**
+ * @stable [09.04.2019]
+ */
+export interface IChipProps
+  extends IComponentProps,
+    IDisabledWrapper,
+    IEntityIdTWrapper,
+    IReactOnClickWrapper {
 }

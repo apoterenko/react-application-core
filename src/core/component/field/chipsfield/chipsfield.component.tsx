@@ -1,13 +1,11 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
-import { EntityIdT } from '../../../definitions.interface';
-import { INamedEntity } from '../../../entities-definitions.interface';
-import { uuid } from '../../../util';
 import { Chip } from '../../chip';
-import {
-  IChipsFieldProps,
-  IChipsFieldState,
-} from './chipsfield.interface';
+import { coalesce, NAME_ASC_SORTER_FN, uuid } from '../../../util';
+import { EntityIdT } from '../../../definitions.interface';
+import { IChipsFieldProps, IChipsFieldState } from './chipsfield.interface';
+import { INamedEntity } from '../../../entities-definitions.interface';
 import { MultiField } from '../multifield';
 
 export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
@@ -19,13 +17,19 @@ export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
   protected getAttachmentElement(): JSX.Element {
     return (
       <div className='rac-field-chips-wrapper'>
-        {this.multiFieldPlugin.activeValue.map((item) => (
-            <Chip key={uuid()}
-                  disabled={this.isFieldInactive()}
-                  onClick={() => this.onDelete(item)}>
-              {this.toDisplayLabel(item)}
-            </Chip>
-          )
+        {R.sort((o1, o2) => NAME_ASC_SORTER_FN(o1.name, o2.name),
+          this.multiFieldPlugin.activeValue).map((item) => {
+            const id = coalesce(item.id, item.value, uuid());
+            return (
+              <Chip
+                key={id}
+                id={id}
+                disabled={this.isFieldInactive()}
+                onClick={() => this.onDelete(item)}>
+                {this.toDisplayLabel(item)}
+              </Chip>
+            );
+          }
         )}
       </div>
     );
@@ -37,11 +41,11 @@ export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
    * @returns {EntityIdT}
    */
   private toDisplayLabel(item: INamedEntity): EntityIdT {
-    const value = item.id;
+    const id = item.id;
 
-    const selectedOption = this.options.find((option0) => option0.value === value);
+    const selectedOption = this.options.find((option0) => option0.value === id);
     return selectedOption
       ? this.t(selectedOption.label)
-      : (item.name || value);
+      : (item.name || id);
   }
 }

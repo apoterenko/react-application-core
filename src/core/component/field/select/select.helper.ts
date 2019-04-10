@@ -22,7 +22,9 @@ export const toSelectOptions = (data: INamedEntity[] | INamedEntity,
           }))
   );
 
-// TODO destroy
+/**
+ * @deprecated
+ */
 export const toSelectOptionsFromDictionary = <TDictionaryEntityData>(dictionaryEntity: IDictionaryEntity<TDictionaryEntityData>,
                                                                      useIdFilter = false,
                                                                      predicate = () => true): ISelectOptionEntity[] =>

@@ -1,6 +1,16 @@
 import { IEntity, I$DateWrapper, StringNumberT } from '../definitions.interface';
 
 /**
+ * @stable [09.04.2019]
+ * @param {StringNumberT} value1
+ * @param {StringNumberT} value2
+ * @returns {number}
+ * @constructor
+ */
+export const NAME_ASC_SORTER_FN = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
+  String(value1).localeCompare(String(value2));
+
+/**
  * @stable [07.03.2019]
  * @param {number} value1
  * @param {number} value2

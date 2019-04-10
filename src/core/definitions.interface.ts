@@ -2421,12 +2421,7 @@ export interface ICallbackWrapper<TCallback> {
   callback?: TCallback;
 }
 
-/**
- * @stable [11.06.2018]
- */
-export interface IStateWrapper<TState> {
-  state?: TState;
-}
+export interface IStateWrapper<TState> { state?: TState; }
 
 /**
  * @stable [03.06.2018]
