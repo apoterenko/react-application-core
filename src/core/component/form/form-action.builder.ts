@@ -24,6 +24,7 @@ import {
   FORM_CLEAR_ACTION_TYPE,
   FORM_DEACTIVATED_VALUE_ACTION_TYPE,
 } from './form.interface';
+import { IApiEntity } from '../../definition';
 
 export class FormActionBuilder {
 
@@ -152,6 +153,16 @@ export class FormActionBuilder {
    */
   public static buildValidAction(section: string, valid: boolean): IEffectsAction {
     return EffectsAction.create(this.buildValidActionType(section), applySection(section, {valid}));
+  }
+
+  /**
+   * @stable [11.04.2019]
+   * @param {string} section
+   * @param {IApiEntity<TData>} apiEntity
+   * @returns {IEffectsAction}
+   */
+  public static buildSubmitAction<TData>(section: string, apiEntity: IApiEntity<TData>): IEffectsAction {
+    return EffectsAction.create(this.buildSubmitActionType(section), applySection(section, apiEntity));
   }
 
   public static buildSubmitFinishedAction(section: string): IEffectsAction {

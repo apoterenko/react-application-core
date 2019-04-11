@@ -1,29 +1,27 @@
-import { IComponentConfiguration } from '../../configurations-definitions.interface';
-import { IComponentEntity } from '../../entities-definitions.interface';
 import {
   IBarcodeWrapper,
-  IHeightWrapper,
   IFontSizeWrapper,
+  IFormatWrapper,
+  IHeightWrapper,
 } from '../../definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 
 /**
- * @stable [11.06.2018]
+ * @stable [10.04.2019]
  */
-export interface IBarcodeConfiguration extends IComponentConfiguration,
-                                               IHeightWrapper,
-                                               IFontSizeWrapper {
+export interface IBarcodeProps
+  extends IComponentProps,
+    IBarcodeWrapper,
+    IHeightWrapper,
+    IFontSizeWrapper,
+    IFormatWrapper<BarcodeFormatEnum[]> {
 }
 
 /**
- * @stable [11.06.2018]
+ * @stable [10.04.2019]
  */
-export interface IBarcodeEntity extends IComponentEntity,
-                                        IBarcodeWrapper {
-}
-
-/**
- * @stable [11.06.2018]
- */
-export interface IBarcodeProps extends IBarcodeConfiguration,
-                                       IBarcodeEntity {
+export enum BarcodeFormatEnum {
+  EAN13 = 'EAN13',
+  EAN8 = 'EAN8',
+  CODE39 = 'CODE39',
 }

@@ -524,7 +524,7 @@ export interface IDictionariesWrapper<TDictionaries> {
 }
 
 export interface IDisplayNameWrapper { displayName?: string; }
-export interface ILabelWrapper { label?: string; }
+export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
 export interface IPlaceholderWrapper { placeholder?: string; }
 

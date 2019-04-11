@@ -1,0 +1,12 @@
+.rac {
+  .rac-barcode {  // TODO
+    border: 1px solid black;                    /* @stable [10.06.2018] */
+    padding: 16px;                              /* @stable [10.06.2018] */
+    display: inline-block;
+    margin: 0 16px 16px 0;
+  }
+
+  .rac-barcode-format {
+    font-size: 12px;
+  }
+}

@@ -5,6 +5,7 @@ import * as R from 'ramda';
 import { isFn } from './type';
 import { ENV } from '../env';
 import { calc } from './calc';
+import { notNilValuesArrayFilter } from './filter';
 import {
   AnyT,
   UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
@@ -81,7 +82,8 @@ export const addRootElement = (rootId: string) => {
  * @stable [14.11.2018]
  * @param {string} clsName
  */
-export const addClassNameToBody = (...clsName: string[]): void => addClassNameToElement(document.body, ...clsName);
+export const addClassNameToBody = (...clsName: string[]): void => addClassNameToElement(document.body,
+  ...notNilValuesArrayFilter(...clsName));
 
 /**
  * @stable [28.06.2018]

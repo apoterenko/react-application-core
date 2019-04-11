@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import * as crossvent from 'crossvent';
 
 import { ENV } from '../env';
-import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage } from '../util';
+import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage, orNull } from '../util';
 import { IApplicationContainerProps } from '../component/application';
 import { IContainerClassEntity } from '../entities-definitions.interface';
 import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from '../configurations-definitions.interface';
@@ -46,7 +46,13 @@ export function bootstrap(
   ) {
   const ready = () => {
     if (bootstrapConfiguration.needToPrepareBody) {
-      addClassNameToBody('rac');
+      addClassNameToBody(
+        'rac',
+        orNull(ENV.macPlatform, 'rac-mac'),
+        orNull(ENV.iosPlatform, 'rac-ios'),
+        orNull(ENV.androidPlatform, 'rac-android'),
+        orNull(ENV.safariPlatform, 'rac-safari')
+      );
       addBootElement(bootstrapConfiguration.rootId);
     }
     addClassNameToBody(ENV.appProfile);

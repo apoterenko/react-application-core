@@ -6,6 +6,14 @@
 // Form field [FRAMEWORK-][RAC+]
 .rac {
 
+  &.rac-ios, &.rac-mac {                                                                      /* @stable [10.04.2019] */
+    &.rac-safari {
+      @include rac-field(
+        $rac-self-field-input-placeholder-padding: 4px 0 0 0
+      );
+    }
+  }
+
   @include rac-field(                                                                         /* @stable [22.03.2019] */
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height

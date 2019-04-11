@@ -8,5 +8,4 @@ export * from './list.interface';
 export * from './list.reducer';
 export * from './navigation';
 export * from './simple';
-export * from './subheader';
 export * from './universal-base-list.container';

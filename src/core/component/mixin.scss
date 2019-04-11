@@ -583,6 +583,45 @@
 }
 
 /**
+ * @stable [10.04.2019]
+ */
+@mixin rac-placeholder(
+  $rac-placeholder-color: unset,
+  $rac-placeholder-padding: unset
+) {
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    @include rac-styles(
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    @include rac-styles(
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    @include rac-styles(
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    @include rac-styles(
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &::placeholder {
+    @include rac-styles(
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+}
+
+/**
  * @stable [13.03.2019]
  */
 @mixin rac-neighbor-child(
@@ -1085,6 +1124,10 @@
   $rac-self-field-display: unset,
   $rac-self-field-margin: unset,
   $rac-self-field-label-top: unset,
+  $rac-self-field-label-color: unset,
+  /**/
+  $rac-self-field-input-placeholder-padding: unset,
+  $rac-self-field-input-placeholder-color: unset,
   /**/
   $rac-self-field-viewer-margin: unset,
   $rac-self-field-viewer-content-border-radius: unset,
@@ -1133,8 +1176,16 @@
           > {
             @include rac-styles(
               $rac-styles-custom: rac-field-label,
-              $rac-styles-top: $rac-self-field-label-top
+              $rac-styles-top: $rac-self-field-label-top,
+              $rac-styles-color: $rac-self-field-label-color
             );
+
+            .rac-field-input {
+              @include rac-placeholder(
+                $rac-placeholder-padding: $rac-self-field-input-placeholder-padding,
+                $rac-placeholder-color: $rac-self-field-input-placeholder-color
+              );
+            }
           }
         }
 
