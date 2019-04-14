@@ -8,7 +8,7 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { AnyT, UNDEF, IKeyValue } from '../../definitions.interface';
 import { BaseChannel } from '../base-channel.service';
-import { createScript, isFn, toType } from '../../util';
+import { createScript, isFn, toType, isArrayNotEmpty } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
@@ -25,7 +25,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
   protected static logger = LoggerFactory.makeLogger('SignalRChannel');
 
   private signalRScriptTask: Promise<HTMLScriptElement>;
-  private signalRInitTasks = new Map<string, Promise<void>>();
+  private readonly signalRInitTasks = new Map<string, Promise<void>>();
 
   /**
    * @stable [12.12.2018]
@@ -45,7 +45,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
     const hubUrl = `${this.settings.signalRUrl}${ip}`;
 
     // We need to load the script at the any case
-    this.signalRScriptTask = this.signalRScriptTask || createScript({src: hubUrl});
+    this.signalRScriptTask = this.signalRScriptTask || createScript({src: `${hubUrl}?_dc=${Date.now()}`});
 
     this.cancelInitTask(ip);
     this.signalRInitTasks.set(
@@ -74,7 +74,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
   private onSignalRInitialize(ip: string, hubUrl: string, config?: ISignalRChannelConfigEntity): void {
     const onMessage = this.onMessage;
     const toChannelClient = this.toChannelClient;
-    const areSpecificChannelsPresent = !R.isNil(config) && Array.isArray(config.channels);
+    const areSpecificChannelsPresent = !R.isNil(config) && isArrayNotEmpty(config.channels);
 
     $.connection.hub.url = hubUrl;
     if (!R.isNil(config) && isFn(config.query)) {
@@ -93,10 +93,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
                 config.channels.forEach((channel) => {
                   const specificChannel = toChannelClient(channel, CHANNEL_CONNECT_EVENT);
                   if (!R.isNil(specificChannel)) {
-                    specificChannel.client.addMessage = () => {
-                      // !! Don't remove this logger because SignalR observe function via a Reflection !!
-                      const channel0 = channel;
-                    };
+                    specificChannel.on('addmessage', () => { /* Don't remove!. This is a stub for SignalR */ });
                   }
                 });
               }
@@ -129,7 +126,26 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
                   } else {
                     const specificChannel = toChannelClient(payload.channel, CHANNEL_SEND_EVENT);
                     if (!R.isNil(specificChannel)) {
-                      specificChannel.server.sendMessage(...payload.params);
+                      const dynamicMethods = Object.keys(specificChannel.server);
+                      if (!dynamicMethods.length) {
+                        SignalRChannel.logger.warn(
+                          `[$SignalRChannel][onSignalRInitialize] There are no dynamic methods to execute! The hub: ${ip}.`
+                        );
+                      } else {
+                        if (dynamicMethods.length === 1) {
+                          SignalRChannel.logger.debug(
+                            `[$SignalRChannel][onSignalRInitialize] The dynamic methods to execute are ${
+                              JSON.stringify(dynamicMethods)}! The hub: ${ip}.`
+                          );
+
+                          specificChannel.server[dynamicMethods[0]](...payload.params);
+                        } else {
+                          SignalRChannel.logger.warn(
+                            `[$SignalRChannel][onSignalRInitialize] There are more than one methods to execute! The hub: ${
+                              ip}. The methods: ${JSON.stringify(dynamicMethods)}`
+                          );
+                        }
+                      }
                     }
                   }
                 } else {
@@ -147,6 +163,9 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
           if (isFn(disconnectCallback)) {
             disconnectCallback();
           }
+          // See for details https://github.com/SignalR/SignalR/blob/master/src/Microsoft.AspNet.SignalR.JS/jquery.signalR.core.js#L887
+          $($.connection.hub).off('onReceived');
+
           $.connection.hub.stop(false);
         },
       }
