@@ -100,7 +100,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
               $.connection.hub.start().done(() => {
                 if (!isDisconnected) {
                   callback();
-                  $.connection.hub.received((data: { H: string }) => onMessage(ip, UNDEF, data));
+                  $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
                 }
               });
               break;
