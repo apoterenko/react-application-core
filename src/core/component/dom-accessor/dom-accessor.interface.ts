@@ -18,6 +18,7 @@ export interface IDomAccessor {
   getScrollTop(el: Element): number;
   hasElements(selector: string | Element, target: Element): boolean;
   hasParent(selector: string, target: Element): boolean;
+  removeChild(child: Element, parent?: Element);
   removeClassNameFromElement(element: Element, ...clsNames: string[]): void;
   scrollTo(payload: IXYEntity | Element, parent?: Element): void;
   setScrollLeft(el: Element, left: number): void;

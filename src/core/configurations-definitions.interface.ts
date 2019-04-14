@@ -718,6 +718,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IChangeableWrapper,
           IDefaultValue {
   fieldDisplayed?: boolean;
+  preventManualChanges?: boolean; // TODO
   dispatchValue?(rawValue: AnyT); // TODO
 }
 

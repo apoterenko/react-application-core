@@ -70,9 +70,9 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IC
    * @param {AnyT} payload
    */
   public onMessage(ip: string, messageName?: string, payload?: AnyT): void {
-    BaseChannel.logger.info(
-      () => `[$BaseChannel][onMessage] The client received the data ${payload && JSON.stringify(payload) ||
-      '[-]'}. Ip: ${ip}, message: ${messageName || '[-]'}`
+    BaseChannel.logger.debug(
+      '[$BaseChannel][onMessage] The client received the data', payload || '[-]',
+      '. Ip:', ip, ', message:', messageName || '[-]'
     );
 
     this.appStore.dispatch({

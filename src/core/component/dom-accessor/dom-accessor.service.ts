@@ -11,6 +11,7 @@ import {
   hasElements,
   hasParent,
   openFullScreen,
+  removeChild,
   removeClassNameFromElement,
   scrollIntoView,
   scrollTo,
@@ -25,6 +26,15 @@ import { ENV } from '../../env';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
+
+  /**
+   * @stable [14.04.2019]
+   * @param {Element} child
+   * @param {Element} parent
+   */
+  public removeChild(child: Element, parent?: Element) {
+    removeChild(child, parent);
+  }
 
   /**
    * @stable [04.04.2019]

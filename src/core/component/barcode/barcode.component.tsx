@@ -3,17 +3,14 @@ import * as JsBarcode from 'jsbarcode';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../base';
-import { IBarcodeProps, BarcodeFormatEnum } from './barcode.interface';
 import { defValuesFilter, uuid } from '../../util';
+import { getBarcodeApplicableFormats } from './barcode.support';
+import { IBarcodeProps, BarcodeFormatEnum, BARCODE_APPLICABLE_FORMATS } from './barcode.interface';
 
 export class Barcode extends BaseComponent<IBarcodeProps> {
 
   public static defaultProps: IBarcodeProps = {
-    format: [
-      BarcodeFormatEnum.EAN8,
-      BarcodeFormatEnum.EAN13,
-      BarcodeFormatEnum.CODE39
-    ],
+    format: BARCODE_APPLICABLE_FORMATS,
   };
 
   private readonly uuid = uuid(true);
@@ -87,6 +84,9 @@ export class Barcode extends BaseComponent<IBarcodeProps> {
         case BarcodeFormatEnum.EAN13:
           barcodeInstance.EAN13(barcode, options).render();
           break;
+        case BarcodeFormatEnum.UPC:
+          barcodeInstance.UPC(barcode, options).render();
+          break;
       }
     });
   }
@@ -106,20 +106,6 @@ export class Barcode extends BaseComponent<IBarcodeProps> {
    */
   private get validFormats(): BarcodeFormatEnum[] {
     const props = this.props;
-    const code = props.barcode;
-    return props.format
-      .map((format) => {
-        let value;
-        JsBarcode({}, code, {
-          format,
-          valid: (valid) => {
-            if (valid) {
-              value = format;
-            }
-          },
-        });
-        return value;
-      })
-      .filter((format) => !!format);
+    return getBarcodeApplicableFormats(props.barcode, props.format);
   }
 }

@@ -84,6 +84,11 @@ export class MultiField<TProps extends IMultiFieldProps,
    */
   protected onSelect(option: ISelectOptionEntity): void {
     this.multiFieldPlugin.onAddItem({id: option.value, rawData: option.rawData});
+
+    const props = this.props;
+    if (props.onSelect) {
+      props.onSelect(option);
+    }
   }
 
   /**

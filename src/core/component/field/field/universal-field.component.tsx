@@ -134,7 +134,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @param {AnyT} currentRawValue
    */
   public onChangeManually(currentRawValue: AnyT): void {
-    this.onChangeValue(currentRawValue);
+    if (this.props.preventManualChanges !== true) {
+      this.onChangeValue(currentRawValue);
+    }
   }
 
   /**

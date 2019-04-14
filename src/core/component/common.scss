@@ -27,6 +27,10 @@ html, body {
     $rac-styles-min-width: $rac-min-width
   );
 
+  .rac-nowrap {
+    white-space: nowrap;
+  }
+
   .rac-overflow-ellipsis {
     display: inline-block;                                                          /* @stable [16.09.2018] */
     overflow: hidden;                                                               /* @stable [16.09.2018] */
