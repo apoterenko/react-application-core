@@ -2,7 +2,7 @@ import {
   ACTION_PREFIX,
   AnyT,
 } from '../definitions.interface';
-import { IChannelsEntity } from '../entities-definitions.interface';
+import { IChannelsEntity } from '../definition';
 import { PayloadWrapper } from './protocol';
 
 /**
@@ -40,5 +40,6 @@ export const CHANNEL_SEND_EVENT = 'send';
 export const CHANNEL_CONNECT_MESSAGE = 'connect';
 export const CHANNEL_DISCONNECT_MESSAGE = 'disconnect';
 export const $CHANNEL_MESSAGE_ACTION_TYPE = `${ACTION_PREFIX}channel.message`;
+export const $CHANNEL_DESTROY_MESSAGE_ACTION_TYPE = `${ACTION_PREFIX}channel.destroy.message`;
 export const $CHANNEL_CONNECTED_ACTION_TYPE = `${ACTION_PREFIX}channel.connected.message`;
 export const $CHANNEL_DISCONNECTED_ACTION_TYPE = `${ACTION_PREFIX}channel.disconnected.message`;

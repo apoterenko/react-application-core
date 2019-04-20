@@ -2324,7 +2324,8 @@
   $rac-overlay-close-action-size: unset,
   $rac-overlay-close-action-content-size: unset,
   $rac-overlay-close-action-color: unset,
-  $rac-overlay-progress-icon-size: unset
+  $rac-overlay-progress-icon-size: unset,
+  $rac-overlay-progress-z-index: unset
 ) {
 
   #{rac-build-cls(rac-overlay, $rac-overlay-custom)} {
@@ -2341,6 +2342,12 @@
       $rac-icon-size: $rac-overlay-close-action-size,
       $rac-icon-content-size: $rac-overlay-close-action-content-size,
       $rac-icon-color: $rac-overlay-close-action-color
+    );
+
+
+    @include rac-styles(
+      $rac-styles-custom: rac-overlay-progress,
+      $rac-styles-z-index: $rac-overlay-progress-z-index
     );
 
     @include rac-icon(

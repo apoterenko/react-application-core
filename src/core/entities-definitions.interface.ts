@@ -7,15 +7,11 @@ import {
   IActiveValueWrapper,
   IActiveWrapper,
   IApplicationWrapper,
-  IAreaWrapper,
   IAuthorizedWrapper,
   IBlobWrapper,
   IBrowserLocationWrapper,
   IChangesWrapper,
-  IChannelWrapper,
-  ICityWrapper,
   IClearValueWrapper,
-  IConnectedWrapper,
   ICountryWrapper,
   IDataWrapper,
   IDateWrapper,
@@ -42,7 +38,6 @@ import {
   IIdWrapper,
   IIndexWrapper,
   IInfoWrapper,
-  IIpWrapper,
   IJQueryElement,
   IKeyValue,
   IKeyValueRouteParamsWrapper,
@@ -54,7 +49,6 @@ import {
   ILockPageWrapper,
   ILockWrapper,
   ILoginWrapper,
-  IMessagesWrapper,
   IMethodWrapper,
   IModeWrapper,
   INameWrapper,
@@ -93,7 +87,6 @@ import {
   IStateWrapper,
   IStreetNumberWrapper,
   IStreetWrapper,
-  ITabPanelWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
@@ -111,6 +104,8 @@ import {
   IWithCredentialsWrapper,
   IXWrapper,
   IYWrapper,
+  IAreaWrapper,
+  ICityWrapper,
   IZipCodeWrapper,
 } from './definitions.interface';
 import {
@@ -123,11 +118,12 @@ import {
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
-  IUniversalLifeCycleEntity,
-  IErrorEntity,
   IApiEntity,
+  IChannelWrapperEntity,
+  IErrorEntity,
   IExtendedEntity,
   IOperationEntity,
+  IUniversalLifeCycleEntity,
 } from './definition';
 
 /**
@@ -369,33 +365,6 @@ export interface IPaginatedEntity extends IPagedEntity,
                                           ILockPageWrapper,
                                           ITotalCountWrapper,
                                           ITotalAmountWrapper {
-}
-
-/**
- * @stable [20.05.2018]
- */
-export interface IChannelMessageEntity extends IIpWrapper,
-                                               INameWrapper,
-                                               IDataWrapper<AnyT> {
-}
-
-/**
- * @stable [20.05.2018]
- */
-export interface IChannelEntity extends IMessagesWrapper<IChannelMessageEntity[]>,
-                                        IConnectedWrapper {
-}
-
-/**
- * @stable [13.12.2018]
- */
-export interface IChannelsEntity extends Record<string, IChannelEntity> {
-}
-
-/**
- * @stable [20.05.2018]
- */
-export interface IChannelWrapperEntity extends IChannelWrapper<IChannelsEntity> {
 }
 
 /**

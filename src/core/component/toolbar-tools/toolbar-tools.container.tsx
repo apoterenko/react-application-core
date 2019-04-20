@@ -7,6 +7,7 @@ import { IButtonProps } from '../../definition';
 import { isPrimitive, isFn, toClassName } from '../../util';
 import {
   IToolbarToolsContainerProps,
+  TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE,
   TOOLBAR_TOOLS_FILTER_ACTION_TYPE,
   TOOLBAR_TOOLS_REFRESH_ACTION_TYPE,
   ToolbarToolsEnum,
@@ -18,6 +19,10 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
     [ToolbarToolsEnum.FILTER]: {
       icon: 'filter',
       onClick: this.onFilterClick.bind(this),
+    },
+    [ToolbarToolsEnum.DOWNLOAD_FILE]: {
+      icon: 'file_download',
+      onClick: this.onDownloadFileClick.bind(this),
     },
     [ToolbarToolsEnum.REFRESH]: {
       icon: 'refresh',
@@ -78,6 +83,18 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
       props.onFilterClick();
     } else {
       this.dispatchFrameworkAction(TOOLBAR_TOOLS_FILTER_ACTION_TYPE);
+    }
+  }
+
+  /**
+   * @stable [16.04.2019]
+   */
+  private onDownloadFileClick(): void {
+    const props = this.props;
+    if (isFn(props.onDownloadFileClick)) {
+      props.onDownloadFileClick();
+    } else {
+      this.dispatchFrameworkAction(TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE);
     }
   }
 }

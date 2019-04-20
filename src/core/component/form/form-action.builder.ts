@@ -12,17 +12,18 @@ import {
   IFieldChangeEntity,
 } from '../../entities-definitions.interface';
 import {
+  FORM_ACTIVE_VALUE_ACTION_TYPE,
+  FORM_CHANGE_ACTION_TYPE,
+  FORM_CLEAR_ACTION_TYPE,
+  FORM_DEACTIVATED_VALUE_ACTION_TYPE,
+  FORM_DESTROY_ACTION_TYPE,
+  FORM_PROGRESS_ACTION_TYPE,
+  FORM_RESET_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
   FORM_SUBMIT_ERROR_ACTION_TYPE,
-  FORM_VALID_ACTION_TYPE,
   FORM_SUBMIT_FINISHED_ACTION_TYPE,
-  FORM_CHANGE_ACTION_TYPE,
-  FORM_DESTROY_ACTION_TYPE,
-  FORM_RESET_ACTION_TYPE,
-  FORM_ACTIVE_VALUE_ACTION_TYPE,
-  FORM_CLEAR_ACTION_TYPE,
-  FORM_DEACTIVATED_VALUE_ACTION_TYPE,
+  FORM_VALID_ACTION_TYPE,
 } from './form.interface';
 import { IApiEntity } from '../../definition';
 
@@ -101,6 +102,15 @@ export class FormActionBuilder {
   }
 
   /**
+   * @stable [17.04.2019]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildProgressActionType(section: string): string {
+    return `${toActionPrefix(section)}.${FORM_PROGRESS_ACTION_TYPE}`;
+  }
+
+  /**
    * @stable [02.04.2019]
    * @param {string} section
    * @returns {string}
@@ -143,6 +153,15 @@ export class FormActionBuilder {
    */
   public static buildResetAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildResetActionType(section), applySection(section));
+  }
+
+  /**
+   * @stable [17.04.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildProgressAction(section: string): IEffectsAction {
+    return EffectsAction.create(this.buildProgressActionType(section), applySection(section));
   }
 
   /**
@@ -193,6 +212,17 @@ export class FormActionBuilder {
       type: this.buildClearActionType(section),
       data: applySection(section, this.buildChangesPayload({[fieldName]: UNDEF})),
     };
+  }
+
+  /**
+   * @stable [18.04.2019]
+   * @param {string} section
+   * @param {string} fieldName
+   * @returns {IEffectsAction}
+   */
+  public static buildClearAction(section: string, fieldName: string): IEffectsAction {
+    const simpleAction = this.buildClearSimpleAction(section, fieldName);
+    return EffectsAction.create(simpleAction.type, simpleAction.data);
   }
 
   /**

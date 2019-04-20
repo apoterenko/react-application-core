@@ -49,6 +49,7 @@ export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_ST
         ...state,
         activeValue: activeValuePayload.payload,
       };
+    case FormActionBuilder.buildProgressActionType(section):
     case FormActionBuilder.buildSubmitActionType(section):
       return {
         ...state,

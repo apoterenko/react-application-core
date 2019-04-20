@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { orNull } from '../../util';
-import { IChannelsEntity } from '../../entities-definitions.interface';
+import { IChannelsEntity } from '../../definition';
 import { PayloadWrapper } from './payload.wrapper';
 import { CommandResult } from './command.result';
 

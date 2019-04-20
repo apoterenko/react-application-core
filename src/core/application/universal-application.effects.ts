@@ -5,7 +5,7 @@ import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
-import { orNull } from '../util';
+import { orNull, isArrayNotEmpty } from '../util';
 import { ISettings } from '../settings';
 import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
@@ -75,30 +75,39 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
 
     const metaFilesJsonUrl = this.settings.metaFilesJsonUrl;
     if (!R.isNil(metaFilesJsonUrl) && !R.isEmpty(metaFilesJsonUrl)) {
-      const data = await Promise.all([
-        this.notVersionedSessionStorage.get(APPLICATION_UUID_KEY),
-        this.fetchJsonTransportFactory.request({url: metaFilesJsonUrl})
-      ]);
-      const localAppUuid = data[0];
-      const remoteAppMetaInfo = data[1];
-      const remoteAppUuid = remoteAppMetaInfo.result.uuid;
+      let data;
+      try {
+        data = await Promise.all([
+          this.notVersionedSessionStorage.get(APPLICATION_UUID_KEY),
+          this.fetchJsonTransportFactory.request({url: metaFilesJsonUrl})
+        ]);
+      } catch (e) {
+        UniversalApplicationEffects.logger.error(
+          '[$UniversalApplicationEffects][$onAfterInit] Error:', e
+        );
+      }
+      if (isArrayNotEmpty[data]) {
+        const localAppUuid = data[0];
+        const remoteAppMetaInfo = data[1];
+        const remoteAppUuid = remoteAppMetaInfo.result.uuid;
 
-      if (!R.isNil(remoteAppUuid) && !R.isEmpty(remoteAppUuid)) {
-        this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
+        if (!R.isNil(remoteAppUuid) && !R.isEmpty(remoteAppUuid)) {
+          this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
 
-        if (!R.isNil(localAppUuid)
-          && !R.isEmpty(localAppUuid)
-          && !R.equals(localAppUuid, remoteAppUuid)) {
+          if (!R.isNil(localAppUuid)
+            && !R.isEmpty(localAppUuid)
+            && !R.equals(localAppUuid, remoteAppUuid)) {
 
-          if (isApplicationAuthorized) {
-            // After F5 we desire to get a previous saves hash, but it is empty. This means a team had released
-            // a new version. To exclude the inconsistent state of App - redirect to initial path
+            if (isApplicationAuthorized) {
+              // After F5 we desire to get a previous saves hash, but it is empty. This means a team had released
+              // a new version. To exclude the inconsistent state of App - redirect to initial path
 
-            UniversalApplicationEffects.logger.debug(
-              '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
-            );
-            result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
-            result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionMessageHasBeenDeployed));
+              UniversalApplicationEffects.logger.debug(
+                '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
+              );
+              result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
+              result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionMessageHasBeenDeployed));
+            }
           }
         }
       }

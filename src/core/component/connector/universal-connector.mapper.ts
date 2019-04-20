@@ -34,6 +34,7 @@ import {
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
   IQueryFilterWrapperEntity,
+  IPaginatedEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
@@ -104,6 +105,17 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
   }
   return {list};
 };
+
+/**
+ * @stable [17.04.2019]
+ * @param {IListEntity} listEntity
+ * @returns {IPaginatedEntity}
+ */
+export const listEntityPaginatedEntityMapper = (listEntity: IListEntity): IPaginatedEntity => ({
+  page: listEntity.page,
+  pageSize: listEntity.pageSize,
+  totalCount: listEntity.totalCount,
+});
 
 /**
  * @stable [09.05.2018]

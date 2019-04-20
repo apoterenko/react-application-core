@@ -23,10 +23,11 @@ export enum AddressMapMarkerActionEnum {
 /**
  * @stable [01.08.2018]
  */
-export interface IAddressFieldChangePlacePayload extends ILatWrapper,
-                                                         ILngWrapper,
-                                                         IPlaceIdWrapper,
-                                                         IPlaceEntityWrapper<IPlaceEntity> {
+export interface IAddressFieldChangePlacePayloadEntity
+  extends ILatWrapper,
+    ILngWrapper,
+    IPlaceIdWrapper,
+    IPlaceEntityWrapper<IPlaceEntity> {
 }
 
 /**
@@ -36,7 +37,7 @@ export interface IAddressFieldProps extends IBaseTextFieldProps,
                                             IUseZipCodeWrapper,
                                             INotUseCustomValidatorWrapper,
                                             INotUsePlaceActionWrapper,
-                                            IOnChangePlaceWrapper<IAddressFieldChangePlacePayload>,
+                                            IOnChangePlaceWrapper<IAddressFieldChangePlacePayloadEntity>,
                                             ILatWrapper,
                                             ILngWrapper {
 }

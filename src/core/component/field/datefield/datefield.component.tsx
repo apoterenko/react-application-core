@@ -2,9 +2,8 @@ import * as React from 'react';
 import * as R from 'ramda';
 import DayPicker from 'react-day-picker';
 
-import { orNull, nvl, generateArray } from '../../../util';
+import { orNull, nvl } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
-import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IDateTimeSettings } from '../../../settings';
@@ -15,7 +14,7 @@ import {
 import { BaseTextField } from '../textfield';
 import { Dialog } from '../../dialog';
 import { FlexLayout } from '../../layout';
-import { Select } from '../select';
+import { NumberField } from '../numberfield';
 
 export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                        TState extends IDateFieldState = IDateFieldState>
@@ -62,14 +61,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       >
         <FlexLayout
           full={false}>
-          <Select
-            onSelect={this.onChangeYear}
-            options={generateArray(100).map((year, i) => {
-              const v = 2050 - i;
-              return ({label: String(v), value: v});
-            })}
-            value={initialDate.getFullYear()}>
-          </Select>
+          <NumberField
+            value={this.state.year}
+            onChange={this.onChangeYear}>
+          </NumberField>
         </FlexLayout>
         <DayPicker
           firstDayOfWeek={props.firstDayOfWeek}
@@ -131,12 +126,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [27.03.2019]
-   * @param {ISelectOptionEntity} option
+   * @stable [19.04.2019]
+   * @param {number} value
    */
-  private onChangeYear(option: ISelectOptionEntity): void {
+  private onChangeYear(value: number): void {
+    this.setState({year: value});
+
     const date = new Date(this.dialogDate.getTime());
-    date.setFullYear(option.value as number);
+    date.setFullYear(value);
     this.onChangeManually(date);
   }
 

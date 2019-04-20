@@ -50,6 +50,13 @@ export class BasicSelect<TProps extends IBasicSelectProps,
         props.onLoadDictionary(this.toFilteredOptions());
       }
     }
+
+    /**
+     * Need to reset the previous cached display value if the value has been cleared manually
+     */
+    if (!R.isNil(this.state.displayValue) && R.isNil(props.value)) {
+      this.setState({displayValue: null});
+    }
   }
 
   public onKeyDown(event: IKeyboardEvent): void {

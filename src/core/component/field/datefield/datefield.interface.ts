@@ -18,4 +18,5 @@ export interface IDateFieldProps extends IBaseTextFieldProps,
 
 export interface IDateFieldState extends IBaseTextFieldState,
                                         ICurrentTimeWrapper<Date> {
+  year?: number; // TODO
 }

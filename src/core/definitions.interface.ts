@@ -126,6 +126,7 @@ export interface IProgressMessageWrapper<TProgressMessage = string> {
 export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface IListWrapper<TList> { list?: TList; }
 export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
+export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
@@ -451,12 +452,7 @@ export interface IOnMoreOptionsSelectWrapper<TPayload, TOnMoreOptionsSelect = (p
   onMoreOptionsSelect?: TOnMoreOptionsSelect;
 }
 
-/**
- * @stable [20.05.2018]
- */
-export interface IConnectedWrapper<TConnected = boolean> {
-  connected?: TConnected;
-}
+export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 
 /**
  * @stable [01.06.2018]
@@ -535,12 +531,7 @@ export interface IPrefixLabelWrapper {
   prefixLabel?: string;
 }
 
-/**
- * @stable [29.10.2018]
- */
-export interface IMessagesWrapper<TMessages> {
-  messages?: TMessages;
-}
+export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
 
 /* @stable - 23.04.2018 */
 export interface IPluginsWrapper<TPlugins> {
@@ -1019,12 +1010,7 @@ export interface ICodeWrapper<TCode = string> {
   code?: TCode;
 }
 
-/**
- * @stable [13.05.2018]
- */
-export interface INameWrapper<TName = string> {
-  name?: TName;
-}
+export interface INameWrapper<TName = string> { name?: TName; }
 
 export interface IReaderWrapper<TReader> {
   reader?: TReader;
@@ -1452,12 +1438,7 @@ export interface IBindStoreWrapper<TBindStore> {
   bindStore?: TBindStore;
 }
 
-/**
- * @stable [14.05.2018]
- */
-export interface IFilterWrapper<TFilter = string> {
-  filter?: TFilter;
-}
+export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
 
 /**
  * @stable [14.05.2018]
@@ -1552,6 +1533,8 @@ export interface IPlaceWrapper<TPlace = string> {
 export interface IPlaceEntityWrapper<TPlaceEntity> {
   placeEntity?: TPlaceEntity;
 }
+export interface IAreaWrapper<TArea = string> { area?: TArea; }
+export interface ICityWrapper<TCity = string> { city?: TCity; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
 export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
@@ -1561,20 +1544,6 @@ export interface IRefreshMapWrapper { refreshMap?: boolean; }
 export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
 export interface IZoomWrapper { zoom?: number; }
-
-/**
- * @stable [01.08.2018]
- */
-export interface IAreaWrapper<TArea = string> {
-  area?: TArea;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface ICityWrapper<TCity = string> {
-  city?: TCity;
-}
 
 /**
  * @stable [29.07.2018]

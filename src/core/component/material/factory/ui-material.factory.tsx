@@ -190,6 +190,7 @@ export class UIMaterialFactory implements IUIFactory {
     eye: faEye,
     fa_heart_regular: faHeartRegular,
     file: faFileAlt,
+    file_download: faFileDownload,
     file_import: faFileImport,
     file_invoice_dollar: faFileInvoiceDollar,
     first_page: faAngleDoubleLeft,

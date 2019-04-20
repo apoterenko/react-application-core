@@ -1,18 +1,20 @@
 import { AnyAction, Reducer } from 'redux';
+import * as R from 'ramda';
 
 import { IChannelWrapper } from '../definitions.interface';
 import {
+  $CHANNEL_CONNECTED_ACTION_TYPE,
+  $CHANNEL_DESTROY_MESSAGE_ACTION_TYPE,
+  $CHANNEL_DISCONNECTED_ACTION_TYPE,
   $CHANNEL_MESSAGE_ACTION_TYPE,
-  INITIAL_APPLICATION_CHANNEL_STATE,
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_DISCONNECT_MESSAGE,
-  $CHANNEL_CONNECTED_ACTION_TYPE,
-  $CHANNEL_DISCONNECTED_ACTION_TYPE,
+  INITIAL_APPLICATION_CHANNEL_STATE,
 } from './channel.interface';
 import {
   IChannelsEntity,
   IChannelMessageEntity,
-} from '../entities-definitions.interface';
+} from '../definition';
 
 /**
  * @stable [21.05.2018]
@@ -22,6 +24,7 @@ import {
  */
 export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHANNEL_STATE,
                                action: AnyAction): IChannelsEntity {
+  let current;
   const message: IChannelMessageEntity = action.data;
   switch (action.type) {
     case $CHANNEL_CONNECTED_ACTION_TYPE:
@@ -38,6 +41,15 @@ export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHAN
         [message.ip]: {
           ...state[message.ip],
           connected: false,
+        },
+      };
+    case $CHANNEL_DESTROY_MESSAGE_ACTION_TYPE:
+      current = state[message.ip] || {};
+      return {
+        ...state,
+        [message.ip]: {
+          ...current,
+          messages: R.filter(message.filter, current.messages || []),
         },
       };
     case $CHANNEL_MESSAGE_ACTION_TYPE:
@@ -59,7 +71,7 @@ export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHAN
             },
           };
         default:
-          const current = state[message.ip] || {};
+          current = state[message.ip] || {};
           return {
             ...state,
             [message.ip]: {

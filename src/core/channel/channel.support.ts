@@ -1,4 +1,4 @@
-import { IChannelMessageEntity } from '../entities-definitions.interface';
+import { IChannelMessageEntity } from '../definition';
 import { CHANNEL_DISCONNECT_MESSAGE, CHANNEL_CONNECT_MESSAGE } from './channel.interface';
 
 /**

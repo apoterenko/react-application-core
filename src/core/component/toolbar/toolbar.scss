@@ -13,7 +13,6 @@
     $rac-toolbar-border-top: $rac-page-toolbar-border-top
   );
 
-
   .rac-toolbar {
     @include rac-field($rac-field-max-width: $rac-toolbar-field-max-width);             /* @stable [31.10.2018] */
   }

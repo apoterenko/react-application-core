@@ -26,7 +26,8 @@ export class Overlay extends BaseComponent<IOverlayProps> {
           <FlexLayout
             fullSize={true}
             alignItemsCenter={true}
-            justifyContentCenter={true}>
+            justifyContentCenter={true}
+            className='rac-overlay-progress'>
             {this.uiFactory.makeIcon({type: 'spinner', className: 'rac-overlay-progress-icon'})}
           </FlexLayout>
         )}

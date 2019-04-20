@@ -1,4 +1,5 @@
 @import '../../constant';
+@import '../../mixin';
 
 // Page toolbar [FRAMEWORK-][RAC+]
 .rac {
@@ -19,4 +20,10 @@
       }
     }
   }
+
+  @include rac-icon(
+    $rac-icon-custom: rac-button-page-icon,
+    $rac-icon-size: 20px,
+    $rac-icon-margin: 0 4px
+  );
 }
