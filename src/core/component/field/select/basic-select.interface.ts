@@ -1,8 +1,9 @@
 import {
-  INeedToOpenMenuWrapper,
-  IForceReloadWrapper,
-  IExpandActionRenderedWrapper,
   IDisplayValueWrapper,
+  IExpandActionRenderedWrapper,
+  IForceReloadWrapper,
+  INeedToOpenMenuWrapper,
+  IOnFilterChangeWrapper,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
@@ -31,7 +32,8 @@ export interface IBasicSelectConfiguration extends IFieldConfiguration,
 export interface IBasicSelectProps extends IBasicSelectConfiguration,
                                            IBaseTextFieldProps,
                                            IMenuConfigurationWrapper,
-                                           IForceReloadWrapper {
+                                           IForceReloadWrapper,
+                                           IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
   options?: ISelectOptionEntity[];
   onSelect?(option: ISelectOptionEntity): void;

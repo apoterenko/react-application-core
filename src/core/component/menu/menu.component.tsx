@@ -13,6 +13,7 @@ import {
   setAbsoluteOffsetByCoordinates,
   subArray,
   toClassName,
+  DelayedTask,
 } from '../../util';
 import { IField, TextField } from '../field';
 import { SimpleList } from '../list';
@@ -31,6 +32,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   private fieldRef = React.createRef<TextField>();
   private menuAnchorRef = React.createRef<HTMLDivElement>();
+  private filterQueryTask: DelayedTask;
 
   /**
    * @stable [31.07.2018]
@@ -45,6 +47,8 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.onCloseAction = this.onCloseAction.bind(this);
 
     this.state = {opened: false};
+
+    this.filterQueryTask = new DelayedTask(this.onFilterChange.bind(this), 500);
   }
 
   /**
@@ -68,7 +72,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
                           props.renderToCenterOfBody && 'rac-absolute-center-position rac-menu-centered')}>
           {
             orNull<JSX.Element>(
-              props.renderToCenterOfBody && this.isOpen(),
+              props.renderToCenterOfBody && this.isOpen() && props.overlayRendered !== false,
               () => <Overlay onClick={this.onCloseAction}/>
             )
           }
@@ -96,6 +100,11 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         </div>
       </div>
     );
+  }
+
+  public componentWillUnmount() {
+    super.componentWillUnmount();
+    this.filterQueryTask.stop();
   }
 
   /**
@@ -138,7 +147,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     const state = this.state;
     const query = state.filter;
 
-    return props.useFilter
+    return props.useFilter && props.remoteFilter !== true
       ? props.options.filter((option) => props.filter(query, option))
       : props.options;
   }
@@ -158,6 +167,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private onInputChange(filter: string): void {
     this.setState({filter});
+    this.filterQueryTask.start();
+  }
+
+  private onFilterChange(): void {
+    const props = this.props;
+    if (isFn(props.onFilterChange)) {
+      props.onFilterChange(this.state.filter);
+    }
   }
 
   /**

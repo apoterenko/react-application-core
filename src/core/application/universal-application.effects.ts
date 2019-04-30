@@ -86,7 +86,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
           '[$UniversalApplicationEffects][$onAfterInit] Error:', e
         );
       }
-      if (isArrayNotEmpty[data]) {
+      if (isArrayNotEmpty(data)) {
         const localAppUuid = data[0];
         const remoteAppMetaInfo = data[1];
         const remoteAppUuid = remoteAppMetaInfo.result.uuid;

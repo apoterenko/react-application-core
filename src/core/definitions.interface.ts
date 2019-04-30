@@ -10,6 +10,7 @@ export type EntityIdT = StringNumberT;
 export const FIRST_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 50;
 export const DEFAULT_MAX_PAGE_SIZE = 100000;
+export const DEFAULT_MIN_PAGE_SIZE = 300;
 export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
 export const DEFAULT_MONTH_YEAR_FORMAT = 'MMMM YYYY';
@@ -333,6 +334,8 @@ export interface IOnValidWrapper<TOnValid> {
 /* @stable - 01.04.2018 */
 export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean) => void> {
 }
+
+export interface IOnFilterChangeWrapper<TOnFilterChange> { onFilterChange?: TOnFilterChange; }
 
 /**
  * @stable [04.05.2018]
@@ -1166,6 +1169,7 @@ export interface IHideFnWrapper extends IHideWrapper<() => void> {
 }
 
 export interface IActionsWrapper<TActions> { actions?: TActions; }
+export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
 
 /**
  * @stable [02.06.2018]

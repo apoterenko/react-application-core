@@ -1,24 +1,16 @@
 import { IContainerProps } from '../../props-definitions.interface';
 import {
+  IActionsDisabledWrapper,
   IActionsWrapper,
+  IActiveActionsWrapper,
+  IFlexWrapper,
+  ILeftSlotWrapper,
+  IOnDownloadFileClickWrapper,
   IOnFilterClickWrapper,
   IOnRefreshClickWrapper,
-  IFlexWrapper,
   IRightSlotWrapper,
-  ILeftSlotWrapper,
-  IActionsDisabledWrapper,
-  IOnDownloadFileClickWrapper,
 } from '../../definitions.interface';
-import { IGenericFlexLayoutEntity } from '../../definition';
-
-/**
- * @stable [11.03.2019]
- */
-export enum ToolbarToolsEnum {
-  DOWNLOAD_FILE,
-  FILTER,
-  REFRESH,
-}
+import { IGenericFlexLayoutEntity, ToolbarToolsEnum } from '../../definition';
 
 /**
  * @stable [11.03.2019]
@@ -32,7 +24,8 @@ export interface IToolbarToolsContainerProps
     IOnFilterClickWrapper<() => void>,
     IOnDownloadFileClickWrapper<() => void>,
     IOnRefreshClickWrapper<() => void>,
-    IActionsWrapper<ToolbarToolsEnum[]> {
+    IActionsWrapper<ToolbarToolsEnum[]>,
+    IActiveActionsWrapper<ToolbarToolsEnum[]> {
 }
 
 /**

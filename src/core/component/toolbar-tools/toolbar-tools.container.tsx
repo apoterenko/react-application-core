@@ -3,14 +3,13 @@ import * as React from 'react';
 import { BaseContainer } from '../base';
 import { Button } from '../button';
 import { FlexLayout } from '../layout';
-import { IButtonProps } from '../../definition';
+import { IButtonProps, ToolbarToolsEnum } from '../../definition';
 import { isPrimitive, isFn, toClassName } from '../../util';
 import {
   IToolbarToolsContainerProps,
   TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE,
   TOOLBAR_TOOLS_FILTER_ACTION_TYPE,
   TOOLBAR_TOOLS_REFRESH_ACTION_TYPE,
-  ToolbarToolsEnum,
 } from './toolbar-tools.interface';
 
 export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerProps> {
@@ -53,6 +52,9 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
               <Button
                 key={`action-${index}-key`}
                 disabled={props.actionsDisabled}
+                className={toClassName(
+                  (props.activeActions || []).includes(cfg) && 'rac-toolbar-tool-active',
+                )}
                 {...actionProps}/>
             );
           })

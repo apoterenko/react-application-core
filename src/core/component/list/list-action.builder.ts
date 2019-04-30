@@ -2,10 +2,11 @@ import { EffectsAction, IEffectsAction, EffectsActionBuilder } from 'redux-effec
 
 import {
   AnyT,
-  IEntity,
   EntityIdT,
-  ISelectedEntityWrapper,
+  IDataWrapper,
+  IEntity,
   IRemovedEntityWrapper,
+  ISelectedEntityWrapper,
 } from '../../definitions.interface';
 import { applySection, toActionPrefix } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
@@ -208,6 +209,16 @@ export class ListActionBuilder {
   }
 
   /**
+   * @stable [21.04.2019]
+   * @param {string} section
+   * @param {TData} data
+   * @returns {IEffectsAction}
+   */
+  public static buildLazyLoadDoneAction<TData>(section: string, data: TData): IEffectsAction {
+    return EffectsAction.create(this.buildLazyLoadDoneActionType(section), applySection(section, data));
+  }
+
+  /**
    * @stable [08.12.2018]
    * @param {string} section
    * @param {ISelectedEntityWrapper} payload
@@ -321,12 +332,12 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [24.01.2019]
+   * @stable [20.04.2019]
    * @param {string} section
-   * @param {AnyT} data
+   * @param {IDataWrapper<AnyT>} data
    * @returns {IEffectsAction}
    */
-  public static buildLoadDoneAction(section: string, data?: AnyT): IEffectsAction {
+  public static buildLoadDoneAction(section: string, data?: IDataWrapper<AnyT>): IEffectsAction {
     return EffectsAction.create(this.buildLoadDoneActionType(section), applySection(section, data));
   }
 

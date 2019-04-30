@@ -198,9 +198,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
     return (
       <Header>
-        <Button
-          icon='notifications'
-          onClick={this.onNotificationsClick}/>
         <Link to={this.routes.profile}>
           <div className='rac-user-photo'
                style={{backgroundImage: `url(${user.photoUrl || user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>

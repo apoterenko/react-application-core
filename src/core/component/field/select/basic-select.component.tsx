@@ -26,6 +26,7 @@ export class BasicSelect<TProps extends IBasicSelectProps,
     this.onSelect = this.onSelect.bind(this);
     this.onClose = this.onClose.bind(this);
     this.openMenu = this.openMenu.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
 
     if (props.expandActionRendered !== false) {
       this.defaultActions = [toType<IFieldActionConfiguration>({type: props.icon || 'dropdown', onClick: this.openMenu})]
@@ -144,6 +145,7 @@ export class BasicSelect<TProps extends IBasicSelectProps,
         width={() => getWidth(this.getSelf())}
         options={this.toFilteredOptions()}
         onSelect={this.onSelect}
+        onFilterChange={this.onFilterChange}
         onClose={this.onClose}
         {...props.menuConfiguration}/>
     );
@@ -261,5 +263,12 @@ export class BasicSelect<TProps extends IBasicSelectProps,
    */
   private hideMenu(): void {
     this.menu.hide();
+  }
+
+  private onFilterChange(query: string): void {
+    const props = this.props;
+    if (isFn(props.onFilterChange)) {
+      props.onFilterChange(query);
+    }
   }
 }

@@ -14,8 +14,9 @@ import {
 } from '../../definitions.interface';
 import {
   IExtendedEntity,
-  ITabPanelWrapperEntity,
   ITabPanelEntity,
+  ITabPanelWrapperEntity,
+  ToolbarToolsEnum,
 } from '../../definition';
 import {
   IOptionEntity,
@@ -35,6 +36,7 @@ import {
   IEditableEntityFormWrapperEntity,
   IQueryFilterWrapperEntity,
   IPaginatedEntity,
+  IEntityFormEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
@@ -219,23 +221,13 @@ export const filterQueryWrapperMapper = (queryFilterWrapperEntity: IQueryFilterW
     query: trimmedUndefEmpty(queryFilterWrapperEntity.filter.query),
   });
 
-/**
- * @stable [19.12.2018]
- * @param {IListWrapperEntity} entity
- * @returns {IFilterConfiguration}
- */
-export const refreshedListWrapperEntityMapper = (entity: IListWrapperEntity): IFilterConfiguration => ({
-  actions: [{type: ToolbarActionEnum.REFRESH_DATA}],
-  ...actionsDisabledListWrapperEntityMapper(entity),
-});
-
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
-                                                      formEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
+                                                      editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
     ({
       entity: {
         ...entity as {},
-        ...formEntity && formEntity.changes,
+        ...editableEntity && editableEntity.changes,
       } as TEntity,
       entityId: orNull(entity, () => entity.id),
       originalEntity: {...entity as {}} as TEntity,
@@ -292,6 +284,22 @@ export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActio
  */
 export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IActionsDisabledWrapper =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);
+
+/**
+ * @stable [22.04.2019]
+ * @param {IEditableEntity} editableEntity
+ * @returns {ToolbarToolsEnum[]}
+ */
+export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEditableEntity): ToolbarToolsEnum[] =>
+  R.isNil(editableEntity) || R.isEmpty(editableEntity.changes) ? [] : [ToolbarToolsEnum.FILTER];
+
+/**
+ * @stable [22.04.2019]
+ * @param {IEntityFormEntity} entityFormEntity
+ * @returns {ToolbarToolsEnum[]}
+ */
+export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IEntityFormEntity): ToolbarToolsEnum[] =>
+  toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);
 
 /**
  * @stable [19.12.2018]

@@ -335,27 +335,30 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const entityChanges = changes[entity.id];
 
     return (
-      <GridRow ref={rowKey}
-               key={rowKey}
-               className={
-                 toClassName(
-                   'rac-grid-data-row',
-                   orUndef<string>(props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
-                   orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
-                   orUndef<string>(this.isRowSelectable, 'rac-grid-data-row-selectable')
-                 )
-               }
-               selected={this.isEntitySelected(entity)}
-               onClick={() => this.onSelect(entity)}>
+      <GridRow
+        ref={rowKey}
+        key={rowKey}
+        className={
+          toClassName(
+            'rac-grid-data-row',
+            `rac-grid-data-row-${entity.id}`,
+            orUndef<string>(props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
+            orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
+            orUndef<string>(this.isRowSelectable, 'rac-grid-data-row-selectable')
+          )
+        }
+        selected={this.isEntitySelected(entity)}
+        onClick={() => this.onSelect(entity)}>
         {
           this.columnsConfiguration.map((column, columnNum) => (
-            <GridColumn key={`${rowKey}-${columnNum}`}
-                        index={columnNum}
-                        className={toClassName(
-                          !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited',
-                        )}
-                        entity={entity}
-                        {...column}>
+            <GridColumn
+              key={`${rowKey}-${columnNum}`}
+              index={columnNum}
+              className={toClassName(
+                !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited',
+              )}
+              entity={entity}
+              {...column}>
               {this.getColumn(entity, column, columnNum, rowNum)}
             </GridColumn>
           ))
@@ -560,29 +563,27 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       const groupColumnValue = this.extractGroupedValue(entity);
       if (!R.equals(currentGroupColumnValue, groupColumnValue)
             && !R.isNil(currentGroupColumnValue)) {
-        rows = this.buildRowsGroup(rows, currentGroupColumnValue, currentGroupedEntities);
+        rows = rows.concat(this.buildRowsGroup(currentGroupColumnValue, currentGroupedEntities));
         currentGroupedEntities.length = 0;
       }
       currentGroupColumnValue = groupColumnValue;
       currentGroupedEntities.push(entity);
     });
     if (currentGroupedEntities.length) {
-      rows = this.buildRowsGroup(rows, currentGroupColumnValue, currentGroupedEntities);
+      rows = rows.concat(this.buildRowsGroup(currentGroupColumnValue, currentGroupedEntities));
     }
     return rows;
   }
 
   /**
    * @stable [06.09.2018]
-   * @param {JSX.Element[]} rows
    * @param {EntityIdT} currentGroupColumnValue
    * @param {IEntity[]} currentGroupedEntities
    * @returns {JSX.Element[]}
    */
-  private buildRowsGroup(rows: JSX.Element[],
-                         currentGroupColumnValue: EntityIdT,
+  private buildRowsGroup(currentGroupColumnValue: EntityIdT,
                          currentGroupedEntities: IEntity[]): JSX.Element[] {
-    rows = rows.concat(this.getGroupingRow(currentGroupColumnValue, currentGroupedEntities));
+    const rows = [this.getGroupingRow(currentGroupColumnValue, currentGroupedEntities)];
     if (this.isGroupedRowExpanded(currentGroupColumnValue)) {
       const applyOddClassName = currentGroupedEntities.length > 1;
       return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index, applyOddClassName)));

@@ -209,6 +209,7 @@ import {
   IApplyGroupWrapper,
   IResetIconWrapper,
   IOnDestroyDictionaryWrapper,
+  IOnFilterChangeWrapper,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -718,6 +719,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IChangeableWrapper,
           IDefaultValue {
   fieldDisplayed?: boolean;
+  keepDictionary?: boolean;
   preventManualChanges?: boolean; // TODO
   dispatchValue?(rawValue: AnyT); // TODO
 }
@@ -972,7 +974,10 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
                                             ITplFnWrapper<IMenuItemEntity>,
                                             IOnSelectWrapper<IMenuItemEntity>,
-  IOnCloseWrapper {
+  IOnCloseWrapper,
+  IOnFilterChangeWrapper<(query: string) => void> {
+  remoteFilter?: boolean; // TODO
+  overlayRendered?: boolean; // TODO
 }
 
 /**

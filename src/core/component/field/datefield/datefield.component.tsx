@@ -63,7 +63,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           full={false}>
           <NumberField
             value={this.state.year}
-            onChange={this.onChangeYear}>
+            onChange={this.onChangeYear}
+            placeholder={this.settings.messages.yearMessage}>
           </NumberField>
         </FlexLayout>
         <DayPicker

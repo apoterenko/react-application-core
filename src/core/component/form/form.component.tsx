@@ -224,8 +224,8 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   private onDestroyDictionary(field: IField): void {
     const props = this.props;
 
-    if (props.onDestroyDictionary) {
-      props.onDestroyDictionary(field.props.bindDictionary);
+    if (props.onDestroyDictionary && field.props.keepDictionary !== true) {
+      // TODO props.onDestroyDictionary(field.props.bindDictionary);
     }
   }
 

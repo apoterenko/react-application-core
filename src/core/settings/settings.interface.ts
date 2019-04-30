@@ -93,7 +93,6 @@ export interface IMessagesSettings {
   logoutNotificationMessage?: string;
   newAppVersionMessageHasBeenDeployed?: string;
   noAvailableItemsToSelectMessage?: string;
-  noFileToShowMessage?: string;
   noItemsMessage?: string;
   previewMessage?: string;
   putMarkerHereMessage?: string;
@@ -109,6 +108,7 @@ export interface IMessagesSettings {
   waitingMessage?: string;
   waitMessage?: string;
   welcomeMessage?: string;
+  yearMessage?: string;
 }
 
 export interface IApplicationAuthorizationSettings {
@@ -208,7 +208,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     logoutNotificationMessage: 'You were logged out.',
     newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
-    noFileToShowMessage: 'No file to show.',
     noItemsMessage: 'No items.',
     previewMessage: 'Preview',
     putMarkerHereMessage: 'Put marker here',
@@ -223,6 +222,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     unknownFileMessage: 'Unknown file',
     waitingMessage: 'Waiting...',
     waitMessage: 'Please wait...',
+    yearMessage: 'Year',
   },
   dateTime: {
     startDayOfWeek: StartDayOfWeekT.MONDAY,
