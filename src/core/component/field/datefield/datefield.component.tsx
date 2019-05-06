@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import DayPicker from 'react-day-picker';
 
-import { orNull, nvl } from '../../../util';
+import { orNull, nvl, toClassName } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 import { DateTimeLikeTypeT } from '../../../converter';
@@ -38,7 +38,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.onAccept = this.onAccept.bind(this);
     this.onCalendarClick = this.onCalendarClick.bind(this);
 
-    this.defaultActions = R.insert(0, {type: 'calendar_alt', onClick: this.onCalendarClick}, this.defaultActions);
+    this.defaultActions = R.insert(0, {type: 'calendar', onClick: this.onCalendarClick}, this.defaultActions);
   }
 
   /**
@@ -124,6 +124,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   protected decorateValueBeforeDisplaying(value: DateTimeLikeTypeT): string {
     return this.formatDate(value);
+  }
+
+  /**
+   * @stable [02.05.2019]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-date-field');
   }
 
   /**

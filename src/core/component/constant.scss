@@ -10,16 +10,13 @@ $color-5: #ffffff !default;
 $color-6: #f96f00 !default;
 $color-7: #d4e4fe !default;
 $color-8: #d8ddde !default;
-$color-9: #787878 !default;
 $color-10: #e1e1e1 !default;
 $color-11: #ff0000 !default;
 $color-12: #a70101 !default;
 $color-13: #73af90 !default;
-$color-14: #f0f0f0 !default;
 $color-15: #000 !default;
 $color-17: #57fff1 !default;
 $color-20: #e4e4e4 !default;
-$color-21: #eeeeee !default;
 $color-22: #f2f2f2 !default;
 $color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
@@ -27,6 +24,7 @@ $color-24: rgba(0, 0, 0, 0.64) !default;
 /**/
 $rac-font-size-0: 12px !default;
 $rac-font-size-1: 14px !default;
+$rac-font-size-2: 16px !default;
 /**/
 $rac-font-weight-0: 300 !default;
 $rac-font-weight-1: 500 !default;
@@ -362,7 +360,7 @@ $rac-field-required-label-after-top: 0 !default;
 $rac-field-required-label-after-color: $rac-default-label-color !default;
 $rac-field-required-label-after-font-size: $rac-default-font-size !default;
 $rac-text-field-background: $color-5 !default;
-$rac-text-field-height: 30px !default;
+$rac-text-field-height: 32px !default;
 $rac-text-field-border-radius: $rac-default-border-radius !default;
 $rac-text-field-border-width: 1px !default;
 $rac-text-field-border-color: $color-10 !default;
@@ -386,6 +384,7 @@ $rac-switch-label-margin: 16px !default;
 $rac-text-area-length-label-font-size: $rac-default-font-size - 1 !default;
 $rac-text-area-length-label-color: $rac-default-label-color !default;
 /**/
+$rac-self-field-box-sizing: border-box !default;
 $rac-field-help-text-font-size: 10px !default;
 $rac-field-help-text-line-height: 16px !default;
 /**/

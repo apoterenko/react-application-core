@@ -1,3 +1,4 @@
+import { toClassName } from '../../../util';
 import { BaseTextField } from '../textfield';
 import { IApplicationNumberSettings } from '../../../settings';
 import {
@@ -39,5 +40,13 @@ export class NumberField extends BaseTextField<INumberFieldInternalProps,
       layout: [KEYBOARD_NUMERIC_LAYOUT],
       ...super.getKeyboardConfiguration(),
     };
+  }
+
+  /**
+   * @stable [02.05.2019]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-number-field');
   }
 }

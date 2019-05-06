@@ -194,6 +194,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
+   * @stable [21.09.2018]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-base-text-field');
+  }
+
+  /**
    * @stable [16.02.2019]
    * @param {IBasicEvent} e
    */

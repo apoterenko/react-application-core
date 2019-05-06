@@ -16,12 +16,18 @@
 
   @include rac-field(                                                                         /* @stable [22.03.2019] */
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
-    $rac-field-help-text-line-height: $rac-field-help-text-line-height
+    $rac-field-help-text-line-height: $rac-field-help-text-line-height,
+    $rac-self-field-box-sizing: $rac-self-field-box-sizing
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
     $rac-field-custom: $rac-view-field-cls,
     $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
+  );
+
+  @include rac-field(                                                                         /* @stable [02.05.2019] */
+    $rac-field-custom: rac-base-text-field,
+    $rac-self-field-height: $rac-text-field-height
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
@@ -53,7 +59,6 @@
   @include rac-field(
     $rac-text-field-label-position: $rac-text-field-label-position,
     $rac-text-field-label-left: $rac-text-field-label-left,
-    $rac-text-field-height: $rac-text-field-height,
     $rac-text-field-background: $rac-text-field-background,
     $rac-text-field-input-border: $rac-text-field-input-border,
     $rac-text-field-input-background: $rac-text-field-input-background,

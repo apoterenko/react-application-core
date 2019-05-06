@@ -5,7 +5,7 @@ import * as Promise from 'bluebird';
 import { AnyT } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IPlaceEntity } from '../../../entities-definitions.interface';
-import { orNull, toAddress, uuid, toPlace } from '../../../util';
+import { orNull, toAddress, uuid, toPlace, toClassName } from '../../../util';
 import { BaseTextField } from '../textfield';
 import { IUniversalDialog,  Dialog } from '../../dialog';
 import {
@@ -151,6 +151,14 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
       return this.settings.messages.invalidAddressMessage;
     }
     return null;
+  }
+
+  /**
+   * @stable [02.05.2019]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return toClassName(super.getFieldClassName(), 'rac-address-field');
   }
 
   /**

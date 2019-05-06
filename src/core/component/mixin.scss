@@ -1080,6 +1080,7 @@
   $rac-field-padding: unset,
   $rac-field-max-width: unset,
   $rac-field-min-height: unset,
+  $rac-field-background: unset,
   $rac-field-input-cursor: unset,
   $rac-field-label-margin: unset,
   $rac-field-label-font-size: unset,
@@ -1123,8 +1124,14 @@
   /**/
   $rac-self-field-display: unset,
   $rac-self-field-margin: unset,
+  $rac-self-field-height: unset,
+  $rac-self-field-box-sizing: unset,
+  $rac-self-field-background: unset,
   $rac-self-field-label-top: unset,
   $rac-self-field-label-color: unset,
+  /**/
+  $rac-self-field-input-font-size: unset,
+  $rac-self-field-input-background: unset,
   /**/
   $rac-self-field-input-placeholder-padding: unset,
   $rac-self-field-input-placeholder-color: unset,
@@ -1143,6 +1150,7 @@
     }
 
     @include rac-styles(
+      $rac-styles-background: $rac-field-background,
       $rac-styles-opacity: $rac-field-opacity,
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-padding: $rac-field-padding,
@@ -1168,7 +1176,10 @@
     > .rac-self-field {
       @include rac-styles(
         $rac-styles-display: $rac-self-field-display,
-        $rac-styles-margin: $rac-self-field-margin
+        $rac-styles-margin: $rac-self-field-margin,
+        $rac-styles-height: $rac-self-field-height,
+        $rac-styles-box-sizing: $rac-self-field-box-sizing,
+        $rac-styles-background: $rac-self-field-background
       );
 
       > {
@@ -1181,6 +1192,11 @@
             );
 
             .rac-field-input {
+              @include rac-styles(
+                $rac-styles-font-size: $rac-self-field-input-font-size,
+                $rac-styles-background: $rac-self-field-input-background
+              );
+
               @include rac-placeholder(
                 $rac-placeholder-padding: $rac-self-field-input-placeholder-padding,
                 $rac-placeholder-color: $rac-self-field-input-placeholder-color
@@ -2160,7 +2176,9 @@
   $rac-form-position: unset,
   $rac-form-height: unset,
   $rac-form-margin: unset,
+  $rac-form-padding: unset,
   $rac-form-min-width: unset,
+  $rac-form-border-bottom: unset,
   $rac-form-body-flex: unset,
   $rac-form-body-wrapper-margin: unset,
   $rac-form-actions-margin: unset,
@@ -2177,7 +2195,9 @@
       $rac-styles-height: $rac-form-height,
       $rac-styles-min-width: $rac-form-min-width,
       $rac-styles-margin: $rac-form-margin,
-      $rac-styles-position: $rac-form-position
+      $rac-styles-padding: $rac-form-padding,
+      $rac-styles-position: $rac-form-position,
+      $rac-styles-border-bottom: $rac-form-border-bottom
     );
 
     @include rac-styles(

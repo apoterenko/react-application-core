@@ -186,12 +186,7 @@ export interface IWithCredentialsWrapper {
   withCredentials?: boolean;
 }
 
-/**
- * @stable [10.08.2018]
- */
-export interface IModeWrapper<TMode = string> {
-  mode?: TMode;
-}
+export interface IModeWrapper<TMode = string> { mode?: TMode; }
 
 /**
  * @stable [25.01.2019]
@@ -966,12 +961,7 @@ export interface IEffectorWrapper<TEffector = string> {
   effector?: TEffector;
 }
 
-/**
- * @stable [07.04.2018]
- */
-export interface IValueWrapper<TValue = AnyT> {
-  value?: TValue;
-}
+export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 
 /**
  * @stable [04.02.2019]
