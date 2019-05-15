@@ -97,12 +97,13 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
                   }
                 });
               }
-              $.connection.hub.start().done(() => {
-                if (!isDisconnected) {
-                  callback();
-                  $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
-                }
-              });
+              $.connection.hub.start(config && config.transport ? {transport: config.transport} : {})
+                .done(() => {
+                  if (!isDisconnected) {
+                    callback();
+                    $.connection.hub.received((data) => onMessage(ip, UNDEF, data));
+                  }
+                });
               break;
             case CHANNEL_DISCONNECT_EVENT:
               disconnectCallback = () => {

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { toClassName } from '../../../util';
 import { Field, IFieldInputProps, toLastAddedMultiItemEntity } from '../../field';
 import { FlexLayout } from '../../layout';
-import { PictureViewer } from '../../viewer';
+import { PictureViewer, Viewer } from '../../viewer';
 import { IViewFieldProps } from './viewfield.interface';
 
 export class ViewField extends Field<IViewFieldProps> {
@@ -45,8 +45,13 @@ export class ViewField extends Field<IViewFieldProps> {
    * @returns {JSX.Element}
    */
   private get viewElement(): JSX.Element {
-    const Component = this.props.viewer;
-    return <Component src={toLastAddedMultiItemEntity(this.value)}/>;
+    const {viewer, usePreview} = this.props;
+    const Component = viewer as { new(): Viewer };
+    return (
+      <Component
+        usePreview={usePreview}
+        src={toLastAddedMultiItemEntity(this.value)}/>
+    );
   }
 
   /**

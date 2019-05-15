@@ -13,7 +13,6 @@ export const DEFAULT_MAX_PAGE_SIZE = 100000;
 export const DEFAULT_MIN_PAGE_SIZE = 300;
 export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
-export const DEFAULT_MONTH_YEAR_FORMAT = 'MMMM YYYY';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
@@ -644,12 +643,7 @@ export interface IStackWrapper<TStack> {
   stack?: TStack;
 }
 
-/**
- * @stable [21.05.2018]
- */
-export interface IPayloadWrapper<TPayload = AnyT> {
-  payload?: TPayload;
-}
+export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
 
 /**
  * @stable [18.05.2018]
@@ -1030,12 +1024,7 @@ export interface IMaskWrapper<TMask = Array<string|RegExp>> {
   mask?: TMask;
 }
 
-/**
- * @stable [30.06.2018]
- */
-export interface IUsePreviewWrapper {
-  usePreview?: boolean;
-}
+export interface IUsePreviewWrapper { usePreview?: boolean; }
 
 /**
  * @stable [04.05.2018]
@@ -1070,6 +1059,7 @@ export interface IRobotModeWrapper {
 
 export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
+export interface IReplacedWrapper<TReplaced = AnyT> { replaced?: TReplaced; }
 export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {}
 
 /**
@@ -1334,7 +1324,9 @@ export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends
 /**
  * @stable [14.05.2018]
  */
-export interface IRendererWrapper<TItem = IEntity, TContext = AnyT, TRenderer = (item: TItem, context?: TContext) => JSX.Element> {
+export interface IRendererWrapper<TItem = IEntity, TContext = AnyT, TRenderer = (item: TItem,
+                                                                                 context?: TContext,
+                                                                                 items?: IEntity[]) => JSX.Element> {
   renderer?: TRenderer;
 }
 

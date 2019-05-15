@@ -2,8 +2,8 @@ import { Reducer, ReducersMapObject, combineReducers, AnyAction } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
-import { toSection, isPrimitive, isUndef } from '../util';
-import { IEntity, IKeyValue, IPayloadWrapper, ISelectedWrapper } from '../definitions.interface';
+import { toSection, isPrimitive, isUndef, coalesce, shallowClone } from '../util';
+import { IPayloadWrapper, ISelectedWrapper, IReplacedWrapper, AnyT } from '../definitions.interface';
 
 export type FilterT = (action: IEffectsAction) => boolean;
 
@@ -47,30 +47,36 @@ export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersM
  * @stable [11.08.2018]
  * @param {string} updateActionType
  * @param {string} destroyActionType
- * @param {TKeyValue} initialState
- * @returns {(state: TKeyValue, action: AnyAction) => TKeyValue}
+ * @param {TPayload} initialState
+ * @returns {(state: TPayload, action: AnyAction) => TPayload}
  */
-export const entityReducerFactory = <TKeyValue extends IKeyValue>(
+export const entityReducerFactory = (
       updateActionType: string,
       destroyActionType: string,
-      initialState: TKeyValue = null): (state: TKeyValue, action: AnyAction) => TKeyValue =>
+      initialState: AnyT = null): (state: AnyT, action: AnyAction) => AnyT =>
   (state = initialState,
-   action: AnyAction): TKeyValue => {
+   action: AnyAction): AnyT => {
     switch (action.type) {
       case updateActionType:
-        const payloadWrapper: IPayloadWrapper<TKeyValue> = action.data;
-        const selectedWrapper: ISelectedWrapper<TKeyValue> = action.data;
-        const entity = payloadWrapper.payload || selectedWrapper.selected;
+        const payloadWrapper: IPayloadWrapper<AnyT> = action.data;
+        const selectedWrapper: ISelectedWrapper<AnyT> = action.data;
+        const replacedWrapper: IReplacedWrapper<AnyT> = action.data;
+        const entity = coalesce(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
 
         return R.isNil(entity)
           ? (isUndef(entity) ? state : entity)
           : (
-            isPrimitive(entity) || Array.isArray(entity)
+            isPrimitive(entity)
               ? entity
-              : {
-                ...state as {},
-                ...entity as {},
-              } as TKeyValue
+              : (
+                Array.isArray(entity)
+                  ? [...entity]
+                  : (
+                    R.isNil(replacedWrapper.replaced)
+                      ? {...state, ...entity}
+                      : shallowClone(entity)
+                  )
+              )
           );
       case destroyActionType:
         return null;

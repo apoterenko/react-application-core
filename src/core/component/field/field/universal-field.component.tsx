@@ -542,16 +542,25 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [08.05.2019]
    */
   protected openSyntheticKeyboard(): boolean {
     if (this.state.keyboardOpened) {
       return false;
     }
-    this.setState({keyboardOpened: true}, () => isDef(this.caretBlinkingTask) && this.caretBlinkingTask.start());
+    this.setState({keyboardOpened: true}, () => {
+      if (isDef(this.caretBlinkingTask)) {
+        this.caretBlinkingTask.start();
 
+        /**
+         * @bugfix [08.05.2019]
+         * Need to refresh a caret position right after keyboard opening
+         */
+        this.refreshCaretPosition();
+      }
+    });
     UniversalField.logger.debug(
-      `[$UniversalField][openSyntheticKeyboard] A keyboard for the field "${this.props.name}" will be opened soon.`
+      `[$UniversalField][openSyntheticKeyboard] A keyboard to the field "${this.props.name}" is about to be opened.`
     );
     return true;
   }
@@ -630,10 +639,12 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @stable [04.09.2018]
    */
   protected refreshCaretPosition(): void {
-    this.setState({caretPosition: this.getCaretPosition()});
+    const caretPosition = this.getCaretPosition();
+    this.setState({caretPosition});
 
     UniversalField.logger.debug(
-      `[$UniversalField][refreshCaretPosition] A caret position for the field ${this.props.name} had been refreshed.".`
+      `[$UniversalField][refreshCaretPosition] A caret position ${caretPosition} for the field ${
+        this.props.name} had been refreshed.`
     );
   }
 

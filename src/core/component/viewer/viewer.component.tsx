@@ -8,8 +8,8 @@ import { IUniversalDialog, Dialog } from '../dialog';
 import { IViewerProps, IViewerState } from './viewer.interface';
 import { PictureViewer } from '../viewer';
 
-export abstract class Viewer<TProps extends IViewerProps,
-                             TState extends IViewerState>
+export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
+                             TState extends IViewerState = IViewerState>
   extends BaseComponent<TProps, IViewerState> {
 
   /**
@@ -75,7 +75,7 @@ export abstract class Viewer<TProps extends IViewerProps,
                     this.t(this.settings.messages.fileLoadErrorMessage)
                   }</CenterLayout>
                 )
-                : <PictureViewer usePreview={false}/>
+                : <PictureViewer/>
             )
             : (isProgressMessageShown ? this.settings.messages.waitingMessage : this.getContentElement())
         }

@@ -13,6 +13,7 @@ import { IChannel } from '../channel.interface';
  */
 export interface ISignalRChannelConfigEntity extends IChannelsWrapper<string[]>,
                                                      IQueryWrapper<() => IKeyValue> {
+  transport?: string; // TODO
 }
 
 /**

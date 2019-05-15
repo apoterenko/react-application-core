@@ -8,6 +8,7 @@ import {
   IRemovedEntityWrapper,
   ISelectedEntityWrapper,
 } from '../../definitions.interface';
+import { IPagedEntity } from '../../entities-definitions.interface';
 import { applySection, toActionPrefix } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {
@@ -323,7 +324,25 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildUpdateActionType(section), applySection(section, data));
   }
 
-  public static buildUpdateItemAction(section: string, id: EntityIdT, changes: IEntity): IEffectsAction {
+  /**
+   * @stable [13.05.2019]
+   * @param {string} section
+   * @param {EntityIdT} id
+   * @param {TChanges} changes
+   * @returns {IEffectsAction}
+   */
+  public static buildMergeItemAction<TChanges = IEntity>(section: string, id: EntityIdT, changes: TChanges): IEffectsAction {
+    return this.buildMergeAction(section, {payload: {id, changes}});
+  }
+
+  /**
+   * @stable [13.05.2019]
+   * @param {string} section
+   * @param {EntityIdT} id
+   * @param {TChanges} changes
+   * @returns {IEffectsAction}
+   */
+  public static buildUpdateItemAction<TChanges = IEntity>(section: string, id: EntityIdT, changes: TChanges): IEffectsAction {
     return this.buildUpdateAction(section, {payload: {id, changes}});
   }
 
@@ -332,12 +351,12 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [20.04.2019]
+   * @stable [13.05.2019]
    * @param {string} section
-   * @param {IDataWrapper<AnyT>} data
+   * @param {IDataWrapper<AnyT> & IPagedEntity} data
    * @returns {IEffectsAction}
    */
-  public static buildLoadDoneAction(section: string, data?: IDataWrapper<AnyT>): IEffectsAction {
+  public static buildLoadDoneAction(section: string, data?: IDataWrapper<AnyT> & IPagedEntity): IEffectsAction {
     return EffectsAction.create(this.buildLoadDoneActionType(section), applySection(section, data));
   }
 

@@ -1,5 +1,5 @@
 import { IFieldProps, IComponentProps } from '../../../props-definitions.interface';
-import { IViewerWrapper, IDefaultSrcWrapper, ISrcWrapper } from '../../../definitions.interface';
+import { IViewerWrapper, IDefaultSrcWrapper, ISrcWrapper, IUsePreviewWrapper } from '../../../definitions.interface';
 import { IReactComponentClassEntity } from '../../../entities-definitions.interface';
 
 /**
@@ -14,5 +14,6 @@ export interface IViewFieldViewerProps extends IComponentProps,
  * @stable [26.06.2018]
  */
 export interface IViewFieldProps extends IFieldProps,
-                                         IViewerWrapper<IReactComponentClassEntity<IViewFieldViewerProps>> {
+                                         IViewerWrapper<IReactComponentClassEntity<IViewFieldViewerProps>>,
+                                         IUsePreviewWrapper {
 }

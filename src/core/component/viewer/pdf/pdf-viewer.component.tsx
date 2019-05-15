@@ -87,10 +87,10 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
     const previewScale = props.previewScale;
     const previewWidth = PdfViewer.PREVIEW_WIDTH * previewScale;
     return (
-      <PdfViewer src={props.src}
-                 style={{width: previewWidth}}
-                 usePreview={false}
-                 scale={previewScale}/>
+      <PdfViewer
+        src={props.src}
+        style={{width: previewWidth}}
+        scale={previewScale}/>
     );
   }
 
