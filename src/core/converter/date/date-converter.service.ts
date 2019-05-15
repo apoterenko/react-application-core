@@ -511,7 +511,15 @@ export class DateConverter implements IDateConverter {
    * @returns {Date}
    */
   public getCurrentDate(): Date {
-    return this.getCurrentMomentDate().toDate();
+    return this.tryAddXDays(0);
+  }
+
+  /**
+   * @stable [09.05.2019]
+   * @returns {Date}
+   */
+  public getYesterdayDate(): Date {
+    return this.tryAddXDays(-1);
   }
 
   public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
@@ -561,23 +569,56 @@ export class DateConverter implements IDateConverter {
   /**
    * @stable [25.08.2018]
    * @param {number} monthsAgo
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
    * @returns {Date}
    */
-  public getLastDayOfMonth(monthsAgo = 1): Date {
-    return moment().subtract(monthsAgo, 'months').endOf('month').toDate();
+  public getLastDayOfMonth(monthsAgo = 1,
+                           date: DateTimeLikeTypeT = this.currentDate,
+                           inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    const momentDate = this.toMomentDate(date, inputFormat);
+    return orNull(
+      momentDate.isValid(),
+      () => momentDate.subtract(monthsAgo, 'months').endOf('month').toDate()
+    );
   }
 
   /**
    * @stable [25.08.2018]
    * @param {number} monthsAgo
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
    * @returns {Date}
    */
-  public getFirstDayOfMonth(monthsAgo = 0): Date {
-    return moment().subtract(monthsAgo, 'months').startOf('month').toDate();
+  public getFirstDayOfMonth(monthsAgo = 0,
+                            date: DateTimeLikeTypeT = this.currentDate,
+                            inputFormat = this.dateTimeSettings.uiDateFormat): Date {
+    const momentDate = this.toMomentDate(date, inputFormat);
+    return orNull(
+      momentDate.isValid(),
+      () => momentDate.subtract(monthsAgo, 'months').startOf('month').toDate()
+    );
   }
 
-  public getPersonAge(birthday: DateTimeLikeTypeT): number {
-    return moment().diff(birthday, 'years');
+  public getPersonAge(birthday: DateTimeLikeTypeT,
+                      date: DateTimeLikeTypeT = this.currentDate,
+                      inputFormat?: string): number {
+    return this.toMomentDate(date, inputFormat).diff(birthday, 'years');
+  }
+
+  public isSameMonth(date1: Date, date2: Date): boolean {
+    return (
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
+  }
+
+  public isSameDay(date1: Date, date2: Date): boolean {
+    return this.isSameMonth(date1, date2) && date1.getDate() === date2.getDate();
+  }
+
+  public isWeekend(day: number): boolean {
+    return day === 0 || day === 6;
   }
 
   /**
@@ -624,6 +665,9 @@ export class DateConverter implements IDateConverter {
     return zone ? moment.tz(date, zone) : momentDate;
   }
 
+  /**
+   * @deprecated
+   */
   private getCurrentMomentDate(): moment.Moment {
     return this.toMomentDate(this.currentDate);
   }

@@ -589,35 +589,37 @@
   $rac-placeholder-color: unset,
   $rac-placeholder-padding: unset
 ) {
-  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    @include rac-styles(
-      $rac-styles-color: $rac-placeholder-color,
-      $rac-styles-padding: $rac-placeholder-padding
-    );
-  }
-  &::-moz-placeholder { /* Firefox 19+ */
-    @include rac-styles(
-      $rac-styles-color: $rac-placeholder-color,
-      $rac-styles-padding: $rac-placeholder-padding
-    );
-  }
-  &:-ms-input-placeholder { /* IE 10+ */
-    @include rac-styles(
-      $rac-styles-color: $rac-placeholder-color,
-      $rac-styles-padding: $rac-placeholder-padding
-    );
-  }
-  &:-moz-placeholder { /* Firefox 18- */
-    @include rac-styles(
-      $rac-styles-color: $rac-placeholder-color,
-      $rac-styles-padding: $rac-placeholder-padding
-    );
-  }
-  &::placeholder {
-    @include rac-styles(
-      $rac-styles-color: $rac-placeholder-color,
-      $rac-styles-padding: $rac-placeholder-padding
-    );
+  @if $rac-placeholder-color != unset and $rac-placeholder-padding != unset {
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      @include rac-styles(
+        $rac-styles-color: $rac-placeholder-color,
+        $rac-styles-padding: $rac-placeholder-padding
+      );
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      @include rac-styles(
+        $rac-styles-color: $rac-placeholder-color,
+        $rac-styles-padding: $rac-placeholder-padding
+      );
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      @include rac-styles(
+        $rac-styles-color: $rac-placeholder-color,
+        $rac-styles-padding: $rac-placeholder-padding
+      );
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      @include rac-styles(
+        $rac-styles-color: $rac-placeholder-color,
+        $rac-styles-padding: $rac-placeholder-padding
+      );
+    }
+    &::placeholder {
+      @include rac-styles(
+        $rac-styles-color: $rac-placeholder-color,
+        $rac-styles-padding: $rac-placeholder-padding
+      );
+    }
   }
 }
 
@@ -1132,6 +1134,7 @@
   /**/
   $rac-self-field-input-font-size: unset,
   $rac-self-field-input-background: unset,
+  $rac-self-field-input-padding: unset,
   /**/
   $rac-self-field-input-placeholder-padding: unset,
   $rac-self-field-input-placeholder-color: unset,
@@ -1194,7 +1197,8 @@
             .rac-field-input {
               @include rac-styles(
                 $rac-styles-font-size: $rac-self-field-input-font-size,
-                $rac-styles-background: $rac-self-field-input-background
+                $rac-styles-background: $rac-self-field-input-background,
+                $rac-styles-padding: $rac-self-field-input-padding
               );
 
               @include rac-placeholder(
@@ -1630,6 +1634,7 @@
   $rac-grid-column-content-text-field-background: unset,
   $rac-grid-column-content-text-field-border-color: unset,
   $rac-grid-column-content-text-field-input-text-align: unset,
+  $rac-grid-column-content-self-field-input-padding: unset,
   /**/
   $rac-grid-column-content-button-margin: unset,
   $rac-grid-column-content-button-height: unset,
@@ -1695,6 +1700,7 @@
 
     @include rac-field(
       $rac-field-align-items: $rac-grid-column-content-field-align-items,
+      $rac-self-field-input-padding: $rac-grid-column-content-self-field-input-padding,
       $rac-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
       $rac-text-field-height: $rac-grid-column-content-text-field-height,
       $rac-text-field-background: $rac-grid-column-content-text-field-background,
@@ -1751,6 +1757,7 @@
   $rac-grid-column-content-text-field-background: unset,
   $rac-grid-column-content-text-field-border-color: unset,
   $rac-grid-column-content-text-field-input-text-align: unset,
+  $rac-grid-column-content-self-field-input-padding: unset,
   /**/
   $rac-grid-column-content-button-margin: unset,
   $rac-grid-column-content-button-height: unset,
@@ -1805,6 +1812,7 @@
       $rac-grid-column-content-text-field-background: $rac-grid-column-content-text-field-background,
       $rac-grid-column-content-text-field-border-color: $rac-grid-column-content-text-field-border-color,
       $rac-grid-column-content-text-field-input-text-align: $rac-grid-column-content-text-field-input-text-align,
+      $rac-grid-column-content-self-field-input-padding: $rac-grid-column-content-self-field-input-padding,
       /**/
       $rac-grid-column-content-button-margin: $rac-grid-column-content-button-margin,
       $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
@@ -1941,6 +1949,7 @@
   $rac-grid-body-column-content-bottom: unset,
   $rac-grid-body-column-content-right: unset,
   $rac-grid-body-column-content-min-width: unset,
+  $rac-grid-body-column-content-self-field-input-padding: unset,
   $rac-grid-column-custom: unset,
   $rac-grid-column-position: unset,
   $rac-grid-column-background: unset,
@@ -1991,6 +2000,7 @@
   $rac-grid-column-edited-content-after-font-size: unset,
   $rac-grid-column-edited-content-after-content: unset,
   $rac-grid-column-edited-content-after-color: unset,
+  $rac-grid-column-content-self-field-input-padding: unset,
   $rac-grid-column-align-center-content: unset,
   $rac-grid-column-align-right-content: unset,
   $rac-grid-row-padding: unset,
@@ -2093,7 +2103,9 @@
       $rac-grid-column-content-button-icon-size: $rac-grid-column-content-button-icon-size,
       $rac-grid-column-content-button-icon-color: $rac-grid-column-content-button-icon-color,
       /**/
-      $rac-grid-column-content-text-field-height: $rac-grid-column-content-text-field-height
+      $rac-grid-column-content-text-field-height: $rac-grid-column-content-text-field-height,
+      /**/
+      $rac-grid-column-content-self-field-input-padding: $rac-grid-column-content-self-field-input-padding
     );
 
     @include rac-grid-column(

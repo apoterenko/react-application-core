@@ -35,6 +35,6 @@ export interface IBasicSelectProps extends IBasicSelectConfiguration,
                                            IForceReloadWrapper,
                                            IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
-  options?: ISelectOptionEntity[];
+  options?: ISelectOptionEntity[] | (() => ISelectOptionEntity[]);
   onSelect?(option: ISelectOptionEntity): void;
 }

@@ -78,6 +78,7 @@ export class DateNavigator
     return (
       <FlexLayout
         row={true}
+        full={props.full}
         alignItemsCenter={true}
       >
         <Button

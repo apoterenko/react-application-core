@@ -35,10 +35,12 @@ $rac-color-0-1: #ffffff !default;
 $rac-color-0-2: rgba(0, 0, 0, .2) !default;
 $rac-color-0-3: rgba(0, 0, 0, .05) !default;
 $rac-color-0-4: rgba(0, 0, 0, .3) !default;
+$rac-color-0-5: rgba(255, 255, 255, .5) !default;
+/**/
+$rac-color-1-0: #212121 !default;
 /**/
 $rac-layout-offset-0: 24px !default;
 /**/
-$rac-default-color-0-1: rgba(255, 255, 255, 0.5) !default;
 $rac-default-width-1: 56px !default;
 $rac-default-height-1: 56px !default;
 $rac-default-height-2: 32px !default;
@@ -528,7 +530,7 @@ $rac-form-layout-text-field-input-caret-bottom: unset !default;
 $rac-form-layout-text-field-border: unset !default;
 $rac-form-layout-text-field-border-color: unset !default;
 $rac-form-layout-text-field-background: unset !default;
-$rac-form-layout-text-field-icon-color: $rac-default-color-0-1 !default;
+$rac-form-layout-text-field-icon-color: $rac-color-0-5 !default;
 $rac-form-layout-text-field-icon-size: unset !default;
 $rac-form-layout-text-field-icon-margin: unset !default;
 $rac-form-layout-text-field-focused-background: unset !default;

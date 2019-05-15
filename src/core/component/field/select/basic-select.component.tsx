@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, toClassName, isDef, getWidth, toType, isFn } from '../../../util';
+import { cancelEvent, toClassName, isDef, getWidth, toType, isFn, calc } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
@@ -235,7 +235,7 @@ export class BasicSelect<TProps extends IBasicSelectProps,
    * @returns {ISelectOptionEntity[]}
    */
   protected get options(): ISelectOptionEntity[] {
-    return this.props.options || [];
+    return calc<ISelectOptionEntity[]>(this.props.options) || [];
   }
 
   /**

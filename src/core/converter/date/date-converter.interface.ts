@@ -99,9 +99,14 @@ export interface IDateConverter {
   formatPSTDate(date: DateTimeLikeTypeT): string;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   getCurrentDate(): Date;
+  getYesterdayDate(): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;
-  getFirstDayOfMonth(monthsAgo?: number): Date;
-  getLastDayOfMonth(monthsAgo?: number): Date;
+  getFirstDayOfMonth(monthsAgo?: number,
+                     date?: DateTimeLikeTypeT,
+                     inputFormat?: string): Date;
+  getLastDayOfMonth(monthsAgo?: number,
+                    date?: DateTimeLikeTypeT,
+                    inputFormat?: string): Date;
   get30DaysAgo(): Date;
   getXDaysLater(days: number): Date;
   getXDaysAgo(days: number): Date;
@@ -110,7 +115,12 @@ export interface IDateConverter {
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
-  getPersonAge(date: DateTimeLikeTypeT): number;
+  getPersonAge(birthday: DateTimeLikeTypeT,
+               date?: DateTimeLikeTypeT,
+               inputFormat?: string): number;
+  isSameMonth(date1: Date, date2: Date): boolean;
+  isSameDay(date1: Date, date2: Date): boolean;
+  isWeekend(day: number): boolean;
   combine(dateAsString: string, timeAsString: string): string;
   shrinkDate(dateTime: DateTimeLikeTypeT, separator?: string): DateTimeLikeTypeT;
 }
