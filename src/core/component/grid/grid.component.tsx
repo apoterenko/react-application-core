@@ -69,7 +69,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
             {
               isDef(props.groupBy)
                 ? this.getGroupedRows(dataSource)
-                : dataSource.map((entity, index) => this.getRow(entity, index))
+                : dataSource.map((entity, index) => this.getRow(entity, index, true))
             }
             {orNull(props.topTotal === false, () => this.totalRowElement)}
           </tbody>
@@ -242,12 +242,14 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @param {IGridColumnConfiguration} column
    * @param {number} columnNum
    * @param {number} rowNum
+   * @param {IEntity[]} groupedRows
    * @returns {React.ReactNode}
    */
   private getColumn(entity: IEntity,
                     column: IGridColumnConfiguration,
                     columnNum: number,
-                    rowNum: number): React.ReactNode {
+                    rowNum: number,
+                    groupedRows?: IEntity[]): React.ReactNode {
     const name = this.toFieldName(entity, column, columnNum);
     if (column.useGrouping) {
       return (
@@ -268,7 +270,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       /**
        * Build using a renderer
        */
-      const renderEl = column.renderer(entity, column);
+      const renderEl = column.renderer(entity, column, groupedRows);
       if (R.isNil(renderEl)) {
         return renderEl;
       }
@@ -326,9 +328,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @param {IEntity} entity
    * @param {number} rowNum
    * @param {boolean} applyOddClassName
+   * @param {IEntity[]} groupedRows
    * @returns {JSX.Element}
    */
-  private getRow(entity: IEntity, rowNum: number, applyOddClassName = true): JSX.Element {
+  private getRow(entity: IEntity,
+                 rowNum: number,
+                 applyOddClassName: boolean,
+                 groupedRows?: IEntity[]): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
     const changes = props.changes;
@@ -359,7 +365,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               )}
               entity={entity}
               {...column}>
-              {this.getColumn(entity, column, columnNum, rowNum)}
+              {this.getColumn(entity, column, columnNum, rowNum, groupedRows)}
             </GridColumn>
           ))
         }
@@ -550,44 +556,34 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const groupedDataSorter = this.props.groupedDataSorter;
     const dataSource0 = isFn(groupedDataSorter)
       ? R.sort(
-        (entity1, entity2) =>
-          groupedDataSorter(this.extractGroupedValue(entity1), this.extractGroupedValue(entity2), entity1, entity2),
-        dataSource
-      ) : dataSource;
+          (entity1, entity2) =>
+            groupedDataSorter(this.extractGroupedValue(entity1), this.extractGroupedValue(entity2), entity1, entity2),
+          dataSource
+        )
+      : dataSource;
 
-    const currentGroupedEntities = [];
-    let rows = [];
-    let currentGroupColumnValue;
+    const rows = [];
+    const groupedDataSource = {};
 
     dataSource0.forEach((entity) => {
       const groupColumnValue = this.extractGroupedValue(entity);
-      if (!R.equals(currentGroupColumnValue, groupColumnValue)
-            && !R.isNil(currentGroupColumnValue)) {
-        rows = rows.concat(this.buildRowsGroup(currentGroupColumnValue, currentGroupedEntities));
-        currentGroupedEntities.length = 0;
-      }
-      currentGroupColumnValue = groupColumnValue;
-      currentGroupedEntities.push(entity);
-    });
-    if (currentGroupedEntities.length) {
-      rows = rows.concat(this.buildRowsGroup(currentGroupColumnValue, currentGroupedEntities));
-    }
-    return rows;
-  }
 
-  /**
-   * @stable [06.09.2018]
-   * @param {EntityIdT} currentGroupColumnValue
-   * @param {IEntity[]} currentGroupedEntities
-   * @returns {JSX.Element[]}
-   */
-  private buildRowsGroup(currentGroupColumnValue: EntityIdT,
-                         currentGroupedEntities: IEntity[]): JSX.Element[] {
-    const rows = [this.getGroupingRow(currentGroupColumnValue, currentGroupedEntities)];
-    if (this.isGroupedRowExpanded(currentGroupColumnValue)) {
-      const applyOddClassName = currentGroupedEntities.length > 1;
-      return rows.concat(currentGroupedEntities.map((entity0, index) => this.getRow(entity0, index, applyOddClassName)));
-    }
+      let groupedDataSourceEntities = Reflect.get(groupedDataSource, groupColumnValue);
+      if (!groupedDataSource.hasOwnProperty(groupColumnValue)) {
+        Reflect.set(groupedDataSource, groupColumnValue, groupedDataSourceEntities = []);
+      }
+      groupedDataSourceEntities.push(entity);
+    });
+
+    Object.keys(groupedDataSource).forEach((groupedRowValue) => {
+      const groupedRows = groupedDataSource[groupedRowValue];
+      rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
+
+      if (this.isGroupedRowExpanded(groupedRowValue)) {
+        const applyOddClassName = groupedRows.length > 1;
+        groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index, applyOddClassName, groupedRows)));
+      }
+    });
     return rows;
   }
 

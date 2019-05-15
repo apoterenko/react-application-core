@@ -4,7 +4,6 @@ import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions
 import {
   orUndef,
   isPrimitive,
-  orDefault,
   isDef,
   orNull,
   defValuesFilter,
@@ -48,11 +47,13 @@ export const asViewedMultiItemEntities = <TItem extends IEntity = IEntity>(curre
 };
 
 /**
- * @stable [18.08.2018]
+ * @stable [15.05.2019]
  * @param {MultiFieldEntityT} entity
+ * @param {boolean} sort
  * @returns {TItem[]}
  */
-export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
+export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT,
+                                                                           sort = true): TItem[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
@@ -64,24 +65,36 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
     const actualSourceItems = R.filter<TItem>(
       (entity0) => (
         // Exclude the removed entities from original snapshot
-        !multiEntity.remove.find((removeId) => removeId.id === entity0.id)
+        R.isNil(multiEntity.remove.find((removeId) => removeId.id === entity0.id))
 
         // Exclude the edited entities from an original snapshot,
         // because we need to replace them with actual edited entities
-        && !multiEntity.edit.find((editedId) => editedId.id === entity0.id)
+        && R.isNil(multiEntity.edit.find((editedId) => editedId.id === entity0.id))
       ),
       originalSourceItems
     );
 
     // The final snapshot
     const entities = actualSourceItems.concat(multiEntity.add as TItem[]).concat(editedEntities);
+    if (!sort) {
+      return entities;
+    }
+    const cachedIndexes = new Map<EntityIdT, number>();
+    entities.forEach((entity0) => cachedIndexes.set(entity0.id, originalSourceItems.findIndex((i) => i.id === entity0.id)));
 
-    // Finally, need to sorting by original entity position in an original snapshot
-    return R.sort<TItem>(
-      (item1, item2) => {
-        const firstIndex = originalSourceItems.findIndex((i) => i.id === item1.id);
-        const secondIndex = originalSourceItems.findIndex((i) => i.id === item2.id);
-        return firstIndex > secondIndex ? 1 : (firstIndex === secondIndex ? 0 : -1);
+    // Finally, need to sort by original entity position in an original snapshot because of added and removed entities
+    return R.sort<TItem>((item1, item2) => {
+        const id1 = item1.id;
+        const id2 = item2.id;
+        if (id1 === id2) {
+          return 0;
+        }
+        const index1 = cachedIndexes.get(id1);
+        const index2 = cachedIndexes.get(id2);
+        if (index1 === -1 && index2 === -1) {
+          return 0;
+        }
+        return index1 > index2 ? 1 : -1;
       },
       entities as TItem[]
     );
@@ -224,16 +237,12 @@ export function fromMultiFieldEntityToDeletedEntities<TItem extends IEntity = IE
  * @returns {number}
  */
 export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT | EntityIdT): number =>
-  orDefault<number, number>(
-    isDef(value),
-    () => (
-      (isNotMultiEntity(value)
-          ? normalizeEntities(value as NotMultiFieldEntityT)
-          : toActualMultiItemEntities(value as IMultiEntity)
+  isDef(value)
+    ? (isNotMultiEntity(value)
+        ? normalizeEntities(value as NotMultiFieldEntityT)
+        : toActualMultiItemEntities(value as IMultiEntity, false)
       ).length
-    ),
-    0
-  );
+    : 0;
 
 /**
  * @stable [03.07.2018]
@@ -262,11 +271,11 @@ export const extractMultiItemEntities = (value: MultiFieldEntityT,
                                          converter: (value: IMultiEntity) => IMultiItemEntity[],
                                          defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
   isNotMultiEntity(value)
-    ? orDefault<IEntity[], IEntity[]>(
-        isDef(defaultValue),
-        defaultValue,
-        () => normalizeEntities(value as NotMultiFieldEntityT)
-      )
+    ? (
+      isDef(defaultValue)
+        ? defaultValue
+        : normalizeEntities(value as NotMultiFieldEntityT)
+    )
     : (R.isNil(value) ? [] : converter(value as IMultiEntity));
 
 /**
@@ -438,34 +447,27 @@ export const toMultiFieldChangesEntityOnEdit = (item: IMultiItemEntity,
   const isEditedNewItem = !R.isNil(editedNewItem);
   const isOriginalEditedItem = !R.isNil(originalEditedItem);
 
-  const editArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
-    isEditedNewItem,
-    editValue,  // If a user is editing a new record then returning an input value
-    () => ( // Otherwise, we should replace an old item with an input item
+  const editArray = isEditedNewItem
+    ? editValue  // If a user is editing a new record then returning an input value
+    : ( // Otherwise, we should replace an old item with an input item
       editValue
         .filter((editedItem) => !isSameEntityByIdAndChangedFieldName(item, editedItem))
         .concat(item)
         .filter(
           (editedItem) =>
-            // Totally destroy the dirty changes, if an edited entity attribute is equal an original entity attribute
+            // Need to destroy the dirty changes, if an edited entity attribute is equal an original entity attribute
             !isOriginalEditedItem
-              || !(isSameEntityByIdAndChangedFieldName(item, editedItem)
-                    && originalEditedItem[item.name] === item.value)
+            || !(isSameEntityByIdAndChangedFieldName(item, editedItem) && originalEditedItem[item.name] === item.value)
         )
-    )
-  );
+    );
 
-  const addArray = orDefault<IMultiItemEntity[], IMultiItemEntity[]>(
-    isEditedNewItem,
-    () => (
-      item.value === UNDEF    // Need to destroy added entity
+  const addArray = isEditedNewItem
+    ? (
+      item.value === UNDEF    // Need to destroy the added entities
         ? R.filter<IEntity>((itm) => itm.id !== item.id, addValue)
-        : R.map<IEntity, IEntity>(
-          (newItem) => newItem.id === item.id ? fromMultiItemEntityToEntity(item) : newItem, addValue
-        )
-    ),
-    addValue
-  );
+        : R.map<IEntity, IEntity>((newItem) => newItem.id === item.id ? fromMultiItemEntityToEntity(item) : newItem, addValue)
+    )
+    : addValue;
   return {addArray, removeArray, editArray};
 };
 
