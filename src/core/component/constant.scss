@@ -30,6 +30,11 @@ $rac-font-weight-0: 300 !default;
 $rac-font-weight-1: 500 !default;
 $rac-font-weight-2: 700 !default;
 /**/
+$rac-offset-0: 4px !default;
+$rac-offset-1: 8px !default;
+$rac-offset-2: 12px !default;
+$rac-offset-3: 16px !default;
+/**/
 $rac-color-0-0: rgba(0, 0, 0, .1) !default;
 $rac-color-0-1: #ffffff !default;
 $rac-color-0-2: rgba(0, 0, 0, .2) !default;
@@ -80,7 +85,7 @@ $rac-triangle-size: 10px !default;
 $rac-triangle-color: $color-4 !default;
 
 /* @stable [26.06.2018] */
-$rac-min-width: 750px !default;
+$rac-min-width: unset !default;
 
 /* @stable [26.06.2018] */
 $rac-scrollbar-width: 6px !default;

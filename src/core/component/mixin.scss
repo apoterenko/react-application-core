@@ -24,6 +24,14 @@
 }
 
 /**
+ * @stable [19.05.2019]
+ */
+@function rac-append-cls($rac-cls1,
+                         $rac-cls2) {
+  @return '#{$rac-cls1}, .#{$rac-cls2}';
+}
+
+/**
  * @stable [13.01.2019]
  */
 @mixin _rac-filter-properties($rac-filter-value: unset,
@@ -171,7 +179,8 @@
   $rac-styles-min-height: unset,
   $rac-styles-float: unset,
   $rac-styles-z-index: unset,
-  $rac-styles-box-sizing: unset
+  $rac-styles-box-sizing: unset,
+  $rac-styles-justify-content: unset
 ) {
   @if $rac-styles-box-sizing != unset {
     box-sizing: $rac-styles-box-sizing;
@@ -181,6 +190,9 @@
   }
   @if $rac-styles-flex-direction != unset {
     @include flex-direction($rac-styles-flex-direction);
+  }
+  @if $rac-styles-justify-content != unset {
+    @include justify-content($rac-styles-justify-content);
   }
   @if $rac-styles-z-index != unset {
     z-index: $rac-styles-z-index;
@@ -440,7 +452,8 @@
   $rac-styles-box-shadow: unset,
   $rac-styles-float: unset,
   $rac-styles-z-index: unset,
-  $rac-styles-box-sizing: unset
+  $rac-styles-box-sizing: unset,
+  $rac-styles-justify-content: unset
 ) {
 
   @if $rac-styles-custom != unset {
@@ -509,7 +522,8 @@
         $rac-styles-min-height: $rac-styles-min-height,
         $rac-styles-float: $rac-styles-float,
         $rac-styles-z-index: $rac-styles-z-index,
-        $rac-styles-box-sizing: $rac-styles-box-sizing
+        $rac-styles-box-sizing: $rac-styles-box-sizing,
+        $rac-styles-justify-content: $rac-styles-justify-content
       );
     }
   } @else {
@@ -577,7 +591,8 @@
       $rac-styles-min-height: $rac-styles-min-height,
       $rac-styles-float: $rac-styles-float,
       $rac-styles-z-index: $rac-styles-z-index,
-      $rac-styles-box-sizing: $rac-styles-box-sizing
+      $rac-styles-box-sizing: $rac-styles-box-sizing,
+      $rac-styles-justify-content: $rac-styles-justify-content
     );
   }
 }
@@ -589,7 +604,7 @@
   $rac-placeholder-color: unset,
   $rac-placeholder-padding: unset
 ) {
-  @if $rac-placeholder-color != unset and $rac-placeholder-padding != unset {
+  @if $rac-placeholder-color != unset or $rac-placeholder-padding != unset {
     &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
       @include rac-styles(
         $rac-styles-color: $rac-placeholder-color,
@@ -621,6 +636,17 @@
       );
     }
   }
+}
+
+/**
+ * @stable [19.05.2019]
+ */
+@mixin rac-flex($rac-flex-responsive-flex-direction: unset) {
+
+  @include rac-styles(
+    $rac-styles-custom: rac-flex-responsive,
+    $rac-styles-flex-direction: $rac-flex-responsive-flex-direction
+  );
 }
 
 /**
@@ -2584,9 +2610,9 @@
 /**
  * @stable [17.02.2019]
  */
-@mixin rac-no-flex-shrink {
+@mixin rac-flex-no-shrink {
   @include rac-styles(
-    $rac-styles-custom: rac-no-flex-shrink,
+    $rac-styles-custom: rac-flex-no-shrink,
     $rac-styles-flex-shrink: 0
   );
 }

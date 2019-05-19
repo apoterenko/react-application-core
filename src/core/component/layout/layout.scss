@@ -9,7 +9,7 @@
     $rac-flex-separator-width: $rac-flex-separator-width
   );
 
-  @include rac-no-flex-shrink;                                                                /* @stable [17.02.2019] */
+  @include rac-flex-no-shrink;                                                                /* @stable [17.02.2019] */
 
   .rac-flex-overflow {
     overflow: auto;                                                 /* @stable [27.10.2018] */

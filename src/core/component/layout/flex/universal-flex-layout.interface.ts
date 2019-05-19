@@ -1,6 +1,5 @@
 import {
   IRowWrapper,
-  IFullWrapper,
   ISeparatorWrapper,
 } from '../../../definitions.interface';
 import { IReactOnClickWrapper } from '../../../react-definitions.interface';
@@ -13,6 +12,5 @@ export interface IVueFlexLayoutProps
   extends IGenericFlexLayoutEntity,
           IReactOnClickWrapper,
           ISeparatorWrapper,
-          IFullWrapper,
           IRowWrapper {
 }

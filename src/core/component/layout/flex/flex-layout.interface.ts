@@ -20,7 +20,6 @@ export interface IFlexLayoutProps extends IComponentProps,
                                           IFullSizeWrapper,
                                           ISeparatorWrapper,
                                           IFullWrapper,
-                                          IWrapWrapper,
                                           IOverflowWrapper,
                                           IOverflowMinContentHeightWrapper,
                                           IRowWrapper {

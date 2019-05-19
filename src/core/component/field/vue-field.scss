@@ -5,10 +5,12 @@
 .vac {
 
   @include vue-field(                                                                         /* @stable [25.11.2018] */
+    $vue-field-box-sizing: $vue-field-box-sizing,
+    $vue-field-position: $vue-field-position,
     $vue-field-input-wrapper-height: 100%,
     $vue-field-input-wrapper-width: 100%,
-    $vue-field-input-wrapper-position: absolute,  /* Make child 100% height*/
-    $vue-field-position: relative,
+    $vue-field-input-wrapper-position: absolute,  /* Child height = 100% */
+    $vue-field-input-wrapper-top: $vue-field-input-wrapper-top,
     $vue-field-float-label-color: $vue-field-float-label-color,
     $vue-field-float-label-font-size: $vue-field-float-label-font-size,
     $vue-field-float-label-absolute: true,

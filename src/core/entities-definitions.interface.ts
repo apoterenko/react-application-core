@@ -798,6 +798,7 @@ export interface IEnvironmentEntity {
   platformOs?: IEnvironmentPlatformOsEntity;
   port?: string;
   prodMode?: boolean;
+  stageMode?: boolean;
   rnPlatform?: boolean;
   rnPlatformName?: string;
   safariPlatform?: boolean;

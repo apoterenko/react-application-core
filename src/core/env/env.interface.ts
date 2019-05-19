@@ -28,6 +28,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   appProfile: process.env.APP_PROFILE || 'DEFAULT',
   appNamespace: process.env.APP_NAMESPACE,
   prodMode: process.env.NODE_ENV === 'production',
+  stageMode: process.env.NODE_ENV === 'stage',
   devModeEnabled: !!definedLocalStorage.getItem('$$RAC-DEV_MODE'),
   googleKey: process.env.GOOGLE_KEY,
   googleMapsKey: process.env.GOOGLE_MAPS_KEY,
