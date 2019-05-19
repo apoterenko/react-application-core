@@ -5,7 +5,7 @@ import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.int
 import { ComponentName } from '../../connector/vue-index';
 import { asViewedMultiItemEntities } from '../multifield/vue-index';
 import { VueBaseFileField } from './vue-base-filefield.component';
-import { IVueMultiFileFieldProps } from './vue-filefield.interface';
+import { IVueMultiFileFieldProps } from './vue-single-file-field.interface';
 
 @ComponentName('vue-multi-file-field')
 @Component

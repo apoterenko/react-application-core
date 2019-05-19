@@ -439,9 +439,12 @@
  */
 @mixin vue-field(
   $vue-field-custom: unset,
+  $vue-field-box-sizing: unset,
   $vue-field-height: unset,
+  $vue-field-width: unset,
   $vue-field-padding: unset,
   $vue-field-margin: unset,
+  $vue-field-margin-right: unset,
   $vue-field-position: unset,
   $vue-field-border-radius: unset,
   $vue-field-border: unset,
@@ -459,6 +462,7 @@
   $vue-field-input-wrapper-height: unset,
   $vue-field-input-wrapper-width: unset,
   $vue-field-input-wrapper-position: unset,
+  $vue-field-input-wrapper-top: unset,
   $vue-field-attachment-wrapper-width: unset,
   $vue-field-attachment-holder-float: unset,
   $vue-field-attachment-holder-position: unset,
@@ -499,18 +503,20 @@
       $rac-styles-position: $vue-field-position,
       $rac-styles-padding: $vue-field-padding,
       $rac-styles-margin: $vue-field-margin,
+      $rac-styles-margin-right: $vue-field-margin-right,
       $rac-styles-border-radius: $vue-field-border-radius,
-      $rac-styles-border: $vue-field-border
+      $rac-styles-border: $vue-field-border,
+      $rac-styles-box-sizing: $vue-field-box-sizing
     );
-    @if $vue-field-height != unset {
-      @include rac-flex-height($vue-field-height);
-    }
+    @include rac-flex-height($vue-field-height);
+    @include rac-flex-width($vue-field-width);
 
     @include rac-styles(
       $rac-styles-custom: vue-field-input-wrapper,
       $rac-styles-height: $vue-field-input-wrapper-height,
       $rac-styles-width: $vue-field-input-wrapper-width,
-      $rac-styles-position: $vue-field-input-wrapper-position
+      $rac-styles-position: $vue-field-input-wrapper-position,
+      $rac-styles-top: $vue-field-input-wrapper-top
     );
 
     @include rac-styles(
@@ -627,18 +633,19 @@
 /**
  * @stable [24.11.2018]
  */
-@mixin vue-menu($vue-menu-custom: unset,
-                $vue-menu-list-padding: unset,
-                $vue-menu-list-max-height: unset,
-                $vue-menu-list-empty-item-padding: unset,
-                $vue-menu-list-item-white-space: unset,
-                $vue-menu-list-item-height: unset,
-                $vue-menu-list-item-padding: unset,
-                $vue-menu-list-item-margin: unset,
-                $vue-menu-list-item-border-radius: unset,
-                $vue-menu-list-item-hover-background: unset,
-                $vue-menu-list-item-content-text-overflow: unset  ) {
-
+@mixin vue-menu(
+  $vue-menu-custom: unset,
+  $vue-menu-list-padding: unset,
+  $vue-menu-list-max-height: unset,
+  $vue-menu-list-empty-item-padding: unset,
+  $vue-menu-list-item-white-space: unset,
+  $vue-menu-list-item-height: unset,
+  $vue-menu-list-item-padding: unset,
+  $vue-menu-list-item-margin: unset,
+  $vue-menu-list-item-border-radius: unset,
+  $vue-menu-list-item-hover-background: unset,
+  $vue-menu-list-item-content-text-overflow: unset
+) {
   #{rac-build-cls(vue-menu, $vue-menu-custom)} {
     .vue-menu-list {
       @include rac-styles(
@@ -675,68 +682,50 @@
 }
 
 /**
- * @stable [26.11.2018]
+ * @stable [19.05.2019]
  */
-@mixin _vue-form-custom-properties($vue-form-title-font-size: unset,
-                                   $vue-form-title-font-weight: unset,
-                                   $vue-form-title-padding: unset,
-                                   $vue-form-header-height: unset,
-                                   $vue-form-header-padding: unset,
-                                   $vue-form-field-margin: unset) {
-  .vue-form-header {
-    @include rac-styles(
-      $rac-styles-padding: $vue-form-header-padding
+@mixin vue-form(
+  $vue-form-custom: unset,
+  $vue-form-title-font-size: unset,
+  $vue-form-title-font-weight: unset,
+  $vue-form-title-padding: unset,
+  $vue-form-header-height: unset,
+  $vue-form-header-padding: unset,
+  /**/
+  $vue-form-field-custom: unset,
+  $vue-form-field-margin: unset,
+  $vue-form-field-margin-right: unset,
+  $vue-form-field-width: unset,
+  /**/
+  $vue-form-body-flex-direction: unset
+) {
+
+  #{rac-build-cls(vue-form, $vue-form-custom)} {
+    @include vue-field(
+      $vue-field-custom: $vue-form-field-custom,
+      $vue-field-margin: $vue-form-field-margin,
+      $vue-field-margin-right: $vue-form-field-margin-right,
+      $vue-field-width: $vue-form-field-width
     );
 
-    @if $vue-form-header-height != unset {
+    .vue-form-header {
+      @include rac-styles(
+        $rac-styles-padding: $vue-form-header-padding
+      );
+
       @include rac-flex-height($vue-form-header-height);
+
+      @include rac-styles(
+        $rac-styles-custom: vue-form-title,
+        $rac-styles-font-size: $vue-form-title-font-size,
+        $rac-styles-font-weight: $vue-form-title-font-weight,
+        $rac-styles-padding: $vue-form-title-padding
+      );
     }
 
-    @include rac-styles(
-      $rac-styles-custom: vue-form-title,
-      $rac-styles-font-size: $vue-form-title-font-size,
-      $rac-styles-font-weight: $vue-form-title-font-weight,
-      $rac-styles-padding: $vue-form-title-padding
-    );
-  }
-
-  @if $vue-form-field-margin != unset {
-    @include vue-field($vue-field-margin: $vue-form-field-margin);
-  }
-}
-
-/**
- * @stable [26.11.2018]
- */
-@mixin vue-form($vue-form-custom: unset,
-                $vue-form-title-font-size: unset,
-                $vue-form-title-font-weight: unset,
-                $vue-form-title-padding: unset,
-                $vue-form-header-height: unset,
-                $vue-form-header-padding: unset,
-                $vue-form-field-margin: unset) {
-  @if $vue-form-custom != unset {
-    .vue-form {
-      &.#{$vue-form-custom} {
-        @include _vue-form-custom-properties(
-          $vue-form-title-font-size: $vue-form-title-font-size,
-          $vue-form-title-font-weight: $vue-form-title-font-weight,
-          $vue-form-title-padding: $vue-form-title-padding,
-          $vue-form-header-height: $vue-form-header-height,
-          $vue-form-header-padding: $vue-form-header-padding,
-          $vue-form-field-margin: $vue-form-field-margin
-        );
-      }
-    }
-  } @else {
-    .vue-form {
-      @include _vue-form-custom-properties(
-        $vue-form-title-font-size: $vue-form-title-font-size,
-        $vue-form-title-font-weight: $vue-form-title-font-weight,
-        $vue-form-title-padding: $vue-form-title-padding,
-        $vue-form-header-height: $vue-form-header-height,
-        $vue-form-header-padding: $vue-form-header-padding,
-        $vue-form-field-margin: $vue-form-field-margin
+    .vue-form-body {
+      @include rac-styles(
+        $rac-styles-flex-direction: $vue-form-body-flex-direction
       );
     }
   }

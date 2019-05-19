@@ -1,1 +1,1 @@
-export * from './vue-filefield.interface';
+export * from './vue-single-file-field.interface';

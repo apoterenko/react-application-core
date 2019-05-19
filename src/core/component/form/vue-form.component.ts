@@ -10,7 +10,8 @@ import {
 @ComponentName('vue-form')
 @Component({
   template: `
-    <div class="vue-form rac-flex-full">
+    <vue-flex-layout :full="full"
+                     class="vue-form">
         <vue-flex-layout v-if="title || hasHeaderSlot()"
                          :full="false"
                          :row="true"
@@ -22,19 +23,24 @@ import {
             </vue-flex-layout>
             <slot name="${VUE_FORM_HEADER_SLOT}"/>
         </vue-flex-layout>
-        <vue-flex-layout class="vue-form-body">
+        <vue-flex-layout :full="full"
+                         :responsive="responsive"
+                         :wrap="responsive"
+                         :row="true"
+                         class="vue-form-body">
             <slot/>
         </vue-flex-layout>
         <vue-flex-layout v-if="hasFooterSlot()"
                          :full="false"
+                         :row="true"
                          class="vue-form-footer">
             <slot name="${VUE_FORM_FOOTER_SLOT}"/>
         </vue-flex-layout>
-    </div>
+    </vue-flex-layout>
   `,
 })
 class VueForm extends VueBaseComponent {
-  @Prop() private title: string;
+  @Prop() public readonly responsive: boolean;
 
   /**
    * @stable [26.11.2018]

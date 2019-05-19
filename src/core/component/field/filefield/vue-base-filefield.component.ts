@@ -24,7 +24,7 @@ import {
   VUE_FILE_VIEWER_NAME,
   IVueViewer,
 } from '../../viewer/vue-index';
-import { IVueBaseFileFieldProps, IVueBaseFileFieldTemplateMethods } from './vue-filefield.interface';
+import { IVueBaseFileFieldProps, IVueBaseFileFieldTemplateMethods } from './vue-single-file-field.interface';
 
 export class VueBaseFileField extends VueField
   implements IVueBaseFileFieldTemplateMethods, IVueBaseFileFieldProps {

@@ -7,11 +7,11 @@ import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.int
 import { ComponentName } from '../../connector/vue-index';
 import { toActualMultiItemEntities } from '../multifield/vue-index';
 import { VueBaseFileField } from './vue-base-filefield.component';
-import { IVueFileFieldProps, VUE_FILE_FIELD_NAME } from './vue-filefield.interface';
+import { IVueSingleFileFieldProps, VUE_SINGLE_FILE_FIELD_NAME } from './vue-single-file-field.interface';
 
-@ComponentName(VUE_FILE_FIELD_NAME)
+@ComponentName(VUE_SINGLE_FILE_FIELD_NAME)
 @Component
-class VueFileField extends VueBaseFileField implements IVueFileFieldProps {
+class VueSingleFileField extends VueBaseFileField implements IVueSingleFileFieldProps {
 
   /**
    * @stable [25.11.2018]
@@ -58,5 +58,13 @@ class VueFileField extends VueBaseFileField implements IVueFileFieldProps {
     return isArrayNotEmpty(filesEntities)
       ? this.toViewer(filesEntities[0].type || this.getFileFormat())
       : this.viewer;
+  }
+
+  /**
+   * @stable [19.05.2019]
+   * @returns {string}
+   */
+  public getFieldClassName(): string {
+    return `${super.getFieldClassName()} vue-single-file-field`;
   }
 }

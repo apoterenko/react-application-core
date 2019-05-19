@@ -1,12 +1,22 @@
+import {
+  IFullWrapper,
+  INoShrinkWrapper,
+  IResponsiveWrapper,
+  IWrapWrapper,
+} from '../definitions.interface';
+
 /**
  * @stable [05.02.2019]
  */
-export interface IGenericFlexLayoutEntity {
+export interface IGenericFlexLayoutEntity
+  extends IWrapWrapper,
+    IFullWrapper,
+    IResponsiveWrapper,
+    INoShrinkWrapper {
   alignItemsCenter?: boolean;
   alignItemsEnd?: boolean;
   justifyContentCenter?: boolean;
   justifyContentEnd?: boolean;
   justifyContentSpaceBetween?: boolean;
   justifyContentSpaceEvenly?: boolean;
-  noShrink?: boolean;
 }

@@ -52,17 +52,19 @@ export interface IVueBaseFileFieldProps extends IVueFieldProps,
 /**
  * @stable [22.12.2018]
  */
-export interface IVueFileFieldProps extends IVueBaseFileFieldProps {
+export interface IVueSingleFileFieldProps
+  extends IVueBaseFileFieldProps {
 }
 
 /**
  * @stable [22.12.2018]
  */
-export interface IVueMultiFileFieldProps extends IVueBaseFileFieldProps {
+export interface IVueMultiFileFieldProps
+  extends IVueBaseFileFieldProps {
 }
 
 /**
  * @stable [06.01.2019]
  */
-export const VUE_FILE_FIELD_NAME = 'vue-file-field';
+export const VUE_SINGLE_FILE_FIELD_NAME = 'vue-single-file-field';
 export const VUE_MULTI_FILE_FIELD_NAME = 'vue-multi-file-field';

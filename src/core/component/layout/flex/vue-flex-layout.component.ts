@@ -16,9 +16,10 @@ import { IVueFlexLayoutProps } from './universal-flex-layout.interface';
 class VueFlexLayout extends VueBaseComponent
   implements IVueFlexLayoutProps {
   @Prop() public children: string;
-  @Prop() public title: string;
-  @Prop() public row: boolean;
-  @Prop() public full: boolean;
+  @Prop() public readonly responsive: boolean;
+  @Prop() public readonly wrap: boolean;
+  @Prop() public readonly noShrink: boolean;
+  @Prop() public readonly row: boolean;
   @Prop() public separator: boolean;
   @Prop() public alignItemsCenter: boolean;
   @Prop() public alignItemsEnd: boolean;
@@ -40,11 +41,15 @@ class VueFlexLayout extends VueBaseComponent
   private getClassName(): string {
     const props = this;
     return toClassName(
-      'rac-flex',
-      calc(props.className),
+      'rac-flex',                                                                       /* @stable [19.05.2019] */
+      calc(props.className),                                                            /* @stable [19.05.2019] */
+      props.responsive                                                                  /* @stable [19.05.2019] */
+        ? 'rac-flex-responsive'
+        : (props.row ? 'rac-flex-row' : 'rac-flex-column'),
+      props.full !== false && 'rac-flex-full',                                          /* @stable [19.05.2019] */
+      props.noShrink && 'rac-flex-no-shrink',                                           /* @stable [19.05.2019] */
+      props.wrap && 'rac-flex-wrap',                                                    /* @stable [19.05.2019] */
       props.fullSize && 'rac-full-size',
-      props.row ? 'rac-flex-row' : 'rac-flex-column',
-      props.full !== false && 'rac-flex-full',
       props.separator && 'rac-flex-separator',
       props.alignItemsCenter && 'rac-flex-align-items-center',
       props.alignItemsEnd && 'rac-flex-align-items-end',

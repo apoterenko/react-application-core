@@ -1876,12 +1876,9 @@ export interface IHeaderContentWrapper<THeaderContent = JSX.Element> {
 export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
 }
 
-/**
- * @stable [14.09.2018]
- */
-export interface IFullWrapper<TFull = boolean> {
-  full?: TFull;
-}
+export interface INoShrinkWrapper { noShrink?: boolean; }
+export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
+export interface IFullWrapper<TFull = boolean> { full?: TFull; }
 
 /**
  * @stable [27.10.2018]
@@ -1904,12 +1901,7 @@ export interface ISeparatorWrapper<TSeparator = boolean> {
   separator?: TSeparator;
 }
 
-/**
- * @stable [16.01.2018]
- */
-export interface IWrapWrapper {
-  wrap?: boolean;
-}
+export interface IWrapWrapper { wrap?: boolean; }
 
 /**
  * @stable [13.01.2018]

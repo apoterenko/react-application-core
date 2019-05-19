@@ -6,10 +6,8 @@ import {
   isDef,
   defValuesFilter,
   orUndef,
-  orDefault,
   toClassName,
-  ifNilReturnDefault,
-  ifNotNilReturnValue,
+  ifNotNilThanValue,
   calc,
 } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
@@ -36,7 +34,6 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   implements IVueField, IVueFieldProps {
 
   @Prop() public readonly value: AnyT;
-  @Prop() public readonly full: boolean;
   @Prop() public readonly useLocalization: boolean;
   @Prop() public readonly label: string;
   @Prop() public readonly displayName: string;
@@ -80,7 +77,6 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
       methods: this.getTemplateMethods() as VueDefaultMethodsT,
       template: `
         <vue-flex-layout :row="true"
-                         :alignItemsCenter="true"
                          :full="isFieldFull()"
                          :class="getFieldClassName()">
           <vue-flex-layout ref="inputWrapper"
@@ -107,10 +103,10 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   public getInputBindings(): Partial<HTMLInputElement> {
     return defValuesFilter<Partial<HTMLInputElement>, Partial<HTMLInputElement>>({
       type: this.type,
-      placeholder: ifNilReturnDefault<string, string>(
+      placeholder: ifNotNilThanValue(
         this.placeholder,
         () => this.t(this.placeholder),
-        orUndef<string>(this.hasFloatLabel(), () => this.t(this.label))
+        orUndef(this.hasFloatLabel(), () => this.t(this.label))
       ),
       ...{class: this.getInputClassName()} as IKeyValue,
     });
@@ -310,14 +306,12 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   protected getDisplayValue(): AnyT {
     const data = this.getData();
     const value = this.getValue();
-    const displayValue = ifNotNilReturnValue(data, () => data.displayValue);
+    const displayValue = ifNotNilThanValue(data, () => data.displayValue);
     let displayNameValue;
 
-    return orDefault(
-      R.isNil(displayValue),
-      () => orDefault(displayNameValue = this.fromStore(this.displayName), displayNameValue, value),
-      displayValue
-    );
+    return R.isNil(displayValue)
+      ? (displayNameValue = this.fromStore(this.displayName) ? displayNameValue : value)
+      : displayValue;
   }
 
   /**
@@ -386,6 +380,6 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
    * @returns {AnyT}
    */
   protected fromStore(fieldName: string): AnyT {
-    return ifNotNilReturnValue(this.bindStore, () => this.bindStore[fieldName]);
+    return ifNotNilThanValue(this.bindStore, () => this.bindStore[fieldName]);
   }
 }

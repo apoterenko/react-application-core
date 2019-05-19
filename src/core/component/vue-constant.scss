@@ -17,16 +17,28 @@ $vue-default-hover: $vue-color4 !default;
 $vue-default-text-field-input-padding: 16px !default;
 
 /* @stable [18.11.2018] */
+$vue-field-cls: vue-field;
+$vue-text-field-cls: vue-text-field;
+$vue-number-field-cls: vue-number-field;
+$vue-select-cls: vue-select;
+$vue-single-file-field-cls: vue-single-file-field;
+$vue-multi-file-field-cls: vue-multi-file-field;
+/**/
+$vue-field-box-sizing: border-box !default;
+$vue-field-position: relative !default;
+$vue-field-float-label-font-size: $vue-default-font-size !default;
+$vue-field-float-label-color: $vue-color1 !default;
+/**/
+$vue-field-input-wrapper-top: 0 !default;
+/**/
 $vue-text-field-input-padding: 0 $vue-default-text-field-input-padding !default;
 $vue-text-field-input-font-size: $vue-default-font-size-2 !default;
-$vue-text-field-height: 46px !default;
+$vue-text-field-height: 48px !default;
 $vue-text-field-border-radius: $vue-default-border-radius !default;
 $vue-text-field-border: 1px solid $vue-color2 !default;
 $vue-text-field-float-label-padding: $vue-text-field-input-padding !default;
 $vue-text-field-float-labeled-and-filled-input-padding: $vue-default-text-field-input-padding $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
 $vue-text-field-float-labeled-and-filled-float-label-padding: ($vue-default-text-field-input-padding / 2) $vue-default-text-field-input-padding 0 $vue-default-text-field-input-padding !default;
-$vue-field-float-label-font-size: $vue-default-font-size !default;
-$vue-field-float-label-color: $vue-color1 !default;
 $vue-file-field-attachment-wrapper-width: 100% !default;
 $vue-file-field-attachment-content-border: 1px dashed $vue-color2 !default;
 $vue-file-field-attachment-content-padding: 0 $vue-default-text-field-input-padding !default;
@@ -37,7 +49,9 @@ $vue-file-field-attachment-placeholder-font-size: $vue-default-font-size-2 !defa
 $vue-file-field-attachment-placeholder-padding: unset !default;
 $vue-file-field-attachment-dnd-message-padding: unset !default;
 $vue-file-field-attachment-dnd-message-font-size: $vue-default-font-size-3 !default;
-$vue-multi-file-field-attachment-content-margin: 0 16px 16px 0 !default;
+$vue-multi-file-field-attachment-content-margin-offset-right: 16px !default;
+$vue-multi-file-field-attachment-content-margin-offset-bottom: 16px !default;
+$vue-multi-file-field-attachment-content-margin: 0 $vue-multi-file-field-attachment-content-margin-offset-right $vue-multi-file-field-attachment-content-margin-offset-bottom 0 !default;
 $vue-multi-file-field-attachment-content-width: 100px !default;
 $vue-multi-file-field-attachment-content-height: 100px !default;
 $vue-multi-file-field-attachment-content-cursor: pointer !default;
@@ -45,7 +59,7 @@ $vue-multi-file-field-attachment-holder-float: left !default;
 $vue-multi-file-field-attachment-holder-position: relative !default;
 $vue-select-icon-max-width: 16px !default;
 $vue-select-icon-height: 10px !default;
-$vue-select-icon-margin: 0 20px 0 auto !default;
+$vue-select-icon-margin: auto 20px auto auto !default;
 $vue-checkbox-label-margin: 0 0 0 16px !default;
 $vue-select-icon-color: $vue-color7 !default;
 

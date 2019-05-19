@@ -16,7 +16,9 @@ export class VueBaseComponent<TStore = IKeyValue,
                               TState = IKeyValue> extends Vue
   implements IVueComponent, IVueBaseProps {
 
-  @Prop() public className: string | ((...args) => string);
+  @Prop() public readonly className: string | ((...args) => string);
+  @Prop() public readonly full: boolean;
+  @Prop() public readonly title: string;
   @lazyInject(DI_TYPES.Translate) protected t: TranslatorT;
   @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
