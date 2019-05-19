@@ -62,20 +62,23 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
     const editedEntities = toActualMultiItemEditedEntities<TItem>(entity);
 
     const originalSourceItems = multiEntity.source as TItem[] || [];
-    const actualSourceItems = R.filter<TItem>(
+    const removedSet = new Set(multiEntity.remove.map((itm) => itm.id));
+    const editSet = new Set(multiEntity.edit.map((itm) => itm.id));
+
+    const notTouchedItems = R.filter<TItem>(
       (entity0) => (
         // Exclude the removed entities from original snapshot
-        R.isNil(multiEntity.remove.find((removeId) => removeId.id === entity0.id))
+        !removedSet.has(entity0.id)
 
         // Exclude the edited entities from an original snapshot,
         // because we need to replace them with actual edited entities
-        && R.isNil(multiEntity.edit.find((editedId) => editedId.id === entity0.id))
+        && !editSet.has(entity0.id)
       ),
       originalSourceItems
     );
 
     // The final snapshot
-    const entities = actualSourceItems.concat(multiEntity.add as TItem[]).concat(editedEntities);
+    const entities = notTouchedItems.concat(multiEntity.add as TItem[]).concat(editedEntities);
     if (!sort) {
       return entities;
     }
