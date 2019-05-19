@@ -13,7 +13,10 @@ export class SocketChannel extends BaseChannel {
    * @param {AnyT} config
    */
   public connect(ip: string, config?: AnyT): void {
-    this.registerClient(ip, io(ip, config));
+    this.registerClient(ip, io(ip, {
+      transports: ['websocket'],
+      ...config,
+    }));
   }
 
   /**
