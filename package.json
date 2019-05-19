@@ -62,6 +62,7 @@
     "classlist-polyfill": "^1.2.0",
     "copy-webpack-plugin": "^4.0.1",
     "core-js": "^2.4.1",
+    "cron-converter": "0.0.12",
     "cropperjs": "1.4.3",
     "cross-env": "^5.0.5",
     "crossvent": "^1.5.5",
