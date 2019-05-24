@@ -354,7 +354,7 @@ export class UIMaterialFactory implements IUIFactory {
     }
 
     const iconCtor = awIconCtor || faQuestion;
-    const isButton = isFn(config.onClick);
+    const isActionIcon = isFn(config.onClick);
 
     return (
       <div key={config.key || uuid()}
@@ -364,11 +364,11 @@ export class UIMaterialFactory implements IUIFactory {
                         'rac-flex',
                         'rac-flex-center',
                         'rac-icon',
-                        isButton && `rac-action-icon rac-action-${config.type}-icon`,
+                        isActionIcon && `rac-action-icon rac-action-${config.type}-icon`,
                         config.disabled && 'rac-disabled-icon',
                       )}
            onClick={(event: IBasicEvent) => {
-             if (!config.disabled && isButton) {
+             if (!config.disabled && isActionIcon) {
                config.onClick(event);
              }
            }}>

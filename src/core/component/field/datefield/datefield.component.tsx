@@ -26,7 +26,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     preventFocus: true,
   };
 
-  private dialogRef = React.createRef<Dialog<AnyT>>();
+  private readonly dialogRef = React.createRef<Dialog<AnyT>>();
 
   /**
    * @stable [07.01.2019]
@@ -51,30 +51,36 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
-    const initialDate = this.dialogDate;
-    return (
-      <Dialog
-        ref={this.dialogRef}
-        acceptable={false}
-        closable={false}
-        titleRendered={false}
-      >
-        <FlexLayout
-          full={false}>
-          <NumberField
-            value={this.state.year}
-            onChange={this.onChangeYear}
-            placeholder={this.settings.messages.yearMessage}>
-          </NumberField>
-        </FlexLayout>
-        <DayPicker
-          firstDayOfWeek={props.firstDayOfWeek}
-          fixedWeeks={true}
-          locale={props.locale}
-          month={initialDate}
-          selectedDays={initialDate}
-          onDayClick={this.onAccept}/>
-      </Dialog>
+    const state = this.state;
+    return orNull(
+      state.dialogOpened,
+      () => {
+        const initialDate = this.dialogDate;
+        return (
+          <Dialog
+            ref={this.dialogRef}
+            acceptable={false}
+            closable={false}
+            titleRendered={false}
+          >
+            <FlexLayout
+              full={false}>
+              <NumberField
+                value={this.state.year}
+                onChange={this.onChangeYear}
+                placeholder={this.settings.messages.yearMessage}>
+              </NumberField>
+            </FlexLayout>
+            <DayPicker
+              firstDayOfWeek={props.firstDayOfWeek}
+              fixedWeeks={true}
+              locale={props.locale}
+              month={initialDate}
+              selectedDays={initialDate}
+              onDayClick={this.onAccept}/>
+          </Dialog>
+        );
+      }
     );
   }
 
@@ -153,6 +159,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   private onAccept(currentTime: Date): void {
     this.onChangeManually(currentTime);
     this.dialog.onAccept();
+    this.setState({dialogOpened: false});
   }
 
   /**
@@ -198,6 +205,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [24.02.2019]
    */
   private onCalendarClick(): void {
-    this.dialog.activate();
+    this.setState({dialogOpened: true}, () => this.dialog.activate());
   }
 }

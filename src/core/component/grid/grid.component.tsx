@@ -596,50 +596,65 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private getGroupingRow(groupedRowValue: EntityIdT, groupedRows: IEntity[]): JSX.Element {
     const props = this.props;
     const groupBy = props.groupBy;
+    const groupValue = groupBy.groupValue;
+    const isGroupValueArray = Array.isArray(groupValue);
     const isExpanded = this.isGroupedRowExpanded(groupedRowValue);
+    const expandActionRendered = props.expandActionRendered !== false;
     const columns = this.columnsConfiguration;
 
     return (
-      <GridRow key={this.toGroupedRowKey(groupedRowValue)}
-               className={toClassName(
-                 'rac-grid-data-row',
-                 'rac-grid-data-row-grouped',
-                 props.applyGroup !== false && isExpanded && 'rac-grid-data-row-group-expanded'
-               )}>
+      <GridRow
+        key={this.toGroupedRowKey(groupedRowValue)}
+        className={toClassName(
+          'rac-grid-data-row',
+          'rac-grid-data-row-grouped',
+          props.applyGroup !== false && isExpanded && 'rac-grid-data-row-group-expanded'
+        )}>
         {
-          columns.map((column, columnNum) => (
-            <GridColumn key={this.toGroupedColumnKey(groupedRowValue, columnNum)}
-                        {...column}>
-              {orDefault<React.ReactNode, React.ReactNode>(
-                columnNum === 0,
-                () => (
-                  [
-                    <FlexLayout row={true}
-                                full={false}
-                                key={this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum)}>
-                      {ifNotFalseThanValue(props.expandActionRendered, () => (
-                        this.uiFactory.makeIcon({
-                          className: 'rac-grid-data-row-group-expanded-icon',
-                          type: isExpanded ? 'close-list' : 'open-list',
-                          onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
-                        })
-                      ))} {
-                        isFn(groupBy.groupValue)
-                          ? (groupBy.groupValue as GroupValueRendererT)(groupedRowValue, groupedRows)
-                          : (Array.isArray(groupBy.groupValue)
-                                ? (isFn(groupBy.groupValue[0]) ? groupBy.groupValue[0](groupedRowValue, groupedRows) : null)
-                                : groupedRowValue)
-                      }
-                    </FlexLayout>
-                  ]
-                ),
-                () => orNull<React.ReactNode>(
-                  Array.isArray(groupBy.groupValue) && isFn(groupBy.groupValue[columnNum]),
-                  () => groupBy.groupValue[columnNum](groupedRowValue, groupedRows)
+          columns.map((column, columnNum) => {
+            const key = this.toGroupedColumnKey(groupedRowValue, columnNum);
+            const contentKey = this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum);
+            const node = (
+              columnNum === 0
+                ? (
+                  <FlexLayout
+                    row={true}
+                    full={false}
+                    key={contentKey}>
+                    {expandActionRendered && (
+                      this.uiFactory.makeIcon({
+                        key: `${contentKey}-expanded-action-${isExpanded ? 'close' : 'open'}`,
+                        className: 'rac-grid-data-row-group-expanded-icon',
+                        type: isExpanded ? 'close-list' : 'open-list',
+                        onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
+                      })
+                    )} {
+                    isFn(groupValue)
+                      ? (groupValue as GroupValueRendererT)(groupedRowValue, groupedRows)
+                      : (
+                        isGroupValueArray
+                          ? (isFn(groupValue[0]) ? groupValue[0](groupedRowValue, groupedRows) : null)
+                          : groupedRowValue
+                      )
+                  }
+                  </FlexLayout>
                 )
-              )}
-            </GridColumn>
-          ))
+                : (
+                  orNull<React.ReactNode>(
+                    isGroupValueArray && isFn(groupValue[columnNum]),
+                    () => groupValue[columnNum](groupedRowValue, groupedRows)
+                  )
+                )
+            );
+
+            return (
+              <GridColumn
+                key={key}
+                {...column}>
+                {node}
+              </GridColumn>
+            );
+          })
         }
       </GridRow>
     );

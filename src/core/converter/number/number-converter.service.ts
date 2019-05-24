@@ -55,8 +55,9 @@ export class NumberConverter implements INumberConverter {
     this.id = this.id.bind(this);
     this.format = this.format.bind(this);
     this.currency = this.currency.bind(this);
-    this.formatAsInteger = this.formatAsInteger.bind(this);
-    this.formatAsFractional = this.formatAsFractional.bind(this);
+    this.integerCurrency = this.integerCurrency.bind(this);
+    this.integerFormat = this.integerFormat.bind(this);
+    this.fractionalFormat = this.fractionalFormat.bind(this);
   }
 
   /**
@@ -96,7 +97,7 @@ export class NumberConverter implements INumberConverter {
    * @param {StringNumberT} value
    * @returns {string}
    */
-  public formatAsInteger(value: StringNumberT): string {
+  public integerFormat(value: StringNumberT): string {
     return this.integerFormatter.format(this.number(value, false) as number);
   }
 
@@ -105,7 +106,7 @@ export class NumberConverter implements INumberConverter {
    * @param {StringNumberT} value
    * @returns {string}
    */
-  public formatAsFractional(value: StringNumberT): string {
+  public fractionalFormat(value: StringNumberT): string {
     return this.fractionalFormatter.format(this.number(value, false) as number);
   }
 

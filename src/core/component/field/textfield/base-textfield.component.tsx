@@ -220,10 +220,12 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   private get actions(): IFieldActionConfiguration[] {
     const props = this.props;
+    const defaultActions = this.defaultActions || [];
+    const actions = props.actions || [];
     if (props.actionsPosition === FieldActionPositionEnum.LEFT) {
-      return (this.defaultActions || []).concat(props.actions || []);
+      return defaultActions.concat(actions);
     } else {
-      return (this.props.actions || []).concat(this.defaultActions || []);
+      return actions.concat(defaultActions);
     }
   }
 
@@ -243,23 +245,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
             {this.getInputCaretElement()}
             {this.getInputAttachmentElement()}
           </div>
-          {orNull(
-            this.actions,
-            this.actions.map((action) => this.uiFactory.makeIcon({
-              type: action.type,
-              title: action.title && this.t(action.title),
-              className: action.className,
-              disabled: R.isNil(action.disabled)
-                ? this.isFieldInactive()
-                : action.disabled,
-              onClick: (event: IBasicEvent) => {
-                if (action.onClick) {
-                  cancelEvent(event);
-                  action.onClick(event);
-                }
-              },
-            }))
-          )}
+          {this.actionsElement}
           {this.getProgressLabelElement()}
         </div>
       )
@@ -389,6 +375,32 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
         placeholderChar={nvl(props.maskPlaceholderChar, UNI_CODES.space)}
         mask={mask}
         {...this.getInputElementProps()}/>
+    );
+  }
+
+  /**
+   * @stable [24.05.2019]
+   * @returns {JSX.Element}
+   */
+  private get actionsElement(): JSX.Element {
+    return (
+      <React.Fragment>
+        {
+          this.actions.map((action) => this.uiFactory.makeIcon({
+            key: `action-key-${action.type}`,
+            type: action.type,
+            title: action.title && this.t(action.title),
+            className: action.className,
+            disabled: nvl(action.disabled, this.isFieldInactive()),
+            onClick: (event: IBasicEvent) => {
+              if (isFn(action.onClick)) {
+                cancelEvent(event);
+                action.onClick(event);
+              }
+            },
+          }))
+        }
+      </React.Fragment>
     );
   }
 }

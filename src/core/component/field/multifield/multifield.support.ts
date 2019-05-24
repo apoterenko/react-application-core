@@ -2,13 +2,14 @@ import * as R from 'ramda';
 
 import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
 import {
-  orUndef,
-  isPrimitive,
-  isDef,
-  orNull,
   defValuesFilter,
-  isFn,
   generateArray,
+  isDef,
+  isFn,
+  isPrimitive,
+  orNull,
+  orUndef,
+  shallowClone,
   toType,
 } from '../../../util';
 import {
@@ -59,29 +60,26 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
   }
   const multiEntity = entity as IMultiEntity;
   if (!isNotMultiEntity(entity)) {
-    const editedEntities = toActualMultiItemEditedEntities<TItem>(entity);
-
     const originalSourceItems = multiEntity.source as TItem[] || [];
-    const removedSet = new Set(multiEntity.remove.map((itm) => itm.id));
-    const editSet = new Set(multiEntity.edit.map((itm) => itm.id));
+    const cachedOriginalSourceItems = new Map<EntityIdT, TItem>();
+    originalSourceItems.forEach((itm) => cachedOriginalSourceItems.set(itm.id, itm));
 
-    const notTouchedItems = R.filter<TItem>(
-      (entity0) => (
-        // Exclude the removed entities from original snapshot
-        !removedSet.has(entity0.id)
+    // Pass a map to optimize
+    const editedEntities = toActualMultiItemEditedEntities<TItem>(entity, cachedOriginalSourceItems);
 
-        // Exclude the edited entities from an original snapshot,
-        // because we need to replace them with actual edited entities
-        && !editSet.has(entity0.id)
-      ),
-      originalSourceItems
-    );
+    // Remove the touched entities
+    multiEntity.remove.forEach((itm) => cachedOriginalSourceItems.delete(itm.id));
+    multiEntity.edit.forEach((itm) => cachedOriginalSourceItems.delete(itm.id));
 
     // The final snapshot
-    const entities = notTouchedItems.concat(multiEntity.add as TItem[]).concat(editedEntities);
+    const entities = Array.from(cachedOriginalSourceItems.values())
+      .concat(multiEntity.add as TItem[])
+      .concat(editedEntities);
+
     if (!sort) {
       return entities;
     }
+
     const cachedIndexes = new Map<EntityIdT, number>();
     entities.forEach((entity0) => cachedIndexes.set(entity0.id, originalSourceItems.findIndex((i) => i.id === entity0.id)));
 
@@ -124,24 +122,36 @@ export const toActualMultiItemDeletedEntities = <TItem extends IEntity = IEntity
 /**
  * @stable [18.08.2018]
  * @param {MultiFieldEntityT} entity
+ * @param {Map<EntityIdT, TItem extends IEntity>} mappedSourcedItems
  * @returns {TItem[]}
  */
-export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
+export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT,
+                                                                                 mappedSourcedItems?: Map<EntityIdT, TItem>): TItem[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
   const multiEntity = entity as IMultiEntity;
   if (!isNotMultiEntity(entity)) {
-    const editedItems = {};
+    const isMappedSourcedItemsPassed = !R.isNil(mappedSourcedItems);
+    const resultItems = new Map<EntityIdT, TItem>();
+    const cachedSourceItems = mappedSourcedItems || new Map<EntityIdT, TItem>();
+    if (!isMappedSourcedItemsPassed) {
+      multiEntity.source.forEach((originalItem) => cachedSourceItems.set(originalItem.id, originalItem as TItem));
+    }
+
     multiEntity.edit.forEach((editedItem) => {
       const editedItemId = editedItem.id;
-      const editedItem0 = editedItems[editedItemId] || {
-        ...multiEntity.source.find((originalEntity) => originalEntity.id === editedItemId),
-      };
+      const cachedResultItem = resultItems.get(editedItemId);
+
+      // Collect the changes
+      const editedItem0 = cachedResultItem || shallowClone<TItem>(cachedSourceItems.get(editedItemId));
       editedItem0[editedItem.name] = editedItem.value;
-      editedItems[editedItemId] = editedItem0;
+
+      if (R.isNil(cachedResultItem)) {
+        resultItems.set(editedItemId, editedItem0);
+      }
     });
-    return Object.keys(editedItems).map((editedItemId) => editedItems[editedItemId]);
+    return Array.from(resultItems.values());
   }
   return [];
 };

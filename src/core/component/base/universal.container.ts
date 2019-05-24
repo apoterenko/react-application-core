@@ -41,6 +41,12 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   // Each next field would be updated in one full cycle.
   private lifecycleTasks: Array<() => void> = [];
 
+  private $dc: IDateConverter;
+  private $nc: INumberConverter;
+  private $uiFactory: IUIFactory;
+  private $ts: TranslatorT;
+  private $settings: ISettings;
+
   /**
    * @stable - 12.04.2018
    * @param {TProps} props
@@ -211,14 +217,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 15.04.2018
-   * @returns {ISettings}
-   */
-  protected get settings(): ISettings {
-    return staticInjector(DI_TYPES.Settings);
-  }
-
-  /**
    * @stable [26.04.2018]
    * @returns {IAuthService}
    */
@@ -227,35 +225,53 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 15.04.2018
+   * ReactNative supporting
+   *
+   * @stable [23.05.2019]
+   * @returns {ISettings}
+   */
+  protected get settings(): ISettings {
+    return this.$settings = this.$settings || staticInjector(DI_TYPES.Settings);
+  }
+
+  /**
+   * ReactNative supporting
+   *
+   * @stable [23.05.2019]
    * @returns {TranslatorT}
    */
   protected get t(): TranslatorT {
-    return staticInjector(DI_TYPES.Translate);
+    return this.$ts = this.$ts || staticInjector(DI_TYPES.Translate);
   }
 
   /**
-   * @stable - 16.04.2018
+   * ReactNative supporting
+   *
+   * @stable [23.05.2019]
    * @returns {IDateConverter}
    */
   protected get dc(): IDateConverter {
-    return staticInjector(DI_TYPES.DateConverter);
+    return this.$dc = this.$dc || staticInjector(DI_TYPES.DateConverter);
   }
 
   /**
-   * @stable - 16.04.2018
+   * ReactNative supporting
+   *
+   * @stable [23.05.2019]
    * @returns {INumberConverter}
    */
   protected get nc(): INumberConverter {
-    return staticInjector(DI_TYPES.NumberConverter);
+    return this.$nc = this.$nc || staticInjector(DI_TYPES.NumberConverter);
   }
 
   /**
+   * ReactNative supporting
+   *
    * @stable [18.05.2018]
    * @returns {IUIFactory}
    */
   protected get uiFactory(): IUIFactory {
-    return staticInjector(DI_TYPES.UIFactory);
+    return this.$uiFactory = this.$uiFactory || staticInjector(DI_TYPES.UIFactory);
   }
 
   /**

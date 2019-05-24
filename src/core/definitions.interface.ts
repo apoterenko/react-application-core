@@ -784,13 +784,6 @@ export interface IAcceptableWrapper {
   acceptable?: boolean;
 }
 
-/**
- * @stable [06.05.2018]
- */
-export interface IOrderWrapper<TOrder = number> {
-  order?: TOrder;
-}
-
 /* @stable - 19.04.2018 */
 export interface IBorderedWrapper {
   bordered?: boolean;
@@ -1128,12 +1121,8 @@ export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
 }
 
-/**
- * @stable [14.06.2018]
- */
-export interface IOpenedWrapper<TOpened = boolean> {
-  opened?: TOpened;
-}
+export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
+export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
 
 /**
  * @stable [17.05.2018]
@@ -2438,19 +2427,7 @@ export interface INotificationWrapper<TNotification> {
   notification?: TNotification;
 }
 
-/**
- * @stable [12.10.2018]
- */
-export interface IFromWrapper<TFrom = string> {
-  from?: TFrom;
-}
-
-/**
- * @stable [12.10.2018]
- */
-export interface IToWrapper<TTo = string> {
-  to?: TTo;
-}
+export interface IToWrapper<TTo = string> { to?: TTo; }
 
 /**
  * @stable [09.12.2018]

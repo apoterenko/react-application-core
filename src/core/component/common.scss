@@ -55,10 +55,10 @@ html, body {
     }
   }
 
-  .rac-total {
-    font-weight: bold;                                                              /* @stable [14.10.2018] */
-    text-transform: uppercase;                                                      /* @stable [14.10.2018] */
-  }
+  @include rac-styles(                                                                        /* @stable [23.05.2019] */
+    $rac-styles-custom: rac-total,
+    $rac-styles-font-weight: bold
+  );
 
   .rac-full-size {
     @include rac-size(100%);                                                                  /* @stable [27.11.2018] */
