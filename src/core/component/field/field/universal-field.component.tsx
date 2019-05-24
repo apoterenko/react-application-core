@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { isDef, isFn, isUndef, orDefault, nvl, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
+import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
@@ -145,7 +145,8 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   public get value(): AnyT {
     const props = this.props;
-    const value = props.value;
+    const state = this.state;
+    const value = isDef(state.bufferedValue) ? state.bufferedValue : props.value;
     return isDef(value) ? value : props.defaultValue;
   }
 
@@ -509,6 +510,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   protected onBlur(event: TFocusEvent): void {
     const props = this.props;
+    if (props.bufferValue) {
+      this.submitBufferedValue();
+      this.setState({bufferedValue: CLEAR_DIRTY_CHANGES_VALUE});
+    }
+
     if (isFn(props.onBlur)) {
       props.onBlur(event);
     }
@@ -697,9 +703,21 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
       canReturnClearDirtyChangesValue: props.canReturnClearDirtyChangesValue,
     });
 
+    if (props.bufferValue) {
+      this.setState({bufferedValue: actualChangedValue});
+    } else {
+      this.submitBufferedValue(actualChangedValue);
+    }
+  }
+
+  /**
+   * @stable [25.05.2019]
+   * @param {any | AnyT | boolean} actualChangedValue
+   */
+  private submitBufferedValue(actualChangedValue = this.state.bufferedValue): void {
     this.validateField(actualChangedValue);
     this.propsOnChange(actualChangedValue);
-    this.propsChangeForm(actualChangedValue);      // Notify the form about changes
+    this.propsChangeForm(actualChangedValue);      // Notify a form about the changes
   }
 
   /**

@@ -42,6 +42,7 @@ export interface IUniversalFieldState extends IStringErrorWrapper,
                                               ICaretVisibilityWrapper,
                                               ICaretPositionWrapper {
   focused?: boolean; // TODO
+  bufferedValue?: boolean; // TODO
 }
 
 /**

@@ -720,6 +720,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IDefaultValue {
   fieldDisplayed?: boolean;
   keepDictionary?: boolean;
+  bufferValue?: boolean;
   preventManualChanges?: boolean; // TODO
   dispatchValue?(rawValue: AnyT); // TODO
 }
