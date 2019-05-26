@@ -2,12 +2,13 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  toClassName,
-  orNull,
   cancelEvent,
-  isElementFocused,
-  orUndef,
   defValuesFilter,
+  ifNotNilThanValue,
+  isElementFocused,
+  orNull,
+  orUndef,
+  toClassName,
   toJqEl,
 } from '../../../util';
 import {
@@ -37,6 +38,23 @@ export class Field<TInternalProps extends IFieldInternalProps,
                            IFocusEvent,
                            IBasicEvent>
     implements IField<TInternalProps, TState> {
+
+  /**
+   * @stable [26.05.2019]
+   * @returns {JSX.Element}
+   */
+  public render(): JSX.Element {
+    return (
+      <div className={this.getFieldClassName()}>
+        {this.props.children}
+        {this.getSelfElement()}
+        {this.getMessageElement()}
+        {this.getErrorMessageElement()}
+        {this.getAttachmentElement()}
+        {this.getKeyboardElement()}
+      </div>
+    );
+  }
 
   /**
    * @stable [07.01.2019]
@@ -123,6 +141,65 @@ export class Field<TInternalProps extends IFieldInternalProps,
       this.hasInput,
       () => (input as INativeMaskedInputComponent).inputElement || input as HTMLInputElement | HTMLTextAreaElement
     );
+  }
+
+  protected getSelfElement(): JSX.Element {
+    const props = this.props;
+    return orNull<JSX.Element>(
+      props.fieldRendered !== false,
+      () => (
+        <div ref='self'
+             style={props.style}
+             className={this.getSelfElementClassName()}>
+          {this.getPrefixLabelElement()}
+          <div className={this.getInputElementWrapperClassName()}>
+            {this.getInputElement()}
+            {this.getLabelElement()}
+            {this.getMirrorInputElement()}
+            {this.getInputCaretElement()}
+            {this.getInputAttachmentElement()}
+          </div>
+          {this.actionsElement}
+          {this.getProgressLabelElement()}
+        </div>
+      )
+    );
+  }
+
+  protected getProgressLabelElement(): JSX.Element {
+    return null;
+  }
+
+  protected get actionsElement(): JSX.Element {
+    return null;
+  }
+
+  protected getLabelElement(): JSX.Element {
+    const props = this.props;
+    return ifNotNilThanValue(
+      props.label,
+      () => (
+        <label className='rac-field-label'>
+          {this.t(props.label)}
+        </label>
+      )
+    );
+  }
+
+  protected getMirrorInputElement(): JSX.Element {
+    return null;
+  }
+
+  protected getInputCaretElement(): JSX.Element {
+    return null;
+  }
+
+  protected getPrefixLabelElement(): JSX.Element {
+    return null;
+  }
+
+  protected getAttachmentElement(): JSX.Element {
+    return null;
   }
 
   /**

@@ -48,13 +48,22 @@
                      $rac-field-opacity: $rac-field-disabled-opacity,
                      $rac-text-field-opacity: $rac-text-field-disabled-opacity);
 
-
-  @include rac-field($rac-field-custom: rac-switch,                                           /* @stable [08.11.2018] */
-                     $rac-field-label-margin: $rac-switch-label-margin);
-
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
                      $rac-text-field-height: $rac-text-area-height,
                      $rac-text-field-input-padding: $rac-text-area-input-padding);
+
+  @include rac-field(                                                                         /* @stable [26.05.2019] */
+    $rac-field-custom: $rac-switch-cls,
+    $rac-self-field-height: $rac-switch-self-field-height,
+    $rac-self-field-input-opacity: $rac-switch-self-field-input-opacity,
+    $rac-self-field-input-flex-width: $rac-switch-self-field-input-flex-width,
+    $rac-self-field-input-flex-height: $rac-switch-self-field-input-flex-height,
+    $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
+    $rac-self-field-input-wrapper-position: $rac-switch-self-field-input-wrapper-position,
+    $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
+    $rac-self-field-input-wrapper-flex-width: $rac-switch-self-field-input-wrapper-flex-width,
+    $rac-self-field-input-wrapper-flex-height: $rac-switch-self-field-input-wrapper-flex-height
+  );
 
   @include rac-field(
     $rac-text-field-label-position: $rac-text-field-label-position,
@@ -75,6 +84,40 @@
     $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
     $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
   );
+
+  .rac-switch {
+
+    &.rac-field-disabled {
+      .rac-field-input-wrapper {
+        opacity: .3;
+      }
+    }
+
+    .rac-switch__thumb {
+      border-radius: 10px;
+      height: 20px;
+      width: 20px;
+      background: #1a6c68;
+      position: absolute;
+      top: 2px;
+    }
+
+    .rac-switch__checked {
+      .rac-switch__thumb {
+        transform: translateX(100%);
+        transition: transform 200ms;
+        left: -2px;
+      }
+    }
+
+    .rac-switch__unchecked {
+      .rac-switch__thumb {
+        transform: translateX(0);
+        transition: transform 200ms;
+        left: 2px;
+      }
+    }
+  }
 
   .rac-text-area-length-label {
     @include _rac-position-properties($rac-position: absolute,

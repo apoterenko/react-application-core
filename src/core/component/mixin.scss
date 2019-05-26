@@ -1158,9 +1158,18 @@
   $rac-self-field-label-top: unset,
   $rac-self-field-label-color: unset,
   /**/
+  $rac-self-field-input-wrapper-background: unset,
+  $rac-self-field-input-wrapper-position: unset,
+  $rac-self-field-input-wrapper-border-radius: unset,
+  $rac-self-field-input-wrapper-flex-width: unset,
+  $rac-self-field-input-wrapper-flex-height: unset,
+  /**/
   $rac-self-field-input-font-size: unset,
   $rac-self-field-input-background: unset,
   $rac-self-field-input-padding: unset,
+  $rac-self-field-input-opacity: unset,
+  $rac-self-field-input-flex-width: unset,
+  $rac-self-field-input-flex-height: unset,
   /**/
   $rac-self-field-input-placeholder-padding: unset,
   $rac-self-field-input-placeholder-color: unset,
@@ -1213,7 +1222,16 @@
 
       > {
         .rac-field-input-wrapper {
+          @include rac-styles(
+            $rac-styles-background: $rac-self-field-input-wrapper-background,
+            $rac-styles-position: $rac-self-field-input-wrapper-position,
+            $rac-styles-border-radius: $rac-self-field-input-wrapper-border-radius
+          );
+          @include rac-flex-width($rac-self-field-input-wrapper-flex-width);
+          @include rac-flex-height($rac-self-field-input-wrapper-flex-height);
+
           > {
+
             @include rac-styles(
               $rac-styles-custom: rac-field-label,
               $rac-styles-top: $rac-self-field-label-top,
@@ -1224,8 +1242,12 @@
               @include rac-styles(
                 $rac-styles-font-size: $rac-self-field-input-font-size,
                 $rac-styles-background: $rac-self-field-input-background,
-                $rac-styles-padding: $rac-self-field-input-padding
+                $rac-styles-padding: $rac-self-field-input-padding,
+                $rac-styles-opacity: $rac-self-field-input-opacity
               );
+
+              @include rac-flex-width($rac-self-field-input-flex-width);
+              @include rac-flex-height($rac-self-field-input-flex-height);
 
               @include rac-placeholder(
                 $rac-placeholder-padding: $rac-self-field-input-placeholder-padding,

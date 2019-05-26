@@ -62,35 +62,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [25.02.2019]
    * @returns {JSX.Element}
    */
-  public render(): JSX.Element {
-    return (
-      <div className={this.getFieldClassName()}>
-        {this.props.children}
-        {this.getSelfElement()}
-        {this.getMessageElement()}
-        {this.getErrorMessageElement()}
-        {this.getAttachmentElement()}
-        {this.getKeyboardElement()}
-      </div>
-    );
-  }
-
-  /**
-   * @stable [25.02.2019]
-   * @returns {JSX.Element}
-   */
   protected getInputElement(): JSX.Element {
     return R.isNil(this.getFieldMask())
       ? super.getInputElement()
       : this.getMaskedInputElement();
-  }
-
-  /**
-   * @stable [01.06.2018]
-   * @returns {JSX.Element}
-   */
-  protected getAttachmentElement(): JSX.Element {
-    return null;
   }
 
   /**
@@ -202,61 +177,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [16.02.2019]
-   * @param {IBasicEvent} e
-   */
-  private onKeyboardWindowMouseDownHandler(e: IBasicEvent): void {
-    const clickedEl = e.target as Element;
-
-    if (this.domAccessor.hasParent('.rac-action-close-icon', clickedEl)) {
-      if (this.isValuePresent()) {
-        this.clearValue();
-      }
-    } else if (!(this.input === clickedEl
-                  || this.domAccessor.hasElements(clickedEl, this.keyboardRef.current.getSelf()))) {
-      this.closeSyntheticKeyboard();
-    }
-  }
-
-  private get actions(): IFieldActionConfiguration[] {
-    const props = this.props;
-    const defaultActions = this.defaultActions || [];
-    const actions = props.actions || [];
-    if (props.actionsPosition === FieldActionPositionEnum.LEFT) {
-      return defaultActions.concat(actions);
-    } else {
-      return actions.concat(defaultActions);
-    }
-  }
-
-  private getSelfElement(): JSX.Element {
-    const props = this.props;
-    return orNull<JSX.Element>(
-      props.fieldRendered !== false,
-      () => (
-        <div ref='self'
-             style={props.style}
-             className={this.getSelfElementClassName()}>
-          {this.getPrefixLabelElement()}
-          <div className={this.getInputElementWrapperClassName()}>
-            {this.getInputElement()}
-            {this.getLabelElement()}
-            {this.getMirrorInputElement()}
-            {this.getInputCaretElement()}
-            {this.getInputAttachmentElement()}
-          </div>
-          {this.actionsElement}
-          {this.getProgressLabelElement()}
-        </div>
-      )
-    );
-  }
-
-  /**
    *
    * @returns {JSX.Element}
    */
-  private getProgressLabelElement(): JSX.Element {
+  protected getProgressLabelElement(): JSX.Element {
     return orNull<JSX.Element>(
       this.inProgress(),
       () => <ProgressLabel className='rac-field-loader rac-absolute-center-position'/>
@@ -264,24 +188,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [15.09.2018]
-   * @returns {JSX.Element}
-   */
-  private getPrefixLabelElement(): JSX.Element {
-    const props = this.props;
-    return (
-      orNull<JSX.Element>(
-        props.prefixLabel,
-        <span className='rac-field-prefix-label rac-absolute-left-center-position'>{props.prefixLabel}</span>
-      )
-    );
-  }
-
-  /**
    * @stable [12.09.2018]
    * @returns {JSX.Element}
    */
-  private getMirrorInputElement(): JSX.Element {
+  protected getMirrorInputElement(): JSX.Element {
     const props = this.props;
     if (!props.useKeyboard || !this.isValuePresent() || !this.useSyntheticCursor) {
       return null;
@@ -308,26 +218,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [03.10.2018]
-   * @returns {JSX.Element}
-   */
-  private getLabelElement(): JSX.Element {
-    const props = this.props;
-    return ifNotNilThanValue(
-      props.label,
-      () => (
-        <label className='rac-field-label'>
-          {this.t(props.label)}
-        </label>
-      )
-    );
-  }
-
-  /**
    * @stable [04.09.2018]
    * @returns {JSX.Element}
    */
-  private getInputCaretElement(): JSX.Element {
+  protected getInputCaretElement(): JSX.Element {
     const state = this.state;
     const textOffset = 2;
 
@@ -340,6 +234,48 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
         </div>
       )
     );
+  }
+
+  /**
+   * @stable [15.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected getPrefixLabelElement(): JSX.Element {
+    const props = this.props;
+    return (
+      orNull<JSX.Element>(
+        props.prefixLabel,
+        <span className='rac-field-prefix-label rac-absolute-left-center-position'>{props.prefixLabel}</span>
+      )
+    );
+  }
+
+  /**
+   * @stable [16.02.2019]
+   * @param {IBasicEvent} e
+   */
+  private onKeyboardWindowMouseDownHandler(e: IBasicEvent): void {
+    const clickedEl = e.target as Element;
+
+    if (this.domAccessor.hasParent('.rac-action-close-icon', clickedEl)) {
+      if (this.isValuePresent()) {
+        this.clearValue();
+      }
+    } else if (!(this.input === clickedEl
+                  || this.domAccessor.hasElements(clickedEl, this.keyboardRef.current.getSelf()))) {
+      this.closeSyntheticKeyboard();
+    }
+  }
+
+  private get actions(): IFieldActionConfiguration[] {
+    const props = this.props;
+    const defaultActions = this.defaultActions || [];
+    const actions = props.actions || [];
+    if (props.actionsPosition === FieldActionPositionEnum.LEFT) {
+      return defaultActions.concat(actions);
+    } else {
+      return actions.concat(defaultActions);
+    }
   }
 
   /**
@@ -382,7 +318,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [24.05.2019]
    * @returns {JSX.Element}
    */
-  private get actionsElement(): JSX.Element {
+  protected get actionsElement(): JSX.Element {
     return (
       <React.Fragment>
         {

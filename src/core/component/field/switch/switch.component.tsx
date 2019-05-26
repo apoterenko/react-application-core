@@ -2,40 +2,21 @@ import * as React from 'react';
 
 import { toClassName } from '../../../util';
 import { BaseCheckbox } from '../checkbox';
-import { ISwitchProps, ISwitchState, ISwitchInputProps } from './switch.interface';
+import { ISwitchProps, ISwitchState } from './switch.interface';
 
 export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
 
   /**
-   * @stable [31.08.2018]
+   * @stable [26.05.2019]
    * @returns {JSX.Element}
    */
-  public render(): JSX.Element {
-    return this.getWrapperElement(
+  protected getInputElement(): JSX.Element {
+    return (
       <React.Fragment>
-        <div ref='self'
-             className={this.getSelfElementClassName()}>
-          {this.getAttachmentElement()}
-          <div className={this.uiFactory.switchInputWrapper}>
-            <div className={this.uiFactory.switchInputWrapperBody}>
-              {this.getInputElement()}
-            </div>
-          </div>
-        </div>
-        {this.getLabelElement()}
+        <div className='rac-switch__thumb'/>
+        {super.getInputElement()}
       </React.Fragment>
     );
-  }
-
-  /**
-   * @stable [31.08.2018]
-   * @returns {ISwitchInputProps}
-   */
-  protected getInputElementProps(): ISwitchInputProps {
-    return {
-      ...super.getInputElementProps(),
-      className: this.uiFactory.switchInput,
-    };
   }
 
   /**
@@ -47,18 +28,15 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
   }
 
   /**
-   * @stable [31.08.2018]
-   * @returns {JSX.Element}
+   * @stable [26.05.2019]
+   * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return toClassName(this.uiFactory.switch, 'rac-switch-field');
-  }
-
-  /**
-   * @stable [31.08.2018]
-   * @returns {JSX.Element}
-   */
-  private getAttachmentElement(): JSX.Element {
-    return this.uiFactory.makeSwitchAttachment();
+    return toClassName(
+      super.getSelfElementClassName(),
+      'rac-flex',
+      'rac-flex-align-items-center',
+      this.value ? 'rac-switch__checked' : 'rac-switch__unchecked',
+    );
   }
 }

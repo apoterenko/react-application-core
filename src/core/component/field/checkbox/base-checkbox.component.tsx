@@ -15,8 +15,6 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   extends Field<TProps,
                 TState> {
 
-  private inputId = uuid();
-
   /**
    * @stable [17.12.2018]
    * @param {JSX.Element} body
@@ -44,7 +42,6 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
     return {
       ...super.getInputElementProps() as IBaseCheckboxInputProps,
 
-      id: this.inputId,
       type: 'checkbox',
 
       /**
@@ -74,19 +71,5 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
     if (props.onClick) {
       props.onClick(event);
     }
-  }
-
-  /**
-   * @stable [31.08.2018]
-   * @returns {JSX.Element}
-   */
-  protected getLabelElement(): JSX.Element {
-    const props = this.props;
-    return (
-      <label className='rac-field-label'
-             htmlFor={this.inputId}>
-        {props.label ? this.t(props.label) : props.children}
-      </label>
-    );
   }
 }

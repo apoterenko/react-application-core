@@ -335,6 +335,7 @@ $rac-field-not-focused-cls: rac-field-not-focused;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
 $rac-view-field-cls: rac-view-field;
+$rac-switch-cls: rac-switch;
 /**/
 $rac-text-field-input-color: $rac-default-text-color !default;
 $rac-text-field-input-border: none !default;
@@ -401,6 +402,18 @@ $rac-field-labeled-self-field-label-top: -20px !default;
 $rac-field-no-displayed-self-field-display: none !default;
 /**/
 $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
+/**/
+$rac-switch--field-width: 40px !default;
+$rac-switch--field-height: 24px !default;
+$rac-switch-self-field-height: 32px !default;
+$rac-switch-self-field-input-opacity: 0 !default;
+$rac-switch-self-field-input-flex-width: $rac-switch--field-width !default;
+$rac-switch-self-field-input-flex-height: $rac-switch--field-height !default;
+$rac-switch-self-field-input-wrapper-flex-width: $rac-switch--field-width !default;
+$rac-switch-self-field-input-wrapper-flex-height: $rac-switch--field-height !default;
+$rac-switch-self-field-input-wrapper-background: $rac-color-0-1 !default;
+$rac-switch-self-field-input-wrapper-position: relative !default;
+$rac-switch-self-field-input-wrapper-border-radius: 12px !default;
 
 /* @stable [15.12.2018] */
 $rac-filter-active-content: '●' !default;
