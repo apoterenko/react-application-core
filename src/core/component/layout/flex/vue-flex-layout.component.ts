@@ -1,7 +1,6 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import Tooltip from 'tooltip.js';
 
-import { toClassName, calc, isDef, isUndef } from '../../../util';
+import { toClassName, calc, isDef } from '../../../util';
 import { IGenericTooltipEntity } from '../../../definition';
 import {
   VueCreateElementFactoryT,
@@ -10,6 +9,10 @@ import {
 } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
 import { VueBaseComponent } from '../../base/vue-index';
+import {
+  GenericTooltipPlugin,
+  IGenericTooltipPlugin,
+} from '../../tooltip/vue-index';
 import { IVueFlexLayoutProps } from './universal-flex-layout.interface';
 
 // TODO
@@ -31,28 +34,37 @@ class VueFlexLayout extends VueBaseComponent
   @Prop() public justifyContentEnd: boolean;
   @Prop() private fullSize: boolean;
 
-  private tooltipInstance: Tooltip;
+  private tooltipPlugin: IGenericTooltipPlugin;
 
   /**
    * @stable [27.05.2019]
    */
   public mounted() {
-    this.doRefreshTooltip();
+    if (isDef(this.tooltip)) {
+      this.tooltipPlugin = new GenericTooltipPlugin();
+      this.tooltipPlugin.setTarget(this.getContentRef());
+      this.tooltipPlugin.setTooltip(this.tooltip);
+      this.tooltipPlugin.init();
+    }
   }
 
   /**
    * @stable [27.05.2019]
    */
   @Watch('tooltip')
-  public onOpenUpdate(): void {
-    this.doRefreshTooltip();
+  public onTooltipUpdate(): void {
+    this.tooltipPlugin.setTooltip(this.tooltip);
+    this.tooltipPlugin.init();
   }
 
   /**
    * @stable [27.05.2019]
    */
   public beforeDestroy(): void {
-    this.doDestroyTooltip();
+    if (isDef(this.tooltipPlugin)) {
+      this.tooltipPlugin.destroy();
+      this.tooltipPlugin = null;
+    }
   }
 
   /**
@@ -98,30 +110,5 @@ class VueFlexLayout extends VueBaseComponent
    */
   private getContentRef(): HTMLElement {
     return this.$refs.contentRef as HTMLElement;
-  }
-
-  /**
-   * @stable [27.05.2019]
-   */
-  private doDestroyTooltip(): void {
-    if (isDef(this.tooltipInstance)) {
-      this.tooltipInstance.dispose();
-      this.tooltipInstance = null;
-    }
-  }
-
-  /**
-   * @stable [27.05.2019]
-   */
-  private doRefreshTooltip(): void {
-    if (isUndef(this.tooltip)) {
-      return;
-    }
-
-    this.doDestroyTooltip();
-    this.tooltipInstance = new Tooltip(this.getContentRef(), {
-      trigger: 'hover',
-      ...this.tooltip,
-    });
   }
 }

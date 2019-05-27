@@ -47,6 +47,7 @@ export * from './component/tabpanel';
 export * from './component/title';
 export * from './component/toolbar';
 export * from './component/toolbar-tools';
+export * from './component/tooltip';
 export * from './component/viewer';
 export * from './component/web-camera';
 export * from './converter';
