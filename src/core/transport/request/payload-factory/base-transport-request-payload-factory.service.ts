@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import * as URI from 'urijs';
 import * as R from 'ramda';
 
-import { defValuesFilter, isDef, notNilValuesFilter } from '../../../util';
+import { defValuesFilter, isDef, notNilValuesFilter, isObjectNotEmpty } from '../../../util';
 import { DI_TYPES, lazyInject } from '../../../di';
 import {
   ITransportRequestPayloadFactory,
@@ -14,6 +14,7 @@ import {
 } from '../../transport.interface';
 import { ISettings } from '../../../settings';
 import { IKeyValue } from '../../../definitions.interface';
+import { TransportMethodsEnum } from '../../../definition';
 
 @injectable()
 export abstract class BaseTransportRequestPayloadFactory implements ITransportRequestPayloadFactory {
@@ -53,9 +54,16 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
   protected getUrl(requestEntity: ITransportRequestEntity): string {
     const transportSettings = this.settings.transport;
     const url = new URI(this.getBaseUrl(requestEntity));
-    if (requestEntity.noCache !== true
-      && !(R.isNil(requestEntity.method) || ['post'].includes(requestEntity.method))) {
+    if (requestEntity.noCache !== false
+      && !(R.isNil(requestEntity.method) || [TransportMethodsEnum.POST]
+        .includes(requestEntity.method as TransportMethodsEnum))) {
       url.addSearch(transportSettings.noCachePrefix, Date.now());
+    }
+    if (requestEntity.method === TransportMethodsEnum.GET) {
+      const params = this.getData(requestEntity);
+      if (isObjectNotEmpty(params)) {
+        R.forEachObjIndexed((value, key) => url.addSearch(String(key), value), params);
+      }
     }
     return url.valueOf();
   }

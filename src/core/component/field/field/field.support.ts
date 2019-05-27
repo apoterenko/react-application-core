@@ -7,6 +7,7 @@ import {
 } from './field.interface';
 import { AnyT } from '../../../definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
+import { IGenericFieldEntity } from '../../../definition';
 
 /**
  * @stable [31.07.2018]
@@ -34,18 +35,19 @@ export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntit
 export const isFieldRequired = (props: IUniversalFieldProps): boolean => calc<boolean>(props.required);
 
 /**
- * @stable [06.10.2018]
- * @param {IUniversalFieldProps} props
+ * @stable [27.05.2019]
+ * @param {IGenericFieldEntity} props
  * @returns {boolean}
  */
-export const isFieldInactive = (props: IUniversalFieldProps): boolean => props.disabled || props.readOnly;
+export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
+  props.disabled || props.readOnly || isFieldInProgress(props);
 
 /**
- * @stable [06.10.2018]
- * @param {IUniversalFieldProps} props
+ * @stable [27.05.2019]
+ * @param {IGenericFieldEntity} props
  * @returns {boolean}
  */
-export const isFieldInProgress = (props: IUniversalFieldProps): boolean => props.progress;
+export const isFieldInProgress = (props: IGenericFieldEntity): boolean => props.progress;
 
 /**
  * @stable [06.10.2018]

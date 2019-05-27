@@ -29,6 +29,7 @@ import {
   IVueFieldTemplateMethods,
   VUE_FIELD_CHANGE_EVENT,
 } from './vue-field.interface';
+import { isFieldInactive } from './field.support';
 
 export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFieldState>
   extends VueBaseComponent<TStore, TState>
@@ -44,6 +45,7 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   @Prop() public readonly icon: string;
   @Prop() public readonly type: string;
   @Prop() public readonly floatLabel: boolean;
+  @Prop() public readonly disabled: boolean;
 
   /**
    * @stable [17.11.2018]
@@ -104,6 +106,7 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   public getInputBindings(): Partial<HTMLInputElement> {
     return defValuesFilter<Partial<HTMLInputElement>, Partial<HTMLInputElement>>({
       type: this.type,
+      disabled: this.disabled,
       placeholder: ifNotNilThanValue(
         this.placeholder,
         () => this.t(this.placeholder),
@@ -331,6 +334,14 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
    */
   protected isFieldChangedManually(newValue: AnyT): boolean {
     return true;
+  }
+
+  /**
+   * @stable [27.05.2019]
+   * @returns {boolean}
+   */
+  protected isFieldInactive(): boolean {
+    return isFieldInactive(this);
   }
 
   /**

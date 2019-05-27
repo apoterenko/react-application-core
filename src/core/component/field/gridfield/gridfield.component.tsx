@@ -37,7 +37,7 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
             {...gridListEntity}
             {...props.gridConfiguration}
             onChange={this.onChangeRowField}
-            deactivated={this.isFieldDeactivated()}/>
+            deactivated={this.isFieldInactive()}/>
     );
   }
 

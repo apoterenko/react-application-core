@@ -1,4 +1,9 @@
-import { IBindDictionaryWrapper, IMenuPropsWrapper } from '../../../definitions.interface';
+import {
+  IBindDictionaryWrapper,
+  IDictionaryParamsWrapper,
+  IKeyValue,
+  IMenuPropsWrapper,
+} from '../../../definitions.interface';
 import { IMenuItemEntity, ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IVueBaseTextFieldTemplateMethods } from '../textfield/vue-index';
 import { IVueBaseTextFieldProps } from '../textfield/vue-index';
@@ -9,6 +14,7 @@ import { IVueMenuProps } from '../../menu/vue-index';
  */
 export interface IVueSelectProps extends IVueBaseTextFieldProps,
                                          IBindDictionaryWrapper,
+                                         IDictionaryParamsWrapper<IKeyValue | (() => IKeyValue)>,
                                          IMenuPropsWrapper<IVueMenuProps> {
 }
 

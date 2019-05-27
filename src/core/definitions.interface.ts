@@ -229,12 +229,7 @@ export interface IChannelsWrapper<TChannels = string> {
   channels?: TChannels;
 }
 
-/**********************
- * NoCache's wrapper
- **********************/
-export interface INoCacheWrapper {
-  noCache?: boolean;
-}
+export interface INoCacheWrapper { noCache?: boolean; }
 
 /**
  * @stable [02.02.2019]
@@ -502,12 +497,8 @@ export interface IMenuPropsWrapper<TMenuProps> {
   menuProps?: TMenuProps;
 }
 
-/**
- * @stable [04.05.2018]
- */
-export interface IBindDictionaryWrapper<TBindDictionary = string> {
-  bindDictionary?: TBindDictionary;
-}
+export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
+export interface IDictionaryParamsWrapper<TParams> { dictionaryParams?: TParams; }
 
 /**
  * @stable [30.05.2018]

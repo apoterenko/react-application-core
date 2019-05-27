@@ -449,15 +449,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {boolean}
    */
   protected isFieldInactive(): boolean {
-    return isFieldInactive(this.props) || this.inProgress();
-  }
-
-  /**
-   * @stable [06.10.2018]
-   * @returns {boolean}
-   */
-  protected isFieldDeactivated(): boolean {
-    return this.props.disabled || this.inProgress();
+    return isFieldInactive(this.props);
   }
 
   /**

@@ -1,8 +1,16 @@
 import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
-import { StringNumberT } from '../../../definitions.interface';
-import { getWidth, isString, isArrayNotEmpty, strongHtmlReplace, queryFilter } from '../../../util';
+import { StringNumberT, IKeyValue } from '../../../definitions.interface';
+import {
+  calc,
+  getWidth,
+  ifNotNilThanValue,
+  isArrayNotEmpty,
+  isString,
+  queryFilter,
+  strongHtmlReplace,
+} from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
@@ -23,6 +31,7 @@ class VueSelect extends VueBaseTextField
   implements IVueSelectTemplateMethods, IVueSelectProps {
 
   @Prop() public readonly bindDictionary: string;
+  @Prop() public readonly dictionaryParams: IKeyValue | (() => IKeyValue);
   @Prop() public readonly menuProps: IVueMenuProps;
   @Prop({default: (): string => 'expand-down'}) public readonly icon: string;
   @Prop({
@@ -156,7 +165,10 @@ class VueSelect extends VueBaseTextField
     this.getMenu().show({width: getWidth(this.inputWrapperEl)});
 
     if (this.isContainerBound() && isString(this.bindDictionary)) {
-      this.bindContainer.dispatchLoadDictionary(this.bindDictionary);
+      this.bindContainer.dispatchLoadDictionary(
+        this.bindDictionary,
+        ifNotNilThanValue(this.dictionaryParams, () => calc(this.dictionaryParams), this.bindStore)
+      );
     }
     this.$emit('show');
   }

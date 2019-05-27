@@ -5,10 +5,8 @@ import {
   ILabelWrapper,
   IDisplayNameWrapper,
   IUseLocalizationWrapper,
-  INameWrapper,
   IIconWrapper,
   IAutoFocusWrapper,
-  IPlaceholderWrapper,
   IFloatLabelWrapper,
   ITypeWrapper,
 } from '../../../definitions.interface';
@@ -16,6 +14,7 @@ import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import { IVueValue$Wrapper, VueAccessorsT } from '../../../vue-definitions.interface';
 import { IVueComponent } from '../../../vue-entities-definitions.interface';
 import { IVueBaseProps } from '../../base/vue-index';
+import { IGenericFieldEntity } from '../../../definition';
 
 /**
  * @stable [17.11.2018]
@@ -39,17 +38,17 @@ export interface IVueFieldState extends IDisplayValueWrapper {
 /**
  * @stable [21.12.2018]
  */
-export interface IVueFieldProps extends IVueBaseProps,
-                                        ILabelWrapper,
-                                        INameWrapper,
-                                        IIconWrapper,
-                                        IAutoFocusWrapper,
-                                        IPlaceholderWrapper,
-                                        IDisplayNameWrapper,
-                                        IUseLocalizationWrapper,
-                                        IFullWrapper,
-                                        ITypeWrapper,
-                                        IFloatLabelWrapper {
+export interface IVueFieldProps
+  extends IVueBaseProps,
+    IGenericFieldEntity,
+    ILabelWrapper,
+    IIconWrapper,
+    IAutoFocusWrapper,
+    IDisplayNameWrapper,
+    IUseLocalizationWrapper,
+    IFullWrapper,
+    ITypeWrapper,
+    IFloatLabelWrapper {
 }
 
 /**

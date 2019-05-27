@@ -48,7 +48,7 @@ export class VueBaseTextField extends VueField implements IVueBaseTextFieldProps
       () => (
         `<vue-icon className="vue-field-icon"
                    icon="${this.icon}"
-                   v-on:click.native="onIconClick"/>`
+                   ${this.isFieldInactive() ? '' : 'v-on:click.native="onIconClick"'}/>`
       ),
       ''
     );
