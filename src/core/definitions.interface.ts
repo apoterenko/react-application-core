@@ -1800,13 +1800,8 @@ export interface IBlockWrapper<TBlock = boolean> {
 }
 
 export interface IParentWrapper<TParent> { parent?: TParent; }
-
-/**
- * @stable [17.06.2018]
- */
-export interface IRowWrapper<TRow = boolean> {
-  row?: TRow;
-}
+export interface IRowWrapper<TRow = boolean> { row?: TRow; }
+export interface ITooltipWrapper<TTooltip = string> { tooltip?: TTooltip; }
 
 /* @stable - 19.04.2018 */
 export interface ISmallWrapper<TSmall> {

@@ -689,8 +689,9 @@
   $vue-form-title-font-size: unset,
   $vue-form-title-font-weight: unset,
   $vue-form-title-padding: unset,
-  $vue-form-header-height: unset,
   $vue-form-header-padding: unset,
+  $vue-form-header-flex-width: unset,
+  $vue-form-header-flex-height: unset,
   /**/
   $vue-form-field-custom: unset,
   $vue-form-field-margin: unset,
@@ -713,7 +714,8 @@
         $rac-styles-padding: $vue-form-header-padding
       );
 
-      @include rac-flex-height($vue-form-header-height);
+      @include rac-flex-width($vue-form-header-flex-width);
+      @include rac-flex-height($vue-form-header-flex-height);
 
       @include rac-styles(
         $rac-styles-custom: vue-form-title,

@@ -1,6 +1,8 @@
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
+import Tooltip from 'tooltip.js';
 
-import { toClassName, calc } from '../../../util';
+import { toClassName, calc, isDef, isUndef } from '../../../util';
+import { IGenericTooltipEntity } from '../../../definition';
 import {
   VueCreateElementFactoryT,
   VueNodeT,
@@ -15,11 +17,13 @@ import { IVueFlexLayoutProps } from './universal-flex-layout.interface';
 @Component
 class VueFlexLayout extends VueBaseComponent
   implements IVueFlexLayoutProps {
+
   @Prop() public children: string;
   @Prop() public readonly responsive: boolean;
   @Prop() public readonly wrap: boolean;
   @Prop() public readonly noShrink: boolean;
   @Prop() public readonly row: boolean;
+  @Prop() public readonly tooltip: IGenericTooltipEntity;
   @Prop() public separator: boolean;
   @Prop() public alignItemsCenter: boolean;
   @Prop() public alignItemsEnd: boolean;
@@ -27,8 +31,38 @@ class VueFlexLayout extends VueBaseComponent
   @Prop() public justifyContentEnd: boolean;
   @Prop() private fullSize: boolean;
 
+  private tooltipInstance: Tooltip;
+
+  /**
+   * @stable [27.05.2019]
+   */
+  public mounted() {
+    this.doRefreshTooltip();
+  }
+
+  /**
+   * @stable [27.05.2019]
+   */
+  @Watch('tooltip')
+  public onOpenUpdate(): void {
+    this.doRefreshTooltip();
+  }
+
+  /**
+   * @stable [27.05.2019]
+   */
+  public beforeDestroy(): void {
+    this.doDestroyTooltip();
+  }
+
+  /**
+   * @stable [27.05.2019]
+   * @param {VueCreateElementFactoryT} factory
+   * @returns {VueNodeT}
+   */
   public render(factory: VueCreateElementFactoryT): VueNodeT {
     const nodeData: VNodeDataT = {
+      ref: 'contentRef',
       class: this.getClassName(),
       style: this.styles,
       attrs: {
@@ -56,5 +90,38 @@ class VueFlexLayout extends VueBaseComponent
       props.justifyContentCenter && 'rac-flex-justify-content-center',
       props.justifyContentEnd && 'rac-flex-justify-content-end'
     );
+  }
+
+  /**
+   * @stable [27.05.2019]
+   * @returns {HTMLElement}
+   */
+  private getContentRef(): HTMLElement {
+    return this.$refs.contentRef as HTMLElement;
+  }
+
+  /**
+   * @stable [27.05.2019]
+   */
+  private doDestroyTooltip(): void {
+    if (isDef(this.tooltipInstance)) {
+      this.tooltipInstance.dispose();
+      this.tooltipInstance = null;
+    }
+  }
+
+  /**
+   * @stable [27.05.2019]
+   */
+  private doRefreshTooltip(): void {
+    if (isUndef(this.tooltip)) {
+      return;
+    }
+
+    this.doDestroyTooltip();
+    this.tooltipInstance = new Tooltip(this.getContentRef(), {
+      trigger: 'hover',
+      ...this.tooltip,
+    });
   }
 }

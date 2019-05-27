@@ -2,6 +2,7 @@ import {
   IFullWrapper,
   INoShrinkWrapper,
   IResponsiveWrapper,
+  IRowWrapper,
   IWrapWrapper,
 } from '../definitions.interface';
 
@@ -11,6 +12,7 @@ import {
 export interface IGenericFlexLayoutEntity
   extends IWrapWrapper,
     IFullWrapper,
+    IRowWrapper,
     IResponsiveWrapper,
     INoShrinkWrapper {
   alignItemsCenter?: boolean;

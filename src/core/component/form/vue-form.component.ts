@@ -1,5 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 
+import { toClassName, calc } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 import {
@@ -11,7 +12,7 @@ import {
 @Component({
   template: `
     <vue-flex-layout :full="full"
-                     class="vue-form">
+                     :className="getClassName()">
         <vue-flex-layout v-if="title || hasHeaderSlot()"
                          :full="false"
                          :row="true"
@@ -56,5 +57,13 @@ class VueForm extends VueBaseComponent {
    */
   private hasHeaderSlot(): boolean {
     return this.hasSlot(VUE_FORM_HEADER_SLOT);
+  }
+
+  /**
+   * @stable [27.05.2019]
+   * @returns {string}
+   */
+  private getClassName(): string {
+    return toClassName('vue-form', calc(this.className));
   }
 }

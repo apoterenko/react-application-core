@@ -1,16 +1,14 @@
 import {
-  IRowWrapper,
   ISeparatorWrapper,
+  ITooltipWrapper,
 } from '../../../definitions.interface';
 import { IReactOnClickWrapper } from '../../../react-definitions.interface';
-import { IGenericFlexLayoutEntity } from '../../../definition';
+import { IGenericFlexLayoutEntity, IGenericTooltipEntity } from '../../../definition';
 
-/**
- * @stable [05.02.2019]
- */
+// TODO
 export interface IVueFlexLayoutProps
   extends IGenericFlexLayoutEntity,
-          IReactOnClickWrapper,
-          ISeparatorWrapper,
-          IRowWrapper {
+    IReactOnClickWrapper,
+    ISeparatorWrapper,
+    ITooltipWrapper<IGenericTooltipEntity> {
 }
