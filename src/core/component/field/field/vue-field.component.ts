@@ -2,31 +2,32 @@ import * as R from 'ramda';
 import { Prop } from 'vue-property-decorator';
 
 import {
-  orEmpty,
-  isDef,
+  calc,
   defValuesFilter,
+  ifNotNilThanValue,
+  isDef,
+  nvl,
+  orEmpty,
   orUndef,
   toClassName,
-  ifNotNilThanValue,
-  calc,
 } from '../../../util';
 import { AnyT, IKeyValue } from '../../../definitions.interface';
 import { VueBaseComponent } from '../../base/vue-index';
 import {
-  VueCreateElementFactoryT,
-  VueNodeT,
-  VueComponentOptionsT,
   VueAccessorsT,
+  VueComponentOptionsT,
+  VueCreateElementFactoryT,
   VueDefaultMethodsT,
+  VueNodeT,
 } from '../../../vue-definitions.interface';
 import {
+  IVueField,
+  IVueFieldInputListenersEntity,
+  IVueFieldProps,
+  IVueFieldState,
   IVueFieldTemplateComputedEntity,
   IVueFieldTemplateMethods,
-  IVueFieldInputListenersEntity,
-  IVueFieldState,
-  IVueField,
   VUE_FIELD_CHANGE_EVENT,
-  IVueFieldProps,
 } from './vue-field.interface';
 
 export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFieldState>
@@ -300,18 +301,14 @@ export class VueField<TStore = IKeyValue, TState extends IVueFieldState = IVueFi
   }
 
   /**
-   * @stable [17.11.2018]
+   * @stable [27.05.2019]
    * @returns {AnyT}
    */
   protected getDisplayValue(): AnyT {
-    const data = this.getData();
-    const value = this.getValue();
-    const displayValue = ifNotNilThanValue(data, () => data.displayValue);
-    let displayNameValue;
-
-    return R.isNil(displayValue)
-      ? (displayNameValue = this.fromStore(this.displayName) ? displayNameValue : value)
-      : displayValue;
+    return nvl(
+      ifNotNilThanValue(this.getData(), (data) => data.displayValue),
+      ifNotNilThanValue(this.fromStore(this.displayName), (displayValueFromStore) => displayValueFromStore, this.getValue())
+    );
   }
 
   /**
