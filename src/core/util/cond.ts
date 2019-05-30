@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
-import { isFn, uuid } from '../util';
+import { isFn } from '../util';
 import { calc } from './calc';
 
 /**
@@ -30,32 +30,6 @@ export function orDefault<TResult1, TResult2>(cond: boolean,
       ? (isFn(result1) ? (result1 as () => TResult1)() : result1 as TResult1)
       : (isFn(result2) ? (result2 as () => TResult2)() : result2 as TResult2);
 }
-
-// TODO deprecated - use ifNotNilThanValue
-/**
- * @deprecated
- */
-export const ifNilReturnDefault = <TResult1, TResult2 = AnyT>(checkedValue: AnyT,
-                                                              result1: TResult1 | (() => TResult1),
-                                                              result2?: TResult2 | (() => TResult2)): TResult1 | TResult2 =>
-  orDefault<TResult1, TResult2>(!R.isNil(checkedValue), result1, result2);
-
-/**
- * @deprecated
- */
-export const ifNotNilReturnValue = <TResult>(checkedValue: AnyT,
-                                             result: TResult | (() => TResult)): TResult | null =>
-  ifNilReturnDefault<TResult, null>(checkedValue, result, null);
-
-/**
- * @deprecated
- * @param {AnyT} value
- * @param {(() => TResult) | TResult} result
- * @returns {string | TResult}
- */
-export const ifNilReturnUuid = <TResult>(value: AnyT,
-                                         result: TResult | (() => TResult)): string | TResult =>
-  ifNilReturnDefault<TResult, string>(value, result, () => uuid());
 
 /**
  * @stable [23.01.2018]
