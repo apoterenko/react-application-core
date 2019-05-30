@@ -2,12 +2,13 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  filterAndSortEntities,
+  isFn,
+  nvl,
+  orDefault,
   pageFromNumber,
   pageToNumber,
-  orDefault,
-  filterAndSortEntities,
-  ifNilReturnUuid,
-  isFn,
+  uuid,
 } from '../../util';
 import { IEntity } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
@@ -100,7 +101,7 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
    * @returns {string}
    */
   protected toRowKey(entity: IEntity): string {
-    return `data-row-${ifNilReturnUuid<string>(entity.id, String(entity.id))}`;   // Infinity scroll supporting
+    return `data-row-${nvl(entity.id, uuid())}`;   // Infinity scroll supporting
   }
 
   /**
@@ -123,14 +124,12 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
     const toNumber = this.toNumber;
     let pagedData;
 
-    return orDefault<IEntity[], IEntity[]>(
-      R.isNil(toNumber)
-        // Remote and local pagination is supported simultaneously.
-        // Length result is zero in the case of remote pagination
-        || (pagedData = filteredAndSortedEntities.slice(this.fromNumber, toNumber)).length === 0,
-      filteredAndSortedEntities,
-      () => pagedData
-    );
+    return R.isNil(toNumber)
+        // Remote and local pagination are supported simultaneously.
+        // The length result is equal to zero in a remote pagination case
+      || (pagedData = filteredAndSortedEntities.slice(this.fromNumber, toNumber)).length === 0
+      ? filteredAndSortedEntities
+      : pagedData;
   }
 
   /**

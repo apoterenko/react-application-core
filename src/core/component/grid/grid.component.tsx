@@ -11,7 +11,6 @@ import {
   orNull,
   isFn,
   orUndef,
-  orDefault,
   cancelEvent,
   coalesce,
   isOddNumber,
@@ -52,7 +51,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const props = this.props;
     const dataSource = this.dataSource;
 
-    const gridEl = (
+    return (
       <FlexLayout
         row={true}
         className={toClassName('rac-grid-wrapper', props.wrapperClassName)}>
@@ -75,23 +74,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           </tbody>
         </table>
         {this.addActionElement}
-      </FlexLayout>
-    );
-
-    if (!props.useService) {
-      return gridEl;
-    }
-    return (
-      <FlexLayout row={true}>
-        {gridEl}
-        <div className='rac-grid-service-wrapper'>
-          <div className='rac-grid-service'>
-            {orNull<JSX.Element>(
-              props.useService,
-              () => this.uiFactory.makeIcon({type: 'more_vert', onClick: this.onSettingsClick}),
-            )}
-          </div>
-        </div>
       </FlexLayout>
     );
   }

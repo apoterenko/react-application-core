@@ -245,6 +245,7 @@ export class UIMaterialFactory implements IUIFactory {
     product: faCannabis,
     question: faQuestion,
     refresh: faSync,
+    sync: faSync,
     remove: faMinus,
     retweet: faRetweet,
     router: faServer,

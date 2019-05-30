@@ -170,18 +170,4 @@
       }
     }
   }
-
-  .rac-grid-service-wrapper {
-    border-left: 1px solid $rac-grid-service-wrapper-border-left-color;      /* @stable [09.06.2018] */
-    min-width: $rac-grid-service-wrapper-width;                              /* @stable [11.09.2018] */
-
-    .rac-grid-service {
-      padding-top: 8px;                                                      /* @stable [11.09.2018] */
-    }
-
-    .rac-icon {
-      margin-left: auto;                                                     /* @stable [12.08.2018] */
-      margin-right: auto;                                                    /* @stable [12.08.2018] */
-    }
-  }
 }

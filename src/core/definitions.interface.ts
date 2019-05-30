@@ -1152,13 +1152,6 @@ export interface IAutoWidthWrapper<TAutoWidth = boolean> {
   autoWidth?: TAutoWidth;
 }
 
-/**
- * @stable [02.06.2018]
- */
-export interface IUseServiceWrapper {
-  useService?: boolean;
-}
-
 export interface IActionTextWrapper { actionText?: string; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }

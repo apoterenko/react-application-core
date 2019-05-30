@@ -195,7 +195,6 @@ import {
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
   IResetActionRenderedWrapper,
-  IUseServiceWrapper,
   IUseSortingWrapper,
   IUseSyntheticCursorWrapper,
   IValidateWrapper,
@@ -560,13 +559,12 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IOnChangeSortingWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper,
                                             IOnPlusClickWrapper,
-                                            IUseServiceWrapper,
                                             IExpandActionRenderedWrapper,
                                             IExpandedGroupsWrapper,
                                             ITightGridWrapper,
                                             IStickyHeadWrapper,
                                             ITotalEntityWrapper<IEntity> {
-  topTotal?: boolean;
+  topTotal?: boolean; // TODO
   groupedDataSorter?: (groupedValue1, groupedValue2, entity1: IEntity, entity2: IEntity) => number;
 }
 
