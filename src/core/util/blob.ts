@@ -1,6 +1,5 @@
 import * as R from 'ramda';
 
-import { orDefault } from '../util';
 import { downloadFile } from './dom';
 import { IBlobEntity } from '../entities-definitions.interface';
 
@@ -10,11 +9,11 @@ import { IBlobEntity } from '../entities-definitions.interface';
  * @returns {Promise<IBlobEntity[]>}
  */
 export const toBlobEntities = (...ids: string[]): Promise<IBlobEntity[]> => (
-  Promise.all<IBlobEntity>(orDefault<Array<Promise<IBlobEntity>>, Array<Promise<IBlobEntity>>>(
-    Array.isArray(ids),
-    () => ids.map<Promise<IBlobEntity>>((id) => fetch(id).then((r) => r.blob()).then((blob) => ({id, blob}))),
-    []
-  ))
+  Promise.all<IBlobEntity>(
+    Array.isArray(ids)
+      ? ids.map<Promise<IBlobEntity>>((id) => fetch(id).then((r) => r.blob()).then((blob) => ({id, blob})))
+      : []
+  )
 );
 
 /**

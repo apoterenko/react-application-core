@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { orNull, orDefault, pageFromNumber, pageToNumber } from '../../../util';
+import { orNull, pageFromNumber, pageToNumber } from '../../../util';
 import { FIRST_PAGE } from '../../../definitions.interface';
 import { IUniversalPageToolbarProps } from './page-toolbar.interface';
 import { UniversalComponent } from '../../base/universal.component';
@@ -26,11 +26,9 @@ export abstract class UniversalPageToolbar<TProps extends IUniversalPageToolbarP
    */
   protected getToolbarBody(): JSX.Element {
     const props = this.props;
-    return orDefault<JSX.Element, JSX.Element>(
-      props.totalCount > 0 && !props.progress,
-      () => this.getContent(),
-      () => this.getDefaultContent()
-    );
+    return props.totalCount > 0 && !props.progress
+      ? this.getContent()
+      : this.getDefaultContent();
   }
 
   /**

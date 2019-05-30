@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { isDef, orDefault } from '../../util';
+import { isDef } from '../../util';
 
 import {
   IEditableEntity,
@@ -91,10 +91,10 @@ export const openFilterFilterFormWrapperEntityMapper =
  */
 export const refreshListAndFilterFormWrapperEntityMapper =
   (mappedEntity: IListAndFilterFormWrapperEntity, actions?: IFilterActionConfiguration[]): IFilterConfiguration => ({
-    actions: orDefault<IFilterActionConfiguration[], IFilterActionConfiguration[]>(
-      isDef(mappedEntity.filterForm),
-      () => [openFilterFilterFormWrapperEntityMapper(mappedEntity)],
-      []
+    actions: (
+      isDef(mappedEntity.filterForm)
+        ? [openFilterFilterFormWrapperEntityMapper(mappedEntity)]
+        : []
     ).concat((actions || []).map((action) => ({disabled: R.isNil(mappedEntity.list.data) || mappedEntity.list.progress, ...action}))),
     notUseField: true,
     icon: 'refresh',
