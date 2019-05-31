@@ -13,7 +13,10 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
   protected getInputElement(): JSX.Element {
     return (
       <React.Fragment>
-        <div className='rac-switch__thumb'/>
+        <div className={toClassName(
+          'rac-thumb rac-switch__thumb',
+          this.value ? 'rac-thumb-checked' : 'rac-thumb-unchecked'
+        )}/>
         {super.getInputElement()}
       </React.Fragment>
     );
@@ -35,8 +38,18 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
     return toClassName(
       super.getSelfElementClassName(),
       'rac-flex',
-      'rac-flex-align-items-center',
-      this.value ? 'rac-switch__checked' : 'rac-switch__unchecked',
+      'rac-flex-align-items-center'
+    );
+  }
+
+  /**
+   * @stable [31.05.2019]
+   * @returns {string}
+   */
+  protected getInputWrapperElementClassName(): string {
+    return toClassName(
+      super.getInputWrapperElementClassName(),
+      'rac-flex-align-items-center'
     );
   }
 }

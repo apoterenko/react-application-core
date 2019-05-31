@@ -53,7 +53,6 @@ export interface IFieldState extends IUniversalFieldState {
 
 export interface IFieldInternalProps extends IFieldConfiguration,
                                              IFieldEntity {
-  inputWrapperClassName?: string; // @stable
   minLength?: number;
   maxLength?: number;
   rows?: number;

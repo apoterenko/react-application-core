@@ -18,7 +18,7 @@ export class Checkbox extends BaseCheckbox<ICheckboxProps, ICheckboxState> {
         <div ref='self'
              style={props.style}
              className={this.getSelfElementClassName()}>
-          <div className={this.getInputElementWrapperClassName()}>
+          <div className={this.getInputWrapperElementClassName()}>
             {this.getInputElement()}
             {this.getInputAttachmentElement()}
           </div>

@@ -316,7 +316,6 @@ export class UIMaterialFactory implements IUIFactory {
   public listItemMeta = 'mdc-list-item__meta';
   public listDivider = 'mdc-list-divider';
   public listGroupSubHeader = 'mdc-list-group__subheader';
-  public textFieldBox = 'mdc-text-field--box';
   public checkbox = 'mdc-checkbox';
   public checkboxInput = 'mdc-checkbox__native-control';
   public card = 'mdc-card';

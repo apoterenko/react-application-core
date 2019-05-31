@@ -56,8 +56,7 @@ export class SearchToolbar<TProps extends ISearchToolbarProps = ISearchToolbarPr
    */
   protected get searchField(): JSX.Element {
     return (
-      <TextField inputWrapperClassName={this.uiFactory.textFieldBox}
-                 {...this.fieldProps}/>
+      <TextField {...this.fieldProps}/>
     );
   }
 }

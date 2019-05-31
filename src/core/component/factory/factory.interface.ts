@@ -30,7 +30,6 @@ export interface IUIFactory {
   tabIndicatorContent?: string;
   tabIndicatorContentUnderline?: string;
   tabBarScroller?: string;
-  textFieldBox?: string;
   checkbox?: string;
   checkboxInput?: string;
   card?: string;

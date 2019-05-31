@@ -42,13 +42,15 @@ export class RouterEffects {
     this.router.push(pathAndState.path, pathAndState.state);
   }
 
+  /**
+   * @stable [30.05.2019]
+   * @param {IEffectsAction} action
+   */
   @EffectsService.effects(ROUTER_REPLACE_ACTION_TYPE)
   public $onReplace(action: IEffectsAction): void {
-    this.router.go(-1);
-
     const pathAndState = this.toPathAndState(action);
     RouterEffects.logger.debug(
-        `[$RouterEffects][$onReplace] Path: ${pathAndState.path}, state: ${pathAndState.state}`
+      `[$RouterEffects][$onReplace] Path: ${pathAndState.path}, state: ${pathAndState.state}`
     );
     this.router.replace(pathAndState.path, pathAndState.state);
   }

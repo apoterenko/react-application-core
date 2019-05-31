@@ -152,7 +152,7 @@ export class Field<TInternalProps extends IFieldInternalProps,
              style={props.style}
              className={this.getSelfElementClassName()}>
           {this.getPrefixLabelElement()}
-          <div className={this.getInputElementWrapperClassName()}>
+          <div className={this.getInputWrapperElementClassName()}>
             {this.getInputElement()}
             {this.getLabelElement()}
             {this.getMirrorInputElement()}
@@ -325,12 +325,15 @@ export class Field<TInternalProps extends IFieldInternalProps,
     return isElementFocused(this.input);
   }
 
-  protected getInputElementWrapperClassName(): string {
+  /**
+   * @stable [31.05.2019]
+   * @returns {string}
+   */
+  protected getInputWrapperElementClassName(): string {
     return toClassName(
       'rac-field-input-wrapper',
       'rac-flex',
-      'rac-flex-full',
-      this.props.inputWrapperClassName
+      'rac-flex-full'
     );
   }
 

@@ -1993,8 +1993,6 @@ export interface ICaretVisibilityWrapper {
   caretVisibility?: boolean;
 }
 
-export interface IVisibleWrapper { visible?: boolean; }
-
 /**
  * @stable [04.09.2018]
  */
@@ -2002,16 +2000,11 @@ export interface ICaretPositionWrapper {
   caretPosition?: number;
 }
 
-/**
- * @stable [08.01.2019]
- */
-export interface IFormatWrapper<TFormat = string> {
-  format?: TFormat;
-}
-
+export interface IAutoResetWrapper { autoReset?: boolean; }
+export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
-export interface IAutoResetWrapper { autoReset?: boolean; }
+export interface IVisibleWrapper { visible?: boolean; }
 
 /**
  * @stable [29.05.2018]

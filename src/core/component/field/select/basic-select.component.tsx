@@ -155,9 +155,9 @@ export class BasicSelect<TProps extends IBasicSelectProps,
    * @stable [06.10.2018]
    * @returns {string}
    */
-  protected getInputElementWrapperClassName(): string {
+  protected getInputWrapperElementClassName(): string {
     return toClassName(
-      super.getInputElementWrapperClassName(),
+      super.getInputWrapperElementClassName(),
       'rac-flex-column'  // popup menu
     );
   }

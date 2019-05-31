@@ -326,14 +326,15 @@ $rac-message-font-size: $rac-default-font-size !default;
 $rac-field-message-color: $rac-default-text-color !default;
 
 /* @stable [17.09.2018] */
+$rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
 $rac-field-labeled-cls: rac-field-labeled;
 $rac-field-no-displayed-cls: rac-field-no-displayed;
 $rac-field-not-focused-cls: rac-field-not-focused;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
-$rac-view-field-cls: rac-view-field;
 $rac-switch-cls: rac-switch;
+$rac-view-field-cls: rac-view-field;
 /**/
 $rac-text-field-input-color: $rac-default-text-color !default;
 $rac-text-field-input-border: none !default;
@@ -386,7 +387,6 @@ $rac-text-field-filter-active-after-bottom: 5px !default;
 $rac-text-field-disabled-opacity: unset !default;
 $rac-gridfield-text-field-margin-bottom: 8px !default;
 $rac-checkbox-field-label-line-height: 16px !default;
-$rac-switch-label-margin: 16px !default;
 $rac-text-area-length-label-font-size: $rac-default-font-size - 1 !default;
 $rac-text-area-length-label-color: $rac-default-label-color !default;
 /**/
@@ -412,6 +412,29 @@ $rac-switch-self-field-input-wrapper-flex-height: $rac-switch--field-height !def
 $rac-switch-self-field-input-wrapper-background: $rac-color-0-1 !default;
 $rac-switch-self-field-input-wrapper-position: relative !default;
 $rac-switch-self-field-input-wrapper-border-radius: 12px !default;
+$rac-switch-self-field-label-margin: 0 0 0 $rac-offset-1 !default;
+$rac-switch-self-field-label-line-height: 16px !default;
+$rac-switch-self-field-label-position: absolute !default;
+$rac-switch-self-field-label-left: $rac-switch--field-width !default;
+$rac-switch-self-field-label-v-center-alignment: true !default;
+$rac-switch-disabled-self-field-input-wrapper-opacity: .3 !default;
+$rac-switch-labeled-self-field-margin: 0 !default;
+
+/* @stable [31.05.2019] */
+$rac-switch-thumb-cls: rac-switch__thumb;
+/**/
+$rac-switch-thumb--offset: 2px !default;
+$rac-switch-thumb--checked-transition: transform 300ms !default;
+$rac-switch-thumb-background: $rac-color-1-0 !default;
+$rac-switch-thumb-size: 20px !default;
+$rac-switch-thumb-top: $rac-switch-thumb--offset !default;
+$rac-switch-thumb-border-radius: $rac-switch-thumb-size / 2 !default;
+$rac-switch-thumb-position: absolute !default;
+$rac-switch-thumb-checked-transform: translateX(calc(100% - 2px)) !default;
+$rac-switch-thumb-checked-transition: $rac-switch-thumb--checked-transition !default;
+$rac-switch-thumb-unchecked-transform: translateX($rac-switch-thumb--offset) !default;
+$rac-switch-thumb-unchecked-transition: $rac-switch-thumb--checked-transition !default;
+$rac-switch-thumb-unchecked-opacity: .7 !default;
 
 /* @stable [15.12.2018] */
 $rac-filter-active-content: '●' !default;
