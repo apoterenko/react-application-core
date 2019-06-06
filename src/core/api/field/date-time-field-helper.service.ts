@@ -7,11 +7,8 @@ import {
   IToDateToTimeEntity,
   DEFAULT_TIME_FROM,
   DEFAULT_TIME_TO,
-  IKeyValue,
   TO_DATE_FIELD_NAME,
   FROM_DATE_FIELD_NAME,
-  DATE_FIELD_NAME,
-  TIME_FIELD_NAME,
   IFromDateToDateEntity,
 } from '../../definitions.interface';
 import { IApiEntity } from '../../definition';
@@ -121,31 +118,6 @@ export class DateTimeFieldHelper {
     } as TEntity;
   }
   /* tslint:enable */
-
-  public splitToDateAndTimeBasicFields<TEntity>(entity: IDateTimeEntity,
-                                                dateResolver: (entity: TEntity) => string): IDateTimeEntity {
-    return this.splitToDateTimeFields<IDateTimeEntity>(
-      entity,
-      DATE_FIELD_NAME,
-      TIME_FIELD_NAME,
-      dateResolver
-    );
-  }
-
-  /**
-   * @deprecated
-   */
-  public splitToDateTimeFields<TEntity>(entity: TEntity,
-                                        dateFieldName: string,
-                                        timeFieldName: string,
-                                        dateResolver: (entity: TEntity) => string): IKeyValue {
-    const date = dateResolver(entity);
-
-    return {
-      [timeFieldName]: orUndef(date, () => this.dc.fromDateTimeToTime(date)),
-      [dateFieldName]: orUndef(date, () => this.dc.fromDateTimeToDate(date)),
-    };
-  }
 
   public toDateTime<TEntity extends IEntity>(apiEntity: IApiEntity<TEntity>,
                                              dateResolver: (entity: TEntity) => string,

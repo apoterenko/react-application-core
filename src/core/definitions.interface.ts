@@ -48,7 +48,6 @@ export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
 export const TO_TIME_FIELD_NAME = 'toTime';
 export const TIME_FIELD_NAME = 'time';
-export const DATE_FIELD_NAME = 'date';
 export const FILTER_FIELD_NAME =  'filter';
 export const EFFECTOR_FIELD_NAME = 'effector';                                                  /* @stable [28.03.2018] */
 export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */

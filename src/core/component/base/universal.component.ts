@@ -22,9 +22,9 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
-  protected plugins: IUniversalComponentPlugin[] = [];
+  protected readonly plugins: IUniversalComponentPlugin[] = [];
   protected scrollTask: DelayedTask;
-  protected selfRef = React.createRef<AnyT>();
+  protected readonly selfRef = React.createRef<AnyT>();
 
   /**
    * @stable [23.04.2018]

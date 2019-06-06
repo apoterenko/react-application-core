@@ -98,6 +98,7 @@ export interface IDateConverter {
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
   formatPSTDate(date: DateTimeLikeTypeT): string;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
+  tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   getCurrentDate(): Date;
   getYesterdayDate(): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;

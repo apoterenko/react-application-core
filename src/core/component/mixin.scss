@@ -181,8 +181,13 @@
   $rac-styles-float: unset,
   $rac-styles-z-index: unset,
   $rac-styles-box-sizing: unset,
-  $rac-styles-justify-content: unset
+  $rac-styles-justify-content: unset,
+  $rac-styles-flex-height: unset
 ) {
+  @if $rac-styles-flex-height != unset {
+    max-height: $rac-styles-flex-height;
+    min-height: $rac-styles-flex-height;
+  }
   @if $rac-styles-transition != unset {
     transition: $rac-styles-transition;
   }
@@ -458,7 +463,8 @@
   $rac-styles-float: unset,
   $rac-styles-z-index: unset,
   $rac-styles-box-sizing: unset,
-  $rac-styles-justify-content: unset
+  $rac-styles-justify-content: unset,
+  $rac-styles-flex-height: unset
 ) {
 
   @if $rac-styles-custom != unset {
@@ -529,7 +535,8 @@
         $rac-styles-float: $rac-styles-float,
         $rac-styles-z-index: $rac-styles-z-index,
         $rac-styles-box-sizing: $rac-styles-box-sizing,
-        $rac-styles-justify-content: $rac-styles-justify-content
+        $rac-styles-justify-content: $rac-styles-justify-content,
+        $rac-styles-flex-height: $rac-styles-flex-height
       );
     }
   } @else {
@@ -599,7 +606,8 @@
       $rac-styles-float: $rac-styles-float,
       $rac-styles-z-index: $rac-styles-z-index,
       $rac-styles-box-sizing: $rac-styles-box-sizing,
-      $rac-styles-justify-content: $rac-styles-justify-content
+      $rac-styles-justify-content: $rac-styles-justify-content,
+      $rac-styles-flex-height: $rac-styles-flex-height
     );
   }
 }
@@ -1358,29 +1366,33 @@
 /**
  * @stable [10.01.2019]
  */
-@mixin rac-list-item($rac-list-item-custom: unset,
-                     $rac-list-item-padding: unset,
-                     $rac-list-item-margin: unset,
-                     $rac-list-item-width: unset,
-                     $rac-list-item-height: unset,
-                     $rac-list-item-color: unset,
-                     $rac-list-item-box-shadow: unset,
-                     $rac-list-item-visibility: unset,
-                     $rac-list-item-float: unset,
-                     $rac-list-item-outline: unset,
-                     $rac-list-item-font-size: unset,
-                     $rac-list-item-font-weight: unset,
-                     $rac-list-item-line-height: unset,
-                     $rac-list-item-background: unset,
-                     $rac-list-item-border: unset,
-                     $rac-list-item-border-bottom: unset,
-                     $rac-list-item-border-left: unset,
-                     $rac-list-item-border-right: unset,
-                     $rac-list-item-border-top: unset,
-                     $rac-list-item-border-radius: unset,
-                     $rac-list-item-graphic-margin: unset,
-                     $rac-list-item-graphic-size: unset,
-                     $rac-list-item-text-margin: unset) {
+@mixin rac-list-item(
+  $rac-list-item-custom: unset,
+  $rac-list-item-padding: unset,
+  $rac-list-item-margin: unset,
+  $rac-list-item-width: unset,
+  $rac-list-item-height: unset,
+  $rac-list-item-color: unset,
+  $rac-list-item-box-shadow: unset,
+  $rac-list-item-visibility: unset,
+  $rac-list-item-float: unset,
+  $rac-list-item-outline: unset,
+  $rac-list-item-font-size: unset,
+  $rac-list-item-font-weight: unset,
+  $rac-list-item-line-height: unset,
+  $rac-list-item-background: unset,
+  $rac-list-item-border: unset,
+  $rac-list-item-border-bottom: unset,
+  $rac-list-item-border-left: unset,
+  $rac-list-item-border-right: unset,
+  $rac-list-item-border-top: unset,
+  $rac-list-item-border-radius: unset,
+  $rac-list-item-graphic-margin: unset,
+  $rac-list-item-graphic-size: unset,
+  $rac-list-item-text-margin: unset,
+  $rac-list-item-min-height: unset,
+  $rac-list-item-box-sizing: unset
+) {
 
   #{rac-build-cls(rac-list-item, $rac-list-item-custom)} {
     @include rac-styles(
@@ -1402,7 +1414,9 @@
       $rac-styles-outline: $rac-list-item-outline,
       $rac-styles-font-size: $rac-list-item-font-size,
       $rac-styles-font-weight: $rac-list-item-font-weight,
-      $rac-styles-line-height: $rac-list-item-line-height
+      $rac-styles-line-height: $rac-list-item-line-height,
+      $rac-styles-min-height: $rac-list-item-min-height,
+      $rac-styles-box-sizing: $rac-list-item-box-sizing
     );
 
     .rac-list-item-graphic {
@@ -1437,6 +1451,8 @@
   $rac-list-border-bottom: unset,
   $rac-list-item-custom: unset,
   $rac-list-item-border: unset,
+  $rac-list-item-min-height: unset,
+  $rac-list-item-box-sizing: unset,
   $rac-list-item-background: unset,
   $rac-list-item-border-right: unset,
   $rac-list-item-border-left: unset,
@@ -1491,6 +1507,8 @@
       $rac-list-item-graphic-margin: $rac-list-item-graphic-margin,
       $rac-list-item-graphic-size: $rac-list-item-graphic-size,
       $rac-list-item-border: $rac-list-item-border,
+      $rac-list-item-min-height: $rac-list-item-min-height,
+      $rac-list-item-box-sizing: $rac-list-item-box-sizing,
       $rac-list-item-background: $rac-list-item-background,
       $rac-list-item-border-bottom: $rac-list-item-border-bottom,
       $rac-list-item-border-right: $rac-list-item-border-right,
