@@ -106,6 +106,10 @@
 
               .rac-text-field {
 
+                .rac-icon {
+                  color: $rac-grid-head-color; // TODO
+                }
+
                 .rac-field-input {
                   color: $rac-grid-head-color;                               /* @stable [06.10.2018] */
 

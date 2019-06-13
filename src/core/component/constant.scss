@@ -333,7 +333,10 @@ $rac-field-no-displayed-cls: rac-field-no-displayed;
 $rac-field-not-focused-cls: rac-field-not-focused;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
+/**/
 $rac-switch-cls: rac-switch;
+$rac-switch-unchecked-cls: rac-switch-unchecked;
+/**/
 $rac-view-field-cls: rac-view-field;
 /**/
 $rac-text-field-input-color: $rac-default-text-color !default;
@@ -417,24 +420,29 @@ $rac-switch-self-field-label-line-height: 16px !default;
 $rac-switch-self-field-label-position: absolute !default;
 $rac-switch-self-field-label-left: $rac-switch--field-width !default;
 $rac-switch-self-field-label-v-center-alignment: true !default;
-$rac-switch-disabled-self-field-input-wrapper-opacity: .3 !default;
 $rac-switch-labeled-self-field-margin: 0 !default;
+$rac-switch-unchecked-self-field-input-wrapper-background: $rac-color-0-0 !default;
 
 /* @stable [31.05.2019] */
 $rac-switch-thumb-cls: rac-switch__thumb;
 /**/
+$rac-switch-thumb--disabled-opacity: .5 !default;
 $rac-switch-thumb--offset: 2px !default;
+/**/
 $rac-switch-thumb--checked-transition: transform 300ms !default;
 $rac-switch-thumb-background: $rac-color-1-0 !default;
 $rac-switch-thumb-size: 20px !default;
 $rac-switch-thumb-top: $rac-switch-thumb--offset !default;
 $rac-switch-thumb-border-radius: $rac-switch-thumb-size / 2 !default;
 $rac-switch-thumb-position: absolute !default;
+$rac-switch-thumb-enabled-box-shadow: 0 2px 4px 0 $rac-color-0-2 !default;
 $rac-switch-thumb-checked-transform: translateX(calc(100% - 2px)) !default;
 $rac-switch-thumb-checked-transition: $rac-switch-thumb--checked-transition !default;
 $rac-switch-thumb-unchecked-transform: translateX($rac-switch-thumb--offset) !default;
 $rac-switch-thumb-unchecked-transition: $rac-switch-thumb--checked-transition !default;
-$rac-switch-thumb-unchecked-opacity: .7 !default;
+$rac-switch-thumb-checked-disabled-opacity: $rac-switch-thumb--disabled-opacity !default;
+$rac-switch-thumb-unchecked-enabled-opacity: unset !default;
+$rac-switch-thumb-unchecked-disabled-opacity: $rac-switch-thumb--disabled-opacity !default;
 
 /* @stable [15.12.2018] */
 $rac-filter-active-content: '●' !default;

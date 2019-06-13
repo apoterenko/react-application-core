@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { Button } from '../button';
-import { orNull, toClassName } from '../../util';
 import { BaseComponent } from '../base';
-import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
+import { Button } from '../button';
 import { FlexLayout } from '../layout';
+import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
+import { orNull, toClassName } from '../../util';
 import { Title } from '../title';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
@@ -38,7 +38,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
         ref={this.selfRef}
         className={this.getDialogClassName()}>
         {this.dialogBodyElement}
-        <div className={this.uiFactory.dialogScrim}/>
+        {this.isDialogVisible() && <div className={this.uiFactory.dialogScrim}/>}
       </div>
     );
   }
@@ -95,6 +95,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
       'rac-dialog',
       this.props.className,
       this.uiFactory.dialog,
+      !this.isDialogVisible() && 'rac-invisible'
     );
   }
 
@@ -127,7 +128,6 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get dialogBodyElement(): JSX.Element {
-    const props = this.props;
     return (
       <div className={toClassName(
         'rac-dialog-body',

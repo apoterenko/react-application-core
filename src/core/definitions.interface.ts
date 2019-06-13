@@ -1615,7 +1615,7 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
   customError?: TCustomError;
 }
 
-export interface IEntityIdWrapper<TEntityId> { entityId?: TEntityId; }
+export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
 export interface IListAccessorWrapper<TListAccessor> { listAccessor?: TListAccessor; }
 export interface INewEntityWrapper<TNewEntity = boolean> { newEntity?: TNewEntity; }

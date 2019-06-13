@@ -1,17 +1,36 @@
 import { injectable } from 'inversify';
+import * as R from 'ramda';
 
-import { defValuesFilter, downloadAnchoredFile, join, buildUrl } from '../util';
+import {
+  buildUrl,
+  defValuesFilter,
+  downloadAnchoredFile,
+  ifNotNilThanValue,
+  join,
+  orUndef,
+} from '../util';
 import { lazyInject, DI_TYPES } from '../di';
 import { ITransport } from './transport.interface';
-import { IEntity } from '../definitions.interface';
+import { IEntity, StringNumberT, UNDEF } from '../definitions.interface';
 import { IEditableApiEntity } from '../definition';
 import { ISettings } from '../settings';
 import { IKeyValue } from '../definitions.interface';
+import { INumberConverter } from '../converter';
 
 @injectable()
 export class BaseTransport {
-  @lazyInject(DI_TYPES.Transport) protected transport: ITransport;
-  @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
+  @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
+
+  /**
+   * @stable [13.06.2019]
+   * @param {StringNumberT} value
+   * @returns {StringNumberT}
+   */
+  protected prepareNumberValue(value: StringNumberT): StringNumberT {
+    return orUndef(!R.isNil(value), () => this.nc.number(value, false));
+  }
 
   /**
    * @stable [11.09.2018]

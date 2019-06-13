@@ -311,10 +311,11 @@ export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEv
 }
 
 /**
- * @stable [13.05.2018]
+ * @stable [12.06.2018]
  */
-export interface INamedEntity extends IEntityIdTWrapper,
-                                      INameWrapper {
+export interface INamedEntity
+  extends IEntityIdTWrapper,
+    INameWrapper {
 }
 
 /**

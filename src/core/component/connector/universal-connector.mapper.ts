@@ -250,7 +250,12 @@ export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: ILis
 export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
   ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));
 
-/* @stable - 12.04.2018 */
+/**
+ * @stable [12.06.2019]
+ * @param {IListWrapperEntity} listWrapperState
+ * @param {IEditableEntity} formEntity
+ * @returns {IEntityWrapper<TEntity extends IEntity>}
+ */
 export const listWrapperSelectedEntityMapper =
   <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
                             formEntity?: IEditableEntity): IEntityWrapper<TEntity> =>

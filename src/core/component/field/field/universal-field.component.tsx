@@ -14,6 +14,7 @@ import {
   isFieldRequired,
   isFieldChangeable,
   toActualChangedValue,
+  isFieldDisabled,
 } from './field.support';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
@@ -450,6 +451,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   protected isFieldInactive(): boolean {
     return isFieldInactive(this.props);
+  }
+
+  /**
+   * @stable [10.06.2019]
+   * @returns {boolean}
+   */
+  protected isFieldDisabled(): boolean {
+    return isFieldDisabled(this.props);
   }
 
   /**

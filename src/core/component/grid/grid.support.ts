@@ -184,7 +184,10 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
         changedColumns.forEach((columnName) => {
           const query = filterChanges[columnName];
           const column = columns.find((column0) => column0.name === columnName);
-          result = result && (isFn(column.localFilter) ? column.localFilter : defaultLocalFilter)({query, columnName, entity});
+          if (!R.isNil(column)) {
+            const localFilter = column.localFilter;
+            result = result && (isFn(localFilter) ? localFilter : defaultLocalFilter)({query, columnName, entity});
+          }
         });
         return result;
       });

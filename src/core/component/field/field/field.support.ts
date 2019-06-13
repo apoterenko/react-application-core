@@ -35,12 +35,19 @@ export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntit
 export const isFieldRequired = (props: IUniversalFieldProps): boolean => calc<boolean>(props.required);
 
 /**
+ * @stable [10.06.2019]
+ * @param {IGenericFieldEntity} props
+ * @returns {boolean}
+ */
+export const isFieldDisabled = (props: IGenericFieldEntity): boolean => props.disabled;
+
+/**
  * @stable [27.05.2019]
  * @param {IGenericFieldEntity} props
  * @returns {boolean}
  */
 export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
-  props.disabled || props.readOnly || isFieldInProgress(props);
+  isFieldDisabled(props) || props.readOnly || isFieldInProgress(props);
 
 /**
  * @stable [27.05.2019]

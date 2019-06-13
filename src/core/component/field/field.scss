@@ -75,9 +75,9 @@
     $rac-self-field-margin: $rac-switch-labeled-self-field-margin
   );
 
-  @include rac-field(                                                                         /* @stable [31.05.2019] */
-    $rac-field-custom: rac-build-cls2($rac-switch-cls, $rac-field-disabled-cls),
-    $rac-self-field-input-wrapper-opacity: $rac-switch-disabled-self-field-input-wrapper-opacity
+  @include rac-field(                                                                         /* @stable [10.06.2019] */
+    $rac-field-custom: rac-build-cls2($rac-switch-cls, $rac-switch-unchecked-cls),
+    $rac-self-field-input-wrapper-background: $rac-switch-unchecked-self-field-input-wrapper-background
   );
 
   @include rac-thumb(                                                                         /* @stable [31.05.2019] */
@@ -87,11 +87,14 @@
     $rac-thumb-top: $rac-switch-thumb-top,
     $rac-thumb-border-radius: $rac-switch-thumb-border-radius,
     $rac-thumb-position: $rac-switch-thumb-position,
+    $rac-thumb-enabled-box-shadow: $rac-switch-thumb-enabled-box-shadow,
     $rac-thumb-checked-transform: $rac-switch-thumb-checked-transform,
     $rac-thumb-checked-transition: $rac-switch-thumb-checked-transition,
+    $rac-thumb-checked-disabled-opacity: $rac-switch-thumb-checked-disabled-opacity,
     $rac-thumb-unchecked-transform: $rac-switch-thumb-unchecked-transform,
     $rac-thumb-unchecked-transition: $rac-switch-thumb-unchecked-transition,
-    $rac-thumb-unchecked-opacity: $rac-switch-thumb-unchecked-opacity
+    $rac-thumb-unchecked-enabled-opacity: $rac-switch-thumb-unchecked-enabled-opacity,
+    $rac-thumb-unchecked-disabled-opacity: $rac-switch-thumb-unchecked-disabled-opacity
   );
 
   @include rac-field(

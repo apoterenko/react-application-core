@@ -8,7 +8,7 @@ import {
   IEntity,
   IPayloadWrapper,
 } from '../../definitions.interface';
-import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl, orNull } from '../../util';
+import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl, ifNotNilThanValue } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
@@ -209,13 +209,16 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       }
     case ListActionBuilder.buildRemoveActionType(section):
       /**
-       * @stable [19.03.2019]
+       * @stable [08.06.2019]
        */
       const removedEntity = toType<IRemovedEntityWrapper>(action.data).removed;
       const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
-        selected: orNull(state.selected, () => filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, state.selected)) || null),
+        selected: ifNotNilThanValue(
+          state.selected,
+          (selectedEntity) => filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity))
+        ),
         data: filteredData,
         totalCount: filteredData.length === state.data.length ? state.totalCount : --state.totalCount,
       };

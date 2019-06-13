@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
 import { BaseCheckbox } from '../checkbox';
 import { ISwitchProps, ISwitchState } from './switch.interface';
+import { Thumb } from '../../thumb';
+import { toClassName } from '../../../util';
 
 export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
 
@@ -13,10 +14,10 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
   protected getInputElement(): JSX.Element {
     return (
       <React.Fragment>
-        <div className={toClassName(
-          'rac-thumb rac-switch__thumb',
-          this.value ? 'rac-thumb-checked' : 'rac-thumb-unchecked'
-        )}/>
+        <Thumb
+          className='rac-switch__thumb'
+          disabled={this.isFieldDisabled()}
+          value={this.value}/>
         {super.getInputElement()}
       </React.Fragment>
     );
@@ -27,7 +28,11 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-switch');
+    return toClassName(
+      super.getFieldClassName(),
+      'rac-switch',
+      this.value ? 'rac-switch-checked' : 'rac-switch-unchecked'
+    );
   }
 
   /**

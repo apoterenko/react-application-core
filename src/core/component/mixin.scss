@@ -123,6 +123,7 @@
   $rac-styles-transform: unset,
   $rac-styles-opacity: unset,
   $rac-styles-flex: unset,
+  $rac-styles-flex-width: unset,
   $rac-styles-flex-shrink: unset,
   $rac-styles-visibility: unset,
   $rac-styles-vertical-align: unset,
@@ -391,6 +392,11 @@
   @if $rac-styles-background-image != unset {
     background-image: $rac-styles-background-image;
   }
+  /* @stable [12.06.2019] */
+  @if $rac-styles-flex-width != unset {
+    min-width: $rac-styles-flex-width;
+    max-width: $rac-styles-flex-width;
+  }
 }
 
 /**
@@ -407,6 +413,7 @@
   $rac-styles-vertical-align: unset,
   $rac-styles-opacity: unset,
   $rac-styles-flex: unset,
+  $rac-styles-flex-width: unset,
   $rac-styles-flex-shrink: unset,
   $rac-styles-display: unset,
   $rac-styles-line-height: unset,
@@ -479,6 +486,7 @@
         $rac-styles-vertical-align: $rac-styles-vertical-align,
         $rac-styles-opacity: $rac-styles-opacity,
         $rac-styles-flex: $rac-styles-flex,
+        $rac-styles-flex-width: $rac-styles-flex-width,
         $rac-styles-flex-shrink: $rac-styles-flex-shrink,
         $rac-styles-display: $rac-styles-display,
         $rac-styles-box-shadow: $rac-styles-box-shadow,
@@ -550,6 +558,7 @@
       $rac-styles-vertical-align: $rac-styles-vertical-align,
       $rac-styles-opacity: $rac-styles-opacity,
       $rac-styles-flex: $rac-styles-flex,
+      $rac-styles-flex-width: $rac-styles-flex-width,
       $rac-styles-flex-shrink: $rac-styles-flex-shrink,
       $rac-styles-display: $rac-styles-display,
       $rac-styles-box-shadow: $rac-styles-box-shadow,
@@ -959,19 +968,25 @@
 
 
 /**
- * @stable [13.01.2019]
+ * @stable [11.06.2019]
  */
-@mixin rac-shadow($background: unset,
-                  $shadow: unset,
-                  $shadow-offset: 0 6px 16px 0) {
+@mixin rac-shadow(
+  $background: unset,
+  $shadow: unset,
+  $shadow-offset: 0 6px 16px 0
+) {
   @include rac-styles(
     $rac-styles-background: $background
   );
   @if $shadow != unset {
     @if $shadow == none {
-      box-shadow: $shadow;
+      @include rac-styles(
+        $rac-styles-box-shadow: $shadow
+      );
     } @else {
-      box-shadow: $shadow-offset $shadow;
+      @include rac-styles(
+        $rac-styles-box-shadow: $shadow-offset $shadow
+      );
     }
   }
 }
@@ -1548,6 +1563,10 @@
   $rac-button-background: unset,
   $rac-button-margin: unset,
   $rac-button-border: unset,
+  $rac-button-position: unset,
+  $rac-button-left: unset,
+  $rac-button-top: unset,
+  $rac-button-right: unset,
   $rac-button-opacity: unset,
   $rac-button-text-transform: unset,
   $rac-button-cursor: unset,
@@ -1585,6 +1604,10 @@
       $rac-styles-border-radius : $rac-button-border-radius,
       $rac-styles-margin : $rac-button-margin,
       $rac-styles-border : $rac-button-border,
+      $rac-styles-position: $rac-button-position,
+      $rac-styles-left: $rac-button-left,
+      $rac-styles-top: $rac-button-top,
+      $rac-styles-right: $rac-button-right,
       $rac-styles-opacity: $rac-button-opacity,
       $rac-styles-min-width : $rac-button-min-width,
       $rac-styles-width: $rac-button-width,
@@ -2787,11 +2810,14 @@
   $rac-thumb-top: unset,
   $rac-thumb-border-radius: unset,
   $rac-thumb-position: unset,
+  $rac-thumb-enabled-box-shadow: unset,
   $rac-thumb-checked-transform: unset,
   $rac-thumb-checked-transition: unset,
+  $rac-thumb-checked-disabled-opacity: unset,
   $rac-thumb-unchecked-transform: unset,
   $rac-thumb-unchecked-transition: unset,
-  $rac-thumb-unchecked-opacity: unset
+  $rac-thumb-unchecked-disabled-opacity: unset,
+  $rac-thumb-unchecked-enabled-opacity: unset
 ) {
   #{rac-build-cls(rac-thumb, $rac-thumb-custom)} {
 
@@ -2803,19 +2829,42 @@
       $rac-styles-position: $rac-thumb-position
     );
 
+    &.rac-thumb-enabled {
+      @include rac-styles(
+        $rac-styles-box-shadow: $rac-thumb-enabled-box-shadow
+      );
+    }
+
     &.rac-thumb-checked {
       @include rac-styles(
         $rac-styles-transform: $rac-thumb-checked-transform,
         $rac-styles-transition: $rac-thumb-checked-transition
       );
+
+      &.rac-thumb-disabled {
+        @include rac-styles(
+          $rac-styles-opacity: $rac-thumb-checked-disabled-opacity
+        );
+      }
     }
 
     &.rac-thumb-unchecked {
       @include rac-styles(
         $rac-styles-transform: $rac-thumb-unchecked-transform,
-        $rac-styles-transition: $rac-thumb-unchecked-transition,
-        $rac-styles-opacity: $rac-thumb-unchecked-opacity
+        $rac-styles-transition: $rac-thumb-unchecked-transition
       );
+
+      &.rac-thumb-enabled {
+        @include rac-styles(
+          $rac-styles-opacity: $rac-thumb-unchecked-enabled-opacity
+        );
+      }
+
+      &.rac-thumb-disabled {
+        @include rac-styles(
+          $rac-styles-opacity: $rac-thumb-unchecked-disabled-opacity
+        );
+      }
     }
   }
 }
