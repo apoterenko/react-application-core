@@ -2,7 +2,7 @@ import { Reducer, ReducersMapObject, combineReducers, AnyAction } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
-import { toSection, isPrimitive, isUndef, coalesce, shallowClone } from '../util';
+import { toSection, isPrimitive, isUndef, coalesce, shallowClone, coalesceDef } from '../util';
 import { IPayloadWrapper, ISelectedWrapper, IReplacedWrapper, AnyT } from '../definitions.interface';
 
 export type FilterT = (action: IEffectsAction) => boolean;
@@ -63,8 +63,11 @@ export const entityReducerFactory = (
         const replacedWrapper: IReplacedWrapper<AnyT> = action.data;
         const entity = coalesce(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
 
+        // selected === null or payload === null
+        const defEntity = coalesceDef(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
+
         return R.isNil(entity)
-          ? (isUndef(entity) ? state : entity)
+          ? (isUndef(defEntity) ? state : defEntity)
           : (
             isPrimitive(entity)
               ? entity

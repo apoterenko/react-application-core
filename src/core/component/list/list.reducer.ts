@@ -217,7 +217,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         ...state,
         selected: ifNotNilThanValue(
           state.selected,
-          (selectedEntity) => filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity))
+          (selectedEntity) => nvl(filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
         ),
         data: filteredData,
         totalCount: filteredData.length === state.data.length ? state.totalCount : --state.totalCount,
