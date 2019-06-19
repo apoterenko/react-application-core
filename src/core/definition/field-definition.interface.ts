@@ -4,6 +4,7 @@ import {
   IPlaceholderWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
+  IVisibleWrapper,
 } from '../definitions.interface';
 
 /**
@@ -14,5 +15,6 @@ export interface IGenericFieldEntity
     INameWrapper,
     IPlaceholderWrapper,
     IProgressWrapper,
-    IReadOnlyWrapper {
+    IReadOnlyWrapper,
+    IVisibleWrapper {
 }

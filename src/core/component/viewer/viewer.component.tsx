@@ -102,12 +102,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
                 closeMessage={this.settings.messages.closeMessage}
                 acceptable={false}
                 onClose={this.onDialogClose}>
-                {
-                  orNull<JSX.Element>(
-                    state.opened,
-                    () => this.gePreviewElement()
-                  )
-                }
+                {orNull(state.opened, () => this.gePreviewElement())}
               </Dialog>
             )
           )

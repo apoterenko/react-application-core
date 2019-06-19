@@ -1,22 +1,16 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { FlexLayout } from '../layout';
 import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
-import { orNull, toClassName } from '../../util';
+import { orNull, toClassName, isFn } from '../../util';
 import { Title } from '../title';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
                     TState = {}>
   extends BaseComponent<TProps, TState>
   implements IUniversalDialog<TProps, TState> {
-
-  public static readonly defaultProps: IUniversalDialogProps = {
-    autoWidth: true,
-    titleRendered: true,
-  };
 
   /**
    * @stable [04.10.2018]
@@ -38,15 +32,17 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
         ref={this.selfRef}
         className={this.getDialogClassName()}>
         {this.dialogBodyElement}
-        {this.isDialogVisible() && <div className={this.uiFactory.dialogScrim}/>}
+        {this.isDialogVisible() && (
+          <div className={toClassName('rac-dialog-scrim', this.uiFactory.dialogScrim)}/>
+        )}
       </div>
     );
   }
 
   /**
-   * @stable [17.05.2018]
+   * @stable [19.06.2019]
    */
-  public activate(callback?: () => void): void {
+  public activate(): void {
     // Each plugin must override this method
   }
 
@@ -61,12 +57,22 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [17.05.2018]
+   * @stable [17.06.2019]
    */
   public onClose(): void {
     const props = this.props;
     if (props.onClose) {
       props.onClose();
+    }
+  }
+
+  /**
+   * @stable [19.06.2019]
+   */
+  public onDeactivate(): void {
+    const props = this.props;
+    if (isFn(props.onDeactivate)) {
+      props.onDeactivate();
     }
   }
 
@@ -124,45 +130,39 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [24.03.2019]
+   * @stable [17.06.2019]
    * @returns {JSX.Element}
    */
   private get dialogBodyElement(): JSX.Element {
     return (
-      <div className={toClassName(
-        'rac-dialog-body',
-        this.uiFactory.dialogContainer
-      )}>
-        <div className='rac-dialog-body-content-wrapper'>
-          {this.dialogBodyContentElement}
-          {this.footerElement}
-        </div>
-      </div>
+      <FlexLayout
+        className={toClassName('rac-dialog-body', this.uiFactory.dialogContainer)}>
+        {this.bodyElement}
+        {this.footerElement}
+      </FlexLayout>
     );
   }
 
   /**
-   * @stable [24.03.2019]
+   * @stable [17.06.2019]
    * @returns {JSX.Element}
    */
-  private get dialogBodyContentElement(): JSX.Element {
+  private get bodyElement(): JSX.Element {
     const props = this.props;
-    const children = props.children;
     return (
       <React.Fragment>
         {
-          props.titleRendered && (
+          props.title && (
             <Title>
-              {this.t(props.title || this.settings.messages.dialogTitleMessage)}
+              {this.t(props.title)}
             </Title>
           )
         }
         {
-          orNull<React.ReactNode>(
-            !R.isNil(children) || !R.isNil(props.message),
-            <div className='rac-dialog-content'>
-              {children || this.t(props.message)}
-            </div>
+          props.children && (
+            <FlexLayout className='rac-dialog-body-content'>
+              {props.children}
+            </FlexLayout>
           )
         }
       </React.Fragment>
@@ -176,14 +176,16 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   private get footerElement(): JSX.Element {
     const props = this.props;
     return (
-      orNull<JSX.Element>(
+      orNull(
         this.closable || this.acceptable,
         () => (
           <FlexLayout
             row={true}
-            className='rac-dialog-actions-footer'>
+            full={false}
+            className='rac-dialog-footer-actions'
+          >
             {
-              orNull<JSX.Element>(
+              orNull(
                 this.closable,
                 () => (
                   <Button

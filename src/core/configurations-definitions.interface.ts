@@ -146,19 +146,17 @@ import {
   IParentWrapper,
   IPathWrapper,
   IPatternWrapper,
-  IPlaceholderWrapper,
   IPluginsWrapper,
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
   IProfileWrapper,
-  IProgressWrapper,
   IQueryWrapper,
   IReadOnlyWrapper,
   IRegisterWrapper,
   IRenderedWrapper,
   IRendererWrapper,
   IRenderToBodyWrapper,
-  IRenderToCenterOfBodyWrapper,
+  ICenteredMenuWrapper,
   IRenderToXWrapper,
   IRenderToYWrapper,
   IRequiredWrapper,
@@ -227,7 +225,12 @@ import {
   IOnColumnClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
-import { IButtonProps, IGenericFormEntity, IApiEntity } from './definition';
+import {
+  IButtonProps,
+  IGenericFormEntity,
+  IApiEntity,
+  IGenericFieldEntity,
+} from './definition';
 
 /**
  * @stable [26.08.2018]
@@ -606,7 +609,7 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
                                                 IForwardRenderedWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
                                                 IReactOnClickWrapper<ITabConfiguration>,
-                                                IOnDeactivateWrapper,
+                                                IOnDeactivateWrapper<(value: AnyT) => void>,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 
@@ -681,7 +684,8 @@ export interface IKeyboardConfiguration extends IComponentConfiguration,
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
-  extends IReactComponentConfiguration,
+  extends IGenericFieldEntity,
+          IReactComponentConfiguration,
           IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IDelayedChangesFieldPluginConfiguration,
           IOnFocusWrapper<TFocusEvent>,
@@ -698,9 +702,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IPatternWrapper,
           IDisplayMessageWrapper,
           IValidationGroupWrapper,
-          IDisabledWrapper,
-          IReadOnlyWrapper,
-          IProgressWrapper,
           IRenderedWrapper,
           IEmptyValueWrapper,
           IPreventFocusWrapper,
@@ -716,7 +717,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IUseSyntheticCursorWrapper,
           IChangeableWrapper,
           IDefaultValue {
-  fieldDisplayed?: boolean;
   keepDictionary?: boolean;
   bufferValue?: boolean;
   preventManualChanges?: boolean; // TODO
@@ -737,7 +737,6 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
                                              ITypeWrapper<StringNumberT>,
-                                             IPlaceholderWrapper,
                                              IClearActionWrapper,
                                              IStepWrapper {
 }
@@ -968,7 +967,7 @@ export interface IMenuConfiguration extends IComponentConfiguration,
                                             IMultiWrapper,
                                             IUseFilterWrapper,
                                             IWidthWrapper<number | (() => number)>,
-                                            IRenderToCenterOfBodyWrapper,
+                                            ICenteredMenuWrapper,
                                             IRendererWrapper<IMenuItemEntity>,
                                             IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
                                             ITplFnWrapper<IMenuItemEntity>,

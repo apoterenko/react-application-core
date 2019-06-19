@@ -28,7 +28,7 @@ import { IOnActionClickWrapper } from '../../../react-definitions.interface';
 export interface IUniversalSearchToolbarConfiguration extends IReactComponentConfiguration,
                                                               IFilterConfiguration,
                                                               IOnActivateWrapper,
-                                                              IOnDeactivateWrapper,
+                                                              IOnDeactivateWrapper<() => void>,
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
                                                               IFullWrapper,

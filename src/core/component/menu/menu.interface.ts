@@ -1,10 +1,12 @@
 import {
   IOpenWrapper,
   IShowWrapper,
-  IHideFnWrapper,
   IFilterWrapper,
   IOptionsWrapper,
   IOpenedWrapper,
+  ICenteredMenuWrapper,
+  IHideWrapper,
+  IIsOpenWrapper,
 } from '../../definitions.interface';
 import { IComponent, IMenuItemEntity, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IMenuConfiguration } from '../../configurations-definitions.interface';
@@ -29,17 +31,20 @@ export interface IMenuProps extends IMenuConfiguration,
                                     IMenuEntity {
 }
 
-/**
- * @stable [08.09.2018]
- */
-export interface INativeMaterialMenuComponent extends INativeMaterialComponent,
-                                                      IOpenWrapper,
-                                                      IShowWrapper {
+export interface INativeMaterialMenuComponent
+  extends INativeMaterialComponent,
+    IOpenWrapper,
+    IShowWrapper<() => void> {
   hoistMenuToBody();
 }
 
-export interface IMenu extends IComponent<IMenuProps, IMenuState>,
-                               IShowWrapper,
-                               IHideFnWrapper {
-  isOpen(): boolean;
+/**
+ * @stable [18.06.2019]
+ */
+export interface IMenu
+  extends IComponent<IMenuProps, IMenuState>,
+    IShowWrapper<() => void>,
+    IIsOpenWrapper<() => boolean>,
+    ICenteredMenuWrapper,
+    IHideWrapper<() => void> {
 }

@@ -4,13 +4,14 @@
 
 .rac {
 
-  @include rac-dialog(                                                                        /* @stable [24.03.2019] */
-    $rac-dialog-actions-footer-margin: $rac-dialog-actions-footer-margin,
-    $rac-dialog-actions-footer-neighbor-child-margin: $rac-dialog-actions-footer-neighbor-child-margin,
-    $rac-dialog-content-font-size: $rac-dialog-content-font-size,
+  @include rac-dialog(                                                                        /* @stable [17.06.2019] */
     $rac-dialog-body-background: $rac-dialog-body-background,
-    $rac-dialog-body-padding: $rac-dialog-body-padding,
+    $rac-dialog-body-max-height: $rac-dialog-body-max-height,
     $rac-dialog-body-border-radius: $rac-dialog-body-border-radius,
-    $rac-dialog-body-content-wrapper-overflow: $rac-dialog-body-content-wrapper-overflow
+    $rac-dialog-body-padding: $rac-dialog-body-padding,
+    $rac-dialog-body-content-overflow: $rac-dialog-body-content-overflow,
+    $rac-dialog-scrim-background: $rac-dialog-scrim-background,
+    $rac-dialog-footer-actions-margin: $rac-dialog-footer-actions-margin,
+    $rac-dialog-footer-actions-neighbor-child-margin: $rac-dialog-footer-actions-neighbor-child-margin
   );
 }

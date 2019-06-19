@@ -22,6 +22,8 @@ $color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
 /**/
+$rac-border-radius-0: 3px !default;
+/**/
 $rac-font-size-0: 12px !default;
 $rac-font-size-1: 14px !default;
 $rac-font-size-2: 16px !default;
@@ -41,6 +43,7 @@ $rac-color-0-2: rgba(0, 0, 0, .2) !default;
 $rac-color-0-3: rgba(0, 0, 0, .05) !default;
 $rac-color-0-4: rgba(0, 0, 0, .3) !default;
 $rac-color-0-5: rgba(255, 255, 255, .5) !default;
+$rac-color-0-6: rgba(0, 0, 0, 0.7) !default;
 /**/
 $rac-color-1-0: #212121 !default;
 /**/
@@ -329,7 +332,6 @@ $rac-field-message-color: $rac-default-text-color !default;
 $rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
 $rac-field-labeled-cls: rac-field-labeled;
-$rac-field-no-displayed-cls: rac-field-no-displayed;
 $rac-field-not-focused-cls: rac-field-not-focused;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
@@ -400,8 +402,6 @@ $rac-field-help-text-line-height: 16px !default;
 $rac-field-labeled-self-field-margin: 20px 0 0 0 !default;
 $rac-field-labeled-self-field-label-top: -20px !default;
 /**/
-$rac-field-no-displayed-self-field-display: none !default;
-/**/
 $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
 /**/
 $rac-switch--field-width: 40px !default;
@@ -422,6 +422,13 @@ $rac-switch-self-field-label-left: $rac-switch--field-width !default;
 $rac-switch-self-field-label-v-center-alignment: true !default;
 $rac-switch-labeled-self-field-margin: 0 !default;
 $rac-switch-unchecked-self-field-input-wrapper-background: $rac-color-0-0 !default;
+
+/* @stable [18.06.2019] */
+$rac-date-field-dialog-body-max-height: 100% !default;
+$rac-date-field-dialog-body-flex-width: 284px !default;
+
+/* @stable [18.06.2019] */
+$rac-dialog-google-maps-flex-height: 40vh !default;
 
 /* @stable [31.05.2019] */
 $rac-switch-thumb-cls: rac-switch__thumb;
@@ -488,7 +495,6 @@ $rac-sub-header-section-title-font-size: 24px !default;
 
 /* @stable [04.10.2018] */
 $rac-menu-window-position: $rac-menu-z-index !default;
-$rac-menu-field-wrapper-padding: 0 16px 16px 16px !default;
 $rac-menu-item-margin: 0 16px !default;
 $rac-menu-item-font-size: $rac-default-font-size !default;
 $rac-menu-item-hover-background: $rac-default-hover-background !default;
@@ -497,8 +503,19 @@ $rac-menu-item-icon-margin-right: 20px !default;
 $rac-menu-item-icon-size: $rac-default-icon-size !default;
 $rac-menu-list-max-height: 200px !default;
 $rac-menu-simple-list-item-height: 40px !default;
-$rac-menu-close-action-margin: 8px 16px 8px auto !default;
-$rac-menu-close-action-color: $rac-default-action-color !default;
+
+/* @stable [17.06.2019] */
+$rac-menu-dialog-body-background: transparent !default;
+$rac-menu-dialog-body-padding: 0 !default;
+$rac-menu-dialog-list-overflow: auto !default;
+$rac-menu-dialog-list-background: $rac-color-0-1 !default;
+$rac-menu-dialog-list-border-radius: $rac-border-radius-0 !default;
+$rac-menu-dialog-field-margin: 0 0 $rac-offset-1 0 !default;
+
+/* @stable [18.06.2019] */
+$rac-menu-icon-close-color: $rac-color-0-1 !default;
+$rac-menu-icon-close-margin: 0 0 $rac-offset-1 !default;
+$rac-menu-icon-close-size: 24px !default;
 
 /* @stable [05.08.2018] */
 $rac-page-toolbar-content-padding-left: 8px !default;
@@ -508,8 +525,11 @@ $rac-page-toolbar-pages-info-font-size: $rac-default-font-size-2 !default;
 
 /* @stable [08.07.2018] */
 $rac-viewer-content-margin: 0 auto !default;
-$rac-preview-dialog-container-max-width: 80vw !default;
-$rac-preview-dialog-body-max-height: 60vh !default;
+
+/* @stable [17.06.2018] */
+$rac-preview-dialog-body-min-height: 60% !default;
+$rac-preview-dialog-body-content-position: relative !default;
+$rac-preview-dialog-body-content-first-level-children-position: absolute !default;
 
 /* @stable [15.09.2018] */
 $rac-tab-color: $rac-default-text-color !default;
@@ -539,13 +559,14 @@ $rac-card-list-item-box-shadow: unset !default;
 $rac-card-list-item-font-size: $rac-default-font-size !default;
 
 /* @stable [05.08.2018] */
-$rac-dialog-body-padding: $rac-default-offset !default;
+$rac-dialog-body-max-height: 80% !default;
+$rac-dialog-body-padding: $rac-offset-3 !default;
 $rac-dialog-body-background: $rac-color-0-1 !default;
 $rac-dialog-body-border-radius: 3px !default;
-$rac-dialog-body-content-wrapper-overflow: auto !default;
-$rac-dialog-content-font-size: $rac-default-font-size !default;
-$rac-dialog-actions-footer-margin: $rac-default-offset 0 0 0 !default;
-$rac-dialog-actions-footer-neighbor-child-margin: 0 0 0 $rac-default-half-offset !default;
+$rac-dialog-body-content-overflow: auto !default;
+$rac-dialog-scrim-background: $rac-color-0-6 !default;
+$rac-dialog-footer-actions-margin: $rac-offset-3 0 0 0 !default;
+$rac-dialog-footer-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
 
 /* @stable [17.09.2018] */
 $rac-drawer-background: $color-5 !default;
@@ -704,7 +725,6 @@ $rac-toolbar-tool-active-background: $rac-color-0-2 !default;
 
 /* @stable [24.03.2019] */
 $rac-google-maps-position: relative !default;
-$rac-dialog-google-maps-map-min-height: 200px !default;
 
 /**/
 $rac-disabled-opacity: .2;

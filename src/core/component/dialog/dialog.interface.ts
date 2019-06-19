@@ -1,17 +1,16 @@
 import {
   IAcceptableWrapper,
+  IAcceptDisabledWrapper,
+  IAcceptMessageWrapper,
+  IActivateWrapper,
   IClosableWrapper,
+  ICloseDisabledWrapper,
+  ICloseMessageWrapper,
+  ICloseWrapper,
+  IIsOpenWrapper,
   IOnAcceptWrapper,
   IOnCloseWrapper,
-  IMessageWrapper,
-  IActivateWrapper,
-  IAcceptDisabledWrapper,
-  ICloseDisabledWrapper,
-  IAcceptMessageWrapper,
-  ICloseMessageWrapper,
-  IIsOpenWrapper,
-  IAutoWidthWrapper,
-  ITitleRenderedWrapper,
+  IOnDeactivateWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IReactComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
@@ -22,15 +21,13 @@ import { IReactComponentConfiguration, IWebComponentConfiguration } from '../../
 export interface IUniversalDialogConfiguration extends IReactComponentConfiguration,
                                                        ICloseDisabledWrapper,
                                                        IAcceptDisabledWrapper,
-                                                       IMessageWrapper,
                                                        IAcceptMessageWrapper,
                                                        ICloseMessageWrapper,
                                                        IOnCloseWrapper,
+                                                       IOnDeactivateWrapper<() => void>,
                                                        IOnAcceptWrapper,
                                                        IClosableWrapper,
-                                                       IAcceptableWrapper,
-                                                       IAutoWidthWrapper,
-                                                       ITitleRenderedWrapper {
+                                                       IAcceptableWrapper {
 }
 
 /**
@@ -46,14 +43,14 @@ export interface IDialogProps extends IUniversalDialogProps,
                                       IWebComponentConfiguration {
 }
 
-/**
- * @stable [02.08.2018]
- */
 export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps, TState = {}>
   extends IUniversalComponent<TProps, TState>,
-          IIsOpenWrapper,
-          IActivateWrapper,
+          IIsOpenWrapper<() => boolean>,
+          IActivateWrapper<() => void>,
+          IOnDeactivateWrapper<() => void>,
           IOnCloseWrapper,
+          IOnCloseWrapper,
+          ICloseWrapper<() => void>,
           IOnAcceptWrapper,
           IClosableWrapper,
           IAcceptableWrapper {

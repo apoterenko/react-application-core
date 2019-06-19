@@ -1,7 +1,6 @@
 @import '../constant';
 @import '../mixin';
 
-// Viewer [FRAMEWORK-][RAC+]
 .rac {
 
   @include rac-viewer(                                                                        /* @stable [10.01.2019] */
@@ -9,16 +8,10 @@
     $rac-viewer-content-margin: $rac-viewer-content-margin
   );
 
-  .rac-preview-dialog {
-
-    .rac-dialog-content {
-      max-height: $rac-preview-dialog-body-max-height;        /* @stable [30.06.2018] */
-      overflow: auto;                                         /* @stable [30.06.2018] */
-    }
-
-    .rac-dialog-body {
-      max-width: $rac-preview-dialog-container-max-width;     /* @stable [30.06.2018] */
-      max-height: unset;                                      /* @stable [30.06.2018] */
-    }
-  }
+  @include rac-dialog(                                                                        /* @stable [17.06.2019] */
+    $rac-dialog-custom: rac-preview-dialog,
+    $rac-dialog-body-min-height: $rac-preview-dialog-body-min-height,
+    $rac-dialog-body-content-position: $rac-preview-dialog-body-content-position,
+    $rac-dialog-body-content-first-level-children-position: $rac-preview-dialog-body-content-first-level-children-position
+  );
 }

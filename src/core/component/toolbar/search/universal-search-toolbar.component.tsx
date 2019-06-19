@@ -41,7 +41,7 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
       onClick: this.onDeactivate.bind(this),
     },
     [ToolbarActionEnum.REFRESH_DATA]: {type: 'refresh', title: this.settings.messages.refreshActionTitleMessage},
-    [ToolbarActionEnum.DOWNLOAD_DATA]: {type: 'cloud_download', title: this.settings.messages.exportActionTitleMessage},
+    [ToolbarActionEnum.DOWNLOAD_DATA]: {type: 'download', title: this.settings.messages.exportActionTitleMessage},
   };
 
   /**

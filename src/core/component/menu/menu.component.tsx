@@ -1,27 +1,28 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { UNDEF, StringNumberT } from '../../definitions.interface';
 import { IMenuItemEntity } from '../../entities-definitions.interface';
+import { UNDEF, StringNumberT, AnyT } from '../../definitions.interface';
 import {
   calc,
   cancelEvent,
+  DelayedTask,
   ifNotTrueThanValue,
   isFn,
+  nvl,
   orNull,
   queryFilter,
   setAbsoluteOffsetByCoordinates,
   subArray,
   toClassName,
-  DelayedTask,
 } from '../../util';
-import { IField, TextField } from '../field';
-import { SimpleList } from '../list';
-import { IMenuState, IMenuProps, IMenu } from './menu.interface';
 import { BaseComponent } from '../base';
+import { Dialog } from '../dialog';
 import { FlexLayout } from '../layout';
 import { IBasicEvent } from '../../react-definitions.interface';
-import { Overlay } from '../overlay';
+import { IField, TextField } from '../field';
+import { IMenuState, IMenuProps, IMenu } from './menu.interface';
+import { SimpleList } from '../list';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
@@ -30,9 +31,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
-  private fieldRef = React.createRef<TextField>();
-  private menuAnchorRef = React.createRef<HTMLDivElement>();
-  private filterQueryTask: DelayedTask;
+  private readonly dialogRef = React.createRef<Dialog<AnyT>>();
+  private readonly fieldRef = React.createRef<TextField>();
+  private readonly menuAnchorRef = React.createRef<HTMLDivElement>();
+  private readonly filterQueryTask: DelayedTask;
 
   /**
    * @stable [31.07.2018]
@@ -45,6 +47,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.onSelect = this.onSelect.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onCloseAction = this.onCloseAction.bind(this);
+    this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
 
     this.state = {opened: false};
 
@@ -52,59 +55,75 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [07.06.2018]
+   * @stable [18.06.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
-    const state = this.state;
+    const filterElement = this.filterElement;
+
+    if (props.centeredMenu) {
+      return (
+        this.state.opened && (
+          <Dialog
+            ref={this.dialogRef}
+            className='rac-menu-dialog'
+            closable={false}
+            acceptable={false}
+            onDeactivate={this.onDialogDeactivate}
+          >
+            <FlexLayout
+              full={false}
+              alignItemsEnd={true}>
+              {
+                this.uiFactory.makeIcon({
+                  type: 'close',
+                  className: 'rac-menu-icon-close',
+                  onClick: this.onCloseAction,
+                })
+              }
+            </FlexLayout>
+            {filterElement}
+            {this.listElement}
+          </Dialog>
+        )
+      );
+    }
 
     return (
-      <div ref={this.menuAnchorRef}
-           className={this.uiFactory.menuAnchor}>
-        <div ref={this.getSelfRef()}
-             style={{...!props.renderToCenterOfBody && {width: calc(props.width)}}}
-             className={toClassName(
-                          'rac-menu',
-                          props.className,
-                          this.uiFactory.menu,
-                          this.uiFactory.menuSurface,
-                          props.renderToCenterOfBody && 'rac-absolute-center-position rac-menu-centered')}>
-          {
-            orNull<JSX.Element>(
-              props.renderToCenterOfBody && this.isOpen() && props.overlayRendered !== false,
-              () => <Overlay onClick={this.onCloseAction}/>
-            )
-          }
-          {
-            orNull<JSX.Element>(
-              props.renderToCenterOfBody,
-              () => this.uiFactory.makeIcon({type: 'close', className: 'rac-menu-close-action', onClick: this.onCloseAction})
-            )
-          }
-          {orNull<JSX.Element>(
-            props.useFilter,
-            () => (
-              <FlexLayout full={false}
-                          row={true}
-                          className='rac-menu-field-wrapper'>
-                <TextField ref={this.fieldRef}
-                           value={state.filter}
-                           placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
-                           errorMessageRendered={false}
-                           onChange={this.onInputChange}/>
-              </FlexLayout>
-            )
-          )}
+      <div
+        ref={this.menuAnchorRef}
+        className={this.uiFactory.menuAnchor}>
+        <div
+          ref={this.selfRef}
+          style={{...!props.centeredMenu && {width: calc(props.width)}}}
+          className={toClassName(
+            'rac-menu',
+            props.className,
+            this.uiFactory.menu,
+            this.uiFactory.menuSurface)
+          }>
+          {filterElement}
           {this.listElement}
         </div>
       </div>
     );
   }
 
+  /**
+   * @stable [18.06.2019]
+   */
   public componentWillUnmount() {
     super.componentWillUnmount();
     this.filterQueryTask.stop();
+  }
+
+  /**
+   * @stable [17.06.2019]
+   * @returns {boolean}
+   */
+  public get centeredMenu(): boolean {
+    return this.props.centeredMenu;
   }
 
   /**
@@ -112,19 +131,27 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   public show(): void {
     const props = this.props;
-    this.setState({filter: UNDEF, opened: true}, () => props.useFilter && this.field.setFocus());
+    this.setState({filter: UNDEF, opened: true}, () => {
+      if (this.doesDialogExist) {
+        this.dialog.activate();
+      }
+      if (props.useFilter) {
+        this.field.setFocus();
+      }
+    });
 
-    if (!R.isNil(props.renderToX) || !R.isNil(props.renderToY)) {
+    if (!R.isNil(nvl(props.renderToX, props.renderToY))) {
       setAbsoluteOffsetByCoordinates(this.menuAnchorRef.current, props.renderToX, props.renderToY);
     }
   }
 
   /**
-   * @stable [29.11.2018]
+   * @stable [18.06.2019]
    */
   public hide(): void {
-    this.setState({opened: false});
     const props = this.props;
+    this.setState({opened: false});
+
     if (isFn(props.onClose)) {
       props.onClose();
     }
@@ -170,19 +197,16 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.filterQueryTask.start();
   }
 
+  /**
+   * @stable [17.06.2019]
+   */
   private onFilterChange(): void {
     const props = this.props;
-    if (isFn(props.onFilterChange)) {
-      props.onFilterChange(this.state.filter);
-    }
-  }
+    const state = this.state;
 
-  /**
-   * @stable [07.06.2018]
-   * @returns {IField}
-   */
-  private get field(): IField {
-    return this.fieldRef.current;
+    if (isFn(props.onFilterChange)) {
+      props.onFilterChange(state.filter);
+    }
   }
 
   /**
@@ -203,6 +227,13 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     ) {
       this.hide();
     }
+  }
+
+  /**
+   * @stable [17.06.2019]
+   */
+  private onDialogDeactivate(): void {
+    this.setState({opened: false});
   }
 
   /**
@@ -231,9 +262,13 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     );
   }
 
+  /**
+   * @stable [17.06.2019]
+   * @param {IMenuItemEntity} option
+   * @returns {JSX.Element}
+   */
   private getMenuItemElement(option: IMenuItemEntity): JSX.Element {
     const props = this.props;
-    const optionValueFn = (itm: IMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value);
 
     return (
       <FlexLayout
@@ -248,15 +283,70 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
                 ? (
                   <FlexLayout
                     row={true}
-                    alignItemsCenter={true}>
-                    {this.uiFactory.makeIcon({type: option.icon, className: 'rac-menu-item-icon'})}
-                    {optionValueFn(option)}
+                    alignItemsCenter={true}
+                  >
+                    {this.uiFactory.makeIcon({
+                      key: `menu-item-icon-key-${option.value}`,
+                      type: option.icon,
+                      className: 'rac-menu-item-icon',
+                    })}
+                    {this.optionValueFn(option)}
                   </FlexLayout>
                 )
-                : isFn(props.tpl) ? props.tpl(option) : optionValueFn(option)
+                : isFn(props.tpl) ? props.tpl(option) : this.optionValueFn(option)
             )
         }
       </FlexLayout>
     );
   }
+
+  /**
+   * @stable [17.06.2019]
+   * @returns {Dialog<AnyT>}
+   */
+  private get dialog(): Dialog<AnyT> {
+    return this.dialogRef.current;
+  }
+
+  /**
+   * @stable [07.06.2018]
+   * @returns {IField}
+   */
+  private get field(): IField {
+    return this.fieldRef.current;
+  }
+
+  /**
+   * @stable [17.05.2019]
+   * @returns {boolean}
+   */
+  private get doesDialogExist(): boolean {
+    return !R.isNil(this.dialog);
+  }
+
+  /**
+   * @stable [17.06.2019]
+   * @returns {JSX.Element}
+   */
+  private get filterElement(): JSX.Element {
+    const props = this.props;
+    const state = this.state;
+    return (
+      <TextField
+        ref={this.fieldRef}
+        value={state.filter}
+        visible={!!props.useFilter}  /* MDC focus trap */
+        placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
+        errorMessageRendered={false}
+        onChange={this.onInputChange}/>
+    );
+  }
+
+  /**
+   * @stable [17.06.2019]
+   * @param {IMenuItemEntity} itm
+   * @returns {StringNumberT}
+   */
+  private readonly optionValueFn =
+    (itm: IMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value)
 }

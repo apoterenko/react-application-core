@@ -1,26 +1,28 @@
 @import '../constant';
 @import '../mixin';
 
-// Menu [FRAMEWORK-][RAC+]
 .rac {
+
+  @include rac-menu-dialog(                                                                   /* @stable [18.06.2019] */
+    $rac-menu-dialog-body-background: $rac-menu-dialog-body-background,
+    $rac-menu-dialog-body-padding: $rac-menu-dialog-body-padding,
+    $rac-menu-dialog-list-overflow: $rac-menu-dialog-list-overflow,
+    $rac-menu-dialog-list-background: $rac-menu-dialog-list-background,
+    $rac-menu-dialog-list-border-radius: $rac-menu-dialog-list-border-radius,
+    $rac-menu-dialog-field-margin: $rac-menu-dialog-field-margin
+  );
+
+  @include rac-icon(                                                                          /* @stable [18.06.2019] */
+    $rac-icon-custom: rac-menu-icon-close,
+    $rac-icon-color: $rac-menu-icon-close-color,
+    $rac-icon-margin: $rac-menu-icon-close-margin,
+    $rac-icon-size: $rac-menu-icon-close-size
+  );
 
   .rac-menu {
     z-index: $rac-menu-window-position;                                               /* @stable [04.10.2018] */
     @include rac-list($rac-list-item-padding: 0,                                      /* @stable [30.10.2018] */
                       $rac-list-max-height: $rac-menu-list-max-height);
-
-    &.rac-menu-centered {
-      @include rac-list($rac-list-overflow: auto);                                    /* @stable [30.10.2018] */
-    }
-
-    .rac-menu-close-action {
-      margin: $rac-menu-close-action-margin;                  /* @stable [04.10.2018] */
-      color: $rac-menu-close-action-color;                    /* @stable [26.06.2018] */
-    }
-
-    .rac-menu-field-wrapper {
-      padding: $rac-menu-field-wrapper-padding;               /* @stable [04.10.2018] */
-    }
 
     .rac-list {
 

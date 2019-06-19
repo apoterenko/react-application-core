@@ -64,6 +64,13 @@ html, body {
     @include rac-size(100%);                                                                  /* @stable [27.11.2018] */
   }
 
+  @include rac-styles(                                                                        /* @stable [18.06.2019] */
+    $rac-styles-custom: rac-invisible,
+    $rac-styles-position: absolute !important,
+    $rac-styles-top: -10000px,
+    $rac-styles-left: -10000px
+  );
+
   @include rac-styles(                                                                        /* @stable [30.01.2019] */
     $rac-styles-custom: rac-absolute,
     $rac-styles-position: absolute,
@@ -249,12 +256,6 @@ html, body {
 
   .rac-absolute-bottom-position {
     top: 100%;                          /* @stable [23.06.2018] */
-  }
-
-  .rac-invisible {
-    position: absolute;                 /* @stable [04.05.2018] */
-    top: -10000px;                      /* @stable [04.05.2018] */
-    left: -10000px;                     /* @stable [04.09.2018] */
   }
 
   .rac-no-user-select {

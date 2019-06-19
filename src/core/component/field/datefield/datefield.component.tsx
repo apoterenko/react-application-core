@@ -61,7 +61,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
-            titleRendered={false}
+            className='rac-date-field-dialog'
           >
             <FlexLayout
               full={false}>

@@ -26,10 +26,10 @@ export class BaseTransport {
   /**
    * @stable [13.06.2019]
    * @param {StringNumberT} value
-   * @returns {StringNumberT}
+   * @returns {number}
    */
-  protected prepareNumberValue(value: StringNumberT): StringNumberT {
-    return orUndef(!R.isNil(value), () => this.nc.number(value, false));
+  protected prepareNumberValue(value: StringNumberT): number {
+    return orUndef(!R.isNil(value), () => this.nc.number(value, false)) as number;
   }
 
   /**

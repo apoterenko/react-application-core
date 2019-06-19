@@ -2,7 +2,18 @@ import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { isDef, isFn, isUndef, orDefault, orNull, DelayedTask, defValuesFilter, orUndef, calc } from '../../../util';
+import {
+  calc,
+  defValuesFilter,
+  DelayedTask,
+  ifNotNilThanValue,
+  isDef,
+  isFn,
+  isUndef,
+  orDefault,
+  orNull,
+  orUndef,
+} from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
@@ -15,6 +26,7 @@ import {
   isFieldChangeable,
   toActualChangedValue,
   isFieldDisabled,
+  isFieldVisible,
 } from './field.support';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
@@ -478,6 +490,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
+   * @stable [18.06.2019]
+   * @returns {boolean}
+   */
+  protected isFieldVisible(): boolean {
+    return isFieldVisible(this.props);
+  }
+
+  /**
    * @stable [06.10.2018]
    * @returns {boolean}
    */
@@ -629,9 +649,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {JSX.Element}
    */
   protected getMessageElement(): JSX.Element {
-    const props = this.props;
-    const message = props.message;
-    return orNull<JSX.Element>(message, () => this.toMessageElement(message));
+    return ifNotNilThanValue(this.props.message, (message) => this.toMessageElement(message));
   }
 
   /**

@@ -1,10 +1,11 @@
 import { MDCMenu } from '@material/menu';
 
-import { sequence, isParentDocumentBody, removeSelf } from '../../../util';
-import { MaterialPlugin } from './material.plugin';
 import { IMenu, INativeMaterialMenuComponent } from '../../menu';
+import { MaterialPlugin } from './material.plugin';
+import { sequence, isParentDocumentBody, removeSelf } from '../../../util';
 
-export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMenu, INativeMaterialMenuComponent> {
+export class MenuMaterialPlugin<TMenu extends IMenu>
+  extends MaterialPlugin<TMenu, INativeMaterialMenuComponent> {
 
   /**
    * @stable [04.10.2018]
@@ -13,7 +14,6 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
   constructor(menu: TMenu) {
     super(menu, MDCMenu);
 
-    // Complete the component behavior
     menu.isOpen = this.isMenuOpen.bind(this);
     menu.show = sequence(menu.show, this.show, this);
     menu.hide = sequence(menu.hide, this.hide, this);
@@ -43,7 +43,7 @@ export class MenuMaterialPlugin<TMenu extends IMenu> extends MaterialPlugin<TMen
    * @stable [04.10.2018]
    */
   private isMenuOpen(): boolean {
-    return this.mdc && this.mdc.open;
+    return this.doesMdcExist && this.mdc.open;
   }
 
   /**

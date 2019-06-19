@@ -307,7 +307,6 @@ export class Field<TInternalProps extends IFieldInternalProps,
       this.isNotDefaultValuePresent() && 'rac-field-not-default-value-present',
       this.isFieldChangeable() ? 'rac-field-changeable' : 'rac-field-not-changeable',
       this.isFieldFocused() ? 'rac-field-focused' : 'rac-field-not-focused',
-      props.fieldDisplayed !== false ? 'rac-field-displayed' : 'rac-field-no-displayed',
       props.disabled && 'rac-field-disabled',
       props.readOnly && 'rac-field-readonly',
       props.label && 'rac-field-labeled',
@@ -339,15 +338,10 @@ export class Field<TInternalProps extends IFieldInternalProps,
 
   /**
    * stable [18.06.2018]
-   * @example [
-   *            rac-checkbox-field,
-   *            rac-text-field
-   *          ]
-   * @stable
-   * @returns Class name
+   * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return 'rac-self-field';
+    return toClassName('rac-self-field', !this.isFieldVisible() && 'rac-invisible');
   }
 
   /**

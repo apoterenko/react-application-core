@@ -2,7 +2,7 @@ import { MDCRipple } from '@material/ripple';
 import { MDCCheckbox } from '@material/checkbox';
 
 import { appContainer, DI_TYPES } from '../../di';
-import { addClassNameToBody } from '../../util';
+import { addClassNameToBody, orNull } from '../../util';
 import {
   IReactComponentClassEntity,
   UniversalComponentPluginFactoryT,
@@ -52,8 +52,11 @@ uiPlugins.set(Dialog, (component: Dialog) => new DialogMaterialPlugin<Dialog>(co
  */
 uiPlugins.set(FormDialog, (component: FormDialog) => new DialogMaterialPlugin<Dialog>(component));
 
-/* @stable - 31.03.2018 */
-uiPlugins.set(Menu, (component: Menu) => new MenuMaterialPlugin<Menu>(component));
+/**
+ * @stable [18.06.2019]
+ */
+uiPlugins.set(Menu, (component: Menu) =>
+  orNull(!component.centeredMenu, () => new MenuMaterialPlugin<Menu>(component)));
 
 /**
  * @stable [05.05.2018]

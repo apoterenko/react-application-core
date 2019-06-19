@@ -30,11 +30,6 @@
     $rac-self-field-height: $rac-text-field-height
   );
 
-  @include rac-field(                                                                         /* @stable [27.03.2019] */
-    $rac-field-custom: $rac-field-no-displayed-cls,
-    $rac-self-field-display: $rac-field-no-displayed-self-field-display
-  );
-
   @include rac-field(                                                                         /* @stable [22.03.2019] */
     $rac-field-custom: $rac-field-labeled-cls,
     $rac-self-field-margin: $rac-field-labeled-self-field-margin,
@@ -115,6 +110,17 @@
     $rac-text-field-icon-margin: $rac-text-field-icon-margin,
     $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
     $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
+  );
+
+  @include rac-dialog(                                                                        /* @stable [18.06.2019] */
+    $rac-dialog-custom: rac-date-field-dialog,
+    $rac-dialog-body-max-height: $rac-date-field-dialog-body-max-height,
+    $rac-dialog-body-flex-width: $rac-date-field-dialog-body-flex-width
+  );
+
+  @include rac-google-maps(                                                                   /* @stable [18.06.2019] */
+    $rac-google-maps-custom: rac-dialog-google-maps,
+    $rac-google-maps-flex-height: $rac-dialog-google-maps-flex-height
   );
 
   .rac-text-area-length-label {

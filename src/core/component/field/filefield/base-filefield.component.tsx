@@ -48,7 +48,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     const actions: IFieldActionConfiguration[] = [
       orNull<IFieldActionConfiguration>(props.useCamera, () => ({type: 'video', onClick: this.openCameraDialog})),
       {type: 'attach_file', onClick: this.openFileDialog},
-      orNull<IFieldActionConfiguration>(props.useDownloadAction, () => ({type: 'cloud_download', onClick: this.downloadFile}))
+      orNull<IFieldActionConfiguration>(props.useDownloadAction, () => ({type: 'download', onClick: this.downloadFile}))
     ];
     this.defaultActions = R.insertAll<IFieldActionConfiguration>(0, actions.filter((cfg) => !R.isNil(cfg)), this.defaultActions);
   }

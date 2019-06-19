@@ -115,14 +115,16 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
         {orNull<JSX.Element>(
           currentPlace, () => <div className='rac-address-field-dialog-place'>{currentPlace}</div>)
         }
-        <GoogleMaps ref='googleMaps'
-                    onInit={this.initGoogleMapsObjects}
-                    onSelect={this.onMenuSelect}
-                    onChangePlace={this.onMarkerChangePlace}
-                    menuOptions={[{
-                      label: this.settings.messages.putMarkerHereMessage,
-                      value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
-                    }]}/>
+        <GoogleMaps
+          ref='googleMaps'
+          className='rac-dialog-google-maps'
+          onInit={this.initGoogleMapsObjects}
+          onSelect={this.onMenuSelect}
+          onChangePlace={this.onMarkerChangePlace}
+          menuOptions={[{
+            label: this.settings.messages.putMarkerHereMessage,
+            value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
+          }]}/>
       </Dialog>
     );
   }

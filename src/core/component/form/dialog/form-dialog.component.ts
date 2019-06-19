@@ -5,11 +5,9 @@ import { IFormDialogProps } from './form-dialog.interface';
 export class FormDialog extends Dialog<IFormDialogProps> {
 
   public static defaultProps: IFormDialogProps = {
-    title: 'You have unsaved changes',
-    message: 'Changes you made will not be saved.',
+    title: 'Changes you made will not be saved',
     closeMessage: 'Cancel',
     acceptMessage: 'Discard',
-    ...Dialog.defaultProps,
   };
 
   /**

@@ -6,10 +6,9 @@ import {
   INativeMaterialComponent,
   INativeMaterialAdapter,
 } from '../../../entities-definitions.interface';
-import {
-  INativeMaterialComponentFactory,
-} from '../../material';
 import { DI_TYPES, staticInjector } from '../../../di';
+import { INativeMaterialComponentFactory } from '../../material';
+import { isDef } from '../../../util';
 import { TranslatorT } from '../../../translation';
 
 export class MaterialPlugin<TComponent extends IComponent,
@@ -18,6 +17,11 @@ export class MaterialPlugin<TComponent extends IComponent,
 
   protected mdc: TNativeMaterialComponent;
 
+  /**
+   * @stable [18.06.2019]
+   * @param {TComponent} component
+   * @param {INativeMaterialComponentFactory<TNativeMaterialComponent extends INativeMaterialComponent>} mdcFactory
+   */
   constructor(protected component: TComponent,
               private mdcFactory: INativeMaterialComponentFactory<TNativeMaterialComponent>) {
   }
@@ -37,7 +41,7 @@ export class MaterialPlugin<TComponent extends IComponent,
    * @stable [05.05.2018]
    */
   public componentWillUnmount(): void {
-    if (this.mdc) {
+    if (this.doesMdcExist) {
       this.mdc.destroy();
     }
   }
@@ -47,6 +51,14 @@ export class MaterialPlugin<TComponent extends IComponent,
    */
   protected get adapter(): INativeMaterialAdapter {
     return this.mdc.foundation_.adapter_;
+  }
+
+  /**
+   * @stable [17.06.2019]
+   * @returns {boolean}
+   */
+  protected get doesMdcExist(): boolean {
+    return isDef(this.mdc);
   }
 
   /**

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { DelayedTask, isFn, isDef } from '../../util';
 import { DI_TYPES, staticInjector } from '../../di';
@@ -22,6 +23,8 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
+  private static $uiPlugins: Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>;
+
   protected readonly plugins: IUniversalComponentPlugin[] = [];
   protected scrollTask: DelayedTask;
   protected readonly selfRef = React.createRef<AnyT>();
@@ -34,11 +37,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
     super(props);
     this.onNativeScroll = this.onNativeScroll.bind(this);
 
-    const dynamicPluginFactory = this.uiPlugins.get(this.constructor as IUniversalComponentClassEntity);
-    if (dynamicPluginFactory) {
-      this.plugins.push(dynamicPluginFactory(this));
-    }
-    [].concat(props.plugins || []).forEach((plugin) => this.registerPlugin(plugin));
+    this.initPlugins();
 
     if (isFn(props.onScroll)) {
       this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
@@ -135,14 +134,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @stable [23.04.2018]
-   * @returns {Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>}
-   */
-  private get uiPlugins(): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> {
-    return staticInjector(DI_TYPES.UIPlugins);
-  }
-
-  /**
    * @stable [13.05.2018]
    * @returns {IDateConverter}
    */
@@ -183,13 +174,39 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @stable [23.04.2018]
-   * @param {IUniversalComponentPluginClassEntity} pluginClassEntity
-   * @returns {IUniversalComponentPlugin}
+   * @stable [18.06.2019]
+   * @param {IUniversalComponentPluginClassEntity | IUniversalComponentPlugin} pluginObject
    */
-  protected registerPlugin(pluginClassEntity: IUniversalComponentPluginClassEntity): IUniversalComponentPlugin {
-    const plugin = Reflect.construct(pluginClassEntity, [this]);
-    this.plugins.push(plugin);
-    return plugin;
+  protected registerPlugin(pluginObject: IUniversalComponentPluginClassEntity | IUniversalComponentPlugin): void {
+    if (R.isNil(pluginObject)) {
+      return;
+    }
+    this.plugins.push(
+      isFn(pluginObject)
+        ? Reflect.construct(pluginObject as IUniversalComponentPluginClassEntity, [this])
+        : pluginObject
+    );
+  }
+
+  /**
+   * @stable [18.06.2019]
+   */
+  private initPlugins(): void {
+    const dynamicPluginFactory = UniversalComponent.uiPlugins.get(this.constructor as IUniversalComponentClassEntity);
+    if (dynamicPluginFactory) {
+      this.registerPlugin(dynamicPluginFactory(this));
+    }
+    [].concat(this.props.plugins || []).forEach((plugin) => this.registerPlugin(plugin));
+  }
+
+  /**
+   * @ReactNativeCompatible
+   *
+   * @stable [18.06.2019]
+   * @returns {Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>}
+   */
+  private static get uiPlugins(): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> {
+    return UniversalComponent.$uiPlugins =
+      UniversalComponent.$uiPlugins || staticInjector(DI_TYPES.UIPlugins);
   }
 }

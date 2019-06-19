@@ -542,19 +542,13 @@ export interface IValidateWrapper<TValidatedValueResult = AnyT,
 }
 
 /**
- * @stable [14.05.2018]
- */
-export interface IRenderToCenterOfBodyWrapper {
-  renderToCenterOfBody?: boolean;
-}
-
-/**
  * @stable [13.01.2019]
  */
 export interface IRenderToBodyWrapper {
   renderToBody?: boolean;
 }
 
+export interface ICenteredMenuWrapper { centeredMenu?: boolean; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 
 /**
@@ -707,7 +701,6 @@ export interface IAvatarRenderedWrapper {
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface IDisabledWrapper { disabled?: boolean; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
-export interface ITitleRenderedWrapper { titleRendered?: boolean; }
 
 /**
  * @stable [17.05.2018]
@@ -880,16 +873,17 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
                                                IToDateWrapper {
 }
 
+export interface IAuthorizedWrapper { authorized?: boolean; }
+export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IBlobWrapper<TBlob = Blob> { blob?: TBlob; }
+export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
+export interface IFloatLabelWrapper { floatLabel?: boolean; }
+export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
-export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
-export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
 export interface IProgressWrapper { progress?: boolean; }
-export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IReadyWrapper { ready?: boolean; }
-export interface IAuthorizedWrapper { authorized?: boolean; }
-export interface IFloatLabelWrapper { floatLabel?: boolean; }
+export interface IVisibleWrapper { visible?: boolean; }
 
 /**
  * @stable [28.06.2018]
@@ -1111,24 +1105,11 @@ export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
 }
 
-export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
-export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
-
-/**
- * @stable [17.05.2018]
- */
-export interface IHideWrapper<THide = boolean> {
-  hide?: THide;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IHideFnWrapper extends IHideWrapper<() => void> {
-}
-
 export interface IActionsWrapper<TActions> { actions?: TActions; }
 export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
+export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
+export interface IHideWrapper<THide> { hide?: THide; }
+export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
 
 /**
  * @stable [02.06.2018]
@@ -1142,13 +1123,6 @@ export interface IErrorMessageRenderedWrapper {
  */
 export interface IAutoCompleteWrapper<TAutoComplete = string> {
   autoComplete?: TAutoComplete;
-}
-
-/**
- * @stable [02.08.2018]
- */
-export interface IAutoWidthWrapper<TAutoWidth = boolean> {
-  autoWidth?: TAutoWidth;
 }
 
 export interface IActionTextWrapper { actionText?: string; }
@@ -2003,7 +1977,6 @@ export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
-export interface IVisibleWrapper { visible?: boolean; }
 
 /**
  * @stable [29.05.2018]
@@ -2059,25 +2032,14 @@ export interface IOnClearWrapper<TOnClear = () => void> {
 }
 
 /**
- * @stable [17.05.2018]
- */
-export interface IShowWrapper<TShow = () => void> {
-  show?: TShow;
-}
-
-/**
  * @stable [22.08.2018]
  */
 export interface IAfterShowWrapper<TAfterShow = () => void> {
   afterShow?: TAfterShow;
 }
 
-/**
- * @stable [02.08.2018]
- */
-export interface IIsOpenWrapper<TIsOpen = (...args: AnyT[]) => boolean> {
-  isOpen?: TIsOpen;
-}
+export interface IIsOpenWrapper<TIsOpen> { isOpen?: TIsOpen; }
+export interface IShowWrapper<TShow> { show?: TShow; }
 
 /**
  * @stable [08.05.2018]
@@ -2113,13 +2075,6 @@ export interface IOnActivateWrapper<TOnActivate = () => void> {
 }
 
 /**
- * @stable [18.05.2018]
- */
-export interface IOnDeactivateWrapper<TOnDeactivate = (...args: AnyT[]) => void> {
-  onDeactivate?: TOnDeactivate;
-}
-
-/**
  * @stable [02.06.2018]
  */
 export interface IDeactivatedWrapper {
@@ -2140,15 +2095,11 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
   onRefresh?: TOnRefresh;
 }
 
-/**
- * @stable [05.05.2018]
- */
-export interface IActivateWrapper<TActivate = (...args: AnyT[]) => void> {
-  activate?: TActivate;
-}
-
-export interface IPreventFocusWrapper { preventFocus?: boolean; }
+export interface IActivateWrapper<TActivate> { activate?: TActivate; }
+export interface IDeactivateWrapper<TDeactivate> { deactivate?: TDeactivate; }
 export interface IMiniWrapper { mini?: boolean; }
+export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
+export interface IPreventFocusWrapper { preventFocus?: boolean; }
 
 /**
  * @stable [21.09.2018]
