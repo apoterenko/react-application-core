@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { orNull, toClassName } from '../../../util';
-import { IPageToolbarProps } from './page-toolbar.interface';
-import { UniversalPageToolbar } from './universal-page-toolbar.component';
 import { FlexLayout } from '../../layout';
+import { IPageToolbarProps } from './page-toolbar.interface';
+import { orNull, toClassName, ifNotFalseThanValue } from '../../../util';
+import { UniversalPageToolbar } from './universal-page-toolbar.component';
 
 export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
 
@@ -71,10 +71,11 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
    */
   protected getPagesElement(): JSX.Element {
     return (
-      <FlexLayout alignItemsCenter={true}
-                  justifyContentCenter={true}
-                  className='rac-toolbar-pages-info'>
-        {this.pagesInfoLabel}
+      <FlexLayout
+        alignItemsCenter={true}
+        justifyContentCenter={true}
+        className='rac-toolbar-pages'>
+        {this.pagesLabel}
       </FlexLayout>
     );
   }
@@ -89,20 +90,28 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
     const isNextBtnDisabled = this.isNextBtnDisabled;
 
     return (
-      <FlexLayout row={true}
-                  full={false}>
+      <FlexLayout
+        row={true}
+        full={false}>
         {
-          this.uiFactory.makeIcon({
-            type: 'first_page',
-            className: 'rac-button-page-icon',
-            disabled: isPreviousBtnDisabled,
-            onClick: props.onFirst,
-          })
+          ifNotFalseThanValue(
+            props.allowFirst,
+            () => (
+              this.uiFactory.makeIcon({
+                key: 'page-icon-first-key',
+                type: 'first_page',
+                className: 'rac-toolbar-icon',
+                disabled: isPreviousBtnDisabled,
+                onClick: props.onFirst,
+              })
+            )
+          )
         }
         {
           this.uiFactory.makeIcon({
-            type: 'keyboard_arrow_left',
-            className: 'rac-button-page-icon',
+            key: 'page-icon-previous-key',
+            type: props.previousIcon || 'angle_left',
+            className: 'rac-toolbar-icon',
             disabled: isPreviousBtnDisabled,
             onClick: props.onPrevious,
           })
@@ -110,19 +119,26 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
         {this.getPagesElement()}
         {
           this.uiFactory.makeIcon({
-            type: 'keyboard_arrow_right',
-            className: 'rac-button-page-icon',
+            key: 'page-icon-next-key',
+            type: props.nextIcon || 'angle_right',
+            className: 'rac-toolbar-icon',
             disabled: isNextBtnDisabled,
             onClick: props.onNext,
           })
         }
         {
-          this.uiFactory.makeIcon({
-            type: 'last_page',
-            className: 'rac-button-page-icon',
-            disabled: isNextBtnDisabled,
-            onClick: props.onLast,
-          })
+          ifNotFalseThanValue(
+            props.allowLast,
+            () => (
+              this.uiFactory.makeIcon({
+                key: 'page-icon-last-key',
+                type: 'angle_double_right',
+                className: 'rac-toolbar-icon',
+                disabled: isNextBtnDisabled,
+                onClick: props.onLast,
+              })
+            )
+          )
         }
       </FlexLayout>
     );

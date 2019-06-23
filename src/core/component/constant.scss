@@ -100,10 +100,20 @@ $rac-scrollbar-height: 6px !default;
 $rac-scrollbar-thumb-background-color: $color-8 !default;
 
 /* @stable [01.11.2018] */
+$rac-toolbar-cls: rac-toolbar;
+$rac-toolbar-icon-cls: rac-toolbar-icon;
+$rac-toolbar-pages-cls: rac-toolbar-pages;
 $rac-page-toolbar-cls: rac-page-toolbar;
+/**/
 $rac-toolbar-button-margin: 0 0 0 8px !default;
 $rac-toolbar-field-max-width: 342px !default;
+/**/
 $rac-page-toolbar-border-top: unset !default;
+$rac-page-toolbar-pages-margin: unset !default;
+$rac-page-toolbar-pages-font-size: $rac-font-size-1 !default;
+$rac-page-toolbar-pages-color: $rac-color-0-4 !default;
+$rac-page-toolbar-icon-color: $rac-color-0-4 !default;
+$rac-page-toolbar-icon-margin: unset !default;
 
 /* @stable [27.01.2019] */
 $rac-keyboard-padding: 12px !default;
@@ -520,12 +530,6 @@ $rac-menu-dialog-field-margin: 0 0 $rac-offset-1 0 !default;
 $rac-menu-icon-close-color: $rac-color-0-1 !default;
 $rac-menu-icon-close-margin: 0 0 $rac-offset-1 !default;
 $rac-menu-icon-close-size: 24px !default;
-
-/* @stable [05.08.2018] */
-$rac-page-toolbar-content-padding-left: 8px !default;
-$rac-page-toolbar-content-padding-right: 8px !default;
-$rac-page-toolbar-pages-info-color: $rac-default-label-color !default;
-$rac-page-toolbar-pages-info-font-size: $rac-default-font-size-2 !default;
 
 /* @stable [08.07.2018] */
 $rac-viewer-content-margin: 0 auto !default;

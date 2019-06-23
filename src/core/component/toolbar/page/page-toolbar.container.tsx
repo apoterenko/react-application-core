@@ -32,6 +32,7 @@ export class PageToolbarContainer extends BaseContainer<IPageToolbarContainerPro
     const props = this.props;
     return (
         <PageToolbar {...props.list}
+                     {...props.toolbarProps}
                      onNext={this.onNext}
                      onPrevious={this.onPrevious}
                      onLast={this.onLast}

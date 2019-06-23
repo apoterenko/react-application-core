@@ -1,19 +1,20 @@
 @import '../mixin';
-@import './page/page-toolbar';
+@import '../constant';
 
-// Toolbar [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-toolbar(                                                                       /* @stable [31.10.2018] */
-    $rac-toolbar-button-margin: $rac-toolbar-button-margin
+  @include rac-toolbar(                                                                       /* @stable [23.06.2018] */
+    $rac-toolbar-button-margin: $rac-toolbar-button-margin,
+    $rac-toolbar-field-max-width: $rac-toolbar-field-max-width
   );
 
-  @include rac-toolbar(                                                                       /* @stable [07.12.2018] */
-    $rac-toolbar-custom: rac-page-toolbar,
-    $rac-toolbar-border-top: $rac-page-toolbar-border-top
+  @include rac-toolbar(                                                                       /* @stable [23.06.2018] */
+    $rac-toolbar-custom: $rac-page-toolbar-cls,
+    $rac-toolbar-border-top: $rac-page-toolbar-border-top,
+    $rac-toolbar-pages-margin: $rac-page-toolbar-pages-margin,
+    $rac-toolbar-pages-font-size: $rac-page-toolbar-pages-font-size,
+    $rac-toolbar-pages-color: $rac-page-toolbar-pages-color,
+    $rac-toolbar-icon-color: $rac-page-toolbar-icon-color,
+    $rac-toolbar-icon-margin: $rac-page-toolbar-icon-margin
   );
-
-  .rac-toolbar {
-    @include rac-field($rac-field-max-width: $rac-toolbar-field-max-width);             /* @stable [31.10.2018] */
-  }
 }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { orNull, pageFromNumber, pageToNumber } from '../../../util';
 import { FIRST_PAGE } from '../../../definitions.interface';
 import { IUniversalPageToolbarProps } from './page-toolbar.interface';
+import { orNull, pageFromNumber, pageToNumber, pagesCount } from '../../../util';
 import { UniversalComponent } from '../../base/universal.component';
 
 export abstract class UniversalPageToolbar<TProps extends IUniversalPageToolbarProps,
@@ -73,11 +73,20 @@ export abstract class UniversalPageToolbar<TProps extends IUniversalPageToolbarP
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [23.06.2018]
    * @returns {string}
    */
-  protected get pagesInfoLabel(): string {
-    return `${this.fromNumber}-${this.toNumber} ${this.t('of')} ${this.props.totalCount}`;
+  protected get pagesLabel(): string {
+    const {useSimplePagesFormat, page} = this.props;
+    const messages = this.settings.messages;
+    return useSimplePagesFormat
+      ? messages.simplePagesMessage
+        .replace('{page}', `${page}`)
+        .replace('{count}', `${pagesCount(this.props)}`)
+      : messages.pagesMessage
+        .replace('{from}', `${this.fromNumber}`)
+        .replace('{to}', `${this.toNumber}`)
+        .replace('{count}', `${this.props.totalCount}`);
   }
 
   /**

@@ -1716,56 +1716,59 @@
 }
 
 /**
- * @stable [07.12.2018]
+ * @stable [23.06.2019]
  */
-@mixin _rac-toolbar-custom-properties($rac-toolbar-button-margin: unset,
-                                      $rac-toolbar-margin: unset,
-                                      $rac-toolbar-background: unset,
-                                      $rac-toolbar-max-height: unset,
-                                      $rac-toolbar-border-top: unset) {
+@mixin rac-toolbar(
+  $rac-toolbar-custom: unset,
+  /**/
+  $rac-toolbar-background: unset,
+  $rac-toolbar-border-top: unset,
+  $rac-toolbar-flex-height: unset,
+  $rac-toolbar-margin: unset,
+  $rac-toolbar-pages-color: unset,
+  $rac-toolbar-pages-font-size: unset,
+  $rac-toolbar-pages-margin: unset,
+  /**/
+  $rac-toolbar-icon-color: unset,
+  $rac-toolbar-icon-custom: unset,
+  $rac-toolbar-icon-margin: unset,
+  /**/
+  $rac-toolbar-button-custom: unset,
+  $rac-toolbar-button-margin: unset,
+  /**/
+  $rac-toolbar-field-custom: unset,
+  $rac-toolbar-field-max-width: unset
+) {
+  #{rac-build-cls($rac-toolbar-cls, $rac-toolbar-custom)} {
+    @include rac-styles(
+      $rac-styles-background: $rac-toolbar-background,
+      $rac-styles-border-top: $rac-toolbar-border-top,
+      $rac-styles-flex-height: $rac-toolbar-flex-height,
+      $rac-styles-margin: $rac-toolbar-margin
+    );
 
-  @include rac-styles(
-    $rac-styles-margin: $rac-toolbar-margin,
-    $rac-styles-background: $rac-toolbar-background,
-    $rac-styles-max-height: $rac-toolbar-max-height,
-    $rac-styles-border-top: $rac-toolbar-border-top
-  );
+    @include rac-styles(
+      $rac-styles-custom: $rac-toolbar-pages-cls,
+      $rac-styles-margin: $rac-toolbar-pages-margin,
+      $rac-styles-font-size: $rac-toolbar-pages-font-size,
+      $rac-styles-color: $rac-toolbar-pages-color
+    );
 
-  @include rac-button($rac-button-margin: $rac-toolbar-button-margin);
-}
+    @include rac-icon(
+      $rac-icon-custom: $rac-toolbar-icon-cls,
+      $rac-icon-color: $rac-toolbar-icon-color,
+      $rac-icon-margin: $rac-toolbar-icon-margin
+    );
 
-/**
- * @stable [01.11.2018]
- */
-@mixin rac-toolbar($rac-toolbar-custom: unset,
-                   $rac-toolbar-button-margin: unset,
-                   $rac-toolbar-margin: unset,
-                   $rac-toolbar-background: unset,
-                   $rac-toolbar-max-height: unset,
-                   $rac-toolbar-border-top: unset) {
+    @include rac-button(
+      $rac-button-custom: $rac-toolbar-button-custom,
+      $rac-button-margin: $rac-toolbar-button-margin
+    );
 
-  @if $rac-toolbar-custom != unset {
-    .rac-toolbar {
-      &.#{$rac-toolbar-custom} {
-        @include _rac-toolbar-custom-properties(
-          $rac-toolbar-button-margin: $rac-toolbar-button-margin,
-          $rac-toolbar-margin: $rac-toolbar-margin,
-          $rac-toolbar-background: $rac-toolbar-background,
-          $rac-toolbar-max-height: $rac-toolbar-max-height,
-          $rac-toolbar-border-top: $rac-toolbar-border-top
-        );
-      }
-    }
-  } @else {
-    .rac-toolbar {
-      @include _rac-toolbar-custom-properties(
-        $rac-toolbar-button-margin: $rac-toolbar-button-margin,
-        $rac-toolbar-margin: $rac-toolbar-margin,
-        $rac-toolbar-background: $rac-toolbar-background,
-        $rac-toolbar-max-height: $rac-toolbar-max-height,
-        $rac-toolbar-border-top: $rac-toolbar-border-top
-      );
-    }
+    @include rac-field(
+      $rac-field-custom: $rac-toolbar-field-custom,
+      $rac-field-max-width: $rac-toolbar-field-max-width
+    );
   }
 }
 

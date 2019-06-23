@@ -29,6 +29,7 @@ export interface IUniversalPageToolbarConfiguration extends IReactComponentConfi
  */
 export interface IUniversalPageToolbarProps extends IUniversalPageToolbarEntity,
                                                     IUniversalPageToolbarConfiguration {
+  useSimplePagesFormat?: boolean;
 }
 
 /**
@@ -40,15 +41,14 @@ export interface IPageToolbarEntity extends IUniversalPageToolbarEntity {
 /**
  * @stable [16.05.2018]
  */
-export interface IPageToolbarConfiguration extends IUniversalPageToolbarConfiguration,
-                                                   IWebComponentConfiguration {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IPageToolbarProps extends IPageToolbarEntity,
-                                           IPageToolbarConfiguration {
+export interface IPageToolbarProps
+  extends IPageToolbarEntity,
+    IUniversalPageToolbarConfiguration,
+    IWebComponentConfiguration {
+  allowLast?: boolean;
+  allowFirst?: boolean;
+  previousIcon?: string;
+  nextIcon?: string;
 }
 
 /**
@@ -56,6 +56,7 @@ export interface IPageToolbarProps extends IPageToolbarEntity,
  */
 export interface IPageToolbarContainerProps extends IContainerProps,
                                                     IListWrapperEntity {
+  toolbarProps?: any; // TODO
 }
 
 export const PAGER_NEXT_ACTION_TYPE = 'pager.next';

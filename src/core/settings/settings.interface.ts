@@ -94,6 +94,7 @@ export interface IMessagesSettings {
   newAppVersionMessageHasBeenDeployed?: string;
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
+  pagesMessage?: string;
   previewMessage?: string;
   putMarkerHereMessage?: string;
   refreshActionTitleMessage?: string;
@@ -102,6 +103,7 @@ export interface IMessagesSettings {
   save?: string;
   serviceTemporarilyUnavailableMessage?: string;
   settingsMessage?: string;
+  simplePagesMessage?: string;
   sorryMessage?: string;
   takeSnapshotMessage?: string;
   unknownFileMessage?: string;
@@ -209,6 +211,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
+    pagesMessage: '{from}-{to} of {count}',
     previewMessage: 'Preview',
     putMarkerHereMessage: 'Put marker here',
     refreshActionTitleMessage: 'Refresh',
@@ -217,6 +220,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     save: 'Save',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     settingsMessage: 'Settings',
+    simplePagesMessage: 'Page {page} of {count}',
     sorryMessage: 'Sorry about that.',
     takeSnapshotMessage: 'Take a snapshot',
     unknownFileMessage: 'Unknown file',
