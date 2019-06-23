@@ -3,10 +3,7 @@ import * as R from 'ramda';
 import {
   IEntity,
   UNDEF,
-  IFromDateFromTimeEntity,
-  IToDateToTimeEntity,
   DEFAULT_TIME_FROM,
-  DEFAULT_TIME_TO,
   TO_DATE_FIELD_NAME,
   FROM_DATE_FIELD_NAME,
   IFromDateToDateEntity,
@@ -31,44 +28,6 @@ export class DateTimeFieldHelper {
       returnOriginalValueIfNoChanges,
       DEFAULT_TIME_FROM
     );
-  }
-
-  public buildDateTimeSinceField<TEntity extends IFromDateFromTimeEntity>(apiEntity: IApiEntity<TEntity>,
-                                                                          returnOriginalValueIfNoChanges = false): string {
-    return this.toDateTime<TEntity>(
-      apiEntity,
-      (source) => source.fromDate,
-      (source) => source.fromTime,
-      returnOriginalValueIfNoChanges,
-      DEFAULT_TIME_FROM
-    );
-  }
-
-  public buildDateTimeTillField<TEntity extends IToDateToTimeEntity>(apiEntity: IApiEntity<TEntity>,
-                                                                     returnOriginalValueIfNoChanges = false): string {
-    return this.toDateTime<TEntity>(
-      apiEntity,
-      (source) => source.toDate,
-      (source) => source.toTime,
-      returnOriginalValueIfNoChanges,
-      DEFAULT_TIME_TO
-    );
-  }
-
-  public composeDateTimeSinceField<TEntity extends IFromDateFromTimeEntity>(
-    apiEntity: IApiEntity<TEntity>,
-    returnOriginalValueIfNoChanges = false): IFromDateFromTimeEntity {
-    return {
-      fromDate: this.buildDateTimeSinceField(apiEntity, returnOriginalValueIfNoChanges),
-    };
-  }
-
-  public composeDateTimeTillField<TEntity extends IToDateToTimeEntity>(
-    apiEntity: IApiEntity<TEntity>,
-    returnOriginalValueIfNoChanges = false): IToDateToTimeEntity {
-    return {
-      toDate: this.buildDateTimeTillField(apiEntity, returnOriginalValueIfNoChanges),
-    };
   }
 
   /**
