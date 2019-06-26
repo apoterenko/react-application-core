@@ -1,6 +1,13 @@
 import * as R from 'ramda';
 
-import { orNull, filterAndSortEntities, isFn, trimmedUndefEmpty, defValuesFilter, ifNotNilThanValue } from '../../util';
+import {
+  defValuesFilter,
+  filterAndSortEntities,
+  ifNotNilThanValue,
+  isFn,
+  orNull,
+  trimmedUndefEmpty,
+} from '../../util';
 import {
   IEntity,
   IEntityWrapper,
@@ -14,6 +21,8 @@ import {
 } from '../../definitions.interface';
 import {
   IExtendedEntity,
+  IPagedEntity,
+  IPaginatedEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
   ToolbarToolsEnum,
@@ -27,7 +36,6 @@ import {
   IUserWrapperEntity,
   IDictionariesWrapperEntity,
   IUniversalApplicationStoreEntity,
-  IPagedEntity,
   IDataMutatorEntity,
   IFilterFormWrapperEntity,
   IFormWrapperEntity,
@@ -35,7 +43,6 @@ import {
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
   IQueryFilterWrapperEntity,
-  IPaginatedEntity,
   IEntityFormEntity,
 } from '../../entities-definitions.interface';
 import {
@@ -109,15 +116,16 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
 };
 
 /**
- * @stable [17.04.2019]
- * @param {IListEntity} listEntity
+ * @stable [26.06.2019]
+ * @param {IPaginatedEntity} entity
  * @returns {IPaginatedEntity}
  */
-export const listEntityPaginatedEntityMapper = (listEntity: IListEntity): IPaginatedEntity => ({
-  page: listEntity.page,
-  pageSize: listEntity.pageSize,
-  totalCount: listEntity.totalCount,
-});
+export const listEntityPaginatedEntityMapper = (entity: IPaginatedEntity): IPaginatedEntity =>
+  defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
+    page: entity.page,
+    pageSize: entity.pageSize,
+    totalCount: entity.totalCount,
+  });
 
 /**
  * @stable [09.05.2018]

@@ -8,7 +8,7 @@ import {
   IRemovedEntityWrapper,
   ISelectedEntityWrapper,
 } from '../../definitions.interface';
-import { IPagedEntity } from '../../entities-definitions.interface';
+import { IPagedEntity } from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
 import { IModifyEntityPayloadWrapper } from '../../api';
 import {

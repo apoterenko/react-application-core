@@ -46,7 +46,6 @@ import {
   ILinkedToSectionsWrapper,
   IListWrapper,
   ILoadingWrapper,
-  ILockPageWrapper,
   ILockWrapper,
   ILoginWrapper,
   IMethodWrapper,
@@ -66,8 +65,6 @@ import {
   IOperationWrapper,
   IOriginalDataWrapper,
   IOriginalValueWrapper,
-  IPageSizeWrapper,
-  IPageWrapper,
   IPasswordWrapper,
   IPathWrapper,
   IPayloadWrapper,
@@ -91,8 +88,6 @@ import {
   ITimeWrapper,
   IToDateToTimeEntity,
   ITokenWrapper,
-  ITotalAmountWrapper,
-  ITotalCountWrapper,
   ITransportWrapper,
   ITypeWrapper,
   IURLSearchQueryParamsWrapper,
@@ -123,6 +118,7 @@ import {
   IErrorEntity,
   IExtendedEntity,
   IOperationEntity,
+  IPaginatedEntity,
   IUniversalLifeCycleEntity,
 } from './definition';
 
@@ -351,22 +347,6 @@ export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[
  * @stable [01.06.2018]
  */
 export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
-
-/**
- * @stable [09.05.2018]
- */
-export interface IPagedEntity extends IPageWrapper,
-                                      IPageSizeWrapper {
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface IPaginatedEntity extends IPagedEntity,
-                                          ILockPageWrapper,
-                                          ITotalCountWrapper,
-                                          ITotalAmountWrapper {
-}
 
 /**
  * @stable [29.05.2018]

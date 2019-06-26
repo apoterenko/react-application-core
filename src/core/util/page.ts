@@ -1,6 +1,6 @@
 import { FIRST_PAGE } from '../definitions.interface';
 import { ifNotNilThanValue } from '../util';
-import { IPaginatedEntity } from '../entities-definitions.interface';
+import { IPaginatedEntity } from '../definition';
 
 /**
  * @stable [09.05.2018]

@@ -7,7 +7,8 @@ import {
   FIRST_PAGE,
 } from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IListWrapperEntity, IListEntity, IPagedEntity } from '../../entities-definitions.interface';
+import { IListWrapperEntity, IListEntity } from '../../entities-definitions.interface';
+import { IPagedEntity } from '../../definition';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 
 /**

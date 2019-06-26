@@ -1,7 +1,4 @@
-import {
-  IPaginatedEntity,
-  IListWrapperEntity,
-} from '../../../entities-definitions.interface';
+import { IListWrapperEntity } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
   IReactComponentConfiguration,
@@ -9,6 +6,7 @@ import {
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
 import { IProgressWrapper } from '../../../definitions.interface';
+import { IPaginatedEntity } from '../../../definition';
 
 /**
  * @stable [16.05.2018]
