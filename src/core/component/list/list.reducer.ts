@@ -114,7 +114,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         // A request auto-cancelling
         return state;
       }
-      return {
+      const resultState = {
         ...state,
         progress: false,
         lockPage: false,
@@ -135,6 +135,18 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
         ),
         page: state.lockPage ? listEntity.page : INITIAL_APPLICATION_LIST_STATE.page,
       };
+      // In the case of silent reload
+      const oldSelectedEntity = resultState.selected;
+      if (!R.isNil(oldSelectedEntity)) {
+        return {
+          ...resultState,
+          selected: ifNotNilThanValue(
+            resultState.data.find((entity) => SAME_ENTITY_PREDICATE(entity, oldSelectedEntity)),
+            (updatedSelectedEntity) => updatedSelectedEntity,
+          ),
+        };
+      }
+      return resultState;
     case ListActionBuilder.buildLazyLoadErrorActionType(section):
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {

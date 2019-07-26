@@ -250,8 +250,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     uiPattern: REGEXP_REPO.number,
   },
   phone: {
-    uiPattern: '[0-9]{11}',
-    uiMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+    uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     uiCountryAbbreviation: 'US',
   },
   currency: {

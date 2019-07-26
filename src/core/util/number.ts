@@ -4,8 +4,10 @@
  * @param {number} precision
  * @returns {number}
  */
-export const roundByPrecision = (num: number, precision = 2) =>
-  Math.round(num * (10 * precision)) / (10 * precision);
+export const roundByPrecision = (num: number, precision = 2) => {
+  const t = Math.pow(10, precision);
+  return Math.round(num * t) / t;
+};
 
 /**
  * @stable [05.05.2019]

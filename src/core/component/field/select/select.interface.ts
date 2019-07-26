@@ -1,6 +1,6 @@
-import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
+import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
 
-export interface ISelectInternalProps extends IBasicSelectProps {
+export interface ISelectInternalProps extends IBaseSelectProps {
 }
 
 export interface ISelectInternalState extends IBasicSelectState {

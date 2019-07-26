@@ -43,13 +43,8 @@
 
       .rac-tab-content {
         height: 100%;                                                 /* @stable [26.09.2018] */
-      }
-
-      .rac-tab-no-rippable {
-        &::before,
-          &::after {
-          display: $rac-tab-before-after-display;                           /* @mdc @stable [07.08.2018] */
-        }
+        font-weight: 500;
+        padding: 0 16px;
       }
 
       &.rac-first-tab {

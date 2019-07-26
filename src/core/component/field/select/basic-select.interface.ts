@@ -3,7 +3,10 @@ import {
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
   INeedToOpenMenuWrapper,
+  IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
+  IPayloadWrapper,
+  IQueryWrapper,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
@@ -29,12 +32,15 @@ export interface IBasicSelectConfiguration extends IFieldConfiguration,
 }
 
 // TODO
-export interface IBasicSelectProps extends IBasicSelectConfiguration,
-                                           IBaseTextFieldProps,
-                                           IMenuConfigurationWrapper,
-                                           IForceReloadWrapper,
-                                           IOnFilterChangeWrapper<(query: string) => void> {
+export interface IBaseSelectProps
+  extends IBasicSelectConfiguration,
+    IBaseTextFieldProps,
+    IMenuConfigurationWrapper,
+    IForceReloadWrapper,
+    IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
+    IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
   options?: ISelectOptionEntity[] | (() => ISelectOptionEntity[]);
+
   onSelect?(option: ISelectOptionEntity): void;
 }

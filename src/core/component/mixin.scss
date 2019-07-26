@@ -1166,19 +1166,21 @@
  */
 @mixin rac-field(
   $rac-field-custom: unset,
-  $rac-field-opacity: unset,
-  $rac-field-width: unset,
+  /**/
+  $rac-field-align-items: unset,
+  $rac-field-background: unset,
+  $rac-field-flex-shrink: unset,
   $rac-field-height: unset,
-  $rac-field-margin: unset,
+  $rac-field-input-cursor: unset,
+  $rac-field-label-font-size: unset,
+  $rac-field-label-margin: unset,
   $rac-field-margin-top: unset,
-  $rac-field-padding: unset,
+  $rac-field-margin: unset,
   $rac-field-max-width: unset,
   $rac-field-min-height: unset,
-  $rac-field-background: unset,
-  $rac-field-input-cursor: unset,
-  $rac-field-label-margin: unset,
-  $rac-field-label-font-size: unset,
-  $rac-field-align-items: unset,
+  $rac-field-opacity: unset,
+  $rac-field-padding: unset,
+  $rac-field-width: unset,
   /**/
   $rac-field-help-text-font-size: unset,
   $rac-field-help-text-line-height: unset,
@@ -1262,14 +1264,15 @@
 
     @include rac-styles(
       $rac-styles-background: $rac-field-background,
-      $rac-styles-opacity: $rac-field-opacity,
-      $rac-styles-margin: $rac-field-margin,
-      $rac-styles-margin-top: $rac-field-margin-top,
-      $rac-styles-padding: $rac-field-padding,
-      $rac-styles-width: $rac-field-width,
+      $rac-styles-flex-shrink: $rac-field-flex-shrink,
       $rac-styles-height: $rac-field-height,
+      $rac-styles-margin-top: $rac-field-margin-top,
+      $rac-styles-margin: $rac-field-margin,
       $rac-styles-max-width: $rac-field-max-width,
-      $rac-styles-min-height: $rac-field-min-height
+      $rac-styles-min-height: $rac-field-min-height,
+      $rac-styles-opacity: $rac-field-opacity,
+      $rac-styles-padding: $rac-field-padding,
+      $rac-styles-width: $rac-field-width
     );
 
     @include rac-styles(
@@ -2796,7 +2799,6 @@
  */
 @mixin rac-dialog(
   $rac-dialog-custom: unset,
-  $rac-dialog-width: unset,
   $rac-dialog-body-background: unset,
   $rac-dialog-body-border-radius: unset,
   $rac-dialog-body-content-first-level-children-position: unset,
@@ -2804,11 +2806,13 @@
   $rac-dialog-body-content-position: unset,
   $rac-dialog-body-flex-width: unset,
   $rac-dialog-body-max-height: unset,
+  $rac-dialog-body-max-width: unset,
   $rac-dialog-body-min-height: unset,
   $rac-dialog-body-padding: unset,
   $rac-dialog-footer-actions-margin: unset,
   $rac-dialog-footer-actions-neighbor-child-margin: unset,
-  $rac-dialog-scrim-background: unset
+  $rac-dialog-scrim-background: unset,
+  $rac-dialog-width: unset
 ) {
   #{rac-build-cls(rac-dialog, $rac-dialog-custom)} {
     .rac-dialog-footer-actions {
@@ -2830,6 +2834,7 @@
       $rac-styles-background: $rac-dialog-body-background,
       $rac-styles-border-radius: $rac-dialog-body-border-radius,
       $rac-styles-max-height: $rac-dialog-body-max-height,
+      $rac-styles-max-width: $rac-dialog-body-max-width,
       $rac-styles-min-height: $rac-dialog-body-min-height,
       $rac-styles-flex-width: $rac-dialog-body-flex-width,
       $rac-styles-padding: $rac-dialog-body-padding
@@ -2860,13 +2865,15 @@
  */
 @mixin rac-menu-dialog(
   $rac-menu-dialog-body-background: unset,
+  $rac-menu-dialog-body-min-height: unset,
   $rac-menu-dialog-body-padding: unset,
   $rac-menu-dialog-field-custom: unset,
-  $rac-menu-dialog-list-custom: unset,
-  $rac-menu-dialog-list-overflow: unset,
+  $rac-menu-dialog-field-flex-shrink: unset,
+  $rac-menu-dialog-field-margin: unset,
   $rac-menu-dialog-list-background: unset,
   $rac-menu-dialog-list-border-radius: unset,
-  $rac-menu-dialog-field-margin: unset
+  $rac-menu-dialog-list-custom: unset,
+  $rac-menu-dialog-list-overflow: unset
 ) {
   .rac-menu-dialog {
     @include rac-list(
@@ -2878,14 +2885,16 @@
 
     @include rac-field(
       $rac-field-custom: $rac-menu-dialog-field-custom,
-      $rac-field-margin: $rac-menu-dialog-field-margin
+      $rac-field-margin: $rac-menu-dialog-field-margin,
+      $rac-field-flex-shrink: $rac-menu-dialog-field-flex-shrink
     );
   }
 
   @include rac-dialog(
     $rac-dialog-custom: rac-menu-dialog,
     $rac-dialog-body-background: $rac-menu-dialog-body-background,
-    $rac-dialog-body-padding: $rac-menu-dialog-body-padding
+    $rac-dialog-body-padding: $rac-menu-dialog-body-padding,
+    $rac-dialog-body-min-height: $rac-menu-dialog-body-min-height
   );
 }
 

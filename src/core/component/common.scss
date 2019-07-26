@@ -64,6 +64,11 @@ html, body {
     @include rac-size(100%);                                                                  /* @stable [27.11.2018] */
   }
 
+  @include rac-styles(                                                                        /* @stable [28.06.2019] */
+    $rac-styles-custom: rac-strong,
+    $rac-styles-font-weight: $rac-font-weight-2
+  );
+
   @include rac-styles(                                                                        /* @stable [18.06.2019] */
     $rac-styles-custom: rac-invisible,
     $rac-styles-position: absolute !important,

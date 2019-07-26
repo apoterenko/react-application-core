@@ -1,4 +1,4 @@
-import { IEntity, I$DateWrapper, StringNumberT } from '../definitions.interface';
+import { IEntity, StringNumberT } from '../definitions.interface';
 import { nvl } from '../util';
 
 /**
@@ -50,12 +50,3 @@ export const ID_ASC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntit
  */
 export const ID_DESC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntity, item2: TEntity): number =>
   ID_DESC_SORTER_FN(item1.id, item2.id);
-
-/**
- * @stable [29.08.2018]
- * @param {TEntity} item1
- * @param {TEntity} item2
- * @returns {number}
- */
-export const $DATE_DESC_ENTITIES_SORTER_FN = <TEntity extends I$DateWrapper>(item1: TEntity, item2: TEntity): number =>
-  item1.$date > item2.$date ? -1 : 1;

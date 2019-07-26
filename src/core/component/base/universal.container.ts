@@ -55,6 +55,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     super(props);
     this.navigateToBack = this.navigateToBack.bind(this);
     this.dispatchFormClear = this.dispatchFormClear.bind(this);
+    this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
 
     const originalRenderer = this.render;
     if (!R.isNil(originalRenderer)) {

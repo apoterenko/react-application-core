@@ -10,7 +10,6 @@ import {
   ifNotTrueThanValue,
   isFn,
   nvl,
-  orNull,
   queryFilter,
   setAbsoluteOffsetByCoordinates,
   subArray,
@@ -72,17 +71,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             acceptable={false}
             onDeactivate={this.onDialogDeactivate}
           >
-            <FlexLayout
-              full={false}
-              alignItemsEnd={true}>
-              {
-                this.uiFactory.makeIcon({
-                  type: 'close',
-                  className: 'rac-menu-icon-close',
-                  onClick: this.onCloseAction,
-                })
-              }
-            </FlexLayout>
+            {this.closeActionElement}
             {filterElement}
             {this.listElement}
           </Dialog>
@@ -334,11 +323,34 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <TextField
         ref={this.fieldRef}
+        full={false}
         value={state.filter}
         visible={!!props.useFilter}  /* MDC focus trap */
         placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
         errorMessageRendered={false}
         onChange={this.onInputChange}/>
+    );
+  }
+
+  /**
+   * @stable [06.07.2019]
+   * @returns {JSX.Element}
+   */
+  private get closeActionElement(): JSX.Element {
+    return (
+      <FlexLayout
+        full={false}
+        alignItemsEnd={true}
+        noShrink={true}>
+        {
+          this.uiFactory.makeIcon({
+            key: 'menu-close-action-key',
+            type: 'close',
+            className: 'rac-menu-icon-close',
+            onClick: this.onCloseAction,
+          })
+        }
+      </FlexLayout>
     );
   }
 

@@ -5,7 +5,7 @@ import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
-import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue } from '../../util';
+import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue, isFn } from '../../util';
 import { IDateTimeSettings, ISettings, StartDayOfWeekT } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
@@ -24,12 +24,16 @@ export class DateConverter implements IDateConverter {
 
   /**
    * @stable [08.01.2018]
-   * @param {Date} date1
-   * @param {Date} date2
+   * @param {DateTimeLikeTypeT} date1
+   * @param {DateTimeLikeTypeT} date2
    * @returns {boolean}
    */
-  public compare(date1: Date, date2: Date): boolean {
-    return !R.isNil(date1) && !R.isNil(date2) && date1.getTime() === date2.getTime();
+  public compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean {
+    const date1$ = date1 as Date;
+    const date2$ = date2 as Date;
+    return !R.isNil(date1$) && !R.isNil(date2$)
+      && isFn(date1$.getTime) && isFn(date2$.getTime)
+      && date1$.getTime() === date2$.getTime();
   }
 
   /**

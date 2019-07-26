@@ -33,6 +33,15 @@ export class BaseTransport {
   }
 
   /**
+   * @stable [25.07.2019]
+   * @param {string} value
+   * @returns {string}
+   */
+  protected preparePhoneValue(value: string): string {
+    return orUndef(!R.isNil(value), () => value.replace(/\D/g, ''));
+  }
+
+  /**
    * @stable [11.09.2018]
    * @param {ITransportRequestPayloadDataEntity} params
    */

@@ -21,6 +21,18 @@ import {
 import { IMultiEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
 
 /**
+ * @stable [26.07.2019]
+ * @param {Partial<IMultiEntity>} initial
+ * @returns {IMultiEntity}
+ */
+export const multiEntityFactory = (initial: Partial<IMultiEntity>): IMultiEntity => ({
+  add: initial.add || [],
+  edit: initial.edit || [],
+  remove: initial.remove || [],
+  source: initial.source || [],
+});
+
+/**
  * @stable [27.02.2019]
  * @param {IEntity[]} currentEntities
  * @param {number} itemsLimit
@@ -387,34 +399,6 @@ export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntit
     sourceMultiItemEntity,
   );
 };
-
-/**
- * @stable [02.07.2018]
- * @param {string} fieldName
- * @param {MultiFieldEntityT} multiFieldValue
- * @param {(itm: IMultiItemEntity) => boolean} predicate
- * @param {(itm: TEntity) => AnyT} nextFieldValueFn
- * @param {(newEntity: boolean, entity: TEntity) => TEntity} entityFactory
- * @returns {IMultiItemEntity}
- */
-export const buildMultiAddItemEntityPayload =
-  <TEntity extends IEntity = IEntity>(fieldName: string,
-                                      multiFieldValue: MultiFieldEntityT,
-                                      predicate: (itm: IMultiItemEntity) => boolean,
-                                      nextFieldValueFn: (itm: TEntity) => AnyT,
-                                      entityFactory?: (newEntity: boolean, entity: TEntity) => TEntity): IMultiItemEntity => {
-
-    const addedMultiItemEntities = extractMultiAddItemEntities(multiFieldValue);
-    const addedEntity = addedMultiItemEntities.find(predicate);
-    const newEntity = R.isNil(addedEntity);
-
-    return buildMultiEntity(
-      fieldName,
-      nextFieldValueFn(addedEntity as TEntity),
-      isFn(entityFactory) ? entityFactory(newEntity, addedEntity as TEntity) : addedEntity,
-      newEntity,
-    );
-  };
 
 /**
  * @stable [04.07.2018]

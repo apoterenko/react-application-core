@@ -7,11 +7,11 @@ import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { IBasicSelectProps, IBasicSelectState } from './basic-select.interface';
+import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IBasicEvent } from '../../../react-definitions.interface';
 
-export class BasicSelect<TProps extends IBasicSelectProps,
+export class BasicSelect<TProps extends IBaseSelectProps,
                          TState extends IBasicSelectState>
     extends BaseTextField<TProps, TState> {
 
@@ -36,7 +36,7 @@ export class BasicSelect<TProps extends IBasicSelectProps,
 
   /**
    * @stable [20.08.2018]
-   * @param {Readonly<TProps extends IBasicSelectProps>} prevProps
+   * @param {Readonly<TProps extends IBaseSelectProps>} prevProps
    * @param {Readonly<TState extends IBasicSelectState>} prevState
    */
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
@@ -267,8 +267,14 @@ export class BasicSelect<TProps extends IBasicSelectProps,
 
   private onFilterChange(query: string): void {
     const props = this.props;
-    if (isFn(props.onFilterChange)) {
-      props.onFilterChange(query);
+    const onFilterChange = props.onFilterChange;
+    const onDictionaryFilterChange = props.onDictionaryFilterChange;
+
+    if (isFn(onFilterChange)) {
+      onFilterChange(query);
+    }
+    if (isFn(onDictionaryFilterChange)) {
+      onDictionaryFilterChange(props.bindDictionary, {payload: {query}});
     }
   }
 }

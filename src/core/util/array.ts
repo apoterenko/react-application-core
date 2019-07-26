@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { AnyT } from '../definitions.interface';
+import { AnyT, IKeyValue } from '../definitions.interface';
 import { nvl } from './nvl';
 import { ifNotNilThanValue } from './cond';
 
@@ -40,3 +40,28 @@ export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArr
  */
 export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
   ifNotNilThanValue(array, () => array.slice(0, Math.min(array.length, nvl(limit, array.length))));
+
+/**
+ * @stable [26.07.2019]
+ * @param {TValue[]} array
+ * @param {TValue} initialItem
+ * @param {(previousItem: TValue, initialItem: TValue) => TValue} mergedItemFactory
+ * @param {(itm1: TValue, itm2: TValue) => boolean} predicate
+ * @returns {TValue[]}
+ */
+export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
+                                                         initialItem: TValue,
+                                                         mergedItemFactory: (previousItem: TValue) => TValue,
+                                                         predicate: (itm1: TValue, itm2: TValue) => boolean): TValue[] => {
+  const array0 = array || [];
+  const replacedItem = array0.find((itm) => predicate(itm, initialItem));
+  const hasEntity = !R.isNil(replacedItem);
+  return [
+    ...array0,
+    ...(hasEntity ? [] : [initialItem])
+  ].map(
+    (itm) => predicate(itm, initialItem)
+      ? Object.assign({}, itm, mergedItemFactory(itm))
+      : itm
+  );
+};

@@ -13,7 +13,7 @@ export const DATE_TIME_TYPES = {
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
-  compare(date1: Date, date2: Date): boolean;
+  compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;

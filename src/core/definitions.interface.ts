@@ -323,6 +323,7 @@ export interface IOnValidWrapper<TOnValid> {
 export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean) => void> {
 }
 
+export interface IOnDictionaryFilterChangeWrapper<TOnDictionaryFilterChange> { onDictionaryFilterChange?: TOnDictionaryFilterChange; }
 export interface IOnFilterChangeWrapper<TOnFilterChange> { onFilterChange?: TOnFilterChange; }
 
 /**
@@ -810,13 +811,6 @@ export interface IEditableWrapper {
  */
 export interface IInputWrapper<TInput = HTMLInputElement | HTMLTextAreaElement> {
   input?: TInput;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface I$DateWrapper<TDate = string> {
-  $date?: TDate;
 }
 
 /**
@@ -1975,6 +1969,7 @@ export interface ICaretPositionWrapper {
 
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
+export interface IQtyWrapper<TFormat = number> { qty?: TFormat; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 

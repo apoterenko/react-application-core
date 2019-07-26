@@ -115,7 +115,7 @@
   @include rac-dialog(                                                                        /* @stable [18.06.2019] */
     $rac-dialog-custom: rac-date-field-dialog,
     $rac-dialog-body-max-height: $rac-date-field-dialog-body-max-height,
-    $rac-dialog-body-flex-width: $rac-date-field-dialog-body-flex-width
+    $rac-dialog-body-max-width: $rac-date-field-dialog-body-max-width
   );
 
   @include rac-google-maps(                                                                   /* @stable [18.06.2019] */

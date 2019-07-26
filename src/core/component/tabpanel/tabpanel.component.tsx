@@ -164,11 +164,13 @@ export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> impl
                        !isTabActivate && isLastTabActive && 'rac-last-tab',
                        isFirstTabActive && 'rac-simple-first-tab',
                        isLastTabActive && 'rac-simple-last-tab',
-                       this.uiFactory.tab,
-                       orNull<string>(isTabActivate, toClassName(this.uiFactory.tabActive, 'rac-tab-active'))
+                       orNull(isTabActivate, 'rac-tab-active')
                      )}
            onClick={() => this.onTabClick(tab)}>
-        <span className={toClassName(this.uiFactory.tabContent, 'rac-tab-content')}>
+        <FlexLayout
+          justifyContentCenter={true}
+          alignItemsCenter={true}
+          className='rac-tab-content'>
           <div>
             {
               orNull<JSX.Element>(
@@ -199,7 +201,7 @@ export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> impl
             }
             {orNull<string>(!(tab.url || tab.icon), () => this.t(tab.name))}
           </div>
-        </span>
+        </FlexLayout>
         <span className={toClassName(
                               this.uiFactory.tabIndicator,
                               !props.useIndicator && 'rac-display-none',
@@ -211,7 +213,6 @@ export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> impl
                                 this.uiFactory.tabIndicatorContentUnderline
                               )}/>
           </span>
-        <span className={toClassName(!props.rippable && 'rac-tab-no-rippable', this.uiFactory.tabRipple)}/>
       </div>
     );
   }
