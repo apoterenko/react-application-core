@@ -85,6 +85,7 @@
     "jquery-caret-plugin": "^1.5.3",
     "js-base64": "^2.5.1",
     "jsbarcode": "^3.9.0",
+    "localforage": "^1.7.3",
     "matchmedia-polyfill": "^0.3.0",
     "material-components-web": "^0.40.0",
     "moment": "^2.18.1",
