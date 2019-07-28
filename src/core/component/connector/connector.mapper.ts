@@ -102,20 +102,6 @@ export const refreshListAndFilterFormWrapperEntityMapper =
   });
 
 /**
- * @stable [31.05.2018]
- * @param {IListAndFilterFormWrapperEntity} mappedEntity
- * @returns {IFilterConfiguration}
- */
-export const listAndFilterFormWrapperEntityMapper =
-  (mappedEntity: IListAndFilterFormWrapperEntity): IFilterConfiguration => ({
-    actions: [
-      {type: ToolbarActionEnum.REFRESH_DATA},
-      openFilterFilterFormWrapperEntityMapper(mappedEntity)
-    ],
-    ...actionsDisabledListWrapperEntityMapper(mappedEntity),
-  });
-
-/**
  * @stable [18.09.2018]
  * @param {IStackWrapperEntity} state
  * @returns {IStackWrapperEntity}

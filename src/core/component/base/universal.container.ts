@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { DI_TYPES, staticInjector } from '../../di';
-import { IKeyValue, AnyT, ACTION_PREFIX } from '../../definitions.interface';
+import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
   INavigateEntity,
   IContainerClassEntity,
@@ -34,12 +34,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   extends React.PureComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 
-  protected static logger = LoggerFactory.makeLogger('UniversalContainer');
-
-  // Because of Flux-architecture.
-  // Needed for updating an array of dependent fields (each field depends on previous field state).
-  // Each next field would be updated in one full cycle.
-  private lifecycleTasks: Array<() => void> = [];
+  private static readonly uLogger = LoggerFactory.makeLogger('UniversalContainer');
 
   private $dc: IDateConverter;
   private $nc: INumberConverter;
@@ -63,22 +58,10 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
         try {
           return originalRenderer.call(this);
         } catch (e) {
-          UniversalContainer.logger.error(`[$UniversalContainer][constructor] The error:`, e);
-          return this.getErrorMessageElement(e);
+          UniversalContainer.uLogger.error(`[$UniversalContainer][constructor] The error:`, e);
+          return buildErrorMessage(e.stack);
         }
       };
-    }
-  }
-
-  /**
-   * @stable [07.06.2018]
-   * @param {Readonly<TProps extends IUniversalContainerProps>} prevProps
-   * @param {Readonly<TState>} prevState
-   */
-  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
-    const task = this.lifecycleTasks.pop();
-    if (task) {
-      task();
     }
   }
 
@@ -273,23 +256,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get uiFactory(): IUIFactory {
     return this.$uiFactory = this.$uiFactory || staticInjector(DI_TYPES.UIFactory);
-  }
-
-  /**
-   * @stable [07.06.2018]
-   * @param {() => void} task
-   */
-  protected registerLifecycleTask(task: () => void): void {
-    this.lifecycleTasks.push(task);
-  }
-
-  /**
-   * @stable [27.08.2018]
-   * @param {Error} e
-   * @returns {React.ReactNode}
-   */
-  protected getErrorMessageElement(e: Error): React.ReactNode {
-    return buildErrorMessage(e.stack);
   }
 
   /**

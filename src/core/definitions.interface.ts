@@ -1220,13 +1220,6 @@ export interface IUseAddActionWrapper {
 }
 
 /**
- * @stable [12.08.2018]
- */
-export interface IOnPlusClickWrapper<TOnPlusClick = () => void> {
-  onPlusClick?: TOnPlusClick;
-}
-
-/**
  * @stable [03.06.2018]
  */
 export interface IActionWrapper<TAction> {
@@ -1969,7 +1962,6 @@ export interface ICaretPositionWrapper {
 
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
-export interface IQtyWrapper<TFormat = number> { qty?: TFormat; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 
@@ -2091,7 +2083,6 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
 }
 
 export interface IActivateWrapper<TActivate> { activate?: TActivate; }
-export interface IDeactivateWrapper<TDeactivate> { deactivate?: TDeactivate; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }

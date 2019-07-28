@@ -25,7 +25,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     sectionName: APPLICATION_SECTION,
   };
 
-  protected static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
+  private static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
   private extraRoutes = new Map<IContainerClassEntity, IConnectorConfiguration>();
 
   /**
@@ -48,22 +48,6 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   public componentDidMount(): void {
     this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
-  }
-
-  /**
-   * @stable - 23.04.2018
-   * @param {Readonly<TProps extends IUniversalContainerEntity>} prevProps
-   * @param {Readonly<{}>} prevState
-   */
-  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<{}>): void {
-    super.componentDidUpdate(prevProps, prevState);
-
-    UniversalApplicationContainer.logger.debug(
-      () => (
-        `[$UniversalApplicationContainer][componentDidUpdate] The CURRENT props are: ${
-          JSON.stringify(this.props)}.`
-      )
-    );
   }
 
   /**

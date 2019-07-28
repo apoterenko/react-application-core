@@ -28,4 +28,5 @@ export interface IGridContainerProps extends IContainerProps,
  */
 export interface IGridState extends IFilterChangesWrapper,
                                     IExpandedGroupsWrapper {
+  expandedAllGroups?: boolean; // TODO
 }

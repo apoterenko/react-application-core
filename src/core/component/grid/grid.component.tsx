@@ -37,10 +37,9 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   constructor(props: IGridProps) {
     super(props);
     this.onSortingDirectionChange = this.onSortingDirectionChange.bind(this);
-    this.onSettingsClick = this.onSettingsClick.bind(this);
-    this.onPlusClick = this.onPlusClick.bind(this);
+    this.onExpandAllGroups = this.onExpandAllGroups.bind(this);
 
-    this.state = {filterChanges: {}, expandedGroups: {}};
+    this.state = {filterChanges: {}, expandedGroups: {}, expandedAllGroups: false};
   }
 
   /**
@@ -66,7 +65,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           <tbody className='rac-grid-body'>
             {ifNotFalseThanValue(props.topTotal, () => this.totalRowElement)}
             {
-              isDef(props.groupBy)
+              this.hasGrouping
                 ? this.getGroupedRows(dataSource)
                 : dataSource.map((entity, index) => this.getRow(entity, index, true))
             }
@@ -89,21 +88,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       this.props,
       this.state
     );
-  }
-
-  private onSettingsClick(): void {
-    // TODO
-  }
-
-  /**
-   * @stable [12.08.2018]
-   */
-  private onPlusClick(): void {
-    const props = this.props;
-
-    if (props.onPlusClick) {
-      props.onPlusClick();
-    }
   }
 
   /**
@@ -194,11 +178,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return this.t(column.title);
   }
 
-  /**
-   * @stable - 06.04.2018
-   * @returns {JSX.Element}
-   */
   private get headerElement(): JSX.Element {
+    const {expandedAllGroups} = this.state;
+    const {expandActionRendered, hasGrouping} = this;
+
     return (
       <GridRow className='rac-grid-header'>
         {
@@ -209,8 +192,18 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               index={columnNum}
               direction={getGridColumnSortDirection(column, this.props)}
               onSortingDirectionChange={this.onSortingDirectionChange}
-              {...column}>
-              {this.getHeaderColumnContent(column, columnNum)}
+              {...column}
+            >
+              { // TODO (duplication)
+                expandActionRendered && hasGrouping && columnNum === 0 // TODO index 0 (duplication)
+                ? this.uiFactory.makeIcon({
+                    key: `header-${columnNum}-expanded-action-${expandedAllGroups ? 'close' : 'open'}`,
+                    className: 'rac-grid-data-row-group-expanded-icon',
+                    type: expandedAllGroups ? 'close-list' : 'open-list',
+                    onClick: this.onExpandAllGroups,
+                  })
+                : this.getHeaderColumnContent(column, columnNum)
+              }
             </GridHeaderColumn>
           ))
         }
@@ -581,7 +574,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const groupValue = groupBy.groupValue;
     const isGroupValueArray = Array.isArray(groupValue);
     const isExpanded = this.isGroupedRowExpanded(groupedRowValue);
-    const expandActionRendered = props.expandActionRendered !== false;
+    const expandActionRendered = this.expandActionRendered;
     const columns = this.columnsConfiguration;
 
     return (
@@ -691,11 +684,17 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private isGroupedRowExpanded(groupedRowValue: EntityIdT): boolean {
     const state = this.state;
     const props = this.props;
+
     return coalesce(
-      !R.isNil(state.expandedGroups) && Reflect.get(state.expandedGroups, groupedRowValue),
-      !R.isNil(props.expandedGroups) && Reflect.get(props.expandedGroups, groupedRowValue),
-      false
+      ifNotNilThanValue(state.expandedGroups, (expandedGroups) => expandedGroups[groupedRowValue]),
+      ifNotNilThanValue(props.expandedGroups, (expandedGroups) => expandedGroups[groupedRowValue]),
+      state.expandedAllGroups
     );
+  }
+
+  private onExpandAllGroups(event: IBasicEvent): void {
+    cancelEvent(event);
+    this.setState({expandedAllGroups: !this.state.expandedAllGroups, expandedGroups: {}});
   }
 
   /**
@@ -706,5 +705,21 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private extractGroupedValue(entity: IEntity): AnyT {
     const groupBy = this.props.groupBy;
     return Reflect.get(entity, groupBy.columnName);
+  }
+
+  /**
+   * @stable [27.07.2019]
+   * @returns {boolean}
+   */
+  private get hasGrouping(): boolean {
+    return isDef(this.props.groupBy);
+  }
+
+  /**
+   * @stable [27.07.2019]
+   * @returns {boolean}
+   */
+  private get expandActionRendered(): boolean {
+    return this.props.expandActionRendered !== false;
   }
 }
