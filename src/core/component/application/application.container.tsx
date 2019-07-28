@@ -4,7 +4,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
-import { APPLICATION_STATE_KEY, IStorage } from '../../storage';
+import { STORAGE_APP_STATE_KEY, IStorage } from '../../storage';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
@@ -108,7 +108,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
 
   protected clearPreviousStates(): void {
     this.storage.each((o, key) => {
-      if (key.endsWith(APPLICATION_STATE_KEY)) {
+      if (key.endsWith(STORAGE_APP_STATE_KEY)) {
         this.storage.remove(key, true);
       }
     });
@@ -142,7 +142,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
   private saveState(): void {
     this.clearPreviousStates();
     this.storage.set(
-        APPLICATION_STATE_KEY,
+        STORAGE_APP_STATE_KEY,
         this.clearStateBeforeSerialization(clone<TStoreEntity>(this.appStore.getState() as TStoreEntity))
     );
   }

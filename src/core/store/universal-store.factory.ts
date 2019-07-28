@@ -2,10 +2,11 @@ import { applyMiddleware, combineReducers, createStore, Middleware, ReducersMapO
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
-import { ISettings } from '../settings';
-import { ENV } from '../env';
 import { appContainer, DI_TYPES, staticInjector } from '../di';
-import { APPLICATION_STATE_KEY, IStorage } from '../storage/storage.interface';
+import { STORAGE_APP_STATE_KEY, IStorage } from '../storage/storage.interface';
+import { ENV } from '../env';
+import { ISettings } from '../settings';
+import { nvl } from '../util';
 import { universalReducers } from '../store/universal-default-reducers.interface';
 
 export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
@@ -15,7 +16,10 @@ export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
 
   let preloadedState = {} as TState;
   if (!ENV.rnPlatform && applicationSettings && applicationSettings.usePersistence) {
-    preloadedState = await staticInjector<IStorage>(DI_TYPES.Storage).get(APPLICATION_STATE_KEY);
+    preloadedState = nvl(
+      await staticInjector<IStorage>(DI_TYPES.Storage).get(STORAGE_APP_STATE_KEY),
+      preloadedState
+    );
   }
 
   const store = createStore(

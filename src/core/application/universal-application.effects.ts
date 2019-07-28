@@ -9,7 +9,7 @@ import { orNull, isArrayNotEmpty } from '../util';
 import { ISettings } from '../settings';
 import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
-import { APPLICATION_TOKEN_KEY, APPLICATION_UUID_KEY, IStorage } from '../storage/storage.interface';
+import { STORAGE_APP_TOKEN_KEY, STORAGE_APP_UUID_KEY, IStorage } from '../storage/storage.interface';
 import { BaseEffects } from '../store/effects/base.effects';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
@@ -46,7 +46,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         ApplicationActionBuilder.buildAfterInitAction()
       ];
     }
-    const token = await this.notVersionedPersistentStorage.get(APPLICATION_TOKEN_KEY);
+    const token = await this.notVersionedPersistentStorage.get(STORAGE_APP_TOKEN_KEY);
     const actions = [];
 
     if (token) {
@@ -78,7 +78,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       let data;
       try {
         data = await Promise.all([
-          this.notVersionedSessionStorage.get(APPLICATION_UUID_KEY),
+          this.notVersionedSessionStorage.get(STORAGE_APP_UUID_KEY),
           this.fetchJsonTransportFactory.request({url: metaFilesJsonUrl})
         ]);
       } catch (e) {
@@ -92,7 +92,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         const remoteAppUuid = remoteAppMetaInfo.result.uuid;
 
         if (!R.isNil(remoteAppUuid) && !R.isEmpty(remoteAppUuid)) {
-          this.notVersionedSessionStorage.set(APPLICATION_UUID_KEY, remoteAppUuid);
+          this.notVersionedSessionStorage.set(STORAGE_APP_UUID_KEY, remoteAppUuid);
 
           if (!R.isNil(localAppUuid)
             && !R.isEmpty(localAppUuid)
@@ -207,7 +207,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     const payload: ITokenWrapper = action.data;
     const token = payload && payload.token || state.transport.token;
 
-    await this.notVersionedPersistentStorage.set(APPLICATION_TOKEN_KEY, token);
+    await this.notVersionedPersistentStorage.set(STORAGE_APP_TOKEN_KEY, token);
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onAuthorized] The storage token has been saved: ${token}.`);
   }
@@ -217,7 +217,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    */
   @EffectsService.effects(ApplicationActionBuilder.buildUnauthorizedActionType())
   public async $onUnauthorized(): Promise<void> {
-    await this.notVersionedPersistentStorage.remove(APPLICATION_TOKEN_KEY);
+    await this.notVersionedPersistentStorage.remove(STORAGE_APP_TOKEN_KEY);
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
   }

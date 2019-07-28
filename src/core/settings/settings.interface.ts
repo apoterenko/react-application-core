@@ -1,9 +1,8 @@
 import { ENV } from '../env';
 import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
-import { StorageTypeEnum } from '../storage/storage.interface';
 import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
-import { IButtonProps } from '../definition';
+import { IButtonProps, StorageTypeEnum } from '../definition';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;

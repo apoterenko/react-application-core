@@ -10,6 +10,7 @@ export * from './form-definition.interface';
 export * from './life-cycle-definition.interface';
 export * from './operation-definition.interface';
 export * from './page-definition.interface';
+export * from './storage-definition.interface';
 export * from './tab-definition.interface';
 export * from './toolbar-tools-definition.interface';
 export * from './tooltip-definition.interface';
