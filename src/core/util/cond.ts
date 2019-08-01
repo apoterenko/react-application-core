@@ -44,6 +44,18 @@ export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
   !R.isNil(value) ? callback(value) : defaultValue;
 
 /**
+ * @stable [30.07.2019]
+ * @param {TValue} value
+ * @param {(value: TValue) => TResult} callback
+ * @param {any} defaultValue
+ * @returns {TResult}
+ */
+export const ifNilThanValue = <TValue, TResult>(value: TValue,
+                                                callback: (value: TValue) => TResult,
+                                                defaultValue = null): TResult =>
+  R.isNil(value) ? callback(value) : defaultValue;
+
+/**
  * @stable [16.02.2019]
  * @param {TValue} value
  * @param {(value: TValue) => TResult} callback

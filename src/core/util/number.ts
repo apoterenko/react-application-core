@@ -4,10 +4,8 @@
  * @param {number} precision
  * @returns {number}
  */
-export const roundByPrecision = (num: number, precision = 2) => {
-  const t = Math.pow(10, precision);
-  return Math.round(num * t) / t;
-};
+export const roundByPrecision = (num: number, precision = 2): number =>
+  Number(`${Math.round(Number(`${num}e${precision}`))}e-${precision}`);
 
 /**
  * @stable [05.05.2019]
@@ -25,7 +23,7 @@ export const roundDownByDivider = (num: number, divider: number): number =>
  * @returns {number}
  */
 export const invertCurrency = (num: number, precision = 2): number => {
-  const result = roundByPrecision(num, precision);
+  const result = roundByPrecision(num, precision); // To exclude the "-0" case
   return result === 0 ? result : result * -1;
 };
 

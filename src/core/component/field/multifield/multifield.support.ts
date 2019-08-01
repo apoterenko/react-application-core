@@ -4,10 +4,10 @@ import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions
 import {
   defValuesFilter,
   generateArray,
+  ifNotNilThanValue,
   isDef,
   isFn,
   isPrimitive,
-  orNull,
   orUndef,
   shallowClone,
   toType,
@@ -182,24 +182,24 @@ export const toActualMultiItemAddedEntities = <TEntity extends IEntity = IEntity
 };
 
 /**
- * @stable [27.06.2018]
+ * @stable [29.07.2019]
  * @param {MultiFieldSingleValueT} multiFieldEntity
- * @returns {string}
+ * @returns {EntityIdT}
  */
-export const toLastAddedMultiItemEntity = (multiFieldEntity: MultiFieldSingleValueT): string => {
-  if (R.isNil(multiFieldEntity)) {
-    return null;
-  }
-  if (isPrimitive(multiFieldEntity)) {
-    return String(multiFieldEntity);
-  }
-  const valueAsMultiEntity = multiFieldEntity as IMultiEntity;
-  const add = valueAsMultiEntity.add;
-  if (R.isNil(add)) {
-    return null;
-  }
-  return orNull<string>(add.length > 0, () => String(add[add.length - 1].id));
-};
+export const toLastAddedMultiItemEntityId = (multiFieldEntity: MultiFieldSingleValueT): EntityIdT =>
+  ifNotNilThanValue(
+    multiFieldEntity,
+    () => (
+      isPrimitive(multiFieldEntity)
+        ? multiFieldEntity as EntityIdT
+        : (
+          ifNotNilThanValue(
+            (multiFieldEntity as IMultiEntity).add,
+            (add) => ifNotNilThanValue(R.last(add), (lastValue) => lastValue.id)
+          )
+        )
+    )
+  );
 
 /**
  * @stable [26.06.2018]

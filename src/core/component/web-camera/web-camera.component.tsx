@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as Webcam from 'webcamjs';
 
-import { uuid, toBlobEntities } from '../../util';
 import { BaseComponent } from '../base';
 import { IWebCameraProps, IWebCamera } from './web-camera.interface';
+import { uuid, isFn, fromUrlToBlob } from '../../util';
 
 export class WebCamera extends BaseComponent<IWebCameraProps>
   implements IWebCamera {
@@ -68,16 +68,14 @@ export class WebCamera extends BaseComponent<IWebCameraProps>
   }
 
   /**
-   * @stable [02.08.2018]
+   * @stable [01.08.2019]
    * @param {string} dataUri
    * @returns {Promise<void>}
    */
   private async onCapture(dataUri: string): Promise<void> {
-    const blobEntities = await toBlobEntities(dataUri);
-
     const props = this.props;
-    if (props.onSelect) {
-      props.onSelect(blobEntities[0].blob);
+    if (isFn(props.onSelect)) {
+      props.onSelect(await fromUrlToBlob(dataUri));
     }
   }
 }

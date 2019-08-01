@@ -1,20 +1,13 @@
-import { Store } from 'redux';
-
 import { DI_TYPES } from './di.interface';
 import { staticInjector } from './di.support';
-import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { INumberConverter } from '../converter';
 import { IUIFactory } from '../component/factory/factory.interface';
 import { TranslatorT } from '../translation';
-import { ITransport } from '../transport';
-import { IEventManager } from '../event';
+import { ISettings } from '../settings';
+import { IStorage } from '../storage';
 
-/**
- * @stable [20.10.2018]
- * @returns {Store<TStoreEntity extends IUniversalApplicationStoreEntity>}
- */
-export const getStore = <TStoreEntity extends IUniversalApplicationStoreEntity>(): Store<TStoreEntity> =>
-  staticInjector<Store<TStoreEntity>>(DI_TYPES.Store);
+let settings: ISettings;
+let databaseStorage: IStorage;
 
 /**
  * @stable [31.10.2018]
@@ -35,19 +28,21 @@ export const getUiFactory = (): IUIFactory => staticInjector<IUIFactory>(DI_TYPE
 export const getTranslator = (): TranslatorT => staticInjector<TranslatorT>(DI_TYPES.Translate);
 
 /**
- * @stable [23.02.2019]
- * @returns {ITransport}
+ * @stable [29.07.2019]
+ * @returns {ISettings}
  */
-export const getTransport = (): ITransport => staticInjector<ITransport>(DI_TYPES.Transport);
+export const getSettings = (): ISettings =>
+  settings = settings || staticInjector<ISettings>(DI_TYPES.Settings);
+
+/**
+ * @stable [29.07.2019]
+ * @returns {IStorage}
+ */
+export const getDatabaseStorage = (): IStorage =>
+  databaseStorage = databaseStorage || staticInjector<IStorage>(DI_TYPES.DatabaseStorage);
 
 /**
  * @stable [23.02.2019]
  * @returns {TApi}
  */
 export const getApi = <TApi>(): TApi => staticInjector<TApi>(DI_TYPES.Api);
-
-/**
- * @stable [24.02.2019]
- * @returns {IEventManager}
- */
-export const getEventManager = (): IEventManager => staticInjector<IEventManager>(DI_TYPES.EventManager);

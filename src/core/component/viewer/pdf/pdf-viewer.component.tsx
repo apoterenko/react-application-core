@@ -63,9 +63,15 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
    */
   protected refresh(): void {
     const props = this.props;
+    const src = props.src;
+
+    if (R.isNil(src)) {
+      // This plugin can't process the null value
+      return;
+    }
 
     this.pdfRendererPlugin
-      .setSrc(props.src)
+      .setSrc(src)
       .setScale(props.scale)
       .loadDocument();
   }
@@ -88,6 +94,7 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
     const previewWidth = PdfViewer.PREVIEW_WIDTH * previewScale;
     return (
       <PdfViewer
+        usePreview={false}
         src={props.src}
         style={{width: previewWidth}}
         scale={previewScale}/>

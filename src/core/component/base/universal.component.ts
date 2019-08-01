@@ -2,7 +2,13 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { DelayedTask, isFn, isDef } from '../../util';
-import { DI_TYPES, staticInjector } from '../../di';
+import {
+  DI_TYPES,
+  getUiFactory,
+  staticInjector,
+  getSettings,
+  getDatabaseStorage,
+} from '../../di';
 import { TranslatorT } from '../../translation';
 import { ISettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
@@ -17,6 +23,7 @@ import { AnyT } from '../../definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
+import { IStorage } from '../../storage';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>
@@ -126,11 +133,21 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @stable [19.04.2018]
+   * @reactNativeCompatible
+   * @stable [29.07.2019]
    * @returns {ISettings}
    */
   protected get settings(): ISettings {
-    return staticInjector(DI_TYPES.Settings);
+    return getSettings();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [29.07.2019]
+   * @returns {IStorage}
+   */
+  protected get databaseStorage(): IStorage {
+    return getDatabaseStorage();
   }
 
   /**
@@ -154,7 +171,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    * @returns {IUIFactory}
    */
   protected get uiFactory(): IUIFactory {
-    return staticInjector(DI_TYPES.UIFactory);
+    return getUiFactory();
   }
 
   /**

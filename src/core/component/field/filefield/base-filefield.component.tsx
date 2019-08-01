@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BaseTextField } from '../textfield';
-import { cancelEvent, orNull, downloadBlob, toClassName } from '../../../util';
+import { cancelEvent, orNull, downloadBlob, toClassName, uuid } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   EntityIdT,
@@ -16,7 +16,7 @@ import {
   IBaseFileFieldProps,
 } from './basic-filefield.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import { toLastAddedMultiItemEntity } from '../multifield';
+import { toLastAddedMultiItemEntityId } from '../multifield';
 import { IUniversalDialog, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
 import { IBasicEvent } from '../../../react-definitions.interface';
@@ -28,7 +28,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
 
   protected multiFieldPlugin = new MultiFieldPlugin(this);
-  private filesMap = new Map<EntityIdT, Blob>();
 
   /**
    * @stable [30.06.2018]
@@ -44,6 +43,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.openFileDialog = this.openFileDialog.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
     this.openCameraDialog = this.openCameraDialog.bind(this);
+    this.onSelectCameraSnapshot = this.onSelectCameraSnapshot.bind(this);
 
     const actions: IFieldActionConfiguration[] = [
       orNull<IFieldActionConfiguration>(props.useCamera, () => ({type: 'video', onClick: this.openCameraDialog})),
@@ -51,15 +51,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
       orNull<IFieldActionConfiguration>(props.useDownloadAction, () => ({type: 'download', onClick: this.downloadFile}))
     ];
     this.defaultActions = R.insertAll<IFieldActionConfiguration>(0, actions.filter((cfg) => !R.isNil(cfg)), this.defaultActions);
-  }
-
-  /**
-   * @stable [28.06.2018]
-   */
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
-    this.filesMap.forEach((value, key) => this.destroyBlob(key));
   }
 
   /**
@@ -84,7 +75,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     const activeValue = this.multiFieldPlugin.activeValue[0];
     if (!R.isNil(activeValue)) {
       const currentValue = activeValue.id;
-      this.destroyBlob(currentValue);
+      this.databaseStorage.remove(currentValue as string);
       this.multiFieldPlugin.onDeleteItem({id: currentValue});
     }
   }
@@ -124,11 +115,12 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
                 onClose={this.onCameraDialogClose}
                 onAccept={this.onCameraDialogAccept}>
           {
-            orNull<JSX.Element>(
+            orNull(
               state.cameraEnabled,
               () => (
-                <WebCamera ref='camera'
-                           onSelect={this.doSelectBlob}/>
+                <WebCamera
+                  ref='camera'
+                  onSelect={this.onSelectCameraSnapshot}/>
               )
             )
           }
@@ -180,9 +172,9 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [19.12.2018]
-   * @param {File[]} file
+   * @param {Blob[]} file
    */
-  private onSelect(file: File[]): void {
+  private onSelect(file: Blob[]): void {
     if (!this.props.multi) {
       this.clearValue();
     }
@@ -193,13 +185,20 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [02.08.2018]
    * @param {Blob} blob
    */
-  private doSelectBlob(blob: Blob): void {
-    const fileUrl = URL.createObjectURL(blob);
-
-    this.filesMap.set(fileUrl, blob);
-    this.multiFieldPlugin.onAddItem({id: fileUrl});
+  private async doSelectBlob(blob: Blob): Promise<void> {
+    const url = uuid();
+    await this.databaseStorage.set(url, blob);
+    this.multiFieldPlugin.onAddItem({id: url});
 
     this.setFocus();
+  }
+
+  /**
+   * @stable [01.08.2019]
+   * @param {Blob} blob
+   */
+  private onSelectCameraSnapshot(blob: Blob): void {
+    this.onSelect([blob]);
   }
 
   private get dnd(): IDnd {
@@ -232,19 +231,8 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   private downloadFile(event: IBasicEvent): void {
     cancelEvent(event);
 
-    const url = toLastAddedMultiItemEntity(this.value);
-    downloadBlob(url, this.props.fileName || url);
-  }
-
-  /**
-   * @stable [28.06.2018]
-   * @param {EntityIdT} key
-   */
-  private destroyBlob(key: EntityIdT): void {
-    URL.revokeObjectURL(key as string);
-    this.filesMap.delete(key);
-
-    BaseFileField.logger.debug(`[$BasicFileField][destroyBlob] The blob has been destroyed to the key ${key}`);
+    const url = toLastAddedMultiItemEntityId(this.value); // TODO
+    // downloadBlob(url as string, this.props.fileName || url as string);
   }
 
   /**

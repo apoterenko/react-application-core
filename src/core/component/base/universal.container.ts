@@ -3,7 +3,7 @@ import { Store } from 'redux';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { DI_TYPES, staticInjector } from '../../di';
+import { DI_TYPES, getSettings, staticInjector } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
   INavigateEntity,
@@ -40,7 +40,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   private $nc: INumberConverter;
   private $uiFactory: IUIFactory;
   private $ts: TranslatorT;
-  private $settings: ISettings;
 
   /**
    * @stable - 12.04.2018
@@ -209,18 +208,16 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * ReactNative supporting
-   *
+   * @reactNativeCompatible
    * @stable [23.05.2019]
    * @returns {ISettings}
    */
   protected get settings(): ISettings {
-    return this.$settings = this.$settings || staticInjector(DI_TYPES.Settings);
+    return getSettings();
   }
 
   /**
-   * ReactNative supporting
-   *
+   * @reactNativeCompatible
    * @stable [23.05.2019]
    * @returns {TranslatorT}
    */
