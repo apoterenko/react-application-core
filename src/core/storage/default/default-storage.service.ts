@@ -1,10 +1,10 @@
-import { AnyT } from '../definitions.interface';
-import { ifNotNilThanValue, nvl } from '../util';
-import { ISettings } from '../settings';
-import { IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
-import { StorageTypeEnum } from '../definition';
+import { AnyT } from '../../definitions.interface';
+import { BaseStorage } from '../base-storage.service';
+import { ifNotNilThanValue, nvl } from '../../util';
+import { ISettings } from '../../settings';
+import { StorageTypeEnum } from '../../definition';
 
-export class DefaultStorage implements IStorage {
+export class DefaultStorage extends BaseStorage {
 
   /**
    * @stable [28.07.2019]
@@ -12,9 +12,10 @@ export class DefaultStorage implements IStorage {
    * @param {() => ISettings} settingsProvider
    * @param {StorageTypeEnum} storageType
    */
-  constructor(private prefix: string,
+  constructor(prefix: string,
               private settingsProvider: () => ISettings,
               private storageType?: StorageTypeEnum) {
+    super(prefix);
   }
 
   /**
@@ -43,9 +44,9 @@ export class DefaultStorage implements IStorage {
    * @param {boolean} noPrefix
    * @returns {Promise<boolean>}
    */
-  public remove(key: string, noPrefix?: boolean): Promise<boolean> {
+  public remove(key: string, noPrefix?: boolean): Promise<void> {
     this.storage.removeItem(noPrefix ? key : this.toKey(key));
-    return Promise.resolve(true);
+    return Promise.resolve();
   }
 
   /**
@@ -72,14 +73,5 @@ export class DefaultStorage implements IStorage {
       default:
         return localStorage;
     }
-  }
-
-  /**
-   * @stable [28.07.2019]
-   * @param {string} key
-   * @returns {string}
-   */
-  private toKey(key: string): string {
-    return [this.prefix, key].join(STORAGE_KEY_SEPARATOR);
   }
 }

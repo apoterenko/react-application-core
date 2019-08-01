@@ -8,7 +8,6 @@ import {
   IActiveWrapper,
   IApplicationWrapper,
   IAuthorizedWrapper,
-  IBlobWrapper,
   IBrowserLocationWrapper,
   IChangesWrapper,
   IClearValueWrapper,
@@ -844,13 +843,6 @@ export interface IStickyElementPayloadEntity {
   jqStickyElHeight?: number;
   initialStickyElTop?: number;
   initial?: boolean;
-}
-
-/**
- * @stable [17.12.2018]
- */
-export interface IBlobEntity extends IIdWrapper<string>,
-                                     IBlobWrapper {
 }
 
 /**
