@@ -35,7 +35,7 @@ export const canSubmitEntityFormEntity = <TEntity extends IEntity>(entity: IEnti
                                                                    editRules: Record<string, ValidatorRuleEnum[]>,
                                                                    createRules?: Record<string, ValidatorRuleEnum[]>): boolean =>
   canSubmitEditableEntity(
-    doesEntityExist(entity) ? editRules : createRules || editRules,
+    doesExtendedEntityExist(entity) ? editRules : createRules || editRules,
     entity.form
   );
 
@@ -60,7 +60,7 @@ export const isEntityFormEntityBusy = <TEntity extends IEntity>(entity: IEntityF
  * @param {IExtendedEntity<TEntity extends IEntity>} entityWrapper
  * @returns {boolean}
  */
-export const isNewEntity = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
+export const isNewExtendedEntity = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
   entityWrapper.newEntity === true;
 
 /**
@@ -68,5 +68,5 @@ export const isNewEntity = <TEntity extends IEntity>(entityWrapper: IExtendedEnt
  * @param {IExtendedEntity<TEntity extends IEntity>} entityWrapper
  * @returns {boolean}
  */
-export const doesEntityExist = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
-  !isNewEntity(entityWrapper);
+export const doesExtendedEntityExist = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
+  !R.isNil(entityWrapper) && !isNewExtendedEntity(entityWrapper);

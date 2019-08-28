@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { AnyT, StringNumberT } from '../definitions.interface';
+import { AnyT, StringNumberT, UNDEF, UNDEF_SYMBOL } from '../definitions.interface';
 import { isFn } from '../util';
 import { calc } from './calc';
 
@@ -32,7 +32,7 @@ export function orDefault<TResult1, TResult2>(cond: boolean,
 }
 
 /**
- * @stable [23.01.2018]
+ * @stable [10.08.2019]
  * @param {TValue} value
  * @param {(value: TValue) => TResult} callback
  * @param {any} defaultValue
@@ -41,7 +41,9 @@ export function orDefault<TResult1, TResult2>(cond: boolean,
 export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
                                                    callback: (value: TValue) => TResult,
                                                    defaultValue = null): TResult =>
-  !R.isNil(value) ? callback(value) : defaultValue;
+  !R.isNil(value)
+    ? callback(value)
+    : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
 /**
  * @stable [30.07.2019]

@@ -1,23 +1,24 @@
-import * as R from 'ramda';
-
-import { IPlaceEntity } from '../entities-definitions.interface';
+import { IPlaceEntity } from '../definition';
+import { join } from './join';
+import { ifNotNilThanValue } from './cond';
 
 /**
  * @stable [01.08.2018]
  * @param {IPlaceEntity} placeEntity
  * @returns {string}
  */
-export const toAddress = (placeEntity: IPlaceEntity) => {
-  if (!R.isNil(placeEntity)) {
-    return [
-      [placeEntity.streetNumber, placeEntity.street].filter((v) => !!v).join(' '),
+export const toAddress = (placeEntity: IPlaceEntity): string => ifNotNilThanValue(
+  placeEntity,
+  () => (
+    join([
+      join([placeEntity.streetNumber, placeEntity.street], ' '),
       placeEntity.city,
       placeEntity.region,
       placeEntity.country
-    ].filter((v) => !!v).join(', ');
-  }
-  return '';
-};
+    ], ', ')
+  ),
+  ''
+);
 
 /**
  * @stable [01.08.2018]

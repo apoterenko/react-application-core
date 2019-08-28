@@ -2,6 +2,14 @@ import { IEntity, StringNumberT } from '../definitions.interface';
 import { nvl } from '../util';
 
 /**
+ * @stable [08.08.2019]
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+export const NUMBER_COMPARATOR = (a: number, b: number): number => a - b;
+
+/**
  * @stable [09.04.2019]
  * @param {StringNumberT} value1
  * @param {StringNumberT} value2
