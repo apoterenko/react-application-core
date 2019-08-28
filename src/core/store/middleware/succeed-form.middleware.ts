@@ -2,10 +2,13 @@ import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { isFn, orNull } from '../../util';
+import { isFn, orNull, ifNotNilThanValue } from '../../util';
 import { RouterActionBuilder } from '../../router';
 import { IEntity } from '../../definitions.interface';
-import { ListActionBuilder } from '../../component/action.builder';
+import {
+  ListActionBuilder,
+  FormActionBuilder,
+} from '../../component/action.builder';
 import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import { IApplicationStoreEntity } from '../../entities-definitions.interface';
 import { IApiEntity } from '../../definition';
@@ -27,6 +30,7 @@ const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
                                                  TRelatedEntity extends IEntity>(
   config: ISucceedRelatedFormMiddlewareConfig<TEntity, TRelatedEntity>): IEffectsAction[] => {
+  const formSection = config.formSection;
   const apiEntity = config.action.data as IApiEntity<TRelatedEntity>;
   const parentEntity = config.getEntity(config.state);
 
@@ -39,18 +43,25 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
   const changes = config.makeRelatedChanges(relatedEntities);
   const payloadWrapper: IModifyEntityPayloadWrapper = {payload: {id: parentEntity.id, changes}};
 
-  return (
-    R.isNil(config.listSection)
-      ? []
-      : [ListActionBuilder.buildUpdateAction(config.listSection, payloadWrapper)]
-        .concat(config.canReturn !== false ? RouterActionBuilder.buildNavigateBackAction() : [])
-  ).concat(
+  return [
+    ...ifNotNilThanValue(
+      config.listSection,
+      (listSection) => (
+        [
+          ListActionBuilder.buildUpdateAction(listSection, payloadWrapper),
+          config.navigateBack !== false
+            ? RouterActionBuilder.buildNavigateBackAction()
+            : FormActionBuilder.buildSubmitDoneAction(formSection)
+        ]
+      ),
+      []
+    ),
     NotificationActionBuilder.buildInfoAction(
       staticInjector<TranslatorT>(DI_TYPES.Translate)(
         config.saveMessage || staticInjector<ISettings>(DI_TYPES.Settings).messages.dataSaved
       )
     )
-  );
+  ];
 };
 
 /**

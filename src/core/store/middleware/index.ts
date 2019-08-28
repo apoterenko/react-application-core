@@ -1,4 +1,4 @@
-export * from './destroyed-component.middleware';
+export * from './destroyed-container.middleware';
 export * from './destroyed-form.middleware';
 export * from './edited-list.middleware';
 export * from './filer-form-dialog.middleware';
