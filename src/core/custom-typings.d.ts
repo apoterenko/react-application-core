@@ -1,7 +1,9 @@
 /* tslint:disable */
 interface Window {
   $$appHash;
-  require;
-  jQuery;
   $;
+  dataLayer;
+  ga;
+  jQuery;
+  require;
 }

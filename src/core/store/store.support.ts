@@ -1,9 +1,13 @@
 import { Reducer, ReducersMapObject, combineReducers, AnyAction } from 'redux';
-import { IEffectsAction } from 'redux-effects-promise';
+import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
-import { toSection, isPrimitive, isUndef, coalesce, shallowClone, coalesceDef } from '../util';
-import { IPayloadWrapper, ISelectedWrapper, IReplacedWrapper, AnyT } from '../definitions.interface';
+import { toSection, isPrimitive, isUndef, coalesce, shallowClone, coalesceDef, toType } from '../util';
+import { IPayloadWrapper, ISelectedWrapper, IReplacedWrapper, IUpdatedWrapper, AnyT } from '../definitions.interface';
+import {
+  IEntityReducerFactoryConfigEntity,
+  IEntityActionBuilder,
+} from '../definition';
 
 export type FilterT = (action: IEffectsAction) => boolean;
 
@@ -44,16 +48,16 @@ export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersM
   combineReducers<ReducersMapObject>(reducersMap as ReducersMapObject);
 
 /**
- * @stable [11.08.2018]
+ * @deprecated Use makeEntityReducerFactory
  * @param {string} updateActionType
  * @param {string} destroyActionType
  * @param {TPayload} initialState
  * @returns {(state: TPayload, action: AnyAction) => TPayload}
  */
 export const entityReducerFactory = (
-      updateActionType: string,
-      destroyActionType: string,
-      initialState: AnyT = null): (state: AnyT, action: AnyAction) => AnyT =>
+  updateActionType: string,
+  destroyActionType: string,
+  initialState: AnyT = null): (state: AnyT, action: AnyAction) => AnyT =>
   (state = initialState,
    action: AnyAction): AnyT => {
     switch (action.type) {
@@ -86,3 +90,70 @@ export const entityReducerFactory = (
     }
     return state;
   };
+
+/**
+ * @stable [26.08.2019]
+ * @param {IEntityReducerFactoryConfigEntity} config
+ * @returns {(state: AnyT, action: AnyAction) => AnyT}
+ */
+export const makeEntityReducerFactory = (config: IEntityReducerFactoryConfigEntity): (state: AnyT, action: AnyAction) => AnyT =>
+  (state = config.initialState || null, action): AnyT => {
+    switch (action.type) {
+      case config.update:
+      case config.select:
+        const selectedWrapper: ISelectedWrapper<AnyT> = action.data;
+        const updatedWrapper: IUpdatedWrapper<AnyT> = action.data;
+        const selectedEntity = selectedWrapper.selected;
+        const updatedEntity = updatedWrapper.updated;
+        const entity = coalesce(selectedEntity, updatedEntity);
+
+        // When selected === null or replaced === null
+        const defEntity = coalesceDef(selectedEntity, updatedEntity);
+
+        return R.isNil(entity)
+          ? (isUndef(defEntity) ? state : defEntity)
+          : (
+            isPrimitive(entity)
+              ? entity
+              : (
+                Array.isArray(entity)
+                  ? [...entity]
+                  : (
+                    R.isNil(updatedEntity)
+                      ? {...state, ...entity}
+                      : shallowClone(entity)
+                  )
+              )
+          );
+      case config.destroy:
+        return null;
+    }
+    return state;
+  };
+
+/**
+ * @stable [26.08.2019]
+ * @param {IEntityReducerFactoryConfigEntity} config
+ * @returns {IEntityActionBuilder}
+ */
+export const makeEntityActionBuilderFactory = (config: IEntityReducerFactoryConfigEntity): IEntityActionBuilder =>
+  Reflect.construct(class implements IEntityActionBuilder {
+
+    /**
+     * @sable [26.08.2019]
+     * @param {AnyT} updated
+     * @returns {IEffectsAction}
+     */
+    public buildUpdateAction(updated: AnyT): IEffectsAction {
+      return EffectsAction.create(config.update, toType<IUpdatedWrapper>({updated}));
+    }
+
+    /**
+     * @sable [26.08.2019]
+     * @param {AnyT} selected
+     * @returns {IEffectsAction}
+     */
+    public buildSelectAction(selected: AnyT): IEffectsAction {
+      return EffectsAction.create(config.select, toType<ISelectedWrapper>({selected}));
+    }
+  }, []);

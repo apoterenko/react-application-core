@@ -10,7 +10,7 @@ import { PictureViewer } from '../viewer';
 
 export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
                              TState extends IViewerState = IViewerState>
-  extends BaseComponent<TProps, IViewerState> {
+  extends BaseComponent<TProps, TState> {
 
   /**
    * @stable [08.07.2018]
@@ -20,7 +20,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
     super(props);
     this.onPreview = this.onPreview.bind(this);
     this.onDialogClose = this.onDialogClose.bind(this);
-    this.state = {};
+    this.state = {} as TState;
   }
 
   /**

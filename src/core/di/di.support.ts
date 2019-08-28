@@ -3,13 +3,26 @@ import { interfaces } from 'inversify';
 import { AnyT } from '../definitions.interface';
 import { appContainer, provideInSingletonDecorator } from './di.module';
 
+export const cachedServices = new Map();
+
 /**
  * @stable [26.04.2018]
  * @param {interfaces.ServiceIdentifier<T>} serviceIdentifier
  * @returns {any}
  */
-export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>) =>
-  appContainer.get<T>(serviceIdentifier);
+export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>) => {
+  // Two-level cache because of a low performance
+  let instance = cachedServices.get(serviceIdentifier);
+  if (cachedServices.has(serviceIdentifier)) {
+    return instance; // Null or instance
+  }
+  if (appContainer.isBound(serviceIdentifier)) {
+    cachedServices.set(serviceIdentifier, instance = appContainer.get<T>(serviceIdentifier));
+  } else {
+    cachedServices.set(serviceIdentifier, instance = null);
+  }
+  return instance;
+};
 
 /**
  * @stable [26.04.2018]
