@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { render } from 'react-dom';
 import * as crossvent from 'crossvent';
 
@@ -11,9 +12,7 @@ import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 
 // Google analytics
 function gtag(...args) {
-  const dL = Reflect.get(window, 'dataLayer') || [];
-  Reflect.set(window, 'dataLayer', dL);
-  dL.push(arguments);
+  (window.dataLayer || []).push(arguments);
 }
 
 // Boot element managing
@@ -67,6 +66,9 @@ export function bootstrap(
   if (ENV.prodMode && ENV.googleKey) {
     gtag('js', new Date());
     gtag('config', ENV.googleKey);
+    if (!R.isNil(window.ga)) {
+      window.ga('create', ENV.googleKey, 'auto');
+    }
   }
 
   switch (document.readyState) {

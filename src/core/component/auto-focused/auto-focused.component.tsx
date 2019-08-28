@@ -3,7 +3,8 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { IKeyboardEvent } from '../../definitions.interface';
 import { DelayedTask, orNull } from '../../util';
-import { IField, TextField, DelayedChangesFieldPlugin, FIELD_DISPLAY_EMPTY_VALUE } from '../field';
+import { IField, TextField, DelayedChangesFieldPlugin } from '../field';
+import { FIELD_DISPLAY_EMPTY_VALUE } from '../../definition';
 import { BaseComponent } from '../base';
 import { IAutoFocusedState } from './auto-focused.interface';
 import { IAutoFocusedProps } from './auto-focused.interface';
