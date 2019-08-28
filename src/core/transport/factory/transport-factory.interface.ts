@@ -11,5 +11,6 @@ export interface ITransportFactoryResponseEntity extends ITransportResponseFacto
  * @stable [01.02.2019]
  */
 export interface ITransportFactory extends ICancelableTransport {
-  request(requestEntity: ITransportRequestEntity): Promise<ITransportFactoryResponseEntity>;
+  request(requestEntity: ITransportRequestEntity,
+          requestPayloadHandler?: (payload: ITransportRequestEntity) => ITransportRequestEntity): Promise<ITransportFactoryResponseEntity>;
 }

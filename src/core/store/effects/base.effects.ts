@@ -6,8 +6,8 @@ import { IOperationEntity } from '../../definition';
 
 @injectable()
 export class BaseEffects<TApi> {
-  @lazyInject(DI_TYPES.Api) protected api: TApi;
-  @lazyInject(DI_TYPES.Transport) private transport: ITransport;
+  @lazyInject(DI_TYPES.Api) protected readonly api: TApi;
+  @lazyInject(DI_TYPES.Transport) private readonly transport: ITransport;
 
   /**
    * @stable [19.12.2018]

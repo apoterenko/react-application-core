@@ -1,6 +1,7 @@
 import { LoggerFactory } from 'ts-smart-logger';
 import * as P from 'platform';
 
+import { AnyT } from '../definitions.interface';
 import { IEnvironmentEntity } from '../entities-definitions.interface';
 import { defValuesFilter } from '../util/filter';
 import { buildNormalizedPath } from '../util/route';
@@ -41,6 +42,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   windowsPhonePlatform: WINDOWS_PHONE_PLATFORM,
   mobilePlatform: ANDROID_PLATFORM || IOS_PLATFORM || WINDOWS_PHONE_PLATFORM,
   /**/
+  host: definedLocation.host,
   basePath: BASE_PATH,
   normalizedBasePath: BASE_PATH.replace(/\//g, ''),
   port: definedLocation.port || '80',
@@ -52,6 +54,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   localModeEnabled: location.hostname === 'localhost',
   appPath: () => buildNormalizedPath(`${definedLocation.pathname}/`.replace(BASE_PATH, '/')),
   buildAppPath: (path) => buildNormalizedPath(`${BASE_PATH}/${path}/`),
+  setVariable: (name: string, scope: AnyT) => Reflect.set(definedWindow, name, scope),
 });
 
 LoggerFactory.makeLogger('env.interface').debug(`[$environment] ${JSON.stringify(ENV)}`);

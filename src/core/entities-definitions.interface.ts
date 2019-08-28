@@ -5,13 +5,11 @@ import {
   AnyT,
   EntityIdT,
   IActiveValueWrapper,
-  IActiveWrapper,
   IApplicationWrapper,
   IAuthorizedWrapper,
   IBrowserLocationWrapper,
   IChangesWrapper,
   IClearValueWrapper,
-  ICountryWrapper,
   IDataWrapper,
   IDateWrapper,
   IDefaultOnValidWrapper,
@@ -68,11 +66,9 @@ import {
   IPathWrapper,
   IPayloadWrapper,
   IPhotoUrlWrapper,
-  IQueryWrapper,
   IQueueWrapper,
   IRawDataWrapper,
   IReadyWrapper,
-  IRegionWrapper,
   IResetErrorWrapper,
   ISectionWrapper,
   ISelectedEntityWrapper,
@@ -81,8 +77,6 @@ import {
   ISorterWrapper,
   IStackWrapper,
   IStateWrapper,
-  IStreetNumberWrapper,
-  IStreetWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
@@ -98,9 +92,6 @@ import {
   IWithCredentialsWrapper,
   IXWrapper,
   IYWrapper,
-  IAreaWrapper,
-  ICityWrapper,
-  IZipCodeWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -118,20 +109,9 @@ import {
   IExtendedEntity,
   IOperationEntity,
   IPaginatedEntity,
+  IQueryFilterEntity,
   IUniversalLifeCycleEntity,
 } from './definition';
-
-/**
- * @stable [29.07.2018]
- */
-export interface IPlaceEntity extends ICountryWrapper,
-                                      IRegionWrapper,
-                                      IAreaWrapper,
-                                      ICityWrapper,
-                                      IStreetWrapper,
-                                      IStreetNumberWrapper,
-                                      IZipCodeWrapper {
-}
 
 /**
  * @stable [16.06.2018]
@@ -434,19 +414,6 @@ export interface IListEntity extends IUniversalListEntity,
  * @stable [16.05.2018]
  */
 export interface IListWrapperEntity extends IListWrapper<IListEntity> {
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IQueryFilterEntity extends IActiveWrapper,
-                                            IQueryWrapper {
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IQueryFilterWrapperEntity extends IFilterWrapper<IQueryFilterEntity> {
 }
 
 /* @stable - 01.04.2018 */
@@ -759,6 +726,7 @@ export interface IEnvironmentPlatformOsEntity {
  * @stable [12.09.2018]
  */
 export interface IEnvironmentEntity {
+  host?: string;
   androidPlatform?: boolean;
   mobilePlatform?: boolean;
   appNamespace?: string;
@@ -785,6 +753,7 @@ export interface IEnvironmentEntity {
   windowsPhonePlatform?: boolean;
   appPath?(): string;
   buildAppPath?(path: string): string;
+  setVariable?(name: string, scope: AnyT): void;
 }
 
 /**

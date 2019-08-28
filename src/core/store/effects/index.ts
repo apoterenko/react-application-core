@@ -1,5 +1,5 @@
 export * from './base.effects';
-export * from './destroyed-component-effects.proxy';
+export * from './destroyed-container-effects.proxy';
 export * from './destroyed-form-effects.proxy';
 export * from './edited-list-effects.proxy';
 export * from './effects-by.decorator';
