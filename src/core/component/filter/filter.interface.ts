@@ -1,4 +1,4 @@
-import { IQueryFilterEntity } from '../../entities-definitions.interface';
+import { IQueryFilterEntity } from '../../definition';
 
 /**
  * @stable [18.05.2018]

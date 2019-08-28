@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { IBaseGridColumnProps } from './base-grid-column.interface';
@@ -46,9 +47,11 @@ export class BaseGridColumn<TProps extends IBaseGridColumnProps>
   protected getColumnContentElement(...classNames: string[]): JSX.Element {
     const props = this.props;
     return (
-      <div className={toClassName('rac-grid-column-content', ...classNames)}>
-        {props.children}
-      </div>
+      !R.isNil(props.children) && (
+        <div className={toClassName('rac-grid-column-content', ...classNames)}>
+          {props.children}
+        </div>
+      )
     );
   }
 }

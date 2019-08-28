@@ -6,7 +6,7 @@ import {
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
 } from './filter.interface';
-import { IQueryFilterEntity } from '../../entities-definitions.interface';
+import { IQueryFilterEntity } from '../../definition';
 import { IQueryWrapper } from '../../definitions.interface';
 import { FilterActionBuilder } from './filter-action.builder';
 
