@@ -3,7 +3,13 @@ import { Store } from 'redux';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { DI_TYPES, getSettings, staticInjector } from '../../di';
+import {
+  DI_TYPES,
+  getNumberConverter,
+  getSettings,
+  getUiFactory,
+  staticInjector,
+} from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
   INavigateEntity,
@@ -37,8 +43,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   private static readonly uLogger = LoggerFactory.makeLogger('UniversalContainer');
 
   private $dc: IDateConverter;
-  private $nc: INumberConverter;
-  private $uiFactory: IUIFactory;
   private $ts: TranslatorT;
 
   /**
@@ -210,15 +214,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @reactNativeCompatible
    * @stable [23.05.2019]
-   * @returns {ISettings}
-   */
-  protected get settings(): ISettings {
-    return getSettings();
-  }
-
-  /**
-   * @reactNativeCompatible
-   * @stable [23.05.2019]
    * @returns {TranslatorT}
    */
   protected get t(): TranslatorT {
@@ -236,26 +231,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * ReactNative supporting
-   *
-   * @stable [23.05.2019]
-   * @returns {INumberConverter}
-   */
-  protected get nc(): INumberConverter {
-    return this.$nc = this.$nc || staticInjector(DI_TYPES.NumberConverter);
-  }
-
-  /**
-   * ReactNative supporting
-   *
-   * @stable [18.05.2018]
-   * @returns {IUIFactory}
-   */
-  protected get uiFactory(): IUIFactory {
-    return this.$uiFactory = this.$uiFactory || staticInjector(DI_TYPES.UIFactory);
-  }
-
-  /**
    * @stable [14.01.2019]
    * @param {string} action
    * @param {TPath0} path
@@ -263,5 +238,32 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   private doNavigate<TPath0, TState0>(action: string, path: TPath0, state?: TState0): void {
     this.dispatchCustomType(action, toType<INavigateEntity<TPath0, TState0>>({ path, state }));
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [23.05.2019]
+   * @returns {ISettings}
+   */
+  protected get settings(): ISettings {
+    return getSettings();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [28.08.2019]
+   * @returns {INumberConverter}
+   */
+  protected get nc(): INumberConverter {
+    return getNumberConverter();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [28.08.2019]
+   * @returns {IUIFactory}
+   */
+  protected get uiFactory(): IUIFactory {
+    return getUiFactory();
   }
 }

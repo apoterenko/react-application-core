@@ -5,44 +5,47 @@ import { IUIFactory } from '../component/factory/factory.interface';
 import { TranslatorT } from '../translation';
 import { ISettings } from '../settings';
 import { IStorage } from '../storage';
-
-let settings: ISettings;
-let databaseStorage: IStorage;
+import { IUniversalComponentClassEntity, UniversalComponentPluginFactoryT } from '../entities-definitions.interface';
 
 /**
  * @stable [31.10.2018]
  * @returns {INumberConverter}
  */
-export const getNumberConverter = (): INumberConverter => staticInjector<INumberConverter>(DI_TYPES.NumberConverter);
+export const getNumberConverter = (): INumberConverter => staticInjector(DI_TYPES.NumberConverter);
 
 /**
  * @stable [09.11.2018]
  * @returns {IUIFactory}
  */
-export const getUiFactory = (): IUIFactory => staticInjector<IUIFactory>(DI_TYPES.UIFactory);
+export const getUiFactory = (): IUIFactory => staticInjector(DI_TYPES.UIFactory);
+
+/**
+ * @stable [21.08.2019]
+ * @returns {Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>}
+ */
+export const getUiPlugins = (): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> =>
+  staticInjector(DI_TYPES.UIPlugins);
 
 /**
  * @stable [15.11.2018]
  * @returns {TranslatorT}
  */
-export const getTranslator = (): TranslatorT => staticInjector<TranslatorT>(DI_TYPES.Translate);
+export const getTranslator = (): TranslatorT => staticInjector(DI_TYPES.Translate);
 
 /**
  * @stable [29.07.2019]
  * @returns {ISettings}
  */
-export const getSettings = (): ISettings =>
-  settings = settings || staticInjector<ISettings>(DI_TYPES.Settings);
+export const getSettings = (): ISettings => staticInjector(DI_TYPES.Settings);
 
 /**
  * @stable [29.07.2019]
  * @returns {IStorage}
  */
-export const getDatabaseStorage = (): IStorage =>
-  databaseStorage = databaseStorage || staticInjector<IStorage>(DI_TYPES.DatabaseStorage);
+export const getDatabaseStorage = (): IStorage => staticInjector(DI_TYPES.DatabaseStorage);
 
 /**
  * @stable [23.02.2019]
  * @returns {TApi}
  */
-export const getApi = <TApi>(): TApi => staticInjector<TApi>(DI_TYPES.Api);
+export const getApi = <TApi>(): TApi => staticInjector(DI_TYPES.Api);
