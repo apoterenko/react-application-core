@@ -9,8 +9,8 @@ export class WebCamera extends BaseComponent<IWebCameraProps>
   implements IWebCamera {
 
   public static readonly defaultProps: IWebCameraProps = {
-    cameraWidth: 270,
-    cameraHeight: 203,
+    cameraWidth: 360,
+    cameraHeight: 270,
   };
 
   private static readonly CAMERA_ID = uuid(true);
@@ -27,7 +27,7 @@ export class WebCamera extends BaseComponent<IWebCameraProps>
       width: props.cameraWidth,
       height: props.cameraHeight,
       image_format: 'jpeg',
-      jpeg_quality: 90,
+      jpeg_quality: 100,
     });
   }
 

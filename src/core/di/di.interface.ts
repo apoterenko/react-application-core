@@ -14,6 +14,7 @@ export const DI_TYPES = Object.freeze({
   GeoCoder: Symbol('GeoCoder'),
   I18n: Symbol('I18n'),
   Lock: Symbol('Lock'),
+  LogManager: Symbol('LogManager'),
   Menu: Symbol('Menu'),
   ModifyEntityPayloadFactory: Symbol('ModifyEntityPayloadFactory'),
   NotVersionedPersistentStorage: Symbol('NotVersionedPersistentStorage'),

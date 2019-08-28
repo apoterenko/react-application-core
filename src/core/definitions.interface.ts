@@ -10,11 +10,12 @@ export type EntityIdT = StringNumberT;
 export const FIRST_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 50;
 export const DEFAULT_MAX_PAGE_SIZE = 1000000;
-export const DEFAULT_MIN_PAGE_SIZE = 300;
+export const DEFAULT_REMOTE_DICTIONARY_PAGE_SIZE = 300;
 export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
+export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 export const UNIVERSAL_SELECTED_ELEMENT_SELECTOR = 'rac-universal-selected-element';
@@ -659,13 +660,6 @@ export interface ILoginWrapper<TLogin = string> {
 }
 
 /**
- * @stable [14.05.2018]
- */
-export interface IQueryWrapper<TQuery = string> {
-  query?: TQuery;
-}
-
-/**
  * @stable [03.07.2018]
  */
 export interface IColumnNameWrapper {
@@ -679,19 +673,23 @@ export interface IListRoutePathWrapper {
   listRoutePath?: string;
 }
 
+export interface IColumnRenderedWrapper { columnRendered?: boolean; }
+export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
+export interface IDisabledWrapper { disabled?: boolean; }
 export interface IFilterSectionWrapper { filterSection?: string; }
 export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFormSection; }
-export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
-export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
+export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
+export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
+export interface IQueryWrapper<TQuery = string> { query?: TQuery; }
+export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
+export interface IRenderedWrapper { rendered?: boolean; }
 
 /* @stable - 24.04.2018 */
 export interface ISeparatorsWrapper<TSeparators> {
   separators?: TSeparators;
 }
-
-export interface IRenderedWrapper { rendered?: boolean; }
 
 /**
  * @stable [23.09.2018]
@@ -699,9 +697,6 @@ export interface IRenderedWrapper { rendered?: boolean; }
 export interface IAvatarRenderedWrapper {
   avatarRendered?: boolean;
 }
-export interface IColumnRenderedWrapper { columnRendered?: boolean; }
-export interface IDisabledWrapper { disabled?: boolean; }
-export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 
 /**
  * @stable [17.05.2018]
@@ -1030,6 +1025,7 @@ export interface IRobotModeWrapper {
 
 export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
+export interface IUpdatedWrapper<TUpdated = boolean> { updated?: TUpdated; }
 export interface IReplacedWrapper<TReplaced = AnyT> { replaced?: TReplaced; }
 export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {}
 
@@ -1263,12 +1259,7 @@ export interface IRendererWrapper<TItem = IEntity, TContext = AnyT, TRenderer = 
   renderer?: TRenderer;
 }
 
-/**
- * @stable [04.08.2018]
- */
-export interface IWarningWrapper<TWarning = boolean> {
-  warning?: TWarning;
-}
+export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 
 /**
  * @stable [06.06.2018]
@@ -1332,32 +1323,14 @@ export interface IUseLocalizationWrapper {
 /**
  * @stable [14.05.2018]
  */
-export interface ISorterWrapper<TSorter> {
-  sorter?: TSorter;
-}
-
-/**
- * @stable [14.05.2018]
- */
 export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSortedItem, item2: TSortedItem) => number>
   extends ISorterWrapper<TSorter> {
 }
 
-/**
- * @stable [29.11.2018]
- */
-export interface IPopupWrapper<TPopup = boolean> {
-  popup?: TPopup;
-}
-
-/**
- * @stable [19.01.2019]
- */
-export interface IBindStoreWrapper<TBindStore> {
-  bindStore?: TBindStore;
-}
-
 export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
+export interface IPopupWrapper<TPopup = boolean> { popup?: TPopup; }
+export interface ISorterWrapper<TSorter> { sorter?: TSorter; }
+export interface ITitleWrapper { title?: string; }
 
 /**
  * @stable [14.05.2018]
@@ -1378,13 +1351,6 @@ export interface ILocalFilterWrapper<TLocalFilter> {
  */
 export interface ILocalFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFilteredItem) => boolean>
   extends ILocalFilterWrapper<TFilter> {
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface ITitleWrapper {
-  title?: string;
 }
 
 /**
@@ -1432,51 +1398,27 @@ export interface IPositionWrapper<TPosition = number> {
   position?: TPosition;
 }
 
-/**
- * @stable [29.07.2018]
- */
-export interface ICountryWrapper<TCountry = string> {
-  country?: TCountry;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface IPlaceWrapper<TPlace = string> {
-  place?: TPlace;
-}
-
-/**
- * @stable [01.08.2018]
- */
-export interface IPlaceEntityWrapper<TPlaceEntity> {
-  placeEntity?: TPlaceEntity;
-}
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
+export interface IBindStoreWrapper<TValue> { bindStore?: TValue; }
 export interface ICityWrapper<TCity = string> { city?: TCity; }
+export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
+export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
+export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
 export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
+export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity; }
 export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
+export interface IPlaceWrapper<TPlace = string> { place?: TPlace; }
 export interface IPointsWrapper<TPoints> { points?: TPoints; }
 export interface IRefreshMapWrapper { refreshMap?: boolean; }
 export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
+export interface ISelectWrapper<TValue = string> { select?: TValue; }
+export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
+export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
+export interface IUpdateWrapper<TValue = string> { update?: TValue; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
 export interface IZoomWrapper { zoom?: number; }
-
-/**
- * @stable [29.07.2018]
- */
-export interface IStreetWrapper<TStreet = string> {
-  street?: TStreet;
-}
-
-/**
- * @stable [29.07.2018]
- */
-export interface IStreetNumberWrapper<TStreetNumber = string> {
-  streetNumber?: TStreetNumber;
-}
 
 /**
  * @stable [31.05.2018]
@@ -2153,14 +2095,8 @@ export interface ITokenWrapper<TToken = string> {
 }
 
 export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
+export interface INavigateBackWrapper { navigateBack?: boolean; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
-
-/**
- * @stable [16.11.2018]
- */
-export interface ICanReturnWrapper {
-  canReturn?: boolean;
-}
 
 /**
  * @stable [11.08.2018]
