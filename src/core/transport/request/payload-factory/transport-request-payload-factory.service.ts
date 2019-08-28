@@ -1,6 +1,13 @@
 import { injectable } from 'inversify';
 
-import { defValuesFilter, notNilValuesFilter, notNilValuesArrayFilter, orNull } from '../../../util';
+import {
+  defValuesFilter,
+  notNilValuesArrayFilter,
+  notNilValuesFilter,
+  nvl,
+  orNull,
+  uuid,
+} from '../../../util';
 import { DI_TYPES, lazyInject } from '../../../di';
 import {
   ITransportRequestEntity,
@@ -11,9 +18,7 @@ import { ITransportRequestPayloadDataEntity } from './transport-request-payload-
 
 @injectable()
 export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadFactory {
-
-  @lazyInject(DI_TYPES.TransportTokenAccessor) private tokenAccessor: ITransportTokenAccessor;
-  private id = 0;
+  @lazyInject(DI_TYPES.TransportTokenAccessor) private readonly tokenAccessor: ITransportTokenAccessor;
 
   /**
    * @stable [02.02.2019]
@@ -22,7 +27,7 @@ export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadF
    */
   public makeRequestPayloadData(req: ITransportRequestEntity): ITransportRequestPayloadDataEntity {
     return notNilValuesFilter<ITransportRequestPayloadDataEntity, ITransportRequestPayloadDataEntity>({
-      id: this.id++,
+      id: uuid(),
       name: req.name,
       params: req.params && defValuesFilter(req.params),
       auth: orNull(req.noAuth !== true, () => this.tokenAccessor.token),
@@ -30,16 +35,17 @@ export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadF
   }
 
   /**
-   * @stable [02.02.2019]
+   * @stable [28.08.2019]
    * @param {ITransportRequestEntity} requestEntity
    * @returns {string}
    */
   protected getBaseUrl(requestEntity: ITransportRequestEntity): string {
     const transportSettings = this.settings.transport;
-    return requestEntity.url
-      || notNilValuesArrayFilter(
-        this.isBinaryData(requestEntity) ? transportSettings.binaryUrl : transportSettings.apiUrl,
-        requestEntity.path
-      ).join('');  // URI's segment works incorrectly with a UUID (url.segment(req.path));
+    const url = this.isBinaryData(requestEntity) ? transportSettings.binaryUrl : transportSettings.apiUrl;
+
+    return nvl(
+      requestEntity.url,
+      notNilValuesArrayFilter(url, requestEntity.path).join('') // URI's segment works incorrectly with a UUID (url.segment(req.path));
+    );
   }
 }

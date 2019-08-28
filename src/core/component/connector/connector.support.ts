@@ -3,9 +3,7 @@ import {
   IRoutesConfiguration,
   IConnectorConfiguration,
 } from '../../configurations-definitions.interface';
-import { IStackEntity } from '../../entities-definitions.interface';
 import { isFn } from '../../util';
-import { toAllDependentSections } from '../../store/stack/stack.support';
 
 /**
  * @stable [18.09.2018]
@@ -25,21 +23,4 @@ export const findRoutePathBySection = (section: string, appSections: Map<string,
     }
   });
   return routePath;
-};
-
-/**
- * @stable [18.09.2018]
- * @param {IStackEntity} stackEntity
- * @param {Map<string, IConnectorConfiguration>} appSections
- * @param {string} currentSection
- * @returns {Set<string>}
- */
-export const toAllDependentRoutePaths = (stackEntity: IStackEntity,
-                                         appSections: Map<string, IConnectorConfiguration>,
-                                         currentSection: string): Set<string> => {
-  const routePaths = new Set<string>();
-  toAllDependentSections(stackEntity, currentSection).forEach(
-    (section) => routePaths.add(findRoutePathBySection(section, appSections))
-  );
-  return routePaths;
 };

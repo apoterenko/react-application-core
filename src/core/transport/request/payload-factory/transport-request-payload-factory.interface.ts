@@ -3,14 +3,15 @@ import {
   ITransportCancelTokenEntity,
 } from '../../transport.interface';
 import {
-  IUrlWrapper,
-  IKeyValue,
+  EntityIdT,
+  IAuthWrapper,
   IDataWrapper,
   IIdWrapper,
+  IKeyValue,
   INameWrapper,
   INoAuthWrapper,
   IParamsWrapper,
-  IAuthWrapper,
+  IUrlWrapper,
 } from '../../../definitions.interface';
 import { IBaseTransportRequestEntity } from '../../../entities-definitions.interface';
 
@@ -47,5 +48,5 @@ export interface ITransportRequestPayloadDataEntity
           INoAuthWrapper,
           IParamsWrapper,
           IAuthWrapper,
-          IIdWrapper {
+          IIdWrapper<EntityIdT> {
 }

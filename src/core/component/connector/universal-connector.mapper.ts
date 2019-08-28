@@ -6,7 +6,6 @@ import {
   ifNotNilThanValue,
   isFn,
   orNull,
-  trimmedUndefEmpty,
 } from '../../util';
 import {
   IEntity,
@@ -42,7 +41,6 @@ import {
   IDictionaryEntity,
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
-  IQueryFilterWrapperEntity,
   IEntityFormEntity,
 } from '../../entities-definitions.interface';
 import {
@@ -116,7 +114,7 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
 };
 
 /**
- * @stable [26.06.2019]
+ * @deprecated (@see mapper.ts)
  * @param {IPaginatedEntity} entity
  * @returns {IPaginatedEntity}
  */
@@ -219,16 +217,6 @@ export const editableEntityChangesMapper = <TResult extends IEntity = IEntity>(e
     ...editableEntityChangesSelector(editableEntity),
   } as TResult);
 
-/**
- * @stable [05.08.2018]
- * @param {IQueryFilterWrapperEntity} queryFilterWrapperEntity
- * @returns {IQueryWrapper}
- */
-export const filterQueryWrapperMapper = (queryFilterWrapperEntity: IQueryFilterWrapperEntity): IQueryWrapper =>
-  ({
-    query: trimmedUndefEmpty(queryFilterWrapperEntity.filter.query),
-  });
-
 /* @stable - 12.04.2018 */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
                                                       editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
@@ -239,7 +227,7 @@ export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
       } as TEntity,
       entityId: orNull(entity, () => entity.id),
       originalEntity: {...entity as {}} as TEntity,
-      newEntity: !entity || R.isNil(entity.id),
+      newEntity: R.isNil(entity) || R.isNil(entity.id),
     });
 
 /**

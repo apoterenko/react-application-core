@@ -4,8 +4,6 @@ import { isDef } from '../../util';
 
 import {
   IEditableEntity,
-  IQueryFilterEntity,
-  IQueryFilterWrapperEntity,
   ILayoutWrapperEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
@@ -19,6 +17,8 @@ import {
 } from '../../entities-definitions.interface';
 import {
   IChannelWrapperEntity,
+  IQueryFilterEntity,
+  IQueryFilterWrapperEntity,
 } from '../../definition';
 import {
   IFilterActionConfiguration,

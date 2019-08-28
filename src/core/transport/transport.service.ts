@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../di';
-import { notNilValuesFilter, ifNotNilThanValue, toType } from '../util';
+import { notNilValuesFilter, ifNotNilThanValue, toType, coalesce } from '../util';
 import { IKeyValue } from '../definitions.interface';
 import { IApplicationStoreEntity } from '../entities-definitions.interface';
 import {
@@ -20,20 +20,27 @@ import {
 } from './transport-reducer.interface';
 import { ITransportFactoryResponseEntity, ITransportFactory } from './factory';
 import { ITransportRequestPayloadFactory } from './request';
+import { ILogManager } from '../log';
+import { ENV } from '../env';
+import {
+  EnvironmentVariablesEnum,
+  TransportEventsEnum,
+} from '../definition';
 
 @injectable()
 export class Transport implements ITransport {
   private static readonly logger = LoggerFactory.makeLogger('Transport');
 
-  @lazyInject(DI_TYPES.Store) private store: Store<IApplicationStoreEntity>;
-  @lazyInject(DI_TYPES.TransportFactory) private transportFactory: ITransportFactory;
+  @lazyInject(DI_TYPES.LogManager) private readonly logManager: ILogManager;
+  @lazyInject(DI_TYPES.Store) private readonly store: Store<IApplicationStoreEntity>;
+  @lazyInject(DI_TYPES.TransportFactory) private readonly transportFactory: ITransportFactory;
   @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
 
   /**
    * @stable [26.02.2019]
    */
   constructor() {
-    Reflect.set(window, '$$transport', this);
+    ENV.setVariable(EnvironmentVariablesEnum.TRANSPORT, this);
   }
 
   /**
@@ -46,7 +53,7 @@ export class Transport implements ITransport {
   }
 
   /**
-   * @stable [01.02.2019]
+   * @stable [28.08.2019]
    * @param {ITransportRequestEntity} req
    * @returns {Promise<TResponse>}
    */
@@ -56,7 +63,11 @@ export class Transport implements ITransport {
 
     let responseEntity: ITransportFactoryResponseEntity;
     try {
-      responseEntity = await this.getTransportFactory(req).request(req);
+      responseEntity = await this.getTransportFactory(req).request(
+        req,
+        (payload) =>
+          (this.logManager.send(TransportEventsEnum.TRANSPORT, this.toLogEventName(req), payload), payload)
+      );
     } catch (e) {
       if (e.cancelled) {
         Transport.logger.debug('[$Transport][request] A user has canceled the request:', e);
@@ -100,6 +111,8 @@ export class Transport implements ITransport {
    * @param {ITransportResponseEntity} responseEntity
    */
   private onRequestError(req: ITransportRequestEntity, responseEntity: ITransportResponseEntity): void {
+    this.logManager.send(TransportEventsEnum.TRANSPORT_ERROR, this.toLogEventName(req), responseEntity);
+
     this.store.dispatch({
       type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
       data: toType<ITransportResponseEntity>({
@@ -152,5 +165,14 @@ export class Transport implements ITransport {
    */
   private getTransportFactory(req: ITransportRequestEntity): ITransportFactory {
     return req.transportFactory || this.transportFactory;
+  }
+
+  /**
+   * @stable [11.08.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {string}
+   */
+  private toLogEventName(req: ITransportRequestEntity): string {
+    return coalesce(req.name, req.path, req.url);
   }
 }
