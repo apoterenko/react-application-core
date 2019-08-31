@@ -231,26 +231,19 @@ export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
     });
 
 /**
- * @stable [09.05.2018]
- * @param {IListEntity} listEntity
- * @returns {TEntity}
+ * @deprecated
  */
 export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
   orNull<TEntity>(listEntity, (): TEntity => listEntity.selected as TEntity);
 
 /**
- * @stable [10.01.2019]
- * @param {IListWrapperEntity} listWrapperEntity
- * @returns {TEntity}
+ * @deprecated
  */
 export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
   ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));
 
 /**
- * @stable [12.06.2019]
- * @param {IListWrapperEntity} listWrapperState
- * @param {IEditableEntity} formEntity
- * @returns {IEntityWrapper<TEntity extends IEntity>}
+ * @deprecated
  */
 export const listWrapperSelectedEntityMapper =
   <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
