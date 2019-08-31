@@ -1,3 +1,4 @@
+export * from './chained-form.middleware';
 export * from './destroyed-container.middleware';
 export * from './destroyed-form.middleware';
 export * from './edited-list.middleware';
