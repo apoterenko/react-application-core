@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BaseTextField } from '../textfield';
-import { cancelEvent, orNull, downloadBlob, toClassName, uuid } from '../../../util';
+import { cancelEvent, orNull, downloadFileAsBlob, joinClassName, uuid, downloadFile } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   EntityIdT,
@@ -19,7 +19,7 @@ import { IFieldActionConfiguration } from '../../../configurations-definitions.i
 import { toLastAddedMultiItemEntityId } from '../multifield';
 import { IUniversalDialog, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 
 export class BaseFileField<TProps extends IBaseFileFieldProps,
                            TState extends IBaseFileFieldState>
@@ -82,9 +82,9 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [28.06.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  protected onClick(event: IBasicEvent): void {
+  protected onClick(event: IBaseEvent): void {
     super.onClick(event);
     this.openFileDialog(event);
   }
@@ -142,7 +142,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-filefield');
+    return joinClassName(super.getFieldClassName(), 'rac-filefield');
   }
 
   /**
@@ -207,9 +207,9 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [02.08.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private openCameraDialog(event: IBasicEvent): void {
+  private openCameraDialog(event: IBaseEvent): void {
     cancelEvent(event);
     this.setState({cameraEnabled: true});
     this.cameraDialog.activate();
@@ -217,22 +217,28 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [28.06.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private openFileDialog(event: IBasicEvent): void {
+  private openFileDialog(event: IBaseEvent): void {
     cancelEvent(event);
     this.dnd.open();
   }
 
   /**
    * @stable [28.06.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private downloadFile(event: IBasicEvent): void {
+  private async downloadFile(event: IBaseEvent): Promise<void> {
     cancelEvent(event);
 
-    const url = toLastAddedMultiItemEntityId(this.value); // TODO
-    // downloadBlob(url as string, this.props.fileName || url as string);
+    if (!this.isValuePresent()) {
+      return;
+    }
+    const url = toLastAddedMultiItemEntityId(this.value) as string; // TODO
+    const fileName = this.props.fileName || url;
+
+    const blob = await this.databaseStorage.get(url);
+    return R.isNil(blob) ? downloadFile(url, fileName) : downloadFileAsBlob(blob, fileName);
   }
 
   /**

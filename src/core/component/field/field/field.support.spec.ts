@@ -1,5 +1,5 @@
 import { toActualChangedValue } from './field.support';
-import { FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE } from './field.interface';
+import { FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES } from '../../../definition';
 
 describe('field.support', () => {
   describe('toActualChangedValue', () => {
@@ -7,9 +7,9 @@ describe('field.support', () => {
       const actualChangedValue = toActualChangedValue({
         value: [],
         emptyValue: [],
-        originalValue: FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
+        originalValue: FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
       });
-      expect(actualChangedValue).toEqual(FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE);
+      expect(actualChangedValue).toEqual(FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES);
     });
 
     it('test2', () => {
@@ -27,7 +27,7 @@ describe('field.support', () => {
         emptyValue: [],
         originalValue: [1, 2],
       });
-      expect(actualChangedValue).toEqual(FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE);
+      expect(actualChangedValue).toEqual(FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES);
     });
 
     it('test4', () => {
@@ -45,7 +45,7 @@ describe('field.support', () => {
         emptyValue: '',
         originalValue: 'test',
       });
-      expect(actualChangedValue).toEqual(FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE);
+      expect(actualChangedValue).toEqual(FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES);
     });
   });
 });
