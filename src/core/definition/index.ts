@@ -5,6 +5,7 @@ export * from './channel-definition.interface';
 export * from './entity-definition.interface';
 export * from './env-definition.interface';
 export * from './error-definition.interface';
+export * from './event-definition.interface';
 export * from './field-definition.interface';
 export * from './file-definition.interface';
 export * from './flex-definition.interface';

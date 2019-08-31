@@ -18,6 +18,7 @@ import {
   IAliasWrapper,
   IAlignWrapper,
   IAlwaysDirtyWrapper,
+  IApplyGroupWrapper,
   IApplyOddWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
@@ -34,6 +35,7 @@ import {
   ICanReturnClearDirtyChangesValueWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
   ICenterAlignmentWrapper,
+  ICenteredMenuWrapper,
   ICenteredWrapper,
   IChangeableWrapper,
   IChangeFormWrapper,
@@ -45,6 +47,7 @@ import {
   IColumnColSpanWrapper,
   IColumnNameWrapper,
   IColumnRenderedWrapper,
+  IColumnStylesWrapper,
   IColumnTitleWrapper,
   IColumnWidthWrapper,
   ICompactWrapper,
@@ -54,7 +57,6 @@ import {
   ICssStyleWrapper,
   IDeactivatedWrapper,
   IDefaultValue,
-  IColumnStylesWrapper,
   IDelayTimeoutWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
@@ -69,6 +71,7 @@ import {
   IEntityToClassNameWrapper,
   IEntityWrapper,
   IErrorMessageRenderedWrapper,
+  IErrorMessageWrapper,
   IExactWrapper,
   IExpandActionRenderedWrapper,
   IExpandedGroupsWrapper,
@@ -106,7 +109,6 @@ import {
   IKeyboardConfigurationWrapper,
   IKeyboardEvent,
   IKeyValue,
-  IParamsWrapper,
   IKeyWrapper,
   ILabelWrapper,
   ILayoutWrapper,
@@ -131,17 +133,21 @@ import {
   IOnChangeSortingWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
+  IOnClickWrapper,
   IOnCloseWrapper,
   IOnCreateWrapper,
   IOnDeactivateWrapper,
   IOnDelayWrapper,
+  IOnDestroyDictionaryWrapper,
   IOnEmptyDictionaryWrapper,
   IOnEnterWrapper,
+  IOnFilterChangeWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
   IOnMoreOptionsSelectWrapper,
   IOnScrollWrapper,
   IOnSelectWrapper,
+  IParamsWrapper,
   IParentWrapper,
   IPathWrapper,
   IPatternWrapper,
@@ -155,10 +161,11 @@ import {
   IRenderedWrapper,
   IRendererWrapper,
   IRenderToBodyWrapper,
-  ICenteredMenuWrapper,
   IRenderToXWrapper,
   IRenderToYWrapper,
   IRequiredWrapper,
+  IResetActionRenderedWrapper,
+  IResetIconWrapper,
   IRestoreAuthWrapper,
   IRippableWrapper,
   ISectionNameWrapper,
@@ -173,14 +180,15 @@ import {
   IStepWrapper,
   IStickyHeadWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
-  IErrorMessageWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
+  ITextWrapper,
   ITightGridWrapper,
   ITitleRendererWrapper,
   ITitleWrapper,
   ITotalEntityWrapper,
   ITplFnWrapper,
+  ITplWrapper,
   ITypeWrapper,
   IUnregisterWrapper,
   IUrlWrapper,
@@ -191,7 +199,6 @@ import {
   IUseHeaderWrapper,
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
-  IResetActionRenderedWrapper,
   IUseSortingWrapper,
   IUseSyntheticCursorWrapper,
   IValidateWrapper,
@@ -199,13 +206,8 @@ import {
   IValueWrapper,
   IWarningWrapper,
   IWidthWrapper,
-  ITplWrapper,
-  StringNumberT,
   IWrapperClassNameWrapper,
-  IApplyGroupWrapper,
-  IResetIconWrapper,
-  IOnDestroyDictionaryWrapper,
-  IOnFilterChangeWrapper,
+  StringNumberT,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -219,16 +221,17 @@ import {
 } from './entities-definitions.interface';
 import { IGridColumnProps } from './props-definitions.interface';
 import {
-  IBasicEvent,
   IReactOnClickWrapper,
   IOnColumnClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
 import {
-  IButtonProps,
-  IGenericFormEntity,
   IApiEntity,
+  IBaseEvent,
+  IButtonProps,
+  IGenericButtonEntity,
   IGenericFieldEntity,
+  IGenericFormEntity,
 } from './definition';
 
 /**
@@ -432,6 +435,8 @@ export interface ICardListItemConfiguration extends IUniversalListItemConfigurat
                                                     IWebComponentConfiguration<string | ((...args) => string)>,
                                                     IActionButtonsWrapper<(entity: IEntity) => React.ReactNode>,
                                                     IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
+  rippable?: boolean; // TODO
+  rippled?: boolean; // TODO
 }
 
 /**
@@ -498,12 +503,17 @@ export interface IUniversalFormConfiguration extends IGenericFormEntity,
                                                      IOnEmptyDictionaryWrapper<IApiEntity> {
 }
 
+export interface IFormExtraActionProps
+  extends IGenericButtonEntity,
+    IOnClickWrapper<(apiEntity: IApiEntity) => void> {
+}
+
 export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
                                             IWebComponentConfiguration,
                                             IButtonConfigurationWrapper,
                                             IReadOnlyWrapper,
                                             ICompactWrapper {
-  actionsProvider?: (defaultActions: IButtonProps[]) => IButtonProps[];
+  actionsProvider?: (defaultActions: IFormExtraActionProps[]) => IFormExtraActionProps[];
   progress?: boolean; // TODO
   alwaysResettable?: boolean; // TODO
   validateOnMount?: boolean; // TODO
@@ -525,7 +535,7 @@ export interface IBaseGridColumnConfiguration
 
 /* @stable - 04.04.2018 */
 export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
-                                                  IOnColumnClickWrapper<{event: IBasicEvent, props: IGridColumnProps}>,
+                                                  IOnColumnClickWrapper<{event: IBaseEvent, props: IGridColumnProps}>,
                                                   IColumnColSpanWrapper,
                                                   IColumnTitleWrapper,
                                                   IColumnWidthWrapper,
@@ -724,7 +734,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
 /* @stable - 11.04.2018 */
 export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeyboardEvent,
                                                                           IFocusEvent,
-                                                                          IBasicEvent>,
+                                                                          IBaseEvent>,
                                              IWebComponentConfiguration,
                                              IAutoCompleteWrapper,
                                              IActionsPosition<FieldActionPositionEnum>,
@@ -743,7 +753,7 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
  * @stable [18.06.2018]
  */
 export interface IFieldsConfigurations {
-  [fieldName: string]: string | IFieldConfiguration;
+  [fieldName: string]: string | IFieldConfiguration | ((field) => IFieldConfiguration | string);
 }
 
 /* @stable - 14.04.2018 */
@@ -936,6 +946,7 @@ export interface INavigationListItemConfiguration extends IActiveWrapper,
                                                           IChildrenWrapper<INavigationListItemConfiguration[]>,
                                                           IAccessConfigurationWrapper<IAccessConfiguration>,
                                                           ITypeWrapper<NavigationListItemTypeEnum> {
+  relatedLinks?: string[];
 }
 
 /**

@@ -25,7 +25,6 @@ import {
   IRoundedWrapper,
   IStyleWrapper,
   ITextStyleWrapper,
-  AnyT,
   IOnClickWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
@@ -41,6 +40,7 @@ import {
 export interface IGenericButtonEntity
   extends IErrorEntity,
     IProgressWrapper,
+    IRaisedWrapper,
     IDisabledWrapper,
     IProgressMessageWrapper,
     IErrorMessageWrapper,
@@ -53,7 +53,7 @@ export interface IGenericButtonEntity
 // TODO Total typings refactoring
 export interface IReactButtonConfiguration
   extends IReactComponentConfiguration,
-    IOnClickWrapper<(event: AnyT) => void> {
+    IOnClickWrapper {
 }
 
 export interface IReactButtonProps extends IReactButtonConfiguration,
@@ -65,7 +65,6 @@ export interface IButtonProps
     IWebComponentConfiguration,
     IOutlinedWrapper,
     IStringToWrapper,
-    IRaisedWrapper,
     ISimpleWrapper,
     ITypeWrapper<'button' | 'submit' | 'reset'> {
   iconCls?: string; // TODO

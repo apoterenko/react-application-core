@@ -125,7 +125,7 @@ export interface IProgressMessageWrapper<TProgressMessage = string> {
 }
 export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface IListWrapper<TList> { list?: TList; }
-export interface IOnClickWrapper<TOnClick> { onClick?: TOnClick; }
+export interface IOnClickWrapper<TOnClick = () => void> { onClick?: TOnClick; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
@@ -682,9 +682,15 @@ export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsS
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
+export interface INextFormChangesWrapper<TChanges> { nextFormChanges?: TChanges; }
+export interface INextFormRouteWrapper { nextFormRoute?: string; }
+export interface INextFormSectionWrapper { nextFormSection?: string; }
+export interface INextListSectionWrapper { nextListSection?: string; }
+export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
 export interface IQueryWrapper<TQuery = string> { query?: TQuery; }
 export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 export interface IRenderedWrapper { rendered?: boolean; }
+export interface IReplaceRouteWrapper { replaceRoute?: boolean; }
 
 /* @stable - 24.04.2018 */
 export interface ISeparatorsWrapper<TSeparators> {
@@ -922,13 +928,7 @@ export interface IEffectorWrapper<TEffector = string> {
 }
 
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
-
-/**
- * @stable [04.02.2019]
- */
-export interface IRippledWrapper<TRippled = boolean> {
-  rippled?: TRippled;
-}
+export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 
 /**
  * @stable [18.06.2018]
@@ -1596,15 +1596,8 @@ export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;
 }
 
-/* @stable - 12.04.2018 */
-export interface IQueueWrapper<TQueue> {
-  queue?: TQueue;
-}
-
-/* @stable - 12.04.2018 */
-export interface ISectionNameWrapper {
-  sectionName?: string;
-}
+export interface IQueueWrapper<TQueue> { queue?: TQueue; }
+export interface ISectionNameWrapper { sectionName?: string; }
 
 /* @stable - 12.04.2018 */
 export interface IEditApiWrapper {
@@ -2299,15 +2292,6 @@ export interface IStringToWrapper extends IToWrapper<string> {
 export type EntityCallbackWrapperT<TResult = string> = (entity: IEntity) => TResult;
 
 /**
- * @stable [11.11.2018]
- */
-export interface IBaseEvent {
-  nativeEvent?: Event;
-  stopPropagation();
-  preventDefault();
-}
-
-/**
  * @stable [01.12.2018]
  */
 export interface IJQueryElement<TElement extends Element = Element> extends JQuery<TElement> {
@@ -2332,5 +2316,4 @@ export const UNI_CODES = {
 };
 
 export type ReactElementT = React.SFCElement<{ children: React.ReactChild[] }>;
-export type BasicEventT = React.SyntheticEvent<{}>;
 export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;

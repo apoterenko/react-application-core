@@ -1,29 +1,23 @@
-import * as React from 'react';
+import { IBaseEvent } from './definition';
 
 /**
  * @stable [11.11.2018]
  */
-export interface IBasicEvent<TElement = {}> extends React.SyntheticEvent<TElement> {
-}
-
-/**
- * @stable [11.11.2018]
- */
-export interface IReactOnClickWrapper<TPayload = IBasicEvent, TOnClick = (payload?: TPayload) => void> {
+export interface IReactOnClickWrapper<TPayload = IBaseEvent, TOnClick = (payload?: TPayload) => void> {
   onClick?: TOnClick;
 }
 
 /**
  * @stable [11.11.2018]
  */
-export interface IOnColumnClickWrapper<TPayload = IBasicEvent, TOnColumnClick = (payload?: TPayload) => void> {
+export interface IOnColumnClickWrapper<TPayload = IBaseEvent, TOnColumnClick = (payload?: TPayload) => void> {
   onColumnClick?: TOnColumnClick;
 }
 
 /**
  * @stable [11.11.2018]
  */
-export interface IOnNavigationActionClickWrapper<TPayload = IBasicEvent,
+export interface IOnNavigationActionClickWrapper<TPayload = IBaseEvent,
                                                  TOnNavigationActionClick = (payload?: TPayload) => void> {
   onNavigationActionClick?: TOnNavigationActionClick;
 }
@@ -31,6 +25,6 @@ export interface IOnNavigationActionClickWrapper<TPayload = IBasicEvent,
 /**
  * @stable [11.11.2018]
  */
-export interface IOnActionClickWrapper<TPayload = IBasicEvent, TOnActionClick = (payload?: TPayload) => void> {
+export interface IOnActionClickWrapper<TPayload = IBaseEvent, TOnActionClick = (payload?: TPayload) => void> {
   onActionClick?: TOnActionClick;
 }
