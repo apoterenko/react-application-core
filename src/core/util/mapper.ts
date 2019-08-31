@@ -1,9 +1,9 @@
 import { defValuesFilter } from './filter';
 import {
-  IQueryFilterWrapperEntity,
   IPaginatedEntity,
+  IQueryFilterWrapperEntity,
 } from '../definition';
-import { IQueryWrapper, IEntity } from '../definitions.interface';
+import { IQueryWrapper, IEntity, UNDEF_SYMBOL } from '../definitions.interface';
 import { trimmedUndefEmpty } from './nvl';
 import { ifNotNilThanValue, orNull } from './cond';
 import {
@@ -13,14 +13,23 @@ import {
 } from '../entities-definitions.interface';
 
 /**
+ * @stable [30.08.2019]
+ * @param {IQueryFilterWrapperEntity} entity
+ * @returns {string}
+ */
+export const queryFilterWrapperToQuery = (entity: IQueryFilterWrapperEntity): string => ifNotNilThanValue(
+  entity.filter,
+  (filter) => trimmedUndefEmpty(filter.query),
+  UNDEF_SYMBOL
+);
+
+/**
  * @stable [22.08.2019]
  * @param {IQueryFilterWrapperEntity} entity
  * @returns {IQueryWrapper}
  */
 export const queryFilterWrapperMapToQueryWrapper = (entity: IQueryFilterWrapperEntity): IQueryWrapper =>
-  defValuesFilter<IQueryWrapper, IQueryWrapper>({
-    query: trimmedUndefEmpty(entity.filter.query),
-  });
+  defValuesFilter<IQueryWrapper, IQueryWrapper>({query: queryFilterWrapperToQuery(entity)});
 
 /**
  * @stable [24.08.2019]

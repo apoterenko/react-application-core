@@ -25,6 +25,7 @@ export * from './object';
 export * from './page';
 export * from './place';
 export * from './promise';
+export * from './react-index';
 export * from './replace';
 export * from './route';
 export * from './scroll';

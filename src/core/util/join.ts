@@ -14,6 +14,13 @@ export const join = (parts: AnyT[], joiner: string = '\u0020'): string =>
   parts.filter((v) => !R.isNil(v)).join(joiner);
 
 /**
+ * @stable [30.08.2019]
+ * @param {string} parts
+ * @returns {string}
+ */
+export const joinClassName = (...parts: string[]): string => join(parts, ' ');
+
+/**
  *
  * @param {AnyT[]} parts
  * @returns {string}

@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import { AnyT, IKeyValue } from '../definitions.interface';
 import { nvl } from './nvl';
 import { ifNotNilThanValue } from './cond';
+import { notNilValuesArrayFilter } from './filter';
 
 /**
  * @stable [16.12.2018]
@@ -65,3 +66,15 @@ export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
       : itm
   );
 };
+
+/**
+ * @stable [31.08.2019]
+ * @param {AnyT} values
+ * @returns {boolean}
+ */
+export const areArrayValuesNotNil = (...values: AnyT[]): boolean =>
+  ifNotNilThanValue(
+    values,
+    () => notNilValuesArrayFilter(...values).length === values.length,
+    false
+  );
