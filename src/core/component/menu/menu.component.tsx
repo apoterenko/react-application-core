@@ -7,18 +7,18 @@ import {
   calc,
   cancelEvent,
   DelayedTask,
-  ifNotTrueThanValue,
+  handlerPropsFactory,
   isFn,
+  joinClassName,
   nvl,
   queryFilter,
   setAbsoluteOffsetByCoordinates,
   subArray,
-  toClassName,
 } from '../../util';
 import { BaseComponent } from '../base';
 import { Dialog } from '../dialog';
 import { FlexLayout } from '../layout';
-import { IBasicEvent } from '../../react-definitions.interface';
+import { IBaseEvent } from '../../definition';
 import { IField, TextField } from '../field';
 import { IMenuState, IMenuProps, IMenu } from './menu.interface';
 import { SimpleList } from '../list';
@@ -86,7 +86,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         <div
           ref={this.selfRef}
           style={{...!props.centeredMenu && {width: calc(props.width)}}}
-          className={toClassName(
+          className={joinClassName(
             'rac-menu',
             props.className,
             this.uiFactory.menu,
@@ -170,9 +170,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [17.10.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onCloseAction(event: IBasicEvent): void {
+  private onCloseAction(event: IBaseEvent): void {
     cancelEvent(event);
     this.hide();
   }
@@ -200,12 +200,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [06.08.2018]
-   * @param {IBasicEvent<HTMLElement>} event
    * @param {IMenuItemEntity} option
    */
-  private onSelect(event: IBasicEvent<HTMLElement>, option: IMenuItemEntity): void {
-    this.stopEvent(event);
-
+  private onSelect(option: IMenuItemEntity): void {
     const props = this.props;
     if (props.onSelect) {
       props.onSelect(option);
@@ -241,7 +238,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
               key={`menu-item-key-${option.value}`}
               className='rac-list-item rac-flex'
               aria-disabled={option.disabled === true}
-              onClick={ifNotTrueThanValue(option.disabled, () => (event) => this.onSelect(event, option))}
+              {...handlerPropsFactory<HTMLLIElement>(() => this.onSelect(option), !option.disabled)}
             >
               {this.getMenuItemElement(option)}
             </li>
