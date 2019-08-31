@@ -2,19 +2,29 @@ import * as BPromise from 'bluebird';
 import * as $ from 'jquery';
 import * as R from 'ramda';
 
-import { isFn } from './type';
-import { ENV } from '../env';
 import { calc } from './calc';
+import { ENV } from '../env';
+import { fromUrlToBlob } from './blob';
+import { isFn } from './type';
+import { nvl } from './nvl';
 import { notNilValuesArrayFilter } from './filter';
 import {
   AnyT,
-  UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
   IJQueryElement,
+  UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
   UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../definitions.interface';
 import { IXYEntity, IStickyElementPayloadEntity } from '../entities-definitions.interface';
 
 let googleMapsScriptTask: BPromise<HTMLScriptElement>;
+
+/**
+ * @stable [28.08.2019]
+ * @param {string} id
+ * @returns {TElement}
+ */
+export const getElementById = <TElement extends HTMLElement = HTMLElement>(id: string): TElement =>
+  document.getElementById(id) as TElement;
 
 /**
  * @stable [14.06.2018]
@@ -229,37 +239,44 @@ export const isDocumentHasFocus = (): boolean => isFn(document.hasFocus) && docu
 export const toJqEl = <TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement => $(source) as TJqElement;
 
 /**
- * @stable [28.06.2018]
+ * @stable [30.08.2019]
+ * @param {string} url
  * @param {string} fileName
- * @param {Blob} blob
  */
-export const downloadFile = (fileName: string, blob: Blob) => {
-  const url = URL.createObjectURL(blob);
-
+export const downloadFileAsBlobUrl = (url: string, fileName?: string): void => {
+  const loader = createElement<HTMLAnchorElement>('a');
   try {
-    const loader = createElement<HTMLAnchorElement>('a');
     addClassNameToElement(loader, 'rac-invisible');
 
+    loader.download = nvl(fileName, url);
     loader.href = url;
-    loader.download = fileName;
     loader.click();
-
-    removeChild(loader);
   } finally {
-    URL.revokeObjectURL(url);
+    removeChild(loader);
   }
 };
 
 /**
- * @stable [12.09.2018]
- * @param {string} path
- * @param {string} target
+ * @stable [30.08.2019]
+ * @param {string} url
+ * @param {string} fileName
  */
-export const downloadAnchoredFile = (path: string, target = '_blank'): void => {
-  const link = createElement<HTMLAnchorElement>('a');
-  link.href = path;
-  link.target = target;
-  link.click();
+export const downloadFile = async (url: string, fileName?: string): Promise<void> =>
+  //  Force apply file name via the proxy-link. Download attribute doesn't work in case of outer UUID link
+  downloadFileAsBlob(await fromUrlToBlob(url), fileName);
+
+/**
+ * @stable [30.08.2019]
+ * @param {Blob} blob
+ * @param {string} fileName
+ */
+export const downloadFileAsBlob = (blob: Blob, fileName?: string): void => {
+  const url = URL.createObjectURL(blob);
+  try {
+    downloadFileAsBlobUrl(url, fileName);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 };
 
 /**

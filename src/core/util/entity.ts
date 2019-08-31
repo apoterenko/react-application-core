@@ -7,6 +7,7 @@ import {
 } from '../entities-definitions.interface';
 import { IExtendedEntity } from '../definition';
 import { validate, ValidatorRuleEnum } from './validator';
+import { ifNotNilThanValue } from './cond';
 
 /**
  * @stable [30.01.2019]
@@ -70,3 +71,14 @@ export const isNewExtendedEntity = <TEntity extends IEntity>(entityWrapper: IExt
  */
 export const doesExtendedEntityExist = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
   !R.isNil(entityWrapper) && !isNewExtendedEntity(entityWrapper);
+
+/**
+ * @stable [30.08.2019]
+ * @param {TEntity} entity
+ * @returns {string}
+ */
+export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): string => ifNotNilThanValue(
+  entity,
+  () => `${entity.id}${ifNotNilThanValue(entity.name, (name) => `-${name.replace(/ /g, '_')}`, '')}`,
+  ''
+);

@@ -1,4 +1,5 @@
-import { downloadFile } from './dom';
+import { MimeTypesEnum } from '../definition';
+import { nvl } from './nvl';
 
 /**
  * @stable [01.08.2019]
@@ -10,10 +11,51 @@ export const fromUrlToBlob = (url: string, options?: RequestInit): Promise<Blob>
   fetch(url, {mode: 'cors', ...options}).then((r) => r.blob());
 
 /**
- * @stable [28.06.2018]
- * @param {string} url
- * @param {string} fileName
- * @param {RequestInit} options
+ * @stable [04.08.2019]
+ * @param {Blob} blob
+ * @param {number} length
+ * @returns {Promise<number[]>}
  */
-export const downloadBlob = (url: string, fileName: string, options?: RequestInit) =>
-  fromUrlToBlob(url, options).then((blob) => downloadFile(fileName, blob));
+export const readBlobBytes = async (blob: Blob, length?: number): Promise<number[]> => new Promise<number[]>((resolve) => {
+  const fileReader = new FileReader();
+  fileReader.onloadend = (evt) => {
+    const target = evt.target;
+    if (target.readyState === FileReader.DONE) {
+      resolve(Array.from(new Uint8Array(target.result)));
+    }
+  };
+  fileReader.readAsArrayBuffer(blob.slice(0, nvl(length, blob.size)));
+});
+
+/**
+ * @stable [04.08.2019]
+ * @param {Blob} blob
+ * @param {number} length
+ * @returns {Promise<string>}
+ */
+export const readBlobBytesAsString = async (blob: Blob, length?: number): Promise<string> =>
+  readBlobBytes(blob, length)
+    .then((bytes) => bytes.map((byte) => byte.toString(16)).join('').toUpperCase());
+
+/**
+ * @stable [04.08.2019]
+ * @param {string} signature
+ * @returns {MimeTypesEnum | string}
+ */
+export const getBlobMimeType = (signature: string): MimeTypesEnum | string => {
+  switch (signature) {
+    case '89504E47':
+      return MimeTypesEnum.IMAGE_PNG;
+    case '47494638':
+      return 'image/gif';
+    case '25504446':
+      return MimeTypesEnum.APPLICATION_PDF;
+    case 'FFD8FFDB':
+    case 'FFD8FFE0':
+      return MimeTypesEnum.IMAGE_JPEG;
+    case '504B0304':
+      return 'application/zip';
+    default:
+      return null;
+  }
+};
