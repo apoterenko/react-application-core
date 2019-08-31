@@ -2,12 +2,11 @@ import * as R from 'ramda';
 
 import { isDef, calc } from '../../../util';
 import {
-  FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE,
   IFieldActualChangedValueConfigEntity,
 } from './field.interface';
 import { AnyT } from '../../../definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
-import { IGenericFieldEntity } from '../../../definition';
+import { IGenericFieldEntity, FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES } from '../../../definition';
 
 /**
  * @stable [31.07.2018]
@@ -22,7 +21,7 @@ export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntit
       || (!hasOriginalValue && R.equals(config.value, config.emptyValue)))
     && config.canReturnClearDirtyChangesValue !== false
   ) {
-    return FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE;
+    return FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES;
   }
   return config.value;
 };

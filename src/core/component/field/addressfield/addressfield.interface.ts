@@ -11,7 +11,7 @@ import {
   INotUseCustomValidatorWrapper,
 } from '../../../definitions.interface';
 import { IBaseTextFieldProps } from '../textfield';
-import { IPlaceEntity } from '../../../entities-definitions.interface';
+import { IPlaceEntity } from '../../../definition';
 
 /**
  * @stable [30.07.2018]

@@ -113,7 +113,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     return (
       <FlexLayout className={toClassName('rac-google-maps', props.className)}>
         <div
-          ref={this.getSelfRef()}
+          ref={this.selfRef}
           className='rac-google-maps-map rac-flex-full'/>
         {
           orNull<JSX.Element>(

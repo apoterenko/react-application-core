@@ -28,7 +28,7 @@ export class Main extends BaseComponent implements IOnScrollWrapper {
     const props = this.props;
     return (
       <div className={toClassName('rac-main rac-flex-full', props.className)}>
-        <div ref={this.getSelfRef()}
+        <div ref={this.selfRef}
              className='rac-main-body-wrapper'
              onScroll={this.onScroll}>
           <FlexLayout className='rac-main-body'>

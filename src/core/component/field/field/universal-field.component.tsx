@@ -17,7 +17,8 @@ import {
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
-import { FIELD_DISPLAY_EMPTY_VALUE, FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
+import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
+import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 import {
   isFieldInactive,

@@ -4,7 +4,7 @@ import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import { IPlaceEntity } from '../../../entities-definitions.interface';
+import { IPlaceEntity } from '../../../definition';
 import { orNull, toAddress, uuid, toPlace, toClassName } from '../../../util';
 import { BaseTextField } from '../textfield';
 import { IUniversalDialog,  Dialog } from '../../dialog';
