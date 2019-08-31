@@ -8,6 +8,7 @@ import { trimmedUndefEmpty } from './nvl';
 import { ifNotNilThanValue, orNull } from './cond';
 import {
   IEditableEntity,
+  IEntityFormEntity,
   IListEntity,
   IListWrapperEntity,
 } from '../entities-definitions.interface';
@@ -69,3 +70,11 @@ export const listWrapperEntityToSelectedEntity = <TEntity extends IEntity>(listW
  */
 export const editableEntityToChanges = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
   entity.changes as TResult;
+
+/**
+ * @stable [31.08.2019]
+ * @param {IEntityFormEntity} entity
+ * @returns {TResult}
+ */
+export const entityFormToChanges = <TResult extends IEntity = IEntity>(entity: IEntityFormEntity): TResult =>
+  editableEntityToChanges<TResult>(entity.form);

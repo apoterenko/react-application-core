@@ -1,6 +1,10 @@
 import * as R from 'ramda';
 
 import { EntityIdT, IEntity, IKeyValue, AnyT } from '../definitions.interface';
+import {
+  FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
+  FIELD_DISPLAY_EMPTY_VALUE,
+} from '../definition';
 
 const DYNAMIC_FIELD_SEPARATOR = '-';
 
@@ -44,3 +48,12 @@ export const fromDynamicFieldsArray = <TEntity extends IEntity | EntityIdT>(arra
 export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
                                           valueAccessor: (itm: EntityIdT) => EntityIdT): IKeyValue =>
   fromDynamicFieldsArray<EntityIdT>(array, (itm) => itm, valueAccessor);
+
+/**
+ * @stable [31.08.2019]
+ * @param {AnyT} value
+ * @returns {AnyT}
+ */
+export const toAlwaysDirtyFieldValue = (value: AnyT): AnyT => value === FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
+  ? FIELD_DISPLAY_EMPTY_VALUE
+  : value;
