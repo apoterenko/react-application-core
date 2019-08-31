@@ -4,18 +4,20 @@ import * as R from 'ramda';
 import {
   buildUrl,
   defValuesFilter,
-  downloadAnchoredFile,
+  downloadFileAsBlobUrl,
   ifNotNilThanValue,
   join,
+  orNull,
   orUndef,
 } from '../util';
-import { lazyInject, DI_TYPES } from '../di';
-import { ITransport } from './transport.interface';
-import { IEntity, StringNumberT, UNDEF } from '../definitions.interface';
+import { AnyT } from '../definitions.interface';
 import { IEditableApiEntity } from '../definition';
-import { ISettings } from '../settings';
-import { IKeyValue } from '../definitions.interface';
+import { IEntity, StringNumberT, UNDEF_SYMBOL } from '../definitions.interface';
 import { INumberConverter } from '../converter';
+import { ISettings } from '../settings';
+import { isString } from '../util';
+import { ITransport, ITransportRequestEntity } from './transport.interface';
+import { lazyInject, DI_TYPES } from '../di';
 
 @injectable()
 export class BaseTransport {
@@ -24,13 +26,27 @@ export class BaseTransport {
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
 
   /**
-   * @stable [13.06.2019]
+   * @stable [29.08.2019]
    * @param {StringNumberT} value
+   * @param {(value: number) => number} converter
    * @returns {number}
    */
-  protected prepareNumberValue(value: StringNumberT): number {
-    return orUndef(!R.isNil(value), () => this.nc.number(value, false)) as number;
-  }
+  protected prepareNumberValue = (value: StringNumberT, converter?: (value: number) => number): number =>
+    this.nc.numberParameter(value, converter)
+
+  /**
+   * @stable [10.08.2019]
+   * @param {AnyT} value
+   * @returns {AnyT}
+   */
+  protected prepareStringValue = (value: AnyT): AnyT =>
+    ifNotNilThanValue(value, () => {
+      let resultValue = value;
+      if (isString(value)) {
+        resultValue = (value as string).trim();
+      }
+      return orNull(!R.isEmpty(resultValue), () => resultValue);
+    }, UNDEF_SYMBOL)
 
   /**
    * @stable [25.07.2019]
@@ -42,12 +58,12 @@ export class BaseTransport {
   }
 
   /**
-   * @stable [11.09.2018]
-   * @param {ITransportRequestPayloadDataEntity} params
+   * @stable [31.08.2019]
+   * @param {ITransportRequestEntity} params
    */
-  protected downloadAnchoredFile(params: IKeyValue): void {
+  protected downloadFile(params: ITransportRequestEntity): void {
     const requestParams = this.transport.makeRequestPayloadData(params);
-    downloadAnchoredFile(join([this.settings.downloadUrl, buildUrl(requestParams)]));
+    downloadFileAsBlobUrl(join([this.settings.downloadUrl, buildUrl(requestParams)]));
   }
 
   /**
