@@ -3,14 +3,15 @@ import * as JsBarcode from 'jsbarcode';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../base';
-import { defValuesFilter, uuid } from '../../util';
+import { defValuesFilter, uuid, calc, nvl } from '../../util';
 import { getBarcodeApplicableFormats } from './barcode.support';
 import { IBarcodeProps, BarcodeFormatEnum, BARCODE_APPLICABLE_FORMATS } from './barcode.interface';
 
 export class Barcode extends BaseComponent<IBarcodeProps> {
 
-  public static defaultProps: IBarcodeProps = {
+  public static readonly defaultProps: IBarcodeProps = {
     format: BARCODE_APPLICABLE_FORMATS,
+    filter: () => true,
   };
 
   private readonly uuid = uuid(true);
@@ -51,7 +52,7 @@ export class Barcode extends BaseComponent<IBarcodeProps> {
               className='rac-barcode'>
               {props.children}
               <svg id={this.toId(format)}/>
-              <div className='rac-barcode-format'>{format}</div>
+              {nvl(calc(props.footer, format), format)}
             </div>
           ))
         }
@@ -106,6 +107,8 @@ export class Barcode extends BaseComponent<IBarcodeProps> {
    */
   private get validFormats(): BarcodeFormatEnum[] {
     const props = this.props;
-    return getBarcodeApplicableFormats(props.barcode, props.format);
+    const barcodeFormats = getBarcodeApplicableFormats(props.barcode, props.format);
+
+    return barcodeFormats.filter((format) => props.filter(format, barcodeFormats));
   }
 }

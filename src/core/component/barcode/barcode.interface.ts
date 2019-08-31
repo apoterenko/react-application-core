@@ -1,6 +1,10 @@
+import * as React from 'react';
+
 import {
   IBarcodeWrapper,
+  IFilterWrapper,
   IFontSizeWrapper,
+  IFooterWrapper,
   IFormatWrapper,
   IHeightWrapper,
 } from '../../definitions.interface';
@@ -13,7 +17,9 @@ export interface IBarcodeProps
   extends IComponentProps,
     IBarcodeWrapper,
     IHeightWrapper,
+    IFilterWrapper<(barcode: BarcodeFormatEnum, barcodes: BarcodeFormatEnum[]) => boolean>,
     IFontSizeWrapper,
+    IFooterWrapper<React.ReactNode | (() => React.ReactNode)>,
     IFormatWrapper<BarcodeFormatEnum[]> {
 }
 
