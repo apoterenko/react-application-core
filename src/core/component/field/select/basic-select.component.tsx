@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, toClassName, isDef, getWidth, toType, isFn, calc } from '../../../util';
+import { cancelEvent, joinClassName, isDef, getWidth, toType, isFn, calc } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 
 export class BasicSelect<TProps extends IBaseSelectProps,
                          TState extends IBasicSelectState>
@@ -93,9 +93,9 @@ export class BasicSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [25.02.2019]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  public openMenu(event?: IBasicEvent): void {
+  public openMenu(event?: IBaseEvent): void {
     if (this.menu.isOpen() || this.state.needToOpenMenu) {
       return;
     }
@@ -126,9 +126,9 @@ export class BasicSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [25.02.2019]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  protected onClick(event: IBasicEvent): void {
+  protected onClick(event: IBaseEvent): void {
     super.onClick(event);
     this.openMenu(event);
   }
@@ -156,7 +156,7 @@ export class BasicSelect<TProps extends IBaseSelectProps,
    * @returns {string}
    */
   protected getInputWrapperElementClassName(): string {
-    return toClassName(
+    return joinClassName(
       super.getInputWrapperElementClassName(),
       'rac-flex-column'  // popup menu
     );
