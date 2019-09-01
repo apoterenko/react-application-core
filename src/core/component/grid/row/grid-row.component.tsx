@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../../base';
-import { toClassName } from '../../../util';
+import { joinClassName } from '../../../util';
 import { IGridRowProps } from './grid-row.interface';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 import { UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
 
 export class GridRow extends BaseComponent<IGridRowProps, {}> {
@@ -30,7 +30,7 @@ export class GridRow extends BaseComponent<IGridRowProps, {}> {
 
     return (
       <tr ref='self'
-          className={toClassName(
+          className={joinClassName(
             'rac-grid-row',
             props.selected && `rac-grid-row-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`,
             props.className
@@ -43,9 +43,9 @@ export class GridRow extends BaseComponent<IGridRowProps, {}> {
 
   /**
    * @stable - 05.04.2018
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onClick(event: IBasicEvent): void {
+  private onClick(event: IBaseEvent): void {
     const elClassList = (event.target as HTMLElement).classList;
     const props = this.props;
 

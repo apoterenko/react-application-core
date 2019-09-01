@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-import { toClassName, isString, isFn, cancelEvent, calc } from '../../../util';
 import { BaseComponent } from '../../base';
-import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
-import { IKeyboardKeyProps } from './keyboard-key.interface';
-import { IBasicEvent } from '../../../react-definitions.interface';
-import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitions.interface';
 import { Button } from '../../button';
+import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitions.interface';
+import { IKeyboardKeyProps } from './keyboard-key.interface';
+import { joinClassName, isString, isFn, calc } from '../../../util';
+import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 
 export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
   private buttonRef = React.createRef<Button>();
@@ -45,7 +44,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
         ref={this.buttonRef}
         disabled={props.disabled}
         rippled={props.rippled}
-        className={toClassName(
+        className={joinClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,
           keyAsObject && calc(keyAsObject.className),
@@ -61,11 +60,9 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
 
   /**
    * @stable [08.05.2018]
-   * @param {IBasicEvent} e
    */
-  private onClick(e: IBasicEvent): void {
-    cancelEvent(e);
-    this.props.onSelect(this.props.value);
+  private onClick(): void {
     this.buttonRef.current.blur();
+    this.props.onSelect(this.props.value);
   }
 }

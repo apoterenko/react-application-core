@@ -49,7 +49,7 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
 
     const el = (
       <div
-        ref={this.getSelfRef()}
+        ref={this.selfRef}
         className={toClassName(
           'rac-keyboard',
           'rac-no-user-select',

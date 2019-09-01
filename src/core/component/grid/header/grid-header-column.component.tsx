@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 import { SortDirectionEnum } from '../../../entities-definitions.interface';
 import { nvl, orNull, cancelEvent, isFn } from '../../../util';
 import { IGridHeaderColumnProps } from './grid-header-column.interface';
@@ -72,9 +72,9 @@ export class GridHeaderColumn extends BaseGridColumn<IGridHeaderColumnProps> {
 
   /**
    * @stable [12.02.2019]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onAscSortDirectionClick(event: IBasicEvent): void {
+  private onAscSortDirectionClick(event: IBaseEvent): void {
     cancelEvent(event);
 
     const props = this.props;
@@ -88,9 +88,9 @@ export class GridHeaderColumn extends BaseGridColumn<IGridHeaderColumnProps> {
 
   /**
    * @stable [12.02.2019]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onDescSortDirectionClick(event: IBasicEvent): void {
+  private onDescSortDirectionClick(event: IBaseEvent): void {
     cancelEvent(event);
 
     const props = this.props;
