@@ -28,7 +28,7 @@ import {
   INativeMaskedInputComponent,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 
 export class Field<TInternalProps extends IFieldInternalProps,
                    TState extends IFieldState = IFieldState>
@@ -36,7 +36,7 @@ export class Field<TInternalProps extends IFieldInternalProps,
                            TState,
                            IKeyboardEvent,
                            IFocusEvent,
-                           IBasicEvent>
+                           IBaseEvent>
     implements IField<TInternalProps, TState> {
 
   /**
@@ -152,17 +152,23 @@ export class Field<TInternalProps extends IFieldInternalProps,
              style={props.style}
              className={this.getSelfElementClassName()}>
           {this.getPrefixLabelElement()}
-          <div className={this.getInputWrapperElementClassName()}>
-            {this.getInputElement()}
-            {this.getLabelElement()}
-            {this.getMirrorInputElement()}
-            {this.getInputCaretElement()}
-            {this.getInputAttachmentElement()}
-          </div>
+          {this.getInputWrapperElement()}
           {this.actionsElement}
+          {this.getLabelElement()}
           {this.getProgressLabelElement()}
         </div>
       )
+    );
+  }
+
+  protected getInputWrapperElement(): JSX.Element {
+    return (
+      <div className={this.getInputWrapperElementClassName()}>
+        {this.getInputElement()}
+        {this.getMirrorInputElement()}
+        {this.getInputCaretElement()}
+        {this.getInputAttachmentElement()}
+      </div>
     );
   }
 
@@ -281,9 +287,9 @@ export class Field<TInternalProps extends IFieldInternalProps,
 
   /**
    * @stable [18.06.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  protected onClick(event: IBasicEvent): void {
+  protected onClick(event: IBaseEvent): void {
     cancelEvent(event);
     super.onClick(event);
   }

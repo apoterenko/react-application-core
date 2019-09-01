@@ -18,6 +18,7 @@ export interface IDateFieldProps extends IBaseTextFieldProps,
   minDate?: Date;
   locale?: string;
   okLabel?: string;
+  yearPlaceholder?: string | boolean;
 }
 
 export interface IDateFieldState

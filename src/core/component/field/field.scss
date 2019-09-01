@@ -47,7 +47,7 @@
                      $rac-text-field-height: $rac-text-area-height,
                      $rac-text-field-input-padding: $rac-text-area-input-padding);
 
-  @include rac-field(                                                                         /* @stable [26.05.2019] */
+  @include rac-field(                                                                         /* @stable [27.08.2019] */
     $rac-field-custom: $rac-switch-cls,
     $rac-self-field-height: $rac-switch-self-field-height,
     $rac-self-field-input-opacity: $rac-switch-self-field-input-opacity,
@@ -59,10 +59,7 @@
     $rac-self-field-input-wrapper-flex-width: $rac-switch-self-field-input-wrapper-flex-width,
     $rac-self-field-input-wrapper-flex-height: $rac-switch-self-field-input-wrapper-flex-height,
     $rac-self-field-label-margin: $rac-switch-self-field-label-margin,
-    $rac-self-field-label-left: $rac-switch-self-field-label-left,
-    $rac-self-field-label-line-height: $rac-switch-self-field-label-line-height,
-    $rac-self-field-label-position: $rac-switch-self-field-label-position,
-    $rac-self-field-label-v-center-alignment: $rac-switch-self-field-label-v-center-alignment
+    $rac-self-field-label-white-space: $rac-switch-self-field-label-white-space
   );
 
   @include rac-field(                                                                         /* @stable [31.05.2019] */

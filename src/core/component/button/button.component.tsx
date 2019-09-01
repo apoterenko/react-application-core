@@ -2,10 +2,15 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../../component/base';
-import { toClassName, nvl, ifNotNilThanValue } from '../../util';
-import { Link } from '../../component/link';
-import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
+import {
+  ifNotNilThanValue,
+  nvl,
+  toClassName,
+  handlerPropsFactory,
+} from '../../util';
 import { IButtonProps } from '../../definition';
+import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
+import { Link } from '../../component/link';
 
 export class Button extends BaseComponent<IButtonProps> {
 
@@ -51,6 +56,7 @@ export class Button extends BaseComponent<IButtonProps> {
         </Link>
       );
     }
+    const disabled = isButtonDisabled(props);
 
     return (
       <button
@@ -58,9 +64,9 @@ export class Button extends BaseComponent<IButtonProps> {
         type={props.type}
         title={props.title}
         style={props.style}
-        onClick={props.onClick}
         className={className}
-        disabled={isButtonDisabled(props)}
+        disabled={disabled}
+        {...handlerPropsFactory(props.onClick, !disabled)}
       >
         {
           hasIcon && this.uiFactory.makeIcon({

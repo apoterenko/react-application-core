@@ -21,9 +21,7 @@ import { IFieldConfiguration } from '../../../configurations-definitions.interfa
 /**
  * @stable [17.06.2018]
  */
-export const FIELD_TO_CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const FIELD_EMPTY_ERROR_VALUE = null;
-export const FIELD_DISPLAY_EMPTY_VALUE = '';
 
 /**
  * @stable [11.08.2018]
