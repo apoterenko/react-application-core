@@ -23,7 +23,7 @@ export class ProgressLabel extends BaseComponent<IProgressLabelProps> {
         </FlexLayout>
         {
           <FlexLayout className='rac-loading-message'>
-            {this.t(props.progressMessage || this.settings.messages.waitMessage)}
+            {props.progressMessage || this.settings.messages.waitMessage}
           </FlexLayout>
         }
       </FlexLayout>

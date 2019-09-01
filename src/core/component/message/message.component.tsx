@@ -12,7 +12,7 @@ export class Message extends UniversalMessage {
    * @returns {JSX.Element}
    */
   protected getProgressLabel(): JSX.Element {
-    return <ProgressLabel/>;
+    return <ProgressLabel {...this.props.progressLabelProps}/>;
   }
 
   /**
