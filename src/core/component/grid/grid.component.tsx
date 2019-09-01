@@ -25,7 +25,7 @@ import { GridRow } from './row';
 import { Field } from '../field';
 import { IGridState } from './grid.interface';
 import { FlexLayout } from '../layout';
-import { IBasicEvent } from '../../react-definitions.interface';
+import { IBaseEvent } from '../../definition';
 import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
 
 export class Grid extends BaseList<IGridProps, IGridState> {
@@ -286,10 +286,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       if (this.isElementField(renderEl)) {
         const name = this.toFilterFieldName(column, columnNum);
         return React.cloneElement<IFieldProps>(renderEl, {
-          ...this.getDefaultFieldProps(),
           value: this.toFilterFieldValue(name),
           placeholder: 'Filter',
           clearActionRendered: true,
+          errorMessageRendered: false,
           onChange: (value) => this.onChangeFilterField({value, name}),
         });
       }
@@ -539,9 +539,19 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
     const rows = [];
     const groupedDataSource = {};
+    const keysSet = new Set<EntityIdT>(); // To save original ordering
 
     dataSource0.forEach((entity) => {
       const groupColumnValue = this.extractGroupedValue(entity);
+
+      /**
+       * See https://www.ecma-international.org/ecma-262/6.0/#sec-set-objects
+       * ...Append value as the last element of entries.
+       *
+       * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add
+       * The add() method appends a new element with a specified value to the end of a Set object.
+       */
+      keysSet.add(groupColumnValue);
 
       let groupedDataSourceEntities = Reflect.get(groupedDataSource, groupColumnValue);
       if (!groupedDataSource.hasOwnProperty(groupColumnValue)) {
@@ -550,7 +560,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       groupedDataSourceEntities.push(entity);
     });
 
-    Object.keys(groupedDataSource).forEach((groupedRowValue) => {
+    // See the comment at the top
+    keysSet.forEach((groupedRowValue) => {
       const groupedRows = groupedDataSource[groupedRowValue];
       rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
 
@@ -666,11 +677,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [04.07.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    * @param {EntityIdT} groupedRowValue
    * @param {boolean} expanded
    */
-  private onExpandGroup(event: IBasicEvent, groupedRowValue: EntityIdT, expanded: boolean): void {
+  private onExpandGroup(event: IBaseEvent, groupedRowValue: EntityIdT, expanded: boolean): void {
     cancelEvent(event);
 
     this.setState({expandedGroups: {...this.state.expandedGroups, [groupedRowValue]: expanded}});
@@ -692,7 +703,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     );
   }
 
-  private onExpandAllGroups(event: IBasicEvent): void {
+  private onExpandAllGroups(event: IBaseEvent): void {
     cancelEvent(event);
     this.setState({expandedAllGroups: !this.state.expandedAllGroups, expandedGroups: {}});
   }
