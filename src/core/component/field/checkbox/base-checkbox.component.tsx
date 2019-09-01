@@ -6,8 +6,8 @@ import {
   IBaseCheckboxState,
   IBaseCheckboxInputProps,
 } from './checkbox.interface';
-import { IBasicEvent } from '../../../react-definitions.interface';
-import { uuid, noop } from '../../../util';
+import { IBaseEvent } from '../../../definition';
+import { noop } from '../../../util';
 import { FlexLayout } from '../../layout';
 
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
@@ -24,8 +24,9 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
     const props = this.props;
     return (
       <div className={this.getFieldClassName()}>
-        <FlexLayout row={true}
-                    alignItemsCenter={true}>
+        <FlexLayout
+          row={true}
+          alignItemsCenter={true}>
           {body}
         </FlexLayout>
         {this.getMessageElement()}
@@ -60,9 +61,9 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
 
   /**
    * @stable [31.08.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  protected onClick(event: IBasicEvent): void {
+  protected onClick(event: IBaseEvent): void {
     const props = this.props;
 
     // A workaround to any framework implementation

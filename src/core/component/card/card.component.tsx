@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName, orNull } from '../../util';
+import { toClassName, orNull, ifNotFalseThanValue } from '../../util';
 import { BaseComponent } from '../base';
 import { ICardProps } from './card.interface';
 
@@ -17,7 +17,7 @@ export class Card extends BaseComponent<ICardProps> {
            className={toClassName(
                        'rac-card',
                        this.uiFactory.card,
-                       props.rippable && this.uiFactory.rippleSurface,
+                       ifNotFalseThanValue(props.rippled, () => this.uiFactory.rippleSurface),
                        props.className
                      )}
            onClick={props.onClick}>

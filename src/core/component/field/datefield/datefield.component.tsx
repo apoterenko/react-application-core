@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 import DayPicker from 'react-day-picker';
 
-import { orNull, nvl, toClassName } from '../../../util';
+import { orNull, nvl, joinClassName, ifNotFalseThanValue } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IDateTimeSettings } from '../../../settings';
 import {
@@ -24,6 +24,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     autoOk: true,
     firstDayOfWeek: 1,
     preventFocus: true,
+    minDate: new Date('01/01/1900'),
+    maxDate: new Date('01/01/4000'),
   };
 
   private readonly dialogRef = React.createRef<Dialog<AnyT>>();
@@ -52,6 +54,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     const state = this.state;
+    const yearPlaceholder = props.yearPlaceholder;
+    const settings = this.settings;
+
     return orNull(
       state.dialogOpened,
       () => {
@@ -68,7 +73,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               <NumberField
                 value={this.state.year}
                 onChange={this.onChangeYear}
-                placeholder={this.settings.messages.yearMessage}>
+                pattern={'[0-9]{4}'}
+                mask={[/\d/, /\d/, /\d/, /\d/]}
+                placeholder={ifNotFalseThanValue(
+                  yearPlaceholder as boolean,
+                  () => nvl(
+                    yearPlaceholder,
+                    settings.messages.yearPlaceholderMessage.replace('{pattern}', settings.dateTime.yearPlaceholder))
+                  )
+                }>
               </NumberField>
             </FlexLayout>
             <DayPicker
@@ -116,9 +129,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
   /**
    * @stable [07.01.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  protected onClick(event: IBasicEvent): void {
+  protected onClick(event: IBaseEvent): void {
     super.onClick(event);
     this.onCalendarClick();
   }
@@ -137,7 +150,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-date-field');
+    return joinClassName(super.getFieldClassName(), 'rac-date-field');
   }
 
   /**
@@ -145,11 +158,16 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @param {number} value
    */
   private onChangeYear(value: number): void {
+    const props = this.props;
     this.setState({year: value});
 
     const date = new Date(this.dialogDate.getTime());
     date.setFullYear(value);
-    this.onChangeManually(date);
+
+    if (this.dc.compare(date, props.minDate) >= 0
+      && this.dc.compare(props.maxDate, date) >= 0) {
+      this.onChangeManually(date);
+    }
   }
 
   /**

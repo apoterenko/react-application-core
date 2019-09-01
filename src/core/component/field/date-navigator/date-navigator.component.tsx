@@ -39,7 +39,6 @@ export class DateNavigator
     this.onLeft = this.onLeft.bind(this);
     this.onRight = this.onRight.bind(this);
     this.getDisplayValue = this.getDisplayValue.bind(this);
-    this.isDatePickerDayOfMonthDisabled = this.isDatePickerDayOfMonthDisabled.bind(this);
     this.state = {currentTime: this.settings.dateTime.currentDate};
 
     if (props.time) {
@@ -87,7 +86,6 @@ export class DateNavigator
           onClick={this.onLeft}/>
         <DateField
           {...defValuesFilter({...this.props, type: UNDEF, step: UNDEF, pattern: UNDEF, time: UNDEF})}
-          shouldDisableDate={this.isDatePickerDayOfMonthDisabled}
           className={toClassName('rac-date-navigator', props.className)}
           format={this.getFieldFormat()}
           displayValue={this.getDisplayValue}/>
@@ -171,18 +169,5 @@ export class DateNavigator
           displayValue: formattedDisplayValue, value: this.value, type: props.type, pattern,
         }))
       : formattedDisplayValue;
-  }
-
-  /**
-   * @stable [08.01.2019]
-   * @param {Date} currentDayOfMonth
-   * @returns {boolean}
-   */
-  private isDatePickerDayOfMonthDisabled(currentDayOfMonth: Date): boolean {
-    switch (this.props.type) {
-      case DateNavigatorTypeEnum.MONTH:
-        return !this.dc.compare(this.dc.tryGetFirstDayOfMonth(0, currentDayOfMonth), currentDayOfMonth);
-    }
-    return false;
   }
 }
