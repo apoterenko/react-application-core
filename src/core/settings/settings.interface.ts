@@ -30,6 +30,7 @@ export enum StartDayOfWeekT {
 }
 
 export interface IDateTimeSettings {
+  yearPlaceholder?: string;
   startDayOfWeek?: StartDayOfWeekT;
   currentDate?: Date;        // Current date
   timeZone?: string;         // Time zone (+08:00, etc..)
@@ -63,6 +64,7 @@ export interface IApplicationNumberSettings {
  * @stable [10.03.2019]
  */
 export interface IMessagesSettings {
+  yearPlaceholderMessage?: string;
   acceptMessage?: string;
   accessDeniedMessage?: string;
   addressSelectionMessage?: string;
@@ -112,7 +114,7 @@ export interface IMessagesSettings {
   yearMessage?: string;
 }
 
-export interface IApplicationAuthorizationSettings {
+export interface IAuthorizationSettings {
   isAuthorizationNeeded?: boolean;
 }
 
@@ -152,7 +154,7 @@ export interface ISettings {
   number?: IApplicationNumberSettings;
   messages?: IMessagesSettings;
   channel?: IApplicationChannelSettings;
-  authorization?: IApplicationAuthorizationSettings;
+  authorization?: IAuthorizationSettings;
   googleMaps?: IGoogleMapsSettings;
   components?: IComponentsSettings;
 }
@@ -180,11 +182,12 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     noCachePrefix: '_dc',
   },
   messages: {
+    yearPlaceholderMessage: 'Year as {pattern}',
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
     addressSelectionMessage: 'Address selection',
     applyMessage: 'Apply',
-    appNotReadyMessage: 'The application is initialized...',
+    appNotReadyMessage: 'App is being initialized...',
     clearAllMessage: 'Clear all',
     closeMessage: 'Close',
     confirmationMessage: 'Confirmation',
@@ -228,8 +231,8 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     yearMessage: 'Year',
   },
   dateTime: {
+    yearPlaceholder: 'YYYY',
     startDayOfWeek: StartDayOfWeekT.MONDAY,
-    currentDate: new Date(),
     dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',
@@ -271,3 +274,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     libraries: 'places,visualization',
   },
 };
+
+Reflect.defineProperty(DEFAULT_APPLICATION_SETTINGS.dateTime, 'currentDate', {
+  get: () => new Date(),    // To prevent 24h caching
+});

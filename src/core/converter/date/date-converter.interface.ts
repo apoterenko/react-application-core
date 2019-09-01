@@ -2,18 +2,13 @@ import * as moment from 'moment';
 
 import { IKeyValue } from '../../definitions.interface';
 
-export const DATE_TIME_TYPES = {
-  months: 'months',
-  seconds: 'seconds',
-};
-
 /**
  * @stable [07.01.2019]
  */
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
-  compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean;
+  compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
@@ -24,6 +19,7 @@ export interface IDateConverter {
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateTimeToDateTime(date: string, time: string): string;
+  fromUiDateToDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateTimeToPstDate(date: string, time: string): string;
   fromDateToYear(date?: DateTimeLikeTypeT): number;
   splitToDateTimeFields<TEntity>(entity: TEntity,
@@ -37,6 +33,8 @@ export interface IDateConverter {
   tryAddXDaysAsMomentDate(duration: moment.DurationInputArg1,
                           date?: DateTimeLikeTypeT,
                           inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
+  tryGetWeekdayNumber(date?: DateTimeLikeTypeT,
+                      inputFormat?: string): number;
   tryAddXDuration(unit: moment.DurationInputArg2,
                   duration: moment.DurationInputArg1,
                   date?: DateTimeLikeTypeT,
@@ -76,6 +74,7 @@ export interface IDateConverter {
   tryGetFirstDayOfWeek(duration?: moment.DurationInputArg1,
                        date?: DateTimeLikeTypeT,
                        inputFormat?: string): Date;
+  isDateBelongsToCurrentWeek(date?: DateTimeLikeTypeT, inputFormat?: string): boolean;
   tryGetFirstDayOfMonth(duration?: moment.DurationInputArg1,
                         date?: DateTimeLikeTypeT,
                         inputFormat?: string): Date;
@@ -100,6 +99,8 @@ export interface IDateConverter {
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   getCurrentDate(): Date;
+  getCurrentTime(): Date;
+  getStartOfCurrentDate(): Date;
   getYesterdayDate(): Date;
   appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;
   getFirstDayOfMonth(monthsAgo?: number,

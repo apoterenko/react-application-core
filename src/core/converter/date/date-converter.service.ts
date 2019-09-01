@@ -5,7 +5,7 @@ import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
-import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue, isFn } from '../../util';
+import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue, NUMBER_COMPARATOR } from '../../util';
 import { IDateTimeSettings, ISettings, StartDayOfWeekT } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
@@ -23,17 +23,22 @@ export class DateConverter implements IDateConverter {
   @lazyInject(DI_TYPES.Settings) private settings: ISettings;
 
   /**
-   * @stable [08.01.2018]
+   * @stable [08.08.2019]
    * @param {DateTimeLikeTypeT} date1
    * @param {DateTimeLikeTypeT} date2
-   * @returns {boolean}
+   * @returns {number}
    */
-  public compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean {
+  public compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number {
     const date1$ = date1 as Date;
     const date2$ = date2 as Date;
-    return !R.isNil(date1$) && !R.isNil(date2$)
-      && isFn(date1$.getTime) && isFn(date2$.getTime)
-      && date1$.getTime() === date2$.getTime();
+
+    return R.equals(date1, date2)
+      ? 0
+      : (
+        date1$ instanceof Date && date2$ instanceof Date
+          ? NUMBER_COMPARATOR(date1$.getTime(), date2$.getTime())
+          : NaN
+      );
   }
 
   /**
@@ -148,6 +153,15 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [11.08.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromUiDateToDateTime(date: DateTimeLikeTypeT): string {
+    return this.format(date, this.uiDateFormat, this.dateTimeFormat);
+  }
+
+  /**
    * @stable [24.11.2018]
    * @param {string} date [Example: 2018-11-24]
    * @param {string} time [Example: 03:47:17]
@@ -226,6 +240,20 @@ export class DateConverter implements IDateConverter {
                                  date: DateTimeLikeTypeT = this.currentDate,
                                  inputFormat = this.uiDateFormat): moment.Moment {
     return this.tryAddXDurationAsMomentDate('days', duration, date, inputFormat);
+  }
+
+  /**
+   * @stable [11.08.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @returns {number}
+   */
+  public tryGetWeekdayNumber(date: DateTimeLikeTypeT = this.currentDate,
+                             inputFormat = this.uiDateFormat): number {
+    const momentDate = this.toMomentDate(date, inputFormat);
+    return orNull(momentDate.isValid(),
+      () => this.settings.dateTime.startDayOfWeek === StartDayOfWeekT.MONDAY // TODO make getter
+        ? momentDate.isoWeekday() : momentDate.weekday());
   }
 
   /**
@@ -446,6 +474,18 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [08.08.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @param {string} inputFormat
+   * @returns {boolean}
+   */
+  public isDateBelongsToCurrentWeek(date: DateTimeLikeTypeT,
+                                    inputFormat = this.dateFormat): boolean {
+    const momentDate = this.toMomentDate(date, inputFormat);
+    return momentDate.isValid() && (momentDate.toDate() >= this.tryGetFirstDayOfWeek());
+  }
+
+  /**
    * @deprecated Use fromDateTimeToDate
    */
   public fromDateToUiDate(date: DateTimeLikeTypeT): string {
@@ -523,10 +563,25 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [29.08.2019]
    * @returns {Date}
    */
   public getCurrentDate(): Date {
-    return this.tryAddXDays(0);
+    return this.currentDate;
+  }
+
+  public getCurrentTime(): Date {
+    return new Date();
+  }
+
+  /**
+   * @stable [08.08.2019]
+   * @returns {Date}
+   */
+  public getStartOfCurrentDate(): Date {
+    const date = new Date(this.currentDate);
+    date.setHours(0, 0, 0, 0);
+    return date;
   }
 
   /**
