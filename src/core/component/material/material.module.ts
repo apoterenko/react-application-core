@@ -2,7 +2,7 @@ import { MDCRipple } from '@material/ripple';
 import { MDCCheckbox } from '@material/checkbox';
 
 import { appContainer, DI_TYPES } from '../../di';
-import { addClassNameToBody, orNull } from '../../util';
+import { addClassNameToBody, orNull, ifNotFalseThanValue } from '../../util';
 import {
   IReactComponentClassEntity,
   UniversalComponentPluginFactoryT,
@@ -59,9 +59,10 @@ uiPlugins.set(Menu, (component: Menu) =>
   orNull(!component.centeredMenu, () => new MenuMaterialPlugin<Menu>(component)));
 
 /**
- * @stable [05.05.2018]
+ * @stable [30.08.2019]
  */
-uiPlugins.set(Card, (component: Card) => new MaterialPlugin<Card>(component, MDCRipple));
+uiPlugins.set(Card, (component: Card) =>
+  ifNotFalseThanValue(component.props.rippled, () => new MaterialPlugin<Card>(component, MDCRipple)));
 
 /**
  * @stable [08.05.2018]
