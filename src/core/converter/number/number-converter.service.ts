@@ -3,10 +3,10 @@ import { injectable } from 'inversify';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphonenumber';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { isNumber, isString } from '../../util';
+import { isNumber, isString, isFn, isUndef } from '../../util';
 import { ISettings } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
-import { EntityIdT, StringNumberT } from '../../definitions.interface';
+import { EntityIdT, StringNumberT, UNDEF } from '../../definitions.interface';
 
 @injectable()
 export class NumberConverter implements INumberConverter {
@@ -75,13 +75,33 @@ export class NumberConverter implements INumberConverter {
     return isNaN(result) ? value : result;
   }
 
-  public number(value: string | number, stringResult = true): string | number {
+  public number(value: StringNumberT, stringResult = true): string | number {
     if (isNumber(value)) {
       return value;
     }
     const valueAsString = value as string;
     const result = parseFloat(valueAsString);
     return isNaN(result) || (!R.equals(String(result), value) && stringResult) ? value : result;
+  }
+
+  /**
+   * @stable [29.08.2019]
+   * @param {StringNumberT} value
+   * @param {(value: number) => number} converter
+   * @returns {number}
+   */
+  public numberParameter(value: StringNumberT, converter?: (value: number) => number): number {
+    if (isUndef(value)) {
+      return UNDEF;
+    }
+    if (value === null) {
+      return null;
+    }
+    if (isString(value) && R.isEmpty((value as string).trim())) {
+      return null;
+    }
+    const v = this.number(value, false) as number;
+    return isFn(converter) ? converter(v) : v;
   }
 
   public format(value: string | number, formatter: {format(...args): string} = this.defaultFormatter): string {

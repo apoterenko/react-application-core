@@ -7,10 +7,12 @@ import {
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import {
-  IQueryFilterEntity,
   IUniversalContainerEntity,
-  IQueryFilterWrapperEntity,
 } from '../../../entities-definitions.interface';
+import {
+  IQueryFilterEntity,
+  IQueryFilterWrapperEntity,
+} from '../../../definition';
 import {
   IOnApplyWrapper,
   IOnActivateWrapper,

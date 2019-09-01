@@ -1,7 +1,9 @@
 import {
   IContainerEntity,
-  IQueryFilterWrapperEntity,
 } from '../../../entities-definitions.interface';
+import {
+  IQueryFilterWrapperEntity,
+} from '../../../definition';
 import {
   IContainerConfiguration,
   IHeaderConfigurationWrapper,
