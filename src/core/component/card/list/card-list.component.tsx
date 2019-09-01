@@ -36,7 +36,7 @@ export class CardList extends BaseList<ICardListProps> {
     return (
       <Card
         key={this.toRowKey(entity)}
-        rippable={true}
+        rippled={itemConfiguration.rippled}
         className={toClassName(`rac-list-item rac-list-item-${index}`, calc(itemConfiguration.className, entity))}
         actionButtons={itemConfiguration.actionButtons && itemConfiguration.actionButtons(entity)}
         actionIcons={itemConfiguration.actionIcons && itemConfiguration.actionIcons(entity)}

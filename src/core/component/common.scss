@@ -97,7 +97,7 @@ html, body {
                     $rac-icon-content-width: 100%,
                     $rac-icon-content-vertical-align: top);
 
-  @include rac-icon($rac-icon-custom: rac-action-icon,                                        /* @stable [07.03.2019] */
+  @include rac-icon($rac-icon-custom: $rac-action-icon-cls,                                   /* @stable [07.03.2019] */
                     $rac-icon-size: $rac-action-icon-size,
                     $rac-icon-color: $rac-action-icon-color,
                     $rac-icon-cursor: $rac-action-icon-cursor);
@@ -105,7 +105,7 @@ html, body {
   @include rac-icon($rac-icon-custom: rac-disabled-icon,                                      /* @stable [21.11.2018] */
                     $rac-icon-opacity: $opacity);
 
-  @include rac-icon($rac-icon-custom: rac-build-cls2(rac-action-icon, rac-disabled-icon),     /* @stable [07.03.2019] */
+  @include rac-icon($rac-icon-custom: rac-build-cls2($rac-action-icon-cls, rac-disabled-icon),/* @stable [07.03.2019] */
                     $rac-icon-cursor: default);
 
   @include rac-icon($rac-icon-custom: rac-action-add-icon,                                    /* @stable [17.12.2018] */

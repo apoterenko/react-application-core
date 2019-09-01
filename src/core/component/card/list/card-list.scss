@@ -6,6 +6,7 @@
 
   @include rac-card-list($rac-card-list-overflow: auto,
                          $rac-card-list-padding: $rac-card-list-padding,
+                         $rac-card-list-item-position: relative,  // TODO
                          $rac-card-list-item-padding: $rac-card-list-item-padding,
                          $rac-card-list-item-width: $rac-card-list-item-width,
                          $rac-card-list-item-height: $rac-card-list-item-height,
