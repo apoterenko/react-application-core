@@ -205,10 +205,6 @@ export class ListActionBuilder {
     return `${toActionPrefix(section)}.${LIST_RESET_ACTION_TYPE}`;
   }
 
-  public static buildUnTouchAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildUnTouchActionType(section), applySection(section));
-  }
-
   /**
    * @stable [21.04.2019]
    * @param {string} section

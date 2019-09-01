@@ -93,6 +93,10 @@
   @include flexbox;
 }
 
+.rac-inline-flex {
+  @include inline-flex;
+}
+
 // Flex full layout (x4) [FRAMEWORK-]
 .rac-flex-full-x4 {
   @include flex(4);

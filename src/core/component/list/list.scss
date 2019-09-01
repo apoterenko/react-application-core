@@ -35,20 +35,6 @@
         }
       }
 
-      &.rac-list-item-normal {
-
-        .rac-list-item-graphic {
-          background-color: $rac-list-item-normal-graphic-background-color;   /* @stable [05.08.2018] */
-        }
-      }
-
-      &.rac-list-item-fail {
-
-        .rac-list-item-graphic {
-          background-color: $rac-list-item-fail-graphic-background-color;     /* @stable [05.08.2018] */
-        }
-      }
-
       .rac-icon {
 
         &.rac-list-item-meta-icon {

@@ -100,7 +100,7 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
    * @returns {string}
    */
   protected toRowKey(entity: IEntity): string {
-    return `data-row-${nvl(entity.id, uuid())}`;   // Infinity scroll supporting
+    return `data-row-${R.isNil(entity.id) ? uuid() : entity.id}`;   // Infinity scroll supporting
   }
 
   /**

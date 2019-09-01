@@ -1,25 +1,20 @@
 import * as React from 'react';
 
-import { orNull, toClassName } from '../../../util';
-import { BasicEventT, UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
-import { IListItemProps } from './list-item.interface';
-import { ListItemGraphic, ListItemText } from '../../list';
 import { BaseComponent } from '../../base';
 import { IListItem } from './list-item.interface';
+import { IListItemProps } from './list-item.interface';
+import { ListItemGraphic, ListItemText } from '../../list';
+import { orNull, joinClassName, ifNotNilThanValue, handlerPropsFactory } from '../../../util';
+import { UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
 
 export class ListItem extends BaseComponent<IListItemProps>
   implements IListItem {
 
-  private readonly initialProps = {
-    ref: 'self',
-    onClick: this.onActionClick.bind(this),
-  };
-
   public render(): JSX.Element {
     const props = this.props;
     const defaultProps = {
-      ...this.initialProps,
-      className: toClassName(
+      ref: 'self',
+      className: joinClassName(
         'rac-list-item',
         props.selected ? `rac-list-item-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}` : 'rac-list-item-unselected',
         props.className,
@@ -29,6 +24,7 @@ export class ListItem extends BaseComponent<IListItemProps>
         'rac-flex-row',
         'rac-flex-align-items-center'
       ),
+      ...handlerPropsFactory<HTMLLIElement>(ifNotNilThanValue(props.onClick, () => () => props.onClick(props.rawData))),
     };
 
     return props.renderer
@@ -54,14 +50,5 @@ export class ListItem extends BaseComponent<IListItemProps>
               </ListItemText>
             </li>
         );
-  }
-
-  private onActionClick(event: BasicEventT): void {
-    this.stopEvent(event);
-
-    const props = this.props;
-    if (props.onClick) {
-      props.onClick(props.rawData);
-    }
   }
 }

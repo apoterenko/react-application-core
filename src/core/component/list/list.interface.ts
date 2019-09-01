@@ -2,7 +2,7 @@ import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
   DEFAULT_MAX_PAGE_SIZE,
-  DEFAULT_MIN_PAGE_SIZE,
+  DEFAULT_REMOTE_DICTIONARY_PAGE_SIZE,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
 } from '../../definitions.interface';
@@ -61,9 +61,9 @@ export const INITIAL_APPLICATION_LIST_MAX_PAGE_STATE: IPagedEntity = {
 /**
  * @stable [24.04.2019]
  */
-export const INITIAL_APPLICATION_LIST_MIN_PAGE_STATE: IPagedEntity = {
+export const INITIAL_LIST_REMOTE_DICTIONARY_PAGE_STATE: IPagedEntity = {
   page: FIRST_PAGE,
-  pageSize: DEFAULT_MIN_PAGE_SIZE,
+  pageSize: DEFAULT_REMOTE_DICTIONARY_PAGE_SIZE,
 };
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';
