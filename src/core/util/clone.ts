@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { calc, isPrimitive, uuid, ifNotNilThanValue } from '../util';
-import { IEntity } from '../definitions.interface';
+import { IEntity, UNDEF_SYMBOL } from '../definitions.interface';
 
 /**
  * @stable [24.01.2019]
@@ -10,7 +10,7 @@ import { IEntity } from '../definitions.interface';
  * @returns {TEntity}
  */
 export const shallowClone = <TEntity extends IEntity>(entity: TEntity): TEntity =>
-  ifNotNilThanValue<TEntity, TEntity>(entity, (): TEntity => ({...entity as {}} as TEntity));
+  ifNotNilThanValue(entity, (): TEntity => ({...entity as {}} as TEntity), UNDEF_SYMBOL);
 
 /**
  * @stable [14.06.2018]
