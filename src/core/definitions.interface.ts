@@ -10,7 +10,6 @@ export type EntityIdT = StringNumberT;
 export const FIRST_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 50;
 export const DEFAULT_MAX_PAGE_SIZE = 1000000;
-export const DEFAULT_REMOTE_DICTIONARY_PAGE_SIZE = 300;
 export const DEFAULT_TIME_FROM = '00:00:00';
 export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
@@ -482,10 +481,6 @@ export interface IOnEmptyDictionaryWrapper<TPayload> {
   onEmptyDictionary?(dictionary?: string, payload?: TPayload): void;
 }
 
-export interface IOnDestroyDictionaryWrapper {
-  onDestroyDictionary?(dictionary?: string);
-}
-
 /* @stable - 22.04.2018 */
 export interface ILoadingWrapper {
   loading?: boolean;
@@ -675,7 +670,7 @@ export interface IListRoutePathWrapper {
 
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
-export interface IDisabledWrapper { disabled?: boolean; }
+export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IFilterSectionWrapper { filterSection?: string; }
 export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFormSection; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
@@ -920,13 +915,6 @@ export interface IFontSizeWrapper {
   fontSize?: number;
 }
 
-/**
- * @stable [13.05.2018]
- */
-export interface IEffectorWrapper<TEffector = string> {
-  effector?: TEffector;
-}
-
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 
@@ -938,32 +926,15 @@ export interface IDisplayValueWrapper<TDisplayValue = AnyT> {
 }
 
 /**
- * @stable [17.06.2018]
- */
-export interface IEmptyValueWrapper<TValue = AnyT> {
-  emptyValue?: TValue;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface INumberValueWrapper extends IValueWrapper<number> {
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface IStringValueWrapper extends IValueWrapper<string> {
-}
-
-/**
  * @stable [10.11.2018]
  */
 export interface ICodeWrapper<TCode = string> {
   code?: TCode;
 }
 
+export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface INameWrapper<TName = string> { name?: TName; }
+export interface ITabIndexWrapper { tabIndex?: number; }
 
 export interface IReaderWrapper<TReader> {
   reader?: TReader;
@@ -1417,6 +1388,7 @@ export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
 export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
 export interface IUpdateWrapper<TValue = string> { update?: TValue; }
+export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
 export interface IZoomWrapper { zoom?: number; }
 
@@ -2304,6 +2276,18 @@ export interface IJQueryInputElement extends IJQueryElement<HTMLElement> {
   caret?(position?: number): number;
 }
 
+/**
+ * @stable [10.09.2019]
+ */
+export enum UniCodesEnum {
+  ARROW_RIGHT = '\u27f6',
+  DASH = '\u2014',
+  SPACE = '\u0020',
+}
+
+/**
+ * @deprecated
+ */
 export const UNI_CODES = {
   dash: '\u2014',
   infinity: '\u221e',

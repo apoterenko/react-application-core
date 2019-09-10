@@ -13,6 +13,7 @@ import {
   INextListSectionWrapper,
   IPreviousFormSectionWrapper,
   IReplaceRouteWrapper,
+  IReplaceWrapper,
   ISectionNameWrapper,
   ISelectWrapper,
   ITypeWrapper,
@@ -24,6 +25,7 @@ import {
  */
 export interface IEntityReducerFactoryConfigEntity
   extends IUpdateWrapper<string>,
+    IReplaceWrapper<string>,
     ISelectWrapper<string>,
     IDestroyWrapper<string>,
     IInitialStateWrapper<AnyT> {
@@ -33,8 +35,9 @@ export interface IEntityReducerFactoryConfigEntity
  * @stable [26.08.2019]
  */
 export interface IEntityActionBuilder {
-  buildUpdateAction(updated: AnyT): IEffectsAction;
-  buildSelectAction(selected: AnyT): IEffectsAction;
+  buildReplaceAction<TValue = AnyT>(replaced: TValue): IEffectsAction;
+  buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction;
+  buildUpdateAction<TValue = AnyT>(updated: TValue): IEffectsAction;
 }
 
 /**

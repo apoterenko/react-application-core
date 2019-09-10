@@ -1,9 +1,14 @@
 import {
   IDisabledWrapper,
+  IEmptyValueWrapper,
+  ILabelWrapper,
+  IMaskWrapper,
   INameWrapper,
+  IPatternWrapper,
   IPlaceholderWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
+  ITabIndexWrapper,
   IVisibleWrapper,
   UNDEF,
 } from '../definitions.interface';
@@ -19,9 +24,14 @@ export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
  */
 export interface IGenericFieldEntity
   extends IDisabledWrapper,
+    IEmptyValueWrapper,
+    ILabelWrapper,
+    IMaskWrapper,
     INameWrapper,
+    IPatternWrapper,
     IPlaceholderWrapper,
     IProgressWrapper,
     IReadOnlyWrapper,
+    ITabIndexWrapper,
     IVisibleWrapper {
 }

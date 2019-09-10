@@ -2,6 +2,7 @@ export * from './address-definition.interface';
 export * from './api-definition.interface';
 export * from './button-definition.interface';
 export * from './channel-definition.interface';
+export * from './dictionary-definition.interface';
 export * from './entity-definition.interface';
 export * from './env-definition.interface';
 export * from './error-definition.interface';

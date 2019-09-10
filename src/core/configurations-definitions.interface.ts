@@ -66,7 +66,6 @@ import {
   IEditableWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
-  IEmptyValueWrapper,
   IEntity,
   IEntityToClassNameWrapper,
   IEntityWrapper,
@@ -118,7 +117,6 @@ import {
   IMappersWrapper,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
-  IMaskWrapper,
   IMaxCountWrapper,
   IMessageWrapper,
   IMoreOptionsWrapper,
@@ -138,7 +136,6 @@ import {
   IOnCreateWrapper,
   IOnDeactivateWrapper,
   IOnDelayWrapper,
-  IOnDestroyDictionaryWrapper,
   IOnEmptyDictionaryWrapper,
   IOnEnterWrapper,
   IOnFilterChangeWrapper,
@@ -182,7 +179,6 @@ import {
   IStringArrayExcludeTargetsClassesWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
-  ITextWrapper,
   ITightGridWrapper,
   ITitleRendererWrapper,
   ITitleWrapper,
@@ -233,13 +229,6 @@ import {
   IGenericFieldEntity,
   IGenericFormEntity,
 } from './definition';
-
-/**
- * @stable [26.08.2018]
- */
-export interface IFieldsConfigurationsWrapper<TFieldsConfigurations = IFieldsConfigurations> {
-  fieldsConfigurations?: TFieldsConfigurations;
-}
 
 /**
  * @stable [16.06.2018]
@@ -499,7 +488,6 @@ export interface IUniversalFormConfiguration extends IGenericFormEntity,
                                                      IResetIconWrapper,
                                                      IChangeableWrapper,
                                                      IFullWrapper,
-                                                     IOnDestroyDictionaryWrapper,
                                                      IOnEmptyDictionaryWrapper<IApiEntity> {
 }
 
@@ -705,13 +693,9 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IAutoFocusWrapper,
           IErrorMessageRenderedWrapper,
           IActionsWrapper<IFieldActionConfiguration[]>,
-          INameWrapper,
-          IMaskWrapper,
-          IPatternWrapper,
           IDisplayMessageWrapper,
           IValidationGroupWrapper,
           IRenderedWrapper,
-          IEmptyValueWrapper,
           IPreventFocusWrapper,
           IRequiredWrapper,
           ICanReturnClearDirtyChangesValueWrapper,
@@ -725,7 +709,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IUseSyntheticCursorWrapper,
           IChangeableWrapper,
           IDefaultValue {
-  keepDictionary?: boolean;
   bufferValue?: boolean;
   preventManualChanges?: boolean; // TODO
   dispatchValue?(rawValue: AnyT); // TODO
@@ -741,7 +724,6 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IBindDictionaryConfiguration,
                                              IMaskGuideWrapper,
                                              IMaskPlaceholderCharWrapper,
-                                             ILabelWrapper,
                                              IPrefixLabelWrapper,
                                              IDisplayNameWrapper,
                                              ITypeWrapper<StringNumberT>,
@@ -961,8 +943,7 @@ export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWr
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
                                                       IOnEmptyDictionaryWrapper<IApiEntity>,
-                                                      IOnLoadDictionaryWrapper,
-                                                      IOnDestroyDictionaryWrapper {
+                                                      IOnLoadDictionaryWrapper {
 }
 
 /**
@@ -1002,7 +983,7 @@ export enum ToolbarActionEnum {
  */
 export interface IFieldActionConfiguration extends IClassNameWrapper,
                                                    ITitleWrapper,
-                                                   IDisabledWrapper,
+                                                   IDisabledWrapper<boolean | (() => boolean)>,
                                                    ITypeWrapper,
                                                    IReactOnClickWrapper {
 }
