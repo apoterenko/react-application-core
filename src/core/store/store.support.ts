@@ -100,15 +100,18 @@ export const makeEntityReducerFactory = (config: IEntityReducerFactoryConfigEnti
   (state = config.initialState || null, action): AnyT => {
     switch (action.type) {
       case config.update:
+      case config.replace:
       case config.select:
         const selectedWrapper: ISelectedWrapper<AnyT> = action.data;
         const updatedWrapper: IUpdatedWrapper<AnyT> = action.data;
+        const replacedWrapper: IReplacedWrapper<AnyT> = action.data;
         const selectedEntity = selectedWrapper.selected;
         const updatedEntity = updatedWrapper.updated;
-        const entity = coalesce(selectedEntity, updatedEntity);
+        const replacedEntity = replacedWrapper.replaced;
+        const entity = coalesce(selectedEntity, updatedEntity, replacedEntity);
 
-        // When selected === null or replaced === null
-        const defEntity = coalesceDef(selectedEntity, updatedEntity);
+        // When selected === null or replaced === null or updated === null
+        const defEntity = coalesceDef(selectedEntity, updatedEntity, replacedEntity);
 
         return R.isNil(entity)
           ? (isUndef(defEntity) ? state : defEntity)
@@ -119,9 +122,9 @@ export const makeEntityReducerFactory = (config: IEntityReducerFactoryConfigEnti
                 Array.isArray(entity)
                   ? [...entity]
                   : (
-                    R.isNil(updatedEntity)
-                      ? {...state, ...entity}
-                      : shallowClone(entity)
+                    R.isNil(replacedEntity)
+                      ? {...state, ...entity}  // Select or update
+                      : shallowClone(entity)   // Replace
                   )
               )
           );
@@ -141,11 +144,20 @@ export const makeEntityActionBuilderFactory = (config: IEntityReducerFactoryConf
 
     /**
      * @sable [26.08.2019]
-     * @param {AnyT} updated
+     * @param {AnyT} replaced
      * @returns {IEffectsAction}
      */
-    public buildUpdateAction(updated: AnyT): IEffectsAction {
-      return EffectsAction.create(config.update, toType<IUpdatedWrapper>({updated}));
+    public buildReplaceAction<TValue = AnyT>(replaced: TValue): IEffectsAction {
+      return EffectsAction.create(config.replace, toType<IReplacedWrapper<TValue>>({replaced}));
+    }
+
+    /**
+     * @stable [04.09.2019]
+     * @param {TValue} updated
+     * @returns {IEffectsAction}
+     */
+    public buildUpdateAction<TValue = AnyT>(updated: TValue): IEffectsAction {
+      return EffectsAction.create(config.update, toType<IUpdatedWrapper<TValue>>({updated}));
     }
 
     /**
@@ -153,7 +165,7 @@ export const makeEntityActionBuilderFactory = (config: IEntityReducerFactoryConf
      * @param {AnyT} selected
      * @returns {IEffectsAction}
      */
-    public buildSelectAction(selected: AnyT): IEffectsAction {
-      return EffectsAction.create(config.select, toType<ISelectedWrapper>({selected}));
+    public buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction {
+      return EffectsAction.create(config.select, toType<ISelectedWrapper<TValue>>({selected}));
     }
   }, []);
