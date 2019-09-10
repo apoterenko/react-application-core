@@ -7,7 +7,7 @@ import { INumberValueWrapper } from '../definitions.interface';
  * @param {boolean} onlyChars
  * @returns {string}
  */
-export function uuid(onlyChars = false) {
+export function uuid(onlyChars = false): string {
   let result = uuid0();
   if (onlyChars) {
     while (/[0-9]{1,}/.test(result)) {
