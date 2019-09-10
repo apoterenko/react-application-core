@@ -197,13 +197,12 @@ export class BasicSelect<TProps extends IBaseSelectProps,
     }
   }
 
-  // TODO
+  /**
+   * @stable [10.09.2019]
+   */
   protected onClose(): void {
     const props = this.props;
 
-    if (isFn(props.onDestroyDictionary)) {
-      props.onDestroyDictionary();
-    }
     if (isFn(props.onClose)) {
       props.onClose();
     }

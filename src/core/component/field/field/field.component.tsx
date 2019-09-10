@@ -255,6 +255,7 @@ export class Field<TInternalProps extends IFieldInternalProps,
   protected getInputElementProps(): IFieldInputProps | IFieldTextAreaProps {
     const props = this.props;
     const name = props.name;
+    const tabIndex = props.tabIndex;
     const step = props.step;
     const type = props.type || 'text';
     const autoComplete = props.autoComplete || 'off';
@@ -276,7 +277,7 @@ export class Field<TInternalProps extends IFieldInternalProps,
 
     return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
       name, type, step, readOnly, disabled, pattern, minLength, placeholder,
-      maxLength, rows, cols,
+      maxLength, rows, cols, tabIndex,
       onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
       ref: 'input',
       value,

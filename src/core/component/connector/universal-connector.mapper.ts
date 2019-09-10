@@ -12,10 +12,8 @@ import {
   IEntityWrapper,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IQueryWrapper,
   IDisabledWrapper,
   AnyT,
-  IKeyValue,
   IActionsDisabledWrapper,
 } from '../../definitions.interface';
 import {
@@ -36,8 +34,6 @@ import {
   IDictionariesWrapperEntity,
   IUniversalApplicationStoreEntity,
   IDataMutatorEntity,
-  IFilterFormWrapperEntity,
-  IFormWrapperEntity,
   IDictionaryEntity,
   ISelectOptionEntity,
   IEditableEntityFormWrapperEntity,
@@ -71,20 +67,7 @@ export const transportMapper = (storeEntity: IUniversalApplicationStoreEntity): 
 });
 
 /**
- * @stable [29.05.2018]
- * @param {IEditableEntity} editableEntity
- * @returns {IFilterFormWrapperEntity}
- */
-export const filterFormMapper = (editableEntity: IEditableEntity): IFilterFormWrapperEntity => ({
-  filterForm: {
-    ...editableEntity,
-  },
-});
-
-/**
- * @stable [14.06.2018]
- * @param {IEditableEntity} editableEntity
- * @returns {IEditableEntityFormWrapperEntity}
+ * @deprecated
  */
 export const formMapper = (editableEntity: IEditableEntity): IEditableEntityFormWrapperEntity => ({
   form: {
@@ -137,10 +120,7 @@ export const listEntityPageEntityFilterMapper = (listEntity: IListEntity, pageSi
 });
 
 /**
- * @stable [09.05.2018]
- * @param {IListWrapperEntity} listEntity
- * @param {number} pageSize
- * @returns {IPagedEntity}
+ * @deprecated
  */
 export const listEntityWrapperPageEntityFilterMapper =
   (listEntity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity =>
@@ -155,10 +135,7 @@ export const listSelector = (listWrapperEntity: IListWrapperEntity): IListEntity
   ifNotNilThanValue<IListWrapperEntity, IListEntity>(listWrapperEntity, () => listWrapperEntity.list);
 
 /**
- * @stable [16.05.2018]
- * @param {IListWrapperEntity} listWrapperEntity
- * @param {IDataMutatorEntity} dataMutator
- * @returns {IListWrapperEntity}
+ * @deprecated
  */
 export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity =>
   listMapper(listSelector(listWrapperEntity), dataMutator);
@@ -179,30 +156,7 @@ export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEnt
   tabPanelMapper(tabPanelWrapperEntity.tabPanel);
 
 /**
- * @stable [05.08.2018]
- * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
- * @param {boolean} useFormMapper
- * @returns {TResult}
- */
-export const filterFormWrapperMapper = <TResult = IFilterFormWrapperEntity | IFormWrapperEntity>(
-  filterFormWrapperEntity: IFilterFormWrapperEntity,
-  useFormMapper: boolean = false): TResult =>
-  (useFormMapper ? formMapper : filterFormMapper)(filterFormWrapperEntity.filterForm) as TResult;
-
-/**
- * @stable [05.08.2018]
- * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
- * @returns {TResult}
- */
-export const filterFormChangesWrapperMapper = <TResult = IEntity>(filterFormWrapperEntity: IFilterFormWrapperEntity): TResult =>
-  ({
-    ...filterFormWrapperEntity.filterForm.changes,
-  } as TResult);
-
-/**
- * @stable [17.01.2019]
- * @param {IEditableEntity} entity
- * @returns {TResult}
+ * @deprecated
  */
 export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
   entity.changes as TResult;
@@ -217,7 +171,9 @@ export const editableEntityChangesMapper = <TResult extends IEntity = IEntity>(e
     ...editableEntityChangesSelector(editableEntity),
   } as TResult);
 
-/* @stable - 12.04.2018 */
+/**
+ * @deprecated
+ */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
                                                       editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
     ({

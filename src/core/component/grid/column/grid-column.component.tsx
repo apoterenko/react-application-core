@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { orUndef, isPrimitive, nvl, ifNotFalseThanValue, calc } from '../../../util';
 import { IGridColumnProps } from '../../../props-definitions.interface';
 import { BaseGridColumn } from '../base-column/base-grid-column.component';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent } from '../../../definition';
 
 export class GridColumn extends BaseGridColumn<IGridColumnProps> {
 
@@ -50,9 +50,9 @@ export class GridColumn extends BaseGridColumn<IGridColumnProps> {
 
   /**
    * @stable [10.09.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onColumnClick(event: IBasicEvent): void {
+  private onColumnClick(event: IBaseEvent): void {
     const props = this.props;
     props.onColumnClick({event, props});
   }
