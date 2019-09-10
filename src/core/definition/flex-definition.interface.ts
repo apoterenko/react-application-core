@@ -1,6 +1,9 @@
 import {
+  IDisabledWrapper,
+  IFullSizeWrapper,
   IFullWrapper,
   INoShrinkWrapper,
+  IOnClickWrapper,
   IResponsiveWrapper,
   IRowWrapper,
   IWrapWrapper,
@@ -9,16 +12,18 @@ import {
 /**
  * @stable [05.02.2019]
  */
-export interface IGenericFlexLayoutEntity
+export interface IFlexLayoutEntity
   extends IWrapWrapper,
     IFullWrapper,
+    IFullSizeWrapper,
     IRowWrapper,
     IResponsiveWrapper,
-    INoShrinkWrapper {
+    INoShrinkWrapper,
+    IDisabledWrapper,
+    IOnClickWrapper<() => void> {
   alignItemsCenter?: boolean;
   alignItemsEnd?: boolean;
   justifyContentCenter?: boolean;
   justifyContentEnd?: boolean;
   justifyContentSpaceBetween?: boolean;
-  justifyContentSpaceEvenly?: boolean;
 }

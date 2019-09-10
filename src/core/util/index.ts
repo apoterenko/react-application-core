@@ -5,6 +5,7 @@ export * from './blob';
 export * from './calc';
 export * from './caret';
 export * from './clone';
+export * from './cls';
 export * from './cond';
 export * from './converter';
 export * from './dom';

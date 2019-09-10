@@ -32,7 +32,7 @@ class VueFlexLayout extends VueBaseComponent
   @Prop() public alignItemsEnd: boolean;
   @Prop() public justifyContentCenter: boolean;
   @Prop() public justifyContentEnd: boolean;
-  @Prop() private fullSize: boolean;
+  @Prop() public fullSize: boolean;
 
   private tooltipPlugin: IGenericTooltipPlugin;
 

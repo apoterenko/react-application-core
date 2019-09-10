@@ -1716,34 +1716,14 @@ export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TRespo
 export interface IFullWrapper<TFull = boolean> { full?: TFull; }
 
 /**
- * @stable [27.10.2018]
- */
-export interface IOverflowWrapper<TOverflow = boolean> {
-  overflow?: TOverflow;
-}
-
-/**
- * @stable [27.10.2018]
- */
-export interface IOverflowMinContentHeightWrapper<TOverflowMinContentHeight = boolean> {
-  overflowMinContentHeight?: TOverflowMinContentHeight;
-}
-
-/**
  * @stable [20.09.2018]
  */
 export interface ISeparatorWrapper<TSeparator = boolean> {
   separator?: TSeparator;
 }
 
+export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IWrapWrapper { wrap?: boolean; }
-
-/**
- * @stable [13.01.2018]
- */
-export interface IFullSizeWrapper {
-  fullSize?: boolean;
-}
 
 /* @stable [27.04.2018] */
 export interface IHeaderStyleWrapper<THeaderStyle = IKeyValue> {
@@ -1998,7 +1978,7 @@ export interface IPreventFocusWrapper { preventFocus?: boolean; }
  * @stable [21.09.2018]
  */
 export interface IIgnoreEnterKeyCodeWrapper {
-  ignoreEnterKeyCodeWrapper?: boolean;
+  ignoreEnterKey?: boolean;
 }
 
 export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
