@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../../base';
-import { joinClassName } from '../../../util';
+import { joinClassName, isFn, orUndef } from '../../../util';
 import { IGridRowProps } from './grid-row.interface';
 import { IBaseEvent } from '../../../definition';
 import { UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
@@ -35,7 +35,7 @@ export class GridRow extends BaseComponent<IGridRowProps, {}> {
             props.selected && `rac-grid-row-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`,
             props.className
           )}
-          onClick={this.onClick}>
+          onClick={orUndef(isFn(props.onClick), () => this.onClick)}>
         {props.children}
       </tr>
     );
@@ -49,9 +49,6 @@ export class GridRow extends BaseComponent<IGridRowProps, {}> {
     const elClassList = (event.target as HTMLElement).classList;
     const props = this.props;
 
-    if (!props.onClick) {
-      return;
-    }
     if (props.excludeTargetsClasses.find((cls) => elClassList.contains(cls))) {
       // We cannot call a stopEvent method because framework
       return;

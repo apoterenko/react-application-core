@@ -6,7 +6,7 @@ import { IGridColumnConfiguration, GroupValueRendererT } from '../../configurati
 import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, EntityIdT, UNIVERSAL_STICKY_ELEMENT_SELECTOR} from '../../definitions.interface';
 import {
-  toClassName,
+  joinClassName,
   isDef,
   orNull,
   isFn,
@@ -53,12 +53,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return (
       <FlexLayout
         row={true}
-        className={toClassName('rac-grid-wrapper', props.wrapperClassName)}>
+        className={joinClassName('rac-grid-wrapper', props.wrapperClassName)}>
         <table
           cellPadding={0}
           cellSpacing={0}
-          className={toClassName('rac-grid', props.tightGrid && 'rac-tight-grid', props.className)}>
-          <thead className={toClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
+          className={joinClassName('rac-grid', props.tightGrid && 'rac-tight-grid', props.className)}>
+          <thead className={joinClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
             {this.headerElement}
             {this.filterElement}
           </thead>
@@ -314,28 +314,29 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const rowKey = this.toRowKey(entity);
     const changes = props.changes;
     const entityChanges = changes[entity.id];
+    const isRowSelectable = this.isRowSelectable;
 
     return (
       <GridRow
         ref={rowKey}
         key={rowKey}
         className={
-          toClassName(
+          joinClassName(
             'rac-grid-data-row',
             `rac-grid-data-row-${entity.id}`,
-            orUndef<string>(props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
-            orUndef<string>(props.hovered !== false, 'rac-grid-data-row-hovered'),
-            orUndef<string>(this.isRowSelectable, 'rac-grid-data-row-selectable')
+            orUndef(props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
+            orUndef(props.hovered !== false, 'rac-grid-data-row-hovered'),
+            orUndef(isRowSelectable, 'rac-grid-data-row-selectable')
           )
         }
         selected={this.isEntitySelected(entity)}
-        onClick={() => this.onSelect(entity)}>
+        onClick={orUndef(isRowSelectable, () => () => this.onSelect(entity))}>
         {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridColumn
               key={`${rowKey}-${columnNum}`}
               index={columnNum}
-              className={toClassName(
+              className={joinClassName(
                 !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited',
               )}
               entity={entity}
@@ -591,7 +592,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return (
       <GridRow
         key={this.toGroupedRowKey(groupedRowValue)}
-        className={toClassName(
+        className={joinClassName(
           'rac-grid-data-row',
           'rac-grid-data-row-grouped',
           props.applyGroup !== false && isExpanded && 'rac-grid-data-row-group-expanded'
