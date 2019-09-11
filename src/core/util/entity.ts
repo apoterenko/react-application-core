@@ -4,8 +4,8 @@ import { IEntity } from '../definitions.interface';
 import {
   IEditableEntity,
   IEntityFormEntity,
-} from '../entities-definitions.interface';
-import { IExtendedEntity } from '../definition';
+  IExtendedEntity,
+} from '../definition';
 import { validate, ValidatorRuleEnum } from './validator';
 import { ifNotNilThanValue } from './cond';
 
@@ -82,3 +82,15 @@ export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): stri
   () => `${entity.id}${ifNotNilThanValue(entity.name, (name) => `-${name.replace(/ /g, '_')}`, '')}`,
   ''
 );
+
+/**
+ * @stable [11.09.2019]
+ * @param {IEditableEntity<TValue>} editableEntity
+ * @returns {boolean}
+ */
+export const isEditableEntityValid = <TValue>(editableEntity: IEditableEntity<TValue>): boolean =>
+  ifNotNilThanValue(
+    editableEntity,
+    () => R.isNil(editableEntity.valid) || editableEntity.valid === true,
+    false
+  );

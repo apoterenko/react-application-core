@@ -4,7 +4,6 @@ import { History } from 'history';
 import {
   AnyT,
   EntityIdT,
-  IActiveValueWrapper,
   IApplicationWrapper,
   IAuthorizedWrapper,
   IBrowserLocationWrapper,
@@ -16,7 +15,6 @@ import {
   IDictionariesWrapper,
   IDirectionsWrapper,
   IDirectionWrapper,
-  IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueWrapper,
   IEntity,
@@ -26,7 +24,6 @@ import {
   IFieldsWrapper,
   IFilterFormWrapper,
   IFilterWrapper,
-  IFormWrapper,
   IFromDateFromTimeEntity,
   IGetSelfWrapper,
   IGetValueWrapper,
@@ -86,7 +83,6 @@ import {
   IURLSearchQueryParamsWrapper,
   IUrlWrapper,
   IUserWrapper,
-  IValidWrapper,
   IValueWrapper,
   IWidthWrapper,
   IWithCredentialsWrapper,
@@ -105,12 +101,13 @@ import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IApiEntity,
   IChannelWrapperEntity,
+  IEditableEntity,
   IErrorEntity,
-  IExtendedEntity,
+  ILifeCycleEntity,
   IOperationEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
-  IUniversalLifeCycleEntity,
+  IEntityFormEntity,
 } from './definition';
 
 /**
@@ -330,30 +327,6 @@ export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 /**
  * @stable [29.05.2018]
  */
-export interface IEditableEntity<TChanges = IKeyValue> extends IUniversalLifeCycleEntity,
-                                                               IChangesWrapper<TChanges>,
-                                                               IDirtyWrapper,
-                                                               IValidWrapper,
-                                                               IActiveValueWrapper {
-}
-
-/**
- * @stable [14.06.2018]
- */
-export interface IEditableEntityFormWrapperEntity extends IFormWrapper<IEditableEntity> {
-}
-
-/**
- * @stable [19.01.2019]
- */
-export interface IEntityFormEntity<TEntity = IEntity>
-  extends IFormWrapper<IEditableEntity<TEntity>>,
-          IExtendedEntity<TEntity> {
-}
-
-/**
- * @stable [29.05.2018]
- */
 export interface IBasicFormWrapperEntity<TEntity = IEntity>
   extends IEntityFormEntity<TEntity>,
           IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
@@ -372,7 +345,7 @@ export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
 /**
  * @stable [29.05.2018]
  */
-export interface IUniversalListEntity extends IUniversalLifeCycleEntity,
+export interface IUniversalListEntity extends ILifeCycleEntity,
                                               IPaginatedEntity,
                                               IDataWrapper,
                                               IRawDataWrapper,
@@ -443,14 +416,14 @@ export interface IGridRowEntity extends IComponentEntity,
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalMessageEntity extends IUniversalLifeCycleEntity {
+export interface IUniversalMessageEntity extends ILifeCycleEntity {
 }
 
 /**
  * @stable [23.10.2018]
  */
 export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
-                                                     IUniversalLifeCycleEntity,
+                                                     ILifeCycleEntity,
                                                      IAuthorizedWrapper,
                                                      IReadyWrapper,
                                                      IPathWrapper {

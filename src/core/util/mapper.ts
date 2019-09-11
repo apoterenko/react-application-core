@@ -2,6 +2,9 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
+  IEditableEntity,
+  IEditableEntityFormWrapperEntity,
+  IEntityFormEntity,
   IExtendedEntity,
   IPagedEntity,
   IPaginatedEntity,
@@ -12,9 +15,6 @@ import { IQueryWrapper, IEntity, UNDEF_SYMBOL } from '../definitions.interface';
 import { trimmedUndefEmpty } from './nvl';
 import { ifNotNilThanValue } from './cond';
 import {
-  IEditableEntity,
-  IEditableEntityFormWrapperEntity,
-  IEntityFormEntity,
   IListEntity,
   IListWrapperEntity,
 } from '../entities-definitions.interface';

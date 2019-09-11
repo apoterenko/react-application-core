@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from './form.interface';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
-import { UniversalField } from '../field/field/universal-field.component';
 
 /**
  * @stable [29.05.2018]

@@ -6,11 +6,10 @@ import {
   IFormWrapperEntity,
   IComponent,
   IContainer,
-  IEditableEntity,
 } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
 import { IFormConfigurationEntity } from '../../configurations-definitions.interface';
-import { IFormConfigurationWrapperEntity, IApiEntity } from '../../definition';
+import { IFormConfigurationWrapperEntity, IApiEntity, IEditableEntity } from '../../definition';
 
 /**
  * @stable [29.05.2018]

@@ -4,7 +4,8 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { isDef, toSection, defValuesFilter } from '../../util';
 import { convertError } from '../../error';
 import { IPayloadWrapper, IKeyValue } from '../../definitions.interface';
-import { IEditableEntity, IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
+import { IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
+import { IEditableEntity } from '../../definition';
 import { INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import { FormActionBuilder } from './form-action.builder';
 

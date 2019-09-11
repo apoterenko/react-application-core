@@ -17,6 +17,9 @@ import {
   IActionsDisabledWrapper,
 } from '../../definitions.interface';
 import {
+  IEditableEntity,
+  IEditableEntityFormWrapperEntity,
+  IEntityFormEntity,
   IExtendedEntity,
   IPagedEntity,
   IPaginatedEntity,
@@ -26,7 +29,6 @@ import {
 } from '../../definition';
 import {
   IOptionEntity,
-  IEditableEntity,
   IListWrapperEntity,
   IListEntity,
   ITransportWrapperEntity,
@@ -36,8 +38,6 @@ import {
   IDataMutatorEntity,
   IDictionaryEntity,
   ISelectOptionEntity,
-  IEditableEntityFormWrapperEntity,
-  IEntityFormEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,

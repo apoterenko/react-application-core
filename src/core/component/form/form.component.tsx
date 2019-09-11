@@ -17,8 +17,7 @@ import {
   orUndef,
 } from '../../util';
 import { AnyT, ReactElementT, IEntity } from '../../definitions.interface';
-import { IEditableEntity } from '../../entities-definitions.interface';
-import { IApiEntity } from '../../definition';
+import { IApiEntity, IEditableEntity } from '../../definition';
 import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';

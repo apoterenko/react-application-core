@@ -1,6 +1,6 @@
 import { IForwardedRefWrapper, IAutoResetWrapper } from '../../../definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
-import { IEditableEntityFormWrapperEntity } from '../../../entities-definitions.interface';
+import { IEditableEntityFormWrapperEntity } from '../../../definition';
 
 /**
  * @stable [10.03.2019]

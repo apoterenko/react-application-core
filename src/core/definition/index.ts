@@ -13,7 +13,6 @@ export * from './field-definition.interface';
 export * from './file-definition.interface';
 export * from './flex-definition.interface';
 export * from './form-definition.interface';
-export * from './life-cycle-definition.interface';
 export * from './navigation-definition.interface';
 export * from './operation-definition.interface';
 export * from './page-definition.interface';

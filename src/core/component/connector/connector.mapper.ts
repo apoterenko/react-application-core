@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { isDef } from '../../util';
 
 import {
-  IEditableEntity,
   ILayoutWrapperEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
@@ -17,6 +16,7 @@ import {
 } from '../../entities-definitions.interface';
 import {
   IChannelWrapperEntity,
+  IEditableEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
 } from '../../definition';

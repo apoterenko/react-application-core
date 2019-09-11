@@ -615,14 +615,8 @@ export interface IStackWrapper<TStack> {
   stack?: TStack;
 }
 
+export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
-
-/**
- * @stable [18.05.2018]
- */
-export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
-  changes?: TChanges;
-}
 
 /**
  * @stable [07.06.2018]
@@ -886,13 +880,6 @@ export interface ITotalCountWrapper<TTotalCount = number> {
 }
 
 /**
- * @stable [18.05.2018]
- */
-export interface ITouchedWrapper {
-  touched?: boolean;
-}
-
-/**
  * @stable [11.06.2018]
  */
 export interface IHeightWrapper {
@@ -906,6 +893,7 @@ export interface IFontSizeWrapper {
   fontSize?: number;
 }
 
+export interface ITouchedWrapper { touched?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 
@@ -2033,13 +2021,7 @@ export interface ICanReturnClearDirtyChangesValueWrapper {
   canReturnClearDirtyChangesValue?: boolean;
 }
 
-/**
- * @stable [02.02.2019]
- */
-export interface IFormConfigurationWrapper<TFormConfiguration> {
-  formConfiguration?: TFormConfiguration;
-}
-
+export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface ITypeWrapper<TType = string> { type?: TType; }
 
 /**
