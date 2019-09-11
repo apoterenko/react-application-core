@@ -3,18 +3,20 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import {
+  cancelEvent,
   cloneReactNodes,
+  defValuesFilter,
+  ifNotFalseThanValue,
+  ifNotNilThanValue,
+  isFn,
   isString,
   isUndef,
-  defValuesFilter,
-  orNull,
-  toClassName,
-  orUndef,
-  isFn,
+  joinClassName,
   notNilValuesArrayFilter,
-  ifNotFalseThanValue,
+  orNull,
+  orUndef,
 } from '../../util';
-import { AnyT, BasicEventT, ReactElementT, IEntity } from '../../definitions.interface';
+import { AnyT, ReactElementT, IEntity } from '../../definitions.interface';
 import { IEditableEntity } from '../../entities-definitions.interface';
 import { IApiEntity } from '../../definition';
 import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
@@ -35,8 +37,9 @@ import {
   isFormBusy,
 } from './form.support';
 import { FlexLayout } from '../layout';
-import { IButtonProps } from '../../definition';
+import { IButtonProps, IBaseEvent } from '../../definition';
 import { apiEntityFactory } from '../../api';
+import { IFieldProps } from '../../props-definitions.interface';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
@@ -62,12 +65,14 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
 
   public render(): JSX.Element {
     const props = this.props;
+
+    this.childrenMap.clear();
     const nodes = (
       cloneReactNodes<IFieldInternalProps>(
         this,
         (field: IField) => {
           const fieldProps = field.props;
-          const predefinedOptions = this.getFieldPredefinedOptions(field);
+          const predefinedOptions = this.getPredefinedFieldProps(field);
 
           return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
             {
@@ -83,10 +88,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
               onEmptyDictionary: orUndef<() => void>(
                 fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
                 () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
-              ),
-              onDestroyDictionary: orUndef<() => void>(
-                fieldProps.bindDictionary || fieldProps.onDestroyDictionary,
-                () => fieldProps.onDestroyDictionary || (() => this.onDestroyDictionary(field))
               ),
               onLoadDictionary: orUndef<(items: AnyT) => void>(
                 fieldProps.bindDictionary || fieldProps.onLoadDictionary,
@@ -146,11 +147,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
-  // TODO deprecated
-  public componentWillUpdate(): void {
-    this.childrenMap.clear();
-  }
-
   public componentWillUnmount(): void {
     super.componentWillUnmount();
     this.childrenMap.clear();
@@ -189,7 +185,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   private getFormClassName(): string {
     const props = this.props;
-    return toClassName(
+    return joinClassName(
       'rac-form',
       'rac-flex',
       'rac-flex-column',
@@ -220,15 +216,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
-  // TODO
-  private onDestroyDictionary(field: IField): void {
-    const props = this.props;
-
-    if (props.onDestroyDictionary && field.props.keepDictionary !== true) {
-      // TODO props.onDestroyDictionary(field.props.bindDictionary);
-    }
-  }
-
   private onLoadDictionary(field: IField, items: AnyT): void {
     const props = this.props;
 
@@ -243,12 +230,8 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
-  /**
-   * @stable - 11.04.2018
-   * @param {BasicEventT} event
-   */
-  private onSubmit(event: BasicEventT): void {
-    this.stopEvent(event);
+  private onSubmit(event: IBaseEvent): void {
+    cancelEvent(event);
 
     const props = this.props;
     const apiEntity = this.apiEntity;
@@ -261,8 +244,8 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
-  private onReset(event: BasicEventT): void {
-    this.stopEvent(event);
+  private onReset(event: IBaseEvent): void {
+    cancelEvent(event);
 
     if (this.props.onReset) {
       this.props.onReset();
@@ -381,17 +364,23 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         : fieldProps.displayValue;
   }
 
-  private getFieldPredefinedOptions(field: IField): IFieldConfiguration {
-    const fieldOptionsOrLabel = this.fieldsOptions[field.props.name];
+  /**
+   * @stable [11.09.2019]
+   * @param {IField} field
+   * @returns {IFieldProps}
+   */
+  private getPredefinedFieldProps(field: IField): IFieldProps {
+    const props = this.fieldsOptions[field.props.name];
 
-    let fieldOptions: IFieldConfiguration;
-    if (isString(fieldOptionsOrLabel)) {
-      // typings !
-      fieldOptions = {label: fieldOptionsOrLabel as string};
+    let resultProps: IFieldProps;
+    if (isString(props)) {
+      resultProps = {label: props as string};
+    } else if (isFn(props)) {
+      resultProps = (props as (field) => IFieldProps)(field);
     } else {
-      fieldOptions = fieldOptionsOrLabel as IFieldConfiguration;
+      resultProps = props as IFieldProps;
     }
-    return fieldOptions;
+    return resultProps;
   }
 
   /**
@@ -468,7 +457,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       ),
       {
         type: 'submit',
-        icon: this.isFormValid() ? (props.actionIcon || 'ok-filled') : 'error_outline',
+        icon: this.isFormValid() ? (props.actionIcon || 'ok-filled') : 'exclamation',
         raised: true,
         disabled: !this.isFormSubmittable(),
         progress: this.isFormBusy(),
@@ -487,7 +476,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
               <Button
                 key={`form-action-${action.text || index}`}
                 {...action}
-                onClick={orNull(action.onClick !== null, () => () => action.onClick(this.apiEntity))}/>
+                onClick={ifNotNilThanValue(action.onClick, () => () => action.onClick(this.apiEntity))}/>
             )
           )}
       </React.Fragment>
