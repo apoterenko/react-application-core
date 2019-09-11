@@ -43,6 +43,7 @@ export * from './component/progress';
 export * from './component/root';
 export * from './component/snackbar';
 export * from './component/spacer';
+export * from './component/proxy';
 export * from './component/tabpanel';
 export * from './component/title';
 export * from './component/toolbar';
