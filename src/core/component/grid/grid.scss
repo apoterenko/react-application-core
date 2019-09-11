@@ -24,7 +24,6 @@
     $rac-grid-head-column-content-text-field-background: $rac-grid-head-column-content-text-field-background,
     $rac-grid-head-column-content-text-field-border-color: $rac-grid-head-column-content-text-field-border-color,
     $rac-grid-column-position: $rac-grid-column-position,
-    $rac-grid-column-icon-display: inline-block,
     $rac-grid-column-icon-width: $rac-grid-icon-size,
     $rac-grid-column-icon-height: $rac-grid-icon-size,
     $rac-grid-column-icon-vertical-align: middle,
@@ -44,6 +43,9 @@
     $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
     $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
     $rac-grid-column-content-button-content-font-size: $rac-grid-column-content-button-content-font-size,
+    /**/
+    $rac-grid-body-column-content-action-icon-size: 32px,
+    $rac-grid-body-column-content-action-icon-content-size: $rac-icon-size,
     /**/
     $rac-grid-column-edited-content-after-position: absolute,
     $rac-grid-column-edited-content-after-height: $rac-grid-column-edited-content-after-height,
