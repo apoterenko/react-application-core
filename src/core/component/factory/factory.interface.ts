@@ -5,20 +5,17 @@ export interface IUIFactory {
   switch?: string;
   switchInput?: string;
   switchInputWrapper?: string;
-  switchInputWrapperBody?: string;
   snackbar?: string;
   snackbarText?: string;
   snackbarActionWrapper?: string;
   snackbarActionButton?: string;
   icons?: string;
   toolbar?: string;
-  listGroupSubHeader?: string;
   listDivider?: string;
   listItemMeta?: string;
   tabBarScrollerScrollArea?: string;
   tabBarScrollerScrollAreaScroll?: string;
   tabBarScrollerScrollContent?: string;
-  tabRipple?: string;
   tabBar?: string;
   tab?: string;
   tabContent?: string;
@@ -40,7 +37,6 @@ export interface IUIFactory {
   menuAnchor?: string;
   menuSurface?: string;
   menu?: string;
-  fab?: string;
   dialog?: string;
   dialogContainer?: string;
   dialogScrim?: string;

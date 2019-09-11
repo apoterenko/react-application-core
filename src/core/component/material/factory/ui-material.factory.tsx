@@ -113,17 +113,17 @@ import {
   faFileAlt,
   faSmileBeam,
   faCircle as faCircleRegular,
-  faHeart as faHeartRegular
+  faHeart as faHeartRegular,
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { isFn, isString, toClassName, uuid } from '../../../util';
+import { isFn, isString, joinClassName, uuid } from '../../../util';
 import { IUIFactory } from '../../factory';
-import { IBasicEvent } from '../../../react-definitions.interface';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { TranslatorT } from '../../../translation';
 import { IUIDefaultIconFactory } from '../../icon';
+import { FlexLayout } from '../../layout';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -162,9 +162,9 @@ export class UIMaterialFactory implements IUIFactory {
     done: faCheck,
     done_all: faCheckDouble,
     error: faExclamationCircle,
-    error_outline: faExclamation,
     exchange: faExchangeAlt,
     exchange_alt: faExchangeAlt,
+    exclamation: faExclamation,
     exclamation_circle: faExclamationCircle,
     exclamation_triangle: faExclamationTriangle,
     eye: faEye,
@@ -189,7 +189,6 @@ export class UIMaterialFactory implements IUIFactory {
     location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
     lock: faLock,
-    lock_open: faUnlockAlt,
     long_arrow_alt_left: faLongArrowAltLeft,
     long_arrow_alt_right: faLongArrowAltRight,
     long_arrow_alt_up: faLongArrowAltUp,
@@ -241,6 +240,7 @@ export class UIMaterialFactory implements IUIFactory {
     truck: faTruck,
     truck_moving: faTruckMoving,
     undo: faUndo,
+    unlock_alt: faUnlockAlt,
     user: faUser,
     user_circle: faUserCircle,
     user_clock: faUserClock,
@@ -260,7 +260,6 @@ export class UIMaterialFactory implements IUIFactory {
   public switch = 'mdc-switch';
   public switchInput = 'mdc-switch__native-control';
   public switchInputWrapper = 'mdc-switch__thumb-underlay';
-  public switchInputWrapperBody = 'mdc-switch__thumb';
   public snackbar = 'mdc-snackbar';
   public snackbarText = 'mdc-snackbar__text';
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
@@ -270,7 +269,6 @@ export class UIMaterialFactory implements IUIFactory {
   public tabBarScrollerScrollArea = 'mdc-tab-scroller__scroll-area';
   public tabBarScrollerScrollAreaScroll = 'mdc-tab-scroller__scroll-area--scroll';
   public tabBarScrollerScrollContent = 'mdc-tab-scroller__scroll-content';
-  public tabRipple = 'mdc-tab__ripple';
   public tabBar = 'mdc-tab-bar';
   public tab = 'mdc-tab';
   public tabContent = 'mdc-tab__content';
@@ -284,7 +282,6 @@ export class UIMaterialFactory implements IUIFactory {
   public tabBarScroller = 'mdc-tab-scroller';
   public listItemMeta = 'mdc-list-item__meta';
   public listDivider = 'mdc-list-divider';
-  public listGroupSubHeader = 'mdc-list-group__subheader';
   public checkbox = 'mdc-checkbox';
   public checkboxInput = 'mdc-checkbox__native-control';
   public card = 'mdc-card';
@@ -295,7 +292,6 @@ export class UIMaterialFactory implements IUIFactory {
   public menuAnchor = 'mdc-menu-surface--anchor';
   public menuSurface = 'mdc-menu-surface';
   public menu = 'mdc-menu';
-  public fab = 'mdc-fab';
   public dialog = 'mdc-dialog';
   public dialogContainer = 'mdc-dialog__container';
   public dialogScrim = 'mdc-dialog__scrim';
@@ -326,23 +322,23 @@ export class UIMaterialFactory implements IUIFactory {
     const isActionIcon = isFn(config.onClick);
 
     return (
-      <div key={config.key || uuid()}
-           title={this.t(config.title)}
-           className={toClassName(
-                        config.className,
-                        'rac-flex',
-                        'rac-flex-center',
-                        'rac-icon',
-                        isActionIcon && `rac-action-icon rac-action-${config.type}-icon`,
-                        config.disabled && 'rac-disabled-icon',
-                      )}
-           onClick={(event: IBasicEvent) => {
-             if (!config.disabled && isActionIcon) {
-               config.onClick(event);
-             }
-           }}>
+      <FlexLayout
+        key={config.key || uuid()}
+        title={config.title}
+        inline={true}
+        className={joinClassName(
+          'rac-icon',
+          isActionIcon && `rac-action-icon rac-action-${config.type}-icon`,
+          config.disabled && 'rac-disabled-icon',
+          config.className,
+        )}
+        justifyContentCenter={true}
+        alignItemsCenter={true}
+        disabled={config.disabled}
+        onClick={config.onClick}
+      >
         {uiIconCtor || <FontAwesomeIcon icon={iconCtor}/>}
-      </div>
+      </FlexLayout>
     );
   }
 
@@ -357,7 +353,7 @@ export class UIMaterialFactory implements IUIFactory {
       cfg
         ? {
           ...config,
-          className: toClassName(config.className, 'rac-list-item-meta-icon'),
+          className: joinClassName(config.className, 'rac-list-item-meta-icon'),
         }
         : cfg
     );
