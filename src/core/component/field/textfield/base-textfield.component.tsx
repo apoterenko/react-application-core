@@ -6,15 +6,16 @@ import MaskedTextInput from 'react-text-mask';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
 import {
-  orNull,
-  toClassName,
-  nvl,
+  calc,
   cancelEvent,
-  toJqEl,
-  parseValueAtPx,
+  ifNotFalseThanValue,
   ifNotNilThanValue,
   isFn,
-  ifNotFalseThanValue,
+  joinClassName,
+  nvl,
+  orNull,
+  parseValueAtPx,
+  toJqEl,
 } from '../../../util';
 import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
 import {
@@ -31,7 +32,7 @@ import {
   IBaseTextFieldProps,
   IBaseTextField,
 } from './base-textfield.interface';
-import { IBasicEvent } from '../../../react-definitions.interface';
+import { IBaseEvent, IEnvironment } from '../../../definition';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
                            TState extends IBaseTextFieldState>
@@ -42,9 +43,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   protected defaultActions: IFieldActionConfiguration[] = [];
+  @lazyInject(DI_TYPES.Environment) private environment: IEnvironment;
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
   private readonly keyboardRef = React.createRef<Keyboard>();
-  private keyboardWindowMouseDownSubscriber: () => void;
+  private keyboardListenerSubscriber: () => void;
 
   /**
    * @stable [25.02.2019]
@@ -53,7 +55,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   constructor(props: TProps) {
     super(props);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
-    this.onKeyboardWindowMouseDownHandler = this.onKeyboardWindowMouseDownHandler.bind(this);
+    this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
 
     ifNotFalseThanValue(props.clearActionRendered, () => this.addClearAction());
   }
@@ -73,7 +75,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return toClassName(
+    return joinClassName(
       super.getSelfElementClassName(),
       'rac-text-field',
       'rac-flex',
@@ -130,10 +132,11 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [23.02.2019]
    */
   protected openSyntheticKeyboard(): boolean {
+    const env = this.environment;
     const result = super.openSyntheticKeyboard();
     if (result) {
-      this.keyboardWindowMouseDownSubscriber =
-        this.eventManager.subscribe(window, 'mousedown', this.onKeyboardWindowMouseDownHandler);
+      this.keyboardListenerSubscriber =
+        this.eventManager.subscribe(env.document, env.documentClickEvent, this.onDocumentClickHandler);
     }
     return result;
   }
@@ -144,9 +147,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   protected onCloseKeyboard(): void {
     super.onCloseKeyboard();
 
-    if (isFn(this.keyboardWindowMouseDownSubscriber)) {
-      this.keyboardWindowMouseDownSubscriber();
-      this.keyboardWindowMouseDownSubscriber = null;
+    if (isFn(this.keyboardListenerSubscriber)) {
+      this.keyboardListenerSubscriber();
+      this.keyboardListenerSubscriber = null;
     }
   }
 
@@ -173,7 +176,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-base-text-field');
+    return joinClassName(super.getFieldClassName(), 'rac-base-text-field');
   }
 
   /**
@@ -207,7 +210,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
     return (
       <span ref={this.mirrorInputRef}
-            className={toClassName(
+            className={joinClassName(
               this.getInputElementProps().className,
               'rac-field-input-mirror',
               'rac-invisible'
@@ -252,9 +255,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   /**
    * @stable [16.02.2019]
-   * @param {IBasicEvent} e
+   * @param {IBaseEvent} e
    */
-  private onKeyboardWindowMouseDownHandler(e: IBasicEvent): void {
+  private onDocumentClickHandler(e: IBaseEvent): void {
+    // TODO refactoring
     const clickedEl = e.target as Element;
 
     if (this.domAccessor.hasParent('.rac-action-close-icon', clickedEl)) {
@@ -327,8 +331,8 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
             type: action.type,
             title: action.title && this.t(action.title),
             className: action.className,
-            disabled: nvl(action.disabled, this.isFieldInactive()),
-            onClick: (event: IBasicEvent) => {
+            disabled: ifNotNilThanValue(action.disabled, (disabled) => calc(disabled), this.isFieldInactive()),
+            onClick: (event: IBaseEvent) => {
               if (isFn(action.onClick)) {
                 cancelEvent(event);
                 action.onClick(event);
