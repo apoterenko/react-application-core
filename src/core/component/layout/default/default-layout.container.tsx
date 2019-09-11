@@ -4,14 +4,13 @@ import * as R from 'ramda';
 import { Drawer } from '../../drawer';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
-import { toClassName, orNull, isFn, cancelEvent } from '../../../util';
+import { joinClassName, orNull, isFn, cancelEvent } from '../../../util';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
 import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
-import { INavigationListItemConfiguration } from '../../../configurations-definitions.interface';
 import { LayoutModeEnum } from '../../../entities-definitions.interface';
 import { IOperationEntity } from '../../../definition';
 import { ILayoutEntity, IStringMenuActionEntity, IXYEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
@@ -25,11 +24,8 @@ import {
 } from '../../layout';
 import { ENV } from '../../../env';
 import { Menu } from '../../menu';
-import { APPLICATION_SECTIONS } from '../../application';
-import { toAllDependentRoutePaths } from '../../connector';
 import { Link } from '../../link';
-import { IBasicEvent } from '../../../react-definitions.interface';
-import { Button } from '../../button';
+import { IBaseEvent, INavigationItemEntity } from '../../../definition';
 import { Overlay } from '../../overlay';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
@@ -74,7 +70,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const props = this.props;
     return (
       <FlexLayout row={true}
-                  className={toClassName('rac-default-layout', props.className)}>
+                  className={joinClassName('rac-default-layout', props.className)}>
         {this.drawerElement}
         <FlexLayout>
           {this.headerElement}
@@ -88,9 +84,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   /**
    * @stable [18.09.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onUserMenuActionClick(event: IBasicEvent): void {
+  private onUserMenuActionClick(event: IBaseEvent): void {
     cancelEvent(event);
     this.userMenuRef.current.show();
   }
@@ -149,9 +145,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationListItemConfiguration} item
+   * @param {INavigationItemEntity} item
    */
-  private onNavigationListGroupClick(item: INavigationListItemConfiguration): void {
+  private onNavigationListGroupClick(item: INavigationItemEntity): void {
     const itemValue = item.value;
     if (R.isNil(itemValue)) {
       return;
@@ -178,14 +174,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   /**
    * @stable [18.09.2018]
-   * @returns {INavigationListItemConfiguration[]}
+   * @returns {INavigationItemEntity[]}
    */
-  private get menuItems(): INavigationListItemConfiguration[] {
-    const props = this.props;
-    const routePaths = toAllDependentRoutePaths(props.stack, APPLICATION_SECTIONS, props.sectionName);
-
-    return this.navigationMenuBuilder.provide()
-      .map((item): INavigationListItemConfiguration => ({...item, active: routePaths.has(item.link)}));
+  private get menuItems(): INavigationItemEntity[] {
+    return this.navigationMenuBuilder.provide(this.props);
   }
 
   /**
@@ -231,12 +223,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                     className='rac-drawer-toolbar-spacer'
                     onClick={this.onLogoMenuActionClick}>
           <Profile avatarRendered={layoutFullModeEnabled}
-                   appVersion={
-                     (ENV.appVersion || '').startsWith('0.') ? `${ENV.appVersion}-beta` : ENV.appVersion
-                   }
+                   appVersion={ENV.appVersion}
                    onClick={this.onProfileMenuClick}/>
         </FlexLayout>
         <NavigationList {...props.layout}
+                        dividerRendered={false}
                         items={this.menuItems}
                         onScroll={this.onNavigationListScroll}
                         onGroupClick={this.onNavigationListGroupClick}/>
@@ -246,9 +237,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   /**
    * @stable [17.10.2018]
-   * @param {IBasicEvent} event
+   * @param {IBaseEvent} event
    */
-  private onProfileMenuClick(event: IBasicEvent): void {
+  private onProfileMenuClick(event: IBaseEvent): void {
     cancelEvent(event);
 
     const payloadWrapper: IPayloadWrapper<LayoutModeEnum> = {payload: this.layoutMode};

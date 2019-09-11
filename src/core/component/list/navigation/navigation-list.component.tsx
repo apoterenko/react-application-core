@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, uuid, orNull } from '../../../util';
+import { toClassName, uuid, orNull, ifNotFalseThanValue  } from '../../../util';
 import { BaseComponent } from '../../base';
 import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
-import { INavigationListItemConfiguration, NavigationListItemTypeEnum } from '../../../configurations-definitions.interface';
 import { ListDivider } from '../../list';
 import { FlexLayout } from '../../layout';
 import { LayoutModeEnum } from '../../../entities-definitions.interface';
+import { NavigationItemTypesEnum, INavigationItemEntity } from '../../../definition';
 
 export class NavigationList extends BaseComponent<INavigationListProps> {
 
@@ -46,16 +46,16 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationListItemConfiguration} item
+   * @param {INavigationItemEntity} item
    * @returns {JSX.Element}
    */
-  private toElement(item: INavigationListItemConfiguration): JSX.Element {
+  private toElement(item: INavigationItemEntity): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
     const fullLayoutModeEnabled = this.fullLayoutModeEnabled;
     const label = this.t(item.label);
 
     switch (item.type) {
-      case NavigationListItemTypeEnum.SUB_HEADER:
+      case NavigationItemTypesEnum.SUB_HEADER:
         const isGroupItemActive = !isExpanded && this.hasActiveChild(item);
         return (
           <FlexLayout key={this.toUniqueKey(item.label, 'label')}
@@ -92,8 +92,11 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
             )}
           </FlexLayout>
         );
-      case NavigationListItemTypeEnum.DIVIDER:
-        return <ListDivider key={R.isNil(item.parent) ? uuid() : this.toUniqueKey(item.parent.label, 'divider')}/>;
+      case NavigationItemTypesEnum.DIVIDER:
+        return ifNotFalseThanValue(
+          this.props.dividerRendered,
+          () => <ListDivider key={R.isNil(item.parent) ? uuid() : this.toUniqueKey(item.parent.label, 'divider')}/>
+        );
       default:
         const itemAsGroup = R.isNil(item.parent);
         return orNull<JSX.Element>(
@@ -132,9 +135,9 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationListItemConfiguration} config
+   * @param {INavigationItemEntity} config
    */
-  private onGroupLinkClick(config: INavigationListItemConfiguration): void {
+  private onGroupLinkClick(config: INavigationItemEntity): void {
     const props = this.props;
     if (props.onGroupClick) {
       props.onGroupClick(config);
@@ -153,10 +156,10 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationListItemConfiguration} item
+   * @param {INavigationItemEntity} item
    * @returns {boolean}
    */
-  private isItemExpanded(item: INavigationListItemConfiguration): boolean {
+  private isItemExpanded(item: INavigationItemEntity): boolean {
     const expandedGroups = this.props.expandedGroups;
     return expandedGroups[item.value] === true
       || (!R.isNil(item.parent) && expandedGroups[item.parent.value] === true);
@@ -172,10 +175,10 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationListItemConfiguration} item
+   * @param {INavigationItemEntity} item
    * @returns {boolean}
    */
-  private hasActiveChild(item: INavigationListItemConfiguration): boolean {
+  private hasActiveChild(item: INavigationItemEntity): boolean {
     const activeItem = R.find((itm) => !!itm.active, this.props.items);
     return !R.isNil(activeItem) && !R.isNil(R.find((child) => child.link === activeItem.link, item.children || []));
   }

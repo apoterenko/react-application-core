@@ -32,4 +32,5 @@ export interface INavigationListEntity extends ILayoutEntity {
  */
 export interface INavigationListProps extends INavigationListConfiguration,
                                               INavigationListEntity {
+  dividerRendered?: boolean;
 }
