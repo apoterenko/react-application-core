@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
@@ -13,9 +14,9 @@ import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
 import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
 import { Message } from '../message';
 import {
-  IConnectorConfiguration,
+  IConnectorConfigEntity,
   ContainerVisibilityTypeEnum,
-  IRouteConfiguration,
+  IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
 import {
   IContainerClassEntity,
@@ -86,10 +87,18 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
    * @param {TStoreEntity} state
    */
   protected clearSystemState(state: TStoreEntity): void {
-    state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
-    state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
-    state.application = INITIAL_APPLICATION_STATE;
-    state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
+    if (!R.isNil(state.notification)) {
+      state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
+    }
+    if (!R.isNil(state.transport)) {
+      state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
+    }
+    if (!R.isNil(state.application)) {
+      state.application = INITIAL_APPLICATION_STATE;
+    }
+    if (!R.isNil(state.channel)) {
+      state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
+    }
   }
 
   protected getRoutes(): JSX.Element[] {
@@ -115,14 +124,14 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
   }
 
   protected buildRoute(ctor: IContainerClassEntity,
-                       connectorConfiguration: IConnectorConfiguration,
-                       cfg: IRouteConfiguration): JSX.Element {
+                       connectorConfiguration: IConnectorConfigEntity,
+                       cfg: IRouteConfigEntity): JSX.Element {
     let Component;
     switch (cfg.type) {
       case ContainerVisibilityTypeEnum.PRIVATE:
         Component = PrivateRootContainer;
         break;
-      case ContainerVisibilityTypeEnum.PUBLIC:
+      default:
         Component = PublicRootContainer;
         break;
     }
@@ -139,12 +148,19 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     );
   }
 
+  /**
+   * @stable [09.08.2019]
+   */
+  protected doSaveState(): void {
+    this.storage.set(
+      STORAGE_APP_STATE_KEY,
+      this.clearStateBeforeSerialization(clone<TStoreEntity>(this.appStore.getState() as TStoreEntity))
+    );
+  }
+
   private saveState(): void {
     this.clearPreviousStates();
-    this.storage.set(
-        STORAGE_APP_STATE_KEY,
-        this.clearStateBeforeSerialization(clone<TStoreEntity>(this.appStore.getState() as TStoreEntity))
-    );
+    this.doSaveState();
   }
 
   private get dynamicRouter(): IRouterComponentEntity {
