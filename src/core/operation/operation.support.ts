@@ -1,13 +1,13 @@
 import { Operation } from './operation';
 import { IOperationEntity } from '../definition';
-import { IEntity } from '../definitions.interface';
+import { IEntity, EntityIdT } from '../definitions.interface';
 
 /**
- * @stable [25.08.2019]
+ * @stable [04.09.2019]
  * @param {string} uuid
- * @param {TEntity} entity
+ * @param {EntityIdT} entityId
  * @returns {IOperationEntity}
  */
 export const makeEntityOperation = <TEntity extends IEntity>(uuid: string,
-                                                             entity: TEntity): IOperationEntity =>
-    Operation.create(`${uuid}-${entity.id}`);
+                                                             entityId: EntityIdT): IOperationEntity =>
+    Operation.create(`${uuid}-${entityId}`);
