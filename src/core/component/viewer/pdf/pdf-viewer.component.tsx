@@ -5,6 +5,8 @@ import { ENV } from '../../../env';
 import { IPdfViewerProps, IPdfViewerState, IUniversalPdfPlugin } from './pdf-viewer.interface';
 import { Viewer } from '../viewer.component';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
+import { FlexLayout } from '../../layout';
+import { Button } from '../../button';
 
 export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
 
@@ -25,6 +27,10 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
   constructor(props: IPdfViewerProps) {
     super(props);
 
+    this.state = {previewPage: 1};
+    this.onPreviousPage = this.onPreviousPage.bind(this);
+    this.onNextPage = this.onNextPage.bind(this);
+
     this.pdfRendererPlugin = new UniversalPdfPlugin(
       `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.min.js?_dc=${ENV.appVersion}`,
       () => this.refs.canvas as HTMLCanvasElement,
@@ -41,9 +47,10 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
   public componentDidUpdate(props: IPdfViewerProps, state: IPdfViewerState): void {
     super.componentDidUpdate(props, state);
 
-    if (!R.equals(this.props.page, props.page)) {
+    const currentPage = this.props.page;
+    if (!R.equals(currentPage, props.page)) {
       this.pdfRendererPlugin
-        .setPage(props.page)
+        .setPage(currentPage)
         .refreshPage();
     }
   }
@@ -93,11 +100,30 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
     const previewScale = props.previewScale;
     const previewWidth = PdfViewer.PREVIEW_WIDTH * previewScale;
     return (
-      <PdfViewer
-        usePreview={false}
-        src={props.src}
-        style={{width: previewWidth}}
-        scale={previewScale}/>
+      <React.Fragment>
+        <PdfViewer
+          usePreview={false}
+          src={props.src}
+          page={this.state.previewPage}
+          style={{width: '100%'}}
+          scale={previewScale}/>
+        <FlexLayout
+          full={false}
+          row={true}
+          className='pos-neighbor-left-half-offset-wrapper'
+        >
+          <Button
+            icon='back2'
+            text={'Previous page'}
+            disabled={this.state.previewPage === 1}
+            onClick={this.onPreviousPage}/>
+          <Button
+            icon='forward'
+            text={'Next page'}
+            disabled={this.state.previewPage === this.pdfRendererPlugin.numPages}
+            onClick={this.onNextPage}/>
+        </FlexLayout>
+      </React.Fragment>
     );
   }
 
@@ -107,5 +133,17 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
    */
   protected get isProgressMessageShown(): boolean {
     return !this.pdfRendererPlugin.hasLoadedDocument;
+  }
+
+  protected onDialogClose(): void {
+    this.setState({opened: false, previewPage: 1});
+  }
+
+  private onPreviousPage(): void {
+    this.setState({previewPage: this.state.previewPage - 1});
+  }
+
+  private onNextPage(): void {
+    this.setState({previewPage: this.state.previewPage + 1});
   }
 }
