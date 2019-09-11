@@ -255,11 +255,6 @@ export interface ISignUpWrapper<TSignUp> {
 }
 
 /* @stable - 14.04.2018 */
-export interface IAccessDeniedWrapper<TAccessDenied> {
-  accessDenied?: TAccessDenied;
-}
-
-/* @stable - 14.04.2018 */
 export interface ILogoutWrapper<TLogout> {
   logout?: TLogout;
 }
@@ -507,6 +502,7 @@ export interface IDisplayNameWrapper { displayName?: string; }
 export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
 export interface IPlaceholderWrapper { placeholder?: string; }
+export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 
 /**
  * @stable [01.08.2018]
@@ -602,12 +598,7 @@ export interface ILinkedToSectionsWrapper {
   linkedToSections?: string[];
 }
 
-/**
- * @stable - 15.04.2018
- */
-export interface ILinkWrapper<TLink = string> {
-  link?: TLink;
-}
+export interface ILinkWrapper<TLink = string> { link?: TLink; }
 
 /* @stable - 15.04.2018 */
 export interface INeedToDestroySectionsWrapper {
@@ -1120,15 +1111,9 @@ export interface ICompactWrapper<TCompact = boolean> {
 }
 
 export interface IActionIconWrapper<TActionIcon = string> { actionIcon?: TActionIcon; }
+export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
 export interface IResetTextWrapper { resetText?: string; }
-
-/**
- * @stable [14.05.2018]
- */
-export interface IIconWrapper<TIcon = string> {
-  icon?: TIcon;
-}
 
 /**
  * @stable [31.08.2018]
@@ -2055,12 +2040,7 @@ export interface IFormConfigurationWrapper<TFormConfiguration> {
   formConfiguration?: TFormConfiguration;
 }
 
-/**
- * @stable [13.04.2018]
- */
-export interface ITypeWrapper<TType = string> {
-  type?: TType;
-}
+export interface ITypeWrapper<TType = string> { type?: TType; }
 
 /**
  * @stable [08.06.2018]
@@ -2195,12 +2175,9 @@ export interface IPasswordWrapper<TPassword = string> {
   password?: TPassword;
 }
 
+export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
-
-/* @stable - 16.04.2018 */
-export interface IChildrenWrapper<TChildren> {
-  children?: TChildren;
-}
+export interface IChildrenWrapper<TChildren> { children?: TChildren; }
 
 /**
  * @stable [06.07.2018]

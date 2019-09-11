@@ -13,7 +13,6 @@ import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } fro
 import { IApplicationStoreEntity } from '../../entities-definitions.interface';
 import { IApiEntity } from '../../definition';
 import { APPLICATION_SECTIONS } from '../../component/application/application.interface';
-import { toRouteConfiguration } from '../../router';
 import { DI_TYPES, staticInjector } from '../../di';
 import { IApplicationModifyEntityPayloadFactory, IModifyEntityPayloadWrapper } from '../../api';
 import { NotificationActionBuilder } from '../../notification';
@@ -77,7 +76,7 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
   const connectorConfig = APPLICATION_SECTIONS.get(listSection);
   const dynamicListRoute = orNull<string>(
     connectorConfig,
-    () => toRouteConfiguration(connectorConfig.routeConfiguration, staticInjector(DI_TYPES.Routes)).path
+    () => connectorConfig.routeConfiguration.path
   );
 
   if (!dynamicListRoute) {

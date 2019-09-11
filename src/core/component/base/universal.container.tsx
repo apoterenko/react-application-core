@@ -20,7 +20,7 @@ import {
 import {
   IOperationEntity,
 } from '../../definition';
-import { IConnectorConfiguration, IRoutesConfiguration } from '../../configurations-definitions.interface';
+import { IConnectorConfigEntity, IRoutesConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
@@ -226,9 +226,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable - 15.04.2018
-   * @returns {Map<IContainerClassEntity, IConnectorConfiguration>}
+   * @returns {Map<IContainerClassEntity, IConnectorConfigEntity>}
    */
-  protected get dynamicRoutes(): Map<IContainerClassEntity, IConnectorConfiguration> {
+  protected get dynamicRoutes(): Map<IContainerClassEntity, IConnectorConfigEntity> {
     return staticInjector(DI_TYPES.DynamicRoutes);
   }
 

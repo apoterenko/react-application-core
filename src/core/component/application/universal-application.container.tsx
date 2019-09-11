@@ -3,9 +3,9 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { orNull, calc } from '../../util';
 import {
-  IConnectorConfiguration,
+  IConnectorConfigEntity,
   ContainerVisibilityTypeEnum,
-  IRouteConfiguration,
+  IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
 import {
   IContainerClassEntity,
@@ -16,7 +16,7 @@ import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
 
-export type RoutePredicateT = (routeConfiguration: IRouteConfiguration) => boolean;
+export type RoutePredicateT = (routeConfiguration: IRouteConfigEntity) => boolean;
 
 export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
   extends UniversalContainer<TProps> {
@@ -26,7 +26,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   };
 
   private static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
-  private extraRoutes = new Map<IContainerClassEntity, IConnectorConfiguration>();
+  private extraRoutes = new Map<IContainerClassEntity, IConnectorConfigEntity>();
 
   /**
    * @stable - 23.04.2018
@@ -82,7 +82,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     return result;
   }
 
-  protected registerRoute(container: IContainerClassEntity, config: IConnectorConfiguration): void {
+  protected registerRoute(container: IContainerClassEntity, config: IConnectorConfigEntity): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -137,10 +137,10 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   protected abstract buildRoute(ctor: IContainerClassEntity,
-                                connectorConfiguration: IConnectorConfiguration,
-                                routeConfiguration: IRouteConfiguration): JSX.Element;
+                                connectorConfiguration: IConnectorConfigEntity,
+                                routeConfiguration: IRouteConfigEntity): JSX.Element;
 
-  private buildRoutes(map: Map<IContainerClassEntity, IConnectorConfiguration>,
+  private buildRoutes(map: Map<IContainerClassEntity, IConnectorConfigEntity>,
                       routePredicate: RoutePredicateT): JSX.Element[] {
     const routes0: string[] = [];
     const routes: JSX.Element[] = [];

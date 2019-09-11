@@ -10,10 +10,10 @@ import { IApplicationStoreEntity } from '../../../entities-definitions.interface
 import { IContainerProps } from '../../../props-definitions.interface';
 
 @basicConnector<IApplicationStoreEntity>({
-  routeConfiguration: (routes) => ({
+  routeConfiguration: {
     type: ContainerVisibilityTypeEnum.PRIVATE,
-    path: routes.accessDenied,
-  }),
+    path: 'access/denied',
+  },
   mappers: [
     ...defaultMappers
   ],

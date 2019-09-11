@@ -4,7 +4,6 @@ import * as CSS from 'csstype';
 import {
   AnyT,
   EntityIdT,
-  IAccessDeniedWrapper,
   IActionButtonsWrapper,
   IActionedWrapper,
   IActionIconsWrapper,
@@ -108,9 +107,7 @@ import {
   IKeyboardEvent,
   IKeyValue,
   IKeyWrapper,
-  ILabelWrapper,
   ILayoutWrapper,
-  ILinkWrapper,
   ILocalFilterFnWrapper,
   ILogoutWrapper,
   IMappersWrapper,
@@ -144,7 +141,6 @@ import {
   IOnScrollWrapper,
   IOnSelectWrapper,
   IParamsWrapper,
-  IParentWrapper,
   IPathWrapper,
   IPluginsWrapper,
   IPrefixLabelWrapper,
@@ -202,6 +198,7 @@ import {
   IWidthWrapper,
   IWrapperClassNameWrapper,
   StringNumberT,
+  IAccessConfigurationWrapper,
 } from './definitions.interface';
 import {
   IFieldChangeEntity,
@@ -227,6 +224,7 @@ import {
   IGenericFieldEntity,
   IGenericFormEntity,
   INamedConstructor,
+  INavigationItemEntity,
 } from './definition';
 
 /**
@@ -302,13 +300,6 @@ export interface ITabPanelConfigurationWrapper<TabPanelConfiguration = ITabPanel
 /* @stable - 14.04.2018 */
 export interface IRouteConfigurationWrapper<TRouteConfiguration> {
   routeConfiguration?: TRouteConfiguration;
-}
-
-/**
- * @stable [14.04.2018]
- */
-export interface IAccessConfigurationWrapper<TAccessConfiguration> {
-  accessConfiguration?: TAccessConfiguration;
 }
 
 /**
@@ -742,7 +733,6 @@ export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
                                               IHomeWrapper<string>,
                                               IProfileWrapper<string>,
                                               ILogoutWrapper<string>,
-                                              IAccessDeniedWrapper<string>,
                                               ISignInWrapper<string>,
                                               ISignUpWrapper<string> {
 }
@@ -760,7 +750,7 @@ export enum ContainerVisibilityTypeEnum {
 }
 
 /* @stable - 14.04.2018 */
-export interface IRouteConfiguration extends IPathWrapper,
+export interface IRouteConfigEntity extends IPathWrapper,
                                              IBooleanModalWrapper,
                                              ITitleWrapper,
                                              IInitialWrapper<boolean | ((store: IUniversalApplicationStoreEntity) => boolean)>,
@@ -774,22 +764,19 @@ export interface IRouteConfiguration extends IPathWrapper,
 }
 
 /* @stable - 14.04.2018 */
-export type RouteConfigurationT = IRouteConfiguration | ((routes: IRoutesConfiguration) => IRouteConfiguration);
-
-/* @stable - 14.04.2018 */
 export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 
 /* @stable - 14.04.2018 */
-export interface IBasicConnectorConfiguration<TStoreEntity>
+export interface IBasicConnectorConfigEntity<TStoreEntity>
   extends ICallbackWrapper<(ctor: IUniversalContainerClassEntity) => void>,
-          IRouteConfigurationWrapper<RouteConfigurationT>,
+          IRouteConfigurationWrapper<IRouteConfigEntity>,
           IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
   injectedServices?: INamedConstructor[];
 }
 
 /* @stable - 14.04.2018 */
-export interface IConnectorConfiguration<TAppState = {}, TApplicationAccessConfig = {}>
-  extends IBasicConnectorConfiguration<TAppState>,
+export interface IConnectorConfigEntity<TAppState = {}, TApplicationAccessConfig = {}>
+  extends IBasicConnectorConfigEntity<TAppState>,
           IAccessConfigurationWrapper<TApplicationAccessConfig> {
 }
 
@@ -907,28 +894,10 @@ export interface IAccessConfiguration {
 }
 
 /**
- * @stable [04.05.2018]
+ * @deprecated
  */
-export enum NavigationListItemTypeEnum {
-  GROUP,
-  SUB_HEADER,
-  DIVIDER,
-  LINK,
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface INavigationListItemConfiguration extends IActiveWrapper,
-                                                          IIconWrapper,
-                                                          ILinkWrapper,
-                                                          ILabelWrapper,
-                                                          IValueWrapper,
-                                                          IParentWrapper<INavigationListItemConfiguration>,
-                                                          IChildrenWrapper<INavigationListItemConfiguration[]>,
-                                                          IAccessConfigurationWrapper<IAccessConfiguration>,
-                                                          ITypeWrapper<NavigationListItemTypeEnum> {
-  relatedLinks?: string[];
+export interface INavigationListItemConfiguration
+  extends INavigationItemEntity {
 }
 
 /**

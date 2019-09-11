@@ -9,8 +9,8 @@ import {
 import { isFn } from '../../util';
 import { IApplicationContainerProps } from './application.interface';
 import {
-  IConnectorConfiguration,
-  IRouteConfiguration,
+  IConnectorConfigEntity,
+  IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
 import { IContainerClassEntity } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
@@ -49,8 +49,8 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IRnApp
   }
 
   protected buildRoute(ctor: IContainerClassEntity,
-                       connectorConfiguration: IConnectorConfiguration,
-                       cfg: IRouteConfiguration): JSX.Element {
+                       connectorConfiguration: IConnectorConfigEntity,
+                       cfg: IRouteConfigEntity): JSX.Element {
     return (
       <Scene
         component={ctor}
