@@ -1,29 +1,40 @@
 import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { IKeyboardEvent } from '../../definitions.interface';
-import { DelayedTask, orNull } from '../../util';
-import { IField, TextField, DelayedChangesFieldPlugin } from '../field';
-import { FIELD_DISPLAY_EMPTY_VALUE } from '../../definition';
 import { BaseComponent } from '../base';
-import { IAutoFocusedState } from './auto-focused.interface';
-import { IAutoFocusedProps } from './auto-focused.interface';
+import { DelayedTask, orNull, isFn } from '../../util';
 import { DI_TYPES, lazyInject } from '../../di';
+import { ENV } from '../../env';
+import { FIELD_DISPLAY_EMPTY_VALUE } from '../../definition';
+import { IAutoFocusedProps } from './auto-focused.interface';
+import { IAutoFocusedState } from './auto-focused.interface';
 import { IEventManager } from '../../event';
+import { IField, TextField, DelayedChangesFieldPlugin } from '../field';
+import { IKeyboardEvent } from '../../definitions.interface';
 
 export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedState> {
 
-  public static defaultProps: IAutoFocusedProps = {
+  public static readonly defaultProps: IAutoFocusedProps = {
     delayTimeout: 300,
   };
   private static logger = LoggerFactory.makeLogger('AutoFocused');
 
+  private static IOS_SAFARI_CAPTURE_EVENT = 'keydown';
+  private static DEFAULT_CAPTURE_EVENT = 'keypress';
   private static ROBOT_DETECTION_MIN_SYMBOLS_COUNT = 3;
   private static ENTER_KEY_CODES = [10, 13];
+  private static SPECIAL_KEY_CODES = [
+    8,  // backspace
+    9,  // tab
+    16, // shift
+    17, // ctrl
+    18  // alt
+  ];
 
-  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
+  @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
 
   private delayedTask: DelayedTask;
+  private unSubscriber: () => void;
 
   /**
    * @stable [05.05.2018]
@@ -32,7 +43,7 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
   constructor(props) {
     super(props);
     this.onDelay = this.onDelay.bind(this);
-    this.onKeyPress = this.onKeyPress.bind(this);
+    this.captureEventListener = this.captureEventListener.bind(this);
 
     this.state = {focusedFieldValue: ''};
     this.delayedTask = new DelayedTask(this.onDelayedTask.bind(this), props.delayTimeout, !props.useRobotMode);
@@ -45,7 +56,7 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
     super.componentDidMount();
 
     if (this.props.useRobotMode) {
-      this.eventManager.add(document, 'keypress', this.onKeyPress);
+      this.unSubscriber = this.eventManager.subscribe(document, this.captureEvent, this.captureEventListener);
     } else {
       this.delayedTask.start();
     }
@@ -55,12 +66,12 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
    * @stable [05.05.2018]
    */
   public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
     this.delayedTask.stop();
-    if (this.props.useRobotMode) {
-      this.eventManager.remove(document, 'keypress', this.onKeyPress);
+    if (isFn(this.unSubscriber)) {
+      this.unSubscriber();
     }
+
+    super.componentWillUnmount();
   }
 
   /**
@@ -90,18 +101,21 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
    * @stable [05.05.2018]
    * @param {IKeyboardEvent} e
    */
-  private onKeyPress(e: IKeyboardEvent): void {
-    if (AutoFocused.alreadyFocused) {
+  private captureEventListener(e: KeyboardEvent): void {
+    if (this.alreadyFocused) {
       // Don't interfere with normal input mode
       return;
     }
     const props = this.props;
     let char = e.key;
-    const charCode = e.keyCode;
+    const keyCode = e.keyCode;
 
-    if (AutoFocused.ENTER_KEY_CODES.includes(charCode)) {
-      if (props.ignoreEnterKeyCodeWrapper) {
-        AutoFocused.logger.debug('[$AutoFocused][onKeyPress] Ignore enter key code and exit.');
+    if (AutoFocused.SPECIAL_KEY_CODES.includes(keyCode)) {
+      return;
+    }
+    if (AutoFocused.ENTER_KEY_CODES.includes(keyCode)) {
+      if (props.ignoreEnterKey) {
+        AutoFocused.logger.debug('[$AutoFocused][captureEventListener] Ignore enter key code and exit.');
         return;
       }
       char = '\n';
@@ -122,7 +136,7 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
         this.clearField();
       }
     } else {
-      if (AutoFocused.alreadyFocused) {
+      if (this.alreadyFocused) {
         return;
       }
       this.autoFocusedField.setFocus();
@@ -159,9 +173,23 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
    * @stable [05.05.2018]
    * @returns {boolean}
    */
-  private static get alreadyFocused(): boolean {
+  private get alreadyFocused(): boolean {
     const activeElement = document.activeElement;
     return activeElement instanceof HTMLInputElement
       || activeElement instanceof HTMLTextAreaElement;
+  }
+
+  /**
+   * @stable [11.09.2019]
+   * @returns {string}
+   */
+  private get captureEvent(): string {
+    // iOS Safari doesn't support space key at least
+    // keypress -> keydown
+    // https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event
+    // Since this event has been deprecated, you should look to use beforeinput or keydown instead.
+    return ENV.safariPlatform && ENV.iosPlatform
+      ? AutoFocused.IOS_SAFARI_CAPTURE_EVENT
+      : AutoFocused.DEFAULT_CAPTURE_EVENT;
   }
 }
