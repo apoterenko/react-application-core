@@ -266,6 +266,15 @@ export class FormActionBuilder {
   }
 
   /**
+   * @stable [11.09.2019]
+   * @param {string} section
+   * @returns {AnyAction}
+   */
+  public static buildResetPlainAction(section: string): AnyAction {
+    return {type: this.buildResetActionType(section), data: applySection(section)};
+  }
+
+  /**
    * @stable [26.08.2018]
    * @param {IKeyValue} changes
    * @returns {FieldChangeEntityT}

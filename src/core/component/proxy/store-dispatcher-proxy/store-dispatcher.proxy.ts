@@ -1,15 +1,16 @@
-import { Store } from 'redux';
+import { Store, AnyAction } from 'redux';
 
 import { applySection, namedConstructor } from '../../../util';
 import { DI_TYPES, staticInjector } from '../../../di';
+import { FormActionBuilder } from '../../action.builder';
 import { IContainer } from '../../../entities-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
-import { IDispatcherEntity } from '../../../definition';
+import { IDispatcher } from '../../../definition';
 import { IKeyValue } from '../../../definitions.interface';
 
 @namedConstructor('$$storeDispatcherProxy')
 export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
-  implements IDispatcherEntity {
+  implements IDispatcher {
 
   /**
    * @stable [11.09.2019]
@@ -24,8 +25,7 @@ export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
    * @param {TChanges} data
    */
   public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
-    const sectionName = this.props.sectionName;
-    this.dispatchCustomType(`${sectionName}.${type}`, applySection(sectionName, data));
+    this.dispatchCustomType(`${this.sectionName}.${type}`, applySection(this.sectionName, data));
   }
 
   /**
@@ -34,7 +34,23 @@ export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
    * @param {TData} data
    */
   public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
-    this.appStore.dispatch({type, data});
+    this.dispatchAnyAction({type, data});
+  }
+
+  /**
+   * @stable [11.09.2019]
+   * @param {string} otherSection
+   */
+  public dispatchFormReset(otherSection?: string): void {
+    this.dispatchAnyAction(FormActionBuilder.buildResetPlainAction(otherSection || this.sectionName));
+  }
+
+  /**
+   * @stable [11.09.2019]
+   * @param {AnyAction} action
+   */
+  private dispatchAnyAction(action: AnyAction): void {
+    this.appStore.dispatch(action);
   }
 
   /**
@@ -44,6 +60,14 @@ export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
    */
   private get appStore(): Store<TStore> {
     return staticInjector(DI_TYPES.Store);
+  }
+
+  /**
+   * @stable [11.09.2019]
+   * @returns {string}
+   */
+  private get sectionName(): string {
+    return this.props.sectionName;
   }
 
   /**

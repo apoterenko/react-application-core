@@ -123,11 +123,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     );
   }
 
-  // TODO make delegate
-  public dispatchFormReset(otherSection?: string): void {
-    this.appStore.dispatch(FormActionBuilder.buildResetPlainAction(otherSection || this.props.sectionName));
-  }
-
   /**
    * @stable [18.11.2018]
    * @param {string} dictionary
