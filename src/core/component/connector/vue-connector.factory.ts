@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { isFn, shallowClone } from '../../util';
-import { UniversalConnectorActionBuilder } from './universal-connector-action.builder';
+import { ConnectorActionBuilder } from './connector-action.builder';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import { VueComponentOptionsT } from '../../vue-definitions.interface';
 import { IVueContainer, IVueApplicationStoreEntity } from '../../vue-entities-definitions.interface';
@@ -78,7 +78,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       }
 
       // Send an init action
-      store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(self.sectionName)});
+      store.dispatch({type: ConnectorActionBuilder.buildInitActionType(self.sectionName)});
 
       const cachedReduxLinks = new Map<((...args) => void), AnyT>();
 
@@ -171,7 +171,7 @@ export const vueConnectorOptionsFactory = <TApplicationStoreEntity extends IVueA
       const store = self.store$;
 
       // Send an destroy action
-      store.dispatch({type: UniversalConnectorActionBuilder.buildDestroyActionType(self.sectionName)});
+      store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(self.sectionName)});
     },
   };
 };

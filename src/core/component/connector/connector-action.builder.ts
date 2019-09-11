@@ -3,7 +3,7 @@ import {
   CONNECTED_CONTAINER_DESTROY_ACTION_TYPE,
 } from './universal-connector.interface';
 
-export class UniversalConnectorActionBuilder {
+export class ConnectorActionBuilder {
 
   /**
    * @stable [20.10.2018]

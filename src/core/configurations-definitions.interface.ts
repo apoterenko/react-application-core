@@ -54,7 +54,6 @@ import {
   IComputedMatchWrapper,
   IContentStyleWrapper,
   IContentWrapper,
-  ICssStyleWrapper,
   IDeactivatedWrapper,
   IDefaultValue,
   IDelayTimeoutWrapper,
@@ -147,7 +146,6 @@ import {
   IParamsWrapper,
   IParentWrapper,
   IPathWrapper,
-  IPatternWrapper,
   IPluginsWrapper,
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
@@ -228,6 +226,7 @@ import {
   IGenericButtonEntity,
   IGenericFieldEntity,
   IGenericFormEntity,
+  INamedConstructor,
 } from './definition';
 
 /**
@@ -359,7 +358,7 @@ export const DEFAULT_BOOTSTRAP_CONFIGURATION: IBootstrapConfiguration = {
  */
 export interface IWebComponentConfiguration<TClassName = string>
   extends IClassNameWrapper<TClassName>,
-          ICssStyleWrapper {
+    IStyleWrapper<React.CSSProperties> {
 }
 
 /**
@@ -785,6 +784,7 @@ export interface IBasicConnectorConfiguration<TStoreEntity>
   extends ICallbackWrapper<(ctor: IUniversalContainerClassEntity) => void>,
           IRouteConfigurationWrapper<RouteConfigurationT>,
           IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
+  injectedServices?: INamedConstructor[];
 }
 
 /* @stable - 14.04.2018 */

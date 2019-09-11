@@ -1,3 +1,5 @@
+import { Store } from 'redux';
+
 import { DI_TYPES } from './di.interface';
 import { staticInjector } from './di.support';
 import { INumberConverter } from '../converter';
@@ -49,3 +51,9 @@ export const getDatabaseStorage = (): IStorage => staticInjector(DI_TYPES.Databa
  * @returns {TApi}
  */
 export const getApi = <TApi>(): TApi => staticInjector(DI_TYPES.Api);
+
+/**
+ * @stable [11.09.2019]
+ * @returns {Store<TState>}
+ */
+export const getStore = <TState>(): Store<TState> => staticInjector(DI_TYPES.Store);

@@ -50,7 +50,7 @@ export { BaseEffects } from './store/effects/base.effects';
 
 /* @stable [24.04.2018] */
 export { RouterActionBuilder } from './router/router-action.builder';
-export { UniversalConnectorActionBuilder } from './component/connector/universal-connector-action.builder';
+export { ConnectorActionBuilder } from './component/connector/connector-action.builder';
 export { ListActionBuilder } from './component/list/list-action.builder';
 export { FormActionBuilder } from './component/form/form-action.builder';
 export { ApplicationActionBuilder } from './component/application/application-action.builder';

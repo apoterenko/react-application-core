@@ -2,8 +2,8 @@ import { ComponentLifecycle } from 'react';
 import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { noop, sequence } from '../../util';
-import { DI_TYPES, staticInjector } from '../../di';
+import { noop, sequence, isObjectNotEmpty, isFn  } from '../../util';
+import { DI_TYPES, staticInjector, getStore } from '../../di';
 import { IBasicConnectorConfiguration, IConnectorConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalContainerClassEntity, IUniversalApplicationStoreEntity } from '../../entities-definitions.interface';
 import { APPLICATION_SECTIONS } from '../application/application.interface';
@@ -11,7 +11,7 @@ import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './universal-connector.interface';
 import { universalConnectorFactory } from './universal-connector.factory';
-import { UniversalConnectorActionBuilder } from './universal-connector-action.builder';
+import { ConnectorActionBuilder } from './connector-action.builder';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('universal-connector.decorator');
@@ -25,6 +25,7 @@ export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEn
   config: IBasicConnectorConfiguration<TStoreEntity>
 ) =>
   (target: IUniversalContainerClassEntity): void => {
+    let finalTarget = target;
     if (config.callback) {
       config.callback(target);
     }
@@ -33,37 +34,62 @@ export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEn
     if (sectionName) {
       Reflect.set(target, CONNECTOR_SECTION_FIELD, sectionName);
 
-      const sectionName0 = sectionName as string;
-      APPLICATION_SECTIONS.set(sectionName0, config);
+      APPLICATION_SECTIONS.set(sectionName, config);
 
       const proto: ComponentLifecycle<{}, {}> = target.prototype;
       proto.componentWillUnmount = sequence(
         proto.componentWillUnmount || noop,
         () => {
           const store = staticInjector<Store<{}>>(DI_TYPES.Store);
-          store.dispatch({type: STACK_POP_ACTION_TYPE, data: sectionName0});
-          store.dispatch({type: UniversalConnectorActionBuilder.buildDestroyActionType(sectionName0)});
+          store.dispatch({type: STACK_POP_ACTION_TYPE, data: sectionName});
+          store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName)});
 
-          logger.debug(`[$basicConnector][componentWillUnmount] Section: ${sectionName0}`);
+          logger.debug(`[$basicConnector][componentWillUnmount] Section: ${sectionName}`);
         }
       );
-      proto.componentDidMount = sequence(
-        proto.componentDidMount || noop,
-        () => {
-          const store = staticInjector<Store<{}>>(DI_TYPES.Store);
-          store.dispatch({type: STACK_PUSH_ACTION_TYPE, data: sectionName0});
-          store.dispatch({type: UniversalConnectorActionBuilder.buildInitActionType(sectionName0)});
 
-          logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName0}`);
+      finalTarget = class extends target {
+
+        constructor(props) {
+          super(props);
+
+          const injectedServices = config.injectedServices;
+          if (Array.isArray(injectedServices)) {
+            injectedServices.forEach((ctor) => {
+              if (isObjectNotEmpty(ctor.$$name)) {
+                Reflect.set(this, ctor.$$name, Reflect.construct(ctor, [this]));
+              }
+            });
+          }
+          logger.debug(`[$basicConnector][constructor] Section: ${sectionName}`);
         }
-      );
+
+        /**
+         * @stable [11.09.2019]
+         */
+        public componentDidMount(): void {
+          if (isObjectNotEmpty(sectionName)) {
+            const store = getStore();
+            store.dispatch({type: STACK_PUSH_ACTION_TYPE, data: sectionName});
+            store.dispatch({type: ConnectorActionBuilder.buildInitActionType(sectionName)});
+
+            logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName}`);
+          } else {
+            logger.debug(`[$basicConnector][componentDidMount] Constructor: ${target}`);
+          }
+
+          if (isFn(super.componentDidMount)) {
+            super.componentDidMount();
+          }
+        }
+      };
     } else {
       logger.warn(
-        `[$basicConnector] The sectionName props is not defined for ${target.name ||
+        `[$basicConnector] The sectionName is not defined for ${target.name ||
         target}. The init and destroy actions are disabled.`
       );
     }
-    DYNAMIC_ROUTES.set(universalConnectorFactory<TStoreEntity>(target, ...config.mappers), config);
+    DYNAMIC_ROUTES.set(universalConnectorFactory<TStoreEntity>(finalTarget, ...config.mappers), config);
   };
 
 /**

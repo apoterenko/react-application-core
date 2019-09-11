@@ -1391,6 +1391,8 @@ export interface IUpdateWrapper<TValue = string> { update?: TValue; }
 export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
 export interface IZoomWrapper { zoom?: number; }
+export interface I$$storeDispatcherProxyWrapper<TValue> { $$storeDispatcherProxy?: TValue; }
+export interface I$$nameWrapper { $$name?: string; }
 
 /**
  * @stable [31.05.2018]
@@ -1820,10 +1822,6 @@ export interface IHeaderActionIconStyleWrapper<THeaderActionIconStyle = IKeyValu
 /* @stable - 19.04.2018 */
 export interface IIconStyleWrapper<TIconStyle = IKeyValue> {
   iconStyle?: TIconStyle;
-}
-
-/* @stable - 04.04.2018 */
-export interface ICssStyleWrapper extends IStyleWrapper<React.CSSProperties> {
 }
 
 /**

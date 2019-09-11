@@ -5,7 +5,7 @@ import {
   makeDestroyedFormMiddleware,
   IDestroyedFormMiddlewareConfig,
 } from '../middleware';
-import { UniversalConnectorActionBuilder } from '../../component/connector/universal-connector-action.builder';
+import { ConnectorActionBuilder } from '../../component/connector/connector-action.builder';
 
 /**
  * @stable [21.01.2019]
@@ -18,7 +18,7 @@ export function makeDestroyedFormEffectsProxy(config: IDestroyedFormMiddlewareCo
     @provideInSingleton(Effects)
     class Effects {
 
-      @EffectsService.effects(UniversalConnectorActionBuilder.buildDestroyActionType(config.formSection))
+      @EffectsService.effects(ConnectorActionBuilder.buildDestroyActionType(config.formSection))
       public $onDestroy(): IEffectsAction[] {
         return makeDestroyedFormMiddleware(config);
       }
