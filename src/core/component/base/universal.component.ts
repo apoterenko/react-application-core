@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { DelayedTask, isFn, isDef } from '../../util';
+import { DelayedTask, isFn, isDef, nvl } from '../../util';
 import {
   DI_TYPES,
   getUiFactory,
@@ -24,17 +24,17 @@ import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
 import { IStorage } from '../../storage';
+import { getUiPlugins } from '../../di';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
-  private static $uiPlugins: Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>;
-
   protected readonly plugins: IUniversalComponentPlugin[] = [];
   protected scrollTask: DelayedTask;
   protected readonly selfRef = React.createRef<AnyT>();
+  private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null };
 
   /**
    * @stable [23.04.2018]
@@ -171,7 +171,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    * @returns {IUIFactory}
    */
   protected get uiFactory(): IUIFactory {
-    return getUiFactory();
+    return nvl(getUiFactory(), this.defaultUiFactory);
   }
 
   /**
@@ -180,14 +180,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get domAccessor(): IDomAccessor {
     return staticInjector(DI_TYPES.DomAccessor);
-  }
-
-  /**
-   * @stable [01.12.2018]
-   * @returns {React.RefObject<TElement extends Element>}
-   */
-  protected getSelfRef<TElement extends Element>(): React.RefObject<TElement> {
-    return this.selfRef as React.RefObject<TElement>;
   }
 
   /**
@@ -209,7 +201,11 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    * @stable [18.06.2019]
    */
   private initPlugins(): void {
-    const dynamicPluginFactory = UniversalComponent.uiPlugins.get(this.constructor as IUniversalComponentClassEntity);
+    const plugins = this.uiPlugins;
+    if (R.isNil(plugins)) {
+      return;
+    }
+    const dynamicPluginFactory = plugins.get(this.constructor as IUniversalComponentClassEntity);
     if (dynamicPluginFactory) {
       this.registerPlugin(dynamicPluginFactory(this));
     }
@@ -217,13 +213,11 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @ReactNativeCompatible
-   *
-   * @stable [18.06.2019]
+   * @reactNativeCompatible
+   * @stable [21.08.2019]
    * @returns {Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>}
    */
-  private static get uiPlugins(): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> {
-    return UniversalComponent.$uiPlugins =
-      UniversalComponent.$uiPlugins || staticInjector(DI_TYPES.UIPlugins);
+  private get uiPlugins(): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> {
+    return getUiPlugins();
   }
 }
