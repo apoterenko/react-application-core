@@ -7,6 +7,7 @@ import { IViewerConfiguration, IViewerState  } from '../viewer.interface';
  */
 export interface IUniversalPdfPlugin {
   hasLoadedDocument: boolean;
+  numPages: number;
   refreshPage(): void;
   setSrc(src: string): IUniversalPdfPlugin;
   setScale(scale: number): IUniversalPdfPlugin;
@@ -19,6 +20,7 @@ export interface IUniversalPdfPlugin {
  * @stable [27.06.2018]
  */
 export interface IPdfViewerDocument {
+  numPages: number;
   getPage(page: number): Promise<IPdfViewerPage>;
 }
 
@@ -64,4 +66,5 @@ export interface IPdfViewerProps extends IPdfViewerConfiguration,
  * @stable [27.06.2018]
  */
 export interface IPdfViewerState extends IViewerState {
+  previewPage?: number;
 }
