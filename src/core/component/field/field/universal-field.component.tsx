@@ -499,8 +499,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [06.10.2018]
+   * @stable [11.09.2019]
    * @returns {boolean}
+   */
+  protected isFieldInProgress(): boolean {
+    return isFieldInProgress(this.props);
+  }
+
+  /**
+   * @deprecated Use isFieldInProgress
    */
   protected inProgress(): boolean {
     return isFieldInProgress(this.props);
