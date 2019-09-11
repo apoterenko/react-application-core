@@ -35,6 +35,8 @@ import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
 import { applySection, buildErrorMessage, isString, toActionPrefix, toType } from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
+import { FlexLayout } from '../layout/flex/flex-layout.component';
+import { Link } from '../link/link.component';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends React.PureComponent<TProps, TState>
@@ -55,17 +57,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     this.dispatchFormClear = this.dispatchFormClear.bind(this);
     this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
 
-    const originalRenderer = this.render;
-    if (!R.isNil(originalRenderer)) {
-      this.render = (): React.ReactNode => {
-        try {
-          return originalRenderer.call(this);
-        } catch (e) {
-          UniversalContainer.uLogger.error(`[$UniversalContainer][constructor] The error:`, e);
-          return buildErrorMessage(e.stack);
-        }
-      };
-    }
+    this.overrideRenderMethod();
   }
 
   /**
@@ -131,6 +123,11 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     );
   }
 
+  // TODO make delegate
+  public dispatchFormReset(otherSection?: string): void {
+    this.appStore.dispatch(FormActionBuilder.buildResetPlainAction(otherSection || this.props.sectionName));
+  }
+
   /**
    * @stable [18.11.2018]
    * @param {string} dictionary
@@ -176,6 +173,46 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   protected dispatchFormClear(fieldName: string): void {
     this.appStore.dispatch(
       FormActionBuilder.buildClearSimpleAction(this.props.sectionName, fieldName)
+    );
+  }
+
+  /**
+   * @stable [09.09.2019]
+   */
+  protected overrideRenderMethod(): void { // TODO Move from here
+    const originalRenderer = this.render;
+    if (R.isNil(originalRenderer)) {
+      return;
+    }
+    this.render = (): React.ReactNode => {
+      try {
+        return originalRenderer.call(this);
+      } catch (e) {
+        UniversalContainer.uLogger.error(`[$UniversalContainer][overrideRenderMethod] The error:`, e);
+        return this.prepareGlobalErrorScreen(e);
+      }
+    };
+  }
+
+  /**
+   * @stable [09.09.2019]
+   * @param e
+   * @returns {React.ReactNode}
+   */
+  protected prepareGlobalErrorScreen(e): React.ReactNode {
+    return (
+      <FlexLayout
+        alignItemsCenter={true}
+        justifyContentCenter={true}>
+        <span style={{fontSize: 24}}>Something went wrong!</span><br/>
+        <Link to={this.routes.logout}>
+          <span style={{fontSize: 24, textDecoration: 'underline'}}>Try logout</span>
+        </Link>
+        <br/>
+        <FlexLayout full={false} style={{padding: 48, fontSize: 13}}>
+          {buildErrorMessage(e.stack)}
+        </FlexLayout>
+      </FlexLayout>
     );
   }
 
