@@ -10,7 +10,7 @@ const definedLocation = typeof location === 'undefined'
   ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '', pathname: '', assign: (url: string) => null }
   : location;
 const definedWindow = typeof window === 'undefined' ? {} : window;
-const definedDocument = typeof document === 'undefined' ? { baseURI: '', body: null } : document;
+const definedDocument = typeof document === 'undefined' ? { baseURI: '', body: null } as Document : document;
 const definedLocalStorage = typeof localStorage === 'undefined' ? { getItem: (item: string) => null } : localStorage;
 
 const origin = definedLocation.origin || [definedLocation.protocol, definedLocation.host].join('//');
@@ -25,6 +25,7 @@ const MAC_PLATFORM = P.os.family === 'OS X';
 const WINDOWS_PHONE_PLATFORM = P.os.family === 'Windows Phone';
 /**/
 export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
+  document: definedDocument,
   appVersion: process.env.APP_VERSION || '0.0.1',
   appProfile: process.env.APP_PROFILE || 'DEFAULT',
   appNamespace: process.env.APP_NAMESPACE,

@@ -6,6 +6,7 @@ import '../transport/transport.module';
 import '../translation/translation.module';
 import '../settings/settings.module';
 import '../promise/promise.module';
+import '../env/env.module';
 
 import { UniversalApplicationEffects } from './universal-application.effects';
 appContainer.bind(UniversalApplicationEffects).to(UniversalApplicationEffects).inSingletonScope();

@@ -726,6 +726,7 @@ export interface IEnvironmentPlatformOsEntity {
  * @stable [12.09.2018]
  */
 export interface IEnvironmentEntity {
+  document?: Document;
   host?: string;
   androidPlatform?: boolean;
   mobilePlatform?: boolean;

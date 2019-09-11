@@ -12,6 +12,7 @@ export const DI_TYPES = Object.freeze({
   FileStorage: Symbol('FileStorage'),
   FullScreenManager: Symbol('FullScreenManager'),
   GeoCoder: Symbol('GeoCoder'),
+  Environment: Symbol('Environment'),
   I18n: Symbol('I18n'),
   Lock: Symbol('Lock'),
   LogManager: Symbol('LogManager'),
