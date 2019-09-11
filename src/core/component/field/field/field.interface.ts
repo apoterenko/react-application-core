@@ -7,7 +7,6 @@ import {
   IEmptyValueWrapper,
   IStringErrorWrapper,
   IOriginalValueWrapper,
-  UNDEF,
   IKeyboardEvent,
   IFocusEvent,
   ICanReturnClearDirtyChangesValueWrapper,
@@ -77,11 +76,6 @@ export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextArea
  */
 export interface INativeMaskedInputComponent extends Component {
   inputElement: HTMLInputElement;
-}
-
-export interface IBasicField<TValue> extends IValueWrapper<TValue> {
-  setFocus?(): void;
-  onChangeManually?(currentRawValue: AnyT, context?: AnyT): void;
 }
 
 export interface IField<TProps extends IFieldInternalProps = IFieldInternalProps,
