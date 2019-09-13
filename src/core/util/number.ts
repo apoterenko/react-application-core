@@ -38,7 +38,7 @@ export const invertCurrency = (num: number, precision = DEFAULT_CURRENCY_PRECISI
  * @param {number} total
  * @returns {number}
  */
-export const proportion = (value: number, total: number): number => total === 0 ? 0 : (value * 100) / total;
+export const percent = (value: number, total: number): number => total === 0 ? 0 : (value * 100) / total;
 
 /**
  * @stable [12.09.2019]
@@ -46,15 +46,7 @@ export const proportion = (value: number, total: number): number => total === 0 
  * @param {number} total
  * @returns {number}
  */
-export const percentValue = (value: number, total: number) => (value * total) / 100;
-
-/**
- * @stable [26.06.2019]
- * @param {number} value
- * @param {number} total
- * @returns {number}
- */
-export const roundedProportion = (value: number, total: number): number => Math.round(proportion(value, total));
+export const proportion = (value: number, total: number) => (value * total) / 100;
 
 /**
  * @stable [12.09.2019]
@@ -71,8 +63,8 @@ export const residueRoundDownByDivider = (value: number, total: number): number 
  * @param {number} offValue
  * @returns {number}
  */
-export const percentRoundedValue = (value: number, total: number, offValue = ONE_DOLLAR_VALUE): number => {
-  const result0 = percentValue(value, total);
+export const roundedProportion = (value: number, total: number, offValue = ONE_DOLLAR_VALUE): number => {
+  const result0 = proportion(value, total);
   return result0 + residueRoundDownByDivider(offValue, total - result0);
 };
 
@@ -84,8 +76,8 @@ export const percentRoundedValue = (value: number, total: number, offValue = ONE
  * @param {number} precisionValue
  * @returns {number}
  */
-export const percentRoundedByPrecisionValue = (value: number,
-                                               total: number,
-                                               offValue = ONE_DOLLAR_VALUE,
-                                               precisionValue = DEFAULT_CURRENCY_PRECISION_VALUE): number =>
-  roundByPrecision(percentRoundedValue(value, total, offValue), precisionValue);
+export const roundedByPrecisionProportion = (value: number,
+                                             total: number,
+                                             offValue = ONE_DOLLAR_VALUE,
+                                             precisionValue = DEFAULT_CURRENCY_PRECISION_VALUE): number =>
+  roundByPrecision(roundedProportion(value, total, offValue), precisionValue);
