@@ -106,6 +106,7 @@ export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity =
     return this.isMessageVisible()
       ? [
         <Message key={uuid()}
+                 className='rac-application-message'
                  error={props.error}
                  progress={props.progress}
                  errorMessage={this.getErrorMessage()}

@@ -188,8 +188,12 @@ export class AutoFocused extends BaseComponent<IAutoFocusedProps, IAutoFocusedSt
     // keypress -> keydown
     // https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event
     // Since this event has been deprecated, you should look to use beforeinput or keydown instead.
-    return ENV.safariPlatform && ENV.iosPlatform
+    return this.isCaptureFilterDisabled
       ? AutoFocused.IOS_SAFARI_CAPTURE_EVENT
       : AutoFocused.DEFAULT_CAPTURE_EVENT;
+  }
+
+  private get isCaptureFilterDisabled(): boolean {
+    return ENV.safariPlatform && ENV.iosPlatform;
   }
 }

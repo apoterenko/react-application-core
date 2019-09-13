@@ -3,7 +3,7 @@ import * as React from 'react';
 import { CenterLayout } from '../layout';
 import { ProgressLabel } from '../progress';
 import { UniversalMessage } from './universal-message.component';
-import { isString, uuid } from '../../util';
+import { isString, uuid, toClassName } from '../../util';
 
 export class Message extends UniversalMessage {
 
@@ -23,7 +23,7 @@ export class Message extends UniversalMessage {
    */
   protected getMessageWrapper(message: React.ReactNode, node: React.ReactNode): JSX.Element {
     return (
-      <CenterLayout className='rac-message'>
+      <CenterLayout className={toClassName('rac-message', this.props.className)}>
         {isString(message)
           ? (
             <div className='rac-message-content'>

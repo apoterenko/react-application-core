@@ -5,4 +5,5 @@ import { IUniversalMessageEntity } from '../../entities-definitions.interface';
 export interface IUniversalMessageProps extends IUniversalMessageConfiguration,
                                                 IUniversalMessageEntity {
   progressLabelProps?: any; // TODO
+  className?: any;
 }
