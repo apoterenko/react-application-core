@@ -1,4 +1,10 @@
-import { appContainer, DI_TYPES } from '../../../di';
+import {
+  bindInSingleton,
+  DI_TYPES,
+} from '../../../di';
 import { TransportRequestPayloadFactory } from './transport-request-payload-factory.service';
 
-appContainer.bind(DI_TYPES.TransportRequestPayloadFactory).to(TransportRequestPayloadFactory).inSingletonScope();
+/**
+ * @stable [16.09.2019]
+ */
+bindInSingleton(DI_TYPES.TransportRequestPayloadFactory, TransportRequestPayloadFactory);

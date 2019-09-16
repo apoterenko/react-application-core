@@ -1,13 +1,19 @@
 import {
   AnyT,
   EntityIdT,
+  IApiUrlWrapper,
   IAuthWrapper,
+  IBlobDataContentTypeWrapper,
   IBlobDataWrapper,
   IBlobResponseWrapper,
   ICancelTokenWrapper,
   ICodeWrapper,
+  IDataProviderWrapper,
   IDataWrapper,
+  IDateNowWrapper,
+  IEntityWrapper,
   IErrorWrapper,
+  IFormDataContentTypeWrapper,
   IFormDataWrapper,
   IHeadersWrapper,
   IIdWrapper,
@@ -21,14 +27,21 @@ import {
   IOperationWrapper,
   IParamsWrapper,
   IPathWrapper,
+  IRequestDataFactoryWrapper,
   IRequestProviderWrapper,
   IResponseFactoryWrapper,
   IResponseReaderWrapper,
   IResponseTypeWrapper,
   IResultWrapper,
+  ISettingsWrapper,
   IStatusTextWrapper,
   IStatusWrapper,
+  ITokenWrapper,
   ITransportFactoryWrapper,
+  IUniqueParamNameWrapper,
+  IUploadUrlWrapper,
+  IUrlFactoryWrapper,
+  IUrlProviderWrapper,
   IUrlWrapper,
   IWithCredentialsWrapper,
 } from '../definitions.interface';
@@ -96,11 +109,13 @@ export interface ITransportRequestEntity
     INoCacheWrapper,
     IUrlWrapper,
     IBlobResponseWrapper,
-    IResponseReaderWrapper<(response) => AnyT>,
+    IResponseReaderWrapper<(response: AnyT) => AnyT>,
     IOperationWrapper,
     IRequestProviderWrapper<ITransportRequestProvider>,
     IResponseFactoryWrapper<ITransportResponseFactory>,
-    ITransportFactoryWrapper<ITransportFactory> {
+    ITransportFactoryWrapper<ITransportFactory>,
+    IUrlFactoryWrapper<(request: ITransportRequestEntity) => string>,
+    IRequestDataFactoryWrapper<ITransportRequestDataFactory> {
 }
 
 /**
@@ -127,6 +142,49 @@ export interface ITransportJsonRpcRequestDataEntity
   extends IBaseTransportRequestDataEntity,
     IAuthWrapper,
     IIdWrapper<EntityIdT> {
+}
+
+/**
+ * Transport request data factory
+ *
+ * @TransportRequest
+ * @stable [15.09.2019]
+ */
+export interface ITransportRequestDataFactory {
+  makeRequestData(req: ITransportRequestEntity): IKeyValue;
+}
+
+/**
+ * Transport request payload factory
+ *
+ * @TransportRequest
+ * @stable [16.09.2019]
+ */
+export interface ITransportRequestPayloadFactory extends ITransportRequestDataFactory {
+  makeRequestPayload(requestEntity: ITransportRequestEntity,
+                     cancelToken?: ITransportCancelTokenEntity): ITransportRequestPayloadEntity;
+}
+
+/**
+ * Transport cancel token entity
+ *
+ * @TransportRequest
+ * @stable [15.09.2019]
+ */
+export interface ITransportCancelTokenEntity {
+  token: string;
+  cancel(message?: string): void;
+}
+
+/**
+ * Transport request provider
+ *
+ * @TransportRequest
+ * @stable [15.09.2019]
+ */
+export interface ITransportRequestProvider {
+  provideCancelToken?(): ITransportCancelTokenEntity;
+  provideRequest<TRequest, TResponse>(req: TRequest): Promise<TResponse>;
 }
 
 /**
@@ -188,38 +246,6 @@ export interface ITransportResponseAccessor {
 }
 
 /**
- * Transport request data factory
- *
- * @TransportRequest
- * @stable [15.09.2019]
- */
-export interface ITransportRequestDataFactory {
-  makeRequestData(req: ITransportRequestEntity): IKeyValue;
-}
-
-/**
- * Transport cancel token entity
- *
- * @TransportRequest
- * @stable [15.09.2019]
- */
-export interface ITransportCancelTokenEntity {
-  token: string;
-  cancel(message?: string): void;
-}
-
-/**
- * Transport request provider
- *
- * @TransportRequest
- * @stable [15.09.2019]
- */
-export interface ITransportRequestProvider {
-  provideCancelToken?(): ITransportCancelTokenEntity;
-  provideRequest<TRequest, TResponse>(req: TRequest): Promise<TResponse>;
-}
-
-/**
  * Transport factory
  *
  * @Transport
@@ -257,13 +283,37 @@ export interface ITransport
  * Transport settings
  *
  * @TransportSettings
- * @stable [15.09.2019]
+ * @stable [16.09.2019]
  */
 export interface ITransportSettings
-  extends IBaseTransportRequestEntity {
-  binaryContentType?: string;
-  formDataContentType?: string;
-  uploadUrl?: string;
-  apiUrl?: string;
-  noCachePrefix?: string;  // TODO
+  extends IBaseTransportRequestEntity,
+    IBlobDataContentTypeWrapper,
+    IFormDataContentTypeWrapper,
+    IUniqueParamNameWrapper,
+    IApiUrlWrapper,
+    IUploadUrlWrapper {
+}
+
+/**
+ * Transport url config entity
+ *
+ * @TransportUrl
+ * @stable [16.09.2019]
+ */
+export interface ITransportUrlConfigEntity
+  extends IEntityWrapper<ITransportRequestEntity>,
+    IUrlProviderWrapper<(requestEntity: ITransportRequestEntity) => string>,
+    ISettingsWrapper<ITransportSettings>,
+    IDataProviderWrapper<(requestEntity: ITransportRequestEntity) => IKeyValue>,
+    IDateNowWrapper {
+}
+
+/**
+ * Transport token accessor
+ *
+ * @TransportToken
+ * @stable [16.09.2019]
+ */
+export interface ITransportTokenAccessor
+  extends ITokenWrapper {
 }

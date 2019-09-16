@@ -29,14 +29,17 @@ export const DI_TYPES = Object.freeze({
   StorageHelper: Symbol('StorageHelper'),
   Store: Symbol('Store'),
   Translate: Symbol('Translate'),
+  /**/
   Transport: Symbol('Transport'),
   TransportErrorInterceptor: Symbol('TransportErrorInterceptor'),
   TransportFactory: Symbol('TransportFactory'),
+  TransportRequestDataFactory: Symbol('TransportRequestDataFactory'),
   TransportRequestPayloadFactory: Symbol('TransportRequestPayloadFactory'),
   TransportRequestProvider: Symbol('TransportRequestProvider'),
   TransportResponseAccessor: Symbol('TransportResponseAccessor'),
   TransportResponseFactory: Symbol('TransportResponseFactory'),
   TransportTokenAccessor: Symbol('TransportTokenAccessor'),
+  /**/
   UIFactory: Symbol('UIFactory'),
   UIIconFactory: Symbol('UIIconFactory'),
   UIPlugins: Symbol('UIPlugins'),

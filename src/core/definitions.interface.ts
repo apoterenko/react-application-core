@@ -180,16 +180,21 @@ export interface IActionIconsWrapper<TActionIcons> {
 }
 
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
+export interface IApiUrlWrapper { apiUrl?: string; }
+export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
 export interface IColumnStylesWrapper<TColumnStyles> { columnStyles?: TColumnStyles; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
+export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
 export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
 export interface IMethodWrapper { method?: string; }
 export interface IModeWrapper<TMode = string> { mode?: TMode; }
 export interface IParamsWrapper<TParams = IKeyValue> { params?: TParams; }
 export interface IResponseTypeWrapper { responseType?: string; }
+export interface IUniqueParamNameWrapper { uniqueParamName?: string; }
+export interface IUploadUrlWrapper { uploadUrl?: string; }
 export interface IUrlWrapper<TUrl = string> { url?: TUrl; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 
@@ -827,9 +832,11 @@ export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; 
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
 export interface IProgressWrapper { progress?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }
+export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValue; }
 export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
 export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
+export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 
 /**
@@ -1423,11 +1430,15 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
   customError?: TCustomError;
 }
 
+export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
+export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
 export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
 export interface IListAccessorWrapper<TListAccessor> { listAccessor?: TListAccessor; }
 export interface INewEntityWrapper<TNewEntity = boolean> { newEntity?: TNewEntity; }
 export interface IOriginalEntityWrapper<TOriginalEntity> { originalEntity?: TOriginalEntity; }
+export interface ISettingsWrapper<TValue> { settings?: TValue; }
+export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 
 /**
  * @stable [22.08.2018]
@@ -1959,18 +1970,11 @@ export interface IColumnWidthWrapper {
   columnWidth?: number;
 }
 
-export interface IMergerWrapper<TMerger> { merger?: TMerger; }
-
-/**
- * @stable [02.02.2019]
- */
-export interface ITokenWrapper<TToken = string> {
-  token?: TToken;
-}
-
 export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
+export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
+export interface ITokenWrapper<TToken = string> { token?: TToken; }
 
 /**
  * @stable [11.08.2018]

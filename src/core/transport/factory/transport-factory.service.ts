@@ -6,11 +6,11 @@ import {
   ITransportCancelTokenEntity,
   ITransportFactory,
   ITransportRequestEntity,
+  ITransportRequestPayloadFactory,
   ITransportRequestProvider,
   ITransportResponseFactory,
   ITransportResponseFactoryEntity,
 } from '../../definition';
-import { ITransportRequestPayloadFactory } from '../request';
 import { lazyInject, DI_TYPES } from '../../di';
 import { uuid, ifNotNilThanValue, isFn, nvl } from '../../util';
 

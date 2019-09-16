@@ -34,11 +34,15 @@ export const provideInSingleton = (target: interfaces.ServiceIdentifier<AnyT>) =
   .done(true);
 
 /**
- * @stable [16.02.2019]
+ * @stable [16.09.2019]
  * @param {interfaces.ServiceIdentifier<T> | {new(...args: AnyT[]): T}} contract
  * @param {{new(...args: AnyT[]): T}} implementation
  * @returns {interfaces.BindingWhenOnSyntax<any>}
  */
 export const bindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | (new(...args: AnyT[]) => T),
                                    implementation?: (new(...args: AnyT[]) => T)) =>
-  appContainer.bind(contract).to(implementation || contract as (new(...args: AnyT[]) => T)).inSingletonScope();
+  (
+    appContainer.isBound(contract)
+      ? appContainer.rebind(contract)
+      : appContainer.bind(contract)
+  ).to(implementation || contract as (new(...args: AnyT[]) => T)).inSingletonScope();

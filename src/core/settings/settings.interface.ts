@@ -167,11 +167,11 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
   transport: {
     method: 'post',
     withCredentials: true,
-    binaryContentType: 'application/octet-stream',
+    blobDataContentType: 'application/octet-stream',
     formDataContentType: 'multipart/form-data',
     apiUrl: prepareUrl(ENV.basePath + '/api/'),
     uploadUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
-    noCachePrefix: '_dc',
+    uniqueParamName: '_dc',
   },
   messages: {
     yearPlaceholderMessage: 'Year as {pattern}',

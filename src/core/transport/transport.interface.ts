@@ -2,11 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IKeyValue,
-  ITokenWrapper,
 } from '../definitions.interface';
-
-export interface ITransportTokenAccessor extends ITokenWrapper {
-}
 
 // TODO Refactoring
 export interface ITransportRawErrorResponse {

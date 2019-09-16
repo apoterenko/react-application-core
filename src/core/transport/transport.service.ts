@@ -12,16 +12,16 @@ import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { ITransportRequestPayloadFactory } from './request';
 import { ILogManager } from '../log';
 import { ENV } from '../env';
 import {
   EnvironmentVariablesEnum,
   ITransport,
   ITransportFactory,
-  ITransportResponseFactoryEntity,
   ITransportRequestEntity,
+  ITransportRequestPayloadFactory,
   ITransportResponseEntity,
+  ITransportResponseFactoryEntity,
   TransportEventsEnum,
 } from '../definition';
 

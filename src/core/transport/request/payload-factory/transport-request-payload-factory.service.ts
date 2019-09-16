@@ -1,48 +1,200 @@
 import { injectable } from 'inversify';
+import * as R from 'ramda';
 
 import {
-  defValuesFilter,
+  buildTransportUrl,
+  coalesce,
+  ifNotEmptyThanValue,
+  isDef,
+  isFn,
   notNilValuesArrayFilter,
   notNilValuesFilter,
   nvl,
-  orNull,
-  uuid,
+  orUndef,
 } from '../../../util';
-import { BaseTransportRequestPayloadFactory } from './base-transport-request-payload-factory.service';
 import { DI_TYPES, lazyInject } from '../../../di';
-import { ITransportRequestEntity, ITransportJsonRpcRequestDataEntity } from '../../../definition';
-import { ITransportTokenAccessor } from '../../transport.interface';
+import { ISettings } from '../../../settings';
+import { IKeyValue } from '../../../definitions.interface';
+import {
+  ITransportCancelTokenEntity,
+  ITransportRequestDataFactory,
+  ITransportRequestEntity,
+  ITransportRequestPayloadEntity,
+  ITransportRequestPayloadFactory,
+  ITransportSettings,
+  TransportResponseTypesEnum,
+} from '../../../definition';
 
 @injectable()
-export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadFactory {
-  @lazyInject(DI_TYPES.TransportTokenAccessor) private readonly tokenAccessor: ITransportTokenAccessor;
+export class TransportRequestPayloadFactory implements ITransportRequestPayloadFactory {
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.TransportRequestDataFactory) private readonly requestDataFactory: ITransportRequestDataFactory;
 
   /**
-   * @stable [02.02.2019]
-   * @param {ITransportRequestEntity} req
-   * @returns {ITransportJsonRpcRequestDataEntity}
+   * @stable [16.09.2019]
    */
-  public makeRequestData(req: ITransportRequestEntity): ITransportJsonRpcRequestDataEntity {
-    return notNilValuesFilter<ITransportJsonRpcRequestDataEntity, ITransportJsonRpcRequestDataEntity>({
-      id: uuid(),
-      name: req.name,
-      params: req.params && defValuesFilter(req.params),
-      auth: orNull(req.noAuth !== true, () => this.tokenAccessor.token),
-    });
+  constructor() {
+    this.getBaseUrl = this.getBaseUrl.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
   /**
-   * @stable [28.08.2019]
+   * @stable [02.02.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @param {ITransportCancelTokenEntity} cancelToken
+   * @returns {ITransportRequestPayloadEntity}
+   */
+  public makeRequestPayload(requestEntity: ITransportRequestEntity,
+                            cancelToken?: ITransportCancelTokenEntity): ITransportRequestPayloadEntity {
+    return notNilValuesFilter<ITransportRequestPayloadEntity, ITransportRequestPayloadEntity>({
+        url: this.getUrl(requestEntity),
+        headers: this.getHeaders(requestEntity),
+        method: this.getMethod(requestEntity),
+        data: this.getData(requestEntity),
+        cancelToken: cancelToken && cancelToken.token,
+        withCredentials: this.getWithCredentials(requestEntity),
+        responseType: coalesce(
+          orUndef(requestEntity.blobResponse === true, () => TransportResponseTypesEnum.BLOB)
+        ),
+      }
+    );
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {IKeyValue}
+   */
+  public makeRequestData(req: ITransportRequestEntity): IKeyValue {
+    return this.getRequestDataFactory(req).makeRequestData(req);
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {string}
+   */
+  protected getUrl(requestEntity: ITransportRequestEntity): string {
+    return isFn(requestEntity.urlFactory)
+      ? requestEntity.urlFactory(requestEntity)
+      : (
+        buildTransportUrl({
+          dataProvider: this.getData,
+          dateNow: Date.now(),
+          entity: requestEntity,
+          settings: this.transportSettings,
+          urlProvider: this.getBaseUrl,
+        })
+      );
+  }
+
+  /**
+   * @stable [02.02.2019]
    * @param {ITransportRequestEntity} requestEntity
    * @returns {string}
    */
   protected getBaseUrl(requestEntity: ITransportRequestEntity): string {
+    if (!R.isNil(requestEntity.url)) {
+      return requestEntity.url;
+    }
     const transportSettings = this.settings.transport;
-    const url = this.isRequestBlobData(requestEntity) ? transportSettings.uploadUrl : transportSettings.apiUrl;
+    const apiUrl = this.isRequestBlobData(requestEntity)
+      ? nvl(transportSettings.uploadUrl, transportSettings.apiUrl)
+      : transportSettings.apiUrl;
 
-    return nvl(
-      requestEntity.url,
-      notNilValuesArrayFilter(url, requestEntity.path).join('') // URI's segment works incorrectly with a UUID (url.segment(req.path));
-    );
+    return notNilValuesArrayFilter(
+      apiUrl,
+      requestEntity.path
+    ).join(''); // URI's segment works incorrectly with a UUID (url.segment(req.path));
+  }
+
+  /**
+   * @stable [02.02.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {boolean}
+   */
+  protected getWithCredentials(requestEntity: ITransportRequestEntity): boolean {
+    return nvl(requestEntity.withCredentials, this.transportSettings.withCredentials);
+  }
+
+  /**
+   * @stable [02.02.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {string}
+   */
+  protected getMethod(requestEntity: ITransportRequestEntity): string {
+    return nvl(requestEntity.method, this.transportSettings.method);
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {ITransportRequestDataFactory}
+   */
+  protected getRequestDataFactory(requestEntity: ITransportRequestEntity): ITransportRequestDataFactory {
+    return nvl(requestEntity.requestDataFactory, this.requestDataFactory);
+  }
+
+  /**
+   * @stable [02.02.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {IKeyValue}
+   */
+  protected getData(requestEntity: ITransportRequestEntity): IKeyValue {
+    return requestEntity.formData
+      || requestEntity.blobData
+      || this.makeRequestData(requestEntity);
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {IKeyValue}
+   */
+  protected getHeaders(requestEntity: ITransportRequestEntity): IKeyValue {
+    const transportSettings = this.transportSettings;
+    const isBlobData = this.isRequestBlobData(requestEntity);
+    const isFormData = this.isRequestFormData(requestEntity);
+    let result = {
+      ...requestEntity.headers,
+    };
+    if (isBlobData || isFormData) {
+      const contentType = isBlobData
+        ? transportSettings.blobDataContentType
+        : transportSettings.formDataContentType;
+      if (!R.isNil(contentType)) {
+        result = {
+          ...result,
+          'Content-Type': contentType,
+        };
+      }
+    }
+    return ifNotEmptyThanValue(notNilValuesFilter(result), (value) => value);
+  }
+
+  /**
+   * @stable [02.02.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {boolean}
+   */
+  protected isRequestBlobData(requestEntity: ITransportRequestEntity): boolean {
+    return isDef(requestEntity.blobData);
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @param {ITransportRequestEntity} requestEntity
+   * @returns {boolean}
+   */
+  protected isRequestFormData(requestEntity: ITransportRequestEntity): boolean {
+    return isDef(requestEntity.formData);
+  }
+
+  /**
+   * @stable [15.09.2019]
+   * @returns {ITransportSettings}
+   */
+  private get transportSettings(): ITransportSettings {
+    return this.settings.transport;
   }
 }

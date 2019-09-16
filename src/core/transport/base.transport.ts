@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import * as R from 'ramda';
 
 import {
-  buildUrl,
+  buildEncodedURI,
   defValuesFilter,
   downloadFileAsBlobUrl,
   ifNotNilThanValue,
@@ -63,7 +63,7 @@ export class BaseTransport {
    */
   protected downloadFile(params: ITransportRequestEntity): void {
     const requestParams = this.transport.makeRequestData(params);
-    downloadFileAsBlobUrl(join([this.settings.downloadUrl, buildUrl(requestParams)]));
+    downloadFileAsBlobUrl(join([this.settings.downloadUrl, buildEncodedURI(requestParams)]));
   }
 
   /**
