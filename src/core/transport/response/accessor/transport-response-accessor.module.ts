@@ -1,4 +1,10 @@
-import { appContainer, DI_TYPES } from '../../../di';
+import {
+  bindInSingleton,
+  DI_TYPES,
+} from '../../../di';
 import { TransportResponseAccessor } from './transport-response-accessor.service';
 
-appContainer.bind(DI_TYPES.TransportResponseAccessor).to(TransportResponseAccessor).inSingletonScope();
+/**
+ * @stable [16.09.2019]
+ */
+bindInSingleton(DI_TYPES.TransportResponseAccessor, TransportResponseAccessor);

@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
 import { appContainer, DI_TYPES, staticInjector } from '../di';
-import { STORAGE_APP_STATE_KEY, IStorage } from '../storage/storage.interface';
+import { IStorage, STORAGE_APP_STATE_KEY } from '../definition';
 import { ENV } from '../env';
 import { ISettings } from '../settings';
 import { nvl } from '../util';

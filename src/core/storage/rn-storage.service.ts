@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
-import { IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
+import { IStorage } from '../definition';
+import { STORAGE_KEY_SEPARATOR } from '../storage';
 import { AnyT } from '../definitions.interface';
 
 // TODO Encryption/Decryption

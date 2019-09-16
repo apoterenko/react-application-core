@@ -1,7 +1,6 @@
 export * from './base.transport';
 export * from './factory';
 export * from './factory/transport-factory.service';
-export * from './fetch-json-transport.factory';
 export * from './request';
 export * from './response';
 export * from './transport-action.builder';

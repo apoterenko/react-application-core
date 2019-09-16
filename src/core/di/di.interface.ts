@@ -30,6 +30,8 @@ export const DI_TYPES = Object.freeze({
   Store: Symbol('Store'),
   Translate: Symbol('Translate'),
   /**/
+  VersionProcessor: Symbol('VersionProcessor'),
+  /**/
   Transport: Symbol('Transport'),
   TransportErrorInterceptor: Symbol('TransportErrorInterceptor'),
   TransportFactory: Symbol('TransportFactory'),

@@ -1,5 +1,6 @@
 import { IMultiEntity } from '../../entities-definitions.interface';
-import { IMultiEntityStorageResult, IStorage } from '../storage.interface';
+import { IMultiEntityStorageResult } from '../storage.interface';
+import { IStorage } from '../../definition';
 import { lazyInject, DI_TYPES, provideInSingleton } from '../../di';
 import { MultiEntityStorage } from './multi-entity-storage.service';
 

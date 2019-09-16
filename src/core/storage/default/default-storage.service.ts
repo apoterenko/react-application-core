@@ -2,7 +2,7 @@ import { AnyT } from '../../definitions.interface';
 import { BaseStorage } from '../base-storage.service';
 import { ifNotNilThanValue, nvl } from '../../util';
 import { ISettings } from '../../settings';
-import { StorageTypeEnum } from '../../definition';
+import { StorageTypesEnum } from '../../definition';
 
 export class DefaultStorage extends BaseStorage {
 
@@ -10,11 +10,11 @@ export class DefaultStorage extends BaseStorage {
    * @stable [28.07.2019]
    * @param {string} prefix
    * @param {() => ISettings} settingsProvider
-   * @param {StorageTypeEnum} storageType
+   * @param {StorageTypesEnum} storageType
    */
   constructor(prefix: string,
               private settingsProvider: () => ISettings,
-              private storageType?: StorageTypeEnum) {
+              private storageType?: StorageTypesEnum) {
     super(prefix);
   }
 
@@ -68,7 +68,7 @@ export class DefaultStorage extends BaseStorage {
   private get storage(): Storage {
     const settings = this.settingsProvider();
     switch (nvl(this.storageType, settings && settings.persistenceStorage)) {
-      case StorageTypeEnum.SESSION:
+      case StorageTypesEnum.SESSION:
         return sessionStorage;
       default:
         return localStorage;

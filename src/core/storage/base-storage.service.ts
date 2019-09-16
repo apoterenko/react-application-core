@@ -1,6 +1,7 @@
 import { AnyT } from 'core';
 
-import { IStorage, STORAGE_KEY_SEPARATOR } from '../storage';
+import { STORAGE_KEY_SEPARATOR } from '../storage';
+import { IStorage } from '../definition';
 
 export abstract class BaseStorage implements IStorage {
 

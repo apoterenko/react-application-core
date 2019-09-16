@@ -906,8 +906,10 @@ export interface IMaskWrapper<TMask = Array<string|RegExp>> {
   mask?: TMask;
 }
 
+export interface IFilesWrapper<TValue> { files?: TValue; }
 export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
+export interface IUuidWrapper { uuid?: string; }
 
 /**
  * @stable [04.05.2018]

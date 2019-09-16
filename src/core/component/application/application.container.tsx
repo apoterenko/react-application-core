@@ -5,7 +5,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
 import { DI_TYPES, appContainer, lazyInject } from '../../di';
 import { IEventManager } from '../../event';
-import { STORAGE_APP_STATE_KEY, IStorage } from '../../storage';
+import { IStorage, STORAGE_APP_STATE_KEY } from '../../definition';
 import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
 import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';

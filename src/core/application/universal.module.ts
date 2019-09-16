@@ -4,6 +4,7 @@ import '../auth/auth.module';
 import '../converter/converter.module';
 import '../transport/transport.module';
 import '../translation/translation.module';
+import '../version/version-processor.module';
 import '../settings/settings.module';
 import '../promise/promise.module';
 import '../env/env.module';

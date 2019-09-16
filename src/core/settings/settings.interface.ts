@@ -3,7 +3,7 @@ import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
 import {
   IButtonProps,
-  StorageTypeEnum,
+  StorageTypesEnum,
   ITransportSettings,
 } from '../definition';
 
@@ -56,7 +56,6 @@ export interface IApplicationNumberSettings {
  * @stable [10.03.2019]
  */
 export interface IMessagesSettings {
-  yearPlaceholderMessage?: string;
   acceptMessage?: string;
   accessDeniedMessage?: string;
   addressSelectionMessage?: string;
@@ -84,7 +83,7 @@ export interface IMessagesSettings {
   invalidAddressMessage?: string;
   logOutMessage?: string;
   logoutNotificationMessage?: string;
-  newAppVersionMessageHasBeenDeployed?: string;
+  newAppVersionHasBeenDeployedMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
   pagesMessage?: string;
@@ -104,6 +103,7 @@ export interface IMessagesSettings {
   waitMessage?: string;
   welcomeMessage?: string;
   yearMessage?: string;
+  yearPlaceholderMessage?: string;
 }
 
 export interface IAuthorizationSettings {
@@ -130,14 +130,14 @@ export interface IComponentsSettings {
 export interface ISettings {
   signalRUrl?: string;
   downloadUrl?: string;
-  metaFilesJsonUrl?: string;
+  metaFilesUrl?: string;
   pdfWorkerDirectoryUrl?: string;
   emptyPictureUrl?: string;
   companyName?: string;
   companyCountry?: string;
   usePersistence?: boolean;
   transport?: ITransportSettings;
-  persistenceStorage?: StorageTypeEnum;
+  persistenceStorage?: StorageTypesEnum;
   entityEmptyId?: AnyT;
   resourcePaths?: IApplicationResourcePaths;
   dateTime?: IDateTimeSettings;
@@ -202,7 +202,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     invalidAddressMessage: 'Invalid address',
     logOutMessage: 'Log out',
     logoutNotificationMessage: 'You were logged out.',
-    newAppVersionMessageHasBeenDeployed: 'A new app version has been deployed. Need to go to the home page.',
+    newAppVersionHasBeenDeployedMessage: 'A new app version has been deployed. Need to go to the home page.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
     pagesMessage: '{from}-{to} of {count}',

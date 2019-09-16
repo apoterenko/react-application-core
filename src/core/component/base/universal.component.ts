@@ -23,12 +23,14 @@ import { AnyT } from '../../definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
-import { IStorage } from '../../storage';
 import {
   getTransport,
   getUiPlugins,
 } from '../../di';
-import { ITransport } from '../../definition';
+import {
+  IStorage,
+  ITransport,
+} from '../../definition';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>

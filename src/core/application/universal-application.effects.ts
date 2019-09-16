@@ -1,19 +1,19 @@
 import { injectable } from 'inversify';
 import { IEffectsAction, EffectsService } from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
-import * as R from 'ramda';
 
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
-import { orNull, isArrayNotEmpty } from '../util';
+import { orNull } from '../util';
 import { ISettings } from '../settings';
 import {
-  ITransportFactory,
+  IStorage,
   ITransportResponseAccessor,
+  IVersionProcessor,
+  STORAGE_APP_TOKEN_KEY,
 } from '../definition';
 import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
-import { STORAGE_APP_TOKEN_KEY, STORAGE_APP_UUID_KEY, IStorage } from '../storage/storage.interface';
 import { BaseEffects } from '../store/effects/base.effects';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
@@ -23,18 +23,16 @@ import { UserActionBuilder } from '../user/user-action.builder';
 import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
-import { FetchJsonTransportFactory } from '../transport/fetch-json-transport.factory';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   private static logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
 
-  @lazyInject(DI_TYPES.Routes) protected routes: IRoutesConfiguration;
-  @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
+  @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesConfiguration;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IStorage;
-  @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected notVersionedSessionStorage: IStorage;
   @lazyInject(DI_TYPES.TransportResponseAccessor) protected responseAccessor: ITransportResponseAccessor;
-  @lazyInject(FetchJsonTransportFactory) protected fetchJsonTransportFactory: ITransportFactory;
+  @lazyInject(DI_TYPES.VersionProcessor) protected readonly versionProcessor: IVersionProcessor;
 
   /**
    * @stable - 25.04.2018
@@ -63,8 +61,10 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable [02.09.2018]
-   * @returns {IEffectsAction}
+   * @stable [16.09.2019]
+   * @param {IEffectsAction} _
+   * @param {IUniversalApplicationStoreEntity} state
+   * @returns {Promise<IEffectsAction[]>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterInitActionType())
   public async $onAfterInit(_: IEffectsAction, state: IUniversalApplicationStoreEntity): Promise<IEffectsAction[]> {
@@ -75,44 +75,9 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         : ApplicationActionBuilder.buildReadyAction()
     ];
 
-    const metaFilesJsonUrl = this.settings.metaFilesJsonUrl;
-    if (!R.isNil(metaFilesJsonUrl) && !R.isEmpty(metaFilesJsonUrl)) {
-      let data;
-      try {
-        data = await Promise.all([
-          this.notVersionedSessionStorage.get(STORAGE_APP_UUID_KEY),
-          this.fetchJsonTransportFactory.request({url: metaFilesJsonUrl})
-        ]);
-      } catch (e) {
-        UniversalApplicationEffects.logger.error(
-          '[$UniversalApplicationEffects][$onAfterInit] Error:', e
-        );
-      }
-      if (isArrayNotEmpty(data)) {
-        const localAppUuid = data[0];
-        const remoteAppMetaInfo = data[1];
-        const remoteAppUuid = remoteAppMetaInfo.result.uuid;
-
-        if (!R.isNil(remoteAppUuid) && !R.isEmpty(remoteAppUuid)) {
-          this.notVersionedSessionStorage.set(STORAGE_APP_UUID_KEY, remoteAppUuid);
-
-          if (!R.isNil(localAppUuid)
-            && !R.isEmpty(localAppUuid)
-            && !R.equals(localAppUuid, remoteAppUuid)) {
-
-            if (isApplicationAuthorized) {
-              // After F5 we desire to get a previous saves hash, but it is empty. This means a team had released
-              // a new version. To exclude the inconsistent state of App - redirect to initial path
-
-              UniversalApplicationEffects.logger.debug(
-                '[$UniversalApplicationEffects][$onAfterInit] Need to redirect to the initial path because of a new release.'
-              );
-              result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
-              result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionMessageHasBeenDeployed));
-            }
-          }
-        }
-      }
+    if (await this.versionProcessor.hasBeenUpdated(isApplicationAuthorized)) {
+      result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
+      result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionHasBeenDeployedMessage));
     }
 
     UniversalApplicationEffects.logger.debug(() =>

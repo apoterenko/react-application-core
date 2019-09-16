@@ -3,8 +3,10 @@ import { Store } from 'redux';
 import { DI_TYPES } from './di.interface';
 import { INumberConverter } from '../converter';
 import { ISettings } from '../settings';
-import { IStorage } from '../storage';
-import { ITransport } from '../definition';
+import {
+  ITransport,
+  IStorage,
+} from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
 import { IUniversalComponentClassEntity, UniversalComponentPluginFactoryT } from '../entities-definitions.interface';
 import { staticInjector } from './di.support';

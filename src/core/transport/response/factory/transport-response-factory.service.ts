@@ -1,14 +1,14 @@
 import { injectable } from 'inversify';
 import * as R from 'ramda';
 
-import { IDataWrapper, AnyT } from '../../definitions.interface';
+import { IDataWrapper, AnyT } from '../../../definitions.interface';
 import {
   ITransportRequestEntity,
   ITransportResponseFactory,
   ITransportResponseFactoryEntity,
   TransportResponseFactoryPayloadT,
-} from '../../definition';
-import { isFn } from '../../util';
+} from '../../../definition';
+import { isFn } from '../../../util';
 
 @injectable()
 export class TransportResponseFactory implements ITransportResponseFactory {

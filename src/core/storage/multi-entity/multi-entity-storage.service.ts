@@ -1,5 +1,6 @@
 import { AnyT } from '../../definitions.interface';
-import { IMultiEntityStorageResult, IStorage } from '../storage.interface';
+import { IMultiEntityStorageResult } from '../storage.interface';
+import { IStorage } from '../../definition';
 import { IMultiItemEntity, IMultiEntity } from '../../entities-definitions.interface';
 
 export class MultiEntityStorage implements IStorage {

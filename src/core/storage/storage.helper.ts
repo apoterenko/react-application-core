@@ -2,7 +2,8 @@ import { injectable } from 'inversify';
 
 import { IApplicationStorageHelper } from './storage.interface';
 import { lazyInject } from '../di';
-import { IStorage, IMultiEntityStorageResult } from './storage.interface';
+import { IMultiEntityStorageResult } from './storage.interface';
+import { IStorage } from '../definition';
 import { isDef, orNull } from '../util';
 import { UNDEF } from '../definitions.interface';
 import { MultiEntityDatabaseStorage } from './multi-entity';
