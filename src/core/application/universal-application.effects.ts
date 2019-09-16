@@ -75,7 +75,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         : ApplicationActionBuilder.buildReadyAction()
     ];
 
-    if (await this.versionProcessor.hasBeenUpdated(isApplicationAuthorized)) {
+    if (await this.versionProcessor.processNewVersionUuidAndGetResult() && isApplicationAuthorized) {
       result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
       result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionHasBeenDeployedMessage));
     }

@@ -7,10 +7,9 @@ export class VersionProcessor implements IVersionProcessor {
 
   /**
    * @stable [16.09.2019]
-   * @param {boolean} isApplicationAuthorized
    * @returns {Promise<boolean>}
    */
-  public async hasBeenUpdated(isApplicationAuthorized: boolean): Promise<boolean> {
+  public async processNewVersionUuidAndGetResult(): Promise<boolean> {
     return false;
   }
 }

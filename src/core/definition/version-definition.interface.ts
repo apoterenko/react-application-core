@@ -15,5 +15,5 @@ export interface IVersionMetaFilesEntity
  * @stable [16.09.2019]
  */
 export interface IVersionProcessor {
-  hasBeenUpdated(isApplicationAuthorized: boolean): Promise<boolean>;
+  processNewVersionUuidAndGetResult(): Promise<boolean>;
 }

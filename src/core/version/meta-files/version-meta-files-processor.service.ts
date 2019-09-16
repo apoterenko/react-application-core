@@ -24,10 +24,9 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
 
   /**
    * @stable [16.09.2019]
-   * @param {boolean} isApplicationAuthorized
    * @returns {Promise<boolean>}
    */
-  public async hasBeenUpdated(isApplicationAuthorized: boolean): Promise<boolean> {
+  public async processNewVersionUuidAndGetResult(): Promise<boolean> {
     const metaFilesUrl = this.settings.metaFilesUrl;
     if (!isObjectNotEmpty(metaFilesUrl)) {
       VersionMetaFilesProcessor.logger.warn('[$VersionMetaFilesProcessor][needToBeUpdated] The setting url is empty!');
@@ -59,10 +58,6 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
 
     // Set remote app uuid to the local storage
     await storage.set(STORAGE_APP_UUID_KEY, remoteAppUuid);
-
-    if (!isApplicationAuthorized) {
-      return false;
-    }
 
     if (isObjectNotEmpty(localAppUuid)
       && isObjectNotEmpty(remoteAppUuid)
