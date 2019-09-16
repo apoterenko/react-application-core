@@ -179,42 +179,19 @@ export interface IActionIconsWrapper<TActionIcons> {
   actionIcons?: TActionIcons;
 }
 
-/**
- * @stable [27.11.2018]
- */
-export interface IWithCredentialsWrapper {
-  withCredentials?: boolean;
-}
-
-export interface IModeWrapper<TMode = string> { mode?: TMode; }
-
-/**
- * @stable [25.01.2019]
- */
-export interface IParamsWrapper<TParams = IKeyValue> {
-  params?: TParams;
-}
-
-/**
- * @stable [02.02.2019]
- */
-export interface IHeadersWrapper<THeaders = IKeyValue> {
-  headers?: THeaders;
-}
-
-/**
- * @stable [02.02.2019]
- */
-export interface IMethodWrapper {
-  method?: string;
-}
-
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
+export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
 export interface IColumnStylesWrapper<TColumnStyles> { columnStyles?: TColumnStyles; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
+export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
 export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
+export interface IMethodWrapper { method?: string; }
+export interface IModeWrapper<TMode = string> { mode?: TMode; }
+export interface IParamsWrapper<TParams = IKeyValue> { params?: TParams; }
+export interface IResponseTypeWrapper { responseType?: string; }
 export interface IUrlWrapper<TUrl = string> { url?: TUrl; }
+export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 
 /**
  * @stable [10.09.2018]
@@ -230,21 +207,11 @@ export interface IChannelsWrapper<TChannels = string> {
   channels?: TChannels;
 }
 
+export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
 export interface INoCacheWrapper { noCache?: boolean; }
 
-/**
- * @stable [02.02.2019]
- */
-export interface INoAuthWrapper {
-  noAuth?: boolean;
-}
-
-/**
- * @stable [02.02.2019]
- */
-export interface IAuthWrapper<TAuth = string> {
-  auth?: TAuth;
-}
+export interface INoAuthWrapper { noAuth?: boolean; }
+export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
 
 /* @stable - 01.04.2018 */
 export interface ISignInWrapper<TSignIn> {
@@ -852,7 +819,7 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
 
 export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
-export interface IBlobWrapper<TBlob = Blob> { blob?: TBlob; }
+export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
 export interface IFloatLabelWrapper { floatLabel?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
@@ -860,6 +827,9 @@ export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; 
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
 export interface IProgressWrapper { progress?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }
+export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
+export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
+export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 
 /**
@@ -906,20 +876,7 @@ export interface IDisplayValueWrapper<TDisplayValue = AnyT> {
   displayValue?: TDisplayValue;
 }
 
-/**
- * @stable [10.11.2018]
- */
-export interface ICodeWrapper<TCode = string> {
-  code?: TCode;
-}
-
-export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
-export interface INameWrapper<TName = string> { name?: TName; }
-export interface ITabIndexWrapper { tabIndex?: number; }
-
-export interface IReaderWrapper<TReader> {
-  reader?: TReader;
-}
+export interface ICodeWrapper<TCode = string> { code?: TCode; }
 
 /**
  * @stable [29.05.2018]
@@ -942,6 +899,7 @@ export interface IMaskWrapper<TMask = Array<string|RegExp>> {
   mask?: TMask;
 }
 
+export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 
 /**
@@ -975,11 +933,14 @@ export interface IRobotModeWrapper {
   useRobotMode?: boolean;
 }
 
+export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
+export interface INameWrapper<TName = string> { name?: TName; }
 export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
-export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
-export interface IUpdatedWrapper<TUpdated = boolean> { updated?: TUpdated; }
 export interface IReplacedWrapper<TReplaced = AnyT> { replaced?: TReplaced; }
 export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {}
+export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
+export interface ITabIndexWrapper { tabIndex?: number; }
+export interface IUpdatedWrapper<TUpdated = boolean> { updated?: TUpdated; }
 
 /**
  * @stable [17.05.2018]
@@ -1383,12 +1344,7 @@ export interface IUseUppercaseWrapper {
   useUppercase?: boolean;
 }
 
-/**
- * @stable [15.05.2018]
- */
-export interface IMessageWrapper<TMessage = string> {
-  message?: TMessage;
-}
+export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
 
 /**
  * @stable [17.05.2018]
@@ -2108,14 +2064,8 @@ export interface ICallbackWrapper<TCallback> {
   callback?: TCallback;
 }
 
+export interface IPathWrapper<TPath = string> { path?: TPath; }
 export interface IStateWrapper<TState> { state?: TState; }
-
-/**
- * @stable [03.06.2018]
- */
-export interface IPathWrapper<TPath = string> {
-  path?: TPath;
-}
 
 /**
  * @stable [17.06.2018]

@@ -2,11 +2,11 @@ import { injectable } from 'inversify';
 import * as URI from 'urijs';
 
 import {
+  ITransportFactory,
   ITransportRequestEntity,
-} from './transport.interface';
+} from '../definition';
 import { DI_TYPES, lazyInject } from '../di';
 import { ISettings } from '../settings';
-import { ITransportFactory } from './factory';
 import { IKeyValue } from '../definitions.interface';
 
 // TODO

@@ -2,23 +2,33 @@ import { injectable } from 'inversify';
 import * as URI from 'urijs';
 import * as R from 'ramda';
 
-import { defValuesFilter, isDef, notNilValuesFilter, isObjectNotEmpty } from '../../../util';
+import {
+  coalesce,
+  defValuesFilter,
+  isDef,
+  isObjectNotEmpty,
+  notNilValuesFilter,
+  nvl,
+  orUndef,
+} from '../../../util';
 import { DI_TYPES, lazyInject } from '../../../di';
 import {
   ITransportRequestPayloadFactory,
-  ITransportRequestPayloadEntity,
 } from './transport-request-payload-factory.interface';
+import { ISettings } from '../../../settings';
+import { IKeyValue } from '../../../definitions.interface';
 import {
   ITransportCancelTokenEntity,
   ITransportRequestEntity,
-} from '../../transport.interface';
-import { ISettings } from '../../../settings';
-import { IKeyValue } from '../../../definitions.interface';
-import { TransportMethodsEnum } from '../../../definition';
+  ITransportRequestPayloadEntity,
+  ITransportSettings,
+  TransportMethodsEnum,
+  TransportResponseTypesEnum,
+} from '../../../definition';
 
 @injectable()
 export abstract class BaseTransportRequestPayloadFactory implements ITransportRequestPayloadFactory {
-  @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
 
   /**
    * @stable [02.02.2019]
@@ -35,6 +45,9 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
         data: this.getData(requestEntity),
         cancelToken: cancelToken && cancelToken.token,
         withCredentials: this.getWithCredentials(requestEntity),
+        responseType: coalesce(
+          orUndef(requestEntity.blobResponse === true, () => TransportResponseTypesEnum.BLOB)
+        ),
       }
     );
   }
@@ -44,7 +57,7 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    * @param {ITransportRequestEntity} req
    * @returns {IKeyValue}
    */
-  public abstract makeRequestPayloadData(req: ITransportRequestEntity): IKeyValue;
+  public abstract makeRequestData(req: ITransportRequestEntity): IKeyValue;
 
   /**
    * @stable [02.02.2019]
@@ -52,12 +65,11 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    * @returns {string}
    */
   protected getUrl(requestEntity: ITransportRequestEntity): string {
-    const transportSettings = this.settings.transport;
     const url = new URI(this.getBaseUrl(requestEntity));
     if (requestEntity.noCache !== false
       && !(R.isNil(requestEntity.method) || [TransportMethodsEnum.POST]
         .includes(requestEntity.method as TransportMethodsEnum))) {
-      url.addSearch(transportSettings.noCachePrefix, Date.now());
+      url.addSearch(this.transportSettings.noCachePrefix, Date.now());
     }
     if (requestEntity.method === TransportMethodsEnum.GET) {
       const params = this.getData(requestEntity);
@@ -83,7 +95,7 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    * @returns {boolean}
    */
   protected getWithCredentials(requestEntity: ITransportRequestEntity): boolean {
-    return requestEntity.withCredentials || this.settings.transport.withCredentials;
+    return nvl(requestEntity.withCredentials, this.transportSettings.withCredentials);
   }
 
   /**
@@ -92,7 +104,7 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    * @returns {string}
    */
   protected getMethod(requestEntity: ITransportRequestEntity): string {
-    return requestEntity.method || this.settings.transport.method;
+    return nvl(requestEntity.method, this.transportSettings.method);
   }
 
   /**
@@ -102,8 +114,8 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    */
   protected getData(requestEntity: ITransportRequestEntity): IKeyValue {
     return requestEntity.formData
-      || requestEntity.blob
-      || this.makeRequestPayloadData(requestEntity);
+      || requestEntity.blobData
+      || this.makeRequestData(requestEntity);
   }
 
   /**
@@ -112,9 +124,9 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    * @returns {IKeyValue}
    */
   protected getHeaders(requestEntity: ITransportRequestEntity): IKeyValue {
-    const isBinaryData = this.isBinaryData(requestEntity);
+    const isBinaryData = this.isRequestBlobData(requestEntity);
     const isFormData = isDef(requestEntity.formData);
-    const transportSettings = this.settings.transport;
+    const transportSettings = this.transportSettings;
     const result = {
       ...requestEntity.headers,
     };
@@ -134,7 +146,15 @@ export abstract class BaseTransportRequestPayloadFactory implements ITransportRe
    * @param {ITransportRequestEntity} requestEntity
    * @returns {boolean}
    */
-  protected isBinaryData(requestEntity: ITransportRequestEntity): boolean {
-    return isDef(requestEntity.blob);
+  protected isRequestBlobData(requestEntity: ITransportRequestEntity): boolean {
+    return isDef(requestEntity.blobData);
+  }
+
+  /**
+   * @stable [15.09.2019]
+   * @returns {ITransportSettings}
+   */
+  private get transportSettings(): ITransportSettings {
+    return this.settings.transport;
   }
 }

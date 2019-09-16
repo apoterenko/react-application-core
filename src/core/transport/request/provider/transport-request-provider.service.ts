@@ -1,8 +1,10 @@
 import Axios from 'axios/dist/axios';
 import { injectable } from 'inversify';
 
-import { ITransportRequestProvider } from './transport-request-provider.interface';
-import { ITransportCancelTokenEntity } from '../../transport.interface';
+import {
+  ITransportCancelTokenEntity,
+  ITransportRequestProvider,
+} from '../../../definition';
 
 @injectable()
 export class TransportRequestProvider implements ITransportRequestProvider {

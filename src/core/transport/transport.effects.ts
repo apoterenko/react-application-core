@@ -2,7 +2,8 @@ import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-pro
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { IApplicationTransportErrorInterceptor, ITransportResponseEntity } from './transport.interface';
+import { ITransportResponseEntity, ITransportResponseAccessor } from '../definition';
+import { IApplicationTransportErrorInterceptor } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
@@ -11,15 +12,14 @@ import {
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
-import { ITransportResponseAccessor } from './response';
 
 @provideInSingleton(TransportEffects)
 export class TransportEffects {
   private static logger = LoggerFactory.makeLogger('TransportEffects');
 
-  @lazyInject(DI_TYPES.TransportResponseAccessor) private responseAccessor: ITransportResponseAccessor;
-  @lazyInject(DI_TYPES.TransportErrorInterceptor) private errorInterceptor: IApplicationTransportErrorInterceptor;
-  @lazyInject(DI_TYPES.Routes) private routes: IRoutesConfiguration;
+  @lazyInject(DI_TYPES.TransportResponseAccessor) private readonly responseAccessor: ITransportResponseAccessor;
+  @lazyInject(DI_TYPES.TransportErrorInterceptor) private readonly errorInterceptor: IApplicationTransportErrorInterceptor;
+  @lazyInject(DI_TYPES.Routes) private readonly routes: IRoutesConfiguration;
 
   @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
   public $onTransportRequestDone(action: IEffectsAction): IEffectsAction {

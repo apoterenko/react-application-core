@@ -27,7 +27,6 @@ import {
   IFromDateFromTimeEntity,
   IGetSelfWrapper,
   IGetValueWrapper,
-  IHeadersWrapper,
   IIconWrapper,
   IIdWrapper,
   IIndexWrapper,
@@ -42,7 +41,6 @@ import {
   ILoadingWrapper,
   ILockWrapper,
   ILoginWrapper,
-  IMethodWrapper,
   IModeWrapper,
   INameWrapper,
   INeedToDestroySectionsWrapper,
@@ -85,7 +83,6 @@ import {
   IUserWrapper,
   IValueWrapper,
   IWidthWrapper,
-  IWithCredentialsWrapper,
   IXWrapper,
   IYWrapper,
 } from './definitions.interface';
@@ -543,7 +540,7 @@ export interface IUniversalApplicationStoreEntity<TDictionaries = {}> extends IA
                                                                               IDictionariesWrapper<TDictionaries> {
 }
 
-/* @stable - 23.07.2018 */
+// TODO Renaming
 export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries>,
                                                                      ILayoutWrapperEntity,
                                                                      INotificationWrapperEntity {
@@ -786,13 +783,4 @@ export interface IStickyElementPayloadEntity {
   jqStickyElHeight?: number;
   initialStickyElTop?: number;
   initial?: boolean;
-}
-
-/**
- * @stable [02.02.2019]
- */
-export interface IBaseTransportRequestEntity
-  extends IWithCredentialsWrapper,
-          IMethodWrapper,
-          IHeadersWrapper {
 }

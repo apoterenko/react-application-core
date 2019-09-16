@@ -1,13 +1,13 @@
 import { injectable } from 'inversify';
 import * as R from 'ramda';
 
-import {
-  ITransportResponseFactory,
-  TransportResponseFactoryPayloadT,
-  ITransportResponseFactoryResponseEntity,
-} from './transport-response-factory.interface';
 import { IDataWrapper, AnyT } from '../../definitions.interface';
-import { ITransportRequestEntity } from '../transport.interface';
+import {
+  ITransportRequestEntity,
+  ITransportResponseFactory,
+  ITransportResponseFactoryEntity,
+  TransportResponseFactoryPayloadT,
+} from '../../definition';
 import { isFn } from '../../util';
 
 @injectable()
@@ -18,9 +18,9 @@ export class TransportResponseFactory implements ITransportResponseFactory {
    *
    * @stable [01.02.2019]
    * @param {TransportResponseFactoryPayloadT} payloadEntity
-   * @returns {ITransportResponseFactoryResponseEntity}
+   * @returns {ITransportResponseFactoryEntity}
    */
-  public makeErrorResponse(payloadEntity: {response?, message?}): ITransportResponseFactoryResponseEntity {
+  public makeErrorResponse(payloadEntity: {response?, message?}): ITransportResponseFactoryEntity {
     const response = payloadEntity.response;
     return {
       error: true,
@@ -40,21 +40,21 @@ export class TransportResponseFactory implements ITransportResponseFactory {
    * @stable [02.02.2019]
    * @param {ITransportRequestEntity} req
    * @param {IDataWrapper} payloadEntity
-   * @returns {ITransportResponseFactoryResponseEntity}
+   * @returns {ITransportResponseFactoryEntity}
    */
   public makeResponse(req: ITransportRequestEntity,
-                      payloadEntity: IDataWrapper<AnyT>): ITransportResponseFactoryResponseEntity {
+                      payloadEntity: IDataWrapper<AnyT>): ITransportResponseFactoryEntity {
     const data = payloadEntity.data;
-    const errorData = this.readErrorResponseData(data);
+    const errorData = this.readResponseErrorData(data);
     if (!R.isNil(errorData)) {
       return {
         ...errorData,
         error: true,
       };
     }
-    return {result: isFn(req.reader)
-        ? req.reader(data)
-        : this.readResponseData(data)};
+    return {
+      result: isFn(req.responseReader) ? req.responseReader(data) : this.readResponseData(data),
+    };
   }
 
   /**
@@ -69,9 +69,9 @@ export class TransportResponseFactory implements ITransportResponseFactory {
   /**
    * @stable [04.02.2019]
    * @param {AnyT} data
-   * @returns {ITransportResponseFactoryResponseEntity}
+   * @returns {ITransportResponseFactoryEntity}
    */
-  protected readErrorResponseData<TData>(data: AnyT): ITransportResponseFactoryResponseEntity {
+  protected readResponseErrorData<TData>(data: AnyT): ITransportResponseFactoryEntity {
     return null;
   }
 }

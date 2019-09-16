@@ -1,13 +1,14 @@
 import { Store } from 'redux';
 
 import { DI_TYPES } from './di.interface';
-import { staticInjector } from './di.support';
 import { INumberConverter } from '../converter';
-import { IUIFactory } from '../component/factory/factory.interface';
-import { TranslatorT } from '../translation';
 import { ISettings } from '../settings';
 import { IStorage } from '../storage';
+import { ITransport } from '../definition';
+import { IUIFactory } from '../component/factory/factory.interface';
 import { IUniversalComponentClassEntity, UniversalComponentPluginFactoryT } from '../entities-definitions.interface';
+import { staticInjector } from './di.support';
+import { TranslatorT } from '../translation';
 
 /**
  * @stable [31.10.2018]
@@ -57,3 +58,9 @@ export const getApi = <TApi>(): TApi => staticInjector(DI_TYPES.Api);
  * @returns {Store<TState>}
  */
 export const getStore = <TState>(): Store<TState> => staticInjector(DI_TYPES.Store);
+
+/**
+ * @stable [15.09.2019]
+ * @returns {ITransport}
+ */
+export const getTransport = (): ITransport => staticInjector(DI_TYPES.Transport);

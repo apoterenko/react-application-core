@@ -1,8 +1,9 @@
 import { injectable } from 'inversify';
 
-import { ITransportResponseFactoryResponseEntity } from '../transport-response-factory.interface';
-import { ITransportResponseAccessor } from './transport-response-accessor.interface';
-import { ITransportResponseEntity } from '../../transport.interface';
+import {
+  ITransportResponseEntity,
+  ITransportResponseAccessor,
+} from '../../../definition';
 
 @injectable()
 export class TransportResponseAccessor implements ITransportResponseAccessor {
@@ -18,10 +19,10 @@ export class TransportResponseAccessor implements ITransportResponseAccessor {
 
   /**
    * @stable [05.02.2019]
-   * @param {ITransportResponseFactoryResponseEntity} responseEntity
+   * @param {ITransportResponseEntity} responseEntity
    * @returns {boolean}
    */
-  public isAuthError(responseEntity: ITransportResponseFactoryResponseEntity): boolean {
+  public isAuthError(responseEntity: ITransportResponseEntity): boolean {
     return false;
   }
 }

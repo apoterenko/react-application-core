@@ -7,23 +7,21 @@ import { notNilValuesFilter, ifNotNilThanValue, toType, coalesce } from '../util
 import { IKeyValue } from '../definitions.interface';
 import { IApplicationStoreEntity } from '../entities-definitions.interface';
 import {
-  ITransport,
-  ITransportRequestEntity,
-  ITransportResponseEntity,
-  ITransportRequestMetaEntity,
-} from './transport.interface';
-import {
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { ITransportFactoryResponseEntity, ITransportFactory } from './factory';
 import { ITransportRequestPayloadFactory } from './request';
 import { ILogManager } from '../log';
 import { ENV } from '../env';
 import {
   EnvironmentVariablesEnum,
+  ITransport,
+  ITransportFactory,
+  ITransportResponseFactoryEntity,
+  ITransportRequestEntity,
+  ITransportResponseEntity,
   TransportEventsEnum,
 } from '../definition';
 
@@ -48,8 +46,8 @@ export class Transport implements ITransport {
    * @param {ITransportRequestEntity} requestEntity
    * @returns {IKeyValue}
    */
-  public makeRequestPayloadData(requestEntity: ITransportRequestEntity): IKeyValue {
-    return this.requestPayloadFactory.makeRequestPayloadData(requestEntity);
+  public makeRequestData(requestEntity: ITransportRequestEntity): IKeyValue {
+    return this.requestPayloadFactory.makeRequestData(requestEntity);
   }
 
   /**
@@ -59,11 +57,11 @@ export class Transport implements ITransport {
    */
   public async request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
     this.cancelRequest(req); // Try cancel the same request automatically
-    this.store.dispatch({type: TRANSPORT_REQUEST_ACTION_TYPE, data: this.toRequestMetaEntity(req)});
+    this.store.dispatch({type: TRANSPORT_REQUEST_ACTION_TYPE, data: this.toResponseMetaEntity(req)});
 
-    let responseEntity: ITransportFactoryResponseEntity;
+    let responseFactoryEntity: ITransportResponseFactoryEntity;
     try {
-      responseEntity = await this.getTransportFactory(req).request(
+      responseFactoryEntity = await this.getTransportFactory(req).request(
         req,
         (payload) =>
           (this.logManager.send(TransportEventsEnum.TRANSPORT, this.toLogEventName(req), payload), payload)
@@ -79,13 +77,13 @@ export class Transport implements ITransport {
         throw e;
       }
     }
-    if (responseEntity.error) {
-      Transport.logger.warn('[$Transport][request] The business logic error has occurred:', responseEntity);
-      this.onRequestError(req, responseEntity);
-      throw responseEntity;
+    if (responseFactoryEntity.error) {
+      Transport.logger.warn('[$Transport][request] The business logic error has occurred:', responseFactoryEntity);
+      this.onRequestError(req, responseFactoryEntity);
+      throw responseFactoryEntity;
     } else {
-      this.onRequestDone(req, responseEntity);
-      return responseEntity.result;
+      this.onRequestDone(req, responseFactoryEntity);
+      return responseFactoryEntity.result;
     }
   }
 
@@ -102,7 +100,7 @@ export class Transport implements ITransport {
    * @param {ITransportRequestEntity} req
    */
   private onRequestCancel(req: ITransportRequestEntity): void {
-    this.store.dispatch({type: TRANSPORT_REQUEST_CANCEL_ACTION_TYPE, data: this.toRequestMetaEntity(req)});
+    this.store.dispatch({type: TRANSPORT_REQUEST_CANCEL_ACTION_TYPE, data: this.toResponseMetaEntity(req)});
   }
 
   /**
@@ -116,7 +114,7 @@ export class Transport implements ITransport {
     this.store.dispatch({
       type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
       data: toType<ITransportResponseEntity>({
-        ...this.toRequestMetaEntity(req),
+        ...this.toResponseMetaEntity(req),
         ...responseEntity,
       }),
     });
@@ -131,7 +129,7 @@ export class Transport implements ITransport {
     this.store.dispatch({
       type: TRANSPORT_REQUEST_DONE_ACTION_TYPE,
       data: toType<ITransportResponseEntity>({
-        ...this.toRequestMetaEntity(req),
+        ...this.toResponseMetaEntity(req),
         ...responseEntity,
       }),
     });
@@ -140,10 +138,10 @@ export class Transport implements ITransport {
   /**
    * @stable [01.02.2019]
    * @param {ITransportRequestEntity} req
-   * @returns {ITransportRequestMetaEntity}
+   * @returns {ITransportResponseEntity}
    */
-  private toRequestMetaEntity(req: ITransportRequestEntity): ITransportRequestMetaEntity {
-    return notNilValuesFilter<ITransportRequestMetaEntity, ITransportRequestMetaEntity>({
+  private toResponseMetaEntity(req: ITransportRequestEntity): ITransportResponseEntity {
+    return notNilValuesFilter<ITransportResponseEntity, ITransportResponseEntity>({
       name: req.name,
       operationId: this.toOperationId(req),
     });

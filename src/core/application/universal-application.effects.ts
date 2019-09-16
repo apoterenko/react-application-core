@@ -7,6 +7,10 @@ import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { orNull, isArrayNotEmpty } from '../util';
 import { ISettings } from '../settings';
+import {
+  ITransportFactory,
+  ITransportResponseAccessor,
+} from '../definition';
 import { ITokenWrapper } from '../definitions.interface';
 import { IRoutesConfiguration } from '../configurations-definitions.interface';
 import { STORAGE_APP_TOKEN_KEY, STORAGE_APP_UUID_KEY, IStorage } from '../storage/storage.interface';
@@ -20,8 +24,6 @@ import { IUniversalApplicationStoreEntity } from '../entities-definitions.interf
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
 import { FetchJsonTransportFactory } from '../transport/fetch-json-transport.factory';
-import { ITransportFactory } from '../transport/factory/transport-factory.interface';
-import { ITransportResponseAccessor } from '../transport/response/accessor/transport-response-accessor.interface';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {

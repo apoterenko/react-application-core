@@ -16,7 +16,7 @@ import { IEntity, StringNumberT, UNDEF_SYMBOL } from '../definitions.interface';
 import { INumberConverter } from '../converter';
 import { ISettings } from '../settings';
 import { isString } from '../util';
-import { ITransport, ITransportRequestEntity } from './transport.interface';
+import { ITransportRequestEntity, ITransport } from '../definition';
 import { lazyInject, DI_TYPES } from '../di';
 
 @injectable()
@@ -62,7 +62,7 @@ export class BaseTransport {
    * @param {ITransportRequestEntity} params
    */
   protected downloadFile(params: ITransportRequestEntity): void {
-    const requestParams = this.transport.makeRequestPayloadData(params);
+    const requestParams = this.transport.makeRequestData(params);
     downloadFileAsBlobUrl(join([this.settings.downloadUrl, buildUrl(requestParams)]));
   }
 

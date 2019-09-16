@@ -1,8 +1,10 @@
 import { injectable } from 'inversify';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { ITransport } from '../../transport';
-import { IOperationEntity } from '../../definition';
+import {
+  IOperationEntity,
+  ITransport,
+} from '../../definition';
 
 @injectable()
 export class BaseEffects<TApi> {

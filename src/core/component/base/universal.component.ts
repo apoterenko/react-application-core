@@ -24,7 +24,11 @@ import { IUniversalComponentProps } from '../../props-definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
 import { IStorage } from '../../storage';
-import { getUiPlugins } from '../../di';
+import {
+  getTransport,
+  getUiPlugins,
+} from '../../di';
+import { ITransport } from '../../definition';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>
@@ -180,6 +184,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get domAccessor(): IDomAccessor {
     return staticInjector(DI_TYPES.DomAccessor);
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [15.09.2019]
+   * @returns {ITransport}
+   */
+  protected get transport(): ITransport {
+    return getTransport();
   }
 
   /**

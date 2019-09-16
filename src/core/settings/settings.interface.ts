@@ -1,8 +1,11 @@
 import { ENV } from '../env';
 import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
-import { IBaseTransportRequestEntity } from '../entities-definitions.interface';
-import { IButtonProps, StorageTypeEnum } from '../definition';
+import {
+  IButtonProps,
+  StorageTypeEnum,
+  ITransportSettings,
+} from '../definition';
 
 export interface IApplicationCurrencySettings {
   uiLocale?: string;
@@ -11,17 +14,6 @@ export interface IApplicationCurrencySettings {
 
 export interface IApplicationResourcePaths {
   uiDefaultIconPath?: string;
-}
-
-/**
- * @stable [02.02.2019]
- */
-export interface ITransportSettings extends IBaseTransportRequestEntity {
-  binaryContentType?: string;
-  formDataContentType?: string;
-  binaryUrl?: string;
-  apiUrl?: string;
-  noCachePrefix?: string;
 }
 
 export enum StartDayOfWeekT {
@@ -178,7 +170,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     binaryContentType: 'application/octet-stream',
     formDataContentType: 'multipart/form-data',
     apiUrl: prepareUrl(ENV.basePath + '/api/'),
-    binaryUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
+    uploadUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
     noCachePrefix: '_dc',
   },
   messages: {

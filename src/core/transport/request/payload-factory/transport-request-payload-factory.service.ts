@@ -8,13 +8,10 @@ import {
   orNull,
   uuid,
 } from '../../../util';
-import { DI_TYPES, lazyInject } from '../../../di';
-import {
-  ITransportRequestEntity,
-  ITransportTokenAccessor,
-} from '../../transport.interface';
 import { BaseTransportRequestPayloadFactory } from './base-transport-request-payload-factory.service';
-import { ITransportRequestPayloadDataEntity } from './transport-request-payload-factory.interface';
+import { DI_TYPES, lazyInject } from '../../../di';
+import { ITransportRequestEntity, ITransportJsonRpcRequestDataEntity } from '../../../definition';
+import { ITransportTokenAccessor } from '../../transport.interface';
 
 @injectable()
 export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadFactory {
@@ -23,10 +20,10 @@ export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadF
   /**
    * @stable [02.02.2019]
    * @param {ITransportRequestEntity} req
-   * @returns {ITransportRequestPayloadDataEntity}
+   * @returns {ITransportJsonRpcRequestDataEntity}
    */
-  public makeRequestPayloadData(req: ITransportRequestEntity): ITransportRequestPayloadDataEntity {
-    return notNilValuesFilter<ITransportRequestPayloadDataEntity, ITransportRequestPayloadDataEntity>({
+  public makeRequestData(req: ITransportRequestEntity): ITransportJsonRpcRequestDataEntity {
+    return notNilValuesFilter<ITransportJsonRpcRequestDataEntity, ITransportJsonRpcRequestDataEntity>({
       id: uuid(),
       name: req.name,
       params: req.params && defValuesFilter(req.params),
@@ -41,7 +38,7 @@ export class TransportRequestPayloadFactory extends BaseTransportRequestPayloadF
    */
   protected getBaseUrl(requestEntity: ITransportRequestEntity): string {
     const transportSettings = this.settings.transport;
-    const url = this.isBinaryData(requestEntity) ? transportSettings.binaryUrl : transportSettings.apiUrl;
+    const url = this.isRequestBlobData(requestEntity) ? transportSettings.uploadUrl : transportSettings.apiUrl;
 
     return nvl(
       requestEntity.url,

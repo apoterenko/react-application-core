@@ -1,16 +1,18 @@
 import { injectable } from 'inversify';
 import * as R from 'ramda';
 
-import { lazyInject, DI_TYPES } from '../../di';
-import { uuid, ifNotNilThanValue, isFn } from '../../util';
-import {
-  ITransportRequestEntity,
-  ITransportCancelTokenEntity,
-} from '../transport.interface';
-import { ITransportRequestProvider, ITransportRequestPayloadFactory } from '../request';
-import { ITransportResponseFactory } from '../response';
 import { ISettings } from '../../settings';
-import { ITransportFactory, ITransportFactoryResponseEntity } from './transport-factory.interface';
+import {
+  ITransportCancelTokenEntity,
+  ITransportFactory,
+  ITransportRequestEntity,
+  ITransportRequestProvider,
+  ITransportResponseFactory,
+  ITransportResponseFactoryEntity,
+} from '../../definition';
+import { ITransportRequestPayloadFactory } from '../request';
+import { lazyInject, DI_TYPES } from '../../di';
+import { uuid, ifNotNilThanValue, isFn, nvl } from '../../util';
 
 @injectable()
 export class TransportFactory implements ITransportFactory {
@@ -25,14 +27,15 @@ export class TransportFactory implements ITransportFactory {
    * @stable [11.08.2019]
    * @param {ITransportRequestEntity} req
    * @param {(payload: ITransportRequestEntity) => ITransportRequestEntity} requestPayloadHandler
-   * @returns {Promise<ITransportFactoryResponseEntity>}
+   * @returns {Promise<ITransportResponseFactoryEntity>}
    */
   public async request(req: ITransportRequestEntity,
-                       requestPayloadHandler?: (payload: ITransportRequestEntity) => ITransportRequestEntity): Promise<ITransportFactoryResponseEntity> {
+                       requestPayloadHandler?: (payload: ITransportRequestEntity) => ITransportRequestEntity): Promise<ITransportResponseFactoryEntity> {
     let cancelTokenEntity: ITransportCancelTokenEntity;
     const operationId = this.toOperationId(req);
+    const requestProvider = this.getRequestProvider(req);
     if (operationId) {
-      cancelTokenEntity = this.requestProvider.provideCancelToken();
+      cancelTokenEntity = requestProvider.provideCancelToken();
       if (cancelTokenEntity) {
         this.operationsIdsMap.set(operationId, cancelTokenEntity);
       }
@@ -40,7 +43,7 @@ export class TransportFactory implements ITransportFactory {
     let res;
     const requestPayload = this.requestPayloadFactory.makeRequestPayload(req, cancelTokenEntity);
     try {
-      res = await this.requestProvider.provideRequest(
+      res = await requestProvider.provideRequest(
         isFn(requestPayloadHandler) ? requestPayloadHandler(requestPayload) : requestPayload
       );
       this.clearOperation(operationId);
@@ -53,7 +56,7 @@ export class TransportFactory implements ITransportFactory {
           cancelled: true,
         };
       } else {
-        // Does not need to remove canceled operation because the next request does clear it
+        // Does not need to remove canceled operation because the next request will clear it
         this.clearOperation(operationId);
       }
       throw eResponse;
@@ -91,7 +94,16 @@ export class TransportFactory implements ITransportFactory {
    * @returns {ITransportResponseFactory}
    */
   private getResponseFactory(req: ITransportRequestEntity): ITransportResponseFactory {
-    return req.responseFactory || this.responseFactory;
+    return nvl(req.responseFactory, this.responseFactory);
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @param {ITransportRequestEntity} req
+   * @returns {ITransportRequestProvider}
+   */
+  private getRequestProvider(req: ITransportRequestEntity): ITransportRequestProvider {
+    return nvl(req.requestProvider, this.requestProvider);
   }
 
   /**
