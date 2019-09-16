@@ -5,6 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { DI_TYPES, lazyInject } from '../../di';
 import { ISettings } from '../../settings';
 import { isObjectNotEmpty, nvl } from '../../util';
+import { Operation } from '../../operation';
 import {
   IStorage,
   ITransport,
@@ -12,6 +13,7 @@ import {
   IVersionProcessor,
   STORAGE_APP_UUID_KEY,
   TransportMethodsEnum,
+  VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID,
 } from '../../definition';
 
 @injectable()
@@ -38,7 +40,12 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
     try {
       data = await Promise.all([
         storage.get(STORAGE_APP_UUID_KEY),
-        this.transport.request({url: metaFilesUrl, method: TransportMethodsEnum.GET, noAuth: true})
+        this.transport.request({
+          url: metaFilesUrl,
+          method: TransportMethodsEnum.GET,
+          noAuth: true,
+          operation: Operation.create(VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID),
+        })
       ]);
     } catch (e) {
       VersionMetaFilesProcessor.logger.error('[$VersionMetaFilesProcessor][needToBeUpdated] Error:', e);

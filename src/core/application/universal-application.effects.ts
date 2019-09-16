@@ -153,11 +153,12 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable - 25.04.2018
-   * @returns {IEffectsAction[] | Promise<IEffectsAction[]>}
+   * @stable [16.09.2019]
+   * @returns {Promise<IEffectsAction[]>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
-  public $onAfterLogout(): IEffectsAction[]|Promise<IEffectsAction[]> {
+  public async $onAfterLogout(): Promise<IEffectsAction[]> {
+    await this.processNewVersionAndReload();
     return [
       NotificationActionBuilder.buildInfoAction(this.settings.messages.logoutNotificationMessage),
       TransportActionBuilder.buildDestroyTokenAction()
@@ -187,5 +188,15 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     await this.notVersionedPersistentStorage.remove(STORAGE_APP_TOKEN_KEY);
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
+  }
+
+  /**
+   * @stable [16.09.2019]
+   * @returns {Promise<void>}
+   */
+  protected async processNewVersionAndReload(): Promise<void> {
+    if (await this.versionProcessor.processNewVersionUuidAndGetResult()) {
+      location.reload();
+    }
   }
 }
