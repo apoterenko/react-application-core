@@ -9,6 +9,8 @@ export enum EnvironmentVariablesEnum {
  * @stable [11.09.2019]
  */
 export interface IEnvironment {
+  appNamespace: string;
+  appProfile: string;
   document: Document;
   documentClickEvent: string;
 }

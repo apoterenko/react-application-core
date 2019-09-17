@@ -1,4 +1,7 @@
-import { appContainer, DI_TYPES } from '../di';
+import { bindInSingleton, DI_TYPES } from '../di';
 import { PermissionsService } from './permissions.service';
 
-appContainer.bind(DI_TYPES.Permission).to(PermissionsService).inSingletonScope();
+/**
+ * @stable [18.09.2019]
+ */
+bindInSingleton(DI_TYPES.Permission, PermissionsService);

@@ -9,7 +9,7 @@ import {
 export class PermissionsActionBuilder {
 
   public static buildUpdateAction(data: AnyT): IEffectsAction {
-    return EffectsAction.create(PERMISSIONS_UPDATE_ACTION_TYPE, data);
+    return EffectsAction.create(PERMISSIONS_UPDATE_ACTION_TYPE, {updated: data});
   }
 
   public static buildDestroyAction(): IEffectsAction {

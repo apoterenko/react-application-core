@@ -7,7 +7,6 @@ import {
   FROM_TIME_FIELD_NAME,
   TO_TIME_FIELD_NAME,
   TIME_FIELD_NAME,
-  EFFECTOR_FIELD_NAME,
   IEntity,
   EntityIdT,
 } from '../definitions.interface';
@@ -59,7 +58,6 @@ export function excludeFieldsPredicateFactory(...fields: string[]) {
 }
 
 export const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
-export const EXCLUDE_EFFECTOR_FIELD_PREDICATE = excludeFieldsPredicateFactory(EFFECTOR_FIELD_NAME);
 export const EXCLUDE_TIME_FIELDS_PREDICATE = excludeFieldsPredicateFactory(
   TIME_FIELD_NAME,
   FROM_TIME_FIELD_NAME,
@@ -211,9 +209,6 @@ export const notEmptyValuesFilter = <TSource extends IKeyValue, TResult extends 
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);
-
-export const excludeEffectorFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-  filterByPredicate<TSource, TResult>(source, EXCLUDE_EFFECTOR_FIELD_PREDICATE);
 
 /**
  * @stable [16.06.2018]

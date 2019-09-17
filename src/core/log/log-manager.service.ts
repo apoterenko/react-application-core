@@ -5,7 +5,7 @@ import { Store } from 'redux';
 
 import { ILogManager } from './log-manager.interface';
 import { ENV } from '../env';
-import { IApplicationStoreEntity } from '../entities-definitions.interface';
+import { IStoreEntity } from '../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../di';
 import { AnyT } from '../definitions.interface';
 import { IDateConverter } from '../converter';
@@ -14,7 +14,7 @@ import { IDateConverter } from '../converter';
 export class LogManager implements ILogManager {
   private static readonly logger = LoggerFactory.makeLogger('Transport');
 
-  @lazyInject(DI_TYPES.Store) private readonly store: Store<IApplicationStoreEntity>;
+  @lazyInject(DI_TYPES.Store) private readonly store: Store<IStoreEntity>;
   @lazyInject(DI_TYPES.DateConverter) private readonly dc: IDateConverter;
 
   /**

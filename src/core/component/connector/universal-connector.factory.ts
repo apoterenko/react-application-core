@@ -4,7 +4,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
 import { IContainerProps, IUniversalContainerProps } from '../../props-definitions.interface';
-import { IUniversalApplicationStoreEntity, IUniversalContainerClassEntity } from '../../entities-definitions.interface';
+import { IUniversalStoreEntity, IUniversalContainerClassEntity } from '../../entities-definitions.interface';
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('universal-connector.factory');
@@ -12,10 +12,10 @@ const logger = LoggerFactory.makeLogger('universal-connector.factory');
 /**
  * @stable [27.08.2018]
  * @param {IUniversalContainerClassEntity} containerCtor
- * @param {ConnectorMapperT<TStoreEntity extends IUniversalApplicationStoreEntity>} mappers
+ * @param {ConnectorMapperT<TStoreEntity extends IUniversalStoreEntity>} mappers
  * @returns {IUniversalContainerClassEntity}
  */
-export const universalConnectorFactory = <TStoreEntity extends IUniversalApplicationStoreEntity = IUniversalApplicationStoreEntity>(
+export const universalConnectorFactory = <TStoreEntity extends IUniversalStoreEntity = IUniversalStoreEntity>(
   containerCtor: IUniversalContainerClassEntity,
   ...mappers: Array<ConnectorMapperT<TStoreEntity>>): IUniversalContainerClassEntity => {
 

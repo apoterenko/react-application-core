@@ -20,7 +20,7 @@ import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.bui
 import { TransportActionBuilder } from '../transport/transport-action.builder';
 import { NotificationActionBuilder } from '../notification/notification-action.builder';
 import { UserActionBuilder } from '../user/user-action.builder';
-import { IUniversalApplicationStoreEntity } from '../entities-definitions.interface';
+import { IUniversalStoreEntity } from '../entities-definitions.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
 
@@ -63,11 +63,11 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   /**
    * @stable [16.09.2019]
    * @param {IEffectsAction} _
-   * @param {IUniversalApplicationStoreEntity} state
+   * @param {IUniversalStoreEntity} state
    * @returns {Promise<IEffectsAction[]>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterInitActionType())
-  public async $onAfterInit(_: IEffectsAction, state: IUniversalApplicationStoreEntity): Promise<IEffectsAction[]> {
+  public async $onAfterInit(_: IEffectsAction, state: IUniversalStoreEntity): Promise<IEffectsAction[]> {
     const isApplicationAuthorized = state.application.authorized;
     const result: IEffectsAction[] = [
       isApplicationAuthorized
@@ -100,7 +100,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    */
   @EffectsService.effects(ApplicationActionBuilder.buildPrepareDoneActionType())
   public $onPrepareDone(action: IEffectsAction,
-                        state: IUniversalApplicationStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
+                        state: IUniversalStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
     return ApplicationActionBuilder.buildReadyAction();
   }
 
@@ -168,10 +168,10 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   /**
    * @stable - 25.04.2018
    * @param {IEffectsAction} action
-   * @param {IUniversalApplicationStoreEntity} state
+   * @param {IUniversalStoreEntity} state
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAuthorizedActionType())
-  public async $onAuthorized(action: IEffectsAction, state: IUniversalApplicationStoreEntity): Promise<void> {
+  public async $onAuthorized(action: IEffectsAction, state: IUniversalStoreEntity): Promise<void> {
     const payload: ITokenWrapper = action.data;
     const token = payload && payload.token || state.transport.token;
 

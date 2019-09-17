@@ -34,7 +34,7 @@ import {
   ITransportWrapperEntity,
   IUserWrapperEntity,
   IDictionariesWrapperEntity,
-  IUniversalApplicationStoreEntity,
+  IUniversalStoreEntity,
   IDataMutatorEntity,
   IDictionaryEntity,
   ISelectOptionEntity,
@@ -46,28 +46,28 @@ import {
 } from '../../configurations-definitions.interface';
 
 /* @stable - 22.04.2018 */
-export const dictionariesMapper = (storeEntity: IUniversalApplicationStoreEntity): IDictionariesWrapperEntity => ({
+export const dictionariesMapper = (storeEntity: IUniversalStoreEntity): IDictionariesWrapperEntity => ({
   dictionaries: {
     ...storeEntity.dictionaries,
   },
 });
 
 /* @stable - 16.04.2018 */
-export const userMapper = (storeEntity: IUniversalApplicationStoreEntity): IUserWrapperEntity => ({
+export const userMapper = (storeEntity: IUniversalStoreEntity): IUserWrapperEntity => ({
   user: {
     ...storeEntity.user,
   },
 });
 
 /* @stable - 16.04.2018 */
-export const transportMapper = (storeEntity: IUniversalApplicationStoreEntity): ITransportWrapperEntity => ({
+export const transportMapper = (storeEntity: IUniversalStoreEntity): ITransportWrapperEntity => ({
   transport: {
     ...storeEntity.transport,
   },
 });
 
 /**
- * @deprecated
+ * @deprecated mapEditableEntity
  */
 export const formMapper = (editableEntity: IEditableEntity): IEditableEntityFormWrapperEntity => ({
   form: {
@@ -135,7 +135,7 @@ export const listSelector = (listWrapperEntity: IListWrapperEntity): IListEntity
   ifNotNilThanValue<IListWrapperEntity, IListEntity>(listWrapperEntity, () => listWrapperEntity.list);
 
 /**
- * @deprecated
+ * @deprecated Use mapListWrapperEntity
  */
 export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity =>
   listMapper(listSelector(listWrapperEntity), dataMutator);
@@ -199,7 +199,7 @@ export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperE
   ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));
 
 /**
- * @deprecated
+ * @deprecated Use mapListSelectedExtendedEntity
  */
 export const listWrapperSelectedEntityMapper =
   <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
@@ -219,18 +219,14 @@ export const disabledListEntityMapper = (listEntity: IListEntity): IDisabledWrap
 });
 
 /**
- * @stable [29.05.2018]
- * @param {IListEntity} listEntity
- * @returns {IActionsDisabledWrapper}
+ * @deprecated
  */
 export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActionsDisabledWrapper => ({
   actionsDisabled: listEntity.progress,
 });
 
 /**
- * @stable [29.05.2018]
- * @param {IListWrapperEntity} listWrapperEntity
- * @returns {IActionsDisabledWrapper}
+ * @deprecated
  */
 export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IActionsDisabledWrapper =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);

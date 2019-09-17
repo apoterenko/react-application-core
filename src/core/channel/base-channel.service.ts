@@ -17,7 +17,7 @@ import {
   IChannelClient,
 } from './channel.interface';
 import { PayloadWrapper } from './protocol';
-import { IApplicationStoreEntity } from '../entities-definitions.interface';
+import { IStoreEntity } from '../entities-definitions.interface';
 import { IChannelMessageEntity } from '../definition';
 
 @injectable()
@@ -25,7 +25,7 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IC
   protected static logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<IApplicationStoreEntity>;
+  @lazyInject(DI_TYPES.Store) protected appStore: Store<IStoreEntity>;
 
   private clients = new Map<string, IChannelClient>();
 

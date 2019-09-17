@@ -4,12 +4,12 @@ import './stack/stack.module';
 import { buildUniversalStore } from './universal-store.factory';
 import { ISettings } from '../settings';
 import { defaultReducers } from './store.interface';
-import { IApplicationStoreEntity } from '../entities-definitions.interface';
+import { IStoreEntity } from '../entities-definitions.interface';
 
 export function makeStore(reducers: ReducersMapObject,
                           applicationSettings?: ISettings,
-                          appMiddlewares?: Middleware[]): Promise<Store<IApplicationStoreEntity>> {
-  return buildUniversalStore<IApplicationStoreEntity>(
+                          appMiddlewares?: Middleware[]): Promise<Store<IStoreEntity>> {
+  return buildUniversalStore<IStoreEntity>(
     {
       ...defaultReducers,
       ...reducers,

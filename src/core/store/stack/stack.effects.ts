@@ -11,14 +11,14 @@ import {
 import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
 import { StackActionBuilder } from './stack-action.builder';
 import { getDestroyableSections } from './stack.helper';
-import { IApplicationStoreEntity } from '../../entities-definitions.interface';
+import { IStoreEntity } from '../../entities-definitions.interface';
 
 @provideInSingleton(StackEffects)
 export class StackEffects {
   private static logger = LoggerFactory.makeLogger('StackEffects');
 
   @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
-  public $onStackPush(action: IEffectsAction, state: IApplicationStoreEntity): IEffectsAction[] {
+  public $onStackPush(action: IEffectsAction, state: IStoreEntity): IEffectsAction[] {
     const currentSection = action.data;
     const destroyableSections = getDestroyableSections(currentSection, state.stack);
 

@@ -16,6 +16,7 @@ export * from './form-definition.interface';
 export * from './navigation-definition.interface';
 export * from './operation-definition.interface';
 export * from './page-definition.interface';
+export * from './permission-definition.interface';
 export * from './query-definition.interface';
 export * from './redux-definition.interface';
 export * from './storage-definition.interface';

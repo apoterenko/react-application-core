@@ -21,12 +21,12 @@ import {
 import {
   IContainerClassEntity,
   IRouterComponentEntity,
-  IApplicationStoreEntity,
+  IStoreEntity,
 } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 
-export class ApplicationContainer<TStoreEntity extends IApplicationStoreEntity = IApplicationStoreEntity>
+export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   @lazyInject(DI_TYPES.Storage) private storage: IStorage;

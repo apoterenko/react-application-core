@@ -44,18 +44,14 @@ export const DAYS_OF_WEEK_MAP = R.mergeAll<Record<number, boolean>>(DAYS_OF_WEEK
  * Core fields
  */
 export const ID_FIELD_NAME = 'id';                                                              /* @stable [02.07.2018] */
-export const AUTH_FIELD_NAME = 'auth';
 export const FROM_DATE_FIELD_NAME = 'fromDate';
 export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
 export const TO_TIME_FIELD_NAME = 'toTime';
 export const TIME_FIELD_NAME = 'time';
-export const FILTER_FIELD_NAME =  'filter';
-export const EFFECTOR_FIELD_NAME = 'effector';                                                  /* @stable [28.03.2018] */
 export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
 export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
 export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
-export const DISPLAY_MESSAGE_FIELD_NAME = 'displayMessage';                                     /* @stable [29.10.2018] */
 
 export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
@@ -124,6 +120,7 @@ export interface IBrowserLocationWrapper extends ILocationWrapper<Location> {
 export interface IProgressMessageWrapper<TProgressMessage = string> {
   progressMessage?: TProgressMessage;
 }
+export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface IListWrapper<TList> { list?: TList; }
 export interface IOnClickWrapper<TOnClick = () => void> { onClick?: TOnClick; }
@@ -139,11 +136,6 @@ export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPane
  */
 export interface IToolbarWrapper<TToolbar = JSX.Element> {
   toolbar?: TToolbar;
-}
-
-/* @stable - 11.04.2018 */
-export interface IApplicationWrapper<TApplication> {
-  application?: TApplication;
 }
 
 /* @stable - 11.04.2018 */
@@ -928,24 +920,16 @@ export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
 /**
  * @stable [04.05.2018]
  */
-export interface IRequiredWrapper<TRequired = boolean | (() => boolean)> {
-  required?: TRequired;
-}
-
-export interface IStringRequiredWrapper extends IRequiredWrapper<string> {
-}
-
-/**
- * @stable [04.05.2018]
- */
 export interface IRobotModeWrapper {
   useRobotMode?: boolean;
 }
 
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface INameWrapper<TName = string> { name?: TName; }
+export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
 export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
 export interface IReplacedWrapper<TReplaced = AnyT> { replaced?: TReplaced; }
+export interface IRequiredWrapper<TRequired = boolean | (() => boolean)> { required?: TRequired; }
 export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {}
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
 export interface ITabIndexWrapper { tabIndex?: number; }

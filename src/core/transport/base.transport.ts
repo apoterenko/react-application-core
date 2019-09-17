@@ -11,7 +11,10 @@ import {
   orUndef,
 } from '../util';
 import { AnyT } from '../definitions.interface';
-import { IEditableApiEntity } from '../definition';
+import {
+  IEditableApiEntity,
+  IEnvironment,
+} from '../definition';
 import { IEntity, StringNumberT, UNDEF_SYMBOL } from '../definitions.interface';
 import { INumberConverter } from '../converter';
 import { ISettings } from '../settings';
@@ -21,9 +24,10 @@ import { lazyInject, DI_TYPES } from '../di';
 
 @injectable()
 export class BaseTransport {
-  @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
-  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
 
   /**
    * @stable [29.08.2019]

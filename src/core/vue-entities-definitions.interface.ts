@@ -8,7 +8,7 @@ import {
   ISectionNameWrapper,
 } from './definitions.interface';
 import {
-  IUniversalApplicationStoreEntity,
+  IUniversalStoreEntity,
   IDispatchEntity,
 } from './entities-definitions.interface';
 import {
@@ -71,7 +71,7 @@ export type IVueContainerCtor = new () => IVueContainer;
 /**
  * @stable [21.10.2018]
  */
-export interface IVueApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries> {
+export interface IVueApplicationStoreEntity<TDictionaries = {}> extends IUniversalStoreEntity<TDictionaries> {
 }
 
 /**

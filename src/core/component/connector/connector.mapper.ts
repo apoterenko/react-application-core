@@ -8,7 +8,7 @@ import {
   IUserWrapperEntity,
   INotificationWrapperEntity,
   IDictionariesWrapperEntity,
-  IUniversalApplicationStoreEntity,
+  IUniversalStoreEntity,
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
   IListEntity,
@@ -56,7 +56,7 @@ export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEnti
 });
 
 /**
- * @deprecated
+ * @deprecated Use mapQueryFilterEntity
  */
 export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
     filterMapper(filterState.filter);

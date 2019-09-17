@@ -5,14 +5,13 @@ import {
 import { IContainerClassEntity } from '../../entities-definitions.interface';
 import {
   IRouteConfigEntity,
-  IAccessConfiguration,
 } from '../../configurations-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
 
 export interface IRootContainerProps extends IContainerProps,
                                              IRouteConfigEntity,
                                              ISectionWrapper,
-                                             IAccessConfigurationWrapper<IAccessConfiguration> {
+                                             IAccessConfigurationWrapper<{}> {
   container?: IContainerClassEntity;
 }
 

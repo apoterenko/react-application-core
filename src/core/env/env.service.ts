@@ -9,4 +9,6 @@ export class Environment implements IEnvironment {
   public readonly documentClickEvent = ENV.mobilePlatform
     ? TouchEventsEnum.TOUCH_START
     : EventsEnum.MOUSE_DOWN;
+  public readonly appProfile = ENV.appProfile;
+  public readonly appNamespace = ENV.appNamespace;
 }

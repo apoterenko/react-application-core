@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { DI_TYPES, lazyInject } from '../di';
 import { notNilValuesFilter, ifNotNilThanValue, toType, coalesce } from '../util';
 import { IKeyValue } from '../definitions.interface';
-import { IApplicationStoreEntity } from '../entities-definitions.interface';
+import { IStoreEntity } from '../entities-definitions.interface';
 import {
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
@@ -30,7 +30,7 @@ export class Transport implements ITransport {
   private static readonly logger = LoggerFactory.makeLogger('Transport');
 
   @lazyInject(DI_TYPES.LogManager) private readonly logManager: ILogManager;
-  @lazyInject(DI_TYPES.Store) private readonly store: Store<IApplicationStoreEntity>;
+  @lazyInject(DI_TYPES.Store) private readonly store: Store<IStoreEntity>;
   @lazyInject(DI_TYPES.TransportFactory) private readonly transportFactory: ITransportFactory;
   @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
 

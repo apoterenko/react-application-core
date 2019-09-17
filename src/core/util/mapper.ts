@@ -6,12 +6,18 @@ import {
   IEditableEntityFormWrapperEntity,
   IEntityFormEntity,
   IExtendedEntity,
+  ILifeCycleEntity,
   IPagedEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
 } from '../definition';
-import { IQueryWrapper, IEntity, UNDEF_SYMBOL } from '../definitions.interface';
+import {
+  IActionsDisabledWrapper,
+  IEntity,
+  IQueryWrapper,
+  UNDEF_SYMBOL,
+} from '../definitions.interface';
 import { trimmedUndefEmpty } from './nvl';
 import { ifNotNilThanValue } from './cond';
 import {
@@ -52,6 +58,13 @@ export const selectEditableEntityChanges = <TResult extends IEntity = IEntity>(e
  */
 export const selectListEntity = (entity: IListWrapperEntity): IListEntity =>
   ifNotNilThanValue(entity, (): IListEntity => entity.list, UNDEF_SYMBOL);
+
+/**
+ * @stable [17.09.2019]
+ * @param {ILifeCycleEntity} entity
+ * @returns {boolean}
+ */
+export const selectLifeCycleEntityProgress = (entity: ILifeCycleEntity): boolean => entity.progress;
 
 /**
  * @stable [04.09.2019]
@@ -105,9 +118,7 @@ export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): str
  * @param {string} query
  * @returns {IQueryWrapper}
  */
-export const mapQuery = (query: string): IQueryWrapper => Object.freeze<IQueryWrapper>(
-  defValuesFilter<IQueryWrapper, IQueryWrapper>({query})
-);
+export const mapQuery = (query: string): IQueryWrapper => defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
 
 /**
  * @stable [04.09.2019]
@@ -115,9 +126,7 @@ export const mapQuery = (query: string): IQueryWrapper => Object.freeze<IQueryWr
  * @returns {IQueryFilterWrapperEntity}
  */
 export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWrapperEntity =>
-  Object.freeze<IQueryFilterWrapperEntity>(
-    defValuesFilter<IQueryFilterWrapperEntity, IQueryFilterWrapperEntity>({filter})
-  );
+  defValuesFilter<IQueryFilterWrapperEntity, IQueryFilterWrapperEntity>({filter});
 
 /**
  * @stable [04.09.2019]
@@ -126,9 +135,7 @@ export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWr
  */
 export const mapEditableEntity =
   <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IEditableEntityFormWrapperEntity =>
-    Object.freeze<IEditableEntityFormWrapperEntity>(
-      defValuesFilter<IEditableEntityFormWrapperEntity, IEditableEntityFormWrapperEntity>({form})
-    );
+    defValuesFilter<IEditableEntityFormWrapperEntity, IEditableEntityFormWrapperEntity>({form});
 
 /**
  * @stable [04.09.2019]
@@ -136,9 +143,7 @@ export const mapEditableEntity =
  * @returns {IListWrapperEntity}
  */
 export const mapListEntity = (list: IListEntity): IListWrapperEntity =>
-  Object.freeze<IListWrapperEntity>(
-    defValuesFilter<IListWrapperEntity, IListWrapperEntity>({list})
-  );
+  defValuesFilter<IListWrapperEntity, IListWrapperEntity>({list});
 
 /**
  * @stable [10.09.2019]
@@ -147,12 +152,10 @@ export const mapListEntity = (list: IListEntity): IListWrapperEntity =>
  */
 export const mapPagedEntity = (entity: IPagedEntity): IPagedEntity => ifNotNilThanValue(
   entity,
-  () => Object.freeze<IPaginatedEntity>(
-    defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
-      page: entity.page,
-      pageSize: entity.pageSize,
-    })
-  ),
+  () => defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
+    page: entity.page,
+    pageSize: entity.pageSize,
+  }),
   UNDEF_SYMBOL
 );
 
@@ -163,12 +166,10 @@ export const mapPagedEntity = (entity: IPagedEntity): IPagedEntity => ifNotNilTh
  */
 export const mapPaginatedEntity = (entity: IPaginatedEntity): IPaginatedEntity => ifNotNilThanValue(
   entity,
-  () => Object.freeze<IPaginatedEntity>(
-    defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
-      ...mapPagedEntity(entity),
-      totalCount: entity.totalCount,
-    })
-  ),
+  () => defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
+    ...mapPagedEntity(entity),
+    totalCount: entity.totalCount,
+  }),
   UNDEF_SYMBOL
 );
 
@@ -188,17 +189,15 @@ export const mapListWrapperEntity = (listWrapper: IListWrapperEntity): IListWrap
  */
 export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
                                                            editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
-  Object.freeze<IExtendedEntity<TEntity>>(
-    defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-      entity: {
-        ...entity as {},
-        ...selectChanges(editableEntity),
-      } as TEntity,
-      entityId: ifNotNilThanValue(entity, () => entity.id, UNDEF_SYMBOL),
-      originalEntity: shallowClone<TEntity>(entity),
-      newEntity: R.isNil(entity) || R.isNil(entity.id),
-    })
-  );
+  defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+    entity: {
+      ...entity as {},
+      ...selectChanges(editableEntity),
+    } as TEntity,
+    entityId: ifNotNilThanValue(entity, () => entity.id, UNDEF_SYMBOL),
+    originalEntity: shallowClone<TEntity>(entity),
+    newEntity: R.isNil(entity) || R.isNil(entity.id),
+  });
 
 /**
  * @stable [06.09.2019]
@@ -220,7 +219,7 @@ export const mapListSelectedExtendedEntity =
  * @returns {IQueryFilterWrapperEntity}
  */
 export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterWrapperEntity): IQueryFilterWrapperEntity =>
-  Object.freeze<IQueryFilterWrapperEntity>(mapQueryFilterEntity(selectQueryFilterEntity(queryFilter)));
+  mapQueryFilterEntity(selectQueryFilterEntity(queryFilter));
 
 /**
  * @stable [10.09.2019]
@@ -228,4 +227,28 @@ export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterWrapperEnti
  * @returns {IQueryWrapper}
  */
 export const mapFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): IQueryWrapper =>
-  Object.freeze<IQueryWrapper>(mapQuery(selectFilterWrapperQuery(entity)));
+  mapQuery(selectFilterWrapperQuery(entity));
+
+/**
+ * @stable [17.09.2019]
+ * @param {boolean} actionsDisabled
+ * @returns {IActionsDisabledWrapper}
+ */
+export const mapActionsDisabled = (actionsDisabled: boolean): IActionsDisabledWrapper =>
+  defValuesFilter<IActionsDisabledWrapper, IActionsDisabledWrapper>({actionsDisabled});
+
+/**
+ * @stable [17.09.2019]
+ * @param {IListEntity} list
+ * @returns {IActionsDisabledWrapper}
+ */
+export const mapListActionsDisabled = (list: IListEntity): IActionsDisabledWrapper =>
+  mapActionsDisabled(selectLifeCycleEntityProgress(list));
+
+/**
+ * @stable [17.09.2019]
+ * @param {IListWrapperEntity} listWrapper
+ * @returns {}
+ */
+export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): IActionsDisabledWrapper =>
+  mapListActionsDisabled(selectListEntity(listWrapper));

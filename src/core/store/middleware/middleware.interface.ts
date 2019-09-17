@@ -23,7 +23,7 @@ import {
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
-  IApplicationStoreEntity,
+  IStoreEntity,
   IListEntity,
 } from '../../entities-definitions.interface';
 import { IApiEntity } from '../../definition';
@@ -97,7 +97,7 @@ export interface IDestroyedFormMiddlewareConfig extends IFormSectionWrapper {
  * @stable [22.08.2018]
  */
 export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
-                                              TApplicationState = IApplicationStoreEntity>
+                                              TApplicationState = IStoreEntity>
   extends ICanComeBackWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           IEffectsActionWrapper,
@@ -112,7 +112,7 @@ export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
  */
 export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
                                                      TRelatedEntity extends IEntity = IEntity,
-                                                     TApplicationState = IApplicationStoreEntity>
+                                                     TApplicationState = IStoreEntity>
     extends IRelatedEntityWrapper<TRelatedEntity>,
             IEffectsActionWrapper,
             IListSectionWrapper,

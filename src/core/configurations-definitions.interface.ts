@@ -204,7 +204,7 @@ import {
   IFieldChangeEntity,
   IMenuItemEntity,
   ISortDirectionEntity,
-  IUniversalApplicationStoreEntity,
+  IUniversalStoreEntity,
   IUniversalComponent,
   IUniversalComponentPluginClassEntity,
   IUniversalContainerClassEntity,
@@ -511,7 +511,9 @@ export interface IBaseGridColumnConfiguration
     IColumnStylesWrapper<((props: IGridColumnProps) => CSS.Properties<string | number>)> {
 }
 
-/* @stable - 04.04.2018 */
+/**
+ * @deprecated Use IGridColumnProps
+ */
 export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   IOnColumnClickWrapper<{event: IBaseEvent, props: IGridColumnProps}>,
                                                   IColumnColSpanWrapper,
@@ -753,7 +755,7 @@ export enum ContainerVisibilityTypeEnum {
 export interface IRouteConfigEntity extends IPathWrapper,
                                              IBooleanModalWrapper,
                                              ITitleWrapper,
-                                             IInitialWrapper<boolean | ((store: IUniversalApplicationStoreEntity) => boolean)>,
+                                             IInitialWrapper<boolean | ((store: IUniversalStoreEntity) => boolean)>,
                                              IExactWrapper,
                                              IKeyWrapper,
                                              IOnEnterWrapper<() => void>,
@@ -885,12 +887,6 @@ export interface ICardConfiguration extends IComponentConfiguration,
                                             IRippableWrapper,
                                             IActionButtonsWrapper<React.ReactNode>,
                                             IActionIconsWrapper<React.ReactNode> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IAccessConfiguration {
 }
 
 /**

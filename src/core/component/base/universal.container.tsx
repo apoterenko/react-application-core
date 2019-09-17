@@ -15,7 +15,7 @@ import {
   INavigateEntity,
   IContainerClassEntity,
   IUniversalContainer,
-  IUniversalApplicationStoreEntity,
+  IUniversalStoreEntity,
 } from '../../entities-definitions.interface';
 import {
   IOperationEntity,
@@ -215,7 +215,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    * @stable - 15.04.2018
    * @returns {Store<{}>}
    */
-  protected get appStore(): Store<IUniversalApplicationStoreEntity> {
+  protected get appStore(): Store<IUniversalStoreEntity> {
     return staticInjector(DI_TYPES.Store);
   }
 

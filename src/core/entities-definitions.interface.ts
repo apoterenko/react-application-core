@@ -99,12 +99,13 @@ import {
   IApiEntity,
   IChannelWrapperEntity,
   IEditableEntity,
+  IEntityFormEntity,
   IErrorEntity,
   ILifeCycleEntity,
   IOperationEntity,
   IPaginatedEntity,
+  IPermissionsWrapperEntity,
   IQueryFilterEntity,
-  IEntityFormEntity,
 } from './definition';
 
 /**
@@ -386,8 +387,11 @@ export interface IListEntity extends IUniversalListEntity,
 export interface IListWrapperEntity extends IListWrapper<IListEntity> {
 }
 
-/* @stable - 01.04.2018 */
-export interface IQueryFilteredListEntity extends IListAndFilterWrapperEntity<IQueryFilterEntity, IListEntity> {
+/**
+ * @stable [17.09.2019]
+ */
+export interface IQueryFilteredListEntity
+  extends IFilteredListWrapperEntity<IQueryFilterEntity, IListEntity> {
 }
 
 /* @stable - 05.04.2018 */
@@ -532,18 +536,20 @@ export interface IDictionariesEntity {
 }
 
 /* @stable - 23.07.2018 */
-export interface IUniversalApplicationStoreEntity<TDictionaries = {}> extends IApplicationWrapperEntity,
-                                                                              IUserWrapperEntity,
-                                                                              IStackWrapperEntity,
-                                                                              IChannelWrapperEntity,
-                                                                              ITransportWrapperEntity,
-                                                                              IDictionariesWrapper<TDictionaries> {
+export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
+  extends IApplicationWrapperEntity,
+    IUserWrapperEntity,
+    IStackWrapperEntity,
+    IChannelWrapperEntity,
+    ITransportWrapperEntity,
+    IPermissionsWrapperEntity<TPermissions>,
+    IDictionariesWrapper<TDictionaries> {
 }
 
-// TODO Renaming
-export interface IApplicationStoreEntity<TDictionaries = {}> extends IUniversalApplicationStoreEntity<TDictionaries>,
-                                                                     ILayoutWrapperEntity,
-                                                                     INotificationWrapperEntity {
+export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
+  extends IUniversalStoreEntity<TDictionaries, TPermissions>,
+    ILayoutWrapperEntity,
+    INotificationWrapperEntity {
 }
 
 /**
@@ -618,8 +624,9 @@ export interface IListAndFilterFormWrapperEntity extends IListWrapperEntity,
 /**
  * @stable [04.06.2018]
  */
-export interface IListAndFilterWrapperEntity<TFilter, TList> extends IListWrapper<TList>,
-                                                                     IFilterWrapper<TFilter> {
+export interface IFilteredListWrapperEntity<TFilter, TList>
+  extends IListWrapper<TList>,
+    IFilterWrapper<TFilter> {
 }
 
 /**

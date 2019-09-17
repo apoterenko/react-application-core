@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { noop, sequence, isObjectNotEmpty, isFn  } from '../../util';
 import { DI_TYPES, staticInjector, getStore } from '../../di';
 import { IBasicConnectorConfigEntity, IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import { IUniversalContainerClassEntity, IUniversalApplicationStoreEntity } from '../../entities-definitions.interface';
+import { IUniversalContainerClassEntity, IUniversalStoreEntity } from '../../entities-definitions.interface';
 import { APPLICATION_SECTIONS } from '../application/application.interface';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
@@ -21,7 +21,7 @@ const logger = LoggerFactory.makeLogger('universal-connector.decorator');
  * @param {IBasicConnectorConfigEntity<TStoreEntity>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
-export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEntity>(
+export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
   config: IBasicConnectorConfigEntity<TStoreEntity>
 ) =>
   (target: IUniversalContainerClassEntity): void => {
@@ -94,9 +94,9 @@ export const basicConnector = <TStoreEntity extends IUniversalApplicationStoreEn
 
 /**
  * @stable - 23.04.2018
- * @param {IConnectorConfigEntity<TStoreEntity extends IUniversalApplicationStoreEntity, TAccessConfig>} config
+ * @param {IConnectorConfigEntity<TStoreEntity extends IUniversalStoreEntity, TAccessConfig>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
-export const connector = <TStoreEntity extends IUniversalApplicationStoreEntity, TAccessConfig>(
+export const connector = <TStoreEntity extends IUniversalStoreEntity, TAccessConfig>(
     config: IConnectorConfigEntity<TStoreEntity, TAccessConfig>
 ) => basicConnector(config);
