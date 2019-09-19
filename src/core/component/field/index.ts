@@ -4,7 +4,7 @@ export * from './date-range';
 export * from './datefield';
 export * from './field';
 export * from './filefield';
-export * from './viewfield';
+export * from './view-field';
 export * from './multifield';
 export * from './textfield';
 export * from './select';

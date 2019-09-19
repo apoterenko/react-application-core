@@ -1,6 +1,5 @@
-import { IComponentEntity } from '../../../entities-definitions.interface';
-import { IPageWrapper, IScaleWrapper, IPreviewScaleWrapper } from '../../../definitions.interface';
-import { IViewerConfiguration, IViewerState  } from '../viewer.interface';
+import { IViewerState, IViewerProps  } from '../viewer.interface';
+import { IPdfViewerEntity, IPdfViewerViewport } from '../../../definition';
 
 /**
  * @stable [14.11.2018]
@@ -33,38 +32,17 @@ export interface IPdfViewerPage {
 }
 
 /**
- * @stable [27.06.2018]
+ * @stable [19.09.2019]
  */
-export interface IPdfViewerViewport {
-  width: number;
-  height: number;
+export interface IPdfViewerProps
+  extends IViewerProps,
+    IPdfViewerEntity {
 }
 
 /**
  * @stable [27.06.2018]
  */
-export interface IPdfViewerConfiguration extends IViewerConfiguration,
-                                                 IScaleWrapper,
-                                                 IPreviewScaleWrapper {
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IPdfViewerEntity extends IComponentEntity,
-                                          IPageWrapper {
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IPdfViewerProps extends IPdfViewerConfiguration,
-                                         IPdfViewerEntity {
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IPdfViewerState extends IViewerState {
-  previewPage?: number;
+export interface IPdfViewerState
+  extends IViewerState {
+  previewPage?: number; // TODO
 }

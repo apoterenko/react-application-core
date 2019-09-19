@@ -59,3 +59,13 @@ export const getBlobMimeType = (signature: string): MimeTypesEnum | string => {
       return null;
   }
 };
+
+/**
+ * @stable [19.09.2019]
+ * @param {Blob} blob
+ * @returns {Promise<MimeTypesEnum | string>}
+ */
+export const detectBlobMimeType = async (blob: Blob): Promise<MimeTypesEnum | string> => {
+  const bytes = await readBlobBytesAsString(blob, 4);
+  return getBlobMimeType(bytes);
+};

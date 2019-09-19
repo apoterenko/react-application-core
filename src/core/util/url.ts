@@ -9,6 +9,13 @@ import {
 import { isObjectNotEmpty } from './object';
 
 /**
+ * @stable [19.09.2019]
+ * @param {string} uri
+ * @returns {boolean}
+ */
+export const isAbsoluteURI = (uri: string): boolean => URI(uri).is('absolute');
+
+/**
  * @stable [11.09.2018]
  * @param {IKeyValue} params
  * @returns {string}

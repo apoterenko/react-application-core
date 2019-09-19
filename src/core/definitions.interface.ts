@@ -177,6 +177,8 @@ export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
 export interface IColumnStylesWrapper<TColumnStyles> { columnStyles?: TColumnStyles; }
+export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
+export interface IDetectFileTypeWrapper { detectFileType?: boolean; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
@@ -853,17 +855,11 @@ export interface ITotalCountWrapper<TTotalCount = number> {
 /**
  * @stable [11.06.2018]
  */
-export interface IHeightWrapper {
-  height?: number;
-}
-
-/**
- * @stable [11.06.2018]
- */
 export interface IFontSizeWrapper {
   fontSize?: number;
 }
 
+export interface IHeightWrapper { height?: number; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
@@ -1940,8 +1936,6 @@ export interface IUseSyntheticCursorWrapper {
   useSyntheticCursor?: boolean;
 }
 
-export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
-
 /**
  * @stable [10.09.2018]
  */
@@ -1961,6 +1955,7 @@ export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
+export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 
 /**
  * @stable [11.08.2018]

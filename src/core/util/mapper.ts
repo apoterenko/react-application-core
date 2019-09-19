@@ -11,6 +11,7 @@ import {
   IPaginatedEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
+  ToolbarToolsEnum,
 } from '../definition';
 import {
   IActionsDisabledWrapper,
@@ -19,7 +20,7 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { trimmedUndefEmpty } from './nvl';
-import { ifNotNilThanValue } from './cond';
+import { ifNotNilThanValue, ifNotEmptyThanValue } from './cond';
 import {
   IListEntity,
   IListWrapperEntity,
@@ -252,3 +253,23 @@ export const mapListActionsDisabled = (list: IListEntity): IActionsDisabledWrapp
  */
 export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): IActionsDisabledWrapper =>
   mapListActionsDisabled(selectListEntity(listWrapper));
+
+/**
+ * @stable [18.09.2019]
+ * @param {IEditableEntity} editableEntity
+ * @returns {ToolbarToolsEnum[]}
+ */
+export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IEditableEntity): ToolbarToolsEnum[] =>
+  ifNotEmptyThanValue(
+    selectChanges(editableEntity),
+    () => [ToolbarToolsEnum.FILTER],
+    []
+  );
+
+/**
+ * @stable [18.09.2019]
+ * @param {IEntityFormEntity} entityFormEntity
+ * @returns {ToolbarToolsEnum[]}
+ */
+export const selectFormEntityToolbarToolsActiveFilter = (entityFormEntity: IEntityFormEntity): ToolbarToolsEnum[] =>
+  selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(entityFormEntity));

@@ -1,27 +1,15 @@
-import { IComponentEntity } from '../../../entities-definitions.interface';
-import { IViewerConfiguration, IViewerState  } from '../viewer.interface';
+import { IViewerProps, IViewerState } from '../viewer.interface';
 
 /**
- * @stable [08.07.2018]
+ * @stable [19.09.2019]
  */
-export interface IPictureViewerConfiguration extends IViewerConfiguration {
+export interface IPictureViewerProps
+  extends IViewerProps {
 }
 
 /**
- * @stable [08.07.2018]
+ * @stable [19.09.2019]
  */
-export interface IPictureViewerEntity extends IComponentEntity {
-}
-
-/**
- * @stable [08.07.2018]
- */
-export interface IPictureViewerProps extends IPictureViewerConfiguration,
-                                             IPictureViewerEntity {
-}
-
-/**
- * @stable [08.07.2018]
- */
-export interface IPictureViewerState extends IViewerState {
+export interface IPictureViewerState
+  extends IViewerState {
 }
