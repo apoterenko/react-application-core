@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { ReactLayoutBuilder } from './react-layout.builder';
+import { LayoutBuilder } from './react-layout.builder';
 import { RnLayoutViewBuilder } from './rn-layout-view.builder';
 
-export class RnLayoutBuilder extends ReactLayoutBuilder {
+export class RnLayoutBuilder extends LayoutBuilder {
 
   /**
    * @stable [22.10.2018]

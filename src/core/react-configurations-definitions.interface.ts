@@ -13,5 +13,5 @@ export type ReactLayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<React.
 /**
  * @stable [22.10.2018]
  */
-export interface IReactLayoutBuilderConfiguration extends IUniversalLayoutBuilderConfiguration<ReactLayoutBuilderChildrenT> {
+export interface ILayoutBuilderConfiguration extends IUniversalLayoutBuilderConfiguration<ReactLayoutBuilderChildrenT> {
 }

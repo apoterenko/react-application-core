@@ -5,7 +5,7 @@ import { UniversalLayoutBuilder } from './universal-layout.builder';
 import { ILayoutViewBuilder } from './layout-builder.interface';
 import { ReactLayoutBuilderChildrenT } from '../../../react-configurations-definitions.interface';
 
-export class ReactLayoutBuilder extends UniversalLayoutBuilder<React.ReactNode> {
+export class LayoutBuilder extends UniversalLayoutBuilder<React.ReactNode> {
 
   /**
    * @stable [22.10.2018]

@@ -4,7 +4,7 @@ import { isFn, isString } from '../../../util';
 import { IKeyValue, ITypeWrapper } from '../../../definitions.interface';
 import {
   UniversalLayoutBuilderChildrenT,
-  LayoutBuilderFactorEnum,
+  LayoutBuilderFactorsEnum,
   IUniversalLayoutBuilderConfiguration,
 } from '../../../configurations-definitions.interface';
 import { ILayoutViewBuilder } from './layout-builder.interface';
@@ -85,15 +85,15 @@ export abstract class UniversalLayoutViewBuilder<TNode> implements ILayoutViewBu
       return '';
     }
     switch (config.factor) {
-      case LayoutBuilderFactorEnum.FACTOR_0_5:
+      case LayoutBuilderFactorsEnum.FACTOR_0_5:
         return 'rac-flex-half';
-      case LayoutBuilderFactorEnum.FACTOR_0_75:
+      case LayoutBuilderFactorsEnum.FACTOR_0_75:
         return 'rac-flex-three-quarters';
-      case LayoutBuilderFactorEnum.FACTOR_2:
+      case LayoutBuilderFactorsEnum.FACTOR_2:
         return 'rac-flex-full-x2';
-      case LayoutBuilderFactorEnum.FACTOR_4:
+      case LayoutBuilderFactorsEnum.FACTOR_4:
         return 'rac-flex-full-x4';
-      case LayoutBuilderFactorEnum.FACTOR_8:
+      case LayoutBuilderFactorsEnum.FACTOR_8:
         return 'rac-flex-full-x8';
       default:
         return 'rac-flex-full';

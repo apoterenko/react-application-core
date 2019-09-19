@@ -3,9 +3,9 @@ import { View } from 'native-base';
 
 import { isDef } from '../../../util';
 import { IKeyValue, AnyT } from '../../../definitions.interface';
-import { LayoutBuilderFactorEnum } from '../../../configurations-definitions.interface';
+import { LayoutBuilderFactorsEnum } from '../../../configurations-definitions.interface';
 import {
-  IReactLayoutBuilderConfiguration,
+  ILayoutBuilderConfiguration,
   ReactLayoutBuilderChildrenT,
 } from '../../../react-configurations-definitions.interface';
 import { ReactBaseLayoutViewBuilder } from './react-base-layout-view.builder';
@@ -16,12 +16,12 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
    * @stable - 16.04.2018
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
-   * @param {IReactLayoutBuilderConfiguration} layoutConfig
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {React.ReactNode}
    */
   public buildRowView(props: IKeyValue,
                       children: ReactLayoutBuilderChildrenT[],
-                      layoutConfig: IReactLayoutBuilderConfiguration): React.ReactNode {
+                      layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <View {...props}
             style={{
@@ -38,12 +38,12 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
    * @stable - 19.04.2018
    * @param {IKeyValue} props
    * @param {React.ReactNode[]} children
-   * @param {IReactLayoutBuilderConfiguration} layoutConfig
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {React.ReactNode}
    */
   public buildColumnView(props: IKeyValue,
                          children: ReactLayoutBuilderChildrenT[],
-                         layoutConfig: IReactLayoutBuilderConfiguration): React.ReactNode {
+                         layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <View {...props}
             style={{
@@ -80,12 +80,12 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
   /**
    * @stable [22.10.2018]
    * @param {JSX.Element} item
-   * @param {IReactLayoutBuilderConfiguration} layoutConfig
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @param {IKeyValue} props
    * @returns {IKeyValue}
    */
   public getClonedItemProps(item: JSX.Element,
-                            layoutConfig: IReactLayoutBuilderConfiguration,
+                            layoutConfig: ILayoutBuilderConfiguration,
                             props: IKeyValue): IKeyValue {
     const itemEl = item;
     return {
@@ -98,16 +98,16 @@ export class RnLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
 
   /**
    * @stable - 16.04.2018
-   * @param {LayoutBuilderFactorEnum} factor
+   * @param {LayoutBuilderFactorsEnum} factor
    * @returns {number}
    */
-  private toFactorStyle(factor: LayoutBuilderFactorEnum): number {
+  private toFactorStyle(factor: LayoutBuilderFactorsEnum): number {
     switch (factor) {
-      case LayoutBuilderFactorEnum.FACTOR_2:
+      case LayoutBuilderFactorsEnum.FACTOR_2:
         return 2;
-      case LayoutBuilderFactorEnum.FACTOR_4:
+      case LayoutBuilderFactorsEnum.FACTOR_4:
         return 4;
-      case LayoutBuilderFactorEnum.FACTOR_8:
+      case LayoutBuilderFactorsEnum.FACTOR_8:
         return 8;
       default:
         return 1;

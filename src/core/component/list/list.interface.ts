@@ -1,13 +1,11 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
-  DEFAULT_MAX_PAGE_SIZE,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
 } from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IListWrapperEntity, IListEntity } from '../../entities-definitions.interface';
-import { IPagedEntity } from '../../definition';
 import { IUniversalContainerProps } from '../../props-definitions.interface';
 
 /**
@@ -47,14 +45,6 @@ export const INITIAL_APPLICATION_LIST_STATE: IListEntity = {
   page: FIRST_PAGE,
   pageSize: DEFAULT_PAGE_SIZE,
   totalCount: 0,
-};
-
-/**
- * @stable [05.08.2018]
- */
-export const INITIAL_APPLICATION_LIST_MAX_PAGE_STATE: IPagedEntity = {
-  page: FIRST_PAGE,
-  pageSize: DEFAULT_MAX_PAGE_SIZE,
 };
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';

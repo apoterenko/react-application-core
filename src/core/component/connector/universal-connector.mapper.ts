@@ -226,23 +226,19 @@ export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActio
 });
 
 /**
- * @deprecated
+ * @deprecated mapListWrapperActionsDisabled
  */
 export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IActionsDisabledWrapper =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);
 
 /**
- * @stable [22.04.2019]
- * @param {IEditableEntity} editableEntity
- * @returns {ToolbarToolsEnum[]}
+ * @deprecated selectEditableEntityToolbarToolsFilter
  */
 export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEditableEntity): ToolbarToolsEnum[] =>
   R.isNil(editableEntity) || R.isEmpty(editableEntity.changes) ? [] : [ToolbarToolsEnum.FILTER];
 
 /**
- * @stable [22.04.2019]
- * @param {IEntityFormEntity} entityFormEntity
- * @returns {ToolbarToolsEnum[]}
+ * @deprecated selectFormEntityToolbarToolsFilter
  */
 export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IEntityFormEntity): ToolbarToolsEnum[] =>
   toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);

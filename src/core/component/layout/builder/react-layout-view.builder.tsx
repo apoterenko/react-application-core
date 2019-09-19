@@ -3,7 +3,7 @@ import * as React from 'react';
 import { toClassName } from '../../../util';
 import {
   ReactLayoutBuilderChildrenT,
-  IReactLayoutBuilderConfiguration,
+  ILayoutBuilderConfiguration,
 } from '../../../react-configurations-definitions.interface';
 import { ReactBaseLayoutViewBuilder } from './react-base-layout-view.builder';
 
@@ -13,12 +13,12 @@ export class ReactLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
    * @stable [22.10.2018]
    * @param {React.HTMLAttributes<{}>} props
    * @param {ReactLayoutBuilderChildrenT[]} children
-   * @param {IReactLayoutBuilderConfiguration} layoutConfig
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {React.ReactNode}
    */
   public buildRowView(props: React.HTMLAttributes<{}>,
                       children: ReactLayoutBuilderChildrenT[],
-                      layoutConfig: IReactLayoutBuilderConfiguration): React.ReactNode {
+                      layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <div className={toClassName('rac-flex', 'rac-flex-row', this.toFactorClassName(layoutConfig))}
            {...props}>
@@ -31,12 +31,12 @@ export class ReactLayoutViewBuilder extends ReactBaseLayoutViewBuilder {
    * @stable [22.10.2018]
    * @param {React.HTMLAttributes<{}>} props
    * @param {ReactLayoutBuilderChildrenT[]} children
-   * @param {IReactLayoutBuilderConfiguration} layoutConfig
+   * @param {ILayoutBuilderConfiguration} layoutConfig
    * @returns {React.ReactNode}
    */
   public buildColumnView(props: React.HTMLAttributes<{}>,
                          children: ReactLayoutBuilderChildrenT[],
-                         layoutConfig: IReactLayoutBuilderConfiguration): React.ReactNode {
+                         layoutConfig: ILayoutBuilderConfiguration): React.ReactNode {
     return (
       <div className={toClassName('rac-flex', 'rac-flex-column', this.toFactorClassName(layoutConfig))}
            {...props}>
