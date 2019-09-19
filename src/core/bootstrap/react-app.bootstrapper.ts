@@ -1,9 +1,10 @@
 import { render } from 'react-dom';
 
 import { addRootElement, addClassNameToBody, getElementById } from '../util';
-import { makeBootstrapApp } from './universal-bootstrap-app.factory';
-import { IContainerClassEntity } from '../entities-definitions.interface';
 import { DEFAULT_BOOTSTRAP_CONFIGURATION, IBootstrapConfiguration } from '../configurations-definitions.interface';
+import { IContainerClassEntity } from '../entities-definitions.interface';
+import { IContainerProps } from '../props-definitions.interface';
+import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 
 /**
  * @stable [21.08.2019]

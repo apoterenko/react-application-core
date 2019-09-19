@@ -16,6 +16,7 @@ import {
 import {
   IActionsDisabledWrapper,
   IEntity,
+  IKeyValue,
   IQueryWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
