@@ -3,7 +3,8 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
-import { IContainerProps, IUniversalContainerProps } from '../../props-definitions.interface';
+import { IContainerProps } from '../../props-definitions.interface';
+import { IUniversalContainerProps } from '../../definition';
 import { IUniversalStoreEntity, IUniversalContainerClassEntity } from '../../entities-definitions.interface';
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 

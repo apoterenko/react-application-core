@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
-import {
-  IContainerClassEntity,
-  IUniversalContainerEntity,
-} from '../entities-definitions.interface';
+import { IUniversalContainerEntity } from '../definition';
+import { IContainerClassEntity } from '../entities-definitions.interface';
 import { universalConnectorFactory } from '../component/connector/universal-connector.factory';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { UniversalContainer } from '../component/base/universal.container';

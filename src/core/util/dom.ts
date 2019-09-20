@@ -79,13 +79,15 @@ export const removeClassNameFromElement = (element: Element, ...clsName: string[
   element.classList.remove(...clsName);
 
 /**
- * @stable [01.10.2018]
+ * @stable [20.09.2019]
  * @param {string} rootId
+ * @returns {Element}
  */
-export const addRootElement = (rootId: string) => {
+export const addRootElement = (rootId: string): Element => {
   const rootEl = createElement();
   rootEl.setAttribute('id', rootId);
-  addClassNameToElement(rootEl, 'rac-root', 'rac-flex');
+  addClassNameToElement(rootEl, 'rac-root');
+  return rootEl;
 };
 
 /**

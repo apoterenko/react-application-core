@@ -12,7 +12,7 @@ import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './universal-connector.interface';
 import { universalConnectorFactory } from './universal-connector.factory';
 import { ConnectorActionBuilder } from './connector-action.builder';
-import { IUniversalContainerProps } from '../../props-definitions.interface';
+import { IUniversalContainerProps } from '../../definition';
 
 const logger = LoggerFactory.makeLogger('universal-connector.decorator');
 

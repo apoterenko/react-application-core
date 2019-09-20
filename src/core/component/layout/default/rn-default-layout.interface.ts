@@ -1,4 +1,4 @@
-import { IUniversalContainerEntity } from '../../../entities-definitions.interface';
+import { IUniversalContainerEntity } from '../../../definition';
 import { IRnDefaultLayoutContainerConfiguration } from '../../../configurations-definitions.interface';
 
 /* @stable [27.04.2018] */

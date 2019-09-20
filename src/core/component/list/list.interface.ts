@@ -6,7 +6,7 @@ import {
 } from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IListWrapperEntity, IListEntity } from '../../entities-definitions.interface';
-import { IUniversalContainerProps } from '../../props-definitions.interface';
+import { IUniversalContainerProps } from '../../definition';
 
 /**
  * @stable [05.06.2018]

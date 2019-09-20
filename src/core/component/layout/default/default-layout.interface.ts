@@ -5,7 +5,6 @@ import {
   IQueryFilterWrapperEntity,
 } from '../../../definition';
 import {
-  IContainerConfiguration,
   IHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import {
@@ -25,7 +24,7 @@ export interface IDefaultLayoutContainerEntity extends IContainerEntity,
 /**
  * @stable [31.05.2018]
  */
-export interface IDefaultLayoutContainerConfiguration extends IContainerConfiguration,
+export interface IDefaultLayoutContainerConfiguration extends IContainerEntity,
                                                               IFooterWrapper,
                                                               IFooterRenderedWrapper,
                                                               IHeaderConfigurationWrapper {

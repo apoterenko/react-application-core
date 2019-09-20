@@ -1,15 +1,11 @@
 import {
   IFilterConfiguration,
   IReactComponentConfiguration,
-  IUniversalContainerConfiguration,
   IFilterConfigurationWrapper,
-  IWebComponentConfiguration,
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import {
   IUniversalContainerEntity,
-} from '../../../entities-definitions.interface';
-import {
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
 } from '../../../definition';
@@ -23,6 +19,7 @@ import {
   IFullWrapper,
 } from '../../../definitions.interface';
 import { IOnActionClickWrapper } from '../../../react-definitions.interface';
+import { IWebComponentEntity } from '../../../definition';
 
 /**
  * @stable [13.09.2018]
@@ -56,7 +53,7 @@ export interface IUniversalSearchToolbarProps extends IUniversalSearchToolbarEnt
  * @stable [18.05.2018]
  */
 export interface ISearchToolbarConfiguration extends IUniversalSearchToolbarConfiguration,
-                                                     IWebComponentConfiguration {
+                                                     IWebComponentEntity {
 }
 
 /**
@@ -82,7 +79,7 @@ export interface IUniversalSearchToolbarContainerEntity extends IUniversalContai
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalSearchToolbarContainerConfiguration extends IUniversalContainerConfiguration,
+export interface IUniversalSearchToolbarContainerConfiguration extends IUniversalContainerEntity,
                                                                        IFilterConfigurationWrapper {
 }
 
@@ -103,7 +100,7 @@ export interface ISearchToolbarContainerEntity extends IUniversalSearchToolbarCo
  * @stable [18.05.2018]
  */
 export interface ISearchToolbarContainerConfiguration extends IUniversalSearchToolbarContainerConfiguration,
-                                                              IWebComponentConfiguration {
+                                                              IWebComponentEntity {
 }
 
 /**

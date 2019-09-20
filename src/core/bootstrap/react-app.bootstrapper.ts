@@ -1,23 +1,35 @@
 import { render } from 'react-dom';
 
-import { addRootElement, addClassNameToBody, getElementById } from '../util';
-import { DEFAULT_BOOTSTRAP_CONFIGURATION, IBootstrapConfiguration } from '../configurations-definitions.interface';
+import {
+  addClassNameToBody,
+  addRootElement,
+  getElementById,
+} from '../util';
+import { DEFAULT_BOOTSTRAP_ENTITY, IBootstrapEntity } from '../definition';
+import { getEnvironment } from '../di';
 import { IContainerClassEntity } from '../entities-definitions.interface';
 import { IContainerProps } from '../props-definitions.interface';
 import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 
 /**
- * @stable [21.08.2019]
+ * @stable [20.09.2019]
  * @param {IContainerClassEntity} applicationContainer
- * @param {IBootstrapConfiguration} bootstrapConfiguration
+ * @param {IBootstrapEntity} bootstrapEntity
  */
-export const bootstrapReactApp = <TApplicationStoreEntity>(
+export const bootstrapReactApp = <TStoreEntity>(
   applicationContainer: IContainerClassEntity,
-  bootstrapConfiguration: IBootstrapConfiguration = DEFAULT_BOOTSTRAP_CONFIGURATION) => {
+  bootstrapEntity: IBootstrapEntity = DEFAULT_BOOTSTRAP_ENTITY) => {
+  const rootId = bootstrapEntity.rootId;
+  const env = getEnvironment();
 
-  const rootId = bootstrapConfiguration.rootId;
-  addRootElement(rootId);
-  addClassNameToBody('rac');
+  if (bootstrapEntity.applyBodyMarkup) {
+    addRootElement(rootId);
+  }
+  addClassNameToBody(
+    env.appProfile,
+    ...(bootstrapEntity.applyBodyMarkup ? ['rac'] : []),
+    ...(bootstrapEntity.flexEnabled ? ['rac-flex'] : [])
+  );
 
   const componentClass = makeBootstrapApp(applicationContainer, {}); // TODO Pass initial props
   render(

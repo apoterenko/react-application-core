@@ -2,11 +2,10 @@ import { IListWrapperEntity } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
   IReactComponentConfiguration,
-  IWebComponentConfiguration,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
 import { IProgressWrapper } from '../../../definitions.interface';
-import { IPaginatedEntity } from '../../../definition';
+import { IPaginatedEntity, IWebComponentEntity } from '../../../definition';
 
 /**
  * @stable [16.05.2018]
@@ -42,7 +41,7 @@ export interface IPageToolbarEntity extends IUniversalPageToolbarEntity {
 export interface IPageToolbarProps
   extends IPageToolbarEntity,
     IUniversalPageToolbarConfiguration,
-    IWebComponentConfiguration {
+    IWebComponentEntity {
   allowLast?: boolean;
   allowFirst?: boolean;
   previousIcon?: string;

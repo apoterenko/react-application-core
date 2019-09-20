@@ -19,9 +19,9 @@ import {
 } from '../../entities-definitions.interface';
 import {
   IOperationEntity,
+  IUniversalContainerProps,
 } from '../../definition';
 import { IConnectorConfigEntity, IRoutesConfiguration } from '../../configurations-definitions.interface';
-import { IUniversalContainerProps } from '../../props-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,

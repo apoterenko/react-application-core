@@ -7,7 +7,7 @@ import { ENV } from '../env';
 import { addClassNameToBody, createElement, addClassNameToElement, buildErrorMessage, orNull } from '../util';
 import { IApplicationContainerProps } from '../component/application';
 import { IContainerClassEntity } from '../entities-definitions.interface';
-import { IBootstrapConfiguration, DEFAULT_BOOTSTRAP_CONFIGURATION } from '../configurations-definitions.interface';
+import { IBootstrapEntity, DEFAULT_BOOTSTRAP_ENTITY } from '../definition';
 import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 
 // Google analytics
@@ -41,10 +41,10 @@ function defineErrorHandler() {
 export function bootstrap(
     applicationContainer: IContainerClassEntity,
     props?: IApplicationContainerProps,
-    bootstrapConfiguration: IBootstrapConfiguration = DEFAULT_BOOTSTRAP_CONFIGURATION,
+    bootstrapConfiguration: IBootstrapEntity = DEFAULT_BOOTSTRAP_ENTITY,
   ) {
   const ready = () => {
-    if (bootstrapConfiguration.needToPrepareBody) {
+    if (bootstrapConfiguration.applyBodyMarkup) {
       addClassNameToBody(
         'rac',
         orNull(ENV.macPlatform, 'rac-mac'),
@@ -82,7 +82,7 @@ export function bootstrap(
       break;
   }
 
-  if (bootstrapConfiguration.needToDefineErrorHandler) {
+  if (bootstrapConfiguration.defineErrorHandler) {
     defineErrorHandler();
   }
 }

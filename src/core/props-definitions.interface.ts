@@ -4,18 +4,15 @@ import {
   IFieldEntity,
   IListEntity,
   IRnListEntity,
-  IUniversalContainerEntity,
   IGridEntity,
   IUniversalListEntity,
   IComponentEntity,
   IGridColumnEntity,
 } from './entities-definitions.interface';
 import {
-  IContainerConfiguration,
   IFieldConfiguration,
   IListConfiguration,
   IRnListConfiguration,
-  IUniversalContainerConfiguration,
   IGridConfiguration,
   IUniversalListConfiguration,
   IReactComponentConfiguration,
@@ -41,17 +38,9 @@ export interface IComponentProps extends IComponentEntity,
 }
 
 /**
- * @stable [05.05.2018]
- */
-export interface IUniversalContainerProps extends IUniversalContainerEntity,
-                                                  IUniversalContainerConfiguration {
-}
-
-/**
  * @stable [27.04.2018]
  */
-export interface IContainerProps extends IContainerEntity,
-                                         IContainerConfiguration {
+export interface IContainerProps extends IContainerEntity {
 }
 
 /**

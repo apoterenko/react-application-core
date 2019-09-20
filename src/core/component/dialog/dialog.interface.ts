@@ -13,7 +13,8 @@ import {
   IOnDeactivateWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
-import { IReactComponentConfiguration, IWebComponentConfiguration } from '../../configurations-definitions.interface';
+import { IReactComponentConfiguration } from '../../configurations-definitions.interface';
+import { IComponentProps } from '../../props-definitions.interface';
 
 /**
  * @stable [17.05.2018]
@@ -39,8 +40,8 @@ export interface IUniversalDialogProps extends IUniversalDialogConfiguration {
 /**
  * @stable [30.06.2018]
  */
-export interface IDialogProps extends IUniversalDialogProps,
-                                      IWebComponentConfiguration {
+export interface IDialogProps extends IComponentProps,
+  IUniversalDialogProps {
 }
 
 export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps, TState = {}>
