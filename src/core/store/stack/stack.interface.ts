@@ -1,11 +1,4 @@
 import { ACTION_PREFIX } from '../../definitions.interface';
-import { IStackEntity } from '../../entities-definitions.interface';
-
-/* @stable - 15.04.2018 */
-export const INITIAL_APPLICATION_STACK_STATE: IStackEntity = {
-  stack: [],
-  lock: false,
-};
 
 /* @stable - 15.04.2018 */
 export const STACK_LOCK_ACTION_TYPE = `${ACTION_PREFIX}stack.lock`;

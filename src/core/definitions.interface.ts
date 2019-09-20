@@ -532,32 +532,13 @@ export interface IMultiWrapper {
   multi?: boolean;
 }
 
-/**
- * @stable [14.08.2018]
- */
-export interface ISectionWrapper<TSection = string> {
-  section?: TSection;
-}
-
-/* @stable - 15.04.2018 */
-export interface ILinkedToSectionsWrapper {
-  linkedToSections?: string[];
-}
-
-export interface ILinkWrapper<TLink = string> { link?: TLink; }
-
-/* @stable - 15.04.2018 */
-export interface INeedToDestroySectionsWrapper {
-  needToDestroySections?: string[];
-}
-
-/* @stable - 15.04.2018 */
-export interface ILockWrapper {
-  lock?: boolean;
-}
-
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
+export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
+export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
+export interface ILinkWrapper<TLink = string> { link?: TLink; }
+export interface ILockWrapper { lock?: boolean; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
+export interface ISectionWrapper<TSection = string> { section?: TSection; }
 export interface IStackWrapper<TStack> { stack?: TStack; }
 
 /**

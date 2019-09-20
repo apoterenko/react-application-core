@@ -159,7 +159,6 @@ import {
   IResetIconWrapper,
   IRestoreAuthWrapper,
   IRippableWrapper,
-  ISectionNameWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISeparatorsWrapper,
@@ -224,7 +223,9 @@ import {
   IGenericFieldEntity,
   IGenericFormEntity,
   INamedConstructor,
+  IUniversalContainerEntity,
   INavigationItemEntity,
+  IWebComponentEntity,
 } from './definition';
 
 /**
@@ -327,38 +328,6 @@ export interface INavigationHandlersConfiguration {
 }
 
 /**
- * @stable [27.05.2018]
- */
-export interface IBootstrapConfiguration {
-  rootId?: string;
-  needToPrepareBody?: boolean;
-  needToDefineErrorHandler?: boolean;
-}
-
-/**
- * @stable [27.05.2018]
- */
-export const DEFAULT_BOOTSTRAP_CONFIGURATION: IBootstrapConfiguration = {
-  rootId: 'root',
-  needToPrepareBody: true,
-  needToDefineErrorHandler: true,
-};
-
-/**
- * @stable [24.04.2018]
- */
-export interface IWebComponentConfiguration<TClassName = string>
-  extends IClassNameWrapper<TClassName>,
-    IStyleWrapper<React.CSSProperties> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IWebContainerConfiguration extends IWebComponentConfiguration {
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface IReactComponentConfiguration
@@ -368,20 +337,6 @@ export interface IReactComponentConfiguration
           IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]>,
           IRegisterWrapper<(component: IUniversalComponent) => void>,
           IUnregisterWrapper<(component: IUniversalComponent) => void> {
-}
-
-/**
- * @stable [27.04.2018]
- */
-export interface IUniversalContainerConfiguration extends ITitleWrapper,
-                                                          ISectionNameWrapper {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IContainerConfiguration extends IUniversalContainerConfiguration,
-                                                 IWebContainerConfiguration {
 }
 
 /**
@@ -402,7 +357,7 @@ export interface IRnListItemConfiguration extends IUniversalListItemConfiguratio
 
 /* @stable - 31.03.2018 */
 export interface IListItemConfiguration extends IUniversalListItemConfiguration,
-                                                IWebComponentConfiguration,
+                                                IWebComponentEntity,
                                                 IEntityToClassNameWrapper,
                                                 IIconWrapper<UIIconConfigurationT> {
 }
@@ -411,7 +366,7 @@ export interface IListItemConfiguration extends IUniversalListItemConfiguration,
  * @stable [04.05.2018]
  */
 export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
-                                                    IWebComponentConfiguration<string | ((...args) => string)>,
+                                                    IWebComponentEntity<string | ((...args) => string)>,
                                                     IActionButtonsWrapper<(entity: IEntity) => React.ReactNode>,
                                                     IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
   rippable?: boolean; // TODO
@@ -457,12 +412,12 @@ export interface IRnListConfiguration extends IUniversalListConfiguration<IRnLis
 
 /* @stable - 04.04.2018 */
 export interface ICardListConfiguration extends IUniversalListConfiguration<ICardListItemConfiguration>,
-  IWebComponentConfiguration {
+  IWebComponentEntity {
 }
 
 /* @stable - 04.04.2018 */
 export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
-                                            IWebComponentConfiguration {
+                                            IWebComponentEntity {
 }
 
 /**
@@ -487,7 +442,7 @@ export interface IFormExtraActionProps
 }
 
 export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
-                                            IWebComponentConfiguration,
+                                            IWebComponentEntity,
                                             IButtonConfigurationWrapper,
                                             IReadOnlyWrapper,
                                             ICompactWrapper {
@@ -545,7 +500,7 @@ export interface IGridFilterConfiguration<TEntity extends IEntity = IEntity> ext
 
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
-                                            IWebComponentConfiguration,
+                                            IWebComponentEntity,
                                             IWrapperClassNameWrapper,
                                             IOnChangeGroupingWrapper<IFieldChangeEntity>,
                                             IOnChangeSortingWrapper<ISortDirectionEntity>,
@@ -710,7 +665,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
 export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeyboardEvent,
                                                                           IFocusEvent,
                                                                           IBaseEvent>,
-                                             IWebComponentConfiguration,
+                                             IWebComponentEntity,
                                              IAutoCompleteWrapper,
                                              IActionsPosition<FieldActionPositionEnum>,
                                              IBindDictionaryConfiguration,
@@ -846,7 +801,7 @@ export interface IGridRowConfiguration extends IComponentConfiguration,
 
 /* @stable [24.04.2018] */
 export interface IComponentConfiguration extends IReactComponentConfiguration,
-                                                 IWebComponentConfiguration {
+                                                 IWebComponentEntity {
 }
 
 /* @stable - 08.04.2018 */
@@ -863,7 +818,7 @@ export interface IRnDrawerConfiguration extends IReactComponentConfiguration,
 }
 
 /* @stable [27.04.2018] */
-export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContainerConfiguration,
+export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContainerEntity,
                                                                 IHeaderBackActionEnabledWrapper,
                                                                 IHeaderMenuActionEnabledWrapper,
                                                                 IDrawerContentWrapper,
@@ -987,7 +942,7 @@ export interface IUniversalUIIconConfiguration extends IReactComponentConfigurat
  * @stable [18.05.2018]
  */
 export interface IUIIconConfiguration extends IUniversalUIIconConfiguration,
-                                              IWebComponentConfiguration {
+                                              IWebComponentEntity {
 }
 
 /**

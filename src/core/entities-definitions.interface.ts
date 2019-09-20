@@ -6,7 +6,6 @@ import {
   EntityIdT,
   IApplicationWrapper,
   IAuthorizedWrapper,
-  IBrowserLocationWrapper,
   IChangesWrapper,
   IClearValueWrapper,
   IDataWrapper,
@@ -33,17 +32,13 @@ import {
   IInfoWrapper,
   IJQueryElement,
   IKeyValue,
-  IKeyValueRouteParamsWrapper,
   ILabelWrapper,
   ILayoutWrapper,
-  ILinkedToSectionsWrapper,
   IListWrapper,
   ILoadingWrapper,
-  ILockWrapper,
   ILoginWrapper,
   IModeWrapper,
   INameWrapper,
-  INeedToDestroySectionsWrapper,
   INewEntityWrapper,
   INotificationWrapper,
   IOnBeforeSubmitWrapper,
@@ -65,12 +60,10 @@ import {
   IRawDataWrapper,
   IReadyWrapper,
   IResetErrorWrapper,
-  ISectionWrapper,
   ISelectedEntityWrapper,
   ISelectedWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
-  IStackWrapper,
   IStateWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
@@ -78,7 +71,6 @@ import {
   ITokenWrapper,
   ITransportWrapper,
   ITypeWrapper,
-  IURLSearchQueryParamsWrapper,
   IUrlWrapper,
   IUserWrapper,
   IValueWrapper,
@@ -90,7 +82,6 @@ import {
   IComponentProps,
   IContainerProps,
   IUniversalComponentProps,
-  IUniversalContainerProps,
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
@@ -106,6 +97,10 @@ import {
   IPaginatedEntity,
   IPermissionsWrapperEntity,
   IQueryFilterEntity,
+  IStackWrapperEntity,
+  IUniversalContainerEntity,
+  IUniversalContainerProps,
+  IWebContainerEntity,
 } from './definition';
 
 /**
@@ -119,25 +114,6 @@ export interface IDateTimeEntity extends IDateWrapper,
  * @stable [25.01.2019]
  */
 export interface IComponentEntity {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IUniversalContainerEntity extends IChannelWrapperEntity,
-                                                   ILayoutWrapperEntity,
-                                                   IUserWrapperEntity,
-                                                   INotificationWrapperEntity,
-                                                   ITransportWrapperEntity {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IWebContainerEntity extends IStackWrapperEntity,
-                                             IBrowserLocationWrapper,
-                                             IURLSearchQueryParamsWrapper,
-                                             IKeyValueRouteParamsWrapper {
 }
 
 /**
@@ -454,21 +430,6 @@ export interface ITransportWrapperEntity extends ITransportWrapper<ITransportEnt
 
 /* @stable - 15.04.2018 */
 export interface IRouterComponentEntity extends History {
-}
-
-/* @stable - 15.04.2018 */
-export interface IStackItemEntity extends ISectionWrapper,
-                                          ILinkedToSectionsWrapper {
-}
-
-/* @stable - 15.04.2018 */
-export interface IStackEntity extends IStackWrapper<IStackItemEntity[]>,
-                                      ILockWrapper,
-                                      INeedToDestroySectionsWrapper {
-}
-
-/* @stable - 15.04.2018 */
-export interface IStackWrapperEntity extends IStackWrapper<IStackEntity> {
 }
 
 /**

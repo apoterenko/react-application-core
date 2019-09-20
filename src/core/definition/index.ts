@@ -23,6 +23,7 @@ export * from './permission-definition.interface';
 export * from './props-definition.interface';
 export * from './query-definition.interface';
 export * from './redux-definition.interface';
+export * from './stack-definition.interface';
 export * from './storage-definition.interface';
 export * from './tab-definition.interface';
 export * from './toolbar-tools-definition.interface';

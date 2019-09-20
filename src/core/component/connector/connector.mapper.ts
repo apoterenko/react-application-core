@@ -12,13 +12,13 @@ import {
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
   IListEntity,
-  IStackWrapperEntity,
 } from '../../entities-definitions.interface';
 import {
   IChannelWrapperEntity,
   IEditableEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
+  IStackWrapperEntity,
 } from '../../definition';
 import {
   IFilterActionConfiguration,

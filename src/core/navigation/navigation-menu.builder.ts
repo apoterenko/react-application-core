@@ -4,10 +4,13 @@ import {
   DI_TYPES,
 } from '../di';
 import { IPermissionsService } from '../permissions';
-import { NavigationItemTypesEnum, INavigationItemEntity } from '../definition';
+import {
+  INavigationItemEntity,
+  IStackWrapperEntity,
+  NavigationItemTypesEnum,
+} from '../definition';
 import { APPLICATION_SECTIONS } from '../component/application/application.interface';
 import { getRoutePathBySection, ifNotNilThanValue } from '../util';
-import { IStackWrapperEntity } from '../entities-definitions.interface';
 
 @provideInSingleton(NavigationMenuBuilder)
 export class NavigationMenuBuilder {
