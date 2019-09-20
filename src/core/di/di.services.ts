@@ -4,14 +4,14 @@ import { DI_TYPES } from './di.interface';
 import { INumberConverter } from '../converter';
 import { ISettings } from '../settings';
 import {
-  ITransport,
+  IEnvironment,
   IStorage,
+  ITransport,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
 import { IUniversalComponentClassEntity, UniversalComponentPluginFactoryT } from '../entities-definitions.interface';
 import { staticInjector } from './di.support';
 import { TranslatorT } from '../translation';
-import { IUniversalComponentProps } from '../props-definitions.interface';
 
 /**
  * @stable [31.10.2018]
@@ -67,3 +67,9 @@ export const getStore = <TState>(): Store<TState> => staticInjector(DI_TYPES.Sto
  * @returns {ITransport}
  */
 export const getTransport = (): ITransport => staticInjector(DI_TYPES.Transport);
+
+/**
+ * @stable [20.09.2019]
+ * @returns {IEnvironment}
+ */
+export const getEnvironment = (): IEnvironment => staticInjector(DI_TYPES.Environment);

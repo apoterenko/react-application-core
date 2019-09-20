@@ -7,10 +7,8 @@ import {
   ContainerVisibilityTypeEnum,
   IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
-import {
-  IContainerClassEntity,
-  IUniversalContainerEntity,
-} from '../../entities-definitions.interface';
+import { IContainerClassEntity } from '../../entities-definitions.interface';
+import { IUniversalContainerEntity } from '../../definition';
 import { UniversalContainer } from '../base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';

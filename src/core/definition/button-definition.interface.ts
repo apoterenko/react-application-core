@@ -30,8 +30,8 @@ import {
 import { IErrorEntity } from './error-definition.interface';
 import {
   IReactComponentConfiguration,
-  IWebComponentConfiguration,
 } from '../configurations-definitions.interface';
+import { IWebComponentEntity } from '../definition';
 
 /**
  * @cross-platform
@@ -62,7 +62,7 @@ export interface IReactButtonProps extends IReactButtonConfiguration,
 
 export interface IButtonProps
   extends IReactButtonProps,
-    IWebComponentConfiguration,
+    IWebComponentEntity,
     IOutlinedWrapper,
     IStringToWrapper,
     ISimpleWrapper,
