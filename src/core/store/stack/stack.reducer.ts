@@ -27,6 +27,7 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
                              action: AnyAction): IStackEntity => {
   const stack = state.stack;
   const nextSection: string = action.data;
+  const previousSection: string = action.data;
   const sectionsToDestroy: string[] = action.data;
 
   switch (action.type) {
@@ -69,7 +70,7 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
      * Is called from componentWillUnmount
      */
     case STACK_POP_ACTION_TYPE:
-      const additionalSectionsToDestroy = getAdditionalStackSectionsToDestroy(nextSection, state);
+      const additionalSectionsToDestroy = getAdditionalStackSectionsToDestroy(previousSection, state);
       return {
         ...state,
         lock: INITIAL_STACK_ENTITY.lock,                            // Auto reset
@@ -79,13 +80,13 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
             ? {}  // If there is a lock - do nothing
             : {
               stack: stack
-                .slice(0, findStackEntityIndex(nextSection, state) + 1)
+                .slice(0, findStackEntityIndex(previousSection, state) + 1)
                 .map((itm): IStackItemEntity =>
                   ({
                     ...itm,
-                    linkedSections: itm.linkedSections.filter((itm0) => !additionalSectionsToDestroy.includes(itm0))
+                    linkedSections: itm.linkedSections.filter((itm0) => !additionalSectionsToDestroy.includes(itm0)),
                   })),
-              destroySections: additionalSectionsToDestroy,
+              destroySections: additionalSectionsToDestroy,  // The sections will be destroyed on PUSH event
             }
         ),
       };

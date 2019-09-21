@@ -20,7 +20,10 @@ export const findStackEntityIndex = (currentSection: string,
  * @returns {string[]}
  */
 export const collectStackMainSectionsByIndex = (stackEntity: IStackEntity,
-                                                startingIndex = 0): string [] => {
+                                                startingIndex: number): string [] => {
+  if (startingIndex < 0) {
+    return [];
+  }
   const additionalSectionsToDestroy = new Set<string>();
 
   stackEntity.stack.forEach((entry, index) => {
@@ -33,13 +36,13 @@ export const collectStackMainSectionsByIndex = (stackEntity: IStackEntity,
 
 /**
  * @stable [21.09.2019]
- * @param {string} currentSection
+ * @param {string} section
  * @param {IStackEntity} stackEntity
  * @returns {string[]}
  */
-export const getAdditionalStackSectionsToDestroy = (currentSection: string,
+export const getAdditionalStackSectionsToDestroy = (section: string,
                                                     stackEntity: IStackEntity): string [] =>
-  collectStackMainSectionsByIndex(stackEntity, findStackEntityIndex(currentSection, stackEntity));
+  collectStackMainSectionsByIndex(stackEntity, findStackEntityIndex(section, stackEntity));
 
 /**
  * This is a specific case when a user clicks in root menu item during subtree observing:
@@ -89,6 +92,7 @@ export const toGraphComponents = (currentSection: string,
     entry.linkedSections.forEach((linkedSection) => {
       gr.setNode(linkedSection);
 
+      // We need to prevent link the destroyable nodes
       if (R.isEmpty(R.intersection(
           [entry.section, linkedSection],
           [...stackEntity.destroySections, ...additionalSectionsToDestroy]
