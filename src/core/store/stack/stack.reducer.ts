@@ -12,7 +12,10 @@ import {
   IStackEntity,
   IStackItemEntity,
 } from '../../definition';
-import { findStackEntityIndex } from './stack.support';
+import {
+  findStackEntityIndex,
+  getAdditionalStackSectionsToDestroy,
+} from './stack.support';
 
 /**
  * @stable [20.09.2019]
@@ -51,10 +54,13 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
         ...state,
         destroySections: INITIAL_STACK_ENTITY.destroySections,      // Auto reset
         ...(
-          findStackEntityIndex(nextSection, state) > -1
-            ? {} // If already inserted
+          findStackEntityIndex(nextSection, state) > -1             // If already inserted
+            ? {}
             : {
-              stack: R.insert<IStackItemEntity>(stack.length, {section: nextSection, linkedSections: []}, stack),
+              stack: [
+                ...stack,
+                {section: nextSection, linkedSections: []}
+              ],
             }
         ),
       };
@@ -63,6 +69,7 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
      * Is called from componentWillUnmount
      */
     case STACK_POP_ACTION_TYPE:
+      const additionalSectionsToDestroy = getAdditionalStackSectionsToDestroy(nextSection, state);
       return {
         ...state,
         lock: INITIAL_STACK_ENTITY.lock,                            // Auto reset
@@ -71,8 +78,14 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
           state.lock
             ? {}  // If there is a lock - do nothing
             : {
-              stack: stack.slice(0, findStackEntityIndex(nextSection, state) + 1),
-              destroySections: [nextSection], // TODO Extract destroy sections by index here
+              stack: stack
+                .slice(0, findStackEntityIndex(nextSection, state) + 1)
+                .map((itm): IStackItemEntity =>
+                  ({
+                    ...itm,
+                    linkedSections: itm.linkedSections.filter((itm0) => !additionalSectionsToDestroy.includes(itm0))
+                  })),
+              destroySections: additionalSectionsToDestroy,
             }
         ),
       };

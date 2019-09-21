@@ -1,4 +1,4 @@
-import { getAllIndependentSections } from './stack.support';
+import { getAllIndependentStackSections } from './stack.support';
 
 describe('stack.support', () => {
   describe('getAllIndependentSections', () => {

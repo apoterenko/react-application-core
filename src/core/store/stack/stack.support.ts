@@ -14,6 +14,34 @@ export const findStackEntityIndex = (currentSection: string,
   R.findIndex<IStackItemEntity>((entry) => entry.section === currentSection, stackEntity.stack);
 
 /**
+ * @stable [21.09.2019]
+ * @param {IStackEntity} stackEntity
+ * @param {number} startingIndex
+ * @returns {string[]}
+ */
+export const collectStackMainSectionsByIndex = (stackEntity: IStackEntity,
+                                                startingIndex = 0): string [] => {
+  const additionalSectionsToDestroy = new Set<string>();
+
+  stackEntity.stack.forEach((entry, index) => {
+    if (index >= startingIndex) {
+      additionalSectionsToDestroy.add(entry.section);
+    }
+  });
+  return Array.from(additionalSectionsToDestroy);
+};
+
+/**
+ * @stable [21.09.2019]
+ * @param {string} currentSection
+ * @param {IStackEntity} stackEntity
+ * @returns {string[]}
+ */
+export const getAdditionalStackSectionsToDestroy = (currentSection: string,
+                                                    stackEntity: IStackEntity): string [] =>
+  collectStackMainSectionsByIndex(stackEntity, findStackEntityIndex(currentSection, stackEntity));
+
+/**
  * This is a specific case when a user clicks in root menu item during subtree observing:
  *
  * R0 -> R1 (submenu of R0) -> R2 (submenu of R1) -> R3 (submenu of R2) -> R0
@@ -101,7 +129,7 @@ export const findStackSectionsByPredicate = (
  * @param {IStackEntity} stackEntity
  * @returns {Set<string>}
  */
-export const toAllIndependentSections = (currentSection: string, stackEntity: IStackEntity): Set<string> => {
+export const toAllIndependentStackSections = (currentSection: string, stackEntity: IStackEntity): Set<string> => {
   const result = new Set<string>();
   findStackSectionsByPredicate(
     currentSection,
@@ -119,5 +147,5 @@ export const toAllIndependentSections = (currentSection: string, stackEntity: IS
  * @param {IStackEntity} stackEntity
  * @returns {string[]}
  */
-export const getAllIndependentSections = (currentSection: string, stackEntity: IStackEntity): string[] =>
-  Array.from(toAllIndependentSections(currentSection, stackEntity));
+export const getAllIndependentStackSections = (currentSection: string, stackEntity: IStackEntity): string[] =>
+  Array.from(toAllIndependentStackSections(currentSection, stackEntity));
