@@ -12,6 +12,7 @@ import { IUIFactory } from '../component/factory/factory.interface';
 import { IUniversalComponentClassEntity, UniversalComponentPluginFactoryT } from '../entities-definitions.interface';
 import { staticInjector } from './di.support';
 import { TranslatorT } from '../translation';
+import { IUniversalComponentProps } from '../props-definitions.interface';
 
 /**
  * @stable [31.10.2018]
