@@ -1,9 +1,9 @@
 import { getAllIndependentStackSections } from './stack.support';
 
 describe('stack.support', () => {
-  describe('getAllIndependentSections', () => {
+  describe('getAllIndependentStackSections', () => {
 
-    /*it('test1', () => {
+    it('test1', () => {
       const initialState = {
         stack: [
           {
@@ -30,7 +30,7 @@ describe('stack.support', () => {
         destroySections: [],
       };
 
-      expect(new Set(getAllIndependentSections('section1', initialState))).toEqual(
+      expect(new Set(getAllIndependentStackSections('section1', initialState))).toEqual(
         new Set(['section2', 'section3', 'section4', 'section5'])
       );
     });
@@ -59,10 +59,12 @@ describe('stack.support', () => {
             linkedSections: [],
           }
         ],
-        destroySections: ['section2'],
+        destroySections: [],
       };
 
-      expect(getAllIndependentSections('section2', initialState)).toEqual([]);
+      expect(new Set(getAllIndependentStackSections('section6', initialState))).toEqual(
+        new Set(['section1', 'section2', 'section3', 'section4', 'section5'])
+      );
     });
 
     it('test3', () => {
@@ -89,10 +91,46 @@ describe('stack.support', () => {
             linkedSections: [],
           }
         ],
-        destroySections: [],
+        destroySections: ['section5'],
       };
 
-      expect(getAllIndependentSections('section3', initialState)).toEqual([]);
-    });*/
+      // S1 -> S2 -> S3 -> S4 -> S5 -> S3
+      expect(new Set(getAllIndependentStackSections('section3', initialState))).toEqual(
+        new Set(['section4', 'section5'])
+      );
+    });
+
+    it('test4', () => {
+      const initialState = {
+        stack: [
+          {
+            section: 'section1',
+            linkedSections: ['section2'],
+          },
+          {
+            section: 'section2',
+            linkedSections: ['section3'],
+          },
+          {
+            section: 'section3',
+            linkedSections: ['section4'],
+          },
+          {
+            section: 'section4',
+            linkedSections: ['section5'],
+          },
+          {
+            section: 'section5',
+            linkedSections: [],
+          }
+        ],
+        destroySections: ['section5'],
+      };
+
+      // S1 -> S2 -> S3 -> S4 -> S5 -> S2
+      expect(new Set(getAllIndependentStackSections('section2', initialState))).toEqual(
+        new Set(['section3', 'section4', 'section5'])
+      );
+    });
   });
 });

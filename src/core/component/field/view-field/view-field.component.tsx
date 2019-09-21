@@ -6,7 +6,6 @@ import {
   defValuesFilter,
   detectBlobMimeType,
   isAbsoluteURI,
-  isDef,
   joinClassName,
 } from '../../../util';
 import { Field, IFieldInputProps, toLastAddedMultiItemEntityId } from '../../field';
@@ -166,7 +165,7 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
    * @stable [19.09.2019]
    */
   private doClear(): void {
-    if (isDef(this.detectorFileTypeTask)) {
+    if (!R.isNil(this.detectorFileTypeTask)) {
       this.detectorFileTypeTask.cancel();
       this.detectorFileTypeTask = null;
     }

@@ -45,34 +45,6 @@ export const getAdditionalStackSectionsToDestroy = (section: string,
   collectStackMainSectionsByIndex(stackEntity, findStackEntityIndex(section, stackEntity));
 
 /**
- * This is a specific case when a user clicks in root menu item during subtree observing:
- *
- * R0 -> R1 (submenu of R0) -> R2 (submenu of R1) -> R3 (submenu of R2) -> R0
- *
- * @stable [20.09.2019]
- * @param {string} currentSection
- * @param {IStackEntity} stackEntity
- * @returns {string[]}
- */
-export const getAdditionalSectionsToDestroyWhenRootIsBeingSelected = (currentSection: string,
-                                                                      stackEntity: IStackEntity): string [] => {
-  const stack = stackEntity.stack;
-  const currentSectionIndex = R.findIndex<IStackItemEntity>((entry) => entry.section === currentSection, stack);
-  const doesAlreadyExist = currentSectionIndex > -1;
-  const additionalSectionsToDestroy = new Set<string>();
-
-  if (doesAlreadyExist) {
-    stack.forEach((entry, index) => {
-      if (index >= currentSectionIndex) {
-        additionalSectionsToDestroy.add(entry.section);
-        entry.linkedSections.forEach((itm) => additionalSectionsToDestroy.add(itm));
-      }
-    });
-  }
-  return Array.from(additionalSectionsToDestroy);
-};
-
-/**
  * @stable [20.09.2019]
  * @param {string} currentSection
  * @param {IStackEntity} stackEntity
@@ -82,8 +54,17 @@ export const toGraphComponents = (currentSection: string,
                                   stackEntity: IStackEntity): string[][] => {
 
   const stack = stackEntity.stack;
-  const additionalSectionsToDestroy = [];
-  // TODO getAdditionalSectionsToDestroyWhenRootIsBeingSelected(currentSection, stackEntity);
+
+  /**
+   * The cases:
+   * R0 -> R1 -> R2 -> R3 -> R0
+   * R0 -> R1 -> R2 -> R3 -> R1
+   */
+  const currentSectionIndex = findStackEntityIndex(currentSection, stackEntity);
+  const additionalSectionsToPreventToBeLinked = currentSectionIndex > -1
+    // // R0 -> R1 -> R2 -> R3 -> R1 ==> The links between R1-R2 + R1-R3 will be broken
+    ? collectStackMainSectionsByIndex(stackEntity, currentSectionIndex + 1)
+    : [];
 
   const gr = new graphlib.Graph();
   stack.forEach((entry) => {
@@ -95,7 +76,7 @@ export const toGraphComponents = (currentSection: string,
       // We need to prevent link the destroyable nodes
       if (R.isEmpty(R.intersection(
           [entry.section, linkedSection],
-          [...stackEntity.destroySections, ...additionalSectionsToDestroy]
+          [...stackEntity.destroySections, ...additionalSectionsToPreventToBeLinked]
         ))) {
         gr.setEdge(entry.section, linkedSection);
       }
