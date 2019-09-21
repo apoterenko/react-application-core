@@ -7,7 +7,6 @@ import {
   STACK_PUSH_ACTION_TYPE,
   STACK_REMOVE_ACTION_TYPE,
 } from './stack.interface';
-import { lockNextSection, destroySections } from './stack.helper';
 import {
   INITIAL_STACK_ENTITY,
   IStackEntity,
@@ -24,13 +23,24 @@ import { findStackEntityIndex } from './stack.support';
 export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
                              action: AnyAction): IStackEntity => {
   const stack = state.stack;
-  const nextSection = action.data;
+  const nextSection: string = action.data;
+  const sectionsToDestroy: string[] = action.data;
 
   switch (action.type) {
+    /**
+     * @stable [21.09.2019]
+     */
     case STACK_REMOVE_ACTION_TYPE:
       return {
         ...state,
-        stack: destroySections(nextSection as string[], state),
+        stack: R.filter<IStackItemEntity>((entry) => !sectionsToDestroy.includes(entry.section), stack)
+          .map(
+            (itm): IStackItemEntity =>
+              ({
+                ...itm,
+                linkedSections: itm.linkedSections.filter((linkedSection) => !sectionsToDestroy.includes(linkedSection)),
+              })
+          ),
       };
     /**
      * @stable [20.09.2019]
@@ -66,11 +76,27 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
             }
         ),
       };
+    /**
+     * @stable [21.09.2019]
+     */
     case STACK_LOCK_ACTION_TYPE:
       return {
         ...state,
         lock: true,
-        stack: lockNextSection(nextSection, state),
+        // If there is a lock - we should attach the next section to linked sections
+        stack: stack.map<IStackItemEntity>((entry, index): IStackItemEntity => (
+          index === stack.length - 1
+            ? {
+              ...entry,
+              linkedSections: Array.from(
+                new Set(
+                  entry.linkedSections.concat(nextSection)
+                    .filter((section) => section !== entry.section) // Prevent the recursive links
+                )
+              ),
+            }
+            : entry
+        )),
       };
   }
   return state;
