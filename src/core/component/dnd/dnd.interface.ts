@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 import { IComponent } from '../../entities-definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 import { IDisabledWrapper, IOnSelectWrapper, IOpenWrapper } from '../../definitions.interface';
 
 /**

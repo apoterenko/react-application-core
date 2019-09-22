@@ -1,10 +1,12 @@
-import { IUniversalComponent } from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
 import { IDomAccessor } from '../../component/dom-accessor';
-import { IUniversalPlugin } from '../../definition';
+import {
+  IUniversalComponent,
+  IUniversalPlugin,
+} from '../../definition';
 
 export class AutoScrollTopPlugin implements IUniversalPlugin {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
+  @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   private contentHeight: number;
 
@@ -12,7 +14,7 @@ export class AutoScrollTopPlugin implements IUniversalPlugin {
    * @stable [27.10.2018]
    * @param {IUniversalComponent} component
    */
-  constructor(private component: IUniversalComponent) {
+  constructor(private readonly component: IUniversalComponent) {
   }
 
   /**
@@ -33,11 +35,11 @@ export class AutoScrollTopPlugin implements IUniversalPlugin {
    * @stable [01.12.2018]
    */
   private updateScrollTop(): void {
-    const el = this.component.getSelf();
-    const contentHeight = this.domAccessor.getContentHeight(el);
+    const self = this.component.getSelf();
+    const contentHeight = this.domAccessor.getContentHeight(self);
 
     if (this.contentHeight !== contentHeight) {
-      this.domAccessor.setScrollTop(el, this.contentHeight = contentHeight);
+      this.domAccessor.setScrollTop(self, this.contentHeight = contentHeight);
     }
   }
 }

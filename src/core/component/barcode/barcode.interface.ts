@@ -8,7 +8,7 @@ import {
   IFormatWrapper,
   IHeightWrapper,
 } from '../../definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 
 /**
  * @stable [10.04.2019]

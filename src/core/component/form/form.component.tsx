@@ -16,7 +16,7 @@ import {
   orNull,
   orUndef,
 } from '../../util';
-import { AnyT, ReactElementT, IEntity } from '../../definitions.interface';
+import { AnyT, IEntity } from '../../definitions.interface';
 import { IApiEntity, IEditableEntity } from '../../definition';
 import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
@@ -49,7 +49,8 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   private static logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
-  private readonly childrenMap: Map<ReactElementT, string | React.RefObject<IField>> = new Map();
+  private readonly childrenMap: Map<React.FunctionComponentElement<{ children: React.ReactChild[] }>,
+    string | React.RefObject<IField>> = new Map();
 
   /**
    * @stable [29.05.2018]

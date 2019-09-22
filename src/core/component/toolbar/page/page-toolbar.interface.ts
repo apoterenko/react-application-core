@@ -1,11 +1,10 @@
 import { IListWrapperEntity } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
-  IComponentEntity,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
 import { IProgressWrapper } from '../../../definitions.interface';
-import { IPaginatedEntity, IWebComponentEntity } from '../../../definition';
+import { IPaginatedEntity, IWebComponentEntity, IUniversalComponentEntity } from '../../../definition';
 
 /**
  * @stable [16.05.2018]
@@ -17,7 +16,7 @@ export interface IUniversalPageToolbarEntity extends IPaginatedEntity,
 /**
  * @stable [16.05.2018]
  */
-export interface IUniversalPageToolbarConfiguration extends IComponentEntity,
+export interface IUniversalPageToolbarConfiguration extends IUniversalComponentEntity,
                                                             INavigationHandlersConfiguration {
 }
 

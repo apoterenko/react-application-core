@@ -2,7 +2,7 @@ import { ACTION_PREFIX } from '../definitions.interface';
 import { IConnectorConfigEntity } from '../configurations-definitions.interface';
 import { IUniversalContainerClassEntity } from '../entities-definitions.interface';
 import { IContainerProps } from '../props-definitions.interface';
-import { IUniversalContainerProps } from '../definition';
+import { IUniversalContainerEntity } from '../definition';
 
 /* @stable - 15.04.2018 */
 export const DYNAMIC_ROUTES = new Map<IUniversalContainerClassEntity, IConnectorConfigEntity>();

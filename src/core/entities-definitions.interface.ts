@@ -24,7 +24,6 @@ import {
   IFilterFormWrapper,
   IFilterWrapper,
   IFromDateFromTimeEntity,
-  IGetSelfWrapper,
   IGetValueWrapper,
   IIconWrapper,
   IIdWrapper,
@@ -46,7 +45,6 @@ import {
   IOnChangeWrapper,
   IOnLoadDictionaryWrapper,
   IOnResetWrapper,
-  IOnScrollWrapper,
   IOnSubmitWrapper,
   IOpenWrapper,
   IOriginalDataWrapper,
@@ -75,9 +73,7 @@ import {
   IWidthWrapper,
 } from './definitions.interface';
 import {
-  IComponentProps,
   IContainerProps,
-  IUniversalComponentProps,
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
@@ -85,6 +81,7 @@ import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IApiEntity,
   IChannelWrapperEntity,
+  IComponentProps,
   IEditableEntity,
   IEntityFormEntity,
   IErrorEntity,
@@ -93,10 +90,11 @@ import {
   IPermissionsWrapperEntity,
   IQueryFilterEntity,
   IStackWrapperEntity,
+  IUniversalComponentEntity,
   IUniversalContainerEntity,
-  IUniversalContainerProps,
   IWebContainerEntity,
   IXYEntity,
+  IUniversalComponent,
 } from './definition';
 
 /**
@@ -116,14 +114,14 @@ export interface IContainerEntity extends IUniversalContainerEntity,
 /**
  * @stable [23.04.2018]
  */
-export interface IUniversalComponentCtor<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+export interface IUniversalComponentCtor<TProps extends IUniversalComponentEntity = IUniversalComponentEntity, TState = {}>
   extends ComponentClass<TProps, TState> {
 }
 
 /**
  * @stable [14.05.2018]
  */
-export interface IUniversalContainerClassEntity<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+export interface IUniversalContainerClassEntity<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends ComponentClass<TProps, TState> {
 }
 
@@ -139,23 +137,6 @@ export interface IReactComponentClassEntity<TProps extends IComponentProps = ICo
  */
 export interface IContainerClassEntity<TProps extends IContainerProps = IContainerProps, TState = {}>
   extends IUniversalContainerClassEntity<TProps, TState> {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
-  extends Component<TProps, TState>,
-          IGetSelfWrapper {
-}
-
-/**
- * @stable [13.12.2018]
- */
-export interface IUniversalScrollableComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
-                                               TState = {}>
-  extends IUniversalComponent<TProps, TState>,
-          IOnScrollWrapper {
 }
 
 /**
@@ -182,7 +163,7 @@ export interface IDispatchEntity {
 /**
  * @stable [17.05.2018]
  */
-export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+export interface IUniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends Component<TProps, TState>,
           IDispatchEntity {
 }

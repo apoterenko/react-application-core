@@ -6,12 +6,12 @@ import {
 } from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IListWrapperEntity, IListEntity } from '../../entities-definitions.interface';
-import { IUniversalContainerProps } from '../../definition';
+import { IUniversalContainerEntity } from '../../definition';
 
 /**
  * @stable [05.06.2018]
  */
-export interface IUniversalListContainerProps extends IUniversalContainerProps,
+export interface IUniversalListContainerProps extends IUniversalContainerEntity,
                                                       IListWrapperEntity {
 }
 
@@ -25,7 +25,7 @@ export interface IListContainerProps extends IUniversalListContainerProps,
 /**
  * @stable [05.05.2018]
  */
-export interface IRnListContainerProps extends IUniversalContainerProps,
+export interface IRnListContainerProps extends IUniversalContainerEntity,
                                                IListWrapperEntity,
                                                IListConfigurationWrapper {
 }

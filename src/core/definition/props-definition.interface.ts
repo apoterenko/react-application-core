@@ -1,8 +1,12 @@
-import { IUniversalContainerEntity } from './container-definition.interface';
+import {
+  IUniversalComponentEntity,
+  IWebComponentEntity,
+} from './component-definition.interface';
 
 /**
- * @stable [05.05.2018]
+ * @stable [22.09.2019]
  */
-export interface IUniversalContainerProps
-  extends IUniversalContainerEntity {
+export interface IComponentProps
+  extends IUniversalComponentEntity,
+    IWebComponentEntity {
 }

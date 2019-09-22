@@ -2,7 +2,7 @@ import {
   IOpenedWrapper,
   IErrorWrapper,
 } from '../../definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 import { IViewerEntity } from '../../definition';
 
 /**

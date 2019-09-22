@@ -1,4 +1,4 @@
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 import { IItemsWrapper, IBorderedWrapper } from '../../definitions.interface';
 
 /**

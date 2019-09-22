@@ -1,5 +1,5 @@
 import { IAppVersionWrapper, IAvatarRenderedWrapper} from '../../definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 import { IReactOnClickWrapper } from '../../react-definitions.interface';
 
 /**

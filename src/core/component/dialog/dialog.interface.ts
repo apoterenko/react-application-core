@@ -12,29 +12,27 @@ import {
   IOnCloseWrapper,
   IOnDeactivateWrapper,
 } from '../../definitions.interface';
-import { IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
-import { IComponentEntity } from '../../configurations-definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { INativeMaterialComponent } from '../../entities-definitions.interface';
+import {
+  IComponentProps,
+  IUniversalComponent,
+  IUniversalComponentEntity,
+} from '../../definition';
 
 /**
  * @stable [17.05.2018]
  */
-export interface IUniversalDialogConfiguration extends IComponentEntity,
-                                                       ICloseDisabledWrapper,
-                                                       IAcceptDisabledWrapper,
-                                                       IAcceptMessageWrapper,
-                                                       ICloseMessageWrapper,
-                                                       IOnCloseWrapper,
-                                                       IOnDeactivateWrapper<() => void>,
-                                                       IOnAcceptWrapper,
-                                                       IClosableWrapper,
-                                                       IAcceptableWrapper {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IUniversalDialogProps extends IUniversalDialogConfiguration {
+export interface IUniversalDialogProps
+  extends IUniversalComponentEntity,
+    ICloseDisabledWrapper,
+    IAcceptDisabledWrapper,
+    IAcceptMessageWrapper,
+    ICloseMessageWrapper,
+    IOnCloseWrapper,
+    IOnDeactivateWrapper<() => void>,
+    IOnAcceptWrapper,
+    IClosableWrapper,
+    IAcceptableWrapper {
 }
 
 /**

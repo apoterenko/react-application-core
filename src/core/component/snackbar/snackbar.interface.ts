@@ -6,12 +6,12 @@ import {
   ITimeoutWrapper,
   IAfterShowWrapper,
 } from '../../definitions.interface';
-import { IComponentConfiguration2 } from '../../configurations-definitions.interface';
+import { IComponentProps } from '../../definition';
 
 /**
  * @stable [22.08.2018]
  */
-export interface ISnackbarConfiguration extends IComponentConfiguration2,
+export interface ISnackbarConfiguration extends IComponentProps,
                                                 IMessageWrapper,
                                                 IActionTextWrapper,
                                                 ITimeoutWrapper,

@@ -7,7 +7,7 @@ import {
   IRippledWrapper,
 } from '../../../definitions.interface';
 import { KeyboardKeyT } from '../../../configurations-definitions.interface';
-import { IComponentProps } from '../../../props-definitions.interface';
+import { IComponentProps } from '../../../definition';
 
 /**
  * @stable [08.05.2018]

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { IOnScrollWrapper } from '../../definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';

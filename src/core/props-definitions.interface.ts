@@ -14,26 +14,12 @@ import {
   IRnListConfiguration,
   IGridConfiguration,
   IUniversalListConfiguration,
-  IComponentEntity,
-  IComponentConfiguration2,
   IUniversalFieldConfiguration,
   ITabPanelConfiguration,
   IGridColumnConfiguration,
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
 import { ITabPanelEntity } from './definition';
-
-/**
- * @stable [09.05.2018]
- */
-export interface IUniversalComponentProps extends IComponentEntity {
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IComponentProps extends IComponentConfiguration2 {
-}
 
 /**
  * @stable [27.04.2018]

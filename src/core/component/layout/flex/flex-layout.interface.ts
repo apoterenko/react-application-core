@@ -1,8 +1,7 @@
-import { IComponentProps } from '../../../props-definitions.interface';
 import {
   ISeparatorWrapper,
 } from '../../../definitions.interface';
-import { IFlexLayoutEntity } from '../../../definition';
+import { IFlexLayoutEntity, IComponentProps } from '../../../definition';
 
 /**
  * @stable [17.06.2018]

@@ -7,13 +7,13 @@ import {
   IEnvironment,
   IStorage,
   ITransport,
+  IUniversalComponentEntity,
   UniversalPluginFactoryT,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
 import { IUniversalComponentCtor } from '../entities-definitions.interface';
 import { staticInjector } from './di.support';
 import { TranslatorT } from '../translation';
-import { IUniversalComponentProps } from '../props-definitions.interface';
 
 /**
  * @stable [31.10.2018]

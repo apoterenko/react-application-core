@@ -2,8 +2,10 @@ import * as R from 'ramda';
 
 import { DI_TYPES, lazyInject } from '../../di';
 import { IDomAccessor } from '../dom-accessor';
-import { IUniversalPlugin } from '../../definition';
-import { IUniversalScrollableComponent } from '../../entities-definitions.interface';
+import {
+  IUniversalPlugin,
+  IUniversalScrollableComponent,
+} from '../../definition';
 
 export class PersistentScrollPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;

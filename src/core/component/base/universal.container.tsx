@@ -19,7 +19,7 @@ import {
 } from '../../entities-definitions.interface';
 import {
   IOperationEntity,
-  IUniversalContainerProps,
+  IUniversalContainerEntity,
 } from '../../definition';
 import { IConnectorConfigEntity, IRoutesConfiguration } from '../../configurations-definitions.interface';
 import {
@@ -38,7 +38,7 @@ import { DictionariesActionBuilder } from '../../dictionary';
 import { FlexLayout } from '../layout/flex/flex-layout.component';
 import { Link } from '../link/link.component';
 
-export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends React.PureComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 

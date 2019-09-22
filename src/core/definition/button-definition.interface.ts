@@ -28,10 +28,7 @@ import {
   IOnClickWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
-import {
-  IComponentEntity,
-} from '../configurations-definitions.interface';
-import { IWebComponentEntity } from '../definition';
+import { IWebComponentEntity, IUniversalComponentEntity } from '../definition';
 
 /**
  * @cross-platform
@@ -52,7 +49,7 @@ export interface IGenericButtonEntity
 
 // TODO Total typings refactoring
 export interface IReactButtonConfiguration
-  extends IComponentEntity,
+  extends IUniversalComponentEntity,
     IOnClickWrapper {
 }
 

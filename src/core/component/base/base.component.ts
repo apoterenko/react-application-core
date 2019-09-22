@@ -1,6 +1,6 @@
 import { UniversalComponent } from './universal.component';
 import { IComponent } from '../../entities-definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 
 export class BaseComponent<TProps extends IComponentProps = IComponentProps,
                            TState = {}>

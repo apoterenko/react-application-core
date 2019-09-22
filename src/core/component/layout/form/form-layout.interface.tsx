@@ -1,5 +1,5 @@
 import { IFooterWrapper, ITopTitleWrapper } from '../../../definitions.interface';
-import { IComponentProps } from '../../../props-definitions.interface';
+import { IComponentProps } from '../../../definition';
 
 /**
  * @stable [27.01.2018]

@@ -1,4 +1,4 @@
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 import { IReactOnClickWrapper } from '../../react-definitions.interface';
 import { IOverlayBackgroundClassNameWrapper, IOnCloseWrapper, IProgressWrapper } from '../../definitions.interface';
 

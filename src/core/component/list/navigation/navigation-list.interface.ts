@@ -1,7 +1,6 @@
-import { IXYEntity } from '../../../definition';
+import { IXYEntity, IUniversalComponentEntity } from '../../../definition';
 import {
   INavigationListItemConfiguration,
-  IComponentEntity,
 } from '../../../configurations-definitions.interface';
 import {
   IItemsWrapper,
@@ -15,7 +14,7 @@ import { ILayoutEntity } from '../../../entities-definitions.interface';
  * @stable [10.08.2018]
  */
 export interface INavigationListProps
-  extends IComponentEntity,
+  extends IUniversalComponentEntity,
     IExpandedGroupsWrapper,
     IItemsWrapper<INavigationListItemConfiguration[]>,
     IOnScrollWrapper<IXYEntity>,

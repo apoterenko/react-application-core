@@ -7,7 +7,7 @@ import {
   IDataWrapper,
   IRenderedWrapper,
 } from '../../definitions.interface';
-import { IComponentProps } from '../../props-definitions.interface';
+import { IComponentProps } from '../../definition';
 
 /**
  * @stable [24.09.2018]
