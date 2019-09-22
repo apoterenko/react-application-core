@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 
 import {
-  IUniversalComponentPlugin,
   IComponent,
   INativeMaterialComponent,
   INativeMaterialAdapter,
@@ -10,10 +9,11 @@ import { DI_TYPES, staticInjector } from '../../../di';
 import { INativeMaterialComponentFactory } from '../../material';
 import { isDef } from '../../../util';
 import { TranslatorT } from '../../../translation';
+import { IUniversalPlugin } from '../../../definition';
 
 export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>
-    implements IUniversalComponentPlugin {
+    implements IUniversalPlugin {
 
   protected mdc: TNativeMaterialComponent;
 

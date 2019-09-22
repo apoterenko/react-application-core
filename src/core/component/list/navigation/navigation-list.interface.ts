@@ -1,7 +1,7 @@
-import { IXYEntity } from '../../../entities-definitions.interface';
+import { IXYEntity } from '../../../definition';
 import {
   INavigationListItemConfiguration,
-  IReactComponentConfiguration,
+  IComponentEntity,
 } from '../../../configurations-definitions.interface';
 import {
   IItemsWrapper,
@@ -12,25 +12,14 @@ import {
 import { ILayoutEntity } from '../../../entities-definitions.interface';
 
 /**
- * @stable [23.09.2018]
- */
-export interface INavigationListConfiguration extends IReactComponentConfiguration,
-                                                      IExpandedGroupsWrapper,
-                                                      IItemsWrapper<INavigationListItemConfiguration[]>,
-                                                      IOnScrollWrapper<IXYEntity>,
-                                                      IOnGroupClickWrapper<INavigationListItemConfiguration> {
-}
-
-/**
  * @stable [10.08.2018]
  */
-export interface INavigationListEntity extends ILayoutEntity {
-}
-
-/**
- * @stable [10.08.2018]
- */
-export interface INavigationListProps extends INavigationListConfiguration,
-                                              INavigationListEntity {
+export interface INavigationListProps
+  extends IComponentEntity,
+    IExpandedGroupsWrapper,
+    IItemsWrapper<INavigationListItemConfiguration[]>,
+    IOnScrollWrapper<IXYEntity>,
+    IOnGroupClickWrapper<INavigationListItemConfiguration>,
+    ILayoutEntity {
   dividerRendered?: boolean;
 }

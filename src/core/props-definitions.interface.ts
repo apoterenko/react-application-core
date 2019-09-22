@@ -6,7 +6,6 @@ import {
   IRnListEntity,
   IGridEntity,
   IUniversalListEntity,
-  IComponentEntity,
   IGridColumnEntity,
 } from './entities-definitions.interface';
 import {
@@ -15,8 +14,8 @@ import {
   IRnListConfiguration,
   IGridConfiguration,
   IUniversalListConfiguration,
-  IReactComponentConfiguration,
-  IComponentConfiguration,
+  IComponentEntity,
+  IComponentConfiguration2,
   IUniversalFieldConfiguration,
   ITabPanelConfiguration,
   IGridColumnConfiguration,
@@ -27,14 +26,13 @@ import { ITabPanelEntity } from './definition';
 /**
  * @stable [09.05.2018]
  */
-export interface IUniversalComponentProps extends IReactComponentConfiguration {
+export interface IUniversalComponentProps extends IComponentEntity {
 }
 
 /**
  * @stable [14.05.2018]
  */
-export interface IComponentProps extends IComponentEntity,
-                                         IComponentConfiguration {
+export interface IComponentProps extends IComponentConfiguration2 {
 }
 
 /**

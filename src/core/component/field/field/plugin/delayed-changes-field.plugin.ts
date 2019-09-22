@@ -1,9 +1,10 @@
 import { sequence, DelayedTask, cancelEvent } from '../../../../util';
 import { AnyT, IChangeEvent, IKeyboardEvent } from '../../../../definitions.interface';
-import { IUniversalComponentPlugin, IUniversalField } from '../../../../entities-definitions.interface';
+import { IUniversalField } from '../../../../entities-definitions.interface';
 import { IDelayedChangesFieldPluginConfiguration } from '../../../../configurations-definitions.interface';
+import { IUniversalPlugin } from '../../../../definition';
 
-export class DelayedChangesFieldPlugin implements IUniversalComponentPlugin<IDelayedChangesFieldPluginConfiguration> {
+export class DelayedChangesFieldPlugin implements IUniversalPlugin<IDelayedChangesFieldPluginConfiguration> {
   public static DEFAULT_DELAY_TIMEOUT = 1500;
 
   private currentValue: AnyT;

@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { ILayoutEntity, LayoutModeEnum, IXYEntity } from '../../../entities-definitions.interface';
+import { ILayoutEntity, LayoutModeEnum } from '../../../entities-definitions.interface';
 import {
   LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
@@ -9,6 +9,7 @@ import {
   LAYOUT_XY_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
+import { IPayloadXYEntity } from '../../../definition';
 
 /**
  * @stable [23.09.2018]
@@ -28,7 +29,7 @@ export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_APPLICATION_
         },
       };
     case LAYOUT_XY_UPDATE_ACTION_TYPE:
-      const xyPayloadWrapper: IPayloadWrapper<IXYEntity> = action.data;
+      const xyPayloadWrapper: IPayloadXYEntity = action.data;
       return {
         ...state,
         ...xyPayloadWrapper.payload,

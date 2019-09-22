@@ -14,7 +14,8 @@ import {
   UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
   UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../definitions.interface';
-import { IXYEntity, IStickyElementPayloadEntity } from '../entities-definitions.interface';
+import { IStickyElementPayloadEntity } from '../entities-definitions.interface';
+import { IXYEntity } from '../definition';
 
 let googleMapsScriptTask: BPromise<HTMLScriptElement>;
 

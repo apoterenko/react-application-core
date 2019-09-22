@@ -3,10 +3,7 @@ import { MDCCheckbox } from '@material/checkbox';
 
 import { appContainer, DI_TYPES } from '../../di';
 import { addClassNameToBody, orNull, ifNotFalseThanValue } from '../../util';
-import {
-  IReactComponentClassEntity,
-  UniversalComponentPluginFactoryT,
-} from '../../entities-definitions.interface';
+import { IReactComponentClassEntity } from '../../entities-definitions.interface';
 import { Checkbox } from '../field';
 import { IUIFactory } from '../factory';
 import {
@@ -24,8 +21,9 @@ import { KeyboardKey } from '../keyboard';
 import { Dialog } from '../dialog';
 import { FormDialog } from '../form';
 import { Snackbar } from '../snackbar';
+import { UniversalPluginFactoryT } from '../../definition';
 
-const uiPlugins = new Map<IReactComponentClassEntity, UniversalComponentPluginFactoryT>();
+const uiPlugins = new Map<IReactComponentClassEntity, UniversalPluginFactoryT>();
 
 /**
  * @stable [17.08.2018]
@@ -69,7 +67,7 @@ uiPlugins.set(Card, (component: Card) =>
  */
 uiPlugins.set(KeyboardKey, (component: KeyboardKey) => new MaterialPlugin<KeyboardKey>(component, MDCRipple));
 
-appContainer.bind<Map<IReactComponentClassEntity, UniversalComponentPluginFactoryT>>(DI_TYPES.UIPlugins)
+appContainer.bind<Map<IReactComponentClassEntity, UniversalPluginFactoryT>>(DI_TYPES.UIPlugins)
     .toConstantValue(uiPlugins);
 
 /**

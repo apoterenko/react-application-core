@@ -4,12 +4,12 @@ import {
   IOnSelectWrapper,
   IIgnoreEnterKeyCodeWrapper,
 } from '../../definitions.interface';
-import { IReactComponentConfiguration } from '../../configurations-definitions.interface';
+import { IComponentEntity } from '../../configurations-definitions.interface';
 
 /**
  * @stable [15.05.2018]
  */
-export interface IAutoFocusedConfiguration extends IReactComponentConfiguration,
+export interface IAutoFocusedConfiguration extends IComponentEntity,
                                                    IDelayTimeoutWrapper,
                                                    IIgnoreEnterKeyCodeWrapper,
                                                    IOnSelectWrapper<string>,

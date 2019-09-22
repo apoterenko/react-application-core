@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 
 import {
-  IUniversalComponentPlugin,
   IUniversalScrollableComponent,
   IStickyElementPayloadEntity,
 } from '../../entities-definitions.interface';
@@ -13,8 +12,9 @@ import {
   sequence,
   DelayedTask,
 } from '../../util';
+import { IUniversalPlugin } from '../../definition';
 
-export class StickyHeaderPlugin implements IUniversalComponentPlugin {
+export class StickyHeaderPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
 
   private stickyElementInitialProperties: IStickyElementPayloadEntity;

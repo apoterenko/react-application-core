@@ -1,11 +1,9 @@
-import {
-  IUniversalComponentPlugin,
-  IUniversalComponent,
-} from '../../entities-definitions.interface';
+import { IUniversalComponent } from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
 import { IDomAccessor } from '../../component/dom-accessor';
+import { IUniversalPlugin } from '../../definition';
 
-export class AutoScrollTopPlugin implements IUniversalComponentPlugin {
+export class AutoScrollTopPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
 
   private contentHeight: number;

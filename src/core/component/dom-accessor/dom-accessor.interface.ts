@@ -1,4 +1,4 @@
-import { IXYEntity } from '../../entities-definitions.interface';
+import { IXYEntity } from '../../definition';
 import { IJQueryElement } from '../../definitions.interface';
 
 /**

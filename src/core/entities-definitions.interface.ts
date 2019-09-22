@@ -49,12 +49,10 @@ import {
   IOnScrollWrapper,
   IOnSubmitWrapper,
   IOpenWrapper,
-  IOperationWrapper,
   IOriginalDataWrapper,
   IOriginalValueWrapper,
   IPasswordWrapper,
   IPathWrapper,
-  IPayloadWrapper,
   IPhotoUrlWrapper,
   IQueueWrapper,
   IRawDataWrapper,
@@ -75,8 +73,6 @@ import {
   IUserWrapper,
   IValueWrapper,
   IWidthWrapper,
-  IXWrapper,
-  IYWrapper,
 } from './definitions.interface';
 import {
   IComponentProps,
@@ -93,7 +89,6 @@ import {
   IEntityFormEntity,
   IErrorEntity,
   ILifeCycleEntity,
-  IOperationEntity,
   IPaginatedEntity,
   IPermissionsWrapperEntity,
   IQueryFilterEntity,
@@ -101,6 +96,7 @@ import {
   IUniversalContainerEntity,
   IUniversalContainerProps,
   IWebContainerEntity,
+  IXYEntity,
 } from './definition';
 
 /**
@@ -111,12 +107,6 @@ export interface IDateTimeEntity extends IDateWrapper,
 }
 
 /**
- * @stable [25.01.2019]
- */
-export interface IComponentEntity {
-}
-
-/**
  * @stable [17.05.2018]
  */
 export interface IContainerEntity extends IUniversalContainerEntity,
@@ -124,20 +114,9 @@ export interface IContainerEntity extends IUniversalContainerEntity,
 }
 
 /**
- * @stable [17.05.2018]
- */
-export interface IUniversalComponentPlugin<TProps = {}, TState = {}> extends ComponentLifecycle<TProps, TState> {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export type UniversalComponentPluginFactoryT = (component: IUniversalComponent) => IUniversalComponentPlugin;
-
-/**
  * @stable [23.04.2018]
  */
-export interface IUniversalComponentClassEntity<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+export interface IUniversalComponentCtor<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends ComponentClass<TProps, TState> {
 }
 
@@ -151,17 +130,8 @@ export interface IUniversalContainerClassEntity<TProps extends IUniversalContain
 /**
  * @stable [17.05.2018]
  */
-export type IUniversalComponentPluginClassEntity<
-    TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
-    TProps extends IUniversalComponentProps = IUniversalComponentProps,
-    TState = {}
-  > = new(component: TComponent) => IUniversalComponentPlugin<TProps, TState>;
-
-/**
- * @stable [17.05.2018]
- */
 export interface IReactComponentClassEntity<TProps extends IComponentProps = IComponentProps, TState = {}>
-  extends IUniversalComponentClassEntity<TProps, TState> {
+  extends IUniversalComponentCtor<TProps, TState> {
 }
 
 /**
@@ -339,8 +309,7 @@ export interface IRnListItemEntity extends IUniversalListItemEntity {
 }
 
 /* @stable - 31.03.2018 */
-export interface IListItemEntity extends IUniversalListItemEntity,
-                                         IComponentEntity {
+export interface IListItemEntity extends IUniversalListItemEntity {
 }
 
 /**
@@ -382,13 +351,11 @@ export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
 /**
  * @stable [15.05.2018]
  */
-export interface IGridHeaderColumnEntity extends IComponentEntity,
-                                                 ISortDirectionEntity {
+export interface IGridHeaderColumnEntity extends ISortDirectionEntity {
 }
 
 /* @stable - 05.04.2018 */
-export interface IGridRowEntity extends IComponentEntity,
-                                        ISelectedWrapper,
+export interface IGridRowEntity extends ISelectedWrapper,
                                         IReactOnClickWrapper {
 }
 
@@ -591,20 +558,6 @@ export interface IFilteredListWrapperEntity<TFilter, TList>
 }
 
 /**
- * @stable [10.08.2018]
- */
-export interface IXYEntity extends IXWrapper,
-                                   IYWrapper {
-}
-
-/**
- * @deprecated
- */
-export interface IOperationPayloadEntity<TPayload> extends IPayloadWrapper<TPayload>,
-                                                           IOperationWrapper<IOperationEntity> {
-}
-
-/**
  * @stable [10.09.2018]
  */
 export interface IStyleEntity extends ITextAlignWrapper,
@@ -614,8 +567,7 @@ export interface IStyleEntity extends ITextAlignWrapper,
 /**
  * @stable [10.09.2018]
  */
-export interface IGridColumnEntity extends IComponentEntity,
-                                           IEntityWrapper<IEntity> {
+export interface IGridColumnEntity extends IEntityWrapper<IEntity> {
 }
 
 /**

@@ -1,7 +1,7 @@
 import { IListWrapperEntity } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
-  IReactComponentConfiguration,
+  IComponentEntity,
 } from '../../../configurations-definitions.interface';
 import { IContainerProps } from '../../../props-definitions.interface';
 import { IProgressWrapper } from '../../../definitions.interface';
@@ -17,7 +17,7 @@ export interface IUniversalPageToolbarEntity extends IPaginatedEntity,
 /**
  * @stable [16.05.2018]
  */
-export interface IUniversalPageToolbarConfiguration extends IReactComponentConfiguration,
+export interface IUniversalPageToolbarConfiguration extends IComponentEntity,
                                                             INavigationHandlersConfiguration {
 }
 

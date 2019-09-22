@@ -1,6 +1,6 @@
 import {
   IFilterConfiguration,
-  IReactComponentConfiguration,
+  IComponentEntity,
   IFilterConfigurationWrapper,
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
@@ -24,7 +24,7 @@ import { IWebComponentEntity } from '../../../definition';
 /**
  * @stable [13.09.2018]
  */
-export interface IUniversalSearchToolbarConfiguration extends IReactComponentConfiguration,
+export interface IUniversalSearchToolbarConfiguration extends IComponentEntity,
                                                               IFilterConfiguration,
                                                               IOnActivateWrapper,
                                                               IOnDeactivateWrapper<() => void>,

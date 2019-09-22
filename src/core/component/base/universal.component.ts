@@ -1,23 +1,22 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { DelayedTask, isFn, isDef, nvl } from '../../util';
+import { isFn, nvl } from '../../util';
 import {
   DI_TYPES,
+  getDatabaseStorage,
+  getNumberConverter,
+  getSettings,
+  getTranslator,
   getUiFactory,
   staticInjector,
-  getSettings,
-  getDatabaseStorage,
 } from '../../di';
 import { TranslatorT } from '../../translation';
 import { ISettings } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import {
-  IUniversalComponentClassEntity,
-  IUniversalComponentPlugin,
+  IUniversalComponentCtor,
   IUniversalComponent,
-  UniversalComponentPluginFactoryT,
-  IUniversalComponentPluginClassEntity,
 } from '../../entities-definitions.interface';
 import { AnyT } from '../../definitions.interface';
 import { IUniversalComponentProps } from '../../props-definitions.interface';
@@ -30,6 +29,9 @@ import {
 import {
   IStorage,
   ITransport,
+  IUniversalPlugin,
+  IUniversalPluginCtor,
+  UniversalPluginFactoryT,
 } from '../../definition';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
@@ -37,36 +39,31 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
-  protected readonly plugins: IUniversalComponentPlugin[] = [];
-  protected scrollTask: DelayedTask;
+  protected readonly plugins: IUniversalPlugin[] = [];
   protected readonly selfRef = React.createRef<AnyT>();
   private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null };
 
   /**
-   * @stable [23.04.2018]
+   * @stable [22.09.2019]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
-    this.onNativeScroll = this.onNativeScroll.bind(this);
-
     this.initPlugins();
-
-    if (isFn(props.onScroll)) {
-      this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
-    }
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [22.09.2019]
    */
   public componentDidMount(): void {
-    this.plugins.forEach((plugin) => plugin.componentDidMount && plugin.componentDidMount());
+    this.plugins.forEach((plugin) => isFn(plugin.componentDidMount) && plugin.componentDidMount());
+  }
 
-    const props = this.props;
-    if (props.register) {
-      props.register(this);
-    }
+  /**
+   * @stable [22.09.2019]
+   */
+  public componentWillUnmount(): void {
+    this.plugins.forEach((plugin) => isFn(plugin.componentWillUnmount) && plugin.componentWillUnmount());
   }
 
   /**
@@ -82,28 +79,14 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   /**
    * @stable [23.04.2018]
-   */
-  public componentWillUnmount(): void {
-    this.plugins.forEach((plugin) => plugin.componentWillUnmount && plugin.componentWillUnmount());
-
-    const props = this.props;
-    if (props.unregister) {
-      props.unregister(this);
-    }
-    if (isDef(this.scrollTask)) {
-      this.scrollTask.stop();
-    }
-  }
-
-  /**
-   * @stable [23.04.2018]
    * @param {Readonly<TProps>} prevProps
    * @param {Readonly<TState>} prevState
    * @param {never} prevContext
    */
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext?: never): void {
-    this.plugins.forEach((plugin) =>
-      plugin.componentDidUpdate && plugin.componentDidUpdate(prevProps, prevState, prevContext));
+    this.plugins.forEach(
+      (plugin) => isFn(plugin.componentDidUpdate) && plugin.componentDidUpdate(prevProps, prevState, prevContext)
+    );
   }
 
   /**
@@ -115,27 +98,12 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @stable [01.12.2018]
-   */
-  protected onNativeScroll(): void {
-    if (isDef(this.scrollTask)) {
-      this.scrollTask.start();
-    }
-  }
-
-  /**
-   * @stable [01.12.2018]
-   */
-  protected doScroll(): void {
-    this.props.onScroll(this.domAccessor.getScrollInfo(this.getSelf()));
-  }
-
-  /**
-   * @stable [19.04.2018]
+   * @reactNativeCompatible
+   * @stable [22.09.2018]
    * @returns {TranslatorT}
    */
   protected get t(): TranslatorT {
-    return staticInjector(DI_TYPES.Translate);
+    return getTranslator();
   }
 
   /**
@@ -165,11 +133,12 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @stable [13.05.2018]
+   * @reactNativeCompatible
+   * @stable [22.09.2019]
    * @returns {INumberConverter}
    */
   protected get nc(): INumberConverter {
-    return staticInjector(DI_TYPES.NumberConverter);
+    return getNumberConverter();
   }
 
   /**
@@ -199,15 +168,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   /**
    * @stable [18.06.2019]
-   * @param {IUniversalComponentPluginClassEntity | IUniversalComponentPlugin} pluginObject
+   * @param {IUniversalPluginCtor | IUniversalPlugin} pluginObject
    */
-  protected registerPlugin(pluginObject: IUniversalComponentPluginClassEntity | IUniversalComponentPlugin): void {
+  protected registerPlugin(pluginObject: IUniversalPluginCtor | IUniversalPlugin): void {
     if (R.isNil(pluginObject)) {
       return;
     }
     this.plugins.push(
       isFn(pluginObject)
-        ? Reflect.construct(pluginObject as IUniversalComponentPluginClassEntity, [this])
+        ? Reflect.construct(pluginObject as IUniversalPluginCtor, [this])
         : pluginObject
     );
   }
@@ -220,7 +189,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
     if (R.isNil(plugins)) {
       return;
     }
-    const dynamicPluginFactory = plugins.get(this.constructor as IUniversalComponentClassEntity);
+    const dynamicPluginFactory = plugins.get(this.constructor as IUniversalComponentCtor);
     if (dynamicPluginFactory) {
       this.registerPlugin(dynamicPluginFactory(this));
     }
@@ -230,9 +199,9 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   /**
    * @reactNativeCompatible
    * @stable [21.08.2019]
-   * @returns {Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>}
+   * @returns {Map<IUniversalComponentCtor, UniversalPluginFactoryT>}
    */
-  private get uiPlugins(): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> {
+  private get uiPlugins(): Map<IUniversalComponentCtor, UniversalPluginFactoryT> {
     return getUiPlugins();
   }
 }

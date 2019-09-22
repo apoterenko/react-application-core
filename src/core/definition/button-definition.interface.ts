@@ -29,7 +29,7 @@ import {
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
 import {
-  IReactComponentConfiguration,
+  IComponentEntity,
 } from '../configurations-definitions.interface';
 import { IWebComponentEntity } from '../definition';
 
@@ -52,7 +52,7 @@ export interface IGenericButtonEntity
 
 // TODO Total typings refactoring
 export interface IReactButtonConfiguration
-  extends IReactComponentConfiguration,
+  extends IComponentEntity,
     IOnClickWrapper {
 }
 

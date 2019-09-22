@@ -20,7 +20,7 @@ import {
   toJqEl,
 } from '../../util';
 import { IDomAccessor } from './dom-accessor.interface';
-import { IXYEntity } from '../../entities-definitions.interface';
+import { IXYEntity } from '../../definition';
 import { IJQueryElement } from '../../definitions.interface';
 import { ENV } from '../../env';
 

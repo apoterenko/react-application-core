@@ -7,9 +7,10 @@ import {
   IEnvironment,
   IStorage,
   ITransport,
+  UniversalPluginFactoryT,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
-import { IUniversalComponentClassEntity, UniversalComponentPluginFactoryT } from '../entities-definitions.interface';
+import { IUniversalComponentCtor } from '../entities-definitions.interface';
 import { staticInjector } from './di.support';
 import { TranslatorT } from '../translation';
 import { IUniversalComponentProps } from '../props-definitions.interface';
@@ -28,9 +29,9 @@ export const getUiFactory = (): IUIFactory => staticInjector(DI_TYPES.UIFactory)
 
 /**
  * @stable [21.08.2019]
- * @returns {Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT>}
+ * @returns {Map<IUniversalComponentCtor, UniversalPluginFactoryT>}
  */
-export const getUiPlugins = (): Map<IUniversalComponentClassEntity, UniversalComponentPluginFactoryT> =>
+export const getUiPlugins = (): Map<IUniversalComponentCtor, UniversalPluginFactoryT> =>
   staticInjector(DI_TYPES.UIPlugins);
 
 /**

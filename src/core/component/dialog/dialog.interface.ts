@@ -13,13 +13,13 @@ import {
   IOnDeactivateWrapper,
 } from '../../definitions.interface';
 import { IUniversalComponent, INativeMaterialComponent } from '../../entities-definitions.interface';
-import { IReactComponentConfiguration } from '../../configurations-definitions.interface';
+import { IComponentEntity } from '../../configurations-definitions.interface';
 import { IComponentProps } from '../../props-definitions.interface';
 
 /**
  * @stable [17.05.2018]
  */
-export interface IUniversalDialogConfiguration extends IReactComponentConfiguration,
+export interface IUniversalDialogConfiguration extends IComponentEntity,
                                                        ICloseDisabledWrapper,
                                                        IAcceptDisabledWrapper,
                                                        IAcceptMessageWrapper,

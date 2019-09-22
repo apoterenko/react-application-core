@@ -13,7 +13,7 @@ import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { LayoutModeEnum } from '../../../entities-definitions.interface';
 import { IOperationEntity } from '../../../definition';
-import { ILayoutEntity, IStringMenuActionEntity, IXYEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
+import { ILayoutEntity, IStringMenuActionEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
@@ -25,8 +25,9 @@ import {
 import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { Link } from '../../link';
-import { IBaseEvent, INavigationItemEntity } from '../../../definition';
+import { IBaseEvent, INavigationItemEntity, IXYEntity } from '../../../definition';
 import { Overlay } from '../../overlay';
+import { ScrollPlugin } from '../../plugin';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
@@ -230,7 +231,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                         dividerRendered={false}
                         items={this.menuItems}
                         onScroll={this.onNavigationListScroll}
-                        onGroupClick={this.onNavigationListGroupClick}/>
+                        onGroupClick={this.onNavigationListGroupClick}
+                        plugins={ScrollPlugin}/>
       </Drawer>
     );
   }

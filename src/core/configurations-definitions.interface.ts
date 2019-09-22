@@ -138,7 +138,6 @@ import {
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
   IOnMoreOptionsSelectWrapper,
-  IOnScrollWrapper,
   IOnSelectWrapper,
   IParamsWrapper,
   IPathWrapper,
@@ -148,7 +147,6 @@ import {
   IProfileWrapper,
   IQueryWrapper,
   IReadOnlyWrapper,
-  IRegisterWrapper,
   IRenderedWrapper,
   IRendererWrapper,
   IRenderToBodyWrapper,
@@ -179,7 +177,6 @@ import {
   ITplFnWrapper,
   ITplWrapper,
   ITypeWrapper,
-  IUnregisterWrapper,
   IUrlWrapper,
   IUseAddActionWrapper,
   IUseDrawerWrapper,
@@ -204,10 +201,7 @@ import {
   IMenuItemEntity,
   ISortDirectionEntity,
   IUniversalStoreEntity,
-  IUniversalComponent,
-  IUniversalComponentPluginClassEntity,
   IUniversalContainerClassEntity,
-  IXYEntity,
 } from './entities-definitions.interface';
 import { IGridColumnProps } from './props-definitions.interface';
 import {
@@ -223,8 +217,9 @@ import {
   IGenericFieldEntity,
   IGenericFormEntity,
   INamedConstructor,
-  IUniversalContainerEntity,
   INavigationItemEntity,
+  IUniversalContainerEntity,
+  IUniversalPluginCtor,
   IWebComponentEntity,
 } from './definition';
 
@@ -327,22 +322,24 @@ export interface INavigationHandlersConfiguration {
   onLast?(): void;
 }
 
+// TODO
+export interface IUniversalComponentEntity
+  extends ITitleWrapper,
+    IPluginsWrapper<IUniversalPluginCtor | IUniversalPluginCtor[]> {
+}
+
 /**
  * @stable [18.05.2018]
  */
-export interface IReactComponentConfiguration
+export interface IComponentEntity
   extends React.ClassAttributes<AnyT>,
-          ITitleWrapper,
-          IOnScrollWrapper<IXYEntity>,
-          IPluginsWrapper<IUniversalComponentPluginClassEntity | IUniversalComponentPluginClassEntity[]>,
-          IRegisterWrapper<(component: IUniversalComponent) => void>,
-          IUnregisterWrapper<(component: IUniversalComponent) => void> {
+          IUniversalComponentEntity {
 }
 
 /**
  * @stable [24.04.2018]
  */
-export interface IUniversalListItemConfiguration extends IReactComponentConfiguration,
+export interface IUniversalListItemConfiguration extends IComponentEntity,
                                                          IRendererWrapper,
                                                          IIndexWrapper,
                                                          ITplFnWrapper,
@@ -381,7 +378,7 @@ export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEnt
 /* @stable [23.04.2018] */
 export interface IUniversalListConfiguration
     <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
-  extends IReactComponentConfiguration,
+  extends IComponentEntity,
           IFilterAndSorterConfiguration,
           IEmptyMessageWrapper,
           IEmptyDataMessageWrapper,
@@ -424,7 +421,7 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
  * @stable [04.08.2018]
  */
 export interface IUniversalFormConfiguration extends IGenericFormEntity,
-                                                     IReactComponentConfiguration,
+                                                     IComponentEntity,
                                                      IResetActionRenderedWrapper,
                                                      IEditableWrapper,
                                                      IDisabledWrapper,
@@ -458,7 +455,7 @@ export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
  * @stable [10.09.2018]
  */
 export interface IBaseGridColumnConfiguration
-  extends IComponentConfiguration,
+  extends IComponentConfiguration2,
     IAlignWrapper,
     IWidthWrapper,
     IColSpanWrapper,
@@ -544,7 +541,7 @@ export interface ITabConfiguration extends IValueWrapper,
 /**
  * @stable [30.08.2018]
  */
-export interface ITabPanelConfiguration extends IComponentConfiguration,
+export interface ITabPanelConfiguration extends IComponentConfiguration2,
                                                 IUseIndicatorWrapper,
                                                 IRippableWrapper,
                                                 ICenteredWrapper,
@@ -559,14 +556,14 @@ export interface ITabPanelConfiguration extends IComponentConfiguration,
 /**
  * @stable [02.08.2018]
  */
-export interface IWebCameraConfiguration extends IComponentConfiguration,
+export interface IWebCameraConfiguration extends IComponentConfiguration2,
                                                  ICameraWidthWrapper,
                                                  ICameraHeightWrapper,
                                                  IOnSelectWrapper<Blob> {
 }
 
 /* @stable - 25.04.2018 */
-export interface IRnApplicationConfiguration extends IReactComponentConfiguration,
+export interface IRnApplicationConfiguration extends IComponentEntity,
                                                      IHideNavBarWrapper {
 }
 
@@ -615,7 +612,7 @@ export interface IKeyboardKeyConfiguration extends IDisabledWrapper {
 /**
  * @stable [08.05.2018]
  */
-export interface IKeyboardConfiguration extends IComponentConfiguration,
+export interface IKeyboardConfiguration extends IComponentConfiguration2,
                                                 IFieldWrapper<HTMLInputElement | HTMLTextAreaElement>,
                                                 ILayoutWrapper<KeyboardLayoutT[]>,
                                                 IOnCloseWrapper,
@@ -628,7 +625,7 @@ export interface IKeyboardConfiguration extends IComponentConfiguration,
  */
 export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
   extends IGenericFieldEntity,
-          IReactComponentConfiguration,
+          IComponentEntity,
           IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IDelayedChangesFieldPluginConfiguration,
           IOnFocusWrapper<TFocusEvent>,
@@ -788,24 +785,24 @@ export interface IUniversalLayoutBuilderConfiguration<TNode>
 }
 
 /* @stable [23.04.2018] */
-export interface IRnModalConfiguration extends IReactComponentConfiguration,
+export interface IRnModalConfiguration extends IComponentEntity,
                                                IShadowStyleWrapper<IKeyValue>,
                                                IHasContentWrapperWrapper,
                                                ICenterAlignmentWrapper {
 }
 
 /* @stable [23.04.2018] */
-export interface IGridRowConfiguration extends IComponentConfiguration,
+export interface IGridRowConfiguration extends IComponentConfiguration2,
                                                IStringArrayExcludeTargetsClassesWrapper {
 }
 
 /* @stable [24.04.2018] */
-export interface IComponentConfiguration extends IReactComponentConfiguration,
+export interface IComponentConfiguration2 extends IComponentEntity,
                                                  IWebComponentEntity {
 }
 
 /* @stable - 08.04.2018 */
-export interface IUniversalMessageConfiguration extends IReactComponentConfiguration,
+export interface IUniversalMessageConfiguration extends IComponentEntity,
                                                         IEmptyDataMessageWrapper,
                                                         IErrorMessageWrapper,
                                                         IEmptyMessageWrapper<React.ReactNode>,
@@ -813,7 +810,7 @@ export interface IUniversalMessageConfiguration extends IReactComponentConfigura
 }
 
 /* @stable [27.04.2018] */
-export interface IRnDrawerConfiguration extends IReactComponentConfiguration,
+export interface IRnDrawerConfiguration extends IComponentEntity,
                                                 IContentWrapper {
 }
 
@@ -837,7 +834,7 @@ export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContai
 /**
  * @stable [27.04.2018]
  */
-export interface ICardConfiguration extends IComponentConfiguration,
+export interface ICardConfiguration extends IComponentConfiguration2,
                                             IReactOnClickWrapper,
                                             IRippableWrapper,
                                             IActionButtonsWrapper<React.ReactNode>,
@@ -869,7 +866,7 @@ export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
 /**
  * @stable [31.07.2018]
  */
-export interface IMenuConfiguration extends IComponentConfiguration,
+export interface IMenuConfiguration extends IComponentConfiguration2,
                                             IMaxCountWrapper,
                                             IRenderToXWrapper,
                                             IRenderToYWrapper,
@@ -930,7 +927,7 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalUIIconConfiguration extends IReactComponentConfiguration,
+export interface IUniversalUIIconConfiguration extends IComponentEntity,
                                                        IDisabledWrapper,
                                                        ITypeWrapper,
                                                        IClassNameWrapper,
@@ -958,7 +955,7 @@ export type UIIconConfigurationT = IUIIconConfiguration | string;
 /**
  * @stable [08.08.2018]
  */
-export interface ISubHeaderConfiguration extends IComponentConfiguration,
+export interface ISubHeaderConfiguration extends IComponentConfiguration2,
                                                  IMoreOptionsWrapper<IMenuItemEntity[]>,
                                                  IItemsWrapper<JSX.Element>,
                                                  INavigationActionTypeWrapper,

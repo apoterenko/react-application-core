@@ -2,15 +2,17 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { toClassName, uuid, orNull, ifNotFalseThanValue  } from '../../../util';
-import { BaseComponent } from '../../base';
 import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
 import { ListDivider } from '../../list';
 import { FlexLayout } from '../../layout';
 import { LayoutModeEnum } from '../../../entities-definitions.interface';
 import { NavigationItemTypesEnum, INavigationItemEntity } from '../../../definition';
+import { UniversalComponent } from '../../base/universal.component';
+import { IOnScrollWrapper } from '../../../definitions.interface';
 
-export class NavigationList extends BaseComponent<INavigationListProps> {
+export class NavigationList extends UniversalComponent<INavigationListProps>
+  implements IOnScrollWrapper {
 
   /**
    * @stable [11.08.2018]
@@ -29,7 +31,7 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
     return (
         <nav ref='self'
              className='rac-navigation-list rac-no-user-select'
-             onScroll={this.onNativeScroll}>
+             onScroll={this.onScroll}>
           <ListDivider/>
           {this.props.items.map(this.toElement)}
         </nav>
@@ -42,6 +44,13 @@ export class NavigationList extends BaseComponent<INavigationListProps> {
   public componentDidMount(): void {
     super.componentDidMount();
     this.domAccessor.scrollTo(this.props, this.getSelf());
+  }
+
+  /**
+   * @stable [22.09.2019]
+   */
+  public onScroll(): void {
+    // Each plugin should override this method
   }
 
   /**

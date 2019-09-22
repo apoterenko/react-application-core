@@ -357,18 +357,10 @@ export interface IOnOpenWrapper<TOnOpen = () => void> {
   onOpen?: TOnOpen;
 }
 
-export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
-export interface IOperationIdWrapper { operationId?: string; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
-
-/**
- * @stable [01.12.2018]
- */
-export interface IOnScrollWrapper<TPayload = AnyT> {
-  onScroll?(payload?: TPayload): void;
-}
-
 export interface IItemWrapper<TItem> { item?: TItem; }
+export interface IOperationIdWrapper { operationId?: string; }
+export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
 
 /**
  * @stable [31.05.2018]
@@ -779,6 +771,7 @@ export interface IFloatLabelWrapper { floatLabel?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
+export interface IOnScrollWrapper<TPayload = AnyT> { onScroll?(payload?: TPayload): void; }
 export interface IProgressWrapper { progress?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }
 export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValue; }
@@ -1312,20 +1305,6 @@ export interface IAcceptMessageWrapper<TAcceptMessage = string> {
 /* @stable - 11.04.2018 */
 export interface IAutoFocusWrapper {
   autoFocus?: boolean;
-}
-
-/**
- * @stable [06.06.2018]
- */
-export interface IRegisterWrapper<TRegister> {
-  register?: TRegister;
-}
-
-/**
- * @stable [06.06.2018]
- */
-export interface IUnregisterWrapper<TUnregister> {
-  unregister?: TUnregister;
 }
 
 /**
