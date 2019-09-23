@@ -7,7 +7,6 @@ import {
   calc,
   cancelEvent,
   DelayedTask,
-  handlerPropsFactory,
   isFn,
   joinClassName,
   nvl,
@@ -47,7 +46,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.onInputChange = this.onInputChange.bind(this);
     this.onCloseAction = this.onCloseAction.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
-    this.getLiItemElement = this.getLiItemElement.bind(this);
+    this.getItemElement = this.getItemElement.bind(this);
 
     this.state = {opened: false};
 
@@ -230,7 +229,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private get listElement(): JSX.Element {
     return (
       <SimpleList className={this.uiFactory.list}>
-        {subArray(this.menuItems, this.props.maxCount).map(this.getLiItemElement)}
+        {subArray(this.menuItems, this.props.maxCount).map(this.getItemElement)}
       </SimpleList>
     );
   }
@@ -240,53 +239,19 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @param {IMenuItemEntity} option
    * @returns {JSX.Element}
    */
-  private getLiItemElement(option: IMenuItemEntity): JSX.Element {
+  private getItemElement(option: IMenuItemEntity): JSX.Element {
+    const props = this.props;
     return (
       <ListItem
         key={`menu-item-key-${option.value}`}
         disabled={option.disabled}
+        icon={option.icon}
         rawData={option}
+        renderer={props.renderer}
+        tpl={props.tpl}
         onClick={this.onSelect}>
-        {this.getMenuItemElement(option)}
+        {this.optionValueFn(option)}
       </ListItem>
-    );
-  }
-
-  /**
-   * @stable [17.06.2019]
-   * @param {IMenuItemEntity} option
-   * @returns {JSX.Element}
-   */
-  private getMenuItemElement(option: IMenuItemEntity): JSX.Element {
-    const props = this.props;
-
-    return (
-      <FlexLayout
-        justifyContentCenter={true}
-        className='rac-menu-item'
-      >
-        {
-          isFn(props.renderer)
-            ? props.renderer(option)
-            : (
-              option.icon
-                ? (
-                  <FlexLayout
-                    row={true}
-                    alignItemsCenter={true}
-                  >
-                    {this.uiFactory.makeIcon({
-                      key: `menu-item-icon-key-${option.value}`,
-                      type: option.icon,
-                      className: 'rac-menu-item-icon',
-                    })}
-                    {this.optionValueFn(option)}
-                  </FlexLayout>
-                )
-                : isFn(props.tpl) ? props.tpl(option) : this.optionValueFn(option)
-            )
-        }
-      </FlexLayout>
     );
   }
 

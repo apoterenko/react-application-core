@@ -21,16 +21,17 @@
     $rac-icon-size: $rac-menu-icon-close-size
   );
 
+  @include rac-menu (                                                                         /* @stable [23.09.2019] */
+    $rac-menu-list-max-height: $rac-menu-list-max-height,
+    $rac-menu-list-item-padding: $rac-menu-list-item-padding
+  );
+
   .rac-menu {
     z-index: $rac-menu-window-position;                                               /* @stable [04.10.2018] */
-    @include rac-list($rac-list-item-padding: 0,                                      /* @stable [30.10.2018] */
-                      $rac-list-max-height: $rac-menu-list-max-height);
 
     .rac-list {
 
       .rac-list-item {
-        height: $rac-menu-simple-list-item-height;            /* @stable [25.06.2018] */
-        cursor: pointer;                                      /* @stable [04.10.2018] */
 
         &[aria-disabled='true'] {
           opacity: $rac-opacity;                              /* @stable [05.08.2018] */
@@ -39,23 +40,6 @@
 
         &:hover {
           background: $rac-menu-item-hover-background;        /* @stable [04.10.2018] */
-        }
-
-        .rac-menu-item {
-          white-space: nowrap;                                /* @stable [04.10.2018] */
-          overflow: hidden;                                   /* @stable [04.10.2018] */
-          color: $rac-menu-item-color;                        /* @stable [25.06.2018] */
-          font-size: $rac-menu-item-font-size;                /* @stable [25.06.2018] */
-          margin: $rac-menu-item-margin;                      /* @stable [04.10.2018] */
-
-          .rac-menu-item-icon {
-
-            &.rac-icon {
-              margin-right: $rac-menu-item-icon-margin-right; /* @stable [25.06.2018] */
-              width: $rac-menu-item-icon-size;                /* @stable [21.09.2018] */
-              height: $rac-menu-item-icon-size;               /* @stable [21.09.2018] */
-            }
-          }
         }
       }
     }

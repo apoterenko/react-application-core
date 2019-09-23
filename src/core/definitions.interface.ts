@@ -2076,7 +2076,9 @@ export interface IJQueryInputElement extends IJQueryElement<HTMLElement> {
  */
 export enum UniCodesEnum {
   ARROW_RIGHT = '\u27f6',
+  ASYMP = '\u2248',
   DASH = '\u2014',
+  N_DASH = '\u2013',
   SPACE = '\u0020',
 }
 

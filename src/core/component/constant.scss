@@ -226,9 +226,6 @@ $rac-list-item-cursor: pointer !default;
 $rac-list-item-color: $rac-default-text-color !default;
 $rac-list-item-font-weight: unset !default;
 $rac-list-item-font-size: $rac-default-font-size !default;
-$rac-list-item-secondary-text-icon-width: 14px !default;
-$rac-list-item-secondary-text-icon-height: 14px !default;
-$rac-list-item-secondary-text-font-size: 11px !default;
 $rac-list-item-graphic-margin: 0 16px 0 0 !default;
 $rac-list-item-graphic-size: 32px !default;
 $rac-list-item-graphic-icon-color: $color-5 !default;
@@ -504,14 +501,9 @@ $rac-sub-header-section-title-font-size: 24px !default;
 
 /* @stable [04.10.2018] */
 $rac-menu-window-position: $rac-menu-z-index !default;
-$rac-menu-item-margin: 0 16px !default;
-$rac-menu-item-font-size: $rac-default-font-size !default;
 $rac-menu-item-hover-background: $rac-default-hover-background !default;
-$rac-menu-item-color: $rac-default-text-color !default;
-$rac-menu-item-icon-margin-right: 20px !default;
-$rac-menu-item-icon-size: $rac-default-icon-size !default;
 $rac-menu-list-max-height: 200px !default;
-$rac-menu-simple-list-item-height: 40px !default;
+$rac-menu-list-item-padding: unset !default;
 
 /* @stable [18.06.2019] */
 $rac-menu-icon-close-color: $rac-color-0-1 !default;

@@ -27,13 +27,11 @@ export class ListItem extends UniversalComponent<IListItemProps> {
               </ListItemGraphic>
             )
           }
-          <ListItemText>
-            {
-              isFn(props.tpl)
-                ? props.tpl(props.rawData)
-                : props.children
-            }
-          </ListItemText>
+          {
+            isFn(props.tpl)
+              ? <ListItemText>{props.tpl(props.rawData)}</ListItemText>
+              : props.children
+          }
         </li>
       );
   }

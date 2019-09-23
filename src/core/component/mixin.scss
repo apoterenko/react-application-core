@@ -1460,57 +1460,59 @@
  */
 @mixin rac-list-item(
   $rac-list-item-custom: unset,
-  $rac-list-item-position: unset,
-  $rac-list-item-padding: unset,
-  $rac-list-item-margin: unset,
-  $rac-list-item-width: unset,
-  $rac-list-item-height: unset,
-  $rac-list-item-color: unset,
-  $rac-list-item-box-shadow: unset,
-  $rac-list-item-visibility: unset,
-  $rac-list-item-float: unset,
-  $rac-list-item-outline: unset,
-  $rac-list-item-font-size: unset,
-  $rac-list-item-font-weight: unset,
-  $rac-list-item-line-height: unset,
   $rac-list-item-background: unset,
-  $rac-list-item-border: unset,
   $rac-list-item-border-bottom: unset,
   $rac-list-item-border-left: unset,
+  $rac-list-item-border-radius: unset,
   $rac-list-item-border-right: unset,
   $rac-list-item-border-top: unset,
-  $rac-list-item-border-radius: unset,
+  $rac-list-item-border: unset,
+  $rac-list-item-box-shadow: unset,
+  $rac-list-item-box-sizing: unset,
+  $rac-list-item-color: unset,
+  $rac-list-item-cursor: unset,
+  $rac-list-item-float: unset,
+  $rac-list-item-font-size: unset,
+  $rac-list-item-font-weight: unset,
   $rac-list-item-graphic-margin: unset,
   $rac-list-item-graphic-size: unset,
-  $rac-list-item-text-margin: unset,
+  $rac-list-item-height: unset,
+  $rac-list-item-line-height: unset,
+  $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,
-  $rac-list-item-box-sizing: unset
+  $rac-list-item-outline: unset,
+  $rac-list-item-padding: unset,
+  $rac-list-item-position: unset,
+  $rac-list-item-text-margin: unset,
+  $rac-list-item-visibility: unset,
+  $rac-list-item-width: unset
 ) {
 
   #{rac-build-cls(rac-list-item, $rac-list-item-custom)} {
-    @include rac-styles(
-      $rac-styles-position: $rac-list-item-position,
+    @include rac-styles (
       $rac-styles-background: $rac-list-item-background,
-      $rac-styles-padding: $rac-list-item-padding,
-      $rac-styles-margin: $rac-list-item-margin,
-      $rac-styles-width: $rac-list-item-width,
-      $rac-styles-height: $rac-list-item-height,
-      $rac-styles-box-shadow: $rac-list-item-box-shadow,
-      $rac-styles-visibility: $rac-list-item-visibility,
-      $rac-styles-border: $rac-list-item-border,
+      $rac-styles-border-bottom: $rac-list-item-border-bottom,
+      $rac-styles-border-left: $rac-list-item-border-left,
+      $rac-styles-border-radius: $rac-list-item-border-radius,
       $rac-styles-border-right: $rac-list-item-border-right,
       $rac-styles-border-top: $rac-list-item-border-top,
-      $rac-styles-border-left: $rac-list-item-border-left,
-      $rac-styles-border-bottom: $rac-list-item-border-bottom,
-      $rac-styles-border-radius: $rac-list-item-border-radius,
+      $rac-styles-border: $rac-list-item-border,
+      $rac-styles-box-shadow: $rac-list-item-box-shadow,
+      $rac-styles-box-sizing: $rac-list-item-box-sizing,
       $rac-styles-color: $rac-list-item-color,
+      $rac-styles-cursor: $rac-list-item-cursor,
       $rac-styles-float: $rac-list-item-float,
-      $rac-styles-outline: $rac-list-item-outline,
       $rac-styles-font-size: $rac-list-item-font-size,
       $rac-styles-font-weight: $rac-list-item-font-weight,
+      $rac-styles-height: $rac-list-item-height,
       $rac-styles-line-height: $rac-list-item-line-height,
+      $rac-styles-margin: $rac-list-item-margin,
       $rac-styles-min-height: $rac-list-item-min-height,
-      $rac-styles-box-sizing: $rac-list-item-box-sizing
+      $rac-styles-outline: $rac-list-item-outline,
+      $rac-styles-padding: $rac-list-item-padding,
+      $rac-styles-position: $rac-list-item-position,
+      $rac-styles-visibility: $rac-list-item-visibility,
+      $rac-styles-width: $rac-list-item-width
     );
 
     .rac-list-item-graphic {
@@ -1523,7 +1525,7 @@
       }
     }
 
-    @include rac-styles(
+    @include rac-styles (
       $rac-styles-custom: rac-list-item-text,
       $rac-styles-margin: $rac-list-item-text-margin
     );
@@ -1545,7 +1547,9 @@
   $rac-list-flex-basis: unset,
   $rac-list-border-bottom: unset,
   $rac-list-border-radius: unset,
+  /**/
   $rac-list-item-custom: unset,
+  $rac-list-item-cursor: unset,
   $rac-list-item-position: unset,
   $rac-list-item-border: unset,
   $rac-list-item-min-height: unset,
@@ -1591,31 +1595,32 @@
 
     @include rac-list-item(
       $rac-list-item-custom: $rac-list-item-custom,
-      $rac-list-item-padding: $rac-list-item-padding,
-      $rac-list-item-margin: $rac-list-item-margin,
-      $rac-list-item-width: $rac-list-item-width,
-      $rac-list-item-height: $rac-list-item-height,
-      $rac-list-item-color: $rac-list-item-color,
+      $rac-list-item-background: $rac-list-item-background,
+      $rac-list-item-border-bottom: $rac-list-item-border-bottom,
+      $rac-list-item-border-left: $rac-list-item-border-left,
+      $rac-list-item-border-radius: $rac-list-item-border-radius,
+      $rac-list-item-border-right: $rac-list-item-border-right,
+      $rac-list-item-border-top: $rac-list-item-border-top,
+      $rac-list-item-border: $rac-list-item-border,
       $rac-list-item-box-shadow: $rac-list-item-box-shadow,
-      $rac-list-item-visibility: $rac-list-item-visibility,
+      $rac-list-item-box-sizing: $rac-list-item-box-sizing,
+      $rac-list-item-color: $rac-list-item-color,
+      $rac-list-item-cursor: $rac-list-item-cursor,
       $rac-list-item-float: $rac-list-item-float,
-      $rac-list-item-outline: $rac-list-item-outline,
       $rac-list-item-font-size: $rac-list-item-font-size,
-      $rac-list-item-line-height: $rac-list-item-line-height,
       $rac-list-item-font-weight: $rac-list-item-font-weight,
       $rac-list-item-graphic-margin: $rac-list-item-graphic-margin,
       $rac-list-item-graphic-size: $rac-list-item-graphic-size,
-      $rac-list-item-border: $rac-list-item-border,
-      $rac-list-item-position: $rac-list-item-position,
+      $rac-list-item-height: $rac-list-item-height,
+      $rac-list-item-line-height: $rac-list-item-line-height,
+      $rac-list-item-margin: $rac-list-item-margin,
       $rac-list-item-min-height: $rac-list-item-min-height,
-      $rac-list-item-box-sizing: $rac-list-item-box-sizing,
-      $rac-list-item-background: $rac-list-item-background,
-      $rac-list-item-border-bottom: $rac-list-item-border-bottom,
-      $rac-list-item-border-right: $rac-list-item-border-right,
-      $rac-list-item-border-left: $rac-list-item-border-left,
-      $rac-list-item-border-top: $rac-list-item-border-top,
-      $rac-list-item-border-radius: $rac-list-item-border-radius,
-      $rac-list-item-text-margin: $rac-list-item-text-margin
+      $rac-list-item-outline: $rac-list-item-outline,
+      $rac-list-item-padding: $rac-list-item-padding,
+      $rac-list-item-position: $rac-list-item-position,
+      $rac-list-item-text-margin: $rac-list-item-text-margin,
+      $rac-list-item-visibility: $rac-list-item-visibility,
+      $rac-list-item-width: $rac-list-item-width
     );
 
     @include rac-list-item(
@@ -3039,12 +3044,19 @@
 @mixin rac-menu (
   $rac-menu-custom: unset,
   $rac-menu-list-custom: unset,
-  $rac-menu-list-max-height: unset
+  $rac-menu-list-max-height: unset,
+  /**/
+  $rac-menu-list-item-cursor: unset,
+  $rac-menu-list-item-height: unset,
+  $rac-menu-list-item-padding: unset
 ) {
   #{rac-build-cls(rac-menu, $rac-menu-custom)} {
 
     @include rac-list (
       $rac-list-custom: $rac-menu-list-custom,
+      $rac-list-item-cursor: $rac-menu-list-item-cursor,
+      $rac-list-item-height: $rac-menu-list-item-height,
+      $rac-list-item-padding: $rac-menu-list-item-padding,
       $rac-list-max-height: $rac-menu-list-max-height
     );
   }

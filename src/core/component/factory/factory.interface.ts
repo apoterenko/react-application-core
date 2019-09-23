@@ -50,14 +50,6 @@ export interface IUIFactory {
 
   /**
    * @stable [18.05.2018]
-   * @param {string | TUIIconConfiguration} config
-   * @returns {JSX.Element}
-   */
-  makeListItemMetaIcon?<TUIIconConfiguration extends IUniversalUIIconConfiguration>(
-    config: TUIIconConfiguration | string): JSX.Element;
-
-  /**
-   * @stable [18.05.2018]
    * @returns {JSX.Element}
    */
   makeCheckboxAttachment?(): JSX.Element;

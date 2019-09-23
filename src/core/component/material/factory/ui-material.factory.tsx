@@ -342,23 +342,6 @@ export class UIMaterialFactory implements IUIFactory {
     );
   }
 
-  /**
-   * @stable [18.05.2018]
-   * @param {IUIIconConfiguration | string} cfg
-   * @returns {JSX.Element}
-   */
-  public makeListItemMetaIcon(cfg: IUIIconConfiguration | string): JSX.Element {
-    const config = this.toIconConfig(cfg);
-    return this.makeIcon(
-      cfg
-        ? {
-          ...config,
-          className: joinClassName(config.className, 'rac-list-item-meta-icon'),
-        }
-        : cfg
-    );
-  }
-
   public makeCheckboxAttachment(): JSX.Element {
     return (
       <div className='mdc-checkbox__background'>
