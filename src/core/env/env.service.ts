@@ -11,4 +11,5 @@ export class Environment implements IEnvironment {
     : EventsEnum.MOUSE_DOWN;
   public readonly appProfile = ENV.appProfile;
   public readonly appNamespace = ENV.appNamespace;
+  public readonly mobilePlatform = ENV.mobilePlatform;
 }

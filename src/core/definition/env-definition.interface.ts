@@ -13,4 +13,5 @@ export interface IEnvironment {
   appProfile: string;
   document: Document;
   documentClickEvent: string;
+  mobilePlatform?: boolean;
 }

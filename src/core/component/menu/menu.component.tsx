@@ -21,7 +21,7 @@ import { FlexLayout } from '../layout';
 import { IBaseEvent } from '../../definition';
 import { IField, TextField } from '../field';
 import { IMenuState, IMenuProps, IMenu } from './menu.interface';
-import { SimpleList } from '../list';
+import { SimpleList, ListItem } from '../list';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
@@ -47,6 +47,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.onInputChange = this.onInputChange.bind(this);
     this.onCloseAction = this.onCloseAction.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
+    this.getLiItemElement = this.getLiItemElement.bind(this);
 
     this.state = {opened: false};
 
@@ -223,28 +224,31 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [11.12.2018]
+   * @stable [23.09.2019]
    * @returns {JSX.Element}
    */
   private get listElement(): JSX.Element {
-    const props = this.props;
-    const menuItems = this.menuItems;
-
     return (
       <SimpleList className={this.uiFactory.list}>
-        {
-          subArray(menuItems, props.maxCount).map((option): JSX.Element => (
-            <li
-              key={`menu-item-key-${option.value}`}
-              className='rac-list-item rac-flex'
-              aria-disabled={option.disabled === true}
-              {...handlerPropsFactory<HTMLLIElement>(() => this.onSelect(option), !option.disabled)}
-            >
-              {this.getMenuItemElement(option)}
-            </li>
-          ))
-        }
+        {subArray(this.menuItems, this.props.maxCount).map(this.getLiItemElement)}
       </SimpleList>
+    );
+  }
+
+  /**
+   * @stable [23.09.2019]
+   * @param {IMenuItemEntity} option
+   * @returns {JSX.Element}
+   */
+  private getLiItemElement(option: IMenuItemEntity): JSX.Element {
+    return (
+      <ListItem
+        key={`menu-item-key-${option.value}`}
+        disabled={option.disabled}
+        rawData={option}
+        onClick={this.onSelect}>
+        {this.getMenuItemElement(option)}
+      </ListItem>
     );
   }
 

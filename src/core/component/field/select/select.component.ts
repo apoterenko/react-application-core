@@ -1,7 +1,7 @@
 import { BasicSelect } from './basic-select.component';
 import { ISelectInternalProps, ISelectInternalState } from './select.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { toClassName } from '../../../util';
+import { joinClassName } from '../../../util';
 
 export class Select extends BasicSelect<ISelectInternalProps, ISelectInternalState> {
 
@@ -23,6 +23,6 @@ export class Select extends BasicSelect<ISelectInternalProps, ISelectInternalSta
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-select');
+    return joinClassName(super.getFieldClassName(), 'rac-select');
   }
 }

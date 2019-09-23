@@ -1,13 +1,17 @@
 import {
+  IInlineWrapper,
   ISeparatorWrapper,
+  ITouchedWrapper,
 } from '../../../definitions.interface';
 import { IFlexLayoutEntity, IComponentProps } from '../../../definition';
 
 /**
- * @stable [17.06.2018]
+ * @stable [23.09.2019]
  */
-export interface IFlexLayoutProps extends IComponentProps,
-                                          IFlexLayoutEntity,
-                                          ISeparatorWrapper {
-  inline?: boolean; // TODO
+export interface IFlexLayoutProps
+  extends IComponentProps,
+    IFlexLayoutEntity,
+    ISeparatorWrapper,
+    ITouchedWrapper,
+    IInlineWrapper {
 }

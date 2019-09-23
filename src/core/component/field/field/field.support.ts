@@ -38,7 +38,7 @@ export const isFieldRequired = (props: IUniversalFieldProps): boolean => calc<bo
  * @param {IGenericFieldEntity} props
  * @returns {boolean}
  */
-export const isFieldDisabled = (props: IGenericFieldEntity): boolean => props.disabled;
+export const isFieldDisabled = (props: IGenericFieldEntity): boolean => props.disabled === true;
 
 /**
  * @stable [18.06.2019]
@@ -53,14 +53,14 @@ export const isFieldVisible = (props: IGenericFieldEntity): boolean => props.vis
  * @returns {boolean}
  */
 export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
-  isFieldDisabled(props) || props.readOnly || isFieldInProgress(props);
+  isFieldDisabled(props) || props.readOnly === true || isFieldInProgress(props);
 
 /**
  * @stable [27.05.2019]
  * @param {IGenericFieldEntity} props
  * @returns {boolean}
  */
-export const isFieldInProgress = (props: IGenericFieldEntity): boolean => props.progress;
+export const isFieldInProgress = (props: IGenericFieldEntity): boolean => props.progress === true;
 
 /**
  * @stable [06.10.2018]

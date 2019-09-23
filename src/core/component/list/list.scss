@@ -28,13 +28,6 @@
     .rac-list-item {
       cursor: $rac-list-item-cursor;                                                  /* @stable [30.10.2018] */
 
-      &.rac-list-item-warning {
-
-        .rac-list-item-graphic {
-          background-color: $rac-list-item-warning-graphic-background-color;  /* @stable [04.08.2018] */
-        }
-      }
-
       .rac-icon {
 
         &.rac-list-item-meta-icon {

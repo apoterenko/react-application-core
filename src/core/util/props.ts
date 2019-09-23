@@ -1,21 +1,23 @@
 import * as React from 'react';
 
 import { cancelEvent } from './event';
-import { ENV } from '../env';
+import { getEnvironment } from '../di/di.services';
 import { ifNotFalseThanValue } from './cond';
 import { isFn } from './type';
 
 /**
- * @stable [31.08.2019]
+ * @stable [23.09.2019]
  * @param {() => void} handler
  * @param {boolean} canAttachHandler
- * @returns {React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>}
+ * @param {boolean} touched
+ * @returns {React.DetailedHTMLProps<React.HTMLAttributes<TElement extends HTMLElement>, TElement extends HTMLElement>}
  */
 export const handlerPropsFactory =
   <TElement extends HTMLElement>(handler: () => void,
-                                 canAttachHandler = true): React.DetailedHTMLProps<React.HTMLAttributes<TElement>, TElement> => ({
+                                 canAttachHandler = true,
+                                 touched = true): Partial<React.DetailedHTMLProps<React.HTMLAttributes<TElement>, TElement>> => ({
     ...ifNotFalseThanValue(
-      canAttachHandler && isFn(handler) && ENV.mobilePlatform,
+      canAttachHandler === true && isFn(handler) && (touched === true && getEnvironment().mobilePlatform),
       (): React.DOMAttributes<HTMLElement> => ({
         onClick: cancelEvent,
         onDoubleClick: cancelEvent,  // The iOS issue workaround (white bottom bar)
@@ -27,7 +29,7 @@ export const handlerPropsFactory =
       }),
     ),
     ...ifNotFalseThanValue(
-      canAttachHandler && isFn(handler) && !ENV.mobilePlatform,
+      canAttachHandler === true && isFn(handler) && (touched === false || !getEnvironment().mobilePlatform),
       (): React.DOMAttributes<HTMLElement> => ({
         onClick: (e) => {
           cancelEvent(e);

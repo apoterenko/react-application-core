@@ -40,9 +40,12 @@ export function isBoolean(value: AnyT): boolean {
   return typeof value === 'boolean';
 }
 
-export function isString(value: AnyT): boolean {
-  return typeof value === 'string';
-}
+/**
+ * @stable [23.09.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isString = (value: AnyT): boolean => typeof value === 'string';
 
 export const isPrimitive = (v: AnyT): boolean => {
   return isNumber(v)

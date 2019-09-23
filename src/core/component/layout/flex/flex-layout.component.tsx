@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base/base.component';
 import { IFlexLayoutProps } from './flex-layout.interface';
-import { joinClassName, handlerPropsFactory, fullFlexCls } from '../../../util';
+import { joinClassName, handlerPropsFactory, fullFlexCls, calc } from '../../../util';
 
 export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
 
@@ -39,7 +39,7 @@ export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
         }
         title={props.title}
         style={props.style}
-        {...handlerPropsFactory(props.onClick, !props.disabled)}
+        {...handlerPropsFactory(props.onClick, !calc(props.disabled), props.touched)}
       >
         {props.children}
       </div>

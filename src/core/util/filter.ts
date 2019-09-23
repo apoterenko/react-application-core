@@ -95,6 +95,14 @@ export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => ent
 export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
 /**
+ * @stable [23.09.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const STRING_VALUE_PREDICATE = (value: AnyT) => isString(value);
+
+/**
  * @stable [31.03.2019]
  * @param {AnyT} value
  * @returns {boolean}

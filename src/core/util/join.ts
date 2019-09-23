@@ -13,13 +13,6 @@ export const join = (parts: AnyT[], joiner: string = UniCodesEnum.SPACE): string
   parts.filter(NOT_NIL_VALUE_PREDICATE).join(joiner);
 
 /**
- * @stable [30.08.2019]
- * @param {string} parts
- * @returns {string}
- */
-export const joinClassName = (...parts: string[]): string => join(parts, ' ');
-
-/**
  *
  * @param {AnyT[]} parts
  * @returns {string}

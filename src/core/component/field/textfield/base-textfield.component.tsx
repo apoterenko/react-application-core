@@ -6,10 +6,7 @@ import MaskedTextInput from 'react-text-mask';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IEventManager } from '../../../event';
 import {
-  calc,
-  cancelEvent,
   ifNotFalseThanValue,
-  ifNotNilThanValue,
   isFn,
   joinClassName,
   nvl,
@@ -319,7 +316,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [24.05.2019]
+   * @stable [23.09.2019]
    * @returns {JSX.Element}
    */
   protected get actionsElement(): JSX.Element {
@@ -327,17 +324,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
       <React.Fragment>
         {
           this.actions.map((action) => this.uiFactory.makeIcon({
+            ...action,
             key: `action-key-${action.type}`,
-            type: action.type,
-            title: action.title && this.t(action.title),
-            className: action.className,
-            disabled: ifNotNilThanValue(action.disabled, (disabled) => calc(disabled), this.isFieldInactive()),
-            onClick: (event: IBaseEvent) => {
-              if (isFn(action.onClick)) {
-                cancelEvent(event);
-                action.onClick(event);
-              }
-            },
+            disabled: nvl(action.disabled, this.isFieldInactive()),
           }))
         }
       </React.Fragment>

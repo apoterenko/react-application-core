@@ -342,6 +342,7 @@ export interface IRnListItemConfiguration extends IUniversalListItemConfiguratio
 export interface IListItemConfiguration extends IUniversalListItemConfiguration,
                                                 IWebComponentEntity,
                                                 IEntityToClassNameWrapper,
+                                                IDisabledWrapper,
                                                 IIconWrapper<UIIconConfigurationT> {
 }
 

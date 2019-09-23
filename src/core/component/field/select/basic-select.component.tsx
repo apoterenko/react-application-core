@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, joinClassName, isDef, getWidth, toType, isFn, calc } from '../../../util';
+import { cancelEvent, joinClassName, isDef, getWidth, isFn, calc } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu, IMenu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
 import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
-import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { IBaseEvent } from '../../../definition';
 
 export class BasicSelect<TProps extends IBaseSelectProps,
@@ -29,8 +28,10 @@ export class BasicSelect<TProps extends IBaseSelectProps,
     this.onFilterChange = this.onFilterChange.bind(this);
 
     if (props.expandActionRendered !== false) {
-      this.defaultActions = [toType<IFieldActionConfiguration>({type: props.icon || 'dropdown', onClick: this.openMenu})]
-        .concat(this.defaultActions);
+      this.defaultActions = [
+        {type: props.icon || 'dropdown', onClick: this.openMenu},
+        ...this.defaultActions
+      ];
     }
   }
 

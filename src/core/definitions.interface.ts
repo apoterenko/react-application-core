@@ -759,6 +759,7 @@ export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFor
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeightWrapper { height?: number; }
+export interface IInlineWrapper { inline?: boolean; }
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
 export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
