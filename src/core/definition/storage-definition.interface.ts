@@ -1,6 +1,6 @@
 import { AnyT } from '../definitions.interface';
 import { ENV } from '../env';
-import { joinStoragePrefix } from '../util/join';
+import { NOT_EMPTY_VALUE_PREDICATE, filterArray } from '../util/filter';
 
 /**
  * @stable [16.09.2019]
@@ -9,8 +9,10 @@ export const STORAGE_PATH_SEPARATOR = '#';
 export const STORAGE_APP_STATE_KEY = '$$state';
 export const STORAGE_APP_UUID_KEY = `${STORAGE_APP_STATE_KEY}.app.uuid`;
 export const STORAGE_APP_TOKEN_KEY = `${STORAGE_APP_STATE_KEY}.app.token`;
-export const STORAGE_NOT_VERSIONED_KEY = joinStoragePrefix(ENV.appProfile, ENV.port, ENV.normalizedBasePath);
-export const STORAGE_VERSIONED_KEY = joinStoragePrefix(ENV.appVersion, STORAGE_NOT_VERSIONED_KEY);
+export const STORAGE_NOT_VERSIONED_KEY =
+  filterArray([ENV.appProfile, ENV.port, ENV.normalizedBasePath], NOT_EMPTY_VALUE_PREDICATE).join(STORAGE_PATH_SEPARATOR);
+export const STORAGE_VERSIONED_KEY =
+  filterArray([ENV.appVersion, STORAGE_NOT_VERSIONED_KEY], NOT_EMPTY_VALUE_PREDICATE).join(STORAGE_PATH_SEPARATOR);
 
 /**
  * @stable [28.07.2019]

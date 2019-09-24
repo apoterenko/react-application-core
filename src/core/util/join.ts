@@ -1,8 +1,7 @@
 import { AnyT, UniCodesEnum } from '../definitions.interface';
 import { isArrayNotEmpty } from './array';
-import { NOT_NIL_VALUE_PREDICATE, notNilValuesArrayFilter } from './filter';
+import { NOT_NIL_VALUE_PREDICATE } from './filter';
 import { nvl } from './nvl';
-import { STORAGE_PATH_SEPARATOR } from '../definition';
 
 /**
  * @stable [10.09.2019]
@@ -25,11 +24,3 @@ export const joinReduce = (parts: AnyT[]): string => isArrayNotEmpty(parts)
       : nvl(parts[0], '')
   )
   : '';
-
-/**
- * @stable [24.09.2019]
- * @param {string} parts
- * @returns {string}
- */
-export const joinStoragePrefix = (...parts: string[]): string =>
-  notNilValuesArrayFilter(...parts).join(STORAGE_PATH_SEPARATOR);
