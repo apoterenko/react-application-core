@@ -1,18 +1,26 @@
 import * as React from 'react';
+import { Unsubscribe } from 'redux';
+import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull, calc } from '../../util';
+import { orNull, calc, DelayedTask } from '../../util';
 import {
   IConnectorConfigEntity,
   ContainerVisibilityTypeEnum,
   IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
 import { IContainerClassEntity } from '../../entities-definitions.interface';
-import { IUniversalContainerEntity } from '../../definition';
+import {
+  ApplicationEventCategoriesEnum,
+  ApplicationStateEventsEnum,
+  IUniversalContainerEntity,
+  STORAGE_APP_STATE_KEY,
+} from '../../definition';
 import { UniversalContainer } from '../base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
+import { IStateSettings } from '../../settings';
 
 export type RoutePredicateT = (routeConfiguration: IRouteConfigEntity) => boolean;
 
@@ -25,6 +33,8 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
 
   private static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
   private extraRoutes = new Map<IContainerClassEntity, IConnectorConfigEntity>();
+  private syncStateWithStorageTask: DelayedTask;
+  private storeUnsubscriber: Unsubscribe;
 
   /**
    * @stable - 23.04.2018
@@ -34,6 +44,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     super(props);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
     this.registerLogoutRoute();
+    this.registerStateTask();
 
     UniversalApplicationContainer.logger.debug(
       '[$UniversalApplicationContainer][constructor] The app has been instantiated. The initial props are:',
@@ -46,6 +57,23 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   public componentDidMount(): void {
     this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
+  }
+
+  /**
+   * @stable [24.09.2019]
+   */
+  public componentWillUnmount(): void {
+    if (!R.isNil(this.storeUnsubscriber)) {
+      this.storeUnsubscriber();
+      this.storeUnsubscriber = null;
+    }
+    if (!R.isNil(this.syncStateWithStorageTask)) {
+      this.syncStateWithStorageTask.stop();
+      this.syncStateWithStorageTask = null;
+    }
+    if (this.stateSettings.syncEnabled) {
+      this.syncState();
+    }
   }
 
   /**
@@ -134,6 +162,24 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     );
   }
 
+  /**
+   * @stable [24.09.2019]
+   */
+  protected syncState(): void {
+    try {
+      this.doSyncState();
+    } catch (e) {
+      this.logManager.send(ApplicationEventCategoriesEnum.STATE_ERROR, ApplicationStateEventsEnum.SYNC, e.message);
+    }
+  }
+
+  /**
+   * @stable [24.09.2019]
+   */
+  protected doSyncState(): void {
+    this.storage.set(STORAGE_APP_STATE_KEY, this.appStore.getState());
+  }
+
   protected abstract buildRoute(ctor: IContainerClassEntity,
                                 connectorConfiguration: IConnectorConfigEntity,
                                 routeConfiguration: IRouteConfigEntity): JSX.Element;
@@ -161,5 +207,24 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
       () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Routes: ${routes0.join('\n')}`
     );
     return routes;
+  }
+
+  /**
+   * @stable [24.09.2019]
+   */
+  private registerStateTask(): void {
+    if (!this.stateSettings.syncEnabled) {
+      return;
+    }
+    this.syncStateWithStorageTask = new DelayedTask(this.syncState.bind(this), this.stateSettings.syncTimeout);
+    this.storeUnsubscriber = this.appStore.subscribe(() => this.syncStateWithStorageTask.start());
+  }
+
+  /**
+   * @stable [24.09.2019]
+   * @returns {IStateSettings}
+   */
+  private get stateSettings(): IStateSettings {
+    return this.settings.state || {};
   }
 }

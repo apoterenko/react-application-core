@@ -2,24 +2,26 @@ import { applyMiddleware, combineReducers, createStore, Middleware, ReducersMapO
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
 
-import { appContainer, DI_TYPES, staticInjector } from '../di';
-import { IStorage, STORAGE_APP_STATE_KEY } from '../definition';
+import {
+  appContainer,
+  bindToConstantValue,
+  DI_TYPES,
+  getSettings,
+  getStorage,
+} from '../di';
 import { ENV } from '../env';
-import { ISettings } from '../settings';
 import { nvl } from '../util';
+import { STORAGE_APP_STATE_KEY } from '../definition';
 import { universalReducers } from '../store/universal-default-reducers.interface';
 
 export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
-                                                  applicationSettings?: ISettings,
                                                   appMiddlewares?: Middleware[]): Promise<Store<TState>> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
+  const stateSettings = getSettings().state || {};
   let preloadedState = {} as TState;
-  if (!ENV.rnPlatform && applicationSettings && applicationSettings.usePersistence) {
-    preloadedState = nvl(
-      await staticInjector<IStorage>(DI_TYPES.Storage).get(STORAGE_APP_STATE_KEY),
-      preloadedState
-    );
+  if (stateSettings.syncEnabled) {
+    preloadedState = nvl(await getStorage().get(STORAGE_APP_STATE_KEY), preloadedState);
   }
 
   const store = createStore(
@@ -30,8 +32,8 @@ export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
       : composeWithDevTools(applyMiddleware(...middlewares)),
   );
 
-  // Configuring of store at runtime
-  appContainer.bind<Store<TState>>(DI_TYPES.Store).toConstantValue(store);
+  // Store configuring
+  bindToConstantValue(DI_TYPES.Store, store);
   EffectsService.configure(appContainer, store);
 
   // Set the app reducer

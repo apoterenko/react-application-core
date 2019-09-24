@@ -5,8 +5,12 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
   DI_TYPES,
+  getEnvironment,
+  getEventManager,
+  getLogManager,
   getNumberConverter,
   getSettings,
+  getStorage,
   getUiFactory,
   staticInjector,
 } from '../../di';
@@ -18,7 +22,11 @@ import {
   IUniversalStoreEntity,
 } from '../../entities-definitions.interface';
 import {
+  IEnvironment,
+  IEventManager,
+  ILogManager,
   IOperationEntity,
+  IStorage,
   IUniversalContainerEntity,
 } from '../../definition';
 import { IConnectorConfigEntity, IRoutesConfiguration } from '../../configurations-definitions.interface';
@@ -274,6 +282,15 @@ export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniv
 
   /**
    * @reactNativeCompatible
+   * @stable [24.09.2019]
+   * @returns {ISettings}
+   */
+  protected get storage(): IStorage {
+    return getStorage();
+  }
+
+  /**
+   * @reactNativeCompatible
    * @stable [23.05.2019]
    * @returns {ISettings}
    */
@@ -297,5 +314,32 @@ export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniv
    */
   protected get uiFactory(): IUIFactory {
     return getUiFactory();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [24.09.2019]
+   * @returns {ILogManager}
+   */
+  protected get logManager(): ILogManager {
+    return getLogManager();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [24.09.2019]
+   * @returns {IEnvironment}
+   */
+  protected get environment(): IEnvironment {
+    return getEnvironment();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [24.09.2019]
+   * @returns {IEventManager}
+   */
+  protected get eventManager(): IEventManager {
+    return getEventManager();
   }
 }

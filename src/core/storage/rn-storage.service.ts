@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-import { IStorage } from '../definition';
-import { STORAGE_KEY_SEPARATOR } from '../storage';
+import { IStorage, STORAGE_PATH_SEPARATOR } from '../definition';
 import { AnyT } from '../definitions.interface';
 
 // TODO Encryption/Decryption
@@ -23,6 +22,6 @@ export class RnStorage implements IStorage {
   }
 
   private toKey(key: string): string {
-    return [this.prefix, key].join(STORAGE_KEY_SEPARATOR);
+    return [this.prefix, key].join(STORAGE_PATH_SEPARATOR);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, ComponentClass, ComponentLifecycle } from 'react';
-import { History } from 'history';
 
 import {
   AnyT,
@@ -374,10 +373,6 @@ export interface ITransportEntity extends ITokenWrapper,
 
 /* @stable - 15.04.2018 */
 export interface ITransportWrapperEntity extends ITransportWrapper<ITransportEntity> {
-}
-
-/* @stable - 15.04.2018 */
-export interface IRouterComponentEntity extends History {
 }
 
 /**

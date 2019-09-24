@@ -49,7 +49,7 @@ import {
 /**
  * @stable [15.09.2019]
  */
-export enum TransportEventsEnum {
+export enum TransportEventCategoriesEnum {
   TRANSPORT = 'transport',
   TRANSPORT_ERROR = 'transport:error',
 }

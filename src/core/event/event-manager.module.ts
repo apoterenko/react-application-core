@@ -1,5 +1,7 @@
-import { appContainer, DI_TYPES } from '../di';
-
+import { bindInSingleton, DI_TYPES } from '../di';
 import { EventManager } from './event-manager.service';
 
-appContainer.bind(DI_TYPES.EventManager).to(EventManager).inSingletonScope();
+/**
+ * @stable [24.09.2019]
+ */
+bindInSingleton(DI_TYPES.EventManager, EventManager);

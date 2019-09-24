@@ -996,6 +996,7 @@ export interface ICompactWrapper<TCompact = boolean> {
 }
 
 export interface IActionIconWrapper<TActionIcon = string> { actionIcon?: TActionIcon; }
+export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
 export interface IResetTextWrapper { resetText?: string; }

@@ -12,4 +12,5 @@ export class Environment implements IEnvironment {
   public readonly appProfile = ENV.appProfile;
   public readonly appNamespace = ENV.appNamespace;
   public readonly mobilePlatform = ENV.mobilePlatform;
+  public readonly basePath = ENV.basePath;
 }

@@ -1,7 +1,7 @@
 import { DefaultStorage } from './default-storage.service';
 import { appContainer, DI_TYPES, getSettings } from '../../di';
-import { VERSIONED_STORAGE_KEY } from '../storage.interface';
+import { STORAGE_VERSIONED_KEY } from '../../definition';
 
 appContainer.bind(DI_TYPES.Storage).toConstantValue(
-  new DefaultStorage(VERSIONED_STORAGE_KEY, getSettings)
+  new DefaultStorage(STORAGE_VERSIONED_KEY, getSettings)
 );

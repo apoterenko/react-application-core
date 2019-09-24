@@ -2,7 +2,7 @@ import * as localforage from 'localforage';
 
 import { appContainer, DI_TYPES } from '../../di';
 import { DatabaseStorage } from './database-storage.service';
-import { VERSIONED_STORAGE_KEY } from '../storage.interface';
+import { STORAGE_VERSIONED_KEY } from '../../definition';
 
 appContainer.bind(DI_TYPES.DatabaseStorage).toConstantValue(
   new DatabaseStorage(
@@ -12,6 +12,6 @@ appContainer.bind(DI_TYPES.DatabaseStorage).toConstantValue(
       version: 1.0,
       storeName: 'sweedposDefaultDatabase',
     }),
-    VERSIONED_STORAGE_KEY
+    STORAGE_VERSIONED_KEY
   )
 );

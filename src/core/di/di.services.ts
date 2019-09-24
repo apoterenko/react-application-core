@@ -5,6 +5,8 @@ import { INumberConverter } from '../converter';
 import { ISettings } from '../settings';
 import {
   IEnvironment,
+  IEventManager,
+  ILogManager,
   IStorage,
   ITransport,
   IUniversalComponentEntity,
@@ -31,8 +33,7 @@ export const getUiFactory = (): IUIFactory => staticInjector(DI_TYPES.UIFactory)
  * @stable [21.08.2019]
  * @returns {Map<IUniversalComponentCtor, UniversalPluginFactoryT>}
  */
-export const getUiPlugins = (): Map<IUniversalComponentCtor, UniversalPluginFactoryT> =>
-  staticInjector(DI_TYPES.UIPlugins);
+export const getUiPlugins = (): Map<IUniversalComponentCtor, UniversalPluginFactoryT> => staticInjector(DI_TYPES.UIPlugins);
 
 /**
  * @stable [15.11.2018]
@@ -75,3 +76,21 @@ export const getTransport = (): ITransport => staticInjector(DI_TYPES.Transport)
  * @returns {IEnvironment}
  */
 export const getEnvironment = (): IEnvironment => staticInjector(DI_TYPES.Environment);
+
+/**
+ * @stable [24.09.2019]
+ * @returns {IStorage}
+ */
+export const getStorage = (): IStorage => staticInjector(DI_TYPES.Storage);
+
+/**
+ * @stable [24.09.2019]
+ * @returns {ILogManager}
+ */
+export const getLogManager = (): ILogManager => staticInjector(DI_TYPES.LogManager);
+
+/**
+ * @stable [24.09.2019]
+ * @returns {IEventManager}
+ */
+export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.EventManager);

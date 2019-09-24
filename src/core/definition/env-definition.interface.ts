@@ -11,6 +11,7 @@ export enum EnvironmentVariablesEnum {
 export interface IEnvironment {
   appNamespace: string;
   appProfile: string;
+  basePath: string;
   document: Document;
   documentClickEvent: string;
   mobilePlatform?: boolean;

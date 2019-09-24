@@ -12,17 +12,17 @@ import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { ILogManager } from '../log';
 import { ENV } from '../env';
 import {
   EnvironmentVariablesEnum,
+  ILogManager,
   ITransport,
   ITransportFactory,
   ITransportRequestEntity,
   ITransportRequestPayloadFactory,
   ITransportResponseEntity,
   ITransportResponseFactoryEntity,
-  TransportEventsEnum,
+  TransportEventCategoriesEnum,
 } from '../definition';
 
 @injectable()
@@ -64,7 +64,7 @@ export class Transport implements ITransport {
       responseFactoryEntity = await this.getTransportFactory(req).request(
         req,
         (payload) =>
-          (this.logManager.send(TransportEventsEnum.TRANSPORT, this.toLogEventName(req), payload), payload)
+          (this.logManager.send(TransportEventCategoriesEnum.TRANSPORT, this.toLogEventName(req), payload), payload)
       );
     } catch (e) {
       if (e.cancelled) {
@@ -109,7 +109,7 @@ export class Transport implements ITransport {
    * @param {ITransportResponseEntity} responseEntity
    */
   private onRequestError(req: ITransportRequestEntity, responseEntity: ITransportResponseEntity): void {
-    this.logManager.send(TransportEventsEnum.TRANSPORT_ERROR, this.toLogEventName(req), responseEntity);
+    this.logManager.send(TransportEventCategoriesEnum.TRANSPORT_ERROR, this.toLogEventName(req), responseEntity);
 
     this.store.dispatch({
       type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE,

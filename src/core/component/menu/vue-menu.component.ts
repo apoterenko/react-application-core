@@ -3,7 +3,7 @@ import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
 import { DI_TYPES, lazyInject } from '../../di';
-import { IEventManager } from '../../event';
+import { IEventManager } from '../../definition';
 import { EntityIdT } from '../../definitions.interface';
 import { IMenuItemEntity, IMenuMaterialComponent } from '../../entities-definitions.interface';
 import { setWidth, isNumber, isDef, removeSelf, subArray } from '../../util';

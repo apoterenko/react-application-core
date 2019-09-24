@@ -4,7 +4,6 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import { DI_TYPES, lazyInject } from '../../../di';
-import { IEventManager } from '../../../event';
 import {
   ifNotFalseThanValue,
   isFn,
@@ -29,7 +28,11 @@ import {
   IBaseTextFieldProps,
   IBaseTextField,
 } from './base-textfield.interface';
-import { IBaseEvent, IEnvironment } from '../../../definition';
+import {
+  IBaseEvent,
+  IEnvironment,
+  IEventManager,
+} from '../../../definition';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
                            TState extends IBaseTextFieldState>

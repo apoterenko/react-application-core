@@ -1,3 +1,5 @@
+import { AnyT } from '../definitions.interface';
+
 /**
  * @stable [31.08.2019]
  */
@@ -21,4 +23,14 @@ export enum TouchEventsEnum {
  */
 export enum EventsEnum {
   MOUSE_DOWN = 'mousedown',
+}
+
+/**
+ * @stable [24.09.2019]
+ */
+export interface IEventManager {
+  add(el: EventTarget, type: string, callback: (...args) => void, capturing?: boolean): void;
+  remove(el: EventTarget, type: string, callback: (...args) => void, capturing?: boolean): void;
+  fabricate(el: EventTarget, type: string, callback: (...args) => void, model?: AnyT): void;
+  subscribe(el: EventTarget, type: string, callback: (...args) => void, capturing?: boolean): () => void;
 }

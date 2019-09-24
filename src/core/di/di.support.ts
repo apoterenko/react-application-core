@@ -46,3 +46,16 @@ export const bindInSingleton = <T>(contract: interfaces.ServiceIdentifier<T> | (
       ? appContainer.rebind(contract)
       : appContainer.bind(contract)
   ).to(implementation || contract as (new(...args: AnyT[]) => T)).inSingletonScope();
+
+/**
+ * @stable [24.09.2019]
+ * @param {interfaces.ServiceIdentifier<T>} contract
+ * @param {T} instance
+ * @returns {interfaces.BindingWhenOnSyntax<any>}
+ */
+export const bindToConstantValue = <T>(contract: interfaces.ServiceIdentifier<T>, instance?: T) =>
+  (
+    appContainer.isBound(contract)
+      ? appContainer.rebind(contract)
+      : appContainer.bind(contract)
+  ).toConstantValue(instance);

@@ -10,16 +10,14 @@ import {
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_REWRITE_ACTION_TYPE,
 } from './router.interface';
-import {
-  IRouterComponentEntity,
-  INavigateEntity,
-} from '../entities-definitions.interface';
+import { INavigateEntity } from '../entities-definitions.interface';
+import { IRouterEntity } from '../definition';
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {
   private static logger = LoggerFactory.makeLogger('RouterEffects');
 
-  @lazyInject(DI_TYPES.Router) private router: IRouterComponentEntity;
+  @lazyInject(DI_TYPES.Router) private router: IRouterEntity;
 
   @EffectsService.effects(ROUTER_REWRITE_ACTION_TYPE)
   public $onRewrite(action: IEffectsAction): void {

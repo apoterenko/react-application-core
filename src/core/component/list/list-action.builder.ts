@@ -332,17 +332,6 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [06.06.2019]
-   * @param {string} section
-   * @param {EntityIdT} id
-   * @param {TChanges} changes
-   * @returns {IEffectsAction}
-   */
-  public static buildInsertItemAction<TChanges = IEntity>(section: string, id: EntityIdT, changes: TChanges): IEffectsAction {
-    return this.buildInsertAction(section, {payload: {id, changes}});
-  }
-
-  /**
    * @stable [13.05.2019]
    * @param {string} section
    * @param {EntityIdT} id

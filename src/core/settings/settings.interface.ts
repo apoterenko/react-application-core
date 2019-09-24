@@ -127,6 +127,11 @@ export interface IComponentsSettings {
   button?: IButtonProps;
 }
 
+export interface IStateSettings {
+  syncEnabled?: boolean;
+  syncTimeout?: number;
+}
+
 export interface ISettings {
   signalRUrl?: string;
   downloadUrl?: string;
@@ -141,6 +146,7 @@ export interface ISettings {
   entityEmptyId?: AnyT;
   resourcePaths?: IApplicationResourcePaths;
   dateTime?: IDateTimeSettings;
+  state?: IStateSettings;
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
   number?: IApplicationNumberSettings;
@@ -158,12 +164,15 @@ export const REGEXP_REPO = {
 };
 
 export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
-  usePersistence: true,
   signalRUrl: prepareUrl(ENV.basePath + '/api/'),
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
   emptyPictureUrl: 'media/no_avatar.jpg',
   companyName: 'Test company',
   entityEmptyId: null,
+  state: {
+    syncEnabled: true,
+    syncTimeout: 2000,
+  },
   transport: {
     method: 'post',
     withCredentials: true,

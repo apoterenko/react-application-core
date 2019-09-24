@@ -3,16 +3,16 @@ import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
 import { Store } from 'redux';
 
-import { ILogManager } from './log-manager.interface';
-import { ENV } from '../env';
-import { IStoreEntity } from '../entities-definitions.interface';
-import { DI_TYPES, lazyInject } from '../di';
 import { AnyT } from '../definitions.interface';
+import { DI_TYPES, lazyInject } from '../di';
+import { ENV } from '../env';
 import { IDateConverter } from '../converter';
+import { ILogManager } from '../definition';
+import { IStoreEntity } from '../entities-definitions.interface';
 
 @injectable()
 export class LogManager implements ILogManager {
-  private static readonly logger = LoggerFactory.makeLogger('Transport');
+  private static readonly logger = LoggerFactory.makeLogger('LogManager');
 
   @lazyInject(DI_TYPES.Store) private readonly store: Store<IStoreEntity>;
   @lazyInject(DI_TYPES.DateConverter) private readonly dc: IDateConverter;
@@ -38,7 +38,7 @@ export class LogManager implements ILogManager {
         eventCategory: `${ENV.host}:${category}`,
         eventAction,
         eventLabel: `${R.isNil(user) || R.isNil(user.id) ? '' : `${user.id}:${user.name}:`}${appVersion}:${
-          this.dc.fromDateTimeToDateTime(new Date())}${this.getEventLabel(payload)}`,
+          this.dc.fromDateTimeToDateTime(this.dc.getCurrentDate())}${this.getEventLabel(payload)}`,
       });
     } catch (e) {
       LogManager.logger.error('[$LogManager][send] The system error has occurred:', e);

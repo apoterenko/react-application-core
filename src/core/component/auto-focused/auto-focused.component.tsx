@@ -5,10 +5,9 @@ import { BaseComponent } from '../base';
 import { DelayedTask, orNull, isFn } from '../../util';
 import { DI_TYPES, lazyInject } from '../../di';
 import { ENV } from '../../env';
-import { FIELD_DISPLAY_EMPTY_VALUE } from '../../definition';
+import { FIELD_DISPLAY_EMPTY_VALUE, IEventManager } from '../../definition';
 import { IAutoFocusedProps } from './auto-focused.interface';
 import { IAutoFocusedState } from './auto-focused.interface';
-import { IEventManager } from '../../event';
 import { IField, TextField, DelayedChangesFieldPlugin } from '../field';
 import { IKeyboardEvent } from '../../definitions.interface';
 

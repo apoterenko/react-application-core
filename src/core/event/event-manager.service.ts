@@ -1,8 +1,8 @@
 import * as crossvent from 'crossvent';
 import { injectable } from 'inversify';
 
-import { IEventManager } from './event-manager.interface';
 import { AnyT } from '../definitions.interface';
+import { IEventManager } from '../definition';
 
 @injectable()
 export class EventManager implements IEventManager {

@@ -1,6 +1,5 @@
 import { AnyT } from '../definitions.interface';
-import { IStorage } from '../definition';
-import { STORAGE_KEY_SEPARATOR } from '../storage/storage.interface';
+import { IStorage, STORAGE_PATH_SEPARATOR } from '../definition';
 
 export abstract class BaseStorage implements IStorage {
 
@@ -25,6 +24,6 @@ export abstract class BaseStorage implements IStorage {
    * @returns {string}
    */
   protected toKey(key: string): string {
-    return [this.prefix, key].join(STORAGE_KEY_SEPARATOR);
+    return [this.prefix, key].join(STORAGE_PATH_SEPARATOR);
   }
 }

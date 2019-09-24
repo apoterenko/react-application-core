@@ -1,17 +1,15 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
-import { clone, uuid, KeyPredicateT, cloneUsingFilters } from '../../util';
-import { DI_TYPES, appContainer, lazyInject } from '../../di';
-import { IEventManager } from '../../event';
-import { IStorage, STORAGE_APP_STATE_KEY } from '../../definition';
-import { INITIAL_APPLICATION_NOTIFICATION_STATE } from '../../notification';
+import { uuid } from '../../util';
+import { DI_TYPES, bindToConstantValue } from '../../di';
+import {
+  IRouterEntity,
+  IRouterWrapperEntity,
+} from '../../definition';
 import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
-import { ENV } from '../../env';
-import { INITIAL_APPLICATION_TRANSPORT_STATE } from '../../transport';
-import { IApplicationContainerProps, INITIAL_APPLICATION_STATE } from './application.interface';
+import { IApplicationContainerProps, } from './application.interface';
 import { Message } from '../message';
 import {
   IConnectorConfigEntity,
@@ -20,28 +18,24 @@ import {
 } from '../../configurations-definitions.interface';
 import {
   IContainerClassEntity,
-  IRouterComponentEntity,
   IStoreEntity,
 } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
-import { INITIAL_APPLICATION_CHANNEL_STATE } from '../../channel';
 
 export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
-  @lazyInject(DI_TYPES.Storage) private storage: IStorage;
-  @lazyInject(DI_TYPES.EventManager) private eventManager: IEventManager;
+  private readonly routerRef = React.createRef<IRouterWrapperEntity>();
 
-  constructor(props: IApplicationContainerProps) {
-    super(props);
-    this.onUnload = this.onUnload.bind(this);
-  }
-
+  /**
+   * @stable [24.09.2019]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     return (
       <BrowserRouter
-        ref='router'
-        basename={this.props.basename || ENV.basePath}>
+        ref={this.routerRef}
+        basename={this.props.basename || this.environment.basePath}>
         <Switch>
           {...this.getRoutes()}
         </Switch>
@@ -50,57 +44,14 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
   }
 
   /**
-   * @stable [19.05.2018]
+   * @stable [24.09.2019]
    */
   public componentDidMount(): void {
-    this.eventManager.add(window, 'unload', this.onUnload);
-
-    appContainer.bind<IRouterComponentEntity>(DI_TYPES.Router).toConstantValue(this.dynamicRouter);
+    bindToConstantValue(DI_TYPES.Router, this.dynamicRouter);
     super.componentDidMount();
   }
 
-  /**
-   * @stable [23.06.2018]
-   */
-  public componentWillUnmount(): void {
-    this.eventManager.remove(window, 'unload', this.onUnload);
-  }
-
-  protected onUnload(): void {
-    if (this.settings.usePersistence) {
-      this.saveState();
-    }
-  }
-
-  protected clearStateBeforeSerialization(state: TStoreEntity, ...predicates: KeyPredicateT[]): TStoreEntity {
-    this.clearSystemState(state);
-
-    // You may clear the app state here before the serializing
-    if (predicates.length) {
-      return cloneUsingFilters(state, ...predicates);
-    }
-    return state;
-  }
-
-  /**
-   * @stable [02.07.2018]
-   * @param {TStoreEntity} state
-   */
-  protected clearSystemState(state: TStoreEntity): void {
-    if (!R.isNil(state.notification)) {
-      state.notification = INITIAL_APPLICATION_NOTIFICATION_STATE;
-    }
-    if (!R.isNil(state.transport)) {
-      state.transport = INITIAL_APPLICATION_TRANSPORT_STATE;
-    }
-    if (!R.isNil(state.application)) {
-      state.application = INITIAL_APPLICATION_STATE;
-    }
-    if (!R.isNil(state.channel)) {
-      state.channel = INITIAL_APPLICATION_CHANNEL_STATE;
-    }
-  }
-
+  // TODO refactoring
   protected getRoutes(): JSX.Element[] {
     const props = this.props;
     return this.isMessageVisible()
@@ -116,14 +67,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
       : super.getRoutes();
   }
 
-  protected clearPreviousStates(): void {
-    this.storage.each((o, key) => {
-      if (key.endsWith(STORAGE_APP_STATE_KEY)) {
-        this.storage.remove(key, true);
-      }
-    });
-  }
-
+  // TODO refactoring
   protected buildRoute(ctor: IContainerClassEntity,
                        connectorConfiguration: IConnectorConfigEntity,
                        cfg: IRouteConfigEntity): JSX.Element {
@@ -150,22 +94,11 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
   }
 
   /**
-   * @stable [09.08.2019]
+   * @stable [24.09.2019]
+   * @returns {IRouterEntity}
    */
-  protected doSaveState(): void {
-    this.storage.set(
-      STORAGE_APP_STATE_KEY,
-      this.clearStateBeforeSerialization(clone<TStoreEntity>(this.appStore.getState() as TStoreEntity))
-    );
-  }
-
-  private saveState(): void {
-    this.clearPreviousStates();
-    this.doSaveState();
-  }
-
-  private get dynamicRouter(): IRouterComponentEntity {
+  private get dynamicRouter(): IRouterEntity {
     // We cannot to get access to history instance other way. This instance is private
-    return Reflect.get(this.refs.router, 'history');
+    return this.routerRef.current.history;
   }
 }
