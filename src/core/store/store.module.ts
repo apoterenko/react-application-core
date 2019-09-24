@@ -1,6 +1,7 @@
 import { Middleware, ReducersMapObject, Store } from 'redux';
 
 import './stack/stack.module';
+import './state/serializer/state-serializer.module';
 import { buildUniversalStore } from './universal-store.factory';
 import { defaultReducers } from './store.interface';
 import { IStoreEntity } from '../entities-definitions.interface';

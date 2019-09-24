@@ -3,8 +3,6 @@ import { Component, ComponentClass, ComponentLifecycle } from 'react';
 import {
   AnyT,
   EntityIdT,
-  IApplicationWrapper,
-  IAuthorizedWrapper,
   IChangesWrapper,
   IClearValueWrapper,
   IDataWrapper,
@@ -27,7 +25,6 @@ import {
   IIconWrapper,
   IIdWrapper,
   IIndexWrapper,
-  IInfoWrapper,
   IJQueryElement,
   IKeyValue,
   ILabelWrapper,
@@ -38,7 +35,6 @@ import {
   IModeWrapper,
   INameWrapper,
   INewEntityWrapper,
-  INotificationWrapper,
   IOnBeforeSubmitWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
@@ -51,9 +47,7 @@ import {
   IPasswordWrapper,
   IPathWrapper,
   IPhotoUrlWrapper,
-  IQueueWrapper,
   IRawDataWrapper,
-  IReadyWrapper,
   IResetErrorWrapper,
   ISelectedEntityWrapper,
   ISelectedWrapper,
@@ -63,8 +57,6 @@ import {
   ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
-  ITokenWrapper,
-  ITransportWrapper,
   ITypeWrapper,
   IUrlWrapper,
   IUserWrapper,
@@ -79,21 +71,23 @@ import { IUniversalKeyboardHandlersConfiguration } from './configurations-defini
 import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IApiEntity,
+  IApplicationWrapperEntity,
   IChannelWrapperEntity,
   IComponentProps,
   IEditableEntity,
   IEntityFormEntity,
-  IErrorEntity,
   ILifeCycleEntity,
+  INotificationWrapperEntity,
   IPaginatedEntity,
   IPermissionsWrapperEntity,
   IQueryFilterEntity,
   IStackWrapperEntity,
+  ITransportWrapperEntity,
+  IUniversalComponent,
   IUniversalComponentEntity,
   IUniversalContainerEntity,
   IWebContainerEntity,
   IXYEntity,
-  IUniversalComponent,
 } from './definition';
 
 /**
@@ -344,38 +338,6 @@ export interface IUniversalMessageEntity extends ILifeCycleEntity {
 }
 
 /**
- * @stable [23.10.2018]
- */
-export interface IUniversalApplicationEntity extends IUniversalContainerEntity,
-                                                     ILifeCycleEntity,
-                                                     IAuthorizedWrapper,
-                                                     IReadyWrapper,
-                                                     IPathWrapper {
-}
-
-/* @stable - 25.04.2018 */
-export interface IRnApplicationEntity extends IUniversalApplicationEntity {
-}
-
-/* @stable - 11.04.2018 */
-export interface IApplicationEntity extends IUniversalApplicationEntity,
-                                            IWebContainerEntity {
-}
-
-/* @stable - 11.04.2018 */
-export interface IApplicationWrapperEntity extends IApplicationWrapper<IApplicationEntity> {
-}
-
-/* @stable - 12.04.2018 */
-export interface ITransportEntity extends ITokenWrapper,
-                                          IQueueWrapper<string[]> {
-}
-
-/* @stable - 15.04.2018 */
-export interface ITransportWrapperEntity extends ITransportWrapper<ITransportEntity> {
-}
-
-/**
  * @stable [23.09.2018]
  */
 export enum LayoutModeEnum {
@@ -407,15 +369,6 @@ export interface IUserEntity extends INamedEntity,
 
 /* @stable - 15.04.2018 */
 export interface IUserWrapperEntity extends IUserWrapper<IUserEntity> {
-}
-
-/* @stable - 15.04.2018 */
-export interface INotificationEntity extends IErrorEntity,
-                                             IInfoWrapper {
-}
-
-/* @stable - 15.04.2018 */
-export interface INotificationWrapperEntity extends INotificationWrapper<INotificationEntity> {
 }
 
 /* @stable - 15.04.2018 */

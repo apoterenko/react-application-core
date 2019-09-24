@@ -19,6 +19,7 @@ import {
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
+import { IStoreEntity } from '../entities-definitions.interface';
 
 /**
  * @stable [26.08.2019]
@@ -69,4 +70,11 @@ export interface IChainedFormMiddlewareConfigEntity<TChanges>
     INextFormRouteWrapper,
     INextListSectionWrapper,
     IReplaceRouteWrapper {
+}
+
+/**
+ * @stable [24.09.2019]
+ */
+export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
+  serialize(state: TState): TState;
 }

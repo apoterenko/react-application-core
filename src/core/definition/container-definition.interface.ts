@@ -8,12 +8,12 @@ import {
 import { IWebComponentEntity } from './component-definition.interface';
 import {
   ILayoutWrapperEntity,
-  INotificationWrapperEntity,
-  ITransportWrapperEntity,
   IUserWrapperEntity,
 } from '../entities-definitions.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
+import { ITransportWrapperEntity } from './transport-definition.interface';
+import { INotificationWrapperEntity } from './notification-definition.interface';
 
 /**
  * @reactNativeCompatible

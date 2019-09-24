@@ -1,7 +1,6 @@
-import { IUniversalApplicationEntity } from '../../entities-definitions.interface';
-import { IUniversalContainerEntity } from '../../definition';
+import { IUniversalContainerEntity, IApplicationEntity } from '../../definition';
 
 /* @stable - 25.04.2018 */
-export interface IUniversalApplicationContainerProps extends IUniversalApplicationEntity,
+export interface IUniversalApplicationContainerProps extends IApplicationEntity,
                                                              IUniversalContainerEntity {
 }

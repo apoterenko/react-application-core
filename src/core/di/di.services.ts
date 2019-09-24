@@ -7,6 +7,7 @@ import {
   IEnvironment,
   IEventManager,
   ILogManager,
+  IStateSerializer,
   IStorage,
   ITransport,
   IUniversalComponentEntity,
@@ -94,3 +95,9 @@ export const getLogManager = (): ILogManager => staticInjector(DI_TYPES.LogManag
  * @returns {IEventManager}
  */
 export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.EventManager);
+
+/**
+ * @stable [24.09.2019]
+ * @returns {IEventManager}
+ */
+export const getStateSerializer = (): IStateSerializer => staticInjector(DI_TYPES.StateSerializer);

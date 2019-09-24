@@ -1,11 +1,13 @@
 import { AnyAction } from 'redux';
 
 import { convertError } from '../../error';
-import { INITIAL_APPLICATION_STATE } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
-import { IApplicationEntity } from '../../entities-definitions.interface';
+import {
+  IApplicationEntity,
+  INITIAL_APPLICATION_ENTITY,
+} from '../../definition';
 
-export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATION_STATE,
+export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATION_ENTITY,
                                    action: AnyAction): IApplicationEntity {
   switch (action.type) {
     case ApplicationActionBuilder.buildPrepareActionType():

@@ -28,6 +28,7 @@ export const DI_TYPES = Object.freeze({
   Storage: Symbol('Storage'),
   StorageHelper: Symbol('StorageHelper'),
   Store: Symbol('Store'),
+  StateSerializer: Symbol('StateSerializer'),
   Translate: Symbol('Translate'),
   /**/
   VersionProcessor: Symbol('VersionProcessor'),

@@ -1,13 +1,15 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import { ACTION_PREFIX } from '../../definitions.interface';
-import { IApplicationEntity } from '../../entities-definitions.interface';
 import { IApplicationConfiguration, IConnectorConfigEntity } from '../../configurations-definitions.interface';
+import { IContainerProps } from '../../props-definitions.interface';
+import { IApplicationEntity } from '../../definition';
 
 /**
  * @stable [02.07.2018]
  */
-export interface IApplicationContainerProps extends IApplicationEntity,
+export interface IApplicationContainerProps extends IContainerProps,
+                                                    IApplicationEntity,
                                                     IApplicationConfiguration {
 }
 
@@ -15,17 +17,6 @@ export interface IApplicationContainerProps extends IApplicationEntity,
  * @stable [02.07.2018]
  */
 export const APPLICATION_SECTIONS = new Map<string, IConnectorConfigEntity>();
-
-/**
- * @stable [23.06.2018]
- */
-export const INITIAL_APPLICATION_STATE: IApplicationEntity = {
-  ready: false,         // By default the application is not ready because an async token
-  authorized: false,    // By default the application is not authorized because an async token
-  progress: false,
-  error: null,
-  path: null,
-};
 
 /**
  * @stable [02.07.2018]

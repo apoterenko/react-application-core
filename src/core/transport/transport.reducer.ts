@@ -1,9 +1,11 @@
 import { AnyAction } from 'redux';
 
-import { ITransportEntity } from '../entities-definitions.interface';
+import {
+  ITransportEntity,
+  INITIAL_TRANSPORT_ENTITY,
+} from '../definition';
 import { IOperationIdWrapper } from '../definitions.interface';
 import {
-  INITIAL_APPLICATION_TRANSPORT_STATE,
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
@@ -14,7 +16,7 @@ import {
 } from './transport-reducer.interface';
 import { ifNotNilThanValue } from '../util';
 
-export function transportReducer(state: ITransportEntity = INITIAL_APPLICATION_TRANSPORT_STATE,
+export function transportReducer(state: ITransportEntity = INITIAL_TRANSPORT_ENTITY,
                                  action: AnyAction): ITransportEntity {
   const operationId = ifNotNilThanValue<IOperationIdWrapper, string>(action.data, (data) => data.operationId);
   switch (action.type) {
@@ -36,7 +38,7 @@ export function transportReducer(state: ITransportEntity = INITIAL_APPLICATION_T
       };
     case TRANSPORT_DESTROY_ACTION_TYPE: {
       return {
-          ...INITIAL_APPLICATION_TRANSPORT_STATE,
+          ...INITIAL_TRANSPORT_ENTITY,
       };
     }
     case TRANSPORT_UPDATE_TOKEN_ACTION_TYPE:

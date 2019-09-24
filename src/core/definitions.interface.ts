@@ -2017,22 +2017,15 @@ export interface IPasswordWrapper<TPassword = string> {
 }
 
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
-export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
 export interface IChildrenWrapper<TChildren> { children?: TChildren; }
-
-/**
- * @stable [06.07.2018]
- */
-export interface IInfoWrapper<TInfo = string> {
-  info?: TInfo;
-}
+export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
+export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
+export interface IToWrapper<TTo = string> { to?: TTo; }
 
 /* @stable - 15.04.2018 */
 export interface INotificationWrapper<TNotification> {
   notification?: TNotification;
 }
-
-export interface IToWrapper<TTo = string> { to?: TTo; }
 
 /**
  * @stable [09.12.2018]

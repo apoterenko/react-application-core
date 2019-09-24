@@ -177,7 +177,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [24.09.2019]
    */
   protected doSyncState(): void {
-    this.storage.set(STORAGE_APP_STATE_KEY, this.appStore.getState());
+    this.storage.set(STORAGE_APP_STATE_KEY, this.stateSerializer.serialize(this.appStore.getState()));
   }
 
   protected abstract buildRoute(ctor: IContainerClassEntity,

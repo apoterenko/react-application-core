@@ -27,6 +27,7 @@ import {
   IOperationWrapper,
   IParamsWrapper,
   IPathWrapper,
+  IQueueWrapper,
   IRequestDataFactoryWrapper,
   IRequestProviderWrapper,
   IResponseFactoryWrapper,
@@ -38,6 +39,7 @@ import {
   IStatusWrapper,
   ITokenWrapper,
   ITransportFactoryWrapper,
+  ITransportWrapper,
   IUniqueParamNameWrapper,
   IUploadUrlWrapper,
   IUrlFactoryWrapper,
@@ -317,3 +319,26 @@ export interface ITransportUrlConfigEntity
 export interface ITransportTokenAccessor
   extends ITokenWrapper {
 }
+
+/**
+ * @stable [24.09.2019]
+ */
+export interface ITransportEntity
+  extends ITokenWrapper,
+    IQueueWrapper<string[]> {
+}
+
+/**
+ * @stable [24.09.2019]
+ */
+export interface ITransportWrapperEntity
+  extends ITransportWrapper<ITransportEntity> {
+}
+
+/**
+ * @stable [24.09.2019]
+ */
+export const INITIAL_TRANSPORT_ENTITY = Object.freeze<ITransportEntity>({
+  queue: [],
+  token: null,
+});

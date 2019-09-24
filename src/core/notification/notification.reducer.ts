@@ -1,16 +1,18 @@
 import { AnyAction } from 'redux';
 
 import { IKeyValue } from '../definitions.interface';
-import { INotificationEntity } from '../entities-definitions.interface';
+import {
+  INITIAL_NOTIFICATION_ENTITY,
+  INotificationEntity,
+} from '../definition';
 import { convertError } from '../error';
 import {
   NOTIFICATION_INFO_ACTION_TYPE,
   NOTIFICATION_ERROR_ACTION_TYPE,
-  INITIAL_APPLICATION_NOTIFICATION_STATE,
   NOTIFICATION_CLEAR_ACTION_TYPE,
 } from './notification.interface';
 
-export function notificationReducer(state: INotificationEntity = INITIAL_APPLICATION_NOTIFICATION_STATE,
+export function notificationReducer(state: INotificationEntity = INITIAL_NOTIFICATION_ENTITY,
                                     action: AnyAction): IKeyValue {
   switch (action.type) {
     case NOTIFICATION_INFO_ACTION_TYPE:
@@ -23,7 +25,7 @@ export function notificationReducer(state: INotificationEntity = INITIAL_APPLICA
       };
     case NOTIFICATION_CLEAR_ACTION_TYPE:
       return {
-          ...INITIAL_APPLICATION_NOTIFICATION_STATE,
+          ...INITIAL_NOTIFICATION_ENTITY,
       };
   }
   return state;

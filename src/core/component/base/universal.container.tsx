@@ -10,6 +10,7 @@ import {
   getLogManager,
   getNumberConverter,
   getSettings,
+  getStateSerializer,
   getStorage,
   getUiFactory,
   staticInjector,
@@ -26,6 +27,7 @@ import {
   IEventManager,
   ILogManager,
   IOperationEntity,
+  IStateSerializer,
   IStorage,
   IUniversalContainerEntity,
 } from '../../definition';
@@ -341,5 +343,14 @@ export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniv
    */
   protected get eventManager(): IEventManager {
     return getEventManager();
+  }
+
+  /**
+   * @reactNativeCompatible
+   * @stable [24.09.2019]
+   * @returns {IStateSerializer}
+   */
+  protected get stateSerializer(): IStateSerializer {
+    return getStateSerializer();
   }
 }

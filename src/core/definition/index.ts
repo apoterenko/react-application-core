@@ -19,6 +19,7 @@ export * from './flex-definition.interface';
 export * from './form-definition.interface';
 export * from './log-definition.interface';
 export * from './navigation-definition.interface';
+export * from './notification-definition.interface';
 export * from './operation-definition.interface';
 export * from './page-definition.interface';
 export * from './permission-definition.interface';

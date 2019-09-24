@@ -2,7 +2,6 @@ import {
   ACTION_PREFIX,
   AnyT,
 } from '../definitions.interface';
-import { IChannelsEntity } from '../definition';
 import { PayloadWrapper } from './protocol';
 
 /**
@@ -27,12 +26,6 @@ export interface IChannel<TConfig = AnyT, TMessage = AnyT> {
   emitChannelEvent(ip: string, ...args: TMessage[]): void;
   emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void;
 }
-
-/**
- * @stable [20.05.2018]
- */
-export const INITIAL_APPLICATION_CHANNEL_STATE: IChannelsEntity = {
-};
 
 export const CHANNEL_CONNECT_EVENT = 'connect';
 export const CHANNEL_DISCONNECT_EVENT = 'disconnect';

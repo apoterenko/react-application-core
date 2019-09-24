@@ -40,3 +40,9 @@ export interface IChannelsEntity
 export interface IChannelWrapperEntity
   extends IChannelWrapper<IChannelsEntity> {
 }
+
+/**
+ * @stable [24.09.2019]
+ */
+export const INITIAL_CHANNELS_ENTITY = Object.freeze<IChannelsEntity>({
+});

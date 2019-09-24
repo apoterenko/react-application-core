@@ -9,11 +9,11 @@ import {
   $CHANNEL_MESSAGE_ACTION_TYPE,
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_DISCONNECT_MESSAGE,
-  INITIAL_APPLICATION_CHANNEL_STATE,
 } from './channel.interface';
 import {
-  IChannelsEntity,
   IChannelMessageEntity,
+  IChannelsEntity,
+  INITIAL_CHANNELS_ENTITY,
 } from '../definition';
 
 /**
@@ -22,7 +22,7 @@ import {
  * @param {AnyAction} action
  * @returns {IChannelsEntity}
  */
-export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHANNEL_STATE,
+export function channelReducer(state: IChannelsEntity = INITIAL_CHANNELS_ENTITY,
                                action: AnyAction): IChannelsEntity {
   let current;
   const message: IChannelMessageEntity = action.data;
@@ -58,7 +58,7 @@ export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHAN
           return {
             ...state,
             [message.ip]: {
-              ...INITIAL_APPLICATION_CHANNEL_STATE,
+              ...INITIAL_CHANNELS_ENTITY,
               connected: true,
             },
           };
@@ -66,7 +66,7 @@ export function channelReducer(state: IChannelsEntity = INITIAL_APPLICATION_CHAN
           return {
             ...state,
             [message.ip]: {
-              ...INITIAL_APPLICATION_CHANNEL_STATE,
+              ...INITIAL_CHANNELS_ENTITY,
               connected: false,
             },
           };

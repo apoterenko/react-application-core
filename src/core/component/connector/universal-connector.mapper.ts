@@ -26,13 +26,13 @@ import {
   IPaginatedEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
+  ITransportWrapperEntity,
   ToolbarToolsEnum,
 } from '../../definition';
 import {
   IOptionEntity,
   IListWrapperEntity,
   IListEntity,
-  ITransportWrapperEntity,
   IUserWrapperEntity,
   IDictionariesWrapperEntity,
   IUniversalStoreEntity,
