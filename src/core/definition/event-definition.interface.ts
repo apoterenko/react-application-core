@@ -23,6 +23,7 @@ export enum TouchEventsEnum {
  */
 export enum EventsEnum {
   MOUSE_DOWN = 'mousedown',
+  UNLOAD = 'unload',
 }
 
 /**

@@ -546,6 +546,7 @@ export interface IEnvironmentPlatformOsEntity {
  */
 export interface IEnvironmentEntity {
   document?: Document;
+  window?: Window;
   host?: string;
   androidPlatform?: boolean;
   mobilePlatform?: boolean;

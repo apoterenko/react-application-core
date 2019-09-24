@@ -15,4 +15,5 @@ export interface IEnvironment {
   document: Document;
   documentClickEvent: string;
   mobilePlatform?: boolean;
+  window: Window;
 }

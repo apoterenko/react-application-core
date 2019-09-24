@@ -9,7 +9,7 @@ import { buildNormalizedPath } from '../util/route';
 const definedLocation = typeof location === 'undefined'
   ? { origin: '', protocol: 'http', host: 'localhost', port: '80', href: '', pathname: '', assign: (url: string) => null }
   : location;
-const definedWindow = typeof window === 'undefined' ? {} : window;
+const definedWindow = typeof window === 'undefined' ? {} as Window : window;
 const definedDocument = typeof document === 'undefined' ? { baseURI: '', body: null } as Document : document;
 const definedLocalStorage = typeof localStorage === 'undefined' ? { getItem: (item: string) => null } : localStorage;
 
@@ -26,6 +26,7 @@ const WINDOWS_PHONE_PLATFORM = P.os.family === 'Windows Phone';
 /**/
 export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   document: definedDocument,
+  window: definedWindow,
   appVersion: process.env.APP_VERSION || '0.0.1',
   appProfile: process.env.APP_PROFILE || 'DEFAULT',
   appNamespace: process.env.APP_NAMESPACE,
@@ -58,4 +59,8 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   setVariable: (name: string, scope: AnyT) => Reflect.set(definedWindow, name, scope),
 });
 
-LoggerFactory.makeLogger('env.interface').debug(`[$environment] ${JSON.stringify(ENV)}`);
+LoggerFactory.makeLogger('env.interface').debug(`[$environment] ${JSON.stringify({
+  ...ENV,
+  document: null,
+  window: null,
+})}`);

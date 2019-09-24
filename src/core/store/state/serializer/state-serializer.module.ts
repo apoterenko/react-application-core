@@ -5,3 +5,4 @@ import { StateSerializer } from './state-serializer.service';
  * @stable [24.09.2019]
  */
 bindInSingleton(DI_TYPES.StateSerializer, StateSerializer);
+bindInSingleton(StateSerializer);

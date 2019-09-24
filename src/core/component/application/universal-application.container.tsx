@@ -27,7 +27,7 @@ export type RoutePredicateT = (routeConfiguration: IRouteConfigEntity) => boolea
 export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
   extends UniversalContainer<TProps> {
 
-  public static defaultProps: IUniversalApplicationContainerProps = {
+  public static readonly defaultProps: IUniversalApplicationContainerProps = {
     sectionName: APPLICATION_SECTION,
   };
 
@@ -42,6 +42,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   constructor(props: TProps) {
     super(props);
+    this.syncState = this.syncState.bind(this);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
     this.registerLogoutRoute();
     this.registerStateTask();
@@ -63,16 +64,10 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [24.09.2019]
    */
   public componentWillUnmount(): void {
-    if (!R.isNil(this.storeUnsubscriber)) {
-      this.storeUnsubscriber();
-      this.storeUnsubscriber = null;
-    }
-    if (!R.isNil(this.syncStateWithStorageTask)) {
-      this.syncStateWithStorageTask.stop();
-      this.syncStateWithStorageTask = null;
-    }
+    this.unregisterStateTask();
+
     if (this.stateSettings.syncEnabled) {
-      this.syncState();
+      this.syncState(); // In case of "manual location.reload"
     }
   }
 
@@ -180,6 +175,38 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     this.storage.set(STORAGE_APP_STATE_KEY, this.stateSerializer.serialize(this.appStore.getState()));
   }
 
+  /**
+   * @stable [24.09.2019]
+   */
+  protected registerStateTask(): boolean {
+    if (!this.stateSettings.syncEnabled) {
+      return false;
+    }
+    if (this.stateSettings.syncTimeout > 0) {
+      this.syncStateWithStorageTask = new DelayedTask(this.syncState.bind(this), this.stateSettings.syncTimeout);
+      this.storeUnsubscriber = this.appStore.subscribe(() => this.syncStateWithStorageTask.start());
+    }
+    return true;
+  }
+
+  /**
+   * @stable [24.09.2019]
+   */
+  protected unregisterStateTask(): boolean {
+    if (!this.stateSettings.syncEnabled) {
+      return false;
+    }
+    if (!R.isNil(this.storeUnsubscriber)) {
+      this.storeUnsubscriber();
+      this.storeUnsubscriber = null;
+    }
+    if (!R.isNil(this.syncStateWithStorageTask)) {
+      this.syncStateWithStorageTask.stop();
+      this.syncStateWithStorageTask = null;
+    }
+    return true;
+  }
+
   protected abstract buildRoute(ctor: IContainerClassEntity,
                                 connectorConfiguration: IConnectorConfigEntity,
                                 routeConfiguration: IRouteConfigEntity): JSX.Element;
@@ -207,17 +234,6 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
       () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Routes: ${routes0.join('\n')}`
     );
     return routes;
-  }
-
-  /**
-   * @stable [24.09.2019]
-   */
-  private registerStateTask(): void {
-    if (!this.stateSettings.syncEnabled) {
-      return;
-    }
-    this.syncStateWithStorageTask = new DelayedTask(this.syncState.bind(this), this.stateSettings.syncTimeout);
-    this.storeUnsubscriber = this.appStore.subscribe(() => this.syncStateWithStorageTask.start());
   }
 
   /**

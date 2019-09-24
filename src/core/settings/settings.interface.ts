@@ -140,7 +140,6 @@ export interface ISettings {
   emptyPictureUrl?: string;
   companyName?: string;
   companyCountry?: string;
-  usePersistence?: boolean;
   transport?: ITransportSettings;
   persistenceStorage?: StorageTypesEnum;
   entityEmptyId?: AnyT;

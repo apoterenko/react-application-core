@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
-import { uuid } from '../../util';
+import { uuid, isFn } from '../../util';
 import { DI_TYPES, bindToConstantValue } from '../../di';
 import {
+  EventsEnum,
   IRouterEntity,
   IRouterWrapperEntity,
 } from '../../definition';
@@ -26,6 +27,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   private readonly routerRef = React.createRef<IRouterWrapperEntity>();
+  private stateUnloadUnsubscriber: () => void;
 
   /**
    * @stable [24.09.2019]
@@ -91,6 +93,31 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
                  container={ctor}
                  {...props}/>
     );
+  }
+
+  /**
+   * @stable [24.09.2019]
+   * @returns {boolean}
+   */
+  protected registerStateTask(): boolean {
+    const result = super.registerStateTask();
+    if (result) {
+      this.stateUnloadUnsubscriber =
+        this.eventManager.subscribe(this.environment.window, EventsEnum.UNLOAD, this.syncState);
+    }
+    return result;
+  }
+
+  /**
+   * @stable [24.09.2019]
+   * @returns {boolean}
+   */
+  protected unregisterStateTask(): boolean {
+    const result = super.unregisterStateTask();
+    if (result && isFn(this.stateUnloadUnsubscriber)) {
+      this.stateUnloadUnsubscriber();
+    }
+    return result;
   }
 
   /**
