@@ -29,5 +29,5 @@ export interface IStorage {
   set(key: string, value: AnyT): Promise<AnyT>;
   get?(key: string): Promise<AnyT>;
   remove?(key: string, noPrefix?: boolean): Promise<void>;
-  each?(command: (o: AnyT, key: string) => void): void;
+  each?(command: (value: AnyT, key: string) => void): void;
 }

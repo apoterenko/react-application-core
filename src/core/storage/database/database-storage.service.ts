@@ -45,10 +45,10 @@ export class DatabaseStorage extends BaseStorage {
   }
 
   /**
-   * @stable [28.07.2019]
-   * @param {(key: string, value: AnyT) => void} callback
+   * @stable [25.09.2019]
+   * @param {(value: AnyT, key: string) => void} callback
    */
-  public each(callback: (key: string, value: AnyT) => void): void {
-    this.instance.iterate((v, k) => callback(k, v));
+  public each(callback: (value: AnyT, key: string) => void): void {
+    this.instance.iterate((v, k) => callback(v, k));
   }
 }

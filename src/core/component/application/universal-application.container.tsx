@@ -54,10 +54,11 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   /**
-   * @stable [19.05.2018]
+   * @stable [25.09.2019]
    */
   public componentDidMount(): void {
     this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
+    this.clearPreviousStates();
   }
 
   /**
@@ -173,6 +174,17 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   protected doSyncState(): void {
     this.storage.set(STORAGE_APP_STATE_KEY, this.stateSerializer.serialize(this.appStore.getState()));
+  }
+
+  /**
+   * @stable [25.09.2019]
+   */
+  protected clearPreviousStates(): void {
+    this.storage.each((value, key) => {
+      if (key.endsWith(STORAGE_APP_STATE_KEY)) {
+        this.storage.remove(key, true);
+      }
+    });
   }
 
   /**

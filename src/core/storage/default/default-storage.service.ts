@@ -50,14 +50,14 @@ export class DefaultStorage extends BaseStorage {
   }
 
   /**
-   * @stable [28.07.2019]
-   * @param {(key: string, value: AnyT) => void} callback
+   * @stable [25.09.2019]
+   * @param {(value: AnyT, key: string) => void} callback
    */
-  public each(callback: (key: string, value: AnyT) => void): void {
+  public each(callback: (value: AnyT, key: string) => void): void {
     const storage = this.storage;
     for (let i = 0; i < storage.length; i++) {
       const key = storage.key(i);
-      callback(this.toKey(key), storage.getItem(key));
+      callback(storage.getItem(key), key);
     }
   }
 
