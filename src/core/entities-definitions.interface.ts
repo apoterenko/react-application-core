@@ -536,18 +536,21 @@ export interface IMultiEntity {
  * @stable [12.09.2018]
  */
 export interface IEnvironmentPlatformOsEntity {
-  architecture?: number;
-  family?: string;
-  version?: string;
+  architecture: number;
+  family: string;
+  version: string;
 }
 
 /**
  * @stable [12.09.2018]
  */
 export interface IEnvironmentEntity {
+  browserVersion?: string;
   document?: Document;
   window?: Window;
   host?: string;
+  version?: string;
+  windowsPlatform?: boolean;
   androidPlatform?: boolean;
   mobilePlatform?: boolean;
   appNamespace?: string;
@@ -567,6 +570,7 @@ export interface IEnvironmentEntity {
   platformOs?: IEnvironmentPlatformOsEntity;
   port?: string;
   prodMode?: boolean;
+  chromePlatform?: boolean;
   stageMode?: boolean;
   rnPlatform?: boolean;
   rnPlatformName?: string;

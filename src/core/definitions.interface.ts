@@ -182,20 +182,14 @@ export interface IChannelsWrapper<TChannels = string> {
   channels?: TChannels;
 }
 
-export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
-export interface INoCacheWrapper { noCache?: boolean; }
-
-export interface INoAuthWrapper { noAuth?: boolean; }
 export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
+export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
+export interface INoAuthWrapper { noAuth?: boolean; }
+export interface INoCacheWrapper { noCache?: boolean; }
 
 /* @stable - 01.04.2018 */
 export interface ISignInWrapper<TSignIn> {
   signIn?: TSignIn;
-}
-
-/* @stable - 01.04.2018 */
-export interface ISignUpWrapper<TSignUp> {
-  signUp?: TSignUp;
 }
 
 /* @stable - 14.04.2018 */

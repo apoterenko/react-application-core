@@ -161,7 +161,6 @@ import {
   ISeparatorsWrapper,
   IShadowStyleWrapper,
   ISignInWrapper,
-  ISignUpWrapper,
   ISimpleWrapper,
   ISorterFnWrapper,
   IStepWrapper,
@@ -674,8 +673,7 @@ export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
                                               IHomeWrapper<string>,
                                               IProfileWrapper<string>,
                                               ILogoutWrapper<string>,
-                                              ISignInWrapper<string>,
-                                              ISignUpWrapper<string> {
+                                              ISignInWrapper<string> {
 }
 
 /* @stable - 14.04.2018 */

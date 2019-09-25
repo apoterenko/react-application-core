@@ -17,12 +17,16 @@ const origin = definedLocation.origin || [definedLocation.protocol, definedLocat
 
 const BASE_PATH = (definedDocument.baseURI || definedLocation.href).replace(origin, '');
 const RN_PLATFORM_NAME = Reflect.get(definedWindow, '$$RAC-RN_PLATFORM_NAME');
+/**/
+const browserVersion = String(P.version);
 const SAFARI_PLATFORM = P.name === 'Safari';
+const CHROME_PLATFORM = P.name === 'Chrome';
 /**/
 const ANDROID_PLATFORM = P.os.family === 'Android';
 const IOS_PLATFORM = P.os.family === 'iOS';
 const MAC_PLATFORM = P.os.family === 'OS X';
 const WINDOWS_PHONE_PLATFORM = P.os.family === 'Windows Phone';
+const WINDOWS_PLATFORM = P.os.family === 'Windows';
 /**/
 export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   document: definedDocument,
@@ -38,11 +42,16 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   rnPlatformName: RN_PLATFORM_NAME,
   rnPlatform: !!RN_PLATFORM_NAME,
   /**/
+  browserVersion,
+  chromePlatform: CHROME_PLATFORM,
+  safariPlatform: SAFARI_PLATFORM,
+  /**/
   androidPlatform: ANDROID_PLATFORM,
   iosPlatform: IOS_PLATFORM,
   macPlatform: MAC_PLATFORM,
-  windowsPhonePlatform: WINDOWS_PHONE_PLATFORM,
   mobilePlatform: ANDROID_PLATFORM || IOS_PLATFORM || WINDOWS_PHONE_PLATFORM,
+  windowsPhonePlatform: WINDOWS_PHONE_PLATFORM,
+  windowsPlatform: WINDOWS_PLATFORM,
   /**/
   host: definedLocation.host,
   basePath: BASE_PATH,
@@ -50,7 +59,6 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   port: definedLocation.port || '80',
   platformName: P.name,
   platformOs: P.os,
-  safariPlatform: SAFARI_PLATFORM,
   passwordInputPlaceholder: SAFARI_PLATFORM && IOS_PLATFORM ? '●' : '•',
   documentBody: definedDocument.body,
   localModeEnabled: location.hostname === 'localhost',

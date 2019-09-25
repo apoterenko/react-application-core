@@ -232,7 +232,7 @@ export class UIMaterialFactory implements IUIFactory {
     stop: faStop,
     stop_circle: faStopCircle,
     sync: faSync,
-    tablet: faTabletAlt,
+    tablet_alt: faTabletAlt,
     tags: faTags,
     taxi: faTaxi,
     thumbs_up: faThumbsUp,
