@@ -9,6 +9,8 @@ import {
   ifNotFalseThanValue,
   ifNotNilThanValue,
   isFn,
+  isFormFieldReadOnly,
+  isFormWrapperEntityBusy,
   isString,
   isUndef,
   joinClassName,
@@ -25,7 +27,6 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { Field, IFieldInternalProps, IField } from '../field';
 import { IForm, IFormProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
 import {
-  isFormFieldReadOnly,
   isFormFieldDisabled,
   isFormOfNewEntity,
   isFormDirty,
@@ -33,7 +34,6 @@ import {
   isFormSubmittable,
   isFormResettable,
   isFormFieldChangeable,
-  isFormBusy,
 } from './form.support';
 import { FlexLayout } from '../layout';
 import { IButtonProps, IBaseEvent } from '../../definition';
@@ -307,15 +307,15 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [25.02.2019]
+   * @stable [25.09.2019]
    * @returns {boolean}
    */
   private isFormBusy(): boolean {
-    return isFormBusy(this.props);
+    return isFormWrapperEntityBusy(this.props);
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [25.09.2019]
    * @param {IField} field
    * @returns {boolean}
    */

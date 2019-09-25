@@ -1,33 +1,10 @@
 import {
-  isFormFieldReadOnly,
   isFormFieldDisabled,
 } from './form.support';
 import { UNDEF } from '../../definitions.interface';
 import { apiEntityFactory } from '../../api';
 
 describe('form.support', () => {
-  describe('isFormFieldReadOnly', () => {
-    it('test1', () => {
-      expect(isFormFieldReadOnly({ readOnly: true }, { readOnly: false })).toEqual(false);
-    });
-
-    it('test2', () => {
-      expect(isFormFieldReadOnly({ readOnly: false }, { readOnly: true })).toEqual(true);
-    });
-
-    it('test3', () => {
-      expect(isFormFieldReadOnly({ readOnly: false }, {})).toEqual(false);
-    });
-
-    it('test4', () => {
-      expect(isFormFieldReadOnly({ readOnly: true }, {})).toEqual(true);
-    });
-
-    it('test5', () => {
-      expect(isFormFieldReadOnly({}, {})).toEqual(false);
-    });
-  });
-
   describe('isFormFieldDisabled', () => {
     it('test1', () => {
       expect(isFormFieldDisabled({ disabled: true, form: {} }, { disabled: false })).toEqual(false);

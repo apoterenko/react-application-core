@@ -71,3 +71,11 @@ export interface IBehavioralFormWrapperEntity<TEntity extends IEntity = IEntity>
     IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
     IOnValidWrapper<(valid: boolean) => void> {
 }
+
+/**
+ * @stable [25.09.2019]
+ */
+export interface IFormEntity<TEntity = IEntity>
+  extends IFormWrapperEntity<TEntity>,
+    IGenericFormEntity {
+}

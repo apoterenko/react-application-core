@@ -41,20 +41,16 @@ export const canSubmitEntityFormEntity = <TEntity extends IEntity>(entity: IForm
   );
 
 /**
- * @stable [30.01.2019]
+ * @stable [25.09.2019]
  * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
  * @returns {boolean}
  */
 export const isEditableEntityBusy = <TEntity extends IEntity>(editableEntity: IEditableEntity<TEntity>): boolean =>
-  editableEntity.progress === true;
-
-/**
- * @stable [30.01.2019]
- * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
- * @returns {boolean}
- */
-export const isEntityFormEntityBusy = <TEntity extends IEntity>(entity: IFormWrapperEntity<TEntity>): boolean =>
-  isEditableEntityBusy(entity.form);
+  ifNotNilThanValue(
+    editableEntity,
+    () => editableEntity.progress === true,
+    false
+  );
 
 /**
  * @stable [30.01.2019]

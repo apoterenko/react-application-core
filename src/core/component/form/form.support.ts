@@ -3,16 +3,7 @@ import * as R from 'ramda';
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from './form.interface';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
-
-/**
- * @stable [29.05.2018]
- * @param {IFormProps} formProps
- * @param {IFieldConfiguration} fieldProps
- * @returns {boolean}
- */
-export const isFormFieldReadOnly = (formProps: IFormProps,
-                                    fieldProps: IFieldConfiguration): boolean =>
-  (R.isNil(fieldProps.readOnly) ? formProps.readOnly : fieldProps.readOnly) === true;
+import { isFormEntityDisabled } from '../../util';
 
 /**
  * @stable [29.05.2018]
@@ -23,7 +14,7 @@ export const isFormFieldReadOnly = (formProps: IFormProps,
 export const isFormFieldDisabled = (formProps: IFormProps,
                                     fieldProps: IFieldConfiguration): boolean =>
   R.isNil(fieldProps.disabled)
-    ? isFormDisabled(formProps)
+    ? isFormEntityDisabled(formProps)
     : fieldProps.disabled === true;
 
 /**
@@ -37,14 +28,6 @@ export const isFormFieldChangeable = (formProps: IFormProps,
   R.isNil(fieldProps.changeable)
     ? isFormChangeable(formProps)
     : fieldProps.changeable !== false;
-
-/**
- * @stable [29.05.2018]
- * @param {IFormProps} formProps
- * @returns {boolean}
- */
-export const isFormDisabled = (formProps: IFormProps): boolean =>
-  formProps.disabled === true || formProps.form.progress === true;
 
 /**
  * @stable [16.11.2018]
@@ -77,7 +60,7 @@ export const isFormDirty = (formProps: IFormProps): boolean =>
 export const isFormSubmittable = (formProps: IFormProps): boolean =>
   isFormValid(formProps)
     && isFormDirty(formProps)
-    && !isFormDisabled(formProps);
+    && !isFormEntityDisabled(formProps);
 
 /**
  * @stable [15.02.2019]
@@ -93,13 +76,6 @@ export const isFormResettable = (formProps: IFormProps): boolean =>
  * @returns {boolean}
  */
 export const isFormOfNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || R.isNil(formProps.entity.id);
-
-/**
- * @stable [25.02.2019]
- * @param {IFormProps} formProps
- * @returns {boolean}
- */
-export const isFormBusy = (formProps: IFormProps): boolean => formProps.form.progress === true;
 
 /**
  * @stable [30.08.2018]
