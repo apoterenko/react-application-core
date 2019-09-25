@@ -1,6 +1,6 @@
 import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
 
-import { applySection, toActionPrefix } from '../../util';
+import { applySection } from '../../util';
 import {
   FILTER_OPEN_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
@@ -9,22 +9,12 @@ import {
   FILTER_DEACTIVATE_ACTION_TYPE,
   FILTER_MANUAL_APPLY_ACTION_TYPE,
   FILTER_CHANGE_ACTION_TYPE,
-  FILTER_REFRESH_ACTION_TYPE,
 } from './filter.interface';
 import { IQueryWrapper } from '../../definitions.interface';
 
 export class FilterActionBuilder {
   public static buildManualApplyActionType(section: string): string {
     return `${section}.${FILTER_MANUAL_APPLY_ACTION_TYPE}`;
-  }
-
-  /**
-   * @stable [26.08.2018]
-   * @param {string} section
-   * @returns {string}
-   */
-  public static buildRefreshActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_REFRESH_ACTION_TYPE}`;
   }
 
   public static buildApplyActionType(section: string): string {
@@ -61,9 +51,5 @@ export class FilterActionBuilder {
 
   public static buildActivateAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildActivateActionType(section), applySection(section));
-  }
-
-  public static buildManualApplyAction(section: string, queryWrapper: IQueryWrapper): IEffectsAction {
-    return EffectsAction.create(this.buildManualApplyActionType(section), applySection(section, queryWrapper));
   }
 }

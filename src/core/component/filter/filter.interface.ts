@@ -1,12 +1,3 @@
-import { IQueryFilterEntity } from '../../definition';
-
-/**
- * @stable [18.05.2018]
- */
-export const INITIAL_APPLICATION_FILTER_STATE: IQueryFilterEntity = {
-  query: '',
-};
-
 /**
  * @stable [18.05.2018]
  */

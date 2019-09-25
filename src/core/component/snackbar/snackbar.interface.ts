@@ -2,7 +2,7 @@ import { FunctionT } from '../../util';
 import {
   IErrorWrapper,
   IMessageWrapper,
-  IActionTextWrapper,
+  ISubmitTextWrapper,
   ITimeoutWrapper,
   IAfterShowWrapper,
 } from '../../definitions.interface';
@@ -13,7 +13,7 @@ import { IComponentProps } from '../../definition';
  */
 export interface ISnackbarConfiguration extends IComponentProps,
                                                 IMessageWrapper,
-                                                IActionTextWrapper,
+                                                ISubmitTextWrapper,
                                                 ITimeoutWrapper,
                                                 IAfterShowWrapper {
   actionHandler?: FunctionT;

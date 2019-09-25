@@ -10,7 +10,7 @@ export class Snackbar extends BaseComponent<ISnackbarProps> {
   public static defaultProps: ISnackbarProps = {
     timeout: 3000,
     actionHandler: noop,
-    actionText: 'Close',
+    submitText: 'Close',
   };
 
   /**

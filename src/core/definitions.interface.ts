@@ -229,35 +229,15 @@ export interface IUseIndicatorWrapper {
 /**
  * @stable [13.05.2018]
  */
-export interface IOnSubmitWrapper<TOnSubmit = () => void> {
-  onSubmit?: TOnSubmit;
-}
-
-/**
- * @stable [13.05.2018]
- */
 export interface IOnRemoveWrapper<TItem = AnyT, TOnRemove = (item?: TItem) => void> {
   onRemove?: TOnRemove;
 }
 
-/**
- * @stable [15.05.2018]
- */
-export interface IOnResetWrapper<TOnReset = () => void> {
-  onReset?: TOnReset;
-}
-
-/* @stable - 01.04.2018 */
-export interface IOnValidWrapper<TOnValid> {
-  onValid?: TOnValid;
-}
-
-/* @stable - 01.04.2018 */
-export interface IDefaultOnValidWrapper extends IOnValidWrapper<(valid: boolean) => void> {
-}
-
-export interface IOnDictionaryFilterChangeWrapper<TOnDictionaryFilterChange> { onDictionaryFilterChange?: TOnDictionaryFilterChange; }
-export interface IOnFilterChangeWrapper<TOnFilterChange> { onFilterChange?: TOnFilterChange; }
+export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
+export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
+export interface IOnResetWrapper<TValue> { onReset?: TValue; }
+export interface IOnSubmitWrapper<TValue> { onSubmit?: TValue; }
+export interface IOnValidWrapper<TValue> { onValid?: TValue; }
 
 /**
  * @stable [04.05.2018]
@@ -350,11 +330,6 @@ export interface IOnOpenWrapper<TOnOpen = () => void> {
   onOpen?: TOnOpen;
 }
 
-export interface IItemsWrapper<TItems> { items?: TItems; }
-export interface IItemWrapper<TItem> { item?: TItem; }
-export interface IOperationIdWrapper { operationId?: string; }
-export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
-
 /**
  * @stable [31.05.2018]
  */
@@ -385,26 +360,28 @@ export interface INeedToOpenMenuWrapper {
   needToOpenMenu?: boolean;
 }
 
+export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
+export interface ICenteredMenuWrapper { centeredMenu?: boolean; }
 export interface ICroppedCanvasOptionsWrapper<TCroppedCanvasOptions> { croppedCanvasOptions?: TCroppedCanvasOptions; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
+export interface IDictionaryParamsWrapper<TParams> { dictionaryParams?: TParams; }
+export interface IDisplayNameWrapper { displayName?: string; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
+export interface IItemsWrapper<TItems> { items?: TItems; }
+export interface IItemWrapper<TItem> { item?: TItem; }
+export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
+export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
 export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions; }
+export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue; }
+export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
+export interface IOperationIdWrapper { operationId?: string; }
+export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
 export interface IOptionsWrapper<TOptions> { options?: TOptions; }
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?: TOriginalData; }
-
-/**
- * @stable [04.05.2018]
- */
-export interface IOnLoadDictionaryWrapper {
-  onLoadDictionary?(items: AnyT, dictionary?: string): void;
-}
-
-/**
- * @stable [04.08.2018]
- */
-export interface IOnEmptyDictionaryWrapper<TPayload> {
-  onEmptyDictionary?(dictionary?: string, payload?: TPayload): void;
-}
+export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
+export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
+export interface IPlaceholderWrapper { placeholder?: string; }
+export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 
 /* @stable - 22.04.2018 */
 export interface ILoadingWrapper {
@@ -418,21 +395,12 @@ export interface IMenuPropsWrapper<TMenuProps> {
   menuProps?: TMenuProps;
 }
 
-export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
-export interface IDictionaryParamsWrapper<TParams> { dictionaryParams?: TParams; }
-
 /**
  * @stable [30.05.2018]
  */
 export interface IDictionariesWrapper<TDictionaries> {
   dictionaries?: TDictionaries;
 }
-
-export interface IDisplayNameWrapper { displayName?: string; }
-export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
-export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
-export interface IPlaceholderWrapper { placeholder?: string; }
-export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 
 /**
  * @stable [01.08.2018]
@@ -470,10 +438,6 @@ export interface IValidateWrapper<TValidatedValueResult = AnyT,
 export interface IRenderToBodyWrapper {
   renderToBody?: boolean;
 }
-
-export interface ICenteredMenuWrapper { centeredMenu?: boolean; }
-export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
-export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 
 /**
  * @stable [14.05.2018]
@@ -648,12 +612,7 @@ export interface IRoundedWrapper {
   rounded?: boolean;
 }
 
-/**
- * @stable [29.05.2018]
- */
-export interface IAlwaysDirtyWrapper {
-  alwaysDirty?: boolean;
-}
+export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 
 /**
  * @stable [04.05.2018]
@@ -667,13 +626,6 @@ export interface IDelayTimeoutWrapper<TDelayTimeout = number> {
  */
 export interface IOnDelayWrapper<TValue = AnyT, TOnDelay = (value?: TValue) => void> {
   onDelay?: TOnDelay;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IEditableWrapper {
-  editable?: boolean;
 }
 
 /**
@@ -909,6 +861,7 @@ export interface ILockPageWrapper<TLockPage = boolean> {
   lockPage?: TLockPage;
 }
 
+export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface ICloseWrapper<TClose> { close?: TClose; }
 export interface IDirtyWrapper { dirty?: boolean; }
@@ -936,12 +889,6 @@ export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
 }
 
-export interface IActionsWrapper<TActions> { actions?: TActions; }
-export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
-export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
-export interface IHideWrapper<THide> { hide?: THide; }
-export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
-
 /**
  * @stable [02.06.2018]
  */
@@ -956,10 +903,22 @@ export interface IAutoCompleteWrapper<TAutoComplete = string> {
   autoComplete?: TAutoComplete;
 }
 
-export interface IActionTextWrapper { actionText?: string; }
+export interface IActionsWrapper<TActions> { actions?: TActions; }
+export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
+export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
+export interface ICompactWrapper<TCompact = boolean> { compact?: TCompact; }
+export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
+export interface IHideWrapper<THide> { hide?: THide; }
+export interface IHistoryWrapper<TValue> { history?: TValue; }
+export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
+export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }
 export interface IResetActionRenderedWrapper { resetActionRendered?: boolean; }
+export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
+export interface IResetTextWrapper { resetText?: string; }
+export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
+export interface ISubmitTextWrapper { submitText?: string; }
 
 /**
  * @stable [15.09.2018]
@@ -981,19 +940,6 @@ export interface IFooterRenderedWrapper {
 export interface ITimeoutWrapper {
   timeout?: number;
 }
-
-/**
- * @stable [22.10.2018]
- */
-export interface ICompactWrapper<TCompact = boolean> {
-  compact?: TCompact;
-}
-
-export interface IActionIconWrapper<TActionIcon = string> { actionIcon?: TActionIcon; }
-export interface IHistoryWrapper<TValue> { history?: TValue; }
-export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
-export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
-export interface IResetTextWrapper { resetText?: string; }
 
 /**
  * @stable [31.08.2018]
@@ -1716,13 +1662,6 @@ export interface IStringArrayExcludeTargetsClassesWrapper extends IExcludeTarget
 /**
  * @stable [29.05.2018]
  */
-export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> {
-  onBeforeSubmit?: TOnBeforeSubmit;
-}
-
-/**
- * @stable [29.05.2018]
- */
 export interface ISubmitWrapper<TPayload = AnyT, TSubmit = (payload?: TPayload) => void> {
   submit?: TSubmit;
 }
@@ -1809,6 +1748,7 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
 
 export interface IActivateWrapper<TActivate> { activate?: TActivate; }
 export interface IMiniWrapper { mini?: boolean; }
+export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
 export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 
@@ -1867,10 +1807,14 @@ export interface IColumnWidthWrapper {
 }
 
 export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
+export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
+export interface IPathWrapper<TPath = string> { path?: TPath; }
+export interface IStateWrapper<TState> { state?: TState; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
+export interface ITypeWrapper<TType = string> { type?: TType; }
 export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 
 /**
@@ -1879,9 +1823,6 @@ export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 export interface ICanReturnClearDirtyChangesValueWrapper {
   canReturnClearDirtyChangesValue?: boolean;
 }
-
-export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
-export interface ITypeWrapper<TType = string> { type?: TType; }
 
 /**
  * @stable [08.06.2018]
@@ -1964,9 +1905,6 @@ export interface IDisplayMessageWrapper<TDisplayMessage = string> {
 export interface ICallbackWrapper<TCallback> {
   callback?: TCallback;
 }
-
-export interface IPathWrapper<TPath = string> { path?: TPath; }
-export interface IStateWrapper<TState> { state?: TState; }
 
 /**
  * @stable [17.06.2018]

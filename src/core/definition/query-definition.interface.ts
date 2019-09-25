@@ -18,3 +18,10 @@ export interface IQueryFilterEntity
 export interface IQueryFilterWrapperEntity
   extends IFilterWrapper<IQueryFilterEntity> {
 }
+
+/**
+ * @stable [22.08.2019]
+ */
+export const INITIAL_QUERY_FILTER_ENTITY = Object.freeze<IQueryFilterEntity>({
+  query: '',
+});

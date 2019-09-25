@@ -3,8 +3,7 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IEditableEntity,
-  IEditableEntityFormWrapperEntity,
-  IEntityFormEntity,
+  IFormWrapperEntity,
   IExtendedEntity,
   ILifeCycleEntity,
   IPagedEntity,
@@ -30,11 +29,11 @@ import { shallowClone } from './clone';
 
 /**
  * @stable [04.09.2019]
- * @param {IEntityFormEntity<TEntity extends IEntity>} entity
+ * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
  * @returns {IEditableEntity<TEntity extends IEntity>}
  */
 export const selectEditableEntity =
-  <TEntity extends IEntity = IEntity>(entity: IEntityFormEntity<TEntity>): IEditableEntity<TEntity> =>
+  <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity<TEntity>): IEditableEntity<TEntity> =>
     ifNotNilThanValue(entity, (): IEditableEntity<TEntity> => entity.form, UNDEF_SYMBOL);
 
 /**
@@ -47,10 +46,10 @@ export const selectChanges = <TResult extends IEntity = IEntity>(entity: IEditab
 
 /**
  * @stable [04.09.2019]
- * @param {IEntityFormEntity} entity
+ * @param {IFormWrapperEntity} entity
  * @returns {TResult}
  */
-export const selectEditableEntityChanges = <TResult extends IEntity = IEntity>(entity: IEntityFormEntity): TResult =>
+export const selectEditableEntityChanges = <TResult extends IEntity = IEntity>(entity: IFormWrapperEntity): TResult =>
   ifNotNilThanValue(entity, (): TResult => selectChanges<TResult>(selectEditableEntity(entity)), UNDEF_SYMBOL);
 
 /**
@@ -133,11 +132,11 @@ export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWr
 /**
  * @stable [04.09.2019]
  * @param {IEditableEntity<TEntity extends IEntity>} form
- * @returns {IEditableEntityFormWrapperEntity}
+ * @returns {IFormWrapperEntity}
  */
 export const mapEditableEntity =
-  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IEditableEntityFormWrapperEntity =>
-    defValuesFilter<IEditableEntityFormWrapperEntity, IEditableEntityFormWrapperEntity>({form});
+  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IFormWrapperEntity =>
+    defValuesFilter<IFormWrapperEntity, IFormWrapperEntity>({form});
 
 /**
  * @stable [04.09.2019]
@@ -269,8 +268,8 @@ export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IEd
 
 /**
  * @stable [18.09.2019]
- * @param {IEntityFormEntity} entityFormEntity
+ * @param {IFormWrapperEntity} entityFormEntity
  * @returns {ToolbarToolsEnum[]}
  */
-export const selectFormEntityToolbarToolsActiveFilter = (entityFormEntity: IEntityFormEntity): ToolbarToolsEnum[] =>
+export const selectFormEntityToolbarToolsActiveFilter = (entityFormEntity: IFormWrapperEntity): ToolbarToolsEnum[] =>
   selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(entityFormEntity));

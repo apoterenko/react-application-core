@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { IEntity } from '../definitions.interface';
 import {
   IEditableEntity,
-  IEntityFormEntity,
+  IFormWrapperEntity,
   IExtendedEntity,
 } from '../definition';
 import { validate, ValidatorRuleEnum } from './validator';
@@ -27,12 +27,12 @@ export const canSubmitEditableEntity = <TEntity extends IEntity>(payloads: Recor
 
 /**
  * @stable [30.01.2019]
- * @param {IEntityFormEntity<TEntity extends IEntity>} entity
+ * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
  * @param {Record<string, ValidatorRuleEnum[]>} editRules
  * @param {Record<string, ValidatorRuleEnum[]>} createRules
  * @returns {boolean}
  */
-export const canSubmitEntityFormEntity = <TEntity extends IEntity>(entity: IEntityFormEntity<TEntity>,
+export const canSubmitEntityFormEntity = <TEntity extends IEntity>(entity: IFormWrapperEntity<TEntity>,
                                                                    editRules: Record<string, ValidatorRuleEnum[]>,
                                                                    createRules?: Record<string, ValidatorRuleEnum[]>): boolean =>
   canSubmitEditableEntity(
@@ -50,10 +50,10 @@ export const isEditableEntityBusy = <TEntity extends IEntity>(editableEntity: IE
 
 /**
  * @stable [30.01.2019]
- * @param {IEntityFormEntity<TEntity extends IEntity>} entity
+ * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isEntityFormEntityBusy = <TEntity extends IEntity>(entity: IEntityFormEntity<TEntity>): boolean =>
+export const isEntityFormEntityBusy = <TEntity extends IEntity>(entity: IFormWrapperEntity<TEntity>): boolean =>
   isEditableEntityBusy(entity.form);
 
 /**

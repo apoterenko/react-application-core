@@ -60,7 +60,7 @@ export class SnackbarMaterialPlugin extends MaterialPlugin<Snackbar, INativeMate
 
     this.mdc.show({
       timeout: props.timeout,
-      actionText: this.t(props.actionText),
+      actionText: this.t(props.submitText),
       actionHandler: props.actionHandler,
       ...options,
     });

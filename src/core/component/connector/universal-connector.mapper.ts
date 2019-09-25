@@ -19,8 +19,7 @@ import {
 } from '../../definitions.interface';
 import {
   IEditableEntity,
-  IEditableEntityFormWrapperEntity,
-  IEntityFormEntity,
+  IFormWrapperEntity,
   IExtendedEntity,
   IPagedEntity,
   IPaginatedEntity,
@@ -70,7 +69,7 @@ export const transportMapper = (storeEntity: IUniversalStoreEntity): ITransportW
 /**
  * @deprecated mapEditableEntity
  */
-export const formMapper = (editableEntity: IEditableEntity): IEditableEntityFormWrapperEntity => ({
+export const formMapper = (editableEntity: IEditableEntity): IFormWrapperEntity => ({
   form: {
     ...editableEntity,
   },
@@ -241,7 +240,7 @@ export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEdi
 /**
  * @deprecated selectFormEntityToolbarToolsFilter
  */
-export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IEntityFormEntity): ToolbarToolsEnum[] =>
+export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IFormWrapperEntity): ToolbarToolsEnum[] =>
   toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);
 
 /**

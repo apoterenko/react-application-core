@@ -2,15 +2,14 @@ import { AnyAction } from 'redux';
 
 import { toSection } from '../../util';
 import {
-  INITIAL_APPLICATION_FILTER_STATE,
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
 } from './filter.interface';
-import { IQueryFilterEntity } from '../../definition';
+import { IQueryFilterEntity, INITIAL_QUERY_FILTER_ENTITY } from '../../definition';
 import { IQueryWrapper } from '../../definitions.interface';
 import { FilterActionBuilder } from './filter-action.builder';
 
-export function filterReducer(state: IQueryFilterEntity = INITIAL_APPLICATION_FILTER_STATE,
+export function filterReducer(state: IQueryFilterEntity = INITIAL_QUERY_FILTER_ENTITY,
                               action: AnyAction): IQueryFilterEntity {
   const section = toSection(action);
   switch (action.type) {
@@ -27,7 +26,7 @@ export function filterReducer(state: IQueryFilterEntity = INITIAL_APPLICATION_FI
       };
     case `${section}.${FILTER_DESTROY_ACTION_TYPE}`:
       return {
-        ...INITIAL_APPLICATION_FILTER_STATE,
+        ...INITIAL_QUERY_FILTER_ENTITY,
       };
   }
   return state;

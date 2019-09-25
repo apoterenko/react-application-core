@@ -7,7 +7,6 @@ import {
   IClearValueWrapper,
   IDataWrapper,
   IDateWrapper,
-  IDefaultOnValidWrapper,
   IDictionariesWrapper,
   IDirectionsWrapper,
   IDirectionWrapper,
@@ -38,9 +37,11 @@ import {
   IOnBeforeSubmitWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
+  IOnEmptyDictionaryWrapper,
   IOnLoadDictionaryWrapper,
   IOnResetWrapper,
   IOnSubmitWrapper,
+  IOnValidWrapper,
   IOpenWrapper,
   IOriginalDataWrapper,
   IOriginalValueWrapper,
@@ -75,7 +76,7 @@ import {
   IChannelWrapperEntity,
   IComponentProps,
   IEditableEntity,
-  IEntityFormEntity,
+  IFormWrapperEntity,
   ILifeCycleEntity,
   INotificationWrapperEntity,
   IPaginatedEntity,
@@ -241,24 +242,6 @@ export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[
  * @stable [01.06.2018]
  */
 export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
-
-/**
- * @stable [29.05.2018]
- */
-export interface IBasicFormWrapperEntity<TEntity = IEntity>
-  extends IEntityFormEntity<TEntity>,
-          IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean> {
-}
-
-/* @stable - 09.04.2018 */
-export interface IFormWrapperEntity<TEntity extends IEntity = IEntity>
-  extends IBasicFormWrapperEntity<TEntity>,
-          IOnResetWrapper,
-          IOnChangeWrapper<IFieldChangeEntity>,
-          IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
-          IOnLoadDictionaryWrapper,
-          IDefaultOnValidWrapper {
-}
 
 /**
  * @stable [29.05.2018]

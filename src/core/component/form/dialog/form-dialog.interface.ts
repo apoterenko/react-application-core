@@ -1,8 +1,9 @@
 import { IUniversalDialogProps } from '../../dialog/dialog.interface';
-import { IBasicFormWrapperEntity } from '../../../entities-definitions.interface';
+import { IFormWrapperEntity } from '../../../definition';
 
-export interface IFormDialogProps extends IUniversalDialogProps,
-                                          IBasicFormWrapperEntity {
+export interface IFormDialogProps
+  extends IUniversalDialogProps,
+  IFormWrapperEntity {
 }
 
 export const FORM_DIALOG_REF = 'formDialog';

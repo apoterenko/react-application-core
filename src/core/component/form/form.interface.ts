@@ -1,21 +1,39 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IEntity, ISubmitWrapper, IApiEntityWrapper } from '../../definitions.interface';
 import {
-  IBasicFormWrapperEntity,
-  IFormWrapperEntity,
+  IApiEntityWrapper,
+  IButtonConfigurationWrapper,
+  IEntity,
+  IFormConfigurationWrapper,
+  ISubmitWrapper,
+} from '../../definitions.interface';
+import {
   IComponent,
   IContainer,
 } from '../../entities-definitions.interface';
 import { IContainerProps } from '../../props-definitions.interface';
-import { IFormConfigurationEntity } from '../../configurations-definitions.interface';
-import { IFormConfigurationWrapperEntity, IApiEntity, IEditableEntity } from '../../definition';
+import {
+  IApiEntity,
+  IButtonProps,
+  IComponentProps,
+  IEditableEntity,
+  IGenericFormEntity,
+  IBehavioralFormWrapperEntity,
+} from '../../definition';
+import { IFormExtraActionProps } from '../../configurations-definitions.interface';
 
 /**
  * @stable [29.05.2018]
  */
-export interface IFormProps extends IFormConfigurationEntity,
-                                    IFormWrapperEntity {
+export interface IFormProps
+  extends IComponentProps,
+    IGenericFormEntity,
+    IBehavioralFormWrapperEntity,
+    IButtonConfigurationWrapper<IButtonProps> {
+  actionsProvider?: (defaultActions: IFormExtraActionProps[]) => IFormExtraActionProps[];
+  validateOnMount?: boolean; // TODO
+  submitActionConfiguration?: IButtonProps;
+  resetActionConfiguration?: IButtonProps;
 }
 
 /**
@@ -23,8 +41,8 @@ export interface IFormProps extends IFormConfigurationEntity,
  */
 export interface IFormContainerProps<TEntity = IEntity>
   extends IContainerProps,
-          IBasicFormWrapperEntity<TEntity>,
-          IFormConfigurationWrapperEntity {
+    IBehavioralFormWrapperEntity<TEntity>,
+    IFormConfigurationWrapper<IFormProps> {
 }
 
 /* @stable - 11.04.2018 */

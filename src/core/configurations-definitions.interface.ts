@@ -7,7 +7,6 @@ import {
   IActionButtonsWrapper,
   IActionedWrapper,
   IActionIconsWrapper,
-  IActionIconWrapper,
   IActionsDisabledWrapper,
   IActionsPosition,
   IActionsWrapper,
@@ -16,7 +15,6 @@ import {
   IAfterEnterWrapper,
   IAliasWrapper,
   IAlignWrapper,
-  IAlwaysDirtyWrapper,
   IApplyGroupWrapper,
   IApplyOddWrapper,
   IAutoCompleteWrapper,
@@ -49,7 +47,6 @@ import {
   IColumnStylesWrapper,
   IColumnTitleWrapper,
   IColumnWidthWrapper,
-  ICompactWrapper,
   IComputedMatchWrapper,
   IContentStyleWrapper,
   IContentWrapper,
@@ -61,7 +58,6 @@ import {
   IDisplayNameWrapper,
   IDrawerContentStyleWrapper,
   IDrawerContentWrapper,
-  IEditableWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
   IEntity,
@@ -145,15 +141,12 @@ import {
   IPreventFocusWrapper,
   IProfileWrapper,
   IQueryWrapper,
-  IReadOnlyWrapper,
   IRenderedWrapper,
   IRendererWrapper,
   IRenderToBodyWrapper,
   IRenderToXWrapper,
   IRenderToYWrapper,
   IRequiredWrapper,
-  IResetActionRenderedWrapper,
-  IResetIconWrapper,
   IRestoreAuthWrapper,
   IRippableWrapper,
   ISelectableWrapper,
@@ -210,24 +203,15 @@ import {
 import {
   IApiEntity,
   IBaseEvent,
-  IButtonProps,
   IUniversalComponentEntity,
   IComponentProps,
   IGenericButtonEntity,
   IGenericFieldEntity,
-  IGenericFormEntity,
   INamedConstructor,
   INavigationItemEntity,
   IUniversalContainerEntity,
   IWebComponentEntity,
 } from './definition';
-
-/**
- * @stable [16.06.2018]
- */
-export interface IButtonConfigurationWrapper<TButtonConfiguration = IButtonProps> {
-  buttonConfiguration?: TButtonConfiguration;
-}
 
 /**
  * @stable [31.05.2018]
@@ -403,38 +387,9 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
                                             IWebComponentEntity {
 }
 
-/**
- * @stable [04.08.2018]
- */
-export interface IUniversalFormConfiguration extends IGenericFormEntity,
-                                                     IUniversalComponentEntity,
-                                                     IResetActionRenderedWrapper,
-                                                     IEditableWrapper,
-                                                     IDisabledWrapper,
-                                                     IAlwaysDirtyWrapper,
-                                                     IActionIconWrapper,
-                                                     IResetIconWrapper,
-                                                     IChangeableWrapper,
-                                                     IFullWrapper,
-                                                     IOnEmptyDictionaryWrapper<IApiEntity> {
-}
-
 export interface IFormExtraActionProps
   extends IGenericButtonEntity,
     IOnClickWrapper<(apiEntity: IApiEntity) => void> {
-}
-
-export interface IFormConfigurationEntity extends IUniversalFormConfiguration,
-                                            IWebComponentEntity,
-                                            IButtonConfigurationWrapper,
-                                            IReadOnlyWrapper,
-                                            ICompactWrapper {
-  actionsProvider?: (defaultActions: IFormExtraActionProps[]) => IFormExtraActionProps[];
-  progress?: boolean; // TODO
-  alwaysResettable?: boolean; // TODO
-  validateOnMount?: boolean; // TODO
-  submitActionConfiguration?: IButtonProps;
-  resetActionConfiguration?: IButtonProps;
 }
 
 /**
@@ -839,8 +794,8 @@ export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWr
  * @stable [04.05.2018]
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
-                                                      IOnEmptyDictionaryWrapper<IApiEntity>,
-                                                      IOnLoadDictionaryWrapper {
+                                                      IOnEmptyDictionaryWrapper<(dictionary?: string, payload?: IApiEntity) => void>,
+                                                      IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void> {
 }
 
 /**

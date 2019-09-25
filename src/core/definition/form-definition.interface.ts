@@ -1,14 +1,34 @@
 import {
+  AnyT,
   IActionsRenderedWrapper,
-  IActionTextWrapper,
+  IAlwaysDirtyWrapper,
+  IAlwaysResettableWrapper,
+  IChangeableWrapper,
+  ICompactWrapper,
+  IDisabledWrapper,
   IEntity,
-  IFormConfigurationWrapper,
   IFormWrapper,
-  IKeyValue,
+  IFullWrapper,
+  IOnBeforeSubmitWrapper,
+  IOnChangeWrapper,
+  IOnEmptyDictionaryWrapper,
+  IOnLoadDictionaryWrapper,
+  IOnResetWrapper,
+  IOnSubmitWrapper,
+  IOnValidWrapper,
+  IReadOnlyWrapper,
+  IResetActionRenderedWrapper,
+  IResetIconWrapper,
   IResetTextWrapper,
+  ISubmitIconWrapper,
+  ISubmitTextWrapper,
 } from '../definitions.interface';
-import { IEditableEntity, IExtendedEntity } from './entity-definition.interface';
-import { IFormConfigurationEntity } from '../configurations-definitions.interface';
+import {
+  IEditableEntity,
+  IExtendedEntity,
+} from './entity-definition.interface';
+import { IApiEntity } from './api-definition.interface';
+import { IFieldChangeEntity } from '../entities-definitions.interface';
 
 /**
  * @cross-platform
@@ -16,28 +36,38 @@ import { IFormConfigurationEntity } from '../configurations-definitions.interfac
  */
 export interface IGenericFormEntity
   extends IActionsRenderedWrapper,
-    IActionTextWrapper,
-    IResetTextWrapper {
+    IAlwaysDirtyWrapper,
+    IAlwaysResettableWrapper,
+    IChangeableWrapper,
+    ICompactWrapper,
+    IDisabledWrapper,
+    IFullWrapper,
+    IReadOnlyWrapper,
+    IResetActionRenderedWrapper,
+    IResetIconWrapper,
+    IResetTextWrapper,
+    ISubmitIconWrapper,
+    ISubmitTextWrapper {
 }
 
 /**
- * @stable [02.02.2019]
+ * @stable [25.09.2019]
  */
-export interface IFormConfigurationWrapperEntity
-  extends IFormConfigurationWrapper<IFormConfigurationEntity> {
-}
-
-/**
- * @stable [11.09.2019]
- */
-export interface IEditableEntityFormWrapperEntity<TChanges = IKeyValue>
-  extends IFormWrapper<IEditableEntity<TChanges>> {
-}
-
-/**
- * @stable [11.09.2019]
- */
-export interface IEntityFormEntity<TEntity = IEntity>
-  extends IEditableEntityFormWrapperEntity<TEntity>,
+export interface IFormWrapperEntity<TEntity = IEntity>
+  extends IFormWrapper<IEditableEntity<TEntity>>,
     IExtendedEntity<TEntity> {
+}
+
+/**
+ * @stable [25.09.2019]
+ */
+export interface IBehavioralFormWrapperEntity<TEntity extends IEntity = IEntity>
+  extends IFormWrapperEntity<TEntity>,
+    IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean>,
+    IOnChangeWrapper<IFieldChangeEntity>,
+    IOnEmptyDictionaryWrapper<(dictionary?: string, payload?: IApiEntity) => void>,
+    IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void>,
+    IOnResetWrapper<() => void>,
+    IOnSubmitWrapper<(payload: IApiEntity<TEntity>) => void>,
+    IOnValidWrapper<(valid: boolean) => void> {
 }

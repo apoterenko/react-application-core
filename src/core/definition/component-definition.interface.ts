@@ -12,7 +12,7 @@ import {
 import { IUniversalPluginCtor } from './plugin-definition.interface';
 
 /**
- * @browserCompatible
+ * @browser-compatible
  * @stable [20.09.2019]
  */
 export interface IWebComponentEntity<TClassName = string>
@@ -21,7 +21,7 @@ export interface IWebComponentEntity<TClassName = string>
 }
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
 export interface IUniversalComponentEntity
@@ -31,7 +31,7 @@ export interface IUniversalComponentEntity
 }
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
 export interface IUniversalComponent<TProps extends IUniversalComponentEntity = IUniversalComponentEntity, TState = {}>
@@ -40,7 +40,7 @@ export interface IUniversalComponent<TProps extends IUniversalComponentEntity = 
 }
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
 export interface IUniversalScrollableComponent<TProps extends IUniversalComponentEntity = IUniversalComponentEntity,
