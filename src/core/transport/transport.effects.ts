@@ -2,7 +2,11 @@ import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-pro
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { ITransportResponseEntity, ITransportResponseAccessor } from '../definition';
+import {
+  IRoutesEntity,
+  ITransportResponseAccessor,
+  ITransportResponseEntity,
+} from '../definition';
 import { IApplicationTransportErrorInterceptor } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
@@ -10,7 +14,6 @@ import {
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
 } from './transport-reducer.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
-import { IRoutesConfiguration } from '../configurations-definitions.interface';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 
 @provideInSingleton(TransportEffects)
@@ -19,7 +22,7 @@ export class TransportEffects {
 
   @lazyInject(DI_TYPES.TransportResponseAccessor) private readonly responseAccessor: ITransportResponseAccessor;
   @lazyInject(DI_TYPES.TransportErrorInterceptor) private readonly errorInterceptor: IApplicationTransportErrorInterceptor;
-  @lazyInject(DI_TYPES.Routes) private readonly routes: IRoutesConfiguration;
+  @lazyInject(DI_TYPES.Routes) private readonly routes: IRoutesEntity;
 
   @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
   public $onTransportRequestDone(action: IEffectsAction): IEffectsAction {

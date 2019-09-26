@@ -156,7 +156,7 @@ export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEnt
   tabPanelMapper(tabPanelWrapperEntity.tabPanel);
 
 /**
- * @deprecated
+ * @deprecated Use selectChanges
  */
 export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
   entity.changes as TResult;
@@ -193,7 +193,7 @@ export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: ILis
   orNull<TEntity>(listEntity, (): TEntity => listEntity.selected as TEntity);
 
 /**
- * @deprecated
+ * @deprecated Use selectListSelectedEntity
  */
 export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
   ifNotNilThanValue<IListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));

@@ -27,11 +27,12 @@ import {
   IEventManager,
   ILogManager,
   IOperationEntity,
+  IRoutesEntity,
   IStateSerializer,
   IStorage,
   IUniversalContainerEntity,
 } from '../../definition';
-import { IConnectorConfigEntity, IRoutesConfiguration } from '../../configurations-definitions.interface';
+import { IConnectorConfigEntity } from '../../configurations-definitions.interface';
 import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
@@ -239,9 +240,9 @@ export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniv
 
   /**
    * @stable - 15.04.2018
-   * @returns {IRoutesConfiguration}
+   * @returns {IRoutesEntity}
    */
-  protected get routes(): IRoutesConfiguration {
+  protected get routes(): IRoutesEntity {
     return staticInjector(DI_TYPES.Routes);
   }
 

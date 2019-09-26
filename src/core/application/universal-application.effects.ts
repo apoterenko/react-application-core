@@ -7,13 +7,13 @@ import { lazyInject, DI_TYPES } from '../di';
 import { orNull } from '../util';
 import { ISettings } from '../settings';
 import {
+  IRoutesEntity,
   IStorage,
   ITransportResponseAccessor,
   IVersionProcessor,
   STORAGE_APP_TOKEN_KEY,
 } from '../definition';
 import { ITokenWrapper } from '../definitions.interface';
-import { IRoutesConfiguration } from '../configurations-definitions.interface';
 import { BaseEffects } from '../store/effects/base.effects';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
@@ -28,9 +28,9 @@ import { PermissionsActionBuilder } from '../permissions/permissions-action.buil
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   private static logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
 
-  @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesConfiguration;
-  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IStorage;
+  @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesEntity;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
   @lazyInject(DI_TYPES.TransportResponseAccessor) protected responseAccessor: ITransportResponseAccessor;
   @lazyInject(DI_TYPES.VersionProcessor) protected readonly versionProcessor: IVersionProcessor;
 

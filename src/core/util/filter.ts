@@ -12,6 +12,7 @@ import {
 } from '../definitions.interface';
 import { isDef, isObject, isFn, isString } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
+import { isObjectNotEmpty } from './object';
 
 export type KeyPredicateT = (key: string, value: AnyT) => boolean;
 export type ValuePredicateT = (value: AnyT) => boolean;
@@ -108,7 +109,7 @@ export const STRING_VALUE_PREDICATE = (value: AnyT) => isString(value);
  * @returns {boolean}
  * @constructor
  */
-export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => NOT_NIL_VALUE_PREDICATE(value) && !R.isEmpty(value);
+export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
 
 /**
  * @stable [03.10.2018]

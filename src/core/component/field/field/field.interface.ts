@@ -54,7 +54,6 @@ export interface IFieldInternalProps extends IFieldConfiguration,
   maxLength?: number;
   rows?: number;
   cols?: number;
-  extraProps?: any; // TODO
   dispatchValue?(rawValue: AnyT); // TODO
 }
 

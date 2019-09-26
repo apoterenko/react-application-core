@@ -184,33 +184,12 @@ export interface IChannelsWrapper<TChannels = string> {
 
 export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
+export interface IHomeWrapper<THome> { home?: THome; }
+export interface ILogoutWrapper<TLogout> { logout?: TLogout; }
 export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
-
-/* @stable - 01.04.2018 */
-export interface ISignInWrapper<TSignIn> {
-  signIn?: TSignIn;
-}
-
-/* @stable - 14.04.2018 */
-export interface ILogoutWrapper<TLogout> {
-  logout?: TLogout;
-}
-
-/* @stable - 14.04.2018 */
-export interface IProfileWrapper<TProfile> {
-  profile?: TProfile;
-}
-
-/* @stable - 14.04.2018 */
-export interface IHomeWrapper<THome> {
-  home?: THome;
-}
-
-/* @stable - 14.04.2018 */
-export interface IRestoreAuthWrapper<TRestoreAuth> {
-  restoreAuth?: TRestoreAuth;
-}
+export interface IProfileWrapper<TProfile> { profile?: TProfile; }
+export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
 
 /**
  * @stable [03.05.2018]

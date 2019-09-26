@@ -592,9 +592,7 @@ $rac-form-layout-top-header-background: unset !default;
 $rac-form-layout-top-header-background-size: contain !default;
 $rac-form-layout-top-header-margin: unset !default;
 $rac-form-layout-field-margin: 0 0 $rac-default-half-offset 0 !default;
-$rac-form-layout-text-field-height: unset !default;
 $rac-form-layout-text-field-input-placeholder-color: unset !default;
-$rac-form-layout-text-field-input-font-size: unset !default;
 $rac-form-layout-text-field-input-caret-bottom: unset !default;
 $rac-form-layout-text-field-border: unset !default;
 $rac-form-layout-text-field-border-color: unset !default;
@@ -607,6 +605,9 @@ $rac-form-layout-text-field-focused-icon-color: unset !default;
 $rac-form-layout-text-field-focused-input-placeholder-color: unset !default;
 $rac-form-layout-text-field-not-focused-input-color: unset !default;
 $rac-form-layout-form-actions-margin: $rac-default-offset 0 0 0 !default;
+/**/
+$rac-form-layout-self-field-height: unset !default;
+$rac-form-layout-self-field-input-font-size: unset !default;
 
 /* @stable [08.08.2018] */
 $rac-global-error-message-font-size: $rac-default-font-size-2 !default;

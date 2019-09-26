@@ -13,8 +13,6 @@
     $rac-form-layout-form-actions-margin: $rac-form-layout-form-actions-margin,
     $rac-form-layout-field-margin: $rac-form-layout-field-margin,
     $rac-form-layout-text-field-input-placeholder-color: $rac-form-layout-text-field-input-placeholder-color,
-    $rac-form-layout-text-field-input-font-size: $rac-form-layout-text-field-input-font-size,
-    $rac-form-layout-text-field-height: $rac-form-layout-text-field-height,
     $rac-form-layout-text-field-border: $rac-form-layout-text-field-border,
     $rac-form-layout-text-field-border-color: $rac-form-layout-text-field-border-color,
     $rac-form-layout-text-field-background: $rac-form-layout-text-field-background,
@@ -29,6 +27,9 @@
     $rac-form-layout-top-header-height: $rac-form-layout-top-header-height,
     $rac-form-layout-top-header-background: $rac-form-layout-top-header-background,
     $rac-form-layout-top-header-background-size: $rac-form-layout-top-header-background-size,
-    $rac-form-layout-top-header-margin: $rac-form-layout-top-header-margin
+    $rac-form-layout-top-header-margin: $rac-form-layout-top-header-margin,
+    /**/
+    $rac-form-layout-self-field-height: $rac-form-layout-self-field-height,
+    $rac-form-layout-self-field-input-font-size: $rac-form-layout-self-field-input-font-size
   );
 }

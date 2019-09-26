@@ -7,7 +7,7 @@ import {
 } from '../../definition';
 
 @injectable()
-export class BaseEffects<TApi> {
+export class BaseEffects<TApi = {}> {
   @lazyInject(DI_TYPES.Api) protected readonly api: TApi;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
 

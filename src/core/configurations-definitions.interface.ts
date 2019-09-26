@@ -105,7 +105,6 @@ import {
   IKeyWrapper,
   ILayoutWrapper,
   ILocalFilterFnWrapper,
-  ILogoutWrapper,
   IMappersWrapper,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
@@ -139,7 +138,6 @@ import {
   IPathWrapper,
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
-  IProfileWrapper,
   IQueryWrapper,
   IRenderedWrapper,
   IRendererWrapper,
@@ -147,13 +145,11 @@ import {
   IRenderToXWrapper,
   IRenderToYWrapper,
   IRequiredWrapper,
-  IRestoreAuthWrapper,
   IRippableWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISeparatorsWrapper,
   IShadowStyleWrapper,
-  ISignInWrapper,
   ISimpleWrapper,
   ISorterFnWrapper,
   IStepWrapper,
@@ -621,14 +617,6 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
  */
 export interface IFieldsConfigurations {
   [fieldName: string]: string | IFieldConfiguration | ((field) => IFieldConfiguration | string);
-}
-
-/* @stable - 14.04.2018 */
-export interface IRoutesConfiguration extends IRestoreAuthWrapper<string>,
-                                              IHomeWrapper<string>,
-                                              IProfileWrapper<string>,
-                                              ILogoutWrapper<string>,
-                                              ISignInWrapper<string> {
 }
 
 /* @stable - 14.04.2018 */
