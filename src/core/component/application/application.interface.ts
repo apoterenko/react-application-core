@@ -2,8 +2,7 @@ import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import { ACTION_PREFIX } from '../../definitions.interface';
 import { IApplicationConfiguration, IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import { IContainerProps } from '../../props-definitions.interface';
-import { IApplicationEntity } from '../../definition';
+import { IApplicationEntity, IContainerProps } from '../../definition';
 
 /**
  * @stable [02.07.2018]

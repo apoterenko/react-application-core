@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
-import { IFormProps } from './form.interface';
+import { IFormProps } from '../../definition';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
 import { isFormEntityDisabled } from '../../util';
 

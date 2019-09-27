@@ -5,10 +5,9 @@ import {
   addRootElement,
   getElementById,
 } from '../util';
-import { DEFAULT_BOOTSTRAP_ENTITY, IBootstrapEntity } from '../definition';
+import { DEFAULT_BOOTSTRAP_ENTITY, IBootstrapEntity, IContainerProps } from '../definition';
 import { getEnvironment } from '../di';
 import { IContainerClassEntity } from '../entities-definitions.interface';
-import { IContainerProps } from '../props-definitions.interface';
 import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 
 /**

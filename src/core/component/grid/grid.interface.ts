@@ -1,7 +1,7 @@
 import { IGridConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IGridWrapperEntity } from '../../entities-definitions.interface';
-import { IContainerProps } from '../../props-definitions.interface';
 import { IFilterChangesWrapper, IExpandedGroupsWrapper } from '../../definitions.interface';
+import { IContainerProps } from '../../definition';
 
 /**
  * @stable [10.09.2018]

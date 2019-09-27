@@ -1,8 +1,8 @@
 import { IActiveValueWrapper } from '../../definitions.interface';
 import { ITabPanelConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IComponent } from '../../entities-definitions.interface';
-import { IContainerProps, ITabPanelProps } from '../../props-definitions.interface';
-import { ITabPanelWrapperEntity } from '../../definition';
+import { ITabPanelProps } from '../../props-definitions.interface';
+import { ITabPanelWrapperEntity, IContainerProps } from '../../definition';
 
 /**
  * @stable [11.08.2018]

@@ -383,11 +383,6 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
                                             IWebComponentEntity {
 }
 
-export interface IFormExtraActionProps
-  extends IGenericButtonEntity,
-    IOnClickWrapper<(apiEntity: IApiEntity) => void> {
-}
-
 /**
  * @stable [10.09.2018]
  */

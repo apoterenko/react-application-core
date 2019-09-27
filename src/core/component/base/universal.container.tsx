@@ -55,6 +55,7 @@ export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniv
 
   private static readonly uLogger = LoggerFactory.makeLogger('UniversalContainer');
 
+  protected readonly selfRef = React.createRef<AnyT>();
   private $dc: IDateConverter;
   private $ts: TranslatorT;
 

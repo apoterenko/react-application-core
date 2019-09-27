@@ -1,4 +1,3 @@
-import { IContainerProps } from '../../props-definitions.interface';
 import {
   IActionsDisabledWrapper,
   IActionsWrapper,
@@ -10,7 +9,7 @@ import {
   IOnRefreshClickWrapper,
   IRightSlotWrapper,
 } from '../../definitions.interface';
-import { IFlexLayoutEntity, ToolbarToolsEnum } from '../../definition';
+import { IFlexLayoutEntity, ToolbarToolsEnum, IContainerProps } from '../../definition';
 
 /**
  * @stable [11.03.2019]

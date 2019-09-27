@@ -19,7 +19,7 @@ export class RnButton extends UniversalComponent<IRnButtonProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const buttonText = getButtonText(props, this.settings.messages);
+    const buttonText = getButtonText(props);
     const icon = getButtonIcon(props, 'time', 'information-circle');
 
     return (

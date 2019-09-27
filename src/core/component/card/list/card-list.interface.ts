@@ -2,8 +2,8 @@ import {
   ICardListConfiguration,
   IListConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
-import { IContainerProps } from '../../../props-definitions.interface';
 import { IListWrapperEntity, IUniversalListEntity } from '../../../entities-definitions.interface';
+import { IContainerProps } from '../../../definition';
 
 /**
  * @stable [05.05.2018]

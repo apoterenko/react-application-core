@@ -2,48 +2,17 @@ import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
   IApiEntityWrapper,
-  IButtonConfigurationWrapper,
-  IEntity,
-  IFormConfigurationWrapper,
   ISubmitWrapper,
 } from '../../definitions.interface';
 import {
   IComponent,
   IContainer,
 } from '../../entities-definitions.interface';
-import { IContainerProps } from '../../props-definitions.interface';
 import {
   IApiEntity,
-  IButtonProps,
-  IComponentProps,
-  IEditableEntity,
-  IGenericFormEntity,
-  IBehavioralFormWrapperEntity,
+  IFormProps,
+  IFormContainerProps,
 } from '../../definition';
-import { IFormExtraActionProps } from '../../configurations-definitions.interface';
-
-/**
- * @stable [29.05.2018]
- */
-export interface IFormProps
-  extends IComponentProps,
-    IGenericFormEntity,
-    IBehavioralFormWrapperEntity,
-    IButtonConfigurationWrapper<IButtonProps> {
-  actionsProvider?: (defaultActions: IFormExtraActionProps[]) => IFormExtraActionProps[];
-  validateOnMount?: boolean; // TODO
-  submitActionConfiguration?: IButtonProps;
-  resetActionConfiguration?: IButtonProps;
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IFormContainerProps<TEntity = IEntity>
-  extends IContainerProps,
-    IBehavioralFormWrapperEntity<TEntity>,
-    IFormConfigurationWrapper<IFormProps> {
-}
 
 /* @stable - 11.04.2018 */
 export interface IForm extends IComponent<IFormProps, {}>,
@@ -56,13 +25,6 @@ export interface IForm extends IComponent<IFormProps, {}>,
 export interface IFormContainer extends IContainer<IFormContainerProps>,
                                         ISubmitWrapper {
 }
-
-/**
- * @stable [29.05.2018]
- */
-export const INITIAL_APPLICATION_FORM_STATE: IEditableEntity = {
-  changes: {},
-};
 
 export const FORM_REF = 'form';
 export const FORM_PROGRESS_ACTION_TYPE = 'form.progress';

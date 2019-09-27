@@ -68,13 +68,6 @@ export interface IEmptyDataWrapper<TEmptyData> {
 export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
-/**
- * @stable [04.02.2019]
- */
-export interface IProgressMessageWrapper<TProgressMessage = string> {
-  progressMessage?: TProgressMessage;
-}
-
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
@@ -97,6 +90,7 @@ export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnR
 export interface IPopupClassNameWrapper<TPopupClassName = string> { popupClassName?: TPopupClassName; }
 export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> { previewAttachment?: TPreviewAttachment; }
 export interface IPreviewScaleWrapper<TScale = number> { previewScale?: TScale; }
+export interface IProgressMessageWrapper<TProgressMessage = string> { progressMessage?: TProgressMessage; }
 export interface IQueryParamsWrapper<TQueryParams> { queryParams?: TQueryParams; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
 export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
@@ -581,17 +575,9 @@ export interface IAcceptableWrapper {
   acceptable?: boolean;
 }
 
-/* @stable - 19.04.2018 */
-export interface IBorderedWrapper {
-  bordered?: boolean;
-}
-
-/* @stable - 19.04.2018 */
-export interface IRoundedWrapper {
-  rounded?: boolean;
-}
-
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
+export interface IBorderedWrapper { bordered?: boolean; }
+export interface IRoundedWrapper { rounded?: boolean; }
 
 /**
  * @stable [04.05.2018]
@@ -693,9 +679,11 @@ export interface INextFormRouteWrapper { nextFormRoute?: string; }
 export interface INextFormSectionWrapper { nextFormSection?: string; }
 export interface INextListSectionWrapper { nextListSection?: string; }
 export interface IOnScrollWrapper<TPayload = AnyT> { onScroll?(payload?: TPayload): void; }
+export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
 export interface IProgressWrapper { progress?: boolean; }
 export interface IQueryWrapper<TQuery = string> { query?: TQuery; }
+export interface IRaisedWrapper { raised?: boolean; }
 export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 export interface IReadyWrapper { ready?: boolean; }
 export interface IRenderedWrapper { rendered?: boolean; }
@@ -709,18 +697,6 @@ export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
-
-/**
- * @stable [28.06.2018]
- */
-export interface IOutlinedWrapper {
-  outlined?: boolean;
-}
-
-/* @stable - 20.04.2018 */
-export interface IRaisedWrapper {
-  raised?: boolean;
-}
 
 /**
  * @stable [09.05.2018]
@@ -882,6 +858,7 @@ export interface IAutoCompleteWrapper<TAutoComplete = string> {
   autoComplete?: TAutoComplete;
 }
 
+export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
 export interface IActionsWrapper<TActions> { actions?: TActions; }
 export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
@@ -894,10 +871,13 @@ export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }
 export interface IResetActionRenderedWrapper { resetActionRendered?: boolean; }
+export interface IResetConfigurationWrapper<TValue> { resetConfiguration?: TValue; }
 export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
 export interface IResetTextWrapper { resetText?: string; }
+export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
 export interface ISubmitTextWrapper { submitText?: string; }
+export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
 
 /**
  * @stable [15.09.2018]
@@ -1341,18 +1321,10 @@ export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;
 }
 
+export interface IAddApiWrapper { addApi?: string; }
+export interface IEditApiWrapper { editApi?: string; }
 export interface IQueueWrapper<TQueue> { queue?: TQueue; }
 export interface ISectionNameWrapper { sectionName?: string; }
-
-/* @stable - 12.04.2018 */
-export interface IEditApiWrapper {
-  editApi?: string;
-}
-
-/* @stable - 12.04.2018 */
-export interface IAddApiWrapper {
-  addApi?: string;
-}
 
 /**
  * @stable [02.05.2018]
@@ -1407,36 +1379,20 @@ export interface IIconLeftWrapper<TIconLeft> {
 export interface IBooleanIconLeftWrapper extends IIconLeftWrapper<boolean> {
 }
 
-/* @stable - 19.04.2018 */
-export interface ISuccessWrapper<TSuccess> {
-  success?: TSuccess;
-}
-
-/* @stable - 19.04.2018 */
-export interface IBooleanSuccessWrapper extends ISuccessWrapper<boolean> {
-}
-
-/**
- * @stable [16.06.2018]
- */
-export interface IBlockWrapper<TBlock = boolean> {
-  block?: TBlock;
-}
-
+export interface IAutoResetWrapper { autoReset?: boolean; }
+export interface IBlockWrapper<TBlock = boolean> { block?: TBlock; }
+export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
+export interface IFormWrapper<TForm> { form?: TForm; }
+export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
+export interface IFullWrapper<TFull = boolean> { full?: TFull; }
+export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IParentWrapper<TParent> { parent?: TParent; }
+export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
 export interface IRowWrapper<TRow = boolean> { row?: TRow; }
-export interface ITooltipWrapper<TTooltip = string> { tooltip?: TTooltip; }
-
-/* @stable - 19.04.2018 */
-export interface ISmallWrapper<TSmall> {
-  small?: TSmall;
-}
-
-/* @stable - 19.04.2018 */
-export interface IBooleanSmallWrapper extends ISmallWrapper<boolean> {
-}
-
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
+export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
+export interface ITooltipWrapper<TTooltip = string> { tooltip?: TTooltip; }
+export interface ISmallWrapper<TSmall = boolean> { small?: TSmall; }
 
 export interface ITextStyleWrapper<TTextStyle> {
   textStyle?: TTextStyle;
@@ -1477,10 +1433,6 @@ export interface IHeaderContentWrapper<THeaderContent = JSX.Element> {
 /* @stable - 20.04.2018 */
 export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
 }
-
-export interface INoShrinkWrapper { noShrink?: boolean; }
-export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
-export interface IFullWrapper<TFull = boolean> { full?: TFull; }
 
 /**
  * @stable [20.09.2018]
@@ -1609,11 +1561,6 @@ export interface ICaretVisibilityWrapper {
 export interface ICaretPositionWrapper {
   caretPosition?: number;
 }
-
-export interface IAutoResetWrapper { autoReset?: boolean; }
-export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
-export interface IFormWrapper<TForm> { form?: TForm; }
-export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 
 /**
  * @stable [29.05.2018]

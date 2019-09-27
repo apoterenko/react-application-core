@@ -26,7 +26,7 @@ export class Button extends BaseComponent<IButtonProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const buttonText = getButtonText(props, this.settings.messages);
+    const buttonText = getButtonText(props);
     const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
     const hasIcon = hasIconButton(props);
 
@@ -69,10 +69,7 @@ export class Button extends BaseComponent<IButtonProps> {
         {...handlerPropsFactory(props.onClick, !disabled)}
       >
         {
-          hasIcon && this.uiFactory.makeIcon({
-            type: getButtonIcon(props, 'spinner', 'error'),
-            className: props.iconCls,
-          })
+          hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'))
         }
         {
           hasContent && (

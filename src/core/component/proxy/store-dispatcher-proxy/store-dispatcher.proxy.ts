@@ -4,8 +4,7 @@ import { applySection, namedConstructor } from '../../../util';
 import { DI_TYPES, staticInjector } from '../../../di';
 import { FormActionBuilder } from '../../action.builder';
 import { IContainer } from '../../../entities-definitions.interface';
-import { IContainerProps } from '../../../props-definitions.interface';
-import { IDispatcher } from '../../../definition';
+import { IDispatcher, IContainerProps } from '../../../definition';
 import { IKeyValue } from '../../../definitions.interface';
 
 @namedConstructor('$$storeDispatcherProxy')

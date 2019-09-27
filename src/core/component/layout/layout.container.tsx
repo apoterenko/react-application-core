@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { Snackbar } from '../../component/snackbar';
 import { BaseContainer } from '../../component/base';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
-import { IContainerProps } from '../../props-definitions.interface';
+import { IContainerProps } from '../../definition';
 
 export class LayoutContainer<TProps extends IContainerProps, TState = {}> extends BaseContainer<TProps, TState> {
 

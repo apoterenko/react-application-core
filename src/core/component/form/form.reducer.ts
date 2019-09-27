@@ -5,17 +5,16 @@ import { isDef, toSection, defValuesFilter } from '../../util';
 import { convertError } from '../../error';
 import { IPayloadWrapper, IKeyValue } from '../../definitions.interface';
 import { IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
-import { IEditableEntity } from '../../definition';
-import { INITIAL_APPLICATION_FORM_STATE } from './form.interface';
+import { IEditableEntity, INITIAL_FORM_ENTITY } from '../../definition';
 import { FormActionBuilder } from './form-action.builder';
 
-export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_STATE,
+export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
                             action: IEffectsAction): IEditableEntity {
   const section = toSection(action);
   switch (action.type) {
     case FormActionBuilder.buildDestroyActionType(section):
       return {
-        ...INITIAL_APPLICATION_FORM_STATE,
+        ...INITIAL_FORM_ENTITY,
       };
     case FormActionBuilder.buildClearActionType(section):
     case FormActionBuilder.buildChangeActionType(section):
@@ -75,7 +74,7 @@ export function formReducer(state: IEditableEntity = INITIAL_APPLICATION_FORM_ST
        */
       const activeValueState: IEditableEntity = {activeValue: state.activeValue};
       return {
-        ...INITIAL_APPLICATION_FORM_STATE,
+        ...INITIAL_FORM_ENTITY,
         ...(isDef(activeValueState.activeValue) ? activeValueState : {}),
       };
   }

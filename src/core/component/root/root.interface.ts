@@ -6,7 +6,7 @@ import { IContainerClassEntity } from '../../entities-definitions.interface';
 import {
   IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
-import { IContainerProps } from '../../props-definitions.interface';
+import { IContainerProps } from '../../definition';
 
 export interface IRootContainerProps extends IContainerProps,
                                              IRouteConfigEntity,

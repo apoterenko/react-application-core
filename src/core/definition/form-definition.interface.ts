@@ -1,16 +1,20 @@
 import {
   AnyT,
+  IActionsFactoryWrapper,
   IActionsRenderedWrapper,
   IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
+  IButtonConfigurationWrapper,
   IChangeableWrapper,
   ICompactWrapper,
   IDisabledWrapper,
   IEntity,
+  IFormConfigurationWrapper,
   IFormWrapper,
   IFullWrapper,
   IOnBeforeSubmitWrapper,
   IOnChangeWrapper,
+  IOnClickWrapper,
   IOnEmptyDictionaryWrapper,
   IOnLoadDictionaryWrapper,
   IOnResetWrapper,
@@ -18,10 +22,13 @@ import {
   IOnValidWrapper,
   IReadOnlyWrapper,
   IResetActionRenderedWrapper,
+  IResetConfigurationWrapper,
   IResetIconWrapper,
   IResetTextWrapper,
+  ISubmitConfigurationWrapper,
   ISubmitIconWrapper,
   ISubmitTextWrapper,
+  IValidateOnMountWrapper,
 } from '../definitions.interface';
 import {
   IEditableEntity,
@@ -29,6 +36,14 @@ import {
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IFieldChangeEntity } from '../entities-definitions.interface';
+import {
+  IButtonProps,
+  IGenericButtonEntity,
+} from './button-definition.interface';
+import {
+  IComponentProps,
+  IContainerProps,
+} from './props-definition.interface';
 
 /**
  * @cross-platform
@@ -47,7 +62,8 @@ export interface IGenericFormEntity
     IResetIconWrapper,
     IResetTextWrapper,
     ISubmitIconWrapper,
-    ISubmitTextWrapper {
+    ISubmitTextWrapper,
+    IValidateOnMountWrapper {
 }
 
 /**
@@ -73,9 +89,45 @@ export interface IBehavioralFormWrapperEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [25.09.2019]
+ * @stable [27.09.2019]
  */
 export interface IFormEntity<TEntity = IEntity>
-  extends IFormWrapperEntity<TEntity>,
-    IGenericFormEntity {
+  extends IBehavioralFormWrapperEntity<TEntity>,
+    IGenericFormEntity,
+    IButtonConfigurationWrapper<IButtonProps>,
+    IResetConfigurationWrapper<IButtonProps>,
+    ISubmitConfigurationWrapper<IButtonProps>,
+    IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]> {
 }
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IFormExtraButtonEntity
+  extends IGenericButtonEntity,
+    IOnClickWrapper<(apiEntity: IApiEntity) => void> {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IFormProps<TEntity = IEntity>
+  extends IComponentProps,
+    IFormEntity<TEntity> {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IFormContainerProps<TEntity = IEntity>
+  extends IContainerProps,
+    IBehavioralFormWrapperEntity<TEntity>,
+    IFormConfigurationWrapper<IFormProps> {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export const INITIAL_FORM_ENTITY = Object.freeze<IEditableEntity>({
+  changes: {},
+});

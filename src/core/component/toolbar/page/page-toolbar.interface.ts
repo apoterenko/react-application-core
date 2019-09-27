@@ -2,9 +2,8 @@ import { IListWrapperEntity } from '../../../entities-definitions.interface';
 import {
   INavigationHandlersConfiguration,
 } from '../../../configurations-definitions.interface';
-import { IContainerProps } from '../../../props-definitions.interface';
 import { IProgressWrapper } from '../../../definitions.interface';
-import { IPaginatedEntity, IWebComponentEntity, IUniversalComponentEntity } from '../../../definition';
+import { IPaginatedEntity, IWebComponentEntity, IUniversalComponentEntity, IContainerProps } from '../../../definition';
 
 /**
  * @stable [16.05.2018]

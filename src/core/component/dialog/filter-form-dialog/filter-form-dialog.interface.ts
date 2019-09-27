@@ -1,6 +1,5 @@
 import { IForwardedRefWrapper, IAutoResetWrapper } from '../../../definitions.interface';
-import { IContainerProps } from '../../../props-definitions.interface';
-import { IFormWrapperEntity } from '../../../definition';
+import { IFormWrapperEntity, IContainerProps } from '../../../definition';
 
 /**
  * @stable [10.03.2019]

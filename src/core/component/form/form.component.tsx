@@ -25,7 +25,7 @@ import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
 import { Field, IFieldInternalProps, IField } from '../field';
-import { IForm, IFormProps, INITIAL_APPLICATION_FORM_STATE } from './form.interface';
+import { IForm } from './form.interface';
 import {
   isFormFieldDisabled,
   isFormOfNewEntity,
@@ -36,14 +36,19 @@ import {
   isFormFieldChangeable,
 } from './form.support';
 import { FlexLayout } from '../layout';
-import { IButtonProps, IBaseEvent } from '../../definition';
+import {
+  IBaseEvent,
+  IButtonProps,
+  IFormProps,
+  INITIAL_FORM_ENTITY,
+} from '../../definition';
 import { apiEntityFactory } from '../../api';
 import { IFieldProps } from '../../props-definitions.interface';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
   public static defaultProps: IFormProps = {
-    form: INITIAL_APPLICATION_FORM_STATE,
+    form: INITIAL_FORM_ENTITY,
     validateOnMount: true,
   };
   private static logger = LoggerFactory.makeLogger('Form');
@@ -451,7 +456,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
           disabled: !this.isFormResettable(),
           text: props.resetText || messages.reset,
           ...props.buttonConfiguration,
-          ...props.resetActionConfiguration,
+          ...props.resetConfiguration,
           onClick: null,
         })
       ),
@@ -464,13 +469,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         error: !R.isNil(this.form.error),
         text: props.submitText || (this.isFormOfNewEntity() ? messages.create : messages.save),
         ...props.buttonConfiguration,
-        ...props.submitActionConfiguration,
+        ...props.submitConfiguration,
         onClick: null,
       }
     );
     return (
       <React.Fragment>
-        {(isFn(props.actionsProvider) ? props.actionsProvider(actions) : actions)
+        {(isFn(props.actionsFactory) ? props.actionsFactory(actions) : actions)
           .map(
             (action, index) => (
               <Button

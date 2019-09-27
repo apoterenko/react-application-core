@@ -5,18 +5,15 @@ import { AnyT } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
 import { IFieldChangeEntity } from '../../entities-definitions.interface';
-import { IApiEntity } from '../../definition';
+import { IApiEntity, IFormContainerProps } from '../../definition';
 import {
   IForm,
   IFormContainer,
-  IFormContainerProps,
   FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
 } from './form.interface';
-import { applySection } from '../../util';
-import { DictionariesActionBuilder } from '../../dictionary';
 
 export class FormContainer extends BaseContainer<IFormContainerProps>
     implements IFormContainer {
@@ -36,7 +33,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <Form ref='form'
+        <Form ref={this.selfRef}
               form={props.form}
               entity={props.entity}
               originalEntity={props.originalEntity}
@@ -119,7 +116,11 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
     }
   }
 
+  /**
+   * @stable [27.09.2019]
+   * @returns {IForm}
+   */
   private get form(): IForm {
-    return this.refs.form as IForm;
+    return this.selfRef.current;
   }
 }

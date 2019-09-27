@@ -1,7 +1,5 @@
 import {
-  IContainerEntity,
-} from '../../../entities-definitions.interface';
-import {
+  IContainerProps,
   IQueryFilterWrapperEntity,
 } from '../../../definition';
 import {
@@ -16,7 +14,7 @@ import {
 /**
  * @stable [13.08.2018]
  */
-export interface IDefaultLayoutContainerEntity extends IContainerEntity,
+export interface IDefaultLayoutContainerEntity extends IContainerProps,
                                                        IQueryFilterWrapperEntity,
                                                        IProgressWrapper {
 }
@@ -24,7 +22,7 @@ export interface IDefaultLayoutContainerEntity extends IContainerEntity,
 /**
  * @stable [31.05.2018]
  */
-export interface IDefaultLayoutContainerConfiguration extends IContainerEntity,
+export interface IDefaultLayoutContainerConfiguration extends IContainerProps,
                                                               IFooterWrapper,
                                                               IFooterRenderedWrapper,
                                                               IHeaderConfigurationWrapper {

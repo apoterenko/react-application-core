@@ -16,7 +16,7 @@ import { ITransportWrapperEntity } from './transport-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [20.09.2019]
  */
 export interface IUniversalContainerEntity
@@ -30,7 +30,7 @@ export interface IUniversalContainerEntity
 }
 
 /**
- * @browserCompatible
+ * @browser-compatible
  * @stable [20.09.2019]
  */
 export interface IWebContainerEntity

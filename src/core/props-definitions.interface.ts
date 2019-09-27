@@ -1,5 +1,4 @@
 import {
-  IContainerEntity,
   IUniversalFieldEntity,
   IFieldEntity,
   IListEntity,
@@ -20,12 +19,6 @@ import {
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
 import { ITabPanelEntity } from './definition';
-
-/**
- * @stable [27.04.2018]
- */
-export interface IContainerProps extends IContainerEntity {
-}
 
 /**
  * @stable [18.06.2018]

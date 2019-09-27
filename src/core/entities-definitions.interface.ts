@@ -34,14 +34,8 @@ import {
   IModeWrapper,
   INameWrapper,
   INewEntityWrapper,
-  IOnBeforeSubmitWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
-  IOnEmptyDictionaryWrapper,
-  IOnLoadDictionaryWrapper,
-  IOnResetWrapper,
-  IOnSubmitWrapper,
-  IOnValidWrapper,
   IOpenWrapper,
   IOriginalDataWrapper,
   IOriginalValueWrapper,
@@ -65,18 +59,15 @@ import {
   IWidthWrapper,
 } from './definitions.interface';
 import {
-  IContainerProps,
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
-  IApiEntity,
   IApplicationWrapperEntity,
   IChannelWrapperEntity,
   IComponentProps,
   IEditableEntity,
-  IFormWrapperEntity,
   ILifeCycleEntity,
   INotificationWrapperEntity,
   IPaginatedEntity,
@@ -87,8 +78,8 @@ import {
   IUniversalComponent,
   IUniversalComponentEntity,
   IUniversalContainerEntity,
-  IWebContainerEntity,
   IXYEntity,
+  IContainerProps,
 } from './definition';
 
 /**
@@ -96,13 +87,6 @@ import {
  */
 export interface IDateTimeEntity extends IDateWrapper,
                                          ITimeWrapper {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IContainerEntity extends IUniversalContainerEntity,
-                                          IWebContainerEntity {
 }
 
 /**

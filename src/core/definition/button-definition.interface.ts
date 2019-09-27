@@ -1,88 +1,90 @@
 import {
-  IDisabledWrapper,
-  IMiniWrapper,
-  IProgressWrapper,
-  IErrorMessageWrapper,
-  IProgressMessageWrapper,
-  IFullWrapper,
-  IIconWrapper,
-  IOutlinedWrapper,
-  IRaisedWrapper,
-  ISimpleWrapper,
-  IStringToWrapper,
-  ITextWrapper,
-  ITypeWrapper,
   IBlockWrapper,
   IBooleanIconLeftWrapper,
-  IBooleanSmallWrapper,
-  IBooleanSuccessWrapper,
   IBooleanTransparentWrapper,
   IBorderedWrapper,
   IDefaultOnPressWrapper,
+  IDisabledWrapper,
+  IErrorMessageWrapper,
+  IFullWrapper,
   IIconStyleWrapper,
+  IIconWrapper,
   IKeyValue,
   ILargeWrapper,
-  IRoundedWrapper,
-  IStyleWrapper,
-  ITextStyleWrapper,
+  IMiniWrapper,
   IOnClickWrapper,
+  IOutlinedWrapper,
+  IProgressMessageWrapper,
+  IProgressWrapper,
+  IRaisedWrapper,
+  IRippledWrapper,
+  IRoundedWrapper,
+  ISmallWrapper,
+  IStyleWrapper,
+  ISuccessWrapper,
+  ITextStyleWrapper,
+  ITextWrapper,
+  IToWrapper,
+  ITypeWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
-import { IWebComponentEntity, IUniversalComponentEntity } from '../definition';
+import { IUniversalComponentEntity } from '../definition';
+import { IComponentProps } from './props-definition.interface';
 
 /**
  * @cross-platform
  * @stable [13.02.2019]
  */
 export interface IGenericButtonEntity
-  extends IErrorEntity,
+  extends IDisabledWrapper,
+    IErrorEntity,
+    IErrorMessageWrapper,
+    IFullWrapper,
+    IIconWrapper<string | boolean>,
+    IMiniWrapper,
+    IOutlinedWrapper,
+    IProgressMessageWrapper,
     IProgressWrapper,
     IRaisedWrapper,
-    IDisabledWrapper,
-    IProgressMessageWrapper,
-    IErrorMessageWrapper,
+    IRippledWrapper,
     ITextWrapper,
-    IFullWrapper,
-    IMiniWrapper,
-    IIconWrapper<string | boolean> {
+    IToWrapper,
+    ITypeWrapper<'button' | 'submit' | 'reset'> {
 }
 
-// TODO Total typings refactoring
-export interface IReactButtonConfiguration
-  extends IUniversalComponentEntity,
+/**
+ * @stable [27.09.2019]
+ */
+export interface IButtonEntity
+  extends IGenericButtonEntity,
     IOnClickWrapper {
 }
 
-export interface IReactButtonProps extends IReactButtonConfiguration,
-                                               IGenericButtonEntity {
-}
-
+/**
+ * @stable [27.09.2019]
+ */
 export interface IButtonProps
-  extends IReactButtonProps,
-    IWebComponentEntity,
-    IOutlinedWrapper,
-    IStringToWrapper,
-    ISimpleWrapper,
-    ITypeWrapper<'button' | 'submit' | 'reset'> {
-  iconCls?: string; // TODO
-  rippled?: boolean;
+  extends IComponentProps,
+    IButtonEntity {
 }
 
-export interface IRnButtonConfiguration extends IReactButtonConfiguration,
-  IBorderedWrapper,
-  IRoundedWrapper,
-  IBooleanSuccessWrapper,
-  IBlockWrapper,
-  IBooleanSmallWrapper,
-  ILargeWrapper,
-  IBooleanIconLeftWrapper,
-  IBooleanTransparentWrapper,
-  IIconStyleWrapper<IKeyValue>,
-  ITextStyleWrapper<IKeyValue>,
-  IStyleWrapper<IKeyValue>,
-  IDefaultOnPressWrapper {
+export interface IRnButtonEntity
+  extends IUniversalComponentEntity,
+    IBorderedWrapper,
+    IRoundedWrapper,
+    ISuccessWrapper,
+    IBlockWrapper,
+    ISmallWrapper,
+    ILargeWrapper,
+    IBooleanIconLeftWrapper,
+    IBooleanTransparentWrapper,
+    IIconStyleWrapper<IKeyValue>,
+    ITextStyleWrapper<IKeyValue>,
+    IStyleWrapper<IKeyValue>,
+    IDefaultOnPressWrapper {
 }
 
-export interface IRnButtonProps extends IGenericButtonEntity,
-  IRnButtonConfiguration {
+export interface IRnButtonProps
+  extends IGenericButtonEntity,
+    IRnButtonEntity {
 }

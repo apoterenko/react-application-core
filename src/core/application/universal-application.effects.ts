@@ -124,7 +124,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [26.09.2019]
    * @returns {IEffectsAction[]}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLoginActionType())
@@ -133,7 +133,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       ApplicationActionBuilder.buildNotReadyAction(),
       ApplicationActionBuilder.buildAuthorizedAction(),
       ApplicationActionBuilder.buildPrepareAction(),
-      RouterActionBuilder.buildNavigateAction(this.routes.home)
+      RouterActionBuilder.buildNavigateAction(this.routes.home) // Need to replace "/logout"
     ];
   }
 
