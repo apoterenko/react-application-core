@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {
   ILocationWrapper,
   IQueryParamsWrapper,
@@ -5,15 +7,17 @@ import {
   ISectionNameWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
-import { IWebComponentEntity } from './component-definition.interface';
 import {
   ILayoutWrapperEntity,
   IUserWrapperEntity,
 } from '../entities-definitions.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
+import { IContainerProps, IUniversalContainerProps } from './props-definition.interface';
+import { IDispatchEntity } from './redux-definition.interface';
+import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
-import { INotificationWrapperEntity } from './notification-definition.interface';
+import { IWebComponentEntity } from './component-definition.interface';
 
 /**
  * @react-native-compatible
@@ -39,4 +43,20 @@ export interface IWebContainerEntity
     IRouteParamsWrapper,
     IQueryParamsWrapper<URLSearchParams>,
     IStackWrapperEntity {
+}
+
+/**
+ * @react-native-compatible
+ * @stable [27.09.2019]
+ */
+export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+  extends React.Component<TProps, TState>,
+    IDispatchEntity {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
+  extends IUniversalContainer<TProps, TState> {
 }

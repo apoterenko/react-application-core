@@ -28,6 +28,7 @@ import {
   ISubmitConfigurationWrapper,
   ISubmitIconWrapper,
   ISubmitTextWrapper,
+  ISubmitWrapper,
   IValidateOnMountWrapper,
 } from '../definitions.interface';
 import {
@@ -44,6 +45,9 @@ import {
   IComponentProps,
   IContainerProps,
 } from './props-definition.interface';
+import { IApiWrapperEntity } from './api-definition.interface';
+import { IComponent } from './component-definition.interface';
+import { IContainer } from './container-definition.interface';
 
 /**
  * @cross-platform
@@ -123,6 +127,23 @@ export interface IFormContainerProps<TEntity = IEntity>
   extends IContainerProps,
     IBehavioralFormWrapperEntity<TEntity>,
     IFormConfigurationWrapper<IFormProps> {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IFormContainer
+  extends IContainer<IFormContainerProps>,
+    ISubmitWrapper {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IForm
+  extends IComponent<IFormProps>,
+    IApiWrapperEntity,
+    ISubmitWrapper<IApiEntity> {
 }
 
 /**

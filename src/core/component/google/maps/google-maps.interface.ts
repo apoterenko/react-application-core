@@ -16,9 +16,8 @@ import {
 } from '../../../definitions.interface';
 import {
   IMenuItemEntity,
-  IComponent,
 } from '../../../entities-definitions.interface';
-import { ILatLngEntity } from '../../../definition';
+import { ILatLngEntity, IComponent } from '../../../definition';
 
 /**
  * @stable [31.07.2018]

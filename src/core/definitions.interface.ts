@@ -1585,12 +1585,7 @@ export interface IExcludeTargetsClassesWrapper<TExcludeTargetsClasses> {
 export interface IStringArrayExcludeTargetsClassesWrapper extends IExcludeTargetsClassesWrapper<string[]> {
 }
 
-/**
- * @stable [29.05.2018]
- */
-export interface ISubmitWrapper<TPayload = AnyT, TSubmit = (payload?: TPayload) => void> {
-  submit?: TSubmit;
-}
+export interface ISubmitWrapper<TPayload = AnyT> { submit?(payload?: TPayload): void; }
 
 /* @stable - 19.04.2018 */
 export interface IOnPressWrapper<TOnPress> {

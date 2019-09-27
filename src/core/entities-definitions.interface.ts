@@ -118,42 +118,6 @@ export interface IContainerClassEntity<TProps extends IContainerProps = IContain
 }
 
 /**
- * @stable [17.05.2018]
- */
-export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
-  extends IUniversalComponent<TProps, TState> {
-}
-
-/**
- * @stable [20.01.2019]
- */
-export interface IDispatchEntity {
-  dispatchListCreate?(): void;
-  dispatchFormChange?(fieldName: string, fieldValue?: AnyT, otherSection?: string): void;
-  dispatchFormSubmit?(): void;
-  dispatchFrameworkAction?<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void;
-  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
-  dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
-  dispatchCustomType?<TData = IKeyValue>(type: string, data?: TData): void;
-  dispatch?<TChanges = IKeyValue>(type: string, data?: TChanges): void;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IUniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
-  extends Component<TProps, TState>,
-          IDispatchEntity {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
-  extends IUniversalContainer<TProps, TState> {
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface IUniversalFieldEntity extends IValueWrapper,

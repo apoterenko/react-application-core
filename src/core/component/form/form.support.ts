@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps } from '../../definition';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
-import { isFormEntityDisabled } from '../../util';
+import { isFormEntityDisabled, isFormWrapperEntityValid } from '../../util';
 
 /**
  * @stable [29.05.2018]
@@ -37,14 +37,6 @@ export const isFormFieldChangeable = (formProps: IFormProps,
 export const isFormChangeable = (formProps: IFormProps): boolean => formProps.changeable !== false;
 
 /**
- * @stable [03.08.2018]
- * @param {IFormProps} formProps
- * @returns {boolean}
- */
-export const isFormValid = (formProps: IFormProps): boolean =>
-  R.isNil(formProps.form.valid) || formProps.form.valid === true;
-
-/**
  * @stable [29.05.2018]
  * @param {IFormProps} formProps
  * @returns {boolean}
@@ -58,7 +50,7 @@ export const isFormDirty = (formProps: IFormProps): boolean =>
  * @returns {boolean}
  */
 export const isFormSubmittable = (formProps: IFormProps): boolean =>
-  isFormValid(formProps)
+  isFormWrapperEntityValid(formProps)
     && isFormDirty(formProps)
     && !isFormEntityDisabled(formProps);
 

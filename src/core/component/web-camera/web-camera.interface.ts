@@ -1,5 +1,5 @@
 import { IWebCameraConfiguration } from '../../configurations-definitions.interface';
-import { IComponent } from '../../entities-definitions.interface';
+import { IComponent } from '../../definition';
 
 /**
  * @stable [02.08.2018]

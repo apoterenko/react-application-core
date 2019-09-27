@@ -9,7 +9,6 @@ import {
 } from './definitions.interface';
 import {
   IUniversalStoreEntity,
-  IDispatchEntity,
 } from './entities-definitions.interface';
 import {
   IVueState$Wrapper,
@@ -24,6 +23,7 @@ import {
   IVueGetInitialData$Wrapper,
   VueComponentOptionsT,
 } from './vue-definitions.interface';
+import { IDispatchEntity } from './definition';
 
 /**
  * @stable [11.11.2018]

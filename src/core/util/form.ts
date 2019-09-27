@@ -5,9 +5,9 @@ import {
   IGenericFormEntity,
 } from '../definition';
 import { IEntity } from '../definitions.interface';
-import { nvl } from './nvl';
 import { ifNotNilThanValue } from './cond';
-import { isEditableEntityBusy } from './entity';
+import { isEditableEntityBusy, isEditableEntityValid } from './entity';
+import { nvl } from './nvl';
 import { selectEditableEntity } from './mapper';
 
 /**
@@ -21,6 +21,14 @@ export const isFormEntityDisabled = <TEntity = IEntity>(entity: IFormEntity<TEnt
     () => entity.disabled === true || isFormWrapperEntityBusy(entity),
     false
   );
+
+/**
+ * @stable [27.09.2019]
+ * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
+ * @returns {boolean}
+ */
+export const isFormWrapperEntityValid = <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity<TEntity>): boolean =>
+  isEditableEntityValid(selectEditableEntity(entity));
 
 /**
  * @stable [25.09.2019]

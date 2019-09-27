@@ -10,6 +10,7 @@ import {
   ifNotNilThanValue,
   isFn,
   isFormFieldReadOnly,
+  isFormWrapperEntityValid,
   isFormWrapperEntityBusy,
   isString,
   isUndef,
@@ -25,12 +26,10 @@ import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
 import { Field, IFieldInternalProps, IField } from '../field';
-import { IForm } from './form.interface';
 import {
   isFormFieldDisabled,
   isFormOfNewEntity,
   isFormDirty,
-  isFormValid,
   isFormSubmittable,
   isFormResettable,
   isFormFieldChangeable,
@@ -39,6 +38,7 @@ import { FlexLayout } from '../layout';
 import {
   IBaseEvent,
   IButtonProps,
+  IForm,
   IFormProps,
   INITIAL_FORM_ENTITY,
 } from '../../definition';
@@ -158,14 +158,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
-  public isFormValid(): boolean {
-    return isFormValid(this.props);
-  }
-
-  /**
    * @stable - 11.04.2018
    * @param {IApiEntity} apiEntity
    */
@@ -277,6 +269,14 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         }
       }
     });
+  }
+
+  /**
+   * @stable [03.08.2018]
+   * @returns {boolean}
+   */
+  private isFormValid(): boolean {
+    return isFormWrapperEntityValid(this.props);
   }
 
   /**

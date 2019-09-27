@@ -8,8 +8,9 @@ import {
   IHideWrapper,
   IIsOpenWrapper,
 } from '../../definitions.interface';
-import { IComponent, IMenuItemEntity, INativeMaterialComponent } from '../../entities-definitions.interface';
+import { IMenuItemEntity, INativeMaterialComponent } from '../../entities-definitions.interface';
 import { IMenuConfiguration } from '../../configurations-definitions.interface';
+import { IComponent } from '../../definition';
 
 /**
  * @stable [07.06.2018]

@@ -4,9 +4,8 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { UniversalContainer } from './universal.container';
-import { IContainer } from '../../entities-definitions.interface';
 import { IUniversalDialog } from '../dialog/dialog.interface';
-import { IContainerProps } from '../../definition';
+import { IContainerProps, IContainer } from '../../definition';
 
 export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
     extends UniversalContainer<TProps, TState>

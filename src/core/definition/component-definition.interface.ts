@@ -10,6 +10,7 @@ import {
   ITitleWrapper,
 } from '../definitions.interface';
 import { IUniversalPluginCtor } from './plugin-definition.interface';
+import { IUniversalComponentProps, IComponentProps } from './props-definition.interface';
 
 /**
  * @browser-compatible
@@ -34,7 +35,7 @@ export interface IUniversalComponentEntity
  * @react-native-compatible
  * @stable [22.09.2019]
  */
-export interface IUniversalComponent<TProps extends IUniversalComponentEntity = IUniversalComponentEntity, TState = {}>
+export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends React.Component<TProps, TState>,
     IGetSelfWrapper {
 }
@@ -43,8 +44,15 @@ export interface IUniversalComponent<TProps extends IUniversalComponentEntity = 
  * @react-native-compatible
  * @stable [22.09.2019]
  */
-export interface IUniversalScrollableComponent<TProps extends IUniversalComponentEntity = IUniversalComponentEntity,
+export interface IUniversalScrollableComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
   TState = {}>
   extends IUniversalComponent<TProps, TState>,
     IOnScrollWrapper {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
+  extends IUniversalComponent<TProps, TState> {
 }

@@ -3,8 +3,11 @@ import { Store, AnyAction } from 'redux';
 import { applySection, namedConstructor } from '../../../util';
 import { DI_TYPES, staticInjector } from '../../../di';
 import { FormActionBuilder } from '../../action.builder';
-import { IContainer } from '../../../entities-definitions.interface';
-import { IDispatcher, IContainerProps } from '../../../definition';
+import {
+  IContainer,
+  IContainerProps,
+  IDispatcher,
+} from '../../../definition';
 import { IKeyValue } from '../../../definitions.interface';
 
 @namedConstructor('$$storeDispatcherProxy')

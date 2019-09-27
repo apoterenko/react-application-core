@@ -105,6 +105,10 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     const props = this.props;
     const state = this.state;
     const jEl = this.jField;
+    if (R.isNil(jEl)) {
+      return;
+    }
+
     const position = this.currentPosition;
     const chars = (jEl.val() as string).split('');
     const keyAsString = key as string;
@@ -138,11 +142,11 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
   }
 
   /**
-   * TODO dom accessor
-   * @returns {IJqInput}
+   * @stable [27.09.2019]
+   * @returns {IJQueryElement}
    */
   private get jField(): IJQueryElement {
-    return toJqEl(this.props.field) as IJQueryElement;
+    return this.domAccessor.toJqEl(this.props.field);
   }
 
   /**

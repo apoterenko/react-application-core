@@ -6,6 +6,7 @@ import {
   IDestroyWrapper,
   IFormsSectionsWrapper,
   IInitialStateWrapper,
+  IKeyValue,
   IListsSectionsWrapper,
   INextFormChangesWrapper,
   INextFormRouteWrapper,
@@ -77,4 +78,18 @@ export interface IChainedFormMiddlewareConfigEntity<TChanges>
  */
 export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
   serialize(state: TState): TState;
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IDispatchEntity {
+  dispatch?<TChanges = IKeyValue>(type: string, data?: TChanges): void;
+  dispatchCustomType?<TData = IKeyValue>(type: string, data?: TData): void;
+  dispatchFormChange?(fieldName: string, fieldValue?: AnyT, otherSection?: string): void;
+  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
+  dispatchFormSubmit?(): void;
+  dispatchFrameworkAction?<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void;
+  dispatchListCreate?(): void;
+  dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
 }

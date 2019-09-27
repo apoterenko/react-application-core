@@ -5,10 +5,13 @@ import { AnyT } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
 import { IFieldChangeEntity } from '../../entities-definitions.interface';
-import { IApiEntity, IFormContainerProps } from '../../definition';
 import {
+  IApiEntity,
   IForm,
   IFormContainer,
+  IFormContainerProps,
+} from '../../definition';
+import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
@@ -51,7 +54,7 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
   }
 
   /**
-   * @stable [17.10.2018]
+   * @stable [27.09.2019]
    */
   public submit(): void {
     this.form.submit(this.form.apiEntity);
