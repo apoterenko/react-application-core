@@ -39,9 +39,7 @@ import {
   IOpenWrapper,
   IOriginalDataWrapper,
   IOriginalValueWrapper,
-  IPasswordWrapper,
   IPathWrapper,
-  IPhotoUrlWrapper,
   IRawDataWrapper,
   IResetErrorWrapper,
   ISelectedEntityWrapper,
@@ -53,8 +51,6 @@ import {
   ITimeWrapper,
   IToDateToTimeEntity,
   ITypeWrapper,
-  IUrlWrapper,
-  IUserWrapper,
   IValueWrapper,
   IWidthWrapper,
 } from './definitions.interface';
@@ -64,22 +60,19 @@ import {
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
-  IApplicationWrapperEntity,
-  IChannelWrapperEntity,
   IComponentProps,
   IEditableEntity,
   ILifeCycleEntity,
   INotificationWrapperEntity,
   IPaginatedEntity,
-  IPermissionsWrapperEntity,
   IQueryFilterEntity,
-  IStackWrapperEntity,
-  ITransportWrapperEntity,
   IUniversalComponent,
   IUniversalComponentEntity,
   IUniversalContainerEntity,
   IXYEntity,
   IContainerProps,
+  IUniversalStoreEntity,
+  INamedEntity,
 } from './definition';
 
 /**
@@ -147,14 +140,6 @@ export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEv
           IResetErrorWrapper,
           IOnChangeWrapper,
           IOnChangeManuallyWrapper {
-}
-
-/**
- * @stable [12.06.2018]
- */
-export interface INamedEntity
-  extends IEntityIdTWrapper,
-    INameWrapper {
 }
 
 /**
@@ -288,20 +273,6 @@ export interface ILayoutEntity extends IXYEntity,
 export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
 }
 
-/**
- * @stable [13.05.2018]
- */
-export interface IUserEntity extends INamedEntity,
-                                     IUrlWrapper,
-                                     IPhotoUrlWrapper,
-                                     IPasswordWrapper,
-                                     ILoginWrapper {
-}
-
-/* @stable - 15.04.2018 */
-export interface IUserWrapperEntity extends IUserWrapper<IUserEntity> {
-}
-
 /* @stable - 15.04.2018 */
 export interface INavigateEntity<TPath, TState = {}> extends IPathWrapper<TPath>,
                                                              IStateWrapper<TState> {
@@ -321,17 +292,6 @@ export interface IDictionariesWrapperEntity extends IDictionariesWrapper<IDictio
 /* @stable - 22.04.2018 */
 export interface IDictionariesEntity {
   [dictionary: string]: IDictionaryEntity<{}>;
-}
-
-/* @stable - 23.07.2018 */
-export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
-  extends IApplicationWrapperEntity,
-    IUserWrapperEntity,
-    IStackWrapperEntity,
-    IChannelWrapperEntity,
-    ITransportWrapperEntity,
-    IPermissionsWrapperEntity<TPermissions>,
-    IDictionariesWrapper<TDictionaries> {
 }
 
 export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>

@@ -19,22 +19,22 @@ import {
 } from '../../definitions.interface';
 import {
   IEditableEntity,
-  IFormWrapperEntity,
   IExtendedEntity,
+  IFormWrapperEntity,
   IPagedEntity,
   IPaginatedEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
   ITransportWrapperEntity,
+  IUniversalStoreEntity,
+  IUserWrapperEntity,
   ToolbarToolsEnum,
 } from '../../definition';
 import {
   IOptionEntity,
   IListWrapperEntity,
   IListEntity,
-  IUserWrapperEntity,
   IDictionariesWrapperEntity,
-  IUniversalStoreEntity,
   IDataMutatorEntity,
   IDictionaryEntity,
   ISelectOptionEntity,

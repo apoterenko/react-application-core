@@ -19,7 +19,6 @@ import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
   INavigateEntity,
   IContainerClassEntity,
-  IUniversalStoreEntity,
 } from '../../entities-definitions.interface';
 import {
   IEnvironment,
@@ -31,6 +30,7 @@ import {
   IStorage,
   IUniversalContainer,
   IUniversalContainerEntity,
+  IUniversalStoreEntity,
 } from '../../definition';
 import { IConnectorConfigEntity } from '../../configurations-definitions.interface';
 import {

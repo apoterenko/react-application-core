@@ -4,9 +4,7 @@ import { isDef } from '../../util';
 
 import {
   ILayoutWrapperEntity,
-  IUserWrapperEntity,
   IDictionariesWrapperEntity,
-  IUniversalStoreEntity,
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
   IListEntity,
@@ -19,6 +17,8 @@ import {
   IQueryFilterWrapperEntity,
   IStackWrapperEntity,
   ITransportWrapperEntity,
+  IUniversalStoreEntity,
+  IUserWrapperEntity,
 } from '../../definition';
 import {
   IFilterActionConfiguration,

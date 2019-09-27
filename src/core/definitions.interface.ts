@@ -186,13 +186,6 @@ export interface IProfileWrapper<TProfile> { profile?: TProfile; }
 export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
 
 /**
- * @stable [03.05.2018]
- */
-export interface IPhotoUrlWrapper<TUrl = string> {
-  photoUrl?: TUrl;
-}
-
-/**
  * @stable [04.05.2018]
  */
 export interface IUseIndicatorWrapper {
@@ -369,19 +362,13 @@ export interface IMenuPropsWrapper<TMenuProps> {
 }
 
 /**
- * @stable [30.05.2018]
- */
-export interface IDictionariesWrapper<TDictionaries> {
-  dictionaries?: TDictionaries;
-}
-
-/**
  * @stable [01.08.2018]
  */
 export interface IPrefixLabelWrapper {
   prefixLabel?: string;
 }
 
+export interface IDictionariesWrapper<TDictionaries> { dictionaries?: TDictionaries; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
 
 /* @stable - 23.04.2018 */
@@ -459,6 +446,7 @@ export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: 
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
 export interface ILinkWrapper<TLink = string> { link?: TLink; }
 export interface ILockWrapper { lock?: boolean; }
+export interface ILoginWrapper<TLogin = string> { login?: TLogin; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
 export interface IStackWrapper<TStack> { stack?: TStack; }
@@ -475,13 +463,6 @@ export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
  */
 export interface IExpandedGroupsWrapper<TExpandedGroups extends IKeyValue = IKeyValue> {
   expandedGroups?: TExpandedGroups;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface ILoginWrapper<TLogin = string> {
-  login?: TLogin;
 }
 
 /**
@@ -1862,17 +1843,11 @@ export interface IKeyWrapper<TKey = string> {
   key?: TKey;
 }
 
-/**
- * @stable [03.05.2018]
- */
-export interface IPasswordWrapper<TPassword = string> {
-  password?: TPassword;
-}
-
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IChildrenWrapper<TChildren> { children?: TChildren; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
+export interface IPasswordWrapper<TPassword = string> { password?: TPassword; }
 export interface IToWrapper<TTo = string> { to?: TTo; }
 
 /* @stable - 15.04.2018 */

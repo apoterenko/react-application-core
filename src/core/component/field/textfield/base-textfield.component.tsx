@@ -105,7 +105,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return (
       <Keyboard
         ref={this.keyboardRef}
-        field={this.input}
+        field={this}
         onClose={this.closeSyntheticKeyboard}
         onChange={this.onKeyboardChange}
         {...this.getKeyboardConfiguration()}/>

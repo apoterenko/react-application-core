@@ -8,9 +8,6 @@ import {
   ISectionNameWrapper,
 } from './definitions.interface';
 import {
-  IUniversalStoreEntity,
-} from './entities-definitions.interface';
-import {
   IVueState$Wrapper,
   IVueStore$Wrapper,
   IVueComponent$Wrapper,
@@ -23,7 +20,7 @@ import {
   IVueGetInitialData$Wrapper,
   VueComponentOptionsT,
 } from './vue-definitions.interface';
-import { IDispatchEntity } from './definition';
+import { IDispatchEntity, IUniversalStoreEntity } from './definition';
 
 /**
  * @stable [11.11.2018]

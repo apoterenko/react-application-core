@@ -28,6 +28,13 @@ const MAC_PLATFORM = P.os.family === 'OS X';
 const WINDOWS_PHONE_PLATFORM = P.os.family === 'Windows Phone';
 const WINDOWS_PLATFORM = P.os.family === 'Windows';
 /**/
+const mobilePlatform = ANDROID_PLATFORM
+  || IOS_PLATFORM
+  || WINDOWS_PHONE_PLATFORM
+  || (
+    MAC_PLATFORM && SAFARI_PLATFORM && 'ontouchstart' in definedWindow  // iOS 13
+  );
+/**/
 export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   document: definedDocument,
   window: definedWindow,
@@ -49,7 +56,7 @@ export const ENV = defValuesFilter<IEnvironmentEntity, IEnvironmentEntity>({
   androidPlatform: ANDROID_PLATFORM,
   iosPlatform: IOS_PLATFORM,
   macPlatform: MAC_PLATFORM,
-  mobilePlatform: ANDROID_PLATFORM || IOS_PLATFORM || WINDOWS_PHONE_PLATFORM,
+  mobilePlatform,
   windowsPhonePlatform: WINDOWS_PHONE_PLATFORM,
   windowsPlatform: WINDOWS_PLATFORM,
   /**/

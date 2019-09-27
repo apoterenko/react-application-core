@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES } from '../di';
-import { IUniversalStoreEntity } from '../entities-definitions.interface';
+import { IUniversalStoreEntity } from '../definition';
 import { IAuthService } from './auth.interface';
 
 @injectable()

@@ -5,7 +5,7 @@ import {
   USER_UPDATE_ACTION_TYPE,
   USER_DESTROY_ACTION_TYPE,
 } from './user.interface';
-import { IUserEntity } from '../entities-definitions.interface';
+import { IUserEntity } from '../definition';
 
 export class UserActionBuilder {
 

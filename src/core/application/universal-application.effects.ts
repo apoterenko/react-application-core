@@ -10,6 +10,7 @@ import {
   IRoutesEntity,
   IStorage,
   ITransportResponseAccessor,
+  IUniversalStoreEntity,
   IVersionProcessor,
   STORAGE_APP_TOKEN_KEY,
 } from '../definition';
@@ -20,7 +21,6 @@ import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.bui
 import { TransportActionBuilder } from '../transport/transport-action.builder';
 import { NotificationActionBuilder } from '../notification/notification-action.builder';
 import { UserActionBuilder } from '../user/user-action.builder';
-import { IUniversalStoreEntity } from '../entities-definitions.interface';
 import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
 

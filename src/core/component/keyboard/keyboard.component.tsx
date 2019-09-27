@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import * as R from 'ramda';
 
 import { ENV } from '../../env';
-import { isString, toJqEl, toClassName, ifNotNilThanValue, orNull } from '../../util';
+import { isString, toClassName, orNull, nvl } from '../../util';
 import { BaseComponent } from '../base';
 import {
   IKeyboardProps,
@@ -13,7 +13,6 @@ import {
 } from './keyboard.interface';
 import { KeyboardKey } from './key';
 import { FlexLayout } from '../layout';
-import { IJQueryElement } from '../../definitions.interface';
 import {
   IKeyboardKey,
   KeyboardKeyEnum,
@@ -34,7 +33,7 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     super(props);
     this.onSelect = this.onSelect.bind(this);
 
-    this.state = {position: this.currentPosition, mode: 0, useUppercase: false};
+    this.state = {position: this.fieldValue.length, mode: 0, useUppercase: false};
   }
 
   /**
@@ -104,13 +103,9 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     let nextValue;
     const props = this.props;
     const state = this.state;
-    const jEl = this.jField;
-    if (R.isNil(jEl)) {
-      return;
-    }
-
-    const position = this.currentPosition;
-    const chars = (jEl.val() as string).split('');
+    const fieldValue = this.fieldValue;
+    const position = fieldValue.length;
+    const chars = fieldValue.split('');
     const keyAsString = key as string;
     const keyAsObject = key as IKeyboardKey;
 
@@ -143,18 +138,9 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
 
   /**
    * @stable [27.09.2019]
-   * @returns {IJQueryElement}
+   * @returns {string}
    */
-  private get jField(): IJQueryElement {
-    return this.domAccessor.toJqEl(this.props.field);
-  }
-
-  /**
-   * @stable [21.08.2018]
-   * @returns {number}
-   */
-  private get currentPosition(): number {
-    const field = this.props.field;
-    return ifNotNilThanValue(field, () => field.value.length) || 0;
+  private get fieldValue(): string {
+    return String(nvl(this.props.field.value, ''));
   }
 }

@@ -5,7 +5,7 @@ import { Chip } from '../../chip';
 import { coalesce, NAME_ASC_SORTER_FN, uuid } from '../../../util';
 import { EntityIdT } from '../../../definitions.interface';
 import { IChipsFieldProps, IChipsFieldState } from './chipsfield.interface';
-import { INamedEntity } from '../../../entities-definitions.interface';
+import { INamedEntity } from '../../../definition';
 import { MultiField } from '../multifield';
 
 export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {

@@ -187,7 +187,6 @@ import {
   IFieldChangeEntity,
   IMenuItemEntity,
   ISortDirectionEntity,
-  IUniversalStoreEntity,
   IUniversalContainerClassEntity,
 } from './entities-definitions.interface';
 import { IGridColumnProps } from './props-definitions.interface';
@@ -199,15 +198,16 @@ import {
 import {
   IApiEntity,
   IBaseEvent,
-  IUniversalComponentEntity,
   IComponentProps,
-  IGenericButtonEntity,
   IGenericFieldEntity,
   INamedConstructor,
   INavigationItemEntity,
+  IUniversalComponentEntity,
   IUniversalContainerEntity,
+  IUniversalStoreEntity,
   IWebComponentEntity,
 } from './definition';
+import { IField } from './component/field/field/field.interface';
 
 /**
  * @stable [31.05.2018]
@@ -545,7 +545,7 @@ export interface IKeyboardKeyConfiguration extends IDisabledWrapper {
  * @stable [08.05.2018]
  */
 export interface IKeyboardConfiguration extends IComponentProps,
-                                                IFieldWrapper<HTMLInputElement | HTMLTextAreaElement>,
+                                                IFieldWrapper<IField>,
                                                 ILayoutWrapper<KeyboardLayoutT[]>,
                                                 IOnCloseWrapper,
                                                 IRenderToBodyWrapper {

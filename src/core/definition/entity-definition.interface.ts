@@ -3,9 +3,11 @@ import {
   IActiveValueWrapper,
   IChangesWrapper,
   IDirtyWrapper,
+  IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
   IKeyValue,
+  INameWrapper,
   INewEntityWrapper,
   IOriginalEntityWrapper,
   IProgressWrapper,
@@ -42,4 +44,12 @@ export interface IEditableEntity<TChanges = IKeyValue>
     IDirtyWrapper,
     IValidWrapper,
     IActiveValueWrapper {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface INamedEntity
+  extends IEntityIdTWrapper,
+    INameWrapper {
 }

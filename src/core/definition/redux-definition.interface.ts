@@ -4,6 +4,7 @@ import {
   AnyT,
   ICustomActionsWrapper,
   IDestroyWrapper,
+  IDictionariesWrapper,
   IFormsSectionsWrapper,
   IInitialStateWrapper,
   IKeyValue,
@@ -20,7 +21,13 @@ import {
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
+import { IApplicationWrapperEntity } from './application-definition.interface';
+import { IChannelWrapperEntity } from './channel-definition.interface';
+import { IPermissionsWrapperEntity } from './permission-definition.interface';
+import { IStackWrapperEntity } from './stack-definition.interface';
 import { IStoreEntity } from '../entities-definitions.interface';
+import { ITransportWrapperEntity } from './transport-definition.interface';
+import { IUserWrapperEntity } from './user-definition.interface';
 
 /**
  * @stable [26.08.2019]
@@ -92,4 +99,14 @@ export interface IDispatchEntity {
   dispatchFrameworkAction?<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void;
   dispatchListCreate?(): void;
   dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
+}
+
+export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
+  extends IApplicationWrapperEntity,
+    IUserWrapperEntity,
+    IStackWrapperEntity,
+    IChannelWrapperEntity,
+    ITransportWrapperEntity,
+    IPermissionsWrapperEntity<TPermissions>,
+    IDictionariesWrapper<TDictionaries> {
 }
