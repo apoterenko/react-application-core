@@ -23,9 +23,10 @@ import {
 } from '../definitions.interface';
 import { IApplicationWrapperEntity } from './application-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
+import { ILayoutWrapperEntity } from './layout-definition.interface';
+import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
-import { IStoreEntity } from '../entities-definitions.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
 import { IUserWrapperEntity } from './user-definition.interface';
 
@@ -101,6 +102,9 @@ export interface IDispatchEntity {
   dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
 }
 
+/**
+ * @stable [28.09.2019]
+ */
 export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
   extends IApplicationWrapperEntity,
     IUserWrapperEntity,
@@ -109,4 +113,13 @@ export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
     ITransportWrapperEntity,
     IPermissionsWrapperEntity<TPermissions>,
     IDictionariesWrapper<TDictionaries> {
+}
+
+/**
+ * @stable [28.09.2019]
+ */
+export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
+  extends IUniversalStoreEntity<TDictionaries, TPermissions>,
+    ILayoutWrapperEntity,
+    INotificationWrapperEntity {
 }

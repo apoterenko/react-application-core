@@ -3,6 +3,7 @@ import {
   IWebComponentEntity,
 } from './component-definition.interface';
 import {
+  IContainerEntity,
   IUniversalContainerEntity,
   IWebContainerEntity,
 } from './container-definition.interface';
@@ -34,7 +35,7 @@ export interface IUniversalContainerProps
 /**
  * @stable [27.09.2019]
  */
-export interface IContainerProps
-  extends IUniversalContainerEntity,
+export interface IContainerProps<TDictionaries = {}, TPermissions = {}>
+  extends IContainerEntity<TDictionaries, TPermissions>,
     IWebContainerEntity {
 }

@@ -6,8 +6,10 @@ import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
-import { IStoreEntity } from '../../../entities-definitions.interface';
-import { IContainerProps } from '../../../definition';
+import {
+  IContainerProps,
+  IStoreEntity,
+} from '../../../definition';
 
 @basicConnector<IStoreEntity>({
   routeConfiguration: {

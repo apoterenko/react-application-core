@@ -7,28 +7,30 @@ import {
   ISectionNameWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
-import { IChannelWrapperEntity } from './channel-definition.interface';
 import { IContainerProps, IUniversalContainerProps } from './props-definition.interface';
-import { IDispatchEntity } from './redux-definition.interface';
-import { ILayoutWrapperEntity } from '../entities-definitions.interface';
+import { IDispatchEntity, IUniversalStoreEntity } from './redux-definition.interface';
+import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
-import { ITransportWrapperEntity } from './transport-definition.interface';
-import { IUserWrapperEntity } from './user-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
 
 /**
  * @react-native-compatible
  * @stable [20.09.2019]
  */
-export interface IUniversalContainerEntity
-  extends ITitleWrapper,
-    ISectionNameWrapper,
-    IChannelWrapperEntity,
+export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}>
+  extends IUniversalStoreEntity<TDictionaries, TPermissions>,
+    ITitleWrapper,
+    ISectionNameWrapper {
+}
+
+/**
+ * @stable [28.09.2019]
+ */
+export interface IContainerEntity<TDictionaries = {}, TPermissions = {}>
+  extends IUniversalContainerEntity<TDictionaries, TPermissions>,
     ILayoutWrapperEntity,
-    IUserWrapperEntity,
-    INotificationWrapperEntity,
-    ITransportWrapperEntity {
+    INotificationWrapperEntity {
 }
 
 /**

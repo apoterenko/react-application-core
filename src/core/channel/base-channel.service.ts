@@ -17,8 +17,10 @@ import {
   IChannelClient,
 } from './channel.interface';
 import { PayloadWrapper } from './protocol';
-import { IStoreEntity } from '../entities-definitions.interface';
-import { IChannelMessageEntity } from '../definition';
+import {
+  IChannelMessageEntity,
+  IStoreEntity,
+} from '../definition';
 
 @injectable()
 export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IChannel<TConfig, TMessage> {

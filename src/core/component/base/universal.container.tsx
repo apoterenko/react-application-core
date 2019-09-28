@@ -29,7 +29,7 @@ import {
   IStateSerializer,
   IStorage,
   IUniversalContainer,
-  IUniversalContainerEntity,
+  IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../definition';
 import { IConnectorConfigEntity } from '../../configurations-definitions.interface';
@@ -49,7 +49,7 @@ import { DictionariesActionBuilder } from '../../dictionary';
 import { FlexLayout } from '../layout/flex/flex-layout.component';
 import { Link } from '../link/link.component';
 
-export class UniversalContainer<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
+export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends React.PureComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 

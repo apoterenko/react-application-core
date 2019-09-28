@@ -6,8 +6,11 @@ import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
 import { ListDivider } from '../../list';
 import { FlexLayout } from '../../layout';
-import { LayoutModeEnum } from '../../../entities-definitions.interface';
-import { NavigationItemTypesEnum, INavigationItemEntity } from '../../../definition';
+import {
+  INavigationItemEntity,
+  LayoutModeEnum,
+  NavigationItemTypesEnum,
+} from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 import { IOnScrollWrapper } from '../../../definitions.interface';
 

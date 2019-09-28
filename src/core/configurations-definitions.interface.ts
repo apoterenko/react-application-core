@@ -187,7 +187,7 @@ import {
   IFieldChangeEntity,
   IMenuItemEntity,
   ISortDirectionEntity,
-  IUniversalContainerClassEntity,
+  IUniversalContainerCtor,
 } from './entities-definitions.interface';
 import { IGridColumnProps } from './props-definitions.interface';
 import {
@@ -435,7 +435,7 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IOnChangeSortingWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper,
                                             IExpandActionRenderedWrapper,
-                                            IExpandedGroupsWrapper,
+                                            IExpandedGroupsWrapper<any>,
                                             ITightGridWrapper,
                                             IStickyHeadWrapper,
                                             ITotalEntityWrapper<IEntity> {
@@ -645,7 +645,7 @@ export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 
 /* @stable - 14.04.2018 */
 export interface IBasicConnectorConfigEntity<TStoreEntity>
-  extends ICallbackWrapper<(ctor: IUniversalContainerClassEntity) => void>,
+  extends ICallbackWrapper<(ctor: IUniversalContainerCtor) => void>,
           IRouteConfigurationWrapper<IRouteConfigEntity>,
           IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
   injectedServices?: INamedConstructor[];

@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { isDef } from '../../util';
 
 import {
-  ILayoutWrapperEntity,
   IDictionariesWrapperEntity,
   IFilterFormWrapperEntity,
   IListAndFilterFormWrapperEntity,
@@ -19,6 +18,7 @@ import {
   ITransportWrapperEntity,
   IUniversalStoreEntity,
   IUserWrapperEntity,
+  ILayoutWrapperEntity,
 } from '../../definition';
 import {
   IFilterActionConfiguration,

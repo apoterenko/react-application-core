@@ -5,7 +5,6 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { DI_TYPES, lazyInject } from '../di';
 import { notNilValuesFilter, ifNotNilThanValue, toType, coalesce } from '../util';
 import { IKeyValue } from '../definitions.interface';
-import { IStoreEntity } from '../entities-definitions.interface';
 import {
   TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
@@ -16,6 +15,7 @@ import { ENV } from '../env';
 import {
   EnvironmentVariablesEnum,
   ILogManager,
+  IStoreEntity,
   ITransport,
   ITransportFactory,
   ITransportRequestEntity,

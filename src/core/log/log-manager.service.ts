@@ -7,8 +7,7 @@ import { AnyT } from '../definitions.interface';
 import { DI_TYPES, lazyInject } from '../di';
 import { ENV } from '../env';
 import { IDateConverter } from '../converter';
-import { ILogManager } from '../definition';
-import { IStoreEntity } from '../entities-definitions.interface';
+import { ILogManager, IStoreEntity } from '../definition';
 
 @injectable()
 export class LogManager implements ILogManager {

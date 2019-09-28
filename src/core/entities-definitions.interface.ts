@@ -90,9 +90,9 @@ export interface IUniversalComponentCtor<TProps extends IUniversalComponentEntit
 }
 
 /**
- * @stable [14.05.2018]
+ * TODO
  */
-export interface IUniversalContainerClassEntity<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
+export interface IUniversalContainerCtor<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
   extends ComponentClass<TProps, TState> {
 }
 
@@ -107,7 +107,7 @@ export interface IReactComponentClassEntity<TProps extends IComponentProps = ICo
  * @stable [17.05.2018]
  */
 export interface IContainerClassEntity<TProps extends IContainerProps = IContainerProps, TState = {}>
-  extends IUniversalContainerClassEntity<TProps, TState> {
+  extends IUniversalContainerCtor<TProps, TState> {
 }
 
 /**
@@ -253,26 +253,6 @@ export interface IGridRowEntity extends ISelectedWrapper,
 export interface IUniversalMessageEntity extends ILifeCycleEntity {
 }
 
-/**
- * @stable [23.09.2018]
- */
-export enum LayoutModeEnum {
-  FULL,
-  MINIMAL,
-}
-
-// TODO
-export interface ILayoutEntity extends IXYEntity,
-                                       IExpandedGroupsWrapper,
-                                       IModeWrapper<LayoutModeEnum> {
-}
-
-/**
- * @stable [11.08.2018]
- */
-export interface ILayoutWrapperEntity extends ILayoutWrapper<ILayoutEntity> {
-}
-
 /* @stable - 15.04.2018 */
 export interface INavigateEntity<TPath, TState = {}> extends IPathWrapper<TPath>,
                                                              IStateWrapper<TState> {
@@ -292,12 +272,6 @@ export interface IDictionariesWrapperEntity extends IDictionariesWrapper<IDictio
 /* @stable - 22.04.2018 */
 export interface IDictionariesEntity {
   [dictionary: string]: IDictionaryEntity<{}>;
-}
-
-export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
-  extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    ILayoutWrapperEntity,
-    INotificationWrapperEntity {
 }
 
 /**

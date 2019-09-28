@@ -2,7 +2,7 @@ import { Store } from 'redux';
 
 import { lazyInject, DI_TYPES, provideInSingleton } from '../di';
 import { IPermissionsService } from './permissions.interface';
-import { IStoreEntity } from '../entities-definitions.interface';
+import { IStoreEntity } from '../definition';
 
 @provideInSingleton(PermissionsService)
 export class PermissionsService<TAccessConfig, TStore = IStoreEntity>

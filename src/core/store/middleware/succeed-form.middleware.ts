@@ -10,8 +10,10 @@ import {
   FormActionBuilder,
 } from '../../component/action.builder';
 import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
-import { IStoreEntity } from '../../entities-definitions.interface';
-import { IApiEntity } from '../../definition';
+import {
+  IApiEntity,
+  IStoreEntity,
+} from '../../definition';
 import { APPLICATION_SECTIONS } from '../../component/application/application.interface';
 import { DI_TYPES, staticInjector } from '../../di';
 import { IApplicationModifyEntityPayloadFactory, IModifyEntityPayloadWrapper } from '../../api';

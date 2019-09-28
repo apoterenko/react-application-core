@@ -4,20 +4,20 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
 import { IUniversalContainerEntity, IContainerProps, IUniversalStoreEntity } from '../../definition';
-import { IUniversalContainerClassEntity } from '../../entities-definitions.interface';
+import { IUniversalContainerCtor } from '../../entities-definitions.interface';
 import { ConnectorMapperT } from '../../configurations-definitions.interface';
 
 const logger = LoggerFactory.makeLogger('universal-connector.factory');
 
 /**
  * @stable [27.08.2018]
- * @param {IUniversalContainerClassEntity} containerCtor
+ * @param {IUniversalContainerCtor} containerCtor
  * @param {ConnectorMapperT<TStoreEntity extends IUniversalStoreEntity>} mappers
- * @returns {IUniversalContainerClassEntity}
+ * @returns {IUniversalContainerCtor}
  */
 export const universalConnectorFactory = <TStoreEntity extends IUniversalStoreEntity = IUniversalStoreEntity>(
-  containerCtor: IUniversalContainerClassEntity,
-  ...mappers: Array<ConnectorMapperT<TStoreEntity>>): IUniversalContainerClassEntity => {
+  containerCtor: IUniversalContainerCtor,
+  ...mappers: Array<ConnectorMapperT<TStoreEntity>>): IUniversalContainerCtor => {
 
   const mapping = (state: TStoreEntity) => mappers.length
     ? (mappers as Array<ConnectorMapperT<TStoreEntity> | IKeyValue>)

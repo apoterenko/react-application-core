@@ -3,13 +3,15 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IEditableEntity,
-  IFormWrapperEntity,
   IExtendedEntity,
+  IFormWrapperEntity,
   ILifeCycleEntity,
   IPagedEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
+  IUserEntity,
+  IUserWrapperEntity,
   ToolbarToolsEnum,
 } from '../definition';
 import {
@@ -68,6 +70,14 @@ export const selectListEntity = (entity: IListWrapperEntity): IListEntity =>
 export const selectLifeCycleEntityProgress = (entity: ILifeCycleEntity): boolean => entity.progress;
 
 /**
+ * @stable [28.09.2019]
+ * @param {IUserWrapperEntity} entity
+ * @returns {IUserEntity}
+ */
+export const selectUserEntity = (entity: IUserWrapperEntity): IUserEntity =>
+  ifNotNilThanValue(entity, (): IUserEntity => entity.user, UNDEF_SYMBOL);
+
+/**
  * @stable [04.09.2019]
  * @param {IQueryFilterWrapperEntity} entity
  * @returns {IQueryFilterEntity}
@@ -113,6 +123,14 @@ export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): str
   (filterEntity) => selectQuery(filterEntity),
   UNDEF_SYMBOL
 );
+
+/**
+ * @stable [28.09.2019]
+ * @param {IUserEntity} user
+ * @returns {IUserWrapperEntity}
+ */
+export const mapUserEntity = (user: IUserEntity): IUserWrapperEntity =>
+  defValuesFilter<IUserWrapperEntity, IUserWrapperEntity>({user});
 
 /**
  * @stable [10.09.2019]
@@ -181,6 +199,14 @@ export const mapPaginatedEntity = (entity: IPaginatedEntity): IPaginatedEntity =
  */
 export const mapListWrapperEntity = (listWrapper: IListWrapperEntity): IListWrapperEntity =>
   mapListEntity(selectListEntity(listWrapper));
+
+/**
+ * @stable [28.09.2019]
+ * @param {IUserWrapperEntity} userWrapper
+ * @returns {IUserWrapperEntity}
+ */
+export const mapUserWrapperEntity = (userWrapper: IUserWrapperEntity): IUserWrapperEntity =>
+  mapUserEntity(selectUserEntity(userWrapper));
 
 /**
  * @stable [05.09.2019]

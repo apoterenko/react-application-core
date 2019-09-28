@@ -1,20 +1,4 @@
-import { ILayoutEntity, LayoutModeEnum } from '../../entities-definitions.interface';
 import { ACTION_PREFIX } from '../../definitions.interface';
-
-/**
- * @stable [23.09.2018]
- */
-export const DEFAULT_LAYOUT_HOME_VALUE = 'home';
-
-/**
- * @stable [23.09.2018]
- */
-export const INITIAL_APPLICATION_LAYOUT_STATE: ILayoutEntity = {
-  x: 0,
-  y: 0,
-  mode: LayoutModeEnum.FULL,
-  expandedGroups: {[DEFAULT_LAYOUT_HOME_VALUE]: true},
-};
 
 /**
  * @stable [23.09.2018]

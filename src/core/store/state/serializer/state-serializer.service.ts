@@ -6,8 +6,8 @@ import {
   INITIAL_NOTIFICATION_ENTITY,
   INITIAL_TRANSPORT_ENTITY,
   IStateSerializer,
+  IStoreEntity,
 } from '../../../definition';
-import { IStoreEntity } from '../../../entities-definitions.interface';
 import { ifNotNilThanValue } from '../../../util';
 
 @injectable()

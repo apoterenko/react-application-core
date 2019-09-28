@@ -1,15 +1,18 @@
 import { AnyAction } from 'redux';
 
-import { ILayoutEntity, LayoutModeEnum } from '../../../entities-definitions.interface';
 import {
   LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
-  INITIAL_APPLICATION_LAYOUT_STATE,
   LAYOUT_DESTROY_ACTION_TYPE,
   LAYOUT_XY_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
-import { IPayloadXYEntity } from '../../../definition';
+import {
+  ILayoutEntity,
+  INITIAL_LAYOUT_ENTITY,
+  IPayloadXYEntity,
+  LayoutModeEnum,
+} from '../../../definition';
 
 /**
  * @stable [23.09.2018]
@@ -17,7 +20,7 @@ import { IPayloadXYEntity } from '../../../definition';
  * @param {AnyAction} action
  * @returns {ILayoutEntity}
  */
-export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_APPLICATION_LAYOUT_STATE,
+export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_LAYOUT_ENTITY,
                                      action: AnyAction): ILayoutEntity => {
   switch (action.type) {
     case LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE:
@@ -42,7 +45,7 @@ export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_APPLICATION_
       };
     case LAYOUT_DESTROY_ACTION_TYPE:
       return {
-        ...INITIAL_APPLICATION_LAYOUT_STATE,
+        ...INITIAL_LAYOUT_ENTITY,
       };
   }
   return state;

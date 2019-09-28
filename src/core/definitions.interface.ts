@@ -443,6 +443,7 @@ export interface IMultiWrapper {
 
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
+export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
 export interface ILinkWrapper<TLink = string> { link?: TLink; }
 export interface ILockWrapper { lock?: boolean; }
@@ -456,13 +457,6 @@ export interface IStackWrapper<TStack> { stack?: TStack; }
  */
 export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
   filterChanges?: TChanges;
-}
-
-/**
- * @stable [04.07.2018]
- */
-export interface IExpandedGroupsWrapper<TExpandedGroups extends IKeyValue = IKeyValue> {
-  expandedGroups?: TExpandedGroups;
 }
 
 /**

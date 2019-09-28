@@ -17,6 +17,7 @@ export * from './field-definition.interface';
 export * from './file-definition.interface';
 export * from './flex-definition.interface';
 export * from './form-definition.interface';
+export * from './layout-definition.interface';
 export * from './log-definition.interface';
 export * from './navigation-definition.interface';
 export * from './notification-definition.interface';

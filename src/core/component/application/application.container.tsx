@@ -7,6 +7,7 @@ import {
   EventsEnum,
   IRouterEntity,
   IRouterWrapperEntity,
+  IStoreEntity,
 } from '../../definition';
 import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
 import { CONNECTOR_SECTION_FIELD } from '../connector';
@@ -19,7 +20,6 @@ import {
 } from '../../configurations-definitions.interface';
 import {
   IContainerClassEntity,
-  IStoreEntity,
 } from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 

@@ -123,8 +123,8 @@ export interface IFormProps<TEntity = IEntity>
 /**
  * @stable [27.09.2019]
  */
-export interface IFormContainerProps<TEntity = IEntity>
-  extends IContainerProps,
+export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}, TPermissions = {}>
+  extends IContainerProps<TDictionaries, TPermissions>,
     IBehavioralFormWrapperEntity<TEntity>,
     IFormConfigurationWrapper<IFormProps> {
 }

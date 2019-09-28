@@ -1,6 +1,6 @@
 import { IGridConfigurationWrapper } from '../../configurations-definitions.interface';
 import { IGridWrapperEntity } from '../../entities-definitions.interface';
-import { IFilterChangesWrapper, IExpandedGroupsWrapper } from '../../definitions.interface';
+import { IFilterChangesWrapper, IExpandedGroupsWrapper, IKeyValue } from '../../definitions.interface';
 import { IContainerProps } from '../../definition';
 
 /**
@@ -27,6 +27,6 @@ export interface IGridContainerProps extends IContainerProps,
  * @stable [06.06.2018]
  */
 export interface IGridState extends IFilterChangesWrapper,
-                                    IExpandedGroupsWrapper {
+                                    IExpandedGroupsWrapper<IKeyValue> {
   expandedAllGroups?: boolean; // TODO
 }

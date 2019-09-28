@@ -2,8 +2,10 @@ import { Store } from 'redux';
 import { injectable } from 'inversify';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { ITransportTokenAccessor } from '../../definition';
-import { IStoreEntity } from '../../entities-definitions.interface';
+import {
+  IStoreEntity,
+  ITransportTokenAccessor,
+} from '../../definition';
 
 @injectable()
 export class TransportTokenAccessor implements ITransportTokenAccessor {

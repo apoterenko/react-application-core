@@ -11,9 +11,8 @@ import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
-import { LayoutModeEnum } from '../../../entities-definitions.interface';
 import { IOperationEntity } from '../../../definition';
-import { ILayoutEntity, IStringMenuActionEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
+import { IStringMenuActionEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
@@ -25,7 +24,13 @@ import {
 import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { Link } from '../../link';
-import { IBaseEvent, INavigationItemEntity, IXYEntity } from '../../../definition';
+import {
+  IBaseEvent,
+  ILayoutEntity,
+  INavigationItemEntity,
+  IXYEntity,
+  LayoutModeEnum,
+} from '../../../definition';
 import { Overlay } from '../../overlay';
 import { ScrollPlugin } from '../../plugin';
 

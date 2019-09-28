@@ -5,6 +5,7 @@ import {
   filterAndSortEntities,
   ifNotNilThanValue,
   isFn,
+  mapUserWrapperEntity,
   orNull,
 } from '../../util';
 import {
@@ -49,13 +50,6 @@ import {
 export const dictionariesMapper = (storeEntity: IUniversalStoreEntity): IDictionariesWrapperEntity => ({
   dictionaries: {
     ...storeEntity.dictionaries,
-  },
-});
-
-/* @stable - 16.04.2018 */
-export const userMapper = (storeEntity: IUniversalStoreEntity): IUserWrapperEntity => ({
-  user: {
-    ...storeEntity.user,
   },
 });
 
@@ -160,16 +154,6 @@ export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEnt
  */
 export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
   entity.changes as TResult;
-
-/**
- * @stable [17.01.2019]
- * @param {IEditableEntity} editableEntity
- * @returns {TResult}
- */
-export const editableEntityChangesMapper = <TResult extends IEntity = IEntity>(editableEntity: IEditableEntity): TResult =>
-  ({
-    ...editableEntityChangesSelector(editableEntity),
-  } as TResult);
 
 /**
  * @deprecated
@@ -310,6 +294,6 @@ export const dictionaryEntityDataMapper = <TDictionaryEntity, TResult = TDiction
  */
 export const universalDefaultMappers = [
   transportMapper,
-  userMapper,
+  mapUserWrapperEntity,
   dictionariesMapper
 ];

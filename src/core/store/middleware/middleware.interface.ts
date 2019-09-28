@@ -23,10 +23,12 @@ import {
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
-  IStoreEntity,
   IListEntity,
 } from '../../entities-definitions.interface';
-import { IApiEntity } from '../../definition';
+import {
+  IApiEntity,
+  IStoreEntity,
+} from '../../definition';
 
 /**
  * @stable [31.08.2018]

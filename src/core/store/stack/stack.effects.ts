@@ -11,7 +11,7 @@ import {
 import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
 import { StackActionBuilder } from './stack-action.builder';
 import { getAllIndependentStackSections } from './stack.support';
-import { IStoreEntity } from '../../entities-definitions.interface';
+import { IStoreEntity } from '../../definition';
 
 @provideInSingleton(StackEffects)
 export class StackEffects {

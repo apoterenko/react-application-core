@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { noop, sequence, isObjectNotEmpty, isFn  } from '../../util';
 import { DI_TYPES, staticInjector, getStore } from '../../di';
 import { IBasicConnectorConfigEntity, IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import { IUniversalContainerClassEntity } from '../../entities-definitions.interface';
+import { IUniversalContainerCtor } from '../../entities-definitions.interface';
 import { APPLICATION_SECTIONS } from '../application/application.interface';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 import { DYNAMIC_ROUTES } from '../../router/router.interface';
@@ -24,7 +24,7 @@ const logger = LoggerFactory.makeLogger('universal-connector.decorator');
 export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
   config: IBasicConnectorConfigEntity<TStoreEntity>
 ) =>
-  (target: IUniversalContainerClassEntity): void => {
+  (target: IUniversalContainerCtor): void => {
     let finalTarget = target;
     if (config.callback) {
       config.callback(target);
