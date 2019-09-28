@@ -4,8 +4,12 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { isDef, toSection, defValuesFilter } from '../../util';
 import { convertError } from '../../error';
 import { IPayloadWrapper, IKeyValue } from '../../definitions.interface';
-import { IFieldChangeEntity, IFieldsChangesEntity } from '../../entities-definitions.interface';
-import { IEditableEntity, INITIAL_FORM_ENTITY } from '../../definition';
+import {
+  IEditableEntity,
+  IFieldChangeEntity,
+  IFieldsChangesEntity,
+  INITIAL_FORM_ENTITY,
+} from '../../definition';
 import { FormActionBuilder } from './form-action.builder';
 
 export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,

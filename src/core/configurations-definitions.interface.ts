@@ -122,7 +122,6 @@ import {
   IOnChangeSortingWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
-  IOnClickWrapper,
   IOnCloseWrapper,
   IOnCreateWrapper,
   IOnDeactivateWrapper,
@@ -184,7 +183,6 @@ import {
   IAccessConfigurationWrapper,
 } from './definitions.interface';
 import {
-  IFieldChangeEntity,
   IMenuItemEntity,
   ISortDirectionEntity,
   IUniversalContainerCtor,
@@ -199,6 +197,7 @@ import {
   IApiEntity,
   IBaseEvent,
   IComponentProps,
+  IFieldChangeEntity,
   IGenericFieldEntity,
   INamedConstructor,
   INavigationItemEntity,

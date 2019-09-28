@@ -8,10 +8,6 @@ import {
   UNDEF,
 } from '../../definitions.interface';
 import {
-  FieldChangeEntityT,
-  IFieldChangeEntity,
-} from '../../entities-definitions.interface';
-import {
   FORM_ACTIVE_VALUE_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
   FORM_CLEAR_ACTION_TYPE,
@@ -25,7 +21,11 @@ import {
   FORM_SUBMIT_FINISHED_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
 } from './form.interface';
-import { IApiEntity } from '../../definition';
+import {
+  FieldChangeEntityT,
+  IApiEntity,
+  IFieldChangeEntity,
+} from '../../definition';
 
 export class FormActionBuilder {
 

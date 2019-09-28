@@ -1,14 +1,17 @@
 import {
   IDisabledWrapper,
   IEmptyValueWrapper,
+  IFieldsWrapper,
   ILabelWrapper,
   IMaskWrapper,
   INameWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
   IProgressWrapper,
+  IRawDataWrapper,
   IReadOnlyWrapper,
   ITabIndexWrapper,
+  IValueWrapper,
   IVisibleWrapper,
   UNDEF,
 } from '../definitions.interface';
@@ -35,3 +38,24 @@ export interface IGenericFieldEntity
     ITabIndexWrapper,
     IVisibleWrapper {
 }
+
+/**
+ * @stable [28.09.2019]
+ */
+export interface IFieldChangeEntity
+  extends INameWrapper,
+    IValueWrapper,
+    IRawDataWrapper {
+}
+
+/**
+ * @stable [28.09.2019]
+ */
+export interface IFieldsChangesEntity
+  extends IFieldsWrapper<IFieldChangeEntity[]> {
+}
+
+/**
+ * @stable [28.09.2019]
+ */
+export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;

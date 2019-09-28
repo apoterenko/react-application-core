@@ -19,8 +19,8 @@ import {
 import {
   IListEntity,
   ISortDirectionEntity,
-  IFieldChangeEntity,
 } from '../../entities-definitions.interface';
+import { IFieldChangeEntity } from '../../definition';
 
 export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IListEntity {

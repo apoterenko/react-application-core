@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IUniversalListProps } from '../../props-definitions.interface';
 import { IEntity, ISelectedEntityWrapper } from '../../definitions.interface';
-import { IFieldChangeEntity } from '../../entities-definitions.interface';
+import { IFieldChangeEntity } from '../../definition';
 import {
   LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,

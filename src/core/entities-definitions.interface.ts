@@ -15,8 +15,6 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
-  IExpandedGroupsWrapper,
-  IFieldsWrapper,
   IFilterFormWrapper,
   IFilterWrapper,
   IFromDateFromTimeEntity,
@@ -27,11 +25,8 @@ import {
   IJQueryElement,
   IKeyValue,
   ILabelWrapper,
-  ILayoutWrapper,
   IListWrapper,
   ILoadingWrapper,
-  ILoginWrapper,
-  IModeWrapper,
   INameWrapper,
   INewEntityWrapper,
   IOnChangeManuallyWrapper,
@@ -63,16 +58,14 @@ import {
   IComponentProps,
   IEditableEntity,
   ILifeCycleEntity,
-  INotificationWrapperEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IUniversalComponent,
   IUniversalComponentEntity,
   IUniversalContainerEntity,
-  IXYEntity,
   IContainerProps,
-  IUniversalStoreEntity,
   INamedEntity,
+  IFieldChangeEntity,
 } from './definition';
 
 /**
@@ -156,25 +149,6 @@ export interface IOptionEntity extends IEntityIdTWrapper,
 export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
 }
-
-/**
- * @stable [01.06.2018]
- */
-export interface IFieldChangeEntity extends INameWrapper,
-                                            IValueWrapper,
-                                            IRawDataWrapper {
-}
-
-/**
- * @stable [01.06.2018]
- */
-export interface IFieldsChangesEntity extends IFieldsWrapper<IFieldChangeEntity[]> {
-}
-
-/**
- * @stable [01.06.2018]
- */
-export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 
 /**
  * @stable [29.05.2018]

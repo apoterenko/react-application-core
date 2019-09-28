@@ -4,9 +4,9 @@ import * as R from 'ramda';
 import { AnyT } from '../../definitions.interface';
 import { BaseContainer } from '../base';
 import { Form } from '../form';
-import { IFieldChangeEntity } from '../../entities-definitions.interface';
 import {
   IApiEntity,
+  IFieldChangeEntity,
   IForm,
   IFormContainer,
   IFormContainerProps,

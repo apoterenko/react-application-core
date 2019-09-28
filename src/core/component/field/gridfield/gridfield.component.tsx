@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { IFieldChangeEntity, IListEntity } from '../../../entities-definitions.interface';
+import { IListEntity } from '../../../entities-definitions.interface';
 import { Grid } from '../../grid';
 import { INITIAL_APPLICATION_LIST_STATE } from '../../list';
 import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
 import { toClassName } from '../../../util';
+import { IFieldChangeEntity } from '../../../definition';
 
 export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
 

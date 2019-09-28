@@ -3,7 +3,7 @@ import * as R from 'ramda';
 
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
-import { ISortDirectionEntity, IFieldChangeEntity } from '../../entities-definitions.interface';
+import { ISortDirectionEntity } from '../../entities-definitions.interface';
 import { IEntity, AnyT, EntityIdT, UNIVERSAL_STICKY_ELEMENT_SELECTOR} from '../../definitions.interface';
 import {
   joinClassName,
@@ -25,7 +25,10 @@ import { GridRow } from './row';
 import { Field } from '../field';
 import { IGridState } from './grid.interface';
 import { FlexLayout } from '../layout';
-import { IBaseEvent } from '../../definition';
+import {
+  IBaseEvent,
+  IFieldChangeEntity,
+} from '../../definition';
 import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
 
 export class Grid extends BaseList<IGridProps, IGridState> {

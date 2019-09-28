@@ -741,8 +741,15 @@ export interface IRobotModeWrapper {
   useRobotMode?: boolean;
 }
 
+export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
+export interface IChangeableWrapper { changeable?: boolean; }
+export interface ICloseWrapper<TClose> { close?: TClose; }
+export interface IDirtyWrapper { dirty?: boolean; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
+export interface IFieldsWrapper<TFields> { fields?: TFields; }
+export interface IFieldWrapper<TField> { field?: TField; }
 export interface INameWrapper<TName = string> { name?: TName; }
+export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
 export interface IRemovedWrapper<TRemoved = boolean> { removed?: TRemoved; }
 export interface IReplacedWrapper<TReplaced = AnyT> { replaced?: TReplaced; }
@@ -750,18 +757,18 @@ export interface IRequiredWrapper<TRequired = boolean | (() => boolean)> { requi
 export interface ISelectedEntityWrapper<TEntity extends IEntity = IEntity> extends ISelectedWrapper<TEntity> {}
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
 export interface ITabIndexWrapper { tabIndex?: number; }
+export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
 export interface IUpdatedWrapper<TUpdated = boolean> { updated?: TUpdated; }
+export interface IValidWrapper { valid?: boolean; }
+export interface IViewerWrapper<TViewer> { viewer?: TViewer; }
+export interface IXWrapper<TX = number> { x?: TX; }
+export interface IYWrapper<TY = number> { y?: TY; }
 
 /**
  * @stable [17.05.2018]
  */
 export interface IRemovedEntityWrapper<TEntity extends IEntity = IEntity> extends IRemovedWrapper<TEntity> {
 }
-
-export interface IFieldsWrapper<TFields> { fields?: TFields; }
-export interface IFieldWrapper<TField> { field?: TField; }
-export interface IPageWrapper<TPage = number> { page?: TPage; }
-export interface IViewerWrapper<TViewer> { viewer?: TViewer; }
 
 /**
  * @stable [24.09.2018]
@@ -789,27 +796,6 @@ export interface IPageSizeWrapper<TPageSize = number> {
  */
 export interface ILockPageWrapper<TLockPage = boolean> {
   lockPage?: TLockPage;
-}
-
-export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
-export interface IChangeableWrapper { changeable?: boolean; }
-export interface ICloseWrapper<TClose> { close?: TClose; }
-export interface IDirtyWrapper { dirty?: boolean; }
-export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
-export interface IValidWrapper { valid?: boolean; }
-
-/**
- * @stable [10.08.2018]
- */
-export interface IXWrapper<TX = number> {
-  x?: TX;
-}
-
-/**
- * @stable [10.08.2018]
- */
-export interface IYWrapper<TY = number> {
-  y?: TY;
 }
 
 /**

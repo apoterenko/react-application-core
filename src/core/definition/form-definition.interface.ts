@@ -36,7 +36,7 @@ import {
   IExtendedEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
-import { IFieldChangeEntity } from '../entities-definitions.interface';
+import { IFieldChangeEntity } from './field-definition.interface';
 import {
   IButtonProps,
   IGenericButtonEntity,

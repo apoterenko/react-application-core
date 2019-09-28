@@ -28,7 +28,7 @@ import {
   ITypeWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
-import { IUniversalComponentEntity } from '../definition';
+import { IUniversalComponentEntity } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 
 /**
