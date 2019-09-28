@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { joinClassName, fullFlexCls } from '../../../util';
+import { joinClassName, fullFlexClassName } from '../../../util';
 import { UniversalComponent } from '../../base';
 import { ISimpleListProps } from './simple-list.interface';
 
@@ -16,7 +16,7 @@ export class SimpleList extends UniversalComponent<ISimpleListProps> {
     return (
       <ul
         ref={this.selfRef}
-        className={joinClassName('rac-list', fullFlexCls(props), props.className)}>
+        className={joinClassName('rac-list', fullFlexClassName(props), props.className)}>
         {props.children}
       </ul>
     );

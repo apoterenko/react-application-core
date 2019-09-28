@@ -6,7 +6,7 @@ import {
 } from '../definition';
 import { IEntity } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
-import { isEditableEntityBusy, isEditableEntityValid } from './entity';
+import { isEditableEntityBusy, isEntityValid } from './entity';
 import { nvl } from './nvl';
 import { selectEditableEntity } from './mapper';
 
@@ -27,8 +27,18 @@ export const isFormEntityDisabled = <TEntity = IEntity>(entity: IFormEntity<TEnt
  * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormWrapperEntityValid = <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity<TEntity>): boolean =>
-  isEditableEntityValid(selectEditableEntity(entity));
+export const isFormEntityValid = <TEntity extends IEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
+  ifNotNilThanValue(
+    entity,
+    () => (
+      ifNotNilThanValue(
+        entity.valid,
+        () => entity.valid === true,                 // Redux validation
+        isEntityValid(selectEditableEntity(entity))  // TODO HTML5 validation (deprecated)
+      )
+    ),
+    false
+  );
 
 /**
  * @stable [25.09.2019]

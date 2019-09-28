@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { IEntity } from '../definitions.interface';
+import { IEntity, IValidWrapper } from '../definitions.interface';
 import {
   IEditableEntity,
   IFormWrapperEntity,
@@ -80,13 +80,13 @@ export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): stri
 );
 
 /**
- * @stable [11.09.2019]
- * @param {IEditableEntity<TValue>} editableEntity
+ * @stable [28.09.2019]
+ * @param {IValidWrapper} validEntity
  * @returns {boolean}
  */
-export const isEditableEntityValid = <TValue>(editableEntity: IEditableEntity<TValue>): boolean =>
+export const isEntityValid = <TValue>(validEntity: IValidWrapper): boolean =>
   ifNotNilThanValue(
-    editableEntity,
-    () => R.isNil(editableEntity.valid) || editableEntity.valid === true,
+    validEntity,
+    () => R.isNil(validEntity.valid) || validEntity.valid === true,
     false
   );

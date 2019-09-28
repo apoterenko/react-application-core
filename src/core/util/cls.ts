@@ -9,7 +9,7 @@ import { STRING_VALUE_PREDICATE } from './filter';
  * @param {IClassNameWrapper & IFullWrapper} entity
  * @returns {string}
  */
-export const fullFlexCls = (entity: IClassNameWrapper & IFullWrapper): string =>
+export const fullFlexClassName = (entity: IClassNameWrapper & IFullWrapper): string =>
   (entity.full !== false && !(entity.className || '').includes('rac-flex-')) && 'rac-flex-full';
 
 /**

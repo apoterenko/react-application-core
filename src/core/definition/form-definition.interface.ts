@@ -30,6 +30,7 @@ import {
   ISubmitTextWrapper,
   ISubmitWrapper,
   IValidateOnMountWrapper,
+  IValidWrapper,
 } from '../definitions.interface';
 import {
   IEditableEntity,
@@ -60,6 +61,7 @@ export interface IGenericFormEntity
     IChangeableWrapper,
     ICompactWrapper,
     IDisabledWrapper,
+    IValidWrapper,
     IFullWrapper,
     IReadOnlyWrapper,
     IResetActionRenderedWrapper,

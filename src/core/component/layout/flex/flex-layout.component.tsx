@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base/base.component';
 import { IFlexLayoutProps } from './flex-layout.interface';
-import { joinClassName, handlerPropsFactory, fullFlexCls, calc } from '../../../util';
+import { joinClassName, handlerPropsFactory, fullFlexClassName, calc } from '../../../util';
 
 export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
 
@@ -23,7 +23,7 @@ export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
             props.inline ? 'rac-inline-flex' : 'rac-flex',
             props.row ? 'rac-flex-row' : 'rac-flex-column',
             /**/
-            fullFlexCls(props),
+            fullFlexClassName(props),
             props.fullSize && 'rac-full-size',
             props.noShrink && 'rac-flex-no-shrink',
             /**/

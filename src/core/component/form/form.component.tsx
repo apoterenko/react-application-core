@@ -10,7 +10,7 @@ import {
   ifNotNilThanValue,
   isFn,
   isFormFieldReadOnly,
-  isFormWrapperEntityValid,
+  isFormEntityValid,
   isFormWrapperEntityBusy,
   isString,
   isUndef,
@@ -276,7 +276,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {boolean}
    */
   private isFormValid(): boolean {
-    return isFormWrapperEntityValid(this.props);
+    return isFormEntityValid(this.props);
   }
 
   /**

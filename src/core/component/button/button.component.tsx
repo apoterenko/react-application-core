@@ -3,10 +3,11 @@ import * as R from 'ramda';
 
 import { BaseComponent } from '../../component/base';
 import {
-  ifNotNilThanValue,
-  nvl,
-  toClassName,
+  fullFlexClassName,
   handlerPropsFactory,
+  ifNotNilThanValue,
+  joinClassName,
+  nvl,
 } from '../../util';
 import { IButtonProps } from '../../definition';
 import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
@@ -14,11 +15,12 @@ import { Link } from '../../component/link';
 
 export class Button extends BaseComponent<IButtonProps> {
 
-  public static defaultProps: IButtonProps = {
+  public static readonly defaultProps: IButtonProps = {
     type: 'button',
+    full: false,
   };
 
-  private buttonRef = React.createRef<HTMLButtonElement>();
+  private readonly buttonRef = React.createRef<HTMLButtonElement>();
 
   /**
    * @stable [27.01.2019]
@@ -30,13 +32,13 @@ export class Button extends BaseComponent<IButtonProps> {
     const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
     const hasIcon = hasIconButton(props);
 
-    const className = toClassName(
+    const className = joinClassName(
       'rac-button',
       'rac-flex',
       'rac-flex-row',
       'rac-flex-align-items-center',
       props.className,
-      props.full && 'rac-flex-full',
+      fullFlexClassName(props),
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
       hasIcon ? 'rac-button-decorated' : 'rac-button-not-decorated',
       props.mini && 'rac-button-mini',
@@ -68,9 +70,7 @@ export class Button extends BaseComponent<IButtonProps> {
         disabled={disabled}
         {...handlerPropsFactory(props.onClick, !disabled)}
       >
-        {
-          hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'))
-        }
+        {hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'))}
         {
           hasContent && (
             <div className='rac-button-content'>

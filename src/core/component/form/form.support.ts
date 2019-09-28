@@ -1,9 +1,9 @@
 import * as R from 'ramda';
 
 import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
-import { IFormProps } from '../../definition';
+import { IFormProps, IGenericFormEntity } from '../../definition';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
-import { isFormEntityDisabled, isFormWrapperEntityValid } from '../../util';
+import { isFormEntityDisabled, isFormEntityValid } from '../../util';
 
 /**
  * @stable [29.05.2018]
@@ -11,7 +11,7 @@ import { isFormEntityDisabled, isFormWrapperEntityValid } from '../../util';
  * @param {IFieldConfiguration} fieldProps
  * @returns {boolean}
  */
-export const isFormFieldDisabled = (formProps: IFormProps,
+export const isFormFieldDisabled = (formProps: IGenericFormEntity,
                                     fieldProps: IFieldConfiguration): boolean =>
   R.isNil(fieldProps.disabled)
     ? isFormEntityDisabled(formProps)
@@ -50,7 +50,7 @@ export const isFormDirty = (formProps: IFormProps): boolean =>
  * @returns {boolean}
  */
 export const isFormSubmittable = (formProps: IFormProps): boolean =>
-  isFormWrapperEntityValid(formProps)
+  isFormEntityValid(formProps)
     && isFormDirty(formProps)
     && !isFormEntityDisabled(formProps);
 
