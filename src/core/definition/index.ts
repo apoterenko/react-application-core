@@ -9,6 +9,7 @@ export * from './constructor-definition.interface';
 export * from './container-definition.interface';
 export * from './dictionary-definition.interface';
 export * from './dispatcher-definition.interface';
+export * from './dom-definition.interface';
 export * from './entity-definition.interface';
 export * from './env-definition.interface';
 export * from './error-definition.interface';

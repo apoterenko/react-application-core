@@ -22,9 +22,8 @@ export class ListItem extends UniversalComponent<IListItemProps> {
         <li {...this.itemProps}>
           {
             props.icon && (
-              <ListItemGraphic>
-                {this.uiFactory.makeIcon(props.icon)}
-              </ListItemGraphic>
+              <ListItemGraphic
+                iconConfiguration={props.icon}/>
             )
           }
           {

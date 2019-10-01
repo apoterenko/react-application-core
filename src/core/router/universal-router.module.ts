@@ -1,6 +1,6 @@
 import { appContainer, DI_TYPES } from '../di';
 import { IConnectorConfigEntity } from '../configurations-definitions.interface';
-import { IUniversalContainerCtor } from '../entities-definitions.interface';
+import { IUniversalContainerCtor } from '../definition';
 import { DYNAMIC_ROUTES } from './router.interface';
 
 /**

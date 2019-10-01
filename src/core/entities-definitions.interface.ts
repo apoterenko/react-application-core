@@ -22,7 +22,6 @@ import {
   IIconWrapper,
   IIdWrapper,
   IIndexWrapper,
-  IJQueryElement,
   IKeyValue,
   ILabelWrapper,
   IListWrapper,
@@ -57,15 +56,14 @@ import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IComponentProps,
   IEditableEntity,
+  IFieldChangeEntity,
+  IJQueryElement,
   ILifeCycleEntity,
+  INamedEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IUniversalComponent,
   IUniversalComponentEntity,
-  IUniversalContainerEntity,
-  IContainerProps,
-  INamedEntity,
-  IFieldChangeEntity,
 } from './definition';
 
 /**
@@ -83,24 +81,10 @@ export interface IUniversalComponentCtor<TProps extends IUniversalComponentEntit
 }
 
 /**
- * TODO
- */
-export interface IUniversalContainerCtor<TProps extends IUniversalContainerEntity = IUniversalContainerEntity, TState = {}>
-  extends ComponentClass<TProps, TState> {
-}
-
-/**
  * @stable [17.05.2018]
  */
 export interface IReactComponentClassEntity<TProps extends IComponentProps = IComponentProps, TState = {}>
   extends IUniversalComponentCtor<TProps, TState> {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IContainerClassEntity<TProps extends IContainerProps = IContainerProps, TState = {}>
-  extends IUniversalContainerCtor<TProps, TState> {
 }
 
 /**

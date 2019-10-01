@@ -19,12 +19,12 @@ import {
 } from '../../entities-definitions.interface';
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
-import { IDomAccessor } from '../dom-accessor/dom-accessor.interface';
 import {
   getTransport,
   getUiPlugins,
 } from '../../di';
 import {
+  IDomAccessor,
   IStorage,
   ITransport,
   IUniversalComponent,

@@ -13,7 +13,7 @@ import {
   parseValueAtPx,
   toJqEl,
 } from '../../../util';
-import { UNI_CODES, IChangeEvent, IJQueryElement } from '../../../definitions.interface';
+import { UNI_CODES, IChangeEvent } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
   FieldActionPositionEnum,
@@ -32,6 +32,7 @@ import {
   IBaseEvent,
   IEnvironment,
   IEventManager,
+  IJQueryElement,
 } from '../../../definition';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,

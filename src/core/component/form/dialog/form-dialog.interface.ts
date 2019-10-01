@@ -6,4 +6,7 @@ export interface IFormDialogProps
   IFormWrapperEntity {
 }
 
+/**
+ * @deprecated
+ */
 export const FORM_DIALOG_REF = 'formDialog';

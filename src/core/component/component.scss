@@ -1,14 +1,15 @@
 @import '~normalize.css/normalize';
 @import './access/denied/access-denied';
+@import './barcode/barcode';
 @import './button/button';
 @import './card/card';
 @import './chart/chart';
 @import './chip/chip';
 @import './common';
 @import './constant';
+@import './_core';
 @import './dialog/dialog';
 @import './dnd/dnd';
-@import './barcode/barcode';
 @import './drawer/drawer';
 @import './field/field';
 @import './form/form';

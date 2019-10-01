@@ -1,11 +1,23 @@
-import { IXYEntity } from '../../definition';
-import { IJQueryElement } from '../../definitions.interface';
+import JQuery from 'jquery';
+
+import { IXYEntity } from './xy-definition.interface';
 
 /**
- * @stable [01.12.2018]
+ * @stable [29.09.2019]
+ */
+export interface IJQueryElement<TElement extends Element = Element>
+  extends JQuery<TElement> {
+}
+
+/**
+ * @stable [29.09.2019]
  */
 export interface IDomAccessor {
+  addChild(child: Element, parent?: Element): Element;
   addClassNameToElement(element: Element, ...clsNames: string[]): void;
+  addRootElement(): Element;
+  createElement(tag?: string, parent?: Element): Element;
+  defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
   findUniversalSelectedElement(parent: Element): Element;
@@ -23,5 +35,5 @@ export interface IDomAccessor {
   scrollTo(payload: IXYEntity | Element, parent?: Element): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;
-  toJqEl(source: Element): IJQueryElement;
+  toJqEl(source: Element): IJQueryElement<Element>;
 }

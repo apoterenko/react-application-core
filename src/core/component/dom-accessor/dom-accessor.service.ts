@@ -2,7 +2,10 @@ import { injectable } from 'inversify';
 import * as R from 'ramda';
 
 import {
+  addChild,
   addClassNameToElement,
+  addRootElement,
+  createElement,
   findUniversalSelectedElement,
   getContentHeight,
   getHeight,
@@ -15,17 +18,64 @@ import {
   removeClassNameFromElement,
   scrollIntoView,
   scrollTo,
+  sequence,
   setScrollLeft,
   setScrollTop,
   toJqEl,
 } from '../../util';
-import { IDomAccessor } from './dom-accessor.interface';
-import { IXYEntity } from '../../definition';
-import { IJQueryElement } from '../../definitions.interface';
-import { ENV } from '../../env';
+import {
+  IDomAccessor,
+  IEnvironment,
+  IJQueryElement,
+  IXYEntity,
+} from '../../definition';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
+import { ISettings, IBootstrapSettings } from '../../settings';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
+  @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettings;
+
+  /**
+   * @stable [01.10.2019]
+   * @returns {Element}
+   */
+  public addRootElement(): Element {
+    return addRootElement(this.bootstrapSettings.rootId);
+  }
+
+  /**
+   * @stable [30.09.2019]
+   * @param {(e: Error) => void} callback
+   */
+  public defineGlobalErrorHandler(callback: (e: Error) => void): void {
+    const window = this.environment.window;
+    window.onerror = sequence(window.onerror, callback);
+  }
+
+  /**
+   * @stable [30.09.2019]
+   * @param {string} tag
+   * @param {Element} parent
+   * @returns {Element}
+   */
+  public createElement(tag?: string, parent?: Element): Element {
+    return createElement(tag, parent);
+  }
+
+  /**
+   * @stable [30.09.2019]
+   * @param {Element} child
+   * @param {Element} parent
+   * @returns {Element}
+   */
+  public addChild(child: Element, parent?: Element): Element {
+    return addChild(child, parent);
+  }
 
   /**
    * @stable [14.04.2019]
@@ -73,12 +123,11 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [13.01.2019]
+   * @stable [29.09.2019]
    * @returns {Element}
    */
   public getRootElement(): Element {
-    // TODO Inject name
-    return document.getElementById('root');
+    return this.environment.document.getElementById(this.bootstrapSettings.rootId);
   }
 
   /**
@@ -86,7 +135,7 @@ export class DomAccessor implements IDomAccessor {
    * @returns {Element}
    */
   public getDocumentBodyElement(): Element {
-    return ENV.documentBody;
+    return this.environment.document.body;
   }
 
   /**
@@ -204,5 +253,13 @@ export class DomAccessor implements IDomAccessor {
    */
   public setScrollTop(el: Element, top: number): void {
     setScrollTop(el, top);
+  }
+
+  /**
+   * @stable [01.10.2019]
+   * @returns {IBootstrapSettings}
+   */
+  private get bootstrapSettings(): IBootstrapSettings {
+    return this.settings.bootstrap || {};
   }
 }

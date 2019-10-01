@@ -7,9 +7,8 @@ import { ENV } from '../env';
  * @returns {string}
  */
 export const buildErrorMessage = (error: string | Error | {}, separator = '\n'): string => [
-  'Houston! We\'re in trouble!',
-  'Please send this screen to the developers.',
-  'Thank you!',
+  'Something went wrong',
+  'Please send this screenshot to your support manager.',
   `Build: ${ENV.appVersion}`,
   `Details info: [${(() => {
     try {

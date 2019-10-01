@@ -59,4 +59,11 @@ export interface IUIFactory {
    * @returns {JSX.Element}
    */
   makeSwitchAttachment?(): JSX.Element;
+
+  /**
+   * @stable [30.09.2019]
+   * @param {Error} e
+   * @returns {JSX.Element}
+   */
+  makeWindowErrorElement?(e: Error): JSX.Element;
 }

@@ -22,6 +22,7 @@ export enum TouchEventsEnum {
  * @stable [11.09.2019]
  */
 export enum EventsEnum {
+  LOAD = 'load',
   MOUSE_DOWN = 'mousedown',
   UNLOAD = 'unload',
 }

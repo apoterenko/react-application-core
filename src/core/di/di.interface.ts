@@ -31,6 +31,8 @@ export const DI_TYPES = Object.freeze({
   StateSerializer: Symbol('StateSerializer'),
   Translate: Symbol('Translate'),
   /**/
+  WebBootstrapper: Symbol('WebBootstrapper'),
+  /**/
   VersionProcessor: Symbol('VersionProcessor'),
   /**/
   Transport: Symbol('Transport'),

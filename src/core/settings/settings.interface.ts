@@ -132,6 +132,11 @@ export interface IStateSettings {
   syncTimeout?: number;
 }
 
+export interface IBootstrapSettings {
+  flexEnabled?: boolean;
+  rootId?: string;
+}
+
 export interface ISettings {
   signalRUrl?: string;
   downloadUrl?: string;
@@ -146,6 +151,7 @@ export interface ISettings {
   resourcePaths?: IApplicationResourcePaths;
   dateTime?: IDateTimeSettings;
   state?: IStateSettings;
+  bootstrap?: IBootstrapSettings;
   phone?: IApplicationPhoneSettings;
   currency?: IApplicationCurrencySettings;
   number?: IApplicationNumberSettings;
@@ -247,6 +253,9 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
     uiTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])',
     uiShortTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9])',
+  },
+  bootstrap: {
+    rootId: 'appId',
   },
   number: {
     uiPattern: REGEXP_REPO.number,

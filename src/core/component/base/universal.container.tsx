@@ -18,9 +18,9 @@ import {
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
   INavigateEntity,
-  IContainerClassEntity,
 } from '../../entities-definitions.interface';
 import {
+  IContainerCtor,
   IEnvironment,
   IEventManager,
   ILogManager,
@@ -233,9 +233,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @stable - 15.04.2018
-   * @returns {Map<IContainerClassEntity, IConnectorConfigEntity>}
+   * @returns {Map<IContainerCtor, IConnectorConfigEntity>}
    */
-  protected get dynamicRoutes(): Map<IContainerClassEntity, IConnectorConfigEntity> {
+  protected get dynamicRoutes(): Map<IContainerCtor, IConnectorConfigEntity> {
     return staticInjector(DI_TYPES.DynamicRoutes);
   }
 

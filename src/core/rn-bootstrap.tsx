@@ -10,13 +10,13 @@ LoggerFactory.configureLogLevel(
 );
 
 import { IApplicationContainerProps } from './component/application';
-import { IContainerClassEntity } from './entities-definitions.interface';
+import { IContainerCtor } from './definition';
 import { makeBootstrapApp } from './bootstrap/universal-bootstrap-app.factory';
 import { RnApplicationContainer } from './component/application/rn-application.container';
 
 export function rnBootstrap(
   containerName: string,
-  applicationContainer: IContainerClassEntity = RnApplicationContainer,
+  applicationContainer: IContainerCtor = RnApplicationContainer,
   props?: IApplicationContainerProps,
 ) {
   const componentClass = makeBootstrapApp(applicationContainer, props);

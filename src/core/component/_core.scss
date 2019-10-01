@@ -1,0 +1,54 @@
+@import './constant';
+@import './mixin';
+
+.rac {
+
+  /**
+   * @layout
+   * @stable [30.09.2019]
+   */
+  .rac-full-size {
+    @include rac-size(100%);
+  }
+
+  /**
+   * @layout
+   * @stable [30.09.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-absolute,
+    $rac-styles-position: absolute,
+    $rac-styles-top: 0,
+    $rac-styles-left: 0
+  );
+
+  /**
+   * @layout
+   * @stable [30.09.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-fixed,
+    $rac-styles-position: fixed,
+    $rac-styles-top: 0,
+    $rac-styles-left: 0
+  );
+
+  /**
+   * @layout
+   * @stable [30.09.2019]
+   */
+  @include rac-alignment-center (
+    $rac-alignment-center-top: $rac-alignment-center-top,
+    $rac-alignment-center-left: $rac-alignment-center-left,
+    $rac-alignment-center-position: $rac-alignment-center-position
+  );
+
+  /**
+   * @error
+   * @stable [30.09.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-window-error-wrapper,
+    $rac-styles-background: $rac-window-error-wrapper-background
+  );
+}

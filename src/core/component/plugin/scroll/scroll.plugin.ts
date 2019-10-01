@@ -1,7 +1,7 @@
-import { IDomAccessor } from '../../dom-accessor/dom-accessor.interface';
 import { IOnScrollWrapper } from '../../../definitions.interface';
 import { isFn, DelayedTask, sequence } from '../../../util';
 import {
+  IDomAccessor,
   IUniversalComponentEntity,
   IUniversalPlugin,
   IUniversalScrollableComponent,

@@ -1,14 +1,14 @@
 import * as R from 'ramda';
 
 import { DI_TYPES, lazyInject } from '../../di';
-import { IDomAccessor } from '../dom-accessor';
 import {
+  IDomAccessor,
   IUniversalPlugin,
   IUniversalScrollableComponent,
 } from '../../definition';
 
 export class PersistentScrollPlugin implements IUniversalPlugin {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
+  @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   private top: number;
   private left: number;

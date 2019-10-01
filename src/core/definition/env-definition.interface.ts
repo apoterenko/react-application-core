@@ -26,10 +26,12 @@ export interface IEnvironment {
   chromePlatform: boolean;
   document: Document;
   documentClickEvent: string;
+  googleKey: string;
   iosPlatform: boolean;
   macPlatform: boolean;
   mobilePlatform: boolean;
   platformOs: IEnvironmentOs;
+  prodMode: boolean;
   safariPlatform: boolean;
   window: Window;
   windowsPhonePlatform: boolean;

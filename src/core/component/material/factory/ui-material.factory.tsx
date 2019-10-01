@@ -124,6 +124,7 @@ import { DI_TYPES, lazyInject } from '../../../di';
 import { TranslatorT } from '../../../translation';
 import { IUIDefaultIconFactory } from '../../icon';
 import { FlexLayout } from '../../layout';
+import { UIDefaultFactory } from '../../ui/factory/ui-default-factory.service';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -298,6 +299,7 @@ export class UIMaterialFactory implements IUIFactory {
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;
+  @lazyInject(UIDefaultFactory) private defaultUIFactory: IUIFactory;
 
   /**
    * @stable [18.05.2018]
@@ -363,6 +365,15 @@ export class UIMaterialFactory implements IUIFactory {
    */
   public makeSwitchAttachment(): JSX.Element {
     return <div className='mdc-switch__track'/>;
+  }
+
+  /**
+   * @stable [30.09.2019]
+   * @param {Error} e
+   * @returns {JSX.Element}
+   */
+  public makeWindowErrorElement?(e: Error): JSX.Element {
+    return this.defaultUIFactory.makeWindowErrorElement(e);
   }
 
   /**

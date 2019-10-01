@@ -185,7 +185,6 @@ import {
 import {
   IMenuItemEntity,
   ISortDirectionEntity,
-  IUniversalContainerCtor,
 } from './entities-definitions.interface';
 import { IGridColumnProps } from './props-definitions.interface';
 import {
@@ -202,6 +201,7 @@ import {
   INamedConstructor,
   INavigationItemEntity,
   IUniversalComponentEntity,
+  IUniversalContainerCtor,
   IUniversalContainerEntity,
   IUniversalStoreEntity,
   IWebComponentEntity,

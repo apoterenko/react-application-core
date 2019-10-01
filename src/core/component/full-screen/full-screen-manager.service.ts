@@ -2,11 +2,11 @@ import { injectable } from 'inversify';
 
 import { DI_TYPES, lazyInject } from '../../di';
 import { IFullScreenManager } from './full-screen.interface';
-import { IDomAccessor } from '../dom-accessor';
+import { IDomAccessor } from '../../definition';
 
 @injectable()
 export class FullScreenManager implements IFullScreenManager {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
+  @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   /**
    * @stable [04.04.2019]

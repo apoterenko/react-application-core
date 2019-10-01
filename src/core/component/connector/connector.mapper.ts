@@ -1,35 +1,14 @@
-import * as R from 'ramda';
-
-import { isDef } from '../../util';
-
-import {
-  IDictionariesWrapperEntity,
-  IFilterFormWrapperEntity,
-  IListAndFilterFormWrapperEntity,
-  IListEntity,
-} from '../../entities-definitions.interface';
 import {
   IChannelWrapperEntity,
-  IEditableEntity,
   INotificationWrapperEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   IStackWrapperEntity,
-  ITransportWrapperEntity,
-  IUniversalStoreEntity,
-  IUserWrapperEntity,
   ILayoutWrapperEntity,
 } from '../../definition';
 import {
-  IFilterActionConfiguration,
-  ToolbarActionEnum,
-  IFilterConfiguration,
-} from '../../configurations-definitions.interface';
-import {
   universalDefaultMappers,
-  actionsDisabledListWrapperEntityMapper,
 } from './universal-connector.mapper';
-import { IEntity, IKeyValue } from '../../definitions.interface';
 
 export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
@@ -60,49 +39,6 @@ export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEnti
  */
 export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
     filterMapper(filterState.filter);
-
-/**
- * @stable [29.05.2018]
- * @param {IEditableEntity} editableEntity
- * @returns {IFilterActionConfiguration}
- */
-export const activeClassNameEditableEntityMapper = (editableEntity: IEditableEntity): IFilterActionConfiguration =>
-  ({className: editableEntity && editableEntity.dirty && 'rac-filter-active'});
-
-/**
- * @stable [29.05.2018]
- * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
- * @returns {IFilterActionConfiguration}
- */
-export const activeClassNameFilterFormWrapperEntityMapper =
-  (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration =>
-    activeClassNameEditableEntityMapper(filterFormWrapperEntity.filterForm);
-
-/**
- * @stable [29.05.2018]
- * @param {IFilterFormWrapperEntity} filterFormWrapperEntity
- * @returns {IFilterActionConfiguration}
- */
-export const openFilterFilterFormWrapperEntityMapper =
-  (filterFormWrapperEntity: IFilterFormWrapperEntity): IFilterActionConfiguration => ({
-    type: ToolbarActionEnum.OPEN_FILTER,
-    ...activeClassNameFilterFormWrapperEntityMapper(filterFormWrapperEntity),
-  });
-
-/**
- * @deprecated
- */
-export const refreshListAndFilterFormWrapperEntityMapper =
-  (mappedEntity: IListAndFilterFormWrapperEntity, actions?: IFilterActionConfiguration[]): IFilterConfiguration => ({
-    actions: (
-      isDef(mappedEntity.filterForm)
-        ? [openFilterFilterFormWrapperEntityMapper(mappedEntity)]
-        : []
-    ).concat((actions || []).map((action) => ({disabled: R.isNil(mappedEntity.list.data) || mappedEntity.list.progress, ...action}))),
-    notUseField: true,
-    icon: 'refresh',
-    ...actionsDisabledListWrapperEntityMapper(mappedEntity),
-  });
 
 /**
  * @stable [18.09.2018]

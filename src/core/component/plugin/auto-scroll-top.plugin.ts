@@ -1,6 +1,6 @@
 import { DI_TYPES, lazyInject } from '../../di';
-import { IDomAccessor } from '../../component/dom-accessor';
 import {
+  IDomAccessor,
   IUniversalComponent,
   IUniversalPlugin,
 } from '../../definition';

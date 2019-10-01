@@ -4,7 +4,6 @@ import {
   IStickyElementPayloadEntity,
 } from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
-import { IDomAccessor } from '../dom-accessor';
 import {
   getStickyElementInitialProperties,
   setStickyElementProperties,
@@ -12,6 +11,7 @@ import {
   DelayedTask,
 } from '../../util';
 import {
+  IDomAccessor,
   IUniversalPlugin,
   IUniversalScrollableComponent,
 } from '../../definition';

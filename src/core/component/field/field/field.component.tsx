@@ -9,7 +9,6 @@ import {
   orNull,
   orUndef,
   toClassName,
-  toJqEl,
 } from '../../../util';
 import {
   AnyT,
@@ -17,7 +16,6 @@ import {
   IChangeEvent,
   UNI_CODES,
   IFocusEvent,
-  IJQueryInputElement,
   } from '../../../definitions.interface';
 import {
   IField,
@@ -28,7 +26,10 @@ import {
   INativeMaskedInputComponent,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
-import { IBaseEvent } from '../../../definition';
+import {
+  IBaseEvent,
+  IJQueryElement,
+} from '../../../definition';
 
 export class Field<TInternalProps extends IFieldInternalProps,
                    TState extends IFieldState = IFieldState>
@@ -405,9 +406,10 @@ export class Field<TInternalProps extends IFieldInternalProps,
   }
 
   /**
-   * TODO domAccessor
+   * @stable [29.09.2019]
+   * @returns {IJQueryElement}
    */
-  protected get jqInput(): IJQueryInputElement {
-    return toJqEl(this.input) as IJQueryInputElement;
+  protected get jqInput(): IJQueryElement {
+    return this.domAccessor.toJqEl(this.input);
   }
 }

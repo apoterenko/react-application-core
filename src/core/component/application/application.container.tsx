@@ -5,6 +5,7 @@ import { uuid, isFn } from '../../util';
 import { DI_TYPES, bindToConstantValue } from '../../di';
 import {
   EventsEnum,
+  IContainerCtor,
   IRouterEntity,
   IRouterWrapperEntity,
   IStoreEntity,
@@ -18,9 +19,6 @@ import {
   ContainerVisibilityTypeEnum,
   IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
-import {
-  IContainerClassEntity,
-} from '../../entities-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 
 export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEntity>
@@ -70,7 +68,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
   }
 
   // TODO refactoring
-  protected buildRoute(ctor: IContainerClassEntity,
+  protected buildRoute(ctor: IContainerCtor,
                        connectorConfiguration: IConnectorConfigEntity,
                        cfg: IRouteConfigEntity): JSX.Element {
     let Component;

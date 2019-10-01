@@ -60,10 +60,6 @@ html, body {
     $rac-styles-font-weight: bold
   );
 
-  .rac-full-size {
-    @include rac-size(100%);                                                                  /* @stable [27.11.2018] */
-  }
-
   @include rac-styles(                                                                        /* @stable [28.06.2019] */
     $rac-styles-custom: rac-strong,
     $rac-styles-font-weight: $rac-font-weight-2
@@ -74,13 +70,6 @@ html, body {
     $rac-styles-position: absolute !important,
     $rac-styles-top: -10000px,
     $rac-styles-left: -10000px
-  );
-
-  @include rac-styles(                                                                        /* @stable [30.01.2019] */
-    $rac-styles-custom: rac-absolute,
-    $rac-styles-position: absolute,
-    $rac-styles-top: 0,
-    $rac-styles-left: 0
   );
 
   @include rac-styles(                                                                        /* @stable [20.01.2019] */

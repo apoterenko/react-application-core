@@ -60,3 +60,18 @@ export interface IUniversalContainer<TProps extends IUniversalContainerProps = I
 export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
   extends IUniversalContainer<TProps, TState> {
 }
+
+/**
+ * @react-native-compatible
+ * @stable [01.10.2019]
+ */
+export interface IUniversalContainerCtor<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+  extends React.ComponentClass<TProps, TState> {
+}
+
+/**
+ * @stable [01.10.2019]
+ */
+export interface IContainerCtor<TProps extends IContainerProps = IContainerProps, TState = {}>
+  extends IUniversalContainerCtor<TProps, TState> {
+}

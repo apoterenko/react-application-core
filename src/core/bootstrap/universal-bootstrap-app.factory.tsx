@@ -1,21 +1,20 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
-import { IUniversalContainerEntity, IContainerProps } from '../definition';
-import { IContainerClassEntity } from '../entities-definitions.interface';
+import { IUniversalContainerEntity, IContainerProps, IContainerCtor } from '../definition';
 import { universalConnectorFactory } from '../component/connector/universal-connector.factory';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { UniversalContainer } from '../component/base/universal.container';
 
 /**
  * @stable - 23.04.2018
- * @param {IContainerClassEntity} applicationContainer
+ * @param {IContainerCtor} applicationContainer
  * @param {IUniversalContainerEntity} initialProps
- * @returns {IContainerClassEntity}
+ * @returns {IContainerCtor}
  */
 export const makeBootstrapApp =
-  (applicationContainer: IContainerClassEntity, initialProps?: IUniversalContainerEntity):
-    IContainerClassEntity => {
+  (applicationContainer: IContainerCtor, initialProps?: IUniversalContainerEntity):
+    IContainerCtor => {
     const Component = universalConnectorFactory(applicationContainer, (state) => ({...state.application}));
 
     return class extends UniversalContainer {

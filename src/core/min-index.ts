@@ -1,6 +1,5 @@
 export * from './application/universal-application.effects';
 export * from './bootstrap/react-app.bootstrapper';
-export * from './bootstrap/web-app.bootstrapper';
 export * from './component/application/application-action.builder';
 export * from './component/application/application.container';
 export * from './component/base/base.component';

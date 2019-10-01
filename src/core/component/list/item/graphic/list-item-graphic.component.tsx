@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../../util';
 import { BaseComponent } from '../../../base';
 import { FlexLayout } from '../../../layout';
+import { IListItemGraphicProps } from './list-item-graphic.interface';
+import { joinClassName } from '../../../../util';
 
-export class ListItemGraphic extends BaseComponent {
+export class ListItemGraphic extends BaseComponent<IListItemGraphicProps> {
 
   /**
    * @stable [30.10.2018]
@@ -14,12 +15,13 @@ export class ListItemGraphic extends BaseComponent {
     const props = this.props;
 
     return (
-      <FlexLayout full={false}
-                  alignItemsCenter={true}
-                  justifyContentCenter={true}
-                  row={true}
-                  className={toClassName('rac-list-item-graphic', props.className)}>
-        {props.children}
+      <FlexLayout
+        full={false}
+        alignItemsCenter={true}
+        justifyContentCenter={true}
+        row={true}
+        className={joinClassName('rac-list-item-graphic', props.className)}>
+        {this.uiFactory.makeIcon(props.iconConfiguration)}
       </FlexLayout>
     );
   }

@@ -12,7 +12,7 @@ import {
   IConnectorConfigEntity,
   IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
-import { IContainerClassEntity } from '../../entities-definitions.interface';
+import { IContainerCtor } from '../../definition';
 import { UniversalApplicationContainer } from './universal-application.container';
 import { IRnApplicationContainerProps } from './rn-application.interface';
 import { RnMessage } from '../message/rn-message.component';
@@ -48,7 +48,7 @@ export class RnApplicationContainer extends UniversalApplicationContainer<IRnApp
     );
   }
 
-  protected buildRoute(ctor: IContainerClassEntity,
+  protected buildRoute(ctor: IContainerCtor,
                        connectorConfiguration: IConnectorConfigEntity,
                        cfg: IRouteConfigEntity): JSX.Element {
     return (

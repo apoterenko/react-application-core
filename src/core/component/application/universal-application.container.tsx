@@ -9,12 +9,11 @@ import {
   ContainerVisibilityTypeEnum,
   IRouteConfigEntity,
 } from '../../configurations-definitions.interface';
-import { IContainerClassEntity } from '../../entities-definitions.interface';
 import {
   ApplicationEventCategoriesEnum,
   ApplicationStateEventsEnum,
-  IUniversalContainerEntity,
   STORAGE_APP_STATE_KEY,
+  IContainerCtor,
 } from '../../definition';
 import { UniversalContainer } from '../base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
@@ -32,7 +31,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   };
 
   private static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
-  private extraRoutes = new Map<IContainerClassEntity, IConnectorConfigEntity>();
+  private extraRoutes = new Map<IContainerCtor, IConnectorConfigEntity>();
   private syncStateWithStorageTask: DelayedTask;
   private storeUnsubscriber: Unsubscribe;
 
@@ -82,7 +81,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
       .concat(this.buildRoutes(this.extraRoutes, routePredicate));
   }
 
-  protected lookupConnectedContainerByRoutePath(path: string): IContainerClassEntity {
+  protected lookupConnectedContainerByRoutePath(path: string): IContainerCtor {
     if (!path) {
       UniversalApplicationContainer.logger.warn(
         '[$UniversalApplicationContainer][lookupConnectedContainerByRoutePath] The path is empty.'
@@ -104,7 +103,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     return result;
   }
 
-  protected registerRoute(container: IContainerClassEntity, config: IConnectorConfigEntity): void {
+  protected registerRoute(container: IContainerCtor, config: IConnectorConfigEntity): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -219,11 +218,11 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     return true;
   }
 
-  protected abstract buildRoute(ctor: IContainerClassEntity,
+  protected abstract buildRoute(ctor: IContainerCtor,
                                 connectorConfiguration: IConnectorConfigEntity,
                                 routeConfiguration: IRouteConfigEntity): JSX.Element;
 
-  private buildRoutes(map: Map<IContainerClassEntity, IConnectorConfigEntity>,
+  private buildRoutes(map: Map<IContainerCtor, IConnectorConfigEntity>,
                       routePredicate: RoutePredicateT): JSX.Element[] {
     const routes0: string[] = [];
     const routes: JSX.Element[] = [];

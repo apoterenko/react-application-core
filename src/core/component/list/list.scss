@@ -10,12 +10,15 @@
     overflow-y: $rac-list-overflow-y;                                                     /* @stable [29.10.2018] */
   }
 
-  @include rac-list (                                                                         /* @stable [23.09.2019] */
+  @include rac-list (                                                                         /* @stable [01.10.2019] */
     $rac-list-item-border-radius: $rac-list-item-border-radius,
     $rac-list-item-color: $rac-list-item-color,
     $rac-list-item-cursor: $rac-list-item-cursor,
     $rac-list-item-font-size: $rac-list-item-font-size,
     $rac-list-item-font-weight: $rac-list-item-font-weight,
+    $rac-list-item-graphic-background: $rac-list-item-graphic-background,
+    $rac-list-item-graphic-border-radius: $rac-list-item-graphic-border-radius,
+    $rac-list-item-graphic-icon-color: $rac-list-item-graphic-icon-color,
     $rac-list-item-graphic-margin: $rac-list-item-graphic-margin,
     $rac-list-item-graphic-size: $rac-list-item-graphic-size,
     $rac-list-item-margin: $rac-list-item-margin,
@@ -25,18 +28,4 @@
     $rac-list-margin: $rac-list-margin,
     $rac-list-padding: $rac-list-padding
   );
-
-  .rac-list {
-
-    .rac-list-item {
-
-      .rac-list-item-graphic {
-        background-color: $rac-list-item-graphic-background-color;  /* @stable [25.06.2018] */
-
-        .rac-icon {
-          color: $rac-list-item-graphic-icon-color;                 /* @stable [25.06.2018] */
-        }
-      }
-    }
-  }
 }

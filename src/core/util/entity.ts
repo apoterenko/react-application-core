@@ -53,20 +53,24 @@ export const isEditableEntityBusy = <TEntity extends IEntity>(editableEntity: IE
   );
 
 /**
- * @stable [30.01.2019]
- * @param {IExtendedEntity<TEntity extends IEntity>} entityWrapper
+ * @stable [01.10.2019]
+ * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
  * @returns {boolean}
  */
-export const isNewExtendedEntity = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
-  entityWrapper.newEntity === true;
+export const isNewExtendedEntity = <TEntity extends IEntity>(extendedEntity: IExtendedEntity<TEntity>): boolean =>
+  ifNotNilThanValue(
+    extendedEntity,
+    () => extendedEntity.newEntity === true,
+    false
+  );
 
 /**
- * @stable [30.01.2019]
- * @param {IExtendedEntity<TEntity extends IEntity>} entityWrapper
+ * @stable [01.10.2019]
+ * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
  * @returns {boolean}
  */
-export const doesExtendedEntityExist = <TEntity extends IEntity>(entityWrapper: IExtendedEntity<TEntity>): boolean =>
-  !R.isNil(entityWrapper) && !isNewExtendedEntity(entityWrapper);
+export const doesExtendedEntityExist = <TEntity extends IEntity>(extendedEntity: IExtendedEntity<TEntity>): boolean =>
+  !isNewExtendedEntity(extendedEntity);
 
 /**
  * @stable [30.08.2019]

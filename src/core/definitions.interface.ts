@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
-import JQuery from 'jquery';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -1035,6 +1034,7 @@ export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
 export interface IFlexEnabledWrapper { flexEnabled?: boolean; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
+export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
@@ -1859,19 +1859,6 @@ export interface IStringToWrapper extends IToWrapper<string> {
  * @stable [09.12.2018]
  */
 export type EntityCallbackWrapperT<TResult = string> = (entity: IEntity) => TResult;
-
-/**
- * @stable [01.12.2018]
- */
-export interface IJQueryElement<TElement extends Element = Element> extends JQuery<TElement> {
-}
-
-/**
- * @stable [07.01.2019]
- */
-export interface IJQueryInputElement extends IJQueryElement<HTMLElement> {
-  caret?(position?: number): number;
-}
 
 /**
  * @stable [10.09.2019]

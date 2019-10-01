@@ -1,6 +1,10 @@
 import { injectable } from 'inversify';
 
-import { IEnvironment, EventsEnum, TouchEventsEnum } from '../definition';
+import {
+  EventsEnum,
+  IEnvironment,
+  TouchEventsEnum,
+} from '../definition';
 import { ENV } from './env.interface';
 
 @injectable()
@@ -13,10 +17,12 @@ export class Environment implements IEnvironment {
   public readonly chromePlatform = ENV.chromePlatform;
   public readonly document = ENV.document;
   public readonly documentClickEvent = ENV.mobilePlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN;
+  public readonly googleKey = ENV.googleKey;
   public readonly iosPlatform = ENV.iosPlatform;
   public readonly macPlatform = ENV.macPlatform;
   public readonly mobilePlatform = ENV.mobilePlatform;
   public readonly platformOs = ENV.platformOs;
+  public readonly prodMode = ENV.prodMode;
   public readonly safariPlatform = ENV.safariPlatform;
   public readonly window = ENV.window;
   public readonly windowsPhonePlatform = ENV.windowsPhonePlatform;

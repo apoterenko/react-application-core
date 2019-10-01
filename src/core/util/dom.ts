@@ -10,12 +10,14 @@ import { nvl } from './nvl';
 import { notNilValuesArrayFilter } from './filter';
 import {
   AnyT,
-  IJQueryElement,
   UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
   UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../definitions.interface';
 import { IStickyElementPayloadEntity } from '../entities-definitions.interface';
-import { IXYEntity } from '../definition';
+import {
+  IJQueryElement,
+  IXYEntity,
+} from '../definition';
 
 let googleMapsScriptTask: BPromise<HTMLScriptElement>;
 
@@ -69,7 +71,7 @@ export const getGoogleMapsScript = (libraries: string): BPromise<HTMLScriptEleme
  * @param {string} clsName
  */
 export const addClassNameToElement = (element: Element, ...clsName: string[]): void =>
-  element.classList.add(...clsName);
+  element.classList.add(...notNilValuesArrayFilter(...clsName));
 
 /**
  * @stable [30.10.2018]
@@ -95,8 +97,7 @@ export const addRootElement = (rootId: string): Element => {
  * @stable [14.11.2018]
  * @param {string} clsName
  */
-export const addClassNameToBody = (...clsName: string[]): void => addClassNameToElement(document.body,
-  ...notNilValuesArrayFilter(...clsName));
+export const addClassNameToBody = (...clsName: string[]): void => addClassNameToElement(document.body, ...clsName);
 
 /**
  * @stable [28.06.2018]

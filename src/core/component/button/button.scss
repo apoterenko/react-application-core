@@ -4,22 +4,23 @@
 // Button [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-button(                                                                        /* @stable [31.10.2018] */
-    $rac-button-height: $rac-button-height,
-    $rac-button-border-radius: $rac-button-border-radius,
+  @include rac-button (                                                                       /* @stable [31.10.2018] */
     $rac-button-background: $rac-button-background,
+    $rac-button-border-radius: $rac-button-border-radius,
     $rac-button-border: $rac-button-border,
-    $rac-button-padding: $rac-button-padding,
-    $rac-button-text-transform: $rac-button-text-transform,
-    $rac-button-cursor: $rac-button-cursor,
-    $rac-button-disabled-cursor: $rac-button-disabled-cursor,
-    $rac-button-disabled-opacity: $rac-button-disabled-opacity,
-    $rac-button-disabled-background: $rac-button-disabled-background,
-    $rac-button-disabled-shadow: $rac-button-disabled-shadow,
-    $rac-button-content-margin: $rac-button-content-margin,
     $rac-button-content-font-size: $rac-button-content-font-size,
     $rac-button-content-font-weight: $rac-button-content-font-weight,
-    $rac-button-content-white-space: $rac-button-content-white-space
+    $rac-button-content-margin: $rac-button-content-margin,
+    $rac-button-content-white-space: $rac-button-content-white-space,
+    $rac-button-content-word-break: $rac-button-content-word-break,
+    $rac-button-cursor: $rac-button-cursor,
+    $rac-button-disabled-background: $rac-button-disabled-background,
+    $rac-button-disabled-cursor: $rac-button-disabled-cursor,
+    $rac-button-disabled-opacity: $rac-button-disabled-opacity,
+    $rac-button-disabled-shadow: $rac-button-disabled-shadow,
+    $rac-button-height: $rac-button-height,
+    $rac-button-padding: $rac-button-padding,
+    $rac-button-text-transform: $rac-button-text-transform
   );
 
   @include rac-button(                                                                        /* @stable [01.11.2018] */
