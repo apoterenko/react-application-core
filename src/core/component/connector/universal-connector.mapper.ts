@@ -156,7 +156,7 @@ export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>
   entity.changes as TResult;
 
 /**
- * @deprecated
+ * @deprecated Use mapExtendedEntity
  */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
                                                       editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
