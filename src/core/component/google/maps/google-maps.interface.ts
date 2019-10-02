@@ -15,9 +15,10 @@ import {
   IZoomWrapper,
 } from '../../../definitions.interface';
 import {
+  IComponent,
+  ILatLngEntity,
   IMenuItemEntity,
-} from '../../../entities-definitions.interface';
-import { ILatLngEntity, IComponent } from '../../../definition';
+} from '../../../definition';
 
 /**
  * @stable [31.07.2018]
@@ -52,7 +53,7 @@ export enum GoogleMapsMapTypeEnum {
 export interface IGoogleMapsProps
   extends IComponentProps,
     IMenuOptionsWrapper<IMenuItemEntity[]>,
-    IOnSelectWrapper<IGoogleMapsSelectEntity>,
+    IOnSelectWrapper<(item: IGoogleMapsSelectEntity) => void>,
     IOptionsWrapper<google.maps.MapOptions>,
     IOnInitWrapper,
     IOnChangePlaceWrapper<IGoogleMapsMarkerChangePlaceEntity>,

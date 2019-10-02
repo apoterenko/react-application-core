@@ -5,7 +5,7 @@ import {
   ITplFnWrapper,
   IMaxCountWrapper,
 } from '../../definitions.interface';
-import { IMenuItemEntity } from '../../entities-definitions.interface';
+import { IMenuItemEntity } from '../../definition';
 import { IVueComponent } from '../../vue-entities-definitions.interface';
 
 /**

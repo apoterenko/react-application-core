@@ -3,9 +3,12 @@ import { Component, Prop } from 'vue-property-decorator';
 import * as R from 'ramda';
 
 import { DI_TYPES, lazyInject } from '../../di';
-import { IEventManager } from '../../definition';
+import {
+  IEventManager,
+  IMenuItemEntity,
+} from '../../definition';
 import { EntityIdT } from '../../definitions.interface';
-import { IMenuItemEntity, IMenuMaterialComponent } from '../../entities-definitions.interface';
+import { IMenuMaterialComponent } from '../../entities-definitions.interface';
 import { setWidth, isNumber, isDef, removeSelf, subArray } from '../../util';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';

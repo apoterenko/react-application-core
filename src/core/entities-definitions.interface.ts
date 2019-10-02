@@ -19,11 +19,9 @@ import {
   IFilterWrapper,
   IFromDateFromTimeEntity,
   IGetValueWrapper,
-  IIconWrapper,
   IIdWrapper,
   IIndexWrapper,
   IKeyValue,
-  ILabelWrapper,
   IListWrapper,
   ILoadingWrapper,
   INameWrapper,
@@ -59,7 +57,6 @@ import {
   IFieldChangeEntity,
   IJQueryElement,
   ILifeCycleEntity,
-  INamedEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IUniversalComponent,
@@ -230,34 +227,6 @@ export interface IDictionariesWrapperEntity extends IDictionariesWrapper<IDictio
 /* @stable - 22.04.2018 */
 export interface IDictionariesEntity {
   [dictionary: string]: IDictionaryEntity<{}>;
-}
-
-/**
- * @stable [13.10.2018]
- */
-export interface ILabeledValueEntity<TValue = AnyT> extends IValueWrapper<TValue>,
-                                                            ILabelWrapper {
-}
-
-/**
- * @stable [05.06.2018]
- */
-export interface IMenuItemEntity<TRawData extends IEntity = IEntity, TValue = EntityIdT> extends ILabeledValueEntity<TValue>,
-                                                                                                 IIconWrapper,
-                                                                                                 IDisabledWrapper,
-                                                                                                 IRawDataWrapper<TRawData> {
-}
-
-/**
- * @stable [05.06.2018]
- */
-export interface ISelectOptionEntity<TRawData extends INamedEntity = INamedEntity> extends IMenuItemEntity<TRawData> {
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IStringMenuActionEntity extends IMenuItemEntity<IEntity, string> {
 }
 
 /**

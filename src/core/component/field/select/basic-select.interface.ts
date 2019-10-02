@@ -7,9 +7,10 @@ import {
   IOnFilterChangeWrapper,
   IPayloadWrapper,
   IQueryWrapper,
+  IMenuConfigurationWrapper,
 } from '../../../definitions.interface';
-import { ISelectOptionEntity } from '../../../entities-definitions.interface';
-import { IMenuConfigurationWrapper, IFieldConfiguration } from '../../../configurations-definitions.interface';
+import { ISelectOptionEntity, IMenuProps } from '../../../definition';
+import { IFieldConfiguration } from '../../../configurations-definitions.interface';
 import {
   IBaseTextFieldProps,
 } from '../textfield/base-textfield.interface';
@@ -35,7 +36,7 @@ export interface IBasicSelectConfiguration extends IFieldConfiguration,
 export interface IBaseSelectProps
   extends IBasicSelectConfiguration,
     IBaseTextFieldProps,
-    IMenuConfigurationWrapper,
+    IMenuConfigurationWrapper<IMenuProps>,
     IForceReloadWrapper,
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {

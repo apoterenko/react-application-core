@@ -11,8 +11,6 @@ import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
-import { IOperationEntity } from '../../../definition';
-import { IStringMenuActionEntity, IMenuItemEntity } from '../../../entities-definitions.interface';
 import { FlexLayout } from '../../layout';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
@@ -27,7 +25,10 @@ import { Link } from '../../link';
 import {
   IBaseEvent,
   ILayoutEntity,
+  IMenuItemEntity,
   INavigationItemEntity,
+  IOperationEntity,
+  IStringMenuActionEntity,
   IXYEntity,
   LayoutModeEnum,
 } from '../../../definition';

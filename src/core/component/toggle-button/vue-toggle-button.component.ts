@@ -1,7 +1,7 @@
 import { Component, Prop } from 'vue-property-decorator';
 
 import { toClassName } from '../../util';
-import { ILabeledValueEntity } from '../../entities-definitions.interface';
+import { ILabeledValueEntity } from '../../definition';
 import { ComponentName } from '../connector/vue-index';
 import { VueBaseComponent } from '../base/vue-index';
 

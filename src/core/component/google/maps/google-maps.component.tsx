@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
-import { Menu, IMenu } from '../../menu';
+import { Menu } from '../../menu';
 import {
   getGoogleMapsScript,
   DelayedTask,
@@ -21,14 +21,17 @@ import {
   IGoogleMapsProps,
   IGoogleMapsHeatMapLayerConfigEntity,
 } from './google-maps.interface';
-import { IMenuItemEntity } from '../../../entities-definitions.interface';
 import {
   IGoogleMaps,
   IGoogleMapsClickPayloadEntity,
   GoogleMapsMapTypeEnum,
 } from './google-maps.interface';
 import { FlexLayout } from '../../layout';
-import { ILatLngEntity } from '../../../definition';
+import {
+  ILatLngEntity,
+  IMenuItemEntity,
+  IMenu,
+} from '../../../definition';
 import { IGoogleMapsSettings } from '../../../settings';
 
 export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
@@ -121,8 +124,8 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
             () => (
               <Menu
                 ref='menu'
-                renderToX={() => this.x + this.getSelf().offsetLeft}
-                renderToY={() => this.y + this.getSelf().offsetTop}
+                xPosition={() => this.x + this.getSelf().offsetLeft}
+                yPosition={() => this.y + this.getSelf().offsetTop}
                 options={props.menuOptions}
                 onSelect={this.onMenuSelect}/>
             )

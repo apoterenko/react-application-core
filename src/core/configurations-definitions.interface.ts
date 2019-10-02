@@ -32,7 +32,6 @@ import {
   ICanReturnClearDirtyChangesValueWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
   ICenterAlignmentWrapper,
-  ICenteredMenuWrapper,
   ICenteredWrapper,
   IChangeableWrapper,
   IChangeFormWrapper,
@@ -72,9 +71,7 @@ import {
   IFieldRenderedWrapper,
   IFieldWrapper,
   IFilterFnWrapper,
-  IFilterPlaceholderWrapper,
   IFilterRendererWrapper,
-  IFilterWrapper,
   IFocusEvent,
   IForwardRenderedWrapper,
   IFullWrapper,
@@ -93,7 +90,6 @@ import {
   IHeaderTitleStyleWrapper,
   IHeaderWidthWrapper,
   IHideNavBarWrapper,
-  IHomeWrapper,
   IHoveredWrapper,
   IIconWrapper,
   IIndexWrapper,
@@ -108,10 +104,8 @@ import {
   IMappersWrapper,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
-  IMaxCountWrapper,
   IMessageWrapper,
   IMoreOptionsWrapper,
-  IMultiWrapper,
   INameWrapper,
   INavigationActionTypeWrapper,
   INotUseFieldWrapper,
@@ -128,7 +122,6 @@ import {
   IOnDelayWrapper,
   IOnEmptyDictionaryWrapper,
   IOnEnterWrapper,
-  IOnFilterChangeWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
   IOnMoreOptionsSelectWrapper,
@@ -141,8 +134,6 @@ import {
   IRenderedWrapper,
   IRendererWrapper,
   IRenderToBodyWrapper,
-  IRenderToXWrapper,
-  IRenderToYWrapper,
   IRequiredWrapper,
   IRippableWrapper,
   ISelectableWrapper,
@@ -166,7 +157,6 @@ import {
   IUrlWrapper,
   IUseAddActionWrapper,
   IUseDrawerWrapper,
-  IUseFilterWrapper,
   IUseGroupingWrapper,
   IUseHeaderWrapper,
   IUseIndicatorWrapper,
@@ -183,7 +173,6 @@ import {
   IAccessConfigurationWrapper,
 } from './definitions.interface';
 import {
-  IMenuItemEntity,
   ISortDirectionEntity,
 } from './entities-definitions.interface';
 import { IGridColumnProps } from './props-definitions.interface';
@@ -198,6 +187,8 @@ import {
   IComponentProps,
   IFieldChangeEntity,
   IGenericFieldEntity,
+  IMenuItemEntity,
+  IMenuProps,
   INamedConstructor,
   INavigationItemEntity,
   IUniversalComponentEntity,
@@ -234,13 +225,6 @@ export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfi
  */
 export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldConfiguration> {
   fieldConfiguration?: TFieldConfiguration;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IMenuConfigurationWrapper<TMenuConfiguration = IMenuConfiguration> {
-  menuConfiguration?: TMenuConfiguration;
 }
 
 /**
@@ -304,7 +288,7 @@ export interface INavigationHandlersConfiguration {
  * @stable [24.04.2018]
  */
 export interface IUniversalListItemConfiguration extends IUniversalComponentEntity,
-                                                         IRendererWrapper,
+                                                         IRendererWrapper<(item: any, index?: number) => JSX.Element>, // TODO
                                                          IIndexWrapper,
                                                          ITplFnWrapper,
                                                          IWarningWrapper {
@@ -349,7 +333,7 @@ export interface IUniversalListConfiguration
           IEmptyDataMessageWrapper,
           IUseAddActionWrapper,
           IOnCreateWrapper,
-          IOnSelectWrapper,
+          IOnSelectWrapper<(entity: IEntity) => void>,
           IOnChangeWrapper<IFieldChangeEntity>,
           IOnChangeHeaderWrapper<IFieldChangeEntity>,
           IOnChangeFilterWrapper<IFieldChangeEntity>,
@@ -411,7 +395,7 @@ export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
                                                   ITplWrapper<((entity: IEntity, column?: IGridColumnProps, rowNum?: number) => StringNumberT)>,
                                                   INameWrapper,
                                                   IRenderedWrapper,
-                                                  IRendererWrapper<IEntity, IGridColumnConfiguration>,
+                                                  IRendererWrapper<(entity: IEntity, context: IGridColumnConfiguration, items: any) => JSX.Element>,
                                                   IActionedWrapper,
                                                   IHeaderRendererWrapper<IGridColumnConfiguration>,
                                                   IFilterRendererWrapper<IGridColumnConfiguration> {
@@ -490,7 +474,7 @@ export interface ITabPanelConfiguration extends IComponentProps,
 export interface IWebCameraConfiguration extends IComponentProps,
                                                  ICameraWidthWrapper,
                                                  ICameraHeightWrapper,
-                                                 IOnSelectWrapper<Blob> {
+                                                 IOnSelectWrapper<(item: Blob) => void> {
 }
 
 /* @stable - 25.04.2018 */
@@ -778,28 +762,6 @@ export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWr
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
                                                       IOnEmptyDictionaryWrapper<(dictionary?: string, payload?: IApiEntity) => void>,
                                                       IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void> {
-}
-
-/**
- * @stable [31.07.2018]
- */
-export interface IMenuConfiguration extends IComponentProps,
-                                            IMaxCountWrapper,
-                                            IRenderToXWrapper,
-                                            IRenderToYWrapper,
-                                            IFilterPlaceholderWrapper,
-                                            IMultiWrapper,
-                                            IUseFilterWrapper,
-                                            IWidthWrapper<number | (() => number)>,
-                                            ICenteredMenuWrapper,
-                                            IRendererWrapper<IMenuItemEntity>,
-                                            IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
-                                            ITplFnWrapper<IMenuItemEntity>,
-                                            IOnSelectWrapper<IMenuItemEntity>,
-  IOnCloseWrapper,
-  IOnFilterChangeWrapper<(query: string) => void> {
-  remoteFilter?: boolean; // TODO
-  overlayRendered?: boolean; // TODO
 }
 
 /**

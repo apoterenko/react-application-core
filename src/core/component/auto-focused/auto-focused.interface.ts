@@ -12,7 +12,7 @@ import { IUniversalComponentEntity } from '../../definition';
 export interface IAutoFocusedConfiguration extends IUniversalComponentEntity,
                                                    IDelayTimeoutWrapper,
                                                    IIgnoreEnterKeyCodeWrapper,
-                                                   IOnSelectWrapper<string>,
+                                                   IOnSelectWrapper<(item: string) => void>,
                                                    IRobotModeWrapper {
 }
 

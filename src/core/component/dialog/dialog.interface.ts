@@ -44,10 +44,9 @@ export interface IDialogProps extends IComponentProps,
 
 export interface IUniversalDialog<TProps extends IUniversalDialogProps = IUniversalDialogProps, TState = {}>
   extends IUniversalComponent<TProps, TState>,
-          IIsOpenWrapper<() => boolean>,
+          IIsOpenWrapper,
           IActivateWrapper<() => void>,
           IOnDeactivateWrapper<() => void>,
-          IOnCloseWrapper,
           IOnCloseWrapper,
           ICloseWrapper<() => void>,
           IOnAcceptWrapper,

@@ -4,11 +4,14 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { cancelEvent, joinClassName, isDef, getWidth, isFn, calc } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
-import { Menu, IMenu } from '../../menu';
+import { Menu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
-import { ISelectOptionEntity } from '../../../entities-definitions.interface';
 import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
-import { IBaseEvent } from '../../../definition';
+import {
+  IBaseEvent,
+  ISelectOptionEntity,
+  IMenu,
+} from '../../../definition';
 
 export class BasicSelect<TProps extends IBaseSelectProps,
                          TState extends IBasicSelectState>

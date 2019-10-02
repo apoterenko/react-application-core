@@ -13,7 +13,7 @@ import {
 } from '../../../util';
 import { VueNodeT, VueCreateElementFactoryT } from '../../../vue-definitions.interface';
 import { vueDefaultComponentConfigFactory } from '../../../vue-entities-definitions.interface';
-import { ISelectOptionEntity } from '../../../entities-definitions.interface';
+import { ISelectOptionEntity } from '../../../definition';
 import { ComponentName } from '../../connector/vue-index';
 import { IVueFieldInputListenersEntity } from '../field/vue-index';
 import { VueBaseTextField } from '../textfield/vue-index';

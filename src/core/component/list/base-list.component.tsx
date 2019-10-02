@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { orNull } from '../../util';
-import { IUIIconConfiguration } from '../../configurations-definitions.interface';
 import { IUniversalListProps } from '../../props-definitions.interface';
 import { Message } from '../message';
 import { UniversalList } from './universal-list.component';

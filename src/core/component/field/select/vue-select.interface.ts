@@ -4,7 +4,10 @@ import {
   IKeyValue,
   IMenuPropsWrapper,
 } from '../../../definitions.interface';
-import { IMenuItemEntity, ISelectOptionEntity } from '../../../entities-definitions.interface';
+import {
+  IMenuItemEntity,
+  ISelectOptionEntity,
+} from '../../../definition';
 import { IVueBaseTextFieldTemplateMethods } from '../textfield/vue-index';
 import { IVueBaseTextFieldProps } from '../textfield/vue-index';
 import { IVueMenuProps } from '../../menu/vue-index';

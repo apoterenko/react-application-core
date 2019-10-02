@@ -4,7 +4,6 @@ import * as R from 'ramda';
 import {
   filterAndSortEntities,
   isFn,
-  nvl,
   pageFromNumber,
   pageToNumber,
   uuid,

@@ -8,7 +8,7 @@ import { IDisabledWrapper, IOnSelectWrapper, IOpenWrapper } from '../../definiti
  */
 export interface IDndProps extends IComponentProps,
                                    IDisabledWrapper,
-                                   IOnSelectWrapper<File[]> {
+                                   IOnSelectWrapper<(item: File[]) => void> {
 }
 
 /**

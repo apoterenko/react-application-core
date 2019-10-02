@@ -1,8 +1,9 @@
 import { MDCMenu } from '@material/menu';
 
-import { IMenu, INativeMaterialMenuComponent } from '../../menu';
+import { INativeMaterialMenuComponent } from '../../menu';
 import { MaterialPlugin } from './material.plugin';
 import { sequence, isParentDocumentBody, removeSelf } from '../../../util';
+import { IMenu } from '../../../definition';
 
 export class MenuMaterialPlugin<TMenu extends IMenu>
   extends MaterialPlugin<TMenu, INativeMaterialMenuComponent> {

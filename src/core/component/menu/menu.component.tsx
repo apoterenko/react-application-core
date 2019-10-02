@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IMenuItemEntity } from '../../entities-definitions.interface';
 import { UNDEF, StringNumberT, AnyT } from '../../definitions.interface';
 import {
   calc,
@@ -17,9 +16,14 @@ import {
 import { BaseComponent } from '../base';
 import { Dialog } from '../dialog';
 import { FlexLayout } from '../layout';
-import { IBaseEvent } from '../../definition';
+import {
+  IBaseEvent,
+  IMenu,
+  IMenuItemEntity,
+  IMenuProps,
+  IMenuState,
+} from '../../definition';
 import { IField, TextField } from '../field';
-import { IMenuState, IMenuProps, IMenu } from './menu.interface';
 import { SimpleList, ListItem } from '../list';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
@@ -129,8 +133,8 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
       }
     });
 
-    if (!R.isNil(nvl(props.renderToX, props.renderToY))) {
-      setAbsoluteOffsetByCoordinates(this.menuAnchorRef.current, props.renderToX, props.renderToY);
+    if (!R.isNil(nvl(props.xPosition, props.yPosition))) {
+      setAbsoluteOffsetByCoordinates(this.menuAnchorRef.current, props.xPosition, props.yPosition);
     }
   }
 

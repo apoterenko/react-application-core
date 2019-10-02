@@ -24,6 +24,7 @@ import {
   IFormWrapperEntity,
   IPagedEntity,
   IPaginatedEntity,
+  ISelectOptionEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
   ITransportWrapperEntity,
@@ -38,7 +39,6 @@ import {
   IDictionariesWrapperEntity,
   IDataMutatorEntity,
   IDictionaryEntity,
-  ISelectOptionEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
