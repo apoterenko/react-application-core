@@ -2,11 +2,13 @@ import * as React from 'react';
 
 import { EntityIdT, IKeyboardEvent, AnyT } from '../../../definitions.interface';
 import { BasicSelect } from '../../field/select';
-import { IMultiItemEntity } from '../../../entities-definitions.interface';
 import { IMultiFieldState, IMultiFieldProps, MultiFieldEntityT, IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 import { toClassName } from '../../../util';
-import { ISelectOptionEntity } from '../../../definition';
+import {
+  IMultiItemEntity,
+  ISelectOptionEntity,
+} from '../../../definition';
 
 export class MultiField<TProps extends IMultiFieldProps,
                         TState extends IMultiFieldState>

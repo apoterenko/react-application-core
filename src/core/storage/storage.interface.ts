@@ -1,14 +1,8 @@
-import { AnyT, IIdWrapper } from '../definitions.interface';
+import { IMultiEntityStorageSetEntity } from '../definition';
 
-export interface ISetFileResult extends IIdWrapper<string> {
-  filePath: string;
-}
-
-export interface IMultiEntityStorageResult {
-  addResults: AnyT[];
-  removeResults: void[];
-}
-
+/**
+ * @deprecated
+ */
 export interface IApplicationStorageHelper {
-  saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<IMultiEntityStorageResult[]>;
+  saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<IMultiEntityStorageSetEntity[]>;
 }

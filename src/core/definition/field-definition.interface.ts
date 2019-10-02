@@ -1,4 +1,5 @@
 import {
+  EntityIdT,
   IDisabledWrapper,
   IEmptyValueWrapper,
   IFieldsWrapper,
@@ -15,7 +16,7 @@ import {
   IVisibleWrapper,
   UNDEF,
 } from '../definitions.interface';
-
+import { IMultiEntity } from './entity-definition.interface';
 /**
  * @stable [28.05.2019]
  */
@@ -59,3 +60,8 @@ export interface IFieldsChangesEntity
  * @stable [28.09.2019]
  */
 export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
+
+/**
+ * @stable [02.10.2019]
+ */
+export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;

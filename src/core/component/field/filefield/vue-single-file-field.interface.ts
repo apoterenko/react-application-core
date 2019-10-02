@@ -16,7 +16,7 @@ import {
   IMultiItemEntity,
   MultiItemEntityT,
   IMultiItemFileEntity,
-} from '../../../entities-definitions.interface';
+} from '../../../definition';
 
 /**
  * @stable [28.11.2018]

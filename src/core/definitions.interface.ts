@@ -69,10 +69,12 @@ export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
+export interface IAddedFilesWrapper<TValue> { addedFiles?: TValue; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
+export interface IFilePathWrapper { filePath?: string; }
 export interface IGroupByWrapper<TGroupBy> { groupBy?: TGroupBy; }
 export interface IIdWrapper<TId = number> { id?: TId; }
 export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
@@ -91,6 +93,7 @@ export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> { previe
 export interface IPreviewScaleWrapper<TScale = number> { previewScale?: TScale; }
 export interface IProgressMessageWrapper<TProgressMessage = string> { progressMessage?: TProgressMessage; }
 export interface IQueryParamsWrapper<TQueryParams> { queryParams?: TQueryParams; }
+export interface IRemovedFilesWrapper<TValue> { removedFiles?: TValue; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
 export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 export interface IScaleFactorWrapper<TScaleFactor = number> { scaleFactor?: TScaleFactor; }
@@ -1629,11 +1632,15 @@ export interface IColumnWidthWrapper {
 }
 
 export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
+export interface IAddWrapper<TValue> { add?: TValue; }
+export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
 export interface IPathWrapper<TPath = string> { path?: TPath; }
+export interface IRemoveWrapper<TValue> { remove?: TValue; }
+export interface ISourceWrapper<TValue> { source?: TValue; }
 export interface IStateWrapper<TState> { state?: TState; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITypeWrapper<TType = string> { type?: TType; }

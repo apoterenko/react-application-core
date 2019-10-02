@@ -33,6 +33,7 @@ export * from './route';
 export * from './scroll';
 export * from './section';
 export * from './sort';
+export * from './storage';
 export * from './style';
 export * from './task';
 export * from './time';

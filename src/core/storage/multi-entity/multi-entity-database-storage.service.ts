@@ -1,12 +1,13 @@
-import { IMultiEntity } from '../../entities-definitions.interface';
-import { IMultiEntityStorageResult } from '../storage.interface';
-import { IStorage } from '../../definition';
+import {
+  IMultiEntity,
+  IMultiEntityStorageSetEntity,
+  IStorage,
+} from '../../definition';
 import { lazyInject, DI_TYPES, provideInSingleton } from '../../di';
 import { MultiEntityStorage } from './multi-entity-storage.service';
 
 @provideInSingleton(MultiEntityDatabaseStorage)
 export class MultiEntityDatabaseStorage implements IStorage {
-
   @lazyInject(DI_TYPES.FileStorage) private readonly fileStorage: IStorage;
   @lazyInject(DI_TYPES.DatabaseStorage) private readonly databaseStorage: IStorage;
 
@@ -14,9 +15,9 @@ export class MultiEntityDatabaseStorage implements IStorage {
    * @stable [30.07.2019]
    * @param {string} key
    * @param {IMultiEntity} entity
-   * @returns {Promise<IMultiEntityStorageResult>}
+   * @returns {Promise<IMultiEntityStorageSetEntity>}
    */
-  public async set(key: string, entity: IMultiEntity): Promise<IMultiEntityStorageResult> {
+  public async set(key: string, entity: IMultiEntity): Promise<IMultiEntityStorageSetEntity> {
     const ids = new Set<string>();
     const delegateStorage = new MultiEntityStorage(
       this.fileStorage,

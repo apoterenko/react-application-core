@@ -1,14 +1,12 @@
 import {
-  IMultiEntityStorageResult,
-} from './storage.interface';
+  IMultiEntityStorageSetEntity,
+} from '../definition';
 import { orUndef } from '../util';
 
 /**
- * @stable [27.06.2018]
- * @param {IMultiEntityStorageResult} result
- * @returns {string}
+ * @deprecated Use asSingleAddedFileId
  */
-export const extractIdFromSetFilesResult = (result: IMultiEntityStorageResult): string => orUndef<string>(
-  result && result.addResults.length,
-  (): string => result.addResults[0].id
+export const extractIdFromSetFilesResult = (result: IMultiEntityStorageSetEntity): string => orUndef<string>(
+  result && result.addedFiles.length,
+  (): string => result.addedFiles[0].id
 );

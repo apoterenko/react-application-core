@@ -2,12 +2,14 @@ import { injectable } from 'inversify';
 
 import { IApplicationStorageHelper } from './storage.interface';
 import { lazyInject } from '../di';
-import { IMultiEntityStorageResult } from './storage.interface';
-import { IStorage } from '../definition';
+import { IStorage, IMultiEntityStorageSetEntity } from '../definition';
 import { isDef, orNull } from '../util';
 import { UNDEF } from '../definitions.interface';
 import { MultiEntityDatabaseStorage } from './multi-entity';
 
+/**
+ * @deprecated
+ */
 @injectable()
 export class StorageHelper implements IApplicationStorageHelper {
   @lazyInject(MultiEntityDatabaseStorage) private storage: IStorage;
@@ -16,10 +18,10 @@ export class StorageHelper implements IApplicationStorageHelper {
    * @stable [28.06.2018]
    * @param {TEntity} changes
    * @param {Array<(entity: TEntity) => string>} fields
-   * @returns {Promise<IMultiEntityStorageResult[]>}
+   * @returns {Promise<IMultiEntityStorageSetEntity[]>}
    */
-  public saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<IMultiEntityStorageResult[]> {
-    const tasks: Array<Promise<IMultiEntityStorageResult>> = [];
+  public saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<IMultiEntityStorageSetEntity[]> {
+    const tasks: Array<Promise<IMultiEntityStorageSetEntity>> = [];
 
     fields.forEach((fieldValueResolver) => {
       const fieldValueChange = fieldValueResolver(changes);
@@ -29,6 +31,6 @@ export class StorageHelper implements IApplicationStorageHelper {
         tasks.push(Promise.resolve(UNDEF));
       }
     });
-    return orNull<Promise<IMultiEntityStorageResult[]>>(tasks.length > 0, () => Promise.all<IMultiEntityStorageResult>(tasks));
+    return orNull<Promise<IMultiEntityStorageSetEntity[]>>(tasks.length > 0, () => Promise.all<IMultiEntityStorageSetEntity>(tasks));
   }
 }

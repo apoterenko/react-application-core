@@ -2,7 +2,6 @@ import { Component, ComponentClass, ComponentLifecycle } from 'react';
 
 import {
   AnyT,
-  EntityIdT,
   IChangesWrapper,
   IClearValueWrapper,
   IDataWrapper,
@@ -25,7 +24,6 @@ import {
   IListWrapper,
   ILoadingWrapper,
   INameWrapper,
-  INewEntityWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
   IOpenWrapper,
@@ -42,7 +40,6 @@ import {
   ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
-  ITypeWrapper,
   IValueWrapper,
   IWidthWrapper,
 } from './definitions.interface';
@@ -289,39 +286,6 @@ export interface IStyleEntity extends ITextAlignWrapper,
  * @stable [10.09.2018]
  */
 export interface IGridColumnEntity extends IEntityWrapper<IEntity> {
-}
-
-/**
- * @stable [01.07.2018]
- */
-export interface IMultiItemEntity
-  extends IEntityIdTWrapper,
-    IFieldChangeEntity,
-    INewEntityWrapper,
-    IIndexWrapper {
-}
-
-/**
- * @stable [22.12.2018]
- */
-export interface IMultiItemFileEntity
-  extends IMultiItemEntity,
-    ITypeWrapper {
-}
-
-/**
- * @stable [22.12.2018]
- */
-export type MultiItemEntityT = IMultiItemEntity | EntityIdT;
-
-/**
- * @stable [04.07.2018]
- */
-export interface IMultiEntity {
-  add: IMultiItemEntity[];
-  remove: IMultiItemEntity[];
-  edit: IMultiItemEntity[];
-  source?: IEntity[];
 }
 
 /**

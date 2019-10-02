@@ -1,4 +1,10 @@
-import { AnyT } from '../definitions.interface';
+import {
+  AnyT,
+  IAddedFilesWrapper,
+  IFilePathWrapper,
+  IIdWrapper,
+  IRemovedFilesWrapper,
+} from '../definitions.interface';
 import { ENV } from '../env';
 import { NOT_EMPTY_VALUE_PREDICATE, filterArray } from '../util/filter';
 
@@ -30,4 +36,20 @@ export interface IStorage {
   get?(key: string): Promise<AnyT>;
   remove?(key: string, noPrefix?: boolean): Promise<void>;
   each?(command: (value: AnyT, key: string) => void): void;
+}
+
+/**
+ * @stable [02.10.2019]
+ */
+export interface IAddedFileEntity
+  extends IIdWrapper<string>,
+    IFilePathWrapper {
+}
+
+/**
+ * @stable [02.10.2019]
+ */
+export interface IMultiEntityStorageSetEntity
+  extends IAddedFilesWrapper<IAddedFileEntity[]>,
+    IRemovedFilesWrapper<void[]> {
 }

@@ -15,10 +15,13 @@ import {
 import {
   MultiFieldEntityT,
   NotMultiFieldEntityT,
-  MultiFieldSingleValueT,
   IMultiFieldChangesEntity,
 } from './multifield.interface';
-import { IMultiEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
+import {
+  IMultiEntity,
+  IMultiItemEntity,
+  MultiFieldSingleValueT,
+} from '../../../definition';
 
 /**
  * @stable [26.07.2019]

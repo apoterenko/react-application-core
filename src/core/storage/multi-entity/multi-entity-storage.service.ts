@@ -1,7 +1,11 @@
 import { AnyT } from '../../definitions.interface';
-import { IMultiEntityStorageResult } from '../storage.interface';
-import { IStorage } from '../../definition';
-import { IMultiItemEntity, IMultiEntity } from '../../entities-definitions.interface';
+import {
+  IAddedFileEntity,
+  IMultiEntity,
+  IMultiEntityStorageSetEntity,
+  IMultiItemEntity,
+  IStorage,
+} from '../../definition';
 
 export class MultiEntityStorage implements IStorage {
 
@@ -18,16 +22,16 @@ export class MultiEntityStorage implements IStorage {
    * @stable [30.07.2019]
    * @param {string} key
    * @param {IMultiEntity} entity
-   * @returns {Promise<IMultiEntityStorageResult>}
+   * @returns {Promise<IMultiEntityStorageSetEntity>}
    */
-  public async set(key: string, entity: IMultiEntity): Promise<IMultiEntityStorageResult> {
-    const result = await Promise.all<AnyT[], void[]>([
+  public async set(key: string, entity: IMultiEntity): Promise<IMultiEntityStorageSetEntity> {
+    const result = await Promise.all<void[], IAddedFileEntity[]>([
       this.clear(entity),
       this.add(entity)
     ]);
     return {
-      removeResults: result[0],
-      addResults: result[1],
+      addedFiles: result[1],
+      removedFiles: result[0],
     };
   }
 
@@ -36,7 +40,7 @@ export class MultiEntityStorage implements IStorage {
    * @param {IMultiEntity} entity
    * @returns {Promise<AnyT[]>}
    */
-  private async add(entity: IMultiEntity): Promise<AnyT[]> {
+  private async add(entity: IMultiEntity): Promise<IAddedFileEntity[]> {
     const payloads = entity.add;
     const entitiesTasks = await Promise.all(payloads.map((itm) => this.multiEntityProcessor(itm)));
 

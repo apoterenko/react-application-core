@@ -3,7 +3,7 @@ import {
   IEntity,
   INotUseActiveValueFilterWrapper,
 } from '../../../definitions.interface';
-import { IMultiEntity, IMultiItemEntity } from '../../../entities-definitions.interface';
+import { IMultiEntity, IMultiItemEntity } from '../../../definition';
 import { IBasicSelectState, IBaseSelectProps } from '../select/basic-select.interface';
 import { IField } from '../field/field.interface';
 
@@ -61,4 +61,3 @@ export interface IMultiField extends IField {
  */
 export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
 export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IMultiEntity;
-export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;

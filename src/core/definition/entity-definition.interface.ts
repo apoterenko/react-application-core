@@ -1,20 +1,28 @@
 import {
   EntityIdT,
   IActiveValueWrapper,
+  IAddWrapper,
   IChangesWrapper,
   IDirtyWrapper,
+  IEditWrapper,
+  IEntity,
   IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
+  IIndexWrapper,
   IKeyValue,
   INameWrapper,
   INewEntityWrapper,
   IOriginalEntityWrapper,
   IProgressWrapper,
+  IRemoveWrapper,
+  ISourceWrapper,
   ITouchedWrapper,
+  ITypeWrapper,
   IValidWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
+import { IFieldChangeEntity } from './field-definition.interface';
 
 /**
  * @stable [11.09.2019]
@@ -53,3 +61,36 @@ export interface INamedEntity
   extends IEntityIdTWrapper,
     INameWrapper {
 }
+
+/**
+ * @stable [02.10.2019]
+ */
+export interface IMultiItemEntity
+  extends IEntityIdTWrapper,
+    IFieldChangeEntity,
+    INewEntityWrapper,
+    IIndexWrapper {
+}
+
+/**
+ * @stable [02.10.2019]
+ */
+export interface IMultiItemFileEntity
+  extends IMultiItemEntity,
+    ITypeWrapper {
+}
+
+/**
+ * @stable [02.10.2019]
+ */
+export interface IMultiEntity
+  extends ISourceWrapper<IEntity[]>,
+    IAddWrapper<IMultiItemEntity[]>,
+    IRemoveWrapper<IMultiItemEntity[]>,
+    IEditWrapper<IMultiItemEntity[]> {
+}
+
+/**
+ * @stable [02.10.2019]
+ */
+export type MultiItemEntityT = IMultiItemEntity | EntityIdT;

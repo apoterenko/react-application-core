@@ -6,21 +6,30 @@ import {
   APPLICATION_PDF_FORMAT,
 } from '../definitions.interface';
 
-export function isDef(value: AnyT): boolean {
-  return !isUndef(value);
-}
+/**
+ * @stable [02.10.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isDef = (value: AnyT): boolean => !isUndef(value);
 
-export function isUndef(value: AnyT): boolean {
-  return typeof value === 'undefined';
-}
+/**
+ * @stable [02.10.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isUndef = (value: AnyT): boolean => typeof value === 'undefined';
 
 export function isNull(value: AnyT): boolean {
   return value === null;
 }
 
-export function isFn(value: AnyT): boolean {
-  return typeof value === 'function';
-}
+/**
+ * @stable [02.10.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isFn = (value: AnyT): boolean => typeof value === 'function';
 
 /**
  * @stable [01.08.2018]

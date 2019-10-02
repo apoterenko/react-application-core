@@ -14,7 +14,11 @@ import {
   toType,
 } from '../../../util';
 import { IEntity, AnyT, EntityIdT, IEntityIdTWrapper } from '../../../definitions.interface';
-import { IMultiItemEntity, MultiItemEntityT, IMultiItemFileEntity } from '../../../entities-definitions.interface';
+import {
+  IMultiItemEntity,
+  IMultiItemFileEntity,
+  MultiItemEntityT,
+} from '../../../definition';
 import { VueField } from '../field/vue-index';
 import { MultiFieldPlugin } from '../multifield/vue-index';
 import {
