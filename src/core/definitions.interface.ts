@@ -504,7 +504,7 @@ export interface IUseZipCodeWrapper {
   useZipCode?: boolean;
 }
 
-export interface IAcceptableWrapper { acceptable?: boolean;}
+export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
