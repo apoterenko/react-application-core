@@ -1,28 +1,26 @@
 import { Store, AnyAction } from 'redux';
 
-import { applySection, namedConstructor } from '../../../util';
-import { DI_TYPES, staticInjector } from '../../../di';
-import { FormActionBuilder } from '../../action.builder';
+import { applySection } from '../../../util';
+import { getStore } from '../../../di';
 import {
   IContainer,
   IContainerProps,
-  IFormDispatcher,
+  IDispatcher,
 } from '../../../definition';
 import { IKeyValue } from '../../../definitions.interface';
 
-@namedConstructor('$$storeDispatcherProxy')
-export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
-  implements IFormDispatcher {
+export class BaseStoreProxy<TStore, TProps extends IContainerProps>
+  implements IDispatcher {
 
   /**
-   * @stable [11.09.2019]
-   * @param {IContainer<TProps>} container
+   * @stable [03.10.2019]
+   * @param {IContainer<TProps extends IContainerProps>} container
    */
-  constructor(private readonly container: IContainer<TProps>) {
+  constructor(protected readonly container: IContainer<TProps>) {
   }
 
   /**
-   * @stable [11.09.2019]
+   * @stable [03.10.2019]
    * @param {string} type
    * @param {TChanges} data
    */
@@ -41,17 +39,9 @@ export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
 
   /**
    * @stable [11.09.2019]
-   * @param {string} otherSection
-   */
-  public dispatchFormReset(otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildResetPlainAction(otherSection || this.sectionName));
-  }
-
-  /**
-   * @stable [11.09.2019]
    * @param {AnyAction} action
    */
-  private dispatchAnyAction(action: AnyAction): void {
+  protected dispatchAnyAction(action: AnyAction): void {
     this.appStore.dispatch(action);
   }
 
@@ -60,15 +50,15 @@ export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
    * @stable [11.09.2019]
    * @returns {Store<TStore>}
    */
-  private get appStore(): Store<TStore> {
-    return staticInjector(DI_TYPES.Store);
+  protected get appStore(): Store<TStore> {
+    return getStore();
   }
 
   /**
    * @stable [11.09.2019]
    * @returns {string}
    */
-  private get sectionName(): string {
+  protected get sectionName(): string {
     return this.props.sectionName;
   }
 
@@ -76,7 +66,7 @@ export class StoreDispatcherProxy<TStore, TProps extends IContainerProps>
    * @stable [11.09.2019]
    * @returns {TProps}
    */
-  private get props(): TProps {
+  protected get props(): TProps {
     return this.container.props as TProps;
   }
 }

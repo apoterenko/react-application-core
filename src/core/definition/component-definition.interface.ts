@@ -26,7 +26,7 @@ export interface IWebComponentEntity<TClassName = string>
  * @stable [22.09.2019]
  */
 export interface IUniversalComponentEntity
-  extends React.ClassAttributes<AnyT>,
+  extends React.ClassAttributes<AnyT>,  // TODO Replace with React.RefAttributes (ref="string")
     ITitleWrapper,
     IPluginsWrapper<IUniversalPluginCtor | IUniversalPluginCtor[]> {
 }

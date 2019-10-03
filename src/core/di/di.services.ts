@@ -4,7 +4,6 @@ import { DI_TYPES } from './di.interface';
 import { INumberConverter } from '../converter';
 import { ISettings } from '../settings';
 import {
-  IDomAccessor,
   IEnvironment,
   IEventManager,
   ILogManager,
@@ -102,9 +101,3 @@ export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.Even
  * @returns {IEventManager}
  */
 export const getStateSerializer = (): IStateSerializer => staticInjector(DI_TYPES.StateSerializer);
-
-/**
- * @stable [29.09.2019]
- * @returns {IEventManager}
- */
-export const getDomAccessor = (): IDomAccessor => staticInjector(DI_TYPES.DomAccessor);

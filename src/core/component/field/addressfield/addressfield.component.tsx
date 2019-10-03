@@ -7,7 +7,7 @@ import { IFieldActionConfiguration } from '../../../configurations-definitions.i
 import { IPlaceEntity } from '../../../definition';
 import { orNull, toAddress, uuid, toPlace, toClassName } from '../../../util';
 import { BaseTextField } from '../textfield';
-import { IUniversalDialog,  Dialog } from '../../dialog';
+import { IUniversalDialog2,  Dialog } from '../../dialog';
 import {
   IAddressFieldState,
   IAddressFieldProps,
@@ -374,10 +374,10 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
 
   /**
    * @stable [29.07.2018]
-   * @returns {IUniversalDialog}
+   * @returns {IUniversalDialog2}
    */
-  private get dialog(): IUniversalDialog {
-    return this.refs.dialog as IUniversalDialog;
+  private get dialog(): IUniversalDialog2 {
+    return this.refs.dialog as IUniversalDialog2;
   }
 
   /**

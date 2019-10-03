@@ -1,10 +1,10 @@
 import { MDCDialog } from '@material/dialog';
 
-import { IUniversalDialog, INativeMaterialDialogComponent } from '../../dialog';
+import { IUniversalDialog2, INativeMaterialDialogComponent } from '../../dialog';
 import { MaterialPlugin } from './material.plugin';
 import { sequence, isFn } from '../../../util';
 
-export class DialogMaterialPlugin<TDialog extends IUniversalDialog>
+export class DialogMaterialPlugin<TDialog extends IUniversalDialog2>
   extends MaterialPlugin<TDialog, INativeMaterialDialogComponent> {
 
   /**

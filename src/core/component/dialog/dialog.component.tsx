@@ -3,14 +3,14 @@ import * as React from 'react';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { FlexLayout } from '../layout';
-import { IUniversalDialog, IDialogProps, IUniversalDialogProps } from './dialog.interface';
+import { IUniversalDialog2, IDialogProps, IUniversalDialogProps } from './dialog.interface';
 import { orNull, toClassName, isFn } from '../../util';
 import { Title } from '../title';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
                     TState = {}>
   extends BaseComponent<TProps, TState>
-  implements IUniversalDialog<TProps, TState> {
+  implements IUniversalDialog2<TProps, TState> {
 
   /**
    * @stable [04.10.2018]

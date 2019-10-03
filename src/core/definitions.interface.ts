@@ -47,6 +47,9 @@ export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
 export const TO_TIME_FIELD_NAME = 'toTime';
 export const TIME_FIELD_NAME = 'time';
+/**
+ * @deprecated
+ */
 export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
 export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
 export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
@@ -501,22 +504,10 @@ export interface IUseZipCodeWrapper {
   useZipCode?: boolean;
 }
 
-/**
- * @stable [17.05.2018]
- */
-export interface IClosableWrapper {
-  closable?: boolean;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IAcceptableWrapper {
-  acceptable?: boolean;
-}
-
+export interface IAcceptableWrapper { acceptable?: boolean;}
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
+export interface IClosableWrapper { closable?: boolean; }
 export interface IRoundedWrapper { rounded?: boolean; }
 
 /**
@@ -977,8 +968,10 @@ export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSort
   extends ISorterWrapper<TSorter> {
 }
 
+export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialogFormChangesConfirmStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
 export interface I$$storeDispatcherProxyWrapper<TValue> { $$storeDispatcherProxy?: TValue; }
+export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
 export interface IBindStoreWrapper<TValue> { bindStore?: TValue; }
 export interface ICityWrapper<TCity = string> { city?: TCity; }
@@ -988,6 +981,7 @@ export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
 export interface IFlexEnabledWrapper { flexEnabled?: boolean; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
+export interface IGoBackWrapper { goBack?(): void; }
 export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
@@ -1571,7 +1565,7 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
   onRefresh?: TOnRefresh;
 }
 
-export interface IActivateWrapper<TActivate> { activate?: TActivate; }
+export interface IActivateWrapper { activate?(): void; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
 export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }

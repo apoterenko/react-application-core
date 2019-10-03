@@ -4,7 +4,7 @@ import { lazyInject, DI_TYPES } from '../../di';
 import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { UniversalContainer } from './universal.container';
-import { IUniversalDialog } from '../dialog/dialog.interface';
+import { IUniversalDialog2 } from '../dialog/dialog.interface';
 import { IContainerProps, IContainer } from '../../definition';
 
 export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
@@ -28,8 +28,10 @@ export class BaseContainer<TProps extends IContainerProps = IContainerProps, TSt
     return this.permissionService.isAccessible(checkedObject);
   }
 
-  // Service method (DRY)
+  /**
+   * @deprecated Use $$formChangesConfirmDispatcherProxy
+   */
   protected activateFormDialog(): void {
-    (this.refs.formDialog as IUniversalDialog).activate();
+    (this.refs.formDialog as IUniversalDialog2).activate();
   }
 }

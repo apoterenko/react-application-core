@@ -2,10 +2,12 @@ import { ACTION_PREFIX } from '../definitions.interface';
 import { IConnectorConfigEntity } from '../configurations-definitions.interface';
 import { IUniversalContainerEntity, IContainerProps, IUniversalContainerCtor } from '../definition';
 
-/* @stable - 15.04.2018 */
+// TODO
 export const DYNAMIC_ROUTES = new Map<IUniversalContainerCtor, IConnectorConfigEntity>();
 
-/* @stable - 15.04.2018 */
+/**
+ * @stable [03.10.2019]
+ */
 export const ROUTER_REWRITE_ACTION_TYPE = `${ACTION_PREFIX}router.rewrite`;
 export const ROUTER_NAVIGATE_ACTION_TYPE = `${ACTION_PREFIX}router.navigate`;
 export const ROUTER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}router.replace`;

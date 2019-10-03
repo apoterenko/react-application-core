@@ -56,15 +56,19 @@ export function isBoolean(value: AnyT): boolean {
  */
 export const isString = (value: AnyT): boolean => typeof value === 'string';
 
-export const isPrimitive = (v: AnyT): boolean => {
-  return isNumber(v)
-      || isString(v)
-      || isBoolean(v);
-};
+/**
+ * @stable [03.10.2019]
+ * @param {AnyT} v
+ * @returns {boolean}
+ */
+export const isPrimitive = (v: AnyT): boolean => isNumber(v) || isString(v) || isBoolean(v);
 
-export const isObject = (v: AnyT): boolean => {
-  return Object.prototype.toString.call(v) === '[object Object]';
-};
+/**
+ * @stable [03.10.2019]
+ * @param {AnyT} v
+ * @returns {boolean}
+ */
+export const isObject = (v: AnyT): boolean => Object.prototype.toString.call(v) === '[object Object]';
 
 /**
  * @stable [06.12.2018]

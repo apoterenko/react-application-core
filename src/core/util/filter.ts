@@ -20,8 +20,8 @@ export type ValuePredicateT = (value: AnyT) => boolean;
 export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource, ...predicates: KeyPredicateT[]
 ): TResult {
-  const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_VALUE_PREDICATE));
-  const result: TResult = {...filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_VALUE_PREDICATE)) as {}} as TResult;
+  const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_KEY_VALUE_PREDICATE));
+  const result: TResult = {...filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_KEY_VALUE_PREDICATE)) as {}} as TResult;
   Object.keys(sourceWithObjectValues).forEach((key) => {
     result[key] = cloneUsingFilters<TSource, TResult>(sourceWithObjectValues[key], ...predicates);
   });
@@ -75,9 +75,6 @@ export function cloneUsingTimeFieldsFilters<TSource extends IKeyValue, TResult e
   return cloneUsingFilters<TSource, TResult>(source, EXCLUDE_TIME_FIELDS_PREDICATE);
 }
 
-export const OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => isObject(value);
-export const NOT_OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => !isObject(value);
-
 /**
  * @stable [09.01.2019]
  * @param {IEntity} entity1
@@ -88,12 +85,55 @@ export const NOT_OBJECT_VALUE_PREDICATE = (key: string, value: AnyT) => !isObjec
 export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => entity1 === entity2 || entity1.id === entity2.id;
 
 /**
+ * @stable [03.10.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => isObject(value);
+
+/**
+ * @stable [03.10.2019]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT): boolean => OBJECT_VALUE_PREDICATE(value);
+
+/**
+ * @stable [03.10.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => !OBJECT_VALUE_PREDICATE(value);
+
+/**
+ * @stable [03.10.2019]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_OBJECT_VALUE_PREDICATE(value);
+
+/**
  * @stable [27.10.2018]
  * @param {AnyT} value
  * @returns {boolean}
  * @constructor
  */
 export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
+
+/**
+ * @stable [03.10.2019]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ * @constructor
+ */
+export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
 
 /**
  * @stable [23.09.2019]
@@ -119,15 +159,6 @@ export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value
  * @constructor
  */
 export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
-
-/**
- * @stable [31.01.2019]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
- * @constructor
- */
-export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
 
 /**
  * @stable [31.03.2019]
@@ -175,6 +206,13 @@ export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicat
  * @returns {TValue[]}
  */
 export const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
+
+/**
+ * @stable [03.10.2019]
+ * @param {TValue} data
+ * @returns {TValue[]}
+ */
+export const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, OBJECT_VALUE_PREDICATE);
 
 /**
  * @stable [29.11.2018]

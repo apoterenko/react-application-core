@@ -7,6 +7,6 @@ export interface IFormDialogProps
 }
 
 /**
- * @deprecated
+ * @deprecated Use
  */
 export const FORM_DIALOG_REF = 'formDialog';

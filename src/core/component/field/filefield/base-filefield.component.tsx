@@ -17,7 +17,7 @@ import {
 } from './basic-filefield.interface';
 import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { toLastAddedMultiItemEntityId } from '../multifield';
-import { IUniversalDialog, Dialog } from '../../dialog';
+import { IUniversalDialog2, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
 import { IBaseEvent } from '../../../definition';
 
@@ -247,10 +247,10 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [02.08.2018]
-   * @returns {IUniversalDialog}
+   * @returns {IUniversalDialog2}
    */
-  private get cameraDialog(): IUniversalDialog {
-    return this.refs.cameraDialog as IUniversalDialog;
+  private get cameraDialog(): IUniversalDialog2 {
+    return this.refs.cameraDialog as IUniversalDialog2;
   }
 
   /**
