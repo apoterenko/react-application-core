@@ -103,10 +103,7 @@ export const listEntityPaginatedEntityMapper = (entity: IPaginatedEntity): IPagi
   });
 
 /**
- * @stable [09.05.2018]
- * @param {IListEntity} listEntity
- * @param {number} pageSize
- * @returns {IPagedEntity}
+ * @deprecated Use mapListPagedEntity
  */
 export const listEntityPageEntityFilterMapper = (listEntity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity => ({
   page: listEntity.lockPage ? listEntity.page : FIRST_PAGE,
@@ -114,7 +111,7 @@ export const listEntityPageEntityFilterMapper = (listEntity: IListEntity, pageSi
 });
 
 /**
- * @deprecated
+ * @deprecated Use mapListWrapperPagedEntity
  */
 export const listEntityWrapperPageEntityFilterMapper =
   (listEntity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity =>
@@ -222,7 +219,7 @@ export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEdi
   R.isNil(editableEntity) || R.isEmpty(editableEntity.changes) ? [] : [ToolbarToolsEnum.FILTER];
 
 /**
- * @deprecated selectFormEntityToolbarToolsFilter
+ * @deprecated selectFormEntityToolbarToolsActiveFilter
  */
 export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IFormWrapperEntity): ToolbarToolsEnum[] =>
   toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);

@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Store } from 'redux';
-import * as R from 'ramda';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
   DI_TYPES,
+  getDateConverter,
   getEnvironment,
   getEventManager,
   getLogManager,
@@ -12,6 +11,8 @@ import {
   getSettings,
   getStateSerializer,
   getStorage,
+  getStore,
+  getTranslator,
   getUiFactory,
   staticInjector,
 } from '../../di';
@@ -44,20 +45,14 @@ import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
 import { IAuthService } from '../../auth';
 import { IUIFactory } from '../factory/factory.interface';
-import { applySection, buildErrorMessage, isString, toActionPrefix, toType } from '../../util';
+import { applySection, isString, toActionPrefix, toType } from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
-import { FlexLayout } from '../layout/flex/flex-layout.component';
-import { Link } from '../link/link.component';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
   extends React.PureComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 
-  private static readonly uLogger = LoggerFactory.makeLogger('UniversalContainer');
-
   protected readonly selfRef = React.createRef<AnyT>();
-  private $dc: IDateConverter;
-  private $ts: TranslatorT;
 
   /**
    * @stable - 12.04.2018
@@ -68,8 +63,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     this.navigateToBack = this.navigateToBack.bind(this);
     this.dispatchFormClear = this.dispatchFormClear.bind(this);
     this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
-
-    this.overrideRenderMethod();
   }
 
   /**
@@ -184,54 +177,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [09.09.2019]
-   */
-  protected overrideRenderMethod(): void { // TODO Move from here
-    const originalRenderer = this.render;
-    if (R.isNil(originalRenderer)) {
-      return;
-    }
-    this.render = (): React.ReactNode => {
-      try {
-        return originalRenderer.call(this);
-      } catch (e) {
-        UniversalContainer.uLogger.error(`[$UniversalContainer][overrideRenderMethod] The error:`, e);
-        return this.prepareGlobalErrorScreen(e);
-      }
-    };
-  }
-
-  /**
-   * @stable [09.09.2019]
-   * @param e
-   * @returns {React.ReactNode}
-   */
-  protected prepareGlobalErrorScreen(e): React.ReactNode {
-    return (
-      <FlexLayout
-        alignItemsCenter={true}
-        justifyContentCenter={true}>
-        <span style={{fontSize: 24}}>Something went wrong!</span><br/>
-        <Link to={this.routes.logout}>
-          <span style={{fontSize: 24, textDecoration: 'underline'}}>Try logout</span>
-        </Link>
-        <br/>
-        <FlexLayout full={false} style={{padding: 48, fontSize: 13}}>
-          {buildErrorMessage(e.stack)}
-        </FlexLayout>
-      </FlexLayout>
-    );
-  }
-
-  /**
-   * @stable - 15.04.2018
-   * @returns {Store<{}>}
-   */
-  protected get appStore(): Store<IUniversalStoreEntity> {
-    return staticInjector(DI_TYPES.Store);
-  }
-
-  /**
    * @stable - 15.04.2018
    * @returns {Map<IContainerCtor, IConnectorConfigEntity>}
    */
@@ -256,25 +201,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [23.05.2019]
-   * @returns {TranslatorT}
-   */
-  protected get t(): TranslatorT {
-    return this.$ts = this.$ts || staticInjector(DI_TYPES.Translate);
-  }
-
-  /**
-   * ReactNative supporting
-   *
-   * @stable [23.05.2019]
-   * @returns {IDateConverter}
-   */
-  protected get dc(): IDateConverter {
-    return this.$dc = this.$dc || staticInjector(DI_TYPES.DateConverter);
-  }
-
-  /**
    * @stable [14.01.2019]
    * @param {string} action
    * @param {TPath0} path
@@ -285,8 +211,35 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [24.09.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
+   * @returns {Store<IUniversalStoreEntity>}
+   */
+  protected get appStore(): Store<IUniversalStoreEntity> {
+    return getStore();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [07.10.2019]
+   * @returns {TranslatorT}
+   */
+  protected get t(): TranslatorT {
+    return getTranslator();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [07.10.2019]
+   * @returns {IDateConverter}
+   */
+  protected get dc(): IDateConverter {
+    return getDateConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {ISettings}
    */
   protected get storage(): IStorage {
@@ -294,8 +247,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [23.05.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {ISettings}
    */
   protected get settings(): ISettings {
@@ -303,8 +256,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [28.08.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {INumberConverter}
    */
   protected get nc(): INumberConverter {
@@ -312,8 +265,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [28.08.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {IUIFactory}
    */
   protected get uiFactory(): IUIFactory {
@@ -321,8 +274,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [24.09.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {ILogManager}
    */
   protected get logManager(): ILogManager {
@@ -330,8 +283,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [24.09.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {IEnvironment}
    */
   protected get environment(): IEnvironment {
@@ -339,8 +292,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [24.09.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {IEventManager}
    */
   protected get eventManager(): IEventManager {
@@ -348,8 +301,8 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [24.09.2019]
+   * @react-native-compatible
+   * @stable [07.10.2019]
    * @returns {IStateSerializer}
    */
   protected get stateSerializer(): IStateSerializer {

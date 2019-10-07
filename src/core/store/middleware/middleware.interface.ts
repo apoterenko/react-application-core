@@ -1,7 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  ICanComeBackWrapper,
   INavigateBackWrapper,
   ICanUpdateWrapper,
   IEffectsActionWrapper,
@@ -19,7 +18,7 @@ import {
   IResolverWrapper,
   ISaveMessageWrapper,
   IStateWrapper,
-  IUseLazyLoadingWrapper,
+  ILazyLoadingWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
@@ -73,12 +72,12 @@ export interface IFormFilterMiddlewareConfig extends IFormFilterSubmitMiddleware
  * @stable [29.06.2018]
  */
 export interface IEditedListMiddlewareConfig<TEntity extends IEntity, TApplicationState>
-  extends IFormSectionWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
+  extends IFormSectionWrapper,
           IListSectionWrapper,
           IStateWrapper<TApplicationState>,
           IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
           IEffectsActionWrapper,
-          IUseLazyLoadingWrapper,
+          ILazyLoadingWrapper,
           IEntityWrapper<TEntity> {
 }
 
@@ -100,7 +99,7 @@ export interface IDestroyedFormMiddlewareConfig extends IFormSectionWrapper {
  */
 export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
                                               TApplicationState = IStoreEntity>
-  extends ICanComeBackWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
+  extends INavigateBackWrapper,
           ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
           IEffectsActionWrapper,
           IListSectionWrapper,

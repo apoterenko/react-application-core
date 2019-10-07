@@ -125,6 +125,15 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [04.10.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromDateTimeToUiDate(date: DateTimeLikeTypeT): string {
+    return this.fromDateTimeToArbitraryFormat(date, this.uiDateFormat);
+  }
+
+  /**
    * @stable [09.11.2018]
    * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
    * @returns {string} [Example: 20:54:45]
@@ -494,10 +503,6 @@ export class DateConverter implements IDateConverter {
       this.dateFormat,
       this.uiDateFormat
     );
-  }
-
-  public fromDateTimeToUiDate(date: DateTimeLikeTypeT): string {
-    return this.fromDateTimeToArbitraryFormat(date, this.uiDateFormat);
   }
 
   public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {

@@ -13,24 +13,17 @@ import { ListActionBuilder } from '../../component/action.builder';
  * @returns {IEffectsAction[]}
  */
 export const makeCreateEntityMiddleware = <TEntity extends IEntity, TApplicationState>(
-  config: IEditedListMiddlewareConfig<TEntity, TApplicationState>): IEffectsAction[] => {
-  const action = config.action;
-  return [
-    StackActionBuilder.buildLockAction(
-      isFn(config.formSection)
-        ? (config.formSection as (...args) => string)(null, config.state, action)
-        : config.formSection as string
-    ),
-    RouterActionBuilder.buildNavigateAction(
-      isFn(config.path)
-        ? (config.path as (...args) => string)(null, config.state, action)
-        : config.path as string
-    )
-  ];
-};
+  config: IEditedListMiddlewareConfig<TEntity, TApplicationState>): IEffectsAction[] => [
+  StackActionBuilder.buildLockAction(config.formSection),
+  RouterActionBuilder.buildNavigateAction(
+    isFn(config.path)
+      ? (config.path as (...args) => string)(null, config.state, config.action)
+      : config.path as string
+  )
+];
 
 /**
- * @stable [02.07.2018]
+ * @stable [06.10.2019]
  * @param {IEditedListMiddlewareConfig<TEntity extends IEntity, TApplicationState>} config
  * @returns {IEffectsAction[]}
  */
@@ -40,23 +33,18 @@ export const makeSelectEntityMiddleware = <TEntity extends IEntity, TApplication
   const payloadWrapper: ISelectedWrapper<TEntity> = action.initialData || action.data;
   const selected = payloadWrapper.selected;
 
-  if (config.useLazyLoading) {
-    return [
+  return config.lazyLoading
+    ? [
       ListActionBuilder.buildLazyLoadAction(config.listSection, {selected})
+    ]
+    : [
+      StackActionBuilder.buildLockAction(config.formSection),
+      RouterActionBuilder.buildNavigateAction(
+        isFn(config.path)
+          ? (config.path as (...args) => string)(selected, config.state, action)
+          : config.path as string
+      )
     ];
-  }
-  return [
-    StackActionBuilder.buildLockAction(
-      isFn(config.formSection)
-        ? (config.formSection as (...args) => string)(selected, config.state, action)
-        : config.formSection as string
-    ),
-    RouterActionBuilder.buildNavigateAction(
-      isFn(config.path)
-        ? (config.path as (...args) => string)(selected, config.state, action)
-        : config.path as string
-    )
-  ];
 };
 
 /**

@@ -1,9 +1,10 @@
 import * as R from 'ramda';
 
 import { AnyT, IKeyValue } from '../definitions.interface';
-import { nvl } from './nvl';
 import { ifNotNilThanValue } from './cond';
-import { notNilValuesArrayFilter } from './filter';
+import { isFn } from './type';
+import { notNilValuesArrayFilter, SAME_ENTITY_PREDICATE } from './filter';
+import { nvl } from './nvl';
 
 /**
  * @stable [16.12.2018]
@@ -43,26 +44,29 @@ export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
   ifNotNilThanValue(array, () => array.slice(0, Math.min(array.length, nvl(limit, array.length))));
 
 /**
- * @stable [26.07.2019]
+ * @stable [04.10.2019]
  * @param {TValue[]} array
  * @param {TValue} initialItem
- * @param {(previousItem: TValue, initialItem: TValue) => TValue} mergedItemFactory
- * @param {(itm1: TValue, itm2: TValue) => boolean} predicate
+ * @param {(entity1: IEntity, entity2: IEntity) => boolean} predicate
+ * @param {(previousItem: TValue) => TValue} mergedItemFactory
  * @returns {TValue[]}
  */
 export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
                                                          initialItem: TValue,
-                                                         mergedItemFactory: (previousItem: TValue) => TValue,
-                                                         predicate: (itm1: TValue, itm2: TValue) => boolean): TValue[] => {
+                                                         predicate = SAME_ENTITY_PREDICATE,
+                                                         mergedItemFactory?: (previousItem: TValue) => TValue): TValue[] => {
   const array0 = array || [];
-  const replacedItem = array0.find((itm) => predicate(itm, initialItem));
-  const hasEntity = !R.isNil(replacedItem);
-  return [
-    ...array0,
-    ...(hasEntity ? [] : [initialItem])
-  ].map(
+  const hasEntity = array0.some((itm) => predicate(itm, initialItem));
+  const result = hasEntity
+    ? array0
+    : [...array0, initialItem];
+  return result.map(
     (itm) => predicate(itm, initialItem)
-      ? Object.assign({}, itm, mergedItemFactory(itm))
+      ? (
+        isFn(mergedItemFactory)
+          ? Object.assign({}, itm, mergedItemFactory(itm))    // Merge
+          : initialItem                                       // Replace
+      )
       : itm
   );
 };

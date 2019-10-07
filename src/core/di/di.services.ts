@@ -1,7 +1,10 @@
 import { Store } from 'redux';
 
 import { DI_TYPES } from './di.interface';
-import { INumberConverter } from '../converter';
+import {
+  INumberConverter,
+  IDateConverter,
+} from '../converter';
 import { ISettings } from '../settings';
 import {
   IEnvironment,
@@ -23,6 +26,12 @@ import { TranslatorT } from '../translation';
  * @returns {INumberConverter}
  */
 export const getNumberConverter = (): INumberConverter => staticInjector(DI_TYPES.NumberConverter);
+
+/**
+ * @stable [07.10.2019]
+ * @returns {IDateConverter}
+ */
+export const getDateConverter = (): IDateConverter => staticInjector(DI_TYPES.DateConverter);
 
 /**
  * @stable [09.11.2018]

@@ -11,12 +11,12 @@ import { makeSelectEntityMiddleware, makeCreateEntityMiddleware } from '../middl
 export function makeEditedListEffectsProxy<TEntity extends IEntity,
                                            TApplicationState>(config: {
   listSection: string;
-  useLazyLoading?: boolean;
+  lazyLoading?: boolean;
   formSection?: any; // TODO
   path?(entity?: TEntity, state?: TApplicationState, action?: IEffectsAction): string;
   changesResolver?(state: TApplicationState): TEntity;
 }): () => void {
-  const {path, changesResolver, listSection, formSection, useLazyLoading} = config;
+  const {path, changesResolver, listSection, formSection, lazyLoading} = config;
   return (): void => {
 
     @provideInSingleton(Effects)
@@ -35,7 +35,7 @@ export function makeEditedListEffectsProxy<TEntity extends IEntity,
        */
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(listSection))
       public $onEntitySelect(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, path, useLazyLoading, formSection, listSection});
+        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, path, lazyLoading, formSection, listSection});
       }
 
       /**

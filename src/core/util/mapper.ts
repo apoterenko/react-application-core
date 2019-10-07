@@ -15,6 +15,8 @@ import {
   ToolbarToolsEnum,
 } from '../definition';
 import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
   IActionsDisabledWrapper,
   IEntity,
   IKeyValue,
@@ -177,6 +179,32 @@ export const mapPagedEntity = (entity: IPagedEntity): IPagedEntity => ifNotNilTh
   }),
   UNDEF_SYMBOL
 );
+
+/**
+ * @stable [04.10.2019]
+ * @param {IListEntity} entity
+ * @param {number} pageSize
+ * @returns {IPagedEntity}
+ */
+export const mapListPagedEntity =
+  (entity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity => ifNotNilThanValue(
+    entity,
+    () => defValuesFilter<IPagedEntity, IPagedEntity>({
+      page: entity.lockPage ? entity.page : FIRST_PAGE,
+      pageSize,
+    }),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [04.10.2019]
+ * @param {IListWrapperEntity} entity
+ * @param {number} pageSize
+ * @returns {IPagedEntity}
+ */
+export const mapListWrapperPagedEntity =
+  (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity =>
+    mapListPagedEntity(selectListEntity(entity), pageSize);
 
 /**
  * @stable [10.09.2019]

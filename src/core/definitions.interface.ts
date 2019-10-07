@@ -623,6 +623,7 @@ export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValu
 export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
 export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
+export interface ISucceedMessageWrapper { succeedMessage?: string; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
@@ -941,13 +942,6 @@ export interface ISubBorderWrapper<TSubBorder = boolean> {
 }
 
 /**
- * @stable [29.05.2018]
- */
-export interface IUseLazyLoadingWrapper {
-  useLazyLoading?: boolean;
-}
-
-/**
  * @stable [14.05.2018]
  */
 export interface IUseSortingWrapper {
@@ -985,6 +979,7 @@ export interface IGoBackWrapper { goBack?(): void; }
 export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
+export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
 export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
@@ -1170,13 +1165,6 @@ export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
  */
 export interface IApiEntityWrapper<TApiEntity> {
   apiEntity?: TApiEntity;
-}
-
-/**
- * @stable [04.07.2018]
- */
-export interface ICanComeBackWrapper<TCanComeBack = boolean> {
-  canComeBack?: TCanComeBack;
 }
 
 /**

@@ -5,10 +5,12 @@ import {
   ICustomActionsWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
+  IFormSectionWrapper,
   IFormsSectionsWrapper,
   IInitialStateWrapper,
   IKeyValue,
   IListsSectionsWrapper,
+  INavigateBackWrapper,
   INextFormChangesWrapper,
   INextFormRouteWrapper,
   INextFormSectionWrapper,
@@ -18,6 +20,7 @@ import {
   IReplaceWrapper,
   ISectionNameWrapper,
   ISelectWrapper,
+  ISucceedMessageWrapper,
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
@@ -79,6 +82,15 @@ export interface IChainedFormMiddlewareConfigEntity<TChanges>
     INextFormRouteWrapper,
     INextListSectionWrapper,
     IReplaceRouteWrapper {
+}
+
+/**
+ * @stable [04.10.2019]
+ */
+export interface ISucceedRelatedFormEntityMiddlewareConfigEntity
+  extends ISucceedMessageWrapper,
+    IFormSectionWrapper,
+    INavigateBackWrapper {
 }
 
 /**

@@ -13,9 +13,10 @@ import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } fro
 import {
   IApiEntity,
   IStoreEntity,
+  ISucceedRelatedFormEntityMiddlewareConfigEntity,
 } from '../../definition';
 import { APPLICATION_SECTIONS } from '../../component/application/application.interface';
-import { DI_TYPES, staticInjector } from '../../di';
+import { DI_TYPES, staticInjector, getTranslator } from '../../di';
 import { IApplicationModifyEntityPayloadFactory, IModifyEntityPayloadWrapper } from '../../api';
 import { NotificationActionBuilder } from '../../notification';
 import { TranslatorT } from '../../translation';
@@ -24,9 +25,27 @@ import { ISettings } from '../../settings';
 const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 
 /**
- * @stable [22.08.2018]
- * @param {ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity, TRelatedEntity extends IEntity>} config
+ * @stable [04.10.2019]
+ * @param {ISucceedRelatedFormEntityMiddlewareConfigEntity} config
  * @returns {IEffectsAction[]}
+ */
+export const makeSucceedRelatedFormEntityMiddleware = (
+  config: ISucceedRelatedFormEntityMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
+  const {formSection, succeedMessage, navigateBack} = config;
+  return [
+    navigateBack === false && formSection
+      ? FormActionBuilder.buildSubmitDoneAction(formSection)
+      : RouterActionBuilder.buildNavigateBackAction(),
+    ...(
+      succeedMessage
+        ? [NotificationActionBuilder.buildInfoAction(getTranslator()(succeedMessage))]
+        : []
+    )
+  ];
+};
+
+/**
+ * @deprecated Use makeSucceedRelatedFormEntityMiddleware
  */
 export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
                                                  TRelatedEntity extends IEntity>(
@@ -72,7 +91,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
  */
 export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucceedFormMiddlewareConfig<TEntity>): IEffectsAction[] => {
 
-  const {listSection, action, canComeBack, canUpdate, saveMessage} = config;
+  const {listSection, action, navigateBack, canUpdate, saveMessage} = config;
   const apiEntity = action.initialData as IApiEntity;
 
   const connectorConfig = APPLICATION_SECTIONS.get(listSection);
@@ -97,7 +116,7 @@ export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucc
       ? [ListActionBuilder.buildMergeAction(listSection, payloadWrapper)]
       : []
   ).concat(
-    R.isNil(canComeBack) || (isFn(canComeBack) ? (canComeBack as (...args) => boolean)(apiEntity, action) : canComeBack)
+    navigateBack !== false
       ? RouterActionBuilder.buildReplaceAction(dynamicListRoute)
       : []
   ).concat(

@@ -370,10 +370,19 @@ export class UIMaterialFactory implements IUIFactory {
   /**
    * @stable [30.09.2019]
    * @param {Error} e
-   * @returns {JSX.Element}
+   * @returns {Element}
    */
-  public makeWindowErrorElement?(e: Error): JSX.Element {
+  public makeWindowErrorElement(e: Error): Element {
     return this.defaultUIFactory.makeWindowErrorElement(e);
+  }
+
+  /**
+   * @stable [07.10.2019]
+   * @param {Error} e
+   * @returns {React.ReactNode}
+   */
+  public makeReactErrorElement(e: Error): React.ReactNode {
+    return this.defaultUIFactory.makeReactErrorElement(e);
   }
 
   /**

@@ -1,9 +1,8 @@
-import { ComponentLifecycle } from 'react';
-import { Store } from 'redux';
+import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { noop, sequence, isObjectNotEmpty, isFn  } from '../../util';
-import { DI_TYPES, staticInjector, getStore } from '../../di';
+import { getStore, getUiFactory } from '../../di';
 import { IBasicConnectorConfigEntity, IConnectorConfigEntity } from '../../configurations-definitions.interface';
 import { APPLICATION_SECTIONS } from '../application/application.interface';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
@@ -35,11 +34,11 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
 
       APPLICATION_SECTIONS.set(sectionName, config);
 
-      const proto: ComponentLifecycle<{}, {}> = target.prototype;
+      const proto: React.ComponentLifecycle<{}, {}> = target.prototype;
       proto.componentWillUnmount = sequence(
         proto.componentWillUnmount || noop,
         () => {
-          const store = staticInjector<Store<{}>>(DI_TYPES.Store);
+          const store = getStore();
           store.dispatch({type: STACK_POP_ACTION_TYPE, data: sectionName});
           store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName)});
 
@@ -60,6 +59,8 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
               }
             });
           }
+          this.overrideRenderMethod();
+
           logger.debug(`[$basicConnector][constructor] Section: ${sectionName}`);
         }
 
@@ -80,6 +81,24 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
           if (isFn(super.componentDidMount)) {
             super.componentDidMount();
           }
+        }
+
+        /**
+         * @stable [07.10.2019]
+         */
+        private overrideRenderMethod(): void {
+          const originalRenderer = this.render;
+          if (!isFn(originalRenderer)) {
+            return;
+          }
+          this.render = (): React.ReactNode => {
+            try {
+              return originalRenderer.call(this);
+            } catch (e) {
+              logger.debug('[$basicConnector][overrideRenderMethod] Error:', e);
+              return getUiFactory().makeReactErrorElement(e);
+            }
+          };
         }
       };
     } else {
