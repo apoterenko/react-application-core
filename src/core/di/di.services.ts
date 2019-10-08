@@ -5,7 +5,7 @@ import {
   INumberConverter,
   IDateConverter,
 } from '../converter';
-import { ISettings } from '../settings';
+import { ISettingsEntity } from '../settings';
 import {
   IEnvironment,
   IEventManager,
@@ -53,9 +53,9 @@ export const getTranslator = (): TranslatorT => staticInjector(DI_TYPES.Translat
 
 /**
  * @stable [29.07.2019]
- * @returns {ISettings}
+ * @returns {ISettingsEntity}
  */
-export const getSettings = (): ISettings => staticInjector(DI_TYPES.Settings);
+export const getSettings = (): ISettingsEntity => staticInjector(DI_TYPES.Settings);
 
 /**
  * @stable [29.07.2019]

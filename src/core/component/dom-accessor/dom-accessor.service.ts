@@ -33,12 +33,28 @@ import {
   DI_TYPES,
   lazyInject,
 } from '../../di';
-import { ISettings, IBootstrapSettings } from '../../settings';
+import { ISettingsEntity, IBootstrapSettings } from '../../settings';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
-  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [08.10.2019]
+   * @returns {boolean}
+   */
+  public isAlreadyFocused(): boolean {
+    return this.isInputElement(this.getActiveElement());
+  }
+
+  /**
+   * @stable [07.10.2019]
+   * @param {string} path
+   */
+  public redirect(path: string): void {
+    this.window.location.assign(path);
+  }
 
   /**
    * @stable [01.10.2019]
@@ -53,8 +69,12 @@ export class DomAccessor implements IDomAccessor {
    * @param {(e: Error) => void} callback
    */
   public defineGlobalErrorHandler(callback: (e: Error) => void): void {
-    const window = this.environment.window;
-    window.onerror = sequence(window.onerror, callback);
+    this.window.onerror = sequence(
+      this.window.onerror,
+      (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => {
+        callback(error || new Error(message));
+      }
+    );
   }
 
   /**
@@ -127,7 +147,7 @@ export class DomAccessor implements IDomAccessor {
    * @returns {Element}
    */
   public getRootElement(): Element {
-    return this.environment.document.getElementById(this.bootstrapSettings.rootId);
+    return this.document.getElementById(this.bootstrapSettings.rootId);
   }
 
   /**
@@ -256,10 +276,44 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [09.10.2019]
+   * @returns {Element}
+   */
+  public getActiveElement(): Element {
+    return this.document.activeElement;
+  }
+
+  /**
    * @stable [01.10.2019]
    * @returns {IBootstrapSettings}
    */
   private get bootstrapSettings(): IBootstrapSettings {
     return this.settings.bootstrap || {};
+  }
+
+  /**
+   * @stable [08.10.2019]
+   * @returns {Document}
+   */
+  private get document(): Document {
+    return this.environment.document;
+  }
+
+  /**
+   * @stable [08.10.2019]
+   * @returns {Window}
+   */
+  private get window(): Window {
+    return this.environment.window;
+  }
+
+  /**
+   * @stable [09.10.2019]
+   * @param {Element} element
+   * @returns {boolean}
+   */
+  private isInputElement(element: Element): boolean {
+    return element instanceof HTMLInputElement
+      || element instanceof HTMLTextAreaElement;
   }
 }

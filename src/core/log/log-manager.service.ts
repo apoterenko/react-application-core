@@ -5,16 +5,21 @@ import { Store } from 'redux';
 
 import { AnyT } from '../definitions.interface';
 import { DI_TYPES, lazyInject } from '../di';
-import { ENV } from '../env';
 import { IDateConverter } from '../converter';
-import { ILogManager, IStoreEntity } from '../definition';
+import {
+  IEnvironment,
+  ILogManager,
+  IStoreEntity,
+} from '../definition';
+import { getCurrentUrlPath } from '../util';
 
 @injectable()
 export class LogManager implements ILogManager {
   private static readonly logger = LoggerFactory.makeLogger('LogManager');
 
-  @lazyInject(DI_TYPES.Store) private readonly store: Store<IStoreEntity>;
   @lazyInject(DI_TYPES.DateConverter) private readonly dc: IDateConverter;
+  @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
+  @lazyInject(DI_TYPES.Store) private readonly store: Store<IStoreEntity>;
 
   /**
    * @stable [11.08.2019]
@@ -30,14 +35,21 @@ export class LogManager implements ILogManager {
 
       const state = this.store.getState();
       const user = state.user;
-      const appVersion = ENV.appVersion;
+      const appVersion = this.environment.appVersion;
+      const browserName = this.environment.browserName;
+      const browserVersion = this.environment.browserVersion;
 
       ga('send', {
         hitType: 'event',
-        eventCategory: `${ENV.host}:${category}`,
+        eventCategory: `${this.environment.host}:${category}`,
         eventAction,
-        eventLabel: `${R.isNil(user) || R.isNil(user.id) ? '' : `${user.id}:${user.name}:`}${appVersion}:${
-          this.dc.fromDateTimeToDateTime(this.dc.getCurrentDate())}${this.getEventLabel(payload)}`,
+        eventLabel: `${R.isNil(user) || R.isNil(user.id) ? '' : `${user.id}:${user.name}:`}${
+          appVersion}:${
+          this.dc.fromDateTimeToDateTime(this.dc.getCurrentDate())}:${
+          browserName}:${
+          browserVersion}:${
+          getCurrentUrlPath()}${
+          this.getEventLabel(payload)}`,
       });
     } catch (e) {
       LogManager.logger.error('[$LogManager][send] The system error has occurred:', e);

@@ -1,17 +1,22 @@
 import { AnyT } from '../definitions.interface';
 import { isFn } from '../util';
 
-export type FunctionT = (...args) => AnyT;
-
-export function sequence(sourceFn: FunctionT, nextFn: FunctionT, nextFnScope?: AnyT): FunctionT {
-  const isSourceFnExist = isFn(sourceFn);
-  return function() {
-    if (isSourceFnExist) {
+/**
+ * @stable [09.10.2019]
+ * @param {(...args) => AnyT} sourceFn
+ * @param {(...args) => AnyT} nextFn
+ * @param {AnyT} nextFnScope
+ * @returns {(...args) => AnyT}
+ */
+export const sequence = (sourceFn: (...args) => AnyT,
+                         nextFn: (...args) => AnyT,
+                         nextFnScope?: AnyT): (...args) => AnyT =>
+  function() {
+    if (isFn(sourceFn)) {
       sourceFn.apply(this, arguments);
     }
     nextFn.apply(nextFnScope || this, arguments);
   };
-}
 
 /* tslint:disable */
 export function noop(): void {
