@@ -11,7 +11,7 @@ import {
 } from '../../definition';
 import {
   IBootstrapSettings,
-  ISettings,
+  ISettingsEntity,
 } from '../../settings';
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../../component/factory/factory.interface'; // TODO Fix import
@@ -21,7 +21,7 @@ export class WebBootstrapper implements IBootstrapper {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
-  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.UIFactory) private readonly uiFactory: IUIFactory;
 
   /**

@@ -6,7 +6,7 @@ import { DI_TYPES, bindToConstantValue } from '../../di';
 import {
   EventsEnum,
   IContainerCtor,
-  IRouterEntity,
+  IRouter,
   IRouterWrapperEntity,
   IStoreEntity,
 } from '../../definition';
@@ -120,9 +120,9 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
 
   /**
    * @stable [24.09.2019]
-   * @returns {IRouterEntity}
+   * @returns {IRouter}
    */
-  private get dynamicRouter(): IRouterEntity {
+  private get dynamicRouter(): IRouter {
     // We cannot to get access to history instance other way. This instance is private
     return this.routerRef.current.history;
   }

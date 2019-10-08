@@ -39,7 +39,7 @@ import {
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_REWRITE_ACTION_TYPE,
 } from '../../router/router.interface';
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 import { TranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
 import { FormActionBuilder } from '../form/form-action.builder';
@@ -240,7 +240,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @react-native-compatible
    * @stable [07.10.2019]
-   * @returns {ISettings}
+   * @returns {ISettingsEntity}
    */
   protected get storage(): IStorage {
     return getStorage();
@@ -249,9 +249,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @react-native-compatible
    * @stable [07.10.2019]
-   * @returns {ISettings}
+   * @returns {ISettingsEntity}
    */
-  protected get settings(): ISettings {
+  protected get settings(): ISettingsEntity {
     return getSettings();
   }
 

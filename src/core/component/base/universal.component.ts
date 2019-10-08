@@ -5,14 +5,18 @@ import { isFn, nvl } from '../../util';
 import {
   DI_TYPES,
   getDatabaseStorage,
+  getEnvironment,
+  getEventManager,
   getNumberConverter,
   getSettings,
   getTranslator,
+  getTransport,
   getUiFactory,
+  getUiPlugins,
   staticInjector,
 } from '../../di';
 import { TranslatorT } from '../../translation';
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
 import {
   IUniversalComponentCtor,
@@ -20,11 +24,9 @@ import {
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import {
-  getTransport,
-  getUiPlugins,
-} from '../../di';
-import {
   IDomAccessor,
+  IEnvironment,
+  IEventManager,
   IStorage,
   ITransport,
   IUniversalComponent,
@@ -98,6 +100,24 @@ export class UniversalComponent<TProps extends IUniversalComponentEntity = IUniv
   }
 
   /**
+   * @react-native-compatible
+   * @stable [08.10.2019]
+   * @returns {IEnvironment}
+   */
+  protected get environment(): IEnvironment {
+    return getEnvironment();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [08.10.2019]
+   * @returns {IEventManager}
+   */
+  protected get eventManager(): IEventManager {
+    return getEventManager();
+  }
+
+  /**
    * @reactNativeCompatible
    * @stable [22.09.2018]
    * @returns {TranslatorT}
@@ -109,9 +129,9 @@ export class UniversalComponent<TProps extends IUniversalComponentEntity = IUniv
   /**
    * @reactNativeCompatible
    * @stable [29.07.2019]
-   * @returns {ISettings}
+   * @returns {ISettingsEntity}
    */
-  protected get settings(): ISettings {
+  protected get settings(): ISettingsEntity {
     return getSettings();
   }
 

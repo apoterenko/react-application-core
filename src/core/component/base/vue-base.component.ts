@@ -6,7 +6,7 @@ import { isDef } from '../../util';
 import { DI_TYPES, lazyInject } from '../../di';
 import { TranslatorT } from '../../translation';
 import { IKeyValue } from '../../definitions.interface';
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 import { IVueContainer, IVueComponent } from '../../vue-entities-definitions.interface';
 import { IVueRefs } from '../../vue-definitions.interface';
 import { IVueBaseProps } from './vue-base.interface';
@@ -20,7 +20,7 @@ export class VueBaseComponent<TStore = IKeyValue,
   @Prop() public readonly full: boolean;
   @Prop() public readonly title: string;
   @lazyInject(DI_TYPES.Translate) protected t: TranslatorT;
-  @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected settings: ISettingsEntity;
   @lazyInject(DI_TYPES.NumberConverter) protected nc: INumberConverter;
   @Prop() protected styles: IKeyValue;
   @Prop() protected bindContainer: IVueContainer;

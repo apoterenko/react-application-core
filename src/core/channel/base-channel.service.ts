@@ -6,7 +6,7 @@ import * as R from 'ramda';
 import { defValuesFilter } from '../util';
 import { AnyT, UNDEF } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
-import { ISettings } from '../settings';
+import { ISettingsEntity } from '../settings';
 import {
   CHANNEL_CONNECT_MESSAGE,
   CHANNEL_DISCONNECT_MESSAGE,
@@ -26,7 +26,7 @@ import {
 export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IChannel<TConfig, TMessage> {
   protected static logger = LoggerFactory.makeLogger('BaseChannel');
 
-  @lazyInject(DI_TYPES.Settings) protected settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Store) protected appStore: Store<IStoreEntity>;
 
   private clients = new Map<string, IChannelClient>();

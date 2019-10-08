@@ -5,7 +5,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
 import { orNull } from '../util';
-import { ISettings } from '../settings';
+import { ISettingsEntity } from '../settings';
 import {
   IRoutesEntity,
   IStorage,
@@ -30,7 +30,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
 
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IStorage;
   @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesEntity;
-  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.TransportResponseAccessor) protected responseAccessor: ITransportResponseAccessor;
   @lazyInject(DI_TYPES.VersionProcessor) protected readonly versionProcessor: IVersionProcessor;
 
