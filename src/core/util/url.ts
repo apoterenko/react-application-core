@@ -9,6 +9,12 @@ import {
 import { isObjectNotEmpty } from './object';
 
 /**
+ * @stable [07.10.2019]
+ * @returns {string}
+ */
+export const getCurrentUrlPath = (): string => URI().path();
+
+/**
  * @stable [19.09.2019]
  * @param {string} uri
  * @returns {boolean}

@@ -13,7 +13,7 @@ import {
   orUndef,
 } from '../../../util';
 import { DI_TYPES, lazyInject } from '../../../di';
-import { ISettings } from '../../../settings';
+import { ISettingsEntity } from '../../../settings';
 import { IKeyValue } from '../../../definitions.interface';
 import {
   ITransportCancelTokenEntity,
@@ -21,13 +21,13 @@ import {
   ITransportRequestEntity,
   ITransportRequestPayloadEntity,
   ITransportRequestPayloadFactory,
-  ITransportSettings,
+  ITransportSettingsEntity,
   TransportResponseTypesEnum,
 } from '../../../definition';
 
 @injectable()
 export class TransportRequestPayloadFactory implements ITransportRequestPayloadFactory {
-  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.TransportRequestDataFactory) private readonly requestDataFactory: ITransportRequestDataFactory;
 
   /**
@@ -192,9 +192,9 @@ export class TransportRequestPayloadFactory implements ITransportRequestPayloadF
 
   /**
    * @stable [15.09.2019]
-   * @returns {ITransportSettings}
+   * @returns {ITransportSettingsEntity}
    */
-  private get transportSettings(): ITransportSettings {
+  private get transportSettings(): ITransportSettingsEntity {
     return this.settings.transport;
   }
 }

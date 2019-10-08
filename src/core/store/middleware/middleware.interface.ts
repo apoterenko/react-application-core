@@ -3,9 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   INavigateBackWrapper,
   ICanUpdateWrapper,
-  IEffectsActionWrapper,
   IEntity,
-  IEntityWrapper,
   IFilterSectionWrapper,
   IFormSectionWrapper,
   ILazyLoadedResolverWrapper,
@@ -13,12 +11,10 @@ import {
   IListAccessorWrapper,
   IListRoutePathWrapper,
   IListSectionWrapper,
-  IPathWrapper,
   IRelatedEntityWrapper,
   IResolverWrapper,
   ISaveMessageWrapper,
   IStateWrapper,
-  ILazyLoadingWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
@@ -26,6 +22,7 @@ import {
 } from '../../entities-definitions.interface';
 import {
   IApiEntity,
+  IEffectsActionEntity,
   IStoreEntity,
 } from '../../definition';
 
@@ -69,23 +66,10 @@ export interface IFormFilterMiddlewareConfig extends IFormFilterSubmitMiddleware
 }
 
 /**
- * @stable [29.06.2018]
- */
-export interface IEditedListMiddlewareConfig<TEntity extends IEntity, TApplicationState>
-  extends IFormSectionWrapper,
-          IListSectionWrapper,
-          IStateWrapper<TApplicationState>,
-          IPathWrapper<string | ((entity: TEntity, state: TApplicationState, action: IEffectsAction) => string)>,
-          IEffectsActionWrapper,
-          ILazyLoadingWrapper,
-          IEntityWrapper<TEntity> {
-}
-
-/**
  * @stable [06.07.2018]
  */
 export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
-                                                       IEffectsActionWrapper {
+                                                       IEffectsActionEntity {
 }
 
 /**
@@ -101,7 +85,7 @@ export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
                                               TApplicationState = IStoreEntity>
   extends INavigateBackWrapper,
           ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
-          IEffectsActionWrapper,
+          IEffectsActionEntity,
           IListSectionWrapper,
           IFormSectionWrapper,
           ISaveMessageWrapper,
@@ -115,7 +99,7 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
                                                      TRelatedEntity extends IEntity = IEntity,
                                                      TApplicationState = IStoreEntity>
     extends IRelatedEntityWrapper<TRelatedEntity>,
-            IEffectsActionWrapper,
+            IEffectsActionEntity,
             IListSectionWrapper,
             IFormSectionWrapper,
             INavigateBackWrapper,
@@ -130,7 +114,7 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
  * @stable [13.09.2018]
  */
 export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
-                                                        IEffectsActionWrapper {
+                                                        IEffectsActionEntity {
 }
 
 /**
@@ -138,7 +122,7 @@ export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
  */
 export interface IRefreshedListOnValidFormMiddlewareConfig
   extends IListSectionWrapper,
-    IEffectsActionWrapper {
+    IEffectsActionEntity {
 }
 
 /**

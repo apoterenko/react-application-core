@@ -4,7 +4,7 @@ import { injectable } from 'inversify';
 
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { lazyInject, DI_TYPES } from '../di';
-import { ISettings } from '../settings';
+import { ISettingsEntity } from '../settings';
 import {
   IApplicationTransportErrorInterceptor,
   ITransportRawResponseError,
@@ -12,7 +12,7 @@ import {
 
 @injectable()
 export class TransportErrorInterceptor implements IApplicationTransportErrorInterceptor {
-  @lazyInject(DI_TYPES.Settings) private settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
 
   public intercept(payload): IEffectsAction[] | IEffectsAction {
     const error = payload.error as ITransportRawResponseError;

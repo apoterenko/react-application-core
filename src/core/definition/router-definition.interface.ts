@@ -11,7 +11,7 @@ import {
 /**
  * @stable [24.09.2019]
  */
-export interface IRouterEntity
+export interface IRouter
   extends History {
 }
 
@@ -19,7 +19,7 @@ export interface IRouterEntity
  * @stable [24.09.2019]
  */
 export interface IRouterWrapperEntity
-  extends IHistoryWrapper<IRouterEntity> {
+  extends IHistoryWrapper<IRouter> {
 }
 
 /**

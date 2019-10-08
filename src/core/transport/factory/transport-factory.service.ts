@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import * as R from 'ramda';
 
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 import {
   ITransportCancelTokenEntity,
   ITransportFactory,
@@ -18,7 +18,7 @@ import { uuid, ifNotNilThanValue, isFn, nvl } from '../../util';
 export class TransportFactory implements ITransportFactory {
   private readonly cancelUuid = uuid();
   private readonly operationsIdsMap = new Map<string, ITransportCancelTokenEntity>();
-  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.TransportRequestProvider) private readonly requestProvider: ITransportRequestProvider;
   @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
   @lazyInject(DI_TYPES.TransportResponseFactory) private readonly responseFactory: ITransportResponseFactory;

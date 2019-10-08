@@ -2,9 +2,11 @@ import { ENV } from '../env';
 import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
 import {
+  DEFAULT_MESSAGES_SETTINGS_ENTITY,
   IButtonProps,
+  IMessagesSettingsEntity,
+  ITransportSettingsEntity,
   StorageTypesEnum,
-  ITransportSettings,
 } from '../definition';
 
 export interface IApplicationCurrencySettings {
@@ -55,7 +57,7 @@ export interface IApplicationNumberSettings {
 /**
  * @stable [10.03.2019]
  */
-export interface IMessagesSettings {
+export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
   addressSelectionMessage?: string;
@@ -137,7 +139,7 @@ export interface IBootstrapSettings {
   rootId?: string;
 }
 
-export interface ISettings {
+export interface ISettingsEntity {
   signalRUrl?: string;
   downloadUrl?: string;
   metaFilesUrl?: string;
@@ -145,7 +147,7 @@ export interface ISettings {
   emptyPictureUrl?: string;
   companyName?: string;
   companyCountry?: string;
-  transport?: ITransportSettings;
+  transport?: ITransportSettingsEntity;
   persistenceStorage?: StorageTypesEnum;
   entityEmptyId?: AnyT;
   resourcePaths?: IApplicationResourcePaths;
@@ -168,7 +170,7 @@ export const REGEXP_REPO = {
   digital: '[0-9]+',
 };
 
-export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
+export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   signalRUrl: prepareUrl(ENV.basePath + '/api/'),
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
   emptyPictureUrl: 'media/no_avatar.jpg',
@@ -188,6 +190,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettings = {
     uniqueParamName: '_dc',
   },
   messages: {
+    ...DEFAULT_MESSAGES_SETTINGS_ENTITY,
     yearPlaceholderMessage: 'Year as {pattern}',
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',

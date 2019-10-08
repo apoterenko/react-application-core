@@ -1,7 +1,7 @@
 import { AnyT } from '../../definitions.interface';
 import { BaseStorage } from '../base-storage.service';
 import { ifNotNilThanValue, nvl } from '../../util';
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 import { StorageTypesEnum } from '../../definition';
 
 export class DefaultStorage extends BaseStorage {
@@ -13,7 +13,7 @@ export class DefaultStorage extends BaseStorage {
    * @param {StorageTypesEnum} storageType
    */
   constructor(prefix: string,
-              private settingsProvider: () => ISettings,
+              private settingsProvider: () => ISettingsEntity,
               private storageType?: StorageTypesEnum) {
     super(prefix);
   }

@@ -11,17 +11,17 @@ import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { ENV } from '../env';
 import {
   EnvironmentVariablesEnum,
+  IEnvironment,
   ILogManager,
-  IStoreEntity,
   ITransport,
   ITransportFactory,
   ITransportRequestEntity,
   ITransportRequestPayloadFactory,
   ITransportResponseEntity,
   ITransportResponseFactoryEntity,
+  IUniversalStoreEntity,
   TransportEventCategoriesEnum,
 } from '../definition';
 
@@ -29,8 +29,9 @@ import {
 export class Transport implements ITransport {
   private static readonly logger = LoggerFactory.makeLogger('Transport');
 
+  @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.LogManager) private readonly logManager: ILogManager;
-  @lazyInject(DI_TYPES.Store) private readonly store: Store<IStoreEntity>;
+  @lazyInject(DI_TYPES.Store) private readonly store: Store<IUniversalStoreEntity>;
   @lazyInject(DI_TYPES.TransportFactory) private readonly transportFactory: ITransportFactory;
   @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
 
@@ -38,7 +39,7 @@ export class Transport implements ITransport {
    * @stable [26.02.2019]
    */
   constructor() {
-    ENV.setVariable(EnvironmentVariablesEnum.TRANSPORT, this);
+    this.environment.setVariable(EnvironmentVariablesEnum.TRANSPORT, this);
   }
 
   /**

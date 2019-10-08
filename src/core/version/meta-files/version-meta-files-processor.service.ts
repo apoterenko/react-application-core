@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { DI_TYPES, lazyInject } from '../../di';
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 import { isObjectNotEmpty, nvl } from '../../util';
 import { Operation } from '../../operation';
 import {
@@ -21,7 +21,7 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
   private static readonly logger = LoggerFactory.makeLogger('VersionMetaFilesProcessor');
 
   @lazyInject(DI_TYPES.NotVersionedSessionStorage) protected readonly notVersionedSessionStorage: IStorage;
-  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
 
   /**

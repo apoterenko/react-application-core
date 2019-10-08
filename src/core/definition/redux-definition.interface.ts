@@ -5,27 +5,34 @@ import {
   ICustomActionsWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
+  IEntity,
+  IEntityWrapper,
   IFormSectionWrapper,
   IFormsSectionsWrapper,
   IInitialStateWrapper,
   IKeyValue,
+  ILazyLoadingWrapper,
+  IListSectionWrapper,
   IListsSectionsWrapper,
   INavigateBackWrapper,
   INextFormChangesWrapper,
   INextFormRouteWrapper,
   INextFormSectionWrapper,
   INextListSectionWrapper,
+  IPathWrapper,
   IPreviousFormSectionWrapper,
   IReplaceRouteWrapper,
   IReplaceWrapper,
   ISectionNameWrapper,
   ISelectWrapper,
+  IStateWrapper,
   ISucceedMessageWrapper,
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
 import { IApplicationWrapperEntity } from './application-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
+import { IEffectsActionEntity } from './effects-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
@@ -82,6 +89,19 @@ export interface IChainedFormMiddlewareConfigEntity<TChanges>
     INextFormRouteWrapper,
     INextListSectionWrapper,
     IReplaceRouteWrapper {
+}
+
+/**
+ * @stable [09.10.2019]
+ */
+export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
+  extends IFormSectionWrapper<string | ((entity: TEntity, state: TState, action: IEffectsAction) => string)>,
+    IListSectionWrapper,
+    IStateWrapper<TState>,
+    IPathWrapper<string | ((entity: TEntity, state: TState, action: IEffectsAction) => string)>,
+    IEffectsActionEntity,
+    ILazyLoadingWrapper,
+    IEntityWrapper<TEntity> {
 }
 
 /**

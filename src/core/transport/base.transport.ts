@@ -17,7 +17,7 @@ import {
 } from '../definition';
 import { IEntity, StringNumberT, UNDEF_SYMBOL } from '../definitions.interface';
 import { INumberConverter } from '../converter';
-import { ISettings } from '../settings';
+import { ISettingsEntity } from '../settings';
 import { isString } from '../util';
 import { ITransportRequestEntity, ITransport } from '../definition';
 import { lazyInject, DI_TYPES } from '../di';
@@ -26,7 +26,7 @@ import { lazyInject, DI_TYPES } from '../di';
 export class BaseTransport {
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
-  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
 
   /**

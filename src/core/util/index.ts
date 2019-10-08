@@ -20,7 +20,6 @@ export * from './join';
 export * from './json';
 export * from './mapper';
 export * from './merge';
-export * from './message';
 export * from './number';
 export * from './nvl';
 export * from './object';

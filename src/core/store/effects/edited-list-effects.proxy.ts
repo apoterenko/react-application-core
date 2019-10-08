@@ -1,65 +1,51 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
-import { excludeIdFieldFilter } from '../../util';
-import { provideInSingleton } from '../../di';
+import { IEditedListMiddlewareConfigEntity } from '../../definition';
 import { IEntity } from '../../definitions.interface';
-import { ListActionBuilder, FormActionBuilder } from '../../component/action.builder';
-import { RouterActionBuilder } from '../../router/router-action.builder';
-import { CustomActionBuilder } from '../../action/custom/custom-action.builder';
+import { ListActionBuilder } from '../../component/action.builder';
 import { makeSelectEntityMiddleware, makeCreateEntityMiddleware } from '../middleware';
+import { provideInSingleton } from '../../di';
 
-export function makeEditedListEffectsProxy<TEntity extends IEntity,
-                                           TApplicationState>(config: {
-  listSection: string;
-  lazyLoading?: boolean;
-  formSection?: any; // TODO
-  path?(entity?: TEntity, state?: TApplicationState, action?: IEffectsAction): string;
-  changesResolver?(state: TApplicationState): TEntity;
-}): () => void {
-  const {path, changesResolver, listSection, formSection, lazyLoading} = config;
-  return (): void => {
+/**
+ * @stable [09.10.2019]
+ * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
+ * @returns {() => void}
+ */
+export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
+  config: IEditedListMiddlewareConfigEntity<TEntity, TState>) =>
+  (): void => {
 
     @provideInSingleton(Effects)
     class Effects {
 
-      @EffectsService.effects(ListActionBuilder.buildCreateActionType(listSection))
-      public $onEntityCreate(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return makeCreateEntityMiddleware<TEntity, TApplicationState>({action, state, path, formSection});
-      }
-
       /**
-       * @stable [29.06.2018]
+       * @stable [09.10.2019]
        * @param {IEffectsAction} action
-       * @param {TApplicationState} state
+       * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildSelectActionType(listSection))
-      public $onEntitySelect(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, path, lazyLoading, formSection, listSection});
-      }
+      @EffectsService.effects(ListActionBuilder.buildCreateActionType(config.listSection))
+      public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        makeCreateEntityMiddleware<TEntity, TState>({...config, action, state})
 
       /**
-       * @stable [29.06.2018]
+       * @stable [09.10.2019]
        * @param {IEffectsAction} action
-       * @param {TApplicationState} state
+       * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(listSection))
-      public $onEntityLazyLoadDone(action: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return makeSelectEntityMiddleware<TEntity, TApplicationState>({action, state, path, formSection, listSection});
-      }
+      @EffectsService.effects(ListActionBuilder.buildSelectActionType(config.listSection))
+      public $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        makeSelectEntityMiddleware<TEntity, TState>({...config, action, state})
 
-      @EffectsService.effects(CustomActionBuilder.buildCustomCloneActionType(formSection))
-      public $onEntityClone(_: IEffectsAction, state: TApplicationState): IEffectsAction[] {
-        return [
-          FormActionBuilder.buildChangesAction(
-              formSection,
-              excludeIdFieldFilter<TEntity, TEntity>(changesResolver(state))
-          ),
-          ListActionBuilder.buildDeselectAction(listSection),
-          RouterActionBuilder.buildReplaceAction(path(null, state))
-        ];
-      }
+      /**
+       * @stable [09.10.2019]
+       * @param {IEffectsAction} action
+       * @param {TState} state
+       * @returns {IEffectsAction[]}
+       */
+      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(config.listSection))
+      public $onEntityLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        makeSelectEntityMiddleware<TEntity, TState>({...config, action, state})
     }
   };
-}

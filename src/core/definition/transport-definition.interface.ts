@@ -284,10 +284,10 @@ export interface ITransport
 /**
  * Transport settings
  *
- * @TransportSettings
+ * @TransportSettingsEntity
  * @stable [16.09.2019]
  */
-export interface ITransportSettings
+export interface ITransportSettingsEntity
   extends IBaseTransportRequestEntity,
     IBlobDataContentTypeWrapper,
     IFormDataContentTypeWrapper,
@@ -305,7 +305,7 @@ export interface ITransportSettings
 export interface ITransportUrlConfigEntity
   extends IEntityWrapper<ITransportRequestEntity>,
     IUrlProviderWrapper<(requestEntity: ITransportRequestEntity) => string>,
-    ISettingsWrapper<ITransportSettings>,
+    ISettingsWrapper<ITransportSettingsEntity>,
     IDataProviderWrapper<(requestEntity: ITransportRequestEntity) => IKeyValue>,
     IDateNowWrapper {
 }
