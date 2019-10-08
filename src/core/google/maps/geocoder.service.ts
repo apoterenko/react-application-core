@@ -4,11 +4,11 @@ import { injectable } from 'inversify';
 import { getGoogleMapsScript } from '../../util';
 import { IGeoCoder } from './geocoder.interface';
 import { DI_TYPES, lazyInject } from '../../di';
-import { ISettings } from '../../settings';
+import { ISettingsEntity } from '../../settings';
 
 @injectable()
 export class GeoCoder implements IGeoCoder {
-  @lazyInject(DI_TYPES.Settings) private settings: ISettings;
+  @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
   private geocoder: google.maps.Geocoder;
 
   /**

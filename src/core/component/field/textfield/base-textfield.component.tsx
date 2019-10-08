@@ -3,7 +3,6 @@ import * as R from 'ramda';
 
 import MaskedTextInput from 'react-text-mask';
 
-import { DI_TYPES, lazyInject } from '../../../di';
 import {
   ifNotFalseThanValue,
   isFn,
@@ -13,7 +12,7 @@ import {
   parseValueAtPx,
   toJqEl,
 } from '../../../util';
-import { UNI_CODES, IChangeEvent } from '../../../definitions.interface';
+import { UNI_CODES, IChangeEvent, UniCodesEnum } from '../../../definitions.interface';
 import {
   IFieldActionConfiguration,
   FieldActionPositionEnum,
@@ -22,7 +21,6 @@ import {
 import { Field } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
-import { ENV } from '../../../env';
 import {
   IBaseTextFieldState,
   IBaseTextFieldProps,
@@ -30,8 +28,6 @@ import {
 } from './base-textfield.interface';
 import {
   IBaseEvent,
-  IEnvironment,
-  IEventManager,
   IJQueryElement,
 } from '../../../definition';
 
@@ -42,9 +38,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 
-  @lazyInject(DI_TYPES.EventManager) protected eventManager: IEventManager;
   protected defaultActions: IFieldActionConfiguration[] = [];
-  @lazyInject(DI_TYPES.Environment) private environment: IEnvironment;
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
   private readonly keyboardRef = React.createRef<Keyboard>();
   private keyboardListenerSubscriber: () => void;
@@ -205,9 +199,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     const value = this.value;
     const content = String((
       props.type === 'password'
-        ? String(value).replace(/./g, ENV.passwordInputPlaceholder)
+        ? String(value).replace(/./g, this.environment.passwordPlaceholder)
         : value
-    )).replace(/ /g, UNI_CODES.noBreakSpace);
+    )).replace(/ /g, UniCodesEnum.NO_BREAK_SPACE);
 
     return (
       <span ref={this.mirrorInputRef}

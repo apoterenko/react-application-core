@@ -51,6 +51,7 @@ import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IComponentProps,
   IEditableEntity,
+  IEnvironment,
   IFieldChangeEntity,
   IJQueryElement,
   ILifeCycleEntity,
@@ -291,50 +292,20 @@ export interface IGridColumnEntity extends IEntityWrapper<IEntity> {
 /**
  * @stable [12.09.2018]
  */
-export interface IEnvironmentPlatformOsEntity {
-  architecture: number;
-  family: string;
-  version: string;
-}
-
-/**
- * @stable [12.09.2018]
- */
-export interface IEnvironmentEntity {
-  browserVersion?: string;
-  document?: Document;
-  window?: Window;
-  host?: string;
+export interface IEnvironmentEntity
+  extends IEnvironment {
   version?: string;
-  windowsPlatform?: boolean;
-  androidPlatform?: boolean;
-  mobilePlatform?: boolean;
-  appNamespace?: string;
-  appProfile?: string;
-  appVersion?: string;
-  basePath?: string;
   devModeEnabled?: boolean;
   documentBody?: Element;
-  googleKey?: string;
   googleMapsKey?: string;
-  iosPlatform?: boolean;
-  localModeEnabled?: boolean;
-  macPlatform?: boolean;
   normalizedBasePath?: string;
-  passwordInputPlaceholder?: string;
   platformName?: string;
-  platformOs?: IEnvironmentPlatformOsEntity;
   port?: string;
-  prodMode?: boolean;
-  chromePlatform?: boolean;
   stageMode?: boolean;
   rnPlatform?: boolean;
   rnPlatformName?: string;
-  safariPlatform?: boolean;
-  windowsPhonePlatform?: boolean;
   appPath?(): string;
   buildAppPath?(path: string): string;
-  setVariable?(name: string, scope: AnyT): void;
 }
 
 /**

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 export type AnyT = any;
@@ -508,14 +507,8 @@ export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
+export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
 export interface IRoundedWrapper { rounded?: boolean; }
-
-/**
- * @stable [04.05.2018]
- */
-export interface IDelayTimeoutWrapper<TDelayTimeout = number> {
-  delayTimeout?: TDelayTimeout;
-}
 
 /**
  * @stable [04.05.2018]
@@ -691,13 +684,6 @@ export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
   maskPlaceholderChar?: TMaskPlaceholderChar;
 }
 
-/**
- * @stable [04.05.2018]
- */
-export interface IRobotModeWrapper {
-  useRobotMode?: boolean;
-}
-
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface ICloseWrapper<TClose> { close?: TClose; }
@@ -869,19 +855,6 @@ export interface IUseAddActionWrapper {
 }
 
 /**
- * @stable [03.06.2018]
- */
-export interface IActionWrapper<TAction> {
-  action?: TAction;
-}
-
-/**
- * @stable [03.06.2018]
- */
-export interface IEffectsActionWrapper extends IActionWrapper<IEffectsAction> {
-}
-
-/**
  * @stable [02.06.2018]
  */
 export interface IEmptyMessageWrapper<TEmptyMessage = string> {
@@ -901,6 +874,7 @@ export interface IEmptyDataMessageWrapper<TEmptyDataMessage = string> {
 export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends ITplWrapper<(item: TItem) => TResult> {
 }
 
+export interface IActionWrapper<TAction> { action?: TAction; }
 export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 
 /**
@@ -1553,21 +1527,16 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
   onRefresh?: TOnRefresh;
 }
 
+export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
 export interface IActivateWrapper { activate?(): void; }
+export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
+export interface IMaxFilesWrapper { maxFiles?: number; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
 export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
-
-/**
- * @stable [21.09.2018]
- */
-export interface IIgnoreEnterKeyCodeWrapper {
-  ignoreEnterKey?: boolean;
-}
-
-export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
-export interface IMaxFilesWrapper { maxFiles?: number; }
+export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
+export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 
 /**
  * @stable [22.12.2018]
@@ -1589,8 +1558,6 @@ export interface IDefaultDndMessageFactoryWrapper<TDefaultDndMessageFactory> {
 export interface IPlaceholderFactoryWrapper<TPlaceholderFactory> {
   placeholderFactory?: TPlaceholderFactory;
 }
-
-export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 
 /**
  * @stable [14.01.2019]
@@ -1797,6 +1764,7 @@ export enum UniCodesEnum {
   ASYMP = '\u2248',
   DASH = '\u2014',
   N_DASH = '\u2013',
+  NO_BREAK_SPACE = '\u00a0',
   SPACE = '\u0020',
 }
 
