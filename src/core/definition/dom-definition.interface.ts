@@ -21,6 +21,7 @@ export interface IDomAccessor {
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
   findUniversalSelectedElement(parent: Element): Element;
+  getActiveElement(): Element;
   getContentHeight(source: Element): number;
   getDocumentBodyElement(): Element;
   getHeight(source: Element): number;

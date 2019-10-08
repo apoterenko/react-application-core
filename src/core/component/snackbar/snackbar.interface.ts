@@ -1,4 +1,3 @@
-import { FunctionT } from '../../util';
 import {
   IErrorWrapper,
   IMessageWrapper,
@@ -16,7 +15,7 @@ export interface ISnackbarConfiguration extends IComponentProps,
                                                 ISubmitTextWrapper,
                                                 ITimeoutWrapper,
                                                 IAfterShowWrapper {
-  actionHandler?: FunctionT;
+  actionHandler?: () => void;
 }
 
 /**

@@ -299,7 +299,7 @@ export class UIMaterialFactory implements IUIFactory {
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;
-  @lazyInject(UIDefaultFactory) private defaultUIFactory: IUIFactory;
+  @lazyInject(DI_TYPES.UIDefaultFactory) private defaultUIFactory: IUIFactory;
 
   /**
    * @stable [18.05.2018]

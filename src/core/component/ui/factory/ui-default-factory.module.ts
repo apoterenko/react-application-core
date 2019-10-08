@@ -1,7 +1,7 @@
-import { bindInSingleton } from '../../../di';
+import { bindInSingleton, DI_TYPES } from '../../../di';
 import { UIDefaultFactory } from './ui-default-factory.service';
 
 /**
  * @stable [30.09.2019]
  */
-bindInSingleton(UIDefaultFactory);
+bindInSingleton(DI_TYPES.UIDefaultFactory, UIDefaultFactory);
