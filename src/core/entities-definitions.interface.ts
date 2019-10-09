@@ -29,14 +29,12 @@ import {
   IOpenWrapper,
   IOriginalDataWrapper,
   IOriginalValueWrapper,
-  IPathWrapper,
   IRawDataWrapper,
   IResetErrorWrapper,
   ISelectedEntityWrapper,
   ISelectedWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
-  IStateWrapper,
   ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
@@ -204,11 +202,6 @@ export interface IGridRowEntity extends ISelectedWrapper,
 
 /* @stable [23.04.2018] */
 export interface IUniversalMessageEntity extends ILifeCycleEntity {
-}
-
-/* @stable - 15.04.2018 */
-export interface INavigateEntity<TPath, TState = {}> extends IPathWrapper<TPath>,
-                                                             IStateWrapper<TState> {
 }
 
 /**

@@ -8,7 +8,7 @@ import {
   ITitleWrapper,
 } from '../definitions.interface';
 import { IContainerProps, IUniversalContainerProps } from './props-definition.interface';
-import { IDispatchEntity, IUniversalStoreEntity } from './redux-definition.interface';
+import { IUniversalStoreEntity } from './redux-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
@@ -50,8 +50,7 @@ export interface IWebContainerEntity
  * @stable [27.09.2019]
  */
 export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
-  extends React.Component<TProps, TState>,
-    IDispatchEntity {
+  extends React.Component<TProps, TState> {
 }
 
 /**

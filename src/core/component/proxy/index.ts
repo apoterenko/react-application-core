@@ -1,2 +1,2 @@
 export * from './store';
-export * from './store-dispatcher-proxy';
+export * from './store/form-store-proxy';

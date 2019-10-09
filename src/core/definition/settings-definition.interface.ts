@@ -1,4 +1,13 @@
 /**
+ * @stable [09.10.2019]
+ */
+export enum RegexpEnum {
+  PRICE = '\\d+(\\.\\d{1,2})?',
+  NUMBER = '[-+]?[0-9]*[.,]?[0-9]+',
+  DIGITAL = '[0-9]+',
+}
+
+/**
  * @stable [07.10.2019]
  */
 export interface IMessagesSettingsEntity {

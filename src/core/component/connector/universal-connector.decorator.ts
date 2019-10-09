@@ -10,7 +10,12 @@ import { DYNAMIC_ROUTES } from '../../router/router.interface';
 import { CONNECTOR_SECTION_FIELD } from './universal-connector.interface';
 import { universalConnectorFactory } from './universal-connector.factory';
 import { ConnectorActionBuilder } from './connector-action.builder';
-import { IUniversalContainerEntity, IUniversalStoreEntity, IUniversalContainerCtor } from '../../definition';
+import {
+  IUniversalContainerCtor,
+  IUniversalContainerEntity,
+  IUniversalContainerProps,
+  IUniversalStoreEntity,
+} from '../../definition';
 
 const logger = LoggerFactory.makeLogger('universal-connector.decorator');
 
@@ -48,7 +53,11 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
 
       finalTarget = class extends target {
 
-        constructor(props) {
+        /**
+         * @stable [09.10.2019]
+         * @param {IUniversalContainerProps} props
+         */
+        constructor(props: IUniversalContainerProps) {
           super(props);
 
           const injectedServices = config.injectedServices;

@@ -6,10 +6,10 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { isString } from '../util';
 import { provideInSingleton } from '../di';
 import {
+  INavigateEntity,
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_NAVIGATE_ACTION_TYPE,
-} from './router.interface';
-import { INavigateEntity } from '../entities-definitions.interface';
+} from '../definition';
 
 @provideInSingleton(RnRouterEffects)
 export class RnRouterEffects {

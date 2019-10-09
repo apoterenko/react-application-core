@@ -3,20 +3,22 @@ import { Store, AnyAction } from 'redux';
 import { applySection } from '../../../util';
 import { getStore } from '../../../di';
 import {
-  IContainer,
-  IContainerProps,
   IDispatcher,
+  IUniversalContainer,
+  IUniversalContainerProps,
+  IUniversalStoreEntity,
 } from '../../../definition';
 import { IKeyValue } from '../../../definitions.interface';
 
-export class BaseStoreProxy<TStore, TProps extends IContainerProps>
+export class BaseStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
+                            TProps extends IUniversalContainerProps = IUniversalContainerProps>
   implements IDispatcher {
 
   /**
-   * @stable [03.10.2019]
-   * @param {IContainer<TProps extends IContainerProps>} container
+   * @stable [09.10.2019]
+   * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
    */
-  constructor(protected readonly container: IContainer<TProps>) {
+  constructor(protected readonly container: IUniversalContainer<TProps>) {
   }
 
   /**
@@ -41,7 +43,7 @@ export class BaseStoreProxy<TStore, TProps extends IContainerProps>
    * @stable [11.09.2019]
    * @param {AnyAction} action
    */
-  protected dispatchAnyAction(action: AnyAction): void {
+  public dispatchAnyAction(action: AnyAction): void {
     this.appStore.dispatch(action);
   }
 

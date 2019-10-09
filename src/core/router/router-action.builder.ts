@@ -5,7 +5,7 @@ import {
   ROUTER_REPLACE_ACTION_TYPE,
   ROUTER_BACK_ACTION_TYPE,
   ROUTER_REWRITE_ACTION_TYPE,
-} from './router.interface';
+} from '../definition';
 
 export class RouterActionBuilder {
 

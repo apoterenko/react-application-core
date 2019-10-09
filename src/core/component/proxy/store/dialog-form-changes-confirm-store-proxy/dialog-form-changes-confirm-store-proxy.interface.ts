@@ -5,13 +5,17 @@ import {
   IActivateDialogWrapper,
   IGoBackWrapper,
 } from '../../../../definitions.interface';
-import { IUniversalDialog } from '../../../../definition';
+import {
+  IDispatcher,
+  IUniversalDialog,
+} from '../../../../definition';
 
 /**
  * @stable [03.10.2019]
  */
 export interface IDialogFormChangesConfirmStoreProxy
-  extends IActivateDialogWrapper,
+  extends IDispatcher,
+    IActivateDialogWrapper,
     IGoBackWrapper {
   getDialogRef<T extends IUniversalDialog>(): React.RefObject<T>;
 }

@@ -938,8 +938,9 @@ export interface ISorterFnWrapper<TSortedItem = IEntity, TSorter = (item1: TSort
 }
 
 export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialogFormChangesConfirmStoreProxy?: TValue; }
+export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
+export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
-export interface I$$storeDispatcherProxyWrapper<TValue> { $$storeDispatcherProxy?: TValue; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
 export interface IBindStoreWrapper<TValue> { bindStore?: TValue; }

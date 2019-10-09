@@ -5,13 +5,13 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { isString } from '../util';
 import { DI_TYPES, lazyInject, provideInSingleton } from '../di';
 import {
+  INavigateEntity,
+  IRouter,
+  ROUTER_BACK_ACTION_TYPE,
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REPLACE_ACTION_TYPE,
-  ROUTER_BACK_ACTION_TYPE,
   ROUTER_REWRITE_ACTION_TYPE,
-} from './router.interface';
-import { INavigateEntity } from '../entities-definitions.interface';
-import { IRouter } from '../definition';
+} from '../definition';
 
 @provideInSingleton(RouterEffects)
 export class RouterEffects {

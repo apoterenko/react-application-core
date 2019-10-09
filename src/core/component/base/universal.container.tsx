@@ -18,13 +18,11 @@ import {
 } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
-  INavigateEntity,
-} from '../../entities-definitions.interface';
-import {
   IContainerCtor,
   IEnvironment,
   IEventManager,
   ILogManager,
+  INavigateEntity,
   IOperationEntity,
   IRoutesEntity,
   IStateSerializer,
@@ -32,13 +30,11 @@ import {
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
+  ROUTER_BACK_ACTION_TYPE,
+  ROUTER_NAVIGATE_ACTION_TYPE,
+  ROUTER_REWRITE_ACTION_TYPE,
 } from '../../definition';
 import { IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import {
-  ROUTER_NAVIGATE_ACTION_TYPE,
-  ROUTER_BACK_ACTION_TYPE,
-  ROUTER_REWRITE_ACTION_TYPE,
-} from '../../router/router.interface';
 import { ISettingsEntity } from '../../settings';
 import { TranslatorT } from '../../translation';
 import { IDateConverter, INumberConverter } from '../../converter';
@@ -66,9 +62,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [18.11.2018]
-   * @param {string} type
-   * @param {TChanges} data
+   * @deprecated Use proxy
    */
   public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
     const props = this.props;
@@ -76,10 +70,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [24.02.2019]
-   * @param {string} type
-   * @param {TData} data
-   * @param {string} otherSection
+   * @deprecated Use proxy
    */
   public dispatchFrameworkAction<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void {
     const props = this.props;
@@ -88,66 +79,53 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 12.04.2018
-   * @param {TPath0} path
-   * @param {TState0} state
+   * @deprecated Use proxy
    */
   public navigate<TPath0, TState0>(path: TPath0, state?: TState0): void {
     this.doNavigate(ROUTER_NAVIGATE_ACTION_TYPE, path, state);
   }
 
   /**
-   * @stable [14.01.2019]
-   * @param {TPath0} path
-   * @param {TState0} state
+   * @deprecated Use proxy
    */
   public navigateAndRewrite<TPath0, TState0>(path: TPath0, state?: TState0): void {
     this.doNavigate(ROUTER_REWRITE_ACTION_TYPE, path, state);
   }
 
   /**
-   * @stable [24.02.2019]
-   * @param {TChanges} changes
-   * @param {string} otherSection
+   * @deprecated Use proxy
    */
   public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void {
     this.appStore.dispatch(
-      FormActionBuilder.buildChangesSimpleAction(otherSection || this.props.sectionName, changes)
+      FormActionBuilder.buildChangesPlainAction(otherSection || this.props.sectionName, changes)
     );
   }
 
   /**
-   * @stable [24.02.2019]
-   * @param {string} fieldName
-   * @param {AnyT} fieldValue
-   * @param {string} otherSection
+   * @deprecated Use proxy
    */
   public dispatchFormChange(fieldName: string, fieldValue?: AnyT, otherSection?: string): void {
     this.appStore.dispatch(
-      FormActionBuilder.buildChangeSimpleAction(otherSection || this.props.sectionName, fieldName, fieldValue)
+      FormActionBuilder.buildChangePlainAction(otherSection || this.props.sectionName, fieldName, fieldValue)
     );
   }
 
   /**
-   * @stable [18.11.2018]
-   * @param {string} dictionary
-   * @param {TData} data
+   * @deprecated Use proxy
    */
   public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
     this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
   }
 
   /**
-   * @stable [23.12.2018]
-   * @param {string} type
-   * @param {TData} data
+   * @deprecated Use proxy
    */
   public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
     this.appStore.dispatch({ type, data });
   }
 
   /**
-   * @stable - 12.04.2018
+   * @deprecated Use proxy
    */
   protected navigateToBack(): void {
     this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
@@ -167,8 +145,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [26.08.2018]
-   * @param {string} fieldName
+   * @deprecated Use proxy
    */
   protected dispatchFormClear(fieldName: string): void {
     this.appStore.dispatch(
@@ -201,10 +178,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [14.01.2019]
-   * @param {string} action
-   * @param {TPath0} path
-   * @param {TState0} state
+   * @deprecated Use proxy
    */
   private doNavigate<TPath0, TState0>(action: string, path: TPath0, state?: TState0): void {
     this.dispatchCustomType(action, toType<INavigateEntity<TPath0, TState0>>({ path, state }));

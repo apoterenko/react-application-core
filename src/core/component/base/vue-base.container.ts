@@ -10,7 +10,11 @@ import {
   IEntity,
   ACTION_PREFIX,
 } from '../../definitions.interface';
-import { INavigateEntity } from '../../entities-definitions.interface';
+import {
+  INavigateEntity,
+  ROUTER_BACK_ACTION_TYPE,
+  ROUTER_NAVIGATE_ACTION_TYPE,
+} from '../../definition';
 import { DictionariesActionBuilder } from '../../dictionary';
 import {
   IVueApplicationStoreEntity,
@@ -18,7 +22,6 @@ import {
 } from '../../vue-entities-definitions.interface';
 import { FormActionBuilder } from '../form/vue-index';
 import { ListActionBuilder } from '../list/vue-index';
-import { ROUTER_BACK_ACTION_TYPE, ROUTER_NAVIGATE_ACTION_TYPE } from '../../router/vue-index';
 
 export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueContainer {
   public sectionName: string;
@@ -68,7 +71,7 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @param {string} otherSection
    */
   public dispatchFormChanges<TChanges = IKeyValue>(changes: TChanges, otherSection?: string): void {
-    this.store$.dispatch(FormActionBuilder.buildChangesSimpleAction(otherSection || this.sectionName, changes));
+    this.store$.dispatch(FormActionBuilder.buildChangesPlainAction(otherSection || this.sectionName, changes));
   }
 
   /**
@@ -78,7 +81,7 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @param {string} otherSection
    */
   public dispatchFormChange(fieldName: string, fieldValue?: AnyT, otherSection?: string): void {
-    this.store$.dispatch(FormActionBuilder.buildChangeSimpleAction(otherSection || this.sectionName, fieldName, fieldValue));
+    this.store$.dispatch(FormActionBuilder.buildChangePlainAction(otherSection || this.sectionName, fieldName, fieldValue));
   }
 
   /**

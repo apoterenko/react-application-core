@@ -6,6 +6,7 @@ import {
   IButtonProps,
   IMessagesSettingsEntity,
   ITransportSettingsEntity,
+  RegexpEnum,
   StorageTypesEnum,
 } from '../definition';
 
@@ -164,12 +165,6 @@ export interface ISettingsEntity {
   components?: IComponentsSettings;
 }
 
-export const REGEXP_REPO = {
-  price: '\\d+(\\.\\d{1,2})?',
-  number: '[-+]?[0-9]*[.,]?[0-9]+',
-  digital: '[0-9]+',
-};
-
 export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   signalRUrl: prepareUrl(ENV.basePath + '/api/'),
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
@@ -261,7 +256,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     rootId: 'appId',
   },
   number: {
-    uiPattern: REGEXP_REPO.number,
+    uiPattern: RegexpEnum.NUMBER,
   },
   phone: {
     uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],

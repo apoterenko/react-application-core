@@ -239,12 +239,12 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [09.10.2019]
    * @param {string} section
-   * @param {IKeyValue} changes
+   * @param {TData} changes
    * @returns {AnyAction}
    */
-  public static buildChangesSimpleAction(section: string, changes: IKeyValue): AnyAction {
+  public static buildChangesPlainAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): AnyAction {
     return {
       type: this.buildChangeActionType(section),
       data: applySection(section, this.buildChangesPayload(changes)),
@@ -252,17 +252,15 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [09.10.2019]
    * @param {string} section
    * @param {string} name
    * @param {AnyT} value
    * @returns {AnyAction}
    */
-  public static buildChangeSimpleAction(section: string, name: string, value?: AnyT): AnyAction {
-    return {
-      type: this.buildChangeActionType(section),
-      data: applySection(section, { name, value }),
-    };
+  public static buildChangePlainAction(section: string, name: string, value?: AnyT): AnyAction {
+    const payload: IFieldChangeEntity = {name, value};
+    return {type: this.buildChangeActionType(section), data: applySection(section, payload)};
   }
 
   /**
@@ -282,8 +280,8 @@ export class FormActionBuilder {
   private static buildChangesPayload(changes: IKeyValue): FieldChangeEntityT {
     return {
       fields: Object
-                .keys(changes)
-                .map((name): IFieldChangeEntity => ({name, value: Reflect.get(changes, name)})),
+        .keys(changes)
+        .map((name): IFieldChangeEntity => ({name, value: Reflect.get(changes, name)})),
     };
   }
 }
