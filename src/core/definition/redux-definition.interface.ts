@@ -2,6 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   AnyT,
+  IActionWrapper,
   ICustomActionsWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
@@ -32,13 +33,19 @@ import {
 } from '../definitions.interface';
 import { IApplicationWrapperEntity } from './application-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
-import { IEffectsActionEntity } from './effects-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
 import { IUserWrapperEntity } from './user-definition.interface';
+
+/**
+ * @stable [09.10.2019]
+ */
+export interface IEffectsActionEntity
+  extends IActionWrapper<IEffectsAction> {
+}
 
 /**
  * @stable [26.08.2019]
@@ -107,10 +114,21 @@ export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TSta
 /**
  * @stable [04.10.2019]
  */
-export interface ISucceedRelatedFormEntityMiddlewareConfigEntity
+export interface ISucceedRelatedFormMiddlewareConfigEntity
   extends ISucceedMessageWrapper,
     IFormSectionWrapper,
     INavigateBackWrapper {
+}
+
+/**
+ * @stable [09.10.2019]
+ */
+export interface ISucceedListFormMiddlewareConfigEntity
+  extends INavigateBackWrapper,
+    IEffectsActionEntity,
+    IListSectionWrapper,
+    IFormSectionWrapper,
+    ISucceedMessageWrapper {
 }
 
 /**

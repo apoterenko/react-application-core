@@ -1,8 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  INavigateBackWrapper,
-  ICanUpdateWrapper,
   IEntity,
   IFilterSectionWrapper,
   IFormSectionWrapper,
@@ -11,17 +9,17 @@ import {
   IListAccessorWrapper,
   IListRoutePathWrapper,
   IListSectionWrapper,
+  INavigateBackWrapper,
   IRelatedEntityWrapper,
   IResolverWrapper,
-  ISaveMessageWrapper,
   IStateWrapper,
+  ISucceedMessageWrapper,
 } from '../../definitions.interface';
 import {
   IListWrapperEntity,
   IListEntity,
 } from '../../entities-definitions.interface';
 import {
-  IApiEntity,
   IEffectsActionEntity,
   IStoreEntity,
 } from '../../definition';
@@ -81,20 +79,6 @@ export interface IDestroyedFormMiddlewareConfig extends IFormSectionWrapper {
 /**
  * @stable [22.08.2018]
  */
-export interface ISucceedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
-                                              TApplicationState = IStoreEntity>
-  extends INavigateBackWrapper,
-          ICanUpdateWrapper<boolean | ((apiEntity: IApiEntity<TEntity>, action: IEffectsAction) => boolean)>,
-          IEffectsActionEntity,
-          IListSectionWrapper,
-          IFormSectionWrapper,
-          ISaveMessageWrapper,
-          IStateWrapper<TApplicationState> {
-}
-
-/**
- * @stable [22.08.2018]
- */
 export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
                                                      TRelatedEntity extends IEntity = IEntity,
                                                      TApplicationState = IStoreEntity>
@@ -104,7 +88,7 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
             IFormSectionWrapper,
             INavigateBackWrapper,
             IStateWrapper<TApplicationState>,
-            ISaveMessageWrapper {
+            ISucceedMessageWrapper {
   getEntity?(state: TApplicationState): TEntity;
   getRelatedEntities?(entity: TEntity): TRelatedEntity[];
   makeRelatedChanges?(relatedEntities: TRelatedEntity[]): TEntity;

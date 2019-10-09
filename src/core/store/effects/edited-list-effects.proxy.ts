@@ -46,6 +46,6 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        */
       @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(config.listSection))
       public $onEntityLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeSelectEntityMiddleware<TEntity, TState>({...config, action, state})
+        makeSelectEntityMiddleware<TEntity, TState>({...config, action, state, lazyLoading: false})
     }
   };

@@ -10,6 +10,7 @@ import {
   IEnvironment,
   IEventManager,
   ILogManager,
+  IModifyEntityPayloadFactory,
   IStateSerializer,
   IStorage,
   ITransport,
@@ -110,3 +111,9 @@ export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.Even
  * @returns {IEventManager}
  */
 export const getStateSerializer = (): IStateSerializer => staticInjector(DI_TYPES.StateSerializer);
+
+/**
+ * @stable [09.10.2019]
+ * @returns {IModifyEntityPayloadFactory}
+ */
+export const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => staticInjector(DI_TYPES.ModifyEntityPayloadFactory);

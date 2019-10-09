@@ -8,9 +8,8 @@ import {
   IRemovedEntityWrapper,
   ISelectedEntityWrapper,
 } from '../../definitions.interface';
-import { IPagedEntity } from '../../definition';
+import { IPagedEntity, IModifyEntityPayloadWrapperEntity } from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
-import { IModifyEntityPayloadWrapper } from '../../api';
 import {
   LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
@@ -292,17 +291,13 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildResetActionType(section), applySection(section));
   }
 
-  public static buildInsertAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
-    return EffectsAction.create(this.buildInsertActionType(section), applySection(section, data));
-  }
-
   /**
    * @stable [22.01.2019]
    * @param {string} section
-   * @param {IModifyEntityPayloadWrapper} data
+   * @param {IModifyEntityPayloadWrapperEntity} data
    * @returns {IEffectsAction}
    */
-  public static buildMergeAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
+  public static buildMergeAction(section: string, data?: IModifyEntityPayloadWrapperEntity): IEffectsAction {
     return EffectsAction.create(this.buildMergeActionType(section), applySection(section, data));
   }
 
@@ -316,7 +311,7 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildRemoveActionType(section), applySection(section, data));
   }
 
-  public static buildUpdateAction(section: string, data?: IModifyEntityPayloadWrapper): IEffectsAction {
+  public static buildUpdateAction(section: string, data?: IModifyEntityPayloadWrapperEntity): IEffectsAction {
     return EffectsAction.create(this.buildUpdateActionType(section), applySection(section, data));
   }
 

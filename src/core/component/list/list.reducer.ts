@@ -13,19 +13,19 @@ import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
 import {
-  EntityOnSaveMergeStrategyEnum,
-  IModifyEntityPayloadWrapper,
-} from '../../api';
-import {
   IListEntity,
   ISortDirectionEntity,
 } from '../../entities-definitions.interface';
-import { IFieldChangeEntity } from '../../definition';
+import {
+  EntityMergeStrategiesEnum,
+  IFieldChangeEntity,
+  IModifyEntityPayloadWrapperEntity,
+} from '../../definition';
 
 export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
                             action: IEffectsAction): IListEntity {
   const section = toSection(action);
-  const modifyData: IModifyEntityPayloadWrapper = action.data;
+  const modifyData: IModifyEntityPayloadWrapperEntity = action.data;
 
   let modifyDataPayload = modifyData && modifyData.payload;
   let updatedData;
@@ -189,14 +189,14 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
     // No breaks! Go to update the entity.
     case ListActionBuilder.buildUpdateActionType(section):
       const mergeStrategy = (R.isNil(modifyDataPayload.mergeStrategy)
-        || modifyDataPayload.mergeStrategy === EntityOnSaveMergeStrategyEnum.MERGE)
-        ? EntityOnSaveMergeStrategyEnum.MERGE
-        : EntityOnSaveMergeStrategyEnum.OVERRIDE;
+        || modifyDataPayload.mergeStrategy === EntityMergeStrategiesEnum.MERGE)
+        ? EntityMergeStrategiesEnum.MERGE
+        : EntityMergeStrategiesEnum.OVERRIDE;
       if (state.data && state.data.length) {
         updatedData = state.data.map((item) => (
             item.id === modifyDataPayload.id
                 ? (
-                    mergeStrategy === EntityOnSaveMergeStrategyEnum.OVERRIDE
+                    mergeStrategy === EntityMergeStrategiesEnum.OVERRIDE
                       ? { ...modifyDataPayload.changes }
                       : {...item, ...modifyDataPayload.changes}
                     )
@@ -213,7 +213,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       } else {
         return {
           ...state,
-          selected: mergeStrategy === EntityOnSaveMergeStrategyEnum.OVERRIDE
+          selected: mergeStrategy === EntityMergeStrategiesEnum.OVERRIDE
             ? {...modifyDataPayload.changes}
             : {...state.selected, ...modifyDataPayload.changes},
           progress: false,      // In a lazy-loading case

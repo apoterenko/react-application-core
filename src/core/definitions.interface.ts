@@ -411,6 +411,7 @@ export interface ILinkWrapper<TLink = string> { link?: TLink; }
 export interface ILockWrapper { lock?: boolean; }
 export interface ILoginWrapper<TLogin = string> { login?: TLogin; }
 export interface IMaxCountWrapper { maxCount?: number; }
+export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
@@ -1139,20 +1140,6 @@ export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
  */
 export interface IApiEntityWrapper<TApiEntity> {
   apiEntity?: TApiEntity;
-}
-
-/**
- * @stable [07.07.2018]
- */
-export interface ICanUpdateWrapper<TCanUpdate = boolean> {
-  canUpdate?: TCanUpdate;
-}
-
-/**
- * @stable [21.08.2018]
- */
-export interface ISaveMessageWrapper {
-  saveMessage?: string;
 }
 
 /**

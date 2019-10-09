@@ -1,23 +1,22 @@
 import { IEffectsAction } from 'redux-effects-promise';
-import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { isFn, orNull, ifNotNilThanValue } from '../../util';
+import { orNull, ifNotNilThanValue } from '../../util';
 import { RouterActionBuilder } from '../../router';
 import { IEntity } from '../../definitions.interface';
 import {
   ListActionBuilder,
   FormActionBuilder,
 } from '../../component/action.builder';
-import { ISucceedFormMiddlewareConfig, ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
+import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import {
   IApiEntity,
-  IStoreEntity,
-  ISucceedRelatedFormEntityMiddlewareConfigEntity,
+  IModifyEntityPayloadWrapperEntity,
+  ISucceedListFormMiddlewareConfigEntity,
+  ISucceedRelatedFormMiddlewareConfigEntity,
 } from '../../definition';
 import { APPLICATION_SECTIONS } from '../../component/application/application.interface';
-import { DI_TYPES, staticInjector, getTranslator } from '../../di';
-import { IApplicationModifyEntityPayloadFactory, IModifyEntityPayloadWrapper } from '../../api';
+import { DI_TYPES, staticInjector, getTranslator, getModifyEntityPayloadFactory } from '../../di';
 import { NotificationActionBuilder } from '../../notification';
 import { TranslatorT } from '../../translation';
 import { ISettingsEntity } from '../../settings';
@@ -26,11 +25,11 @@ const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 
 /**
  * @stable [04.10.2019]
- * @param {ISucceedRelatedFormEntityMiddlewareConfigEntity} config
+ * @param {ISucceedRelatedFormMiddlewareConfigEntity} config
  * @returns {IEffectsAction[]}
  */
 export const makeSucceedRelatedFormEntityMiddleware = (
-  config: ISucceedRelatedFormEntityMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
+  config: ISucceedRelatedFormMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
   const {formSection, succeedMessage, navigateBack} = config;
   return [
     navigateBack === false && formSection
@@ -61,7 +60,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
     );
 
   const changes = config.makeRelatedChanges(relatedEntities);
-  const payloadWrapper: IModifyEntityPayloadWrapper = {payload: {id: parentEntity.id, changes}};
+  const payloadWrapper: IModifyEntityPayloadWrapperEntity = {payload: {id: parentEntity.id, changes}};
 
   return [
     ...ifNotNilThanValue(
@@ -77,52 +76,34 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
       []
     ),
     NotificationActionBuilder.buildInfoAction(
-      staticInjector<TranslatorT>(DI_TYPES.Translate)(
-        config.saveMessage || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
+      getTranslator()(
+        config.succeedMessage || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
       )
     )
   ];
 };
 
-/**
- * @stable [07.07.2018]
- * @param {ISucceedFormMiddlewareConfig<TEntity extends IEntity>} config
- * @returns {IEffectsAction[]}
- */
-export const makeSucceedFormMiddleware = <TEntity extends IEntity>(config: ISucceedFormMiddlewareConfig<TEntity>): IEffectsAction[] => {
+export const makeSucceedListFormMiddleware = (config: ISucceedListFormMiddlewareConfigEntity): IEffectsAction[] => {
+  const {listSection, action, navigateBack, succeedMessage} = config;
 
-  const {listSection, action, navigateBack, canUpdate, saveMessage} = config;
-  const apiEntity = action.initialData as IApiEntity;
-
-  const connectorConfig = APPLICATION_SECTIONS.get(listSection);
+  const connectorConfig = APPLICATION_SECTIONS.get(listSection); // TODO Inject
   const dynamicListRoute = orNull<string>(
     connectorConfig,
     () => connectorConfig.routeConfiguration.path
   );
+  const payloadWrapper = getModifyEntityPayloadFactory().makeInstance(action);
 
-  if (!dynamicListRoute) {
-    logger.warn(
-      `[$makeSucceedFormMiddleware] The list route is empty for the section ${listSection}`
-    );
-  }
-  const isUpdateNeeded = R.isNil(canUpdate) || (isFn(canUpdate) ? (canUpdate as (...args) => boolean)(apiEntity, action) : canUpdate);
-  const payloadWrapper = isUpdateNeeded
-    ? (staticInjector(DI_TYPES.ModifyEntityPayloadFactory) as IApplicationModifyEntityPayloadFactory)
-        .makeInstance(action)
-    : null;
-
-  return (
-    isUpdateNeeded
-      ? [ListActionBuilder.buildMergeAction(listSection, payloadWrapper)]
-      : []
-  ).concat(
-    navigateBack !== false
-      ? RouterActionBuilder.buildReplaceAction(dynamicListRoute)
-      : []
-  ).concat(
+  return [
+    ListActionBuilder.buildMergeAction(listSection, payloadWrapper),
+    ...(
+      navigateBack !== false
+        ? [RouterActionBuilder.buildReplaceAction(dynamicListRoute)]
+        : []
+    )
+  ].concat(
     NotificationActionBuilder.buildInfoAction(
       staticInjector<TranslatorT>(DI_TYPES.Translate)(
-        saveMessage || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
+        succeedMessage || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
       )
     )
   );

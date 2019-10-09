@@ -102,7 +102,7 @@ export class Environment implements IEnvironment {
    * @returns {string}
    */
   public get platformName(): string {
-    return this.osFamily;
+    return this.ios13Platform ? 'iOS' : this.osFamily;
   }
 
   /**

@@ -10,6 +10,6 @@ export * from './form-filter-effects.proxy';
 export * from './paginated-list-effects.proxy';
 export * from './refreshed-list-on-valid-form-effects.proxy';
 export * from './router-effects.proxy';
-export * from './succeed-form-effects.proxy';
+export * from './succeed-list-form-effects.proxy';
 export * from './toolbar-tools-effects.proxy';
 export * from './untouched-list-effects.proxy';

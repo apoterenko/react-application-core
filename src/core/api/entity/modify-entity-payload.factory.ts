@@ -1,44 +1,48 @@
-import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { IEntity } from '../../definitions.interface';
-import { isPrimitive } from '../../util';
+import { isPrimitive, ifNotNilThanValue } from '../../util';
 import {
-  IApplicationModifyEntityPayloadFactory,
-  IModifyEntityPayloadWrapper,
-  EntityOnSaveMergeStrategyEnum,
-} from './modify-entity-payload-factory.interface';
-import { IApiEntity } from '../../definition';
+  EntityMergeStrategiesEnum,
+  IApiEntity,
+  IModifyEntityPayloadFactory,
+  IModifyEntityPayloadWrapperEntity,
+} from '../../definition';
 
 @injectable()
-export class ModifyEntityPayloadFactory implements IApplicationModifyEntityPayloadFactory {
+export class ModifyEntityPayloadFactory implements IModifyEntityPayloadFactory {
 
-  private static logger = LoggerFactory.makeLogger('ModifyEntityPayloadFactory');
+  private static readonly logger = LoggerFactory.makeLogger('ModifyEntityPayloadFactory');
 
-  public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapper {
+  /**
+   * @stable [09.10.2019]
+   * @param {IEffectsAction} action
+   * @returns {IModifyEntityPayloadWrapperEntity}
+   */
+  public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapperEntity {
     const apiEntity = action.initialData as IApiEntity;
     const responseData = action.data;
     const responseEntity = responseData as IEntity;
-    const isResponseDataNotPrimitiveAndExists = !R.isNil(responseData) && !isPrimitive(responseData);
+    const doesResponseDataNotPrimitiveAndExist = ifNotNilThanValue(responseData, () => !isPrimitive(responseData), false);
 
-    const result: IModifyEntityPayloadWrapper = {
+    const result: IModifyEntityPayloadWrapperEntity = {
       payload: {
-        id: isResponseDataNotPrimitiveAndExists
+        id: doesResponseDataNotPrimitiveAndExist
             ? responseEntity.id
             : apiEntity.entityId,
-        mergeStrategy: isResponseDataNotPrimitiveAndExists
-            ? EntityOnSaveMergeStrategyEnum.OVERRIDE
-            : EntityOnSaveMergeStrategyEnum.MERGE,
-        changes: isResponseDataNotPrimitiveAndExists
+        mergeStrategy: doesResponseDataNotPrimitiveAndExist
+            ? EntityMergeStrategiesEnum.OVERRIDE
+            : EntityMergeStrategiesEnum.MERGE,
+        changes: doesResponseDataNotPrimitiveAndExist
             ? responseEntity
             : apiEntity.changes,
       },
     };
 
     ModifyEntityPayloadFactory.logger.debug(
-        '[$ModifyEntityPayloadFactory][makeInstance] Payload wrapper is', result, ', action is', action
+        '[$ModifyEntityPayloadFactory][makeInstance] Payload wrapper:', result, ', action:', action
     );
     return result;
   }
