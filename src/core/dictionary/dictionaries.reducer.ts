@@ -6,7 +6,7 @@ import {
   INITIAL_DICTIONARIES_STATE,
 } from './dictionaries.interface';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
-import { IDictionariesEntity } from '../entities-definitions.interface';
+import { IDictionariesEntity } from '../definition';
 
 export function dictionariesReducer(state: IDictionariesEntity = INITIAL_DICTIONARIES_STATE,
                                     action: AnyAction): IDictionariesEntity {

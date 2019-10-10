@@ -2,14 +2,17 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
+  IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
   IFormWrapperEntity,
   ILifeCycleEntity,
+  IOptionEntity,
   IPagedEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
+  ISelectOptionEntity,
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
@@ -23,13 +26,11 @@ import {
   IQueryWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
-import { trimmedUndefEmpty } from './nvl';
 import { ifNotNilThanValue, ifNotEmptyThanValue } from './cond';
-import {
-  IListEntity,
-  IListWrapperEntity,
-} from '../entities-definitions.interface';
+import { IListEntity, IListWrapperEntity } from '../entities-definitions.interface';
+import { isFn } from './type';
 import { shallowClone } from './clone';
+import { trimmedUndefEmpty } from './nvl';
 
 /**
  * @stable [04.09.2019]
@@ -324,6 +325,24 @@ export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): 
   mapListActionsDisabled(selectListEntity(listWrapper));
 
 /**
+ * @stable [11.10.2019]
+ * @param {TEntity[] | TEntity} data
+ * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
+ */
+export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<ISelectOptionEntity<TEntity>> =>
+  ifNotNilThanValue(
+    data,
+    (entities) => [].concat(entities)
+      .map((entity) => defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
+        value: entity.id,
+        label: entity.name,
+        disabled: entity.disabled,
+        rawData: entity,
+      })),
+    UNDEF_SYMBOL
+  );
+
+/**
  * @stable [18.09.2019]
  * @param {IEditableEntity} editableEntity
  * @returns {ToolbarToolsEnum[]}
@@ -342,3 +361,33 @@ export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IEd
  */
 export const selectFormEntityToolbarToolsActiveFilter = (entityFormEntity: IFormWrapperEntity): ToolbarToolsEnum[] =>
   selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(entityFormEntity));
+
+/**
+ * @stable [11.10.2019]
+ * @param {IDictionaryEntity<TEntity>} dictionaryEntity
+ * @param {(data: (TEntity[] | TEntity)) => TResult} accessor
+ * @returns {TEntity[] | TEntity | TResult}
+ */
+export const mapDictionaryEntityData = <TEntity, TResult = TEntity | TEntity[]>(
+  dictionaryEntity: IDictionaryEntity<TEntity>,
+  accessor?: (data: TEntity | TEntity[]) => TResult): TResult | TEntity | TEntity[] =>
+  ifNotNilThanValue(
+    dictionaryEntity,
+    () => ifNotNilThanValue(
+      dictionaryEntity.data,
+      (data) => isFn(accessor) ? accessor(data) : data,
+      UNDEF_SYMBOL
+    ),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [11.10.2019]
+ * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
+ * @returns {Array<ISelectOptionEntity<TDictionaryEntity>>}
+ */
+export const mapDictionaryEntity = <TDictionaryEntity>(
+  dictionaryEntity: IDictionaryEntity<TDictionaryEntity>): Array<ISelectOptionEntity<TDictionaryEntity>> =>
+  mapSelectOptions<TDictionaryEntity>(
+    mapDictionaryEntityData<TDictionaryEntity>(dictionaryEntity)
+  );

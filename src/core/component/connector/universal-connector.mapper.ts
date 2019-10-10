@@ -2,9 +2,7 @@ import * as R from 'ramda';
 
 import {
   defValuesFilter,
-  filterAndSortEntities,
   ifNotNilThanValue,
-  isFn,
   mapUserWrapperEntity,
   orNull,
 } from '../../util';
@@ -19,26 +17,23 @@ import {
   IKeyValue,
 } from '../../definitions.interface';
 import {
+  IDictionariesWrapperEntity,
+  IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
   IFormWrapperEntity,
   IPagedEntity,
   IPaginatedEntity,
-  ISelectOptionEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
-  IUserWrapperEntity,
   ToolbarToolsEnum,
 } from '../../definition';
 import {
-  IOptionEntity,
   IListWrapperEntity,
   IListEntity,
-  IDictionariesWrapperEntity,
   IDataMutatorEntity,
-  IDictionaryEntity,
 } from '../../entities-definitions.interface';
 import {
   IFilterConfiguration,
@@ -231,60 +226,6 @@ export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity:
  */
 export const disabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
   disabledListEntityMapper(listWrapperEntity.list);
-
-/**
- * @stable [31.08.2018]
- * @param {TEntity[] | TEntity} data
- * @param {IFilterAndSorterConfiguration} config
- * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
- */
-export const selectOptionsMapper =
-  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity,
-                                  config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TEntity>> => {
-  const entities: TEntity[] = filterAndSortEntities<TEntity>(data, config);
-  return orNull<Array<ISelectOptionEntity<TEntity>>>(
-    !R.isNil(entities),
-    () => (
-      entities.map<ISelectOptionEntity<TEntity>>((entity): ISelectOptionEntity<TEntity> =>
-        defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
-          value: entity.id,
-          label: entity.name,
-          disabled: entity.disabled,
-          rawData: entity,
-        }))
-    )
-  );
-};
-
-/**
- * @stable [16.06.2018]
- * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
- * @param {IFilterAndSorterConfiguration} config
- * @returns {Array<ISelectOptionEntity<TDictionaryEntity>>}
- */
-export const dictionaryEntityMapper
-  = <TDictionaryEntity>(dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
-                        config?: IFilterAndSorterConfiguration): Array<ISelectOptionEntity<TDictionaryEntity>> =>
-  selectOptionsMapper<TDictionaryEntity>(
-    dictionaryEntityDataMapper<TDictionaryEntity>(dictionaryEntity) as TDictionaryEntity[] | TDictionaryEntity,
-    config
-  );
-
-/**
- * @stable [20.12.2018]
- * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
- * @param {(data: (TDictionaryEntity[] | TDictionaryEntity)) => TResult} accessor
- * @returns {TResult}
- */
-export const dictionaryEntityDataMapper = <TDictionaryEntity, TResult = TDictionaryEntity[] | TDictionaryEntity>(
-  dictionaryEntity: IDictionaryEntity<TDictionaryEntity>,
-  accessor?: (data: TDictionaryEntity[] | TDictionaryEntity) => TResult): TResult =>
-  orNull<TResult>(
-    dictionaryEntity,
-    () => isFn(accessor) && !R.isNil(dictionaryEntity.data)
-      ? accessor(dictionaryEntity.data)
-      : dictionaryEntity.data as AnyT
-  );
 
 /**
  * @stable [29.05.2018]

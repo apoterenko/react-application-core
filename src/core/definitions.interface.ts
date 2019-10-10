@@ -352,11 +352,6 @@ export interface INeedToOpenMenuWrapper {
   needToOpenMenu?: boolean;
 }
 
-/* @stable - 22.04.2018 */
-export interface ILoadingWrapper {
-  loading?: boolean;
-}
-
 /**
  * @stable [22.12.2018]
  */
@@ -373,6 +368,7 @@ export interface IPrefixLabelWrapper {
 
 export interface IDictionariesWrapper<TDictionaries> { dictionaries?: TDictionaries; }
 export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
+export interface ILoadingWrapper { loading?: boolean; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
 
 /* @stable - 23.04.2018 */

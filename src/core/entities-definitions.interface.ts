@@ -6,7 +6,6 @@ import {
   IClearValueWrapper,
   IDataWrapper,
   IDateWrapper,
-  IDictionariesWrapper,
   IDirectionsWrapper,
   IDirectionWrapper,
   IDisabledWrapper,
@@ -22,7 +21,6 @@ import {
   IIndexWrapper,
   IKeyValue,
   IListWrapper,
-  ILoadingWrapper,
   INameWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
@@ -113,14 +111,6 @@ export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEv
 }
 
 /**
- * @stable [31.08.2018]
- */
-export interface IOptionEntity extends IEntityIdTWrapper,
-                                       INameWrapper,
-                                       IDisabledWrapper {
-}
-
-/**
  * @stable [03.07.2018]
  */
 export interface INamedNumericEntity extends IIdWrapper,
@@ -202,22 +192,6 @@ export interface IGridRowEntity extends ISelectedWrapper,
 
 /* @stable [23.04.2018] */
 export interface IUniversalMessageEntity extends ILifeCycleEntity {
-}
-
-/**
- * @stable [16.06.2018]
- */
-export interface IDictionaryEntity<TData> extends IDataWrapper<TData[] | TData>,
-                                                  ILoadingWrapper {
-}
-
-/* @stable - 22.04.2018 */
-export interface IDictionariesWrapperEntity extends IDictionariesWrapper<IDictionariesEntity> {
-}
-
-/* @stable - 22.04.2018 */
-export interface IDictionariesEntity {
-  [dictionary: string]: IDictionaryEntity<{}>;
 }
 
 /**
