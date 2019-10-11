@@ -937,6 +937,7 @@ export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialog
 export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
 export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
+export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
 export interface IBindStoreWrapper<TValue> { bindStore?: TValue; }

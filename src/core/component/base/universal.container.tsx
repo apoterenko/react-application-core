@@ -132,11 +132,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable [27.12.2018]
-   * @param {string | IOperationEntity} operation
-   * @returns {boolean}
+   * @deprecated Use TransportStoreProxy
    */
-  protected isTransportContainsExecutingOperation(operation: string | IOperationEntity): boolean {
+  protected isTransportOperationInProgress(operation: string | IOperationEntity): boolean {
     return this.props.transport.queue.includes(
       isString(operation)
         ? operation as string
