@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
 import { IGridColumnConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
 import { ISortDirectionEntity } from '../../entities-definitions.interface';
-import { IEntity, AnyT, EntityIdT, UNIVERSAL_STICKY_ELEMENT_SELECTOR} from '../../definitions.interface';
+import { IEntity, AnyT, EntityIdT } from '../../definitions.interface';
 import {
   joinClassName,
   isDef,
@@ -28,6 +28,7 @@ import { FlexLayout } from '../layout';
 import {
   IBaseEvent,
   IFieldChangeEntity,
+  UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../../definition';
 import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
 

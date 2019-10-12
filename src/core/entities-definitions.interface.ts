@@ -320,15 +320,3 @@ export interface ICrossPlatformField extends IOnChangeManuallyWrapper,
                                              IGetValueWrapper,
                                              IValueWrapper {
 }
-
-/**
- * @stable [13.12.2018]
- */
-export interface IStickyElementPayloadEntity {
-  jqSelfEl?: IJQueryElement;
-  jqStickyNeighborRightEl?: IJQueryElement;
-  jqStickyEl?: IJQueryElement;
-  jqStickyElHeight?: number;
-  initialStickyElTop?: number;
-  initial?: boolean;
-}

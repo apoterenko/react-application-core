@@ -1,111 +1,61 @@
-import * as R from 'ramda';
-
-import {
-  IStickyElementPayloadEntity,
-} from '../../entities-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../di';
 import {
-  getStickyElementInitialProperties,
-  setStickyElementProperties,
+  isFn,
   sequence,
-  DelayedTask,
+  setStickyElementProperties,
 } from '../../util';
 import {
-  IDomAccessor,
+  EventsEnum,
+  IEventManager,
   IUniversalPlugin,
   IUniversalScrollableComponent,
+  UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../../definition';
 
 export class StickyHeaderPlugin implements IUniversalPlugin {
-  @lazyInject(DI_TYPES.DomAccessor) private domAccessor: IDomAccessor;
-
-  private stickyElementInitialProperties: IStickyElementPayloadEntity;
-  private selfElementHeight: number;
-  private readonly delayedTask = new DelayedTask(this.onDelayedTask.bind(this), 400);
+  @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
+  private resizeUnsubscriber: () => void;
 
   /**
-   * @stable [13.12.2018]
+   * @stable [11.10.2019]
    * @param {IUniversalScrollableComponent} component
    */
   constructor(private component: IUniversalScrollableComponent) {
-    component.onScroll = sequence(
-      component.onScroll,
-      () => {
-        if (this.stickyElementInitialProperties) {
-          setStickyElementProperties({
-            ...this.stickyElementInitialProperties,
-            initial: true,
-          });
-          this.delayedTask.start();
-        }
-      }
+    this.doSetStickyElementProperties = this.doSetStickyElementProperties.bind(this);
+    component.onScroll = sequence(component.onScroll, this.doSetStickyElementProperties);
+  }
+
+  /**
+   * @stable [11.10.2019]
+   */
+  public componentDidMount() {
+    this.resizeUnsubscriber = this.eventManager.subscribe(
+      window,
+      EventsEnum.RESIZE,
+      this.doSetStickyElementProperties
     );
   }
 
   /**
-   * @stable [13.12.2018]
-   */
-  public componentDidMount() {
-    this.stickyElementInitialProperties = this.getStickyElementInitialProperties();
-    if (!R.isNil(this.stickyElementInitialProperties)) {
-      this.selfElementHeight = this.selfHeight;
-    }
-  }
-
-  /**
-   * @stable [13.12.2018]
+   * @stable [11.10.2019]
    */
   public componentWillUnmount() {
-    this.stickyElementInitialProperties = null;
-    this.delayedTask.stop();
-  }
-
-  /**
-   * @stable [13.12.2018]
-   */
-  public componentDidUpdate() {
-    this.doUpdate();
-  }
-
-  /**
-   * @stable [13.12.2018]
-   * @returns {number}
-   */
-  private get selfHeight(): number {
-    return this.domAccessor.getHeight(this.component.getSelf());
-  }
-
-  /**
-   * @stable [13.12.2018]
-   * @returns {IStickyElementPayloadEntity}
-   */
-  private getStickyElementInitialProperties(): IStickyElementPayloadEntity {
-    return getStickyElementInitialProperties(this.domAccessor.toJqEl(this.component.getSelf()));
-  }
-
-  /**
-   * @stable [20.12.2018]
-   */
-  private doUpdate(): void {
-    const selfHeight = this.selfHeight;
-    const stickyElementInitialProperties0 = this.getStickyElementInitialProperties();
-    const hasStickyElementChanged = !R.isNil(stickyElementInitialProperties0)
-      && !R.isNil(this.stickyElementInitialProperties)
-      && stickyElementInitialProperties0.jqStickyEl.get()[0] !== this.stickyElementInitialProperties.jqStickyEl.get()[0];
-
-    /**
-     * Only this way we can detect the DOM changes
-     */
-    if (selfHeight !== this.selfElementHeight || hasStickyElementChanged) {
-      const stickyElementInitialProperties = this.getStickyElementInitialProperties();
-      if (!R.isNil(stickyElementInitialProperties)) {
-        this.selfElementHeight = selfHeight;
-        this.stickyElementInitialProperties = stickyElementInitialProperties;
-      }
+    if (isFn(this.resizeUnsubscriber)) {
+      this.resizeUnsubscriber();
     }
   }
 
-  private onDelayedTask(): void {
-    setStickyElementProperties(this.stickyElementInitialProperties);
+  /**
+   * @stable [11.10.2019]
+   */
+  public componentDidUpdate() {
+    this.doSetStickyElementProperties();
+  }
+
+  /**
+   * @stable [11.10.2019]
+   */
+  private doSetStickyElementProperties(): void {
+    setStickyElementProperties(this.component.getSelf(), `.${UNIVERSAL_STICKY_ELEMENT_SELECTOR}`);
   }
 }

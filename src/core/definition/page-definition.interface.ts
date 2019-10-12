@@ -1,5 +1,6 @@
 import {
   DEFAULT_MAX_PAGE_SIZE,
+  DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   ILockPageWrapper,
   IPageSizeWrapper,
@@ -14,6 +15,22 @@ import {
 export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IPagedEntity>({
   page: FIRST_PAGE,
   pageSize: DEFAULT_MAX_PAGE_SIZE,
+});
+
+/**
+ * @stable [12.10.2019]
+ */
+export const DEFAULT_PAGED_ENTITY = Object.freeze<IPagedEntity>({
+  page: FIRST_PAGE,
+  pageSize: DEFAULT_PAGE_SIZE,
+});
+
+/**
+ * @stable [12.10.2019]
+ */
+export const DEFAULT_PAGINATED_SINGLE_ENTITY = Object.freeze<IPaginatedEntity>({
+  ...DEFAULT_PAGED_ENTITY,
+  totalCount: 1,
 });
 
 /**

@@ -11,9 +11,7 @@ import { notNilValuesArrayFilter } from './filter';
 import {
   AnyT,
   UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
-  UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../definitions.interface';
-import { IStickyElementPayloadEntity } from '../entities-definitions.interface';
 import {
   IJQueryElement,
   IXYEntity,
@@ -365,57 +363,56 @@ export const findUniversalSelectedElement = (parent: Element = document.body): E
 export const scrollTo = (element: Element, xyEntity: IXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
 
 /**
- * @stable [13.12.2018]
- * @param {IStickyElementPayloadEntity} payloadEntity
+ * @stable [11.10.2019]
+ * @param {Element} stickyWrapperEl
+ * @param {string} stickySelector
+ * @param {(stickyJEl: IJQueryElement) => any} widthResolver
  */
-export const setStickyElementProperties = (payloadEntity: IStickyElementPayloadEntity): void => {
-  if (R.isNil(payloadEntity)) {
+export const setStickyElementProperties = (stickyWrapperEl: Element,
+                                           stickySelector: string,
+                                           widthResolver = (stickyJEl: IJQueryElement) => stickyJEl.parent().width()): void => {
+  const stickyWrapperJEl = toJqEl(stickyWrapperEl);
+  if (R.isNil(stickyWrapperJEl) || R.isNil(stickyWrapperJEl.val())) {
     return;
   }
-  let position;
-  let zIndex;
-  let top;
   let marginTop;
+  let position;
+  let top;
+  let width;
+  let zIndex;
 
-  const jqStickyEl = payloadEntity.jqStickyEl;
-  const jqSelfEl = payloadEntity.jqSelfEl;
-  const initialStickyElTop = payloadEntity.initialStickyElTop;
-  const selfTop = jqSelfEl.offset().top;
-  const selfScrollTop = jqSelfEl.scrollTop();
-
-  if (payloadEntity.initial !== true && selfScrollTop >= initialStickyElTop - selfTop) {
-    position = 'absolute';
-    zIndex = 1;
-    top = selfScrollTop - initialStickyElTop + selfTop;
-    marginTop = jqStickyEl.height();
-  } else {
-    position = 'initial';
-    zIndex = 0;
-    top = 0;
-    marginTop = 0;
+  const stickyJEls = stickyWrapperJEl.find(stickySelector);
+  if (R.isNil(stickyJEls)) {
+    return;
   }
-  jqStickyEl.css({position, 'z-index': zIndex, 'top': top});
-  payloadEntity.jqStickyNeighborRightEl.css('margin-top', `${marginTop}px`);
-};
+  stickyJEls.each((index) => {
+    const stickyJEl = toJqEl(stickyJEls.get(index));
+    const stickyWrapperJElTop = stickyWrapperJEl.offset().top;
+    const stickyJElPosition = stickyJEl.css('position');
+    const stickyJElTop = stickyJEl.offset().top;
+    const stickyJElHeight = stickyJEl.height();
+    const stickyAfterJEl = toJqEl(stickyJEl.siblings()[0]);
+    const stickyAfterJElTop = stickyAfterJEl.offset().top;
 
-/**
- * @stable [13.12.2018]
- * @param {IJQueryElement} jqSelfEl
- * @returns {IStickyElementPayloadEntity}
- */
-export const getStickyElementInitialProperties = (jqSelfEl: IJQueryElement): IStickyElementPayloadEntity => {
-  const jqStickyEl = jqSelfEl.find(`.${UNIVERSAL_STICKY_ELEMENT_SELECTOR}`);
-
-  if (!R.isNil(jqStickyEl) && !R.isNil(jqStickyEl.val())) {
-    return {
-      jqSelfEl,
-      jqStickyEl,
-      jqStickyNeighborRightEl: $(jqStickyEl.siblings()[0]),
-      jqStickyElHeight: jqStickyEl.height(),
-      initialStickyElTop: jqStickyEl.offset().top + jqSelfEl.scrollTop(),
-    };
-  }
-  return null;
+    if (
+      (stickyJElPosition === 'fixed' && stickyAfterJElTop >= stickyJElHeight + stickyWrapperJElTop)
+      || stickyJElTop > stickyWrapperJElTop
+    ) {
+      position = 'initial';
+      zIndex = 0;
+      top = 0;
+      marginTop = 0;
+      width = 'initial';
+    } else if (stickyJElTop <= stickyWrapperJElTop) {
+      position = 'fixed';
+      zIndex = 1;
+      top = stickyWrapperJElTop;
+      marginTop = stickyJElHeight;
+      width = widthResolver(stickyJEl);
+    }
+    stickyJEl.css({position, 'z-index': zIndex, 'top': top, 'width': width});
+    stickyAfterJEl.css('margin-top', `${marginTop}px`); // Additional <tbody> offset
+  });
 };
 
 /**

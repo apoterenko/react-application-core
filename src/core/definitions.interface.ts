@@ -17,7 +17,6 @@ export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 export const UNIVERSAL_SELECTED_ELEMENT_SELECTOR = 'rac-universal-selected-element';
-export const UNIVERSAL_STICKY_ELEMENT_SELECTOR = 'rac-sticky-element';
 export const APPLICATION_PDF_FORMAT = 'application/pdf';
 export const IMAGE_JPG_FORMAT = 'image/jpg';
 export const IMAGE_JPEG_FORMAT = 'image/jpeg';

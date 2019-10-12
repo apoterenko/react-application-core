@@ -40,3 +40,9 @@ export interface IDomAccessor {
   setScrollTop(el: Element, top: number): void;
   toJqEl(source: Element): IJQueryElement<Element>;
 }
+
+/**
+ * @stable [11.10.2019]
+ * @type {string}
+ */
+export const UNIVERSAL_STICKY_ELEMENT_SELECTOR = 'rac-sticky-element';

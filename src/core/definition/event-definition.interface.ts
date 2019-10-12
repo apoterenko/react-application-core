@@ -26,6 +26,7 @@ export enum EventsEnum {
   KEYPRESS = 'keypress',
   LOAD = 'load',
   MOUSE_DOWN = 'mousedown',
+  RESIZE = 'resize',
   UNLOAD = 'unload',
 }
 
