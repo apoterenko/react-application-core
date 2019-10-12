@@ -1,19 +1,33 @@
 import * as R from 'ramda';
 
-import { AnyT } from '../definitions.interface';
+import {
+  AnyT,
+  IProgressWrapper,
+} from '../definitions.interface';
 
-export class DelayedTask {
+export class DelayedTask
+  implements IProgressWrapper {
 
   private taskId: number;
   private context: AnyT;
 
   /**
-   * @stable [29.07.2018]
+   * @stable [13.10.2019]
    * @param {(context?: AnyT) => void} task
    * @param {number} period
    * @param {boolean} repeat
    */
-  constructor(private task: (context?: AnyT) => void, private period: number = 0, private repeat = false) {
+  constructor(private task: (context?: AnyT) => void,
+              private period = 0,
+              private repeat = false) {
+  }
+
+  /**
+   * @stable [13.10.2019]
+   * @returns {boolean}
+   */
+  public get progress(): boolean {
+    return !R.isNil(this.taskId);
   }
 
   /**
