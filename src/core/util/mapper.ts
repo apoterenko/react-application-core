@@ -21,8 +21,10 @@ import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IActionsDisabledWrapper,
+  IDisabledWrapper,
   IEntity,
   IKeyValue,
+  IProgressWrapper,
   IQueryWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -70,7 +72,8 @@ export const selectListEntity = (entity: IListWrapperEntity): IListEntity =>
  * @param {ILifeCycleEntity} entity
  * @returns {boolean}
  */
-export const selectLifeCycleEntityProgress = (entity: ILifeCycleEntity): boolean => entity.progress;
+export const selectLifeCycleEntityProgress = (entity: ILifeCycleEntity): boolean =>
+  ifNotNilThanValue(entity, (): boolean => entity.progress, UNDEF_SYMBOL);
 
 /**
  * @stable [28.09.2019]
@@ -136,6 +139,14 @@ export const mapUserEntity = (user: IUserEntity): IUserWrapperEntity =>
   defValuesFilter<IUserWrapperEntity, IUserWrapperEntity>({user});
 
 /**
+ * @stable [12.10.2019]
+ * @param {boolean} disabled
+ * @returns {IDisabledWrapper}
+ */
+export const mapDisabled = (disabled: boolean): IDisabledWrapper =>
+  defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
+
+/**
  * @stable [10.09.2019]
  * @param {string} query
  * @returns {IQueryWrapper}
@@ -196,6 +207,22 @@ export const mapListPagedEntity =
     }),
     UNDEF_SYMBOL
   );
+
+/**
+ * @stable [12.10.2019]
+ * @param {IProgressWrapper} entity
+ * @returns {IDisabledWrapper}
+ */
+export const mapDisabledProgressWrapper = (entity: IProgressWrapper): IDisabledWrapper =>
+  mapDisabled(selectLifeCycleEntityProgress(entity));
+
+/**
+ * @stable [12.10.2019]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {IDisabledWrapper}
+ */
+export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
+  mapDisabledProgressWrapper(selectListEntity(listWrapperEntity));
 
 /**
  * @stable [04.10.2019]

@@ -186,15 +186,6 @@ export const listWrapperSelectedEntityMapper =
     );
 
 /**
- * @stable [19.12.2018]
- * @param {IListEntity} listEntity
- * @returns {IDisabledWrapper}
- */
-export const disabledListEntityMapper = (listEntity: IListEntity): IDisabledWrapper => ({
-  disabled: listEntity.progress,
-});
-
-/**
  * @deprecated
  */
 export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActionsDisabledWrapper => ({
@@ -218,14 +209,6 @@ export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEdi
  */
 export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IFormWrapperEntity): ToolbarToolsEnum[] =>
   toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);
-
-/**
- * @stable [19.12.2018]
- * @param {IListWrapperEntity} listWrapperEntity
- * @returns {IDisabledWrapper}
- */
-export const disabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
-  disabledListEntityMapper(listWrapperEntity.list);
 
 /**
  * @stable [29.05.2018]
