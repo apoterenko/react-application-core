@@ -1,26 +1,27 @@
 import * as R from 'ramda';
 
-import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
+import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue, UNDEF_SYMBOL } from '../../../definitions.interface';
 import {
+  asMultiFieldEditedEntities,
   defValuesFilter,
   generateArray,
   ifNotNilThanValue,
   isDef,
   isFn,
+  isNotMultiEntity,
   isPrimitive,
   orUndef,
-  shallowClone,
   toType,
 } from '../../../util';
 import {
-  MultiFieldEntityT,
-  NotMultiFieldEntityT,
   IMultiFieldChangesEntity,
 } from './multifield.interface';
 import {
   IMultiEntity,
   IMultiItemEntity,
+  MultiFieldEntityT,
   MultiFieldSingleValueT,
+  NotMultiFieldEntityT,
 } from '../../../definition';
 
 /**
@@ -80,7 +81,7 @@ export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entit
     originalSourceItems.forEach((itm) => cachedOriginalSourceItems.set(itm.id, itm));
 
     // Pass a map to optimize
-    const editedEntities = toActualMultiItemEditedEntities<TItem>(entity, cachedOriginalSourceItems);
+    const editedEntities = asMultiFieldEditedEntities<TItem>(entity, cachedOriginalSourceItems);
 
     // Remove the touched entities
     multiEntity.remove.forEach((itm) => cachedOriginalSourceItems.delete(itm.id));
@@ -135,43 +136,6 @@ export const toActualMultiItemDeletedEntities = <TItem extends IEntity = IEntity
 };
 
 /**
- * @stable [18.08.2018]
- * @param {MultiFieldEntityT} entity
- * @param {Map<EntityIdT, TItem extends IEntity>} mappedSourcedItems
- * @returns {TItem[]}
- */
-export const toActualMultiItemEditedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT,
-                                                                                 mappedSourcedItems?: Map<EntityIdT, TItem>): TItem[] => {
-  if (R.isNil(entity)) {
-    return UNDEF;
-  }
-  const multiEntity = entity as IMultiEntity;
-  if (!isNotMultiEntity(entity)) {
-    const isMappedSourcedItemsPassed = !R.isNil(mappedSourcedItems);
-    const resultItems = new Map<EntityIdT, TItem>();
-    const cachedSourceItems = mappedSourcedItems || new Map<EntityIdT, TItem>();
-    if (!isMappedSourcedItemsPassed) {
-      multiEntity.source.forEach((originalItem) => cachedSourceItems.set(originalItem.id, originalItem as TItem));
-    }
-
-    multiEntity.edit.forEach((editedItem) => {
-      const editedItemId = editedItem.id;
-      const cachedResultItem = resultItems.get(editedItemId);
-
-      // Collect the changes
-      const editedItem0 = cachedResultItem || shallowClone<TItem>(cachedSourceItems.get(editedItemId));
-      editedItem0[editedItem.name] = editedItem.value;
-
-      if (R.isNil(cachedResultItem)) {
-        resultItems.set(editedItemId, editedItem0);
-      }
-    });
-    return Array.from(resultItems.values());
-  }
-  return [];
-};
-
-/**
  * @stable [26.12.2018]
  * @param {MultiFieldEntityT} entity
  * @returns {TItem[]}
@@ -213,17 +177,19 @@ export const fromMultiFieldEntityToEntitiesIds = (multiFieldEntity: MultiFieldEn
   fromMultiFieldEntityToEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
 
 /**
- * @stable [26.06.2018]
+ * @stable [12.10.2019]
  * @param {MultiFieldEntityT} multiFieldEntity
  * @param {(entity: TItem, index: number) => TResult} mapper
  * @returns {TResult[]}
  */
-export function fromMultiFieldEntityToEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
-  multiFieldEntity: MultiFieldEntityT,
-  mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = toActualMultiItemEntities(multiFieldEntity);
-  return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
-}
+export const fromMultiFieldEntityToEntities =
+  <TItem extends IEntity = IEntity, TResult = IEntity>(multiFieldEntity: MultiFieldEntityT,
+                                                       mapper: (entity: TItem, index: number) => TResult): TResult[] =>
+    ifNotNilThanValue(
+      toActualMultiItemEntities(multiFieldEntity),
+      (result) => result.map(mapper),
+      UNDEF_SYMBOL
+    );
 
 /**
  * @stable [04.07.2018]
@@ -242,7 +208,7 @@ export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiF
 export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
   multiFieldEntity: MultiFieldEntityT,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = toActualMultiItemEditedEntities<TItem>(multiFieldEntity);
+  const result = asMultiFieldEditedEntities<TItem>(multiFieldEntity);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
@@ -279,14 +245,6 @@ export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT | Entit
  */
 export const normalizeEntities = (value: NotMultiFieldEntityT): IEntity[] =>
   isPrimitive(value) ? [{id: value as EntityIdT}] : value as IEntity[];
-
-/**
- * @stable [24.06.2018]
- * @param {MultiFieldEntityT | EntityIdT} value
- * @returns {boolean}
- */
-export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean =>
-  Array.isArray(value) || isPrimitive(value);
 
 /**
  * @stable [23.06.2018]

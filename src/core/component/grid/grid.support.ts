@@ -24,7 +24,8 @@ import {
 } from './grid.interface';
 import { SortDirectionEnum } from '../../entities-definitions.interface';
 import { IGridProps } from '../../props-definitions.interface';
-import { MultiFieldEntityT, toActualMultiItemEntities } from '../field';
+import { toActualMultiItemEntities } from '../field';
+import { MultiFieldEntityT } from '../../definition';
 
 const MINUTES_PER_HOUR = 60;
 const HOURS_PER_DAY = 24;

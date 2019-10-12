@@ -4,7 +4,6 @@ import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import {
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
-  MultiFieldEntityT,
 } from './multifield.interface';
 import {
   toActualMultiItemEntities,
@@ -17,7 +16,7 @@ import {
   toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
 } from './multifield.support';
-import { IMultiItemEntity } from '../../../definition';
+import { IMultiItemEntity, MultiFieldEntityT } from '../../../definition';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
 

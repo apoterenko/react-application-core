@@ -1,13 +1,19 @@
 import * as R from 'ramda';
 
-import { IEntity, IValidWrapper } from '../definitions.interface';
+import {
+  EntityIdT,
+  IEntity,
+  IValidWrapper,
+} from '../definitions.interface';
 import {
   IEditableEntity,
   IFormWrapperEntity,
   IExtendedEntity,
+  MultiFieldEntityT,
 } from '../definition';
-import { validate, ValidatorRuleEnum } from './validator';
 import { ifNotNilThanValue } from './cond';
+import { isPrimitive } from './type';
+import { validate, ValidatorRuleEnum } from './validator';
 
 /**
  * @stable [30.01.2019]
@@ -94,3 +100,11 @@ export const isEntityValid = <TValue>(validEntity: IValidWrapper): boolean =>
     () => R.isNil(validEntity.valid) || validEntity.valid === true,
     false
   );
+
+/**
+ * @stable [12.10.2019]
+ * @param {MultiFieldEntityT | EntityIdT} value
+ * @returns {boolean}
+ */
+export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean =>
+  Array.isArray(value) || isPrimitive(value);
