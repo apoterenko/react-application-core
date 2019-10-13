@@ -12,6 +12,7 @@ import {
 export interface ITransportStoreProxy
   extends IDispatcher {
   isTransportOperationInProgress(operation: string | IOperationEntity): boolean;
+  isTransportOperationsInProgress(...operations: Array<string | IOperationEntity>): boolean;
 }
 
 /**

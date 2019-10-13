@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { namedConstructor, isString } from '../../../../util';
 import {
   IOperationEntity,
@@ -24,15 +26,27 @@ export class TransportStoreProxy<TStore extends IUniversalStoreEntity = IUnivers
   }
 
   /**
-   * @stable [11.10.2019]
+   * @stable [13.10.2019]
    * @param {string | IOperationEntity} operation
    * @returns {boolean}
    */
   public isTransportOperationInProgress(operation: string | IOperationEntity): boolean {
-    return this.props.transport.queue.includes(
-      isString(operation)
-        ? operation as string
-        : (operation as IOperationEntity).id
-    );
+    return this.isTransportOperationsInProgress(operation);
+  }
+
+  /**
+   * @stable [13.10.2019]
+   * @param {string | IOperationEntity} operations
+   * @returns {boolean}
+   */
+  public isTransportOperationsInProgress(...operations: Array<string | IOperationEntity>): boolean {
+    return R.intersection(
+      this.props.transport.queue,
+      operations.map((operation) => (
+        isString(operation)
+          ? operation as string
+          : (operation as IOperationEntity).id
+      ))
+    ).length > 0;
   }
 }
