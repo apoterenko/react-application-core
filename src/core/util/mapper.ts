@@ -297,21 +297,6 @@ export const mapListSelectedExtendedEntity =
     );
 
 /**
- * @stable [01.10.2019]
- * @param {IListWrapperEntity} listWrapper
- * @param {IEditableEntity} editableEntity
- * @returns {TEntity}
- */
-export const mapListSelectedEntity =
-  <TEntity extends IEntity>(listWrapper: IListWrapperEntity,
-                            editableEntity?: IEditableEntity): TEntity =>
-    ifNotNilThanValue(
-      mapListSelectedExtendedEntity<TEntity>(listWrapper, editableEntity),
-      (extendedEntity) => extendedEntity.entity,
-      UNDEF_SYMBOL
-    );
-
-/**
  * @stable [04.09.2019]
  * @param {IQueryFilterWrapperEntity} queryFilter
  * @returns {IQueryFilterWrapperEntity}
