@@ -1,4 +1,4 @@
-import { isFn } from '../../../util';
+import { isFn, asMultiFieldEntities, asMultiFieldEntitiesLength } from '../../../util';
 import { IEntity } from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import {
@@ -6,8 +6,6 @@ import {
   IMultiFieldPlugin,
 } from './multifield.interface';
 import {
-  toActualMultiItemEntities,
-  toActualMultiItemEntitiesLength,
   extractMultiEditItemEntities,
   extractMultiRemoveItemEntities,
   extractMultiAddItemEntities,
@@ -108,7 +106,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {IMultiItemEntity[]}
    */
   public get activeValue(): IMultiItemEntity[] {
-    return toActualMultiItemEntities({
+    return asMultiFieldEntities({
       source: this.originalValue,
       remove: this.removeValue,
       add: this.addValue,
@@ -122,7 +120,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {number}
    */
   public getActiveValueLength(value: MultiFieldEntityT): number {
-    return toActualMultiItemEntitiesLength(value);
+    return asMultiFieldEntitiesLength(value);
   }
 
   /**

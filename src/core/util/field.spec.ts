@@ -1,5 +1,6 @@
 import {
   asMultiFieldEditedEntities,
+  asMultiFieldEntities,
 } from './field';
 import {
   UNDEF,
@@ -58,6 +59,43 @@ describe('util/field', () => {
         source: [entity1, entity2, entity3],
       }, cachedMap);
       expect(editedEntities).toEqual([{id: 2, field1: 201}]);
+    });
+  });
+
+  describe('asMultiFieldEntities', () => {
+    it('test1', () => {
+      const editedEntities = asMultiFieldEntities({
+        add: [{id: 2, field1: 200}],
+        remove: [],
+        edit: [{id: 1, name: 'field1', value: 101}],
+        source: [{id: 1, field1: 100}],
+      });
+      expect(editedEntities).toEqual([{id: 1, field1: 101}, {id: 2, field1: 200}]);
+    });
+
+    it('test2', () => {
+      const entity = {id: 1, field1: 100};
+      const editedEntities = asMultiFieldEntities({
+        add: [],
+        remove: [entity],
+        edit: [],
+        source: [entity],
+      });
+      expect(editedEntities).toEqual([]);
+    });
+
+    it('test3', () => {
+      const editedEntities = asMultiFieldEntities({
+        add: [],
+        remove: [],
+        edit: [
+          {id: 1, name: 'field1', value: 101},
+          {id: 2, name: 'field1', value: 201},
+          {id: 3, name: 'field1', value: 301}
+        ],
+        source: [{id: 1, field1: 100}, {id: 3, field1: 300}, {id: 2, field1: 200}],
+      });
+      expect(editedEntities).toEqual([{id: 1, field1: 101}, {id: 3, field1: 301}, {id: 2, field1: 201}]);
     });
   });
 });

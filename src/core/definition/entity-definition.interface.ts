@@ -83,10 +83,10 @@ export interface IMultiItemFileEntity
 /**
  * @stable [02.10.2019]
  */
-export interface IMultiEntity
-  extends ISourceWrapper<IEntity[]>,
-    IAddWrapper<IMultiItemEntity[]>,
-    IRemoveWrapper<IMultiItemEntity[]>,
+export interface IMultiEntity<TEntity extends IEntity = IEntity>
+  extends ISourceWrapper<TEntity[]>,
+    IAddWrapper<TEntity[]>,
+    IRemoveWrapper<TEntity[]>,
     IEditWrapper<IMultiItemEntity[]> {
 }
 

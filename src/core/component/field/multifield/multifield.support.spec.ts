@@ -1,7 +1,5 @@
 import {
   fromMultiFieldEntityToEntitiesIds,
-  normalizeEntities,
-  toActualMultiItemEntitiesLength,
   buildMultiEditItemEntityPayload,
   fromMultiFieldEntityToEntities,
   toMultiFieldChangesEntityOnEdit,
@@ -236,97 +234,6 @@ describe('multifield.support', () => {
         (itm) => itm.value + 1
       );
       expect(result).toEqual({id: 1, value: 102, name: 'count', rawData: {id: 1, count: 100}});
-    });
-  });
-
-  describe('normalizeEntities', () => {
-    it('test1', () => {
-      const ids = normalizeEntities(1);
-      expect(ids).toEqual([{ id: 1 }]);
-    });
-
-    it('test2', () => {
-      const ids = normalizeEntities([{ id: 1 }]);
-      expect(ids).toEqual([{ id: 1 }]);
-    });
-  });
-
-  describe('toActualMultiItemEntitiesLength', () => {
-    it('test1', () => {
-      const length = toActualMultiItemEntitiesLength(1);
-      expect(length).toEqual(1);
-    });
-
-    it('test2', () => {
-      const length = toActualMultiItemEntitiesLength('1');
-      expect(length).toEqual(1);
-    });
-
-    it('test3', () => {
-      const length = toActualMultiItemEntitiesLength([{id: 1}, {id: 2}]);
-      expect(length).toEqual(2);
-    });
-
-    it('test4', () => {
-      const length = toActualMultiItemEntitiesLength(UNDEF);
-      expect(length).toEqual(0);
-    });
-
-    it('test5', () => {
-      const length = toActualMultiItemEntitiesLength({
-        add: [{id: 1}],
-        remove: [{id: 2}],
-        edit: [],
-        source: [{id: 3}],
-      });
-      expect(length).toEqual(2);
-    });
-
-    it('test6', () => {
-      const length = toActualMultiItemEntitiesLength({
-        add: [{id: 1}],
-        remove: [{id: 2}],
-        edit: [],
-      });
-      expect(length).toEqual(1);
-    });
-
-    it('test7', () => {
-      const length = toActualMultiItemEntitiesLength({
-        add: [{id: 1}, {id: 3}],
-        remove: [{id: 2}],
-        edit: [],
-      });
-      expect(length).toEqual(2);
-    });
-
-    it('test8', () => {
-      const length = toActualMultiItemEntitiesLength({
-        add: [],
-        remove: [{id: 1}],
-        edit: [],
-      });
-      expect(length).toEqual(0);
-    });
-
-    it('test9', () => {
-      const length = toActualMultiItemEntitiesLength({
-        add: [],
-        remove: [{id: 1}],
-        edit: [],
-        source: [{id: 2}],
-      });
-      expect(length).toEqual(1);
-    });
-
-    it('test10', () => {
-      const length = toActualMultiItemEntitiesLength({
-        add: [{id: '1'}],
-        remove: [{id: '2'}],
-        edit: [],
-        source: [{id: '3'}],
-      });
-      expect(length).toEqual(2);
     });
   });
 

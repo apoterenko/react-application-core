@@ -10,6 +10,7 @@ import {
   defValuesFilter,
   isFn,
   queryFilter,
+  asMultiFieldEntities,
   generateArray,
 } from '../../util';
 import {
@@ -24,7 +25,6 @@ import {
 } from './grid.interface';
 import { SortDirectionEnum } from '../../entities-definitions.interface';
 import { IGridProps } from '../../props-definitions.interface';
-import { toActualMultiItemEntities } from '../field';
 import { MultiFieldEntityT } from '../../definition';
 
 const MINUTES_PER_HOUR = 60;
@@ -204,6 +204,6 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
  * @returns {Record<EntityIdT, boolean>}
  */
 export const toExpandedGridGroups =
-  <TEntity extends IEntity>(entity: MultiFieldEntityT,
+  <TEntity extends IEntity>(entity: MultiFieldEntityT<TEntity>,
                             groupValueAccessor: (item: TEntity) => EntityIdT): Record<EntityIdT, boolean> =>
-    R.mergeAll((toActualMultiItemEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
+    R.mergeAll((asMultiFieldEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));

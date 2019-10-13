@@ -2,7 +2,9 @@ import * as R from 'ramda';
 
 import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue, UNDEF_SYMBOL } from '../../../definitions.interface';
 import {
+  asEntitiesArray,
   asMultiFieldEditedEntities,
+  asMultiFieldEntities,
   defValuesFilter,
   generateArray,
   ifNotNilThanValue,
@@ -45,7 +47,7 @@ export const multiEntityFactory = (initial: Partial<IMultiEntity>): IMultiEntity
 export const asViewedMultiItemEntities = <TItem extends IEntity = IEntity>(currentEntities: IEntity[],
                                                                            itemsLimit: number): TItem[] => {
   const result = generateArray(itemsLimit);
-  const actualRelations = toActualMultiItemEntities(currentEntities);
+  const actualRelations = asMultiFieldEntities(currentEntities);
 
   if (Array.isArray(actualRelations)) {
     let cursor = 0;
@@ -61,62 +63,6 @@ export const asViewedMultiItemEntities = <TItem extends IEntity = IEntity>(curre
     });
   }
   return result;
-};
-
-/**
- * @stable [15.05.2019]
- * @param {MultiFieldEntityT} entity
- * @param {boolean} sort
- * @returns {TItem[]}
- */
-export const toActualMultiItemEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT,
-                                                                           sort = true): TItem[] => {
-  if (R.isNil(entity)) {
-    return UNDEF;
-  }
-  const multiEntity = entity as IMultiEntity;
-  if (!isNotMultiEntity(entity)) {
-    const originalSourceItems = multiEntity.source as TItem[] || [];
-    const cachedOriginalSourceItems = new Map<EntityIdT, TItem>();
-    originalSourceItems.forEach((itm) => cachedOriginalSourceItems.set(itm.id, itm));
-
-    // Pass a map to optimize
-    const editedEntities = asMultiFieldEditedEntities<TItem>(entity, cachedOriginalSourceItems);
-
-    // Remove the touched entities
-    multiEntity.remove.forEach((itm) => cachedOriginalSourceItems.delete(itm.id));
-    multiEntity.edit.forEach((itm) => cachedOriginalSourceItems.delete(itm.id));
-
-    // The final snapshot
-    const entities = Array.from(cachedOriginalSourceItems.values())
-      .concat(multiEntity.add as TItem[])
-      .concat(editedEntities);
-
-    if (!sort) {
-      return entities;
-    }
-
-    const cachedIndexes = new Map<EntityIdT, number>();
-    entities.forEach((entity0) => cachedIndexes.set(entity0.id, originalSourceItems.findIndex((i) => i.id === entity0.id)));
-
-    // Finally, need to sort by original entity position in an original snapshot because of added and removed entities
-    return R.sort<TItem>((item1, item2) => {
-        const id1 = item1.id;
-        const id2 = item2.id;
-        if (id1 === id2) {
-          return 0;
-        }
-        const index1 = cachedIndexes.get(id1);
-        const index2 = cachedIndexes.get(id2);
-        if (index1 === -1 && index2 === -1) {
-          return 0;
-        }
-        return index1 > index2 ? 1 : -1;
-      },
-      entities as TItem[]
-    );
-  }
-  return entity as TItem[];
 };
 
 /**
@@ -186,7 +132,7 @@ export const fromMultiFieldEntityToEntities =
   <TItem extends IEntity = IEntity, TResult = IEntity>(multiFieldEntity: MultiFieldEntityT,
                                                        mapper: (entity: TItem, index: number) => TResult): TResult[] =>
     ifNotNilThanValue(
-      toActualMultiItemEntities(multiFieldEntity),
+      asMultiFieldEntities(multiFieldEntity),
       (result) => result.map(mapper),
       UNDEF_SYMBOL
     );
@@ -206,7 +152,7 @@ export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiF
  * @returns {TResult[]}
  */
 export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
-  multiFieldEntity: MultiFieldEntityT,
+  multiFieldEntity: MultiFieldEntityT<TItem>,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
   const result = asMultiFieldEditedEntities<TItem>(multiFieldEntity);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
@@ -226,27 +172,6 @@ export function fromMultiFieldEntityToDeletedEntities<TItem extends IEntity = IE
 }
 
 /**
- * @stable [24.06.2018]
- * @param {MultiFieldEntityT | EntityIdT} value
- * @returns {number}
- */
-export const toActualMultiItemEntitiesLength = (value: MultiFieldEntityT | EntityIdT): number =>
-  isDef(value)
-    ? (isNotMultiEntity(value)
-        ? normalizeEntities(value as NotMultiFieldEntityT)
-        : toActualMultiItemEntities(value as IMultiEntity, false)
-      ).length
-    : 0;
-
-/**
- * @stable [03.07.2018]
- * @param {NotMultiFieldEntityT} value
- * @returns {IEntity[]}
- */
-export const normalizeEntities = (value: NotMultiFieldEntityT): IEntity[] =>
-  isPrimitive(value) ? [{id: value as EntityIdT}] : value as IEntity[];
-
-/**
  * @stable [23.06.2018]
  * @param {MultiFieldEntityT} value
  * @param {(value: IMultiEntity) => IMultiItemEntity[]} converter
@@ -260,7 +185,7 @@ export const extractMultiItemEntities = (value: MultiFieldEntityT,
     ? (
       isDef(defaultValue)
         ? defaultValue
-        : normalizeEntities(value as NotMultiFieldEntityT)
+        : asEntitiesArray(value as NotMultiFieldEntityT)
     )
     : (R.isNil(value) ? [] : converter(value as IMultiEntity));
 
