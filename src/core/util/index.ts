@@ -24,6 +24,7 @@ export * from './number';
 export * from './nvl';
 export * from './object';
 export * from './page';
+export * from './parameter';
 export * from './place';
 export * from './promise';
 export * from './react-index';

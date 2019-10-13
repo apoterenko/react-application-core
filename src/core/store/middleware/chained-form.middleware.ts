@@ -35,8 +35,8 @@ export const makeChainedFormMiddleware = <TChanges>(config: IChainedFormMiddlewa
     ),
 
     ...[
-      config.replaceRoute === false
-        ? RouterActionBuilder.buildNavigateAction(config.nextFormRoute)
-        : RouterActionBuilder.buildReplaceAction(config.nextFormRoute)
+      config.replaceRoute === true
+        ? RouterActionBuilder.buildReplaceAction(config.nextFormRoute)
+        : RouterActionBuilder.buildNavigateAction(config.nextFormRoute)
     ]
   ];

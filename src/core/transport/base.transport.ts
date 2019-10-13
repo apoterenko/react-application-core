@@ -5,9 +5,7 @@ import {
   buildEncodedURI,
   defValuesFilter,
   downloadFileAsBlobUrl,
-  ifNotNilThanValue,
   join,
-  orNull,
   orUndef,
 } from '../util';
 import { AnyT } from '../definitions.interface';
@@ -15,12 +13,12 @@ import {
   IEditableApiEntity,
   IEnvironment,
 } from '../definition';
-import { IEntity, StringNumberT, UNDEF_SYMBOL } from '../definitions.interface';
+import { IEntity, StringNumberT } from '../definitions.interface';
 import { INumberConverter } from '../converter';
 import { ISettingsEntity } from '../settings';
-import { isString } from '../util';
 import { ITransportRequestEntity, ITransport } from '../definition';
 import { lazyInject, DI_TYPES } from '../di';
+import { toStringParameter } from '../util';
 
 @injectable()
 export class BaseTransport {
@@ -39,18 +37,11 @@ export class BaseTransport {
     this.nc.numberParameter(value, converter)
 
   /**
-   * @stable [10.08.2019]
+   * @stable [13.10.2019]
    * @param {AnyT} value
    * @returns {AnyT}
    */
-  protected prepareStringValue = (value: AnyT): AnyT =>
-    ifNotNilThanValue(value, () => {
-      let resultValue = value;
-      if (isString(value)) {
-        resultValue = (value as string).trim();
-      }
-      return orNull(!R.isEmpty(resultValue), () => resultValue);
-    }, UNDEF_SYMBOL)
+  protected prepareStringValue = (value: AnyT): AnyT => toStringParameter(value);
 
   /**
    * @stable [25.07.2019]

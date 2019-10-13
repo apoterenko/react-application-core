@@ -55,13 +55,13 @@ export class DelayedTask
    */
   private launchTask(): void {
     this.stop();
-    this.taskId = setTimeout(() => this.onLaunchTask(), this.period);
+    this.taskId = setTimeout(() => this.onTaskDone(), this.period);
   }
 
   /**
    * @stable [29.07.2018]
    */
-  private onLaunchTask(): void {
+  private onTaskDone(): void {
     this.task.call(null, this.context);
 
     if (this.repeat) {
