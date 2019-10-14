@@ -3,7 +3,7 @@ import { Component } from 'vue-property-decorator';
 import { IEntity, AnyT } from '../../../definitions.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
-import { asViewedMultiItemEntities } from '../multifield/vue-index';
+import { asOrderedMultiFieldEntities } from '../../../util';
 import { VueBaseFileField } from './vue-base-filefield.component';
 import { IVueMultiFileFieldProps } from './vue-single-file-field.interface';
 
@@ -42,6 +42,6 @@ class VueMultiFileField extends VueBaseFileField implements IVueMultiFileFieldPr
    * @returns {IEntity[]}
    */
   public getEntities(): IEntity[] {
-    return asViewedMultiItemEntities(this.getValue(), this.maxFiles);
+    return asOrderedMultiFieldEntities(this.getValue(), this.maxFiles);
   }
 }

@@ -1,38 +1,12 @@
 import {
-  fromMultiFieldEntityToEntitiesIds,
   buildMultiEditItemEntityPayload,
-  fromMultiFieldEntityToEntities,
   toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
-  asViewedMultiItemEntities,
 } from './multifield.support';
 import { UNDEF } from '../../../definitions.interface';
+import { asMultiFieldMappedEntities, asMultiFieldMappedEntitiesIds } from '../../../util';
 
 describe('multifield.support', () => {
-
-  describe('toActualMultiItemEntities2', () => {
-    const itemsCount = 6;
-    it('test1', () => {
-      const item1 = {id: 100, name: 'name1'};
-      const item2 = {id: 101, name: 'name2'};
-      const item3 = {id: 103, name: 'name3', newEntity: true, index: 4};
-      const result = asViewedMultiItemEntities([item3, item1, item2], itemsCount);
-      expect(result).toEqual([item1, item2, UNDEF, UNDEF, item3, UNDEF]);
-    });
-    it('test2', () => {
-      const item1 = {id: 100, name: 'name1'};
-      const item2 = {id: 101, name: 'name2'};
-      const item3 = {id: 103, name: 'name3', newEntity: true, index: 4};
-      const result = asViewedMultiItemEntities([item1, item2, item3], itemsCount);
-      expect(result).toEqual([item1, item2, UNDEF, UNDEF, item3, UNDEF]);
-    });
-    it('test3', () => {
-      const item1 = {id: 100, name: 'name1'};
-      const item2 = {id: 101, name: 'name2', index: 1};
-      const result = asViewedMultiItemEntities([item1, item2], itemsCount);
-      expect(result).toEqual([item1, item2, UNDEF, UNDEF, UNDEF, UNDEF]);
-    });
-  });
 
   describe('toMultiFieldChangesEntityOnDelete', () => {
     it('test1', () => {
@@ -239,7 +213,7 @@ describe('multifield.support', () => {
 
   describe('fromMultiFieldEntityToEntitiesIds', () => {
     it('test1', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [],
         remove: [],
         edit: [],
@@ -249,7 +223,7 @@ describe('multifield.support', () => {
     });
 
     it('test2', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [],
         remove: [],
         edit: [],
@@ -258,7 +232,7 @@ describe('multifield.support', () => {
     });
 
     it('test3', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -268,7 +242,7 @@ describe('multifield.support', () => {
     });
 
     it('test4', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
         edit: [],
@@ -278,7 +252,7 @@ describe('multifield.support', () => {
     });
 
     it('test5', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
         edit: [],
@@ -288,7 +262,7 @@ describe('multifield.support', () => {
     });
 
     it('test6', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [{id: 3}],
         edit: [],
@@ -298,7 +272,7 @@ describe('multifield.support', () => {
     });
 
     it('test7', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [],
         remove: [{id: 3}],
         edit: [],
@@ -308,7 +282,7 @@ describe('multifield.support', () => {
     });
 
     it('test8', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [],
         remove: [{id: 3}],
         edit: [],
@@ -318,7 +292,7 @@ describe('multifield.support', () => {
     });
 
     it('test9', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -328,7 +302,7 @@ describe('multifield.support', () => {
     });
 
     it('test10', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds({
+      const ids = asMultiFieldMappedEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
@@ -337,18 +311,18 @@ describe('multifield.support', () => {
     });
 
     it('test11', () => {
-      const ids = fromMultiFieldEntityToEntitiesIds([{id: 1}, {id: 2}]);
+      const ids = asMultiFieldMappedEntitiesIds([{id: 1}, {id: 2}]);
       expect(ids).toEqual([1, 2]);
     });
 
     it('test12', () => {
-      expect(fromMultiFieldEntityToEntitiesIds(UNDEF)).toEqual(UNDEF);
+      expect(asMultiFieldMappedEntitiesIds(UNDEF)).toEqual(UNDEF);
     });
   });
 
   describe('fromMultiFieldEntityToEntities', () => {
     it('test1', () => {
-      const data = fromMultiFieldEntityToEntities(
+      const data = asMultiFieldMappedEntities(
         [{id: 100, name: 'name100'}, {id: 200, name: 'name200'}],
         (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
       );
@@ -359,7 +333,7 @@ describe('multifield.support', () => {
     });
 
     it('test2', () => {
-      const data = fromMultiFieldEntityToEntities(
+      const data = asMultiFieldMappedEntities(
         null,
         (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
       );
@@ -367,7 +341,7 @@ describe('multifield.support', () => {
     });
 
     it('test3', () => {
-      const data = fromMultiFieldEntityToEntities(
+      const data = asMultiFieldMappedEntities(
         UNDEF,
         (entity, index) => Object.assign({}, entity, {extraField: `extraField${index}`})
       );
@@ -375,7 +349,7 @@ describe('multifield.support', () => {
     });
 
     it('test4', () => {
-      const data = fromMultiFieldEntityToEntities(
+      const data = asMultiFieldMappedEntities(
         {
           add: [{id: 100, name: 'name100'}, {id: 200, name: 'name200'}],
           remove: [],
@@ -390,7 +364,7 @@ describe('multifield.support', () => {
     });
 
     it('test5', () => {
-      const data = fromMultiFieldEntityToEntities(
+      const data = asMultiFieldMappedEntities(
         {
           add: [{id: 100, name: 'name100'}],
           remove: [{id: 200, name: 'name200'}],
@@ -405,7 +379,7 @@ describe('multifield.support', () => {
     });
 
     it('test5', () => {
-      const data = fromMultiFieldEntityToEntities(
+      const data = asMultiFieldMappedEntities(
         {
           add: [],
           remove: [],

@@ -1,12 +1,10 @@
 import * as R from 'ramda';
 
-import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue, UNDEF_SYMBOL } from '../../../definitions.interface';
+import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
 import {
   asEntitiesArray,
   asMultiFieldEditedEntities,
-  asMultiFieldEntities,
   defValuesFilter,
-  generateArray,
   ifNotNilThanValue,
   isDef,
   isFn,
@@ -37,33 +35,6 @@ export const multiEntityFactory = (initial: Partial<IMultiEntity>): IMultiEntity
   remove: initial.remove || [],
   source: initial.source || [],
 });
-
-/**
- * @stable [27.02.2019]
- * @param {IEntity[]} currentEntities
- * @param {number} itemsLimit
- * @returns {TItem[]}
- */
-export const asViewedMultiItemEntities = <TItem extends IEntity = IEntity>(currentEntities: IEntity[],
-                                                                           itemsLimit: number): TItem[] => {
-  const result = generateArray(itemsLimit);
-  const actualRelations = asMultiFieldEntities(currentEntities);
-
-  if (Array.isArray(actualRelations)) {
-    let cursor = 0;
-    result.forEach((_, index) => {
-      const entity = actualRelations[index];
-      if (!R.isNil(entity)) {
-        if ((entity as IMultiItemEntity).newEntity) {
-          result[entity.index] = entity;
-        } else {
-          result[cursor++] = entity;
-        }
-      }
-    });
-  }
-  return result;
-};
 
 /**
  * @stable [22.11.2018]
@@ -113,29 +84,6 @@ export const toLastAddedMultiItemEntityId = (multiFieldEntity: MultiFieldSingleV
         )
     )
   );
-
-/**
- * @stable [26.06.2018]
- * @param {MultiFieldEntityT} multiFieldEntity
- * @returns {EntityIdT[]}
- */
-export const fromMultiFieldEntityToEntitiesIds = (multiFieldEntity: MultiFieldEntityT): EntityIdT[] =>
-  fromMultiFieldEntityToEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
-
-/**
- * @stable [12.10.2019]
- * @param {MultiFieldEntityT} multiFieldEntity
- * @param {(entity: TItem, index: number) => TResult} mapper
- * @returns {TResult[]}
- */
-export const fromMultiFieldEntityToEntities =
-  <TItem extends IEntity = IEntity, TResult = IEntity>(multiFieldEntity: MultiFieldEntityT,
-                                                       mapper: (entity: TItem, index: number) => TResult): TResult[] =>
-    ifNotNilThanValue(
-      asMultiFieldEntities(multiFieldEntity),
-      (result) => result.map(mapper),
-      UNDEF_SYMBOL
-    );
 
 /**
  * @stable [04.07.2018]

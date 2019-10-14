@@ -1,6 +1,7 @@
 import {
   asMultiFieldEditedEntities,
   asMultiFieldEntities,
+  asOrderedMultiFieldEntities,
 } from './field';
 import {
   UNDEF,
@@ -70,7 +71,7 @@ describe('util/field', () => {
         edit: [{id: 1, name: 'field1', value: 101}],
         source: [{id: 1, field1: 100}],
       });
-      expect(editedEntities).toEqual([{id: 1, field1: 101}, {id: 2, field1: 200}]);
+      expect(editedEntities).toEqual([{id: 2, field1: 200}, {id: 1, field1: 101}]);
     });
 
     it('test2', () => {
@@ -96,6 +97,22 @@ describe('util/field', () => {
         source: [{id: 1, field1: 100}, {id: 3, field1: 300}, {id: 2, field1: 200}],
       });
       expect(editedEntities).toEqual([{id: 1, field1: 101}, {id: 3, field1: 301}, {id: 2, field1: 201}]);
+    });
+  });
+
+  describe('asOrderedMultiFieldEntities', () => {
+    const itemsCount = 6;
+    it('test1', () => {
+      const item1 = {id: 100, name: 'name1'};
+      const item2 = {id: 101, name: 'name2'};
+      const item3 = {id: 102, name: 'name3', newEntity: true, index: 4};
+      const result = asOrderedMultiFieldEntities({
+        add: [item3],
+        remove: [],
+        edit: [],
+        source: [item1, item2],
+      }, itemsCount);
+      expect(result).toEqual([item1, item2, UNDEF, UNDEF, item3, UNDEF]);
     });
   });
 });

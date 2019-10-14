@@ -6,6 +6,7 @@ import {
   IEntity,
   IKeyValue,
   UNDEF,
+  UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
@@ -14,11 +15,12 @@ import {
   MultiFieldEntityT,
   NotMultiFieldEntityT,
 } from '../definition';
-import { isArrayNotEmpty } from './array';
+import { ifNotNilThanValue } from './cond';
+import { isArrayNotEmpty, generateArray } from './array';
 import { isNotMultiEntity } from './entity';
 import { isPrimitive } from './type';
+import { nvl } from './nvl';
 import { shallowClone } from './clone';
-import { ifNotNilThanValue } from './cond';
 
 const DYNAMIC_FIELD_SEPARATOR = '-';
 
@@ -102,9 +104,10 @@ export const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: 
   // Remove the deleted entities
   multiEntity.remove.forEach((itm) => cachedSourceEntities.delete(itm.id));
 
-  return Array.from(cachedSourceEntities.values())
-    .concat(multiEntity.add)
-    .map((itm) => cachedEditedEntities.has(itm.id) ? cachedEditedEntities.get(itm.id) : itm);
+  return multiEntity.add.concat(
+    Array.from(cachedSourceEntities.values())
+      .map((itm) => nvl(cachedEditedEntities.get(itm.id), itm))
+  );
 };
 
 /**
@@ -166,3 +169,54 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT)
   ).length,
   0
 );
+
+/**
+ * @stable [14.10.2019]
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+ * @param {number} entitiesCountLimit
+ * @returns {TEntity[]}
+ */
+export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>,
+                                                                               entitiesCountLimit: number): TEntity[] => {
+  const result = generateArray(entitiesCountLimit);
+  const multiFieldEntities = asMultiFieldEntities<TEntity>(value);
+
+  if (Array.isArray(multiFieldEntities)) {
+    let cursor = 0;
+    result.forEach((_, index) => {
+      const entity = multiFieldEntities[index];
+      if (!R.isNil(entity)) {
+        if (entity.newEntity) {
+          result[entity.index] = entity;
+        } else {
+          result[cursor++] = entity;
+        }
+      }
+    });
+  }
+  return result;
+};
+
+/**
+ * @stable [14.10.2019]
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} multiFieldEntity
+ * @param {(entity: TEntity, index: number) => TResult} mapper
+ * @returns {TResult[]}
+ */
+export const asMultiFieldMappedEntities =
+  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[],
+                                                         mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
+    ifNotNilThanValue(
+      asMultiFieldEntities(multiFieldEntity as MultiFieldEntityT<TEntity>),
+      (result) => result.map(mapper),
+      UNDEF_SYMBOL
+    );
+
+/**
+ * @stable [14.10.2019]
+ * @param {MultiFieldEntityT<TEntity extends IEntity> | EntityIdT[]} multiFieldEntity
+ * @returns {EntityIdT[]}
+ */
+export const asMultiFieldMappedEntitiesIds =
+  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[]): EntityIdT[] =>
+    asMultiFieldMappedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
