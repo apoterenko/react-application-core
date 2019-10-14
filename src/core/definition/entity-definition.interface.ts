@@ -14,6 +14,7 @@ import {
   INameWrapper,
   INewEntityWrapper,
   IOriginalEntityWrapper,
+  IPayloadWrapper,
   IProgressWrapper,
   IRemoveWrapper,
   ISourceWrapper,
@@ -60,6 +61,13 @@ export interface IEditableEntity<TChanges = IKeyValue>
 export interface INamedEntity
   extends IEntityIdTWrapper,
     INameWrapper {
+}
+
+/**
+ * @stable [14.10.2019]
+ */
+export interface IEntityIdPayloadEntity
+  extends IPayloadWrapper<IEntityIdTWrapper> {
 }
 
 /**

@@ -25,16 +25,17 @@ import {
 } from '../../../definition';
 
 /**
- * @stable [26.07.2019]
- * @param {Partial<IMultiEntity>} initial
- * @returns {IMultiEntity}
+ * @stable [14.10.2019]
+ * @param {Partial<IMultiEntity<TEntity extends IEntity>>} initial
+ * @returns {IMultiEntity<TEntity extends IEntity>}
  */
-export const multiEntityFactory = (initial: Partial<IMultiEntity>): IMultiEntity => ({
-  add: initial.add || [],
-  edit: initial.edit || [],
-  remove: initial.remove || [],
-  source: initial.source || [],
-});
+export const multiEntityFactory =
+  <TEntity extends IEntity = IEntity>(initial: Partial<IMultiEntity<TEntity>>): IMultiEntity<TEntity> => ({
+    add: initial.add || [],
+    edit: initial.edit || [],
+    remove: initial.remove || [],
+    source: initial.source || [],
+  });
 
 /**
  * @stable [22.11.2018]
@@ -194,17 +195,17 @@ export const fromMultiItemEntityToEntity = (entity: IEntity | IMultiItemEntity):
 };
 
 /**
- * @stable [02.07.2018]
+ * @stable [14.10.2019]
  * @param {string} name
  * @param {AnyT} value
- * @param {IEntity} rawData
+ * @param {TEntity} rawData
  * @param {boolean} newEntity
  * @returns {IMultiItemEntity}
  */
-export const buildMultiEntity = (name: string,
-                                 value: AnyT,
-                                 rawData: IEntity,
-                                 newEntity?: boolean): IMultiItemEntity =>
+export const buildMultiEntity = <TEntity extends IEntity = IEntity>(name: string,
+                                                                    value: AnyT,
+                                                                    rawData: TEntity,
+                                                                    newEntity?: boolean): IMultiItemEntity =>
   defValuesFilter({id: rawData.id, value, name, rawData, newEntity});
 
 /**

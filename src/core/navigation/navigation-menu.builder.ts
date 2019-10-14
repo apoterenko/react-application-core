@@ -3,9 +3,9 @@ import {
   lazyInject,
   DI_TYPES,
 } from '../di';
-import { IPermissionsService } from '../permissions';
 import {
   INavigationItemEntity,
+  IPermissionsService,
   IStackWrapperEntity,
   NavigationItemTypesEnum,
 } from '../definition';

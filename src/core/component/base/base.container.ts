@@ -1,11 +1,10 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { IPermissionsService } from '../../permissions';
 import { NOTIFICATION_INFO_ACTION_TYPE } from '../../notification';
 import { UniversalContainer } from './universal.container';
 import { IUniversalDialog2 } from '../dialog/dialog.interface';
-import { IContainerProps, IContainer } from '../../definition';
+import { IContainerProps, IContainer, IPermissionsService } from '../../definition';
 
 export class BaseContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
     extends UniversalContainer<TProps, TState>
@@ -23,7 +22,9 @@ export class BaseContainer<TProps extends IContainerProps = IContainerProps, TSt
     this.dispatchCustomType(NOTIFICATION_INFO_ACTION_TYPE, { info });
   }
 
-  // Service method (DRY)
+  /**
+   * @deprecated Use proxy
+   */
   protected isPermissionAccessible<TApplicationAccessConfig>(checkedObject: TApplicationAccessConfig): boolean {
     return this.permissionService.isAccessible(checkedObject);
   }

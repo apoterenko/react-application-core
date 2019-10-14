@@ -575,6 +575,9 @@ export class DateConverter implements IDateConverter {
     return this.currentDate;
   }
 
+  /**
+   * @deprecated
+   */
   public getCurrentTime(): Date {
     return new Date();
   }

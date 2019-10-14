@@ -936,6 +936,7 @@ export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialog
 export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
 export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
+export interface I$$permissionStoreProxyWrapper<TValue> { $$permissionStoreProxy?: TValue; }
 export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
@@ -945,7 +946,6 @@ export interface IClassNameWrapper<TClassName = string> { className?: TClassName
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
-export interface IFlexEnabledWrapper { flexEnabled?: boolean; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(): void; }
 export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
