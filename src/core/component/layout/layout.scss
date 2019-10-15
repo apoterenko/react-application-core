@@ -27,9 +27,23 @@
     @include flex;                                                  /* @stable [19.09.2018] */
   }
 
-  .rac-flex-one-third {
-    @include flex(.33);                                             /* @stable [11.12.2018] */
-  }
+  /**
+   * @flex-layout
+   * @stable [15.10.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-one-third,
+    $rac-styles-flex: .33
+  );
+
+  /**
+   * @flex-layout
+   * @stable [15.10.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-one-quarter,
+    $rac-styles-flex: .25
+  );
 
   .rac-flex-three-quarters {
     @include flex(.75);

@@ -6,6 +6,7 @@ import {
   addClassNameToElement,
   addRootElement,
   createElement,
+  findElement,
   findUniversalSelectedElement,
   getContentHeight,
   getHeight,
@@ -39,6 +40,16 @@ import { ISettingsEntity, IBootstrapSettings } from '../../settings';
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [16.10.2019]
+   * @param {string | Element} selector
+   * @param {Element} parent
+   * @returns {Element}
+   */
+  public findElement(selector: string | Element, parent?: Element): Element {
+    return findElement(selector, parent);
+  }
 
   /**
    * @stable [08.10.2019]

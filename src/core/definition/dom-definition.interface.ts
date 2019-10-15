@@ -20,6 +20,7 @@ export interface IDomAccessor {
   defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
+  findElement(selector: string | Element, parent?: Element): Element;
   findUniversalSelectedElement(parent: Element): Element;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;

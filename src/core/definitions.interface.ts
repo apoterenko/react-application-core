@@ -612,6 +612,7 @@ export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValu
 export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
 export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
+export interface IStickySelectorWrapper { stickySelector?: string; }
 export interface ISucceedMessageWrapper { succeedMessage?: string; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }

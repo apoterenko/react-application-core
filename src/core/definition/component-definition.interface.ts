@@ -6,6 +6,7 @@ import {
   IGetSelfWrapper,
   IOnScrollWrapper,
   IPluginsWrapper,
+  IStickySelectorWrapper,
   IStyleWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
@@ -29,6 +30,15 @@ export interface IUniversalComponentEntity
   extends React.ClassAttributes<AnyT>,  // TODO Replace with React.RefAttributes (ref="string")
     ITitleWrapper,
     IPluginsWrapper<IUniversalPluginCtor | IUniversalPluginCtor[]> {
+}
+
+/**
+ * @react-native-compatible
+ * @stable [16.10.2019]
+ */
+export interface IUniversalStickyComponentEntity
+  extends IUniversalComponentEntity,
+    IStickySelectorWrapper {
 }
 
 /**

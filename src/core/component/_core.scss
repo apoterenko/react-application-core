@@ -70,4 +70,14 @@
     $rac-button-margin: $rac-window-error-restart-action-margin,
     $rac-button-min-width: $rac-window-error-restart-action-min-width
   );
+
+  /**
+   * @sticky
+   * @stable [16.10.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-sticky-fixed,
+    $rac-styles-z-index: $rac-sticky-fixed-z-index,
+    $rac-styles-position: $rac-sticky-fixed-position
+  );
 }

@@ -7,6 +7,21 @@ export enum RegexpEnum {
   DIGITAL = '[0-9]+',
 }
 
+export interface ICurrencySettingsEntity {
+  uiLocale?: string;
+  uiCurrency?: string;
+  uiShortCurrency?: string;
+}
+
+/**
+ * @stable [15.10.2019]
+ */
+export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsEntity>({
+  uiLocale: 'en-US',
+  uiCurrency: 'USD',
+  uiShortCurrency: '$',
+});
+
 /**
  * @stable [07.10.2019]
  */

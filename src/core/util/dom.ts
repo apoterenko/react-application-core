@@ -376,10 +376,9 @@ export const setStickyElementProperties = (stickyWrapperEl: Element,
     return;
   }
   let marginTop;
-  let position;
   let top;
+  let left;
   let width;
-  let zIndex;
 
   const stickyJEls = stickyWrapperJEl.find(stickySelector);
   if (R.isNil(stickyJEls)) {
@@ -392,25 +391,26 @@ export const setStickyElementProperties = (stickyWrapperEl: Element,
     const stickyJElTop = stickyJEl.offset().top;
     const stickyJElHeight = stickyJEl.height();
     const stickyAfterJEl = toJqEl(stickyJEl.siblings()[0]);
-    const stickyAfterJElTop = stickyAfterJEl.offset().top;
+    const stickyAfterOffset = stickyAfterJEl.offset();
+    const stickyAfterJElTop = stickyAfterOffset.top;
 
     if (
       (stickyJElPosition === 'fixed' && stickyAfterJElTop >= stickyJElHeight + stickyWrapperJElTop)
       || stickyJElTop > stickyWrapperJElTop
     ) {
-      position = 'initial';
-      zIndex = 0;
       top = 0;
+      left = 0;
       marginTop = 0;
       width = 'initial';
+      stickyJEl.removeClass('rac-sticky-fixed');
     } else if (stickyJElTop <= stickyWrapperJElTop) {
-      position = 'fixed';
-      zIndex = 1;
+      left = stickyAfterOffset.left;
       top = stickyWrapperJElTop;
       marginTop = stickyJElHeight;
       width = widthResolver(stickyJEl);
+      stickyJEl.addClass('rac-sticky-fixed');
     }
-    stickyJEl.css({position, 'z-index': zIndex, 'top': top, 'width': width});
+    stickyJEl.css({top, left, width});
     stickyAfterJEl.css('margin-top', `${marginTop}px`); // Additional <tbody> offset
   });
 };

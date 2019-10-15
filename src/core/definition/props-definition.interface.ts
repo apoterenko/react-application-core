@@ -1,5 +1,6 @@
 import {
   IUniversalComponentEntity,
+  IUniversalStickyComponentEntity,
   IWebComponentEntity,
 } from './component-definition.interface';
 import {
@@ -14,6 +15,14 @@ import {
  */
 export interface IUniversalComponentProps
   extends IUniversalComponentEntity {
+}
+
+/**
+ * @react-native-compatible
+ * @stable [27.09.2019]
+ */
+export interface IUniversalStickyComponentProps
+  extends IUniversalStickyComponentEntity {
 }
 
 /**

@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { DI_TYPES, lazyInject } from '../../di';
 import {
   isFn,
@@ -6,21 +8,24 @@ import {
 } from '../../util';
 import {
   EventsEnum,
+  IDomAccessor,
   IEventManager,
   IUniversalPlugin,
   IUniversalScrollableComponent,
-  UNIVERSAL_STICKY_ELEMENT_SELECTOR,
+  IUniversalStickyComponentProps,
 } from '../../definition';
 
 export class StickyHeaderPlugin implements IUniversalPlugin {
+  @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   private resizeUnsubscriber: () => void;
+  private isStickyElementMounted = false;
 
   /**
    * @stable [11.10.2019]
    * @param {IUniversalScrollableComponent} component
    */
-  constructor(private component: IUniversalScrollableComponent) {
+  constructor(private component: IUniversalScrollableComponent<IUniversalStickyComponentProps>) {
     this.doSetStickyElementProperties = this.doSetStickyElementProperties.bind(this);
     component.onScroll = sequence(component.onScroll, this.doSetStickyElementProperties);
   }
@@ -29,33 +34,65 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
    * @stable [11.10.2019]
    */
   public componentDidMount() {
-    this.resizeUnsubscriber = this.eventManager.subscribe(
-      window,
-      EventsEnum.RESIZE,
-      this.doSetStickyElementProperties
-    );
-  }
-
-  /**
-   * @stable [11.10.2019]
-   */
-  public componentWillUnmount() {
-    if (isFn(this.resizeUnsubscriber)) {
-      this.resizeUnsubscriber();
-    }
+    this.checkStickyElement();
   }
 
   /**
    * @stable [11.10.2019]
    */
   public componentDidUpdate() {
+    this.checkStickyElement();
     this.doSetStickyElementProperties();
   }
 
   /**
    * @stable [11.10.2019]
    */
+  public componentWillUnmount() {
+    this.clearAllListeners();
+  }
+
+  /**
+   * @stable [11.10.2019]
+   */
   private doSetStickyElementProperties(): void {
-    setStickyElementProperties(this.component.getSelf(), `.${UNIVERSAL_STICKY_ELEMENT_SELECTOR}`);
+    if (!this.isStickyElementMounted) {
+      return;
+    }
+    setStickyElementProperties(this.component.getSelf(), this.stickySelector);
+  }
+
+  /**
+   * @stable [16.10.2019]
+   */
+  private checkStickyElement(): void {
+    this.isStickyElementMounted = !R.isNil(this.domAccessor.findElement(this.stickySelector, this.component.getSelf()));
+
+    this.clearAllListeners();
+    if (this.isStickyElementMounted) {
+      this.resizeUnsubscriber = this.eventManager.subscribe(
+        window,
+        EventsEnum.RESIZE,
+        this.doSetStickyElementProperties
+      );
+    }
+  }
+
+  /**
+   * @stable [16.10.2019]
+   */
+  private clearAllListeners(): void {
+    if (isFn(this.resizeUnsubscriber)) {
+      this.resizeUnsubscriber();
+      this.resizeUnsubscriber = null;
+    }
+  }
+
+  /**
+   * @stable [16.10.2019]
+   * @returns {string}
+   */
+  private get stickySelector(): string {
+    return this.component.props.stickySelector;
   }
 }

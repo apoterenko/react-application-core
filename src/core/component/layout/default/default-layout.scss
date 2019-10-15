@@ -112,6 +112,7 @@
     }
 
     .rac-drawer {
+      z-index: $rac-default-layout-drawer-z-index;
       width: $rac-default-layout-drawer-width;                                                      /* @stable [04.10.2018] */
 
       .rac-navigation-list {

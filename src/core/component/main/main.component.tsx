@@ -1,13 +1,18 @@
 import * as React from 'react';
 
 import { IOnScrollWrapper } from '../../definitions.interface';
-import { IComponentProps } from '../../definition';
+import { IComponentProps, UNIVERSAL_STICKY_ELEMENT_SELECTOR } from '../../definition';
 import { toClassName } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
 import { StickyHeaderPlugin, PersistentScrollPlugin } from '../plugin';
 
-export class Main extends BaseComponent implements IOnScrollWrapper {
+export class Main extends BaseComponent
+  implements IOnScrollWrapper {
+
+  public static readonly defaultProps = {
+    stickySelector: `.${UNIVERSAL_STICKY_ELEMENT_SELECTOR}`,
+  };
 
   /**
    * @stable [13.12.2018]

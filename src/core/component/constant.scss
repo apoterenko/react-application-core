@@ -22,6 +22,9 @@ $color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
 /**/
+$rac-z-index-sticky: 1 !default;
+$rac-z-index-drawer: 2 !default;
+/**/
 $rac-border-radius-0: 3px !default;
 $rac-border-radius-1: 4px !default;
 /**/
@@ -683,6 +686,7 @@ $rac-default-layout-drawer-toolbar-spacer-height: $rac-default-logo-toolbar-size
 $rac-default-layout-drawer-toolbar-spacer-color: $color-5 !default;
 $rac-default-layout-drawer-toolbar-spacer-background: $color-7 !default;
 $rac-default-layout-drawer-width: 220px !default;
+$rac-default-layout-drawer-z-index: $rac-z-index-drawer !default;
 $rac-default-layout-drawer-mini-width: 48px !default;
 $rac-default-layout-drawer-navigation-list-group-subheader-height: 40px !default;
 $rac-default-layout-drawer-navigation-list-item-height: 32px !default;
@@ -746,6 +750,10 @@ $rac-window-error-wrapper-background: $rac-color-0-1 !default;
 $rac-alignment-center-top: 50% !default;
 $rac-alignment-center-left: 50% !default;
 $rac-alignment-center-position: absolute !default;
+
+/* @stable [16.10.2019] */
+$rac-sticky-fixed-position: fixed !default;
+$rac-sticky-fixed-z-index: $rac-z-index-sticky !default;
 
 /**/
 $rac-disabled-opacity: .2;

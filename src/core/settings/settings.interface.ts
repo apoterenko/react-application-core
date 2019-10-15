@@ -2,18 +2,15 @@ import { ENV } from '../env';
 import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
 import {
+  DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
   IButtonProps,
+  ICurrencySettingsEntity,
   IMessagesSettingsEntity,
   ITransportSettingsEntity,
   RegexpEnum,
   StorageTypesEnum,
 } from '../definition';
-
-export interface IApplicationCurrencySettings {
-  uiLocale?: string;
-  uiCurrency?: string;
-}
 
 export interface IApplicationResourcePaths {
   uiDefaultIconPath?: string;
@@ -156,7 +153,7 @@ export interface ISettingsEntity {
   state?: IStateSettings;
   bootstrap?: IBootstrapSettings;
   phone?: IApplicationPhoneSettings;
-  currency?: IApplicationCurrencySettings;
+  currency?: ICurrencySettingsEntity;
   number?: IApplicationNumberSettings;
   messages?: IMessagesSettings;
   channel?: IApplicationChannelSettings;
@@ -262,10 +259,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     uiCountryAbbreviation: 'US',
   },
-  currency: {
-    uiLocale: 'en-US',
-    uiCurrency: 'USD',
-  },
+  currency: DEFAULT_CURRENCY_SETTINGS_ENTITY,
   channel: {
     eventToListen: 'client-event-to-listen',
     eventToEmit: 'client-event-to-emit',
