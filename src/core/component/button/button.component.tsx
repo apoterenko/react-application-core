@@ -9,7 +9,7 @@ import {
   joinClassName,
   nvl,
 } from '../../util';
-import { IButtonProps, DEFAULT_BUTTON_CLASS_NAMES } from '../../definition';
+import { IButtonProps, DEFAULT_FLEX_BUTTON_CLASS_NAMES } from '../../definition';
 import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
 import { Link } from '../../component/link';
 
@@ -33,7 +33,7 @@ export class Button extends BaseComponent<IButtonProps> {
     const hasIcon = hasIconButton(props);
 
     const className = joinClassName(
-      ...DEFAULT_BUTTON_CLASS_NAMES,
+      ...DEFAULT_FLEX_BUTTON_CLASS_NAMES,
       props.className,
       fullFlexClassName(props),
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',

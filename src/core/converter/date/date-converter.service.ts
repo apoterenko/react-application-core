@@ -9,7 +9,7 @@ import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue, NUMBER_C
 import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
-const INITIAL_APP_DATE_STARTING = Date.now();
+const APP_STARTING_DATE = Date.now();
 
 @injectable()
 export class DateConverter implements IDateConverter {
@@ -29,7 +29,7 @@ export class DateConverter implements IDateConverter {
    * @returns {number}
    */
   public getAppOnlineLifeTimeInSeconds(): number {
-    return Math.round(Date.now() - INITIAL_APP_DATE_STARTING) / (1000 * 60);
+    return Math.round(Date.now() - APP_STARTING_DATE) / (1000 * 60);
   }
 
   /**

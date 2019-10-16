@@ -92,9 +92,9 @@ export interface IRnButtonProps
 /**
  * @stable [16.10.2019]
  */
-export const DEFAULT_BUTTON_CLASS_NAMES = [
+export const DEFAULT_FLEX_BUTTON_CLASS_NAMES = Object.freeze([
   'rac-button',
   'rac-flex',
   'rac-flex-row',
   'rac-flex-align-items-center'
-];
+]);
