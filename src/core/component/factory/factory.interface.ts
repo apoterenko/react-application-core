@@ -1,8 +1,8 @@
-import * as React from 'react';
-
 import { IUniversalUIIconConfiguration } from '../../configurations-definitions.interface';
+import { IUiFactory } from '../../definition';
 
-export interface IUIFactory {
+export interface IUIFactory
+  extends IUiFactory {
   list?: string;
   switch?: string;
   switchInput?: string;
@@ -61,18 +61,4 @@ export interface IUIFactory {
    * @returns {JSX.Element}
    */
   makeSwitchAttachment?(): JSX.Element;
-
-  /**
-   * @stable [30.09.2019]
-   * @param {Error} e
-   * @returns {Element}
-   */
-  makeWindowErrorElement?(e: Error): Element;
-
-  /**
-   * @stable [07.10.2019]
-   * @param {Error} e
-   * @returns {React.ReactNode}
-   */
-  makeReactErrorElement?(e: Error): React.ReactNode;
 }

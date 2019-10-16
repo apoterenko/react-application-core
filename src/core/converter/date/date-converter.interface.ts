@@ -8,6 +8,8 @@ import { IKeyValue } from '../../definitions.interface';
 export type DateTimeLikeTypeT = string | Date;
 
 export interface IDateConverter {
+  getAppOnlineLifeTimeInSeconds(): number;
+  getAppOnlineLifeTimeInHours(): number;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;

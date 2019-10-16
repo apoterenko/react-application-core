@@ -3,7 +3,7 @@ import * as R from 'ramda';
 
 import {
   addChild,
-  addClassNameToElement,
+  addClassNames,
   addRootElement,
   createElement,
   findElement,
@@ -16,7 +16,7 @@ import {
   hasParent,
   openFullScreen,
   removeChild,
-  removeClassNameFromElement,
+  removeClassNames,
   scrollIntoView,
   scrollTo,
   sequence,
@@ -68,6 +68,14 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [16.10.2019]
+   * @param {boolean} forceReload
+   */
+  public reload(forceReload?: boolean): void {
+    this.window.location.reload(forceReload);
+  }
+
+  /**
    * @stable [01.10.2019]
    * @returns {Element}
    */
@@ -94,8 +102,8 @@ export class DomAccessor implements IDomAccessor {
    * @param {Element} parent
    * @returns {Element}
    */
-  public createElement(tag?: string, parent?: Element): Element {
-    return createElement(tag, parent);
+  public createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parent?: Element): TElement {
+    return createElement<TElement>(tag, parent);
   }
 
   /**
@@ -174,8 +182,8 @@ export class DomAccessor implements IDomAccessor {
    * @param {Element} element
    * @param {string} clsNames
    */
-  public addClassNameToElement(element: Element, ...clsNames: string[]): void {
-    addClassNameToElement(element, ...clsNames);
+  public addClassNames(element: Element, ...clsNames: string[]): void {
+    addClassNames(element, ...clsNames);
   }
 
   /**
@@ -183,8 +191,8 @@ export class DomAccessor implements IDomAccessor {
    * @param {Element} element
    * @param {string} clsNames
    */
-  public removeClassNameFromElement(element: Element, ...clsNames: string[]): void {
-    removeClassNameFromElement(element, ...clsNames);
+  public removeClassNames(element: Element, ...clsNames: string[]): void {
+    removeClassNames(element, ...clsNames);
   }
 
   /**

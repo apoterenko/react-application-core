@@ -88,3 +88,13 @@ export interface IRnButtonProps
   extends IGenericButtonEntity,
     IRnButtonEntity {
 }
+
+/**
+ * @stable [16.10.2019]
+ */
+export const DEFAULT_BUTTON_CLASS_NAMES = [
+  'rac-button',
+  'rac-flex',
+  'rac-flex-row',
+  'rac-flex-align-items-center'
+];

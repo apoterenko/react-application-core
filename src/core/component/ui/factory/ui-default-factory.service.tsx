@@ -2,7 +2,6 @@ import * as React from 'react';
 import { injectable } from 'inversify';
 import { Store } from 'redux';
 
-import { Button } from '../../button';
 import { DI_TYPES, lazyInject } from '../../../di';
 import {
   ErrorEventCategoriesEnum,
@@ -11,18 +10,19 @@ import {
   ILogManager,
   IRouter,
   IRoutesEntity,
+  IUiFactory,
   IUniversalStoreEntity,
 } from '../../../definition';
 import { ISettingsEntity } from '../../../settings';
-import { IUIFactory } from '../../factory';
 import {
   getCurrentUrlPath,
+  handlerPropsFactory,
   ifNotNilThanValue,
   joinClassName,
 } from '../../../util';
 
 @injectable()
-export class UIDefaultFactory implements IUIFactory {
+export class UIDefaultFactory implements IUiFactory {
   @lazyInject(DI_TYPES.DomAccessor) protected readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.LogManager) protected readonly logManager: ILogManager;
@@ -36,26 +36,24 @@ export class UIDefaultFactory implements IUIFactory {
    */
   constructor() {
     this.onRestart = this.onRestart.bind(this);
+    this.onRestartAndReload = this.onRestartAndReload.bind(this);
   }
 
   /**
-   * @stable [30.09.2019]
+   * @stable [16.10.2019]
    * @param {Error} e
    * @returns {JSX.Element}
    */
   public makeWindowErrorElement(e: Error): Element {
     this.logError(ErrorEventCategoriesEnum.WINDOW_ERROR, e);
 
-    const errorMessageEl = this.domAccessor.createElement();
-    this.domAccessor.addClassNameToElement(errorMessageEl, ...this.getErrorWrapperClassNames());
-    this.domAccessor.addChild(errorMessageEl);
-
-    errorMessageEl.innerHTML = `
-      <div class='${joinClassName(...this.getErrorClassNames())}'>
-        ${this.buildErrorMessages(e).join('<br>')}
-      </div>
-    `;
-    return errorMessageEl;
+    const errorMessageWrapperEl = this.domAccessor.createElement();
+    const errorMessageEl = this.domAccessor.createElement('div', errorMessageWrapperEl);
+    this.domAccessor.addClassNames(errorMessageWrapperEl, ...this.getErrorWrapperClassNames());
+    this.domAccessor.addClassNames(errorMessageEl, ...this.getErrorClassNames());
+    this.domAccessor.addChild(errorMessageWrapperEl);
+    this.makeWindowErrorBodyElement(e, errorMessageEl);
+    return errorMessageWrapperEl;
   }
 
   /**
@@ -76,6 +74,18 @@ export class UIDefaultFactory implements IUIFactory {
   }
 
   /**
+   * @stable [16.10.2019]
+   * @param {Error} e
+   * @param {Element} parent
+   */
+  protected makeWindowErrorBodyElement(e: Error, parent: Element): void {
+    this.makeWindowRestartActionElement(parent);
+
+    const content = this.domAccessor.createElement('div', parent);
+    content.textContent = this.buildErrorMessages(e).join('<br>');
+  }
+
+  /**
    * @stable [07.10.2019]
    * @param {Error} e
    * @returns {JSX.Element}
@@ -83,7 +93,7 @@ export class UIDefaultFactory implements IUIFactory {
   protected makeReactErrorBodyElement(e: Error): JSX.Element {
     return (
       <React.Fragment>
-        {this.restartActionElement}
+        {this.makeReactRestartActionElement()}
         {this.getErrorMessagesElement(e)}
       </React.Fragment>
     );
@@ -154,25 +164,38 @@ export class UIDefaultFactory implements IUIFactory {
   }
 
   /**
-   *
+   * @stable [16.10.2019]
    * @returns {JSX.Element}
    */
-  protected get restartActionElement(): JSX.Element {
+  protected makeReactRestartActionElement(): JSX.Element {
     return (
-      <Button
-        text={this.settings.messages.RESTART_APP}
-        raised={true}
-        onClick={this.onRestart}
-        className={this.getRestartActionClassName()}/>
+      <button
+        {...handlerPropsFactory(this.onRestartAndReload)}
+        className={joinClassName(...this.getRestartActionClassName())}>
+        {this.settings.messages.RESTART_APP}
+      </button>
     );
   }
 
   /**
-   * @stable [07.10.2019]
-   * @returns {string}
+   * @stable [16.10.2019]
+   * @param {Element} parent
+   * @returns {Element}
    */
-  protected getRestartActionClassName(): string {
-    return 'rac-window-error-restart-action';
+  protected makeWindowRestartActionElement(parent: Element): Element {
+    const actionEl = this.domAccessor.createElement<HTMLButtonElement>('button', parent);
+    this.domAccessor.addClassNames(actionEl, ...this.getRestartActionClassName());
+    actionEl.textContent = this.settings.messages.RESTART_APP;
+    actionEl.onclick = this.onRestartAndReload;
+    return actionEl;
+  }
+
+  /**
+   * @stable [07.10.2019]
+   * @returns {string[]}
+   */
+  protected getRestartActionClassName(): string[] {
+    return ['rac-window-error-restart-action'];
   }
 
   /**
@@ -181,6 +204,15 @@ export class UIDefaultFactory implements IUIFactory {
   protected onRestart(): void {
     this.router.go(-this.router.length);
     this.router.push(this.routes.logout);
+  }
+
+  /**
+   * In case of an out memory error, it would be better to reload the page
+   * @stable [16.10.2019]
+   */
+  protected onRestartAndReload(): void {
+    this.onRestart();
+    this.domAccessor.reload(true);
   }
 
   /**

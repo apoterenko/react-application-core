@@ -65,10 +65,10 @@
    * @error
    * @stable [07.10.2019]
    */
-  @include rac-button (
-    $rac-button-custom: rac-window-error-restart-action,
-    $rac-button-margin: $rac-window-error-restart-action-margin,
-    $rac-button-min-width: $rac-window-error-restart-action-min-width
+  @include rac-styles (
+    $rac-styles-custom: rac-window-error-restart-action,
+    $rac-styles-margin: $rac-window-error-restart-action-margin,
+    $rac-styles-min-width: $rac-window-error-restart-action-min-width
   );
 
   /**

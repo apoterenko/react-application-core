@@ -9,6 +9,8 @@ import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue, NUMBER_C
 import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../settings';
 import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
 
+const INITIAL_APP_DATE_STARTING = Date.now();
+
 @injectable()
 export class DateConverter implements IDateConverter {
   private static MONTHS = moment.months();
@@ -21,6 +23,22 @@ export class DateConverter implements IDateConverter {
       .concat(moment.weekdays()[0]);
 
   @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
+
+  /**
+   * @stable [16.10.2019]
+   * @returns {number}
+   */
+  public getAppOnlineLifeTimeInSeconds(): number {
+    return Math.round(Date.now() - INITIAL_APP_DATE_STARTING) / (1000 * 60);
+  }
+
+  /**
+   * @stable [16.10.2019]
+   * @returns {number}
+   */
+  public getAppOnlineLifeTimeInHours(): number {
+    return Math.round(this.getAppOnlineLifeTimeInSeconds() / 60);
+  }
 
   /**
    * @stable [08.08.2019]

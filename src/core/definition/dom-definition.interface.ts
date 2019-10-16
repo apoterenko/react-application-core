@@ -14,9 +14,9 @@ export interface IJQueryElement<TElement extends Element = Element>
  */
 export interface IDomAccessor {
   addChild(child: Element, parent?: Element): Element;
-  addClassNameToElement(element: Element, ...clsNames: string[]): void;
+  addClassNames(element: Element, ...clsNames: string[]): void;
   addRootElement(): Element;
-  createElement(tag?: string, parent?: Element): Element;
+  createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parent?: Element): TElement;
   defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
@@ -34,8 +34,9 @@ export interface IDomAccessor {
   hasParent(selector: string, target: Element): boolean;
   isAlreadyFocused(): boolean;
   redirect(path: string): void;
+  reload(forceReload?: boolean): void;
   removeChild(child: Element, parent?: Element);
-  removeClassNameFromElement(element: Element, ...clsNames: string[]): void;
+  removeClassNames(element: Element, ...clsNames: string[]): void;
   scrollTo(payload: IXYEntity | Element, parent?: Element): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;

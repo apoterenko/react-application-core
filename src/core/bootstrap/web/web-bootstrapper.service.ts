@@ -57,7 +57,7 @@ export class WebBootstrapper implements IBootstrapper {
    * @stable [01.10.2019]
    */
   protected addRootElement(): void {
-    this.domAccessor.addClassNameToElement(
+    this.domAccessor.addClassNames(
       this.domAccessor.addRootElement(),
       orNull(this.bSettings.flexEnabled, 'rac-flex')
     );
@@ -92,7 +92,7 @@ export class WebBootstrapper implements IBootstrapper {
     const environment = this.environment;
     const document = environment.document;
 
-    this.domAccessor.addClassNameToElement(
+    this.domAccessor.addClassNames(
       document.body,
       'rac',
       environment.appProfile,

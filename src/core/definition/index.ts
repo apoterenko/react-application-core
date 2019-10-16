@@ -42,6 +42,7 @@ export * from './tab-definition.interface';
 export * from './toolbar-tools-definition.interface';
 export * from './tooltip-definition.interface';
 export * from './transport-definition.interface';
+export * from './ui-factory-definition.interface';
 export * from './user-definition.interface';
 export * from './version-definition.interface';
 export * from './viewer-definition.interface';

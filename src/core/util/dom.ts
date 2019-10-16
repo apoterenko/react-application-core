@@ -68,7 +68,7 @@ export const getGoogleMapsScript = (libraries: string): BPromise<HTMLScriptEleme
  * @param {Element} element
  * @param {string} clsName
  */
-export const addClassNameToElement = (element: Element, ...clsName: string[]): void =>
+export const addClassNames = (element: Element, ...clsName: string[]): void =>
   element.classList.add(...notNilValuesArrayFilter(...clsName));
 
 /**
@@ -76,7 +76,7 @@ export const addClassNameToElement = (element: Element, ...clsName: string[]): v
  * @param {Element} element
  * @param {string} clsName
  */
-export const removeClassNameFromElement = (element: Element, ...clsName: string[]): void =>
+export const removeClassNames = (element: Element, ...clsName: string[]): void =>
   element.classList.remove(...clsName);
 
 /**
@@ -87,7 +87,7 @@ export const removeClassNameFromElement = (element: Element, ...clsName: string[
 export const addRootElement = (rootId: string): Element => {
   const rootEl = createElement();
   rootEl.setAttribute('id', rootId);
-  addClassNameToElement(rootEl, 'rac-root');
+  addClassNames(rootEl, 'rac-root');
   return rootEl;
 };
 
@@ -95,7 +95,7 @@ export const addRootElement = (rootId: string): Element => {
  * @stable [14.11.2018]
  * @param {string} clsName
  */
-export const addClassNameToBody = (...clsName: string[]): void => addClassNameToElement(document.body, ...clsName);
+export const addClassNameToBody = (...clsName: string[]): void => addClassNames(document.body, ...clsName);
 
 /**
  * @stable [28.06.2018]
@@ -248,7 +248,7 @@ export const toJqEl = <TJqElement extends IJQueryElement = IJQueryElement>(sourc
 export const downloadFileAsBlobUrl = (url: string, fileName?: string): void => {
   const loader = createElement<HTMLAnchorElement>('a');
   try {
-    addClassNameToElement(loader, 'rac-invisible');
+    addClassNames(loader, 'rac-invisible');
 
     loader.download = nvl(fileName, url);
     loader.href = url;

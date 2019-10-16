@@ -44,7 +44,7 @@ export class LogManager implements ILogManager {
         eventCategory: `${this.environment.host}:${category}`,
         eventAction,
         eventLabel: `${R.isNil(user) || R.isNil(user.id) ? '' : `${user.id}:${user.name}:`}${
-          appVersion}:${
+          appVersion}:${this.dc.getAppOnlineLifeTimeInHours()}:${
           this.dc.fromDateTimeToDateTime(this.dc.getCurrentDate())}:${
           browserName}:${
           browserVersion}:${
