@@ -5,7 +5,6 @@ import {
   IRnListEntity,
   IGridEntity,
   IUniversalListEntity,
-  IGridColumnEntity,
 } from './entities-definitions.interface';
 import {
   IFieldConfiguration,
@@ -15,7 +14,6 @@ import {
   IUniversalListConfiguration,
   IUniversalFieldConfiguration,
   ITabPanelConfiguration,
-  IGridColumnConfiguration,
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
 import { ITabPanelEntity } from './definition';
@@ -70,11 +68,4 @@ export interface IGridProps extends IGridEntity,
  */
 export interface ITabPanelProps extends ITabPanelConfiguration,
                                         ITabPanelEntity {
-}
-
-/**
- * @stable [10.09.2018]
- */
-export interface IGridColumnProps extends IGridColumnConfiguration,
-                                          IGridColumnEntity {
 }

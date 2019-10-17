@@ -15,7 +15,7 @@ import { IComponentProps } from '../../../definition';
 export interface IKeyboardKeyProps extends IComponentProps,
                                            IDisabledWrapper,
                                            IRippledWrapper,   // TODO Button props
-                                           IRendererWrapper<(item: string) => JSX.Element>,
+                                           IRendererWrapper<string>,
                                            IUseUppercaseWrapper,
                                            IOnSelectWrapper<(item: KeyboardKeyT) => void>,
                                            IValueWrapper<KeyboardKeyT> {

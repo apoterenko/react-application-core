@@ -6,23 +6,22 @@ import {
   ISelectedEntityWrapper,
   IRemovedEntityWrapper,
   IEntity,
-  IPayloadWrapper,
 } from '../../definitions.interface';
 import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl, ifNotNilThanValue } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
-import { INITIAL_APPLICATION_LIST_STATE } from './list.interface';
+import { INITIAL_LIST_ENTITY } from './list.interface';
 import {
   IListEntity,
-  ISortDirectionEntity,
 } from '../../entities-definitions.interface';
 import {
   EntityMergeStrategiesEnum,
   IFieldChangeEntity,
   IModifyEntityPayloadWrapperEntity,
+  ISortDirectionPayloadEntity,
 } from '../../definition';
 
-export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
+export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
                             action: IEffectsAction): IListEntity {
   const section = toSection(action);
   const modifyData: IModifyEntityPayloadWrapperEntity = action.data;
@@ -31,8 +30,8 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
   let updatedData;
 
   switch (action.type) {
-    case ListActionBuilder.buildChangeSortDirectionActionType(section):
-      const sortDirectionPayload = toType<IPayloadWrapper<ISortDirectionEntity>>(action.data).payload;
+    case ListActionBuilder.buildSortingDirectionChangeActionType(section):
+      const sortDirectionPayload = toType<ISortDirectionPayloadEntity>(action.data).payload;
       return {
         ...state,
         directions: notNilValuesFilter({
@@ -89,10 +88,11 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
       };
     case ListActionBuilder.buildLoadActionType(section):
       return {
-        ...INITIAL_APPLICATION_LIST_STATE,
+        ...INITIAL_LIST_ENTITY,
         progress: true,
         touched: true,
         lockPage: state.lockPage,
+        directions: state.directions,
       };
     case ListActionBuilder.buildCancelLoadActionType(section):
       /**
@@ -106,7 +106,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
     case ListActionBuilder.buildResetActionType(section):
     case ListActionBuilder.buildDestroyActionType(section):
       return {
-        ...INITIAL_APPLICATION_LIST_STATE,
+        ...INITIAL_LIST_ENTITY,
       };
     case ListActionBuilder.buildLoadDoneActionType(section):
       const listEntity: IListEntity = action.data;
@@ -133,7 +133,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
               ),
             }
         ),
-        page: state.lockPage ? listEntity.page : INITIAL_APPLICATION_LIST_STATE.page,
+        page: state.lockPage ? listEntity.page : INITIAL_LIST_ENTITY.page,
       };
       // In the case of silent reload
       const oldSelectedEntity = resultState.selected;
@@ -150,7 +150,7 @@ export function listReducer(state: IListEntity = INITIAL_APPLICATION_LIST_STATE,
     case ListActionBuilder.buildLazyLoadErrorActionType(section):
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
-        ...INITIAL_APPLICATION_LIST_STATE,
+        ...INITIAL_LIST_ENTITY,
         error: convertError(action.error).message,
       };
     case ListActionBuilder.buildSelectActionType(section):

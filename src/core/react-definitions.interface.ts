@@ -10,13 +10,6 @@ export interface IReactOnClickWrapper<TPayload = IBaseEvent, TOnClick = (payload
 /**
  * @stable [11.11.2018]
  */
-export interface IOnColumnClickWrapper<TPayload = IBaseEvent, TOnColumnClick = (payload?: TPayload) => void> {
-  onColumnClick?: TOnColumnClick;
-}
-
-/**
- * @stable [11.11.2018]
- */
 export interface IOnNavigationActionClickWrapper<TPayload = IBaseEvent,
                                                  TOnNavigationActionClick = (payload?: TPayload) => void> {
   onNavigationActionClick?: TOnNavigationActionClick;

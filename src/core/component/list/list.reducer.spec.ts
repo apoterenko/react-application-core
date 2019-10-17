@@ -1,6 +1,6 @@
 import {
   LIST_REMOVE_ACTION_TYPE,
-  INITIAL_APPLICATION_LIST_STATE,
+  INITIAL_LIST_ENTITY,
 } from './list.interface';
 import { listReducer } from './list.reducer';
 import { ListActionBuilder } from './list-action.builder';
@@ -15,7 +15,7 @@ describe('list.reducer', () => {
       const entity3 = {id: 3, name: '3'};
 
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity2,
@@ -33,7 +33,7 @@ describe('list.reducer', () => {
         });
 
       expect(reducedList).toEqual(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity3
@@ -50,7 +50,7 @@ describe('list.reducer', () => {
       const entity3 = {id: 3, name: '3'};
 
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity2,
@@ -68,7 +68,7 @@ describe('list.reducer', () => {
         });
 
       expect(reducedList).toEqual(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity3
@@ -85,7 +85,7 @@ describe('list.reducer', () => {
       const entity3 = {id: 3, name: '3'};
 
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity2,
@@ -103,7 +103,7 @@ describe('list.reducer', () => {
         });
 
       expect(reducedList).toEqual(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity3
@@ -120,7 +120,7 @@ describe('list.reducer', () => {
       const entity3 = {id: 3, name: '3'};
 
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity2,
@@ -137,7 +137,7 @@ describe('list.reducer', () => {
         });
 
       expect(reducedList).toEqual(
-        Object.assign({}, INITIAL_APPLICATION_LIST_STATE, {
+        Object.assign({}, INITIAL_LIST_ENTITY, {
           data: [
             entity1,
             entity3

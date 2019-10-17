@@ -13,19 +13,18 @@ import {
   asMultiFieldEntities,
   generateArray,
 } from '../../util';
-import {
-  GridColumnConfigurationT,
-  IGridColumnConfiguration,
-  IGridFilterConfiguration,
-} from '../../configurations-definitions.interface';
 import { UNI_CODES, IEntity, EntityIdT } from '../../definitions.interface';
 import {
   IGridState,
   ITimeGridBuilderConfigEntity,
 } from './grid.interface';
-import { SortDirectionEnum } from '../../entities-definitions.interface';
 import { IGridProps } from '../../props-definitions.interface';
-import { MultiFieldEntityT } from '../../definition';
+import {
+  MultiFieldEntityT,
+  SortDirectionsEnum,
+  IGridColumnProps,
+  IGridFilterEntity,
+} from '../../definition';
 
 const MINUTES_PER_HOUR = 60;
 const HOURS_PER_DAY = 24;
@@ -46,11 +45,11 @@ export const DEFAULT_BUILDER_CONFIG: ITimeGridBuilderConfigEntity = {
 
 /**
  * @stable [04.10.2018]
- * @param {GridColumnConfigurationT} defaultConfig
+ * @param {IGridColumnProps} defaultConfig
  * @param {string} extraClassName
- * @returns {GridColumnConfigurationT}
+ * @returns {IGridColumnProps}
  */
-export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT, extraClassName?: string): GridColumnConfigurationT =>
+export const buildTimeGridInfoColumn = (defaultConfig: IGridColumnProps, extraClassName?: string): IGridColumnProps =>
   ({
     ...defaultConfig,
     columnClassName: (props) => toClassName(extraClassName, calc<string>(defaultConfig.columnClassName, props)),
@@ -61,9 +60,9 @@ export const buildTimeGridInfoColumn = (defaultConfig: GridColumnConfigurationT,
  * @param {number} hour
  * @param {number} minutes
  * @param {ITimeGridBuilderConfigEntity} builderConfig
- * @returns {GridColumnConfigurationT}
+ * @returns {IGridColumnProps}
  */
-const toUsaTime = (hour: number, minutes: number, builderConfig?: ITimeGridBuilderConfigEntity): GridColumnConfigurationT => {
+const toUsaTime = (hour: number, minutes: number, builderConfig?: ITimeGridBuilderConfigEntity): IGridColumnProps => {
   const isBeforeNoon = hour < HOURS_PER_HALF_OF_DAY;
   const timeResolver = builderConfig.timeResolver;
   const timeAbbreviationResolver = builderConfig.timeAbbreviationResolver;
@@ -82,13 +81,13 @@ const toUsaTime = (hour: number, minutes: number, builderConfig?: ITimeGridBuild
 
 /**
  * @stable [10.09.2018]
- * @param {GridColumnConfigurationT} defaultConfig
+ * @param {IGridColumnProps} defaultConfig
  * @param {ITimeGridBuilderConfigEntity} builderConfig
- * @returns {GridColumnConfigurationT[]}
+ * @returns {IGridColumnProps[]}
  */
 export const buildTimeGridColumns = (
-  defaultConfig?: GridColumnConfigurationT,
-  builderConfig?: ITimeGridBuilderConfigEntity): GridColumnConfigurationT[] => {
+  defaultConfig?: IGridColumnProps,
+  builderConfig?: ITimeGridBuilderConfigEntity): IGridColumnProps[] => {
 
   builderConfig = {
     ...DEFAULT_BUILDER_CONFIG,
@@ -119,7 +118,7 @@ export const buildTimeGridColumns = (
       const currentUsaTime = toUsaTime(currentHour, currentMinutes, builderConfig);
       const tillUsaTime = toUsaTime(tillHour, tillMinutes, builderConfig);
 
-      const item = defValuesFilter<GridColumnConfigurationT, GridColumnConfigurationT>({
+      const item = defValuesFilter<IGridColumnProps, IGridColumnProps>({
         align: 'center',
         headerClassName: 'rac-time-grid-time-header-column',
         title: isSameHour
@@ -139,7 +138,7 @@ export const buildTimeGridColumns = (
       });
 
       currentPeriodPerHour = ++currentPeriodPerHour === periodsCount ? 0 : currentPeriodPerHour;
-      return orNull<GridColumnConfigurationT>(
+      return orNull<IGridColumnProps>(
         builderConfig.hourFrom <= currentHour && currentHour <= builderConfig.hourTo, item
       );
     })
@@ -148,17 +147,17 @@ export const buildTimeGridColumns = (
 
 /**
  * @stable [12.02.2019]
- * @param {IGridColumnConfiguration} column
+ * @param {IGridColumnProps} column
  * @param {IGridProps} props
- * @returns {SortDirectionEnum}
+ * @returns {SortDirectionsEnum}
  */
-export const getGridColumnSortDirection = (column: IGridColumnConfiguration,
-                                           props: IGridProps): SortDirectionEnum =>
+export const getGridColumnSortDirection = (column: IGridColumnProps,
+                                           props: IGridProps): SortDirectionsEnum =>
   props.directions[column.name];
 
 // TODO Need add the tests
 export const filterAndSortGridOriginalDataSource = (source: IEntity[],
-                                                    columns: IGridColumnConfiguration[],
+                                                    columns: IGridColumnProps[],
                                                     props: IGridProps,
                                                     state: IGridState): IEntity[] => {
   if (R.isNil(source)) {
@@ -176,7 +175,7 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
   if (props.useLocalFiltering) {
     const filterChanges = state.filterChanges;
     const changedColumns = Object.keys(filterChanges);
-    const defaultLocalFilter = (cfg: IGridFilterConfiguration) =>
+    const defaultLocalFilter = (cfg: IGridFilterEntity) =>
       queryFilter(cfg.query, cfg.entity[cfg.columnName]);
 
     if (changedColumns.length > 0) {

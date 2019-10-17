@@ -81,4 +81,13 @@
     $rac-styles-z-index: $rac-sticky-fixed-z-index,
     $rac-styles-position: $rac-sticky-fixed-position
   );
+
+  /**
+   * @user-select
+   * @stable [17.10.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-no-user-select,
+    $rac-styles-no-user-select: true
+  );
 }

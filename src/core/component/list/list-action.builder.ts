@@ -13,7 +13,7 @@ import { applySection, toActionPrefix } from '../../util';
 import {
   LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
-  LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
+  LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
@@ -38,8 +38,8 @@ import {
 
 export class ListActionBuilder {
 
-  public static buildChangeSortDirectionActionType(section: string): string {
-    return `${section}.${LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE}`;
+  public static buildSortingDirectionChangeActionType(section: string): string {
+    return `${section}.${LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE}`;
   }
 
   public static buildChangeActionType(section: string): string {

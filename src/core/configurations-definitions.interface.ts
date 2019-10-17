@@ -1,11 +1,9 @@
 import * as React from 'react';
-import * as CSS from 'csstype';
 
 import {
   AnyT,
   EntityIdT,
   IActionButtonsWrapper,
-  IActionedWrapper,
   IActionIconsWrapper,
   IActionsDisabledWrapper,
   IActionsPosition,
@@ -14,7 +12,6 @@ import {
   IActiveWrapper,
   IAfterEnterWrapper,
   IAliasWrapper,
-  IAlignWrapper,
   IApplyGroupWrapper,
   IApplyOddWrapper,
   IAutoCompleteWrapper,
@@ -38,14 +35,7 @@ import {
   IChildrenWrapper,
   IClassNameWrapper,
   IClearActionWrapper,
-  IColSpanWrapper,
-  IColumnClassNameWrapper,
-  IColumnColSpanWrapper,
   IColumnNameWrapper,
-  IColumnRenderedWrapper,
-  IColumnStylesWrapper,
-  IColumnTitleWrapper,
-  IColumnWidthWrapper,
   IComputedMatchWrapper,
   IContentStyleWrapper,
   IContentWrapper,
@@ -71,7 +61,6 @@ import {
   IFieldRenderedWrapper,
   IFieldWrapper,
   IFilterFnWrapper,
-  IFilterRendererWrapper,
   IFocusEvent,
   IForwardRenderedWrapper,
   IFullWrapper,
@@ -80,15 +69,10 @@ import {
   IHeaderActionIconStyleWrapper,
   IHeaderActionStyleWrapper,
   IHeaderBackActionEnabledWrapper,
-  IHeaderClassNameWrapper,
-  IHeaderColSpanWrapper,
   IHeaderContentWrapper,
   IHeaderMenuActionEnabledWrapper,
-  IHeaderRenderedWrapper,
-  IHeaderRendererWrapper,
   IHeaderStyleWrapper,
   IHeaderTitleStyleWrapper,
-  IHeaderWidthWrapper,
   IHideNavBarWrapper,
   IHoveredWrapper,
   IIconWrapper,
@@ -100,7 +84,6 @@ import {
   IKeyValue,
   IKeyWrapper,
   ILayoutWrapper,
-  ILocalFilterFnWrapper,
   IMappersWrapper,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
@@ -113,7 +96,7 @@ import {
   IOnChangeFilterWrapper,
   IOnChangeGroupingWrapper,
   IOnChangeHeaderWrapper,
-  IOnChangeSortingWrapper,
+  IOnSortingDirectionChangeWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
   IOnCloseWrapper,
@@ -141,7 +124,7 @@ import {
   ISeparatorsWrapper,
   IShadowStyleWrapper,
   ISimpleWrapper,
-  ISorterFnWrapper,
+  ISorterWrapper,
   IStepWrapper,
   IStickyHeadWrapper,
   IStringArrayExcludeTargetsClassesWrapper,
@@ -152,16 +135,13 @@ import {
   ITitleWrapper,
   ITotalEntityWrapper,
   ITplFnWrapper,
-  ITplWrapper,
   ITypeWrapper,
   IUrlWrapper,
   IUseAddActionWrapper,
   IUseDrawerWrapper,
-  IUseGroupingWrapper,
   IUseHeaderWrapper,
   IUseIndicatorWrapper,
   IUseKeyboardWrapper,
-  IUseSortingWrapper,
   IUseSyntheticCursorWrapper,
   IValidateWrapper,
   IValidationGroupWrapper,
@@ -173,12 +153,7 @@ import {
   IAccessConfigurationWrapper,
 } from './definitions.interface';
 import {
-  ISortDirectionEntity,
-} from './entities-definitions.interface';
-import { IGridColumnProps } from './props-definitions.interface';
-import {
   IReactOnClickWrapper,
-  IOnColumnClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
 import {
@@ -187,10 +162,11 @@ import {
   IComponentProps,
   IFieldChangeEntity,
   IGenericFieldEntity,
+  IGridColumnProps,
   IMenuItemEntity,
-  IMenuProps,
   INamedConstructor,
   INavigationItemEntity,
+  ISortDirectionEntity,
   IUniversalComponentEntity,
   IUniversalContainerCtor,
   IUniversalContainerEntity,
@@ -230,7 +206,7 @@ export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldConfigur
 /**
  * @stable [14.05.2018]
  */
-export interface IColumnsConfigurationWrapper<TColumnsConfiguration = IGridColumnConfiguration[]> {
+export interface IColumnsConfigurationWrapper<TColumnsConfiguration = IGridColumnProps[]> {
   columnsConfiguration?: TColumnsConfiguration;
 }
 
@@ -288,7 +264,7 @@ export interface INavigationHandlersConfiguration {
  * @stable [24.04.2018]
  */
 export interface IUniversalListItemConfiguration extends IUniversalComponentEntity,
-                                                         IRendererWrapper<(item: any, index?: number) => JSX.Element>, // TODO
+                                                         IRendererWrapper,
                                                          IIndexWrapper,
                                                          ITplFnWrapper,
                                                          IWarningWrapper {
@@ -366,56 +342,12 @@ export interface IListConfiguration extends IUniversalListConfiguration<IListIte
                                             IWebComponentEntity {
 }
 
-/**
- * @stable [10.09.2018]
- */
-export interface IBaseGridColumnConfiguration
-  extends IComponentProps,
-    IAlignWrapper,
-    IWidthWrapper,
-    IColSpanWrapper,
-    IIndexWrapper,
-    IColumnStylesWrapper<((props: IGridColumnProps) => CSS.Properties<string | number>)> {
-}
-
-/**
- * @deprecated Use IGridColumnProps
- */
-export interface IGridColumnConfiguration extends IBaseGridColumnConfiguration,
-                                                  IOnColumnClickWrapper<{event: IBaseEvent, props: IGridColumnProps}>,
-                                                  IColumnColSpanWrapper,
-                                                  IColumnTitleWrapper,
-                                                  IColumnWidthWrapper,
-                                                  IColumnClassNameWrapper<string | ((props: IGridColumnProps) => string)>,
-                                                  IColumnRenderedWrapper,
-                                                  ILocalFilterFnWrapper<IGridFilterConfiguration>,
-                                                  IReactOnClickWrapper<ISortDirectionEntity>,
-                                                  IUseGroupingWrapper,
-                                                  IUseSortingWrapper,
-                                                  ITplWrapper<((entity: IEntity, column?: IGridColumnProps, rowNum?: number) => StringNumberT)>,
-                                                  INameWrapper,
-                                                  IRenderedWrapper,
-                                                  IRendererWrapper<(entity: IEntity, context: IGridColumnConfiguration, items: any) => JSX.Element>,
-                                                  IActionedWrapper,
-                                                  IHeaderRendererWrapper<IGridColumnConfiguration>,
-                                                  IFilterRendererWrapper<IGridColumnConfiguration> {
-  sorter?(entity1: IEntity, entity2: IEntity): number;  // TODO
-}
-
-/**
- * @stable [03.07.2018]
- */
-export interface IGridFilterConfiguration<TEntity extends IEntity = IEntity> extends IQueryWrapper,
-                                                                                     IColumnNameWrapper,
-                                                                                     IEntityWrapper<TEntity> {
-}
-
 /* @stable - 04.04.2018 */
 export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IWebComponentEntity,
                                             IWrapperClassNameWrapper,
                                             IOnChangeGroupingWrapper<IFieldChangeEntity>,
-                                            IOnChangeSortingWrapper<ISortDirectionEntity>,
+                                            IOnSortingDirectionChangeWrapper<ISortDirectionEntity>,
                                             IColumnsConfigurationWrapper<IGridColumnProps[]>,
                                             IExpandActionRenderedWrapper,
                                             IExpandedGroupsWrapper<any>,
@@ -425,19 +357,6 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
   topTotal?: boolean; // TODO
   groupedDataSorter?: (groupedValue1, groupedValue2, entity1: IEntity, entity2: IEntity) => number;
 }
-
-/* @stable - 03.04.2018 */
-export interface IGridHeaderColumnConfiguration extends IGridColumnConfiguration,
-                                                        IHeaderColSpanWrapper,
-                                                        IHeaderWidthWrapper,
-                                                        IHeaderClassNameWrapper,
-                                                        IHeaderRenderedWrapper {
-}
-
-/**
- * @stable [10.09.2018]
- */
-export type GridColumnConfigurationT = IGridColumnConfiguration | IGridHeaderColumnConfiguration;
 
 /**
  * @stable [31.08.2018]
@@ -848,5 +767,5 @@ export interface ISubHeaderConfiguration extends IComponentProps,
  * @stable [05.06.2018]
  */
 export interface IFilterAndSorterConfiguration extends IFilterFnWrapper,
-                                                       ISorterFnWrapper {
+                                                       ISorterWrapper {
 }

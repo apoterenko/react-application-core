@@ -57,7 +57,7 @@ export interface IGoogleMapsProps
     IOptionsWrapper<google.maps.MapOptions>,
     IOnInitWrapper,
     IOnChangePlaceWrapper<IGoogleMapsMarkerChangePlaceEntity>,
-    IOnClickWrapper<(payload: IGoogleMapsClickPayloadEntity) => void> {
+    IOnClickWrapper<IGoogleMapsClickPayloadEntity> {
 }
 
 /**

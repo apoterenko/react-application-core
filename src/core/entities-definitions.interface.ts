@@ -6,14 +6,8 @@ import {
   IClearValueWrapper,
   IDataWrapper,
   IDateWrapper,
-  IDirectionsWrapper,
-  IDirectionWrapper,
-  IDisabledWrapper,
   IDisplayValueWrapper,
   IEntity,
-  IEntityIdTWrapper,
-  IEntityWrapper,
-  IFilterFormWrapper,
   IFilterWrapper,
   IFromDateFromTimeEntity,
   IGetValueWrapper,
@@ -33,11 +27,9 @@ import {
   ISelectedWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
-  ITextAlignWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
   IValueWrapper,
-  IWidthWrapper,
 } from './definitions.interface';
 import {
   IUniversalFieldProps,
@@ -46,15 +38,14 @@ import { IUniversalKeyboardHandlersConfiguration } from './configurations-defini
 import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IComponentProps,
-  IEditableEntity,
   IEnvironment,
   IFieldChangeEntity,
-  IJQueryElement,
   ILifeCycleEntity,
   IPaginatedEntity,
   IQueryFilterEntity,
   IUniversalComponent,
   IUniversalComponentEntity,
+  ISortDirectionsEntity,
 } from './definition';
 
 /**
@@ -179,12 +170,6 @@ export interface IGridEntity extends IListEntity,
 export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
 }
 
-/**
- * @stable [15.05.2018]
- */
-export interface IGridHeaderColumnEntity extends ISortDirectionEntity {
-}
-
 /* @stable - 05.04.2018 */
 export interface IGridRowEntity extends ISelectedWrapper,
                                         IReactOnClickWrapper {
@@ -202,58 +187,11 @@ export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(e
 }
 
 /**
- * @stable [29.05.2018]
- */
-export enum SortDirectionEnum {
-  ASC,
-  DESC,
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface ISortDirectionEntity extends INameWrapper,
-                                              IDirectionWrapper<SortDirectionEnum> {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface ISortDirectionsEntity extends IDirectionsWrapper<{ [name: string]: SortDirectionEnum }> {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IFilterFormWrapperEntity extends IFilterFormWrapper<IEditableEntity> {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IListAndFilterFormWrapperEntity extends IListWrapperEntity,
-                                                         IFilterFormWrapperEntity {
-}
-
-/**
  * @stable [04.06.2018]
  */
 export interface IFilteredListWrapperEntity<TFilter, TList>
   extends IListWrapper<TList>,
     IFilterWrapper<TFilter> {
-}
-
-/**
- * @stable [10.09.2018]
- */
-export interface IStyleEntity extends ITextAlignWrapper,
-                                      IWidthWrapper {
-}
-
-/**
- * @stable [10.09.2018]
- */
-export interface IGridColumnEntity extends IEntityWrapper<IEntity> {
 }
 
 /**

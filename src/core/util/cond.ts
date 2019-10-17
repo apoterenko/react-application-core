@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import { AnyT, StringNumberT, UNDEF, UNDEF_SYMBOL } from '../definitions.interface';
 import { isFn } from '../util';
 import { calc } from './calc';
+import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [25.10.2018]
@@ -58,16 +59,16 @@ export const ifNilThanValue = <TValue, TResult>(value: TValue,
   R.isNil(value) ? callback(value) : defaultValue;
 
 /**
- * @stable [16.09.2019]
+ * @stable [17.10.2019]
  * @param {TValue} value
  * @param {(value: TValue) => TResult} callback
  * @param {any} defaultValue
  * @returns {TResult}
  */
-export const ifNotEmptyThanValue = <TValue, TResult> (value: TValue,
-                                                      callback: (value: TValue) => TResult,
-                                                      defaultValue = null): TResult =>
-  !R.isNil(value) && !R.isEmpty(value)
+export const ifNotEmptyThanValue = <TValue, TResult>(value: TValue,
+                                                     callback: (value: TValue) => TResult,
+                                                     defaultValue = null): TResult =>
+  isObjectNotEmpty(value)
     ? callback(value)
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 

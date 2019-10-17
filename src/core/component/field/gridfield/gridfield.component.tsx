@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IListEntity } from '../../../entities-definitions.interface';
 import { Grid } from '../../grid';
-import { INITIAL_APPLICATION_LIST_STATE } from '../../list';
+import { INITIAL_LIST_ENTITY } from '../../list';
 import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
 import { toClassName } from '../../../util';
@@ -27,7 +27,7 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
     const props = this.props;
 
     const gridListEntity: IListEntity = {
-      ...INITIAL_APPLICATION_LIST_STATE,
+      ...INITIAL_LIST_ENTITY,
       data: this.multiFieldPlugin.activeValue,
       changes: fromMultiItemEntitiesToFieldsChanges(this.multiFieldPlugin.editValue),
     };

@@ -1,104 +1,122 @@
 import * as React from 'react';
 
-import { IBaseEvent } from '../../../definition';
-import { SortDirectionEnum } from '../../../entities-definitions.interface';
-import { nvl, orNull, cancelEvent, isFn } from '../../../util';
-import { IGridHeaderColumnProps } from './grid-header-column.interface';
+import {
+  IGridColumnProps,
+  SortDirectionsEnum,
+} from '../../../definition';
+import {
+  calc,
+  ifNotFalseThanValue,
+  isFn,
+  nvl,
+  orNull,
+} from '../../../util';
 import { BaseGridColumn } from '../base-column';
 import { FlexLayout } from '../../layout';
 
-export class GridHeaderColumn extends BaseGridColumn<IGridHeaderColumnProps> {
+export class GridHeaderColumn extends BaseGridColumn {
 
   /**
-   * @stable [12.02.2019]
-   * @param {IGridHeaderColumnProps} props
+   * @stable [17.10.2019]
+   * @param {IGridColumnProps} props
    */
-  constructor(props: IGridHeaderColumnProps) {
+  constructor(props: IGridColumnProps) {
     super(props);
-    this.onAscSortDirectionClick = this.onAscSortDirectionClick.bind(this);
-    this.onDescSortDirectionClick = this.onDescSortDirectionClick.bind(this);
+    this.onChangeSortingTopActionClick = this.onChangeSortingTopActionClick.bind(this);
+    this.onChangeSortingBottomActionClick = this.onChangeSortingBottomActionClick.bind(this);
   }
 
   /**
-   * @stable [05.04.2018]
+   * @stable [17.10.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
 
-    return orNull<JSX.Element>(
-      props.headerRendered !== false,
+    return ifNotFalseThanValue(
+      props.headerRendered,
       () => (
-        <th style={this.getStyle({width: props.headerWidth})}
-            colSpan={nvl(props.headerColSpan, props.colSpan)}
-            className={this.getClassName(
-              props.useSorting && 'rac-grid-sorted-column',
-              'rac-no-user-select',
-              props.headerClassName
-            )}>
-          <FlexLayout
-            row={true}
-            alignItemsCenter={true}
-            justifyContentCenter={true}>
-            {this.getColumnContentElement()}
-            {
-              orNull<JSX.Element>(
-                props.useSorting,
-                () => (
-                  <React.Fragment>
-                    {
-                      this.uiFactory.makeIcon({
-                        className: 'rac-grid-column-sorter-icon',
-                        type: 'bottom',
-                        onClick: this.onDescSortDirectionClick,
-                      })
-                    }
-                    {
-                      this.uiFactory.makeIcon({
-                        className: 'rac-grid-column-sorter-icon',
-                        type: 'top',
-                        onClick: this.onAscSortDirectionClick,
-                      })
-                    }
-                  </React.Fragment>
-                )
-              )
-            }
-          </FlexLayout>
+        <th
+          style={{
+            ...this.getStyle({width: props.headerWidth}),
+            ...calc(props.headerStyles, props),
+          }}
+          colSpan={nvl(props.headerColSpan, props.colSpan)}
+          className={this.getClassName(
+            calc(props.headerClassName, props),
+            'rac-no-user-select'
+          )}>
+          {this.headerContentElement}
         </th>
       )
     );
   }
 
   /**
-   * @stable [12.02.2019]
-   * @param {IBaseEvent} event
+   * @stable [17.10.2019]
+   * @returns {JSX.Element}
    */
-  private onAscSortDirectionClick(event: IBaseEvent): void {
-    cancelEvent(event);
-
+  private get headerContentElement(): JSX.Element {
     const props = this.props;
-    if (isFn(this.onDescSortDirectionClick)) {
-      props.onSortingDirectionChange({
-        name: props.name,
-        direction: orNull(props.direction !== SortDirectionEnum.ASC, SortDirectionEnum.ASC),
-      });
-    }
+    return (
+      <FlexLayout
+        row={true}
+        alignItemsCenter={true}
+        justifyContentCenter={true}
+      >
+        {this.getColumnContentElement()}
+        {
+          props.sortable && (
+            <React.Fragment>
+              {
+                this.uiFactory.makeIcon({
+                  key: 'bottom-sort-icon-key',
+                  className: 'rac-grid-column-sort-icon rac-grid-column-sort-bottom-action',
+                  type: 'bottom',
+                  onClick: this.onChangeSortingBottomActionClick,
+                })
+              }
+              {
+                this.uiFactory.makeIcon({
+                  key: 'top-sort-icon-key',
+                  className: 'rac-grid-column-sort-icon rac-grid-column-sort-top-action',
+                  type: 'top',
+                  onClick: this.onChangeSortingTopActionClick,
+                })
+              }
+            </React.Fragment>
+          )
+        }
+      </FlexLayout>
+    );
   }
 
   /**
-   * @stable [12.02.2019]
-   * @param {IBaseEvent} event
+   * @stable [18.10.2019]
    */
-  private onDescSortDirectionClick(event: IBaseEvent): void {
-    cancelEvent(event);
+  private onChangeSortingTopActionClick(): void {
+    this.doSortingDirectionChange(
+      orNull(this.props.direction !== SortDirectionsEnum.ASC, SortDirectionsEnum.ASC)
+    );
+  }
 
+  /**
+   * @stable [18.10.2019]
+   */
+  private onChangeSortingBottomActionClick(): void {
+    this.doSortingDirectionChange(
+      orNull(this.props.direction !== SortDirectionsEnum.DESC, SortDirectionsEnum.DESC)
+    );
+  }
+
+  /**
+   * @stable [18.10.2019]
+   * @param {SortDirectionsEnum} direction
+   */
+  private doSortingDirectionChange(direction: SortDirectionsEnum): void {
     const props = this.props;
-    if (isFn(this.onDescSortDirectionClick)) {
-      props.onSortingDirectionChange({
-        name: props.name,
-        direction: orNull(props.direction !== SortDirectionEnum.DESC, SortDirectionEnum.DESC),
-      });
+    if (isFn(props.onSortingDirectionChange)) {
+      props.onSortingDirectionChange({name: props.name, direction});
     }
   }
 }

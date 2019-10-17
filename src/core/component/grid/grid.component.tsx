@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { IGridProps, IFieldProps } from '../../props-definitions.interface';
-import { IGridColumnConfiguration, GroupValueRendererT } from '../../configurations-definitions.interface';
-import { ISortDirectionEntity } from '../../entities-definitions.interface';
+import { GroupValueRendererT } from '../../configurations-definitions.interface';
 import { IEntity, AnyT, EntityIdT } from '../../definitions.interface';
 import {
   joinClassName,
@@ -28,6 +27,8 @@ import { FlexLayout } from '../layout';
 import {
   IBaseEvent,
   IFieldChangeEntity,
+  IGridColumnProps,
+  ISortDirectionEntity,
   UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../../definition';
 import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
@@ -100,8 +101,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   private onSortingDirectionChange(payload: ISortDirectionEntity): void {
     const props = this.props;
-    if (props.onChangeSorting) {
-      props.onChangeSorting(payload);
+    if (props.onSortingDirectionChange) {
+      props.onSortingDirectionChange(payload);
     }
   }
 
@@ -162,12 +163,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable - 06.04.2018
-   * @param {IGridColumnConfiguration} column
+   * @param {IGridColumnProps} column
    * @param {number} columnNum
    * @returns {React.ReactNode}
    */
-  private getHeaderColumnContent(column: IGridColumnConfiguration, columnNum: number): React.ReactNode {
-    if (column.useGrouping) {
+  private getHeaderColumnContent(column: IGridColumnProps, columnNum: number): React.ReactNode {
+    if (column.groupable) {
       const name = this.toHeaderFieldName(columnNum);
       return (
         <Checkbox
@@ -218,19 +219,19 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   /**
    * @stable [07.06.2018]
    * @param {IEntity} entity
-   * @param {IGridColumnConfiguration} column
+   * @param {IGridColumnProps} column
    * @param {number} columnNum
    * @param {number} rowNum
    * @param {IEntity[]} groupedRows
    * @returns {React.ReactNode}
    */
   private getColumn(entity: IEntity,
-                    column: IGridColumnConfiguration,
+                    column: IGridColumnProps,
                     columnNum: number,
                     rowNum: number,
                     groupedRows?: IEntity[]): React.ReactNode {
     const name = this.toFieldName(entity, column, columnNum);
-    if (column.useGrouping) {
+    if (column.groupable) {
       return (
         /**
          * Default group field
@@ -273,11 +274,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [07.06.2018]
-   * @param {IGridColumnConfiguration} column
+   * @param {IGridColumnProps} column
    * @param {number} columnNum
    * @returns {React.ReactNode}
    */
-  private getFilterColumn(column: IGridColumnConfiguration,
+  private getFilterColumn(column: IGridColumnProps,
                           columnNum: number): React.ReactNode {
     if (column.filterRenderer) {
       /**
@@ -407,21 +408,21 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   /**
    * @stable [07.06.2018]
    * @param {IEntity} entity
-   * @param {IGridColumnConfiguration} column
+   * @param {IGridColumnProps} column
    * @param {number} columnNum
    * @returns {string}
    */
-  private toFieldName(entity: IEntity, column: IGridColumnConfiguration, columnNum: number): string {
+  private toFieldName(entity: IEntity, column: IGridColumnProps, columnNum: number): string {
     return column.name || `$$dynamic-field-${entity.id}-${columnNum}`;   // Infinity scroll supporting
   }
 
   /**
    * @stable [07.06.2018]
-   * @param {IGridColumnConfiguration} column
+   * @param {IGridColumnProps} column
    * @param {number} columnNum
    * @returns {string}
    */
-  private toFilterFieldName(column: IGridColumnConfiguration, columnNum: number): string {
+  private toFilterFieldName(column: IGridColumnProps, columnNum: number): string {
     return column.name || `$$dynamic-filter-field-${columnNum}`;
   }
 
@@ -482,10 +483,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [10.10.2018]
-   * @returns {IGridColumnConfiguration[]}
+   * @returns {IGridColumnProps[]}
    */
-  private get columnsConfiguration(): IGridColumnConfiguration[] {
-    return R.filter<IGridColumnConfiguration>((column) => column.rendered !== false, this.props.columnsConfiguration);
+  private get columnsConfiguration(): IGridColumnProps[] {
+    return R.filter<IGridColumnProps>((column) => column.rendered !== false, this.props.columnsConfiguration);
   }
 
   /**

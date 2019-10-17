@@ -1,15 +1,21 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { orUndef, isPrimitive, nvl, ifNotFalseThanValue, calc } from '../../../util';
-import { IGridColumnProps } from '../../../props-definitions.interface';
-import { BaseGridColumn } from '../base-column/base-grid-column.component';
-import { IBaseEvent } from '../../../definition';
+import {
+  calc,
+  handlerPropsFactory,
+  ifNotFalseThanValue,
+  isFn,
+  isPrimitive,
+  nvl,
+  orUndef,
+} from '../../../util';
+import { BaseGridColumn } from '../base-column';
+import { IGridColumnProps } from '../../../definition';
 
-export class GridColumn extends BaseGridColumn<IGridColumnProps> {
+export class GridColumn extends BaseGridColumn {
 
   /**
-   * @stable [10.09.2018]
+   * @stable [18.10.2019]
    * @param {IGridColumnProps} props
    */
   constructor(props: IGridColumnProps) {
@@ -18,11 +24,12 @@ export class GridColumn extends BaseGridColumn<IGridColumnProps> {
   }
 
   /**
-   * @stable [10.09.2018]
+   * @stable [18.10.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
+    const children = props.children;
 
     return ifNotFalseThanValue(
       props.columnRendered,
@@ -34,13 +41,8 @@ export class GridColumn extends BaseGridColumn<IGridColumnProps> {
           }}
           colSpan={nvl(props.columnColSpan, props.colSpan)}
           className={this.getClassName(calc(props.columnClassName, props))}
-          title={
-            orUndef<string>(
-              !R.isNil(props.columnTitle) || isPrimitive(props.children),
-              () => R.isNil(props.columnTitle) ? props.children as string : props.columnTitle
-            )
-          }
-          onClick={props.onColumnClick && this.onColumnClick}
+          title={props.columnTitle || orUndef(isPrimitive(children), () => String(children))}
+          {...handlerPropsFactory(this.onColumnClick, isFn(props.onColumnClick))}
         >
           {this.getColumnContentElement()}
         </td>
@@ -49,11 +51,10 @@ export class GridColumn extends BaseGridColumn<IGridColumnProps> {
   }
 
   /**
-   * @stable [10.09.2018]
-   * @param {IBaseEvent} event
+   * @stable [18.10.2019]
    */
-  private onColumnClick(event: IBaseEvent): void {
+  private onColumnClick(): void {
     const props = this.props;
-    props.onColumnClick({event, props});
+    props.onColumnClick(props);
   }
 }

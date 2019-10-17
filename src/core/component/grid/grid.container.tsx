@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { IPayloadWrapper } from '../../definitions.interface';
-import { ISortDirectionEntity } from '../../entities-definitions.interface';
+import { ISortDirectionPayloadEntity } from '../../definition';
+import { ISortDirectionEntity } from '../../definition';
 import { Grid } from './grid.component';
 import { IGridContainerProps } from './grid.interface';
 import {
   UniversalBaseListContainer,
-  LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE,
+  LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE,
 } from '../list';
 
 export class GridContainer extends UniversalBaseListContainer<IGridContainerProps> {
@@ -17,7 +17,7 @@ export class GridContainer extends UniversalBaseListContainer<IGridContainerProp
    */
   constructor(props: IGridContainerProps) {
     super(props);
-    this.onChangeSorting = this.onChangeSorting.bind(this);
+    this.onSortingDirectionChange = this.onSortingDirectionChange.bind(this);
   }
 
   /**
@@ -25,7 +25,7 @@ export class GridContainer extends UniversalBaseListContainer<IGridContainerProp
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    return <Grid onChangeSorting={this.onChangeSorting}
+    return <Grid onSortingDirectionChange={this.onSortingDirectionChange}
                  {...this.getComponentProps()}
                  {...this.props.gridConfiguration}/>;
   }
@@ -34,8 +34,8 @@ export class GridContainer extends UniversalBaseListContainer<IGridContainerProp
    * @stable [06.06.2018]
    * @param {ISortDirectionEntity} sortDirectionEntity
    */
-  private onChangeSorting(sortDirectionEntity: ISortDirectionEntity): void {
-    const payloadWrapper: IPayloadWrapper<ISortDirectionEntity> = {payload: sortDirectionEntity};
-    this.dispatch(LIST_CHANGE_SORT_DIRECTION_ACTION_TYPE, payloadWrapper);
+  private onSortingDirectionChange(sortDirectionEntity: ISortDirectionEntity): void {
+    const payloadWrapper: ISortDirectionPayloadEntity = {payload: sortDirectionEntity};
+    this.dispatch(LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE, payloadWrapper);
   }
 }

@@ -20,7 +20,7 @@ export interface IFlexLayoutEntity
     IResponsiveWrapper,
     INoShrinkWrapper,
     IDisabledWrapper,
-    IOnClickWrapper<() => void> {
+    IOnClickWrapper {
   alignItemsCenter?: boolean;
   alignItemsEnd?: boolean;
   justifyContentCenter?: boolean;

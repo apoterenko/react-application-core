@@ -1,38 +1,43 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { BaseComponent } from '../../base';
-import { IBaseGridColumnProps } from './base-grid-column.interface';
-import { toClassName, defValuesFilter, nvl, ifNotNilThanValue, isOddNumber } from '../../../util';
-import { IStyleEntity } from '../../../entities-definitions.interface';
+import { UniversalComponent } from '../../base';
+import {
+  defValuesFilter,
+  ifNotNilThanValue,
+  isOddNumber,
+  joinClassName,
+  nvl,
+} from '../../../util';
+import { IGridColumnProps } from '../../../definition';
+import { UNDEF_SYMBOL } from '../../../definitions.interface';
 
-export class BaseGridColumn<TProps extends IBaseGridColumnProps>
-  extends BaseComponent<TProps> {
+export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
+  extends UniversalComponent<TProps> {
 
   /**
-   * @stable [10.09.2018]
+   * @stable [17.10.2019]
    * @param {TProps} style
    * @returns {React.CSSProperties}
    */
   protected getStyle(style?: TProps): React.CSSProperties {
     const props = this.props;
-    return defValuesFilter<IStyleEntity, IStyleEntity>({
-      textAlign: nvl(style && style.align, props.align),
+    return defValuesFilter<React.CSSProperties, React.CSSProperties>({
+      textAlign: style && style.align || props.align,
       width: nvl(style && style.width, props.width),
-    }) as React.CSSProperties;
+    });
   }
 
   /**
-   * @stable [15.09.2018]
+   * @stable [18.10.2019]
    * @param {string} classNames
    * @returns {string}
    */
   protected getClassName(...classNames: string[]): string {
     const props = this.props;
-    return toClassName(
+    return joinClassName(
       'rac-grid-column',
       ifNotNilThanValue(props.index, () => `rac-grid-column-${props.index}`),
-      isOddNumber(props.index) ? 'rac-grid-column-odd' : '',
+      isOddNumber(props.index) && 'rac-grid-column-odd',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
       ...classNames
@@ -40,18 +45,19 @@ export class BaseGridColumn<TProps extends IBaseGridColumnProps>
   }
 
   /**
-   * @stable [10.09.2018]
+   * @stable [18.10.2019]
    * @param {string} classNames
    * @returns {JSX.Element}
    */
   protected getColumnContentElement(...classNames: string[]): JSX.Element {
-    const props = this.props;
-    return (
-      !R.isNil(props.children) && (
-        <div className={toClassName('rac-grid-column-content', ...classNames)}>
-          {props.children}
+    return ifNotNilThanValue(
+      this.props.children,
+      (children) => (
+        <div className={joinClassName('rac-grid-column-content', ...classNames)}>
+          {children}
         </div>
-      )
+      ),
+      UNDEF_SYMBOL
     );
   }
 }

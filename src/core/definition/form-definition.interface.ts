@@ -111,7 +111,7 @@ export interface IFormEntity<TEntity = IEntity>
  */
 export interface IFormExtraButtonEntity
   extends IGenericButtonEntity,
-    IOnClickWrapper<(apiEntity: IApiEntity) => void> {
+    IOnClickWrapper<IApiEntity> {
 }
 
 /**
