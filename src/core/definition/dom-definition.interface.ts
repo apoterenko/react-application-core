@@ -25,6 +25,7 @@ export interface IDomAccessor {
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
   getDocumentBodyElement(): Element;
+  getElement(id: string): Element;
   getHeight(source: Element): number;
   getRootElement(): Element;
   getScrollInfo(el: Element): IXYEntity;

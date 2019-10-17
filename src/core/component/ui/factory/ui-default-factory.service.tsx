@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { Store } from 'redux';
 
@@ -23,6 +24,8 @@ import {
 
 @injectable()
 export class UIDefaultFactory implements IUiFactory {
+  private static readonly WIN_ERROR_ID = '$$windowErrorElement';
+
   @lazyInject(DI_TYPES.DomAccessor) protected readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.LogManager) protected readonly logManager: ILogManager;
@@ -47,12 +50,18 @@ export class UIDefaultFactory implements IUiFactory {
   public makeWindowErrorElement(e: Error): Element {
     this.logError(ErrorEventCategoriesEnum.WINDOW_ERROR, e);
 
-    const errorMessageWrapperEl = this.domAccessor.createElement();
-    const errorMessageEl = this.domAccessor.createElement('div', errorMessageWrapperEl);
-    this.domAccessor.addClassNames(errorMessageWrapperEl, ...this.getErrorWrapperClassNames());
-    this.domAccessor.addClassNames(errorMessageEl, ...this.getErrorClassNames());
-    this.domAccessor.addChild(errorMessageWrapperEl);
-    this.makeWindowErrorBodyElement(e, errorMessageEl);
+    const el = this.domAccessor.getElement(UIDefaultFactory.WIN_ERROR_ID);
+    const errorMessageWrapperEl = el || this.domAccessor.createElement();
+    if (!R.isNil(el)) {
+      // Do nothing, because only one error is shown
+    } else {
+      const errorMessageEl = this.domAccessor.createElement('div', errorMessageWrapperEl);
+      errorMessageEl.id = UIDefaultFactory.WIN_ERROR_ID;
+      this.domAccessor.addClassNames(errorMessageWrapperEl, ...this.getErrorWrapperClassNames());
+      this.domAccessor.addClassNames(errorMessageEl, ...this.getErrorClassNames());
+      this.domAccessor.addChild(errorMessageWrapperEl);
+      this.makeWindowErrorBodyElement(e, errorMessageEl);
+    }
     return errorMessageWrapperEl;
   }
 

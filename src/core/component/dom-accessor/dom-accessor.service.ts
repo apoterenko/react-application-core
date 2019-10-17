@@ -303,6 +303,15 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [17.10.2019]
+   * @param {string} id
+   * @returns {Element}
+   */
+  public getElement(id: string): Element {
+    return this.document.getElementById(id);
+  }
+
+  /**
    * @stable [01.10.2019]
    * @returns {IBootstrapSettings}
    */
