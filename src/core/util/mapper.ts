@@ -13,6 +13,7 @@ import {
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   ISelectOptionEntity,
+  ISortDirectionsEntity,
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
@@ -66,6 +67,14 @@ export const selectEditableEntityChanges = <TResult extends IEntity = IEntity>(e
  */
 export const selectListEntity = (entity: IListWrapperEntity): IListEntity =>
   ifNotNilThanValue(entity, (): IListEntity => entity.list, UNDEF_SYMBOL);
+
+/**
+ * @stable [18.10.2019]
+ * @param {IListEntity} entity
+ * @returns {ISortDirectionsEntity}
+ */
+export const selectListEntityDirections = (entity: IListEntity): ISortDirectionsEntity =>
+  ifNotNilThanValue(entity, (): IListEntity => entity.directions, UNDEF_SYMBOL);
 
 /**
  * @stable [17.09.2019]

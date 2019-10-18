@@ -199,7 +199,7 @@ export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListW
   actionsDisabledListEntityMapper(listWrapperEntity.list);
 
 /**
- * @deprecated selectEditableEntityToolbarToolsFilter
+ * @deprecated selectEditableEntityToolbarToolsActiveFilter
  */
 export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEditableEntity): ToolbarToolsEnum[] =>
   R.isNil(editableEntity) || R.isEmpty(editableEntity.changes) ? [] : [ToolbarToolsEnum.FILTER];

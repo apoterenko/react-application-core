@@ -168,6 +168,7 @@ export interface IProgressMessageWrapper<TProgressMessage = string> { progressMe
 export interface IQueryParamsWrapper<TQueryParams> { queryParams?: TQueryParams; }
 export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 export interface IRemoteFilterWrapper { remoteFilter?: boolean; }
+export interface IRemoteSorterWrapper { remoteSorter?: boolean; }
 export interface IRemovedFilesWrapper<TValue> { removedFiles?: TValue; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }

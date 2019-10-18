@@ -22,6 +22,7 @@ import {
   INextListSectionWrapper,
   IPathWrapper,
   IPreviousFormSectionWrapper,
+  IRemoteSorterWrapper,
   IReplaceRouteWrapper,
   IReplaceWrapper,
   ISectionNameWrapper,
@@ -109,6 +110,15 @@ export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TSta
     IEffectsActionEntity,
     ILazyLoadingWrapper,
     IEntityWrapper<TEntity> {
+}
+
+/**
+ * @stable [18.10.2019]
+ */
+export interface ISortedListMiddlewareConfigEntity
+  extends IListSectionWrapper,
+    IRemoteSorterWrapper,
+    IEffectsActionEntity {
 }
 
 /**
