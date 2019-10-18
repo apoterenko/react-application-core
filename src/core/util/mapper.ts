@@ -19,6 +19,7 @@ import {
   ToolbarToolsEnum,
 } from '../definition';
 import {
+  AnyT,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IActionsDisabledWrapper,
@@ -115,6 +116,22 @@ export const selectQuery = (entity: IQueryFilterEntity): string =>
  */
 export const selectSelectedEntity = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
   ifNotNilThanValue(listEntity, (): TEntity => listEntity.selected as TEntity, UNDEF_SYMBOL);
+
+/**
+ * @stable [18.10.2019]
+ * @param {IListEntity} listEntity
+ * @returns {TData}
+ */
+export const selectListRawDataEntity = <TData = AnyT>(listEntity: IListEntity): TData =>
+  ifNotNilThanValue(listEntity, (): TData => listEntity.rawData as TData, UNDEF_SYMBOL);
+
+/**
+ * @stable [18.10.2019]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {TData}
+ */
+export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListWrapperEntity): TData =>
+  selectListRawDataEntity<TData>(selectListEntity(listWrapperEntity));
 
 /**
  * @stable [04.09.2019]

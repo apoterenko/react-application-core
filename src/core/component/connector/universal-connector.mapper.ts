@@ -86,7 +86,7 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
 };
 
 /**
- * @deprecated (@see mapper.ts)
+ * @deprecated Use mapPagedEntity
  * @param {IPaginatedEntity} entity
  * @returns {IPaginatedEntity}
  */
