@@ -7,7 +7,14 @@ import {
   IRemovedEntityWrapper,
   IEntity,
 } from '../../definitions.interface';
-import { notNilValuesFilter, toSection, toType, SAME_ENTITY_PREDICATE, nvl, ifNotNilThanValue } from '../../util';
+import {
+  ifNotNilThanValue,
+  notNilValuesFilter,
+  nvl,
+  SAME_ENTITY_PREDICATE,
+  toSection,
+  toType,
+} from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_LIST_ENTITY } from './list.interface';
@@ -18,7 +25,9 @@ import {
   EntityMergeStrategiesEnum,
   IFieldChangeEntity,
   IModifyEntityPayloadWrapperEntity,
+  ISortDirectionEntity,
   ISortDirectionPayloadEntity,
+  ISortDirectionsEntity,
 } from '../../definition';
 
 export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
@@ -34,9 +43,15 @@ export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
       const sortDirectionPayload = toType<ISortDirectionPayloadEntity>(action.data).payload;
       return {
         ...state,
-        directions: notNilValuesFilter({
+        directions: notNilValuesFilter<ISortDirectionsEntity, ISortDirectionsEntity>({
           ...state.directions,
-          [sortDirectionPayload.name]: sortDirectionPayload.direction,
+          [sortDirectionPayload.name]: ifNotNilThanValue(
+            sortDirectionPayload.direction,
+            (): ISortDirectionEntity => ({
+              index: sortDirectionPayload.index,
+              direction: sortDirectionPayload.direction,
+            })
+          ),
         }),
       };
     case ListActionBuilder.buildChangeActionType(section):

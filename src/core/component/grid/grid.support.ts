@@ -20,10 +20,11 @@ import {
 } from './grid.interface';
 import { IGridProps } from '../../props-definitions.interface';
 import {
-  MultiFieldEntityT,
-  SortDirectionsEnum,
   IGridColumnProps,
   IGridFilterEntity,
+  ISortDirectionEntity,
+  MultiFieldEntityT,
+  SortDirectionsEnum,
 } from '../../definition';
 
 const MINUTES_PER_HOUR = 60;
@@ -152,10 +153,10 @@ export const buildTimeGridColumns = (
  * @returns {SortDirectionsEnum}
  */
 export const getGridColumnSortDirection = (column: IGridColumnProps,
-                                           props: IGridProps): SortDirectionsEnum =>
+                                           props: IGridProps): ISortDirectionEntity =>
   props.directions[column.name];
 
-// TODO Need add the tests
+// TODO Refactoring
 export const filterAndSortGridOriginalDataSource = (source: IEntity[],
                                                     columns: IGridColumnProps[],
                                                     props: IGridProps,
@@ -165,9 +166,9 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
   }
   if (props.useLocalSorting) {
     const sorters = columns
-      .filter((column) => isFn(column.sorter) && !R.isNil(getGridColumnSortDirection(column, props)))
+      .filter((column) => isFn(column.sorter) && !R.isNil(getGridColumnSortDirection(column, props).direction))
       .map((column) => (entity1, entity2) =>
-        column.sorter(entity1, entity2) * (getGridColumnSortDirection(column, props) === 0 ? 1 : -1));
+        column.sorter(entity1, entity2) * (getGridColumnSortDirection(column, props).direction === 0 ? 1 : -1));
     if (sorters.length > 0) {
       source = R.sortWith(sorters, source);
     }

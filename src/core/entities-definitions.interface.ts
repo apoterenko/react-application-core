@@ -45,7 +45,7 @@ import {
   IQueryFilterEntity,
   IUniversalComponent,
   IUniversalComponentEntity,
-  ISortDirectionsEntity,
+  ISortDirectionsWrapperEntity,
 } from './definition';
 
 /**
@@ -144,7 +144,7 @@ export interface IRnListEntity extends IUniversalListEntity {
  * @stable [29.05.2018]
  */
 export interface IListEntity extends IUniversalListEntity,
-                                     ISortDirectionsEntity,
+                                     ISortDirectionsWrapperEntity,
                                      IChangesWrapper {
 }
 

@@ -53,6 +53,7 @@ $rac-color-0-3: rgba(0, 0, 0, .05) !default;
 $rac-color-0-4: rgba(0, 0, 0, .3) !default;
 $rac-color-0-5: rgba(255, 255, 255, .5) !default;
 $rac-color-0-6: rgba(0, 0, 0, 0.7) !default;
+$rac-color-0-7: rgba(255, 255, 255, .3) !default;
 /**/
 $rac-color-1-0: #212121 !default;
 $rac-color-1-1: #d8ddde !default;
@@ -323,6 +324,16 @@ $rac-grid-column-content-button-icon-size: unset !default;
 $rac-grid-column-content-button-icon-color: unset !default;
 /**/
 $rac-grid-column-content-button-content-font-size: $rac-default-font-size !default;
+/**/
+$rac-grid-head-column-active-sort-icon-background: $rac-color-1-1 !default;
+$rac-grid-head-column-active-sort-icon-color: $rac-color-1-0 !default;
+$rac-grid-head-column-active-sort-icon-content-opacity: 1 !default;
+$rac-grid-head-column-sort-asc-action-margin: 0 0 0 4px !default;
+$rac-grid-head-column-sort-icon-background: $rac-color-0-7 !default;
+$rac-grid-head-column-sort-icon-border-radius: $rac-icon-size / 2 !default;
+$rac-grid-head-column-sort-icon-content-opacity: .6 !default;
+$rac-grid-head-column-sort-icon-content-size: $rac-icon-size / 2 !default;
+$rac-grid-head-column-sort-icon-size: unset !default;
 /**/
 $rac-grid-column-content-text-field-height: 24px !default;
 $rac-grid-column-edited-content-after-font-size: 16px !default;

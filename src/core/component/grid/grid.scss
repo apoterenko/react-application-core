@@ -60,7 +60,17 @@
     $rac-grid-data-row-selectable-cursor: pointer,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
     $rac-grid-data-row-total-background: $rac-grid-data-row-total-background,
-    $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight
+    $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight,
+    /**/
+    $rac-grid-head-column-active-sort-icon-background: $rac-grid-head-column-active-sort-icon-background,
+    $rac-grid-head-column-active-sort-icon-color: $rac-grid-head-column-active-sort-icon-color,
+    $rac-grid-head-column-active-sort-icon-content-opacity: $rac-grid-head-column-active-sort-icon-content-opacity,
+    $rac-grid-head-column-sort-asc-action-margin: $rac-grid-head-column-sort-asc-action-margin,
+    $rac-grid-head-column-sort-icon-background: $rac-grid-head-column-sort-icon-background,
+    $rac-grid-head-column-sort-icon-border-radius: $rac-grid-head-column-sort-icon-border-radius,
+    $rac-grid-head-column-sort-icon-content-opacity: $rac-grid-head-column-sort-icon-content-opacity,
+    $rac-grid-head-column-sort-icon-content-size: $rac-grid-head-column-sort-icon-content-size,
+    $rac-grid-head-column-sort-icon-size: $rac-grid-head-column-sort-icon-size
   );
 
   @include rac-grid(                                                                          /* @stable [07.01.2019] */

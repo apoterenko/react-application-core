@@ -74,7 +74,7 @@ export const selectListEntity = (entity: IListWrapperEntity): IListEntity =>
  * @returns {ISortDirectionsEntity}
  */
 export const selectListEntityDirections = (entity: IListEntity): ISortDirectionsEntity =>
-  ifNotNilThanValue(entity, (): IListEntity => entity.directions, UNDEF_SYMBOL);
+  ifNotNilThanValue(entity, (): ISortDirectionsEntity => entity.directions, UNDEF_SYMBOL);
 
 /**
  * @stable [17.09.2019]

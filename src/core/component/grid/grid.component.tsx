@@ -41,7 +41,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   constructor(props: IGridProps) {
     super(props);
-    this.onSortingDirectionChange = this.onSortingDirectionChange.bind(this);
     this.onExpandAllGroups = this.onExpandAllGroups.bind(this);
 
     this.state = {filterChanges: {}, expandedGroups: {}, expandedAllGroups: false};
@@ -93,17 +92,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       this.props,
       this.state
     );
-  }
-
-  /**
-   * @stable - 05.04.2018
-   * @param {ISortDirectionEntity} payload
-   */
-  private onSortingDirectionChange(payload: ISortDirectionEntity): void {
-    const props = this.props;
-    if (props.onSortingDirectionChange) {
-      props.onSortingDirectionChange(payload);
-    }
   }
 
   /**
@@ -185,7 +173,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   private get headerElement(): JSX.Element {
     const {expandedAllGroups} = this.state;
-    const {expandActionRendered, hasGrouping} = this;
+    const {expandActionRendered, hasGrouping, props} = this;
 
     return (
       <GridRow className='rac-grid-header'>
@@ -193,10 +181,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridHeaderColumn
               key={this.toHeaderColumnKey(columnNum)}
+              {...getGridColumnSortDirection(column, this.props)}
               name={column.name}
               index={columnNum}
-              direction={getGridColumnSortDirection(column, this.props)}
-              onSortingDirectionChange={this.onSortingDirectionChange}
+              onSortingDirectionChange={(payload: ISortDirectionEntity) => props.onSortingDirectionChange({...payload, index: columnNum})}
               {...column}
             >
               { // TODO (duplication)

@@ -8,6 +8,7 @@ import {
   calc,
   ifNotFalseThanValue,
   isFn,
+  joinClassName,
   nvl,
   orNull,
 } from '../../../util';
@@ -22,8 +23,8 @@ export class GridHeaderColumn extends BaseGridColumn {
    */
   constructor(props: IGridColumnProps) {
     super(props);
-    this.onChangeSortingTopActionClick = this.onChangeSortingTopActionClick.bind(this);
-    this.onChangeSortingBottomActionClick = this.onChangeSortingBottomActionClick.bind(this);
+    this.onChangeAscSortingActionClick = this.onChangeAscSortingActionClick.bind(this);
+    this.onChangeDescSortingActionClick = this.onChangeDescSortingActionClick.bind(this);
   }
 
   /**
@@ -70,18 +71,26 @@ export class GridHeaderColumn extends BaseGridColumn {
             <React.Fragment>
               {
                 this.uiFactory.makeIcon({
-                  key: 'bottom-sort-icon-key',
-                  className: 'rac-grid-column-sort-icon rac-grid-column-sort-bottom-action',
+                  key: 'desc-sort-icon-key',
+                  className: joinClassName(
+                    'rac-grid-column-sort-icon',
+                    'rac-grid-column-sort-desc-action',
+                    this.isDescSortingEnabled && 'rac-grid-column-active-sort-icon'
+                  ),
                   type: 'bottom',
-                  onClick: this.onChangeSortingBottomActionClick,
+                  onClick: this.onChangeDescSortingActionClick,
                 })
               }
               {
                 this.uiFactory.makeIcon({
-                  key: 'top-sort-icon-key',
-                  className: 'rac-grid-column-sort-icon rac-grid-column-sort-top-action',
+                  key: 'asc-sort-icon-key',
+                  className: joinClassName(
+                    'rac-grid-column-sort-icon',
+                    'rac-grid-column-sort-asc-action',
+                    this.isAscSortingEnabled && 'rac-grid-column-active-sort-icon'
+                  ),
                   type: 'top',
-                  onClick: this.onChangeSortingTopActionClick,
+                  onClick: this.onChangeAscSortingActionClick,
                 })
               }
             </React.Fragment>
@@ -94,19 +103,15 @@ export class GridHeaderColumn extends BaseGridColumn {
   /**
    * @stable [18.10.2019]
    */
-  private onChangeSortingTopActionClick(): void {
-    this.doSortingDirectionChange(
-      orNull(this.props.direction !== SortDirectionsEnum.ASC, SortDirectionsEnum.ASC)
-    );
+  private onChangeAscSortingActionClick(): void {
+    this.doSortingDirectionChange(orNull(!this.isAscSortingEnabled, SortDirectionsEnum.ASC));
   }
 
   /**
    * @stable [18.10.2019]
    */
-  private onChangeSortingBottomActionClick(): void {
-    this.doSortingDirectionChange(
-      orNull(this.props.direction !== SortDirectionsEnum.DESC, SortDirectionsEnum.DESC)
-    );
+  private onChangeDescSortingActionClick(): void {
+    this.doSortingDirectionChange(orNull(!this.isDescSortingEnabled, SortDirectionsEnum.DESC));
   }
 
   /**
@@ -118,5 +123,21 @@ export class GridHeaderColumn extends BaseGridColumn {
     if (isFn(props.onSortingDirectionChange)) {
       props.onSortingDirectionChange({name: props.name, direction});
     }
+  }
+
+  /**
+   * @stable [18.10.2019]
+   * @returns {boolean}
+   */
+  private get isDescSortingEnabled(): boolean {
+    return this.props.direction === SortDirectionsEnum.DESC;
+  }
+
+  /**
+   * @stable [18.10.2019]
+   * @returns {boolean}
+   */
+  private get isAscSortingEnabled(): boolean {
+    return this.props.direction === SortDirectionsEnum.ASC;
   }
 }
