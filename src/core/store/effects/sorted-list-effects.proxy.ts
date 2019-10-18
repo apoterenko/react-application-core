@@ -24,7 +24,7 @@ export const makeSortedListEffectsProxy = (config: ISortedListMiddlewareConfigEn
        * @returns {IEffectsAction[]}
        */
       @EffectsService.effects(ListActionBuilder.buildSortingDirectionChangeActionType(listSection))
-      public $onFormValid = (action: IEffectsAction): IEffectsAction[] =>
+      public $onSortingDirectionChange = (action: IEffectsAction): IEffectsAction[] =>
         makeSortedListMiddleware({...config, action})
     }
   };
