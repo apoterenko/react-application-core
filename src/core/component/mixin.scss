@@ -213,6 +213,8 @@
   }
   @if $rac-styles-transform != unset {
     transform: $rac-styles-transform;
+    -webkit-transform: $rac-styles-transform;
+    -ms-transform: $rac-styles-transform;
   }
   @if $rac-styles-word-break != unset {
     word-break: $rac-styles-word-break;
@@ -3153,4 +3155,42 @@
     $rac-alignment-left: $rac-alignment-center-left,
     $rac-alignment-position: $rac-alignment-center-position
   );
+}
+
+/**
+ * @stable [18.10.2019]
+ */
+@mixin rac-drawer (
+  $rac-drawer-custom: unset,
+  $rac-drawer-transform: unset,
+  $rac-drawer-width: unset,
+  $rac-drawer-z-index: unset
+) {
+  #{rac-build-cls(rac-drawer, $rac-drawer-custom)} {
+    @include rac-styles (
+      $rac-styles-z-index: $rac-drawer-z-index,
+      $rac-styles-transform: $rac-drawer-transform,
+      $rac-styles-width: $rac-drawer-width
+    );
+  }
+}
+
+/**
+ * @stable [18.10.2019]
+ */
+@mixin rac-default-layout (
+  $rac-default-layout-custom: unset,
+  $rac-default-layout-drawer-custom: unset,
+  $rac-default-layout-drawer-transform: unset,
+  $rac-default-layout-drawer-width: unset,
+  $rac-default-layout-drawer-z-index: unset
+) {
+  #{rac-build-cls(rac-default-layout, $rac-default-layout-custom)} {
+    @include rac-drawer (
+      $rac-drawer-custom: $rac-default-layout-drawer-custom,
+      $rac-drawer-transform: $rac-default-layout-drawer-transform,
+      $rac-drawer-width: $rac-default-layout-drawer-width,
+      $rac-drawer-z-index: $rac-default-layout-drawer-z-index
+    );
+  }
 }

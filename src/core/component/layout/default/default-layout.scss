@@ -3,6 +3,16 @@
 
 .rac {
 
+  /**
+   * @default-layout
+   * @stable [18.10.2019]
+   */
+  @include rac-default-layout (
+    $rac-default-layout-drawer-transform: $rac-default-layout-drawer-transform,
+    $rac-default-layout-drawer-width: $rac-default-layout-drawer-width,
+    $rac-default-layout-drawer-z-index: $rac-default-layout-drawer-z-index
+  );
+
   .rac-default-layout {                                                                       /* @stable [13.02.2019] */
     @include rac-icon(
       $rac-icon-custom: rac-logo-menu-icon,
@@ -112,8 +122,6 @@
     }
 
     .rac-drawer {
-      z-index: $rac-default-layout-drawer-z-index;
-      width: $rac-default-layout-drawer-width;                                                      /* @stable [04.10.2018] */
 
       .rac-navigation-list {
 
