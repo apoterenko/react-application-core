@@ -63,7 +63,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           cellSpacing={0}
           className={joinClassName('rac-grid', props.tightGrid && 'rac-tight-grid', props.className)}>
           <thead className={joinClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
-            {this.headerElement}
+            {this.headRowElement}
             {this.filterElement}
           </thead>
           <tbody className='rac-grid-body'>
@@ -171,12 +171,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return this.t(column.title);
   }
 
-  private get headerElement(): JSX.Element {
+  private get headRowElement(): JSX.Element {
     const {expandedAllGroups} = this.state;
     const {expandActionRendered, hasGrouping, props} = this;
 
     return (
-      <GridRow className='rac-grid-header'>
+      <GridRow>
         {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridHeaderColumn

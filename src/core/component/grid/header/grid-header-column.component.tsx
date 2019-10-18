@@ -39,7 +39,7 @@ export class GridHeaderColumn extends BaseGridColumn {
       () => (
         <th
           style={{
-            ...this.getStyle({width: props.headerWidth}),
+            ...this.styles,
             ...calc(props.headerStyles, props),
           }}
           colSpan={nvl(props.headerColSpan, props.colSpan)}
@@ -62,8 +62,7 @@ export class GridHeaderColumn extends BaseGridColumn {
     return (
       <FlexLayout
         row={true}
-        alignItemsCenter={true}
-        justifyContentCenter={true}
+        justifyContentCenter={this.styles.textAlign === 'center'}
       >
         {this.getColumnContentElement()}
         {
@@ -139,5 +138,13 @@ export class GridHeaderColumn extends BaseGridColumn {
    */
   private get isAscSortingEnabled(): boolean {
     return this.props.direction === SortDirectionsEnum.ASC;
+  }
+
+  /**
+   * @stable [18.10.2019]
+   * @returns {React.CSSProperties}
+   */
+  private get styles(): React.CSSProperties {
+    return this.getStyle({width: this.props.headerWidth});
   }
 }

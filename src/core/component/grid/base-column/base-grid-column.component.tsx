@@ -20,10 +20,9 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    * @returns {React.CSSProperties}
    */
   protected getStyle(style?: TProps): React.CSSProperties {
-    const props = this.props;
     return defValuesFilter<React.CSSProperties, React.CSSProperties>({
-      textAlign: style && style.align || props.align,
-      width: nvl(style && style.width, props.width),
+      textAlign: this.getTextAlign(style),
+      width: nvl(style && style.width, this.props.width),
     });
   }
 
@@ -59,5 +58,14 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
       ),
       UNDEF_SYMBOL
     );
+  }
+
+  /**
+   * @stable [18.10.2019]
+   * @param {TProps} style
+   * @returns {any}
+   */
+  protected getTextAlign(style?: TProps): any {
+    return style && style.align || this.props.align;
   }
 }
