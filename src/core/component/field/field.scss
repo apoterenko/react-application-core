@@ -224,13 +224,6 @@
       resize: none;                                                            /* @stable [07.08.2018] */
     }
 
-    &.rac-gridfield {
-
-      .rac-text-field {
-        margin-bottom: $rac-gridfield-text-field-margin-bottom;                /* @stable [19.09.2018] */
-      }
-    }
-
     &.rac-filefield {
 
       .rac-text-field {
