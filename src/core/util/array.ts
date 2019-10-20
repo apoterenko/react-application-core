@@ -1,10 +1,19 @@
 import * as R from 'ramda';
 
-import { AnyT, IKeyValue } from '../definitions.interface';
+import {
+  AnyT,
+  IEntity,
+  IEntityIdTWrapper,
+  IKeyValue,
+} from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
 import { isFn } from './type';
-import { notNilValuesArrayFilter, SAME_ENTITY_PREDICATE } from './filter';
+import {
+  notNilValuesArrayFilter,
+  SAME_ENTITY_PREDICATE,
+} from './filter';
 import { nvl } from './nvl';
+import { isNewEntity } from './entity';
 
 /**
  * @stable [16.12.2018]
@@ -48,28 +57,45 @@ export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
  * @param {TValue[]} array
  * @param {TValue} initialItem
  * @param {(entity1: IEntity, entity2: IEntity) => boolean} predicate
- * @param {(previousItem: TValue) => TValue} mergedItemFactory
+ * @param {(previousItem: TValue) => TValue} itemFactory
  * @returns {TValue[]}
  */
 export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
                                                          initialItem: TValue,
                                                          predicate = SAME_ENTITY_PREDICATE,
-                                                         mergedItemFactory?: (previousItem: TValue) => TValue): TValue[] => {
+                                                         itemFactory?: (previousItem: TValue) => TValue): TValue[] => {
   const array0 = array || [];
-  const hasEntity = array0.some((itm) => predicate(itm, initialItem));
+  const hasEntity = doesArrayContainEntity(array0, initialItem, predicate);
+  const isMergedItemFactoryFn = isFn(itemFactory);
   const result = hasEntity
     ? array0
-    : [...array0, initialItem];
+    : [...array0, isMergedItemFactoryFn ? itemFactory(initialItem) : initialItem];
+  if (!hasEntity) {
+    return result;
+  }
   return result.map(
     (itm) => predicate(itm, initialItem)
       ? (
-        isFn(mergedItemFactory)
-          ? Object.assign({}, itm, mergedItemFactory(itm))    // Merge
-          : initialItem                                       // Replace
+        isMergedItemFactoryFn
+          ? itemFactory(itm)      // Custom creating
+          : initialItem           // Replace
       )
       : itm
   );
 };
+
+/**
+ * @stable [19.10.2019]
+ * @param {TEntity[]} data
+ * @param {IEntityIdTWrapper} entity
+ * @param {<TEntity extends IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity) => boolean} redicate
+ * @returns {boolean}
+ */
+export const doesArrayContainEntity =
+  <TEntity extends IEntity = IEntity>(data: TEntity[],
+                                      entity?: IEntityIdTWrapper,
+                                      redicate = SAME_ENTITY_PREDICATE): boolean =>
+    !isNewEntity(entity) && R.any((item) => redicate(item, entity), data || []);
 
 /**
  * @stable [31.08.2019]

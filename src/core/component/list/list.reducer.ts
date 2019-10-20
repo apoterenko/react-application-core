@@ -3,15 +3,20 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   FIRST_PAGE,
-  ISelectedEntityWrapper,
+  IEntityIdTWrapper,
   IRemovedEntityWrapper,
-  IEntity,
 } from '../../definitions.interface';
 import {
+  buildEntityByMergeStrategy,
+  doesArrayContainEntity,
   ifNotNilThanValue,
+  mergeArrayItem,
   notNilValuesFilter,
   nvl,
   SAME_ENTITY_PREDICATE,
+  selectEntityFromAction,
+  selectPayloadEntityFromAction,
+  selectSelectedEntityFromAction,
   toSection,
   toType,
 } from '../../util';
@@ -19,12 +24,11 @@ import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import { INITIAL_LIST_ENTITY } from './list.interface';
 import {
-  IListEntity,
-} from '../../entities-definitions.interface';
-import {
   EntityMergeStrategiesEnum,
   IFieldChangeEntity,
-  IModifyEntityPayloadWrapperEntity,
+  IListEntity,
+  IModifyEntityPayloadEntity,
+  ISelectedWrapperEntity,
   ISortDirectionEntity,
   ISortDirectionPayloadEntity,
   ISortDirectionsEntity,
@@ -33,10 +37,7 @@ import {
 export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
                             action: IEffectsAction): IListEntity {
   const section = toSection(action);
-  const modifyData: IModifyEntityPayloadWrapperEntity = action.data;
-
-  let modifyDataPayload = modifyData && modifyData.payload;
-  let updatedData;
+  let modifyDataPayload;
 
   switch (action.type) {
     case ListActionBuilder.buildSortingDirectionChangeActionType(section):
@@ -150,15 +151,13 @@ export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
         ),
         page: state.lockPage ? listEntity.page : INITIAL_LIST_ENTITY.page,
       };
-      // In the case of silent reload
+      // In the case of a silent reload
       const oldSelectedEntity = resultState.selected;
       if (!R.isNil(oldSelectedEntity)) {
         return {
           ...resultState,
-          selected: ifNotNilThanValue(
-            resultState.data.find((entity) => SAME_ENTITY_PREDICATE(entity, oldSelectedEntity)),
-            (updatedSelectedEntity) => updatedSelectedEntity,
-          ),
+          selected: R.find((entity) => SAME_ENTITY_PREDICATE(entity, oldSelectedEntity), resultState.data)
+            || resultState.selected,
         };
       }
       return resultState;
@@ -171,7 +170,7 @@ export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
     case ListActionBuilder.buildSelectActionType(section):
       return {
         ...state,
-        selected: toType<ISelectedEntityWrapper>(action.data).selected,
+        selected: toType<ISelectedWrapperEntity>(action.data).selected,
       };
     case ListActionBuilder.buildCreateActionType(section):
     case ListActionBuilder.buildDeselectActionType(section):
@@ -179,61 +178,50 @@ export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
         ...state,
         selected: null,
       };
+    /**
+     * @stable [19.10.2019]
+     */
     case ListActionBuilder.buildLazyLoadDoneActionType(section):
-      const lazyLoadedEntity: IEntity = action.data;
+      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || selectEntityFromAction(action);
       modifyDataPayload = {
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,
+        mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,
       };
-    // No breaks! Go to update the entity.
+    /**
+     * @stable [19.10.2019]
+     */
     case ListActionBuilder.buildMergeActionType(section):
-    // No breaks! Go to update the entity.
-    case ListActionBuilder.buildInsertActionType(section):
-      if (R.isNil(modifyDataPayload.id) || R.isNil(R.find((item) => item.id === modifyDataPayload.id, state.data || []))) {
-        const insertedItem = {...modifyDataPayload.changes};
-        updatedData = (state.data || []).concat(insertedItem);
-
-        return {
-          ...state,
-          data: updatedData,
-          totalCount: ++state.totalCount,
-          selected: insertedItem,
-          progress: false,      // In a lazy-loading case
-        };
-      }
-    // No breaks! Go to update the entity.
+    /**
+     * @stable [20.10.2019]
+     */
     case ListActionBuilder.buildUpdateActionType(section):
-      const mergeStrategy = (R.isNil(modifyDataPayload.mergeStrategy)
-        || modifyDataPayload.mergeStrategy === EntityMergeStrategiesEnum.MERGE)
-        ? EntityMergeStrategiesEnum.MERGE
-        : EntityMergeStrategiesEnum.OVERRIDE;
-      if (state.data && state.data.length) {
-        updatedData = state.data.map((item) => (
-            item.id === modifyDataPayload.id
-                ? (
-                    mergeStrategy === EntityMergeStrategiesEnum.OVERRIDE
-                      ? { ...modifyDataPayload.changes }
-                      : {...item, ...modifyDataPayload.changes}
-                    )
-                : item
-        ));
-        return {
-          ...state,
-          selected: state.selected
-              ? updatedData.find((item) => item.id === state.selected.id) || state.selected
-              : state.selected,
-          data: updatedData,
-          progress: false,      // In a lazy-loading case
-        };
-      } else {
-        return {
-          ...state,
-          selected: mergeStrategy === EntityMergeStrategiesEnum.OVERRIDE
-            ? {...modifyDataPayload.changes}
-            : {...state.selected, ...modifyDataPayload.changes},
-          progress: false,      // In a lazy-loading case
-        };
-      }
+    /**
+     * @stable [19.10.2019]
+     */
+    case ListActionBuilder.buildInsertActionType(section):
+      modifyDataPayload = nvl(modifyDataPayload, selectPayloadEntityFromAction<IModifyEntityPayloadEntity>(action));
+      const doesEntityExist = doesArrayContainEntity(state.data, modifyDataPayload);
+      const mergedData = mergeArrayItem<IEntityIdTWrapper>(
+        state.data,
+        modifyDataPayload,
+        SAME_ENTITY_PREDICATE,
+        () => buildEntityByMergeStrategy(modifyDataPayload)
+      );
+
+      return {
+        ...state,
+        progress: false, // In a lazy-loading case
+        data: mergedData,
+        totalCount: (state.totalCount || 0) + (doesEntityExist ? 0 : 1),
+        selected: doesEntityExist
+          ? ifNotNilThanValue(
+            state.selected,
+            (selectedEntity) => nvl(mergedData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
+          )
+          // An inserted entity is selected by default
+          : mergedData.find((itm) => SAME_ENTITY_PREDICATE(itm, modifyDataPayload)),
+      };
     case ListActionBuilder.buildRemoveActionType(section):
       /**
        * @stable [08.06.2019]

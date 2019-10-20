@@ -1,10 +1,7 @@
 import {
   IUniversalFieldEntity,
   IFieldEntity,
-  IListEntity,
-  IRnListEntity,
   IGridEntity,
-  IUniversalListEntity,
 } from './entities-definitions.interface';
 import {
   IFieldConfiguration,
@@ -16,7 +13,7 @@ import {
   ITabPanelConfiguration,
 } from './configurations-definitions.interface';
 import { AnyT } from './definitions.interface';
-import { ITabPanelEntity } from './definition';
+import { ITabPanelEntity, IListEntity } from './definition';
 
 /**
  * @stable [18.06.2018]
@@ -38,7 +35,7 @@ export interface IFieldProps extends IFieldEntity,
 /**
  * @stable [09.05.2018]
  */
-export interface IUniversalListProps extends IUniversalListEntity,
+export interface IUniversalListProps extends IListEntity,
                                              IUniversalListConfiguration {
 }
 
@@ -52,7 +49,7 @@ export interface IListProps extends IListEntity,
 /**
  * @stable [05.05.2018]
  */
-export interface IRnListProps extends IRnListEntity,
+export interface IRnListProps extends IListEntity,
                                       IRnListConfiguration {
 }
 

@@ -2,12 +2,10 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IEntity,
-  IFilterSectionWrapper,
   IFormSectionWrapper,
   ILazyLoadedResolverWrapper,
   ILazyLoadedSectionWrapper,
   IListAccessorWrapper,
-  IListRoutePathWrapper,
   IListSectionWrapper,
   INavigateBackWrapper,
   IRelatedEntityWrapper,
@@ -16,12 +14,10 @@ import {
   ISucceedMessageWrapper,
 } from '../../definitions.interface';
 import {
-  IListWrapperEntity,
-  IListEntity,
-} from '../../entities-definitions.interface';
-import {
   IEffectsActionEntity,
   IStoreEntity,
+  IListWrapperEntity,
+  IListEntity,
 } from '../../definition';
 
 /**
@@ -33,34 +29,6 @@ export interface IUntouchedListMiddlewareConfig<TApplicationState>
           IListSectionWrapper,
           ILazyLoadedResolverWrapper<(state: TApplicationState, action?: IEffectsAction) => IListWrapperEntity>,
           ILazyLoadedSectionWrapper<(state: TApplicationState, action?: IEffectsAction) => string> {
-}
-
-/**
- * @stable [09.06.2018]
- */
-export interface IFormFilterResetMiddlewareConfig extends IListRoutePathWrapper,
-                                                          IListSectionWrapper {
-}
-
-/**
- * @stable [26.08.2018]
- */
-export interface IFormFilterClearMiddlewareConfig extends IListSectionWrapper {
-}
-
-/**
- * @stable [26.08.2018]
- */
-export interface IFormFilterSubmitMiddlewareConfig extends IListSectionWrapper,
-                                                           IFilterSectionWrapper {
-}
-
-/**
- * @stable [26.08.2018]
- */
-export interface IFormFilterMiddlewareConfig extends IFormFilterSubmitMiddlewareConfig,
-                                                     IFormFilterClearMiddlewareConfig,
-                                                     IFormFilterResetMiddlewareConfig {
 }
 
 /**

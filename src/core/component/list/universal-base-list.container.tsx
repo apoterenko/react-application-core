@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { IUniversalListProps } from '../../props-definitions.interface';
-import { IEntity, ISelectedEntityWrapper } from '../../definitions.interface';
-import { IFieldChangeEntity } from '../../definition';
+import { IEntity } from '../../definitions.interface';
+import { IFieldChangeEntity, ISelectedWrapperEntity } from '../../definition';
 import {
   LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
@@ -65,6 +65,6 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
    * @param {IEntity} entity
    */
   private onSelect(entity: IEntity): void {
-    this.dispatchFrameworkAction<ISelectedEntityWrapper>(LIST_SELECT_ACTION_TYPE, {selected: entity});
+    this.dispatchFrameworkAction<ISelectedWrapperEntity>(LIST_SELECT_ACTION_TYPE, {selected: entity});
   }
 }

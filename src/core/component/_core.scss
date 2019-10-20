@@ -90,4 +90,13 @@
     $rac-styles-custom: rac-no-user-select,
     $rac-styles-no-user-select: true
   );
+
+  /**
+   * @styling
+   * @stable [18.10.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-strong,
+    $rac-styles-font-weight: $rac-font-weight-2
+  );
 }

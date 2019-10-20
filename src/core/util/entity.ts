@@ -59,6 +59,14 @@ export const isEditableEntityBusy = <TEntity extends IEntity>(editableEntity: IE
   );
 
 /**
+ * @stable [19.10.2019]
+ * @param {TEntity} entity
+ * @returns {boolean}
+ */
+export const isNewEntity = <TEntity extends IEntity>(entity: TEntity): boolean =>
+  R.isNil(entity) || R.isNil(entity.id);
+
+/**
  * @stable [01.10.2019]
  * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
  * @returns {boolean}

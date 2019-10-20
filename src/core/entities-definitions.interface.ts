@@ -2,9 +2,7 @@ import { Component, ComponentClass, ComponentLifecycle } from 'react';
 
 import {
   AnyT,
-  IChangesWrapper,
   IClearValueWrapper,
-  IDataWrapper,
   IDateWrapper,
   IDisplayValueWrapper,
   IEntity,
@@ -19,11 +17,9 @@ import {
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
   IOpenWrapper,
-  IOriginalDataWrapper,
   IOriginalValueWrapper,
   IRawDataWrapper,
   IResetErrorWrapper,
-  ISelectedEntityWrapper,
   ISelectedWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
@@ -41,11 +37,10 @@ import {
   IEnvironment,
   IFieldChangeEntity,
   ILifeCycleEntity,
-  IPaginatedEntity,
+  IListEntity,
   IQueryFilterEntity,
   IUniversalComponent,
   IUniversalComponentEntity,
-  ISortDirectionsWrapperEntity,
 } from './definition';
 
 /**
@@ -108,17 +103,6 @@ export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
 }
 
-/**
- * @stable [29.05.2018]
- */
-export interface IUniversalListEntity extends ILifeCycleEntity,
-                                              IPaginatedEntity,
-                                              IDataWrapper,
-                                              IRawDataWrapper,
-                                              IOriginalDataWrapper,
-                                              ISelectedEntityWrapper {
-}
-
 /* @stable [24.04.2018] */
 export interface IUniversalListItemEntity extends IRawDataWrapper,
                                                   IIndexWrapper,
@@ -132,26 +116,6 @@ export interface IRnListItemEntity extends IUniversalListItemEntity {
 
 /* @stable - 31.03.2018 */
 export interface IListItemEntity extends IUniversalListItemEntity {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IRnListEntity extends IUniversalListEntity {
-}
-
-/**
- * @stable [29.05.2018]
- */
-export interface IListEntity extends IUniversalListEntity,
-                                     ISortDirectionsWrapperEntity,
-                                     IChangesWrapper {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IListWrapperEntity extends IListWrapper<IListEntity> {
 }
 
 /**

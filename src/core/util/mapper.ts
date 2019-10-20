@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import { defValuesFilter } from './filter';
 import {
@@ -7,9 +7,12 @@ import {
   IExtendedEntity,
   IFormWrapperEntity,
   ILifeCycleEntity,
+  IListEntity,
+  IListWrapperEntity,
   IOptionEntity,
   IPagedEntity,
   IPaginatedEntity,
+  IPreviousActionWrapperEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   ISelectOptionEntity,
@@ -26,15 +29,23 @@ import {
   IDisabledWrapper,
   IEntity,
   IKeyValue,
+  IPayloadWrapper,
+  IPreventEffectsWrapper,
   IProgressWrapper,
   IQueryWrapper,
+  IRawDataWrapper,
+  ISelectedWrapper,
+  UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { ifNotNilThanValue, ifNotEmptyThanValue } from './cond';
-import { IListEntity, IListWrapperEntity } from '../entities-definitions.interface';
 import { isFn } from './type';
+import { isNewEntity } from './entity';
 import { shallowClone } from './clone';
-import { trimmedUndefEmpty } from './nvl';
+import {
+  coalesce,
+  trimmedUndefEmpty,
+} from './nvl';
 
 /**
  * @stable [04.09.2019]
@@ -54,20 +65,22 @@ export const selectChanges = <TResult extends IEntity = IEntity>(entity: IEditab
   ifNotNilThanValue(entity, (): TResult => entity.changes as TResult, UNDEF_SYMBOL);
 
 /**
- * @stable [04.09.2019]
+ * @stable [19.10.2019]
  * @param {IFormWrapperEntity} entity
- * @returns {TResult}
+ * @returns {TEntity}
  */
-export const selectEditableEntityChanges = <TResult extends IEntity = IEntity>(entity: IFormWrapperEntity): TResult =>
-  ifNotNilThanValue(entity, (): TResult => selectChanges<TResult>(selectEditableEntity(entity)), UNDEF_SYMBOL);
+export const selectEditableEntityChanges =
+  <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity): TEntity =>
+    ifNotNilThanValue(entity, (): TEntity => selectChanges<TEntity>(selectEditableEntity(entity)), UNDEF_SYMBOL);
 
 /**
- * @stable [04.09.2019]
- * @param {IListWrapperEntity} entity
- * @returns {IListEntity}
+ * @stable [19.10.2019]
+ * @param {IListWrapperEntity<TEntity extends IEntity>} entity
+ * @returns {IListEntity<TEntity extends IEntity>}
  */
-export const selectListEntity = (entity: IListWrapperEntity): IListEntity =>
-  ifNotNilThanValue(entity, (): IListEntity => entity.list, UNDEF_SYMBOL);
+export const selectListEntity =
+  <TEntity extends IEntity = IEntity>(entity: IListWrapperEntity<TEntity>): IListEntity<TEntity> =>
+    ifNotNilThanValue(entity, (): IListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
 
 /**
  * @stable [18.10.2019]
@@ -102,28 +115,124 @@ export const selectQueryFilterEntity = (entity: IQueryFilterWrapperEntity): IQue
   ifNotNilThanValue(entity, (): IQueryFilterEntity => entity.filter, UNDEF_SYMBOL);
 
 /**
- * @stable [10.09.2019]
- * @param {IQueryFilterEntity} entity
+ * @stable [19.10.2019]
+ * @param {IQueryWrapper} entity
  * @returns {string}
  */
-export const selectQuery = (entity: IQueryFilterEntity): string =>
+export const selectQuery = (entity: IQueryWrapper): string =>
   ifNotNilThanValue(entity, (): string => trimmedUndefEmpty(entity.query), UNDEF_SYMBOL);
 
 /**
- * @stable [04.09.2019]
- * @param {IListEntity} listEntity
+ * @stable [19.10.2019]
+ * @param {ISelectedWrapper<TEntity extends IEntity>} listEntity
  * @returns {TEntity}
  */
-export const selectSelectedEntity = <TEntity extends IEntity>(listEntity: IListEntity): TEntity =>
-  ifNotNilThanValue(listEntity, (): TEntity => listEntity.selected as TEntity, UNDEF_SYMBOL);
+export const selectSelectedEntity =
+  <TEntity extends IEntity>(listEntity: ISelectedWrapper<TEntity>): TEntity =>
+    ifNotNilThanValue(listEntity, (): TEntity => listEntity.selected, UNDEF_SYMBOL);
 
 /**
- * @stable [18.10.2019]
- * @param {IListEntity} listEntity
+ * @stable [19.10.2019]
+ * @param {IEffectsAction} action
+ * @returns {TEntity}
+ */
+export const selectSelectedEntityFromAction =
+  <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
+    action,
+    () => ifNotNilThanValue(
+      action.data,
+      (data: ISelectedWrapper<TEntity>) => data.selected,
+      UNDEF_SYMBOL
+    ),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [20.10.2019]
+ * @param {IPreviousActionWrapperEntity} data
+ * @returns {IEffectsAction}
+ */
+export const selectPreviousAction = (data: IPreviousActionWrapperEntity): IEffectsAction =>
+  ifNotNilThanValue(data, () => data.previousAction, UNDEF_SYMBOL);
+
+/**
+ * @stable [20.10.2019]
+ * @param {IEffectsAction} action
+ * @returns {IEffectsAction}
+ */
+export const selectPreviousActionFromAction = (action: IEffectsAction): IEffectsAction => ifNotNilThanValue(
+  action,
+  () => coalesce(selectPreviousAction(action.data), selectPreviousAction(action.initialData), UNDEF),
+  UNDEF_SYMBOL
+);
+
+/**
+ * @stable [20.10.2019]
+ * @param {IEffectsAction} action
+ * @returns {string}
+ */
+export const selectPreviousActionTypeFromAction = (action: IEffectsAction): string => ifNotNilThanValue(
+  selectPreviousActionFromAction(action), (previousAction) => previousAction.type, UNDEF_SYMBOL
+);
+
+/**
+ * @stable [20.10.2019]
+ * @param {IPreventEffectsWrapper} data
+ * @returns {boolean}
+ */
+export const selectPreventEffects = (data: IPreventEffectsWrapper): boolean =>
+  ifNotNilThanValue(
+    data,
+    () => data.preventEffects,
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [20.10.2019]
+ * @param {IEffectsAction} action
+ * @returns {boolean}
+ */
+export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean => ifNotNilThanValue(
+  action,
+  () => coalesce(selectPreventEffects(action.data), selectPreventEffects(action.initialData), UNDEF),
+  UNDEF_SYMBOL
+);
+
+/**
+ * @stable [19.10.2019]
+ * @param {IEffectsAction} action
+ * @returns {TEntity}
+ */
+export const selectPayloadEntityFromAction =
+  <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
+    action,
+    () => ifNotNilThanValue(
+      action.data,
+      (data: IPayloadWrapper<TEntity>) => data.payload,
+      UNDEF_SYMBOL
+    ),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [19.10.2019]
+ * @param {IEffectsAction} action
+ * @returns {TEntity}
+ */
+export const selectEntityFromAction =
+  <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
+    action,
+    () => action.data,
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [19.10.2019]
+ * @param {IRawDataWrapper<TData>} listEntity
  * @returns {TData}
  */
-export const selectListRawDataEntity = <TData = AnyT>(listEntity: IListEntity): TData =>
-  ifNotNilThanValue(listEntity, (): TData => listEntity.rawData as TData, UNDEF_SYMBOL);
+export const selectListRawDataEntity = <TData = AnyT>(listEntity: IRawDataWrapper<TData>): TData =>
+  ifNotNilThanValue(listEntity, (): TData => listEntity.rawData, UNDEF_SYMBOL);
 
 /**
  * @stable [18.10.2019]
@@ -134,16 +243,17 @@ export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: 
   selectListRawDataEntity<TData>(selectListEntity(listWrapperEntity));
 
 /**
- * @stable [04.09.2019]
- * @param {IListWrapperEntity} listWrapperEntity
+ * @stable [19.10.2019]
+ * @param {IListWrapperEntity<TEntity extends IEntity>} listWrapperEntity
  * @returns {TEntity}
  */
-export const selectListSelectedEntity = <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity): TEntity =>
-  ifNotNilThanValue<IListEntity, TEntity>(
-    selectListEntity(listWrapperEntity),
-    (list) => selectSelectedEntity<TEntity>(list),
-    UNDEF_SYMBOL
-  );
+export const selectListSelectedEntity =
+  <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity =>
+    ifNotNilThanValue<IListEntity<TEntity>, TEntity>(
+      selectListEntity<TEntity>(listWrapperEntity),
+      (list) => selectSelectedEntity<TEntity>(list),
+      UNDEF_SYMBOL
+    );
 
 /**
  * @stable [30.08.2019]
@@ -305,7 +415,7 @@ export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
     } as TEntity,
     entityId: ifNotNilThanValue(entity, () => entity.id, UNDEF_SYMBOL),
     originalEntity: shallowClone<TEntity>(entity),
-    newEntity: R.isNil(entity) || R.isNil(entity.id),
+    newEntity: isNewEntity(entity),
   });
 
 /**
@@ -315,7 +425,7 @@ export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 export const mapListSelectedExtendedEntity =
-  <TEntity extends IEntity>(listWrapper: IListWrapperEntity,
+  <TEntity extends IEntity>(listWrapper: IListWrapperEntity<TEntity>,
                             editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
     mapExtendedEntity(
       selectListSelectedEntity(listWrapper),

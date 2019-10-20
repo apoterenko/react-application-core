@@ -3,11 +3,15 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 import { IEditedListMiddlewareConfigEntity } from '../../definition';
 import { IEntity } from '../../definitions.interface';
 import { ListActionBuilder } from '../../component/action.builder';
-import { makeSelectEntityMiddleware, makeCreateEntityMiddleware } from '../middleware';
+import {
+  makeCreateEntityMiddleware,
+  makeLazyLoadedEntityMiddleware,
+  makeSelectEntityMiddleware,
+} from '../middleware';
 import { provideInSingleton } from '../../di';
 
 /**
- * @stable [09.10.2019]
+ * @stable [19.10.2019]
  * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
  * @returns {() => void}
  */
@@ -39,13 +43,13 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
         makeSelectEntityMiddleware<TEntity, TState>({...config, action, state})
 
       /**
-       * @stable [09.10.2019]
+       * @stable [20.10.2019]
        * @param {IEffectsAction} action
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
       @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(config.listSection))
-      public $onEntityLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeSelectEntityMiddleware<TEntity, TState>({...config, action, state, lazyLoading: false})
+      public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        makeLazyLoadedEntityMiddleware<TEntity, TState>({...config, action, state})
     }
   };

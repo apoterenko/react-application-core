@@ -2,13 +2,14 @@ import * as R from 'ramda';
 
 import {
   AnyT,
-  ID_FIELD_NAME,
-  IKeyValue,
-  FROM_TIME_FIELD_NAME,
-  TO_TIME_FIELD_NAME,
-  TIME_FIELD_NAME,
-  IEntity,
   EntityIdT,
+  FROM_TIME_FIELD_NAME,
+  ID_FIELD_NAME,
+  IEntity,
+  IEntityIdTWrapper,
+  IKeyValue,
+  TIME_FIELD_NAME,
+  TO_TIME_FIELD_NAME,
 } from '../definitions.interface';
 import { isDef, isObject, isFn, isString } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
@@ -79,16 +80,15 @@ export function cloneUsingTimeFieldsFilters<TSource extends IKeyValue, TResult e
  * @stable [09.01.2019]
  * @param {IEntity} entity1
  * @param {IEntity} entity2
- * @returns {boolean}
- * @constructor
  */
-export const SAME_ENTITY_PREDICATE = (entity1: IEntity, entity2: IEntity) => entity1 === entity2 || entity1.id === entity2.id;
+export const SAME_ENTITY_PREDICATE =
+  <TEntity extends IEntityIdTWrapper = IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity) =>
+    entity1 === entity2 || entity1.id === entity2.id;
 
 /**
  * @stable [03.10.2019]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => isObject(value);
 
@@ -97,7 +97,6 @@ export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => isObject(value);
  * @param {string} key
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT): boolean => OBJECT_VALUE_PREDICATE(value);
 
@@ -105,7 +104,6 @@ export const OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT): boolean =>
  * @stable [03.10.2019]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const NOT_OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => !OBJECT_VALUE_PREDICATE(value);
 
@@ -114,7 +112,6 @@ export const NOT_OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => !OBJECT_VALU
  * @param {string} key
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_OBJECT_VALUE_PREDICATE(value);
 
@@ -122,7 +119,6 @@ export const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_
  * @stable [27.10.2018]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
@@ -131,7 +127,6 @@ export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
  * @param {string} key
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
 
@@ -139,7 +134,6 @@ export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL
  * @stable [23.09.2019]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const STRING_VALUE_PREDICATE = (value: AnyT) => isString(value);
 
@@ -147,7 +141,6 @@ export const STRING_VALUE_PREDICATE = (value: AnyT) => isString(value);
  * @stable [31.03.2019]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
 
@@ -156,7 +149,6 @@ export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value
  * @param {string} key
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
 
@@ -165,7 +157,6 @@ export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value
  * @param {string} key
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_EMPTY_VALUE_PREDICATE(value);
 
@@ -173,7 +164,6 @@ export const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_E
  * @stable [03.10.2018]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
 
@@ -181,7 +171,6 @@ export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
  * @stable [19.12.2018]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const TRUE_VALUE_PREDICATE = (value: AnyT) => !!value;
 

@@ -2,17 +2,18 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IChangesWrapper,
+  IEntity,
   IEntityIdTWrapper,
   IMergeStrategyWrapper,
   IPayloadWrapper,
 } from '../definitions.interface';
 
 /**
- * @stable [09.10.2019]
+ * @stable [19.10.2019]
  */
-export interface IModifyEntityPayloadEntity
+export interface IModifyEntityPayloadEntity<TEntity extends IEntity = IEntity>
   extends IEntityIdTWrapper,
-    IChangesWrapper,
+    IChangesWrapper<TEntity>,
     IMergeStrategyWrapper<EntityMergeStrategiesEnum> {
 }
 

@@ -6,14 +6,17 @@ import {
   IDataWrapper,
   IEntity,
   IRemovedEntityWrapper,
-  ISelectedEntityWrapper,
 } from '../../definitions.interface';
-import { IPagedEntity, IModifyEntityPayloadWrapperEntity } from '../../definition';
+import {
+  IModifyEntityPayloadWrapperEntity,
+  IPagedEntity,
+  ISelectEntityPayloadEntity,
+  ISelectedWrapperEntity,
+} from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
 import {
   LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
-  LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
@@ -32,6 +35,7 @@ import {
   LIST_REMOVE_ACTION_TYPE,
   LIST_RESET_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
+  LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE,
   LIST_UN_TOUCH_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
 } from './list.interface';
@@ -205,23 +209,24 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [21.04.2019]
+   * @stable [19.10.2019]
    * @param {string} section
-   * @param {TData} data
+   * @param {ISelectedWrapperEntity<TEntity extends IEntity>} selectedWrapper
    * @returns {IEffectsAction}
    */
-  public static buildLazyLoadDoneAction<TData>(section: string, data: TData): IEffectsAction {
-    return EffectsAction.create(this.buildLazyLoadDoneActionType(section), applySection(section, data));
+  public static buildLazyLoadDoneAction<TEntity extends IEntity = IEntity>(
+    section: string, selectedWrapper: ISelectedWrapperEntity<TEntity>): IEffectsAction {
+    return EffectsAction.create(this.buildLazyLoadDoneActionType(section), applySection(section, selectedWrapper));
   }
 
   /**
-   * @stable [08.12.2018]
+   * @stable [20.10.2019]
    * @param {string} section
-   * @param {ISelectedEntityWrapper} payload
+   * @param {ISelectEntityPayloadEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildSelectAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
-    const simpleAction = this.buildSelectSimpleAction(section, payload);
+  public static buildSelectAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
+    const simpleAction = this.buildSelectPlainAction(section, payload);
     return EffectsAction.create(simpleAction.type, simpleAction.data);
   }
 
@@ -235,37 +240,12 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [08.12.2018]
-   * @param {string} section
-   * @param {ISelectedEntityWrapper} payload
-   * @returns {IEffectsAction}
-   */
-  public static buildSelectSimpleAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
-    return {
-      type: this.buildSelectActionType(section),
-      data: applySection(section, payload),
-    };
-  }
-
-  /**
-   * @stable [20.01.2019]
-   * @param {string} section
-   * @returns {IEffectsAction}
-   */
-  public static buildCreateSimpleAction(section: string): IEffectsAction {
-    return {
-      type: this.buildCreateActionType(section),
-      data: applySection(section),
-    };
-  }
-
-  /**
    * @stable [03.06.2018]
    * @param {string} section
-   * @param {ISelectedEntityWrapper} payload
+   * @param {ISelectedWrapperEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildLazyLoadAction(section: string, payload: ISelectedEntityWrapper): IEffectsAction {
+  public static buildLazyLoadAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
     return EffectsAction.create(this.buildLazyLoadActionType(section), applySection(section, payload));
   }
 
@@ -316,7 +296,7 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [13.05.2019]
+   * @stable [20.10.2019]
    * @param {string} section
    * @param {EntityIdT} id
    * @param {TChanges} changes
@@ -324,17 +304,6 @@ export class ListActionBuilder {
    */
   public static buildMergeItemAction<TChanges = IEntity>(section: string, id: EntityIdT, changes: TChanges): IEffectsAction {
     return this.buildMergeAction(section, {payload: {id, changes}});
-  }
-
-  /**
-   * @stable [13.05.2019]
-   * @param {string} section
-   * @param {EntityIdT} id
-   * @param {TChanges} changes
-   * @returns {IEffectsAction}
-   */
-  public static buildUpdateItemAction<TChanges = IEntity>(section: string, id: EntityIdT, changes: TChanges): IEffectsAction {
-    return this.buildUpdateAction(section, {payload: {id, changes}});
   }
 
   public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
@@ -365,5 +334,30 @@ export class ListActionBuilder {
 
   public static buildLastPageAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildLastPageActionType(section), applySection(section, data));
+  }
+
+  /**
+   * @stable [20.10.2019]
+   * @param {string} section
+   * @param {ISelectEntityPayloadEntity} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildSelectPlainAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
+    return {
+      type: this.buildSelectActionType(section),
+      data: applySection(section, payload),
+    };
+  }
+
+  /**
+   * @stable [20.01.2019]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildCreatePlainAction(section: string): IEffectsAction {
+    return {
+      type: this.buildCreateActionType(section),
+      data: applySection(section),
+    };
   }
 }

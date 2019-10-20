@@ -104,7 +104,7 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @stable [20.01.2019]
    */
   public dispatchListCreate(): void {
-    this.store$.dispatch(ListActionBuilder.buildCreateSimpleAction(this.sectionName));
+    this.store$.dispatch(ListActionBuilder.buildCreatePlainAction(this.sectionName));
   }
 
   /**
@@ -127,7 +127,7 @@ export class VueBaseContainer<TState = IKeyValue> extends Vue implements IVueCon
    * @param {IEntity} entity
    */
   protected dispatchListSelect(entity: IEntity): void {
-    this.store$.dispatch(ListActionBuilder.buildSelectSimpleAction(this.sectionName, {selected: entity}));
+    this.store$.dispatch(ListActionBuilder.buildSelectPlainAction(this.sectionName, {selected: entity}));
   }
 
   /**

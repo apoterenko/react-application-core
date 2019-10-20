@@ -1,4 +1,3 @@
-export * from './action';
 export * from './array';
 export * from './base64';
 export * from './blob';
@@ -19,7 +18,7 @@ export * from './form';
 export * from './join';
 export * from './json';
 export * from './mapper';
-export * from './merge';
+export * from './merge-strategy';
 export * from './number';
 export * from './nvl';
 export * from './object';

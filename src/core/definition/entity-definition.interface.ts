@@ -17,6 +17,7 @@ import {
   IPayloadWrapper,
   IProgressWrapper,
   IRemoveWrapper,
+  ISelectedWrapper,
   ISourceWrapper,
   ITouchedWrapper,
   ITypeWrapper,
@@ -64,10 +65,17 @@ export interface INamedEntity
 }
 
 /**
- * @stable [14.10.2019]
+ * @stable [19.10.2019]
  */
-export interface IEntityIdPayloadEntity
+export interface IPayloadEntityIdWrapperEntity
   extends IPayloadWrapper<IEntityIdTWrapper> {
+}
+
+/**
+ * @stable [19.10.2019]
+ */
+export interface ISelectedWrapperEntity<TEntity extends IEntity = IEntity>
+  extends ISelectedWrapper<TEntity> {
 }
 
 /**

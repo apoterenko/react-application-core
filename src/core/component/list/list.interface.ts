@@ -5,8 +5,11 @@ import {
   FIRST_PAGE,
 } from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IListWrapperEntity, IListEntity } from '../../entities-definitions.interface';
-import { IUniversalContainerEntity } from '../../definition';
+import {
+  IListEntity,
+  IListWrapperEntity,
+  IUniversalContainerEntity,
+} from '../../definition';
 
 /**
  * @stable [05.06.2018]

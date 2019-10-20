@@ -22,6 +22,7 @@ export * from './form-definition.interface';
 export * from './grid-definition.interface';
 export * from './label-definition.interface';
 export * from './layout-definition.interface';
+export * from './list-definition.interface';
 export * from './log-definition.interface';
 export * from './menu-definition.interface';
 export * from './modify-payload-definition.interface';

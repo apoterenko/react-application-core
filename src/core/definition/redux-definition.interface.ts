@@ -20,7 +20,11 @@ import {
   INextFormRouteWrapper,
   INextFormSectionWrapper,
   INextListSectionWrapper,
+  INextSectionWrapper,
   IPathWrapper,
+  IPayloadWrapper,
+  IPreventEffectsWrapper,
+  IPreviousActionWrapper,
   IPreviousFormSectionWrapper,
   IRemoteSorterWrapper,
   IReplaceRouteWrapper,
@@ -40,24 +44,7 @@ import { IPermissionsWrapperEntity } from './permission-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
 import { IUserWrapperEntity } from './user-definition.interface';
-
-/**
- * @stable [09.10.2019]
- */
-export interface IEffectsActionEntity
-  extends IActionWrapper<IEffectsAction> {
-}
-
-/**
- * @stable [26.08.2019]
- */
-export interface IEntityReducerFactoryConfigEntity
-  extends IUpdateWrapper<string>,
-    IReplaceWrapper<string>,
-    ISelectWrapper<string>,
-    IDestroyWrapper<string>,
-    IInitialStateWrapper<AnyT> {
-}
+import { ISelectedWrapperEntity } from './entity-definition.interface';
 
 /**
  * @stable [26.08.2019]
@@ -74,6 +61,40 @@ export interface IEntityActionBuilder {
 export enum DestroyedContainerTypesEnum {
   LIST,
   FORM,
+}
+
+/**
+ * @stable [09.10.2019]
+ */
+export interface IEffectsActionEntity
+  extends IActionWrapper<IEffectsAction> {
+}
+
+/**
+ * @stable [20.10.2019]
+ */
+export interface IPreviousActionWrapperEntity
+  extends IPreviousActionWrapper<IEffectsAction> {
+}
+
+/**
+ * @stable [20.10.2019]
+ */
+export interface ISelectEntityPayloadEntity
+  extends ISelectedWrapperEntity,
+    IPreventEffectsWrapper,
+    IPreviousActionWrapperEntity {
+}
+
+/**
+ * @stable [26.08.2019]
+ */
+export interface IEntityReducerFactoryConfigEntity
+  extends IUpdateWrapper<string>,
+    IReplaceWrapper<string>,
+    ISelectWrapper<string>,
+    IDestroyWrapper<string>,
+    IInitialStateWrapper<AnyT> {
 }
 
 /**
@@ -100,13 +121,35 @@ export interface IChainedFormMiddlewareConfigEntity<TChanges>
 }
 
 /**
+ * @stable [19.10.2019]
+ */
+export type ChainedMiddlewarePayloadFnT<TState, TPayload> =
+  ((payload: TPayload, state: TState, action: IEffectsAction) => string);
+
+/**
+ * @stable [19.10.2019]
+ */
+export type ChainedMiddlewarePayloadT<TState, TPayload> = string | ChainedMiddlewarePayloadFnT<TState, TPayload>;
+
+/**
+ * @stable [19.10.2019]
+ */
+export interface IChainedMiddlewareConfigEntity<TState, TPayload>
+  extends INextSectionWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
+    IStateWrapper<TState>,
+    IEffectsActionEntity,
+    IPayloadWrapper<TPayload> {
+}
+
+/**
  * @stable [09.10.2019]
  */
 export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
   extends IFormSectionWrapper<string | ((entity: TEntity, state: TState, action: IEffectsAction) => string)>,
     IListSectionWrapper,
     IStateWrapper<TState>,
-    IPathWrapper<string | ((entity: TEntity, state: TState, action: IEffectsAction) => string)>,
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>>,
     IEffectsActionEntity,
     ILazyLoadingWrapper,
     IEntityWrapper<TEntity> {

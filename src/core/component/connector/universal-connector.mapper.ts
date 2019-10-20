@@ -29,10 +29,10 @@ import {
   ITransportWrapperEntity,
   IUniversalStoreEntity,
   ToolbarToolsEnum,
-} from '../../definition';
-import {
   IListWrapperEntity,
   IListEntity,
+} from '../../definition';
+import {
   IDataMutatorEntity,
 } from '../../entities-definitions.interface';
 import {
