@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { Component } from 'vue-property-decorator';
 
-import { generateArray, isPrimitive, isArrayNotEmpty, asMultiFieldEntities } from '../../../util';
+import { makeArray, isPrimitive, isArrayNotEmpty, asMultiFieldEntities } from '../../../util';
 import { IEntity, AnyT } from '../../../definitions.interface';
 import { VueCreateElementFactoryT, VueNodeT } from '../../../vue-definitions.interface';
 import { ComponentName } from '../../connector/vue-index';
@@ -36,14 +36,14 @@ class VueSingleFileField extends VueBaseFileField implements IVueSingleFileField
    */
   public getEntities(): IEntity[] {
     if (!this.hasValue()) {
-      return generateArray(1);
+      return makeArray(1);
     }
     const value = this.getValue();
     if (isPrimitive(value)) {
       return [value];
     }
     const actualEntities = asMultiFieldEntities(value);
-    return R.isNil(actualEntities) || actualEntities.length === 0 ? generateArray(1) : actualEntities;
+    return R.isNil(actualEntities) || actualEntities.length === 0 ? makeArray(1) : actualEntities;
   }
 
   /**

@@ -16,7 +16,7 @@ import {
   NotMultiFieldEntityT,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
-import { isArrayNotEmpty, generateArray } from './array';
+import { isArrayNotEmpty, makeArray } from './array';
 import { isNotMultiEntity } from './entity';
 import { isPrimitive } from './type';
 import { nvl } from './nvl';
@@ -178,7 +178,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT)
  */
 export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>,
                                                                                entitiesCountLimit: number): TEntity[] => {
-  const result = generateArray(entitiesCountLimit);
+  const result = makeArray(entitiesCountLimit);
   const multiFieldEntities = asMultiFieldEntities<TEntity>(value);
 
   if (Array.isArray(multiFieldEntities)) {

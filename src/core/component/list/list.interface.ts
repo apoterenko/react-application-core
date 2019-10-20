@@ -1,12 +1,7 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import {
-  DEFAULT_PAGE_SIZE,
-  FIRST_PAGE,
-} from '../../definitions.interface';
 import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
 import {
-  IListEntity,
   IListWrapperEntity,
   IUniversalContainerEntity,
 } from '../../definition';
@@ -32,23 +27,6 @@ export interface IRnListContainerProps extends IUniversalContainerEntity,
                                                IListWrapperEntity,
                                                IListConfigurationWrapper {
 }
-
-/**
- * @stable [05.04.2018]
- */
-export const INITIAL_LIST_ENTITY: IListEntity = {
-  changes: {},
-  directions: {},
-  progress: false,
-  touched: false,
-  lockPage: false,
-  data: null,
-  rawData: null,
-  selected: null,
-  page: FIRST_PAGE,
-  pageSize: DEFAULT_PAGE_SIZE,
-  totalCount: 0,
-};
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';
 export const LIST_CANCEL_LOAD_ACTION_TYPE = 'list.cancel.load';

@@ -164,15 +164,6 @@ export class ListActionBuilder {
     return `${toActionPrefix(section)}.${LIST_REMOVE_ACTION_TYPE}`;
   }
 
-  /**
-   * @stable [22.01.2019]
-   * @param {string} section
-   * @returns {string}
-   */
-  public static buildMergeActionType(section: string): string {
-    return `${section}.${LIST_MERGE_ACTION_TYPE}`;
-  }
-
   public static buildUpdateActionType(section: string): string {
     return `${section}.${LIST_UPDATE_ACTION_TYPE}`;
   }
@@ -220,23 +211,13 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [20.10.2019]
-   * @param {string} section
-   * @param {ISelectEntityPayloadEntity} payload
-   * @returns {IEffectsAction}
-   */
-  public static buildSelectAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
-    const simpleAction = this.buildSelectPlainAction(section, payload);
-    return EffectsAction.create(simpleAction.type, simpleAction.data);
-  }
-
-  /**
    * @stable [15.03.2019]
    * @param {string} section
    * @returns {IEffectsAction}
    */
   public static buildCreateAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildCreateActionType(section), applySection(section));
+    const plainAction = this.buildCreatePlainAction(section);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**
@@ -269,16 +250,6 @@ export class ListActionBuilder {
    */
   public static buildResetAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildResetActionType(section), applySection(section));
-  }
-
-  /**
-   * @stable [22.01.2019]
-   * @param {string} section
-   * @param {IModifyEntityPayloadWrapperEntity} data
-   * @returns {IEffectsAction}
-   */
-  public static buildMergeAction(section: string, data?: IModifyEntityPayloadWrapperEntity): IEffectsAction {
-    return EffectsAction.create(this.buildMergeActionType(section), applySection(section, data));
   }
 
   /**
@@ -334,6 +305,50 @@ export class ListActionBuilder {
 
   public static buildLastPageAction(section: string, data?: AnyT): IEffectsAction {
     return EffectsAction.create(this.buildLastPageActionType(section), applySection(section, data));
+  }
+
+  /**
+   * @stable [20.10.2019]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildMergeActionType(section: string): string {
+    return `${section}.${LIST_MERGE_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [20.10.2019]
+   * @param {string} section
+   * @param {IModifyEntityPayloadWrapperEntity} data
+   * @returns {IEffectsAction}
+   */
+  public static buildMergeAction(section: string, data?: IModifyEntityPayloadWrapperEntity): IEffectsAction {
+    const plainAction = this.buildMergePlainAction(section, data);
+    return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [20.10.2019]
+   * @param {string} section
+   * @param {IModifyEntityPayloadWrapperEntity} data
+   * @returns {IEffectsAction}
+   */
+  public static buildMergePlainAction(section: string, data?: IModifyEntityPayloadWrapperEntity): IEffectsAction {
+    return {
+      type: this.buildMergeActionType(section),
+      data: applySection(section, data),
+    };
+  }
+
+  /**
+   * @stable [20.10.2019]
+   * @param {string} section
+   * @param {ISelectEntityPayloadEntity} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildSelectAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
+    const plainAction = this.buildSelectPlainAction(section, payload);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**

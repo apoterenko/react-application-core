@@ -20,7 +20,7 @@ import { isNewEntity } from './entity';
  * @param {number} length
  * @returns {AnyT[]}
  */
-export const generateArray = (length: number): AnyT[] => Array.apply(null, {length});
+export const makeArray = (length: number): AnyT[] => Array.apply(null, {length});
 
 /**
  * @stable [19.11.2018]

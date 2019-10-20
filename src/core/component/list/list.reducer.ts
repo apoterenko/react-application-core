@@ -10,6 +10,7 @@ import {
   buildEntityByMergeStrategy,
   doesArrayContainEntity,
   ifNotNilThanValue,
+  mapIdentifiedEntity,
   mergeArrayItem,
   notNilValuesFilter,
   nvl,
@@ -22,20 +23,20 @@ import {
 } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
-import { INITIAL_LIST_ENTITY } from './list.interface';
 import {
   EntityMergeStrategiesEnum,
   IFieldChangeEntity,
   IListEntity,
   IModifyEntityPayloadEntity,
+  INITIAL_LIST_ENTITY,
   ISelectedWrapperEntity,
   ISortDirectionEntity,
   ISortDirectionPayloadEntity,
   ISortDirectionsEntity,
 } from '../../definition';
 
-export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
-                            action: IEffectsAction): IListEntity {
+export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
+                            action: IEffectsAction): IListEntity => {
   const section = toSection(action);
   let modifyDataPayload;
 
@@ -204,9 +205,9 @@ export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
       const doesEntityExist = doesArrayContainEntity(state.data, modifyDataPayload);
       const mergedData = mergeArrayItem<IEntityIdTWrapper>(
         state.data,
-        modifyDataPayload,
+        mapIdentifiedEntity(modifyDataPayload),
         SAME_ENTITY_PREDICATE,
-        () => buildEntityByMergeStrategy(modifyDataPayload)
+        (itm) => buildEntityByMergeStrategy(modifyDataPayload, itm)
       );
 
       return {
@@ -240,4 +241,4 @@ export function listReducer(state: IListEntity = INITIAL_LIST_ENTITY,
     default:
       return state;
   }
-}
+};

@@ -1,4 +1,6 @@
 import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
   IChangesWrapper,
   IDataWrapper,
   IEntity,
@@ -37,3 +39,20 @@ export interface IListEntity<TEntity extends IEntity = IEntity>
 export interface IListWrapperEntity<TEntity extends IEntity = IEntity>
   extends IListWrapper<IListEntity<TEntity>> {
 }
+
+/**
+ * @stable [20.10.2019]
+ */
+export const INITIAL_LIST_ENTITY = Object.freeze<IListEntity>({
+  changes: {},
+  directions: {},
+  progress: false,
+  touched: false,
+  lockPage: false,
+  data: null,
+  rawData: null,
+  selected: null,
+  page: FIRST_PAGE,
+  pageSize: DEFAULT_PAGE_SIZE,
+  totalCount: 0,
+});

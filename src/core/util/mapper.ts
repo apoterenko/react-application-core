@@ -24,10 +24,12 @@ import {
 import {
   AnyT,
   DEFAULT_PAGE_SIZE,
+  EntityIdT,
   FIRST_PAGE,
   IActionsDisabledWrapper,
   IDisabledWrapper,
   IEntity,
+  IEntityIdTWrapper,
   IKeyValue,
   IPayloadWrapper,
   IPreventEffectsWrapper,
@@ -46,6 +48,14 @@ import {
   coalesce,
   trimmedUndefEmpty,
 } from './nvl';
+
+/**
+ * @stable [20.10.2019]
+ * @param {IEntityIdTWrapper} entity
+ * @returns {EntityIdT}
+ */
+export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT =>
+  ifNotNilThanValue(entity, (): EntityIdT => entity.id, UNDEF_SYMBOL);
 
 /**
  * @stable [04.09.2019]
@@ -265,6 +275,22 @@ export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): str
   (filterEntity) => selectQuery(filterEntity),
   UNDEF_SYMBOL
 );
+
+/**
+ * @stable [20.10.2019]
+ * @param {EntityIdT} id
+ * @returns {IEntityIdTWrapper}
+ */
+export const mapEntityId = (id: EntityIdT): IEntityIdTWrapper =>
+  defValuesFilter<IEntityIdTWrapper, IEntityIdTWrapper>({id});
+
+/**
+ * @stable [20.10.2019]
+ * @param {IEntityIdTWrapper} entity
+ * @returns {IEntityIdTWrapper}
+ */
+export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrapper =>
+  mapEntityId(selectEntityId(entity));
 
 /**
  * @stable [28.09.2019]

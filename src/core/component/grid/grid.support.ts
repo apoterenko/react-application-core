@@ -11,7 +11,7 @@ import {
   isFn,
   queryFilter,
   asMultiFieldEntities,
-  generateArray,
+  makeArray,
 } from '../../util';
 import { UNI_CODES, IEntity, EntityIdT } from '../../definitions.interface';
 import {
@@ -100,7 +100,7 @@ export const buildTimeGridColumns = (
   const columnsCount = periodsPerHourCount * HOURS_PER_DAY;
 
   let currentPeriodPerHour = 0;
-  return generateArray(columnsCount)
+  return makeArray(columnsCount)
     .map((_, index) => {
       const minPeriodAtMinutes = builderConfig.minPeriodAtMinutes;
       const currentHour = Math.floor(index / periodsPerHourCount);
