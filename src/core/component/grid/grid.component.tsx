@@ -61,7 +61,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         <table
           cellPadding={0}
           cellSpacing={0}
-          className={joinClassName('rac-grid', props.tightGrid && 'rac-tight-grid', props.className)}>
+          className={joinClassName('rac-grid', props.className)}>
           <thead className={joinClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
             {this.headRowElement}
             {this.filterElement}

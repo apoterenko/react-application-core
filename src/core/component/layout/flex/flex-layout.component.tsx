@@ -2,7 +2,12 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base/base.component';
 import { IFlexLayoutProps } from './flex-layout.interface';
-import { joinClassName, handlerPropsFactory, fullFlexClassName, calc } from '../../../util';
+import {
+  calc,
+  fullFlexClassName,
+  handlerPropsFactory,
+  joinClassName,
+} from '../../../util';
 
 export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
 

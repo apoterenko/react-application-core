@@ -17,4 +17,4 @@ export const fullFlexClassName = (entity: IClassNameWrapper & IFullWrapper): str
  * @param {string} parts
  * @returns {string}
  */
-export const joinClassName = (...parts: string[]): string => parts.filter(STRING_VALUE_PREDICATE).join(' ');
+export const joinClassName = (...parts: string[]): string => parts.filter(STRING_VALUE_PREDICATE).join(' ').trim();

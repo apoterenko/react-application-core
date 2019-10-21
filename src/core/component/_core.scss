@@ -7,9 +7,11 @@
    * @layout
    * @stable [30.09.2019]
    */
-  .rac-full-size {
-    @include rac-size(100%);
-  }
+  @include rac-styles (
+    $rac-styles-custom: rac-full-size,
+    $rac-styles-height: 100%,
+    $rac-styles-width: 100%
+  );
 
   /**
    * @layout

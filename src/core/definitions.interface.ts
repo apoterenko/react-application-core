@@ -61,6 +61,12 @@ export interface IEmptyDataWrapper<TEmptyData> {
 export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
+export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialogFormChangesConfirmStoreProxy?: TValue; }
+export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
+export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
+export interface I$$nameWrapper { $$name?: string; }
+export interface I$$permissionStoreProxyWrapper<TValue> { $$permissionStoreProxy?: TValue; }
+export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IActionsDisabledWrapper { actionsDisabled?: boolean; }
@@ -68,6 +74,7 @@ export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
 export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActionsWrapper<TActions> { actions?: TActions; }
+export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IActivateWrapper { activate?(): void; }
 export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
 export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
@@ -80,11 +87,13 @@ export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
+export interface IAreaWrapper<TArea = string> { area?: TArea; }
 export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
+export interface IBindStoreWrapper<TValue> { bindStore?: TValue; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
@@ -98,15 +107,20 @@ export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
 export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
 export interface IChildrenWrapper<TChildren> { children?: TChildren; }
+export interface ICityWrapper<TCity = string> { city?: TCity; }
+export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
 export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseWrapper<TClose> { close?: TClose; }
 export interface ICodeWrapper<TCode = string> { code?: TCode; }
+export interface IColumnClassNameWrapper<TClassName = string> { columnClassName?: TClassName; }
 export interface IColumnNameWrapper { columnName?: string; }
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface IColumnStylesWrapper<TStyles> { columnStyles?: TStyles; }
+export interface IColumnTitleWrapper<TColumnTitle = string> { columnTitle?: TColumnTitle; }
 export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface ICompactWrapper<TCompact = boolean> { compact?: TCompact; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
+export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
 export interface ICroppedCanvasOptionsWrapper<TCroppedCanvasOptions> { croppedCanvasOptions?: TCroppedCanvasOptions; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
@@ -115,6 +129,7 @@ export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
+export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
 export interface IDetectFileTypeWrapper { detectFileType?: boolean; }
 export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
@@ -132,6 +147,7 @@ export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
 export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
+export interface IErrorWrapper<TError = boolean> { error?: TError; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
@@ -140,6 +156,8 @@ export interface IFieldWrapper<TField> { field?: TField; }
 export interface IFilePathWrapper { filePath?: string; }
 export interface IFilesWrapper<TValue> { files?: TValue; }
 export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
+export interface IFilterRendererWrapper<TPayload> { filterRenderer?(payload: TPayload): JSX.Element; }
+export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFloatLabelWrapper { floatLabel?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
@@ -153,7 +171,12 @@ export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsS
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 export interface IFullWrapper<TFull = boolean> { full?: TFull; }
+export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
+export interface IGoBackWrapper { goBack?(): void; }
+export interface IGroupableWrapper { groupable?: boolean; }
 export interface IGroupByWrapper<TGroupBy> { groupBy?: TGroupBy; }
+export interface IHeaderClassNameWrapper { headerClassName?: string; }
+export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
@@ -162,11 +185,14 @@ export interface IHeightWrapper { height?: number; }
 export interface IHideWrapper { hide?(): void; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
+export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IIdWrapper<TId = number> { id?: TId; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
+export interface IIndexedColumnWrapper { indexedColumn?: boolean; }
 export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
+export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
@@ -176,7 +202,9 @@ export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarge
 export interface IKeyValue extends Record<string, AnyT> {}
 export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
+export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
+export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
 export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
 export interface ILinkWrapper<TLink = string> { link?: TLink; }
@@ -184,12 +212,15 @@ export interface IListAccessorWrapper<TListAccessor> { listAccessor?: TListAcces
 export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
 export interface IListWrapper<TList> { list?: TList; }
+export interface ILngWrapper<TLng = number> { lng?: TLng; }
 export interface ILoadingWrapper { loading?: boolean; }
+export interface ILocalFilterWrapper<TPayload = AnyT> { localFilter?(payload?: TPayload): boolean; }
 export interface ILocationWrapper<TLocation> { location?: TLocation; }
 export interface ILockWrapper { lock?: boolean; }
 export interface ILoginWrapper<TLogin = string> { login?: TLogin; }
 export interface ILogoutWrapper<TLogout> { logout?: TLogout; }
 export interface IMappersWrapper<TMappers> { mappers?: TMappers; }
+export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxFilesWrapper { maxFiles?: number; }
 export interface IMenuConfigurationWrapper<TMenuConfiguration> { menuConfiguration?: TMenuConfiguration; }
@@ -197,6 +228,7 @@ export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions;
 export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
+export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
 export interface IMethodWrapper { method?: string; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IModeWrapper<TMode = string> { mode?: TMode; }
@@ -247,8 +279,13 @@ export interface IPathWrapper<TPath = string> { path?: TPath; }
 export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
 export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
+export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity; }
 export interface IPlaceholderWrapper { placeholder?: string; }
+export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
+export interface IPlaceWrapper<TPlace = string> { place?: TPlace; }
+export interface IPointsWrapper<TPoints> { points?: TPoints; }
 export interface IPopupClassNameWrapper<TPopupClassName = string> { popupClassName?: TPopupClassName; }
+export interface IPopupWrapper<TPopup = boolean> { popup?: TPopup; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreviewAttachmentWrapper<TPreviewAttachment = string> { previewAttachment?: TPreviewAttachment; }
@@ -265,6 +302,8 @@ export interface IRaisedWrapper { raised?: boolean; }
 export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }
+export interface IRefreshMapWrapper { refreshMap?: boolean; }
+export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
 export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 export interface IRemoteFilterWrapper { remoteFilter?: boolean; }
 export interface IRemoteSorterWrapper { remoteSorter?: boolean; }
@@ -275,6 +314,7 @@ export interface IRenderedWrapper { rendered?: boolean; }
 export interface IRendererWrapper<T1 = AnyT, T2 = AnyT, T3 = AnyT> { renderer?(t1: T1, t2?: T2, t3?: T3): JSX.Element; }
 export interface IReplacedWrapper<TReplaced = AnyT> { replaced?: TReplaced; }
 export interface IReplaceRouteWrapper { replaceRoute?: boolean; }
+export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
 export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValue; }
 export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
 export interface IRequiredWrapper<TRequired = boolean | (() => boolean)> { required?: TRequired; }
@@ -291,21 +331,29 @@ export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRoundedWrapper { rounded?: boolean; }
+export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
 export interface IRowWrapper<TRow = boolean> { row?: TRow; }
 export interface IScaleFactorWrapper<TScaleFactor = number> { scaleFactor?: TScaleFactor; }
 export interface IScaleWrapper<TScale = number> { scale?: TScale; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
+export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowWrapper { show?(): void; }
 export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
 export interface ISmallWrapper<TSmall = boolean> { small?: TSmall; }
+export interface ISortableWrapper { sortable?: boolean; }
+export interface ISorterWrapper<TEntity = IEntity> { sorter?(entity1: TEntity, entity2: TEntity): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }
 export interface ISrcWrapper<TSrc = string> { src?: TSrc; }
 export interface IStackWrapper<TStack> { stack?: TStack; }
 export interface IStateWrapper<TState> { state?: TState; }
+export interface IStatusTextWrapper { statusText?: string; }
+export interface IStatusWrapper<TStatus = number> { status?: TStatus; }
 export interface IStickySelectorWrapper { stickySelector?: string; }
+export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
+export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
@@ -314,16 +362,19 @@ export interface ISucceedMessageWrapper { succeedMessage?: string; }
 export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
+export interface ITitleWrapper { title?: string; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITooltipWrapper<TTooltip = string> { tooltip?: TTooltip; }
 export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface IToWrapper<TTo = string> { to?: TTo; }
+export interface ITplWrapper<TTpl> { tpl?: TTpl; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface ITransportWrapper<TTransport> { transport?: TTransport; }
 export interface ITypeWrapper<TType = string> { type?: TType; }
 export interface IUniqueParamNameWrapper { uniqueParamName?: string; }
 export interface IUpdatedWrapper<TUpdated = boolean> { updated?: TUpdated; }
+export interface IUpdateWrapper<TValue = string> { update?: TValue; }
 export interface IUploadUrlWrapper { uploadUrl?: string; }
 export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
@@ -340,10 +391,13 @@ export interface IViewerWrapper<TViewer> { viewer?: TViewer; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
+export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
 export interface IXPositionWrapper { xPosition?: number | (() => number); }
 export interface IXWrapper<TX = number> { x?: TX; }
 export interface IYPositionWrapper { yPosition?: number | (() => number); }
 export interface IYWrapper<TY = number> { y?: TY; }
+export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
+export interface IZoomWrapper { zoom?: number; }
 
 /**
  * @stable [15.05.2018]
@@ -917,60 +971,6 @@ export interface IUseLocalizationWrapper {
   useLocalization?: boolean;
 }
 
-export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialogFormChangesConfirmStoreProxy?: TValue; }
-export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
-export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
-export interface I$$nameWrapper { $$name?: string; }
-export interface I$$permissionStoreProxyWrapper<TValue> { $$permissionStoreProxy?: TValue; }
-export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
-export interface IActivateDialogWrapper { activateDialog?(): void; }
-export interface IAreaWrapper<TArea = string> { area?: TArea; }
-export interface IBindStoreWrapper<TValue> { bindStore?: TValue; }
-export interface ICityWrapper<TCity = string> { city?: TCity; }
-export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
-export interface IColumnClassNameWrapper<TClassName = string> { columnClassName?: TClassName; }
-export interface IColumnTitleWrapper<TColumnTitle = string> { columnTitle?: TColumnTitle; }
-export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
-export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
-export interface IErrorWrapper<TError = boolean> { error?: TError; }
-export interface IFilterRendererWrapper<TPayload> { filterRenderer?(payload: TPayload): JSX.Element; }
-export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
-export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
-export interface IGoBackWrapper { goBack?(): void; }
-export interface IGroupableWrapper { groupable?: boolean; }
-export interface IHeaderClassNameWrapper { headerClassName?: string; }
-export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
-export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
-export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
-export interface ILatWrapper<TLat = number> { lat?: TLat; }
-export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
-export interface ILngWrapper<TLng = number> { lng?: TLng; }
-export interface ILocalFilterWrapper<TPayload = AnyT> { localFilter?(payload?: TPayload): boolean; }
-export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
-export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
-export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity; }
-export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
-export interface IPlaceWrapper<TPlace = string> { place?: TPlace; }
-export interface IPointsWrapper<TPoints> { points?: TPoints; }
-export interface IPopupWrapper<TPopup = boolean> { popup?: TPopup; }
-export interface IRefreshMapWrapper { refreshMap?: boolean; }
-export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
-export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
-export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
-export interface ISelectWrapper<TValue = string> { select?: TValue; }
-export interface ISortableWrapper { sortable?: boolean; }
-export interface ISorterWrapper<TEntity = IEntity> { sorter?(entity1: TEntity, entity2: TEntity): number; }
-export interface IStatusTextWrapper { statusText?: string; }
-export interface IStatusWrapper<TStatus = number> { status?: TStatus; }
-export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
-export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
-export interface ITitleWrapper { title?: string; }
-export interface ITplWrapper<TTpl> { tpl?: TTpl; }
-export interface IUpdateWrapper<TValue = string> { update?: TValue; }
-export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
-export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
-export interface IZoomWrapper { zoom?: number; }
-
 /**
  * @stable [14.05.2018]
  */
@@ -1085,13 +1085,6 @@ export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
  */
 export interface IApiEntityWrapper<TApiEntity> {
   apiEntity?: TApiEntity;
-}
-
-/**
- * @stable [11.09.2018]
- */
-export interface ITightGridWrapper {
-  tightGrid?: boolean;
 }
 
 /**

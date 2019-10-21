@@ -130,7 +130,6 @@ import {
   IStringArrayExcludeTargetsClassesWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
-  ITightGridWrapper,
   ITitleRendererWrapper,
   ITitleWrapper,
   ITotalEntityWrapper,
@@ -351,7 +350,6 @@ export interface IGridConfiguration extends IUniversalListConfiguration,
                                             IColumnsConfigurationWrapper<IGridColumnProps[]>,
                                             IExpandActionRenderedWrapper,
                                             IExpandedGroupsWrapper<any>,
-                                            ITightGridWrapper,
                                             IStickyHeadWrapper,
                                             ITotalEntityWrapper<IEntity> {
   topTotal?: boolean; // TODO

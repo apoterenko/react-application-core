@@ -22,6 +22,7 @@ import {
   IHeaderRenderedWrapper,
   IHeaderRendererWrapper,
   IHeaderWidthWrapper,
+  IIndexedColumnWrapper,
   IIndexWrapper,
   ILocalFilterWrapper,
   INameWrapper,
@@ -86,6 +87,7 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
     IOnClickWrapper<ISortDirectionEntity>,
     IOnColumnClickWrapper<IGridColumnProps<TEntity>>,
     ISorterWrapper<TEntity>,
+    IIndexedColumnWrapper,
     /**/
     IColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
     IColumnStylesWrapper<CSS.Properties | ((props: IGridColumnProps<TEntity>) => CSS.Properties)>,

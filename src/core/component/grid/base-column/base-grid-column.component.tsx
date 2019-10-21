@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { UniversalComponent } from '../../base';
 import {
@@ -10,6 +11,7 @@ import {
 } from '../../../util';
 import { IGridColumnProps } from '../../../definition';
 import { UNDEF_SYMBOL } from '../../../definitions.interface';
+import { FlexLayout } from '../../layout';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   extends UniversalComponent<TProps> {
@@ -21,7 +23,6 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    */
   protected getStyle(style?: TProps): React.CSSProperties {
     return defValuesFilter<React.CSSProperties, React.CSSProperties>({
-      textAlign: this.getTextAlign(style),
       width: nvl(style && style.width, this.props.width),
     });
   }
@@ -35,7 +36,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     const props = this.props;
     return joinClassName(
       'rac-grid-column',
-      ifNotNilThanValue(props.index, () => `rac-grid-column-${props.index}`),
+      props.indexedColumn === true && !R.isNil(props.index) && `rac-grid-column-${props.index}`,
       isOddNumber(props.index) && 'rac-grid-column-odd',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
@@ -52,20 +53,22 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     return ifNotNilThanValue(
       this.props.children,
       (children) => (
-        <div className={joinClassName('rac-grid-column-content', ...classNames)}>
-          {children}
-        </div>
+        <FlexLayout
+          row={this.props.sortable === true}
+          className={joinClassName('rac-grid-column-content', ...classNames)}>
+          {this.getColumnContentChildrenElement(children)}
+        </FlexLayout>
       ),
       UNDEF_SYMBOL
     );
   }
 
   /**
-   * @stable [18.10.2019]
-   * @param {TProps} style
-   * @returns {any}
+   * @stable [22.10.2019]
+   * @param {React.ReactNode} children
+   * @returns {React.ReactNode}
    */
-  protected getTextAlign(style?: TProps): any {
-    return style && style.align || this.props.align;
+  protected getColumnContentChildrenElement(children: React.ReactNode): React.ReactNode {
+    return children;
   }
 }

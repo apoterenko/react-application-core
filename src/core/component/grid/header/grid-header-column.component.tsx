@@ -13,7 +13,6 @@ import {
   orNull,
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
-import { FlexLayout } from '../../layout';
 
 export class GridHeaderColumn extends BaseGridColumn {
 
@@ -43,30 +42,24 @@ export class GridHeaderColumn extends BaseGridColumn {
             ...calc(props.headerStyles, props),
           }}
           colSpan={nvl(props.headerColSpan, props.colSpan)}
-          className={this.getClassName(
-            calc(props.headerClassName, props),
-            'rac-no-user-select'
-          )}>
-          {this.headerContentElement}
+          className={this.getClassName(calc(props.headerClassName, props), 'rac-no-user-select')}>
+          {this.getColumnContentElement()}
         </th>
       )
     );
   }
 
   /**
-   * @stable [17.10.2019]
-   * @returns {JSX.Element}
+   * @stable [22.10.2019]
+   * @param {React.ReactNode} children
+   * @returns {React.ReactNode}
    */
-  private get headerContentElement(): JSX.Element {
-    const props = this.props;
+  protected getColumnContentChildrenElement(children: React.ReactNode): React.ReactNode {
     return (
-      <FlexLayout
-        row={true}
-        justifyContentCenter={this.styles.textAlign === 'center'}
-      >
-        {this.getColumnContentElement()}
+      <React.Fragment>
+        {children}
         {
-          props.sortable && (
+          this.props.sortable && (
             <React.Fragment>
               {
                 this.uiFactory.makeIcon({
@@ -95,7 +88,7 @@ export class GridHeaderColumn extends BaseGridColumn {
             </React.Fragment>
           )
         }
-      </FlexLayout>
+      </React.Fragment>
     );
   }
 
