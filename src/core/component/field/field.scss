@@ -14,9 +14,10 @@
     }
   }
 
-  @include rac-field(                                                                         /* @stable [22.03.2019] */
+  @include rac-field (
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
+    $rac-self-field-border-radius: $rac-self-field-border-radius,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing
   );
 
@@ -271,7 +272,6 @@
       border-style: solid;                                            /* @stable [17.09.2018] */
       border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
-      border-radius: $rac-text-field-border-radius;                   /* @stable [17.09.2018] */
 
       .rac-field-input {
         font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
