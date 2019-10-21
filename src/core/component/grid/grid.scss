@@ -15,8 +15,6 @@
     $rac-grid-body-overflow: $rac-grid-body-overflow,
     $rac-grid-border-collapse: $rac-grid-border-collapse,
     $rac-grid-color: $rac-grid-color,
-    $rac-grid-column-align-center-content: true,
-    $rac-grid-column-align-right-content: true,
     $rac-grid-column-content-button-content-font-size: $rac-grid-column-content-button-content-font-size,
     $rac-grid-column-content-button-height: $rac-grid-column-content-button-height,
     $rac-grid-column-content-button-hover-background: $rac-grid-column-content-button-hover-background,
@@ -49,7 +47,7 @@
     $rac-grid-column-position: $rac-grid-column-position,
     $rac-grid-data-row-group-expanded-icon-color: $rac-grid-data-row-group-expanded-icon-color,
     $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
-    $rac-grid-data-row-selectable-cursor: pointer,
+    $rac-grid-data-row-selectable-cursor: $rac-grid-data-row-selectable-cursor,
     $rac-grid-data-row-total-background: $rac-grid-data-row-total-background,
     $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight,
     $rac-grid-display: $rac-grid-display,
@@ -63,6 +61,8 @@
     $rac-grid-head-column-content-text-field-background: $rac-grid-head-column-content-text-field-background,
     $rac-grid-head-column-content-text-field-border-color: $rac-grid-head-column-content-text-field-border-color,
     $rac-grid-head-column-content-text-field-height: $rac-grid-head-column-content-text-field-height,
+    $rac-grid-head-column-padding-bottom: $rac-grid-head-column-padding-bottom,
+    $rac-grid-head-column-padding-top: $rac-grid-head-column-padding-top,
     $rac-grid-head-column-sort-asc-action-margin: $rac-grid-head-column-sort-asc-action-margin,
     $rac-grid-head-column-sort-desc-action-margin: $rac-grid-head-column-sort-desc-action-margin,
     $rac-grid-head-column-sort-icon-background: $rac-grid-head-column-sort-icon-background,
@@ -70,14 +70,27 @@
     $rac-grid-head-column-sort-icon-content-opacity: $rac-grid-head-column-sort-icon-content-opacity,
     $rac-grid-head-column-sort-icon-content-size: $rac-grid-head-column-sort-icon-content-size,
     $rac-grid-head-column-sort-icon-size: $rac-grid-head-column-sort-icon-size,
+    $rac-grid-head-column-text-align: $rac-grid-head-column-text-align,
     $rac-grid-head-column-vertical-align: $rac-grid-head-column-vertical-align,
+    $rac-grid-head-column-white-space: $rac-grid-head-column-white-space,
     $rac-grid-head-filter-row-column-content-self-field-background: $rac-grid-head-filter-row-column-content-self-field-background,
     $rac-grid-head-filter-row-column-content-self-field-border-color: $rac-grid-head-filter-row-column-content-self-field-border-color,
     $rac-grid-head-filter-row-column-content-self-field-height: $rac-grid-head-filter-row-column-content-self-field-height,
+    $rac-grid-head-filter-row-column-content-self-field-input-color: $rac-grid-head-filter-row-column-content-self-field-input-color,
     $rac-grid-head-filter-row-column-padding-top: $rac-grid-head-filter-row-column-padding-top,
     $rac-grid-position: $rac-grid-position,
     $rac-grid-row-display: $rac-grid-row-display,
-    $rac-grid-row-padding: $rac-grid-row-padding
+    $rac-grid-row-padding: $rac-grid-row-padding,
+    $rac-grid-row-table-layout: $rac-grid-row-table-layout
+  );
+
+  /**
+   * @grid
+   * @stable [21.10.2019]
+   */
+  @include rac-grid (
+    $rac-grid-column-custom: $rac-grid-column-align-center-cls,
+    $rac-grid-column-content-self-field-input-text-align: $rac-grid-column-align-center-content-self-field-input-text-align
   );
 
   @include rac-grid(                                                                          /* @stable [07.01.2019] */
@@ -91,11 +104,6 @@
     .rac-grid-head {
 
       .rac-grid-column {
-        text-align: left;                                       /* @stable [21.06.2018] */
-        white-space: nowrap;                                    /* @stable [21.06.2018] */
-        font-weight: 400;                                       /* @stable [21.06.2018] */
-        padding-top: $rac-grid-head-column-padding-top;         /* @stable [15.09.2018] */
-        padding-bottom: $rac-grid-head-column-padding-bottom;   /* @stable [15.09.2018] */
 
         .rac-grid-column-content {
           white-space: normal;                                      /* @stable [17.08.2018] */
@@ -106,7 +114,6 @@
     }
 
     .rac-grid-row {       /* @stable [21.06.2018] */
-      table-layout: fixed;                                                   /* @stable [21.06.2018] */
       width: 100%;                                                           /* @stable [21.06.2018] */
       cursor: default;                                                       /* @stable [21.06.2018] */
 

@@ -3,7 +3,6 @@
 @import './addressfield/addressfield';
 @import './date-navigator/date-navigator';
 
-// Form field [FRAMEWORK-][RAC+]
 .rac {
 
   &.rac-ios, &.rac-mac {                                                                      /* @stable [10.04.2019] */
@@ -14,11 +13,16 @@
     }
   }
 
+  /**
+   * @field
+   * @stable [21.10.2019]
+   */
   @include rac-field (
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
     $rac-self-field-border-radius: $rac-self-field-border-radius,
-    $rac-self-field-box-sizing: $rac-self-field-box-sizing
+    $rac-self-field-box-sizing: $rac-self-field-box-sizing,
+    $rac-self-field-input-color: $rac-self-field-input-color
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
@@ -98,7 +102,6 @@
     $rac-text-field-input-background: $rac-text-field-input-background,
     $rac-text-field-input-width: $rac-text-field-input-width,
     $rac-text-field-input-font-size: $rac-text-field-input-font-size,
-    $rac-text-field-input-color: $rac-text-field-input-color,
     $rac-text-field-input-padding: $rac-text-field-input-padding,
     $rac-text-field-input-caret-position: absolute,
     $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,

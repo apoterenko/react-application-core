@@ -317,9 +317,9 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           joinClassName(
             'rac-grid-data-row',
             `rac-grid-data-row-${entity.id}`,
-            orUndef(props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum), 'rac-grid-data-row-odd'),
-            orUndef(props.hovered !== false, 'rac-grid-data-row-hovered'),
-            orUndef(isRowSelectable, 'rac-grid-data-row-selectable')
+            props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum) && 'rac-grid-data-row-odd',
+            props.hovered !== false && 'rac-grid-data-row-hovered',
+            isRowSelectable && 'rac-grid-data-row-selectable'
           )
         }
         selected={this.isEntitySelected(entity)}
