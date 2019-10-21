@@ -23,6 +23,7 @@
     $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
     $rac-grid-column-content-button-icon-color: $rac-grid-column-content-button-icon-color,
     $rac-grid-column-content-button-icon-size: $rac-grid-column-content-button-icon-size,
+    $rac-grid-column-content-flex: $rac-grid-column-content-flex,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
     $rac-grid-column-content-overflow: $rac-grid-column-content-overflow,
@@ -68,6 +69,9 @@
     $rac-grid-head-column-sort-icon-content-size: $rac-grid-head-column-sort-icon-content-size,
     $rac-grid-head-column-sort-icon-size: $rac-grid-head-column-sort-icon-size,
     $rac-grid-head-column-vertical-align: $rac-grid-head-column-vertical-align,
+    $rac-grid-head-filter-row-column-content-self-field-background: $rac-grid-head-filter-row-column-content-self-field-background,
+    $rac-grid-head-filter-row-column-content-self-field-height: $rac-grid-head-filter-row-column-content-self-field-height,
+    $rac-grid-head-filter-row-column-padding-top: $rac-grid-head-filter-row-column-padding-top,
     $rac-grid-position: $rac-grid-position,
     $rac-grid-row-display: $rac-grid-row-display,
     $rac-grid-row-padding: $rac-grid-row-padding
@@ -82,35 +86,6 @@
   .rac-grid {
 
     .rac-grid-head {
-
-      .rac-grid-filter-row {
-
-        .rac-grid-column {
-          padding-top: $rac-grid-head-filter-row-column-padding-top;         /* @stable [06.10.2018] */
-          padding-bottom: $rac-grid-head-filter-row-column-padding-bottom;   /* @stable [06.10.2018] */
-
-          .rac-grid-column-content {
-
-            .rac-field {
-
-              .rac-text-field {
-
-                .rac-icon {
-                  color: $rac-grid-head-color; // TODO
-                }
-
-                .rac-field-input {
-                  color: $rac-grid-head-color;                               /* @stable [06.10.2018] */
-
-                  &::placeholder {
-                    color: $rac-grid-head-color;                             /* @stable [09.10.2018] */
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
 
       .rac-grid-column {
         text-align: left;                                       /* @stable [21.06.2018] */
