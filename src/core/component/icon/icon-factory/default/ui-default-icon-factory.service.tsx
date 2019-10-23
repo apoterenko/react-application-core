@@ -9,6 +9,23 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
   // tslint:disable:max-line-length
   // https://svg2jsx.herokuapp.com/
   private static readonly SUPPORTED_ICONS_MAPS: Record<string, JSX.Element> = {
+    'check-sign': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+           width='10' height='10' viewBox='0 0 10 10'>
+        <defs>
+          <path
+            id='580296fa-0ac3-471c-8d48-c71541b55b55'
+            d='M3.125 7.75a.93.93 0 00.663-.277l6.03-6.146a.636.636 0 000-.892.62.62 0 00-.884 0L3.125 6.358 1.067 4.184a.619.619 0 00-.884 0 .636.636 0 000 .893l2.279 2.395a.927.927 0 00.662.277h.001z'
+          />
+        </defs>
+        <use
+          fill='currentColor'
+          fillRule='evenodd'
+          transform='translate(0 1)'
+          xlinkHref='#580296fa-0ac3-471c-8d48-c71541b55b55'
+        />
+      </svg>
+    ),
     'download': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
