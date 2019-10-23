@@ -18,9 +18,6 @@ import {
 import { TranslatorT } from '../../translation';
 import { ISettingsEntity } from '../../settings';
 import { IDateConverter, INumberConverter } from '../../converter';
-import {
-  IUniversalComponentCtor,
-} from '../../entities-definitions.interface';
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import {
@@ -30,13 +27,15 @@ import {
   IStorage,
   ITransport,
   IUniversalComponent,
+  IUniversalComponentCtor,
   IUniversalComponentEntity,
+  IUniversalComponentProps,
   IUniversalPlugin,
   IUniversalPluginCtor,
   UniversalPluginFactoryT,
 } from '../../definition';
 
-export class UniversalComponent<TProps extends IUniversalComponentEntity = IUniversalComponentEntity,
+export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {}>
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
@@ -69,8 +68,8 @@ export class UniversalComponent<TProps extends IUniversalComponentEntity = IUniv
   }
 
   /**
-   * @stable [18.12.2018]
-   * @param {Readonly<TProps extends IUniversalComponentEntity>} prevProps
+   * @stable [23.10.2019]
+   * @param {Readonly<TProps extends IUniversalComponentProps>} prevProps
    * @param {Readonly<TState>} prevState
    */
   public getSnapshotBeforeUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {

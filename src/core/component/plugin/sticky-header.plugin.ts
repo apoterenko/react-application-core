@@ -11,21 +11,22 @@ import {
   IDomAccessor,
   IEventManager,
   IUniversalPlugin,
-  IUniversalScrollableComponent,
-  IUniversalStickyComponentProps,
+  IScrollableComponent,
+  IStickyComponentProps,
 } from '../../definition';
 
 export class StickyHeaderPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
+
   private resizeUnsubscriber: () => void;
   private isStickyElementMounted = false;
 
   /**
    * @stable [11.10.2019]
-   * @param {IUniversalScrollableComponent} component
+   * @param {IScrollableComponent} component
    */
-  constructor(private component: IUniversalScrollableComponent<IUniversalStickyComponentProps>) {
+  constructor(private readonly component: IScrollableComponent<IStickyComponentProps>) {
     this.doSetStickyElementProperties = this.doSetStickyElementProperties.bind(this);
     component.onScroll = sequence(component.onScroll, this.doSetStickyElementProperties);
   }
@@ -93,6 +94,6 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
    * @returns {string}
    */
   private get stickySelector(): string {
-    return this.component.props.stickySelector;
+    return `.${this.component.props.stickyElementClassName}`;
   }
 }
