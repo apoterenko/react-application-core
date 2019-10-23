@@ -7,17 +7,16 @@ import {
   IUsePreviewWrapper,
   IViewerWrapper,
 } from '../../../definitions.interface';
-import { IReactComponentClassEntity } from '../../../entities-definitions.interface';
 import { IFieldState } from '../field/field.interface';
 import { IViewerProps } from '../../viewer/viewer.interface';
-import { ITransportRequestEntity } from '../../../definition';
+import { ITransportRequestEntity, IComponentCtor } from '../../../definition';
 
 /**
  * TODO IViewFieldEntity
  */
 export interface IViewFieldProps
   extends IFieldProps,
-    IViewerWrapper<IReactComponentClassEntity<IViewerProps>>,
+    IViewerWrapper<IComponentCtor<IViewerProps>>,
     IUsePreviewWrapper,
     IDetectFileTypeWrapper,
     IDetectFileTypeTransportConfigurationWrapper<ITransportRequestEntity> {

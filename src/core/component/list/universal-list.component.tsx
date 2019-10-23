@@ -6,6 +6,7 @@ import {
   isFn,
   pageFromNumber,
   pageToNumber,
+  SAME_ENTITY_PREDICATE,
   uuid,
 } from '../../util';
 import { IEntity } from '../../definitions.interface';
@@ -65,8 +66,7 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
   }
 
   /**
-   * @stable [23.04.2018]
-   * @param {IEntity} entity
+   * @deprecated Use props.onSelect
    */
   protected onSelect(entity: IEntity): void {
     const props = this.props;
@@ -76,7 +76,7 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
   }
 
   /**
-   * @stable [20.12.2018]
+   * @stable [23.10.2019]
    * @returns {boolean}
    */
   protected get isRowSelectable(): boolean {
@@ -84,13 +84,20 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
   }
 
   /**
-   * @stable [23.04.2018]
+   * @stable [23.10.2019]
+   * @returns {boolean}
+   */
+  protected get isRowHovered(): boolean {
+    return this.props.hovered !== false;
+  }
+
+  /**
+   * @stable [23.10.2019]
    * @param {IEntity} entity
    * @returns {boolean}
    */
   protected isEntitySelected(entity: IEntity): boolean {
-    const props = this.props;
-    return props.selected === entity || (props.selected && props.selected.id === entity.id);
+    return SAME_ENTITY_PREDICATE(this.props.selected, entity);
   }
 
   /**

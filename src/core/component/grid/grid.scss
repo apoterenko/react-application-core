@@ -49,11 +49,6 @@
     $rac-grid-column-padding-right: $rac-grid-column-padding-right,
     $rac-grid-column-position: $rac-grid-column-position,
     $rac-grid-cursor: $rac-grid-cursor,
-    $rac-grid-data-row-group-expanded-icon-color: $rac-grid-data-row-group-expanded-icon-color,
-    $rac-grid-data-row-odd-background: $rac-grid-data-row-odd-background,
-    $rac-grid-data-row-selectable-cursor: $rac-grid-data-row-selectable-cursor,
-    $rac-grid-data-row-total-background: $rac-grid-data-row-total-background,
-    $rac-grid-data-row-total-column-content-font-weight: $rac-grid-data-row-total-column-content-font-weight,
     $rac-grid-display: $rac-grid-display,
     $rac-grid-flex-direction: $rac-grid-flex-direction,
     $rac-grid-head-background: $rac-grid-head-background,
@@ -87,7 +82,12 @@
     $rac-grid-head-filter-row-column-padding-top: $rac-grid-head-filter-row-column-padding-top,
     $rac-grid-position: $rac-grid-position,
     $rac-grid-row-display: $rac-grid-row-display,
+    $rac-grid-row-group-expanded-background: $rac-grid-row-group-expanded-background,
+    $rac-grid-row-grouped-font-weight: $rac-grid-row-grouped-font-weight,
+    $rac-grid-row-odd-background: $rac-grid-row-odd-background,
     $rac-grid-row-padding: $rac-grid-row-padding,
+    $rac-grid-row-selectable-cursor: $rac-grid-row-selectable-cursor,
+    $rac-grid-row-selected-background: $rac-grid-row-selected-background,
     $rac-grid-row-table-layout: $rac-grid-row-table-layout,
     $rac-grid-row-width: $rac-grid-row-width
   );
@@ -113,35 +113,4 @@
     $rac-grid-column-content-self-field-input-text-align: $rac-grid-column-align-right-content-self-field-input-text-align,
     $rac-grid-column-content-text-align: $rac-grid-column-align-right-content-text-align
   );
-
-  .rac-grid {
-
-    .rac-grid-row {
-
-      &.rac-grid-data-row {
-
-        &.rac-grid-data-row-grouped {
-          font-weight: $rac-grid-data-row-grouped-font-weight;               /* @stable [01.09.2018] */
-          background: $rac-grid-data-row-grouped-background;                 /* @stable [27.06.2018] */
-          color: $rac-grid-data-row-grouped-color;                           /* @stable [05.10.2018] */
-
-          &.rac-grid-data-row-group-expanded {
-            background: $rac-grid-data-row-group-expanded-background;           /* @stable [10.10.2018] */
-          }
-        }
-
-        &.rac-grid-row-selected {
-          font-weight: $rac-grid-data-row-selected-font-weight;                 /* @stable [01.09.2018] */
-          background: $rac-grid-data-row-selected-background;                   /* @stable [21.06.2018] */
-        }
-
-        &:hover {
-
-          &.rac-grid-data-row-hovered {
-            background: $rac-grid-data-row-hover-background;                              /* @stable [04.10.2018] */
-          }
-        }
-      }
-    }
-  }
 }

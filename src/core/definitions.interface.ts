@@ -175,6 +175,8 @@ export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(): void; }
 export interface IGroupableWrapper { groupable?: boolean; }
 export interface IGroupByWrapper<TGroupBy> { groupBy?: TGroupBy; }
+export interface IGroupedWrapper { grouped?: boolean; }
+export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
@@ -183,13 +185,16 @@ export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
 export interface IHeaderWidthWrapper { headerWidth?: number; }
 export interface IHeightWrapper { height?: number; }
 export interface IHideWrapper { hide?(): void; }
+export interface IHighlightExpandedGroupWrapper { highlightExpandedGroup?: boolean; }
+export interface IHighlightOddWrapper { highlightOdd?: boolean; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
+export interface IHoveredWrapper { hovered?: boolean; }
 export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IIdWrapper<TId = number> { id?: TId; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
-export interface IIndexedColumnWrapper { indexedColumn?: boolean; }
+export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
@@ -244,6 +249,7 @@ export interface INextSectionWrapper<TValue = string> { nextSection?: TValue; }
 export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
 export interface INoShrinkWrapper { noShrink?: boolean; }
+export interface IOddWrapper { odd?: boolean; }
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
 export interface IOnClickWrapper<TValue = AnyT> { onClick?(payload?: TValue): void; }
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
@@ -337,6 +343,8 @@ export interface IScaleFactorWrapper<TScaleFactor = number> { scaleFactor?: TSca
 export interface IScaleWrapper<TScale = number> { scale?: TScale; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
+export interface ISelectableWrapper { selectable?: boolean; }
+export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
@@ -351,7 +359,8 @@ export interface IStackWrapper<TStack> { stack?: TStack; }
 export interface IStateWrapper<TState> { state?: TState; }
 export interface IStatusTextWrapper { statusText?: string; }
 export interface IStatusWrapper<TStatus = number> { status?: TStatus; }
-export interface IStickySelectorWrapper { stickySelector?: string; }
+export interface IStickyElementClassNameWrapper { stickyElementClassName?: string; }
+export interface IStickyHeadWrapper { stickyHead?: boolean; }
 export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
 export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
@@ -1094,24 +1103,6 @@ export interface ITotalEntityWrapper<TTotalEntity> {
   totalEntity?: TTotalEntity;
 }
 
-export interface IStickyHeadWrapper { stickyHead?: boolean; }
-export interface IApplyOddWrapper { applyOdd?: boolean; }
-export interface IApplyGroupWrapper { applyGroup?: boolean; }
-
-/**
- * @stable [04.10.2018]
- */
-export interface IHoveredWrapper {
-  hovered?: boolean;
-}
-
-/**
- * @stable [04.10.2018]
- */
-export interface ISelectableWrapper {
-  selectable?: boolean;
-}
-
 /* @stable - 12.04.2018 */
 export interface IExtraParamsWrapper<TExtraParams> {
   extraParams?: TExtraParams;
@@ -1350,15 +1341,6 @@ export interface IFilterFormWrapper<TFilterForm> {
  */
 export interface IFooterWrapper<TFooter = JSX.Element> {
   footer?: TFooter;
-}
-
-/* @stable - 05.04.2018 */
-export interface IExcludeTargetsClassesWrapper<TExcludeTargetsClasses> {
-  excludeTargetsClasses?: TExcludeTargetsClasses;
-}
-
-/* @stable - 05.04.2018 */
-export interface IStringArrayExcludeTargetsClassesWrapper extends IExcludeTargetsClassesWrapper<string[]> {
 }
 
 export interface ISubmitWrapper<TPayload = AnyT> { submit?(payload?: TPayload): void; }

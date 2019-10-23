@@ -4,9 +4,6 @@ import { IUiFactory } from '../../definition';
 export interface IUIFactory
   extends IUiFactory {
   list?: string;
-  switch?: string;
-  switchInput?: string;
-  switchInputWrapper?: string;
   snackbar?: string;
   snackbarText?: string;
   snackbarActionWrapper?: string;
@@ -29,8 +26,6 @@ export interface IUIFactory
   tabIndicatorContent?: string;
   tabIndicatorContentUnderline?: string;
   tabBarScroller?: string;
-  checkbox?: string;
-  checkboxInput?: string;
   card?: string;
   cardActions?: string;
   cardActionButtons?: string;
@@ -49,16 +44,4 @@ export interface IUIFactory
    * @returns {JSX.Element}
    */
   makeIcon?(config: IUniversalUIIconConfiguration | string): JSX.Element;
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
-  makeCheckboxAttachment?(): JSX.Element;
-
-  /**
-   * @stable [30.05.2018]
-   * @returns {JSX.Element}
-   */
-  makeSwitchAttachment?(): JSX.Element;
 }

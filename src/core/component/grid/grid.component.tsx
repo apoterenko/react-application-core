@@ -14,24 +14,28 @@ import {
   coalesce,
   isOddNumber,
   ifNotNilThanValue,
-  ifNotFalseThanValue,
 } from '../../util';
-import { Checkbox } from '../field';
-import { GridHeaderColumn } from './header';
-import { GridColumn } from './column';
 import { BaseList } from '../list';
-import { GridRow } from './row';
+import { Checkbox } from '../field';
 import { Field } from '../field';
-import { IGridState } from './grid.interface';
 import { FlexLayout } from '../layout';
+import { GridColumn } from './column';
+import {
+  GridHeader,
+  GridHeaderColumn,
+} from './header';
+import { GridRow } from './row';
+import { IGridState } from './grid.interface';
 import {
   IBaseEvent,
   IFieldChangeEntity,
   IGridColumnProps,
   ISortDirectionEntity,
-  UNIVERSAL_STICKY_ELEMENT_SELECTOR,
 } from '../../definition';
-import { filterAndSortGridOriginalDataSource, getGridColumnSortDirection } from './grid.support';
+import {
+  filterAndSortGridOriginalDataSource,
+  getGridColumnSortDirection,
+} from './grid.support';
 
 export class Grid extends BaseList<IGridProps, IGridState> {
 
@@ -41,13 +45,14 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   constructor(props: IGridProps) {
     super(props);
+    this.onSelect = this.onSelect.bind(this);
     this.onExpandAllGroups = this.onExpandAllGroups.bind(this);
 
     this.state = {filterChanges: {}, expandedGroups: {}, expandedAllGroups: false};
   }
 
   /**
-   * @stable [09.09.2018]
+   * @stable [23.10.2019]
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
@@ -61,19 +66,20 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         <table
           cellPadding={0}
           cellSpacing={0}
-          className={joinClassName('rac-grid', props.className)}>
-          <thead className={joinClassName('rac-grid-head', props.stickyHead && UNIVERSAL_STICKY_ELEMENT_SELECTOR)}>
+          className={joinClassName('rac-grid', props.className)}
+        >
+          <GridHeader stickyHead={props.stickyHead}>
             {this.headRowElement}
             {this.filterElement}
-          </thead>
+          </GridHeader>
           <tbody className='rac-grid-body'>
-            {ifNotFalseThanValue(props.topTotal, () => this.totalRowElement)}
+            {props.topTotal !== false && this.totalRowElement}
             {
               this.hasGrouping
                 ? this.getGroupedRows(dataSource)
                 : dataSource.map((entity, index) => this.getRow(entity, index, true))
             }
-            {orNull(props.topTotal === false, () => this.totalRowElement)}
+            {props.topTotal === false && this.totalRowElement}
           </tbody>
         </table>
         {this.addActionElement}
@@ -291,39 +297,25 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return null;
   }
 
-  /**
-   * @stable - 05.04.2018
-   * @param {IEntity} entity
-   * @param {number} rowNum
-   * @param {boolean} applyOddClassName
-   * @param {IEntity[]} groupedRows
-   * @returns {JSX.Element}
-   */
   private getRow(entity: IEntity,
                  rowNum: number,
-                 applyOddClassName: boolean,
+                 highlightOdd: boolean,
                  groupedRows?: IEntity[]): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
     const changes = props.changes;
     const entityChanges = changes[entity.id];
-    const isRowSelectable = this.isRowSelectable;
 
     return (
       <GridRow
-        ref={rowKey}
         key={rowKey}
-        className={
-          joinClassName(
-            'rac-grid-data-row',
-            `rac-grid-data-row-${entity.id}`,
-            props.applyOdd !== false && applyOddClassName && isOddNumber(rowNum) && 'rac-grid-data-row-odd',
-            props.hovered !== false && 'rac-grid-data-row-hovered',
-            isRowSelectable && 'rac-grid-data-row-selectable'
-          )
-        }
+        odd={props.highlightOdd !== false && highlightOdd && isOddNumber(rowNum)}
+        hovered={this.isRowHovered}
         selected={this.isEntitySelected(entity)}
-        onClick={orUndef(isRowSelectable, () => () => this.onSelect(entity))}>
+        selectable={this.isRowSelectable}
+        entity={entity}
+        onClick={props.onSelect}
+      >
         {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridColumn
@@ -355,7 +347,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       orNull(
         isAtLeastOneFilterExist,
         () => (
-          <GridRow className='rac-grid-filter-row'>
+          <GridRow filter={true}>
             {
               columns.map((column, columnNum) => (
                 <GridHeaderColumn key={this.toFilterColumnKey(columnNum)}
@@ -560,8 +552,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
 
       if (this.isGroupedRowExpanded(groupedRowValue)) {
-        const applyOddClassName = groupedRows.length > 1;
-        groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index, applyOddClassName, groupedRows)));
+        const highlightOdd = groupedRows.length > 1;
+        groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index, highlightOdd, groupedRows)));
       }
     });
     return rows;
@@ -585,11 +577,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return (
       <GridRow
         key={this.toGroupedRowKey(groupedRowValue)}
-        className={joinClassName(
-          'rac-grid-data-row',
-          'rac-grid-data-row-grouped',
-          props.applyGroup !== false && isExpanded && 'rac-grid-data-row-group-expanded'
-        )}>
+        grouped={true}
+        groupExpanded={isExpanded && props.highlightExpandedGroup !== false}>
         {
           columns.map((column, columnNum) => {
             const key = this.toGroupedColumnKey(groupedRowValue, columnNum);
@@ -620,7 +609,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                   </FlexLayout>
                 )
                 : (
-                  orNull<React.ReactNode>(
+                  orNull(
                     isGroupValueArray && isFn(groupValue[columnNum]),
                     () => groupValue[columnNum](groupedRowValue, groupedRows)
                   )

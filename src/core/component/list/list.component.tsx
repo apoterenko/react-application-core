@@ -44,7 +44,7 @@ export class List extends BaseList<IListProps> {
                 className={
                   toClassName(
                     props.itemConfiguration.className,
-                    props.applyOdd !== false && (isOddNumber(index) ? 'rac-list-item-odd' : '')
+                    props.highlightOdd !== false && (isOddNumber(index) ? 'rac-list-item-odd' : '')
                   )
                 }/>
     );

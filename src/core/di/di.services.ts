@@ -14,11 +14,10 @@ import {
   IStateSerializer,
   IStorage,
   ITransport,
-  IUniversalComponentEntity,
+  IUniversalComponentCtor,
   UniversalPluginFactoryT,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
-import { IUniversalComponentCtor } from '../entities-definitions.interface';
 import { staticInjector } from './di.support';
 import { TranslatorT } from '../translation';
 
@@ -41,7 +40,7 @@ export const getDateConverter = (): IDateConverter => staticInjector(DI_TYPES.Da
 export const getUiFactory = (): IUIFactory => staticInjector(DI_TYPES.UIFactory);
 
 /**
- * @stable [21.08.2019]
+ * @stable [23.10.2019]
  * @returns {Map<IUniversalComponentCtor, UniversalPluginFactoryT>}
  */
 export const getUiPlugins = (): Map<IUniversalComponentCtor, UniversalPluginFactoryT> => staticInjector(DI_TYPES.UIPlugins);

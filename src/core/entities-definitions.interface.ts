@@ -33,14 +33,12 @@ import {
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
 import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
-  IComponentProps,
   IEnvironment,
   IFieldChangeEntity,
   ILifeCycleEntity,
   IListEntity,
   IQueryFilterEntity,
   IUniversalComponent,
-  IUniversalComponentEntity,
 } from './definition';
 
 /**
@@ -48,20 +46,6 @@ import {
  */
 export interface IDateTimeEntity extends IDateWrapper,
                                          ITimeWrapper {
-}
-
-/**
- * @stable [23.04.2018]
- */
-export interface IUniversalComponentCtor<TProps extends IUniversalComponentEntity = IUniversalComponentEntity, TState = {}>
-  extends ComponentClass<TProps, TState> {
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IReactComponentClassEntity<TProps extends IComponentProps = IComponentProps, TState = {}>
-  extends IUniversalComponentCtor<TProps, TState> {
 }
 
 /**
@@ -132,11 +116,6 @@ export interface IGridEntity extends IListEntity,
 
 /* @stable - 04.04.2018 */
 export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
-}
-
-/* @stable - 05.04.2018 */
-export interface IGridRowEntity extends ISelectedWrapper,
-                                        IReactOnClickWrapper {
 }
 
 /* @stable [23.04.2018] */

@@ -1,29 +1,30 @@
-import { ComponentLifecycle } from 'react';
+import * as React from 'react';
 
 import {
   IUniversalComponent,
   IUniversalComponentEntity,
 } from './component-definition.interface';
+import { IUniversalComponentProps } from './props-definition.interface';
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
-export interface IUniversalPlugin<TProps = {}, TState = {}>
-  extends ComponentLifecycle<TProps, TState> {
+export interface IUniversalPlugin<TProps extends IUniversalComponentProps = {}, TState = {}>
+  extends React.ComponentLifecycle<TProps, TState> {
 }
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
 export type UniversalPluginFactoryT = (component: IUniversalComponent) => IUniversalPlugin;
 
 /**
- * @reactNativeCompatible
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
 export type IUniversalPluginCtor<TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
-  TProps extends IUniversalComponentEntity = IUniversalComponentEntity,
-  TState = {}>
+                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,
+                                 TState = {}>
   = new(component: TComponent) => IUniversalPlugin<TProps, TState>;

@@ -36,7 +36,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     const props = this.props;
     return joinClassName(
       'rac-grid-column',
-      props.indexedColumn === true && !R.isNil(props.index) && `rac-grid-column-${props.index}`,
+      props.indexed === true && !R.isNil(props.index) && `rac-grid-column-${props.index}`,
       isOddNumber(props.index) && 'rac-grid-column-odd',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
