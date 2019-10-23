@@ -13,11 +13,11 @@ import {
   IMenu,
 } from '../../../definition';
 
-export class BasicSelect<TProps extends IBaseSelectProps,
-                         TState extends IBasicSelectState>
+export class BaseSelect<TProps extends IBaseSelectProps,
+                        TState extends IBasicSelectState>
     extends BaseTextField<TProps, TState> {
 
-  protected static logger = LoggerFactory.makeLogger('BasicSelect');
+  protected static logger = LoggerFactory.makeLogger('BaseSelect');
 
   /**
    * @stable [15.09.2018]
@@ -156,22 +156,15 @@ export class BasicSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [06.10.2018]
-   * @returns {string}
-   */
-  protected getInputWrapperElementClassName(): string {
-    return joinClassName(
-      super.getInputWrapperElementClassName(),
-      'rac-flex-column'  // popup menu
-    );
-  }
-
-  /**
    * @stable [20.08.2018]
    * @returns {ISelectOptionEntity[]}
    */
   protected toFilteredOptions(): ISelectOptionEntity[] {
     return this.options;
+  }
+
+  protected getFieldClassName(): string {
+    return joinClassName(super.getFieldClassName(), 'rac-base-select');
   }
 
   /**
@@ -257,7 +250,7 @@ export class BasicSelect<TProps extends IBaseSelectProps,
     if (filteredOptions.length) {
       this.menu.show();
     } else {
-      BasicSelect.logger.debug('[$BasicSelect][showMenu] The options are empty. The menu does not show.');
+      BaseSelect.logger.debug('[$BasicSelect][showMenu] The options are empty. The menu does not show.');
     }
   }
 

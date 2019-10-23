@@ -3,6 +3,14 @@ import JQuery from 'jquery';
 import { IXYEntity } from './xy-definition.interface';
 
 /**
+ * @stable [23.10.2019]
+ */
+export enum ElementsMarkersEnum {
+  SELECTED_ELEMENT_817ACCF6 = 'rac-element-817accf6',
+  STICKY_ELEMENT_275B4646 = 'rac-element-275b4646',
+}
+
+/**
  * @stable [29.09.2019]
  */
 export interface IJQueryElement<TElement extends Element = Element>
@@ -31,6 +39,7 @@ export interface IDomAccessor {
   getScrollInfo(el: Element): IXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
+  hasClasses(target: Element, ...classNames: string[]): boolean;
   hasElements(selector: string | Element, target: Element): boolean;
   hasParent(selector: string, target: Element): boolean;
   isAlreadyFocused(): boolean;

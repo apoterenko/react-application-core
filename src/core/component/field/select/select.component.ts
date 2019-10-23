@@ -1,9 +1,9 @@
-import { BasicSelect } from './basic-select.component';
+import { BaseSelect } from './basic-select.component';
 import { ISelectInternalProps, ISelectInternalState } from './select.interface';
 import { ISelectOptionEntity } from '../../../definition';
 import { joinClassName } from '../../../util';
 
-export class Select extends BasicSelect<ISelectInternalProps, ISelectInternalState> {
+export class Select extends BaseSelect<ISelectInternalProps, ISelectInternalState> {
 
   public static defaultProps: ISelectInternalProps = {
     forceReload: true,

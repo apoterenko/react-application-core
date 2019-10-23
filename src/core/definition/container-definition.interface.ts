@@ -8,11 +8,23 @@ import {
   ITitleWrapper,
 } from '../definitions.interface';
 import { IContainerProps, IUniversalContainerProps } from './props-definition.interface';
-import { IUniversalStoreEntity } from './redux-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
+import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
+
+/**
+ * @react-native-compatible
+ * @stable [23.10.2019]
+ */
+export const UniversalScrollableContext = React.createContext(null);
+
+/**
+ * @react-native-compatible
+ * @stable [23.10.2019]
+ */
+export const UniversalStickyContext = React.createContext(null);
 
 /**
  * @react-native-compatible

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { EntityIdT, IKeyboardEvent, AnyT } from '../../../definitions.interface';
-import { BasicSelect } from '../../field/select';
+import { BaseSelect } from '../../field/select';
 import { IMultiFieldState, IMultiFieldProps, IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 import { toClassName } from '../../../util';
@@ -13,7 +13,7 @@ import {
 
 export class MultiField<TProps extends IMultiFieldProps,
                         TState extends IMultiFieldState>
-  extends BasicSelect<TProps, TState>
+  extends BaseSelect<TProps, TState>
   implements IMultiField {
 
   /**

@@ -5,16 +5,20 @@
 
 .rac {
 
-  &.rac-ios, &.rac-mac {                                                                      /* @stable [10.04.2019] */
+  /**
+   * @abstract-field
+   * @stable [21.10.2019]
+   */
+  &.rac-ios, &.rac-mac {
     &.rac-safari {
       @include rac-field(
-        $rac-self-field-input-placeholder-padding: 4px 0 0 0
+        $rac-self-field-input-placeholder-padding: $rac-offset-0 0 0 0
       );
     }
   }
 
   /**
-   * @field
+   * @abstract-field
    * @stable [21.10.2019]
    */
   @include rac-field (
@@ -22,17 +26,74 @@
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
     $rac-self-field-border-radius: $rac-self-field-border-radius,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
-    $rac-self-field-input-color: $rac-self-field-input-color
+    $rac-self-field-display: $rac-self-field-display,
+    $rac-self-field-input-color: $rac-self-field-input-color,
+    $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display
+  );
+
+  /**
+   * @base-field
+   * @stable [23.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-cls,
+    $rac-self-field-height: $rac-base-text-self-field-height,
+    $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex
+  );
+
+  /**
+   * @base-field
+   * @stable [23.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-select-cls,
+    $rac-self-field-input-wrapper-flex-direction: $rac-base-select-self-field-input-wrapper-flex-direction /* Menu */
+  );
+
+  /**
+   * @base-field
+   * @stable [23.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-checkbox-cls,
+    $rac-self-field-align-items: $rac-base-checkbox-self-field-align-items,
+    $rac-self-field-label-line-height: $rac-base-checkbox-self-field-label-line-height,
+    $rac-self-field-label-margin: $rac-base-checkbox-self-field-label-margin
+  );
+
+  /**
+   * @base-field
+   * @stable [24.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: rac-build-cls2($rac-base-checkbox-cls, $rac-base-checked-cls),
+    $rac-self-field-input-wrapper-background: $rac-base-checkbox-checked-self-field-input-wrapper-background
+  );
+
+  /**
+   * @custom-field
+   * @stable [23.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-checkbox-cls,
+    $rac-self-field-input-cursor: $rac-checkbox-self-field-input-cursor,
+    $rac-self-field-input-icon-color: $rac-checkbox-self-field-input-icon-color,
+    $rac-self-field-input-icon-size: $rac-checkbox-self-field-input-icon-size,
+    $rac-self-field-input-opacity: $rac-checkbox-self-field-input-opacity,
+    $rac-self-field-input-position: $rac-checkbox-self-field-input-position,
+    $rac-self-field-input-size: $rac-checkbox-self-field-input-size,
+    $rac-self-field-input-wrapper-align-items: $rac-checkbox-self-field-input-wrapper-align-items,
+    $rac-self-field-input-wrapper-background: $rac-checkbox-self-field-input-wrapper-background,
+    $rac-self-field-input-wrapper-border-radius: $rac-checkbox-self-field-input-wrapper-border-radius,
+    $rac-self-field-input-wrapper-border: $rac-checkbox-self-field-input-wrapper-border,
+    $rac-self-field-input-wrapper-justify-content: $rac-checkbox-self-field-input-wrapper-justify-content,
+    $rac-self-field-input-wrapper-position: $rac-checkbox-self-field-input-wrapper-position,
+    $rac-self-field-input-wrapper-size: $rac-checkbox-self-field-input-wrapper-size
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
     $rac-field-custom: $rac-view-field-cls,
     $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
-  );
-
-  @include rac-field(                                                                         /* @stable [02.05.2019] */
-    $rac-field-custom: rac-base-text-field,
-    $rac-self-field-height: $rac-text-field-height
   );
 
   @include rac-field(                                                                         /* @stable [22.03.2019] */
@@ -55,15 +116,13 @@
   @include rac-field(                                                                         /* @stable [27.08.2019] */
     $rac-field-custom: $rac-switch-cls,
     $rac-self-field-height: $rac-switch-self-field-height,
-    $rac-self-field-input-opacity: $rac-switch-self-field-input-opacity,
-    $rac-self-field-input-flex-width: $rac-switch-self-field-input-flex-width,
     $rac-self-field-input-flex-height: $rac-switch-self-field-input-flex-height,
-    $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
-    $rac-self-field-input-wrapper-position: $rac-switch-self-field-input-wrapper-position,
+    $rac-self-field-input-flex-width: $rac-switch-self-field-input-flex-width,
+    $rac-self-field-input-opacity: $rac-switch-self-field-input-opacity,
     $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
-    $rac-self-field-input-wrapper-flex-width: $rac-switch-self-field-input-wrapper-flex-width,
     $rac-self-field-input-wrapper-flex-height: $rac-switch-self-field-input-wrapper-flex-height,
-    $rac-self-field-label-margin: $rac-switch-self-field-label-margin,
+    $rac-self-field-input-wrapper-flex-width: $rac-switch-self-field-input-wrapper-flex-width,
+    $rac-self-field-input-wrapper-position: $rac-switch-self-field-input-wrapper-position,
     $rac-self-field-label-white-space: $rac-switch-self-field-label-white-space
   );
 
@@ -241,13 +300,6 @@
       }
     }
 
-    &.rac-checkbox {
-
-      .rac-field-label {
-        line-height: $rac-checkbox-field-label-line-height;                    /* @stable [17.09.2018] */
-      }
-    }
-
     &.rac-select, &.rac-multi-field {
 
       & > .rac-text-field {
@@ -263,11 +315,9 @@
 
     .rac-field-label {
       white-space: nowrap;                                            /* @stable [08.08.2018] */
-      height: $rac-field-label-height;                                /* @stable [19.09.2018] */
       color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
       font-size: $rac-field-label-font-size;                          /* @stable [03.10.2018] */
       font-weight: $rac-field-label-font-weight;                      /* @stable [03.10.2018] */
-      text-transform: $rac-field-label-text-transform;                /* @stable [03.10.2018] */
     }
 
     .rac-text-field {

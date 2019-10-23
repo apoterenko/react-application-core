@@ -4,14 +4,15 @@ import {
   AnyT,
   IClassNameWrapper,
   IGetSelfWrapper,
-  IOnScrollWrapper,
   IPluginsWrapper,
-  IStickySelectorWrapper,
   IStyleWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
 import { IUniversalPluginCtor } from './plugin-definition.interface';
-import { IUniversalComponentProps, IComponentProps } from './props-definition.interface';
+import {
+  IComponentProps,
+  IUniversalComponentProps,
+} from './props-definition.interface';
 
 /**
  * @browser-compatible
@@ -34,15 +35,6 @@ export interface IUniversalComponentEntity
 
 /**
  * @react-native-compatible
- * @stable [16.10.2019]
- */
-export interface IUniversalStickyComponentEntity
-  extends IUniversalComponentEntity,
-    IStickySelectorWrapper {
-}
-
-/**
- * @react-native-compatible
  * @stable [22.09.2019]
  */
 export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
@@ -51,18 +43,23 @@ export interface IUniversalComponent<TProps extends IUniversalComponentProps = I
 }
 
 /**
- * @react-native-compatible
- * @stable [22.09.2019]
- */
-export interface IUniversalScrollableComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
-  TState = {}>
-  extends IUniversalComponent<TProps, TState>,
-    IOnScrollWrapper {
-}
-
-/**
  * @stable [27.09.2019]
  */
 export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
   extends IUniversalComponent<TProps, TState> {
+}
+
+/**
+ * @react-native-compatible
+ * @stable [23.10.2019]
+ */
+export interface IUniversalComponentCtor<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+  extends React.ComponentClass<TProps, TState> {
+}
+
+/**
+ * @stable [23.10.2019]
+ */
+export interface IComponentCtor<TProps extends IComponentProps = IComponentProps, TState = {}>
+  extends IUniversalComponentCtor<TProps, TState> {
 }

@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  cancelEvent,
   defValuesFilter,
+  handlerPropsFactory,
   ifNotNilThanValue,
   isElementFocused,
+  joinClassName,
   orNull,
   orUndef,
   toClassName,
@@ -271,7 +272,6 @@ export class Field<TInternalProps extends IFieldInternalProps,
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
     const onChange = this.onChange;
-    const onClick = orUndef(!this.isFieldInactive(), () => this.onClick);
     const onKeyDown = orUndef(!this.isFieldInactive(), () => this.onKeyDown);
     const onKeyUp = orUndef(!this.isFieldInactive(), () => this.onKeyUp);
     const value = this.displayValue;
@@ -279,21 +279,13 @@ export class Field<TInternalProps extends IFieldInternalProps,
     return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
       name, type, step, readOnly, disabled, pattern, minLength, placeholder,
       maxLength, rows, cols, tabIndex,
-      onFocus, onBlur, onClick, onChange, onKeyDown, onKeyUp, autoComplete,
+      onFocus, onBlur, onChange, onKeyDown, onKeyUp, autoComplete,
+      ...handlerPropsFactory(this.onClick, !this.isFieldInactive()),
       ref: 'input',
       value,
       required: this.isFieldRequired(),
       className: 'rac-field-input rac-flex-full',
     });
-  }
-
-  /**
-   * @stable [18.06.2018]
-   * @param {IBaseEvent} event
-   */
-  protected onClick(event: IBaseEvent): void {
-    cancelEvent(event);
-    super.onClick(event);
   }
 
   /**
@@ -333,23 +325,22 @@ export class Field<TInternalProps extends IFieldInternalProps,
   }
 
   /**
-   * @stable [31.05.2019]
+   * @stable [23.10.2019]
    * @returns {string}
    */
   protected getInputWrapperElementClassName(): string {
-    return toClassName(
-      'rac-field-input-wrapper',
-      'rac-flex',
-      'rac-flex-full'
-    );
+    return 'rac-field-input-wrapper';
   }
 
   /**
-   * stable [18.06.2018]
+   * @stable [24.10.2019]
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return toClassName('rac-self-field', !this.isFieldVisible() && 'rac-invisible');
+    return joinClassName(
+      'rac-self-field',
+      !this.isFieldVisible() && 'rac-invisible'
+    );
   }
 
   /**

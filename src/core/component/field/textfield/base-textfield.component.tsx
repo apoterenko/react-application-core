@@ -66,16 +66,11 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [07.11.2018]
+   * @stable [24.10.2019]
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return joinClassName(
-      super.getSelfElementClassName(),
-      'rac-text-field',
-      'rac-flex',
-      'rac-flex-row'
-    );
+    return joinClassName(super.getSelfElementClassName(), 'rac-text-field');
   }
 
   protected addClearAction(): void {
@@ -167,11 +162,11 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [21.09.2018]
+   * @stable [23.10.2019]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-base-text-field');
+    return joinClassName(super.getFieldClassName(), 'rac-base-text');
   }
 
   /**

@@ -10,6 +10,13 @@ import {
 } from '../definitions.interface';
 
 /**
+ * @stable [23.10.2019]
+ */
+export enum FlexClassNamesEnum {
+  FULL = 'rac-flex-full',
+}
+
+/**
  * @stable [05.02.2019]
  */
 export interface IFlexLayoutEntity

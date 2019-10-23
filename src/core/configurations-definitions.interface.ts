@@ -12,8 +12,8 @@ import {
   IActiveWrapper,
   IAfterEnterWrapper,
   IAliasWrapper,
-  IApplyGroupWrapper,
-  IApplyOddWrapper,
+  IHighlightExpandedGroupWrapper,
+  IHighlightOddWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IAvatarWrapper,
@@ -35,7 +35,6 @@ import {
   IChildrenWrapper,
   IClassNameWrapper,
   IClearActionWrapper,
-  IColumnNameWrapper,
   IComputedMatchWrapper,
   IContentStyleWrapper,
   IContentWrapper,
@@ -51,7 +50,6 @@ import {
   IEmptyMessageWrapper,
   IEntity,
   IEntityToClassNameWrapper,
-  IEntityWrapper,
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
   IExactWrapper,
@@ -113,7 +111,6 @@ import {
   IPathWrapper,
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
-  IQueryWrapper,
   IRenderedWrapper,
   IRendererWrapper,
   IRenderToBodyWrapper,
@@ -127,7 +124,6 @@ import {
   ISorterWrapper,
   IStepWrapper,
   IStickyHeadWrapper,
-  IStringArrayExcludeTargetsClassesWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
@@ -314,8 +310,8 @@ export interface IUniversalListConfiguration
           IOnChangeFilterWrapper<IFieldChangeEntity>,
           IItemConfigurationWrapper<TItemConfiguration>,
           IDeactivatedWrapper,
-          IApplyOddWrapper,
-          IApplyGroupWrapper,
+          IHighlightOddWrapper,
+          IHighlightExpandedGroupWrapper,
           IHoveredWrapper,
           IFullWrapper,
           ISelectableWrapper,
@@ -612,11 +608,6 @@ export interface IRnModalConfiguration extends IUniversalComponentEntity,
                                                IShadowStyleWrapper<IKeyValue>,
                                                IHasContentWrapperWrapper,
                                                ICenterAlignmentWrapper {
-}
-
-/* @stable [23.04.2018] */
-export interface IGridRowConfiguration extends IComponentProps,
-                                               IStringArrayExcludeTargetsClassesWrapper {
 }
 
 /* @stable - 08.04.2018 */
