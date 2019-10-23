@@ -12,6 +12,7 @@ import {
   getHeight,
   getScrollLeft,
   getScrollTop,
+  hasClasses,
   hasElements,
   hasParent,
   openFullScreen,
@@ -40,6 +41,16 @@ import { ISettingsEntity, IBootstrapSettings } from '../../settings';
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [22.10.2019]
+   * @param {Element} target
+   * @param {string} classNames
+   * @returns {boolean}
+   */
+  public hasClasses(target: Element, ...classNames: string[]): boolean {
+    return hasClasses(target, ...classNames);
+  }
 
   /**
    * @stable [16.10.2019]

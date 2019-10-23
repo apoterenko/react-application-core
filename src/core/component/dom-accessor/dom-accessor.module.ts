@@ -1,5 +1,7 @@
-import { appContainer, DI_TYPES } from '../../di';
-
+import { bindInSingleton, DI_TYPES } from '../../di';
 import { DomAccessor } from './dom-accessor.service';
 
-appContainer.bind(DI_TYPES.DomAccessor).to(DomAccessor).inSingletonScope();
+/**
+ * @stable [22.10.2019]
+ */
+bindInSingleton(DI_TYPES.DomAccessor, DomAccessor);
