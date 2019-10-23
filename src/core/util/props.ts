@@ -4,16 +4,17 @@ import { cancelEvent } from './event';
 import { getEnvironment } from '../di/di.services';
 import { ifNotFalseThanValue } from './cond';
 import { isFn } from './type';
+import { IBaseEvent } from '../definition';
 
 /**
- * @stable [23.09.2019]
- * @param {() => void} handler
+ * @stable [22.10.2019]
+ * @param {(e?: IBaseEvent) => void} handler
  * @param {boolean} canAttachHandler
  * @param {boolean} touched
- * @returns {React.DetailedHTMLProps<React.HTMLAttributes<TElement extends HTMLElement>, TElement extends HTMLElement>}
+ * @returns {Partial<React.DetailedHTMLProps<React.HTMLAttributes<TElement extends HTMLElement>, TElement extends HTMLElement>>}
  */
 export const handlerPropsFactory =
-  <TElement extends HTMLElement>(handler: () => void,
+  <TElement extends HTMLElement>(handler: (e?: IBaseEvent) => void,
                                  canAttachHandler = true,
                                  touched = true): Partial<React.DetailedHTMLProps<React.HTMLAttributes<TElement>, TElement>> => ({
     ...ifNotFalseThanValue(
@@ -24,7 +25,7 @@ export const handlerPropsFactory =
 
         onTouchStart: (e) => {
           cancelEvent(e, true);
-          handler();
+          handler(e);
         },
       }),
     ),
@@ -33,7 +34,7 @@ export const handlerPropsFactory =
       (): React.DOMAttributes<HTMLElement> => ({
         onClick: (e) => {
           cancelEvent(e);
-          handler();
+          handler(e);
         },
       }),
     ),

@@ -7,7 +7,10 @@ import { ENV } from '../env';
 import { fromUrlToBlob } from './blob';
 import { isFn } from './type';
 import { nvl } from './nvl';
-import { notNilValuesArrayFilter } from './filter';
+import {
+  notNilValuesArrayFilter,
+  trueValuesArrayFilter,
+} from './filter';
 import {
   AnyT,
   UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
@@ -337,6 +340,17 @@ export const getParents = <TJqElement extends IJQueryElement = IJQueryElement>(s
  */
 export const hasParent = (selector: string, target: Element): boolean =>
   getParents(selector, target).length > 0;
+
+/**
+ * @stable [22.10.2019]
+ * @param {Element} target
+ * @param {string} classNames
+ * @returns {boolean}
+ */
+export const hasClasses = (target: Element, ...classNames: string[]): boolean => {
+  const el = toJqEl(target);
+  return trueValuesArrayFilter(...classNames.map((className) => el.hasClass(className))).length > 0;
+};
 
 /**
  * @stable [16.02.2019]

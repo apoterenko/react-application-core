@@ -83,7 +83,7 @@ export function cloneUsingTimeFieldsFilters<TSource extends IKeyValue, TResult e
  */
 export const SAME_ENTITY_PREDICATE =
   <TEntity extends IEntityIdTWrapper = IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity) =>
-    entity1 === entity2 || entity1.id === entity2.id;
+    entity1 === entity2 || (!R.isNil(entity1) && !R.isNil(entity2) && entity1.id === entity2.id);
 
 /**
  * @stable [03.10.2019]
@@ -168,11 +168,12 @@ export const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_E
 export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
 
 /**
- * @stable [19.12.2018]
+ * @stable [22.10.2019]
  * @param {AnyT} value
  * @returns {boolean}
+ * @constructor
  */
-export const TRUE_VALUE_PREDICATE = (value: AnyT) => !!value;
+export const TRUE_VALUE_PREDICATE = (value: AnyT) => value === true;
 
 /**
  * @stable [03.10.2018]
@@ -211,7 +212,7 @@ export const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => 
 export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
 
 /**
- * @stable [19.12.2018]
+ * @stable [22.10.2019]
  * @param {TValue} data
  * @returns {TValue[]}
  */
