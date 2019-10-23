@@ -7,33 +7,11 @@ import {
   IBaseCheckboxInputProps,
 } from './checkbox.interface';
 import { IBaseEvent } from '../../../definition';
-import { noop } from '../../../util';
-import { FlexLayout } from '../../layout';
+import { noop, joinClassName } from '../../../util';
 
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
-  extends Field<TProps,
-                TState> {
-
-  /**
-   * @stable [17.12.2018]
-   * @param {JSX.Element} body
-   * @returns {JSX.Element}
-   */
-  protected getWrapperElement(body: JSX.Element): JSX.Element {
-    const props = this.props;
-    return (
-      <div className={this.getFieldClassName()}>
-        <FlexLayout
-          row={true}
-          alignItemsCenter={true}>
-          {body}
-        </FlexLayout>
-        {this.getMessageElement()}
-        {props.required && this.getErrorMessageElement()}
-      </div>
-    );
-  }
+  extends Field<TProps, TState> {
 
   /**
    * @stable [31.08.2018]
@@ -46,7 +24,7 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
       type: 'checkbox',
 
       /**
-       * Needed for entity initializing
+       * Needed for entity initialization
        * @stable [17.08.2018]
        */
       checked: this.displayValue,
@@ -60,17 +38,24 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   }
 
   /**
-   * @stable [31.08.2018]
+   * @stable [23.10.2019]
    * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
-    const props = this.props;
-
-    // A workaround to any framework implementation
     this.onChangeManually(!this.value);
 
-    if (props.onClick) {
-      props.onClick(event);
-    }
+    super.onClick(event);
+  }
+
+  /**
+   * @stable [24.10.2019]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return joinClassName(
+      super.getFieldClassName(),
+      'rac-base-checkbox',
+      this.value && 'rac-base-checked'
+    );
   }
 }

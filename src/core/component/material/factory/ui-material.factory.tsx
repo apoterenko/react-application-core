@@ -258,9 +258,6 @@ export class UIMaterialFactory implements IUIFactory {
   private static logger = LoggerFactory.makeLogger('UIMaterialFactory');
 
   public list = 'mdc-list';
-  public switch = 'mdc-switch';
-  public switchInput = 'mdc-switch__native-control';
-  public switchInputWrapper = 'mdc-switch__thumb-underlay';
   public snackbar = 'mdc-snackbar';
   public snackbarText = 'mdc-snackbar__text';
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
@@ -283,8 +280,6 @@ export class UIMaterialFactory implements IUIFactory {
   public tabBarScroller = 'mdc-tab-scroller';
   public listItemMeta = 'mdc-list-item__meta';
   public listDivider = 'mdc-list-divider';
-  public checkbox = 'mdc-checkbox';
-  public checkboxInput = 'mdc-checkbox__native-control';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';
@@ -342,29 +337,6 @@ export class UIMaterialFactory implements IUIFactory {
         {uiIconCtor || <FontAwesomeIcon icon={iconCtor}/>}
       </FlexLayout>
     );
-  }
-
-  public makeCheckboxAttachment(): JSX.Element {
-    return (
-      <div className='mdc-checkbox__background'>
-        <svg className='mdc-checkbox__checkmark'
-             viewBox='0 0 24 24'>
-          <path className='mdc-checkbox__checkmark-path'
-                fill='none'
-                stroke='white'
-                d='M1.73,12.91 8.1,19.28 22.79,4.59'/>
-        </svg>
-        <div className='mdc-checkbox__mixedmark'/>
-      </div>
-    );
-  }
-
-  /**
-   * @stable [30.08.2018]
-   * @returns {JSX.Element}
-   */
-  public makeSwitchAttachment(): JSX.Element {
-    return <div className='mdc-switch__track'/>;
   }
 
   /**

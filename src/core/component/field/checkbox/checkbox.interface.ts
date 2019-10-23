@@ -29,9 +29,3 @@ export interface ICheckboxProps extends IBaseCheckboxProps {
  */
 export interface IBaseCheckboxInputProps extends IFieldInputProps {
 }
-
-/**
- * @stable [31.08.2018]
- */
-export interface ICheckboxInputProps extends IBaseCheckboxInputProps {
-}
