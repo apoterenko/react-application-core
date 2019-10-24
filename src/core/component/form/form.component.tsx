@@ -43,7 +43,6 @@ import {
   INITIAL_FORM_ENTITY,
 } from '../../definition';
 import { apiEntityFactory } from '../../api';
-import { IFieldProps } from '../../props-definitions.interface';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
