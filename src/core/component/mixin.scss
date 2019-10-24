@@ -2241,7 +2241,7 @@
   $rac-grid-flex-direction: unset,                                                /* @stable [21.10.2019] */
   $rac-grid-head-background: unset,                                               /* @stable [21.10.2019] */
   $rac-grid-head-border-radius: unset,
-  $rac-grid-head-color: unset,
+  $rac-grid-head-color: unset,                                                    /* @stable [24.10.2019] */
   $rac-grid-head-column-active-sort-icon-background: unset,
   $rac-grid-head-column-active-sort-icon-color: unset,
   $rac-grid-head-column-active-sort-icon-content-opacity: unset,
@@ -2288,7 +2288,6 @@
   $rac-grid-row-selectable-cursor: unset,                                         /* @stable [21.10.2019] */
   $rac-grid-row-selected-background: unset,                                       /* @stable [22.10.2019] */
   $rac-grid-row-table-layout: unset,                                              /* @stable [21.10.2019] */
-  $rac-grid-row-total-background: unset,
   $rac-grid-row-total-column-content-font-weight: unset,
   $rac-grid-row-width: unset,                                                     /* @stable [21.10.2019] */
   $rac-grid-width: unset                                                          /* @stable [18.10.2019] */
@@ -2431,9 +2430,9 @@
 
     .rac-grid-head {
       @include rac-styles (
-        $rac-styles-color: $rac-grid-head-color,
+        $rac-styles-background: $rac-grid-head-background,
         $rac-styles-border-radius: $rac-grid-head-border-radius,
-        $rac-styles-background: $rac-grid-head-background
+        $rac-styles-color: $rac-grid-head-color
       );
 
       @include rac-grid-column (

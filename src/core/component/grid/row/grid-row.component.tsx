@@ -50,7 +50,7 @@ export class GridRow extends BaseComponent<IGridRowProps> {
               props.selectable && 'rac-grid-row-selectable',
               props.selected && `rac-grid-row-selected ${selectedElementClassName}`
             )}
-            {...handlerPropsFactory(this.onClick, props.selectable && isFn(props.onClick))}
+            {...handlerPropsFactory(this.onClick, props.selectable === true && isFn(props.onClick))}
           >
             {props.children}
           </tr>
