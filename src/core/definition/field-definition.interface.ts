@@ -1,7 +1,10 @@
 import {
+  AnyT,
   EntityIdT,
   IAutoFocusWrapper,
+  IDefaultValueWrapper,
   IDisabledWrapper,
+  IDisplayValueWrapper,
   IEmptyValueWrapper,
   IEntity,
   IFieldRenderedWrapper,
@@ -10,6 +13,7 @@ import {
   ILabelWrapper,
   IMaskWrapper,
   INameWrapper,
+  IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
   IPreventFocusWrapper,
@@ -23,8 +27,8 @@ import {
   IUseKeyboardWrapper,
   IValueWrapper,
   IVisibleWrapper,
-  UNDEF,
   StringNumberT,
+  UNDEF,
 } from '../definitions.interface';
 import { IMultiEntity } from './entity-definition.interface';
 
@@ -39,13 +43,16 @@ export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
  */
 export interface IGenericFieldEntity
   extends IAutoFocusWrapper,
+    IDefaultValueWrapper,
     IDisabledWrapper,
+    IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
     IFullWrapper,
     ILabelWrapper,
     IMaskWrapper,
     INameWrapper,
+    IOriginalValueWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
     IPreventFocusWrapper,
@@ -56,6 +63,7 @@ export interface IGenericFieldEntity
     ITabIndexWrapper,
     ITypeWrapper<StringNumberT>,
     IUseKeyboardWrapper,
+    IValueWrapper,
     IVisibleWrapper {
 }
 

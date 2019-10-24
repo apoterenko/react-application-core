@@ -14,8 +14,8 @@ import {
   ICaretVisibilityWrapper,
   ICaretPositionWrapper,
 } from '../../../definitions.interface';
-import { IFieldEntity, IUniversalField } from '../../../entities-definitions.interface';
-import { IFieldConfiguration } from '../../../configurations-definitions.interface';
+import { IUniversalField } from '../../../entities-definitions.interface';
+import { IFieldProps } from '../../../configurations-definitions.interface';
 
 /**
  * @stable [17.06.2018]
@@ -48,15 +48,6 @@ export interface IUniversalFieldState extends IStringErrorWrapper,
 export interface IFieldState extends IUniversalFieldState {
 }
 
-export interface IFieldInternalProps extends IFieldConfiguration,
-                                             IFieldEntity {
-  minLength?: number;
-  maxLength?: number;
-  rows?: number;
-  cols?: number;
-  dispatchValue?(rawValue: AnyT); // TODO
-}
-
 /**
  * @stable [18.06.2018]
  */
@@ -78,7 +69,7 @@ export interface INativeMaskedInputComponent extends Component {
   inputElement: HTMLInputElement;
 }
 
-export interface IField<TProps extends IFieldInternalProps = IFieldInternalProps,
+export interface IField<TProps extends IFieldProps = IFieldProps,
                         TState extends IFieldState = IFieldState>
     extends IUniversalField<TProps, TState, IKeyboardEvent, IFocusEvent>,
             IInputWrapper {

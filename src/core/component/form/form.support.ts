@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { IFieldConfiguration, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
+import { IFieldProps, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IFormProps, IGenericFormEntity } from '../../definition';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
 import { isFormEntityDisabled, isFormEntityValid } from '../../util';
@@ -8,11 +8,11 @@ import { isFormEntityDisabled, isFormEntityValid } from '../../util';
 /**
  * @stable [29.05.2018]
  * @param {IFormProps} formProps
- * @param {IFieldConfiguration} fieldProps
+ * @param {IFieldProps} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldDisabled = (formProps: IGenericFormEntity,
-                                    fieldProps: IFieldConfiguration): boolean =>
+                                    fieldProps: IFieldProps): boolean =>
   R.isNil(fieldProps.disabled)
     ? isFormEntityDisabled(formProps)
     : fieldProps.disabled === true;
@@ -20,11 +20,11 @@ export const isFormFieldDisabled = (formProps: IGenericFormEntity,
 /**
  * @stable [16.11.2018]
  * @param {IFormProps} formProps
- * @param {IFieldConfiguration} fieldProps
+ * @param {IFieldProps} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldChangeable = (formProps: IFormProps,
-                                      fieldProps: IFieldConfiguration): boolean =>
+                                      fieldProps: IFieldProps): boolean =>
   R.isNil(fieldProps.changeable)
     ? isFormChangeable(formProps)
     : fieldProps.changeable !== false;

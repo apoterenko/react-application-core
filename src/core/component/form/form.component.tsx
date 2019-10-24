@@ -21,11 +21,11 @@ import {
 } from '../../util';
 import { AnyT, IEntity } from '../../definitions.interface';
 import { IApiEntity, IEditableEntity } from '../../definition';
-import { IFieldConfiguration, IFieldsConfigurations } from '../../configurations-definitions.interface';
+import { IFieldProps, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
-import { Field, IFieldInternalProps, IField } from '../field';
+import { Field, IFieldProps, IField } from '../field';
 import {
   isFormFieldDisabled,
   isFormOfNewEntity,
@@ -73,13 +73,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
 
     this.childrenMap.clear();
     const nodes = (
-      cloneReactNodes<IFieldInternalProps>(
+      cloneReactNodes<IFieldProps>(
         this,
         (field: IField) => {
           const fieldProps = field.props;
           const predefinedOptions = this.getPredefinedFieldProps(field);
 
-          return defValuesFilter<IFieldInternalProps, IFieldInternalProps>(
+          return defValuesFilter<IFieldProps, IFieldProps>(
             {
               value: this.getFieldValue(field),
               originalValue: this.getFieldOriginalValue(field),
@@ -103,7 +103,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
               ...predefinedOptions,
 
               // The fields props have a higher priority
-              ...defValuesFilter<IFieldConfiguration, IFieldConfiguration>({
+              ...defValuesFilter<IFieldProps, IFieldProps>({
                 label: fieldProps.label,
                 type: fieldProps.type,
                 placeholder: fieldProps.placeholder,
@@ -114,7 +114,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         },
         (child) => Field.isPrototypeOf(child.type),
         this.childrenMap,
-        (child) => (child.props as IFieldInternalProps).rendered,
+        (child) => (child.props as IFieldProps).rendered,
       )
     );
 
@@ -254,7 +254,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       return;
     }
     this.childrenMap.forEach((uuidRef, child) => {
-      const childProps = child.props as IFieldInternalProps;
+      const childProps = child.props as IFieldProps;
       const groupName = childProps.validationGroup;
       const fieldName = childProps.name;
 
@@ -360,7 +360,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     return orUndef(fieldProps.name && originalEntity, () => Reflect.get(originalEntity, fieldProps.name));
   }
 
-  private getFieldDisplayValue(field: IField, fieldConfiguration: IFieldConfiguration): string {
+  private getFieldDisplayValue(field: IField, fieldConfiguration: IFieldProps): string {
     const fieldProps = field.props;
     const fieldDisplayName = fieldProps.displayName || (fieldConfiguration ? fieldConfiguration.displayName : null);
 

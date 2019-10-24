@@ -4,7 +4,6 @@ import {
   AnyT,
   IClearValueWrapper,
   IDateWrapper,
-  IDisplayValueWrapper,
   IEntity,
   IFilterWrapper,
   IFromDateFromTimeEntity,
@@ -17,7 +16,6 @@ import {
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
   IOpenWrapper,
-  IOriginalValueWrapper,
   IRawDataWrapper,
   IResetErrorWrapper,
   ISelectedWrapper,
@@ -46,20 +44,6 @@ import {
  */
 export interface IDateTimeEntity extends IDateWrapper,
                                          ITimeWrapper {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IUniversalFieldEntity extends IValueWrapper,
-                                               IOriginalValueWrapper,
-                                               IDisplayValueWrapper<string | ((value: AnyT) => string)> {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IFieldEntity extends IUniversalFieldEntity {
 }
 
 /**

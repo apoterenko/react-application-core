@@ -128,6 +128,7 @@ export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
+export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
@@ -141,6 +142,7 @@ export interface IDirectionWrapper<TDirection = string> { direction?: TDirection
 export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisplayNameWrapper { displayName?: string; }
+export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: TDisplayValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
@@ -256,7 +258,7 @@ export interface IOnClickWrapper<TValue = AnyT> { onClick?(payload?: TValue): vo
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(payload?: TValue): void; }
 export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
-export interface IOnDelayWrapper { onDelay?(): () => void; }
+export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
 export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue; }
@@ -767,13 +769,6 @@ export interface ITotalCountWrapper<TTotalCount = number> {
  */
 export interface IFontSizeWrapper {
   fontSize?: number;
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IDisplayValueWrapper<TDisplayValue = AnyT> {
-  displayValue?: TDisplayValue;
 }
 
 /**
@@ -1516,13 +1511,6 @@ export interface IAppVersionWrapper {
  */
 export interface IStepWrapper<TStep = number> {
   step?: TStep;
-}
-
-/**
- * @stable [22.10.2018]
- */
-export interface IDefaultValue<TDefaultValue = AnyT> {
-  defaultValue?: TDefaultValue;
 }
 
 /**

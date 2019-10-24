@@ -1,10 +1,7 @@
 import {
-  IUniversalFieldEntity,
-  IFieldEntity,
   IGridEntity,
 } from './entities-definitions.interface';
 import {
-  IFieldConfiguration,
   IListConfiguration,
   IRnListConfiguration,
   IGridConfiguration,
@@ -21,15 +18,7 @@ import { ITabPanelEntity, IListEntity } from './definition';
 export interface IUniversalFieldProps<TKeyboardEvent = AnyT,
                                       TFocusEvent = AnyT,
                                       TBasicEvent = AnyT>
-  extends IUniversalFieldEntity,
-          IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IFieldProps extends IFieldEntity,
-                                     IFieldConfiguration {
+  extends IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent> {
 }
 
 /**

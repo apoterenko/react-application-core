@@ -38,7 +38,7 @@ import {
   IContentStyleWrapper,
   IContentWrapper,
   IDeactivatedWrapper,
-  IDefaultValue,
+  IDefaultValueWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
   IDisplayNameWrapper,
@@ -146,6 +146,7 @@ import {
   IApiEntity,
   IBaseEvent,
   IComponentProps,
+  IDelayedChangesEntity,
   IFieldChangeEntity,
   IGenericFieldEntity,
   IGridColumnProps,
@@ -185,7 +186,7 @@ export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfi
 /**
  * @stable [18.05.2018]
  */
-export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldConfiguration> {
+export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldProps> {
   fieldConfiguration?: TFieldConfiguration;
 }
 
@@ -444,6 +445,7 @@ export interface IKeyboardConfiguration extends IComponentProps,
  */
 export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
   extends IGenericFieldEntity,
+          IDelayedChangesEntity,
           IUniversalComponentEntity,
           IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
           IOnFocusWrapper<IFocusEvent>,
@@ -463,15 +465,13 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IValidateWrapper<string>,
           IUseSyntheticCursorWrapper,
           IChangeableWrapper,
-          IDefaultValue {
-  delayTimeout?: number;
+          IDefaultValueWrapper {
   bufferValue?: boolean;
   preventManualChanges?: boolean; // TODO
-  dispatchValue?(rawValue: AnyT); // TODO
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeyboardEvent,
+export interface IFieldProps extends IUniversalFieldConfiguration<IKeyboardEvent,
                                                                           IFocusEvent,
                                                                           IBaseEvent>,
                                              IWebComponentEntity,
@@ -484,13 +484,17 @@ export interface IFieldConfiguration extends IUniversalFieldConfiguration<IKeybo
                                              IDisplayNameWrapper,
                                              IClearActionWrapper,
                                              IStepWrapper {
+  minLength?: number;
+  maxLength?: number;
+  rows?: number;
+  cols?: number;
 }
 
 /**
  * @stable [18.06.2018]
  */
 export interface IFieldsConfigurations {
-  [fieldName: string]: string | IFieldConfiguration | ((field) => IFieldConfiguration | string);
+  [fieldName: string]: string | IFieldProps | ((field) => IFieldProps | string);
 }
 
 /* @stable - 14.04.2018 */

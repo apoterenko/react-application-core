@@ -21,7 +21,7 @@ import {
 import {
   IField,
   IFieldInputProps,
-  IFieldInternalProps,
+  IFieldProps,
   IFieldState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
@@ -32,7 +32,7 @@ import {
   IJQueryElement,
 } from '../../../definition';
 
-export class Field<TInternalProps extends IFieldInternalProps,
+export class Field<TInternalProps extends IFieldProps,
                    TState extends IFieldState = IFieldState>
     extends UniversalField<TInternalProps,
                            TState,

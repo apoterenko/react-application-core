@@ -1,4 +1,4 @@
-import { IFieldState, IFieldInternalProps, IFieldInputProps } from '../field';
+import { IFieldState, IFieldProps, IFieldInputProps } from '../field';
 
 /**
  * @stable [31.08.2018]
@@ -9,7 +9,7 @@ export interface IBaseCheckboxState extends IFieldState {
 /**
  * @stable [31.08.2018]
  */
-export interface IBaseCheckboxProps extends IFieldInternalProps {
+export interface IBaseCheckboxProps extends IFieldProps {
 }
 
 /**

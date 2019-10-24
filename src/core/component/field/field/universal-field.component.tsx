@@ -771,7 +771,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
     if (!isFn(props.changeForm)) {
       return;
     }
-    props.changeForm(props.name, props.dispatchValue ? props.dispatchValue(rawValue) : rawValue, props.validationGroup);
+    props.changeForm(props.name, rawValue, props.validationGroup);
   }
 
   /**

@@ -1,16 +1,17 @@
 import {
+  EntityIdT,
   IDisplayValueWrapper,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
+  IMenuConfigurationWrapper,
   INeedToOpenMenuWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
   IPayloadWrapper,
   IQueryWrapper,
-  IMenuConfigurationWrapper,
 } from '../../../definitions.interface';
 import { ISelectOptionEntity, IMenuProps } from '../../../definition';
-import { IFieldConfiguration } from '../../../configurations-definitions.interface';
+import { IFieldProps } from '../../../configurations-definitions.interface';
 import {
   IBaseTextFieldProps,
 } from '../textfield/base-textfield.interface';
@@ -21,13 +22,13 @@ import { IFieldState } from '../field/field.interface';
  */
 export interface IBasicSelectState extends IFieldState,
                                            INeedToOpenMenuWrapper,
-                                           IDisplayValueWrapper {
+                                           IDisplayValueWrapper<string | EntityIdT> {
 }
 
 /**
  * @stable [15.09.2018]
  */
-export interface IBasicSelectConfiguration extends IFieldConfiguration,
+export interface IBasicSelectConfiguration extends IFieldProps,
                                                    IExpandActionRenderedWrapper {
   onClose?(): void;
 }

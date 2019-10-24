@@ -1,4 +1,4 @@
-import { IField, IFieldState, IFieldInternalProps } from '../field/field.interface';
+import { IField, IFieldState, IFieldProps } from '../field/field.interface';
 
 /**
  * @stable [25.02.2019]
@@ -9,7 +9,7 @@ export interface IBaseTextFieldState extends IFieldState {
 /**
  * @stable [25.02.2019]
  */
-export interface IBaseTextFieldProps extends IFieldInternalProps {
+export interface IBaseTextFieldProps extends IFieldProps {
 }
 
 /**
