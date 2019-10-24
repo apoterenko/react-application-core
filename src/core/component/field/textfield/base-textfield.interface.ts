@@ -1,4 +1,5 @@
-import { IField, IFieldState, IFieldProps } from '../field/field.interface';
+import { IField, IFieldState } from '../field/field.interface';
+import { IFieldProps } from '../../../configurations-definitions.interface';
 
 /**
  * @stable [25.02.2019]
