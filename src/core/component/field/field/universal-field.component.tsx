@@ -13,6 +13,7 @@ import {
   isFocusPrevented,
   isKeyboardUsed,
   isUndef,
+  isVisible,
   orDefault,
   orNull,
   orUndef,
@@ -29,7 +30,6 @@ import {
   isFieldChangeable,
   toActualChangedValue,
   isFieldDisabled,
-  isFieldVisible,
 } from './field.support';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
@@ -492,11 +492,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [18.06.2019]
+   * @stable [25.10.2019]
    * @returns {boolean}
    */
-  protected isFieldVisible(): boolean {
-    return isFieldVisible(this.props);
+  protected get isVisible(): boolean {
+    return isVisible(this.props);
   }
 
   /**

@@ -337,10 +337,8 @@ export class Field<TInternalProps extends IFieldInternalProps,
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return joinClassName(
-      'rac-self-field',
-      !this.isFieldVisible() && 'rac-invisible'
-    );
+    // A field may be invisible, but attachment - visible
+    return joinClassName('rac-self-field', !this.isVisible && 'rac-invisible');
   }
 
   /**

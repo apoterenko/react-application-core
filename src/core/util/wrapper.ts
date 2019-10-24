@@ -1,10 +1,9 @@
-import * as R from 'ramda';
-
 import {
   IPreventFocusWrapper,
   IProgressWrapper,
   IUseKeyboardWrapper,
   IValidWrapper,
+  IVisibleWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
 
@@ -14,11 +13,7 @@ import { ifNotNilThanValue } from './cond';
  * @returns {boolean}
  */
 export const isValid = (validEntity: IValidWrapper): boolean =>
-  ifNotNilThanValue(
-    validEntity,
-    () => R.isNil(validEntity.valid) || validEntity.valid === true,
-    true
-  );
+  ifNotNilThanValue(validEntity, () => validEntity.valid !== false, false);
 
 /**
  * @stable [24.10.2019]
@@ -26,11 +21,7 @@ export const isValid = (validEntity: IValidWrapper): boolean =>
  * @returns {boolean}
  */
 export const isFocusPrevented = (preventFocusEntity: IPreventFocusWrapper): boolean =>
-  ifNotNilThanValue(
-    preventFocusEntity,
-    () => preventFocusEntity.preventFocus === true,
-    false
-  );
+  ifNotNilThanValue(preventFocusEntity, () => preventFocusEntity.preventFocus === true, false);
 
 /**
  * @stable [24.10.2019]
@@ -38,11 +29,7 @@ export const isFocusPrevented = (preventFocusEntity: IPreventFocusWrapper): bool
  * @returns {boolean}
  */
 export const inProgress = (progressEntity: IProgressWrapper): boolean =>
-  ifNotNilThanValue(
-    progressEntity,
-    () => progressEntity.progress === true,
-    false
-  );
+  ifNotNilThanValue(progressEntity, () => progressEntity.progress === true, false);
 
 /**
  * @stable [24.10.2019]
@@ -50,8 +37,12 @@ export const inProgress = (progressEntity: IProgressWrapper): boolean =>
  * @returns {boolean}
  */
 export const isKeyboardUsed = (useKeyboardEntity: IUseKeyboardWrapper): boolean =>
-  ifNotNilThanValue(
-    useKeyboardEntity,
-    () => useKeyboardEntity.useKeyboard === true,
-    false
-  );
+  ifNotNilThanValue(useKeyboardEntity, () => useKeyboardEntity.useKeyboard === true, false);
+
+/**
+ * @stable [25.10.2019]
+ * @param {IVisibleWrapper} visibleEntity
+ * @returns {boolean}
+ */
+export const isVisible = (visibleEntity: IVisibleWrapper): boolean =>
+  ifNotNilThanValue(visibleEntity, () => visibleEntity.visible !== false, false);

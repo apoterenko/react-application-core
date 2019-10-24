@@ -59,13 +59,6 @@ html, body {
     $rac-styles-font-weight: bold
   );
 
-  @include rac-styles(                                                                        /* @stable [18.06.2019] */
-    $rac-styles-custom: rac-invisible,
-    $rac-styles-position: absolute !important,
-    $rac-styles-top: -10000px,
-    $rac-styles-left: -10000px
-  );
-
   @include rac-styles(                                                                        /* @stable [20.01.2019] */
     $rac-styles-custom: rac-absolute-full,
     $rac-styles-position: absolute,

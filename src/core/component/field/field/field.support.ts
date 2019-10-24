@@ -41,13 +41,6 @@ export const isFieldRequired = (props: IUniversalFieldProps): boolean => calc<bo
 export const isFieldDisabled = (props: IGenericFieldEntity): boolean => props.disabled === true;
 
 /**
- * @stable [18.06.2019]
- * @param {IGenericFieldEntity} props
- * @returns {boolean}
- */
-export const isFieldVisible = (props: IGenericFieldEntity): boolean => props.visible !== false;
-
-/**
  * @stable [27.05.2019]
  * @param {IGenericFieldEntity} props
  * @returns {boolean}

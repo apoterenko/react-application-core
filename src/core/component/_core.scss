@@ -101,4 +101,15 @@
     $rac-styles-custom: rac-strong,
     $rac-styles-font-weight: $rac-font-weight-2
   );
+
+  /**
+   * @styling
+   * @stable [25.10.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-invisible,
+    $rac-styles-position: absolute !important,
+    $rac-styles-top: -10000px,
+    $rac-styles-left: -10000px
+  );
 }
