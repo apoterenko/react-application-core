@@ -1,6 +1,5 @@
 import {
-  IXYEntity,
-  IUniversalComponentEntity,
+  IScrollableComponentProps,
   ILayoutEntity,
 } from '../../../definition';
 import {
@@ -11,17 +10,15 @@ import {
   IItemsWrapper,
   IKeyValue,
   IOnGroupClickWrapper,
-  IOnScrollWrapper,
 } from '../../../definitions.interface';
 
 /**
  * @stable [10.08.2018]
  */
 export interface INavigationListProps
-  extends IUniversalComponentEntity,
+  extends IScrollableComponentProps,
     IExpandedGroupsWrapper<IKeyValue>,
     IItemsWrapper<INavigationListItemConfiguration[]>,
-    IOnScrollWrapper<IXYEntity>,
     IOnGroupClickWrapper<INavigationListItemConfiguration>,
     ILayoutEntity {
   dividerRendered?: boolean;

@@ -8,49 +8,35 @@ import { ListDivider } from '../../list';
 import { FlexLayout } from '../../layout';
 import {
   INavigationItemEntity,
+  IScrollableEntity,
   LayoutModeEnum,
   NavigationItemTypesEnum,
 } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
-import { IOnScrollWrapper } from '../../../definitions.interface';
 
-export class NavigationList extends UniversalComponent<INavigationListProps>
-  implements IOnScrollWrapper {
-
-  /**
-   * @stable [11.08.2018]
-   * @param {INavigationListProps} props
-   */
-  constructor(props: INavigationListProps) {
-    super(props);
-    this.toElement = this.toElement.bind(this);
-  }
+export class NavigationList
+  extends UniversalComponent<INavigationListProps>
+  implements IScrollableEntity {
 
   /**
-   * @stable [23.09.2018]
+   * @stable [24.10.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     return (
-        <nav ref='self'
-             className='rac-navigation-list rac-no-user-select'
-             onScroll={this.onScroll}>
-          <ListDivider/>
-          {this.props.items.map(this.toElement)}
-        </nav>
+      <nav
+        ref={this.selfRef}
+        className='rac-navigation-list rac-no-user-select'
+        onScroll={this.onScroll}
+      >
+        <ListDivider/>
+        {this.props.items.map(this.toElement, this)}
+      </nav>
     );
   }
 
   /**
-   * @stable [17.12.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-    this.domAccessor.scrollTo(this.props, this.getSelf());
-  }
-
-  /**
-   * @stable [22.09.2019]
+   * @stable [24.10.2019]
    */
   public onScroll(): void {
     // Each plugin should override this method

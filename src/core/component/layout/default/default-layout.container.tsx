@@ -33,7 +33,11 @@ import {
   LayoutModeEnum,
 } from '../../../definition';
 import { Overlay } from '../../overlay';
-import { ScrollPlugin } from '../../plugin';
+import {
+  PersistentScrollPlugin,
+  SelectedElementPlugin,
+  StickyHeaderPlugin,
+} from '../../plugin';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
@@ -238,7 +242,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                         items={this.menuItems}
                         onScroll={this.onNavigationListScroll}
                         onGroupClick={this.onNavigationListGroupClick}
-                        plugins={ScrollPlugin}/>
+                        plugins={[PersistentScrollPlugin]}/>
       </Drawer>
     );
   }
@@ -264,7 +268,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const title = props.title || (runtimeTitle && runtimeTitle.label);
 
     return (
-      <Main>
+      <Main plugins={[StickyHeaderPlugin, SelectedElementPlugin]}>
         <SubHeader {...props.headerConfiguration}
                    title={title}
                    onNavigationActionClick={this.onHeaderNavigationActionClick}

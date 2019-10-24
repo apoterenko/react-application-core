@@ -1,61 +1,67 @@
-import * as R from 'ramda';
-
 import { DI_TYPES, lazyInject } from '../../di';
 import {
   IDomAccessor,
+  IScrollableComponent,
+  IScrollableComponentProps,
   IUniversalPlugin,
-  IUniversalScrollableComponent,
+  IXYEntity,
 } from '../../definition';
+import {
+  DelayedTask,
+  isFn,
+  sequence,
+} from '../../util';
 
 export class PersistentScrollPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
-
-  private top: number;
-  private left: number;
+  private scrollTask: DelayedTask;
 
   /**
-   * @stable [13.12.2018]
-   * @param {IUniversalScrollableComponent} component
+   * @stable [24.10.2019]
+   * @param {IScrollableComponent<IScrollableComponentProps>} component
    */
-  constructor(private component: IUniversalScrollableComponent) {
+  constructor(private readonly component: IScrollableComponent<IScrollableComponentProps>) {
+    if (isFn(component.onScroll) && isFn(component.props.onScroll)) {
+      this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
+      component.onScroll = sequence(component.onScroll, this.onScroll, this);
+    }
   }
 
   /**
-   * @stable [18.12.2018]
+   * @stable [23.10.2019]
    */
   public componentDidMount() {
-    this.scrollToUniversalSelectedElement();
+    // Props contain x/y
+    this.domAccessor.scrollTo(this.component.props, this.component.getSelf());
   }
 
   /**
-   * @stable [18.12.2018]
+   * @stable [24.10.2019]
    */
-  public componentDidUpdate() {
-    if (this.top) {
-      this.domAccessor.setScrollTop(this.component.getSelf(), this.top);
-    }
-    if (this.left) {
-      this.domAccessor.setScrollLeft(this.component.getSelf(), this.left);
-    }
+  public componentWillUnmount(): void {
+    this.scrollTask.stop();
   }
 
   /**
-   * @stable [18.12.2018]
+   * @stable [23.10.2019]
+   * @returns {IXYEntity}
    */
-  public getSnapshotBeforeUpdate(): void {
-    this.top = this.domAccessor.getScrollTop(this.component.getSelf());
-    this.left = this.domAccessor.getScrollLeft(this.component.getSelf());
-    return null;
+  private getScrollInfo(): IXYEntity {
+    return this.domAccessor.getScrollInfo(this.component.getSelf());
   }
 
   /**
-   * @stable [18.12.2018]
+   * @stable [24.10.2019]
    */
-  private scrollToUniversalSelectedElement(): void {
-    const self = this.component.getSelf();
-    const selectedElement = this.domAccessor.findUniversalSelectedElement(self);
-    if (!R.isNil(selectedElement)) {
-      this.domAccessor.scrollTo(selectedElement, self);
-    }
+  private onScroll(): void {
+    this.scrollTask.start();
+  }
+
+  /**
+   * @stable [24.10.2019]
+   */
+  private doScroll(): void {
+    const component = this.component;
+    component.props.onScroll(this.domAccessor.getScrollInfo(component.getSelf()));
   }
 }

@@ -1,46 +1,54 @@
 import * as React from 'react';
 
-import { IOnScrollWrapper } from '../../definitions.interface';
-import { IComponentProps, UNIVERSAL_STICKY_ELEMENT_SELECTOR } from '../../definition';
-import { toClassName } from '../../util';
+import {
+  ElementsMarkersEnum,
+  FlexClassNamesEnum,
+  IMainProps,
+  IScrollableEntity,
+  UniversalScrollableContext,
+  UniversalStickyContext,
+} from '../../definition';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout';
-import { StickyHeaderPlugin, PersistentScrollPlugin } from '../plugin';
+import { joinClassName } from '../../util';
 
-export class Main extends BaseComponent
-  implements IOnScrollWrapper {
+export class Main extends BaseComponent<IMainProps>
+  implements IScrollableEntity {
 
-  public static readonly defaultProps = {
-    stickySelector: `.${UNIVERSAL_STICKY_ELEMENT_SELECTOR}`,
+  public static readonly defaultProps: IMainProps = {
+    stickyElementClassName: ElementsMarkersEnum.STICKY_ELEMENT_275B4646,
+    selectedElementClassName: ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6,
   };
 
   /**
-   * @stable [13.12.2018]
-   * @param {IComponentProps} props
-   */
-  constructor(props: IComponentProps) {
-    super(props);
-    this.onScroll = this.onScroll.bind(this);
-    this.registerPlugin(StickyHeaderPlugin);
-    this.registerPlugin(PersistentScrollPlugin);
-  }
-
-  /**
-   * @stable [12.10.2018]
+   * @stable [23.10.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <div className={toClassName('rac-main rac-flex-full', props.className)}>
-        <div ref={this.selfRef}
-             className='rac-main-body-wrapper'
-             onScroll={this.onScroll}>
-          <FlexLayout className='rac-main-body'>
-            {props.children}
-          </FlexLayout>
-        </div>
-      </div>
+      <UniversalStickyContext.Provider value={props.stickyElementClassName}>
+        <UniversalScrollableContext.Provider value={props.selectedElementClassName}>
+          <div
+            className={
+              joinClassName(
+                'rac-main',
+                FlexClassNamesEnum.FULL,
+                props.className
+              )
+            }>
+            <div
+              ref={this.selfRef}
+              className='rac-main-body-wrapper'
+              onScroll={this.onScroll}
+            >
+              <FlexLayout className='rac-main-body'>
+                {props.children}
+              </FlexLayout>
+            </div>
+          </div>
+        </UniversalScrollableContext.Provider>
+      </UniversalStickyContext.Provider>
     );
   }
 
