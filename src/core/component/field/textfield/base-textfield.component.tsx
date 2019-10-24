@@ -121,9 +121,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   /**
    * @stable [23.02.2019]
    */
-  protected openSyntheticKeyboard(): boolean {
+  protected openVirtualKeyboard(): boolean {
     const env = this.environment;
-    const result = super.openSyntheticKeyboard();
+    const result = super.openVirtualKeyboard();
     if (result) {
       this.keyboardListenerSubscriber =
         this.eventManager.subscribe(env.document, env.documentClickEvent, this.onDocumentClickHandler);

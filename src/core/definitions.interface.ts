@@ -90,6 +90,7 @@ export interface IApplicationWrapper<TApplication> { application?: TApplication;
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
 export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
+export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
@@ -255,6 +256,7 @@ export interface IOnClickWrapper<TValue = AnyT> { onClick?(payload?: TValue): vo
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(payload?: TValue): void; }
 export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
+export interface IOnDelayWrapper { onDelay?(): () => void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
 export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue; }
@@ -333,6 +335,7 @@ export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
+export interface IReturnValueToClearDirtyChangesWrapper { returnValueToClearDirtyChanges?: boolean; }
 export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
@@ -692,13 +695,6 @@ export interface IUseZipCodeWrapper {
 }
 
 /**
- * @stable [04.05.2018]
- */
-export interface IOnDelayWrapper<TValue = AnyT, TOnDelay = (value?: TValue) => void> {
-  onDelay?: TOnDelay;
-}
-
-/**
  * @stable [31.07.2018]
  */
 export interface IInputWrapper<TInput = HTMLInputElement | HTMLTextAreaElement> {
@@ -1034,11 +1030,6 @@ export interface ICloseMessageWrapper<TCloseMessage = string> {
  */
 export interface IAcceptMessageWrapper<TAcceptMessage = string> {
   acceptMessage?: TAcceptMessage;
-}
-
-/* @stable - 11.04.2018 */
-export interface IAutoFocusWrapper {
-  autoFocus?: boolean;
 }
 
 /**
@@ -1434,13 +1425,6 @@ export interface IPlaceholderFactoryWrapper<TPlaceholderFactory> {
  */
 export interface IUseSyntheticCursorWrapper {
   useSyntheticCursor?: boolean;
-}
-
-/**
- * @stable [11.08.2018]
- */
-export interface ICanReturnClearDirtyChangesValueWrapper {
-  canReturnClearDirtyChangesValue?: boolean;
 }
 
 /**

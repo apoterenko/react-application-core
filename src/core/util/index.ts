@@ -40,3 +40,4 @@ export * from './type';
 export * from './url';
 export * from './uuid';
 export * from './validator';
+export * from './wrapper';

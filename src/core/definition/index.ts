@@ -7,6 +7,7 @@ export * from './channel-definition.interface';
 export * from './component-definition.interface';
 export * from './constructor-definition.interface';
 export * from './container-definition.interface';
+export * from './delayed-changes-definition.interface';
 export * from './dialog-definition.interface';
 export * from './dictionary-definition.interface';
 export * from './dispatcher-definition.interface';

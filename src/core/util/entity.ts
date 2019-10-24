@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import {
   EntityIdT,
   IEntity,
-  IValidWrapper,
 } from '../definitions.interface';
 import {
   IEditableEntity,
@@ -47,18 +46,6 @@ export const canSubmitEntityFormEntity = <TEntity extends IEntity>(entity: IForm
   );
 
 /**
- * @stable [25.09.2019]
- * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
- * @returns {boolean}
- */
-export const isEditableEntityBusy = <TEntity extends IEntity>(editableEntity: IEditableEntity<TEntity>): boolean =>
-  ifNotNilThanValue(
-    editableEntity,
-    () => editableEntity.progress === true,
-    false
-  );
-
-/**
  * @stable [19.10.2019]
  * @param {TEntity} entity
  * @returns {boolean}
@@ -96,18 +83,6 @@ export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): stri
   () => `${entity.id}${ifNotNilThanValue(entity.name, (name) => `-${name.replace(/ /g, '_')}`, '')}`,
   ''
 );
-
-/**
- * @stable [28.09.2019]
- * @param {IValidWrapper} validEntity
- * @returns {boolean}
- */
-export const isEntityValid = <TValue>(validEntity: IValidWrapper): boolean =>
-  ifNotNilThanValue(
-    validEntity,
-    () => R.isNil(validEntity.valid) || validEntity.valid === true,
-    false
-  );
 
 /**
  * @stable [12.10.2019]

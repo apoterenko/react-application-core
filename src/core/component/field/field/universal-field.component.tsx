@@ -9,6 +9,8 @@ import {
   ifNotNilThanValue,
   isDef,
   isFn,
+  isFocusPrevented,
+  isKeyboardUsed,
   isUndef,
   orDefault,
   orNull,
@@ -16,7 +18,7 @@ import {
 } from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
-import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE } from '../../../definitions.interface';
+import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE, IFocusEvent } from '../../../definitions.interface';
 import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
@@ -63,7 +65,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
     this.state = {} as TState;
 
-    if (props.useKeyboard && this.useSyntheticCursor) {
+    if (this.isKeyboardUsed && this.useSyntheticCursor) {
       this.caretBlinkingTask = new DelayedTask(
         this.setCaretVisibility.bind(this),
         props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
@@ -102,12 +104,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
     super.componentDidUpdate(prevProps, prevState);
 
-    const useKeyboard = this.props.useKeyboard;
-    if (useKeyboard && this.state.keyboardOpened && !R.equals(this.value, prevProps.value)) {
+    if (this.isKeyboardUsed && this.state.keyboardOpened && !R.equals(this.value, prevProps.value)) {
       this.refreshCaretPosition();
     }
 
-    if (prevProps.useKeyboard && !useKeyboard) {
+    if (prevProps.useKeyboard && !this.isKeyboardUsed) {
       this.closeSyntheticKeyboard();
     }
   }
@@ -514,20 +515,19 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [04.09.2018]
-   * @param {TFocusEvent} event
+   * @stable [25.10.2019]
+   * @param {IFocusEvent} event
    */
-  protected onFocus(event: TFocusEvent): void {
-    const props = this.props;
+  protected onFocus(event: IFocusEvent): void {
+    if (this.isFocusPrevented || this.isKeyboardUsed) {
+      this.removeFocus(); // Prevent native keyboard opening during use of a synthetic keyboard
 
-    if (props.preventFocus || props.useKeyboard) {
-      // Prevent native keyboard opening when using a synthetic keyboard
-      this.removeFocus();
-
-      if (props.useKeyboard) {
-        this.openSyntheticKeyboard();
+      if (this.isKeyboardUsed) {
+        this.openVirtualKeyboard();
       }
     }
+
+    const props = this.props;
     if (isFn(props.onFocus)) {
       props.onFocus(event);
     }
@@ -537,7 +537,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @stable [18.06.2018]
    * @param {TFocusEvent} event
    */
-  protected onBlur(event: TFocusEvent): void {
+  protected onBlur(event: IFocusEvent): void {
     const props = this.props;
     if (props.bufferValue) {
       this.submitBufferedValue();
@@ -579,7 +579,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   /**
    * @stable [08.05.2019]
    */
-  protected openSyntheticKeyboard(): boolean {
+  protected openVirtualKeyboard(): boolean {
     if (this.state.keyboardOpened) {
       return false;
     }
@@ -615,7 +615,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
     if (isDef(this.caretBlinkingTask)) {
       this.caretBlinkingTask.stop();
     }
-    if (this.props.useKeyboard) {
+    if (this.isKeyboardUsed) {
       UniversalField.logger.debug(
         `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
       );
@@ -627,10 +627,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {JSX.Element}
    */
   protected getKeyboardElement(): JSX.Element {
-    return orNull<JSX.Element>(
-      this.props.useKeyboard && this.isKeyboardOpened(),
-      () => this.keyboardElement(),
-    );
+    return orNull(this.isKeyboardUsed && this.isKeyboardOpened(), () => this.keyboardElement());
   }
 
   /**
@@ -639,6 +636,22 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   protected isKeyboardOpened(): boolean {
     return this.state.keyboardOpened;
+  }
+
+  /**
+   * @stable [24.10.2019]
+   * @returns {boolean}
+   */
+  protected get isFocusPrevented() {
+    return isFocusPrevented(this.props);
+  }
+
+  /**
+   * @stable [24.10.2019]
+   * @returns {boolean}
+   */
+  protected get isKeyboardUsed() {
+    return isKeyboardUsed(this.props);
   }
 
   /**
@@ -727,7 +740,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
       value: currentRawValue,
       emptyValue: this.getEmptyValue(),
       originalValue: props.originalValue,
-      canReturnClearDirtyChangesValue: props.canReturnClearDirtyChangesValue,
+      returnValueToClearDirtyChanges: props.returnValueToClearDirtyChanges,
     });
 
     if (props.bufferValue) {

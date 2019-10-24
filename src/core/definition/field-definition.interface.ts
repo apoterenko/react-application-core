@@ -1,21 +1,30 @@
 import {
   EntityIdT,
+  IAutoFocusWrapper,
   IDisabledWrapper,
   IEmptyValueWrapper,
   IEntity,
+  IFieldRenderedWrapper,
   IFieldsWrapper,
+  IFullWrapper,
   ILabelWrapper,
   IMaskWrapper,
   INameWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
+  IPreventFocusWrapper,
   IProgressWrapper,
   IRawDataWrapper,
   IReadOnlyWrapper,
+  IRenderedWrapper,
+  IRequiredWrapper,
   ITabIndexWrapper,
+  ITypeWrapper,
+  IUseKeyboardWrapper,
   IValueWrapper,
   IVisibleWrapper,
   UNDEF,
+  StringNumberT,
 } from '../definitions.interface';
 import { IMultiEntity } from './entity-definition.interface';
 
@@ -29,16 +38,24 @@ export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
  * @stable [27.05.2019]
  */
 export interface IGenericFieldEntity
-  extends IDisabledWrapper,
+  extends IAutoFocusWrapper,
+    IDisabledWrapper,
     IEmptyValueWrapper,
+    IFieldRenderedWrapper,
+    IFullWrapper,
     ILabelWrapper,
     IMaskWrapper,
     INameWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
+    IPreventFocusWrapper,
     IProgressWrapper,
     IReadOnlyWrapper,
+    IRenderedWrapper,
+    IRequiredWrapper,
     ITabIndexWrapper,
+    ITypeWrapper<StringNumberT>,
+    IUseKeyboardWrapper,
     IVisibleWrapper {
 }
 

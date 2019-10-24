@@ -11,7 +11,7 @@ import {
   isFn,
   isFormFieldReadOnly,
   isFormEntityValid,
-  isFormWrapperEntityBusy,
+  isFormWrapperEntityInProgress,
   isString,
   isUndef,
   joinClassName,
@@ -316,7 +316,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {boolean}
    */
   private isFormBusy(): boolean {
-    return isFormWrapperEntityBusy(this.props);
+    return isFormWrapperEntityInProgress(this.props);
   }
 
   /**

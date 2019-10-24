@@ -19,7 +19,7 @@ export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntit
   if (
     ((hasOriginalValue && R.equals(config.value, config.originalValue))
       || (!hasOriginalValue && R.equals(config.value, config.emptyValue)))
-    && config.canReturnClearDirtyChangesValue !== false
+    && config.returnValueToClearDirtyChanges !== false
   ) {
     return FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES;
   }

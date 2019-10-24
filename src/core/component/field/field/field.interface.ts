@@ -9,7 +9,7 @@ import {
   IOriginalValueWrapper,
   IKeyboardEvent,
   IFocusEvent,
-  ICanReturnClearDirtyChangesValueWrapper,
+  IReturnValueToClearDirtyChangesWrapper,
   IKeyboardOpenedWrapper,
   ICaretVisibilityWrapper,
   ICaretPositionWrapper,
@@ -28,7 +28,7 @@ export const FIELD_EMPTY_ERROR_VALUE = null;
 export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
                                                               IEmptyValueWrapper,
                                                               IOriginalValueWrapper,
-                                                              ICanReturnClearDirtyChangesValueWrapper {
+                                                              IReturnValueToClearDirtyChangesWrapper {
 }
 
 /**
