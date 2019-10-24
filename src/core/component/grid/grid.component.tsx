@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IGridProps, IFieldProps } from '../../props-definitions.interface';
-import { GroupValueRendererT } from '../../configurations-definitions.interface';
+import { IGridProps } from '../../props-definitions.interface';
+import { GroupValueRendererT, IFieldProps } from '../../configurations-definitions.interface';
 import { IEntity, AnyT, EntityIdT } from '../../definitions.interface';
 import {
   joinClassName,

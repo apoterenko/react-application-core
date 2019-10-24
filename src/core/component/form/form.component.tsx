@@ -25,7 +25,7 @@ import { IFieldProps, IFieldsConfigurations } from '../../configurations-definit
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { lazyInject, DI_TYPES } from '../../di';
-import { Field, IFieldProps, IField } from '../field';
+import { Field, IField } from '../field';
 import {
   isFormFieldDisabled,
   isFormOfNewEntity,

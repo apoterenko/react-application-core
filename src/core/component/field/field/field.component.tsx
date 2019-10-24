@@ -21,7 +21,6 @@ import {
 import {
   IField,
   IFieldInputProps,
-  IFieldProps,
   IFieldState,
   IFieldTextAreaProps,
   INativeMaskedInputComponent,
@@ -31,6 +30,7 @@ import {
   IBaseEvent,
   IJQueryElement,
 } from '../../../definition';
+import { IFieldProps } from '../../../configurations-definitions.interface';
 
 export class Field<TInternalProps extends IFieldProps,
                    TState extends IFieldState = IFieldState>

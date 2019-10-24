@@ -1,4 +1,4 @@
-import { IFieldProps } from '../../../props-definitions.interface';
+import { IFieldProps } from '../../../configurations-definitions.interface';
 import {
   IDetectFileTypeTransportConfigurationWrapper,
   IDetectFileTypeWrapper,
