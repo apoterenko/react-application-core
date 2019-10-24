@@ -4,7 +4,6 @@ export * from './component/action.builder';
 export * from './component/application/vue-index';
 export * from './component/base/vue-index';
 export * from './component/connector/vue-index';
-export * from './component/field/vue-index';
 export * from './component/form/vue-index';
 export * from './component/list/vue-index';
 export * from './component/menu/vue-index';

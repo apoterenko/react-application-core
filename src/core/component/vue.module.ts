@@ -1,9 +1,7 @@
 import './button/vue-button.component';
 import './dnd/vue-dnd.module';
 import './dom-accessor/vue-dom-accessor.module';
-import './field/vue-field.module';
 import './form/vue-form.module';
-import './grid/vue-grid.component';
 import './icon/vue-icon.module';
 import './layout/flex/vue-flex-layout.component';
 import './layout/flex/vue-flex-separator.component';
