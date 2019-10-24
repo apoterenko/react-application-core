@@ -261,8 +261,8 @@ export class Field<TInternalProps extends IFieldInternalProps,
     const step = props.step;
     const type = props.type || 'text';
     const autoComplete = props.autoComplete || 'off';
-    const readOnly = props.readOnly || this.inProgress();
-    const placeholder = orNull<string>(props.placeholder && !this.inProgress(), () => this.t(props.placeholder));
+    const readOnly = props.readOnly || this.inProgress;
+    const placeholder = orNull<string>(props.placeholder && !this.inProgress, () => this.t(props.placeholder));
     const disabled = props.disabled;
     const pattern = this.getFieldPattern();
     const minLength = props.minLength;

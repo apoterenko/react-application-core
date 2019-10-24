@@ -50,7 +50,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
       {type: 'attach_file', onClick: this.openFileDialog},
       orNull<IFieldActionConfiguration>(props.useDownloadAction, (): IFieldActionConfiguration => ({
         type: 'download',
-        disabled: () => this.isFieldDisabled() || this.isFieldInProgress() || !this.isValuePresent(),
+        disabled: () => this.isFieldDisabled() || this.inProgress || !this.isValuePresent(),
         onClick: this.downloadFile,
       }))
     ];

@@ -7,6 +7,7 @@ import {
   defValuesFilter,
   DelayedTask,
   ifNotNilThanValue,
+  inProgress,
   isDef,
   isFn,
   isFocusPrevented,
@@ -24,7 +25,6 @@ import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 import {
   isFieldInactive,
-  isFieldInProgress,
   isFieldRequired,
   isFieldChangeable,
   toActualChangedValue,
@@ -418,7 +418,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {AnyT}
    */
   protected toDisplayValue(value: AnyT): AnyT {
-    return this.inProgress() || !this.isValuePresent(value)
+    return this.inProgress || !this.isValuePresent(value)
       ? FIELD_DISPLAY_EMPTY_VALUE  // The dictionaries data is cleaned before request
       : this.getDecoratedValue(value);
   }
@@ -500,18 +500,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [11.09.2019]
+   * @stable [25.10.2019]
    * @returns {boolean}
    */
-  protected isFieldInProgress(): boolean {
-    return isFieldInProgress(this.props);
-  }
-
-  /**
-   * @deprecated Use isFieldInProgress
-   */
-  protected inProgress(): boolean {
-    return isFieldInProgress(this.props);
+  protected get inProgress(): boolean {
+    return inProgress(this.props);
   }
 
   /**

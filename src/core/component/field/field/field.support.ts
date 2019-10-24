@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { isDef, calc } from '../../../util';
+import { isDef, calc, inProgress } from '../../../util';
 import {
   IFieldActualChangedValueConfigEntity,
 } from './field.interface';
@@ -53,14 +53,7 @@ export const isFieldVisible = (props: IGenericFieldEntity): boolean => props.vis
  * @returns {boolean}
  */
 export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
-  isFieldDisabled(props) || props.readOnly === true || isFieldInProgress(props);
-
-/**
- * @stable [27.05.2019]
- * @param {IGenericFieldEntity} props
- * @returns {boolean}
- */
-export const isFieldInProgress = (props: IGenericFieldEntity): boolean => props.progress === true;
+  isFieldDisabled(props) || props.readOnly === true || inProgress(props);
 
 /**
  * @stable [06.10.2018]

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, joinClassName, isDef, getWidth, isFn, calc } from '../../../util';
+import { cancelEvent, joinClassName, isDef, getWidth, isFn, calc, inProgress } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
@@ -124,8 +124,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [18.06.2018]
    * @returns {boolean}
    */
-  public inProgress(): boolean {
-    return super.inProgress() || !!this.state.needToOpenMenu;
+  public get inProgress(): boolean {
+    return inProgress(this.props) || !!this.state.needToOpenMenu;
   }
 
   /**
