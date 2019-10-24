@@ -1,10 +1,9 @@
 import { sequence, DelayedTask, cancelEvent } from '../../../../util';
 import { AnyT, IChangeEvent, IKeyboardEvent } from '../../../../definitions.interface';
 import { IUniversalField } from '../../../../entities-definitions.interface';
-import { IDelayedChangesFieldPluginConfiguration } from '../../../../configurations-definitions.interface';
 import { IUniversalPlugin } from '../../../../definition';
 
-export class DelayedChangesFieldPlugin implements IUniversalPlugin<IDelayedChangesFieldPluginConfiguration> {
+export class DelayedChangesFieldPlugin implements IUniversalPlugin {
   public static DEFAULT_DELAY_TIMEOUT = 1500;
 
   private currentValue: AnyT;
@@ -14,10 +13,10 @@ export class DelayedChangesFieldPlugin implements IUniversalPlugin<IDelayedChang
    * @stable [18.05.2018]
    * @param {IUniversalField} component
    */
-  constructor(private component: IUniversalField) {
+  constructor(private component: IUniversalField<AnyT>) { // TODO Fix props typings
     this.delayedTask = new DelayedTask(
       this.doDelay.bind(this),
-      this.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
+      this.component.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
     );
 
     this.component.onChange = sequence(this.component.onChange, this.onChange, this);
@@ -63,16 +62,8 @@ export class DelayedChangesFieldPlugin implements IUniversalPlugin<IDelayedChang
    * @param {AnyT} value
    */
   private doDelay(value: AnyT): void {
-    if (this.props.onDelay) {
-      this.props.onDelay(value);
+    if (this.component.props.onDelay) {
+      this.component.props.onDelay(value);
     }
-  }
-
-  /**
-   * @stable [04.05.2018]
-   * @returns {IDelayedChangesFieldPluginConfiguration}
-   */
-  private get props(): IDelayedChangesFieldPluginConfiguration {
-    return this.component.props;
   }
 }

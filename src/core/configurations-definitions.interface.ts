@@ -100,7 +100,6 @@ import {
   IOnCloseWrapper,
   IOnCreateWrapper,
   IOnDeactivateWrapper,
-  IOnDelayWrapper,
   IOnEmptyDictionaryWrapper,
   IOnEnterWrapper,
   IOnFocusWrapper,
@@ -655,13 +654,6 @@ export interface ICardConfiguration extends IComponentProps,
  */
 export interface INavigationListItemConfiguration
   extends INavigationItemEntity {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IDelayedChangesFieldPluginConfiguration extends IDelayTimeoutWrapper,
-                                                                 IOnDelayWrapper {
 }
 
 /**

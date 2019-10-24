@@ -1,16 +1,13 @@
 import * as React from 'react';
 
-import {
-  IUniversalComponent,
-  IUniversalComponentEntity,
-} from './component-definition.interface';
+import { IUniversalComponent } from './component-definition.interface';
 import { IUniversalComponentProps } from './props-definition.interface';
 
 /**
  * @react-native-compatible
  * @stable [22.09.2019]
  */
-export interface IUniversalPlugin<TProps extends IUniversalComponentProps = {}, TState = {}>
+export interface IUniversalPlugin<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends React.ComponentLifecycle<TProps, TState> {
 }
 
