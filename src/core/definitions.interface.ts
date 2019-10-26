@@ -382,6 +382,7 @@ export interface ITitleWrapper { title?: string; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITooltipWrapper<TTooltip = string> { tooltip?: TTooltip; }
 export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
+export interface ITotalWrapper<TValue = boolean> { total?: TValue; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface IToWrapper<TTo = string> { to?: TTo; }
 export interface ITplWrapper<TTpl> { tpl?: TTpl; }

@@ -47,6 +47,7 @@ export class GridRow extends BaseComponent<IGridRowProps> {
               props.groupExpanded && 'rac-grid-row-group-expanded',
               props.hovered && 'rac-grid-row-hovered',
               props.odd && 'rac-grid-row-odd',
+              props.total && 'rac-grid-row-total',
               props.selectable && 'rac-grid-row-selectable',
               props.selected && `rac-grid-row-selected ${selectedElementClassName}`
             )}

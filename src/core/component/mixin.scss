@@ -2263,13 +2263,10 @@
   $rac-grid-head-column-content-letter-spacing: unset,                            /* @stable [21.10.2019] */
   $rac-grid-head-column-content-padding: unset,                                   /* @stable [26.10.2019] */
   $rac-grid-head-column-content-text-align: unset,
-  $rac-grid-head-column-content-text-field-background: unset,
   $rac-grid-head-column-content-text-field-border-color: unset,
-  $rac-grid-head-column-content-text-field-height: unset,
   $rac-grid-head-column-content-white-space: unset,                               /* @stable [21.10.2019] */
   $rac-grid-head-column-padding-bottom: unset,                                    /* @stable [21.10.2019] */
   $rac-grid-head-column-padding-left: unset,
-  $rac-grid-head-column-padding-right: unset,
   $rac-grid-head-column-padding-top: unset,                                       /* @stable [21.10.2019] */
   $rac-grid-head-column-sort-asc-action-margin: unset,                            /* @stable [18.10.2019] */
   $rac-grid-head-column-sort-desc-action-margin: unset,                           /* @stable [18.10.2019] */
@@ -2293,7 +2290,6 @@
   $rac-grid-position: unset,                                                      /* @stable [18.10.2019] */
   $rac-grid-row-display: unset,                                                   /* @stable [18.10.2019] */
   $rac-grid-row-group-expanded-background: unset,                                 /* @stable [22.10.2019] */
-  $rac-grid-row-group-expanded-icon-color: unset,
   $rac-grid-row-grouped-font-weight: unset,                                       /* @stable [21.10.2019] */
   $rac-grid-row-height: unset,                                                    /* @stable [18.10.2019] */
   $rac-grid-row-odd-background: unset,                                            /* @stable [22.10.2019] */
@@ -2301,7 +2297,8 @@
   $rac-grid-row-selectable-cursor: unset,                                         /* @stable [21.10.2019] */
   $rac-grid-row-selected-background: unset,                                       /* @stable [22.10.2019] */
   $rac-grid-row-table-layout: unset,                                              /* @stable [21.10.2019] */
-  $rac-grid-row-total-column-content-font-weight: unset,
+  $rac-grid-row-total-background: unset,                                          /* @stable [27.10.2019] */
+  $rac-grid-row-total-font-weight: unset,                                         /* @stable [27.10.2019] */
   $rac-grid-row-width: unset,                                                     /* @stable [21.10.2019] */
   $rac-grid-table-layout: unset,                                                  /* @stable [26.10.2019] */
   $rac-grid-width: unset                                                          /* @stable [18.10.2019] */
@@ -2335,6 +2332,12 @@
     @include rac-grid-row (
       $rac-grid-row-custom: $rac-grid-row-odd-cls,
       $rac-grid-row-background: $rac-grid-row-odd-background
+    );
+
+    @include rac-grid-row (
+      $rac-grid-row-custom: $rac-grid-row-total-cls,
+      $rac-grid-row-background: $rac-grid-row-total-background,
+      $rac-grid-row-font-weight: $rac-grid-row-total-font-weight
     );
 
     @include rac-grid-row (

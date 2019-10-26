@@ -629,25 +629,22 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [27.12.2018]
+   * @stable [27.10.2019]
    * @returns {JSX.Element}
    */
   private get totalRowElement(): JSX.Element {
-    const props = this.props;
-    const totalEntity = props.totalEntity;
-    const columns = this.columnsConfiguration;
-
     return ifNotNilThanValue(
-      totalEntity,
-      () => (
+      this.props.totalEntity,
+      (totalEntity) => (
         <GridRow
           key={this.toTotalRowKey()}
-          className='rac-grid-data-row rac-grid-data-row-total'>
+          total={true}>
           {
-            columns.map((column, columnNum) => (
+            this.columnsConfiguration.map((column, columnNum) => (
               <GridColumn
                 key={this.toTotalColumnKey(columnNum)}
-                {...column}>
+                {...column}
+              >
                 {totalEntity[column.name]}
               </GridColumn>
             ))

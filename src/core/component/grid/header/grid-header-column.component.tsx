@@ -43,7 +43,7 @@ export class GridHeaderColumn extends BaseGridColumn {
           }}
           colSpan={nvl(props.headerColSpan, props.colSpan)}
           className={this.getClassName(calc(props.headerClassName, props), 'rac-no-user-select')}>
-          {this.getColumnContentElement()}
+          {this.columnContentElement}
         </th>
       )
     );

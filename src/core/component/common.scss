@@ -54,11 +54,6 @@ html, body {
     }
   }
 
-  @include rac-styles(                                                                        /* @stable [23.05.2019] */
-    $rac-styles-custom: rac-total,
-    $rac-styles-font-weight: bold
-  );
-
   @include rac-styles(                                                                        /* @stable [20.01.2019] */
     $rac-styles-custom: rac-absolute-full,
     $rac-styles-position: absolute,

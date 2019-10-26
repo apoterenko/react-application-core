@@ -43,6 +43,7 @@ import {
   ISortableWrapper,
   ISorterWrapper,
   IStickyHeadWrapper,
+  ITotalWrapper,
   ITplWrapper,
   IWidthWrapper,
   StringNumberT,
@@ -129,20 +130,28 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [23.10.2019]
+ * @stable [27.10.2019]
  */
-export interface IGridRowProps<TEntity extends IEntity = IEntity>
-  extends IComponentProps,
-    IOnClickWrapper<TEntity>,
-    IEntityWrapper<TEntity>,
+export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
+  extends IEntityWrapper<TEntity>,
     ISelectedWrapper,
     IOddWrapper,
+    ITotalWrapper,
     IFilterWrapper<boolean>,
     IIndexedWrapper,
     IGroupedWrapper,
     IHoveredWrapper,
     ISelectableWrapper,
     IGroupExpandedWrapper {
+}
+
+/**
+ * @stable [23.10.2019]
+ */
+export interface IGridRowProps<TEntity extends IEntity = IEntity>
+  extends IComponentProps,
+    IGenericGridRowEntity<TEntity>,
+    IOnClickWrapper<TEntity> {
 }
 
 /**

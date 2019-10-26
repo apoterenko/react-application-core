@@ -65,6 +65,7 @@ $rac-color-1-2: #f3f3f3 !default;
 $rac-color-1-3: #12130f !default;
 $rac-color-1-4: #d8d8d8 !default;
 $rac-color-1-5: #f2f2f2 !default;
+$rac-color-1-6: #e5e5e5 !default;
 /**/
 $rac-color-2-0: #f4e6bb !default;
 $rac-color-2-1: #f96f00 !default;
@@ -292,6 +293,7 @@ $rac-grid-row-grouped-cls: rac-grid-row-grouped;
 $rac-grid-row-odd-cls: rac-grid-row-odd;
 $rac-grid-row-selectable-cls: rac-grid-row-selectable;
 $rac-grid-row-selected-cls: rac-grid-row-selected;
+$rac-grid-row-total-cls: rac-grid-row-total;
 /**/
 $rac-grid-body-border-left: 1px solid $rac-color-1-2 !default;
 $rac-grid-body-border-right: 1px solid $rac-color-1-2 !default;
@@ -351,9 +353,7 @@ $rac-grid-head-column-active-sort-icon-color: $rac-color-1-0 !default;
 $rac-grid-head-column-active-sort-icon-content-opacity: 1 !default;
 $rac-grid-head-column-content-font-size: $rac-font-size-1 !default;
 $rac-grid-head-column-content-font-weight: $rac-font-weight-1 !default;
-$rac-grid-head-column-content-text-field-background: none !default;
 $rac-grid-head-column-content-text-field-border-color: $color-23 !default;
-$rac-grid-head-column-content-text-field-height: 24px !default;
 $rac-grid-head-column-content-white-space: normal !default;
 $rac-grid-head-column-padding-bottom: $rac-offset-1 !default;
 $rac-grid-head-column-padding-top: $rac-offset-1 !default;
@@ -383,6 +383,8 @@ $rac-grid-row-selectable-cursor: pointer !default;
 $rac-grid-row-selected-background: $rac-color-2-0 !default;
 $rac-grid-row-selected-font-weight: unset !default;
 $rac-grid-row-table-layout: fixed !default;
+$rac-grid-row-total-background: $rac-color-1-6 !default;
+$rac-grid-row-total-font-weight: $rac-font-weight-2 !default;
 $rac-grid-row-width: 100% !default;
 /**/
 $rac-time-grid-column-hover-background-color: $color-10 !default;
