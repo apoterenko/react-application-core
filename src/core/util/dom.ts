@@ -380,8 +380,8 @@ export const isElementVisibleWithinParent = (element: Element, parent: Element):
   const parentJEl = toJqEl(parent);
   const selectedJEl = toJqEl(element);
   const selectedJElTop = selectedJEl.position().top;
-  const a = selectedJElTop > parentJEl.outerHeight();
-  const b = selectedJElTop < 0 && Math.abs(selectedJElTop) > selectedJEl.outerHeight();
+  const a = selectedJElTop >= parentJEl.outerHeight();
+  const b = selectedJElTop < 0 && Math.abs(selectedJElTop) >= selectedJEl.outerHeight();
   return !a && !b;
 };
 
