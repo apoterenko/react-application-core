@@ -7,7 +7,6 @@ import {
   addRootElement,
   createElement,
   findElement,
-  findUniversalSelectedElement,
   getContentHeight,
   getHeight,
   getScrollLeft,
@@ -15,6 +14,7 @@ import {
   hasClasses,
   hasElements,
   hasParent,
+  isElementVisibleWithinParent,
   openFullScreen,
   removeChild,
   removeClassNames,
@@ -41,6 +41,16 @@ import { ISettingsEntity, IBootstrapSettings } from '../../settings';
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [26.10.2019]
+   * @param {Element} child
+   * @param {Element} parent
+   * @returns {boolean}
+   */
+  public isElementVisibleWithinParent(child: Element, parent: Element): boolean {
+    return isElementVisibleWithinParent(child, parent);
+  }
 
   /**
    * @stable [22.10.2019]
@@ -267,15 +277,6 @@ export class DomAccessor implements IDomAccessor {
    */
   public getContentHeight(source: Element): number {
     return getContentHeight(source);
-  }
-
-  /**
-   * @stable [01.12.2018]
-   * @param {Element} parent
-   * @returns {Element}
-   */
-  public findUniversalSelectedElement(parent: Element): Element {
-    return findUniversalSelectedElement(parent);
   }
 
   /**

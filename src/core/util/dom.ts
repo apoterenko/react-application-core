@@ -13,7 +13,6 @@ import {
 } from './filter';
 import {
   AnyT,
-  UNIVERSAL_SELECTED_ELEMENT_SELECTOR,
 } from '../definitions.interface';
 import {
   IJQueryElement,
@@ -363,18 +362,28 @@ export const hasElements = (selector: string | Element, target: Element): boolea
 
 /**
  * @stable [01.12.2018]
- * @param {Element} parent
- * @returns {Element}
- */
-export const findUniversalSelectedElement = (parent: Element = document.body): Element =>
-  findElement(`.${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`, parent);
-
-/**
- * @stable [01.12.2018]
  * @param {Element} element
  * @param {IXYEntity} xyEntity
  */
 export const scrollTo = (element: Element, xyEntity: IXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
+
+/**
+ * @stable [26.10.2019]
+ * @param {Element} element
+ * @param {Element} parent
+ * @returns {boolean}
+ */
+export const isElementVisibleWithinParent = (element: Element, parent: Element): boolean => {
+  if (R.isNil(parent) || R.isNil(element)) {
+    return false;
+  }
+  const parentJEl = toJqEl(parent);
+  const selectedJEl = toJqEl(element);
+  const selectedJElTop = selectedJEl.position().top;
+  const a = selectedJElTop > parentJEl.outerHeight();
+  const b = selectedJElTop < 0 && Math.abs(selectedJElTop) > selectedJEl.outerHeight();
+  return !a && !b;
+};
 
 /**
  * @stable [11.10.2019]

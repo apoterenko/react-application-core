@@ -29,7 +29,6 @@ export interface IDomAccessor {
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
   findElement(selector: string | Element, parent?: Element): Element;
-  findUniversalSelectedElement(parent: Element): Element;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
   getDocumentBodyElement(): Element;
@@ -43,6 +42,7 @@ export interface IDomAccessor {
   hasElements(selector: string | Element, target: Element): boolean;
   hasParent(selector: string, target: Element): boolean;
   isAlreadyFocused(): boolean;
+  isElementVisibleWithinParent(child: Element, parent: Element): boolean;
   redirect(path: string): void;
   reload(forceReload?: boolean): void;
   removeChild(child: Element, parent?: Element);
