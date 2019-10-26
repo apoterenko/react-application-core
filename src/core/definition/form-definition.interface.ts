@@ -4,7 +4,6 @@ import {
   IActionsRenderedWrapper,
   IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
-  IButtonConfigurationWrapper,
   IChangeableWrapper,
   ICompactWrapper,
   IDisabledWrapper,
@@ -39,6 +38,7 @@ import {
 import { IApiEntity } from './api-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import {
+  IButtonConfigurationWrapperEntity,
   IButtonProps,
   IGenericButtonEntity,
 } from './button-definition.interface';
@@ -100,7 +100,7 @@ export interface IBehavioralFormWrapperEntity<TEntity extends IEntity = IEntity>
 export interface IFormEntity<TEntity = IEntity>
   extends IBehavioralFormWrapperEntity<TEntity>,
     IGenericFormEntity,
-    IButtonConfigurationWrapper<IButtonProps>,
+    IButtonConfigurationWrapperEntity,
     IResetConfigurationWrapper<IButtonProps>,
     ISubmitConfigurationWrapper<IButtonProps>,
     IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]> {

@@ -1,9 +1,18 @@
 @import '../constant';
 @import '../mixin';
 @import './time-grid';
-@import './column/grid-column';
 
 .rac {
+
+  /**
+   * @grid-wrapper
+   * @stable [26.10.2019]
+   */
+  @include rac-grid-wrapper (
+    $rac-grid-wrapper-display: $rac-grid-wrapper-display,
+    $rac-grid-wrapper-flex-direction: $rac-grid-wrapper-flex-direction,
+    $rac-grid-wrapper-flex: $rac-grid-wrapper-flex
+  );
 
   /**
    * @grid
@@ -25,6 +34,9 @@
     $rac-grid-column-content-button-hover-color: $rac-grid-column-content-button-hover-color,
     $rac-grid-column-content-button-icon-color: $rac-grid-column-content-button-icon-color,
     $rac-grid-column-content-button-icon-size: $rac-grid-column-content-button-icon-size,
+    $rac-grid-column-content-display: $rac-grid-column-content-display,
+    $rac-grid-column-content-flex-direction: $rac-grid-column-content-flex-direction,
+    $rac-grid-column-content-flex: $rac-grid-column-content-flex,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
     $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
     $rac-grid-column-content-overflow: $rac-grid-column-content-overflow,
@@ -38,13 +50,12 @@
     $rac-grid-column-edited-content-after-content: $rac-grid-column-edited-content-after-content,
     $rac-grid-column-edited-content-after-font-size: $rac-grid-column-edited-content-after-font-size,
     $rac-grid-column-edited-content-after-height: $rac-grid-column-edited-content-after-height,
-    $rac-grid-column-edited-content-after-position: absolute,
+    $rac-grid-column-edited-content-after-position: $rac-grid-column-edited-content-after-position,
     $rac-grid-column-edited-content-after-right: $rac-grid-column-edited-content-after-right,
     $rac-grid-column-edited-content-after-top: $rac-grid-column-edited-content-after-top,
-    $rac-grid-column-icon-height: $rac-grid-icon-size,
     $rac-grid-column-icon-vertical-align: $rac-grid-column-icon-vertical-align,
-    $rac-grid-column-icon-width: $rac-grid-icon-size,
     $rac-grid-column-line-height: $rac-grid-column-line-height,
+    $rac-grid-column-overflow: $rac-grid-column-overflow,
     $rac-grid-column-padding-left: $rac-grid-column-padding-left,
     $rac-grid-column-padding-right: $rac-grid-column-padding-right,
     $rac-grid-column-position: $rac-grid-column-position,
@@ -72,6 +83,7 @@
     $rac-grid-head-column-sort-icon-content-opacity: $rac-grid-head-column-sort-icon-content-opacity,
     $rac-grid-head-column-sort-icon-content-size: $rac-grid-head-column-sort-icon-content-size,
     $rac-grid-head-column-sort-icon-size: $rac-grid-head-column-sort-icon-size,
+    $rac-grid-head-column-sortable-content-flex-direction: $rac-grid-head-column-sortable-content-flex-direction,
     $rac-grid-head-column-text-align: $rac-grid-head-column-text-align,
     $rac-grid-head-column-vertical-align: $rac-grid-head-column-vertical-align,
     $rac-grid-head-column-white-space: $rac-grid-head-column-white-space,
@@ -101,6 +113,16 @@
     $rac-grid-column-content-align-items: $rac-grid-column-align-center-content-align-items,
     $rac-grid-column-content-self-field-input-text-align: $rac-grid-column-align-center-content-self-field-input-text-align,
     $rac-grid-column-content-text-align: $rac-grid-column-align-center-content-text-align
+  );
+
+  /**
+   * @grid
+   * @stable [26.10.2019]
+   */
+  @include rac-grid (
+    $rac-grid-column-custom: rac-build-cls2($rac-grid-column-align-center-cls, $rac-grid-column-sortable-cls),
+    $rac-grid-column-content-align-items: $rac-grid-column-align-center-sortable-content-align-items,
+    $rac-grid-column-content-justify-content: $rac-grid-column-align-center-sortable-content-justify-content
   );
 
   /**

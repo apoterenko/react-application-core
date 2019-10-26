@@ -16,7 +16,6 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
-export const UNIVERSAL_SELECTED_ELEMENT_SELECTOR = 'rac-universal-selected-element';
 export const APPLICATION_PDF_FORMAT = 'application/pdf';
 export const IMAGE_JPG_FORMAT = 'image/jpg';
 export const IMAGE_JPEG_FORMAT = 'image/jpeg';
@@ -99,6 +98,7 @@ export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
 export interface IBlockWrapper<TBlock = boolean> { block?: TBlock; }
+export interface IBoolWrapper { bool?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
@@ -144,6 +144,7 @@ export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: TDisplayValue; }
 export interface IEditApiWrapper { editApi?: string; }
+export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
@@ -217,6 +218,7 @@ export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
 export interface ILinkWrapper<TLink = string> { link?: TLink; }
 export interface IListAccessorWrapper<TListAccessor> { listAccessor?: TListAccessor; }
+export interface IListConfigurationWrapper<TProps> { listConfiguration?: TProps; }
 export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
 export interface IListWrapper<TList> { list?: TList; }
@@ -908,13 +910,6 @@ export interface ISimpleWrapper<TSimple = boolean> {
  */
 export interface IAvatarWrapper<TAvatar> {
   avatar?: TAvatar;
-}
-
-/**
- * @stable [12.08.2018]
- */
-export interface IUseAddActionWrapper {
-  useAddAction?: boolean;
 }
 
 /**

@@ -3,6 +3,7 @@ import {
   IBooleanIconLeftWrapper,
   IBooleanTransparentWrapper,
   IBorderedWrapper,
+  IButtonConfigurationWrapper,
   IDefaultOnPressWrapper,
   IDisabledWrapper,
   IErrorMessageWrapper,
@@ -66,6 +67,13 @@ export interface IButtonEntity
 export interface IButtonProps
   extends IComponentProps,
     IButtonEntity {
+}
+
+/**
+ * @stable [26.10.2019]
+ */
+export interface IButtonConfigurationWrapperEntity
+  extends IButtonConfigurationWrapper<IButtonProps> {
 }
 
 export interface IRnButtonEntity

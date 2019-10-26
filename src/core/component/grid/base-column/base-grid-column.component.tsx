@@ -1,17 +1,18 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { UniversalComponent } from '../../base';
 import {
   defValuesFilter,
   ifNotNilThanValue,
+  isEdited,
+  isIndexed,
+  isNumber,
   isOddNumber,
+  isSortable,
   joinClassName,
   nvl,
 } from '../../../util';
 import { IGridColumnProps } from '../../../definition';
-import { UNDEF_SYMBOL } from '../../../definitions.interface';
-import { FlexLayout } from '../../layout';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   extends UniversalComponent<TProps> {
@@ -36,8 +37,10 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     const props = this.props;
     return joinClassName(
       'rac-grid-column',
-      props.indexed === true && !R.isNil(props.index) && `rac-grid-column-${props.index}`,
+      isIndexed(props) && isNumber(props.index) && `rac-grid-column-${props.index}`,
       isOddNumber(props.index) && 'rac-grid-column-odd',
+      isEdited(props) && 'rac-grid-column-edited',
+      isSortable(props) && 'rac-grid-column-sortable',
       props.align && `rac-grid-column-align-${props.align}`,
       props.className,
       ...classNames
@@ -45,21 +48,17 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   }
 
   /**
-   * @stable [18.10.2019]
-   * @param {string} classNames
+   * @stable [26.10.2019]
    * @returns {JSX.Element}
    */
-  protected getColumnContentElement(...classNames: string[]): JSX.Element {
+  protected get columnContentElement(): JSX.Element {
     return ifNotNilThanValue(
       this.props.children,
       (children) => (
-        <FlexLayout
-          row={this.props.sortable === true}
-          className={joinClassName('rac-grid-column-content', ...classNames)}>
+        <div className='rac-grid-column-content'>
           {this.getColumnContentChildrenElement(children)}
-        </FlexLayout>
-      ),
-      UNDEF_SYMBOL
+        </div>
+      )
     );
   }
 

@@ -177,6 +177,11 @@ export class ListActionBuilder {
     return `${toActionPrefix(section)}.${LIST_CREATE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [26.10.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildDeselectActionType(section: string): string {
     return `${section}.${LIST_DESELECT_ACTION_TYPE}`;
   }

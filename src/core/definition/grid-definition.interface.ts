@@ -2,6 +2,7 @@ import * as CSS from 'csstype';
 
 import {
   IAlignWrapper,
+  IBoolWrapper,
   IColSpanWrapper,
   IColumnClassNameWrapper,
   IColumnColSpanWrapper,
@@ -11,11 +12,11 @@ import {
   IColumnTitleWrapper,
   IColumnWidthWrapper,
   IDirectionWrapper,
+  IEditedWrapper,
   IEntity,
   IEntityWrapper,
   IFilterRendererWrapper,
   IFilterWrapper,
-  IGroupableWrapper,
   IGroupedWrapper,
   IGroupExpandedWrapper,
   IHeaderClassNameWrapper,
@@ -82,14 +83,15 @@ export interface IGridFilterEntity<TEntity extends IEntity = IEntity>
  */
 export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
   extends IAlignWrapper<CSS.TextAlignProperty>,
+    IBoolWrapper,
     IColSpanWrapper,
     IColumnColSpanWrapper,
     IColumnRenderedWrapper,
     IColumnTitleWrapper,
     IColumnWidthWrapper,
     IDirectionWrapper<SortDirectionsEnum>,
+    IEditedWrapper,
     IEntityWrapper<TEntity>,
-    IGroupableWrapper,
     IHeaderClassNameWrapper,
     IHeaderColSpanWrapper,
     IHeaderRenderedWrapper,

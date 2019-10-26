@@ -44,7 +44,7 @@ export class GridColumn extends BaseGridColumn {
           title={props.columnTitle || orUndef(isPrimitive(children), () => String(children))}
           {...handlerPropsFactory(this.onColumnClick, isFn(props.onColumnClick))}
         >
-          {this.getColumnContentElement()}
+          {this.columnContentElement}
         </td>
       )
     );

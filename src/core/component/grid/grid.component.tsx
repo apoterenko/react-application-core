@@ -2,18 +2,25 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { IGridProps } from '../../props-definitions.interface';
-import { GroupValueRendererT, IFieldProps } from '../../configurations-definitions.interface';
-import { IEntity, AnyT, EntityIdT } from '../../definitions.interface';
 import {
-  joinClassName,
-  isDef,
-  orNull,
-  isFn,
-  orUndef,
+  GroupValueRendererT,
+  IFieldProps,
+} from '../../configurations-definitions.interface';
+import {
+  AnyT,
+  EntityIdT,
+  IEntity,
+} from '../../definitions.interface';
+import {
   cancelEvent,
   coalesce,
-  isOddNumber,
   ifNotNilThanValue,
+  isDef,
+  isFn,
+  isHighlightOdd,
+  joinClassName,
+  orNull,
+  orUndef,
 } from '../../util';
 import { BaseList } from '../list';
 import { Checkbox } from '../field';
@@ -45,7 +52,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   constructor(props: IGridProps) {
     super(props);
-    this.onSelect = this.onSelect.bind(this);
     this.onExpandAllGroups = this.onExpandAllGroups.bind(this);
 
     this.state = {filterChanges: {}, expandedGroups: {}, expandedAllGroups: false};
@@ -60,9 +66,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const dataSource = this.dataSource;
 
     return (
-      <FlexLayout
-        row={true}
-        className={joinClassName('rac-grid-wrapper', props.wrapperClassName)}>
+      <div className={joinClassName('rac-grid-wrapper', props.wrapperClassName)}>
         <table
           cellPadding={0}
           cellSpacing={0}
@@ -82,8 +86,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
             {props.topTotal === false && this.totalRowElement}
           </tbody>
         </table>
-        {this.addActionElement}
-      </FlexLayout>
+      </div>
     );
   }
 
@@ -162,7 +165,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @returns {React.ReactNode}
    */
   private getHeaderColumnContent(column: IGridColumnProps, columnNum: number): React.ReactNode {
-    if (column.groupable) {
+    if (column.bool) {
       const name = this.toHeaderFieldName(columnNum);
       return (
         <Checkbox
@@ -225,25 +228,17 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                     rowNum: number,
                     groupedRows?: IEntity[]): React.ReactNode {
     const name = this.toFieldName(entity, column, columnNum);
-    if (column.groupable) {
+    if (column.bool) {
       return (
-        /**
-         * Default group field
-         */
-        <Checkbox {...this.getDefaultFieldProps()}
-                  name={name}
-                  value={this.toCheckboxFieldValue(name)}
-                  onChange={(value) => this.onChangeGroupingRowField({value, name, rawData: entity})}/>
+        <Checkbox
+          {...this.getDefaultFieldProps()}
+          name={name}
+          value={this.toCheckboxFieldValue(name)}
+          onChange={(value) => this.onChangeGroupingRowField({value, name, rawData: entity})}/>
       );
     } else if (column.tpl) {
-      /**
-       * Build using a text template
-       */
       return column.tpl(entity, column, rowNum);
     } else if (column.renderer) {
-      /**
-       * Build using a renderer
-       */
       const renderEl = column.renderer(entity, column, groupedRows);
       if (R.isNil(renderEl)) {
         return renderEl;
@@ -258,9 +253,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
       return renderEl;
     } else if (column.name) {
-      /**
-       * Build by a column name
-       */
       return Reflect.get(entity, column.name);
     }
     return null;
@@ -297,19 +289,27 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return null;
   }
 
+  /**
+   * @stable [26.10.2019]
+   * @param {IEntity} entity
+   * @param {number} rowNum
+   * @param {boolean} highlightOdd
+   * @param {IEntity[]} groupedRows
+   * @returns {JSX.Element}
+   */
   private getRow(entity: IEntity,
                  rowNum: number,
                  highlightOdd: boolean,
                  groupedRows?: IEntity[]): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
-    const changes = props.changes;
-    const entityChanges = changes[entity.id];
+    const entityChanges = props.changes[entity.id];
+    const hasChanges = !R.isNil(entityChanges);
 
     return (
       <GridRow
         key={rowKey}
-        odd={props.highlightOdd !== false && highlightOdd && isOddNumber(rowNum)}
+        odd={highlightOdd && isHighlightOdd(props, rowNum)}
         hovered={this.isRowHovered}
         selected={this.isEntitySelected(entity)}
         selectable={this.isRowSelectable}
@@ -319,13 +319,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         {
           this.columnsConfiguration.map((column, columnNum) => (
             <GridColumn
-              key={`${rowKey}-${columnNum}`}
               index={columnNum}
-              className={joinClassName(
-                !R.isNil(entityChanges) && isDef(entityChanges[column.name]) && 'rac-grid-column-edited',
-              )}
+              edited={hasChanges && column.name in entityChanges}
               entity={entity}
-              {...column}>
+              {...column}
+              key={`${rowKey}-${columnNum}`}
+            >
               {this.getColumn(entity, column, columnNum, rowNum, groupedRows)}
             </GridColumn>
           ))
@@ -335,24 +334,24 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable - 05.04.2018
+   * @stable [26.10.2019]
    * @returns {JSX.Element}
    */
   private get filterElement(): JSX.Element {
     const columns = this.columnsConfiguration;
-    const isAtLeastOneFilterExist = columns
-      .filter((column) => !R.isNil(column.filterRenderer)).length > 0;
 
     return (
       orNull(
-        isAtLeastOneFilterExist,
+        columns.some((column) => isFn(column.filterRenderer)),
         () => (
           <GridRow filter={true}>
             {
               columns.map((column, columnNum) => (
-                <GridHeaderColumn key={this.toFilterColumnKey(columnNum)}
-                                  index={columnNum}
-                                  {...column}>
+                <GridHeaderColumn
+                  key={this.toFilterColumnKey(columnNum)}
+                  index={columnNum}
+                  {...column}
+                >
                   {this.getFilterColumn(column, columnNum)}
                 </GridHeaderColumn>
               ))

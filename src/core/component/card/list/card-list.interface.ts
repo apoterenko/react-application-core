@@ -1,12 +1,12 @@
 import {
   ICardListConfiguration,
-  IListConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import {
   IContainerProps,
-  IListWrapperEntity,
   IListEntity,
+  IListWrapperEntity,
 } from '../../../definition';
+import { IListConfigurationWrapper } from '../../../definitions.interface';
 
 /**
  * @stable [05.05.2018]

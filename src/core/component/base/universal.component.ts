@@ -36,12 +36,13 @@ import {
 } from '../../definition';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
-                                TState = {}>
+                                TState = {},
+                                TSelfRef = AnyT>
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
   protected readonly plugins: IUniversalPlugin[] = [];
-  protected readonly selfRef = React.createRef<AnyT>();
+  protected readonly selfRef = React.createRef<TSelfRef>();
   private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null };
 
   /**
