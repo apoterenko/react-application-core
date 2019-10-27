@@ -1,7 +1,6 @@
-import { IListConfiguration } from '../../../configurations-definitions.interface';
+import { IComponentProps, IListEntity } from '../../../definition';
 
-/**
- * @stable [14.01.2019]
- */
-export interface ISimpleListProps extends IListConfiguration {
+export interface ISimpleListProps  // TODO
+  extends IComponentProps,
+    IListEntity {
 }

@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import { AnyT } from '../../definitions.interface';
-import { IUniversalListProps } from '../../props-definitions.interface';
 import { Message } from '../message';
 import { UniversalList } from './universal-list.component';
 
-export abstract class BaseList<TProps extends IUniversalListProps,
+export abstract class BaseList<TProps extends any, // TODO Props
                                TState = {},
                                TSelfRef = AnyT>
   extends UniversalList<TProps, TState, TSelfRef> {
@@ -15,6 +14,6 @@ export abstract class BaseList<TProps extends IUniversalListProps,
    * @returns {JSX.Element}
    */
   protected getMessage(): JSX.Element {
-    return <Message {...this.getMessageComponentProps()}/>;
+    return <Message {...this.getMessageComponentProps()}/>;  // TODO ui factory
   }
 }

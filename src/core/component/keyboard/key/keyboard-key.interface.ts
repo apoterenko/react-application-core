@@ -17,6 +17,6 @@ export interface IKeyboardKeyProps extends IComponentProps,
                                            IRippledWrapper,   // TODO Button props
                                            IRendererWrapper<string>,
                                            IUseUppercaseWrapper,
-                                           IOnSelectWrapper<(item: KeyboardKeyT) => void>,
+                                           IOnSelectWrapper<KeyboardKeyT>,
                                            IValueWrapper<KeyboardKeyT> {
 }

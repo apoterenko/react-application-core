@@ -53,7 +53,7 @@ export enum GoogleMapsMapTypeEnum {
 export interface IGoogleMapsProps
   extends IComponentProps,
     IMenuOptionsWrapper<IMenuItemEntity[]>,
-    IOnSelectWrapper<(item: IGoogleMapsSelectEntity) => void>,
+    IOnSelectWrapper<IGoogleMapsSelectEntity>,
     IOptionsWrapper<google.maps.MapOptions>,
     IOnInitWrapper,
     IOnChangePlaceWrapper<IGoogleMapsMarkerChangePlaceEntity>,

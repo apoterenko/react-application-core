@@ -240,18 +240,21 @@ $rac-button-decorated-not-filled-width: 40px !default;
 $rac-list-item-odd-cls: rac-list-item-odd;
 $rac-list-item-selected-cls: rac-list-item-selected;
 /**/
-$rac-list-item-border-radius: unset !default;
-$rac-list-item-color: $rac-default-text-color !default;
-$rac-list-item-cursor: pointer !default;
-$rac-list-item-font-size: $rac-default-font-size !default;
-$rac-list-item-font-weight: unset !default;
+$rac-list-item-size-0: 32px;
 /**/
-$rac-list-item-graphic-size: 32px !default;
+$rac-list-item-align-items: center !default;
+$rac-list-item-border-radius: unset !default;
+$rac-list-item-color: $rac-color-1-0 !default;
+$rac-list-item-cursor: pointer !default;
+$rac-list-item-display: flex !default;
+$rac-list-item-flex-direction: row !default;
+$rac-list-item-font-size: $rac-font-size-0 !default;
+$rac-list-item-font-weight: unset !default;
 $rac-list-item-graphic-background: $rac-color-1-1 !default;
-$rac-list-item-graphic-border-radius: $rac-list-item-graphic-size / 2 !default;
+$rac-list-item-graphic-border-radius: $rac-list-item-size-0 / 2 !default;
 $rac-list-item-graphic-icon-color: $rac-color-0-1 !default;
 $rac-list-item-graphic-margin: 0 $rac-offset-3 0 0 !default;
-/**/
+$rac-list-item-graphic-size: $rac-list-item-size-0 !default;
 $rac-list-item-margin: unset !default;
 $rac-list-item-odd-background: $color-22 !default;
 $rac-list-item-padding: 8px !default;
@@ -409,10 +412,10 @@ $rac-field-message-color: $rac-default-text-color !default;
 
 /* @stable [17.09.2018] */
 $rac-base-checkbox-cls: rac-base-checkbox;
-$rac-base-checked-cls: rac-base-checked;
 $rac-base-select-cls: rac-base-select;
 $rac-base-text-cls: rac-base-text;
 $rac-checkbox-cls: rac-checkbox;
+$rac-checked-cls: rac-checked;
 $rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
 $rac-field-labeled-cls: rac-field-labeled;
@@ -425,13 +428,13 @@ $rac-view-field-cls: rac-view-field;
 /**/
 $rac-checkbox-color-0: $rac-color-1-3 !default;
 /**/
-$rac-base-checkbox-checked-self-field-input-wrapper-background: $rac-checkbox-color-0 !default;
 $rac-base-checkbox-self-field-align-items: center !default;
 $rac-base-checkbox-self-field-label-line-height: $rac-line-height-0 !default;
 $rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-offset-1 !default;
 $rac-base-select-self-field-input-wrapper-flex-direction: column !default;
 $rac-base-text-self-field-height: 32px !default;
 $rac-base-text-self-field-input-wrapper-flex: 1 !default;
+$rac-checkbox-checked-self-field-input-wrapper-background: $rac-checkbox-color-0 !default;
 $rac-checkbox-self-field-input-cursor: pointer !default;
 $rac-checkbox-self-field-input-icon-color: $rac-color-0-1 !default;
 $rac-checkbox-self-field-input-icon-size: 10px !default;

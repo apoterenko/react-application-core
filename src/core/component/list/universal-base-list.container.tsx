@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { IUniversalListProps } from '../../props-definitions.interface';
 import { IEntity } from '../../definitions.interface';
 import { IFieldChangeEntity, ISelectedWrapperEntity } from '../../definition';
 import {
@@ -8,11 +7,10 @@ import {
   LIST_CREATE_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
   LIST_CANCEL_LOAD_ACTION_TYPE,
-  IUniversalListContainerProps,
 } from './list.interface';
 import { UniversalContainer } from '../base/universal.container';
 
-export class UniversalBaseListContainer<TProps extends IUniversalListContainerProps> extends UniversalContainer<TProps> {
+export class UniversalBaseListContainer<TProps extends any> extends UniversalContainer<TProps> { // TODO
 
   /**
    * @stable [09.06.2018]
@@ -44,13 +42,13 @@ export class UniversalBaseListContainer<TProps extends IUniversalListContainerPr
    * @stable [05.06.2018]
    * @returns {TComponentProps}
    */
-  protected getComponentProps<TComponentProps extends IUniversalListProps>(): TComponentProps {
+  protected getComponentProps<TComponentProps extends any>(): TComponentProps { // TODO
     return {
       onChange: this.onChange,
       onSelect: this.onSelect,
       onCreate: this.onCreate,
       ...this.props.list as {},
-    } as TComponentProps;
+    } as any /* TComponentProps */;
   }
 
   /**

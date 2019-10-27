@@ -9,23 +9,25 @@ import {
   SAME_ENTITY_PREDICATE,
   uuid,
 } from '../../util';
-import { IEntity } from '../../definitions.interface';
+import {
+  AnyT,
+  IEntity,
+} from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
-import { IUniversalListProps } from '../../props-definitions.interface';
 import { IUniversalMessageProps } from '../message/universal-message.interface';
 
-export abstract class UniversalList<TProps extends IUniversalListProps,
-                                    TState = {}>
-  extends UniversalComponent<TProps, TState> {
+export abstract class UniversalList<TProps extends any,  // TODO Props
+                                    TState = {},
+                                    TSelfRef = AnyT>
+  extends UniversalComponent<TProps, TState, TSelfRef> {
 
   /**
-   * @stable [23.04.2018]
+   * @stable [27.10.2019]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
     this.onCreate = this.onCreate.bind(this);
-    this.onSelect = this.onSelect.bind(this);
   }
 
   /**
@@ -63,32 +65,6 @@ export abstract class UniversalList<TProps extends IUniversalListProps,
     if (isFn(this.props.onCreate)) {
       this.props.onCreate();
     }
-  }
-
-  /**
-   * @deprecated Use props.onSelect
-   */
-  protected onSelect(entity: IEntity): void {
-    const props = this.props;
-    if (this.isRowSelectable && isFn(props.onSelect)) {
-      props.onSelect(entity);
-    }
-  }
-
-  /**
-   * @stable [23.10.2019]
-   * @returns {boolean}
-   */
-  protected get isRowSelectable(): boolean {
-    return this.props.selectable !== false;
-  }
-
-  /**
-   * @stable [23.10.2019]
-   * @returns {boolean}
-   */
-  protected get isRowHovered(): boolean {
-    return this.props.hovered !== false;
   }
 
   /**

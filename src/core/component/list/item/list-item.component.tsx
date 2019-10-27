@@ -1,13 +1,33 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { IListItemProps } from './list-item.interface';
-import { joinClassName, handlerPropsFactory, calc, isFn } from '../../../util';
-import { ListItemGraphic, ListItemText } from '../../list';
-import { UNIVERSAL_SELECTED_ELEMENT_SELECTOR } from '../../../definitions.interface';
-import { UniversalComponent } from '../../base';
+import {
+  handlerPropsFactory,
+  isDisabled,
+  isFn,
+  isSelected,
+  joinClassName,
+} from '../../../util';
+import {
+  ListItemGraphic,
+  ListItemText,
+} from '../../list';
+import { BaseComponent } from '../../base';
+import {
+  IListItemProps,
+  UniversalScrollableContext,
+} from '../../../definition';
+import { ISelectedElementClassNameWrapper } from '../../../definitions.interface';
 
-export class ListItem extends UniversalComponent<IListItemProps> {
+export class ListItem extends BaseComponent<IListItemProps> {
+
+  /**
+   * @stable [27.10.2019]
+   * @param {IListItemProps} props
+   */
+  constructor(props: IListItemProps) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
 
   /**
    * @stable [23.09.2019]
@@ -16,51 +36,61 @@ export class ListItem extends UniversalComponent<IListItemProps> {
   public render(): JSX.Element {
     const props = this.props;
 
-    return props.renderer
-      ? React.cloneElement(props.renderer(props.rawData, props.index), this.itemProps)
-      : (
-        <li {...this.itemProps}>
-          {
-            props.icon && (
-              <ListItemGraphic
-                iconConfiguration={props.icon}/>
+    return (
+      <UniversalScrollableContext.Consumer>
+        {(selectedElementClassName) => (
+          props.renderer
+            ? React.cloneElement(
+                props.renderer(props.rawData, props.index),
+                this.getItemProps({selectedElementClassName})
+              )
+            : (
+              <li {...this.getItemProps({selectedElementClassName})}>
+                {
+                  props.icon && <ListItemGraphic iconConfiguration={props.icon}/>
+                }
+                {
+                  isFn(props.tpl)
+                    ? <ListItemText>{props.tpl(props.rawData)}</ListItemText>
+                    : props.children
+                }
+              </li>
             )
-          }
-          {
-            isFn(props.tpl)
-              ? <ListItemText>{props.tpl(props.rawData)}</ListItemText>
-              : props.children
-          }
-        </li>
-      );
+        )}
+      </UniversalScrollableContext.Consumer>
+    );
   }
 
   /**
-   * @stable [23.09.2019]
+   * @stable [27.10.2019]
+   * @param {ISelectedElementClassNameWrapper} context
    * @returns {React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>}
    */
-  private get itemProps(): React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
+  private getItemProps(context: ISelectedElementClassNameWrapper): React.DetailedHTMLProps<
+    React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
     const props = this.props;
     return (
       {
         ref: this.selfRef,
         className: joinClassName(
           'rac-list-item',
-          props.selected
-            ? `rac-list-item-selected ${UNIVERSAL_SELECTED_ELEMENT_SELECTOR}`
-            : 'rac-list-item-unselected',
           props.className,
-          calc(props.toClassName, props.rawData),
-          'rac-flex',
-          'rac-flex-row',
-          'rac-flex-align-items-center'
+          ...(
+            isSelected(props)
+              ? ['rac-list-item-selected', context.selectedElementClassName]
+              : ['rac-list-item-unselected']
+          )
         ),
-        ...handlerPropsFactory<HTMLLIElement>(
-          () => props.onClick(props.rawData),
-          !props.disabled && !R.isNil(props.onClick),
-          false
-        ),
+        ...handlerPropsFactory<HTMLLIElement>(this.onClick, !isDisabled(props) && isFn(props.onClick), false),
       }
     );
+  }
+
+  /**
+   * @stable [27.10.2019]
+   */
+  private onClick(): void {
+    const props = this.props;
+    props.onClick(props.rawData);
   }
 }

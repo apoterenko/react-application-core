@@ -1,9 +1,9 @@
-import { IGridConfigurationWrapper } from '../../../configurations-definitions.interface';
 import {
   IMultiFieldState,
   IMultiFieldProps,
 } from '../multifield';
-import { IGridProps } from '../../../props-definitions.interface';
+import { IGridProps } from '../../../definition';
+import { IGridConfigurationWrapper } from '../../../definitions.interface';
 
 /**
  * @stable [19.08.2018]

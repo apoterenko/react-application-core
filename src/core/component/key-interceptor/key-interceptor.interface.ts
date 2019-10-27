@@ -13,6 +13,6 @@ export interface IKeyInterceptorProps
   extends IUniversalComponentProps,
     IDelayTimeoutWrapper,
     IIgnoreEnterKeyWrapper,
-    IRobotDetectionMinSymbolsCountWrapper,
-    IOnSelectWrapper<(item: string) => void> {
+    IOnSelectWrapper<string>,
+    IRobotDetectionMinSymbolsCountWrapper {
 }

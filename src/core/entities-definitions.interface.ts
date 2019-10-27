@@ -9,16 +9,12 @@ import {
   IFromDateFromTimeEntity,
   IGetValueWrapper,
   IIdWrapper,
-  IIndexWrapper,
   IKeyValue,
   IListWrapper,
   INameWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
-  IOpenWrapper,
-  IRawDataWrapper,
   IResetErrorWrapper,
-  ISelectedWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
   ITimeWrapper,
@@ -29,10 +25,8 @@ import {
   IUniversalFieldProps,
 } from './props-definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
-import { IReactOnClickWrapper } from './react-definitions.interface';
 import {
   IEnvironment,
-  IFieldChangeEntity,
   ILifeCycleEntity,
   IListEntity,
   IQueryFilterEntity,
@@ -71,35 +65,11 @@ export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
 }
 
-/* @stable [24.04.2018] */
-export interface IUniversalListItemEntity extends IRawDataWrapper,
-                                                  IIndexWrapper,
-                                                  IReactOnClickWrapper<IEntity>,
-                                                  ISelectedWrapper {
-}
-
-/* @stable [24.04.2018] */
-export interface IRnListItemEntity extends IUniversalListItemEntity {
-}
-
-/* @stable - 31.03.2018 */
-export interface IListItemEntity extends IUniversalListItemEntity {
-}
-
 /**
  * @stable [17.09.2019]
  */
 export interface IQueryFilteredListEntity
   extends IFilteredListWrapperEntity<IQueryFilterEntity, IListEntity> {
-}
-
-/* @stable - 05.04.2018 */
-export interface IGridEntity extends IListEntity,
-                                     IFieldChangeEntity {
-}
-
-/* @stable - 04.04.2018 */
-export interface IGridWrapperEntity extends IListWrapper<IGridEntity> {
 }
 
 /* @stable [23.04.2018] */
@@ -168,14 +138,6 @@ export interface INativeMaterialComponent {
   destroy();
   unlisten(event: string, callback: () => void);
   listen(event: string, callback: () => void);
-}
-
-/**
- * @stable [17.11.2018]
- */
-export interface IMenuMaterialComponent extends INativeMaterialComponent,
-                                                IOpenWrapper {
-  hoistMenuToBody();
 }
 
 /**

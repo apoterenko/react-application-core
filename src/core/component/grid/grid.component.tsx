@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IGridProps } from '../../props-definitions.interface';
 import {
   GroupValueRendererT,
   IFieldProps,
@@ -18,8 +17,11 @@ import {
   isDef,
   isFn,
   isHighlightOdd,
+  isHovered,
+  isSelectable,
   joinClassName,
   orNull,
+  isExpandActionRendered,
   orUndef,
 } from '../../util';
 import { BaseList } from '../list';
@@ -37,6 +39,7 @@ import {
   IBaseEvent,
   IFieldChangeEntity,
   IGridColumnProps,
+  IGridProps,
   ISortDirectionEntity,
 } from '../../definition';
 import {
@@ -122,8 +125,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private onChangeGroupingRowField(payload: IFieldChangeEntity): void {
     const props = this.props;
 
-    if (props.onChangeGrouping) {
-      props.onChangeGrouping(payload);
+    if (props.onChangeBoolValue) {
+      props.onChangeBoolValue(payload);
     }
   }
 
@@ -182,7 +185,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   private get headRowElement(): JSX.Element {
     const {expandedAllGroups} = this.state;
-    const {expandActionRendered, hasGrouping, props} = this;
+    const expandActionRendered = this.isExpandActionRendered;
+    const {hasGrouping, props} = this;
 
     return (
       <GridRow>
@@ -310,9 +314,9 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       <GridRow
         key={rowKey}
         odd={highlightOdd && isHighlightOdd(props, rowNum)}
-        hovered={this.isRowHovered}
+        hovered={isHovered(props)}
         selected={this.isEntitySelected(entity)}
-        selectable={this.isRowSelectable}
+        selectable={isSelectable(props)}
         entity={entity}
         onClick={props.onSelect}
       >
@@ -570,7 +574,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const groupValue = groupBy.groupValue;
     const isGroupValueArray = Array.isArray(groupValue);
     const isExpanded = this.isGroupedRowExpanded(groupedRowValue);
-    const expandActionRendered = this.expandActionRendered;
+    const expandActionRendered = this.isExpandActionRendered;
     const columns = this.columnsConfiguration;
 
     return (
@@ -706,10 +710,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [27.07.2019]
+   * @stable [27.10.2019]
    * @returns {boolean}
    */
-  private get expandActionRendered(): boolean {
-    return this.props.expandActionRendered !== false;
+  private get isExpandActionRendered(): boolean {
+    return isExpandActionRendered(this.props);
   }
 }

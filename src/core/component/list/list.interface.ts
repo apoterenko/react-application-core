@@ -1,31 +1,10 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IListConfigurationWrapper } from '../../configurations-definitions.interface';
-import {
-  IListWrapperEntity,
-  IUniversalContainerEntity,
-} from '../../definition';
+import { IListConfigurationWrapperEntity } from '../../definition';
+import { IKeyValue } from '../../definitions.interface';
 
-/**
- * @stable [05.06.2018]
- */
-export interface IUniversalListContainerProps extends IUniversalContainerEntity,
-                                                      IListWrapperEntity {
-}
-
-/**
- * @stable [05.05.2018]
- */
-export interface IListContainerProps extends IUniversalListContainerProps,
-                                             IListConfigurationWrapper {
-}
-
-/**
- * @stable [05.05.2018]
- */
-export interface IRnListContainerProps extends IUniversalContainerEntity,
-                                               IListWrapperEntity,
-                                               IListConfigurationWrapper {
+export interface IListContainerProps extends IKeyValue,  // TODO
+  IListConfigurationWrapperEntity {
 }
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';

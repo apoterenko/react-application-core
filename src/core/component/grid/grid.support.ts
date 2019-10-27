@@ -18,10 +18,10 @@ import {
   IGridState,
   ITimeGridBuilderConfigEntity,
 } from './grid.interface';
-import { IGridProps } from '../../props-definitions.interface';
 import {
   IGridColumnProps,
   IGridFilterEntity,
+  IGridProps,
   ISortDirectionEntity,
   MultiFieldEntityT,
   SortDirectionsEnum,

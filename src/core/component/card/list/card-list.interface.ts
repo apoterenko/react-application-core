@@ -1,18 +1,13 @@
 import {
-  ICardListConfiguration,
-} from '../../../configurations-definitions.interface';
-import {
   IContainerProps,
-  IListEntity,
   IListWrapperEntity,
 } from '../../../definition';
-import { IListConfigurationWrapper } from '../../../definitions.interface';
+import { IListConfigurationWrapper, IKeyValue } from '../../../definitions.interface';
 
 /**
  * @stable [05.05.2018]
  */
-export interface ICardListProps extends ICardListConfiguration,
-                                        IListEntity {
+export interface ICardListProps extends IKeyValue { // TODO
 }
 
 /**
@@ -20,5 +15,5 @@ export interface ICardListProps extends ICardListConfiguration,
  */
 export interface ICardListContainerProps extends IContainerProps,
                                                  IListWrapperEntity,
-                                                 IListConfigurationWrapper<ICardListConfiguration> {
+                                                 IListConfigurationWrapper<any> { // TODO
 }

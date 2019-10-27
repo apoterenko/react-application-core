@@ -12,10 +12,7 @@ import {
   IActiveWrapper,
   IAfterEnterWrapper,
   IAliasWrapper,
-  IHighlightExpandedGroupWrapper,
-  IHighlightOddWrapper,
   IAutoCompleteWrapper,
-  IAvatarWrapper,
   IBackwardRenderedWrapper,
   IBasenameWrapper,
   IBeforeEnterWrapper,
@@ -27,7 +24,6 @@ import {
   ICameraWidthWrapper,
   IReturnValueToClearDirtyChangesWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
-  ICenterAlignmentWrapper,
   ICenteredWrapper,
   IChangeableWrapper,
   IChangeFormWrapper,
@@ -35,43 +31,24 @@ import {
   IClassNameWrapper,
   IClearActionWrapper,
   IComputedMatchWrapper,
-  IContentStyleWrapper,
-  IContentWrapper,
-  IDeactivatedWrapper,
   IDefaultValueWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
   IDisplayNameWrapper,
-  IDrawerContentStyleWrapper,
-  IDrawerContentWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
   IEntity,
-  IEntityToClassNameWrapper,
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
   IExactWrapper,
-  IExpandActionRenderedWrapper,
-  IExpandedGroupsWrapper,
   IFactorWrapper,
   IFieldWrapper,
   IFilterFnWrapper,
   IFocusEvent,
   IForwardRenderedWrapper,
   IFullWrapper,
-  IGroupByWrapper,
-  IHasContentWrapperWrapper,
-  IHeaderActionIconStyleWrapper,
-  IHeaderActionStyleWrapper,
-  IHeaderBackActionEnabledWrapper,
-  IHeaderContentWrapper,
-  IHeaderMenuActionEnabledWrapper,
-  IHeaderStyleWrapper,
-  IHeaderTitleStyleWrapper,
   IHideNavBarWrapper,
-  IHoveredWrapper,
   IIconWrapper,
-  IIndexWrapper,
   IInitialWrapper,
   IItemsWrapper,
   IKeyboardConfigurationWrapper,
@@ -88,14 +65,9 @@ import {
   INavigationActionTypeWrapper,
   INotUseFieldWrapper,
   IOnBlurWrapper,
-  IOnChangeFilterWrapper,
-  IOnChangeGroupingWrapper,
-  IOnChangeHeaderWrapper,
-  IOnSortingDirectionChangeWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
   IOnCloseWrapper,
-  IOnCreateWrapper,
   IOnDeactivateWrapper,
   IOnEmptyDictionaryWrapper,
   IOnEnterWrapper,
@@ -106,36 +78,24 @@ import {
   IParamsWrapper,
   IPathWrapper,
   IPrefixLabelWrapper,
-  IRendererWrapper,
   IRenderToBodyWrapper,
   IRippableWrapper,
-  ISelectableWrapper,
   ISelectedWrapper,
-  ISeparatorsWrapper,
-  IShadowStyleWrapper,
   ISimpleWrapper,
   ISorterWrapper,
   IStepWrapper,
-  IStickyHeadWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
   ITitleWrapper,
-  ITotalEntityWrapper,
-  ITplFnWrapper,
   ITypeWrapper,
   IUrlWrapper,
-  IUseAddActionWrapper,
-  IUseDrawerWrapper,
-  IUseHeaderWrapper,
   IUseIndicatorWrapper,
   IUseSyntheticCursorWrapper,
   IValidateWrapper,
   IValidationGroupWrapper,
   IValueWrapper,
-  IWarningWrapper,
   IWidthWrapper,
-  IWrapperClassNameWrapper,
   IAccessConfigurationWrapper,
 } from './definitions.interface';
 import {
@@ -147,16 +107,13 @@ import {
   IBaseEvent,
   IComponentProps,
   IDelayedChangesEntity,
-  IFieldChangeEntity,
   IGenericFieldEntity,
   IGridColumnProps,
   IMenuItemEntity,
   INamedConstructor,
   INavigationItemEntity,
-  ISortDirectionEntity,
   IUniversalComponentEntity,
   IUniversalContainerCtor,
-  IUniversalContainerEntity,
   IUniversalStoreEntity,
   IWebComponentEntity,
 } from './definition';
@@ -188,27 +145,6 @@ export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfi
  */
 export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldProps> {
   fieldConfiguration?: TFieldConfiguration;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IColumnsConfigurationWrapper<TColumnsConfiguration = IGridColumnProps[]> {
-  columnsConfiguration?: TColumnsConfiguration;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IListConfigurationWrapper<TListConfiguration = IListConfiguration> {
-  listConfiguration?: TListConfiguration;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface IGridConfigurationWrapper<TGridConfiguration = IGridConfiguration> {
-  gridConfiguration?: TGridConfiguration;
 }
 
 /**
@@ -248,101 +184,9 @@ export interface INavigationHandlersConfiguration {
 }
 
 /**
- * @stable [24.04.2018]
- */
-export interface IUniversalListItemConfiguration extends IUniversalComponentEntity,
-                                                         IRendererWrapper,
-                                                         IIndexWrapper,
-                                                         ITplFnWrapper,
-                                                         IWarningWrapper {
-}
-
-/* @stable [24.04.2018] */
-export interface IRnListItemConfiguration extends IUniversalListItemConfiguration,
-                                                  IAvatarWrapper<string | ((data: IKeyValue) => string)>,
-                                                  ISeparatorsWrapper<IKeyValue> {
-}
-
-/* @stable - 31.03.2018 */
-export interface IListItemConfiguration extends IUniversalListItemConfiguration,
-                                                IWebComponentEntity,
-                                                IEntityToClassNameWrapper,
-                                                IDisabledWrapper,
-                                                IIconWrapper<UIIconConfigurationT> {
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface ICardListItemConfiguration extends IUniversalListItemConfiguration,
-                                                    IWebComponentEntity<string | ((...args) => string)>,
-                                                    IActionButtonsWrapper<(entity: IEntity) => React.ReactNode>,
-                                                    IActionIconsWrapper<(entity: IEntity) => React.ReactNode> {
-  rippable?: boolean; // TODO
-  rippled?: boolean; // TODO
-}
-
-/**
  * @stable [05.10.2018]
  */
 export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode;
-
-/* @stable [23.04.2018] */
-export interface IUniversalListConfiguration
-    <TItemConfiguration extends IUniversalListItemConfiguration = IUniversalListItemConfiguration>
-  extends IUniversalComponentEntity,
-          IFilterAndSorterConfiguration,
-          IEmptyMessageWrapper,
-          IEmptyDataMessageWrapper,
-          IUseAddActionWrapper,
-          IOnCreateWrapper,
-          IOnSelectWrapper<(entity: IEntity) => void>,
-          IOnChangeWrapper<IFieldChangeEntity>,
-          IOnChangeHeaderWrapper<IFieldChangeEntity>,
-          IOnChangeFilterWrapper<IFieldChangeEntity>,
-          IItemConfigurationWrapper<TItemConfiguration>,
-          IDeactivatedWrapper,
-          IHighlightOddWrapper,
-          IHighlightExpandedGroupWrapper,
-          IHoveredWrapper,
-          IFullWrapper,
-          ISelectableWrapper,
-          IGroupByWrapper<{
-            columnName: string,
-            groupValue: GroupValueRendererT | GroupValueRendererT[]
-          }> {
-  useLocalFiltering?: boolean;
-  useLocalSorting?: boolean;
-}
-
-/* @stable [24.04.2018] */
-export interface IRnListConfiguration extends IUniversalListConfiguration<IRnListItemConfiguration> {
-}
-
-/* @stable - 04.04.2018 */
-export interface ICardListConfiguration extends IUniversalListConfiguration<ICardListItemConfiguration>,
-  IWebComponentEntity {
-}
-
-/* @stable - 04.04.2018 */
-export interface IListConfiguration extends IUniversalListConfiguration<IListItemConfiguration>,
-                                            IWebComponentEntity {
-}
-
-/* @stable - 04.04.2018 */
-export interface IGridConfiguration extends IUniversalListConfiguration,
-                                            IWebComponentEntity,
-                                            IWrapperClassNameWrapper,
-                                            IOnChangeGroupingWrapper<IFieldChangeEntity>,
-                                            IOnSortingDirectionChangeWrapper<ISortDirectionEntity>,
-                                            IColumnsConfigurationWrapper<IGridColumnProps[]>,
-                                            IExpandActionRenderedWrapper,
-                                            IExpandedGroupsWrapper<any>,
-                                            IStickyHeadWrapper,
-                                            ITotalEntityWrapper<IEntity> {
-  topTotal?: boolean; // TODO
-  groupedDataSorter?: (groupedValue1, groupedValue2, entity1: IEntity, entity2: IEntity) => number;
-}
 
 /**
  * @stable [31.08.2018]
@@ -379,12 +223,7 @@ export interface ITabPanelConfiguration extends IComponentProps,
 export interface IWebCameraConfiguration extends IComponentProps,
                                                  ICameraWidthWrapper,
                                                  ICameraHeightWrapper,
-                                                 IOnSelectWrapper<(item: Blob) => void> {
-}
-
-/* @stable - 25.04.2018 */
-export interface IRnApplicationConfiguration extends IUniversalComponentEntity,
-                                                     IHideNavBarWrapper {
+                                                 IOnSelectWrapper<Blob> {
 }
 
 /* @stable - 11.04.2018 */
@@ -549,12 +388,6 @@ export enum LayoutBuilderTypeEnum {
 }
 
 /* @stable - 16.04.2018 */
-export const LAYOUT_BUILDER_TYPES = {
-  VERTICAL: LayoutBuilderTypeEnum.VERTICAL,
-  HORIZONTAL: LayoutBuilderTypeEnum.HORIZONTAL,
-};
-
-/* @stable - 16.04.2018 */
 export enum LayoutBuilderFactorsEnum {
   FACTOR_0_5,
   FACTOR_0_75,
@@ -563,16 +396,6 @@ export enum LayoutBuilderFactorsEnum {
   FACTOR_4,
   FACTOR_8,
 }
-
-/* @stable - 16.04.2018 */
-export const LAYOUT_BUILDER_FACTOR_TYPES = {
-  FACTOR_0_5: LayoutBuilderFactorsEnum.FACTOR_0_5,
-  FACTOR_0_75: LayoutBuilderFactorsEnum.FACTOR_0_75,
-  FACTOR_1: LayoutBuilderFactorsEnum.FACTOR_1,
-  FACTOR_2: LayoutBuilderFactorsEnum.FACTOR_2,
-  FACTOR_4: LayoutBuilderFactorsEnum.FACTOR_4,
-  FACTOR_8: LayoutBuilderFactorsEnum.FACTOR_8,
-};
 
 /**
  * @stable [22.10.2018]
@@ -590,41 +413,12 @@ export interface IUniversalLayoutBuilderConfiguration<TNode>
           IFactorWrapper<LayoutBuilderFactorsEnum> {
 }
 
-/* @stable [23.04.2018] */
-export interface IRnModalConfiguration extends IUniversalComponentEntity,
-                                               IShadowStyleWrapper<IKeyValue>,
-                                               IHasContentWrapperWrapper,
-                                               ICenterAlignmentWrapper {
-}
-
 /* @stable - 08.04.2018 */
 export interface IUniversalMessageConfiguration extends IUniversalComponentEntity,
                                                         IEmptyDataMessageWrapper,
                                                         IErrorMessageWrapper,
                                                         IEmptyMessageWrapper<React.ReactNode>,
                                                         IBooleanEmptyDataWrapper {
-}
-
-/* @stable [27.04.2018] */
-export interface IRnDrawerConfiguration extends IUniversalComponentEntity,
-                                                IContentWrapper {
-}
-
-/* @stable [27.04.2018] */
-export interface IRnDefaultLayoutContainerConfiguration extends IUniversalContainerEntity,
-                                                                IHeaderBackActionEnabledWrapper,
-                                                                IHeaderMenuActionEnabledWrapper,
-                                                                IDrawerContentWrapper,
-                                                                IHeaderContentWrapper,
-                                                                IHeaderActionIconStyleWrapper,
-                                                                IHeaderActionStyleWrapper,
-                                                                IHeaderActionStyleWrapper,
-                                                                IHeaderTitleStyleWrapper,
-                                                                IHeaderStyleWrapper,
-                                                                IContentStyleWrapper,
-                                                                IDrawerContentStyleWrapper,
-                                                                IUseDrawerWrapper,
-                                                                IUseHeaderWrapper {
 }
 
 /**
@@ -635,6 +429,7 @@ export interface ICardConfiguration extends IComponentProps,
                                             IRippableWrapper,
                                             IActionButtonsWrapper<React.ReactNode>,
                                             IActionIconsWrapper<React.ReactNode> {
+  entity?: IEntity;
 }
 
 /**

@@ -62,11 +62,24 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @deprecated Use proxy
+   * @stable [27.10.2019]
+   * @param {string} type
+   * @param {TData} data
    */
-  public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
-    const props = this.props;
-    this.dispatchCustomType(`${props.sectionName}.${type}`, applySection(props.sectionName, data));
+  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
+    this.appStore.dispatch({type, data});
+  }
+
+  /**
+   * @stable [27.10.2019]
+   * @param {string} type
+   * @param {TData} data
+   * @param {string} otherSectionName
+   */
+  public dispatch<TData = IKeyValue>(type: string, data?: TData, otherSectionName?: string): void {
+    const {sectionName} = this.props;
+    const finalSectionName = otherSectionName || sectionName;
+    this.dispatchCustomType(`${finalSectionName}.${type}`, applySection(finalSectionName, data));
   }
 
   /**
@@ -115,13 +128,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
     this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
-    this.appStore.dispatch({ type, data });
   }
 
   /**

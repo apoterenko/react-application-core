@@ -1,7 +1,10 @@
-import { IGridConfigurationWrapper } from '../../configurations-definitions.interface';
-import { IGridWrapperEntity } from '../../entities-definitions.interface';
-import { IFilterChangesWrapper, IExpandedGroupsWrapper, IKeyValue } from '../../definitions.interface';
-import { IContainerProps } from '../../definition';
+import {
+  IExpandedGroupsWrapper,
+  IFilterChangesWrapper,
+  IGridConfigurationWrapper,
+  IKeyValue,
+} from '../../definitions.interface';
+import { IContainerProps, IListWrapperEntity, IGridProps } from '../../definition';
 
 /**
  * @stable [10.09.2018]
@@ -15,17 +18,13 @@ export interface ITimeGridBuilderConfigEntity {
   timeAbbreviationResolver?: (isBeforeNoon?: boolean) => string;
 }
 
-/**
- * @stable [05.05.2018]
- */
+// TODO
 export interface IGridContainerProps extends IContainerProps,
-                                             IGridWrapperEntity,
-                                             IGridConfigurationWrapper {
+                                             IListWrapperEntity,
+                                             IGridConfigurationWrapper<IGridProps> {
 }
 
-/**
- * @stable [06.06.2018]
- */
+// TODO
 export interface IGridState extends IFilterChangesWrapper,
                                     IExpandedGroupsWrapper<IKeyValue> {
   expandedAllGroups?: boolean; // TODO

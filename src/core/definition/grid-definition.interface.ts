@@ -1,6 +1,7 @@
 import * as CSS from 'csstype';
 
 import {
+  EntityIdT,
   IAlignWrapper,
   IBoolWrapper,
   IColSpanWrapper,
@@ -8,6 +9,7 @@ import {
   IColumnColSpanWrapper,
   IColumnNameWrapper,
   IColumnRenderedWrapper,
+  IColumnsConfigurationWrapper,
   IColumnStylesWrapper,
   IColumnTitleWrapper,
   IColumnWidthWrapper,
@@ -15,8 +17,11 @@ import {
   IEditedWrapper,
   IEntity,
   IEntityWrapper,
+  IExpandActionRenderedWrapper,
+  IExpandedGroupsWrapper,
   IFilterRendererWrapper,
   IFilterWrapper,
+  IGroupedDataSorterWrapper,
   IGroupedWrapper,
   IGroupExpandedWrapper,
   IHeaderClassNameWrapper,
@@ -32,6 +37,7 @@ import {
   ILocalFilterWrapper,
   INameWrapper,
   IOddWrapper,
+  IOnChangeBoolValueWrapper,
   IOnClickWrapper,
   IOnColumnClickWrapper,
   IOnSortingDirectionChangeWrapper,
@@ -43,9 +49,12 @@ import {
   ISortableWrapper,
   ISorterWrapper,
   IStickyHeadWrapper,
+  ITopTotalWrapper,
+  ITotalEntityWrapper,
   ITotalWrapper,
   ITplWrapper,
   IWidthWrapper,
+  IWrapperClassNameWrapper,
   StringNumberT,
 } from '../definitions.interface';
 import {
@@ -53,6 +62,8 @@ import {
   SortDirectionsEnum,
 } from './sort-definition.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IFieldChangeEntity } from './field-definition.interface';
+import { IListEntity } from './list-definition.interface';
 
 /**
  * @stable [23.10.2019]
@@ -160,4 +171,31 @@ export interface IGridRowProps<TEntity extends IEntity = IEntity>
 export interface IGridHeaderProps
   extends IComponentProps,
     IStickyHeadWrapper {
+}
+
+export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
+  extends IColumnsConfigurationWrapper<TColumn[]>,
+  IExpandActionRenderedWrapper,
+  IExpandedGroupsWrapper<{[index: string]: boolean}>,
+  IGroupedDataSorterWrapper<EntityIdT, TEntity>,
+  IStickyHeadWrapper,
+  ITopTotalWrapper,
+  ITotalEntityWrapper<TEntity>,
+  IOnSortingDirectionChangeWrapper<ISortDirectionEntity> {
+}
+
+export interface IGridEntity<TEntity extends IEntity = IEntity>
+  extends IListEntity<TEntity>,
+    IGridGenericEntity<IGridColumnProps, TEntity>,
+    IWrapperClassNameWrapper,
+    /**/
+    IOnChangeBoolValueWrapper<IFieldChangeEntity> {
+}
+
+/**
+ * @stable [27.10.2019]
+ */
+export interface IGridProps
+  extends IComponentProps,
+    IGridEntity {
 }

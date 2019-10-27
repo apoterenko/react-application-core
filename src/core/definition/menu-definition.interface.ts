@@ -33,11 +33,11 @@ import { IComponent } from './component-definition.interface';
 /**
  * @stable [02.10.2019]
  */
-export interface IMenuItemEntity<TRawData extends IEntity = IEntity, TValue = EntityIdT>
+export interface IMenuItemEntity<TEntity extends IEntity = IEntity, TValue = EntityIdT>
   extends ILabeledValueEntity<TValue>,
     IIconWrapper,
     IDisabledWrapper,
-    IRawDataWrapper<TRawData> {
+    IRawDataWrapper<TEntity> {
 }
 
 /**
@@ -58,10 +58,10 @@ export interface IMenuEntity
     IMultiWrapper,
     IOnCloseWrapper,
     IOnFilterChangeWrapper<(query: string) => void>,
-    IOnSelectWrapper<(item: IMenuItemEntity) => void>,
+    IOnSelectWrapper<IMenuItemEntity>,
     IOptionsWrapper<IMenuItemEntity[]>,
     IRemoteFilterWrapper,
-    IRendererWrapper<(item: IMenuItemEntity, index: number) => JSX.Element>,
+    IRendererWrapper<IMenuItemEntity, number>,
     ITplWrapper<(item: IMenuItemEntity) => StringNumberT>,
     IUseFilterWrapper,
     IWidthWrapper<number | (() => number)>,
