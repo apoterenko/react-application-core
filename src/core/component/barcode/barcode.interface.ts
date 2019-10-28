@@ -27,9 +27,10 @@ export interface IBarcodeProps
  * @stable [10.04.2019]
  */
 export enum BarcodeFormatEnum {
+  CODE128 = 'CODE128',
+  CODE39 = 'CODE39',
   EAN13 = 'EAN13',
   EAN8 = 'EAN8',
-  CODE39 = 'CODE39',
   UPC = 'UPC',
 }
 
@@ -37,8 +38,9 @@ export enum BarcodeFormatEnum {
  * @stable [11.04.2019]
  */
 export const BARCODE_APPLICABLE_FORMATS = [
-  BarcodeFormatEnum.EAN8,
-  BarcodeFormatEnum.EAN13,
+  BarcodeFormatEnum.CODE128,
   BarcodeFormatEnum.CODE39,
+  BarcodeFormatEnum.EAN13,
+  BarcodeFormatEnum.EAN8,
   BarcodeFormatEnum.UPC
 ];

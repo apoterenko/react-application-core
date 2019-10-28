@@ -76,6 +76,9 @@ export class Barcode extends BaseComponent<IBarcodeProps> {
     this.validFormats.forEach((format) => {
       const barcodeInstance = JsBarcode(`#${this.toId(format)}`);
       switch (format) {
+        case BarcodeFormatEnum.CODE128:
+          barcodeInstance.CODE128(barcode, options).render();
+          break;
         case BarcodeFormatEnum.CODE39:
           barcodeInstance.CODE39(barcode, options).render();
           break;
