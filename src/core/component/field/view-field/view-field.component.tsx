@@ -8,11 +8,12 @@ import {
   isAbsoluteURI,
   joinClassName,
 } from '../../../util';
-import { Field, IFieldInputProps, toLastAddedMultiItemEntityId } from '../../field';
+import { Field, toLastAddedMultiItemEntityId } from '../../field';
 import { FlexLayout } from '../../layout';
 import { PictureViewer, Viewer } from '../../viewer';
 import { IViewFieldProps, IViewFieldState } from './view-field.interface';
 import {
+  IFieldInputAttributes,
   MimeTypesEnum,
   TransportMethodsEnum,
 } from '../../../definition';
@@ -83,11 +84,11 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
 
   /**
    * @stable [27.06.2018]
-   * @returns {IFieldInputProps}
+   * @returns {IFieldInputAttributes}
    */
-  protected getInputElementProps(): IFieldInputProps {
+  protected getInputElementProps(): IFieldInputAttributes {
     return {
-      ...super.getInputElementProps() as IFieldInputProps,
+      ...super.getInputElementProps() as IFieldInputAttributes,
       type: 'hidden',
     };
   }

@@ -14,6 +14,7 @@ import {
   isFieldInactive,
   isFn,
   isFocusPrevented,
+  isKeyboardOpen,
   isKeyboardUsed,
   isUndef,
   isVisible,
@@ -33,12 +34,10 @@ import {
 } from './field.support';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
-                                                                         TFocusEvent,
-                                                                         TBasicEvent>,
+                                                                         TFocusEvent>,
                                      TState extends IUniversalFieldState,
                                      TKeyboardEvent,
-                                     TFocusEvent,
-                                     TBasicEvent>
+                                     TFocusEvent>
   extends UniversalComponent<TProps, TState>
   implements IUniversalField<TProps, TState> {
 
@@ -54,14 +53,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   constructor(props: TProps) {
     super(props);
 
-    this.onClick = this.onClick.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onChangeManually = this.onChangeManually.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.closeSyntheticKeyboard = this.closeSyntheticKeyboard.bind(this);
+    this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
+    this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
 
     this.state = {} as TState;
 
@@ -79,7 +78,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
-    this.onCloseKeyboard();
+    this.onCloseVirtualKeyboard();
   }
 
   /**
@@ -104,12 +103,12 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
     super.componentDidUpdate(prevProps, prevState);
 
-    if (this.isKeyboardUsed && this.state.keyboardOpened && !R.equals(this.value, prevProps.value)) {
+    const keyboardUsed = this.isKeyboardUsed;
+    if (keyboardUsed && this.isKeyboardOpen() && !R.equals(this.value, prevProps.value)) {
       this.refreshCaretPosition();
     }
-
-    if (prevProps.useKeyboard && !this.isKeyboardUsed) {
-      this.closeSyntheticKeyboard();
+    if (isKeyboardUsed(prevProps) && !keyboardUsed) {
+      this.closeVirtualKeyboard();
     }
   }
 
@@ -496,7 +495,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {boolean}
    */
   protected isFieldFocused(): boolean {
-    return this.props.useKeyboard ? this.isKeyboardOpened() : this.state.focused;
+    return this.isKeyboardUsed ? this.isKeyboardOpen() : this.state.focused;
   }
 
   /**
@@ -551,17 +550,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [18.06.2018]
-   * @param {TBasicEvent} event
-   */
-  protected onClick(event: TBasicEvent): void {
-    const props = this.props;
-    if (isFn(props.onClick)) {
-      props.onClick(event);
-    }
-  }
-
-  /**
    * @stable [03.09.2018]
    * @returns {JSX.Element}
    */
@@ -578,13 +566,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [08.05.2019]
+   * @stable [28.10.2019]
+   * @returns {boolean}
    */
   protected openVirtualKeyboard(): boolean {
-    if (this.state.keyboardOpened) {
+    if (this.isKeyboardOpen()) {
       return false;
     }
-    this.setState({keyboardOpened: true}, () => {
+    this.setState({keyboardOpen: true}, () => {
       if (isDef(this.caretBlinkingTask)) {
         this.caretBlinkingTask.start();
 
@@ -595,31 +584,22 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
         this.refreshCaretPosition();
       }
     });
-    UniversalField.logger.debug(
-      `[$UniversalField][openSyntheticKeyboard] A keyboard to the field "${this.props.name}" is about to be opened.`
-    );
     return true;
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [28.10.2019]
    */
-  protected closeSyntheticKeyboard(): void {
-    this.setState({keyboardOpened: false});
-    this.onCloseKeyboard();
+  protected closeVirtualKeyboard(): void {
+    this.setState({keyboardOpen: false}, this.onCloseVirtualKeyboard);
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [28.10.2019]
    */
-  protected onCloseKeyboard(): void {
+  protected onCloseVirtualKeyboard(): void {
     if (isDef(this.caretBlinkingTask)) {
       this.caretBlinkingTask.stop();
-    }
-    if (this.isKeyboardUsed) {
-      UniversalField.logger.debug(
-        `[$UniversalField][onCloseKeyboard] A keyboard for the field "${this.props.name}" has been closed.`
-      );
     }
   }
 
@@ -628,15 +608,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {JSX.Element}
    */
   protected getKeyboardElement(): JSX.Element {
-    return orNull(this.isKeyboardUsed && this.isKeyboardOpened(), () => this.keyboardElement());
+    return orNull(this.isKeyboardUsed && this.isKeyboardOpen(), () => this.keyboardElement());
   }
 
   /**
-   * @stable [13.01.2019]
+   * @stable [28.10.2019]
    * @returns {boolean}
    */
-  protected isKeyboardOpened(): boolean {
-    return this.state.keyboardOpened;
+  protected isKeyboardOpen(): boolean {
+    return isKeyboardOpen(this.state);
   }
 
   /**
@@ -711,12 +691,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   protected get useSyntheticCursor(): boolean {
     return this.props.useSyntheticCursor !== false;
   }
-
-  /**
-   * @stable [18.06.2018]
-   * @returns {boolean}
-   */
-  protected abstract hasInputFocus(): boolean;
 
   /**
    * @stable [03.09.2018]

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { isDef, toClassName, orNull } from '../../../util';
 import { ITextArea, ITextAreaInternalProps, ITextAreaInternalState } from './textarea.interface';
 import { BaseTextField } from '../textfield';
-import { IFieldTextAreaProps } from '../field';
+import { IFieldTextAreaAttributes } from '../../../definition';
 
 export class TextArea extends BaseTextField<ITextAreaInternalProps,
                                              ITextAreaInternalState>
@@ -14,7 +14,7 @@ export class TextArea extends BaseTextField<ITextAreaInternalProps,
   };
 
   protected getInputElement(): JSX.Element {
-    return <textarea {...this.getInputElementProps() as IFieldTextAreaProps}/>;
+    return <textarea {...this.getInputElementProps() as IFieldTextAreaAttributes}/>;
   }
 
   /**

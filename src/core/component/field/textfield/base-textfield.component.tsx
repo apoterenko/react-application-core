@@ -42,7 +42,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   protected defaultActions: IFieldActionEntity[] = [];
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
   private readonly keyboardRef = React.createRef<Keyboard>();
-  private keyboardListenerSubscriber: () => void;
+  private keyboardListenerUnsubscriber: () => void;
 
   /**
    * @stable [25.02.2019]
@@ -97,7 +97,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
       <Keyboard
         ref={this.keyboardRef}
         field={this}
-        onClose={this.closeSyntheticKeyboard}
+        onClose={this.closeVirtualKeyboard}
         onChange={this.onKeyboardChange}
         {...this.getKeyboardConfiguration()}/>
     );
@@ -107,8 +107,8 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [13.01.2019]
    * @returns {boolean}
    */
-  protected isKeyboardOpened(): boolean {
-    return super.isKeyboardOpened() || this.getKeyboardConfiguration().renderToBody === false;
+  protected isKeyboardOpen(): boolean {
+    return super.isKeyboardOpen() || this.getKeyboardConfiguration().renderToBody === false;
   }
 
   /**
@@ -120,14 +120,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [23.02.2019]
+   * @stable [28.10.2019]
+   * @returns {boolean}
    */
   protected openVirtualKeyboard(): boolean {
-    const env = this.environment;
     const result = super.openVirtualKeyboard();
     if (result) {
-      this.keyboardListenerSubscriber =
-        this.eventManager.subscribe(env.document, env.documentClickEvent, this.onDocumentClickHandler);
+      this.keyboardListenerUnsubscriber = this.domAccessor.attachClickListenerToDocument(this.onDocumentClickHandler);
     }
     return result;
   }
@@ -135,12 +134,12 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   /**
    * @stable [23.02.2019]
    */
-  protected onCloseKeyboard(): void {
-    super.onCloseKeyboard();
+  protected onCloseVirtualKeyboard(): void {
+    super.onCloseVirtualKeyboard();
 
-    if (isFn(this.keyboardListenerSubscriber)) {
-      this.keyboardListenerSubscriber();
-      this.keyboardListenerSubscriber = null;
+    if (isFn(this.keyboardListenerUnsubscriber)) {
+      this.keyboardListenerUnsubscriber();
+      this.keyboardListenerUnsubscriber = null;
     }
   }
 
@@ -211,16 +210,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     );
   }
 
-  /**
-   * @stable [04.09.2018]
-   * @returns {JSX.Element}
-   */
+  // TODO
   protected getInputCaretElement(): JSX.Element {
     const state = this.state;
     const textOffset = 2;
 
-    return orNull<JSX.Element>(
-      this.useSyntheticCursor && state.keyboardOpened && state.caretVisibility && !R.isNil(state.caretPosition),
+    return orNull(
+      this.useSyntheticCursor && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
         <div className='rac-field-input-caret'
              style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
@@ -267,7 +263,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
       }
     } else if (!(this.input === clickedEl
                   || this.domAccessor.hasElements(clickedEl, this.keyboardRef.current.getSelf()))) {
-      this.closeSyntheticKeyboard();
+      this.closeVirtualKeyboard();
     }
   }
 

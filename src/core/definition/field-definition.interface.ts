@@ -1,4 +1,10 @@
 import {
+  InputHTMLAttributes,
+  RefAttributes,
+  TextareaHTMLAttributes,
+} from 'react';
+
+import {
   AnyT,
   EntityIdT,
   IAutoFocusWrapper,
@@ -34,6 +40,7 @@ import {
   UNDEF,
 } from '../definitions.interface';
 import { IMultiEntity } from './entity-definition.interface';
+import { IComponentCtor } from './component-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -108,3 +115,32 @@ export interface IFieldActionEntity
     ITitleWrapper,
     ITypeWrapper {
 }
+
+/**
+ * @stable [09.05.2018]
+ */
+export interface IMaskedInputCtor
+  extends IComponentCtor {
+  inputElement: HTMLInputElement;
+}
+
+/**
+ * @stable [18.06.2018]
+ */
+export interface IFieldInputAttributes
+  extends InputHTMLAttributes<HTMLInputElement>,
+    RefAttributes<HTMLInputElement> {
+}
+
+/**
+ * @stable [18.06.2018]
+ */
+export interface IFieldTextAreaAttributes
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
+    RefAttributes<HTMLTextAreaElement> {
+}
+
+/**
+ * @stable [28.10.2018]
+ */
+export type IFieldComplexInputAttributes = IFieldInputAttributes | IFieldTextAreaAttributes;

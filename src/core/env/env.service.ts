@@ -32,7 +32,6 @@ export class Environment implements IEnvironment {
       browserName: this.browserName,
       browserVersion: this.browserVersion,
       chromePlatform: this.chromePlatform,
-      documentClickEvent: this.documentClickEvent,
       googleKey: this.googleKey,
       ios13Platform: this.ios13Platform,
       iosPlatform: this.iosPlatform,
@@ -111,14 +110,6 @@ export class Environment implements IEnvironment {
    */
   public get passwordPlaceholder(): string {
     return this.safariPlatform && this.iosPlatform ? '●' : '•';
-  }
-
-  /**
-   * @stable [08.10.2019]
-   * @returns {string}
-   */
-  public get documentClickEvent(): string {
-    return this.mobilePlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN;
   }
 
   /**

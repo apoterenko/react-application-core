@@ -26,10 +26,14 @@ import {
   toJqEl,
 } from '../../util';
 import {
+  EventsEnum,
+  IBaseEvent,
   IDomAccessor,
   IEnvironment,
+  IEventManager,
   IJQueryElement,
   IXYEntity,
+  TouchEventsEnum,
 } from '../../definition';
 import {
   DI_TYPES,
@@ -40,7 +44,21 @@ import { ISettingsEntity, IBootstrapSettings } from '../../settings';
 @injectable()
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
+  @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [28.10.2019]
+   * @param {(e: IBaseEvent) => void} callback
+   * @returns {() => void}
+   */
+  public attachClickListenerToDocument(callback: (e: IBaseEvent) => void): () => void {
+    return this.eventManager.subscribe(
+      this.document,
+      this.environment.mobilePlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
+      callback
+    );
+  }
 
   /**
    * @stable [26.10.2019]

@@ -1,6 +1,12 @@
 import JQuery from 'jquery';
 
+import { IBaseEvent } from './event-definition.interface';
 import { IXYEntity } from './xy-definition.interface';
+
+/**
+ * @stable [28.10.2019]
+ */
+export type InputElementT = HTMLInputElement | HTMLTextAreaElement;
 
 /**
  * @stable [23.10.2019]
@@ -24,6 +30,7 @@ export interface IDomAccessor {
   addChild(child: Element, parent?: Element): Element;
   addClassNames(element: Element, ...clsNames: string[]): void;
   addRootElement(): Element;
+  attachClickListenerToDocument(callback: (e: IBaseEvent) => void): () => void;
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parent?: Element): TElement;
   defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
@@ -52,9 +59,3 @@ export interface IDomAccessor {
   setScrollTop(el: Element, top: number): void;
   toJqEl(source: Element): IJQueryElement<Element>;
 }
-
-/**
- * @stable [11.10.2019]
- * @type {string}
- */
-export const UNIVERSAL_STICKY_ELEMENT_SELECTOR = 'rac-sticky-element';

@@ -211,6 +211,7 @@ export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
 export interface IItemWrapper<TItem> { item?: TItem; }
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
+export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
 export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
@@ -574,13 +575,6 @@ export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
  */
 export interface IOnMoreOptionsSelectWrapper<TPayload, TOnMoreOptionsSelect = (payload?: TPayload) => void> {
   onMoreOptionsSelect?: TOnMoreOptionsSelect;
-}
-
-/**
- * @stable [01.06.2018]
- */
-export interface IKeyboardOpenedWrapper {
-  keyboardOpened?: boolean;
 }
 
 /**

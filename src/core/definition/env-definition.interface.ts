@@ -20,7 +20,6 @@ export interface IEnvironment {
   browserVersion?: string;
   chromePlatform?: boolean;
   document?: Document;
-  documentClickEvent?: string;
   googleKey?: string;
   host?: string;
   ios13Platform?: boolean;

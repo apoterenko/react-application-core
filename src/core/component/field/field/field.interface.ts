@@ -1,4 +1,4 @@
-import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes } from 'react';
+import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes, RefAttributes } from 'react';
 
 import {
   AnyT,
@@ -10,7 +10,7 @@ import {
   IKeyboardEvent,
   IFocusEvent,
   IReturnValueToClearDirtyChangesWrapper,
-  IKeyboardOpenedWrapper,
+  IKeyboardOpenWrapper,
   ICaretVisibilityWrapper,
   ICaretPositionWrapper,
 } from '../../../definitions.interface';
@@ -35,7 +35,7 @@ export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
  * @stable [04.09.2018]
  */
 export interface IUniversalFieldState extends IStringErrorWrapper,
-                                              IKeyboardOpenedWrapper,
+                                              IKeyboardOpenWrapper,
                                               ICaretVisibilityWrapper,
                                               ICaretPositionWrapper {
   focused?: boolean; // TODO
@@ -46,27 +46,6 @@ export interface IUniversalFieldState extends IStringErrorWrapper,
  * @stable [03.09.2018]
  */
 export interface IFieldState extends IUniversalFieldState {
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IFieldInputProps extends InputHTMLAttributes<HTMLInputElement>,
-                                          ClassAttributes<HTMLInputElement> {
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IFieldTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-                                             ClassAttributes<HTMLTextAreaElement> {
-}
-
-/**
- * @stable [09.05.2018]
- */
-export interface INativeMaskedInputComponent extends Component {
-  inputElement: HTMLInputElement;
 }
 
 export interface IField<TProps extends IFieldProps = IFieldProps,

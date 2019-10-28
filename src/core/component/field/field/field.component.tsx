@@ -2,14 +2,13 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  cancelEvent,
   defValuesFilter,
   fullFlexClassName,
-  handlerPropsFactory,
   ifNotNilThanValue,
-  isElementFocused,
+  isFn,
   joinClassName,
   orNull,
-  orUndef,
   toClassName,
 } from '../../../util';
 import {
@@ -21,26 +20,37 @@ import {
   } from '../../../definitions.interface';
 import {
   IField,
-  IFieldInputProps,
   IFieldState,
-  IFieldTextAreaProps,
-  INativeMaskedInputComponent,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
 import {
   IBaseEvent,
+  IFieldComplexInputAttributes,
+  IFieldInputAttributes,
   IJQueryElement,
+  IMaskedInputCtor,
+  InputElementT,
 } from '../../../definition';
 import { IFieldProps } from '../../../configurations-definitions.interface';
 
-export class Field<TInternalProps extends IFieldProps,
+export class Field<TProps extends IFieldProps,
                    TState extends IFieldState = IFieldState>
-    extends UniversalField<TInternalProps,
+    extends UniversalField<TProps,
                            TState,
                            IKeyboardEvent,
-                           IFocusEvent,
-                           IBaseEvent>
-    implements IField<TInternalProps, TState> {
+                           IFocusEvent>
+    implements IField<TProps, TState> {
+
+  protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
+
+  /**
+   * @stable [28.10.2019]
+   * @param {TProps} props
+   */
+  constructor(props: TProps) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
 
   /**
    * @stable [26.05.2019]
@@ -135,14 +145,13 @@ export class Field<TInternalProps extends IFieldProps,
   }
 
   /**
-   * @stable [05.10.2018]
-   * @returns {HTMLInputElement | HTMLTextAreaElement}
+   * @stable [28.10.2019]
+   * @returns {InputElementT}
    */
-  public get input(): HTMLInputElement | HTMLTextAreaElement {
-    const input = this.refs.input;
-    return orNull<HTMLInputElement | HTMLTextAreaElement>(
-      this.hasInput,
-      () => (input as INativeMaskedInputComponent).inputElement || input as HTMLInputElement | HTMLTextAreaElement
+  public get input(): InputElementT {
+    return ifNotNilThanValue(
+      this.inputRef.current,
+      (input) => (input as IMaskedInputCtor).inputElement || input as InputElementT
     );
   }
 
@@ -212,11 +221,11 @@ export class Field<TInternalProps extends IFieldProps,
   }
 
   /**
-   * @stable [05.10.2018]
+   * @stable [28.10.2019]
    * @returns {boolean}
    */
   protected get hasInput(): boolean {
-    return !R.isNil(this.refs.input);
+    return !R.isNil(this.inputRef.current);
   }
 
   /**
@@ -248,45 +257,66 @@ export class Field<TInternalProps extends IFieldProps,
   }
 
   /**
+   * @stable [28.10.2019]
+   * @param {TBasicEvent} event
+   */
+  protected onClick(event: IBaseEvent): void {
+    cancelEvent(event);
+
+    const props = this.props;
+    if (isFn(props.onClick)) {
+      props.onClick(event);
+    }
+  }
+
+  /**
    * @stable [31.08.2018]
    * @returns {JSX.Element}
    */
   protected getInputElement(): JSX.Element {
-    return <input {...this.getInputElementProps() as IFieldInputProps}/>;
+    return <input {...this.getInputElementProps() as IFieldInputAttributes}/>;
   }
 
-  protected getInputElementProps(): IFieldInputProps | IFieldTextAreaProps {
+  protected getInputElementProps(): IFieldComplexInputAttributes {
     const props = this.props;
-    const name = props.name;
-    const tabIndex = props.tabIndex;
-    const step = props.step;
-    const type = props.type || 'text';
+    /**/
     const autoComplete = props.autoComplete || 'off';
-    const readOnly = props.readOnly || this.inProgress;
-    const placeholder = orNull<string>(props.placeholder && !this.inProgress, () => this.t(props.placeholder));
-    const disabled = props.disabled;
+    const cols = props.cols;                                                                               /* @stable [28.10.2019] */
+    const disabled = this.isDisabled;                                                                      /* @stable [28.10.2019] */
+    const maxLength = props.maxLength;                                                                     /* @stable [28.10.2019] */
+    const minLength = props.minLength;                                                                     /* @stable [28.10.2019] */
+    const name = props.name;                                                                               /* @stable [28.10.2019] */
     const pattern = this.getFieldPattern();
-    const minLength = props.minLength;
-    const maxLength = props.maxLength;
-    const rows = props.rows;
-    const cols = props.cols;
-    const onFocus = this.onFocus;
-    const onBlur = this.onBlur;
-    const onChange = this.onChange;
-    const onKeyDown = orUndef(this.isActive, () => this.onKeyDown);
-    const onKeyUp = orUndef(this.isActive, () => this.onKeyUp);
-    const value = this.displayValue;
+    const placeholder = orNull(props.placeholder && !this.inProgress, () => this.t(props.placeholder));
+    const readOnly = this.isInactive;                                                                      /* @stable [28.10.2019] */
+    const required = this.isFieldRequired();
+    const rows = props.rows;                                                                               /* @stable [28.10.2019] */
+    const step = props.step;                                                                               /* @stable [28.10.2019] */
+    const tabIndex = props.tabIndex;                                                                       /* @stable [28.10.2019] */
+    const type = props.type || 'text';                                                                     /* @stable [28.10.2019] */
+    const value = this.displayValue;                                                                       /* @stable [28.10.2019] */
 
-    return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
-      name, type, step, readOnly, disabled, pattern, minLength, placeholder,
-      maxLength, rows, cols, tabIndex,
-      onFocus, onBlur, onChange, onKeyDown, onKeyUp, autoComplete,
-      ...handlerPropsFactory(this.onClick, this.isActive),
-      ref: 'input',
-      value,
-      required: this.isFieldRequired(),
+    const result = defValuesFilter<IFieldComplexInputAttributes, IFieldComplexInputAttributes>({
       className: 'rac-field-input rac-flex-full',
+      autoComplete, cols, disabled, maxLength, minLength, name, pattern,
+      placeholder, readOnly, rows, step, tabIndex, type, value, required,
+      ...(
+        this.isActive
+          ? {
+            onBlur: this.onBlur,
+            onChange: this.onChange,
+            onClick: this.onClick,
+            onFocus: this.onFocus,
+            onKeyDown: this.onKeyDown,
+            onKeyUp: this.onKeyUp,
+          }
+          : {}
+      ),
     });
+    return {
+      ...result,
+      ref: this.inputRef,
+    } as IFieldComplexInputAttributes;
   }
 
   /**
@@ -312,14 +342,6 @@ export class Field<TInternalProps extends IFieldProps,
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       props.className
     );
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {boolean}
-   */
-  protected hasInputFocus(): boolean {
-    return isElementFocused(this.input);
   }
 
   /**
