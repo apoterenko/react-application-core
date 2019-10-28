@@ -1130,11 +1130,14 @@
   /**/
   $rac-field-align-items: unset,
   $rac-field-background: unset,
+  $rac-field-display: unset,                                                        /* @stable [28.10.2019] */
+  $rac-field-flex-direction: unset,                                                 /* @stable [28.10.2019] */
   $rac-field-flex-shrink: unset,
   $rac-field-height: unset,
   $rac-field-help-text-font-size: unset,
   $rac-field-help-text-line-height: unset,
   $rac-field-input-cursor: unset,
+  $rac-field-justify-content: unset,                                                /* @stable [28.10.2019] */
   $rac-field-label-font-size: unset,
   $rac-field-label-margin: unset,
   $rac-field-margin-top: unset,
@@ -1235,8 +1238,11 @@
 
     @include rac-styles (
       $rac-styles-background: $rac-field-background,
+      $rac-styles-display: $rac-field-display,
+      $rac-styles-flex-direction: $rac-field-flex-direction,
       $rac-styles-flex-shrink: $rac-field-flex-shrink,
       $rac-styles-height: $rac-field-height,
+      $rac-styles-justify-content: $rac-field-justify-content,
       $rac-styles-margin-top: $rac-field-margin-top,
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-max-width: $rac-field-max-width,
