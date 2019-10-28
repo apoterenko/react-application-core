@@ -55,7 +55,7 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
     return joinClassName(
       super.getFieldClassName(),
       'rac-base-checkbox',
-      this.value && 'rac-checked'
+      this.value ? 'rac-checked' : 'rac-unchecked'
     );
   }
 }

@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { BaseCheckbox } from '../checkbox';
 import { ISwitchProps, ISwitchState } from './switch.interface';
+import { joinClassName } from '../../../util';
 import { Thumb } from '../../thumb';
-import { toClassName } from '../../../util';
 
 export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
 
@@ -16,23 +16,15 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
       <React.Fragment>
         <Thumb
           className='rac-switch__thumb'
-          disabled={this.isFieldDisabled()}
+          disabled={this.isDisabled}
           value={this.value}/>
         {super.getInputElement()}
       </React.Fragment>
     );
   }
 
-  /**
-   * @stable [31.08.2018]
-   * @returns {string}
-   */
   protected getFieldClassName(): string {
-    return toClassName(
-      super.getFieldClassName(),
-      'rac-switch',
-      this.value ? 'rac-switch-checked' : 'rac-switch-unchecked'
-    );
+    return joinClassName(super.getFieldClassName(), 'rac-switch');
   }
 
   /**
@@ -40,7 +32,7 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return toClassName(
+    return joinClassName(
       super.getSelfElementClassName(),
       'rac-flex',
       'rac-flex-align-items-center'
@@ -52,7 +44,7 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
    * @returns {string}
    */
   protected getInputWrapperElementClassName(): string {
-    return toClassName(
+    return joinClassName(
       super.getInputWrapperElementClassName(),
       'rac-flex-align-items-center'
     );

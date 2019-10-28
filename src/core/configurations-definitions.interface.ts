@@ -107,8 +107,8 @@ import {
   IBaseEvent,
   IComponentProps,
   IDelayedChangesEntity,
+  IFieldActionEntity,
   IGenericFieldEntity,
-  IGridColumnProps,
   IMenuItemEntity,
   INamedConstructor,
   INavigationItemEntity,
@@ -294,7 +294,7 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IOnClearWrapper,
           IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
           IErrorMessageRenderedWrapper,
-          IActionsWrapper<IFieldActionConfiguration[]>,
+          IActionsWrapper<IFieldActionEntity[]>,
           IDisplayMessageWrapper,
           IValidationGroupWrapper,
           IReturnValueToClearDirtyChangesWrapper,
@@ -455,16 +455,6 @@ export enum ToolbarActionEnum {
   CLEAR_FILTER,
   REFRESH_DATA,
   DOWNLOAD_DATA,
-}
-
-/**
- * @stable [15.05.2018]
- */
-export interface IFieldActionConfiguration extends IClassNameWrapper,
-                                                   ITitleWrapper,
-                                                   IDisabledWrapper<boolean | (() => boolean)>,
-                                                   ITypeWrapper,
-                                                   IReactOnClickWrapper {
 }
 
 /**

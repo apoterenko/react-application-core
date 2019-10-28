@@ -3,7 +3,15 @@ import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BaseTextField } from '../textfield';
-import { cancelEvent, orNull, downloadFileAsBlob, joinClassName, uuid, downloadFile } from '../../../util';
+import {
+  cancelEvent,
+  downloadFile,
+  downloadFileAsBlob,
+  joinClassName,
+  objectValuesArrayFilter,
+  orNull,
+  uuid,
+} from '../../../util';
 import { DnD, IDnd } from '../../dnd';
 import {
   EntityIdT,
@@ -15,11 +23,13 @@ import {
   IBaseFileFieldState,
   IBaseFileFieldProps,
 } from './basic-filefield.interface';
-import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
 import { toLastAddedMultiItemEntityId } from '../multifield';
 import { IUniversalDialog2, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
-import { IBaseEvent } from '../../../definition';
+import {
+  IBaseEvent,
+  IFieldActionEntity,
+} from '../../../definition';
 
 export class BaseFileField<TProps extends IBaseFileFieldProps,
                            TState extends IBaseFileFieldState>
@@ -45,16 +55,16 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.openCameraDialog = this.openCameraDialog.bind(this);
     this.onSelectCameraSnapshot = this.onSelectCameraSnapshot.bind(this);
 
-    const actions: IFieldActionConfiguration[] = [
-      orNull<IFieldActionConfiguration>(props.useCamera, () => ({type: 'video', onClick: this.openCameraDialog})),
+    const actions = objectValuesArrayFilter<IFieldActionEntity>(
+      props.useCamera && {type: 'video', onClick: this.openCameraDialog},
       {type: 'attach_file', onClick: this.openFileDialog},
-      orNull<IFieldActionConfiguration>(props.useDownloadAction, (): IFieldActionConfiguration => ({
+      props.useDownloadAction && {
         type: 'download',
-        disabled: () => this.isFieldDisabled() || this.inProgress || !this.isValuePresent(),
+        disabled: () => this.isDisabled || this.inProgress || !this.isValuePresent(),
         onClick: this.downloadFile,
-      }))
-    ];
-    this.defaultActions = R.insertAll<IFieldActionConfiguration>(0, actions.filter((cfg) => !R.isNil(cfg)), this.defaultActions);
+      }
+    );
+    this.defaultActions = R.insertAll<IFieldActionEntity>(0, actions.filter((cfg) => !R.isNil(cfg)), this.defaultActions);
   }
 
   /**
@@ -104,7 +114,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
     const dndElement = (
       <DnD ref='dnd'
-           disabled={this.isFieldInactive()}
+           disabled={this.isInactive}
            onSelect={this.onSelect}/>
     );
     if (!props.useCamera) {

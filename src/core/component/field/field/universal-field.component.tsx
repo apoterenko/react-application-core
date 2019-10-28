@@ -8,7 +8,10 @@ import {
   DelayedTask,
   ifNotNilThanValue,
   inProgress,
+  isChangeable,
   isDef,
+  isDisabled,
+  isFieldInactive,
   isFn,
   isFocusPrevented,
   isKeyboardUsed,
@@ -25,11 +28,8 @@ import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface
 import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 import {
-  isFieldInactive,
   isFieldRequired,
-  isFieldChangeable,
   toActualChangedValue,
-  isFieldDisabled,
 } from './field.support';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
@@ -460,27 +460,35 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [06.10.2018]
+   * @stable [28.10.2019]
    * @returns {boolean}
    */
-  protected isFieldInactive(): boolean {
+  protected get isInactive(): boolean {
     return isFieldInactive(this.props);
   }
 
   /**
-   * @stable [10.06.2019]
+   * @stable [28.10.2019]
    * @returns {boolean}
    */
-  protected isFieldDisabled(): boolean {
-    return isFieldDisabled(this.props);
+  protected get isActive(): boolean {
+    return !this.isInactive;
   }
 
   /**
-   * @stable [06.10.2018]
+   * @stable [28.10.2019]
    * @returns {boolean}
    */
-  protected isFieldChangeable(): boolean {
-    return isFieldChangeable(this.props);
+  protected get isDisabled(): boolean {
+    return isDisabled(this.props);
+  }
+
+  /**
+   * @stable [28.10.2019]
+   * @returns {boolean}
+   */
+  protected get isChangeable(): boolean {
+    return isChangeable(this.props);
   }
 
   /**

@@ -1,12 +1,12 @@
 import * as R from 'ramda';
 
-import { isDef, calc, inProgress } from '../../../util';
+import { isDef, calc } from '../../../util';
 import {
   IFieldActualChangedValueConfigEntity,
 } from './field.interface';
 import { AnyT } from '../../../definitions.interface';
 import { IUniversalFieldProps } from '../../../props-definitions.interface';
-import { IGenericFieldEntity, FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES } from '../../../definition';
+import { FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES } from '../../../definition';
 
 /**
  * @stable [31.07.2018]
@@ -32,25 +32,3 @@ export const toActualChangedValue = (config: IFieldActualChangedValueConfigEntit
  * @returns {boolean}
  */
 export const isFieldRequired = (props: IUniversalFieldProps): boolean => calc<boolean>(props.required);
-
-/**
- * @stable [10.06.2019]
- * @param {IGenericFieldEntity} props
- * @returns {boolean}
- */
-export const isFieldDisabled = (props: IGenericFieldEntity): boolean => props.disabled === true;
-
-/**
- * @stable [27.05.2019]
- * @param {IGenericFieldEntity} props
- * @returns {boolean}
- */
-export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
-  isFieldDisabled(props) || props.readOnly === true || inProgress(props);
-
-/**
- * @stable [06.10.2018]
- * @param {IUniversalFieldProps} props
- * @returns {boolean}
- */
-export const isFieldChangeable = (props: IUniversalFieldProps): boolean => R.isNil(props.changeable) || props.changeable === true;

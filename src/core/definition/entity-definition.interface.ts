@@ -20,7 +20,6 @@ import {
   ISelectedWrapper,
   ISourceWrapper,
   ITouchedWrapper,
-  ITypeWrapper,
   IValidWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
@@ -91,22 +90,9 @@ export interface IMultiItemEntity
 /**
  * @stable [02.10.2019]
  */
-export interface IMultiItemFileEntity
-  extends IMultiItemEntity,
-    ITypeWrapper {
-}
-
-/**
- * @stable [02.10.2019]
- */
 export interface IMultiEntity<TEntity extends IEntity = IEntity>
   extends ISourceWrapper<TEntity[]>,
     IAddWrapper<TEntity[]>,
     IRemoveWrapper<TEntity[]>,
     IEditWrapper<IMultiItemEntity[]> {
 }
-
-/**
- * @stable [02.10.2019]
- */
-export type MultiItemEntityT = IMultiItemEntity | EntityIdT;

@@ -24,7 +24,7 @@ export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
               <Chip
                 key={id}
                 id={id}
-                disabled={this.isFieldInactive()}
+                disabled={this.isInactive}
                 onClick={() => this.onDelete(item)}>
                 {this.toDisplayLabel(item)}
               </Chip>

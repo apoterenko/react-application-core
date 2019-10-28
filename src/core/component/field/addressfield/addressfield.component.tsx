@@ -3,8 +3,10 @@ import * as R from 'ramda';
 import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
-import { IFieldActionConfiguration } from '../../../configurations-definitions.interface';
-import { IPlaceEntity } from '../../../definition';
+import {
+  IFieldActionEntity,
+  IPlaceEntity,
+} from '../../../definition';
 import { orNull, toAddress, uuid, toPlace, toClassName } from '../../../util';
 import { BaseTextField } from '../textfield';
 import { IUniversalDialog2,  Dialog } from '../../dialog';
@@ -333,7 +335,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   private addMapAction(): void {
     const this0 = this;
 
-    this.defaultActions = R.insert<IFieldActionConfiguration>(
+    this.defaultActions = R.insert<IFieldActionEntity>(
       0,
       {
         type: 'location_on',

@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import {
   defValuesFilter,
+  fullFlexClassName,
   handlerPropsFactory,
   ifNotNilThanValue,
   isElementFocused,
@@ -272,15 +273,15 @@ export class Field<TInternalProps extends IFieldProps,
     const onFocus = this.onFocus;
     const onBlur = this.onBlur;
     const onChange = this.onChange;
-    const onKeyDown = orUndef(!this.isFieldInactive(), () => this.onKeyDown);
-    const onKeyUp = orUndef(!this.isFieldInactive(), () => this.onKeyUp);
+    const onKeyDown = orUndef(this.isActive, () => this.onKeyDown);
+    const onKeyUp = orUndef(this.isActive, () => this.onKeyUp);
     const value = this.displayValue;
 
     return defValuesFilter<IFieldInputProps | IFieldTextAreaProps, IFieldInputProps | IFieldTextAreaProps>({
       name, type, step, readOnly, disabled, pattern, minLength, placeholder,
       maxLength, rows, cols, tabIndex,
       onFocus, onBlur, onChange, onKeyDown, onKeyUp, autoComplete,
-      ...handlerPropsFactory(this.onClick, !this.isFieldInactive()),
+      ...handlerPropsFactory(this.onClick, this.isActive),
       ref: 'input',
       value,
       required: this.isFieldRequired(),
@@ -295,17 +296,14 @@ export class Field<TInternalProps extends IFieldProps,
   protected getFieldClassName(): string {
     const props = this.props;
 
-    return toClassName(
+    return joinClassName(
       'rac-field',
-      'rac-flex',
-      'rac-flex-column',
-      orUndef<string>(!(props.className || '').includes('rac-flex-'), orUndef<string>(props.full !== false, 'rac-flex-full')),
+      fullFlexClassName(props),
       this.isFieldRequired() && 'rac-field-required',
       this.isFieldInvalid() && 'rac-field-invalid',
-      this.isFieldInactive() && 'rac-field-inactive',
       this.isValuePresent() ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isNotDefaultValuePresent() && 'rac-field-not-default-value-present',
-      this.isFieldChangeable() ? 'rac-field-changeable' : 'rac-field-not-changeable',
+      this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
       this.isFieldFocused() ? 'rac-field-focused' : 'rac-field-not-focused',
       props.disabled && 'rac-field-disabled',
       props.readOnly && 'rac-field-readonly',

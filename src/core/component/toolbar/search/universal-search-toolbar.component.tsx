@@ -3,7 +3,6 @@ import * as R from 'ramda';
 
 import { orNull, isFn, nvl } from '../../../util';
 import {
-  IFieldActionConfiguration,
   IFilterActionConfiguration,
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
@@ -12,6 +11,7 @@ import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { UniversalComponent } from '../../base/universal.component';
+import { IFieldActionEntity } from '../../../definition';
 
 export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchToolbarProps,
                                              TState = {}>
@@ -31,7 +31,7 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
   /**
    * @stable [18.05.2018]
    */
-  protected readonly baseActionsProps: Record<number, IFieldActionConfiguration> = {
+  protected readonly baseActionsProps: Record<number, IFieldActionEntity> = {
     [ToolbarActionEnum.OPEN_FILTER]: {
       type: 'filter',
       onClick: this.onOpen.bind(this),
@@ -133,13 +133,13 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
   }
 
   // TODO
-  protected get actions(): IFieldActionConfiguration[] {
+  protected get actions(): IFieldActionEntity[] {
     const props = this.props;
     const defaultActions: IFilterActionConfiguration[] = props.notUseField
       ? []
       : [{type: ToolbarActionEnum.CLEAR_FILTER}];
 
-    return R.map<IFilterActionConfiguration, IFieldActionConfiguration>((action): IFieldActionConfiguration => {
+    return R.map<IFilterActionConfiguration, IFieldActionEntity>((action): IFieldActionEntity => {
       const config = this.baseActionsProps[action.type];
       return ({
         ...config,

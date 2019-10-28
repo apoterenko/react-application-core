@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import {
+  calc,
   ifNotFalseThanValue,
   isFn,
   joinClassName,
@@ -14,7 +15,6 @@ import {
 } from '../../../util';
 import { UNI_CODES, IChangeEvent, UniCodesEnum } from '../../../definitions.interface';
 import {
-  IFieldActionConfiguration,
   FieldActionPositionEnum,
   IKeyboardConfiguration,
 } from '../../../configurations-definitions.interface';
@@ -28,6 +28,7 @@ import {
 } from './base-textfield.interface';
 import {
   IBaseEvent,
+  IFieldActionEntity,
   IJQueryElement,
 } from '../../../definition';
 
@@ -38,7 +39,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 
-  protected defaultActions: IFieldActionConfiguration[] = [];
+  protected defaultActions: IFieldActionEntity[] = [];
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
   private readonly keyboardRef = React.createRef<Keyboard>();
   private keyboardListenerSubscriber: () => void;
@@ -75,13 +76,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   protected addClearAction(): void {
     const this0 = this;
-    const clearAction: IFieldActionConfiguration = {
+    const clearAction: IFieldActionEntity = {
       type: 'close',
       onClick() {
         this0.clearValue();
       },
       get disabled(): boolean {
-        return this0.isFieldInactive() || !this0.isValuePresent();
+        return this0.isInactive || !this0.isValuePresent();
       },
     };
     this.defaultActions.push(clearAction);
@@ -244,6 +245,15 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
+   * @stable [28.10.2019]
+   * @param {} action
+   * @returns {boolean}
+   */
+  protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
+    return calc(action.disabled) || this.isInactive;
+  }
+
+  /**
    * @stable [16.02.2019]
    * @param {IBaseEvent} e
    */
@@ -261,7 +271,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     }
   }
 
-  private get actions(): IFieldActionConfiguration[] {
+  private get actions(): IFieldActionEntity[] {
     const props = this.props;
     const defaultActions = this.defaultActions || [];
     const actions = props.actions || [];
@@ -309,7 +319,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [23.09.2019]
+   * @stable [28.10.2019]
    * @returns {JSX.Element}
    */
   protected get actionsElement(): JSX.Element {
@@ -319,7 +329,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
           this.actions.map((action) => this.uiFactory.makeIcon({
             ...action,
             key: `action-key-${action.type}`,
-            disabled: nvl(action.disabled, this.isFieldInactive()),
+            disabled: this.isFieldActionDisabled(action),
           }))
         }
       </React.Fragment>

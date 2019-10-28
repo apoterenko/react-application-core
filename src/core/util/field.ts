@@ -11,6 +11,7 @@ import {
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
+  IGenericFieldEntity,
   IMultiEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
@@ -21,8 +22,21 @@ import { isNotMultiEntity } from './entity';
 import { isPrimitive } from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
+import {
+  inProgress,
+  isDisabled,
+  isReadOnly,
+} from './wrapper';
 
 const DYNAMIC_FIELD_SEPARATOR = '-';
+
+/**
+ * @stable [28.10.2019]
+ * @param {IGenericFieldEntity} props
+ * @returns {boolean}
+ */
+export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
+  isDisabled(props) || isReadOnly(props) || inProgress(props);
 
 /**
  * @stable [27.08.2019]

@@ -2,6 +2,7 @@ import {
   AnyT,
   EntityIdT,
   IAutoFocusWrapper,
+  IClassNameWrapper,
   IDefaultValueWrapper,
   IDisabledWrapper,
   IDisplayValueWrapper,
@@ -13,6 +14,7 @@ import {
   ILabelWrapper,
   IMaskWrapper,
   INameWrapper,
+  IOnClickWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
@@ -23,6 +25,7 @@ import {
   IRenderedWrapper,
   IRequiredWrapper,
   ITabIndexWrapper,
+  ITitleWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
   IValueWrapper,
@@ -94,3 +97,14 @@ export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IMultiEntity;
 export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;
 export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
+
+/**
+ * @stable [28.10.2019]
+ */
+export interface IFieldActionEntity
+  extends IClassNameWrapper,
+    IDisabledWrapper<boolean | (() => boolean)>,
+    IOnClickWrapper,
+    ITitleWrapper,
+    ITypeWrapper {
+}

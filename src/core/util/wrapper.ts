@@ -1,4 +1,5 @@
 import {
+  IChangeableWrapper,
   IDisabledWrapper,
   IEditedWrapper,
   IExpandActionRenderedWrapper,
@@ -7,6 +8,7 @@ import {
   IIndexedWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
+  IReadOnlyWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
@@ -134,3 +136,19 @@ export const isHovered = (hoveredWrapper: IHoveredWrapper): boolean =>
  */
 export const isExpandActionRendered  = (hoveredWrapper: IExpandActionRenderedWrapper): boolean =>
   ifNotNilThanValue(hoveredWrapper, () => hoveredWrapper.expandActionRendered !== false, false);
+
+/**
+ * @stable [28.10.2019]
+ * @param {IReadOnlyWrapper} readOnlyWrapper
+ * @returns {boolean}
+ */
+export const isReadOnly = (readOnlyWrapper: IReadOnlyWrapper): boolean =>
+  ifNotNilThanValue(readOnlyWrapper, () => readOnlyWrapper.readOnly === true, false);
+
+/**
+ * @stable [28.10.2019]
+ * @param {IChangeableWrapper} changeableWrapper
+ * @returns {boolean}
+ */
+export const isChangeable = (changeableWrapper: IChangeableWrapper): boolean =>
+  ifNotNilThanValue(changeableWrapper, () => changeableWrapper.changeable !== false, false);

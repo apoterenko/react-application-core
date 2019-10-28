@@ -22,6 +22,8 @@
    * @stable [21.10.2019]
    */
   @include rac-field (
+    $rac-field-display: $rac-field-display,
+    $rac-field-flex-direction: $rac-field-flex-direction,
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
     $rac-self-field-border-radius: $rac-self-field-border-radius,
@@ -32,7 +34,7 @@
   );
 
   /**
-   * @text
+   * @base-text
    * @stable [23.10.2019]
    */
   @include rac-field (
@@ -42,7 +44,7 @@
   );
 
   /**
-   * @select
+   * @base-select
    * @stable [23.10.2019]
    */
   @include rac-field (
@@ -51,23 +53,25 @@
   );
 
   /**
-   * @checkbox
+   * @base-checkbox
    * @stable [23.10.2019]
    */
   @include rac-field (
     $rac-field-custom: $rac-base-checkbox-cls,
     $rac-self-field-align-items: $rac-base-checkbox-self-field-align-items,
+    $rac-self-field-input-opacity: $rac-base-checkbox-self-field-input-opacity,
+    $rac-self-field-input-wrapper-position: $rac-base-checkbox-self-field-input-wrapper-position,
     $rac-self-field-label-line-height: $rac-base-checkbox-self-field-label-line-height,
     $rac-self-field-label-margin: $rac-base-checkbox-self-field-label-margin
   );
 
   /**
-   * @checkbox
-   * @stable [24.10.2019]
+   * @base-checkbox
+   * @stable [23.10.2019]
    */
   @include rac-field (
-    $rac-field-custom: rac-build-cls2($rac-checkbox-cls, $rac-checked-cls),
-    $rac-self-field-input-wrapper-background: $rac-checkbox-checked-self-field-input-wrapper-background
+    $rac-field-custom: $rac-base-checkbox-checked-cls,
+    $rac-self-field-input-wrapper-background: $rac-base-checkbox-checked-self-field-input-wrapper-background
   );
 
   /**
@@ -76,42 +80,33 @@
    */
   @include rac-field (
     $rac-field-custom: $rac-checkbox-cls,
+    $rac-field-justify-content: $rac-checkbox-justify-content,
     $rac-self-field-input-cursor: $rac-checkbox-self-field-input-cursor,
     $rac-self-field-input-icon-color: $rac-checkbox-self-field-input-icon-color,
     $rac-self-field-input-icon-size: $rac-checkbox-self-field-input-icon-size,
-    $rac-self-field-input-opacity: $rac-checkbox-self-field-input-opacity,
     $rac-self-field-input-position: $rac-checkbox-self-field-input-position,
     $rac-self-field-input-size: $rac-checkbox-self-field-input-size,
     $rac-self-field-input-wrapper-align-items: $rac-checkbox-self-field-input-wrapper-align-items,
-    $rac-self-field-input-wrapper-background: $rac-checkbox-self-field-input-wrapper-background,
     $rac-self-field-input-wrapper-border-radius: $rac-checkbox-self-field-input-wrapper-border-radius,
     $rac-self-field-input-wrapper-border: $rac-checkbox-self-field-input-wrapper-border,
     $rac-self-field-input-wrapper-justify-content: $rac-checkbox-self-field-input-wrapper-justify-content,
-    $rac-self-field-input-wrapper-position: $rac-checkbox-self-field-input-wrapper-position,
     $rac-self-field-input-wrapper-size: $rac-checkbox-self-field-input-wrapper-size
   );
 
+  /**
+   * @switch
+   * @stable [28.10.2019]
+   */
   @include rac-field (
     $rac-field-custom: $rac-switch-cls,
     $rac-self-field-height: $rac-switch-self-field-height,
     $rac-self-field-input-flex-height: $rac-switch-self-field-input-flex-height,
     $rac-self-field-input-flex-width: $rac-switch-self-field-input-flex-width,
-    $rac-self-field-input-opacity: $rac-switch-self-field-input-opacity,
+    $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
     $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
     $rac-self-field-input-wrapper-flex-height: $rac-switch-self-field-input-wrapper-flex-height,
     $rac-self-field-input-wrapper-flex-width: $rac-switch-self-field-input-wrapper-flex-width,
-    $rac-self-field-input-wrapper-position: $rac-switch-self-field-input-wrapper-position,
     $rac-self-field-label-white-space: $rac-switch-self-field-label-white-space
-  );
-
-  @include rac-field (
-    $rac-field-custom: rac-build-cls2($rac-switch-cls, $rac-field-labeled-cls),
-    $rac-self-field-margin: $rac-switch-labeled-self-field-margin
-  );
-
-  @include rac-field (
-    $rac-field-custom: rac-build-cls2($rac-switch-cls, $rac-switch-unchecked-cls),
-    $rac-self-field-input-wrapper-background: $rac-switch-unchecked-self-field-input-wrapper-background
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
