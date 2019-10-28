@@ -6,7 +6,7 @@
   @include rac-field(                                                                         /* @stable [07.01.2019] */
     $rac-field-custom: rac-date-navigator,
     $rac-field-margin: 0 8px,
-    $rac-text-field-background: $rac-date-navigator-text-field-background,
+    $rac-self-field-background: $rac-date-navigator-text-field-background,
     $rac-text-field-input-font-size: $rac-date-navigator-text-field-input-font-size
   );
 

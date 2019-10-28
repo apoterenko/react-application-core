@@ -26,11 +26,21 @@
     $rac-field-flex-direction: $rac-field-flex-direction,
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
+    $rac-self-field-background: $rac-self-field-background,
     $rac-self-field-border-radius: $rac-self-field-border-radius,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
     $rac-self-field-display: $rac-self-field-display,
     $rac-self-field-input-color: $rac-self-field-input-color,
     $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display
+  );
+
+  /**
+   * @field-labeled
+   * @stable [28.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-field-labeled-cls,
+    $rac-self-field-margin-top: $rac-field-labeled-self-field-margin-top
   );
 
   /**
@@ -41,6 +51,16 @@
     $rac-field-custom: $rac-base-text-cls,
     $rac-self-field-height: $rac-base-text-self-field-height,
     $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex
+  );
+
+  /**
+   * @base-text-labeled
+   * @stable [28.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-labeled-cls,
+    $rac-self-field-label-position: $rac-base-text-labeled-self-field-label-position,
+    $rac-self-field-label-top: $rac-base-text-labeled-self-field-label-top
   );
 
   /**
@@ -100,24 +120,16 @@
   @include rac-field (
     $rac-field-custom: $rac-switch-cls,
     $rac-self-field-height: $rac-switch-self-field-height,
-    $rac-self-field-input-flex-height: $rac-switch-self-field-input-flex-height,
-    $rac-self-field-input-flex-width: $rac-switch-self-field-input-flex-width,
+    $rac-self-field-input-height: $rac-switch-self-field-input-height,
+    $rac-self-field-input-width: $rac-switch-self-field-input-width,
     $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
     $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
-    $rac-self-field-input-wrapper-flex-height: $rac-switch-self-field-input-wrapper-flex-height,
-    $rac-self-field-input-wrapper-flex-width: $rac-switch-self-field-input-wrapper-flex-width,
     $rac-self-field-label-white-space: $rac-switch-self-field-label-white-space
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
     $rac-field-custom: $rac-view-field-cls,
     $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
-  );
-
-  @include rac-field(                                                                         /* @stable [22.03.2019] */
-    $rac-field-custom: $rac-field-labeled-cls,
-    $rac-self-field-margin: $rac-field-labeled-self-field-margin,
-    $rac-self-field-label-top: $rac-field-labeled-self-field-label-top
   );
 
   @include rac-field($rac-field-custom: rac-field-prevent-focus,                              /* @stable [08.11.2018] */
@@ -128,7 +140,7 @@
                      $rac-text-field-opacity: $rac-text-field-disabled-opacity);
 
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
-                     $rac-text-field-height: $rac-text-area-height,
+                     $rac-self-field-height: $rac-text-area-height,
                      $rac-text-field-input-padding: $rac-text-area-input-padding);
 
   @include rac-thumb(                                                                         /* @stable [31.05.2019] */
@@ -148,10 +160,7 @@
     $rac-thumb-unchecked-disabled-opacity: $rac-switch-thumb-unchecked-disabled-opacity
   );
 
-  @include rac-field(
-    $rac-text-field-label-position: $rac-text-field-label-position,
-    $rac-text-field-label-left: $rac-text-field-label-left,
-    $rac-text-field-background: $rac-text-field-background,
+  @include rac-field (
     $rac-text-field-input-border: $rac-text-field-input-border,
     $rac-text-field-input-background: $rac-text-field-input-background,
     $rac-text-field-input-width: $rac-text-field-input-width,
