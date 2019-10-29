@@ -57,10 +57,9 @@ export class GridHeaderColumn extends BaseGridColumn {
   protected getColumnContentChildrenElement(children: React.ReactNode): React.ReactNode {
     return (
       <React.Fragment>
-        {children}
         {
           this.props.sortable && (
-            <React.Fragment>
+            <div className='rac-grid-column-sort'>
               {
                 this.uiFactory.makeIcon({
                   key: 'desc-sort-icon-key',
@@ -85,9 +84,10 @@ export class GridHeaderColumn extends BaseGridColumn {
                   onClick: this.onChangeAscSortingActionClick,
                 })
               }
-            </React.Fragment>
+            </div>
           )
         }
+        {children}
       </React.Fragment>
     );
   }

@@ -49,6 +49,7 @@ export interface IDomAccessor {
   hasElements(selector: string | Element, target: Element): boolean;
   hasParent(selector: string, target: Element): boolean;
   isAlreadyFocused(): boolean;
+  isElementFocused(element: Element): boolean;
   isElementVisibleWithinParent(child: Element, parent: Element): boolean;
   redirect(path: string): void;
   reload(forceReload?: boolean): void;

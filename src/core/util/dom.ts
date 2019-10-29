@@ -284,11 +284,11 @@ export const downloadFileAsBlob = (blob: Blob, fileName?: string): void => {
 };
 
 /**
- * @stable [03.09.2018]
- * @param {HTMLElement} el
+ * @stable [30.10.2019]
+ * @param {Element} el
  * @returns {boolean}
  */
-export const isElementFocused = (el: HTMLElement) => document.activeElement === el;
+export const isElementFocused = (el: Element): boolean => document.activeElement === el;
 
 /**
  * @stable [19.09.2018]

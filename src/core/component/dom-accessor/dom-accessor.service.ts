@@ -14,6 +14,7 @@ import {
   hasClasses,
   hasElements,
   hasParent,
+  isElementFocused,
   isElementVisibleWithinParent,
   openFullScreen,
   removeChild,
@@ -46,6 +47,15 @@ export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [30.10.2019]
+   * @param {Element} element
+   * @returns {boolean}
+   */
+  public isElementFocused(element: Element): boolean {
+    return isElementFocused(element);
+  }
 
   /**
    * @stable [28.10.2019]

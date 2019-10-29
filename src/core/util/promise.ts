@@ -1,7 +1,7 @@
 import * as BPromise from 'bluebird';
 
 /**
- * Wait, even if an exception occurs in single promise
+ * Wait, even if an exception occurs in a single promise
  * @stable [27.02.2019]
  *
  * @param {Array<Promise<T>>} values

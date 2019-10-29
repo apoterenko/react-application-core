@@ -10,6 +10,7 @@ import {
   IPreventFocusWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
+  IRequiredWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
@@ -161,3 +162,11 @@ export const isChangeable = (changeableWrapper: IChangeableWrapper): boolean =>
  */
 export const isKeyboardOpen = (wrapper: IKeyboardOpenWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.keyboardOpen === true, false);
+
+/**
+ * @stable [29.10.2019]
+ * @param {IRequiredWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isRequired = (wrapper: IRequiredWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.required === true, false);

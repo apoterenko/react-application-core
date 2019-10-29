@@ -1,15 +1,10 @@
 import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes, RefAttributes } from 'react';
 
 import {
-  AnyT,
-  IValueWrapper,
   IInputWrapper,
-  IEmptyValueWrapper,
   IStringErrorWrapper,
-  IOriginalValueWrapper,
   IKeyboardEvent,
   IFocusEvent,
-  IReturnValueToClearDirtyChangesWrapper,
   IKeyboardOpenWrapper,
   ICaretVisibilityWrapper,
   ICaretPositionWrapper,
@@ -23,15 +18,6 @@ import { IFieldProps } from '../../../configurations-definitions.interface';
 export const FIELD_EMPTY_ERROR_VALUE = null;
 
 /**
- * @stable [11.08.2018]
- */
-export interface IFieldActualChangedValueConfigEntity extends IValueWrapper,
-                                                              IEmptyValueWrapper,
-                                                              IOriginalValueWrapper,
-                                                              IReturnValueToClearDirtyChangesWrapper {
-}
-
-/**
  * @stable [04.09.2018]
  */
 export interface IUniversalFieldState extends IStringErrorWrapper,
@@ -39,7 +25,6 @@ export interface IUniversalFieldState extends IStringErrorWrapper,
                                               ICaretVisibilityWrapper,
                                               ICaretPositionWrapper {
   focused?: boolean; // TODO
-  bufferedValue?: boolean; // TODO
 }
 
 /**

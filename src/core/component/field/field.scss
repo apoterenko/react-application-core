@@ -7,13 +7,15 @@
 
   /**
    * @field
-   * @stable [21.10.2019]
+   * @stable [30.10.2019]
    */
-  &.rac-ios, &.rac-mac {
-    &.rac-safari {
-      @include rac-field(
-        $rac-self-field-input-placeholder-padding: $rac-offset-0 0 0 0
-      );
+  .rac-mobile {
+    &.rac-ios, &.rac-mac {
+      &.rac-safari {
+        @include rac-field(
+          $rac-self-field-input-placeholder-padding: $rac-offset-0 0 0 0
+        );
+      }
     }
   }
 
@@ -41,6 +43,27 @@
   @include rac-field (
     $rac-field-custom: $rac-field-labeled-cls,
     $rac-self-field-margin-top: $rac-field-labeled-self-field-margin-top
+  );
+
+  /**
+   * @field-required
+   * @stable [29.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-field-required-cls,
+    $rac-self-field-label-after-content: $rac-field-required-self-field-label-after-content,
+    $rac-self-field-label-after-font-size: $rac-field-required-self-field-label-after-font-size,
+    $rac-self-field-label-after-position: $rac-field-required-self-field-label-after-position,
+    $rac-self-field-label-after-right: $rac-field-required-self-field-label-after-right
+  );
+
+  /**
+   * @field-prevent-focus
+   * @stable [30.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-field-prevent-focus-cls,
+    $rac-self-field-input-cursor: $rac-field-prevent-focus-self-field-input-cursor
   );
 
   /**
@@ -132,9 +155,6 @@
     $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
   );
 
-  @include rac-field($rac-field-custom: rac-field-prevent-focus,                              /* @stable [08.11.2018] */
-                     $rac-text-field-input-cursor: default);
-
   @include rac-field($rac-field-custom: $rac-field-disabled-cls,
                      $rac-field-opacity: $rac-field-disabled-opacity,
                      $rac-text-field-opacity: $rac-text-field-disabled-opacity);
@@ -198,38 +218,10 @@
 
   .rac-field {
 
-    &.rac-field-required {
-
-      .rac-field-label {
-
-        &::after {
-          position: absolute;                                         /* @stable [05.10.2018] */
-          right: $rac-field-required-label-after-right;               /* @stable [05.10.2018] */
-          top: $rac-field-required-label-after-top;                   /* @stable [05.10.2018] */
-          content: '*';                                               /* @stable [05.10.2018] */
-          color: $rac-field-required-label-after-color;               /* @stable [05.10.2018] */
-          font-size: $rac-field-required-label-after-font-size;       /* @stable [05.10.2018] */
-        }
-      }
-    }
-
     &.rac-field-invalid {
 
       .rac-text-field {
         border-color: $rac-text-field-invalid-border-color;                      /* @stable [05.10.2018] */
-      }
-    }
-
-    &.rac-field-readonly {
-
-      & > .rac-text-field {
-
-        & > .rac-field-input-wrapper {
-
-          & > .rac-field-input {
-            cursor: default !important;                                          /* @stable [06.10.2018] */
-          }
-        }
       }
     }
 
@@ -289,32 +281,6 @@
 
     .rac-field-input {
       resize: none;                                                            /* @stable [07.08.2018] */
-    }
-
-    &.rac-filefield {
-
-      .rac-text-field {
-
-        .rac-field-input-wrapper {
-
-          .rac-field-input {
-            cursor: pointer;                                                   /* @stable [05.10.2018] */
-          }
-        }
-      }
-    }
-
-    &.rac-select, &.rac-multi-field {
-
-      & > .rac-text-field {
-
-        & > .rac-field-input-wrapper {
-
-          .rac-field-input {
-            cursor: pointer;                                          /* @stable [26.09.2018] */
-          }
-        }
-      }
     }
 
     .rac-field-label {

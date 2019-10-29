@@ -3,6 +3,7 @@ import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
+  buildFinalFieldValue,
   calc,
   defValuesFilter,
   DelayedTask,
@@ -16,9 +17,10 @@ import {
   isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
+  isReadOnly,
+  isRequired,
   isUndef,
   isVisible,
-  orDefault,
   orNull,
   orUndef,
 } from '../../../util';
@@ -28,10 +30,6 @@ import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE, IFocusEvent } from '../../.
 import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
-import {
-  isFieldRequired,
-  toActualChangedValue,
-} from './field.support';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
                                                                          TFocusEvent>,
@@ -74,14 +72,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [04.09.2018]
-   */
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-    this.onCloseVirtualKeyboard();
-  }
-
-  /**
    * @stable [20.08.2018]
    */
   public componentDidMount(): void {
@@ -91,7 +81,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
     this.validateValueAndSetCustomValidity(this.value);
 
     if (this.props.autoFocus) {
-      this.setFocus();              // The manual "autoFocus" replacing
+      this.setFocus();
     }
   }
 
@@ -159,8 +149,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   public get value(): AnyT {
     const props = this.props;
-    const state = this.state;
-    const value = isDef(state.bufferedValue) ? state.bufferedValue : props.value;
+    const value = props.value;
     return isDef(value) ? value : props.defaultValue;
   }
 
@@ -265,17 +254,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   public abstract setFocus(): void;
 
   /**
-   * @stable [18.06.2018]
+   * @stable [29.10.2019]
    * @param {boolean} usePrintf
    * @param {AnyT} args
    * @returns {string}
    */
-  public printfDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
-    return orDefault<string, string>(
-      usePrintf,
-      () => Printf.sprintf(this.t(this.props.displayMessage), ...args),
-      FIELD_DISPLAY_EMPTY_VALUE
-    );
+  protected buildDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
+    return usePrintf
+      ? Printf.sprintf(this.t(this.props.displayMessage), ...args)
+      : FIELD_DISPLAY_EMPTY_VALUE;
   }
 
   /**
@@ -288,20 +275,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [18.12.2018]
+   * @stable [29.10.2019]
    * @returns {boolean}
    */
-  protected isNotDefaultValuePresent(): boolean {
-    const props = this.props;
-    return isDef(props.value) && isDef(props.defaultValue) && !R.equals(props.value, props.defaultValue);
-  }
-
-  /**
-   * @stable [05.10.2018]
-   * @returns {boolean}
-   */
-  protected isFieldRequired(): boolean {
-    return isFieldRequired(this.props);
+  protected get isRequired(): boolean {
+    return isRequired(this.props);
   }
 
   /**
@@ -483,6 +461,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
+   * @stable [29.10.2019]
+   * @returns {boolean}
+   */
+  protected get isReadOnly(): boolean {
+    return isReadOnly(this.props);
+  }
+
+  /**
    * @stable [28.10.2019]
    * @returns {boolean}
    */
@@ -491,11 +477,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [27.01.2019]
+   * @stable [30.10.2019]
    * @returns {boolean}
    */
   protected isFieldFocused(): boolean {
-    return this.isKeyboardUsed ? this.isKeyboardOpen() : this.state.focused;
+    return this.isKeyboardUsed ? this.caretBlinkingTask.progress : this.state.focused;
   }
 
   /**
@@ -515,7 +501,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [25.10.2019]
+   * @stable [30.10.2019]
    * @param {IFocusEvent} event
    */
   protected onFocus(event: IFocusEvent): void {
@@ -525,6 +511,8 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
       if (this.isKeyboardUsed) {
         this.openVirtualKeyboard();
       }
+    } else {
+      this.setState({focused: true});
     }
 
     const props = this.props;
@@ -534,16 +522,13 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [18.06.2018]
-   * @param {TFocusEvent} event
+   * @stable [30.10.2019]
+   * @param {IFocusEvent} event
    */
   protected onBlur(event: IFocusEvent): void {
-    const props = this.props;
-    if (props.bufferValue) {
-      this.submitBufferedValue();
-      this.setState({bufferedValue: CLEAR_DIRTY_CHANGES_VALUE});
-    }
+    this.setState({focused: false});
 
+    const props = this.props;
     if (isFn(props.onBlur)) {
       props.onBlur(event);
     }
@@ -554,14 +539,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {JSX.Element}
    */
   protected getInputAttachmentElement(): JSX.Element {
-    return null;
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected keyboardElement(): JSX.Element {
     return null;
   }
 
@@ -601,14 +578,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
     if (isDef(this.caretBlinkingTask)) {
       this.caretBlinkingTask.stop();
     }
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected getKeyboardElement(): JSX.Element {
-    return orNull(this.isKeyboardUsed && this.isKeyboardOpen(), () => this.keyboardElement());
   }
 
   /**
@@ -711,28 +680,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    */
   private onChangeValue(currentRawValue: AnyT): void {
     const props = this.props;
-    const actualChangedValue = toActualChangedValue({
-      value: currentRawValue,
-      emptyValue: this.getEmptyValue(),
-      originalValue: props.originalValue,
-      returnValueToClearDirtyChanges: props.returnValueToClearDirtyChanges,
-    });
+    const finalFieldValue = buildFinalFieldValue({value: currentRawValue, originalValue: props.originalValue});
 
-    if (props.bufferValue) {
-      this.setState({bufferedValue: actualChangedValue});
-    } else {
-      this.submitBufferedValue(actualChangedValue);
-    }
-  }
-
-  /**
-   * @stable [25.05.2019]
-   * @param {any | AnyT | boolean} actualChangedValue
-   */
-  private submitBufferedValue(actualChangedValue = this.state.bufferedValue): void {
-    this.validateField(actualChangedValue);
-    this.propsOnChange(actualChangedValue);
-    this.propsChangeForm(actualChangedValue);      // Notify a form about the changes
+    this.validateField(finalFieldValue);
+    this.propsOnChange(finalFieldValue);
+    this.propsChangeForm(finalFieldValue);      // Notify a form about the changes
   }
 
   /**

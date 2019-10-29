@@ -9,6 +9,7 @@ import {
   isFn,
   joinClassName,
   orNull,
+  orUndef,
   toClassName,
 } from '../../../util';
 import {
@@ -67,6 +68,14 @@ export class Field<TProps extends IFieldProps,
         {this.getKeyboardElement()}
       </div>
     );
+  }
+
+  /**
+   * @stable [29.10.2019]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.onCloseVirtualKeyboard();
   }
 
   /**
@@ -133,15 +142,17 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [29.10.2019]
    */
   public setFocus(): void {
-    const input = this.input;
-    const props = this.props;
-
-    if (!props.preventFocus && !R.isNil(input)) {
-      input.focus();
-    }
+    ifNotNilThanValue(
+      this.input,
+      (input) => {
+        if (!this.isFocusPrevented) {
+          input.focus();
+        }
+      }
+    );
   }
 
   /**
@@ -153,6 +164,22 @@ export class Field<TProps extends IFieldProps,
       this.inputRef.current,
       (input) => (input as IMaskedInputCtor).inputElement || input as InputElementT
     );
+  }
+
+  /**
+   * @stable [29.10.2019]
+   * @returns {JSX.Element}
+   */
+  protected getKeyboardElement(): JSX.Element {
+    return orNull(this.isKeyboardUsed && this.isKeyboardOpen(), () => this.keyboardElement);
+  }
+
+  /**
+   * @stable [29.10.2019]
+   * @returns {JSX.Element}
+   */
+  protected get keyboardElement(): JSX.Element {
+    return null;
   }
 
   protected getSelfElement(): JSX.Element {
@@ -239,24 +266,6 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [30.10.2018]
-   * @param {IFocusEvent} event
-   */
-  protected onBlur(event: IFocusEvent): void {
-    super.onBlur(event);
-    this.setState({focused: false});
-  }
-
-  /**
-   * @stable [30.10.2018]
-   * @param {IFocusEvent} event
-   */
-  protected onFocus(event: IFocusEvent): void {
-    super.onFocus(event);
-    this.setState({focused: true});
-  }
-
-  /**
    * @stable [28.10.2019]
    * @param {TBasicEvent} event
    */
@@ -277,19 +286,23 @@ export class Field<TProps extends IFieldProps,
     return <input {...this.getInputElementProps() as IFieldInputAttributes}/>;
   }
 
+  /**
+   * @stable [30.10.2019]
+   * @returns {IFieldComplexInputAttributes}
+   */
   protected getInputElementProps(): IFieldComplexInputAttributes {
     const props = this.props;
     /**/
-    const autoComplete = props.autoComplete || 'off';
+    const autoComplete = props.autoComplete || 'off';                                                      /* @stable [29.10.2019] */
     const cols = props.cols;                                                                               /* @stable [28.10.2019] */
     const disabled = this.isDisabled;                                                                      /* @stable [28.10.2019] */
     const maxLength = props.maxLength;                                                                     /* @stable [28.10.2019] */
     const minLength = props.minLength;                                                                     /* @stable [28.10.2019] */
     const name = props.name;                                                                               /* @stable [28.10.2019] */
-    const pattern = this.getFieldPattern();
-    const placeholder = orNull(props.placeholder && !this.inProgress, () => this.t(props.placeholder));
+    const pattern = this.getFieldPattern();                                                                /* @stable [29.10.2019] */
+    const placeholder = orUndef(props.placeholder && !this.inProgress, () => this.t(props.placeholder));   /* @stable [29.10.2019] */
     const readOnly = this.isInactive;                                                                      /* @stable [28.10.2019] */
-    const required = this.isFieldRequired();
+    const required = this.isRequired;                                                                      /* @stable [29.10.2019] */
     const rows = props.rows;                                                                               /* @stable [28.10.2019] */
     const step = props.step;                                                                               /* @stable [28.10.2019] */
     const tabIndex = props.tabIndex;                                                                       /* @stable [28.10.2019] */
@@ -325,20 +338,20 @@ export class Field<TProps extends IFieldProps,
    */
   protected getFieldClassName(): string {
     const props = this.props;
+    const {flexEnabled = false} = this.settings.bootstrap;
 
     return joinClassName(
       'rac-field',
-      fullFlexClassName(props),
-      this.isFieldRequired() && 'rac-field-required',
+      flexEnabled && fullFlexClassName(props),
+      this.isRequired && 'rac-field-required',
       this.isFieldInvalid() && 'rac-field-invalid',
       this.isValuePresent() ? 'rac-field-value-present' : 'rac-field-value-not-present',
-      this.isNotDefaultValuePresent() && 'rac-field-not-default-value-present',
       this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
       this.isFieldFocused() ? 'rac-field-focused' : 'rac-field-not-focused',
-      props.disabled && 'rac-field-disabled',
-      props.readOnly && 'rac-field-readonly',
+      this.isDisabled && 'rac-field-disabled',
+      this.isReadOnly && 'rac-field-readonly',
+      this.isFocusPrevented && 'rac-field-prevent-focus',
       props.label && 'rac-field-labeled',
-      props.preventFocus && 'rac-field-prevent-focus',
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       props.className
     );

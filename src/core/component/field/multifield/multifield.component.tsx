@@ -148,6 +148,6 @@ export class MultiField<TProps extends IMultiFieldProps,
    */
   protected decorateValueBeforeDisplaying(value: AnyT): string {
     const len = this.multiFieldPlugin.getActiveValueLength(value);
-    return this.printfDisplayMessage(len > 0, len);
+    return this.buildDisplayMessage(len > 0, len);
   }
 }

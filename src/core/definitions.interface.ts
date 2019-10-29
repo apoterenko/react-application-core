@@ -330,7 +330,7 @@ export interface IReplaceRouteWrapper { replaceRoute?: boolean; }
 export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
 export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValue; }
 export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
-export interface IRequiredWrapper<TRequired = boolean | (() => boolean)> { required?: TRequired; }
+export interface IRequiredWrapper<TRequired = boolean> { required?: TRequired; }
 export interface IResetActionRenderedWrapper { resetActionRendered?: boolean; }
 export interface IResetConfigurationWrapper<TValue> { resetConfiguration?: TValue; }
 export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
@@ -340,7 +340,6 @@ export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
-export interface IReturnValueToClearDirtyChangesWrapper { returnValueToClearDirtyChanges?: boolean; }
 export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }

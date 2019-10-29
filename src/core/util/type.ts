@@ -1,9 +1,5 @@
 import {
   AnyT,
-  IMAGE_JPG_FORMAT,
-  IMAGE_JPEG_FORMAT,
-  IMAGE_PNG_FORMAT,
-  APPLICATION_PDF_FORMAT,
 } from '../definitions.interface';
 
 /**
@@ -76,23 +72,3 @@ export const isObject = (v: AnyT): boolean => Object.prototype.toString.call(v) 
  * @returns {TResult}
  */
 export const toType = <TResult>(result: TResult): TResult => result;
-
-/**
- * @stable [29.01.2019]
- * @param {string} format
- * @returns {boolean}
- */
-export const isImageFileFormat = (format: string): boolean => [
-  IMAGE_JPG_FORMAT,
-  IMAGE_JPEG_FORMAT,
-  IMAGE_PNG_FORMAT
-].includes(format);
-
-/**
- * @stable [29.01.2019]
- * @param {string} format
- * @returns {boolean}
- */
-export const isPdfFileFormat = (format: string): boolean => [
-  APPLICATION_PDF_FORMAT
-].includes(format);

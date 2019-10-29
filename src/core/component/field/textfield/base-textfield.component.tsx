@@ -92,7 +92,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [03.09.2018]
    * @returns {JSX.Element}
    */
-  protected keyboardElement(): JSX.Element {
+  protected get keyboardElement(): JSX.Element {
     return (
       <Keyboard
         ref={this.keyboardRef}

@@ -19,7 +19,7 @@ import {
 import { ifNotNilThanValue } from './cond';
 import { isArrayNotEmpty, makeArray } from './array';
 import { isNotMultiEntity } from './entity';
-import { isPrimitive } from './type';
+import { isPrimitive, isDef } from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
@@ -29,6 +29,21 @@ import {
 } from './wrapper';
 
 const DYNAMIC_FIELD_SEPARATOR = '-';
+
+/**
+ * @stable [30.10.2019]
+ * @param {IGenericFieldEntity} config
+ * @returns {AnyT}
+ */
+export const buildFinalFieldValue = (config: IGenericFieldEntity): AnyT => {
+  const value = config.value;
+  const originalValue = config.originalValue;
+
+  if (isDef(originalValue) && R.equals(value, originalValue)) {
+    return FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES;
+  }
+  return value;
+};
 
 /**
  * @stable [28.10.2019]

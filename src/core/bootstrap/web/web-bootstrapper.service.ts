@@ -96,6 +96,7 @@ export class WebBootstrapper implements IBootstrapper {
       document.body,
       'rac',
       environment.appProfile,
+      environment.mobilePlatform ? 'rac-mobile' : 'rac-desktop',
       orNull(environment.androidPlatform, 'rac-android'),
       orNull(environment.iosPlatform, 'rac-ios'),
       orNull(environment.macPlatform, 'rac-mac'),

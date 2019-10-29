@@ -22,7 +22,6 @@ import {
   ICallbackWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
-  IReturnValueToClearDirtyChangesWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
   ICenteredWrapper,
   IChangeableWrapper,
@@ -297,7 +296,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IActionsWrapper<IFieldActionEntity[]>,
           IDisplayMessageWrapper,
           IValidationGroupWrapper,
-          IReturnValueToClearDirtyChangesWrapper,
           IMessageWrapper,
           IKeyboardConfigurationWrapper<IKeyboardConfiguration>,
           ICaretBlinkingFrequencyTimeoutWrapper,
@@ -305,7 +303,6 @@ export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasi
           IUseSyntheticCursorWrapper,
           IChangeableWrapper,
           IDefaultValueWrapper {
-  bufferValue?: boolean;
   preventManualChanges?: boolean; // TODO
 }
 
