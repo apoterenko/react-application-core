@@ -481,7 +481,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {boolean}
    */
   protected isFieldFocused(): boolean {
-    return this.isKeyboardUsed ? this.caretBlinkingTask.progress : this.state.focused;
+    return this.isKeyboardUsed
+      ? ifNotNilThanValue(this.caretBlinkingTask, (task) => task.progress, false)
+      : this.state.focused;
   }
 
   /**
