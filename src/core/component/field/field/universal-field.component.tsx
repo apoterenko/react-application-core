@@ -13,6 +13,7 @@ import {
   isDef,
   isDisabled,
   isFieldInactive,
+  isFieldNotModifiable,
   isFieldValuePresent,
   isFn,
   isFocusPrevented,
@@ -479,6 +480,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isChangeable(): boolean {
     return isChangeable(this.props);
+  }
+
+  /**
+   * @stable [30.10.2019]
+   * @returns {boolean}
+   */
+  protected get isFieldNotModifiable(): boolean {
+    return isFieldNotModifiable(this.props);
   }
 
   /**

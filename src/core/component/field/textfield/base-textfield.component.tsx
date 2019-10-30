@@ -261,14 +261,24 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     const props = this.props;
     const defaultActions = this.defaultActions || [];
     const actions = props.actions || [];
+    const isValuePresent = this.isValuePresent;
+    const isFieldModifiable = !this.isFieldNotModifiable;
 
     return (
       props.actionsPosition === FieldActionPositionsEnum.LEFT
         ? defaultActions.concat(actions)
         : actions.concat(defaultActions)
     ).filter(
-      (action) => action.type !== FieldActionTypesEnum.CLOSE ||
-        (action.type === FieldActionTypesEnum.CLOSE && this.isValuePresent)
+      (action) => {
+        switch (action.type) {
+          case FieldActionTypesEnum.CALENDAR:
+          case FieldActionTypesEnum.DROP_DOWN:
+            return isFieldModifiable;
+          case FieldActionTypesEnum.CLOSE:
+            return isFieldModifiable && isValuePresent;
+        }
+        return true;
+      }
     );
   }
 
@@ -333,7 +343,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     this.defaultActions.push({
       type: FieldActionTypesEnum.CLOSE,
       onClick: () => this.clearValue(),
-      disabled: () => this.isInactive || this.isValueNotPresent,
+      disabled: () => this.isInactive,
     });
   }
 }

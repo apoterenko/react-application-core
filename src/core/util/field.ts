@@ -24,6 +24,7 @@ import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
   inProgress,
+  isChangeable,
   isDisabled,
   isReadOnly,
 } from './wrapper';
@@ -52,6 +53,14 @@ export const buildFinalFieldValue = (config: IGenericFieldEntity): AnyT => {
  */
 export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
   isDisabled(props) || isReadOnly(props) || inProgress(props);
+
+/**
+ * @stable [30.10.2019]
+ * @param {IGenericFieldEntity} props
+ * @returns {boolean}
+ */
+export const isFieldNotModifiable = (props: IGenericFieldEntity): boolean =>
+  isDisabled(props) || isReadOnly(props) || !isChangeable(props);
 
 /**
  * @stable [30.10.2019]

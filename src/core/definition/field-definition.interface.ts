@@ -126,8 +126,10 @@ export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] 
  */
 export enum FieldActionTypesEnum {
   ATTACH_FILE = 'attach_file',
+  CALENDAR = 'calendar',
   CLOSE = 'close',
   DOWNLOAD = 'download',
+  DROP_DOWN = 'dropdown',
   VIDEO = 'video',
 }
 

@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import DayPicker from 'react-day-picker';
 
 import { orNull, nvl, joinClassName, ifNotFalseThanValue } from '../../../util';
 import { AnyT } from '../../../definitions.interface';
-import { IBaseEvent } from '../../../definition';
+import {
+  FieldActionTypesEnum,
+  IBaseEvent,
+} from '../../../definition';
 import { DateTimeLikeTypeT } from '../../../converter';
 import { IDateTimeSettings } from '../../../settings';
 import {
@@ -36,11 +38,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   constructor(props: TProps) {
     super(props);
-    this.onChangeYear = this.onChangeYear.bind(this);
     this.onAccept = this.onAccept.bind(this);
     this.onCalendarClick = this.onCalendarClick.bind(this);
+    this.onChangeYear = this.onChangeYear.bind(this);
 
-    this.defaultActions = R.insert(0, {type: 'calendar', onClick: this.onCalendarClick}, this.defaultActions);
+    this.defaultActions = [
+      {type: FieldActionTypesEnum.CALENDAR, onClick: this.onCalendarClick},
+      ...this.defaultActions
+    ];
   }
 
   /**

@@ -39,19 +39,9 @@
     $rac-self-field-input-font-weight: $rac-self-field-input-font-weight,
     $rac-self-field-input-line-height: $rac-self-field-input-line-height,
     $rac-self-field-input-padding: $rac-self-field-input-padding,
-    $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display
-  );
-
-
-  @include rac-field (
-          $rac-text-field-input-width: $rac-text-field-input-width,
-          $rac-text-field-input-caret-position: absolute,
-          $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,
-          $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
-          $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
-          $rac-text-field-icon-margin: $rac-text-field-icon-margin,
-          $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-          $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
+    $rac-self-field-input-width: $rac-self-field-input-width,
+    $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display,
+    $rac-self-field-position: $rac-self-field-position
   );
 
   /**
@@ -90,7 +80,10 @@
    */
   @include rac-field (
     $rac-field-custom: $rac-base-text-cls,
+    $rac-self-field-border: $rac-base-text-self-field-border,
     $rac-self-field-height: $rac-base-text-self-field-height,
+    $rac-self-field-icon-color: $rac-base-text-self-field-icon-color,
+    $rac-self-field-icon-margin: $rac-base-text-self-field-icon-margin,
     $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex
   );
 
@@ -281,10 +274,6 @@
       color: $rac-field-message-color;                           /* @stable [29.06.2018] */
     }
 
-    .rac-field-input {
-      resize: none;                                                            /* @stable [07.08.2018] */
-    }
-
     .rac-field-label {
       white-space: nowrap;                                            /* @stable [08.08.2018] */
       color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
@@ -293,10 +282,6 @@
     }
 
     .rac-text-field {
-      position: relative;
-      border-style: solid;                                            /* @stable [17.09.2018] */
-      border-width: $rac-text-field-border-width;                     /* @stable [17.09.2018] */
-      border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
 
       .rac-field-input {
 

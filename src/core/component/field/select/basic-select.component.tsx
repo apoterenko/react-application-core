@@ -8,9 +8,10 @@ import { Menu } from '../../menu';
 import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
 import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
 import {
+  FieldActionTypesEnum,
   IBaseEvent,
-  ISelectOptionEntity,
   IMenu,
+  ISelectOptionEntity,
 } from '../../../definition';
 
 export class BaseSelect<TProps extends IBaseSelectProps,
@@ -32,7 +33,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     if (props.expandActionRendered !== false) {
       this.defaultActions = [
-        {type: props.icon || 'dropdown', onClick: this.openMenu},
+        {type: props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.openMenu},
         ...this.defaultActions
       ];
     }
