@@ -32,8 +32,26 @@
     $rac-self-field-border-radius: $rac-self-field-border-radius,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
     $rac-self-field-display: $rac-self-field-display,
+    $rac-self-field-input-background: $rac-self-field-input-background,
+    $rac-self-field-input-border: $rac-self-field-input-border,
     $rac-self-field-input-color: $rac-self-field-input-color,
+    $rac-self-field-input-font-size: $rac-self-field-input-font-size,
+    $rac-self-field-input-font-weight: $rac-self-field-input-font-weight,
+    $rac-self-field-input-line-height: $rac-self-field-input-line-height,
+    $rac-self-field-input-padding: $rac-self-field-input-padding,
     $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display
+  );
+
+
+  @include rac-field (
+          $rac-text-field-input-width: $rac-text-field-input-width,
+          $rac-text-field-input-caret-position: absolute,
+          $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,
+          $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
+          $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
+          $rac-text-field-icon-margin: $rac-text-field-icon-margin,
+          $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
+          $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
   );
 
   /**
@@ -161,7 +179,7 @@
 
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
                      $rac-self-field-height: $rac-text-area-height,
-                     $rac-text-field-input-padding: $rac-text-area-input-padding);
+                     $rac-self-field-input-padding: $rac-text-area-input-padding);
 
   @include rac-thumb(                                                                         /* @stable [31.05.2019] */
     $rac-thumb-custom: $rac-switch-thumb-cls,
@@ -178,22 +196,6 @@
     $rac-thumb-unchecked-transition: $rac-switch-thumb-unchecked-transition,
     $rac-thumb-unchecked-enabled-opacity: $rac-switch-thumb-unchecked-enabled-opacity,
     $rac-thumb-unchecked-disabled-opacity: $rac-switch-thumb-unchecked-disabled-opacity
-  );
-
-  @include rac-field (
-    $rac-text-field-input-border: $rac-text-field-input-border,
-    $rac-text-field-input-background: $rac-text-field-input-background,
-    $rac-text-field-input-width: $rac-text-field-input-width,
-    $rac-text-field-input-font-size: $rac-text-field-input-font-size,
-    $rac-text-field-input-padding: $rac-text-field-input-padding,
-    $rac-text-field-input-caret-position: absolute,
-    $rac-text-field-input-caret-bottom: $rac-text-field-input-caret-bottom,
-    $rac-text-field-input-caret-font-size: $rac-text-field-input-caret-font-size,
-    $rac-text-field-input-caret-color: $rac-text-field-input-caret-color,
-    $rac-text-field-icon-color: $rac-text-field-icon-color,
-    $rac-text-field-icon-margin: $rac-text-field-icon-margin,
-    $rac-text-field-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-    $rac-text-field-filter-active-after-left: $rac-text-field-filter-active-after-left
   );
 
   @include rac-dialog(                                                                        /* @stable [18.06.2019] */
@@ -297,9 +299,6 @@
       border-color: $rac-text-field-border-color;                     /* @stable [03.10.2018] */
 
       .rac-field-input {
-        font-weight: $rac-field-input-font-weight;                    /* @stable [15.09.2018] */
-        letter-spacing: $rac-field-input-letter-spacing;              /* @stable [19.09.2018] */
-        line-height: $rac-field-input-line-height;                    /* @stable [05.10.2018] */
 
         &:-webkit-autofill {
           transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */

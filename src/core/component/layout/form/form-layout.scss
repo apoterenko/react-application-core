@@ -3,33 +3,30 @@
 
 .rac {
 
-  @include rac-form-layout(                                                                   /* @stable [27.01.2019] */
-    $rac-form-layout-background: $rac-form-layout-background,
+  @include rac-form-layout (                                                                   /* @stable [27.01.2019] */
     $rac-form-layout-background-size: $rac-form-layout-background-size,
-    $rac-form-layout-content-position: $rac-form-layout-content-position,
+    $rac-form-layout-background: $rac-form-layout-background,
     $rac-form-layout-content-border: $rac-form-layout-content-border,
-    $rac-form-layout-content-width: $rac-form-layout-content-width,
     $rac-form-layout-content-margin: $rac-form-layout-content-margin,
-    $rac-form-layout-form-actions-margin: $rac-form-layout-form-actions-margin,
+    $rac-form-layout-content-position: $rac-form-layout-content-position,
+    $rac-form-layout-content-width: $rac-form-layout-content-width,
     $rac-form-layout-field-margin: $rac-form-layout-field-margin,
-    $rac-form-layout-text-field-input-placeholder-color: $rac-form-layout-text-field-input-placeholder-color,
-    $rac-form-layout-text-field-border: $rac-form-layout-text-field-border,
-    $rac-form-layout-text-field-border-color: $rac-form-layout-text-field-border-color,
-    $rac-form-layout-text-field-background: $rac-form-layout-text-field-background,
-    $rac-form-layout-text-field-icon-color: $rac-form-layout-text-field-icon-color,
-    $rac-form-layout-text-field-icon-size: $rac-form-layout-text-field-icon-size,
-    $rac-form-layout-text-field-icon-margin: $rac-form-layout-text-field-icon-margin,
+    $rac-form-layout-form-actions-margin: $rac-form-layout-form-actions-margin,
+    $rac-form-layout-self-field-background: $rac-form-layout-self-field-background,
+    $rac-form-layout-self-field-border: $rac-form-layout-self-field-border,
+    $rac-form-layout-self-field-height: $rac-form-layout-self-field-height,
+    $rac-form-layout-self-field-icon-color: $rac-form-layout-self-field-icon-color,
+    $rac-form-layout-self-field-input-font-size: $rac-form-layout-self-field-input-font-size,
+    $rac-form-layout-self-field-not-focused-input-color: $rac-form-layout-self-field-not-focused-input-color,
     $rac-form-layout-text-field-focused-background: $rac-form-layout-text-field-focused-background,
     $rac-form-layout-text-field-focused-icon-color: $rac-form-layout-text-field-focused-icon-color,
     $rac-form-layout-text-field-focused-input-placeholder-color: $rac-form-layout-text-field-focused-input-placeholder-color,
-    $rac-form-layout-self-field-not-focused-input-color: $rac-form-layout-self-field-not-focused-input-color,
+    $rac-form-layout-text-field-icon-margin: $rac-form-layout-text-field-icon-margin,
     $rac-form-layout-text-field-input-caret-bottom: $rac-form-layout-text-field-input-caret-bottom,
-    $rac-form-layout-top-header-height: $rac-form-layout-top-header-height,
-    $rac-form-layout-top-header-background: $rac-form-layout-top-header-background,
+    $rac-form-layout-text-field-input-placeholder-color: $rac-form-layout-text-field-input-placeholder-color,
     $rac-form-layout-top-header-background-size: $rac-form-layout-top-header-background-size,
-    $rac-form-layout-top-header-margin: $rac-form-layout-top-header-margin,
-    /**/
-    $rac-form-layout-self-field-height: $rac-form-layout-self-field-height,
-    $rac-form-layout-self-field-input-font-size: $rac-form-layout-self-field-input-font-size
+    $rac-form-layout-top-header-background: $rac-form-layout-top-header-background,
+    $rac-form-layout-top-header-height: $rac-form-layout-top-header-height,
+    $rac-form-layout-top-header-margin: $rac-form-layout-top-header-margin
   );
 }

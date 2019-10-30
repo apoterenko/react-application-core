@@ -3,11 +3,11 @@
 
 .rac {
 
-  @include rac-field(                                                                         /* @stable [07.01.2019] */
+  @include rac-field (                                                                         /* @stable [07.01.2019] */
     $rac-field-custom: rac-date-navigator,
     $rac-field-margin: 0 8px,
     $rac-self-field-background: $rac-date-navigator-text-field-background,
-    $rac-text-field-input-font-size: $rac-date-navigator-text-field-input-font-size
+    $rac-self-field-input-font-size: $rac-date-navigator-text-field-input-font-size
   );
 
   .rac-date-navigator-clock {                                                                 /* @stable [08.01.2019] */
