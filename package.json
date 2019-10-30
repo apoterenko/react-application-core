@@ -48,7 +48,7 @@
     "@typopro/web-montserrat": "^3.7.5",
     "animate.css": "^3.7.0",
     "awesome-typescript-loader": "^3.3.0",
-    "axios": "^0.16.2",
+    "axios": "^0.18.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-export-extensions": "^6.22.0",
