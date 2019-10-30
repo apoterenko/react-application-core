@@ -4,6 +4,7 @@ import {
   AnyT,
   IProgressWrapper,
 } from '../definitions.interface';
+import { getEnvironment } from '../di';
 
 export class DelayedTask
   implements IProgressWrapper {
@@ -55,7 +56,7 @@ export class DelayedTask
    */
   private launchTask(): void {
     this.stop();
-    this.taskId = setTimeout(() => this.onTaskDone(), this.period);
+    this.taskId = getEnvironment().window.setTimeout(() => this.onTaskDone(), this.period);
   }
 
   /**
