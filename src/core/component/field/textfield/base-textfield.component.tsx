@@ -15,18 +15,19 @@ import {
 } from '../../../util';
 import { UNI_CODES, IChangeEvent, UniCodesEnum } from '../../../definitions.interface';
 import {
-  FieldActionPositionEnum,
   IKeyboardConfiguration,
 } from '../../../configurations-definitions.interface';
 import { Field } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import {
-  IBaseTextFieldState,
-  IBaseTextFieldProps,
   IBaseTextField,
+  IBaseTextFieldProps,
+  IBaseTextFieldState,
 } from './base-textfield.interface';
 import {
+  FieldActionPositionsEnum,
+  FieldActionTypesEnum,
   IBaseEvent,
   IFieldActionEntity,
   IJQueryElement,
@@ -74,20 +75,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return joinClassName(super.getSelfElementClassName(), 'rac-text-field');
   }
 
-  protected addClearAction(): void {
-    const this0 = this;
-    const clearAction: IFieldActionEntity = {
-      type: 'close',
-      onClick() {
-        this0.clearValue();
-      },
-      get disabled(): boolean {
-        return this0.isInactive || !this0.isValuePresent();
-      },
-    };
-    this.defaultActions.push(clearAction);
-  }
-
   /**
    * @stable [03.09.2018]
    * @returns {JSX.Element}
@@ -132,7 +119,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [23.02.2019]
+   * @stable [30.10.2019]
    */
   protected onCloseVirtualKeyboard(): void {
     super.onCloseVirtualKeyboard();
@@ -156,7 +143,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {number}
    */
   protected getCaretPosition(): number {
-    return this.isValuePresent()
+    return this.isValuePresent
       ? Math.min(this.jMirrorInput.width(), this.jqInput.width())
       : 0;
   }
@@ -185,15 +172,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {JSX.Element}
    */
   protected getMirrorInputElement(): JSX.Element {
-    const props = this.props;
-    if (!props.useKeyboard || !this.isValuePresent() || !this.useSyntheticCursor) {
+    if (!this.isKeyboardUsed || !this.isSyntheticCursorUsed || this.isValueNotPresent) {
       return null;
     }
 
     // TODO Move to support
     const value = this.value;
     const content = String((
-      props.type === 'password'
+      this.props.type === 'password'
         ? String(value).replace(/./g, this.environment.passwordPlaceholder)
         : value
     )).replace(/ /g, UniCodesEnum.NO_BREAK_SPACE);
@@ -216,7 +202,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     const textOffset = 2;
 
     return orNull(
-      this.useSyntheticCursor && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
+      this.isSyntheticCursorUsed && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
         <div className='rac-field-input-caret'
              style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
@@ -258,7 +244,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     const clickedEl = e.target as Element;
 
     if (this.domAccessor.hasParent('.rac-action-close-icon', clickedEl)) {
-      if (this.isValuePresent()) {
+      if (this.isValuePresent) {
         this.clearValue();
       }
     } else if (!(this.input === clickedEl
@@ -267,15 +253,23 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     }
   }
 
+  /**
+   * @stable [30.10.2019]
+   * @returns {IFieldActionEntity[]}
+   */
   private get actions(): IFieldActionEntity[] {
     const props = this.props;
     const defaultActions = this.defaultActions || [];
     const actions = props.actions || [];
-    if (props.actionsPosition === FieldActionPositionEnum.LEFT) {
-      return defaultActions.concat(actions);
-    } else {
-      return actions.concat(defaultActions);
-    }
+
+    return (
+      props.actionsPosition === FieldActionPositionsEnum.LEFT
+        ? defaultActions.concat(actions)
+        : actions.concat(defaultActions)
+    ).filter(
+      (action) => action.type !== FieldActionTypesEnum.CLOSE ||
+        (action.type === FieldActionTypesEnum.CLOSE && this.isValuePresent)
+    );
   }
 
   /**
@@ -330,5 +324,16 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
         }
       </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [30.10.2019]
+   */
+  private addClearAction(): void {
+    this.defaultActions.push({
+      type: FieldActionTypesEnum.CLOSE,
+      onClick: () => this.clearValue(),
+      disabled: () => this.isInactive || this.isValueNotPresent,
+    });
   }
 }

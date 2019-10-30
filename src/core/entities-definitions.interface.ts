@@ -21,10 +21,7 @@ import {
   IToDateToTimeEntity,
   IValueWrapper,
 } from './definitions.interface';
-import {
-  IUniversalFieldProps,
-} from './props-definitions.interface';
-import { IUniversalKeyboardHandlersConfiguration } from './configurations-definitions.interface';
+import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from './configurations-definitions.interface';
 import {
   IEnvironment,
   ILifeCycleEntity,
@@ -43,13 +40,10 @@ export interface IDateTimeEntity extends IDateWrapper,
 /**
  * @stable [18.06.2018]
  */
-export interface IUniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent, TFocusEvent>
-                                    = IUniversalFieldProps<TKeyboardEvent, TFocusEvent>,
-                                 TState = {},
-                                 TKeyboardEvent = AnyT,
-                                 TFocusEvent = AnyT>
+export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps,
+                                 TState = {}>
   extends IUniversalComponent<TProps, TState>,
-          IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
+          IUniversalKeyboardHandlersConfiguration,
           IValueWrapper,
           ISetFocusWrapper,
           IClearValueWrapper,

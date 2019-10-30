@@ -13,29 +13,34 @@ import {
   isDef,
   isDisabled,
   isFieldInactive,
+  isFieldValuePresent,
   isFn,
   isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
   isReadOnly,
   isRequired,
+  isSyntheticCursorUsed,
   isUndef,
   isVisible,
   orNull,
   orUndef,
 } from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
-import { IUniversalFieldProps } from '../../../props-definitions.interface';
-import { AnyT, IKeyValue, CLEAR_DIRTY_CHANGES_VALUE, IFocusEvent } from '../../../definitions.interface';
+import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
+import {
+  AnyT,
+  CLEAR_DIRTY_CHANGES_VALUE,
+  IFocusEvent,
+  IKeyboardEvent,
+  IKeyValue,
+} from '../../../definitions.interface';
 import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 
-export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboardEvent,
-                                                                         TFocusEvent>,
-                                     TState extends IUniversalFieldState,
-                                     TKeyboardEvent,
-                                     TFocusEvent>
+export abstract class UniversalField<TProps extends IUniversalFieldProps,
+                                     TState extends IUniversalFieldState>
   extends UniversalComponent<TProps, TState>
   implements IUniversalField<TProps, TState> {
 
@@ -62,7 +67,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
     this.state = {} as TState;
 
-    if (this.isKeyboardUsed && this.useSyntheticCursor) {
+    if (this.isKeyboardUsed && this.isSyntheticCursorUsed) {
       this.caretBlinkingTask = new DelayedTask(
         this.setCaretVisibility.bind(this),
         props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
@@ -115,7 +120,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   public clearValue(): void {
     this.setFocus();    // UX
 
-    if (this.isValuePresent()) {
+    if (this.isValuePresent) {
       this.onChangeManually(this.getEmptyValue());
     }
 
@@ -155,9 +160,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [18.06.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyBackspace(event: TKeyboardEvent): void {
+  public onKeyBackspace(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyBackspace)) {
       props.onKeyBackspace(event);
@@ -166,9 +171,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [18.06.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyUp(event: TKeyboardEvent): void {
+  public onKeyUp(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyUp)) {
       props.onKeyUp(event);
@@ -177,9 +182,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [03.09.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyDown(event: TKeyboardEvent): void {
+  public onKeyDown(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyDown)) {
       props.onKeyDown(event);
@@ -188,9 +193,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [18.06.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyEnter(event: TKeyboardEvent): void {
+  public onKeyEnter(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyEnter)) {
       props.onKeyEnter(event);
@@ -199,9 +204,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [04.09.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyTab(event: TKeyboardEvent): void {
+  public onKeyTab(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyTab)) {
       props.onKeyTab(event);
@@ -210,9 +215,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [18.06.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyEscape(event: TKeyboardEvent): void {
+  public onKeyEscape(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyEscape)) {
       props.onKeyEscape(event);
@@ -221,9 +226,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [18.06.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyArrowDown(event: TKeyboardEvent): void {
+  public onKeyArrowDown(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyArrowDown)) {
       props.onKeyArrowDown(event);
@@ -232,9 +237,9 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
 
   /**
    * @stable [18.06.2018]
-   * @param {TKeyboardEvent} event
+   * @param {IKeyboardEvent} event
    */
-  public onKeyArrowUp(event: TKeyboardEvent): void {
+  public onKeyArrowUp(event: IKeyboardEvent): void {
     const props = this.props;
     if (isFn(props.onKeyArrowUp)) {
       props.onKeyArrowUp(event);
@@ -266,12 +271,20 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [30.10.2019]
    * @param {AnyT} value
    * @returns {boolean}
    */
-  protected isValuePresent(value = this.value): boolean {
-    return isDef(value) && !R.equals(value, this.getEmptyValue());
+  protected get isValuePresent(): boolean {
+    return isFieldValuePresent(this.value, this.getEmptyValue());
+  }
+
+  /**
+   * @stable [30.10.2019]
+   * @returns {boolean}
+   */
+  protected get isValueNotPresent(): boolean {
+    return !this.isValuePresent;
   }
 
   /**
@@ -386,16 +399,8 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
    * @returns {AnyT}
    */
   protected get displayValue(): AnyT {
-    return this.toDisplayValue(this.value);
-  }
-
-  /**
-   * @stable [07.01.2019]
-   * @param {AnyT} value
-   * @returns {AnyT}
-   */
-  protected toDisplayValue(value: AnyT): AnyT {
-    return this.inProgress || !this.isValuePresent(value)
+    const value = this.value;
+    return this.inProgress || !this.isValuePresent
       ? FIELD_DISPLAY_EMPTY_VALUE  // The dictionaries data is cleaned before request
       : this.getDecoratedValue(value);
   }
@@ -656,11 +661,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps<TKeyboa
   }
 
   /**
-   * @stable [14.01.2019]
+   * @stable [30.10.2019]
    * @returns {boolean}
    */
-  protected get useSyntheticCursor(): boolean {
-    return this.props.useSyntheticCursor !== false;
+  protected get isSyntheticCursorUsed(): boolean {
+    return isSyntheticCursorUsed(this.props);
   }
 
   /**

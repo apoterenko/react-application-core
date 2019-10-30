@@ -4,10 +4,10 @@ import * as R from 'ramda';
 import { orNull, isFn, nvl } from '../../../util';
 import {
   IFilterActionConfiguration,
+  IUniversalFieldProps,
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import { IUniversalField } from '../../../entities-definitions.interface';
-import { IUniversalFieldProps } from '../../../props-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { UniversalComponent } from '../../base/universal.component';

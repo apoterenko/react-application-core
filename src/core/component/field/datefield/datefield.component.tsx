@@ -185,7 +185,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Date}
    */
   private get dialogDate(): Date {
-    if (!this.isValuePresent()) {
+    if (this.isValueNotPresent) {
       return this.dc.getCurrentDate();
     }
     const dateValue = this.dc.tryConvertToDate(this.value, this.getFieldFormat());

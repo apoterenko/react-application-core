@@ -90,6 +90,7 @@ export interface IApplicationWrapper<TApplication> { application?: TApplication;
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
 export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
+export interface IAutoCompleteWrapper<TAutoComplete = string> { autoComplete?: TAutoComplete; }
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
@@ -174,6 +175,7 @@ export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFor
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
+export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IFullWrapper<TFull = boolean> { full?: TFull; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(): void; }
@@ -184,6 +186,7 @@ export interface IGroupedDataSorterWrapper<T1, T2> { groupedDataSorter?(t1?: T1,
 export interface IGroupedWrapper { grouped?: boolean; }
 export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
+export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
@@ -365,6 +368,7 @@ export interface IStackWrapper<TStack> { stack?: TStack; }
 export interface IStateWrapper<TState> { state?: TState; }
 export interface IStatusTextWrapper { statusText?: string; }
 export interface IStatusWrapper<TStatus = number> { status?: TStatus; }
+export interface IStepWrapper<TStep = number> { step?: TStep; }
 export interface IStickyElementClassNameWrapper { stickyElementClassName?: string; }
 export interface IStickyHeadWrapper { stickyHead?: boolean; }
 export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
@@ -375,6 +379,7 @@ export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
 export interface ISubmitTextWrapper { submitText?: string; }
 export interface ISucceedMessageWrapper { succeedMessage?: string; }
 export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
+export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
 export interface ITitleWrapper { title?: string; }
@@ -410,6 +415,7 @@ export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
+export interface IWrapWrapper { wrap?: boolean; }
 export interface IXPositionWrapper { xPosition?: number | (() => number); }
 export interface IXWrapper<TX = number> { x?: TX; }
 export interface IYPositionWrapper { yPosition?: number | (() => number); }
@@ -826,13 +832,6 @@ export interface IErrorMessageRenderedWrapper {
 }
 
 /**
- * @stable [18.06.2018]
- */
-export interface IAutoCompleteWrapper<TAutoComplete = string> {
-  autoComplete?: TAutoComplete;
-}
-
-/**
  * @stable [16.09.2018]
  */
 export interface IFooterRenderedWrapper {
@@ -1106,9 +1105,6 @@ export interface ISeparatorWrapper<TSeparator = boolean> {
   separator?: TSeparator;
 }
 
-export interface IFullSizeWrapper { fullSize?: boolean; }
-export interface IWrapWrapper { wrap?: boolean; }
-
 /**
  * @stable [28.06.2018]
  */
@@ -1257,13 +1253,6 @@ export interface IOnRefreshWrapper<TOnRefresh = () => void> {
 }
 
 /**
- * @stable [14.01.2019]
- */
-export interface IUseSyntheticCursorWrapper {
-  useSyntheticCursor?: boolean;
-}
-
-/**
  * @stable [08.06.2018]
  */
 export interface ITypeIdWrapper<TTypeId = EntityIdT> {
@@ -1288,8 +1277,6 @@ export interface IExactWrapper {
 export interface IColSpanWrapper {
   colSpan?: number;
 }
-
-export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 
 /**
  * @stable [10.09.2018]
@@ -1345,13 +1332,6 @@ export interface ICallbackWrapper<TCallback> {
  */
 export interface IAppVersionWrapper {
   appVersion?: string;
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IStepWrapper<TStep = number> {
-  step?: TStep;
 }
 
 /**

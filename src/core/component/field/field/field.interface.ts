@@ -3,8 +3,6 @@ import { Component, InputHTMLAttributes, ClassAttributes, TextareaHTMLAttributes
 import {
   IInputWrapper,
   IStringErrorWrapper,
-  IKeyboardEvent,
-  IFocusEvent,
   IKeyboardOpenWrapper,
   ICaretVisibilityWrapper,
   ICaretPositionWrapper,
@@ -35,6 +33,6 @@ export interface IFieldState extends IUniversalFieldState {
 
 export interface IField<TProps extends IFieldProps = IFieldProps,
                         TState extends IFieldState = IFieldState>
-    extends IUniversalField<TProps, TState, IKeyboardEvent, IFocusEvent>,
+    extends IUniversalField<TProps, TState>,
             IInputWrapper {
 }

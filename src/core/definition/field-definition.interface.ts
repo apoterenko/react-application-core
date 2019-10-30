@@ -7,10 +7,15 @@ import {
 import {
   AnyT,
   EntityIdT,
+  IActionsPosition,
+  IActionsWrapper,
+  IAutoCompleteWrapper,
   IAutoFocusWrapper,
+  IChangeableWrapper,
   IClassNameWrapper,
   IDefaultValueWrapper,
   IDisabledWrapper,
+  IDisplayNameWrapper,
   IDisplayValueWrapper,
   IEmptyValueWrapper,
   IEntity,
@@ -30,6 +35,8 @@ import {
   IReadOnlyWrapper,
   IRenderedWrapper,
   IRequiredWrapper,
+  IStepWrapper,
+  ISyntheticCursorWrapper,
   ITabIndexWrapper,
   ITitleWrapper,
   ITypeWrapper,
@@ -39,8 +46,9 @@ import {
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
-import { IMultiEntity } from './entity-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
+import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
+import { IMultiEntity } from './entity-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -52,9 +60,15 @@ export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
  * @stable [27.05.2019]
  */
 export interface IGenericFieldEntity
-  extends IAutoFocusWrapper,
+  extends IActionsPosition<FieldActionPositionsEnum>,
+    IActionsWrapper<IFieldActionEntity[]>,
+    IAutoCompleteWrapper,
+    IAutoFocusWrapper,
+    IChangeableWrapper,
     IDefaultValueWrapper,
+    IDelayedChangesEntity,
     IDisabledWrapper,
+    IDisplayNameWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
@@ -70,6 +84,8 @@ export interface IGenericFieldEntity
     IReadOnlyWrapper,
     IRenderedWrapper,
     IRequiredWrapper,
+    IStepWrapper,
+    ISyntheticCursorWrapper,
     ITabIndexWrapper,
     ITypeWrapper<StringNumberT>,
     IUseKeyboardWrapper,
@@ -104,6 +120,16 @@ export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IMultiEntity;
 export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;
 export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
+
+/**
+ * @stable [30.10.2019]
+ */
+export enum FieldActionTypesEnum {
+  ATTACH_FILE = 'attach_file',
+  CLOSE = 'close',
+  DOWNLOAD = 'download',
+  VIDEO = 'video',
+}
 
 /**
  * @stable [28.10.2019]
@@ -144,3 +170,11 @@ export interface IFieldTextAreaAttributes
  * @stable [28.10.2018]
  */
 export type IFieldComplexInputAttributes = IFieldInputAttributes | IFieldTextAreaAttributes;
+
+/**
+ * @stable [30.10.2019]
+ */
+export enum FieldActionPositionsEnum {
+  LEFT,
+  RIGHT,
+}

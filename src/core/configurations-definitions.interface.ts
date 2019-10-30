@@ -6,13 +6,11 @@ import {
   IActionButtonsWrapper,
   IActionIconsWrapper,
   IActionsDisabledWrapper,
-  IActionsPosition,
   IActionsWrapper,
   IActiveValueWrapper,
   IActiveWrapper,
   IAfterEnterWrapper,
   IAliasWrapper,
-  IAutoCompleteWrapper,
   IBackwardRenderedWrapper,
   IBasenameWrapper,
   IBeforeEnterWrapper,
@@ -24,16 +22,13 @@ import {
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
   ICenteredWrapper,
-  IChangeableWrapper,
   IChangeFormWrapper,
   IChildrenWrapper,
   IClassNameWrapper,
   IClearActionWrapper,
   IComputedMatchWrapper,
-  IDefaultValueWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
-  IDisplayNameWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
   IEntity,
@@ -82,7 +77,6 @@ import {
   ISelectedWrapper,
   ISimpleWrapper,
   ISorterWrapper,
-  IStepWrapper,
   IStyleWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
@@ -90,7 +84,6 @@ import {
   ITypeWrapper,
   IUrlWrapper,
   IUseIndicatorWrapper,
-  IUseSyntheticCursorWrapper,
   IValidateWrapper,
   IValidationGroupWrapper,
   IValueWrapper,
@@ -103,10 +96,7 @@ import {
 } from './react-definitions.interface';
 import {
   IApiEntity,
-  IBaseEvent,
   IComponentProps,
-  IDelayedChangesEntity,
-  IFieldActionEntity,
   IGenericFieldEntity,
   IMenuItemEntity,
   INamedConstructor,
@@ -161,7 +151,7 @@ export interface IRouteConfigurationWrapper<TRouteConfiguration> {
 /**
  * @stable [18.06.2018]
  */
-export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent> {
+export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent = IKeyboardEvent> {
   onKeyTab?(event: TKeyboardEvent): void;
   onKeyEnter?(event: TKeyboardEvent): void;
   onKeyUp?(event: TKeyboardEvent): void;
@@ -231,14 +221,6 @@ export interface IApplicationConfiguration extends IBasenameWrapper,
 }
 
 /**
- * @stable [18.04.2018]
- */
-export enum FieldActionPositionEnum {
-  LEFT,
-  RIGHT,
-}
-
-/**
  * @stable [08.05.2018]
  */
 export enum KeyboardKeyEnum {
@@ -281,45 +263,34 @@ export interface IKeyboardConfiguration extends IComponentProps,
 /**
  * @stable [31.07.2018]
  */
-export interface IUniversalFieldConfiguration<TKeyboardEvent, TFocusEvent, TBasicEvent>
+export interface IUniversalFieldProps
   extends IGenericFieldEntity,
-          IDelayedChangesEntity,
           IUniversalComponentEntity,
-          IUniversalKeyboardHandlersConfiguration<TKeyboardEvent>,
+          IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,
           IOnFocusWrapper<IFocusEvent>,
           IOnBlurWrapper<IFocusEvent>,
-          IReactOnClickWrapper<TBasicEvent>,
+          IReactOnClickWrapper<any>,
           IOnChangeWrapper,
           IOnClearWrapper,
           IChangeFormWrapper<(name: string, value: AnyT, validationGroup?: string) => void>,
           IErrorMessageRenderedWrapper,
-          IActionsWrapper<IFieldActionEntity[]>,
           IDisplayMessageWrapper,
           IValidationGroupWrapper,
           IMessageWrapper,
           IKeyboardConfigurationWrapper<IKeyboardConfiguration>,
           ICaretBlinkingFrequencyTimeoutWrapper,
-          IValidateWrapper<string>,
-          IUseSyntheticCursorWrapper,
-          IChangeableWrapper,
-          IDefaultValueWrapper {
+          IValidateWrapper<string> {
   preventManualChanges?: boolean; // TODO
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldProps extends IUniversalFieldConfiguration<IKeyboardEvent,
-                                                                          IFocusEvent,
-                                                                          IBaseEvent>,
-                                             IWebComponentEntity,
-                                             IAutoCompleteWrapper,
-                                             IActionsPosition<FieldActionPositionEnum>,
-                                             IBindDictionaryConfiguration,
-                                             IMaskGuideWrapper,
-                                             IMaskPlaceholderCharWrapper,
-                                             IPrefixLabelWrapper,
-                                             IDisplayNameWrapper,
-                                             IClearActionWrapper,
-                                             IStepWrapper {
+export interface IFieldProps extends IComponentProps,
+  IUniversalFieldProps,
+  IBindDictionaryConfiguration,
+  IMaskGuideWrapper,
+  IMaskPlaceholderCharWrapper,
+  IPrefixLabelWrapper,
+  IClearActionWrapper {
   minLength?: number;
   maxLength?: number;
   rows?: number;

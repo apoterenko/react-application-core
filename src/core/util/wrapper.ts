@@ -14,6 +14,7 @@ import {
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
+  ISyntheticCursorWrapper,
   IUseKeyboardWrapper,
   IValidWrapper,
   IVisibleWrapper,
@@ -170,3 +171,11 @@ export const isKeyboardOpen = (wrapper: IKeyboardOpenWrapper): boolean =>
  */
 export const isRequired = (wrapper: IRequiredWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.required === true, false);
+
+/**
+ * @stable [30.10.2019]
+ * @param {ISyntheticCursorWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.syntheticCursor !== false, false);

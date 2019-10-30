@@ -27,6 +27,7 @@ import { toLastAddedMultiItemEntityId } from '../multifield';
 import { IUniversalDialog2, Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
 import {
+  FieldActionTypesEnum,
   IBaseEvent,
   IFieldActionEntity,
 } from '../../../definition';
@@ -36,35 +37,34 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     extends BaseTextField<TProps, TState> {
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
-
-  protected multiFieldPlugin = new MultiFieldPlugin(this);
+  protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
 
   /**
-   * @stable [30.06.2018]
+   * @stable [30.10.2019]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
 
-    this.onSelect = this.onSelect.bind(this);
-    this.onCameraDialogClose = this.onCameraDialogClose.bind(this);
-    this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
     this.doSelectBlob = this.doSelectBlob.bind(this);
-    this.openFileDialog = this.openFileDialog.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
-    this.openCameraDialog = this.openCameraDialog.bind(this);
+    this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
+    this.onCameraDialogClose = this.onCameraDialogClose.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.onSelectCameraSnapshot = this.onSelectCameraSnapshot.bind(this);
+    this.openCameraDialog = this.openCameraDialog.bind(this);
+    this.openFileDialog = this.openFileDialog.bind(this);
 
     const actions = objectValuesArrayFilter<IFieldActionEntity>(
-      props.useCamera && {type: 'video', onClick: this.openCameraDialog},
-      {type: 'attach_file', onClick: this.openFileDialog},
+      props.useCamera && {type: FieldActionTypesEnum.VIDEO, onClick: this.openCameraDialog},
+      {type: FieldActionTypesEnum.ATTACH_FILE, onClick: this.openFileDialog},
       props.useDownloadAction && {
-        type: 'download',
-        disabled: () => this.isDisabled || this.inProgress || !this.isValuePresent(),
+        type: FieldActionTypesEnum.DOWNLOAD,
+        disabled: () => this.isDownloadActionDisabled,
         onClick: this.downloadFile,
       }
     );
-    this.defaultActions = R.insertAll<IFieldActionEntity>(0, actions.filter((cfg) => !R.isNil(cfg)), this.defaultActions);
+    this.defaultActions = [...actions, ...this.defaultActions];
   }
 
   /**
@@ -245,7 +245,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   private async downloadFile(event: IBaseEvent): Promise<void> {
     cancelEvent(event);
 
-    if (!this.isValuePresent()) {
+    if (this.isValueNotPresent) {
       return;
     }
     const url = toLastAddedMultiItemEntityId(this.value) as string; // TODO
@@ -269,5 +269,13 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    */
   private get camera(): IWebCamera {
     return this.refs.camera as IWebCamera;
+  }
+
+  /**
+   * @stable [30.10.2019]
+   * @returns {boolean}
+   */
+  private get isDownloadActionDisabled(): boolean {
+    return this.isDisabled || this.inProgress || this.isValueNotPresent;
   }
 }

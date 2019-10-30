@@ -37,9 +37,7 @@ import { IFieldProps } from '../../../configurations-definitions.interface';
 export class Field<TProps extends IFieldProps,
                    TState extends IFieldState = IFieldState>
     extends UniversalField<TProps,
-                           TState,
-                           IKeyboardEvent,
-                           IFocusEvent>
+                           TState>
     implements IField<TProps, TState> {
 
   protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
@@ -345,7 +343,7 @@ export class Field<TProps extends IFieldProps,
       flexEnabled && fullFlexClassName(props),
       this.isRequired && 'rac-field-required',
       this.isFieldInvalid() && 'rac-field-invalid',
-      this.isValuePresent() ? 'rac-field-value-present' : 'rac-field-value-not-present',
+      this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
       this.isFieldFocused() ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isDisabled && 'rac-field-disabled',
