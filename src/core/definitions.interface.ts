@@ -165,6 +165,7 @@ export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
 export interface IFilterRendererWrapper<TPayload> { filterRenderer?(payload: TPayload): JSX.Element; }
 export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
+export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IForceReloadWrapper { forceReload?: boolean; }
 export interface IFormatWrapper<TFormat = string> { format?: TFormat; }

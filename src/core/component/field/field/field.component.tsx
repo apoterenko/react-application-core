@@ -17,7 +17,6 @@ import {
   IKeyboardEvent,
   IChangeEvent,
   UNI_CODES,
-  IFocusEvent,
   } from '../../../definitions.interface';
 import {
   IField,
@@ -25,7 +24,9 @@ import {
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
 import {
+  FieldActionPositionsEnum,
   IBaseEvent,
+  IFieldActionEntity,
   IFieldComplexInputAttributes,
   IFieldInputAttributes,
   IJQueryElement,
@@ -40,6 +41,7 @@ export class Field<TProps extends IFieldProps,
                            TState>
     implements IField<TProps, TState> {
 
+  protected defaultActions: IFieldActionEntity[] = [];
   protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
 
   /**
@@ -345,10 +347,11 @@ export class Field<TProps extends IFieldProps,
       this.isFieldInvalid() && 'rac-field-invalid',
       this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
-      this.isFieldFocused() ? 'rac-field-focused' : 'rac-field-not-focused',
+      this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',
       this.isFocusPrevented && 'rac-field-prevent-focus',
+      !R.isEmpty(this.getFieldActions()) && 'rac-field-actioned',
       props.label && 'rac-field-labeled',
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       props.className
@@ -412,6 +415,20 @@ export class Field<TProps extends IFieldProps,
         {message ? this.t(message) : UNI_CODES.noBreakSpace}
       </div>
     );
+  }
+
+  /**
+   * @stable [30.10.2019]
+   * @returns {IFieldActionEntity[]}
+   */
+  protected getFieldActions(): IFieldActionEntity[] {
+    const props = this.props;
+    const defaultActions = this.defaultActions || [];
+    const actions = props.actions || [];
+
+    return props.actionsPosition === FieldActionPositionsEnum.LEFT
+      ? defaultActions.concat(actions)
+      : actions.concat(defaultActions);
   }
 
   /**

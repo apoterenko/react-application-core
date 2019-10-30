@@ -26,7 +26,6 @@ import {
   IBaseTextFieldState,
 } from './base-textfield.interface';
 import {
-  FieldActionPositionsEnum,
   FieldActionTypesEnum,
   IBaseEvent,
   IFieldActionEntity,
@@ -40,7 +39,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 
-  protected defaultActions: IFieldActionEntity[] = [];
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
   private readonly keyboardRef = React.createRef<Keyboard>();
   private keyboardListenerUnsubscriber: () => void;
@@ -236,6 +234,28 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
+   * @stable [30.10.2019]
+   * @returns {IFieldActionEntity[]}
+   */
+  protected getFieldActions(): IFieldActionEntity[] {
+    const isValuePresent = this.isValuePresent;
+    const isFieldModifiable = !this.isFieldNotModifiable;
+
+    return super.getFieldActions().filter(
+      (action) => {
+        switch (action.type) {
+          case FieldActionTypesEnum.CALENDAR:
+          case FieldActionTypesEnum.DROP_DOWN:
+            return isFieldModifiable;
+          case FieldActionTypesEnum.CLOSE:
+            return isFieldModifiable && isValuePresent;
+        }
+        return true;
+      }
+    );
+  }
+
+  /**
    * @stable [16.02.2019]
    * @param {IBaseEvent} e
    */
@@ -251,35 +271,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
                   || this.domAccessor.hasElements(clickedEl, this.keyboardRef.current.getSelf()))) {
       this.closeVirtualKeyboard();
     }
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @returns {IFieldActionEntity[]}
-   */
-  private get actions(): IFieldActionEntity[] {
-    const props = this.props;
-    const defaultActions = this.defaultActions || [];
-    const actions = props.actions || [];
-    const isValuePresent = this.isValuePresent;
-    const isFieldModifiable = !this.isFieldNotModifiable;
-
-    return (
-      props.actionsPosition === FieldActionPositionsEnum.LEFT
-        ? defaultActions.concat(actions)
-        : actions.concat(defaultActions)
-    ).filter(
-      (action) => {
-        switch (action.type) {
-          case FieldActionTypesEnum.CALENDAR:
-          case FieldActionTypesEnum.DROP_DOWN:
-            return isFieldModifiable;
-          case FieldActionTypesEnum.CLOSE:
-            return isFieldModifiable && isValuePresent;
-        }
-        return true;
-      }
-    );
   }
 
   /**
@@ -326,9 +317,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return (
       <React.Fragment>
         {
-          this.actions.map((action) => this.uiFactory.makeIcon({
+          this.getFieldActions().map((action) => this.uiFactory.makeIcon({
             ...action,
-            key: `action-key-${action.type}`,
+            key: `field-action-key-${action.type}`,
             disabled: this.isFieldActionDisabled(action),
           }))
         }

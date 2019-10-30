@@ -12,7 +12,7 @@
   .rac-mobile {
     &.rac-ios, &.rac-mac {
       &.rac-safari {
-        @include rac-field(
+        @include rac-field (
           $rac-self-field-input-placeholder-padding: $rac-offset-0 0 0 0
         );
       }
@@ -39,7 +39,6 @@
     $rac-self-field-input-font-weight: $rac-self-field-input-font-weight,
     $rac-self-field-input-line-height: $rac-self-field-input-line-height,
     $rac-self-field-input-padding: $rac-self-field-input-padding,
-    $rac-self-field-input-width: $rac-self-field-input-width,
     $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display,
     $rac-self-field-position: $rac-self-field-position
   );
@@ -84,7 +83,18 @@
     $rac-self-field-height: $rac-base-text-self-field-height,
     $rac-self-field-icon-color: $rac-base-text-self-field-icon-color,
     $rac-self-field-icon-margin: $rac-base-text-self-field-icon-margin,
+    $rac-self-field-input-resize: $rac-base-text-self-field-input-resize,
+    $rac-self-field-input-width: $rac-base-text-self-field-input-width,
     $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex
+  );
+
+  /**
+   * @base-text-actioned
+   * @stable [30.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-actioned-cls,
+    $rac-self-field-input-width: $rac-base-text-actioned-self-field-input-width
   );
 
   /**

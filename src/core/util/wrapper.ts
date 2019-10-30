@@ -3,6 +3,7 @@ import {
   IDisabledWrapper,
   IEditedWrapper,
   IExpandActionRenderedWrapper,
+  IFocusedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIndexedWrapper,
@@ -62,6 +63,14 @@ export const isKeyboardUsed = (useKeyboardEntity: IUseKeyboardWrapper): boolean 
  */
 export const isVisible = (visibleEntity: IVisibleWrapper): boolean =>
   ifNotNilThanValue(visibleEntity, () => visibleEntity.visible !== false, false);
+
+/**
+ * @stable [30.10.2019]
+ * @param {IFocusedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isFocused = (wrapper: IFocusedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.focused === true, false);
 
 /**
  * @stable [26.10.2019]

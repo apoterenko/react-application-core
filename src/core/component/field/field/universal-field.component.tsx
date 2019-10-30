@@ -16,6 +16,7 @@ import {
   isFieldNotModifiable,
   isFieldValuePresent,
   isFn,
+  isFocused,
   isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
@@ -494,10 +495,8 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [30.10.2019]
    * @returns {boolean}
    */
-  protected isFieldFocused(): boolean {
-    return this.isKeyboardUsed
-      ? ifNotNilThanValue(this.caretBlinkingTask, (task) => task.progress, false)
-      : this.state.focused;
+  protected get isFocused(): boolean {
+    return this.isKeyboardUsed ? this.isKeyboardOpen() : isFocused(this.state);
   }
 
   /**
