@@ -29,7 +29,6 @@
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
     $rac-self-field-background: $rac-self-field-background,
-    $rac-self-field-border-radius: $rac-self-field-border-radius,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
     $rac-self-field-display: $rac-self-field-display,
     $rac-self-field-input-background: $rac-self-field-input-background,
@@ -79,6 +78,7 @@
    */
   @include rac-field (
     $rac-field-custom: $rac-base-text-cls,
+    $rac-self-field-border-radius: $rac-base-text-self-field-border-radius,
     $rac-self-field-border: $rac-base-text-self-field-border,
     $rac-self-field-height: $rac-base-text-self-field-height,
     $rac-self-field-icon-color: $rac-base-text-self-field-icon-color,
@@ -240,7 +240,6 @@
         border-bottom: $rac-text-field-not-changeable-border-bottom;             /* @stable [06.10.2018] */
         border-right: $rac-text-field-not-changeable-border-right;               /* @stable [06.10.2018] */
         border-left: $rac-text-field-not-changeable-border-left;                 /* @stable [06.10.2018] */
-        border-radius: $rac-text-field-not-changeable-border-radius;             /* @stable [06.10.2018] */
       }
 
       &.rac-field-label-not-prefixed {
