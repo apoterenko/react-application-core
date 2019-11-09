@@ -152,6 +152,14 @@ export const makeEntityActionBuilderFactory = (config: IEntityReducerFactoryConf
     }
 
     /**
+     * @stable [08.11.2019]
+     * @returns {IEffectsAction}
+     */
+    public buildDestroyAction(): IEffectsAction {
+      return EffectsAction.create(config.destroy);
+    }
+
+    /**
      * @stable [04.09.2019]
      * @param {TValue} updated
      * @returns {IEffectsAction}

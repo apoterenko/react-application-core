@@ -50,6 +50,7 @@ import { ISelectedWrapperEntity } from './entity-definition.interface';
  * @stable [26.08.2019]
  */
 export interface IEntityActionBuilder {
+  buildDestroyAction(): IEffectsAction;
   buildReplaceAction<TValue = AnyT>(replaced: TValue): IEffectsAction;
   buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction;
   buildUpdateAction<TValue = AnyT>(updated: TValue): IEffectsAction;
