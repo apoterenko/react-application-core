@@ -74,14 +74,6 @@ export enum GridClassNamesEnum {
 }
 
 /**
- * @stable [23.10.2019]
- */
-export const GRID_ROW_CONTENT_CLASS_NAMES = Object.freeze([
-  GridClassNamesEnum.COLUMN,
-  GridClassNamesEnum.COLUMN_CONTENT
-]);
-
-/**
  * @stable [18.10.2019]
  */
 export interface IGridFilterEntity<TEntity extends IEntity = IEntity>

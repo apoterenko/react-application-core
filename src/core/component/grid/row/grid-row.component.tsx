@@ -8,7 +8,6 @@ import {
   joinClassName,
 } from '../../../util';
 import {
-  GRID_ROW_CONTENT_CLASS_NAMES,
   IBaseEvent,
   IGridRowProps,
   UniversalScrollableContext,
@@ -65,9 +64,7 @@ export class GridRow extends BaseComponent<IGridRowProps> {
    * @param {IBaseEvent} event
    */
   private onClick(event: IBaseEvent): void {
-    if (this.domAccessor.hasClasses(event.target as Element, ...GRID_ROW_CONTENT_CLASS_NAMES)) {
-      const props = this.props;
-      props.onClick(props.entity);
-    }
+    const props = this.props;
+    props.onClick(props.entity);
   }
 }
