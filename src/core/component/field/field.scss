@@ -39,6 +39,9 @@
     $rac-self-field-input-line-height: $rac-self-field-input-line-height,
     $rac-self-field-input-padding: $rac-self-field-input-padding,
     $rac-self-field-input-wrapper-display: $rac-self-field-input-wrapper-display,
+    $rac-self-field-label-color: $rac-self-field-label-color,
+    $rac-self-field-label-font-size: $rac-self-field-label-font-size,
+    $rac-self-field-label-font-weight: $rac-self-field-label-font-weight,
     $rac-self-field-position: $rac-self-field-position
   );
 
@@ -89,7 +92,8 @@
     $rac-self-field-input-mirror-width: $rac-base-text-self-field-input-mirror-width,
     $rac-self-field-input-resize: $rac-base-text-self-field-input-resize,
     $rac-self-field-input-width: $rac-base-text-self-field-input-width,
-    $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex
+    $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex,
+    $rac-self-field-label-white-space: $rac-base-text-self-field-label-white-space
   );
 
   /**
@@ -171,8 +175,7 @@
     $rac-self-field-input-height: $rac-switch-self-field-input-height,
     $rac-self-field-input-width: $rac-switch-self-field-input-width,
     $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
-    $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
-    $rac-self-field-label-white-space: $rac-switch-self-field-label-white-space
+    $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius
   );
 
   @include rac-field(                                                                         /* @stable [27.03.2019] */
@@ -285,12 +288,6 @@
     .rac-message {
       width: 100%;                                                    /* @stable [01.09.2018] */
       color: $rac-field-message-color;                           /* @stable [29.06.2018] */
-    }
-
-    .rac-field-label {
-      white-space: nowrap;                                            /* @stable [08.08.2018] */
-      color: $rac-field-label-color;                                  /* @stable [08.08.2018] */
-      font-weight: $rac-field-label-font-weight;                      /* @stable [03.10.2018] */
     }
 
     .rac-text-field {

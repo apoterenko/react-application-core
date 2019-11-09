@@ -1179,18 +1179,15 @@
   $rac-self-field-input-text-align: unset,                                          /* @stable [30.10.2019] */
   $rac-self-field-input-width: unset,                                               /* @stable [30.10.2019] */
   $rac-self-field-input-wrapper-align-items: unset,                                 /* @stable [23.10.2019] */
-  $rac-self-field-input-wrapper-background: unset,
+  $rac-self-field-input-wrapper-background: unset,                                  /* @stable [09.11.2019] */
   $rac-self-field-input-wrapper-border-radius: unset,                               /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-border: unset,                                      /* @stable [24.10.2019] */
   $rac-self-field-input-wrapper-display: unset,                                     /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-flex-direction: unset,                              /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-flex: unset,                                        /* @stable [23.10.2019] */
-  $rac-self-field-input-wrapper-height: unset,
   $rac-self-field-input-wrapper-justify-content: unset,                             /* @stable [23.10.2019] */
-  $rac-self-field-input-wrapper-opacity: unset,
   $rac-self-field-input-wrapper-position: unset,                                    /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-size: unset,                                        /* @stable [23.10.2019] */
-  $rac-self-field-input-wrapper-width: unset,
   $rac-self-field-label-after-content: unset,                                       /* @stable [28.10.2019] */
   $rac-self-field-label-after-font-size: unset,                                     /* @stable [28.10.2019] */
   $rac-self-field-label-after-position: unset,                                      /* @stable [28.10.2019] */
@@ -1199,11 +1196,11 @@
   $rac-self-field-label-font-size: unset,                                           /* @stable [09.11.2019] */
   $rac-self-field-label-font-weight: unset,                                         /* @stable [09.11.2019] */
   $rac-self-field-label-left: unset,                                                /* @stable [09.11.2019] */
-  $rac-self-field-label-line-height: unset,
-  $rac-self-field-label-margin: unset,
+  $rac-self-field-label-line-height: unset,                                         /* @stable [09.11.2019] */
+  $rac-self-field-label-margin: unset,                                              /* @stable [09.11.2019] */
   $rac-self-field-label-position: unset,                                            /* @stable [28.10.2019] */
   $rac-self-field-label-top: unset,                                                 /* @stable [09.11.2019] */
-  $rac-self-field-label-white-space: unset,
+  $rac-self-field-label-white-space: unset,                                         /* @stable [09.11.2019] */
   $rac-self-field-margin-top: unset,                                                /* @stable [28.10.2019] */
   $rac-self-field-margin: unset,                                                    /* @stable [28.10.2019] */
   $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
@@ -1299,11 +1296,8 @@
             $rac-styles-flex-direction: $rac-self-field-input-wrapper-flex-direction,
             $rac-styles-flex: $rac-self-field-input-wrapper-flex,
             $rac-styles-justify-content: $rac-self-field-input-wrapper-justify-content,
-            $rac-styles-opacity: $rac-self-field-input-wrapper-opacity,
             $rac-styles-position: $rac-self-field-input-wrapper-position,
-            $rac-styles-size: $rac-self-field-input-wrapper-size,
-            $rac-styles-width: $rac-self-field-input-wrapper-width,
-            $rac-styles-height: $rac-self-field-input-wrapper-height
+            $rac-styles-size: $rac-self-field-input-wrapper-size
           );
 
           > {
