@@ -5,7 +5,6 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 import {
   buildFinalFieldValue,
   calc,
-  defValuesFilter,
   DelayedTask,
   ifNilThanValue,
   ifNotNilThanValue,
@@ -36,7 +35,6 @@ import {
   CLEAR_DIRTY_CHANGES_VALUE,
   IFocusEvent,
   IKeyboardEvent,
-  IKeyValue,
 } from '../../../definitions.interface';
 import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
 import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';

@@ -71,6 +71,8 @@ $rac-color-1-6: #e5e5e5 !default;
 $rac-color-2-0: #f4e6bb !default;
 $rac-color-2-1: #f96f00 !default;
 /**/
+$rac-field-input-color-0: $rac-color-1-3 !default;
+/**/
 $rac-letter-spacing-0: 0 !default;
 /**/
 $rac-layout-offset-0: 24px !default;
@@ -498,7 +500,6 @@ $rac-field-flex-direction: column !default;
 $rac-field-help-text-font-size: 10px !default;
 $rac-field-help-text-line-height: 16px !default;
 $rac-field-label-color: $rac-default-label-color !default;
-$rac-field-label-font-size: $rac-default-font-size !default;
 $rac-field-label-font-weight: $rac-default-font-weight !default;
 $rac-field-labeled-self-field-margin-top: $rac-text-size-1 !default;
 $rac-field-loader-loading-message-color: $rac-default-text-color !default;
@@ -534,7 +535,6 @@ $rac-text-area-length-label-font-size: $rac-default-font-size - 1 !default;
 $rac-text-field-disabled-opacity: unset !default;
 $rac-text-field-filter-active-after-bottom: 5px !default;
 $rac-text-field-filter-active-after-left: 7px !default;
-$rac-text-field-icon-margin: auto 12px auto 0 !default;
 $rac-text-field-input-not-changeable-padding-left: 0 !default;
 $rac-text-field-input-not-changeable-padding-right: 0 !default;
 $rac-text-field-invalid-border-color: $color-11 !default;
@@ -696,11 +696,13 @@ $rac-form-layout-self-field-border-radius: unset !default;
 $rac-form-layout-self-field-border: 0 !default;
 $rac-form-layout-self-field-focused-background: $rac-color-0-1 !default;
 $rac-form-layout-self-field-focused-icon-color: $rac-color-0-4 !default;
+$rac-form-layout-self-field-focused-input-color: $rac-color-1-3 !default;
 $rac-form-layout-self-field-focused-input-placeholder-color: $rac-color-0-4 !default;
 $rac-form-layout-self-field-height: unset !default;
 $rac-form-layout-self-field-icon-color: $rac-color-0-5 !default;
 $rac-form-layout-self-field-icon-margin: unset !default;
 $rac-form-layout-self-field-input-caret-bottom: unset !default;
+$rac-form-layout-self-field-input-color: $rac-color-0-5 !default;
 $rac-form-layout-self-field-input-font-size: unset !default;
 $rac-form-layout-self-field-input-placeholder-color: $rac-color-0-5 !default;
 $rac-form-layout-top-header-background-size: contain !default;
