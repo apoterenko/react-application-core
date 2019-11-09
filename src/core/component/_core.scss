@@ -112,4 +112,15 @@
     $rac-styles-top: -10000px,
     $rac-styles-left: -10000px
   );
+
+  /**
+   * @icon
+   * @stable [09.11.2019]
+   */
+  @include rac-icon (
+    $rac-icon-content-height: $rac-icon-content-height,
+    $rac-icon-content-vertical-align: $rac-icon-content-vertical-align,
+    $rac-icon-content-width: $rac-icon-content-width,
+    $rac-icon-size: $rac-icon-size
+  );
 }

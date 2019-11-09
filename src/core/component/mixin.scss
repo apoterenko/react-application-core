@@ -607,49 +607,47 @@
 }
 
 /**
- * @stable [10.04.2019]
+ * @stable [09.11.2019]
  */
 @mixin rac-placeholder(
   $rac-placeholder-color: unset,
   $rac-placeholder-padding: unset,
   $rac-placeholder-font-size: unset
 ) {
-  @if $rac-placeholder-color != unset or $rac-placeholder-padding != unset {
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      @include rac-styles(
-        $rac-styles-color: $rac-placeholder-color,
-        $rac-styles-padding: $rac-placeholder-padding,
-        $rac-styles-font-size: $rac-placeholder-font-size
-      );
-    }
-    &::-moz-placeholder { /* Firefox 19+ */
-      @include rac-styles(
-        $rac-styles-color: $rac-placeholder-color,
-        $rac-styles-padding: $rac-placeholder-padding,
-        $rac-styles-font-size: $rac-placeholder-font-size
-      );
-    }
-    &:-ms-input-placeholder { /* IE 10+ */
-      @include rac-styles(
-        $rac-styles-color: $rac-placeholder-color,
-        $rac-styles-padding: $rac-placeholder-padding,
-        $rac-styles-font-size: $rac-placeholder-font-size
-      );
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      @include rac-styles(
-        $rac-styles-color: $rac-placeholder-color,
-        $rac-styles-padding: $rac-placeholder-padding,
-        $rac-styles-font-size: $rac-placeholder-font-size
-      );
-    }
-    &::placeholder {
-      @include rac-styles(
-        $rac-styles-color: $rac-placeholder-color,
-        $rac-styles-padding: $rac-placeholder-padding,
-        $rac-styles-font-size: $rac-placeholder-font-size
-      );
-    }
+  &::-webkit-input-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &::-moz-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &:-ms-input-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &:-moz-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &::placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
   }
 }
 
@@ -1000,15 +998,15 @@
 }
 
 /**
- * @stable [25.01.2019]
+ * @stable [09.11.2019]
  */
-@mixin rac-icon(
+@mixin rac-icon (
   $rac-icon-custom: unset,
   $rac-icon-background: unset,
   $rac-icon-border-radius: unset,
   $rac-icon-border: unset,
   $rac-icon-bottom: unset,
-  $rac-icon-color: unset,
+  $rac-icon-color: unset,                                                   /* @stable [09.11.2019] */
   $rac-icon-content-height: unset,
   $rac-icon-content-margin: unset,
   $rac-icon-content-opacity: unset,
@@ -1028,7 +1026,7 @@
   $rac-icon-right: unset,
   $rac-icon-size: unset,
   $rac-icon-top: unset,
-  $rac-icon-vertical-align: unset,                                    /* @stable [21.10.2019] */
+  $rac-icon-vertical-align: unset,                                          /* @stable [21.10.2019] */
   $rac-icon-width: unset
 ) {
 
@@ -1057,9 +1055,6 @@
       $rac-styles-vertical-align: $rac-icon-vertical-align,
       $rac-styles-width: $rac-icon-width
     );
-
-    @include rac-flex-width($rac-icon-size);
-    @include rac-flex-height($rac-icon-size);
 
     svg {
       @include rac-styles (
@@ -1161,6 +1156,10 @@
   $rac-self-field-icon-size: unset,                                                 /* @stable [28.10.2019] */
   $rac-self-field-input-background: unset,                                          /* @stable [30.10.2019] */
   $rac-self-field-input-border: unset,                                              /* @stable [30.10.2019] */
+  $rac-self-field-input-caret-bottom: unset,                                        /* @stable [09.11.2019] */
+  $rac-self-field-input-caret-color: unset,                                         /* @stable [09.11.2019] */
+  $rac-self-field-input-caret-font-size: unset,                                     /* @stable [09.11.2019] */
+  $rac-self-field-input-caret-position: unset,                                      /* @stable [09.11.2019] */
   $rac-self-field-input-color: unset,                                               /* @stable [21.10.2019] */
   $rac-self-field-input-cursor: unset,                                              /* @stable [23.10.2019] */
   $rac-self-field-input-font-size: unset,                                           /* @stable [30.10.2019] */
@@ -1169,6 +1168,7 @@
   $rac-self-field-input-icon-color: unset,                                          /* @stable [23.10.2019] */
   $rac-self-field-input-icon-size: unset,                                           /* @stable [23.10.2019] */
   $rac-self-field-input-line-height: unset,                                         /* @stable [30.10.2019] */
+  $rac-self-field-input-mirror-width: unset,                                        /* @stable [09.11.2019] */
   $rac-self-field-input-opacity: unset,
   $rac-self-field-input-padding: unset,                                             /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-color: unset,                                   /* @stable [30.10.2019] */
@@ -1219,10 +1219,6 @@
   $rac-text-field-icon-display: unset,
   $rac-text-field-icon-margin: unset,
   $rac-text-field-icon-size: unset,
-  $rac-text-field-input-caret-bottom: unset,
-  $rac-text-field-input-caret-color: unset,
-  $rac-text-field-input-caret-font-size: unset,
-  $rac-text-field-input-caret-position: unset,
   $rac-text-field-input-font-weight: unset,
   $rac-text-field-input-placeholder-color: unset,
   $rac-text-field-input-placeholder-font-weight: unset,
@@ -1317,6 +1313,14 @@
           );
 
           > {
+            @include rac-styles (
+              $rac-styles-custom: $rac-field-input-caret-cls,
+              $rac-styles-bottom: $rac-self-field-input-caret-bottom,
+              $rac-styles-color: $rac-self-field-input-caret-color,
+              $rac-styles-font-size: $rac-self-field-input-caret-font-size,
+              $rac-styles-position: $rac-self-field-input-caret-position
+            );
+
             @include rac-icon (
               $rac-icon-color: $rac-self-field-input-icon-color,
               $rac-icon-size: $rac-self-field-input-icon-size
@@ -1346,6 +1350,12 @@
                 $rac-placeholder-font-size: $rac-self-field-input-placeholder-font-size,
                 $rac-placeholder-padding: $rac-self-field-input-placeholder-padding
               );
+
+              &.rac-field-input-mirror {
+                @include rac-styles (
+                  $rac-styles-width: $rac-self-field-input-mirror-width
+                );
+              }
             }
           }
         }
@@ -1388,14 +1398,6 @@
         }
       }
 
-      @include rac-styles(
-        $rac-styles-custom: rac-field-input-caret,
-        $rac-styles-position: $rac-text-field-input-caret-position,
-        $rac-styles-bottom: $rac-text-field-input-caret-bottom,
-        $rac-styles-font-size: $rac-text-field-input-caret-font-size,
-        $rac-styles-color: $rac-text-field-input-caret-color
-      );
-
       > {
         @include rac-icon(
           $rac-icon-custom: $rac-text-field-icon-custom,
@@ -1414,38 +1416,38 @@
 @mixin rac-list-item (
   $rac-list-item-custom: unset,
   /**/
-  $rac-list-item-align-items: unset,                                               /* @stable [27.10.2019] */
-  $rac-list-item-background: unset,                                                /* @stable [27.10.2019] */
-  $rac-list-item-border-bottom: unset,
-  $rac-list-item-border-left: unset,
+  $rac-list-item-align-items: unset,                                              /* @stable [27.10.2019] */
+  $rac-list-item-background: unset,                                               /* @stable [27.10.2019] */
+  $rac-list-item-border-bottom: unset,                                            /* @stable [09.11.2019] */
+  $rac-list-item-border-left: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-border-radius: unset,
-  $rac-list-item-border-right: unset,
-  $rac-list-item-border-top: unset,
-  $rac-list-item-border: unset,
-  $rac-list-item-box-shadow: unset,
+  $rac-list-item-border-right: unset,                                             /* @stable [09.11.2019] */
+  $rac-list-item-border-top: unset,                                               /* @stable [09.11.2019] */
+  $rac-list-item-border: unset,                                                   /* @stable [09.11.2019] */
+  $rac-list-item-box-shadow: unset,                                               /* @stable [09.11.2019] */
   $rac-list-item-box-sizing: unset,
   $rac-list-item-color: unset,
   $rac-list-item-cursor: unset,
-  $rac-list-item-display: unset,                                                   /* @stable [27.10.2019] */
-  $rac-list-item-flex-direction: unset,                                            /* @stable [27.10.2019] */
+  $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
+  $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
   $rac-list-item-float: unset,
-  $rac-list-item-font-size: unset,
-  $rac-list-item-font-weight: unset,
+  $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
+  $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-graphic-background: unset,
   $rac-list-item-graphic-border-radius: unset,
   $rac-list-item-graphic-icon-color: unset,
   $rac-list-item-graphic-margin: unset,
   $rac-list-item-graphic-size: unset,
-  $rac-list-item-height: unset,
+  $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,
   $rac-list-item-outline: unset,
-  $rac-list-item-padding: unset,
+  $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
   $rac-list-item-position: unset,
   $rac-list-item-text-margin: unset,
   $rac-list-item-visibility: unset,
-  $rac-list-item-width: unset
+  $rac-list-item-width: unset                                                     /* @stable [09.11.2019] */
 ) {
 
   #{rac-build-cls(rac-list-item, $rac-list-item-custom)} {
@@ -1506,19 +1508,19 @@
 @mixin rac-list (
   $rac-list-custom: unset,
   /**/
-  $rac-list-background: unset,
+  $rac-list-background: unset,                                                    /* @stable [09.11.2019] */
   $rac-list-border-bottom: unset,
   $rac-list-border-radius: unset,
   $rac-list-flex-basis: unset,
   $rac-list-item-align-items: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-background: unset,
-  $rac-list-item-border-bottom: unset,
-  $rac-list-item-border-left: unset,
+  $rac-list-item-border-bottom: unset,                                            /* @stable [09.11.2019] */
+  $rac-list-item-border-left: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-border-radius: unset,
-  $rac-list-item-border-right: unset,
-  $rac-list-item-border-top: unset,
-  $rac-list-item-border: unset,
-  $rac-list-item-box-shadow: unset,
+  $rac-list-item-border-right: unset,                                             /* @stable [09.11.2019] */
+  $rac-list-item-border-top: unset,                                               /* @stable [09.11.2019] */
+  $rac-list-item-border: unset,                                                   /* @stable [09.11.2019] */
+  $rac-list-item-box-shadow: unset,                                               /* @stable [09.11.2019] */
   $rac-list-item-box-sizing: unset,
   $rac-list-item-color: unset,
   $rac-list-item-cursor: unset,
@@ -1526,25 +1528,25 @@
   $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
   $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
   $rac-list-item-float: unset,
-  $rac-list-item-font-size: unset,
-  $rac-list-item-font-weight: unset,
+  $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
+  $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-graphic-background: unset,
   $rac-list-item-graphic-border-radius: unset,
   $rac-list-item-graphic-icon-color: unset,
   $rac-list-item-graphic-margin: unset,
   $rac-list-item-graphic-size: unset,
-  $rac-list-item-height: unset,
+  $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,
   $rac-list-item-odd-background: unset,
   $rac-list-item-outline: unset,
-  $rac-list-item-padding: unset,
+  $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
   $rac-list-item-position: unset,
   $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
   $rac-list-item-text-margin: unset,
   $rac-list-item-visibility: unset,
-  $rac-list-item-width: unset,
+  $rac-list-item-width: unset,                                                    /* @stable [09.11.2019] */
   $rac-list-margin: unset,
   $rac-list-max-height: unset,
   $rac-list-overflow: unset,                                                      /* @stable [27.10.2019] */
@@ -1552,7 +1554,6 @@
   $rac-list-position: unset,                                                      /* @stable [28.10.2019] */
   $rac-list-width: unset
 ) {
-
   #{rac-build-cls(rac-list, $rac-list-custom)} {
     @include rac-styles (
       $rac-styles-background: $rac-list-background,
@@ -2604,85 +2605,6 @@
 }
 
 /**
- * @stable [21.11.2018]
- */
-@mixin rac-card-list(
-  $rac-card-list-custom: unset,
-  $rac-card-list-width: unset,
-  $rac-card-list-position: unset,
-  $rac-card-list-margin: unset,
-  $rac-card-list-background: unset,
-  $rac-card-list-padding: unset,
-  $rac-card-list-max-height: unset,
-  $rac-card-list-overflow: unset,
-  $rac-card-list-border-bottom: unset,
-  $rac-card-list-item-custom: unset,
-  $rac-card-list-item-position: unset,
-  $rac-card-list-item-width: unset,
-  $rac-card-list-item-height: unset,
-  $rac-card-list-item-border: unset,
-  $rac-card-list-item-visibility: unset,
-  $rac-card-list-item-border-right: unset,
-  $rac-card-list-item-border-left: unset,
-  $rac-card-list-item-border-top: unset,
-  $rac-card-list-item-border-bottom: unset,
-  $rac-card-list-item-border-radius: unset,
-  $rac-card-list-item-background: unset,
-  $rac-card-list-item-margin: unset,
-  $rac-card-list-item-padding: unset,
-  $rac-card-list-item-box-shadow: unset,
-  $rac-card-list-item-color: unset,
-  $rac-card-list-item-float: unset,
-  $rac-card-list-item-outline: unset,
-  $rac-card-list-item-font-size: unset,
-  $rac-card-list-item-font-weight: unset,
-  $rac-card-list-item-graphic-margin: unset,
-  $rac-card-list-item-graphic-size: unset,
-  $rac-card-list-item-selected-background: unset
-) {
-
-  $rac-card-list-cls: rac-card-list;
-  @if $rac-card-list-custom != unset {
-    $rac-card-list-cls: '#{$rac-card-list-cls}.#{$rac-card-list-custom}'
-  }
-
-  @include rac-list(
-    $rac-list-custom: $rac-card-list-cls,
-    $rac-list-width: $rac-card-list-width,
-    $rac-list-position: $rac-card-list-position,
-    $rac-list-background: $rac-card-list-background,
-    $rac-list-margin: $rac-card-list-margin,
-    $rac-list-padding: $rac-card-list-padding,
-    $rac-list-max-height: $rac-card-list-max-height,
-    $rac-list-overflow: $rac-card-list-overflow,
-    $rac-list-border-bottom: $rac-card-list-border-bottom,
-    $rac-list-item-border-radius: $rac-card-list-item-border-radius,
-    $rac-list-item-background: $rac-card-list-item-background,
-    $rac-list-item-margin: $rac-card-list-item-margin,
-    $rac-list-item-custom: $rac-card-list-item-custom,
-    $rac-list-item-width: $rac-card-list-item-width,
-    $rac-list-item-position: $rac-card-list-item-position,
-    $rac-list-item-border: $rac-card-list-item-border,
-    $rac-list-item-visibility: $rac-card-list-item-visibility,
-    $rac-list-item-border-right: $rac-card-list-item-border-right,
-    $rac-list-item-border-left: $rac-card-list-item-border-left,
-    $rac-list-item-border-top: $rac-card-list-item-border-top,
-    $rac-list-item-border-bottom: $rac-card-list-item-border-bottom,
-    $rac-list-item-height: $rac-card-list-item-height,
-    $rac-list-item-padding: $rac-card-list-item-padding,
-    $rac-list-item-box-shadow: $rac-card-list-item-box-shadow,
-    $rac-list-item-color: $rac-card-list-item-color,
-    $rac-list-item-float: $rac-card-list-item-float,
-    $rac-list-item-outline: $rac-card-list-item-outline,
-    $rac-list-item-font-size: $rac-card-list-item-font-size,
-    $rac-list-item-font-weight: $rac-card-list-item-font-weight,
-    $rac-list-item-graphic-margin: $rac-card-list-item-graphic-margin,
-    $rac-list-item-graphic-size: $rac-card-list-item-graphic-size,
-    $rac-list-item-selected-background: $rac-card-list-item-selected-background
-  );
-}
-
-/**
  * @stable [28.02.2019]
  */
 @mixin rac-chart(
@@ -2872,18 +2794,14 @@
   $rac-form-layout-self-field-focused-background: unset,                                  /* @stable [30.10.2019] */
   $rac-form-layout-self-field-height: unset,                                              /* @stable [30.10.2019] */
   $rac-form-layout-self-field-icon-color: unset,                                          /* @stable [30.10.2019] */
+  $rac-form-layout-self-field-icon-margin: unset,                                         /* @stable [09.11.2019] */
+  $rac-form-layout-self-field-input-caret-bottom: unset,                                  /* @stable [09.11.2019] */
   $rac-form-layout-self-field-input-color: unset,                                         /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-font-size: unset,                                     /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-placeholder-color: unset,                             /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-placeholder-font-size: unset,                         /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-text-align: unset,                                    /* @stable [30.10.2019] */
   $rac-form-layout-self-field-not-focused-input-color: unset,                             /* @stable [30.10.2019] */
-  $rac-form-layout-text-field-focused-background: unset,
-  $rac-form-layout-text-field-focused-icon-color: unset,
-  $rac-form-layout-text-field-focused-input-placeholder-color: unset,
-  $rac-form-layout-text-field-icon-margin: unset,
-  $rac-form-layout-text-field-input-caret-bottom: unset,
-  $rac-form-layout-text-field-input-placeholder-color: unset,
   $rac-form-layout-top-header-background-size: unset,
   $rac-form-layout-top-header-background: unset,
   $rac-form-layout-top-header-height: unset,
@@ -2902,6 +2820,8 @@
       $rac-self-field-border: $rac-form-layout-self-field-border,
       $rac-self-field-height: $rac-form-layout-self-field-height,
       $rac-self-field-icon-color: $rac-form-layout-self-field-icon-color,
+      $rac-self-field-icon-margin: $rac-form-layout-self-field-icon-margin,
+      $rac-self-field-input-caret-bottom: $rac-form-layout-self-field-input-caret-bottom,
       $rac-self-field-input-color: $rac-form-layout-self-field-input-color,
       $rac-self-field-input-font-size: $rac-form-layout-self-field-input-font-size,
       $rac-self-field-input-placeholder-color: $rac-form-layout-self-field-input-placeholder-color,

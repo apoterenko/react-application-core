@@ -322,6 +322,7 @@ export class UIMaterialFactory implements IUIFactory {
       <FlexLayout
         key={config.key || uuid()}
         title={config.title}
+        full={false}
         inline={true}
         className={joinClassName(
           'rac-icon',

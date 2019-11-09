@@ -83,6 +83,10 @@
     $rac-self-field-height: $rac-base-text-self-field-height,
     $rac-self-field-icon-color: $rac-base-text-self-field-icon-color,
     $rac-self-field-icon-margin: $rac-base-text-self-field-icon-margin,
+    $rac-self-field-input-caret-bottom: $rac-base-text-self-field-input-caret-bottom,
+    $rac-self-field-input-caret-font-size: $rac-base-text-self-field-input-caret-font-size,
+    $rac-self-field-input-caret-position: $rac-base-text-self-field-input-caret-position,
+    $rac-self-field-input-mirror-width: $rac-base-text-self-field-input-mirror-width,
     $rac-self-field-input-resize: $rac-base-text-self-field-input-resize,
     $rac-self-field-input-width: $rac-base-text-self-field-input-width,
     $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex
@@ -297,10 +301,6 @@
 
         &:-webkit-autofill {
           transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
-        }
-
-        &.rac-field-input-mirror {
-          width: auto;                                                /* @stable [10.10.2018] */
         }
       }
     }

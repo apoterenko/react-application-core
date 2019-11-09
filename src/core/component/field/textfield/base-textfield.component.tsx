@@ -183,12 +183,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     )).replace(/ /g, UniCodesEnum.NO_BREAK_SPACE);
 
     return (
-      <span ref={this.mirrorInputRef}
-            className={joinClassName(
-              this.getInputElementProps().className,
-              'rac-field-input-mirror',
-              'rac-invisible'
-            )}>
+      <span
+        ref={this.mirrorInputRef}
+        className={joinClassName(
+          this.getInputElementProps().className,
+          'rac-field-input-mirror',
+          'rac-invisible'
+        )}>
         {content}
       </span>
     );

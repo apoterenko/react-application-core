@@ -63,11 +63,6 @@ html, body {
     $rac-styles-height: 100%
   );
 
-  @include rac-icon($rac-icon-size: $rac-icon-size,                                           /* @stable [21.11.2018] */
-                    $rac-icon-content-height: 100%,
-                    $rac-icon-content-width: 100%,
-                    $rac-icon-content-vertical-align: top);
-
   @include rac-icon($rac-icon-custom: $rac-action-icon-cls,                                   /* @stable [07.03.2019] */
                     $rac-icon-size: $rac-action-icon-size,
                     $rac-icon-color: $rac-action-icon-color,

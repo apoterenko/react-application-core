@@ -1,19 +1,17 @@
 @import '../../constant';
 @import '../../mixin';
 
-// Card list [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-card-list($rac-card-list-overflow: auto,
-                         $rac-card-list-padding: $rac-card-list-padding,
-                         $rac-card-list-item-position: relative,  // TODO
-                         $rac-card-list-item-padding: $rac-card-list-item-padding,
-                         $rac-card-list-item-width: $rac-card-list-item-width,
-                         $rac-card-list-item-height: $rac-card-list-item-height,
-                         $rac-card-list-item-background: $rac-card-list-item-background,
-                         $rac-card-list-item-margin: $rac-card-list-item-margin,
-                         $rac-card-list-item-box-shadow: $rac-card-list-item-box-shadow,
-                         $rac-card-list-item-border-radius: $rac-card-list-item-border-radius,
-                         $rac-card-list-item-font-size: $rac-card-list-item-font-size,
-                         $rac-card-list-item-float: left);
+  /**
+   * @card-list
+   * @stable [09.11.2019]
+   */
+  @include rac-list (
+    $rac-list-custom: $rac-card-list-cls,
+    $rac-list-item-align-items: $rac-card-list-item-align-items,
+    $rac-list-item-float: $rac-card-list-item-float,
+    $rac-list-item-height: $rac-card-list-item-height,
+    $rac-list-item-width: $rac-card-list-item-width
+  );
 }

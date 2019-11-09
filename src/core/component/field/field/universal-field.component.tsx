@@ -7,6 +7,7 @@ import {
   calc,
   defValuesFilter,
   DelayedTask,
+  ifNilThanValue,
   ifNotNilThanValue,
   inProgress,
   isChangeable,
@@ -25,8 +26,8 @@ import {
   isSyntheticCursorUsed,
   isUndef,
   isVisible,
+  notNilValuesFilter,
   orNull,
-  orUndef,
 } from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -735,14 +736,12 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [04.09.2018]
+   * @stable [09.11.2019]
    */
   private setCaretVisibility(): void {
-    this.setState(defValuesFilter<IUniversalFieldState, IUniversalFieldState>({
-      caretVisibility: !this.state.caretVisibility,
-
-      // Lazy initialization to do not use a setTimeout
-      caretPosition: orUndef<number>(R.isNil(this.state.caretPosition), () => this.getCaretPosition()),
+    this.setState((prevState) => notNilValuesFilter<IUniversalFieldState, IUniversalFieldState>({
+      caretVisibility: !prevState.caretVisibility,
+      caretPosition: ifNilThanValue(prevState.caretPosition, () => this.getCaretPosition()),
     }));
   }
 }
