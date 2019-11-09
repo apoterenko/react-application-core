@@ -4,6 +4,15 @@ import { IBaseEvent } from './event-definition.interface';
 import { IXYEntity } from './xy-definition.interface';
 
 /**
+ * @stable [08.11.2019]
+ */
+export interface IScrollConfigEntity {
+  alignWithLeft?: boolean;
+  alignWithTop?: boolean;
+  offsetTop?: number;
+}
+
+/**
  * @stable [28.10.2019]
  */
 export type InputElementT = HTMLInputElement | HTMLTextAreaElement;
@@ -55,7 +64,7 @@ export interface IDomAccessor {
   reload(forceReload?: boolean): void;
   removeChild(child: Element, parent?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
-  scrollTo(payload: IXYEntity | Element, parent?: Element): void;
+  scrollTo(payload: IXYEntity | Element, parent?: Element, config?: IScrollConfigEntity): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;
   toJqEl(source: Element): IJQueryElement<Element>;

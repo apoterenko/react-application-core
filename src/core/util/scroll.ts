@@ -1,14 +1,16 @@
 import * as scrollIntoView0 from 'dom-scroll-into-view';
 
-import { IKeyValue } from '../definitions.interface';
+import { IScrollConfigEntity } from '../definition';
 
 /**
- * @stable [10.08.2018]
+ * @stable [08.11.2019]
  * @param {Element} source
  * @param {Element} container
- * @param {IKeyValue} config
+ * @param {IScrollConfigEntity} config
  */
 export const scrollIntoView = (source: Element,
                                container: Element,
-                               config: IKeyValue = {alignWithTop: true, alignWithLeft: true}): void =>
-  scrollIntoView0(source, container, config);
+                               config?: IScrollConfigEntity): void => {
+  const cfg: IScrollConfigEntity = {alignWithTop: true, alignWithLeft: true, ...config};
+  scrollIntoView0(source, container, cfg);
+};
