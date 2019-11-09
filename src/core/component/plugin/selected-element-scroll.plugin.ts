@@ -32,12 +32,20 @@ export class SelectedElementPlugin implements IUniversalPlugin {
   }
 
   /**
-   * @stable [25.10.2019]
+   * @stable [08.11.2019]
    */
   private refreshScrollPosition(): void {
     ifNotNilThanValue(this.selectedElement, (selectedElement) => {
       if (!this.domAccessor.isElementVisibleWithinParent(selectedElement, this.component.getSelf())) {
-        this.domAccessor.scrollTo(selectedElement, this.component.getSelf());
+        this.domAccessor.scrollTo(
+          selectedElement,
+          this.component.getSelf(),
+          ifNotNilThanValue(
+            this.stickyElement,
+            (stickyElement) => ({offsetTop: this.domAccessor.getHeight(stickyElement)}),
+            {}
+          )
+        );
       }
     });
   }
@@ -49,6 +57,17 @@ export class SelectedElementPlugin implements IUniversalPlugin {
   private get selectedElement(): Element {
     return this.domAccessor.findElement(
       `.${this.component.props.selectedElementClassName}`, this.component.getSelf()
+    );
+  }
+
+  /**
+   * @stable [08.11.2019]
+   * @returns {Element}
+   */
+  private get stickyElement(): Element {
+    return ifNotNilThanValue(
+      this.component.props.stickyElementClassName,
+      (stickyElementClassName) => this.domAccessor.findElement(`.${stickyElementClassName}`, this.component.getSelf())
     );
   }
 }

@@ -33,6 +33,7 @@ import {
   IEnvironment,
   IEventManager,
   IJQueryElement,
+  IScrollConfigEntity,
   IXYEntity,
   TouchEventsEnum,
 } from '../../definition';
@@ -308,18 +309,19 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [01.12.2018]
+   * @stable [08.11.2019]
    * @param {IXYEntity | Element} payload
    * @param {Element} parent
+   * @param {IScrollConfigEntity} config
    */
-  public scrollTo(payload: IXYEntity | Element, parent?: Element): void {
+  public scrollTo(payload: IXYEntity | Element, parent?: Element, config?: IScrollConfigEntity): void {
     if (R.isNil(payload)) {
       return;
     }
     const xyEntity = payload as IXYEntity;
     const el = payload as Element;
     if (el instanceof Element) {
-      scrollIntoView(el, parent);
+      scrollIntoView(el, parent, config);
     } else if (!R.isNil(xyEntity.x) || !R.isNil(xyEntity.y)) {
       scrollTo(parent, xyEntity);
     }
