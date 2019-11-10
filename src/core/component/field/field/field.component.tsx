@@ -59,7 +59,9 @@ export class Field<TProps extends IFieldProps,
    */
   public render(): JSX.Element {
     return (
-      <div className={this.getFieldClassName()}>
+      <div
+        className={this.getFieldClassName()}
+        onClick={cancelEvent}>
         {this.props.children}
         {this.getSelfElement()}
         {this.getMessageElement()}
@@ -266,12 +268,10 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [28.10.2019]
-   * @param {TBasicEvent} event
+   * @stable [10.11.2019]
+   * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
-    cancelEvent(event);
-
     const props = this.props;
     if (isFn(props.onClick)) {
       props.onClick(event);
