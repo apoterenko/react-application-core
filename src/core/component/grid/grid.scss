@@ -21,6 +21,8 @@
   @include rac-grid (
     $rac-grid-body-border-left: $rac-grid-body-border-left,
     $rac-grid-body-border-right: $rac-grid-body-border-right,
+    $rac-grid-body-column-content-action-icon-color: $rac-grid-body-column-content-action-icon-color,
+    $rac-grid-body-column-content-action-icon-content-size: $rac-grid-body-column-content-action-icon-content-size,
     $rac-grid-body-column-content-action-icon-size: $rac-grid-body-column-content-action-icon-size,
     $rac-grid-body-column-padding-bottom: $rac-grid-body-column-padding-bottom,
     $rac-grid-body-column-padding-top: $rac-grid-body-column-padding-top,

@@ -93,14 +93,12 @@ $rac-default-font-size-2: $rac-font-size-1 !default;
 $rac-default-font-size-3: 16px !default;
 $rac-default-font-weight: $rac-font-weight-1 !default;
 $rac-default-font-weight-2: $rac-font-weight-2 !default;
-$rac-default-action-color: $color-2 !default;
 $rac-default-label-color: $color-2 !default;
 $rac-default-text-color: $color-2 !default;
 $rac-default-field-input-padding: $rac-default-offset !default;
 $rac-default-hover-background: $color-10 !default;
 $rac-default-logo-toolbar-size: $rac-default-width-1 !default;
 $rac-default-letter-spacing: 0 !default;
-$rac-default-icon-size: 16px !default;
 
 /* @stable [07.03.2019] */
 $rac-action-icon-cls: rac-action-icon;
@@ -168,8 +166,6 @@ $rac-keyboard-portal-absolute-h-center-alignment: true !default;
 /* @stable [24.06.2018] */
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
-$rac-icon-width2: 20px !default;
-$rac-icon-height2: 20px !default;
 
 /* @stable [09.11.2019] */
 $rac-icon-content-height: 100% !default;
@@ -186,19 +182,6 @@ $rac-profile-avatar-border-radius: $rac-profile-avatar-width / 2 !default;
 $rac-profile-app-version-top: 4px !default;
 $rac-profile-app-version-left: 4px !default;
 $rac-profile-app-version-font-size: 8px !default;
-
-/* @stable [25.06.2018] */
-$rac-add-button-icon-position: fixed !default;
-$rac-add-button-icon-opacity: unset !default;
-$rac-add-button-icon-background: $rac-default-action-color !default;
-$rac-add-button-icon-color: $color-5 !default;
-$rac-add-button-icon-bottom: 56px !default;
-$rac-add-button-icon-right: 88px !default;
-$rac-add-button-icon-width: 48px !default;
-$rac-add-button-icon-height: $rac-add-button-icon-width !default;
-$rac-add-button-icon-border-radius: $rac-add-button-icon-width / 2 !default;
-$rac-add-button-icon-content-width: $rac-icon-width2 !default;
-$rac-add-button-icon-content-height: $rac-icon-height2 !default;
 
 /* @stable [24.06.2018] */
 $rac-button-mini-cls: rac-button-mini;
@@ -316,7 +299,9 @@ $rac-grid-row-total-cls: rac-grid-row-total;
 $rac-grid-body-border-left: 1px solid $rac-color-1-2 !default;
 $rac-grid-body-border-right: 1px solid $rac-color-1-2 !default;
 $rac-grid-body-border-right: unset !default;
-$rac-grid-body-column-content-action-icon-size: 20px !default;
+$rac-grid-body-column-content-action-icon-color: $rac-color-0-4 !default;
+$rac-grid-body-column-content-action-icon-content-size: $rac-icon-size !default;
+$rac-grid-body-column-content-action-icon-size: 32px !default;
 $rac-grid-body-column-padding-bottom: $rac-offset-1 !default;
 $rac-grid-body-column-padding-top: $rac-offset-1!default;
 $rac-grid-body-overflow: unset !default;

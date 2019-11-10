@@ -74,19 +74,6 @@ html, body {
   @include rac-icon($rac-icon-custom: rac-build-cls2($rac-action-icon-cls, rac-disabled-icon),/* @stable [07.03.2019] */
                     $rac-icon-cursor: default);
 
-  @include rac-icon($rac-icon-custom: rac-action-add-icon,                                    /* @stable [17.12.2018] */
-                    $rac-icon-position: $rac-add-button-icon-position,
-                    $rac-icon-opacity: $rac-add-button-icon-opacity,
-                    $rac-icon-border-radius: $rac-add-button-icon-border-radius,
-                    $rac-icon-color: $rac-add-button-icon-color,
-                    $rac-icon-background: $rac-add-button-icon-background,
-                    $rac-icon-right: $rac-add-button-icon-right,
-                    $rac-icon-bottom: $rac-add-button-icon-bottom,
-                    $rac-icon-width: $rac-add-button-icon-width,
-                    $rac-icon-height: $rac-add-button-icon-height,
-                    $rac-icon-content-width: $rac-add-button-icon-content-width,
-                    $rac-icon-content-height: $rac-add-button-icon-content-height);
-
   @include rac-filter-active(                                                                 /* @stable [15.12.2018] */
     $rac-filter-active-position: relative,
     $rac-filter-active-after-position: absolute,
