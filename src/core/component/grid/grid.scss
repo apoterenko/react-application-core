@@ -21,8 +21,7 @@
   @include rac-grid (
     $rac-grid-body-border-left: $rac-grid-body-border-left,
     $rac-grid-body-border-right: $rac-grid-body-border-right,
-    $rac-grid-body-column-content-action-icon-content-size: $rac-icon-size,
-    $rac-grid-body-column-content-action-icon-size: 32px,
+    $rac-grid-body-column-content-action-icon-size: $rac-grid-body-column-content-action-icon-size,
     $rac-grid-body-column-padding-bottom: $rac-grid-body-column-padding-bottom,
     $rac-grid-body-column-padding-top: $rac-grid-body-column-padding-top,
     $rac-grid-body-overflow: $rac-grid-body-overflow,
@@ -70,7 +69,6 @@
     $rac-grid-head-column-active-sort-icon-content-opacity: $rac-grid-head-column-active-sort-icon-content-opacity,
     $rac-grid-head-column-content-font-size: $rac-grid-head-column-content-font-size,
     $rac-grid-head-column-content-font-weight: $rac-grid-head-column-content-font-weight,
-    $rac-grid-head-column-content-text-field-border-color: $rac-grid-head-column-content-text-field-border-color,
     $rac-grid-head-column-content-white-space: $rac-grid-head-column-content-white-space,
     $rac-grid-head-column-padding-bottom: $rac-grid-head-column-padding-bottom,
     $rac-grid-head-column-padding-top: $rac-grid-head-column-padding-top,
