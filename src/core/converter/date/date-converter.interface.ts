@@ -22,6 +22,7 @@ export interface IDateConverter {
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateTimeToDateTime(date: string, time: string): string;
   fromUiDateToDateTime(date: DateTimeLikeTypeT): string;
+  fromUiDateToDate(date: DateTimeLikeTypeT): string;
   fromUiDateTimeToPstDate(date: string, time: string): string;
   fromDateToYear(date?: DateTimeLikeTypeT): number;
   splitToDateTimeFields<TEntity>(entity: TEntity,

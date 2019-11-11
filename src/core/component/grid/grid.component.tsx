@@ -551,10 +551,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       groupedDataSourceEntities.push(entity);
     });
 
+    let rowNum = 0;
     // See the comment at the top
     keysSet.forEach((groupedRowValue) => {
       const groupedRows = groupedDataSource[groupedRowValue];
-      rows.push(this.getGroupingRow(groupedRowValue, groupedRows));
+      rows.push(this.getGroupingRow(groupedRowValue, groupedRows, rowNum++));
 
       if (this.isGroupedRowExpanded(groupedRowValue)) {
         const highlightOdd = groupedRows.length > 1;
@@ -565,12 +566,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [04.07.2018]
+   * @stable [11.11.2019]
    * @param {EntityIdT} groupedRowValue
    * @param {IEntity[]} groupedRows
+   * @param {number} rowNum
    * @returns {JSX.Element}
    */
-  private getGroupingRow(groupedRowValue: EntityIdT, groupedRows: IEntity[]): JSX.Element {
+  private getGroupingRow(groupedRowValue: EntityIdT, groupedRows: IEntity[], rowNum: number): JSX.Element {
     const props = this.props;
     const groupBy = props.groupBy;
     const groupValue = groupBy.groupValue;
@@ -583,6 +585,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       <GridRow
         key={this.toGroupedRowKey(groupedRowValue)}
         grouped={true}
+        odd={isHighlightOdd(props, rowNum)}
         groupExpanded={isExpanded && props.highlightExpandedGroup !== false}>
         {
           columns.map((column, columnNum) => {

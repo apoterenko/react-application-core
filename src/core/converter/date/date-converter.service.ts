@@ -189,6 +189,15 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [11.11.2019]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {string}
+   */
+  public fromUiDateToDate(date: DateTimeLikeTypeT): string {
+    return this.format(date, this.uiDateFormat, this.dateFormat);
+  }
+
+  /**
    * @stable [24.11.2018]
    * @param {string} date [Example: 2018-11-24]
    * @param {string} time [Example: 03:47:17]

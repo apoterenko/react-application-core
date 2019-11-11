@@ -1788,6 +1788,7 @@
   $rac-grid-column-content-after-top: unset,                                      /* @stable [26.10.2019] */
   $rac-grid-column-content-align-items: unset,                                    /* @stable [22.10.2019] */
   $rac-grid-column-content-background: unset,
+  $rac-grid-column-content-base-text-self-field-background: unset,                /* @stable [11.11.2019] */
   $rac-grid-column-content-border-radius: unset,                                  /* @stable [11.11.2019] */
   $rac-grid-column-content-bottom: unset,                                         /* @stable [10.11.2019] */
   $rac-grid-column-content-button-content-color: unset,
@@ -1890,6 +1891,11 @@
         $rac-self-field-input-padding: $rac-grid-column-content-self-field-input-padding,
         $rac-self-field-input-text-align: $rac-grid-column-content-self-field-input-text-align
       );
+
+      @include rac-field (
+        $rac-field-custom: $rac-base-text-cls,
+        $rac-self-field-background: $rac-grid-column-content-base-text-self-field-background
+      );
     }
   }
 }
@@ -1914,6 +1920,7 @@
   $rac-grid-column-content-after-top: unset,                                          /* @stable [26.10.2019] */
   $rac-grid-column-content-align-items: unset,                                        /* @stable [21.10.2019] */
   $rac-grid-column-content-background: unset,
+  $rac-grid-column-content-base-text-self-field-background: unset,                    /* @stable [11.11.2019] */
   $rac-grid-column-content-border-radius: unset,                                      /* @stable [11.11.2019] */
   $rac-grid-column-content-bottom: unset,                                             /* @stable [10.11.2019] */
   $rac-grid-column-content-button-content-color: unset,
@@ -2014,6 +2021,7 @@
       $rac-grid-column-content-after-top: $rac-grid-column-content-after-top,
       $rac-grid-column-content-align-items: $rac-grid-column-content-align-items,
       $rac-grid-column-content-background: $rac-grid-column-content-background,
+      $rac-grid-column-content-base-text-self-field-background: $rac-grid-column-content-base-text-self-field-background,
       $rac-grid-column-content-border-radius: $rac-grid-column-content-border-radius,
       $rac-grid-column-content-bottom: $rac-grid-column-content-bottom,
       $rac-grid-column-content-button-content-color: $rac-grid-column-content-button-content-color,
@@ -2087,6 +2095,7 @@
   $rac-grid-row-display: unset,                                               /* @stable [11.11.2019] */
   $rac-grid-row-font-weight: unset,                                           /* @stable [23.10.2019] */
   $rac-grid-row-height: unset,                                                /* @stable [11.11.2019] */
+  $rac-grid-row-hover-background: unset,                                      /* @stable [11.11.2019] */
   $rac-grid-row-padding: unset,                                               /* @stable [11.11.2019] */
   $rac-grid-row-table-layout: unset,                                          /* @stable [11.11.2019] */
   $rac-grid-row-width: unset                                                  /* @stable [21.10.2019] */
@@ -2106,6 +2115,14 @@
       $rac-styles-table-layout: $rac-grid-row-table-layout,
       $rac-styles-width: $rac-grid-row-width
     );
+
+    &.rac-grid-row-hovered {
+      &:hover {
+        @include rac-styles (
+          $rac-styles-background: $rac-grid-row-hover-background
+        );
+      }
+    }
   }
 }
 
@@ -2146,6 +2163,7 @@
   $rac-grid-body-column-content-action-icon-content-size: unset,                  /* @stable [10.11.2019] */
   $rac-grid-body-column-content-action-icon-size: unset,                          /* @stable [10.11.2019] */
   $rac-grid-body-column-content-background: unset,                                /* @stable [11.11.2019] */
+  $rac-grid-body-column-content-base-text-self-field-background: unset,           /* @stable [11.11.2019] */
   $rac-grid-body-column-content-border-radius: unset,                             /* @stable [11.11.2019] */
   $rac-grid-body-column-content-bottom: unset,                                    /* @stable [10.11.2019] */
   $rac-grid-body-column-content-min-width: unset,                                 /* @stable [26.10.2019] */
@@ -2161,6 +2179,7 @@
   $rac-grid-body-overflow: unset,
   $rac-grid-body-row-border-bottom: unset,                                        /* @stable [22.10.2019] */
   $rac-grid-body-row-box-sizing: unset,                                           /* @stable [11.11.2019] */
+  $rac-grid-body-row-hover-background: unset,                                     /* @stable [11.11.2019] */
   $rac-grid-body-row-part-of-group-border-bottom: unset,                          /* @stable [11.11.2019] */
   $rac-grid-border-collapse: unset,                                               /* @stable [26.10.2019] */
   $rac-grid-border-spacing: unset,                                                /* @stable [26.10.2019] */
@@ -2487,7 +2506,8 @@
       @include rac-grid-row (
         $rac-grid-row-custom: $rac-grid-row-custom,
         $rac-grid-row-border-bottom: $rac-grid-body-row-border-bottom,
-        $rac-grid-row-box-sizing: $rac-grid-body-row-box-sizing
+        $rac-grid-row-box-sizing: $rac-grid-body-row-box-sizing,
+        $rac-grid-row-hover-background: $rac-grid-body-row-hover-background
       );
 
       @include rac-grid-column (
@@ -2496,6 +2516,7 @@
         $rac-grid-column-content-action-icon-content-size: $rac-grid-body-column-content-action-icon-content-size,
         $rac-grid-column-content-action-icon-size: $rac-grid-body-column-content-action-icon-size,
         $rac-grid-column-content-background: $rac-grid-body-column-content-background,
+        $rac-grid-column-content-base-text-self-field-background: $rac-grid-body-column-content-base-text-self-field-background,
         $rac-grid-column-content-border-radius: $rac-grid-body-column-content-border-radius,
         $rac-grid-column-content-bottom: $rac-grid-body-column-content-bottom,
         $rac-grid-column-content-min-width: $rac-grid-body-column-content-min-width,
