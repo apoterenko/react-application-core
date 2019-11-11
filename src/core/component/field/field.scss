@@ -26,6 +26,7 @@
   @include rac-field (
     $rac-field-display: $rac-field-display,
     $rac-field-flex-direction: $rac-field-flex-direction,
+    $rac-field-flex-shrink: $rac-field-flex-shrink,
     $rac-field-help-text-font-size: $rac-field-help-text-font-size,
     $rac-field-help-text-line-height: $rac-field-help-text-line-height,
     $rac-self-field-background: $rac-self-field-background,

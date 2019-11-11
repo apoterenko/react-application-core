@@ -316,7 +316,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
           this.uiFactory.makeIcon({
             key: 'menu-close-action-key',
             type: 'close',
-            className: 'rac-menu-icon-close',
+            className: 'rac-menu-dialog-icon-close',
             onClick: this.onCloseAction,
           })
         }

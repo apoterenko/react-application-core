@@ -3,22 +3,22 @@
 
 .rac {
 
-  @include rac-menu-dialog(                                                                   /* @stable [18.06.2019] */
+  /**
+   * @menu-dialog
+   * @stable [11.11.2019]
+   */
+  @include rac-menu-dialog (
+    $rac-menu-dialog-base-text-field-margin: $rac-menu-dialog-base-text-field-margin,
+    $rac-menu-dialog-base-text-self-field-background: $rac-menu-dialog-base-text-self-field-background,
+    $rac-menu-dialog-base-text-self-field-height: $rac-menu-dialog-base-text-self-field-height,
     $rac-menu-dialog-body-background: $rac-menu-dialog-body-background,
     $rac-menu-dialog-body-padding: $rac-menu-dialog-body-padding,
-    $rac-menu-dialog-body-min-height: $rac-menu-dialog-body-min-height,
-    $rac-menu-dialog-list-overflow: $rac-menu-dialog-list-overflow,
+    $rac-menu-dialog-icon-close-color: $rac-menu-dialog-icon-close-color,
+    $rac-menu-dialog-icon-close-margin: $rac-menu-dialog-icon-close-margin,
+    $rac-menu-dialog-icon-close-size: $rac-menu-dialog-icon-close-size,
     $rac-menu-dialog-list-background: $rac-menu-dialog-list-background,
     $rac-menu-dialog-list-border-radius: $rac-menu-dialog-list-border-radius,
-    $rac-menu-dialog-field-margin: $rac-menu-dialog-field-margin,
-    $rac-menu-dialog-field-flex-shrink: $rac-menu-dialog-field-flex-shrink
-  );
-
-  @include rac-icon(                                                                          /* @stable [18.06.2019] */
-    $rac-icon-custom: rac-menu-icon-close,
-    $rac-icon-color: $rac-menu-icon-close-color,
-    $rac-icon-margin: $rac-menu-icon-close-margin,
-    $rac-icon-size: $rac-menu-icon-close-size
+    $rac-menu-dialog-list-overflow: $rac-menu-dialog-list-overflow
   );
 
   @include rac-menu (                                                                         /* @stable [23.09.2019] */

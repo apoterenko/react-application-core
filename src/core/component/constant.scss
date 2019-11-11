@@ -71,7 +71,10 @@ $rac-color-1-6: #e5e5e5 !default;
 $rac-color-2-0: #f4e6bb !default;
 $rac-color-2-1: #f96f00 !default;
 /**/
-$rac-field-input-color-0: $rac-color-1-3 !default;
+$rac-field-color-0: $rac-color-1-3 !default;
+$rac-field-color-1: $rac-color-0-1 !default;
+$rac-field-height-0: 32px !default;
+$rac-field-height-1: 40px !default;
 /**/
 $rac-letter-spacing-0: 0 !default;
 /**/
@@ -452,7 +455,7 @@ $rac-base-text-focused-cls: '#{$rac-base-text-cls}.#{$rac-field-focused-cls}';
 $rac-base-text-labeled-cls: '#{$rac-base-text-cls}.#{$rac-field-labeled-cls}';
 /**/
 $rac-checkbox-color-0: $rac-color-1-3 !default;
-$rac-field-input-color-0: $rac-color-1-3 !default;
+$rac-field-color-0: $rac-color-1-3 !default;
 $rac-switch-size-0: 24px !default;
 $rac-switch-size-1: 40px !default;
 $rac-text-size-0: 32px !default;
@@ -474,7 +477,7 @@ $rac-base-text-self-field-height: $rac-text-size-0 !default;
 $rac-base-text-self-field-icon-color: $rac-color-0-4 !default;
 $rac-base-text-self-field-icon-margin: auto $rac-offset-1 auto 0 !default;
 $rac-base-text-self-field-input-caret-bottom: 8px !default;
-$rac-base-text-self-field-input-caret-color: $rac-field-input-color-0 !default;
+$rac-base-text-self-field-input-caret-color: $rac-field-color-0 !default;
 $rac-base-text-self-field-input-caret-font-size: 24px !default;
 $rac-base-text-self-field-input-caret-position: absolute !default;
 $rac-base-text-self-field-input-mirror-width: auto !default;
@@ -497,6 +500,7 @@ $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
 $rac-field-disabled-opacity: unset !default;
 $rac-field-display: flex !default;
 $rac-field-flex-direction: column !default;
+$rac-field-flex-shrink: 0 !default;
 $rac-field-help-text-font-size: 10px !default;
 $rac-field-help-text-line-height: 16px !default;
 $rac-field-labeled-self-field-margin-top: $rac-text-size-1 !default;
@@ -513,7 +517,7 @@ $rac-self-field-box-sizing: border-box !default;
 $rac-self-field-display: flex !default;
 $rac-self-field-input-background: 0 !default;
 $rac-self-field-input-border: 0 !default;
-$rac-self-field-input-color: $rac-field-input-color-0 !default;
+$rac-self-field-input-color: $rac-field-color-0 !default;
 $rac-self-field-input-font-size: $rac-font-size-0 !default;
 $rac-self-field-input-font-weight: $rac-font-weight-1 !default;
 $rac-self-field-input-line-height: $rac-font-size-0 !default;
@@ -619,11 +623,6 @@ $rac-menu-item-hover-background: $rac-default-hover-background !default;
 $rac-menu-list-max-height: 200px !default;
 $rac-menu-list-item-padding: unset !default;
 
-/* @stable [18.06.2019] */
-$rac-menu-icon-close-color: $rac-color-0-1 !default;
-$rac-menu-icon-close-margin: 0 0 $rac-offset-1 !default;
-$rac-menu-icon-close-size: 24px !default;
-
 /* @stable [29.08.2019] */
 $rac-viewer-position: relative !default;
 $rac-viewer-flex-shrink: 0 !default;
@@ -651,25 +650,33 @@ $rac-tab-icon-text-letter-spacing: $rac-default-letter-spacing !default;
 $rac-tab-nav-margin: 28px !default;
 
 /* @stable [05.08.2018] */
-$rac-dialog-body--height: 80vh !default;
-$rac-dialog-body-max-height: $rac-dialog-body--height !default;
-$rac-dialog-body-padding: $rac-offset-3 !default;
-$rac-dialog-body-background: $rac-color-0-1 !default;
+$rac-menu-dialog-cls: rac-menu-dialog;
+$rac-menu-dialog-icon-close-cls: rac-menu-dialog-icon-close;
+/**/
+$rac-dialog-color-0: $rac-color-0-1 !default;
+$rac-dialog-height-0: 80vh !default;
+/**/
+$rac-dialog-body-background: $rac-dialog-color-0 !default;
 $rac-dialog-body-border-radius: $rac-border-radius-0 !default;
 $rac-dialog-body-content-overflow: auto !default;
-$rac-dialog-scrim-background: $rac-color-0-6 !default;
+$rac-dialog-body-max-height: $rac-dialog-height-0 !default;
+$rac-dialog-body-padding: $rac-offset-3 !default;
 $rac-dialog-footer-actions-margin: $rac-offset-3 0 0 0 !default;
 $rac-dialog-footer-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
-
-/* @stable [17.06.2019] */
-$rac-menu-dialog-body-background: transparent !default;
+$rac-dialog-scrim-background: $rac-color-0-6 !default;
+/**/
+$rac-menu-dialog-base-text-field-margin: 0 0 $rac-offset-1 0 !default;
+$rac-menu-dialog-base-text-self-field-background: $rac-field-color-1 !default;
+$rac-menu-dialog-base-text-self-field-height: $rac-field-height-1 !default;
+$rac-menu-dialog-body-background: 0 !default;
 $rac-menu-dialog-body-padding: 0 !default;
-$rac-menu-dialog-body-min-height: $rac-dialog-body--height !default;
-$rac-menu-dialog-list-overflow: auto !default;
-$rac-menu-dialog-list-background: $rac-color-0-1 !default;
+$rac-menu-dialog-list-background: $rac-dialog-color-0 !default;
 $rac-menu-dialog-list-border-radius: $rac-border-radius-0 !default;
-$rac-menu-dialog-field-margin: 0 0 $rac-offset-1 0 !default;
-$rac-menu-dialog-field-flex-shrink: 0 !default;
+$rac-menu-dialog-list-overflow: auto !default;
+/**/
+$rac-menu-dialog-icon-close-color: $rac-dialog-color-0 !default;
+$rac-menu-dialog-icon-close-margin: 0 0 $rac-offset-1 !default;
+$rac-menu-dialog-icon-close-size: 24px !default;
 
 /* @stable [17.09.2018] */
 $rac-drawer-background: $color-5 !default;
