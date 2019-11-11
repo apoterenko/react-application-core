@@ -309,6 +309,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const rowKey = this.toRowKey(entity);
     const entityChanges = props.changes[entity.id];
     const hasChanges = !R.isNil(entityChanges);
+    const isPartOfGroup = !R.isNil(groupedRows);
 
     return (
       <GridRow
@@ -318,6 +319,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         selected={this.isEntitySelected(entity)}
         selectable={isSelectable(props)}
         entity={entity}
+        partOfGroup={isPartOfGroup}
         onClick={props.onSelect}
       >
         {

@@ -27,6 +27,9 @@
     $rac-grid-body-column-padding-bottom: $rac-grid-body-column-padding-bottom,
     $rac-grid-body-column-padding-top: $rac-grid-body-column-padding-top,
     $rac-grid-body-overflow: $rac-grid-body-overflow,
+    $rac-grid-body-row-border-bottom: $rac-grid-body-row-border-bottom,
+    $rac-grid-body-row-box-sizing: $rac-grid-body-row-box-sizing,
+    $rac-grid-body-row-part-of-group-border-bottom: $rac-grid-body-row-part-of-group-border-bottom,
     $rac-grid-border-collapse: $rac-grid-border-collapse,
     $rac-grid-color: $rac-grid-color,
     $rac-grid-column-content-button-content-font-size: $rac-grid-column-content-button-content-font-size,
@@ -64,7 +67,9 @@
     $rac-grid-display: $rac-grid-display,
     $rac-grid-flex-direction: $rac-grid-flex-direction,
     $rac-grid-head-background: $rac-grid-head-background,
+    $rac-grid-head-border-left: $rac-grid-head-border-left,
     $rac-grid-head-border-radius: $rac-grid-head-border-radius,
+    $rac-grid-head-border-right: $rac-grid-head-border-right,
     $rac-grid-head-color: $rac-grid-head-color,
     $rac-grid-head-column-active-sort-icon-background: $rac-grid-head-column-active-sort-icon-background,
     $rac-grid-head-column-active-sort-icon-color: $rac-grid-head-column-active-sort-icon-color,
@@ -101,6 +106,8 @@
     $rac-grid-row-selected-background: $rac-grid-row-selected-background,
     $rac-grid-row-table-layout: $rac-grid-row-table-layout,
     $rac-grid-row-total-background: $rac-grid-row-total-background,
+    $rac-grid-row-total-border-left: $rac-grid-row-total-border-left,
+    $rac-grid-row-total-border-right: $rac-grid-row-total-border-right,
     $rac-grid-row-total-font-weight: $rac-grid-row-total-font-weight,
     $rac-grid-row-width: $rac-grid-row-width
   );

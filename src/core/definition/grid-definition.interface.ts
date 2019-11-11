@@ -41,6 +41,7 @@ import {
   IOnClickWrapper,
   IOnColumnClickWrapper,
   IOnSortingDirectionChangeWrapper,
+  IPartOfGroupWrapper,
   IQueryWrapper,
   IRenderedWrapper,
   IRendererWrapper,
@@ -64,14 +65,6 @@ import {
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IListEntity } from './list-definition.interface';
-
-/**
- * @stable [23.10.2019]
- */
-export enum GridClassNamesEnum {
-  COLUMN = 'rac-grid-column',
-  COLUMN_CONTENT = 'rac-grid-column-content',
-}
 
 /**
  * @stable [18.10.2019]
@@ -143,6 +136,7 @@ export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
     IFilterWrapper<boolean>,
     IIndexedWrapper,
     IGroupedWrapper,
+    IPartOfGroupWrapper,
     IHoveredWrapper,
     ISelectableWrapper,
     IGroupExpandedWrapper {

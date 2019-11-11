@@ -293,6 +293,7 @@ export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName
 export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IParamsWrapper<TParams = IKeyValue> { params?: TParams; }
 export interface IParentWrapper<TParent> { parent?: TParent; }
+export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
 export interface IPasswordWrapper<TPassword = string> { password?: TPassword; }
 export interface IPathWrapper<TPath = string> { path?: TPath; }
 export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }

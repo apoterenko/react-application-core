@@ -1788,7 +1788,7 @@
   $rac-grid-column-content-after-top: unset,                                      /* @stable [26.10.2019] */
   $rac-grid-column-content-align-items: unset,                                    /* @stable [22.10.2019] */
   $rac-grid-column-content-background: unset,
-  $rac-grid-column-content-border-radius: unset,
+  $rac-grid-column-content-border-radius: unset,                                  /* @stable [11.11.2019] */
   $rac-grid-column-content-bottom: unset,                                         /* @stable [10.11.2019] */
   $rac-grid-column-content-button-content-color: unset,
   $rac-grid-column-content-button-content-font-size: unset,
@@ -1914,7 +1914,7 @@
   $rac-grid-column-content-after-top: unset,                                          /* @stable [26.10.2019] */
   $rac-grid-column-content-align-items: unset,                                        /* @stable [21.10.2019] */
   $rac-grid-column-content-background: unset,
-  $rac-grid-column-content-border-radius: unset,
+  $rac-grid-column-content-border-radius: unset,                                      /* @stable [11.11.2019] */
   $rac-grid-column-content-bottom: unset,                                             /* @stable [10.11.2019] */
   $rac-grid-column-content-button-content-color: unset,
   $rac-grid-column-content-button-content-font-size: unset,
@@ -1957,7 +1957,6 @@
   $rac-grid-column-icon-content-margin: unset,
   $rac-grid-column-icon-content-opacity: unset,
   $rac-grid-column-icon-content-size: unset,
-  $rac-grid-column-icon-content-vertical-align: unset,
   $rac-grid-column-icon-content-width: unset,
   $rac-grid-column-icon-custom: unset,
   $rac-grid-column-icon-display: unset,
@@ -2061,7 +2060,6 @@
       $rac-icon-content-margin: $rac-grid-column-icon-content-margin,
       $rac-icon-content-opacity: $rac-grid-column-icon-content-opacity,
       $rac-icon-content-size: $rac-grid-column-icon-content-size,
-      $rac-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
       $rac-icon-content-width: $rac-grid-column-icon-content-width,
       $rac-icon-display: $rac-grid-column-icon-display,
       $rac-icon-height: $rac-grid-column-icon-height,
@@ -2080,20 +2078,26 @@
 @mixin rac-grid-row (
   $rac-grid-row-custom: unset,                                                /* @stable [26.10.2019] */
   /**/
-  $rac-grid-row-background: unset,
+  $rac-grid-row-background: unset,                                            /* @stable [11.11.2019] */
   $rac-grid-row-border-bottom: unset,                                         /* @stable [22.10.2019] */
+  $rac-grid-row-border-left: unset,                                           /* @stable [11.11.2019] */
+  $rac-grid-row-border-right: unset,                                          /* @stable [11.11.2019] */
+  $rac-grid-row-box-sizing: unset,                                            /* @stable [11.11.2019] */
   $rac-grid-row-cursor: unset,                                                /* @stable [21.10.2019] */
-  $rac-grid-row-display: unset,
+  $rac-grid-row-display: unset,                                               /* @stable [11.11.2019] */
   $rac-grid-row-font-weight: unset,                                           /* @stable [23.10.2019] */
-  $rac-grid-row-height: unset,
-  $rac-grid-row-padding: unset,
-  $rac-grid-row-table-layout: unset,
+  $rac-grid-row-height: unset,                                                /* @stable [11.11.2019] */
+  $rac-grid-row-padding: unset,                                               /* @stable [11.11.2019] */
+  $rac-grid-row-table-layout: unset,                                          /* @stable [11.11.2019] */
   $rac-grid-row-width: unset                                                  /* @stable [21.10.2019] */
 ) {
   #{rac-build-cls(rac-grid-row, $rac-grid-row-custom)} {
     @include rac-styles (
       $rac-styles-background: $rac-grid-row-background,
       $rac-styles-border-bottom: $rac-grid-row-border-bottom,
+      $rac-styles-border-left: $rac-grid-row-border-left,
+      $rac-styles-border-right: $rac-grid-row-border-right,
+      $rac-styles-box-sizing: $rac-grid-row-box-sizing,
       $rac-styles-cursor: $rac-grid-row-cursor,
       $rac-styles-display: $rac-grid-row-display,
       $rac-styles-font-weight: $rac-grid-row-font-weight,
@@ -2135,14 +2139,14 @@
   $rac-grid-column-icon-custom: unset,                                            /* @stable [26.10.2019] */
   $rac-grid-row-custom: unset,                                                    /* @stable [26.10.2019] */
   /**/
-  $rac-grid-body-border-left: unset,
-  $rac-grid-body-border-right: unset,
-  $rac-grid-body-border: unset,
+  $rac-grid-body-border-left: unset,                                              /* @stable [11.11.2019] */
+  $rac-grid-body-border-right: unset,                                             /* @stable [11.11.2019] */
+  $rac-grid-body-border: unset,                                                   /* @stable [11.11.2019] */
   $rac-grid-body-column-content-action-icon-color: unset,                         /* @stable [10.11.2019] */
   $rac-grid-body-column-content-action-icon-content-size: unset,                  /* @stable [10.11.2019] */
   $rac-grid-body-column-content-action-icon-size: unset,                          /* @stable [10.11.2019] */
-  $rac-grid-body-column-content-background: unset,
-  $rac-grid-body-column-content-border-radius: unset,
+  $rac-grid-body-column-content-background: unset,                                /* @stable [11.11.2019] */
+  $rac-grid-body-column-content-border-radius: unset,                             /* @stable [11.11.2019] */
   $rac-grid-body-column-content-bottom: unset,                                    /* @stable [10.11.2019] */
   $rac-grid-body-column-content-min-width: unset,                                 /* @stable [26.10.2019] */
   $rac-grid-body-column-content-padding: unset,                                   /* @stable [26.10.2019] */
@@ -2156,13 +2160,15 @@
   $rac-grid-body-column-padding-top: unset,
   $rac-grid-body-overflow: unset,
   $rac-grid-body-row-border-bottom: unset,                                        /* @stable [22.10.2019] */
+  $rac-grid-body-row-box-sizing: unset,                                           /* @stable [11.11.2019] */
+  $rac-grid-body-row-part-of-group-border-bottom: unset,                          /* @stable [11.11.2019] */
   $rac-grid-border-collapse: unset,                                               /* @stable [26.10.2019] */
   $rac-grid-border-spacing: unset,                                                /* @stable [26.10.2019] */
   $rac-grid-color: unset,                                                         /* @stable [26.10.2019] */
   $rac-grid-column-background: unset,                                             /* @stable [21.10.2019] */
   $rac-grid-column-border-radius: unset,                                          /* @stable [21.10.2019] */
   $rac-grid-column-content-align-items: unset,                                    /* @stable [21.10.2019] */
-  $rac-grid-column-content-background: unset,
+  $rac-grid-column-content-background: unset,                                     /* @stable [11.11.2019] */
   $rac-grid-column-content-bottom: unset,                                         /* @stable [10.11.2019] */
   $rac-grid-column-content-button-content-color: unset,
   $rac-grid-column-content-button-content-font-size: unset,
@@ -2203,7 +2209,6 @@
   $rac-grid-column-icon-color: unset,
   $rac-grid-column-icon-content-height: unset,
   $rac-grid-column-icon-content-margin: unset,
-  $rac-grid-column-icon-content-vertical-align: unset,
   $rac-grid-column-icon-content-width: unset,
   $rac-grid-column-icon-display: unset,
   $rac-grid-column-icon-height: unset,                                            /* @stable [26.10.2019] */
@@ -2221,7 +2226,9 @@
   $rac-grid-display: unset,                                                       /* @stable [21.10.2019] */
   $rac-grid-flex-direction: unset,                                                /* @stable [21.10.2019] */
   $rac-grid-head-background: unset,                                               /* @stable [21.10.2019] */
-  $rac-grid-head-border-radius: unset,
+  $rac-grid-head-border-left: unset,                                              /* @stable [11.11.2019] */
+  $rac-grid-head-border-radius: unset,                                            /* @stable [11.11.2019] */
+  $rac-grid-head-border-right: unset,                                             /* @stable [11.11.2019] */
   $rac-grid-head-color: unset,                                                    /* @stable [24.10.2019] */
   $rac-grid-head-column-active-sort-icon-background: unset,
   $rac-grid-head-column-active-sort-icon-color: unset,
@@ -2265,6 +2272,8 @@
   $rac-grid-row-selected-background: unset,                                       /* @stable [22.10.2019] */
   $rac-grid-row-table-layout: unset,                                              /* @stable [21.10.2019] */
   $rac-grid-row-total-background: unset,                                          /* @stable [27.10.2019] */
+  $rac-grid-row-total-border-left: unset,                                         /* @stable [11.11.2019] */
+  $rac-grid-row-total-border-right: unset,                                        /* @stable [11.11.2019] */
   $rac-grid-row-total-font-weight: unset,                                         /* @stable [27.10.2019] */
   $rac-grid-row-width: unset,                                                     /* @stable [21.10.2019] */
   $rac-grid-table-layout: unset,                                                  /* @stable [26.10.2019] */
@@ -2304,6 +2313,8 @@
     @include rac-grid-row (
       $rac-grid-row-custom: $rac-grid-row-total-cls,
       $rac-grid-row-background: $rac-grid-row-total-background,
+      $rac-grid-row-border-left: $rac-grid-row-total-border-left,
+      $rac-grid-row-border-right: $rac-grid-row-total-border-right,
       $rac-grid-row-font-weight: $rac-grid-row-total-font-weight
     );
 
@@ -2320,6 +2331,11 @@
     @include rac-grid-row (
       $rac-grid-row-custom: $rac-grid-row-grouped-cls,
       $rac-grid-row-font-weight: $rac-grid-row-grouped-font-weight
+    );
+
+    @include rac-grid-row (
+      $rac-grid-row-custom: $rac-grid-row-part-of-group-cls,
+      $rac-grid-row-border-bottom: $rac-grid-body-row-part-of-group-border-bottom
     );
 
     @include rac-grid-row (
@@ -2366,7 +2382,6 @@
       $rac-grid-column-icon-color: $rac-grid-column-icon-color,
       $rac-grid-column-icon-content-height: $rac-grid-column-icon-content-height,
       $rac-grid-column-icon-content-margin: $rac-grid-column-icon-content-margin,
-      $rac-grid-column-icon-content-vertical-align: $rac-grid-column-icon-content-vertical-align,
       $rac-grid-column-icon-content-width: $rac-grid-column-icon-content-width,
       $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
       $rac-grid-column-icon-display: $rac-grid-column-icon-display,
@@ -2397,7 +2412,9 @@
     .rac-grid-head {
       @include rac-styles (
         $rac-styles-background: $rac-grid-head-background,
+        $rac-styles-border-left: $rac-grid-head-border-left,
         $rac-styles-border-radius: $rac-grid-head-border-radius,
+        $rac-styles-border-right: $rac-grid-head-border-right,
         $rac-styles-color: $rac-grid-head-color
       );
 
@@ -2461,15 +2478,16 @@
 
     .rac-grid-body {
       @include rac-styles (
-        $rac-styles-overflow: $rac-grid-body-overflow,
-        $rac-styles-border: $rac-grid-body-border,
         $rac-styles-border-left: $rac-grid-body-border-left,
-        $rac-styles-border-right: $rac-grid-body-border-right
+        $rac-styles-border-right: $rac-grid-body-border-right,
+        $rac-styles-border: $rac-grid-body-border,
+        $rac-styles-overflow: $rac-grid-body-overflow
       );
 
       @include rac-grid-row (
         $rac-grid-row-custom: $rac-grid-row-custom,
-        $rac-grid-row-border-bottom: $rac-grid-body-row-border-bottom
+        $rac-grid-row-border-bottom: $rac-grid-body-row-border-bottom,
+        $rac-grid-row-box-sizing: $rac-grid-body-row-box-sizing
       );
 
       @include rac-grid-column (
