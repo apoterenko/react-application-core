@@ -7,20 +7,6 @@
 
   /**
    * @field
-   * @stable [30.10.2019]
-   */
-  .rac-mobile {
-    &.rac-ios, &.rac-mac {
-      &.rac-safari {
-        @include rac-field (
-          $rac-self-field-input-placeholder-padding: $rac-offset-0 0 0 0
-        );
-      }
-    }
-  }
-
-  /**
-   * @field
    * @stable [21.10.2019]
    */
   @include rac-field (

@@ -218,6 +218,7 @@
   @if $rac-styles-margin != unset { margin: $rac-styles-margin; }
   @if $rac-styles-margin-top != unset { margin-top: $rac-styles-margin-top; }
   @if $rac-styles-min-height != unset { min-height: $rac-styles-min-height; }
+  @if $rac-styles-no-user-select != unset { @include x-user-select; }
   @if $rac-styles-opacity != unset { opacity: $rac-styles-opacity; }
   @if $rac-styles-outline != unset { outline: $rac-styles-outline; }
   @if $rac-styles-overflow != unset { overflow: $rac-styles-overflow; }
@@ -339,9 +340,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  @if $rac-styles-no-user-select != unset {
-    @include x-user-select;
   }
   @if  $rac-styles-flex-basis != unset {
     @include flex-basis($rac-styles-flex-basis);
@@ -609,15 +607,17 @@
 /**
  * @stable [09.11.2019]
  */
-@mixin rac-placeholder(
+@mixin rac-placeholder (
   $rac-placeholder-color: unset,
-  $rac-placeholder-padding: unset,
-  $rac-placeholder-font-size: unset
+  $rac-placeholder-font-size: unset,
+  $rac-placeholder-line-height: unset,
+  $rac-placeholder-padding: unset
 ) {
   &::-webkit-input-placeholder {
     @include rac-styles (
       $rac-styles-color: $rac-placeholder-color,
       $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
       $rac-styles-padding: $rac-placeholder-padding
     );
   }
@@ -625,6 +625,7 @@
     @include rac-styles (
       $rac-styles-color: $rac-placeholder-color,
       $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
       $rac-styles-padding: $rac-placeholder-padding
     );
   }
@@ -632,6 +633,7 @@
     @include rac-styles (
       $rac-styles-color: $rac-placeholder-color,
       $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
       $rac-styles-padding: $rac-placeholder-padding
     );
   }
@@ -639,6 +641,7 @@
     @include rac-styles (
       $rac-styles-color: $rac-placeholder-color,
       $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
       $rac-styles-padding: $rac-placeholder-padding
     );
   }
@@ -646,6 +649,7 @@
     @include rac-styles (
       $rac-styles-color: $rac-placeholder-color,
       $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
       $rac-styles-padding: $rac-placeholder-padding
     );
   }
@@ -1002,6 +1006,7 @@
  */
 @mixin rac-icon (
   $rac-icon-custom: unset,
+  /**/
   $rac-icon-background: unset,
   $rac-icon-border-radius: unset,
   $rac-icon-border: unset,
@@ -1015,7 +1020,7 @@
   $rac-icon-content-width: unset,
   $rac-icon-cursor: unset,                                                  /* @stable [10.11.2019] */
   $rac-icon-display: unset,
-  $rac-icon-flex-shrink: unset,
+  $rac-icon-flex-shrink: unset,                                             /* @stable [12.11.2019] */
   $rac-icon-height: unset,
   $rac-icon-left: unset,
   $rac-icon-line-height: unset,
@@ -1172,6 +1177,7 @@
   $rac-self-field-input-padding: unset,                                             /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-color: unset,                                   /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-font-size: unset,                               /* @stable [30.10.2019] */
+  $rac-self-field-input-placeholder-line-height: unset,                             /* @stable [12.11.2019] */
   $rac-self-field-input-placeholder-padding: unset,                                 /* @stable [30.10.2019] */
   $rac-self-field-input-position: unset,                                            /* @stable [23.10.2019] */
   $rac-self-field-input-resize: unset,                                              /* @stable [30.10.2019] */
@@ -1334,6 +1340,7 @@
               );
 
               @include rac-placeholder (
+                $rac-placeholder-line-height: $rac-self-field-input-placeholder-line-height,
                 $rac-placeholder-color: $rac-self-field-input-placeholder-color,
                 $rac-placeholder-font-size: $rac-self-field-input-placeholder-font-size,
                 $rac-placeholder-padding: $rac-self-field-input-placeholder-padding
