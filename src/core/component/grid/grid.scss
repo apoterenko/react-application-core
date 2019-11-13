@@ -140,8 +140,8 @@
     $rac-grid-column-custom: rac-build-cls2($rac-grid-column-align-center-cls, $rac-grid-column-sortable-cls),
     $rac-grid-column-content-align-items: $rac-grid-column-align-center-sortable-content-align-items,
     $rac-grid-column-content-justify-content: $rac-grid-column-align-center-sortable-content-justify-content,
-    $rac-grid-column-content-sort-left: $rac-grid-column-align-center-sortable-content-left,
-    $rac-grid-column-content-sort-transform: $rac-grid-column-align-center-sortable-content-transform
+    $rac-grid-column-content-sort-left: $rac-grid-column-align-center-sortable-content-sort-left,
+    $rac-grid-column-content-sort-transform: $rac-grid-column-align-center-sortable-content-sort-transform
   );
 
   /**
