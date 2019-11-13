@@ -16,10 +16,6 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
-export const APPLICATION_PDF_FORMAT = 'application/pdf';
-export const IMAGE_JPG_FORMAT = 'image/jpg';
-export const IMAGE_JPEG_FORMAT = 'image/jpeg';
-export const IMAGE_PNG_FORMAT = 'image/png';
 
 /**
  * @stable [15.09.2018]
@@ -147,6 +143,7 @@ export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
+export interface IEmptyOriginalValueWrapper<TValue = boolean> { emptyOriginalValue?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
@@ -386,7 +383,6 @@ export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
 export interface ITitleWrapper { title?: string; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
-export interface ITooltipWrapper<TTooltip = string> { tooltip?: TTooltip; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
 export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
 export interface ITotalWrapper<TValue = boolean> { total?: TValue; }

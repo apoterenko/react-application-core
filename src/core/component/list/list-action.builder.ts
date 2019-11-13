@@ -42,6 +42,11 @@ import {
 
 export class ListActionBuilder {
 
+  /**
+   * @stable [13.11.2019]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildSortingDirectionChangeActionType(section: string): string {
     return `${section}.${LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE}`;
   }

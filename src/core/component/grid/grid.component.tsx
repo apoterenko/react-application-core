@@ -197,7 +197,8 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               {...getGridColumnSortDirection(column, this.props)}
               name={column.name}
               index={columnNum}
-              onSortingDirectionChange={(payload: ISortDirectionEntity) => props.onSortingDirectionChange({...payload, index: columnNum})}
+              onSortingDirectionChange={(payload: ISortDirectionEntity) =>
+                props.onSortingDirectionChange({...payload, index: columnNum, multi: false})}
               {...column}
             >
               { // TODO (duplication)

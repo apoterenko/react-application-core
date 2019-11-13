@@ -16,7 +16,9 @@ import {
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   ISelectOptionEntity,
+  ISortDirectionEntity,
   ISortDirectionsEntity,
+  ISortDirectionsWrapperEntity,
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
@@ -285,6 +287,14 @@ export const mapEntityId = (id: EntityIdT): IEntityIdTWrapper =>
   defValuesFilter<IEntityIdTWrapper, IEntityIdTWrapper>({id});
 
 /**
+ * @stable [13.11.2019]
+ * @param {ISortDirectionsEntity} directions
+ * @returns {ISortDirectionsWrapperEntity}
+ */
+export const mapSortDirectionsWrapperEntity = (directions: ISortDirectionsEntity): ISortDirectionsWrapperEntity =>
+  defValuesFilter<ISortDirectionsWrapperEntity, ISortDirectionsWrapperEntity>({directions});
+
+/**
  * @stable [20.10.2019]
  * @param {IEntityIdTWrapper} entity
  * @returns {IEntityIdTWrapper}
@@ -350,6 +360,20 @@ export const mapPagedEntity = (entity: IPagedEntity): IPagedEntity => ifNotNilTh
   () => defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
     page: entity.page,
     pageSize: entity.pageSize,
+  }),
+  UNDEF_SYMBOL
+);
+
+/**
+ * @stable [13.11.2019]
+ * @param {ISortDirectionEntity} entity
+ * @returns {ISortDirectionEntity}
+ */
+export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirectionEntity => ifNotNilThanValue(
+  entity,
+  () => defValuesFilter<ISortDirectionEntity, ISortDirectionEntity>({
+    index: entity.index,
+    direction: entity.direction,
   }),
   UNDEF_SYMBOL
 );

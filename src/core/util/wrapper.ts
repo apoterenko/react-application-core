@@ -2,12 +2,14 @@ import {
   IChangeableWrapper,
   IDisabledWrapper,
   IEditedWrapper,
+  IEmptyOriginalValueWrapper,
   IExpandActionRenderedWrapper,
   IFocusedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIndexedWrapper,
   IKeyboardOpenWrapper,
+  IMultiWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
@@ -188,3 +190,19 @@ export const isRequired = (wrapper: IRequiredWrapper): boolean =>
  */
 export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.syntheticCursor !== false, false);
+
+/**
+ * @stable [12.11.2019]
+ * @param {IEmptyOriginalValueWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isEmptyOriginalValueSet = (wrapper: IEmptyOriginalValueWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.emptyOriginalValue === true, false);
+
+/**
+ * @stable [13.11.2019]
+ * @param {IMultiWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isMulti = (wrapper: IMultiWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.multi !== false, false);

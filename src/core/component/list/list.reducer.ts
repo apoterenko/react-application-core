@@ -10,7 +10,9 @@ import {
   buildEntityByMergeStrategy,
   doesArrayContainEntity,
   ifNotNilThanValue,
+  isMulti,
   mapIdentifiedEntity,
+  mapSortDirectionEntity,
   mergeArrayItem,
   notNilValuesFilter,
   nvl,
@@ -41,19 +43,17 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
   let modifyDataPayload;
 
   switch (action.type) {
+    /**
+     * @stable [13.11.2019]
+     */
     case ListActionBuilder.buildSortingDirectionChangeActionType(section):
-      const sortDirectionPayload = toType<ISortDirectionPayloadEntity>(action.data).payload;
+      const sdPayloadWrapper: ISortDirectionPayloadEntity = action.data;
+      const sdPayload = sdPayloadWrapper.payload;
       return {
         ...state,
         directions: notNilValuesFilter<ISortDirectionsEntity, ISortDirectionsEntity>({
-          ...state.directions,
-          [sortDirectionPayload.name]: ifNotNilThanValue(
-            sortDirectionPayload.direction,
-            (): ISortDirectionEntity => ({
-              index: sortDirectionPayload.index,
-              direction: sortDirectionPayload.direction,
-            })
-          ),
+          ...isMulti(sdPayload) ? state.directions : {},
+          [sdPayload.name]: ifNotNilThanValue(sdPayload.direction, () => mapSortDirectionEntity(sdPayload)),
         }),
       };
     case ListActionBuilder.buildChangeActionType(section):
