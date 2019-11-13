@@ -1,4 +1,5 @@
 import {
+  AnyT,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IChangesWrapper,
@@ -48,17 +49,24 @@ import { GroupValueRendererT, IItemConfigurationWrapper } from '../configuration
 /**
  * @stable [27.10.2019]
  */
-export interface IGenericListEntity<TEntity = IEntity>
+export interface IGenericListEntity<TEntity = IEntity,
+  TRawData = AnyT>
   extends IDataWrapper<TEntity[]>,
-    ILifeCycleEntity,
-    ISelectedWrapperEntity<TEntity>,
-    ISorterWrapper,
     IEmptyMessageWrapper,
-    IOnSelectWrapper<TEntity> {
+    IFullWrapper,
+    ILifeCycleEntity,
+    IOnSelectWrapper<TEntity>,    // TODO Move behaviour
+    IOriginalDataWrapper<TEntity[]>,
+    IPaginatedEntity,
+    IRawDataWrapper<TRawData>,
+    ISelectedWrapperEntity<TEntity>,
+    ISorterWrapper {
 }
 
-export interface IUniversalListEntity<TItemConfiguration extends IKeyValue, TEntity = IEntity>
-  extends IGenericListEntity<TEntity>,
+export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
+  TEntity = IEntity,
+  TRawData = AnyT>
+  extends IGenericListEntity<TEntity, TRawData>,
     IFilterFnWrapper,
     IEmptyDataMessageWrapper,
     IOnCreateWrapper,
@@ -96,21 +104,15 @@ export interface IListItemProps
     IListItemEntity {
 }
 
-/**
- * @stable [19.10.2019]
- */
-export interface IListEntity<TEntity = IEntity>
-  extends IUniversalListEntity<any, TEntity>,
+export interface IListEntity<TEntity = IEntity,
+  TRawData = AnyT>
+  extends IUniversalListEntity<any, TEntity, TRawData>, // TODO
     IChangesWrapper,
     ISelectedElementEntity,
     IDeactivatedWrapper,
-    IFullWrapper,
     IHighlightExpandedGroupWrapper,
     IHighlightOddWrapper,
     IHoveredWrapper,
-    IOriginalDataWrapper<TEntity[]>,
-    IPaginatedEntity,
-    IRawDataWrapper,
     ISelectableWrapper,
     ISortDirectionsWrapperEntity {
 }

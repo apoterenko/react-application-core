@@ -2,6 +2,7 @@ import {
   IDirectionsWrapper,
   IDirectionWrapper,
   IIndexWrapper,
+  IMultiWrapper,
   INameWrapper,
   IPayloadWrapper,
 } from '../definitions.interface';
@@ -20,6 +21,7 @@ export enum SortDirectionsEnum {
 export interface ISortDirectionEntity
   extends INameWrapper,
     IIndexWrapper,
+    IMultiWrapper,
     IDirectionWrapper<SortDirectionsEnum> {
 }
 

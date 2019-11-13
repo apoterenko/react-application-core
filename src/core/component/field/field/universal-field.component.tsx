@@ -12,6 +12,7 @@ import {
   isChangeable,
   isDef,
   isDisabled,
+  isEmptyOriginalValueSet,
   isFieldInactive,
   isFieldNotModifiable,
   isFieldValuePresent,
@@ -694,7 +695,10 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   private onChangeValue(currentRawValue: AnyT): void {
     const props = this.props;
-    const finalFieldValue = buildFinalFieldValue({value: currentRawValue, originalValue: props.originalValue});
+    const finalFieldValue = buildFinalFieldValue({
+      value: currentRawValue,
+      originalValue: isEmptyOriginalValueSet(props) ? this.getEmptyValue() : props.originalValue,
+    });
 
     this.validateField(finalFieldValue);
     this.propsOnChange(finalFieldValue);
