@@ -10,7 +10,6 @@ export interface IUIFactory
   snackbarActionButton?: string;
   icons?: string;
   toolbar?: string;
-  listDivider?: string;
   listItemMeta?: string;
   tabBarScrollerScrollArea?: string;
   tabBarScrollerScrollAreaScroll?: string;

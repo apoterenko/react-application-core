@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import { joinClassName } from '../../../util';
 import { BaseComponent } from '../../base';
 
 export class ListDivider extends BaseComponent {
@@ -13,10 +13,10 @@ export class ListDivider extends BaseComponent {
     const props = this.props;
 
     return (
-        <hr className={toClassName(
-            this.uiFactory.listDivider,
-            'rac-list-divider',
-            props.className
+      <div
+        className={joinClassName(
+          'rac-list-divider',
+          props.className
         )}/>
     );
   }
