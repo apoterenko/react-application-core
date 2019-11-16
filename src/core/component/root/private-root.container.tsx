@@ -1,26 +1,38 @@
+import * as R from 'ramda';
 import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import * as R from 'ramda';
 
-import { RootContainer } from './root.container';
+import { BaseRootContainer } from './base-root.container';
+import { isObjectNotEmpty } from '../../util';
 
-export class PrivateRootContainer extends RootContainer {
+export class PrivateRootContainer extends BaseRootContainer {
 
+  /**
+   * @stable [16.11.2019]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
-    const Component = this.props.container;
-    const accessConfiguration = this.props.accessConfiguration;
+    return (
+      <Route
+        render={() => {
+          if (this.auth.isAuthorized()) {
+            const props = this.props;
+            const Component = props.container;
+            const accessConfiguration = props.accessConfiguration;
 
-    const render = (_) => {
-      if (this.auth.isAuthorized()) {
-        return accessConfiguration && !this.permissionService.isAccessible(accessConfiguration)
-            ? <Redirect to={'access/denied'}/>
-            : <Component routeParams={this.routeParams}
-                         queryParams={this.queryParams}/>;
-      } else {
-        const queryParams = this.queryParams.toString();
-        return <Redirect to={R.isEmpty(queryParams) ? this.routes.signIn : `${this.routes.signIn}/?${queryParams}`}/>;
-      }
-    };
-    return <Route render={render}/>;
+            return isObjectNotEmpty(accessConfiguration) && !this.hasPermission(accessConfiguration)
+              ? <Redirect to={this.routes.accessDenied}/>
+              : (
+                <Component
+                  routeParams={this.routeParams}
+                  queryParams={this.queryParams}/>
+              );
+          } else {
+            const queryParams = this.queryParams.toString();
+            const {signIn} = this.routes;
+            return <Redirect to={R.isEmpty(queryParams) ? signIn : `${signIn}/?${queryParams}`}/>;
+          }
+        }}/>
+    );
   }
 }

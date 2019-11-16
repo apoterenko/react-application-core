@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { RootContainer } from './root.container';
+import { BaseRootContainer } from './base-root.container';
 
-export class PublicRootContainer extends RootContainer {
+export class PublicRootContainer extends BaseRootContainer {
 
+  /**
+   * @stable [16.11.2019]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const Component = this.props.container;
-    const render = () => (
-      <Component
-        routeParams={this.routeParams}
-        queryParams={this.queryParams}/>
+    return (
+      <Route
+        render={() => (
+          <Component
+            routeParams={this.routeParams}
+            queryParams={this.queryParams}/>
+        )}/>
     );
-
-    return <Route render={render}/>;
   }
 }
