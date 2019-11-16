@@ -1,4 +1,4 @@
-import { EffectsService, EffectsActionBuilder, IEffectsAction } from 'redux-effects-promise';
+import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import { NotificationActionBuilder } from '../../notification';
@@ -43,10 +43,3 @@ export const makeFailedListLoadEffectsProxy = (section: string): () => void =>
  */
 export const makeFailedListLazyLoadEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ListActionBuilder.buildLazyLoadErrorActionType(section));
-
-export function makeFailedFormErrorEffectsProxy(actionType: string): () => void {
-  return makeFailedEffectsProxy(
-    EffectsActionBuilder.buildErrorActionType(actionType),
-    (action) => [FormActionBuilder.buildSubmitFinishedAction(action.initialData.section)]
-  );
-}

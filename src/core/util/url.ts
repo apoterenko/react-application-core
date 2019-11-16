@@ -1,5 +1,6 @@
-import * as URI from 'urijs';
 import * as R from 'ramda';
+import * as URI from 'urijs';
+import * as URLSearchParams from 'url-search-params';
 
 import { IKeyValue } from '../definitions.interface';
 import {
@@ -13,6 +14,13 @@ import { isObjectNotEmpty } from './object';
  * @returns {string}
  */
 export const getCurrentUrlPath = (): string => URI().path();
+
+/**
+ * @stable [16.11.2019]
+ * @param {string} search
+ * @returns {}
+ */
+export const getURLSearchParams = (search: string): URLSearchParams => new URLSearchParams(search);
 
 /**
  * @stable [19.09.2019]

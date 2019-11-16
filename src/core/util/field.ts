@@ -9,7 +9,6 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
-  FIELD_DISPLAY_EMPTY_VALUE,
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
   IGenericFieldEntity,
   IMultiEntity,
@@ -24,12 +23,12 @@ import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
   inProgress,
+  isAlwaysReturnEmptyValueIfOriginalValue,
   isChangeable,
   isDisabled,
+  isEmptyOriginalValueSet,
   isReadOnly,
 } from './wrapper';
-
-const DYNAMIC_FIELD_SEPARATOR = '-';
 
 /**
  * @stable [30.10.2019]
@@ -37,13 +36,15 @@ const DYNAMIC_FIELD_SEPARATOR = '-';
  * @returns {AnyT}
  */
 export const buildFinalFieldValue = (config: IGenericFieldEntity): AnyT => {
-  const value = config.value;
-  const originalValue = config.originalValue;
+  const {emptyValue, originalValue, value} = config;
+  const finalOriginalValue = isEmptyOriginalValueSet(config) ? emptyValue : originalValue;
 
-  if (isDef(originalValue) && R.equals(value, originalValue)) {
-    return FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES;
-  }
-  return value;
+  const result = isDef(finalOriginalValue) && R.equals(value, finalOriginalValue)
+    ? FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
+    : value;
+  return FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES === result
+    ? (isAlwaysReturnEmptyValueIfOriginalValue(config) ? emptyValue : result)
+    : result;
 };
 
 /**
@@ -76,7 +77,7 @@ export const isFieldValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
  * @param {EntityIdT} key
  * @returns {string}
  */
-export const dynamicFieldName = (key: EntityIdT): string => `$$dynamicField${DYNAMIC_FIELD_SEPARATOR}${key}`;
+export const dynamicFieldName = (key: EntityIdT): string => `$$dynamicField-${key}`;
 
 /**
  * @stable [28.08.2019]
@@ -111,15 +112,6 @@ export const fromDynamicFieldsArray = <TEntity extends IEntity | EntityIdT>(arra
 export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
                                           valueAccessor: (itm: EntityIdT) => EntityIdT): IKeyValue =>
   fromDynamicFieldsArray<EntityIdT>(array, (itm) => itm, valueAccessor);
-
-/**
- * @stable [31.08.2019]
- * @param {AnyT} value
- * @returns {AnyT}
- */
-export const toAlwaysDirtyFieldValue = (value: AnyT): AnyT => value === FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
-  ? FIELD_DISPLAY_EMPTY_VALUE
-  : value;
 
 /**
  * @stable [13.10.2019]

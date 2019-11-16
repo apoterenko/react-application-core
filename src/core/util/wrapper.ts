@@ -1,4 +1,5 @@
 import {
+  IAlwaysReturnEmptyValueIfOriginalValueWrapper,
   IChangeableWrapper,
   IDisabledWrapper,
   IEditedWrapper,
@@ -198,6 +199,14 @@ export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean
  */
 export const isEmptyOriginalValueSet = (wrapper: IEmptyOriginalValueWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.emptyOriginalValue === true, false);
+
+/**
+ * @stable [14.11.2019]
+ * @param {IAlwaysReturnEmptyValueIfOriginalValueWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isAlwaysReturnEmptyValueIfOriginalValue = (wrapper: IAlwaysReturnEmptyValueIfOriginalValueWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.alwaysReturnEmptyValueIfOriginalValue === true, false);
 
 /**
  * @stable [13.11.2019]

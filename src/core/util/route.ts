@@ -1,7 +1,11 @@
 import * as URI from 'urijs';
 
-import { IEntity, IKeyValue, NEW_OPTION } from '../definitions.interface';
-import { IConnectorConfigEntity } from '../configurations-definitions.interface';
+import {
+  IEntity,
+  IKeyValue,
+  NEW_OPTION,
+} from '../definitions.interface';
+import { IConnectorEntity } from '../definition';
 
 export function buildRoute(path: string, params: IKeyValue): string {
   (path.match(/\:[a-zA-Z0-9]+/g) || []).forEach((placeholder) => {
@@ -35,7 +39,7 @@ export const buildEntityRoute = <TEntity extends IEntity>(path: string,
  * @param {Map<string, >} connectorConfigs
  * @returns {string}
  */
-export const getRoutePathBySection = (section: string, connectorConfigs: Map<string, IConnectorConfigEntity>): string => {
+export const getRoutePathBySection = (section: string, connectorConfigs: Map<string, IConnectorEntity>): string => {
   let routePath = null;
   connectorConfigs.forEach((connectorConfig, currentSection) => {
     if (currentSection === section) {
