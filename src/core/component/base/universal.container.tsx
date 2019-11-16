@@ -3,11 +3,14 @@ import { Store } from 'redux';
 
 import {
   DI_TYPES,
+  getAuth,
   getDateConverter,
+  getDynamicRoutes,
   getEnvironment,
   getEventManager,
   getLogManager,
   getNumberConverter,
+  getPermissionsManager,
   getSettings,
   getStateSerializer,
   getStorage,
@@ -18,12 +21,14 @@ import {
 } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
-  IContainerCtor,
+  DynamicRoutesMapT,
+  IAuth,
   IEnvironment,
   IEventManager,
   ILogManager,
   INavigateEntity,
   IOperationEntity,
+  IPermissionsManager,
   IRoutesEntity,
   IStateSerializer,
   IStorage,
@@ -34,17 +39,25 @@ import {
   ROUTER_NAVIGATE_ACTION_TYPE,
   ROUTER_REWRITE_ACTION_TYPE,
 } from '../../definition';
-import { IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import { ISettingsEntity } from '../../settings';
-import { TranslatorT } from '../../translation';
-import { IDateConverter, INumberConverter } from '../../converter';
-import { FormActionBuilder } from '../form/form-action.builder';
-import { IAuthService } from '../../auth';
-import { IUIFactory } from '../factory/factory.interface';
-import { applySection, isString, toActionPrefix, toType } from '../../util';
+import {
+  applySection,
+  isString,
+  toActionPrefix,
+  toType,
+} from '../../util';
 import { DictionariesActionBuilder } from '../../dictionary';
+import { FormActionBuilder } from '../form/form-action.builder';
+import {
+  IDateConverter,
+  INumberConverter,
+} from '../../converter';
+import { ISettingsEntity } from '../../settings';
+import { IUIFactory } from '../factory/factory.interface';
+import { TranslatorT } from '../../translation';
 
-export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps,
+                                TState = {},
+                                TAccessConfig = {}>
   extends React.PureComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
 
@@ -158,11 +171,12 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @stable - 15.04.2018
-   * @returns {Map<IContainerCtor, IConnectorConfigEntity>}
+   * @stable [16.11.2019]
+   * @param {TAccessConfig} checkedObject
+   * @returns {boolean}
    */
-  protected get dynamicRoutes(): Map<IContainerCtor, IConnectorConfigEntity> {
-    return staticInjector(DI_TYPES.DynamicRoutes);
+  protected hasPermission(checkedObject: TAccessConfig): boolean {
+    return this.permissionsManager.isAccessible(checkedObject);
   }
 
   /**
@@ -171,14 +185,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get routes(): IRoutesEntity {
     return staticInjector(DI_TYPES.Routes);
-  }
-
-  /**
-   * @stable [26.04.2018]
-   * @returns {IAuthService}
-   */
-  protected get auth(): IAuthService {
-    return staticInjector(DI_TYPES.Auth);
   }
 
   /**
@@ -195,6 +201,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get appStore(): Store<IUniversalStoreEntity> {
     return getStore();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [07.10.2019]
+   * @returns {IPermissionsManager<TAccessConfig>}
+   */
+  protected get permissionsManager(): IPermissionsManager<TAccessConfig> {
+    return getPermissionsManager<TAccessConfig>();
   }
 
   /**
@@ -285,5 +300,23 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get stateSerializer(): IStateSerializer {
     return getStateSerializer();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [16.11.2019]
+   * @returns {IAuth}
+   */
+  protected get auth(): IAuth {
+    return getAuth();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [16.11.2019]
+   * @returns {DynamicRoutesMapT}
+   */
+  protected get dynamicRoutes(): DynamicRoutesMapT {
+    return getDynamicRoutes();
   }
 }

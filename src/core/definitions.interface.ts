@@ -64,6 +64,7 @@ export interface I$$permissionStoreProxyWrapper<TValue> { $$permissionStoreProxy
 export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
+export interface IAccessDeniedWrapper<TAccessDenied> { accessDenied?: TAccessDenied; }
 export interface IActionsDisabledWrapper { actionsDisabled?: boolean; }
 export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
 export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
@@ -78,9 +79,11 @@ export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
 export interface IAddApiWrapper { addApi?: string; }
 export interface IAddedFilesWrapper<TValue> { addedFiles?: TValue; }
 export interface IAddWrapper<TValue> { add?: TValue; }
+export interface IAfterEnterWrapper<TAfterEnter> { afterEnter?: TAfterEnter; }
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
+export interface IAlwaysReturnEmptyValueIfOriginalValueWrapper { alwaysReturnEmptyValueIfOriginalValue?: boolean; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
@@ -90,6 +93,7 @@ export interface IAutoCompleteWrapper<TAutoComplete = string> { autoComplete?: T
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
+export interface IBeforeEnterWrapper<TBeforeEnter> { beforeEnter?: TBeforeEnter; }
 export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
@@ -118,7 +122,9 @@ export interface IColumnStylesWrapper<TStyles> { columnStyles?: TStyles; }
 export interface IColumnTitleWrapper<TColumnTitle = string> { columnTitle?: TColumnTitle; }
 export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface ICompactWrapper<TCompact = boolean> { compact?: TCompact; }
+export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComputedMatch; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
+export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
@@ -150,6 +156,7 @@ export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
 export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
 export interface IErrorWrapper<TError = boolean> { error?: TError; }
+export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
@@ -206,6 +213,7 @@ export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
+export interface IInjectedServicesWrapper<TValue> { injectedServices?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
@@ -214,6 +222,7 @@ export interface IItemWrapper<TItem> { item?: TItem; }
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
+export interface IKeyWrapper<TKey = string> { key?: TKey; }
 export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
@@ -268,6 +277,7 @@ export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
 export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue; }
+export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
@@ -346,6 +356,7 @@ export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRoundedWrapper { rounded?: boolean; }
+export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
 export interface IRowWrapper<TRow = boolean> { row?: TRow; }
 export interface IScaleWrapper<TScale = number> { scale?: TScale; }
@@ -1085,16 +1096,7 @@ export interface ITextStyleWrapper<TTextStyle> {
   textStyle?: TTextStyle;
 }
 
-/* @stable - 20.04.2018 */
-export interface IModalWrapper<TModal> {
-  modal?: TModal;
-}
-
 export interface IContentWrapper<TContent = JSX.Element> { content?: TContent; }
-
-/* @stable - 20.04.2018 */
-export interface IBooleanModalWrapper extends IModalWrapper<boolean> {
-}
 
 /**
  * @stable [20.09.2018]
@@ -1264,11 +1266,6 @@ export interface ITypeNameWrapper {
   typeName?: string;
 }
 
-/* @stable - 14.04.2018 */
-export interface IExactWrapper {
-  exact?: boolean;
-}
-
 /**
  * @stable [10.09.2018]
  */
@@ -1288,41 +1285,11 @@ export interface IHideNavBarWrapper {
   hideNavBar?: boolean;
 }
 
-/* @stable [26.04.2018] */
-export interface IInitialWrapper<TInitial> {
-  initial?: TInitial;
-}
-
-/* @stable - 14.04.2018 */
-export interface IBeforeEnterWrapper<TBeforeEnter> {
-  beforeEnter?: TBeforeEnter;
-}
-
-/* @stable - 20.04.2018 */
-export interface IOnEnterWrapper<TOnEnter> {
-  onEnter?: TOnEnter;
-}
-
-/* @stable - 14.04.2018 */
-export interface IAfterEnterWrapper<TAfterEnter> {
-  afterEnter?: TAfterEnter;
-}
-
-/* @stable - 14.04.2018 */
-export interface IComputedMatchWrapper<TComputedMatch> {
-  computedMatch?: TComputedMatch;
-}
-
 /**
  * @stable [18.06.2018]
  */
 export interface IDisplayMessageWrapper<TDisplayMessage = string> {
   displayMessage?: TDisplayMessage;
-}
-
-/* @stable - 15.04.2018 */
-export interface ICallbackWrapper<TCallback> {
-  callback?: TCallback;
 }
 
 /**
@@ -1337,13 +1304,6 @@ export interface IAppVersionWrapper {
  */
 export interface ICurrentTimeWrapper<TCurrentDate> {
   currentTime?: TCurrentDate;
-}
-
-/**
- * @stable [19.09.2018]
- */
-export interface IKeyWrapper<TKey = string> {
-  key?: TKey;
 }
 
 /* @stable - 15.04.2018 */

@@ -1,18 +1,25 @@
 import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { noop, sequence, isObjectNotEmpty, isFn  } from '../../util';
-import { getStore, getUiFactory } from '../../di';
-import { IBasicConnectorConfigEntity, IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import { APPLICATION_SECTIONS } from '../application/application.interface';
-import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
-import { DYNAMIC_ROUTES } from '../../router/router.interface';
-import { CONNECTOR_SECTION_FIELD } from './universal-connector.interface';
-import { universalConnectorFactory } from './universal-connector.factory';
-import { ConnectorActionBuilder } from './connector-action.builder';
 import {
+  isFn,
+  isObjectNotEmpty,
+  noop,
+  sequence,
+} from '../../util';
+import {
+  getDynamicRoutes,
+  getStore,
+  getUiFactory,
+} from '../../di';
+import { APPLICATION_SECTIONS } from '../application/application.interface';
+import { ConnectorActionBuilder } from './connector-action.builder';
+import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
+import { universalConnectorFactory } from './universal-connector.factory';
+import {
+  IBasicConnectorEntity,
+  IConnectorEntity,
   IUniversalContainerCtor,
-  IUniversalContainerEntity,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../definition';
@@ -21,22 +28,17 @@ const logger = LoggerFactory.makeLogger('universal-connector.decorator');
 
 /**
  * @stable - 23.04.2018
- * @param {IBasicConnectorConfigEntity<TStoreEntity>} config
+ * @param {IBasicConnectorEntity<TStoreEntity>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
 export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
-  config: IBasicConnectorConfigEntity<TStoreEntity>
+  config: IBasicConnectorEntity<TStoreEntity>
 ) =>
   (target: IUniversalContainerCtor): void => {
     let finalTarget = target;
-    if (config.callback) {
-      config.callback(target);
-    }
 
     const sectionName = target.defaultProps && target.defaultProps.sectionName;
     if (sectionName) {
-      Reflect.set(target, CONNECTOR_SECTION_FIELD, sectionName);
-
       APPLICATION_SECTIONS.set(sectionName, config);
 
       const proto: React.ComponentLifecycle<{}, {}> = target.prototype;
@@ -116,14 +118,14 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
         target}. The init and destroy actions are disabled.`
       );
     }
-    DYNAMIC_ROUTES.set(universalConnectorFactory<TStoreEntity>(finalTarget, ...config.mappers), config);
+    getDynamicRoutes().set(universalConnectorFactory<TStoreEntity>(finalTarget, ...config.mappers), config);
   };
 
 /**
  * @stable - 23.04.2018
- * @param {IConnectorConfigEntity<TStoreEntity extends IUniversalStoreEntity, TAccessConfig>} config
+ * @param {IConnectorEntity<TStoreEntity extends IUniversalStoreEntity, TAccessConfig>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
 export const connector = <TStoreEntity extends IUniversalStoreEntity, TAccessConfig>(
-    config: IConnectorConfigEntity<TStoreEntity, TAccessConfig>
+    config: IConnectorEntity<TStoreEntity, TAccessConfig>
 ) => basicConnector(config);

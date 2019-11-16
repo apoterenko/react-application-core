@@ -3,13 +3,16 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { isFn } from '../../util';
 import { IKeyValue } from '../../definitions.interface';
-import { IUniversalContainerEntity, IContainerProps, IUniversalContainerCtor, IUniversalStoreEntity } from '../../definition';
-import { ConnectorMapperT } from '../../configurations-definitions.interface';
+import {
+  ConnectorMapperT,
+  IUniversalContainerCtor,
+  IUniversalStoreEntity,
+} from '../../definition';
 
 const logger = LoggerFactory.makeLogger('universal-connector.factory');
 
 /**
- * @stable [27.08.2018]
+ * @stable [16.11.2019]
  * @param {IUniversalContainerCtor} containerCtor
  * @param {ConnectorMapperT<TStoreEntity extends IUniversalStoreEntity>} mappers
  * @returns {IUniversalContainerCtor}

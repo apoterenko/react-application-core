@@ -7,10 +7,13 @@ import {
 } from '../converter';
 import { ISettingsEntity } from '../settings';
 import {
+  DynamicRoutesMapT,
+  IAuth,
   IEnvironment,
   IEventManager,
   ILogManager,
   IModifyEntityPayloadFactory,
+  IPermissionsManager,
   IStateSerializer,
   IStorage,
   ITransport,
@@ -26,6 +29,25 @@ import { TranslatorT } from '../translation';
  * @returns {INumberConverter}
  */
 export const getNumberConverter = (): INumberConverter => staticInjector(DI_TYPES.NumberConverter);
+
+/**
+ * @stable [16.11.2019]
+ * @returns {IPermissionsManager<TAccessConfig>}
+ */
+export const getPermissionsManager = <TAccessConfig = {}>(): IPermissionsManager<TAccessConfig> =>
+  staticInjector(DI_TYPES.PermissionsManager);
+
+/**
+ * @stable [16.11.2019]
+ * @returns {DynamicRoutesMapT}
+ */
+export const getDynamicRoutes = (): DynamicRoutesMapT => staticInjector(DI_TYPES.DynamicRoutes);
+
+/**
+ * @stable [16.11.2019]
+ * @returns {IAuth}
+ */
+export const getAuth = (): IAuth => staticInjector(DI_TYPES.Auth);
 
 /**
  * @stable [07.10.2019]
