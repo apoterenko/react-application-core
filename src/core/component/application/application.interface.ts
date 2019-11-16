@@ -1,8 +1,12 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import { ACTION_PREFIX } from '../../definitions.interface';
-import { IApplicationConfiguration, IConnectorConfigEntity } from '../../configurations-definitions.interface';
-import { IApplicationEntity, IContainerProps } from '../../definition';
+import { IApplicationConfiguration } from '../../configurations-definitions.interface';
+import {
+  IApplicationEntity,
+  IConnectorEntity,
+  IContainerProps,
+} from '../../definition';
 
 /**
  * @stable [02.07.2018]
@@ -15,7 +19,7 @@ export interface IApplicationContainerProps extends IContainerProps,
 /**
  * @stable [02.07.2018]
  */
-export const APPLICATION_SECTIONS = new Map<string, IConnectorConfigEntity>();
+export const APPLICATION_SECTIONS = new Map<string, IConnectorEntity>();
 
 /**
  * @stable [02.07.2018]

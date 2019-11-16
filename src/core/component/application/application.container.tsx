@@ -4,21 +4,18 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { uuid, isFn } from '../../util';
 import { DI_TYPES, bindToConstantValue } from '../../di';
 import {
+  ContainerVisibilityTypesEnum,
   EventsEnum,
+  IConnectorEntity,
   IContainerCtor,
+  IRouteEntity,
   IRouter,
   IRouterWrapperEntity,
   IStoreEntity,
 } from '../../definition';
-import { IRootContainerProps, PrivateRootContainer, PublicRootContainer } from '../root';
-import { CONNECTOR_SECTION_FIELD } from '../connector';
+import { PrivateRootContainer, PublicRootContainer } from '../root';
 import { IApplicationContainerProps, } from './application.interface';
 import { Message } from '../message';
-import {
-  IConnectorConfigEntity,
-  ContainerVisibilityTypeEnum,
-  IRouteConfigEntity,
-} from '../../configurations-definitions.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
 
 export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEntity>
@@ -67,29 +64,25 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
       : super.getRoutes();
   }
 
-  // TODO refactoring
+  /**
+   * @stable [16.11.2019]
+   * @param {IContainerCtor} ctor
+   * @param {IConnectorEntity} connectorEntity
+   * @returns {JSX.Element}
+   */
   protected buildRoute(ctor: IContainerCtor,
-                       connectorConfiguration: IConnectorConfigEntity,
-                       cfg: IRouteConfigEntity): JSX.Element {
-    let Component;
-    switch (cfg.type) {
-      case ContainerVisibilityTypeEnum.PRIVATE:
-        Component = PrivateRootContainer;
-        break;
-      default:
-        Component = PublicRootContainer;
-        break;
-    }
-    const props: IRootContainerProps = {
-      exact: true,
-      accessConfiguration: connectorConfiguration.accessConfiguration,
-      section: Reflect.get(ctor, CONNECTOR_SECTION_FIELD),
-      ...cfg,
-    };
+                       connectorEntity: IConnectorEntity): JSX.Element {
+    const routeEntity = connectorEntity.routeConfiguration;
+    const Component = routeEntity.type === ContainerVisibilityTypesEnum.PRIVATE
+      ? PrivateRootContainer
+      : PublicRootContainer;
     return (
-      <Component key={cfg.path || cfg.key}
-                 container={ctor}
-                 {...props}/>
+      <Component
+        exact={true}
+        accessConfiguration={connectorEntity.accessConfiguration}
+        container={ctor}
+        {...routeEntity}
+        key={routeEntity.path || routeEntity.key}/>
     );
   }
 

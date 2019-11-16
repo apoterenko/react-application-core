@@ -9,15 +9,11 @@ import {
   IActionsWrapper,
   IActiveValueWrapper,
   IActiveWrapper,
-  IAfterEnterWrapper,
   IAliasWrapper,
   IBackwardRenderedWrapper,
   IBasenameWrapper,
-  IBeforeEnterWrapper,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
-  IBooleanModalWrapper,
-  ICallbackWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
@@ -26,7 +22,6 @@ import {
   IChildrenWrapper,
   IClassNameWrapper,
   IClearActionWrapper,
-  IComputedMatchWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
   IEmptyDataMessageWrapper,
@@ -34,7 +29,6 @@ import {
   IEntity,
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
-  IExactWrapper,
   IFactorWrapper,
   IFieldWrapper,
   IFilterFnWrapper,
@@ -43,14 +37,11 @@ import {
   IFullWrapper,
   IHideNavBarWrapper,
   IIconWrapper,
-  IInitialWrapper,
   IItemsWrapper,
   IKeyboardConfigurationWrapper,
   IKeyboardEvent,
   IKeyValue,
-  IKeyWrapper,
   ILayoutWrapper,
-  IMappersWrapper,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
   IMessageWrapper,
@@ -64,13 +55,10 @@ import {
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOnEmptyDictionaryWrapper,
-  IOnEnterWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
   IOnMoreOptionsSelectWrapper,
   IOnSelectWrapper,
-  IParamsWrapper,
-  IPathWrapper,
   IPrefixLabelWrapper,
   IRenderToBodyWrapper,
   IRippableWrapper,
@@ -80,7 +68,6 @@ import {
   IStyleWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
-  ITitleWrapper,
   ITypeWrapper,
   IUrlWrapper,
   IUseIndicatorWrapper,
@@ -88,7 +75,6 @@ import {
   IValidationGroupWrapper,
   IValueWrapper,
   IWidthWrapper,
-  IAccessConfigurationWrapper,
 } from './definitions.interface';
 import {
   IReactOnClickWrapper,
@@ -99,11 +85,8 @@ import {
   IComponentProps,
   IGenericFieldEntity,
   IMenuItemEntity,
-  INamedConstructor,
   INavigationItemEntity,
   IUniversalComponentEntity,
-  IUniversalContainerCtor,
-  IUniversalStoreEntity,
   IWebComponentEntity,
 } from './definition';
 import { IField } from './component/field/field/field.interface';
@@ -141,11 +124,6 @@ export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldProps> {
  */
 export interface ITabPanelConfigurationWrapper<TabPanelConfiguration = ITabPanelConfiguration> {
   tabPanelConfiguration?: TabPanelConfiguration;
-}
-
-/* @stable - 14.04.2018 */
-export interface IRouteConfigurationWrapper<TRouteConfiguration> {
-  routeConfiguration?: TRouteConfiguration;
 }
 
 /**
@@ -302,49 +280,6 @@ export interface IFieldProps extends IComponentProps,
  */
 export interface IFieldsConfigurations {
   [fieldName: string]: string | IFieldProps | ((field) => IFieldProps | string);
-}
-
-/* @stable - 14.04.2018 */
-export interface IRouteComputedMatchConfiguration extends IParamsWrapper,
-                                                          IUrlWrapper,
-                                                          IPathWrapper {
-}
-
-/* @stable - 14.04.2018 */
-export enum ContainerVisibilityTypeEnum {
-  PUBLIC,
-  PRIVATE,
-}
-
-/* @stable - 14.04.2018 */
-export interface IRouteConfigEntity extends IPathWrapper,
-                                             IBooleanModalWrapper,
-                                             ITitleWrapper,
-                                             IInitialWrapper<boolean | ((store: IUniversalStoreEntity) => boolean)>,
-                                             IExactWrapper,
-                                             IKeyWrapper,
-                                             IOnEnterWrapper<() => void>,
-                                             IAfterEnterWrapper<() => void>,
-                                             IBeforeEnterWrapper<() => void>,
-                                             IComputedMatchWrapper<IRouteComputedMatchConfiguration>,
-                                             ITypeWrapper<ContainerVisibilityTypeEnum> {
-}
-
-/* @stable - 14.04.2018 */
-export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
-
-/* @stable - 14.04.2018 */
-export interface IBasicConnectorConfigEntity<TStoreEntity>
-  extends ICallbackWrapper<(ctor: IUniversalContainerCtor) => void>,
-          IRouteConfigurationWrapper<IRouteConfigEntity>,
-          IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>> {
-  injectedServices?: INamedConstructor[];
-}
-
-/* @stable - 14.04.2018 */
-export interface IConnectorConfigEntity<TAppState = {}, TApplicationAccessConfig = {}>
-  extends IBasicConnectorConfigEntity<TAppState>,
-          IAccessConfigurationWrapper<TApplicationAccessConfig> {
 }
 
 /**

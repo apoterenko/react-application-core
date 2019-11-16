@@ -7,6 +7,7 @@ import { lazyInject, DI_TYPES } from '../di';
 import { orNull } from '../util';
 import { ISettingsEntity } from '../settings';
 import {
+  IAuth,
   IRoutesEntity,
   IStorage,
   ITransportResponseAccessor,
@@ -28,6 +29,7 @@ import { PermissionsActionBuilder } from '../permissions/permissions-action.buil
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   private static logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
 
+  @lazyInject(DI_TYPES.Auth) protected readonly auth: IAuth;
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IStorage;
   @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesEntity;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
@@ -61,14 +63,13 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable [16.09.2019]
+   * @stable [16.11.2019]
    * @param {IEffectsAction} _
-   * @param {IUniversalStoreEntity} state
    * @returns {Promise<IEffectsAction[]>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterInitActionType())
-  public async $onAfterInit(_: IEffectsAction, state: IUniversalStoreEntity): Promise<IEffectsAction[]> {
-    const isApplicationAuthorized = state.application.authorized;
+  public async $onAfterInit(_: IEffectsAction): Promise<IEffectsAction[]> {
+    const isApplicationAuthorized = this.auth.isAuthorized();
     const result: IEffectsAction[] = [
       isApplicationAuthorized
         ? ApplicationActionBuilder.buildPrepareAction()

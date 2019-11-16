@@ -5,23 +5,20 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { orNull, calc, DelayedTask } from '../../util';
 import {
-  IConnectorConfigEntity,
-  ContainerVisibilityTypeEnum,
-  IRouteConfigEntity,
-} from '../../configurations-definitions.interface';
-import {
   ApplicationEventCategoriesEnum,
   ApplicationStateEventsEnum,
-  STORAGE_APP_STATE_KEY,
+  ContainerVisibilityTypesEnum,
+  IConnectorEntity,
   IContainerCtor,
+  IRouteEntity,
+  RoutePredicateT,
+  STORAGE_APP_STATE_KEY,
 } from '../../definition';
-import { UniversalContainer } from '../base/universal.container';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
-import { IUniversalApplicationContainerProps } from './universal-application.interface';
 import { IStateSettings } from '../../settings';
-
-export type RoutePredicateT = (routeConfiguration: IRouteConfigEntity) => boolean;
+import { IUniversalApplicationContainerProps } from './universal-application.interface';
+import { UniversalContainer } from '../base/universal.container';
 
 export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
   extends UniversalContainer<TProps> {
@@ -31,7 +28,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   };
 
   private static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
-  private extraRoutes = new Map<IContainerCtor, IConnectorConfigEntity>();
+  private extraRoutes = new Map<IContainerCtor, IConnectorEntity>();
   private syncStateWithStorageTask: DelayedTask;
   private storeUnsubscriber: Unsubscribe;
 
@@ -72,13 +69,15 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   /**
-   * @stable - 23.04.2018
+   * @stable [16.11.2019]
    * @param {RoutePredicateT} routePredicate
    * @returns {JSX.Element[]}
    */
-  protected getRoutes(routePredicate: RoutePredicateT = (routeConfiguration) => true): JSX.Element[] {
-    return this.buildRoutes(this.dynamicRoutes, routePredicate)
-      .concat(this.buildRoutes(this.extraRoutes, routePredicate));
+  protected getRoutes(routePredicate: RoutePredicateT = () => true): JSX.Element[] {
+    return [
+      ...this.buildRoutes(this.dynamicRoutes, routePredicate),
+      ...this.buildRoutes(this.extraRoutes, routePredicate)
+    ];
   }
 
   protected lookupConnectedContainerByRoutePath(path: string): IContainerCtor {
@@ -103,7 +102,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     return result;
   }
 
-  protected registerRoute(container: IContainerCtor, config: IConnectorConfigEntity): void {
+  protected registerRoute(container: IContainerCtor, config: IConnectorEntity): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -118,7 +117,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
         loginContainer,
         {
           routeConfiguration: {
-            type: ContainerVisibilityTypeEnum.PUBLIC,
+            type: ContainerVisibilityTypesEnum.PUBLIC,
             path: this.routes.logout,
             beforeEnter: this.onBeforeLogout,   // Web
             onEnter: this.onBeforeLogout,       // ReactNative
@@ -218,29 +217,33 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     return true;
   }
 
+  /**
+   * @stable [16.11.2019]
+   * @param {IContainerCtor} ctor
+   * @param {IConnectorEntity} connectorEntity
+   * @returns {JSX.Element}
+   */
   protected abstract buildRoute(ctor: IContainerCtor,
-                                connectorConfiguration: IConnectorConfigEntity,
-                                routeConfiguration: IRouteConfigEntity): JSX.Element;
+                                connectorEntity: IConnectorEntity): JSX.Element;
 
-  private buildRoutes(map: Map<IContainerCtor, IConnectorConfigEntity>,
+  /**
+   *
+   * @param {Map<IContainerCtor, IConnectorEntity>} map
+   * @param {RoutePredicateT} routePredicate
+   * @returns {JSX.Element[]}
+   */
+  private buildRoutes(map: Map<IContainerCtor, IConnectorEntity>,
                       routePredicate: RoutePredicateT): JSX.Element[] {
-    const routes0: string[] = [];
-    const routes: JSX.Element[] = [];
+    const routes0 = [];
+    const routes = [];
 
-    map.forEach((connectorConfiguration, ctor) => {
-      if (routePredicate.call(null, connectorConfiguration.routeConfiguration)) {
-        const rConfiguration = calc(connectorConfiguration.routeConfiguration, this.routes);
-        routes0.push(rConfiguration.path || rConfiguration.key);
-        routes.push(
-          this.buildRoute(
-            ctor,
-            connectorConfiguration,
-            rConfiguration
-          )
-        );
+    map.forEach((connectorEntity, containerCtor) => {
+      const routeCfg = connectorEntity.routeConfiguration;
+      if (routePredicate.call(null, routeCfg)) {
+        routes0.push(routeCfg.path || routeCfg.key);
+        routes.push(this.buildRoute(containerCtor, connectorEntity));
       }
     });
-
     UniversalApplicationContainer.logger.debug(
       () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Routes: ${routes0.join('\n')}`
     );
