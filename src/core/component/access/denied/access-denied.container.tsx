@@ -5,15 +5,15 @@ import { basicConnector, defaultMappers } from '../../connector';
 import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
-import { ContainerVisibilityTypeEnum } from '../../../configurations-definitions.interface';
 import {
+  ContainerVisibilityTypesEnum,
   IContainerProps,
   IStoreEntity,
 } from '../../../definition';
 
 @basicConnector<IStoreEntity>({
   routeConfiguration: {
-    type: ContainerVisibilityTypeEnum.PRIVATE,
+    type: ContainerVisibilityTypesEnum.PRIVATE,
     path: 'access/denied',
   },
   mappers: [

@@ -3,7 +3,7 @@ import { IPermissionsWrapper } from '../definitions.interface';
 /**
  * @stable [14.10.2019]
  */
-export interface IPermissionsService<TAccessConfig = {}> {
+export interface IPermissionsManager<TAccessConfig = {}> {
   isAccessible(checkedObject: TAccessConfig): boolean;
 }
 

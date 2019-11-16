@@ -1,19 +1,22 @@
 import { namedConstructor } from '../../../../util';
 import { DI_TYPES, lazyInject } from '../../../../di';
 import {
-  IPermissionsService,
+  IPermissionsManager,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../../definition';
 import { IPermissionStoreProxy } from './permission-store-proxy.interface';
 
+/**
+ * @deprecated
+ */
 @namedConstructor('$$permissionStoreProxy')
 export class PermissionStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                                   TProps extends IUniversalContainerProps = IUniversalContainerProps>
   implements IPermissionStoreProxy {
 
-  @lazyInject(DI_TYPES.Permission) private readonly permissionService: IPermissionsService;
+  @lazyInject(DI_TYPES.PermissionsManager) private readonly permissionsManager: IPermissionsManager;
 
   /**
    * @stable [14.10.2019]
@@ -29,6 +32,6 @@ export class PermissionStoreProxy<TStore extends IUniversalStoreEntity = IUniver
    * @returns {boolean}
    */
   public isAccessible<TApplicationAccessConfig>(checkedObject: TApplicationAccessConfig): boolean {
-    return this.permissionService.isAccessible(checkedObject);
+    return this.permissionsManager.isAccessible(checkedObject);
   }
 }
