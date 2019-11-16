@@ -11,6 +11,7 @@ import {
   IFormConfigurationWrapper,
   IFormWrapper,
   IFullWrapper,
+  IKeyValue,
   IOnBeforeSubmitWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,

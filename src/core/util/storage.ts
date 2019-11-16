@@ -1,11 +1,15 @@
 import {
+  IMultiEntity,
   IMultiEntityStorageSetEntity,
   MultiFieldSingleValueT,
 } from '../definition';
 import { isDef } from './type';
 import { isObjectNotEmpty } from './object';
 import { orNull, ifNotNilThanValue } from './cond';
-import { UNDEF_SYMBOL } from '../definitions.interface';
+import {
+  IEntity,
+  UNDEF_SYMBOL,
+} from '../definitions.interface';
 import { uuid } from './uuid';
 
 /**

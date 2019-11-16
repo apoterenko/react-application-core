@@ -5,6 +5,7 @@ import {
 } from '../util';
 import {
   IContainerCtor,
+  IContainerProps,
 } from '../definition';
 import { makeBootstrapApp } from './universal-bootstrap-app.factory';
 

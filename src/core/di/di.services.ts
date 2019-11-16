@@ -9,6 +9,7 @@ import { ISettingsEntity } from '../settings';
 import {
   DynamicRoutesMapT,
   IAuth,
+  IConnectorEntity,
   IEnvironment,
   IEventManager,
   ILogManager,
@@ -18,6 +19,9 @@ import {
   IStorage,
   ITransport,
   IUniversalComponentCtor,
+  IUniversalComponentProps,
+  IUniversalContainerCtor,
+  IUniversalContainerProps,
   UniversalPluginFactoryT,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';

@@ -6,8 +6,9 @@ import {
 } from '../definitions.interface';
 import {
   IEditableEntity,
-  IFormWrapperEntity,
   IExtendedEntity,
+  IFormWrapperEntity,
+  IMultiEntity,
   MultiFieldEntityT,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';

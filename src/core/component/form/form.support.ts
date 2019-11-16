@@ -1,9 +1,20 @@
 import * as R from 'ramda';
 
-import { IFieldProps, ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
-import { IFormProps, IGenericFormEntity } from '../../definition';
+import {
+  IFieldProps,
+  ITabConfiguration,
+  ITabPanelConfiguration,
+} from '../../configurations-definitions.interface';
+import {
+  IFormProps,
+  IGenericFormEntity,
+} from '../../definition';
 import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
-import { isFormEntityDisabled, isFormEntityValid } from '../../util';
+import {
+  isFormEntityDisabled,
+  isFormEntityValid,
+} from '../../util';
+import { IEntity } from '../../definitions.interface';
 
 /**
  * @stable [29.05.2018]

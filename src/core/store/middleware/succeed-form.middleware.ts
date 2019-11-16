@@ -12,6 +12,7 @@ import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import {
   IApiEntity,
   IModifyEntityPayloadWrapperEntity,
+  IStoreEntity,
   ISucceedListFormMiddlewareConfigEntity,
   ISucceedRelatedFormMiddlewareConfigEntity,
 } from '../../definition';
