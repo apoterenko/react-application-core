@@ -12,7 +12,6 @@ import {
   isChangeable,
   isDef,
   isDisabled,
-  isEmptyOriginalValueSet,
   isFieldInactive,
   isFieldNotModifiable,
   isFieldValuePresent,
@@ -38,7 +37,10 @@ import {
   IKeyboardEvent,
 } from '../../../definitions.interface';
 import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
-import { FIELD_DISPLAY_EMPTY_VALUE } from '../../../definition';
+import {
+  FIELD_DISPLAY_EMPTY_VALUE,
+  IGenericFieldEntity,
+} from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps,
@@ -694,15 +696,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @param {AnyT} currentRawValue
    */
   private onChangeValue(currentRawValue: AnyT): void {
-    const props = this.props;
     const finalFieldValue = buildFinalFieldValue({
+      ...this.props as IGenericFieldEntity,
+      emptyValue: this.getEmptyValue(),
       value: currentRawValue,
-      originalValue: isEmptyOriginalValueSet(props) ? this.getEmptyValue() : props.originalValue,
     });
 
     this.validateField(finalFieldValue);
-    this.propsOnChange(finalFieldValue);
-    this.propsChangeForm(finalFieldValue);      // Notify a form about the changes
+    this.notifyAboutChanges(finalFieldValue);
+    this.notifyFormAboutChanges(finalFieldValue);
   }
 
   /**
@@ -715,26 +717,27 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [16.11.2019]
    * @param {AnyT} rawValue
    */
-  private propsChangeForm(rawValue: AnyT): void {
+  private notifyFormAboutChanges(rawValue: AnyT): void {
     const props = this.props;
-    if (!isFn(props.changeForm)) {
-      return;
-    }
-    props.changeForm(props.name, rawValue, props.validationGroup);
+
+    ifNotNilThanValue(
+      this.props.changeForm,
+      (changeForm) => changeForm(props.name, rawValue, props.validationGroup)
+    );
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [16.11.2019]
    * @param {AnyT} rawValue
    */
-  private propsOnChange(rawValue: AnyT): void {
-    const props = this.props;
-    if (props.onChange) {
-      props.onChange(rawValue);
-    }
+  private notifyAboutChanges(rawValue: AnyT): void {
+    ifNotNilThanValue(
+      this.props.onChange,
+      (onChange) => onChange(rawValue)
+    );
   }
 
   /**

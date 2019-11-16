@@ -6,11 +6,13 @@ import {
   cancelEvent,
   cloneReactNodes,
   defValuesFilter,
+  getFormFieldOriginalValue,
+  getFormFieldValue,
   ifNotFalseThanValue,
   ifNotNilThanValue,
   isFn,
-  isFormFieldReadOnly,
   isFormEntityValid,
+  isFormFieldReadOnly,
   isFormWrapperEntityInProgress,
   isString,
   isUndef,
@@ -20,19 +22,19 @@ import {
   orUndef,
 } from '../../util';
 import { AnyT, IEntity } from '../../definitions.interface';
-import { IApiEntity, IEditableEntity } from '../../definition';
-import { IFieldProps, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
-import { lazyInject, DI_TYPES } from '../../di';
 import { Field, IField } from '../field';
+import { IApiEntity, IEditableEntity } from '../../definition';
+import { IFieldProps, IFieldsConfigurations } from '../../configurations-definitions.interface';
+import { lazyInject, DI_TYPES } from '../../di';
 import {
+  isFormDirty,
+  isFormFieldChangeable,
   isFormFieldDisabled,
   isFormOfNewEntity,
-  isFormDirty,
-  isFormSubmittable,
   isFormResettable,
-  isFormFieldChangeable,
+  isFormSubmittable,
 } from './form.support';
 import { FlexLayout } from '../layout';
 import {
@@ -50,7 +52,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     form: INITIAL_FORM_ENTITY,
     validateOnMount: true,
   };
-  private static logger = LoggerFactory.makeLogger('Form');
+  private static readonly logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
   private readonly childrenMap: Map<React.FunctionComponentElement<{ children: React.ReactChild[] }>,
@@ -77,16 +79,18 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         (field: IField) => {
           const fieldProps = field.props;
           const predefinedOptions = this.getPredefinedFieldProps(field);
+          const originalValue = this.getFieldOriginalValue(field);
 
           return defValuesFilter<IFieldProps, IFieldProps>(
             {
               value: this.getFieldValue(field),
-              originalValue: this.getFieldOriginalValue(field),
+              originalValue,
               displayValue: this.getFieldDisplayValue(field, predefinedOptions),
               readOnly: this.isFieldReadOnly(field),
               disabled: this.isFieldDisabled(field),
               changeable: this.isFieldChangeable(field),
               changeForm: this.onChange,
+              emptyOriginalValue: isUndef(originalValue),
 
               // Dynamic linked dictionary callbacks
               onEmptyDictionary: orUndef<() => void>(
@@ -345,18 +349,22 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     return isFormFieldChangeable(this.props, field.props);
   }
 
+  /**
+   * @stable [16.11.2019]
+   * @param {IField} field
+   * @returns {AnyT}
+   */
   private getFieldValue(field: IField): AnyT {
-    const fieldProps = field.props;
-
-    return isUndef(fieldProps.value) && fieldProps.name
-        ? Reflect.get(this.entity || this.changes, fieldProps.name)
-        : fieldProps.value;
+    return getFormFieldValue(this.props, field.props);
   }
 
+  /**
+   * @stable [16.11.2019]
+   * @param {IField} field
+   * @returns {AnyT}
+   */
   private getFieldOriginalValue(field: IField): AnyT {
-    const originalEntity = this.originalEntity;
-    const fieldProps = field.props;
-    return orUndef(fieldProps.name && originalEntity, () => Reflect.get(originalEntity, fieldProps.name));
+    return getFormFieldOriginalValue(this.props, field.props);
   }
 
   private getFieldDisplayValue(field: IField, fieldConfiguration: IFieldProps): string {

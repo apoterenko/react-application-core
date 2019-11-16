@@ -9,6 +9,7 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
+  IAlwaysReturnEmptyValueIfOriginalValueWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IChangeableWrapper,
@@ -63,6 +64,7 @@ export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
 export interface IGenericFieldEntity
   extends IActionsPosition<FieldActionPositionsEnum>,
     IActionsWrapper<IFieldActionEntity[]>,
+    IAlwaysReturnEmptyValueIfOriginalValueWrapper,
     IAutoCompleteWrapper,
     IAutoFocusWrapper,
     IChangeableWrapper,
