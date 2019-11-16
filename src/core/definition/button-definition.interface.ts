@@ -25,6 +25,7 @@ import {
   ISuccessWrapper,
   ITextStyleWrapper,
   ITextWrapper,
+  ITouchedWrapper,
   IToWrapper,
   ITypeWrapper,
 } from '../definitions.interface';
@@ -49,6 +50,7 @@ export interface IGenericButtonEntity
     IRaisedWrapper,
     IRippledWrapper,
     ITextWrapper,
+    ITouchedWrapper,
     IToWrapper,
     ITypeWrapper<'button' | 'submit' | 'reset'> {
 }

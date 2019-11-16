@@ -65,7 +65,7 @@ export class Button extends BaseComponent<IButtonProps> {
         style={props.style}
         className={className}
         disabled={disabled}
-        {...handlerPropsFactory(props.onClick, !disabled)}
+        {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
       >
         {hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'))}
         {

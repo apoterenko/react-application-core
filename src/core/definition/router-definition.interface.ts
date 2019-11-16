@@ -2,14 +2,26 @@ import { History } from 'history';
 
 import {
   ACTION_PREFIX,
+  IAccessDeniedWrapper,
+  IAfterEnterWrapper,
+  IBeforeEnterWrapper,
+  IComputedMatchWrapper,
+  IExactWrapper,
   IHistoryWrapper,
   IHomeWrapper,
+  IKeyWrapper,
   ILogoutWrapper,
+  IOnEnterWrapper,
+  IParamsWrapper,
   IPathWrapper,
   IProfileWrapper,
   ISignInWrapper,
   IStateWrapper,
+  ITypeWrapper,
+  IUrlWrapper,
 } from '../definitions.interface';
+import { IUniversalContainerCtor } from './container-definition.interface';
+import { IConnectorEntity } from './connector-definition.interface';
 
 /**
  * @stable [24.09.2019]
@@ -29,9 +41,10 @@ export interface IRouterWrapperEntity
  * @stable [26.09.2019]
  */
 export interface IRoutesEntity
-  extends IHomeWrapper<string>,
-    IProfileWrapper<string>,
+  extends IAccessDeniedWrapper<string>,
+    IHomeWrapper<string>,
     ILogoutWrapper<string>,
+    IProfileWrapper<string>,
     ISignInWrapper<string> {
 }
 
@@ -42,6 +55,47 @@ export interface INavigateEntity<TPath, TState = {}>
   extends IPathWrapper<TPath>,
     IStateWrapper<TState> {
 }
+
+/**
+ * @stable [16.11.2019]
+ */
+export interface IRouteComputedMatchEntity
+  extends IParamsWrapper,
+    IUrlWrapper,
+    IPathWrapper {
+}
+
+/**
+ * @stable [16.11.2019]
+ */
+export enum ContainerVisibilityTypesEnum {
+  PUBLIC,
+  PRIVATE,
+}
+
+/**
+ * @stable [16.11.2019]
+ */
+export interface IRouteEntity
+  extends IAfterEnterWrapper<() => void>,
+    IBeforeEnterWrapper<() => void>,
+    IComputedMatchWrapper<IRouteComputedMatchEntity>,
+    IExactWrapper,
+    IKeyWrapper,
+    IOnEnterWrapper<() => void>,
+    IPathWrapper,
+    ITypeWrapper<ContainerVisibilityTypesEnum> {
+}
+
+/**
+ * @stable [16.11.2019]
+ */
+export type RoutePredicateT = (entity: IRouteEntity) => boolean;
+
+/**
+ * @stable [16.11.2019]
+ */
+export type DynamicRoutesMapT = Map<IUniversalContainerCtor, IConnectorEntity>;
 
 /**
  * @stable [09.10.2019]

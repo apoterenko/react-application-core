@@ -12,5 +12,5 @@ import '../component/ui/ui.module';
 import '../component/field/field.module';
 import '../component/full-screen/full-screen.module';
 import '../component/jquery/jquery.module';
-import '../permissions/permissions.module';
+import '../permissions/permissions-manager.module';
 import './application.effects';

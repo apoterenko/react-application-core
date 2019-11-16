@@ -5,7 +5,7 @@ import {
 } from '../di';
 import {
   INavigationItemEntity,
-  IPermissionsService,
+  IPermissionsManager,
   IStackWrapperEntity,
   NavigationItemTypesEnum,
 } from '../definition';
@@ -15,7 +15,7 @@ import { getRoutePathBySection, ifNotNilThanValue } from '../util';
 @provideInSingleton(NavigationMenuBuilder)
 export class NavigationMenuBuilder {
 
-  @lazyInject(DI_TYPES.Permission) private permissionService: IPermissionsService;
+  @lazyInject(DI_TYPES.PermissionsManager) private permissionsManager: IPermissionsManager;
   @lazyInject(DI_TYPES.Menu) private readonly menu: INavigationItemEntity[];
 
   public provide(stackWrapper: IStackWrapperEntity): INavigationItemEntity[] {
@@ -71,6 +71,6 @@ export class NavigationMenuBuilder {
    * @returns {boolean}
    */
   private isAccessible(itm: INavigationItemEntity): boolean {
-    return !itm.accessConfiguration || this.permissionService.isAccessible(itm.accessConfiguration);
+    return !itm.accessConfiguration || this.permissionsManager.isAccessible(itm.accessConfiguration);
   }
 }

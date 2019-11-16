@@ -1,10 +1,13 @@
-import { appContainer, DI_TYPES } from '../di';
-import { IConnectorConfigEntity } from '../configurations-definitions.interface';
-import { IUniversalContainerCtor } from '../definition';
-import { DYNAMIC_ROUTES } from './router.interface';
+import {
+  bindToConstantValue,
+  DI_TYPES,
+} from '../di';
+import {
+  IConnectorEntity,
+  IUniversalContainerCtor,
+} from '../definition';
 
 /**
- * @stable [13.08.2018]
+ * @stable [16.11.2019]
  */
-appContainer.bind<Map<IUniversalContainerCtor, IConnectorConfigEntity>>(DI_TYPES.DynamicRoutes)
-  .toConstantValue(DYNAMIC_ROUTES);
+bindToConstantValue(DI_TYPES.DynamicRoutes, new Map<IUniversalContainerCtor, IConnectorEntity>());

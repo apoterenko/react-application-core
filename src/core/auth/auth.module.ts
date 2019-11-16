@@ -1,4 +1,4 @@
 import { bindInSingleton, DI_TYPES } from '../di';
-import { AuthService } from './auth.service';
+import { Auth } from './auth.service';
 
-bindInSingleton(DI_TYPES.Auth, AuthService);
+bindInSingleton(DI_TYPES.Auth, Auth);
