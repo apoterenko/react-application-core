@@ -44,7 +44,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     this.syncState = this.syncState.bind(this);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
     this.registerLogoutRoute();
-    this.registerStateTask();
+    this.registerSyncStateWithStorageTask();
 
     UniversalApplicationContainer.logger.debug(
       '[$UniversalApplicationContainer][constructor] The app has been instantiated. The initial props are:',
@@ -64,7 +64,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [24.09.2019]
    */
   public componentWillUnmount(): void {
-    this.unregisterStateTask();
+    this.unregisterSyncStateWithStorageTask();
 
     if (this.storageSettings.appStateSyncEnabled) {
       this.syncState();
@@ -205,9 +205,9 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   /**
-   * @stable [24.09.2019]
+   * @stable [17.11.2019]
    */
-  protected registerStateTask(): boolean {
+  protected registerSyncStateWithStorageTask(): boolean {
     if (!this.storageSettings.appStateSyncEnabled) {
       return false;
     }
@@ -222,7 +222,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   /**
    * @stable [24.09.2019]
    */
-  protected unregisterStateTask(): boolean {
+  protected unregisterSyncStateWithStorageTask(): boolean {
     if (!this.storageSettings.appStateSyncEnabled) {
       return false;
     }

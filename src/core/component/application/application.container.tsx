@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
-import { uuid, isFn } from '../../util';
-import { DI_TYPES, bindToConstantValue } from '../../di';
+import {
+  isFn,
+  uuid,
+} from '../../util';
+import {
+  bindToConstantValue,
+  DI_TYPES,
+} from '../../di';
 import {
   ContainerVisibilityTypesEnum,
   EventsEnum,
@@ -13,7 +19,10 @@ import {
   IRouterWrapperEntity,
   IStoreEntity,
 } from '../../definition';
-import { PrivateRootContainer, PublicRootContainer } from '../root';
+import {
+  PrivateRootContainer,
+  PublicRootContainer,
+} from '../root';
 import { IApplicationContainerProps, } from './application.interface';
 import { Message } from '../message';
 import { UniversalApplicationContainer } from './universal-application.container';
@@ -22,7 +31,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   private readonly routerRef = React.createRef<IRouterWrapperEntity>();
-  private stateUnloadUnsubscriber: () => void;
+  private syncStageOnUnloadUnsubscriber: () => void;
 
   /**
    * @stable [24.09.2019]
@@ -82,7 +91,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
         accessConfiguration={connectorEntity.accessConfiguration}
         container={ctor}
         {...routeEntity}
-        key={routeEntity.path || routeEntity.key}/>
+        key={this.toRouteId(routeEntity)}/>
     );
   }
 
@@ -90,10 +99,10 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
    * @stable [24.09.2019]
    * @returns {boolean}
    */
-  protected registerStateTask(): boolean {
-    const result = super.registerStateTask();
+  protected registerSyncStateWithStorageTask(): boolean {
+    const result = super.registerSyncStateWithStorageTask();
     if (result) {
-      this.stateUnloadUnsubscriber =
+      this.syncStageOnUnloadUnsubscriber =
         this.eventManager.subscribe(this.environment.window, EventsEnum.UNLOAD, this.syncState);
     }
     return result;
@@ -103,10 +112,10 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
    * @stable [24.09.2019]
    * @returns {boolean}
    */
-  protected unregisterStateTask(): boolean {
-    const result = super.unregisterStateTask();
-    if (result && isFn(this.stateUnloadUnsubscriber)) {
-      this.stateUnloadUnsubscriber();
+  protected unregisterSyncStateWithStorageTask(): boolean {
+    const result = super.unregisterSyncStateWithStorageTask();
+    if (result && isFn(this.syncStageOnUnloadUnsubscriber)) {
+      this.syncStageOnUnloadUnsubscriber();
     }
     return result;
   }
