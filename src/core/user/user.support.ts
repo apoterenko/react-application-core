@@ -1,5 +1,8 @@
 import { makeEntityActionBuilderFactory } from '../store/store.support';
-import { USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
+import {
+  IEntityActionBuilder,
+  USER_REDUCER_FACTORY_CONFIG_ENTITY,
+} from '../definition';
 
 /**
  * @stable [13.11.2019]

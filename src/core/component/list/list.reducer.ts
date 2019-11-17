@@ -3,6 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   FIRST_PAGE,
+  IEntity,
   IEntityIdTWrapper,
   IRemovedEntityWrapper,
 } from '../../definitions.interface';

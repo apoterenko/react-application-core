@@ -18,6 +18,7 @@ import {
   IPermissionsManager,
   IStateSerializer,
   IStorage,
+  IStoreEntity,
   ITransport,
   IUniversalComponentCtor,
   IUniversalComponentProps,

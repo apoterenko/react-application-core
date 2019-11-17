@@ -1,10 +1,14 @@
 import {
   IChannelWrapperEntity,
+  IDictionariesWrapperEntity,
+  ILayoutWrapperEntity,
   INotificationWrapperEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
   IStackWrapperEntity,
-  ILayoutWrapperEntity,
+  ITransportWrapperEntity,
+  IUniversalStoreEntity,
+  IUserWrapperEntity,
 } from '../../definition';
 import {
   universalDefaultMappers,

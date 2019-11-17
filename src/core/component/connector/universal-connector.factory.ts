@@ -6,6 +6,7 @@ import { IKeyValue } from '../../definitions.interface';
 import {
   ConnectorMapperT,
   IUniversalContainerCtor,
+  IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../definition';
 

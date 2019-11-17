@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { BaseStoreProxy } from '../base-store.proxy';
 import {
+  IUniversalComponentProps,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalDialog,

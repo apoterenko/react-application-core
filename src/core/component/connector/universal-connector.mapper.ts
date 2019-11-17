@@ -22,15 +22,16 @@ import {
   IEditableEntity,
   IExtendedEntity,
   IFormWrapperEntity,
+  IListEntity,
+  IListWrapperEntity,
   IPagedEntity,
   IPaginatedEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
+  IUserWrapperEntity,
   ToolbarToolsEnum,
-  IListWrapperEntity,
-  IListEntity,
 } from '../../definition';
 import {
   IDataMutatorEntity,
