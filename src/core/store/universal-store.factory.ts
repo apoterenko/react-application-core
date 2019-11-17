@@ -1,6 +1,16 @@
-import { applyMiddleware, combineReducers, createStore, Middleware, ReducersMapObject, Store } from 'redux';
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+  Middleware,
+  ReducersMapObject,
+  Store,
+} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { EffectsService, effectsMiddleware } from 'redux-effects-promise';
+import {
+  effectsMiddleware,
+  EffectsService,
+} from 'redux-effects-promise';
 
 import {
   appContainer,
@@ -11,17 +21,17 @@ import {
 } from '../di';
 import { ENV } from '../env';
 import { nvl } from '../util';
-import { STORAGE_APP_STATE_KEY } from '../definition';
 import { universalReducers } from '../store/universal-default-reducers.interface';
 
+// TODO Make a service
 export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
                                                   appMiddlewares?: Middleware[]): Promise<Store<TState>> {
   const middlewares = [effectsMiddleware].concat(appMiddlewares || []);
 
-  const stateSettings = getSettings().state || {};
+  const storageSettings = getSettings().storage || {};
   let preloadedState = {} as TState;
-  if (stateSettings.syncEnabled) {
-    preloadedState = nvl(await getStorage().get(STORAGE_APP_STATE_KEY), preloadedState);
+  if (storageSettings.appStateSyncEnabled) {
+    preloadedState = nvl(await getStorage().get(storageSettings.appStateKeyName), preloadedState);
   }
 
   const store = createStore(

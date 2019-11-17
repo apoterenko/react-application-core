@@ -12,7 +12,7 @@ import {
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
 import {
-  EnvironmentVariablesEnum,
+  EnvironmentGlobalVariablesEnum,
   IEnvironment,
   ILogManager,
   ITransport,
@@ -39,7 +39,7 @@ export class Transport implements ITransport {
    * @stable [26.02.2019]
    */
   constructor() {
-    this.environment.setVariable(EnvironmentVariablesEnum.TRANSPORT, this);
+    this.environment.setVariable(EnvironmentGlobalVariablesEnum.TRANSPORT, this);
   }
 
   /**

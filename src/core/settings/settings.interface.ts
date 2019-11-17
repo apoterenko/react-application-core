@@ -128,11 +128,6 @@ export interface IComponentsSettings {
   button?: IButtonProps;
 }
 
-export interface IStateSettings {
-  syncEnabled?: boolean;
-  syncTimeout?: number;
-}
-
 export interface IBootstrapSettings {
   flexEnabled?: boolean;
   rootId?: string;
@@ -159,7 +154,6 @@ export interface ISettingsEntity {
   phone?: IApplicationPhoneSettings;
   resourcePaths?: IApplicationResourcePaths;
   signalRUrl?: string;
-  state?: IStateSettings;
   storage?: IStorageSettingsEntity;
   transport?: ITransportSettingsEntity;
 }
@@ -170,10 +164,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   emptyPictureUrl: 'media/no_avatar.jpg',
   companyName: 'Test company',
   entityEmptyId: null,
-  state: {
-    syncEnabled: true,
-    syncTimeout: 2000,
-  },
   transport: {
     method: 'post',
     withCredentials: true,

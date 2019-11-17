@@ -3,20 +3,23 @@ import { Unsubscribe } from 'redux';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { orNull, calc, DelayedTask } from '../../util';
 import {
-  ApplicationEventCategoriesEnum,
-  ApplicationStateEventsEnum,
+  DelayedTask,
+  ifNotNilThanValue,
+  orNull,
+} from '../../util';
+import {
   ContainerVisibilityTypesEnum,
   IConnectorEntity,
   IContainerCtor,
   IRouteEntity,
+  IStorageSettingsEntity,
   RoutePredicateT,
-  STORAGE_APP_STATE_KEY,
+  StorageEventCategoriesEnum,
+  StorageEventsEnum,
 } from '../../definition';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
-import { IStateSettings } from '../../settings';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
 import { UniversalContainer } from '../base/universal.container';
 
@@ -27,13 +30,13 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     sectionName: APPLICATION_SECTION,
   };
 
-  private static logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
-  private extraRoutes = new Map<IContainerCtor, IConnectorEntity>();
+  private static readonly logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
+  private readonly extraRoutes = new Map<IContainerCtor, IConnectorEntity>();
   private syncStateWithStorageTask: DelayedTask;
-  private storeUnsubscriber: Unsubscribe;
+  private storeSyncStateWithStorageUnsubscriber: Unsubscribe;
 
   /**
-   * @stable - 23.04.2018
+   * @stable [17.11.2019]
    * @param {TProps} props
    */
   constructor(props: TProps) {
@@ -63,8 +66,8 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   public componentWillUnmount(): void {
     this.unregisterStateTask();
 
-    if (this.stateSettings.syncEnabled) {
-      this.syncState(); // In case of "manual location.reload"
+    if (this.storageSettings.appStateSyncEnabled) {
+      this.syncState();
     }
   }
 
@@ -80,40 +83,54 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     ];
   }
 
-  protected lookupConnectedContainerByRoutePath(path: string): IContainerCtor {
+  /**
+   * @stable [17.11.2019]
+   * @param {string} path
+   * @returns {IContainerCtor}
+   */
+  protected lookupDynamicContainerByRoutePath(path: string): IContainerCtor {
     if (!path) {
       UniversalApplicationContainer.logger.warn(
-        '[$UniversalApplicationContainer][lookupConnectedContainerByRoutePath] The path is empty.'
+        '[$UniversalApplicationContainer][lookupDynamicContainerByRoutePath] The path is empty'
       );
       return null;
     }
     let result;
     this.dynamicRoutes.forEach((config, ctor) => {
-      const routeConfiguration = calc(config.routeConfiguration, this.routes);
-      if (routeConfiguration && [routeConfiguration.path, routeConfiguration.key].includes(path)) {
-        result = ctor;
-      }
+      ifNotNilThanValue(
+        config.routeConfiguration,
+        (routeCfg) => {
+          if ([routeCfg.path, routeCfg.key].includes(path)) {
+            result = ctor;
+          }
+        }
+      );
     });
     if (!result) {
       UniversalApplicationContainer.logger.warn(
-        `[$UniversalApplicationContainer][lookupConnectedContainerByRoutePath] A component is not found by the path: ${path}.`
+        `[$UniversalApplicationContainer][lookupDynamicContainerByRoutePath] A container is not found by path: ${path}`
       );
     }
     return result;
   }
 
-  protected registerRoute(container: IContainerCtor, config: IConnectorEntity): void {
+  /**
+   * @stable [17.11.2019]
+   * @param {IContainerCtor} container
+   * @param {IConnectorEntity} config
+   */
+  protected registerExtraRoute(container: IContainerCtor, config: IConnectorEntity): void {
     this.extraRoutes.set(container, config);
   }
 
   protected registerLogoutRoute(): void {
-    const loginContainer = this.lookupConnectedContainerByRoutePath(this.routes.signIn);
+    const loginContainer = this.lookupDynamicContainerByRoutePath(this.routes.signIn);
     if (!loginContainer) {
       UniversalApplicationContainer.logger.debug(
         '[$UniversalApplicationContainer][registerLogoutRoute] The login route is not registered.'
       );
     } else {
-      this.registerRoute(
+      this.registerExtraRoute(
         loginContainer,
         {
           routeConfiguration: {
@@ -131,9 +148,11 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     }
   }
 
+  /**
+   * @stable [17.11.2019]
+   */
   protected onBeforeLogout(): void {
     UniversalApplicationContainer.logger.debug('[$UniversalApplicationContainer][onBeforeLogout] Send a logout action.');
-
     this.dispatchCustomType(ApplicationActionBuilder.buildLogoutActionType());
   }
 
@@ -163,7 +182,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     try {
       this.doSyncState();
     } catch (e) {
-      this.logManager.send(ApplicationEventCategoriesEnum.STATE_ERROR, ApplicationStateEventsEnum.SYNC, e.message);
+      this.logManager.send(StorageEventCategoriesEnum.STORAGE_ERROR, StorageEventsEnum.SYNC, e.message);
     }
   }
 
@@ -171,7 +190,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [24.09.2019]
    */
   protected doSyncState(): void {
-    this.storage.set(STORAGE_APP_STATE_KEY, this.stateSerializer.serialize(this.appStore.getState()));
+    this.storage.set(this.appStateKeyName, this.stateSerializer.serialize(this.appStore.getState()));
   }
 
   /**
@@ -179,7 +198,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   protected clearPreviousStates(): void {
     this.storage.each((value, key) => {
-      if (key.endsWith(STORAGE_APP_STATE_KEY)) {
+      if (key.endsWith(this.appStateKeyName)) {
         this.storage.remove(key, true);
       }
     });
@@ -189,12 +208,13 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [24.09.2019]
    */
   protected registerStateTask(): boolean {
-    if (!this.stateSettings.syncEnabled) {
+    if (!this.storageSettings.appStateSyncEnabled) {
       return false;
     }
-    if (this.stateSettings.syncTimeout > 0) {
-      this.syncStateWithStorageTask = new DelayedTask(this.syncState.bind(this), this.stateSettings.syncTimeout);
-      this.storeUnsubscriber = this.appStore.subscribe(() => this.syncStateWithStorageTask.start());
+    const appStateSyncTimeout = this.storageSettings.appStateSyncTimeout;
+    if (appStateSyncTimeout > 0) {
+      this.syncStateWithStorageTask = new DelayedTask(this.syncState.bind(this), appStateSyncTimeout);
+      this.storeSyncStateWithStorageUnsubscriber = this.appStore.subscribe(() => this.syncStateWithStorageTask.start());
     }
     return true;
   }
@@ -203,12 +223,12 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [24.09.2019]
    */
   protected unregisterStateTask(): boolean {
-    if (!this.stateSettings.syncEnabled) {
+    if (!this.storageSettings.appStateSyncEnabled) {
       return false;
     }
-    if (!R.isNil(this.storeUnsubscriber)) {
-      this.storeUnsubscriber();
-      this.storeUnsubscriber = null;
+    if (!R.isNil(this.storeSyncStateWithStorageUnsubscriber)) {
+      this.storeSyncStateWithStorageUnsubscriber();
+      this.storeSyncStateWithStorageUnsubscriber = null;
     }
     if (!R.isNil(this.syncStateWithStorageTask)) {
       this.syncStateWithStorageTask.stop();
@@ -223,38 +243,54 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @param {IConnectorEntity} connectorEntity
    * @returns {JSX.Element}
    */
-  protected abstract buildRoute(ctor: IContainerCtor,
-                                connectorEntity: IConnectorEntity): JSX.Element;
+  protected abstract buildRoute(ctor: IContainerCtor, connectorEntity: IConnectorEntity): JSX.Element;
 
   /**
-   *
+   * @stable [17.11.2019]
+   * @param {IRouteEntity} routeCfg
+   * @returns {string}
+   */
+  protected toRouteId(routeCfg: IRouteEntity): string {
+    return routeCfg.path || routeCfg.key;
+  }
+
+  /**
+   * @stable [17.11.2019]
    * @param {Map<IContainerCtor, IConnectorEntity>} map
    * @param {RoutePredicateT} routePredicate
    * @returns {JSX.Element[]}
    */
   private buildRoutes(map: Map<IContainerCtor, IConnectorEntity>,
                       routePredicate: RoutePredicateT): JSX.Element[] {
-    const routes0 = [];
-    const routes = [];
+    const routesToDebug = [];
+    const result = [];
 
     map.forEach((connectorEntity, containerCtor) => {
       const routeCfg = connectorEntity.routeConfiguration;
       if (routePredicate.call(null, routeCfg)) {
-        routes0.push(routeCfg.path || routeCfg.key);
-        routes.push(this.buildRoute(containerCtor, connectorEntity));
+        routesToDebug.push(this.toRouteId(routeCfg));
+        result.push(this.buildRoute(containerCtor, connectorEntity));
       }
     });
     UniversalApplicationContainer.logger.debug(
-      () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Routes: ${routes0.join('\n')}`
+      () => `[$UniversalApplicationContainer][buildRoutes] The routes have been built. Routes: ${routesToDebug.join('\n')}`
     );
-    return routes;
+    return result;
   }
 
   /**
-   * @stable [24.09.2019]
-   * @returns {IStateSettings}
+   * @stable [17.11.2019]
+   * @returns {IStorageSettingsEntity}
    */
-  private get stateSettings(): IStateSettings {
-    return this.settings.state || {};
+  private get storageSettings(): IStorageSettingsEntity {
+    return this.settings.storage || {};
+  }
+
+  /**
+   * @stable [17.11.2019]
+   * @returns {string}
+   */
+  protected get appStateKeyName(): string {
+    return this.storageSettings.appStateKeyName;
   }
 }

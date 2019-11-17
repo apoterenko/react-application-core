@@ -6,14 +6,29 @@ import {
   IRemovedFilesWrapper,
 } from '../definitions.interface';
 import { ENV } from '../env';
-import { NOT_EMPTY_VALUE_PREDICATE, filterArray } from '../util/filter';
+import {
+  filterArray,
+  NOT_EMPTY_VALUE_PREDICATE,
+} from '../util/filter';
+
+/**
+ * @stable [24.09.2019]
+ */
+export enum StorageEventCategoriesEnum {
+  STORAGE_ERROR = 'storage:error',
+}
+
+/**
+ * @stable [24.09.2019]
+ */
+export enum StorageEventsEnum {
+  SYNC = 'sync',
+}
 
 /**
  * @stable [16.09.2019]
  */
 export const STORAGE_PATH_SEPARATOR = '#';
-export const STORAGE_APP_STATE_KEY = '$$rac';
-export const STORAGE_APP_UUID_KEY = `${STORAGE_APP_STATE_KEY}.uuid`;
 export const STORAGE_NOT_VERSIONED_KEY =
   filterArray([ENV.appProfile, ENV.port, ENV.normalizedBasePath], NOT_EMPTY_VALUE_PREDICATE).join(STORAGE_PATH_SEPARATOR);
 export const STORAGE_VERSIONED_KEY =
@@ -23,14 +38,22 @@ export const STORAGE_VERSIONED_KEY =
  * @stable [17.11.2019]
  */
 export interface IStorageSettingsEntity {
-  authToken?: string;
+  appStateKeyName?: string;
+  appStateSyncEnabled?: boolean;
+  appStateSyncTimeout?: number;
+  authTokenKeyName?: string;
+  versionUuidKeyName?: string;
 }
 
 /**
  * @stable [17.11.2019]
  */
 export const DEFAULT_STORAGE_SETTINGS_ENTITY = Object.freeze<IStorageSettingsEntity>({
-  authToken: '$$rac.token.2e45abd2',
+  appStateKeyName: '$$rac.state.a14e44d3',
+  appStateSyncEnabled: true,
+  appStateSyncTimeout: 2000,
+  authTokenKeyName: '$$rac.token.2e45abd2',
+  versionUuidKeyName: '$$rac.uuid.acd22d11',
 });
 
 /**

@@ -11,7 +11,6 @@ import {
   ITransport,
   IVersionMetaFilesEntity,
   IVersionProcessor,
-  STORAGE_APP_UUID_KEY,
   TransportMethodsEnum,
   VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID,
 } from '../../definition';
@@ -31,7 +30,9 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
   public async processNewVersionUuidAndGetResult(): Promise<boolean> {
     const metaFilesUrl = this.settings.metaFilesUrl;
     if (!isObjectNotEmpty(metaFilesUrl)) {
-      VersionMetaFilesProcessor.logger.warn('[$VersionMetaFilesProcessor][needToBeUpdated] The setting url is empty!');
+      VersionMetaFilesProcessor.logger.warn(
+        '[$VersionMetaFilesProcessor][processNewVersionUuidAndGetResult] The setting url is empty!'
+      );
       return false;
     }
     const storage = this.getStorage();
@@ -39,7 +40,7 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
     let data;
     try {
       data = await Promise.all([
-        storage.get(STORAGE_APP_UUID_KEY),
+        storage.get(this.versionUuidKeyName),
         this.transport.request({
           url: metaFilesUrl,
           method: TransportMethodsEnum.GET,
@@ -48,7 +49,9 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
         })
       ]);
     } catch (e) {
-      VersionMetaFilesProcessor.logger.error('[$VersionMetaFilesProcessor][needToBeUpdated] Error:', e);
+      VersionMetaFilesProcessor.logger.error(
+        '[$VersionMetaFilesProcessor][processNewVersionUuidAndGetResult] Error:', e
+      );
       return false;
     }
 
@@ -58,27 +61,29 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
 
     if (R.isNil(nvl(localAppUuid, remoteAppUuid))) {
       if (R.isNil(remoteAppUuid)) {
-        VersionMetaFilesProcessor.logger.warn('[$VersionMetaFilesProcessor][needToBeUpdated] Remote app uuid is empty!');
+        VersionMetaFilesProcessor.logger.warn(
+          '[$VersionMetaFilesProcessor][processNewVersionUuidAndGetResult] The remote app uuid is empty!'
+        );
       }
       return false;
     }
 
     // Set remote app uuid to the local storage
-    await storage.set(STORAGE_APP_UUID_KEY, remoteAppUuid);
+    await storage.set(this.versionUuidKeyName, remoteAppUuid);
 
     if (isObjectNotEmpty(localAppUuid)
       && isObjectNotEmpty(remoteAppUuid)
       && !R.equals(localAppUuid, remoteAppUuid)) {
 
       // After F5, to exclude the inconsistent state of App - need redirect to initial path
-
       VersionMetaFilesProcessor.logger.debug(
-        '[$VersionMetaFilesProcessor][$needToBeUpdated] Need redirect to the initial path because of a new release.'
+        '[$VersionMetaFilesProcessor][$processNewVersionUuidAndGetResult] Need redirect to the initial ' +
+        'path because of a new release.'
       );
       return true;
     } else {
       VersionMetaFilesProcessor.logger.debug(
-        '[$VersionMetaFilesProcessor][$needToBeUpdated] No new app version has been revealed.'
+        '[$VersionMetaFilesProcessor][$processNewVersionUuidAndGetResult] No new app version has been revealed.'
       );
     }
     return false;
@@ -90,5 +95,13 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
    */
   protected getStorage(): IStorage {
     return this.notVersionedSessionStorage;
+  }
+
+  /**
+   * @stable [17.11.2019]
+   * @returns {string}
+   */
+  protected get versionUuidKeyName(): string {
+    return this.settings.storage.versionUuidKeyName;
   }
 }

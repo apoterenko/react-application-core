@@ -3,7 +3,7 @@ import { AnyT } from '../definitions.interface';
 /**
  * @stable [28.08.2019]
  */
-export enum EnvironmentVariablesEnum {
+export enum EnvironmentGlobalVariablesEnum {
   TRANSPORT = '$$transport',
 }
 
