@@ -30,6 +30,7 @@ export interface IMessagesSettingsEntity {
   DETAILS_INFO?: string;
   ENVIRONMENT?: string;
   ERROR?: string;
+  NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   PATH?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
   RESTART_APP?: string;
@@ -45,6 +46,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   DETAILS_INFO: 'Details info',
   ENVIRONMENT: 'Environment',
   ERROR: 'Error',
+  NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   PATH: 'Path',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   RESTART_APP: 'Restart App',

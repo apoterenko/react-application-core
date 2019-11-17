@@ -119,7 +119,8 @@ export class DomAccessor implements IDomAccessor {
 
   /**
    * @stable [16.10.2019]
-   * @param {boolean} forceReload
+   * @param {boolean} forceReload A Boolean to indicate that the page will always reload from the server.
+   *        If false or unspecified, the browser may reload the page from its HTTP cache.
    */
   public reload(forceReload?: boolean): void {
     this.window.location.reload(forceReload);

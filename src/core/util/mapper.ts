@@ -19,6 +19,8 @@ import {
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ISortDirectionsWrapperEntity,
+  ITransportEntity,
+  ITransportWrapperEntity,
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
@@ -39,6 +41,8 @@ import {
   IQueryWrapper,
   IRawDataWrapper,
   ISelectedWrapper,
+  ITokenWrapper,
+  StringNumberT,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -50,6 +54,30 @@ import {
   coalesce,
   trimmedUndefEmpty,
 } from './nvl';
+
+/**
+ * @stable [17.11.2019]
+ * @param {ITokenWrapper} entity
+ * @returns {StringNumberT}
+ */
+export const selectToken = (entity: ITokenWrapper): string =>
+  ifNotNilThanValue(entity, (): string => entity.token, UNDEF_SYMBOL);
+
+/**
+ * @stable [17.11.2019]
+ * @param {ITransportWrapperEntity} entity
+ * @returns {string}
+ */
+export const selectTransportToken = (entity: ITransportWrapperEntity): string =>
+  selectToken(selectTransport(entity));
+
+/**
+ * @stable [17.11.2019]
+ * @param {ITransportWrapperEntity} entity
+ * @returns {ITransportEntity}
+ */
+export const selectTransport = (entity: ITransportWrapperEntity): ITransportEntity =>
+  ifNotNilThanValue(entity, (): ITransportEntity => entity.transport, UNDEF_SYMBOL);
 
 /**
  * @stable [20.10.2019]

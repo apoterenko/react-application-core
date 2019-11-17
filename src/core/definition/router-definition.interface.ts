@@ -104,3 +104,4 @@ export const ROUTER_NAVIGATE_ACTION_TYPE = `${ACTION_PREFIX}router.navigate`;
 export const ROUTER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}router.replace`;
 export const ROUTER_REWRITE_ACTION_TYPE = `${ACTION_PREFIX}router.rewrite`;
 export const ROUTER_BACK_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.back`;
+export const ROUTER_RELOAD_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.reload`;

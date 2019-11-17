@@ -2,6 +2,7 @@ import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import {
+  ifNotNilThanValue,
   isFn,
   isObjectNotEmpty,
   noop,
@@ -9,10 +10,10 @@ import {
 } from '../../util';
 import {
   getDynamicRoutes,
+  getDynamicSections,
   getStore,
   getUiFactory,
 } from '../../di';
-import { APPLICATION_SECTIONS } from '../application/application.interface';
 import { ConnectorActionBuilder } from './connector-action.builder';
 import { STACK_POP_ACTION_TYPE, STACK_PUSH_ACTION_TYPE } from '../../store/stack/stack.interface';
 import { universalConnectorFactory } from './universal-connector.factory';
@@ -37,10 +38,11 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
   (target: IUniversalContainerCtor): void => {
     let finalTarget = target;
 
-    const sectionName = target.defaultProps && target.defaultProps.sectionName;
+    const sectionName = ifNotNilThanValue(target.defaultProps, (defaultProps) => defaultProps.sectionName);
     if (sectionName) {
-      APPLICATION_SECTIONS.set(sectionName, config);
+      getDynamicSections().set(sectionName, config);
 
+      // TODO
       const proto: React.ComponentLifecycle<{}, {}> = target.prototype;
       proto.componentWillUnmount = sequence(
         proto.componentWillUnmount || noop,

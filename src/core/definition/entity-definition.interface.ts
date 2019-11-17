@@ -71,6 +71,13 @@ export interface IPayloadEntityIdWrapperEntity
 }
 
 /**
+ * @stable [10.11.2019]
+ */
+export interface IPayloadEntityIdEntity
+  extends IPayloadWrapper<EntityIdT> {
+}
+
+/**
  * @stable [19.10.2019]
  */
 export interface ISelectedWrapperEntity<TEntity extends IEntity = IEntity>

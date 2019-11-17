@@ -4,19 +4,23 @@ import {
   DI_TYPES,
 } from '../di';
 import {
+  DynamicSectionsMapT,
   INavigationItemEntity,
   IPermissionsManager,
   IStackWrapperEntity,
   NavigationItemTypesEnum,
 } from '../definition';
-import { APPLICATION_SECTIONS } from '../component/application/application.interface';
-import { getRoutePathBySection, ifNotNilThanValue } from '../util';
+import {
+  getRoutePathBySection,
+  ifNotNilThanValue,
+} from '../util';
 
 @provideInSingleton(NavigationMenuBuilder)
 export class NavigationMenuBuilder {
 
-  @lazyInject(DI_TYPES.PermissionsManager) private permissionsManager: IPermissionsManager;
+  @lazyInject(DI_TYPES.DynamicSections) private readonly dynamicSections: DynamicSectionsMapT;
   @lazyInject(DI_TYPES.Menu) private readonly menu: INavigationItemEntity[];
+  @lazyInject(DI_TYPES.PermissionsManager) private readonly permissionsManager: IPermissionsManager;
 
   public provide(stackWrapper: IStackWrapperEntity): INavigationItemEntity[] {
     let menuItems: INavigationItemEntity[] = [];
@@ -41,10 +45,12 @@ export class NavigationMenuBuilder {
       }
     });
 
+    const dynamicSections = this.dynamicSections;
+
     // TODO refactoring
     const stackRoutePaths = ifNotNilThanValue(
       stackWrapper.stack.stack,
-      (stack) => Array.from(stack.map((itm) => getRoutePathBySection(itm.section, APPLICATION_SECTIONS))).reverse(),
+      (stack) => Array.from(stack.map((itm) => getRoutePathBySection(itm.section, dynamicSections))).reverse(),
       []
     );
 

@@ -5,10 +5,10 @@ import { dictionariesReducer } from '../dictionary';
 import { PERMISSIONS_DESTROY_ACTION_TYPE, PERMISSIONS_UPDATE_ACTION_TYPE } from '../permissions';
 import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
-import { entityReducerFactory, makeEntityReducerFactory } from '../store/store.support';
-import { USER_UPDATE_ACTION_TYPE, USER_DESTROY_ACTION_TYPE } from '../user/user.interface';
+import { makeEntityReducerFactory } from '../store/store.support';
 import { defaultLayoutReducer } from '../component/layout/default/default-layout.reducer';
 import { IStackEntity, ILayoutEntity } from '../definition';
+import { USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
 
 export const defaultReducers = {
   dictionaries: dictionariesReducer,
@@ -16,7 +16,7 @@ export const defaultReducers = {
     select: PERMISSIONS_UPDATE_ACTION_TYPE,
     destroy: PERMISSIONS_DESTROY_ACTION_TYPE,
   }),
-  user: entityReducerFactory(USER_UPDATE_ACTION_TYPE, USER_DESTROY_ACTION_TYPE),
+  user: makeEntityReducerFactory(USER_REDUCER_FACTORY_CONFIG_ENTITY),
   layout: defaultLayoutReducer,
   stack: stackReducer,
   notification: notificationReducer,

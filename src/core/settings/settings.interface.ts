@@ -4,9 +4,11 @@ import { prepareUrl } from '../util';
 import {
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
+  DEFAULT_STORAGE_SETTINGS_ENTITY,
   IButtonProps,
   ICurrencySettingsEntity,
   IMessagesSettingsEntity,
+  IStorageSettingsEntity,
   ITransportSettingsEntity,
   RegexpEnum,
   StorageTypesEnum,
@@ -83,7 +85,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   invalidAddressMessage?: string;
   logOutMessage?: string;
   logoutNotificationMessage?: string;
-  newAppVersionHasBeenDeployedMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
   pagesMessage?: string;
@@ -138,28 +139,29 @@ export interface IBootstrapSettings {
 }
 
 export interface ISettingsEntity {
-  signalRUrl?: string;
-  downloadUrl?: string;
-  metaFilesUrl?: string;
-  pdfWorkerDirectoryUrl?: string;
-  emptyPictureUrl?: string;
-  companyName?: string;
-  companyCountry?: string;
-  transport?: ITransportSettingsEntity;
-  persistenceStorage?: StorageTypesEnum;
-  entityEmptyId?: AnyT;
-  resourcePaths?: IApplicationResourcePaths;
-  dateTime?: IDateTimeSettings;
-  state?: IStateSettings;
-  bootstrap?: IBootstrapSettings;
-  phone?: IApplicationPhoneSettings;
-  currency?: ICurrencySettingsEntity;
-  number?: IApplicationNumberSettings;
-  messages?: IMessagesSettings;
-  channel?: IApplicationChannelSettings;
   authorization?: IAuthorizationSettings;
-  googleMaps?: IGoogleMapsSettings;
+  bootstrap?: IBootstrapSettings;
+  channel?: IApplicationChannelSettings;
+  companyCountry?: string;
+  companyName?: string;
   components?: IComponentsSettings;
+  currency?: ICurrencySettingsEntity;
+  dateTime?: IDateTimeSettings;
+  downloadUrl?: string;
+  emptyPictureUrl?: string;
+  entityEmptyId?: AnyT;
+  googleMaps?: IGoogleMapsSettings;
+  messages?: IMessagesSettings;
+  metaFilesUrl?: string;
+  number?: IApplicationNumberSettings;
+  pdfWorkerDirectoryUrl?: string;
+  persistenceStorage?: StorageTypesEnum;
+  phone?: IApplicationPhoneSettings;
+  resourcePaths?: IApplicationResourcePaths;
+  signalRUrl?: string;
+  state?: IStateSettings;
+  storage?: IStorageSettingsEntity;
+  transport?: ITransportSettingsEntity;
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
@@ -211,7 +213,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     invalidAddressMessage: 'Invalid address',
     logOutMessage: 'Log out',
     logoutNotificationMessage: 'You were logged out.',
-    newAppVersionHasBeenDeployedMessage: 'A new app version has been deployed. Need to go to the home page.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
     pagesMessage: '{from}-{to} of {count}',
@@ -259,6 +260,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     uiCountryAbbreviation: 'US',
   },
+  storage: DEFAULT_STORAGE_SETTINGS_ENTITY,
   currency: DEFAULT_CURRENCY_SETTINGS_ENTITY,
   channel: {
     eventToListen: 'client-event-to-listen',

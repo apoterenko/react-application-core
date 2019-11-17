@@ -4,7 +4,6 @@ import { ACTION_PREFIX } from '../../definitions.interface';
 import { IApplicationConfiguration } from '../../configurations-definitions.interface';
 import {
   IApplicationEntity,
-  IConnectorEntity,
   IContainerProps,
 } from '../../definition';
 
@@ -19,11 +18,6 @@ export interface IApplicationContainerProps extends IContainerProps,
 /**
  * @stable [02.07.2018]
  */
-export const APPLICATION_SECTIONS = new Map<string, IConnectorEntity>();
-
-/**
- * @stable [02.07.2018]
- */
 export const APPLICATION_SECTION = 'application';
 export const $APPLICATION_SECTION = `${ACTION_PREFIX}${APPLICATION_SECTION}`;
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
@@ -31,9 +25,7 @@ export const APPLICATION_MOUNT_ACTION_TYPE = 'mount';
 export const APPLICATION_AFTER_INIT_ACTION_TYPE = `after.${APPLICATION_INIT_ACTION_TYPE}`;
 export const APPLICATION_CUSTOM_ERROR_ACTION_TYPE = 'custom.error';
 export const APPLICATION_PREPARE_ACTION_TYPE = 'prepare';
-export const APPLICATION_PREPARE_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(APPLICATION_PREPARE_ACTION_TYPE);
 export const APPLICATION_PREPARE_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(APPLICATION_PREPARE_ACTION_TYPE);
-export const APPLICATION_PREPARE_DONE_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(APPLICATION_PREPARE_DONE_ACTION_TYPE);
 export const APPLICATION_LOGOUT_ACTION_TYPE = 'logout';
 export const APPLICATION_AFTER_LOGOUT_ACTION_TYPE = `after.${APPLICATION_LOGOUT_ACTION_TYPE}`;
 export const APPLICATION_LOGIN_ACTION_TYPE = 'login';

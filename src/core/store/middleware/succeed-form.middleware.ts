@@ -1,12 +1,11 @@
 import { IEffectsAction } from 'redux-effects-promise';
-import { LoggerFactory } from 'ts-smart-logger';
 
 import { orNull, ifNotNilThanValue } from '../../util';
 import { RouterActionBuilder } from '../../router';
 import { IEntity } from '../../definitions.interface';
 import {
-  ListActionBuilder,
   FormActionBuilder,
+  ListActionBuilder,
 } from '../../component/action.builder';
 import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import {
@@ -16,13 +15,16 @@ import {
   ISucceedListFormMiddlewareConfigEntity,
   ISucceedRelatedFormMiddlewareConfigEntity,
 } from '../../definition';
-import { APPLICATION_SECTIONS } from '../../component/application/application.interface';
-import { DI_TYPES, staticInjector, getTranslator, getModifyEntityPayloadFactory } from '../../di';
+import {
+  DI_TYPES,
+  getDynamicSections,
+  getModifyEntityPayloadFactory,
+  getTranslator,
+  staticInjector,
+} from '../../di';
 import { NotificationActionBuilder } from '../../notification';
 import { TranslatorT } from '../../translation';
 import { ISettingsEntity } from '../../settings';
-
-const logger = LoggerFactory.makeLogger('succeed-form.middleware');
 
 /**
  * @stable [04.10.2019]
@@ -35,7 +37,7 @@ export const makeSucceedRelatedFormEntityMiddleware = (
   return [
     navigateBack === false && formSection
       ? FormActionBuilder.buildSubmitDoneAction(formSection)
-      : RouterActionBuilder.buildNavigateBackAction(),
+      : RouterActionBuilder.buildBackAction(),
     ...(
       succeedMessage
         ? [NotificationActionBuilder.buildInfoAction(getTranslator()(succeedMessage))]
@@ -70,7 +72,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
         [
           ListActionBuilder.buildUpdateAction(listSection, payloadWrapper),
           config.navigateBack !== false
-            ? RouterActionBuilder.buildNavigateBackAction()
+            ? RouterActionBuilder.buildBackAction()
             : FormActionBuilder.buildSubmitDoneAction(formSection)
         ]
       ),
@@ -87,7 +89,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
 export const makeSucceedListFormMiddleware = (config: ISucceedListFormMiddlewareConfigEntity): IEffectsAction[] => {
   const {listSection, action, navigateBack, succeedMessage} = config;
 
-  const connectorConfig = APPLICATION_SECTIONS.get(listSection); // TODO Inject
+  const connectorConfig = getDynamicSections().get(listSection);
   const dynamicListRoute = orNull<string>(
     connectorConfig,
     () => connectorConfig.routeConfiguration.path

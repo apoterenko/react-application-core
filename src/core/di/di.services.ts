@@ -8,6 +8,7 @@ import {
 import { ISettingsEntity } from '../settings';
 import {
   DynamicRoutesMapT,
+  DynamicSectionsMapT,
   IAuth,
   IConnectorEntity,
   IEnvironment,
@@ -46,6 +47,12 @@ export const getPermissionsManager = <TAccessConfig = {}>(): IPermissionsManager
  * @returns {DynamicRoutesMapT}
  */
 export const getDynamicRoutes = (): DynamicRoutesMapT => staticInjector(DI_TYPES.DynamicRoutes);
+
+/**
+ * @stable [17.11.2019]
+ * @returns {DynamicSectionsMapT}
+ */
+export const getDynamicSections = (): DynamicSectionsMapT => staticInjector(DI_TYPES.DynamicSections);
 
 /**
  * @stable [16.11.2019]

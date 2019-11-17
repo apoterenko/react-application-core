@@ -1,12 +1,34 @@
-import { Reducer, ReducersMapObject, combineReducers, AnyAction } from 'redux';
-import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
+import {
+  AnyAction,
+  combineReducers,
+  Reducer,
+  ReducersMapObject,
+} from 'redux';
+import {
+  EffectsAction,
+  IEffectsAction,
+} from 'redux-effects-promise';
 import * as R from 'ramda';
 
-import { toSection, isPrimitive, isUndef, coalesce, shallowClone, coalesceDef, toType } from '../util';
-import { IPayloadWrapper, ISelectedWrapper, IReplacedWrapper, IUpdatedWrapper, AnyT } from '../definitions.interface';
 import {
-  IEntityReducerFactoryConfigEntity,
+  coalesce,
+  coalesceDef,
+  isPrimitive,
+  isUndef,
+  shallowClone,
+  toSection,
+  toType,
+} from '../util';
+import {
+  AnyT,
+  IPayloadWrapper,
+  IReplacedWrapper,
+  ISelectedWrapper,
+  IUpdatedWrapper,
+} from '../definitions.interface';
+import {
   IEntityActionBuilder,
+  IEntityReducerFactoryConfigEntity,
 } from '../definition';
 
 export type FilterT = (action: IEffectsAction) => boolean;

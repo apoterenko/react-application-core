@@ -4,7 +4,6 @@ import { ITokenWrapper } from '../../definitions.interface';
 import {
   $APPLICATION_SECTION,
   APPLICATION_READY_ACTION_TYPE,
-  APPLICATION_PREPARE_DONE_ACTION_TYPE,
   APPLICATION_NOT_READY_ACTION_TYPE,
   APPLICATION_INIT_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
@@ -17,7 +16,6 @@ import {
   APPLICATION_UNAUTHORIZED_ACTION_TYPE,
   APPLICATION_MOUNT_ACTION_TYPE,
   APPLICATION_AFTER_INIT_ACTION_TYPE,
-  APPLICATION_PREPARE_DONE_ERROR_ACTION_TYPE,
   APPLICATION_PATH_ACTION_TYPE,
 } from './application.interface';
 
@@ -29,10 +27,6 @@ export class ApplicationActionBuilder {
 
   public static buildPrepareAction(): IEffectsAction {
     return EffectsAction.create(this.buildPrepareActionType());
-  }
-
-  public static buildPrepareDoneAction(): IEffectsAction {
-    return EffectsAction.create(this.buildPrepareDoneActionType());
   }
 
   public static buildReadyAction(): IEffectsAction {
@@ -83,6 +77,10 @@ export class ApplicationActionBuilder {
     return `${$APPLICATION_SECTION}.${APPLICATION_AUTHORIZED_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [17.11.2019]
+   * @returns {string}
+   */
   public static buildUnauthorizedActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_UNAUTHORIZED_ACTION_TYPE}`;
   }
@@ -91,21 +89,8 @@ export class ApplicationActionBuilder {
     return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
   }
 
-  public static buildPrepareDoneActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_DONE_ACTION_TYPE}`;
-  }
-
   public static buildPrepareErrorActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
-  }
-
-  /**
-   * If there a chain of async tasks
-   * @stable [31.07.2018]
-   * @returns {string}
-   */
-  public static buildPrepareDoneErrorActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_DONE_ERROR_ACTION_TYPE}`;
   }
 
   public static buildInitActionType(): string {
@@ -120,6 +105,10 @@ export class ApplicationActionBuilder {
     return `${$APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [17.11.2019]
+   * @returns {string}
+   */
   public static buildLogoutActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_LOGOUT_ACTION_TYPE}`;
   }
@@ -128,6 +117,10 @@ export class ApplicationActionBuilder {
     return `${$APPLICATION_SECTION}.${APPLICATION_MOUNT_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [17.11.2019]
+   * @returns {string}
+   */
   public static buildAfterLogoutActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_AFTER_LOGOUT_ACTION_TYPE}`;
   }

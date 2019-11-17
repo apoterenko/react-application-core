@@ -4,7 +4,12 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { AnyT } from '../definitions.interface';
 import { lazyInject, DI_TYPES } from '../di';
-import { orNull } from '../util';
+import {
+  ifNotEmptyThanValue,
+  orNull,
+  selectToken,
+  selectTransportToken,
+} from '../util';
 import { ISettingsEntity } from '../settings';
 import {
   IAuth,
@@ -13,17 +18,15 @@ import {
   ITransportResponseAccessor,
   IUniversalStoreEntity,
   IVersionProcessor,
-  STORAGE_APP_TOKEN_KEY,
 } from '../definition';
-import { ITokenWrapper } from '../definitions.interface';
-import { BaseEffects } from '../store/effects/base.effects';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
+import { BaseEffects } from '../store/effects/base.effects';
 import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
-import { TransportActionBuilder } from '../transport/transport-action.builder';
 import { NotificationActionBuilder } from '../notification/notification-action.builder';
-import { UserActionBuilder } from '../user/user-action.builder';
-import { RouterActionBuilder } from '../router/router-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
+import { RouterActionBuilder } from '../router/router-action.builder';
+import { TransportActionBuilder } from '../transport/transport-action.builder';
+import { userActionBuilder } from '../user';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -48,7 +51,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         ApplicationActionBuilder.buildAfterInitAction()
       ];
     }
-    const token = await this.notVersionedPersistentStorage.get(STORAGE_APP_TOKEN_KEY);
+    const token = await this.notVersionedPersistentStorage.get(this.authToken);
     const actions = [];
 
     if (token) {
@@ -63,22 +66,25 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable [16.11.2019]
+   * @stable [17.11.2019]
    * @param {IEffectsAction} _
    * @returns {Promise<IEffectsAction[]>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterInitActionType())
   public async $onAfterInit(_: IEffectsAction): Promise<IEffectsAction[]> {
-    const isApplicationAuthorized = this.auth.isAuthorized();
-    const result: IEffectsAction[] = [
-      isApplicationAuthorized
+    const isAppAuthorized = this.auth.isAuthorized();
+    const result = [
+      isAppAuthorized
         ? ApplicationActionBuilder.buildPrepareAction()
         : ApplicationActionBuilder.buildReadyAction()
     ];
 
-    if (await this.versionProcessor.processNewVersionUuidAndGetResult() && isApplicationAuthorized) {
+    if (await this.versionProcessor.processNewVersionUuidAndGetResult() && isAppAuthorized) {
       result.push(RouterActionBuilder.buildRewriteAction(this.routes.home));
-      result.push(NotificationActionBuilder.buildInfoAction(this.settings.messages.newAppVersionHasBeenDeployedMessage));
+      ifNotEmptyThanValue(
+        this.settings.messages.NEW_APP_VERSION_HAS_BEEN_DEPLOYED,
+        (message) => result.push(NotificationActionBuilder.buildInfoAction(message))
+      );
     }
 
     UniversalApplicationEffects.logger.debug(() =>
@@ -87,21 +93,12 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [13.11.2019]
    * @returns {Promise<AnyT> | IEffectsAction[] | IEffectsAction}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildPrepareActionType())
-  public $onPrepare(): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
-    return ApplicationActionBuilder.buildReadyAction();
-  }
-
-  /**
-   * @stable - 25.04.2018
-   * @returns {Promise<AnyT> | IEffectsAction[] | IEffectsAction}
-   */
-  @EffectsService.effects(ApplicationActionBuilder.buildPrepareDoneActionType())
-  public $onPrepareDone(action: IEffectsAction,
-                        state: IUniversalStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
+  public $onPrepare(action: IEffectsAction,
+                    state: IUniversalStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
     return ApplicationActionBuilder.buildReadyAction();
   }
 
@@ -146,7 +143,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   public $onLogout(): IEffectsAction[] {
     return [
       PermissionsActionBuilder.buildDestroyAction(),
-      UserActionBuilder.buildDestroyAction(),
+      userActionBuilder.buildDestroyAction(),
       DictionariesActionBuilder.buildDestroyAction(),
       ApplicationActionBuilder.buildUnauthorizedAction(),
       ApplicationActionBuilder.buildAfterLogoutAction()
@@ -154,50 +151,64 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable [16.09.2019]
+   * @stable [17.11.2019]
    * @returns {Promise<IEffectsAction[]>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
   public async $onAfterLogout(): Promise<IEffectsAction[]> {
-    await this.processNewVersionAndReload();
     return [
-      NotificationActionBuilder.buildInfoAction(this.settings.messages.logoutNotificationMessage),
-      TransportActionBuilder.buildDestroyTokenAction()
+      TransportActionBuilder.buildDestroyTokenAction(),
+      ...ifNotEmptyThanValue(
+        this.settings.messages.logoutNotificationMessage,
+        (logoutNotificationMessage) => [NotificationActionBuilder.buildInfoAction(logoutNotificationMessage)],
+        []
+      ),
+      ...await this.checkIfNewVersionThenReload()
     ];
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [17.11.2019]
    * @param {IEffectsAction} action
    * @param {IUniversalStoreEntity} state
+   * @returns {Promise<void>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAuthorizedActionType())
   public async $onAuthorized(action: IEffectsAction, state: IUniversalStoreEntity): Promise<void> {
-    const payload: ITokenWrapper = action.data;
-    const token = payload && payload.token || state.transport.token;
+    const token = selectToken(action.data) || selectTransportToken(state);
+    await this.notVersionedPersistentStorage.set(this.authToken, token);
 
-    await this.notVersionedPersistentStorage.set(STORAGE_APP_TOKEN_KEY, token);
     UniversalApplicationEffects.logger.debug(() =>
-      `[$UniversalApplicationEffects][$onAuthorized] The storage token has been saved: ${token}.`);
+      `[$UniversalApplicationEffects][$onAuthorized] The storage token has been applied: ${token}`);
   }
 
   /**
-   * @stable - 25.04.2018
+   * @stable [17.11.2019]
    */
   @EffectsService.effects(ApplicationActionBuilder.buildUnauthorizedActionType())
   public async $onUnauthorized(): Promise<void> {
-    await this.notVersionedPersistentStorage.remove(STORAGE_APP_TOKEN_KEY);
+    await this.notVersionedPersistentStorage.remove(this.authToken);
+
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
   }
 
   /**
-   * @stable [16.09.2019]
-   * @returns {Promise<void>}
+   * @stable [17.11.2019]
+   * @returns {Promise<IEffectsAction[]>}
    */
-  protected async processNewVersionAndReload(): Promise<void> {
+  protected async checkIfNewVersionThenReload(): Promise<IEffectsAction[]> {
     if (await this.versionProcessor.processNewVersionUuidAndGetResult()) {
-      location.reload();
+      return [RouterActionBuilder.buildReloadAction()];
     }
+    return [];
+  }
+
+  /**
+   * @stable [17.11.2019]
+   * @returns {string}
+   */
+  protected get authToken(): string {
+    return this.settings.storage.authToken;
   }
 }

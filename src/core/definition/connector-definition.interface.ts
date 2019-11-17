@@ -14,6 +14,11 @@ import { INamedConstructor } from './constructor-definition.interface';
 export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 
 /**
+ * @stable [17.11.2019]
+ */
+export type DynamicSectionsMapT = Map<string, IConnectorEntity>;
+
+/**
  * @stable [16.11.2019]
  */
 export interface IBasicConnectorEntity<TStoreEntity>

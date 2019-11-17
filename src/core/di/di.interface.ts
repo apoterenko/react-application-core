@@ -7,6 +7,7 @@ export const DI_TYPES = Object.freeze({
   DateConverter: Symbol('DateConverter'),
   DomAccessor: Symbol('DomAccessor'),
   DynamicRoutes: Symbol('DynamicRoutes'),
+  DynamicSections: Symbol('DynamicSections'),
   Environment: Symbol('Environment'),
   EventManager: Symbol('EventManager'),
   FieldsOptions: Symbol('FieldsOptions'),

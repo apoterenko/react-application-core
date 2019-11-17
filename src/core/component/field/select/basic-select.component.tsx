@@ -106,13 +106,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
     cancelEvent(event);
 
-    const props = this.props;
-    const areOptionsEmpty = R.isNil(props.options);
+    const {onEmptyDictionary, bindDictionary, options, forceReload} = this.props;
+    const areOptionsEmpty = R.isNil(options);
 
-    if (props.forceReload || areOptionsEmpty) {
-      if (isFn(props.onEmptyDictionary)) {
+    if (forceReload || areOptionsEmpty) {
+      if (isFn(onEmptyDictionary)) {
         this.setState({needToOpenMenu: true});
-        props.onEmptyDictionary();
+        onEmptyDictionary(bindDictionary);
       } else if (!areOptionsEmpty) {
         this.showMenu();
       }

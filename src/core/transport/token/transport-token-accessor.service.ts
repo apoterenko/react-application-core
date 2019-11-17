@@ -1,11 +1,15 @@
 import { Store } from 'redux';
 import { injectable } from 'inversify';
 
-import { lazyInject, DI_TYPES } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import {
   IStoreEntity,
   ITransportTokenAccessor,
 } from '../../definition';
+import { selectTransportToken } from '../../util';
 
 @injectable()
 export class TransportTokenAccessor implements ITransportTokenAccessor {
@@ -16,6 +20,6 @@ export class TransportTokenAccessor implements ITransportTokenAccessor {
    * @returns {string}
    */
   public get token(): string {
-    return this.store.getState().transport.token;
+    return selectTransportToken(this.store.getState());
   }
 }
