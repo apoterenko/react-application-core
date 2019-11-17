@@ -51,7 +51,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
         ApplicationActionBuilder.buildAfterInitAction()
       ];
     }
-    const token = await this.notVersionedPersistentStorage.get(this.authToken);
+    const token = await this.notVersionedPersistentStorage.get(this.authTokenName);
     const actions = [];
 
     if (token) {
@@ -176,7 +176,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildAuthorizedActionType())
   public async $onAuthorized(action: IEffectsAction, state: IUniversalStoreEntity): Promise<void> {
     const token = selectToken(action.data) || selectTransportToken(state);
-    await this.notVersionedPersistentStorage.set(this.authToken, token);
+    await this.notVersionedPersistentStorage.set(this.authTokenName, token);
 
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onAuthorized] The storage token has been applied: ${token}`);
@@ -187,7 +187,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    */
   @EffectsService.effects(ApplicationActionBuilder.buildUnauthorizedActionType())
   public async $onUnauthorized(): Promise<void> {
-    await this.notVersionedPersistentStorage.remove(this.authToken);
+    await this.notVersionedPersistentStorage.remove(this.authTokenName);
 
     UniversalApplicationEffects.logger.debug(() =>
       `[$UniversalApplicationEffects][$onUnauthorized] The storage token has been destroyed.`);
@@ -208,7 +208,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    * @stable [17.11.2019]
    * @returns {string}
    */
-  protected get authToken(): string {
+  protected get authTokenName(): string {
     return this.settings.storage.authToken;
   }
 }
