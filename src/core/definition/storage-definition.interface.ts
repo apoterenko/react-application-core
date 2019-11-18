@@ -94,6 +94,6 @@ export interface IMultiEntityStorageSetEntity
 /**
  * @stable [17.11.2019]
  */
-export const $STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE = `${ACTION_PREFIX}storage.register.sync.app.state.task`;
-export const $STORAGE_SYNC_APP_STATE_ACTION_TYPE = `${ACTION_PREFIX}storage.sync.app.state`;
-export const $STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE = `${ACTION_PREFIX}storage.unregister.sync.app.state.task`;
+export const $RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE = `${ACTION_PREFIX}storage.register.sync.app.state.task`;
+export const $RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE = `${ACTION_PREFIX}storage.sync.app.state`;
+export const $RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE = `${ACTION_PREFIX}storage.unregister.sync.app.state.task`;

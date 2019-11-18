@@ -1,23 +1,27 @@
-import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
+import {
+  EffectsAction,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import { ITokenWrapper } from '../../definitions.interface';
 import {
-  $APPLICATION_SECTION,
-  APPLICATION_READY_ACTION_TYPE,
-  APPLICATION_NOT_READY_ACTION_TYPE,
+  APPLICATION_AFTER_INIT_ACTION_TYPE,
+  APPLICATION_AFTER_LOGIN_ACTION_TYPE,
+  APPLICATION_AFTER_LOGOUT_ACTION_TYPE,
+  APPLICATION_AUTHORIZED_ACTION_TYPE,
+  APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
   APPLICATION_INIT_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
-  APPLICATION_AFTER_LOGOUT_ACTION_TYPE,
-  APPLICATION_PREPARE_ACTION_TYPE,
-  APPLICATION_PREPARE_ERROR_ACTION_TYPE,
-  APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
-  APPLICATION_AFTER_LOGIN_ACTION_TYPE,
-  APPLICATION_AUTHORIZED_ACTION_TYPE,
-  APPLICATION_UNAUTHORIZED_ACTION_TYPE,
   APPLICATION_MOUNT_ACTION_TYPE,
-  APPLICATION_AFTER_INIT_ACTION_TYPE,
   APPLICATION_PATH_ACTION_TYPE,
+  APPLICATION_UNAUTHORIZED_ACTION_TYPE,
 } from './application.interface';
+import {
+  $APPLICATION_SECTION,
+  $RAC_APPLICATION_NOT_READY_ACTION_TYPE,
+  $RAC_APPLICATION_PREPARE_ACTION_TYPE,
+  $RAC_APPLICATION_READY_ACTION_TYPE,
+} from '../../definition';
 
 export class ApplicationActionBuilder {
 
@@ -25,16 +29,28 @@ export class ApplicationActionBuilder {
     return EffectsAction.create(this.buildCustomErrorActionType()).setError(error);
   }
 
+  /**
+   * @stable [18.11.2019]
+   * @returns {IEffectsAction}
+   */
   public static buildPrepareAction(): IEffectsAction {
-    return EffectsAction.create(this.buildPrepareActionType());
+    return EffectsAction.create($RAC_APPLICATION_PREPARE_ACTION_TYPE);
   }
 
+  /**
+   * @stable [18.11.2019]
+   * @returns {IEffectsAction}
+   */
   public static buildReadyAction(): IEffectsAction {
-    return EffectsAction.create(this.buildReadyActionType());
+    return EffectsAction.create($RAC_APPLICATION_READY_ACTION_TYPE);
   }
 
+  /**
+   * @stable [18.11.2019]
+   * @returns {IEffectsAction}
+   */
   public static buildNotReadyAction(): IEffectsAction {
-    return EffectsAction.create(this.buildNotReadyActionType());
+    return EffectsAction.create($RAC_APPLICATION_NOT_READY_ACTION_TYPE);
   }
 
   public static buildAfterLoginAction(): IEffectsAction {
@@ -57,14 +73,6 @@ export class ApplicationActionBuilder {
     return EffectsAction.create(this.buildAfterInitActionType());
   }
 
-  public static buildReadyActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_READY_ACTION_TYPE}`;
-  }
-
-  public static buildNotReadyActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
-  }
-
   /**
    * @stable [23.10.2018]
    * @returns {string}
@@ -83,14 +91,6 @@ export class ApplicationActionBuilder {
    */
   public static buildUnauthorizedActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_UNAUTHORIZED_ACTION_TYPE}`;
-  }
-
-  public static buildPrepareActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ACTION_TYPE}`;
-  }
-
-  public static buildPrepareErrorActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_PREPARE_ERROR_ACTION_TYPE}`;
   }
 
   public static buildInitActionType(): string {

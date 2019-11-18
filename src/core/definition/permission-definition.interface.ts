@@ -3,8 +3,9 @@ import { IPermissionsWrapper } from '../definitions.interface';
 /**
  * @stable [14.10.2019]
  */
-export interface IPermissionsManager<TAccessConfig = {}> {
-  isAccessible(checkedObject: TAccessConfig): boolean;
+export interface IPermissionsManager<TPermission = {}, TPermissions = {}> {
+  hasPermission(permissions: TPermissions, checkedObject: TPermission): boolean;
+  isAccessible(checkedObject: TPermission): boolean;
 }
 
 /**

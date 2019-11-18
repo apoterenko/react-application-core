@@ -28,9 +28,7 @@ export const entitiesAsStorageTasks =
     fieldsValuesResolvers.forEach((fieldValueResolver, index) => {
       const fieldValueChange = fieldValueResolver(changes);
       tasks.push(
-        isDef(fieldValueChange)
-          ? storageProcessor(uuid(), fieldValueChange)
-          : Promise.resolve(null)
+        orNull(isDef(fieldValueChange), () => storageProcessor(uuid(), fieldValueChange))
       );
     });
     return orNull(isObjectNotEmpty(tasks), () => Promise.all(tasks));

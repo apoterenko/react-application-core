@@ -12,6 +12,8 @@ import {
 } from '../util';
 import { ISettingsEntity } from '../settings';
 import {
+  $RAC_APPLICATION_PREPARE_ACTION_TYPE,
+  $RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE,
   IAuth,
   IRoutesEntity,
   IStorage,
@@ -96,18 +98,18 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    * @stable [13.11.2019]
    * @returns {Promise<AnyT> | IEffectsAction[] | IEffectsAction}
    */
-  @EffectsService.effects(ApplicationActionBuilder.buildPrepareActionType())
+  @EffectsService.effects($RAC_APPLICATION_PREPARE_ACTION_TYPE)
   public $onPrepare(action: IEffectsAction,
                     state: IUniversalStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
     return ApplicationActionBuilder.buildReadyAction();
   }
 
   /**
-   * @stable [05.02.2019]
+   * @stable [18.11.2019]
    * @param {IEffectsAction} action
    * @returns {IEffectsAction}
    */
-  @EffectsService.effects(ApplicationActionBuilder.buildPrepareErrorActionType())
+  @EffectsService.effects($RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE)
   public $onPrepareError(action: IEffectsAction): IEffectsAction {
     return orNull(
       this.responseAccessor.isAuthError(action.error),

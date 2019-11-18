@@ -6,9 +6,10 @@ import {
   orNull,
 } from '../../util';
 import {
-  $STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
-  $STORAGE_SYNC_APP_STATE_ACTION_TYPE,
-  $STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
+  $RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
+  $RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE,
+  $RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
+  APPLICATION_SECTION,
   ContainerVisibilityTypesEnum,
   IConnectorEntity,
   IContainerCtor,
@@ -16,7 +17,6 @@ import {
   IStorageSettingsEntity,
   RoutePredicateT,
 } from '../../definition';
-import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
 import { UniversalContainer } from '../base/universal.container';
@@ -54,7 +54,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
 
     if (this.storageSettings.appStateSyncEnabled) {
-      this.dispatchCustomType($STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
+      this.dispatchCustomType($RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
     }
   }
 
@@ -63,7 +63,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   public componentWillUnmount(): void {
     if (this.storageSettings.appStateSyncEnabled) {
-      this.dispatchCustomType($STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
+      this.dispatchCustomType($RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
       this.syncAppState();
     }
   }
@@ -72,7 +72,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [18.11.2019]
    */
   protected syncAppState(): void {
-    this.dispatchCustomType($STORAGE_SYNC_APP_STATE_ACTION_TYPE);
+    this.dispatchCustomType($RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE);
   }
 
   /**

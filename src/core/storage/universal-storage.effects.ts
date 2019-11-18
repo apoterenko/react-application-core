@@ -9,9 +9,9 @@ import {
   provideInSingleton,
 } from '../di';
 import {
-  $STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
-  $STORAGE_SYNC_APP_STATE_ACTION_TYPE,
-  $STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
+  $RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
+  $RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE,
+  $RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
   ILogManager,
   IStateSerializer,
   IStorage,
@@ -51,7 +51,7 @@ export class UniversalStorageEffects {
    * @stable [17.11.2019]
    * @returns {Promise<void>}
    */
-  @EffectsService.effects($STORAGE_SYNC_APP_STATE_ACTION_TYPE)
+  @EffectsService.effects($RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE)
   public $onAppSyncState(): Promise<void> {
     return this.doSyncState();
   }
@@ -59,7 +59,7 @@ export class UniversalStorageEffects {
   /**
    * @stable [17.11.2019]
    */
-  @EffectsService.effects($STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE)
+  @EffectsService.effects($RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE)
   public $onRegisterSyncStateTask(): void {
     const appStateSyncTimeout = this.storageSettings.appStateSyncTimeout;
     if (appStateSyncTimeout === 0) {
@@ -78,7 +78,7 @@ export class UniversalStorageEffects {
   /**
    * @stable [17.11.2019]
    */
-  @EffectsService.effects($STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE)
+  @EffectsService.effects($RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE)
   public $onUnRegisterSyncStateTask(): void {
     this.doUnRegisterSyncStateTask(false);
   }

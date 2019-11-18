@@ -11,17 +11,21 @@ import {
 } from '../di';
 
 @provideInSingleton(PermissionsManager)
-export class PermissionsManager<TAccessConfig, TStore = IUniversalStoreEntity>
-  implements IPermissionsManager<TAccessConfig> {
+export class PermissionsManager<TPermission, TPermissions, TStore = IUniversalStoreEntity>
+  implements IPermissionsManager<TPermission, TPermissions> {
 
   @lazyInject(DI_TYPES.Store) private readonly store: Store<TStore>;
 
   /**
-   * @stable [18.09.2019]
-   * @param {TAccessConfig} permissionObject
+   *
+   * @param {TPermission} checkedObject
    * @returns {boolean}
    */
-  public isAccessible(permissionObject: TAccessConfig): boolean {
+  public isAccessible(checkedObject: TPermission): boolean {
+    return true;
+  }
+
+  public hasPermission(permissions: TPermissions, checkedObject: TPermission): boolean {
     return true;
   }
 

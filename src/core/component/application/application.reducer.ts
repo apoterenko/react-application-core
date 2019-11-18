@@ -3,6 +3,10 @@ import { AnyAction } from 'redux';
 import { convertError } from '../../error';
 import { ApplicationActionBuilder } from './application-action.builder';
 import {
+  $RAC_APPLICATION_NOT_READY_ACTION_TYPE,
+  $RAC_APPLICATION_PREPARE_ACTION_TYPE,
+  $RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE,
+  $RAC_APPLICATION_READY_ACTION_TYPE,
   IApplicationEntity,
   INITIAL_APPLICATION_ENTITY,
 } from '../../definition';
@@ -10,7 +14,7 @@ import {
 export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATION_ENTITY,
                                    action: AnyAction): IApplicationEntity {
   switch (action.type) {
-    case ApplicationActionBuilder.buildPrepareActionType():
+    case $RAC_APPLICATION_PREPARE_ACTION_TYPE:
       return {
         ...state,
         ready: false,
@@ -23,21 +27,21 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
         path: action.data,
       };
     case ApplicationActionBuilder.buildCustomErrorActionType():
-    case ApplicationActionBuilder.buildPrepareErrorActionType():
+    case $RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE:
       return {
         ...state,
         customError: action.type === ApplicationActionBuilder.buildCustomErrorActionType(),
         progress: false,
         error: convertError(action.error).message,
       };
-    case ApplicationActionBuilder.buildReadyActionType():
+    case $RAC_APPLICATION_READY_ACTION_TYPE:
       return {
         ...state,
         error: null,
         progress: false,
         ready: true,
       };
-    case ApplicationActionBuilder.buildNotReadyActionType():
+    case $RAC_APPLICATION_NOT_READY_ACTION_TYPE:
       return {
         ...state,
         ready: false,
