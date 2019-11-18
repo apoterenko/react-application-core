@@ -168,7 +168,7 @@ export interface ISortedListMiddlewareConfigEntity
 /**
  * @stable [04.10.2019]
  */
-export interface ISucceedRelatedFormMiddlewareConfigEntity
+export interface ISucceedFormMiddlewareConfigEntity
   extends ISucceedMessageWrapper,
     IFormSectionWrapper,
     INavigateBackWrapper {

@@ -5,6 +5,24 @@
 
   /**
    * @layout
+   * @stable [18.11.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-margin-left-auto,
+    $rac-styles-margin-left: auto
+  );
+
+  /**
+   * @layout
+   * @stable [18.11.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-margin-right-auto,
+    $rac-styles-margin-right: auto
+  );
+
+  /**
+   * @layout
    * @stable [30.09.2019]
    */
   @include rac-styles (

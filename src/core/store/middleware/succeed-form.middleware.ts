@@ -13,7 +13,7 @@ import {
   IModifyEntityPayloadWrapperEntity,
   IStoreEntity,
   ISucceedListFormMiddlewareConfigEntity,
-  ISucceedRelatedFormMiddlewareConfigEntity,
+  ISucceedFormMiddlewareConfigEntity,
 } from '../../definition';
 import {
   DI_TYPES,
@@ -28,11 +28,11 @@ import { ISettingsEntity } from '../../settings';
 
 /**
  * @stable [04.10.2019]
- * @param {ISucceedRelatedFormMiddlewareConfigEntity} config
+ * @param {ISucceedFormMiddlewareConfigEntity} config
  * @returns {IEffectsAction[]}
  */
-export const makeSucceedRelatedFormEntityMiddleware = (
-  config: ISucceedRelatedFormMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
+export const makeSucceedFormMiddleware =
+  (config: ISucceedFormMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
   const {formSection, succeedMessage, navigateBack} = config;
   return [
     navigateBack === false && formSection

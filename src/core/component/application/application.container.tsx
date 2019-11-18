@@ -2,7 +2,6 @@ import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import {
-  isFn,
   uuid,
 } from '../../util';
 import {
@@ -14,7 +13,6 @@ import {
   EventsEnum,
   IConnectorEntity,
   IContainerCtor,
-  IRouteEntity,
   IRouter,
   IRouterWrapperEntity,
   IStoreEntity,
@@ -31,8 +29,6 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   private readonly routerRef = React.createRef<IRouterWrapperEntity>();
-  private syncStageOnUnloadUnsubscriber: () => void;
-
   /**
    * @stable [24.09.2019]
    * @returns {JSX.Element}
@@ -55,6 +51,11 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
   public componentDidMount(): void {
     bindToConstantValue(DI_TYPES.Router, this.dynamicRouter);
     super.componentDidMount();
+
+    if (this.storageSettings.appStateSyncEnabled) {
+      // No need unsubscribe because "unload event"d
+      this.eventManager.subscribe(this.environment.window, EventsEnum.UNLOAD, this.syncAppState);
+    }
   }
 
   // TODO refactoring
@@ -93,31 +94,6 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
         {...routeEntity}
         key={this.toRouteId(routeEntity)}/>
     );
-  }
-
-  /**
-   * @stable [24.09.2019]
-   * @returns {boolean}
-   */
-  protected registerSyncStateWithStorageTask(): boolean {
-    const result = super.registerSyncStateWithStorageTask();
-    if (result) {
-      this.syncStageOnUnloadUnsubscriber =
-        this.eventManager.subscribe(this.environment.window, EventsEnum.UNLOAD, this.syncState);
-    }
-    return result;
-  }
-
-  /**
-   * @stable [24.09.2019]
-   * @returns {boolean}
-   */
-  protected unregisterSyncStateWithStorageTask(): boolean {
-    const result = super.unregisterSyncStateWithStorageTask();
-    if (result && isFn(this.syncStageOnUnloadUnsubscriber)) {
-      this.syncStageOnUnloadUnsubscriber();
-    }
-    return result;
   }
 
   /**

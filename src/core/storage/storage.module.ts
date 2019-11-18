@@ -4,6 +4,7 @@ import { StorageTypesEnum, STORAGE_NOT_VERSIONED_KEY } from '../definition';
 import { StorageHelper } from './storage.helper';
 import './database/database-storage.module';
 import './default/default-storage.module';
+import './universal-storage.effects';
 
 appContainer.bind(DI_TYPES.NotVersionedPersistentStorage).toConstantValue(
   new DefaultStorage(STORAGE_NOT_VERSIONED_KEY, getSettings, StorageTypesEnum.LOCAL)

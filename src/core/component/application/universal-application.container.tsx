@@ -1,22 +1,20 @@
 import * as React from 'react';
-import { Unsubscribe } from 'redux';
-import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
-  DelayedTask,
   ifNotNilThanValue,
   orNull,
 } from '../../util';
 import {
+  $STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
+  $STORAGE_SYNC_APP_STATE_ACTION_TYPE,
+  $STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
   ContainerVisibilityTypesEnum,
   IConnectorEntity,
   IContainerCtor,
   IRouteEntity,
   IStorageSettingsEntity,
   RoutePredicateT,
-  StorageEventCategoriesEnum,
-  StorageEventsEnum,
 } from '../../definition';
 import { APPLICATION_SECTION } from './application.interface';
 import { ApplicationActionBuilder } from './application-action.builder';
@@ -32,8 +30,6 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
 
   private static readonly logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
   private readonly extraRoutes = new Map<IContainerCtor, IConnectorEntity>();
-  private syncStateWithStorageTask: DelayedTask;
-  private storeSyncStateWithStorageUnsubscriber: Unsubscribe;
 
   /**
    * @stable [17.11.2019]
@@ -41,10 +37,9 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   constructor(props: TProps) {
     super(props);
-    this.syncState = this.syncState.bind(this);
+    this.syncAppState = this.syncAppState.bind(this);
     this.onBeforeLogout = this.onBeforeLogout.bind(this);
     this.registerLogoutRoute();
-    this.registerSyncStateWithStorageTask();
 
     UniversalApplicationContainer.logger.debug(
       '[$UniversalApplicationContainer][constructor] The app has been instantiated. The initial props are:',
@@ -53,22 +48,31 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   /**
-   * @stable [25.09.2019]
+   * @stable [17.11.2019]
    */
   public componentDidMount(): void {
     this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
-    this.clearPreviousStates();
+
+    if (this.storageSettings.appStateSyncEnabled) {
+      this.dispatchCustomType($STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
+    }
   }
 
   /**
    * @stable [24.09.2019]
    */
   public componentWillUnmount(): void {
-    this.unregisterSyncStateWithStorageTask();
-
     if (this.storageSettings.appStateSyncEnabled) {
-      this.syncState();
+      this.dispatchCustomType($STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
+      this.syncAppState();
     }
+  }
+
+  /**
+   * @stable [18.11.2019]
+   */
+  protected syncAppState(): void {
+    this.dispatchCustomType($STORAGE_SYNC_APP_STATE_ACTION_TYPE);
   }
 
   /**
@@ -176,68 +180,6 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   /**
-   * @stable [24.09.2019]
-   */
-  protected syncState(): void {
-    try {
-      this.doSyncState();
-    } catch (e) {
-      this.logManager.send(StorageEventCategoriesEnum.STORAGE_ERROR, StorageEventsEnum.SYNC, e.message);
-    }
-  }
-
-  /**
-   * @stable [24.09.2019]
-   */
-  protected doSyncState(): void {
-    this.storage.set(this.appStateKeyName, this.stateSerializer.serialize(this.appStore.getState()));
-  }
-
-  /**
-   * @stable [25.09.2019]
-   */
-  protected clearPreviousStates(): void {
-    this.storage.each((value, key) => {
-      if (key.endsWith(this.appStateKeyName)) {
-        this.storage.remove(key, true);
-      }
-    });
-  }
-
-  /**
-   * @stable [17.11.2019]
-   */
-  protected registerSyncStateWithStorageTask(): boolean {
-    if (!this.storageSettings.appStateSyncEnabled) {
-      return false;
-    }
-    const appStateSyncTimeout = this.storageSettings.appStateSyncTimeout;
-    if (appStateSyncTimeout > 0) {
-      this.syncStateWithStorageTask = new DelayedTask(this.syncState.bind(this), appStateSyncTimeout);
-      this.storeSyncStateWithStorageUnsubscriber = this.appStore.subscribe(() => this.syncStateWithStorageTask.start());
-    }
-    return true;
-  }
-
-  /**
-   * @stable [24.09.2019]
-   */
-  protected unregisterSyncStateWithStorageTask(): boolean {
-    if (!this.storageSettings.appStateSyncEnabled) {
-      return false;
-    }
-    if (!R.isNil(this.storeSyncStateWithStorageUnsubscriber)) {
-      this.storeSyncStateWithStorageUnsubscriber();
-      this.storeSyncStateWithStorageUnsubscriber = null;
-    }
-    if (!R.isNil(this.syncStateWithStorageTask)) {
-      this.syncStateWithStorageTask.stop();
-      this.syncStateWithStorageTask = null;
-    }
-    return true;
-  }
-
-  /**
    * @stable [16.11.2019]
    * @param {IContainerCtor} ctor
    * @param {IConnectorEntity} connectorEntity
@@ -282,15 +224,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [17.11.2019]
    * @returns {IStorageSettingsEntity}
    */
-  private get storageSettings(): IStorageSettingsEntity {
+  protected get storageSettings(): IStorageSettingsEntity {
     return this.settings.storage || {};
-  }
-
-  /**
-   * @stable [17.11.2019]
-   * @returns {string}
-   */
-  protected get appStateKeyName(): string {
-    return this.storageSettings.appStateKeyName;
   }
 }

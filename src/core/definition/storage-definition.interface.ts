@@ -1,4 +1,5 @@
 import {
+  ACTION_PREFIX,
   AnyT,
   IAddedFilesWrapper,
   IFilePathWrapper,
@@ -22,7 +23,7 @@ export enum StorageEventCategoriesEnum {
  * @stable [24.09.2019]
  */
 export enum StorageEventsEnum {
-  SYNC = 'sync',
+  SYNC_APP_STATE = 'sync:app:state',
 }
 
 /**
@@ -89,3 +90,10 @@ export interface IMultiEntityStorageSetEntity
   extends IAddedFilesWrapper<IAddedFileEntity[]>,
     IRemovedFilesWrapper<void[]> {
 }
+
+/**
+ * @stable [17.11.2019]
+ */
+export const $STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE = `${ACTION_PREFIX}storage.register.sync.app.state.task`;
+export const $STORAGE_SYNC_APP_STATE_ACTION_TYPE = `${ACTION_PREFIX}storage.sync.app.state`;
+export const $STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE = `${ACTION_PREFIX}storage.unregister.sync.app.state.task`;
