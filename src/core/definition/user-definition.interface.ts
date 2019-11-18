@@ -28,15 +28,15 @@ export interface IUserWrapperEntity
 /**
  * @stable [13.11.2019]
  */
-export const USER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}user.destroy`;
-export const USER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}user.replace`;
-export const USER_UPDATE_ACTION_TYPE = `${ACTION_PREFIX}user.update`;
+export const $RAC_USER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}user.destroy`;
+export const $RAC_USER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}user.replace`;
+export const $RAC_USER_UPDATE_ACTION_TYPE = `${ACTION_PREFIX}user.update`;
 
 /**
  * @stable [13.11.2019]
  */
-export const USER_REDUCER_FACTORY_CONFIG_ENTITY = Object.freeze<IEntityReducerFactoryConfigEntity>({
-  destroy: USER_DESTROY_ACTION_TYPE,
-  replace: USER_REPLACE_ACTION_TYPE,
-  update: USER_UPDATE_ACTION_TYPE,
+export const $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY = Object.freeze<IEntityReducerFactoryConfigEntity>({
+  destroy: $RAC_USER_DESTROY_ACTION_TYPE,
+  replace: $RAC_USER_REPLACE_ACTION_TYPE,
+  update: $RAC_USER_UPDATE_ACTION_TYPE,
 });
