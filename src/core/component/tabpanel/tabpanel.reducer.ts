@@ -11,8 +11,8 @@ import { ITabPanelEntity } from '../../definition';
  * @param {IEffectsAction} action
  * @returns {ITabPanelEntity}
  */
-export function tabPanelReducer(state: ITabPanelEntity = {},
-                                action: IEffectsAction): ITabPanelEntity {
+export const tabPanelReducer = (state: ITabPanelEntity = {},
+                                action: IEffectsAction): ITabPanelEntity => {
   const section = toSection(action);
   switch (action.type) {
     case TabPanelActionBuilder.buildDestroyActionType(section):
@@ -25,4 +25,4 @@ export function tabPanelReducer(state: ITabPanelEntity = {},
       };
   }
   return state;
-}
+};

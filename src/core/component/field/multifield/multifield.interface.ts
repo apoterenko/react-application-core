@@ -1,6 +1,6 @@
 import {
   IEntity,
-  INotUseActiveValueFilterWrapper,
+  IIgnoreSelectedValueWrapper,
 } from '../../../definitions.interface';
 import { IMultiItemEntity, MultiFieldEntityT } from '../../../definition';
 import { IBasicSelectState, IBaseSelectProps } from '../select/basic-select.interface';
@@ -16,7 +16,7 @@ export interface IMultiFieldState extends IBasicSelectState {
  * @stable [01.06.2018]
  */
 export interface IMultiFieldProps extends IBaseSelectProps,
-                                          INotUseActiveValueFilterWrapper {
+                                          IIgnoreSelectedValueWrapper {
 }
 
 /**

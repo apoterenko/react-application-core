@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -16,20 +15,6 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
-
-/**
- * @stable [15.09.2018]
- */
-export const DAYS_OF_WEEK: Array<{id: number, name: string}> = [
-  {id: 0, name: 'Sunday'},
-  {id: 1, name: 'Monday'},
-  {id: 2, name: 'Tuesday'},
-  {id: 3, name: 'Wednesday'},
-  {id: 4, name: 'Thursday'},
-  {id: 5, name: 'Friday'},
-  {id: 6, name: 'Saturday'}
-];
-export const DAYS_OF_WEEK_MAP = R.mergeAll<Record<number, boolean>>(DAYS_OF_WEEK.map((day) => ({[day.id]: true})));
 
 /**
  * Core fields
@@ -209,6 +194,7 @@ export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue;
 export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IIdWrapper<TId = number> { id?: TId; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
+export interface IIgnoreSelectedValueWrapper { ignoreSelectedValue?: boolean; }
 export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
@@ -680,13 +666,6 @@ export interface INotUsePlaceActionWrapper {
  */
 export interface INotUseCustomValidatorWrapper {
   notUseCustomValidator?: boolean;
-}
-
-/**
- * @stable [19.08.2018]
- */
-export interface INotUseActiveValueFilterWrapper {
-  notUseActiveValueFilter?: boolean;
 }
 
 /**

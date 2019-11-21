@@ -191,13 +191,6 @@ export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicat
     : predicates[0](value), data);
 
 /**
- * @stable [10.11.2018]
- * @param {TValue} data
- * @returns {TValue[]}
- */
-export const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
-
-/**
  * @stable [03.10.2019]
  * @param {TValue} data
  * @returns {TValue[]}

@@ -16,9 +16,16 @@ import {
   NotMultiFieldEntityT,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
-import { isArrayNotEmpty, makeArray } from './array';
+import {
+  arrayNextMinNegativeValue,
+  isArrayNotEmpty,
+  makeArray,
+} from './array';
 import { isNotMultiEntity } from './entity';
-import { isPrimitive, isDef } from './type';
+import {
+  isDef,
+  isPrimitive,
+} from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
@@ -259,3 +266,16 @@ export const asMultiFieldMappedEntities =
 export const asMultiFieldMappedEntitiesIds =
   <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[]): EntityIdT[] =>
     asMultiFieldMappedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
+
+/**
+ * @stable [19.11.2019]
+ * @param {TEntity} original
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} multiFieldEntity
+ * @returns {{id: number}}
+ */
+export const buildNewPhantomMultiItem =
+  <TEntity extends IEntity = IEntity>(original: TEntity,
+                                      multiFieldEntity: MultiFieldEntityT<TEntity>): TEntity => ({
+    ...original as AnyT,
+    id: arrayNextMinNegativeValue(asMultiFieldMappedEntitiesIds(multiFieldEntity) as number[] || []),
+  });

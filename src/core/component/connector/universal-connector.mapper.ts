@@ -26,8 +26,6 @@ import {
   IListWrapperEntity,
   IPagedEntity,
   IPaginatedEntity,
-  ITabPanelEntity,
-  ITabPanelWrapperEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
   IUserWrapperEntity,
@@ -126,21 +124,6 @@ export const listSelector = (listWrapperEntity: IListWrapperEntity): IListEntity
  */
 export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMutator?: IDataMutatorEntity): IListWrapperEntity =>
   listMapper(listSelector(listWrapperEntity), dataMutator);
-
-/**
- * @stable [31.08.2018]
- * @param {ITabPanelEntity} tabPanel
- * @returns {ITabPanelEntity}
- */
-export const tabPanelMapper = (tabPanel: ITabPanelEntity): ITabPanelWrapperEntity => ({tabPanel: {...tabPanel}});
-
-/**
- * @stable [30.08.2018]
- * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
- * @returns {ITabPanelWrapperEntity}
- */
-export const tabPanelWrapperMapper = (tabPanelWrapperEntity: ITabPanelWrapperEntity): ITabPanelWrapperEntity =>
-  tabPanelMapper(tabPanelWrapperEntity.tabPanel);
 
 /**
  * @deprecated Use selectChanges

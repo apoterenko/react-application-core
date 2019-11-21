@@ -185,3 +185,11 @@ export interface IGridProps
   extends IComponentProps,
     IGridEntity {
 }
+
+/**
+ * @stable [19.11.2019]
+ */
+export const NOT_SELECTABLE_GRID_ENTITY = Object.freeze<IGridEntity>({
+  hovered: false,
+  selectable: false,
+});

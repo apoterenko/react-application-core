@@ -95,3 +95,16 @@ export interface IMenu
     ICenteredMenuWrapper,
     IHideWrapper {
 }
+
+/**
+ * @stable [21.11.2019]
+ */
+export const CENTERED_MENU_ENTITY = Object.freeze<IMenuEntity>({centeredMenu: true});
+
+/**
+ * @stable [21.11.2019]
+ */
+export const FILTERED_CENTERED_MENU_ENTITY = Object.freeze<IMenuEntity>({
+  ...CENTERED_MENU_ENTITY,
+  useFilter: true,
+});

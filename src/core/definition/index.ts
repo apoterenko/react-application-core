@@ -10,6 +10,7 @@ export * from './connector-definition.interface';
 export * from './constructor-definition.interface';
 export * from './container-definition.interface';
 export * from './cron-definition.interface';
+export * from './date-definition.interface';
 export * from './delayed-changes-definition.interface';
 export * from './dialog-definition.interface';
 export * from './dictionary-definition.interface';

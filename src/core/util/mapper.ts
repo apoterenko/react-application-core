@@ -19,6 +19,8 @@ import {
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ISortDirectionsWrapperEntity,
+  ITabPanelEntity,
+  ITabPanelWrapperEntity,
   ITransportEntity,
   ITransportWrapperEntity,
   IUserEntity,
@@ -105,12 +107,12 @@ export const selectChanges = <TResult extends IEntity = IEntity>(entity: IEditab
   ifNotNilThanValue(entity, (): TResult => entity.changes as TResult, UNDEF_SYMBOL);
 
 /**
- * @stable [19.10.2019]
- * @param {IFormWrapperEntity} entity
+ * @stable [21.11.2019]
+ * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
  */
 export const selectEditableEntityChanges =
-  <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity): TEntity =>
+  <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity<TEntity>): TEntity =>
     ifNotNilThanValue(entity, (): TEntity => selectChanges<TEntity>(selectEditableEntity(entity)), UNDEF_SYMBOL);
 
 /**
@@ -275,6 +277,14 @@ export const selectListRawDataEntity = <TData = AnyT>(listEntity: IRawDataWrappe
   ifNotNilThanValue(listEntity, (): TData => listEntity.rawData, UNDEF_SYMBOL);
 
 /**
+ * @stable [21.11.2019]
+ * @param {ITabPanelWrapperEntity} entity
+ * @returns {ITabPanelEntity}
+ */
+export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): ITabPanelEntity =>
+  ifNotNilThanValue(entity, () => entity.tabPanel, UNDEF_SYMBOL);
+
+/**
  * @stable [18.10.2019]
  * @param {IListWrapperEntity} listWrapperEntity
  * @returns {TData}
@@ -331,6 +341,22 @@ export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrappe
   mapEntityId(selectEntityId(entity));
 
 /**
+ * @stable [21.11.2019]
+ * @param {ITabPanelEntity} tabPanel
+ * @returns {ITabPanelWrapperEntity}
+ */
+export const mapTabPanelEntity = (tabPanel: ITabPanelEntity): ITabPanelWrapperEntity =>
+  defValuesFilter<ITabPanelWrapperEntity, ITabPanelWrapperEntity>({tabPanel});
+
+/**
+ * @stable [21.11.2019]
+ * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
+ * @returns {ITabPanelWrapperEntity}
+ */
+export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelWrapperEntity): ITabPanelWrapperEntity =>
+  mapTabPanelEntity(selectTabPanelEntity(tabPanelWrapperEntity));
+
+/**
  * @stable [28.09.2019]
  * @param {IUserEntity} user
  * @returns {IUserWrapperEntity}
@@ -362,13 +388,13 @@ export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWr
   defValuesFilter<IQueryFilterWrapperEntity, IQueryFilterWrapperEntity>({filter});
 
 /**
- * @stable [04.09.2019]
+ * @stable [21.11.2019]
  * @param {IEditableEntity<TEntity extends IEntity>} form
- * @returns {IFormWrapperEntity}
+ * @returns {IFormWrapperEntity<TEntity extends IEntity>}
  */
 export const mapEditableEntity =
-  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IFormWrapperEntity =>
-    defValuesFilter<IFormWrapperEntity, IFormWrapperEntity>({form});
+  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IFormWrapperEntity<TEntity> =>
+    defValuesFilter<IFormWrapperEntity<TEntity>, IFormWrapperEntity<TEntity>>({form});
 
 /**
  * @stable [04.09.2019]

@@ -128,7 +128,7 @@ export class MultiField<TProps extends IMultiFieldProps,
     const activeValue = this.multiFieldPlugin.activeValue;
     const result = super.toFilteredOptions();
 
-    return this.props.notUseActiveValueFilter
+    return this.props.ignoreSelectedValue
       ? result
       : result.filter((option) => !activeValue.find((item) => item.id === option.value));
   }
