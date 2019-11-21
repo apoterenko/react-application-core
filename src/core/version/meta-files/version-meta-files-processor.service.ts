@@ -59,21 +59,18 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
     const remoteMetaData: IVersionMetaFilesEntity = data[1];
     const remoteAppUuid = remoteMetaData.uuid;
 
-    if (R.isNil(nvl(localAppUuid, remoteAppUuid))) {
-      if (R.isNil(remoteAppUuid)) {
-        VersionMetaFilesProcessor.logger.warn(
-          '[$VersionMetaFilesProcessor][processNewVersionUuidAndGetResult] The remote app uuid is empty!'
-        );
-      }
+    if (!isObjectNotEmpty(remoteAppUuid)) {
+      // The server is unavailable
+      VersionMetaFilesProcessor.logger.warn(
+        '[$VersionMetaFilesProcessor][processNewVersionUuidAndGetResult] The remote app uuid is empty!'
+      );
       return false;
     }
 
-    // Set remote app uuid to the local storage
+    // Apply remote app uuid to local storage
     await storage.set(this.versionUuidKeyName, remoteAppUuid);
 
-    if (isObjectNotEmpty(localAppUuid)
-      && isObjectNotEmpty(remoteAppUuid)
-      && !R.equals(localAppUuid, remoteAppUuid)) {
+    if (isObjectNotEmpty(localAppUuid) && !R.equals(localAppUuid, remoteAppUuid)) {
 
       // After F5, to exclude the inconsistent state of App - need redirect to initial path
       VersionMetaFilesProcessor.logger.debug(
