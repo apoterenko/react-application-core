@@ -122,6 +122,15 @@
   );
 
   /**
+  * @grid-column-separator
+  * @stable [19.11.2019]
+  */
+  @include rac-styles (
+    $rac-styles-custom: rac-grid-column-separator,
+    $rac-styles-width: $rac-grid-offset-0 * 2
+  );
+
+  /**
    * @grid
    * @stable [21.10.2019]
    */
