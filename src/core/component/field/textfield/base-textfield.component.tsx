@@ -111,7 +111,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   protected openVirtualKeyboard(): boolean {
     const result = super.openVirtualKeyboard();
     if (result) {
-      this.keyboardListenerUnsubscriber = this.domAccessor.attachClickListenerToDocument(this.onDocumentClickHandler);
+      this.keyboardListenerUnsubscriber = this.domAccessor.attachClickListener(this.onDocumentClickHandler);
     }
     return result;
   }

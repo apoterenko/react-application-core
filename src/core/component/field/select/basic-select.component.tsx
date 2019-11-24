@@ -26,10 +26,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   constructor(props: TProps) {
     super(props);
-    this.onSelect = this.onSelect.bind(this);
+    this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onClose = this.onClose.bind(this);
-    this.openMenu = this.openMenu.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.openMenu = this.openMenu.bind(this);
 
     if (props.expandActionRendered !== false) {
       this.defaultActions = [
@@ -147,7 +148,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     return (
       <Menu
         ref='menu'
-        width={() => getWidth(this.getSelf())}
+        width={this.getMenuWidth}
         options={this.toFilteredOptions()}
         onSelect={this.onSelect}
         onFilterChange={this.onFilterChange}
@@ -273,5 +274,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (isFn(onDictionaryFilterChange)) {
       onDictionaryFilterChange(props.bindDictionary, {payload: {query}});
     }
+  }
+
+  /**
+   * @stable [23.11.2019]
+   * @returns {number}
+   */
+  private getMenuWidth(): number {
+    return getWidth(this.getSelf());
   }
 }

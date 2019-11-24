@@ -55,10 +55,11 @@ $rac-color-0-2: rgba(0, 0, 0, .2) !default;
 $rac-color-0-3: rgba(0, 0, 0, .05) !default;
 $rac-color-0-4: rgba(0, 0, 0, .3) !default;
 $rac-color-0-5: rgba(255, 255, 255, .5) !default;
-$rac-color-0-6: rgba(0, 0, 0, 0.7) !default;
+$rac-color-0-6: rgba(0, 0, 0, .7) !default;
 $rac-color-0-7: rgba(255, 255, 255, .3) !default;
 $rac-color-0-8: rgba(255, 255, 255, .7) !default;
 $rac-color-0-9: rgba(255, 255, 255, .1) !default;
+$rac-color-0-10: rgba(0, 0, 0, .5) !default;
 /**/
 $rac-color-1-0: #212121 !default;
 $rac-color-1-1: #d8ddde !default;
@@ -686,7 +687,7 @@ $rac-menu-dialog-list-border-radius: $rac-border-radius-0 !default;
 $rac-menu-dialog-list-overflow: auto !default;
 /**/
 $rac-menu-dialog-icon-close-color: $rac-dialog-color-0 !default;
-$rac-menu-dialog-icon-close-margin: 0 0 $rac-offset-1 !default;
+$rac-menu-dialog-icon-close-margin: 0 0 $rac-offset-1 auto !default;
 $rac-menu-dialog-icon-close-size: 24px !default;
 
 /* @stable [17.09.2018] */
