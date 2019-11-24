@@ -1,35 +1,48 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { UNDEF, StringNumberT, AnyT } from '../../definitions.interface';
+import {
+  AnyT,
+  StringNumberT,
+  UNDEF,
+} from '../../definitions.interface';
 import {
   calc,
-  cancelEvent,
   DelayedTask,
+  ifNotNilThanValue,
+  isCenteredMenu,
+  isFilterUsed,
   isFn,
+  isMulti,
+  isRemoteFilter,
   joinClassName,
   nvl,
   queryFilter,
-  setAbsoluteOffsetByCoordinates,
   subArray,
 } from '../../util';
 import { BaseComponent } from '../base';
 import { Dialog } from '../dialog';
-import { FlexLayout } from '../layout';
 import {
-  IBaseEvent,
+  EventsEnum,
   IMenu,
   IMenuItemEntity,
   IMenuProps,
   IMenuState,
+  SyntheticEventsEnum,
 } from '../../definition';
-import { IField, TextField } from '../field';
-import { SimpleList, ListItem } from '../list';
+import {
+  IField,
+  TextField,
+} from '../field';
+import {
+  ListItem,
+  SimpleList,
+} from '../list';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
 
-  public static defaultProps: IMenuProps = {
+  public static readonly defaultProps: IMenuProps = {
     filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
@@ -37,6 +50,8 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private readonly fieldRef = React.createRef<TextField>();
   private readonly menuAnchorRef = React.createRef<HTMLDivElement>();
   private readonly filterQueryTask: DelayedTask;
+  private syntheticScrollEventUnsubscriber: () => void;
+  private resizeUnsubscriber: () => void;
 
   /**
    * @stable [31.07.2018]
@@ -45,16 +60,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   constructor(props: IMenuProps) {
     super(props);
 
-    this.hide = this.hide.bind(this);
-    this.onSelect = this.onSelect.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onCloseAction = this.onCloseAction.bind(this);
-    this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.getItemElement = this.getItemElement.bind(this);
+    this.hide = this.hide.bind(this);
+    this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
+    this.onFilterValueChange = this.onFilterValueChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
 
     this.state = {opened: false};
-
-    this.filterQueryTask = new DelayedTask(this.onFilterChange.bind(this), 500);
+    this.filterQueryTask = new DelayedTask(this.onFilterValueDelayedChange.bind(this), 500);
   }
 
   /**
@@ -65,7 +78,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     const props = this.props;
     const filterElement = this.filterElement;
 
-    if (props.centeredMenu) {
+    if (this.centeredMenu) {
       return (
         this.state.opened && (
           <Dialog
@@ -86,16 +99,12 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <div
         ref={this.menuAnchorRef}
-        className={this.uiFactory.menuAnchor}>
+        className={this.uiFactory.menuAnchor}
+      >
         <div
           ref={this.selfRef}
-          style={{...!props.centeredMenu && {width: calc(props.width)}}}
-          className={joinClassName(
-            'rac-menu',
-            props.className,
-            this.uiFactory.menu,
-            this.uiFactory.menuSurface)
-          }>
+          style={{...!this.centeredMenu && {width: calc(props.width)}}}
+          className={joinClassName('rac-menu', props.className, this.uiFactory.menu, this.uiFactory.menuSurface)}>
           {filterElement}
           {this.listElement}
         </div>
@@ -107,8 +116,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @stable [18.06.2019]
    */
   public componentWillUnmount() {
-    super.componentWillUnmount();
+    this.unsubscribeAllCaptureEvents();
     this.filterQueryTask.stop();
+
+    super.componentWillUnmount();
   }
 
   /**
@@ -116,7 +127,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @returns {boolean}
    */
   public get centeredMenu(): boolean {
-    return this.props.centeredMenu;
+    return isCenteredMenu(this.props);
   }
 
   /**
@@ -128,14 +139,34 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
       if (this.doesDialogExist) {
         this.dialog.activate();
       }
-      if (props.useFilter) {
+      if (this.isFilterUsed) {
         this.field.setFocus();
+      }
+      if (!this.centeredMenu) {
+        this.unsubscribeAllCaptureEvents();
+        this.syntheticScrollEventUnsubscriber = this.domAccessor.captureEventWithinElement({
+          autoUnsubscribe: true,
+          callback: this.hide,
+          element: this.selfRef.current,
+          eventName: SyntheticEventsEnum.SCROLL,  // We do not have info about scrollable parent (body, etc, ...)
+        });
+        this.resizeUnsubscriber = this.domAccessor.captureEvent({
+          autoUnsubscribe: true,
+          callback: this.hide,
+          eventName: EventsEnum.RESIZE,
+        });
       }
     });
 
-    if (!R.isNil(nvl(props.xPosition, props.yPosition))) {
-      setAbsoluteOffsetByCoordinates(this.menuAnchorRef.current, props.xPosition, props.yPosition);
-    }
+    ifNotNilThanValue(
+      nvl(props.xPosition, props.yPosition),
+      () => {
+        const el = this.menuAnchorRef.current;
+        this.domAccessor.addClassNames(el, 'rac-absolute');
+        this.domAccessor.applyPosition(el, 'left', props.xPosition);
+        this.domAccessor.applyPosition(el, 'top', props.yPosition);
+      }
+    );
   }
 
   /**
@@ -143,11 +174,11 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   public hide(): void {
     const props = this.props;
-    this.setState({opened: false});
-
-    if (isFn(props.onClose)) {
-      props.onClose();
-    }
+    this.setState({opened: false}, () => {
+      if (isFn(props.onClose)) {
+        props.onClose();
+      }
+    });
   }
 
   /**
@@ -159,64 +190,51 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [06.08.2018]
+   * @stable [23.11.2019]
    * @returns {IMenuItemEntity[]}
    */
-  private get menuItems(): IMenuItemEntity[] {
+  private get items(): IMenuItemEntity[] {
     const props = this.props;
-    const state = this.state;
-    const query = state.filter;
 
-    return props.useFilter && props.remoteFilter !== true
-      ? props.options.filter((option) => props.filter(query, option))
-      : props.options;
+    return !this.isFilterUsed || isRemoteFilter(props)
+      ? props.options
+      : props.options.filter((option) => props.filter(this.state.filter, option));
   }
 
   /**
-   * @stable [17.10.2018]
-   * @param {IBaseEvent} event
-   */
-  private onCloseAction(event: IBaseEvent): void {
-    cancelEvent(event);
-    this.hide();
-  }
-
-  /**
-   * @stable [04.10.2018]
+   * @stable [23.11.2019]
    * @param {string} filter
    */
-  private onInputChange(filter: string): void {
+  private onFilterValueChange(filter: string): void {
     this.setState({filter});
     this.filterQueryTask.start();
   }
 
   /**
-   * @stable [17.06.2019]
+   * @stable [23.11.2019]
    */
-  private onFilterChange(): void {
+  private onFilterValueDelayedChange(): void {
     const props = this.props;
-    const state = this.state;
-
     if (isFn(props.onFilterChange)) {
-      props.onFilterChange(state.filter);
+      props.onFilterChange(this.state.filter);
     }
   }
 
   /**
-   * @stable [06.08.2018]
+   * @stable [23.11.2019]
    * @param {IMenuItemEntity} option
    */
   private onSelect(option: IMenuItemEntity): void {
     const props = this.props;
-    if (props.onSelect) {
+    if (isFn(props.onSelect)) {
       props.onSelect(option);
     }
 
-    if (!props.multi
-      || this.menuItems.length === 1 // Because a "Flux Cycle", to prevent empty list after updating
-    ) {
-      this.hide();
+    if (isMulti(props) && this.items.length > 1) {
+      // Because a "Flux Cycle", to prevent empty list after updating
+      return;
     }
+    this.hide();
   }
 
   /**
@@ -227,13 +245,28 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
+   * @stable [23.11.2019]
+   */
+  private unsubscribeAllCaptureEvents(): void {
+    if (isFn(this.syntheticScrollEventUnsubscriber)) {
+      this.syntheticScrollEventUnsubscriber();
+      this.syntheticScrollEventUnsubscriber = null;
+    }
+    if (isFn(this.resizeUnsubscriber)) {
+      this.resizeUnsubscriber();
+      this.resizeUnsubscriber = null;
+    }
+  }
+
+  /**
    * @stable [23.09.2019]
    * @returns {JSX.Element}
    */
   private get listElement(): JSX.Element {
     return (
-      <SimpleList className={this.uiFactory.list}>
-        {subArray(this.menuItems, this.props.maxCount).map(this.getItemElement)}
+      <SimpleList
+        className={this.uiFactory.list}>
+        {subArray(this.items, this.props.maxCount).map(this.getItemElement)}
       </SimpleList>
     );
   }
@@ -261,18 +294,44 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [17.06.2019]
-   * @returns {Dialog<AnyT>}
+   * @returns {JSX.Element}
    */
-  private get dialog(): Dialog<AnyT> {
-    return this.dialogRef.current;
+  private get filterElement(): JSX.Element {
+    const props = this.props;
+    const state = this.state;
+    return (
+      <TextField
+        ref={this.fieldRef}
+        full={false}
+        value={state.filter}
+        visible={this.isFilterUsed}  /* MDC focus trap */
+        placeholder={props.filterPlaceholder || this.settings.messages.FILTER_PLACEHOLDER}
+        errorMessageRendered={false}
+        onChange={this.onFilterValueChange}/>
+    );
   }
 
   /**
-   * @stable [07.06.2018]
-   * @returns {IField}
+   * @stable [06.07.2019]
+   * @returns {JSX.Element}
    */
-  private get field(): IField {
-    return this.fieldRef.current;
+  private get closeActionElement(): JSX.Element {
+    return (
+      this.uiFactory.makeIcon({
+        key: 'menu-close-action-key',
+        type: 'close',
+        className: 'rac-menu-dialog-icon-close',
+        onClick: this.hide,
+      })
+    );
+  }
+
+  /**
+   * @stable [23.11.2019]
+   * @returns {boolean}
+   */
+  private get isFilterUsed(): boolean {
+    return isFilterUsed(this.props);
   }
 
   /**
@@ -284,44 +343,19 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.06.2019]
-   * @returns {JSX.Element}
+   * @stable [07.06.2018]
+   * @returns {IField}
    */
-  private get filterElement(): JSX.Element {
-    const props = this.props;
-    const state = this.state;
-    return (
-      <TextField
-        ref={this.fieldRef}
-        full={false}
-        value={state.filter}
-        visible={!!props.useFilter}  /* MDC focus trap */
-        placeholder={props.filterPlaceholder || this.settings.messages.filterPlaceholderMessage}
-        errorMessageRendered={false}
-        onChange={this.onInputChange}/>
-    );
+  private get field(): IField {
+    return this.fieldRef.current;
   }
 
   /**
-   * @stable [06.07.2019]
-   * @returns {JSX.Element}
+   * @stable [17.06.2019]
+   * @returns {Dialog<AnyT>}
    */
-  private get closeActionElement(): JSX.Element {
-    return (
-      <FlexLayout
-        full={false}
-        alignItemsEnd={true}
-        noShrink={true}>
-        {
-          this.uiFactory.makeIcon({
-            key: 'menu-close-action-key',
-            type: 'close',
-            className: 'rac-menu-dialog-icon-close',
-            onClick: this.onCloseAction,
-          })
-        }
-      </FlexLayout>
-    );
+  private get dialog(): Dialog<AnyT> {
+    return this.dialogRef.current;
   }
 
   /**

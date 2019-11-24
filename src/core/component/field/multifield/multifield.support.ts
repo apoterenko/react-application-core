@@ -4,7 +4,8 @@ import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions
 import {
   asEntitiesArray,
   asMultiFieldEditedEntities,
-  defValuesFilter,
+  asMultiFieldRemovedEntities,
+  buildMultiItemEntity,
   ifNotNilThanValue,
   isDef,
   isFn,
@@ -23,48 +24,6 @@ import {
   MultiFieldSingleValueT,
   NotMultiFieldEntityT,
 } from '../../../definition';
-
-/**
- * @stable [14.10.2019]
- * @param {Partial<IMultiEntity<TEntity extends IEntity>>} initial
- * @returns {IMultiEntity<TEntity extends IEntity>}
- */
-export const multiEntityFactory =
-  <TEntity extends IEntity = IEntity>(initial: Partial<IMultiEntity<TEntity>>): IMultiEntity<TEntity> => ({
-    add: initial.add || [],
-    edit: initial.edit || [],
-    remove: initial.remove || [],
-    source: initial.source || [],
-  });
-
-/**
- * @stable [22.11.2018]
- * @param {MultiFieldEntityT} entity
- * @returns {TItem[]}
- */
-export const toActualMultiItemDeletedEntities = <TItem extends IEntity = IEntity>(entity: MultiFieldEntityT): TItem[] => {
-  if (R.isNil(entity)) {
-    return UNDEF;
-  }
-  const multiEntity = entity as IMultiEntity;
-  if (!isNotMultiEntity(entity)) {
-    return multiEntity.remove as TItem[];
-  }
-  return [];
-};
-
-/**
- * @stable [26.12.2018]
- * @param {MultiFieldEntityT} entity
- * @returns {TItem[]}
- */
-export const toActualMultiItemAddedEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT): TEntity[] => {
-  if (R.isNil(entity)) {
-    return UNDEF;
-  }
-  const multiEntity = entity as IMultiEntity;
-  return isNotMultiEntity(entity) ? [] : multiEntity.add as TEntity[];
-};
 
 /**
  * @stable [29.07.2019]
@@ -114,9 +73,9 @@ export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEn
  * @returns {TResult[]}
  */
 export function fromMultiFieldEntityToDeletedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
-  multiFieldEntity: MultiFieldEntityT,
+  multiFieldEntity: MultiFieldEntityT<TItem>,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = toActualMultiItemDeletedEntities<TItem>(multiFieldEntity);
+  const result = asMultiFieldRemovedEntities<TItem>(multiFieldEntity);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
@@ -195,20 +154,6 @@ export const fromMultiItemEntityToEntity = (entity: IEntity | IMultiItemEntity):
 };
 
 /**
- * @stable [14.10.2019]
- * @param {string} name
- * @param {AnyT} value
- * @param {TEntity} rawData
- * @param {boolean} newEntity
- * @returns {IMultiItemEntity}
- */
-export const buildMultiEntity = <TEntity extends IEntity = IEntity>(name: string,
-                                                                    value: AnyT,
-                                                                    rawData: TEntity,
-                                                                    newEntity?: boolean): IMultiItemEntity =>
-  defValuesFilter({id: rawData.id, value, name, rawData, newEntity});
-
-/**
  * @stable [23.06.2018]
  * @param {string} fieldName
  * @param {MultiFieldEntityT} multiFieldValue
@@ -228,7 +173,7 @@ export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntit
   const editedMultiItemEntity = editedMultiItemEntities.find(predicate);
   const sourceMultiItemEntity = sourceMultiItemEntities.find(predicate);
 
-  return buildMultiEntity(
+  return buildMultiItemEntity(
     fieldName,
     nextFieldValueFn(editedMultiItemEntity as TEntity, sourceMultiItemEntity as TEntity),
     sourceMultiItemEntity,

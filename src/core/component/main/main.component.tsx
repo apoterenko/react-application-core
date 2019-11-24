@@ -5,6 +5,7 @@ import {
   FlexClassNamesEnum,
   IMainProps,
   IScrollableEntity,
+  SyntheticEventsEnum,
   UniversalScrollableContext,
   UniversalStickyContext,
 } from '../../definition';
@@ -19,6 +20,15 @@ export class Main extends BaseComponent<IMainProps>
     stickyElementClassName: ElementsMarkersEnum.STICKY_ELEMENT_275B4646,
     selectedElementClassName: ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6,
   };
+
+  /**
+   * @stable [23.11.2019]
+   * @param {IMainProps} props
+   */
+  constructor(props: IMainProps) {
+    super(props);
+    this.onScroll = this.onScroll.bind(this);
+  }
 
   /**
    * @stable [23.10.2019]
@@ -56,6 +66,8 @@ export class Main extends BaseComponent<IMainProps>
    * @stable [13.12.2018]
    */
   public onScroll() {
+    this.domAccessor.fireEvent({eventName: SyntheticEventsEnum.SCROLL});
+
     // Each plugin should override this method
   }
 }
