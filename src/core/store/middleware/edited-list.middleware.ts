@@ -88,7 +88,12 @@ export const makeLazyLoadedEntityMiddleware = <TEntity extends IEntity, TState>(
       []
     ),
     ...ifNotNilThanValue(
-      makeChainedMiddleware(toChainedConfigEntity(config)),
+      makeChainedMiddleware({
+        ...toChainedConfigEntity(config),
+        ...defValuesFilter<IChainedMiddlewareConfigEntity<TState>, IChainedMiddlewareConfigEntity<TState>>({
+          payload: action.data,
+        }),
+      }),
       (actions) => actions,
       []
     )
