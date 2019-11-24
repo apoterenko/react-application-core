@@ -2,6 +2,14 @@ import JQuery from 'jquery';
 
 import { IBaseEvent } from './event-definition.interface';
 import { IXYEntity } from './xy-definition.interface';
+import {
+  IAutoUnsubscribeWrapper,
+  ICallbackWrapper,
+  IConditionWrapper,
+  IElementWrapper,
+  IEventNameWrapper,
+  IParentElementWrapper,
+} from '../definitions.interface';
 
 /**
  * @stable [08.11.2019]
@@ -33,18 +41,43 @@ export interface IJQueryElement<TElement extends Element = Element>
 }
 
 /**
+ * @stable [23.11.2019]
+ */
+export interface ICaptureEventConfigEntity
+  extends IAutoUnsubscribeWrapper,
+    ICallbackWrapper,
+    IConditionWrapper,
+    IElementWrapper<Element | EventTarget>,
+    IEventNameWrapper,
+    IParentElementWrapper<Element | EventTarget> {
+}
+
+/**
+ * @stable [23.11.2019]
+ */
+export interface IFireEventConfigEntity
+  extends IEventNameWrapper,
+    IElementWrapper<Element | EventTarget> {
+}
+
+/**
  * @stable [29.09.2019]
  */
 export interface IDomAccessor {
-  addChild(child: Element, parent?: Element): Element;
+  addChild(child: Element, parentEl?: Element): Element;
   addClassNames(element: Element, ...clsNames: string[]): void;
   addRootElement(): Element;
-  attachClickListenerToDocument(callback: (e: IBaseEvent) => void): () => void;
-  createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parent?: Element): TElement;
+  applyPosition(source: Element, position: string, value: number | (() => number)): void;
+  asJqEl(source: Element): IJQueryElement<Element>;
+  attachClickListener(callback: (e: IBaseEvent) => void, parentEl?: Element | EventTarget): () => void;
+  captureEvent(cfg: ICaptureEventConfigEntity): () => void;
+  captureEventWithinElement(cfg: ICaptureEventConfigEntity);
+  createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;
   defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
-  findElement(selector: string | Element, parent?: Element): Element;
+  findElement(selector: string | Element, parentEl?: Element): Element;
+  fireEvent(cfg: IFireEventConfigEntity): void;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
   getDocumentBodyElement(): Element;
@@ -59,13 +92,12 @@ export interface IDomAccessor {
   hasParent(selector: string, target: Element): boolean;
   isAlreadyFocused(): boolean;
   isElementFocused(element: Element): boolean;
-  isElementVisibleWithinParent(child: Element, parent: Element): boolean;
+  isElementVisibleWithinParent(child: Element, parentEl?: Element): boolean;
   redirect(path: string): void;
   reload(forceReload?: boolean): void;
-  removeChild(child: Element, parent?: Element);
+  removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
-  scrollTo(payload: IXYEntity | Element, parent?: Element, config?: IScrollConfigEntity): void;
+  scrollTo(payload: IXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;
-  toJqEl(source: Element): IJQueryElement<Element>;
 }

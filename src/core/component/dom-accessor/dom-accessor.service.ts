@@ -5,6 +5,7 @@ import {
   addChild,
   addClassNames,
   addRootElement,
+  calc,
   createElement,
   findElement,
   getContentHeight,
@@ -16,6 +17,7 @@ import {
   hasParent,
   isElementFocused,
   isElementVisibleWithinParent,
+  isFn,
   openFullScreen,
   removeChild,
   removeClassNames,
@@ -29,9 +31,11 @@ import {
 import {
   EventsEnum,
   IBaseEvent,
+  ICaptureEventConfigEntity,
   IDomAccessor,
   IEnvironment,
   IEventManager,
+  IFireEventConfigEntity,
   IJQueryElement,
   IScrollConfigEntity,
   IXYEntity,
@@ -41,13 +45,112 @@ import {
   DI_TYPES,
   lazyInject,
 } from '../../di';
-import { ISettingsEntity, IBootstrapSettings } from '../../settings';
+import {
+  IBootstrapSettings,
+  ISettingsEntity,
+} from '../../settings';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [23.11.2019]
+   * @param {IFireEventConfigEntity} cfg
+   */
+  public fireEvent(cfg: IFireEventConfigEntity): void {
+    const {eventName, element = this.window} = cfg;
+    element.dispatchEvent(new Event(eventName));
+  }
+
+  /**
+   * @stable [23.11.2019]
+   * @param {Element} source
+   * @param {string} position
+   * @param {number | (() => number)} value
+   */
+  public applyPosition(source: Element, position: string, value: number | (() => number)): void {
+    if (!R.isNil(value)) {
+      this.asJqEl(source).css(position, `${calc(value)}px`);
+    }
+  }
+
+  /**
+   * @stable [23.11.2019]
+   * @param {ICaptureEventConfigEntity} cfg
+   * @returns {() => void}
+   */
+  public captureEvent(cfg: ICaptureEventConfigEntity): () => void {
+    const {
+      autoUnsubscribe,
+      callback,
+      condition = () => true,
+      element = this.window,
+      eventName,
+    } = cfg;
+
+    let eventUnSubscriber: () => void;
+    return eventUnSubscriber = this.eventManager.subscribe(element, eventName, () => {
+      if (condition()) {
+        if (autoUnsubscribe) {
+          eventUnSubscriber();
+        }
+        callback();
+      }
+    });
+  }
+
+  /**
+   * @stable [24.11.2019]
+   * @param {ICaptureEventConfigEntity} cfg
+   * @returns {() => void}
+   */
+  public captureEventWithinElement(cfg: ICaptureEventConfigEntity): () => void {
+    const {
+      autoUnsubscribe,
+      callback,
+      element,
+      eventName,
+      parentElement = this.window,
+    } = cfg;
+
+    let withinMenuEl = false;
+    let mouseenterUnSubscriber: () => void;
+    let mouseleaveUnSubscriber: () => void;
+
+    const sideEffectsUnSubscriber = () => {
+      if (isFn(mouseenterUnSubscriber)) {
+        mouseenterUnSubscriber();
+        mouseenterUnSubscriber = null;
+      }
+      if (isFn(mouseleaveUnSubscriber)) {
+        mouseleaveUnSubscriber();
+        mouseleaveUnSubscriber = null;
+      }
+    };
+    mouseenterUnSubscriber = this.eventManager.subscribe(element, EventsEnum.MOUSEENTER, () => withinMenuEl = true);
+    mouseleaveUnSubscriber = this.eventManager.subscribe(element, EventsEnum.MOUSELEAVE, () => withinMenuEl = false);
+
+    const originalUnSubscriber = this.captureEvent({
+      autoUnsubscribe,
+      callback: () => {
+        if (autoUnsubscribe) {
+          sideEffectsUnSubscriber();
+        }
+        callback();
+      },
+      condition: () => !withinMenuEl,
+      element: parentElement,
+      eventName,
+    });
+
+    return () => {
+      sideEffectsUnSubscriber();
+      originalUnSubscriber();
+    };
+  }
 
   /**
    * @stable [30.10.2019]
@@ -59,13 +162,14 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [28.10.2019]
+   * @stable [23.11.2019]
    * @param {(e: IBaseEvent) => void} callback
+   * @param {Document} element
    * @returns {() => void}
    */
-  public attachClickListenerToDocument(callback: (e: IBaseEvent) => void): () => void {
+  public attachClickListener(callback: (e: IBaseEvent) => void, element = this.document): () => void {
     return this.eventManager.subscribe(
-      this.document,
+      element,
       this.environment.mobilePlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
       callback
     );
@@ -287,7 +391,7 @@ export class DomAccessor implements IDomAccessor {
    * @param {Element} source
    * @returns {IJQueryElement}
    */
-  public toJqEl(source: Element): IJQueryElement {
+  public asJqEl(source: Element): IJQueryElement {
     return toJqEl(source);
   }
 

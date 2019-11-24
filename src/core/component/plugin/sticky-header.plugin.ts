@@ -1,6 +1,9 @@
 import * as R from 'ramda';
 
-import { DI_TYPES, lazyInject } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import {
   isFn,
   sequence,
@@ -10,9 +13,9 @@ import {
   EventsEnum,
   IDomAccessor,
   IEventManager,
-  IUniversalPlugin,
   IScrollableComponent,
   IStickyComponentProps,
+  IUniversalPlugin,
 } from '../../definition';
 
 export class StickyHeaderPlugin implements IUniversalPlugin {
@@ -71,11 +74,10 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
 
     this.clearAllListeners();
     if (this.isStickyElementMounted) {
-      this.resizeUnsubscriber = this.eventManager.subscribe(
-        window,
-        EventsEnum.RESIZE,
-        this.doSetStickyElementProperties
-      );
+      this.resizeUnsubscriber = this.domAccessor.captureEvent({
+        callback: this.doSetStickyElementProperties,
+        eventName: EventsEnum.RESIZE,
+      });
     }
   }
 

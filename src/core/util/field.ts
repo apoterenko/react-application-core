@@ -12,6 +12,7 @@ import {
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
   IGenericFieldEntity,
   IMultiEntity,
+  IMultiItemEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
 } from '../definition';
@@ -36,6 +37,7 @@ import {
   isEmptyOriginalValueSet,
   isReadOnly,
 } from './wrapper';
+import { defValuesFilter } from './filter';
 
 /**
  * @stable [30.10.2019]
@@ -87,7 +89,7 @@ export const isFieldValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
 export const dynamicFieldName = (key: EntityIdT): string => `$$dynamicField-${key}`;
 
 /**
- * @stable [28.08.2019]
+ * @stable [21.11.2019]
  * @param {TEntity} object
  * @param {EntityIdT} key
  * @returns {AnyT}
@@ -126,7 +128,6 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
  * @returns {TEntity[]}
  */
 export const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
-  const before = Date.now();
   if (R.isNil(entity)) {
     return UNDEF;
   }
@@ -191,6 +192,40 @@ export const asMultiFieldEditedEntities =
       }
     });
     return Array.from(resultItems.values());
+  };
+
+/**
+ * @stable [22.11.2019]
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
+ * @returns {TEntity[]}
+ */
+export const asMultiFieldRemovedEntities =
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
+    if (R.isNil(entity)) {
+      return UNDEF;
+    }
+    if (isNotMultiEntity(entity)) {
+      return [];
+    }
+    const multiEntity = entity as IMultiEntity;
+    return multiEntity.remove as TEntity[];
+  };
+
+/**
+ * @stable [22.11.2019]
+ * @param {MultiFieldEntityT} entity
+ * @returns {TEntity[]}
+ */
+export const asMultiFieldAddedEntities =
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
+    if (R.isNil(entity)) {
+      return UNDEF;
+    }
+    if (isNotMultiEntity(entity)) {
+      return [];
+    }
+    const multiEntity = entity as IMultiEntity;
+    return multiEntity.add as TEntity[];
   };
 
 /**
@@ -266,6 +301,33 @@ export const asMultiFieldMappedEntities =
 export const asMultiFieldMappedEntitiesIds =
   <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[]): EntityIdT[] =>
     asMultiFieldMappedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
+
+/**
+ * @stable [22.11.2019]
+ * @param {string} name
+ * @param {AnyT} value
+ * @param {TEntity} rawData
+ * @param {boolean} newEntity
+ * @returns {IMultiItemEntity}
+ */
+export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: string,
+                                                                        value: AnyT,
+                                                                        rawData: TEntity,
+                                                                        newEntity?: boolean): IMultiItemEntity =>
+  defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});
+
+/**
+ * @stable [22.11.2019]
+ * @param {Partial<IMultiEntity<TEntity extends IEntity>>} initial
+ * @returns {IMultiEntity<TEntity extends IEntity>}
+ */
+export const multiEntityFactory =
+  <TEntity extends IEntity = IEntity>(initial: Partial<IMultiEntity<TEntity>>): IMultiEntity<TEntity> => ({
+    add: initial.add || [],
+    edit: initial.edit || [],
+    remove: initial.remove || [],
+    source: initial.source || [],
+  });
 
 /**
  * @stable [19.11.2019]

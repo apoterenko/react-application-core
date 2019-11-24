@@ -79,7 +79,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   errorMessage?: string;
   exportActionTitleMessage?: string;
   fileLoadErrorMessage?: string;
-  filterPlaceholderMessage?: string;
   filtersMessage?: string;
   followingErrorHasOccurredMessage?: string;
   invalidAddressMessage?: string;
@@ -197,7 +196,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     errorMessage: 'Something went wrong. There was a problem loading your data',
     exportActionTitleMessage: 'Export',
     fileLoadErrorMessage: 'Can\'t load the file.',
-    filterPlaceholderMessage: 'Filter',
     filtersMessage: 'Filters',
     followingErrorHasOccurredMessage: 'The following error has occurred:',
     invalidAddressMessage: 'Invalid address',

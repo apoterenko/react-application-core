@@ -447,6 +447,6 @@ export class Field<TProps extends IFieldProps,
    * @returns {IJQueryElement}
    */
   protected get jqInput(): IJQueryElement {
-    return this.domAccessor.toJqEl(this.input);
+    return this.domAccessor.asJqEl(this.input);
   }
 }

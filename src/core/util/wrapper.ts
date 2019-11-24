@@ -1,5 +1,6 @@
 import {
   IAlwaysReturnEmptyValueIfOriginalValueWrapper,
+  ICenteredMenuWrapper,
   IChangeableWrapper,
   IDisabledWrapper,
   IEditedWrapper,
@@ -10,15 +11,18 @@ import {
   IHoveredWrapper,
   IIndexedWrapper,
   IKeyboardOpenWrapper,
+  ILoadingWrapper,
   IMultiWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
+  IRemoteFilterWrapper,
   IRequiredWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
   ISyntheticCursorWrapper,
+  IUseFilterWrapper,
   IUseKeyboardWrapper,
   IValidWrapper,
   IVisibleWrapper,
@@ -214,4 +218,37 @@ export const isAlwaysReturnEmptyValueIfOriginalValue = (wrapper: IAlwaysReturnEm
  * @returns {boolean}
  */
 export const isMulti = (wrapper: IMultiWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.multi !== false, false);
+  ifNotNilThanValue(wrapper, () => wrapper.multi === true, false);
+
+/**
+ * @stable [23.11.2019]
+ * @param {ICenteredMenuWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isCenteredMenu = (wrapper: ICenteredMenuWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.centeredMenu === true, false);
+
+/**
+ * @stable [23.11.2019]
+ * @param {IRemoteFilterWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isRemoteFilter = (wrapper: IRemoteFilterWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.remoteFilter === true, false);
+
+/**
+ * @stable [23.11.2019]
+ * @param {IUseFilterWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.useFilter === true, false);
+
+/**
+ * @stable [22.11.2019]
+ * @param {ILoadingWrapper} entity
+ * @returns {boolean}
+ */
+export const isBeingLoaded = (entity: ILoadingWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.loading === true, false);
+

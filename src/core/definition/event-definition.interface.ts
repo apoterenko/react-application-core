@@ -26,8 +26,18 @@ export enum EventsEnum {
   KEYPRESS = 'keypress',
   LOAD = 'load',
   MOUSE_DOWN = 'mousedown',
+  MOUSEENTER = 'mouseenter',
+  MOUSELEAVE = 'mouseleave',
   RESIZE = 'resize',
   UNLOAD = 'unload',
+  WHEEL = 'wheel',
+}
+
+/**
+ * @stable [23.11.2019]
+ */
+export enum SyntheticEventsEnum {
+  SCROLL = 'syntheticscroll',
 }
 
 /**

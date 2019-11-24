@@ -135,7 +135,7 @@ export type ChainedMiddlewarePayloadT<TState, TPayload> = string | ChainedMiddle
 /**
  * @stable [19.10.2019]
  */
-export interface IChainedMiddlewareConfigEntity<TState, TPayload>
+export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
   extends INextSectionWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
     IStateWrapper<TState>,

@@ -45,7 +45,6 @@ export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialog
 export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
 export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
-export interface I$$permissionStoreProxyWrapper<TValue> { $$permissionStoreProxy?: TValue; }
 export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
@@ -77,6 +76,7 @@ export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
 export interface IAutoCompleteWrapper<TAutoComplete = string> { autoComplete?: TAutoComplete; }
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
+export interface IAutoUnsubscribeWrapper { autoUnsubscribe?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IBeforeEnterWrapper<TBeforeEnter> { beforeEnter?: TBeforeEnter; }
 export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
@@ -87,6 +87,7 @@ export interface IBlockWrapper<TBlock = boolean> { block?: TBlock; }
 export interface IBoolWrapper { bool?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
+export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICenteredMenuWrapper { centeredMenu?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
@@ -108,6 +109,7 @@ export interface IColumnTitleWrapper<TColumnTitle = string> { columnTitle?: TCol
 export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface ICompactWrapper<TCompact = boolean> { compact?: TCompact; }
 export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComputedMatch; }
+export interface IConditionWrapper<TValue = () => void> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
@@ -133,6 +135,7 @@ export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: T
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
+export interface IElementWrapper<TElement = Element> { element?: TElement; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
 export interface IEmptyOriginalValueWrapper<TValue = boolean> { emptyOriginalValue?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
@@ -141,6 +144,7 @@ export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
 export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
 export interface IErrorWrapper<TError = boolean> { error?: TError; }
+export interface IEventNameWrapper { eventName?: string; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
@@ -285,6 +289,7 @@ export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IParamsWrapper<TParams = IKeyValue> { params?: TParams; }
+export interface IParentElementWrapper<TElement = Element> { parentElement?: TElement; }
 export interface IParentWrapper<TParent> { parent?: TParent; }
 export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
 export interface IPasswordWrapper<TPassword = string> { password?: TPassword; }

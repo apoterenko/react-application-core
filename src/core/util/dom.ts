@@ -2,7 +2,6 @@ import * as BPromise from 'bluebird';
 import * as $ from 'jquery';
 import * as R from 'ramda';
 
-import { calc } from './calc';
 import { ENV } from '../env';
 import { fromUrlToBlob } from './blob';
 import { isFn } from './type';
@@ -138,20 +137,6 @@ export const createPreloadedImg = (...images: string[]): void => {
     el.style.height = '0px';
     el.style.width = '0px';
   });
-};
-
-/**
- * @stable [04.10.2018]
- * @param {Element} source
- * @param {number | (() => number)} left
- * @param {number | (() => number)} top
- */
-export const setAbsoluteOffsetByCoordinates = (source: Element,
-                                               left: number | (() => number),
-                                               top: number | (() => number)): void => {
-  applyStyle(source, 'position', 'absolute');
-  applyStyle(source, 'left', `${calc(left)}px`);
-  applyStyle(source, 'top', `${calc(top)}px`);
 };
 
 /**

@@ -15,7 +15,10 @@ import {
   ifNotEmptyThanValue,
   ifNotNilThanValue,
 } from './cond';
-import { inProgress, isValid } from './wrapper';
+import {
+  inProgress,
+  isValid,
+} from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
 import { selectEditableEntity } from './mapper';
