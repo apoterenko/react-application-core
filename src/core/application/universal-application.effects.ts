@@ -8,7 +8,7 @@ import {
   ifNotEmptyThanValue,
   orNull,
   selectToken,
-  selectTransportToken,
+  selectTransportWrapperToken,
 } from '../util';
 import { ISettingsEntity } from '../settings';
 import {
@@ -177,7 +177,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAuthorizedActionType())
   public async $onAuthorized(action: IEffectsAction, state: IUniversalStoreEntity): Promise<void> {
-    const token = selectToken(action.data) || selectTransportToken(state);
+    const token = selectToken(action.data) || selectTransportWrapperToken(state);
     await this.notVersionedPersistentStorage.set(this.authTokenKeyName, token);
 
     UniversalApplicationEffects.logger.debug(() =>

@@ -221,7 +221,7 @@ export interface IKeyboardKey extends IValueWrapper<string>,
                                                    IWidthWrapper {
 }
 
-export interface IKeyboardKeyConfiguration extends IDisabledWrapper {
+export interface IKeyboardKeyEntity extends IDisabledWrapper {
   // TODO
   renderer?: any;
   className?: any;
@@ -235,7 +235,7 @@ export interface IKeyboardConfiguration extends IComponentProps,
                                                 ILayoutWrapper<KeyboardLayoutT[]>,
                                                 IOnCloseWrapper,
                                                 IRenderToBodyWrapper {
-  keyboardKeyConfiguration?: IKeyboardKeyConfiguration; // TODO
+  keyboardKeyConfiguration?: IKeyboardKeyEntity; // TODO
 }
 
 /**

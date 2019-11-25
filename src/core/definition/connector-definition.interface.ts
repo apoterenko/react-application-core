@@ -1,5 +1,6 @@
 import { IRouteEntity } from './router-definition.interface';
 import {
+  ACTION_PREFIX,
   IAccessConfigurationWrapper,
   IInjectedServicesWrapper,
   IKeyValue,
@@ -34,3 +35,9 @@ export interface IConnectorEntity<TStoreEntity = {}, TAccessConfig = {}>
   extends IBasicConnectorEntity<TStoreEntity>,
     IAccessConfigurationWrapper<TAccessConfig> {
 }
+
+/**
+ * @stable [25.11.2019]
+ */
+export const $CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}connected.container.init`;
+export const $CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}connected.container.destroy`;

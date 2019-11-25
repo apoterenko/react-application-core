@@ -1,4 +1,5 @@
 import { IEffectsAction } from 'redux-effects-promise';
+import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
@@ -9,6 +10,7 @@ import {
   ILifeCycleEntity,
   IListEntity,
   IListWrapperEntity,
+  IOperationEntity,
   IOptionEntity,
   IPagedEntity,
   IPaginatedEntity,
@@ -41,6 +43,7 @@ import {
   IPreventEffectsWrapper,
   IProgressWrapper,
   IQueryWrapper,
+  IQueueWrapper,
   IRawDataWrapper,
   ISelectedWrapper,
   ITokenWrapper,
@@ -48,8 +51,14 @@ import {
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
-import { ifNotNilThanValue, ifNotEmptyThanValue } from './cond';
-import { isFn } from './type';
+import {
+  ifNotEmptyThanValue,
+  ifNotNilThanValue,
+} from './cond';
+import {
+  isFn,
+  isString,
+} from './type';
 import { isNewEntity } from './entity';
 import { shallowClone } from './clone';
 import {
@@ -66,12 +75,28 @@ export const selectToken = (entity: ITokenWrapper): string =>
   ifNotNilThanValue(entity, (): string => entity.token, UNDEF_SYMBOL);
 
 /**
+ * @stable [25.11.2019]
+ * @param {IQueueWrapper<TValue>} entity
+ * @returns {TValue}
+ */
+export const selectQueue = <TValue>(entity: IQueueWrapper<TValue>): TValue =>
+  ifNotNilThanValue(entity, (): TValue => entity.queue, UNDEF_SYMBOL);
+
+/**
  * @stable [17.11.2019]
  * @param {ITransportWrapperEntity} entity
  * @returns {string}
  */
-export const selectTransportToken = (entity: ITransportWrapperEntity): string =>
+export const selectTransportWrapperToken = (entity: ITransportWrapperEntity): string =>
   selectToken(selectTransport(entity));
+
+/**
+ * @stable [25.11.2019]
+ * @param {ITransportWrapperEntity} entity
+ * @returns {string[]}
+ */
+export const selectTransportWrapperQueue = (entity: ITransportWrapperEntity): string[] =>
+  selectQueue(selectTransport(entity));
 
 /**
  * @stable [17.11.2019]
@@ -643,3 +668,52 @@ export const mapDictionaryEntity = <TDictionaryEntity>(
   mapSelectOptions<TDictionaryEntity>(
     mapDictionaryEntityData<TDictionaryEntity>(dictionaryEntity)
   );
+
+/**
+ * @stable [25.11.2019]
+ * @param {string[]} queue
+ * @param {string | IOperationEntity} operation
+ * @returns {boolean}
+ */
+export const hasQueueOperation = (queue: string[],
+                                  operation: string | IOperationEntity): boolean =>
+  hasQueueOperations(queue, operation);
+
+/**
+ * @stable [25.11.2019]
+ * @param {string[]} queue
+ * @param {string | IOperationEntity} operations
+ * @returns {boolean}
+ */
+export const hasQueueOperations = (queue: string[],
+                                   ...operations: Array<string | IOperationEntity>): boolean =>
+  !R.isEmpty(
+    R.intersection(
+      queue,
+      operations.map((operation) => (
+        isString(operation)
+          ? operation as string
+          : (operation as IOperationEntity).id
+      ))
+    )
+  );
+
+/**
+ * @stable [25.11.2019]
+ * @param {ITransportWrapperEntity} entity
+ * @param {string | IOperationEntity} operation
+ * @returns {boolean}
+ */
+export const hasTransportWrapperQueueOperation = (entity: ITransportWrapperEntity,
+                                                  operation: string | IOperationEntity): boolean =>
+  hasTransportWrapperQueueOperations(entity, operation);
+
+/**
+ * @stable [25.11.2019]
+ * @param {ITransportWrapperEntity} entity
+ * @param {string | IOperationEntity} operations
+ * @returns {boolean}
+ */
+export const hasTransportWrapperQueueOperations = (entity: ITransportWrapperEntity,
+                                                   ...operations: Array<string | IOperationEntity>): boolean =>
+  hasQueueOperations(selectTransportWrapperQueue(entity), ...operations);

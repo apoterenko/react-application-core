@@ -1,7 +1,7 @@
 import {
-  CONNECTED_CONTAINER_INIT_ACTION_TYPE,
-  CONNECTED_CONTAINER_DESTROY_ACTION_TYPE,
-} from './universal-connector.interface';
+  $CONNECTED_CONTAINER_INIT_ACTION_TYPE,
+  $CONNECTED_CONTAINER_DESTROY_ACTION_TYPE,
+} from '../../definition';
 
 export class ConnectorActionBuilder {
 
@@ -11,7 +11,7 @@ export class ConnectorActionBuilder {
    * @returns {string}
    */
   public static buildInitActionType(section: string): string {
-    return `${CONNECTED_CONTAINER_INIT_ACTION_TYPE}.${section}`;
+    return `${$CONNECTED_CONTAINER_INIT_ACTION_TYPE}.${section}`;
   }
 
   /**
@@ -20,6 +20,6 @@ export class ConnectorActionBuilder {
    * @returns {string}
    */
   public static buildDestroyActionType(section: string): string {
-    return `${CONNECTED_CONTAINER_DESTROY_ACTION_TYPE}.${section}`;
+    return `${$CONNECTED_CONTAINER_DESTROY_ACTION_TYPE}.${section}`;
   }
 }

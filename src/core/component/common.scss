@@ -179,10 +179,6 @@ html, body {
     visibility: hidden !important;                /* @stable [15.09.2018] */
   }
 
-  .rac-display-none {
-    display: none !important;                     /* @stable [15.09.2018] */
-  }
-
   .rac-message {
     font-size: $rac-message-font-size;            /* @stable [25.06.2018] */
     color: $rac-message-color;                    /* @stable [26.06.2018] */

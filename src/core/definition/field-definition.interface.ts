@@ -184,3 +184,12 @@ export enum FieldActionPositionsEnum {
   LEFT,
   RIGHT,
 }
+
+/**
+ * @stable [24.11.2019]
+ * @type {IGenericFieldEntity}
+ */
+export const GENERIC_FIELD_PASSWORD_TYPE_ENTITY = Object.freeze<IGenericFieldEntity>({
+  autoComplete: 'new-password',
+  type: 'password',
+});

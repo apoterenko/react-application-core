@@ -9,7 +9,7 @@ import {
   IStoreEntity,
   ITransportTokenAccessor,
 } from '../../definition';
-import { selectTransportToken } from '../../util';
+import { selectTransportWrapperToken } from '../../util';
 
 @injectable()
 export class TransportTokenAccessor implements ITransportTokenAccessor {
@@ -20,6 +20,6 @@ export class TransportTokenAccessor implements ITransportTokenAccessor {
    * @returns {string}
    */
   public get token(): string {
-    return selectTransportToken(this.store.getState());
+    return selectTransportWrapperToken(this.store.getState());
   }
 }

@@ -132,6 +132,15 @@
   );
 
   /**
+   * @styling
+   * @stable [24.11.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-display-none,
+    $rac-styles-display: none !important
+  );
+
+  /**
    * @icon
    * @stable [09.11.2019]
    */
