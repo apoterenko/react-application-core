@@ -2,8 +2,11 @@ import * as React from 'react';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
+  doesApplicationErrorExist,
   ifNotNilThanValue,
-  orNull,
+  isApplicationInProgress,
+  isApplicationMessageVisible,
+  isBoolean,
 } from '../../util';
 import {
   $RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
@@ -15,6 +18,7 @@ import {
   IContainerCtor,
   IRouteEntity,
   IStorageSettingsEntity,
+  IUniversalUiMessageConfigEntity,
   RoutePredicateT,
 } from '../../definition';
 import { ApplicationActionBuilder } from './application-action.builder';
@@ -76,15 +80,17 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   /**
-   * @stable [16.11.2019]
+   * @stable [28.11.2019]
    * @param {RoutePredicateT} routePredicate
-   * @returns {JSX.Element[]}
+   * @returns {React.ReactNode}
    */
-  protected getRoutes(routePredicate: RoutePredicateT = () => true): JSX.Element[] {
-    return [
-      ...this.buildRoutes(this.dynamicRoutes, routePredicate),
-      ...this.buildRoutes(this.extraRoutes, routePredicate)
-    ];
+  protected getRoutes(routePredicate: RoutePredicateT = () => true): React.ReactNode {
+    return this.isMessageVisible
+      ? this.getMessageElement()
+      : [
+        ...this.buildRoutes(this.dynamicRoutes, routePredicate),
+        ...this.buildRoutes(this.extraRoutes, routePredicate)
+      ];
   }
 
   /**
@@ -160,25 +166,6 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
     this.dispatchCustomType(ApplicationActionBuilder.buildLogoutActionType());
   }
 
-  protected isMessageVisible(): boolean {
-    const props = this.props;
-    return props.progress || !!props.error || !props.ready;
-  }
-
-  protected getErrorMessage(): string {
-    const props = this.props;
-    return (
-      orNull<string>(
-        props.error || props.customError,
-        () => (
-          props.customError
-            ? props.error
-            : `${this.t(this.settings.messages.followingErrorHasOccurredMessage)} "${props.error.toLowerCase()}"`
-        )
-      )
-    );
-  }
-
   /**
    * @stable [16.11.2019]
    * @param {IContainerCtor} ctor
@@ -194,6 +181,42 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   protected toRouteId(routeCfg: IRouteEntity): string {
     return routeCfg.path || routeCfg.key;
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @returns {React.ReactNode}
+   */
+  protected getMessageElement(): React.ReactNode {
+    const props = this.props;
+    return (
+      this.inProgress
+        ? this.uiFactory.makeMessage(this.prepareMessage({message: this.settings.messages.PLEASE_WAIT}))
+        : (
+          this.doesErrorExist
+            ? (
+              this.uiFactory.makeReactError(
+                isBoolean(props.error)
+                  ? new Error(this.settings.messages.UNKNOWN_ERROR)
+                  : new Error(String(props.error))
+              )
+            )
+            : (
+              this.uiFactory.makeMessage(
+                this.prepareMessage({message: this.settings.messages.APPLICATION_IS_INITIALIZING})
+              )
+            )
+        )
+    );
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @param {IUniversalUiMessageConfigEntity} message
+   * @returns {IUniversalUiMessageConfigEntity}
+   */
+  protected prepareMessage(message: IUniversalUiMessageConfigEntity): IUniversalUiMessageConfigEntity {
+    return message;
   }
 
   /**
@@ -226,5 +249,29 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   protected get storageSettings(): IStorageSettingsEntity {
     return this.settings.storage || {};
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @returns {boolean}
+   */
+  protected get isMessageVisible(): boolean {
+    return isApplicationMessageVisible(this.props);
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @returns {boolean}
+   */
+  protected get inProgress(): boolean {
+    return isApplicationInProgress(this.props);
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @returns {boolean}
+   */
+  protected get doesErrorExist(): boolean {
+    return doesApplicationErrorExist(this.props);
   }
 }
