@@ -1,5 +1,5 @@
 import {
-  IApplicationEntity,
+  IUniversalApplicationEntity,
   IUniversalContainerEntity,
 } from '../../definition';
 
@@ -7,6 +7,6 @@ import {
  * @stable [28.11.2019]
  */
 export interface IUniversalApplicationContainerProps
-  extends IApplicationEntity,
+  extends IUniversalApplicationEntity,
     IUniversalContainerEntity {
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
-
 import {
-  uuid,
-} from '../../util';
+  BrowserRouter,
+  Switch,
+} from 'react-router-dom';
+
 import {
   bindToConstantValue,
   DI_TYPES,
@@ -16,19 +16,20 @@ import {
   IRouter,
   IRouterWrapperEntity,
   IStoreEntity,
+  IUiMessageConfigEntity,
 } from '../../definition';
 import {
   PrivateRootContainer,
   PublicRootContainer,
 } from '../root';
 import { IApplicationContainerProps, } from './application.interface';
-import { Message } from '../message';
 import { UniversalApplicationContainer } from './universal-application.container';
 
 export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
 
   private readonly routerRef = React.createRef<IRouterWrapperEntity>();
+
   /**
    * @stable [24.09.2019]
    * @returns {JSX.Element}
@@ -39,7 +40,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
         ref={this.routerRef}
         basename={this.props.basename || this.environment.basePath}>
         <Switch>
-          {...this.getRoutes()}
+          {this.getRoutes()}
         </Switch>
       </BrowserRouter>
     );
@@ -56,22 +57,6 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
       // No need unsubscribe because "unload event"d
       this.eventManager.subscribe(this.environment.window, EventsEnum.UNLOAD, this.syncAppState);
     }
-  }
-
-  // TODO refactoring
-  protected getRoutes(): JSX.Element[] {
-    const props = this.props;
-    return this.isMessageVisible()
-      ? [
-        <Message key={uuid()}
-                 className='rac-application-message'
-                 error={props.error}
-                 progress={props.progress}
-                 errorMessage={this.getErrorMessage()}
-                 emptyMessage={this.settings.messages.appNotReadyMessage}
-        />
-      ]
-      : super.getRoutes();
   }
 
   /**
@@ -94,6 +79,30 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
         {...routeEntity}
         key={this.toRouteId(routeEntity)}/>
     );
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @returns {React.ReactNode}
+   */
+  protected getMessageElement(): React.ReactNode {
+    return (
+      <React.Fragment>
+        {super.getMessageElement()}
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @param {IUiMessageConfigEntity} message
+   * @returns {IUiMessageConfigEntity}
+   */
+  protected prepareMessage(message: IUiMessageConfigEntity): IUiMessageConfigEntity {
+    return {
+      ...message,
+      wrapperClassName: 'rac-application-message-wrapper',
+    };
   }
 
   /**

@@ -1,15 +1,14 @@
-import { IApplicationConfiguration } from '../../configurations-definitions.interface';
 import {
   IApplicationEntity,
   IContainerProps,
 } from '../../definition';
 
 /**
- * @stable [02.07.2018]
+ * @stable [30.11.2019]
  */
-export interface IApplicationContainerProps extends IContainerProps,
-                                                    IApplicationEntity,
-                                                    IApplicationConfiguration {
+export interface IApplicationContainerProps
+  extends IContainerProps,
+    IApplicationEntity {
 }
 
 /**
@@ -18,7 +17,6 @@ export interface IApplicationContainerProps extends IContainerProps,
 export const APPLICATION_INIT_ACTION_TYPE = 'init';
 export const APPLICATION_MOUNT_ACTION_TYPE = 'mount';
 export const APPLICATION_AFTER_INIT_ACTION_TYPE = `after.${APPLICATION_INIT_ACTION_TYPE}`;
-export const APPLICATION_CUSTOM_ERROR_ACTION_TYPE = 'custom.error';
 export const APPLICATION_LOGOUT_ACTION_TYPE = 'logout';
 export const APPLICATION_AFTER_LOGOUT_ACTION_TYPE = `after.${APPLICATION_LOGOUT_ACTION_TYPE}`;
 export const APPLICATION_LOGIN_ACTION_TYPE = 'login';

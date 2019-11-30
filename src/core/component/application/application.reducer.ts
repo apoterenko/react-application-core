@@ -3,16 +3,17 @@ import { AnyAction } from 'redux';
 import { convertError } from '../../error';
 import { ApplicationActionBuilder } from './application-action.builder';
 import {
+  $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
   $RAC_APPLICATION_NOT_READY_ACTION_TYPE,
   $RAC_APPLICATION_PREPARE_ACTION_TYPE,
   $RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE,
   $RAC_APPLICATION_READY_ACTION_TYPE,
-  IApplicationEntity,
-  INITIAL_APPLICATION_ENTITY,
+  IUniversalApplicationEntity,
+  INITIAL_UNIVERSAL_APPLICATION_ENTITY,
 } from '../../definition';
 
-export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATION_ENTITY,
-                                   action: AnyAction): IApplicationEntity {
+export function applicationReducer(state: IUniversalApplicationEntity = INITIAL_UNIVERSAL_APPLICATION_ENTITY,
+                                   action: AnyAction): IUniversalApplicationEntity {
   switch (action.type) {
     case $RAC_APPLICATION_PREPARE_ACTION_TYPE:
       return {
@@ -26,11 +27,11 @@ export function applicationReducer(state: IApplicationEntity = INITIAL_APPLICATI
         ...state,
         path: action.data,
       };
-    case ApplicationActionBuilder.buildCustomErrorActionType():
+    case $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE:
     case $RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE:
       return {
         ...state,
-        customError: action.type === ApplicationActionBuilder.buildCustomErrorActionType(),
+        customError: action.type === $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
         progress: false,
         error: convertError(action.error).message,
       };

@@ -9,7 +9,6 @@ import {
   APPLICATION_AFTER_LOGIN_ACTION_TYPE,
   APPLICATION_AFTER_LOGOUT_ACTION_TYPE,
   APPLICATION_AUTHORIZED_ACTION_TYPE,
-  APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
   APPLICATION_INIT_ACTION_TYPE,
   APPLICATION_LOGOUT_ACTION_TYPE,
   APPLICATION_MOUNT_ACTION_TYPE,
@@ -18,6 +17,7 @@ import {
 } from './application.interface';
 import {
   $APPLICATION_SECTION,
+  $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
   $RAC_APPLICATION_NOT_READY_ACTION_TYPE,
   $RAC_APPLICATION_PREPARE_ACTION_TYPE,
   $RAC_APPLICATION_READY_ACTION_TYPE,
@@ -25,8 +25,13 @@ import {
 
 export class ApplicationActionBuilder {
 
+  /**
+   * @stable [28.11.2019]
+   * @param {string} error
+   * @returns {IEffectsAction}
+   */
   public static buildCustomErrorAction(error: string): IEffectsAction {
-    return EffectsAction.create(this.buildCustomErrorActionType()).setError(error);
+    return EffectsAction.create($RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE).setError(error);
   }
 
   /**
@@ -99,10 +104,6 @@ export class ApplicationActionBuilder {
 
   public static buildAfterInitActionType(): string {
     return `${$APPLICATION_SECTION}.${APPLICATION_AFTER_INIT_ACTION_TYPE}`;
-  }
-
-  public static buildCustomErrorActionType(): string {
-    return `${$APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;
   }
 
   /**
