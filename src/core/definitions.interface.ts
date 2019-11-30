@@ -42,7 +42,6 @@ export interface I$$dialogFormChangesConfirmStoreProxyWrapper<TValue> { $$dialog
 export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
 export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
-export interface I$$transportStoreProxyWrapper<TValue> { $$transportStoreProxy?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IAccessDeniedWrapper<TAccessDenied> { accessDenied?: TAccessDenied; }

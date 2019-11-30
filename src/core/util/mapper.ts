@@ -677,16 +677,6 @@ export const mapDictionaryEntity = <TDictionaryEntity>(
 /**
  * @stable [25.11.2019]
  * @param {string[]} queue
- * @param {string | IOperationEntity} operation
- * @returns {boolean}
- */
-export const hasQueueOperation = (queue: string[],
-                                  operation: string | IOperationEntity): boolean =>
-  hasQueueOperations(queue, operation);
-
-/**
- * @stable [25.11.2019]
- * @param {string[]} queue
  * @param {string | IOperationEntity} operations
  * @returns {boolean}
  */
@@ -702,16 +692,6 @@ export const hasQueueOperations = (queue: string[],
       ))
     )
   );
-
-/**
- * @stable [25.11.2019]
- * @param {ITransportWrapperEntity} entity
- * @param {string | IOperationEntity} operation
- * @returns {boolean}
- */
-export const hasTransportWrapperQueueOperation = (entity: ITransportWrapperEntity,
-                                                  operation: string | IOperationEntity): boolean =>
-  hasTransportWrapperQueueOperations(entity, operation);
 
 /**
  * @stable [25.11.2019]
