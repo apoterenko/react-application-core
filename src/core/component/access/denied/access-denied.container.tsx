@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CenterLayout } from '../../layout';
+import { CenterLayout } from '../../layout/center';
 import { basicConnector, defaultMappers } from '../../connector';
 import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
