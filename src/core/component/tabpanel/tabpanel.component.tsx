@@ -6,7 +6,7 @@ import { BaseComponent } from '../base';
 import { ITabPanelState, ITabPanel } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
 import { ITabPanelProps } from '../../props-definitions.interface';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 
 export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> implements ITabPanel {
 

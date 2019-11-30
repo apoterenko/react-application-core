@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { orNull } from '../../util';
-import { BaseComponent } from '../base';
+import { BaseComponent } from '../base/base.component';
 import { IProfileProps } from './profile.interface';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 
 export class Profile extends BaseComponent<IProfileProps> {
 

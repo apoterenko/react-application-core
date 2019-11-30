@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import { noop, toClassName } from '../../util';
 import { ISnackbarProps } from './snackbar.interface';
-import { BaseComponent } from '../base';
+import { BaseComponent } from '../base/base.component';
 
 export class Snackbar extends BaseComponent<ISnackbarProps> {
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { BaseComponent } from '../base';
+import { BaseComponent } from '../base/base.component';
 import { IOverlayProps } from './overlay.interface';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { toClassName, isString, isFn, orNull } from '../../util';
 import { UNI_CODES } from '../../definitions.interface';
 

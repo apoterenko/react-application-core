@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { CenterLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { ProgressLabel } from '../progress';
 import { UniversalMessage } from './universal-message.component';
-import { isString, uuid, toClassName } from '../../util';
+import { isString, uuid, joinClassName } from '../../util';
 
 export class Message extends UniversalMessage {
 
@@ -23,7 +23,10 @@ export class Message extends UniversalMessage {
    */
   protected getMessageWrapper(message: React.ReactNode, node: React.ReactNode): JSX.Element {
     return (
-      <CenterLayout className={toClassName('rac-message', this.props.className)}>
+      <FlexLayout
+        justifyContentCenter={true}
+        alignItemsCenter={true}
+        className={joinClassName('rac-message', this.props.className)}>
         {isString(message)
           ? (
             <div className='rac-message-content'>
@@ -32,7 +35,7 @@ export class Message extends UniversalMessage {
           )
           : message}
         {node}
-      </CenterLayout>
+      </FlexLayout>
     );
   }
 }

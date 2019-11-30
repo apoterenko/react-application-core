@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../../base';
+import { BaseComponent } from '../../base/base.component';
 import { IProgressLabelProps } from './progress-label.interface';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 
 export class ProgressLabel extends BaseComponent<IProgressLabelProps> {
 

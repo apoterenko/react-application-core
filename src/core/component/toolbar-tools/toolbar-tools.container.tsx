@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseContainer } from '../base';
 import { Button } from '../button';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { IButtonProps, ToolbarToolsEnum } from '../../definition';
 import { isPrimitive, isFn, toClassName } from '../../util';
 import {

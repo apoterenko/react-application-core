@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 import { IPageToolbarProps } from './page-toolbar.interface';
 import { orNull, toClassName, ifNotFalseThanValue } from '../../../util';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
